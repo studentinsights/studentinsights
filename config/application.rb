@@ -15,7 +15,7 @@ module Homeroom
     config.generators do |g|  
       g.stylesheets false  
       g.javascripts false  
-      g.test_framework :test_unit, fixture_replacement: :factory_girl
+      g.test_framework :rspec, fixture_replacement: :factory_girl
     end  
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
