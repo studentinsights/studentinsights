@@ -8,30 +8,31 @@ describe Student do
 
       it 'creates a new Student' do
 
-        new_student = Student.create({
+        new_student = Student.create(
+          new_id: 342,
           grade: "K", 
           hispanic_latino: false, 
           race: "B", 
-          limited_english: false, 
-          low_income: false
-        })
-        expect { new_student } .not_to raise_error
+          limited_english: true, 
+          low_income: true
+        )
+
+        expect( Student.all.length ).to eq( 1 ) 
       end
     end
 
     context 'when demograpics are missing' do
 
       it 'does not create a new Student' do
-        new_student = Student.create({
+
+        Student.create(
           grade: "K", 
           limited_english: false, 
           low_income: false
-        })
-        expect { new_student }.to raise_error
+        ) 
 
+        expect( Student.all.length ).to eq( 0 ) 
       end
     end
-
   end
-
 end
