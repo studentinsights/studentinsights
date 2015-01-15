@@ -64,16 +64,11 @@ class DataSet
       ((first_column + 1)..last_column).each do |c|
         header = sheet.cell(header_row, c)
         if REQUIRED_HEADERS.include? header
-          puts header
+          # puts header
 
           (first_row..last_row).each do |r|
             new_id = sheet.cell(r, new_id_column)
-            student = Student.where(new_id: new_id)
-            if student.blank?
-              student = Student.new(new_id: new_id)
-            else
-              student = student.first
-            end
+            student = Student.where(new_id: new_id).first_or_create(new_id: new_id)
 
             attribute = HEADER_DICTIONARY[header]
             value = sheet.cell(r, c)
