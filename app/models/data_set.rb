@@ -42,7 +42,12 @@ class DataSet
 
   }
 
-  FlOAT_TO_BOOLEAN = { 0.0 => false, 1.0 => true }
+  TO_BOOLEAN = { 
+    0.0 => false, 
+    1.0 => true,
+    "FALSE" => false,
+    "TRUE" => true
+  }
 
   def self.merge_sheets_and_write(xls)
 
@@ -75,7 +80,7 @@ class DataSet
 
             case attribute
             when :hispanic_latino, :limited_english, :low_income, :sped
-              cast_value = FlOAT_TO_BOOLEAN[value]
+              cast_value = TO_BOOLEAN[value]
             when :ela_scaled, :ela_growth, :math_scaled, :math_growth
               cast_value = value.to_i
             else
@@ -83,6 +88,7 @@ class DataSet
             end
 
             student.send("#{attribute}=", cast_value)
+            puts "Student ##{new_id} has #{attribute} of #{cast_value} (#{cast_value.class})"
             student.save
           end
         end
