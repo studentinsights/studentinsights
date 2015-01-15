@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
 
   def index
-    @students = Student.all.each_slice(12).to_a
+    @students = Student.sort_by_math_risk
+    @risk_categories = [ "High", "Medium", "Low" ]
   end
 
 end
