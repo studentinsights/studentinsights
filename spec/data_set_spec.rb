@@ -10,8 +10,8 @@ describe DataSet do
 
         it 'returns true and does not raise an error' do
 
-          well_formatted_excel_path = "./SampleData/SampleData.xlsx"
-          result = DataSet.parse(well_formatted_excel_path)
+          well_formatted_excel = "SampleData.xlsx"
+          result = DataSet.parse(well_formatted_excel)
           expect(result).to eq(true) 
 
         end
@@ -22,8 +22,8 @@ describe DataSet do
 
         it 'raises an error' do
 
-          format_mismatch_excel_path = "./SampleData/SampleData_formats_wrong.xlsx"
-          expect { DataSet.parse(format_mismatch_excel_path) }.to raise_error
+          format_mismatch_excel = "SampleData_formats_wrong.xlsx"
+          expect { DataSet.parse(format_mismatch_excel) }.to raise_error
 
         end
 
@@ -35,8 +35,8 @@ describe DataSet do
       
       it 'raises an error' do
 
-        missing_sheet_excel_path = "./SampleData/SampleData_sheets_missing.xlsx"
-        expect { DataSet.parse(missing_sheet_excel_path) }.to raise_error
+        missing_sheet_excel = "SampleData_sheets_missing.xlsx"
+        expect { DataSet.parse(missing_sheet_excel) }.to raise_error
     
       end
 
@@ -46,11 +46,11 @@ describe DataSet do
 
       it 'raises an error' do
 
-        missing_columns_excel_path = "./SampleData/SampleData_columns_missing.xlsx"
-        expect { DataSet.parse(missing_columns_excel_path) }.to raise_error
+        missing_columns_excel = "SampleData_columns_missing.xlsx"
+        expect { DataSet.parse(missing_columns_excel) }.to raise_error
 
       end
-      
+
     end
 
   end
