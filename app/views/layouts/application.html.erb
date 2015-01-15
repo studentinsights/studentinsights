@@ -2,13 +2,28 @@
 <html>
 <head>
   <title>Homeroom</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="nav">
+    <h1 id="title">Home Room</h1>
+<!--     <div id="bar">
+      <a href="#">Summary</a> |
+      <a href="#">Print PDF</a>
+    </div>
+ -->  </div>
+  <%= yield %>
+  <script src="https://code.jquery.com/jquery-git2.min.js"></script>
+  <script>
 
-<%= yield %>
+    $(function() {
+      $("a").click(function() {
+        console.log("doing a thing...");
+        $(".hidden").first().removeClass("hidden");
+      });
+    });
 
+  </script>
 </body>
-</html>

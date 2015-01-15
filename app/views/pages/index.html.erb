@@ -1,0 +1,43 @@
+    <% @students.each_with_index do |student_set, index| %>
+      <div class="student-group <% if index > 2 %>hidden<% end %>">
+        <h3>Homeroom <%= index + 1%></h3>
+        <br/>
+        <table border="0" cellspacing="0" cellpadding="10">
+          <tr>
+            <td class="header" class="radius">New ID</td>
+            <td class="header">Grade</td> 
+            <td class="header">Hispanic/Latino</td>
+            <td class="header">Race</td>
+            <td class="header">Limited English</td>
+            <td class="header">Low Income</td>
+            <td class="header">ELA Scaled</td>
+            <td class="header">ELA Performance</td>
+            <td class="header">ELA Growth</td>
+            <td class="header">Math Scaled</td>
+            <td class="header">Math Performance</td>
+            <td class="header">Math Growth</td>
+            <td class="header" class="radius">SPED</td>
+          </tr>
+          <% student_set.each do |s| %>
+            <tr>
+              <td><%= s.new_id %></td>
+              <td><%= s.grade %></td>
+              <td><%= s.hispanic_latino %></td>
+              <td><%= s.race %></td>
+              <td><%= s.limited_english %></td>
+              <td><%= s.low_income %></td>
+              <td><%= s.ela_scaled %></td>
+              <td><%= s.ela_performance %></td>
+              <td><%= s.ela_growth %></td>
+              <td><%= s.math_scaled %></td>
+              <td><%= s.math_performance %></td>
+              <td><%= s.math_growth %></td>
+              <td><%= s.sped %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
+    <div id="show-more">
+      <a>Show more</a>
+    </div>

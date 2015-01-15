@@ -1,0 +1,65 @@
+* {
+  font-family: 'Open Sans', sans-serif !important;
+  margin: 0px;
+}
+
+table {
+  width: 100%;
+  margin: auto auto;
+}
+
+body { 
+  background-color: #EFEFEF;
+}
+
+tr, td {
+  background-color: white;
+  margin: 4px !important;
+}
+
+td.header {
+  font-size: 12px;
+  padding-bottom: 10px;
+  font-style: italic;
+}
+
+.nav {
+  background-color: white;
+  margin-bottom: 60px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.nav #title, .nav #bar {
+  margin-left: 10%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+.student-group {
+  width: 80%;
+  margin: auto auto;
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+#show-more {
+  margin: 80px auto 80px;
+  width: 100px;
+}
+
+a { 
+  color: blue; text-decoration: underline; 
+  cursor: pointer;
+}
