@@ -1,59 +1,58 @@
     <div id="math-risk-slider" class="risk-slider"></div>
-    <% @students.each_with_index do |student_set, index| %>
-      <% if index < 5  # let's just throttle at 4 for now %>
-      <div class="student-group <% if index > 2 %>hidden<% end %>">
-        <h3>Homeroom <%= index + 1%></h3>
+    <% @risk_categories.each do |category| %>
+      <% students = @students[category]  %>
+      <div class="student-group">
+        <h3><%= category %> risk</h3>
         <br/>
-          <ul>
-            <li class="tab-toggle" data-type="demo" data-index="<%= index %>">Demographics</li>
-            <li class="tab-toggle" data-type="mcas" data-index="<%= index %>">MCAS</li> 
-          </ul>
-          <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index="<%= index %>">
+        <ul>
+          <li class="tab-toggle" data-type="demo" data-index="<%= category %>">Demographics</li>
+          <li class="tab-toggle" data-type="mcas" data-index="<%= category %>">MCAS</li> 
+        </ul>
+        <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index="<%= category %>">
+          <tr>
+            <td class="header" class="radius">New ID</td>
+            <td class="header">Grade</td> 
+            <td class="header">Hispanic/Latino</td>
+            <td class="header">Race</td>
+            <td class="header">Limited English</td>
+            <td class="header">Low Income</td>
+          </tr>
+          <% students.each do |s| %>
             <tr>
-              <td class="header" class="radius">New ID</td>
-              <td class="header">Grade</td> 
-              <td class="header">Hispanic/Latino</td>
-              <td class="header">Race</td>
-              <td class="header">Limited English</td>
-              <td class="header">Low Income</td>
+              <td><%= s.new_id %></td>
+              <td><%= s.grade %></td>
+              <td><%= s.hispanic_latino %></td>
+              <td><%= s.race %></td>
+              <td><%= s.limited_english %></td>
+              <td><%= s.low_income %></td>
             </tr>
-            <% student_set.each do |s| %>
-              <tr>
-                <td><%= s.new_id %></td>
-                <td><%= s.grade %></td>
-                <td><%= s.hispanic_latino %></td>
-                <td><%= s.race %></td>
-                <td><%= s.limited_english %></td>
-                <td><%= s.low_income %></td>
-              </tr>
-            <% end %>
-          </table>
-          <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="mcas" data-index="<%= index %>">
+          <% end %>
+        </table>
+        <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="mcas" data-index="<%= category %>">
+          <tr>
+            <td class="header" class="radius">New ID</td>
+            <td class="header">ELA Scaled</td>
+            <td class="header">ELA Performance</td>
+            <td class="header">ELA Growth</td>
+            <td class="header">Math Scaled</td>
+            <td class="header">Math Performance</td>
+            <td class="header">Math Growth</td>
+            <td class="header" class="radius">SPED</td>
+          </tr>
+          <% students.each do |s| %>
             <tr>
-              <td class="header" class="radius">New ID</td>
-              <td class="header">ELA Scaled</td>
-              <td class="header">ELA Performance</td>
-              <td class="header">ELA Growth</td>
-              <td class="header">Math Scaled</td>
-              <td class="header">Math Performance</td>
-              <td class="header">Math Growth</td>
-              <td class="header" class="radius">SPED</td>
+              <td><%= s.new_id %></td>
+              <td><%= s.ela_scaled %></td>
+              <td><%= s.ela_performance %></td>
+              <td><%= s.ela_growth %></td>
+              <td><%= s.math_scaled %></td>
+              <td><%= s.math_performance %></td>
+              <td><%= s.math_growth %></td>
+              <td><%= s.sped %></td>
             </tr>
-            <% student_set.each do |s| %>
-              <tr>
-                <td><%= s.new_id %></td>
-                <td><%= s.ela_scaled %></td>
-                <td><%= s.ela_performance %></td>
-                <td><%= s.ela_growth %></td>
-                <td><%= s.math_scaled %></td>
-                <td><%= s.math_performance %></td>
-                <td><%= s.math_growth %></td>
-                <td><%= s.sped %></td>
-              </tr>
-            <% end %>
-          </table>
-        </div>
-      <% end %>
+          <% end %>
+        </table>
+      </div>
     <% end %>
     <div id="show-more">
       <a>Show more</a>
