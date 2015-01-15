@@ -18,7 +18,6 @@ class DataSet
       "mscaleds",
       "mperf2",
       "msgp"
-
   ]
 
   HEADER_DICTIONARY = {
@@ -39,7 +38,6 @@ class DataSet
       "mscaleds" => :math_scaled,
       "mperf2" => :math_performance,
       "msgp" => :math_growth
-
   }
 
   TO_BOOLEAN = { 
@@ -48,6 +46,15 @@ class DataSet
     "FALSE" => false,
     "TRUE" => true
   }
+
+  FREE_REDUCED_LUNCH_TO_LOW_INCOME = {
+
+    "Free Lunch" => true,
+    "Reduced Lunch" => true,
+    "Not Eligible" => false,
+    "" => nil
+  }
+
 
   def self.merge_sheets_and_write(xls)
 
@@ -74,12 +81,21 @@ class DataSet
             value = sheet.cell(r, c)
 
             case attribute
-            when :hispanic_latino, :limited_english, :low_income, :sped
+            when :hispanic_latino, :limited_english, :sped
               cast_value = TO_BOOLEAN[value]
+            when :low_income
+              cast_value = FREE_REDUCED_LUNCH_TO_LOW_INCOME[value]
             when :ela_scaled, :ela_growth, :math_scaled, :math_growth
               cast_value = value.to_i
+              if cast_value == 0
+                cast_value = nil
+              end
             else
-              cast_value = value
+              if value.length > 0
+                cast_value = value
+              else
+                cast_value = nil
+              end
             end
 
             student.send("#{attribute}=", cast_value)
