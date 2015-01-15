@@ -75,16 +75,24 @@ class DataSet
 
           (first_row..last_row).each do |r|
             new_id = sheet.cell(r, new_id_column)
-            student = Student.where(new_id: new_id).first_or_create(new_id: new_id)
+            student = Student.where(new_id: new_id).first_or_create(new_id: new_id.to_i)
 
             attribute = HEADER_DICTIONARY[header]
             value = sheet.cell(r, c)
 
             case attribute
-            when :hispanic_latino, :limited_english, :sped
+            when :hispanic_latino, :sped
               cast_value = TO_BOOLEAN[value]
             when :low_income
               cast_value = FREE_REDUCED_LUNCH_TO_LOW_INCOME[value]
+            when :limited_english
+              if value == "FLEP"
+                cast_value = "Formerly Limited"
+              elsif value == ""
+                cast_value = nil
+              else
+                cast_value = value
+              end
             when :ela_scaled, :ela_growth, :math_scaled, :math_growth
               cast_value = value.to_i
               if cast_value == 0
