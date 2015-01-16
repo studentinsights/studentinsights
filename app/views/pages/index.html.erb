@@ -21,7 +21,7 @@
     </div>
     <% @risk_categories.each do |category| %>
       <% students = @students[category]  %>
-      <div class="student-group">
+      <div class="student-group" data-risk-level="<%= category %>">
         <h3><%= category %> risk (<%= students.length %> out of <%= @number_of_students %> students)</h3>
         <div class="subnav">
           <ul class="nav">
@@ -76,6 +76,19 @@
         </table>
       </div>
     <% end %>
-    <div id="show-more">
-      <a>Show more</a>
-    </div>
+    <script id="table-template" type="x-tmpl-mustache">
+      <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index='{{{ category }}}'>
+        {{{ rows }}}
+      </table>
+    </script>
+    <script id="row-template" type="x-tmpl-mustache">
+      <tr>
+        {{{ cells }}}
+      </tr>
+    </script>
+    <script id="cell-template" type="x-tmpl-mustache">
+      <td class=<'{{ cell_type }}'>
+        {{{ value }}}
+      </td>
+    </script>
+    <div id="init-room-id" data-room-id="<%= @room.id %>"></div>
