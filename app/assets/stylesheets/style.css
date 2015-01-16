@@ -29,7 +29,7 @@ h3 {
 /* SLIDER AND LABELS */
 
 #controls {
-  width: 75%;
+  width: 85%;
   margin: 60px auto;
 }
 
@@ -109,7 +109,7 @@ td.header {
 }
 
 .nav #title, .nav #bar {
-  margin-left: 10%;
+  margin-left: 8%;
   padding-bottom: 10px;
   padding-top: 10px;
 }
@@ -165,7 +165,7 @@ a {
       text-indent: 0.01px; /* Removes default arrow from firefox*/
       text-overflow: "";  /*Removes default arrow from firefox*/
       cursor: pointer;/*My custom style for fonts*/
-      color: #555;
+      color: #333;
       font-size: 14px;
       font-weight: bold;
 }
@@ -178,7 +178,7 @@ select option {
 
 .overlay-arrow {
     font-size: 8px;
-    color: #555;
+    color: #333;
     position: absolute;
     right: 35px;
     top : 12px;
@@ -192,6 +192,18 @@ select option {
     float: left;
     margin: 0px;
     padding: 0px;
+    margin-top: 15px;
+}
+
+
+.slider-label {
+  color: #999;
+  font-size: 12px;
+}
+
+#legend {
+  font-size: 14px;
+  color: #555;
 }
 
 
