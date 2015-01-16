@@ -1,4 +1,4 @@
-    <div id="slider-area">
+    <div id="controls">
       <div id="math-risk-slider" class="risk-slider"></div>
       <div id="slider-labels">
         <div class="slider-label text-left">Advanced</div>
@@ -9,6 +9,12 @@
       <div id="legend">
         Risk: Low Medium High
       </div>
+      <h4>Homeroom</h4>
+      <select id="homeroom-select">
+        <% Room.all.each do |r| %>
+          <option value="<%= r.id %>"><%= r.name %></option>
+        <% end %>
+      </select> 
     </div>
     <% @risk_categories.each do |category| %>
       <% students = @students[category]  %>

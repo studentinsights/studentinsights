@@ -6,14 +6,18 @@ Student.destroy_all
 xls = Roo::Excelx.new "./spec/SampleData/SampleData.xlsx"
 DataSet.merge_sheets_and_write(xls)
 
-# Generate homerooms and assign students
+# Generate homerooms 
+
 Room.destroy_all
-number_of_students = Student.all.size
 ((number_of_students / 12) + 1).times do 
   room = Room.create(name: "#{rand(999)}0")
-  12.times do 
-    s = Student.where(room_id: nil).sample
-    s.room_id = room.id
-    s.save
+end
+
+# Assign students
+Student.find_each do |student|
+  room = Room.where("students_count < 12").first
+  if room.present? 
+    student.room_id = room.id
+    student.save
   end
 end
