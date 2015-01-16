@@ -1,3 +1,5 @@
+/* OVERALL STYLES */
+
 * {
   font-family: 'Open Sans', sans-serif !important;
   margin: 0px;
@@ -23,6 +25,32 @@ h3 {
   color: #555;
   font-weight: bold;
 }
+
+/* SLIDER AND LABELS */
+
+#slider-area {
+  width: 75%;
+  margin: 60px auto;
+}
+
+.slider-label {
+  width: 25%;
+  float: left;
+  margin-top: 10px;
+}
+
+#legend {
+  margin-top: 60px;
+}
+
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+/* TABLES, TAB, NAV */
 
 .nav{
     border-bottom:1px solid #ccc;

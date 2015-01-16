@@ -1,4 +1,15 @@
-    <div id="math-risk-slider" class="risk-slider"></div>
+    <div id="slider-area">
+      <div id="math-risk-slider" class="risk-slider"></div>
+      <div id="slider-labels">
+        <div class="slider-label text-left">Advanced</div>
+        <div class="slider-label text-left">Proficient</div>
+        <div class="slider-label text-right">Needs Improvement</div>
+        <div class="slider-label text-right">Failing</div>
+      </div>
+      <div id="legend">
+        Risk: Low Medium High
+      </div>
+    </div>
     <% @risk_categories.each do |category| %>
       <% students = @students[category]  %>
       <div class="student-group">
