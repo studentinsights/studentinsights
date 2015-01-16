@@ -36,10 +36,11 @@ h3 {
     display:inline;
     font-size: 14px;
     color: #555;
-    padding-right: 30px;
+    padding-right: 3px;
     padding-bottom: 9px;
     cursor:pointer;
     border-bottom:3px solid #4A90E2;
+    margin-right: 30px;
 }
 
 .nav a{
