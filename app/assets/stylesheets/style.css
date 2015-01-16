@@ -144,3 +144,56 @@ a {
   color: blue; text-decoration: underline; 
   cursor: pointer;
 }
+
+/*room dropdown*/
+
+.dropdown p {
+  display: inline-block;
+  font-weight: normal;
+  color: #999;
+  margin-right: 5px;
+}
+
+.dropdown select {
+      background-color: #efefef;
+      border: 0 !important;  /*Removes border*/
+      -webkit-appearance: none;  /*Removes default chrome and safari style*/
+      -moz-appearance: none; /* Removes Default Firefox style*/
+      background-position: 80px 8px;  /*Position of the background-image*/
+      width: 80px; /*Width of select dropdown to give space for arrow image*/
+      height: 20px;/*fix for mac input height*/
+      text-indent: 0.01px; /* Removes default arrow from firefox*/
+      text-overflow: "";  /*Removes default arrow from firefox*/
+      cursor: pointer;/*My custom style for fonts*/
+      color: #555;
+      font-size: 14px;
+      font-weight: bold;
+}
+
+select option {
+  text-align: center;
+}
+
+
+
+.overlay-arrow {
+    font-size: 8px;
+    color: #555;
+    position: absolute;
+    right: 35px;
+    top : 12px;
+    cursor: default;
+    line-height: 1px;
+
+}
+
+.dropdown {
+    position: relative;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+

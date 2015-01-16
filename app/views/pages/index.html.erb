@@ -9,12 +9,15 @@
       <div id="legend">
         Risk: Low Medium High
       </div>
-      <h4>Homeroom</h4>
-      <select id="homeroom-select">
-        <% @rooms_by_name.each do |r| %>
-          <option value="<%= r.id %>"><%= r.name %></option>
-        <% end %>
-      </select> 
+      <div class="dropdown">
+        <p>Homeroom:</p>
+          <select id="homeroom-select">
+            <% @rooms_by_name.each do |r| %>
+              <option value="<%= r.id %>"><%= r.name %></option>
+            <% end %>
+          </select> 
+        <div class="overlay-arrow">&#9660;</div>
+      </div>
     </div>
     <% @risk_categories.each do |category| %>
       <% students = @students[category]  %>
