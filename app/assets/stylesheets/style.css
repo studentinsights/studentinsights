@@ -29,8 +29,13 @@ h3 {
 /* SLIDER AND LABELS */
 
 #controls {
-  width: 85%;
-  margin: 60px auto;
+  width: 80%;
+  margin: 10px auto 70px auto;
+}
+
+#homeroom-dropdown {
+  position: relative;
+  right: 30px;
 }
 
 .slider-label {
