@@ -25,9 +25,9 @@
         <h3><%= category %> risk (<%= students.length %> out of <%= @number_of_students %> students)</h3>
         <div class="subnav">
           <ul class="nav">
-           <li class="tab-toggle" data-type="demo" data-index="<%= category %>">Demographics</li>
-           <li class="tab-toggle" data-type="mcas" data-index="<%= category %>">MCAS</li> 
-         </ul>
+            <li class="tab-toggle" data-type="demo" data-index="<%= category %>">Demographics</li>
+            <li class="tab-toggle" data-type="mcas" data-index="<%= category %>">MCAS</li> 
+          </ul>
         </div>
        
         <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index="<%= category %>">
@@ -77,9 +77,14 @@
       </div>
     <% end %>
     <script id="table-template" type="x-tmpl-mustache">
-      <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index='{{{ category }}}'>
-        {{{ rows }}}
-      </table>
+      <div class="student-group" data-risk-level='{{{ category }}}'>
+        <h3>{{{ category }}} risk</h3>
+        <div class="subnav">
+          <ul class="nav">
+            {{{ tab_toggles }}}
+          </ul>
+        </div>
+      </div>
     </script>
     <script id="row-template" type="x-tmpl-mustache">
       <tr>
@@ -87,8 +92,11 @@
       </tr>
     </script>
     <script id="cell-template" type="x-tmpl-mustache">
-      <td class=<'{{ cell_type }}'>
+      <td class=<'{{{ header_status }}}'>
         {{{ value }}}
       </td>
+    </script>
+    <script id="tab-toggle-template" type="x-tmpl-mustache">
+      <li class="tab-toggle" data-type="{{{ type_short }}}" data-index="{{{ category }}}">{{{ type_long }}}</li>
     </script>
     <div id="init-room-id" data-room-id="<%= @room.id %>"></div>
