@@ -44,16 +44,20 @@ class Student < ActiveRecord::Base
     math_risk
   end
 
-  def self.sort(subject, lower_cutoff, upper_cutoff)
+  def self.sort_by_risk(options = {})
+
+    # TODO: Handle options hash that doesn't have all the variables we need
+    lower_cutoff = options["lower_cutoff"].to_i
+    upper_cutoff = options["upper_cutoff"].to_i
 
     math_risk = { "Low" => [], "Medium" => [], "High" => [] }
 
     Student.find_each do |s|
       if s.math_performance.present?
 
-        if # condition  
+        if lower_cutoff == 2 && upper_cutoff == 2  
           risk_category = RISK_CATEGORY_DEFAULTS[s.math_performance]
-        elsif # condition
+        elsif lower_cutoff == 3 && upper_cutoff == 3
           risk_category = RISK_CATEGORY_DEFAULTS[s.math_performance]
         else 
           risk_category = RISK_CATEGORY_DEFAULTS[s.math_performance]

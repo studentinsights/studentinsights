@@ -15,6 +15,20 @@ $(function() {
     slide: function (ev, ui) {
       if (ui.values[1] === 1 || ui.values[1] === 4 || ui.values[0] === 1 || ui.values[0] === 4) {
         return false
+      } else {
+        $.ajax({
+          url: "/sort_by_risk",
+          data: { 
+            sort: { 
+              subject: "math", 
+              lower_cutoff: ui.values[0], 
+              upper_cutoff: ui.values[0]
+            }
+          },
+          success: function (data) {
+            $("body").append(data);
+          }
+        });
       }
     }
   });
