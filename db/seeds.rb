@@ -2,22 +2,21 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 # Import Excel data
-Student.destroy_all
-xls = Roo::Excelx.new "./spec/SampleData/SampleData.xlsx"
-DataSet.merge_sheets_and_write(xls)
+# Student.destroy_all
+# xls = Roo::Excelx.new "./spec/SampleData/SampleData.xlsx"
+# DataSet.merge_sheets_and_write(xls)
 
-# Generate homerooms 
-
+# Assign students to homerooms
 Room.destroy_all
-((number_of_students / 12) + 1).times do 
-  room = Room.create(name: "#{rand(999)}0")
-end
+n = 1 
 
-# Assign students
-Student.find_each do |student|
-  room = Room.where("students_count < 12").first
-  if room.present? 
+Student.all.shuffle.each_slice(12).to_a.each do |student_group|
+  room = Room.create(name: "#{n}00")
+  student_group.each do |student|
     student.room_id = room.id
-    student.save
+    unless student.save
+      raise
+    end
   end
+  n += 1
 end
