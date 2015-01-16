@@ -1,19 +1,20 @@
     <div id="controls">
-      <div id="math-risk-slider" class="risk-slider"></div>
-      <div id="slider-labels">
-        <div class="slider-label text-left">Advanced</div>
-        <div class="slider-label text-left">Proficient</div>
-        <div class="slider-label text-right">Needs Improvement</div>
-        <div class="slider-label text-right">Failing</div>
-      </div>
-      <div id="legend">
-        Risk: Low Medium High
-      </div>
-      <div class="dropdown">
+      <!--       <div id="math-risk-slider" class="risk-slider"></div>
+        <div id="slider-labels">
+          <div class="slider-label text-left">Advanced</div>
+          <div class="slider-label text-left">Proficient</div>
+          <div class="slider-label text-right">Needs Improvement</div>
+          <div class="slider-label text-right">Failing</div>
+        </div>
+        <div id="legend">
+          Risk: Low Medium High
+        </div>
+        -->    
+        <div class="dropdown">
         <p>Homeroom:</p>
           <select id="homeroom-select">
             <% @rooms_by_name.each do |r| %>
-              <option value="<%= r.id %>"><%= r.name %></option>
+              <option <% if r == @room %>selected<% end %>><%= r.name %></option>
             <% end %>
           </select> 
         <div class="overlay-arrow">&#9660;</div>

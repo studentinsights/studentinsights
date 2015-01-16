@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   root 'pages#index'
-  
+
+  get 'home' => 'pages#index'
   get '/sort_by_risk' => 'students#sort_by_risk'
 
 end

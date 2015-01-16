@@ -31,6 +31,13 @@ $(function() {
     }
   });
 
+  // Select room
+  $('#homeroom-select').change(function() {
+      var val = $("#homeroom-select option:selected").text()
+      window.location.href = "/home?room=" + val
+  });
+
+
   // Tabbing
   $(".tab-toggle").click(function() {
     var this_toggle = $(this)
@@ -45,6 +52,8 @@ $(function() {
   $(".tab[data-type='mcas']").hide()
 
 });
+
+// Update tables 
 
 function populateTables (data) {
 
