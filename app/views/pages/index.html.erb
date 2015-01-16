@@ -11,7 +11,7 @@
       </div>
       <h4>Homeroom</h4>
       <select id="homeroom-select">
-        <% Room.all.each do |r| %>
+        <% @rooms_by_name.each do |r| %>
           <option value="<%= r.id %>"><%= r.name %></option>
         <% end %>
       </select> 
