@@ -165,7 +165,7 @@ a {
       text-indent: 0.01px; /* Removes default arrow from firefox*/
       text-overflow: "";  /*Removes default arrow from firefox*/
       cursor: pointer;/*My custom style for fonts*/
-      color: #555;
+      color: #333;
       font-size: 14px;
       font-weight: bold;
 }
@@ -178,7 +178,7 @@ select option {
 
 .overlay-arrow {
     font-size: 8px;
-    color: #555;
+    color: #333;
     position: absolute;
     right: 35px;
     top : 12px;
