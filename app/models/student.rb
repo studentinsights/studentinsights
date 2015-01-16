@@ -76,4 +76,33 @@ class Student < ActiveRecord::Base
 
   end
 
+  def self.with_mcas_data
+
+    Student.where.not(ela_scaled: nil)
+      .where.not(ela_performance: nil)
+      .where.not(ela_growth: nil)
+      .where.not(math_scaled: nil)
+      .where.not(math_performance: nil)
+      .where.not(math_growth: nil)
+
+  end 
+
+
+  def self.with_demo_data
+
+    Student.where.not(new_id: nil)
+      .where.not(grade: nil)
+      .where.not(hispanic_latino: nil)
+      .where.not(race: nil)
+      .where.not(limited_english: nil)
+      .where.not(low_income: nil)
+
+  end
+
+  def self.with_demo_and_mcas_data
+
+    Student.with_demo_data & Student.with_mcas_data
+
+  end
+
 end

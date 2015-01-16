@@ -10,7 +10,7 @@
 Room.destroy_all
 n = 1 
 
-Student.all.shuffle.each_slice(12).to_a.each do |student_group|
+Student.with_demo_and_mcas_data.shuffle.each_slice(12).to_a.each do |student_group|
   room = Room.create(name: "#{n}00")
   student_group.each do |student|
     student.room_id = room.id
