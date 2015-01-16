@@ -12,6 +12,9 @@ class PagesController < ApplicationController
     @risk_categories = [ "High", "Medium", "Low" ]
   end
 
+  def about
+  end
+
   def pages_params
     params.permit(:room)
   end

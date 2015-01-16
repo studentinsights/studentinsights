@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   get 'home' => 'pages#index'
+  get 'about' => 'pages#about'
+
   get '/sort_by_risk' => 'students#sort_by_risk'
 
 end
