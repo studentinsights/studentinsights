@@ -43,6 +43,9 @@ $(function() {
     var this_toggle = $(this)
     var type = this_toggle.attr("data-type")
     var index = this_toggle.attr("data-index")
+    var this_list = this_toggle.parent()
+    this_list.children("li").removeClass("activetab")
+    this_toggle.addClass("activetab")
 
     $(".tab[data-index='" + index + "']").hide()
     $(".tab[data-type='" + type + "'][data-index='" + index + "']").show()

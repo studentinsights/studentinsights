@@ -72,8 +72,11 @@ h3 {
     padding-right: 3px;
     padding-bottom: 9px;
     cursor:pointer;
-    border-bottom:3px solid #4A90E2;
     margin-right: 30px;
+}
+
+.activetab {
+    border-bottom:3px solid #4A90E2;
 }
 
 .nav a{
