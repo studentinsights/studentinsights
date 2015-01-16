@@ -107,7 +107,7 @@ class DataSet
             end
 
             student.send("#{attribute}=", cast_value)
-            # puts "Student ##{new_id} has #{attribute} of #{cast_value} (#{cast_value.class})"
+            puts "Student ##{new_id} has #{attribute} of #{cast_value} (#{cast_value.class})"
             student.save
           end
         end
