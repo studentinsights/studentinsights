@@ -20,6 +20,12 @@ p {
   color: #555;
 }
 
+.smalltype {
+  font-weight: normal;
+  font-size: 12px;
+  color: #999;
+}
+
 h3 {
   font-size: 14px;
   color: #555;
@@ -29,8 +35,14 @@ h3 {
 /* SLIDER AND LABELS */
 
 #controls {
+  padding-left: 30px;
   width: 80%;
   margin: 10px auto 70px auto;
+}
+
+.navwrap {
+  width: 80%;
+  margin: auto auto;
 }
 
 #homeroom-dropdown {
@@ -117,9 +129,9 @@ td.header {
 }
 
 .nav #title, .nav #bar {
-  margin-left: 8%;
   padding-bottom: 10px;
   padding-top: 10px;
+
 }
 
 h1 {
@@ -214,6 +226,4 @@ select option {
   color: #555;
 }
 
-
-
-
+* { box-sizing: border-box; }
