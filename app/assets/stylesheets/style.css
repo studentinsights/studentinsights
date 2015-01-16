@@ -12,20 +12,69 @@ body {
   background-color: #efefef;
 }
 
+p {
+  font-weight: normal;
+  font-size: 14px;
+  color: #555;
+}
+
+h3 {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+.nav{
+    border-bottom:1px solid #ccc;
+    border-width:1px 0;
+    list-style:none;
+    margin:0;
+    padding:0;
+    padding-top: 20px;
+}
+.nav li{
+    display:inline;
+    font-size: 14px;
+    color: #555;
+    padding-right: 30px;
+    padding-bottom: 9px;
+    cursor:pointer;
+    border-bottom:3px solid #4A90E2;
+}
+
+.nav a{
+    display:inline-block;
+    padding:0px;
+}
+
+.subnav {
+  display: block;
+  clear: both;
+  height: 60px;
+}
+
+a {
+    display: block;
+    width: 0;
+}
+
 tr, td {
   background-color: white;
   margin: 4px !important;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555;
 }
 
 td.header {
-  font-size: 12px;
+  font-size: 11px;
   padding-bottom: 10px;
+  color: #999;
   font-style: italic;
 }
 
 .nav {
   background-color: white;
-  margin-bottom: 60px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -38,6 +87,8 @@ td.header {
 
 h1 {
   font-weight: normal;
+  color: #555;
+  font-size: 24px;
 }
 
 .student-group {

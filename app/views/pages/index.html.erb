@@ -3,11 +3,13 @@
       <% students = @students[category]  %>
       <div class="student-group">
         <h3><%= category %> risk</h3>
-        <br/>
-        <ul>
-          <li class="tab-toggle" data-type="demo" data-index="<%= category %>">Demographics</li>
-          <li class="tab-toggle" data-type="mcas" data-index="<%= category %>">MCAS</li> 
-        </ul>
+        <div class="subnav">
+          <ul class="nav">
+           <li class="tab-toggle" data-type="demo" data-index="<%= category %>">Demographics</li>
+           <li class="tab-toggle" data-type="mcas" data-index="<%= category %>">MCAS</li> 
+         </ul>
+        </div>
+       
         <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index="<%= category %>">
           <tr>
             <td class="header" class="radius">New ID</td>
