@@ -9,7 +9,7 @@ class Student < ActiveRecord::Base
     "W" => "High"
   }
 
-  def self.sort_by_math_risk
+  def self.default_sort_by_math
 
     math_risk = { "Low" => [], "Medium" => [], "High" => [] }
 
@@ -23,6 +23,10 @@ class Student < ActiveRecord::Base
       end
     end
     math_risk
+  end
+
+  def self.sort(subject, lower_cutoff, upper_cutoff)
 
   end
+
 end

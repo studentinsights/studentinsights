@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
   def index
-    @students = Student.sort_by_math_risk
+    @students = Student.default_sort_by_math
     @risk_categories = [ "High", "Medium", "Low" ]
   end
 
