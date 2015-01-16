@@ -1,5 +1,5 @@
 class Student < ActiveRecord::Base
-  belongs_to :room, counter_cache: true
+  belongs_to :room
 
   RISK_CATEGORY_DEFAULTS = {
     "A" => "Low",
