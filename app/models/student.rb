@@ -28,6 +28,15 @@ class Student < ActiveRecord::Base
     "W" => "High"
   }
 
+  FIRST_NAMES = [ "Casey", "Josh", "Judith", "Tae", "Kenn" ]
+  LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
+
+  def sample_name
+    
+    FIRST_NAMES.sample + " " + LAST_NAMES.sample
+
+  end
+
   def to_tables
     [
       {

@@ -58,9 +58,19 @@ $(function() {
 
 function populateTables (data) {
 
+  console.log(data)
+
   var high_risk_cells = d3.selectAll("table[data-index='High'] td")
-  var data_high_risk = data["High"].map(function(d) { return getValues(d) })[0]
+  var headers = d3.selectAll(".header")
+
+  var data_high_risk = getValues(data["High"][0][0].data)
+  var data_headers = Object.keys(data["High"][0][0].data)
+
+  // console.log(data_high_risk)
+
   high_risk_cells.data(data_high_risk)
+    .text(function(d, i) { return d })
+  headers.data(data_headers)
     .text(function(d, i) { return d })
 
   var table_medium_risk = d3.select("table[data-index='Medium']")

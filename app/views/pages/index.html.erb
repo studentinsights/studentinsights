@@ -31,7 +31,7 @@
         </div>
         <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index="<%= category %>">
           <tr>
-            <td class="header" class="radius">New ID</td>
+            <td class="header" class="radius">Fake Name</td>
             <td class="header">Grade</td> 
             <td class="header">Hispanic/Latino</td>
             <td class="header">Race</td>
@@ -40,7 +40,7 @@
           </tr>
           <% students.each do |s| %>
             <tr>
-              <td><%= s.new_id %></td>
+              <td><%= s.sample_name %></td>
               <td><%= s.grade %></td>
               <td><%= s.hispanic_latino %></td>
               <td><%= s.race %></td>
@@ -51,7 +51,7 @@
         </table>
         <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="mcas" data-index="<%= category %>">
           <tr>
-            <td class="header" class="radius">New ID</td>
+            <td class="header" class="radius">Fake Name</td>
             <td class="header">ELA Scaled</td>
             <td class="header">ELA Performance</td>
             <td class="header">ELA Growth</td>
@@ -62,7 +62,7 @@
           </tr>
           <% students.each do |s| %>
             <tr>
-              <td><%= s.new_id %></td>
+              <td><%= s.sample_name %></td>
               <td><%= s.ela_scaled %></td>
               <td><%= s.ela_performance %></td>
               <td><%= s.ela_growth %></td>
