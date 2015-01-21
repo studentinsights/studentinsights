@@ -28,6 +28,40 @@ class Student < ActiveRecord::Base
     "W" => "High"
   }
 
+  def to_tables
+    [
+      {
+        :type => {
+          :short => "DEMO",
+          :full => "Demographic"
+        },
+        :data => {
+          "New ID" => self.new_id,
+          "Grade" => self.grade,          
+          "Hispanic/Latino" => self.hispanic_latino,
+          "Race" => self.race,
+          "Limited English" => self.limited_english, 
+          "Low Income" => self.low_income
+        }
+      },
+      {
+        :type => {
+          :short => "MCAS",
+          :full => "MCAS"
+        },
+        :data => {
+          "ELA Scaled" => self.ela_scaled,
+          "ELA Performance" => self.ela_performance,
+          "ELA Growth" => self.ela_growth,
+          "Math Scaled" => self.math_scaled,
+          "Math Performance" =>  self.math_performance,
+          "Math Growth" =>  self.math_growth,
+          "SPED" => self.sped
+        }
+      }
+    ]
+  end
+
   def self.default_sort_by_math(room)
 
     math_risk = { "Low" => [], "Medium" => [], "High" => [] }
@@ -71,7 +105,7 @@ class Student < ActiveRecord::Base
           end
 
           if math_risk[risk_category].present? || math_risk[risk_category] == []
-            math_risk[risk_category] = math_risk[risk_category] << s
+            math_risk[risk_category] = math_risk[risk_category] << s.to_tables
           end
         end
       end

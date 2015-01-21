@@ -54,31 +54,28 @@ $(function() {
   // Init tabs
   $(".tab[data-type='mcas']").hide()
 
-
-  function populateTables (data) {
-
-    var high_risk_cells = d3.selectAll("table[data-index='High'] td")
-    var data_high_risk = data["High"].map(function(d) { return getValues(d) })[0]
-    high_risk_cells.data(data_high_risk)
-      .text(function(d, i) { return d })
-
-    var table_medium_risk = d3.select("table[data-index='Medium']")
-    var data_high_risk = data["Medium"]
-
-    var table_low_risk = d3.select("table[data-index='Low']")
-    var data_high_risk = data["Low"]
-
-  }
-
-  function getValues (data_point) {
-
-    var vals = Object.keys(data_point).map(function (key) {
-        return data_point[key];
-    });
-
-    return vals
-
-  }
-
 });
 
+function populateTables (data) {
+
+  var high_risk_cells = d3.selectAll("table[data-index='High'] td")
+  var data_high_risk = data["High"].map(function(d) { return getValues(d) })[0]
+  high_risk_cells.data(data_high_risk)
+    .text(function(d, i) { return d })
+
+  var table_medium_risk = d3.select("table[data-index='Medium']")
+  var data_high_risk = data["Medium"]
+
+  var table_low_risk = d3.select("table[data-index='Low']")
+  var data_high_risk = data["Low"]
+
+}
+
+function getValues (data_point) {
+
+  var vals = Object.keys(data_point).map(function (key) {
+      return data_point[key];
+  });
+
+  return vals
+}
