@@ -20,6 +20,12 @@ p {
   color: #555;
 }
 
+.smalltype {
+  font-weight: normal;
+  font-size: 12px;
+  color: #999;
+}
+
 h3 {
   font-size: 14px;
   color: #555;
@@ -29,8 +35,19 @@ h3 {
 /* SLIDER AND LABELS */
 
 #controls {
-  width: 75%;
-  margin: 60px auto;
+  padding-left: 30px;
+  width: 80%;
+  margin: 10px auto 70px auto;
+}
+
+.navwrap {
+  width: 80%;
+  margin: auto auto;
+}
+
+#homeroom-dropdown {
+  position: relative;
+  right: 30px;
 }
 
 .slider-label {
@@ -67,8 +84,11 @@ h3 {
     padding-right: 3px;
     padding-bottom: 9px;
     cursor:pointer;
-    border-bottom:3px solid #4A90E2;
     margin-right: 30px;
+}
+
+.activetab {
+    border-bottom:3px solid #4A90E2;
 }
 
 .nav a{
@@ -109,9 +129,9 @@ td.header {
 }
 
 .nav #title, .nav #bar {
-  margin-left: 10%;
   padding-bottom: 10px;
   padding-top: 10px;
+
 }
 
 h1 {
@@ -165,7 +185,7 @@ a {
       text-indent: 0.01px; /* Removes default arrow from firefox*/
       text-overflow: "";  /*Removes default arrow from firefox*/
       cursor: pointer;/*My custom style for fonts*/
-      color: #555;
+      color: #333;
       font-size: 14px;
       font-weight: bold;
 }
@@ -178,7 +198,7 @@ select option {
 
 .overlay-arrow {
     font-size: 8px;
-    color: #555;
+    color: #333;
     position: absolute;
     right: 35px;
     top : 12px;
@@ -192,8 +212,18 @@ select option {
     float: left;
     margin: 0px;
     padding: 0px;
+    margin-top: 15px;
 }
 
 
+.slider-label {
+  color: #999;
+  font-size: 12px;
+}
 
+#legend {
+  font-size: 14px;
+  color: #555;
+}
 
+* { box-sizing: border-box; }

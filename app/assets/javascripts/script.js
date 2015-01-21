@@ -31,11 +31,21 @@ $(function() {
     }
   });
 
+  // Select room
+  $('#homeroom-select').change(function() {
+      var val = $("#homeroom-select option:selected").text()
+      window.location.href = "/home?room=" + val
+  });
+
+
   // Tabbing
   $(".tab-toggle").click(function() {
     var this_toggle = $(this)
     var type = this_toggle.attr("data-type")
     var index = this_toggle.attr("data-index")
+    var this_list = this_toggle.parent()
+    this_list.children("li").removeClass("activetab")
+    this_toggle.addClass("activetab")
 
     $(".tab[data-index='" + index + "']").hide()
     $(".tab[data-type='" + type + "'][data-index='" + index + "']").show()
@@ -45,6 +55,8 @@ $(function() {
   $(".tab[data-type='mcas']").hide()
 
 });
+
+// Update tables 
 
 function populateTables (data) {
 
