@@ -32,19 +32,7 @@ class Student < ActiveRecord::Base
   LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
 
   def sample_name
-    
     FIRST_NAMES.sample + " " + LAST_NAMES.sample
-
-  end
-
-  def hispanic_latino_yn
-
-    if self.hispanic_latino
-      "Yes"
-    elsif self.hispanic_latino == false
-      "No"
-    end
-
   end
 
   def to_tables
