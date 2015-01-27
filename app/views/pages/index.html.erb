@@ -42,10 +42,10 @@
             <tr>
               <td><%= s.sample_name %></td>
               <td><%= s.grade %></td>
-              <td><%= s.hispanic_latino %></td>
+              <td><%= t s.hispanic_latino.class %></td>
               <td><%= s.race %></td>
               <td><%= s.limited_english %></td>
-              <td><%= s.low_income %></td>
+              <td><%= t s.low_income.class %></td>
             </tr>
           <% end %>
         </table>
@@ -69,7 +69,7 @@
               <td><%= s.math_scaled %></td>
               <td><%= s.math_performance %></td>
               <td><%= s.math_growth %></td>
-              <td><%= s.sped %></td>
+              <td><%= t s.sped.class %></td>
             </tr>
           <% end %>
         </table>

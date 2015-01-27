@@ -37,6 +37,16 @@ class Student < ActiveRecord::Base
 
   end
 
+  def hispanic_latino_yn
+
+    if self.hispanic_latino
+      "Yes"
+    elsif self.hispanic_latino == false
+      "No"
+    end
+
+  end
+
   def to_tables
     [
       {
