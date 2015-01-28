@@ -2,41 +2,11 @@ $(function() {
 
   window.room_id = parseInt($("#init-room-id").attr("data-room-id"))
 
-  // Risk category sliders
-  $(".risk-slider").slider({
-    range: true,
-    min: 1,
-    max: 4,
-    step: 1,
-    values: [2, 3],
-    slide: function (ev, ui) {
-      if (ui.values[1] === 1 || ui.values[1] === 4 || ui.values[0] === 1 || ui.values[0] === 4) {
-        return false
-      } else {
-        $.ajax({
-          url: "/sort_by_risk",
-          data: { 
-            sort: { 
-              subject: "math", 
-              lower_cutoff: ui.values[0], 
-              upper_cutoff: ui.values[1],
-              room_id: window.room_id
-            }
-          },
-          success: function (data) {
-            populateTables(data);
-          }
-        });
-      }
-    }
-  });
-
   // Select room
   $('#homeroom-select').change(function() {
       var val = $("#homeroom-select option:selected").text()
       window.location.href = "/home?room=" + val
   });
-
 
   // Tabbing
   $(".tab-toggle").click(function() {
@@ -55,37 +25,3 @@ $(function() {
   $(".tab[data-type='mcas']").hide()
 
 });
-
-function populateTables (data) {
-
-  console.log(data)
-
-  var high_risk_cells = d3.selectAll("table[data-index='High'] td")
-  var headers = d3.selectAll(".header")
-
-  var data_high_risk = getValues(data["High"][0][0].data)
-  var data_headers = Object.keys(data["High"][0][0].data)
-
-  // console.log(data_high_risk)
-
-  high_risk_cells.data(data_high_risk)
-    .text(function(d, i) { return d })
-  headers.data(data_headers)
-    .text(function(d, i) { return d })
-
-  var table_medium_risk = d3.select("table[data-index='Medium']")
-  var data_high_risk = data["Medium"]
-
-  var table_low_risk = d3.select("table[data-index='Low']")
-  var data_high_risk = data["Low"]
-
-}
-
-function getValues (data_point) {
-
-  var vals = Object.keys(data_point).map(function (key) {
-      return data_point[key];
-  });
-
-  return vals
-}
