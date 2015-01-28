@@ -10,13 +10,16 @@
 Room.destroy_all
 n = 1 
 
-Student.with_demo_and_mcas_data.shuffle.each_slice(12).to_a.each do |student_group|
-  room = Room.create(name: "#{n}00")
-  student_group.each do |student|
-    student.room_id = room.id
-    unless student.save
-      raise
+students_by_grade = Student.with_demo_and_mcas_data.group_by(&:grade)
+
+students_by_grade.each do |grade, grade_students|
+  grade_students.each_slice(12).to_a.each do |homeroom|
+    room = Room.create(name: "#{n}00")
+    homeroom.each do |student|
+      student.room_id = room.id
+      unless student.save then raise end
+      puts "student #{student.id} assigned to room #{room.id}"
     end
+    n += 1
   end
-  n += 1
 end
