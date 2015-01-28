@@ -32,12 +32,13 @@
           </div>
           <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index="<%= category %>">
             <tr>
-              <td class="header" class="radius">Fake Name</td>
+              <td class="header">Fake Name</td>
               <td class="header">Grade</td> 
               <td class="header">Hispanic/Latino</td>
               <td class="header">Race</td>
               <td class="header">Limited English</td>
               <td class="header">Low Income</td>
+              <td class="header">SPED</td>
             </tr>
             <% students.each do |s| %>
               <tr>
@@ -45,21 +46,21 @@
                 <td><%= s.grade %></td>
                 <td><%= t s.hispanic_latino.class %></td>
                 <td><%= s.race %></td>
-                <td><%= s.limited_english %></td>
-                <td><%= t s.low_income.class %></td>
+                <td class="risk-factor" id="limited-english"><%= s.limited_english %></td>
+                <td class="risk-factor" id="low-income"><%= t s.low_income.class %></td>
+                <td class="risk-factor" id="sped"><%= t s.sped.class %></td>
               </tr>
             <% end %>
           </table>
           <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="mcas" data-index="<%= category %>">
             <tr>
-              <td class="header" class="radius">Fake Name</td>
+              <td class="header">Fake Name</td>
               <td class="header">ELA Scaled</td>
               <td class="header">ELA Performance</td>
               <td class="header">ELA Growth</td>
               <td class="header">Math Scaled</td>
               <td class="header">Math Performance</td>
               <td class="header">Math Growth</td>
-              <td class="header" class="radius">SPED</td>
             </tr>
             <% students.each do |s| %>
               <tr>
@@ -70,7 +71,6 @@
                 <td><%= s.math_scaled %></td>
                 <td><%= s.math_performance %></td>
                 <td><%= s.math_growth %></td>
-                <td><%= t s.sped.class %></td>
               </tr>
             <% end %>
           </table>
