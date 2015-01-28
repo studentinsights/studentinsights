@@ -40,6 +40,11 @@ $(function() {
       if (this_cell.text() === "Yes") {
         this_cell.attr("style", "color: red;")
       }
+    } else if (this_cell.attr("id") === "ela-perf" || this_cell.attr("id") === "math-perf") {
+
+      if (this_cell.text() === "NI" || this_cell.text() === "W") {
+        this_cell.attr("style", "color: red;")
+      }
     }
   });
 

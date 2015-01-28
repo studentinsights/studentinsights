@@ -66,10 +66,10 @@
               <tr>
                 <td><%= s.sample_name %></td>
                 <td><%= s.ela_scaled %></td>
-                <td><%= s.ela_performance %></td>
+                <td class="risk-factor" id="ela-perf"><%= s.ela_performance %></td>
                 <td><%= s.ela_growth %></td>
                 <td><%= s.math_scaled %></td>
-                <td><%= s.math_performance %></td>
+                <td class="risk-factor" id="math-perf"><%= s.math_performance %></td>
                 <td><%= s.math_growth %></td>
               </tr>
             <% end %>
