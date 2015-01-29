@@ -35,12 +35,7 @@ $(function() {
         this_cell.attr("style", "color: red;")
       }
         
-    } else if (this_cell.attr("id") === "low-income" || this_cell.attr("id") === "sped") {
-
-      if (this_cell.text() === "Yes") {
-        this_cell.attr("style", "color: red;")
-      }
-    } else if (this_cell.attr("id") === "hispanic-latino") {
+    } else if (this_cell.attr("id") === "low-income" || this_cell.attr("id") === "sped" || this_cell.attr("id") === "hispanic-latino") {
 
       if (this_cell.text() === "Yes") {
         this_cell.attr("style", "color: red;")
