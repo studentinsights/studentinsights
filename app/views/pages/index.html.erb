@@ -44,8 +44,8 @@
               <tr>
                 <td><%= s.sample_name %></td>
                 <td><%= s.grade %></td>
-                <td><%= t s.hispanic_latino.class %></td>
-                <td><%= s.race %></td>
+                <td class="risk-factor" id="hispanic-latino"><%= t s.hispanic_latino.class %></td>
+                <td class="risk-factor" id="race"><%= s.race %></td>
                 <td class="risk-factor" id="limited-english"><%= s.limited_english %></td>
                 <td class="risk-factor" id="low-income"><%= t s.low_income.class %></td>
                 <td class="risk-factor" id="sped"><%= t s.sped.class %></td>
