@@ -122,6 +122,15 @@ td.header {
   font-style: italic;
 }
 
+td.risk {
+  font-weight: bold;
+  color: #333;
+}
+
+td.not-risk {
+  color: #555;
+}
+
 .nav {
   background-color: white;
   padding-top: 10px;

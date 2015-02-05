@@ -24,38 +24,4 @@ $(function() {
   // Init tabs
   $(".tab[data-type='mcas']").hide()
 
-  // Highlight risk factors red
-  $(".risk-factor").each(function() {
-
-    this_cell = $(this)
-
-    if (this_cell.attr("id") === "limited-english") {
-
-      if (this_cell.text() === "Limited" || this_cell.text() === "Formerly Limited") {
-        this_cell.attr("style", "color: red;")
-      }
-        
-    } else if (this_cell.attr("id") === "low-income" || this_cell.attr("id") === "sped") {
-
-      if (this_cell.text() === "Yes") {
-        this_cell.attr("style", "color: red;")
-      }
-    } else if (this_cell.attr("id") === "hispanic-latino") {
-
-      if (this_cell.text() === "Yes") {
-        this_cell.attr("style", "font-weight: bold;")
-      }
-    } else if (this_cell.attr("id") === "race") {
-
-      if (this_cell.text() === "Black") {
-        this_cell.attr("style", "font-weight: bold;")
-      }
-    } else if (this_cell.attr("id") === "ela-perf" || this_cell.attr("id") === "math-perf") {
-
-      if (this_cell.text() === "NI" || this_cell.text() === "W") {
-        this_cell.attr("style", "color: red;")
-      }
-    }
-  });
-
 });

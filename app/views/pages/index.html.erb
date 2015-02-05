@@ -44,11 +44,11 @@
               <tr>
                 <td><%= s.sample_name %></td>
                 <td><%= s.grade %></td>
-                <td class="risk-factor" id="hispanic-latino"><%= t s.hispanic_latino.class %></td>
-                <td class="risk-factor" id="race"><%= s.race %></td>
-                <td class="risk-factor" id="limited-english"><%= s.limited_english %></td>
-                <td class="risk-factor" id="low-income"><%= t s.low_income.class %></td>
-                <td class="risk-factor" id="sped"><%= t s.sped.class %></td>
+                <td class="risk-factor <%= s.highlight_hispanic_latino %>"><%= t s.hispanic_latino.class %></td>
+                <td class="risk-factor <%= s.highlight_race %>"><%= s.race %></td>
+                <td class="risk-factor <%= s.highlight_limited_english %>"><%= s.limited_english %></td>
+                <td class="risk-factor <%= s.highlight_low_income %>"><%= t s.low_income.class %></td>
+                <td class="risk-factor <%= s.highlight_sped %>"><%= t s.sped.class %></td>
               </tr>
             <% end %>
           </table>
@@ -66,10 +66,10 @@
               <tr>
                 <td><%= s.sample_name %></td>
                 <td><%= s.ela_scaled %></td>
-                <td class="risk-factor" id="ela-perf"><%= s.ela_performance %></td>
+                <td class="risk-factor <%= s.highlight_ela_perf %>"><%= s.ela_performance %></td>
                 <td><%= s.ela_growth %></td>
                 <td><%= s.math_scaled %></td>
-                <td class="risk-factor" id="math-perf"><%= s.math_performance %></td>
+                <td class="risk-factor <%= s.highlight_math_perf %>"><%= s.math_performance %></td>
                 <td><%= s.math_growth %></td>
               </tr>
             <% end %>

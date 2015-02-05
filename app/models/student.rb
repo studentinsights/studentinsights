@@ -150,4 +150,62 @@ class Student < ActiveRecord::Base
 
   end
 
+  def highlight_hispanic_latino
+    if self.hispanic_latino 
+      "risk"
+    else
+      "no-risk"
+    end
+
+  end
+
+  def highlight_race
+    if self.race == "Black" 
+      "risk"
+    else
+      "no-risk"
+    end
+  end
+
+  def highlight_limited_english
+    if self.limited_english == "Limited" || self.limited_english == "Formerly Limited" 
+      "risk"
+    else
+      "no-risk"
+    end
+  end
+
+  def highlight_low_income
+    if self.low_income 
+      "risk"
+    else
+      "no-risk"
+    end
+  end
+
+  def highlight_sped
+    if self.sped 
+      "risk"
+    else
+      "no-risk"
+    end
+  end
+
+  def highlight_ela_perf
+    if self.ela_performance == "NI" || self.ela_performance == "W" 
+      "risk"
+    else
+      "no-risk"
+    end
+  end
+
+  def highlight_math_perf
+    if self.math_performance == "NI" || self.math_performance == "W" 
+      "risk"
+    else
+      "no-risk"
+    end
+
+  end
+
 end
