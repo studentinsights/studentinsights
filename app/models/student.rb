@@ -205,7 +205,10 @@ class Student < ActiveRecord::Base
     else
       "no-risk"
     end
+  end
 
+  def has_access_data?
+    self.access_progress.present? && self.access_growth.present? && self.access_performanc.present?
   end
 
 end

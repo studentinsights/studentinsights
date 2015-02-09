@@ -1,25 +1,19 @@
 class DataSet
 
+  # List of headers needed to scrape data from Excel spreadsheet
   REQUIRED_HEADERS = [
 
       # X2
-      "NewID",
-      "Grade",
-      "HispanicLatino",
-      "Race",
-      "Limited English Prof",
-      "Low Income",
+      "NewID", "Grade", "HispanicLatino", "Race", "Limited English Prof", "Low Income",
 
       # MCAS
-      "sped_off",
-      "escaleds",
-      "eperf2",
-      "esgp",
-      "mscaleds",
-      "mperf2",
-      "msgp"
+      "sped_off", "escaleds", "eperf2", "esgp", "mscaleds", "mperf2", "msgp",
+
+      # ACCESS
+      "SGP", "makeprogress", "overalllevel"
   ]
 
+  # Transform Excel column names into model attributes
   HEADER_DICTIONARY = {
 
       # X2
@@ -37,12 +31,19 @@ class DataSet
       "esgp" => :ela_growth,
       "mscaleds" => :math_scaled,
       "mperf2" => :math_performance,
-      "msgp" => :math_growth
+      "msgp" => :math_growth,
+
+      # ACCESS
+      "SGP" => :access_growth,
+      "makeprogress" => :access_progress,
+      "overalllevel" => :access_performance
   }
 
   TO_BOOLEAN = { 
-    0.0 => false, 
+    0.0 => false,
+    "0" => false,
     1.0 => true,
+    "1" => true,
     "FALSE" => false,
     "TRUE" => true
   }
@@ -71,7 +72,6 @@ class DataSet
       ((first_column + 1)..last_column).each do |c|
         header = sheet.cell(header_row, c)
         if REQUIRED_HEADERS.include? header
-          # puts header
 
           (first_row..last_row).each do |r|
             new_id = sheet.cell(r, new_id_column)
@@ -81,6 +81,8 @@ class DataSet
             value = sheet.cell(r, c)
 
             case attribute
+            when :access_progress
+              cast_value = TO_BOOLEAN[value]
             when :hispanic_latino, :sped
               cast_value = TO_BOOLEAN[value]
             when :low_income
@@ -93,7 +95,7 @@ class DataSet
               else
                 cast_value = value
               end
-            when :ela_scaled, :ela_growth, :math_scaled, :math_growth
+            when :ela_scaled, :ela_growth, :math_scaled, :math_growth, :access_growth, :access_performance
               cast_value = value.to_i
               if cast_value == 0
                 cast_value = nil
@@ -107,7 +109,6 @@ class DataSet
             end
 
             student.send("#{attribute}=", cast_value)
-            puts "Student ##{new_id} has #{attribute} of #{cast_value} (#{cast_value.class})"
             student.save
           end
         end

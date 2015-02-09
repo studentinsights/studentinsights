@@ -2,9 +2,9 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 # Import Excel data
-# Student.destroy_all
-# xls = Roo::Excelx.new "./spec/SampleData/SampleData.xlsx"
-# DataSet.merge_sheets_and_write(xls)
+Student.destroy_all
+xls = Roo::Excelx.new "./spec/SampleData/SampleData.xlsx"
+DataSet.merge_sheets_and_write(xls)
 
 # Assign students to homerooms
 Room.destroy_all
@@ -18,7 +18,7 @@ students_by_grade.each do |grade, grade_students|
     homeroom.each do |student|
       student.room_id = room.id
       unless student.save then raise end
-      puts "student #{student.id} assigned to room #{room.id}"
+      # puts "student #{student.id} assigned to room #{room.id}"
     end
     n += 1
   end
