@@ -12,13 +12,14 @@ module Homeroom
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.autoload_paths += %W(#{config.root}/app/models)
+    config.autoload_paths += %W(#{config.root}/lib/modules)
+
     config.generators do |g|  
       g.stylesheets false  
       g.javascripts false  
       g.test_framework :rspec, fixture_replacement: :factory_girl
     end  
-
-    config.autoload_paths += %W(#{config.root}/app/models)
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

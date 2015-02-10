@@ -3,7 +3,7 @@
 
 # Import Excel data
 Student.destroy_all
-xls = Roo::Excelx.new "./spec/SampleData/SampleData.xlsx"
+xls = Roo::Excelx.new "./data/SampleData.xlsx"
 DataSet.merge_sheets_and_write(xls)
 
 # Assign students to homerooms
