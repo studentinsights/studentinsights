@@ -14,14 +14,11 @@ $(function() {
     var type = this_toggle.attr("data-type")
     var index = this_toggle.attr("data-index")
     var this_list = this_toggle.parent()
-    this_list.children("li").removeClass("activetab")
-    this_toggle.addClass("activetab")
+    this_list.children("li").removeClass("activetab").addClass("hidden")
+    this_toggle.addClass("activetab").removeClass("hidden")
 
     $(".tab[data-index='" + index + "']").hide()
     $(".tab[data-type='" + type + "'][data-index='" + index + "']").show()
   });
-
-  // Init tabs
-  $(".tab[data-type='mcas']").hide()
 
 });
