@@ -1,4 +1,5 @@
-# Homeroom: A Student Roster Generator for Somerville
+# Homeroom: A Student Roster Generator for Somerville [![Build Status](https://travis-ci.org/codeforamerica/Homeroom.svg?branch=master)][travis]
+[travis]: https://travis-ci.org/codeforamerica/Homeroom
 
 ## Who 
 Amir, Mari, and Alex from Code for America's [Somerville Fellowship Team](http://www.codeforamerica.org/governments/somerville/) kicked up this app during Build Week 2015 as a warm-up getting-to-know-you exercise. The initial product idea and subsequent feedback came from Stephanie Hirsch, Director of SomerStat and other exciting projects in the Mayor's Office of Somerville. 
