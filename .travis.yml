@@ -1,5 +1,6 @@
 language: ruby
 rvm:
   - ruby-2.1.1
-  - ruby-2.1.2
-script: "bundle exec rspec spec"
+script: 
+  - "bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/homeroom_test"
+  - "bundle exec rspec spec"
