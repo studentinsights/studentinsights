@@ -33,6 +33,8 @@ gem 'spring',        group: :development
 group :development, :test do
   gem "factory_girl_rails"
   gem 'rspec-rails', '~> 3.0'
+  gem 'capybara'
+  gem 'database_cleaner'
 end
 
 # Auth 
