@@ -1,5 +1,7 @@
 class StudentsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def index
     if room_params.present?
       @room = Room.find_by_name(room_params[:room])
