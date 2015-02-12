@@ -6,7 +6,7 @@ RUN apt-get update && apt-get -y install libpq-dev nodejs
 ADD . /opt/rails
 WORKDIR /opt/rails
 RUN bundle install --without development test
-RUN cp config/database.yml.example config/database.yml
+# RUN cp config/database.yml.example config/database.yml
 RUN bundle exec rake assets:precompile
  
 ENV PORT 3000
