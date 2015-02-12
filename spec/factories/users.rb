@@ -1,8 +1,10 @@
 FactoryGirl.define do
+
+  sequence(:email) { |n| "superteacher#{n}@somerville.edu" }
   
   factory :user do
-    email "superteacher@somerville.edu"
     password "PairShareCompare"
+    email { FactoryGirl.generate(:email) }
   end
 
 end

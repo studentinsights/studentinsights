@@ -10,61 +10,63 @@
       </div>
     </div>
     <% @risk_categories.each do |category| %>
-      <% students = @students[category]  %>
-      <% if students.present? %>
-        <div class="info-area" data-risk-level="<%= category %>">
-          <h3><%= category %> risk <span class="smalltype">(<%= students.length %> out of <%= @number_of_students %> students)</span> </h3>
-          <div class="subnav">
-            <ul class="nav">
-             <li class="tab-toggle activetab" data-type="demo" data-index="<%= category %>">Demographics</li>
-             <li class="tab-toggle" data-type="mcas" data-index="<%= category %>">MCAS</li> 
-           </ul>
+      <% if @students.present? %>
+        <% students = @students[category]  %>
+        <% if students.present? %>
+          <div class="info-area" data-risk-level="<%= category %>">
+            <h3><%= category %> risk <span class="smalltype">(<%= students.length %> out of <%= @number_of_students %> students)</span> </h3>
+            <div class="subnav">
+              <ul class="nav">
+               <li class="tab-toggle activetab" data-type="demo" data-index="<%= category %>">Demographics</li>
+               <li class="tab-toggle" data-type="mcas" data-index="<%= category %>">MCAS</li> 
+             </ul>
+            </div>
+            <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index="<%= category %>">
+              <tr>
+                <td class="header">Fake Name</td>
+                <td class="header">Grade</td> 
+                <td class="header">Hispanic/Latino</td>
+                <td class="header">Race</td>
+                <td class="header">Limited English</td>
+                <td class="header">Low Income</td>
+                <td class="header">SPED</td>
+              </tr>
+              <% students.each do |s| %>
+                <tr>
+                  <td><%= s.sample_name %></td>
+                  <td><%= s.grade %></td>
+                  <td class="risk-factor <%= s.highlight_hispanic_latino %>"><%= t s.hispanic_latino.class %></td>
+                  <td class="risk-factor <%= s.highlight_race %>"><%= s.race %></td>
+                  <td class="risk-factor <%= s.highlight_limited_english %>"><%= s.limited_english %></td>
+                  <td class="risk-factor <%= s.highlight_low_income %>"><%= t s.low_income.class %></td>
+                  <td class="risk-factor <%= s.highlight_sped %>"><%= t s.sped.class %></td>
+                </tr>
+              <% end %>
+            </table>
+            <table border="0" cellspacing="0" cellpadding="10" class="tab hidden" data-type="mcas" data-index="<%= category %>">
+              <tr>
+                <td class="header">Fake Name</td>
+                <td class="header">ELA Scaled</td>
+                <td class="header">ELA Performance</td>
+                <td class="header">ELA Growth</td>
+                <td class="header">Math Scaled</td>
+                <td class="header">Math Performance</td>
+                <td class="header">Math Growth</td>
+              </tr>
+              <% students.each do |s| %>
+                <tr>
+                  <td><%= s.sample_name %></td>
+                  <td><%= s.ela_scaled %></td>
+                  <td class="risk-factor <%= s.highlight_ela_perf %>"><%= s.ela_performance %></td>
+                  <td><%= s.ela_growth %></td>
+                  <td><%= s.math_scaled %></td>
+                  <td class="risk-factor <%= s.highlight_math_perf %>"><%= s.math_performance %></td>
+                  <td><%= s.math_growth %></td>
+                </tr>
+              <% end %>
+            </table>
           </div>
-          <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index="<%= category %>">
-            <tr>
-              <td class="header">Fake Name</td>
-              <td class="header">Grade</td> 
-              <td class="header">Hispanic/Latino</td>
-              <td class="header">Race</td>
-              <td class="header">Limited English</td>
-              <td class="header">Low Income</td>
-              <td class="header">SPED</td>
-            </tr>
-            <% students.each do |s| %>
-              <tr>
-                <td><%= s.sample_name %></td>
-                <td><%= s.grade %></td>
-                <td class="risk-factor <%= s.highlight_hispanic_latino %>"><%= t s.hispanic_latino.class %></td>
-                <td class="risk-factor <%= s.highlight_race %>"><%= s.race %></td>
-                <td class="risk-factor <%= s.highlight_limited_english %>"><%= s.limited_english %></td>
-                <td class="risk-factor <%= s.highlight_low_income %>"><%= t s.low_income.class %></td>
-                <td class="risk-factor <%= s.highlight_sped %>"><%= t s.sped.class %></td>
-              </tr>
-            <% end %>
-          </table>
-          <table border="0" cellspacing="0" cellpadding="10" class="tab hidden" data-type="mcas" data-index="<%= category %>">
-            <tr>
-              <td class="header">Fake Name</td>
-              <td class="header">ELA Scaled</td>
-              <td class="header">ELA Performance</td>
-              <td class="header">ELA Growth</td>
-              <td class="header">Math Scaled</td>
-              <td class="header">Math Performance</td>
-              <td class="header">Math Growth</td>
-            </tr>
-            <% students.each do |s| %>
-              <tr>
-                <td><%= s.sample_name %></td>
-                <td><%= s.ela_scaled %></td>
-                <td class="risk-factor <%= s.highlight_ela_perf %>"><%= s.ela_performance %></td>
-                <td><%= s.ela_growth %></td>
-                <td><%= s.math_scaled %></td>
-                <td class="risk-factor <%= s.highlight_math_perf %>"><%= s.math_performance %></td>
-                <td><%= s.math_growth %></td>
-              </tr>
-            <% end %>
-          </table>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
     <div id="init-room-id" data-room-id="<%= @room.id %>"></div>
