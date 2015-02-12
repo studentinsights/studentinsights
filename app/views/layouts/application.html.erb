@@ -10,14 +10,16 @@
   <div class="nav">
     <div class="navwrap">
       <h1 id="title">Home Room</h1>
+      <a href="/about">About</a> &bull; 
+      <% if user_signed_in? %>
+        <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
+      <% else %>
+        <%= link_to "Sign In", new_user_session_path %>
+      <% end %>
+      <p class="notice field"><%= notice %></p>
+      <p class="alert field"><%= alert %></p>
     </div>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-<!--     <div id="bar">
-      <a href="#">Summary</a> |
-      <a href="#">Print PDF</a>
-    </div>
- -->  </div>
+  </div>
   <%= yield %>
   <script src="https://code.jquery.com/jquery-git2.min.js"></script>
   <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>

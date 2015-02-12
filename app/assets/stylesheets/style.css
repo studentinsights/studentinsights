@@ -32,7 +32,7 @@ h3 {
   font-weight: bold;
 }
 
-/* SLIDER AND LABELS */
+/* NAV AND DROPDOWN */
 
 #controls {
   padding-left: 30px;
@@ -48,6 +48,22 @@ h3 {
 #homeroom-dropdown {
   position: relative;
   right: 30px;
+}
+
+/* SIGN IN FLOW & MESSAGES*/
+
+.field {
+  margin: 20px 0;
+}
+
+.notice {
+  color: green;
+  font-weight: bold;
+}
+
+.alert {
+  color: red;
+  font-weight: bold;
 }
 
 /* TABLES, TAB, NAV */
@@ -74,20 +90,10 @@ h3 {
     border-bottom:3px solid #4A90E2;
 }
 
-.nav a{
-    display:inline-block;
-    padding:0px;
-}
-
 .subnav {
   display: block;
   clear: both;
   height: 60px;
-}
-
-a {
-    display: block;
-    width: 0;
 }
 
 tr, td {
@@ -120,7 +126,7 @@ td.not-risk {
   padding-bottom: 10px;
 }
 
-.nav #title, .nav #bar {
+.nav #title {
   padding-bottom: 10px;
   padding-top: 10px;
 
@@ -132,7 +138,7 @@ h1 {
   font-size: 24px;
 }
 
-.student-group {
+.info-area {
   width: 80%;
   margin: auto auto;
   background-color: white;
