@@ -66,6 +66,13 @@ h3 {
   font-weight: bold;
 }
 
+/* ABOUT PAGE */
+
+.about-text {
+  font-size: 16px;
+  margin: 16px 0;
+}
+
 /* TABLES, TAB, NAV */
 
 .nav{
