@@ -1,9 +1,5 @@
 require 'rails_helper'
 
-describe Student do
-
-  describe '#create' do
-
-  end
-
-end
+# RSpec.describe Student, :type => :model do
+#   pending "add some examples to (or delete) #{__FILE__}"
+# end

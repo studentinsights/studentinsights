@@ -12,7 +12,7 @@
     <% @risk_categories.each do |category| %>
       <% students = @students[category]  %>
       <% if students.present? %>
-        <div class="student-group" data-risk-level="<%= category %>">
+        <div class="info-area" data-risk-level="<%= category %>">
           <h3><%= category %> risk <span class="smalltype">(<%= students.length %> out of <%= @number_of_students %> students)</span> </h3>
           <div class="subnav">
             <ul class="nav">

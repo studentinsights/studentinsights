@@ -28,3 +28,10 @@ This app could grow in several different ways.
 * __Interventions__:  Allow teachers to add interventions to the system and track how they impact student progress. (This is a top priority.)
 * __Unique URLs__: Can be generated to be viewed online at a later time by users with access.
 * __Printable PDFs__: Can be exported of any view for teachers to print out and use at data meetings. 
+
+## Tests
+This app uses the [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) testing library. To run the test suite:
+
+```
+rspec
+```

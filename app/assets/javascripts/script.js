@@ -5,7 +5,7 @@ $(function() {
   // Select room
   $('#homeroom-select').change(function() {
       var val = $("#homeroom-select option:selected").text()
-      window.location.href = "/home?room=" + val
+      window.location.href = "/students?room=" + val
   });
 
   // Tabbing
