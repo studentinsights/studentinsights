@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PagesController, :type => :controller do
+describe StudentsController, :type => :controller do
 
   describe '#index' do
 
@@ -18,7 +18,7 @@ describe PagesController, :type => :controller do
 
     context 'when user is logged in' do
 
-      it 'allows access to data page' do
+      it 'allows access to index page' do
 
         user = FactoryGirl.create(:user)
         sign_in user

@@ -2,10 +2,10 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  root 'pages#index'
+  root 'students#index'
 
-  get 'home' => 'pages#index'
+  resources :students
+  
   get 'about' => 'pages#about'
-
 
 end
