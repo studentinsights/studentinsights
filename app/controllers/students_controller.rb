@@ -6,7 +6,11 @@ class StudentsController < ApplicationController
     if room_params.present?
       @room = Room.find_by_name(room_params[:room])
     else
-      @room = Room.first
+      if Room.first.present?  
+        @room = Room.first
+      else
+        @room = Room.create(name: "100")
+      end
     end
     @rooms_by_name = Room.all.sort_by { |r| r.name.to_i }.sort_by { |r| r.name.size }
     @students = Student.default_sort_by_math(@room)
