@@ -14,7 +14,22 @@ describe "Sign In Flow", :type => :feature do
       fill_in 'Password', :with => user.password
       click_button 'Log in'
       expect(page).to have_content 'Signed in successfully.'
-        
+      
+    end
+
+  end
+
+  context "user without account attempts to sign in" do
+
+    it "denies user to access index page" do
+
+      visit root_url
+      click_link 'Sign In'
+      fill_in 'Email', :with => "nogood@gmail.com"
+      fill_in 'Password', :with => "nogood"
+      click_button 'Log in'
+      expect(page).not_to have_content 'Signed in successfully.'
+      
     end
 
   end
