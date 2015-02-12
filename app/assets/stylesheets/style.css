@@ -50,23 +50,6 @@ h3 {
   right: 30px;
 }
 
-.slider-label {
-  width: 25%;
-  float: left;
-  margin-top: 10px;
-}
-
-#legend {
-  margin-top: 60px;
-}
-
-.text-left {
-  text-align: left;
-}
-.text-right {
-  text-align: right;
-}
-
 /* TABLES, TAB, NAV */
 
 .nav{
