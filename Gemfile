@@ -39,6 +39,8 @@ end
 
 # Auth 
 gem 'devise'
+gem 'twilio-ruby', '~> 3.12'
+gem 'rotp'
 
 # Handle Excel files
 gem 'paperclip'
