@@ -1,6 +1,11 @@
 language: ruby
 rvm:
-  - ruby-2.1.1
-script: 
-  - "bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/homeroom_test"
-  - "bundle exec rspec spec"
+- ruby-2.1.1
+script:
+- bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/homeroom_test
+- bundle exec rspec spec
+env:
+  global:
+  - secure: Qzn63iH8AplaOabvqP85qCpu150TIGNW6LuR7lt0vl06/FNgurLQDPrFyJn8yCnV++NJpaxr9nu1zi3rT16hfECyqz7SvT4ZH/h0TTqbhioLqpopUQkAS7aEKO+Mbb1jvjnyg4uGU8bxi+TLe7AUQ3+LlXWUs1U2/2Rh1XgVK/E=
+  - secure: BkX1inm06iy+39Zc/NxxlmF9fltnRejY6Gg9deYZ5fbeQokmWL+UIn19EOVF46WHFHVzAf12fBjiywItGuvRJSaBLlhtBQ5pDlanmW7t7GVhRlnnGUZnQfGDJIGygwZGqxceB0Fz3/3Rbe9ztL0ohaWZkOr8sZDlJq9mCA9H5GU=
+  - secure: XpQ4gwogFfRjZ9DSjLKq8Q4LQr434Xod4chVRdp2YBXfwxqHtIKnd8OOIcaLhLwz8sGSJ6CcJENoYGVdX2+k6YVGqnUVWzylYXF6uKx7XKWzvNDA0K6a8AEOOX5HO4GH3ZsWGjqttPSZwHvYMqj3i2ZeHoj4y2c4ssovOr/uzQA=
