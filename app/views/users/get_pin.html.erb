@@ -1,0 +1,18 @@
+<div class="info-area">
+  <h2>Get PIN</h2><br />
+  <p>Enter your email and we'll send a PIN code to your phone.</p>
+  <p>This adds another layer of security and helps us verify your identity.</p>
+
+  <%= form_tag(action: "send_pin") do %>
+
+    <div class="field">
+      <%= label_tag :email %><br />
+      <%= text_field :user, :email %>
+    </div>
+
+    <%= submit_tag "Send PIN" %>
+
+  <% end %>
+
+
+</div>

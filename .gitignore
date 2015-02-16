@@ -6,6 +6,8 @@
 
 config/initializers/secret_token.rb
 config/secrets.yml
+config/local_env.yml
+db/seeds/development/users.seeds.rb
 
 ## Environment normalisation:
 /.bundle

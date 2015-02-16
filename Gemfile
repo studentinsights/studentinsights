@@ -40,7 +40,10 @@ end
 # Auth 
 gem 'devise'
 gem 'twilio-ruby', '~> 3.12'
-gem 'rotp'
+gem 'devise-two-factor'
+
+# Better seeds
+gem 'seedbank'
 
 # Handle Excel files
 gem 'paperclip'
