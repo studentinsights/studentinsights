@@ -4,7 +4,6 @@
 /sketch
 /data
 
-config/initializers/secret_token.rb
 config/local_env.yml
 db/seeds/development/users.seeds.rb
 
