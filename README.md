@@ -1,4 +1,4 @@
-# Homeroom: A Student Roster Generator for Somerville [![Build Status](https://travis-ci.org/codeforamerica/Homeroom.svg?branch=master)][travis]
+# Homeroom: A Student Roster Generator for Somerville [![Build Status](https://travis-ci.org/codeforamerica/somerville-teacher-tool.svg?branch=master)][travis]
 [travis]: https://travis-ci.org/codeforamerica/Homeroom
 
 ## Who 
