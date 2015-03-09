@@ -1,28 +1,21 @@
-module ExcelHelpers 
+module DataHelper
 
-  # List of headers needed to scrape data from Excel spreadsheet
-  REQUIRED_HEADERS = [
-
-      # X2
-      "NewID", "Grade", "HispanicLatino", "Race", "Limited English Prof", "Low Income",
-
-      # MCAS
-      "sped_off", "escaleds", "eperf2", "esgp", "mscaleds", "mperf2", "msgp",
-
-      # ACCESS
+  MCAS_HEADERS = [
+      "firstname", "lastname", "sasid",
+      "sped_off", "escaleds", "eperf2", 
+      "esgp", "mscaleds", "mperf2", "msgp"
+  ]
+  
+  ACCESS_HEADERS = [ 
       "SGP", "makeprogress", "overalllevel"
   ]
+  
+  X2_HEADERS = [ 
+      "NewID", "Grade", "HispanicLatino", 
+      "Race", "Limited English Prof", "Low Income"
+  ]
 
-  # Transform Excel column names into model attributes
   HEADER_DICTIONARY = {
-
-      # X2
-      "NewID" => :new_id,
-      "Grade" => :grade,
-      "HispanicLatino" => :hispanic_latino,
-      "Race" => :race,
-      "Limited English Prof" => :limited_english,
-      "Low Income" => :low_income,
 
       # MCAS
       "sped_off" => :sped,
@@ -32,6 +25,17 @@ module ExcelHelpers
       "mscaleds" => :math_scaled,
       "mperf2" => :math_performance,
       "msgp" => :math_growth,
+      "sasid" => :state_identifier,
+      "firstname" => :first_name, 
+      "lastname" => :last_name,
+
+      # X2
+      "NewID" => :new_id,
+      "Grade" => :grade,
+      "HispanicLatino" => :hispanic_latino,
+      "Race" => :race,
+      "Limited English Prof" => :limited_english,
+      "Low Income" => :low_income,
 
       # ACCESS
       "SGP" => :access_growth,
