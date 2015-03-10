@@ -1,7 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  $twilio_client = Twilio::REST::Client.new(ENV["TEST_TWILIO_SID"], ENV["TEST_TWILIO_AUTH_TOKEN"])
   ENV["TWILIO_PHONE"] = "+15005550006"    # Twilio Magic Number for testing
 
   # The test environment is used exclusively to run your application's
