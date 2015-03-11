@@ -23,9 +23,8 @@
             </div>
             <table border="0" cellspacing="0" cellpadding="10" class="tab" data-type="demo" data-index="<%= category %>">
               <tr>
-                <td class="header">Fake Name</td>
+                <td class="header">Name</td>
                 <td class="header">Grade</td> 
-                <td class="header">Hispanic/Latino</td>
                 <td class="header">Race</td>
                 <td class="header">Limited English</td>
                 <td class="header">Low Income</td>
@@ -33,9 +32,8 @@
               </tr>
               <% students.each do |s| %>
                 <tr>
-                  <td><%= s.sample_name %></td>
+                  <td><%= s.first_name %> <%= s.last_name %></td>
                   <td><%= s.grade %></td>
-                  <td class="risk-factor <%= s.highlight_hispanic_latino %>"><%= t s.hispanic_latino.class %></td>
                   <td class="risk-factor <%= s.highlight_race %>"><%= s.race %></td>
                   <td class="risk-factor <%= s.highlight_limited_english %>"><%= s.limited_english %></td>
                   <td class="risk-factor <%= s.highlight_low_income %>"><%= t s.low_income.class %></td>
@@ -45,7 +43,7 @@
             </table>
             <table border="0" cellspacing="0" cellpadding="10" class="tab hidden" data-type="mcas" data-index="<%= category %>">
               <tr>
-                <td class="header">Fake Name</td>
+                <td class="header">Name</td>
                 <td class="header">ELA Scaled</td>
                 <td class="header">ELA Performance</td>
                 <td class="header">ELA Growth</td>
@@ -55,7 +53,7 @@
               </tr>
               <% students.each do |s| %>
                 <tr>
-                  <td><%= s.sample_name %></td>
+                  <td><%= s.first_name %> <%= s.last_name %></td>
                   <td><%= s.ela_scaled %></td>
                   <td class="risk-factor <%= s.highlight_ela_perf %>"><%= s.ela_performance %></td>
                   <td><%= s.ela_growth %></td>

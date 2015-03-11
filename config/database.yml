@@ -3,10 +3,13 @@
 development:
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see rails configuration guide
-  # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
   database: homeroom_development
+
+x2_database_development:
+  adapter: mysql
+  pool: 5
+  database: x2data
 
 test:
   adapter: postgresql
