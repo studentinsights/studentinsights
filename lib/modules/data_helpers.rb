@@ -28,6 +28,7 @@ module DataHelper
       "sasid" => :state_identifier,
       "firstname" => :first_name, 
       "lastname" => :last_name,
+      "race_off" => :race,
 
       # X2
       "NewID" => :new_id,
