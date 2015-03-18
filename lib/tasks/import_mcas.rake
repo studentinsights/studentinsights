@@ -6,6 +6,7 @@ task :import_mcas => :environment do
   require 'data_helpers'
 
   path = "#{Rails.root}/data/mcas.csv"
+  Student.destroy_all
   @number_of_students = 0
 
   if File.exist? path
@@ -27,19 +28,34 @@ task :import_mcas => :environment do
       row = csv[row_index]
       state_identifier = row[state_identifier_index]
       if state_identifier.present?
-        student = Student.find_by_state_identifier(state_identifier)
-        if student.present?
-          columns_to_get.each do |c|
-            value = row[c]
-            attribute_name = header_indicies[c]
-            student.send("#{attribute_name}=", value)
-          end
-          if student.save
-            @number_of_students += 1
-          end
+        new_student = Student.new
+        columns_to_get.each do |c|
+          attribute_name = header_indicies[c]
+          value = row[c]
+          new_student.send("#{attribute_name}=", value)
+        end
+
+        # Parse limited english status
+        flep = row[28]
+        lep = row[26]
+        if lep == "1" && flep != "1"
+          value = "LEP"
+        elsif lep != "1" && flep == "1"
+          value = "FLEP"
+        else
+          value = nil
+        end
+        
+        attribute_name = "limited_english"
+        new_student.send("#{attribute_name}=", value)
+
+        if new_student.save
+          @number_of_students += 1
         end
       end
     end
   end
-  puts "#{@number_of_students} students updated."
+  puts "#{@number_of_students} students created."
+  # puts "#{Student.where(limited_english:"FLEP").size} FLEP students."
+  # puts "#{Student.where(limited_english:"LEP").size} LEP students."
 end

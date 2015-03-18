@@ -2,6 +2,7 @@ module DataHelper
 
   MCAS_HEADERS = [
       "firstname", "lastname", "sasid",
+      "grade", "race_off", "freelunch_off", 
       "sped_off", "escaleds", "eperf2", 
       "esgp", "mscaleds", "mperf2", "msgp"
   ]
@@ -18,7 +19,6 @@ module DataHelper
   HEADER_DICTIONARY = {
 
       # MCAS
-      "sped_off" => :sped,
       "escaleds" => :ela_scaled,
       "eperf2" => :ela_performance,
       "esgp" => :ela_growth,
@@ -28,7 +28,10 @@ module DataHelper
       "sasid" => :state_identifier,
       "firstname" => :first_name, 
       "lastname" => :last_name,
+      "grade" => :grade,
       "race_off" => :race,
+      "freelunch_off" => :low_income,
+      "sped_off" => :sped,
 
       # X2
       "NewID" => :new_id,
