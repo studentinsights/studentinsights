@@ -1,3 +1,4 @@
+School.destroy_all
 School.create([
 	{state_id: 15, name: "Benjamin G Brown", school_type: "ES"	},
 	{state_id: 75, name: "Arthur D Healey", school_type: "ESMS"	},

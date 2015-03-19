@@ -1,5 +1,6 @@
 class Student < ActiveRecord::Base
   belongs_to :room, counter_cache: true
+  belongs_to :school
 
   FIRST_NAMES = [ "Casey", "Josh", "Judith", "Tae", "Kenn" ]
   LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
