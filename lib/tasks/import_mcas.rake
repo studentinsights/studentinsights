@@ -23,6 +23,8 @@ task :import_mcas => :environment do
     end
     columns_to_get = header_indicies.keys
     state_identifier_index = header_indicies.key(:state_identifier)
+    lep_index = header_indicies.key(:limited_english_proficient)
+    flep_index = header_indicies.key(:former_limited_english_proficient)
 
     (1..last_row).each do |row_index| 
       row = csv[row_index]
@@ -31,23 +33,13 @@ task :import_mcas => :environment do
         new_student = Student.new
         columns_to_get.each do |c|
           attribute_name = header_indicies[c]
-          value = row[c]
+          if attribute_name == :limited_english_proficient || attribute_name == :former_limited_english_proficient
+            value = DataHelper::TO_BOOLEAN[row[c]]
+          else
+            value = row[c]
+          end
           new_student.send("#{attribute_name}=", value)
         end
-
-        # Parse limited english status
-        flep = row[28]
-        lep = row[26]
-        if lep == "1" && flep != "1"
-          value = "LEP"
-        elsif lep != "1" && flep == "1"
-          value = "FLEP"
-        else
-          value = nil
-        end
-        
-        attribute_name = "limited_english"
-        new_student.send("#{attribute_name}=", value)
 
         if new_student.save
           @number_of_students += 1

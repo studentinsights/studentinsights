@@ -4,7 +4,8 @@ module DataHelper
       "firstname", "lastname", "sasid",
       "grade", "race_off", "freelunch_off", 
       "sped_off", "escaleds", "eperf2", 
-      "esgp", "mscaleds", "mperf2", "msgp"
+      "esgp", "mscaleds", "mperf2", "msgp", 
+      "lep_off", "flep_off"
   ]
   
   ACCESS_HEADERS = [ 
@@ -32,6 +33,8 @@ module DataHelper
       "race_off" => :race,
       "freelunch_off" => :low_income,
       "sped_off" => :sped,
+      "lep_off" => :limited_english_proficient,
+      "flep_off" => :former_limited_english_proficient,   
 
       # X2
       "NewID" => :new_id,
