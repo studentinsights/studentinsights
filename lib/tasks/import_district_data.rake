@@ -33,7 +33,7 @@ task :import_district_data => :environment do
       race = row["STD_FIELDA_002"]
       home_language = row["STD_HOME_LANGUAGE_CODE"]
 
-      new_student.assign_attributes(
+      new_student.attributes(
         first_name: first_name,
         last_name: last_name,
         state_identifier: state_id,

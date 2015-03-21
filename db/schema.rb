@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20150321134025) do
     t.integer  "students_count"
   end
 
+  create_table "schools", force: true do |t|
+    t.integer  "state_id"
+    t.string   "school_type"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "standards", force: true do |t|
     t.string   "short_code"
     t.text     "statement"
@@ -37,7 +45,6 @@ ActiveRecord::Schema.define(version: 20150321134025) do
     t.string   "grade"
     t.boolean  "hispanic_latino"
     t.string   "race"
-    t.string   "limited_english"
     t.boolean  "low_income"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -57,6 +64,9 @@ ActiveRecord::Schema.define(version: 20150321134025) do
     t.string   "state_identifier"
     t.string   "home_language"
     t.string   "address"
+    t.integer  "school_id"
+    t.boolean  "limited_english_proficient"
+    t.boolean  "former_limited_english_proficient"
   end
 
   create_table "users", force: true do |t|
