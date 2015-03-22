@@ -1,6 +1,7 @@
 class Student < ActiveRecord::Base
   belongs_to :room, counter_cache: true
   belongs_to :school
+  has_many :student_results
 
   FIRST_NAMES = [ "Casey", "Josh", "Judith", "Tae", "Kenn" ]
   LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
@@ -27,33 +28,6 @@ class Student < ActiveRecord::Base
     else
       []
     end
-  end
-
-  def self.with_mcas_data
-    Student.where.not(ela_scaled: nil)
-      .where.not(ela_performance: nil)
-      .where.not(ela_growth: nil)
-      .where.not(math_scaled: nil)
-      .where.not(math_performance: nil)
-      .where.not(math_growth: nil)
-  end 
-
-
-  def self.with_demo_data
-    Student.where.not(new_id: nil)
-      .where.not(grade: nil)
-      .where.not(hispanic_latino: nil)
-      .where.not(race: nil)
-      .where.not(limited_english: nil)
-      .where.not(low_income: nil)
-  end
-
-  def self.with_demo_and_mcas_data
-    Student.with_demo_data & Student.with_mcas_data
-  end
-  
-  def has_access_data?
-    self.access_progress.present? && self.access_growth.present? && self.access_performanc.present?
   end
 
   def highlight_hispanic_latino
