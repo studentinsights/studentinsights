@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.describe McasImporter do
 
   describe '#import' do
-
     fixture_path = "#{Rails.root}/spec/fixtures/fake_mcas.csv"
-    importer = McasImporter.new(fixture_path)
+    let(:healey) { FactoryGirl.create(:healey) }
+    let(:brown) { FactoryGirl.create(:brown) }
+    let(:importer) { McasImporter.new(fixture_path, healey, "05") }
 
     context 'with good data' do
 

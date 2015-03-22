@@ -1,8 +1,11 @@
 FactoryGirl.define do
-  factory :school do
-    state_id 1
-type ""
-name "MyString"
+
+  factory :healey, class: School do
+    name "Arthur D Healey"
+  end
+
+  factory :brown, class: School do
+    name "Benjamin G Brown"
   end
 
 end

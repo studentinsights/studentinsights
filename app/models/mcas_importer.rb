@@ -1,13 +1,16 @@
 require 'csv'
 
-class McasImporter < Struct.new(:mcas_data_path)
+class McasImporter < Struct.new(:mcas_data_path, :school, :grade)
 
   def import
     CSV.foreach(mcas_data_path, headers: true,
                                 header_converters: lambda { |h| convert_headers(h) }
                                 ) do |row|
       row = row.to_hash.except(nil)
-      Student.create! row
+      row = look_up_school(row)
+      if row[:grade] == grade && row[:school_id] == school.id
+        Student.create! row
+      end
     end
   end
 
@@ -29,12 +32,22 @@ class McasImporter < Struct.new(:mcas_data_path)
       "firstname" => :first_name, 
       "lastname" => :last_name,
       "grade" => :grade,
+      "schname" => :school_name,
       "race_off" => :race,
       "freelunch_off" => :low_income,
       "sped_off" => :sped,
       "lep_off" => :limited_english_proficient,
       "flep_off" => :former_limited_english_proficient
     }
+  end
+
+  def look_up_school(row)
+    school_name = row[:school_name]
+    school = School.find_by_name(school_name)
+    if school.present?
+      row[:school_id] = school.id
+    end
+    return row.except(:school_name)
   end
 
 end
