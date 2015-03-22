@@ -20,6 +20,10 @@ module Homeroom
       g.javascripts false  
       g.test_framework :rspec, fixture_replacement: :factory_girl
     end  
+    
+    console do
+      ActiveRecord::Base.connection
+    end
 
     env_file = File.join(Rails.root, 'config', 'local_env.yml')
     YAML.load(File.open(env_file)).each do |key, value| 
