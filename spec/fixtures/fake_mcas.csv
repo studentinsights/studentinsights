@@ -1,3 +1,3 @@
-sasid,grade,lastname,firstname,gender,lep_off,lepflep_off,schname
-000222,05,Smithgall,Ben,M,0,0,Arthur D Healey
-000223,05,Muraki,Mari,F,0,0,Benjamin G Brown
+sasid,grade,lastname,firstname,gender,lep_off,lepflep_off,school
+000222,05,Smithgall,Ben,M,0,0,15
+000223,05,Muraki,Mari,F,0,0,75
