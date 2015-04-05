@@ -1,11 +1,11 @@
 FactoryGirl.define do
 
   factory :healey, class: School do
-    name "Arthur D Healey"
+    state_id 15
   end
 
   factory :brown, class: School do
-    name "Benjamin G Brown"
+    state_id 75
   end
 
 end
