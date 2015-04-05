@@ -33,6 +33,7 @@ gem 'rails_12factor', group: :production
 gem 'spring',        group: :development
 
 group :development, :test do
+  gem 'rack-test'
   gem "factory_girl_rails"
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'

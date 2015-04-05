@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   get 'about' => 'pages#about'
 
   # Two factor
-  get '/get_pin' => 'users#get_pin', as: "get_pin"
-  post '/send_pin' => 'users#send_pin', as: "send_pin"
+  # get '/get_pin' => 'users#get_pin', as: "get_pin"
+  # post '/send_pin' => 'users#send_pin', as: "send_pin"
 
   resources :students
 
