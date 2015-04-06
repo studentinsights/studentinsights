@@ -12,7 +12,7 @@ class StudentsController < ApplicationController
         @room = Room.create(name: "100")
       end
     end
-    @rooms_by_name = Room.all.sort_by { |r| r.name.to_i }.sort_by { |r| r.name.size }
+    @rooms_by_name = Room.order(:name)
     @students = Student.default_sort_by_math(@room)
     @number_of_students = @students.map {|k, v| v.length }.sum
     @risk_categories = [ "High", "Medium", "Low" ]

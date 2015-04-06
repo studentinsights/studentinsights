@@ -1,7 +1,9 @@
 class Student < ActiveRecord::Base
   belongs_to :room, counter_cache: true
   belongs_to :school
-  has_many :student_results
+  has_many :student_results, dependent: :destroy
+  has_many :assessments, through: :student_results
+
 
   FIRST_NAMES = [ "Casey", "Josh", "Judith", "Tae", "Kenn" ]
   LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
@@ -36,7 +38,6 @@ class Student < ActiveRecord::Base
     else
       "no-risk"
     end
-
   end
 
   def highlight_race
