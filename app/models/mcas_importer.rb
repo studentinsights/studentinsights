@@ -68,12 +68,12 @@ class McasImporter < Struct.new(:mcas_data_path, :school, :grade, :year)
   end
 
   def look_up_school(row)
-    school_name = row['school_name']
-    school = School.find_by_name(school_name)
+    school_state_id = row['school_state_id']
+    school = School.find_by_name(school_state_id)
     if school.present?
       row['school_id'] = school.id
     end
-    return row.except('school_name')
+    return row.except('school_state_id')
   end
 
 end

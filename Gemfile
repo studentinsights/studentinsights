@@ -5,7 +5,6 @@ gem 'rails', '4.1.4'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
-gem 'mysql'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -33,10 +32,12 @@ gem 'rails_12factor', group: :production
 gem 'spring',        group: :development
 
 group :development, :test do
+  gem 'rack-test'
   gem "factory_girl_rails"
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'mysql'
 end
 
 # Auth 
