@@ -11,6 +11,17 @@ RSpec.describe McasImporter do
 
     context 'with good data' do
 
+      it 'creates an assessment' do
+        expect {
+          healey_importer.import
+        }.to change(Assessment, :count).by(1)
+      end
+
+      it 'sets the assessment name correctly' do
+        healey_importer.import
+        expect(Assessment.last.name).to eq('MCAS')
+      end
+
       context 'for Healey school' do
 
         it 'creates a student' do
@@ -23,6 +34,24 @@ RSpec.describe McasImporter do
           healey_importer.import
           expect(Student.last.first_name).to eq('Ben')
         end
+
+        it 'sets the student demograpics correctly' do
+          healey_importer.import
+          expect(Student.last.race).to eq('W')
+          expect(Student.last.limited_english_proficient).to be false
+          expect(Student.last.former_limited_english_proficient).to be true
+        end
+
+        it 'creates a student result' do
+          expect {
+            healey_importer.import
+          }.to change(StudentResult, :count).by(1)
+        end
+
+        it 'sets the student result correctly' do
+          healey_importer.import
+          expect(StudentResult.last.ela_growth).to eq(19)
+        end
       end
 
       context 'for Brown school' do
@@ -31,6 +60,7 @@ RSpec.describe McasImporter do
           brown_importer.import
           expect(Student.last.first_name).to eq('Mari')
         end
+        
       end
     end
   end
