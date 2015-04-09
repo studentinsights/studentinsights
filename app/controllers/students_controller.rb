@@ -6,16 +6,16 @@ class StudentsController < ApplicationController
     if room_params.present?
       @room = Room.find_by_name(room_params[:room])
     else
-      if Room.first.present?  
-        @room = Room.first
-      else
-        @room = Room.create(name: "100")
-      end
+      @room = Room.first || Room.create(name: "100")
     end
-    @rooms_by_name = Room.order(:name)
-    @students = Student.default_sort_by_math(@room)
-    @number_of_students = @students.map {|k, v| v.length }.sum
+
+    @students = @room.students
+    @sorted_students = Student.default_sort(@students)
+    @number_of_students = @students.size
     @risk_categories = [ "High", "Medium", "Low" ]
+
+    # Order rooms for dropdown menu of homerooms
+    @rooms_by_name = Room.order(:name)
   end
 
   def room_params

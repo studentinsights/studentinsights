@@ -1,0 +1,35 @@
+                <tr>
+                  <td><%= presenter.full_name %></td>
+                  <td><%= presenter.student.race %></td>
+                  <td><%= presenter.sped %></td>
+                  <td><%= presenter.limited_english_proficient %></td>
+                  <% unless controller_name == 'pages' && action_name == 'roster_demo' %>
+                    <% r = presenter.student.student_results.last %>
+                  <% else %>
+                    <% r = StudentResult.new(StudentResult.fake_data) %>
+                  <% end %>
+                  <td>
+                    <% if r.math_performance_warning? %>
+                      <%= render "students/warning_indicator" %>
+                    <% end %>
+                    <%= r.math_performance %>
+                  </td>
+                  <td>
+                    <% if r.math_growth_warning? %>
+                      <%= render "students/warning_indicator" %>
+                    <% end %>
+                    <%= r.math_growth %>
+                  </td>
+                  <td>
+                    <% if r.ela_performance_warning? %>
+                      <%= render "students/warning_indicator" %>
+                    <% end %>
+                    <%= r.ela_performance %>
+                  </td>
+                  <td>
+                    <% if r.ela_growth_warning? %>
+                      <%= render "students/warning_indicator" %>
+                    <% end %>
+                    <%= r.ela_growth %>
+                  </td>
+                </tr>

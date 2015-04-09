@@ -20,16 +20,16 @@ p {
   color: #555;
 }
 
-.smalltype {
-  font-weight: normal;
-  font-size: 12px;
-  color: #999;
-}
-
 h3 {
   font-size: 14px;
   color: #555;
   font-weight: bold;
+}
+
+.smalltype {
+  font-weight: 300;
+  font-size: 13px;
+  color: #999;
 }
 
 /* NAV AND DROPDOWN */
@@ -73,34 +73,27 @@ h3 {
   margin: 16px 0;
 }
 
-/* TABLES, TAB, NAV */
+/* TABLE */
 
-.nav{
-    border-bottom:1px solid #ccc;
-    border-width:1px 0;
-    list-style:none;
-    margin:0;
-    padding:0;
-    padding-top: 20px;
-}
-.nav li{
-    display:inline;
-    font-size: 14px;
-    color: #555;
-    padding-right: 3px;
-    padding-bottom: 9px;
-    cursor:pointer;
-    margin-right: 30px;
+.column-groups {
+  text-align: center;
 }
 
-.activetab {
-    border-bottom:3px solid #4A90E2;
+.column-groups td p {
+  height: 20px;
+  border-bottom: 1px solid #ddd;
 }
 
-.subnav {
-  display: block;
-  clear: both;
+.column-names td {
+  height: 50px;
+  border-bottom: 1px solid #555;
+  vertical-align: bottom;
+}
+
+.risk-groups td {
   height: 60px;
+  border-bottom: 1px solid #ddd;
+  vertical-align: bottom;
 }
 
 tr, td {
@@ -111,20 +104,14 @@ tr, td {
   color: #555;
 }
 
-td.header {
-  font-size: 11px;
-  padding-bottom: 10px;
-  color: #999;
-  font-style: italic;
-}
-
-td.risk {
-  font-weight: bold;
-  color: #333;
-}
-
-td.not-risk {
-  color: #555;
+.performance-warning-circle {
+  background-color: red;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  position: relative;
+  right: 14px;
+  top: 9px;
 }
 
 .nav {
@@ -198,8 +185,6 @@ a {
 select option {
   text-align: center;
 }
-
-
 
 .overlay-arrow {
     font-size: 8px;
