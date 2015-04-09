@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   root 'pages#about'
   get 'about' => 'pages#about'
+  get 'demo' => 'pages#roster_demo'
 
   # Two factor
   # get '/get_pin' => 'users#get_pin', as: "get_pin"
