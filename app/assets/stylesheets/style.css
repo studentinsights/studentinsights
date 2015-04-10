@@ -42,7 +42,7 @@ h3 {
 
 .navwrap {
   width: 80%;
-  margin: auto auto;
+  margin: 10px auto;
 }
 
 #homeroom-dropdown {
@@ -80,18 +80,19 @@ h3 {
 }
 
 .column-groups td p {
-  height: 20px;
+  height: 25px;
   border-bottom: 1px solid #ddd;
+  padding-bottom: 0;
+  margin-bottom: -10px;
 }
 
 .column-names td {
-  height: 50px;
-  border-bottom: 1px solid #555;
+  border-bottom: 1px solid #C6C6C6;
   vertical-align: bottom;
 }
 
 .risk-groups td {
-  height: 60px;
+  height: 50px;
   border-bottom: 1px solid #ddd;
   vertical-align: bottom;
 }
@@ -105,16 +106,17 @@ tr, td {
 }
 
 .performance-warning-circle {
-  background-color: red;
+  background-color: #DA172F;
   height: 7px;
   width: 7px;
   border-radius: 50%;
   position: relative;
   right: 14px;
-  top: 9px;
+  top: 14px;
 }
 
 .nav {
+  border-bottom: 1px solid #C6C6C6;
   background-color: white;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -128,7 +130,7 @@ tr, td {
 
 h1 {
   font-weight: normal;
-  color: #555;
+  color: #333;
   font-size: 24px;
 }
 
@@ -153,7 +155,11 @@ h1 {
 }
 
 a { 
-  color: blue; text-decoration: underline; 
+  color: #4A90E2; 
+  font-weight: normal;
+  font-size: 14px;
+  padding-right: 20px;
+  text-decoration: none; 
   cursor: pointer;
 }
 
@@ -190,8 +196,8 @@ select option {
     font-size: 8px;
     color: #333;
     position: absolute;
-    right: 35px;
-    top : 12px;
+    right: 25px;
+    top : 13px;
     cursor: default;
     line-height: 1px;
 
