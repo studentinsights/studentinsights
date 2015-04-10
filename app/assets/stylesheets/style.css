@@ -45,6 +45,8 @@ h3 {
   margin: 10px auto;
 }
 
+
+
 #homeroom-dropdown {
   position: relative;
   right: 30px;
@@ -86,9 +88,15 @@ h3 {
   margin-bottom: -10px;
 }
 
+.column-groups td:last-of-type {
+  padding-right: 0;
+}
+
+
 .column-names td {
   border-bottom: 1px solid #C6C6C6;
   vertical-align: bottom;
+  padding-left: 20px;
 }
 
 .risk-groups td {
@@ -125,7 +133,6 @@ tr, td {
 .nav #title {
   padding-bottom: 10px;
   padding-top: 10px;
-
 }
 
 h1 {
@@ -155,13 +162,27 @@ h1 {
 }
 
 a { 
-  color: #4A90E2; 
   font-weight: normal;
   font-size: 14px;
-  padding-right: 20px;
   text-decoration: none; 
   cursor: pointer;
 }
+
+nav {
+    display: block;
+    clear: both;
+}
+
+nav a:link, a:visited {
+    color: #4A90E2; 
+    padding-right: 20px;
+}
+
+nav a:hover, a:active {
+    color: #4a6ae2; 
+}
+
+
 
 /*room dropdown*/
 
