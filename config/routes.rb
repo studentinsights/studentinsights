@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :educators
 
-  authenticated :user do
+  authenticated :educator do
     root :to => "students#index", as: "authenticated_root"
   end
   

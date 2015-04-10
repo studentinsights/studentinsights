@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_educator!
 
   def index
     if room_params.present?
