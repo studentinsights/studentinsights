@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     @risk_categories = [ "High", "Medium", "Low" ]
     @sorted_students = Student.default_sort(@students)
 
-    @room = Room.create(name: "Demo")
+    @room = Room.where(name: "Demo").first_or_create
     @rooms_by_name = [@room]
     render "students/index"
   end
