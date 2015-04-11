@@ -1,5 +1,5 @@
 # Teacher Tool: A Student Roster Generator for Somerville [![Build Status](https://travis-ci.org/codeforamerica/somerville-teacher-tool.svg?branch=master)][travis]
-[travis]: https://travis-ci.org/codeforamerica/Homeroom
+[travis]: https://travis-ci.org/codeforamerica/somerville-teacher-tool
 
 ## What
 The app creates rosters of students that can be grouped and sorted in different ways, including by homeroom, by demographic sub-groups (e.g. low-income students), and by risk level. 
