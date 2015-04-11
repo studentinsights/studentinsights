@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-describe UsersController, :type => :controller do
+describe EducatorsController, :type => :controller do
 
 end

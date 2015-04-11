@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :educators
 
-  authenticated :user do
+  authenticated :educator do
     root :to => "students#index", as: "authenticated_root"
   end
   
@@ -10,10 +10,7 @@ Rails.application.routes.draw do
   get 'about' => 'pages#about'
   get 'demo' => 'pages#roster_demo'
 
-  # Two factor
-  # get '/get_pin' => 'users#get_pin', as: "get_pin"
-  # post '/send_pin' => 'users#send_pin', as: "send_pin"
-
-  resources :students
-
+  resources :homerooms do
+    resources :students
+  end
 end

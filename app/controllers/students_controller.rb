@@ -1,25 +1,27 @@
 class StudentsController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_educator!
+  before_action :assign_homeroom
 
   def index
-    if room_params.present?
-      @room = Room.find_by_name(room_params[:room])
-    else
-      @room = Room.first || Room.create(name: "100")
-    end
-
-    @students = @room.students
+    @students = @homeroom.students
     @sorted_students = Student.default_sort(@students)
     @number_of_students = @students.size
     @risk_categories = [ "High", "Medium", "Low" ]
 
-    # Order rooms for dropdown menu of homerooms
-    @rooms_by_name = Room.order(:name)
+    # Order for dropdown menu of homerooms
+    @homerooms_by_name = Homeroom.order(:name)
   end
 
-  def room_params
-    params.permit(:room)
-  end
+  private
 
+  def assign_homeroom
+    @homeroom = Homeroom.find(params[:homeroom_id])
+  rescue ActiveRecord::RecordNotFound
+    if current_educator.homeroom.present?
+      @homeroom = current_educator.homeroom
+    else
+      @homeroom = Homeroom.first
+    end
+  end
 end

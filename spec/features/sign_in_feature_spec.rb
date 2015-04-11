@@ -3,35 +3,32 @@ require 'capybara/rspec'
 
 describe "Sign In Flow", :type => :feature do
 
-  context "user with account signs in" do
+  context "educator with account signs in" do
+    let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+    let(:homeroom) { FactoryGirl.create(:homeroom) } 
 
     it "can access students page" do
-      user = FactoryGirl.create(:user)
       visit root_url
       click_link 'Sign In'
-      fill_in 'user_email', with: user.email
-      fill_in 'user_password', with: user.password
+      fill_in 'educator_email', with: educator.email
+      fill_in 'educator_password', with: educator.password
       click_button 'Log in'
-
       expect(page).to have_content 'Signed in successfully.'
-      visit "/students"
-      expect(current_path).to eq("/students")
+      visit homeroom_students_url(homeroom)
     end
 
   end
 
-  context "user without account signs in" do
+  context "educator without account signs in" do
 
     it "cannot access students page" do
       visit root_url
       click_link 'Sign In'
-      fill_in 'user_email', with: "username"
-      fill_in 'user_password', with: "password"
+      fill_in 'educator_email', with: "educatorname"
+      fill_in 'educator_password', with: "password"
       click_button 'Log in'
 
       expect(page).to have_content 'Invalid email or password.'
-      visit "/students"
-      expect(current_path).not_to eq("/students")
     end 
 
   end

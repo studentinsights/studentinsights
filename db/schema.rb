@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326174432) do
+ActiveRecord::Schema.define(version: 20150411152948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,11 +23,32 @@ ActiveRecord::Schema.define(version: 20150326174432) do
     t.datetime "updated_at"
   end
 
-  create_table "rooms", force: true do |t|
+  create_table "educators", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "admin"
+    t.string   "phone"
+  end
+
+  add_index "educators", ["email"], name: "index_educators_on_email", unique: true, using: :btree
+  add_index "educators", ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true, using: :btree
+
+  create_table "homerooms", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "students_count"
+    t.integer  "educator_id"
   end
 
   create_table "schools", force: true do |t|
@@ -69,7 +90,7 @@ ActiveRecord::Schema.define(version: 20150326174432) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "sped"
-    t.integer  "room_id"
+    t.integer  "homeroom_id"
     t.boolean  "access_progress"
     t.integer  "access_growth"
     t.integer  "access_performance"
@@ -82,29 +103,5 @@ ActiveRecord::Schema.define(version: 20150326174432) do
     t.boolean  "limited_english_proficient"
     t.boolean  "former_limited_english_proficient"
   end
-
-  create_table "users", force: true do |t|
-    t.string   "email",                     default: "",    null: false
-    t.string   "encrypted_password",        default: "",    null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",             default: 0,     null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "admin"
-    t.string   "phone"
-    t.string   "encrypted_otp_secret"
-    t.string   "encrypted_otp_secret_iv"
-    t.string   "encrypted_otp_secret_salt"
-    t.boolean  "otp_required_for_login",    default: false
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
