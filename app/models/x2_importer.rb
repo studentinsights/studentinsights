@@ -22,9 +22,9 @@ class X2Importer < Struct.new(:school, :grade)
           student.update_attributes(
             home_language: home_language
           )
-          room_name = row["STD_HOMEROOM"]
-          room = Room.where(name: room_name).first_or_create!
-          student.room_id = room.id
+          homeroom_name = row["STD_HOMEROOM"]
+          homeroom = Homeroom.where(name: homeroom_name).first_or_create!
+          student.homeroom_id = homeroom.id
           student.save
         end
       end
