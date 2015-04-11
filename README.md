@@ -1,27 +1,48 @@
 # Teacher Tool: A Student Roster Generator for Somerville [![Build Status](https://travis-ci.org/codeforamerica/somerville-teacher-tool.svg?branch=master)][travis]
 [travis]: https://travis-ci.org/codeforamerica/Homeroom
 
-## Who 
-Alex, Amir, and Mari from Code for America's [Somerville Fellowship Team](http://www.codeforamerica.org/governments/somerville/) in collaboration with the City of Somerville and Somerville Public Schools.
-
 ## What
 The app creates rosters of students that can be grouped and sorted in different ways, including by homeroom, by demographic sub-groups (e.g. low-income students), and by risk level. 
 
 ## Why
 Teachers, building-level administrators, and district administrators could use this roster to see patterns in their classroom and target specific interventions to support their students. 
 
-### User story
+#### User story
 As an admin, I want to generate reports so that I can see the students at risk and whether they are receiving necessary interventions.
 
 As a teacher, I want to analyze reports so that I can see the students at risk and target those students with necesssary interventions.
+
+## Installation
+This is a Ruby on Rails app and uses a PostgreSQL database. See Code for America's "HowTo" on Rails for more information on deploying and maintaining apps using Rails: https://github.com/codeforamerica/howto/blob/master/Rails.md
+
+## Tests
+This app uses the [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) testing library. To run the test suite:
+
+```
+rspec
+```
+
+#### Pre-commit
+This app comes with a suggested pre-commit file that you can add to your git hooks. It will run the tests before any commmits, so you can be sure any changes you add are kosher.
+
+Add to your git hooks: 
+
+```
+cp pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit 
+```
+
+If you have a good reason to skip the test suite and commit straightaway:
+
+```
+git commit --no-verify
+```
 
 ## Status
 We kicked up this app during Build Week 2015 as a warm-up getting-to-know-you exercise. The initial product idea and subsequent feedback came from Stephanie Hirsch as well as other exciting projects in the Somerville Public Schools. 
 
 This app is in the "experimental / plaything / demo" stage as of late January 2015. It draws from a single set of de-identified sample data from Excel to generate risk levels by homeroom, so it can't do anything useful in the wild right. If this demo seems promising to stakeholders and early iterations prove useful, it could grow up over the course of the fellowship year.
 
-## How To
-This is a Ruby on Rails app and uses a PostgreSQL database. See Code for America's "HowTo" on Rails for more information on deploying and maintaining apps using Rails: https://github.com/codeforamerica/howto/blob/master/Rails.md
 
 ## Future? 
 This app could grow in several different ways.
@@ -32,9 +53,5 @@ This app could grow in several different ways.
 * __Unique URLs__: Can be generated to be viewed online at a later time by users with access.
 * __Printable PDFs__: Can be exported of any view for teachers to print out and use at data meetings. 
 
-## Tests
-This app uses the [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) testing library. To run the test suite:
-
-```
-rspec
-```
+## Who made this?
+Alex, Amir, and Mari from Code for America's [Somerville Fellowship Team](http://www.codeforamerica.org/governments/somerville/) in collaboration with the City of Somerville and Somerville Public Schools.
