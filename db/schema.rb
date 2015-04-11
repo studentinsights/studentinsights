@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410210231) do
+ActiveRecord::Schema.define(version: 20150411152948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,11 +43,12 @@ ActiveRecord::Schema.define(version: 20150410210231) do
   add_index "educators", ["email"], name: "index_educators_on_email", unique: true, using: :btree
   add_index "educators", ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true, using: :btree
 
-  create_table "rooms", force: true do |t|
+  create_table "homerooms", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "students_count"
+    t.integer  "educator_id"
   end
 
   create_table "schools", force: true do |t|
@@ -89,7 +90,7 @@ ActiveRecord::Schema.define(version: 20150410210231) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "sped"
-    t.integer  "room_id"
+    t.integer  "homeroom_id"
     t.boolean  "access_progress"
     t.integer  "access_growth"
     t.integer  "access_performance"
