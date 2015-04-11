@@ -2,8 +2,8 @@
     <div id="homeroom-dropdown" class="dropdown">
         <p>Homeroom:</p>
           <select id="homeroom-select">
-            <% @rooms_by_name.each do |r| %>
-              <option <% if r == @room %>selected<% end %>><%= r.name %></option>
+            <% @homerooms_by_name.each do |r| %>
+              <option <% if r == @homeroom %>selected<% end %>><%= r.name %></option>
             <% end %>
           </select> 
         <div class="overlay-arrow">&#9660;</div>
@@ -44,4 +44,3 @@
       <% end %>
     </table>
   </div>
-  <div id="init-room-id" data-room-id="<%= @room.id %>"></div>
