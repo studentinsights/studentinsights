@@ -37,7 +37,7 @@ class X2Importer < Struct.new(:school_scope, :grade_scope)
     return student
   end
 
-  def create_or_update_homeroom(student, homeroom_name)
+  def assign_student_to_homeroom(student, homeroom_name)
     homeroom = Homeroom.where(name: homeroom_name).first_or_create!
     student.homeroom_id = homeroom.id
     student.save
