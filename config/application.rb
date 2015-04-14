@@ -25,10 +25,10 @@ module SomervilleTeacherTool
       ActiveRecord::Base.connection
     end
 
-    # env_file = File.join(Rails.root, 'config', 'local_env.yml')
-    # YAML.load(File.open(env_file)).each do |key, value| 
-    #   ENV[key.to_s] = value 
-    # end if File.exists?(env_file)
+    env_file = File.join(Rails.root, 'config', 'local_env.yml')
+    YAML.load(File.open(env_file)).each do |key, value| 
+      ENV[key.to_s] = value 
+    end if File.exists?(env_file)
     
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
