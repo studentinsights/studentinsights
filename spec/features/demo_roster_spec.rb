@@ -14,9 +14,9 @@ describe "demo roster flow", :type => :feature do
     it "can see risk categories" do
       visit root_url
       click_link "Roster Demo"
-      expect(page).to have_content 'High Risk'
-      expect(page).to have_content 'Low Risk'
-      expect(page).to have_content 'Medium Risk'
+      expect(page).to have_content 'Demographics'
+      expect(page).to have_content 'Math'
+      expect(page).to have_content 'English'
     end
 
   end
