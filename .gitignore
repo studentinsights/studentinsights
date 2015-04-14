@@ -3,7 +3,7 @@
 /tmp
 /sketch
 /data
-
+coverage
 config/local_env.yml
 db/seeds/development/users.seeds.rb
 
