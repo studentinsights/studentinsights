@@ -7,6 +7,7 @@ class X2Importer < Struct.new(:school_scope, :grade_scope)
     @student_result = ActiveRecord::Base.connection.exec_query(@student_sql).to_hash
     @school_result = ActiveRecord::Base.connection.exec_query(@school_sql).to_hash
     ActiveRecord::Base.connection.close
+    ActiveRecord::Base.establish_connection(:development)
     return [@student_result, @school_result]
   end
 
