@@ -1,6 +1,6 @@
-path = "#{Rails.root}/data/mcas.csv"
+path = "#{Rails.root}/data/mcas2014.csv"
 healey = School.find_by_name("Arthur D Healey")
-grade = "05"
+grade = "04"
 year = Time.new(2014)
 Assessment.where(name: "MCAS", year: year).destroy_all
 

@@ -1,6 +1,6 @@
 require 'csv'
 
-class McasImporter < Struct.new(:mcas_data_path, :school, :grade, :year)
+class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :year)
 
   def import
     assessment = Assessment.where(name: 'MCAS', year: year).first_or_create!
@@ -9,7 +9,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school, :grade, :year)
                                 ) do |row|
       row = row.to_hash.except(nil)
       row = look_up_school(row)
-      if row['grade'] == grade && row['school_id'] == school.id
+      if row['grade'] == grade_scope && row['school_id'] == school_scope.id
         student = Student.where(state_identifier: row['state_identifier']).first_or_create!
 
         (demographic_attrs + id_attrs).each do |attribute|

@@ -1,0 +1,13 @@
+module FakeX2
+  FAKE_STUDENT_HASH = {
+    "STD_ID_STATE"=>"10", 
+    "STD_SKL_OID"=>"SKL0000000000C", 
+    "STD_GRADE_LEVEL"=>"11", "STD_HOMEROOM"=>"101", 
+    "STD_ENROLLMENT_STATUS"=>"Active", 
+    "STD_HOME_LANGUAGE_CODE"=>"Chinese"
+  }
+
+  FAKE_SCHOOL_HASH = { 
+    "SKL_OID"=>"SKL0000000000C", "SKL_SCHOOL_ID"=>"AFAS"
+  }
+end
