@@ -7,7 +7,6 @@
 
 table {
   width: 100%;
-  margin: auto auto;
 }
 
 body { 
@@ -118,6 +117,15 @@ tr, td {
   color: #555;
 }
 
+td {
+  width: 10%;
+}
+
+td:first-child {
+  width: 20%;
+}
+
+
 .performance-warning-circle {
   background-color: #DA172F;
   height: 7px;
@@ -148,6 +156,7 @@ h1 {
 
 .info-area {
   width: 80%;
+  min-width: 520px;
   margin: auto auto;
   background-color: white;
   border-radius: 9px;
