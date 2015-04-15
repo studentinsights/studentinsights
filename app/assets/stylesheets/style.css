@@ -187,8 +187,6 @@ nav a:hover, a:active {
     color: #4a6ae2; 
 }
 
-
-
 /*room dropdown*/
 
 .dropdown p {
@@ -198,37 +196,6 @@ nav a:hover, a:active {
   margin-right: 5px;
 }
 
-.dropdown select {
-      background-color: #efefef;
-      border: 0 !important;  /*Removes border*/
-      -webkit-appearance: none;  /*Removes default chrome and safari style*/
-      -moz-appearance: none; /* Removes Default Firefox style*/
-      background-position: 80px 8px;  /*Position of the background-image*/
-      width: 80px; /*Width of select dropdown to give space for arrow image*/
-      height: 20px;/*fix for mac input height*/
-      text-indent: 0.01px; /* Removes default arrow from firefox*/
-      text-overflow: "";  /*Removes default arrow from firefox*/
-      cursor: pointer;/*My custom style for fonts*/
-      color: #333;
-      font-size: 14px;
-      font-weight: bold;
-}
-
-select option {
-  text-align: center;
-}
-
-.overlay-arrow {
-    font-size: 8px;
-    color: #333;
-    position: absolute;
-    right: 25px;
-    top : 13px;
-    cursor: default;
-    line-height: 1px;
-
-}
-
 .dropdown {
     position: relative;
     float: left;
@@ -236,7 +203,6 @@ select option {
     padding: 0px;
     margin-top: 15px;
 }
-
 
 .slider-label {
   color: #999;
