@@ -3,7 +3,9 @@
         <p>Homeroom:</p>
           <select id="homeroom-select">
             <% @homerooms_by_name.each do |r| %>
-              <option <% if r == @homeroom %>selected<% end %>><%= r.name %></option>
+              <option <% if r == @homeroom %>selected<% end %> value="<%= r.id %>">
+                <%= r.name %>
+              </option>
             <% end %>
           </select> 
         <div class="overlay-arrow">&#9660;</div>
