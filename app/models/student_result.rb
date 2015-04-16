@@ -13,19 +13,27 @@ class StudentResult < ActiveRecord::Base
   # Warning flags for variables in roster view
 
   def math_performance_warning?
-    performance_warning_level.include? math_performance
+    if math_performance.present?
+      performance_warning_level.include? math_performance
+    end
   end
 
   def ela_performance_warning?
-    performance_warning_level.include? ela_performance
+    if ela_performance.present?
+      performance_warning_level.include? ela_performance
+    end
   end
 
   def math_growth_warning?
-    math_growth < growth_warning_level
+    if math_growth.present?
+      math_growth < growth_warning_level
+    end
   end
 
   def ela_growth_warning?
-    ela_growth < growth_warning_level
+    if ela_growth.present?
+      ela_growth < growth_warning_level
+    end
   end
 
   def warning?
