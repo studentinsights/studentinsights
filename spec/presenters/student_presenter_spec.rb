@@ -31,9 +31,9 @@ RSpec.describe StudentPresenter do
       end
     end
     context 'does not have a sped status' do
-      it 'presents N/A' do
+      it 'presents —' do
         presenter = StudentPresenter.new student_without_attributes
-        expect(presenter.sped).to eq "N/A"
+        expect(presenter.sped).to eq "—"
       end
     end
   end
@@ -53,9 +53,9 @@ RSpec.describe StudentPresenter do
       end
     end
     context 'does not have a limited english proficient status' do
-      it 'presents N/A' do
+      it 'presents —' do
         presenter = StudentPresenter.new student_without_attributes
-        expect(presenter.limited_english_proficient).to eq "N/A"
+        expect(presenter.limited_english_proficient).to eq "—"
       end
     end
   end

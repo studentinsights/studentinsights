@@ -6,9 +6,9 @@ RSpec.describe StudentResultPresenter do
 
   describe '#math_performance' do
     context 'has no math result' do
-      it 'presents N/A' do
+      it 'presents ""' do
         presenter = StudentResultPresenter.new(student_result_without_math)
-        expect(presenter.math_performance).to eq "N/A"
+        expect(presenter.math_performance).to eq "—"
       end
     end
     context 'has a math result' do
@@ -20,9 +20,9 @@ RSpec.describe StudentResultPresenter do
   end
   describe '#ela_growth' do
     context 'has no ela result' do
-      it 'presents N/A' do
+      it 'presents "—"' do
         presenter = StudentResultPresenter.new(student_result_without_ela)
-        expect(presenter.ela_growth).to eq "N/A"
+        expect(presenter.ela_growth).to eq "—"
       end
     end
     context 'has an ela result' do

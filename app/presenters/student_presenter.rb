@@ -6,7 +6,7 @@ class StudentPresenter < Struct.new(:student)
 
   def sped
     if student.sped.nil?
-      "N/A"
+      "—"
     else
       student.sped ? "Yes" : "No"
     end
@@ -14,7 +14,7 @@ class StudentPresenter < Struct.new(:student)
 
   def limited_english_proficient
     if student.limited_english_proficient.nil?
-      "N/A"
+      "—"
     else
       student.limited_english_proficient ? "Yes" : "No"
     end 

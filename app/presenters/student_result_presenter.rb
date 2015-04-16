@@ -1,19 +1,19 @@
 class StudentResultPresenter < Struct.new(:result)
 
   def math_performance
-    result.math_performance.present? ? result.math_performance : "N/A"
+    result.math_performance.present? ? result.math_performance : "—"
   end
 
   def ela_performance
-    result.ela_performance.present? ? result.ela_performance : "N/A"
+    result.ela_performance.present? ? result.ela_performance : "—"
   end
 
   def ela_growth
-    result.ela_growth.present? ? result.ela_growth : "N/A"
+    result.ela_growth.present? ? result.ela_growth : "—"
   end
 
   def math_growth
-    result.math_growth.present? ? result.math_growth : "N/A"
+    result.math_growth.present? ? result.math_growth : "—"
   end
 
   def math_growth_warning?
