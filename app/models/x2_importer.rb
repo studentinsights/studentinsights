@@ -30,10 +30,13 @@ class X2Importer < Struct.new(:school_scope, :grade_scope)
   def create_or_update_student(row)
     state_id = row["STD_ID_STATE"]
     student = Student.where(state_identifier: state_id).first_or_create!
-    home_language = row["STD_HOME_LANGUAGE_CODE"]
-    student.update_attributes(
-      home_language: home_language
-    )
+    full_name = row["std_name_view"]
+    if full_name.present?
+      student.last_name = full_name.split(", ")[0]
+      student.first_name = full_name.split(", ")[1]
+    end
+    student.home_language = row["STD_HOME_LANGUAGE_CODE"]
+    student.save
     return student
   end
 

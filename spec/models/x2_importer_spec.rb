@@ -26,23 +26,38 @@ RSpec.describe X2Importer do
       let!(:student) { FactoryGirl.create(:student_we_want_to_update) } 
       it 'updates the student' do
         expect {
-          healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT)
+          healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT_WITH_NAME)
         }.to change(Student, :count).by(0)
       end
       it 'updates the student home langauge correctly' do
-        healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT)
+        healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT_WITH_NAME)
         expect(student.reload.home_language).to eq("Chinese")
       end
     end
     context 'student does not already exist' do
       it 'creates a new student' do
         expect {
-          healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT)
+          healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT_WITH_NAME)
         }.to change(Student, :count).by(1)
       end
-      it 'sets the student home langauge correctly' do
-        new_student = healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT)
-        expect(new_student.reload.home_language).to eq("Chinese")
+      context 'student info contains a name field' do
+        it 'updates the student name correctly' do
+          new_student = healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT_WITH_NAME)
+          expect(new_student.reload.first_name).to eq("Amir")
+          expect(new_student.reload.last_name).to eq("Hadjihabib")
+        end
+      end
+      context 'student info does not contains a name field' do
+        it 'does not raise an error' do
+          expect { 
+            healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT_WITHOUT_NAME)
+          }.to_not raise_error
+        end
+        it 'does not set a name' do
+          new_student = healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT_WITHOUT_NAME)
+          expect(new_student.reload.first_name).to eq nil
+          expect(new_student.reload.last_name).to eq nil
+        end
       end
     end
   end

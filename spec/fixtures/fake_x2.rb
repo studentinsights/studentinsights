@@ -1,8 +1,17 @@
 module FakeX2
-  FAKE_STUDENT = {
+  FAKE_STUDENT_WITH_NAME = {
     "STD_ID_STATE"=>"10", 
     "STD_SKL_OID"=>"SKL0000000000C", 
-    "STD_GRADE_LEVEL"=>"11", "STD_HOMEROOM"=>"101", 
+    "STD_GRADE_LEVEL"=>"05", "STD_HOMEROOM"=>"101", 
+    "STD_ENROLLMENT_STATUS"=>"Active", 
+    "STD_HOME_LANGUAGE_CODE"=>"Chinese",
+    "std_name_view"=>"Hadjihabib, Amir"
+  }
+
+  FAKE_STUDENT_WITHOUT_NAME = {
+    "STD_ID_STATE"=>"9", 
+    "STD_SKL_OID"=>"SKL0000000000C", 
+    "STD_GRADE_LEVEL"=>"05", "STD_HOMEROOM"=>"101", 
     "STD_ENROLLMENT_STATUS"=>"Active", 
     "STD_HOME_LANGUAGE_CODE"=>"Chinese"
   }

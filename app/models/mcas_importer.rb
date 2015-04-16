@@ -41,8 +41,6 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :y
       'mperf2' => 'math_performance',
       'msgp' => 'math_growth',
       'sasid' => 'state_identifier',
-      'firstname' => 'first_name',
-      'lastname' => 'last_name',
       'grade' => 'grade',
       'school' => 'school_state_id',
       'race_off' => 'race',
@@ -64,7 +62,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :y
   end
 
   def id_attrs
-    [ 'state_identifier', 'first_name', 'last_name', 'grade' ]
+    [ 'state_identifier', 'grade' ]
   end
 
   def look_up_school(row)
