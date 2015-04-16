@@ -64,6 +64,8 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    faker (1.4.3)
+      i18n (~> 0.5)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (2.2.12)
@@ -208,6 +210,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
+  faker
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails (~> 5.0.3)

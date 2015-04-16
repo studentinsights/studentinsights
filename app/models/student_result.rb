@@ -37,10 +37,10 @@ class StudentResult < ActiveRecord::Base
   def self.fake_data
     {
       ela_scaled: rand(200..280), 
-      ela_performance: ["W", "NI", "P", "A"].sample, 
+      ela_performance: ["W", "NI", "P", "A", nil].sample, 
       ela_growth: rand(100), 
       math_scaled: rand(200..280), 
-      math_performance: ["W", "NI", "P", "A"].sample, 
+      math_performance: ["W", "NI", "P", "A", nil].sample, 
       math_growth: rand(100)
     }
   end

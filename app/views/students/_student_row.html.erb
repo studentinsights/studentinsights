@@ -4,32 +4,34 @@
                   <td><%= presenter.sped %></td>
                   <td><%= presenter.limited_english_proficient %></td>
                   <% unless controller_name == 'pages' && action_name == 'roster_demo' %>
-                    <% r = presenter.student.student_results.last %>
+                    <% result = presenter.student.student_results.last %>
                   <% else %>
-                    <% r = StudentResult.new(StudentResult.fake_data) %>
+                    <% result = StudentResult.new(StudentResult.fake_data) %>
                   <% end %>
-                  <td>
-                    <% if r.math_performance_warning? %>
-                      <%= render "students/warning_indicator" %>
-                    <% end %>
-                    <%= r.math_performance %>
-                  </td>
-                  <td>
-                    <% if r.math_growth_warning? %>
-                      <%= render "students/warning_indicator" %>
-                    <% end %>
-                    <%= r.math_growth %>
-                  </td>
-                  <td>
-                    <% if r.ela_performance_warning? %>
-                      <%= render "students/warning_indicator" %>
-                    <% end %>
-                    <%= r.ela_performance %>
-                  </td>
-                  <td>
-                    <% if r.ela_growth_warning? %>
-                      <%= render "students/warning_indicator" %>
-                    <% end %>
-                    <%= r.ela_growth %>
-                  </td>
+                  <% present(result) do |result_presenter| %>
+                    <td>
+                      <% if result_presenter.math_performance_warning? %>
+                        <%= render "students/warning_indicator" %>
+                      <% end %>
+                      <%= result_presenter.math_performance %>
+                    </td>
+                    <td>
+                      <% if result_presenter.math_growth_warning? %>
+                        <%= render "students/warning_indicator" %>
+                      <% end %>
+                      <%= result_presenter.math_growth %>
+                    </td>
+                    <td>
+                      <% if result_presenter.ela_performance_warning? %>
+                        <%= render "students/warning_indicator" %>
+                      <% end %>
+                      <%= result_presenter.ela_performance %>
+                    </td>
+                    <td>
+                      <% if result_presenter.ela_growth_warning? %>
+                        <%= render "students/warning_indicator" %>
+                      <% end %>
+                      <%= result_presenter.ela_growth %>
+                    </td>
+                  <% end %>
                 </tr>
