@@ -3,7 +3,7 @@
       <p>Homeroom:</p>
         <select id="homeroom-select">
           <% @homerooms_by_name.each do |r| %>
-            <option <% if r == @homeroom %>selected<% end %> value="<%= r.id %>">
+            <option <% if r == @homeroom %>selected<% end %> value="<%= r.slug %>">
               <%= r.name %>
             </option>
           <% end %>

@@ -5,8 +5,8 @@ describe StudentsController, :type => :controller do
   let(:homeroom) { FactoryGirl.create(:homeroom, educator_id: educator.id ) } 
 
   describe '#index' do
-    def make_request(homeroom_id = homeroom.id)
-      get :index, homeroom_id: homeroom_id
+    def make_request(homeroom_slug = homeroom.slug)
+      get :index, homeroom_id: homeroom_slug
     end
 
     context 'when educator is not logged in' do

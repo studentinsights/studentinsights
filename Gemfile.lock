@@ -66,6 +66,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (2.2.12)
@@ -211,6 +213,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
+  friendly_id (~> 5.1.0)
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails (~> 5.0.3)
