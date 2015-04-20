@@ -16,12 +16,4 @@ module FakeX2Attendance
 		number_of_tardies: 3
 	}
 
-	FAKE_ATTENDANCE_SEPTEMBER = {
-		"ATT_DATE" => "2013-09-28"
-	}
-
-	FAKE_ATTENDANCE_MARCH = {
-		"ATT_DATE" => "2013-03-28"
-	}
-
 end
