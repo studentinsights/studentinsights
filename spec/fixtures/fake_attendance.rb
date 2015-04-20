@@ -28,4 +28,20 @@ module FakeX2Attendance
 		"ATT_ABSENT_IND"=>"0"
 	}
 
+	FAKE_ATTENDANCE_SEPTEMBER = {
+   		"ATT_STD_OID"=>"std000000000000", 
+		"ATT_SKL_OID"=>"SKL0000000000C", 
+		"ATT_DATE"=>"2013-09-28", 
+		"ATT_TARDY_IND"=>"0", 
+		"ATT_ABSENT_IND"=>"0"
+	}
+
+	FAKE_ATTENDANCE_MARCH = {
+   		"ATT_STD_OID"=>"std000000000000", 
+		"ATT_SKL_OID"=>"SKL0000000000C", 
+		"ATT_DATE"=>"2013-03-28", 
+		"ATT_TARDY_IND"=>"0", 
+		"ATT_ABSENT_IND"=>"0"
+	}
+
 end
