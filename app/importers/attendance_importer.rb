@@ -2,7 +2,7 @@ class AttendanceImporter
 
   def connect_to_x2_attendance(grade_scope = nil, school_scope = nil)
     ActiveRecord::Base.establish_connection(:x2_database_development)
-    @join_sql =	 "SELECT STD_OID, ATT_STD_OID, ATT_ABSENT_IND, ATT_TARDY_IND, ATT_DATE
+    @join_sql =	 "SELECT STD_OID, STD_ID_STATE, ATT_STD_OID, ATT_ABSENT_IND, ATT_TARDY_IND, ATT_DATE
 									FROM student
 									INNER JOIN student_attendance
 										ON student.STD_OID=student_attendance.ATT_STD_OID

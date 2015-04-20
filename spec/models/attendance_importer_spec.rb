@@ -5,15 +5,15 @@ RSpec.describe AttendanceImporter do
 
 	let(:attendance_importer) { AttendanceImporter.new }
 
-	def generate_x2_attendance_rows(year, month, number_of_tardies, number_of_absences)
+	def generate_x2_attendance_rows(student_state_id, year, month, number_of_tardies, number_of_absences)
 		rows = []
 		number_of_absences.times do
 			date = Time.new(year, month, 1).strftime("%Y-%m-%d")
-			rows << FakeX2Attendance.generate_row(date, '0', '1')
+			rows << FakeX2Attendance.generate_row(student_state_id, date, '0', '1')
 		end
 		number_of_tardies.times do
 			date = Time.new(year, month, 1).strftime("%Y-%m-%d")
-			rows << FakeX2Attendance.generate_row(date, '1', '0')
+			rows << FakeX2Attendance.generate_row(student_state_id, date, '1', '0')
 		end
 		return rows
 	end
@@ -36,7 +36,7 @@ RSpec.describe AttendanceImporter do
 	describe '#aggregate_attendance_to_school_year' do
 		context 'student with absences and no tardies' do
 			let(:absences_no_tardies) {
-				generate_x2_attendance_rows(2015, 3, 0, 3) + generate_x2_attendance_rows(2015, 9, 0, 5)
+				generate_x2_attendance_rows("001", 2015, 3, 0, 3) + generate_x2_attendance_rows("001", 2015, 9, 0, 5)
 			}
 			let(:result) {
 				attendance_importer.aggregate_attendance_to_school_year(absences_no_tardies)
@@ -53,7 +53,7 @@ RSpec.describe AttendanceImporter do
 		end
 		context 'student with absences and tardies' do
 			let(:absences_and_tardies) {
-				generate_x2_attendance_rows(2015, 3, 2, 3) + generate_x2_attendance_rows(2015, 9, 4, 5)
+				generate_x2_attendance_rows("001", 2015, 3, 2, 3) + generate_x2_attendance_rows("001", 2015, 9, 4, 5)
 			}
 			let(:result) {
 				attendance_importer.aggregate_attendance_to_school_year(absences_and_tardies)
