@@ -1,5 +1,22 @@
 class AttendanceImporter
 
+  def connect_to_x2_attendance(grade_scope = nil, school_scope = nil)
+    ActiveRecord::Base.establish_connection(:x2_database_development)
+    @join_sql =	 "SELECT STD_OID, ATT_STD_OID, ATT_ABSENT_IND, ATT_TARDY_IND, ATT_DATE
+									FROM student
+									INNER JOIN student_attendance
+										ON student.STD_OID=student_attendance.ATT_STD_OID
+										AND STD_ENROLLMENT_STATUS = 'Active'
+										AND STD_ID_STATE is not NULL
+										AND STD_OID is not NULL"
+    @join_sql += " AND STD_GRADE_LEVEL = '#{grade_scope}'" if grade_scope.present?
+    @join_sql += " AND STD_SKL_OID = '#{school_scope}'" if school_scope.present?
+    @join_result = ActiveRecord::Base.connection.exec_query(@join_sql).to_hash
+    ActiveRecord::Base.connection.close
+    ActiveRecord::Base.establish_connection(:development)
+    return @join_result
+  end
+
 	def date_to_school_year(date_to_parse)
 		# If month is Aug to Dec, current year is first half of school year
 		# If month is Jan to Jul, current year is second half of school year
