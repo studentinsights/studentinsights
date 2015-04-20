@@ -9,6 +9,13 @@ module FakeX2Attendance
 		}
 	end
 
+	FAKE_PARSED_ATTENDANCE_RESULT = {
+		state_identifier: "123updateme",
+		school_year: "2014-2015",
+		number_of_absences: 2,
+		number_of_tardies: 3
+	}
+
 	FAKE_ATTENDANCE_SEPTEMBER = {
 		"ATT_DATE" => "2013-09-28"
 	}

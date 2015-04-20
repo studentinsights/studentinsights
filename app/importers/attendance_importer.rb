@@ -33,6 +33,13 @@ class AttendanceImporter
 		return school_year
 	end
 
+  def create_or_update_attendance_result(parsed_attendance_result, student)
+    school_year = parsed_attendance_result[:school_year]
+    result = AttendanceResult.where(student_id: student.id, school_year: school_year).first_or_create!
+    result.update(parsed_attendance_result.except(:state_identifier))
+    return result
+  end
+
 	def aggregate_attendance_to_school_year(attendance_rows)
 		# Return an array of hashes, each one describing attendance totals for school year:
 		# [	{ 	school_year: "2014-2015",

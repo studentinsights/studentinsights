@@ -33,6 +33,30 @@ RSpec.describe AttendanceImporter do
 		end
 	end
 
+	describe '#create_or_update_attendance_result' do
+		let(:attendance_result) { FakeX2Attendance::FAKE_PARSED_ATTENDANCE_RESULT }
+		context 'student with attendance result for school year' do
+			let!(:student) { FactoryGirl.create(:student_with_attendance_result) }
+			let(:result) { attendance_importer.create_or_update_attendance_result(attendance_result, student) }
+			it 'does not create a new attendance result' do
+				expect { result }.to change(AttendanceResult, :count).by(0)
+			end
+			it 'updates the attendance result correctly' do
+				expect(result.number_of_absences).to eq 2
+			end
+		end
+		context 'student without attendance result for school year' do
+			let!(:student) { FactoryGirl.create(:student_without_attendance_result) }
+			let(:result) { attendance_importer.create_or_update_attendance_result(attendance_result, student) }
+			it 'creates a new attendance result' do
+				expect { result }.to change(AttendanceResult, :count).by(1)
+			end
+			it 'sets the attendance result correctly' do
+				expect(result.number_of_absences).to eq 2
+			end
+		end
+	end
+
 	describe '#aggregate_attendance_to_school_year' do
 		context 'student with absences and no tardies' do
 			let(:absences_no_tardies) {
