@@ -15,4 +15,19 @@ class AttendanceImporter
 		end
 		return school_year
 	end
+
+	def aggregate_attendance_to_school_year(attendance_rows)
+		# Return an array of hashes, each one describing attendance totals for school year:
+		# [	{ 	school_year: "2014-2015",
+		# 		number_of_absences: 22,
+		# 		number_of_tardies: 33 		} ... ] 
+		attendance_rows = attendance_rows.group_by { |row| date_to_school_year(row['ATT_DATE']) }
+		attendance_rows.map { |k, v| 
+			{
+				school_year: k,
+				number_of_absences: v.count { |row| row['ATT_ABSENT_IND'] == '1' },
+				number_of_tardies: v.count { |row| row['ATT_TARDY_IND'] == '1' }
+			}
+		}
+	end
 end
