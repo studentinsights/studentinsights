@@ -5,21 +5,21 @@ class Student < ActiveRecord::Base
   has_many :student_results, dependent: :destroy
   has_many :assessments, through: :student_results
 
-  def self.default_sort(students)
-    risk = { "Low" => [], "Medium" => [], "High" => [] }
-    students.each do |s|
-      result = s.student_results.last
-      if result.present?
-        if result.warning?
-          risk["High"] << s
-        elsif result.ela_performance == "NI" || result.math_performance == "NI"
-          risk["Medium"] << s
-        else
-          risk["Low"] << s
-        end
-      end
+  def high_risk?
+    if student_results.present?
+      student_results.last.warning?
     end
-    return risk
+  end
+
+  def medium_risk?
+    if student_results.present?
+      last_result = student_results.last
+      last_result.ela_performance == "NI" || last_result.math_performance == "NI"
+    end
+  end
+
+  def low_risk?
+    !medium_risk? && !high_risk?
   end
 
   # Fake data for demo roster

@@ -12,8 +12,10 @@ class PagesController < ApplicationController
       @students << student
       student.student_results.build(StudentResult.fake_data)
     end
-    @risk_categories = [ "High", "Medium", "Low" ]
-    @sorted_students = Student.default_sort(@students)
+    
+    @analyzer = RiskAnalyzer.new @students 
+    @sorted_students = @analyzer.by_category
+    @risk_categories = @analyzer.by_category.keys
 
     @homeroom = Homeroom.where(name: "Demo").first_or_create
     @homerooms_by_name = [@homeroom]
