@@ -34,7 +34,13 @@ FactoryGirl.define do
       end
     end
     factory :student_without_attendance_result do
-          state_identifier "123updateme"
+      state_identifier "123updateme"
+    end
+    factory :student_for_aggregating_attendance do
+      state_identifier "200"
+    end
+    factory :another_student_for_aggregating_attendance do
+      state_identifier "300"
     end
   end
 end

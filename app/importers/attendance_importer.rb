@@ -40,18 +40,34 @@ class AttendanceImporter
     return result
   end
 
-	def aggregate_attendance_to_school_year(attendance_rows)
-		# Return an array of hashes, each one describing attendance totals for school year:
-		# [	{ 	school_year: "2014-2015",
-		# 		number_of_absences: 22,
-		# 		number_of_tardies: 33 		} ... ] 
-		attendance_rows = attendance_rows.group_by { |row| date_to_school_year(row['ATT_DATE']) }
-		attendance_rows.map { |k, v| 
-			{
-				school_year: k,
-				number_of_absences: v.count { |row| row['ATT_ABSENT_IND'] == '1' },
-				number_of_tardies: v.count { |row| row['ATT_TARDY_IND'] == '1' }
-			}
-		}
-	end
+  def aggregate_attendance_to_school_year(student, attendance_rows)
+    # Creates an array of hashes, each one describing attendance totals for school year:
+    # [ {   school_year: "2014-2015",
+    #       number_of_absences: 22,
+    #       number_of_tardies: 33     } ... ] 
+    # And then passes those hashes on to create_or_update_attendance_result
+    attendance_rows = attendance_rows.group_by { |row| date_to_school_year(row['ATT_DATE']) }
+    attendance_rows = attendance_rows.map { |school_year, rows| 
+        {
+          :school_year => school_year,
+          :number_of_absences => rows.count { |row| row['ATT_ABSENT_IND'] == '1' },
+          :number_of_tardies => rows.count { |row| row['ATT_TARDY_IND'] == '1' }
+        }
+    }
+    attendance_rows.each do |row|
+      create_or_update_attendance_result(row, student)
+    end
+  end
+
+  def sort_attendance_rows_by_student_and_aggregate(attendance_rows)
+    # Creates a hash, with student objects as keys and attendance rows as values: 
+    # {   Student1 => [ attendance_rows ... ],
+    #     Student2 => [ attendance_rows ... ], ...  }
+    # And then passes the values in that hash into aggregate_attendance_to_school_year
+    attendance_rows = attendance_rows.group_by { |row| Student.find_by_state_identifier(row['STD_ID_STATE']) }
+    attendance_rows.each do |student, rows|
+      aggregate_attendance_to_school_year(student, rows)
+    end
+    return attendance_rows
+  end
 end

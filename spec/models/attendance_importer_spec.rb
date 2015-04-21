@@ -55,13 +55,32 @@ RSpec.describe AttendanceImporter do
 		end
 	end
 
+	describe '#sort_attendance_rows_by_student' do
+		context 'sort between two students' do 
+			let!(:tardy_student) { FactoryGirl.create(:student_for_aggregating_attendance) }
+			let!(:absent_student) { FactoryGirl.create(:another_student_for_aggregating_attendance) }
+			let!(:attendance_rows) { 
+				generate_x2_attendance_rows(tardy_student.state_identifier, 2015, 4, 5, 0) +
+				generate_x2_attendance_rows(absent_student.state_identifier, 2015, 4, 0, 3)
+			}
+			let!(:result) { attendance_importer.sort_attendance_rows_by_student_and_aggregate(attendance_rows) }
+			it 'counts five tardies for the tardy student' do			
+				expect(tardy_student.attendance_results.last.number_of_tardies).to eq 5
+			end
+			it 'counts three absences for the absent student' do 
+				expect(absent_student.attendance_results.last.number_of_absences).to eq 3
+			end
+		end
+	end
+
 	describe '#aggregate_attendance_to_school_year' do
+			let!(:student) { FactoryGirl.create(:student_for_aggregating_attendance) }
 		context 'student with absences and no tardies' do
 			let(:absences_no_tardies) {
-				generate_x2_attendance_rows("001", 2015, 3, 0, 3) + generate_x2_attendance_rows("001", 2015, 9, 0, 5)
+				generate_x2_attendance_rows("200", 2015, 3, 0, 3) + generate_x2_attendance_rows("200", 2015, 9, 0, 5)
 			}
 			let(:result) {
-				attendance_importer.aggregate_attendance_to_school_year(absences_no_tardies)
+				attendance_importer.aggregate_attendance_to_school_year(student, absences_no_tardies)
 			}
 			it 'groups absences by school year' do
 				expect(result.length).to eq(2)
@@ -78,7 +97,7 @@ RSpec.describe AttendanceImporter do
 				generate_x2_attendance_rows("001", 2015, 3, 2, 3) + generate_x2_attendance_rows("001", 2015, 9, 4, 5)
 			}
 			let(:result) {
-				attendance_importer.aggregate_attendance_to_school_year(absences_and_tardies)
+				attendance_importer.aggregate_attendance_to_school_year(student, absences_and_tardies)
 			}
 			it 'sums number of absences by school year' do
 				expect(result[0][:number_of_absences]).to eq(3)
@@ -89,4 +108,3 @@ RSpec.describe AttendanceImporter do
 		end
 	end
 end
-
