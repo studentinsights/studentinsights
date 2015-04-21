@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'capybara/rspec'
 
-describe "demo roster flow", :type => :feature do
+describe "demo roster", :type => :feature do
 
   context "user without account visits demo roster" do
 

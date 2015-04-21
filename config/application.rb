@@ -22,7 +22,9 @@ module SomervilleTeacherTool
     end  
     
     console do
+      # :nocov:
       ActiveRecord::Base.connection
+      # :nocov:
     end
 
     env_file = File.join(Rails.root, 'config', 'local_env.yml')

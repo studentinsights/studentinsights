@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'capybara/rspec'
 
-describe "Sign In Flow", :type => :feature do
+describe "educator sign in", :type => :feature do
 
   context "educator with account signs in" do
     let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
