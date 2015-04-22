@@ -2,13 +2,13 @@ class Student < ActiveRecord::Base
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
   has_many :attendance_results, dependent: :destroy
-  has_many :student_results, dependent: :destroy
-  has_many :assessments, through: :student_results
+  has_many :mcas_results, dependent: :destroy
+  has_many :assessments, through: :mcas_results
 
   def self.default_sort(students)
     risk = { "Low" => [], "Medium" => [], "High" => [] }
     students.each do |s|
-      result = s.student_results.last
+      result = s.mcas_results.last
       if result.present?
         if result.warning?
           risk["High"] << s

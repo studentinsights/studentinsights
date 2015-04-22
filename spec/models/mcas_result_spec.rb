@@ -1,17 +1,17 @@
-RSpec.describe StudentResult, :type => :model do
+RSpec.describe McasResult, :type => :model do
 
   describe '#math_performance_warning?' do
 
     context 'low result' do
       it 'returns a warning' do
-        result = FactoryGirl.create(:student_result_low)
+        result = FactoryGirl.create(:mcas_result_low)
         expect(result.math_performance_warning?).to be true
       end
     end
 
     context 'high result' do
       it 'does not return warning' do
-        result = FactoryGirl.create(:student_result_high)
+        result = FactoryGirl.create(:mcas_result_high)
         expect(result.math_performance_warning?).to be false
       end
     end
@@ -21,14 +21,14 @@ RSpec.describe StudentResult, :type => :model do
 
     context 'low result' do
       it 'returns a warning' do
-        result = FactoryGirl.create(:student_result_low)
+        result = FactoryGirl.create(:mcas_result_low)
         expect(result.ela_growth_warning?).to be true
       end
     end
 
     context 'high result' do
       it 'does not return warning' do
-        result = FactoryGirl.create(:student_result_high)
+        result = FactoryGirl.create(:mcas_result_high)
         expect(result.ela_growth_warning?).to be false
       end
     end

@@ -9,7 +9,7 @@ if File.exist? path
 
   puts "#{Student.all.size} students."
   puts "#{Assessment.all.size} assessments."
-  puts "#{StudentResult.all.size} student results."
+  puts "#{McasResult.all.size} student results."
   puts "#{Student.where(limited_english_proficient: true).size} limited English proficient."
   puts "#{Student.where(former_limited_english_proficient: true).size} formerly limited English proficient."
 end

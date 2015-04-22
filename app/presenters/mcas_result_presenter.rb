@@ -1,4 +1,4 @@
-class StudentResultPresenter < Struct.new(:result)
+class McasResultPresenter < Struct.new(:result)
 
   def math_performance
     result.math_performance.present? ? result.math_performance : "—"

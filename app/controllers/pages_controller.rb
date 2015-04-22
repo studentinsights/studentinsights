@@ -10,7 +10,7 @@ class PagesController < ApplicationController
     @number_of_students.times do 
       student = Student.new(Student.fake_data)
       @students << student
-      student.student_results.build(StudentResult.fake_data)
+      student.mcas_results.build(McasResult.fake_data)
     end
     @risk_categories = [ "High", "Medium", "Low" ]
     @sorted_students = Student.default_sort(@students)

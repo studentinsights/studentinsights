@@ -11,7 +11,7 @@ n = 0
 end
 
 Student.destroy_all
-StudentResult.destroy_all
+McasResult.destroy_all
 
 FIRST_NAMES = [ "Casey", "Josh", "Judith", "Tae", "Kenn" ]
 LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
@@ -20,7 +20,7 @@ LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
   student = Student.create(Student.fake_data)
   student.homeroom_id = Homeroom.all.sample.id
   student.save
-  result = StudentResult.new(StudentResult.fake_data)
+  result = McasResult.new(McasResult.fake_data)
   result.update_attributes(student_id: student.id, assessment_id: assessment.id)
   result.save
 end

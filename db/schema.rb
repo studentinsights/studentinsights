@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420224854) do
+ActiveRecord::Schema.define(version: 20150422223745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,19 @@ ActiveRecord::Schema.define(version: 20150420224854) do
     t.string   "slug"
   end
 
+  create_table "mcas_results", force: true do |t|
+    t.integer  "ela_scaled"
+    t.string   "ela_performance"
+    t.integer  "ela_growth"
+    t.integer  "math_scaled"
+    t.string   "math_performance"
+    t.integer  "math_growth"
+    t.integer  "assessment_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "schools", force: true do |t|
     t.integer  "state_id"
     t.string   "school_type"
@@ -89,19 +102,6 @@ ActiveRecord::Schema.define(version: 20150420224854) do
     t.string   "uri"
     t.string   "subject"
     t.text     "grades"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "student_results", force: true do |t|
-    t.integer  "ela_scaled"
-    t.string   "ela_performance"
-    t.integer  "ela_growth"
-    t.integer  "math_scaled"
-    t.string   "math_performance"
-    t.integer  "math_growth"
-    t.integer  "assessment_id"
-    t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
