@@ -3,6 +3,8 @@
 * {
   font-family: 'Open Sans', sans-serif !important;
   margin: 0px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -15,5 +17,5 @@ table {
 }
 
 body { 
-  background-color: #efefef;
+  background-color: $backgroud;
 }

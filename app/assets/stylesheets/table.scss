@@ -13,43 +13,42 @@ tr, td {
   margin: 4px !important;
   font-weight: normal;
   font-size: 14px;
-  color: #555;
+  color: $gray;
+  vertical-align: bottom;
 }
 
 .column-groups {
   text-align: center;
-}
 
-.column-groups td {
-  padding-left: 0;
-  padding-right: 20px;
-}
+  td {
+    padding-left: 0;
+    padding-right: 20px;
+  }
 
-.column-groups td p {
-  height: 25px;
-  border-bottom: 1px solid #ddd;
-  padding: 0;
-  margin-bottom: -10px;
-}
+  td p {
+    height: 25px;
+    border-bottom: 1px solid $light-line;
+    padding: 0;
+    margin-bottom: -10px;
+  }
 
-.column-groups td:last-of-type {
-  padding-right: 0;
+  td:last-of-type {
+    padding-right: 0;
+  }
 }
 
 .column-names td {
-  border-bottom: 1px solid #C6C6C6;
-  vertical-align: bottom;
+  border-bottom: 1px solid $dark-line;
   padding-left: 10px;
 }
 
 .risk-groups td {
-  height: 50px;
-  border-bottom: 1px solid #ddd;
-  vertical-align: bottom;
+  height: 65px;
+  border-bottom: 1px solid $dark-line;
 }
 
 .performance-warning-circle {
-  background-color: #DA172F;
+  background-color: $warning-circle;
   height: 7px;
   width: 7px;
   border-radius: 50%;
@@ -62,10 +61,10 @@ tr, td {
   width: 80%;
   min-width: 520px;
   margin: auto auto;
-  background-color: white;
+  background-color: $white;
   border-radius: 9px;
   padding: 30px;
   margin-top: 30px;
   margin-bottom: 30px;
-  border: solid 1px #DFDFDF;
+  border: solid 1px $light-line;
 }
