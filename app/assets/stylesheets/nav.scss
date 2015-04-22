@@ -1,33 +1,25 @@
 /* NAV */
 
-nav {
-    display: block;
-    clear: both;
-
-    a {
-      padding-right: 20px;
-    }
-}
-
 .nav {
-  border-bottom: 1px solid #C6C6C6;
-  background-color: white;
+  border-bottom: 1px solid $light-line;
+  background-color: $white;
   padding-top: 10px;
-  padding-bottom: 10px;
- 
-  #title {
-    padding-bottom: 10px;
-    padding-top: 10px;
-  }
 }
 
 .navwrap {
   width: 80%;
-  margin: 10px auto;
-}
+  margin: 20px auto 30px auto;
 
-#controls {
-  padding-left: 30px;
-  width: 80%;
-  margin: 10px auto 70px auto;
+  #title {
+      display: inline;
+  }
+
+  nav {
+      float: right;
+      padding-top: 10px;
+
+      a {
+        padding-left: 20px;
+      }
+  }
 }

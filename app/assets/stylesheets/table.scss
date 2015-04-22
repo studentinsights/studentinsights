@@ -13,7 +13,7 @@ tr, td {
   margin: 4px !important;
   font-weight: normal;
   font-size: 14px;
-  color: #555;
+  color: $gray;
 }
 
 .column-groups {
@@ -27,7 +27,7 @@ tr, td {
 
 .column-groups td p {
   height: 25px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $light-line;
   padding: 0;
   margin-bottom: -10px;
 }
@@ -37,19 +37,19 @@ tr, td {
 }
 
 .column-names td {
-  border-bottom: 1px solid #C6C6C6;
+  border-bottom: 1px solid $light-line;
   vertical-align: bottom;
   padding-left: 10px;
 }
 
 .risk-groups td {
-  height: 50px;
-  border-bottom: 1px solid #ddd;
+  height: 65px;
+  border-bottom: 1px solid $dark-line;
   vertical-align: bottom;
 }
 
 .performance-warning-circle {
-  background-color: #DA172F;
+  background-color: $warning-circle;
   height: 7px;
   width: 7px;
   border-radius: 50%;
@@ -67,5 +67,5 @@ tr, td {
   padding: 30px;
   margin-top: 30px;
   margin-bottom: 30px;
-  border: solid 1px #DFDFDF;
+  border: solid 1px $light-line;
 }
