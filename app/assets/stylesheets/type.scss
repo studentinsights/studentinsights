@@ -1,38 +1,46 @@
 /* TYPE STYLES */
 
 p {
-  font-weight: 400;
   font-size: 14px;
-  color: #555;
+  font-weight: 400;
+  color: $gray;
 }
 
 h1 {
-  font-weight: 400;
-  color: #333;
   font-size: 24px;
+  font-weight: 400;
+  color: $dark-gray;
 }
 
 h2 {
-  font-weight: 700;
-  color: #555;
   font-size: 18px;
+  font-weight: 700;
+  color: $gray;
 }
 
 h3 {
   font-size: 14px;
-  color: #555;
   font-weight: 700;
+  color: $gray;
 }
 
 a { 
-  font-weight: 400;
   font-size: 14px;
+  font-weight: 400;
   text-decoration: none; 
   cursor: pointer;
 }
 
+a:link, a:visited {
+  color: $link; 
+}     
+
+a:hover, a:active {
+  color: $link-hover; 
+}
+
 .smalltype {
-  font-weight: 300;
   font-size: 13px;
-  color: #999;
+  font-weight: 300;
+  color: $light-gray;
 }
