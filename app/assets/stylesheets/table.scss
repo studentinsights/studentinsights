@@ -20,16 +20,16 @@ tr, td {
   text-align: center;
 }
 
+.column-groups td {
+  padding-left: 0;
+  padding-right: 20px;
+}
+
 .column-groups td p {
   height: 25px;
   border-bottom: 1px solid #ddd;
   padding: 0;
   margin-bottom: -10px;
-}
-
-.column-groups td {
-  padding-left: 0;
-  padding-right: 20px;
 }
 
 .column-groups td:last-of-type {
