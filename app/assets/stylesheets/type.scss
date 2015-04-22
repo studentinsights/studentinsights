@@ -1,0 +1,46 @@
+/* TYPE STYLES */
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+  color: $gray;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 400;
+  color: $dark-gray;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: $gray;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: $gray;
+}
+
+a { 
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none; 
+  cursor: pointer;
+}
+
+a:link, a:visited {
+  color: $link; 
+}     
+
+a:hover, a:active {
+  color: $link-hover; 
+}
+
+.smalltype {
+  font-size: 13px;
+  font-weight: 300;
+  color: $light-gray;
+}
