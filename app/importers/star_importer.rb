@@ -1,3 +1,5 @@
+require 'csv'
+
 class StarImporter < Struct.new(:star_data_path, :year, :reading_or_math)
 
   def import
@@ -39,14 +41,14 @@ class StarImporter < Struct.new(:star_data_path, :year, :reading_or_math)
 
   def math_header_dictionary
     {
-      'StudentID' => 'state_identifier',
+      'StateStudentID' => 'state_identifier',
       'PR' => 'math_percentile_rank'
     }
   end
 
   def reading_header_dictionary
     {
-      'StudentID' => 'state_identifier',
+      'StateStudentID' => 'state_identifier',
       'PR' => 'reading_percentile_rank',
       'IRL' => 'instructional_reading_level'
     }
