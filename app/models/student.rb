@@ -3,6 +3,7 @@ class Student < ActiveRecord::Base
   belongs_to :school
   has_many :attendance_results, dependent: :destroy
   has_many :mcas_results, dependent: :destroy
+  has_many :star_results, dependent: :destroy
   has_many :assessments, through: :mcas_results
 
   def self.default_sort(students)
