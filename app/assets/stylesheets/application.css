@@ -11,5 +11,5 @@
  * file per style scope.
  *
  *= require style
- *= require jquery-ui/slider
+ *= require chosen.min
  */

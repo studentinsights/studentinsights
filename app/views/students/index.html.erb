@@ -1,39 +1,67 @@
   <div id="controls">
     <div id="homeroom-dropdown" class="dropdown">
       <p>Homeroom:</p>
-        <select id="homeroom-select">
-          <% @homerooms_by_name.each do |r| %>
-            <option <% if r == @homeroom %>selected<% end %> value="<%= r.slug %>">
-              <%= r.name %>
-            </option>
-          <% end %>
-        </select> 
-      </div>
+      <select id="homeroom-select">
+        <% @homerooms_by_name.each do |r| %>
+          <option <% if r == @homeroom %>selected<% end %> value="<%= r.slug %>">
+            <%= r.name %>
+          </option>
+        <% end %>
+      </select> 
     </div>
+    <div id="assessment-dropdown" class="dropdown">
+      <select id="assessment-select" class="chosen-select" data-placeholder="Choose assessments..." tabindex="4" multiple>
+        <option id="select-star" value="star" selected>STAR</option>
+        <option id="select-mcas" value="mcas" selected>MCAS</option>
+      </select> 
+    </div>
+  </div>
   <div class="info-area">
     <table border="0" cellspacing="0" cellpadding="10">
       <tr class="column-groups">
-        <td></td>
+        <td colspan="1"></td>
         <td colspan="3"><p class="smalltype">Demographics</p></td>
-        <td colspan="2"><p class="smalltype">Math</p></td>
-        <td colspan="2"><p class="smalltype">English</p></td>
+        <% if @star.present? %>
+          <td colspan="3" class="star"><p class="smalltype">STAR: <%= @star.year.strftime "%b %Y" %></p></td>
+        <% end %>
+        <% if @mcas.present? %>
+          <td colspan="4" class="mcas"><p class="smalltype">MCAS: <%= @mcas.year.strftime "%b %Y" %></p></td>
+        <% end %>
+      </tr>
+      <tr class="column-groups">
+        <td colspan="4"></td>
+        <% if @star.present? %>
+          <td colspan="1" class="star"><p class="smalltype italic">Math</p></td>
+          <td colspan="2" class="star"><p class="smalltype italic">Reading</p></td>
+        <% end %>
+        <% if @mcas.present? %>
+          <td colspan="2" class="mcas"><p class="smalltype italic">Math</p></td>
+          <td colspan="2" class="mcas"><p class="smalltype italic">English</p></td>
+        <% end %>
       </tr>
       <tr class="column-names">
         <td>Name</td>
         <td>Race</td>
         <td>SPED</td>
         <td>LEP</td>
-        <td>Performance</td>
-        <td>Growth</td>
-        <td>Performance</td>
-        <td>Growth</td>
+        <% if @star.present? %>
+          <td class="star">Percentile</td>
+          <td class="star">Percentile</td>
+          <td class="star">IRL</td>
+        <% end %>
+        <% if @mcas.present? %>
+          <td class="mcas">Performance</td>
+          <td class="mcas">Growth</td>
+          <td class="mcas">Performance</td>
+          <td class="mcas">Growth</td>
+        <% end %>
       </tr>
       <% @risk_categories.each do |category| %>
         <% if @students.present? %>
           <% students = @sorted_students[category]  %>
           <% if students.present? %>
             <tr class="risk-groups">
-              <td colspan="8" class="risktype">
+              <td colspan="11" class="risktype">
                 <%= category %> Risk
               </td>
             </tr>
