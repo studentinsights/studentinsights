@@ -34,10 +34,12 @@ class AttendanceImporter
 	end
 
   def create_or_update_attendance_result(parsed_attendance_result, student)
-    school_year = parsed_attendance_result[:school_year]
-    result = AttendanceResult.where(student_id: student.id, school_year: school_year).first_or_create!
-    result.update(parsed_attendance_result.except(:state_identifier))
-    return result
+    if student.present?
+      school_year = parsed_attendance_result[:school_year]
+      result = AttendanceResult.where(student_id: student.id, school_year: school_year).first_or_create!
+      result.update(parsed_attendance_result.except(:state_identifier))
+      return result
+    end
   end
 
   def aggregate_attendance_to_school_year(student, attendance_rows)

@@ -1,4 +1,6 @@
+puts "SCHOOLS:"
 if School.all.size == 0
+	puts "   Importing schools..."
 	School.create([
 		{state_id: 15, local_id: "BRN", name: "Benjamin G Brown", school_type: "ES"	},
 		{state_id: 75, local_id: "HEA", name: "Arthur D Healey", school_type: "ESMS"	},
@@ -11,4 +13,6 @@ if School.all.size == 0
 		{state_id: 505, local_id: "SHS", name: "Somerville High", school_type: "HS"	},
 		{state_id: 510, local_id: "FC", name: "Full Circle High School", school_type: "HS"	}
 	])
+else
+	puts "   Schools already imported..."
 end
