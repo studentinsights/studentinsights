@@ -1,0 +1,21 @@
+/* SIGN IN FLOW & MESSAGES */
+
+.field {
+	margin-bottom: 20px;
+
+	label {
+	  	font-weight: 400;
+		font-size: 14px;
+		color: $gray;
+	}
+}
+
+.notice {
+	color: $warning-green;
+	font-weight: 700;
+}
+
+.alert {
+	color: $warning-red;
+	font-weight: 700;
+}

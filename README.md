@@ -2,15 +2,20 @@
 [travis]: https://travis-ci.org/codeforamerica/somerville-teacher-tool
 
 ## What
-The app creates rosters of students that can be grouped and sorted in different ways, including by homeroom, by demographic sub-groups (e.g. low-income students), and by risk level. 
+The app creates an interactive tool for teachers to view:
+
+* rosters of students that can be grouped and sorted in different ways, including by homeroom, by demographic sub-groups (e.g. low-income students), and by risk level
+* profiles of students with attendance and behavioral information over time
 
 ## Why
-Teachers, building-level administrators, and district administrators could use this roster to see patterns in their classroom and target specific interventions to support their students. 
+Teachers, building-level administrators, and district administrators could use this tool to see patterns in their classroom and target specific interventions to support their students. 
 
 #### User story
-As an admin, I want to generate reports so that I can see the students at risk and whether they are receiving necessary interventions.
+As an admin, I want to see which students are at risk and whether they are receiving necessary interventions.
 
-As a teacher, I want to analyze reports so that I can see the students at risk and target those students with necesssary interventions.
+As a teacher, I want to see which students are at risk and target interventions to these students.
+
+As a teacher, I want to see how my students are doing both academically and behaviorally over time.
 
 ## Installation
 This is a Ruby on Rails app and uses a PostgreSQL database. See Code for America's "HowTo" on Rails for more information on deploying and maintaining apps using Rails: https://github.com/codeforamerica/howto/blob/master/Rails.md
@@ -51,7 +56,8 @@ This app could grow in several different ways.
 * __Behavioral__:  Incorporate data about behavioral incidents including suspensions and expulsions. 
 * __Interventions__:  Allow teachers to add interventions to the system and track how they impact student progress. (This is a top priority.)
 * __Unique URLs__: Can be generated to be viewed online at a later time by users with access.
-* __Printable PDFs__: Can be exported of any view for teachers to print out and use at data meetings. 
+* __Exportable Excel__: Can be exported of any view for teachers to use at data meetings. 
+* __Printable PDFs__: Can be exported of any view for teachers to print out. 
 
 ## Who made this?
 Alex, Amir, and Mari from Code for America's [Somerville Fellowship Team](http://www.codeforamerica.org/governments/somerville/) in collaboration with the City of Somerville and Somerville Public Schools.

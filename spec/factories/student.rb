@@ -32,17 +32,17 @@ FactoryGirl.define do
 
     factory :high_risk_student do
       after(:create) do |student|
-        create(:student_result_low, student_id: student.id)
+        create(:mcas_result_low, student_id: student.id)
       end
     end
     factory :medium_risk_student do
       after(:create) do |student|
-        create(:student_result_needs_improvement, student_id: student.id)
+        create(:mcas_result_needs_improvement, student_id: student.id)
       end
     end
     factory :low_risk_student do
       after(:create) do |student|
-        create(:student_result_high, student_id: student.id)
+        create(:mcas_result_high, student_id: student.id)
       end
     end
 

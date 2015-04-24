@@ -17,8 +17,8 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :y
           student.save!
         end
 
-        result = StudentResult.where(student_id: student.id, assessment_id: assessment.id).first_or_create!
-        student_result_attrs.each do |attribute|
+        result = McasResult.where(student_id: student.id, assessment_id: assessment.id).first_or_create!
+        mcas_result_attrs.each do |attribute|
           result.send(attribute + '=', row[attribute])
           result.save!
         end
@@ -51,7 +51,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :y
     }
   end
 
-  def student_result_attrs
+  def mcas_result_attrs
     [ 'ela_scaled', 'ela_performance', 'ela_growth', 
       'math_scaled', 'math_performance', 'math_growth' ]
   end

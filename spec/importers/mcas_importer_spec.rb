@@ -45,12 +45,12 @@ RSpec.describe McasImporter do
         it 'creates a student result' do
           expect {
             healey_importer.import
-          }.to change(StudentResult, :count).by(1)
+          }.to change(McasResult, :count).by(1)
         end
 
         it 'sets the student result correctly' do
           healey_importer.import
-          expect(StudentResult.last.ela_growth).to eq(19)
+          expect(McasResult.last.ela_growth).to eq(19)
         end
       end
 

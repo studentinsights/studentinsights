@@ -2,18 +2,19 @@ class Student < ActiveRecord::Base
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
   has_many :attendance_results, dependent: :destroy
-  has_many :student_results, dependent: :destroy
-  has_many :assessments, through: :student_results
+  has_many :mcas_results, dependent: :destroy
+  has_many :star_results, dependent: :destroy
+  has_many :assessments, through: :mcas_results
 
   def high_risk?
-    if student_results.present?
-      student_results.last.warning?
+    if mcas_results.present?
+     mcas_results.last.warning?
     end
   end
 
   def medium_risk?
-    if student_results.present?
-      last_result = student_results.last
+    if mcas_results.present?
+      last_result = mcas_results.last
       last_result.ela_performance == "NI" || last_result.math_performance == "NI"
     end
   end

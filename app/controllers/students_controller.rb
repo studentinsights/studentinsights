@@ -11,6 +11,9 @@ class StudentsController < ApplicationController
     @sorted_students = @analyzer.by_category
     @risk_categories = @analyzer.by_category.keys
 
+    @mcas = Assessment.where(name: "MCAS").order(:year).last
+    @star = Assessment.where(name: "STAR").order(:year).last
+
     # Order for dropdown menu of homerooms
     @homerooms_by_name = Homeroom.order(:name)
   end

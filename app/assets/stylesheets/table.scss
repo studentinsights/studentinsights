@@ -1,0 +1,70 @@
+/* TABLE */
+
+td {
+  width: 10%;
+}
+
+td:first-child {
+  width: 20%;
+}
+
+tr, td {
+  background-color: white;
+  margin: 4px !important;
+  font-weight: normal;
+  font-size: 14px;
+  color: $gray;
+  vertical-align: bottom;
+}
+
+.column-groups {
+  text-align: center;
+
+  td {
+    padding-left: 0;
+    padding-right: 20px;
+  }
+
+  td p {
+    height: 25px;
+    border-bottom: 1px solid $light-line;
+    padding: 0;
+    margin-bottom: -10px;
+  }
+
+  td:last-of-type {
+    padding-right: 0;
+  }
+}
+
+.column-names td {
+  border-bottom: 1px solid $dark-line;
+  padding-left: 10px;
+}
+
+.risk-groups td {
+  height: 65px;
+  border-bottom: 1px solid $dark-line;
+}
+
+.performance-warning-circle {
+  background-color: $warning-circle;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  position: relative;
+  right: 14px;
+  top: 14px;
+}
+
+.info-area {
+  width: 80%;
+  min-width: 520px;
+  margin: auto auto;
+  background-color: $white;
+  border-radius: 9px;
+  padding: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border: solid 1px $light-line;
+}

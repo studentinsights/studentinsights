@@ -10,12 +10,15 @@ class PagesController < ApplicationController
     @number_of_students.times do 
       student = Student.new(Student.fake_data)
       @students << student
-      student.student_results.build(StudentResult.fake_data)
+      student.mcas_results.build(McasResult.fake_data)
     end
     
     @analyzer = RiskAnalyzer.new @students 
     @sorted_students = @analyzer.by_category
     @risk_categories = @analyzer.by_category.keys
+
+    @mcas = Assessment.new(name: "MCAS", year: Time.new(2015))
+    @star = Assessment.new(name: "STAR", year: Time.new(2015))
 
     @homeroom = Homeroom.where(name: "Demo").first_or_create
     @homerooms_by_name = [@homeroom]
