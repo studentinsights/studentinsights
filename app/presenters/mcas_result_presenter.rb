@@ -1,35 +1,21 @@
 class McasResultPresenter < Struct.new(:result)
+  delegate :math_growth_warning?, :math_performance_warning?,
+    :ela_performance_warning?, :ela_growth_warning?, to: :result
 
-  def math_performance
-    result.math_performance.present? ? result.math_performance : "—"
+  def results_for_presentation
+    [ 
+      :math_performance,
+      :ela_performance,
+      :ela_growth, 
+      :math_growth
+    ]
   end
 
-  def ela_performance
-    result.ela_performance.present? ? result.ela_performance : "—"
+  def method_missing(m, *args, &block)
+    if results_for_presentation.include? m
+      result.send(m).present? ? result.send(m) : "—"
+    else
+      raise NoMethodError
+    end
   end
-
-  def ela_growth
-    result.ela_growth.present? ? result.ela_growth : "—"
-  end
-
-  def math_growth
-    result.math_growth.present? ? result.math_growth : "—"
-  end
-
-  def math_growth_warning?
-    result.math_growth_warning?
-  end
-
-  def math_performance_warning?
-    result.math_performance_warning?
-  end
-
-  def ela_performance_warning?
-    result.ela_performance_warning?
-  end
-
-  def ela_growth_warning?
-    result.ela_growth_warning?
-  end
-  
 end
