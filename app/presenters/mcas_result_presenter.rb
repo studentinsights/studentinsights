@@ -1,7 +1,8 @@
 class McasResultPresenter < Struct.new(:result)
+  include ResultPresenter
   delegate :math_growth_warning?, :math_performance_warning?,
     :ela_performance_warning?, :ela_growth_warning?, to: :result
-
+  
   def results_for_presentation
     [ 
       :math_performance,
@@ -11,11 +12,4 @@ class McasResultPresenter < Struct.new(:result)
     ]
   end
 
-  def method_missing(m, *args, &block)
-    if results_for_presentation.include? m
-      result.send(m).present? ? result.send(m) : "—"
-    else
-      raise NoMethodError
-    end
-  end
 end
