@@ -10,21 +10,7 @@
                       <% star_result = StarResult.new(StarResult.fake_data) %>
                     <% end %>
                     <% present(star_result) do |result_presenter| %>
-                      <td>
-                        <% if result_presenter.math_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
-                        <%= result_presenter.math_percentile_rank %>
-                      </td>
-                      <td>
-                        <% if result_presenter.reading_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
-                        <%= result_presenter.reading_percentile_rank %>
-                      </td>
-                      <td>
-                        <%= result_presenter.instructional_reading_level %>
-                      </td>
+                      <%= render "students/star_row_fragment", star_presenter: result_presenter %>
                     <% end %>
                   <% end %>
                   <% if @mcas.present? %>
@@ -34,30 +20,7 @@
                       <% mcas_result = McasResult.new(McasResult.fake_data) %>
                     <% end %>
                     <% present(mcas_result) do |result_presenter| %>
-                      <td>
-                        <% if result_presenter.math_performance_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
-                        <%= result_presenter.math_performance %>
-                      </td>
-                      <td>
-                        <% if result_presenter.math_growth_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
-                        <%= result_presenter.math_growth %>
-                      </td>
-                      <td>
-                        <% if result_presenter.ela_performance_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
-                        <%= result_presenter.ela_performance %>
-                      </td>
-                      <td>
-                        <% if result_presenter.ela_growth_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
-                        <%= result_presenter.ela_growth %>
-                      </td>
+                      <%= render "students/mcas_row_fragment", mcas_presenter: result_presenter %>
                     <% end %>
                   <% end %>
                 </tr>

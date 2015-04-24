@@ -1,0 +1,15 @@
+                      <td>
+                        <% if star_presenter.math_warning? %>
+                          <%= render "students/warning_indicator" %>
+                        <% end %>
+                        <%= star_presenter.math_percentile_rank %>
+                      </td>
+                      <td>
+                        <% if star_presenter.reading_warning? %>
+                          <%= render "students/warning_indicator" %>
+                        <% end %>
+                        <%= star_presenter.reading_percentile_rank %>
+                      </td>
+                      <td>
+                        <%= star_presenter.instructional_reading_level %>
+                      </td>
