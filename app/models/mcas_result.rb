@@ -1,4 +1,4 @@
-class StudentResult < ActiveRecord::Base
+class McasResult < ActiveRecord::Base
   belongs_to :student
   belongs_to :assessment
 
