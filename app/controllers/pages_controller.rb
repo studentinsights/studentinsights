@@ -12,8 +12,10 @@ class PagesController < ApplicationController
       @students << student
       student.mcas_results.build(McasResult.fake_data)
     end
-    @risk_categories = [ "High", "Medium", "Low" ]
-    @sorted_students = Student.default_sort(@students)
+    
+    @analyzer = RiskAnalyzer.new @students 
+    @sorted_students = @analyzer.by_category
+    @risk_categories = @analyzer.by_category.keys
 
     @mcas = Assessment.new(name: "MCAS", year: Time.new(2015))
     @star = Assessment.new(name: "STAR", year: Time.new(2015))

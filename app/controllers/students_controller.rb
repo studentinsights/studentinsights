@@ -5,9 +5,11 @@ class StudentsController < ApplicationController
 
   def index
     @students = @homeroom.students
-    @sorted_students = Student.default_sort(@students)
     @number_of_students = @students.size
-    @risk_categories = [ "High", "Medium", "Low" ]
+
+    @analyzer = RiskAnalyzer.new @students 
+    @sorted_students = @analyzer.by_category
+    @risk_categories = @analyzer.by_category.keys
 
     @mcas = Assessment.where(name: "MCAS").order(:year).last
     @star = Assessment.where(name: "STAR").order(:year).last

@@ -9,6 +9,11 @@ FactoryGirl.define do
     math_growth 10
   end
 
+  factory :mcas_result_needs_improvement, class: McasResult do
+    ela_performance "NI"
+    math_performance "NI"
+  end
+
   factory :mcas_result_high, class: McasResult do
     ela_scaled 280
     ela_performance "P"
