@@ -9,8 +9,10 @@
                     <% else %>
                       <% star_result = StarResult.new(StarResult.fake_data) %>
                     <% end %>
-                    <% present(star_result) do |result_presenter| %>
-                      <%= render "students/star_row_fragment", star_presenter: result_presenter %>
+                    <% if star_result.present? %>
+                      <% present(star_result) do |result_presenter| %>
+                        <%= render "students/star_row_fragment", star_presenter: result_presenter %>
+                      <% end %>
                     <% end %>
                   <% end %>
                   <% if @mcas.present? %>
@@ -19,8 +21,10 @@
                     <% else %>
                       <% mcas_result = McasResult.new(McasResult.fake_data) %>
                     <% end %>
-                    <% present(mcas_result) do |result_presenter| %>
-                      <%= render "students/mcas_row_fragment", mcas_presenter: result_presenter %>
+                    <% if mcas_result.present? %>
+                      <% present(mcas_result) do |result_presenter| %>
+                        <%= render "students/mcas_row_fragment", mcas_presenter: result_presenter %>
+                      <% end %>
                     <% end %>
                   <% end %>
                 </tr>
