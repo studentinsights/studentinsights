@@ -9,6 +9,11 @@ FactoryGirl.define do
     math_growth 10
   end
 
+  factory :student_result_needs_improvement, class: StudentResult do
+    ela_performance "NI"
+    math_performance "NI"
+  end
+
   factory :student_result_high, class: StudentResult do
     ela_scaled 280
     ela_performance "P"
