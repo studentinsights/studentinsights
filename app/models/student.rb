@@ -4,8 +4,7 @@ class Student < ActiveRecord::Base
   has_many :attendance_results, dependent: :destroy
   has_many :mcas_results, dependent: :destroy
   has_many :star_results, dependent: :destroy
-  has_many :assessments, through: :mcas_results
-
+  
   def high_risk?
     if mcas_results.present?
      mcas_results.last.warning?

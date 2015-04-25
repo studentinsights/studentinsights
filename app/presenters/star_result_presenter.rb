@@ -1,6 +1,6 @@
 class StarResultPresenter < Struct.new(:result)
   include ResultPresenter
-  delegate :math_warning?, :reading_warning?, to: :result
+  delegate :math_warning?, :reading_warning?, :date_taken, to: :result
   
   def results_for_presentation
     [
