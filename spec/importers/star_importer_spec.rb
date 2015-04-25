@@ -7,7 +7,7 @@ RSpec.describe StarImporter do
 		context 'with good data' do
 			context 'math results' do
 				math_fixture_path = "#{Rails.root}/spec/fixtures/fake_star_math.csv"
-				let(:math_importer) { StarImporter.new(math_fixture_path, "math") }
+				let(:math_importer) { StarMathImporter.new(math_fixture_path) }
 				it 'associates a STAR result with the correct student' do
 					math_importer.import
 					expect(student.reload.star_results.count).to eq 1
@@ -20,7 +20,7 @@ RSpec.describe StarImporter do
 			end
 			context 'reading results' do
 				reading_fixture_path = "#{Rails.root}/spec/fixtures/fake_star_reading.csv"
-				let(:reading_importer) { StarImporter.new(reading_fixture_path, "reading") }
+				let(:reading_importer) { StarReadingImporter.new(reading_fixture_path) }
 				it 'associates a STAR result with the correct student' do
 					reading_importer.import
 					expect(student.reload.star_results.count).to eq 1
