@@ -5,7 +5,7 @@
 /data
 coverage
 config/local_env.yml
-db/seeds/development/users.seeds.rb
+db/seeds/users/educators.seeds.rb
 
 ## Environment normalisation:
 /.bundle

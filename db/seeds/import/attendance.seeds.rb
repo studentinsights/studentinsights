@@ -1,4 +1,4 @@
-after :schools, :x2 do
+after 'import:schools', 'import:x2' do
   puts "Importing attendance data from X2..."
   importer = AttendanceImporter.new
   attendance_rows = importer.connect_to_x2_attendance("05", "SKL00000000009")

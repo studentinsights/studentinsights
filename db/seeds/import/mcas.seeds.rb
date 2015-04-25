@@ -1,4 +1,4 @@
-after :schools, :x2, :attendance do
+after 'import:schools', 'import:x2', 'import:attendance' do
   puts "MCAS:"
   path = "#{Rails.root}/data/mcas2014.csv"
   healey = School.find_by_name("Arthur D Healey")
@@ -10,8 +10,9 @@ after :schools, :x2, :attendance do
     puts "   Importing MCAS data..."
     importer = McasImporter.new(path, healey, grade, year).import
 
-    puts "#{McasResult.all.size} MCAS results."
+    puts "#{McasResult.count} MCAS results."
   else 
     puts "   No MCAS data file found."
+    puts "   #{McasResult.count} MCAS results."
   end
 end

@@ -1,5 +1,5 @@
 puts "X2 DEMOGRAPHICS:"
-after :schools do
+after 'import:schools' do
   puts "   Importing demographic data from X2..."
   healey = School.find_by_name("Arthur D Healey")
   grade = "05"
