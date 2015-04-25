@@ -1,8 +1,8 @@
 FactoryGirl.define do
+
+  sequence(:name) { |n| n.to_s }
+  
   factory :homeroom do
-    name "101"
-    factory :new_homeroom do
-      name "701"
-    end
+    name { FactoryGirl.generate(:name) }
   end
 end

@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
     @star = Assessment.where(name: "STAR").order(:year).last
 
     # Order for dropdown menu of homerooms
-    @homerooms_by_name = Homeroom.order(:name)
+    @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
   end
 
   private
