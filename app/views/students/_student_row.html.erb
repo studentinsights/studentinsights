@@ -7,7 +7,7 @@
                     <% unless controller_name == 'pages' && action_name == 'roster_demo' %>
                       <% star_result = presenter.student.star_results.last %>
                     <% else %>
-                      <% star_result = StarResult.new(StarResult.fake_data) %>
+                      <% star_result = StarResult.new(FakeStarResult.data) %>
                     <% end %>
                     <% if star_result.present? %>
                       <% present(star_result) do |result_presenter| %>
@@ -19,7 +19,7 @@
                     <% unless controller_name == 'pages' && action_name == 'roster_demo' %>
                       <% mcas_result = presenter.student.mcas_results.last %>
                     <% else %>
-                      <% mcas_result = McasResult.new(McasResult.fake_data) %>
+                      <% mcas_result = McasResult.new(FakeMcasResult.data) %>
                     <% end %>
                     <% if mcas_result.present? %>
                       <% present(mcas_result) do |result_presenter| %>

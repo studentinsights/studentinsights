@@ -8,9 +8,9 @@ class PagesController < ApplicationController
     @students = []
 
     @number_of_students.times do 
-      student = Student.new(Student.fake_data)
+      student = Student.new(FakeStudent.data)
       @students << student
-      student.mcas_results.build(McasResult.fake_data)
+      student.mcas_results.build(FakeMcasResult.data)
     end
     
     @analyzer = RiskAnalyzer.new @students 

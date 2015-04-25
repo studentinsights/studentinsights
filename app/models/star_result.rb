@@ -19,14 +19,4 @@ class StarResult < ActiveRecord::Base
       reading_percentile_rank < performance_warning_level
     end
   end
-
-
-  def self.fake_data
-    {
-      math_percentile_rank: rand(10..99), 
-      reading_percentile_rank: rand(10..99), 
-      instructional_reading_level: rand(1..6)
-    }
-  end
-
 end
