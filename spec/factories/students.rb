@@ -1,11 +1,14 @@
 FactoryGirl.define do
-  
+  sequence(:state_id) { |n| "#{n}000" }
+end
+
+FactoryGirl.define do
+
   factory :student do
+      state_id
 
-    # Test importing data from X2
-
-    factory :student_we_want_to_update do
-      state_id "10"
+    factory :student_we_want_to_update do       # Test importing data from X2, STAR
+      state_id "10"                             # State ID matches fixture
       home_language "English"
     end
     factory :student_with_homeroom do
@@ -31,16 +34,19 @@ FactoryGirl.define do
     # Test sorting students by risk level 
 
     factory :high_risk_student do
+      state_id
       after(:create) do |student|
         create(:mcas_result_low, student_id: student.id)
       end
     end
     factory :medium_risk_student do
+      state_id
       after(:create) do |student|
         create(:mcas_result_needs_improvement, student_id: student.id)
       end
     end
     factory :low_risk_student do
+      state_id
       after(:create) do |student|
         create(:mcas_result_high, student_id: student.id)
       end
@@ -49,16 +55,16 @@ FactoryGirl.define do
     # Test assigning students to attendance results
 
     factory :student_without_attendance_result do
-      state_id "123updateme"
+      state_id
     end
     factory :student_for_aggregating_attendance do
-      state_id "200"
+      state_id
     end
     factory :another_student_for_aggregating_attendance do
-      state_id "300"
+      state_id
     end
-    factory :student_with_attendance_result do    # Test importing attendance data from X2
-      state_id "123updateme"              # State ID atches FAKE_PARSED_ATTENDANCE_RESULT from FakeX2Attendance
+    factory :student_with_attendance_result do      # Test importing attendance data from X2
+      state_id 'student_with_attendance_result'     # State ID matches FAKE_PARSED_ATTENDANCE_RESULT
       after(:create) do |student|
         create(:attendance_result,
           student_id: student.id,

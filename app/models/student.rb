@@ -4,7 +4,8 @@ class Student < ActiveRecord::Base
   has_many :attendance_results, dependent: :destroy
   has_many :mcas_results, dependent: :destroy
   has_many :star_results, dependent: :destroy
-  
+  validates_uniqueness_of :state_id
+
   def high_risk?
     if mcas_results.present?
      mcas_results.last.warning?

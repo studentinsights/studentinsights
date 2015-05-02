@@ -10,7 +10,7 @@ module FakeX2Attendance
 	end
 
 	FAKE_PARSED_ATTENDANCE_RESULT = {
-		state_id: "123updateme",
+		state_id: "student_with_attendance_result",
 		school_year: "2014-2015",
 		number_of_absences: 2,
 		number_of_tardies: 3
