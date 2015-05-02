@@ -16,6 +16,7 @@ RSpec.describe StarImporter do
 					math_importer.import
 					star_result = student.star_results.last
 					expect(star_result.math_percentile_rank).to eq 70
+					expect(star_result.date_taken).to eq Date.new(2015, 4, 25)
 				end
 			end
 			context 'reading results' do
@@ -30,6 +31,7 @@ RSpec.describe StarImporter do
 					star_result = student.star_results.last
 					expect(star_result.reading_percentile_rank).to eq 90
 					expect(star_result.instructional_reading_level).to eq 5.0
+					expect(star_result.date_taken).to eq Date.new(2015, 4, 25)
 				end
 			end
 		end
