@@ -1,7 +1,6 @@
 class StarResult < ActiveRecord::Base
   belongs_to :student
-  belongs_to :assessment
-
+  
   def performance_warning_level
     34
   end

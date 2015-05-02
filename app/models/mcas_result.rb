@@ -1,6 +1,5 @@
 class McasResult < ActiveRecord::Base
   belongs_to :student
-  belongs_to :assessment
 
   def growth_warning_level
     34

@@ -1,6 +1,4 @@
-Assessment.destroy_all
 School.destroy_all
-assessment = Assessment.create(name: "MCAS", year: Time.new(2014))
 healey = School.create(name: "Arthur D Healey")
 
 Homeroom.destroy_all
@@ -21,6 +19,6 @@ LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
   student.homeroom_id = Homeroom.all.sample.id
   student.save
   result = McasResult.new(FakeMcasResult.data)
-  result.update_attributes(student_id: student.id, assessment_id: assessment.id)
+  result.update_attributes(student_id: student.id)  #DATE TAKEN REPLACES ASSESSMENT BRO
   result.save
 end

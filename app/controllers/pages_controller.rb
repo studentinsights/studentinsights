@@ -17,9 +17,6 @@ class PagesController < ApplicationController
     @sorted_students = @analyzer.by_category
     @risk_categories = @analyzer.by_category.keys
 
-    @mcas = Assessment.new(name: "MCAS", year: Time.new(2015))
-    @star = Assessment.new(name: "STAR", year: Time.new(2015))
-
     @homeroom = Homeroom.where(name: "Demo").first_or_create
     @homerooms_by_name = [@homeroom]
     render "students/index"
