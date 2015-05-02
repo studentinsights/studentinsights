@@ -6,11 +6,13 @@ describe StudentsController, :type => :controller do
 
   describe '#index' do
     def make_request(homeroom_slug = nil)
+      request.env['HTTPS'] = 'on'
       get :index, homeroom_id: homeroom_slug
     end
 
     context 'when educator is not logged in' do
       it 'redirects to sign in page' do
+        request.env['HTTPS'] = 'on'
         get :index
         expect(response).to redirect_to(new_educator_session_path)
       end
