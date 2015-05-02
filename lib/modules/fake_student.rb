@@ -13,7 +13,7 @@ module FakeStudent
       low_income: [true, false].sample,
       first_name: FIRST_NAMES.sample,
       last_name: LAST_NAMES.sample,
-      state_identifier: "000#{rand(1000)}", 
+      state_id: "000#{rand(1000)}",
       limited_english_proficient: [true, false].sample, 
       former_limited_english_proficient: [true, false].sample,
       sped: [true, false, false, false].sample

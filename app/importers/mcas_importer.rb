@@ -9,7 +9,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :d
       row = row.to_hash.except(nil)
       row = look_up_school(row)
       if row['grade'] == grade_scope && row['school_id'] == school_scope.id
-        student = Student.where(state_identifier: row['state_identifier']).first_or_create!
+        student = Student.where(state_id: row['state_id']).first_or_create!
         (demographic_attrs + id_attrs).each do |attribute|
           student.send(attribute + '=', row[attribute])
           student.save!
@@ -37,7 +37,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :d
       'mscaleds' => 'math_scaled',
       'mperf2' => 'math_performance',
       'msgp' => 'math_growth',
-      'sasid' => 'state_identifier',
+      'sasid' => 'state_id',
       'grade' => 'grade',
       'school' => 'school_state_id',
       'race_off' => 'race',
@@ -59,7 +59,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :d
   end
 
   def id_attrs
-    [ 'state_identifier', 'grade' ]
+    [ 'state_id', 'grade' ]
   end
 
   def look_up_school(row)
