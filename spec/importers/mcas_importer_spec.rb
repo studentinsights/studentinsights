@@ -21,7 +21,7 @@ RSpec.describe McasImporter do
 
         it 'imports a Healey student' do
           healey_importer.import
-          expect(Student.last.state_identifier).to eq('000222')
+          expect(Student.last.state_id).to eq('000222')
         end
 
         it 'sets the student demograpics correctly' do
@@ -47,7 +47,7 @@ RSpec.describe McasImporter do
 
         it 'imports a Brown student' do
           brown_importer.import
-          expect(Student.last.state_identifier).to eq('000223')
+          expect(Student.last.state_id).to eq('000223')
         end
         
       end

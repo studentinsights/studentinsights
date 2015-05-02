@@ -60,8 +60,8 @@ RSpec.describe AttendanceImporter do
 			let!(:tardy_student) { FactoryGirl.create(:student_for_aggregating_attendance) }
 			let!(:absent_student) { FactoryGirl.create(:another_student_for_aggregating_attendance) }
 			let!(:attendance_rows) { 
-				generate_x2_attendance_rows(tardy_student.state_identifier, 2015, 4, 5, 0) +
-				generate_x2_attendance_rows(absent_student.state_identifier, 2015, 4, 0, 3)
+				generate_x2_attendance_rows(tardy_student.state_id, 2015, 4, 5, 0) +
+				generate_x2_attendance_rows(absent_student.state_id, 2015, 4, 0, 3)
 			}
 			let!(:result) { attendance_importer.sort_attendance_rows_by_student_and_aggregate(attendance_rows) }
 			it 'counts five tardies for the tardy student' do			

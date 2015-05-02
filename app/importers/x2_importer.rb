@@ -29,7 +29,7 @@ class X2Importer < Struct.new(:school_scope, :grade_scope)
 
   def create_or_update_student(row)
     state_id = row["STD_ID_STATE"]
-    student = Student.where(state_identifier: state_id).first_or_create!
+    student = Student.where(state_id: state_id).first_or_create!
     full_name = row["std_name_view"]
     if full_name.present?
       student.last_name = full_name.split(", ")[0]

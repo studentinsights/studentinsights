@@ -7,8 +7,8 @@ module StarImporter
                                 header_converters: lambda { |h| convert_headers(h) }
                                 ) do |row|
       row = row.to_hash.except(nil)
-      state_id, date_taken = row['state_identifier'], row['date_taken']
-      student = Student.where(state_identifier: state_id).first_or_create!
+      state_id, date_taken = row['state_id'], row['date_taken']
+      student = Student.where(state_id: state_id).first_or_create!
       star_result = StarResult.where(student_id: student.id, date_taken: date_taken).first_or_create!
       header_dictionary.values.each do |attribute|
         star_result.send(attribute + '=', row[attribute])
@@ -29,7 +29,7 @@ module StarImporter
 
   def id_header_dictionary
     { 
-      'StateStudentID' => 'state_identifier',
+      'StateStudentID' => 'state_id',
       'DateTaken' => 'date_taken'
     }
   end

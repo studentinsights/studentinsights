@@ -5,7 +5,7 @@ FactoryGirl.define do
     # Test importing data from X2
 
     factory :student_we_want_to_update do
-      state_identifier "10"
+      state_id "10"
       home_language "English"
     end
     factory :student_with_homeroom do
@@ -49,16 +49,16 @@ FactoryGirl.define do
     # Test assigning students to attendance results
 
     factory :student_without_attendance_result do
-      state_identifier "123updateme"
+      state_id "123updateme"
     end
     factory :student_for_aggregating_attendance do
-      state_identifier "200"
+      state_id "200"
     end
     factory :another_student_for_aggregating_attendance do
-      state_identifier "300"
+      state_id "300"
     end
     factory :student_with_attendance_result do    # Test importing attendance data from X2
-      state_identifier "123updateme"              # State ID atches FAKE_PARSED_ATTENDANCE_RESULT from FakeX2Attendance
+      state_id "123updateme"              # State ID atches FAKE_PARSED_ATTENDANCE_RESULT from FakeX2Attendance
       after(:create) do |student|
         create(:attendance_result,
           student_id: student.id,
