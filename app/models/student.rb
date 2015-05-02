@@ -13,7 +13,7 @@ class Student < ActiveRecord::Base
   end
 
   def medium_risk?
-    if mcas_results.present?
+    if !high_risk? && mcas_results.present?
       last_result = mcas_results.last
       last_result.ela_performance == "NI" || last_result.math_performance == "NI"
     end
