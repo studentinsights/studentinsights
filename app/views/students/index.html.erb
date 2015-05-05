@@ -9,10 +9,11 @@
         <% end %>
       </select> 
     </div>
-    <div id="assessment-dropdown" class="dropdown">
-      <select id="assessment-select" class="chosen-select" data-placeholder="Choose assessments..." tabindex="4" multiple>
-        <option id="select-star" value="star" selected>STAR</option>
-        <option id="select-mcas" value="mcas" selected>MCAS</option>
+    <div id="column-group-dropdown" class="dropdown">
+      <select id="column-group-select" class="chosen-select" data-placeholder="Choose information to show..." tabindex="4" multiple>
+        <option value="star" selected>STAR</option>
+        <option value="mcas" selected>MCAS</option>
+        <option value="demographics">Demographics</option>
       </select> 
     </div>
   </div>
@@ -21,22 +22,23 @@
       <thead>
         <tr class="column-groups">
           <td colspan="1"></td>
-          <td colspan="3"><p class="smalltype">Demographics</p></td>
+          <td colspan="3" class="demographics"><p class="smalltype">Demographics</p></td>
           <td colspan="3" class="star"><p class="smalltype">STAR</p></td>
           <td colspan="4" class="mcas"><p class="smalltype">MCAS</p></td>
         </tr>
         <tr class="column-groups">
-          <td colspan="4"></td>
-            <td colspan="1" class="star"><p class="smalltype italic">Math</p></td>
-            <td colspan="2" class="star"><p class="smalltype italic">Reading</p></td>
-            <td colspan="2" class="mcas"><p class="smalltype italic">Math</p></td>
-            <td colspan="2" class="mcas"><p class="smalltype italic">English</p></td>
+          <td colspan="1"></td>
+          <td colspan="3" class="demographics"></td> <!-- Blank column space for nested labels -->
+          <td colspan="1" class="star"><p class="smalltype italic">Math</p></td>
+          <td colspan="2" class="star"><p class="smalltype italic">Reading</p></td>
+          <td colspan="2" class="mcas"><p class="smalltype italic">Math</p></td>
+          <td colspan="2" class="mcas"><p class="smalltype italic">English</p></td>
         </tr>
         <tr class="column-names">
           <th>Name</th>
-          <th>Race</th>
-          <th>SPED</th>
-          <th>LEP</th>
+          <th class="demographics">Race</th>
+          <th class="demographics">SPED</th>
+          <th class="demographics">LEP</th>
           <th class="star">Percentile</th>
           <th class="star">Percentile</th>
           <th class="star">IRL</th>

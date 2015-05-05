@@ -1,8 +1,8 @@
                 <tr>
                   <td><%= link_to presenter.full_name, student_url(presenter.id) %></td>
-                  <td><%= presenter.student.race %></td>
-                  <td><%= presenter.sped %></td>
-                  <td><%= presenter.limited_english_proficient %></td>
+                  <td class="demographics"><%= presenter.student.race %></td>
+                  <td class="demographics"><%= presenter.sped %></td>
+                  <td class="demographics"><%= presenter.limited_english_proficient %></td>
                   <% star_result = presenter.latest_star %>
                   <% if star_result.present? %>
                     <% present(star_result) do |result_presenter| %>
