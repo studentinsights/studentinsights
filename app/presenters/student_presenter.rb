@@ -1,4 +1,5 @@
 class StudentPresenter < Struct.new(:student)
+  delegate :id, to: :student
 
   def full_name
     student.first_name + " " + student.last_name

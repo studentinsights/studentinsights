@@ -1,5 +1,5 @@
                 <tr>
-                  <td><%= presenter.full_name %></td>
+                  <td><%= link_to presenter.full_name, student_url(presenter.id) %></td>
                   <td><%= presenter.student.race %></td>
                   <td><%= presenter.sped %></td>
                   <td><%= presenter.limited_english_proficient %></td>
