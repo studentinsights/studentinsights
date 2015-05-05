@@ -4,6 +4,38 @@ describe StudentsController, :type => :controller do
   let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
 
+  describe '#show' do
+    def make_request(student_id = nil)
+      request.env['HTTPS'] = 'on'
+      get :show, id: student_id
+    end
+
+    context 'when educator is not logged in' do
+      let!(:student) { FactoryGirl.create(:student) }
+      it 'redirects to sign in page' do
+        request.env['HTTPS'] = 'on'
+        make_request(student.id)
+        expect(response).to redirect_to(new_educator_session_path)
+      end
+    end
+
+    context 'when educator is logged in' do
+      let!(:student) { FactoryGirl.create(:student) }
+      before do
+        sign_in(educator)
+      end
+
+      it 'is successful' do
+        make_request(student.id)
+        expect(response).to be_success
+      end
+      it 'assigns the student correctly' do
+        make_request(student.id)
+        expect(assigns(:student)).to eq student
+      end
+    end
+  end
+
   describe '#index' do
     def make_request(homeroom_slug = nil)
       request.env['HTTPS'] = 'on'

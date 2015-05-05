@@ -3,6 +3,11 @@ class StudentsController < ApplicationController
   before_action :authenticate_educator!
   before_action :assign_homeroom
 
+  def show
+    @student = Student.find(params[:id])
+    @presenter = StudentPresenter.new @student
+  end
+
   def index
     @students = @homeroom.students
     @number_of_students = @students.size
