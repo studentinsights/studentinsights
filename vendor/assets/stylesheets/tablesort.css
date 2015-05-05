@@ -11,7 +11,8 @@ th.sort-header::selection {
 
 table th.sort-header:after {
   content:'';
-  float:right;
+  display: inline-block;
+  margin-left:7px;
   margin-top:7px;
   border-width:0 4px 4px;
   border-style:solid;

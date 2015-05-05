@@ -1,24 +1,12 @@
                       <td class="mcas">
-                        <% if mcas_presenter.math_performance_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
                         <%= mcas_presenter.math_performance %>
                       </td>
                       <td class="mcas">
-                        <% if mcas_presenter.math_growth_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
                         <%= mcas_presenter.math_growth %>
                       </td>
                       <td class="mcas">
-                        <% if mcas_presenter.ela_performance_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
                         <%= mcas_presenter.ela_performance %>
                       </td>
                       <td class="mcas">
-                        <% if mcas_presenter.ela_growth_warning? %>
-                          <%= render "students/warning_indicator" %>
-                        <% end %>
                         <%= mcas_presenter.ela_growth %>
                       </td>

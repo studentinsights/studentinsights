@@ -10,12 +10,6 @@ class StudentsController < ApplicationController
 
   def index
     @students = @homeroom.students
-    @number_of_students = @students.size
-
-    @analyzer = RiskAnalyzer.new @students 
-    @sorted_students = @analyzer.by_category
-    @risk_categories = @analyzer.by_category.keys
-
     # Order for dropdown menu of homerooms
     @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
   end
