@@ -1,6 +1,61 @@
 /* ABOUT PAGE */
 
-.about-text {
-  font-size: 16px;
-  margin-bottom: 16px;
+.about-page {
+	text-align: center;
+    max-width: 750px;
+    min-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+
+	h4 {
+		margin-bottom: 10px;
+	}
+
+	h5 {
+		margin-bottom: 20px;
+	}
+}
+
+.what, .how, .logos {
+	margin-top: 70px;
+}
+
+.who {
+	margin-top: 40px;
+}
+
+.teacher-photo {
+	margin-top: 40px;
+}
+
+.logos {
+	margin-bottom: 40px;
+}
+
+.somerville-logo {
+	margin-right: 30px;
+}
+
+.what {
+
+	h4 {
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+
+	.headline {
+		margin-bottom: 20px;
+	}
+	
+	.pillars {
+		margin-left: auto;
+	    margin-right: auto;
+	}
+
+	.roster-pillar, .profile-pillar, .interventions-pillar {
+		width: 30%;
+	    display: inline-block;
+		padding-left: 10px;
+		padding-right: 10px; 
+	}
 }
