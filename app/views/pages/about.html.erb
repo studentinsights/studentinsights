@@ -1,23 +1,42 @@
-      <div class="info-area">
-        <h4>This is a tool for teachers in Somerville, MA.</h4>
-        <p>It's being built by a Code for America's <a href="http://www.codeforamerica.org/governments/somerville/">Team Somerville</a>, working closely with our partners in Somerville: the 5th grade teacher team at Healey School, Principal Jill Geiser, Uri Harel (Elementary Curriculum Coordinator) and Vince McKay (Assistant Superintendent), and Stephanie Hirsch.</p>
-        <br/>
-        <h4>Current status: In development</h4>
-        <p>This is currently an <strong>alpha product</strong>. We are still working out bugs and building out new features.</p>
-        <br/>
-        <p>We plan for the beta version of tool to have the following three modules (<a href="https://www.gov.uk/service-manual/agile/writing-user-stories.html">user stories</a> below):</li>
-        <br/>
-        <br/>
-        <ol>
-          <li>
-            <p><strong>Roster</strong>: As a teacher, I want a current snapshot of my classroom that shows me which students are most at risk. I want to be able to quickly sort and view different subgroups within my class. </p>
-          </li>
-          <li>
-            <p><strong>Profile</strong>: As a teacher, I want to see a deep history of my students over time, both academic and behavioral. I want to understand what challenges my student has faced in learning, and see trends over time.</p>
-          <li>
-            <p><strong>Interventions</strong>: As a teacher, I want to see which students are most in need of intervention and log the interventions that are happening in my classroom. I want to ensure that all students who need interventions are getting them.</p>
-          </li>
-        </ol> 
-        <br/>
-        <p><a href="https://github.com/codeforamerica/somerville-teacher-tool">See the code for this teacher tool and leave a comment on GitHub.</a></p>
+<div class="info-area">
+
+  <div class="who">
+    <h5>Who is it for</h5>
+    <h4>This is a tool for teachers in Somerville, MA.</h4>
+      <p>It's being built by Code for America's <a href="http://www.codeforamerica.org/governments/somerville/" target="_blank">Team Somerville</a>, working closely with our partners in Somerville: the 5th grade teacher team at Healey School, Principal Jill Geiser, Uri Harel (Elementary Curriculum Coordinator) and Vince McKay (Assistant Superintendent), and Stephanie Hirsch.</p>
+    <%= image_tag "teachers.png" %>
+  </div>
+
+  <div class ="what">
+    <h5>What is it</h5>
+    <p>We plan for the beta version of tool to have the following three modules</p>
+      <div class="roster-pillar">
+        <h4>Roster</h4>
+        <%= image_tag "roster_pillar.png" %>
+          <p>Giving teachers a current snapshot of their classroom that shows which students are  most at risk.</p>
       </div>
+      <div class="profile-pillar">
+        <h4>Profile</h4>
+        <%= image_tag "profile_pillar.png" %>
+          <p>A deep yearly history of the teacher's current students over time, both academic and behavioural.</p>
+      </div>
+      <div class="interventions-pillar">
+        <h4>Interventions</h4>
+        <%= image_tag "interventions_pillar.png" %>
+          <p>Showing teachers which students are most in need of interventions and giving the ability to log interventions.</p>
+      </div>
+  </div>
+  
+  <div class="how">
+    <h5>How is it going</h5>
+    <h4>Current status: In development</h4>
+      <p>This is currently an <strong>alpha product</strong>. We are still working out bugs and building out new features.</p>
+      <p>See the code for this teacher tool and leave a comment on <a href="https://github.com/codeforamerica/somerville-teacher-tool" target="_blank">GitHub.</a></p>
+  </div>
+
+  <div class="logos">
+    <a href="http://www.somervillema.gov/" target="_blank"><%= image_tag "somerville_logo.png" %></a>
+    <a href="https://www.codeforamerica.org/" target="_blank"><%= image_tag "cfa_logo.png" %></a>
+  </div>
+
+</div>
