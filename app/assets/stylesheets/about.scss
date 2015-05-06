@@ -3,7 +3,7 @@
 .about-page {
 	text-align: center;
     max-width: 750px;
-    min-width: 620px;
+    min-width: 640px;
     margin-left: auto;
     margin-right: auto;
 
@@ -58,4 +58,47 @@
 		padding-left: 10px;
 		padding-right: 10px; 
 	}
+}
+
+.circular-roster {
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	border-radius: 75px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	background: url(/assets/roster_pillar.png) no-repeat;
+	border: 3px solid $light-line;
+}
+
+.circular-profile {
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	border-radius: 75px;
+	-webkit-border-radius: 75px;
+	-moz-border-radius: 75px;
+	background: url(/assets/profile_pillar.png) no-repeat;
+	border: 3px solid $light-line;
+}
+
+.circular-interventions {
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	border-radius: 75px;
+	-webkit-border-radius: 75px;
+	-moz-border-radius: 75px;
+	background: url(/assets/interventions_pillar.png) no-repeat;
+	border: 3px solid $light-line;
+}
+
+.circular-teachers {
+	display: inline-block;
+	width: 750px;
+	height: 160px;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	background: url(/assets/teachers.png) no-repeat;
 }
