@@ -74,3 +74,16 @@ tr, td {
   margin-bottom: 30px;
   border: solid 1px $light-line;
 }
+
+.warning-bubble {
+  background-color: #FF5C33;
+  width: 30px;
+  height: 30px;
+  color: white;
+  border-radius: 30px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  text-align: center;
+  position: relative;
+  right: 6px;
+}
