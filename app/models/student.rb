@@ -17,22 +17,4 @@ class Student < ActiveRecord::Base
       mcas_results.last
     end
   end
-
-  def high_risk?
-    if mcas_results.present?
-     mcas_results.last.warning?
-    end
-  end
-
-  def medium_risk?
-    if !high_risk? && mcas_results.present?
-      last_result = mcas_results.last
-      last_result.ela_performance == "NI" || last_result.math_performance == "NI"
-    end
-  end
-
-  def low_risk?
-    !medium_risk? && !high_risk?
-  end
-
 end
