@@ -45,7 +45,7 @@ git commit --no-verify
 
 ## Status timeline
 
-* __March 2015__:  We're considering the app an alpha product now. Our focus is on building out the student profile feature and improving the roster view while testing working iterations with our teacher partners at Healey.
+* __May 2015__:  We're considering the app an alpha product now. Our focus is on building out the student profile feature and improving the roster view while testing working iterations with our teacher partners at Healey.
 * __April 2015__:  Had our first call with Healey teachers and principal to get feedback on a working prototype of the app using real data.
 * __March 2015__:  Started writing and testing functions to import data from Somerville's Student Information System and student assessment sources.
 * __February 2015__:  We met with the fantastic 5th grade teacher team at Healey throughout the month to learn about the challenges they face, see the current tools they use, and sketch paper prototypes together.
