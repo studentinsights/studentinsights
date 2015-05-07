@@ -19,6 +19,9 @@ LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
   student.homeroom_id = Homeroom.all.sample.id
   student.save
   result = McasResult.new(FakeMcasResult.data)
-  result.update_attributes(student_id: student.id)  #DATE TAKEN REPLACES ASSESSMENT BRO
+  result.update_attributes(student_id: student.id)
+  result.save
+  result = StarResult.new(FakeStarResult.data)
+  result.update_attributes(student_id: student.id)
   result.save
 end

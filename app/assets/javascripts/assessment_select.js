@@ -1,5 +1,6 @@
 $(function(){
-  $("#assessment-select").chosen().on('change', function(e, params) {
+  $(".demographics").hide();
+  $("#column-group-select").chosen().on('change', function(e, params) {
     if (params.deselected !== undefined) {
       var assessment = params.deselected
       $('.' + assessment).hide();

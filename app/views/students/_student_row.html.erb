@@ -1,26 +1,22 @@
                 <tr>
-                  <td><%= presenter.full_name %></td>
-                  <td><%= presenter.student.race %></td>
-                  <td><%= presenter.sped %></td>
-                  <td><%= presenter.limited_english_proficient %></td>
-                  <% unless controller_name == 'pages' && action_name == 'roster_demo' %>
-                    <% star_result = presenter.student.star_results.last %>
-                  <% else %>
-                    <% star_result = StarResult.new(FakeStarResult.data) %>
-                  <% end %>
+                  <td class="name"><%= link_to presenter.full_name, student_url(presenter.id) %></td>
+                  <td class="demographics"><%= presenter.student.race %></td>
+                  <td class="demographics"><%= presenter.sped %></td>
+                  <td class="demographics"><%= presenter.limited_english_proficient %></td>
+                  <% star_result = presenter.latest_star %>
                   <% if star_result.present? %>
                     <% present(star_result) do |result_presenter| %>
                       <%= render "students/star_row_fragment", star_presenter: result_presenter %>
                     <% end %>
-                  <% end %>
-                  <% unless controller_name == 'pages' && action_name == 'roster_demo' %>
-                    <% mcas_result = presenter.student.mcas_results.last %>
                   <% else %>
-                    <% mcas_result = McasResult.new(FakeMcasResult.data) %>
+                    <%= render "students/blank_star_row" %>
                   <% end %>
+                  <% mcas_result = presenter.latest_mcas %>
                   <% if mcas_result.present? %>
                     <% present(mcas_result) do |result_presenter| %>
                       <%= render "students/mcas_row_fragment", mcas_presenter: result_presenter %>
                     <% end %>
+                  <% else %>
+                    <%= render "students/blank_star_row" %>
                   <% end %>
                 </tr>
