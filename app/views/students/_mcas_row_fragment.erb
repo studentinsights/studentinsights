@@ -1,24 +1,28 @@
                       <td class="mcas">
                         <% if mcas_presenter.math_performance_warning? %>
-                          <div class="warning-bubble">
-                            <%= mcas_presenter.math_performance %>
-                          </div>
+                          <%= render "warning_indicator", value: mcas_presenter.math_performance %>
                         <% else %>
                           <%= mcas_presenter.math_performance %>
                         <% end %>
                       </td>
                       <td class="mcas">
-                        <%= mcas_presenter.math_growth %>
+                        <% if mcas_presenter.math_growth_warning? %>
+                          <%= render "warning_indicator", value: mcas_presenter.math_growth %>
+                        <% else %>
+                          <%= mcas_presenter.math_growth %>
+                        <% end %>
                       </td>
                       <td class="mcas">
                         <% if mcas_presenter.ela_performance_warning? %>
-                          <div class="warning-bubble">
-                            <%= mcas_presenter.ela_performance %>
-                          </div>
+                          <%= render "warning_indicator", value: mcas_presenter.ela_performance %>
                         <% else %>
                           <%= mcas_presenter.ela_performance %>
                         <% end %>
                       </td>
                       <td class="mcas">
-                        <%= mcas_presenter.ela_growth %>
+                        <% if mcas_presenter.ela_growth_warning? %>
+                          <%= render "warning_indicator", value: mcas_presenter.ela_growth %>
+                        <% else %>
+                          <%= mcas_presenter.ela_growth %>
+                        <% end %>
                       </td>

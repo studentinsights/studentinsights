@@ -1,8 +1,16 @@
                       <td class="star">
-                        <%= star_presenter.math_percentile_rank %>
+                        <% if star_presenter.math_percentile_warning? %>
+                          <%= render "warning_indicator", value: star_presenter.math_percentile_rank %>
+                        <% else %>
+                          <%= star_presenter.math_percentile_rank %>
+                        <% end %>
                       </td>
                       <td class="star">
-                        <%= star_presenter.reading_percentile_rank %>
+                        <% if star_presenter.reading_percentile_warning? %>
+                          <%= render "warning_indicator", value: star_presenter.reading_percentile_rank %>
+                        <% else %>
+                          <%= star_presenter.reading_percentile_rank %>
+                        <% end %>
                       </td>
                       <td class="star">
                         <%= star_presenter.instructional_reading_level %>
