@@ -28,7 +28,7 @@ rspec
 ```
 
 #### Pre-commit
-This app comes with a suggested pre-commit file that you can add to your git hooks. It will run the tests before any commmits, so you can be sure any changes you add are kosher.
+This app comes with a suggested pre-commit file that you can add to your git hooks. It will run the tests before any commits, so you can be sure any changes you add are kosher.
 
 Add to your git hooks: 
 
@@ -43,11 +43,13 @@ If you have a good reason to skip the test suite and commit straightaway:
 git commit --no-verify
 ```
 
-## Status
-We kicked up this app during Build Week 2015 as a warm-up getting-to-know-you exercise. The initial product idea and subsequent feedback came from Stephanie Hirsch as well as other exciting projects in the Somerville Public Schools. 
+## Status timeline
 
-This app is in the "experimental / plaything / demo" stage as of late January 2015. It draws from a single set of de-identified sample data from Excel to generate risk levels by homeroom, so it can't do anything useful in the wild right. If this demo seems promising to stakeholders and early iterations prove useful, it could grow up over the course of the fellowship year.
-
+* __March 2015__:  We're considering the app an alpha product now. Our focus is on building out the student profile feature and improving the roster view while testing working iterations with our teacher partners at Healey.
+* __April 2015__:  Had our first call with Healey teachers and principal to get feedback on a working prototype of the app using real data.
+* __March 2015__:  Started writing and testing functions to import data from Somerville's Student Information System and student assessment sources.
+* __February 2015__:  We met with the fantastic 5th grade teacher team at Healey throughout the month to learn about the challenges they face, see the current tools they use, and sketch paper prototypes together.
+* __January 2015__: We kicked up this app during Build Week as a warm-up getting-to-know-you exercise. The initial product idea and subsequent feedback came from Stephanie Hirsch. This app drew from a single set of de-identified sample data from Excel to generate risk levels by homeroom, so it couldn't do anything useful in the wild. We said: "If this demo seems promising to stakeholders and early iterations prove useful, it could grow up over the course of the fellowship year."
 
 ## Future? 
 This app could grow in several different ways.
