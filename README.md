@@ -20,7 +20,19 @@ As a teacher, I want to see how my students are doing both academically and beha
 ## Installation
 This is a Ruby on Rails app and uses a PostgreSQL database. See Code for America's "HowTo" on Rails for more information on deploying and maintaining apps using Rails: https://github.com/codeforamerica/howto/blob/master/Rails.md
 
-## Tests
+### Setting up demo data
+
+To set up demo data after you clone the project, run
+
+```
+rake db:seed:demo
+```
+
+In addition to creating demo students, homerooms, and assessment results, this will create a demo educator login defined in `db/seeds/demo/demo_educator.seeds.rb`. The demo login has an email address of demo@example.com and the password `demo-password`.
+
+Once you've created the demo data, start a local server by running `rails c` from the root of your project (i.e. in the folder called `somerville-teacher-tool`). When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your (demo) data.
+
+### Tests
 This app uses the [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) testing library. To run the test suite:
 
 ```

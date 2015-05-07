@@ -1,3 +1,5 @@
+puts "Creating demo students, school, homerooms, assessment results..."
+
 School.destroy_all
 healey = School.create(name: "Arthur D Healey")
 
