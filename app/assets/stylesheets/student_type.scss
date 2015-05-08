@@ -1,0 +1,48 @@
+/* STUDENT PROFILE TYPE STYLES */
+
+.school-year{
+  h1 {
+    font-size: 18px;
+    font-weight: 400;
+    color: $white;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 400;
+    color: $dark-gray;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 400;
+    color: $gray;
+  }
+
+  h4 {
+    font-size: 12px;
+    font-weight: 300;
+    color: $light-gray;
+  }
+
+  h5 {
+    padding-top: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: $dark-gray;
+  }
+
+  p.referral-date {
+    font-weight: 300;
+    color: $light-gray;
+  }
+}
+
+.assesment-type {
+    padding-bottom: 20px;
+    padding-top: 20px; 
+}
+
+h2.star-type {
+  padding-bottom: 0px;
+}
