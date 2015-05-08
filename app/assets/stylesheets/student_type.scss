@@ -7,10 +7,15 @@
     color: $white;
   }
 
+
   h2 {
     font-size: 18px;
     font-weight: 400;
     color: $dark-gray;
+  }
+
+  h2.attendance-type {
+    padding-bottom: 20px; 
   }
 
   h3 {
@@ -41,8 +46,4 @@
 .assesment-type {
     padding-bottom: 20px;
     padding-top: 20px; 
-}
-
-h2.star-type {
-  padding-bottom: 0px;
 }
