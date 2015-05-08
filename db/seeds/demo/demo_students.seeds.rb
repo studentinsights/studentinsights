@@ -12,6 +12,7 @@ end
 
 Student.destroy_all
 McasResult.destroy_all
+StarResult.destroy_all
 
 FIRST_NAMES = [ "Casey", "Josh", "Judith", "Tae", "Kenn" ]
 LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
