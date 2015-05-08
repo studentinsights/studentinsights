@@ -17,4 +17,10 @@ class StarResult < ActiveRecord::Base
       reading_percentile_rank < percentile_warning_level
     end
   end
+
+  def reading_level_warning?
+    if instructional_reading_level.present?
+      -1 >= instructional_reading_level.to_f - grade.to_f
+    end
+  end
 end
