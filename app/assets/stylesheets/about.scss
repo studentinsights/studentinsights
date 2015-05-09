@@ -2,11 +2,8 @@
 
 .about-page {
 	text-align: center;
-    max-width: 750px;
-    min-width: 640px;
-    margin-left: auto;
-    margin-right: auto;
-
+  margin-left: auto;
+  margin-right: auto;
 	h4 {
 		margin-bottom: 10px;
 	}
@@ -47,58 +44,56 @@
 		margin-bottom: 20px;
 	}
 	
-	.pillars {
+	#pillars {
 		margin-left: auto;
-	    margin-right: auto;
+		margin-right: auto;
 	}
 
-	.roster-pillar, .profile-pillar, .interventions-pillar {
+	.pillar {
 		width: 30%;
-	    display: inline-block;
-		padding-left: 10px;
-		padding-right: 10px; 
+	  display: inline-block;
+	  padding: 10px;
+	  @media screen and (max-width: 680px) {
+	  	display: inline;
+	  	width: 80%;
+	  }
+	  p {
+	  	margin-bottom: 25px;
+	  }
 	}
 }
 
-.circular-roster {
+#roster {
+	background: url(/assets/roster_pillar.png) no-repeat;
+}
+
+#profile {
+	background: url(/assets/profile_pillar.png) no-repeat;
+}
+
+#interventions {
+	background: url(/assets/interventions_pillar.png) no-repeat;
+}
+
+.circular {
 	display: inline-block;
 	width: 150px;
 	height: 150px;
 	border-radius: 75px;
 	-webkit-border-radius: 150px;
 	-moz-border-radius: 150px;
-	background: url(/assets/roster_pillar.png) no-repeat;
 	border: 3px solid $light-line;
 }
 
-.circular-profile {
+#teachers {
 	display: inline-block;
-	width: 150px;
-	height: 150px;
-	border-radius: 75px;
-	-webkit-border-radius: 75px;
-	-moz-border-radius: 75px;
-	background: url(/assets/profile_pillar.png) no-repeat;
-	border: 3px solid $light-line;
-}
-
-.circular-interventions {
-	display: inline-block;
-	width: 150px;
-	height: 150px;
-	border-radius: 75px;
-	-webkit-border-radius: 75px;
-	-moz-border-radius: 75px;
-	background: url(/assets/interventions_pillar.png) no-repeat;
-	border: 3px solid $light-line;
-}
-
-.circular-teachers {
-	display: inline-block;
-	width: 750px;
+  width: 80%;
 	height: 160px;
 	border-radius: 8px;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	background: url(/assets/teachers.png) no-repeat;
+	@media screen and (min-width: 1200px) {
+		width: 750px;
+  }
 }
