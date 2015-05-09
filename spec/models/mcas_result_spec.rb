@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe McasResult, :type => :model do
 
   describe '#math_performance_warning?' do

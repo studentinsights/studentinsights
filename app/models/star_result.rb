@@ -1,5 +1,6 @@
 class StarResult < ActiveRecord::Base
   belongs_to :student
+  delegate :grade, to: :student
 
   def percentile_warning_level
     40
