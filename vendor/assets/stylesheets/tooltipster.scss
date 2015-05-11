@@ -1,59 +1,3 @@
-
-#my-tooltip {
-	float: right;
-	width: 30px;
-	height: 30px;
-	border-radius: 30px;
-  	background-color: $dark-line;
-	margin-top: 12px;
-	cursor: help;
-	padding-top: 4px;
-	padding-bottom: 6px;
-	text-align: center;
-	position: relative;
-
-	p {
-		color: #fff;
-		font-size: 16px;
-	}
-}
-
-#my-tooltip:hover {
-	background-color: $dark-gray;
-}
-
-.warning-dot {
-	width: 12px;
-	height: 12px;
-	border-radius: 12px;
-  	background-color: $warning-bubble;
-  	float: left;
-  	margin-right: 5px;
-  	margin-top: 4px;
-}
-
-.warning-header {
-	border-bottom: 1px solid $dark-line;
-	padding-bottom: 5px;
-	margin-bottom: 10px;
-}
-
-.warning-key {
-
-	p {
-		font-weight: 300;
-	}
-
-	strong {
-		font-weight: 400;
-	}
-}
-
-.warning-set {
-	padding-right: 20px;
-}
-
-
 /* This is the default Tooltipster theme (feel free to modify or duplicate and create multiple themes!): */
 .tooltipster-default {
 	border-radius: 3px;
@@ -64,7 +8,7 @@
 
 /* Use this next selector to style things like font-size and line-height: */
 .tooltipster-default .tooltipster-content {
-  	font-family: 'Open Sans', sans-serif !important;
+	font-family: 'Open Sans', sans-serif !important;
 	font-size: 14px;
 	line-height: 20px;
 	padding: 20px;
@@ -83,13 +27,6 @@
 	margin-left: 4px;
 	font-size: 20px;
 }
-
-
-
-
-
-
-
 
 /* This is the base styling required to make all Tooltipsters work */
 .tooltipster-base {
@@ -196,7 +133,6 @@
 	border-right: 9px solid;
 	margin-top: -8px;
 }
-
 
 /* Some CSS magic for the awesome animations - feel free to make your own custom animations and reference it in your Tooltipster settings! */
 
@@ -318,7 +254,6 @@
 	left: 0px !important;
 	opacity: 0;
 }
-
 
 /* CSS transition for when contenting is changing in a tooltip that is still open. The only properties that will NOT transition are: width, height, top, and left */
 .tooltipster-content-changing {

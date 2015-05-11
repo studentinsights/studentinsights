@@ -1,5 +1,10 @@
 /* TABLE */
 
+table {
+  overflow-x: scroll;
+  display: block;
+}
+
 td {
   width: 10%;
 }
@@ -65,7 +70,6 @@ tr, td {
 
 .info-area {
   width: 80%;
-  min-width: 520px;
   margin: auto auto;
   background-color: $white;
   border-radius: 9px;
@@ -86,4 +90,14 @@ tr, td {
   text-align: center;
   position: relative;
   right: 6px;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 0px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }

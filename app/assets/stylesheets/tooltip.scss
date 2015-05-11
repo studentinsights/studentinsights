@@ -1,0 +1,53 @@
+#my-tooltip {
+  float: right;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+    background-color: $dark-line;
+  margin-top: 12px;
+  cursor: help;
+  padding-top: 4px;
+  padding-bottom: 6px;
+  text-align: center;
+  position: relative;
+
+  p {
+    color: #fff;
+    font-size: 16px;
+  }
+}
+
+#my-tooltip:hover {
+  background-color: $dark-gray;
+}
+
+.warning-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+    background-color: $warning-bubble;
+    float: left;
+    margin-right: 5px;
+    margin-top: 4px;
+}
+
+.warning-header {
+  border-bottom: 1px solid $dark-line;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.warning-key {
+
+  p {
+    font-weight: 300;
+  }
+
+  strong {
+    font-weight: 400;
+  }
+}
+
+.warning-set {
+  padding-right: 20px;
+}
