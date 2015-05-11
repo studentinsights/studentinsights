@@ -34,10 +34,12 @@ class AttendanceImporter
 	end
 
   def create_or_update_attendance_result(parsed_attendance_result, student)
-    school_year = parsed_attendance_result[:school_year]
-    result = AttendanceResult.where(student_id: student.id, school_year: school_year).first_or_create!
-    result.update(parsed_attendance_result.except(:state_identifier))
-    return result
+    if student.present?
+      school_year = parsed_attendance_result[:school_year]
+      result = AttendanceResult.where(student_id: student.id, school_year: school_year).first_or_create!
+      result.update(parsed_attendance_result.except(:state_id))
+      return result
+    end
   end
 
   def aggregate_attendance_to_school_year(student, attendance_rows)
@@ -64,7 +66,7 @@ class AttendanceImporter
     # {   Student1 => [ attendance_rows ... ],
     #     Student2 => [ attendance_rows ... ], ...  }
     # And then passes the values in that hash into aggregate_attendance_to_school_year
-    attendance_rows = attendance_rows.group_by { |row| Student.find_by_state_identifier(row['STD_ID_STATE']) }
+    attendance_rows = attendance_rows.group_by { |row| Student.find_by_state_id(row['STD_ID_STATE']) }
     attendance_rows.each do |student, rows|
       aggregate_attendance_to_school_year(student, rows)
     end

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'about' => 'pages#about'
   get 'demo' => 'pages#roster_demo'
 
+  resources :students
+
   resources :homerooms do
     resources :students
   end

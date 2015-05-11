@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Homeroom</title>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+  <title>Somerville Teacher Tool</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
+
+  <script type="text/javascript" src="/assets/jquery.tooltipster.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+        $('#my-tooltip').tooltipster({
+            content: $('<div class="warning-key"><div class="warning-header"><div class="warning-dot"></div><h6>Warning Indicators</h6></div><div class="warning-set"><p><strong>MCAS Growth:</strong> Less than 40 points</p><p><strong>STAR Percentile:</strong> Less than 40 points</p><p><strong>STAR Reading IRL:</strong> A year or more behind</p></div></div>'),
+            position: 'bottom-right'
+        });
+    });
+  </script>
+
 </head>
 <body class="<%= controller_name %> <%= action_name %>">
   <div class="nav">
     <div class="navwrap">
-        <h1 id="title">Home Room</h1>
+        <h1 id="title">Somerville Teacher Tool</h1>
         <nav>
-          <%= link_to "Roster Demo", demo_url %> 
           <%= link_to "About", about_url %> 
           <% if educator_signed_in? %>
             <%= link_to "Sign Out", destroy_educator_session_path, :method => :delete %>
@@ -25,6 +36,4 @@
     </div>
   </div>
   <%= yield %>
-  <script src="https://code.jquery.com/jquery-git2.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 </body>

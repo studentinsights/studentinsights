@@ -1,37 +1,22 @@
                 <tr>
-                  <td><%= presenter.full_name %></td>
-                  <td><%= presenter.student.race %></td>
-                  <td><%= presenter.sped %></td>
-                  <td><%= presenter.limited_english_proficient %></td>
-                  <% unless controller_name == 'pages' && action_name == 'roster_demo' %>
-                    <% result = presenter.student.student_results.last %>
+                  <td class="name"><%= link_to presenter.full_name, student_url(presenter.id) %></td>
+                  <td class="demographics"><%= presenter.student.race %></td>
+                  <td class="demographics"><%= presenter.sped %></td>
+                  <td class="demographics"><%= presenter.limited_english_proficient %></td>
+                  <% star_result = presenter.latest_star %>
+                  <% if star_result.present? %>
+                    <% present(star_result) do |result_presenter| %>
+                      <%= render "students/star_row_fragment", star_presenter: result_presenter %>
+                    <% end %>
                   <% else %>
-                    <% result = StudentResult.new(StudentResult.fake_data) %>
+                    <%= render "students/blank_star_row" %>
                   <% end %>
-                  <% present(result) do |result_presenter| %>
-                    <td>
-                      <% if result_presenter.math_performance_warning? %>
-                        <%= render "students/warning_indicator" %>
-                      <% end %>
-                      <%= result_presenter.math_performance %>
-                    </td>
-                    <td>
-                      <% if result_presenter.math_growth_warning? %>
-                        <%= render "students/warning_indicator" %>
-                      <% end %>
-                      <%= result_presenter.math_growth %>
-                    </td>
-                    <td>
-                      <% if result_presenter.ela_performance_warning? %>
-                        <%= render "students/warning_indicator" %>
-                      <% end %>
-                      <%= result_presenter.ela_performance %>
-                    </td>
-                    <td>
-                      <% if result_presenter.ela_growth_warning? %>
-                        <%= render "students/warning_indicator" %>
-                      <% end %>
-                      <%= result_presenter.ela_growth %>
-                    </td>
+                  <% mcas_result = presenter.latest_mcas %>
+                  <% if mcas_result.present? %>
+                    <% present(mcas_result) do |result_presenter| %>
+                      <%= render "students/mcas_row_fragment", mcas_presenter: result_presenter %>
+                    <% end %>
+                  <% else %>
+                    <%= render "students/blank_star_row" %>
                   <% end %>
                 </tr>

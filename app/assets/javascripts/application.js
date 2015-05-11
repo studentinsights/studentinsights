@@ -11,5 +11,11 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
+//= require jquery-ui
+//= require chosen.jquery.min
+//= require tablesort.min
+//= require tablesort.numeric
+//= require mcas_sort
 //= require homeroom_select
+//= require assessment_select
+//= require table_sort

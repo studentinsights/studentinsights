@@ -1,22 +1,26 @@
 class StudentPresenter < Struct.new(:student)
+  delegate :id, :latest_mcas, :latest_star, to: :student
 
   def full_name
     student.first_name + " " + student.last_name
   end
 
-  def sped
-    if student.sped.nil?
-      "—"
-    else
-      student.sped ? "Yes" : "No"
-    end
+  def attributes_for_presentation
+    [ :sped, :limited_english_proficient ]
   end
 
-  def limited_english_proficient
-    if student.limited_english_proficient.nil?
-      "—"
+  def method_missing(m, *args, &block)
+    if attributes_for_presentation.include? m
+      case student.send(m)
+      when true
+        "Yes"
+      when false
+        "No"
+      when nil
+        "—"
+      end
     else
-      student.limited_english_proficient ? "Yes" : "No"
-    end 
+      raise NoMethodError
+    end
   end
 end

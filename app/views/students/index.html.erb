@@ -1,46 +1,62 @@
   <div id="controls">
     <div id="homeroom-dropdown" class="dropdown">
       <p>Homeroom:</p>
-        <select id="homeroom-select">
-          <% @homerooms_by_name.each do |r| %>
-            <option <% if r == @homeroom %>selected<% end %> value="<%= r.slug %>">
-              <%= r.name %>
-            </option>
-          <% end %>
-        </select> 
-      </div>
+      <select id="homeroom-select">
+        <% @homerooms_by_name.each do |r| %>
+          <option <% if r == @homeroom %>selected<% end %> value="<%= r.slug %>">
+            <%= r.name %>
+          </option>
+        <% end %>
+      </select> 
     </div>
+    <div id="column-group-dropdown" class="dropdown">
+      <select id="column-group-select" class="chosen-select" data-placeholder="Choose information to show..." tabindex="4" multiple>
+        <option value="star" selected>STAR</option>
+        <option value="mcas" selected>MCAS</option>
+        <option value="demographics">Demographics</option>
+        <option value="name" selected>Name</option>
+      </select> 
+    </div>
+
+    <div id="my-tooltip"> 
+      <div class="tooltip-circle"><p>?</p></div>
+    </div>
+
+  </div>
   <div class="info-area">
-    <table border="0" cellspacing="0" cellpadding="10">
-      <tr class="column-groups">
-        <td></td>
-        <td colspan="3"><p class="smalltype">Demographics</p></td>
-        <td colspan="2"><p class="smalltype">Math</p></td>
-        <td colspan="2"><p class="smalltype">English</p></td>
-      </tr>
-      <tr class="column-names">
-        <td>Name</td>
-        <td>Race</td>
-        <td>SPED</td>
-        <td>LEP</td>
-        <td>Growth</td>
-        <td>Level</td>
-        <td>Growth</td>
-        <td>Level</td>
-      </tr>
-      <% @risk_categories.each do |category| %>
-        <% if @students.present? %>
-          <% students = @sorted_students[category]  %>
-          <% if students.present? %>
-            <tr class="risk-groups">
-              <td colspan="8" class="smalltype">
-                <%= category %> Risk
-              </td>
-            </tr>
-            <% students.each do |student| %>
-              <%= render "students/student_row", presenter: StudentPresenter.new(student) %>
-            <% end %>
-          <% end %>
+    <table id="roster-table" border="0" cellspacing="0" cellpadding="10" class="sort-default">
+      <thead>
+        <tr class="column-groups">
+          <td colspan="1" class="name"></td>
+          <td colspan="3" class="demographics"><p class="smalltype">Demographics</p></td>
+          <td colspan="3" class="star"><p class="smalltype">STAR</p></td>
+          <td colspan="4" class="mcas"><p class="smalltype">MCAS</p></td>
+        </tr>
+        <tr class="column-groups">
+          <td colspan="1" class="name"></td>
+          <td colspan="3" class="demographics"></td> <!-- Blank column space for nested labels -->
+          <td colspan="1" class="star"><p class="smalltype italic">Math</p></td>
+          <td colspan="2" class="star"><p class="smalltype italic">Reading</p></td>
+          <td colspan="2" class="mcas"><p class="smalltype italic">Math</p></td>
+          <td colspan="2" class="mcas"><p class="smalltype italic">English</p></td>
+        </tr>
+        <tr class="column-names">
+          <th class="name">Name</th>
+          <th class="demographics">Race</th>
+          <th class="demographics">SPED</th>
+          <th class="demographics">LEP</th>
+          <th class="star">Percentile</th>
+          <th class="star">Percentile</th>
+          <th class="star">IRL</th>
+          <th class="mcas" data-sort-method='mcas_sort'>Performance</th>
+          <th class="mcas">Growth</th>
+          <th class="mcas" data-sort-method='mcas_sort'>Performance</th>
+          <th class="mcas">Growth</th>
+        </tr>
+     </thead>
+      <% if @students.present? %>
+        <% @students.find_each do |student| %>
+          <%= render "students/student_row", presenter: StudentPresenter.new(student) %>
         <% end %>
       <% end %>
     </table>

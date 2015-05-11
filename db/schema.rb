@@ -11,17 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422174523) do
+ActiveRecord::Schema.define(version: 20150502105856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "assessments", force: true do |t|
-    t.string   "name"
-    t.date     "year"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "attendance_results", force: true do |t|
     t.string   "school_year"
@@ -82,26 +75,7 @@ ActiveRecord::Schema.define(version: 20150422174523) do
     t.string   "slug"
   end
 
-  create_table "schools", force: true do |t|
-    t.integer  "state_id"
-    t.string   "school_type"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "local_id"
-  end
-
-  create_table "standards", force: true do |t|
-    t.string   "short_code"
-    t.text     "statement"
-    t.string   "uri"
-    t.string   "subject"
-    t.text     "grades"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "student_results", force: true do |t|
+  create_table "mcas_results", force: true do |t|
     t.integer  "ela_scaled"
     t.string   "ela_performance"
     t.integer  "ela_growth"
@@ -112,6 +86,27 @@ ActiveRecord::Schema.define(version: 20150422174523) do
     t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "date_taken"
+  end
+
+  create_table "schools", force: true do |t|
+    t.integer  "state_id"
+    t.string   "school_type"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "local_id"
+  end
+
+  create_table "star_results", force: true do |t|
+    t.integer  "math_percentile_rank"
+    t.integer  "reading_percentile_rank"
+    t.decimal  "instructional_reading_level"
+    t.integer  "assessment_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "date_taken"
   end
 
   create_table "students", force: true do |t|
@@ -128,12 +123,12 @@ ActiveRecord::Schema.define(version: 20150422174523) do
     t.integer  "access_performance"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "state_identifier"
+    t.string   "state_id"
     t.string   "home_language"
+    t.string   "address"
     t.integer  "school_id"
     t.boolean  "limited_english_proficient"
     t.boolean  "former_limited_english_proficient"
-    t.string   "address"
   end
 
 end

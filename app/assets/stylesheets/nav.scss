@@ -1,0 +1,25 @@
+/* NAV */
+
+.nav {
+  border-bottom: 1px solid $light-line;
+  background-color: $white;
+  padding-top: 10px;
+}
+
+.navwrap {
+  width: 80%;
+  margin: 20px auto 30px auto;
+
+  #title {
+      display: inline;
+  }
+
+  nav {
+      float: right;
+      padding-top: 10px;
+
+      a {
+        padding-left: 20px;
+      }
+  }
+}

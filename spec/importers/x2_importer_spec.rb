@@ -65,7 +65,7 @@ RSpec.describe X2Importer do
   describe '#assign_student_to_homeroom' do
     context 'student already has a homeroom' do
       let!(:student) { FactoryGirl.create(:student_with_homeroom) } 
-      let!(:new_homeroom) { FactoryGirl.create(:new_homeroom) } 
+      let!(:new_homeroom) { FactoryGirl.create(:homeroom) } 
       it 'assigns the student to the homeroom' do
         healey_importer.assign_student_to_homeroom(student, new_homeroom.name)
         expect(student.homeroom_id).to eq(new_homeroom.id)

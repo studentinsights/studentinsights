@@ -3,14 +3,15 @@ class StudentsController < ApplicationController
   before_action :authenticate_educator!
   before_action :assign_homeroom
 
+  def show
+    @student = Student.find(params[:id])
+    @presenter = StudentPresenter.new @student
+  end
+
   def index
     @students = @homeroom.students
-    @sorted_students = Student.default_sort(@students)
-    @number_of_students = @students.size
-    @risk_categories = [ "High", "Medium", "Low" ]
-
     # Order for dropdown menu of homerooms
-    @homerooms_by_name = Homeroom.order(:name)
+    @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
   end
 
   private

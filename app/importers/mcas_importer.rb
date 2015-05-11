@@ -1,24 +1,21 @@
 require 'csv'
 
-class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :year)
+class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :date_taken)
 
   def import
-    assessment = Assessment.where(name: 'MCAS', year: year).first_or_create!
     CSV.foreach(mcas_data_path, headers: true,
                                 header_converters: lambda { |h| convert_headers(h) }
                                 ) do |row|
       row = row.to_hash.except(nil)
       row = look_up_school(row)
       if row['grade'] == grade_scope && row['school_id'] == school_scope.id
-        student = Student.where(state_identifier: row['state_identifier']).first_or_create!
-
+        student = Student.where(state_id: row['state_id']).first_or_create!
         (demographic_attrs + id_attrs).each do |attribute|
           student.send(attribute + '=', row[attribute])
           student.save!
         end
-
-        result = StudentResult.where(student_id: student.id, assessment_id: assessment.id).first_or_create!
-        student_result_attrs.each do |attribute|
+        result = McasResult.where(student_id: student.id, date_taken: date_taken).first_or_create!
+        mcas_result_attrs.each do |attribute|
           result.send(attribute + '=', row[attribute])
           result.save!
         end
@@ -40,7 +37,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :y
       'mscaleds' => 'math_scaled',
       'mperf2' => 'math_performance',
       'msgp' => 'math_growth',
-      'sasid' => 'state_identifier',
+      'sasid' => 'state_id',
       'grade' => 'grade',
       'school' => 'school_state_id',
       'race_off' => 'race',
@@ -51,7 +48,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :y
     }
   end
 
-  def student_result_attrs
+  def mcas_result_attrs
     [ 'ela_scaled', 'ela_performance', 'ela_growth', 
       'math_scaled', 'math_performance', 'math_growth' ]
   end
@@ -62,7 +59,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :y
   end
 
   def id_attrs
-    [ 'state_identifier', 'grade' ]
+    [ 'state_id', 'grade' ]
   end
 
   def look_up_school(row)

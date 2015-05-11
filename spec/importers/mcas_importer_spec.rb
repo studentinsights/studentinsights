@@ -6,21 +6,10 @@ RSpec.describe McasImporter do
     fixture_path = "#{Rails.root}/spec/fixtures/fake_mcas.csv"
     let(:healey) { FactoryGirl.create(:healey) }
     let(:brown) { FactoryGirl.create(:brown) }
-    let(:healey_importer) { McasImporter.new(fixture_path, healey, "05") }
-    let(:brown_importer) { McasImporter.new(fixture_path, brown, "05") }
+    let(:healey_importer) { McasImporter.new(fixture_path, healey, "05", "2015-11-05" ) }
+    let(:brown_importer) { McasImporter.new(fixture_path, brown, "05", "2015-11-05" ) }
 
     context 'with good data' do
-
-      it 'creates an assessment' do
-        expect {
-          healey_importer.import
-        }.to change(Assessment, :count).by(1)
-      end
-
-      it 'sets the assessment name correctly' do
-        healey_importer.import
-        expect(Assessment.last.name).to eq('MCAS')
-      end
 
       context 'for Healey school' do
 
@@ -32,7 +21,7 @@ RSpec.describe McasImporter do
 
         it 'imports a Healey student' do
           healey_importer.import
-          expect(Student.last.state_identifier).to eq('000222')
+          expect(Student.last.state_id).to eq('000222')
         end
 
         it 'sets the student demograpics correctly' do
@@ -45,12 +34,12 @@ RSpec.describe McasImporter do
         it 'creates a student result' do
           expect {
             healey_importer.import
-          }.to change(StudentResult, :count).by(1)
+          }.to change(McasResult, :count).by(1)
         end
 
         it 'sets the student result correctly' do
           healey_importer.import
-          expect(StudentResult.last.ela_growth).to eq(19)
+          expect(McasResult.last.ela_growth).to eq(19)
         end
       end
 
@@ -58,7 +47,7 @@ RSpec.describe McasImporter do
 
         it 'imports a Brown student' do
           brown_importer.import
-          expect(Student.last.state_identifier).to eq('000223')
+          expect(Student.last.state_id).to eq('000223')
         end
         
       end
