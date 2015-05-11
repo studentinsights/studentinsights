@@ -7,7 +7,7 @@ module FakeStarResult
     {
       math_percentile_rank: rand(10..99), 
       reading_percentile_rank: rand(10..99), 
-      instructional_reading_level: rand(1..6)
+      instructional_reading_level: rand(4..5)
     }
   end
   

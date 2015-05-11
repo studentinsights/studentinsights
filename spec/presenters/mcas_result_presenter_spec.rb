@@ -6,7 +6,7 @@ RSpec.describe McasResultPresenter do
 
   describe '#math_performance' do
     context 'has no math result' do
-      it 'presents ""' do
+      it 'presents "—"' do
         presenter = McasResultPresenter.new(mcas_result_without_math)
         expect(presenter.math_performance).to eq "—"
       end

@@ -6,21 +6,15 @@ class Student < ActiveRecord::Base
   has_many :star_results, dependent: :destroy
   validates_uniqueness_of :state_id
 
-  def high_risk?
+  def latest_star
+    if star_results.present?
+      star_results.last
+    end
+  end
+
+  def latest_mcas
     if mcas_results.present?
-     mcas_results.last.warning?
+      mcas_results.last
     end
   end
-
-  def medium_risk?
-    if !high_risk? && mcas_results.present?
-      last_result = mcas_results.last
-      last_result.ela_performance == "NI" || last_result.math_performance == "NI"
-    end
-  end
-
-  def low_risk?
-    !medium_risk? && !high_risk?
-  end
-
 end

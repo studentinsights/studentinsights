@@ -4,6 +4,12 @@ td {
   width: 10%;
 }
 
+th {
+  font-weight: normal;
+  text-align: left;
+  font-size: 13px;
+}
+
 td:first-child {
   width: 20%;
 }
@@ -67,4 +73,17 @@ tr, td {
   margin-top: 30px;
   margin-bottom: 30px;
   border: solid 1px $light-line;
+}
+
+.warning-bubble {
+  background-color: $warning-bubble;
+  width: 30px;
+  height: 30px;
+  color: white;
+  border-radius: 30px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  text-align: center;
+  position: relative;
+  right: 6px;
 }

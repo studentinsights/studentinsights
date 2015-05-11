@@ -6,9 +6,15 @@ p {
   color: $gray;
 }
 
+strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: $gray;
+}
+
 h1 {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 300;
   color: $dark-gray;
 }
 
@@ -22,6 +28,25 @@ h3 {
   font-size: 14px;
   font-weight: 700;
   color: $gray;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 300;
+  color: $blue;
+}
+
+h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: $gray;
+  text-transform: uppercase;
+}
+
+h6 {
+  font-size: 14px;
+  font-weight: 700;
+  color: $dark-gray;
 }
 
 a { 

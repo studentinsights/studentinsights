@@ -31,24 +31,25 @@ FactoryGirl.define do
       limited_english_proficient false
     end
 
-    # Test sorting students by risk level 
+    # Test reading warning level
 
-    factory :high_risk_student do
-      state_id
+    factory :student_behind_in_reading do
+      grade "5"
       after(:create) do |student|
-        create(:mcas_result_low, student_id: student.id)
+        create(:star_result,
+          student_id: student.id,
+          instructional_reading_level: 3.5
+        )
       end
     end
-    factory :medium_risk_student do
-      state_id
+
+    factory :student_ahead_in_reading do
+      grade "5"
       after(:create) do |student|
-        create(:mcas_result_needs_improvement, student_id: student.id)
-      end
-    end
-    factory :low_risk_student do
-      state_id
-      after(:create) do |student|
-        create(:mcas_result_high, student_id: student.id)
+        create(:star_result,
+          student_id: student.id,
+          instructional_reading_level: 6.5
+        )
       end
     end
 
