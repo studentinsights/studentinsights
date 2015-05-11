@@ -2,10 +2,9 @@
 
 .dropdown {
   position: relative;
+  right: 30px;
   float: left;
-  margin: 0px;
-  padding: 0px;
-  margin-top: 15px;
+  margin: 15px;
 }
 
 .dropdown p {
@@ -16,16 +15,24 @@
 }
 
 #homeroom-dropdown {
-  position: relative;
-  right: 30px;
+  display: inline-block;
 }
 
 #controls {
-  padding-left: 30px;
+  padding: 30px;
   width: 80%;
-  margin: 10px auto 70px auto;
+  margin: auto auto;
+  height: 120px;
+}
+
+#column-group-dropdown  {
+  display: inline-block;
+  float: left;
 }
 
 #column-group-select {
-  width: 360px;
+  width: 280px;
+  @media screen and (min-width: 820px) {
+    width: 360px;
+  }
 }
