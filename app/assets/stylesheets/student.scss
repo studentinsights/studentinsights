@@ -1,0 +1,49 @@
+/* STUDENT PROFILE */
+
+.school-year{
+  border: 1px solid $dark-line;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.30);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.year {
+  background: $blue;
+  border-radius: 4px 4px 0 0;
+  height: 50px;
+  padding-top: 14px;
+}
+
+.section {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-left: 40px;
+  margin-right: 40px;
+  border-bottom: 1px solid $light-line;
+
+  .values {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.section:last-child {
+  padding-bottom: 50px;
+  border: none;
+}
+
+.month{
+  background: #EEEEEE;
+  border-radius: 4px;
+  margin-top: 5px;
+  padding: 0 10px 20px 10px;
+}
+
+.referral {
+  margin-top: 20px;
+
+  .referral-date{
+    margin-top: 5px;
+  }
+}
