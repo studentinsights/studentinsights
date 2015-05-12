@@ -10,7 +10,7 @@ td {
 }
 
 td:first-child {
-  width: 20%;
+  width: 15%;
 }
 
 th {
@@ -75,7 +75,13 @@ tr, td {
   border-radius: 9px;
   padding: 30px;
   border: solid 1px $light-line;
+  margin-top: 30px;
 }
+
+.students .info-area {
+    margin-top: 0;
+}
+
 
 .warning-bubble {
   background-color: $warning-bubble;

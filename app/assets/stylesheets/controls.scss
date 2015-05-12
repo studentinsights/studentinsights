@@ -22,7 +22,7 @@
   width: 80%;
   margin: auto auto;
   height: 60px;
-  @media screen and (max-width: $max) {
+  @media screen and (max-width: $phase1) {
     height: 100px;
   }
   padding-bottom: 15px;
@@ -36,7 +36,7 @@
 
 #column-group-select {
   width: 360px;
-  @media screen and (max-width: $max) {
+  @media screen and (max-width: $phase1) {
     width: 280px;
   }
 }
