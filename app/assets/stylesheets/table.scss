@@ -5,18 +5,21 @@ table {
   display: block;
 }
 
-td {
-  width: 10%;
-}
-
-td:first-child {
-  width: 15%;
-}
-
 th {
   font-weight: normal;
   text-align: left;
   font-size: 13px;
+}
+
+.column-names {
+
+  th {
+    width: 10%;
+  }
+
+  th:first-child {
+    width: 15%;
+  }
 }
 
 tr, td {
@@ -67,21 +70,6 @@ tr, td {
   right: 14px;
   top: 14px;
 }
-
-.info-area {
-  width: 80%;
-  margin: auto auto;
-  background-color: $white;
-  border-radius: 9px;
-  padding: 30px;
-  border: solid 1px $light-line;
-  margin-top: 30px;
-}
-
-.index .info-area {
-    margin-top: 0;
-}
-
 
 .warning-bubble {
   background-color: $warning-bubble;

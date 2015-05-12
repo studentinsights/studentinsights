@@ -20,3 +20,16 @@ body {
   background-color: $backgroud;
 }
 
+.info-area {
+  width: 80%;
+  margin: auto auto;
+  background-color: $white;
+  border-radius: 9px;
+  padding: 30px;
+  border: solid 1px $light-line;
+  margin-top: 30px;
+}
+
+.index .info-area {
+    margin-top: 0;
+}
