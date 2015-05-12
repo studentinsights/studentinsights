@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe X2Importer do
 
   let(:healey) { FactoryGirl.create(:healey) }
-  let(:healey_importer) { X2Importer.new(healey, "05") }
+  let(:healey_importer) { X2Importer.new healey }
 
   describe '#import' do
     context 'importer for healey school' do
