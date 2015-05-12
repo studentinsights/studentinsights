@@ -1,6 +1,6 @@
 require 'csv'
 
-class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :date_taken)
+class McasImporter < Struct.new :mcas_data_path, :school_scope, :date_taken
 
   def import
     CSV.foreach(mcas_data_path, headers: true,
@@ -8,7 +8,7 @@ class McasImporter < Struct.new(:mcas_data_path, :school_scope, :grade_scope, :d
                                 ) do |row|
       row = row.to_hash.except(nil)
       row = look_up_school(row)
-      if row['grade'] == grade_scope && row['school_id'] == school_scope.id
+      if row['school_id'] == school_scope.id
         student = Student.where(state_id: row['state_id']).first_or_create!
         (demographic_attrs + id_attrs).each do |attribute|
           student.send(attribute + '=', row[attribute])

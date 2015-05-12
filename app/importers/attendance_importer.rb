@@ -1,6 +1,6 @@
 class AttendanceImporter
 
-  def connect_to_x2_attendance(grade_scope = nil, school_scope = nil)
+  def connect_to_x2_attendance(school_scope = nil)
     ActiveRecord::Base.establish_connection(:x2_database_development)
     @join_sql =	 "SELECT STD_OID, STD_ID_STATE, ATT_STD_OID, ATT_ABSENT_IND, ATT_TARDY_IND, ATT_DATE
 									FROM student
@@ -9,7 +9,6 @@ class AttendanceImporter
 										AND STD_ENROLLMENT_STATUS = 'Active'
 										AND STD_ID_STATE is not NULL
 										AND STD_OID is not NULL"
-    @join_sql += " AND STD_GRADE_LEVEL = '#{grade_scope}'" if grade_scope.present?
     @join_sql += " AND STD_SKL_OID = '#{school_scope}'" if school_scope.present?
     @join_result = ActiveRecord::Base.connection.exec_query(@join_sql).to_hash
     ActiveRecord::Base.connection.close
