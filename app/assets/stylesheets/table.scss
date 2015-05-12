@@ -61,16 +61,6 @@ tr, td {
   border-bottom: 1px solid $dark-line;
 }
 
-.performance-warning-circle {
-  background-color: $warning-circle;
-  height: 7px;
-  width: 7px;
-  border-radius: 50%;
-  position: relative;
-  right: 14px;
-  top: 14px;
-}
-
 .warning-bubble {
   background-color: $warning-bubble;
   width: 30px;
