@@ -9,14 +9,14 @@ td {
   width: 10%;
 }
 
+td:first-child {
+  width: 20%;
+}
+
 th {
   font-weight: normal;
   text-align: left;
   font-size: 13px;
-}
-
-td:first-child {
-  width: 20%;
 }
 
 tr, td {
@@ -74,8 +74,6 @@ tr, td {
   background-color: $white;
   border-radius: 9px;
   padding: 30px;
-  margin-top: 30px;
-  margin-bottom: 30px;
   border: solid 1px $light-line;
 }
 

@@ -3,8 +3,8 @@
   width: 30px;
   height: 30px;
   border-radius: 30px;
-    background-color: $dark-line;
-  margin-top: 12px;
+  background-color: $dark-line;
+  margin-top: 14px;
   cursor: help;
   padding-top: 4px;
   padding-bottom: 6px;
@@ -25,10 +25,10 @@
   width: 12px;
   height: 12px;
   border-radius: 12px;
-    background-color: $warning-bubble;
-    float: left;
-    margin-right: 5px;
-    margin-top: 4px;
+  background-color: $warning-bubble;
+  float: left;
+  margin-right: 5px;
+  margin-top: 4px;
 }
 
 .warning-header {
