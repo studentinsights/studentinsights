@@ -1,10 +1,10 @@
 /* CONTROLS */
 
 .dropdown {
-  position: relative;
   right: 30px;
   float: left;
-  margin: 15px;
+  margin-top: 15px;
+  margin-right: 15px;
 }
 
 .dropdown p {
@@ -19,10 +19,14 @@
 }
 
 #controls {
-  padding: 30px;
   width: 80%;
   margin: auto auto;
-  height: 120px;
+  height: 60px;
+  @media screen and (max-width: $phase1) {
+    height: 100px;
+  }
+  padding-bottom: 15px;
+  clear: both;
 }
 
 #column-group-dropdown  {
@@ -31,8 +35,8 @@
 }
 
 #column-group-select {
-  width: 280px;
-  @media screen and (min-width: 820px) {
-    width: 360px;
+  width: 360px;
+  @media screen and (max-width: $phase1) {
+    width: 280px;
   }
 }
