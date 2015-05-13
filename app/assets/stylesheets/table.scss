@@ -9,12 +9,15 @@ table {
   }
 }
 
-
+.sort-down, .sort-up {
+  font-weight: 700;
+  color: $dark-gray;
+}
 
 th {
   font-weight: normal;
   text-align: left;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 #table-header {
@@ -78,8 +81,8 @@ tr, td {
   height: 30px;
   color: white;
   border-radius: 30px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   text-align: center;
   position: relative;
   right: 6px;
