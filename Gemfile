@@ -6,6 +6,7 @@ gem 'rails', '4.1.4'
 # Use postgresql as the database for Active Record
 gem 'pg'
 gem 'friendly_id', '~> 5.1.0' 
+gem 'net-ssh'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
