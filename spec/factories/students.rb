@@ -52,26 +52,5 @@ FactoryGirl.define do
         )
       end
     end
-
-    # Test assigning students to attendance results
-
-    factory :student_without_attendance_result do
-      state_id
-    end
-    factory :student_for_aggregating_attendance do
-      state_id
-    end
-    factory :another_student_for_aggregating_attendance do
-      state_id
-    end
-    factory :student_with_attendance_result do      # Test importing attendance data from X2
-      state_id 'student_with_attendance_result'     # State ID matches FAKE_PARSED_ATTENDANCE_RESULT
-      after(:create) do |student|
-        create(:attendance_result,
-          student_id: student.id,
-          school_year: "2014-2015"
-        )
-      end
-    end
   end
 end
