@@ -3,7 +3,13 @@
 table {
   overflow-x: scroll;
   display: block;
+
+  @media screen and (min-width: 1185px) {
+    display: table;
+  }
 }
+
+
 
 th {
   font-weight: normal;
@@ -11,10 +17,15 @@ th {
   font-size: 13px;
 }
 
+#table-header {
+    padding-right: 1px;
+}
+
 .column-names {
 
   th {
     width: 10%;
+    vertical-align: baseline;
   }
 
   th:first-child {
