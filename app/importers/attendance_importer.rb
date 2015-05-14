@@ -1,5 +1,9 @@
 class AttendanceImporter
-  include X2Connector
+	include X2Connector
+
+	def export_file_name
+		'attendance_export.txt'
+	end
 
 	def parse_row(row)
 		student = Student.where(state_id: row[:state_id]).first_or_create!

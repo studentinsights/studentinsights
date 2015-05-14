@@ -1,6 +1,6 @@
 module X2Connector
 
-  def connect_to_x2(table)
+  def connect_to_x2
     Net::SFTP.start(
       ENV['SFTP_HOST'],
       ENV['SFTP_USER'],
@@ -9,7 +9,7 @@ module X2Connector
       ) do |sftp|
       # For documentation on Net::SFTP::Operations::File, see
       # http://net-ssh.github.io/sftp/v2/api/classes/Net/SFTP/Operations/File.html
-      sftp.file.open(table, "r") do |f|
+      sftp.file.open(export_file_name, "r") do |f|
         parse_for_import(f)
       end
     end
