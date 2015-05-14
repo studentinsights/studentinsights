@@ -8,14 +8,14 @@ RSpec.describe AttendanceImporter do
 		context 'good data' do
 			context 'student already exists' do
 				let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
-				let(:row) { [ '10', '1', '0', '2015-2-2'] }
+				let(:row) { {state_id: '10', absence: '1', tardy: '0', event_date: '2015-2-2'} }
 				it 'add attendence event to the correct student' do
 					attendance_importer.parse_row(row)
 					expect(student.reload.attendance_events.size).to eq 1
 				end
 			end
 			context 'student does not already exist' do
-				let(:row) { [ '100', '1', '0', '2015-2-2' ] }
+				let(:row) { { state_id: '100', absence: '1', tardy: '0', event_date: '2015-2-2' } }
 				it 'creates a new student' do
 					expect {
 						attendance_importer.parse_row(row)
@@ -29,7 +29,7 @@ RSpec.describe AttendanceImporter do
 			end
 		end
 		context 'bad data' do
-			let(:row) { [ nil, '2015-2-2', '1', '0' ] }
+			let(:row) { { state_id: '100', absence: '2015-2-2', tardy: '1', event_date: '0' } }
 			it 'raises an error' do
 				expect{ attendance_importer.parse_row(row) }.to raise_error
 			end

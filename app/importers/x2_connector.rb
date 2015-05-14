@@ -9,11 +9,16 @@ module X2Connector
       key_data: ENV['SFTP_KEY'],
       keys_only: true,
       ) do |sftp|
+      # For documentation on Net::SFTP::Operations::File, see
+      # http://net-ssh.github.io/sftp/v2/api/classes/Net/SFTP/Operations/File.html
       sftp.file.open(table, "r") do |f|
-        until f.eof?
-          CSV.parse(f.readline) do |row|
+        headers = f.gets.parse_csv.map(&:to_sym)    # Assume headers are first row
+        loop do
+          next_line = f.gets
+          if next_line.present?
+            row = Hash[headers.zip(next_line.parse_csv)]
             parse_row row
-          end
+          else break end
         end
       end
     end
