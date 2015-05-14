@@ -29,7 +29,7 @@ $(function() {
 
     // Initialize table sort on roster table
     var table = document.getElementById('roster-table')
-    new Tablesort(table, { descending: true });
+    new Tablesort(table, { descending: false });
 
     // Initialize table sort on roster table
     $('#homeroom-select').bind('change', function() { 
