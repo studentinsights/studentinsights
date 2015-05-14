@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   devise_for :educators
 
   authenticated :educator do
-    root :to => "students#index", as: "authenticated_root"
+    root :to => "students#index", as: "roster"
   end
-  
+
   root 'pages#about'
   get 'about' => 'pages#about'
   get 'demo' => 'pages#roster_demo'
