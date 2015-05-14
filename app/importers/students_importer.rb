@@ -1,13 +1,6 @@
 class StudentsImporter < Struct.new :school_scope
   include X2Connector
 
-  def parse_row
-    student_state_id = row[0]
-    attendance_info = row[1..3]
-    student = Student.where(state_id: student_state_id).first_or_create!
-    attendance_attributes = Hash[attendance_headers.zip(attendance_info)]
-  end
-
   def import(student_result, school_result)
     student_result.each do |row|
       school_result.each do |school_row|

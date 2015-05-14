@@ -1,10 +1,10 @@
 require 'fixtures/fake_x2'
 require 'rails_helper'
 
-RSpec.describe X2Importer do
+RSpec.describe StudentsImporter do
 
   let(:healey) { FactoryGirl.create(:healey) }
-  let(:healey_importer) { X2Importer.new healey }
+  let(:healey_importer) { StudentsImporter.new healey }
 
   describe '#import' do
     context 'importer for healey school' do
@@ -13,17 +13,17 @@ RSpec.describe X2Importer do
           healey_importer.import([FakeX2::FAKE_HEALEY_STUDENT], [FakeX2::FAKE_HEALEY_SCHOOL])
         }.to change(Student, :count).by(1)
       end
-      it 'does not import a brown student' do 
+      it 'does not import a brown student' do
         expect {
           healey_importer.import([FakeX2::FAKE_BROWN_STUDENT], [FakeX2::FAKE_BROWN_SCHOOL])
         }.to change(Student, :count).by(0)
       end
     end
-  end 
+  end
 
   describe '#create_or_update_student' do
     context 'student already exists' do
-      let!(:student) { FactoryGirl.create(:student_we_want_to_update) } 
+      let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
       it 'updates the student' do
         expect {
           healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT_WITH_NAME)
@@ -49,7 +49,7 @@ RSpec.describe X2Importer do
       end
       context 'student info does not contains a name field' do
         it 'does not raise an error' do
-          expect { 
+          expect {
             healey_importer.create_or_update_student(FakeX2::FAKE_STUDENT_WITHOUT_NAME)
           }.to_not raise_error
         end
@@ -64,16 +64,16 @@ RSpec.describe X2Importer do
 
   describe '#assign_student_to_homeroom' do
     context 'student already has a homeroom' do
-      let!(:student) { FactoryGirl.create(:student_with_homeroom) } 
-      let!(:new_homeroom) { FactoryGirl.create(:homeroom) } 
+      let!(:student) { FactoryGirl.create(:student_with_homeroom) }
+      let!(:new_homeroom) { FactoryGirl.create(:homeroom) }
       it 'assigns the student to the homeroom' do
         healey_importer.assign_student_to_homeroom(student, new_homeroom.name)
         expect(student.homeroom_id).to eq(new_homeroom.id)
       end
     end
     context 'student does not have a homeroom' do
-      let!(:student) { FactoryGirl.create(:student) } 
-      let!(:new_homeroom_name) { "152I" } 
+      let!(:student) { FactoryGirl.create(:student) }
+      let!(:new_homeroom_name) { "152I" }
       it 'creates a new homeroom' do
         expect {
           healey_importer.assign_student_to_homeroom(student, new_homeroom_name)
