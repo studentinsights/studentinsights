@@ -2,7 +2,7 @@ SELECT
   'state_id',
   'absence',
   'tardy',
-  'event_date',
+  'event_date'
 UNION ALL
 SELECT
   STD_ID_STATE,
