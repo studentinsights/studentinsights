@@ -6,8 +6,8 @@ class AttendanceImporter
 	end
 
 	def parse_row(row)
-		student_state_id = row[1]
-		attendance_info = row[3..5]
+		student_state_id = row[0]
+		attendance_info = row[1..3]
 		student = Student.where(state_id: student_state_id).first_or_create!
 		attendance_attributes = Hash[attendance_headers.zip(attendance_info)]
 
