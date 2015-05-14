@@ -1,4 +1,10 @@
 SELECT
+  'state_id',
+  'absence',
+  'tardy',
+  'event_date',
+UNION ALL
+SELECT
   STD_ID_STATE,
   ATT_ABSENT_IND,
   ATT_TARDY_IND,
