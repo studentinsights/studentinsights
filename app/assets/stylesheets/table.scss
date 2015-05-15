@@ -113,8 +113,9 @@ tbody {
   }
 }
 
-    .Highlight
-    {
-      background-color: #dcfac9;
-      cursor: pointer;
-    }
+.column-names {
+
+  th{
+   border-bottom: 1px solid $dark-line;
+  }
+}
