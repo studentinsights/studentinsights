@@ -1,45 +1,29 @@
-class StudentsImporter < Struct.new :school_scope
-  include X2Connector
+module X2Importer
 
-  def parse_row
-    student_state_id = row[0]
-    attendance_info = row[1..3]
-    student = Student.where(state_id: student_state_id).first_or_create!
-    attendance_attributes = Hash[attendance_headers.zip(attendance_info)]
-  end
-
-  def import(student_result, school_result)
-    student_result.each do |row|
-      school_result.each do |school_row|
-        if school_row["SKL_OID"] == row["STD_SKL_OID"]
-          school_local_id = school_row["SKL_SCHOOL_ID"]
-          grade = row["STD_GRADE_LEVEL"]
-          if school_local_id == school_scope.local_id
-            student = create_or_update_student(row)
-            homeroom_name = row["STD_HOMEROOM"]
-            assign_student_to_homeroom(student, homeroom_name)
-          end
-        end
+  def connect_to_x2
+    Net::SFTP.start(
+      ENV['SIS_SFTP_HOST'],
+      ENV['SIS_SFTP_USER'],
+      key_data: ENV['SIS_SFTP_KEY'],
+      keys_only: true,
+      ) do |sftp|
+      # For documentation on Net::SFTP::Operations::File, see
+      # http://net-ssh.github.io/sftp/v2/api/classes/Net/SFTP/Operations/File.html
+      sftp.file.open(export_file_name, "r") do |f|
+        parse_for_import(f)
       end
     end
   end
 
-  def create_or_update_student(row)
-    state_id = row["STD_ID_STATE"]
-    student = Student.where(state_id: state_id).first_or_create!
-    full_name = row["std_name_view"]
-    if full_name.present?
-      student.last_name = full_name.split(", ")[0]
-      student.first_name = full_name.split(", ")[1]
+  def parse_for_import(file)
+    require 'csv'
+    headers = file.gets.parse_csv.map(&:to_sym)    # Assume headers are first row
+    loop do
+      next_line = file.gets
+      if next_line.present?
+        row = Hash[headers.zip(next_line.parse_csv)]
+        parse_row row
+      else break end
     end
-    student.home_language = row["STD_HOME_LANGUAGE_CODE"]
-    student.save
-    return student
-  end
-
-  def assign_student_to_homeroom(student, homeroom_name)
-    homeroom = Homeroom.where(name: homeroom_name).first_or_create!
-    student.homeroom_id = homeroom.id
-    student.save
   end
 end

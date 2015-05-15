@@ -1,5 +1,5 @@
 class StudentsImporter
-  include X2Connector
+  include X2Importer
 
   def export_file_name
     'students_export.txt'
