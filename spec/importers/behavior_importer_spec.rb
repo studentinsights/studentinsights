@@ -4,32 +4,54 @@ RSpec.describe BehaviorImporter do
 
 	let(:behavior_importer) { BehaviorImporter.new }
 
-	def generate_behavior_rows(student_id, incident_date, incident_code, number_of_rows)
-		behavior_rows = []
-		number_of_rows.times do
-			behavior_rows << 	{
-								"CND_STD_OID"=>student_id, 
-								"CND_INCIDENT_DATE"=>incident_date, 
-								"CND_INCIDENT_CODE"=>incident_code
-								}
+	describe '#parse_row' do
+		context 'good data' do
+			let(:row) {	{
+				state_id: '10',
+				incident_code: 'Bullying',
+				incident_date: '2015-9-15',
+				incident_time: '14:00:00',
+				incident_location: 'Hallway',
+				incident_description: 'Making fun of another student'
+			}	}
+			context 'student already exists' do
+				let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
+				it 'creates discipline incident for the correct student' do
+					behavior_importer.parse_row(row)
+					expect(student.reload.discipline_incidents.size).to eq 1
+				end
+				it 'assigns the incident code correctly' do
+					behavior_importer.parse_row(row)
+					incident = student.reload.discipline_incidents.last
+					expect(incident.incident_code).to eq 'Bullying'
+				end
+				it 'assigns the date correctly' do
+					behavior_importer.parse_row(row)
+					incident = student.reload.discipline_incidents.last
+					expect(incident.incident_date).to eq Date.new(2015, 9, 15)
+				end
+			end
+			context 'student does not already exist' do
+				it 'creates a new student' do
+					expect {
+						behavior_importer.parse_row(row)
+					}.to change(Student, :count).by 1
+				end
+				it 'assigns the attendance event to the new student' do
+					behavior_importer.parse_row(row)
+					new_student = Student.last.reload
+					expect(new_student.discipline_incidents.size).to eq 1
+				end
+			end
 		end
-		return behavior_rows
-	end
-
-	describe '#create_incident_records' do
-
-		let!(:student) {
-			FactoryGirl.create(:student_we_want_to_update)
-		}
-
-		let(:behavior_rows) {
-			generate_behavior_rows(student.state_identifier, "2014-05-21", "BULLY", 2)
-		}
-
-		it 'creates the correct number of records' do
-			# expect { 
-			# 	behavior_importer.create_incident_records(behavior_rows)
-			# }.to change(BehaviorIncident, :count).by 2
+		context 'bad data' do
+			let(:row) {	{
+				state_id: '10',
+				incident_date: 'Hallway',
+			}	}
+			it 'raises an error' do
+				expect{ behavior_importer.parse_row(row) }.to raise_error
+			end
 		end
 	end
 end
