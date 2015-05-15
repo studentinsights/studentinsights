@@ -18,3 +18,4 @@
 //= require tablesort.min
 //= require tablesort.numeric
 //= require roster
+//= require table
