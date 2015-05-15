@@ -1,7 +1,11 @@
 // Table interactions
 
-$('tr').click( function() {
-    window.location = $(this).find('a').attr('href');
-       }).hover( function() {
-      $(this).toggleClass('hover');
+$(function ()
+      {
+      // Assign a click handler that grabs the URL 
+      // from the first cell and redirects the user.
+      $('tbody tr').click(function ()
+      {
+        location.href = $(this).find('td a').attr('href');
+      });
 });

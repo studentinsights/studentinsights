@@ -41,7 +41,6 @@ tr, td {
   font-weight: normal;
   font-size: 14px;
   color: $gray;
-  vertical-align: center;
 }
 
 .column-groups {
@@ -104,4 +103,18 @@ tbody {
      cursor: pointer;
      background-color: $table-hover;
   }
+
+  a:link, a:visited {
+    color: $gray; 
+  }     
+
+  a:hover, a:active {
+    color: $gray; 
+  }
 }
+
+    .Highlight
+    {
+      background-color: #dcfac9;
+      cursor: pointer;
+    }
