@@ -37,12 +37,10 @@ th {
 }
 
 tr, td {
-  background-color: white;
   margin: 4px !important;
   font-weight: normal;
   font-size: 14px;
   color: $gray;
-  vertical-align: bottom;
 }
 
 .column-groups {
@@ -92,8 +90,32 @@ tr, td {
   -webkit-appearance: none;
   width: 0px;
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: 0px;
   background-color: rgba(0,0,0,.5);
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+tbody {
+
+  tr:hover {
+     cursor: pointer;
+     background-color: $table-hover;
+  }
+
+  a:link, a:visited {
+    color: $gray; 
+  }     
+
+  a:hover, a:active {
+    color: $gray; 
+  }
+}
+
+.column-names {
+
+  th{
+   border-bottom: 1px solid $dark-line;
+  }
 }
