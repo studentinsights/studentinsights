@@ -34,8 +34,13 @@ module X2Importer
     loop do
       next_line = file.gets
       if next_line.present?
-        row = Hash[headers.zip(next_line.parse_csv)]
-        parse_row row
+        begin
+          next_line.gsub!("\\", '"')             # Force multiline strings to end before linebreak
+          csv_row = next_line.parse_csv
+          row_with_headers = Hash[headers.zip(csv_row)]
+          parse_row row_with_headers
+        rescue CSV::MalformedCSVError
+        end
       else break end
     end
   end
