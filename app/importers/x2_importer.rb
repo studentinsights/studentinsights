@@ -1,4 +1,7 @@
 module X2Importer
+  # Any class using X2Importer should implement two methods:
+  # export_file_name => string pointing to the name of the remote file to parse
+  # parse_row => function that describes how to handle each row; takes row as only argument
 
   def sftp_info_present?
     ENV['SIS_SFTP_HOST'].present? &&
