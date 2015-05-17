@@ -1,48 +1,48 @@
-class X2Importer < Struct.new :school_scope
+module X2Importer
+  # Any class using X2Importer should implement two methods:
+  # export_file_name => string pointing to the name of the remote file to parse
+  # parse_row => function that describes how to handle each row; takes row as only argument
 
-  def connect_to_x2
-    ActiveRecord::Base.establish_connection(:x2_database_development)
-    @student_sql = "SELECT DISTINCT * from student where STD_ENROLLMENT_STATUS = 'Active' and STD_ID_STATE is not NULL"
-    @school_sql = "SELECT * from school"
-    @student_result = ActiveRecord::Base.connection.exec_query(@student_sql).to_hash
-    @school_result = ActiveRecord::Base.connection.exec_query(@school_sql).to_hash
-    ActiveRecord::Base.connection.close
-    ActiveRecord::Base.establish_connection(:development)
-    return [@student_result, @school_result]
+  def sftp_info_present?
+    ENV['SIS_SFTP_HOST'].present? &&
+    ENV['SIS_SFTP_USER'].present? &&
+    ENV['SIS_SFTP_KEY'].present?
   end
 
-  def import(student_result, school_result)
-    student_result.each do |row|
-      school_result.each do |school_row|
-        if school_row["SKL_OID"] == row["STD_SKL_OID"]
-          school_local_id = school_row["SKL_SCHOOL_ID"]
-          grade = row["STD_GRADE_LEVEL"]
-          if school_local_id == school_scope.local_id
-            student = create_or_update_student(row)
-            homeroom_name = row["STD_HOMEROOM"]
-            assign_student_to_homeroom(student, homeroom_name)
-          end
+  def import_from_x2
+    if sftp_info_present?
+      Net::SFTP.start(
+        ENV['SIS_SFTP_HOST'],
+        ENV['SIS_SFTP_USER'],
+        key_data: ENV['SIS_SFTP_KEY'],
+        keys_only: true,
+        ) do |sftp|
+        # For documentation on Net::SFTP::Operations::File, see
+        # http://net-ssh.github.io/sftp/v2/api/classes/Net/SFTP/Operations/File.html
+        sftp.file.open(export_file_name, "r") do |f|
+          parse_for_import(f)
         end
       end
+    else
+      raise "SFTP information missing"
     end
   end
 
-  def create_or_update_student(row)
-    state_id = row["STD_ID_STATE"]
-    student = Student.where(state_id: state_id).first_or_create!
-    full_name = row["std_name_view"]
-    if full_name.present?
-      student.last_name = full_name.split(", ")[0]
-      student.first_name = full_name.split(", ")[1]
+  def parse_for_import(file)
+    require 'csv'
+    headers = file.gets.parse_csv.map(&:to_sym)    # Assume headers are first row
+    loop do
+      next_line = file.gets
+      if next_line.present?
+        begin
+          next_line.gsub!("\\", '"')     # Force multiline strings to end before linebreak
+          next_line.gsub!("\"N", '""')   # Handle unclosed "N values appearing in place of NULL
+          csv_row = next_line.parse_csv(force_quotes: true)
+          row_with_headers = Hash[headers.zip(csv_row)]
+          parse_row row_with_headers
+        rescue CSV::MalformedCSVError
+        end
+      else break end
     end
-    student.home_language = row["STD_HOME_LANGUAGE_CODE"]
-    student.save
-    return student
-  end
-
-  def assign_student_to_homeroom(student, homeroom_name)
-    homeroom = Homeroom.where(name: homeroom_name).first_or_create!
-    student.homeroom_id = homeroom.id
-    student.save
   end
 end

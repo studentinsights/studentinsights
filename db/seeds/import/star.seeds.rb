@@ -1,4 +1,4 @@
-after 'import:schools', 'import:x2', 'import:attendance' do
+after 'import:schools' do
   puts "STAR:"
   healey_math_05_path = "#{Rails.root}/data/star_healey_math_05.csv"
   healey_reading_05_path = "#{Rails.root}/data/star_healey_reading_05.csv"

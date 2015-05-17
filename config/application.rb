@@ -15,23 +15,18 @@ module SomervilleTeacherTool
     config.autoload_paths += %W(#{config.root}/app/models)
     config.autoload_paths += %W(#{config.root}/lib/modules)
 
-    config.generators do |g|  
-      g.stylesheets false  
-      g.javascripts false  
+    config.generators do |g|
+      g.stylesheets false
+      g.javascripts false
       g.test_framework :rspec, fixture_replacement: :factory_girl
-    end  
-    
+    end
+
     console do
       # :nocov:
       ActiveRecord::Base.connection
       # :nocov:
     end
 
-    env_file = File.join(Rails.root, 'config', 'local_env.yml')
-    YAML.load(File.open(env_file)).each do |key, value| 
-      ENV[key.to_s] = value 
-    end if File.exists?(env_file)
-    
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
