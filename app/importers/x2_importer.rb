@@ -35,8 +35,9 @@ module X2Importer
       next_line = file.gets
       if next_line.present?
         begin
-          next_line.gsub!("\\", '"')             # Force multiline strings to end before linebreak
-          csv_row = next_line.parse_csv
+          next_line.gsub!("\\", '"')     # Force multiline strings to end before linebreak
+          next_line.gsub!("\"N", '""')   # Handle unclosed "N values appearing in place of NULL
+          csv_row = next_line.parse_csv(force_quotes: true)
           row_with_headers = Hash[headers.zip(csv_row)]
           parse_row row_with_headers
         rescue CSV::MalformedCSVError
