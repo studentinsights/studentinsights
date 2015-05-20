@@ -22,6 +22,11 @@ $(function() {
             layout: 'horizontal',
             align: 'right',
             verticalAlign: 'top',
+      		itemStyle: {
+        		font: '12px "Open Sans", sans-serif !important;',
+        		color: '#555555'
+
+      		}
         },
         xAxis: {
             categories: [
@@ -38,7 +43,20 @@ $(function() {
     			style: {
         			display: 'none'
     			}
-            }
+            },
+            plotLines: [{
+                value: 2,
+                color: '#B90504',
+                width: 1,
+                zIndex: 3,
+                label: {
+                    text: 'MCAS Growth: Less than 40 points',
+                    align: 'center',
+                    style: {
+                        color: '#999999'
+                    }
+                }
+            }],
         },
         tooltip: {
             shared: true
@@ -56,7 +74,7 @@ $(function() {
             data: [3, 4, 3, 5, 4]
         }, {
             name: 'Tardies',
-            data: [1, 3, 4, 3, 3]
+            data: [1, 3, 4, 2, 3]
         }]
     });
 

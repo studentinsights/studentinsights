@@ -1,8 +1,27 @@
-  <div class="info-area">
+	<div id="controls">
+		<div id="roster-back">
+			<a href="http://localhost:3000/">&#60; Back to Roster</a>
+		</div>
+	</div>
 
-	<%= @presenter.full_name %>
-	
-  	<div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<div class="info-area">
+
+  	<div id="student-info">
+		<h1><%= @presenter.full_name %></h1>
+		<p>Home Phone: <strong>(617) 938-3948</strong></p>
+	</div>
+
+	<div id="graph-dropdown" class="dropdown">
+		<p>Graph:</p>
+		<select id="chart-type">
+	    	<option value="attendance">Attendance</option>  
+	    	<option value="behavior">Behavior</option>
+	    	<option value="mcas-growth">MCAS Growth</option>
+	    	<option value="star-percentile">STAR Percentile</option>
+		</select>
+	</div>
+
+  	<div id="chart"></div>
 
     <div class="school-year">
 
