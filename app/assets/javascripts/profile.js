@@ -125,7 +125,7 @@ $(function() {
 	        options.series = star_series
 	        options.yAxis.plotLines[0].label.text = "STAR Percentile: Less than 40 points"
 	        options.yAxis.plotLines[0].value = "40"
-	        options.xAxis.categories = ["September 2010 - 11", "January 2010 - 11", "May 2011 - 12", "September 2011 - 12", "January 2011 - 12", "May 2011 - 12", "September 2012 - 13", "January 2012 - 13", "May 2012 - 13", "September 2013 - 14", "January 2013 - 14", "May 2013 - 14"]
+	        options.xAxis.categories = ["Sept. 2010 - 11", "Jan. 2010 - 11", "May 2011 - 12", "Sept. 2011 - 12", "Jan. 2011 - 12", "May 2011 - 12", "Sept. 2012 - 13", "Jan. 2012 - 13", "May 2012 - 13", "Sept. 2013 - 14", "Jan. 2013 - 14", "May 2013 - 14"]
 	    }  
 	    var chart = new Highcharts.Chart(options);    
 	});
