@@ -157,3 +157,11 @@
 		</div>
     </div>
   </div>
+
+<%= tag("div", id: "profile-data", data:
+		{ attendance_events: @attendance_events,
+			discipline_incidents: @discipline_incidents,
+			mcas_results: @mcas_results,
+			star_results: @star_results
+		}
+) %>
