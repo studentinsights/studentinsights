@@ -10,7 +10,7 @@ class BehaviorImporter
     discipline_incident = DisciplineIncident.where(
       student_id: student.id,
       incident_code: row[:incident_code],
-      incident_date: row[:incident_date] + " " + row[:incident_time],
+      event_date: row[:event_date] + " " + row[:incident_time],
       has_exact_time: row[:incident_time].present?
     ).first_or_create!
     discipline_incident.assign_attributes(

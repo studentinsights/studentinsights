@@ -1,7 +1,7 @@
 SELECT
   'state_id',
   'incident_code',
-  'incident_date',
+  'event_date',
   'incident_time',
   'incident_location',
   'incident_description'
@@ -9,7 +9,7 @@ UNION ALL
 SELECT
   STD_ID_STATE,
   CND_INCIDENT_CODE,
-  CND_INCIDENT_DATE,
+  CND_event_date,
   CND_INCIDENT_TIME,
   CND_INCIDENT_LOCATION,
   CND_INCIDENT_DESCRIPTION
