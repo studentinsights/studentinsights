@@ -3,6 +3,7 @@ SELECT
   'full_name',
   'home_language',
   'grade',
+  'free_reduced_lunch',
   'homeroom',
   'school_local_id'
 UNION ALL
@@ -11,6 +12,7 @@ SELECT
   std_name_view,
   STD_HOME_LANGUAGE_CODE,
   STD_GRADE_LEVEL,
+  STD_FIELDB_031,
   STD_HOMEROOM,
   SKL_SCHOOL_ID
 FROM student
