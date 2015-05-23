@@ -4,6 +4,7 @@ SELECT
   'home_language',
   'student_address',
   'grade',
+  'registration_date',
   'free_reduced_lunch',
   'homeroom',
   'school_local_id'
@@ -14,7 +15,8 @@ SELECT
   STD_HOME_LANGUAGE_CODE,
   STD_ADRS_VIEW,
   STD_GRADE_LEVEL,
-  STD_FIELDB_031,
+  STD_FIELDA_081, -- Registration date
+  STD_FIELDB_031, -- Free/reduced lunch status
   STD_HOMEROOM,
   SKL_SCHOOL_ID
 FROM student
