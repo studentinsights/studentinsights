@@ -10,7 +10,7 @@ module DateToSchoolYear
     end
     school_year_name = "#{year_start}-#{year_end}"
     school_year = SchoolYear.where(name: school_year_name).first_or_create!
-    school_year.update(start: Date.new(year_start.to_i, 8, 1), end: Date.new(year_end.to_i, 7, 31))
+    school_year.update(start: Date.new(year_start.to_i, 8, 1))
     return school_year
   end
 end

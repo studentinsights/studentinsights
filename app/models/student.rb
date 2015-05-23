@@ -7,6 +7,15 @@ class Student < ActiveRecord::Base
   has_many :star_results, dependent: :destroy
   validates_presence_of :state_id
   validates_uniqueness_of :state_id
+  include DateToSchoolYear
+
+  def school_years
+    if registration_date.present?
+      current_school_year = date_to_school_year(Time.new)
+      first_school_year = date_to_school_year(registration_date)
+      SchoolYear.in_between(first_school_year, current_school_year)
+    end
+  end
 
   def latest_star
     if star_results.present?
