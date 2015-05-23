@@ -9,7 +9,7 @@ RSpec.describe BehaviorImporter do
 			let!(:row) {	{
 				state_id: '10',
 				incident_code: 'Bullying',
-				incident_date: '2015-9-15',
+				event_date: '2015-9-15',
 				incident_time: '09:33:00',
 				incident_location: 'Hallway',
 				incident_description: 'Making fun of another student'
@@ -36,7 +36,7 @@ RSpec.describe BehaviorImporter do
 					end
 					it 'assigns the date correctly' do
 						incident = student.reload.discipline_incidents.last
-						expect(incident.incident_date).to eq DateTime.new(2015, 9, 15, 9, 33)
+						expect(incident.event_date).to eq DateTime.new(2015, 9, 15, 9, 33)
 					end
 					it 'sets has exact time to true' do
 						incident = student.reload.discipline_incidents.last
@@ -62,7 +62,7 @@ RSpec.describe BehaviorImporter do
 				let(:row) {	{
 					state_id: '10',
 					incident_code: 'Bullying',
-					incident_date: '2015-9-15',
+					event_date: '2015-9-15',
 					incident_time: '',
 					incident_location: 'Hallway',
 					incident_description: 'Making fun of another student'
@@ -74,7 +74,7 @@ RSpec.describe BehaviorImporter do
 
 				it 'assigns the date correctly' do
 					incident = Student.last.reload.discipline_incidents.last
-					expect(incident.incident_date).to eq DateTime.new(2015, 9, 15)
+					expect(incident.event_date).to eq DateTime.new(2015, 9, 15)
 				end
 				it 'sets has exact time to false' do
 					incident = Student.last.reload.discipline_incidents.last
@@ -85,7 +85,7 @@ RSpec.describe BehaviorImporter do
 		context 'bad data' do
 			let(:row) {	{
 				state_id: '10',
-				incident_date: 'Hallway',
+				event_date: 'Hallway',
 			}	}
 			it 'raises an error' do
 				expect{ behavior_importer.parse_row(row) }.to raise_error

@@ -52,5 +52,28 @@ FactoryGirl.define do
         )
       end
     end
+
+    # Test attendance event sorting
+
+    factory :student_with_attendance_event do
+      after(:create) do |student|
+        create(:attendance_event,
+          student_id: student.id,
+          absence: true,
+          event_date: Time.new(2015, 1, 1)
+        )
+      end
+    end
+
+    # Test discipline incident sorting
+
+    factory :student_with_discipline_incident do
+      after(:create) do |student|
+        create(:discipline_incident,
+          student_id: student.id,
+          event_date: Time.new(2015, 1, 1)
+        )
+      end
+    end
   end
 end

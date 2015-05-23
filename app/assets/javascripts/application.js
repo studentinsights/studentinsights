@@ -13,9 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require highcharts
 //= require jquery.tooltipster.min.js
 //= require chosen.jquery.min
 //= require tablesort.min
 //= require tablesort.numeric
 //= require roster
 //= require table
+//= require profile

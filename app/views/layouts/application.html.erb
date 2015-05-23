@@ -13,7 +13,7 @@
         <h1 id="title">Somerville Teacher Tool</h1>
         <nav>
           <% if educator_signed_in? %>
-            <% unless controller_name == 'students' && action_name == 'index' %>
+            <% unless controller_name == 'students' %>
               <%= link_to "Roster", roster_url %>
             <% end %>
             <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>

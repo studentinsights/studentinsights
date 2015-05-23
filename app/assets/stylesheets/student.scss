@@ -1,15 +1,12 @@
 /* STUDENT PROFILE */
 
 .school-year{
-  border: 1px solid $dark-line;
-  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.30);
-  border-radius: 4px;
   text-align: center;
 }
 
 .year {
   background: $blue;
-  border-radius: 4px 4px 0 0;
+  border-radius: 4px;
   height: 50px;
   padding-top: 14px;
 }
@@ -17,8 +14,6 @@
 .section {
   padding-top: 30px;
   padding-bottom: 30px;
-  margin-left: 40px;
-  margin-right: 40px;
   border-bottom: 1px solid $light-line;
 
   .values {
@@ -47,3 +42,53 @@
     margin-top: 5px;
   }
 }
+
+#chart {
+  height: 400px;
+  margin: 0 auto;
+  margin-bottom: 80px;
+}
+
+#student-info {
+  border-bottom: 1px solid $dark-line;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+
+    @media screen and (max-width: $phase2) {
+      height: 80px;
+    }
+
+  h1 {
+    font-weight: 400;
+    display: inline;
+  }
+
+  p {
+    float: right;
+    padding-top: 10px;
+
+    @media screen and (max-width: $phase2) {
+      padding-right: 20px;
+      float: left;
+      padding-bottom: 20px;
+    }
+  }
+}
+
+.students {
+
+  .info-area{
+    margin-top: 0;
+  }
+}
+
+#roster-back {
+  display: inline-block;
+  padding-top: 20px;
+}
+
+
+
+
+
+

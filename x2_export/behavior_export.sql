@@ -1,7 +1,7 @@
 SELECT
   'state_id',
   'incident_code',
-  'incident_date',
+  'event_date',
   'incident_time',
   'incident_location',
   'incident_description',

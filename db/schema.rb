@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(version: 20150523005511) do
     t.datetime "updated_at"
     t.string   "incident_location"
     t.string   "incident_description"
-    t.datetime "incident_date"
+    t.datetime "event_date"
     t.boolean  "has_exact_time"
+    t.integer  "school_year_id"
   end
 
   create_table "educators", force: true do |t|

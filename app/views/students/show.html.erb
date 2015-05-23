@@ -1,5 +1,27 @@
-  <div class="info-area">
-    <%= @presenter.full_name %>
+	<div id="controls">
+		<div id="roster-back">
+			<%= link_to "< Back to Roster", roster_url %>
+		</div>
+	</div>
+
+	<div class="info-area">
+
+  	<div id="student-info">
+		<h1><%= @presenter.full_name %></h1>
+		<p>Home Phone: <strong>(617) 938-3948</strong></p>
+	</div>
+
+	<div id="graph-dropdown" class="dropdown">
+		<p>Graph:</p>
+		<select id="chart-type">
+	    	<option value="attendance">Attendance</option>  
+	    	<option value="behavior">Behavior</option>
+	    	<option value="mcas-growth">MCAS Growth</option>
+	    	<option value="star-percentile">STAR Percentile</option>
+		</select>
+	</div>
+
+  	<div id="chart"></div>
 
     <div class="school-year">
 
@@ -135,3 +157,11 @@
 		</div>
     </div>
   </div>
+
+<%= tag("div", id: "profile-data", data:
+		{ attendance_events: @attendance_events,
+			discipline_incidents: @discipline_incidents,
+			mcas_results: @mcas_results,
+			star_results: @star_results
+		}
+) %>
