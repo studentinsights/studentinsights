@@ -41,7 +41,7 @@ class McasImporter < Struct.new :mcas_data_path, :school_scope, :date_taken
       'grade' => 'grade',
       'school' => 'school_state_id',
       'race_off' => 'race',
-      'freelunch_off' => 'low_income',
+      'freelunch_off' => 'free_reduced_lunch',
       'sped_off' => 'sped',
       'lep_off' => 'limited_english_proficient',
       'flep_off' => 'former_limited_english_proficient'
@@ -49,12 +49,12 @@ class McasImporter < Struct.new :mcas_data_path, :school_scope, :date_taken
   end
 
   def mcas_result_attrs
-    [ 'ela_scaled', 'ela_performance', 'ela_growth', 
+    [ 'ela_scaled', 'ela_performance', 'ela_growth',
       'math_scaled', 'math_performance', 'math_growth' ]
   end
 
   def demographic_attrs
-    [ 'race', 'low_income', 'sped', 'limited_english_proficient',
+    [ 'race', 'free_reduced_lunch', 'sped', 'limited_english_proficient',
       'former_limited_english_proficient' ]
   end
 
