@@ -15,7 +15,7 @@ RSpec.describe SchoolYear do
       let!(:first_school_year) { FactoryGirl.create(:sy_2013_2014) }
       it 'returns array with first school year and current school year' do
         in_between = SchoolYear.in_between(first_school_year, current_school_year)
-        expect(in_between).to eq([first_school_year, current_school_year])
+        expect(in_between).to eq([current_school_year, first_school_year])
       end
     end
     context 'current school year is two years after first school year' do
@@ -25,7 +25,7 @@ RSpec.describe SchoolYear do
       it 'returns array with first school year, in between year, and current school year' do
         in_between = SchoolYear.in_between(first_school_year, current_school_year)
         expect(in_between).to eq(
-          [first_school_year, in_between_school_year, current_school_year]
+          [current_school_year, in_between_school_year, first_school_year]
         )
       end
     end

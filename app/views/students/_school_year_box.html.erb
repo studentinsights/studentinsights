@@ -1,0 +1,137 @@
+    <div class="school-year">
+
+      <div class="year">
+        <h1><%= school_year.name %></h1>
+      </div>
+
+      <div class="section">
+        <% if events[:attendance_events][:absences] > 0 || events[:attendance_events][:tardies] > 0 %>
+          <h2 class="attendance-type">Attendance</h2>
+          <div class="values">
+            <h3><%= events[:attendance_events][:absences] %></h3>
+            <h4>Absences</h4>
+          </div>
+          <div class="values">
+            <h3><%= events[:attendance_events][:tardies] %></h3>
+            <h4>Tardies</h4>
+          </div>
+        <% else %>
+          <h2 class="attendance-type">No absences or tardies</h2>
+        <% end %>
+      </div>
+
+<!--      <div class="section">
+        <h2>MCAS</h2>
+          <div class="values">
+            <h3 class="assesment-type">English</h3>
+            <div class="values">
+              <h3>NI</h3>
+              <h4>Performance</h4>
+            </div>
+            <div class="values">
+              <h3>55</h3>
+              <h4>Growth</h4>
+            </div>
+          </div>
+          <div class="values">
+            <h3 class="assesment-type">Math</h3>
+            <div class="values">
+              <h3>W</h3>
+              <h4>Performance</h4>
+            </div>
+            <div class="values">
+              <h3>48</h3>
+              <h4>Growth</h4>
+            </div>
+          </div>
+      </div> -->
+
+<!--      <div class="section">
+        <h2>STAR</h2>
+          <div class="values">
+            <h5>September</h5>
+            <div class="month">
+              <div class="values">
+                <h3 class="assesment-type">English</h3>
+                <div class="values">
+                  <h3>21</h3>
+                  <h4>Percentile</h4>
+                </div>
+                <div class="values">
+                  <h3>1.0</h3>
+                  <h4>IRL</h4>
+                </div>
+              </div>
+              <div class="values">
+                <h3 class="assesment-type">Math</h3>
+                <div class="values">
+                  <h3>94</h3>
+                  <h4>Percentile</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+ -->
+<!--  <div class="values">
+            <h5>January</h5>
+            <div class="month">
+              <div class="values">
+                <h3 class="assesment-type">English</h3>
+                <div class="values">
+                  <h3>35</h3>
+                  <h4>Percentile</h4>
+                </div>
+                <div class="values">
+                  <h3>3.0</h3>
+                  <h4>IRL</h4>
+                </div>
+              </div>
+              <div class="values">
+                <h3 class="assesment-type">Math</h3>
+                <div class="values">
+                  <h3>64</h3>
+                  <h4>Percentile</h4>
+                </div>
+              </div>
+            </div>
+          </div> -->
+<!-- <div class="values">
+            <h5>May</h5>
+            <div class="month">
+              <div class="values">
+                <h3 class="assesment-type">English</h3>
+                <div class="values">
+                  <h3>74</h3>
+                  <h4>Percentile</h4>
+                </div>
+                <div class="values">
+                  <h3>4.0</h3>
+                  <h4>IRL</h4>
+                </div>
+              </div>
+              <div class="values">
+                <h3 class="assesment-type">Math</h3>
+                <div class="values">
+                  <h3>35</h3>
+                  <h4>Percentile</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div> -->
+
+      <div class="section">
+        <% if events[:discipline_incidents].present? %>
+          <h2>Office referrals</h2>
+          <div class="referral">
+            <% events[:discipline_incidents].each do |d| %>
+              <p><strong>Code:</strong>  <%= d.incident_code %></p>
+              <p><strong>Description:</strong>  <%= d.incident_description %></p>
+              <p><strong>Location:</strong>  <%= d.incident_location %></p>
+              <p><strong>Date:</strong>  <%= d.event_date.strftime("%B %e, %Y") %></p>
+            <% end %>
+          </div>
+        <% else %>
+          <h2>No office referrals</h2>
+        <% end %>
+      </div>

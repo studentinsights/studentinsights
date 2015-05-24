@@ -17,7 +17,7 @@ RSpec.describe Student do
         let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014) }
         it 'calculates student school years based on registration date' do
           Timecop.freeze(Time.new(2015, 5, 24)) do
-            expect(student.school_years).to eq([sy_2013_2014, sy_2014_2015])
+            expect(student.school_years).to eq([sy_2014_2015, sy_2013_2014])
           end
         end
       end
@@ -26,7 +26,7 @@ RSpec.describe Student do
           let(:student) { FactoryGirl.create(:second_grade_student) }
           it 'assumes student has been attending SPS since K' do
             Timecop.freeze(Time.new(2015, 5, 24)) do
-              expect(student.school_years).to eq([sy_2012_2013, sy_2013_2014, sy_2014_2015])
+              expect(student.school_years).to eq([sy_2014_2015, sy_2013_2014, sy_2012_2013])
             end
           end
         end
