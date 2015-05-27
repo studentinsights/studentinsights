@@ -5,7 +5,7 @@ gem 'rails', '4.1.4'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
-gem 'friendly_id', '~> 5.1.0' 
+gem 'friendly_id', '~> 5.1.0'
 gem 'net-ssh'
 gem 'net-sftp'
 
@@ -42,9 +42,10 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'simplecov'
   gem 'faker'
+  gem 'timecop'
 end
 
-# Auth 
+# Auth
 gem 'devise'
 gem 'twilio-ruby', '~> 3.12'
 

@@ -6,7 +6,15 @@ FactoryGirl.define do
 
   factory :student do
       state_id
-
+    factory :student_who_registered_in_2013_2014 do
+      registration_date Date.new(2013, 8, 1)
+    end
+    factory :second_grade_student do
+      grade "2"
+    end
+    factory :pre_k_student do
+      grade "PK"
+    end
     factory :student_we_want_to_update do       # Test importing data from X2, STAR
       state_id "10"                             # State ID matches fixture
       home_language "English"

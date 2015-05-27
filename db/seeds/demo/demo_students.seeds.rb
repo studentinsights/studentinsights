@@ -1,3 +1,5 @@
+Dir["#{Rails.root}/db/seeds/demo/demo_data/*.rb"].each {|file| require file }
+
 puts "Creating demo students, school, homerooms, assessment results..."
 
 School.destroy_all

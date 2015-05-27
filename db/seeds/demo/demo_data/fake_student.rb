@@ -9,12 +9,12 @@ module FakeStudent
     {
       grade: "5",
       hispanic_latino: [true, false].sample,
-      race: ["A", "B", "H", "W"].sample, 
-      low_income: [true, false].sample,
+      race: ["A", "B", "H", "W"].sample,
+      free_reduced_lunch: [true, false].sample,
       first_name: FIRST_NAMES.sample,
       last_name: LAST_NAMES.sample,
       state_id: "000#{rand(1000)}",
-      limited_english_proficient: [true, false].sample, 
+      limited_english_proficient: [true, false].sample,
       former_limited_english_proficient: [true, false].sample,
       sped: [true, false, false, false].sample
     }
