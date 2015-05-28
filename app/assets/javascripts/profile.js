@@ -11,11 +11,11 @@ $(function() {
     function countAbsences(attendanceEvents) {return attendanceEvents.filter(isAbsence).length }
     function countTardies(attendanceEvents) { return attendanceEvents.filter(isTardy).length }
 
-    var attendance_school_years = Object.keys(attendance_events)
-    var absences_by_year = Object.keys(attendance_events).map(function(key) { return countAbsences(attendance_events[key]) })
-    var tardies_by_year = Object.keys(attendance_events).map(function(key) { return countTardies(attendance_events[key]) })
+    var attendance_school_years = Object.keys(attendance_events).reverse()
+    var absences_by_year = attendance_school_years.map(function(key) { return countAbsences(attendance_events[key]) })
+    var tardies_by_year = attendance_school_years.map(function(key) { return countTardies(attendance_events[key]) })
 
-    var discipline_school_years = Object.keys(discipline_incidents)
+    var discipline_school_years = Object.keys(discipline_incidents).reverse()
     var discipline_incidents_by_year = Object.keys(discipline_incidents).map(function(key) { return discipline_incidents[key].length })
 
     var attendance_series = [{
@@ -120,6 +120,7 @@ $(function() {
     }
 
     options.series = attendance_series
+    options.xAxis.categories = attendance_school_years
     var chart = new Highcharts.Chart(options);
 
 	$("#chart-type").on('change', function(){

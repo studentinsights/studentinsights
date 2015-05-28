@@ -1,8 +1,22 @@
 class Student < ActiveRecord::Base
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
-  has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
-  has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
+  has_many :attendance_events, dependent: :destroy do
+    def sort_by_school_year(student)
+      event_hash = {}
+      school_years = student.school_years
+      school_years.each { |sy| event_hash[sy.name] = sy.attendance_events.find_by_student(student) }
+      event_hash
+    end
+  end
+  has_many :discipline_incidents, dependent: :destroy do
+    def sort_by_school_year(student)
+      event_hash = {}
+      school_years = student.school_years
+      school_years.each { |sy| event_hash[sy.name] = sy.discipline_incidents.find_by_student(student) }
+      event_hash
+    end
+  end
   has_many :mcas_results, dependent: :destroy
   has_many :star_results, dependent: :destroy
   validates_presence_of :state_id
