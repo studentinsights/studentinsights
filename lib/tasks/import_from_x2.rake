@@ -1,5 +1,12 @@
 desc "Import student, attendance, & behavior info from X2 remote server"
-task :import_from_x2 => :environment do
-  importers = [ StudentsImporter.new, AttendanceImporter.new, BehaviorImporter.new ]
-  importers.each { |i| i.import_from_x2 }
+task :import_healey_from_x2 => :environment do
+  healey_school = School.where(local_id: "HEA").first_or_create!
+  if healey_school.present?
+    importers = [
+      StudentsImporter.new(school: healey_school),
+      AttendanceImporter.new(school: healey_school),
+      BehaviorImporter.new(school: healey_school)
+    ]
+    importers.each { |i| i.connect_to_x2_and_import }
+  end
 end
