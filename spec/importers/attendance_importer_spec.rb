@@ -35,10 +35,13 @@ RSpec.describe AttendanceImporter do
 				end
 			end
 		end
-		context 'bad data' do
-			let(:row) { { state_id: '100', absence: '2015-2-2', tardy: '1', event_date: '0' } }
-			it 'raises an error' do
-				expect{ attendance_importer.import_row(row) }.to raise_error
+		context 'null date' do
+			let(:row) { { state_id: '100', absence: '2015-2-2', tardy: '1', event_date: 'N' } }
+			it 'does not raise an error' do
+				expect { attendance_importer.import_row(row) }.not_to raise_error
+			end
+			it 'does not import an attendance event' do
+				expect { attendance_importer.import_row(row) }.to change(Student, :count).by 0
 			end
 		end
 	end

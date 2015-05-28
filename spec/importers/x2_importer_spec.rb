@@ -54,24 +54,5 @@ RSpec.describe do
         end
       end
     end
-    context 'attendance' do
-      let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_attendance_export.txt") }
-      let!(:x2_attendance_import_class) {
-        Class.new do
-          include X2Importer
-          def import_row(row)
-            AttendanceEvent.where(event_date: row[:event_date]).first_or_create!
-          end
-        end
-      }
-      let(:x2_importer) { x2_attendance_import_class.new }
-      context 'with good data' do
-        context 'with some null values' do
-          it 'does not raise an error' do
-            expect { x2_importer.import(file) }.not_to raise_error
-          end
-        end
-      end
-    end
   end
 end
