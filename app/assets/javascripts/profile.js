@@ -126,46 +126,24 @@ $(function() {
       }
     }
 
-    var zeroCase = {
-      chart: {
-        renderTo: 'chart',
-        events: {
-            load: function () {
-                var ren = this.renderer;
-                ren.label(student_name + ' has no ' + options.title.text + ' on record', 20, 40)
-                    .css({
-                        //fontWeight: 'bold'
-                    })
-                    .add();
-              }
-        }
-      },
-      title: {
-        text: '',
-        style: {
-            display: 'none'
-        }
-      },
-      subtitle: {
-        text: '',
-        style: {
-          display: 'none'
-        }
-      },
-      legend: {
-        style: {
-            display: 'none'
-          }
-      }
-
+    function zeroDraw(){
+      $('#chart').empty();
+      var zeroHtml =  '<div class="zero-case">' +
+                        '<img src="/assets/placeholder.svg"/>' +
+                        '<h2>Looks Great!</h2>' +
+                        '<div>'+ student_name + ' has no ' +
+                              options.title.text + ' on record</div>' +
+                      '</div>';
+      $('#chart').html(zeroHtml);
     }
 
     options.series = attendance_series
     options.title.text = 'absences or tardies'
-    var chart = checkZero(options) ? new Highcharts.Chart(zeroCase) : new Highcharts.Chart(options);
+    var chart;
+    checkZero(options) ? zeroDraw() : chart = new Highcharts.Chart(options);
     //var chart = new Highcharts.Chart(options);
 
-	$("#chart-type").on('change', function(){
+	  $("#chart-type").on('change', function(){
 	    var selVal = $("#chart-type").val();
 	    if(selVal == "attendance" || selVal == '') {
 	        options.series = attendance_series
@@ -189,7 +167,7 @@ $(function() {
 	    //     options.yAxis.plotLines[0].value = "40"
 	    //     options.xAxis.categories = ["Sept. 2010 - 11", "Jan. 2010 - 11", "May 2011 - 12", "Sept. 2011 - 12", "Jan. 2011 - 12", "May 2011 - 12", "Sept. 2012 - 13", "Jan. 2012 - 13", "May 2012 - 13", "Sept. 2013 - 14", "Jan. 2013 - 14", "May 2013 - 14"]
 	    // }
-      var chart = checkZero(options) ? new Highcharts.Chart(zeroCase) : new Highcharts.Chart(options);
+      checkZero(options) ? zeroDraw() : chart = new Highcharts.Chart(options);
       //var chart = new Highcharts.Chart(options);
 	});
   }

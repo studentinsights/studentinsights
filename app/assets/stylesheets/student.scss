@@ -87,8 +87,13 @@
   padding-top: 20px;
 }
 
-
-
-
-
-
+.zero-case {
+  img {
+    display: block;
+    clear: both;
+    margin: 0 auto;
+  }
+  div,h2 {
+    text-align: center;
+  }
+}
