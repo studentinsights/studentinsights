@@ -1,26 +1,25 @@
-require 'fixtures/fake_x2'
 require 'rails_helper'
 
 RSpec.describe StudentsImporter do
   let(:importer) { StudentsImporter.new }
 
-  describe '#parse_row' do
+  describe '#import_row' do
     context 'good data' do
       context 'student already exists' do
         let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
         let(:row) { {state_id: '10', full_name: 'Pais, Casey', home_language: 'Chinese', grade: '1', homeroom: '701' } }
         it 'updates student attributes' do
-          importer.parse_row(row)
+          importer.import_row(row)
           expect(student.reload.home_language).to eq 'Chinese'
         end
       end
       context 'student does not already exist' do
         let(:row) { {state_id: '10', full_name: 'Pais, Casey', home_language: 'Chinese', grade: '1', homeroom: '701' } }
         it 'creates a new student' do
-          expect { importer.parse_row(row) }.to change(Student, :count).by 1
+          expect { importer.import_row(row) }.to change(Student, :count).by 1
         end
         it 'sets the new student attributes correctly' do
-          importer.parse_row(row)
+          importer.import_row(row)
           expect(Student.last.grade).to eq '1'
         end
       end
@@ -29,7 +28,7 @@ RSpec.describe StudentsImporter do
       context 'missing state id' do
         let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '1', homeroom: '101' } }
         it 'raises an error' do
-          expect{ importer.parse_row(row) }.to raise_error
+          expect{ importer.import_row(row) }.to raise_error
         end
       end
     end

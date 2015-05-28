@@ -1,7 +1,7 @@
 module X2Importer
   # Any class using X2Importer should implement two methods:
   # export_file_name => string pointing to the name of the remote file to parse
-  # parse_row => function that describes how to handle each row; takes row as only argument
+  # import_row => function that describes how to handle each row; takes row as only argument
 
   def sftp_info_present?
     ENV['SIS_SFTP_HOST'].present? &&
@@ -9,7 +9,7 @@ module X2Importer
     ENV['SIS_SFTP_KEY'].present?
   end
 
-  def import_from_x2
+  def connect_to_x2
     if sftp_info_present?
       Net::SFTP.start(
         ENV['SIS_SFTP_HOST'],
@@ -19,30 +19,20 @@ module X2Importer
         ) do |sftp|
         # For documentation on Net::SFTP::Operations::File, see
         # http://net-ssh.github.io/sftp/v2/api/classes/Net/SFTP/Operations/File.html
-        sftp.file.open(export_file_name, "r") do |f|
-          parse_for_import(f)
-        end
+        file = sftp.download!(export_file_name)
+        import(file)
       end
     else
       raise "SFTP information missing"
     end
   end
 
-  def parse_for_import(file)
+  def import(file)
     require 'csv'
-    headers = file.gets.parse_csv.map(&:to_sym)    # Assume headers are first row
-    loop do
-      next_line = file.gets
-      if next_line.present?
-        begin
-          next_line.gsub!("\\", '"')     # Force multiline strings to end before linebreak
-          next_line.gsub!("\"N", '""')   # Handle unclosed "N values appearing in place of NULL
-          csv_row = next_line.parse_csv(force_quotes: true)
-          row_with_headers = Hash[headers.zip(csv_row)]
-          parse_row row_with_headers
-        rescue CSV::MalformedCSVError
-        end
-      else break end
+    csv = CSV.new(file, headers: true, header_converters: :symbol)
+    csv.each do |row|
+      import_row row
     end
+    return csv
   end
 end

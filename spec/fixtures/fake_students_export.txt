@@ -1,0 +1,3 @@
+"state_id","full_name","home_language","grade","homeroom","school_local_id"
+"1000000000","Muraki, Mari","English","10","Homeroom 200","SHS"
+"1000000001","Hadjihabib, Amir","English","10","Homeroom 200","SHS"
