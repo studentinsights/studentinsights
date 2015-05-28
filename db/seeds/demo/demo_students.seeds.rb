@@ -31,11 +31,11 @@ LAST_NAMES = [ "Jones", "Pais", "Hoag", "Pak", "Scott" ]
   result = StarResult.new(FakeStarResult.data)
   result.update_attributes(student_id: student.id)
   result.save
-  # rand(0..3).times do
-  #   discipline_incident = DisciplineIncident.new(FakeDisciplineIncident.data)
-  #   discipline_incident.student_id = student.id
-  #   discipline_incident.save
-  # end
+  rand(0..3).times do
+    discipline_incident = DisciplineIncident.new(FakeDisciplineIncident.data)
+    discipline_incident.student_id = student.id
+    discipline_incident.save
+  end
   rand(0..20).times do
     attendance_event = AttendanceEvent.new(FakeAttendanceEvent.data)
     attendance_event.student_id = student.id

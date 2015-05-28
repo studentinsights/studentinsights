@@ -56,73 +56,71 @@ $(function() {
     // }]
 
     var options = {
-  		chart: {
-  			renderTo: 'chart',
+      chart: {
+        renderTo: 'chart',
         type: 'areaspline'
       },
       title: {
-      		text: '',
-      		style: {
-          	display: 'none'
-      		}
-  		},
-  		subtitle: {
-  			text: '',
-  			style: {
-          		display: 'none'
-      	}
-  		},
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
+      subtitle: {
+        text: '',
+        style: {
+          display: 'none'
+        }
+      },
       legend: {
-          layout: 'horizontal',
-          align: 'right',
-          verticalAlign: 'top',
-      		itemStyle: {
-        		font: '12px "Open Sans", sans-serif !important;',
-        		color: '#555555'
+        layout: 'horizontal',
+        align: 'right',
+        verticalAlign: 'top',
+        itemStyle: {
+          font: '12px "Open Sans", sans-serif !important;',
+          color: '#555555'
 
-      		}
+        }
       },
       xAxis: {
-          categories: [
-              '2010 - 11',
-              '2011 - 12',
-              '2012 - 13',
-              '2013 - 14',
-              '2014 - 15',
-          ],
+        categories: [
+          '2010 - 11',
+          '2011 - 12',
+          '2012 - 13',
+          '2013 - 14',
+          '2014 - 15',
+        ],
       },
       yAxis: {
         title: {
+          text: '',
+          style: {
+            display: 'none'
+          }
+        },
+        plotLines: [{
+          color: '#B90504',
+          width: 1,
+          zIndex: 3,
+          label: {
             text: '',
-      			style: {
-          			display: 'none'
-      			}
-          },
-          plotLines: [
-            {
-              color: '#B90504',
-              width: 1,
-              zIndex: 3,
-              label: {
-                  text: '',
-                  align: 'center',
-                  style: {
-                      color: '#999999'
-                  }
-              }
+            align: 'center',
+            style: {
+              color: '#999999'
             }
-        ],
+          }
+        }],
       },
       tooltip: {
-          shared: true
+        shared: true
       },
       credits: {
-          enabled: false
+        enabled: false
       },
       plotOptions: {
-          areaspline: {
-              fillOpacity: 0
-          }
+        areaspline: {
+          fillOpacity: 0
+        }
       }
     }
 
