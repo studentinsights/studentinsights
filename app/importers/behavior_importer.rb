@@ -5,7 +5,7 @@ class BehaviorImporter
     'behavior_export.txt'
   end
 
-  def parse_row(row)
+  def import_row(row)
     student = Student.where(state_id: row[:state_id]).first_or_create!
     discipline_incident = DisciplineIncident.where(
       student_id: student.id,

@@ -4,7 +4,7 @@ RSpec.describe BehaviorImporter do
 
 	let(:behavior_importer) { BehaviorImporter.new }
 
-	describe '#parse_row' do
+	describe '#import_row' do
 		context 'good data' do
 			let!(:row) {	{
 				state_id: '10',
@@ -14,7 +14,7 @@ RSpec.describe BehaviorImporter do
 				incident_location: 'Hallway',
 				incident_description: 'Making fun of another student'
 			}	}
-			let(:import) { behavior_importer.parse_row(row) }
+			let(:import) { behavior_importer.import_row(row) }
 
 			context 'data includes time' do
 				context 'student already exists' do
@@ -44,7 +44,7 @@ RSpec.describe BehaviorImporter do
 					end
 				end
 				context 'student does not already exist' do
-					let(:import) { behavior_importer.parse_row(row) }
+					let(:import) { behavior_importer.import_row(row) }
 
 					it 'creates a new student' do
 						expect { import }.to change(Student, :count).by 1
@@ -88,7 +88,7 @@ RSpec.describe BehaviorImporter do
 				event_date: 'Hallway',
 			}	}
 			it 'raises an error' do
-				expect{ behavior_importer.parse_row(row) }.to raise_error
+				expect{ behavior_importer.import_row(row) }.to raise_error
 			end
 		end
 	end

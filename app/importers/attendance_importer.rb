@@ -5,13 +5,20 @@ class AttendanceImporter
 		'attendance_export.txt'
 	end
 
-	def parse_row(row)
-		student = Student.where(state_id: row[:state_id]).first_or_create!
-		attendance_event = AttendanceEvent.where(
-			student_id: student.id,
-			event_date: row[:event_date],
-			absence: row[:absence],
-			tardy: row[:tardy],
-		).first_or_create!
-	end
+	def import_row(row)
+    require 'date'
+    begin
+      Date.parse row[:event_date]
+      student = Student.where(state_id: row[:state_id]).first_or_create!
+      attendance_event = AttendanceEvent.where(
+        student_id: student.id,
+        event_date: row[:event_date],
+        absence: row[:absence],
+        tardy: row[:tardy],
+      ).first_or_create!
+    rescue ArgumentError
+    end
+  end
 end
+
+
