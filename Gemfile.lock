@@ -104,6 +104,7 @@ GEM
     prawn (2.0.1)
       pdf-core (~> 0.5.1)
       ttfunk (~> 1.4.0)
+    probability (1.0.0)
     rack (1.5.2)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -154,6 +155,7 @@ GEM
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
     ruby-ole (1.2.11.8)
+    rubystats (0.2.3)
     rubyzip (1.1.7)
     sass (3.2.19)
     sass-rails (4.0.5)
@@ -225,11 +227,13 @@ DEPENDENCIES
   paperclip
   pg
   prawn
+  probability
   rack-test
   rails (= 4.1.4)
   rails_12factor
   roo
   rspec-rails (~> 3.0)
+  rubystats
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   seedbank
