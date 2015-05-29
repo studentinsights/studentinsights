@@ -83,4 +83,5 @@ class Student < ActiveRecord::Base
       mcas_results.last
     end
   end
+
 end

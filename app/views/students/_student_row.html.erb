@@ -17,4 +17,15 @@
                   <% else %>
                     <%= render "students/blank_mcas_row" %>
                   <% end %>
+
+                  <% if presenter.current_events.present? %>
+                    <%= render "students/attendance_row_fragment", attendance_presenter: presenter %>
+                    <%= render "students/discipline_row_fragment", discipline_presenter: presenter %>
+                  <% else %>
+                    <%= render "students/blank_attendance_row" %>
+                    <%= render "students/blank_discipline_row" %>
+                  <% end %>
+
+
+
                 </tr>

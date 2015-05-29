@@ -12,6 +12,8 @@ $(function() {
 
     // Show/hide column groups using Chosen plugin
     $(".demographics").hide();
+    $(".attendance").hide();
+    $(".discipline").hide();
     $("#column-group-select").chosen().on('change', function(e, params) {
       if (params.deselected !== undefined) {
         var assessment = params.deselected
@@ -27,11 +29,13 @@ $(function() {
       content: $('<div class="warning-key"><div class="warning-header"><div class="warning-dot"></div><h6>Warning Indicators</h6></div><div class="warning-set"><p><strong>MCAS Performance:</strong> Warning</p><p><strong>MCAS Growth:</strong> Less than 40 points</p><p><strong>STAR Percentile:</strong> Less than 40 points</p><p><strong>STAR Reading IRL:</strong> A year or more behind</p></div></div>'),
       position: 'bottom-right'
     });
+
     // Table interactions
 
     // Turn table rows into links to student profiles
     $('tbody tr').click(function () {
       location.href = $(this).find('td a').attr('href');
     });
+
   }
 });

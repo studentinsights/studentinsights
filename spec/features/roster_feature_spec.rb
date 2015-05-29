@@ -21,7 +21,7 @@ describe 'roster', :type => :feature do
         expect(student_rows.size).to eq 1
       end
     end
-    context 'one student in homeroom' do
+    context 'three students in homeroom' do
       let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_three_students) }
       it 'shows roster with three student rows' do
         expect(student_rows.size).to eq 3
