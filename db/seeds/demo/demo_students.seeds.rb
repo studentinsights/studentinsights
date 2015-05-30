@@ -33,8 +33,8 @@ AttendanceEvent.destroy_all
   # guestimating that 40% of students have discipline events
   2.in(5) do
     5.times do |n|
-      date_begin = Time.local(2010 + n, 1, 1)
-      date_end = Time.local(2010 + n, 12, 31)
+      date_begin = Time.local(2010 + n, 8, 1)
+      date_end = Time.local(2011 + n, 7, 31)
       discipline_event_generator.rng.round(0).times do
         discipline_incident = DisciplineIncident.new(FakeDisciplineIncident.data)
         discipline_incident.student_id = student.id
@@ -45,8 +45,8 @@ AttendanceEvent.destroy_all
   end
   94.in(100) do
     5.times do |n|
-      date_begin = Time.local(2010 + n, 1, 1)
-      date_end = Time.local(2010 + n, 12, 31)
+      date_begin = Time.local(2010 + n, 8, 1)
+      date_end = Time.local(2011 + n, 7, 31)
       attendance_event_generator.rng.round(0).times do
         attendance_event = AttendanceEvent.new(FakeAttendanceEvent.data)
         attendance_event.student_id = student.id
