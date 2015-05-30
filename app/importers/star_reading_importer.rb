@@ -1,12 +1,16 @@
-require 'csv'
-
-class StarReadingImporter < Struct.new(:star_data_path)
+class StarReadingImporter
   include StarImporter
-  
+
+  def export_file_name
+    'SR'
+  end
+
   def header_dictionary
     {
-      'PR' => 'reading_percentile_rank',
-      'IRL' => 'instructional_reading_level'
+      'StateStudentID' => :state_id,
+      'DateTaken' => :date_taken,
+      'PR' => :reading_percentile_rank,
+      'IRL' => :instructional_reading_level
     }
   end
 end
