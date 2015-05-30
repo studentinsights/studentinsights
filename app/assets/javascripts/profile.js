@@ -92,6 +92,7 @@ $(function() {
         ],
       },
       yAxis: {
+        allowDecimals: false,
         title: {
           text: '',
           style: {
