@@ -12,7 +12,7 @@ module StarImporter
   def sftp_info_present?
     ENV['STAR_SFTP_HOST'].present? &&
     ENV['STAR_SFTP_USER'].present? &&
-    ENV['STAR_SFTP_KEY'].present?
+    ENV['STAR_SFTP_PASSWORD'].present?
   end
 
   def connect_to_star_and_import
@@ -20,8 +20,7 @@ module StarImporter
       Net::SFTP.start(
         ENV['STAR_SFTP_HOST'],
         ENV['STAR_SFTP_USER'],
-        key_data: ENV['STAR_SFTP_KEY'],
-        keys_only: true,
+        password: ENV['STAR_SFTP_PASSWORD']
         ) do |sftp|
         # For documentation on Net::SFTP::Operations::File, see
         # http://net-ssh.github.io/sftp/v2/api/classes/Net/SFTP/Operations/File.html
