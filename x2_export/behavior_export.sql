@@ -1,3 +1,4 @@
+use x2data
 SELECT
   'state_id',
   'incident_code',
@@ -23,7 +24,7 @@ INNER JOIN school
 WHERE STD_ENROLLMENT_STATUS = 'Active'
 AND STD_ID_STATE IS NOT NULL
 AND STD_OID IS NOT NULL
-  INTO OUTFILE 'C:/CodeForAmerica/attendance_export.txt'
+  INTO OUTFILE "E:\_BACKUP_MYSQL\CodeForAmerica"
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
   LINES TERMINATED BY '\r\n'
