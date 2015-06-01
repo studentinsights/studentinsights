@@ -104,6 +104,8 @@ GEM
     prawn (2.0.1)
       pdf-core (~> 0.5.1)
       ttfunk (~> 1.4.0)
+    puma (2.11.3)
+      rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -225,6 +227,7 @@ DEPENDENCIES
   paperclip
   pg
   prawn
+  puma
   rack-test
   rails (= 4.1.4)
   rails_12factor
