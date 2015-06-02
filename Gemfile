@@ -8,6 +8,7 @@ gem 'pg'
 gem 'friendly_id', '~> 5.1.0'
 gem 'net-ssh'
 gem 'net-sftp'
+gem 'puma'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
