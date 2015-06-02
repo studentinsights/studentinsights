@@ -44,6 +44,11 @@ group :development, :test do
   gem 'simplecov'
   gem 'faker'
   gem 'timecop'
+
+  # for more interesting random seed data
+  gem 'probability'
+  gem 'rubystats'
+
 end
 
 # Auth
@@ -71,4 +76,3 @@ gem 'prawn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
