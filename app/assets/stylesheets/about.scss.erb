@@ -43,7 +43,7 @@
 	.headline {
 		margin-bottom: 20px;
 	}
-	
+
 	#pillars {
 		margin-left: auto;
 		margin-right: auto;
@@ -64,15 +64,16 @@
 }
 
 #roster {
-	background: url(/assets/roster_pillar.png) no-repeat;
+	background: url('<%= asset_path("roster_pillar.png") %>') no-repeat;
 }
 
+
 #profile {
-	background: url(/assets/profile_pillar.png) no-repeat;
+	background: url('<%= asset_path("profile_pillar.png") %>') no-repeat;
 }
 
 #interventions {
-	background: url(/assets/interventions_pillar.png) no-repeat;
+	background: url('<%= asset_path("interventions_pillar.png") %>') no-repeat;
 }
 
 .circular {
@@ -92,7 +93,7 @@
 	border-radius: 8px;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
-	background: url(/assets/teachers.png) no-repeat;
+	background: url('<%= asset_path("teachers.png") %>') no-repeat;
 	@media screen and (min-width: 1200px) {
 		width: 750px;
   }

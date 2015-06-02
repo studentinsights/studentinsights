@@ -1,2 +1,0 @@
-before_release:
- - bundle exec rake db:migrate
