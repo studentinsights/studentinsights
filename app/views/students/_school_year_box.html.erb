@@ -123,14 +123,14 @@
       <div class="section">
         <% if events[:discipline_incidents].present? %>
           <h2>Office referrals</h2>
-          <div class="referral">
             <% events[:discipline_incidents].each do |d| %>
-              <p><strong>Code:</strong>  <%= d.incident_code %></p>
-              <p><strong>Description:</strong>  <%= d.incident_description %></p>
-              <p><strong>Location:</strong>  <%= d.incident_location %></p>
-              <p><strong>Date:</strong>  <%= d.event_date.strftime("%B %e, %Y") %></p>
+              <div class="referral">
+                <p><strong>Code:</strong>  <%= d.incident_code %></p>
+                <p><strong>Description:</strong>  <%= d.incident_description %></p>
+                <p><strong>Location:</strong>  <%= d.incident_location %></p>
+                <p><strong>Date:</strong>  <%= d.event_date.strftime("%B %e, %Y") %></p>
+              </div>
             <% end %>
-          </div>
         <% else %>
           <h2>No office referrals</h2>
         <% end %>
