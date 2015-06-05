@@ -55,7 +55,7 @@ If you have a good reason to skip the test suite and commit straightaway:
 git commit --no-verify
 ```
 
-## Demployment
+## Deployment
 
 We are deploying this app on Heroku and you can, too. Be sure to set config variables for DEVISE_SECRET_KEY and SECRET_KEY_BASE in order for your app to deploy properly.
 
@@ -70,13 +70,13 @@ We are deploying this app on Heroku and you can, too. Be sure to set config vari
 
 ## Future?
 This app could grow in several different ways.
+* __Visuals__:  Create graphs to help visualize the historical student data.  
 * __Sub-views__:  Create sub-views with more limited and focused access to data. These sub-views could be made available to others within the school community, including parents and students.
 * __After-school__:  Incorporate data about after-school programs.
-* __Behavioral__:  Incorporate data about behavioral incidents including suspensions and expulsions.
-* __Interventions__:  Allow teachers to add interventions to the system and track how they impact student progress. (This is a top priority.)
+* __Interventions__:  Allow teachers to add interventions to the system and track how they impact student progress.
 * __Unique URLs__: Can be generated to be viewed online at a later time by users with access.
 * __Exportable Excel__: Can be exported of any view for teachers to use at data meetings.
 * __Printable PDFs__: Can be exported of any view for teachers to print out.
 
 ## Who made this?
-Alex, Amir, and Mari from Code for America's [Somerville Fellowship Team](http://www.codeforamerica.org/governments/somerville/) in collaboration with the City of Somerville and Somerville Public Schools.
+Alex, Amir, and Mari from Code for America's [Somerville Fellowship Team](http://www.codeforamerica.org/governments/somerville/) in collaboration with the City of Somerville and Somerville Public Schools --- and great support from the Code for SF and Code for Boston brigade volunteers!
