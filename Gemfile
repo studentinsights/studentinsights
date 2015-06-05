@@ -8,6 +8,7 @@ gem 'pg'
 gem 'friendly_id', '~> 5.1.0'
 gem 'net-ssh'
 gem 'net-sftp'
+gem 'puma'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -43,6 +44,11 @@ group :development, :test do
   gem 'simplecov'
   gem 'faker'
   gem 'timecop'
+
+  # for more interesting random seed data
+  gem 'probability'
+  gem 'rubystats'
+
 end
 
 # Auth
@@ -70,4 +76,3 @@ gem 'prawn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

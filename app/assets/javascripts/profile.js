@@ -12,17 +12,17 @@ $(function() {
     function countAbsences(attendanceEvents) {return attendanceEvents.filter(isAbsence).length }
     function countTardies(attendanceEvents) { return attendanceEvents.filter(isTardy).length }
 
+    var attendance_school_years = Object.keys(attendance_events).reverse()
+    var absences_by_year = attendance_school_years.map(function(key) { return countAbsences(attendance_events[key]) })
+    var tardies_by_year = attendance_school_years.map(function(key) { return countTardies(attendance_events[key]) })
+
     function checkZero(options) {
       return options.series.every( function(element) {
         return element.data.length == 0;
       });
     }
 
-    var attendance_school_years = Object.keys(attendance_events)
-    var absences_by_year = Object.keys(attendance_events).map(function(key) { return countAbsences(attendance_events[key]) })
-    var tardies_by_year = Object.keys(attendance_events).map(function(key) { return countTardies(attendance_events[key]) })
-
-    var discipline_school_years = Object.keys(discipline_incidents)
+    var discipline_school_years = Object.keys(discipline_incidents).reverse()
     var discipline_incidents_by_year = Object.keys(discipline_incidents).map(function(key) { return discipline_incidents[key].length })
 
     var attendance_series = [{
@@ -38,22 +38,6 @@ $(function() {
             name: 'Behavior incidents',
             data: discipline_incidents_by_year
         },]
-
-    // var mcas_series = [{
-    //         name: 'MCAS Math',
-    //         data: [65, 54, 31, 67, 43]
-    //     }, {
-    //         name: 'MCAS English',
-    //         data: [54, 32, 48, 83, 92]
-    // }]
-
-    // var star_series = [{
-    //         name: 'STAR Math',
-    //         data: [33, 39, 52, 67, 59, 29, 49, 29, 90]
-    //     }, {
-    //         name: 'STAR English',
-    //         data: [49, 29, 90, 83, 73, 59, 33, 39, 52]
-    // }]
 
     var options = {
       chart: {
@@ -83,15 +67,10 @@ $(function() {
         }
       },
       xAxis: {
-        categories: [
-          '2010 - 11',
-          '2011 - 12',
-          '2012 - 13',
-          '2013 - 14',
-          '2014 - 15',
-        ],
+        categories: [],
       },
       yAxis: {
+        allowDecimals: false,
         title: {
           text: '',
           style: {
@@ -135,11 +114,13 @@ $(function() {
       $('#chart').html(zeroHtml);
     }
 
+    // Default view is attendance series graph
     options.series = attendance_series
+    options.xAxis.categories = attendance_school_years
+
     options.title.text = 'absences or tardies'
     var chart;
     checkZero(options) ? zeroDraw() : chart = new Highcharts.Chart(options);
-    //var chart = new Highcharts.Chart(options);
 
 	  $("#chart-type").on('change', function(){
 	    var selVal = $("#chart-type").val();
@@ -166,7 +147,6 @@ $(function() {
 	    //     options.xAxis.categories = ["Sept. 2010 - 11", "Jan. 2010 - 11", "May 2011 - 12", "Sept. 2011 - 12", "Jan. 2011 - 12", "May 2011 - 12", "Sept. 2012 - 13", "Jan. 2012 - 13", "May 2012 - 13", "Sept. 2013 - 14", "Jan. 2013 - 14", "May 2013 - 14"]
 	    // }
       checkZero(options) ? zeroDraw() : chart = new Highcharts.Chart(options);
-      //var chart = new Highcharts.Chart(options);
 	});
   }
 });
