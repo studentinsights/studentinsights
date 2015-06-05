@@ -57,6 +57,7 @@ git commit --no-verify
 
 ## Status timeline
 
+* __June 2015__:  We're testing the app with more teachers now and building out the student profile features with the help of Code for SF and Code for Boston brigade volunteers.
 * __May 2015__:  We're considering the app an alpha product now. Our focus is on building out the student profile feature and improving the roster view while testing working iterations with our teacher partners at Healey.
 * __April 2015__:  Had our first call with Healey teachers and principal to get feedback on a working prototype of the app using real data.
 * __March 2015__:  Started writing and testing functions to import data from Somerville's Student Information System and student assessment sources.
