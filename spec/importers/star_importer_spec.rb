@@ -8,7 +8,7 @@ RSpec.describe do
   def mock_environment_with_keys
     allow(ENV).to receive(:[]).with('STAR_SFTP_HOST').and_return "sftp-site@site.com"
     allow(ENV).to receive(:[]).with('STAR_SFTP_USER').and_return "sftp-user"
-    allow(ENV).to receive(:[]).with('STAR_SFTP_KEY').and_return "sftp-key"
+    allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
   end
 
   def mock_sftp_site

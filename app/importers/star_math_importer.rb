@@ -2,14 +2,15 @@ class StarMathImporter
   include StarImporter
 
   def export_file_name
-    'SM'
+    'SM.csv'
   end
 
   def header_dictionary
     {
-      'StateStudentID' => :state_id,
-      'DateTaken' => :date_taken,
-      'PR' => :math_percentile_rank
+      'StudentStateID' => :state_id,
+      'AssessmentDate' => :date_taken,
+      'SchoolLocalID' => :school_local_id,
+      'PercentileRank' => :math_percentile_rank,
     }
   end
 end

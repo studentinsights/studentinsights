@@ -36,6 +36,7 @@ module StarImporter
     require 'csv'
     csv = CSV.new(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
     csv.each do |row|
+      row.length.times { row.delete(nil) }
       if @school.present?
         import_if_in_school_scope(row)
       else
@@ -58,10 +59,11 @@ module StarImporter
   end
 
   def import_row(row)
-    state_id, date_taken = row[:state_id], row[:date_taken]
+    state_id = row[:state_id]
+    date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
     student = Student.where(state_id: state_id).first_or_create!
     star_result = StarResult.where(student_id: student.id, date_taken: date_taken).first_or_create!
-    star_result_info = Hash[row].except(:state_id)
+    star_result_info = Hash[row].except(:state_id, :school_local_id, :date_taken)
     star_result.update_attributes(star_result_info)
   end
 end
