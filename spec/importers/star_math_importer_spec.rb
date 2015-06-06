@@ -9,9 +9,13 @@ RSpec.describe StarMathImporter do
 				it 'creates a new STAR result' do
 					expect { math_importer.import(file) }.to change(StarResult, :count).by 1
 				end
-				it 'sets the result correctly' do
+				it 'sets math percentile rank correctly' do
 					math_importer.import(file)
 					expect(StarResult.last.math_percentile_rank).to eq 70
+				end
+				it 'sets date taken correctly' do
+					math_importer.import(file)
+					expect(StarResult.last.date_taken).to eq Date.new(2015, 1, 21)
 				end
 				context 'existing student' do
 					let!(:student) { FactoryGirl.create(:student_we_want_to_update) }

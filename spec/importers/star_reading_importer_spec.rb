@@ -9,9 +9,13 @@ RSpec.describe StarReadingImporter do
 				it 'creates a new STAR result' do
 					expect { reading_importer.import(file) }.to change(StarResult, :count).by 1
 				end
-				it 'sets the result correctly' do
+				it 'sets instructional reading level correctly' do
 					reading_importer.import(file)
 					expect(StarResult.last.instructional_reading_level).to eq 5.0
+				end
+				it 'sets date taken correctly' do
+					reading_importer.import(file)
+					expect(StarResult.last.date_taken).to eq Date.new(2015, 1, 21)
 				end
 				context 'existing student' do
 					let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
