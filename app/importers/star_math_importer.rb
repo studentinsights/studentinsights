@@ -1,9 +1,16 @@
-require 'csv'
-
-class StarMathImporter < Struct.new(:star_data_path)
+class StarMathImporter
   include StarImporter
-  
+
+  def export_file_name
+    'SM.csv'
+  end
+
   def header_dictionary
-    { 'PR' => 'math_percentile_rank' }
+    {
+      'StudentStateID' => :state_id,
+      'AssessmentDate' => :date_taken,
+      'SchoolLocalID' => :school_local_id,
+      'PercentileRank' => :math_percentile_rank,
+    }
   end
 end

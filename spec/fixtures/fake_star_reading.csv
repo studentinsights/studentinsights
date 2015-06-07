@@ -1,3 +1,2 @@
-StateStudentID,PR,IRL,DateTaken
-10,90,5.0,2015-04-25
-11,55,3.5,2015-04-25
+StudentStateID,PercentileRank,IRL,AssessmentDate
+10,90,5.0,01/21/2015 09:18:27
