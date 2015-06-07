@@ -5,6 +5,7 @@ development:
   encoding: unicode
   pool: 5
   database: homeroom_development
+  host: localhost
 
 x2_database_development:
   adapter: mysql
@@ -21,7 +22,7 @@ test:
   <%
   require 'cgi'
   require 'uri'
- 
+
   # Parse parameters out of ENV['DATABASE_URL']
   uri = URI.parse(ENV['DATABASE_URL'])
   database = (uri.path || '').split('/')[1]

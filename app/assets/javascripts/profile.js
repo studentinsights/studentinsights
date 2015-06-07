@@ -18,7 +18,9 @@ $(function() {
 
     function checkZero(options) {
       return options.series.every( function(element) {
-        return element.data.length == 0;
+        return element.data.every( function(el) {
+          return el == 0
+        });
       });
     }
 
