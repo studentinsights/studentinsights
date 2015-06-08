@@ -4,8 +4,6 @@ RSpec.describe McasImporter do
 
   describe '#import' do
     fixture_path = "#{Rails.root}/spec/fixtures/fake_mcas.csv"
-    let(:healey) { FactoryGirl.create(:healey) }
-    let(:brown) { FactoryGirl.create(:brown) }
     let(:healey_importer) { McasImporter.new(fixture_path, healey, "2015-11-05" ) }
     let(:brown_importer) { McasImporter.new(fixture_path, brown, "2015-11-05" ) }
 
@@ -49,7 +47,6 @@ RSpec.describe McasImporter do
           brown_importer.import
           expect(Student.last.state_id).to eq('000223')
         end
-        
       end
     end
   end

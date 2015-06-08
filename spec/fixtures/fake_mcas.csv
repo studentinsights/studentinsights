@@ -1,3 +1,3 @@
-sasid,grade,lastname,firstname,gender,race_off,lep_off,flep_off,school,escaleds,eperf2,esgp
+'state_id','school_id','assessment_id','assessment_date','assessment_scale_score','assessment_perf_level','assessment_name','assessment_subject','assessment_test'
 000222,05,Smithgall,Ben,M,W,0,1,15,212,W,19
 000223,05,Muraki,Mari,F,A,0,0,75,200,W,18
