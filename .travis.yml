@@ -4,6 +4,7 @@ rvm:
 branches:
   only:
     - master
+install: bundle install --retry=3
 script:
 - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/homeroom_test
 - bundle exec rspec spec
