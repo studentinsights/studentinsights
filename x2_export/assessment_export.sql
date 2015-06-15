@@ -1,7 +1,7 @@
 use x2data
 SELECT
   'state_id',
-  'school_id',
+  'school_local_id',
   'assessment_id',
   'assessment_date',
   'assessment_scale_score',
@@ -11,8 +11,8 @@ SELECT
   'assessment_test'
 UNION ALL
 SELECT DISTINCT
-  ASM_STD_OID,
-  ASM_SKL_OID,
+  STD_ID_STATE,
+  SKL_SCHOOL_ID,
   ASM_ASD_OID,
   ASM_DATE,
   ASM_SCALE_SCORE,
@@ -30,7 +30,7 @@ ON student.STD_SKL_OID=school.SKL_OID
 WHERE STD_ENROLLMENT_STATUS = 'Active'
 AND STD_ID_STATE IS NOT NULL
 AND STD_OID IS NOT NULL
-  INTO OUTFILE "E:\_BACKUP_MYSQL\CodeForAmerica"
+  INTO OUTFILE "E:\_BACKUP_MYSQL\CodeForAmerica\assessment_export.txt"
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
   LINES TERMINATED BY '\r\n';
