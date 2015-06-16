@@ -1,7 +1,7 @@
 use x2data
 SELECT
   'state_id',
-  'school_id',
+  'school_local_id',
   'assessment_id',
   'assessment_date',
   'assessment_scale_score',
