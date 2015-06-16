@@ -3,53 +3,35 @@ require 'rails_helper'
 RSpec.describe McasImporter do
 
   describe '#import' do
-    fixture_path = "#{Rails.root}/spec/fixtures/fake_mcas.csv"
-    let(:healey) { FactoryGirl.create(:healey) }
-    let(:brown) { FactoryGirl.create(:brown) }
-    let(:healey_importer) { McasImporter.new(fixture_path, healey, "2015-11-05" ) }
-    let(:brown_importer) { McasImporter.new(fixture_path, brown, "2015-11-05" ) }
-
     context 'with good data' do
+      let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_mcas.csv") }
 
       context 'for Healey school' do
+        let(:healey) { School.where(local_id: "HEA").first_or_create! }
+        let(:healey_importer) { McasImporter.new(school: healey) }
 
         it 'creates a student' do
-          expect {
-            healey_importer.import
-          }.to change(Student, :count).by(1)
+          expect { healey_importer.import(file) }.to change(Student, :count).by 1
         end
-
-        it 'imports a Healey student' do
-          healey_importer.import
-          expect(Student.last.state_id).to eq('000222')
+        it 'creates an MCAS result' do
+          expect { healey_importer.import(file) }.to change(McasResult, :count).by 1
         end
-
-        it 'sets the student demograpics correctly' do
-          healey_importer.import
-          expect(Student.last.race).to eq('W')
-          expect(Student.last.limited_english_proficient).to be false
-          expect(Student.last.former_limited_english_proficient).to be true
-        end
-
-        it 'creates a student result' do
-          expect {
-            healey_importer.import
-          }.to change(McasResult, :count).by(1)
-        end
-
-        it 'sets the student result correctly' do
-          healey_importer.import
-          expect(McasResult.last.ela_growth).to eq(19)
+        it 'sets the MCAS result correctly' do
+          healey_importer.import(file)
+          mcas_result = McasResult.last
+          expect(mcas_result.ela_scaled).to eq(222)
+          expect(mcas_result.math_scaled).to eq(214)
+          expect(mcas_result.ela_performance).to eq('NI')
+          expect(mcas_result.math_performance).to eq('W')
         end
       end
 
-      context 'for Brown school' do
-
-        it 'imports a Brown student' do
-          brown_importer.import
-          expect(Student.last.state_id).to eq('000223')
+      context 'with bad data' do
+        let(:file) { File.open("#{Rails.root}/spec/fixtures/bad_mcas.csv") }
+        let(:importer) { McasImporter.new }
+        it 'raises an error' do
+          expect { importer.import(file) }.to raise_error
         end
-        
       end
     end
   end
