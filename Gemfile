@@ -49,6 +49,9 @@ group :development, :test do
   gem 'probability'
   gem 'rubystats'
 
+  # to auto-generate ERD and better understand the data structure
+  gem 'rails-erd'
+
 end
 
 # Auth
