@@ -14,17 +14,16 @@ class McasImporter
       ).first_or_create!
       case row[:assessment_subject]
       when "Math"
-        result = {
+        mcas_result.update_attributes(
           math_scaled: row[:assessment_scale_score],
           math_performance: row[:assessment_perf_level]
-        }
+        )
       when "ELA"
-        result = {
+        mcas_result.update_attributes(
           ela_scaled: row[:assessment_scale_score],
           ela_performance: row[:assessment_perf_level]
-        }
+        )
       end
-      mcas_result.update_attributes(result)
     end
   end
 end
