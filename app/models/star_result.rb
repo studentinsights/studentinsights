@@ -1,6 +1,9 @@
 class StarResult < ActiveRecord::Base
+  include DateToSchoolYear
   belongs_to :student
+  belongs_to :school_year
   delegate :grade, to: :student
+  before_save :assign_to_school_year
 
   def percentile_warning_level
     40
@@ -23,5 +26,10 @@ class StarResult < ActiveRecord::Base
     if instructional_reading_level.present?
       -1 >= instructional_reading_level.to_f - grade.to_f
     end
+  end
+
+  def assign_to_school_year
+    school_year = date_to_school_year(date_taken)
+    self.school_year_id = school_year.id
   end
 end
