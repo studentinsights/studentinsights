@@ -9,7 +9,7 @@ Devise.setup do |config|
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   config.secret_key = ENV['DEVISE_SECRET_KEY']
-  
+
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
@@ -154,7 +154,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  config.timeout_in = 10.minutes
+  config.timeout_in = Rails.env.development? ? 120.minutes : 10.minutes
 
   # If true, expires auth token on session timeout.
   config.expire_auth_token_on_timeout = true
