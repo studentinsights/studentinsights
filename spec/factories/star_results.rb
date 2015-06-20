@@ -8,4 +8,6 @@ FactoryGirl.define do
       math_percentile_rank 99
     end
   end
+  factory :star_result_without_date_taken, class: StarResult do
+  end
 end

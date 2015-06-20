@@ -1,5 +1,6 @@
 class McasResult < ActiveRecord::Base
   include DateToSchoolYear
+  include AssignToSchoolYear
   belongs_to :student
   belongs_to :school_year
   before_save :assign_to_school_year
@@ -35,10 +36,5 @@ class McasResult < ActiveRecord::Base
     if ela_growth.present?
       ela_growth < growth_warning_level
     end
-  end
-
-  def assign_to_school_year
-    school_year = date_to_school_year(date_taken)
-    self.school_year_id = school_year.id
   end
 end

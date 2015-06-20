@@ -34,4 +34,6 @@ FactoryGirl.define do
       math_growth 90
     end
   end
+  factory :mcas_result_without_date_taken, class: McasResult do
+  end
 end
