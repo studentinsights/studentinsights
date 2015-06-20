@@ -9,23 +9,31 @@ $(function() {
     var star_results = profile_data.data('star-results')
     var student_name = $("#student-name").text()
 
-    // Functions for adding absences, tardies, and behavior issues to the chart
+    // Functions for adding absences, tardies, and behavior issues to chart
     function isAbsence (event) { return event.absence }
     function isTardy (event) { return event.tardy }
     function countAbsences (attendanceEvents) { return attendanceEvents.filter(isAbsence).length }
     function countTardies (attendanceEvents) { return attendanceEvents.filter(isTardy).length }
     function countSize (events) { return events.length }
 
-    // Functions for adding assessments to the chart
-    // function getStarMathPercentile (star_result) {}
-    // function getStarReadingPercentile (star_result) {}
-    // function getMcasMathScaled (mcas_result) {}
-    // function getMcasEnglishScaled (mcas_result) {}
-    // Functions to help the other functions to their jobs well
+    // Functions for adding assessments to chart
+    function getStarMathPercentile (result) { return result.math_percentile_rank }
+    function getStarReadingPercentile (result) { return result.reading_percentile_rank }
+    function getMcasMathScaled (result) { return result.math_scaled }
+    function getMcasEnglishScaled (result) { return result.ela_scaled }
 
+    // Functions to help other functions do their jobs
     function schoolYears(events) { return Object.keys(events).reverse() }
     function prepareEventsForChart(events, prepare_function) {
       return schoolYears(events).map(function(key) { return prepare_function(events[key]) })
+    }
+
+    function prepareScoresForChart(scores, prepare_function) {
+      return scores.map(function(score) {
+        var date_array = score.date_taken.split("-").map(function(a) { return parseInt(a) })
+        var date_utc = Date.UTC.apply(this || window, date_array)
+        return [date_utc, prepare_function(score)]
+      })
     }
 
     function checkZero(options) {
@@ -36,42 +44,37 @@ $(function() {
       });
     }
 
-    var absences_by_year = prepareEventsForChart(attendance_events, countAbsences)
-    var tardies_by_year = prepareEventsForChart(attendance_events, countTardies)
-    var discipline_incidents_by_year = prepareEventsForChart(discipline_incidents, countSize)
-    // var star_math_percentile_by_year
-    // var star_reading_percentile_by_year
-    // var mcas_math_scaled_by_year
-    // var mcas_english_scaled_by_year
-
+    // Attendance events, behavior shown as aggregated counts by school year
     var attendance_series = [{
             name: 'Absences',
-            data: absences_by_year
+            data: prepareEventsForChart(attendance_events, countAbsences)
         }, {
             name: 'Tardies',
-            data: tardies_by_year
+            data: prepareEventsForChart(attendance_events, countTardies)
         }]
 
     var behavior_series = [{
         name: 'Behavior incidents',
-        data: discipline_incidents_by_year
+        data: prepareEventsForChart(discipline_incidents, countSize)
     }]
 
-    // var star_series = [{
-    //         name: 'Math percentile',
-    //         data: star_math_percentile_by_year
-    //     }, {
-    //         name: 'Reading percentile',
-    //         data: star_reading_percentile_by_year
-    //     }]
+    // STAR and MCAS results shown by date taken, not aggregated by school year
+    // http://www.highcharts.com/demo/spline-irregular-time
+    var star_series = [{
+            name: 'Math percentile rank',
+            data: prepareScoresForChart(star_results, getStarMathPercentile)
+        }, {
+            name: 'Reading percentile rank',
+            data: prepareScoresForChart(star_results, getStarReadingPercentile)
+        }]
 
-    // var mcas_series = [{
-    //         name: 'Math scaled score',
-    //         data: mcas_math_scaled_by_year
-    //     }, {
-    //         name: 'English scaled score',
-    //         data: mcas_english_scaled_by_year
-    //     }]
+    var mcas_series = [{
+            name: 'Math scaled score',
+            data: prepareScoresForChart(mcas_results, getMcasMathScaled)
+        }, {
+            name: 'English scaled score',
+            data: prepareScoresForChart(mcas_results, getMcasEnglishScaled)
+        }]
 
     var options = {
       chart: {
@@ -97,11 +100,11 @@ $(function() {
         itemStyle: {
           font: '12px "Open Sans", sans-serif !important;',
           color: '#555555'
-
         }
       },
       xAxis: {
         categories: [],
+        dateTimeLabelFormats: {}
       },
       yAxis: {
         allowDecimals: false,
@@ -137,18 +140,25 @@ $(function() {
       }
     }
 
+    var x_axis_datetime = {
+      type: 'datetime',
+      dateTimeLabelFormats: {
+          day: '%e of %b'
+      }
+    }
+
     function zeroDraw(){
       $('#chart').empty();
       var zeroHtml =  '<div class="zero-case">' +
-                        '<img src="/assets/placeholder.svg"/>' +
-                        '<h2>Looks Great!</h2>' +
-                        '<div>'+ student_name + ' has no ' +
+                      '<img src="/assets/placeholder.svg"/>' +
+                      '<h2>Looks Great!</h2>' +
+                      '<div>'+ student_name + ' has no ' +
                               options.title.text + ' on record</div>' +
                       '</div>';
       $('#chart').html(zeroHtml);
     }
 
-    // Default view is attendance series graph
+    // Default view is attendance series
     options.series = attendance_series
     options.xAxis.categories = schoolYears(attendance_events)
 
@@ -166,19 +176,17 @@ $(function() {
 	        options.series = behavior_series
           options.title.text = 'behavior incidents'
           options.xAxis.categories = schoolYears(discipline_incidents)
-     //  } else if (selVal == "mcas") {
-     //      console.log('mcas!')
-     //      console.log(mcas_series)
-     //      options.series = mcas_series
-     //      options.title.text = 'MCAS results'
-     //      options.xAxis.categories = schoolYears(mcas_results)
-	    //     // options.yAxis.plotLines[0].label.text = "MCAS Growth warning: Less than 40 points"
-	    //     // options.yAxis.plotLines[0].value = "40"
-	    // } else if (selVal == "star") {
-	    //     options.series = star_series
-     //      options.xAxis.categories = schoolYears(star_results)
-	    //     // options.yAxis.plotLines[0].label.text = "STAR Percentile warning: Less than 40 points"
-	    //     // options.yAxis.plotLines[0].value = "40"
+      } else if (selVal == "mcas") {
+          options.series = mcas_series
+          options.title.text = 'MCAS results'
+          options.xAxis = x_axis_datetime
+          // options.yAxis.plotLines[0].label.text = "MCAS Growth warning: Less than 40 points"
+          // options.yAxis.plotLines[0].value = "40"
+      } else if (selVal == "star") {
+          options.series = star_series
+          options.xAxis = x_axis_datetime
+	        // options.yAxis.plotLines[0].label.text = "STAR Percentile warning: Less than 40 points"
+	        // options.yAxis.plotLines[0].value = "40"
 	    }
       checkZero(options) ? zeroDraw() : chart = new Highcharts.Chart(options);
 	});
