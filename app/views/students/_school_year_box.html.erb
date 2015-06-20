@@ -20,31 +20,37 @@
         <% end %>
       </div>
 
-<!--      <div class="section">
+    <% if events[:mcas_result].present? %>
+       <div class="section">
         <h2>MCAS</h2>
-          <div class="values">
-            <h3 class="assesment-type">English</h3>
+          <% if events[:mcas_result].ela_performance.present? && events[:mcas_result].ela_scaled.present? %>
             <div class="values">
-              <h3>NI</h3>
-              <h4>Performance</h4>
+              <h3 class="assesment-type">English</h3>
+              <div class="values">
+                <h3><%= events[:mcas_result].ela_performance %></h3>
+                <h4>Performance</h4>
+              </div>
+              <div class="values">
+                <h3><%= events[:mcas_result].ela_scaled %></h3>
+                <h4>Scaled Score</h4>
+              </div>
             </div>
+          <% end %>
+          <% if events[:mcas_result].math_performance.present? && events[:mcas_result].math_scaled.present? %>
             <div class="values">
-              <h3>55</h3>
-              <h4>Growth</h4>
+              <h3 class="assesment-type">Math</h3>
+              <div class="values">
+                <h3><%= events[:mcas_result].math_performance %></h3>
+                <h4>Performance</h4>
+              </div>
+              <div class="values">
+                <h3><%= events[:mcas_result].math_scaled %></h3>
+                <h4>Scaled Score</h4>
+              </div>
             </div>
-          </div>
-          <div class="values">
-            <h3 class="assesment-type">Math</h3>
-            <div class="values">
-              <h3>W</h3>
-              <h4>Performance</h4>
-            </div>
-            <div class="values">
-              <h3>48</h3>
-              <h4>Growth</h4>
-            </div>
-          </div>
-      </div> -->
+          <% end %>
+        </div>
+    <% end %>
 
 <!--      <div class="section">
         <h2>STAR</h2>

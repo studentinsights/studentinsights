@@ -16,7 +16,8 @@ class SchoolYear < ActiveRecord::Base
   def events(student)
     {
       attendance_events: attendance_events.find_by_student(student).summarize,
-      discipline_incidents: discipline_incidents.find_by_student(student)
+      discipline_incidents: discipline_incidents.find_by_student(student),
+      mcas_result: mcas_results.find_by_student(student).last,
     }
   end
 end
