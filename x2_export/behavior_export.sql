@@ -14,7 +14,7 @@ SELECT
   IF(sci.CND_INCIDENT_DATE > Date(Now()), NULL, sci.CND_INCIDENT_DATE) AS 'incident_date',
   CND_INCIDENT_TIME,
   CND_INCIDENT_LOCATION,
-  REPLACE(CND_INCIDENT_DESCRIPTION, "\r\n", " "),
+  REPLACE(REPLACE(CND_INCIDENT_DESCRIPTION,'"'," "), "\r\n", " "),
   SKL_SCHOOL_ID
 FROM student
 INNER JOIN student_conduct_incident sci
