@@ -18,6 +18,7 @@ class SchoolYear < ActiveRecord::Base
       attendance_events: attendance_events.find_by_student(student).summarize,
       discipline_incidents: discipline_incidents.find_by_student(student),
       mcas_result: mcas_results.find_by_student(student).last,
+      star_results: star_results.find_by_student(student),
     }
   end
 end
