@@ -1,4 +1,4 @@
-'state_id','school_local_id','assessment_id','assessment_date','assessment_scale_score','assessment_perf_level','assessment_name','assessment_subject','assessment_test'
-"100","HEA",\N,"2014-05-01","222.00","NI","MCAS 2014 English Language Arts","ELA","MCAS"
-"100","HEA",\N,"2014-05-01","214.00","W","MCAS 2014 Mathematics","Math","MCAS"
-"100","HEA",\N,"2014-05-01",\N,\N,\N,"GRADE","GRADE"
+'state_id','school_local_id','assessment_date','assessment_scale_score','assessment_performance_level','assessment_growth','assessment_name','assessment_subject','assessment_test'
+"100","HEA","2014-05-01","222.00","NI","70","MCAS 2014 English Language Arts","ELA","MCAS"
+"100","HEA","2014-05-01","214.00","W","baf","MCAS 2014 Mathematics","Math","MCAS"
+"100","HEA","2014-05-01",\N,\N,\N,\N,"GRADE","GRADE"
