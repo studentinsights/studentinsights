@@ -21,6 +21,8 @@ $(function() {
     function getStarReadingPercentile (result) { return result.reading_percentile_rank }
     function getMcasMathScaled (result) { return result.math_scaled }
     function getMcasEnglishScaled (result) { return result.ela_scaled }
+    function getMcasMathGrowth (result) { return result.math_growth }
+    function getMcasEnglishGrowth (result) { return result.ela_growth }
 
     // Functions to help other functions do their jobs
     function schoolYears(events) { return Object.keys(events).reverse() }
@@ -66,15 +68,26 @@ $(function() {
         }, {
             name: 'Reading percentile rank',
             data: prepareScoresForChart(star_results, getStarReadingPercentile)
-        }]
+        }
+    ]
 
-    var mcas_series = [{
+    var mcas_scaled_series = [{
             name: 'Math scaled score',
             data: prepareScoresForChart(mcas_results, getMcasMathScaled)
         }, {
             name: 'English scaled score',
             data: prepareScoresForChart(mcas_results, getMcasEnglishScaled)
-        }]
+        }
+    ]
+
+    var mcas_growth_series = [{
+            name: 'Math growth score',
+            data: prepareScoresForChart(mcas_results, getMcasMathGrowth)
+        }, {
+            name: 'English growth score',
+            data: prepareScoresForChart(mcas_results, getMcasEnglishGrowth)
+        }
+    ]
 
     var options = {
       chart: {
@@ -176,12 +189,16 @@ $(function() {
 	        options.series = behavior_series
           options.title.text = 'behavior incidents'
           options.xAxis.categories = schoolYears(discipline_incidents)
-      } else if (selVal == "mcas") {
-          options.series = mcas_series
-          options.title.text = 'MCAS results'
+      } else if (selVal == "mcas-growth") {
+          options.series = mcas_growth_series
+          options.title.text = 'MCAS Growth'
           options.xAxis = x_axis_datetime
           // options.yAxis.plotLines[0].label.text = "MCAS Growth warning: Less than 40 points"
           // options.yAxis.plotLines[0].value = "40"
+      } else if (selVal == "mcas-scaled") {
+          options.series = mcas_scaled_series
+          options.title.text = 'MCAS Scaled'
+          options.xAxis = x_axis_datetime
       } else if (selVal == "star") {
           options.series = star_series
           options.xAxis = x_axis_datetime
