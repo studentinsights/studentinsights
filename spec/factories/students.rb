@@ -39,6 +39,15 @@ FactoryGirl.define do
       limited_english_proficient false
     end
 
+    factory :student_with_mcas_result do
+      grade "5"
+      after(:create) do |student|
+        create(:mcas_result,
+          student_id: student.id
+        )
+      end
+    end
+
     # Test reading warning level
 
     factory :student_behind_in_reading do

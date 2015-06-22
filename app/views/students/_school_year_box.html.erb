@@ -4,7 +4,7 @@
         <h1><%= school_year.name %></h1>
       </div>
 
-      <div class="section">
+      <div class="section attendance-section">
         <% if events[:attendance_events][:absences] > 0 || events[:attendance_events][:tardies] > 0 %>
           <h2 class="attendance-type">Attendance</h2>
           <div class="values">
@@ -21,7 +21,7 @@
       </div>
 
     <% if events[:mcas_result].present? %>
-       <div class="section">
+       <div class="section mcas-result-section">
         <h2>MCAS</h2>
           <% if events[:mcas_result].ela_performance.present? && events[:mcas_result].ela_scaled.present? %>
             <div class="values">
@@ -53,7 +53,7 @@
     <% end %>
 
     <% if events[:star_results].present? %>
-      <div class="section">
+      <div class="section star-result-section">
         <h2>STAR</h2>
         <% events[:star_results].each do |s| %>
           <h5><%= s.date_taken.strftime("%B %e, %Y")  %></h5>
@@ -81,9 +81,9 @@
       </div>
     <% end %>
 
-    <div class="section">
+    <div class="section behavior-section">
       <% if events[:discipline_incidents].present? %>
-        <h2>Office referrals</h2>
+        <h2>Behavior</h2>
           <% events[:discipline_incidents].each do |d| %>
             <div class="referral">
               <p><strong>Code:</strong>  <%= d.incident_code %></p>
@@ -93,6 +93,6 @@
             </div>
           <% end %>
       <% else %>
-        <h2>No office referrals</h2>
+        <h2>No behavior incidents</h2>
       <% end %>
     </div>
