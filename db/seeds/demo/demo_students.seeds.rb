@@ -22,12 +22,14 @@ AttendanceEvent.destroy_all
   student = Student.create(FakeStudent.data)
   student.homeroom_id = Homeroom.all.sample.id
   student.save
-  result = McasResult.new(FakeMcasResult.data)
-  result.update_attributes(student_id: student.id)
-  result.save
-  result = StarResult.new(FakeStarResult.data)
-  result.update_attributes(student_id: student.id)
-  result.save
+  5.times do
+    result = McasResult.new(FakeMcasResult.data)
+    result.update_attributes(student_id: student.id)
+    result.save
+    result = StarResult.new(FakeStarResult.data)
+    result.update_attributes(student_id: student.id)
+    result.save
+  end
   discipline_event_generator = Rubystats::NormalDistribution.new(5.2, 8.3)
   attendance_event_generator = Rubystats::NormalDistribution.new(8.8, 10)
   # guestimating that 40% of students have discipline events
