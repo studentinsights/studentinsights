@@ -46,14 +46,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'faker'
   gem 'timecop'
-
-  # for more interesting random seed data
-  gem 'probability'
-  gem 'rubystats'
-
-  # to auto-generate ERD and better understand the data structure
-  gem 'rails-erd'
-
+  gem 'rails-erd'  # to auto-generate ERD and better understand the data structure
 end
 
 # Auth
@@ -62,6 +55,10 @@ gem 'twilio-ruby', '~> 3.12'
 
 # Better seeds
 gem 'seedbank'
+
+# For more interesting random seed data
+gem 'probability'
+gem 'rubystats'
 
 # Handle Excel files
 gem 'paperclip'
