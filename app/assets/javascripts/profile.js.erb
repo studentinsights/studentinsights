@@ -73,10 +73,10 @@ $(function() {
     ]
 
     var mcas_scaled_series = [{
-      name: 'Math scaled score',
+      name: 'Math score',
       data: prepareScoresForChart(mcas_results, getMcasMathScaled)
         }, {
-      name: 'English scaled score',
+      name: 'English score',
       data: prepareScoresForChart(mcas_results, getMcasEnglishScaled)
     }]
 
@@ -232,7 +232,7 @@ $(function() {
           options.yAxis.plotLines.push(mcas_growth_plotline)
       } else if (selVal == "mcas-scaled") {
           options.series = mcas_scaled_series
-          options.title.text = 'MCAS Scaled'
+          options.title.text = 'MCAS Score'
           options.xAxis = x_axis_datetime
           options.yAxis = default_yaxis
       } else if (selVal == "star") {
