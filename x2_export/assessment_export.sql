@@ -30,7 +30,7 @@ ON student.STD_SKL_OID=school.SKL_OID
 WHERE STD_ENROLLMENT_STATUS = 'Active'
 AND STD_ID_STATE IS NOT NULL
 AND STD_OID IS NOT NULL
-  INTO OUTFILE "E:\_BACKUP_MYSQL\CodeForAmerica\assessment_export.txt"
+  INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/assessment_export.txt"
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
   LINES TERMINATED BY '\r\n';
