@@ -147,7 +147,7 @@ $(function() {
     function zeroDraw(){
       $('#chart').empty();
       var zeroHtml =  '<div class="zero-case">' +
-                      '<img src="/assets/placeholder.svg"/>' +
+                      '<img src="<%= asset_path('placeholder.svg') %>"/>' +
                       '<h2>Looks Great!</h2>' +
                       '<div>'+ student_name + ' has no ' +
                               options.title.text + ' on record</div>' +
