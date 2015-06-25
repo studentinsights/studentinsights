@@ -15,19 +15,19 @@ RSpec.describe do
     allow(Net::SFTP).to receive_messages(start: 'connection established')
   end
 
-	describe '#connect_to_star_and_import' do
+	describe '#connect_and_import' do
 		context 'with sftp keys' do
 			before do
 				mock_environment_with_keys
 				mock_sftp_site
 			end
 			it 'establishes a connection' do
-        expect(star_importer.connect_to_star_and_import).to eq 'connection established'
+        expect(star_importer.connect_and_import).to eq 'connection established'
 			end
 		end
 		context 'without sftp keys' do
 			it 'raises an error' do
-				expect { star_importer.connect_to_star_and_import }.to raise_error "SFTP information missing"
+				expect { star_importer.connect_and_import }.to raise_error "SFTP information missing"
 			end
 		end
 	end

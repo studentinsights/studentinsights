@@ -15,7 +15,7 @@ module X2Importer
     ENV['SIS_SFTP_KEY'].present?
   end
 
-  def connect_to_x2_and_import
+  def connect_and_import
     if sftp_info_present?
       Net::SFTP.start(
         ENV['SIS_SFTP_HOST'],

@@ -6,6 +6,6 @@ task :import_healey_from_star => :environment do
       StarMathImporter.new(school: healey_school),
       StarReadingImporter.new(school: healey_school)
     ]
-    importers.each { |i| i.connect_to_star_and_import }
+    importers.each { |i| i.connect_and_import }
   end
 end
