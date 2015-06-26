@@ -7,6 +7,6 @@ task :import_healey_from_x2 => :environment do
       AttendanceImporter.new(school: healey_school),
       BehaviorImporter.new(school: healey_school)
     ]
-    importers.each { |i| i.connect_to_x2_and_import }
+    importers.each { |i| i.connect_and_import }
   end
 end

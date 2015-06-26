@@ -8,6 +8,7 @@ class StudentsImporter
   def import_row(row)
     student = Student.where(state_id: row[:state_id]).first_or_create!
     student.assign_attributes(
+      local_id: row[:local_id],
       home_language: row[:home_language],
       grade: row[:grade]
     )

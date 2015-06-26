@@ -1,6 +1,7 @@
 use x2data
 SELECT
   'state_id',
+  'local_id',
   'full_name',
   'home_language',
   'student_address',
@@ -12,6 +13,7 @@ SELECT
 UNION ALL
 SELECT
   STD_ID_STATE,
+  STD_ID_LOCAL,
   std_name_view,
   STD_HOME_LANGUAGE_CODE,
   STD_ADRS_VIEW,

@@ -11,7 +11,7 @@ RSpec.describe do
     end
   }
 
-  describe '#connect_to_x2_and_import' do
+  describe '#connect_and_import' do
     let(:x2_importer) { x2_student_import_class.new }
     context 'sftp information present' do
       it 'does not raise an error' do
@@ -19,18 +19,23 @@ RSpec.describe do
         allow(ENV).to receive(:[]).with('SIS_SFTP_USER').and_return "sftp-user"
         allow(ENV).to receive(:[]).with('SIS_SFTP_KEY').and_return "sftp-key"
         allow(Net::SFTP).to receive_messages(start: 'connection established')
-        expect { x2_importer.connect_to_x2_and_import }.not_to raise_error
+        expect { x2_importer.connect_and_import }.not_to raise_error
       end
     end
     context 'sftp information missing' do
       it 'raises an error' do
-        expect { x2_importer.connect_to_x2_and_import }.to raise_error "SFTP information missing"
+        expect { x2_importer.connect_and_import }.to raise_error "SFTP information missing"
       end
     end
   end
   describe '#import' do
     context 'students' do
       let(:x2_importer) { x2_student_import_class.new }
+
+      before(:each) do
+        allow(x2_importer).to receive(:count_number_of_rows).with(file).and_return 2
+      end
+
       context 'with good data' do
         let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
         context 'not scoped to healey school' do

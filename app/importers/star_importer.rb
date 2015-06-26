@@ -15,7 +15,7 @@ module StarImporter
     ENV['STAR_SFTP_PASSWORD'].present?
   end
 
-  def connect_to_star_and_import
+  def connect_and_import
     if sftp_info_present?
       Net::SFTP.start(
         ENV['STAR_SFTP_HOST'],
