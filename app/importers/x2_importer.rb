@@ -39,12 +39,12 @@ module X2Importer
     number_of_rows = count_number_of_rows(file)
 
     csv.each do |row|
+      print progress_bar(n, number_of_rows) if Rails.env.development?
       if @school.present?
         import_if_in_school_scope(row)
       else
         import_row row
       end
-      print progress_bar(n, number_of_rows) if Rails.env.development?
       n += 1
     end
     return csv
@@ -57,9 +57,7 @@ module X2Importer
   end
 
   def count_number_of_rows(file)
-    row_count = 0
-    while file.gets do row_count += 1 end
-    return row_count - 100    # Don't count headers
+    CSV.parse(file).size
   end
 
   def progress_bar(n, length)
@@ -72,6 +70,6 @@ module X2Importer
     line_progress.times { line_fill_part += "=" }
     (40 - line_progress).times { line_empty_part += " " }
 
-    return "\r #{export_file_name} [#{line_filled_in}#{line_empty}] #{percentage} (#{n} out of #{length})"
+    return "\r #{export_file_name} [#{line_fill_part}#{line_empty_part}] #{percentage_progress} (#{n} out of #{length})"
   end
 end
