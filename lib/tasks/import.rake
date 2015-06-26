@@ -1,4 +1,9 @@
 desc "Import students, attendance, behavior, assessments"
+  # rake import => imports for all schools
+  # rake import[HEA] => imports for just Healey School
+  # rake import[BRN] => imports for just Brown School
+  # See schools.seeds.rb for Somerville school local_ids
+
 task :import, [:school] => :environment do |task, args|
   school_arg = {}
   if args[:school].present?
