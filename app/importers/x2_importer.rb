@@ -23,8 +23,7 @@ module X2Importer
         key_data: ENV['SIS_SFTP_KEY'],
         keys_only: true,
         ) do |sftp|
-        # For documentation on Net::SFTP::Operations::File, see
-        # http://net-ssh.github.io/sftp/v2/api/classes/Net/SFTP/Operations/File.html
+        # For documentation see https://net-ssh.github.io/sftp/v2/api/
         file = sftp.download!(export_file_name)
         import(file)
       end
@@ -36,12 +35,17 @@ module X2Importer
   def import(file)
     require 'csv'
     csv = CSV.new(file, headers: true, header_converters: :symbol)
+    n = 0
+    number_of_rows = count_number_of_rows(file)
+
     csv.each do |row|
       if @school.present?
         import_if_in_school_scope(row)
       else
         import_row row
       end
+      print progress_bar(n, number_of_rows) if Rails.env.development?
+      n += 1
     end
     return csv
   end
@@ -50,5 +54,24 @@ module X2Importer
     if @school.local_id == row[:school_local_id]
       import_row row
     end
+  end
+
+  def count_number_of_rows(file)
+    row_count = 0
+    while file.gets do row_count += 1 end
+    return row_count - 100    # Don't count headers
+  end
+
+  def progress_bar(n, length)
+    fractional_progress = (n.to_f / length.to_f)
+    percentage_progress = (fractional_progress * 100).to_i.to_s + "%"
+
+    line_fill_part, line_empty_part = "", ""
+    line_progress = (fractional_progress * 40).to_i
+
+    line_progress.times { line_fill_part += "=" }
+    (40 - line_progress).times { line_empty_part += " " }
+
+    return "\r #{export_file_name} [#{line_filled_in}#{line_empty}] #{percentage} (#{n} out of #{length})"
   end
 end
