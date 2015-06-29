@@ -12,13 +12,13 @@ task :import, [:school] => :environment do |task, args|
       school_arg = { school: school }
     end
   end
-  importers = [
-    StudentsImporter.new(school_arg),
-    AttendanceImporter.new(school_arg),
-    BehaviorImporter.new(school_arg),
-    McasImporter.new(school_arg),
-    StarMathImporter.new(school_arg),
-    StarReadingImporter.new(school_arg)
+  import_classes = [
+    StudentsImporter,
+    AttendanceImporter,
+    BehaviorImporter,
+    McasImporter,
+    StarMathImporter,
+    StarReadingImporter
   ]
-  importers.each { |i| i.connect_and_import }
+  import_classes.each { |i| i.new(school_arg).connect_and_import }
 end
