@@ -24,7 +24,7 @@ module X2Importer
         keys_only: true,
         ) do |sftp|
         # For documentation see https://net-ssh.github.io/sftp/v2/api/
-        file = sftp.download!(export_file_name)
+        file = sftp.download!(export_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
         import(file)
       end
     else
@@ -34,20 +34,26 @@ module X2Importer
 
   def import(file)
     require 'csv'
-    csv = CSV.new(file, headers: true, header_converters: :symbol)
-    n = 0
-    number_of_rows = count_number_of_rows(file)
+    csv = CSV.new(file, headers: true, header_converters: :symbol, converters: lambda { |h| nil_converter(h) })
+    number_of_rows, n = count_number_of_rows(file), 0 if Rails.env.development?
 
     csv.each do |row|
-      print progress_bar(n, number_of_rows) if Rails.env.development?
+      print progress_bar(n, number_of_rows) && n +=1 if Rails.env.development?
       if @school.present?
         import_if_in_school_scope(row)
       else
         import_row row
       end
-      n += 1
     end
     return csv
+  end
+
+  def nil_converter(field_value)
+    if field_value == '\N'
+      nil
+    else
+      field_value
+    end
   end
 
   def import_if_in_school_scope(row)
