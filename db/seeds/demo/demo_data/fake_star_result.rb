@@ -7,7 +7,9 @@ class FakeStarResultGenerator
 
   def next
   	@math_percentile += rand(-15..15)
+  	@math_percentile = [0, @math_percentile, 100].sort[1]
   	@reading_percentile += rand(-15..15)
+  	@reading_percentile = [0, @reading_percentile, 100].sort[1]
   	@test_date += rand(30..60)  # days
     {
       date_taken: @test_date,
