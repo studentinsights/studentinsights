@@ -38,7 +38,8 @@ module X2Importer
     number_of_rows, n = count_number_of_rows(file), 0 if Rails.env.development?
 
     csv.each do |row|
-      print progress_bar(n, number_of_rows) && n +=1 if Rails.env.development?
+      print progress_bar(n, number_of_rows) if Rails.env.development?
+      n += 1 if Rails.env.development?
       if @school.present?
         import_if_in_school_scope(row)
       else
