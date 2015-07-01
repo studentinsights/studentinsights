@@ -144,17 +144,6 @@ $(function() {
       dateTimeLabelFormats: {}
     }
 
-    function zeroDraw(){
-      $('#chart').empty();
-      var zeroHtml =  '<div class="zero-case">' +
-                      '<img src="<%= asset_path('placeholder.svg') %>"/>' +
-                      '<h2>Looks Great!</h2>' +
-                      '<div>'+ student_name + ' has no ' +
-                              options.title.text + ' on record</div>' +
-                      '</div>';
-      $('#chart').html(zeroHtml);
-    }
-
     var default_yaxis = {
       allowDecimals: false,
       title: {
@@ -207,10 +196,24 @@ $(function() {
 
     options.title.text = 'absences or tardies'
     var chart
-    checkZero(options) ? zeroDraw() : chart = new Highcharts.Chart(options)
+
+    function zeroDraw(draw_type) {
+      $('#chart').empty()
+      var zeroHtml = '<div class="zero-case">'
+      zeroHtml += '<img src="<%= asset_path('placeholder.svg') %>"/>'
+      if (draw_type === 'attendance' || draw_type === 'behavior') {
+        zeroHtml += '<h2>Looks Great!</h2>'
+      } else {
+        zeroHtml += '<h2>Hmm...</h2>'
+      }
+      zeroHtml += ('<div>'+ student_name + ' has no ' + options.title.text + ' on record</div>' + '</div>')
+      $('#chart').html(zeroHtml);
+    }
+
+    checkZero(options) ? zeroDraw('attendance') : chart = new Highcharts.Chart(options)
 
     $("#chart-type").on('change', function(){
-      var selVal = $("#chart-type").val();
+      var selVal = $("#chart-type").val()
       if (selVal == "attendance" || selVal == '') {
           options.series = attendance_series
           options.title.text = 'absences or tardies'
@@ -237,12 +240,13 @@ $(function() {
           options.yAxis = default_yaxis
       } else if (selVal == "star") {
           options.series = star_series
+          options.title.text = 'STAR'
           options.xAxis = x_axis_datetime
           options.yAxis = percentile_yaxis
           options.yAxis.plotLines = []
           options.yAxis.plotLines.push(star_plotline)
       }
-      checkZero(options) ? zeroDraw() : chart = new Highcharts.Chart(options)
+      checkZero(options) ? zeroDraw(selVal) : chart = new Highcharts.Chart(options)
   });
   }
 });
