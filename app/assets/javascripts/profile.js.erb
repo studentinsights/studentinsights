@@ -200,9 +200,11 @@ $(function() {
     function zeroDraw(draw_type) {
       $('#chart').empty()
       var zeroHtml = '<div class="zero-case">'
+      zeroHtml += '<img src="<%= asset_path('placeholder.svg') %>"/>'
       if (draw_type === 'attendance' || draw_type === 'behavior') {
-        zeroHtml += '<img src="<%= asset_path('placeholder.svg') %>"/>'
         zeroHtml += '<h2>Looks Great!</h2>'
+      } else {
+        zeroHtml += '<h2>Hmm...</h2>'
       }
       zeroHtml += ('<div>'+ student_name + ' has no ' + options.title.text + ' on record</div>' + '</div>')
       $('#chart').html(zeroHtml);
