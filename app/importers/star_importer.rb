@@ -66,7 +66,7 @@ module StarImporter
     date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
     student = Student.where(state_id: state_id).first_or_create!
     star_result = StarResult.where(student_id: student.id, date_taken: date_taken).first_or_create!
-    star_result_info = Hash[row].except(:state_id, :school_local_id, :date_taken)
+    star_result_info = Hash[row].except(:state_id, :school_local_id, :date_taken, :local_id)
     star_result.update_attributes(star_result_info)
   end
 end
