@@ -37,7 +37,7 @@
 
 .referral {
   margin-top: 20px;
-  
+
   .referral-date{
     margin-top: 5px;
   }
@@ -88,12 +88,8 @@
 }
 
 .zero-case {
-  img {
-    display: block;
-    clear: both;
-    margin: 0 auto;
-  }
-  div,h2 {
-    text-align: center;
-  }
+  display: block;
+  clear: both;
+  margin: 0 auto;
+  text-align: center;
 }
