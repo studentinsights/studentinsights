@@ -51,7 +51,7 @@ module StarImporter
       n += 1 if Rails.env.development?
       print progress_bar(n, number_of_rows) if Rails.env.development?
     end
-    puts '\n' if Rails.env.development?
+    puts if Rails.env.development?
     return csv
   end
 
