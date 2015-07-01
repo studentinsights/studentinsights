@@ -1,6 +1,7 @@
 use x2data
 SELECT
   'state_id',
+  'local_id', -- LASID
   'absence',
   'tardy',
   'event_date',
@@ -8,6 +9,7 @@ SELECT
 UNION ALL
 SELECT
   STD_ID_STATE,
+  STD_ID_LOCAL,
   ATT_ABSENT_IND,
   ATT_TARDY_IND,
   IF(sa.ATT_DATE > Date(Now()), NULL, sa.ATT_DATE) AS 'event_date',

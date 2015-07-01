@@ -1,6 +1,7 @@
 use x2data
 SELECT
   'state_id',
+  'local_id', -- LASID
   'school_local_id',
   'assessment_date',
   'assessment_scale_score',
@@ -12,6 +13,7 @@ SELECT
 UNION ALL
 SELECT DISTINCT
   STD_ID_STATE,
+  STD_ID_LOCAL,
   SKL_SCHOOL_ID,
   ASM_DATE,
   ASM_SCALE_SCORE,

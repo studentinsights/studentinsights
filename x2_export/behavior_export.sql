@@ -1,6 +1,7 @@
 use x2data
 SELECT
   'state_id',
+  'local_id', -- LASID
   'incident_code',
   'event_date',
   'incident_time',
@@ -10,6 +11,7 @@ SELECT
 UNION ALL
 SELECT
   STD_ID_STATE,
+  STD_ID_LOCAL,
   CND_INCIDENT_CODE,
   IF(sci.CND_INCIDENT_DATE > Date(Now()), NULL, sci.CND_INCIDENT_DATE) AS 'incident_date',
   CND_INCIDENT_TIME,

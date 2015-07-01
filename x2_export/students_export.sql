@@ -1,7 +1,7 @@
 use x2data
 SELECT
   'state_id',
-  'local_id',
+  'local_id', -- LASID
   'full_name',
   'home_language',
   'student_address',
