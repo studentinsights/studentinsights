@@ -1,4 +1,5 @@
 module StarImporter
+  include Importer
   # Any class using StarImporter should implement two methods:
   # export_file_name => string pointing to the name of the remote file to parse
   # header_converters => function that describes how to convert the headers on the remote files
@@ -35,6 +36,7 @@ module StarImporter
   def import(file)
     require 'csv'
     csv = CSV.new(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
+    number_of_rows, n = count_number_of_rows(file), 0 if Rails.env.development?
     csv.each do |row|
       row.length.times { row.delete(nil) }
       if @school.present?
@@ -42,7 +44,10 @@ module StarImporter
       else
         import_row row
       end
+      n += 1 if Rails.env.development?
+      print progress_bar(n, number_of_rows) if Rails.env.development?
     end
+    puts '\n' if Rails.env.development?
     return csv
   end
 

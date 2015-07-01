@@ -1,4 +1,5 @@
 module X2Importer
+  include Importer
   # Any class using X2Importer should implement two methods:
   # export_file_name => string pointing to the name of the remote file to parse
   # import_row => function that describes how to handle each row; takes row as only argument
@@ -38,14 +39,15 @@ module X2Importer
     number_of_rows, n = count_number_of_rows(file), 0 if Rails.env.development?
 
     csv.each do |row|
-      print progress_bar(n, number_of_rows) if Rails.env.development?
-      n += 1 if Rails.env.development?
       if @school.present?
         import_if_in_school_scope(row)
       else
         import_row row
       end
+      n += 1 if Rails.env.development?
+      print progress_bar(n, number_of_rows) if Rails.env.development?
     end
+    puts '\n' if Rails.env.development?
     return csv
   end
 
@@ -61,22 +63,5 @@ module X2Importer
     if @school.local_id == row[:school_local_id]
       import_row row
     end
-  end
-
-  def count_number_of_rows(file)
-    CSV.parse(file).size
-  end
-
-  def progress_bar(n, length)
-    fractional_progress = (n.to_f / length.to_f)
-    percentage_progress = (fractional_progress * 100).to_i.to_s + "%"
-
-    line_fill_part, line_empty_part = "", ""
-    line_progress = (fractional_progress * 40).to_i
-
-    line_progress.times { line_fill_part += "=" }
-    (40 - line_progress).times { line_empty_part += " " }
-
-    return "\r #{export_file_name} [#{line_fill_part}#{line_empty_part}] #{percentage_progress} (#{n} out of #{length})"
   end
 end
