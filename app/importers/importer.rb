@@ -19,6 +19,13 @@ module Importer
         puts message
       end
     end
+    if Rails.env.development?
+      puts "#{Student.count} students"
+      puts "#{McasResult.count} MCAS results"
+      puts "#{StarResult.count} STAR results"
+      puts "#{DisciplineIncident.count} discipline incidents"
+      puts "#{AttendanceEvent.count} attendance events"
+    end
   end
 
   # SCOPED IMPORT #
