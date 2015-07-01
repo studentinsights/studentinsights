@@ -4,9 +4,9 @@ task :summer_school_mode => :environment do
   # 1. Get list of students in summer school
   file_path = "#{Rails.root}/data/SomerschoolRegistration.csv"  # Should have "lasid" (locally assigned student ID) and "registered" columns
   summer_school_csv = CSV.new(File.open(file_path), headers: true, header_converters: :symbol)
-  summer_school_local_ids = summer_school_csv.map { |row| row[:lasid] }
+  summer_school_local_ids = summer_school_csv.select { |row| row[:status] == 'Registered' }.map { |row| row[:lasid] }
 
-  # 2. Import the summer school students
+  # 2. Import the summer school
   Importer.import_all({summer_school_local_ids: summer_school_local_ids})
 
   # 3. Destroy the homerooms because homerooms don't apply in summer school
