@@ -2,15 +2,7 @@ desc "Hacky method to create SOMERSCHOOL MODE!"
 task :summer_school_mode => :environment do
 
   # 1. Import all the students
-  importers = [
-    StudentsImporter.new,
-    AttendanceImporter.new,
-    BehaviorImporter.new,
-    McasImporter.new,
-    StarMathImporter.new,
-    StarReadingImporter.new
-  ]
-  importers.each { |i| i.connect_and_import }
+  Importer.import_all
 
   # 2. Get list of students in summer school
   file_path = "#{Rails.root}/data/SomerschoolRegistration.csv"  # Should have "lasid" (locally assigned student ID) and "registered" columns
