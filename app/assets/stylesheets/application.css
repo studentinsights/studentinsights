@@ -11,7 +11,7 @@
  * file per style scope.
  *
  *= require style
- *= require chosen.min
+ *= require chosen
  *= require tablesort
  *= require tooltipster
  */
