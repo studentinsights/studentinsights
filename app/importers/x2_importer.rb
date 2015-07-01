@@ -4,10 +4,12 @@ module X2Importer
   # export_file_name => string pointing to the name of the remote file to parse
   # import_row => function that describes how to handle each row; takes row as only argument
 
-  attr_accessor :school
+  attr_accessor :school, :summer_school_local_ids, :recent_only
 
   def initialize(options = {})
     @school = options[:school]
+    @recent_only = options[:recent_only]
+    @summer_school_local_ids = options[:summer_school_local_ids]    # For importing only summer school students
   end
 
   def sftp_info_present?
@@ -41,6 +43,8 @@ module X2Importer
     csv.each do |row|
       if @school.present?
         import_if_in_school_scope(row)
+      elsif @summer_school_local_ids.present?
+        import_if_in_summer_school(row)
       else
         import_row row
       end
@@ -56,12 +60,6 @@ module X2Importer
       nil
     else
       field_value
-    end
-  end
-
-  def import_if_in_school_scope(row)
-    if @school.local_id == row[:school_local_id]
-      import_row row
     end
   end
 end

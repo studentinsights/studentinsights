@@ -4,10 +4,12 @@ module StarImporter
   # export_file_name => string pointing to the name of the remote file to parse
   # header_converters => function that describes how to convert the headers on the remote files
 
-  attr_accessor :school
+  attr_accessor :school, :summer_school_local_ids, :recent_only
 
   def initialize(options = {})
     @school = options[:school]
+    @recent_only = options[:recent_only]
+    @summer_school_local_ids = options[:summer_school_local_ids]    # For importing only summer school students
   end
 
   def sftp_info_present?
@@ -41,6 +43,8 @@ module StarImporter
       row.length.times { row.delete(nil) }
       if @school.present?
         import_if_in_school_scope(row)
+      elsif @summer_school_local_ids.present?
+        import_if_in_summer_school(row)
       else
         import_row row
       end
@@ -54,12 +58,6 @@ module StarImporter
   def convert_headers(header)
     if header_dictionary.keys.include? header
       header = header_dictionary[header]
-    end
-  end
-
-  def import_if_in_school_scope(row)
-    if @school.local_id == row[:school_local_id]
-      import_row row
     end
   end
 

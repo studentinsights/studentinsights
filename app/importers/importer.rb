@@ -11,15 +11,31 @@ module Importer
     ]
   end
 
-  def self.import_all(school_arg = {})
+  def self.import_all(options = {})
     import_classes.each do |i|
       begin
-        i.new(school_arg).connect_and_import
+        i.new(options).connect_and_import
       rescue Exception => message
         puts message
       end
     end
   end
+
+  # SCOPED IMPORT #
+
+  def import_if_in_school_scope(row)
+    if @school.local_id == row[:school_local_id]
+      import_row row
+    end
+  end
+
+  def import_if_in_summer_school(row)
+    if @summer_school_local_ids.include? row[:local_id]
+      import_row row
+    end
+  end
+
+  # PROGRESS BAR #
 
   def count_number_of_rows(file)
     CSV.parse(file).size - 1
