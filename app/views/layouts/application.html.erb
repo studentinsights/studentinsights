@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Somerville Teacher Tool</title>
+  <title>Student Insights</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
@@ -10,7 +10,7 @@
 <body class="<%= controller_name %> <%= action_name %>">
   <div class="nav">
     <div class="navwrap">
-        <h1 id="title">Somerville Teacher Tool</h1>
+        <div id="logo"><h1 id="title" alt="Student Insights"></h1></div>
         <nav>
           <% if educator_signed_in? %>
             <% unless controller_name == 'students' %>

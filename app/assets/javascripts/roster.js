@@ -24,7 +24,7 @@ $(function() {
 
     // Roster tooltip
     $('#my-tooltip').tooltipster({
-      content: $('<div class="warning-key"><div class="warning-header"><div class="warning-dot"></div><h6>Warning Indicators</h6></div><div class="warning-set"><p><strong>MCAS Growth:</strong> Less than 40 points</p><p><strong>STAR Percentile:</strong> Less than 40 points</p><p><strong>STAR Reading IRL:</strong> A year or more behind</p></div></div>'),
+      content: $('<div class="warning-key"><div class="warning-header"><div class="warning-dot"></div><h6>Warning Indicators</h6></div><div class="warning-set"><p><strong>MCAS Performance:</strong> Warning</p><p><strong>MCAS Growth:</strong> Less than 40 points</p><p><strong>STAR Percentile:</strong> Less than 40 points</p><p><strong>STAR Reading IRL:</strong> A year or more behind</p></div></div>'),
       position: 'bottom-right'
     });
     // Table interactions
