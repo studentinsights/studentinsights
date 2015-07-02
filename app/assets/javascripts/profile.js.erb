@@ -200,7 +200,7 @@ $(function() {
     function zeroDraw(draw_type) {
       $('#chart').empty()
       var zeroHtml = '<div class="zero-case">'
-      zeroHtml += '<img src="<%= asset_path('placeholder.svg') %>"/>'
+      zeroHtml += '<img src="<%= asset_path('bonsai.svg') %>"/>'
       if (draw_type === 'attendance' || draw_type === 'behavior') {
         zeroHtml += '<h2>Looks Great!</h2>'
       } else {
