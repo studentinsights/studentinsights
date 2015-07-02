@@ -22,11 +22,15 @@ AttendanceEvent.destroy_all
   student = Student.create(FakeStudent.data)
   student.homeroom_id = Homeroom.all.sample.id
   student.save
+  mcasFactory =  FakeMcasResultGenerator.new
+  starFactory =  FakeStarResultGenerator.new
   5.times do
-    result = McasResult.new(FakeMcasResult.data)
+    result = McasResult.new(mcasFactory.next)
     result.update_attributes(student_id: student.id)
     result.save
-    result = StarResult.new(FakeStarResult.data)
+  end
+  12.times do
+    result = StarResult.new(starFactory.next)
     result.update_attributes(student_id: student.id)
     result.save
   end

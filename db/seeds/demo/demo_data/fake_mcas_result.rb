@@ -1,8 +1,11 @@
-module FakeMcasResult
+class FakeMcasResultGenerator
+  def initialize
+    @dates = (2010..2015).to_a.shuffle
+  end
 
-  def self.data
+  def next
     {
-      date_taken: DateTime.new(rand(2010..2015), rand(1..12), rand(1..28)),
+      date_taken: DateTime.new(@dates.pop, 5, 15),
       ela_scaled: rand(200..280),
       ela_performance: ["W", "NI", "P", "A", nil].sample,
       ela_growth: rand(100),
@@ -11,5 +14,4 @@ module FakeMcasResult
       math_growth: rand(100)
     }
   end
-
 end
