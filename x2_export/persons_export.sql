@@ -1,5 +1,8 @@
 use x2data
 SELECT
+  'state_id',
+  'local_id', -- LASID
+  'school_local_id'
   'first_name',
   'last_name',
   'gender',
@@ -10,6 +13,9 @@ SELECT
   'email_2'
 UNION ALL
 SELECT
+  STD_ID_STATE,
+  STD_ID_LOCAL,
+  SKL_SCHOOL_ID,
   PSN_NAME_FIRST,
   PSN_NAME_LAST,
   PSN_GENDER_CODE,
@@ -21,6 +27,8 @@ SELECT
 FROM person
 INNER JOIN student
   ON student.STD_PSN_OID = person.PSN_OID
+INNER JOIN school
+  ON student.STD_SKL_OID=school.SKL_OID
 WHERE STD_ENROLLMENT_STATUS = 'Active'
 AND STD_ID_STATE IS NOT NULL
 AND STD_OID IS NOT NULL
