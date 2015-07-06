@@ -41,13 +41,13 @@
         <tr class="column-names">
           <th class="name sort-default"><span id="table-header">Name</span></th>
           <th class="demographics"><span id="table-header">Home Language</span></th>
-          <th class="star"><span id="table-header">Percentile</span></th>
-          <th class="star"><span id="table-header">Percentile</span></th>
-          <th class="star"><span id="table-header">IRL</span></th>
-          <th class="mcas" data-sort-method='mcas_sort'><span id="table-header">Performance</span></th>
-          <th class="mcas"><span id="table-header">Growth</span></th>
-          <th class="mcas" data-sort-method='mcas_sort'><span id="table-header">Performance</span></th>
-          <th class="mcas"><span id="table-header">Growth</span></th>
+          <th class="star" data-sort-method="number"><span id="table-header">Percentile</span></th>
+          <th class="star" data-sort-method="number"><span id="table-header">Percentile</span></th>
+          <th class="star" data-sort-method="number"><span id="table-header">IRL</span></th>
+          <th class="mcas" data-sort-method="mcas_sort"><span id="table-header">Performance</span></th>
+          <th class="mcas" data-sort-method="number"><span id="table-header">Growth</span></th>
+          <th class="mcas" data-sort-method="mcas_sort"><span id="table-header">Performance</span></th>
+          <th class="mcas" data-sort-method="number"><span id="table-header">Growth</span></th>
         </tr>
      </thead>
       <% if @students.present? %>
