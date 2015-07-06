@@ -61,18 +61,18 @@
             <div class="values">
               <h3 class="assesment-type">Reading</h3>
               <div class="values">
-                <h3><%= s.reading_percentile_rank %></h3>
+                <h3><%= StarResultPresenter.new(s).reading_percentile_rank %></h3>
                 <h4>Percentile</h4>
               </div>
               <div class="values">
-                <h3><%= s.instructional_reading_level %></h3>
+                <h3><%= StarResultPresenter.new(s).instructional_reading_level %></h3>
                 <h4>IRL</h4>
               </div>
             </div>
             <div class="values">
               <h3 class="assesment-type">Math</h3>
               <div class="values">
-                <h3><%= s.math_percentile_rank %></h3>
+                <h3><%= StarResultPresenter.new(s).math_percentile_rank %></h3>
                 <h4>Percentile</h4>
               </div>
             </div>
