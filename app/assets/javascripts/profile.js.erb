@@ -15,10 +15,12 @@ $(function() {
 
     function prepareScoresForChart(scores, prepare_function) {
       return scores.map(function(score) {
-        var date_array = score.date_taken.split("-").map(function(a) { return parseInt(a) })
-        var date_utc = Date.UTC.apply(this || window, date_array)
-        return [date_utc, prepare_function(score)]
-      })
+        if (prepare_function(score) !== null) {
+          var date_array = score.date_taken.split("-").map(function(a) { return parseInt(a) })
+          var date_utc = Date.UTC.apply(this || window, date_array)
+          return [date_utc, prepare_function(score)]
+        }
+      }).filter(function(n) { return n != undefined })
     }
 
     function checkZero(options) {
