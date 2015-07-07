@@ -34,10 +34,11 @@ AttendanceEvent.destroy_all
     result.update_attributes(student_id: student.id)
     result.save
   end
+
+  # Aggregate data via https://github.com/codeforamerica/somerville-teacher-tool/issues/94
   discipline_event_generator = Rubystats::NormalDistribution.new(5.2, 8.3)
   attendance_event_generator = Rubystats::NormalDistribution.new(8.8, 10)
-  # guestimating that 40% of students have discipline events
-  2.in(5) do
+  7.in(100) do    # 7% of students have discipline events
     5.times do |n|
       date_begin = Time.local(2010 + n, 8, 1)
       date_end = Time.local(2011 + n, 7, 31)
@@ -49,7 +50,7 @@ AttendanceEvent.destroy_all
       end
     end
   end
-  94.in(100) do
+  94.in(100) do   # 94% of students have absence / attendance events
     5.times do |n|
       date_begin = Time.local(2010 + n, 8, 1)
       date_end = Time.local(2011 + n, 7, 31)
