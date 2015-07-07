@@ -6,6 +6,7 @@ FactoryGirl.define do
 
   factory :student do
       state_id
+      association :homeroom
     factory :student_who_registered_in_2013_2014 do
       registration_date Date.new(2013, 8, 1)
     end
