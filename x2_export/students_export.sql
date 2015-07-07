@@ -4,6 +4,8 @@ SELECT
   'local_id', -- LASID
   'full_name',
   'home_language',
+  'program_assigned',
+  'limited_english_proficiency',
   'student_address',
   'grade',
   'registration_date',
@@ -16,6 +18,8 @@ SELECT
   STD_ID_LOCAL,
   std_name_view,
   STD_HOME_LANGUAGE_CODE,
+  STD_FIELDB_068, -- Program assigned
+  STD_FIELDB_036, -- Limited English proficiency
   STD_ADRS_VIEW,
   STD_GRADE_LEVEL,
   STD_FIELDA_081, -- Registration date
@@ -32,3 +36,4 @@ AND STD_OID IS NOT NULL
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
   LINES TERMINATED BY '\r\n'
+
