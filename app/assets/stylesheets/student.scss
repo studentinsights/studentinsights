@@ -49,6 +49,10 @@
   margin-bottom: 80px;
 }
 
+.highcharts-container {
+ overflow: visible !important;
+}
+
 #student-info {
   border-bottom: 1px solid $dark-line;
   margin-bottom: 15px;
