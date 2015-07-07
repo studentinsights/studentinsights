@@ -10,6 +10,7 @@ class StudentsController < ApplicationController
     @discipline_incidents = @student.discipline_incidents.sort_by_school_year
     @mcas_results = @student.mcas_results.order(:date_taken)
     @star_results = @student.star_results.order(:date_taken)
+    @roster_url = homeroom_students_path(@student.homeroom)
   end
 
   def index
