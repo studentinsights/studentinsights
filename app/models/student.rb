@@ -46,6 +46,29 @@ class Student < ActiveRecord::Base
         number_of_tardies = v.where(tardy: true).count
         csv << [k, number_of_absences, number_of_tardies]
       end
+      csv << []
+      csv << ['Behavior']
+      csv << ['Date', 'Number of Discipline Incidents']
+      profile_data[:discipline_incidents].each do |k, v|
+        number_of_discipline_incidents = v.count
+        csv << [k, number_of_discipline_incidents]
+      end
+      csv << []
+      csv << ['MCAS']
+      csv << ['Date', 'Math Score', 'Math Growth', 'Math Performance',
+              'ELA Score', 'ELA Growth', 'ELA Performance']
+      profile_data[:mcas_results].each do |mcas|
+        csv << [mcas.date_taken, mcas.math_scaled, mcas.math_growth, mcas.math_performance,
+                mcas.ela_scaled, mcas.ela_growth, mcas.ela_performance]
+      end
+      csv << []
+      csv << ['STAR']
+      csv << ['Date', 'Math Percentile', 'Reading Percentile',
+              'Instructional Reading Level']
+      profile_data[:star_results].each do |star|
+        csv << [star.date_taken, star.math_percentile_rank, star.reading_percentile_rank,
+                star.instructional_reading_level]
+      end
     end
   end
 
