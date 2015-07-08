@@ -14,7 +14,9 @@ class StudentsController < ApplicationController
     @discipline_incidents = profile[:discipline_incidents]
     @mcas_results = profile[:mcas_results]
     @star_results = profile[:star_results]
+
     @roster_url = homeroom_students_path(@student.homeroom)
+    @csv_url = student_path(@student) + ".csv"
 
     respond_to do |format|
       format.html
