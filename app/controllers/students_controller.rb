@@ -17,12 +17,12 @@ class StudentsController < ApplicationController
 
     @roster_url = homeroom_students_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
+    @student_url = student_path(@student)
 
     respond_to do |format|
       format.html
-      format.csv do
-        render csv: @student.profile_csv_export, filename: 'export'
-      end
+      format.csv { render csv: @student.profile_csv_export, filename: 'export' }
+      format.pdf { render text: PDFKit.new(@student_url).to_pdf }
     end
   end
 

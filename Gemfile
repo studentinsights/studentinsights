@@ -65,7 +65,7 @@ gem 'paperclip'
 gem 'roo'
 
 # Output PDFs
-gem 'prawn'
+gem 'pdfkit'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
