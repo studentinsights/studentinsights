@@ -28,6 +28,27 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def profile_data
+    {
+      attendance_events: attendance_events.sort_by_school_year,
+      discipline_incidents: discipline_incidents.sort_by_school_year,
+      mcas_results: mcas_results.order(:date_taken),
+      star_results: star_results.order(:date_taken)
+    }
+  end
+
+  def profile_csv_export
+    CSV.generate do |csv|
+      csv << ['Attendance']
+      csv << ['School Year', 'Absences', 'Tardies']
+      profile_data[:attendance_events].each do |k, v|
+        number_of_absences = v.where(absence: true).count
+        number_of_tardies = v.where(tardy: true).count
+        csv << [k, number_of_absences, number_of_tardies]
+      end
+    end
+  end
+
   def latest_star
     if star_results.present?
       star_results.last
