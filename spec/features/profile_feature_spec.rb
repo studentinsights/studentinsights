@@ -2,18 +2,7 @@ require 'rails_helper'
 require 'capybara/rspec'
 
 describe 'educator views student profile', :type => :feature do
-
   context 'educator with account views student profile' do
-
-    def educator_sign_in(educator)
-      visit root_url
-      click_link 'Sign In'
-      fill_in 'educator_email', with: educator.email
-      fill_in 'educator_password', with: educator.password
-      click_button 'Log in'
-      expect(page).to have_content 'Signed in successfully.'
-    end
-
     let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
 
     before(:each) do

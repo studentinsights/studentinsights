@@ -5,33 +5,51 @@ describe StudentsController, :type => :controller do
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
 
   describe '#show' do
-    def make_request(student_id = nil)
+    def make_request(options = { student_id: nil, format: :html })
       request.env['HTTPS'] = 'on'
-      get :show, id: student_id
+      get :show, id: options[:student_id], format: options[:format]
     end
 
     context 'when educator is not logged in' do
       let!(:student) { FactoryGirl.create(:student) }
-      it 'redirects to sign in page' do
-        request.env['HTTPS'] = 'on'
-        make_request(student.id)
-        expect(response).to redirect_to(new_educator_session_path)
+      context 'html' do
+        it 'redirects to sign in page' do
+          make_request({ student_id: student.id, format: :html })
+          expect(response).to redirect_to(new_educator_session_path)
+        end
+      end
+      context 'csv' do
+        it 'sends a 401 unauthorized' do
+          make_request({ student_id: student.id, format: :csv })
+          expect(response.status).to eq 401
+          expect(response.body).to eq "You need to sign in before continuing."
+        end
       end
     end
-
     context 'when educator is logged in' do
       let!(:student) { FactoryGirl.create(:student) }
       before do
         sign_in(educator)
       end
-
-      it 'is successful' do
-        make_request(student.id)
-        expect(response).to be_success
+      context 'html' do
+        it 'is successful' do
+          make_request({ student_id: student.id, format: :html })
+          expect(response).to be_success
+        end
+        it 'assigns the student correctly' do
+          make_request({ student_id: student.id, format: :html })
+          expect(assigns(:student)).to eq student
+        end
       end
-      it 'assigns the student correctly' do
-        make_request(student.id)
-        expect(assigns(:student)).to eq student
+      context 'csv' do
+        it 'is successful' do
+          make_request({ student_id: student.id, format: :csv })
+          expect(response).to be_success
+        end
+        it 'assigns the student correctly' do
+          make_request({ student_id: student.id, format: :csv })
+          expect(assigns(:student)).to eq student
+        end
       end
     end
   end
@@ -74,7 +92,7 @@ describe StudentsController, :type => :controller do
           expect(assigns(:students)).to be_empty
         end
       end
-      context 'when there are students' do 
+      context 'when there are students' do
         let!(:first_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
         let!(:second_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
         before { make_request }

@@ -2,19 +2,9 @@ require 'rails_helper'
 require 'capybara/rspec'
 
 describe 'roster', :type => :feature do
-
   context 'educator with account views roster' do
-
-    def educator_visits_roster(educator)
-      visit root_url
-      click_link 'Sign In'
-      fill_in 'educator_email', with: educator.email
-      fill_in 'educator_password', with: educator.password
-      click_button 'Log in'
-    end
-
     before(:each) do
-      educator_visits_roster(educator)
+      educator_sign_in(educator)
     end
 
     let(:student_rows) { all('.student-row') }
