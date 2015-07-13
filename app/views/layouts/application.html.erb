@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Student Insights</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="<%= controller_name %> <%= action_name %>">
-  <div class="nav">
-    <div class="navwrap">
-        <div id="logo"><h1 id="title" alt="Student Insights"></h1></div>
-        <nav>
-          <% if educator_signed_in? %>
-            <% unless controller_name == 'students' %>
-              <%= link_to "Roster", roster_url %>
+<html lang="en">
+  <head>
+    <title>Student Insights</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <div class="nav">
+      <div class="navwrap">
+          <div id="logo"><h1 id="title" alt="Student Insights"></h1></div>
+          <nav>
+            <% if educator_signed_in? %>
+              <% unless controller_name == 'students' %>
+                <%= link_to "Roster", roster_url %>
+              <% end %>
+              <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
+            <% else %>
+              <%= link_to "About", about_url %>
+              <%= link_to "Sign In", new_educator_session_path %>
             <% end %>
-            <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
-          <% else %>
-            <%= link_to "About", about_url %>
-            <%= link_to "Sign In", new_educator_session_path %>
-          <% end %>
-        </nav>
-      <p class="notice field"><%= notice %></p>
-      <p class="alert field"><%= alert %></p>
+          </nav>
+        <p class="notice field"><%= notice %></p>
+        <p class="alert field"><%= alert %></p>
+      </div>
     </div>
-  </div>
-  <%= yield %>
-</body>
+    <%= yield %>
+  </body>
+</html>
