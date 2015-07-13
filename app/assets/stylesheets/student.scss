@@ -4,7 +4,12 @@
   float: right;
   display: inline;
   position: relative;
-  bottom: 20px;
+  padding: 5px 20px;
+  margin-top: 15px;
+  border-radius: 10px;
+  background-color: white;
+  color: $gray;
+  border: 1px solid $light-gray;
 }
 
 .school-year{
