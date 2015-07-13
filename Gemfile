@@ -51,7 +51,6 @@ end
 
 # Auth
 gem 'devise'
-gem 'twilio-ruby', '~> 3.12'
 
 # Better seeds
 gem 'seedbank'
@@ -59,10 +58,6 @@ gem 'seedbank'
 # For more interesting random seed data
 gem 'probability'
 gem 'rubystats'
-
-# Handle Excel files
-gem 'paperclip'
-gem 'roo'
 
 # Output PDFs
 gem 'pdfkit'
