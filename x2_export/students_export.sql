@@ -20,6 +20,10 @@ SELECT
   STD_HOME_LANGUAGE_CODE,
   STD_FIELDB_068, -- Program assigned
   STD_FIELDB_036, -- Limited English proficiency
+  STD_FIELDB_042, -- SPED placement
+  STD_FIELDB_044, -- SPED disability
+  STD_FIELDB_046, -- SPED level of need
+  STD_FIELDB_047, -- 504 plan
   STD_ADRS_VIEW,
   STD_GRADE_LEVEL,
   STD_FIELDA_081, -- Registration date
