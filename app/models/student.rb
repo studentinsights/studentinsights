@@ -32,8 +32,8 @@ class Student < ActiveRecord::Base
     {
       attendance_events: attendance_events.sort_by_school_year,
       discipline_incidents: discipline_incidents.sort_by_school_year,
-      mcas_results: mcas_results.order(:date_taken),
-      star_results: star_results.order(:date_taken)
+      mcas_results: mcas_results.order(date_taken: :desc),
+      star_results: star_results.order(date_taken: :desc)
     }
   end
 
