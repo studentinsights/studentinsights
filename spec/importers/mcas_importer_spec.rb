@@ -43,7 +43,7 @@ RSpec.describe McasImporter do
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
         let(:healey_importer) { McasImporter.new(school: healey) }
         it 'raises an error' do
-          expect { healey_importer.import(file) }.to raise_error
+          expect { healey_importer.import(file) }.to raise_error ActiveRecord::StatementInvalid
         end
       end
     end

@@ -33,7 +33,7 @@ RSpec.describe StarMathImporter do
 				let(:file) { File.open("#{Rails.root}/spec/fixtures/bad_star_reading_data.csv") }
 				let(:math_importer) { StarMathImporter.new }
 				it 'raises an error' do
-					expect { math_importer.import(file) }.to raise_error
+					expect { math_importer.import(file) }.to raise_error NoMethodError
 				end
 			end
 		end
