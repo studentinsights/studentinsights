@@ -38,6 +38,12 @@ $(function() {
     function countTardies (attendanceEvents) { return attendanceEvents.filter(isTardy).length }
     function countSize (events) { return events.length }
 
+    // Risk level tooltip
+    $('#risk-pill').tooltipster({
+      content: $('<div class="warning-key"><div class="warning-header"><h6>Risk levels</h6></div><div class="warning-set"><p><strong>High:</strong> This is why it is high.</p></div></div>'),
+      position: 'bottom-right'
+    });
+
     // Functions for adding assessments to chart
     function getStarMathPercentile (result) { return result.math_percentile_rank }
     function getStarReadingPercentile (result) { return result.reading_percentile_rank }
