@@ -44,7 +44,9 @@ RSpec.describe do
           end
           it 'sets the headers correctly' do
             headers = x2_importer.import(file).headers
-            expect(headers).to eq [ :state_id, :full_name, :home_language, :grade, :homeroom, :school_local_id ]
+            expect(headers).to eq [:state_id, :local_id, :full_name, :home_language, :program_assigned,
+              :limited_english_proficiency, :sped_placement, :disability, :sped_level_of_need, :plan_504,
+              :student_address, :grade, :registration_date, :free_reduced_lunch, :homeroom, :school_local_id]
           end
           it 'imports two Somerville High School students' do
             expect { x2_importer.import(file) }.to change(Student, :count).by 2

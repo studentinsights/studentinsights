@@ -37,26 +37,4 @@ RSpec.describe StudentPresenter do
       end
     end
   end
-  describe '#limited_english_proficient' do
-    context 'has a limited english proficient status' do
-      context 'is limited english proficient' do
-        it 'presents Yes' do
-          presenter = StudentPresenter.new lep_student
-          expect(presenter.limited_english_proficient).to eq "Yes"
-        end
-      end
-      context 'is limited english proficient' do
-        it 'presents No' do
-          presenter = StudentPresenter.new non_lep_student
-          expect(presenter.limited_english_proficient).to eq "No"
-        end
-      end
-    end
-    context 'does not have a limited english proficient status' do
-      it 'presents —' do
-        presenter = StudentPresenter.new student_without_attributes
-        expect(presenter.limited_english_proficient).to eq "—"
-      end
-    end
-  end
 end
