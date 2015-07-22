@@ -1,17 +1,17 @@
-$(function() {
+(function(root){
+  var ProfileController = function initializeProfileController () {};
 
-  if ($('body').hasClass('students') && $('body').hasClass('show')) {
+  ProfileController.prototype.prepareEventsForChart = function (events, prepare_function){
+    return Object.keys(events).reverse().map(function(key) { return prepare_function(events[key]) })
+  };
 
+  ProfileController.prototype.show = function renderProfileController() {
     var profile_data = $("#profile-data")
     var attendance_events = profile_data.data('attendance-events')
     var discipline_incidents = profile_data.data('discipline-incidents')
     var mcas_results = profile_data.data('mcas-results')
     var star_results = profile_data.data('star-results')
     var student_name = $("#student-name").text()
-
-    function prepareEventsForChart(events, prepare_function) {
-      return schoolYears(events).map(function(key) { return prepare_function(events[key]) })
-    }
 
     function prepareScoresForChart(scores, prepare_function) {
       return scores.map(function(score) {
@@ -51,16 +51,16 @@ $(function() {
     // Attendance events, behavior shown as aggregated counts by school year
     var attendance_series = [{
         name: 'Absences',
-        data: prepareEventsForChart(attendance_events, countAbsences)
+        data: this.prepareEventsForChart(attendance_events, countAbsences)
       }, {
         name: 'Tardies',
-        data: prepareEventsForChart(attendance_events, countTardies)
+        data: this.prepareEventsForChart(attendance_events, countTardies)
       }
     ]
 
     var behavior_series = [{
       name: 'Behavior incidents',
-      data: prepareEventsForChart(discipline_incidents, countSize)
+      data: this.prepareEventsForChart(discipline_incidents, countSize)
     }]
 
     // STAR and MCAS results shown by date taken, not aggregated by school year
@@ -249,6 +249,14 @@ $(function() {
           options.yAxis.plotLines.push(star_plotline)
       }
       checkZero(options) ? zeroDraw(selVal) : chart = new Highcharts.Chart(options)
-  });
+    });
+  };
+
+  root.ProfileController = ProfileController;
+})(window);
+
+$(function() {
+  if ($('body').hasClass('students') && $('body').hasClass('show')) {
+    new window.ProfileController().show();
   }
 });
