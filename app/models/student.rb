@@ -9,6 +9,28 @@ class Student < ActiveRecord::Base
   validates_uniqueness_of :state_id
   include DateToSchoolYear
 
+  def risk_level
+    # As defined by Somerville Public Schools
+
+    if latest_mcas.present? || latest_star.present?
+      mcas_math = latest_mcas.math_performance
+      mcas_ela = latest_mcas.ela_performance
+      star_math = latest_star.math_percentile_rank
+      star_ela = latest_star.reading_percentile_rank
+
+      if mcas_math == "A" || mcas_ela == "A" || star_math > 85 || star_ela > 85
+        0
+      elsif mcas_math == "W" || mcas_ela == "W" || mcas_math == "F" || mcas_ela == "F" ||
+        star_math < 10 || star_ela < 10 || limited_english_proficiency == "Limited"
+        3
+      elsif mcas_math == "NI" || mcas_ela == "NI" || star_math < 30 || star_ela < 30
+        2
+      else
+        1
+      end
+    end
+  end
+
   def school_years
     if registration_date.present? || grade.present?
       if registration_date.present?
