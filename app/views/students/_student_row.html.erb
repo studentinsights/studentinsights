@@ -1,7 +1,7 @@
                 <tr class="student-row">
                   <td class="name"><%= link_to presenter.full_name, student_url(presenter.id) %></td>
                   <td class="risk">
-                    <div class="warning-bubble">
+                    <div class="warning-bubble <%= presenter.student.risk_level_words.downcase %>">
                       <%= presenter.student.risk_level_words[0] %>
                     </div>
                   </td>
