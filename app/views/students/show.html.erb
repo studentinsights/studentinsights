@@ -2,19 +2,29 @@
     <div id="roster-back">
       <%= link_to "< Back to Roster", @roster_url %>
     </div>
+    <div id="export">
     <%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
+    </div>
   </div>
 
   <div class="info-area">
 
-     <div id="student-info">
+    <div id="student-info">
       <h1 id="student-name"><%= @presenter.full_name %></h1>
+      <div id="risk-level">
+        <p>Risk level:</p>
+        <div id="risk-pill">
+          <div class="tooltip-circle">
+            <h3>High</h3>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="graph-dropdown" class="dropdown">
       <p>Graph:</p>
       <select id="chart-type">
-          <option value="attendance">Attendance</option>
+        <option value="attendance">Attendance</option>
           <option value="behavior">Behavior</option>
           <option value="mcas-growth">MCAS Growth</option>
           <option value="mcas-scaled">MCAS Score</option>
@@ -70,7 +80,6 @@
       <% end %>
     </div>
 
-  </div>
 
 <%= tag("div", id: "profile-data", data:
     { attendance_events: @attendance_events,

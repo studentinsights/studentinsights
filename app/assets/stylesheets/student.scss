@@ -4,12 +4,40 @@
   float: right;
   display: inline;
   position: relative;
-  padding: 5px 20px;
-  margin-top: 15px;
-  border-radius: 10px;
-  background-color: white;
+  padding: 3px 15px;
+  margin-top: 18px;
+  border-radius: 4px;
+  background-color: $white;
   color: $gray;
-  border: 1px solid $light-gray;
+  border: 1px solid $light-line;
+}
+
+#export {
+  display: inline;
+  clear: both;
+}
+
+#risk-pill {
+  float: right;
+  background-color: $warning-red;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: help;
+
+  h3 {
+    color: $white;
+  }
+
+}
+
+#risk-level {
+  float: right;
+
+  p {
+    float: left !important;
+    padding-top: 5px !important;
+    padding-right: 5px;
+  }
 }
 
 .row {
@@ -34,7 +62,7 @@
   display: block;
 }
 
-.school-year{
+.school-year {
   text-align: center;
 }
 
@@ -115,9 +143,9 @@
 }
 
 .students {
-
-  .info-area{
+  .info-area {
     margin-top: 0;
+    clear: both;
   }
 }
 
