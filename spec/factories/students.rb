@@ -28,16 +28,8 @@ FactoryGirl.define do
       last_name Faker::Name.last_name
     end
     factory :sped_student do
-      sped true
-    end
-    factory :non_sped_student do
-      sped false
-    end
-    factory :lep_student do
-      limited_english_proficient true
-    end
-    factory :non_lep_student do
-      limited_english_proficient false
+      program_assigned "Sp Ed"
+      sped_placement "Full Inclusion"
     end
 
     factory :student_with_mcas_result do

@@ -3,9 +3,6 @@ RSpec.describe StudentPresenter do
   let(:student_without_attributes) { FactoryGirl.create(:student) }
   let(:student_with_full_name) { FactoryGirl.create(:student_with_full_name) }
   let(:sped_student) { FactoryGirl.create(:sped_student) }
-  let(:lep_student) { FactoryGirl.create(:lep_student) }
-  let(:non_lep_student) { FactoryGirl.create(:non_lep_student) }
-  let(:non_sped_student) { FactoryGirl.create(:non_sped_student) }
 
   describe '#full_name' do
     context 'has a first and last name' do
@@ -16,24 +13,16 @@ RSpec.describe StudentPresenter do
     end
   end
   describe '#sped' do
-    context 'has a sped status' do
-      context 'is sped' do
-        it 'presents Yes' do
-          presenter = StudentPresenter.new sped_student
-          expect(presenter.sped).to eq "Yes"
-        end
-      end
-      context 'is not sped' do
-        it 'presents No' do
-          presenter = StudentPresenter.new non_sped_student
-          expect(presenter.sped).to eq "No"
-        end
+    context 'belongs to Sped Program' do
+      it 'presents the program assigned' do
+        presenter = StudentPresenter.new(sped_student)
+        expect(presenter.program_assigned).to eq "Sp Ed"
       end
     end
-    context 'does not have a sped status' do
-      it 'presents —' do
-        presenter = StudentPresenter.new student_without_attributes
-        expect(presenter.sped).to eq "—"
+    context 'does not have a program assigned' do
+      it 'presents N/A' do
+        presenter = StudentPresenter.new(student_without_attributes)
+        expect(presenter.sped_placement).to eq "N/A"
       end
     end
   end
