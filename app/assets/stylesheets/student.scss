@@ -19,7 +19,6 @@
 
 #risk-pill {
   float: right;
-  background-color: $warning-red;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: help;
@@ -27,7 +26,18 @@
   h3 {
     color: $white;
   }
+}
 
+#risk-pill.low {
+    background-color: $low;
+}
+
+#risk-pill.medium {
+    background-color: $medium;
+}
+
+#risk-pill.high {
+    background-color: $high;
 }
 
 #risk-level {
