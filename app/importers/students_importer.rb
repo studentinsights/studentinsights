@@ -7,11 +7,9 @@ class StudentsImporter
 
   def import_row(row)
     student = Student.where(state_id: row[:state_id]).first_or_create!
-    student.assign_attributes(
-      local_id: row[:local_id],
-      home_language: row[:home_language],
-      grade: row[:grade]
-    )
+    attributes = Hash[row].except(:state_id, :school_local_id, :full_name, :homeroom)
+    student.update_attributes(attributes)
+
     parsed_name = split_first_and_last_name(row[:full_name])
     student.assign_attributes(parsed_name)
     if student.save
