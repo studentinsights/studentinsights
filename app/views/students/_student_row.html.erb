@@ -1,5 +1,10 @@
                 <tr class="student-row">
                   <td class="name"><%= link_to presenter.full_name, student_url(presenter.id) %></td>
+                  <td class="risk">
+                    <div class="warning-bubble">
+                      <%= presenter.student.risk_level_words[0] %>
+                    </div>
+                  </td>
                   <td class="demographics"><%= presenter.home_language %></td>
                   <% star_result = presenter.latest_star %>
                   <% if star_result.present? %>
