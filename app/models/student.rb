@@ -31,6 +31,19 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def risk_level_words
+    case risk_level
+    when 0 || 1
+      "Low"
+    when 2
+      "Medium"
+    when 3
+      "High"
+    when nil
+      "N/A"
+    end
+  end
+
   def school_years
     if registration_date.present? || grade.present?
       if registration_date.present?
