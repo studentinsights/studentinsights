@@ -40,6 +40,28 @@
   }
 }
 
+.row {
+  float: left;
+  height: 100%;
+  margin-top: 60px;
+}
+
+#demographics-row {
+  width: 40%;
+}
+
+#school-year-boxes-row {
+  width: 60%;
+}
+
+.demographics-block {
+  margin: 20px 0px;
+}
+
+.demographics-item {
+  display: block;
+}
+
 .school-year {
   text-align: center;
 }
@@ -121,9 +143,9 @@
 }
 
 .students {
-
-  .info-area{
+  .info-area {
     margin-top: 0;
+    clear: both;
   }
 }
 

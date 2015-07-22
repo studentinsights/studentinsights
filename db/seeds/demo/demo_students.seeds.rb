@@ -20,6 +20,8 @@ AttendanceEvent.destroy_all
 
 36.times do
   student = Student.create(FakeStudent.data)
+  FakeStudent.randomize_504(student)
+  FakeStudent.randomize_program_assigned(student)
   student.homeroom_id = Homeroom.all.sample.id
   student.save
   mcasFactory =  FakeMcasResultGenerator.new

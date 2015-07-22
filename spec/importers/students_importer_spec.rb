@@ -5,30 +5,34 @@ RSpec.describe StudentsImporter do
 
   describe '#import_row' do
     context 'good data' do
-      context 'student already exists' do
-        let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
-        let(:row) { {state_id: '10', full_name: 'Pais, Casey', home_language: 'Chinese', grade: '1', homeroom: '701' } }
-        it 'updates student attributes' do
-          importer.import_row(row)
-          expect(student.reload.home_language).to eq 'Chinese'
-        end
+      let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
+      it 'imports two students' do
+        expect { importer.import(file) }.to change { Student.count }.by 2
       end
-      context 'student does not already exist' do
-        let(:row) { {state_id: '10', full_name: 'Pais, Casey', home_language: 'Chinese', grade: '1', homeroom: '701' } }
-        it 'creates a new student' do
-          expect { importer.import_row(row) }.to change(Student, :count).by 1
-        end
-        it 'sets the new student attributes correctly' do
-          importer.import_row(row)
-          expect(Student.last.grade).to eq '1'
-        end
+      it "imports first student's data correctly" do
+        importer.import(file)
+        first_student = Student.find_by_state_id("1000000000")
+        expect(first_student.program_assigned).to eq "Sp Ed"
+        expect(first_student.limited_english_proficiency).to eq "Fluent"
+        expect(first_student.student_address).to eq "155 9th St, San Francisco, CA"
+        expect(first_student.registration_date).to eq DateTime.new(2008, 2, 20)
+        expect(first_student.free_reduced_lunch).to eq "Not Eligible"
+      end
+      it "imports second student's data correctly" do
+        importer.import(file)
+        second_student = Student.find_by_state_id("1000000001")
+        expect(second_student.program_assigned).to eq "Reg Ed"
+        expect(second_student.limited_english_proficiency).to eq "FLEP-Transitioning"
+        expect(second_student.student_address).to eq "155 9th St, San Francisco, CA"
+        expect(second_student.registration_date).to eq DateTime.new(2005, 8, 5)
+        expect(second_student.free_reduced_lunch).to eq "Free Lunch"
       end
     end
     context 'bad data' do
       context 'missing state id' do
         let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '1', homeroom: '101' } }
         it 'raises an error' do
-          expect{ importer.import_row(row) }.to raise_error
+          expect{ importer.import_row(row) }.to raise_error ActiveRecord::RecordInvalid
         end
       end
     end

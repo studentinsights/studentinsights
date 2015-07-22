@@ -11,7 +11,7 @@ RSpec.describe StarResult, :type => :model do
     context 'does not have date taken' do
       let(:star_result) { FactoryGirl.create(:star_result_without_date_taken) }
       it 'raises an error' do
-        expect { star_result.save }.to raise_error
+        expect { star_result.save }.to raise_error NoMethodError
       end
     end
   end

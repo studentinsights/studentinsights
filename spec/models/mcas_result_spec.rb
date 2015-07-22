@@ -11,7 +11,7 @@ RSpec.describe McasResult, :type => :model do
     context 'does not have date taken' do
       let(:mcas_result) { FactoryGirl.create(:mcas_result_without_date_taken) }
       it 'raises an error' do
-        expect { mcas_result.save }.to raise_error
+        expect { mcas_result.save }.to raise_error NoMethodError
       end
     end
   end

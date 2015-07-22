@@ -1,50 +1,90 @@
-	<div id="controls">
-		<div id="roster-back">
-			<%= link_to "< Back to Roster", @roster_url %>
-		</div>
-		<div id="export">
-		<%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
-		</div>
-	</div>
+  <div id="controls">
+    <div id="roster-back">
+      <%= link_to "< Back to Roster", @roster_url %>
+    </div>
+    <div id="export">
+    <%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
+    </div>
+  </div>
 
-	<div class="info-area">
+  <div class="info-area">
 
-		<div id="student-info">
-			<h1 id="student-name"><%= @presenter.full_name %></h1>
-			<div id="risk-level">
-				<p>Risk level:</p>
-				<div id="risk-pill">
-					<div class="tooltip-circle">
-						<h3>High</h3>
-					</div>
-				</div>
-			</div>
-		</div>
+    <div id="student-info">
+      <h1 id="student-name"><%= @presenter.full_name %></h1>
+      <div id="risk-level">
+        <p>Risk level:</p>
+        <div id="risk-pill">
+          <div class="tooltip-circle">
+            <h3>High</h3>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<div id="graph-dropdown" class="dropdown">
-			<p>Graph:</p>
-			<select id="chart-type">
-				<option value="attendance">Attendance</option>
-		    	<option value="behavior">Behavior</option>
-		    	<option value="mcas-growth">MCAS Growth</option>
-		    	<option value="mcas-scaled">MCAS Score</option>
-		    	<option value="star">STAR</option>
-			</select>
-		</div>
+    <div id="graph-dropdown" class="dropdown">
+      <p>Graph:</p>
+      <select id="chart-type">
+        <option value="attendance">Attendance</option>
+          <option value="behavior">Behavior</option>
+          <option value="mcas-growth">MCAS Growth</option>
+          <option value="mcas-scaled">MCAS Score</option>
+          <option value="star">STAR</option>
+      </select>
+    </div>
 
-		<div id="chart"></div>
+    <div id="chart"></div>
 
-		<% if @student.school_years.present? %>
-			<% @student.school_years.each do |s| %>
-				<%= render "school_year_box", school_year: s, events: s.events(@student) %>
-		  <% end %>
-		<% end %>
-	</div>
+    <div id="demographics-row" class="row">
+      <h1>Demographics</h1>
+
+      <div class="demographics-block">
+        <h2>Information</h2>
+        <span class="demographics-item">
+          Program Assignment: <strong><%= @presenter.program_assigned %></strong>
+        </span>
+        <span class="demographics-item">
+        <span class="demographics-item">
+          504: <strong><%= @presenter.plan_504 %></strong>
+        </span>
+      </div>
+
+      <div class="demographics-block">
+        <h2>Language</h2>
+        <span class="demographics-item">
+          Fluency: <strong><%= @presenter.limited_english_proficiency %></strong>
+        </span>
+        <span class="demographics-item">
+          Home Language: <strong><%= @presenter.home_language %></strong>
+        </span>
+      </div>
+
+      <div class="demographics-block">
+        <h2>Special Education</h2>
+        <span class="demographics-item">
+          Placement: <strong><%= @presenter.sped_placement %></strong>
+        </span>
+        <span class="demographics-item">
+          Disabiity: <strong><%= @presenter.disability %></strong>
+        </span>
+        <span class="demographics-item">
+          Level: <strong><%= @presenter.sped_level_of_need %></strong>
+        </span>
+      </div>
+    </div>
+
+    <div id="school-year-boxes-row" class="row">
+      <% if @student.school_years.present? %>
+        <% @student.school_years.each do |s| %>
+          <%= render "school_year_box", school_year: s, events: s.events(@student) %>
+        <% end %>
+      <% end %>
+    </div>
+
 
 <%= tag("div", id: "profile-data", data:
-		{ attendance_events: @attendance_events,
-			discipline_incidents: @discipline_incidents,
-			mcas_results: @mcas_results,
-			star_results: @star_results
-		}
+    { attendance_events: @attendance_events,
+      discipline_incidents: @discipline_incidents,
+      mcas_results: @mcas_results,
+      star_results: @star_results
+    }
 ) %>
