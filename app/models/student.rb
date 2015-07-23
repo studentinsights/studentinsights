@@ -18,13 +18,13 @@ class Student < ActiveRecord::Base
       star_math = latest_star.math_percentile_rank
       star_ela = latest_star.reading_percentile_rank
 
-      if mcas_math == "A" || mcas_ela == "A" || star_math > 85 || star_ela > 85
-        0
-      elsif mcas_math == "W" || mcas_ela == "W" || mcas_math == "F" || mcas_ela == "F" ||
+      if mcas_math == "W" || mcas_ela == "W" || mcas_math == "F" || mcas_ela == "F" ||
         star_math < 10 || star_ela < 10 || limited_english_proficiency == "Limited"
         3
       elsif mcas_math == "NI" || mcas_ela == "NI" || star_math < 30 || star_ela < 30
         2
+      elsif mcas_math == "A" || mcas_ela == "A" || star_math > 85 || star_ela > 85
+        0
       else
         1
       end
