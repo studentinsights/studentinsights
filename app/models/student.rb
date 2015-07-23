@@ -9,6 +9,35 @@ class Student < ActiveRecord::Base
   validates_uniqueness_of :state_id
   include DateToSchoolYear
 
+  def risk_level
+    # As defined by Somerville Public Schools
+
+    if latest_mcas.risk_level == 3 || latest_star.risk_level == 3 || limited_english_proficiency == "Limited"
+      3
+    elsif latest_mcas.risk_level == 2 || latest_star.risk_level == 2
+      2
+    elsif latest_mcas.risk_level == 0 || latest_star.risk_level == 0
+      0
+    elsif latest_mcas.risk_level.nil? && latest_star.risk_level.nil?
+      nil
+    else
+      1
+    end
+  end
+
+  def risk_level_words
+    case risk_level
+    when 0 || 1
+      "Low"
+    when 2
+      "Medium"
+    when 3
+      "High"
+    when nil
+      "N/A"
+    end
+  end
+
   def school_years
     if registration_date.present? || grade.present?
       if registration_date.present?
@@ -75,12 +104,16 @@ class Student < ActiveRecord::Base
   def latest_star
     if star_results.present?
       star_results.last
+    else
+      MissingAssessment.new
     end
   end
 
   def latest_mcas
     if mcas_results.present?
       mcas_results.last
+    else
+      MissingAssessment.new
     end
   end
 end

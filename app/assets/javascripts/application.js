@@ -19,5 +19,6 @@
 //= require tablesort.min
 //= require tablesort.numeric
 //= require mcas_sort
+//= require risk_sort
 //= require roster
 //= require profile

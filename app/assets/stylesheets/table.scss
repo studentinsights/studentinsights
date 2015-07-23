@@ -74,7 +74,6 @@ tr, td {
 }
 
 .warning-bubble {
-  background-color: $warning-bubble;
   width: 30px;
   height: 30px;
   color: white;
@@ -105,11 +104,11 @@ tbody {
   }
 
   a:link, a:visited {
-    color: $gray; 
-  }     
+    color: $gray;
+  }
 
   a:hover, a:active {
-    color: $gray; 
+    color: $gray;
   }
 }
 
