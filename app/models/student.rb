@@ -12,22 +12,16 @@ class Student < ActiveRecord::Base
   def risk_level
     # As defined by Somerville Public Schools
 
-    if latest_mcas.present? && latest_star.present?
-      mcas_math = latest_mcas.math_performance
-      mcas_ela = latest_mcas.ela_performance
-      star_math = latest_star.math_percentile_rank
-      star_ela = latest_star.reading_percentile_rank
-
-      if mcas_math == "W" || mcas_ela == "W" || mcas_math == "F" || mcas_ela == "F" ||
-        star_math < 10 || star_ela < 10 || limited_english_proficiency == "Limited"
-        3
-      elsif mcas_math == "NI" || mcas_ela == "NI" || star_math < 30 || star_ela < 30
-        2
-      elsif mcas_math == "A" || mcas_ela == "A" || star_math > 85 || star_ela > 85
-        0
-      else
-        1
-      end
+    if latest_mcas.risk_level == 3 || latest_star.risk_level == 3 || limited_english_proficiency == "Limited"
+      3
+    elsif latest_mcas.risk_level == 2 || latest_star.risk_level == 2
+      2
+    elsif latest_mcas.risk_level == 0 || latest_star.risk_level == 0
+      0
+    elsif latest_mcas.risk_level.nil? && latest_star.risk_level.nil?
+      nil
+    else
+      1
     end
   end
 
@@ -110,12 +104,16 @@ class Student < ActiveRecord::Base
   def latest_star
     if star_results.present?
       star_results.last
+    else
+      MissingAssessment.new
     end
   end
 
   def latest_mcas
     if mcas_results.present?
       mcas_results.last
+    else
+      MissingAssessment.new
     end
   end
 end

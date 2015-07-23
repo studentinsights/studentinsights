@@ -5,8 +5,8 @@ end
 FactoryGirl.define do
 
   factory :student do
-      state_id
-      association :homeroom
+    state_id
+    association :homeroom
     factory :student_who_registered_in_2013_2014 do
       registration_date Date.new(2013, 8, 1)
     end
@@ -31,7 +31,9 @@ FactoryGirl.define do
       program_assigned "Sp Ed"
       sped_placement "Full Inclusion"
     end
-
+    factory :limited_english_student do
+      limited_english_proficiency "Limited"
+    end
     factory :student_with_mcas_result do
       grade "5"
       after(:create) do |student|

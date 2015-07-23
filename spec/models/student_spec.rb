@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Student do
+  describe '#risk_level' do
+    context 'limited english' do
+      let(:student) { FactoryGirl.create(:limited_english_student) }
+      it 'returns Risk Level 3' do
+        expect(student.risk_level).to eq(3)
+      end
+    end
+  end
+
   describe '#school_years' do
     context 'school years in the 2010s' do
       let!(:sy_2014_2015) { FactoryGirl.create(:sy_2014_2015) }
