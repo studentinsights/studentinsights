@@ -12,7 +12,7 @@ class Student < ActiveRecord::Base
   def risk_level
     # As defined by Somerville Public Schools
 
-    if latest_mcas.present? || latest_star.present?
+    if latest_mcas.present? && latest_star.present?
       mcas_math = latest_mcas.math_performance
       mcas_ela = latest_mcas.ela_performance
       star_math = latest_star.math_percentile_rank
