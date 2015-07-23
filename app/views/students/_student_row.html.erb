@@ -7,19 +7,19 @@
                   </td>
                   <td class="demographics"><%= presenter.home_language %></td>
                   <% star_result = presenter.latest_star %>
-                  <% if star_result.present? %>
+                  <% if star_result.is_a? MissingAssessment %>
+                    <%= render "students/blank_star_row" %>
+                  <% else %>
                     <% present(star_result) do |result_presenter| %>
                       <%= render "students/star_row_fragment", star_presenter: result_presenter %>
                     <% end %>
-                  <% else %>
-                    <%= render "students/blank_star_row" %>
                   <% end %>
                   <% mcas_result = presenter.latest_mcas %>
-                  <% if mcas_result.present? %>
+                  <% if mcas_result.is_a? MissingAssessment %>
+                    <%= render "students/blank_mcas_row" %>
+                  <% else %>
                     <% present(mcas_result) do |result_presenter| %>
                       <%= render "students/mcas_row_fragment", mcas_presenter: result_presenter %>
                     <% end %>
-                  <% else %>
-                    <%= render "students/blank_mcas_row" %>
                   <% end %>
                 </tr>
