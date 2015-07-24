@@ -1,5 +1,5 @@
-(function(root){
-  var ProfileController = function initializeProfileController () {};
+(function(root) {
+  var ProfileController = function initializeProfileController () {}
 
   ProfileController.prototype.show = function renderProfileController() {
 
@@ -10,8 +10,8 @@
       return options.series.every(function(element) {
         return element.data.every(function(el) {
           return el == 0
-        });
-      });
+        })
+      })
     }
 
     function convertRubyDatesToJsDates(series) {
@@ -19,8 +19,6 @@
         return [Date.UTC(element[0], element[1] - 1, element[2]), element[3]]
       })
     }
-
-    console.log(convertRubyDatesToJsDates(chart_data.data('star-series-math-percentile')))
 
     // Attendance events, behavior shown as aggregated counts by school year
     var attendance_series = [{
@@ -223,14 +221,14 @@
           options.yAxis.plotLines.push(star_plotline)
       }
       checkZero(options) ? zeroDraw(selVal) : chart = new Highcharts.Chart(options)
-    });
-  };
+    })
+  }
 
   root.ProfileController = ProfileController;
-})(window);
+})(window)
 
 $(function() {
   if ($('body').hasClass('students') && $('body').hasClass('show')) {
-    new window.ProfileController().show();
+    new window.ProfileController().show()
   }
-});
+})
