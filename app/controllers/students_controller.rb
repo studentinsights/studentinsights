@@ -7,8 +7,8 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
-    @presenter = StudentPresenter.new @student
-    @chart_data = @student.chart_data
+    @presenter = StudentPresenter.new(@student)
+    @chart_data = StudentProfileChart.new(@student).chart_data
 
     @roster_url = homeroom_students_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
@@ -16,7 +16,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { render csv: @student.profile_csv_export, filename: 'export' }
+      format.csv { render csv: StudentProfileCsvExporter.new(@student).profile_csv_export, filename: 'export' }
       format.pdf { render text: PDFKit.new(@student_url).to_pdf }
     end
   end
