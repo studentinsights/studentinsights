@@ -20,4 +20,5 @@
 //= require tablesort.numeric
 //= require mcas_sort
 //= require roster
+//= require chart_settings
 //= require profile

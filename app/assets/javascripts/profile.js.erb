@@ -62,108 +62,15 @@
       data: convertRubyDatesToJsDates(chart_data.data('mcas-series-ela-growth'))
     }]
 
-    var options = {
-      chart: {
-        renderTo: 'chart',
-        type: 'areaspline'
-      },
-      title: {
-        text: '',
-        style: {
-          display: 'none'
-        }
-      },
-      subtitle: {
-        text: '',
-        style: {
-          display: 'none'
-        }
-      },
-      legend: {
-        layout: 'horizontal',
-        align: 'right',
-        verticalAlign: 'top',
-        itemStyle: {
-          font: '12px "Open Sans", sans-serif !important;',
-          color: '#555555'
-        }
-      },
-      xAxis: {
-        categories: [],
-        dateTimeLabelFormats: {}
-      },
-      tooltip: {
-        shared: true
-      },
-      credits: {
-        enabled: false
-      },
-      plotOptions: {
-        areaspline: {
-          fillOpacity: 0
-        }
-      }
-    }
-
-    var x_axis_datetime = {
-      type: 'datetime',
-      dateTimeLabelFormats: {
-          day: '%e of %b'
-      }
-    }
-
-    var x_axis_schoolyears = {
-      type: 'linear',
-      categories: [],
-      dateTimeLabelFormats: {}
-    }
-
-    var default_yaxis = {
-      allowDecimals: false,
-      title: {
-        text: '',
-        style: {
-          display: 'none'
-        }
-      },
-      plotLines: [],
-      min: undefined,
-      max: undefined
-    }
-
-    var percentile_yaxis = $.extend({}, default_yaxis)
-    percentile_yaxis.min = 0
-    percentile_yaxis.max = 100
-
-    var mcas_growth_plotline = {
-      color: '#B90504',
-      width: 1,
-      zIndex: 3,
-      value: 40,
-      label: {
-        text: 'MCAS Growth warning: Less than 40 points',
-        align: 'center',
-        style: {
-          color: '#999999'
-        }
-      }
-    }
-
-    var star_plotline = {
-      color: '#B90504',
-      width: 1,
-      zIndex: 3,
-      value: 40,
-      label: {
-        text: 'STAR Percentile warning: Less than 40 points',
-        align: 'center',
-        style: {
-          color: '#999999'
-        }
-      }
-    }
-
     // Default view is attendance series
+    var options = ChartSettings.base_options
+    var default_yaxis = ChartSettings.default_yaxis
+    var x_axis_datetime = ChartSettings.x_axis_datetime
+    var x_axis_schoolyears = ChartSettings.x_axis_schoolyears
+    var percentile_yaxis = ChartSettings.percentile_yaxis
+    var mcas_growth_plotline = ChartSettings.mcas_growth_plotline
+    var star_plotline = ChartSettings.star_plotline
+
     options.series = attendance_series
     options.yAxis = default_yaxis
     options.xAxis.categories = chart_data.data('attendance-events-school-years')
@@ -181,7 +88,7 @@
         zeroHtml += '<h2>Hmm...</h2>'
       }
       zeroHtml += ('<div>'+ student_name + ' has no ' + options.title.text + ' on record</div>' + '</div>')
-      $('#chart').html(zeroHtml);
+      $('#chart').html(zeroHtml)
     }
 
     checkZero(options) ? zeroDraw('attendance') : chart = new Highcharts.Chart(options)
@@ -224,7 +131,7 @@
     })
   }
 
-  root.ProfileController = ProfileController;
+  root.ProfileController = ProfileController
 })(window)
 
 $(function() {
