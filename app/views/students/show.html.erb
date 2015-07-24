@@ -1,40 +1,34 @@
-	<div id="controls">
-		<div id="roster-back">
-			<%= link_to "< Back to Roster", @roster_url %>
-		</div>
-		<%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
-	</div>
+  <div id="controls">
+    <div id="roster-back">
+      <%= link_to "< Back to Roster", @roster_url %>
+    </div>
+    <%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
+  </div>
 
-	<div class="info-area">
+  <div class="info-area">
 
-	   <div id="student-info">
-			<h1 id="student-name"><%= @presenter.full_name %></h1>
-		</div>
+     <div id="student-info">
+      <h1 id="student-name"><%= @presenter.full_name %></h1>
+    </div>
 
-		<div id="graph-dropdown" class="dropdown">
-			<p>Graph:</p>
-			<select id="chart-type">
-		    	<option value="attendance">Attendance</option>
-		    	<option value="behavior">Behavior</option>
-		    	<option value="mcas-growth">MCAS Growth</option>
-		    	<option value="mcas-scaled">MCAS Score</option>
-		    	<option value="star">STAR</option>
-			</select>
-		</div>
+    <div id="graph-dropdown" class="dropdown">
+      <p>Graph:</p>
+      <select id="chart-type">
+          <option value="attendance">Attendance</option>
+          <option value="behavior">Behavior</option>
+          <option value="mcas-growth">MCAS Growth</option>
+          <option value="mcas-scaled">MCAS Score</option>
+          <option value="star">STAR</option>
+      </select>
+    </div>
 
-	  <div id="chart"></div>
+    <div id="chart"></div>
 
-	  <% if @student.school_years.present? %>
-			<% @student.school_years.each do |s| %>
-				<%= render "school_year_box", school_year: s, events: s.events(@student) %>
-		  <% end %>
-		<% end %>
-	</div>
+    <% if @student.school_years.present? %>
+      <% @student.school_years.each do |s| %>
+        <%= render "school_year_box", school_year: s, events: s.events(@student) %>
+      <% end %>
+    <% end %>
+  </div>
 
-<%= tag("div", id: "profile-data", data:
-		{ attendance_events: @attendance_events,
-			discipline_incidents: @discipline_incidents,
-			mcas_results: @mcas_results,
-			star_results: @star_results
-		}
-) %>
+<%= tag("div", id: "chart-data", data: @chart_data) %>

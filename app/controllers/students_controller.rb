@@ -8,12 +8,7 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     @presenter = StudentPresenter.new @student
-    profile = @student.profile_data
-
-    @attendance_events = profile[:attendance_events]
-    @discipline_incidents = profile[:discipline_incidents]
-    @mcas_results = profile[:mcas_results]
-    @star_results = profile[:star_results]
+    @chart_data = @student.chart_data
 
     @roster_url = homeroom_students_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
