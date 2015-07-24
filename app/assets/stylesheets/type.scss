@@ -30,13 +30,13 @@ h3 {
   color: $gray;
 }
 
-h4 {
+.about-big, h4 {
   font-size: 24px;
   font-weight: 300;
   color: $blue;
 }
 
-h5 {
+.about-head, h5 {
   font-size: 14px;
   font-weight: 700;
   color: $gray;
@@ -49,19 +49,19 @@ h6 {
   color: $dark-gray;
 }
 
-a { 
+a {
   font-size: 14px;
   font-weight: 400;
-  text-decoration: none; 
+  text-decoration: none;
   cursor: pointer;
 }
 
 a:link, a:visited {
-  color: $link; 
-}     
+  color: $link;
+}
 
 a:hover, a:active {
-  color: $link-hover; 
+  color: $link-hover;
 }
 
 .smalltype {

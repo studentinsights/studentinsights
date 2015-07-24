@@ -10,7 +10,9 @@
   <body class="<%= controller_name %> <%= action_name %>">
     <div class="nav">
       <div class="navwrap">
-          <div id="logo"><h1 id="title" alt="Student Insights"></h1></div>
+          <div id="logo">
+            <div id="title" alt="Student Insights"></div>
+          </div>
           <nav>
             <% if educator_signed_in? %>
               <% unless controller_name == 'students' %>
