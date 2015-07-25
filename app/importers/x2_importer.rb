@@ -10,8 +10,8 @@ module X2Importer
 
   def client
     SftpClient.new({
-      user: ENV['SIS_SFTP_HOST'],
-      host: ENV['SIS_SFTP_USER'],
+      user: ENV['SIS_SFTP_USER'],
+      host: ENV['SIS_SFTP_HOST'],
       key_data: ENV['SIS_SFTP_KEY']
     })
   end

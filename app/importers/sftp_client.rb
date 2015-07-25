@@ -13,7 +13,7 @@ class SftpClient < Struct.new :credentials
       auth = {}
       auth[:password] = credentials[:password] if credentials[:password].present?
       auth[:key_data] = credentials[:key_data] if credentials[:key_data].present?
-      Net::SFTP.start(credentials[:user], credentials[:host], auth)
+      Net::SFTP.start(credentials[:host], credentials[:user], auth)
     else
       raise "SFTP information missing"
     end
