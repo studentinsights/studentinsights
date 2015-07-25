@@ -4,7 +4,7 @@ module X2Importer
 
   # Any class using X2Importer should implement two methods:
   # export_file_name => string pointing to the name of the remote file to parse
-  # import_row => function that describes how to handle each row; takes row as only argument
+  # import_row => function that describes how to handle each row (implemented by handle_row)
 
   attr_accessor :school, :summer_school_local_ids, :recent_only
 
@@ -26,29 +26,25 @@ module X2Importer
 
   def import(file)
     require 'csv'
-    csv = CSV.new(file, headers: true, header_converters: :symbol, converters: lambda { |h| nil_converter(h) })
-    number_of_rows, n = count_number_of_rows(file), 0 if Rails.env.development?
-
-    csv.each do |row|
-      if @school.present?
-        import_if_in_school_scope(row)
-      elsif @summer_school_local_ids.present?
-        import_if_in_summer_school(row)
-      else
-        import_row row
-      end
-      n += 1 if Rails.env.development?
-      print progress_bar(n, number_of_rows) if Rails.env.development?
+    if Rails.env.development?
+      n = 0
+      number_of_rows = count_number_of_rows(file)
     end
+
+    csv = CSV.new(file, headers: true, header_converters: :symbol, converters: lambda { |h| nil_converter(h) })
+    csv.each do |row|
+      handle_row(row)
+      if Rails.env.development?
+        n += 1
+        print progress_bar(n, number_of_rows)
+      end
+    end
+
     puts if Rails.env.development?
     return csv
   end
 
-  def nil_converter(field_value)
-    if field_value == '\N'
-      nil
-    else
-      field_value
-    end
+  def nil_converter(value)
+    value == '\N' ? nil : value
   end
 end

@@ -26,20 +26,21 @@ module StarImporter
 
   def import(file)
     require 'csv'
+    if Rails.env.development?
+      n = 0
+      number_of_rows = count_number_of_rows(file)
+    end
+
     csv = CSV.new(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
-    number_of_rows, n = count_number_of_rows(file), 0 if Rails.env.development?
     csv.each do |row|
       row.length.times { row.delete(nil) }
-      if @school.present?
-        import_if_in_school_scope(row)
-      elsif @summer_school_local_ids.present?
-        import_if_in_summer_school(row)
-      else
-        import_row row
+      handle_row(row)
+      if Rails.env.development?
+        n += 1
+        print progress_bar(n, number_of_rows)
       end
-      n += 1 if Rails.env.development?
-      print progress_bar(n, number_of_rows) if Rails.env.development?
     end
+
     puts if Rails.env.development?
     return csv
   end

@@ -30,6 +30,16 @@ module Importer
 
   # SCOPED IMPORT #
 
+  def handle_row(row)
+    if @school.present?
+      import_if_in_school_scope(row)
+    elsif @summer_school_local_ids.present?
+      import_if_in_summer_school(row)
+    else
+      import_row row
+    end
+  end
+
   def import_if_in_school_scope(row)
     if @school.local_id == row[:school_local_id]
       import_row row
