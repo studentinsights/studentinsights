@@ -1,8 +1,4 @@
 module ProgressBar
-  def count_number_of_rows(file)
-    CSV.parse(file).size - 1
-  end
-
   def progress_bar(n, length)
     fractional_progress = (n.to_f / length.to_f)
     percentage_progress = (fractional_progress * 100).to_i.to_s + "%"

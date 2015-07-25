@@ -1,6 +1,7 @@
 module StarImporter
   include Importer
   include ProgressBar
+  require 'csv'
 
   # Any class using StarImporter should implement two methods:
   # export_file_name => string pointing to the name of the remote file to parse
@@ -16,14 +17,18 @@ module StarImporter
     })
   end
 
+  def parse_as_csv(file)
+    CSV.parse(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
+  end
+
   def import(file)
-    require 'csv'
+    csv = parse_as_csv(file)
+
     if Rails.env.development?
       n = 0
-      number_of_rows = count_number_of_rows(file)
+      number_of_rows = csv.size
     end
 
-    csv = CSV.new(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
     csv.each do |row|
       row.length.times { row.delete(nil) }
       handle_row(row)

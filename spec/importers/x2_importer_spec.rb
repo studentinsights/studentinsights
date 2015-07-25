@@ -15,15 +15,11 @@ RSpec.describe do
     context 'students' do
       let(:x2_importer) { x2_student_import_class.new }
 
-      before(:each) do
-        allow(x2_importer).to receive(:count_number_of_rows).with(file).and_return 2
-      end
-
       context 'with good data' do
         let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
         context 'not scoped to healey school' do
           it 'returns a csv' do
-            expect(x2_importer.import(file)).to be_a CSV
+            expect(x2_importer.import(file)).to be_a_kind_of CSV::Table
           end
           it 'sets the headers correctly' do
             headers = x2_importer.import(file).headers
