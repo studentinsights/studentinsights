@@ -21,26 +21,6 @@ module X2Importer
     CSV.parse(file, headers: true, header_converters: :symbol, converters: lambda { |h| nil_converter(h) })
   end
 
-  def import(file)
-    csv = parse_as_csv(file)
-
-    if Rails.env.development?
-      n = 0
-      number_of_rows = csv.size
-    end
-
-    csv.each do |row|
-      handle_row(row)
-      if Rails.env.development?
-        n += 1
-        print progress_bar(n, number_of_rows)
-      end
-    end
-
-    puts if Rails.env.development?
-    return csv
-  end
-
   def nil_converter(value)
     value == '\N' ? nil : value
   end

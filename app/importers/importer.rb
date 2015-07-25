@@ -14,6 +14,27 @@ module Importer
     import(file)
   end
 
+  def import(file)
+    csv = parse_as_csv(file)
+
+    if Rails.env.development?
+      n = 0
+      number_of_rows = csv.size
+    end
+
+    csv.each do |row|
+      row.delete(nil)
+      handle_row(row)
+      if Rails.env.development?
+        n += 1
+        print progress_bar(n, number_of_rows)
+      end
+    end
+
+    puts if Rails.env.development?
+    return csv
+  end
+
   def handle_row(row)
     if @school.present?
       import_if_in_school_scope(row)
