@@ -8,7 +8,12 @@ function checkZero (options) {
 
 function convertRubyDatesToJsDates (series) {
   return series.map(function(element) {
-    return [Date.UTC(element[0], element[1] - 1, element[2]), element[3]]
+    return [
+      Date.UTC(element[0],
+               element[1] - 1,   // JavaScript months start with 0, Ruby months start with 1
+               element[2]),
+      element[3]
+    ]
   })
 }
 
