@@ -93,4 +93,21 @@
     </div>
   </script>
 
+  <script id="zero-case-template" type="x-tmpl-mustache">
+    <div class="zero-case">
+      <img src="<%= asset_path('bonsai.svg') %>"/>
+      <br/>
+      <br/>
+      {{#happy_message}}
+        <h2>Looks Great!</h2>
+      {{/happy_message}}
+      {{^happy_message}}
+        <h2>Hmm...</h2>
+      {{/happy_message}}
+      <div>
+        {{name}} has no {{data_type}} on record
+      </div>
+    </div>
+  </script>
+
 <%= tag("div", id: "chart-data", data: @chart_data) %>

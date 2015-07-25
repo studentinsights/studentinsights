@@ -66,14 +66,20 @@
 
     function zeroDraw(draw_type) {
       $('#chart').empty()
-      var zeroHtml = '<div class="zero-case">'
-      zeroHtml += '<img src="<%= asset_path('bonsai.svg') %>"/>'
-      if (draw_type === 'attendance' || draw_type === 'behavior') {
-        zeroHtml += '<h2>Looks Great!</h2>'
-      } else {
-        zeroHtml += '<h2>Hmm...</h2>'
+
+      var view = {
+        name: student_name,
+        data_type: options.title.text
       }
-      zeroHtml += ('<div>'+ student_name + ' has no ' + options.title.text + ' on record</div>' + '</div>')
+
+      if (draw_type === 'attendance' || draw_type === 'behavior') {
+        view.happy_message = true
+      } else {
+        view.happy_message = false
+      }
+
+      var zero_case_template = $('#zero-case-template').html()
+      var zeroHtml = Mustache.render(zero_case_template, view)
       $('#chart').html(zeroHtml)
     }
 
