@@ -28,6 +28,12 @@ module Importer
     end
   end
 
+  def initialize(options = {})
+    @school = options[:school]
+    @recent_only = options[:recent_only]
+    @summer_school_local_ids = options[:summer_school_local_ids]    # For importing only summer school students
+  end
+
   # SCOPED IMPORT #
 
   def handle_row(row)
