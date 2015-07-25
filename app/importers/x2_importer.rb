@@ -1,5 +1,7 @@
 module X2Importer
   include Importer
+  include ProgressBar
+
   # Any class using X2Importer should implement two methods:
   # export_file_name => string pointing to the name of the remote file to parse
   # import_row => function that describes how to handle each row; takes row as only argument
@@ -12,27 +14,14 @@ module X2Importer
     @summer_school_local_ids = options[:summer_school_local_ids]    # For importing only summer school students
   end
 
-  def sftp_info_present?
-    ENV['SIS_SFTP_HOST'].present? &&
-    ENV['SIS_SFTP_USER'].present? &&
-    ENV['SIS_SFTP_KEY'].present?
-  end
-
   def connect_and_import
-    if sftp_info_present?
-      Net::SFTP.start(
-        ENV['SIS_SFTP_HOST'],
-        ENV['SIS_SFTP_USER'],
-        key_data: ENV['SIS_SFTP_KEY'],
-        keys_only: true,
-        ) do |sftp|
-        # For documentation see https://net-ssh.github.io/sftp/v2/api/
-        file = sftp.download!(export_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-        import(file)
-      end
-    else
-      raise "SFTP information missing"
-    end
+    sftp = SftpClient.new({
+      user: ENV['SIS_SFTP_HOST'],
+      host: ENV['SIS_SFTP_USER'],
+      key_data: ENV['SIS_SFTP_KEY']
+    }).start
+    file = sftp.download!(export_file_name)
+    import(file)
   end
 
   def import(file)
