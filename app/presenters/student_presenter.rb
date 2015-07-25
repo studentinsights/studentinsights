@@ -10,19 +10,21 @@ class StudentPresenter < Struct.new(:student)
   end
 
   def attributes_for_presentation
-    [ :sped, :limited_english_proficient ]
+    [
+      :plan_504,
+      :home_language,
+      :limited_english_proficiency,
+      :program_assigned,
+      :sped_placement,
+      :disability,
+      :sped_level_of_need
+    ]
   end
 
   def method_missing(m, *args, &block)
     if attributes_for_presentation.include? m
-      case student.send(m)
-      when true
-        "Yes"
-      when false
-        "No"
-      when nil
-        "—"
-      end
+      value = student.send(m)
+      !value.nil? ? value : "N/A"
     else
       raise NoMethodError
     end

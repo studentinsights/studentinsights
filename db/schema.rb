@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629142658) do
+ActiveRecord::Schema.define(version: 20150721221555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20150629142658) do
     t.string   "grade"
     t.boolean  "hispanic_latino"
     t.string   "race"
-    t.boolean  "free_reduced_lunch"
+    t.string   "free_reduced_lunch"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "sped"
@@ -138,11 +138,15 @@ ActiveRecord::Schema.define(version: 20150629142658) do
     t.string   "home_language"
     t.string   "address"
     t.integer  "school_id"
-    t.boolean  "limited_english_proficient"
-    t.boolean  "former_limited_english_proficient"
     t.string   "student_address"
     t.datetime "registration_date"
     t.string   "local_id"
+    t.string   "program_assigned"
+    t.string   "sped_placement"
+    t.string   "disability"
+    t.string   "sped_level_of_need"
+    t.string   "plan_504"
+    t.string   "limited_english_proficiency"
   end
 
 end
