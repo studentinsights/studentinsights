@@ -40,36 +40,38 @@ class StudentRiskLevel < Struct.new :student
         explanations << "#{first_name} is limited English proficient."
       end
       if latest_mcas.risk_level == 3
-        explanations << "#{first_name} has an MCAS performance level of Warning."
+        explanations << "#{first_name}'s MCAS performance level is Warning."
       end
       if latest_star.risk_level == 3
-        explanations << "#{first_name} has an STAR performance in the warning range (below 10)."
+        explanations << "#{first_name}'s STAR performance is in the warning range (below 10)."
       end
     when 2
       if latest_mcas.risk_level == 2
-        explanations << "#{first_name} has an MCAS performance level of Needs Improvement."
+        explanations << "#{first_name}'s MCAS performance level is Needs Improvement."
       end
       if latest_star.risk_level == 2
-        explanations << "#{first_name} has an STAR performance in the 10-30 range."
+        explanations << "#{first_name}'s STAR performance is in the 10-30 range."
       end
     when 1
       if latest_mcas.risk_level == 1
-        explanations << "#{first_name} has an MCAS performance level of Proficient."
+        explanations << "#{first_name}'s MCAS performance level is Proficient."
       end
       if latest_star.risk_level == 1
-        explanations << "#{first_name} has an STAR performance in the 30-85 range."
+        explanations << "#{first_name}'s STAR performance is above 30."
       end
     when 0
-      if latest_mcas.risk_level == 1
-        explanations << "#{first_name} has an MCAS performance level of Advanced."
+      if latest_mcas.risk_level == 0
+        explanations << "#{first_name}'s MCAS performance level is Advanced."
       end
-      if latest_star.risk_level == 1
-        explanations << "#{first_name} has an STAR performance above 85."
+      if latest_star.risk_level == 0
+        explanations << "#{first_name}'s STAR performance is above 85."
       end
     when nil
       explanations << "There is not enough information to tell."
     end
-    return "#{full_name} is at #{level_in_words} Risk because: <ul>" + explanations.map { |e| "<li>#{e}</li>" }.join + "</ul>"
+
+    explanation = "#{full_name} is at #{level_in_words} Risk because:<br/><br/>"
+    explanation += "<ul>" + explanations.map { |e| "<li>#{e}</li>" }.join + "</ul>"
   end
 
   def student_presenter
