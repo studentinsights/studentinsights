@@ -3,7 +3,7 @@
       <%= link_to "< Back to Roster", @roster_url %>
     </div>
     <div id="export">
-    <%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
+      <%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
     </div>
   </div>
 
@@ -25,10 +25,10 @@
       <p>Graph:</p>
       <select id="chart-type">
         <option value="attendance">Attendance</option>
-          <option value="behavior">Behavior</option>
-          <option value="mcas-growth">MCAS Growth</option>
-          <option value="mcas-scaled">MCAS Score</option>
-          <option value="star">STAR</option>
+        <option value="behavior">Behavior</option>
+        <option value="mcas-growth">MCAS Growth</option>
+        <option value="mcas-scaled">MCAS Score</option>
+        <option value="star">STAR</option>
       </select>
     </div>
 
@@ -81,10 +81,4 @@
     </div>
 
 
-<%= tag("div", id: "profile-data", data:
-    { attendance_events: @attendance_events,
-      discipline_incidents: @discipline_incidents,
-      mcas_results: @mcas_results,
-      star_results: @star_results
-    }
-) %>
+<%= tag("div", id: "chart-data", data: @chart_data) %>

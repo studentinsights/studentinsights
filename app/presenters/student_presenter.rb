@@ -1,5 +1,5 @@
 class StudentPresenter < Struct.new(:student)
-  delegate :id, :latest_mcas, :latest_star, :first_name, :last_name, to: :student
+  delegate :id, :latest_mcas, :latest_star, :first_name, :last_name, :home_language, to: :student
 
   def full_name
     if first_name.present? && last_name.present?

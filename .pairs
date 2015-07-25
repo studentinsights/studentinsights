@@ -1,0 +1,9 @@
+pairs:
+  dr: Doc Ritezel; doc
+  as: Alex Soble; alex
+
+email:
+  prefix: somerville
+  domain: codeforamerica.org
+
+global: true
