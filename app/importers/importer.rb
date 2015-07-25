@@ -8,6 +8,12 @@ module Importer
 
   # SCOPED IMPORT #
 
+  def connect_and_import
+    sftp = client.start
+    file = sftp.download!(export_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+    import(file)
+  end
+
   def handle_row(row)
     if @school.present?
       import_if_in_school_scope(row)

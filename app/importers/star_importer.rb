@@ -16,12 +16,6 @@ module StarImporter
     })
   end
 
-  def connect_and_import
-    sftp = client.start
-    file = sftp.download!(export_file_name)
-    import(file)
-  end
-
   def import(file)
     require 'csv'
     if Rails.env.development?
