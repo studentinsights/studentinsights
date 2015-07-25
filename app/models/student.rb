@@ -30,7 +30,7 @@ class Student < ActiveRecord::Base
 
   def latest_star
     if star_results.present?
-      star_results.last
+      star_results.order(date_taken: :asc).last
     else
       MissingAssessment.new
     end
@@ -38,7 +38,7 @@ class Student < ActiveRecord::Base
 
   def latest_mcas
     if mcas_results.present?
-      mcas_results.last
+      mcas_results.order(date_taken: :asc).last
     else
       MissingAssessment.new
     end
