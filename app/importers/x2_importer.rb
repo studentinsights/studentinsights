@@ -8,12 +8,16 @@ module X2Importer
 
   attr_accessor :school, :summer_school_local_ids, :recent_only
 
-  def connect_and_import
-    sftp = SftpClient.new({
+  def client
+    SftpClient.new({
       user: ENV['SIS_SFTP_HOST'],
       host: ENV['SIS_SFTP_USER'],
       key_data: ENV['SIS_SFTP_KEY']
-    }).start
+    })
+  end
+
+  def connect_and_import
+    sftp = client.start
     file = sftp.download!(export_file_name)
     import(file)
   end

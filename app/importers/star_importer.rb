@@ -8,12 +8,16 @@ module StarImporter
 
   attr_accessor :school, :summer_school_local_ids, :recent_only
 
-  def connect_and_import
-    sftp = SftpClient.new({
+  def client
+    SftpClient.new({
       user: ENV['STAR_SFTP_USER'],
       host: ENV['STAR_SFTP_HOST'],
       password: ENV['STAR_SFTP_PASSWORD']
-    }).start
+    })
+  end
+
+  def connect_and_import
+    sftp = client.start
     file = sftp.download!(export_file_name)
     import(file)
   end
