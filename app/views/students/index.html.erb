@@ -56,7 +56,7 @@
      </thead>
       <% if @students.present? %>
         <% @students.find_each do |student| %>
-          <%= render "students/student_row", presenter: StudentPresenter.new(student) %>
+          <%= render "students/student_row", presenter: StudentPresenter.new(student), risk: StudentRiskLevel.new(student) %>
         <% end %>
       <% end %>
     </table>

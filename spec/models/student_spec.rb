@@ -1,59 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Student do
-  describe '#risk_level' do
-    context 'missing MCAS and STAR results' do
-      context 'not limited English' do
-        let(:student) { FactoryGirl.create(:student) }
-        it 'has Risk Level of nil' do
-          expect(student.risk_level).to eq nil
-        end
-      end
-      context 'limited english' do
-        let(:student) { FactoryGirl.create(:limited_english_student) }
-        it 'has Risk Level 3' do
-          expect(student.risk_level).to eq 3
-        end
-      end
-    end
-    context 'has MCAS results but not STAR' do
-      context 'has MCAS math but not MCAS ela' do
-        context 'has a W value for MCAS math' do
-          let(:student) { FactoryGirl.create(:student_with_mcas_math_warning) }
-          it 'has risk level 3' do
-            expect(student.risk_level).to eq 3
-          end
-        end
-      end
-      context 'has both MCAS math and MCAS ela' do
-        context 'has advanced math and warning ela' do
-          let(:student) { FactoryGirl.create(:student_with_mcas_advanced_math_and_warning_ela) }
-          it 'has Risk Level 3' do
-            expect(student.risk_level).to eq 3
-          end
-        end
-      end
-    end
-    context 'has STAR results but not MCAS' do
-      context 'has STAR math but not STAR reading' do
-        context 'STAR math is between 30 and 85' do
-          let(:student) { FactoryGirl.create(:student_with_star_between_30_85) }
-          it 'has Risk Level 1' do
-            expect(student.risk_level).to eq 1
-          end
-        end
-      end
-    end
-    context 'has both MCAS and STAR results' do
-      context 'MCAS is advanced but STAR is warning' do
-        let(:student) { FactoryGirl.create(:student_with_mcas_advanced_and_star_warning) }
-        it 'has Risk Level 3' do
-          expect(student.risk_level).to eq 3
-        end
-      end
-    end
-  end
-
   describe '#school_years' do
     context 'school years in the 2010s' do
       let!(:sy_2014_2015) { FactoryGirl.create(:sy_2014_2015) }
