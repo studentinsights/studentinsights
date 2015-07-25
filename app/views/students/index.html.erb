@@ -56,8 +56,22 @@
      </thead>
       <% if @students.present? %>
         <% @students.find_each do |student| %>
-          <%= render "students/student_row", presenter: StudentPresenter.new(student) %>
+          <%= render "students/student_row", presenter: StudentPresenter.new(student), risk: StudentRiskLevel.new(student) %>
         <% end %>
       <% end %>
     </table>
   </div>
+  <script id="roster-tooltip-template" type="x-tmpl-mustache">
+    <div class="warning-key">
+      <div class="warning-header">
+        <div class="warning-dot"></div>
+        <h6>Warning Indicators</h6>
+      </div>
+      <div class="warning-set">
+        <p><strong>MCAS Performance:</strong> Warning</p>
+        <p><strong>MCAS Growth:</strong> Less than 40 points</p>
+        <p><strong>STAR Percentile:</strong> Less than 40 points</p>
+        <p><strong>STAR Reading IRL:</strong> A year or more behind</p>
+      </div>
+    </div>
+  </script>

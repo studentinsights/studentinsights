@@ -13,9 +13,9 @@
       <h1 id="student-name"><%= @presenter.full_name %></h1>
       <div id="risk-level">
         <p>Risk level:</p>
-        <div id="risk-pill" class="<%= @student.risk_level_words.downcase %>">
+        <div id="risk-pill" class="<%= @risk.level_in_words.downcase %>">
           <div class="tooltip-circle">
-            <h3><%= @student.risk_level_words %></h3>
+            <h3><%= @risk.level_in_words %></h3>
           </div>
         </div>
       </div>
@@ -80,5 +80,17 @@
       <% end %>
     </div>
 
+  </div>
+
+  <script id="risk-level-tooltip-template" type="x-tmpl-mustache">
+    <div class="warning-key">
+      <div class="warning-header">
+        Risk level: <%= @risk.level_in_words %>
+      </div>
+      <div class="warning-set">
+        <%= @risk.explanation.html_safe %>
+      </div>
+    </div>
+  </script>
 
 <%= tag("div", id: "chart-data", data: @chart_data) %>
