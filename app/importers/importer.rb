@@ -23,7 +23,7 @@ module Importer
     end
 
     csv.each do |row|
-      row.delete(nil)
+      row.length.times { row.delete(nil) }
       handle_row(row)
       if Rails.env.development?
         n += 1
