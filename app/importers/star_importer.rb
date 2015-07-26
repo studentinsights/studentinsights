@@ -21,27 +21,6 @@ module StarImporter
     CSV.parse(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
   end
 
-  def import(file)
-    csv = parse_as_csv(file)
-
-    if Rails.env.development?
-      n = 0
-      number_of_rows = csv.size
-    end
-
-    csv.each do |row|
-      row.length.times { row.delete(nil) }
-      handle_row(row)
-      if Rails.env.development?
-        n += 1
-        print progress_bar(n, number_of_rows)
-      end
-    end
-
-    puts if Rails.env.development?
-    return csv
-  end
-
   def convert_headers(header)
     if header_dictionary.keys.include? header
       header = header_dictionary[header]
