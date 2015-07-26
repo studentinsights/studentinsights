@@ -31,6 +31,19 @@ class StudentRiskLevel < Struct.new :student
     end
   end
 
+  def level_abbreviation
+   case level
+    when 0, 1
+      "L"
+    when 2
+      "M"
+    when 3
+      "H"
+    when nil
+      "N/A"
+    end
+  end
+
   def explanation
     explanations = []
 

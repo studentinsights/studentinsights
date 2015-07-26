@@ -1,8 +1,8 @@
                 <tr class="student-row">
                   <td class="name"><%= link_to presenter.full_name, student_url(presenter.id) %></td>
                   <td class="risk">
-                    <div class="warning-bubble <%= risk.level_in_words.downcase %>">
-                      <%= risk.level_in_words[0] %>
+                    <div class="warning-bubble <%= risk.level_in_words.downcase.gsub("/", "") %>">
+                      <%= risk.level_abbreviation %>
                     </div>
                   </td>
                   <td class="demographics"><%= presenter.home_language %></td>
