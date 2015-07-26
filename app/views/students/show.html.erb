@@ -13,7 +13,7 @@
       <h1 id="student-name"><%= @presenter.full_name %></h1>
       <div id="risk-level">
         <p>Risk level:</p>
-        <div id="risk-pill" class="<%= @risk.level_in_words.downcase %>">
+        <div id="risk-pill" class="<%= @risk.css_class_name %>">
           <div class="tooltip-circle">
             <h3><%= @risk.level_in_words %></h3>
           </div>
