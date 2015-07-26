@@ -1,56 +1,43 @@
 module StarImporter
   include Importer
+  include ProgressBar
+  require 'csv'
+
   # Any class using StarImporter should implement two methods:
   # export_file_name => string pointing to the name of the remote file to parse
   # header_converters => function that describes how to convert the headers on the remote files
 
   attr_accessor :school, :summer_school_local_ids, :recent_only
 
-  def initialize(options = {})
-    @school = options[:school]
-    @recent_only = options[:recent_only]
-    @summer_school_local_ids = options[:summer_school_local_ids]    # For importing only summer school students
+  def client
+    SftpClient.new({
+      user: ENV['STAR_SFTP_USER'],
+      host: ENV['STAR_SFTP_HOST'],
+      password: ENV['STAR_SFTP_PASSWORD']
+    })
   end
 
-  def sftp_info_present?
-    ENV['STAR_SFTP_HOST'].present? &&
-    ENV['STAR_SFTP_USER'].present? &&
-    ENV['STAR_SFTP_PASSWORD'].present?
-  end
-
-  def connect_and_import
-    if sftp_info_present?
-      Net::SFTP.start(
-        ENV['STAR_SFTP_HOST'],
-        ENV['STAR_SFTP_USER'],
-        password: ENV['STAR_SFTP_PASSWORD']
-        ) do |sftp|
-        # For documentation on Net::SFTP::Operations::File, see
-        # http://net-ssh.github.io/sftp/v2/api/classes/Net/SFTP/Operations/File.html
-        file = sftp.download!(export_file_name)
-        import(file)
-      end
-    else
-      raise "SFTP information missing"
-    end
+  def parse_as_csv(file)
+    CSV.parse(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
   end
 
   def import(file)
-    require 'csv'
-    csv = CSV.new(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
-    number_of_rows, n = count_number_of_rows(file), 0 if Rails.env.development?
+    csv = parse_as_csv(file)
+
+    if Rails.env.development?
+      n = 0
+      number_of_rows = csv.size
+    end
+
     csv.each do |row|
       row.length.times { row.delete(nil) }
-      if @school.present?
-        import_if_in_school_scope(row)
-      elsif @summer_school_local_ids.present?
-        import_if_in_summer_school(row)
-      else
-        import_row row
+      handle_row(row)
+      if Rails.env.development?
+        n += 1
+        print progress_bar(n, number_of_rows)
       end
-      n += 1 if Rails.env.development?
-      print progress_bar(n, number_of_rows) if Rails.env.development?
     end
+
     puts if Rails.env.development?
     return csv
   end
