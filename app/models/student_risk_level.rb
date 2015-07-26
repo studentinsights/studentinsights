@@ -32,16 +32,11 @@ class StudentRiskLevel < Struct.new :student
   end
 
   def level_abbreviation
-   case level
-    when 0, 1
-      "L"
-    when 2
-      "M"
-    when 3
-      "H"
-    when nil
-      "N/A"
-    end
+    level_in_words == "N/A" ? level_in_words : level_in_words[0]
+  end
+
+  def css_class_name
+    level_in_words.downcase.gsub("/", "")
   end
 
   def explanation
