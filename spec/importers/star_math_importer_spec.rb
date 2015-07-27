@@ -7,7 +7,7 @@ RSpec.describe StarMathImporter do
 			let(:math_importer) { StarMathImporter.new }
 			context 'with good data' do
 				it 'creates a new assessment' do
-					expect { math_importer.import(file) }.to change(Assessment.count).by 1
+					expect { math_importer.import(file) }.to change { Assessment.count }.by 1
 				end
 				it 'creates a new STAR assessment' do
 					math_importer.import(file)
