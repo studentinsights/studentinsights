@@ -29,6 +29,8 @@
     <table id="roster-table" border="0" cellspacing="0" cellpadding="10" class="sort-default">
       <thead>
         <tr class="column-groups">
+          <!-- TOP-LEVEL COLUMN GROUPS -->
+          <!-- i.e. "MCAS", "STAR" -->
           <td colspan="1" class="name"></td>
           <td colspan="1" class="risk"><p class="smalltype">Risk Level</p></td>
           <td colspan="1" class="program"><p class="smalltype">Program</p></td>
@@ -39,6 +41,8 @@
           <td colspan="4" class="mcas"><p class="smalltype">MCAS</p></td>
         </tr>
         <tr class="column-groups">
+          <!-- SUB-GROUPS -->
+          <!-- i.e. "MCAS Math", "STAR Reading" -->
           <td colspan="1" class="name"></td>
           <td colspan="1" class="risk"></td> <!-- Blank column space for nested labels -->
           <td colspan="1" class="program"></td> <!-- Blank column space for nested labels -->
@@ -51,6 +55,8 @@
           <td colspan="2" class="mcas"><p class="smalltype italic">English</p></td>
         </tr>
         <tr class="column-names">
+          <!-- COLUMN HEADERS -->
+          <!-- i.e. "MCAS Math Growth", "STAR Reading Performance" -->
           <th class="name"><span id="table-header">Name</span></th>
           <th class="risk sort-default" data-sort-method="risk_sort"><span id="table-header">Risk</span></th>
           <th class="program"><span id="table-header">Program Assigned</span></th>
@@ -71,6 +77,7 @@
         </tr>
      </thead>
       <% if @students.present? %>
+        <!-- ROWS -->
         <% @students.find_each do |student| %>
           <%= render "students/student_row", presenter: StudentPresenter.new(student), risk: StudentRiskLevel.new(student) %>
         <% end %>
