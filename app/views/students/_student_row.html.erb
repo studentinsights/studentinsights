@@ -12,7 +12,7 @@
                   <td class="sped"><%= presenter.plan_504 %></td>
                   <td class="language"><%= presenter.limited_english_proficiency %></td>
                   <td class="language"><%= presenter.home_language %></td>
-                  <td class="language"><%= presenter.free_reduced_lunch %></td>
+                  <td class="free-reduced"><%= presenter.free_reduced_lunch %></td>
                   <% star_result = presenter.latest_star %>
                   <% if star_result.is_a? MissingAssessment %>
                     <td class="star">—</td>
