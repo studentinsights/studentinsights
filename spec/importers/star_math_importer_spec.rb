@@ -6,16 +6,26 @@ RSpec.describe StarMathImporter do
 			let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_star_math.csv") }
 			let(:math_importer) { StarMathImporter.new }
 			context 'with good data' do
-				it 'creates a new STAR result' do
-					expect { math_importer.import(file) }.to change(StarResult, :count).by 1
+				it 'creates a new assessment' do
+					expect { math_importer.import(file) }.to change(Assessment.count).by 1
+				end
+				it 'creates a new STAR assessment' do
+					math_importer.import(file)
+					assessment_family = Assessment.last.assessment_family
+					expect(assessment_family.name).to eq "STAR"
+				end
+				it 'creates a new math assessment' do
+					math_importer.import(file)
+					assessment_subject = Assessment.last.assessment_subject
+					expect(assessment_subject.name).to eq "Math"
 				end
 				it 'sets math percentile rank correctly' do
 					math_importer.import(file)
-					expect(StarResult.last.math_percentile_rank).to eq 70
+					expect(Assessment.last.percentile_rank).to eq 70
 				end
 				it 'sets date taken correctly' do
 					math_importer.import(file)
-					expect(StarResult.last.date_taken).to eq Date.new(2015, 1, 21)
+					expect(Assessment.last.date_taken).to eq Date.new(2015, 1, 21)
 				end
 				context 'existing student' do
 					let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
