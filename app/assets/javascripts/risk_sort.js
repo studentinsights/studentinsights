@@ -7,7 +7,7 @@
 
   var performance_levels = ["H", "M", "L"];
 
-  compareLevel = function(a, b) {
+  compareRiskLevel = function(a, b) {
     var clean_a = clean_cell(a);
     var clean_b = clean_cell(b);
     var a_index = performance_levels.indexOf(clean_a);
@@ -19,7 +19,7 @@
     cleaned_cell = clean_cell(item);
     performance_levels.indexOf(cleaned_cell) > 0;
   }, function(a, b) {
-      return compareLevel(b, a);
+      return compareRiskLevel(b, a);
   });
 
 }());
