@@ -11,7 +11,7 @@ $(function() {
     });
 
     // Show/hide column groups using Chosen plugin
-    $(".demographics").hide()
+    $(".language").hide()
     $(".sped").hide()
     $("#column-group-select").chosen({width: "110%"})
       .on('change', function(e, params) {
