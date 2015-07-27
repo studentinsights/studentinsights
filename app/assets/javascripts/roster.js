@@ -13,6 +13,7 @@ $(function() {
     // Show/hide column groups using Chosen plugin
     $(".language").hide()
     $(".sped").hide()
+    $(".program").hide()
     $("#column-group-select").chosen({width: "110%"})
       .on('change', function(e, params) {
       if (params.deselected !== undefined) {

@@ -16,6 +16,7 @@
       <select id="column-group-select" class="chosen-select" data-placeholder="Choose information to show..." tabindex="4" multiple>
         <option value="name" selected>Name</option>
         <option value="risk" selected>Risk Level</option>
+        <option value="program">Program</option>
         <option value="language">Language</option>
         <option value="sped">SPED & Disability</option>
         <option value="star" selected>STAR</option>
@@ -29,6 +30,7 @@
         <tr class="column-groups">
           <td colspan="1" class="name"></td>
           <td colspan="1" class="risk"><p class="smalltype">Risk Level</p></td>
+          <td colspan="1" class="program"><p class="smalltype">Program</p></td>
           <td colspan="4" class="sped"><p class="smalltype">SPED & Disability</p></td>
           <td colspan="2" class="language"><p class="smalltype">Language</p></td>
           <td colspan="3" class="star"><p class="smalltype">STAR</p></td>
@@ -37,8 +39,9 @@
         <tr class="column-groups">
           <td colspan="1" class="name"></td>
           <td colspan="1" class="risk"></td> <!-- Blank column space for nested labels -->
-          <td colspan="2" class="language"></td> <!-- Blank column space for nested labels -->
+          <td colspan="1" class="program"></td> <!-- Blank column space for nested labels -->
           <td colspan="4" class="sped"></td> <!-- Blank column space for nested labels -->
+          <td colspan="2" class="language"></td> <!-- Blank column space for nested labels -->
           <td colspan="1" class="star"><p class="smalltype italic">Math</p></td>
           <td colspan="2" class="star"><p class="smalltype italic">Reading</p></td>
           <td colspan="2" class="mcas"><p class="smalltype italic">Math</p></td>
@@ -47,6 +50,7 @@
         <tr class="column-names">
           <th class="name"><span id="table-header">Name</span></th>
           <th class="risk sort-default" data-sort-method="risk_sort"><span id="table-header">Risk</span></th>
+          <th class="program"><span id="table-header">Program Assigned</span></th>
           <th class="sped"><span id="table-header">Placement</span></th>
           <th class="sped"><span id="table-header">Disability</span></th>
           <th class="sped"><span id="table-header">Level of Need</span></th>
