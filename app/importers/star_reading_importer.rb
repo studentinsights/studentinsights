@@ -16,11 +16,13 @@ class StarReadingImporter
     }
   end
 
+  def assessment_subject
+    AssessmentSubject.where(name: "Reading").first_or_create!
+  end
+
   def import_row(row)
     date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
     student = Student.where(state_id: row[:state_id]).first_or_create!
-    assessment_family = AssessmentFamily.where(name: "STAR").first_or_create!
-    assessment_subject = AssessmentSubject.where(name: "Reading").first_or_create!
 
     star_assessment = Assessment.where({
       student_id: student.id,

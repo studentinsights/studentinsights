@@ -21,6 +21,10 @@ module StarImporter
     CSV.parse(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
   end
 
+  def assessment_family
+    AssessmentFamily.where(name: "STAR").first_or_create!
+  end
+
   def convert_headers(header)
     if header_dictionary.keys.include? header
       header = header_dictionary[header]
