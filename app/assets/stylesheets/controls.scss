@@ -40,3 +40,10 @@
     width: 280px;
   }
 }
+
+.chosen-container {
+
+  @media screen and (max-width: $phase2) {
+  margin-bottom: 30px;
+  }
+}

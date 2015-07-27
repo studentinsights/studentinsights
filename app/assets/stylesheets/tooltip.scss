@@ -1,24 +1,25 @@
 #my-tooltip {
   float: right;
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
-  background-color: $dark-line;
   margin-top: 15px;
   cursor: help;
-  padding-top: 4px;
-  padding-bottom: 6px;
+  padding-top: 6px;
   text-align: center;
   position: relative;
 
   p {
-    color: #fff;
-    font-size: 16px;
+    color: $gray;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    border-bottom:1px dotted $dark-gray;
   }
 }
 
 #my-tooltip:hover {
-  background-color: $dark-gray;
+
+  p{
+    border-bottom:1px solid $gray;
+  }
 }
 
 .warning-dot {
