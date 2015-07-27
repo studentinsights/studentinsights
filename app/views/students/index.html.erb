@@ -14,11 +14,14 @@
     </div>
     <div id="column-group-dropdown" class="dropdown">
       <select id="column-group-select" class="chosen-select" data-placeholder="Choose information to show..." tabindex="4" multiple>
+        <option value="name" selected>Name</option>
+        <option value="risk" selected>Risk Level</option>
+        <option value="program">Program</option>
+        <option value="language">Language</option>
+        <option value="free-reduced">Free/Reduced Lunch</option>
+        <option value="sped">SPED & Disability</option>
         <option value="star" selected>STAR</option>
         <option value="mcas" selected>MCAS</option>
-        <option value="risk" selected>Risk Level</option>
-        <option value="demographics">Demographics</option>
-        <option value="name" selected>Name</option>
       </select>
     </div>
   </div>
@@ -26,25 +29,44 @@
     <table id="roster-table" border="0" cellspacing="0" cellpadding="10" class="sort-default">
       <thead>
         <tr class="column-groups">
+          <!-- TOP-LEVEL COLUMN GROUPS -->
+          <!-- i.e. "MCAS", "STAR" -->
           <td colspan="1" class="name"></td>
           <td colspan="1" class="risk"><p class="smalltype">Risk Level</p></td>
-          <td colspan="1" class="demographics"><p class="smalltype">Demographics</p></td>
+          <td colspan="1" class="program"><p class="smalltype">Program</p></td>
+          <td colspan="4" class="sped"><p class="smalltype">SPED & Disability</p></td>
+          <td colspan="2" class="language"><p class="smalltype">Language</p></td>
+          <td colspan="1" class="free-reduced"><p class="smalltype">Free/Reduced Lunch</p></td>
           <td colspan="3" class="star"><p class="smalltype">STAR</p></td>
           <td colspan="4" class="mcas"><p class="smalltype">MCAS</p></td>
         </tr>
         <tr class="column-groups">
+          <!-- SUB-GROUPS -->
+          <!-- i.e. "MCAS Math", "STAR Reading" -->
           <td colspan="1" class="name"></td>
           <td colspan="1" class="risk"></td> <!-- Blank column space for nested labels -->
-          <td colspan="1" class="demographics"></td> <!-- Blank column space for nested labels -->
+          <td colspan="1" class="program"></td> <!-- Blank column space for nested labels -->
+          <td colspan="4" class="sped"></td> <!-- Blank column space for nested labels -->
+          <td colspan="2" class="language"></td> <!-- Blank column space for nested labels -->
+          <td colspan="1" class="free-reduced"></td> <!-- Blank column space for nested labels -->
           <td colspan="1" class="star"><p class="smalltype italic">Math</p></td>
           <td colspan="2" class="star"><p class="smalltype italic">Reading</p></td>
           <td colspan="2" class="mcas"><p class="smalltype italic">Math</p></td>
           <td colspan="2" class="mcas"><p class="smalltype italic">English</p></td>
         </tr>
         <tr class="column-names">
+          <!-- COLUMN HEADERS -->
+          <!-- i.e. "MCAS Math Growth", "STAR Reading Performance" -->
           <th class="name"><span id="table-header">Name</span></th>
           <th class="risk sort-default" data-sort-method="risk_sort"><span id="table-header">Risk</span></th>
-          <th class="demographics"><span id="table-header">Home Language</span></th>
+          <th class="program"><span id="table-header">Program Assigned</span></th>
+          <th class="sped"><span id="table-header">Placement</span></th>
+          <th class="sped"><span id="table-header">Disability</span></th>
+          <th class="sped"><span id="table-header">Level of Need</span></th>
+          <th class="sped"><span id="table-header">504 Plan</span></th>
+          <th class="language"><span id="table-header">Fluency</span></th>
+          <th class="language"><span id="table-header">Home Language</span></th>
+          <th class="free-reduced"><span id="table-header">Free/Reduced Lunch</span></th>
           <th class="star" data-sort-method="number"><span id="table-header">Percentile</span></th>
           <th class="star" data-sort-method="number"><span id="table-header">Percentile</span></th>
           <th class="star" data-sort-method="number"><span id="table-header">IRL</span></th>
@@ -55,6 +77,7 @@
         </tr>
      </thead>
       <% if @students.present? %>
+        <!-- ROWS -->
         <% @students.find_each do |student| %>
           <%= render "students/student_row", presenter: StudentPresenter.new(student), risk: StudentRiskLevel.new(student) %>
         <% end %>

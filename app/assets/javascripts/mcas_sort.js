@@ -7,7 +7,7 @@
 
   var performance_levels = ["W", "NI", "P", "A"];
 
-  compareLevel = function(a, b) {
+  compareMcasLevel = function(a, b) {
     var clean_a = clean_cell(a);
     var clean_b = clean_cell(b);
     var a_index = performance_levels.indexOf(clean_a);
@@ -19,7 +19,7 @@
     cleaned_cell = clean_cell(item);
     performance_levels.indexOf(cleaned_cell) > 0;
   }, function(a, b) {
-      return compareLevel(b, a);
+      return compareMcasLevel(b, a);
   });
 
 }());

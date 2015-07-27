@@ -11,8 +11,12 @@ $(function() {
     });
 
     // Show/hide column groups using Chosen plugin
-    $(".demographics").hide();
-    $("#column-group-select").chosen().on('change', function(e, params) {
+    $(".language").hide()
+    $(".sped").hide()
+    $(".program").hide()
+    $(".free-reduced").hide()
+    $("#column-group-select").chosen({width: "110%"})
+      .on('change', function(e, params) {
       if (params.deselected !== undefined) {
         var assessment = params.deselected
         $('.' + assessment).hide();

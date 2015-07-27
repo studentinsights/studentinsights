@@ -17,7 +17,8 @@ class StudentPresenter < Struct.new(:student)
       :program_assigned,
       :sped_placement,
       :disability,
-      :sped_level_of_need
+      :sped_level_of_need,
+      :free_reduced_lunch
     ]
   end
 
