@@ -4,7 +4,11 @@
   ChartSettings.base_options = {
     chart: {
       renderTo: 'chart',
-      type: 'areaspline'
+      type: 'areaspline',
+      spacingBottom: 0,
+      spacingTop: 0,
+      spacingLeft: 0,
+      spacingRight: 0
     },
     title: {
       text: '',

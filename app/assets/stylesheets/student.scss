@@ -34,22 +34,61 @@
   p {
     float: left !important;
     padding-top: 5px !important;
-    padding-right: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    border-bottom:1px dotted $gray;
+  }
+
+  @media screen and (max-width: $phase2) {
+      float: left;
+      padding-top: 5px;
+
   }
 }
 
 .row {
   float: left;
   height: 100%;
-  margin-top: 60px;
 }
 
 #demographics-row {
   width: 40%;
+  margin-right: 5%;
+
+  @media screen and (max-width: $phase2) {
+  width: 100%;
+  margin-right: 0;
+  }
+
+  h1 {
+    font-size: 18px;
+    font-weight: 400;
+    color: $gray;
+    border-bottom: 1px solid $light-line;
+
+  }
+
+  h2{
+    font-size: 16px;
+    font-weight: 300;
+    color: $gray;
+    padding-bottom: 4px;
+  }
+}
+
+.demographics-item{
+    font-size: 14px;
+    font-weight: 400;
+    color: $gray;
+
 }
 
 #school-year-boxes-row {
-  width: 60%;
+  width: 55%;
+
+  @media screen and (max-width: $phase2) {
+  width: 100%;
+  }
 }
 
 .demographics-block {
@@ -62,19 +101,33 @@
 
 .school-year {
   text-align: center;
+  border-left: 1px solid $light-line;
+  border-right: 1px solid $light-line;
+  border-bottom: 1px solid $light-line;
+  border-radius: 4px;
+  margin-top: 25px;
 }
 
 .year {
   background: $blue;
-  border-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
   height: 50px;
   padding-top: 14px;
+
+ /* SAVE FOR V2 UPDATE */
+  // h1 {
+  //   text-align: left;
+  //   padding-left: 30px;
+  // }
 }
 
 .section {
   padding-top: 30px;
   padding-bottom: 30px;
   border-bottom: 1px solid $light-line;
+  margin-right:30px;
+  margin-left:30px;
 
   .values {
     display: inline-block;
@@ -159,7 +212,12 @@
   clear: both;
   margin: 0 auto;
   text-align: center;
+
   h2 {
     margin-bottom: 20px;
   }
+}
+
+.highcharts-axis-labels {
+  padding-left: 100px;
 }
