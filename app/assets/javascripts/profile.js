@@ -1,129 +1,158 @@
 (function(root) {
-  var ProfileController = function initializeProfileController () {}
+  var ProfileChart = function initializeProfileChart (name, data){
+    this.name = name;
+    this.data = data;
+  };
 
-  ProfileController.prototype.show = function renderProfileController() {
+  ProfileChart.prototype.highChartDates = function profileHighChartDates() {
+    return this.data.map(function(element) {
+      return [
+        Date.UTC(element[0],
+                 element[1] - 1,   // JavaScript months start with 0, Ruby months start with 1
+                 element[2]),
+        element[3]
+      ]
+    })
+  }
 
-    var chart_data = $("#chart-data")
-    var student_name = $("#student-name").text()
+  ProfileChart.prototype.toChart = function toChart() {
+    return {
+      name: this.name,
+      data: this.data
+    };
+  }
 
-    // Attendance events, behavior shown as aggregated counts by school year
-    var attendance_series = [{
-        name: 'Absences',
-        data: chart_data.data('attendance-series-absences')
-      }, {
-        name: 'Tardies',
-        data: chart_data.data('attendance-series-tardies')
-      }
-    ]
+  ProfileChart.prototype.toDateChart = function toDateChart() {
+    return {
+      name: this.name,
+      data: this.highChartDates()
+    }
+  }
 
-    var behavior_series = [{
-      name: 'Behavior incidents',
-      data: chart_data.data('behavior-series')
-    }]
+  var ProfileController = function initializeProfileController () {
+    this.options = $.extend({}, ChartSettings.base_options);
+  };
 
-    // STAR and MCAS results shown by date taken, not aggregated by school year
-    // http://www.highcharts.com/demo/spline-irregular-time
-    var star_series = [{
-        name: 'Math percentile rank',
-        data: convertRubyDatesToJsDates(chart_data.data('star-series-math-percentile'))
-      }, {
-        name: 'Reading percentile rank',
-        data: convertRubyDatesToJsDates(chart_data.data('star-series-reading-percentile'))
-      }
-    ]
+  ProfileController.prototype.checkZero = function profileCheckZero(options) {
+    return options.series.every(function(element) {
+      return element.data.every(function(el) {
+        return el == 0
+      })
+    })
+  };
 
-    var mcas_scaled_series = [{
-      name: 'Math score',
-      data: convertRubyDatesToJsDates(chart_data.data('mcas-series-math-scaled'))
-        }, {
-      name: 'English score',
-      data: convertRubyDatesToJsDates(chart_data.data('mcas-series-ela-scaled'))
-    }]
-
-    var mcas_growth_series = [{
-      name: 'Math growth score',
-      data: convertRubyDatesToJsDates(chart_data.data('mcas-series-math-growth'))
-        }, {
-      name: 'English growth score',
-      data: convertRubyDatesToJsDates(chart_data.data('mcas-series-ela-growth'))
-    }]
-
-    // Default view is attendance series
-    var options = ChartSettings.base_options
-    var default_yaxis = ChartSettings.default_yaxis
-    var x_axis_datetime = ChartSettings.x_axis_datetime
-    var x_axis_schoolyears = ChartSettings.x_axis_schoolyears
-    var percentile_yaxis = ChartSettings.percentile_yaxis
-    var mcas_growth_plotline = ChartSettings.mcas_growth_plotline
-    var star_plotline = ChartSettings.star_plotline
-
-    options.series = attendance_series
-    options.yAxis = default_yaxis
-    options.xAxis.categories = chart_data.data('attendance-events-school-years')
-
-    options.title.text = 'absences or tardies'
-    var chart
-
-    function zeroDraw(draw_type) {
-      $('#chart').empty()
-
-      var view = {
-        name: student_name,
-        data_type: options.title.text
-      }
-
-      if (draw_type === 'attendance' || draw_type === 'behavior') {
-        view.happy_message = true
-      } else {
-        view.happy_message = false
-      }
-
-      var zero_case_template = $('#zero-case-template').html()
-      var zeroHtml = Mustache.render(zero_case_template, view)
-      $('#chart').html(zeroHtml)
+  ProfileController.prototype.zeroDraw = function zeroDraw(student_name, data_type) {
+    var view = {
+      name: student_name,
+      data_type: data_type
     }
 
-    checkZero(options) ? zeroDraw('attendance') : chart = new Highcharts.Chart(options)
+    if (data_type === 'absences or tardies' || data_type === 'behavior incidents') {
+      view.happy_message = true
+    } else {
+      view.happy_message = false
+    }
 
+    var zero_case_template = $('#zero-case-template').html()
+    var zeroHtml = Mustache.render(zero_case_template, view)
+    $('#chart').html(zeroHtml)
+  }
+
+  ProfileController.prototype.chartData = function profileChartData (data_type) {
+    return $("#chart-data").data(data_type);
+  }
+
+  ProfileController.prototype.attendanceSeries = function profileAttendanceSeries() {
+    return [
+      new ProfileChart("Absences", this.chartData('attendance-series-absences')).toChart(),
+      new ProfileChart("Tardies", this.chartData('attendance-series-tardies')).toChart()
+    ];
+  }
+
+  ProfileController.prototype.behaviorSeries = function profileBehaviorSeries () {
+    return [
+      new ProfileChart("Behavior incidents", this.chartData('behavior-series')).toChart()
+    ];
+  }
+
+  ProfileController.prototype.starSeries = function profileStarSeries () {
+    return [
+      new ProfileChart("Math percentile rank", this.chartData('star-series-math-percentile')).toDateChart(),
+      new ProfileChart("Reading percentile rank", this.chartData('star-series-reading-percentile')).toDateChart()
+    ];
+  }
+
+  ProfileController.prototype.mcasScaledSeries = function profileMcasScaledSeries () {
+    return [
+      new ProfileChart("Math score", this.chartData('mcas-series-math-scaled')).toDateChart(),
+      new ProfileChart("English score", this.chartData('mcas-series-ela-scaled')).toDateChart()
+    ];
+  }
+
+  ProfileController.prototype.mcasGrowthSeries = function profileMcasGrowthSeries () {
+    return [
+      new ProfileChart("Math growth score", this.chartData('mcas-series-math-growth')).toDateChart(),
+      new ProfileChart("English growth score", this.chartData('mcas-series-ela-growth')).toDateChart()
+    ];
+  }
+
+  ProfileController.prototype.onChartChange = function profileChartChange() {
+    var student_name = $("#student-name").text()
+    var chart_data = $("#chart-data")
+    var selVal = $("#chart-type").val()
+
+    if (selVal == "attendance" || selVal == '') {
+        this.options.series = this.attendanceSeries()
+        this.options.title.text = 'absences or tardies'
+        this.options.xAxis = ChartSettings.x_axis_schoolyears
+        this.options.xAxis.categories = this.chartData('attendance-events-school-years')
+        this.options.yAxis = ChartSettings.default_yaxis
+    } else if (selVal == "behavior") {
+        this.options.series = this.behaviorSeries()
+        this.options.title.text = 'behavior incidents'
+        this.options.xAxis = ChartSettings.x_axis_schoolyears
+        this.options.xAxis.categories = this.chartData('behavior-series-school-years')
+        this.options.yAxis = ChartSettings.default_yaxis
+    } else if (selVal == "mcas-growth") {
+        this.options.series = this.mcasGrowthSeries()
+        this.options.title.text = 'MCAS Growth'
+        this.options.xAxis = ChartSettings.x_axis_datetime
+        this.options.yAxis = ChartSettings.percentile_yaxis
+        this.options.yAxis.plotLines = []
+        this.options.yAxis.plotLines.push(ChartSettings.mcas_growth_plotline)
+    } else if (selVal == "mcas-scaled") {
+        this.options.series = this.mcasScaledSeries()
+        this.options.title.text = 'MCAS Score'
+        this.options.xAxis = ChartSettings.x_axis_datetime
+        this.options.yAxis = ChartSettings.default_yaxis
+    } else if (selVal == "star") {
+        this.options.series = this.starSeries()
+        this.options.title.text = 'STAR'
+        this.options.xAxis = ChartSettings.x_axis_datetime
+        this.options.yAxis = ChartSettings.percentile_yaxis
+        this.options.yAxis.plotLines = []
+        this.options.yAxis.plotLines.push(ChartSettings.star_plotline)
+    }
+
+    if (this.checkZero(this.options)) {
+      this.zeroDraw(student_name, this.options.title.text)
+    } else {
+      new Highcharts.Chart(this.options)
+    }
+  }
+
+  ProfileController.prototype.show = function renderProfileController() {
+    this.onChartChange();
+
+    // Bind onChartChange to this instance of ProfileController
+    var self = this;
     $("#chart-type").on('change', function(){
-      var selVal = $("#chart-type").val()
-      if (selVal == "attendance" || selVal == '') {
-          options.series = attendance_series
-          options.title.text = 'absences or tardies'
-          options.xAxis = x_axis_schoolyears
-          options.xAxis.categories = chart_data.data('attendance-events-school-years')
-          options.yAxis = default_yaxis
-      } else if (selVal == "behavior") {
-          options.series = behavior_series
-          options.title.text = 'behavior incidents'
-          options.xAxis = x_axis_schoolyears
-          options.xAxis.categories = chart_data.data('behavior-series-school-years')
-          options.yAxis = default_yaxis
-      } else if (selVal == "mcas-growth") {
-          options.series = mcas_growth_series
-          options.title.text = 'MCAS Growth'
-          options.xAxis = x_axis_datetime
-          options.yAxis = percentile_yaxis
-          options.yAxis.plotLines = []
-          options.yAxis.plotLines.push(mcas_growth_plotline)
-      } else if (selVal == "mcas-scaled") {
-          options.series = mcas_scaled_series
-          options.title.text = 'MCAS Score'
-          options.xAxis = x_axis_datetime
-          options.yAxis = default_yaxis
-      } else if (selVal == "star") {
-          options.series = star_series
-          options.title.text = 'STAR'
-          options.xAxis = x_axis_datetime
-          options.yAxis = percentile_yaxis
-          options.yAxis.plotLines = []
-          options.yAxis.plotLines.push(star_plotline)
-      }
-      checkZero(options) ? zeroDraw(selVal) : chart = new Highcharts.Chart(options)
+      self.onChartChange();
     })
   }
 
   root.ProfileController = ProfileController
+  root.ProfileChart = ProfileChart;
 })(window)
 
 $(function() {
