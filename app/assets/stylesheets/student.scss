@@ -28,24 +28,6 @@
   }
 }
 
-#risk-level {
-  float: right;
-
-  p {
-    float: left !important;
-    padding-top: 5px !important;
-    margin-right: 5px;
-    text-decoration: none;
-    border-bottom:1px dotted $gray;
-  }
-
-  @media screen and (max-width: $phase2) {
-      float: left;
-      padding-top: 5px;
-
-  }
-}
-
 .row {
   float: left;
   height: 100%;

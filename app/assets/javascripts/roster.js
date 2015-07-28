@@ -32,7 +32,7 @@ $(function() {
     var roster_rooltip_template = $('#roster-tooltip-template').html()
     var rendered = Mustache.render(roster_rooltip_template)
 
-    $('#my-tooltip').tooltipster({
+    $('#roster-tooltip').tooltipster({
       content: rendered,
       position: 'bottom-right',
       contentAsHTML: true

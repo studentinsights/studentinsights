@@ -134,7 +134,7 @@ $(function() {
     var risk_level_tooltip = $('#risk-level-tooltip-template').html()
     var rendered = Mustache.render(risk_level_tooltip)
 
-    $('#risk-pill').tooltipster({
+    $('#profile-risk-level').tooltipster({
       content: rendered,
       position: 'bottom-right',
       contentAsHTML: true
