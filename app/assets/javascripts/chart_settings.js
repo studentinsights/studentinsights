@@ -1,5 +1,6 @@
 (function(root) {
-  var ChartSettings = {}
+
+  var ChartSettings = {};
 
   ChartSettings.base_options = {
     chart: {
