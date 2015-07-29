@@ -43,4 +43,5 @@ class Student < ActiveRecord::Base
       MissingAssessment.new
     end
   end
+
 end

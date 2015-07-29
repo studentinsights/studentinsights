@@ -23,8 +23,11 @@
         <option value="sped">SPED & Disability</option>
         <option value="star" selected>STAR</option>
         <option value="mcas" selected>MCAS</option>
+        <option value="attendance">Attendance</option>
+        <option value="discipline">Discipline</option>
       </select>
     </div>
+
   </div>
   <div class="info-area">
     <table id="roster-table" border="0" cellspacing="0" cellpadding="10" class="sort-default">
@@ -40,6 +43,8 @@
           <td colspan="1" class="free-reduced"><p class="smalltype">Free/Reduced Lunch</p></td>
           <td colspan="3" class="star"><p class="smalltype">STAR</p></td>
           <td colspan="4" class="mcas"><p class="smalltype">MCAS</p></td>
+          <td colspan="2" class="attendance"><p class="smalltype">Attendance</p></td>
+          <td colspan="1" class="discipline"><p class="smalltype">Discpline</p></td>
         </tr>
         <tr class="column-groups">
           <!-- SUB-GROUPS -->
@@ -54,6 +59,15 @@
           <td colspan="2" class="star"><p class="smalltype italic">Reading</p></td>
           <td colspan="2" class="mcas"><p class="smalltype italic">Math</p></td>
           <td colspan="2" class="mcas"><p class="smalltype italic">English</p></td>
+          <td colspan="1" class="attendance">
+            <input type="number" value="5" min="0" id="absence-level" class="warning-level advanced-control hidden"/>
+          </td>
+          <td colspan="1" class="attendance">
+            <input type="number" value="5" min="0" id="tardy-level" class="warning-level advanced-control hidden"/>
+          </td>
+          <td colspan="1" class="discipline">
+            <input type="number" value="3" min="0" id="discipline-level" class="warning-level advanced-control hidden"/>
+          </td>
         </tr>
         <tr class="column-names">
           <!-- COLUMN HEADERS -->
@@ -75,6 +89,10 @@
           <th class="mcas" data-sort-method="number"><span id="table-header">Growth</span></th>
           <th class="mcas" data-sort-method="mcas_sort"><span id="table-header">Performance</span></th>
           <th class="mcas" data-sort-method="number"><span id="table-header">Growth</span></th>
+          <th class="attendance"><span id="table-header">Absences</span></th>
+          <th class="attendance"><span id="table-header">Tardies</span></th>
+          <th class="discipline"><span id="table-header">Office Referrals</span></th>
+
         </tr>
      </thead>
       <% if @students.present? %>

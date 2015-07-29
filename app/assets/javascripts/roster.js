@@ -11,6 +11,8 @@ $(function() {
     });
 
     // Show/hide column groups using Chosen plugin
+    $(".attendance").hide();
+    $(".discipline").hide();
     $(".language").hide();
     $(".sped").hide();
     $(".program").hide();
@@ -39,5 +41,6 @@ $(function() {
     $('tbody tr').click(function () {
       location.href = $(this).find('td a').attr('href');
     });
+
   }
 });
