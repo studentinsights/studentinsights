@@ -3,7 +3,7 @@ class ImportInitializer
   def self.import_classes
     [
       StudentsImporter,
-      McasImporter,
+      X2AssessmentImporter,
       StarMathImporter,
       StarReadingImporter,
       BehaviorImporter,
@@ -21,8 +21,7 @@ class ImportInitializer
     end
     if Rails.env.development?
       puts "#{Student.count} students"
-      puts "#{McasResult.count} MCAS results"
-      puts "#{StarResult.count} STAR results"
+      puts "#{Assessment.count} assessments"
       puts "#{DisciplineIncident.count} discipline incidents"
       puts "#{AttendanceEvent.count} attendance events"
     end
