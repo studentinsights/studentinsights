@@ -52,15 +52,6 @@ ActiveRecord::Schema.define(version: 20150727215028) do
     t.datetime "event_date"
   end
 
-  create_table "attendance_results", force: true do |t|
-    t.string   "school_year"
-    t.integer  "number_of_absences"
-    t.integer  "number_of_tardies"
-    t.integer  "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "discipline_incidents", force: true do |t|
     t.integer  "student_id"
     t.string   "incident_code"
