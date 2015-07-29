@@ -1,9 +1,8 @@
 (function(root) {
 
-  var McasScaledChart = function initializeMcasScaledChart (series, categories) {
+  var McasScaledChart = function initializeMcasScaledChart (series) {
     this.title = 'MCAS score';
     this.series = series;
-    this.categories = categories;
   };
 
   McasScaledChart.fromChartData = function mcasScaledChartFromChartData(chartData) {

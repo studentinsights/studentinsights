@@ -1,9 +1,8 @@
 (function(root) {
 
-  var McasGrowthChart = function initializeMcasGrowthChart (series, categories) {
+  var McasGrowthChart = function initializeMcasGrowthChart (series) {
     this.title = 'MCAS growth';
     this.series = series;
-    this.categories = categories;
   };
 
   McasGrowthChart.fromChartData = function mcasGrowthChartFromChartData(chartData) {

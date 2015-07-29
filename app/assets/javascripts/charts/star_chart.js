@@ -1,9 +1,8 @@
 (function(root) {
 
-  var StarChart = function initializeStarChart (series, categories) {
+  var StarChart = function initializeStarChart (series) {
     this.title = 'STAR';
     this.series = series;
-    this.categories = categories;
   };
 
   StarChart.fromChartData = function mcasScaledChartFromChartData(chartData) {
