@@ -34,15 +34,13 @@
                       <%= render "students/mcas_row_fragment", mcas_presenter: result_presenter %>
                     <% end %>
                   <% end %>
-
                   <% if presenter.current_events.present? %>
-                    <%= render "students/attendance_row_fragment", attendance_presenter: presenter %>
-                    <%= render "students/discipline_row_fragment", discipline_presenter: presenter %>
+                    <td class="attendance"><%= presenter.absences_current_year %></td>
+                    <td class="attendance"><%= presenter.tardies_current_year %></td>
+                    <td class="discipline"><%= presenter.discipline_current_year %></td>
                   <% else %>
-                    <%= render "students/blank_attendance_row" %>
-                    <%= render "students/blank_discipline_row" %>
+                    <td class="attendance">-</td>
+                    <td class="attendance">-</td>
+                    <td class="discpline">-</td>
                   <% end %>
-
-
-
                 </tr>
