@@ -1,40 +1,113 @@
-	<div id="controls">
-		<div id="roster-back">
-			<%= link_to "< Back to Roster", @roster_url %>
-		</div>
-		<%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
-	</div>
+  <div id="controls">
+    <div id="roster-back">
+      <%= link_to "< Back to Roster", @roster_url %>
+    </div>
+    <div id="export">
+      <%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
+    </div>
+  </div>
 
-	<div class="info-area">
+  <div class="info-area">
 
-	   <div id="student-info">
-			<h1 id="student-name"><%= @presenter.full_name %></h1>
-		</div>
+    <div id="student-info">
+      <h1 id="student-name"><%= @presenter.full_name %></h1>
+      <div id="profile-risk-level" class="tooltip-trigger">
+        <p>Risk level:</p>
+        <div id="risk-pill" class="<%= @risk.css_class_name %>">
+            <h3><%= @risk.level_in_words %></h3>
+        </div>
+      </div>
+    </div>
 
-		<div id="graph-dropdown" class="dropdown">
-			<p>Graph:</p>
-			<select id="chart-type">
-		    	<option value="attendance">Attendance</option>
-		    	<option value="behavior">Behavior</option>
-		    	<option value="mcas-growth">MCAS Growth</option>
-		    	<option value="mcas-scaled">MCAS Score</option>
-		    	<option value="star">STAR</option>
-			</select>
-		</div>
+    <div id="graph-dropdown" class="dropdown">
+      <p>Graph:</p>
+      <select id="chart-type">
+        <option value="attendance">Attendance</option>
+        <option value="behavior">Behavior</option>
+        <option value="mcas-growth">MCAS Growth</option>
+        <option value="mcas-scaled">MCAS Score</option>
+        <option value="star">STAR</option>
+      </select>
+    </div>
 
-	  <div id="chart"></div>
+    <div id="chart"></div>
 
-	  <% if @student.school_years.present? %>
-			<% @student.school_years.each do |s| %>
-				<%= render "school_year_box", school_year: s, events: s.events(@student) %>
-		  <% end %>
-		<% end %>
-	</div>
+    <div id="demographics-row" class="row">
+      <h1>Demographics</h1>
 
-<%= tag("div", id: "profile-data", data:
-		{ attendance_events: @attendance_events,
-			discipline_incidents: @discipline_incidents,
-			mcas_results: @mcas_results,
-			star_results: @star_results
-		}
-) %>
+      <div class="demographics-block">
+        <h2>Information</h2>
+        <span class="demographics-item">
+          Program Assignment: <strong><%= @presenter.program_assigned %></strong>
+        </span>
+        <span class="demographics-item">
+        <span class="demographics-item">
+          504: <strong><%= @presenter.plan_504 %></strong>
+        </span>
+      </div>
+
+      <div class="demographics-block">
+        <h2>Language</h2>
+        <span class="demographics-item">
+          Fluency: <strong><%= @presenter.limited_english_proficiency %></strong>
+        </span>
+        <span class="demographics-item">
+          Home Language: <strong><%= @presenter.home_language %></strong>
+        </span>
+      </div>
+
+      <div class="demographics-block">
+        <h2>Special Education</h2>
+        <span class="demographics-item">
+          Placement: <strong><%= @presenter.sped_placement %></strong>
+        </span>
+        <span class="demographics-item">
+          Disabiity: <strong><%= @presenter.disability %></strong>
+        </span>
+        <span class="demographics-item">
+          Level: <strong><%= @presenter.sped_level_of_need %></strong>
+        </span>
+      </div>
+    </div>
+
+    <div id="school-year-boxes-row" class="row">
+      <% if @student.school_years.present? %>
+        <% @student.school_years.each do |s| %>
+          <%= render "school_year_box", school_year: s, events: s.events(@student) %>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+
+  <script id="risk-level-tooltip-template" type="x-tmpl-mustache">
+    <div class="tooltip-popup">
+      <div class="warning-key">
+        <div class="warning-header">
+          Risk level: <%= @risk.level_in_words %>
+        </div>
+        <div class="warning-set">
+          <%= @risk.explanation.html_safe %>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="zero-case-template" type="x-tmpl-mustache">
+    <div class="zero-case">
+      <img src="<%= asset_path('bonsai.svg') %>"/>
+      <br/>
+      <br/>
+      {{#happy_message}}
+        <h2>Looks Great!</h2>
+      {{/happy_message}}
+      {{^happy_message}}
+        <h2>Hmm...</h2>
+      {{/happy_message}}
+      <div>
+        {{name}} has no {{data_type}} on record
+      </div>
+    </div>
+  </script>
+
+<%= tag("div", id: "chart-data", data: @chart_data) %>

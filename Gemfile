@@ -39,7 +39,7 @@ gem 'spring',        group: :development
 
 group :development, :test do
   gem 'rack-test'
-  gem "factory_girl_rails"
+  gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
   gem 'database_cleaner'
@@ -47,6 +47,11 @@ group :development, :test do
   gem 'faker'
   gem 'timecop'
   gem 'rails-erd'  # to auto-generate ERD and better understand the data structure
+  gem 'teaspoon-jasmine'
+end
+
+group :development do
+  gem 'pivotal_git_scripts'
 end
 
 # Auth

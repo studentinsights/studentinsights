@@ -36,12 +36,14 @@
 }
 
 #column-group-select {
-  width: 360px;
   @media screen and (max-width: $phase1) {
     width: 280px;
   }
 }
 
-.warning-level {
-  width: 50px
+.chosen-container {
+
+  @media screen and (max-width: $phase2) {
+  margin-bottom: 30px;
+  }
 }

@@ -6,10 +6,6 @@ RSpec.describe McasImporter do
     context 'with good data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_mcas.csv") }
 
-      before(:each) do
-        allow(healey_importer).to receive(:count_number_of_rows).with(file).and_return 3
-      end
-
       context 'for Healey school' do
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
         let(:healey_importer) { McasImporter.new(school: healey) }

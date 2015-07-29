@@ -1,20 +1,20 @@
                       <td class="star">
                         <% if star_presenter.math_percentile_warning? %>
-                          <%= render "warning_indicator", value: star_presenter.math_percentile_rank %>
+                          <div class="warning-bubble blue"><%= star_presenter.math_percentile_rank %></div>
                         <% else %>
                           <%= star_presenter.math_percentile_rank %>
                         <% end %>
                       </td>
                       <td class="star">
                         <% if star_presenter.reading_percentile_warning? %>
-                          <%= render "warning_indicator", value: star_presenter.reading_percentile_rank %>
+                          <div class="warning-bubble blue"><%= star_presenter.reading_percentile_rank %></div>
                         <% else %>
                           <%= star_presenter.reading_percentile_rank %>
                         <% end %>
                       </td>
                       <td class="star">
                         <% if star_presenter.reading_level_warning? %>
-                          <%= render "warning_indicator", value: star_presenter.instructional_reading_level %>
+                          <div class="warning-bubble blue"><%= star_presenter.instructional_reading_level %></div>
                         <% else %>
                           <%= star_presenter.instructional_reading_level %>
                         <% end %>

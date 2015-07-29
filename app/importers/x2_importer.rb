@@ -1,65 +1,27 @@
 module X2Importer
   include Importer
+  include ProgressBar
+  require 'csv'
+
   # Any class using X2Importer should implement two methods:
   # export_file_name => string pointing to the name of the remote file to parse
-  # import_row => function that describes how to handle each row; takes row as only argument
+  # import_row => function that describes how to handle each row (implemented by handle_row)
 
   attr_accessor :school, :summer_school_local_ids, :recent_only
 
-  def initialize(options = {})
-    @school = options[:school]
-    @recent_only = options[:recent_only]
-    @summer_school_local_ids = options[:summer_school_local_ids]    # For importing only summer school students
+  def client
+    SftpClient.new({
+      user: ENV['SIS_SFTP_USER'],
+      host: ENV['SIS_SFTP_HOST'],
+      key_data: ENV['SIS_SFTP_KEY']
+    })
   end
 
-  def sftp_info_present?
-    ENV['SIS_SFTP_HOST'].present? &&
-    ENV['SIS_SFTP_USER'].present? &&
-    ENV['SIS_SFTP_KEY'].present?
+  def parse_as_csv(file)
+    CSV.parse(file, headers: true, header_converters: :symbol, converters: lambda { |h| nil_converter(h) })
   end
 
-  def connect_and_import
-    if sftp_info_present?
-      Net::SFTP.start(
-        ENV['SIS_SFTP_HOST'],
-        ENV['SIS_SFTP_USER'],
-        key_data: ENV['SIS_SFTP_KEY'],
-        keys_only: true,
-        ) do |sftp|
-        # For documentation see https://net-ssh.github.io/sftp/v2/api/
-        file = sftp.download!(export_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-        import(file)
-      end
-    else
-      raise "SFTP information missing"
-    end
-  end
-
-  def import(file)
-    require 'csv'
-    csv = CSV.new(file, headers: true, header_converters: :symbol, converters: lambda { |h| nil_converter(h) })
-    number_of_rows, n = count_number_of_rows(file), 0 if Rails.env.development?
-
-    csv.each do |row|
-      if @school.present?
-        import_if_in_school_scope(row)
-      elsif @summer_school_local_ids.present?
-        import_if_in_summer_school(row)
-      else
-        import_row row
-      end
-      n += 1 if Rails.env.development?
-      print progress_bar(n, number_of_rows) if Rails.env.development?
-    end
-    puts if Rails.env.development?
-    return csv
-  end
-
-  def nil_converter(field_value)
-    if field_value == '\N'
-      nil
-    else
-      field_value
-    end
+  def nil_converter(value)
+    value == '\N' ? nil : value
   end
 end

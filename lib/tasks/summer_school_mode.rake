@@ -7,7 +7,7 @@ task :summer_school_mode => :environment do
   summer_school_local_ids = summer_school_csv.select { |row| row[:status] == 'Registered' }.map { |row| row[:lasid] }
 
   # 2. Import the summer school
-  Importer.import_all({summer_school_local_ids: summer_school_local_ids})
+  ImportInitializer.import_all({summer_school_local_ids: summer_school_local_ids})
 
   # 3. Destroy the homerooms because homerooms don't apply in summer school
   Homeroom.destroy_all

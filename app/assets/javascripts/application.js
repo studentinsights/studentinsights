@@ -18,6 +18,8 @@
 //= require chosen.jquery.min
 //= require tablesort.min
 //= require tablesort.numeric
-//= require mcas_sort
+//= require mustache.min
+//= require_tree ./sorts
 //= require roster
+//= require_tree ./charts
 //= require profile

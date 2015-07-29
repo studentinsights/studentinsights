@@ -12,5 +12,5 @@ task :import, [:school] => :environment do |task, args|
       school_arg = { school: school }
     end
   end
-  Importer.import_all(school_arg)
+  ImportInitializer.import_all(school_arg)
 end

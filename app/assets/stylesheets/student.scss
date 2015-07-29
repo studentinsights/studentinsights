@@ -4,29 +4,112 @@
   float: right;
   display: inline;
   position: relative;
-  padding: 5px 20px;
-  margin-top: 15px;
-  border-radius: 10px;
-  background-color: white;
+  padding: 3px 15px;
+  margin-top: 18px;
+  border-radius: 4px;
+  background-color: $white;
   color: $gray;
-  border: 1px solid $light-gray;
+  border: 1px solid $light-line;
 }
 
-.school-year{
+#export {
+  display: inline;
+  clear: both;
+}
+
+#risk-pill {
+  float: right;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: help;
+
+  h3 {
+    color: $white;
+  }
+}
+
+.row {
+  float: left;
+  height: 100%;
+}
+
+#demographics-row {
+  width: 40%;
+  margin-right: 5%;
+
+  @media screen and (max-width: $phase2) {
+  width: 100%;
+  margin-right: 0;
+  }
+
+  h1 {
+    font-size: 18px;
+    font-weight: 400;
+    color: $gray;
+    border-bottom: 1px solid $light-line;
+
+  }
+
+  h2{
+    font-size: 16px;
+    font-weight: 300;
+    color: $gray;
+    padding-bottom: 4px;
+  }
+}
+
+.demographics-item{
+    font-size: 14px;
+    font-weight: 400;
+    color: $gray;
+
+}
+
+#school-year-boxes-row {
+  width: 55%;
+
+  @media screen and (max-width: $phase2) {
+  width: 100%;
+  }
+}
+
+.demographics-block {
+  margin: 20px 0px;
+}
+
+.demographics-item {
+  display: block;
+}
+
+.school-year {
   text-align: center;
+  border-left: 1px solid $light-line;
+  border-right: 1px solid $light-line;
+  border-bottom: 1px solid $light-line;
+  border-radius: 4px;
+  margin-top: 25px;
 }
 
 .year {
   background: $blue;
-  border-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
   height: 50px;
   padding-top: 14px;
+
+ /* SAVE FOR V2 UPDATE */
+  // h1 {
+  //   text-align: left;
+  //   padding-left: 30px;
+  // }
 }
 
 .section {
   padding-top: 30px;
   padding-bottom: 30px;
   border-bottom: 1px solid $light-line;
+  margin-right:30px;
+  margin-left:30px;
 
   .values {
     display: inline-block;
@@ -93,9 +176,9 @@
 }
 
 .students {
-
-  .info-area{
+  .info-area {
     margin-top: 0;
+    clear: both;
   }
 }
 
@@ -111,6 +194,7 @@
   clear: both;
   margin: 0 auto;
   text-align: center;
+
   h2 {
     margin-bottom: 20px;
   }
@@ -118,4 +202,7 @@
 
 .advanced-control {
   display: none;
+
+.highcharts-axis-labels {
+  padding-left: 100px;
 }
