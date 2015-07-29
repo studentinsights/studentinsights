@@ -48,28 +48,4 @@ class StudentPresenter < Struct.new(:student)
     current_events[:discipline_incidents].count
   end
 
-  def absences_warning_level
-    5
-  end
-
-  def tardies_warning_level
-    5
-  end
-
-  def discipline_warning_level
-    3
-  end
-
-  def absences_warning?
-    absences_current_year > absences_warning_level
-  end
-
-  def tardies_warning?
-    tardies_current_year > tardies_warning_level
-  end
-
-  def discipline_warning?
-    discipline_current_year > discipline_warning_level
-  end
-
 end
