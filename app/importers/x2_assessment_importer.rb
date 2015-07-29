@@ -6,6 +6,11 @@ class X2AssessmentImporter
   end
 
   def import_row(row)
+
+    if row[:assessment_test] == "WIDA-ACCESS"
+      row[:assessment_test] = "ACCESS"
+    end
+
     student = Student.where(state_id: row[:state_id]).first_or_create!
     subject = AssessmentSubject.where(name: row[:assessment_subject]).first_or_create!
     family = AssessmentFamily.where(name: row[:assessment_test]).first_or_create!

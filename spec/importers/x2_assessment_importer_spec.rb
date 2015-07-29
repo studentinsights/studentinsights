@@ -47,6 +47,50 @@ RSpec.describe X2AssessmentImporter do
             end
           end
         end
+
+        context 'DIBELS' do
+          let(:assessment_family) { AssessmentFamily.where(name: "DIBELS") }
+          let(:family) { AssessmentFamily.where(name: "DIBELS").first }
+
+          before(:each) do
+            healey_importer.import(file)
+          end
+
+          it 'creates assessment family' do
+            expect(assessment_family.count).to eq 1
+          end
+          it 'creates two results' do
+            results = assessment_family.first.assessments
+            expect(results.count).to eq 1
+          end
+          it 'sets the performance levels correctly' do
+            dibels_result = Assessment.where(assessment_family_id: family.id).last
+            expect(dibels_result.performance_level).to eq('Benchmark')
+          end
+        end
+
+        context 'ACCESS' do
+          let(:assessment_family) { AssessmentFamily.where(name: "ACCESS") }
+          let(:family) { AssessmentFamily.where(name: "ACCESS").first }
+
+          before(:each) do
+            healey_importer.import(file)
+          end
+
+          it 'creates assessment family' do
+            expect(assessment_family.count).to eq 1
+          end
+          it 'creates three results' do
+            results = assessment_family.first.assessments
+            expect(results.count).to eq 3
+          end
+          it 'sets the scaled scores, performance levels, growth percentiles correctly' do
+            access_result = Assessment.where(assessment_family_id: family.id).last
+            expect(access_result.scale_score).to eq(367)
+            expect(access_result.performance_level).to eq('4.9')
+            expect(access_result.growth_percentile).to eq(92)
+          end
+        end
       end
       context 'with bad data' do
         let(:file) { File.open("#{Rails.root}/spec/fixtures/bad_mcas.csv") }
