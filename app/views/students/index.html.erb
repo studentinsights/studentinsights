@@ -9,8 +9,9 @@
         <% end %>
       </select>
     </div>
-    <div id="my-tooltip">
-      <div class="tooltip-circle"><p>Warning indicators?</p></div>
+    <div id="roster-tooltip" class="tooltip-trigger">
+      <p>Help</p>
+      <span id="roster-help-icon">?</span>
     </div>
     <div id="column-group-dropdown" class="dropdown">
       <select id="column-group-select" class="chosen-select" data-placeholder="Choose information to show..." tabindex="4" multiple>
@@ -85,7 +86,7 @@
     </table>
   </div>
   <script id="roster-tooltip-template" type="x-tmpl-mustache">
-    <div class="warning-key">
+    <div class="tooltip-popup">
       <div class="warning-header">
         <div class="warning-dot"></div>
         <h6>Warning Indicators</h6>
