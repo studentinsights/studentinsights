@@ -88,7 +88,7 @@
     max: 100
   }
 
-  ChartSettings.mcas_growth_plotline = {
+  ChartSettings.mcas_growth_plotline = [{
     color: '#B90504',
     width: 1,
     zIndex: 3,
@@ -100,9 +100,9 @@
         color: '#999999'
       }
     }
-  }
+  }];
 
-  ChartSettings.star_plotline = {
+  ChartSettings.star_plotline = [{
     color: '#B90504',
     width: 1,
     zIndex: 3,
@@ -114,7 +114,7 @@
         color: '#999999'
       }
     }
-  }
+  }];
 
   root.ChartSettings = ChartSettings
 
