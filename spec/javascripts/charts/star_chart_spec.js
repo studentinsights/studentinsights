@@ -1,0 +1,2 @@
+describe("StarChart", function() {
+});
