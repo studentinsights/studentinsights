@@ -6,10 +6,8 @@ class X2AssessmentImporter
   end
 
   def import_row(row)
-
-    if row[:assessment_test] == "WIDA-ACCESS"
-      row[:assessment_test] = "ACCESS"
-    end
+    merge_access_test_names(row)
+    chuck_non_numerical_growth_scores(row)
 
     student = Student.where(state_id: row[:state_id]).first_or_create!
     subject = AssessmentSubject.where(name: row[:assessment_subject]).first_or_create!
@@ -22,14 +20,22 @@ class X2AssessmentImporter
       assessment_family_id: family.id
     ).first_or_create!
 
-    if !/\D/.match(row[:assessment_growth]).nil?    # If column contains non-numerical characters,
-      row[:assessment_growth] = nil                 # set to nil beacuse it's one of the non-growth-related
-    end                                             # string/date values floating around this column
-
     result.update_attributes(
       scale_score: row[:assessment_scale_score],
       performance_level: row[:assessment_performance_level],
       growth_percentile: row[:assessment_growth]
     )
+  end
+
+  def merge_access_test_names(row)
+    if row[:assessment_test] == "WIDA-ACCESS"
+      row[:assessment_test] = "ACCESS"
+    end
+  end
+
+  def chuck_non_numerical_growth_scores(row)
+    if !/\D/.match(row[:assessment_growth]).nil?
+      row[:assessment_growth] = nil
+    end
   end
 end
