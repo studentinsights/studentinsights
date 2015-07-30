@@ -56,8 +56,8 @@ class ImportInitializer
 
   def self.import_kippnj_config
     [
-      StudentImporter.new({
-        client: AwsClient.new(kipp_nj_aws_credentials, 'students.json'),
+      StudentsImporter.new({
+        client: AwsAdapter.new(kipp_nj_aws_credentials, 'students.json'),
         data_transformer: JsonTransformer.new
       })
     ]
