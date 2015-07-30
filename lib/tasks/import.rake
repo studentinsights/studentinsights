@@ -5,14 +5,15 @@ desc "Import students, attendance, behavior, assessments"
   # See schools.seeds.rb for Somerville school local_ids
 
 task :import, [:school] => :environment do |task, args|
-  school_arg = {}
-  if args[:school].present?
-    school = School.where(local_id: args[:school]).first
-    if school.present?
-      school_arg = { school: school }
-    else
-      raise "School not found"
-    end
-  end
-  ImportInitializer.import
+  # school_arg = {}
+  # if args[:school].present?
+  #   school = School.where(local_id: args[:school]).first
+  #   if school.present?
+  #     school_arg = { school: school }
+  #   else
+  #     raise "School not found"
+  #   end
+  # end
+  settings = Settings.for("Somerville")
+  ImportInitializer.import(settings)
 end
