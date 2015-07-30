@@ -6,7 +6,7 @@ class BehaviorImporter
   end
 
   def import_row(row)
-    student = Student.where(state_id: row[:state_id]).first_or_create!
+    student = Student.where(local_id: row[:local_id]).first_or_create!
     event_date = row[:event_date]
     incident_time = row[:incident_time]
 
