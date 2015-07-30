@@ -18,6 +18,10 @@ RSpec.describe X2AssessmentImporter do
           expect(Student.count).to eq 1
         end
 
+        it 'imports only white-listed assessments' do
+          expect(Assessment.count).to eq 6
+        end
+
         context 'MCAS' do
           let(:assessment_families) { AssessmentFamily.where(name: "MCAS") }
           let(:assessment_family) { AssessmentFamily.where(name: "MCAS").first }

@@ -5,8 +5,17 @@ class X2AssessmentImporter
     'assessment_export.txt'
   end
 
+  def assessment_white_list
+    ["ACCESS", "WIDA-ACCESS", "DIBELS", "MCAS", "MAP", "MELA-O", "MEPA", "STAR"]
+  end
+
+  def check_white_list(row)
+    assessment_white_list.include? row[:assessment_test]
+  end
+
   def import_row(row)
-    merge_access_test_names(row)
+    return unless check_white_list(row)
+    standardize_access_test_names(row)
     chuck_non_numerical_growth_scores(row)
 
     student = Student.where(state_id: row[:state_id]).first_or_create!
@@ -27,7 +36,7 @@ class X2AssessmentImporter
     )
   end
 
-  def merge_access_test_names(row)
+  def standardize_access_test_names(row)
     if row[:assessment_test] == "WIDA-ACCESS"
       row[:assessment_test] = "ACCESS"
     end
