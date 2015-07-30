@@ -1,5 +1,4 @@
 module Importer
-  include ProgressBar
   # Any class using X2Importer should implement two methods:
   # export_file_name => string pointing to the name of the remote file to parse
   # import_row => function that describes how to handle each row (implemented by handle_row)
@@ -27,7 +26,7 @@ module Importer
     # Set up for proress bar
     if Rails.env.development?
       n = 0
-      number_of_rows = data.size
+      progress_bar = ProgressBar.new(data.size, @client.export_file_name)
     end
 
     # Import
@@ -36,7 +35,7 @@ module Importer
       handle_row(row)
       if Rails.env.development?
         n += 1
-        print progress_bar(n, number_of_rows)
+        print progress_bar.current_status(n)
       end
     end
 
