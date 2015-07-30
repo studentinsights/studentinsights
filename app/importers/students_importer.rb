@@ -1,5 +1,5 @@
 class StudentsImporter
-  include X2Importer
+  include Importer
 
   def export_file_name
     'students_export.txt'

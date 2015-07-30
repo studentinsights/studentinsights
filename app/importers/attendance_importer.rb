@@ -1,11 +1,11 @@
 class AttendanceImporter
-	include X2Importer
+  include Importer
 
-	def export_file_name
-		'attendance_export.txt'
-	end
+  def export_file_name
+    'attendance_export.txt'
+  end
 
-	def import_row(row)
+  def import_row(row)
     require 'date'
     if row[:event_date].present?
       begin

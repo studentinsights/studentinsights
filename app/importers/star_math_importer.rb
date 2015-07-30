@@ -1,18 +1,12 @@
 class StarMathImporter
-  include StarImporter
+  include Importer
 
   def export_file_name
     'SM.csv'
   end
 
-  def header_dictionary
-    {
-      'StudentStateID' => :state_id,
-      'StudentLocalID' => :local_id,
-      'AssessmentDate' => :date_taken,
-      'SchoolLocalID' => :school_local_id,
-      'PercentileRank' => :percentile_rank,
-    }
+  def assessment_family
+    AssessmentFamily.where(name: "STAR").first_or_create!
   end
 
   def assessment_subject

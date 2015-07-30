@@ -1,6 +1,15 @@
 module Importer
+  include ProgressBar
+  # Any class using X2Importer should implement two methods:
+  # export_file_name => string pointing to the name of the remote file to parse
+  # import_row => function that describes how to handle each row (implemented by handle_row)
 
   def initialize(options = {})
+    # Required arguments
+    @client = options[:client]
+    @data_transformer = options[:data_transformer]
+
+    # Optional arguments (for scoping import)
     @school = options[:school]
     @recent_only = options[:recent_only]
     @summer_school_local_ids = options[:summer_school_local_ids]    # For importing only summer school students
@@ -8,21 +17,21 @@ module Importer
 
   # SCOPED IMPORT #
 
-  def connect_and_import
-    sftp = client.start
-    file = sftp.download!(export_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-    import(file)
+  def connect_transform_import
+    file = @client.fetch_file
+    data = @data_transformer.transform(file)
+    import(data)  # Import an array of hashes
   end
 
-  def import(file)
-    csv = parse_as_csv(file)
-
+  def import(data)
+    # Set up for proress bar
     if Rails.env.development?
       n = 0
-      number_of_rows = csv.size
+      number_of_rows = data.size
     end
 
-    csv.each do |row|
+    # Import
+    data.each do |row|
       row.length.times { row.delete(nil) }
       handle_row(row)
       if Rails.env.development?
@@ -31,8 +40,9 @@ module Importer
       end
     end
 
+    # Exit
     puts if Rails.env.development?
-    return csv
+    return data
   end
 
   def handle_row(row)

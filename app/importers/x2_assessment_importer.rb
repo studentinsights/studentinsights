@@ -1,5 +1,5 @@
 class X2AssessmentImporter
-  include X2Importer
+  include Importer
 
   def export_file_name
     'assessment_export.txt'

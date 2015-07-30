@@ -14,5 +14,5 @@ task :import, [:school] => :environment do |task, args|
       raise "School not found"
     end
   end
-  ImportInitializer.import_all(school_arg)
+  ImportInitializer.import
 end

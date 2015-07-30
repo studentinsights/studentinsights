@@ -1,5 +1,5 @@
 class BehaviorImporter
-  include X2Importer
+  include Importer
 
   def export_file_name
     'behavior_export.txt'
