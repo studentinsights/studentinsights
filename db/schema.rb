@@ -11,10 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721221555) do
+ActiveRecord::Schema.define(version: 20150727215028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assessment_families", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "assessment_subjects", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "assessments", force: true do |t|
+    t.integer  "scale_score"
+    t.integer  "growth_percentile"
+    t.string   "performance_level"
+    t.integer  "assessment_family_id"
+    t.integer  "assessment_subject_id"
+    t.datetime "date_taken"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "percentile_rank"
+    t.decimal  "instructional_reading_level"
+  end
 
   create_table "attendance_events", force: true do |t|
     t.integer  "student_id"

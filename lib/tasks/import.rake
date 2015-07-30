@@ -10,6 +10,8 @@ task :import, [:school] => :environment do |task, args|
     school = School.where(local_id: args[:school]).first
     if school.present?
       school_arg = { school: school }
+    else
+      raise "School not found"
     end
   end
   ImportInitializer.import_all(school_arg)

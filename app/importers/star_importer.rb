@@ -21,18 +21,13 @@ module StarImporter
     CSV.parse(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
   end
 
+  def assessment_family
+    AssessmentFamily.where(name: "STAR").first_or_create!
+  end
+
   def convert_headers(header)
     if header_dictionary.keys.include? header
       header = header_dictionary[header]
     end
-  end
-
-  def import_row(row)
-    state_id = row[:state_id]
-    date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
-    student = Student.where(state_id: state_id).first_or_create!
-    star_result = StarResult.where(student_id: student.id, date_taken: date_taken).first_or_create!
-    star_result_info = Hash[row].except(:state_id, :school_local_id, :date_taken, :local_id)
-    star_result.update_attributes(star_result_info)
   end
 end
