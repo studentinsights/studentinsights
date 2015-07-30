@@ -1,11 +1,11 @@
 FactoryGirl.define do
-  sequence(:state_id) { |n| "#{n}000" }
+  sequence(:local_id) { |n| "#{n}000" }
 end
 
 FactoryGirl.define do
 
   factory :student do
-    state_id
+    local_id
     association :homeroom
     factory :student_who_registered_in_2013_2014 do
       registration_date Date.new(2013, 8, 1)
@@ -17,7 +17,7 @@ FactoryGirl.define do
       grade "PK"
     end
     factory :student_we_want_to_update do       # Test importing data from X2, STAR
-      state_id "10"                             # State ID matches fixture
+      local_id "10"                             # State ID matches fixture
       home_language "English"
     end
     factory :student_with_homeroom do

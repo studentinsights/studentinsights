@@ -18,7 +18,7 @@ class X2AssessmentImporter
     standardize_access_test_names(row)
     chuck_non_numerical_growth_scores(row)
 
-    student = Student.where(state_id: row[:state_id]).first_or_create!
+    student = Student.where(local_id: row[:local_id]).first_or_create!
     subject = AssessmentSubject.where(name: row[:assessment_subject]).first_or_create!
     family = AssessmentFamily.where(name: row[:assessment_test]).first_or_create!
 

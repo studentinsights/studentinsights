@@ -1,13 +1,9 @@
 class StudentsImporter
   include Importer
 
-  def export_file_name
-    'students_export.txt'
-  end
-
   def import_row(row)
-    student = Student.where(state_id: row[:state_id]).first_or_create!
-    attributes = Hash[row].except(:state_id, :school_local_id, :full_name, :homeroom)
+    student = Student.where(local_id: row[:local_id]).first_or_create!
+    attributes = Hash[row].except(:local_id, :school_local_id, :full_name, :homeroom)
     student.update_attributes(attributes)
 
     parsed_name = split_first_and_last_name(row[:full_name])
