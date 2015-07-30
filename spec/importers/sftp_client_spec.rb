@@ -12,7 +12,7 @@ RSpec.describe do
     allow(Net::SFTP).to receive_messages(start: 'connection established')
   end
 
-  describe '#start' do
+  describe '#sftp_session' do
     context 'sftp client' do
       let(:client) {
         SftpClient.new(
@@ -27,12 +27,12 @@ RSpec.describe do
           mock_sftp_site
         end
         it 'establishes a connection' do
-          expect(client.start).to eq 'connection established'
+          expect(client.sftp_session).to eq 'connection established'
         end
       end
       context 'without sftp keys' do
         it 'raises an error' do
-          expect { client.start }.to raise_error "SFTP information missing"
+          expect { client.sftp_session }.to raise_error "SFTP information missing"
         end
       end
     end
