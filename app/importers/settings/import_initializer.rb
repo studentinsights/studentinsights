@@ -20,11 +20,12 @@ class ImportInitializer
     {
       key: ENV['KIPP_NJ_AWS_KEY'],
       secret_key: ENV['KIPP_NJ_AWS_SECRET_KEY'],
-      bucket_name: ENV['KIPP_NJ_AWS_BUCKET_NAME']
+      bucket_name: ENV['KIPP_NJ_AWS_BUCKET_NAME'],
+      region: 'us-east-1'
     }
   end
 
-  def self.import_classes
+  def self.import_somerville_config
     [
       StudentsImporter.new({
         client: SftpClient.new(somerville_x2_sftp_credentials, 'students_export.txt'),
@@ -53,8 +54,17 @@ class ImportInitializer
     ]
   end
 
-  def self.import
-    import_classes.each do |i|
+  def self.import_kippnj_config
+    [
+      StudentImporter.new({
+        client: AwsClient.new(kipp_nj_aws_credentials, 'students.json'),
+        data_transformer: JsonTransformer.new
+      })
+    ]
+  end
+
+  def self.import(data_to_import)
+    data_to_import.each do |i|
       begin
         i.connect_transform_import
       rescue Exception => message
