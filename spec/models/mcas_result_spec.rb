@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe McasResult, :type => :model do
+RSpec.describe Assessment, :type => :model do
   describe '#assign_to_school_year' do
     context 'has date taken' do
       let(:mcas_result) { FactoryGirl.create(:mcas_result) }
