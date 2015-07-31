@@ -1,4 +1,4 @@
-RSpec.describe McasResultPresenter do
+RSpec.describe AssessmentPresenter do
 
   let(:mcas_result_without_math) { FactoryGirl.create(:mcas_result_without_math) }
   let(:mcas_result_without_ela) { FactoryGirl.create(:mcas_result_without_ela) }
