@@ -23,12 +23,12 @@ module Importer
   end
 
   def connect_transform_import_locally
-    tpm_path = @client.file_tmp_path
-    unless File.exist? tpm_path
+    path = @client.file_tmp_path
+    unless File.exist? path
       @client.download_file_to_tmp
     end
-    file = File.open(tpm_path)
-    data = @data_transformer.transform(file)
+    file_as_string = File.open(path, "r").read
+    data = @data_transformer.transform(file_as_string)
     import_locally(data)
   end
 
