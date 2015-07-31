@@ -7,7 +7,7 @@ module FakeStudent
       race: ["A", "B", "H", "W"].sample,
       first_name: ["Aladdin", "Chip", "Daisy", "Mickey", "Minnie", "Donald", "Elsa", "Mowgli", "Olaf", "Pluto", "Pocahontas", "Rapunzel", "Snow", "Winnie"].sample,
       last_name: ["Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"].sample,
-      state_id: "000#{rand(1000)}",
+      local_id: "000#{rand(1000)}",
       limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "FLEP"].sample,
       free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample
     }
