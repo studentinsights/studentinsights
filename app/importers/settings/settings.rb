@@ -51,11 +51,11 @@ class Settings
         data_transformer: JsonTransformer.new
       }),
       X2AssessmentImporter.new({
-        client: AwsAdapter.new(kipp_nj_aws_credentials, 'att.json'),
+        client: AwsAdapter.new(kipp_nj_aws_credentials, 'assess.json'),
         data_transformer: JsonTransformer.new
       }),
       BehaviorImporter.new({
-        client: AwsAdapter.new(kipp_nj_aws_credentials, 'att.json'),
+        client: AwsAdapter.new(kipp_nj_aws_credentials, 'disc.json'),
         data_transformer: JsonTransformer.new
       })
     ]
