@@ -5,8 +5,7 @@ class SchoolYear < ActiveRecord::Base
     end
   end
   has_many :discipline_incidents, -> (student) { extending FindByStudent }
-  has_many :mcas_results, -> (student) { extending FindByStudent }
-  has_many :star_results, -> (student) { extending FindByStudent }
+  has_many :assessments, -> (student) { extending FindByStudent }
   validates_uniqueness_of :name, :start
 
   def self.in_between(school_year_1, school_year_2)
@@ -17,8 +16,8 @@ class SchoolYear < ActiveRecord::Base
     {
       attendance_events: attendance_events.find_by_student(student).summarize,
       discipline_incidents: discipline_incidents.find_by_student(student),
-      mcas_result: mcas_results.find_by_student(student).last,
-      star_results: star_results.find_by_student(student).order(date_taken: :desc)
+      mcas_result: assessments.find_by_student(student).where(assessment_family_id: AssessmentFamily.mcas.id).last,
+      star_results: assessments.find_by_student(student).where(assessment_family_id: AssessmentFamily.star.id).order(date_taken: :desc)
     }
   end
 end
