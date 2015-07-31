@@ -6,6 +6,8 @@ class Settings
       somerville_import
     when "KIPP NJ"
       kipp_nj_import
+    else
+      raise "don't know about that school district buddy"
     end
   end
 
@@ -40,11 +42,19 @@ class Settings
 
   def self.kipp_nj_import
     [
+      AttendanceImporter.new({
+        client: AwsAdapter.new(kipp_nj_aws_credentials, 'att.json'),
+        data_transformer: JsonTransformer.new
+      }),
       StudentsImporter.new({
         client: AwsAdapter.new(kipp_nj_aws_credentials, 'students.json'),
         data_transformer: JsonTransformer.new
       }),
-      AttendanceImporter.new({
+      X2AssessmentImporter.new({
+        client: AwsAdapter.new(kipp_nj_aws_credentials, 'att.json'),
+        data_transformer: JsonTransformer.new
+      }),
+      BehaviorImporter.new({
         client: AwsAdapter.new(kipp_nj_aws_credentials, 'att.json'),
         data_transformer: JsonTransformer.new
       })
