@@ -1,20 +1,18 @@
 class AssessmentPresenter < Struct.new :assessment
-  # delegate :percentile_warning?,
-  #   :reading_level_warning?, :date_taken, to: :assessment
 
   def results_for_presentation
     [
-      :percentile_rank,
+      :performance_level,
       :scale_score,
       :growth_percentile,
-      :performance_level,
+      :percentile_rank,
       :instructional_reading_level
     ]
   end
 
   def method_missing(m, *args, &block)
     if results_for_presentation.include? m
-      result.send(m).present? ? result.send(m) : "—"
+      assessment.send(m).present? ? assessment.send(m) : "—"
     else
       raise NoMethodError
     end

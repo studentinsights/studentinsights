@@ -1,9 +1,12 @@
 class StudentRiskLevel < Struct.new :student
-  delegate :latest_mcas, :latest_star, :limited_english_proficiency, to: :student
+  delegate :latest_mcas, :latest_star, :limited_english_proficiency, :assessments, to: :student
   delegate :full_name, :last_name, :first_name, to: :student_presenter
 
   def level
     # As defined by Somerville Public Schools
+
+    latest_mcas = assessments.latest_mcas
+    latest_star = assessments.latest_star
 
     if latest_mcas.risk_level == 3 || latest_star.risk_level == 3 || limited_english_proficiency == "Limited"
       3

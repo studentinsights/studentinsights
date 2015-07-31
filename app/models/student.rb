@@ -3,7 +3,7 @@ class Student < ActiveRecord::Base
   belongs_to :school
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
-  has_many :assessments, -> { extending SortBySchoolYear, AssessmentScopes }, dependent: :destroy
+  has_many :assessments, -> { extending AssessmentScopes }, dependent: :destroy
   validates_presence_of :state_id
   validates_uniqueness_of :state_id
   include DateToSchoolYear
@@ -26,4 +26,5 @@ class Student < ActiveRecord::Base
       []
     end
   end
+
 end

@@ -1,0 +1,13 @@
+                    <% if assessment.is_a? MissingAssessment %>
+                      <td class="star">—</td>
+                    <% else %>
+                      <td class="star">
+                        <% present(assessment) do |presenter| %>
+                          <% if risk.percentile_warning? %>
+                            <div class="warning-bubble blue"><%= presenter.percentile_rank %></div>
+                          <% else %>
+                            <%= presenter.percentile_rank %>
+                          <% end %>
+                        </td>
+                      <% end %>
+                    <% end %>

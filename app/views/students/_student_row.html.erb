@@ -13,27 +13,20 @@
                   <td class="language"><%= presenter.limited_english_proficiency %></td>
                   <td class="language"><%= presenter.home_language %></td>
                   <td class="free-reduced"><%= presenter.free_reduced_lunch %></td>
-                  <% star_result = presenter.latest_star %>
-                  <% if star_result.is_a? MissingAssessment %>
-                    <td class="star">—</td>
-                    <td class="star">—</td>
-                    <td class="star">—</td>
-                  <% else %>
-                    <% present(star_result) do |result_presenter| %>
-                      <%= render "students/star_row_fragment", star_presenter: result_presenter %>
-                    <% end %>
-                  <% end %>
-                  <% mcas_result = presenter.latest_mcas %>
-                  <% if mcas_result.is_a? MissingAssessment %>
-                    <td class="mcas">—</td>
-                    <td class="mcas">—</td>
-                    <td class="mcas">—</td>
-                    <td class="mcas">—</td>
-                  <% else %>
-                    <% present(mcas_result) do |result_presenter| %>
-                      <%= render "students/mcas_row_fragment", mcas_presenter: result_presenter %>
-                    <% end %>
-                  <% end %>
+
+                  <% latest_star_math = student.assessments.latest_star_math %>
+                  <% latest_star_reading = student.assessments.latest_star_reading %>
+                  <% latest_mcas_math = student.assessments.latest_mcas_math %>
+                  <% latest_mcas_ela = student.assessments.latest_mcas_ela %>
+
+                  <%= render "students/star_math_row_fragment", assessment: latest_star_math, risk: StarRiskLevel.new(latest_star_math) %>
+
+                  <%= render "students/star_reading_row_fragment", assessment: latest_star_reading, risk: StarRiskLevel.new(latest_star_reading) %>
+
+                  <%= render "students/mcas_row_fragment", assessment: latest_mcas_math, risk: McasRiskLevel.new(latest_mcas_math) %>
+
+                  <%= render "students/mcas_row_fragment", assessment: latest_mcas_ela, risk: McasRiskLevel.new(latest_mcas_ela) %>
+
                   <% if presenter.current_events.present? %>
                     <td class="attendance"><%= presenter.absences_current_year %></td>
                     <td class="attendance"><%= presenter.tardies_current_year %></td>
