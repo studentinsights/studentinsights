@@ -43,6 +43,10 @@ class Settings
       StudentsImporter.new({
         client: AwsAdapter.new(kipp_nj_aws_credentials, 'students.json'),
         data_transformer: JsonTransformer.new
+      }),
+      AttendanceImporter.new({
+        client: AwsAdapter.new(kipp_nj_aws_credentials, 'att.json'),
+        data_transformer: JsonTransformer.new
       })
     ]
   end
