@@ -9,7 +9,7 @@ class AttendanceImporter
     require 'date'
     if row[:event_date].present?
       begin
-        Date.parse row[:event_date]
+        Date.parse row[:event_date] unless row[:event_date].is_a? DateTime
         student = Student.where(local_id: row[:local_id]).first_or_create!
         attendance_event = AttendanceEvent.where(
           student_id: student.id,
