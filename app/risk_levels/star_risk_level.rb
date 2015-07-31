@@ -1,6 +1,6 @@
 class StarRiskLevel < Struct.new :assessment
   delegate :performance_level, :percentile_rank, :growth_percentile,
-    :instructional_risk_level, to: :assessment
+    :instructional_reading_level, to: :assessment
 
   def risk_level_3_cutoff; 10 end
   def risk_level_2_cutoff; 30 end
@@ -29,8 +29,8 @@ class StarRiskLevel < Struct.new :assessment
   end
 
   def level_warning?
-    if instructional_risk_level.present?
-      -1 >= instructional_risk_level.to_f - grade.to_f
+    if instructional_reading_level.present?
+      -1 >= instructional_reading_level.to_f - grade.to_f
     end
   end
 end
