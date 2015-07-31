@@ -9,12 +9,22 @@ class AwsAdapter < Struct.new :credentials, :export_file_name
       return Aws::S3::Client.new
     else
       raise "AWS information missing"
+    endx
+  end
+
+  def download_file_to_tmp
+    File.open(file_tmp_path, 'wb') do |file|
+      s3_client.get_object({ bucket: credentials[:bucket_name], key: export_file_name }, target: file)
     end
   end
 
-  def fetch_file
+  def read_file
     resp = s3_client.get_object(bucket: credentials[:bucket_name], key: export_file_name)
     return resp.body.read
+  end
+
+  def file_tmp_path
+    "#{Rails.root}/tmp/#{export_file_name}"
   end
 
   def aws_credentials_present?

@@ -3,7 +3,11 @@ class ImportInitializer
   def self.import(from)
     from.each do |i|
       begin
-        i.connect_transform_import
+        if Rails.env.development?
+          i.connect_transform_import_locally
+        else
+          i.connect_transform_import
+        end
       rescue Exception => message
         puts message
       end

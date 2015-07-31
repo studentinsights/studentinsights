@@ -17,12 +17,30 @@ module Importer
   # SCOPED IMPORT #
 
   def connect_transform_import
-    file = @client.fetch_file
+    file = @client.read_file
     data = @data_transformer.transform(file)
-    import(data)  # Import an array of hashes
+    import(data)
+  end
+
+  def connect_transform_import_locally
+    tpm_path = @client.file_tmp_path
+    unless File.exist? tpm_path
+      @client.download_file_to_tmp
+    end
+    file = File.open(tpm_path)
+    data = @data_transformer.transform(file)
+    import_locally(data)
   end
 
   def import(data)
+    data.each do |row|
+      row.length.times { row.delete(nil) }
+      handle_row(row)
+    end
+    return data
+  end
+
+  def import_locally(data)
     # Set up for proress bar
     if Rails.env.development?
       n = 0
