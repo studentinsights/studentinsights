@@ -6,11 +6,13 @@ RSpec.describe StudentsImporter do
   describe '#import_row' do
     context 'good data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
+      let(:transformer) { X2ExportCsvTransformer.new }
+      let(:csv) { transformer.transform(file) }
       it 'imports two students' do
-        expect { importer.import(file) }.to change { Student.count }.by 2
+        expect { importer.import(csv) }.to change { Student.count }.by 2
       end
       it "imports first student's data correctly" do
-        importer.import(file)
+        importer.import(csv)
         first_student = Student.find_by_state_id("1000000000")
         expect(first_student.program_assigned).to eq "Sp Ed"
         expect(first_student.limited_english_proficiency).to eq "Fluent"
@@ -19,7 +21,7 @@ RSpec.describe StudentsImporter do
         expect(first_student.free_reduced_lunch).to eq "Not Eligible"
       end
       it "imports second student's data correctly" do
-        importer.import(file)
+        importer.import(csv)
         second_student = Student.find_by_state_id("1000000001")
         expect(second_student.program_assigned).to eq "Reg Ed"
         expect(second_student.limited_english_proficiency).to eq "FLEP-Transitioning"
