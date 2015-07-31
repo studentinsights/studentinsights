@@ -26,21 +26,4 @@ class Student < ActiveRecord::Base
       []
     end
   end
-
-  def latest_star
-    if assessments.star_results.present?
-      assessments.star_results.order(date_taken: :asc).last
-    else
-      MissingAssessment.new
-    end
-  end
-
-  def latest_mcas
-    if assessments.mcas_results.present?
-      assessments.mcas_results.order(date_taken: :asc).last
-    else
-      MissingAssessment.new
-    end
-  end
-
 end

@@ -90,7 +90,7 @@
       <% if @students.present? %>
         <!-- ROWS -->
         <% @students.find_each do |student| %>
-          <%= render "students/student_row", presenter: StudentPresenter.new(student), risk: StudentRiskLevel.new(student) %>
+          <%= render "students/student_row", student: student, presenter: StudentPresenter.new(student), risk: StudentRiskLevel.new(student) %>
         <% end %>
       <% end %>
     </table>
