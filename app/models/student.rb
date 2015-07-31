@@ -3,8 +3,7 @@ class Student < ActiveRecord::Base
   belongs_to :school
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
-  has_many :mcas_results, -> { extending SortBySchoolYear }, dependent: :destroy
-  has_many :star_results, -> { extending SortBySchoolYear }, dependent: :destroy
+  has_many :assessments, -> { extending SortBySchoolYear, AssessmentScopes }, dependent: :destroy
   validates_presence_of :state_id
   validates_uniqueness_of :state_id
   include DateToSchoolYear
@@ -29,16 +28,16 @@ class Student < ActiveRecord::Base
   end
 
   def latest_star
-    if star_results.present?
-      star_results.order(date_taken: :asc).last
+    if assessments.star_results.present?
+      assessments.star_results.order(date_taken: :asc).last
     else
       MissingAssessment.new
     end
   end
 
   def latest_mcas
-    if mcas_results.present?
-      mcas_results.order(date_taken: :asc).last
+    if assessments.mcas_results.present?
+      assessments.mcas_results.order(date_taken: :asc).last
     else
       MissingAssessment.new
     end

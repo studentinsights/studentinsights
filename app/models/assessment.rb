@@ -6,4 +6,15 @@ class Assessment < ActiveRecord::Base
   belongs_to :student
   belongs_to :school_year
   before_save :assign_to_school_year
+
+  def risk_level
+    case assessment_family.name
+    when "MCAS"
+      McasRiskLevel.new(self).risk_level
+    when "STAR"
+      StarRiskLevel.new(self).risk_level
+    else
+      nil
+    end
+  end
 end
