@@ -26,7 +26,7 @@ class JsonTransformer
       row[:tardy] = parse_boolean(row[:tardy])
     end
     if row[:has_exact_time].present?
-      row[:has_exact_time] = parse_boolean(row[:has_exact_time])å
+      row[:has_exact_time] = parse_boolean(row[:has_exact_time])
     end
   end
 

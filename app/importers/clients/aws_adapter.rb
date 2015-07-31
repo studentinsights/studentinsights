@@ -9,7 +9,7 @@ class AwsAdapter < Struct.new :credentials, :export_file_name
       return Aws::S3::Client.new
     else
       raise "AWS information missing"
-    endx
+    end
   end
 
   def download_file_to_tmp
@@ -32,5 +32,4 @@ class AwsAdapter < Struct.new :credentials, :export_file_name
     credentials[:secret_key].present? &&
     credentials[:bucket_name].present?
   end
-
 end
