@@ -1,5 +1,16 @@
 class StudentProfileChart < Struct.new :student
 
+  def prepare(family, subject, score)
+    unless family.is_a?(MissingAssessmentFamily) || subject.is_a?(MissingAssessmentSubject)
+      student.assessments.where(
+        assessment_family_id: family.id,
+        assessment_subject_id: subject.id
+      ).order(date_taken: :asc).map do |s|
+        [ s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score) ]
+      end
+    end
+  end
+
   def chart_data
     {
       attendance_series_absences: attendance_series_absences,
@@ -7,67 +18,13 @@ class StudentProfileChart < Struct.new :student
       attendance_events_school_years: attendance_events_school_years,
       behavior_series: behavior_series,
       behavior_series_school_years: behavior_series_school_years,
-      star_series_math_percentile: star_series_math_percentile,
-      star_series_reading_percentile: star_series_reading_percentile,
-      mcas_series_math_scaled: mcas_series_math_scaled,
-      mcas_series_ela_scaled: mcas_series_ela_scaled,
-      mcas_series_math_growth: mcas_series_math_growth,
-      mcas_series_ela_growth: mcas_series_ela_growth
+      star_series_math_percentile: prepare(AssessmentFamily.star, AssessmentSubject.math, :percentile_rank),
+      star_series_reading_percentile: prepare(AssessmentFamily.star, AssessmentSubject.reading, :percentile_rank),
+      mcas_series_math_scaled: prepare(AssessmentFamily.mcas, AssessmentSubject.math, :scale_score),
+      mcas_series_ela_scaled: prepare(AssessmentFamily.mcas, AssessmentSubject.ela, :scale_score),
+      mcas_series_math_growth: prepare(AssessmentFamily.mcas, AssessmentSubject.math, :growth_percentile),
+      mcas_series_ela_growth: prepare(AssessmentFamily.mcas, AssessmentSubject.ela, :growth_percentile)
     }
-  end
-
-  def star_series_math_percentile
-    student.assessments.where(
-      assessment_family_id: AssessmentFamily.star.id,
-      assessment_subject_id: AssessmentSubject.math.id
-    ).order(date_taken: :asc).map do |s|
-      [ s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank ]
-    end
-  end
-
-  def star_series_reading_percentile
-    student.assessments.where(
-      assessment_family_id: AssessmentFamily.star.id,
-      assessment_subject_id: AssessmentSubject.reading.id
-    ).order(date_taken: :asc).map do |s|
-      [ s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank ]
-    end
-  end
-
-  def mcas_series_math_scaled
-    student.assessments.where(
-      assessment_family_id: AssessmentFamily.mcas.id,
-      assessment_subject_id: AssessmentSubject.math.id
-    ).order(date_taken: :asc).map do |m|
-      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.scale_score ]
-    end
-  end
-
-  def mcas_series_ela_scaled
-    student.assessments.where(
-      assessment_family_id: AssessmentFamily.star.id,
-      assessment_subject_id: AssessmentSubject.ela.id
-    ).order(date_taken: :asc).map do |m|
-      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.scale_score ]
-    end
-  end
-
-  def mcas_series_math_growth
-    student.assessments.where(
-      assessment_family_id: AssessmentFamily.mcas.id,
-      assessment_subject_id: AssessmentSubject.math.id
-    ).order(date_taken: :asc).map do |m|
-      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.growth_percentile ]
-    end
-  end
-
-  def mcas_series_ela_growth
-    student.assessments.where(
-      assessment_family_id: AssessmentFamily.mcas.id,
-      assessment_subject_id: AssessmentSubject.ela.id
-    ).order(date_taken: :asc).map do |m|
-      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.growth_percentile ]
-    end
   end
 
   def attendance_series_absences

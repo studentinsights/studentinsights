@@ -20,63 +20,67 @@
         <% end %>
       </div>
 
-    <% if events[:mcas_result].present? %>
-       <div class="section mcas-result-section">
-        <h2>MCAS</h2>
-          <% if events[:mcas_result].ela_performance.present? && events[:mcas_result].ela_scaled.present? %>
+    <% if events[:mcas_math_result].present? || events[:mcas_ela_result].present? %>
+      <% if events[:mcas_ela_result].present? %>
+        <div class="section mcas-result-section">
+          <h2>MCAS</h2>
+          <div class="values">
+            <h3 class="assesment-type">English</h3>
             <div class="values">
-              <h3 class="assesment-type">English</h3>
-              <div class="values">
-                <h3><%= events[:mcas_result].ela_performance %></h3>
-                <h4>Performance</h4>
-              </div>
-              <div class="values">
-                <h3><%= events[:mcas_result].ela_scaled %></h3>
-                <h4>Scaled Score</h4>
-              </div>
+              <h3><%= events[:mcas_ela_result].performance_level %></h3>
+              <h4>Performance</h4>
             </div>
-          <% end %>
-          <% if events[:mcas_result].math_performance.present? && events[:mcas_result].math_scaled.present? %>
             <div class="values">
-              <h3 class="assesment-type">Math</h3>
-              <div class="values">
-                <h3><%= events[:mcas_result].math_performance %></h3>
-                <h4>Performance</h4>
-              </div>
-              <div class="values">
-                <h3><%= events[:mcas_result].math_scaled %></h3>
-                <h4>Scaled Score</h4>
-              </div>
+              <h3><%= events[:mcas_ela_result].scale_score %></h3>
+              <h4>Scaled Score</h4>
             </div>
-          <% end %>
+          </div>
         </div>
+      <% end %>
+      <% if events[:mcas_math_result].present? %>
+        <div class="values">
+          <h3 class="assesment-type">Math</h3>
+          <div class="values">
+            <h3><%= events[:mcas_math_result].performance_level %></h3>
+            <h4>Performance</h4>
+          </div>
+          <div class="values">
+            <h3><%= events[:mcas_math_result].scale_score %></h3>
+            <h4>Scaled Score</h4>
+          </div>
+        </div>
+      <% end %>
     <% end %>
 
-    <% if events[:star_results].present? %>
+    <% if events[:star_math_results].present? || events[:star_reading_results].present? %>
       <div class="section star-result-section">
         <h2>STAR</h2>
-        <% events[:star_results].each do |s| %>
-          <h5><%= s.date_taken.strftime("%B %e, %Y")  %></h5>
-          <div class="month">
+        <% if events[:star_reading_results].present? %>
+          <% events[:star_reading_results].each do |s| %>
+            <h5><%= s.date_taken.strftime("%B %e, %Y")  %></h5>
             <div class="values">
               <h3 class="assesment-type">Reading</h3>
               <div class="values">
-                <h3><%= StarResultPresenter.new(s).reading_percentile_rank %></h3>
+                <h3><%= AssessmentPresenter.new(s).percentile_rank %></h3>
                 <h4>Percentile</h4>
               </div>
               <div class="values">
-                <h3><%= StarResultPresenter.new(s).instructional_reading_level %></h3>
+                <h3><%= AssessmentPresenter.new(s).instructional_reading_level %></h3>
                 <h4>IRL</h4>
               </div>
             </div>
+          <% end %>
+        <% end %>
+        <% if events[:star_math_results].present? %>
+          <% events[:star_reading_results].each do |s| %>
             <div class="values">
               <h3 class="assesment-type">Math</h3>
               <div class="values">
-                <h3><%= StarResultPresenter.new(s).math_percentile_rank %></h3>
+                <h3><%= AssessmentPresenter.new(s).percentile_rank %></h3>
                 <h4>Percentile</h4>
               </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
       </div>
     <% end %>

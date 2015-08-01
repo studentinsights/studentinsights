@@ -16,8 +16,22 @@ class SchoolYear < ActiveRecord::Base
     {
       attendance_events: attendance_events.find_by_student(student).summarize,
       discipline_incidents: discipline_incidents.find_by_student(student),
-      mcas_result: assessments.find_by_student(student).where(assessment_family_id: AssessmentFamily.mcas.id).last,
-      star_results: assessments.find_by_student(student).where(assessment_family_id: AssessmentFamily.star.id).order(date_taken: :desc)
+      mcas_math_result: assessments.find_by_student(student).where(
+        assessment_family_id: AssessmentFamily.mcas.id,
+        assessment_subject_id: AssessmentSubject.math.id
+      ).last,
+      mcas_ela_result: assessments.find_by_student(student).where(
+        assessment_family_id: AssessmentFamily.mcas.id,
+        assessment_subject_id: AssessmentSubject.ela.id
+      ).last,
+      star_reading_results: assessments.find_by_student(student).where(
+        assessment_family_id: AssessmentFamily.star.id,
+        assessment_subject_id: AssessmentSubject.reading.id
+      ).order(date_taken: :desc),
+      star_math_results: assessments.find_by_student(student).where(
+        assessment_family_id: AssessmentFamily.star.id,
+        assessment_subject_id: AssessmentSubject.math.id
+      ).order(date_taken: :desc)
     }
   end
 end
