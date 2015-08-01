@@ -1,8 +1,9 @@
 module AssessmentScopes
 
   def latest_assessment(family, *subject)
-    student = proxy_association.owner
+    return MissingAssessment.new if (family.is_a?(MissingAssessmentFamily) || subject[0].is_a?(MissingAssessmentSubject))
 
+    student = proxy_association.owner
     if subject.present?
       these_assessments = student.assessments.where(assessment_family_id: family.id, assessment_subject_id: subject[0].id)
     else
