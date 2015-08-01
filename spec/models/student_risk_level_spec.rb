@@ -22,18 +22,9 @@ RSpec.describe do
     context 'has MCAS results but not STAR' do
       context 'has MCAS math but not MCAS ela' do
         context 'has a W value for MCAS math' do
-          let(:student) { FactoryGirl.create(:student_with_mcas_math_warning) }
+          let(:student) { FactoryGirl.create(:student_with_mcas_math_warning_assessment) }
           let(:student_risk_level) { StudentRiskLevel.new(student) }
           it 'has risk level 3' do
-            expect(student_risk_level.level).to eq 3
-          end
-        end
-      end
-      context 'has both MCAS math and MCAS ela' do
-        context 'has advanced math and warning ela' do
-          let(:student) { FactoryGirl.create(:student_with_mcas_advanced_math_and_warning_ela) }
-          let(:student_risk_level) { StudentRiskLevel.new(student) }
-          it 'has Risk Level 3' do
             expect(student_risk_level.level).to eq 3
           end
         end
@@ -42,7 +33,7 @@ RSpec.describe do
     context 'has STAR results but not MCAS' do
       context 'has STAR math but not STAR reading' do
         context 'STAR math is between 30 and 85' do
-          let(:student) { FactoryGirl.create(:student_with_star_between_30_85) }
+          let(:student) { FactoryGirl.create(:student_with_star_assessment_between_30_85) }
           let(:student_risk_level) { StudentRiskLevel.new(student) }
           it 'has Risk Level 1' do
             expect(student_risk_level.level).to eq 1
@@ -52,7 +43,7 @@ RSpec.describe do
     end
     context 'has both MCAS and STAR results' do
       context 'MCAS is advanced but STAR is warning' do
-        let(:student) { FactoryGirl.create(:student_with_mcas_advanced_and_star_warning) }
+        let(:student) { FactoryGirl.create(:student_with_mcas_math_advanced_and_star_math_warning_assessments) }
         let(:student_risk_level) { StudentRiskLevel.new(student) }
         it 'has Risk Level 3' do
           expect(student_risk_level.level).to eq 3
