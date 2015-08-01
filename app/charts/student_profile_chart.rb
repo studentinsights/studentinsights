@@ -17,38 +17,56 @@ class StudentProfileChart < Struct.new :student
   end
 
   def star_series_math_percentile
-    student.star_results.order(date_taken: :asc).map do |s|
-      [ s.date_taken.year, s.date_taken.month, s.date_taken.day, s.math_percentile_rank ]
+    student.assessments.where(
+      assessment_family_id: AssessmentFamily.star.id,
+      assessment_subject_id: AssessmentSubject.math.id
+    ).order(date_taken: :asc).map do |s|
+      [ s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank ]
     end
   end
 
   def star_series_reading_percentile
-    student.star_results.order(date_taken: :asc).map do |s|
-      [ s.date_taken.year, s.date_taken.month, s.date_taken.day, s.reading_percentile_rank ]
+    student.assessments.where(
+      assessment_family_id: AssessmentFamily.star.id,
+      assessment_subject_id: AssessmentSubject.reading.id
+    ).order(date_taken: :asc).map do |s|
+      [ s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank ]
     end
   end
 
   def mcas_series_math_scaled
-    student.mcas_results.order(date_taken: :asc).map do |m|
-      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.math_scaled ]
+    student.assessments.where(
+      assessment_family_id: AssessmentFamily.mcas.id,
+      assessment_subject_id: AssessmentSubject.math.id
+    ).order(date_taken: :asc).map do |m|
+      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.scale_score ]
     end
   end
 
   def mcas_series_ela_scaled
-    student.mcas_results.order(date_taken: :asc).map do |m|
-      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.ela_scaled ]
+    student.assessments.where(
+      assessment_family_id: AssessmentFamily.star.id,
+      assessment_subject_id: AssessmentSubject.ela.id
+    ).order(date_taken: :asc).map do |m|
+      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.scale_score ]
     end
   end
 
   def mcas_series_math_growth
-    student.mcas_results.order(date_taken: :asc).map do |m|
-      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.math_growth ]
+    student.assessments.where(
+      assessment_family_id: AssessmentFamily.mcas.id,
+      assessment_subject_id: AssessmentSubject.math.id
+    ).order(date_taken: :asc).map do |m|
+      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.growth_percentile ]
     end
   end
 
   def mcas_series_ela_growth
-    student.mcas_results.order(date_taken: :asc).map do |m|
-      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.ela_growth ]
+    student.assessments.where(
+      assessment_family_id: AssessmentFamily.mcas.id,
+      assessment_subject_id: AssessmentSubject.ela.id
+    ).order(date_taken: :asc).map do |m|
+      [ m.date_taken.year, m.date_taken.month, m.date_taken.day, m.growth_percentile ]
     end
   end
 
