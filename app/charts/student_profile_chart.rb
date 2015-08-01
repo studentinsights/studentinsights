@@ -1,4 +1,5 @@
 class StudentProfileChart < Struct.new :student
+  delegate :attendance_events, :discipline_incidents, to: :student
 
   def prepare(family, subject, score)
     unless family.is_a?(MissingAssessmentFamily) || subject.is_a?(MissingAssessmentSubject)
@@ -13,8 +14,8 @@ class StudentProfileChart < Struct.new :student
 
   def chart_data
     {
-      attendance_series_absences: attendance_series_absences,
-      attendance_series_tardies: attendance_series_tardies,
+      attendance_series_absences: attendance_series_absences(attendance_sorted),
+      attendance_series_tardies: attendance_series_tardies(attendance_sorted),
       attendance_events_school_years: attendance_events_school_years,
       behavior_series: behavior_series,
       behavior_series_school_years: behavior_series_school_years,
@@ -27,24 +28,38 @@ class StudentProfileChart < Struct.new :student
     }
   end
 
-  def attendance_series_absences
-    student.attendance_events.sort_by_school_year.values.map { |v| v.select(:absence).size }.reverse
+  def attendance_sorted
+    attendance_events.sort_by_school_year
   end
 
-  def attendance_series_tardies
-    student.attendance_events.sort_by_school_year.values.map { |v| v.select(:tardy).size }.reverse
+  def discipline_sorted
+    discipline_incidents.sort_by_school_year
+  end
+
+  def attendance_series_absences(sorted_attendance_events)
+    only_absence_events = sorted_attendance_events.values.map do |events|
+      events.select { |event| event.absence }
+    end
+    only_absence_events.map { |events| events.size }.reverse
+  end
+
+  def attendance_series_tardies(sorted_attendance_events)
+    only_tardy_events = sorted_attendance_events.values.map do |events|
+      events.select { |event| event.tardy }
+    end
+    only_tardy_events.map { |events| events.size }.reverse
   end
 
   def attendance_events_school_years
-    student.attendance_events.sort_by_school_year.keys.reverse
+    attendance_sorted.keys.reverse
   end
 
   def behavior_series
-    student.discipline_incidents.sort_by_school_year.values.map { |v| v.size }.reverse
+    discipline_sorted.values.map { |v| v.size }.reverse
   end
 
   def behavior_series_school_years
-    student.discipline_incidents.sort_by_school_year.keys.reverse
+    discipline_sorted.keys.reverse
   end
 
 end
