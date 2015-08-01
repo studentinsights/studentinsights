@@ -34,94 +34,62 @@ FactoryGirl.define do
     factory :limited_english_student do
       limited_english_proficiency "Limited"
     end
-    factory :student_with_mcas_result do
-      grade "5"
-      after(:create) do |student|
-        create(:mcas_result,
-          student_id: student.id
-        )
+
+    factory :student_with_registration_date do
+      registration_date Date.new(2015, 1, 1)
+      factory :student_with_mcas_assessment do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:mcas_assessment)
+        end
+      end
+      factory :student_with_mcas_math_assessment do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:mcas_math_assessment)
+        end
+      end
+      factory :student_with_mcas_math_warning_assessment do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:mcas_math_warning_assessment)
+        end
+      end
+      factory :student_with_mcas_math_advanced_and_star_math_warning_assessments do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:mcas_math_advanced_assessment)
+          student.assessments << FactoryGirl.create(:star_math_warning_assessment)
+        end
+      end
+      factory :student_with_star_assessment_between_30_85 do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:star_assessment_between_30_85)
+        end
       end
     end
 
-    # Test risk levels
-    factory :student_with_mcas_math_warning do
-      after(:create) do |student|
-        create(:mcas_result,
-          student_id: student.id,
-          math_performance: "W"
-        )
-      end
-    end
-    factory :student_with_mcas_advanced_math_and_warning_ela do
-      after(:create) do |student|
-        create(:mcas_result,
-          student_id: student.id,
-          math_performance: "A",
-          ela_performance: "W"
-        )
-      end
-    end
-    factory :student_with_star_between_30_85 do
-      after(:create) do |student|
-        create(:star_result,
-          student_id: student.id,
-          math_percentile_rank: 40
-        )
-      end
-    end
-
-    factory :student_with_mcas_advanced_and_star_warning do
-      after(:create) do |student|
-        create(:mcas_result,
-          student_id: student.id,
-          ela_performance: "A")
-        create(:star_result,
-          student_id: student.id,
-          math_percentile_rank: 5)
-      end
-    end
-
-    # Test reading warning level
+    # Test STAR Instructional Reading Level
     factory :student_behind_in_reading do
       grade "5"
       after(:create) do |student|
-        create(:star_result,
-          student_id: student.id,
-          instructional_reading_level: 3.5
-        )
+        student.assessments << FactoryGirl.create(:star_assessment_with_irl_below_4)
       end
     end
-
     factory :student_ahead_in_reading do
       grade "5"
       after(:create) do |student|
-        create(:star_result,
-          student_id: student.id,
-          instructional_reading_level: 6.5
-        )
+        student.assessments << FactoryGirl.create(:star_assessment_with_irl_above_5)
       end
     end
 
-    # Test attendance event sorting
+    # Test event sorting
     factory :student_with_attendance_event do
       registration_date Date.new(2014, 8, 1)
       after(:create) do |student|
-        create(:attendance_event,
-          student_id: student.id,
-          absence: true,
-          event_date: Time.new(2015, 1, 1)
-        )
+        student.attendance_events << FactoryGirl.create(:absence)
       end
     end
-
-    # Test discipline incident sorting
     factory :student_with_discipline_incident do
       registration_date Date.new(2014, 8, 1)
       after(:create) do |student|
-        create(:discipline_incident,
-          student_id: student.id,
-          event_date: Time.new(2015, 1, 1)
-        )
+        student.discipline_incidents << FactoryGirl.create(:discipline_incident)
       end
     end
   end
