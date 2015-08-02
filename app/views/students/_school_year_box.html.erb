@@ -20,10 +20,10 @@
         <% end %>
       </div>
 
-    <% if events[:mcas_math_result].present? || events[:mcas_ela_result].present? %>
+    <% unless events[:mcas_math_result].is_a?(MissingAssessment) && events[:mcas_ela_result].is_a?(MissingAssessment) %>
       <% if events[:mcas_ela_result].present? %>
         <div class="section mcas-result-section">
-          <h2>MCAS</h2>
+          <h2>MCAS English</h2>
           <div class="values">
             <h3 class="assesment-type">English</h3>
             <div class="values">
@@ -38,15 +38,18 @@
         </div>
       <% end %>
       <% if events[:mcas_math_result].present? %>
-        <div class="values">
-          <h3 class="assesment-type">Math</h3>
+        <div class="section mcas-result-section">
+          <h2>MCAS Math</h2>
           <div class="values">
-            <h3><%= events[:mcas_math_result].performance_level %></h3>
-            <h4>Performance</h4>
-          </div>
-          <div class="values">
-            <h3><%= events[:mcas_math_result].scale_score %></h3>
-            <h4>Scaled Score</h4>
+            <h3 class="assesment-type">Math</h3>
+            <div class="values">
+              <h3><%= events[:mcas_math_result].performance_level %></h3>
+              <h4>Performance</h4>
+            </div>
+            <div class="values">
+              <h3><%= events[:mcas_math_result].scale_score %></h3>
+              <h4>Scaled Score</h4>
+            </div>
           </div>
         </div>
       <% end %>
