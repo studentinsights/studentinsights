@@ -41,7 +41,7 @@ describe 'educator views student profile', :type => :feature do
       end
     end
     context 'student has MCAS results' do
-      let!(:student) { FactoryGirl.create(:student_with_mcas_result) }
+      let!(:student) { FactoryGirl.create(:student_with_mcas_assessment) }
       it 'shows MCAS results' do
         expect(page).to have_css '.mcas-result-section'
       end

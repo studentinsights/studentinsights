@@ -97,7 +97,7 @@ describe StudentsController, :type => :controller do
         let!(:second_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
         before { make_request }
         it 'assigns a list of students' do
-          expect(assigns(:students)).to eq([first_student, second_student])
+          expect(assigns(:students)).to eq(educator.homeroom.students)
         end
       end
     end
