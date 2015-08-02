@@ -1,15 +1,8 @@
 class StudentProfileChart < Struct.new :student
   include FindDataForStudentProfile
 
-  def prepare(family, subject, score)
-    unless family.is_a?(MissingAssessmentFamily) || subject.is_a?(MissingAssessmentSubject)
-      student.assessments.where(
-        assessment_family_id: family.id,
-        assessment_subject_id: subject.id
-      ).order(date_taken: :asc).map do |s|
-        [ s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score) ]
-      end
-    end
+  def prepare(assessments, score)
+    assessments.map { |s| [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score)] }
   end
 
   def chart_data
@@ -18,13 +11,13 @@ class StudentProfileChart < Struct.new :student
       attendance_series_tardies: attendance_series_tardies(discipline_incidents),
       attendance_events_school_years: attendance_events_school_years,
       behavior_series: behavior_series,
-      behavior_series_school_years: behavior_events_school_years,
-      star_series_math_percentile: prepare(AssessmentFamily.star, AssessmentSubject.math, :percentile_rank),
-      star_series_reading_percentile: prepare(AssessmentFamily.star, AssessmentSubject.reading, :percentile_rank),
-      mcas_series_math_scaled: prepare(AssessmentFamily.mcas, AssessmentSubject.math, :scale_score),
-      mcas_series_ela_scaled: prepare(AssessmentFamily.mcas, AssessmentSubject.ela, :scale_score),
-      mcas_series_math_growth: prepare(AssessmentFamily.mcas, AssessmentSubject.math, :growth_percentile),
-      mcas_series_ela_growth: prepare(AssessmentFamily.mcas, AssessmentSubject.ela, :growth_percentile)
+      behavior_series_school_years: behavior_series_school_years,
+      star_series_math_percentile: prepare(star_math_results, :percentile_rank),
+      star_series_reading_percentile: prepare(star_reading_results, :percentile_rank),
+      mcas_series_math_scaled: prepare(mcas_math_results, :scale_score),
+      mcas_series_ela_scaled: prepare(mcas_ela_results, :scale_score),
+      mcas_series_math_growth: prepare(mcas_math_results, :growth_percentile),
+      mcas_series_ela_growth: prepare(mcas_ela_results, :growth_percentile)
     }
   end
 
