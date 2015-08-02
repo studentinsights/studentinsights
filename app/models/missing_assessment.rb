@@ -1,5 +1,6 @@
 class MissingAssessment
-  def math_performance; nil end
-  def ela_performance; nil end
+  def performance_level; nil end
+  def growth_percentile; nil end
+  def scale_score; nil end
   def risk_level; nil end
 end

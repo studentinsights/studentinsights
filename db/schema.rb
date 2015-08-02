@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731054812) do
+ActiveRecord::Schema.define(version: 20150731230529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,11 @@ ActiveRecord::Schema.define(version: 20150731054812) do
     t.integer  "school_year_id"
   end
 
+  add_index "assessments", ["assessment_family_id"], name: "index_assessments_on_assessment_family_id", using: :btree
+  add_index "assessments", ["assessment_subject_id"], name: "index_assessments_on_assessment_subject_id", using: :btree
+  add_index "assessments", ["school_year_id"], name: "index_assessments_on_school_year_id", using: :btree
+  add_index "assessments", ["student_id"], name: "index_assessments_on_student_id", using: :btree
+
   create_table "attendance_events", force: true do |t|
     t.integer  "student_id"
     t.datetime "created_at"
@@ -52,6 +57,9 @@ ActiveRecord::Schema.define(version: 20150731054812) do
     t.integer  "school_year_id"
     t.datetime "event_date"
   end
+
+  add_index "attendance_events", ["school_year_id"], name: "index_attendance_events_on_school_year_id", using: :btree
+  add_index "attendance_events", ["student_id"], name: "index_attendance_events_on_student_id", using: :btree
 
   create_table "discipline_incidents", force: true do |t|
     t.integer  "student_id"
@@ -64,6 +72,9 @@ ActiveRecord::Schema.define(version: 20150731054812) do
     t.boolean  "has_exact_time"
     t.integer  "school_year_id"
   end
+
+  add_index "discipline_incidents", ["school_year_id"], name: "index_discipline_incidents_on_school_year_id", using: :btree
+  add_index "discipline_incidents", ["student_id"], name: "index_discipline_incidents_on_student_id", using: :btree
 
   create_table "educators", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -107,20 +118,7 @@ ActiveRecord::Schema.define(version: 20150731054812) do
     t.string   "slug"
   end
 
-  create_table "mcas_results", force: true do |t|
-    t.integer  "ela_scaled"
-    t.string   "ela_performance"
-    t.integer  "ela_growth"
-    t.integer  "math_scaled"
-    t.string   "math_performance"
-    t.integer  "math_growth"
-    t.integer  "assessment_id"
-    t.integer  "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.date     "date_taken"
-    t.integer  "school_year_id"
-  end
+  add_index "homerooms", ["educator_id"], name: "index_homerooms_on_educator_id", using: :btree
 
   create_table "school_years", force: true do |t|
     t.string   "name"
@@ -138,17 +136,8 @@ ActiveRecord::Schema.define(version: 20150731054812) do
     t.string   "local_id"
   end
 
-  create_table "star_results", force: true do |t|
-    t.integer  "math_percentile_rank"
-    t.integer  "reading_percentile_rank"
-    t.decimal  "instructional_reading_level"
-    t.integer  "assessment_id"
-    t.integer  "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.date     "date_taken"
-    t.integer  "school_year_id"
-  end
+  add_index "schools", ["local_id"], name: "index_schools_on_local_id", using: :btree
+  add_index "schools", ["state_id"], name: "index_schools_on_state_id", using: :btree
 
   create_table "students", force: true do |t|
     t.string   "grade"
@@ -175,5 +164,10 @@ ActiveRecord::Schema.define(version: 20150731054812) do
     t.string   "plan_504"
     t.string   "limited_english_proficiency"
   end
+
+  add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree
+  add_index "students", ["local_id"], name: "index_students_on_local_id", using: :btree
+  add_index "students", ["school_id"], name: "index_students_on_school_id", using: :btree
+  add_index "students", ["state_id"], name: "index_students_on_state_id", using: :btree
 
 end

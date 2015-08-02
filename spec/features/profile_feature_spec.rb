@@ -6,8 +6,10 @@ describe 'educator views student profile', :type => :feature do
     let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
 
     before(:each) do
-      educator_sign_in(educator)
-      visit "/students/#{student.id}"
+      Timecop.freeze(DateTime.new(2015, 5, 1)) do
+        educator_sign_in(educator)
+        visit "/students/#{student.id}"
+      end
     end
 
     context 'student has no discipline incidents' do
@@ -41,7 +43,7 @@ describe 'educator views student profile', :type => :feature do
       end
     end
     context 'student has MCAS results' do
-      let!(:student) { FactoryGirl.create(:student_with_mcas_result) }
+      let!(:student) { FactoryGirl.create(:student_with_mcas_math_assessment) }
       it 'shows MCAS results' do
         expect(page).to have_css '.mcas-result-section'
       end

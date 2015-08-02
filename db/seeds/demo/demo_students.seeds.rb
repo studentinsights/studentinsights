@@ -13,26 +13,35 @@ n = 0
 end
 
 Student.destroy_all
-McasResult.destroy_all
-StarResult.destroy_all
+Assessment.destroy_all
 DisciplineIncident.destroy_all
 AttendanceEvent.destroy_all
 
+# Set up assessment subjects and families
+AssessmentFamily.where(name: "MCAS").first_or_create!
+AssessmentFamily.where(name: "STAR").first_or_create!
+AssessmentSubject.where(name: "Math").first_or_create!
+AssessmentSubject.where(name: "ELA").first_or_create!
+AssessmentSubject.where(name: "Reading").first_or_create!
+
 36.times do
+  # Set up student demographics & SPED
   student = Student.create(FakeStudent.data)
   FakeStudent.randomize_504(student)
   FakeStudent.randomize_program_assigned(student)
   student.homeroom_id = Homeroom.all.sample.id
   student.save
-  mcasFactory =  FakeMcasResultGenerator.new
-  starFactory =  FakeStarResultGenerator.new
+
+  # Set up student assessments
+  mcas_math_factory = FakeMcasMathResultGenerator.new
+  star_math_factory = FakeStarMathResultGenerator.new
   5.times do
-    result = McasResult.new(mcasFactory.next)
+    result = Assessment.new(mcas_math_factory.next)
     result.update_attributes(student_id: student.id)
     result.save
   end
   12.times do
-    result = StarResult.new(starFactory.next)
+    result = Assessment.new(star_math_factory.next)
     result.update_attributes(student_id: student.id)
     result.save
   end

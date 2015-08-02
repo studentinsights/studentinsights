@@ -9,6 +9,7 @@ class Assessment < ActiveRecord::Base
   delegate :grade, to: :student
 
   def risk_level
+    return nil unless assessment_family.present?
     case assessment_family.name
     when "MCAS"
       McasRiskLevel.new(self).risk_level

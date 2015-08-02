@@ -34,9 +34,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'rails_12factor', group: :production
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
-
 group :development, :test do
   gem 'rack-test'
   gem 'factory_girl_rails'
@@ -52,6 +49,8 @@ end
 
 group :development do
   gem 'pivotal_git_scripts'
+  gem 'rack-mini-profiler'
+  gem 'spring'
 end
 
 # Auth
