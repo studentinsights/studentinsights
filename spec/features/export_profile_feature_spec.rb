@@ -1,8 +1,8 @@
 require 'rails_helper'
 require 'capybara/rspec'
 
-describe 'educator exports a student profile', :type => :feature do
-  context 'educator with account exports student profile' do
+describe 'export profile', :type => :feature do
+  context 'educator with account' do
     let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
     let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014) }
 
@@ -21,7 +21,7 @@ describe 'educator exports a student profile', :type => :feature do
       click_on 'Export'
     end
 
-    context 'to csv' do
+    context 'csv' do
       it 'sends a csv' do
         content_type = page.response_headers['Content-Type']
         expect(content_type).to eq 'text/csv'
@@ -34,7 +34,7 @@ describe 'educator exports a student profile', :type => :feature do
       end
     end
   end
-  context 'someone without account tries to export student profile' do
+  context 'someone without account' do
     let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014) }
     it 'does not work' do
       visit "/students/#{student.id}.csv"
