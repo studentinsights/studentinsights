@@ -49,44 +49,45 @@ class StudentRiskLevel < Struct.new :student
 
   def explanation
     explanations = []
+    name = first_name || "This student"
 
     case level
     when 3
       if limited_english_proficiency == "Limited"
-        explanations << "#{first_name} is limited English proficient."
+        explanations << "#{name} is limited English proficient."
       end
       if latest_mcas.risk_level == 3
-        explanations << "#{first_name}'s MCAS performance level is Warning."
+        explanations << "#{name}'s MCAS performance level is Warning."
       end
       if latest_star.risk_level == 3
-        explanations << "#{first_name}'s STAR performance is in the warning range (below 10)."
+        explanations << "#{name}'s STAR performance is in the warning range (below 10)."
       end
     when 2
       if latest_mcas.risk_level == 2
-        explanations << "#{first_name}'s MCAS performance level is Needs Improvement."
+        explanations << "#{name}'s MCAS performance level is Needs Improvement."
       end
       if latest_star.risk_level == 2
-        explanations << "#{first_name}'s STAR performance is in the 10-30 range."
+        explanations << "#{name}'s STAR performance is in the 10-30 range."
       end
     when 1
       if latest_mcas.risk_level == 1
-        explanations << "#{first_name}'s MCAS performance level is Proficient."
+        explanations << "#{name}'s MCAS performance level is Proficient."
       end
       if latest_star.risk_level == 1
-        explanations << "#{first_name}'s STAR performance is above 30."
+        explanations << "#{name}'s STAR performance is above 30."
       end
     when 0
       if latest_mcas.risk_level == 0
-        explanations << "#{first_name}'s MCAS performance level is Advanced."
+        explanations << "#{name}'s MCAS performance level is Advanced."
       end
       if latest_star.risk_level == 0
-        explanations << "#{first_name}'s STAR performance is above 85."
+        explanations << "#{name}'s STAR performance is above 85."
       end
     when nil
       explanations << "There is not enough information to tell."
     end
 
-    explanation = "#{full_name} is at #{level_in_words} Risk because:<br/><br/>"
+    explanation = "#{name} is at #{level_in_words} Risk because:<br/><br/>"
     explanation += "<ul>" + explanations.map { |e| "<li>#{e}</li>" }.join + "</ul>"
   end
 
