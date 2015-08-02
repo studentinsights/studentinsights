@@ -23,6 +23,9 @@ FactoryGirl.define do
           factory :star_assessment_between_30_85, class: Assessment do
             percentile_rank 40
           end
+          factory :star_assessment_with_irl_above_5, class: Assessment do
+            instructional_reading_level 6
+          end
         end
       end
     end
