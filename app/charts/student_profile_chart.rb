@@ -2,6 +2,7 @@ class StudentProfileChart < Struct.new :student
   include FindDataForStudentProfile
 
   def prepare(assessments, score)
+    return if assessments.blank?
     assessments.map { |s| [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score)] }
   end
 
@@ -11,7 +12,7 @@ class StudentProfileChart < Struct.new :student
       attendance_series_tardies: attendance_series_tardies(discipline_incidents),
       attendance_events_school_years: attendance_events_school_years,
       behavior_series: behavior_series,
-      behavior_series_school_years: behavior_series_school_years,
+      behavior_series_school_years: behavior_events_school_years,
       star_series_math_percentile: prepare(star_math_results, :percentile_rank),
       star_series_reading_percentile: prepare(star_reading_results, :percentile_rank),
       mcas_series_math_scaled: prepare(mcas_math_results, :scale_score),
