@@ -1,4 +1,4 @@
-module FindAssessments
+module FindDataForStudentProfile
   def find_assessments(family, subject)
     unless family.is_a?(MissingAssessmentFamily) || subject.is_a?(MissingAssessmentSubject)
       student.assessments.where(
@@ -31,4 +31,13 @@ module FindAssessments
   def discipline_incidents
     student.discipline_incidents.sort_by_school_year
   end
+
+  def attendance_events_school_years
+    attendance_events.keys.reverse
+  end
+
+  def behavior_events_school_years
+    discipline_incidents.keys.reverse
+  end
+
 end

@@ -1,5 +1,5 @@
 class StudentProfileCsvExporter < Struct.new :student
-  include FindAssessments
+  include FindDataForStudentProfile
 
   def profile_csv_export
     CSV.generate do |csv|
