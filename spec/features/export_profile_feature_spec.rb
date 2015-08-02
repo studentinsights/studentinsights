@@ -16,9 +16,11 @@ describe 'export profile', :type => :feature do
     end
 
     before(:each) do
-      educator_sign_in(educator)
-      visit "/students/#{student.id}"
-      click_on 'Export'
+      Timecop.freeze(DateTime.new(2015, 5, 1)) do
+        educator_sign_in(educator)
+        visit "/students/#{student.id}"
+        click_on 'Export'
+      end
     end
 
     context 'csv' do
