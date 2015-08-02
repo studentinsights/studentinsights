@@ -1,18 +1,12 @@
 class StarMathImporter
-  include StarImporter
+  include Importer
 
   def export_file_name
     'SM.csv'
   end
 
-  def header_dictionary
-    {
-      'StudentStateID' => :state_id,
-      'StudentLocalID' => :local_id,
-      'AssessmentDate' => :date_taken,
-      'SchoolLocalID' => :school_local_id,
-      'PercentileRank' => :percentile_rank,
-    }
+  def assessment_family
+    AssessmentFamily.where(name: "STAR").first_or_create!
   end
 
   def assessment_subject
@@ -21,7 +15,7 @@ class StarMathImporter
 
   def import_row(row)
     date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
-    student = Student.where(state_id: row[:state_id]).first_or_create!
+    student = Student.where(local_id: row[:local_id]).first_or_create!
 
     star_assessment = Assessment.where({
       student_id: student.id,

@@ -66,6 +66,8 @@ gem 'rubystats'
 # Output PDFs
 gem 'pdfkit'
 
+# S3
+gem 'aws-sdk-core', '~> 2'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

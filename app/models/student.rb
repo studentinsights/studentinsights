@@ -4,8 +4,8 @@ class Student < ActiveRecord::Base
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :assessments, -> { extending AssessmentScopes }, dependent: :destroy
-  validates_presence_of :state_id
-  validates_uniqueness_of :state_id
+  validates_presence_of :local_id
+  validates_uniqueness_of :local_id
   include DateToSchoolYear
 
   def school_years
