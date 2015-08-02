@@ -24,20 +24,20 @@ module FindDataForStudentProfile
     scope_assessments(assessments_to_scope, AssessmentFamily.star, AssessmentSubject.reading)
   end
 
-  def attendance_events
+  def attendance_events_by_school_year
     student.attendance_events.sort_by_school_year
   end
 
-  def discipline_incidents
+  def discipline_incidents_by_school_year
     student.discipline_incidents.sort_by_school_year
   end
 
   def attendance_events_school_years
-    attendance_events.keys.reverse
+    attendance_events_by_school_year.keys.reverse
   end
 
   def behavior_events_school_years
-    discipline_incidents.keys.reverse
+    discipline_incidents_by_school_year.keys.reverse
   end
 
 end

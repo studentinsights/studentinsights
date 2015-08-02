@@ -8,8 +8,8 @@ class StudentProfileChart < Struct.new :student
 
   def chart_data
     {
-      attendance_series_absences: attendance_series_absences(attendance_events),
-      attendance_series_tardies: attendance_series_tardies(discipline_incidents),
+      attendance_series_absences: attendance_series_absences(attendance_events_by_school_year),
+      attendance_series_tardies: attendance_series_tardies(attendance_events_by_school_year),
       attendance_events_school_years: attendance_events_school_years,
       behavior_series: behavior_series,
       behavior_series_school_years: behavior_events_school_years,
@@ -37,6 +37,6 @@ class StudentProfileChart < Struct.new :student
   end
 
   def behavior_series
-    discipline_incidents.values.map { |v| v.size }.reverse
+    discipline_incidents_by_school_year.values.map { |v| v.size }.reverse
   end
 end
