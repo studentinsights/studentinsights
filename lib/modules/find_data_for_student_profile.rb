@@ -1,27 +1,27 @@
 module FindDataForStudentProfile
-  def find_assessments(family, subject)
+  def scope_assessments(assessments_to_scope, family, subject)
     unless family.is_a?(MissingAssessmentFamily) || subject.is_a?(MissingAssessmentSubject)
-      student.assessments.where(
+      assessments_to_scope.where(
         assessment_family_id: family.id,
         assessment_subject_id: subject.id
       ).order(date_taken: :desc)
     end
   end
 
-  def mcas_math_results
-    find_assessments(AssessmentFamily.mcas, AssessmentSubject.math)
+  def mcas_math_results(assessments_to_scope)
+    scope_assessments(assessments_to_scope, AssessmentFamily.mcas, AssessmentSubject.math)
   end
 
-  def mcas_ela_results
-    find_assessments(AssessmentFamily.mcas, AssessmentSubject.ela)
+  def mcas_ela_results(assessments_to_scope)
+    scope_assessments(assessments_to_scope, AssessmentFamily.mcas, AssessmentSubject.ela)
   end
 
-  def star_math_results
-    find_assessments(AssessmentFamily.star, AssessmentSubject.math)
+  def star_math_results(assessments_to_scope)
+    scope_assessments(assessments_to_scope, AssessmentFamily.star, AssessmentSubject.math)
   end
 
-  def star_reading_results
-    find_assessments(AssessmentFamily.star, AssessmentSubject.reading)
+  def star_reading_results(assessments_to_scope)
+    scope_assessments(assessments_to_scope, AssessmentFamily.star, AssessmentSubject.reading)
   end
 
   def attendance_events

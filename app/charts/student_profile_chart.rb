@@ -13,12 +13,12 @@ class StudentProfileChart < Struct.new :student
       attendance_events_school_years: attendance_events_school_years,
       behavior_series: behavior_series,
       behavior_series_school_years: behavior_events_school_years,
-      star_series_math_percentile: prepare(star_math_results, :percentile_rank),
-      star_series_reading_percentile: prepare(star_reading_results, :percentile_rank),
-      mcas_series_math_scaled: prepare(mcas_math_results, :scale_score),
-      mcas_series_ela_scaled: prepare(mcas_ela_results, :scale_score),
-      mcas_series_math_growth: prepare(mcas_math_results, :growth_percentile),
-      mcas_series_ela_growth: prepare(mcas_ela_results, :growth_percentile)
+      star_series_math_percentile: prepare(star_math_results(student.assessments), :percentile_rank),
+      star_series_reading_percentile: prepare(star_reading_results(student.assessments), :percentile_rank),
+      mcas_series_math_scaled: prepare(mcas_math_results(student.assessments), :scale_score),
+      mcas_series_ela_scaled: prepare(mcas_ela_results(student.assessments), :scale_score),
+      mcas_series_math_growth: prepare(mcas_math_results(student.assessments), :growth_percentile),
+      mcas_series_ela_growth: prepare(mcas_ela_results(student.assessments), :growth_percentile)
     }
   end
 
