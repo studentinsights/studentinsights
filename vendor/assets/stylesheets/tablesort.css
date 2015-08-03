@@ -12,7 +12,7 @@ table th.sort-header:after {
   border-color:#404040 transparent;
   visibility:hidden;
   opacity:0.4;
-  margin-left: 5px;
+  margin-left: 12px;
   margin-bottom: 2px;
 }
 
