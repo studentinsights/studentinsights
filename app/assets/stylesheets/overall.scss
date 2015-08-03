@@ -38,15 +38,28 @@ body {
 
 .low {
     background-color: $low;
+
+    &:hover {
+        background-color: darken($low, 10%);
+    }
 }
 
 .medium {
     background-color: $medium;
+
+    &:hover {
+        background-color: darken($medium, 10%);
+    }
 }
 
 .high {
     background-color: $high;
+
+    &:hover {
+        background-color: darken($high, 10%);
+    }
 }
+
 
 .na {
     background-color: $gray;
