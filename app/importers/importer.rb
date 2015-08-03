@@ -44,7 +44,7 @@ module Importer
     # Set up for proress bar
     if Rails.env.development?
       n = 0
-      progress_bar = ProgressBar.new(data.size, @client.export_file_name)
+      progress_bar = ProgressBar.new(data.size, @client.remote_file_name)
     end
 
     # Import

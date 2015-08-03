@@ -14,13 +14,14 @@ RSpec.describe do
 
   describe '#sftp_session' do
     context 'sftp client' do
-      let(:client) {
-        SftpClient.new(
+      let(:credentials) {
+        {
           user: ENV['STAR_SFTP_USER'],
           host: ENV['STAR_SFTP_HOST'],
           password: ENV['STAR_SFTP_PASSWORD']
-        )
+        }
       }
+      let(:client) { SftpClient.new(credentials: credentials) }
       context 'with sftp keys' do
         before do
           mock_environment_with_keys

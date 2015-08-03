@@ -1,7 +1,7 @@
 class BehaviorImporter
   include Importer
 
-  def export_file_name
+  def remote_file_name
     'behavior_export.txt'
   end
 

@@ -1,19 +1,14 @@
 desc "Import students, attendance, behavior, assessments"
-  # rake import => imports for all schools
+  # In the Somerville context, rake import => imports for all schools
   # rake import[HEA] => imports for just Healey School
   # rake import[BRN] => imports for just Brown School
   # See schools.seeds.rb for Somerville school local_ids
 
 task :import, [:school] => :environment do |task, args|
-  # school_arg = {}
-  # if args[:school].present?
-  #   school = School.where(local_id: args[:school]).first
-  #   if school.present?
-  #     school_arg = { school: school }
-  #   else
-  #     raise "School not found"
-  #   end
-  # end
-  settings = Settings.for("Somerville")
+  if args[:school].present?
+    school = School.find_by_local_id(args[:school])
+    raise "School not found" if school.blank?
+  end
+  settings = Settings.new({district_scope: "Somerville", school_scope: school}).configure
   ImportInitializer.import(settings)
 end

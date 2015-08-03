@@ -1,7 +1,7 @@
 class StarReadingImporter
   include Importer
 
-  def export_file_name
+  def remote_file_name
     'SR.csv'
   end
 
