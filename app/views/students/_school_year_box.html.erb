@@ -1,86 +1,58 @@
-    <div class="school-year">
+  <div class="school-year">
 
-      <div class="year">
-        <h1><%= school_year.name %></h1>
-      </div>
-
-      <div class="section attendance-section">
-        <% if events[:attendance_events][:absences] > 0 || events[:attendance_events][:tardies] > 0 %>
-          <h2 class="attendance-type">Attendance</h2>
-          <div class="values">
-            <h3><%= events[:attendance_events][:absences] %></h3>
-            <h4>Absences</h4>
-          </div>
-          <div class="values">
-            <h3><%= events[:attendance_events][:tardies] %></h3>
-            <h4>Tardies</h4>
-          </div>
-        <% else %>
-          <h2 class="attendance-type">No absences or tardies</h2>
-        <% end %>
-      </div>
+    <div class="year">
+      <h1><%= school_year.name %></h1>
+    </div>
 
     <% unless events[:mcas_math_result].is_a?(MissingAssessment) && events[:mcas_ela_result].is_a?(MissingAssessment) %>
-      <% if events[:mcas_ela_result].present? %>
-        <div class="section mcas-result-section">
-          <h2>MCAS English</h2>
-          <div class="values">
-            <h3 class="assesment-type">English</h3>
+      <div class="section mcas-result-section">
+        <h2 class="section-header">MCAS</h2>
+        <% if events[:mcas_ela_result].present? %>
+          <h3 class="assesment-type">English</h3>
+          <div class="assessment-dark-background">
             <div class="values">
-              <h3><%= events[:mcas_ela_result].performance_level %></h3>
-              <h4>Performance</h4>
+              <p>Performance: <strong><%= events[:mcas_ela_result].performance_level %></strong></p>
             </div>
             <div class="values">
-              <h3><%= events[:mcas_ela_result].scale_score %></h3>
-              <h4>Scaled Score</h4>
+              <p>Scaled Score: <strong><%= events[:mcas_ela_result].scale_score %></strong></p>
             </div>
           </div>
-        </div>
-      <% end %>
-      <% if events[:mcas_math_result].present? %>
-        <div class="section mcas-result-section">
-          <h2>MCAS Math</h2>
-          <div class="values">
-            <h3 class="assesment-type">Math</h3>
+        <% end %>
+        <% if events[:mcas_math_result].present? %>
+          <h3 class="assesment-type">Math</h3>
+          <div class="assessment-dark-background">
             <div class="values">
-              <h3><%= events[:mcas_math_result].performance_level %></h3>
-              <h4>Performance</h4>
+              <p>Performance: <strong><%= events[:mcas_math_result].performance_level %></strong></p>
             </div>
             <div class="values">
-              <h3><%= events[:mcas_math_result].scale_score %></h3>
-              <h4>Scaled Score</h4>
+              <p>Scaled Score: <strong><%= events[:mcas_math_result].scale_score %></strong></p>
             </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     <% end %>
 
     <% if events[:star_math_results].present? || events[:star_reading_results].present? %>
       <div class="section star-result-section">
-        <h2>STAR</h2>
+        <h2 class="section-header">STAR</h2>
         <% if events[:star_reading_results].present? %>
           <% events[:star_reading_results].each do |s| %>
-            <h5><%= s.date_taken.strftime("%B %e, %Y")  %></h5>
-            <div class="values">
-              <h3 class="assesment-type">Reading</h3>
+            <h3 class="assesment-type"><%= s.date_taken.strftime("%B %e, %Y")  %></h3>
+            <div class="assessment-dark-background">
               <div class="values">
-                <h3><%= AssessmentPresenter.new(s).percentile_rank %></h3>
-                <h4>Percentile</h4>
+                <p>Reading percentile: <strong><%= AssessmentPresenter.new(s).percentile_rank %></strong></p>
               </div>
               <div class="values">
-                <h3><%= AssessmentPresenter.new(s).instructional_reading_level %></h3>
-                <h4>IRL</h4>
+                <p>Reading level: <strong><%= AssessmentPresenter.new(s).instructional_reading_level %></strong></p>
               </div>
             </div>
           <% end %>
         <% end %>
         <% if events[:star_math_results].present? %>
           <% events[:star_reading_results].each do |s| %>
-            <div class="values">
-              <h3 class="assesment-type">Math</h3>
+            <div class="assessment-dark-background">
               <div class="values">
-                <h3><%= AssessmentPresenter.new(s).percentile_rank %></h3>
-                <h4>Percentile</h4>
+                <p>Math percentile: <strong><%= AssessmentPresenter.new(s).percentile_rank %></strong></p>
               </div>
             </div>
           <% end %>
@@ -88,9 +60,23 @@
       </div>
     <% end %>
 
+    <div class="section attendance-section">
+      <h2 class="section-header">Attendance</h2>
+      <% if events[:attendance_events][:absences] > 0 || events[:attendance_events][:tardies] > 0 %>
+        <div class="values">
+          <p>Absences: <strong><%= events[:attendance_events][:absences] %></stron></p>
+        </div>
+        <div class="values">
+          <p>Tardies <strong><%= events[:attendance_events][:tardies] %></strong></p>
+        </div>
+      <% else %>
+        <p class="attendance-type">No absences or tardies</p>
+      <% end %>
+    </div>
+
     <div class="section behavior-section">
+      <h2 class="section-header">Behavior</h2>
       <% if events[:discipline_incidents].present? %>
-        <h2>Behavior</h2>
           <% events[:discipline_incidents].each do |d| %>
             <div class="referral">
               <p><strong>Code:</strong>  <%= d.incident_code %></p>
@@ -100,7 +86,7 @@
             </div>
           <% end %>
       <% else %>
-        <h2>No behavior incidents</h2>
+        <p>No behavior incidents</p>
       <% end %>
     </div>
   </div>

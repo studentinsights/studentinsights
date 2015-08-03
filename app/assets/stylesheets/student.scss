@@ -82,12 +82,24 @@
 }
 
 .school-year {
-  text-align: center;
   border-left: 1px solid $light-line;
   border-right: 1px solid $light-line;
   border-bottom: 1px solid $light-line;
   border-radius: 4px;
   margin-top: 25px;
+
+  .section-header {
+    border-bottom: 1px solid $light-line;
+    margin-bottom: 15px;
+  }
+
+  .assessment-dark-background {
+    background-color: $backgroud;
+    overflow: auto;
+    padding: 8px 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
 }
 
 .year {
@@ -97,24 +109,22 @@
   height: 50px;
   padding-top: 14px;
 
- /* SAVE FOR V2 UPDATE */
-  // h1 {
-  //   text-align: left;
-  //   padding-left: 30px;
-  // }
+  h1 {
+    text-align: left;
+     padding-left: 30px;
+   }
 }
 
 .section {
   padding-top: 30px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid $light-line;
   margin-right:30px;
   margin-left:30px;
+  overflow: auto;
 
   .values {
     display: inline-block;
-    margin-left: 20px;
-    margin-right: 20px;
+    float: left;
+    padding-right: 20px;
   }
 }
 
