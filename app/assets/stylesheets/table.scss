@@ -16,12 +16,17 @@ table {
 
 th {
   font-weight: normal;
-  text-align: left;
+  text-align: center;
   font-size: 14px;
 }
 
-#table-header {
-    padding-right: 1px;
+.table-header {
+
+  th & {
+    text-align: center;
+    position: relative;
+    left: 8px;
+  }
 }
 
 .column-names {
@@ -81,8 +86,7 @@ tr, td {
   padding-top: 5px;
   padding-bottom: 5px;
   text-align: center;
-  position: relative;
-  right: 6px;
+  margin: auto auto;
 }
 
 ::-webkit-scrollbar {
@@ -100,7 +104,24 @@ tbody {
 
   tr:hover {
      cursor: pointer;
-     background-color: $table-hover;
+     background-color: $table-row-hover;
+     border-radius: 10px;
+  }
+
+  td {
+    text-align: center;
+  }
+
+  .cell-wrapper {
+    padding: 10px;
+  }
+
+  td:hover {
+
+    .cell-wrapper {
+       background-color: $table-cell-hover;
+       border-radius: 5px;
+    }
   }
 
   a:link, a:visited {
@@ -118,3 +139,8 @@ tbody {
    border-bottom: 1px solid $dark-line;
   }
 }
+
+.name {
+  text-align: left;
+}
+
