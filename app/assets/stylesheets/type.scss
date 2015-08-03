@@ -79,3 +79,8 @@ a:hover, a:active {
 .italic {
   font-style: italic;
 }
+
+.warning-text {
+  font-weight: 700;
+  color: $warning-red;
+}

@@ -4,7 +4,7 @@
                       <td class="star">
                         <% present(assessment) do |presenter| %>
                           <% if risk.percentile_warning? %>
-                            <div class="warning-bubble blue"><%= presenter.percentile_rank %></div>
+                            <div class="warning-text"><%= presenter.percentile_rank %></div>
                           <% else %>
                             <%= presenter.percentile_rank %>
                           <% end %>

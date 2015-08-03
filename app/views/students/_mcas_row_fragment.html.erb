@@ -5,14 +5,14 @@
                       <% present(assessment) do |presenter| %>
                         <td class="mcas">
                           <% if risk.performance_warning? %>
-                            <div class="warning-bubble blue"><%= presenter.performance_level %></div>
+                            <div class="warning-text"><%= presenter.performance_level %></div>
                           <% else %>
                             <%= presenter.performance_level %>
                           <% end %>
                         </td>
                         <td class="mcas">
                           <% if risk.growth_warning? %>
-                            <div class="warning-bubble blue"><%= presenter.growth_percentile %></div>
+                            <div class="warning-text"><%= presenter.growth_percentile %></div>
                           <% else %>
                             <%= presenter.growth_percentile %>
                           <% end %>
