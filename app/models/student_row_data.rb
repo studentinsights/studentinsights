@@ -10,12 +10,12 @@ class StudentRowData
     star = @assessments.star
     mcas = @assessments.mcas
 
-    @latest_mcas = mcas.last || MissingAssessment.new
-    @latest_star = star.last || MissingAssessment.new
-    @latest_mcas_math = mcas.math.last || MissingAssessment.new
-    @latest_mcas_ela = mcas.ela.last || MissingAssessment.new
-    @latest_star_math = star.math.last || MissingAssessment.new
-    @latest_star_reading = star.reading.last || MissingAssessment.new
+    @latest_mcas = mcas.last_or_missing
+    @latest_star = star.last_or_missing
+    @latest_mcas_math = mcas.math.last_or_missing
+    @latest_mcas_ela = mcas.ela.last_or_missing
+    @latest_star_math = star.math.last_or_missing
+    @latest_star_reading = star.reading.last_or_missing
 
     @school_year = school_year
     @current_events = @school_year.attendance_discipline_events(@student)
