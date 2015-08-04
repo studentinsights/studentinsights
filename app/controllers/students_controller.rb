@@ -26,6 +26,7 @@ class StudentsController < ApplicationController
     @students = @homeroom.students
     # Order for dropdown menu of homerooms
     @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
+    @current_school_year = SchoolYear.date_to_school_year(Time.new)
   end
 
   private

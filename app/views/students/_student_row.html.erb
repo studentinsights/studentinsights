@@ -42,20 +42,20 @@
 
                   <%= render "students/mcas_row_fragment", assessment: row_data.latest_mcas_ela, risk: McasRiskLevel.new(row_data.latest_mcas_ela) %>
 
-                  <% if presenter.current_events.present? %>
+                  <% if row_data.current_events.present? %>
                     <td class="attendance">
                       <div class="cell-wrapper">
-                        <%= presenter.absences_current_year %>
+                        <%= row_data.absences_current_year %>
                       </div>
                     </td>
                     <td class="attendance">
                       <div class="cell-wrapper">
-                        <%= presenter.tardies_current_year %>
+                        <%= row_data.tardies_current_year %>
                       </div>
                     </td>
                     <td class="discipline">
                       <div class="cell-wrapper">
-                        <%= presenter.discipline_current_year %>
+                        <%= row_data.discipline_current_year %>
                       </div>
                     </td>
                   <% else %>

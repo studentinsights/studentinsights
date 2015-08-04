@@ -30,22 +30,4 @@ class StudentPresenter < Struct.new(:student)
       raise NoMethodError
     end
   end
-
-  def current_events
-    current_school_year = date_to_school_year(Time.new)
-    SchoolYear.find{ |year| year.name == current_school_year.name }.events(student)
-  end
-
-  def absences_current_year
-    current_events[:attendance_events][:absences]
-  end
-
-  def tardies_current_year
-    current_events[:attendance_events][:tardies]
-  end
-
-  def discipline_current_year
-    current_events[:discipline_incidents].count
-  end
-
 end

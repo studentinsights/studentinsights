@@ -1,9 +1,9 @@
 class StudentRowData
 
-  attr_accessor :assessments, :latest_mcas, :latest_star,
+  attr_accessor :assessments, :latest_mcas, :latest_star, :current_events,
     :latest_mcas_math, :latest_mcas_ela, :latest_star_math, :latest_star_reading
 
-  def initialize(student)
+  def initialize(student, school_year)
     @student = student
     @assessments = @student.assessments
 
@@ -16,6 +16,9 @@ class StudentRowData
     @latest_mcas_ela = mcas.ela.last || MissingAssessment.new
     @latest_star_math = star.math.last || MissingAssessment.new
     @latest_star_reading = star.reading.last || MissingAssessment.new
+
+    @school_year = school_year
+    @current_events = @school_year.attendance_discipline_events(@student)
   end
 
   def risk
@@ -24,6 +27,18 @@ class StudentRowData
       latest_mcas: @latest_mcas,
       latest_star: @latest_star
     })
+  end
+
+  def absences_current_year
+    @current_events[:attendance_events][:absences]
+  end
+
+  def tardies_current_year
+    @current_events[:attendance_events][:tardies]
+  end
+
+  def discipline_current_year
+    @current_events[:discipline_incidents].count
   end
 
 end
