@@ -43,9 +43,17 @@ describe 'educator views student profile', :type => :feature do
       end
     end
     context 'student has MCAS results' do
-      let!(:student) { FactoryGirl.create(:student_with_mcas_math_assessment) }
-      it 'shows MCAS results' do
-        expect(page).to have_css '.mcas-result-section'
+      context 'English' do
+        let!(:student) { FactoryGirl.create(:student_with_mcas_ela_assessment) }
+        it 'shows MCAS results' do
+          expect(page).to have_css '.mcas-ela-values'
+        end
+      end
+      context 'math' do
+        let!(:student) { FactoryGirl.create(:student_with_mcas_math_assessment) }
+        it 'shows MCAS results' do
+          expect(page).to have_css '.mcas-math-values'
+        end
       end
     end
     context 'student has no STAR results' do
@@ -55,9 +63,17 @@ describe 'educator views student profile', :type => :feature do
       end
     end
     context 'student has STAR results' do
-      let!(:student) { FactoryGirl.create(:student_ahead_in_reading) }
-      it 'shows STAR result' do
-        expect(page).to have_css '.star-result-section'
+      context 'reading' do
+        let!(:student) { FactoryGirl.create(:student_ahead_in_reading) }
+        it 'shows STAR result' do
+          expect(page).to have_css '.star-reading-values'
+        end
+      end
+      context 'math' do
+        let!(:student) { FactoryGirl.create(:student_with_star_math_assessment) }
+        it 'shows STAR result' do
+          expect(page).to have_css '.star-math-values'
+        end
       end
     end
   end

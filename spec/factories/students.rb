@@ -47,6 +47,11 @@ FactoryGirl.define do
           student.assessments << FactoryGirl.create(:mcas_math_assessment)
         end
       end
+      factory :student_with_mcas_ela_assessment do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:mcas_ela_assessment)
+        end
+      end
       factory :student_with_mcas_math_warning_assessment do
         after(:create) do |student|
           student.assessments << FactoryGirl.create(:mcas_math_warning_assessment)
@@ -56,6 +61,11 @@ FactoryGirl.define do
         after(:create) do |student|
           student.assessments << FactoryGirl.create(:mcas_math_advanced_assessment)
           student.assessments << FactoryGirl.create(:star_math_warning_assessment)
+        end
+      end
+      factory :student_with_star_math_assessment do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:star_math_assessment)
         end
       end
       factory :student_with_star_assessment_between_30_85 do

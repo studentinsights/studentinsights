@@ -14,6 +14,9 @@ FactoryGirl.define do
           performance_level "A"
         end
       end
+      factory :mcas_ela_assessment, class: Assessment do
+        association :assessment_subject, name: "Math"
+      end
       factory :star_assessment, class: Assessment do
         association :assessment_family, name: "STAR"
         factory :star_math_assessment, class: Assessment do
