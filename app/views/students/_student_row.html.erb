@@ -34,10 +34,10 @@
                     <%= presenter.free_reduced_lunch %>
                   </td>
 
-                  <% latest_star_math = student.assessments.latest_star_math %>
-                  <% latest_star_reading = student.assessments.latest_star_reading %>
-                  <% latest_mcas_math = student.assessments.latest_mcas_math %>
-                  <% latest_mcas_ela = student.assessments.latest_mcas_ela %>
+                  <% latest_star_math = assessments.latest_star_math %>
+                  <% latest_star_reading = assessments.latest_star_reading %>
+                  <% latest_mcas_math = assessments.latest_mcas_math %>
+                  <% latest_mcas_ela = assessments.latest_mcas_ela %>
 
                   <%= render "students/star_math_row_fragment", assessment: latest_star_math, risk: StarRiskLevel.new(latest_star_math) %>
 
