@@ -9,7 +9,7 @@
         <h2 class="section-header">MCAS</h2>
         <% if events[:mcas_ela_result].present? %>
           <h3 class="assesment-type">English</h3>
-          <div class="assessment-dark-background">
+          <div class="assessment-dark-background mcas-ela-values">
             <div class="values">
               <p>Performance: <strong><%= events[:mcas_ela_result].performance_level %></strong></p>
             </div>
@@ -20,7 +20,7 @@
         <% end %>
         <% if events[:mcas_math_result].present? %>
           <h3 class="assesment-type">Math</h3>
-          <div class="assessment-dark-background">
+          <div class="assessment-dark-background mcas-math-values">
             <div class="values">
               <p>Performance: <strong><%= events[:mcas_math_result].performance_level %></strong></p>
             </div>
@@ -36,9 +36,10 @@
       <div class="section star-result-section">
         <h2 class="section-header">STAR</h2>
         <% if events[:star_reading_results].present? %>
+          <h3 class="assesment-type">Reading</h3>
           <% events[:star_reading_results].each do |s| %>
             <h3 class="assesment-type"><%= s.date_taken.strftime("%B %e, %Y")  %></h3>
-            <div class="assessment-dark-background">
+            <div class="assessment-dark-background star-reading-values">
               <div class="values">
                 <p>Reading percentile: <strong><%= AssessmentPresenter.new(s).percentile_rank %></strong></p>
               </div>
@@ -49,8 +50,9 @@
           <% end %>
         <% end %>
         <% if events[:star_math_results].present? %>
-          <% events[:star_reading_results].each do |s| %>
-            <div class="assessment-dark-background">
+          <h3 class="assesment-type">Math</h3>
+          <% events[:star_math_results].each do |s| %>
+            <div class="assessment-dark-background star-math-values">
               <div class="values">
                 <p>Math percentile: <strong><%= AssessmentPresenter.new(s).percentile_rank %></strong></p>
               </div>

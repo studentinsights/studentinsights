@@ -5,8 +5,8 @@ class StudentRiskLevel
   def initialize(options = {})
     @student = options[:student]
     @assessments = @student.assessments
-    @latest_mcas = options[:latest_mcas] || @assessments.mcas.last
-    @latest_star = options[:latest_star] || @assessments.star.last
+    @latest_mcas = options[:latest_mcas] || @assessments.mcas.last_or_missing
+    @latest_star = options[:latest_star] || @assessments.star.last_or_missing
     @level = calculate_level(@latest_mcas, @latest_star)
   end
 

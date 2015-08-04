@@ -31,21 +31,21 @@ class Assessment < ActiveRecord::Base
   end
 
   def self.math
-    return MissingAssessmentCollection.new if AssessmentSubject.math.is_a? MissingAssessmentFamily
+    return MissingAssessmentCollection.new if AssessmentSubject.math.is_a? MissingAssessmentSubject
     where(assessment_subject_id: AssessmentSubject.math.id)
   end
 
   def self.ela
-    return MissingAssessmentCollection.new if AssessmentSubject.ela.is_a? MissingAssessmentFamily
+    return MissingAssessmentCollection.new if AssessmentSubject.ela.is_a? MissingAssessmentSubject
     where(assessment_subject_id: AssessmentSubject.ela.id)
   end
 
   def self.reading
-    return MissingAssessmentCollection.new if AssessmentSubject.reading.is_a? MissingAssessmentFamily
+    return MissingAssessmentCollection.new if AssessmentSubject.reading.is_a? MissingAssessmentSubject
     where(assessment_subject_id: AssessmentSubject.reading.id)
   end
 
-  def self.last
+  def self.last_or_missing
     order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingAssessment.new
   end
 

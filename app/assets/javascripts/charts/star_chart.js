@@ -6,10 +6,19 @@
   };
 
   StarChart.fromChartData = function mcasScaledChartFromChartData(chartData) {
-    var datums = [
-      new ProfileChartData("Math percentile rank", chartData.data('star-series-math-percentile')).toDateChart(),
-      new ProfileChartData("English percentile rank", chartData.data('star-series-math-percentile')).toDateChart()
-    ];
+    var datums = [];
+    var math_data = chartData.data('star-series-math-percentile');
+    var reading_data = chartData.data('star-series-math-percentile');
+
+    if (math_data !== null) {
+      var math = new ProfileChartData("Math percentile rank", math_data).toDateChart();
+      datums.push(math);
+    }
+
+    if (reading_data !== null) {
+      var reading = new ProfileChartData("English percentile rank", reading_data).toDateChart();
+      datums.push(reading);
+    }
     return new StarChart(datums);
   };
 

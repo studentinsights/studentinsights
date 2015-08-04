@@ -1,5 +1,5 @@
 class MissingAssessmentCollection
-  def last; MissingAssessment.new end
+  def last_or_missing; MissingAssessment.new end
   def ela; self end
   def math; self end
   def reading; self end
