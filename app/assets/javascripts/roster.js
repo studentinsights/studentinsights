@@ -38,8 +38,8 @@ $(function() {
     });
 
     // Turn table rows into links to student profiles
-    $('tbody tr').click(function () {
-      location.href = $(this).find('td a').attr('href');
+    $('tbody td').click(function () {
+      location.href = $(this).attr('href');
     });
 
   }
