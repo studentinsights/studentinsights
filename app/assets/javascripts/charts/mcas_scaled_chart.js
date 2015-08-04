@@ -6,10 +6,19 @@
   };
 
   McasScaledChart.fromChartData = function mcasScaledChartFromChartData(chartData) {
-    var datums = [
-      new ProfileChartData("Math scale score", chartData.data('mcas-series-math-scaled')).toDateChart(),
-      new ProfileChartData("English scale score", chartData.data('mcas-series-ela-scaled')).toDateChart()
-    ];
+    var datums = [];
+    var math_scaled_data = chartData.data('mcas-series-math-scaled');
+    var ela_scaled_data = chartData.data('mcas-series-ela-scaled')
+
+    if (math_scaled_data !== null) {
+      var math_scaled = new ProfileChartData("Math scale score", math_scaled_data).toDateChart();
+      datums.push(math_scaled);
+    }
+
+    if (ela_scaled_data !== null) {
+      var ela_scaled = new ProfileChartData("English scale score", ela_scaled_data).toDateChart();
+      datums.push(math_scaled);
+    }
     return new McasScaledChart(datums);
   };
 

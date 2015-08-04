@@ -6,10 +6,19 @@
   };
 
   McasGrowthChart.fromChartData = function mcasGrowthChartFromChartData(chartData) {
-    var datums = [
-      new ProfileChartData("Math growth score", chartData.data('mcas-series-math-growth')).toDateChart(),
-      new ProfileChartData("English growth score", chartData.data('mcas-series-ela-growth')).toDateChart()
-    ];
+    var datums = [];
+    var math_growth_data = chartData.data('mcas-series-math-growth');
+    var ela_growth_data = chartData.data('mcas-series-ela-growth');
+
+    if (math_growth_data !== null) {
+      var math_growth = new ProfileChartData("Math growth score", math_growth_data).toDateChart();
+      datums.push(math_growth);
+    }
+
+    if (ela_growth_data !== null) {
+      var ela_growth = new ProfileChartData("English growth score", ela_growth_data).toDateChart();
+      datums.push(ela_growth);
+    }
     return new McasGrowthChart(datums);
   };
 
