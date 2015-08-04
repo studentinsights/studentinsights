@@ -1,6 +1,6 @@
 class StudentRiskLevel
 
-  attr_accessor :assessments, :latest_mcas, :lat
+  attr_accessor :level
 
   def initialize(options = {})
     @student = options[:student]

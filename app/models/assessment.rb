@@ -21,22 +21,27 @@ class Assessment < ActiveRecord::Base
   end
 
   def self.mcas
+    return MissingAssessmentCollection.new if AssessmentFamily.mcas.is_a? MissingAssessmentFamily
     where(assessment_family_id: AssessmentFamily.mcas.id)
   end
 
   def self.star
+    return MissingAssessmentCollection.new if AssessmentFamily.star.is_a? MissingAssessmentFamily
     where(assessment_family_id: AssessmentFamily.star.id)
   end
 
   def self.math
+    return MissingAssessmentCollection.new if AssessmentSubject.math.is_a? MissingAssessmentFamily
     where(assessment_subject_id: AssessmentSubject.math.id)
   end
 
   def self.ela
+    return MissingAssessmentCollection.new if AssessmentSubject.ela.is_a? MissingAssessmentFamily
     where(assessment_subject_id: AssessmentSubject.ela.id)
   end
 
   def self.reading
+    return MissingAssessmentCollection.new if AssessmentSubject.reading.is_a? MissingAssessmentFamily
     where(assessment_subject_id: AssessmentSubject.reading.id)
   end
 
