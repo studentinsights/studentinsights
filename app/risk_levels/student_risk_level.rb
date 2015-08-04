@@ -1,25 +1,25 @@
-class StudentRiskLevel < Struct.new :student
-  delegate :latest_mcas, :latest_star, :limited_english_proficiency, :assessments, to: :student
-  delegate :full_name, :last_name, :first_name, to: :student_presenter
+class StudentRiskLevel
 
-  def latest_mcas
-    assessments.latest_mcas
+  attr_accessor :level
+
+  def initialize(options = {})
+    @student = options[:student]
+    @assessments = @student.assessments
+    @latest_mcas = options[:latest_mcas] || @assessments.mcas.last
+    @latest_star = options[:latest_star] || @assessments.star.last
+    @level = calculate_level(@latest_mcas, @latest_star)
   end
 
-  def latest_star
-    assessments.latest_star
-  end
-
-  def level
+  def calculate_level(mcas, star)
     # As defined by Somerville Public Schools
 
-    if latest_mcas.risk_level == 3 || latest_star.risk_level == 3 || limited_english_proficiency == "Limited"
+    if mcas.risk_level == 3 || star.risk_level == 3 || @student.limited_english_proficiency == "Limited"
       3
-    elsif latest_mcas.risk_level == 2 || latest_star.risk_level == 2
+    elsif mcas.risk_level == 2 || star.risk_level == 2
       2
-    elsif latest_mcas.risk_level == 0 || latest_star.risk_level == 0
+    elsif mcas.risk_level == 0 || star.risk_level == 0
       0
-    elsif latest_mcas.risk_level.nil? && latest_star.risk_level.nil?
+    elsif mcas.risk_level.nil? && star.risk_level.nil?
       nil
     else
       1
@@ -27,7 +27,7 @@ class StudentRiskLevel < Struct.new :student
   end
 
   def level_in_words
-    case level
+    case @level
     when 0, 1
       "Low"
     when 2
@@ -49,38 +49,38 @@ class StudentRiskLevel < Struct.new :student
 
   def explanation
     explanations = []
-    name = first_name || "This student"
+    name = @student.first_name || "This student"
 
-    case level
+    case @level
     when 3
-      if limited_english_proficiency == "Limited"
+      if @student.limited_english_proficiency == "Limited"
         explanations << "#{name} is limited English proficient."
       end
-      if latest_mcas.risk_level == 3
+      if @latest_mcas.risk_level == 3
         explanations << "#{name}'s MCAS performance level is Warning."
       end
-      if latest_star.risk_level == 3
+      if @latest_star.risk_level == 3
         explanations << "#{name}'s STAR performance is in the warning range (below 10)."
       end
     when 2
-      if latest_mcas.risk_level == 2
+      if @latest_mcas.risk_level == 2
         explanations << "#{name}'s MCAS performance level is Needs Improvement."
       end
-      if latest_star.risk_level == 2
+      if @latest_star.risk_level == 2
         explanations << "#{name}'s STAR performance is in the 10-30 range."
       end
     when 1
-      if latest_mcas.risk_level == 1
+      if @latest_mcas.risk_level == 1
         explanations << "#{name}'s MCAS performance level is Proficient."
       end
-      if latest_star.risk_level == 1
+      if @latest_star.risk_level == 1
         explanations << "#{name}'s STAR performance is above 30."
       end
     when 0
-      if latest_mcas.risk_level == 0
+      if @latest_mcas.risk_level == 0
         explanations << "#{name}'s MCAS performance level is Advanced."
       end
-      if latest_star.risk_level == 0
+      if @latest_star.risk_level == 0
         explanations << "#{name}'s STAR performance is above 85."
       end
     when nil
@@ -89,9 +89,5 @@ class StudentRiskLevel < Struct.new :student
 
     explanation = "#{name} is at #{level_in_words} Risk because:<br/><br/>"
     explanation += "<ul>" + explanations.map { |e| "<li>#{e}</li>" }.join + "</ul>"
-  end
-
-  def student_presenter
-    StudentPresenter.new student
   end
 end

@@ -34,33 +34,28 @@
                     <%= presenter.free_reduced_lunch %>
                   </td>
 
-                  <% latest_star_math = student.assessments.latest_star_math %>
-                  <% latest_star_reading = student.assessments.latest_star_reading %>
-                  <% latest_mcas_math = student.assessments.latest_mcas_math %>
-                  <% latest_mcas_ela = student.assessments.latest_mcas_ela %>
+                  <%= render "students/star_math_row_fragment", assessment: row_data.latest_star_math, risk: StarRiskLevel.new(row_data.latest_star_math) %>
 
-                  <%= render "students/star_math_row_fragment", assessment: latest_star_math, risk: StarRiskLevel.new(latest_star_math) %>
+                  <%= render "students/star_reading_row_fragment", assessment: row_data.latest_star_reading, risk: StarRiskLevel.new(row_data.latest_star_reading) %>
 
-                  <%= render "students/star_reading_row_fragment", assessment: latest_star_reading, risk: StarRiskLevel.new(latest_star_reading) %>
+                  <%= render "students/mcas_row_fragment", assessment: row_data.latest_mcas_math, risk: McasRiskLevel.new(row_data.latest_mcas_math) %>
 
-                  <%= render "students/mcas_row_fragment", assessment: latest_mcas_math, risk: McasRiskLevel.new(latest_mcas_math) %>
+                  <%= render "students/mcas_row_fragment", assessment: row_data.latest_mcas_ela, risk: McasRiskLevel.new(row_data.latest_mcas_ela) %>
 
-                  <%= render "students/mcas_row_fragment", assessment: latest_mcas_ela, risk: McasRiskLevel.new(latest_mcas_ela) %>
-
-                  <% if presenter.current_events.present? %>
+                  <% if row_data.current_events.present? %>
                     <td class="attendance">
                       <div class="cell-wrapper">
-                        <%= presenter.absences_current_year %>
+                        <%= row_data.absences_current_year %>
                       </div>
                     </td>
                     <td class="attendance">
                       <div class="cell-wrapper">
-                        <%= presenter.tardies_current_year %>
+                        <%= row_data.tardies_current_year %>
                       </div>
                     </td>
                     <td class="discipline">
                       <div class="cell-wrapper">
-                        <%= presenter.discipline_current_year %>
+                        <%= row_data.discipline_current_year %>
                       </div>
                     </td>
                   <% else %>

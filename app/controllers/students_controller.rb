@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @presenter = StudentPresenter.new(@student)
     @chart_data = StudentProfileChart.new(@student).chart_data
-    @risk = StudentRiskLevel.new(@student)
+    @risk = StudentRiskLevel.new(student: @student)
 
     @roster_url = homeroom_students_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
@@ -26,6 +26,7 @@ class StudentsController < ApplicationController
     @students = @homeroom.students
     # Order for dropdown menu of homerooms
     @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
+    @current_school_year = SchoolYear.date_to_school_year(Time.new)
   end
 
   private
