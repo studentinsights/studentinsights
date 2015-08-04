@@ -32,13 +32,15 @@ class SchoolYear < ActiveRecord::Base
   end
 
   def attendance_discipline_events(student)
-    {
-      attendance_events: attendance_events.find_by_student(student).summarize,
-      discipline_incidents: discipline_incidents.find_by_student(student)
+    incidents = discipline_incidents.find_by_student(student)
+    return {
+      attendance_events_summary: attendance_events.find_by_student(student).summarize,
+      discipline_incidents: incidents,
+      discipline_incidents_count: incidents.count
     }
   end
 
   def events(student)
-    assessment_events(student).merge(assessment_events(student))
+    assessment_events(student).merge(attendance_discipline_events(student))
   end
 end

@@ -30,15 +30,15 @@ class StudentRowData
   end
 
   def absences_current_year
-    @current_events[:attendance_events][:absences]
+    @current_events[:attendance_events_summary][:absences]
   end
 
   def tardies_current_year
-    @current_events[:attendance_events][:tardies]
+    @current_events[:attendance_events_summary][:tardies]
   end
 
   def discipline_current_year
-    @current_events[:discipline_incidents].count
+    @current_events[:discipline_incidents_count]
   end
 
 end
