@@ -95,7 +95,12 @@
 
   <script id="zero-case-template" type="x-tmpl-mustache">
     <div class="zero-case">
-      <img src="<%= asset_path('bonsai.svg') %>"/>
+      {{#happy_message}}
+        <img src="<%= asset_path('bonsai.svg') %>"/>
+      {{/happy_message}}
+      {{^happy_message}}
+        <img src="<%= asset_path('bigmoon.svg') %>"/>
+      {{/happy_message}}
       <br/>
       <br/>
       {{#happy_message}}
