@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @presenter = StudentPresenter.new(@student)
     @chart_data = StudentProfileChart.new(@student).chart_data
-    @risk = StudentRiskLevel.new(@student)
+    @risk = StudentRiskLevel.new(student: @student)
 
     @roster_url = homeroom_students_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"

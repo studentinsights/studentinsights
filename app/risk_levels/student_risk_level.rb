@@ -1,10 +1,12 @@
 class StudentRiskLevel
 
+  attr_accessor :assessments, :latest_mcas, :lat
+
   def initialize(options = {})
     @student = options[:student]
     @assessments = @student.assessments
-    @latest_mcas = @assessments.latest_mcas
-    @latest_star = @assessments.latest_star
+    @latest_mcas = options[:latest_mcas] || @assessments.mcas.last
+    @latest_star = options[:latest_star] || @assessments.star.last
     @level = calculate_level(@latest_mcas, @latest_star)
   end
 

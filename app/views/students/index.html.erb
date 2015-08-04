@@ -90,11 +90,12 @@
       <% if @students.present? %>
         <!-- ROWS -->
         <% @students.find_each do |student| %>
-          <%= render "students/student_row", student: student, assessments: student.assessments, presenter: StudentPresenter.new(student), risk: StudentRiskLevel.new({ student: student }) unless student.nil? %>
+          <% row_data = StudentRowData.new(student) %>
+          <%= render "students/student_row", student: student, row_data: row_data, presenter: StudentPresenter.new(student), risk: row_data.risk unless student.nil? %>
         <% end %>
       <% end %>
     </table>
-  </div>
+  </div>s
   <script id="roster-tooltip-template" type="x-tmpl-mustache">
     <div class="tooltip-popup">
       <div class="warning-header">
