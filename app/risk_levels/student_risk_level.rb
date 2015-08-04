@@ -39,6 +39,10 @@ class StudentRiskLevel
     end
   end
 
+  def level_for_roster
+    @level.nil? ? "N/A" : @level
+  end
+
   def level_abbreviation
     level_in_words == "N/A" ? level_in_words : level_in_words[0]
   end
