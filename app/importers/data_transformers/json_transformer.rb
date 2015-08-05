@@ -8,26 +8,31 @@ class JsonTransformer
     end
   end
 
+  def date_rows
+    [ :event_date, :date_taken, :assessment_date ]
+  end
+
+  def boolean_rows
+    [ :asbence, :tardy, :has_exact_time ]
+  end
+
   def transform_row(row)
     row[:local_id] = row[:local_id].to_s
 
     # Date rows to datetime
-    if row[:event_date].present?
-      row[:event_date] = parse_date(row[:event_date])
-    elsif row[:date_taken].present?
-      row[:date_taken] = parse_date(row[:date_taken])
+    date_rows.each do |dr|
+      if row[dr].present?
+        row[dr] = parse_date(row[dr])
+      end
     end
 
-    # Boolean rows to boolean
-    if row[:asbence].present?
-      row[:asbence] = parse_boolean(row[:asbence])
+    boolean_rows.each do |br|
+      if row[br].present?
+        row[br] = parse_boolean(row[br])
+      end
     end
-    if row[:tardy].present?
-      row[:tardy] = parse_boolean(row[:tardy])
-    end
-    if row[:has_exact_time].present?
-      row[:has_exact_time] = parse_boolean(row[:has_exact_time])
-    end
+
+    return row
   end
 
   def parse_date(event_date)
