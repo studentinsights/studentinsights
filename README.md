@@ -32,6 +32,20 @@ In addition to creating demo students, homerooms, and assessment results, this w
 
 Once you've created the demo data, start a local server by running `rails c` from the root of your project (i.e. in the folder called `somerville-teacher-tool`). When the local server is up and running, visit http://localhost:3000/ or and log in with your demo login information. You should see the roster view for your (demo) data. You can also access the demo site at https://somerville-teacher-tool-demo.herokuapp.com/.
 
+### Importing real data
+
+If you're working with a real school district, you'll need flat files of the data you want to import to Student Insights.
+
+Run an import task:
+
+```
+rake import
+```
+
+File format and storage are configured in `app/importers/settings/settings.rb`. Set `ENV['DISTRICT_IMPORT_SCOPE']` to match the configuration for your school district or charter organization.
+
+So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, you'll want to write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, you'll want to write a new client: `app/importers/clients`.
+
 ### Tests
 This app uses the [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) testing library. To run the test suite:
 
@@ -71,7 +85,7 @@ We are deploying this app on Heroku and you can, too. Be sure to set config vari
 
 ## Future?
 This app could grow in several different ways.
-* __Visuals__:  Create graphs to help visualize the historical student data.  
+* __Visuals__:  Create graphs to help visualize the historical student data.
 * __Sub-views__:  Create sub-views with more limited and focused access to data. These sub-views could be made available to others within the school community, including parents and students.
 * __After-school__:  Incorporate data about after-school programs.
 * __Interventions__:  Allow teachers to add interventions to the system and track how they impact student progress.
