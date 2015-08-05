@@ -31,7 +31,7 @@ class AwsAdapter
   end
 
   def file_tmp_path
-    "#{Rails.root}/tmp/#{export_file_name}"
+    "#{Rails.root}/tmp/#{remote_file_name}"
   end
 
   def aws_credentials_present?
