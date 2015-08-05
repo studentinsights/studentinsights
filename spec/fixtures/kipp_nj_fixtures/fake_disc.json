@@ -1,6 +1,6 @@
 [
   {
-    "incident_code": "Inapprop Contact",
+    "incident_code": "Dress Code Violation",
     "incident_description": null,
     "incident_location": "Life",
     "logtype": "Discipline (ES)",
@@ -10,7 +10,7 @@
     "school_local_id": 2 
   },
   {
-    "incident_code": "Tantrum",
+    "incident_code": "Demerit",
     "incident_description": null,
     "incident_location": "Life",
     "logtype": "Discipline (ES)",
