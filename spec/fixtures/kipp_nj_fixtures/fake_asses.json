@@ -1,0 +1,26 @@
+[
+{
+    "assessment_subject": "Reading",
+    "assessment_scale_score": 150,
+    "assessment_growth": null,
+    "assessment_performance_level": 32,
+    "local_id": "1",
+    "assessment_test": "MAP: Reading 2-5 Common Core 2010 V2",
+    "state_id": "11111111",
+    "school_local_id": 1,
+    "assessment_name": "NWEA MAP",
+    "assessment_date": 1432771200
+  },
+  {
+    "assessment_subject": "Mathematics",
+    "assessment_scale_score": 100,
+    "assessment_growth": null,
+    "assessment_performance_level": 2,
+    "local_id": 1,
+    "assessment_test": "MAP: Math Primary Grades Common Core 2010 V2",
+    "state_id": "11111111",
+    "school_local_id": 73255,
+    "assessment_name": "NWEA MAP",
+    "assessment_date": 1387152000
+  }
+]
