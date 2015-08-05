@@ -1,6 +1,6 @@
 module Importer
   # Any class using X2Importer should implement two methods:
-  # export_file_name => string pointing to the name of the remote file to parse
+  # remote_file_name => string pointing to the name of the remote file to parse
   # import_row => function that describes how to handle each row (implemented by handle_row)
 
   def initialize(options = {})
