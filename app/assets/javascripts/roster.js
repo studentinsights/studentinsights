@@ -14,7 +14,7 @@ $(function() {
     $(".attendance").hide();
     $(".discipline").hide();
     $(".language").hide();
-    $(".sped").hide();
+    $(".star").hide();
     $(".program").hide();
     $(".free-reduced").hide();
     $(".access").hide();
