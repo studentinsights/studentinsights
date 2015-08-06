@@ -1,66 +1,72 @@
                 <tr class="student-row">
-                  <td class="name">
+                  <td class="name" href="<%= student_url(student) %>">
                     <div class="cell-wrapper">
-                      <%= link_to presenter.full_name, student_url(presenter.id) %>
+                      <%= presenter.full_name %>
                     </div>
                   </td>
-                  <td class="risk">
+                  <td class="risk" href="<%= student_url(student) %>">
                     <div class="warning-bubble <%= risk.css_class_name %>">
                       <%= risk.level_for_roster %>
                     </div>
                   </td>
-                  <td class="program">
+                  <td class="program" href="<%= student_url(student) %>">
                     <%= presenter.program_assigned %>
                   </td>
-                  <td class="sped">
+                  <td class="sped" href="<%= student_url(student) %>">
                     <%= presenter.sped_placement %>
                   </td>
-                  <td class="sped">
+                  <td class="sped" href="<%= student_url(student) %>">
                     <%= presenter.disability %>
                   </td>
-                  <td class="sped">
+                  <td class="sped" href="<%= student_url(student) %>">
                     <%= presenter.sped_level_of_need %>
                   </td>
-                  <td class="sped">
+                  <td class="sped" href="<%= student_url(student) %>">
                     <%= presenter.plan_504 %>
                   </td>
-                  <td class="language">
+                  <td class="language" href="<%= student_url(student) %>">
                     <%= presenter.limited_english_proficiency %>
                   </td>
-                  <td class="language">
+                  <td class="language" href="<%= student_url(student) %>">
                     <%= presenter.home_language %>
                   </td>
-                  <td class="free-reduced">
+                  <td class="free-reduced" href="<%= student_url(student) %>">
                     <%= presenter.free_reduced_lunch %>
                   </td>
 
-                  <%= render "students/star_math_row_fragment", assessment: row_data.latest_star_math, risk: StarRiskLevel.new(row_data.latest_star_math) %>
+                  <%= render "students/star_math_row_fragment", student: student, assessment: row_data.latest_star_math, risk: StarRiskLevel.new(row_data.latest_star_math) %>
 
-                  <%= render "students/star_reading_row_fragment", assessment: row_data.latest_star_reading, risk: StarRiskLevel.new(row_data.latest_star_reading) %>
+                  <%= render "students/star_reading_row_fragment", student: student, assessment: row_data.latest_star_reading, risk: StarRiskLevel.new(row_data.latest_star_reading) %>
 
-                  <%= render "students/mcas_row_fragment", assessment: row_data.latest_mcas_math, risk: McasRiskLevel.new(row_data.latest_mcas_math) %>
+                  <%= render "students/mcas_row_fragment", student: student, assessment: row_data.latest_mcas_math, risk: McasRiskLevel.new(row_data.latest_mcas_math) %>
 
-                  <%= render "students/mcas_row_fragment", assessment: row_data.latest_mcas_ela, risk: McasRiskLevel.new(row_data.latest_mcas_ela) %>
+                  <%= render "students/mcas_row_fragment", student: student, assessment: row_data.latest_mcas_ela, risk: McasRiskLevel.new(row_data.latest_mcas_ela) %>
 
                   <% if row_data.current_events.present? %>
-                    <td class="attendance">
+                    <td class="attendance" href="<%= student_url(student, chart_start: "attendance") %>">
                       <div class="cell-wrapper">
                         <%= row_data.absences_current_year %>
                       </div>
                     </td>
-                    <td class="attendance">
+                    <td class="attendance" href="<%= student_url(student, chart_start: "attendance") %>">
                       <div class="cell-wrapper">
                         <%= row_data.tardies_current_year %>
                       </div>
                     </td>
-                    <td class="discipline">
+                    <td class="discipline" href="<%= student_url(student, chart_start: "behavior") %>">
                       <div class="cell-wrapper">
                         <%= row_data.discipline_current_year %>
                       </div>
                     </td>
                   <% else %>
-                    <td class="attendance"><div class="cell-wrapper">—</div></td>
-                    <td class="attendance"><div class="cell-wrapper">—</div></td>
-                    <td class="discpline"><div class="cell-wrapper">—</div></td>
+                    <td class="attendance" href="<%= student_url(student, chart_start: "attendance") %>">
+                      <div class="cell-wrapper">—</div>
+                    </td>
+                    <td class="attendance" href="<%= student_url(student, chart_start: "attendance") %>">
+                      <div class="cell-wrapper">—</div>
+                    </td>
+                    <td class="discpline" href="<%= student_url(student, chart_start: "behavior") %>">
+                      <div class="cell-wrapper">—</div>
+                    </td>
                   <% end %>
                 </tr>

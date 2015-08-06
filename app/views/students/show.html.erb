@@ -22,11 +22,21 @@
     <div id="graph-dropdown" class="dropdown">
       <p>Graph:</p>
       <select id="chart-type">
-        <option value="attendance">Attendance</option>
-        <option value="behavior">Behavior</option>
-        <option value="mcas-growth">MCAS Growth</option>
-        <option value="mcas-scaled">MCAS Score</option>
-        <option value="star">STAR</option>
+        <option value="attendance"<% if @chart_start == "attendance" %> selected<% end %>>
+          Attendance
+        </option>
+        <option value="behavior"<% if @chart_start == "behavior" %> selected<% end %>>
+          Behavior
+        </option>
+        <option value="mcas-growth"<% if @chart_start == "mcas-growth" %> selected<% end %>>
+          MCAS Growth
+        </option>
+        <option value="mcas-scaled"<% if @chart_start == "mcas-scaled" %> selected<% end %>>
+          MCAS Score
+        </option>
+        <option value="star"<% if @chart_start == "star" %> selected<% end %>>
+          STAR
+        </option>
       </select>
     </div>
 
@@ -116,3 +126,4 @@
   </script>
 
 <%= tag("div", id: "chart-data", data: @chart_data) %>
+<%= tag("div", id: "chart-start", data: { start: @chart_start }) %>

@@ -50,30 +50,39 @@
     }
   }
 
-  ProfileController.prototype.onChartChange = function profileChartDataChange() {
+  ProfileController.prototype.setChart = function profileSetChart (value) {
     var chart_data = $("#chart-data");
-    var selVal = $("#chart-type").val();
-
-    if (selVal == "attendance") {
+    if (value == "attendance") {
       AttendanceChart.fromChartData(chart_data).render(this);
       return;
-    } else if (selVal == "behavior") {
+    } else if (value == "behavior") {
       BehaviorChart.fromChartData(chart_data).render(this);
       return;
-    } else if (selVal == "mcas-growth") {
+    } else if (value == "mcas-growth") {
       McasGrowthChart.fromChartData(chart_data).render(this);
       return;
-    } else if (selVal == "mcas-scaled") {
+    } else if (value == "mcas-scaled") {
       McasScaledChart.fromChartData(chart_data).render(this);
       return;
-    } else if (selVal == "star") {
+    } else if (value == "star") {
       StarChart.fromChartData(chart_data).render(this);
       return;
     }
   }
 
+  ProfileController.prototype.onChartChange = function profileChartDataChange() {
+    var selVal = $("#chart-type").val();
+    this.setChart(selVal);
+  }
+
   ProfileController.prototype.show = function renderProfileController() {
-    this.onChartChange();
+    var chart_start = $("#chart-start").data('start');
+    var chart_options = ["attendance", "behavior", "mcas-growth", "mcas-scaled", "star"];
+    if (chart_options.indexOf(chart_start) !== -1) {
+      this.setChart(chart_start);
+    } else {
+      this.setChart("mcas-growth");
+    }
 
     // Bind onChartChange to this instance of ProfileController
     var self = this;

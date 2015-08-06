@@ -8,6 +8,7 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     @presenter = StudentPresenter.new(@student)
+    @chart_start = params[:chart_start] || "mcas-growth"
     @chart_data = StudentProfileChart.new(@student).chart_data
     @risk = StudentRiskLevel.new(student: @student)
 
