@@ -35,6 +35,9 @@ AssessmentSubject.where(name: "Reading").first_or_create!
   # Set up student assessments
   mcas_math_factory = FakeMcasMathResultGenerator.new
   star_math_factory = FakeStarMathResultGenerator.new
+  mcas_ela_factory = FakeMcasElaResultGenerator.new
+  star_reading_factory = FakeStarReadingResultGenerator.new
+
   5.times do
     result = Assessment.new(mcas_math_factory.next)
     result.update_attributes(student_id: student.id)
@@ -42,6 +45,16 @@ AssessmentSubject.where(name: "Reading").first_or_create!
   end
   12.times do
     result = Assessment.new(star_math_factory.next)
+    result.update_attributes(student_id: student.id)
+    result.save
+  end
+  5.times do
+    result = Assessment.new(mcas_ela_factory.next)
+    result.update_attributes(student_id: student.id)
+    result.save
+  end
+  12.times do
+    result = Assessment.new(star_reading_factory.next)
     result.update_attributes(student_id: student.id)
     result.save
   end
