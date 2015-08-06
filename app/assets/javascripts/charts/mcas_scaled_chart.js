@@ -17,7 +17,7 @@
 
     if (ela_scaled_data !== null) {
       var ela_scaled = new ProfileChartData("English scale score", ela_scaled_data).toDateChart();
-      datums.push(math_scaled);
+      datums.push(ela_scaled);
     }
     return new McasScaledChart(datums);
   };
