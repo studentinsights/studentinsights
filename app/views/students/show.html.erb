@@ -42,43 +42,117 @@
 
     <div id="chart"></div>
 
-    <div id="demographics-row" class="row">
-      <h1>Demographics</h1>
+    <div class="left-bar-box">
 
-      <div class="demographics-block">
-        <h2>Information</h2>
-        <span class="demographics-item">
-          Program Assignment: <strong><%= @presenter.program_assigned %></strong>
-        </span>
-        <span class="demographics-item">
-        <span class="demographics-item">
-          504: <strong><%= @presenter.plan_504 %></strong>
-        </span>
+      <div id="demographics-row">
+        <h1>Demographics</h1>
+
+        <div class="left-bar-block">
+          <h2>Information</h2>
+          <span class="left-bar-item">
+            Program Assignment: <strong><%= @presenter.program_assigned %></strong>
+          </span>
+          <span class="left-bar-item">
+          <span class="left-bar-item">
+            504: <strong><%= @presenter.plan_504 %></strong>
+          </span>
+        </div>
+
+        <div class="left-bar-block">
+          <h2>Language</h2>
+          <span class="left-bar-item">
+            Fluency: <strong><%= @presenter.limited_english_proficiency %></strong>
+          </span>
+          <span class="left-bar-item">
+            Home Language: <strong><%= @presenter.home_language %></strong>
+          </span>
+        </div>
+
+        <div class="left-bar-block">
+          <h2>Special Education</h2>
+          <span class="left-bar-item">
+            Placement: <strong><%= @presenter.sped_placement %></strong>
+          </span>
+          <span class="left-bar-item">
+            Disabiity: <strong><%= @presenter.disability %></strong>
+          </span>
+          <span class="left-bar-item">
+            Level: <strong><%= @presenter.sped_level_of_need %></strong>
+          </span>
+        </div>
+
       </div>
 
-      <div class="demographics-block">
-        <h2>Language</h2>
-        <span class="demographics-item">
-          Fluency: <strong><%= @presenter.limited_english_proficiency %></strong>
-        </span>
-        <span class="demographics-item">
-          Home Language: <strong><%= @presenter.home_language %></strong>
-        </span>
+      <div id="interventions-row">
+        <h1>Interventions</h1>
+
+        <div class="left-bar-block">
+          <p><strong>X-Block:</strong> <span class="intervention-creator">Mark Caso</span></p>
+          <p>This allowing students to work at their own pace, yet meeting the correct deadline class have more flexibility in their schedules to take their classes at a time that works best for them.</p>
+          <p class="intervention-date">
+            <span id="intervention-start">
+              July 21, 2015
+            </span>
+            -
+            <span id="intervention-end">
+              July 21, 2015
+            </span>
+          </p>
+        </div>
+
+        <div class="left-bar-block">
+          <p><strong>Phone call:</strong> <span class="intervention-creator">Kenn Scott</span></p>
+          <p>It was created by Michelangelo while trying some new pizza recipes. Mikey made the shake because the turtles love milkshakes and also love pizza so he thought.</p>
+          <p class="intervention-date">
+            <span id="intervention-start">
+              July 21, 2015
+            </span>
+            -
+            <span id="intervention-end">
+              <a href="#"><img class="calendar-icon" src="<%= asset_path('calendar-icon.svg') %>"/> Add end date</a>
+            </span>
+          </p>
+        </div>
+
+        <button type="button" onclick="" class="btn">Add intervention</button>
       </div>
 
-      <div class="demographics-block">
-        <h2>Special Education</h2>
-        <span class="demographics-item">
-          Placement: <strong><%= @presenter.sped_placement %></strong>
-        </span>
-        <span class="demographics-item">
-          Disabiity: <strong><%= @presenter.disability %></strong>
-        </span>
-        <span class="demographics-item">
-          Level: <strong><%= @presenter.sped_level_of_need %></strong>
-        </span>
+      <div id="add-interventions-row">
+        <h1>Add Interventions</h1>
+
+        <div class="left-bar-block">
+          <h2>Select Intervention</h2>
+          <select id="chart-type">
+            <option disabled selected> -- Intervention type -- </option>
+            <option value="x-block">
+              X-Block
+            </option>
+            <option value="phone-call">
+              Phone call
+            </option>
+            <option value="reading-tutor">
+              Reading tutor
+            </option>
+            <option value="math-tutor">
+              Math tutor
+            </option>
+            <option value="other">
+              Other
+            </option>
+          </select>
+        </div>
+
+        <div class="left-bar-block">
+          <h2>Comment</h2>
+          <textarea value="" onClick="this.value='';" name="interventions-comment" cols="40" rows="5">Add comment</textarea>
+        </div>
+
+        <button type="button" onclick="" class="btn save-btn">Save</button>
+        <a href="#" class="save-btn cancel">Cancel</a>
       </div>
+
     </div>
+
 
     <div id="school-year-boxes-row" class="row">
       <% if @student.school_years.present? %>

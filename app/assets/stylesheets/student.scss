@@ -33,18 +33,27 @@
   }
 }
 
-.row {
-  float: left;
-  height: 100%;
-}
+ /* BELOW GRAPH */
 
-#demographics-row {
+.left-bar-box {
+  float: left;
   width: 40%;
   margin-right: 5%;
 
   @media screen and (max-width: $phase2) {
   width: 100%;
   margin-right: 0;
+  }
+
+  .left-bar-item{
+      font-size: 14px;
+      font-weight: 400;
+      color: $gray;
+      display: block;
+  }
+
+  .left-bar-block {
+    margin: 20px 0px;
   }
 
   h1 {
@@ -61,30 +70,69 @@
     color: $gray;
     padding-bottom: 4px;
   }
+
+  .intervention-creator {
+    font-weight: 700;
+    color: $light-gray;
+  }
+
+  .intervention-date {
+    color: $light-gray;
+    margin-top: 8px;
+  }
+
+  .calendar-icon {
+    position: relative;
+    top: 2px;
+    left: 1px;
+  }
+
+  .save-btn {
+    float: right;
+  }
+
+  .cancel {
+    padding-top: 8px;
+    padding-right: 20px;
+  }
 }
 
-.demographics-item{
+  .btn {
+    margin: auto;
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    color: $white;
     font-size: 14px;
-    font-weight: 400;
-    color: $gray;
+    background: $blue;
+    padding: 8px 25px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
 
-}
+    &:hover {
+      background-color: darken($blue, 10%);
+      text-decoration: none;
+    }
+
+    &:active {
+      position: relative;
+      top: 1px;
+    }
+  }
+
+
 
 #school-year-boxes-row {
   width: 55%;
+  float: right;
 
   @media screen and (max-width: $phase2) {
   width: 100%;
   }
 }
 
-.demographics-block {
-  margin: 20px 0px;
-}
-
-.demographics-item {
-  display: block;
-}
 
 .school-year {
   border-left: 1px solid $light-line;
@@ -237,4 +285,10 @@
 
 .highcharts-axis-labels {
   padding-left: 100px;
+}
+
+textarea[name='interventions-comment'] {
+  max-width: 100%;
+  min-width: 100%;
+  padding: 10px;
 }
