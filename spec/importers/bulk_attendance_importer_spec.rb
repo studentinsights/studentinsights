@@ -37,7 +37,7 @@ RSpec.describe BulkAttendanceImporter do
         it 'sets the dates correctly' do
           bulk_attendance_importer.import(csv)
           event = AttendanceEvent.last
-          expect(event.event_date).to eq DateTime.new(2015, 9, 16)
+          expect(event.event_date).to eq DateTime.new(2005, 9, 16)
         end
         context 'existing student' do
           let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
