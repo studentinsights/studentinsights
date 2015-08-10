@@ -17,6 +17,9 @@ class Import < Thor
     require './config/environment'
 
     if options["school"].present?
+      if options["district"] == "Somerville" && School.count == 0
+        School.seed_somerville_schools
+      end
       school_scope = School.find_by_local_id(options["school"])
       raise "School not found" if school_scope.blank?
     end
