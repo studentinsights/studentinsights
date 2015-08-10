@@ -1,4 +1,5 @@
 class BehaviorImporter
+  include Connector
   include Importer
 
   def remote_file_name

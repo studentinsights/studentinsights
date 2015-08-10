@@ -1,4 +1,5 @@
 class StudentsImporter
+  include Connector
   include Importer
 
   def import_row(row)

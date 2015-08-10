@@ -3,37 +3,6 @@ module Importer
   # remote_file_name => string pointing to the name of the remote file to parse
   # import_row => function that describes how to handle each row (implemented by handle_row)
 
-  attr_reader :school_scope, :recent_only, :first_time
-
-  def initialize(options = {})
-    # Required arguments
-    @client = options[:client]
-    @data_transformer = options[:data_transformer]
-
-    # Optional arguments
-    @school_scope = options[:school_scope]
-    @recent_only = options[:recent_only]
-    @first_time = options[:first_time]
-  end
-
-  # SCOPED IMPORT #
-
-  def connect_transform_import
-    file = @client.read_file
-    data = @data_transformer.transform(file)
-    import(data)
-  end
-
-  def connect_transform_import_locally
-    path = @client.file_tmp_path
-    unless File.exist? path
-      @client.download_file_to_tmp
-    end
-    file_as_string = File.open(path, "r").read
-    data = @data_transformer.transform(file_as_string)
-    import_locally(data)
-  end
-
   def import(data)
     data.each do |row|
       row.length.times { row.delete(nil) }

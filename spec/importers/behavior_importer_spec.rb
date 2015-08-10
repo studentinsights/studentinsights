@@ -56,12 +56,6 @@ RSpec.describe BehaviorImporter do
           expect(incident_with_non_utf8_description.reload.incident_description).to eq("pencil that didn’t need to be")
         end
       end
-      context 'date missing' do
-        let(:student_with_incident_without_date) { Student.find_by_local_id("14") }
-        it 'does not import the event' do
-          expect(student_with_incident_without_date.discipline_incidents.count).to eq 0
-        end
-      end
     end
   end
 end
