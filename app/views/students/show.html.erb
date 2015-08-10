@@ -80,6 +80,61 @@
       </div>
     </div>
 
+<!-- START DIBELS AND ACCESS -->
+<div id="school-year-boxes-row" class="row">
+<div class="school-year">
+
+    <div class="year">
+      <h1>1901</h1>
+    </div>
+
+<!-- START DIBELS -->
+      <div class="section dibels-result-section">
+        <h2 class="section-header">DIBELS</h2>
+        <h3 class="assesment-type">Spring</h3>
+        <div class="assessment-dark-background dibels-values">
+            <div class="values dibels-list">
+              <p>Core</p><p class="dibels-selected">Strategic</p><p>Intensive</p>
+            </div>
+        </div>
+
+        <h3 class="assesment-type">Winter</h3>
+        <div class="assessment-dark-background dibels-values">
+            <div class="values dibels-list">
+              <p class="dibels-selected">Core</p><p>Strategic</p><p>Intensive</p>
+            </div>
+        </div>
+
+        <h3 class="assesment-type">Fall</h3>
+        <div class="assessment-dark-background dibels-values">
+            <div class="values dibels-list">
+              <p>Core</p><p>Strategic</p><p class="dibels-selected">Intensive</p>
+            </div>
+        </div>
+      </div>
+
+<!-- START ACCESS -->
+      <div class="section access-result-section">
+        <h2 class="section-header">ACCESS</h2>
+        <h3 class="assesment-type">Overall</h3>
+
+        <div class="assessment-dark-background access-values">
+            <div class="values">
+              <p>Score: <strong>469</strong></p>
+            </div>
+            <div class="values">
+              <p>Growth: <strong>35</strong></p>
+            </div>
+            <div class="values">
+              <p>Level: <strong>3</strong></p>
+            </div>
+        </div>
+      </div>
+
+</div>
+</div>
+<!-- END DIBELS AND ACCESS -->
+
     <div id="school-year-boxes-row" class="row">
       <% if @student.school_years.present? %>
         <% @student.school_years.each do |s| %>
