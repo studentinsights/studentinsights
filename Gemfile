@@ -68,6 +68,9 @@ gem 'pdfkit'
 
 # S3
 gem 'aws-sdk-core', '~> 2'
+
+gem 'thor'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
