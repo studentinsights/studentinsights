@@ -26,7 +26,9 @@ class Import < Thor
 
     importers = Settings.new({
       district_scope: options["district"],
-      school_scope: school_scope
+      school_scope: school_scope,
+      first_time: options["first_time"],
+      recent_only: options["recent_only"]
     }).configure
 
     importers.each do |i|

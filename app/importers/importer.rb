@@ -3,15 +3,17 @@ module Importer
   # remote_file_name => string pointing to the name of the remote file to parse
   # import_row => function that describes how to handle each row (implemented by handle_row)
 
+  attr_reader :school_scope, :recent_only, :first_time
+
   def initialize(options = {})
     # Required arguments
     @client = options[:client]
     @data_transformer = options[:data_transformer]
 
-    # Optional arguments (for scoping import)
-    @school = options[:school]
+    # Optional arguments
+    @school_scope = options[:school_scope]
     @recent_only = options[:recent_only]
-    @summer_school_local_ids = options[:summer_school_local_ids]    # For importing only summer school students
+    @first_time = options[:first_time]
   end
 
   # SCOPED IMPORT #
@@ -63,7 +65,7 @@ module Importer
   end
 
   def handle_row(row)
-    if @school.present?
+    if @school_scope.present?
       import_if_in_school_scope(row)
     elsif @summer_school_local_ids.present?
       import_if_in_summer_school(row)
@@ -73,7 +75,7 @@ module Importer
   end
 
   def import_if_in_school_scope(row)
-    if @school.local_id == row[:school_local_id]
+    if @school_scope.local_id == row[:school_local_id]
       import_row row
     end
   end

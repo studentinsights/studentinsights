@@ -25,7 +25,7 @@ RSpec.describe do
         end
         context 'scoped to healey school' do
           let(:healey_school) { FactoryGirl.create(:healey) }
-          let(:importer) { import_class.new(school: healey_school) }
+          let(:importer) { import_class.new(school_scope: healey_school) }
           it 'does not import Somerville High School students' do
             expect { importer.import(csv) }.to change(Student, :count).by 0
           end
