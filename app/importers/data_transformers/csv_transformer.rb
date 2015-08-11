@@ -11,6 +11,10 @@ class CsvTransformer
       cleaner = CsvRowCleaner.new(row)
       !cleaner.clean_booleans?
     end
+    csv.each do |row|
+      cleaner = CsvRowCleaner.new(row)
+      cleaner.transform_row
+    end
     return csv
   end
 
