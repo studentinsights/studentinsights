@@ -8,7 +8,7 @@ RSpec.describe BehaviorImporter do
   describe '#import_row' do
     context 'realistic data ("good" case), not great data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_behavior_export.txt", "r:CP1252") }  # Windows 1252
-      let(:transformer) { X2ExportCsvTransformer.new }
+      let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
       let!(:student_we_want_to_update) { FactoryGirl.create(:student_we_want_to_update) }
 

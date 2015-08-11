@@ -6,7 +6,7 @@ RSpec.describe StudentsImporter do
   describe '#import_row' do
     context 'good data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
-      let(:transformer) { X2ExportCsvTransformer.new }
+      let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
       it 'imports two students' do
         expect { importer.import(csv) }.to change { Student.count }.by 2

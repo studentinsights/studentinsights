@@ -5,7 +5,7 @@ RSpec.describe X2AssessmentImporter do
   describe '#import' do
     context 'with good data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
-      let(:transformer) { X2ExportCsvTransformer.new }
+      let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 
       context 'for Healey school' do

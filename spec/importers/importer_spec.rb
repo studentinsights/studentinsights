@@ -16,7 +16,7 @@ RSpec.describe do
       context 'given a csv' do
         let(:fixture_path) { "#{Rails.root}/spec/fixtures/fake_students_export.txt" }
         let(:file) { File.open(fixture_path) }
-        let(:transformer) { X2ExportCsvTransformer.new }
+        let(:transformer) { CsvTransformer.new }
         let(:csv) { transformer.transform(file) }
         context 'not scoped to healey school' do
           let(:importer) { import_class.new }

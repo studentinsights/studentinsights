@@ -33,14 +33,14 @@ class Settings::SomervilleSettings
   def students_options
     students_options = base_options.clone
     students_options[:client] = SftpClient.new({credentials: x2_sftp_credentials, remote_file_name: 'students_export.txt'})
-    students_options[:data_transformer] = X2ExportCsvTransformer.new
+    students_options[:data_transformer] = CsvTransformer.new
     return students_options
   end
 
   def assessment_options
     assessment_options = base_options.clone
     assessment_options[:client] = SftpClient.new({credentials: x2_sftp_credentials, remote_file_name: 'assessment_export.txt'})
-    assessment_options[:data_transformer] = X2ExportCsvTransformer.new
+    assessment_options[:data_transformer] = CsvTransformer.new
     return assessment_options
   end
 
@@ -61,25 +61,25 @@ class Settings::SomervilleSettings
   def behavior_options
     behavior_options = base_options.clone
     behavior_options[:client] = SftpClient.new({credentials: x2_sftp_credentials, remote_file_name: 'behavior_export.txt'})
-    behavior_options[:data_transformer] = X2ExportCsvTransformer.new
+    behavior_options[:data_transformer] = CsvTransformer.new
     return behavior_options
   end
 
   def attendance_options
     attendance_options = base_options.clone
     attendance_options[:client] = SftpClient.new({credentials: x2_sftp_credentials, remote_file_name: 'attendance_export.txt'})
-    attendance_options[:data_transformer] = X2ExportCsvTransformer.new
+    attendance_options[:data_transformer] = CsvTransformer.new
     return attendance_options
   end
 
   def configuration
     if @first_time
       [
-        # StudentsImporter.new(students_options),
-        # X2AssessmentImporter.new(assessment_options),
-        # StarMathImporter.new(star_math_options),
-        # StarReadingImporter.new(star_reading_options),
-        # BehaviorImporter.new(behavior_options),
+        StudentsImporter.new(students_options),
+        X2AssessmentImporter.new(assessment_options),
+        StarMathImporter.new(star_math_options),
+        StarReadingImporter.new(star_reading_options),
+        BehaviorImporter.new(behavior_options),
         BulkAttendanceImporter.new(attendance_options)  # Use bulk attendance importer for first-time import
       ]
     else

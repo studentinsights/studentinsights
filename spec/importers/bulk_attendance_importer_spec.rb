@@ -27,7 +27,7 @@ RSpec.describe BulkAttendanceImporter do
     end
     context 'csv' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_attendance_export.txt") }
-      let(:transformer) { X2ExportCsvTransformer.new }
+      let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
       context 'mixed good & bad rows' do
         it 'imports two valid attendance rows' do
