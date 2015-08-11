@@ -23,6 +23,14 @@ RSpec.describe BulkAttendanceImporter do
           bulk_attendance_importer.import(json)
           expect(AttendanceEvent.last.event_date).to eq DateTime.new(2014, 8, 11)
         end
+        it 'assigns a school year and timestamps' do
+          bulk_attendance_importer.import(json)
+          event = AttendanceEvent.last
+          school_year = event.school_year
+          expect(school_year).to be_a SchoolYear
+          expect(event.created_at).to eq Time.new
+          expect(event.updated_at).to eq Time.new
+        end
       end
     end
     context 'csv' do
@@ -38,6 +46,14 @@ RSpec.describe BulkAttendanceImporter do
           bulk_attendance_importer.import(csv)
           event = AttendanceEvent.last
           expect(event.event_date).to eq DateTime.new(2005, 9, 16)
+        end
+        it 'assigns a school year and timestamps' do
+          bulk_attendance_importer.import(csv)
+          event = AttendanceEvent.last
+          school_year = event.school_year
+          expect(school_year).to be_a SchoolYear
+          expect(event.created_at).to eq Time.new
+          expect(event.updated_at).to eq Time.new
         end
         context 'existing student' do
           let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
