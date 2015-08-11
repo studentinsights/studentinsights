@@ -51,6 +51,8 @@ group :development do
   gem 'pivotal_git_scripts'
   gem 'rack-mini-profiler'
   gem 'spring'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Auth
