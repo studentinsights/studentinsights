@@ -28,12 +28,14 @@ class StudentRiskLevel
 
   def level_in_words
     case @level
-    when 0, 1
-      "Low"
+    when 0
+      " 0"
+    when 1
+      " 1"
     when 2
-      "Medium"
+      " 2"
     when 3
-      "High"
+      " 3"
     when nil
       "N/A"
     end
@@ -49,6 +51,7 @@ class StudentRiskLevel
 
   def css_class_name
     level_in_words.downcase.gsub("/", "")
+    level_in_words.downcase.gsub(" ", "risk-")
   end
 
   def explanation
@@ -91,7 +94,7 @@ class StudentRiskLevel
       explanations << "There is not enough information to tell."
     end
 
-    explanation = "#{name} is at #{level_in_words} Risk because:<br/><br/>"
+    explanation = "#{name} is at Risk #{level_in_words} because:<br/><br/>"
     explanation += "<ul>" + explanations.map { |e| "<li>#{e}</li>" }.join + "</ul>"
   end
 end
