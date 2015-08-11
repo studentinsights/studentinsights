@@ -17,6 +17,8 @@ $(function() {
     $(".sped").hide();
     $(".program").hide();
     $(".free-reduced").hide();
+    $(".access").hide();
+    $(".dibels").hide();
     $("#column-group-select").chosen({width: "110%"}).on('change', function(e, params) {
       if (params.deselected !== undefined) {
         var assessment = params.deselected;

@@ -1,7 +1,8 @@
 class StudentRowData
 
   attr_accessor :assessments, :latest_mcas, :latest_star, :current_events,
-    :latest_mcas_math, :latest_mcas_ela, :latest_star_math, :latest_star_reading
+    :latest_mcas_math, :latest_mcas_ela, :latest_star_math, :latest_star_reading,
+    :latest_map_test, :latest_dibels, :latest_access
 
   def initialize(student, school_year)
     @student = student
@@ -9,6 +10,9 @@ class StudentRowData
 
     star = @assessments.star
     mcas = @assessments.mcas
+    map_test = @assessments.map_test
+    dibels = @assessments.dibels
+    access = @assessments.access
 
     @latest_mcas = mcas.last_or_missing
     @latest_star = star.last_or_missing
@@ -16,6 +20,9 @@ class StudentRowData
     @latest_mcas_ela = mcas.ela.last_or_missing
     @latest_star_math = star.math.last_or_missing
     @latest_star_reading = star.reading.last_or_missing
+    @latest_map_test = map_test.last_or_missing
+    @latest_dibels = dibels.last_or_missing
+    @latest_access = access.last_or_missing
 
     @school_year = school_year
     @current_events = @school_year.attendance_discipline_events(@student)

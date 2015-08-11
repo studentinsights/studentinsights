@@ -30,6 +30,21 @@ class Assessment < ActiveRecord::Base
     where(assessment_family_id: AssessmentFamily.star.id)
   end
 
+  def self.map_test
+    return MissingAssessmentCollection.new if AssessmentFamily.map_test.is_a? MissingAssessmentFamily
+    where(assessment_family_id: AssessmentFamily.map_test.id)
+  end
+
+  def self.access
+    return MissingAssessmentCollection.new if AssessmentFamily.access.is_a? MissingAssessmentFamily
+    where(assessment_family_id: AssessmentFamily.access.id)
+  end
+
+  def self.dibels
+    return MissingAssessmentCollection.new if AssessmentFamily.dibels.is_a? MissingAssessmentFamily
+    where(assessment_family_id: AssessmentFamily.dibels.id)
+  end
+
   def self.math
     return MissingAssessmentCollection.new if AssessmentSubject.math.is_a? MissingAssessmentSubject
     where(assessment_subject_id: AssessmentSubject.math.id)

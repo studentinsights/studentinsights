@@ -1,0 +1,17 @@
+                    <% if assessment.is_a? MissingAssessment %>
+                      <td class="dibels" href="<%= student_url(student, chart_start: "dibels") %>">
+                        <div class="cell-wrapper">—</div>
+                      </td>
+                    <% else %>
+                      <% present(assessment) do |presenter| %>
+                        <td class="dibels" href="<%= student_url(student, chart_start: "dibels") %>">
+                          <div class="cell-wrapper">
+                            <% if risk.performance_warning? %>
+                              <div class="warning-text"><%= presenter.performance_level %></div>
+                            <% else %>
+                              <%= presenter.performance_level %>
+                            <% end %>
+                          </div>
+                        </td>
+                      <% end %>
+                    <% end %>
