@@ -28,8 +28,8 @@ RSpec.describe BulkAttendanceImporter do
           event = AttendanceEvent.last
           school_year = event.school_year
           expect(school_year).to be_a SchoolYear
-          expect(event.created_at).to eq Time.new
-          expect(event.updated_at).to eq Time.new
+          expect(event.created_at).to be_within(0.01).of Time.current
+          expect(event.updated_at).to be_within(0.01).of Time.current
         end
       end
     end
@@ -52,8 +52,8 @@ RSpec.describe BulkAttendanceImporter do
           event = AttendanceEvent.last
           school_year = event.school_year
           expect(school_year).to be_a SchoolYear
-          expect(event.created_at).to eq Time.new
-          expect(event.updated_at).to eq Time.new
+          expect(event.created_at).to be_within(0.01).of Time.current
+          expect(event.updated_at).to be_within(0.01).of Time.current
         end
         context 'existing student' do
           let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
