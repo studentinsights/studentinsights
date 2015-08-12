@@ -1,6 +1,8 @@
 class FakeMcasMathResultGenerator
-  def initialize
+
+  def initialize(student)
     @dates = (2010..2015).to_a.shuffle
+    @student = student
   end
 
   def next
@@ -11,6 +13,7 @@ class FakeMcasMathResultGenerator
       scale_score: rand(200..280),
       performance_level: ["W", "NI", "P", "A", nil].sample,
       growth_percentile: rand(100),
+      student_id: @student.id
     }
   end
 end

@@ -20,6 +20,8 @@ AttendanceEvent.destroy_all
 # Set up assessment subjects and families
 AssessmentFamily.where(name: "MCAS").first_or_create!
 AssessmentFamily.where(name: "STAR").first_or_create!
+AssessmentFamily.where(name: "ACCESS").first_or_create!
+AssessmentFamily.where(name: "DIBELS").first_or_create!
 AssessmentSubject.where(name: "Math").first_or_create!
 AssessmentSubject.where(name: "ELA").first_or_create!
 AssessmentSubject.where(name: "Reading").first_or_create!
@@ -33,30 +35,22 @@ AssessmentSubject.where(name: "Reading").first_or_create!
   student.save
 
   # Set up student assessments
-  mcas_math_factory = FakeMcasMathResultGenerator.new
-  star_math_factory = FakeStarMathResultGenerator.new
-  mcas_ela_factory = FakeMcasElaResultGenerator.new
-  star_reading_factory = FakeStarReadingResultGenerator.new
+  mcas_math_factory = FakeMcasMathResultGenerator.new(student)
+  star_math_factory = FakeStarMathResultGenerator.new(student)
+  mcas_ela_factory = FakeMcasElaResultGenerator.new(student)
+  star_reading_factory = FakeStarReadingResultGenerator.new(student)
+  dibels_factory = FakeDibelsResultGenerator.new(student)
+  access_factory = FakeAccessResultGenerator.new(student)
 
   5.times do
-    result = Assessment.new(mcas_math_factory.next)
-    result.update_attributes(student_id: student.id)
-    result.save
+    result = Assessment.new(mcas_math_factory.next).save
+    result = Assessment.new(mcas_ela_factory.next).save
+    result = Assessment.new(dibels_factory.next).save
+    result = Assessment.new(access_factory.next).save
   end
   12.times do
-    result = Assessment.new(star_math_factory.next)
-    result.update_attributes(student_id: student.id)
-    result.save
-  end
-  5.times do
-    result = Assessment.new(mcas_ela_factory.next)
-    result.update_attributes(student_id: student.id)
-    result.save
-  end
-  12.times do
-    result = Assessment.new(star_reading_factory.next)
-    result.update_attributes(student_id: student.id)
-    result.save
+    result = Assessment.new(star_math_factory.next).save
+    result = Assessment.new(star_reading_factory.next).save
   end
 
   # Aggregate data via https://github.com/codeforamerica/somerville-teacher-tool/issues/94

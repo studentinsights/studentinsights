@@ -1,7 +1,9 @@
 class FakeStarReadingResultGenerator
-  def initialize
+
+  def initialize(student)
     @test_date = DateTime.new(2010, 9, 1)
     @reading_percentile = rand(10..99)
+    @student = student
   end
 
   def next
@@ -14,6 +16,7 @@ class FakeStarReadingResultGenerator
       assessment_subject_id: AssessmentSubject.reading.id,
       date_taken: @test_date,
       percentile_rank: @reading_percentile,
+      student_id: @student.id
     }
   end
 end

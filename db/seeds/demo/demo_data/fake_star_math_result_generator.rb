@@ -1,7 +1,9 @@
 class FakeStarMathResultGenerator
-  def initialize
+
+  def initialize(student)
     @test_date = DateTime.new(2010, 9, 1)
     @math_percentile = rand(10..99)
+    @student = student
   end
 
   def next
@@ -13,7 +15,8 @@ class FakeStarMathResultGenerator
       assessment_family_id: AssessmentFamily.star.id,
       assessment_subject_id: AssessmentSubject.math.id,
       date_taken: @test_date,
-      percentile_rank: @math_percentile
+      percentile_rank: @math_percentile,
+      student_id: @student.id
     }
   end
 end
