@@ -26,7 +26,7 @@
     return $.extend({}, ChartSettings.base_options, {
       xAxis: ChartSettings.x_axis_datetime,
       yAxis: $.extend({}, ChartSettings.percentile_yaxis, {
-        plotLines: ChartSettings.star_plotline
+        plotLines: ChartSettings.benchmark_plotline
       }),
       series: this.series
     });

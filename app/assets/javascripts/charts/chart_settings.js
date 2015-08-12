@@ -88,27 +88,25 @@
     max: 100
   }
 
-  ChartSettings.mcas_growth_plotline = [{
+  ChartSettings.benchmark_plotline = [{
     color: '#B90504',
     width: 1,
     zIndex: 3,
-    value: 40,
+    value: 50,
     label: {
-      text: 'MCAS Growth warning: Less than 40 points',
+      text: 'Expected: 50th percentile',
       align: 'center',
       style: {
         color: '#999999'
       }
     }
-  }];
-
-  ChartSettings.star_plotline = [{
+  }, {
     color: '#B90504',
     width: 1,
     zIndex: 3,
     value: 40,
     label: {
-      text: 'STAR Percentile warning: Less than 40 points',
+      text: 'Warning: Less than 40th percentile',
       align: 'center',
       style: {
         color: '#999999'
