@@ -3,7 +3,7 @@ class CsvRowCleaner < Struct.new :csv_row
   def transform_row
     if has_dates
       date_header = (csv_row.headers & date_headers)[0]
-      csv_row[date_header] = Date.parse(csv_row[date_header])
+      csv_row[date_header] = DateTime.parse(csv_row[date_header])
     end
     return csv_row
   end
