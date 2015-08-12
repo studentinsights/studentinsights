@@ -9,17 +9,14 @@ RSpec.describe do
         it 'has Risk Level of nil' do
           expect(student_risk_level.level).to eq nil
         end
-        it 'has Risk Level in words of "N/A"' do
-          expect(student_risk_level.level_in_words).to eq "N/A"
+        it 'has Risk Level string of "N/A"' do
+          expect(student_risk_level.level_as_string).to eq "N/A"
         end
-        it 'has Risk Level abbreviation of "N/A"' do
-          expect(student_risk_level.level_abbreviation).to eq "N/A"
-        end
-        it 'has Risk Level CSS class name of "na"' do
-          expect(student_risk_level.css_class_name).to eq "na"
+        it 'has Risk Level CSS class name of "risk-na"' do
+          expect(student_risk_level.css_class_name).to eq "risk-na"
         end
         it 'has an explanation' do
-          expect(student_risk_level.explanation).to eq "This student is at N/A Risk because:<br/><br/><ul><li>There is not enough information to tell.</li></ul>"
+          expect(student_risk_level.explanation).to eq "This student is at Risk N/A because:<br/><br/><ul><li>There is not enough information to tell.</li></ul>"
         end
       end
       context 'limited english' do
@@ -28,17 +25,14 @@ RSpec.describe do
         it 'has Risk Level 3' do
           expect(student_risk_level.level).to eq 3
         end
-        it 'has Risk Level in words of "High"' do
-          expect(student_risk_level.level_in_words).to eq "High"
+        it 'has Risk Level string of "3"' do
+          expect(student_risk_level.level_as_string).to eq "3"
         end
-        it 'has Risk Level abbreviation of "H"' do
-          expect(student_risk_level.level_abbreviation).to eq "H"
-        end
-        it 'has Risk Level CSS class name of "high"' do
-          expect(student_risk_level.css_class_name).to eq "high"
+        it 'has Risk Level CSS class name of "risk-3"' do
+          expect(student_risk_level.css_class_name).to eq "risk-3"
         end
         it 'has an explanation' do
-          expect(student_risk_level.explanation).to eq "This student is at High Risk because:<br/><br/><ul><li>This student is limited English proficient.</li></ul>"
+          expect(student_risk_level.explanation).to eq "This student is at Risk 3 because:<br/><br/><ul><li>This student is limited English proficient.</li></ul>"
         end
       end
     end

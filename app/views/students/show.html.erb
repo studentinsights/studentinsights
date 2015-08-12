@@ -14,7 +14,7 @@
       <div id="profile-risk-level" class="tooltip-trigger">
         <p>Risk level:</p>
         <div id="risk-pill" class="<%= @risk.css_class_name %>">
-            <h3><%= @risk.level_in_words %></h3>
+            <h3><%= @risk.level_as_string %></h3>
         </div>
       </div>
     </div>
@@ -94,7 +94,7 @@
     <div class="tooltip-popup">
       <div class="warning-key">
         <div class="warning-header">
-          Risk level: <%= @risk.level_in_words %>
+          Risk level: <%= @risk.level_as_string %>
         </div>
         <div class="warning-set">
           <%= @risk.explanation.html_safe %>

@@ -6,7 +6,7 @@
                   </td>
                   <td class="risk" href="<%= student_url(student) %>">
                     <div class="warning-bubble <%= risk.css_class_name %>">
-                      <%= risk.level_for_roster %>
+                      <%= risk.level_as_string %>
                     </div>
                   </td>
                   <td class="program" href="<%= student_url(student) %>">

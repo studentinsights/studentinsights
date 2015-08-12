@@ -26,32 +26,12 @@ class StudentRiskLevel
     end
   end
 
-  def level_in_words
-    case @level
-    when 0
-      " 0"
-    when 1
-      " 1"
-    when 2
-      " 2"
-    when 3
-      " 3"
-    when nil
-      "N/A"
-    end
-  end
-
-  def level_for_roster
-    @level.nil? ? "N/A" : @level
-  end
-
-  def level_abbreviation
-    level_in_words == "N/A" ? level_in_words : level_in_words[0]
+  def level_as_string
+    @level.nil? ? "N/A" : @level.to_s
   end
 
   def css_class_name
-    level_in_words.downcase.gsub("/", "")
-    level_in_words.downcase.gsub(" ", "risk-")
+    "risk-" + level_as_string.downcase.gsub("/", "")
   end
 
   def explanation
@@ -94,7 +74,7 @@ class StudentRiskLevel
       explanations << "There is not enough information to tell."
     end
 
-    explanation = "#{name} is at Risk #{level_in_words} because:<br/><br/>"
+    explanation = "#{name} is at Risk #{level_as_string} because:<br/><br/>"
     explanation += "<ul>" + explanations.map { |e| "<li>#{e}</li>" }.join + "</ul>"
   end
 end
