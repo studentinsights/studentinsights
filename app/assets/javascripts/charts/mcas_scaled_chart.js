@@ -25,7 +25,7 @@
   McasScaledChart.prototype.toHighChart = function mcasChartToHighChart () {
     return $.extend({}, ChartSettings.base_options, {
       xAxis: ChartSettings.x_axis_datetime,
-      yAxis: ChartSettings.default_yaxis,
+      yAxis: ChartSettings.default_mcas_score_yaxis,
       series: this.series
     });
   };
