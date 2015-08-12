@@ -8,7 +8,7 @@ RSpec.describe BehaviorImporter do
   describe '#import_row' do
     context 'realistic data ("good" case), not great data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_behavior_export.txt", "r:CP1252") }  # Windows 1252
-      let(:transformer) { X2ExportCsvTransformer.new }
+      let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
       let!(:student_we_want_to_update) { FactoryGirl.create(:student_we_want_to_update) }
 
@@ -54,12 +54,6 @@ RSpec.describe BehaviorImporter do
         let(:incident_with_non_utf8_description) { Student.find_by_local_id("12").discipline_incidents.last }
         it 'fights back' do
           expect(incident_with_non_utf8_description.reload.incident_description).to eq("pencil that didn’t need to be")
-        end
-      end
-      context 'date missing' do
-        let(:student_with_incident_without_date) { Student.find_by_local_id("14") }
-        it 'does not import the event' do
-          expect(student_with_incident_without_date.discipline_incidents.count).to eq 0
         end
       end
     end

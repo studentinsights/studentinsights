@@ -24,11 +24,30 @@ class Import < Thor
       raise "School not found" if school_scope.blank?
     end
 
-    settings = Settings.new({
+    importers = Settings.new({
       district_scope: options["district"],
-      school_scope: school_scope
+      school_scope: school_scope,
+      first_time: options["first_time"],
+      recent_only: options["recent_only"]
     }).configure
 
-    ImportInitializer.import(settings)
+    importers.each do |i|
+      begin
+        if Rails.env.development?
+          i.connect_transform_import_locally
+        else
+          i.connect_transform_import
+        end
+      rescue Exception => message
+        puts message
+      end
+    end
+
+    if Rails.env.development?
+      puts "#{Student.count} students"
+      puts "#{Assessment.count} assessments"
+      puts "#{DisciplineIncident.count} discipline incidents"
+      puts "#{AttendanceEvent.count} attendance events"
+    end
   end
 end

@@ -5,7 +5,7 @@ RSpec.describe X2AssessmentImporter do
   describe '#import' do
     context 'with good data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
-      let(:transformer) { X2ExportCsvTransformer.new }
+      let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 
       context 'for Healey school' do
@@ -91,16 +91,6 @@ RSpec.describe X2AssessmentImporter do
             expect(access_result.performance_level).to eq('4.9')
             expect(access_result.growth_percentile).to eq(92)
           end
-        end
-      end
-      context 'with bad data' do
-        let(:file) { File.open("#{Rails.root}/spec/fixtures/bad_x2_assessments.csv") }
-        let(:transformer) { X2ExportCsvTransformer.new }
-        let(:csv) { transformer.transform(file) }
-        let(:healey) { School.where(local_id: "HEA").first_or_create! }
-        let(:healey_importer) { X2AssessmentImporter.new(school: healey) }
-        it 'raises an error' do
-          expect { healey_importer.import(csv) }.to raise_error ActiveRecord::StatementInvalid
         end
       end
     end
