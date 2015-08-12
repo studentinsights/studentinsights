@@ -75,6 +75,19 @@
     max: undefined
   }
 
+  ChartSettings.default_mcas_score_yaxis = {
+    allowDecimals: false,
+    title: {
+      text: '',
+      style: {
+        display: 'none'
+      }
+    },
+    plotLines: [],
+    min: 200,
+    max: 280
+  }
+
   ChartSettings.percentile_yaxis =  {
     allowDecimals: false,
     title: {
