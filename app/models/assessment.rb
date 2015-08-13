@@ -68,4 +68,9 @@ class Assessment < ActiveRecord::Base
     order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingAssessment.new
   end
 
+  def self.order_or_missing
+    order(date_taken: :asc).present? ? order(date_taken: :asc) : MissingAssessmentCollection.new
+  end
+
+
 end
