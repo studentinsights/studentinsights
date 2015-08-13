@@ -32,10 +32,10 @@
       </div>
     <% end %>
 
-    <% if events[:star_math_results].present? || events[:star_reading_results].present? %>
+    <% unless events[:star_math_results].is_a?(MissingAssessmentCollection) && events[:star_reading_results].is_a?(MissingAssessmentCollection) %>
       <div class="section star-result-section">
         <h2 class="section-header">STAR</h2>
-        <% if events[:star_reading_results].present? %>
+        <% unless events[:star_reading_results].is_a?(MissingAssessmentCollection) %>
           <h3 class="assesment-type">Reading</h3>
           <% events[:star_reading_results].each do |s| %>
             <h3 class="assesment-type"><%= s.date_taken.strftime("%B %e, %Y")  %></h3>
@@ -49,7 +49,7 @@
             </div>
           <% end %>
         <% end %>
-        <% if events[:star_math_results].present? %>
+        <% unless events[:star_math_results].is_a?(MissingAssessmentCollection) %>
           <h3 class="assesment-type">Math</h3>
           <% events[:star_math_results].each do |s| %>
             <div class="assessment-dark-background star-math-values">

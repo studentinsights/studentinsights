@@ -1,27 +1,35 @@
 module FindDataForStudentProfile
-  def scope_assessments(assessments_to_scope, family, subject)
-    unless family.is_a?(MissingAssessmentFamily) || subject.is_a?(MissingAssessmentSubject)
-      assessments_to_scope.where(
-        assessment_family_id: family.id,
-        assessment_subject_id: subject.id
-      ).order(date_taken: :desc)
-    end
+
+  def mcas_math_result(student)
+    assessments.mcas.math.find_by_student(student).last_or_missing
   end
 
-  def mcas_math_results(assessments_to_scope)
-    scope_assessments(assessments_to_scope, AssessmentFamily.mcas, AssessmentSubject.math)
+  def mcas_ela_result(student)
+    assessments.mcas.ela.find_by_student(student).last_or_missing
   end
 
-  def mcas_ela_results(assessments_to_scope)
-    scope_assessments(assessments_to_scope, AssessmentFamily.mcas, AssessmentSubject.ela)
+  def mcas_math_results(student)
+    assessments.mcas.math.find_by_student(student).order(date_taken: :asc)
   end
 
-  def star_math_results(assessments_to_scope)
-    scope_assessments(assessments_to_scope, AssessmentFamily.star, AssessmentSubject.math)
+  def mcas_ela_results(student)
+    assessments.mcas.ela.find_by_student(student).order(date_taken: :asc)
   end
 
-  def star_reading_results(assessments_to_scope)
-    scope_assessments(assessments_to_scope, AssessmentFamily.star, AssessmentSubject.reading)
+  def star_reading_results(student)
+    assessments.star.reading.find_by_student(student).order(date_taken: :asc)
+  end
+
+  def star_math_results(student)
+    assessments.star.math.find_by_student(student).order(date_taken: :asc)
+  end
+
+  def dibels(student)
+    assessments.dibels.find_by_student(student).last_or_missing
+  end
+
+  def access(student)
+    assessments.access.find_by_student(student).last_or_missing
   end
 
   def attendance_events_by_school_year

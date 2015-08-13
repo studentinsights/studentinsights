@@ -60,6 +60,10 @@ class Assessment < ActiveRecord::Base
     where(assessment_subject_id: AssessmentSubject.reading.id)
   end
 
+  def self.find_by_student(student)
+    where(student_id: student.id)
+  end
+
   def self.last_or_missing
     order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingAssessment.new
   end

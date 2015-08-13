@@ -2,8 +2,12 @@ class StudentProfileChart < Struct.new :student
   include FindDataForStudentProfile
 
   def prepare(assessments, score)
-    return if assessments.blank?
+    return if assessments.is_a?(MissingAssessmentCollection) || assessments.is_a?(MissingAssessment)
     assessments.map { |s| [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score)] }
+  end
+
+  def assessments
+    student.assessments
   end
 
   def chart_data
@@ -13,12 +17,12 @@ class StudentProfileChart < Struct.new :student
       attendance_events_school_years: attendance_events_school_years,
       behavior_series: behavior_series,
       behavior_series_school_years: behavior_events_school_years,
-      star_series_math_percentile: prepare(star_math_results(student.assessments), :percentile_rank),
-      star_series_reading_percentile: prepare(star_reading_results(student.assessments), :percentile_rank),
-      mcas_series_math_scaled: prepare(mcas_math_results(student.assessments), :scale_score),
-      mcas_series_ela_scaled: prepare(mcas_ela_results(student.assessments), :scale_score),
-      mcas_series_math_growth: prepare(mcas_math_results(student.assessments), :growth_percentile),
-      mcas_series_ela_growth: prepare(mcas_ela_results(student.assessments), :growth_percentile)
+      star_series_math_percentile: prepare(star_math_results(student), :percentile_rank),
+      star_series_reading_percentile: prepare(star_reading_results(student), :percentile_rank),
+      mcas_series_math_scaled: prepare(mcas_math_results(student), :scale_score),
+      mcas_series_ela_scaled: prepare(mcas_ela_results(student), :scale_score),
+      mcas_series_math_growth: prepare(mcas_math_results(student), :growth_percentile),
+      mcas_series_ela_growth: prepare(mcas_ela_results(student), :growth_percentile)
     }
   end
 
