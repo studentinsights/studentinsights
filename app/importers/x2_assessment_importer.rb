@@ -14,7 +14,7 @@ class X2AssessmentImporter
     name = row[:assessment_test]
     pass = false
     assessment_white_list.each do |assessment|
-      pass = true if assessment.include? name
+      pass = true if name.include? assessment
     end
     return pass
   end

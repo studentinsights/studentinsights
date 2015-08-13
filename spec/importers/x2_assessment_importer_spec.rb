@@ -21,7 +21,7 @@ RSpec.describe X2AssessmentImporter do
         end
 
         it 'imports only white-listed assessments' do
-          expect(Assessment.count).to eq 6
+          expect(Assessment.count).to eq 7
         end
 
         context 'MCAS' do
