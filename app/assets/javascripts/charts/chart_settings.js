@@ -75,6 +75,52 @@
     max: undefined
   }
 
+  ChartSettings.mcas_level_bands = [{
+    color: '#E7EBED',
+    from: 200,
+    to: 218,
+    label: {
+      text: 'Warning',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }, {
+    color: '#F6F7F8',
+    from: 220,
+    to: 238,
+    label: {
+      text: 'Needs Improvement',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }, {
+    color: '#E7EBED',
+    from: 240,
+    to: 258,
+    label: {
+      text: 'Proficient',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }, {
+    color: '#F6F7F8',
+    from: 260,
+    to: 280,
+    label: {
+      text: 'Advanced',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }]
+
   ChartSettings.default_mcas_score_yaxis = {
     allowDecimals: false,
     title: {
