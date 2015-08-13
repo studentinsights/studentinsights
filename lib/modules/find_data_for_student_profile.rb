@@ -25,7 +25,7 @@ module FindDataForStudentProfile
   end
 
   def dibels(student)
-    assessments.dibels.find_by_student(student).last_or_missing
+    assessments.dibels.find_by_student(student).order(date_taken: :asc)
   end
 
   def access(student)

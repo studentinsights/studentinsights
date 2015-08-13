@@ -63,44 +63,48 @@
     <% end %>
 
     <!-- DIBELS -->
-    <div class="section dibels-result-section">
-      <h2 class="section-header">DIBELS</h2>
-      <h3 class="assesment-type">Spring</h3>
-      <div class="assessment-dark-background dibels-values">
-        <div class="values dibels-list">
-          <p>Core</p><p class="dibels-selected">Strategic</p><p>Intensive</p>
-        </div>
+    <% unless events[:dibels].is_a?(MissingAssessmentCollection) %>
+      <div class="section dibels-result-section">
+        <h2 class="section-header">DIBELS</h2>
+        <% events[:dibels].each do |e| %>
+          <% if e.performance_level.present? %>
+            <h3 class="assesment-type"><%= e.date_taken.strftime("%B %e, %Y") %></h3>
+            <div class="assessment-dark-background dibels-values">
+              <div class="values dibels-list">
+                <p <% if e.performance_level == "Core" %>class="dibels-selected"<% end %>>
+                  Core
+                </p>
+                <p <% if e.performance_level == "Strategic" %>class="dibels-selected"<% end %>>
+                  Strategic
+                </p>
+                <p <% if e.performance_level == "Intensive" %>class="dibels-selected"<% end %>>
+                  Intensive
+                </p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
-      <h3 class="assesment-type">Winter</h3>
-      <div class="assessment-dark-background dibels-values">
-        <div class="values dibels-list">
-          <p class="dibels-selected">Core</p><p>Strategic</p><p>Intensive</p>
-        </div>
-      </div>
-      <h3 class="assesment-type">Fall</h3>
-      <div class="assessment-dark-background dibels-values">
-        <div class="values dibels-list">
-          <p>Core</p><p>Strategic</p><p class="dibels-selected">Intensive</p>
-        </div>
-      </div>
-    </div>
+    <% end %>
 
     <!-- ACCESS -->
-    <div class="section access-result-section">
-      <h2 class="section-header">ACCESS</h2>
-      <h3 class="assesment-type">Overall</h3>
-      <div class="assessment-dark-background access-values">
-        <div class="values">
-          <p>Score: <strong>469</strong></p>
-        </div>
-        <div class="values">
-          <p>Growth: <strong>35</strong></p>
-        </div>
-        <div class="values">
-          <p>Level: <strong>3</strong></p>
+    <% unless events[:access].is_a?(MissingAssessment) %>
+      <div class="section access-result-section">
+        <h2 class="section-header">ACCESS</h2>
+        <h3 class="assesment-type">Overall</h3>
+        <div class="assessment-dark-background access-values">
+          <div class="values">
+            <p>Score: <strong><%= events[:access].scale_score %></strong></p>
+          </div>
+          <div class="values">
+            <p>Growth: <strong><%= events[:access].growth_percentile %></strong></p>
+          </div>
+          <div class="values">
+            <p>Level: <strong><%= events[:access].performance_level %></strong></p>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="section attendance-section">
       <h2 class="section-header">Attendance</h2>
