@@ -36,6 +36,15 @@ FactoryGirl.define do
         end
       end
     end
+    factory :dibels, class: Assessment do
+      association :assessment_family, name: "DIBELS"
+      factory :dibels_with_performance_level do
+        performance_level "Strategic"
+      end
+    end
+    factory :access, class: Assessment do
+      association :assessment_family, name: "ACCESS"
+    end
   end
   factory :assessment_without_date_taken, class: Assessment do
   end

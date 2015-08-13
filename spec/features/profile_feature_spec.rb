@@ -76,5 +76,29 @@ describe 'educator views student profile', :type => :feature do
         end
       end
     end
+    context 'student has DIBELS' do
+      let!(:student) { FactoryGirl.create(:student_with_dibels) }
+      it 'shows DIBELS' do
+        expect(page).to have_css '.dibels-values'
+      end
+    end
+    context 'student has no DIBELS' do
+      let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014) }
+      it 'doesn\'t show DIBELS' do
+        expect(page).not_to have_css '.dibels-values'
+      end
+    end
+    context 'student has ACCESS' do
+      let!(:student) { FactoryGirl.create(:student_with_access) }
+      it 'shows ACCESS' do
+        expect(page).to have_css '.access-values'
+      end
+    end
+    context 'student has no ACCESS' do
+      let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014) }
+      it 'doesn\'t show ACCESS' do
+        expect(page).not_to have_css '.access-values'
+      end
+    end
   end
 end
