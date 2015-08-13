@@ -25,8 +25,10 @@
   McasScaledChart.prototype.toHighChart = function mcasChartToHighChart () {
     return $.extend({}, ChartSettings.base_options, {
       xAxis: ChartSettings.x_axis_datetime,
-      yAxis: ChartSettings.default_mcas_score_yaxis,
-      series: this.series
+      yAxis: $.extend({}, ChartSettings.default_mcas_score_yaxis, {
+      plotLines: ChartSettings.mcas_level_bands
+      }),
+    series: this.series
     });
   };
 
