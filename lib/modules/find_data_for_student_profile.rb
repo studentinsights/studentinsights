@@ -9,23 +9,27 @@ module FindDataForStudentProfile
   end
 
   def mcas_math_results(student)
-    assessments.mcas.math.find_by_student(student).order(date_taken: :asc)
+    assessments.mcas.math.find_by_student(student).order_or_missing
   end
 
   def mcas_ela_results(student)
-    assessments.mcas.ela.find_by_student(student).order(date_taken: :asc)
+    assessments.mcas.ela.find_by_student(student).order_or_missing
+  end
+
+  def star(student)
+    assessments.star.find_by_student(student).order_or_missing
   end
 
   def star_reading_results(student)
-    assessments.star.reading.find_by_student(student).order(date_taken: :asc)
+    assessments.star.reading.find_by_student(student).order_or_missing
   end
 
   def star_math_results(student)
-    assessments.star.math.find_by_student(student).order(date_taken: :asc)
+    assessments.star.math.find_by_student(student).order_or_missing
   end
 
   def dibels(student)
-    assessments.dibels.find_by_student(student).order(date_taken: :asc)
+    assessments.dibels.find_by_student(student).order_or_missing
   end
 
   def access(student)

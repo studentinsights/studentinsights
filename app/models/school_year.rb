@@ -18,8 +18,7 @@ class SchoolYear < ActiveRecord::Base
     {
       mcas_math_result: mcas_math_result(student),
       mcas_ela_result: mcas_ela_result(student),
-      star_reading_results: star_reading_results(student),
-      star_math_results: star_math_results(student),
+      star: star(student).group_by { |result| result.date_taken },
       dibels: dibels(student),
       access: access(student)
     }

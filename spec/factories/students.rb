@@ -68,6 +68,19 @@ FactoryGirl.define do
           student.assessments << FactoryGirl.create(:star_math_assessment)
         end
       end
+      factory :student_with_star_math_and_star_reading_same_day do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:star_math_assessment)
+          student.assessments << FactoryGirl.create(:star_reading_assessment)
+        end
+      end
+      factory :student_with_star_math_and_star_reading_different_days do
+        after(:create) do |student|
+          math = FactoryGirl.create(:star_math_assessment)
+          reading = FactoryGirl.create(:star_reading_assessment_on_different_day)
+          student.assessments << [math, reading]
+        end
+      end
       factory :student_with_star_assessment_between_30_85 do
         after(:create) do |student|
           student.assessments << FactoryGirl.create(:star_assessment_between_30_85)

@@ -32,32 +32,29 @@
       </div>
     <% end %>
 
-    <% unless events[:star_math_results].is_a?(MissingAssessmentCollection) && events[:star_reading_results].is_a?(MissingAssessmentCollection) %>
+    <% unless events[:star].is_a?(MissingAssessmentCollection) %>
       <div class="section star-result-section">
         <h2 class="section-header">STAR</h2>
-        <% unless events[:star_reading_results].is_a?(MissingAssessmentCollection) %>
-          <h3 class="assesment-type">Reading</h3>
-          <% events[:star_reading_results].each do |s| %>
-            <h3 class="assesment-type"><%= s.date_taken.strftime("%B %e, %Y")  %></h3>
-            <div class="assessment-dark-background star-reading-values">
-              <div class="values">
-                <p>Reading percentile: <strong><%= AssessmentPresenter.new(s).percentile_rank %></strong></p>
+        <% events[:star].each do |date, results| %>
+          <h3 class="assesment-type"><%= date.strftime("%B %e, %Y") %></h3>
+          <div class="assessment-dark-background">
+            <% results.each do |r| %>
+              <div class="star-values">
+                <% if r.assessment_subject == AssessmentSubject.math %>
+                  <div class="values star-math-values">
+                    <p>Math percentile: <strong><%= AssessmentPresenter.new(r).percentile_rank %></strong></p>
+                  </div>
+                <% elsif r.assessment_subject == AssessmentSubject.reading %>
+                  <div class="values star-reading-values">
+                    <p>Reading percentile: <strong><%= AssessmentPresenter.new(r).percentile_rank %></strong></p>
+                  </div>
+                  <div class="values star-reading-values instructional-reading-level">
+                    <p>Reading level: <strong><%= AssessmentPresenter.new(r).instructional_reading_level %></strong></p>
+                  </div>
+                <% end %>
               </div>
-              <div class="values">
-                <p>Reading level: <strong><%= AssessmentPresenter.new(s).instructional_reading_level %></strong></p>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-        <% unless events[:star_math_results].is_a?(MissingAssessmentCollection) %>
-          <h3 class="assesment-type">Math</h3>
-          <% events[:star_math_results].each do |s| %>
-            <div class="assessment-dark-background star-math-values">
-              <div class="values">
-                <p>Math percentile: <strong><%= AssessmentPresenter.new(s).percentile_rank %></strong></p>
-              </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         <% end %>
       </div>
     <% end %>
