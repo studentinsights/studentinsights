@@ -11,7 +11,12 @@ class X2AssessmentImporter
   end
 
   def check_white_list(row)
-    assessment_white_list.include? row[:assessment_test]
+    name = row[:assessment_test]
+    pass = false
+    assessment_white_list.each do |assessment|
+      pass = true if assessment.include? name
+    end
+    return pass
   end
 
   def import_row(row)
