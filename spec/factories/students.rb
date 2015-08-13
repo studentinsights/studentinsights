@@ -73,6 +73,16 @@ FactoryGirl.define do
           student.assessments << FactoryGirl.create(:star_assessment_between_30_85)
         end
       end
+      factory :student_with_dibels do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:dibels_with_performance_level)
+        end
+      end
+      factory :student_with_access do
+        after(:create) do |student|
+          student.assessments << FactoryGirl.create(:access)
+        end
+      end
     end
 
     # Test STAR Instructional Reading Level

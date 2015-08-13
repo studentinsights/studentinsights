@@ -32,10 +32,10 @@
       </div>
     <% end %>
 
-    <% if events[:star_math_results].present? || events[:star_reading_results].present? %>
+    <% unless events[:star_math_results].is_a?(MissingAssessmentCollection) && events[:star_reading_results].is_a?(MissingAssessmentCollection) %>
       <div class="section star-result-section">
         <h2 class="section-header">STAR</h2>
-        <% if events[:star_reading_results].present? %>
+        <% unless events[:star_reading_results].is_a?(MissingAssessmentCollection) %>
           <h3 class="assesment-type">Reading</h3>
           <% events[:star_reading_results].each do |s| %>
             <h3 class="assesment-type"><%= s.date_taken.strftime("%B %e, %Y")  %></h3>
@@ -49,7 +49,7 @@
             </div>
           <% end %>
         <% end %>
-        <% if events[:star_math_results].present? %>
+        <% unless events[:star_math_results].is_a?(MissingAssessmentCollection) %>
           <h3 class="assesment-type">Math</h3>
           <% events[:star_math_results].each do |s| %>
             <div class="assessment-dark-background star-math-values">
@@ -59,6 +59,50 @@
             </div>
           <% end %>
         <% end %>
+      </div>
+    <% end %>
+
+    <!-- DIBELS -->
+    <% unless events[:dibels].is_a?(MissingAssessmentCollection) %>
+      <div class="section dibels-result-section">
+        <h2 class="section-header">DIBELS</h2>
+        <% events[:dibels].each do |e| %>
+          <% if e.performance_level.present? %>
+            <h3 class="assesment-type"><%= e.date_taken.strftime("%B %e, %Y") %></h3>
+            <div class="assessment-dark-background dibels-values">
+              <div class="values dibels-list">
+                <p <% if e.performance_level == "Core" %>class="dibels-selected"<% end %>>
+                  Core
+                </p>
+                <p <% if e.performance_level == "Strategic" %>class="dibels-selected"<% end %>>
+                  Strategic
+                </p>
+                <p <% if e.performance_level == "Intensive" %>class="dibels-selected"<% end %>>
+                  Intensive
+                </p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <!-- ACCESS -->
+    <% unless events[:access].is_a?(MissingAssessment) %>
+      <div class="section access-result-section">
+        <h2 class="section-header">ACCESS</h2>
+        <h3 class="assesment-type">Overall</h3>
+        <div class="assessment-dark-background access-values">
+          <div class="values">
+            <p>Score: <strong><%= events[:access].scale_score %></strong></p>
+          </div>
+          <div class="values">
+            <p>Growth: <strong><%= events[:access].growth_percentile %></strong></p>
+          </div>
+          <div class="values">
+            <p>Level: <strong><%= events[:access].performance_level %></strong></p>
+          </div>
+        </div>
       </div>
     <% end %>
 

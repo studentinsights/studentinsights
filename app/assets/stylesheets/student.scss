@@ -131,6 +131,26 @@
     float: left;
     padding-right: 20px;
   }
+
+  .dibels-list {
+    width: 100%;
+
+    .dibels-selected {
+      color: $white;
+      background: $gray;
+      border-radius: 30px;
+      font-weight: 700;
+    }
+
+    p {
+      text-transform: uppercase;
+      font-weight: 300;
+      color: $light-gray;
+      display: inline-block;
+      padding: 10px 15px;
+      margin-right: 8px;
+    }
+  }
 }
 
 .section:last-child {
