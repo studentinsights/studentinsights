@@ -153,7 +153,7 @@
     zIndex: 3,
     value: 50,
     label: {
-      text: 'Expected: 50th percentile',
+      text: 'Average baseline: 50th percentile',
       align: 'center',
       style: {
         color: '#999999'
