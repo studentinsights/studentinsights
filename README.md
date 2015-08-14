@@ -75,6 +75,7 @@ We are deploying this app on Heroku and you can, too. Be sure to set config vari
 
 ## Status timeline
 
+* __August 2015__:  We iterated on the tool, tweaking and adding features prioritized by teachers, principals, and partners. We collaborated with KIPP NJ to build more robust data integration processes and demonstrated how this tool can be deployed more extensively to other districts (even having different SIS systems).
 * __July 2015__:  We piloted the app with teachers and reading coaches during Summer School. We observed the tool being used by teachers to create flexible groupings by math performance. We received a lot of great feedback on issues, functionalities, and features to work on. At Code for Boston, we held a collaborative coding session with a group of ~10 volunteers and built out the export CSV function.
 * __June 2015__:  We tested the app with more teachers now and building out the student profile features with the help of Code for SF and Code for Boston brigade volunteers.
 * __May 2015__:  We consider the app an alpha product now. Our focus is on building out the student profile feature and improving the roster view while testing working iterations with our teacher partners at Healey.
@@ -85,7 +86,6 @@ We are deploying this app on Heroku and you can, too. Be sure to set config vari
 
 ## Future?
 This app could grow in several different ways.
-* __Visuals__:  Create graphs to help visualize the historical student data.
 * __Sub-views__:  Create sub-views with more limited and focused access to data. These sub-views could be made available to others within the school community, including parents and students.
 * __After-school__:  Incorporate data about after-school programs.
 * __Interventions__:  Allow teachers to add interventions to the system and track how they impact student progress.
