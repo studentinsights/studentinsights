@@ -92,14 +92,12 @@
               <p><strong><%= i.name %>:</strong> <span class="intervention-creator"><%= i.educator.email %></span></p>
               <p><%= i.comment %></p>
               <p class="intervention-date">
-                  <%= Time.zone.at(i.start_date).strftime("%B %e, %Y") %>
-                    -
-                  <% if i.end_date.present? %>
-                    <%= Time.zone.at(i.end_date).strftime("%B %e, %Y") %>
-                  <% else %>
-                    <span class="end-date-text">Add end date</span>
-                    <input class="datepicker">
-                  <% end %>
+                <%= i.start_date.strftime("%B %e, %Y") %> -
+                <% if i.end_date.present? %>
+                  <%= i.end_date.strftime("%B %e, %Y") %>
+                <% else %>
+                  <span class="end-date-text">Add end date</span>
+                <% end %>
               </p>
             </div>
           <% end %>
@@ -126,8 +124,12 @@
             <h2>Comment</h2>
             <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
           </div>
-          <%= i.hidden_field 'educator_id', value: current_educator.id %>
-          <%= i.hidden_field 'student_id', value: @student.id %>
+          <div class="left-bar-block">
+            <h2>End date</h2>
+            <%= i.text_field :end_date, class: "datepicker" %>
+          </div>
+          <%= i.hidden_field :educator_id, value: current_educator.id %>
+          <%= i.hidden_field :student_id, value: @student.id %>
           <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
           <%= i.submit "Save", class: "btn save-btn" %>
         </div>
