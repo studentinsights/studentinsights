@@ -126,7 +126,7 @@
           </div>
           <div class="left-bar-block">
             <h2>End date</h2>
-            <%= i.text_field :end_date, class: "datepicker" %>
+            <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd" %>
           </div>
           <%= i.hidden_field :educator_id, value: current_educator.id %>
           <%= i.hidden_field :student_id, value: @student.id %>

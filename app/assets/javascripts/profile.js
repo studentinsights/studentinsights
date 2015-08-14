@@ -110,7 +110,8 @@ $(function() {
       showOn: "button",
       buttonImage: $("#calendar-icon-path").data('path'),
       buttonImageOnly: true,
-      buttonText: "Select date"
+      buttonText: "Select date",
+      dateFormat: 'yy-mm-dd'
     });
 
     // Hide Add Intervention form on page load
