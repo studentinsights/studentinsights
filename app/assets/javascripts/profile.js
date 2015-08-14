@@ -109,5 +109,18 @@ $(function() {
       position: 'bottom-right',
       contentAsHTML: true
     });
+
+    // Hide Add Intervention form on page load
+    $("#new_intervention").hide();
+
+    $("#open-intervention-form").click(function() {
+      $("#new_intervention").slideDown();
+      $(this).slideUp();
+    });
+
+    $("#close-intervention-form").click(function() {
+      $("#new_intervention").slideUp();
+      $("#open-intervention-form").slideDown();
+    });
   }
 });

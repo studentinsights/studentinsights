@@ -15,4 +15,7 @@ Rails.application.routes.draw do
   resources :homerooms do
     resources :students
   end
+
+  post '/interventions/' => 'interventions#create'
+
 end

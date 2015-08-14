@@ -86,73 +86,53 @@
       <div id="interventions-row">
         <h1>Interventions</h1>
 
-        <div class="left-bar-block">
-          <p><strong>X-Block:</strong> <span class="intervention-creator">Mark Caso</span></p>
-          <p>This allowing students to work at their own pace, yet meeting the correct deadline class have more flexibility in their schedules to take their classes at a time that works best for them.</p>
-          <p class="intervention-date">
-            <span id="intervention-start">
-              July 21, 2015
-            </span>
-            -
-            <span id="intervention-end">
-              July 21, 2015
-            </span>
-          </p>
-        </div>
-
-        <div class="left-bar-block">
-          <p><strong>Phone call:</strong> <span class="intervention-creator">Kenn Scott</span></p>
-          <p>It was created by Michelangelo while trying some new pizza recipes. Mikey made the shake because the turtles love milkshakes and also love pizza so he thought.</p>
-          <p class="intervention-date">
-            <span id="intervention-start">
-              July 21, 2015
-            </span>
-            -
-            <span id="intervention-end">
-              <a href="#"><img class="calendar-icon" src="<%= asset_path('calendar-icon.svg') %>"/> Add end date</a>
-            </span>
-          </p>
-        </div>
-
-        <button type="button" onclick="" class="btn">Add intervention</button>
+        <% if @interventions.present? %>
+          <% @interventions.each do |i| %>
+            <div class="left-bar-block">
+              <p><strong><%= i.name %>:</strong> <span class="intervention-creator"><%= i.educator.email %></span></p>
+              <p><%= i.comment %></p>
+              <p class="intervention-date">
+                <span id="intervention-start">
+                  <%= Time.zone.at(i.start_date).strftime("%B %e, %Y") %>
+                </span> -
+                <span id="intervention-end">
+                  <% if i.end_date.present? %>
+                    <%= Time.zone.at(i.end_date).strftime("%B %e, %Y") %>
+                  <% else %>
+                    Add end date <%= image_tag 'calendar-icon.svg' %>
+                  <% end %>
+                </span>
+              </p>
+            </div>
+          <% end %>
+        <% else %>
+          <br/>
+          <h2>No interventions</h2>
+        <% end %>
+        <br/>
+        <button id="open-intervention-form" class="btn" type="button">Add intervention</button>
       </div>
 
-      <div id="add-interventions-row">
-        <h1>Add Interventions</h1>
-
-        <div class="left-bar-block">
-          <h2>Select Intervention</h2>
-          <select id="chart-type">
-            <option disabled selected> -- Intervention type -- </option>
-            <option value="x-block">
-              X-Block
-            </option>
-            <option value="phone-call">
-              Phone call
-            </option>
-            <option value="reading-tutor">
-              Reading tutor
-            </option>
-            <option value="math-tutor">
-              Math tutor
-            </option>
-            <option value="other">
-              Other
-            </option>
-          </select>
+      <%= form_for @intervention do |i| %>
+        <div id="add-interventions-row">
+          <h1>Add Intervention</h1>
+          <div class="left-bar-block">
+            <h2>Select Intervention</h2>
+            <%= i.select(:intervention_type_id,
+                content_tag(:option, ' -- Intervention type -- ', value: "", disabled: true, selected: true) + \
+                options_from_collection_for_select(InterventionType.all, :id, :name)) %>
+          </div>
+          <div class="left-bar-block">
+            <h2>Comment</h2>
+            <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
+          </div>
+          <%= i.hidden_field 'educator_id', value: current_educator.id %>
+          <%= i.hidden_field 'student_id', value: @student.id %>
+          <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
+          <%= i.submit "Save", class: "btn save-btn" %>
         </div>
-
-        <div class="left-bar-block">
-          <h2>Comment</h2>
-          <textarea value="" onClick="this.value='';" name="interventions-comment" cols="40" rows="5">Add comment</textarea>
-        </div>
-
-        <button type="button" onclick="" class="btn save-btn">Save</button>
-        <a href="#" class="save-btn cancel">Cancel</a>
-      </div>
-
+      <% end %>
     </div>
-
 
     <div id="school-year-boxes-row" class="row">
       <% if @student.school_years.present? %>
@@ -161,7 +141,6 @@
         <% end %>
       <% end %>
     </div>
-
   </div>
 
   <script id="risk-level-tooltip-template" type="x-tmpl-mustache">

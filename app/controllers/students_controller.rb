@@ -12,6 +12,9 @@ class StudentsController < ApplicationController
     @chart_data = StudentProfileChart.new(@student).chart_data
     @risk = StudentRiskLevel.new(student: @student)
 
+    @intervention = Intervention.new
+    @interventions = @student.interventions
+
     @roster_url = homeroom_students_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
     @student_url = student_path(@student)
