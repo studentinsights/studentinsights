@@ -119,8 +119,10 @@
           <div class="left-bar-block">
             <h2>Select Intervention</h2>
             <%= i.select(:intervention_type_id,
-                content_tag(:option, ' -- Intervention type -- ', value: "", disabled: true, selected: true) + \
-                options_from_collection_for_select(InterventionType.all, :id, :name)) %>
+                  options_from_collection_for_select(InterventionType.all, :id, :name),
+                  { include_blank: " -- Intervention type -- " },
+                  { required: true }
+                ) %>
           </div>
           <div class="left-bar-block">
             <h2>Comment</h2>
