@@ -34,10 +34,6 @@
     this.options = $.extend({}, ChartSettings.base_options);
   };
 
-  ProfileController.prototype.chartData = function profileChartDataData (data_type) {
-    return $("#chart-data").data(data_type);
-  };
-
   ProfileController.prototype.studentName = function storeStudentName () {
     return $("#student-name").text();
   };
