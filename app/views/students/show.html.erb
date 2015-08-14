@@ -92,16 +92,14 @@
               <p><strong><%= i.name %>:</strong> <span class="intervention-creator"><%= i.educator.email %></span></p>
               <p><%= i.comment %></p>
               <p class="intervention-date">
-                <span id="intervention-start">
                   <%= Time.zone.at(i.start_date).strftime("%B %e, %Y") %>
-                </span> -
-                <span id="intervention-end">
+                    -
                   <% if i.end_date.present? %>
                     <%= Time.zone.at(i.end_date).strftime("%B %e, %Y") %>
                   <% else %>
-                    Add end date <%= image_tag 'calendar-icon.svg' %>
+                    <span class="end-date-text">Add end date</span>
+                    <input class="datepicker">
                   <% end %>
-                </span>
               </p>
             </div>
           <% end %>
@@ -182,3 +180,4 @@
 
 <%= tag("div", id: "chart-data", data: @chart_data) %>
 <%= tag("div", id: "chart-start", data: { start: @chart_start }) %>
+<%= tag("div", id: "calendar-icon-path", data: { path: asset_path('calendar-icon.svg') }) %>
