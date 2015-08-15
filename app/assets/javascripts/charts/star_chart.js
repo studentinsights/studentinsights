@@ -22,7 +22,7 @@
       datums.push(reading);
     }
 
-    if (interventions !== null) {
+    if (interventions !== null && interventions !== undefined) {
       var intervention_plot_bands = interventions.map(function(i) {
         return new InterventionPlotBand(i).toHighCharts();
       });
