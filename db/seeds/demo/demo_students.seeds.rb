@@ -16,6 +16,7 @@ Student.destroy_all
 Assessment.destroy_all
 DisciplineIncident.destroy_all
 AttendanceEvent.destroy_all
+InterventionType.destroy_all
 
 # Set up assessment subjects and families
 AssessmentFamily.where(name: "MCAS").first_or_create!
@@ -25,6 +26,7 @@ AssessmentFamily.where(name: "DIBELS").first_or_create!
 AssessmentSubject.where(name: "Math").first_or_create!
 AssessmentSubject.where(name: "ELA").first_or_create!
 AssessmentSubject.where(name: "Reading").first_or_create!
+InterventionType.seed_somerville_intervention_types
 
 36.times do
   # Set up student demographics & SPED
@@ -41,16 +43,21 @@ AssessmentSubject.where(name: "Reading").first_or_create!
   star_reading_factory = FakeStarReadingResultGenerator.new(student)
   dibels_factory = FakeDibelsResultGenerator.new(student)
   access_factory = FakeAccessResultGenerator.new(student)
+  intervention = FakeIntervention.new(student)
+  Intervention.new(intervention.next).save
+
+  yearly_assessments = [mcas_math_factory, mcas_ela_factory, dibels_factory, access_factory]
+  star_assessments = [star_math_factory, star_reading_factory]
 
   5.times do
-    result = Assessment.new(mcas_math_factory.next).save
-    result = Assessment.new(mcas_ela_factory.next).save
-    result = Assessment.new(dibels_factory.next).save
-    result = Assessment.new(access_factory.next).save
+    yearly_assessments.each do |assessment|
+      Assessment.new(assessment.next).save
+    end
   end
   12.times do
-    result = Assessment.new(star_math_factory.next).save
-    result = Assessment.new(star_reading_factory.next).save
+    star_assessments.each do |assessment|
+      Assessment.new(assessment.next).save
+    end
   end
 
   # Aggregate data via https://github.com/codeforamerica/somerville-teacher-tool/issues/94
