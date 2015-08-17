@@ -9,7 +9,7 @@ class FakeDibelsResultGenerator
     {
       assessment_family_id: AssessmentFamily.dibels.id,
       date_taken: DateTime.new(@dates.pop, 5, 15),
-      performance_level: ["Intensive", "Strategic", "Core", nil].sample,
+      performance_level: ["Intensive", "Strategic", "Core", "Benchmark", "CORE", nil].sample,
       student_id: @student.id
     }
   end

@@ -8,7 +8,7 @@
       <div class="section mcas-result-section">
         <h2 class="section-header">MCAS</h2>
         <% if events[:mcas_ela_result].present? %>
-          <h3 class="assesment-type">English</h3>
+          <h3 class="assessment-type">English</h3>
           <div class="assessment-dark-background mcas-ela-values">
             <div class="values">
               <p>Performance: <strong><%= events[:mcas_ela_result].performance_level %></strong></p>
@@ -19,7 +19,7 @@
           </div>
         <% end %>
         <% if events[:mcas_math_result].present? %>
-          <h3 class="assesment-type">Math</h3>
+          <h3 class="assessment-type">Math</h3>
           <div class="assessment-dark-background mcas-math-values">
             <div class="values">
               <p>Performance: <strong><%= events[:mcas_math_result].performance_level %></strong></p>
@@ -36,7 +36,7 @@
       <div class="section star-result-section">
         <h2 class="section-header">STAR</h2>
         <% events[:star].each do |date, results| %>
-          <h3 class="assesment-type"><%= date.strftime("%B %e, %Y") %></h3>
+          <h3 class="assessment-type"><%= date.strftime("%B %e, %Y") %></h3>
           <div class="assessment-dark-background">
             <% results.each do |r| %>
               <div class="star-values">
@@ -65,16 +65,16 @@
         <h2 class="section-header">DIBELS</h2>
         <% events[:dibels].each do |e| %>
           <% if e.performance_level.present? %>
-            <h3 class="assesment-type"><%= e.date_taken.strftime("%B %e, %Y") %></h3>
+            <h3 class="assessment-type"><%= e.date_taken.strftime("%B %e, %Y") %></h3>
             <div class="assessment-dark-background dibels-values">
               <div class="values dibels-list">
-                <p <% if e.performance_level == "Core" %>class="dibels-selected"<% end %>>
+                <p <% if e.performance_level.upcase == "CORE" || e.performance_level.upcase == "BENCHMARK" %>class="dibels-selected"<% end %>>
                   Core
                 </p>
-                <p <% if e.performance_level == "Strategic" %>class="dibels-selected"<% end %>>
+                <p <% if e.performance_level.upcase == "STRATEGIC" %>class="dibels-selected"<% end %>>
                   Strategic
                 </p>
-                <p <% if e.performance_level == "Intensive" %>class="dibels-selected"<% end %>>
+                <p <% if e.performance_level.upcase == "INTENSIVE" %>class="dibels-selected"<% end %>>
                   Intensive
                 </p>
               </div>
@@ -88,7 +88,7 @@
     <% unless events[:access].is_a?(MissingAssessment) %>
       <div class="section access-result-section">
         <h2 class="section-header">ACCESS</h2>
-        <h3 class="assesment-type">Overall</h3>
+        <h3 class="assessment-type">Overall</h3>
         <div class="assessment-dark-background access-values">
           <div class="values">
             <p>Score: <strong><%= events[:access].scale_score %></strong></p>
