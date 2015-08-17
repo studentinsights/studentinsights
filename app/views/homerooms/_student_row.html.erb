@@ -31,17 +31,17 @@
                     <%= presenter.free_reduced_lunch %>
                   </td>
 
-                  <%= render "students/star_math_row_fragment", student: student, assessment: row_data.latest_star_math, risk: StarRiskLevel.new(row_data.latest_star_math) %>
+                  <%= render "star_math_row_fragment", student: student, assessment: row_data.latest_star_math, risk: StarRiskLevel.new(row_data.latest_star_math) %>
 
-                  <%= render "students/star_reading_row_fragment", student: student, assessment: row_data.latest_star_reading, risk: StarRiskLevel.new(row_data.latest_star_reading) %>
+                  <%= render "star_reading_row_fragment", student: student, assessment: row_data.latest_star_reading, risk: StarRiskLevel.new(row_data.latest_star_reading) %>
 
-                  <%= render "students/mcas_row_fragment", student: student, assessment: row_data.latest_mcas_math, risk: McasRiskLevel.new(row_data.latest_mcas_math) %>
+                  <%= render "mcas_row_fragment", student: student, assessment: row_data.latest_mcas_math, risk: McasRiskLevel.new(row_data.latest_mcas_math) %>
 
-                  <%= render "students/mcas_row_fragment", student: student, assessment: row_data.latest_mcas_ela, risk: McasRiskLevel.new(row_data.latest_mcas_ela) %>
+                  <%= render "mcas_row_fragment", student: student, assessment: row_data.latest_mcas_ela, risk: McasRiskLevel.new(row_data.latest_mcas_ela) %>
 
-                  <%= render "students/access_row_fragment", student: student, assessment: row_data.latest_access, risk: McasRiskLevel.new(row_data.latest_access) %>
+                  <%= render "access_row_fragment", student: student, assessment: row_data.latest_access, risk: McasRiskLevel.new(row_data.latest_access) %>
 
-                  <%= render "students/dibels_row_fragment", student: student, assessment: row_data.latest_dibels, risk: McasRiskLevel.new(row_data.latest_dibels) %>
+                  <%= render "dibels_row_fragment", student: student, assessment: row_data.latest_dibels, risk: McasRiskLevel.new(row_data.latest_dibels) %>
 
                   <% if row_data.current_events.present? %>
                     <td class="attendance" href="<%= student_url(student, chart_start: "attendance") %>">

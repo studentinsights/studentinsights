@@ -1,5 +1,6 @@
 class StudentProfileCsvExporter < Struct.new :student
   include FindDataForStudentProfile
+  require 'csv'
 
   def assessments
     student.assessments
@@ -26,7 +27,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def mcas_math_section(csv)
     StudentProfileCsvAssessmentSection.new(
-      csv, mcas_math_results(student.assessments), ["MCAS Math"],
+      csv, mcas_math_results(student), ["MCAS Math"],
       ['Date', 'Scale Score', 'Growth', 'Performance Level'],
       [:date_taken, :scale_score, :growth_percentile, :performance_level]
     )
@@ -34,7 +35,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def mcas_ela_section(csv)
     StudentProfileCsvAssessmentSection.new(
-      csv, mcas_ela_results(student.assessments), ["MCAS English Language Arts"],
+      csv, mcas_ela_results(student), ["MCAS English Language Arts"],
       ['Date', 'Scale Score', 'Growth', 'Performance Level'],
       [:date_taken, :scale_score, :growth_percentile, :performance_level]
     )
@@ -42,7 +43,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def star_math_section(csv)
     StudentProfileCsvAssessmentSection.new(
-      csv, star_math_results(student.assessments), ["STAR Math"],
+      csv, star_math_results(student), ["STAR Math"],
       ['Date', 'Math Percentile'],
       [:date_taken, :percentile_rank]
     )
@@ -50,7 +51,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def star_reading_section(csv)
     StudentProfileCsvAssessmentSection.new(
-      csv, star_math_results(student.assessments), ["STAR Reading"],
+      csv, star_math_results(student), ["STAR Reading"],
       ['Date', 'Reading Percentile', 'Instructional Reading Level'],
       [:date_taken, :percentile_rank, :instructional_reading_level]
     )
