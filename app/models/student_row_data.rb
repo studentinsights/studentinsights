@@ -6,7 +6,7 @@ class StudentRowData
 
   def initialize(student, school_year)
     @student = student
-    @assessments = @student.assessments
+    @assessments = @student.student_assessments
 
     star = @assessments.star
     mcas = @assessments.mcas

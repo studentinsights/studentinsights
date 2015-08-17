@@ -13,7 +13,7 @@ n = 0
 end
 
 Student.destroy_all
-Assessment.destroy_all
+StudentAssessment.destroy_all
 DisciplineIncident.destroy_all
 AttendanceEvent.destroy_all
 InterventionType.destroy_all
@@ -51,12 +51,12 @@ InterventionType.seed_somerville_intervention_types
 
   5.times do
     yearly_assessments.each do |assessment|
-      Assessment.new(assessment.next).save
+      StudentAssessment.new(assessment.next).save
     end
   end
   12.times do
     star_assessments.each do |assessment|
-      Assessment.new(assessment.next).save
+      StudentAssessment.new(assessment.next).save
     end
   end
 

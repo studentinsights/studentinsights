@@ -1,4 +1,4 @@
-class MissingAssessment
+class MissingStudentAssessment
   def performance_level; nil end
   def growth_percentile; nil end
   def scale_score; nil end

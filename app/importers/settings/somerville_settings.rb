@@ -76,7 +76,7 @@ class Settings::SomervilleSettings
     if @first_time
       [
         StudentsImporter.new(students_options),
-        X2AssessmentImporter.new(assessment_options),
+        StudentAssessmentImporter.new(assessment_options),
         StarMathImporter.new(star_math_options),
         StarReadingImporter.new(star_reading_options),
         BehaviorImporter.new(behavior_options),
@@ -85,7 +85,7 @@ class Settings::SomervilleSettings
     else
       [
         StudentsImporter.new(students_options),
-        X2AssessmentImporter.new(assessment_options),
+        StudentAssessmentImporter.new(assessment_options),
         StarMathImporter.new(star_math_options),
         StarReadingImporter.new(star_reading_options),
         BehaviorImporter.new(behavior_options),

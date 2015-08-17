@@ -1,5 +1,5 @@
 class AssessmentSubject < ActiveRecord::Base
-  has_many :assessments
+  has_many :student_assessments
 
   def self.math
     find_by_name("Math") || MissingAssessmentSubject.new

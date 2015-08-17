@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe X2AssessmentImporter do
+RSpec.describe StudentAssessmentImporter do
 
   describe '#import' do
     context 'with good data' do
@@ -10,7 +10,7 @@ RSpec.describe X2AssessmentImporter do
 
       context 'for Healey school' do
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
-        let(:healey_importer) { X2AssessmentImporter.new(school: healey) }
+        let(:healey_importer) { StudentAssessmentImporter.new(school: healey) }
 
         before(:each) do
           healey_importer.import(csv)
@@ -21,7 +21,7 @@ RSpec.describe X2AssessmentImporter do
         end
 
         it 'imports only white-listed assessments' do
-          expect(Assessment.count).to eq 7
+          expect(StudentAssessment.count).to eq 7
         end
 
         context 'MCAS' do
@@ -32,13 +32,13 @@ RSpec.describe X2AssessmentImporter do
             expect(assessment_families.count).to eq 1
           end
           it 'creates two results' do
-            mcas_results = assessment_family.assessments
+            mcas_results = assessment_family.student_assessments
             expect(mcas_results.count).to eq 2
           end
           context 'Math' do
             let(:subject) { AssessmentSubject.where(name: "Math").first }
             it 'sets the scaled scores and performance levels, growth percentiles correctly' do
-              mcas_result = Assessment.where(
+              mcas_result = StudentAssessment.where(
                 assessment_subject_id: subject.id, assessment_family_id: assessment_family.id).last
               expect(mcas_result.scale_score).to eq(214)
               expect(mcas_result.performance_level).to eq('W')
@@ -48,7 +48,7 @@ RSpec.describe X2AssessmentImporter do
           context 'ELA' do
             let(:subject) { AssessmentSubject.where(name: "ELA").first }
             it 'sets the scaled scores, performance levels, growth percentiles correctly' do
-              mcas_result = Assessment.where(
+              mcas_result = StudentAssessment.where(
                 assessment_subject_id: subject.id, assessment_family_id: assessment_family.id).last
               expect(mcas_result.scale_score).to eq(222)
               expect(mcas_result.performance_level).to eq('NI')
@@ -65,11 +65,11 @@ RSpec.describe X2AssessmentImporter do
             expect(assessment_families.count).to eq 1
           end
           it 'creates one result' do
-            results = assessment_family.assessments
+            results = assessment_family.student_assessments
             expect(results.count).to eq 1
           end
           it 'sets the performance levels correctly' do
-            dibels_result = Assessment.where(assessment_family_id: assessment_family.id).last
+            dibels_result = StudentAssessment.where(assessment_family_id: assessment_family.id).last
             expect(dibels_result.performance_level).to eq('Benchmark')
           end
         end
@@ -82,11 +82,11 @@ RSpec.describe X2AssessmentImporter do
             expect(assessment_families.count).to eq 1
           end
           it 'creates three results' do
-            results = assessment_family.assessments
+            results = assessment_family.student_assessments
             expect(results.count).to eq 3
           end
           it 'sets the scaled scores, performance levels, growth percentiles correctly' do
-            access_result = Assessment.where(assessment_family_id: assessment_family.id).last
+            access_result = StudentAssessment.where(assessment_family_id: assessment_family.id).last
             expect(access_result.scale_score).to eq(367)
             expect(access_result.performance_level).to eq('4.9')
             expect(access_result.growth_percentile).to eq(92)

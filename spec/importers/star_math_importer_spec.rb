@@ -9,25 +9,25 @@ RSpec.describe StarMathImporter do
       let(:math_importer) { StarMathImporter.new }
       context 'with good data' do
         it 'creates a new assessment' do
-          expect { math_importer.import(csv) }.to change { Assessment.count }.by 1
+          expect { math_importer.import(csv) }.to change { StudentAssessment.count }.by 1
         end
         it 'creates a new STAR assessment' do
           math_importer.import(csv)
-          assessment_family = Assessment.last.assessment_family
+          assessment_family = StudentAssessment.last.assessment_family
           expect(assessment_family.name).to eq "STAR"
         end
         it 'creates a new math assessment' do
           math_importer.import(csv)
-          assessment_subject = Assessment.last.assessment_subject
+          assessment_subject = StudentAssessment.last.assessment_subject
           expect(assessment_subject.name).to eq "Math"
         end
         it 'sets math percentile rank correctly' do
           math_importer.import(csv)
-          expect(Assessment.last.percentile_rank).to eq 70
+          expect(StudentAssessment.last.percentile_rank).to eq 70
         end
         it 'sets date taken correctly' do
           math_importer.import(csv)
-          expect(Assessment.last.date_taken).to eq Date.new(2015, 1, 21)
+          expect(StudentAssessment.last.date_taken).to eq Date.new(2015, 1, 21)
         end
         context 'existing student' do
           let!(:student) { FactoryGirl.create(:student_we_want_to_update) }

@@ -3,7 +3,7 @@ class Student < ActiveRecord::Base
   belongs_to :school
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
-  has_many :assessments, dependent: :destroy
+  has_many :student_assessments, dependent: :destroy
   has_many :interventions, dependent: :destroy
   validates_presence_of :local_id
   validates_uniqueness_of :local_id

@@ -1,4 +1,4 @@
-                    <% if assessment.is_a? MissingAssessment %>
+                    <% if assessment.is_a? MissingStudentAssessment %>
                       <td class="map" href="<%= student_url(student, chart_start: "map-scaled") %>">
                         <div class="cell-wrapper">—</div>
                       </td>

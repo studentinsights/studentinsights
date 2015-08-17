@@ -1,4 +1,4 @@
-class Assessment < ActiveRecord::Base
+class StudentAssessment < ActiveRecord::Base
   include DateToSchoolYear
   include AssignToSchoolYear
   belongs_to :assessment_family
@@ -21,42 +21,42 @@ class Assessment < ActiveRecord::Base
   end
 
   def self.mcas
-    return MissingAssessmentCollection.new if AssessmentFamily.mcas.is_a? MissingAssessmentFamily
+    return MissingStudentAssessmentCollection.new if AssessmentFamily.mcas.is_a? MissingAssessmentFamily
     where(assessment_family_id: AssessmentFamily.mcas.id)
   end
 
   def self.star
-    return MissingAssessmentCollection.new if AssessmentFamily.star.is_a? MissingAssessmentFamily
+    return MissingStudentAssessmentCollection.new if AssessmentFamily.star.is_a? MissingAssessmentFamily
     where(assessment_family_id: AssessmentFamily.star.id)
   end
 
   def self.map_test
-    return MissingAssessmentCollection.new if AssessmentFamily.map_test.is_a? MissingAssessmentFamily
+    return MissingStudentAssessmentCollection.new if AssessmentFamily.map_test.is_a? MissingAssessmentFamily
     where(assessment_family_id: AssessmentFamily.map_test.id)
   end
 
   def self.access
-    return MissingAssessmentCollection.new if AssessmentFamily.access.is_a? MissingAssessmentFamily
+    return MissingStudentAssessmentCollection.new if AssessmentFamily.access.is_a? MissingAssessmentFamily
     where(assessment_family_id: AssessmentFamily.access.id)
   end
 
   def self.dibels
-    return MissingAssessmentCollection.new if AssessmentFamily.dibels.is_a? MissingAssessmentFamily
+    return MissingStudentAssessmentCollection.new if AssessmentFamily.dibels.is_a? MissingAssessmentFamily
     where(assessment_family_id: AssessmentFamily.dibels.id)
   end
 
   def self.math
-    return MissingAssessmentCollection.new if AssessmentSubject.math.is_a? MissingAssessmentSubject
+    return MissingStudentAssessmentCollection.new if AssessmentSubject.math.is_a? MissingAssessmentSubject
     where(assessment_subject_id: AssessmentSubject.math.id)
   end
 
   def self.ela
-    return MissingAssessmentCollection.new if AssessmentSubject.ela.is_a? MissingAssessmentSubject
+    return MissingStudentAssessmentCollection.new if AssessmentSubject.ela.is_a? MissingAssessmentSubject
     where(assessment_subject_id: AssessmentSubject.ela.id)
   end
 
   def self.reading
-    return MissingAssessmentCollection.new if AssessmentSubject.reading.is_a? MissingAssessmentSubject
+    return MissingStudentAssessmentCollection.new if AssessmentSubject.reading.is_a? MissingAssessmentSubject
     where(assessment_subject_id: AssessmentSubject.reading.id)
   end
 
@@ -65,12 +65,11 @@ class Assessment < ActiveRecord::Base
   end
 
   def self.last_or_missing
-    order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingAssessment.new
+    order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingStudentAssessment.new
   end
 
   def self.order_or_missing
-    order(date_taken: :asc).present? ? order(date_taken: :asc) : MissingAssessmentCollection.new
+    order(date_taken: :asc).present? ? order(date_taken: :asc) : MissingStudentAssessmentCollection.new
   end
-
 
 end

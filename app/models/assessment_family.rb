@@ -1,5 +1,5 @@
 class AssessmentFamily < ActiveRecord::Base
-  has_many :assessments
+  has_many :student_assessments
 
   def self.mcas
     find_by_name("MCAS") || MissingAssessmentFamily.new

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814194236) do
+ActiveRecord::Schema.define(version: 20150817221822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,26 +27,6 @@ ActiveRecord::Schema.define(version: 20150814194236) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "assessments", force: true do |t|
-    t.integer  "scale_score"
-    t.integer  "growth_percentile"
-    t.string   "performance_level"
-    t.integer  "assessment_family_id"
-    t.integer  "assessment_subject_id"
-    t.datetime "date_taken"
-    t.integer  "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "percentile_rank"
-    t.decimal  "instructional_reading_level"
-    t.integer  "school_year_id"
-  end
-
-  add_index "assessments", ["assessment_family_id"], name: "index_assessments_on_assessment_family_id", using: :btree
-  add_index "assessments", ["assessment_subject_id"], name: "index_assessments_on_assessment_subject_id", using: :btree
-  add_index "assessments", ["school_year_id"], name: "index_assessments_on_school_year_id", using: :btree
-  add_index "assessments", ["student_id"], name: "index_assessments_on_student_id", using: :btree
 
   create_table "attendance_events", force: true do |t|
     t.integer  "student_id"
@@ -155,6 +135,26 @@ ActiveRecord::Schema.define(version: 20150814194236) do
 
   add_index "schools", ["local_id"], name: "index_schools_on_local_id", using: :btree
   add_index "schools", ["state_id"], name: "index_schools_on_state_id", using: :btree
+
+  create_table "student_assessments", force: true do |t|
+    t.integer  "scale_score"
+    t.integer  "growth_percentile"
+    t.string   "performance_level"
+    t.integer  "assessment_family_id"
+    t.integer  "assessment_subject_id"
+    t.datetime "date_taken"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "percentile_rank"
+    t.decimal  "instructional_reading_level"
+    t.integer  "school_year_id"
+  end
+
+  add_index "student_assessments", ["assessment_family_id"], name: "index_student_assessments_on_assessment_family_id", using: :btree
+  add_index "student_assessments", ["assessment_subject_id"], name: "index_student_assessments_on_assessment_subject_id", using: :btree
+  add_index "student_assessments", ["school_year_id"], name: "index_student_assessments_on_school_year_id", using: :btree
+  add_index "student_assessments", ["student_id"], name: "index_student_assessments_on_student_id", using: :btree
 
   create_table "students", force: true do |t|
     t.string   "grade"

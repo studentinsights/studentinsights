@@ -18,7 +18,7 @@ class StarMathImporter
     date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
     student = Student.where(local_id: row[:local_id]).first_or_create!
 
-    star_assessment = Assessment.where({
+    star_assessment = StudentAssessment.where({
       student_id: student.id,
       date_taken: date_taken,
       assessment_family_id: assessment_family.id,
