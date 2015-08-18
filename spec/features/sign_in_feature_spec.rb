@@ -12,7 +12,7 @@ describe "educator sign in", :type => :feature do
       fill_in 'educator_password', with: educator.password
       click_button 'Log in'
       expect(page).to have_content 'Signed in successfully.'
-      visit homeroom_students_url(homeroom)
+      visit homeroom_url(homeroom)
     end
   end
   context "educator without account signs in" do

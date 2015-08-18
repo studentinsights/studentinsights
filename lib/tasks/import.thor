@@ -45,7 +45,7 @@ class Import < Thor
 
     if Rails.env.development?
       puts "#{Student.count} students"
-      puts "#{Assessment.count} assessments"
+      puts "#{StudentAssessment.count} assessments"
       puts "#{DisciplineIncident.count} discipline incidents"
       puts "#{AttendanceEvent.count} attendance events"
     end

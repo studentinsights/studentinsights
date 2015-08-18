@@ -1,9 +1,9 @@
 class StudentProfileChart < Struct.new :student
   include FindDataForStudentProfile
 
-  def prepare_student_assessments(assessments, score)
-    return if assessments.is_a?(MissingAssessmentCollection) || assessments.is_a?(MissingAssessment)
-    assessments.map { |s| [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score)] }
+  def prepare_student_assessments(student_assessments, score)
+    return if student_assessments.is_a?(MissingStudentAssessmentCollection) || student_assessments.is_a?(MissingStudentAssessment)
+    student_assessments.map { |s| [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score)] }
   end
 
   def prepare_interventions(interventions)
@@ -22,8 +22,8 @@ class StudentProfileChart < Struct.new :student
     end
   end
 
-  def assessments
-    student.assessments
+  def student_assessments
+    student.student_assessments
   end
 
   def chart_data

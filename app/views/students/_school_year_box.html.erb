@@ -4,7 +4,7 @@
       <h1><%= school_year.name %></h1>
     </div>
 
-    <% unless events[:mcas_math_result].is_a?(MissingAssessment) && events[:mcas_ela_result].is_a?(MissingAssessment) %>
+    <% unless events[:mcas_math_result].is_a?(MissingStudentAssessment) && events[:mcas_ela_result].is_a?(MissingStudentAssessment) %>
       <div class="section mcas-result-section">
         <h2 class="section-header">MCAS</h2>
         <% if events[:mcas_ela_result].present? %>
@@ -32,7 +32,7 @@
       </div>
     <% end %>
 
-    <% unless events[:star].is_a?(MissingAssessmentCollection) %>
+    <% unless events[:star].is_a?(MissingStudentAssessmentCollection) %>
       <div class="section star-result-section">
         <h2 class="section-header">STAR</h2>
         <% events[:star].each do |date, results| %>
@@ -40,16 +40,16 @@
           <div class="assessment-dark-background">
             <% results.each do |r| %>
               <div class="star-values">
-                <% if r.assessment_subject == AssessmentSubject.math %>
+                <% if r.assessment.subject == "Math" %>
                   <div class="values star-math-values">
-                    <p>Math percentile: <strong><%= AssessmentPresenter.new(r).percentile_rank %></strong></p>
+                    <p>Math percentile: <strong><%= StudentAssessmentPresenter.new(r).percentile_rank %></strong></p>
                   </div>
-                <% elsif r.assessment_subject == AssessmentSubject.reading %>
+                <% elsif r.assessment.subject == "Reading" %>
                   <div class="values star-reading-values">
-                    <p>Reading percentile: <strong><%= AssessmentPresenter.new(r).percentile_rank %></strong></p>
+                    <p>Reading percentile: <strong><%= StudentAssessmentPresenter.new(r).percentile_rank %></strong></p>
                   </div>
                   <div class="values star-reading-values instructional-reading-level">
-                    <p>Reading level: <strong><%= AssessmentPresenter.new(r).instructional_reading_level %></strong></p>
+                    <p>Reading level: <strong><%= StudentAssessmentPresenter.new(r).instructional_reading_level %></strong></p>
                   </div>
                 <% end %>
               </div>
@@ -60,7 +60,7 @@
     <% end %>
 
     <!-- DIBELS -->
-    <% unless events[:dibels].is_a?(MissingAssessmentCollection) %>
+    <% unless events[:dibels].is_a?(MissingStudentAssessmentCollection) %>
       <div class="section dibels-result-section">
         <h2 class="section-header">DIBELS</h2>
         <% events[:dibels].each do |e| %>
@@ -85,7 +85,7 @@
     <% end %>
 
     <!-- ACCESS -->
-    <% unless events[:access].is_a?(MissingAssessment) %>
+    <% unless events[:access].is_a?(MissingStudentAssessment) %>
       <div class="section access-result-section">
         <h2 class="section-header">ACCESS</h2>
         <h3 class="assessment-type">Overall</h3>

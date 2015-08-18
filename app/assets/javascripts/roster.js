@@ -1,5 +1,6 @@
 $(function() {
-  if ($('body').hasClass('students') && $('body').hasClass('index')) {
+
+  if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
 
     // Initialize table sort on roster table
     var table = document.getElementById('roster-table');
@@ -7,7 +8,7 @@ $(function() {
 
     // Initialize table sort on roster table
     $('#homeroom-select').bind('change', function() {
-      window.location.pathname = '/homerooms/' + $(this).val() + '/students';
+      window.location.pathname = '/homerooms/' + $(this).val();
     });
 
     // Show/hide column groups using Chosen plugin
@@ -43,6 +44,5 @@ $(function() {
     $('tbody td').click(function () {
       location.href = $(this).attr('href');
     });
-
   }
 });

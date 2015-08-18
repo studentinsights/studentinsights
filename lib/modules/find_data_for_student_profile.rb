@@ -1,39 +1,39 @@
 module FindDataForStudentProfile
 
   def mcas_math_result(student)
-    assessments.mcas.math.find_by_student(student).last_or_missing
+    student_assessments.mcas.math.find_by_student(student).last_or_missing
   end
 
   def mcas_ela_result(student)
-    assessments.mcas.ela.find_by_student(student).last_or_missing
+    student_assessments.mcas.ela.find_by_student(student).last_or_missing
   end
 
   def mcas_math_results(student)
-    assessments.mcas.math.find_by_student(student).order_or_missing
+    student_assessments.mcas.math.find_by_student(student).order_or_missing
   end
 
   def mcas_ela_results(student)
-    assessments.mcas.ela.find_by_student(student).order_or_missing
+    student_assessments.mcas.ela.find_by_student(student).order_or_missing
   end
 
   def star(student)
-    assessments.star.find_by_student(student).order_or_missing
+    student_assessments.star.find_by_student(student).order_or_missing
   end
 
   def star_reading_results(student)
-    assessments.star.reading.find_by_student(student).order_or_missing
+    student_assessments.star.reading.find_by_student(student).order_or_missing
   end
 
   def star_math_results(student)
-    assessments.star.math.find_by_student(student).order_or_missing
+    student_assessments.star.math.find_by_student(student).order_or_missing
   end
 
   def dibels(student)
-    assessments.dibels.find_by_student(student).order_or_missing
+    student_assessments.dibels.find_by_student(student).order_or_missing
   end
 
   def access(student)
-    assessments.access.find_by_student(student).last_or_missing
+    student_assessments.access.find_by_student(student).last_or_missing
   end
 
   def attendance_events_by_school_year

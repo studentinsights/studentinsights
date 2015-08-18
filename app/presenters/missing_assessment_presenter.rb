@@ -1,3 +1,3 @@
-class MissingAssessmentPresenter
+class MissingStudentAssessmentPresenter
 
 end

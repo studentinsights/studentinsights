@@ -1,4 +1,4 @@
-class AssessmentPresenter < Struct.new :assessment
+class StudentAssessmentPresenter < Struct.new :assessment
 
   def results_for_presentation
     [
