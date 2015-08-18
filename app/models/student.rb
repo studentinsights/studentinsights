@@ -14,6 +14,36 @@ class Student < ActiveRecord::Base
       return MissingStudentAssessmentCollection.new if star_math.is_a? MissingAssessment
       where(assessment_id: star_math.id).last_or_missing || MissingStudentAssessmentCollection.new
     end
+    def ordered_mcas_math
+      mcas_math = Assessment.mcas_math
+      return MissingStudentAssessmentCollection.new if mcas_math.is_a? MissingAssessment
+      where(assessment_id: mcas_math.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def ordered_star_math
+      star_math = Assessment.star_math
+      return MissingStudentAssessmentCollection.new if star_math.is_a? MissingAssessment
+      where(assessment_id: star_math.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def latest_mcas_ela
+      mcas_ela = Assessment.mcas_ela
+      return MissingStudentAssessmentCollection.new if mcas_ela.is_a? MissingAssessment
+      where(assessment_id: mcas_ela.id).last_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def latest_star_reading
+      star_reading = Assessment.star_reading
+      return MissingStudentAssessmentCollection.new if star_reading.is_a? MissingAssessment
+      where(assessment_id: star_reading.id).last_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def ordered_mcas_ela
+      mcas_ela = Assessment.mcas_ela
+      return MissingStudentAssessmentCollection.new if mcas_ela.is_a? MissingAssessment
+      where(assessment_id: mcas_ela.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def ordered_star_reading
+      star_reading = Assessment.star_reading
+      return MissingStudentAssessmentCollection.new if star_reading.is_a? MissingAssessment
+      where(assessment_id: star_reading.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
   end
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy

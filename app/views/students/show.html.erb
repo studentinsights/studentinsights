@@ -13,8 +13,8 @@
       <h1 id="student-name"><%= @presenter.full_name %></h1>
       <div id="profile-risk-level" class="tooltip-trigger">
         <p>Risk level:</p>
-        <div id="risk-pill" class="<%= @risk.css_class_name %>">
-            <h3><%= @risk.level_as_string %></h3>
+        <div id="risk-pill" class="<%= StudentRiskLevelPresenter.new(@risk).css_class_name %>">
+            <h3><%= StudentRiskLevelPresenter.new(@risk).level_as_string %></h3>
         </div>
       </div>
     </div>
@@ -149,10 +149,9 @@
     <div class="tooltip-popup">
       <div class="warning-key">
         <div class="warning-header">
-          Risk level: <%= @risk.level_as_string %>
+          Risk level: <%= StudentRiskLevelPresenter.new(@risk).level_as_string %>
         </div>
         <div class="warning-set">
-          <%= @risk.explanation.html_safe %>
         </div>
       </div>
     </div>

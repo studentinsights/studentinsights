@@ -27,7 +27,8 @@ class StudentAssessment < ActiveRecord::Base
 
   def self.star
     return MissingStudentAssessmentCollection.new if Assessment.star.is_a? MissingAssessment
-    where(assessment_id: Assessment.star.id) || MissingStudentAssessmentCollection.new
+    where(assessment_id: Assessment.star_math.id) + where(assessment_id: Assessment.star_reading.id) \
+    || MissingStudentAssessmentCollection.new
   end
 
   def self.map_test

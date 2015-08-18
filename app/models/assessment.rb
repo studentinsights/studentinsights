@@ -15,16 +15,18 @@ class Assessment < ActiveRecord::Base
 
   def self.access; where(family: "ACCESS").last_or_missing end
 
-  def self.math; where(subject: "Math").last_or_missing end
+  def self.math; where(subject: "Math").all_or_missing end
 
-  def self.mcas; where(family: "MCAS").last_or_missing end
+  def self.mcas; where(family: "MCAS").all_or_missing end
 
-  def self.star; where(family: "STAR").last_or_missing end
+  def self.star; where(family: "STAR").all_or_missing end
 
-  def self.ela; where(subject: "ELA").last_or_missing end
+  def self.ela; where(subject: "ELA").all_or_missing end
 
-  def self.reading; where(subject: "Reading").last_or_missing end
+  def self.reading; where(subject: "Reading").all_or_missing end
 
   def self.last_or_missing; last || MissingAssessment.new end
+
+  def self.all_or_missing; present? ? all : MissingAssessment.new end
 
 end
