@@ -3,7 +3,18 @@ class Student < ActiveRecord::Base
   belongs_to :school
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
-  has_many :student_assessments, dependent: :destroy
+  has_many :student_assessments do
+    def latest_mcas_math
+      mcas_math = Assessment.mcas_math
+      return MissingStudentAssessmentCollection.new if mcas_math.is_a? MissingAssessment
+      where(assessment_id: mcas_math.id).last_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def latest_star_math
+      star_math = Assessment.star_math
+      return MissingStudentAssessmentCollection.new if star_math.is_a? MissingAssessment
+      where(assessment_id: star_math.id).last_or_missing || MissingStudentAssessmentCollection.new
+    end
+  end
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
   validates_presence_of :local_id
@@ -27,6 +38,15 @@ class Student < ActiveRecord::Base
     else
       []
     end
+  end
+
+  def update_risk_level
+    self.risk_level = StudentRiskLevel.new(self).level
+    save!
+  end
+
+  def self.update_risk_levels
+    find_each { |s| s.update_risk_level }
   end
 
 end

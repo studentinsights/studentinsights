@@ -2,12 +2,12 @@ class StudentRiskLevel
 
   attr_accessor :level
 
-  def initialize(options = {})
-    @student = options[:student]
-    @student_assessments = @student.student_assessments
-    @latest_mcas = options[:latest_mcas] || @student_assessments.mcas.last_or_missing
-    @latest_star = options[:latest_star] || @student_assessments.star.last_or_missing
-    @level = calculate_level(@latest_mcas, @latest_star)
+  def initialize(student)
+    @student = student
+    student_assessments = @student.student_assessments
+    latest_mcas_math = student_assessments.latest_mcas_math
+    latest_star_math = student_assessments.latest_star_math
+    @level = calculate_level(latest_mcas_math, latest_star_math)
   end
 
   def calculate_level(mcas, star)
