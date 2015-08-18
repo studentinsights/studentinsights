@@ -26,14 +26,6 @@ class StudentRiskLevel
     end
   end
 
-  def level_as_string
-    @level.nil? ? "N/A" : @level.to_s
-  end
-
-  def css_class_name
-    "risk-" + level_as_string.downcase.gsub("/", "")
-  end
-
   def explanation
     explanations = []
     name = @student.first_name || "This student"

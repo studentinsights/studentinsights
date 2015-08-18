@@ -1,17 +1,5 @@
-                    <% if assessment.is_a? MissingStudentAssessment %>
                       <td class="star" href="<%= student_url(student, chart_start: "star") %>">
-                        <div class="cell-wrapper">—</div>
+                        <div class="cell-wrapper">
+                          <%= presenter.percentile_rank %>
+                        </div>
                       </td>
-                    <% else %>
-                        <td class="star" href="<%= student_url(student, chart_start: "star") %>">
-                          <div class="cell-wrapper">
-                            <% present(assessment) do |presenter| %>
-                              <% if risk.percentile_warning? %>
-                                <div class="warning-text"><%= presenter.percentile_rank %></div>
-                              <% else %>
-                                <%= presenter.percentile_rank %>
-                              <% end %>
-                          </div>
-                        </td>
-                      <% end %>
-                    <% end %>
