@@ -40,11 +40,11 @@
           <div class="assessment-dark-background">
             <% results.each do |r| %>
               <div class="star-values">
-                <% if r.assessment_subject == AssessmentSubject.math %>
+                <% if r.assessment.subject == "Math" %>
                   <div class="values star-math-values">
                     <p>Math percentile: <strong><%= StudentAssessmentPresenter.new(r).percentile_rank %></strong></p>
                   </div>
-                <% elsif r.assessment_subject == AssessmentSubject.reading %>
+                <% elsif r.assessment.subject == "Reading" %>
                   <div class="values star-reading-values">
                     <p>Reading percentile: <strong><%= StudentAssessmentPresenter.new(r).percentile_rank %></strong></p>
                   </div>

@@ -25,71 +25,66 @@ RSpec.describe StudentAssessmentImporter do
         end
 
         context 'MCAS' do
-          let(:assessment_families) { AssessmentFamily.where(name: "MCAS") }
-          let(:assessment_family) { AssessmentFamily.where(name: "MCAS").first }
+          let(:assessments) { Assessment.where(family: "MCAS") }
 
-          it 'creates assessment family' do
-            expect(assessment_families.count).to eq 1
-          end
-          it 'creates two results' do
-            mcas_results = assessment_family.student_assessments
-            expect(mcas_results.count).to eq 2
+          it 'creates MCAS Math and ELA assessments' do
+            expect(assessments.count).to eq 2
+            expect(assessments.first.subject).to eq "ELA"
+            expect(assessments.last.subject).to eq "Math"
           end
           context 'Math' do
-            let(:subject) { AssessmentSubject.where(name: "Math").first }
             it 'sets the scaled scores and performance levels, growth percentiles correctly' do
-              mcas_result = StudentAssessment.where(
-                assessment_subject_id: subject.id, assessment_family_id: assessment_family.id).last
-              expect(mcas_result.scale_score).to eq(214)
-              expect(mcas_result.performance_level).to eq('W')
-              expect(mcas_result.growth_percentile).to eq(nil)
+              mcas_assessment = assessments.where(subject: "Math").first
+              mcas_student_assessment = mcas_assessment.student_assessments.last
+              expect(mcas_student_assessment.scale_score).to eq(214)
+              expect(mcas_student_assessment.performance_level).to eq('W')
+              expect(mcas_student_assessment.growth_percentile).to eq(nil)
             end
           end
           context 'ELA' do
-            let(:subject) { AssessmentSubject.where(name: "ELA").first }
             it 'sets the scaled scores, performance levels, growth percentiles correctly' do
-              mcas_result = StudentAssessment.where(
-                assessment_subject_id: subject.id, assessment_family_id: assessment_family.id).last
-              expect(mcas_result.scale_score).to eq(222)
-              expect(mcas_result.performance_level).to eq('NI')
-              expect(mcas_result.growth_percentile).to eq(70)
+              mcas_assessment = assessments.where(subject: "ELA").first
+              mcas_student_assessment = mcas_assessment.student_assessments.last
+              expect(mcas_student_assessment.scale_score).to eq(222)
+              expect(mcas_student_assessment.performance_level).to eq('NI')
+              expect(mcas_student_assessment.growth_percentile).to eq(70)
             end
           end
         end
 
         context 'DIBELS' do
-          let(:assessment_families) { AssessmentFamily.where(name: "DIBELS") }
-          let(:assessment_family) { AssessmentFamily.where(name: "DIBELS").first }
+          let(:assessments) { Assessment.where(family: "DIBELS") }
+          let(:assessment) { assessments.first }
 
-          it 'creates assessment family' do
-            expect(assessment_families.count).to eq 1
+          it 'creates assessment' do
+            expect(assessments.count).to eq 1
           end
-          it 'creates one result' do
-            results = assessment_family.student_assessments
+          it 'creates a student assessment' do
+            results = assessment.student_assessments
             expect(results.count).to eq 1
           end
           it 'sets the performance levels correctly' do
-            dibels_result = StudentAssessment.where(assessment_family_id: assessment_family.id).last
+            dibels_result = assessment.student_assessments.last
             expect(dibels_result.performance_level).to eq('Benchmark')
           end
         end
 
         context 'ACCESS' do
-          let(:assessment_families) { AssessmentFamily.where(name: "ACCESS") }
-          let(:assessment_family) { AssessmentFamily.where(name: "ACCESS").first }
+          let(:assessments) { Assessment.where(family: "ACCESS") }
+          let(:assessment) { assessments.first }
 
-          it 'creates assessment family' do
-            expect(assessment_families.count).to eq 1
+          it 'creates assessment' do
+            expect(assessments.count).to eq 1
           end
-          it 'creates three results' do
-            results = assessment_family.student_assessments
+          it 'creates three student assessments' do
+            results = assessment.student_assessments
             expect(results.count).to eq 3
           end
           it 'sets the scaled scores, performance levels, growth percentiles correctly' do
-            access_result = StudentAssessment.where(assessment_family_id: assessment_family.id).last
-            expect(access_result.scale_score).to eq(367)
-            expect(access_result.performance_level).to eq('4.9')
-            expect(access_result.growth_percentile).to eq(92)
+            last_access_result = assessment.student_assessments.last
+            expect(last_access_result.scale_score).to eq(367)
+            expect(last_access_result.performance_level).to eq('4.9')
+            expect(last_access_result.growth_percentile).to eq(92)
           end
         end
       end

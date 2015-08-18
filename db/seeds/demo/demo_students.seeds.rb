@@ -16,17 +16,16 @@ Student.destroy_all
 StudentAssessment.destroy_all
 DisciplineIncident.destroy_all
 AttendanceEvent.destroy_all
-InterventionType.destroy_all
 
-# Set up assessment subjects and families
-AssessmentFamily.where(name: "MCAS").first_or_create!
-AssessmentFamily.where(name: "STAR").first_or_create!
-AssessmentFamily.where(name: "ACCESS").first_or_create!
-AssessmentFamily.where(name: "DIBELS").first_or_create!
-AssessmentSubject.where(name: "Math").first_or_create!
-AssessmentSubject.where(name: "ELA").first_or_create!
-AssessmentSubject.where(name: "Reading").first_or_create!
+InterventionType.destroy_all
 InterventionType.seed_somerville_intervention_types
+
+Assessment.create!(family: "MCAS", subject: "Math")
+Assessment.create!(family: "MCAS", subject: "ELA")
+Assessment.create!(family: "STAR", subject: "Math")
+Assessment.create!(family: "STAR", subject: "Reading")
+Assessment.create!(family: "ACCESS")
+Assessment.create!(family: "DIBELS")
 
 36.times do
   # Set up student demographics & SPED

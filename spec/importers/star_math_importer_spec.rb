@@ -8,18 +8,15 @@ RSpec.describe StarMathImporter do
       let(:csv) { transformer.transform(file) }
       let(:math_importer) { StarMathImporter.new }
       context 'with good data' do
-        it 'creates a new assessment' do
+        it 'creates a new student assessment' do
           expect { math_importer.import(csv) }.to change { StudentAssessment.count }.by 1
         end
-        it 'creates a new STAR assessment' do
+        it 'creates a new STAR MATH assessment' do
           math_importer.import(csv)
-          assessment_family = StudentAssessment.last.assessment_family
-          expect(assessment_family.name).to eq "STAR"
-        end
-        it 'creates a new math assessment' do
-          math_importer.import(csv)
-          assessment_subject = StudentAssessment.last.assessment_subject
-          expect(assessment_subject.name).to eq "Math"
+          student_assessment = StudentAssessment.last
+          assessment = student_assessment.assessment
+          expect(assessment.family).to eq "STAR"
+          expect(assessment.subject).to eq "Math"
         end
         it 'sets math percentile rank correctly' do
           math_importer.import(csv)

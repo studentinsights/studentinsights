@@ -7,7 +7,7 @@ class FakeAccessResultGenerator
 
   def next
     {
-      assessment_family_id: AssessmentFamily.access.id,
+      assessment_id: Assessment.access.last_or_missing.id,
       date_taken: DateTime.new(@dates.pop, 5, 15),
       scale_score: rand(300..400),
       performance_level: rand(10),

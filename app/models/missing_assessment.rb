@@ -1,4 +1,4 @@
-class MissingStudentAssessmentCollection
+class MissingAssessment
   def last_or_missing; MissingStudentAssessment.new end
   def order_or_missing; self end
   def student_assessments; self end

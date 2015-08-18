@@ -6,12 +6,8 @@ class StarReadingImporter
     'SR.csv'
   end
 
-  def assessment_family
-    AssessmentFamily.where(name: "STAR").first_or_create!
-  end
-
-  def assessment_subject
-    AssessmentSubject.where(name: "Reading").first_or_create!
+  def assessment
+    Assessment.where(family: "STAR", subject: "Reading").first_or_create!
   end
 
   def import_row(row)
@@ -21,8 +17,7 @@ class StarReadingImporter
     star_assessment = StudentAssessment.where({
       student_id: student.id,
       date_taken: date_taken,
-      assessment_family_id: assessment_family.id,
-      assessment_subject: assessment_subject.id
+      assessment_id: assessment.id
     }).first_or_create!
 
     star_assessment.update_attributes({

@@ -8,18 +8,14 @@ RSpec.describe StarReadingImporter do
       let(:csv) { transformer.transform(file) }
       let(:reading_importer) { StarReadingImporter.new }
       context 'with good data' do
-        it 'creates a new assessment' do
+        it 'creates a new student assessment' do
           expect { reading_importer.import(csv) }.to change { StudentAssessment.count }.by 1
         end
-        it 'creates a new STAR assessment' do
+        it 'creates a new STAR Reading assessment' do
           reading_importer.import(csv)
-          assessment_family = StudentAssessment.last.assessment_family
-          expect(assessment_family.name).to eq "STAR"
-        end
-        it 'creates a new math assessment' do
-          reading_importer.import(csv)
-          assessment_subject = StudentAssessment.last.assessment_subject
-          expect(assessment_subject.name).to eq "Reading"
+          student_assessment = StudentAssessment.last
+          expect(student_assessment.family).to eq "STAR"
+          expect(student_assessment.subject).to eq "Reading"
         end
         it 'sets instructional reading level correctly' do
           reading_importer.import(csv)

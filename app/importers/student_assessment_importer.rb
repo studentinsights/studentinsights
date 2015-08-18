@@ -25,14 +25,15 @@ class StudentAssessmentImporter
     chuck_non_numerical_growth_scores(row)
 
     student = Student.where(local_id: row[:local_id]).first_or_create!
-    subject = AssessmentSubject.where(name: row[:assessment_subject]).first_or_create!
-    family = AssessmentFamily.where(name: row[:assessment_test]).first_or_create!
+    assessment = Assessment.where(
+      subject: row[:assessment_subject],
+      family: row[:assessment_test]
+    ).first_or_create!
 
     result = StudentAssessment.where(
       student_id: student.id,
       date_taken: row[:assessment_date],
-      assessment_subject_id: subject.id,
-      assessment_family_id: family.id
+      assessment_id: assessment.id
     ).first_or_create!
 
     result.update_attributes(

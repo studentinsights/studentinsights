@@ -1,16 +1,16 @@
 class StudentAssessment < ActiveRecord::Base
   include DateToSchoolYear
   include AssignToSchoolYear
-  belongs_to :assessment_family
-  belongs_to :assessment_subject
+  belongs_to :assessment
   belongs_to :student
   belongs_to :school_year
   before_save :assign_to_school_year
+  delegate :family, :subject, to: :assessment
   delegate :grade, to: :student
 
   def risk_level
-    return nil unless assessment_family.present?
-    case assessment_family.name
+    return nil unless assessment.present? && family.present?
+    case family
     when "MCAS"
       McasRiskLevel.new(self).risk_level
     when "STAR"
@@ -21,43 +21,43 @@ class StudentAssessment < ActiveRecord::Base
   end
 
   def self.mcas
-    return MissingStudentAssessmentCollection.new if AssessmentFamily.mcas.is_a? MissingAssessmentFamily
-    where(assessment_family_id: AssessmentFamily.mcas.id)
+    return MissingStudentAssessmentCollection.new if Assessment.mcas.is_a? MissingAssessment
+    where(assessment_id: Assessment.mcas.id) || MissingStudentAssessmentCollection.new
   end
 
   def self.star
-    return MissingStudentAssessmentCollection.new if AssessmentFamily.star.is_a? MissingAssessmentFamily
-    where(assessment_family_id: AssessmentFamily.star.id)
+    return MissingStudentAssessmentCollection.new if Assessment.star.is_a? MissingAssessment
+    where(assessment_id: Assessment.star.id) || MissingStudentAssessmentCollection.new
   end
 
   def self.map_test
-    return MissingStudentAssessmentCollection.new if AssessmentFamily.map_test.is_a? MissingAssessmentFamily
-    where(assessment_family_id: AssessmentFamily.map_test.id)
+    return MissingStudentAssessmentCollection.new if Assessment.map_test.is_a? MissingAssessment
+    where(assessment_id: Assessment.map_test.id) || MissingStudentAssessmentCollection.new
   end
 
   def self.access
-    return MissingStudentAssessmentCollection.new if AssessmentFamily.access.is_a? MissingAssessmentFamily
-    where(assessment_family_id: AssessmentFamily.access.id)
+    return MissingStudentAssessmentCollection.new if Assessment.access.is_a? MissingAssessment
+    where(assessment_id: Assessment.access.id) || MissingStudentAssessmentCollection.new
   end
 
   def self.dibels
-    return MissingStudentAssessmentCollection.new if AssessmentFamily.dibels.is_a? MissingAssessmentFamily
-    where(assessment_family_id: AssessmentFamily.dibels.id)
+    return MissingStudentAssessmentCollection.new if Assessment.dibels.is_a? MissingAssessment
+    where(assessment_id: Assessment.dibels.id) || MissingStudentAssessmentCollection.new
   end
 
   def self.math
-    return MissingStudentAssessmentCollection.new if AssessmentSubject.math.is_a? MissingAssessmentSubject
-    where(assessment_subject_id: AssessmentSubject.math.id)
+    return MissingStudentAssessmentCollection.new if Assessment.math.is_a? MissingAssessment
+    where(assessment_id: Assessment.math.id) || MissingStudentAssessmentCollection.new
   end
 
   def self.ela
-    return MissingStudentAssessmentCollection.new if AssessmentSubject.ela.is_a? MissingAssessmentSubject
-    where(assessment_subject_id: AssessmentSubject.ela.id)
+    return MissingStudentAssessmentCollection.new if Assessment.ela.is_a? MissingAssessment
+    where(assessment_id: Assessment.ela.id) || MissingStudentAssessmentCollection.new
   end
 
   def self.reading
-    return MissingStudentAssessmentCollection.new if AssessmentSubject.reading.is_a? MissingAssessmentSubject
-    where(assessment_subject_id: AssessmentSubject.reading.id)
+    return MissingStudentAssessmentCollection.new if Assessment.reading.is_a? MissingAssessment
+    where(assessment_id: Assessment.reading.id) || MissingStudentAssessmentCollection.new
   end
 
   def self.find_by_student(student)

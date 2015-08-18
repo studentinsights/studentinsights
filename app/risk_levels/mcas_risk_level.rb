@@ -1,5 +1,5 @@
-class McasRiskLevel < Struct.new :assessment
-  delegate :performance_level, :growth_percentile, to: :assessment
+class McasRiskLevel < Struct.new :student_assessment
+  delegate :performance_level, :growth_percentile, to: :student_assessment
 
   def risk_level
     if performance_level.present?

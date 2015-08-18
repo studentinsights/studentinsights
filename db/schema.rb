@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817221822) do
+ActiveRecord::Schema.define(version: 20150817233720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20150817221822) do
 
   create_table "assessment_subjects", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "assessments", force: true do |t|
+    t.string   "name"
+    t.string   "family"
+    t.string   "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -140,8 +148,6 @@ ActiveRecord::Schema.define(version: 20150817221822) do
     t.integer  "scale_score"
     t.integer  "growth_percentile"
     t.string   "performance_level"
-    t.integer  "assessment_family_id"
-    t.integer  "assessment_subject_id"
     t.datetime "date_taken"
     t.integer  "student_id"
     t.datetime "created_at"
@@ -149,10 +155,9 @@ ActiveRecord::Schema.define(version: 20150817221822) do
     t.integer  "percentile_rank"
     t.decimal  "instructional_reading_level"
     t.integer  "school_year_id"
+    t.integer  "assessment_id"
   end
 
-  add_index "student_assessments", ["assessment_family_id"], name: "index_student_assessments_on_assessment_family_id", using: :btree
-  add_index "student_assessments", ["assessment_subject_id"], name: "index_student_assessments_on_assessment_subject_id", using: :btree
   add_index "student_assessments", ["school_year_id"], name: "index_student_assessments_on_school_year_id", using: :btree
   add_index "student_assessments", ["student_id"], name: "index_student_assessments_on_student_id", using: :btree
 
@@ -180,6 +185,7 @@ ActiveRecord::Schema.define(version: 20150817221822) do
     t.string   "sped_level_of_need"
     t.string   "plan_504"
     t.string   "limited_english_proficiency"
+    t.integer  "assessment_id"
   end
 
   add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree
