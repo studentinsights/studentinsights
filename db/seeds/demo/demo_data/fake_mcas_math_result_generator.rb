@@ -7,7 +7,7 @@ class FakeMcasMathResultGenerator
 
   def next
     {
-      assessment_id: Assessment.mcas.math.last_or_missing.id,
+      assessment_id: Assessment.mcas_math.id,
       date_taken: DateTime.new(@dates.pop, 5, 15),
       scale_score: rand(200..280),
       performance_level: ["W", "NI", "P", "A", nil].sample,

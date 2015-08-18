@@ -12,7 +12,7 @@ class FakeStarMathResultGenerator
     @test_date += rand(30..60)  # days
 
     return {
-      assessment_id: Assessment.star.math.last_or_missing.id,
+      assessment_id: Assessment.star_math.id,
       date_taken: @test_date,
       percentile_rank: @math_percentile,
       student_id: @student.id

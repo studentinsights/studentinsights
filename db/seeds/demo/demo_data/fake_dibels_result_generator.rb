@@ -7,7 +7,7 @@ class FakeDibelsResultGenerator
 
   def next
     {
-      assessment_id: Assessment.dibels.last_or_missing.id,
+      assessment_id: Assessment.dibels.id,
       date_taken: DateTime.new(@dates.pop, 5, 15),
       performance_level: ["Intensive", "Strategic", "Core", "Benchmark", "CORE", nil].sample,
       student_id: @student.id
