@@ -25,7 +25,7 @@ class StudentPresenter < Struct.new(:student)
   def method_missing(m, *args, &block)
     if attributes_for_presentation.include? m
       value = student.send(m)
-      !value.nil? ? value : "N/A"
+      !value.nil? ? value : "—"
     else
       raise NoMethodError
     end
