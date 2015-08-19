@@ -87,3 +87,5 @@ Assessment.create!(family: "DIBELS")
     end
   end
 end
+
+Student.update_risk_levels
