@@ -7,7 +7,7 @@ class Assessment < ActiveRecord::Base
 
   def self.star_math; where(family: "STAR", subject: "Math").last_or_missing end
 
-  def self.star_reading; where(family: "MCAS", subject: "Math").last_or_missing end
+  def self.star_reading; where(family: "STAR", subject: "Reading").last_or_missing end
 
   def self.map_test; where(family: "MAP").last_or_missing end
 
