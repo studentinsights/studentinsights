@@ -100,7 +100,7 @@
         <% @rows.each do |row| %>
           <%= render "student_row",
               student: row[:student],
-              presenter: row[:row_presenter],
+              presenter: row[:student_presenter],
               assessment_data: row[:assessment_data] unless row.nil? %>
         <% end %>
       <% end %>
