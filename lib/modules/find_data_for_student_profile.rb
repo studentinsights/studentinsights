@@ -17,7 +17,14 @@ module FindDataForStudentProfile
   end
 
   def star(student)
-    student.student_assessments.ordered_star_math + student.student_assessments.ordered_star_reading
+    star_math = student.student_assessments.ordered_star_math
+    star_reading = student.student_assessments.ordered_star_reading
+    if !star_math.is_a?(MissingStudentAssessmentCollection) && \
+       !star_reading.is_a?(MissingStudentAssessmentCollection)
+      student.student_assessments.ordered_star_math + student.student_assessments.ordered_star_reading
+    else
+      star_math || star_reading || MissingStudentAssessmentCollection.new
+    end
   end
 
   def star_reading_results(student)
