@@ -18,8 +18,12 @@ class HomeroomsController < ApplicationController
               disability,
               sped_level_of_need,
               plan_504,
-              limited_english_proficiency
+              limited_english_proficiency,
+              level,
+              explanation
             FROM students
+            LEFT JOIN student_risk_levels
+              ON student_risk_levels.student_id = students.id
             WHERE homeroom_id = #{@homeroom.id};"
 
     student_assessments_sql = \

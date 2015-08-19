@@ -1,7 +1,7 @@
 class StudentRiskLevel < ActiveRecord::Base
   belongs_to :student
   delegate :student_assessments, :limited_english_proficiency, to: :student
-  after_create :calculate_level, :update_explanation
+  after_create :update_risk_level!
 
   # Use most recent assessments to calculate risk
   def mcas_math; student_assessments.latest_mcas_math end
@@ -17,6 +17,11 @@ class StudentRiskLevel < ActiveRecord::Base
   def mcas_and_star_risk_nil?
     mcas_math.risk_level == level && star_math.risk_level == level \
     && mcas_ela.risk_level == level && star_reading.risk_level == level
+  end
+
+  def update_risk_level!
+    calculate_level
+    update_explanation
   end
 
   def calculate_level

@@ -5,8 +5,8 @@
                     </div>
                   </td>
                   <td class="risk" href="<%= student_url(student) %>">
-                    <div class="warning-bubble <%= StudentRiskLevelPresenter.new(student.risk_level).css_class_name %>">
-                      <%= student.risk_level %>
+                    <div class="warning-bubble <%= presenter.risk_level_css_class_name %>">
+                      <%= presenter.risk_level_as_string %>
                     </div>
                   </td>
                   <td class="program" href="<%= student_url(student) %>">

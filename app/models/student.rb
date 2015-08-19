@@ -82,8 +82,11 @@ class Student < ActiveRecord::Base
   end
 
   def update_risk_level
-    self.risk_level = StudentRiskLevel.new(self).level
-    save!
+    if student_risk_level.present?
+      student_risk_level.update_risk_level!
+    else
+      create_student_risk_level!
+    end
   end
 
   def self.update_risk_levels
