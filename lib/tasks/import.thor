@@ -43,6 +43,8 @@ class Import < Thor
       end
     end
 
+    Student.update_risk_levels
+
     if Rails.env.development?
       puts "#{Student.count} students"
       puts "#{StudentAssessment.count} assessments"
