@@ -105,7 +105,8 @@
         <% end %>
       <% end %>
     </table>
-  </div>s
+  </div>
+
   <script id="roster-tooltip-template" type="x-tmpl-mustache">
     <div class="tooltip-popup">
       <div class="warning-header">
@@ -120,3 +121,11 @@
       </div>
     </div>
   </script>
+
+  <% @student_risk_levels.each do |risk_level| %>
+    <script class="risk-level-tooltip" type="x-tmpl-mustache" data-student-id="<%= risk_level[:student_id] %>">
+      <div class="tooltip-popup student-risk-level-tooltip">
+        <%= risk_level[:explanation].html_safe %>
+      </div>
+    </script>
+  <% end %>

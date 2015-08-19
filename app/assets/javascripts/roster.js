@@ -30,7 +30,8 @@ $(function() {
       }
     });
 
-    // Risk level tooltip
+    // Risk level tooltip for overall roster table
+
     var roster_rooltip_template = $('#roster-tooltip-template').html();
     var rendered = Mustache.render(roster_rooltip_template);
 
@@ -38,6 +39,25 @@ $(function() {
       content: rendered,
       position: 'bottom-right',
       contentAsHTML: true
+    });
+
+    // Tooltips for individual student risk levels
+
+    function getRiskLevelToolTip (studentId) {
+      var tooltip = $(".risk-level-tooltip[data-student-id='" + studentId + "']").html();
+      var mustache_rendered = Mustache.render(tooltip);
+      return mustache_rendered;
+    }
+
+    $.each($('.risk-tooltip-circle'), function() {
+      $this = $(this)
+      var student_id = parseInt($this.data('student-id'))
+      var tooltip = getRiskLevelToolTip(student_id)
+      $this.tooltipster({
+        content: tooltip,
+        position: 'bottom',
+        contentAsHTML: true
+      });
     });
 
     // Turn table rows into links to student profiles

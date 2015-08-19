@@ -4,7 +4,7 @@
                       <%= presenter.full_name %>
                     </div>
                   </td>
-                  <td class="risk" href="<%= student_url(student) %>">
+                  <td class="risk risk-tooltip-circle" data-student-id="<%= student.id %> "href="<%= student_url(student) %>">
                     <div class="warning-bubble <%= presenter.risk_level_css_class_name %>">
                       <%= presenter.risk_level_as_string %>
                     </div>

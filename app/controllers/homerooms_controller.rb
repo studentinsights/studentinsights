@@ -107,6 +107,16 @@ class HomeroomsController < ApplicationController
       }
     end
 
+    @student_risk_levels = []
+
+    attributes_by_student_id.each do |result|
+      @student_risk_levels << {
+        student_id: result[0],
+        level: result[1][0]['level'],
+        explanation: result[1][0]['explanation']
+      }
+    end
+
     @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
     @current_school_year = SchoolYear.date_to_school_year(Time.new)
   end
