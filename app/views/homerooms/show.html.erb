@@ -15,18 +15,42 @@
     </div>
     <div id="column-group-dropdown" class="dropdown">
       <select id="column-group-select" class="chosen-select" data-placeholder="Choose information to show..." tabindex="4" multiple>
-        <option value="name" selected>Name</option>
-        <option value="risk" selected>Risk Level</option>
-        <option value="program">Program</option>
-        <option value="language">Language</option>
-        <option value="free-reduced">Free/Reduced Lunch</option>
-        <option value="sped" selected>SPED & Disability</option>
-        <option value="star">STAR</option>
-        <option value="mcas" selected>MCAS</option>
-        <option value="access">ACCESS</option>
-        <option value="dibels">DIBELS</option>
-        <option value="attendance">Attendance</option>
-        <option value="discipline">Discipline</option>
+        <option value="name" <% if cookies[:columns_selected].include?("name") %>selected<% end %>>
+          Name
+        </option>
+        <option value="risk" <% if cookies[:columns_selected].include?("risk") %>selected<% end %>>
+            Risk Level
+        </option>
+        <option value="program" <% if cookies[:columns_selected].include?("program") %>selected<% end %>>
+          Program
+        </option>
+        <option value="language" <% if cookies[:columns_selected].include?("language") %>selected<% end %>>
+          Language
+        </option>
+        <option value="free-reduced" <% if cookies[:columns_selected].include?("free-reduced") %>selected<% end %>>
+          Free/Reduced Lunch
+        </option>
+        <option value="sped" <% if cookies[:columns_selected].include?("sped") %>selected<% end %>>
+          SPED & Disability
+        </option>
+        <option value="star" <% if cookies[:columns_selected].include?("star") %>selected<% end %>>
+          STAR
+        </option>
+        <option value="mcas" <% if cookies[:columns_selected].include?("mcas") %>selected<% end %>>
+          MCAS
+        </option>
+        <option value="access" <% if cookies[:columns_selected].include?("access") %>selected<% end %>>
+          ACCESS
+        </option>
+        <option value="dibels" <% if cookies[:columns_selected].include?("dibels") %>selected<% end %>>
+          DIBELS
+        </option>
+        <option value="attendance" <% if cookies[:columns_selected].include?("attendance") %>selected<% end %>>
+          Attendance
+        </option>
+        <option value="discipline" <% if cookies[:columns_selected].include?("discipline") %>selected<% end %>>
+          Discipline
+        </option>
       </select>
     </div>
   </div>
