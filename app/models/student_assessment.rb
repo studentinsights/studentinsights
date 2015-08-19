@@ -71,7 +71,7 @@ class StudentAssessment < ActiveRecord::Base
   end
 
   def self.last_or_missing
-    order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingStudentAssessmentCollection.new
+    order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingStudentAssessment.new
   end
 
   def self.order_or_missing
