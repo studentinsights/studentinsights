@@ -37,16 +37,17 @@ describe HomeroomsController, :type => :controller do
           make_request
           expect(response).to be_success
         end
-        it 'assigns an empty list of students' do
-          expect(assigns(:students)).to be_empty
+        it 'assigns rows to empty' do
+          expect(assigns(:rows)).to be_empty
         end
       end
       context 'when there are students' do
         let!(:first_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
         let!(:second_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
         before { make_request }
-        it 'assigns a list of students' do
-          expect(assigns(:students)).to eq(educator.homeroom.students)
+        it 'assigns rows to a non-empty array' do
+          expect(assigns(:rows)).to be_a_kind_of Array
+          expect(assigns(:rows)).to_not be_empty
         end
       end
     end
