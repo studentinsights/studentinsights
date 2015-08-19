@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819205405) do
+ActiveRecord::Schema.define(version: 20150819220510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,13 +176,11 @@ ActiveRecord::Schema.define(version: 20150819205405) do
     t.string   "free_reduced_lunch"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "sped"
     t.integer  "homeroom_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "state_id"
     t.string   "home_language"
-    t.string   "address"
     t.integer  "school_id"
     t.string   "student_address"
     t.datetime "registration_date"
@@ -193,7 +191,6 @@ ActiveRecord::Schema.define(version: 20150819205405) do
     t.string   "sped_level_of_need"
     t.string   "plan_504"
     t.string   "limited_english_proficiency"
-    t.integer  "risk_level"
   end
 
   add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree
