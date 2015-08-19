@@ -137,9 +137,12 @@
     </div>
 
     <div id="school-year-boxes-row" class="row">
-      <% if @student.school_years.present? %>
-        <% @student.school_years.each do |s| %>
-          <%= render "school_year_box", school_year: s, events: s.events(@student) %>
+      <% if @student_school_years.present? %>
+        <% @student_school_years.each do |s| %>
+          <%= render "school_year_box",
+              student_school_year: s,
+              events: s.events
+          %>
         <% end %>
       <% end %>
     </div>

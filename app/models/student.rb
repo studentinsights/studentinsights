@@ -44,6 +44,15 @@ class Student < ActiveRecord::Base
       return MissingStudentAssessmentCollection.new if star_reading.is_a? MissingAssessment
       where(assessment_id: star_reading.id).order_or_missing || MissingStudentAssessmentCollection.new
     end
+    def dibels
+      return MissingStudentAssessmentCollection.new if Assessment.dibels.is_a? MissingAssessment
+      where(assessment_id: Assessment.dibels.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def access
+      star_reading = Assessment.access
+      return MissingStudentAssessmentCollection.new if Assessment.access.is_a? MissingAssessment
+      where(assessment_id: Assessment.access.id).last_or_missing || MissingStudentAssessmentCollection.new
+    end
   end
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy

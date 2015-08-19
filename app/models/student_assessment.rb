@@ -26,9 +26,14 @@ class StudentAssessment < ActiveRecord::Base
   end
 
   def self.star
-    return MissingStudentAssessmentCollection.new if Assessment.star.is_a? MissingAssessment
-    where(assessment_id: Assessment.star_math.id) + where(assessment_id: Assessment.star_reading.id) \
-    || MissingStudentAssessmentCollection.new
+    star_math_assessment = Assessment.star_math
+    star_reading_assessment = Assessment.star_reading
+    return MissingStudentAssessmentCollection.new if \
+      star_math_assessment.is_a?(MissingAssessment) || star_reading_assessment.is_a?(MissingAssessment)
+    star_math_student_assessment = where(assessment_id: star_math_assessment.id)
+    star_reading_student_assessment = where(assessment_id: star_reading_assessment.id)
+    star_math_student_assessment.merge(star_reading_student_assessment).order_or_missing \
+      || MissingStudentAssessmentCollection.new
   end
 
   def self.map_test
@@ -66,7 +71,7 @@ class StudentAssessment < ActiveRecord::Base
   end
 
   def self.last_or_missing
-    order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingStudentAssessment.new
+    order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingStudentAssessmentCollection.new
   end
 
   def self.order_or_missing

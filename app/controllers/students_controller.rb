@@ -9,6 +9,10 @@ class StudentsController < ApplicationController
     @chart_data = StudentProfileChart.new(@student).chart_data
     @risk = @student.risk_level
 
+    @student_school_years = @student.school_years.map do |sy|
+      StudentSchoolYear.new(@student, sy)
+    end
+
     @intervention = Intervention.new
     @interventions = @student.interventions
 
