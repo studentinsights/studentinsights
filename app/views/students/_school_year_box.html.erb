@@ -4,10 +4,10 @@
       <h1><%= student_school_year.name %></h1>
     </div>
 
-    <% unless events[:mcas_math_result].is_a?(MissingStudentAssessmentCollection) && events[:mcas_ela_result].is_a?(MissingStudentAssessmentCollection) %>
+    <% unless events[:mcas_math_result].is_a?(MissingStudentAssessment) && events[:mcas_ela_result].is_a?(MissingStudentAssessment)  # Since there is only one MCAS result per student per year %>
       <div class="section mcas-result-section">
         <h2 class="section-header">MCAS</h2>
-        <% unless events[:mcas_ela_result].is_a?(MissingStudentAssessmentCollection) %>
+        <% unless events[:mcas_ela_result].is_a?(MissingStudentAssessment) %>
           <h3 class="assessment-type">English</h3>
           <div class="assessment-dark-background mcas-ela-values">
             <div class="values">
@@ -18,7 +18,7 @@
             </div>
           </div>
         <% end %>
-        <% unless events[:mcas_math_result].is_a?(MissingStudentAssessmentCollection) %>
+        <% unless events[:mcas_math_result].is_a?(MissingStudentAssessment) %>
           <h3 class="assessment-type">Math</h3>
           <div class="assessment-dark-background mcas-math-values">
             <div class="values">
