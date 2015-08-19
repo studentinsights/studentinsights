@@ -22,7 +22,7 @@ RSpec.describe StudentPresenter do
     context 'does not have a program assigned' do
       it 'presents N/A' do
         presenter = StudentPresenter.new(student_without_attributes)
-        expect(presenter.sped_placement).to eq "N/A"
+        expect(presenter.sped_placement).to eq "—"
       end
     end
   end
