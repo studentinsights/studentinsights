@@ -11,10 +11,10 @@
           <h3 class="assessment-type">English</h3>
           <div class="assessment-dark-background mcas-ela-values">
             <div class="values">
-              <p>Performance: <strong><%= events[:mcas_ela_result].performance_level %></strong></p>
+              <p>Performance: <strong><%= StudentAssessmentPresenter.new(events[:mcas_ela_result]).performance_level %></strong></p>
             </div>
             <div class="values">
-              <p>Scaled Score: <strong><%= events[:mcas_ela_result].scale_score %></strong></p>
+              <p>Scaled Score: <strong><%= StudentAssessmentPresenter.new(events[:mcas_ela_result]).scale_score %></strong></p>
             </div>
           </div>
         <% end %>
@@ -22,10 +22,10 @@
           <h3 class="assessment-type">Math</h3>
           <div class="assessment-dark-background mcas-math-values">
             <div class="values">
-              <p>Performance: <strong><%= events[:mcas_math_result].performance_level %></strong></p>
+              <p>Performance: <strong><%= StudentAssessmentPresenter.new(events[:mcas_math_result]).performance_level %></strong></p>
             </div>
             <div class="values">
-              <p>Scaled Score: <strong><%= events[:mcas_math_result].scale_score %></strong></p>
+              <p>Scaled Score: <strong><%= StudentAssessmentPresenter.new(events[:mcas_math_result]).scale_score %></strong></p>
             </div>
           </div>
         <% end %>
@@ -93,13 +93,13 @@
         <h3 class="assessment-type">Overall</h3>
         <div class="assessment-dark-background access-values">
           <div class="values">
-            <p>Score: <strong><%= events[:access].scale_score %></strong></p>
+            <p>Score: <strong><%= StudentAssessmentPresenter.new(events[:access]).scale_score %></strong></p>
           </div>
           <div class="values">
-            <p>Growth: <strong><%= events[:access].growth_percentile %></strong></p>
+            <p>Growth: <strong><%= StudentAssessmentPresenter.new(events[:access]).growth_percentile %></strong></p>
           </div>
           <div class="values">
-            <p>Level: <strong><%= events[:access].performance_level %></strong></p>
+            <p>Level: <strong><%= StudentAssessmentPresenter.new(events[:access]).performance_level %></strong></p>
           </div>
         </div>
       </div>
