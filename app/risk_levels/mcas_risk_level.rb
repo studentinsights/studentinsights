@@ -15,25 +15,4 @@ class McasRiskLevel < Struct.new :student_assessment
     end
   end
 
-  def performance_warning_level
-    ["W"]
-  end
-
-  def growth_warning_level
-    40
-  end
-
-  # Warning flags for variables in roster view
-  def performance_warning?
-    if performance_level.present?
-      performance_warning_level.include? performance_level
-    end
-  end
-
-  def growth_warning?
-    if growth_percentile.present?
-      growth_percentile < growth_warning_level
-    end
-  end
-
 end

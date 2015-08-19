@@ -1,13 +1,13 @@
   <div class="school-year">
 
     <div class="year">
-      <h1><%= school_year.name %></h1>
+      <h1><%= student_school_year.name %></h1>
     </div>
 
-    <% unless events[:mcas_math_result].is_a?(MissingStudentAssessment) && events[:mcas_ela_result].is_a?(MissingStudentAssessment) %>
+    <% unless events[:mcas_math_result].is_a?(MissingStudentAssessment) && events[:mcas_ela_result].is_a?(MissingStudentAssessment)  # Since there is only one MCAS result per student per year %>
       <div class="section mcas-result-section">
         <h2 class="section-header">MCAS</h2>
-        <% if events[:mcas_ela_result].present? %>
+        <% unless events[:mcas_ela_result].is_a?(MissingStudentAssessment) %>
           <h3 class="assessment-type">English</h3>
           <div class="assessment-dark-background mcas-ela-values">
             <div class="values">
@@ -18,7 +18,7 @@
             </div>
           </div>
         <% end %>
-        <% if events[:mcas_math_result].present? %>
+        <% unless events[:mcas_math_result].is_a?(MissingStudentAssessment) %>
           <h3 class="assessment-type">Math</h3>
           <div class="assessment-dark-background mcas-math-values">
             <div class="values">
@@ -85,7 +85,7 @@
     <% end %>
 
     <!-- ACCESS -->
-    <% unless events[:access].is_a?(MissingStudentAssessment) %>
+    <% unless events[:access].is_a?(MissingStudentAssessmentCollection) %>
       <div class="section access-result-section">
         <h2 class="section-header">ACCESS</h2>
         <h3 class="assessment-type">Overall</h3>

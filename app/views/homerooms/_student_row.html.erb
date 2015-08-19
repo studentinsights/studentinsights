@@ -5,8 +5,8 @@
                     </div>
                   </td>
                   <td class="risk" href="<%= student_url(student) %>">
-                    <div class="warning-bubble <%= risk.css_class_name %>">
-                      <%= risk.level_as_string %>
+                    <div class="warning-bubble <%= StudentRiskLevelPresenter.new(student.risk_level).css_class_name %>">
+                      <%= student.risk_level %>
                     </div>
                   </td>
                   <td class="program" href="<%= student_url(student) %>">
@@ -31,43 +31,16 @@
                     <%= presenter.free_reduced_lunch %>
                   </td>
 
-                  <%= render "star_math_row_fragment", student: student, assessment: row_data.latest_star_math, risk: StarRiskLevel.new(row_data.latest_star_math) %>
+                  <%= render "star_math_row_fragment", student: student, presenter: StarValuePresenter.new(assessment_data[:star_math_row_data]) %>
 
-                  <%= render "star_reading_row_fragment", student: student, assessment: row_data.latest_star_reading, risk: StarRiskLevel.new(row_data.latest_star_reading) %>
+                  <%= render "star_reading_row_fragment", student: student, presenter: StarValuePresenter.new(assessment_data[:star_reading_row_data]) %>
 
-                  <%= render "mcas_row_fragment", student: student, assessment: row_data.latest_mcas_math, risk: McasRiskLevel.new(row_data.latest_mcas_math) %>
+                  <%= render "mcas_row_fragment", student: student, presenter: McasValuePresenter.new(assessment_data[:mcas_math_row_data]) %>
 
-                  <%= render "mcas_row_fragment", student: student, assessment: row_data.latest_mcas_ela, risk: McasRiskLevel.new(row_data.latest_mcas_ela) %>
+                  <%= render "mcas_row_fragment", student: student, presenter: McasValuePresenter.new(assessment_data[:mcas_ela_row_data]) %>
 
-                  <%= render "access_row_fragment", student: student, assessment: row_data.latest_access, risk: McasRiskLevel.new(row_data.latest_access) %>
+                  <%= render "access_row_fragment", student: student, presenter: GenericAssessmentValuePresenter.new(assessment_data[:access_row_data]) %>
 
-                  <%= render "dibels_row_fragment", student: student, assessment: row_data.latest_dibels, risk: McasRiskLevel.new(row_data.latest_dibels) %>
+                  <%= render "dibels_row_fragment", student: student, presenter: GenericAssessmentValuePresenter.new(assessment_data[:dibels_row_data]) %>
 
-                  <% if row_data.current_events.present? %>
-                    <td class="attendance" href="<%= student_url(student, chart_start: "attendance") %>">
-                      <div class="cell-wrapper">
-                        <%= row_data.absences_current_year %>
-                      </div>
-                    </td>
-                    <td class="attendance" href="<%= student_url(student, chart_start: "attendance") %>">
-                      <div class="cell-wrapper">
-                        <%= row_data.tardies_current_year %>
-                      </div>
-                    </td>
-                    <td class="discipline" href="<%= student_url(student, chart_start: "behavior") %>">
-                      <div class="cell-wrapper">
-                        <%= row_data.discipline_current_year %>
-                      </div>
-                    </td>
-                  <% else %>
-                    <td class="attendance" href="<%= student_url(student, chart_start: "attendance") %>">
-                      <div class="cell-wrapper">—</div>
-                    </td>
-                    <td class="attendance" href="<%= student_url(student, chart_start: "attendance") %>">
-                      <div class="cell-wrapper">—</div>
-                    </td>
-                    <td class="discpline" href="<%= student_url(student, chart_start: "behavior") %>">
-                      <div class="cell-wrapper">—</div>
-                    </td>
-                  <% end %>
                 </tr>

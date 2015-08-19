@@ -7,7 +7,11 @@ class StudentsController < ApplicationController
     @presenter = StudentPresenter.new(@student)
     @chart_start = params[:chart_start] || "mcas-growth"
     @chart_data = StudentProfileChart.new(@student).chart_data
-    @risk = StudentRiskLevel.new(student: @student)
+    @risk = @student.risk_level
+
+    @student_school_years = @student.school_years.map do |sy|
+      StudentSchoolYear.new(@student, sy)
+    end
 
     @intervention = Intervention.new
     @interventions = @student.interventions

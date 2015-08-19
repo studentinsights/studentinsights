@@ -3,7 +3,57 @@ class Student < ActiveRecord::Base
   belongs_to :school
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
-  has_many :student_assessments, dependent: :destroy
+  has_many :student_assessments do
+    def latest_mcas_math
+      mcas_math = Assessment.mcas_math
+      return MissingStudentAssessment.new if mcas_math.is_a? MissingAssessment
+      where(assessment_id: mcas_math.id).last_or_missing || MissingStudentAssessment.new
+    end
+    def latest_star_math
+      star_math = Assessment.star_math
+      return MissingStudentAssessment.new if star_math.is_a? MissingAssessment
+      where(assessment_id: star_math.id).last_or_missing || MissingStudentAssessment.new
+    end
+    def ordered_mcas_math
+      mcas_math = Assessment.mcas_math
+      return MissingStudentAssessmentCollection.new if mcas_math.is_a? MissingAssessment
+      where(assessment_id: mcas_math.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def ordered_star_math
+      star_math = Assessment.star_math
+      return MissingStudentAssessmentCollection.new if star_math.is_a? MissingAssessment
+      where(assessment_id: star_math.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def latest_mcas_ela
+      mcas_ela = Assessment.mcas_ela
+      return MissingStudentAssessment.new if mcas_ela.is_a? MissingAssessment
+      where(assessment_id: mcas_ela.id).last_or_missing || MissingStudentAssessment.new
+    end
+    def latest_star_reading
+      star_reading = Assessment.star_reading
+      return MissingStudentAssessment.new if star_reading.is_a? MissingAssessment
+      where(assessment_id: star_reading.id).last_or_missing || MissingStudentAssessment.new
+    end
+    def ordered_mcas_ela
+      mcas_ela = Assessment.mcas_ela
+      return MissingStudentAssessmentCollection.new if mcas_ela.is_a? MissingAssessment
+      where(assessment_id: mcas_ela.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def ordered_star_reading
+      star_reading = Assessment.star_reading
+      return MissingStudentAssessmentCollection.new if star_reading.is_a? MissingAssessment
+      where(assessment_id: star_reading.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def dibels
+      return MissingStudentAssessmentCollection.new if Assessment.dibels.is_a? MissingAssessment
+      where(assessment_id: Assessment.dibels.id).order_or_missing || MissingStudentAssessmentCollection.new
+    end
+    def access
+      star_reading = Assessment.access
+      return MissingStudentAssessmentCollection.new if Assessment.access.is_a? MissingAssessment
+      where(assessment_id: Assessment.access.id).last_or_missing || MissingStudentAssessmentCollection.new
+    end
+  end
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
   validates_presence_of :local_id
@@ -27,6 +77,15 @@ class Student < ActiveRecord::Base
     else
       []
     end
+  end
+
+  def update_risk_level
+    self.risk_level = StudentRiskLevel.new(self).level
+    save!
+  end
+
+  def self.update_risk_levels
+    find_each { |s| s.update_risk_level }
   end
 
 end

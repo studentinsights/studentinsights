@@ -95,11 +95,13 @@
           <th class="discipline"><span class="table-header">Behavior Incidents</span></th>
         </tr>
      </thead>
-      <% if @students.present? %>
+      <% if @rows.present? %>
         <!-- ROWS -->
-        <% @students.each do |student| %>
-          <% row_data = StudentRowData.new(student, @current_school_year) %>
-          <%= render "student_row", student: student, row_data: row_data, presenter: StudentPresenter.new(student), risk: row_data.risk unless student.nil? %>
+        <% @rows.each do |row| %>
+          <%= render "student_row",
+              student: row[:student],
+              presenter: row[:student_presenter],
+              assessment_data: row[:assessment_data] unless row.nil? %>
         <% end %>
       <% end %>
     </table>
