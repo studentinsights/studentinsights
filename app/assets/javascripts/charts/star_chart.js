@@ -9,7 +9,7 @@
   StarChart.fromChartData = function mcasScaledChartFromChartData(chartData) {
     var datums = [];
     var math_data = chartData.data('star-series-math-percentile');
-    var reading_data = chartData.data('star-series-math-percentile');
+    var reading_data = chartData.data('star-series-reading-percentile');
     var interventions = chartData.data('interventions');
 
     if (math_data !== null) {
