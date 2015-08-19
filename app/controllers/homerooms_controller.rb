@@ -110,7 +110,7 @@ class HomeroomsController < ApplicationController
   private
 
   def assign_homeroom
-    @homeroom = Homeroom.friendly.find(params[:homeroom_id])
+    @homeroom = Homeroom.friendly.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     if current_educator.homeroom.present?
       @homeroom = current_educator.homeroom
