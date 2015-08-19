@@ -43,9 +43,7 @@ RSpec.describe Student do
       end
     end
   end
-
   describe '#sort_by_school_year' do
-
     before { Timecop.freeze(DateTime.new(2015, 5, 1))  }
     after { Timecop.return }
 
@@ -80,6 +78,40 @@ RSpec.describe Student do
             { "2014-2015" => [student.discipline_incidents.last] }
           )
         end
+      end
+    end
+  end
+  describe '#create_risk_level' do
+    context 'create a non-ELL student' do
+      let(:student) { FactoryGirl.build(:student) }
+      it 'creates a risk level' do
+        expect { student.save }.to change(StudentRiskLevel, :count).by 1
+      end
+      it 'assigns correct level' do
+        student.save
+        student_risk_level = student.student_risk_level
+        expect(student_risk_level.level).to eq nil
+      end
+      it 'assigns explanation' do
+        student.save
+        student_risk_level = student.student_risk_level
+        expect(student_risk_level.explanation).to eq 'This student is at Risk N/A because:<br/><br/><ul><li>There is not enough information to tell.</li></ul>'
+      end
+    end
+    context 'create an ELL student' do
+      let(:student) { FactoryGirl.build(:limited_english_student) }
+      it 'creates a risk level' do
+        expect { student.save }.to change(StudentRiskLevel, :count).by 1
+      end
+      it 'assigns correct level' do
+        student.save
+        student_risk_level = student.student_risk_level
+        expect(student_risk_level.level).to eq 3
+      end
+      it 'assigns explanation' do
+        student.save
+        student_risk_level = student.student_risk_level
+        expect(student_risk_level.explanation).to eq 'This student is at Risk 3 because:<br/><br/><ul><li>This student is limited English proficient.</li></ul>'
       end
     end
   end

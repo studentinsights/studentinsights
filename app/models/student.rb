@@ -59,6 +59,7 @@ class Student < ActiveRecord::Base
   has_one :student_risk_level, dependent: :destroy
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
+  after_create { create_student_risk_level! }
   include DateToSchoolYear
 
   def school_years
