@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818222910) do
+ActiveRecord::Schema.define(version: 20150819220510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,14 @@ ActiveRecord::Schema.define(version: 20150818222910) do
   add_index "student_assessments", ["school_year_id"], name: "index_student_assessments_on_school_year_id", using: :btree
   add_index "student_assessments", ["student_id"], name: "index_student_assessments_on_student_id", using: :btree
 
+  create_table "student_risk_levels", force: true do |t|
+    t.integer  "student_id"
+    t.text     "explanation"
+    t.integer  "level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "students", force: true do |t|
     t.string   "grade"
     t.boolean  "hispanic_latino"
@@ -168,13 +176,11 @@ ActiveRecord::Schema.define(version: 20150818222910) do
     t.string   "free_reduced_lunch"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "sped"
     t.integer  "homeroom_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "state_id"
     t.string   "home_language"
-    t.string   "address"
     t.integer  "school_id"
     t.string   "student_address"
     t.datetime "registration_date"
@@ -185,7 +191,6 @@ ActiveRecord::Schema.define(version: 20150818222910) do
     t.string   "sped_level_of_need"
     t.string   "plan_504"
     t.string   "limited_english_proficiency"
-    t.integer  "risk_level"
   end
 
   add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree

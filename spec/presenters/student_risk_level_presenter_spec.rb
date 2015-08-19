@@ -5,7 +5,7 @@ RSpec.describe do
     context 'missing MCAS and STAR results' do
       context 'not limited English' do
         let(:student) { FactoryGirl.create(:student) }
-        let(:student_risk_level) { StudentRiskLevel.new(student).level }
+        let(:student_risk_level) { StudentRiskLevel.create!(student_id: student.id).level }
         let(:presenter) { StudentRiskLevelPresenter.new(student_risk_level) }
         it 'has Risk Level string of "N/A"' do
           expect(presenter.level_as_string).to eq "N/A"
@@ -16,7 +16,7 @@ RSpec.describe do
       end
       context 'limited english' do
         let(:student) { FactoryGirl.create(:limited_english_student) }
-        let(:student_risk_level) { StudentRiskLevel.new(student).level }
+        let(:student_risk_level) { StudentRiskLevel.create!(student_id: student.id).level }
         let(:presenter) { StudentRiskLevelPresenter.new(student_risk_level) }
         it 'has Risk Level string of "3"' do
           expect(presenter.level_as_string).to eq "3"

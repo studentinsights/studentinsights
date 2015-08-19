@@ -18,8 +18,12 @@ class HomeroomsController < ApplicationController
               disability,
               sped_level_of_need,
               plan_504,
-              limited_english_proficiency
+              limited_english_proficiency,
+              level,
+              explanation
             FROM students
+            LEFT JOIN student_risk_levels
+              ON student_risk_levels.student_id = students.id
             WHERE homeroom_id = #{@homeroom.id};"
 
     student_assessments_sql = \
@@ -100,6 +104,16 @@ class HomeroomsController < ApplicationController
           access_row_data: access_row_data,
           dibels_row_data: dibels_row_data
         }
+      }
+    end
+
+    @student_risk_levels = []
+
+    attributes_by_student_id.each do |result|
+      @student_risk_levels << {
+        student_id: result[0],
+        level: result[1][0]['level'],
+        explanation: result[1][0]['explanation']
       }
     end
 
