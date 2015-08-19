@@ -9,7 +9,8 @@ module FakeStudent
       last_name: ["Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"].sample,
       local_id: "000#{rand(1000)}",
       limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "FLEP"].sample,
-      free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample
+      free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample,
+      home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample
     }
   end
 
