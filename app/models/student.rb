@@ -56,6 +56,7 @@ class Student < ActiveRecord::Base
   end
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
+  has_one :student_risk_level, dependent: :destroy
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
   include DateToSchoolYear
