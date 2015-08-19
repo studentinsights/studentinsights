@@ -65,7 +65,6 @@
         <h2 class="section-header">DIBELS</h2>
         <% events[:dibels].each do |e| %>
           <% if e.performance_level.present? %>
-            <h3 class="assessment-type"><%= e.date_taken.strftime("%B %e, %Y") %></h3>
             <div class="assessment-dark-background dibels-values">
               <div class="values dibels-list">
                 <p <% if e.performance_level.upcase == "CORE" || e.performance_level.upcase == "BENCHMARK" %>class="dibels-selected"<% end %>>
