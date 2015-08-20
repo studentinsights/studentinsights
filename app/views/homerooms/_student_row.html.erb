@@ -9,26 +9,40 @@
                       <%= presenter.risk_level_as_string %>
                     </div>
                   </td>
-                  <td class="program" href="<%= student_url(student) %>">
-                    <%= presenter.program_assigned %>
+                  <td class="program" href="<%= student_url(student) + "#demographics-row" %>">
+                    <div class="cell-wrapper">
+                      <%= presenter.program_assigned %>
+                    </div>
                   </td>
-                  <td class="sped" href="<%= student_url(student) %>">
-                    <%= presenter.disability %>
+                  <td class="sped" href="<%= student_url(student) + "#demographics-row" %>">
+                    <div class="cell-wrapper">
+                      <%= presenter.disability %>
+                    </div
                   </td>
-                  <td class="sped" href="<%= student_url(student) %>">
-                    <%= presenter.sped_level_of_need %>
+                  <td class="sped" href="<%= student_url(student) + "#demographics-row" %>">
+                    <div class="cell-wrapper">
+                      <%= presenter.sped_level_of_need %>
+                    </div
                   </td>
-                  <td class="sped" href="<%= student_url(student) %>">
-                    <%= presenter.plan_504 %>
+                  <td class="sped" href="<%= student_url(student) + "#demographics-row" %>">
+                    <div class="cell-wrapper">
+                      <%= presenter.plan_504 %>
+                    </div
                   </td>
-                  <td class="language" href="<%= student_url(student) %>">
-                    <%= presenter.limited_english_proficiency %>
+                  <td class="language" href="<%= student_url(student) + "#demographics-row" %>">
+                    <div class="cell-wrapper">
+                      <%= presenter.limited_english_proficiency %>
+                    </div
                   </td>
-                  <td class="language" href="<%= student_url(student) %>">
-                    <%= presenter.home_language %>
+                  <td class="language" href="<%= student_url(student) + "#demographics-row" %>">
+                    <div class="cell-wrapper">
+                      <%= presenter.home_language %>
+                    </div
                   </td>
-                  <td class="free-reduced" href="<%= student_url(student) %>">
-                    <%= presenter.free_reduced_lunch %>
+                  <td class="free-reduced" href="<%= student_url(student) + "#demographics-row" %>">
+                    <div class="cell-wrapper">
+                      <%= presenter.free_reduced_lunch %>
+                    </div
                   </td>
 
                   <%= render "star_math_row_fragment", student: student, presenter: StarValuePresenter.new(assessment_data[:star_math_row_data]) %>

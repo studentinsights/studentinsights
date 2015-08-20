@@ -11,22 +11,53 @@ $(function() {
       window.location.pathname = '/homerooms/' + $(this).val();
     });
 
-    // Show/hide column groups using Chosen plugin
-    $(".attendance").hide();
-    $(".discipline").hide();
-    $(".language").hide();
-    $(".star").hide();
-    $(".program").hide();
-    $(".free-reduced").hide();
-    $(".access").hide();
-    $(".dibels").hide();
+    function updateColumns () {
+      for (i = 0; i < roster_columns.length; i++) {
+        var column = roster_columns[i];
+        if (columns_selected.indexOf(column) === -1) {
+          $('.' + column).hide();
+        } else {
+          $('.' + column).show();
+        }
+      }
+    }
+
+    function updateCookies () {
+      Cookies.set("columns_selected", columns_selected);
+    }
+
+    // Show/hide column groups
+    var roster_columns = [
+      'attendance',
+      'discipline',
+      'language',
+      'star',
+      'program',
+      'free-reduced',
+      'access',
+      'dibels',
+      'name',
+      'risk',
+      'sped',
+      'mcas'
+    ];
+
+    var columns_selected = Cookies.getJSON("columns_selected");
+    console.log(columns_selected);
+    updateColumns();
+
     $("#column-group-select").chosen({width: "110%"}).on('change', function(e, params) {
       if (params.deselected !== undefined) {
         var assessment = params.deselected;
-        $('.' + assessment).hide();
+        var index = columns_selected.indexOf(assessment)
+        columns_selected.splice(index, 1);
+        updateCookies();
+        updateColumns();
       } else if (params.selected !== undefined) {
         var assessment = params.selected;
-        $('.' + assessment).show();
+        columns_selected.push(assessment)
+        updateCookies();
+        updateColumns();
       }
     });
 
