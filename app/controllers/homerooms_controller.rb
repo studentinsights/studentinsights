@@ -26,7 +26,9 @@ class HomeroomsController < ApplicationController
             FROM students
             LEFT JOIN student_risk_levels
               ON student_risk_levels.student_id = students.id
-            WHERE homeroom_id = #{@homeroom.id};"
+            WHERE homeroom_id = #{@homeroom.id}
+            ORDER BY
+              level DESC NULLS LAST;"
 
     student_assessments_sql = \
             " SELECT DISTINCT ON
