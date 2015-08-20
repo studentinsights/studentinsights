@@ -60,63 +60,113 @@
         <tr class="column-groups">
           <!-- TOP-LEVEL COLUMN GROUPS -->
           <!-- i.e. "MCAS", "STAR" -->
-          <td colspan="1" class="name"></td>
-          <td colspan="1" class="risk"></td>
-          <td colspan="1" class="program"></td>
-          <td colspan="3" class="sped"><p class="smalltype">SPED & Disability</p></td>
-          <td colspan="2" class="language"><p class="smalltype">Language</p></td>
-          <td colspan="1" class="free-reduced"></td>
-          <td colspan="3" class="star"><p class="smalltype">STAR</p></td>
-          <td colspan="4" class="mcas"><p class="smalltype">MCAS</p></td>
-          <td colspan="3" class="access"><p class="smalltype">ACCESS</p></td>
-          <td colspan="1" class="dibels"><p class="smalltype">DIBELS</p></td>
-          <td colspan="2" class="attendance"><p class="smalltype">Attendance</p></td>
-          <td colspan="1" class="discipline"><p class="smalltype">Discipline</p></td>
+          <td colspan="1" class="name <%= initial_show_or_hide('name') %>"></td>
+          <td colspan="1" class="risk <%= initial_show_or_hide('risk') %>"></td>
+          <td colspan="1" class="program <%= initial_show_or_hide('program') %>"></td>
+          <td colspan="3" class="sped <%= initial_show_or_hide('sped') %>"><p class="smalltype">SPED & Disability</p></td>
+          <td colspan="2" class="language <%= initial_show_or_hide('language') %>"><p class="smalltype">Language</p></td>
+          <td colspan="1" class="free-reduced <%= initial_show_or_hide('free-reduced') %>"></td>
+          <td colspan="3" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype">STAR</p></td>
+          <td colspan="4" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS</p></td>
+          <td colspan="3" class="access <%= initial_show_or_hide('access') %>"><p class="smalltype">ACCESS</p></td>
+          <td colspan="1" class="dibels <%= initial_show_or_hide('dibels') %>"><p class="smalltype">DIBELS</p></td>
+          <td colspan="2" class="attendance <%= initial_show_or_hide('attendance') %>"><p class="smalltype">Attendance</p></td>
+          <td colspan="1" class="discipline <%= initial_show_or_hide('discipline') %>"><p class="smalltype">Discipline</p></td>
         </tr>
         <tr class="column-groups">
           <!-- SUB-GROUPS -->
           <!-- i.e. "MCAS Math", "STAR Reading" -->
-          <td colspan="1" class="name"></td>
-          <td colspan="1" class="risk"></td> <!-- Blank column space for nested labels -->
-          <td colspan="1" class="program"></td> <!-- Blank column space for nested labels -->
-          <td colspan="3" class="sped"></td> <!-- Blank column space for nested labels -->
-          <td colspan="2" class="language"></td> <!-- Blank column space for nested labels -->
-          <td colspan="1" class="free-reduced"></td> <!-- Blank column space for nested labels -->
-          <td colspan="1" class="star"><p class="smalltype italic">Math</p></td>
-          <td colspan="2" class="star"><p class="smalltype italic">Reading</p></td>
-          <td colspan="2" class="mcas"><p class="smalltype italic">Math</p></td>
-          <td colspan="2" class="mcas"><p class="smalltype italic">English</p></td>
-          <td colspan="3" class="access"></td>
-          <td colspan="1" class="dibels"></td>
-          <td colspan="1" class="attendance"></td>
-          <td colspan="1" class="discipline"></td>
+          <td colspan="1" class="name <%= initial_show_or_hide('name') %>"></td>
+          <td colspan="1" class="risk <%= initial_show_or_hide('risk') %>"></td> <!-- Blank column space for nested labels -->
+          <td colspan="1" class="program <%= initial_show_or_hide('program') %>"></td> <!-- Blank column space for nested labels -->
+          <td colspan="3" class="sped <%= initial_show_or_hide('sped') %>"></td> <!-- Blank column space for nested labels -->
+          <td colspan="2" class="language <%= initial_show_or_hide('language') %>"></td> <!-- Blank column space for nested labels -->
+          <td colspan="1" class="free-reduced <%= initial_show_or_hide('free-reduced') %>"></td> <!-- Blank column space for nested labels -->
+          <td colspan="1" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype italic">Math</p></td>
+          <td colspan="2" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype italic">Reading</p></td>
+          <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype italic">Math</p></td>
+          <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype italic">English</p></td>
+          <td colspan="3" class="access <%= initial_show_or_hide('access') %>"></td>
+          <td colspan="1" class="dibels <%= initial_show_or_hide('dibels') %>"></td>
+          <td colspan="1" class="attendance <%= initial_show_or_hide('attendance') %>"></td>
+          <td colspan="1" class="discipline <%= initial_show_or_hide('discipline') %>"></td>
         </tr>
         <tr class="column-names">
           <!-- COLUMN HEADERS -->
           <!-- i.e. "MCAS Math Growth", "STAR Reading Performance" -->
-          <th class="name"><span id="first-column-header" class="table-header">Name</span></th>
-          <th class="risk sort-default" data-sort-method="reverse_number"><span class="table-header">Risk</span></th>
-          <th class="program"><span class="table-header">Program Assigned</span></th>
-          <th class="sped"><span class="table-header">Disability</span></th>
-          <th class="sped"><span class="table-header">Level of Need</span></th>
-          <th class="sped"><span class="table-header">504 Plan</span></th>
-          <th class="language"><span class="table-header">Fluency</span></th>
-          <th class="language"><span class="table-header">Home Language</span></th>
-          <th class="free-reduced"><span class="table-header">Free/Reduced Lunch</span></th>
-          <th class="star" data-sort-method="number"><span class="table-header">Percentile</span></th>
-          <th class="star" data-sort-method="number"><span class="table-header">Percentile</span></th>
-          <th class="star" data-sort-method="number"><span class="table-header">Reading Level</span></th>
-          <th class="mcas" data-sort-method="mcas_sort"><span class="table-header">Performance</span></th>
-          <th class="mcas" data-sort-method="number"><span class="table-header">Growth</span></th>
-          <th class="mcas" data-sort-method="mcas_sort"><span class="table-header">Performance</span></th>
-          <th class="mcas" data-sort-method="number"><span class="table-header">Growth</span></th>
-          <th class="access"><span class="table-header">Score</span></th>
-          <th class="access"><span class="table-header">Level</span></th>
-          <th class="access"><span class="table-header">Growth</span></th>
-          <th class="dibels"><span class="table-header">Level</span></th>
-          <th class="attendance"><span class="table-header">Absences</span></th>
-          <th class="attendance"><span class="table-header">Tardies</span></th>
-          <th class="discipline"><span class="table-header">Behavior Incidents</span></th>
+          <th class="name <%= initial_show_or_hide('name') %>">
+            <span id="first-column-header" class="table-header">
+              Name
+            </span>
+          </th>
+          <th class="risk sort-default <%= initial_show_or_hide('risk') %>" data-sort-method="reverse_number">
+            <span class="table-header">
+              Risk
+            </span>
+          </th>
+          <th class="program <%= initial_show_or_hide('program') %>">
+            <span class="table-header">Program Assigned</span>
+          </th>
+          <th class="sped <%= initial_show_or_hide('sped') %>">
+            <span class="table-header">Disability</span>
+          </th>
+          <th class="sped <%= initial_show_or_hide('sped') %>">
+            <span class="table-header">Level of Need</span>
+          </th>
+          <th class="sped <%= initial_show_or_hide('sped') %>">
+            <span class="table-header">504 Plan</span>
+          </th>
+          <th class="language <%= initial_show_or_hide('language') %>">
+            <span class="table-header">Fluency</span>
+          </th>
+          <th class="language <%= initial_show_or_hide('language') %>">
+            <span class="table-header">Home Language</span>
+          </th>
+          <th class="free-reduced <%= initial_show_or_hide('free-reduced') %>">
+            <span class="table-header">Free/Reduced Lunch</span>
+          </th>
+          <th class="star <%= initial_show_or_hide('star') %>" data-sort-method="number">
+            <span class="table-header">Percentile</span>
+          </th>
+          <th class="star <%= initial_show_or_hide('star') %>" data-sort-method="number">
+            <span class="table-header">Percentile</span>
+          </th>
+          <th class="star <%= initial_show_or_hide('star') %>" data-sort-method="number">
+            <span class="table-header">Reading Level</span>
+          </th>
+          <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="mcas_sort">
+            <span class="table-header">Performance</span>
+          </th>
+          <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="number">
+            <span class="table-header">Growth</span>
+          </th>
+          <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="mcas_sort">
+            <span class="table-header">Performance</span>
+          </th>
+          <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="number">
+            <span class="table-header">Growth</span>
+          </th>
+          <th class="access <%= initial_show_or_hide('access') %>">
+            <span class="table-header">Score</span>
+          </th>
+          <th class="access <%= initial_show_or_hide('access') %>">
+            <span class="table-header">Level</span>
+          </th>
+          <th class="access <%= initial_show_or_hide('access') %>">
+            <span class="table-header">Growth</span>
+          </th>
+          <th class="dibels <%= initial_show_or_hide('dibels') %>">
+            <span class="table-header">Level</span>
+          </th>
+          <th class="attendance <%= initial_show_or_hide('attendance') %>">
+            <span class="table-header">Absences</span>
+          </th>
+          <th class="attendance <%= initial_show_or_hide('attendance') %>">
+            <span class="table-header">Tardies</span>
+          </th>
+          <th class="discipline <%= initial_show_or_hide('discipline') %>">
+            <span class="table-header">Behavior Incidents</span>
+          </th>
         </tr>
      </thead>
       <% if @rows.present? %>
