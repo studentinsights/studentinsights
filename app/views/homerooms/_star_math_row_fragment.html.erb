@@ -1,5 +1,7 @@
+                    <% if @homeroom.show_star? %>
                       <td class="star <%= initial_show_or_hide('star') %>" href="<%= student_url(student, chart_start: "star") %>">
                         <div class="cell-wrapper">
                           <%= presenter.percentile_rank %>
                         </div>
                       </td>
+                    <% end %>
