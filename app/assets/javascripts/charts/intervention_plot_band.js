@@ -17,19 +17,13 @@
       InterventionPlotBand.base_options, {
         from: this.from,
         to: this.to,
-        label: { text: this.name }
       }
     );
   }
 
   InterventionPlotBand.base_options = {
-    color: '#FCFCC8',
+    color: 'rgba(248,231,28,.23)',
     zIndex: 2,
-    label: {
-      style: {
-        color: '#999999'
-      }
-    }
   }
 
   root.InterventionPlotBand = InterventionPlotBand;
