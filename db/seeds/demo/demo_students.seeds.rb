@@ -32,8 +32,9 @@ Assessment.create!(family: "DIBELS")
   student = Student.create(FakeStudent.data)
   FakeStudent.randomize_504(student)
   FakeStudent.randomize_program_assigned(student)
-  student.homeroom_id = Homeroom.all.sample.id
   student.save
+  random_homeroom = Homeroom.all.sample
+  random_homeroom.students << student
 
   # Set up student assessments
   mcas_math_factory = FakeMcasMathResultGenerator.new(student)

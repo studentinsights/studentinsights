@@ -26,13 +26,11 @@ class StudentsImporter
 
   def assign_student_to_homeroom(student, homeroom_name)
     homeroom = Homeroom.where(name: homeroom_name).first_or_create!
-    student.homeroom_id = homeroom.id
-    student.save
+    homeroom.students << student
   end
 
   def assign_student_to_school(student, school_local_id)
     school = School.where(local_id: school_local_id).first_or_create!
-    student.school = school.id
-    student.save
+    school.students << student
   end
 end
