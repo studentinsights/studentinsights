@@ -19,7 +19,6 @@ describe("InterventionPlotBand", function() {
         };
         var intervention_plot_band = new InterventionPlotBand(attributes);
         var to_highcharts = intervention_plot_band.toHighCharts();
-        expect(to_highcharts.label.text).toEqual('Extra math help');
         expect(to_highcharts.from).toEqual(1439510400000);
         expect(to_highcharts.to).toEqual(1439596800000);
       });
