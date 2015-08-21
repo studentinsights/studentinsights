@@ -104,7 +104,7 @@ $(function() {
 
     var attendance_series = [{
             name: 'Risk level',
-            data: [5, 2, 1, 4]
+            data: [6, 2, 2, 1]
         }, {
             name: 'Interventions',
             data: [3, 2, 0, 0]
@@ -160,10 +160,10 @@ $(function() {
         },
         xAxis: {
             categories: [
-                'Risk level 0',
-                'Risk level 1',
-                'Risk level 2',
                 'Risk level 3',
+                'Risk level 2',
+                'Risk level 1',
+                'Risk level 0',
             ],
         },
         yAxis: {
