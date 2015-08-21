@@ -25,7 +25,9 @@
     if (interventions !== null && interventions !== undefined) {
       var intervention_plot_bands = interventions.map(function(i) {
         return new InterventionPlotBand(i).toHighCharts();
-      });
+      })
+      var interventions_label = new ProfileChartData("Interventions", intervention_plot_bands).toDateChart();
+      datums.push(interventions_label);
     }
 
     return new McasScaledChart(datums, intervention_plot_bands);
