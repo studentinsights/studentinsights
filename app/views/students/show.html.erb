@@ -12,7 +12,7 @@
     <div id="student-info">
       <h1 id="student-name"><%= @presenter.full_name %></h1>
       <div id="profile-risk-level" class="tooltip-trigger">
-        <p>Risk level:</p>
+        <p>Risk level</p>
         <div id="risk-pill" class="<%= StudentRiskLevelPresenter.new(@level).css_class_name %>">
             <h3><%= StudentRiskLevelPresenter.new(@level).level_as_string %></h3>
         </div>
