@@ -238,6 +238,14 @@
   margin-bottom: 80px;
 }
 
+.roster-chart {
+  height: 200px !important;
+  margin-bottom: 20px !important;
+  padding-bottom: 20px;
+  border-bottom: 3px solid $blue;
+
+}
+
 .highcharts-container {
  overflow: visible !important;
  margin-top: 60px !important;
@@ -259,7 +267,6 @@
 
   p {
     float: right;
-    padding-top: 10px;
 
     @media screen and (max-width: $phase2) {
       padding-right: 20px;
