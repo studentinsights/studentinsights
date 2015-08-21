@@ -1,8 +1,9 @@
 (function(root) {
 
-  var ProfileChartData = function initializeProfileChartData (name, data) {
+  var ProfileChartData = function initializeProfileChartData (name, data, color) {
     this.name = name;
     this.data = data;
+    this.color = color;
   };
 
   ProfileChartData.prototype.highChartDates = function profileHighChartDates() {

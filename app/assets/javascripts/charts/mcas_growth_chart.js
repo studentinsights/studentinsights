@@ -26,6 +26,9 @@
       var intervention_plot_bands = interventions.map(function(i) {
         return new InterventionPlotBand(i).toHighCharts();
       });
+
+      var interventions_label = new ProfileChartData("Interventions", [], '#FDFDC9');
+      datums.push(interventions_label);
     }
 
     return new McasGrowthChart(datums, intervention_plot_bands);
