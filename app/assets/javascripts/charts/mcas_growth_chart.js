@@ -27,7 +27,7 @@
         return new InterventionPlotBand(i).toHighCharts();
       });
 
-      var interventions_label = new ProfileChartData("Interventions", []);
+      var interventions_label = new ProfileChartData("Interventions", [], '#FDFDC9');
       datums.push(interventions_label);
     }
 
