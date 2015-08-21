@@ -26,7 +26,8 @@
       var intervention_plot_bands = interventions.map(function(i) {
         return new InterventionPlotBand(i).toHighCharts();
       })
-      var interventions_label = new ProfileChartData("Interventions", intervention_plot_bands).toDateChart();
+
+      var interventions_label = new ProfileChartData("Interventions", []);
       datums.push(interventions_label);
     }
 

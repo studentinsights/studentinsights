@@ -22,15 +22,13 @@
       datums.push(ela_growth);
     }
 
-    if (interventions !== null) {
-      var interventions_label = new ProfileChartData("Interventions", interventions).toDateChart();
-      datums.push(interventions_label);
-    }
-
     if (interventions !== null & interventions !== undefined) {
       var intervention_plot_bands = interventions.map(function(i) {
         return new InterventionPlotBand(i).toHighCharts();
       });
+
+      var interventions_label = new ProfileChartData("Interventions", []);
+      datums.push(interventions_label);
     }
 
     return new McasGrowthChart(datums, intervention_plot_bands);
