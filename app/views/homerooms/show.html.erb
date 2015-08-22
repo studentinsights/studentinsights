@@ -65,7 +65,7 @@
       <thead>
         <tr class="column-groups">
           <!-- TOP-LEVEL COLUMN GROUPS -->
-          <!-- i.e. "MCAS", "STAR" -->
+          <!-- i.e. "ACCESS", "STAR - reading" -->
           <td colspan="1" class="name <%= initial_show_or_hide('name') %>"></td>
           <td colspan="1" class="risk <%= initial_show_or_hide('risk') %>"></td>
           <td colspan="1" class="program <%= initial_show_or_hide('program') %>"></td>
@@ -73,10 +73,12 @@
           <td colspan="2" class="language <%= initial_show_or_hide('language') %>"><p class="smalltype">Language</p></td>
           <td colspan="1" class="free-reduced <%= initial_show_or_hide('free-reduced') %>"></td>
           <% if @homeroom.show_star? %>
-            <td colspan="3" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype">STAR</p></td>
+            <td colspan="1" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype">STAR: Math</p></td>
+	    <td colspan="2" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype">STAR: Reading</p></td>
           <% end %>
           <% if @homeroom.show_mcas? %>
-            <td colspan="4" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS</p></td>
+            <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: Math</p></td>
+	    <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: ELA</p></td>
           <% end %>
           <td colspan="3" class="access <%= initial_show_or_hide('access') %>"><p class="smalltype">ACCESS</p></td>
           <% if @homeroom.show_dibels? %>
