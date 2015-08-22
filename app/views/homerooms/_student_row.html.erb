@@ -49,9 +49,9 @@
 
                   <%= render "star_reading_row_fragment", student: student, presenter: StarValuePresenter.new(assessment_data[:star_reading_row_data]) %>
 
-                  <%= render "mcas_math_row_fragment", student: student, presenter: McasValuePresenter.new(assessment_data[:mcas_math_row_data]) %>
+                  <%= render "mcas_row_fragment", student: student, presenter: McasValuePresenter.new(assessment_data[:mcas_math_row_data]), subject: 'math' %>
 
-                  <%= render "mcas_ela_row_fragment", student: student, presenter: McasValuePresenter.new(assessment_data[:mcas_ela_row_data]) %>
+                  <%= render "mcas_row_fragment", student: student, presenter: McasValuePresenter.new(assessment_data[:mcas_ela_row_data]), subject: 'ela' %>
 
                   <%= render "access_row_fragment", student: student, presenter: GenericAssessmentValuePresenter.new(assessment_data[:access_row_data]) %>
 
