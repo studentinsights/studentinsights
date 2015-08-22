@@ -85,30 +85,6 @@
           <td colspan="2" class="attendance <%= initial_show_or_hide('attendance') %>"><p class="smalltype">Attendance</p></td>
           <td colspan="1" class="discipline <%= initial_show_or_hide('discipline') %>"><p class="smalltype">Discipline</p></td>
         </tr>
-        <tr class="column-groups">
-          <!-- SUB-GROUPS -->
-          <!-- i.e. "MCAS Math", "STAR Reading" -->
-          <td colspan="1" class="name <%= initial_show_or_hide('name') %>"></td>
-          <td colspan="1" class="risk <%= initial_show_or_hide('risk') %>"></td> <!-- Blank column space for nested labels -->
-          <td colspan="1" class="program <%= initial_show_or_hide('program') %>"></td> <!-- Blank column space for nested labels -->
-          <td colspan="3" class="sped <%= initial_show_or_hide('sped') %>"></td> <!-- Blank column space for nested labels -->
-          <td colspan="2" class="language <%= initial_show_or_hide('language') %>"></td> <!-- Blank column space for nested labels -->
-          <td colspan="1" class="free-reduced <%= initial_show_or_hide('free-reduced') %>"></td> <!-- Blank column space for nested labels -->
-          <% if @homeroom.show_star? %>
-            <td colspan="1" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype italic">Math</p></td>
-            <td colspan="2" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype italic">Reading</p></td>
-          <% end %>
-          <% if @homeroom.show_mcas? %>
-            <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype italic">Math</p></td>
-            <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype italic">English</p></td>
-          <% end %>
-          <td colspan="3" class="access <%= initial_show_or_hide('access') %>"></td>
-          <% if @homeroom.show_dibels? %>
-            <td colspan="1" class="dibels <%= initial_show_or_hide('dibels') %>"></td>
-          <% end %>
-          <td colspan="1" class="attendance <%= initial_show_or_hide('attendance') %>"></td>
-          <td colspan="1" class="discipline <%= initial_show_or_hide('discipline') %>"></td>
-        </tr>
         <tr class="column-names">
           <!-- COLUMN HEADERS -->
           <!-- i.e. "MCAS Math Growth", "STAR Reading Performance" -->
