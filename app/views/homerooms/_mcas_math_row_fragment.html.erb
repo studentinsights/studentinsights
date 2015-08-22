@@ -1,0 +1,12 @@
+                    <% if @homeroom.show_mcas? %>
+                      <td class="mcas_math <%= initial_show_or_hide('mcas_math') %>" href="<%= student_url(student, chart_start: "mcas-scaled") %>">
+                        <div class="cell-wrapper">
+                          <%= presenter.performance_level %>
+                        </div>
+                      </td>
+                      <td class="mcas_math <%= initial_show_or_hide('mcas_math') %>" href="<%= student_url(student, chart_start: "mcas-growth") %>">
+                        <div class="cell-wrapper">
+                          <%= presenter.growth_percentile %>
+                        </div>
+                      </td>
+                    <% end %>

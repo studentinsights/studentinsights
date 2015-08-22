@@ -44,8 +44,11 @@
             </option>
         <% end %>
         <% if @homeroom.show_mcas? %>
-          <option value="mcas" <% if cookies[:columns_selected].include?("mcas") %>selected<% end %>>
-            MCAS
+          <option value="mcas_math" <% if cookies[:columns_selected].include?("mcas_math") %>selected<% end %>>
+            MCAS: Math
+          </option>
+	  <option value="mcas_ela" <% if cookies[:columns_selected].include?("mcas_ela") %>selected<% end %>>
+              MCAS: ELA
           </option>
         <% end %>
         <option value="access" <% if cookies[:columns_selected].include?("access") %>selected<% end %>>
@@ -82,8 +85,8 @@
 	    <td colspan="2" class="star_reading <%= initial_show_or_hide('star_reading') %>"><p class="smalltype">STAR: Reading</p></td>
           <% end %>
           <% if @homeroom.show_mcas? %>
-            <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: Math</p></td>
-	    <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: ELA</p></td>
+            <td colspan="2" class="mcas_math <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: Math</p></td>
+	    <td colspan="2" class="mcas_ela <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: ELA</p></td>
           <% end %>
           <td colspan="3" class="access <%= initial_show_or_hide('access') %>"><p class="smalltype">ACCESS</p></td>
           <% if @homeroom.show_dibels? %>
@@ -138,16 +141,16 @@
             </th>
           <% end %>
           <% if @homeroom.show_mcas? %>
-            <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="mcas_sort">
+            <th class="mcas_math <%= initial_show_or_hide('mcas_math') %>" data-sort-method="mcas_sort">
               <span class="table-header">Performance</span>
             </th>
-            <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="number">
+            <th class="mcas_math <%= initial_show_or_hide('mcas_math') %>" data-sort-method="number">
               <span class="table-header">Growth</span>
             </th>
-            <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="mcas_sort">
+            <th class="mcas_ela <%= initial_show_or_hide('mcas_ela') %>" data-sort-method="mcas_sort">
               <span class="table-header">Performance</span>
             </th>
-            <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="number">
+            <th class="mcas_ela <%= initial_show_or_hide('mcas_ela') %>" data-sort-method="number">
               <span class="table-header">Growth</span>
             </th>
           <% end %>
