@@ -34,9 +34,14 @@
           SPED & Disability
         </option>
         <% if @homeroom.show_star? %>
-          <option value="star" <% if cookies[:columns_selected].include?("star") %>selected<% end %>>
-            STAR
+          <option value="star_math" <% if cookies[:columns_selected].include?("star_math") %>selected<% end %>>
+            STAR: Math
           </option>
+        <% end %>
+	<% if @homeroom.show_star? %>
+            <option value="star_reading" <% if cookies[:columns_selected].include?("star_reading") %>selected<% end %>>
+	    STAR: Reading
+            </option>
         <% end %>
         <% if @homeroom.show_mcas? %>
           <option value="mcas" <% if cookies[:columns_selected].include?("mcas") %>selected<% end %>>
@@ -73,8 +78,8 @@
           <td colspan="2" class="language <%= initial_show_or_hide('language') %>"><p class="smalltype">Language</p></td>
           <td colspan="1" class="free-reduced <%= initial_show_or_hide('free-reduced') %>"></td>
           <% if @homeroom.show_star? %>
-            <td colspan="1" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype">STAR: Math</p></td>
-	    <td colspan="2" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype">STAR: Reading</p></td>
+            <td colspan="1" class="star_math <%= initial_show_or_hide('star_math') %>"><p class="smalltype">STAR: Math</p></td>
+	    <td colspan="2" class="star_reading <%= initial_show_or_hide('star_reading') %>"><p class="smalltype">STAR: Reading</p></td>
           <% end %>
           <% if @homeroom.show_mcas? %>
             <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: Math</p></td>
@@ -122,13 +127,13 @@
             <span class="table-header">Free/Reduced Lunch</span>
           </th>
           <% if @homeroom.show_star? %>
-            <th class="star <%= initial_show_or_hide('star') %>" data-sort-method="number">
+            <th class="star_math <%= initial_show_or_hide('star_math') %>" data-sort-method="number">
               <span class="table-header">Percentile</span>
             </th>
-            <th class="star <%= initial_show_or_hide('star') %>" data-sort-method="number">
+            <th class="star_reading <%= initial_show_or_hide('star_reading') %>" data-sort-method="number">
               <span class="table-header">Percentile</span>
             </th>
-            <th class="star <%= initial_show_or_hide('star') %>" data-sort-method="number">
+            <th class="star_reading <%= initial_show_or_hide('star_reading') %>" data-sort-method="number">
               <span class="table-header">Reading Level</span>
             </th>
           <% end %>
