@@ -17,26 +17,14 @@ class HomeroomsController < ApplicationController
     attributes_by_student_id.each do |result|
       this_student_id = result[0]
       student_attributes = result[1][0]
-      student_assessment_results = student_assessments_by_student_id[this_student_id]
+      student_assessments = student_assessments_by_student_id[this_student_id]
 
-      star_math_row_data = student_assessment_results.select do |h|
-        h['family'] == 'STAR' &&  h['subject'] == 'Math'
-      end[0] if student_assessment_results.present?
-      star_reading_row_data = student_assessment_results.select do |h|
-        h['family'] == 'STAR' &&  h['subject'] == 'Reading'
-      end[0] if student_assessment_results.present?
-      mcas_math_row_data = student_assessment_results.select do |h|
-        h['family'] == 'MCAS' &&  h['subject'] == 'Math'
-      end[0] if student_assessment_results.present?
-      mcas_ela_row_data = student_assessment_results.select do |h|
-        h['family'] == 'MCAS' &&  h['subject'] == 'ELA'
-      end[0] if student_assessment_results.present?
-      access_row_data = student_assessment_results.select do |h|
-        h['family'] == 'ACCESS'
-      end[0] if student_assessment_results.present?
-      dibels_row_data = student_assessment_results.select do |h|
-        h['family'] == 'DIBELS'
-      end[0] if student_assessment_results.present?
+      star_math_row_data = student_assessments.detect { |h| h['family'] == 'STAR' &&  h['subject'] == 'Math' } if student_assessments.present?
+      star_reading_row_data = student_assessments.detect { |h| h['family'] == 'STAR' &&  h['subject'] == 'Reading' } if student_assessments.present?
+      mcas_math_row_data = student_assessments.detect { |h| h['family'] == 'MCAS' &&  h['subject'] == 'Math' } if student_assessments.present?
+      mcas_ela_row_data = student_assessments.detect { |h| h['family'] == 'MCAS' &&  h['subject'] == 'ELA' } if student_assessments.present?
+      access_row_data = student_assessments.detect { |h| h['family'] == 'ACCESS' } if student_assessments.present?
+      dibels_row_data = student_assessments.detect { |h| h['family'] == 'DIBELS' } if student_assessments.present?
 
       @rows << {
         student: Student.find(this_student_id),
