@@ -29,6 +29,11 @@ class HomeroomsController < ApplicationController
       @rows << {
         student: Student.find(this_student_id),
         student_presenter: StudentRowPresenter.new(student_attributes),
+        student_risk_level: {
+          student_id: this_student_id,
+          level: result[1][0]['level'],
+          explanation: result[1][0]['explanation']
+        },
         assessment_data: {
           star_math_row_data: star_math_row_data,
           star_reading_row_data: star_reading_row_data,
@@ -37,16 +42,6 @@ class HomeroomsController < ApplicationController
           access_row_data: access_row_data,
           dibels_row_data: dibels_row_data
         }
-      }
-    end
-
-    @student_risk_levels = []
-
-    attributes_by_student_id.each do |result|
-      @student_risk_levels << {
-        student_id: result[0],
-        level: result[1][0]['level'],
-        explanation: result[1][0]['explanation']
       }
     end
 
