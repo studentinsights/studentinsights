@@ -30,7 +30,7 @@ rake db:seed:demo
 
 In addition to creating demo students, homerooms, and assessment results, this will create a demo educator login defined in `db/seeds/demo/demo_educator.seeds.rb`. The demo login has an email address of demo@example.com and the password `demo-password`.
 
-Once you've created the demo data, start a local server by running `rails c` from the root of your project (i.e. in the folder called `somerville-teacher-tool`). When the local server is up and running, visit http://localhost:3000/ or and log in with your demo login information. You should see the roster view for your (demo) data. You can also access the demo site at https://somerville-teacher-tool-demo.herokuapp.com/.
+Once you've created the demo data, start a local server by running `rails s` from the root of your project (i.e. in the folder called `somerville-teacher-tool`). When the local server is up and running, visit http://localhost:3000/ or and log in with your demo login information. You should see the roster view for your (demo) data. You can also access the demo site at https://somerville-teacher-tool-demo.herokuapp.com/.
 
 ### Importing real data
 
