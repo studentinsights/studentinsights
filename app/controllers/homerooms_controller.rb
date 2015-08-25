@@ -4,7 +4,7 @@ class HomeroomsController < ApplicationController
   before_action :assign_homeroom
 
   def show
-    cookies[:columns_selected] ||= ['name', 'risk', 'sped', 'mcas'].to_json
+    cookies[:columns_selected] ||= ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela'].to_json
     @query = StudentRowsQuery.new(@homeroom)
     @student_attribute_rows = @query.student_attribute_rows
     @student_assessment_rows = @query.student_assessment_rows
