@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe StudentPresenter do
 
   let(:student_without_attributes) { FactoryGirl.create(:student) }
