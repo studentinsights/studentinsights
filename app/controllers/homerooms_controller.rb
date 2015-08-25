@@ -5,101 +5,35 @@ class HomeroomsController < ApplicationController
 
   def show
     cookies[:columns_selected] ||= ['name', 'risk', 'sped', 'mcas'].to_json
+    @query = StudentRowsQuery.new(@homeroom)
+    @student_attribute_rows = @query.student_attribute_rows
+    @student_assessment_rows = @query.student_assessment_rows
 
-    student_attributes_sql = \
-            "SELECT
-              students.id as student_id,
-              race,
-              first_name,
-              last_name,
-              grade,
-              program_assigned,
-              home_language,
-              free_reduced_lunch,
-              sped_placement,
-              disability,
-              sped_level_of_need,
-              plan_504,
-              limited_english_proficiency,
-              level,
-              explanation
-            FROM students
-            LEFT JOIN student_risk_levels
-              ON student_risk_levels.student_id = students.id
-            WHERE homeroom_id = #{@homeroom.id}
-            ORDER BY
-              level DESC NULLS LAST;"
-
-    student_assessments_sql = \
-            " SELECT DISTINCT ON
-              (students.id, assessments.family, assessments.subject)
-              students.id as student_id,
-              family,
-              subject,
-              scale_score,
-              growth_percentile,
-              percentile_rank,
-              instructional_reading_level,
-              performance_level,
-              date_taken
-            FROM students
-            LEFT JOIN student_assessments
-              ON student_assessments.student_id = students.id
-            LEFT JOIN assessments
-              ON student_assessments.assessment_id = assessments.id
-            WHERE homeroom_id = #{@homeroom.id}
-            AND assessments.family
-              IN ('MCAS', 'STAR', 'ACCESS', 'DIBELS')
-            ORDER BY
-              students.id,
-              assessments.family,
-              assessments.subject,
-              student_assessments.date_taken DESC NULLS LAST;"
-
-    student_assessment_results = []
-    students = []
-
-    ActiveRecord::Base.transaction do
-      ActiveRecord::Base.connection.execute(student_assessments_sql).each do |row|
-        student_assessment_results << row
-      end
-      ActiveRecord::Base.connection.execute(student_attributes_sql).each do |row|
-        students << row
-      end
-    end
-
-    student_assessments_by_student_id = student_assessment_results.group_by { |row| row['student_id'] }
-    attributes_by_student_id = students.group_by { |row| row['student_id'] }
+    student_assessments_by_student_id = @student_assessment_rows.group_by { |row| row['student_id'] }
+    attributes_by_student_id = @student_attribute_rows.group_by { |row| row['student_id'] }
 
     @rows = []
 
     attributes_by_student_id.each do |result|
       this_student_id = result[0]
       student_attributes = result[1][0]
-      student_assessment_results = student_assessments_by_student_id[this_student_id]
+      student_assessments = student_assessments_by_student_id[this_student_id]
 
-      star_math_row_data = student_assessment_results.select do |h|
-        h['family'] == 'STAR' &&  h['subject'] == 'Math'
-      end[0] if student_assessment_results.present?
-      star_reading_row_data = student_assessment_results.select do |h|
-        h['family'] == 'STAR' &&  h['subject'] == 'Reading'
-      end[0] if student_assessment_results.present?
-      mcas_math_row_data = student_assessment_results.select do |h|
-        h['family'] == 'MCAS' &&  h['subject'] == 'Math'
-      end[0] if student_assessment_results.present?
-      mcas_ela_row_data = student_assessment_results.select do |h|
-        h['family'] == 'MCAS' &&  h['subject'] == 'ELA'
-      end[0] if student_assessment_results.present?
-      access_row_data = student_assessment_results.select do |h|
-        h['family'] == 'ACCESS'
-      end[0] if student_assessment_results.present?
-      dibels_row_data = student_assessment_results.select do |h|
-        h['family'] == 'DIBELS'
-      end[0] if student_assessment_results.present?
+      star_math_row_data = student_assessments.detect { |h| h['family'] == 'STAR' &&  h['subject'] == 'Math' } if student_assessments.present?
+      star_reading_row_data = student_assessments.detect { |h| h['family'] == 'STAR' &&  h['subject'] == 'Reading' } if student_assessments.present?
+      mcas_math_row_data = student_assessments.detect { |h| h['family'] == 'MCAS' &&  h['subject'] == 'Math' } if student_assessments.present?
+      mcas_ela_row_data = student_assessments.detect { |h| h['family'] == 'MCAS' &&  h['subject'] == 'ELA' } if student_assessments.present?
+      access_row_data = student_assessments.detect { |h| h['family'] == 'ACCESS' } if student_assessments.present?
+      dibels_row_data = student_assessments.detect { |h| h['family'] == 'DIBELS' } if student_assessments.present?
 
       @rows << {
         student: Student.find(this_student_id),
         student_presenter: StudentRowPresenter.new(student_attributes),
+        student_risk_level: {
+          student_id: this_student_id,
+          level: result[1][0]['level'],
+          explanation: result[1][0]['explanation']
+        },
         assessment_data: {
           star_math_row_data: star_math_row_data,
           star_reading_row_data: star_reading_row_data,
@@ -108,16 +42,6 @@ class HomeroomsController < ApplicationController
           access_row_data: access_row_data,
           dibels_row_data: dibels_row_data
         }
-      }
-    end
-
-    @student_risk_levels = []
-
-    attributes_by_student_id.each do |result|
-      @student_risk_levels << {
-        student_id: result[0],
-        level: result[1][0]['level'],
-        explanation: result[1][0]['explanation']
       }
     end
 
