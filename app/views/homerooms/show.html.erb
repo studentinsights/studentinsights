@@ -34,13 +34,21 @@
           SPED & Disability
         </option>
         <% if @homeroom.show_star? %>
-          <option value="star" <% if cookies[:columns_selected].include?("star") %>selected<% end %>>
-            STAR
+          <option value="star_math" <% if cookies[:columns_selected].include?("star_math") %>selected<% end %>>
+            STAR: Math
           </option>
         <% end %>
+	<% if @homeroom.show_star? %>
+            <option value="star_reading" <% if cookies[:columns_selected].include?("star_reading") %>selected<% end %>>
+	    STAR: Reading
+            </option>
+        <% end %>
         <% if @homeroom.show_mcas? %>
-          <option value="mcas" <% if cookies[:columns_selected].include?("mcas") %>selected<% end %>>
-            MCAS
+          <option value="mcas_math" <% if cookies[:columns_selected].include?("mcas_math") %>selected<% end %>>
+            MCAS: Math
+          </option>
+	  <option value="mcas_ela" <% if cookies[:columns_selected].include?("mcas_ela") %>selected<% end %>>
+              MCAS: ELA
           </option>
         <% end %>
         <option value="access" <% if cookies[:columns_selected].include?("access") %>selected<% end %>>
@@ -65,7 +73,7 @@
       <thead>
         <tr class="column-groups">
           <!-- TOP-LEVEL COLUMN GROUPS -->
-          <!-- i.e. "MCAS", "STAR" -->
+          <!-- i.e. "ACCESS", "STAR - reading" -->
           <td colspan="1" class="name <%= initial_show_or_hide('name') %>"></td>
           <td colspan="1" class="risk <%= initial_show_or_hide('risk') %>"></td>
           <td colspan="1" class="program <%= initial_show_or_hide('program') %>"></td>
@@ -73,10 +81,12 @@
           <td colspan="2" class="language <%= initial_show_or_hide('language') %>"><p class="smalltype">Language</p></td>
           <td colspan="1" class="free-reduced <%= initial_show_or_hide('free-reduced') %>"></td>
           <% if @homeroom.show_star? %>
-            <td colspan="3" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype">STAR</p></td>
+            <td colspan="1" class="star_math <%= initial_show_or_hide('star_math') %>"><p class="smalltype">STAR: Math</p></td>
+	    <td colspan="2" class="star_reading <%= initial_show_or_hide('star_reading') %>"><p class="smalltype">STAR: Reading</p></td>
           <% end %>
           <% if @homeroom.show_mcas? %>
-            <td colspan="4" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS</p></td>
+            <td colspan="2" class="mcas_math <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: Math</p></td>
+	    <td colspan="2" class="mcas_ela <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: ELA</p></td>
           <% end %>
           <td colspan="3" class="access <%= initial_show_or_hide('access') %>"><p class="smalltype">ACCESS</p></td>
           <% if @homeroom.show_dibels? %>
@@ -84,30 +94,6 @@
           <% end %>
           <td colspan="2" class="attendance <%= initial_show_or_hide('attendance') %>"><p class="smalltype">Attendance</p></td>
           <td colspan="1" class="discipline <%= initial_show_or_hide('discipline') %>"><p class="smalltype">Discipline</p></td>
-        </tr>
-        <tr class="column-groups">
-          <!-- SUB-GROUPS -->
-          <!-- i.e. "MCAS Math", "STAR Reading" -->
-          <td colspan="1" class="name <%= initial_show_or_hide('name') %>"></td>
-          <td colspan="1" class="risk <%= initial_show_or_hide('risk') %>"></td> <!-- Blank column space for nested labels -->
-          <td colspan="1" class="program <%= initial_show_or_hide('program') %>"></td> <!-- Blank column space for nested labels -->
-          <td colspan="3" class="sped <%= initial_show_or_hide('sped') %>"></td> <!-- Blank column space for nested labels -->
-          <td colspan="2" class="language <%= initial_show_or_hide('language') %>"></td> <!-- Blank column space for nested labels -->
-          <td colspan="1" class="free-reduced <%= initial_show_or_hide('free-reduced') %>"></td> <!-- Blank column space for nested labels -->
-          <% if @homeroom.show_star? %>
-            <td colspan="1" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype italic">Math</p></td>
-            <td colspan="2" class="star <%= initial_show_or_hide('star') %>"><p class="smalltype italic">Reading</p></td>
-          <% end %>
-          <% if @homeroom.show_mcas? %>
-            <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype italic">Math</p></td>
-            <td colspan="2" class="mcas <%= initial_show_or_hide('mcas') %>"><p class="smalltype italic">English</p></td>
-          <% end %>
-          <td colspan="3" class="access <%= initial_show_or_hide('access') %>"></td>
-          <% if @homeroom.show_dibels? %>
-            <td colspan="1" class="dibels <%= initial_show_or_hide('dibels') %>"></td>
-          <% end %>
-          <td colspan="1" class="attendance <%= initial_show_or_hide('attendance') %>"></td>
-          <td colspan="1" class="discipline <%= initial_show_or_hide('discipline') %>"></td>
         </tr>
         <tr class="column-names">
           <!-- COLUMN HEADERS -->
@@ -144,27 +130,27 @@
             <span class="table-header">Free/Reduced Lunch</span>
           </th>
           <% if @homeroom.show_star? %>
-            <th class="star <%= initial_show_or_hide('star') %>" data-sort-method="number">
+            <th class="star_math <%= initial_show_or_hide('star_math') %>" data-sort-method="number">
               <span class="table-header">Percentile</span>
             </th>
-            <th class="star <%= initial_show_or_hide('star') %>" data-sort-method="number">
+            <th class="star_reading <%= initial_show_or_hide('star_reading') %>" data-sort-method="number">
               <span class="table-header">Percentile</span>
             </th>
-            <th class="star <%= initial_show_or_hide('star') %>" data-sort-method="number">
+            <th class="star_reading <%= initial_show_or_hide('star_reading') %>" data-sort-method="number">
               <span class="table-header">Reading Level</span>
             </th>
           <% end %>
           <% if @homeroom.show_mcas? %>
-            <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="mcas_sort">
+            <th class="mcas_math <%= initial_show_or_hide('mcas_math') %>" data-sort-method="mcas_sort">
               <span class="table-header">Performance</span>
             </th>
-            <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="number">
+            <th class="mcas_math <%= initial_show_or_hide('mcas_math') %>" data-sort-method="number">
               <span class="table-header">Growth</span>
             </th>
-            <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="mcas_sort">
+            <th class="mcas_ela <%= initial_show_or_hide('mcas_ela') %>" data-sort-method="mcas_sort">
               <span class="table-header">Performance</span>
             </th>
-            <th class="mcas <%= initial_show_or_hide('mcas') %>" data-sort-method="number">
+            <th class="mcas_ela <%= initial_show_or_hide('mcas_ela') %>" data-sort-method="number">
               <span class="table-header">Growth</span>
             </th>
           <% end %>
