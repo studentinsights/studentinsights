@@ -1,5 +1,6 @@
-# Teacher Tool: A Student Roster Generator for Somerville [![Build Status](https://travis-ci.org/codeforamerica/somerville-teacher-tool.svg?branch=master)][travis]
-[travis]: https://travis-ci.org/codeforamerica/somerville-teacher-tool
+# Teacher Tool: A Student Roster Generator for Somerville
+
+[![Build Status](https://travis-ci.org/codeforamerica/somerville-teacher-tool.svg?branch=master)](https://travis-ci.org/codeforamerica/somerville-teacher-tool) [![Code Climate](https://codeclimate.com/github/codeforamerica/somerville-teacher-tool/badges/gpa.svg)](https://codeclimate.com/github/codeforamerica/somerville-teacher-tool)
 
 ## What
 The app creates an interactive tool for teachers to view:
