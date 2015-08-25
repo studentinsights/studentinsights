@@ -28,6 +28,7 @@ class StudentRowsQuery < Struct.new :homeroom
     ActiveRecord::Base.connection.execute(sql).each do |row|
       rows << row
     end
+    return rows
   end
 
   def student_assessment_rows
@@ -56,9 +57,10 @@ class StudentRowsQuery < Struct.new :homeroom
               assessments.family,
               assessments.subject,
               student_assessments.date_taken DESC NULLS LAST;"
-    student_assessment_results = []
+    rows = []
     ActiveRecord::Base.connection.execute(sql).each do |row|
-      student_assessment_results << row
+      rows << row
     end
+    return rows
   end
 end
