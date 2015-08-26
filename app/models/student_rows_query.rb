@@ -26,8 +26,6 @@ class StudentRowsQuery < Struct.new :homeroom
           LEFT JOIN student_risk_levels
             ON student_risk_levels.student_id = students.id
           WHERE homeroom_id = '#{homeroom.id}'
-          ORDER BY
-            level DESC NULLS LAST
         );
 
         DROP TABLE IF EXISTS temporary_student_assessments CASCADE;
@@ -89,6 +87,8 @@ class StudentRowsQuery < Struct.new :homeroom
         FROM temporary_students
         LEFT JOIN temporary_student_assessments
           ON temporary_student_assessments.student_id = temporary_students.student_id
+        ORDER BY
+          level DESC NULLS LAST
       );
 
       SELECT * FROM temporary_student_rows;
