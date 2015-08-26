@@ -10,22 +10,14 @@ class StarValuePresenter < Struct.new :star_student_assessment
       handle_missing_student_assessment(star_student_assessment) do
         value = star_student_assessment[attribute]
         handle_missing_value(value) do
-          handle_value(value, attribute)
+          case attribute
+          when 'percentile_rank'
+            percentile_warning?(value) ? warning(value) : value
+          else
+            value
+          end
         end
       end
-    end
-  end
-
-  def handle_value(value, attribute)
-    case attribute
-    when 'percentile_rank'
-      if percentile_warning?(value)
-        "<div class='warning-text'>#{value}</div>".html_safe
-      else
-        value
-      end
-    when 'instructional_reading_level'
-      value
     end
   end
 
@@ -35,6 +27,10 @@ class StarValuePresenter < Struct.new :star_student_assessment
 
   def handle_missing_student_assessment(student_assessment)
     student_assessment.present? ? yield : "—"
+  end
+
+  def warning(value)
+    "<div class='warning-text'>#{value}</div>".html_safe
   end
 
   def percentile_warning_level
