@@ -13,7 +13,7 @@ class HomeroomsController < ApplicationController
     rows_by_student_id.each do |student_id, rows_of_student_assessments|
       first_row = rows_of_student_assessments[0]
       row = {
-        student: Student.find(student_id),
+        student_id: student_id,
         student_presenter: StudentRowPresenter.new(first_row),
         assessment_data: {},
         student_risk_level: {
@@ -30,7 +30,6 @@ class HomeroomsController < ApplicationController
     end
 
     @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
-    @current_school_year = SchoolYear.date_to_school_year(Time.new)
   end
 
   private

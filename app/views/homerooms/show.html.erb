@@ -38,16 +38,16 @@
             STAR: Math
           </option>
         <% end %>
-	<% if @homeroom.show_star? %>
+  <% if @homeroom.show_star? %>
             <option value="star_reading" <% if cookies[:columns_selected].include?("star_reading") %>selected<% end %>>
-	    STAR: Reading
+      STAR: Reading
             </option>
         <% end %>
         <% if @homeroom.show_mcas? %>
           <option value="mcas_math" <% if cookies[:columns_selected].include?("mcas_math") %>selected<% end %>>
             MCAS: Math
           </option>
-	  <option value="mcas_ela" <% if cookies[:columns_selected].include?("mcas_ela") %>selected<% end %>>
+    <option value="mcas_ela" <% if cookies[:columns_selected].include?("mcas_ela") %>selected<% end %>>
               MCAS: ELA
           </option>
         <% end %>
@@ -59,12 +59,12 @@
             DIBELS
           </option>
         <% end %>
-        <option value="attendance" <% if cookies[:columns_selected].include?("attendance") %>selected<% end %>>
+        <!-- <option value="attendance" <% if cookies[:columns_selected].include?("attendance") %>selected<% end %>>
           Attendance
         </option>
         <option value="discipline" <% if cookies[:columns_selected].include?("discipline") %>selected<% end %>>
           Discipline
-        </option>
+        </option> -->
       </select>
     </div>
   </div>
@@ -82,11 +82,11 @@
           <td colspan="1" class="free-reduced <%= initial_show_or_hide('free-reduced') %>"></td>
           <% if @homeroom.show_star? %>
             <td colspan="1" class="star_math <%= initial_show_or_hide('star_math') %>"><p class="smalltype">STAR: Math</p></td>
-	    <td colspan="2" class="star_reading <%= initial_show_or_hide('star_reading') %>"><p class="smalltype">STAR: Reading</p></td>
+      <td colspan="2" class="star_reading <%= initial_show_or_hide('star_reading') %>"><p class="smalltype">STAR: Reading</p></td>
           <% end %>
           <% if @homeroom.show_mcas? %>
             <td colspan="2" class="mcas_math <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: Math</p></td>
-	    <td colspan="2" class="mcas_ela <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: ELA</p></td>
+      <td colspan="2" class="mcas_ela <%= initial_show_or_hide('mcas') %>"><p class="smalltype">MCAS: ELA</p></td>
           <% end %>
           <td colspan="3" class="access <%= initial_show_or_hide('access') %>"><p class="smalltype">ACCESS</p></td>
           <% if @homeroom.show_dibels? %>
@@ -183,7 +183,7 @@
         <!-- ROWS -->
         <% @rows.each do |row| %>
           <%= render "student_row",
-              student: row[:student],
+              student_id: row[:student_id],
               presenter: row[:student_presenter],
               assessment_data: row[:assessment_data] unless row.nil? %>
         <% end %>
