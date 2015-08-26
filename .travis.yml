@@ -5,14 +5,10 @@ branches:
   only:
     - master
 install: bundle install --retry=3
-before_script:
-  - npm i -g http-server pa11y pa11y-reporter-ci
 script:
 - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/homeroom_test
 - bundle exec rspec spec
 - bundle exec teaspoon
-- nohup http-server -p 8080 >/dev/null 2>&1 &
-- pa11y localhost:8080/ -r ci -s WCAG2AAA
 env:
   global:
   - secure: ItIXJnhdTGduR/w2xNNFLauu9CWWzwX/QdTaXXjBTBI7inCNuRUWdCuBQbwH0LJFGeAvwRUURdrtMF+ICIAQR0Lp6eYkXwhzldpt5jKMGkXg0ZnDrY4wvYY98Jlt/sXatxIilsjlEDQ8LXMHprKw+4hhD1Bnz073ua2pN4H7550=
