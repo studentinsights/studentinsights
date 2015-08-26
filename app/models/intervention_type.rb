@@ -6,7 +6,8 @@ class InterventionType < ActiveRecord::Base
       { name: "Teaching plan" },
       { name: "Phone call" },
       { name: "Reading tutor" },
-      { name: "Math tutor" }
+      { name: "Math tutor" },
+      { name: "After-School Tutoring (ATP)"}
     ])
   end
 
