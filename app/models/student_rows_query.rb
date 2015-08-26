@@ -2,10 +2,12 @@ class StudentRowsQuery < Struct.new :homeroom
 
   def to_rows
 
-    sql = <<-SQL
-        DROP TABLE IF EXISTS temporary_students;
+    timestamp = Time.now.to_i
 
-        CREATE TABLE temporary_students AS (
+    sql = \
+        "DROP TABLE IF EXISTS temporary_students_#{timestamp};
+
+        CREATE TABLE temporary_students_#{timestamp} AS (
           SELECT
             students.id as student_id,
             race,
@@ -28,9 +30,9 @@ class StudentRowsQuery < Struct.new :homeroom
           WHERE homeroom_id = '#{homeroom.id}'
         );
 
-        DROP TABLE IF EXISTS temporary_student_assessments CASCADE;
+        DROP TABLE IF EXISTS temporary_student_assessments_#{timestamp} CASCADE;
 
-        CREATE TABLE temporary_student_assessments AS (
+        CREATE TABLE temporary_student_assessments_#{timestamp} AS (
           SELECT DISTINCT ON
             (students.id, assessments.family, assessments.subject)
             students.id as student_id,
@@ -57,11 +59,11 @@ class StudentRowsQuery < Struct.new :homeroom
             student_assessments.date_taken DESC NULLS LAST
       );
 
-      DROP TABLE IF EXISTS temporary_student_rows CASCADE;
+      DROP TABLE IF EXISTS temporary_student_rows_#{timestamp} CASCADE;
 
-      CREATE TABLE temporary_student_rows AS (
+      CREATE TABLE temporary_student_rows_#{timestamp} AS (
         SELECT
-          temporary_students.student_id AS id,
+          temporary_students_#{timestamp}.student_id AS id,
           race,
           first_name,
           last_name,
@@ -84,22 +86,27 @@ class StudentRowsQuery < Struct.new :homeroom
           instructional_reading_level,
           performance_level,
           date_taken
-        FROM temporary_students
-        LEFT JOIN temporary_student_assessments
-          ON temporary_student_assessments.student_id = temporary_students.student_id
+        FROM temporary_students_#{timestamp}
+        LEFT JOIN temporary_student_assessments_#{timestamp}
+          ON temporary_student_assessments_#{timestamp}.student_id = temporary_students_#{timestamp}.student_id
         ORDER BY
           level DESC NULLS LAST
       );
 
-      SELECT * FROM temporary_student_rows;
-    SQL
+      SELECT * FROM temporary_student_rows_#{timestamp};"
 
     rows = []
     ActiveRecord::Base.connection.execute(sql).each do |row|
       rows << row
     end
-    return rows
 
+    destroy_sql = \
+      "DROP TABLE IF EXISTS temporary_students_#{timestamp};
+       DROP TABLE IF EXISTS temporary_student_assessments_#{timestamp} CASCADE;
+       DROP TABLE IF EXISTS temporary_student_rows_#{timestamp} CASCADE;"
+
+    ActiveRecord::Base.connection.execute(destroy_sql)
+    return rows
   end
 
 end
