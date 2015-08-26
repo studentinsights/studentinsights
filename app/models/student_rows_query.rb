@@ -62,10 +62,33 @@ class StudentRowsQuery < Struct.new :homeroom
       DROP TABLE IF EXISTS temporary_student_rows CASCADE;
 
       CREATE TABLE temporary_student_rows AS (
-        SELECT *
-        FROM temporary_students
-        LEFT JOIN temporary_student_assessments
-          ON temporary_students.student_id = temporary_student_assessments.student_id
+        SELECT
+          s.student_id AS id,
+          s.race,
+          s.first_name,
+          s.last_name,
+          s.grade,
+          s.program_assigned,
+          s.home_language,
+          s.free_reduced_lunch,
+          s.sped_placement,
+          s.disability,
+          s.sped_level_of_need,
+          s.plan_504,
+          s.limited_english_proficiency,
+          s.level,
+          s.explanation,
+          sa.family,
+          sa.subject,
+          sa.scale_score,
+          sa.growth_percentile,
+          sa.percentile_rank,
+          sa.instructional_reading_level,
+          sa.performance_level,
+          sa.date_taken
+        FROM
+          temporary_students AS s,
+          temporary_student_assessments AS sa
       );
 
       SELECT * FROM temporary_student_rows;
