@@ -29,7 +29,7 @@ RSpec.describe StudentRowsQuery do
       end
     end
     context 'student with student assessments on different dates' do
-      let!(:student) { FactoryGirl.create(:student_with_star_math_and_star_reading_different_days, homeroom: homeroom) }
+      let!(:student) { FactoryGirl.create(:student_with_star_math_student_assessments_different_days, homeroom: homeroom) }
       it 'returns information for most recent student assessment' do
         first_result = query_result[0]
         date_taken = DateTime.parse(first_result['date_taken'])

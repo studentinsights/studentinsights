@@ -45,6 +45,7 @@ group :development, :test do
   gem 'timecop'
   gem 'rails-erd'  # to auto-generate ERD and better understand the data structure
   gem 'teaspoon-jasmine'
+  gem 'launchy'
 end
 
 group :development do

@@ -27,6 +27,7 @@ FactoryGirl.define do
           end
           factory :star_math_assessment_on_different_day do
             date_taken DateTime.new(2015, 6, 20)
+            percentile_rank 10
           end
         end
         factory :star_reading_assessment do
