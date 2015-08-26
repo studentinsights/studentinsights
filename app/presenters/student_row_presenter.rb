@@ -1,8 +1,24 @@
 class StudentRowPresenter < Struct.new :row
 
-  def method_missing(message, *args, &block)
-    row_value = row[message.to_s]
-    row_value.nil? ? "–" : row_value
+  ATTRIBUTES_FOR_PRESENTATION = [
+    'plan_504',
+    'home_language',
+    'limited_english_proficiency',
+    'program_assigned',
+    'sped_placement',
+    'disability',
+    'sped_level_of_need',
+    'free_reduced_lunch'
+  ]
+
+  ATTRIBUTES_FOR_PRESENTATION.each do |attribute|
+    define_method attribute do
+      handle_none row[attribute]
+    end
+  end
+
+  def handle_none(value)
+    value.present? ? value : "—"
   end
 
   def risk_level_as_string
