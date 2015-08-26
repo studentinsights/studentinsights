@@ -11,7 +11,7 @@ class HealeyAfterSchoolTutoringImporter
     intervention_type.id
   end
 
-  def import
+  def connect_transform_import_locally
     require 'csv'
 
     paths = [ATP_ROSTER_PATH, ATP_INACTIVES_ROSTER_PATH]
@@ -24,6 +24,7 @@ class HealeyAfterSchoolTutoringImporter
             start_date: Date.new(2014, 9, 4),
             end_date: Date.new(2015, 6, 19),
             number_of_hours: row[:accum_hrs].to_i,
+            student_id: student.id,
             intervention_type_id: HealeyAfterSchoolTutoringImporter.intervention_type_id
           ) if student.present?
       end
