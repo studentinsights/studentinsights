@@ -5,51 +5,59 @@ class HomeroomsController < ApplicationController
 
   def show
     cookies[:columns_selected] ||= ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela'].to_json
-    @query = StudentRowsQuery.new(@homeroom)
-    @student_attribute_rows = @query.student_attribute_rows
-    @student_assessment_rows = @query.student_assessment_rows
+    query_results = StudentRowsQuery.new(@homeroom).to_rows
 
-    student_assessments_by_student_id = @student_assessment_rows.group_by { |row| row['student_id'] }
-    attributes_by_student_id = @student_attribute_rows.group_by { |row| row['student_id'] }
-
+    rows_by_student_id = Hash[query_results.group_by { |h| h['id'] }]
     @rows = []
 
-    attributes_by_student_id.each do |result|
-      this_student_id = result[0]
-      student_attributes = result[1][0]
-      student_assessments = student_assessments_by_student_id[this_student_id]
-
-      star_math_row_data = student_assessments.detect { |h| h['family'] == 'STAR' &&  h['subject'] == 'Math' } if student_assessments.present?
-      star_reading_row_data = student_assessments.detect { |h| h['family'] == 'STAR' &&  h['subject'] == 'Reading' } if student_assessments.present?
-      mcas_math_row_data = student_assessments.detect { |h| h['family'] == 'MCAS' &&  h['subject'] == 'Math' } if student_assessments.present?
-      mcas_ela_row_data = student_assessments.detect { |h| h['family'] == 'MCAS' &&  h['subject'] == 'ELA' } if student_assessments.present?
-      access_row_data = student_assessments.detect { |h| h['family'] == 'ACCESS' } if student_assessments.present?
-      dibels_row_data = student_assessments.detect { |h| h['family'] == 'DIBELS' } if student_assessments.present?
-
-      @rows << {
-        student: Student.find(this_student_id),
-        student_presenter: StudentRowPresenter.new(student_attributes),
+    rows_by_student_id.each do |student_id, rows_of_student_assessments|
+      first_row = rows_of_student_assessments[0]
+      row = {
+        student_id: student_id,
+        student_presenter: StudentRowPresenter.new(first_row),
+        assessment_data: {},
         student_risk_level: {
-          student_id: this_student_id,
-          level: result[1][0]['level'],
-          explanation: result[1][0]['explanation']
-        },
-        assessment_data: {
-          star_math_row_data: star_math_row_data,
-          star_reading_row_data: star_reading_row_data,
-          mcas_math_row_data: mcas_math_row_data,
-          mcas_ela_row_data: mcas_ela_row_data,
-          access_row_data: access_row_data,
-          dibels_row_data: dibels_row_data
+          student_id: student_id,
+          level: first_row['level'],
+          explanation: first_row['explanation']
         }
       }
+      rows_of_student_assessments.each do |r|
+        assessment_symbol = detect_assessment(r)
+        row[:assessment_data][assessment_symbol] = r
+      end
+      @rows << row
     end
 
     @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
-    @current_school_year = SchoolYear.date_to_school_year(Time.new)
   end
 
   private
+
+  def detect_assessment(row)
+    case row['family']
+    when 'DIBELS'
+      :dibels_row_data
+    when 'ACCESS'
+      :access_row_data
+    when 'MAP'
+      :map_row_data
+    when 'MCAS'
+      case row['subject']
+      when 'Math'
+        :mcas_math_row_data
+      when 'ELA'
+        :mcas_ela_row_data
+      end
+    when 'STAR'
+      case row['subject']
+      when 'Math'
+        :star_math_row_data
+      when 'Reading'
+        :star_reading_row_data
+      end
+    end
+  end
 
   def assign_homeroom
     @homeroom = Homeroom.friendly.find(params[:id])

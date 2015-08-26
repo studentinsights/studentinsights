@@ -27,6 +27,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (5.0.1.20140414130214)
     aws-sdk-core (2.1.16)
       jmespath (~> 1.0)
@@ -88,6 +89,8 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -227,6 +230,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails (~> 5.0.3)
+  launchy
   net-sftp
   net-ssh
   pdfkit
