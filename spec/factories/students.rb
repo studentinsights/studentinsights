@@ -74,11 +74,11 @@ FactoryGirl.define do
           student.student_assessments << FactoryGirl.create(:star_reading_assessment)
         end
       end
-      factory :student_with_star_math_and_star_reading_different_days do
+      factory :student_with_star_math_student_assessments_different_days do
         after(:create) do |student|
-          math = FactoryGirl.create(:star_math_assessment)
-          reading = FactoryGirl.create(:star_reading_assessment_on_different_day)
-          student.student_assessments << [math, reading]
+          sooner = FactoryGirl.create(:star_math_assessment)
+          later = FactoryGirl.create(:star_math_assessment_on_different_day)
+          student.student_assessments << [sooner, later]
         end
       end
       factory :student_with_star_assessment_between_30_85 do

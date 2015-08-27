@@ -1,25 +1,38 @@
 class McasValuePresenter < Struct.new :mcas_student_assessment
 
-  def performance_level
-    return '–' if mcas_student_assessment.blank?
-    return '–' if mcas_student_assessment['performance_level'].blank?
-    warning = performance_warning?(mcas_student_assessment['performance_level'])
-    if warning
-      "<div class='warning-text'>#{mcas_student_assessment['performance_level']}</div>".html_safe
-    else
-      mcas_student_assessment['performance_level']
+  ATTRIBUTES_FOR_PRESENTATION = [
+    'performance_level',
+    'growth_percentile'
+  ]
+
+  ATTRIBUTES_FOR_PRESENTATION.each do |attribute|
+    define_method attribute do
+      handle_missing_student_assessment(mcas_student_assessment) do
+        value = mcas_student_assessment[attribute]
+        handle_missing_value(value) do
+          case attribute
+          when 'performance_level'
+            performance_warning?(value) ? warning(value) : value
+          when 'growth_percentile'
+            growth_warning?(value) ? warning(value) : value
+          else
+            value
+          end
+        end
+      end
     end
   end
 
-  def growth_percentile
-    return '–' if mcas_student_assessment.blank?
-    return '–' if mcas_student_assessment['growth_percentile'].blank?
-    warning = growth_warning?(mcas_student_assessment['growth_percentile'])
-    if warning
-      "<div class='warning-text'>#{mcas_student_assessment['growth_percentile']}</div>".html_safe
-    else
-      mcas_student_assessment['growth_percentile']
-    end
+  def handle_missing_value(value)
+    value.present? ? yield : "—"
+  end
+
+  def handle_missing_student_assessment(student_assessment)
+    student_assessment.present? ? yield : "—"
+  end
+
+  def warning(value)
+    "<div class='warning-text'>#{value}</div>".html_safe
   end
 
   def performance_warning_level

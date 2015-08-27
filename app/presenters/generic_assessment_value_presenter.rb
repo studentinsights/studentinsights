@@ -1,27 +1,26 @@
 class GenericAssessmentValuePresenter < Struct.new :student_assessment
 
-  def scale_score
-    return '–' if student_assessment.blank?
-    return '–' if student_assessment['scale_score'].blank?
-    student_assessment['scale_score']
+  ATTRIBUTES_FOR_PRESENTATION = [
+    'scale_score',
+    'growth_percentile',
+    'performance_level',
+    'percentile_rank'
+  ]
+
+  ATTRIBUTES_FOR_PRESENTATION.each do |attribute|
+    define_method attribute do
+      handle_missing_student_assessment(student_assessment) do
+        handle_missing_value student_assessment[attribute]
+      end
+    end
   end
 
-  def growth_percentile
-    return '–' if student_assessment.blank?
-    return '–' if student_assessment['scale_score'].blank?
-    student_assessment['growth_percentile']
+  def handle_missing_value(value)
+    value.present? ? value : "—"
   end
 
-  def performance_level
-    return '–' if student_assessment.blank?
-    return '–' if student_assessment['scale_score'].blank?
-    student_assessment['performance_level']
-  end
-
-  def percentile_rank
-    return '–' if student_assessment.blank?
-    return '–' if student_assessment['scale_score'].blank?
-    student_assessment['percentile_rank']
+  def handle_missing_student_assessment(student_assessment)
+    student_assessment.present? ? yield : "—"
   end
 
 end

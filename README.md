@@ -1,5 +1,6 @@
-# Teacher Tool: A Student Roster Generator for Somerville [![Build Status](https://travis-ci.org/codeforamerica/somerville-teacher-tool.svg?branch=master)][travis]
-[travis]: https://travis-ci.org/codeforamerica/somerville-teacher-tool
+# Teacher Tool: A Student Roster Generator for Somerville
+
+[![Build Status](https://travis-ci.org/codeforamerica/somerville-teacher-tool.svg?branch=master)](https://travis-ci.org/codeforamerica/somerville-teacher-tool) [![Code Climate](https://codeclimate.com/github/codeforamerica/somerville-teacher-tool/badges/gpa.svg)](https://codeclimate.com/github/codeforamerica/somerville-teacher-tool)
 
 ## What
 The app creates an interactive tool for teachers to view:
@@ -30,7 +31,7 @@ rake db:seed:demo
 
 In addition to creating demo students, homerooms, and assessment results, this will create a demo educator login defined in `db/seeds/demo/demo_educator.seeds.rb`. The demo login has an email address of demo@example.com and the password `demo-password`.
 
-Once you've created the demo data, start a local server by running `rails c` from the root of your project (i.e. in the folder called `somerville-teacher-tool`). When the local server is up and running, visit http://localhost:3000/ or and log in with your demo login information. You should see the roster view for your (demo) data. You can also access the demo site at https://somerville-teacher-tool-demo.herokuapp.com/.
+Once you've created the demo data, start a local server by running `rails s` from the root of your project (i.e. in the folder called `somerville-teacher-tool`). When the local server is up and running, visit http://localhost:3000/ or and log in with your demo login information. You should see the roster view for your (demo) data. You can also access the demo site at https://somerville-teacher-tool-demo.herokuapp.com/.
 
 ### Importing real data
 
@@ -91,6 +92,10 @@ This app could grow in several different ways.
 * __Interventions__:  Allow teachers to add interventions to the system and track how they impact student progress.
 * __Unique URLs__: Can be generated to be viewed online at a later time by users with access.
 * __Printable PDFs__: Can be exported of any view for teachers to print out.
+
+## Design
+For a history of all design iterations look here:
+https://www.dropbox.com/sh/r71hh9azun8v6as/AABtBghkPI4XUJBZjNpMmRdba?dl=0
 
 ## Who made this?
 Alex, Amir, and Mari from Code for America's [Somerville Fellowship Team](http://www.codeforamerica.org/governments/somerville/) in collaboration with the City of Somerville and Somerville Public Schools --- and great support from the Code for SF and Code for Boston brigade volunteers!

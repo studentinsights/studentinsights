@@ -31,4 +31,8 @@ class Homeroom < ActiveRecord::Base
     grade.to_i >= 2  # STAR is given 2–8
   end
 
+  def self.destroy_empty_homerooms
+    Homeroom.where(students_count: 0).destroy_all
+  end
+
 end

@@ -25,6 +25,10 @@ FactoryGirl.define do
           factory :star_assessment_between_30_85 do
             percentile_rank 40
           end
+          factory :star_math_assessment_on_different_day do
+            date_taken DateTime.new(2015, 6, 20)
+            percentile_rank 10
+          end
         end
         factory :star_reading_assessment do
           association :assessment, subject: "Reading", family: "STAR"

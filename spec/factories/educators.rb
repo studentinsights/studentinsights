@@ -23,5 +23,15 @@ FactoryGirl.define do
         3.times { create(:student, homeroom: homeroom) }
       end
     end
+    factory :educator_with_homeroom_with_student_with_mcas_math_warning do
+      after(:create) do |educator|
+        educator.homeroom = FactoryGirl.create(:homeroom_with_student_with_mcas_math_warning)
+      end
+    end
+    factory :educator_with_homeroom_with_multiple_star_math_student_assessments do
+      after(:create) do |educator|
+        educator.homeroom = FactoryGirl.create(:homeroom_with_student_with_multiple_star_math_student_assessments)
+      end
+    end
   end
 end

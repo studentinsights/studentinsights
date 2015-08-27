@@ -8,6 +8,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def profile_csv_export
     CSV.generate do |csv|
+      demographic_section(csv).add
       attendance_section(csv).add
       behavior_section(csv).add
       mcas_math_section(csv).add
@@ -15,6 +16,10 @@ class StudentProfileCsvExporter < Struct.new :student
       star_math_section(csv).add
       star_reading_section(csv).add
     end
+  end
+
+  def demographic_section(csv)
+    StudentProfileCsvDemographicSection.new(csv, self)
   end
 
   def attendance_section(csv)

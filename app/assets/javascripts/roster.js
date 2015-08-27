@@ -31,7 +31,8 @@ $(function() {
       'attendance',
       'discipline',
       'language',
-      'star',
+      'star_math',
+      'star_reading',
       'program',
       'free-reduced',
       'access',
@@ -39,7 +40,8 @@ $(function() {
       'name',
       'risk',
       'sped',
-      'mcas'
+      'mcas_math',
+      'mcas_ela'
     ];
 
     var columns_selected = Cookies.getJSON("columns_selected");

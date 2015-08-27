@@ -1,14 +1,14 @@
-                      <td class="access <%= initial_show_or_hide('access') %>" href="<%= student_url(student, chart_start: "access-scaled") %>">
+                      <td class="access <%= initial_show_or_hide('access') %>" href="<%= student_url(student_id, chart_start: "access-scaled") %>">
                         <div class="cell-wrapper">
                           <%= presenter.scale_score %>
                         </div>
                       </td>
-                      <td class="access <%= initial_show_or_hide('access') %>" href="<%= student_url(student, chart_start: "access-scaled") %>">
+                      <td class="access <%= initial_show_or_hide('access') %>" href="<%= student_url(student_id, chart_start: "access-scaled") %>">
                         <div class="cell-wrapper">
                           <%= presenter.performance_level %>
                         </div>
                       </td>
-                      <td class="access <%= initial_show_or_hide('access') %>" href="<%= student_url(student, chart_start: "access-growth") %>">
+                      <td class="access <%= initial_show_or_hide('access') %>" href="<%= student_url(student_id, chart_start: "access-growth") %>">
                         <div class="cell-wrapper">
                           <%= presenter.growth_percentile %>
                         </div>
