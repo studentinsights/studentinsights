@@ -55,7 +55,11 @@ class Student < ActiveRecord::Base
     end
   end
   has_many :assessments, through: :student_assessments
-  has_many :interventions, dependent: :destroy
+  has_many :interventions, dependent: :destroy do
+    def most_recent_atp
+      where(intervention_type_id: InterventionType.atp.id).order(start_date: :asc).first
+    end
+  end
   has_one :student_risk_level, dependent: :destroy
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
@@ -86,6 +90,14 @@ class Student < ActiveRecord::Base
       student_risk_level.update_risk_level!
     else
       create_student_risk_level!
+    end
+  end
+
+  def most_recent_atp_hours
+    if interventions.most_recent_atp.present?
+      interventions.most_recent_atp.number_of_hours
+    else
+      0
     end
   end
 

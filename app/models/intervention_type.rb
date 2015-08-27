@@ -11,4 +11,8 @@ class InterventionType < ActiveRecord::Base
     ])
   end
 
+  def self.atp
+    find_by_name("After-School Tutoring (ATP)")
+  end
+
 end
