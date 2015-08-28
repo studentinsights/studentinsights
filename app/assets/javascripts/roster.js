@@ -105,102 +105,102 @@ $(function() {
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
 
     var attendance_series = [{
-            name: 'Risk level',
-            data: [6, 2, 2, 1]
+            name: 'Risk level 0',
+            data: [2]
         }, {
-            name: 'Interventions',
-            data: [3, 2, 0, 0]
-        }, ]
-
-    var behavior_series = [{
-            name: 'Behavior incidents',
-            data: [2, 1, 4, 1, 3]
+            name: 'Risk level 1',
+            data: [2]
+        }, {
+            name: 'Risk level 2',
+            data: [5]
+        }, {
+            name: 'Risk level 3',
+            data: [6]
         },]
 
-    var mcas_series = [{
-            name: 'MCAS Math',
-            data: [65, 54, 31, 67, 43]
-        }, {
-            name: 'MCAS English',
-            data: [54, 32, 48, 83, 92]
-    }]
-
-    var star_series = [{
-            name: 'STAR Math',
-            data: [33, 39, 52, 67, 59, 29, 49, 29, 90]
-        }, {
-            name: 'STAR English',
-            data: [49, 29, 90, 83, 73, 59, 33, 39, 52]
-    }]
-
     var options = {
-    chart: {
-      renderTo: 'chart',
-            type: 'column'
-        },
-        title: {
-        text: '',
-        style: {
-            display: 'none'
-        }
-    },
-    subtitle: {
-        text: '',
-      style: {
-            display: 'none'
-        }
-    },
-        legend: {
-            layout: 'horizontal',
-            align: 'right',
-            verticalAlign: 'top',
-          itemStyle: {
-            font: '12px "Open Sans", sans-serif !important;',
-            color: '#555555'
-
-          }
-        },
-        xAxis: {
-            categories: [
-                'Risk level 3',
-                'Risk level 2',
-                'Risk level 1',
-                'Risk level 0',
-            ],
-        },
-        yAxis: {
-            title: {
-                text: '',
+      chart: {
+        spacingBottom: 0,
+        spacingTop: 0,
+        spacingLeft: 0,
+        spacingRight: 0,
+        marginBottom: 0,
+        marginTop: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        renderTo: 'chart',
+              type: 'bar'
+          },
+          title: {
+          text: '',
           style: {
               display: 'none'
-          }
-            },
-            plotLines: [
-              {
-                  color: '#B90504',
-                  width: 1,
-                  zIndex: 3,
-                  label: {
-                      text: '',
-                      align: 'center',
-                      style: {
-                          color: '#999999'
-                      }
-                  }
-              }
-          ],
-        },
-        tooltip: {
-            shared: true
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-            areaspline: {
-                fillOpacity: 0
+          },
+      },
+      subtitle: {
+          text: '',
+            style: {
+              display: 'none'
             }
+          },
+      legend: {
+        reversed: true,
+        layout: 'horizontal',
+        align: 'right',
+        verticalAlign: 'top',
+        itemStyle: {
+          font: '12px "Open Sans", sans-serif !important;',
+          color: '#555555'
         }
+      },
+      xAxis: {
+          categories: ['Risk levels'],
+          lineWidth: 0,
+          minorGridLineWidth: 0,
+          lineColor: 'transparent',
+          gridLineColor: 'transparent',
+          labels: {
+            enabled: false
+          },
+          minorTickLength: 0,
+          tickLength: 0
+      },
+      yAxis: {
+          lineWidth: 0,
+          minorGridLineWidth: 0,
+          lineColor: 'transparent',
+          gridLineColor: 'transparent',
+          labels: {
+            enabled: false
+          },
+          minorTickLength: 0,
+          tickLength: 0,
+          style: {
+            display: 'none'
+          },
+          categories: [''],
+          title: {
+              text: null
+          },
+          labels: {
+           enabled:false
+          }
+      },
+      credits: {
+          enabled: false
+      },
+      plotOptions: {
+          bar: {
+              stacking: 'percent'
+          }
+      },
+      tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true,
+          followPointer: true,
+          headerFormat: ''
+      },
+      colors: ['#BBD86B', '#62C186', '#FFCB08', '#F15A3D']
     }
 
     options.series = attendance_series
@@ -210,23 +210,7 @@ $(function() {
       var selVal = $("#chart-type").val();
       if(selVal == "attendance" || selVal == '') {
           options.series = attendance_series
-          options.xAxis.categories = ["0", "1", "2", "3"]
-      }
-      else if(selVal == "behavior") {
-          options.series = behavior_series
-          options.xAxis.categories = ["2010 - 11", "2011 - 12", "2012 - 13", "2013 - 14", "2014 - 15"]
-      }
-      else if(selVal == "mcas-growth") {
-          options.series = mcas_series
-          options.yAxis.plotLines[0].label.text = "MCAS Growth warning: Less than 40 points"
-          options.yAxis.plotLines[0].value = "40"
-          options.xAxis.categories = ["2010 - 11", "2011 - 12", "2013 - 14", "2014 - 15"]
-      }
-      else {
-          options.series = star_series
-          options.yAxis.plotLines[0].label.text = "STAR Percentile warning: Less than 40 points"
-          options.yAxis.plotLines[0].value = "40"
-          options.xAxis.categories = ["Sept. 2010 - 11", "Jan. 2010 - 11", "May 2011 - 12", "Sept. 2011 - 12", "Jan. 2011 - 12", "May 2011 - 12", "Sept. 2012 - 13", "Jan. 2012 - 13", "May 2012 - 13", "Sept. 2013 - 14", "Jan. 2013 - 14", "May 2013 - 14"]
+          options.xAxis.categories = [""]
       }
       var chart = new Highcharts.Chart(options);
   });
