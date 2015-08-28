@@ -76,6 +76,7 @@ We are deploying this app on Heroku and you can, too. Be sure to set config vari
 
 ## Status timeline
 
+* __September 2015__: We will pilot the tool with the Healey School at the start of the 2015-16 school year. We also started looking into out-of-school data e.g., after-school tutoring to help address the question of "Are students in need receiving interventions & support?".
 * __August 2015__:  We iterated on the tool, tweaking and adding features prioritized by teachers, principals, and partners. We collaborated with KIPP NJ to build more robust data integration processes and demonstrated how this tool can be deployed more extensively to other districts (even having different SIS systems).
 * __July 2015__:  We piloted the app with teachers and reading coaches during Summer School. We observed the tool being used by teachers to create flexible groupings by math performance. We received a lot of great feedback on issues, functionalities, and features to work on. At Code for Boston, we held a collaborative coding session with a group of ~10 volunteers and built out the export CSV function.
 * __June 2015__:  We tested the app with more teachers now and building out the student profile features with the help of Code for SF and Code for Boston brigade volunteers.
@@ -88,7 +89,6 @@ We are deploying this app on Heroku and you can, too. Be sure to set config vari
 ## Future?
 This app could grow in several different ways.
 * __Sub-views__:  Create sub-views with more limited and focused access to data. These sub-views could be made available to others within the school community, including parents and students.
-* __After-school__:  Incorporate data about after-school programs.
 * __Interventions__:  Allow teachers to add interventions to the system and track how they impact student progress.
 * __Unique URLs__: Can be generated to be viewed online at a later time by users with access.
 * __Printable PDFs__: Can be exported of any view for teachers to print out.
