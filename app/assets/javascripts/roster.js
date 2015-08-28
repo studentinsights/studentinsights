@@ -114,7 +114,7 @@ $(function() {
             data: [2]
         }, {
             name: 'Risk level 2',
-            data: [5]
+            data: [4]
         }, {
             name: 'Risk level 3',
             data: [6],
