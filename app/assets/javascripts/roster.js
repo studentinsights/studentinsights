@@ -106,7 +106,9 @@ $(function() {
 
     var attendance_series = [{
             name: 'Risk level 0',
-            data: [2]
+            data: [2],
+            borderRadiusTopLeft: 8,
+            borderRadiusTopRight: 8
         }, {
             name: 'Risk level 1',
             data: [2]
@@ -115,7 +117,9 @@ $(function() {
             data: [5]
         }, {
             name: 'Risk level 3',
-            data: [6]
+            data: [6],
+            borderRadiusBottomRight: 8,
+            borderRadiusBottomLeft: 8
         },]
 
     var options = {
