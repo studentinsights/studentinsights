@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826181638) do
+ActiveRecord::Schema.define(version: 20150830191132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20150826181638) do
     t.datetime "updated_at"
     t.integer  "educator_id"
     t.integer  "number_of_hours"
+    t.integer  "school_year_id"
   end
 
   create_table "school_years", force: true do |t|
@@ -201,73 +202,5 @@ ActiveRecord::Schema.define(version: 20150826181638) do
   add_index "students", ["local_id"], name: "index_students_on_local_id", using: :btree
   add_index "students", ["school_id"], name: "index_students_on_school_id", using: :btree
   add_index "students", ["state_id"], name: "index_students_on_state_id", using: :btree
-
-  create_table "temporary_student_assessments", id: false, force: true do |t|
-    t.integer  "student_id"
-    t.string   "family"
-    t.string   "subject"
-    t.integer  "scale_score"
-    t.integer  "growth_percentile"
-    t.integer  "percentile_rank"
-    t.decimal  "instructional_reading_level"
-    t.string   "performance_level"
-    t.datetime "date_taken"
-  end
-
-  create_table "temporary_student_assessments_table", id: false, force: true do |t|
-    t.integer  "student_id"
-    t.string   "family"
-    t.string   "subject"
-    t.integer  "scale_score"
-    t.integer  "growth_percentile"
-    t.integer  "percentile_rank"
-    t.decimal  "instructional_reading_level"
-    t.string   "performance_level"
-    t.datetime "date_taken"
-  end
-
-  create_table "temporary_student_rows", id: false, force: true do |t|
-    t.integer  "id"
-    t.string   "race"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "grade"
-    t.string   "program_assigned"
-    t.string   "home_language"
-    t.string   "free_reduced_lunch"
-    t.string   "sped_placement"
-    t.string   "disability"
-    t.string   "sped_level_of_need"
-    t.string   "plan_504"
-    t.string   "limited_english_proficiency"
-    t.integer  "level"
-    t.text     "explanation"
-    t.string   "family"
-    t.string   "subject"
-    t.integer  "scale_score"
-    t.integer  "growth_percentile"
-    t.integer  "percentile_rank"
-    t.decimal  "instructional_reading_level"
-    t.string   "performance_level"
-    t.datetime "date_taken"
-  end
-
-  create_table "temporary_students", id: false, force: true do |t|
-    t.integer "student_id"
-    t.string  "race"
-    t.string  "first_name"
-    t.string  "last_name"
-    t.string  "grade"
-    t.string  "program_assigned"
-    t.string  "home_language"
-    t.string  "free_reduced_lunch"
-    t.string  "sped_placement"
-    t.string  "disability"
-    t.string  "sped_level_of_need"
-    t.string  "plan_504"
-    t.string  "limited_english_proficiency"
-    t.integer "level"
-    t.text    "explanation"
-  end
 
 end

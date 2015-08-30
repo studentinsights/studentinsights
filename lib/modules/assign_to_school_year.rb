@@ -1,6 +1,6 @@
 module AssignToSchoolYear
   def assign_to_school_year
-    date_attribute = [:date_taken, :event_date]
+    date_attribute = [:date_taken, :event_date, :start_date]
     date_attribute.each do |a|
       if methods.include? a
         date = self.send(a)
