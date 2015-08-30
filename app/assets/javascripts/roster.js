@@ -45,7 +45,6 @@ $(function() {
     ];
 
     var columns_selected = Cookies.getJSON("columns_selected");
-    console.log(columns_selected);
     updateColumns();
 
     $("#column-group-select").chosen({width: "110%"}).on('change', function(e, params) {
@@ -103,36 +102,28 @@ $(function() {
 $(function() {
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
+    var chartData = $('#chart-data');
 
-    var attendance_series = [{
-            name: 'Risk level 0',
-            data: [2],
-            borderRadiusTopLeft: 8,
-            borderRadiusTopRight: 8
-        }, {
-            name: 'Risk level 1',
-            data: [2]
-        }, {
-            name: 'Risk level 2',
-            data: [4]
-        }, {
-            name: 'Risk level 3',
-            data: [6],
-            borderRadiusBottomRight: 8,
-            borderRadiusBottomLeft: 8
-        },]
+    var risk_series = [{
+      name: 'Risk level 0',
+      data: [chartData.data('0')],
+      borderRadiusTopLeft: 8,
+      borderRadiusTopRight: 8
+    }, {
+      name: 'Risk level 1',
+      data: [chartData.data('1')]
+    }, {
+      name: 'Risk level 2',
+      data: [chartData.data('2')]
+    }, {
+      name: 'Risk level 3',
+      data: [chartData.data('3')],
+      borderRadiusBottomRight: 8,
+      borderRadiusBottomLeft: 8
+    }];
 
-    var options = RosterChartSettings
-    options.series = attendance_series
+    var options = RosterChartSettings;
+    options.series = risk_series;
     var chart = new Highcharts.Chart(options);
-
-  $("#chart-type").on('change', function(){
-      var selVal = $("#chart-type").val();
-      if(selVal == "attendance" || selVal == '') {
-          options.series = attendance_series
-          options.xAxis.categories = [""]
-      }
-      var chart = new Highcharts.Chart(options);
-  });
   }
 });
