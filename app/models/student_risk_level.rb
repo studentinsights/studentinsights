@@ -15,8 +15,8 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def mcas_and_star_risk_nil?
-    mcas_math.risk_level == level && star_math.risk_level == level \
-    && mcas_ela.risk_level == level && star_reading.risk_level == level
+    mcas_math.risk_level == nil && star_math.risk_level == nil \
+    && mcas_ela.risk_level == nil && star_reading.risk_level == nil
   end
 
   def update_risk_level!
