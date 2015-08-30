@@ -96,8 +96,24 @@ FactoryGirl.define do
           student.student_assessments << FactoryGirl.create(:access)
         end
       end
+      # Test interventions
+      factory :student_with_one_atp_intervention do
+        after(:create) do |student|
+          FactoryGirl.create(:atp_intervention, student: student)
+        end
+      end
+      factory :student_with_one_non_atp_intervention do
+        after(:create) do |student|
+          FactoryGirl.create(:non_atp_intervention, student: student)
+        end
+      end
+      factory :student_with_multiple_atp_interventions do
+        after(:create) do |student|
+          FactoryGirl.create(:atp_intervention, student: student)
+          FactoryGirl.create(:more_recent_atp_intervention, student: student)
+        end
+      end
     end
-
     # Test STAR Instructional Reading Level
     factory :student_behind_in_reading do
       grade "5"
@@ -111,7 +127,6 @@ FactoryGirl.define do
         student.student_assessments << FactoryGirl.create(:star_assessment_with_irl_above_5)
       end
     end
-
     # Test event sorting
     factory :student_with_attendance_event do
       registration_date Date.new(2014, 8, 1)

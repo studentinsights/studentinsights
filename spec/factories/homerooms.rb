@@ -29,5 +29,20 @@ FactoryGirl.define do
         homeroom.students << FactoryGirl.create(:student_with_star_math_student_assessments_different_days)
       end
     end
+    factory :homeroom_with_one_atp_intervention do
+      after(:create) do |homeroom|
+        homeroom.students << FactoryGirl.create(:student_with_one_atp_intervention)
+      end
+    end
+    factory :homeroom_with_one_non_atp_intervention do
+      after(:create) do |homeroom|
+        homeroom.students << FactoryGirl.create(:student_with_one_non_atp_intervention)
+      end
+    end
+    factory :homeroom_with_multiple_atp_interventions do
+      after(:create) do |homeroom|
+        homeroom.students << FactoryGirl.create(:student_with_multiple_atp_interventions)
+      end
+    end
   end
 end

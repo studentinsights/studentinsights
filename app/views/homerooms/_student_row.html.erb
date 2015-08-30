@@ -57,7 +57,7 @@
 
                   <%= render "dibels_row_fragment", student_id: student_id, presenter: GenericAssessmentValuePresenter.new(assessment_data[:dibels_row_data]) %>
 
-                  <td class="<%= initial_show_or_hide('interventions') %> interventions"
+                  <td class="<%= initial_show_or_hide('interventions') %> interventions number-of-hours"
                       href="<%= student_url(student_id) %>"
                       title="<%= presenter.most_recent_atp_school_year %> school year">
                     <div class="cell-wrapper">
