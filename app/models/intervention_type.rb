@@ -1,4 +1,5 @@
 class InterventionType < ActiveRecord::Base
+  has_many :interventions
 
   def self.seed_somerville_intervention_types
     InterventionType.create([

@@ -8,7 +8,8 @@ class StudentRowPresenter < Struct.new :row
     'sped_placement',
     'disability',
     'sped_level_of_need',
-    'free_reduced_lunch'
+    'free_reduced_lunch',
+    'most_recent_atp_number_of_hours'
   ]
 
   ATTRIBUTES_FOR_PRESENTATION.each do |attribute|
