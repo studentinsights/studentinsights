@@ -8,7 +8,7 @@ class FakeIntervention
       (1..28).to_a.sample
     )
     @educator = Educator.first_or_create!
-    @intervention_type = InterventionType.all.sample
+    @intervention_type = InterventionType.atp
   end
 
   def next
@@ -17,7 +17,8 @@ class FakeIntervention
       end_date: @start_date + (152..365).to_a.sample.days,
       educator_id: @educator.id,
       intervention_type_id: @intervention_type.id,
-      student_id: @student.id
+      student_id: @student.id,
+      number_of_hours: rand(0..40)
     }
   end
 
