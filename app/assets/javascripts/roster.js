@@ -104,26 +104,55 @@ $(function() {
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
     var chartData = $('#chart-data');
 
-    var risk_series = [{
+    var risk_level_null_datum = {
       name: 'Risk level N/A',
       data: [chartData.data('null')],
-      borderRadiusTopLeft: 8,
-      borderRadiusTopRight: 8
-    }, {
+      color: '#999'
+    };
+
+    var risk_level_zero_datum = {
       name: 'Risk level 0',
       data: [chartData.data('0')],
-    }, {
+      color: '#BBD86B'
+    };
+
+    var risk_level_one_datum = {
       name: 'Risk level 1',
-      data: [chartData.data('1')]
-    }, {
+      data: [chartData.data('1')],
+      color: '#62C186'
+    };
+
+    var risk_level_two_datum = {
       name: 'Risk level 2',
-      data: [chartData.data('2')]
-    }, {
+      data: [chartData.data('2')],
+      color: '#FFCB08'
+    };
+
+    var risk_level_three_datum = {
       name: 'Risk level 3',
       data: [chartData.data('3')],
-      borderRadiusBottomRight: 8,
-      borderRadiusBottomLeft: 8
-    }];
+      color: '#F15A3D'
+    };
+
+    var datums = [ risk_level_null_datum, risk_level_zero_datum,
+      risk_level_one_datum, risk_level_two_datum, risk_level_three_datum ];
+    var risk_series = [];
+
+    for(i = 0; i < datums.length; i++) {
+      var datum = datums[i];
+      if (datum.data[0] > 0) {
+        risk_series.push(datum);
+      }
+    }
+
+    var risk_levels_with_students = risk_series.filter(function(series) {
+      return series.data[0] > 0
+    });
+
+    risk_levels_with_students[0].borderRadiusTopLeft = 8;
+    risk_levels_with_students[0].borderRadiusTopRight = 8;
+    risk_levels_with_students[risk_levels_with_students.length - 1].borderRadiusBottomRight = 8;
+    risk_levels_with_students[risk_levels_with_students.length - 1].borderRadiusBottomLeft = 8;
 
     var options = RosterChartSettings;
     options.series = risk_series;

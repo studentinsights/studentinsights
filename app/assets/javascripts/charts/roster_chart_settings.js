@@ -81,8 +81,7 @@
         shared: true,
         followPointer: true,
         headerFormat: ''
-    },
-    colors: ['#999', '#BBD86B', '#62C186', '#FFCB08', '#F15A3D']
+    }
   }
 
 })(window)
