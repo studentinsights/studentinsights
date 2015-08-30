@@ -35,12 +35,12 @@
   };
 
   McasScaledChart.prototype.toHighChart = function mcasChartToHighChart () {
-    return $.extend({}, ChartSettings.base_options, {
-      xAxis: $.extend({}, ChartSettings.x_axis_datetime, {
+    return $.extend({}, ProfileChartSettings.base_options, {
+      xAxis: $.extend({}, ProfileChartSettings.x_axis_datetime, {
         plotLines: this.x_axis_bands
       }),
-      yAxis: $.extend({}, ChartSettings.default_mcas_score_yaxis, {
-        plotLines: ChartSettings.mcas_level_bands
+      yAxis: $.extend({}, ProfileChartSettings.default_mcas_score_yaxis, {
+        plotLines: ProfileChartSettings.mcas_level_bands
       }),
       series: this.series
     });

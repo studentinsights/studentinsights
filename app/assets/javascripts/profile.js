@@ -32,7 +32,7 @@
   }
 
   var ProfileController = function initializeProfileController () {
-    this.options = $.extend({}, ChartSettings.base_options);
+    this.options = $.extend({}, ProfileChartSettings.base_options);
   };
 
   ProfileController.prototype.studentName = function storeStudentName () {

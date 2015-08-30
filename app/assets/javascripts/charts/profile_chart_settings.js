@@ -1,8 +1,8 @@
 (function(root) {
 
-  var ChartSettings = {};
+  var ProfileChartSettings = {};
 
-  ChartSettings.base_options = {
+  ProfileChartSettings.base_options = {
     chart: {
       renderTo: 'chart',
       type: 'areaspline',
@@ -49,20 +49,20 @@
     }
   }
 
-  ChartSettings.x_axis_datetime = {
+  ProfileChartSettings.x_axis_datetime = {
     type: 'datetime',
     dateTimeLabelFormats: {
         day: '%e of %b'
     }
   }
 
-  ChartSettings.x_axis_schoolyears = {
+  ProfileChartSettings.x_axis_schoolyears = {
     type: 'linear',
     categories: [],
     dateTimeLabelFormats: {}
   }
 
-  ChartSettings.default_yaxis = {
+  ProfileChartSettings.default_yaxis = {
     allowDecimals: false,
     title: {
       text: '',
@@ -75,7 +75,7 @@
     max: undefined
   }
 
-  ChartSettings.mcas_level_bands = [{
+  ProfileChartSettings.mcas_level_bands = [{
     color: '#E7EBED',
     from: 200,
     to: 218,
@@ -121,7 +121,7 @@
     }
   }]
 
-  ChartSettings.default_mcas_score_yaxis = {
+  ProfileChartSettings.default_mcas_score_yaxis = {
     allowDecimals: false,
     title: {
       text: '',
@@ -134,7 +134,7 @@
     max: 280
   }
 
-  ChartSettings.percentile_yaxis =  {
+  ProfileChartSettings.percentile_yaxis =  {
     allowDecimals: false,
     title: {
       text: '',
@@ -147,7 +147,7 @@
     max: 100
   }
 
-  ChartSettings.benchmark_plotline = [{
+  ProfileChartSettings.benchmark_plotline = [{
     color: '#B90504',
     width: 1,
     zIndex: 3,
@@ -173,6 +173,6 @@
     }
   }];
 
-  root.ChartSettings = ChartSettings
+  root.ProfileChartSettings = ProfileChartSettings
 
 })(window)

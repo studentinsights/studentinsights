@@ -14,11 +14,11 @@
   };
 
   BehaviorChart.prototype.toHighChart = function behaviorChartToHighChart () {
-    return $.extend({}, ChartSettings.base_options, {
-      xAxis: $.extend({}, ChartSettings.x_axis_schoolyears, {
+    return $.extend({}, ProfileChartSettings.base_options, {
+      xAxis: $.extend({}, ProfileChartSettings.x_axis_schoolyears, {
         categories: this.categories
       }),
-      yAxis: ChartSettings.default_yaxis,
+      yAxis: ProfileChartSettings.default_yaxis,
       series: this.series
     });
   };
