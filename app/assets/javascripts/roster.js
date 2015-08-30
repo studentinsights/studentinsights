@@ -105,10 +105,13 @@ $(function() {
     var chartData = $('#chart-data');
 
     var risk_series = [{
-      name: 'Risk level 0',
-      data: [chartData.data('0')],
+      name: 'Risk level N/A',
+      data: [chartData.data('null')],
       borderRadiusTopLeft: 8,
       borderRadiusTopRight: 8
+    }, {
+      name: 'Risk level 0',
+      data: [chartData.data('0')],
     }, {
       name: 'Risk level 1',
       data: [chartData.data('1')]

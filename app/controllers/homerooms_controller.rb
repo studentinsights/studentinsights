@@ -30,6 +30,7 @@ class HomeroomsController < ApplicationController
     end
 
     @risk_levels = @homeroom.student_risk_levels.group(:level).count
+    @risk_levels['null'] = @risk_levels[nil] if @risk_levels.has_key? nil
     @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
   end
 
