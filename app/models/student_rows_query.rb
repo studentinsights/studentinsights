@@ -36,12 +36,15 @@ class StudentRowsQuery < Struct.new :homeroom
           SELECT DISTINCT ON (temporary_students_#{timestamp}.student_id)
             temporary_students_#{timestamp}.student_id as student_id,
             interventions.number_of_hours as most_recent_atp_number_of_hours,
+            school_years.name as most_recent_atp_school_year,
             intervention_types.name
           FROM temporary_students_#{timestamp}
           LEFT JOIN interventions
             ON interventions.student_id = temporary_students_#{timestamp}.student_id
           LEFT JOIN intervention_types
             ON interventions.intervention_type_id = intervention_types.id
+          LEFT JOIN school_years
+            ON interventions.school_year_id = school_years.id
           WHERE intervention_types.name = 'After-School Tutoring (ATP)'
           ORDER BY
             temporary_students_#{timestamp}.student_id,
@@ -104,7 +107,8 @@ class StudentRowsQuery < Struct.new :homeroom
           instructional_reading_level,
           performance_level,
           date_taken,
-          most_recent_atp_number_of_hours
+          most_recent_atp_number_of_hours,
+          most_recent_atp_school_year
         FROM temporary_students_#{timestamp}
         LEFT JOIN temporary_student_assessments_#{timestamp}
           ON temporary_student_assessments_#{timestamp}.student_id = temporary_students_#{timestamp}.student_id
