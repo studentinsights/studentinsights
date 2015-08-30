@@ -29,6 +29,7 @@ class HomeroomsController < ApplicationController
       @rows << row
     end
 
+    @risk_levels = @homeroom.student_risk_levels.group(:level).count
     @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
   end
 
