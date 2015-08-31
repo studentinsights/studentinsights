@@ -40,6 +40,27 @@ describe 'roster', :type => :feature do
           end
         end
       end
+      context 'one ATP intervention' do
+        let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_one_atp_intervention) }
+        it 'shows the correct number of hours' do
+          number_of_hours = page.find('td.interventions.number-of-hours')
+          expect(number_of_hours).to have_content '10'
+        end
+      end
+      context 'non-ATP intervention' do
+        let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_one_non_atp_intervention) }
+        it 'shows a dash' do
+          number_of_hours = page.find('td.interventions.number-of-hours')
+          expect(number_of_hours).to have_content '—'
+        end
+      end
+      context 'multiple ATP interventions, more recent one has 11 hours' do
+        let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_multiple_atp_interventions) }
+        it 'shows the most recent intervention' do
+          number_of_hours = page.find('td.interventions.number-of-hours')
+          expect(number_of_hours).to have_content '11'
+        end
+      end
     end
     context 'three students in homeroom' do
       let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_three_students) }

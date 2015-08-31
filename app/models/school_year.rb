@@ -2,6 +2,7 @@ class SchoolYear < ActiveRecord::Base
   has_many :attendance_events, -> (student) { extending FindByStudent }
   has_many :discipline_incidents, -> (student) { extending FindByStudent }
   has_many :student_assessments, -> (student) { extending FindByStudent }
+  has_many :interventions, -> (student) { extending FindByStudent }
   validates_uniqueness_of :name, :start
   extend DateToSchoolYear
   include FindDataForStudentProfile

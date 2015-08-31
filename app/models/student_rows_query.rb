@@ -30,6 +30,27 @@ class StudentRowsQuery < Struct.new :homeroom
           WHERE homeroom_id = '#{homeroom.id}'
         );
 
+        DROP TABLE IF EXISTS temporary_student_interventions_#{timestamp} CASCADE;
+
+        CREATE TABLE temporary_student_interventions_#{timestamp} AS (
+          SELECT DISTINCT ON (temporary_students_#{timestamp}.student_id)
+            temporary_students_#{timestamp}.student_id as student_id,
+            interventions.number_of_hours as most_recent_atp_number_of_hours,
+            school_years.name as most_recent_atp_school_year,
+            intervention_types.name
+          FROM temporary_students_#{timestamp}
+          LEFT JOIN interventions
+            ON interventions.student_id = temporary_students_#{timestamp}.student_id
+          LEFT JOIN intervention_types
+            ON interventions.intervention_type_id = intervention_types.id
+          LEFT JOIN school_years
+            ON interventions.school_year_id = school_years.id
+          WHERE intervention_types.name = 'After-School Tutoring (ATP)'
+          ORDER BY
+            temporary_students_#{timestamp}.student_id,
+            interventions.start_date DESC NULLS LAST
+        );
+
         DROP TABLE IF EXISTS temporary_student_assessments_#{timestamp} CASCADE;
 
         CREATE TABLE temporary_student_assessments_#{timestamp} AS (
@@ -85,10 +106,14 @@ class StudentRowsQuery < Struct.new :homeroom
           percentile_rank,
           instructional_reading_level,
           performance_level,
-          date_taken
+          date_taken,
+          most_recent_atp_number_of_hours,
+          most_recent_atp_school_year
         FROM temporary_students_#{timestamp}
         LEFT JOIN temporary_student_assessments_#{timestamp}
           ON temporary_student_assessments_#{timestamp}.student_id = temporary_students_#{timestamp}.student_id
+        LEFT JOIN temporary_student_interventions_#{timestamp}
+          ON temporary_student_interventions_#{timestamp}.student_id = temporary_students_#{timestamp}.student_id
         ORDER BY
           level DESC NULLS LAST
       );
@@ -103,7 +128,8 @@ class StudentRowsQuery < Struct.new :homeroom
     destroy_sql = \
       "DROP TABLE IF EXISTS temporary_students_#{timestamp};
        DROP TABLE IF EXISTS temporary_student_assessments_#{timestamp} CASCADE;
-       DROP TABLE IF EXISTS temporary_student_rows_#{timestamp} CASCADE;"
+       DROP TABLE IF EXISTS temporary_student_rows_#{timestamp} CASCADE;
+       DROP TABLE IF EXISTS temporary_student_interventions_#{timestamp} CASCADE;"
 
     ActiveRecord::Base.connection.execute(destroy_sql)
     return rows

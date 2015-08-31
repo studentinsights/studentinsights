@@ -73,24 +73,19 @@ class Settings::SomervilleSettings
   end
 
   def configuration
+    importers = [
+      StudentsImporter.new(students_options),
+      StudentAssessmentImporter.new(assessment_options),
+      StarMathImporter.new(star_math_options),
+      StarReadingImporter.new(star_reading_options),
+      BehaviorImporter.new(behavior_options),
+      HealeyAfterSchoolTutoringImporter.new   # Currently local import only
+    ]
+
     if @first_time
-      [
-        StudentsImporter.new(students_options),
-        StudentAssessmentImporter.new(assessment_options),
-        StarMathImporter.new(star_math_options),
-        StarReadingImporter.new(star_reading_options),
-        BehaviorImporter.new(behavior_options),
-        BulkAttendanceImporter.new(attendance_options)  # Use bulk attendance importer for first-time import
-      ]
+      importers << BulkAttendanceImporter.new(attendance_options)
     else
-      [
-        StudentsImporter.new(students_options),
-        StudentAssessmentImporter.new(assessment_options),
-        StarMathImporter.new(star_math_options),
-        StarReadingImporter.new(star_reading_options),
-        BehaviorImporter.new(behavior_options),
-        AttendanceImporter.new(attendance_options)
-      ]
+      importers << AttendanceImporter.new(attendance_options)
     end
   end
 

@@ -89,7 +89,7 @@
         <% if @interventions.present? %>
           <% @interventions.each do |i| %>
             <div class="left-bar-block">
-              <p><strong><%= i.name %>:</strong> <span class="intervention-creator"><%= i.educator.email %></span></p>
+              <p><strong><%= i.name %>:</strong> <span class="intervention-creator"><%= i.educator.email if i.educator.present? %></span></p>
               <p><%= i.comment %></p>
               <p class="intervention-date">
                 <%= i.start_date.strftime("%B %e, %Y") %> -
