@@ -31,15 +31,11 @@
 }
 
 #column-group-dropdown  {
-  display: inline-block;
-  float: left;
+  display: block;
+  clear: both;
+  width: 90%;
 }
 
-#column-group-select {
-  @media screen and (max-width: $phase1) {
-    width: 280px;
-  }
-}
 
 .chosen-container {
 

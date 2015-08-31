@@ -45,7 +45,6 @@ $(function() {
     ];
 
     var columns_selected = Cookies.getJSON("columns_selected");
-    console.log(columns_selected);
     updateColumns();
 
     $("#column-group-select").chosen({width: "110%"}).on('change', function(e, params) {
@@ -97,5 +96,13 @@ $(function() {
     $('tbody td').click(function () {
       location.href = $(this).attr('href');
     });
+  }
+});
+
+$(function() {
+
+  if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
+    var chartData = $('#chart-data');
+    RosterChart.fromChartData(chartData).render();
   }
 });

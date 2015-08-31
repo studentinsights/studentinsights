@@ -35,12 +35,12 @@
   };
 
   McasGrowthChart.prototype.toHighChart = function mcasChartToHighChart () {
-    return $.extend({}, ChartSettings.base_options, {
-      xAxis: $.extend({}, ChartSettings.x_axis_datetime, {
+    return $.extend({}, ProfileChartSettings.base_options, {
+      xAxis: $.extend({}, ProfileChartSettings.x_axis_datetime, {
         plotLines: this.x_axis_bands
       }),
-      yAxis: $.extend({}, ChartSettings.percentile_yaxis, {
-        plotLines: ChartSettings.benchmark_plotline
+      yAxis: $.extend({}, ProfileChartSettings.percentile_yaxis, {
+        plotLines: ProfileChartSettings.benchmark_plotline
       }),
       series: this.series
     });

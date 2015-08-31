@@ -9,14 +9,14 @@ class StudentRiskLevel < ActiveRecord::Base
   def mcas_ela; student_assessments.latest_mcas_ela end
   def star_reading; student_assessments.latest_star_reading end
 
-  def mcas_or_star_at_level(level)
-    mcas_math.risk_level == level || star_math.risk_level == level \
-    || mcas_ela.risk_level == level || star_reading.risk_level == level
+  def mcas_or_star_at_level(this_level)
+    mcas_math.risk_level == this_level || star_math.risk_level == this_level \
+    || mcas_ela.risk_level == this_level || star_reading.risk_level == this_level
   end
 
   def mcas_and_star_risk_nil?
-    mcas_math.risk_level == level && star_math.risk_level == level \
-    && mcas_ela.risk_level == level && star_reading.risk_level == level
+    mcas_math.risk_level == nil && star_math.risk_level == nil \
+    && mcas_ela.risk_level == nil && star_reading.risk_level == nil
   end
 
   def update_risk_level!

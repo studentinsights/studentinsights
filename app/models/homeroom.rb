@@ -4,6 +4,7 @@ class Homeroom < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :slug, uniqueness: true
   has_many :students, after_add: :update_grade
+  has_many :student_risk_levels, through: :students
   belongs_to :educator
 
   def update_grade(student)

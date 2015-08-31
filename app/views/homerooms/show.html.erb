@@ -9,11 +9,29 @@
         <% end %>
       </select>
     </div>
-    <div id="roster-tooltip" class="tooltip-trigger">
-      <p>Help</p>
-      <span id="roster-help-icon">?</span>
+
+    <div id="export">
+      <%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
     </div>
-    <div id="column-group-dropdown" class="dropdown">
+
+
+
+  </div>
+  <div class="info-area">
+
+    <div id="student-info">
+      <h1 id="student-name">Room <%= @homeroom.name %></h1>
+      <div id="roster-tooltip" class="tooltip-trigger">
+        <p>Help</p>
+        <span id="roster-help-icon">?</span>
+      </div>
+    </div>
+
+    <div id="chart" class="roster-chart"></div>
+
+  <div id="column-picker">
+    <div id="column-group-dropdown">
+      <p>Select columns - 5 max</p>
       <select id="column-group-select" class="chosen-select" data-placeholder="Choose information to show..." tabindex="5" multiple>
         <option value="name" <% if cookies[:columns_selected].include?("name") %>selected<% end %>>
           Name
@@ -71,7 +89,7 @@
       </select>
     </div>
   </div>
-  <div class="info-area">
+
     <table id="roster-table" border="0" cellspacing="0" cellpadding="10" class="sort-default">
       <thead>
         <tr class="column-groups">
@@ -222,3 +240,5 @@
       </div>
     </script>
   <% end %>
+
+  <%= tag("div", id: "chart-data", data: @risk_levels) %>

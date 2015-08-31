@@ -238,11 +238,6 @@
   margin-bottom: 80px;
 }
 
-.highcharts-container {
- overflow: visible !important;
- margin-top: 60px !important;
-}
-
 #student-info {
   border-bottom: 1px solid $dark-line;
   margin-bottom: 15px;
@@ -259,7 +254,6 @@
 
   p {
     float: right;
-    padding-top: 10px;
 
     @media screen and (max-width: $phase2) {
       padding-right: 20px;
