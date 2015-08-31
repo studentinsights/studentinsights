@@ -3,10 +3,6 @@
 table {
   overflow-x: scroll;
   display: block;
-
-  @media screen and (min-width: 1185px) {
-    display: table;
-  }
 }
 
 .sort-down, .sort-up {
@@ -18,26 +14,25 @@ th {
   font-weight: normal;
   text-align: center;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .table-header {
 
   th & {
     text-align: center;
-    position: relative;
-    left: 8px;
+    white-space: nowrap;
   }
 }
 
 .column-names {
 
   th {
-    width: 10%;
     vertical-align: baseline;
   }
 
   th:first-child {
-    width: 15%;
+    padding-left: 20px;
   }
 }
 
@@ -46,14 +41,13 @@ tr, td {
   font-weight: normal;
   font-size: 14px;
   color: $gray;
+  white-space: nowrap;
 }
 
 .column-groups {
   text-align: center;
 
   td {
-    padding-left: 0;
-    padding-right: 20px;
     white-space: nowrap;
   }
 
