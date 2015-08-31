@@ -3,10 +3,6 @@
 table {
   overflow-x: scroll;
   display: block;
-
-  @media screen and (min-width: 1185px) {
-    display: table;
-  }
 }
 
 .sort-down, .sort-up {
@@ -18,26 +14,24 @@ th {
   font-weight: normal;
   text-align: center;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .table-header {
 
   th & {
     text-align: center;
-    position: relative;
-    left: 8px;
   }
 }
 
 .column-names {
 
   th {
-    width: 10%;
     vertical-align: baseline;
   }
 
   th:first-child {
-    width: 15%;
+    padding-left: 20px;
   }
 }
 
@@ -46,15 +40,13 @@ tr, td {
   font-weight: normal;
   font-size: 14px;
   color: $gray;
+  white-space: nowrap;
 }
 
 .column-groups {
   text-align: center;
 
   td {
-    padding-left: 0;
-    padding-right: 20px;
-    white-space: nowrap;
   }
 
   td p {
@@ -88,17 +80,6 @@ tr, td {
   padding-bottom: 5px;
   text-align: center;
   margin: auto auto;
-}
-
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 0px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 0px;
-  background-color: rgba(0,0,0,.5);
-  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
 tbody {
@@ -144,3 +125,37 @@ tbody {
 .name {
   text-align: left;
 }
+
+/**
+ * Scrolling shadows by @kizmarh and @leaverou
+ * Only works in browsers supporting background-attachment: local; & CSS gradients
+ * Degrades gracefully
+ */
+
+#roster-table {
+  overflow: auto;
+
+  background:
+    /* Shadow covers */
+    linear-gradient(90deg, white 30%, rgba(255,255,255,0)),
+    linear-gradient(90deg, rgba(255,255,255,0), white 70%) 100% 0,
+
+    /* Shadows */
+    radial-gradient(0 50%, farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)),
+    radial-gradient(100% 50%,farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)) 100% 0;
+  background:
+    /* Shadow covers */
+    linear-gradient(90deg, white 30%, rgba(255,255,255,0)),
+    linear-gradient(90deg, rgba(255,255,255,0), white 70%) 100% 0,
+
+    /* Shadows */
+    radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.2), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.2), rgba(0,0,0,0)) 100% 0;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+
+  /* Opera doesn't support this in the shorthand */
+  background-attachment: local, local, scroll, scroll;
+}
+
