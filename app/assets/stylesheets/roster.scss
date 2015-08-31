@@ -14,7 +14,9 @@
 }
 
 
-#column-group-dropdown {
+#select-limit-warning.on {
+  color: $warning-red;
+  font-weight: bold;
 }
 
 #column-picker {

@@ -47,19 +47,24 @@ $(function() {
     var columns_selected = Cookies.getJSON("columns_selected");
     updateColumns();
 
-    $("#column-group-select").chosen({width: "110%"}).on('change', function(e, params) {
-      if (params.deselected !== undefined) {
-        var assessment = params.deselected;
-        var index = columns_selected.indexOf(assessment)
-        columns_selected.splice(index, 1);
-        updateCookies();
-        updateColumns();
-      } else if (params.selected !== undefined) {
-        var assessment = params.selected;
-        columns_selected.push(assessment)
-        updateCookies();
-        updateColumns();
-      }
+    $("#column-group-select").chosen({
+      width: "110%",
+      max_selected_options: 6
+    }).bind("chosen:maxselected", function() {
+      $('#select-limit-warning').addClass('on');
+    }).on('change', function(e, params) {
+        if (params.deselected !== undefined) {
+          var assessment = params.deselected;
+          var index = columns_selected.indexOf(assessment)
+          columns_selected.splice(index, 1);
+          updateCookies();
+          updateColumns();
+        } else if (params.selected !== undefined) {
+          var assessment = params.selected;
+          columns_selected.push(assessment)
+          updateCookies();
+          updateColumns();
+        }
     });
 
     // Risk level tooltip for overall roster table

@@ -31,7 +31,7 @@
 
   <div id="column-picker">
     <div id="column-group-dropdown">
-      <p>Select columns - 5 max</p>
+      <p id='select-limit-warning'>Select columns - 6 max</p>
       <select id="column-group-select" class="chosen-select" data-placeholder="Choose information to show..." tabindex="5" multiple>
         <option value="name" <% if cookies[:columns_selected].include?("name") %>selected<% end %>>
           Name
