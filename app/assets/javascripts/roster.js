@@ -12,8 +12,11 @@ $(function() {
     });
 
     function updateColumns () {
-      for (i = 0; i < roster_columns.length; i++) {
-        var column = roster_columns[i];
+      columns_selected = $("#column-listing").find("input:checked").map(function(){
+         return this.name;
+      });
+      for (var column in roster_columns) {
+        if (!roster_columns.hasOwnProperty(column)) continue;
         if (columns_selected.indexOf(column) === -1) {
           $('.' + column).hide();
         } else {
@@ -22,51 +25,50 @@ $(function() {
       }
     }
 
+
     function updateCookies () {
       Cookies.set("columns_selected", columns_selected);
     }
 
     // Show/hide column groups
-    var roster_columns = [
-      'attendance',
-      'discipline',
-      'language',
-      'star_math',
-      'star_reading',
-      'program',
-      'free-reduced',
-      'access',
-      'dibels',
-      'name',
-      'risk',
-      'sped',
-      'mcas_math',
-      'mcas_ela'
-    ];
+    var roster_columns = {
+        'attendance': 'Attendance',
+        'discipline': 'Discipline',
+        'language': 'Language',
+        'star_math': 'STAR Math',
+        'star_reading': 'STAR Reading',
+        'program': 'Program',
+        'free-reduced': 'Free/Reduced Lunch',
+        'access': 'Access',
+        'dibels': 'DIBELS',
+        'name': 'Name',
+        'risk': 'Risk',
+        'sped': 'Sped',
+        'mcas_math': 'MCAS Math',
+        'mcas_ela': 'MCAS ELA'
+    };
 
     var columns_selected = Cookies.getJSON("columns_selected");
-    updateColumns();
 
-    $("#column-group-select").chosen({
-      width: "110%",
-      max_selected_options: 6
-    }).bind("chosen:maxselected", function() {
-      $('#select-limit-warning').addClass('on');
-    }).on('change', function(e, params) {
-        if (params.deselected !== undefined) {
-          var assessment = params.deselected;
-          var index = columns_selected.indexOf(assessment)
-          columns_selected.splice(index, 1);
-          updateCookies();
-          updateColumns();
-        } else if (params.selected !== undefined) {
-          var assessment = params.selected;
-          columns_selected.push(assessment)
-          updateCookies();
-          updateColumns();
-        }
+
+    var columnTemplate = $("#column-template").remove();
+
+    $.each(roster_columns, function(key, column){
+      var newColumnTemplate = columnTemplate.clone(),
+      isselected = columns_selected.indexOf(key) !== -1;
+      newColumnTemplate
+        .find("input")
+          .attr("name", key)
+          .attr("checked", isselected)
+          .on("change", updateColumns)
+        .end() // set name
+        .find("label")
+          .text(column)
+        .end() // set column
+        .appendTo("#column-listing")
+
     });
-
+  updateColumns();
     // Risk level tooltip for overall roster table
 
     var roster_rooltip_template = $('#roster-tooltip-template').html();

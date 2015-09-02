@@ -32,61 +32,12 @@
   <div id="column-picker">
     <div id="column-group-dropdown">
       <p id='select-limit-warning'>Select columns - 6 max</p>
-      <select id="column-group-select" class="chosen-select" data-placeholder="Choose information to show..." tabindex="5" multiple>
-        <option value="name" <% if cookies[:columns_selected].include?("name") %>selected<% end %>>
-          Name
-        </option>
-        <option value="risk" <% if cookies[:columns_selected].include?("risk") %>selected<% end %>>
-            Risk Level
-        </option>
-        <option value="program" <% if cookies[:columns_selected].include?("program") %>selected<% end %>>
-          Program
-        </option>
-        <option value="language" <% if cookies[:columns_selected].include?("language") %>selected<% end %>>
-          Language
-        </option>
-        <option value="free-reduced" <% if cookies[:columns_selected].include?("free-reduced") %>selected<% end %>>
-          Free/Reduced Lunch
-        </option>
-        <option value="sped" <% if cookies[:columns_selected].include?("sped") %>selected<% end %>>
-          SPED & Disability
-        </option>
-        <% if @homeroom.show_star? %>
-          <option value="star_math" <% if cookies[:columns_selected].include?("star_math") %>selected<% end %>>
-            STAR: Math
-          </option>
-        <% end %>
-        <% if @homeroom.show_star? %>
-            <option value="star_reading" <% if cookies[:columns_selected].include?("star_reading") %>selected<% end %>>
-              STAR: Reading
-            </option>
-        <% end %>
-        <% if @homeroom.show_mcas? %>
-          <option value="mcas_math" <% if cookies[:columns_selected].include?("mcas_math") %>selected<% end %>>
-            MCAS: Math
-          </option>
-          <option value="mcas_ela" <% if cookies[:columns_selected].include?("mcas_ela") %>selected<% end %>>
-              MCAS: ELA
-          </option>
-        <% end %>
-        <option value="access" <% if cookies[:columns_selected].include?("access") %>selected<% end %>>
-          ACCESS
-        </option>
-        <% if @homeroom.show_dibels? %>
-          <option value="dibels" <% if cookies[:columns_selected].include?("dibels") %>selected<% end %>>
-            DIBELS
-          </option>
-        <% end %>
-        <option value="interventions" <% if cookies[:columns_selected].include?("interventions") %>selected<% end %>>
-          Interventions
-        </option>
-        <!-- <option value="attendance" <% if cookies[:columns_selected].include?("attendance") %>selected<% end %>>
-          Attendance
-        </option>
-        <option value="discipline" <% if cookies[:columns_selected].include?("discipline") %>selected<% end %>>
-          Discipline
-        </option> -->
-      </select>
+      <form id="column-listing">
+        <div id="column-template">
+          <input type="checkbox" name="" value="">
+          <label>Dummy Column Name</label>
+        </div>
+      </form>
     </div>
   </div>
 
