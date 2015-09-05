@@ -4,7 +4,7 @@ describe HomeroomsController, :type => :controller do
 
   let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom) }
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
-
+  let!(:admin_educator) { FactoryGirl.create(:admin_educator) }
   describe '#show' do
 
     def make_request(slug = nil)
@@ -18,7 +18,7 @@ describe HomeroomsController, :type => :controller do
         expect(response).to redirect_to(new_educator_session_path)
       end
     end
-    context 'when educator with homeroom is logged in' do
+    context 'when non-admin educator with homeroom is logged in' do
       before { sign_in(educator) }
       context 'no homeroom params' do
         before { make_request }
@@ -75,7 +75,27 @@ describe HomeroomsController, :type => :controller do
         end
       end
     end
-    context 'when educator without homeroom is logged in' do
+    context 'when admin educator is logged in' do
+      before { sign_in(admin_educator) }
+      context 'no homeroom params' do
+        it 'redirects to first homeroom' do
+
+        end
+      end
+      context 'homeroom params' do
+        context 'good homeroom params' do
+          it 'is successful' do
+
+          end
+        end
+        context 'garbage homeroom params' do
+          it 'redirects to first homeroom' do
+
+          end
+        end
+      end
+    end
+    context 'when non-admin without homeroom is logged in' do
       before { sign_in(educator_without_homeroom) }
       context 'no homeroom params' do
         it 'raises a error' do
