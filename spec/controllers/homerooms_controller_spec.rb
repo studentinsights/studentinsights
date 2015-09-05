@@ -43,6 +43,10 @@ describe HomeroomsController, :type => :controller do
             make_request(educator.homeroom.slug)
             expect(response).to be_success
           end
+          it 'assigns correct homerooms to drop-down' do
+            make_request(educator.homeroom.slug)
+            expect(assigns(:homerooms_by_name)).to eq([educator.homeroom])
+          end
           context 'when there are no students' do
             it 'assigns rows to empty' do
               make_request(educator.homeroom.slug)
@@ -91,6 +95,10 @@ describe HomeroomsController, :type => :controller do
           it 'is successful' do
             make_request(homeroom.slug)
             expect(response).to be_success
+          end
+          it 'assigns correct homerooms to drop-down' do
+            make_request(homeroom.slug)
+            expect(assigns(:homerooms_by_name)).to eq(Homeroom.order(:name))
           end
         end
         context 'garbage homeroom params' do
