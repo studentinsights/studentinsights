@@ -61,6 +61,20 @@ class HomeroomsController < ApplicationController
   end
 
   def authorize_and_assign_homeroom
+    if current_educator.admin?
+      assign_homeroom_for_admin
+    else
+      assign_homeroom_for_non_admin
+    end
+  end
+
+  def assign_homeroom_for_admin
+    @homeroom = Homeroom.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound   # params don't match a homeroom
+    redirect_to homeroom_path(Homeroom.first)
+  end
+
+  def assign_homeroom_for_non_admin
     @educator_homeroom = current_educator.homeroom || not_found
     @requested_homeroom = Homeroom.friendly.find(params[:id])
 

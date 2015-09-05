@@ -5,6 +5,8 @@ describe HomeroomsController, :type => :controller do
   let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom) }
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
   let!(:admin_educator) { FactoryGirl.create(:admin_educator) }
+  let(:first_homeroom_path) { homeroom_path(Homeroom.first) }
+
   describe '#show' do
 
     def make_request(slug = nil)
@@ -79,18 +81,22 @@ describe HomeroomsController, :type => :controller do
       before { sign_in(admin_educator) }
       context 'no homeroom params' do
         it 'redirects to first homeroom' do
-
+          make_request
+          expect(response).to redirect_to(first_homeroom_path)
         end
       end
       context 'homeroom params' do
         context 'good homeroom params' do
+          let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
           it 'is successful' do
-
+            make_request(homeroom.slug)
+            expect(response).to be_success
           end
         end
         context 'garbage homeroom params' do
           it 'redirects to first homeroom' do
-
+            make_request('garbage homeroom ids rule')
+            expect(response).to redirect_to(first_homeroom_path)
           end
         end
       end
