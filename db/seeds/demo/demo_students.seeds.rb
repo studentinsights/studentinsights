@@ -7,10 +7,17 @@ healey = School.create(name: "Arthur D Healey")
 
 Homeroom.destroy_all
 n = 0
-4.times do |n|
-  Homeroom.create(name: "10#{n}")
+3.times do
+  Homeroom.create(name: "10#{n}", grade: "4")
   n += 1
 end
+3.times do
+  Homeroom.create(name: "10#{n}", grade: "5")
+  n += 1
+end
+
+fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
+Homeroom.last.update_attribute(:educator_id, fifth_grade_educator.id)
 
 Student.destroy_all
 StudentAssessment.destroy_all

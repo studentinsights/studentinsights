@@ -4,6 +4,9 @@ FactoryGirl.define do
 
   factory :homeroom do
     name { FactoryGirl.generate(:name) }
+    factory :grade_5_homeroom do
+      grade "5"
+    end
     factory :homeroom_with_student do
       after(:create) do |homeroom|
         homeroom.students << FactoryGirl.create(:student)

@@ -7,9 +7,12 @@ class ApplicationController < ActionController::Base
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params
-    devise_parameter_sanitizer.for(:sign_in) do |u| 
+    devise_parameter_sanitizer.for(:sign_in) do |u|
       u.permit(:otp_attempt, :email, :password)
     end
   end
 
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
 end

@@ -1,7 +1,6 @@
 class HomeroomsController < ApplicationController
 
-  before_action :authenticate_educator!
-  before_action :assign_homeroom
+  before_action :authenticate_educator!, :authorize_and_assign_homeroom
 
   def show
     cookies[:columns_selected] ||= ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'].to_json
@@ -31,7 +30,7 @@ class HomeroomsController < ApplicationController
 
     @risk_levels = @homeroom.student_risk_levels.group(:level).count
     @risk_levels['null'] = if @risk_levels.has_key? nil then @risk_levels[nil] else 0 end
-    @homerooms_by_name = Homeroom.where.not(name: "Demo").order(:name)
+    @homerooms_by_name = current_educator.allowed_homerooms_by_name
   end
 
   private
@@ -61,14 +60,36 @@ class HomeroomsController < ApplicationController
     end
   end
 
-  def assign_homeroom
-    @homeroom = Homeroom.friendly.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    if current_educator.homeroom.present?
-      @homeroom = current_educator.homeroom
+  def authorize_and_assign_homeroom
+    if current_educator.admin?
+      assign_homeroom_for_admin
     else
-      @homeroom = Homeroom.first
+      assign_homeroom_for_non_admin
     end
+  end
+
+  def assign_homeroom_for_admin
+    @homeroom = Homeroom.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound   # params don't match a homeroom
+    redirect_to homeroom_path(Homeroom.first)
+  end
+
+  def assign_homeroom_for_non_admin
+    @educator_homeroom = current_educator.homeroom || not_found
+    @requested_homeroom = Homeroom.friendly.find(params[:id])
+
+    if @educator_homeroom == @requested_homeroom ||
+        @educator_homeroom.grade == @requested_homeroom.grade
+      @homeroom = @requested_homeroom
+    else
+      redirect_to_homeroom(current_educator)
+    end
+  rescue ActiveRecord::RecordNotFound   # params don't match a homeroom
+    redirect_to_homeroom(current_educator)
+  end
+
+  def redirect_to_homeroom(educator)
+    redirect_to homeroom_path(educator.homeroom)
   end
 
 end
