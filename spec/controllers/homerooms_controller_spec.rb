@@ -14,13 +14,13 @@ describe HomeroomsController, :type => :controller do
       get :show, id: slug
     end
 
-    context 'when educator is not logged in' do
+    context 'educator not logged in' do
       it 'redirects to sign in page' do
         make_request(educator.homeroom.slug)
         expect(response).to redirect_to(new_educator_session_path)
       end
     end
-    context 'when non-admin educator with homeroom is logged in' do
+    context 'non-admin educator with homeroom logged in' do
       before { sign_in(educator) }
       context 'no homeroom params' do
         before { make_request }
@@ -81,7 +81,7 @@ describe HomeroomsController, :type => :controller do
         end
       end
     end
-    context 'when admin educator is logged in' do
+    context 'admin educator logged in' do
       before { sign_in(admin_educator) }
       context 'no homeroom params' do
         it 'redirects to first homeroom' do
@@ -109,7 +109,7 @@ describe HomeroomsController, :type => :controller do
         end
       end
     end
-    context 'when non-admin without homeroom is logged in' do
+    context 'non-admin without homeroom logged in' do
       before { sign_in(educator_without_homeroom) }
       context 'no homeroom params' do
         it 'raises a error' do
