@@ -11,6 +11,11 @@ FactoryGirl.define do
         create(:homeroom, educator: educator)
       end
     end
+    factory :educator_with_grade_5_homeroom do
+      after(:create) do |educator|
+        create(:homeroom, educator: educator, grade: "5")
+      end
+    end
     factory :educator_with_homeroom_with_student do
       after(:create) do |educator|
         homeroom = create(:homeroom, educator: educator)

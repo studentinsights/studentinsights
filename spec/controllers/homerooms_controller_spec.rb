@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe HomeroomsController, :type => :controller do
 
-  let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+  let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom) }
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
 
   describe '#show' do
@@ -22,8 +22,8 @@ describe HomeroomsController, :type => :controller do
       before { sign_in(educator) }
       context 'no homeroom params' do
         before { make_request }
-        it 'is successful' do
-          expect(response).to be_success
+        it 'redirects to educator\'s homeroom' do
+          expect(response).to redirect_to(homeroom_path(educator.homeroom))
         end
         it 'assigns the educator\'s homeroom' do
           expect(assigns(:homeroom)).to eq(educator.homeroom)
@@ -43,36 +43,36 @@ describe HomeroomsController, :type => :controller do
           end
         end
       end
-    end
-    context 'homeroom params' do
-      context 'garbage params' do
-        it 'does not raise an error' do
-          expect { make_request('garbage homeroom ids rule') }.not_to raise_error
+      context 'homeroom params' do
+        context 'garbage params' do
+          it 'does not raise an error' do
+            expect { make_request('garbage homeroom ids rule') }.not_to raise_error
+          end
+          it 'assigns the educators homeroom' do
+            make_request('garbage homeroom ids rule')
+            expect(assigns(:homeroom)).to eq(educator.homeroom)
+          end
         end
-        it 'assigns the educators homeroom' do
-          make_request('garbage homeroom ids rule')
-          expect(assigns(:homeroom)).to eq(educator.homeroom)
-        end
-      end
-      context 'homeroom belongs to educator' do
-        it 'is successful' do
-          make_request(educator.homeroom.slug)
-          expect(response).to be_success
-        end
-      end
-      context 'homeroom does not belong to educator' do
-        context 'homeroom is grade level as educator\'s' do
-          let(:homeroom) { FactoryGirl.create(:homeroom_in_same_school_and_grade_level_as_educator_homeroom) }
+        context 'homeroom belongs to educator' do
           it 'is successful' do
-            make_request(homeroom.slug)
+            make_request(educator.homeroom.slug)
             expect(response).to be_success
           end
         end
-        context 'homeroom is different grade level from educator\'s' do
-          let(:homeroom) { FactoryGirl.create(:homeroom) }
-          it 'redirects to educator\'s homeroom' do
-            make_request(homeroom.slug)
-            expect(response).to redirect_to(homeroom_path(educator.homeroom))
+        context 'homeroom does not belong to educator' do
+          context 'homeroom is grade level as educator\'s' do
+            let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
+            it 'is successful' do
+              make_request(homeroom.slug)
+              expect(response).to be_success
+            end
+          end
+          context 'homeroom is different grade level from educator\'s' do
+            let(:homeroom) { FactoryGirl.create(:homeroom) }
+            it 'redirects to educator\'s homeroom' do
+              make_request(homeroom.slug)
+              expect(response).to redirect_to(homeroom_path(educator.homeroom))
+            end
           end
         end
       end
