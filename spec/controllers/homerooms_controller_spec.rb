@@ -25,23 +25,6 @@ describe HomeroomsController, :type => :controller do
         it 'redirects to educator\'s homeroom' do
           expect(response).to redirect_to(homeroom_path(educator.homeroom))
         end
-        it 'assigns the educator\'s homeroom' do
-          expect(assigns(:homeroom)).to eq(educator.homeroom)
-        end
-        context 'when there are no students' do
-          it 'assigns rows to empty' do
-            expect(assigns(:rows)).to be_empty
-          end
-        end
-        context 'when there are students' do
-          let!(:first_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
-          let!(:second_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
-          it 'assigns rows to a non-empty array' do
-            make_request
-            expect(assigns(:rows)).to be_a_kind_of Array
-            expect(assigns(:rows)).to_not be_empty
-          end
-        end
       end
       context 'homeroom params' do
         context 'garbage params' do
@@ -57,6 +40,21 @@ describe HomeroomsController, :type => :controller do
           it 'is successful' do
             make_request(educator.homeroom.slug)
             expect(response).to be_success
+          end
+          context 'when there are no students' do
+            it 'assigns rows to empty' do
+              make_request(educator.homeroom.slug)
+              expect(assigns(:rows)).to be_empty
+            end
+          end
+          context 'when there are students' do
+            let!(:first_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
+            let!(:second_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
+            it 'assigns rows to a non-empty array' do
+              make_request(educator.homeroom.slug)
+              expect(assigns(:rows)).to be_a_kind_of Array
+              expect(assigns(:rows)).to_not be_empty
+            end
           end
         end
         context 'homeroom does not belong to educator' do
