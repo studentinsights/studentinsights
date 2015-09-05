@@ -7,9 +7,9 @@ describe HomeroomsController, :type => :controller do
 
   describe '#show' do
 
-    def make_request(homeroom_slug = nil)
+    def make_request(slug = nil)
       request.env['HTTPS'] = 'on'
-      get :show, homeroom_id: homeroom_slug
+      get :show, id: slug
     end
 
     context 'when educator is not logged in' do
@@ -48,9 +48,9 @@ describe HomeroomsController, :type => :controller do
           it 'does not raise an error' do
             expect { make_request('garbage homeroom ids rule') }.not_to raise_error
           end
-          it 'assigns the educators homeroom' do
+          it 'redirects to educator\'s homeroom' do
             make_request('garbage homeroom ids rule')
-            expect(assigns(:homeroom)).to eq(educator.homeroom)
+            expect(response).to redirect_to(homeroom_path(educator.homeroom))
           end
         end
         context 'homeroom belongs to educator' do
