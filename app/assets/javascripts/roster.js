@@ -12,19 +12,18 @@ $(function() {
     });
 
     function updateColumns () {
-      columns_selected = $("#column-listing").find("input:checked").map(function(){
-         return this.name;
+      columns_selected = $("#column-listing").find("input:checked");
+      columns_selected_names = $.map(columns_selected, function(c) {
+        return c.name;
       });
       for (var column in roster_columns) {
-        if (!roster_columns.hasOwnProperty(column)) continue;
-        if (columns_selected.indexOf(column) === -1) {
+        if (columns_selected_names.indexOf(column) === -1) {
           $('.' + column).hide();
         } else {
           $('.' + column).show();
         }
       }
     }
-
 
     function updateCookies () {
       Cookies.set("columns_selected", columns_selected);
@@ -49,8 +48,6 @@ $(function() {
     };
 
     var columns_selected = Cookies.getJSON("columns_selected");
-
-
     var columnTemplate = $("#column-template").remove();
 
     $.each(roster_columns, function(key, column){
@@ -66,11 +63,10 @@ $(function() {
           .text(column)
         .end() // set column
         .appendTo("#column-listing")
-
     });
-  updateColumns();
-    // Risk level tooltip for overall roster table
+    updateColumns();
 
+    // Risk level tooltip for overall roster table
     var roster_rooltip_template = $('#roster-tooltip-template').html();
     var rendered = Mustache.render(roster_rooltip_template);
 
@@ -103,13 +99,10 @@ $(function() {
     $('tbody td').click(function () {
       location.href = $(this).attr('href');
     });
-  }
-});
 
-$(function() {
-
-  if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
     var chartData = $('#chart-data');
     RosterChart.fromChartData(chartData).render();
+
   }
+  
 });
