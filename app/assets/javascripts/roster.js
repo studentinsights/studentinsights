@@ -18,6 +18,7 @@ $(function() {
         this.checked = false;
         return false;
       } else {
+        $('#select-limit-warning').removeClass('on');
         columns_selected = $.map(columns_selected_inputs, function(c) {
           return c.name;
         });
