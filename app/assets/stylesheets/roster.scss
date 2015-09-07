@@ -12,3 +12,24 @@
  overflow: visible !important;
  margin-top: 60px !important;
 }
+
+#column-picker-row {
+  position: relative;
+}
+
+#column-picker-toggle {
+  cursor: pointer;
+}
+
+#column-picker {
+  display: none;
+  position: absolute;
+  left: 0px;
+  background-color: white;
+  z-index: 1;
+  border: 2px solid $backgroud;
+  border-radius: 4px;
+  padding: 12px;
+  text-align: left;
+  line-height: 150%;
+}

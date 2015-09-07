@@ -9,13 +9,9 @@
         <% end %>
       </select>
     </div>
-
     <div id="export">
       <%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
     </div>
-
-
-
   </div>
   <div class="info-area">
 
@@ -28,18 +24,6 @@
     </div>
 
     <div id="chart" class="roster-chart"></div>
-
-  <div id="column-picker">
-    <div id="column-group-dropdown">
-      <p id='select-limit-warning'>Select columns - 6 max</p>
-      <form id="column-listing">
-        <div id="column-template">
-          <input type="checkbox" name="" value="">
-          <label>Dummy Column Name</label>
-        </div>
-      </form>
-    </div>
-  </div>
 
     <table id="roster-table" border="0" cellspacing="0" cellpadding="10" class="sort-default">
       <thead>
@@ -154,6 +138,18 @@
           </th> -->
           <th class="interventions" <%= initial_show_or_hide('interventions') %>
             <span class="table-header">ATP Hours</span>
+          </th>
+          <th id="column-picker-row" class="no-sort">
+            <span id="column-picker-toggle">...</span>
+            <div id="column-picker">
+              <p id='select-limit-warning'>Select columns - 6 max</p>
+              <form id="column-listing">
+                <div id="column-template">
+                  <input type="checkbox" name="" value="">
+                  <label>Dummy Column Name</label>
+                </div>
+              </form>
+            </div>
           </th>
         </tr>
      </thead>

@@ -31,21 +31,21 @@ $(function() {
 
     // Show/hide column groups
     var roster_columns = {
-        'attendance': 'Attendance',
-        'discipline': 'Discipline',
-        'language': 'Language',
-        'star_math': 'STAR Math',
-        'star_reading': 'STAR Reading',
-        'program': 'Program',
-        'free-reduced': 'Free/Reduced Lunch',
-        'access': 'Access',
-        'dibels': 'DIBELS',
         'name': 'Name',
         'risk': 'Risk',
+        'program': 'Program',
         'sped': 'Sped',
+        'language': 'Language',
+        'free-reduced': 'Free/Reduced Lunch',
+        'star_math': 'STAR Math',
+        'star_reading': 'STAR Reading',
         'mcas_math': 'MCAS Math',
         'mcas_ela': 'MCAS ELA',
+        'access': 'Access',
+        'dibels': 'DIBELS',
         'interventions': 'Interventions'
+        // 'attendance': 'Attendance',
+        // 'discipline': 'Discipline',
     };
 
     var columns_selected = Cookies.getJSON("columns_selected");
@@ -67,6 +67,12 @@ $(function() {
         .appendTo("#column-listing")
     });
     updateColumns();
+
+    $('#column-picker-toggle').mouseover(function() {
+      $('#column-picker').show();
+    }).click(function() {
+      $('#column-picker').toggle();
+    });
 
     // Risk level tooltip for overall roster table
     var roster_rooltip_template = $('#roster-tooltip-template').html();
