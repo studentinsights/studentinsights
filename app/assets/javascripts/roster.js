@@ -12,12 +12,12 @@ $(function() {
     });
 
     function updateColumns () {
-      columns_selected = $("#column-listing").find("input:checked");
-      columns_selected_names = $.map(columns_selected, function(c) {
+      columns_selected_inputs = $("#column-listing").find("input:checked");
+      columns_selected = $.map(columns_selected_inputs, function(c) {
         return c.name;
       });
       for (var column in roster_columns) {
-        if (columns_selected_names.indexOf(column) === -1) {
+        if (columns_selected.indexOf(column) === -1) {
           $('.' + column).hide();
         } else {
           $('.' + column).show();
