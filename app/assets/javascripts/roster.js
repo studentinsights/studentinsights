@@ -13,14 +13,20 @@ $(function() {
 
     function updateColumns () {
       columns_selected_inputs = $("#column-listing").find("input:checked");
-      columns_selected = $.map(columns_selected_inputs, function(c) {
-        return c.name;
-      });
-      for (var column in roster_columns) {
-        if (columns_selected.indexOf(column) === -1) {
-          $('.' + column).hide();
-        } else {
-          $('.' + column).show();
+      if (columns_selected_inputs.length > 6) {
+        $('#select-limit-warning').addClass('on');
+        this.checked = false;
+        return false;
+      } else {
+        columns_selected = $.map(columns_selected_inputs, function(c) {
+          return c.name;
+        });
+        for (var column in roster_columns) {
+          if (columns_selected.indexOf(column) === -1) {
+            $('.' + column).hide();
+          } else {
+            $('.' + column).show();
+          }
         }
       }
     }
