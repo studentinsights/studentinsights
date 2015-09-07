@@ -59,10 +59,11 @@ $(function() {
           .attr("name", key)
           .attr("checked", isselected)
           .on("change", updateColumns)
-        .end() // set name
+          .on("change", updateCookies)
+        .end()
         .find("label")
           .text(column)
-        .end() // set column
+        .end()
         .appendTo("#column-listing")
     });
     updateColumns();
