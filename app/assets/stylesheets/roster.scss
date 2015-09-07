@@ -12,23 +12,3 @@
  overflow: visible !important;
  margin-top: 60px !important;
 }
-
-
-#select-limit-warning.on {
-  color: $warning-red;
-  font-weight: bold;
-}
-
-#column-picker {
-  padding-bottom: 30px;
-  border-bottom: 2px solid $backgroud;
-  display: block;
-  clear: both;
-  margin-bottom: 35px;
-  overflow: visible;
-
-  p {
-    margin-bottom: 5px;
-    color: $light-gray;
-  }
-}
