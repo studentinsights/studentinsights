@@ -44,7 +44,8 @@ $(function() {
         'risk': 'Risk',
         'sped': 'Sped',
         'mcas_math': 'MCAS Math',
-        'mcas_ela': 'MCAS ELA'
+        'mcas_ela': 'MCAS ELA',
+        'interventions': 'Interventions'
     };
 
     var columns_selected = Cookies.getJSON("columns_selected");
@@ -104,5 +105,5 @@ $(function() {
     RosterChart.fromChartData(chartData).render();
 
   }
-  
+
 });
