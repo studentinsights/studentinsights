@@ -7,17 +7,20 @@ set :deploy_to, '/home/ubuntu/student_insights'
 set :branch, 'master'
 set :user, 'ubuntu'
 set :ssh_options, { forward_agent: true }
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 set :rbenv_type, :user
 set :rbenv_ruby, '2.1.6'
 set :default_shell, '/bin/bash -l'
+set :bundle_binstubs, nil
 
 namespace :deploy do
-  task :restart do
+  task :server do
     on roles(:app) do
-      RELEASE_PATH = 'apps/SomervilleTeacherTool/current'
-      execute "cd '#{RELEASE_PATH}'; bundle exec rails server"
+      within current_path do
+        # cd /home/ubuntu/student_insights/current &&
+        execute :rails, "server"
+      end
     end
   end
-  after :publishing, :restart
+  after :publishing, :server
 end
