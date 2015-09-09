@@ -24,9 +24,12 @@ stdout_path "log/unicorn.log"
 # Set master PID location
 pid "#{shared_path}/tmp/pids/unicorn.pid"
 
+before_exec do |server|
+  ENV['BUNDLE_GEMFILE'] = "#{current_path}/Gemfile"
+end
+
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect!
-
   old_pid = "#{server.config[:pid]}.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
