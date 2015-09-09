@@ -14,13 +14,21 @@ set :default_shell, '/bin/bash -l'
 set :bundle_binstubs, nil
 
 namespace :deploy do
-  task :server do
+  desc "Upload env.yml file"
+  task :upload_yml do
+    on roles(:app) do
+      local_db_yml = StringIO.new(File.read("config/deploy/database.yml"))
+      remote_db_yml_path = "#{current_path}/config/database.yml"
+      execute :rm, remote_db_yml_path
+      upload!(local_db_yml, remote_db_yml_path)
+    end
+  end
+  task :initial do
     on roles(:app) do
       within current_path do
-        # cd /home/ubuntu/student_insights/current &&
         execute :rails, "server"
       end
     end
   end
-  after :publishing, :server
+  after :publishing, :upload_yml
 end

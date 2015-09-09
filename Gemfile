@@ -10,7 +10,6 @@ gem 'pg'
 gem 'friendly_id', '~> 5.1.0'
 gem 'net-ssh'
 gem 'net-sftp'
-gem 'thin'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -54,6 +53,7 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-rbenv-install', '~> 1.2.0'
+  gem 'capistrano3-unicorn', :require => false
   gem 'pivotal_git_scripts'
   gem 'rack-mini-profiler'
   gem 'spring'
@@ -84,7 +84,7 @@ gem 'thor'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
