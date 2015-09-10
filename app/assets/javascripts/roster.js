@@ -41,7 +41,7 @@ $(function() {
         'name': 'Name',
         'risk': 'Risk',
         'program': 'Program',
-        'sped': 'Sped',
+        'sped': 'SPED & Disability',
         'language': 'Language',
         'free-reduced': 'Free/Reduced Lunch',
         'star_math': 'STAR Math',
