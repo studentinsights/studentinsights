@@ -12,12 +12,22 @@ $(function() {
     });
 
     function updateColumns () {
-      for (i = 0; i < roster_columns.length; i++) {
-        var column = roster_columns[i];
-        if (columns_selected.indexOf(column) === -1) {
-          $('.' + column).hide();
-        } else {
-          $('.' + column).show();
+      columns_selected_inputs = $("#column-listing").find("input:checked");
+      if (columns_selected_inputs.length > 6) {
+        $('#select-limit-warning').addClass('on');
+        this.checked = false;
+        return false;
+      } else {
+        $('#select-limit-warning').removeClass('on');
+        columns_selected = $.map(columns_selected_inputs, function(c) {
+          return c.name;
+        });
+        for (var column in roster_columns) {
+          if (columns_selected.indexOf(column) === -1) {
+            $('.' + column).hide();
+          } else {
+            $('.' + column).show();
+          }
         }
       }
     }
@@ -27,48 +37,51 @@ $(function() {
     }
 
     // Show/hide column groups
-    var roster_columns = [
-      'attendance',
-      'discipline',
-      'language',
-      'star_math',
-      'star_reading',
-      'program',
-      'free-reduced',
-      'access',
-      'dibels',
-      'name',
-      'risk',
-      'sped',
-      'mcas_math',
-      'mcas_ela'
-    ];
+    var roster_columns = {
+        'name': 'Name',
+        'risk': 'Risk',
+        'program': 'Program',
+        'sped': 'SPED & Disability',
+        'language': 'Language',
+        'free-reduced': 'Free/Reduced Lunch',
+        'star_math': 'STAR Math',
+        'star_reading': 'STAR Reading',
+        'mcas_math': 'MCAS Math',
+        'mcas_ela': 'MCAS ELA',
+        'access': 'Access',
+        'dibels': 'DIBELS',
+        'interventions': 'Interventions'
+        // 'attendance': 'Attendance',
+        // 'discipline': 'Discipline',
+    };
 
     var columns_selected = Cookies.getJSON("columns_selected");
+    var columnTemplate = $("#column-template").remove();
+
+    $.each(roster_columns, function(key, column){
+      var newColumnTemplate = columnTemplate.clone(),
+      isselected = columns_selected.indexOf(key) !== -1;
+      newColumnTemplate
+        .find("input")
+          .attr("name", key)
+          .attr("checked", isselected)
+          .on("change", updateColumns)
+          .on("change", updateCookies)
+        .end()
+        .find("label")
+          .text(column)
+        .end()
+        .appendTo("#column-listing")
+    });
     updateColumns();
 
-    $("#column-group-select").chosen({
-      width: "110%",
-      max_selected_options: 6
-    }).bind("chosen:maxselected", function() {
-      $('#select-limit-warning').addClass('on');
-    }).on('change', function(e, params) {
-        if (params.deselected !== undefined) {
-          var assessment = params.deselected;
-          var index = columns_selected.indexOf(assessment)
-          columns_selected.splice(index, 1);
-          updateCookies();
-          updateColumns();
-        } else if (params.selected !== undefined) {
-          var assessment = params.selected;
-          columns_selected.push(assessment)
-          updateCookies();
-          updateColumns();
-        }
+    $('#column-picker-toggle').mouseover(function() {
+      $('#column-picker').show();
+    }).click(function() {
+      $('#column-picker').toggle();
     });
 
     // Risk level tooltip for overall roster table
-
     var roster_rooltip_template = $('#roster-tooltip-template').html();
     var rendered = Mustache.render(roster_rooltip_template);
 
@@ -101,13 +114,10 @@ $(function() {
     $('tbody td').click(function () {
       location.href = $(this).attr('href');
     });
-  }
-});
 
-$(function() {
-
-  if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
     var chartData = $('#chart-data');
     RosterChart.fromChartData(chartData).render();
+
   }
+
 });

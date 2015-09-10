@@ -13,22 +13,28 @@
  margin-top: 60px !important;
 }
 
+#column-picker-row {
+  position: relative;
+}
 
-#select-limit-warning.on {
-  color: $warning-red;
-  font-weight: bold;
+#column-picker-toggle {
+  cursor: pointer;
 }
 
 #column-picker {
-  padding-bottom: 30px;
-  border-bottom: 2px solid $backgroud;
-  display: block;
-  clear: both;
-  margin-bottom: 35px;
-  overflow: visible;
+  display: none;
+  position: absolute;
+  right: 0px;
+  background-color: white;
+  z-index: 1;
+  border: 2px solid $backgroud;
+  border-radius: 4px;
+  padding: 12px;
+  text-align: left;
+  line-height: 150%;
+}
 
-  p {
-    margin-bottom: 5px;
-    color: $light-gray;
-  }
+#select-limit-warning.on {
+  color: red;
+  font-weight: bold;
 }
