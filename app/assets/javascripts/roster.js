@@ -115,15 +115,26 @@ $(function() {
       location.href = $(this).attr('href');
     });
 
-
     // Bulk intervention assignment
-    $('#add-interventions-row').dialog({
-      autoOpen: false
+
+    $('#assign-bulk-interventions').click(function(e) {
+      var url = $(this).attr('href');
+      var dialog_form = $('<div id="dialog-form">Loading form...</div>').dialog({
+        autoOpen: false,
+        width: 520,
+        modal: true,
+        open: function() {
+          return $(this).load(url + ' #content');
+        },
+        close: function() {
+          $('#dialog-form').remove();
+        }
+      });
+      dialog_form.dialog('open');
+      e.preventDefault();
     });
 
-    $('#assign-bulk-interventions').click(function() {
-      $('#add-interventions-row').dialog('open');
-    });
+    // Make Risk Level summary chart
 
     var chartData = $('#chart-data');
     RosterChart.fromChartData(chartData).render();

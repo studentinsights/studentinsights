@@ -53,7 +53,9 @@
           <td colspan="1" class="interventions <%= initial_show_or_hide('interventions') %>">
             <p class="smalltype">Interventions</p>
           </td>
-          <td colspan="1" id="assign-bulk-interventions">+</td>
+          <td colspan="1">
+            <%= link_to "+", new_bulk_intervention_assignment_path, id: 'assign-bulk-interventions' %>
+          </td>
         </tr>
         <tr class="column-names">
           <!-- COLUMN HEADERS -->
@@ -165,34 +167,6 @@
       <% end %>
     </table>
   </div>
-
-  <%= form_tag do %>
-    <div id="add-interventions-row">
-      <h1>Add Intervention</h1>
-      <div class="left-bar-block">
-        <h2>Select Intervention</h2>
-        <%= select_tag(
-              options_from_collection_for_select(InterventionType.all, :id, :name),
-              { include_blank: " -- Intervention type -- " },
-              { required: true }
-            ) %>
-      </div>
-      <div class="left-bar-block">
-        <h2>Comment</h2>
-        <%= text_area_tag :comment, '', { placeholder: "Add comment", cols: "20", rows: "5" } %>
-      </div>
-      <div class="left-bar-block">
-        <h2>End date</h2>
-        <%= text_field_tag :end_date, '', class: "datepicker", placeholder: "yyyy-mm-dd" %>
-      </div>
-      <%= hidden_field_tag :educator_id, value: current_educator.id %>
-      <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
-      <%= submit_tag "Save", class: "btn save-btn" %>
-    </div>
-  </div>
-<% end %>
-
-
 
   <script id="roster-tooltip-template" type="x-tmpl-mustache">
     <div class="tooltip-popup">
