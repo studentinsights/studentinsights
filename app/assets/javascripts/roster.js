@@ -115,6 +115,16 @@ $(function() {
       location.href = $(this).attr('href');
     });
 
+
+    // Bulk intervention assignment
+    $('#add-interventions-row').dialog({
+      autoOpen: false
+    });
+
+    $('#assign-bulk-interventions').click(function() {
+      $('#add-interventions-row').dialog('open');
+    });
+
     var chartData = $('#chart-data');
     RosterChart.fromChartData(chartData).render();
 
