@@ -1,9 +1,9 @@
-<%= form_tag do %>
-  <div id="content">
+<div id="content">
+  <%= form_for @bulk_intervention_assignment, remote: true do |b| %>
     <h1>Add Intervention</h1>
     <div class="left-bar-block">
       <h2>Select Intervention</h2>
-      <%= select_tag(
+      <%= b.select(:intervention_type_id,
             options_from_collection_for_select(InterventionType.all, :id, :name),
             { include_blank: " -- Intervention type -- " },
             { required: true }
@@ -11,14 +11,15 @@
     </div>
     <div class="left-bar-block">
       <h2>Comment</h2>
-      <%= text_area_tag :comment, '', { placeholder: "Add comment", cols: "20", rows: "5" } %>
+      <%= b.text_area :comment, { placeholder: "Add comment", cols: "20", rows: "5" } %>
     </div>
     <div class="left-bar-block">
       <h2>End date</h2>
-      <%= text_field_tag :end_date, '', class: "datepicker", placeholder: "yyyy-mm-dd" %>
+      <%= b.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd" %>
     </div>
-    <%= hidden_field_tag :educator_id, value: current_educator.id %>
+    <%= b.hidden_field :educator_id, value: current_educator.id %>
+    <%= b.hidden_field :student_ids %>
     <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
-    <%= submit_tag "Save", class: "btn save-btn" %>
-  </div>
-<% end %>
+    <%= b.submit "Save", class: "btn save-btn" %>
+    <% end %>
+</div>
