@@ -119,12 +119,14 @@ $(function() {
 
     $('#assign-bulk-interventions').click(function(e) {
       var url = $(this).attr('href');
-      var dialog_form = $('<div id="dialog-form">Loading form...</div>').dialog({
+      var dialog_form = $('<div id="dialog-form"><h1>Loading form...</h1></div>').dialog({
         autoOpen: false,
         width: 520,
         modal: true,
         open: function() {
-          return $(this).load(url + ' #content');
+          return $(this).load(url + ' #content', function() {
+            $(this).find('#students-count').html('');
+          });
         },
         close: function() {
           $('#dialog-form').remove();

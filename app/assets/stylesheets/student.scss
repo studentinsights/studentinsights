@@ -108,32 +108,30 @@
   }
 }
 
-  .btn {
-    margin: auto;
-    -webkit-border-radius: 28;
-    -moz-border-radius: 28;
-    border-radius: 28px;
-    color: $white;
-    font-size: 14px;
-    background: $blue;
-    padding: 8px 25px;
+.btn {
+  margin: auto;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  color: $white;
+  font-size: 14px;
+  background: $blue;
+  padding: 8px 25px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-color: darken($blue, 10%);
     text-decoration: none;
-    border: none;
-    cursor: pointer;
-    margin-bottom: 20px;
-
-    &:hover {
-      background-color: darken($blue, 10%);
-      text-decoration: none;
-    }
-
-    &:active {
-      position: relative;
-      top: 1px;
-    }
   }
 
-
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+}
 
 #school-year-boxes-row {
   width: 55%;
@@ -143,7 +141,6 @@
   width: 100%;
   }
 }
-
 
 .school-year {
   border-left: 1px solid $light-line;
@@ -239,19 +236,16 @@
 }
 
 #student-info {
-  border-bottom: 1px solid $dark-line;
   margin-bottom: 15px;
   padding-bottom: 10px;
 
-    @media screen and (max-width: $phase2) {
-      height: 80px;
-    }
-
+  @media screen and (max-width: $phase2) {
+    height: 80px;
+  }
   h1 {
     font-weight: 400;
     display: inline;
   }
-
   p {
     float: right;
 

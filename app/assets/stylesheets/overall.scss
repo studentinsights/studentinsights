@@ -76,7 +76,6 @@ body {
   display: none;
 }
 
-
 .sessions {
 
   .info-area {
@@ -91,7 +90,6 @@ body {
   }
 }
 
-
 #log-in {
   margin: auto auto;
   width: 134px;
@@ -100,4 +98,8 @@ body {
     margin-bottom: 20px;
     border-bottom: 1px solid $light-line;
   }
+}
+
+.underline {
+  border-bottom: 1px solid $dark-line;
 }

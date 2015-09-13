@@ -1,25 +1,23 @@
 <div id="content">
   <%= form_for @bulk_intervention_assignment, remote: true do |b| %>
-    <h1>Add Intervention</h1>
-    <div class="left-bar-block">
-      <h2>Select Intervention</h2>
-      <%= b.select(:intervention_type_id,
-            options_from_collection_for_select(InterventionType.all, :id, :name),
-            { include_blank: " -- Intervention type -- " },
-            { required: true }
-          ) %>
-    </div>
-    <div class="left-bar-block">
-      <h2>Comment</h2>
-      <%= b.text_area :comment, { placeholder: "Add comment", cols: "20", rows: "5" } %>
-    </div>
-    <div class="left-bar-block">
-      <h2>End date</h2>
-      <%= b.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd" %>
-    </div>
+    <h1 class="underline">
+      Add Intervention (<span id="students-count"></span>)
+    </h1>
+    <br/>
+    <%= b.label :intervention_type_id, "Select Intervention" %>
+    <%= b.select(:intervention_type_id,
+          options_from_collection_for_select(InterventionType.all, :id, :name),
+          { include_blank: " -- Intervention type -- " },
+          { required: true } ) %>
+    <%= b.label :comment %>
+    <%= b.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
+    <%= b.label :end_date %>
+    <%= b.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd" %>
     <%= b.hidden_field :educator_id, value: current_educator.id %>
-    <%= b.hidden_field :student_ids %>
-    <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
-    <%= b.submit "Save", class: "btn save-btn" %>
-    <% end %>
+    <%= b.hidden_field :student_ids %><br/><br/>
+    <%= b.submit "Add Interventions", class: "btn save-btn" %>
+    <button id="close-intervention-form" class="btn cancel-btn" type="button">
+      Cancel
+    </button>
+  <% end %>
 </div>

@@ -1,0 +1,30 @@
+//==* Override JQuery dialog defaults *==//
+
+.ui-widget-header {
+	border: none !important;
+	background: none !important;
+	font-weight: normal !important;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  padding: 0px !important;
+}
+
+.ui-state-default, .ui-widget-content
+  .ui-state-default, .ui-widget-header .ui-state-default {
+    border: 1px solid white !important;
+}
+
+.ui-widget {
+	input, select, textarea, button	{
+	  font-size: 14px !important;
+	  font-weight: 400 !important;
+	  font-family: 'Open Sans', sans-serif !important;
+	}
+	select, textarea, input.datepicker {
+	  color: $gray !important;
+    border: 1px solid $light-gray !important;
+    border-radius: 4px !important;
+    padding: 4px !important;
+	}
+}
