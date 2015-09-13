@@ -136,6 +136,12 @@ $(function() {
       e.preventDefault();
     });
 
+    // Make the 'cancel' button work
+
+    $(document).on("click", "#dialog-form .btn.cancel-btn", function() {
+      $('#dialog-form').dialog('close');
+    });
+
     // Make Risk Level summary chart
 
     var chartData = $('#chart-data');
