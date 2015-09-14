@@ -13,10 +13,6 @@
  margin-top: 60px !important;
 }
 
-#column-picker-row {
-  position: relative;
-}
-
 #column-picker-toggle {
   cursor: pointer;
 }
@@ -26,7 +22,7 @@
   position: absolute;
   right: 0px;
   background-color: white;
-  z-index: 1;
+  z-index: 100;
   border: 2px solid $backgroud;
   border-radius: 4px;
   padding: 12px;

@@ -56,6 +56,7 @@ tr, td {
 
   td:last-of-type {
     padding-right: 0;
+    border: none !important;
   }
 }
 
@@ -73,6 +74,15 @@ tr, td {
   padding-bottom: 5px;
   text-align: center;
   margin: auto auto;
+}
+
+.bulk-intervention {
+  position: absolute;
+  right: 20px;
+  width: 100px;
+  z-index: 10;
+  background: white;
+  /*border-left: 1px solid $light-line*/
 }
 
 tbody {
@@ -115,40 +125,17 @@ tbody {
 
 .name {
   text-align: left;
-  background: white;
 }
-
-/**
- * Scrolling shadows by @kizmarh and @leaverou
- * Only works in browsers supporting background-attachment: local; & CSS gradients
- * Degrades gracefully
- */
 
 #roster-table {
   overflow: auto;
+  table-layout: fixed;
+  width: 100%;
+}
 
-  background:
-    /* Shadow covers */
-    linear-gradient(90deg, white 30%, rgba(255,255,255,0)),
-    linear-gradient(90deg, rgba(255,255,255,0), white 70%) 100% 0,
-
-    /* Shadows */
-    radial-gradient(0 50%, farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)),
-    radial-gradient(100% 50%,farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)) 100% 0;
-  background:
-    /* Shadow covers */
-    linear-gradient(90deg, white 30%, rgba(255,255,255,0)),
-    linear-gradient(90deg, rgba(255,255,255,0), white 70%) 100% 0,
-
-    /* Shadows */
-    radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.2), rgba(0,0,0,0)),
-    radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.2), rgba(0,0,0,0)) 100% 0;
-  background-repeat: no-repeat;
-  background-color: white;
-  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
-
-  /* Opera doesn't support this in the shorthand */
-  background-attachment: local, local, scroll, scroll;
+#roster-table-inner-wrapper {
+  overflow-x: scroll;
+  width: 120%;
 }
 
 #assign-bulk-interventions {
@@ -163,4 +150,6 @@ tbody {
   font-weight: bold;
   width: 40px;
   cursor: pointer;
+  position: relative;
+  bottom: 10px;
 }

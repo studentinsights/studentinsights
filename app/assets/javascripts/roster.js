@@ -112,7 +112,7 @@ $(function() {
 
     // Turn table rows into links to student profiles
     $('tbody td').click(function () {
-      if (!$(this).hasClass('bulk-intervention-td')) {
+      if (!$(this).hasClass('bulk-intervention')) {
         location.href = $(this).attr('href');
       }
     });
