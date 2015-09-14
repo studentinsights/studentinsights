@@ -8,6 +8,7 @@ class BulkInterventionAssignment
     if student_ids.present?
       student_ids.map do |s|
         Intervention.create(
+          student_id: s.to_i,
           comment: comment,
           end_date: end_date,
           intervention_type_id: intervention_type_id,
