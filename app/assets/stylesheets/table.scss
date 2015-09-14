@@ -83,9 +83,9 @@ tr, td {
 tbody {
 
   tr:hover {
-     cursor: pointer;
-     background-color: $table-row-hover;
-     border-radius: 10px;
+    cursor: pointer;
+    background-color: $table-row-hover;
+    border-radius: 10px;
   }
 
   td {
@@ -97,10 +97,9 @@ tbody {
   }
 
   td:hover {
-
     .cell-wrapper {
-       background-color: $table-cell-hover;
-       border-radius: 5px;
+      background-color: $table-cell-hover;
+      border-radius: 5px;
     }
   }
 
@@ -114,8 +113,7 @@ tbody {
 }
 
 .column-names {
-
-  th{
+  th {
    border-bottom: 1px solid $dark-line;
   }
 }
