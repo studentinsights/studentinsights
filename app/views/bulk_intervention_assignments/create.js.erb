@@ -1,5 +1,5 @@
-<%- if @Intervention.present? %>
-  console.log('Interventions added!');
+<%- if @interventions.present? %>
+  $('#new_bulk_intervention_assignment .notice').html("<%= @interventions.size %> interventions added.");
 <%- else %>
-  console.log('NoInterventions added!');
+  $('#new_bulk_intervention_assignment .alert').html("Uh oh — no interventions added.");
 <%- end %>
