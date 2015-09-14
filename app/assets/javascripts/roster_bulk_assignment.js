@@ -2,6 +2,16 @@ $(function() {
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
 
+    $('.bulk-intervention-checkbox').click(function() {
+      var student_count = window.bulkInterventionStudents().length;
+      if (student_count > 0) {
+        $('#assign-bulk-interventions').html("+ " + student_count);
+        $('#assign-bulk-interventions').show();
+      } else {
+        $('#assign-bulk-interventions').hide();
+      }
+    });
+
     window.bulkInterventionStudents = function () {
       return $('.bulk-intervention-checkbox').filter(function() {
         return this.checked;
