@@ -11,6 +11,14 @@ $(function() {
       window.location.pathname = '/homerooms/' + $(this).val();
     });
 
+    window.bulkInterventionStudents = function () {
+      return $('.bulk-intervention-checkbox').filter(function() {
+        return this.checked;
+      }).map(function() {
+        return $(this).data('student-id');
+      }).toArray();
+    }
+
     function updateColumns () {
       columns_selected_inputs = $("#column-listing").find("input:checked");
       if (columns_selected_inputs.length > 6) {
@@ -112,7 +120,9 @@ $(function() {
 
     // Turn table rows into links to student profiles
     $('tbody td').click(function () {
-      location.href = $(this).attr('href');
+      if (!$(this).hasClass('bulk-intervention-td')) {
+        location.href = $(this).attr('href');
+      }
     });
 
     // Bulk intervention assignment
@@ -125,7 +135,9 @@ $(function() {
         modal: true,
         open: function() {
           return $(this).load(url + ' #content', function() {
-            $(this).find('#students-count').html('');
+            var student_ids_to_assign = window.bulkInterventionStudents();
+            var number_of_students = String(student_ids_to_assign.length);
+            return $(this).find('#students-count').html(number_of_students);
           });
         },
         close: function() {
