@@ -14,7 +14,7 @@
     <%= b.label :end_date %>
     <%= b.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd" %>
     <%= b.hidden_field :educator_id, value: current_educator.id %>
-    <%= b.hidden_field :student_ids %><br/><br/>
+    <span id="student-ids"></span><br/><br/>
     <%= b.submit "Add Interventions", class: "btn save-btn" %>
     <button id="close-intervention-form" class="btn cancel-btn" type="button">
       Cancel

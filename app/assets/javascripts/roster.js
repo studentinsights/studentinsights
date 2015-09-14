@@ -137,7 +137,17 @@ $(function() {
           return $(this).load(url + ' #content', function() {
             var student_ids_to_assign = window.bulkInterventionStudents();
             var number_of_students = String(student_ids_to_assign.length);
-            return $(this).find('#students-count').html(number_of_students);
+            if (student_ids_to_assign.length > 0) {
+              var hidden_student_fields = student_ids_to_assign.map(function(id) {
+                return '<input name="bulk_intervention_assignment[student_ids][]" ' +
+                              'value="' + String(id) + '" type="hidden" />'
+              }).join('');
+            } else {
+              var hidden_student_fields = '<input name="bulk_intervention_assignment[student_ids][]" ' +
+                            'value="" type="hidden" />'
+            }
+            return $(this).find('#students-count').html(number_of_students).end()
+                          .find('#student-ids').html(hidden_student_fields);
           });
         },
         close: function() {
