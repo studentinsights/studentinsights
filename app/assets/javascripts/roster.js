@@ -75,6 +75,11 @@ $(function() {
       $('#column-picker').toggle();
     });
 
+    // "Click off" for column select
+    $(document).click(function() {
+      $('#column-picker').hide();
+    });
+
     // Risk level tooltip for overall roster table
     var roster_rooltip_template = $('#roster-tooltip-template').html();
     var rendered = Mustache.render(roster_rooltip_template);
