@@ -2,7 +2,7 @@ $(function() {
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
 
-    $('.bulk-intervention-checkbox').click(function() {
+    function toggleBulkInterventionsButton () {
       var student_count = window.bulkInterventionStudents().length;
       if (student_count > 0) {
         $('#assign-bulk-interventions').html("+ " + student_count);
@@ -10,7 +10,9 @@ $(function() {
       } else {
         $('#assign-bulk-interventions').hide();
       }
-    });
+    }
+
+    $('.bulk-intervention-checkbox').on("change", toggleBulkInterventionsButton);
 
     window.bulkInterventionStudents = function () {
       return $('.bulk-intervention-checkbox').filter(function() {
@@ -54,6 +56,8 @@ $(function() {
 
     // Make the 'cancel' button work
     $(document).on("click", "#dialog-form .btn.cancel-btn", function() {
+      $('.bulk-intervention-checkbox').prop('checked', false);
+      toggleBulkInterventionsButton();
       $('#dialog-form').dialog('close');
     });
 
