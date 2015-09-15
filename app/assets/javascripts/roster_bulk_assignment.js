@@ -24,6 +24,7 @@ $(function() {
       var url = $(this).attr('href');
       var dialog_form = $('<div id="dialog-form"><h1>Loading form...</h1></div>').dialog({
         autoOpen: false,
+        hide: true,
         width: 520,
         modal: true,
         open: function() {
@@ -51,8 +52,7 @@ $(function() {
       e.preventDefault();
     });
 
-  // Make the 'cancel' button work
-
+    // Make the 'cancel' button work
     $(document).on("click", "#dialog-form .btn.cancel-btn", function() {
       $('#dialog-form').dialog('close');
     });

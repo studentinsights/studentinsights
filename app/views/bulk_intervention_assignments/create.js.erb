@@ -1,5 +1,7 @@
 <%- if @interventions.present? %>
-  $('#new_bulk_intervention_assignment .notice').html("<%= @interventions.size %> interventions added.");
+  $('#dialog-form .notice').html("<%= @interventions.size %> interventions added.");
+  $('#dialog-form form').remove();
+  setTimeout(function() { $('#dialog-form').dialog('close') }, 1000);
 <%- else %>
-  $('#new_bulk_intervention_assignment .alert').html("Uh oh — no interventions added.");
+  $('#dialog-form .alert').html("Uh oh — no interventions added.");
 <%- end %>

@@ -1,11 +1,11 @@
 <div id="content">
+  <h1 class="underline">
+    Add Intervention (<span id="students-count"></span>)
+  </h1>
+  <p class="notice"></p>
+  <p class="alert"></p>
+  <br/>
   <%= form_for @bulk_intervention_assignment, remote: true do |b| %>
-    <h1 class="underline">
-      Add Intervention (<span id="students-count"></span>)
-    </h1>
-    <p class="notice"></p>
-    <p class="alert"></p>
-    <br/>
     <%= b.label :intervention_type_id, "Select Intervention" %>
     <%= b.select(:intervention_type_id,
           options_from_collection_for_select(InterventionType.all, :id, :name),
