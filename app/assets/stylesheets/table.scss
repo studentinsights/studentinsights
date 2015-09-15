@@ -36,7 +36,6 @@ th {
 }
 
 tr, td {
-  margin: 4px !important;
   font-weight: normal;
   font-size: 14px;
   color: $gray;
@@ -76,15 +75,6 @@ tr, td {
   margin: auto auto;
 }
 
-.bulk-intervention {
-  position: absolute;
-  right: 20px;
-  width: 100px;
-  z-index: 10;
-  background: white;
-  /*border-left: 1px solid $light-line*/
-}
-
 tbody {
 
   tr:hover {
@@ -102,6 +92,7 @@ tbody {
   }
 
   td:hover {
+    z-index: 10;
     .cell-wrapper {
       background-color: $table-cell-hover;
       border-radius: 5px;
@@ -114,6 +105,19 @@ tbody {
 
   a:hover, a:active {
     color: $gray;
+  }
+}
+
+.bulk-intervention {
+  position: absolute;
+  right: 0px;
+  width: 80px;
+  background: white;
+  border-left: 1px solid $light-line;
+  &:hover {
+    .cell-wrapper {
+      background-color: transparent;
+    }
   }
 }
 
@@ -131,25 +135,28 @@ tbody {
   overflow: auto;
   table-layout: fixed;
   width: 100%;
+  margin-right: -100px;
 }
 
-#roster-table-inner-wrapper {
-  overflow-x: scroll;
-  width: 120%;
-}
+/*
+* Old strategy for offsetting last column:
+
+.student-row td:nth-last-child(2) .cell-wrapper,
+.column-names th:nth-last-child(2),
+.column-groups td:nth-last-child(2) {
+  margin-right: 100px;
+  margin-left: 20px;
+  text-align: left;
+}*/
 
 #assign-bulk-interventions {
   padding: 4px 16px;
-  margin: 10px;
   color: white;
-  font-size: 14px;
   background-color: #428be5;
-  color: white;
   border-radius: 20px;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
-  width: 40px;
   cursor: pointer;
   position: relative;
-  bottom: 10px;
+  right: 8px;
 }

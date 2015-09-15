@@ -54,7 +54,8 @@
             <td colspan="1" class="interventions <%= initial_show_or_hide('interventions') %>">
               <p class="smalltype">Interventions</p>
             </td>
-            <td colspan="1" class="bulk-intervention">
+            <td colspan="1" rowspan="1" class="bulk-intervention">
+              &nbsp;
               <%= link_to "+", new_bulk_intervention_assignment_path, id: 'assign-bulk-interventions', class: 'hidden' %>
             </td>
           </tr>
@@ -144,15 +145,17 @@
               <span class="table-header">ATP Hours</span>
             </th>
             <th id="column-picker-row" class="bulk-intervention no-sort">
-              <span id="column-picker-toggle">...</span>
-              <div id="column-picker">
-                <p>Select columns <span id='select-limit-warning'>(6 max)</span></p>
-                <form id="column-listing">
-                  <div id="column-template">
-                    <input type="checkbox" name="" value="">
-                    <label></label>
-                  </div>
-                </form>
+              <div class="cell-wrapper">
+                <span id="column-picker-toggle">...</span>
+                <div id="column-picker">
+                  <p>Select columns</p>
+                  <form id="column-listing">
+                    <div id="column-template">
+                      <input type="checkbox" name="" value="">
+                      <label></label>
+                    </div>
+                  </form>
+                </div>
               </div>
             </th>
           </tr>

@@ -66,8 +66,19 @@
                   </td>
 
                   <td class="bulk-intervention">
-                    <input type="checkbox"
-                           class="bulk-intervention-checkbox"
-                           data-student-id="<%= student_id %>" />
+                    <div class="cell-wrapper">
+                      <input type="checkbox"
+                             class="bulk-intervention-checkbox"
+                             data-student-id="<%= student_id %>" />
+                    </div>
+                  </td>
+                  <!--
+                    Dummy column to offset absolutely
+                    positioned last column. Last column
+                    holds bulk intervention checkboxes.
+                  -->
+                  <td class="dummy-column">
+                    <div class="cell-wrapper">
+                    </div>
                   </td>
                 </tr>
