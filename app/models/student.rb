@@ -50,8 +50,8 @@ class Student < ActiveRecord::Base
     end
     def access
       star_reading = Assessment.access
-      return MissingStudentAssessmentCollection.new if Assessment.access.is_a? MissingAssessment
-      where(assessment_id: Assessment.access.id).last_or_missing || MissingStudentAssessmentCollection.new
+      return MissingStudentAssessment.new if Assessment.access.is_a? MissingAssessment
+      where(assessment_id: Assessment.access.id).last_or_missing || MissingStudentAssessment.new
     end
   end
   has_many :assessments, through: :student_assessments
