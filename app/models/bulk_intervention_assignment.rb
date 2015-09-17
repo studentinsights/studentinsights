@@ -17,7 +17,7 @@ class BulkInterventionAssignment
             intervention_type_id: intervention_type_id,
             goal: goal,
             educator_id: educator_id,
-            start_date: Date.new
+            start_date: Time.zone.now.to_date
           )
         end
       end
