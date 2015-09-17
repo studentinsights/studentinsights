@@ -1,9 +1,0 @@
-# database.yml for remote server
-
-production:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  database: homeroom_production
-  username: homeroom_username
-  password:
