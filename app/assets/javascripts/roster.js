@@ -59,8 +59,10 @@ $(function() {
         .find("input")
           .attr("name", key)
           .attr("checked", isselected)
-          .on("change", updateColumns)
-          .on("change", updateCookies)
+          .on("click", function(event) {
+            event.stopPropagation();
+            updateColumns();
+          }).on("change", updateCookies)
         .end()
         .find("label")
           .text(column)
