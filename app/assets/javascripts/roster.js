@@ -69,15 +69,14 @@ $(function() {
     });
     updateColumns();
 
-    $('#column-picker-toggle').mouseover(function() {
-      $('#column-picker').show();
-    }).click(function() {
-      $('#column-picker').toggle();
+    // "Click off" for column select
+    $("body").click(function() {
+      $('#column-picker').hide();
     });
 
-    // "Click off" for column select
-    $(document).click(function() {
-      $('#column-picker').hide();
+    $('#column-picker-toggle').click(function(event) {
+      event.stopPropagation();
+      $('#column-picker').show();
     });
 
     // Risk level tooltip for overall roster table
