@@ -43,7 +43,10 @@ $(function() {
                             'value="" type="hidden" />'
             }
             return $(this).find('#students-count').html(number_of_students).end()
-                          .find('#student-ids').html(hidden_student_fields);
+                          .find('#student-ids').html(hidden_student_fields).end()
+                          .dialog({ position:
+                            { my: "center", at: "center", of: window }  // Recenter post-AJAX load
+                          });
           });
         },
         close: function() {
