@@ -14,11 +14,5 @@ set :default_shell, '/bin/bash -l'
 set :bundle_binstubs, nil
 
 namespace :deploy do
-  task :initial do
-    on roles(:app) do
-      within current_path do
-        execute :rails, "server"
-      end
-    end
-  end
+  after :publishing, 'unicorn:restart'
 end
