@@ -29,5 +29,6 @@
       </div>
     </div>
     <%= yield %>
+    <%= tag("div", id: "calendar-icon-path", data: { path: asset_path('calendar-icon.svg') }) %>
   </body>
 </html>

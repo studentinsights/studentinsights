@@ -44,6 +44,7 @@ $(function() {
             }
             return $(this).find('#students-count').html(number_of_students).end()
                           .find('#student-ids').html(hidden_student_fields).end()
+                          .find('.datepicker').datepicker(window.datepicker_options).end()
                           .dialog({ position:
                             { my: "center", at: "center", of: window }  // Recenter post-AJAX load
                           });

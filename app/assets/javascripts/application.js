@@ -24,4 +24,4 @@
 //= require roster_bulk_assignment
 //= require_tree ./charts
 //= require profile
-//= require rounded-corners
+//= require datepicker
