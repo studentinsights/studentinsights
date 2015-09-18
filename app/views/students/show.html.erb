@@ -129,14 +129,8 @@
           <div class="left-bar-block">
             <h2>End date (yyyy-mm-dd)</h2>
             <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd",
-              pattern: "(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-              # Regex from: http://html5pattern.com/Dates
-              # Checks that:
-              # 1) the year is numeric and starts with 19 or 20,
-              # 2) the month is numeric and between 01-12, and
-              # 3) the day is numeric between 01-29, or
-              #    b) 30 if the month value is anything other than 02, or
-              #    c) 31 if the month value is one of 01,03,05,07,08,10, or 12.
+                pattern: "(19|20)[0-9]{2}(\/|-|.)((0[1-9])|(1[0-2])|([0-9]))(\/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))"
+                # Accepts any of the following formats: 2014-02-02, 2014/02/02, 2014/2/2, 2014.2.2 ...
             %>
           </div>
           <%= i.hidden_field :educator_id, value: current_educator.id %>
