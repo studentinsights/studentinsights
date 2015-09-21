@@ -1,0 +1,8 @@
+<%- if @interventions.present? %>
+  $('#dialog-form .notice').html("<%= @interventions.size %> interventions added.");
+  $('#dialog-form .alert').html("");
+  $('#dialog-form form').remove();
+  setTimeout(function() { $('#dialog-form').dialog('close') }, 1000);
+<%- else %>
+  $('#dialog-form .alert').html("Uh oh — no interventions added: <%= @message %>.");
+<%- end %>

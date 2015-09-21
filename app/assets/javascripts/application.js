@@ -21,6 +21,7 @@
 //= require js.cookie
 //= require_tree ./sorts
 //= require roster
+//= require roster_bulk_assignment
 //= require_tree ./charts
 //= require profile
-//= require rounded-corners
+//= require datepicker

@@ -13,21 +13,15 @@ $(function() {
 
     function updateColumns () {
       columns_selected_inputs = $("#column-listing").find("input:checked");
-      if (columns_selected_inputs.length > 6) {
-        $('#select-limit-warning').addClass('on');
-        this.checked = false;
-        return false;
-      } else {
-        $('#select-limit-warning').removeClass('on');
-        columns_selected = $.map(columns_selected_inputs, function(c) {
-          return c.name;
-        });
-        for (var column in roster_columns) {
-          if (columns_selected.indexOf(column) === -1) {
-            $('.' + column).hide();
-          } else {
-            $('.' + column).show();
-          }
+      $('#select-limit-warning').removeClass('on');
+      columns_selected = $.map(columns_selected_inputs, function(c) {
+        return c.name;
+      });
+      for (var column in roster_columns) {
+        if (columns_selected.indexOf(column) === -1) {
+          $('.' + column).hide();
+        } else {
+          $('.' + column).show();
         }
       }
     }
@@ -65,8 +59,10 @@ $(function() {
         .find("input")
           .attr("name", key)
           .attr("checked", isselected)
-          .on("change", updateColumns)
-          .on("change", updateCookies)
+          .on("click", function(event) {
+            event.stopPropagation();
+            updateColumns();
+          }).on("change", updateCookies)
         .end()
         .find("label")
           .text(column)
@@ -75,10 +71,14 @@ $(function() {
     });
     updateColumns();
 
-    $('#column-picker-toggle').mouseover(function() {
+    // "Click off" for column select
+    $("body").click(function() {
+      $('#column-picker').hide();
+    });
+
+    $('#column-picker-toggle').click(function(event) {
+      event.stopPropagation();
       $('#column-picker').show();
-    }).click(function() {
-      $('#column-picker').toggle();
     });
 
     // Risk level tooltip for overall roster table
@@ -112,8 +112,12 @@ $(function() {
 
     // Turn table rows into links to student profiles
     $('tbody td').click(function () {
-      location.href = $(this).attr('href');
+      if (!$(this).hasClass('bulk-intervention')) {
+        location.href = $(this).attr('href');
+      }
     });
+
+    // Make Risk Level summary chart
 
     var chartData = $('#chart-data');
     RosterChart.fromChartData(chartData).render();

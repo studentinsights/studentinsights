@@ -9,7 +9,7 @@
 
   <div class="info-area">
 
-    <div id="student-info">
+    <div id="student-info" class="underline">
       <h1 id="student-name"><%= @presenter.full_name %></h1>
       <div id="profile-risk-level" class="tooltip-trigger">
         <p>Risk level</p>
@@ -123,18 +123,23 @@
           <div class="left-bar-block">
             <h2>Comment</h2>
             <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
+            <h2>Goal</h2>
+            <%= i.text_area :goal, placeholder: "Add goal", cols: "40", rows: "5" %>
           </div>
           <div class="left-bar-block">
             <h2>End date</h2>
-            <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd" %>
+            <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd",
+                pattern: "(19|20)[0-9]{2}(\/|-|.)((0[1-9])|(1[0-2])|([0-9]))(\/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))"
+                # Accepts any of the following formats: 2014-02-02, 2014/02/02, 2014/2/2, 2014.2.2 ...
+            %>
           </div>
           <%= i.hidden_field :educator_id, value: current_educator.id %>
           <%= i.hidden_field :student_id, value: @student.id %>
           <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
           <%= i.submit "Save", class: "btn save-btn" %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 
     <div id="school-year-boxes-row" class="row">
       <% if @student_school_years.present? %>
@@ -185,4 +190,3 @@
 
 <%= tag("div", id: "chart-data", data: @chart_data) %>
 <%= tag("div", id: "chart-start", data: { start: @chart_start }) %>
-<%= tag("div", id: "calendar-icon-path", data: { path: asset_path('calendar-icon.svg') }) %>

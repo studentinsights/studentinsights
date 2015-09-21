@@ -36,7 +36,6 @@ th {
 }
 
 tr, td {
-  margin: 4px !important;
   font-weight: normal;
   font-size: 14px;
   color: $gray;
@@ -45,9 +44,7 @@ tr, td {
 
 .column-groups {
   text-align: center;
-
-  td {
-  }
+  position: relative;
 
   td p {
     height: 25px;
@@ -58,17 +55,13 @@ tr, td {
 
   td:last-of-type {
     padding-right: 0;
+    border: none !important;
   }
 }
 
 .column-names td {
   border-bottom: 1px solid $dark-line;
   padding-left: 10px;
-}
-
-.risk-groups td {
-  height: 65px;
-  border-bottom: 1px solid $dark-line;
 }
 
 .warning-bubble {
@@ -85,9 +78,9 @@ tr, td {
 tbody {
 
   tr:hover {
-     cursor: pointer;
-     background-color: $table-row-hover;
-     border-radius: 10px;
+    cursor: pointer;
+    background-color: $table-row-hover;
+    border-radius: 10px;
   }
 
   td {
@@ -99,10 +92,10 @@ tbody {
   }
 
   td:hover {
-
+    z-index: 10;
     .cell-wrapper {
-       background-color: $table-cell-hover;
-       border-radius: 5px;
+      background-color: $table-cell-hover;
+      border-radius: 5px;
     }
   }
 
@@ -115,9 +108,21 @@ tbody {
   }
 }
 
-.column-names {
+.bulk-intervention {
+  position: absolute;
+  right: 0px;
+  width: 80px;
+  background: white;
+  border-left: 1px solid $light-line;
+  &:hover {
+    .cell-wrapper {
+      background-color: transparent;
+    }
+  }
+}
 
-  th{
+.column-names {
+  th {
    border-bottom: 1px solid $dark-line;
   }
 }
@@ -126,36 +131,33 @@ tbody {
   text-align: left;
 }
 
-/**
- * Scrolling shadows by @kizmarh and @leaverou
- * Only works in browsers supporting background-attachment: local; & CSS gradients
- * Degrades gracefully
- */
-
 #roster-table {
   overflow: auto;
-
-  background:
-    /* Shadow covers */
-    linear-gradient(90deg, white 30%, rgba(255,255,255,0)),
-    linear-gradient(90deg, rgba(255,255,255,0), white 70%) 100% 0,
-
-    /* Shadows */
-    radial-gradient(0 50%, farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)),
-    radial-gradient(100% 50%,farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)) 100% 0;
-  background:
-    /* Shadow covers */
-    linear-gradient(90deg, white 30%, rgba(255,255,255,0)),
-    linear-gradient(90deg, rgba(255,255,255,0), white 70%) 100% 0,
-
-    /* Shadows */
-    radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.2), rgba(0,0,0,0)),
-    radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.2), rgba(0,0,0,0)) 100% 0;
-  background-repeat: no-repeat;
-  background-color: white;
-  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
-
-  /* Opera doesn't support this in the shorthand */
-  background-attachment: local, local, scroll, scroll;
+  table-layout: fixed;
+  width: 100%;
+  margin-right: -100px;
+  min-height: 360px;
 }
 
+/*
+* Old strategy for offsetting last column:
+
+.student-row td:nth-last-child(2) .cell-wrapper,
+.column-names th:nth-last-child(2),
+.column-groups td:nth-last-child(2) {
+  margin-right: 100px;
+  margin-left: 20px;
+  text-align: left;
+}*/
+
+#assign-bulk-interventions {
+  padding: 4px 16px;
+  color: white;
+  background-color: #428be5;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  right: 8px;
+}

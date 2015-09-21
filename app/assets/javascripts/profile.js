@@ -107,14 +107,6 @@ $(function() {
       contentAsHTML: true
     });
 
-    $(".datepicker").datepicker({
-      showOn: "button",
-      buttonImage: $("#calendar-icon-path").data('path'),
-      buttonImageOnly: true,
-      buttonText: "Select date",
-      dateFormat: 'yy-mm-dd'
-    });
-
     // Hide Add Intervention form on page load
     $("#new_intervention").hide();
 

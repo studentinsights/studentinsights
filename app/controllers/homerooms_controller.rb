@@ -27,10 +27,11 @@ class HomeroomsController < ApplicationController
       end
       @rows << row
     end
-
+    @bulk_intervention_assignment = BulkInterventionAssignment.new
     @risk_levels = @homeroom.student_risk_levels.group(:level).count
     @risk_levels['null'] = if @risk_levels.has_key? nil then @risk_levels[nil] else 0 end
     @homerooms_by_name = current_educator.allowed_homerooms_by_name
+    @interventions = @homeroom.students.map { |s| s.interventions.build }
   end
 
   private

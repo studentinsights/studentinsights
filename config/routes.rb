@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :students
   resources :homerooms
-
+  resources :bulk_intervention_assignments
   post '/interventions/' => 'interventions#create'
 
 end

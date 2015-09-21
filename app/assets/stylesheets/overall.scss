@@ -12,16 +12,12 @@
   display: none;
 }
 
-table {
-  width: 100%;
-  min-height: 360px;
-}
-
 body {
   background-color: $backgroud;
 }
 
 .info-area {
+  position: relative;
   width: 80%;
   margin: auto auto;
   background-color: $white;
@@ -33,64 +29,60 @@ body {
 }
 
 .index .info-area {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .risk-0 {
-    background-color: $risk-0;
+  background-color: $risk-0;
 
-    &:hover {
-        background-color: darken($risk-0, 10%);
-    }
+  &:hover {
+    background-color: darken($risk-0, 10%);
+  }
 }
 
 .risk-1 {
-    background-color: $risk-1;
+  background-color: $risk-1;
 
-    &:hover {
-        background-color: darken($risk-1, 10%);
-    }
+  &:hover {
+    background-color: darken($risk-1, 10%);
+  }
 }
 
 .risk-2 {
-    background-color: $risk-2;
+  background-color: $risk-2;
 
-    &:hover {
-        background-color: darken($risk-2, 10%);
-    }
+  &:hover {
+    background-color: darken($risk-2, 10%);
+  }
 }
 
 .risk-3 {
-    background-color: $risk-3;
+  background-color: $risk-3;
 
-    &:hover {
-        background-color: darken($risk-3, 10%);
-    }
+  &:hover {
+    background-color: darken($risk-3, 10%);
+  }
 }
 
 .risk-na {
-    background-color: $gray;
+  background-color: $gray;
 }
 
 .hide {
   display: none;
 }
 
-
 .sessions {
-
   .info-area {
     margin-top: 40px;
   }
 }
 
 .about {
-
   .info-area {
     margin-top: 40px;
   }
 }
-
 
 #log-in {
   margin: auto auto;
@@ -100,4 +92,8 @@ body {
     margin-bottom: 20px;
     border-bottom: 1px solid $light-line;
   }
+}
+
+.underline {
+  border-bottom: 1px solid $dark-line;
 }
