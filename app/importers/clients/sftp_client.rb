@@ -14,7 +14,7 @@ class SftpClient
   end
 
   def download_file_to_tmp
-    sftp_session.download!(@remote_file_name, file_tmp_path).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+    sftp_session.download!(@remote_file_name, file_tmp_path)
   end
 
   def file_tmp_path
