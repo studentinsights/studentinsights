@@ -24,7 +24,7 @@ module Connector
     unless File.exist? path
       @client.download_file_to_tmp
     end
-    file_as_string = File.open(path, "r").read
+    file_as_string = File.read(path).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
     data = @data_transformer.transform(file_as_string)
     import_locally(data)
   end
