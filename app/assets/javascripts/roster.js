@@ -25,6 +25,7 @@ $(function() {
         }
       }
     }
+    updateColumns();
 
     function updateCookies () {
       Cookies.set("columns_selected", columns_selected);
@@ -69,7 +70,6 @@ $(function() {
         .end()
         .appendTo("#column-listing")
     });
-    updateColumns();
 
     // "Click off" for column select
     $("body").click(function() {
