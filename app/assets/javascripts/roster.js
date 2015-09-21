@@ -13,7 +13,6 @@ $(function() {
 
     function updateColumns () {
       columns_selected_inputs = $("#column-listing").find("input:checked");
-      $('#select-limit-warning').removeClass('on');
       columns_selected = $.map(columns_selected_inputs, function(c) {
         return c.name;
       });

@@ -138,17 +138,6 @@ tbody {
   min-height: 360px;
 }
 
-/*
-* Old strategy for offsetting last column:
-
-.student-row td:nth-last-child(2) .cell-wrapper,
-.column-names th:nth-last-child(2),
-.column-groups td:nth-last-child(2) {
-  margin-right: 100px;
-  margin-left: 20px;
-  text-align: left;
-}*/
-
 #assign-bulk-interventions {
   padding: 4px 16px;
   color: white;
