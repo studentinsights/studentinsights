@@ -13,7 +13,6 @@ $(function() {
 
     function updateColumns () {
       columns_selected_inputs = $("#column-listing").find("input:checked");
-      $('#select-limit-warning').removeClass('on');
       columns_selected = $.map(columns_selected_inputs, function(c) {
         return c.name;
       });
@@ -25,6 +24,7 @@ $(function() {
         }
       }
     }
+    updateColumns();
 
     function updateCookies () {
       Cookies.set("columns_selected", columns_selected);
@@ -69,7 +69,6 @@ $(function() {
         .end()
         .appendTo("#column-listing")
     });
-    updateColumns();
 
     // "Click off" for column select
     $("body").click(function() {

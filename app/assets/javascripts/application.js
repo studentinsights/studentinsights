@@ -19,6 +19,7 @@
 //= require tablesort.numeric
 //= require mustache.min
 //= require js.cookie
+//= require classList
 //= require_tree ./sorts
 //= require roster
 //= require roster_bulk_assignment
