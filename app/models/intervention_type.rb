@@ -3,7 +3,7 @@ class InterventionType < ActiveRecord::Base
 
   def self.seed_somerville_intervention_types
     InterventionType.create([
-      { name: "After School Tutoring (ATP)" },
+      { name: "After-School Tutoring (ATP)" },
       { name: "Attendance Officer" },
       { name: "In-House Counseling" },
       { name: "Attendance Contract" },
