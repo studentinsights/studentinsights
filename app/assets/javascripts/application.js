@@ -26,3 +26,4 @@
 //= require_tree ./charts
 //= require profile
 //= require datepicker
+//= require rounded-corners
