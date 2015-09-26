@@ -79,9 +79,10 @@ cap production deploy
 
 ## Future?
 This app could grow in several different ways.
-* __Sub-views__:  Create sub-views with more limited and focused access to data. These sub-views could be made available to others within the school community, including parents and students.
+
 * __Unique URLs__: Can be generated to be viewed online at a later time by users with access.
 * __Printable PDFs__: Can be exported of any view for teachers to print out.
+* __Sub-views__:  Create sub-views for parents and students.
 
 ## Design
 For a history of all design iterations look here:
