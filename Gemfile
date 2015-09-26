@@ -53,7 +53,7 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-rbenv-install', '~> 1.2.0'
-  gem 'capistrano3-unicorn', :require => false
+  gem 'capistrano-passenger', require: false
   gem 'pivotal_git_scripts'
   gem 'rack-mini-profiler'
   gem 'spring'
@@ -82,9 +82,6 @@ gem 'thor'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
