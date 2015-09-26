@@ -22,9 +22,9 @@ To set up demo data after you clone the project, run
 rake db:seed:demo
 ```
 
-In addition to creating demo students, homerooms, and assessment results, this will create a demo educator login defined in `db/seeds/demo/demo_educator.seeds.rb`. The demo login has an email address of demo@example.com and the password `demo-password`.
+This will create demo students with fake student information. The demo educator username is `demo@example.com` and the demo password is `demo-password`.
 
-Once you've created the demo data, start a local server by running `rails s` from the root of your project (i.e. in the folder called `somerville-teacher-tool`). When the local server is up and running, visit http://localhost:3000/ or and log in with your demo login information. You should see the roster view for your (demo) data. You can also access the demo site at https://somerville-teacher-tool-demo.herokuapp.com/.
+Once you've created the data, start a local server by running `rails s` from the root of your project. When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.
 
 ### Importing real data
 
@@ -93,4 +93,7 @@ Alex, Amir, and Mari from Code for America's [Somerville Fellowship Team](http:/
 
 ## More
 
-* [Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)
+* __[Student Insights Demo](https://somerville-teacher-tool-demo.herokuapp.com/)__
+ * username: `demo@example.com`
+ * password: `demo-password`
+* __[Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)__
