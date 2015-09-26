@@ -5,6 +5,7 @@
 /data
 coverage
 config/local_env.yml
+config/initializers/capistrano_server.rb
 db/seeds/users/educators.seeds.rb
 
 ## Environment normalisation:
