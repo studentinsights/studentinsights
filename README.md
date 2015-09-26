@@ -3,13 +3,7 @@
 [![Build Status](https://travis-ci.org/codeforamerica/somerville-teacher-tool.svg?branch=master)](https://travis-ci.org/codeforamerica/somerville-teacher-tool) [![Code Climate](https://codeclimate.com/github/codeforamerica/somerville-teacher-tool/badges/gpa.svg)](https://codeclimate.com/github/codeforamerica/somerville-teacher-tool)
 
 ## What
-The app creates an interactive tool for teachers to view:
-
-* rosters of students that can be grouped and sorted in different ways including by homeroom, by demographic sub-groups (e.g. English Language Learner (ELL) status, special education status, etc), by performance, and by risk level
-* profiles of students with attendance, behavioral and performance information over time
-
-## Why
-Teachers, school-level administrators, and district administrators might use this tool to see patterns in their classroom / schools and target specific interventions to support their students.
+Student Insights enables educators to see at-risk students and match them to the help they need.
 
 #### User story
 As an admin, I want to see which students are at risk and whether they are receiving necessary interventions.
