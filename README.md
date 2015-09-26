@@ -2,15 +2,13 @@
 
 [![Build Status](https://travis-ci.org/codeforamerica/somerville-teacher-tool.svg?branch=master)](https://travis-ci.org/codeforamerica/somerville-teacher-tool) [![Code Climate](https://codeclimate.com/github/codeforamerica/somerville-teacher-tool/badges/gpa.svg)](https://codeclimate.com/github/codeforamerica/somerville-teacher-tool)
 
-## What
 Student Insights enables educators to see at-risk students and match them to the help they need.
 
-#### User story
-As an admin, I want to see which students are at risk and whether they are receiving necessary interventions.
+* As an admin, I want to see which students are at risk and whether they are receiving necessary interventions.
 
-As a teacher, I want to see which students are at risk and target interventions to these students.
+* As a teacher, I want to see which students are at risk and target interventions to these students.
 
-As a teacher, I want to see how my students are doing both academically and behaviorally over time.
+* As a teacher, I want to see how my students are doing both academically and behaviorally over time.
 
 ## Installation
 This is a Ruby on Rails app and uses a PostgreSQL database. See Code for America's "HowTo" on Rails for more information on deploying and maintaining apps using Rails: https://github.com/codeforamerica/howto/blob/master/Rails.md
