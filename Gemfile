@@ -10,7 +10,6 @@ gem 'pg'
 gem 'friendly_id', '~> 5.1.0'
 gem 'net-ssh'
 gem 'net-sftp'
-gem 'puma'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -49,6 +48,10 @@ group :development, :test do
 end
 
 group :development do
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-passenger', require: false
   gem 'pivotal_git_scripts'
   gem 'rack-mini-profiler'
   gem 'spring'
@@ -77,12 +80,6 @@ gem 'thor'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

@@ -72,7 +72,17 @@ git commit --no-verify
 
 ## Deployment
 
-We are deploying this app on Heroku and you can, too. Be sure to set config variables for DEVISE_SECRET_KEY and SECRET_KEY_BASE in order for your app to deploy properly.
+### Heroku
+
+We deployed this app on Heroku once and you can, too. Be sure to set config variables for DEVISE_SECRET_KEY and SECRET_KEY_BASE before deploying.
+
+### Your own server
+
+Our plan is to deploy Student Insights on Somerville Public Schools' machines and serve over their intranet. Capistrano does our deployment. Set `SERVER_NAME` in `config/initializers/capistrano.rb` and run:
+
+```
+cap production deploy
+```
 
 ## Status timeline
 
