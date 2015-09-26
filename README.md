@@ -28,7 +28,7 @@ Once you've created the data, start a local server by running `rails s` from the
 
 ### Importing real data
 
-If you're working with a real school district, you'll need flat files of the data you want to import to Student Insights.
+If you're working with a real school district, you'll need flat files of the data you want to import.
 
 Run an import task:
 
@@ -36,19 +36,19 @@ Run an import task:
 thor import:start
 ```
 
-Use the `--district` flag to indicate your school district or charter organization. File formats and storage are configured by district in `app/importers/settings/settings.rb`.
+Use the `--district` flag to indicate your school district or charter organization. File formats and storage are configured in `app/importers/settings/settings.rb`.
 
-So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, you'll want to write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, you'll want to write a new client: `app/importers/clients`.
+So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, write a new client: `app/importers/clients`.
 
 ### Tests
-This app uses the [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) testing library. To run the test suite:
+This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
 
 ```
 rspec
 ```
 
 #### Pre-commit
-This app comes with a suggested pre-commit file that you can add to your git hooks. It will run the tests before any commits, so you can be sure any changes you add are kosher.
+This app comes with a suggested pre-commit file that you can add to your git hooks. It will run the tests before committing, so you can be sure any changes are kosher.
 
 Add to your git hooks:
 
@@ -57,7 +57,7 @@ cp pre-commit .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
 
-If you have a good reason to skip the test suite and commit straightaway:
+If you have a good reason to skip the test suite:
 
 ```
 git commit --no-verify
