@@ -51,8 +51,6 @@ group :development do
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
-  gem 'capistrano-rbenv', '~> 2.0'
-  gem 'capistrano-rbenv-install', '~> 1.2.0'
   gem 'capistrano-passenger', require: false
   gem 'pivotal_git_scripts'
   gem 'rack-mini-profiler'
