@@ -5,6 +5,8 @@ gem 'rails', '4.1.4'
 
 ruby '2.1.6'
 
+gem 'puma' # We need puma for the Heroku deploys to succeed
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 gem 'friendly_id', '~> 5.1.0'
