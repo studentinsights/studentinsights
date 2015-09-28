@@ -54,9 +54,19 @@
             <td colspan="1" class="interventions <%= initial_show_or_hide('interventions') %>">
               <p class="smalltype">Interventions</p>
             </td>
-            <td colspan="1" rowspan="1" class="bulk-intervention">
-              &nbsp;
-              <%= link_to "+", new_bulk_intervention_assignment_path, id: 'assign-bulk-interventions', class: 'hidden' %>
+            <td id="column-picker-row" class="bulk-intervention">
+              <div class="cell-wrapper">
+                <span id="column-picker-toggle"><img src="<%= asset_path('menu.svg') %>"/></span>
+                <div id="column-picker">
+                  <p>Select columns</p>
+                  <form id="column-listing">
+                    <div id="column-template">
+                      <input type="checkbox" name="" value="">
+                      <label></label>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </td>
           </tr>
           <tr class="column-names">
@@ -144,19 +154,9 @@
             <th class="interventions" <%= initial_show_or_hide('interventions') %>
               <span class="table-header">ATP Hours</span>
             </th>
-            <th id="column-picker-row" class="bulk-intervention no-sort">
-              <div class="cell-wrapper">
-                <span id="column-picker-toggle">...</span>
-                <div id="column-picker">
-                  <p>Select columns</p>
-                  <form id="column-listing">
-                    <div id="column-template">
-                      <input type="checkbox" name="" value="">
-                      <label></label>
-                    </div>
-                  </form>
-                </div>
-              </div>
+            <th colspan="1" rowspan="1" class="bulk-intervention no-sort">
+              &nbsp;
+              <%= link_to "+", new_bulk_intervention_assignment_path, id: 'assign-bulk-interventions', class: 'hidden' %>
             </th>
           </tr>
        </thead>
