@@ -75,6 +75,10 @@ $(function() {
       $('#column-picker').hide();
     });
 
+    $("#column-picker").click(function() {
+      event.stopPropagation();
+    });
+
     $('#column-picker-toggle').click(function(event) {
       event.stopPropagation();
       $('#column-picker').show();
