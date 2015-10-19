@@ -2,6 +2,28 @@ $(function() {
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
 
+    $("#student-searchbar").autocomplete({
+      source: function(request, response) {
+        $.ajax({
+          url: "/students/names",
+          data: {
+            q: request.term
+          },
+          success: function(data) {
+            response(data);
+          }
+        });
+      },
+      focus: function(e, ui) {
+        e.preventDefault();
+        $(this).val(ui.item.label);
+      },
+      select: function(e, ui) {
+        e.preventDefault();
+        window.location.pathname = '/students/' + ui.item.value;
+      },
+    });
+
     // Initialize table sort on roster table
     var table = document.getElementById('roster-table');
     new Tablesort(table, { descending: false });

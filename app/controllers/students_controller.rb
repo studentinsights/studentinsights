@@ -28,4 +28,23 @@ class StudentsController < ApplicationController
     end
   end
 
+  def names
+    @q = params[:q].upcase
+    @length = @q.length
+    @matches = Student.all.select do |s|
+      first_name = s.first_name[0..@length - 1].upcase
+      last_name = s.last_name[0..@length - 1].upcase
+      first_name == @q || last_name == @q
+    end
+    @result = @matches.map do |m|
+      {
+        label: StudentPresenter.new(m).full_name,
+        value: m.id
+      }
+    end
+    respond_to do |format|
+      format.json { render json: @result }
+    end
+  end
+
 end
