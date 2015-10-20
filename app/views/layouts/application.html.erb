@@ -15,7 +15,7 @@
           </div>
           <nav>
             <% if educator_signed_in? %>
-              <% unless controller_name == 'students' %>
+              <% if controller_name == 'pages' %>
                 <%= link_to "Roster", roster_url %>
               <% end %>
               <div class="nav-options">
