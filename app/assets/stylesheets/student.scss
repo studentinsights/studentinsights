@@ -1,5 +1,28 @@
 /* STUDENT PROFILE */
 
+.big-tab {
+  padding: 30px;
+}
+
+#tab-select-area {
+  border-bottom: 1px solid $light-line;
+  margin: 30px 30px 0 30px;
+}
+
+.tab-select {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-left: 12px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  cursor: pointer;
+}
+
+.tab-select.selected {
+  background-color: $blue;
+  color: white;
+}
+
 #export-button {
   float: right;
   display: inline;
@@ -235,25 +258,24 @@
   margin-bottom: 80px;
 }
 
-#student-info {
+#student-topline-info {
   margin-bottom: 15px;
-  padding-bottom: 10px;
-
-  @media screen and (max-width: $phase2) {
-    height: 80px;
-  }
+  padding: 30px;
+  background-color: $light-background;
   h1 {
     font-weight: 400;
     display: inline;
   }
   p {
     float: right;
-
     @media screen and (max-width: $phase2) {
       padding-right: 20px;
       float: left;
       padding-bottom: 20px;
     }
+  }
+  @media screen and (max-width: $phase2) {
+    height: 80px;
   }
 }
 
