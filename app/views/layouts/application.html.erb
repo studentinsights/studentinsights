@@ -18,6 +18,10 @@
               <% unless controller_name == 'students' %>
                 <%= link_to "Roster", roster_url %>
               <% end %>
+              <div class="nav-options">
+                <p>Search for student:</p>
+                <input id="student-searchbar" />
+              </div>
               <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
             <% else %>
               <%= link_to "About", about_url %>
