@@ -27,3 +27,4 @@
 //= require profile
 //= require datepicker
 //= require rounded-corners
+//= require student-searchbar

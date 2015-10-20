@@ -53,4 +53,45 @@ describe StudentsController, :type => :controller do
       end
     end
   end
+
+  describe '#names' do
+    def make_request(query)
+      request.env['HTTPS'] = 'on'
+      get :names, q: query, format: :json
+    end
+
+    context 'educator logged in' do
+      before do
+        sign_in(educator)
+      end
+      context 'query matches student name' do
+        let!(:juan) { FactoryGirl.create(:student_named_juan) }
+        it 'is successful' do
+          make_request('j')
+          expect(response).to be_success
+        end
+        it 'returns student name and id' do
+          make_request('j')
+          expect(assigns(:result)).to eq [{ label: "Juan", value: juan.id }]
+        end
+      end
+      context 'does not match student name' do
+        it 'is successful' do
+          make_request('j')
+          expect(response).to be_success
+        end
+        it 'returns an empty array' do
+          make_request('j')
+          expect(assigns(:result)).to eq []
+        end
+      end
+    end
+    context 'educator not logged in' do
+      it 'is not successful' do
+        make_request('j')
+        expect(response.status).to eq 401
+        expect(response.body).to include "You need to sign in before continuing."
+      end
+    end
+  end
 end

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'about' => 'pages#about'
   get 'demo' => 'pages#roster_demo'
 
+  get '/students/names' => 'students#names'
   resources :students
   resources :homerooms
   resources :bulk_intervention_assignments

@@ -1,13 +1,12 @@
 /* CONTROLS */
 
-.dropdown {
+.nav-options {
   right: 30px;
   float: left;
-  margin-top: 17px;
   margin-right: 15px;
 }
 
-.dropdown p {
+.nav-options p {
   display: inline-block;
   font-weight: normal;
   color: $light-gray;
@@ -15,7 +14,7 @@
   margin-top: 3px;
 }
 
-#homeroom-dropdown {
+#roster-nav-options {
   display: inline-block;
 }
 
@@ -23,6 +22,9 @@
   width: 80%;
   margin: auto auto;
   height: 60px;
+  .nav-options {
+    margin-top: 17px;
+  }
   @media screen and (max-width: $phase1) {
     height: 100px;
   }
