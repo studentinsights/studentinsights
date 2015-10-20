@@ -32,8 +32,8 @@ class StudentsController < ApplicationController
     @q = params[:q].upcase
     @length = @q.length
     @matches = Student.all.select do |s|
-      first_name = s.first_name[0..@length - 1].upcase
-      last_name = s.last_name[0..@length - 1].upcase
+      first_name = s.first_name[0..@length - 1].upcase if s.first_name.present?
+      last_name = s.last_name[0..@length - 1].upcase if s.last_name.present?
       first_name == @q || last_name == @q
     end
     @result = @matches.map do |m|
