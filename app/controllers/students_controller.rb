@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
     end
 
     @intervention = Intervention.new
-    @interventions = @student.interventions
+    @interventions = @student.interventions.order(start_date: :desc)
 
     @roster_url = homeroom_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
