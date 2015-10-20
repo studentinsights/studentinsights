@@ -1,6 +1,6 @@
 /* STUDENT PROFILE */
 
-.big-tab {
+.tab {
   padding: 30px;
 }
 
@@ -21,6 +21,10 @@
 .tab-select.selected {
   background-color: $blue;
   color: white;
+}
+
+#interventions-tab {
+  display: none;  /* Initializes closed */
 }
 
 #export-button {

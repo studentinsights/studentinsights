@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div id="profile-tab" class="big-tab">
+    <div id="profile-tab" class="tab">
 
       <div class="nav-options">
         <p>Graph:</p>
@@ -54,7 +54,6 @@
       <div id="chart"></div>
 
       <div class="left-bar-box">
-
         <div id="demographics-row">
           <h1>Demographics</h1>
 
@@ -90,66 +89,8 @@
               Level: <strong><%= @presenter.sped_level_of_need %></strong>
             </span>
           </div>
-
         </div>
-
-        <div id="interventions-row">
-          <h1>Interventions</h1>
-
-          <% if @interventions.present? %>
-            <% @interventions.each do |i| %>
-              <div class="left-bar-block">
-                <p><strong><%= i.name %>:</strong> <span class="intervention-creator"><%= i.educator.email if i.educator.present? %></span></p>
-                <p><%= i.comment %></p>
-                <p class="intervention-date">
-                  <%= i.start_date.strftime("%B %e, %Y") %> -
-                  <% if i.end_date.present? %>
-                    <%= i.end_date.strftime("%B %e, %Y") %>
-                  <% else %>
-                    <span class="end-date-text">Add end date</span>
-                  <% end %>
-                </p>
-              </div>
-            <% end %>
-          <% else %>
-            <br/>
-            <h2>No interventions</h2>
-          <% end %>
-          <br/>
-          <button id="open-intervention-form" class="btn" type="button">Add intervention</button>
-        </div>
-
-        <%= form_for @intervention do |i| %>
-          <div id="add-interventions-row">
-            <h1>Add Intervention</h1>
-            <div class="left-bar-block">
-              <h2>Select Intervention</h2>
-              <%= i.select(:intervention_type_id,
-                    options_from_collection_for_select(InterventionType.all, :id, :name),
-                    { include_blank: " -- Intervention type -- " },
-                    { required: true }
-                  ) %>
-            </div>
-            <div class="left-bar-block">
-              <h2>Comment</h2>
-              <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
-              <h2>Goal</h2>
-              <%= i.text_area :goal, placeholder: "Add goal", cols: "40", rows: "5" %>
-            </div>
-            <div class="left-bar-block">
-              <h2>End date</h2>
-              <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd",
-                  pattern: "(19|20)[0-9]{2}(\/|-|.)((0[1-9])|(1[0-2])|([0-9]))(\/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))"
-                  # Accepts any of the following formats: 2014-02-02, 2014/02/02, 2014/2/2, 2014.2.2 ...
-              %>
-            </div>
-            <%= i.hidden_field :educator_id, value: current_educator.id %>
-            <%= i.hidden_field :student_id, value: @student.id %>
-            <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
-            <%= i.submit "Save", class: "btn save-btn" %>
-          </div>
-        </div>
-      <% end %>
+      </div>
 
       <div id="school-year-boxes-row" class="row">
         <% if @student_school_years.present? %>
@@ -162,6 +103,64 @@
         <% end %>
       </div>
     </div>
+
+    <div id="interventions-tab" class="tab">
+      <div id="interventions-row">
+        <h1>Interventions</h1>
+
+        <% if @interventions.present? %>
+          <% @interventions.each do |i| %>
+            <div class="left-bar-block">
+              <p><strong><%= i.name %>:</strong> <span class="intervention-creator"><%= i.educator.email if i.educator.present? %></span></p>
+              <p><%= i.comment %></p>
+              <p class="intervention-date">
+                <%= i.start_date.strftime("%B %e, %Y") %> -
+                <% if i.end_date.present? %>
+                  <%= i.end_date.strftime("%B %e, %Y") %>
+                <% else %>
+                  <span class="end-date-text">Add end date</span>
+                <% end %>
+              </p>
+            </div>
+          <% end %>
+        <% else %>
+          <br/>
+          <h2>No interventions</h2>
+        <% end %>
+        <br/>
+        <button id="open-intervention-form" class="btn" type="button">Add intervention</button>
+      </div>
+
+      <%= form_for @intervention do |i| %>
+        <h1>Add Intervention</h1>
+        <div class="left-bar-block">
+          <h2>Select Intervention</h2>
+          <%= i.select(:intervention_type_id,
+                options_from_collection_for_select(InterventionType.all, :id, :name),
+                { include_blank: " -- Intervention type -- " },
+                { required: true }
+              ) %>
+        </div>
+        <div class="left-bar-block">
+          <h2>Comment</h2>
+          <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
+          <h2>Goal</h2>
+          <%= i.text_area :goal, placeholder: "Add goal", cols: "40", rows: "5" %>
+        </div>
+        <div class="left-bar-block">
+          <h2>End date</h2>
+          <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd",
+              pattern: "(19|20)[0-9]{2}(\/|-|.)((0[1-9])|(1[0-2])|([0-9]))(\/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))"
+              # Accepts any of the following formats: 2014-02-02, 2014/02/02, 2014/2/2, 2014.2.2 ...
+          %>
+        </div>
+        <%= i.hidden_field :educator_id, value: current_educator.id %>
+        <%= i.hidden_field :student_id, value: @student.id %>
+        <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
+        <%= i.submit "Save", class: "btn save-btn" %>
+      <% end %>
+    </div>
+
   </div>
 
   <script id="risk-level-tooltip-template" type="x-tmpl-mustache">

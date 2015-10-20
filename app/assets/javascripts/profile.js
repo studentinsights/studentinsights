@@ -97,6 +97,15 @@ $(function() {
   if ($('body').hasClass('students') && $('body').hasClass('show')) {
     new window.ProfileController().show();
 
+    // Tabs
+    $('.tab-select').click(function() {
+      var tab = $(this).data('tab');
+      $('.tab').hide();
+      $('.tab-select').removeClass('selected');
+      $(this).addClass('selected');
+      $('#' + tab).show();
+    });
+
     // Risk level tooltip
     var risk_level_tooltip = $('#risk-level-tooltip-template').html();
     var rendered = Mustache.render(risk_level_tooltip);
