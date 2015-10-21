@@ -82,12 +82,18 @@
 
   form {
     padding: 15px 30px;
+
     h1 {
       border-bottom: 1px solid $light-line;
     }
     label {
       display: block;
       margin-top: 20px;
+    }
+    textarea {
+      max-width: 100%;
+      min-width: 100%;
+      padding: 10px;
     }
   }
 }
@@ -388,10 +394,4 @@
 
 .highcharts-axis-labels {
   padding-left: 100px;
-}
-
-#intervention_comment {
-  max-width: 100%;
-  min-width: 100%;
-  padding: 10px;
 }
