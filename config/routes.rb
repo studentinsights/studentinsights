@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get '/students/names' => 'students#names'
   resources :students
   resources :homerooms
+  resources :interventions
   resources :bulk_intervention_assignments
-  post '/interventions/' => 'interventions#create'
 
 end

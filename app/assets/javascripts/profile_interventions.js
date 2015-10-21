@@ -1,11 +1,15 @@
 (function(root) {
 
   var ProfileInterventionsController = function () {
-    $('#new_intervention').hide();  // form initializes hidden
+    $('#new_intervention').hide();                     // form initializes hidden
+    if ($('.intervention-detail').length === 0) {
+      $('#interventions-tab .right-panel').hide();     // nothing to see here
+    }
   }
 
   ProfileInterventionsController.prototype.showInterventionForm = function () {
     $('#new_intervention').show();
+    $('#interventions-tab .right-panel').show();
     $('#open-intervention-form').addClass('selected');
     $('.intervention-detail').hide();
     $('.intervention-cell').removeClass('activated');

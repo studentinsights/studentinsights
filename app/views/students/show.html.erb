@@ -14,7 +14,7 @@
       <div id="profile-risk-level" class="tooltip-trigger">
         <p>Risk level</p>
         <div id="risk-pill" class="<%= StudentRiskLevelPresenter.new(@level).css_class_name %>">
-            <h3><%= StudentRiskLevelPresenter.new(@level).level_as_string %></h3>
+          <h3><%= StudentRiskLevelPresenter.new(@level).level_as_string %></h3>
         </div>
       </div>
     </div>
@@ -116,23 +116,25 @@
             </span>
           </h1>
         </div>
-        <% if @interventions.present? %>
-          <% @interventions.each do |i| %>
-            <div class="intervention-cell">
-              <strong><%= i.name %></strong>
-              <p><%= i.comment %></p>
-              <p class="intervention-date">
-                <%= i.start_date.strftime("%B %e, %Y") %>
-                <% if i.end_date.present? %>
-                  - <%= i.end_date.strftime("%B %e, %Y") %>
-                <% end %>
-              </p>
-              <p class="intervention-creator">
-                <%= i.educator.email if i.educator.present? %>
-              </p>
-            </div>
+        <div id="interventions-list">
+          <% if @interventions.present? %>
+            <% @interventions.each do |i| %>
+              <div class="intervention-cell">
+                <strong><%= i.name %></strong>
+                <p><%= i.comment %></p>
+                <p class="intervention-date">
+                  <%= i.start_date.strftime("%B %e, %Y") %>
+                  <% if i.end_date.present? %>
+                    - <%= i.end_date.strftime("%B %e, %Y") %>
+                  <% end %>
+                </p>
+                <p class="intervention-creator">
+                  <%= i.educator.email if i.educator.present? %>
+                </p>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
       <div class="right-panel">
         <% if @interventions.present? %>
@@ -143,7 +145,7 @@
           <% end %>
         <% end %>
 
-        <%= form_for @intervention do |i| %>
+        <%= form_for @intervention, remote: true do |i| %>
           <h1>Add Intervention</h1>
           <label>Select Intervention</label>
           <%= i.select(:intervention_type_id,
@@ -203,6 +205,19 @@
       <div>
         {{name}} has no {{data_type}} on record
       </div>
+    </div>
+  </script>
+
+  <script id="intervention-cell-template" type="x-tmpl-mustache">
+    <div class="intervention-cell">
+      <strong>{{name}}</strong>
+      <p>{{comment}}</p>
+      <p class="intervention-date">
+        {{start_date}} - {{end_date}}
+      </p>
+      <p class="intervention-creator">
+        {{educator_email}}
+      </p>
     </div>
   </script>
 

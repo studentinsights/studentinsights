@@ -7,7 +7,7 @@ class InterventionsController < ApplicationController
     @intervention.start_date = Time.zone.now.to_date
     @intervention.end_date = Date.parse(intervention_params[:end_date]) if intervention_params[:end_date].present?
     @intervention.save
-    redirect_to student_path(@intervention.student) + "#interventions-row"
+    respond_to :js
   end
 
   def intervention_params
