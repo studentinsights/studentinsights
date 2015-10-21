@@ -4,6 +4,7 @@
     $('#new_intervention').hide();                     // form initializes hidden
     if ($('.intervention-detail').length === 0) {
       $('#interventions-tab .right-panel').hide();     // nothing to see here
+      $('#open-intervention-form').addClass('solo');
     }
   }
 

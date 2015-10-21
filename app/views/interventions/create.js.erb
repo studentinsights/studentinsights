@@ -9,6 +9,7 @@
   }
   var cell = Mustache.render(template, data);
   $('#interventions-list').prepend(cell);
+  $('#open-intervention-form').removeClass('solo');
 <%- else %>
   $('#interventions-tab form').prepend("Something went wrong!");
 <%- end %>

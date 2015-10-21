@@ -40,7 +40,6 @@
   #open-intervention-form {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border-radius: 8px;
     padding: 5px 20px 0 20px;
     cursor: pointer;
 
@@ -61,6 +60,11 @@
     h1, #add-intervention-plus-sign {
       color: white;
     }
+  }
+
+  #open-intervention-form.solo {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
 
   form {
