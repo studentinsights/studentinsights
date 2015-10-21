@@ -121,7 +121,7 @@ $(function() {
 
     $("#open-intervention-form").click(function() {
       $("#new_intervention").slideDown();
-      $(this).slideUp();
+      $(this).addClass('selected');
     });
 
     $("#close-intervention-form").click(function() {

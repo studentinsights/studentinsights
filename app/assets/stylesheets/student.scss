@@ -2,6 +2,7 @@
 
 .tab {
   padding: 30px;
+  margin-bottom: 30px;
 }
 
 #tab-select-area {
@@ -25,6 +26,41 @@
 
 #interventions-tab {
   display: none;  /* Initializes closed */
+
+  .intervention-cell {
+    padding: 20px;
+    border-top: 1px solid $light-line;
+    cursor: pointer;
+  }
+
+  #open-intervention-form {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 5px 20px 0 20px;
+
+    #add-intervention-plus-sign {
+      color: $light-line;
+      font-size: 50px;
+      font-weight: bold;
+    }
+
+    #add-intervention-text {
+      position: relative;
+      bottom: 12px;
+    }
+  }
+
+  #open-intervention-form.selected {
+    background-color: $blue;
+    h1, #add-intervention-plus-sign {
+      color: white;
+    }
+  }
+}
+
+#interventions-tab > div {
+  border: 1px solid $light-line;
+  border-radius: 8px;
 }
 
 #export-button {
@@ -60,26 +96,32 @@
   }
 }
 
+#demographics {
+  h1 {
+    border-bottom: 1px solid $light-line;
+  }
+}
+
  /* BELOW GRAPH */
 
-.left-bar-box {
+.left-panel {
   float: left;
   width: 40%;
   margin-right: 5%;
 
   @media screen and (max-width: $phase2) {
-  width: 100%;
-  margin-right: 0;
+    width: 100%;
+    margin-right: 0;
   }
 
-  .left-bar-item{
-      font-size: 14px;
-      font-weight: 400;
-      color: $gray;
-      display: block;
+  .left-panel-item {
+    font-size: 14px;
+    font-weight: 400;
+    color: $gray;
+    display: block;
   }
 
-  .left-bar-block {
+  .left-panel-block {
     margin: 20px 0px;
   }
 
@@ -87,11 +129,9 @@
     font-size: 18px;
     font-weight: 400;
     color: $gray;
-    border-bottom: 1px solid $light-line;
-
   }
 
-  h2{
+  h2 {
     font-size: 16px;
     font-weight: 300;
     color: $gray;
@@ -160,12 +200,12 @@
   }
 }
 
-#school-year-boxes-row {
+.right-panel {
   width: 55%;
   float: right;
 
   @media screen and (max-width: $phase2) {
-  width: 100%;
+    width: 100%;
   }
 }
 
@@ -241,7 +281,7 @@
   border: none;
 }
 
-.month{
+.month {
   background: #EEEEEE;
   border-radius: 4px;
   margin-top: 5px;
@@ -251,7 +291,7 @@
 .referral {
   margin-top: 20px;
 
-  .referral-date{
+  .referral-date {
     margin-top: 5px;
   }
 }
@@ -262,10 +302,9 @@
   margin-bottom: 80px;
 }
 
-#student-topline-info {
+.topline-info {
   margin-bottom: 15px;
-  padding: 30px;
-  background-color: $light-background;
+
   h1 {
     font-weight: 400;
     display: inline;
@@ -287,6 +326,11 @@
   .info-area {
     margin-top: 0;
     clear: both;
+  }
+  .topline-info {
+    background-color: $light-background;
+    border-bottom: 1px solid $light-line;
+    padding: 30px;
   }
 }
 

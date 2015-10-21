@@ -9,7 +9,7 @@
 
   <div class="info-area">
 
-    <div id="student-topline-info" class="underline">
+    <div class="topline-info underline">
       <h1 id="student-name"><%= @presenter.full_name %></h1>
       <div id="profile-risk-level" class="tooltip-trigger">
         <p>Risk level</p>
@@ -53,46 +53,46 @@
 
       <div id="chart"></div>
 
-      <div class="left-bar-box">
-        <div id="demographics-row">
+      <div class="left-panel">
+        <div id="demographics">
           <h1>Demographics</h1>
 
-          <div class="left-bar-block">
+          <div class="left-panel-block">
             <h2>Information</h2>
-            <span class="left-bar-item">
+            <span class="left-panel-item">
               Program Assignment: <strong><%= @presenter.program_assigned %></strong>
             </span>
-            <span class="left-bar-item">
+            <span class="left-panel-item">
               504: <strong><%= @presenter.plan_504 %></strong>
             </span>
           </div>
 
-          <div class="left-bar-block">
+          <div class="left-panel-block">
             <h2>Language</h2>
-            <span class="left-bar-item">
+            <span class="left-panel-item">
               Fluency: <strong><%= @presenter.limited_english_proficiency %></strong>
             </span>
-            <span class="left-bar-item">
+            <span class="left-panel-item">
               Home Language: <strong><%= @presenter.home_language %></strong>
             </span>
           </div>
 
-          <div class="left-bar-block">
+          <div class="left-panel-block">
             <h2>Special Education</h2>
-            <span class="left-bar-item">
+            <span class="left-panel-item">
               Placement: <strong><%= @presenter.sped_placement %></strong>
             </span>
-            <span class="left-bar-item">
+            <span class="left-panel-item">
               Disability: <strong><%= @presenter.disability %></strong>
             </span>
-            <span class="left-bar-item">
+            <span class="left-panel-item">
               Level: <strong><%= @presenter.sped_level_of_need %></strong>
             </span>
           </div>
         </div>
       </div>
 
-      <div id="school-year-boxes-row" class="row">
+      <div class="right-panel">
         <% if @student_school_years.present? %>
           <% @student_school_years.each do |s| %>
             <%= render "school_year_box",
@@ -105,13 +105,21 @@
     </div>
 
     <div id="interventions-tab" class="tab">
-      <div id="interventions-row">
-        <h1>Interventions</h1>
-
+      <div class="left-panel">
+        <div id="open-intervention-form">
+          <h1>
+            <span id="add-intervention-plus-sign">
+              +
+            </span>
+            <span id="add-intervention-text">
+              Add intervention
+            </span>
+          </h1>
+        </div>
         <% if @interventions.present? %>
           <% @interventions.each do |i| %>
-            <div class="left-bar-block">
-              <p><strong><%= i.name %>:</strong> <span class="intervention-creator"><%= i.educator.email if i.educator.present? %></span></p>
+            <div class="intervention-cell">
+              <strong><%= i.name %></strong>
               <p><%= i.comment %></p>
               <p class="intervention-date">
                 <%= i.start_date.strftime("%B %e, %Y") %> -
@@ -121,44 +129,46 @@
                   <span class="end-date-text">Add end date</span>
                 <% end %>
               </p>
+              <p class="intervention-creator">
+                <%= i.educator.email if i.educator.present? %>
+              </p>
             </div>
           <% end %>
         <% else %>
-          <br/>
           <h2>No interventions</h2>
         <% end %>
-        <br/>
-        <button id="open-intervention-form" class="btn" type="button">Add intervention</button>
       </div>
+      <div class="right-panel">
+        <% if @interventions.present? %>
+          <% i = @interventions.first %>
+          <h2><%= i.intervention_type.name %></h2>
+        <% else %>
+          <h2>No interventions</h2>
+        <% end %>
 
-      <%= form_for @intervention do |i| %>
-        <h1>Add Intervention</h1>
-        <div class="left-bar-block">
+        <%= form_for @intervention do |i| %>
+          <h1>Add Intervention</h1>
           <h2>Select Intervention</h2>
           <%= i.select(:intervention_type_id,
                 options_from_collection_for_select(InterventionType.all, :id, :name),
                 { include_blank: " -- Intervention type -- " },
                 { required: true }
               ) %>
-        </div>
-        <div class="left-bar-block">
           <h2>Comment</h2>
           <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
           <h2>Goal</h2>
           <%= i.text_area :goal, placeholder: "Add goal", cols: "40", rows: "5" %>
-        </div>
-        <div class="left-bar-block">
           <h2>End date</h2>
           <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd",
               pattern: "(19|20)[0-9]{2}(\/|-|.)((0[1-9])|(1[0-2])|([0-9]))(\/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))"
               # Accepts any of the following formats: 2014-02-02, 2014/02/02, 2014/2/2, 2014.2.2 ...
           %>
-        </div>
-        <%= i.hidden_field :educator_id, value: current_educator.id %>
-        <%= i.hidden_field :student_id, value: @student.id %>
-        <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
-        <%= i.submit "Save", class: "btn save-btn" %>
-      <% end %>
+          <%= i.hidden_field :educator_id, value: current_educator.id %>
+          <%= i.hidden_field :student_id, value: @student.id %>
+          <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
+          <%= i.submit "Save", class: "btn save-btn" %>
+        <% end %>
+      </div>
     </div>
 
   </div>
