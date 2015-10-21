@@ -4,9 +4,11 @@
     $('#new_intervention').hide();                     // form initializes hidden
     $('.intervention-detail').hide();                  // so do all but first intervention detail
     $('.intervention-detail').first().show();
-    if ($('.intervention-detail').length === 0) {
+    if ($('.intervention-cell').length === 0) {
       $('#interventions-tab .right-panel').hide();     // nothing to see here
       $('#open-intervention-form').addClass('solo');
+    } else {
+      $('.intervention-cell').first().addClass('activated');
     }
   }
 
