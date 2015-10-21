@@ -116,7 +116,7 @@
             </span>
           </h1>
         </div>
-        <div id="interventions-list">
+        <div id="intervention-cell-list">
           <% if @interventions.present? %>
             <% @interventions.each do |i| %>
               <div class="intervention-cell" data-id="<%= i.id %>">
@@ -137,25 +137,27 @@
         </div>
       </div>
       <div class="right-panel">
-        <% if @interventions.present? %>
-          <% @interventions.all.each do |i| %>
-            <div class="intervention-detail" data-id="<%= i.id %>">
-              <h2><%= i.intervention_type.name %></h2>
-              <strong>Description</strong>
-              <p><%= i.comment %></p>
-              <strong>Goal</strong>
-              <p><%= i.goal %></p>
-              <strong>Start Date</strong>
-              <p><%= i.start_date.strftime("%B %e, %Y") %></p>
-              <% if i.end_date.present? %>
-                <strong>End Date</strong>
-                <p><%= i.end_date.strftime("%B %e, %Y") %></p>
-              <% end %>
-              <button class="btn add-progress-note" type="button">
-                Add progress note
-              </button>
-            </div>
-          <% end %>
+        <div id="intervention-detail-list">
+          <% if @interventions.present? %>
+            <% @interventions.all.each do |i| %>
+              <div class="intervention-detail" data-id="<%= i.id %>">
+                <h2><%= i.intervention_type.name %></h2>
+                <strong>Description</strong>
+                <p><%= i.comment %></p>
+                <strong>Goal</strong>
+                <p><%= i.goal %></p>
+                <strong>Start Date</strong>
+                <p><%= i.start_date.strftime("%B %e, %Y") %></p>
+                <% if i.end_date.present? %>
+                  <strong>End Date</strong>
+                  <p><%= i.end_date.strftime("%B %e, %Y") %></p>
+                <% end %>
+                <button class="btn add-progress-note" type="button">
+                  Add progress note
+                </button>
+              </div>
+            <% end %>
+          </div>
         <% end %>
 
         <%= form_for @intervention, remote: true do |i| %>
@@ -222,7 +224,7 @@
   </script>
 
   <script id="intervention-cell-template" type="x-tmpl-mustache">
-    <div class="intervention-cell">
+    <div class="intervention-cell activated" data-id="{{id}}">
       <strong>{{name}}</strong>
       <p>{{comment}}</p>
       <p class="intervention-date">
@@ -231,6 +233,23 @@
       <p class="intervention-creator">
         {{educator_email}}
       </p>
+    </div>
+  </script>
+
+  <script id="intervention-detail-template" type="x-tmpl-mustache">
+    <div class="intervention-detail" data-id="{{id}}">
+      <h2>{{name}}</h2>
+      <strong>Description</strong>
+      <p>{{comment}}</p>
+      <strong>Goal</strong>
+      <p>{{goal}}</p>
+      <strong>Start Date</strong>
+      <p>{{start_date}}</p>
+      <strong>End Date</strong>
+      <p>{{end_date}}</p>
+      <button class="btn add-progress-note" type="button">
+        Add progress note
+      </button>
     </div>
   </script>
 

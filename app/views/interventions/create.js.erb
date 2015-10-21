@@ -1,15 +1,20 @@
 <%- if @intervention.present? %>
-  var template = $('#intervention-cell-template').html();
   var data = {
     name: "<%= @intervention.name %>",
     comment: "<%= @intervention.comment %>",
     start_date: "<%= @intervention.start_date.strftime('%B %e, %Y') %>",
     end_date: "<%= @intervention.end_date.strftime('%B %e, %Y') if @intervention.end_date.present? %>",
-    educator_email: "<%= @intervention.educator.email if @intervention.educator.present? %>"
+    educator_email: "<%= @intervention.educator.email if @intervention.educator.present? %>",
+    id: "<%= @intervention.id %>"
   }
-  var cell = Mustache.render(template, data);
-  $('#interventions-list').prepend(cell);
+  var cell_template = $('#intervention-cell-template').html();
+  var detail_template = $('#intervention-detail-template').html();
+  var cell = Mustache.render(cell_template, data);
+  var detail = Mustache.render(detail_template, data);
+  $('#intervention-cell-list').prepend(cell);
+  $('#intervention-detail-list').prepend(detail);
   $('#open-intervention-form').removeClass('solo');
+  $('#new_intervention').hide();s
 <%- else %>
   $('#interventions-tab form').prepend("Something went wrong!");
 <%- end %>
