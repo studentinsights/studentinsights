@@ -108,7 +108,7 @@ $(function() {
       InterventionsController.hideInterventionForm();
     });
 
-    $(".intervention-cell").click(function() {
+    $('body').on('click', '.intervention-cell', function() {
       InterventionsController.selectIntervention($(this));
     });
 
