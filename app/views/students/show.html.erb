@@ -119,7 +119,7 @@
         <div id="interventions-list">
           <% if @interventions.present? %>
             <% @interventions.each do |i| %>
-              <div class="intervention-cell">
+              <div class="intervention-cell" data-id="<%= i.id %>">
                 <strong><%= i.name %></strong>
                 <p><%= i.comment %></p>
                 <p class="intervention-date">
@@ -139,8 +139,21 @@
       <div class="right-panel">
         <% if @interventions.present? %>
           <% @interventions.all.each do |i| %>
-            <div class="intervention-detail">
+            <div class="intervention-detail" data-id="<%= i.id %>">
               <h2><%= i.intervention_type.name %></h2>
+              <strong>Description</strong>
+              <p><%= i.comment %></p>
+              <strong>Goal</strong>
+              <p><%= i.goal %></p>
+              <strong>Start Date</strong>
+              <p><%= i.start_date.strftime("%B %e, %Y") %></p>
+              <% if i.end_date.present? %>
+                <strong>End Date</strong>
+                <p><%= i.end_date.strftime("%B %e, %Y") %></p>
+              <% end %>
+              <button class="btn add-progress-note" type="button">
+                Add progress note
+              </button>
             </div>
           <% end %>
         <% end %>

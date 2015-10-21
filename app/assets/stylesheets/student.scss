@@ -37,6 +37,19 @@
     background-color: #DFDFDF;
   }
 
+  .intervention-detail {
+    padding: 30px;
+    h2 {
+      border-bottom: 1px solid $light-line;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+    .add-progress-note {
+    }
+  }
+
   #open-intervention-form {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;

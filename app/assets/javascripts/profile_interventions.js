@@ -2,6 +2,8 @@
 
   var ProfileInterventionsController = function () {
     $('#new_intervention').hide();                     // form initializes hidden
+    $('.intervention-detail').hide();                  // so do all but first intervention detail
+    $('.intervention-detail').first().show();
     if ($('.intervention-detail').length === 0) {
       $('#interventions-tab .right-panel').hide();     // nothing to see here
       $('#open-intervention-form').addClass('solo');
@@ -28,7 +30,9 @@
     $('#new_intervention').hide();
     $('.intervention-cell').removeClass('activated');
     intervention.addClass('activated');
-    // show that intervention on the right
+    $('.intervention-detail').hide();
+    var detail = $('.intervention-detail[data-id="' + intervention.data('id') + '"]');
+    detail.show();
   }
 
   root.ProfileInterventionsController = ProfileInterventionsController;
