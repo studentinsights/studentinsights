@@ -17,7 +17,8 @@ class InterventionsController < ApplicationController
       :intervention_type_id,
       :comment,
       :start_date,
-      :end_date
+      :end_date,
+      :goal
     )
   end
 end
