@@ -25,6 +25,7 @@
 //= require roster_bulk_assignment
 //= require_tree ./charts
 //= require profile
+//= require profile_interventions
 //= require datepicker
 //= require rounded-corners
 //= require student-searchbar

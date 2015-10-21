@@ -33,10 +33,15 @@
     cursor: pointer;
   }
 
+  .intervention-cell.activated {
+    background-color: #DFDFDF;
+  }
+
   #open-intervention-form {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     padding: 5px 20px 0 20px;
+    cursor: pointer;
 
     #add-intervention-plus-sign {
       color: $light-line;
@@ -54,6 +59,17 @@
     background-color: $blue;
     h1, #add-intervention-plus-sign {
       color: white;
+    }
+  }
+
+  form {
+    padding: 15px 30px;
+    h1 {
+      border-bottom: 1px solid $light-line;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
     }
   }
 }

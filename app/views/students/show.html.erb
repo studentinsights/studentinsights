@@ -122,11 +122,9 @@
               <strong><%= i.name %></strong>
               <p><%= i.comment %></p>
               <p class="intervention-date">
-                <%= i.start_date.strftime("%B %e, %Y") %> -
+                <%= i.start_date.strftime("%B %e, %Y") %>
                 <% if i.end_date.present? %>
-                  <%= i.end_date.strftime("%B %e, %Y") %>
-                <% else %>
-                  <span class="end-date-text">Add end date</span>
+                  - <%= i.end_date.strftime("%B %e, %Y") %>
                 <% end %>
               </p>
               <p class="intervention-creator">
@@ -134,37 +132,37 @@
               </p>
             </div>
           <% end %>
-        <% else %>
-          <h2>No interventions</h2>
         <% end %>
       </div>
       <div class="right-panel">
         <% if @interventions.present? %>
-          <% i = @interventions.first %>
-          <h2><%= i.intervention_type.name %></h2>
-        <% else %>
-          <h2>No interventions</h2>
+          <% @interventions.all.each do |i| %>
+            <div class="intervention-detail">
+              <h2><%= i.intervention_type.name %></h2>
+            </div>
+          <% end %>
         <% end %>
 
         <%= form_for @intervention do |i| %>
           <h1>Add Intervention</h1>
-          <h2>Select Intervention</h2>
+          <label>Select Intervention</label>
           <%= i.select(:intervention_type_id,
                 options_from_collection_for_select(InterventionType.all, :id, :name),
                 { include_blank: " -- Intervention type -- " },
                 { required: true }
               ) %>
-          <h2>Comment</h2>
+          <label>Comment</label>
           <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
-          <h2>Goal</h2>
+          <label>Goal</label>
           <%= i.text_area :goal, placeholder: "Add goal", cols: "40", rows: "5" %>
-          <h2>End date</h2>
+          <label>End date</label>
           <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd",
               pattern: "(19|20)[0-9]{2}(\/|-|.)((0[1-9])|(1[0-2])|([0-9]))(\/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))"
               # Accepts any of the following formats: 2014-02-02, 2014/02/02, 2014/2/2, 2014.2.2 ...
           %>
           <%= i.hidden_field :educator_id, value: current_educator.id %>
           <%= i.hidden_field :student_id, value: @student.id %>
+          <br/><br/>
           <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
           <%= i.submit "Save", class: "btn save-btn" %>
         <% end %>
