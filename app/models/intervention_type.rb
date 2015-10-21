@@ -21,7 +21,6 @@ class InterventionType < ActiveRecord::Base
       { name: "OT/PT Consult" },
       { name: "Parent Communication" },
       { name: "Parent Conference/Meeting" },
-      { name: "Parent Communication" },
       { name: "Peer Mediation" },
       { name: "Reading Specialist" },
       { name: "Reading Tutor" },
