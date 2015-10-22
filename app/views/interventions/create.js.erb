@@ -15,7 +15,12 @@
   $('#intervention-cell-list').prepend(cell);
   $('#intervention-detail-list').prepend(detail);
   $('#open-intervention-form').removeClass('solo');
-  $('#new_intervention').hide();s
+
+  // Reset intervention form
+  $('#new_intervention').hide();
+  $('#interventions-tab form textarea').val('');
+  $('#interventions-tab form .datepicker').val('');
+  $('#intervention_intervention_type_id :nth-child(1)').prop('selected', true);
 <%- else %>
   $('#interventions-tab form').prepend("Something went wrong!");
 <%- end %>
