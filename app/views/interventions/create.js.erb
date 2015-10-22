@@ -2,6 +2,7 @@
   var data = {
     name: "<%= @intervention.name %>",
     comment: "<%= @intervention.comment %>",
+    goal: "<%= @intervention.goal %>",
     start_date: "<%= @intervention.start_date.strftime('%B %e, %Y') %>",
     end_date: "<%= @intervention.end_date.strftime('%B %e, %Y') if @intervention.end_date.present? %>",
     educator_email: "<%= @intervention.educator.email if @intervention.educator.present? %>",
