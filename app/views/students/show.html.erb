@@ -162,6 +162,7 @@
 
         <%= form_for @intervention, remote: true do |i| %>
           <h1>Add Intervention</h1>
+          <p class="alert field errors"></p>
           <label>Select Intervention</label>
           <%= i.select(:intervention_type_id,
                 options_from_collection_for_select(InterventionType.all, :id, :name),

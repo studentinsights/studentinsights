@@ -5,7 +5,9 @@ class InterventionsController < ApplicationController
   def create
     @intervention = Intervention.new(intervention_params)
     @intervention.start_date = Time.zone.now.to_date
-    @intervention.end_date = Date.parse(intervention_params[:end_date]) if intervention_params[:end_date].present?
+    if intervention_params[:end_date].present?
+      @intervention.end_date = Date.parse(intervention_params[:end_date])
+    end
     @intervention.save
     respond_to :js
   end

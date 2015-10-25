@@ -1,4 +1,4 @@
-<%- if @intervention.present? %>
+<%- unless @intervention.errors.present? %>
   var data = {
     name: "<%= @intervention.name %>",
     comment: "<%= @intervention.comment %>",
@@ -22,5 +22,7 @@
   $('#interventions-tab form .datepicker').val('');
   $('#intervention_intervention_type_id :nth-child(1)').prop('selected', true);
 <%- else %>
-  $('#interventions-tab form').prepend("Something went wrong!");
+  <% @intervention.errors.full_messages.each do |msg| %>
+    $('#interventions-tab form .errors').prepend("<br/><li><%= msg %></li>");
+  <% end %>
 <%- end %>
