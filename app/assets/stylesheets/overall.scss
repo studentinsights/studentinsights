@@ -19,13 +19,17 @@ body {
 .info-area {
   position: relative;
   width: 80%;
+  padding: 30px;
   margin: auto auto;
-  padding-bottom: 30px;
   background-color: $white;
   border-radius: 9px;
   border: solid 1px $light-line;
   margin-bottom: 50px;
   overflow: auto;
+}
+
+.students .info-area {
+  padding: 0px;
 }
 
 .index .info-area {
