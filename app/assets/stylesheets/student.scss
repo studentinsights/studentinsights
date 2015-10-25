@@ -50,6 +50,7 @@
       margin-bottom: 20px;
     }
     .add-progress-note {
+      display: block;
     }
   }
 
@@ -230,16 +231,10 @@
   text-decoration: none;
   border: none;
   cursor: pointer;
-  margin-bottom: 20px;
 
   &:hover {
     background-color: darken($blue, 10%);
     text-decoration: none;
-  }
-
-  &:active {
-    position: relative;
-    top: 1px;
   }
 }
 
