@@ -12,8 +12,10 @@ class Intervention < ActiveRecord::Base
   before_save :assign_to_school_year
 
   def end_date_cannot_come_before_start_date
-    if end_date < start_date
-      errors.add(:end_date, "can't be before start date")
+    if end_date.present?
+      if end_date < start_date
+        errors.add(:end_date, "can't be before start date")
+      end
     end
   end
 end
