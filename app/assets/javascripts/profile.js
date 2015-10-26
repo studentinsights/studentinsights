@@ -121,8 +121,10 @@ $(function() {
       $('#' + tab).show();
     });
 
+    $('.add-progress-note-area').hide();
+
     $('body').on('click', '.add-progress-note', function() {
-      $(this).parent().children('.add-progress-note-area').slideDown();
+      $(this).parent().children('.add-progress-note-area').show();
       $(this).hide();
     });
 

@@ -2,6 +2,8 @@ class Educator < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :timeoutable
   has_one :homeroom
   has_many :students, through: :homerooms
+  has_many :interventions
+  has_many :progress_notes, through: :interventions
 
   def allowed_homerooms
     # Educator can visit roster view for these homerooms

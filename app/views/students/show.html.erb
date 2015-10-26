@@ -140,6 +140,9 @@
         <div id="intervention-detail-list">
           <% if @interventions.present? %>
             <% @interventions.all.each do |i| %>
+
+              <!-- INTERVENTION DETAILS -->
+
               <div class="intervention-detail" data-id="<%= i.id %>">
                 <h2><%= i.intervention_type.name %></h2>
                 <strong>Description</strong>
@@ -152,17 +155,47 @@
                   <strong>End Date</strong>
                   <p><%= i.end_date.strftime("%B %e, %Y") %></p>
                 <% end %>
+                <% if i.progress_notes.present? %>
+                  <h2>Progress notes</h2>
+                  <div class="progress-note-list">
+                    <% i.progress_notes.each do |p| %>
+                      <div class="progress-note">
+                        <strong>
+                          <%= p.educator.email %>
+                        </strong>
+                        <p>
+                          <%= p.content %>
+                          <br/>
+                          <span class="smalltype">
+                            <%= p.created_at.strftime("%B %e, %Y") %>
+                          </span>
+                        </p>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+
+                <!-- PROGRESS NOTES ON INTERVENTION -->
+
                 <button class="btn add-progress-note" type="button">
                   Add progress note
                 </button>
-                <% if i.progress_notes.present? %>
-                <% end %>
+
                 <div class="add-progress-note-area">
                   <h2>Add progress note</h2>
-                  <label>Progress note</label>
-                  <textarea></textarea>
-                  <div class="btn" type="button">Submit</div>
-                  <div class="btn" type="button">Cancel</div>
+                  <p class="alert field errors"></p>
+                  <%= form_for @progress_note, remote: true do |p| %>
+                    <label>Progress note</label>
+                    <%= p.text_area :content, cols: "40", rows: "5", required: true %>
+                    <%= p.select(:educator_id,
+                          options_from_collection_for_select(Educator.all, :id, :email),
+                          { include_blank: " -- Select educator -- " },
+                          { required: true }) %>
+                    <br/>
+                    <%= p.hidden_field :intervention_id, value: i.id %>
+                    <%= p.submit "Save", class: "btn save-btn" %>
+                    <div class="btn" type="button">Cancel</div>
+                  <% end %>
                 </div>
               </div>
             <% end %>
@@ -176,8 +209,7 @@
           <%= i.select(:intervention_type_id,
                 options_from_collection_for_select(InterventionType.all, :id, :name),
                 { include_blank: " -- Intervention type -- " },
-                { required: true }
-              ) %>
+                { required: true }) %>
           <label>Comment</label>
           <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
           <label>Goal</label>
@@ -257,9 +289,42 @@
       <p>{{start_date}}</p>
       <strong>End Date</strong>
       <p>{{end_date}}</p>
+      <div class="progress-note-list">
+      </div>
       <button class="btn add-progress-note" type="button">
         Add progress note
       </button>
+      <div class="add-progress-note-area">
+        <h2>Add progress note</h2>
+        <p class="alert field errors"></p>
+        <%= form_for @progress_note, remote: true do |p| %>
+          <label>Progress note</label>
+          <%= p.text_area :content, cols: "40", rows: "5", required: true %>
+          <%= p.select(:educator_id,
+                options_from_collection_for_select(Educator.all, :id, :email),
+                { include_blank: " -- Select educator -- " },
+                { required: true }) %>
+          <br/>
+          <%= p.hidden_field :intervention_id, value: "{{id}}" %>
+          <%= p.submit "Save", class: "btn save-btn" %>
+          <div class="btn" type="button">Cancel</div>
+        <% end %>
+      </div>
+    </div>
+  </script>
+
+  <script id="progress-note-template" type="x-tmpl-mustache">
+    <div class="progress-note">
+      <strong>
+        {{educator}}
+      </strong>
+      <p>
+        {{content}}
+        <br/>
+        <span class="smalltype">
+          {{created_at}}
+        </span>
+      </p>
     </div>
   </script>
 

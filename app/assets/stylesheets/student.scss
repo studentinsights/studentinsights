@@ -55,8 +55,8 @@
     .add-progress-note-area {
       display: none;
       .btn {
-        float: right;
-        margin: 10px 0 20px 10px;
+        float: left;
+        margin: 20px 10px 20px 0;
       }
     }
   }
@@ -91,7 +91,7 @@
     border-bottom-right-radius: 8px;
   }
 
-  form {
+  form.new_intervention {
     padding: 15px 30px;
 
     h1 {

@@ -23,4 +23,5 @@ class InterventionsController < ApplicationController
       :goal
     )
   end
+
 end
