@@ -15,12 +15,7 @@
   $('#intervention-cell-list').prepend(cell);
   $('#intervention-detail-list').prepend(detail);
   $('#open-intervention-form').removeClass('solo');
-
-  // Reset intervention form
-  $('#new_intervention').hide();
-  $('#interventions-tab form textarea').val('');
-  $('#interventions-tab form .datepicker').val('');
-  $('#intervention_intervention_type_id :nth-child(1)').prop('selected', true);
+  InterventionsController.clearInterventionForm();
 <%- else %>
   <% @intervention.errors.full_messages.each do |msg| %>
     $('#interventions-tab form .errors').prepend("<br/><li><%= msg %></li>");

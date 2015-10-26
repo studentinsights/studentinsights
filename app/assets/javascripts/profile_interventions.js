@@ -25,7 +25,15 @@
     $('#open-intervention-form').removeClass('selected');
     $('.intervention-detail').first().show();
     $('.intervention-cell').first().addClass('activated');
+    this.clearInterventionForm();
   }
+
+  ProfileInterventionsController.prototype.clearInterventionForm = function () {
+    $('#new_intervention').hide();
+    $('#interventions-tab form textarea').val('');
+    $('#interventions-tab form .datepicker').val('');
+    $('#intervention_intervention_type_id :nth-child(1)').prop('selected', true);
+  };
 
   ProfileInterventionsController.prototype.selectIntervention = function (intervention) {
     $('#open-intervention-form').removeClass('selected');
