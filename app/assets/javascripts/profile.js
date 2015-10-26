@@ -121,6 +121,11 @@ $(function() {
       $('#' + tab).show();
     });
 
+    $('body').on('click', '.add-progress-note', function() {
+      $(this).parent().children('.add-progress-note-area').slideDown();
+      $(this).hide();
+    });
+
     // Risk level tooltip
     var risk_level_tooltip = $('#risk-level-tooltip-template').html();
     var rendered = Mustache.render(risk_level_tooltip);

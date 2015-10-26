@@ -101,3 +101,14 @@ body {
 .underline {
   border-bottom: 1px solid $dark-line;
 }
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  color: $gray
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+}

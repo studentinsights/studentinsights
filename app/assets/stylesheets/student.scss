@@ -52,6 +52,13 @@
     .add-progress-note {
       display: block;
     }
+    .add-progress-note-area {
+      display: none;
+      .btn {
+        float: right;
+        margin: 10px 0 20px 10px;
+      }
+    }
   }
 
   #open-intervention-form {
@@ -93,11 +100,6 @@
     label {
       display: block;
       margin-top: 20px;
-    }
-    textarea {
-      max-width: 100%;
-      min-width: 100%;
-      padding: 10px;
     }
   }
 }

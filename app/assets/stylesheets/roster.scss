@@ -31,27 +31,22 @@
   text-align: left;
   line-height: 150%;
 
-    p{
-      border-bottom: 1px solid $dark-line;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
+  p {
+    border-bottom: 1px solid $dark-line;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
 
-    #column-template{
-      padding-bottom: 5px;
+  #column-template{
+    padding-bottom: 5px;
 
-      label{
-        padding-left: 3px;
-      }
+    label {
+      padding-left: 3px;
     }
+  }
 }
 
 #dialog-form {
-  label {
-    display: block;
-    margin-bottom: 4px;
-    color: $gray
-  }
   input, textarea, select {
     margin-bottom: 16px;
   }
