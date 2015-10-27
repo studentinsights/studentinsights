@@ -224,8 +224,8 @@
           <%= i.hidden_field :educator_id, value: current_educator.id %>
           <%= i.hidden_field :student_id, value: @student.id %>
           <br/><br/>
-          <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
           <%= i.submit "Save", class: "btn save-btn" %>
+          <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
         <% end %>
       </div>
     </div>
