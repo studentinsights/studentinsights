@@ -17,7 +17,7 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
             student_ids: [student.id],
             intervention_type_id: '1',
             comment: 'Useful comment!',
-            end_date: '2015/1/1',
+            end_date: '2020/1/1',
             educator_id: '1' }
           }
         }
@@ -35,7 +35,7 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
           { bulk_intervention_assignment: {
             student_ids: [student.id, other_student.id],
             intervention_type_id: '1',
-            end_date: '2015/1/1',
+            end_date: '2020/1/1',
             educator_id: '1',
             goal: 'Fix the situation.' }
           }
