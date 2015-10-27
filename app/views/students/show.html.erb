@@ -167,7 +167,7 @@
                           <%= p.content %>
                           <br/>
                           <span class="smalltype">
-                            <%= p.created_at.strftime("%B %e, %Y") %>
+                            <%= p.created_at.strftime("%B %e, %Y %l:%M %p") %>
                           </span>
                         </p>
                       </div>
@@ -196,7 +196,7 @@
                     <br/>
                     <%= p.hidden_field :intervention_id, value: i.id %>
                     <%= p.submit "Save", class: "btn save-btn" %>
-                    <div class="btn" type="button">Cancel</div>
+                    <div class="btn cancel-progress-note" type="button">Cancel</div>
                   <% end %>
                 </div>
               </div>
@@ -309,7 +309,7 @@
           <br/>
           <%= p.hidden_field :intervention_id, value: "{{id}}" %>
           <%= p.submit "Save", class: "btn save-btn" %>
-          <div class="btn" type="button">Cancel</div>
+          <div class="btn cancel-progress-note" type="button">Cancel</div>
         <% end %>
       </div>
     </div>

@@ -45,6 +45,13 @@
     detail.show();
   }
 
+  ProfileInterventionsController.prototype.clearProgressNoteForm = function () {
+    $('.add-progress-note-area').hide();
+    $('.add-progress-note').show();
+    $('.add-progress-note-area form textarea').val('');
+    $('#progress_note_educator_id :nth-child(1)').prop('selected', true);
+  }
+
   root.ProfileInterventionsController = ProfileInterventionsController;
 
 })(window)

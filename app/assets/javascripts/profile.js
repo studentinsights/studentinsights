@@ -128,6 +128,10 @@ $(function() {
       $(this).hide();
     });
 
+    $('body').on('click', '.cancel-progress-note', function() {
+      InterventionsController.clearProgressNoteForm();
+    });
+
     // Risk level tooltip
     var risk_level_tooltip = $('#risk-level-tooltip-template').html();
     var rendered = Mustache.render(risk_level_tooltip);
