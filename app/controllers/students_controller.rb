@@ -16,6 +16,7 @@ class StudentsController < ApplicationController
 
     @intervention = Intervention.new
     @interventions = @student.interventions.order(start_date: :desc)
+    @progress_note = ProgressNote.new
 
     @roster_url = homeroom_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"

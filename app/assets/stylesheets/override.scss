@@ -38,3 +38,13 @@ img.ui-datepicker-trigger {
   position: relative !important;
   top: 2px !important;
 }
+
+.ui-datepicker-calendar {
+  td {
+    a, .ui-state-default {
+      border-radius: 8px !important;
+      text-align: center !important;
+    }
+  }
+}
+

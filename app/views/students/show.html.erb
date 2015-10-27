@@ -9,148 +9,227 @@
 
   <div class="info-area">
 
-    <div id="student-info" class="underline">
+    <div class="topline-info underline">
       <h1 id="student-name"><%= @presenter.full_name %></h1>
       <div id="profile-risk-level" class="tooltip-trigger">
         <p>Risk level</p>
         <div id="risk-pill" class="<%= StudentRiskLevelPresenter.new(@level).css_class_name %>">
-            <h3><%= StudentRiskLevelPresenter.new(@level).level_as_string %></h3>
+          <h3><%= StudentRiskLevelPresenter.new(@level).level_as_string %></h3>
         </div>
       </div>
     </div>
 
-    <div class="nav-options">
-      <p>Graph:</p>
-      <select id="chart-type">
-        <option value="attendance"<% if @chart_start == "attendance" %> selected<% end %>>
-          Attendance
-        </option>
-        <option value="behavior"<% if @chart_start == "behavior" %> selected<% end %>>
-          Behavior
-        </option>
-        <option value="mcas-growth"<% if @chart_start == "mcas-growth" %> selected<% end %>>
-          MCAS Growth
-        </option>
-        <option value="mcas-scaled"<% if @chart_start == "mcas-scaled" %> selected<% end %>>
-          MCAS Score
-        </option>
-        <option value="star"<% if @chart_start == "star" %> selected<% end %>>
-          STAR
-        </option>
-      </select>
+    <div id="tab-select-area">
+      <div class="tab-select selected" data-tab="profile-tab">
+        Profile
+      </div>
+      <div class="tab-select" data-tab="interventions-tab">
+        Interventions
+      </div>
     </div>
 
-    <div id="chart"></div>
+    <div id="profile-tab" class="tab">
 
-    <div class="left-bar-box">
-
-      <div id="demographics-row">
-        <h1>Demographics</h1>
-
-        <div class="left-bar-block">
-          <h2>Information</h2>
-          <span class="left-bar-item">
-            Program Assignment: <strong><%= @presenter.program_assigned %></strong>
-          </span>
-          <span class="left-bar-item">
-          <span class="left-bar-item">
-            504: <strong><%= @presenter.plan_504 %></strong>
-          </span>
-        </div>
-
-        <div class="left-bar-block">
-          <h2>Language</h2>
-          <span class="left-bar-item">
-            Fluency: <strong><%= @presenter.limited_english_proficiency %></strong>
-          </span>
-          <span class="left-bar-item">
-            Home Language: <strong><%= @presenter.home_language %></strong>
-          </span>
-        </div>
-
-        <div class="left-bar-block">
-          <h2>Special Education</h2>
-          <span class="left-bar-item">
-            Placement: <strong><%= @presenter.sped_placement %></strong>
-          </span>
-          <span class="left-bar-item">
-            Disability: <strong><%= @presenter.disability %></strong>
-          </span>
-          <span class="left-bar-item">
-            Level: <strong><%= @presenter.sped_level_of_need %></strong>
-          </span>
-        </div>
-
+      <div class="nav-options">
+        <p>Graph:</p>
+        <select id="chart-type">
+          <option value="attendance"<% if @chart_start == "attendance" %> selected<% end %>>
+            Attendance
+          </option>
+          <option value="behavior"<% if @chart_start == "behavior" %> selected<% end %>>
+            Behavior
+          </option>
+          <option value="mcas-growth"<% if @chart_start == "mcas-growth" %> selected<% end %>>
+            MCAS Growth
+          </option>
+          <option value="mcas-scaled"<% if @chart_start == "mcas-scaled" %> selected<% end %>>
+            MCAS Score
+          </option>
+          <option value="star"<% if @chart_start == "star" %> selected<% end %>>
+            STAR
+          </option>
+        </select>
       </div>
 
-      <div id="interventions-row">
-        <h1>Interventions</h1>
+      <div id="chart"></div>
 
-        <% if @interventions.present? %>
-          <% @interventions.each do |i| %>
-            <div class="left-bar-block">
-              <p><strong><%= i.name %>:</strong> <span class="intervention-creator"><%= i.educator.email if i.educator.present? %></span></p>
-              <p><%= i.comment %></p>
-              <p class="intervention-date">
-                <%= i.start_date.strftime("%B %e, %Y") %> -
-                <% if i.end_date.present? %>
-                  <%= i.end_date.strftime("%B %e, %Y") %>
-                <% else %>
-                  <span class="end-date-text">Add end date</span>
-                <% end %>
-              </p>
-            </div>
-          <% end %>
-        <% else %>
-          <br/>
-          <h2>No interventions</h2>
-        <% end %>
-        <br/>
-        <button id="open-intervention-form" class="btn" type="button">Add intervention</button>
+      <div class="left-panel">
+        <div id="demographics">
+          <h1>Demographics</h1>
+
+          <div class="left-panel-block">
+            <h2>Information</h2>
+            <span class="left-panel-item">
+              Program Assignment: <strong><%= @presenter.program_assigned %></strong>
+            </span>
+            <span class="left-panel-item">
+              504: <strong><%= @presenter.plan_504 %></strong>
+            </span>
+          </div>
+
+          <div class="left-panel-block">
+            <h2>Language</h2>
+            <span class="left-panel-item">
+              Fluency: <strong><%= @presenter.limited_english_proficiency %></strong>
+            </span>
+            <span class="left-panel-item">
+              Home Language: <strong><%= @presenter.home_language %></strong>
+            </span>
+          </div>
+
+          <div class="left-panel-block">
+            <h2>Special Education</h2>
+            <span class="left-panel-item">
+              Placement: <strong><%= @presenter.sped_placement %></strong>
+            </span>
+            <span class="left-panel-item">
+              Disability: <strong><%= @presenter.disability %></strong>
+            </span>
+            <span class="left-panel-item">
+              Level: <strong><%= @presenter.sped_level_of_need %></strong>
+            </span>
+          </div>
+        </div>
       </div>
 
-      <%= form_for @intervention do |i| %>
-        <div id="add-interventions-row">
-          <h1>Add Intervention</h1>
-          <div class="left-bar-block">
-            <h2>Select Intervention</h2>
-            <%= i.select(:intervention_type_id,
-                  options_from_collection_for_select(InterventionType.all, :id, :name),
-                  { include_blank: " -- Intervention type -- " },
-                  { required: true }
-                ) %>
-          </div>
-          <div class="left-bar-block">
-            <h2>Comment</h2>
-            <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
-            <h2>Goal</h2>
-            <%= i.text_area :goal, placeholder: "Add goal", cols: "40", rows: "5" %>
-          </div>
-          <div class="left-bar-block">
-            <h2>End date</h2>
-            <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd",
-                pattern: "(19|20)[0-9]{2}(\/|-|.)((0[1-9])|(1[0-2])|([0-9]))(\/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))"
-                # Accepts any of the following formats: 2014-02-02, 2014/02/02, 2014/2/2, 2014.2.2 ...
+      <div class="right-panel">
+        <% if @student_school_years.present? %>
+          <% @student_school_years.each do |s| %>
+            <%= render "school_year_box",
+                student_school_year: s,
+                events: s.events
             %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="interventions-tab" class="tab">
+      <div class="left-panel">
+        <div id="open-intervention-form">
+          <h1>
+            <span id="add-intervention-plus-sign">
+              +
+            </span>
+            <span id="add-intervention-text">
+              Add intervention
+            </span>
+          </h1>
+        </div>
+        <div id="intervention-cell-list">
+          <% if @interventions.present? %>
+            <% @interventions.each do |i| %>
+              <div class="intervention-cell" data-id="<%= i.id %>">
+                <strong><%= i.name %></strong>
+                <p><%= i.comment %></p>
+                <p class="intervention-date">
+                  <%= i.start_date.strftime("%B %e, %Y") %>
+                  <% if i.end_date.present? %>
+                    - <%= i.end_date.strftime("%B %e, %Y") %>
+                  <% end %>
+                </p>
+                <p class="intervention-creator">
+                  <%= i.educator.email if i.educator.present? %>
+                </p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="right-panel">
+        <div id="intervention-detail-list">
+          <% if @interventions.present? %>
+            <% @interventions.all.each do |i| %>
+
+              <!-- INTERVENTION DETAILS -->
+
+              <div class="intervention-detail" data-id="<%= i.id %>">
+                <h2><%= i.intervention_type.name %></h2>
+                <strong>Description</strong>
+                <p><%= i.comment %></p>
+                <strong>Goal</strong>
+                <p><%= i.goal %></p>
+                <strong>Start Date</strong>
+                <p><%= i.start_date.strftime("%B %e, %Y") %></p>
+                <% if i.end_date.present? %>
+                  <strong>End Date</strong>
+                  <p><%= i.end_date.strftime("%B %e, %Y") %></p>
+                <% end %>
+                <% if i.progress_notes.present? %>
+                  <h2>Progress notes</h2>
+                  <div class="progress-note-list">
+                    <% i.progress_notes.each do |p| %>
+                      <div class="progress-note">
+                        <strong>
+                          <%= p.educator.email %>
+                        </strong>
+                        <p>
+                          <%= p.content %>
+                          <br/>
+                          <span class="smalltype">
+                            <%= p.created_at.strftime("%B %e, %Y %l:%M %p") %>
+                          </span>
+                        </p>
+                      </div>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="progress-note-list"></div>
+                <% end %>
+
+                <!-- PROGRESS NOTES ON INTERVENTION -->
+
+                <button class="btn add-progress-note" type="button">
+                  Add progress note
+                </button>
+
+                <div class="add-progress-note-area">
+                  <h2>Add progress note</h2>
+                  <p class="alert field errors"></p>
+                  <%= form_for @progress_note, remote: true do |p| %>
+                    <label>Progress note</label>
+                    <%= p.text_area :content, cols: "40", rows: "5", required: true %>
+                    <%= p.select(:educator_id,
+                          options_from_collection_for_select(Educator.all, :id, :email),
+                          { include_blank: " -- Select educator -- " },
+                          { required: true }) %>
+                    <br/>
+                    <%= p.hidden_field :intervention_id, value: i.id %>
+                    <%= p.submit "Save", class: "btn save-btn" %>
+                    <div class="btn cancel-progress-note" type="button">Cancel</div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
           </div>
+        <% end %>
+
+        <%= form_for @intervention, remote: true do |i| %>
+          <h1>Add Intervention</h1>
+          <p class="alert field errors"></p>
+          <label>Select Intervention</label>
+          <%= i.select(:intervention_type_id,
+                options_from_collection_for_select(InterventionType.all, :id, :name),
+                { include_blank: " -- Intervention type -- " },
+                { required: true }) %>
+          <label>Comment</label>
+          <%= i.text_area :comment, placeholder: "Add comment", cols: "40", rows: "5" %>
+          <label>Goal</label>
+          <%= i.text_area :goal, placeholder: "Add goal", cols: "40", rows: "5" %>
+          <label>End date</label>
+          <%= i.text_field :end_date, class: "datepicker", placeholder: "yyyy-mm-dd",
+              pattern: "(19|20)[0-9]{2}(\/|-|.)((0[1-9])|(1[0-2])|([0-9]))(\/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))"
+              # Accepts any of the following formats: 2014-02-02, 2014/02/02, 2014/2/2, 2014.2.2 ...
+          %>
           <%= i.hidden_field :educator_id, value: current_educator.id %>
           <%= i.hidden_field :student_id, value: @student.id %>
-          <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
+          <br/><br/>
           <%= i.submit "Save", class: "btn save-btn" %>
-        </div>
-      </div>
-    <% end %>
-
-    <div id="school-year-boxes-row" class="row">
-      <% if @student_school_years.present? %>
-        <% @student_school_years.each do |s| %>
-          <%= render "school_year_box",
-              student_school_year: s,
-              events: s.events
-          %>
+          <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
         <% end %>
-      <% end %>
+      </div>
     </div>
+
   </div>
 
   <script id="risk-level-tooltip-template" type="x-tmpl-mustache">
@@ -185,6 +264,69 @@
       <div>
         {{name}} has no {{data_type}} on record
       </div>
+    </div>
+  </script>
+
+  <script id="intervention-cell-template" type="x-tmpl-mustache">
+    <div class="intervention-cell activated" data-id="{{id}}">
+      <strong>{{name}}</strong>
+      <p>{{comment}}</p>
+      <p class="intervention-date">
+        {{start_date}} - {{end_date}}
+      </p>
+      <p class="intervention-creator">
+        {{educator_email}}
+      </p>
+    </div>
+  </script>
+
+  <script id="intervention-detail-template" type="x-tmpl-mustache">
+    <div class="intervention-detail" data-id="{{id}}">
+      <h2>{{name}}</h2>
+      <strong>Description</strong>
+      <p>{{comment}}</p>
+      <strong>Goal</strong>
+      <p>{{goal}}</p>
+      <strong>Start Date</strong>
+      <p>{{start_date}}</p>
+      <strong>End Date</strong>
+      <p>{{end_date}}</p>
+      <div class="progress-note-list">
+      </div>
+      <button class="btn add-progress-note" type="button">
+        Add progress note
+      </button>
+      <div class="add-progress-note-area">
+        <h2>Add progress note</h2>
+        <p class="alert field errors"></p>
+        <%= form_for @progress_note, remote: true do |p| %>
+          <label>Progress note</label>
+          <%= p.text_area :content, cols: "40", rows: "5", required: true %>
+          <%= p.select(:educator_id,
+                options_from_collection_for_select(Educator.all, :id, :email),
+                { include_blank: " -- Select educator -- " },
+                { required: true }) %>
+          <br/>
+          <%= p.hidden_field :intervention_id, value: "{{id}}" %>
+          <%= p.submit "Save", class: "btn save-btn" %>
+          <div class="btn cancel-progress-note" type="button">Cancel</div>
+        <% end %>
+      </div>
+    </div>
+  </script>
+
+  <script id="progress-note-template" type="x-tmpl-mustache">
+    <div class="progress-note">
+      <strong>
+        {{educator}}
+      </strong>
+      <p>
+        {{content}}
+        <br/>
+        <span class="smalltype">
+          {{created_at}}
+        </span>
+      </p>
     </div>
   </script>
 

@@ -5,9 +5,11 @@ class InterventionsController < ApplicationController
   def create
     @intervention = Intervention.new(intervention_params)
     @intervention.start_date = Time.zone.now.to_date
-    @intervention.end_date = Date.parse(intervention_params[:end_date]) if intervention_params[:end_date].present?
+    if intervention_params[:end_date].present?
+      @intervention.end_date = Date.parse(intervention_params[:end_date])
+    end
     @intervention.save
-    redirect_to student_path(@intervention.student) + "#interventions-row"
+    respond_to :js
   end
 
   def intervention_params
@@ -17,7 +19,9 @@ class InterventionsController < ApplicationController
       :intervention_type_id,
       :comment,
       :start_date,
-      :end_date
+      :end_date,
+      :goal
     )
   end
+
 end

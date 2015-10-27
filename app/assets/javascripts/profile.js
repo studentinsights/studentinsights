@@ -94,8 +94,43 @@
 })(window)
 
 $(function() {
+
   if ($('body').hasClass('students') && $('body').hasClass('show')) {
+
     new window.ProfileController().show();
+    var InterventionsController = new window.ProfileInterventionsController();
+
+    $("#open-intervention-form").click(function() {
+      InterventionsController.showInterventionForm();
+    });
+
+    $("#close-intervention-form").click(function() {
+      InterventionsController.hideInterventionForm();
+    });
+
+    $('body').on('click', '.intervention-cell', function() {
+      InterventionsController.selectIntervention($(this));
+    });
+
+    // Tabs
+    $('.tab-select').click(function() {
+      var tab = $(this).data('tab');
+      $('.tab').hide();
+      $('.tab-select').removeClass('selected');
+      $(this).addClass('selected');
+      $('#' + tab).show();
+    });
+
+    $('.add-progress-note-area').hide();
+
+    $('body').on('click', '.add-progress-note', function() {
+      $(this).parent().children('.add-progress-note-area').show();
+      $(this).hide();
+    });
+
+    $('body').on('click', '.cancel-progress-note', function() {
+      InterventionsController.clearProgressNoteForm();
+    });
 
     // Risk level tooltip
     var risk_level_tooltip = $('#risk-level-tooltip-template').html();
@@ -105,19 +140,6 @@ $(function() {
       content: rendered,
       position: 'bottom-right',
       contentAsHTML: true
-    });
-
-    // Hide Add Intervention form on page load
-    $("#new_intervention").hide();
-
-    $("#open-intervention-form").click(function() {
-      $("#new_intervention").slideDown();
-      $(this).slideUp();
-    });
-
-    $("#close-intervention-form").click(function() {
-      $("#new_intervention").slideUp();
-      $("#open-intervention-form").slideDown();
     });
   }
 });

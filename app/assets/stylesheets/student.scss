@@ -1,5 +1,114 @@
 /* STUDENT PROFILE */
 
+.tab {
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+#tab-select-area {
+  border-bottom: 1px solid $light-line;
+  margin: 30px 30px 0 30px;
+}
+
+.tab-select {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-left: 12px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top: 1px solid $light-line;
+  border-left: 1px solid $light-line;
+  border-right: 1px solid $light-line;
+  cursor: pointer;
+}
+
+.tab-select.selected {
+  background-color: $blue;
+  color: white;
+}
+
+#interventions-tab {
+  display: none;  /* Initializes closed */
+
+  .intervention-cell {
+    padding: 20px;
+    border-top: 1px solid $light-line;
+    cursor: pointer;
+  }
+
+  .intervention-cell.activated {
+    background-color: #DFDFDF;
+  }
+
+  .intervention-detail {
+    padding: 30px;
+    h2 {
+      border-bottom: 1px solid $light-line;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+    .add-progress-note {
+      display: block;
+    }
+    .add-progress-note-area {
+      display: none;
+      .btn {
+        float: left;
+        margin: 20px 10px 20px 0;
+      }
+    }
+  }
+
+  #open-intervention-form {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 5px 20px 0 20px;
+    cursor: pointer;
+
+    #add-intervention-plus-sign {
+      color: $light-line;
+      font-size: 50px;
+      font-weight: bold;
+    }
+
+    #add-intervention-text {
+      position: relative;
+      bottom: 12px;
+    }
+  }
+
+  #open-intervention-form.selected {
+    background-color: $blue;
+    h1, #add-intervention-plus-sign {
+      color: white;
+    }
+  }
+
+  #open-intervention-form.solo {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  form.new_intervention {
+    padding: 15px 30px;
+
+    h1 {
+      border-bottom: 1px solid $light-line;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+    }
+  }
+}
+
+#interventions-tab > div {
+  border: 1px solid $light-line;
+  border-radius: 8px;
+}
+
 #export-button {
   float: right;
   display: inline;
@@ -33,26 +142,32 @@
   }
 }
 
+#demographics {
+  h1 {
+    border-bottom: 1px solid $light-line;
+  }
+}
+
  /* BELOW GRAPH */
 
-.left-bar-box {
+.left-panel {
   float: left;
   width: 40%;
   margin-right: 5%;
 
   @media screen and (max-width: $phase2) {
-  width: 100%;
-  margin-right: 0;
+    width: 100%;
+    margin-right: 0;
   }
 
-  .left-bar-item{
-      font-size: 14px;
-      font-weight: 400;
-      color: $gray;
-      display: block;
+  .left-panel-item {
+    font-size: 14px;
+    font-weight: 400;
+    color: $gray;
+    display: block;
   }
 
-  .left-bar-block {
+  .left-panel-block {
     margin: 20px 0px;
   }
 
@@ -60,11 +175,9 @@
     font-size: 18px;
     font-weight: 400;
     color: $gray;
-    border-bottom: 1px solid $light-line;
-
   }
 
-  h2{
+  h2 {
     font-size: 16px;
     font-weight: 300;
     color: $gray;
@@ -120,25 +233,19 @@
   text-decoration: none;
   border: none;
   cursor: pointer;
-  margin-bottom: 20px;
 
   &:hover {
     background-color: darken($blue, 10%);
     text-decoration: none;
   }
-
-  &:active {
-    position: relative;
-    top: 1px;
-  }
 }
 
-#school-year-boxes-row {
+.right-panel {
   width: 55%;
   float: right;
 
   @media screen and (max-width: $phase2) {
-  width: 100%;
+    width: 100%;
   }
 }
 
@@ -214,7 +321,7 @@
   border: none;
 }
 
-.month{
+.month {
   background: #EEEEEE;
   border-radius: 4px;
   margin-top: 5px;
@@ -224,7 +331,7 @@
 .referral {
   margin-top: 20px;
 
-  .referral-date{
+  .referral-date {
     margin-top: 5px;
   }
 }
@@ -235,32 +342,31 @@
   margin-bottom: 80px;
 }
 
-#student-info {
+.topline-info {
   margin-bottom: 15px;
-  padding-bottom: 10px;
 
-  @media screen and (max-width: $phase2) {
-    height: 80px;
-  }
   h1 {
     font-weight: 400;
     display: inline;
   }
   p {
     float: right;
-
     @media screen and (max-width: $phase2) {
       padding-right: 20px;
       float: left;
       padding-bottom: 20px;
     }
   }
+  @media screen and (max-width: $phase2) {
+    height: 80px;
+  }
 }
 
 .students {
-  .info-area {
-    margin-top: 0;
-    clear: both;
+  .topline-info {
+    background-color: $light-background;
+    border-bottom: 1px solid $light-line;
+    padding: 30px;
   }
 }
 
@@ -284,10 +390,4 @@
 
 .highcharts-axis-labels {
   padding-left: 100px;
-}
-
-#intervention_comment {
-  max-width: 100%;
-  min-width: 100%;
-  padding: 10px;
 }

@@ -5,7 +5,7 @@ RSpec.describe InterventionsController, type: :controller do
   describe '#create' do
     def make_post_request(options = {})
       request.env['HTTPS'] = 'on'
-      post :create, intervention: options[:params]
+      post :create, format: :js, intervention: options[:params]
     end
 
     context 'educator logged in' do
@@ -27,9 +27,9 @@ RSpec.describe InterventionsController, type: :controller do
         it 'creates a new intervention' do
           expect { make_post_request(params: params) }.to change(Intervention, :count).by 1
         end
-        it 'redirects to the interventions section of the student page' do
+        it 'responds with js' do
           make_post_request(params: params)
-          expect(response).to redirect_to("#{student_path(student)}#interventions-row")
+          expect(response.headers["Content-Type"]).to eq "text/javascript; charset=utf-8"
         end
       end
       context 'invalid request' do
@@ -45,7 +45,7 @@ RSpec.describe InterventionsController, type: :controller do
       end
       it 'redirects to sign in page' do
         make_post_request(params: params)
-        expect(response).to redirect_to(new_educator_session_path)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end
