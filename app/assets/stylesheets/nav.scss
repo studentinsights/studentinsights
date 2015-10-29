@@ -1,5 +1,20 @@
 /* NAV */
 
+#renew-session {
+  background-color: $blue;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  top: -10px;
+  display: none;
+  a {
+    color: white;
+    text-decoration: underline;
+    font-size: 16px;
+  }
+}
+
 .nav {
   border-bottom: 1px solid $light-line;
   background-color: $white;

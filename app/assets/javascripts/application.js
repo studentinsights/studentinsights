@@ -26,6 +26,7 @@
 //= require_tree ./charts
 //= require profile
 //= require profile_interventions
+//= require session_timeout_warning
 //= require datepicker
 //= require rounded-corners
 //= require student-searchbar
