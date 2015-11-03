@@ -37,12 +37,13 @@
     font-weight: 700;
   }
 
-  #column-template{
-    padding-bottom: 5px;
+  label {
+    padding-left: 3px;
+    display: inline-block;
+  }
 
-    label {
-      padding-left: 3px;
-    }
+  #column-template {
+    padding-bottom: 5px;
   }
 }
 
