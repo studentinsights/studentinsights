@@ -14,6 +14,12 @@ Student Insights enables educators to see at-risk students and match them to the
 ## Installation
 This is a Ruby on Rails app and uses a PostgreSQL database. See Code for America's "HowTo" on Rails for more information on deploying and maintaining apps using Rails: https://github.com/codeforamerica/howto/blob/master/Rails.md
 
+On a Debian-like OS you may have to remove this line from the config of the development database (config/database.yml)
+```
+host: localhost
+```
+(For an explanation see [this Stackoverflow discussion](http://stackoverflow.com/questions/23375740/pgconnectionbad-fe-sendauth-no-password-supplied))
+
 ### Setting up demo data
 
 To set up demo data after you clone the project, run
