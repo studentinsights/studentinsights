@@ -17,7 +17,8 @@
 $(function() {
 
   if ($('body').hasClass('educator-signed-in')) {
-    (new SessionTimeoutWarning).count();
+    var warning = new SessionTimeoutWarning;
+    warning.count();
   }
 
   $("#renew-sesion-link").click(function () {
@@ -25,6 +26,7 @@ $(function() {
       url: '/educators/reset',
       success: function () {
         $('#renew-session').slideUp();
+        warning.count();   // Resent timeout count
       }
     });
   });
