@@ -7,27 +7,30 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="<%= controller_name %> <%= action_name %>">
+  <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">
     <div class="nav">
+      <div id="renew-session">
+        Please click <a href="#" id="renew-sesion-link">this link</a> or your session will timeout due to inactivity.
+      </div>
       <div class="navwrap">
-          <div id="logo">
-            <div id="title" alt="Student Insights"></div>
-          </div>
-          <nav>
-            <% if educator_signed_in? %>
-              <% if controller_name == 'pages' %>
-                <%= link_to "Roster", roster_url %>
-              <% end %>
-              <div class="nav-options">
-                <p>Search for student:</p>
-                <input id="student-searchbar" />
-              </div>
-              <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
-            <% else %>
-              <%= link_to "About", about_url %>
-              <%= link_to "Sign In", new_educator_session_path %>
+        <div id="logo">
+          <div id="title" alt="Student Insights"></div>
+        </div>
+        <nav>
+          <% if educator_signed_in? %>
+            <% if controller_name == 'pages' %>
+              <%= link_to "Roster", roster_url %>
             <% end %>
-          </nav>
+            <div class="nav-options">
+              <p>Search for student:</p>
+              <input id="student-searchbar" />
+            </div>
+            <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "About", about_url %>
+            <%= link_to "Sign In", new_educator_session_path %>
+          <% end %>
+        </nav>
         <p class="notice field"><%= notice %></p>
         <p class="alert field"><%= alert %></p>
       </div>
