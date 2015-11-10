@@ -32,10 +32,19 @@ First, install VirtualBox and Docker Toolbox.
 
 Run the project using `docker-compose`:
   - Rebuild all container images: `docker-compose build` (slow the first time)
-  - Run the database migration and seeding: `docker-compose run rails bundle exec rake db:setup db:seed:demo`
+  - Start bash in a Rails container to create the database and seed it:
+    ```
+    # Start a new Rails container from your laptop
+    $ docker-compose run rails bash
+
+    # Then run tasks within that container
+    $ RAILS_ENV=development bundle exec rake db:setup db:seed:demo
+
+    # And exit to discard the container when you're done.
+    $ exit
+    ```
   - Start all the services: `docker-compose up`
   - Open `http://docker:3000` in a browser!
-  - Run another shell (eg., for a Rails console, specs) with `docker-compose run rails bash`
 
 ### Setting up demo data
 
