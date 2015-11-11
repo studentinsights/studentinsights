@@ -3,7 +3,7 @@
   var SessionTimeoutWarning = function () {}
 
   SessionTimeoutWarning.prototype.count = function () {
-    root.setTimeout(this.show, 780000);  // count up to 13 minutes
+    root.setTimeout(this.show, 3480000);  // count up to 58 minutes
   };
 
   SessionTimeoutWarning.prototype.show = function () {
