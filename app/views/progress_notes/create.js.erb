@@ -1,7 +1,7 @@
 <%- unless @progress_note.errors.present? %>
   var data = {
     educator: "<%= @progress_note.educator.email %>",
-    content: "<%= @progress_note.content %>",
+    content: "<%= escape_javascript @progress_note.content %>",
     created_at: "<%= @progress_note.created_at.strftime('%B %e, %Y') %>"
   }
   var template = $('#progress-note-template').html();
