@@ -1,6 +1,6 @@
 class InterventionsController < ApplicationController
   include SerializeInterventionHelper
-  
+
   before_action :authenticate_educator!
 
   def create
@@ -11,6 +11,7 @@ class InterventionsController < ApplicationController
     end
     intervention.save
 
+    # TODO(kr) handle errors
     render json: serialize_intervention(intervention)
   end
 
