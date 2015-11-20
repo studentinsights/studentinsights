@@ -14,8 +14,9 @@ class StudentsController < ApplicationController
       StudentSchoolYear.new(@student, sy)
     end
 
-    @intervention = Intervention.new
-    @interventions = @student.interventions.order(start_date: :desc)
+    interventions = @student.interventions.order(start_date: :desc)
+    @serialized_interventions = serialize_interventions(interventions) 
+
     @progress_note = ProgressNote.new
 
     @roster_url = homeroom_path(@student.homeroom)
@@ -48,4 +49,18 @@ class StudentsController < ApplicationController
     end
   end
 
+  private
+  def serialize_interventions(interventions)
+    interventions.map do |intervention|
+      {
+        id: intervention.id,
+        name: intervention.name,
+        comment: intervention.comment,
+        goal: intervention.goal,
+        start_date: intervention.start_date.strftime('%B %e, %Y'),
+        end_date: intervention.end_date.try(:strftime, '%B %e, %Y'),
+        educator_email: intervention.educator.try(:email)
+      }
+    end
+  end
 end
