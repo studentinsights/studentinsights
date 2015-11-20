@@ -34,6 +34,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    InterventionType.seed_somerville_intervention_types
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

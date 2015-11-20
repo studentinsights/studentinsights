@@ -27,9 +27,9 @@ RSpec.describe InterventionsController, type: :controller do
         it 'creates a new intervention' do
           expect { make_post_request(params: params) }.to change(Intervention, :count).by 1
         end
-        it 'responds with js' do
+        it 'responds with json' do
           make_post_request(params: params)
-          expect(response.headers["Content-Type"]).to eq "text/javascript; charset=utf-8"
+          expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
         end
       end
       context 'invalid request' do

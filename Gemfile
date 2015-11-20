@@ -47,6 +47,7 @@ group :development, :test do
   gem 'rails-erd'  # to auto-generate ERD and better understand the data structure
   gem 'teaspoon-jasmine'
   gem 'launchy'
+  gem 'pry'
 end
 
 group :development do
@@ -82,6 +83,3 @@ gem 'thor'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
