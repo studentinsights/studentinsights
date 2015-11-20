@@ -41,14 +41,8 @@
       this.$el.on('click', '#open-intervention-form', this.onAddNewIntervention.bind(this));
       this.$el.on('click', '#close-intervention-form', this.onCancelNewIntervention.bind(this));
       this.$el.on('click', '.intervention-cell', this.onSelectedIntervention.bind(this));
-
-      // TODO(kr) callbacks for saving
-      $('#new_intervention').on('ajax:success', function (e, data, status, xhr) {
-        console.log('saved', arguments); // TODO(kr)
-      });
-      $('#new_intervention').on('ajax:error', function(e, xhr, status, error) {
-        console.log('error', arguments); // TODO(kr)
-      });
+      this.$el.on('ajax:success', '.new_intervention', this.onNewInterventionSaveSucceeded.bind(this));
+      this.$el.on('ajax:error', '.new_intervention', this.onNewInterventionSaveFailed.bind(this));
 
       // TODO(kr) progress notes
       // $('.add-progress-note-area').hide();
@@ -77,6 +71,21 @@
       this.selectedInterventionId = this.defaultSelectedIntervention();
       this.isShowingNewIntervention = false;
       this.render();
+    },
+
+    onNewInterventionSaveSucceeded: function (e, data, status, xhr) {
+      this.interventions = [data].concat(this.interventions);
+      this.selectedInterventionId = this.defaultSelectedIntervention();
+      this.isShowingNewIntervention = false;
+      this.render();
+    },
+
+    // TODO(kr)
+    onNewInterventionSaveFailed: function(e, xhr, status, error) {
+      console.log('error', arguments);
+      // <% @intervention.errors.full_messages.each do |msg| %>
+      //   $('#interventions-tab form .errors').prepend("<br/><li><%= msg %></li>");
+      // <% end %>
     },
 
     render: function () {

@@ -50,6 +50,7 @@ class StudentsController < ApplicationController
   end
 
   private
+  # TODO(kr) factor out to serializer
   def serialize_interventions(interventions)
     interventions.map do |intervention|
       {
