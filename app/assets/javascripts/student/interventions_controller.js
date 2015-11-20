@@ -5,6 +5,17 @@
   and then owns that state and any changes to it over time.
   
   This class expects a few Mustache templates to be available on the page (see constructor).
+
+  The structure of this class is to:
+  - take a DOM element to render into, and some initial state
+  - store state as instance variables
+  - bind any event listeners once
+  - call `render` to project the state onto the page
+  - use client-side templates to do the rendering
+  - when a user action occurs, update state in instances variables and re-render
+
+  It's similar to a Backbone View, and the main flow of data is the same as a single
+  React component.
   */  
   var InterventionsController = function (options) {
     this.initialize(options);
@@ -12,7 +23,7 @@
 
   _.extend(InterventionsController.prototype, {
     // Expects: {$el, interventions}
-    // OptionaL: {datepickerOptions}
+    // Optional: {datepickerOptions}
     initialize: function(options) {
       this.options = options;
       this.$el = this.options.$el;
@@ -22,7 +33,8 @@
       this.selectedInterventionId = this.defaultSelectedIntervention();
       this.isShowingNewIntervention = false;
 
-      // templates
+      // templates, these should be available on the page (or could be compiled and provided
+      // as a JS asset)
       this.templates = {
         main: $('#main-interventions-template').html(),
         interventionCell: $('#intervention-cell-template').html(),

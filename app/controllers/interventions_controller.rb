@@ -1,5 +1,6 @@
 class InterventionsController < ApplicationController
-
+  include SerializeInterventionHelper
+  
   before_action :authenticate_educator!
 
   def create
@@ -10,16 +11,7 @@ class InterventionsController < ApplicationController
     end
     intervention.save
 
-    # TODO(kr) factor out to serializer
-    render json: {
-      id: intervention.id,
-      name: intervention.name,
-      comment: intervention.comment,
-      goal: intervention.goal,
-      start_date: intervention.start_date.strftime('%B %e, %Y'),
-      end_date: intervention.end_date.try(:strftime, '%B %e, %Y'),
-      educator_email: intervention.educator.try(:email)
-    }
+    render json: serialize_intervention(intervention)
   end
 
   def intervention_params

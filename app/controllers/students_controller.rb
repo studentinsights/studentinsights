@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  include SerializeInterventionHelper
 
   before_action :authenticate_educator!
 
@@ -15,7 +16,7 @@ class StudentsController < ApplicationController
     end
 
     interventions = @student.interventions.order(start_date: :desc)
-    @serialized_interventions = serialize_interventions(interventions) 
+    @serialized_interventions = interventions.map { |intervention| serialize_intervention(intervention) }
 
     @progress_note = ProgressNote.new
 
@@ -46,22 +47,6 @@ class StudentsController < ApplicationController
     end
     respond_to do |format|
       format.json { render json: @result }
-    end
-  end
-
-  private
-  # TODO(kr) factor out to serializer
-  def serialize_interventions(interventions)
-    interventions.map do |intervention|
-      {
-        id: intervention.id,
-        name: intervention.name,
-        comment: intervention.comment,
-        goal: intervention.goal,
-        start_date: intervention.start_date.strftime('%B %e, %Y'),
-        end_date: intervention.end_date.try(:strftime, '%B %e, %Y'),
-        educator_email: intervention.educator.try(:email)
-      }
     end
   end
 end
