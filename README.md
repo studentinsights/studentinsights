@@ -60,22 +60,6 @@ rspec
 
 It uses [Jasmine](http://jasmine.github.io/) for JavaScript tests, run through the [Teaspoon](https://github.com/modeset/teaspoon) gem.  You can run them in the browser at `http://localhost:3000/teaspoon/default`.
 
-#### Pre-commit
-This app comes with a suggested pre-commit file that you can add to your git hooks. It will run the tests before committing, so you can be sure any changes are kosher.
-
-Add to your git hooks:
-
-```
-cp pre-commit .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
-```
-
-If you have a good reason to skip the test suite:
-
-```
-git commit --no-verify
-```
-
 # Deployment
 
 ### Heroku
