@@ -11,7 +11,6 @@ Student Insights enables educators to see at-risk students and match them to the
 - [Deployment](#deployment)
     - [Heroku](#heroku)
     - [Your own server](#your-own-server)
-- [User stories](#user-stories)
 - [Design](#design)
   - [Who made this?](#who-made-this)
 - [More](#more)
@@ -71,13 +70,6 @@ Our plan is to deploy Student Insights on Somerville Public Schools' machines an
 ```
 cap production deploy
 ```
-
-# User stories
-* As an admin, I want to see which students are at risk and whether they are receiving necessary interventions.
-
-* As a teacher, I want to see which students are at risk and target interventions to these students.
-
-* As a teacher, I want to see how my students are doing both academically and behaviorally over time.
 
 # Design
 For a history of all design iterations look here:
