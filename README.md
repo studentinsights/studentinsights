@@ -8,11 +8,9 @@ Student Insights enables educators to see at-risk students and match them to the
   - [Demo data](#demo-data)
   - [Real data](#real-data)
   - [Tests](#tests)
-      - [Pre-commit](#pre-commit)
 - [Deployment](#deployment)
     - [Heroku](#heroku)
     - [Your own server](#your-own-server)
-  - [Future?](#future)
 - [User stories](#user-stories)
 - [Design](#design)
   - [Who made this?](#who-made-this)
@@ -73,13 +71,6 @@ Our plan is to deploy Student Insights on Somerville Public Schools' machines an
 ```
 cap production deploy
 ```
-
-## Future?
-This app could grow in several different ways.
-
-* __Unique URLs__: Can be generated to be viewed online at a later time by users with access.
-* __Printable PDFs__: Can be exported of any view for teachers to print out.
-* __Sub-views__:  Create sub-views for parents and students.
 
 # User stories
 * As an admin, I want to see which students are at risk and whether they are receiving necessary interventions.
