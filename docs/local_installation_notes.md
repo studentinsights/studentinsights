@@ -1,8 +1,11 @@
-# Local installation
+# Local installation notes
 
 ## Postgres installation on OSX
+
 You can use Homebrew to install Postgres: `brew install postgres`
+
 There's good information about how to use it at: `brew info postgres`
+
 And you can start a Postgres server with `postgres -D /usr/local/var/postgres`
 
 ## Puma installation on El Capitan

@@ -7,7 +7,7 @@ First, install VirtualBox and Docker Toolbox.
   - Install VirtualBox 5.0.8: https://www.virtualbox.org/wiki/Downloads
   - Install Docker Toolbox: http://docs.docker.com/mac/started/
   - Use docker-machine to create a new Docker host: `https://docs.docker.com/machine/get-started/`
-  - For convenience, you can add the IP from `docker-machine ip dev` as a line in `/etc/hosts` so you can work with `http://docker:3000` in your browser.
+  - For convenience, add the IP from `docker-machine ip dev` as a line in `/etc/hosts` so you can work with `http://docker:3000` in your browser.
   - Install https://github.com/adlogix/docker-machine-nfs to use NFS for sharing files between the host machine and the VirtualBoxVM.  This is much faster than VirtualBox shared folders ([more info](https://github.com/codeforamerica/somerville-teacher-tool/pull/336#issuecomment-158441877)).
 
 Run the project using `docker-compose`:
