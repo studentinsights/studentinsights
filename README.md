@@ -20,6 +20,33 @@ host: localhost
 ```
 (For an explanation see [this Stackoverflow discussion](http://stackoverflow.com/questions/23375740/pgconnectionbad-fe-sendauth-no-password-supplied))
 
+## Local development with Docker
+Alternately, you can run the project locally in Docker containers using docker-compose.  This [blog post](http://www.ybrikman.com/writing/2015/05/19/docker-osx-dev/) has great background motivation on why it's useful to use Docker for local development.
+
+First, install VirtualBox and Docker Toolbox.
+
+  - Install VirtualBox 5.0.8: https://www.virtualbox.org/wiki/Downloads
+  - Install Docker Toolbox: http://docs.docker.com/mac/started/
+  - Use docker-machine to create a new Docker host: `https://docs.docker.com/machine/get-started/`
+  - For convenience, you can add the IP from `docker-machine ip dev` as a line in `/etc/hosts` so you can work with `http://docker:3000` in your browser.
+  - Install https://github.com/adlogix/docker-machine-nfs to use NFS for sharing files between the host machine and the VirtualBoxVM.  This is much faster than VirtualBox shared folders ([more info](https://github.com/codeforamerica/somerville-teacher-tool/pull/336#issuecomment-158441877)).
+
+Run the project using `docker-compose`:
+  - Rebuild all container images: `docker-compose build` (slow the first time)
+  - Start bash in a Rails container to create the database and seed it:
+    ```
+    # Start a new Rails container from your laptop
+    $ docker-compose run rails bash
+
+    # Then run tasks within that container
+    $ RAILS_ENV=development bundle exec rake db:setup db:seed:demo
+
+    # And exit to discard the container when you're done.
+    $ exit
+    ```
+  - Start all the services: `docker-compose up`
+  - Open `http://docker:3000` in a browser!
+
 ### Setting up demo data
 
 To set up demo data after you clone the project, run
@@ -47,11 +74,13 @@ Use the `--district` flag to indicate your school district or charter organizati
 So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, write a new client: `app/importers/clients`.
 
 ### Tests
-This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
+This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) for Ruby tests. Run the test suite:
 
 ```
 rspec
 ```
+
+It uses [Jasmine](http://jasmine.github.io/) for JavaScript tests, run through the [Teaspoon](https://github.com/modeset/teaspoon) gem.  You can run them in the browser at `http://localhost:3000/teaspoon/default`
 
 #### Pre-commit
 This app comes with a suggested pre-commit file that you can add to your git hooks. It will run the tests before committing, so you can be sure any changes are kosher.
