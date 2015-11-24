@@ -5,9 +5,9 @@
 Student Insights enables educators to see at-risk students and match them to the help they need.
 
 - [Installation](#installation)
-  - [Demo data](#demo-data)
-  - [Real data](#real-data)
-  - [Tests](#tests)
+- [Demo data](#demo-data)
+- [Real data](#real-data)
+- [Tests](#tests)
 - [Deployment](#deployment)
     - [Heroku](#heroku)
     - [Your own server](#your-own-server)
@@ -23,7 +23,7 @@ Choose your favorite local development approach:
 * [Local development with Docker](docs/local_development_with_docker.md)
 * [Local installation on OSX and Debian](docs/local_installation_notes.md)
 
-## Demo data
+# Demo data
 
 ```
 rake db:seed:demo
@@ -33,7 +33,7 @@ This will create demo students with fake student information. The demo educator 
 
 Once you've created the data, start a local server by running `rails s` from the root of your project. When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.
 
-## Real data
+# Real data
 
 If you're working with a real school district, you'll need flat files of the data you want to import.
 
@@ -47,7 +47,7 @@ Use the `--district` flag to indicate your school district or charter organizati
 
 So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, write a new client: `app/importers/clients`.
 
-## Tests
+# Tests
 This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) for Ruby tests. Run the test suite:
 
 ```
