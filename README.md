@@ -12,7 +12,6 @@ Student Insights enables educators to see at-risk students and match them to the
     - [Heroku](#heroku)
     - [Your own server](#your-own-server)
 - [Design](#design)
-  - [Who made this?](#who-made-this)
 - [More](#more)
 
 # Installation
@@ -74,9 +73,6 @@ cap production deploy
 # Design
 For a history of all design iterations look here:
 https://www.dropbox.com/sh/r71hh9azun8v6as/AABtBghkPI4XUJBZjNpMmRdba?dl=0
-
-## Who made this?
-Alex, Amir, and Mari from Code for America's [Somerville Fellowship Team](http://www.codeforamerica.org/governments/somerville/) in collaboration with the City of Somerville and Somerville Public Schools --- and great support from the Code for SF and Code for Boston brigade volunteers!
 
 # More
 
