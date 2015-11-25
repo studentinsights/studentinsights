@@ -19,7 +19,7 @@ class StudentSchoolYear < Struct.new :student, :school_year
 
   def assessment_events
     {
-      mcas_math_result: student_school_year_assessments.latest_mcas_math,
+      mcas_math_result: student_school_year_assessments.latest.mcas_math.first_or_missing,
       mcas_ela_result: student_school_year_assessments.latest_mcas_ela,
       star: student_school_year_assessments.star.group_by { |result| result.date_taken },
       dibels: student_school_year_assessments.dibels,

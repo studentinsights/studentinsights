@@ -1,6 +1,48 @@
 require 'rails_helper'
 
 RSpec.describe Student do
+  describe '#latest_mcas_math_result' do
+    let(:student) { FactoryGirl.create(:student) }
+    let(:assessment_subject) { "Math" }
+    let(:assessment_family) { "MCAS" }
+    let!(:mcas_math) { Assessment.create!(family: assessment_family, subject: assessment_subject) }
+    let!(:mcas_math_result) {
+      StudentAssessment.create!(
+        student: student,
+        assessment: mcas_math,
+        date_taken: DateTime.now,
+      )
+    }
+
+    context 'when the student has no mcas math result' do
+      let!(:mcas_math_result) { nil }
+      it 'returns a missing student assessment' do
+        expect(student.latest_mcas_math_result).to be_a(MissingStudentAssessment)
+      end
+    end
+
+    context 'when the math subject exists' do
+      it "returns the student's most recent MCAS math results" do
+        expect(student.latest_mcas_math_result).to eq(mcas_math_result)
+      end
+    end
+
+    context 'when the math subject does not exist' do
+      let(:assessment_subject) { "Tacos" }
+      it 'returns a missing student assessment' do
+        expect(student.latest_mcas_math_result).to be_a(MissingStudentAssessment)
+      end
+    end
+
+    context 'when the math family does not exist' do
+      let(:assessment_family) { "Doc's Special Exam" }
+      it 'returns a missing student assessment' do
+        expect(student.latest_mcas_math_result).to be_a(MissingStudentAssessment)
+      end
+    end
+  end
+
+
   describe '#school_years' do
     context 'school years in the 2010s' do
       let!(:sy_2014_2015) { FactoryGirl.create(:sy_2014_2015) }

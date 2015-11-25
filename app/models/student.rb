@@ -4,11 +4,6 @@ class Student < ActiveRecord::Base
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :student_assessments do
-    def latest_mcas_math
-      mcas_math = Assessment.mcas_math
-      return MissingStudentAssessment.new if mcas_math.is_a? MissingAssessment
-      where(assessment_id: mcas_math.id).last_or_missing || MissingStudentAssessment.new
-    end
     def latest_star_math
       star_math = Assessment.star_math
       return MissingStudentAssessment.new if star_math.is_a? MissingAssessment
@@ -65,6 +60,10 @@ class Student < ActiveRecord::Base
   validates_uniqueness_of :local_id
   after_create { create_student_risk_level! }
   include DateToSchoolYear
+
+  def latest_mcas_math_result
+    self.student_assessments.latest.mcas_math.first_or_missing
+  end
 
   def school_years
     if registration_date.present? || grade.present?

@@ -4,7 +4,7 @@ class StudentRiskLevel < ActiveRecord::Base
   after_create :update_risk_level!
 
   # Use most recent assessments to calculate risk
-  def mcas_math; student_assessments.latest_mcas_math end
+  def mcas_math; student.latest_mcas_math_result end
   def star_math; student_assessments.latest_star_math end
   def mcas_ela; student_assessments.latest_mcas_ela end
   def star_reading; student_assessments.latest_star_reading end

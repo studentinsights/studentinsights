@@ -1,5 +1,6 @@
 class Assessment < ActiveRecord::Base
-  has_many :student_assessments, -> (student) { extending FindByStudent }
+  has_many :student_assessments
+  has_many :students, through: :student_assessments
 
   def self.mcas_ela; where(family: "MCAS", subject: "ELA").last_or_missing end
 

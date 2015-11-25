@@ -7,6 +7,19 @@ class StudentAssessment < ActiveRecord::Base
   before_save :assign_to_school_year
   delegate :family, :subject, to: :assessment
   delegate :grade, to: :student
+  validates_presence_of :date_taken
+
+  def self.latest
+    order(date_taken: :desc)
+  end
+
+  def self.mcas_math
+    joins(:assessment).where(assessments: {family: 'MCAS', subject: 'Math'})
+  end
+
+  def self.first_or_missing
+    first || MissingStudentAssessment.new
+  end
 
   def risk_level
     return nil unless assessment.present? && family.present?
