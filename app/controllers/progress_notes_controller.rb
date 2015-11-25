@@ -1,6 +1,8 @@
 class ProgressNotesController < ApplicationController
   include SerializeInterventionHelper
 
+  before_action :authenticate_educator!
+  
   def create
     progress_note = ProgressNote.new(progress_note_params)
     
