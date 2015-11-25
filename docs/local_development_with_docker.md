@@ -25,3 +25,15 @@ Run the project using `docker-compose`:
     ```
   - Start all the services: `docker-compose up`
   - Open `http://docker:3000` in a browser!
+
+Running RSpec tests:
+```
+  # Start a new Rails container from your laptop
+  $ docker-compose run rails bash
+
+  # Seed the test database
+  $ RAILS_ENV=test bundle exec rake db:setup
+
+  # Run whatever tests you like
+  $ RAILS_ENV=test bundle exec rspec
+```

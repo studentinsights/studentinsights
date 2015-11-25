@@ -22,6 +22,8 @@ RSpec.describe InterventionsController, type: :controller do
             educator_id: educator.id,
             student_id: student.id,
             intervention_type_id: 1,
+            start_date: '2015/1/1',
+            end_date: '2020/6/6'
           }
         }
         it 'creates a new intervention' do
@@ -33,8 +35,16 @@ RSpec.describe InterventionsController, type: :controller do
         end
       end
       context 'invalid request' do
-        it 'raises an error' do
-          expect { make_post_request }.to raise_error ActionController::ParameterMissing
+        let(:params) { { educator_id: educator.id } }
+        it 'returns errors as json' do
+          make_post_request(params: params)
+          expect(response.status).to eq 422
+          expect(JSON.parse(response.body)).to eq({
+            "errors" => [
+              "Student can't be blank",
+              "Intervention type can't be blank"
+            ]
+          })
         end
       end
     end
