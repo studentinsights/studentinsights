@@ -42,23 +42,38 @@ class Student < ActiveRecord::Base
   include DateToSchoolYear
 
   def latest_mcas_math_result
-    self.student_assessments.latest.mcas_math.first_or_missing
+    self.student_assessments
+        .latest
+        .by_family_and_subject("MCAS", "Math")
+        .first_or_missing
   end
 
   def latest_mcas_ela_result
-    self.student_assessments.latest.mcas_ela.first_or_missing
+    self.student_assessments
+        .latest
+        .by_family_and_subject("MCAS", "ELA")
+        .first_or_missing
   end
 
   def latest_star_math_result
-    self.student_assessments.latest.star_math.first_or_missing
+    self.student_assessments
+        .latest
+        .by_family_and_subject("STAR", "Math")
+        .first_or_missing
   end
 
   def latest_star_reading_result
-    self.student_assessments.latest.star_reading.first_or_missing
+    self.student_assessments
+        .latest
+        .by_family_and_subject("STAR", "Reading")
+        .first_or_missing
   end
 
   def latest_access_result
-    self.student_assessments.latest.access.first_or_missing
+    self.student_assessments
+        .latest
+        .by_family("ACCESS")
+        .first_or_missing
   end
 
   def school_years

@@ -13,24 +13,12 @@ class StudentAssessment < ActiveRecord::Base
     order(date_taken: :desc)
   end
 
-  def self.mcas_math
-    joins(:assessment).where(assessments: {family: 'MCAS', subject: 'Math'})
+  def self.by_family(family_name)
+    joins(:assessment).where(assessments: {family: family_name})
   end
 
-  def self.mcas_ela
-    joins(:assessment).where(assessments: {family: 'MCAS', subject: 'ELA'})
-  end
-
-  def self.star_math
-    joins(:assessment).where(assessments: {family: 'STAR', subject: 'Math'})
-  end
-
-  def self.star_reading
-    joins(:assessment).where(assessments: {family: 'STAR', subject: 'Reading'})
-  end
-
-  def self.access
-    joins(:assessment).where(assessments: {family: 'ACCESS'})
+  def self.by_family_and_subject(family_name, subject_name)
+    joins(:assessment).where(assessments: {family: family_name, subject: subject_name})
   end
 
   def self.first_or_missing
@@ -47,10 +35,6 @@ class StudentAssessment < ActiveRecord::Base
     else
       nil
     end
-  end
-
-  def self.star
-    joins(:assessment).where(assessments: {family: 'STAR'})
   end
 
   def self.map_test

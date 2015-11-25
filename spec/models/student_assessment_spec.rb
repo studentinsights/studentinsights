@@ -24,82 +24,39 @@ RSpec.describe StudentAssessment, :type => :model do
     end
   end
 
-  describe '.mcas_math' do
+  describe '.by_family_and_subject' do
     let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
-    context 'there are only MCAS math student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :mcas, :math) }
-      it 'returns the MCAS and math student assessments' do
-        expect(StudentAssessment.mcas_math).to eq([student_assessment])
+    context 'MCAS & math' do
+      let(:result) { StudentAssessment.by_family_and_subject("MCAS", "Math") }
+      context 'there are only MCAS math student assessments' do
+        let(:assessment) { FactoryGirl.create(:assessment, :mcas, :math) }
+        it 'returns the MCAS and math student assessments' do
+          expect(result).to eq([student_assessment])
+        end
       end
-    end
-    context 'there are no MCAS math student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :star, :reading) }
-      it 'returns an empty association' do
-        expect(StudentAssessment.mcas_math).to be_empty
+      context 'there are MCAS reading student assessments' do
+        let(:assessment) { FactoryGirl.create(:assessment, :mcas, :reading) }
+        it 'returns an empty association' do
+          expect(result).to be_empty
+        end
       end
     end
   end
 
-  describe '.mcas_ela' do
+  describe '.by_family' do
     let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
-    context 'there are only MCAS English Language Arts (ELA) student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :mcas, :ela) }
-      it 'returns the MCAS and English Language Arts (ELA) student assessments' do
-        expect(StudentAssessment.mcas_ela).to eq([student_assessment])
+    context 'ACCESS' do
+      context 'there are only ACCESS student assessments' do
+        let(:assessment) { FactoryGirl.create(:assessment, :access) }
+        it 'returns the ACCESS student assessments' do
+          expect(StudentAssessment.by_family("ACCESS")).to eq([student_assessment])
+        end
       end
-    end
-    context 'there are no MCAS English Language Arts (ELA) student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :star, :reading) }
-      it 'returns an empty association' do
-        expect(StudentAssessment.mcas_ela).to be_empty
-      end
-    end
-  end
-
-  describe '.star_math' do
-    let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
-    context 'there are only STAR math student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :star, :math) }
-      it 'returns the STAR math student assessments' do
-        expect(StudentAssessment.star_math).to eq([student_assessment])
-      end
-    end
-    context 'there are no STAR math student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :star, :reading) }
-      it 'returns an empty association' do
-        expect(StudentAssessment.star_math).to be_empty
-      end
-    end
-  end
-
-  describe '.star_reading' do
-    let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
-    context 'there are only STAR reading student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :star, :reading) }
-      it 'returns the STAR reading student assessments' do
-        expect(StudentAssessment.star_reading).to eq([student_assessment])
-      end
-    end
-    context 'there are no STAR reading student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :star, :math) }
-      it 'returns an empty association' do
-        expect(StudentAssessment.star_reading).to be_empty
-      end
-    end
-  end
-
-  describe '.access' do
-    let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
-    context 'there are only ACCESS student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :access) }
-      it 'returns the ACCESS student assessments' do
-        expect(StudentAssessment.access).to eq([student_assessment])
-      end
-    end
-    context 'there are no ACCESS student assessments' do
-      let(:assessment) { FactoryGirl.create(:assessment, :star, :math) }
-      it 'returns an empty association' do
-        expect(StudentAssessment.access).to be_empty
+      context 'there are no ACCESS student assessments' do
+        let(:assessment) { FactoryGirl.create(:assessment, :star) }
+        it 'returns an empty association' do
+          expect(StudentAssessment.by_family("ACCESS")).to be_empty
+        end
       end
     end
   end
