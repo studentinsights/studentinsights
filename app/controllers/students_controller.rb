@@ -18,8 +18,6 @@ class StudentsController < ApplicationController
     interventions = @student.interventions.order(start_date: :desc)
     @serialized_interventions = interventions.map { |intervention| serialize_intervention(intervention) }
 
-    @progress_note = ProgressNote.new
-
     @roster_url = homeroom_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
     @student_url = student_path(@student)

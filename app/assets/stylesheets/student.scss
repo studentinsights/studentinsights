@@ -28,8 +28,6 @@
 }
 
 #interventions-tab {
-  display: none;  /* Initializes closed */
-
   .intervention-cell {
     padding: 20px;
     border-top: 1px solid $light-line;
@@ -49,16 +47,16 @@
     p {
       margin-bottom: 20px;
     }
-    .add-progress-note {
-      display: block;
-    }
     .add-progress-note-area {
-      display: none;
       .btn {
         float: left;
         margin: 20px 10px 20px 0;
       }
     }
+  }
+
+  .zero-interventions {
+    padding: 25px;
   }
 
   #open-intervention-form {
@@ -96,6 +94,7 @@
 
     h1 {
       border-bottom: 1px solid $light-line;
+      margin-bottom: 20px;
     }
     label {
       display: block;

@@ -105,9 +105,14 @@
     </div>
 
     <div id="interventions-tab" class="tab"></div>
-
   </div>
 
+  <% # This is data that the JS code will read in and render %>
+  <%= tag("div", id: "chart-data", data: @chart_data) %>
+  <%= tag("div", id: "chart-start", data: { start: @chart_start }) %>
+  <div id="interventions-data" class="hidden"><%= @serialized_interventions.to_json %></div>
+
+  <% # Render templates for JS code, using some Rails helpers like `form_for` on the server-side first %>
   <script id="risk-level-tooltip-template" type="x-tmpl-mustache">
     <div class="tooltip-popup">
       <div class="warning-key">
@@ -187,32 +192,40 @@
       <p>{{start_date}}</p>
       <strong>End Date</strong>
       <p>{{end_date}}</p>
-      <div class="progress-note-list">
+      <div class="progress-notes-list">
       </div>
-      <button class="btn add-progress-note" type="button">
-        Add progress note
-      </button>
-      <div class="add-progress-note-area">
-        <h2>Add progress note</h2>
-        <p class="alert field errors"></p>
-        <%= form_for @progress_note, remote: true do |p| %>
-          <label>Progress note</label>
-          <%= p.text_area :content, cols: "40", rows: "5", required: true %>
-          <%= p.select(:educator_id,
-                options_from_collection_for_select(Educator.all, :id, :email),
-                { include_blank: " -- Select educator -- " },
-                { required: true }) %>
-          <br/>
-          <%= p.hidden_field :intervention_id, value: "{{id}}" %>
-          <%= p.submit "Save", class: "btn save-btn" %>
-          <div class="btn cancel-progress-note" type="button">Cancel</div>
-        <% end %>
-      </div>
+      <div class="new-progress-note-area">
+    </div>
+  </script>
+
+  <script id="new-progress-note-template" type="x-tmp-mustache">
+    <div class="new-progress-note">
+      {{#isAddingProgressNote}}
+        <div class="add-progress-note-area">
+          <h2>Add progress note</h2>
+          <p class="alert field errors"></p>
+          <%= form_for ProgressNote.new, class: 'new-progress-note-form', remote: true do |p| %>
+            <label>Progress note</label>
+            <%= p.text_area :content, cols: "40", rows: "5", required: true %>
+            <%= p.select(:educator_id,
+                  options_from_collection_for_select(Educator.all, :id, :email),
+                  { include_blank: " -- Select educator -- " },
+                  { required: true }) %>
+            <br/>
+            <%= p.hidden_field :intervention_id, value: "-32132" %>
+            <%= p.submit "Save", class: "btn save-btn" %>
+            <div class="btn cancel-progress-note" type="button">Cancel</div>
+          <% end %>
+        </div>
+      {{/isAddingProgressNote}}
+      {{^isAddingProgressNote}}
+        <button class="btn add-progress-note" type="button">Add progress note</button>
+      {{/isAddingProgressNote}}
     </div>
   </script>
 
   <script id="new-intervention-form-template" type="x-tmp-mustache">
-    <%= form_for Intervention.new, remote: true do |i| %>
+    <%= form_for Intervention.new, class: 'new-intervention-form', remote: true do |i| %>
       <h1>Add Intervention</h1>
       <p class="alert field errors"></p>
       <label>Select Intervention</label>
@@ -240,18 +253,20 @@
   <script id="progress-note-template" type="x-tmpl-mustache">
     <div class="progress-note">
       <strong>
-        {{educator}}
+        {{educator_email}}
       </strong>
       <p>
         {{content}}
         <br/>
         <span class="smalltype">
-          {{created_at}}
+          {{created_date}}
         </span>
       </p>
     </div>
   </script>
 
-<%= tag("div", id: "chart-data", data: @chart_data) %>
-<%= tag("div", id: "chart-start", data: { start: @chart_start }) %>
-<div id="interventions-data" class="hidden"><%= @serialized_interventions.to_json %></div>
+<script id="form-errors-template" type="x-tmpl-mustache">
+  <ul class="errors-list">
+    {{#errors}}<li>{{.}}</li>{{/errors}}
+  </ul>
+</script>

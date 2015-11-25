@@ -9,10 +9,12 @@ class InterventionsController < ApplicationController
     if intervention_params[:end_date].present?
       intervention.end_date = Date.parse(intervention_params[:end_date])
     end
-    intervention.save
-
-    # TODO(kr) handle errors
-    render json: serialize_intervention(intervention)
+    
+    if intervention.save
+      render json: serialize_intervention(intervention)
+    else
+      render json: { errors: intervention.errors.full_messages }, status: 422
+    end
   end
 
   def intervention_params
