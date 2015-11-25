@@ -4,26 +4,6 @@ class Student < ActiveRecord::Base
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :student_assessments do
-    def ordered_mcas_math
-      mcas_math = Assessment.mcas_math
-      return MissingStudentAssessmentCollection.new if mcas_math.is_a? MissingAssessment
-      where(assessment_id: mcas_math.id).order_or_missing || MissingStudentAssessmentCollection.new
-    end
-    def ordered_star_math
-      star_math = Assessment.star_math
-      return MissingStudentAssessmentCollection.new if star_math.is_a? MissingAssessment
-      where(assessment_id: star_math.id).order_or_missing || MissingStudentAssessmentCollection.new
-    end
-    def ordered_mcas_ela
-      mcas_ela = Assessment.mcas_ela
-      return MissingStudentAssessmentCollection.new if mcas_ela.is_a? MissingAssessment
-      where(assessment_id: mcas_ela.id).order_or_missing || MissingStudentAssessmentCollection.new
-    end
-    def ordered_star_reading
-      star_reading = Assessment.star_reading
-      return MissingStudentAssessmentCollection.new if star_reading.is_a? MissingAssessment
-      where(assessment_id: star_reading.id).order_or_missing || MissingStudentAssessmentCollection.new
-    end
     def dibels
       return MissingStudentAssessmentCollection.new if Assessment.dibels.is_a? MissingAssessment
       where(assessment_id: Assessment.dibels.id).order_or_missing || MissingStudentAssessmentCollection.new
@@ -74,6 +54,30 @@ class Student < ActiveRecord::Base
         .latest
         .by_family("ACCESS")
         .first_or_missing
+  end
+
+  def ordered_mcas_math
+    self.student_assessments
+        .by_family_and_subject("MCAS", "Math")
+        .order_or_missing
+  end
+
+  def ordered_star_math
+    self.student_assessments
+        .by_family_and_subject("STAR", "Math")
+        .order_or_missing
+  end
+
+  def ordered_mcas_ela
+    self.student_assessments
+        .by_family_and_subject("MCAS", "ELA")
+        .order_or_missing
+  end
+
+  def ordered_star_reading
+    self.student_assessments
+        .by_family_and_subject("STAR", "Reading")
+        .order_or_missing
   end
 
   def school_years

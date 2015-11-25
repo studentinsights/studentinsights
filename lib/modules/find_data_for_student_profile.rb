@@ -1,38 +1,30 @@
 module FindDataForStudentProfile
 
-  def mcas_math_result(student)
-    student.student_assessments.latest_mcas_math
-  end
-
-  def mcas_ela_result(student)
-    student.student_assessments.latest_mcas_ela
-  end
-
   def mcas_math_results(student)
-    student.student_assessments.ordered_mcas_math
+    student.ordered_mcas_math
   end
 
   def mcas_ela_results(student)
-    student.student_assessments.ordered_mcas_ela
-  end
-
-  def star(student)
-    star_math = student.student_assessments.ordered_star_math
-    star_reading = student.student_assessments.ordered_star_reading
-    if !star_math.is_a?(MissingStudentAssessmentCollection) && \
-       !star_reading.is_a?(MissingStudentAssessmentCollection)
-      student.student_assessments.ordered_star_math + student.student_assessments.ordered_star_reading
-    else
-      star_math || star_reading || MissingStudentAssessmentCollection.new
-    end
+    student.ordered_mcas_ela
   end
 
   def star_reading_results(student)
-    student.student_assessments.ordered_star_reading
+    student.ordered_star_reading
   end
 
   def star_math_results(student)
-    student.student_assessments.ordered_star_math
+    student.ordered_star_math
+  end
+
+  def star(student)
+    star_math = student.ordered_star_math
+    star_reading = student.ordered_star_reading
+    if !star_math.is_a?(MissingStudentAssessmentCollection) && \
+       !star_reading.is_a?(MissingStudentAssessmentCollection)
+      student.ordered_star_math + student.ordered_star_reading
+    else
+      star_math || star_reading || MissingStudentAssessmentCollection.new
+    end
   end
 
   def dibels(student)

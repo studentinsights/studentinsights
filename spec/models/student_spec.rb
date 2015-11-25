@@ -20,20 +20,17 @@ RSpec.describe Student do
         expect(student.latest_mcas_math_result).to be_a(MissingStudentAssessment)
       end
     end
-
     context 'when the math subject exists' do
       it "returns the student's most recent MCAS math results" do
         expect(student.latest_mcas_math_result).to eq(mcas_math_result)
       end
     end
-
     context 'when the math subject does not exist' do
       let(:assessment_subject) { "Tacos" }
       it 'returns a missing student assessment' do
         expect(student.latest_mcas_math_result).to be_a(MissingStudentAssessment)
       end
     end
-
     context 'when the math family does not exist' do
       let(:assessment_family) { "Doc's Special Exam" }
       it 'returns a missing student assessment' do
@@ -42,6 +39,58 @@ RSpec.describe Student do
     end
   end
 
+  describe '.ordered_mcas_math' do
+    let(:student) { FactoryGirl.create(:student) }
+    let!(:mcas_math) { Assessment.create!(family: "MCAS", subject: "Math") }
+
+    context 'when the student has no MCAS Math result' do
+      it 'returns a missing student assessment collection' do
+        expect(student.ordered_mcas_math).to be_a(MissingStudentAssessmentCollection)
+      end
+    end
+    context 'when one MCAS Math result exists' do
+      let!(:mcas_math_result) {
+        StudentAssessment.create!(
+          student: student,
+          assessment: mcas_math,
+          date_taken: DateTime.now,
+        )
+      }
+      it "returns the student's most recent MCAS math results" do
+        expect(student.ordered_mcas_math).to eq([mcas_math_result])
+      end
+    end
+    context 'when several MCAS Math results exist' do
+      let!(:newest_mcas_math_result) {
+        StudentAssessment.create!(
+          student: student,
+          assessment: mcas_math,
+          date_taken: 1.year.ago,
+        )
+      }
+      let!(:oldest_mcas_math_result) {
+        StudentAssessment.create!(
+          student: student,
+          assessment: mcas_math,
+          date_taken: 5.years.ago,
+        )
+      }
+      let!(:middle_mcas_math_result) {
+        StudentAssessment.create!(
+          student: student,
+          assessment: mcas_math,
+          date_taken: 3.years.ago,
+        )
+      }
+      it "returns the student's most MCAS math results in ascending order" do
+        expect(student.ordered_mcas_math).to eq([
+          oldest_mcas_math_result,
+          middle_mcas_math_result,
+          newest_mcas_math_result
+        ])
+      end
+    end
+  end
 
   describe '#school_years' do
     context 'school years in the 2010s' do
