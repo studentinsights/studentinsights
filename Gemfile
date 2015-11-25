@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
 
-ruby '2.1.6'
+ruby '2.2.3'
 
 gem 'puma' # We need puma for the Heroku deploys to succeed
 

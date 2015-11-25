@@ -4,25 +4,26 @@
 
 Student Insights enables educators to see at-risk students and match them to the help they need.
 
-#### User stories
-* As an admin, I want to see which students are at risk and whether they are receiving necessary interventions.
+- [Installation](#installation)
+- [Demo data](#demo-data)
+- [Real data](#real-data)
+- [Tests](#tests)
+- [Deployment](#deployment)
+    - [Heroku](#heroku)
+    - [Your own server](#your-own-server)
+- [Design](#design)
+- [More](#more)
 
-* As a teacher, I want to see which students are at risk and target interventions to these students.
+# Installation
 
-* As a teacher, I want to see how my students are doing both academically and behaviorally over time.
+This is a Ruby on Rails app and uses a PostgreSQL database.
 
-## Installation
-This is a Ruby on Rails app and uses a PostgreSQL database. See Code for America's "HowTo" on Rails for more information on deploying and maintaining apps using Rails: https://github.com/codeforamerica/howto/blob/master/Rails.md
+Choose your favorite local development approach:
 
-On a Debian-like OS you may have to remove this line from the config of the development database (config/database.yml)
-```
-host: localhost
-```
-(For an explanation see [this Stackoverflow discussion](http://stackoverflow.com/questions/23375740/pgconnectionbad-fe-sendauth-no-password-supplied))
+* [Local development with Docker](docs/local_development_with_docker.md)
+* [Local installation on OSX and Debian](docs/local_installation_notes.md)
 
-### Setting up demo data
-
-To set up demo data after you clone the project, run
+# Demo data
 
 ```
 rake db:seed:demo
@@ -32,7 +33,7 @@ This will create demo students with fake student information. The demo educator 
 
 Once you've created the data, start a local server by running `rails s` from the root of your project. When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.
 
-### Importing real data
+# Real data
 
 If you're working with a real school district, you'll need flat files of the data you want to import.
 
@@ -46,30 +47,16 @@ Use the `--district` flag to indicate your school district or charter organizati
 
 So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, write a new client: `app/importers/clients`.
 
-### Tests
-This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
+# Tests
+This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) for Ruby tests. Run the test suite:
 
 ```
 rspec
 ```
 
-#### Pre-commit
-This app comes with a suggested pre-commit file that you can add to your git hooks. It will run the tests before committing, so you can be sure any changes are kosher.
+It uses [Jasmine](http://jasmine.github.io/) for JavaScript tests, run through the [Teaspoon](https://github.com/modeset/teaspoon) gem.  You can run them in the browser at `http://localhost:3000/teaspoon/default`.
 
-Add to your git hooks:
-
-```
-cp pre-commit .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
-```
-
-If you have a good reason to skip the test suite:
-
-```
-git commit --no-verify
-```
-
-## Deployment
+# Deployment
 
 ### Heroku
 
@@ -83,23 +70,13 @@ Our plan is to deploy Student Insights on Somerville Public Schools' machines an
 cap production deploy
 ```
 
-## Future?
-This app could grow in several different ways.
-
-* __Unique URLs__: Can be generated to be viewed online at a later time by users with access.
-* __Printable PDFs__: Can be exported of any view for teachers to print out.
-* __Sub-views__:  Create sub-views for parents and students.
-
-## Design
+# Design
 For a history of all design iterations look here:
 https://www.dropbox.com/sh/r71hh9azun8v6as/AABtBghkPI4XUJBZjNpMmRdba?dl=0
 
-## Who made this?
-Alex, Amir, and Mari from Code for America's [Somerville Fellowship Team](http://www.codeforamerica.org/governments/somerville/) in collaboration with the City of Somerville and Somerville Public Schools --- and great support from the Code for SF and Code for Boston brigade volunteers!
+# More
 
-## More
-
-* __[Student Insights Demo](https://somerville-teacher-tool-demo.herokuapp.com/)__
- * username: `demo@example.com`
- * password: `demo-password`
-* __[Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)__
+- __[Student Insights Demo](https://somerville-teacher-tool-demo.herokuapp.com/)__
+    - username: `demo@example.com`
+    - password: `demo-password`
+- __[Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)__
