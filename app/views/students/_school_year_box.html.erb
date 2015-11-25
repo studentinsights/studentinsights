@@ -32,7 +32,7 @@
       </div>
     <% end %>
 
-    <% unless events[:star].is_a?(MissingStudentAssessmentCollection) %>
+    <% if events[:star].any? %>
       <div class="section star-result-section">
         <h2 class="section-header">STAR</h2>
         <% events[:star].each do |date, results| %>

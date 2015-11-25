@@ -5,9 +5,9 @@ class StudentRiskLevel < ActiveRecord::Base
 
   # Use most recent assessments to calculate risk
   def mcas_math; student.latest_mcas_math_result end
-  def star_math; student_assessments.latest_star_math end
-  def mcas_ela; student_assessments.latest_mcas_ela end
-  def star_reading; student_assessments.latest_star_reading end
+  def star_math; student.latest_star_math_result end
+  def mcas_ela; student.latest_mcas_ela_result end
+  def star_reading; student.latest_star_reading_result end
 
   def mcas_or_star_at_level(this_level)
     mcas_math.risk_level == this_level || star_math.risk_level == this_level \

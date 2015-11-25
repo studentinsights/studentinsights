@@ -17,6 +17,22 @@ class StudentAssessment < ActiveRecord::Base
     joins(:assessment).where(assessments: {family: 'MCAS', subject: 'Math'})
   end
 
+  def self.mcas_ela
+    joins(:assessment).where(assessments: {family: 'MCAS', subject: 'ELA'})
+  end
+
+  def self.star_math
+    joins(:assessment).where(assessments: {family: 'STAR', subject: 'Math'})
+  end
+
+  def self.star_reading
+    joins(:assessment).where(assessments: {family: 'STAR', subject: 'Reading'})
+  end
+
+  def self.access
+    joins(:assessment).where(assessments: {family: 'ACCESS'})
+  end
+
   def self.first_or_missing
     first || MissingStudentAssessment.new
   end
@@ -33,36 +49,13 @@ class StudentAssessment < ActiveRecord::Base
     end
   end
 
-  def self.mcas
-    return MissingStudentAssessmentCollection.new if Assessment.mcas.is_a? MissingAssessment
-    where(assessment_id: Assessment.mcas.id) || MissingStudentAssessmentCollection.new
-  end
-
   def self.star
-    star_math_assessment = Assessment.star_math
-    star_reading_assessment = Assessment.star_reading
-    if star_math_assessment.is_a?(MissingAssessment) && star_reading_assessment.is_a?(MissingAssessment)
-      MissingStudentAssessmentCollection.new
-    elsif !star_math_assessment.is_a?(MissingAssessment) && !star_reading_assessment.is_a?(MissingAssessment)
-      star_math_student_assessment = where(assessment_id: star_math_assessment.id)
-      star_reading_student_assessment = where(assessment_id: star_reading_assessment.id)
-      star_math_student_assessment.merge(star_reading_student_assessment).order_or_missing \
-        || MissingStudentAssessmentCollection.new
-    elsif !star_math_assessment.is_a?(MissingAssessment)
-      where(assessment_id: star_math_assessment.id) || MissingStudentAssessmentCollection.new
-    elsif !star_reading_assessment.is_a?(MissingAssessment)
-      where(assessment_id: star_reading_assessment.id) || MissingStudentAssessmentCollection.new
-    end
+    joins(:assessment).where(assessments: {family: 'STAR'})
   end
 
   def self.map_test
     return MissingStudentAssessmentCollection.new if Assessment.map_test.is_a? MissingAssessment
     where(assessment_id: Assessment.map_test.id) || MissingStudentAssessmentCollection.new
-  end
-
-  def self.access
-    return MissingStudentAssessmentCollection.new if Assessment.access.is_a? MissingAssessment
-    where(assessment_id: Assessment.access.id) || MissingStudentAssessmentCollection.new
   end
 
   def self.dibels

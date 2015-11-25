@@ -9,5 +9,14 @@ FactoryGirl.define do
     trait :reading do
       subject "Reading"
     end
+    trait :ela do
+      subject "ELA"
+    end
+    trait :star do
+      family "STAR"
+    end
+    trait :access do
+      family "ACCESS"
+    end
   end
 end
