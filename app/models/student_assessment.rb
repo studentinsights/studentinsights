@@ -25,41 +25,8 @@ class StudentAssessment < ActiveRecord::Base
     first || MissingStudentAssessment.new
   end
 
-  def risk_level
-    return nil unless assessment.present? && family.present?
-    case family
-    when "MCAS"
-      McasRiskLevel.new(self).risk_level
-    when "STAR"
-      StarRiskLevel.new(self).risk_level
-    else
-      nil
-    end
-  end
-
-  def self.map_test
-    return MissingStudentAssessmentCollection.new if Assessment.map_test.is_a? MissingAssessment
-    where(assessment_id: Assessment.map_test.id) || MissingStudentAssessmentCollection.new
-  end
-
-  def self.dibels
-    return MissingStudentAssessmentCollection.new if Assessment.dibels.is_a? MissingAssessment
-    where(assessment_id: Assessment.dibels.id) || MissingStudentAssessmentCollection.new
-  end
-
-  def self.math
-    return MissingStudentAssessmentCollection.new if Assessment.math.is_a? MissingAssessment
-    where(assessment_id: Assessment.math.id) || MissingStudentAssessmentCollection.new
-  end
-
-  def self.ela
-    return MissingStudentAssessmentCollection.new if Assessment.ela.is_a? MissingAssessment
-    where(assessment_id: Assessment.ela.id) || MissingStudentAssessmentCollection.new
-  end
-
-  def self.reading
-    return MissingStudentAssessmentCollection.new if Assessment.reading.is_a? MissingAssessment
-    where(assessment_id: Assessment.reading.id) || MissingStudentAssessmentCollection.new
+  def self.order_or_missing
+    order(date_taken: :asc).present? ? order(date_taken: :asc) : MissingStudentAssessmentCollection.new
   end
 
   def self.find_by_student(student)
@@ -70,8 +37,16 @@ class StudentAssessment < ActiveRecord::Base
     order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingStudentAssessment.new
   end
 
-  def self.order_or_missing
-    order(date_taken: :asc).present? ? order(date_taken: :asc) : MissingStudentAssessmentCollection.new
+  def risk_level
+    return nil unless assessment.present? && family.present?
+    case family
+    when "MCAS"
+      McasRiskLevel.new(self).risk_level
+    when "STAR"
+      StarRiskLevel.new(self).risk_level
+    else
+      nil
+    end
   end
 
 end
