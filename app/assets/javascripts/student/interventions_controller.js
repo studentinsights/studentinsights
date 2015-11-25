@@ -15,7 +15,9 @@
   - when a user action occurs, update state in instances variables and re-render
 
   It's similar to a Backbone View, and the main flow of data is the same as a single
-  React component.
+  React component.  An exception is the forms that are rendered.  The state in the input elements
+  is not preserved, so if a server error occurs saving the form, the error message are
+  inserted into the DOM without a full render.
   */  
   var InterventionsController = function (options) {
     this.initialize(options);
@@ -31,7 +33,7 @@
       // state
       this.interventions = this.options.interventions;
       this.selectedInterventionId = this.defaultSelectedIntervention();
-      this.isShowingNewIntervention = (this.interventions.length === 0);
+      this.isShowingNewIntervention = (this.interventions.length === 0); // show 'add' if no interventions
       this.isAddingProgressNote = false;
 
       // templates, these should be available on the page (or could be compiled and provided
@@ -53,6 +55,7 @@
         : this.interventions[0].id
     },
 
+    // Helper for reading value from state
     getSelectedIntervention: function() {
       if (this.selectedInterventionId === null) {
         return null;
@@ -67,14 +70,14 @@
       this.$el.on('click', '#open-intervention-form', this.onAddNewIntervention.bind(this));
       this.$el.on('click', '#close-intervention-form', this.onCancelNewIntervention.bind(this));
       this.$el.on('click', '.intervention-cell', this.onSelectedIntervention.bind(this));
-      this.$el.on('ajax:success', '.new_intervention', this.onNewInterventionSaveSucceeded.bind(this));
-      this.$el.on('ajax:error', '.new_intervention', this.onNewInterventionSaveFailed.bind(this));
+      this.$el.on('ajax:success', '.new-intervention-form', this.onNewInterventionSaveSucceeded.bind(this));
+      this.$el.on('ajax:error', '.new-intervention-form', this.onNewInterventionSaveFailed.bind(this));
 
       // progress notes
       this.$el.on('click', '.add-progress-note', this.onNewProgressNoteClicked.bind(this));
       this.$el.on('click', '.cancel-progress-note', this.onCancelNewProgressNote.bind(this));
-      this.$el.on('ajax:success', '.new_progress_note', this.onNewProgressNoteSaveSucceeded.bind(this));
-      this.$el.on('ajax:error', '.new_progress_note', this.onNewProgressNoteSaveFailed.bind(this));
+      this.$el.on('ajax:success', '.new-progress-note-form', this.onNewProgressNoteSaveSucceeded.bind(this));
+      this.$el.on('ajax:error', '.new-progress-note-form', this.onNewProgressNoteSaveFailed.bind(this));
     },
 
     onNewProgressNoteClicked: function(e) {
@@ -131,10 +134,9 @@
       this.insertErrorMessages($errorsEl, xhr.responseJSON.errors);
     },
 
-    // This renders the errors into the form, to preserve its state, rather
-    // than doing a full re-render.
+    // This inserts the errors into the form to preserve the DOM state on the form,
+    // rather than doing a full render that would lose that.
     insertErrorMessages: function($targetEl, errors) {
-      console.log('error', arguments);
       var html = Mustache.render(this.templates.errors, { errors: errors });
       $targetEl.html(html);
     },

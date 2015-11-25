@@ -18,10 +18,9 @@ $(function() {
     profileController.show();
     
     // Read data for interventions tab
-    // This is persistent for the life of the page right now, since
-    // any state changes are owned by the controller.
+    // This is persistent for the life of the page right - the state is read in 
+    // on initial page load and is then owned by the controller.
     var interventions = JSON.parse($('#interventions-data').html());
-    $('#interventions-data').html(''); // state is owned by the InterventionsController after this
     var interventionsController = new window.InterventionsController({
       $el: $('#interventions-tab'),
       interventions: interventions,

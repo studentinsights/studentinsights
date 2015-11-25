@@ -204,7 +204,7 @@
         <div class="add-progress-note-area">
           <h2>Add progress note</h2>
           <p class="alert field errors"></p>
-          <%= form_for ProgressNote.new, class: 'new-progress-note-form', remote: true do |p| %>
+          <%= form_for ProgressNote.new, html: { class: 'new-progress-note-form' }, remote: true do |p| %>
             <label>Progress note</label>
             <%= p.text_area :content, cols: "40", rows: "5", required: true %>
             <%= p.select(:educator_id,
@@ -212,7 +212,7 @@
                   { include_blank: " -- Select educator -- " },
                   { required: true }) %>
             <br/>
-            <%= p.hidden_field :intervention_id, value: "-32132" %>
+            <%= p.hidden_field :intervention_id, value: "{{interventionId}}" %>
             <%= p.submit "Save", class: "btn save-btn" %>
             <div class="btn cancel-progress-note" type="button">Cancel</div>
           <% end %>
@@ -225,7 +225,7 @@
   </script>
 
   <script id="new-intervention-form-template" type="x-tmp-mustache">
-    <%= form_for Intervention.new, class: 'new-intervention-form', remote: true do |i| %>
+    <%= form_for Intervention.new, html: { class: 'new-intervention-form' }, remote: true do |i| %>
       <h1>Add Intervention</h1>
       <p class="alert field errors"></p>
       <label>Select Intervention</label>
