@@ -1,40 +1,62 @@
 require 'rails_helper'
 
 RSpec.describe Student do
-  describe '#latest_mcas_math_result' do
+  describe '#latest_result_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
-    let(:assessment_subject) { "Math" }
     let(:assessment_family) { "MCAS" }
-    let!(:mcas_math) { Assessment.create!(family: assessment_family, subject: assessment_subject) }
-    let!(:mcas_math_result) {
-      StudentAssessment.create!(
-        student: student,
-        assessment: mcas_math,
-        date_taken: DateTime.now,
+    let(:assessment_subject) { "Math" }
+    let(:assessment) { Assessment.create!(
+        family: assessment_family,
+        subject: assessment_subject
       )
     }
+    let(:result) { student.latest_result_by_family_and_subject("MCAS", "Math") }
 
-    context 'when the student has no mcas math result' do
-      let!(:mcas_math_result) { nil }
-      it 'returns a missing student assessment' do
-        expect(student.latest_mcas_math_result).to be_a(MissingStudentAssessment)
+    context 'MCAS Math' do
+      context 'when the student has no student assessment results' do
+        it 'returns a missing student assessment' do
+          expect(result).to be_a(MissingStudentAssessment)
+        end
       end
-    end
-    context 'when the math subject exists' do
-      it "returns the student's most recent MCAS math results" do
-        expect(student.latest_mcas_math_result).to eq(mcas_math_result)
-      end
-    end
-    context 'when the math subject does not exist' do
-      let(:assessment_subject) { "Tacos" }
-      it 'returns a missing student assessment' do
-        expect(student.latest_mcas_math_result).to be_a(MissingStudentAssessment)
-      end
-    end
-    context 'when the math family does not exist' do
-      let(:assessment_family) { "Doc's Special Exam" }
-      it 'returns a missing student assessment' do
-        expect(student.latest_mcas_math_result).to be_a(MissingStudentAssessment)
+      context 'when the student has results' do
+        let!(:mcas_math_result) {
+          StudentAssessment.create!(
+            student: student,
+            assessment: assessment,
+            date_taken: Date.today - 1.year,
+          )
+        }
+        context 'when the student has an MCAS result but not in Math' do
+          let(:assessment_subject) { "Tacos" }
+          it 'returns a missing student assessment' do
+            expect(result).to be_a(MissingStudentAssessment)
+          end
+        end
+        context 'when the student has a Math result but not MCAS' do
+          let(:assessment_family) { "Doc's Special Exam" }
+          it 'returns a missing student assessment' do
+            expect(result).to be_a(MissingStudentAssessment)
+          end
+        end
+        context 'when the student has an MCAS Math result' do
+          context 'when the student has one MCAS Math result' do
+            it 'returns the MCAS result' do
+              expect(result).to eq(mcas_math_result)
+            end
+          end
+          context 'when the student has multiple MCAS math results' do
+            let!(:more_recent_mcas_math_result) {
+              StudentAssessment.create!(
+                student: student,
+                assessment: assessment,
+                date_taken: Date.today,
+              )
+            }
+            it 'returns the later one' do
+              expect(result).to eq(more_recent_mcas_math_result)
+            end
+          end
+        end
       end
     end
   end
@@ -53,7 +75,7 @@ RSpec.describe Student do
         StudentAssessment.create!(
           student: student,
           assessment: mcas_math,
-          date_taken: DateTime.now,
+          date_taken: Date.new,
         )
       }
       it "returns the student's most recent MCAS math results" do

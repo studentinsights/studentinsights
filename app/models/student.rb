@@ -16,38 +16,10 @@ class Student < ActiveRecord::Base
   after_create { create_student_risk_level! }
   include DateToSchoolYear
 
-  def latest_mcas_math_result
+  def latest_result_by_family_and_subject(family_name, subject_name)
     self.student_assessments
         .latest
-        .by_family_and_subject("MCAS", "Math")
-        .first_or_missing
-  end
-
-  def latest_mcas_ela_result
-    self.student_assessments
-        .latest
-        .by_family_and_subject("MCAS", "ELA")
-        .first_or_missing
-  end
-
-  def latest_star_math_result
-    self.student_assessments
-        .latest
-        .by_family_and_subject("STAR", "Math")
-        .first_or_missing
-  end
-
-  def latest_star_reading_result
-    self.student_assessments
-        .latest
-        .by_family_and_subject("STAR", "Reading")
-        .first_or_missing
-  end
-
-  def latest_access_result
-    self.student_assessments
-        .latest
-        .by_family("ACCESS")
+        .by_family_and_subject(family_name, subject_name)
         .first_or_missing
   end
 
