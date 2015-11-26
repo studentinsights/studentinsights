@@ -23,27 +23,9 @@ class Student < ActiveRecord::Base
         .first_or_missing
   end
 
-  def ordered_mcas_math
+  def ordered_results_by_family_and_subject(family_name, subject_name)
     self.student_assessments
-        .by_family_and_subject("MCAS", "Math")
-        .order_or_missing
-  end
-
-  def ordered_star_math
-    self.student_assessments
-        .by_family_and_subject("STAR", "Math")
-        .order_or_missing
-  end
-
-  def ordered_mcas_ela
-    self.student_assessments
-        .by_family_and_subject("MCAS", "ELA")
-        .order_or_missing
-  end
-
-  def ordered_star_reading
-    self.student_assessments
-        .by_family_and_subject("STAR", "Reading")
+        .by_family_and_subject(family_name, subject_name)
         .order_or_missing
   end
 

@@ -61,13 +61,14 @@ RSpec.describe Student do
     end
   end
 
-  describe '.ordered_mcas_math' do
+  describe '#ordered_results_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
     let!(:mcas_math) { Assessment.create!(family: "MCAS", subject: "Math") }
+    let(:result) { student.ordered_results_by_family_and_subject("MCAS", "Math") }
 
     context 'when the student has no MCAS Math result' do
       it 'returns a missing student assessment collection' do
-        expect(student.ordered_mcas_math).to be_a(MissingStudentAssessmentCollection)
+        expect(result).to be_a(MissingStudentAssessmentCollection)
       end
     end
     context 'when one MCAS Math result exists' do
@@ -79,7 +80,7 @@ RSpec.describe Student do
         )
       }
       it "returns the student's most recent MCAS math results" do
-        expect(student.ordered_mcas_math).to eq([mcas_math_result])
+        expect(result).to eq([mcas_math_result])
       end
     end
     context 'when several MCAS Math results exist' do
@@ -105,7 +106,7 @@ RSpec.describe Student do
         )
       }
       it "returns the student's most MCAS math results in ascending order" do
-        expect(student.ordered_mcas_math).to eq([
+        expect(result).to eq([
           oldest_mcas_math_result,
           middle_mcas_math_result,
           newest_mcas_math_result

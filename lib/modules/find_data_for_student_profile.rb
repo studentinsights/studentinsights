@@ -1,19 +1,19 @@
 module FindDataForStudentProfile
 
   def mcas_math_results(student)
-    student.ordered_mcas_math
+    student.ordered_results_by_family_and_subject("MCAS", "Math")
   end
 
   def mcas_ela_results(student)
-    student.ordered_mcas_ela
+    student.ordered_results_by_family_and_subject("MCAS", "ELA")
   end
 
   def star_reading_results(student)
-    student.ordered_star_reading
+    student.ordered_results_by_family_and_subject("STAR", "Reading")
   end
 
   def star_math_results(student)
-    student.ordered_star_math
+    student.ordered_results_by_family_and_subject("STAR", "Math")
   end
 
   def star(student)
