@@ -3,12 +3,7 @@ class Student < ActiveRecord::Base
   belongs_to :school
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
-  has_many :student_assessments do
-    def dibels
-      return MissingStudentAssessmentCollection.new if Assessment.dibels.is_a? MissingAssessment
-      where(assessment_id: Assessment.dibels.id).order_or_missing || MissingStudentAssessmentCollection.new
-    end
-  end
+  has_many :student_assessments
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy do
     def most_recent_atp
