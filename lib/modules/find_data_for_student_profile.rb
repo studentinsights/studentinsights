@@ -16,17 +16,6 @@ module FindDataForStudentProfile
     student.ordered_results_by_family_and_subject("STAR", "Math")
   end
 
-  def star(student)
-    star_math = student.ordered_star_math
-    star_reading = student.ordered_star_reading
-    if !star_math.is_a?(MissingStudentAssessmentCollection) && \
-       !star_reading.is_a?(MissingStudentAssessmentCollection)
-      student.ordered_star_math + student.ordered_star_reading
-    else
-      star_math || star_reading || MissingStudentAssessmentCollection.new
-    end
-  end
-
   def dibels(student)
     student_assessments.dibels.find_by_student(student).order_or_missing
   end
