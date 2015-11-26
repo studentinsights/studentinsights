@@ -1,5 +1,4 @@
 class StudentAssessment < ActiveRecord::Base
-  include DateToSchoolYear
   include AssignToSchoolYear
   belongs_to :assessment
   belongs_to :student

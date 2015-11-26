@@ -14,7 +14,7 @@ class Student < ActiveRecord::Base
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
   after_create { create_student_risk_level! }
-  include DateToSchoolYear
+  include AssignToSchoolYear
 
   def latest_result_by_family_and_subject(family_name, subject_name)
     self.student_assessments

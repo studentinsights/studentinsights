@@ -1,6 +1,5 @@
 class StudentPresenter < Struct.new(:student)
   delegate :id, :latest_mcas, :latest_star, :attendance_current_year, :first_name, :last_name, :home_language, to: :student
-  include DateToSchoolYear
 
   def full_name
     if first_name.present? && last_name.present?
