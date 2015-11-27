@@ -21,4 +21,9 @@ class Intervention < ActiveRecord::Base
       end
     end
   end
+
+  def self.most_recent_atp
+    where(intervention_type_id: InterventionType.atp.id).order(start_date: :asc).first
+  end
+
 end

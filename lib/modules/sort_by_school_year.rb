@@ -4,7 +4,7 @@ module SortBySchoolYear
     event_to_sort = proxy_association.reflection.plural_name
     event_hash = {}
 
-    school_years = student.school_years
+    school_years = student.find_student_school_years
     school_years.each do |sy|
       school_year_events = sy.send(event_to_sort).find_by_student(student)
       event_hash[sy.name] = school_year_events

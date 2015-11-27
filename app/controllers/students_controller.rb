@@ -10,7 +10,7 @@ class StudentsController < ApplicationController
     @student_risk_level = @student.student_risk_level
     @level = @student_risk_level.level
 
-    @student_school_years = @student.school_years.map do |sy|
+    @student_school_years = @student.find_student_school_years.map do |sy|
       StudentSchoolYearPresenter.new(@student, sy)
     end
 

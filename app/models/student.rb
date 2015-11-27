@@ -6,14 +6,12 @@ class Student < ActiveRecord::Base
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :student_assessments
   has_many :assessments, through: :student_assessments
-  has_many :interventions, dependent: :destroy do
-    def most_recent_atp
-      where(intervention_type_id: InterventionType.atp.id).order(start_date: :asc).first
-    end
-  end
+  has_many :interventions, dependent: :destroy
   has_one :student_risk_level, dependent: :destroy
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
+
+  ## STUDENT ASSESSMENT RESULTS ##
 
   def latest_result_by_family_and_subject(family_name, subject_name)
     self.student_assessments
@@ -28,7 +26,9 @@ class Student < ActiveRecord::Base
         .order_or_missing
   end
 
-  def school_years
+  ## SCHOOL YEARS ##
+
+  def find_student_school_years
     if registration_date.present? || grade.present?
       if registration_date.present?
         first_school_year = date_to_school_year(registration_date)
@@ -47,11 +47,9 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def most_recent_atp_hours
-    if interventions.most_recent_atp.present?
-      interventions.most_recent_atp.number_of_hours
-    else
-      0
+  def update_student_school_years
+    find_student_school_years.each do |s|
+      StudentSchoolYear.where(student_id: self.id, school_year_id: s.id).first_or_create!
     end
   end
 
@@ -70,6 +68,16 @@ class Student < ActiveRecord::Base
       student_risk_level.update_risk_level!
     else
       create_student_risk_level!
+    end
+  end
+
+  ## INTERVENTIONS ##
+
+  def most_recent_atp_hours
+    if interventions.most_recent_atp.present?
+      interventions.most_recent_atp.number_of_hours
+    else
+      0
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026191233) do
+ActiveRecord::Schema.define(version: 20151127135925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,6 +179,13 @@ ActiveRecord::Schema.define(version: 20151026191233) do
     t.integer  "student_id"
     t.text     "explanation"
     t.integer  "level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "student_school_years", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "school_year_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
