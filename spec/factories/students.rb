@@ -7,6 +7,12 @@ FactoryGirl.define do
   factory :student do
     local_id
     association :homeroom
+    after(:create) do |student|
+      # Assume each student has a StudentRiskLevel object created
+      # on initial import (and updated with a daily scheduled job).
+      # If student risk levels are not being created, we want to throw errors.
+      FactoryGirl.create(:student_risk_level, student: student)
+    end
     factory :student_who_registered_in_2013_2014 do
       registration_date Date.new(2013, 8, 1)
     end

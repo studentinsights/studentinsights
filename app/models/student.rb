@@ -13,7 +13,6 @@ class Student < ActiveRecord::Base
   has_one :student_risk_level, dependent: :destroy
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
-  after_create { create_student_risk_level! }
   include AssignToSchoolYear
 
   def latest_result_by_family_and_subject(family_name, subject_name)
@@ -48,14 +47,6 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def update_risk_level
-    if student_risk_level.present?
-      student_risk_level.update_risk_level!
-    else
-      create_student_risk_level!
-    end
-  end
-
   def most_recent_atp_hours
     if interventions.most_recent_atp.present?
       interventions.most_recent_atp.number_of_hours
@@ -64,8 +55,22 @@ class Student < ActiveRecord::Base
     end
   end
 
+  ## RISK LEVELS ##
+
   def self.update_risk_levels
+    # This method is meant to be called daily to
+    # check for updates to all student's risk levels
+    # and save the results to the do (too expensive
+    # to calculate on the fly with each page load).
     find_each { |s| s.update_risk_level }
+  end
+
+  def update_risk_level
+    if student_risk_level.present?
+      student_risk_level.update_risk_level!
+    else
+      create_student_risk_level!
+    end
   end
 
 end

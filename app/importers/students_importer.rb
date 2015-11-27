@@ -11,6 +11,7 @@ class StudentsImporter
     student.assign_attributes(parsed_name)
     if student.save
       assign_student_to_homeroom(student, row[:homeroom])
+      student.create_student_risk_level!
     end
   end
 
