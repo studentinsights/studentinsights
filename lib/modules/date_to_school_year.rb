@@ -1,15 +1,4 @@
-module AssignToSchoolYear
-
-  def assign_to_school_year
-    date_attribute = [:date_taken, :event_date, :start_date]
-    date_attribute.each do |a|
-      if methods.include? a
-        date = self.send(a)
-        school_year = date_to_school_year(date)
-        self.school_year_id = school_year.id
-      end
-    end
-  end
+module DateToSchoolYear
 
   def date_to_school_year(event_date)
     # If month is Aug to Dec, event falls in first half of school year

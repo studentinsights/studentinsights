@@ -1,6 +1,6 @@
 class BulkAttendanceImporter
   include Connector
-  include AssignToSchoolYear
+  include DateToSchoolYear
 
   def import(data)
     sql_rows = make_sql_rows(data)

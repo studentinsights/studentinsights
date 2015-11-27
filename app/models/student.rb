@@ -1,4 +1,5 @@
 class Student < ActiveRecord::Base
+  include DateToSchoolYear
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
@@ -13,7 +14,6 @@ class Student < ActiveRecord::Base
   has_one :student_risk_level, dependent: :destroy
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
-  include AssignToSchoolYear
 
   def latest_result_by_family_and_subject(family_name, subject_name)
     self.student_assessments
