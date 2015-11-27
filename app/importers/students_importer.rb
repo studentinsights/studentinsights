@@ -29,8 +29,4 @@ class StudentsImporter
     homeroom.students << student
   end
 
-  def assign_student_to_school(student, school_local_id)
-    school = School.where(local_id: school_local_id).first_or_create!
-    school.students << student
-  end
 end
