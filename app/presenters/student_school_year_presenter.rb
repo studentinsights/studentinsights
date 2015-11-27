@@ -1,4 +1,4 @@
-class StudentSchoolYear < Struct.new :student, :school_year
+class StudentSchoolYearPresenter < Struct.new :student, :school_year
   delegate :name, to: :school_year
 
   def student_school_year_assessments
