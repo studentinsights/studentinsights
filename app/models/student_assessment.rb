@@ -1,5 +1,4 @@
 class StudentAssessment < ActiveRecord::Base
-  include DateToSchoolYear
   belongs_to :assessment
   belongs_to :student
   belongs_to :school_year
@@ -9,7 +8,7 @@ class StudentAssessment < ActiveRecord::Base
   validates_presence_of :date_taken
 
   def assign_to_school_year
-    self.school_year = date_to_school_year(date_taken)
+    self.school_year = DateToSchoolYear.new(date_taken).convert
   end
 
   def self.latest

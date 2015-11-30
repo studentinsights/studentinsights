@@ -1,5 +1,4 @@
 class Intervention < ActiveRecord::Base
-  include DateToSchoolYear
   belongs_to :student
   belongs_to :educator
   belongs_to :intervention_type
@@ -11,7 +10,7 @@ class Intervention < ActiveRecord::Base
   delegate :name, to: :intervention_type
 
   def assign_to_school_year
-    self.school_year = date_to_school_year(start_date)
+    self.school_year = DateToSchoolYear.new(start_date).convert
   end
 
   def end_date_cannot_come_before_start_date
