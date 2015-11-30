@@ -53,6 +53,13 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def self.update_student_school_years
+    # This method is meant to be called as a scheduled task.
+    # Less expensive than sorting attendance events and assessment
+    # results into student school years on the fly.
+    find_each { |s| s.update_student_school_years }
+  end
+
   ## RISK LEVELS ##
 
   def self.update_risk_levels
