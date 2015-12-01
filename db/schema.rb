@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127135925) do
+ActiveRecord::Schema.define(version: 20151201190110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20151127135925) do
     t.boolean  "tardy"
     t.integer  "school_year_id"
     t.datetime "event_date"
+    t.integer  "student_school_year_id"
   end
 
   add_index "attendance_events", ["school_year_id"], name: "index_attendance_events_on_school_year_id", using: :btree
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20151127135925) do
     t.datetime "event_date"
     t.boolean  "has_exact_time"
     t.integer  "school_year_id"
+    t.integer  "student_school_year_id"
   end
 
   add_index "discipline_incidents", ["school_year_id"], name: "index_discipline_incidents_on_school_year_id", using: :btree
@@ -129,6 +131,7 @@ ActiveRecord::Schema.define(version: 20151127135925) do
     t.integer  "number_of_hours"
     t.integer  "school_year_id"
     t.text     "goal"
+    t.integer  "student_school_year_id"
   end
 
   create_table "progress_notes", force: true do |t|
@@ -170,6 +173,7 @@ ActiveRecord::Schema.define(version: 20151127135925) do
     t.decimal  "instructional_reading_level"
     t.integer  "school_year_id"
     t.integer  "assessment_id"
+    t.integer  "student_school_year_id"
   end
 
   add_index "student_assessments", ["school_year_id"], name: "index_student_assessments_on_school_year_id", using: :btree
