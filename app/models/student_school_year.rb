@@ -3,4 +3,5 @@ class StudentSchoolYear < ActiveRecord::Base
   belongs_to :school_year
   has_many :attendance_events
   has_many :student_assessments
+  has_many :discipline_incidents
 end
