@@ -140,7 +140,13 @@ FactoryGirl.define do
     factory :student_with_attendance_event do
       registration_date Date.new(2014, 8, 1)
       after(:create) do |student|
-        student.attendance_events << FactoryGirl.create(:absence)
+        student.attendance_events << FactoryGirl.create(:attendance_event, :absence)
+      end
+    end
+    factory :student_with_absence_in_january_2015 do
+      registration_date Date.new(2014, 8, 1)
+      after(:create) do |student|
+        student.attendance_events << FactoryGirl.create(:attendance_event, :absence, :in_january_2015)
       end
     end
     factory :student_with_discipline_incident do

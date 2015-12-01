@@ -193,7 +193,7 @@ RSpec.describe Student do
         end
       end
       context 'one attendance event in one school year' do
-        let!(:student) { FactoryGirl.create(:student_with_attendance_event) }
+        let!(:student) { FactoryGirl.create(:student_with_absence_in_january_2015) }
         it 'associates the event with the school year' do
           expect(student.attendance_events.sort_by_school_year).to eq(
             { "2014-2015" => [student.attendance_events.last] }
