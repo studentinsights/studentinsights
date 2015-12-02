@@ -17,10 +17,6 @@ class StudentsController < ApplicationController
       :interventions
     )
 
-    @student_school_year_presenters = @student_school_years.map do |year|
-      StudentSchoolYearPresenter.new(year)
-    end
-
     @intervention = Intervention.new
     @interventions = @student.interventions.order(start_date: :desc)
     @progress_note = ProgressNote.new
