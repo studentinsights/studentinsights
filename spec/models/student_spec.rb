@@ -160,11 +160,11 @@ RSpec.describe Student do
 
   describe '#update_student_school_years' do
     context 'when student has been in school for two years' do
-      let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014) }
+      let!(:student) { FactoryGirl.build(:student_who_registered_in_2013_2014) }
       it 'creates two new student school years' do
         Timecop.freeze(Time.new(2015, 5, 24)) do
           expect {
-            student.update_student_school_years
+            student.save
           }.to change {
             StudentSchoolYear.count
           }.by 2
@@ -172,7 +172,7 @@ RSpec.describe Student do
       end
       it 'assigns the student school year attributes' do
         Timecop.freeze(Time.new(2015, 5, 24)) do
-          student.update_student_school_years
+          student.save
           expect(StudentSchoolYear.last.student).to eq(student)
           expect(StudentSchoolYear.last.school_year.name).to eq '2013-2014'
           expect(StudentSchoolYear.first.school_year.name).to eq '2014-2015'

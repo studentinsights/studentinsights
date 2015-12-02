@@ -5,4 +5,5 @@ class StudentSchoolYear < ActiveRecord::Base
   has_many :student_assessments
   has_many :discipline_incidents
   has_many :interventions
+  delegate :name, to: :school_year
 end

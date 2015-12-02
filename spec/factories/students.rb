@@ -48,61 +48,60 @@ FactoryGirl.define do
       registration_date Date.new(2015, 1, 1)
       factory :student_with_mcas_assessment do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:mcas_assessment)
+          FactoryGirl.create(:mcas_assessment, student: student)
         end
       end
       factory :student_with_mcas_math_assessment do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:mcas_math_assessment)
+          FactoryGirl.create(:mcas_math_assessment, student: student)
         end
       end
       factory :student_with_mcas_ela_assessment do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:mcas_ela_assessment)
+          FactoryGirl.create(:mcas_ela_assessment, student: student)
         end
       end
       factory :student_with_mcas_math_warning_assessment do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:mcas_math_warning_assessment)
+          FactoryGirl.create(:mcas_math_warning_assessment, student: student)
         end
       end
       factory :student_with_mcas_math_advanced_and_star_math_warning_assessments do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:mcas_math_advanced_assessment)
-          student.student_assessments << FactoryGirl.create(:star_math_warning_assessment)
+          FactoryGirl.create(:mcas_math_advanced_assessment, student: student)
+          FactoryGirl.create(:star_math_warning_assessment, student: student)
         end
       end
       factory :student_with_star_math_assessment do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:star_math_assessment)
+          FactoryGirl.create(:star_math_assessment, student: student)
         end
       end
       factory :student_with_star_math_and_star_reading_same_day do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:star_math_assessment)
-          student.student_assessments << FactoryGirl.create(:star_reading_assessment)
+          FactoryGirl.create(:star_math_assessment, student: student)
+          FactoryGirl.create(:star_reading_assessment, student: student)
         end
       end
       factory :student_with_star_math_student_assessments_different_days do
         after(:create) do |student|
-          sooner = FactoryGirl.create(:star_math_assessment)
-          later = FactoryGirl.create(:star_math_assessment_on_different_day)
-          student.student_assessments << [sooner, later]
+          FactoryGirl.create(:star_math_assessment, student: student)
+          FactoryGirl.create(:star_math_assessment_on_different_day, student: student)
         end
       end
       factory :student_with_star_assessment_between_30_85 do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:star_assessment_between_30_85)
+          FactoryGirl.create(:star_assessment_between_30_85, student: student)
         end
       end
       factory :student_with_dibels do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:dibels_with_performance_level)
+          FactoryGirl.create(:dibels_with_performance_level, student: student)
         end
       end
       factory :student_with_access do
         after(:create) do |student|
-          student.student_assessments << FactoryGirl.create(:access)
+          FactoryGirl.create(:access, student: student)
         end
       end
       # Test interventions
@@ -127,32 +126,32 @@ FactoryGirl.define do
     factory :student_behind_in_reading do
       grade "5"
       after(:create) do |student|
-        student.student_assessments << FactoryGirl.create(:star_assessment_with_irl_below_4)
+        FactoryGirl.create(:star_assessment_with_irl_below_4, student: student)
       end
     end
     factory :student_ahead_in_reading do
       grade "5"
       after(:create) do |student|
-        student.student_assessments << FactoryGirl.create(:star_assessment_with_irl_above_5)
+        FactoryGirl.create(:star_assessment_with_irl_above_5, student: student)
       end
     end
     # Test event sorting
     factory :student_with_attendance_event do
       registration_date Date.new(2014, 8, 1)
       after(:create) do |student|
-        student.attendance_events << FactoryGirl.create(:attendance_event, :absence)
+        FactoryGirl.create(:attendance_event, :absence, student: student)
       end
     end
     factory :student_with_absence_in_january_2015 do
       registration_date Date.new(2014, 8, 1)
       after(:create) do |student|
-        student.attendance_events << FactoryGirl.create(:attendance_event, :absence, :in_january_2015)
+        FactoryGirl.create(:attendance_event, :absence, :in_january_2015, student: student)
       end
     end
     factory :student_with_discipline_incident do
       registration_date Date.new(2014, 8, 1)
       after(:create) do |student|
-        student.discipline_incidents << FactoryGirl.create(:discipline_incident)
+        FactoryGirl.create(:discipline_incident, student: student)
       end
     end
   end

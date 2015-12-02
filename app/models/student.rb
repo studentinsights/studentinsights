@@ -1,6 +1,7 @@
 class Student < ActiveRecord::Base
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
+  has_many :student_school_years
   has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
   has_many :student_assessments
@@ -9,6 +10,7 @@ class Student < ActiveRecord::Base
   has_one :student_risk_level, dependent: :destroy
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
+  after_create :update_student_school_years
 
   ## STUDENT ASSESSMENT RESULTS ##
 
