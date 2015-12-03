@@ -5,7 +5,7 @@ describe("InterventionsController", function() {
       return prefix + ':' + Math.random().toString(36).substring(2);
     },
     integer: function() {
-      return Math.round(Math.random() * Number.MAX_SAFE_INTEGER);
+      return Math.round(Math.random() * (Math.pow(2, 32) - 1));
     },
     educator: function(options) {
       return _.defaults(options || {}, {
