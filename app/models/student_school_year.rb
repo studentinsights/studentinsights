@@ -34,11 +34,12 @@ class StudentSchoolYear < ActiveRecord::Base
                        .by_family("ACCESS").first_or_missing
   end
 
-  def attendance_events_summary
-    {
-      tardies: attendance_events.where(tardy: true).size,
-      absences: attendance_events.where(absence: true).size
-    }
+  def absences
+    attendance_events.where(absence: true).count
+  end
+
+  def tardies
+    attendance_events.where(tardy: true).count
   end
 
 end

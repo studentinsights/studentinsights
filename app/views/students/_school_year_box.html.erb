@@ -106,12 +106,12 @@
 
     <div class="section attendance-section">
       <h2 class="section-header">Attendance</h2>
-      <% if school_year.attendance_events_summary[:absences] > 0 || school_year.attendance_events_summary[:tardies] > 0 %>
+      <% if school_year.absences > 0 || school_year.tardies > 0 %>
         <div class="values">
-          <p>Absences: <strong><%= school_year.attendance_events_summary[:absences] %></strong></p>
+          <p>Absences: <strong><%= school_year.absences %></strong></p>
         </div>
         <div class="values">
-          <p>Tardies <strong><%= school_year.attendance_events_summary[:tardies] %></strong></p>
+          <p>Tardies <strong><%= school_year.tardies %></strong></p>
         </div>
       <% else %>
         <p class="attendance-type">No absences or tardies</p>
