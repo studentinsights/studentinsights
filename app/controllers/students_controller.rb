@@ -12,8 +12,6 @@ class StudentsController < ApplicationController
       star_reading_results: @student.star_reading_results,
       mcas_math_results: @student.mcas_math_results,
       mcas_ela_results: @student.mcas_ela_results,
-      mcas_math_results: @student.mcas_math_results,
-      mcas_ela_results: @student.mcas_ela_results,
       attendance_events_by_school_year: @student.attendance_events_by_school_year,
       discipline_incidents_by_school_year: @student.discipline_incidents_by_school_year,
       attendance_events_school_years: @student.attendance_events_school_years,
