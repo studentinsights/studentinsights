@@ -38,7 +38,17 @@
   };
 
   _.extend(InterventionsController.prototype, {
-    // Expects: {$el, studentId, interventions, templates, educators}
+    // Expects: {
+    //   $el
+    //   templates
+    //
+    //   educatorId
+    //   educators
+    //   interventionTypes
+    //
+    //   studentId
+    //   interventions
+    //  }
     // Optional: {datepickerOptions}
     initialize: function(options) {
       this.options = options;
@@ -46,7 +56,6 @@
       this.templates = this.options.templates;
 
       // state
-      this.studentId = this.options.studentId;
       this.interventions = this.options.interventions;
       this.selectedInterventionId = this.defaultSelectedIntervention();
       this.isShowingNewIntervention = (this.interventions.length === 0); // show 'add' if no interventions
@@ -171,9 +180,12 @@
     },
 
     renderNewInterventionForm: function() {
-      return (this.isShowingNewIntervention)
-        ? Mustache.render(this.templates.newInterventionForm, { studentId: this.studentId })
-        : '';
+      if (!this.isShowingNewIntervention) return '';
+      return Mustache.render(this.templates.newInterventionForm, {
+        educatorId: this.options.educatorId,
+        studentId: this.options.studentId,
+        interventionTypes: this.options.interventionTypes
+      });
     },
 
     renderProgressNotes: function() {

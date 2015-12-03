@@ -114,7 +114,9 @@
     <%= {
       :student_id => @student.id,
       :interventions => @serialized_interventions,
-      :educators => Educator.all
+      :intervention_types => InterventionType.all,
+      :educators => Educator.all,
+      :current_educator => current_educator
     }.to_json %>
   </div>
 

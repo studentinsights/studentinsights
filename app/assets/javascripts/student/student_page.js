@@ -23,12 +23,19 @@ $(function() {
     var interventionsControllerData = JSON.parse($('#interventions-controller-data').html());
     var interventionsControllerTemplates = window.InterventionsController.readTemplatesFromPage();
     var interventionsController = new window.InterventionsController({
+      // configuration
       $el: $('#interventions-tab'),
-      studentId: interventionsControllerData.student_id,
-      interventions: interventionsControllerData.interventions,
-      educators: interventionsControllerData.educators,
       datepickerOptions: window.datepicker_options,
-      templates: interventionsControllerTemplates
+      templates: interventionsControllerTemplates,
+
+      // context
+      educatorId: interventionsControllerData.current_educator.id,
+      interventionTypes: interventionsControllerData.intervention_types,
+      educators: interventionsControllerData.educators,
+
+      // data
+      studentId: interventionsControllerData.student_id,
+      interventions: interventionsControllerData.interventions
     });
 
     // Switch between tabs
