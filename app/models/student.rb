@@ -58,25 +58,15 @@ class Student < ActiveRecord::Base
   end
 
   def attendance_events_by_school_year
-    school_years = student_school_years.includes(:attendance_events)
-                                       .sort_by { |s| s.name }
-                                       .reverse
-    results_hash = {}
-    school_years.map do |s|
-      results_hash[s.name] = s.attendance_events
-    end
-    results_hash
+    Hash[student_school_years.includes(:attendance_events, :school_year).map do |s|
+      [s.name, s.attendance_events]
+    end]
   end
 
   def discipline_incidents_by_school_year
-    school_years = student_school_years.includes(:discipline_incidents)
-                                       .sort_by { |s| s.name }
-                                       .reverse
-    results_hash = {}
-    school_years.map do |s|
-      results_hash[s.name] = s.discipline_incidents
-    end
-    results_hash
+    Hash[student_school_years.includes(:discipline_incidents, :school_year).map do |s|
+      [s.name, s.discipline_incidents]
+    end]
   end
 
   def attendance_events_school_years

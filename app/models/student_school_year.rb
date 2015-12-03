@@ -6,6 +6,7 @@ class StudentSchoolYear < ActiveRecord::Base
   has_many :discipline_incidents
   has_many :interventions
   delegate :name, to: :school_year
+  default_scope { joins(:school_year).order('school_years.start DESC') }
 
   def mcas_math_result
     student_assessments.latest
