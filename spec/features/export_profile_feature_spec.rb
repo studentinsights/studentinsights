@@ -4,7 +4,11 @@ require 'capybara/rspec'
 describe 'export profile', :type => :feature do
   context 'educator with account' do
     let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
-    let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014) }
+    let!(:student) {
+      Timecop.freeze(DateTime.new(2015, 5, 1)) do
+        FactoryGirl.create(:student_who_registered_in_2013_2014)
+      end
+    }
 
     def educator_sign_in(educator)
       visit root_url
