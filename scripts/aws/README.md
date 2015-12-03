@@ -24,7 +24,15 @@ I'm only experimenting and learning about AWS here, and so it's possible there a
 
 
 
-## Initial setup, and config.sh
+## Initial setup
+
+#### DNS, Route 53
+
+
+#### Region, VPC and subnets
+https://console.aws.amazon.com/vpc/home?region=us-east-1
+
+#### config.sh
 This defines configuration variables.  You should manually perform the needed setup there (eg., creating security groups, adding the hosted zone in Route 53), or write a new script to do so.  Then define those configuration values in `config.sh`.  Other scripts source this script for the environment variables it defines, and so this needs to be set up correctly for any scripts to work.
 
 This file is not checked into source control, so an example file is included here:
