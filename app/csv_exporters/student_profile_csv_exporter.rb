@@ -1,8 +1,31 @@
-class StudentProfileCsvExporter < Struct.new :student
+class StudentProfileCsvExporter
   require 'csv'
-  delegate :student_assessments, :attendance_events_by_school_year,
-    :discipline_incidents_by_school_year, :attendance_events_school_years,
-    :behavior_events_school_years, to: :student
+
+  attr_accessor :student,
+    :star_math_results,
+    :star_reading_results,
+    :mcas_math_results,
+    :mcas_ela_results,
+    :mcas_math_results,
+    :mcas_ela_results,
+    :attendance_events_by_school_year,
+    :discipline_incidents_by_school_year,
+    :attendance_events_school_years,
+    :behavior_events_school_years
+
+  def initialize(options)
+    @student = options[:student]
+    @star_math_results = options[:star_math_results]
+    @star_reading_results = options[:star_reading_results]
+    @mcas_math_results = options[:mcas_math_results]
+    @mcas_ela_results = options[:mcas_ela_results]
+    @mcas_math_results = options[:mcas_math_results]
+    @mcas_ela_results = options[:mcas_ela_results]
+    @attendance_events_by_school_year = options[:attendance_events_by_school_year]
+    @discipline_incidents_by_school_year = options[:discipline_incidents_by_school_year]
+    @attendance_events_school_years = options[:attendance_events_school_years]
+    @behavior_events_school_years = options[:behavior_events_school_years]
+  end
 
   def profile_csv_export
     CSV.generate do |csv|
@@ -30,7 +53,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def mcas_math_section(csv)
     StudentProfileCsvStudentAssessmentSection.new(
-      csv, student.mcas_math_results, ["MCAS Math"],
+      csv, @mcas_math_results, ["MCAS Math"],
       ['Date', 'Scale Score', 'Growth', 'Performance Level'],
       [:date_taken, :scale_score, :growth_percentile, :performance_level]
     )
@@ -38,7 +61,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def mcas_ela_section(csv)
     StudentProfileCsvStudentAssessmentSection.new(
-      csv, student.mcas_ela_results, ["MCAS English Language Arts"],
+      csv, @mcas_ela_results, ["MCAS English Language Arts"],
       ['Date', 'Scale Score', 'Growth', 'Performance Level'],
       [:date_taken, :scale_score, :growth_percentile, :performance_level]
     )
@@ -46,7 +69,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def star_math_section(csv)
     StudentProfileCsvStudentAssessmentSection.new(
-      csv, student.star_math_results, ["STAR Math"],
+      csv, @star_math_results, ["STAR Math"],
       ['Date', 'Math Percentile'],
       [:date_taken, :percentile_rank]
     )
@@ -54,7 +77,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def star_reading_section(csv)
     StudentProfileCsvStudentAssessmentSection.new(
-      csv, student.star_math_results, ["STAR Reading"],
+      csv, @star_math_results, ["STAR Reading"],
       ['Date', 'Reading Percentile', 'Instructional Reading Level'],
       [:date_taken, :percentile_rank, :instructional_reading_level]
     )

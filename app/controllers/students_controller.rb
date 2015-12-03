@@ -5,8 +5,24 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     @presenter = StudentPresenter.new(@student)
+
+    @serialized_student_data = {
+      student: @student,
+      star_math_results: @student.star_math_results,
+      star_reading_results: @student.star_reading_results,
+      mcas_math_results: @student.mcas_math_results,
+      mcas_ela_results: @student.mcas_ela_results,
+      mcas_math_results: @student.mcas_math_results,
+      mcas_ela_results: @student.mcas_ela_results,
+      attendance_events_by_school_year: @student.attendance_events_by_school_year,
+      discipline_incidents_by_school_year: @student.discipline_incidents_by_school_year,
+      attendance_events_school_years: @student.attendance_events_school_years,
+      behavior_events_school_years: @student.behavior_events_school_years
+    }
+
     @chart_start = params[:chart_start] || "mcas-growth"
-    @chart_data = StudentProfileChart.new(@student).chart_data
+    @chart_data = StudentProfileChart.new(@serialized_student_data).chart_data
+
     @student_risk_level = @student.student_risk_level
     @level = @student_risk_level.level
 
@@ -27,7 +43,10 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { render csv: StudentProfileCsvExporter.new(@student).profile_csv_export, filename: 'export' }
+      format.csv {
+        render csv: StudentProfileCsvExporter.new(@serialized_student_data).profile_csv_export,
+        filename: 'export'
+      }
       format.pdf { render text: PDFKit.new(@student_url).to_pdf }
     end
   end
