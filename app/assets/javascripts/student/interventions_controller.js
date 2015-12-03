@@ -23,30 +23,34 @@
     this.initialize(options);
   };
 
+  InterventionsController.readTemplatesFromPage = function($el) {
+    // templates, these should be available on the page (or could be compiled and provided
+    // as a JS asset)
+    return {
+      main: $('#main-interventions-template').html(),
+      interventionCell: $('#intervention-cell-template').html(),
+      interventionDetails: $('#intervention-detail-template').html(),
+      newInterventionForm: $('#new-intervention-form-template').html(),
+      progressNote: $('#progress-note-template').html(),
+      newProgressNote: $('#new-progress-note-template').html(),
+      errors: $('#form-errors-template').html()
+    };
+  };
+
   _.extend(InterventionsController.prototype, {
-    // Expects: {$el, interventions}
+    // Expects: {$el, studentId, interventions, templates, educators}
     // Optional: {datepickerOptions}
     initialize: function(options) {
       this.options = options;
       this.$el = this.options.$el;
+      this.templates = this.options.templates;
 
       // state
+      this.studentId = this.options.studentId;
       this.interventions = this.options.interventions;
       this.selectedInterventionId = this.defaultSelectedIntervention();
       this.isShowingNewIntervention = (this.interventions.length === 0); // show 'add' if no interventions
       this.isAddingProgressNote = false;
-
-      // templates, these should be available on the page (or could be compiled and provided
-      // as a JS asset)
-      this.templates = {
-        main: $('#main-interventions-template').html(),
-        interventionCell: $('#intervention-cell-template').html(),
-        interventionDetails: $('#intervention-detail-template').html(),
-        newInterventionForm: $('#new-intervention-form-template').html(),
-        progressNote: $('#progress-note-template').html(),
-        newProgressNote: $('#new-progress-note-template').html(),
-        errors: $('#form-errors-template').html()
-      };
     },
 
     defaultSelectedIntervention: function() {
@@ -168,7 +172,7 @@
 
     renderNewInterventionForm: function() {
       return (this.isShowingNewIntervention)
-        ? Mustache.render(this.templates.newInterventionForm, {})
+        ? Mustache.render(this.templates.newInterventionForm, { studentId: this.studentId })
         : '';
     },
 
@@ -184,7 +188,8 @@
     renderNewProgressNote: function() {
       return Mustache.render(this.templates.newProgressNote, {
         interventionId: this.selectedInterventionId,
-        isAddingProgressNote: this.isAddingProgressNote
+        isAddingProgressNote: this.isAddingProgressNote,
+        educators: this.options.educators
       });
     }
   });

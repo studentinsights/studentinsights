@@ -20,11 +20,15 @@ $(function() {
     // Read data for interventions tab
     // This is persistent for the life of the page right - the state is read in 
     // on initial page load and is then owned by the controller.
-    var interventions = JSON.parse($('#interventions-data').html());
+    var interventionsControllerData = JSON.parse($('#interventions-controller-data').html());
+    var interventionsControllerTemplates = window.InterventionsController.readTemplatesFromPage();
     var interventionsController = new window.InterventionsController({
       $el: $('#interventions-tab'),
-      interventions: interventions,
-      datepickerOptions: window.datepicker_options
+      studentId: interventionsControllerData.student_id,
+      interventions: interventionsControllerData.interventions,
+      educators: interventionsControllerData.educators,
+      datepickerOptions: window.datepicker_options,
+      templates: interventionsControllerTemplates
     });
 
     // Switch between tabs
