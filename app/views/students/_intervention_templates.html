@@ -57,15 +57,15 @@
           <form accept-charset="UTF-8" action="/progress_notes" class="new-progress-note-form" data-remote="true" id="new_progress_note" method="post">
             <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
             <label>Progress note</label>
-            <textarea cols="40" id="progress_note_content" name="progress_note[content]" required="required" rows="5"></textarea>
-            <select id="progress_note_educator_id" name="progress_note[educator_id]" required="required">
+            <textarea cols="40" name="progress_note[content]" required="required" rows="5"></textarea>
+            <select name="progress_note[educator_id]" required="required">
               <option value=""> -- Select educator -- </option>
               {{#educators}}
                 <option value="{{id}}">{{email}}</option>
               {{/educators}}
             </select>
             <br/>
-            <input id="progress_note_intervention_id" name="progress_note[intervention_id]" type="hidden" value="{{interventionId}}" />
+            <input name="progress_note[intervention_id]" type="hidden" value="{{interventionId}}" />
             <input class="btn save-btn" name="commit" type="submit" value="Save" />
             <div class="btn cancel-progress-note" type="button">Cancel</div>
           </form>
@@ -83,23 +83,23 @@
       <h1>Add Intervention</h1>
       <p class="alert field errors"></p>
       <label>Select Intervention</label>
-      <select id="intervention_intervention_type_id" name="intervention[intervention_type_id]" required="required">
+      <select name="intervention[intervention_type_id]" required="required">
         <option value=""> -- Intervention type -- </option>
         {{#interventionTypes}}
           <option value="{{id}}">{{name}}</option>
         {{/interventionTypes}}
       </select>
       <label>Comment</label>
-      <textarea cols="40" id="intervention_comment" name="intervention[comment]" placeholder="Add comment" rows="5"></textarea>
+      <textarea cols="40" name="intervention[comment]" placeholder="Add comment" rows="5"></textarea>
       <label>Goal</label>
-      <textarea cols="40" id="intervention_goal" name="intervention[goal]" placeholder="Add goal" rows="5"></textarea>
+      <textarea cols="40" name="intervention[goal]" placeholder="Add goal" rows="5"></textarea>
       <label>End date</label>
-      <input class="datepicker hasDatepicker" id="intervention_end_date" name="intervention[end_date]" pattern="(19|20)[0-9]{2}(/|-|.)((0[1-9])|(1[0-2])|([0-9]))(/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))" placeholder="yyyy-mm-dd" type="text"><img class="ui-datepicker-trigger" src="/assets/calendar-icon.svg" alt="Select date" title="Select date">
-      <input id="intervention_educator_id" name="intervention[educator_id]" type="hidden" value="{{educatorId}}">
-      <input id="intervention_student_id" name="intervention[student_id]" type="hidden" value="{{studentId}}">
+      <input class="datepicker hasDatepicker" name="intervention[end_date]" pattern="(19|20)[0-9]{2}(/|-|.)((0[1-9])|(1[0-2])|([0-9]))(/|-|.)(([0-2][0-9])|(3[0-1])|([0-9]))" placeholder="yyyy-mm-dd" type="text"><img class="ui-datepicker-trigger" src="/assets/calendar-icon.svg" alt="Select date" title="Select date">
+      <input name="intervention[educator_id]" type="hidden" value="{{educatorId}}">
+      <input name="intervention[student_id]" type="hidden" value="{{studentId}}">
       <br><br>
       <input class="btn save-btn" name="commit" type="submit" value="Save">
-      <button id="close-intervention-form" class="btn cancel-btn" type="button">Cancel</button>
+      <button class="btn cancel-btn" type="button">Cancel</button>
     </form>
   </script>
 
