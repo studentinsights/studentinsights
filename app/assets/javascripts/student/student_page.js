@@ -21,18 +21,14 @@ $(function() {
     // This is persistent for the life of the page right - the state is read in 
     // on initial page load and is then owned by the controller.
     var interventionsControllerData = JSON.parse($('#interventions-controller-data').html());
-    var interventionsControllerTemplates = window.InterventionsController.readTemplatesFromPage();
     var interventionsController = new window.InterventionsController({
       // configuration
       $el: $('#interventions-tab'),
       datepickerOptions: window.datepicker_options,
-      templates: interventionsControllerTemplates,
-
       // context
       educatorId: interventionsControllerData.current_educator.id,
       interventionTypes: interventionsControllerData.intervention_types,
       educators: interventionsControllerData.educators,
-
       // data
       studentId: interventionsControllerData.student_id,
       interventions: interventionsControllerData.interventions

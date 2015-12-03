@@ -89,6 +89,11 @@ GEM
       i18n (~> 0.5)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
+    handlebars_assets (0.22.0)
+      execjs (~> 2.0)
+      multi_json (~> 1.0)
+      sprockets (>= 2.0.0, < 4.0)
+      tilt (~> 1.2)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (2.3.1)
@@ -256,6 +261,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   friendly_id (~> 5.1.0)
+  handlebars_assets (~> 0.22.0)
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails (~> 5.0.3)

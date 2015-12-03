@@ -24,6 +24,7 @@
 //= require classList
 //= require lodash.3.10.1.min
 //= require rounded-corners
+//= require handlebars.runtime
 
 // shared across application:
 //= require datepicker_config

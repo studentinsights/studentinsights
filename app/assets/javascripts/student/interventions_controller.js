@@ -4,7 +4,8 @@
   This owns a piece of the DOM rendered by Rails.  It takes an initial list of `interventions` 
   and then owns that state and any changes to it over time.
   
-  This class expects a few Mustache templates to be available on the page (see constructor).
+  This class expects a few Handlers templates to be available on the window.HandlebarsTemplates
+  object.
 
   The structure of this class is to:
   - take a DOM element to render into, and some initial state
@@ -23,24 +24,9 @@
     this.initialize(options);
   };
 
-  InterventionsController.readTemplatesFromPage = function($el) {
-    // templates, these should be available on the page (or could be compiled and provided
-    // as a JS asset)
-    return {
-      main: $('#main-interventions-template').html(),
-      interventionCell: $('#intervention-cell-template').html(),
-      interventionDetails: $('#intervention-detail-template').html(),
-      newInterventionForm: $('#new-intervention-form-template').html(),
-      progressNote: $('#progress-note-template').html(),
-      newProgressNote: $('#new-progress-note-template').html(),
-      errors: $('#form-errors-template').html()
-    };
-  };
-
   _.extend(InterventionsController.prototype, {
     // Expects: {
     //   $el
-    //   templates
     //
     //   educatorId
     //   educators
@@ -53,7 +39,6 @@
     initialize: function(options) {
       this.options = options;
       this.$el = this.options.$el;
-      this.templates = this.options.templates;
 
       // state
       this.interventions = this.options.interventions;
@@ -80,8 +65,8 @@
     // Rails code that is adding behavior to HTML generated with `form_for` server rendering.
     bindListeners: function () {
       // interventions
-      this.$el.on('click', '#open-intervention-form', this.onAddNewIntervention.bind(this));
-      this.$el.on('click', '#close-intervention-form', this.onCancelNewIntervention.bind(this));
+      this.$el.on('click', '.add-new-intervention', this.onAddNewIntervention.bind(this));
+      this.$el.on('click', '.cancel-new-intervention', this.onCancelNewIntervention.bind(this));
       this.$el.on('click', '.intervention-cell', this.onSelectedIntervention.bind(this));
       this.$el.on('ajax:success', '.new-intervention-form', this.onNewInterventionSaveSucceeded.bind(this));
       this.$el.on('ajax:error', '.new-intervention-form', this.onNewInterventionSaveFailed.bind(this));
@@ -150,12 +135,14 @@
     // This inserts the errors into the form to preserve the DOM state on the form,
     // rather than doing a full render that would lose that.
     insertErrorMessages: function($targetEl, errors) {
-      var html = Mustache.render(this.templates.errors, { errors: errors });
+      var html = this.renderTemplate('errors', { errors: errors });
       $targetEl.html(html);
     },
 
     render: function () {
-      this.$el.html(Mustache.render(this.templates.main, {}));
+      this.$el.html(this.renderTemplate('main', {
+        addNewClassName: this.isShowingNewIntervention ? 'selected' : ''
+      }));
       this.$el.find('.intervention-cell-list').html(this.renderInterventionCells());
       this.$el.find('.intervention-details-list').html(this.renderInterventionDetails());
       this.$el.find('.new-intervention-container').html(this.renderNewInterventionForm());
@@ -164,10 +151,21 @@
       this.$el.find('.datepicker').datepicker(this.options.datepickerOptions || {});
     },
 
+    // This pulls of compiled Handlebars templates off the window object (the handlebars_assets gem
+    // compiles them as part of the asset pipeline and puts them there), and then renders them.
+    // This controller class keeps all the template pieces it needs in a single template file
+    // (to keep them colocated for development), and this method only calls the piece that's
+    // requested.
+    renderTemplate: function(templatePiece, data) {
+      var templateData = {}
+      templateData[templatePiece] = data;
+      return window.HandlebarsTemplates['interventions_controller_templates'](templateData);
+    },
+
     renderInterventionCells: function () {
       var htmlPieces = this.interventions.map(function(intervention) {
         var activatedClass = (intervention.id === this.selectedInterventionId) ? 'activated' : '';
-        return Mustache.render(this.templates.interventionCell, _.assign({}, intervention, { activatedClass: activatedClass }));
+        return this.renderTemplate('interventionCell', _.assign({}, intervention, { activatedClass: activatedClass }));
       }, this);
       return htmlPieces.join('');
     },
@@ -176,12 +174,12 @@
       if (this.interventions.length === 0) return '<div class="zero-interventions">No interventions.</div>';
       var intervention = this.getSelectedIntervention();
       if (intervention === null) return '';
-      return Mustache.render(this.templates.interventionDetails, intervention);
+      return this.renderTemplate('interventionDetails', intervention);
     },
 
     renderNewInterventionForm: function() {
       if (!this.isShowingNewIntervention) return '';
-      return Mustache.render(this.templates.newInterventionForm, {
+      return this.renderTemplate('newInterventionForm', {
         educatorId: this.options.educatorId,
         studentId: this.options.studentId,
         interventionTypes: this.options.interventionTypes
@@ -192,13 +190,13 @@
       var intervention = this.getSelectedIntervention();
       if (intervention === null) return '';
       var htmlPieces = intervention.progress_notes.map(function(progressNote) {
-        return Mustache.render(this.templates.progressNote, progressNote);
+        return this.renderTemplate('progressNote', progressNote);
       }, this);
       return htmlPieces.join('');
     },
 
     renderNewProgressNote: function() {
-      return Mustache.render(this.templates.newProgressNote, {
+      return this.renderTemplate('newProgressNote', {
         interventionId: this.selectedInterventionId,
         isAddingProgressNote: this.isAddingProgressNote,
         educators: this.options.educators
