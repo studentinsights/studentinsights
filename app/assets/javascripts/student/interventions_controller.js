@@ -149,6 +149,7 @@
       this.$el.find('.progress-notes-list').html(this.renderProgressNotes());
       this.$el.find('.new-progress-note-area').html(this.renderNewProgressNote());
       this.$el.find('.datepicker').datepicker(this.options.datepickerOptions || {});
+      return this.$el;
     },
 
     // This pulls of compiled Handlebars templates off the window object (the handlebars_assets gem
