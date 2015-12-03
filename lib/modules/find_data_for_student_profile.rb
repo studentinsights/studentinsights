@@ -17,11 +17,11 @@ module FindDataForStudentProfile
   end
 
   def dibels(student)
-    student_assessments.dibels.find_by_student(student).order_or_missing
+    student.ordered_results_by_family("DIBELS")
   end
 
   def access(student)
-    student_assessments.access.find_by_student(student).last_or_missing
+    student.ordered_results_by_family("ACCESS")
   end
 
   def attendance_events_by_school_year

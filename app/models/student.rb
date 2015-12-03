@@ -27,6 +27,12 @@ class Student < ActiveRecord::Base
         .order_or_missing
   end
 
+  def ordered_results_by_family(family_name)
+    self.student_assessments
+        .by_family(family_name)
+        .order_or_missing
+  end
+
   ## SCHOOL YEARS ##
 
   def find_student_school_years
