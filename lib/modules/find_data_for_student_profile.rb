@@ -37,7 +37,15 @@ module FindDataForStudentProfile
   end
 
   def discipline_incidents_by_school_year
-    student.discipline_incidents.sort_by_school_year
+    school_years = student.student_school_years
+                          .includes(:discipline_incidents)
+                          .sort_by { |s| s.name }
+                          .reverse
+    results_hash = {}
+    school_years.map do |s|
+      results_hash[s.name] = s.discipline_incidents
+    end
+    results_hash
   end
 
   def attendance_events_school_years
@@ -45,7 +53,7 @@ module FindDataForStudentProfile
   end
 
   def behavior_events_school_years
-    discipline_incidents_by_school_year.keys.reverse
+    discipline_incidents_by_school_year.keys
   end
 
 end

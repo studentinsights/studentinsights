@@ -2,8 +2,8 @@ class Student < ActiveRecord::Base
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
   has_many :student_school_years
-  has_many :attendance_events, -> { extending SortBySchoolYear }, dependent: :destroy
-  has_many :discipline_incidents, -> { extending SortBySchoolYear }, dependent: :destroy
+  has_many :attendance_events, dependent: :destroy
+  has_many :discipline_incidents, dependent: :destroy
   has_many :student_assessments
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy

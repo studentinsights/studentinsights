@@ -181,44 +181,6 @@ RSpec.describe Student do
     end
   end
 
-  describe '#sort_by_school_year' do
-    before { Timecop.freeze(DateTime.new(2015, 5, 1))  }
-    after { Timecop.return }
-
-    describe '#attendance_events#sort_by_school_year' do
-      context 'no attendance events' do
-        let!(:student) { FactoryGirl.create(:student) }
-        it 'returns an empty hash' do
-          expect(student.attendance_events.sort_by_school_year).to eq({})
-        end
-      end
-      context 'one attendance event in one school year' do
-        let!(:student) { FactoryGirl.create(:student_with_absence_in_january_2015) }
-        it 'associates the event with the school year' do
-          expect(student.attendance_events.sort_by_school_year).to eq(
-            { "2014-2015" => [student.attendance_events.last] }
-          )
-        end
-      end
-    end
-    describe '#discipline_incidents#sort_by_school_year' do
-      context 'no discipline incidents' do
-        let!(:student) { FactoryGirl.create(:student) }
-        it 'returns an empty hash' do
-          expect(student.discipline_incidents.sort_by_school_year).to eq({})
-        end
-      end
-      context 'one discipline incident in one school year' do
-        let(:student) { FactoryGirl.create(:student_with_discipline_incident) }
-        it 'associates the incident with the school year' do
-          discipline_incidents_sort = student.discipline_incidents.sort_by_school_year
-          expect(discipline_incidents_sort).to eq(
-            { "2014-2015" => [student.discipline_incidents.last] }
-          )
-        end
-      end
-    end
-  end
   describe '#create_risk_level' do
     context 'create a non-ELL student' do
       let(:student) { FactoryGirl.create(:student) }
