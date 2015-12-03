@@ -1,10 +1,8 @@
 class StudentProfileCsvExporter < Struct.new :student
-  include FindDataForStudentProfile
   require 'csv'
-
-  def student_assessments
-    student.student_assessments
-  end
+  delegate :student_assessments, :attendance_events_by_school_year,
+    :discipline_incidents_by_school_year, :attendance_events_school_years,
+    :behavior_events_school_years, to: :student
 
   def profile_csv_export
     CSV.generate do |csv|
@@ -32,7 +30,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def mcas_math_section(csv)
     StudentProfileCsvStudentAssessmentSection.new(
-      csv, mcas_math_results(student), ["MCAS Math"],
+      csv, student.mcas_math_results, ["MCAS Math"],
       ['Date', 'Scale Score', 'Growth', 'Performance Level'],
       [:date_taken, :scale_score, :growth_percentile, :performance_level]
     )
@@ -40,7 +38,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def mcas_ela_section(csv)
     StudentProfileCsvStudentAssessmentSection.new(
-      csv, mcas_ela_results(student), ["MCAS English Language Arts"],
+      csv, student.mcas_ela_results, ["MCAS English Language Arts"],
       ['Date', 'Scale Score', 'Growth', 'Performance Level'],
       [:date_taken, :scale_score, :growth_percentile, :performance_level]
     )
@@ -48,7 +46,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def star_math_section(csv)
     StudentProfileCsvStudentAssessmentSection.new(
-      csv, star_math_results(student), ["STAR Math"],
+      csv, student.star_math_results, ["STAR Math"],
       ['Date', 'Math Percentile'],
       [:date_taken, :percentile_rank]
     )
@@ -56,7 +54,7 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def star_reading_section(csv)
     StudentProfileCsvStudentAssessmentSection.new(
-      csv, star_math_results(student), ["STAR Reading"],
+      csv, student.star_math_results, ["STAR Reading"],
       ['Date', 'Reading Percentile', 'Instructional Reading Level'],
       [:date_taken, :percentile_rank, :instructional_reading_level]
     )
