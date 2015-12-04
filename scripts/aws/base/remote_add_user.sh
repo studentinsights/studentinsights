@@ -15,11 +15,12 @@ chmod 600 .ssh/authorized_keys
 chown $USERNAME:$USERNAME .ssh/authorized_keys
 rm -f /tmp/$USERNAME.pub
 
-echo "Adding $USERNAME to wheel..."
+echo "Adding $USERNAME to wheel group..."
 usermod -aG wheel $USERNAME
 
 # The user won't have access to run Docker commands by default, but can sudo to run them.
-# If you'd like to change this, add the user to the docker group after Docker is installed on
-# the instance (eg, usermod -a -G docker $USERNAME).
+# This grants them access to run docker commands without sudo.
+echo "Adding $USERNAME to docker group..."
+usermod -aG docker $USERNAME
 
 echo "Done."

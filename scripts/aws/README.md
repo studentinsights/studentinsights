@@ -123,9 +123,9 @@ Note that these instances will be in the same region, and so updating these scri
 
 
 #### Postgres instances
-Next we'll do the same for the primary Postgres instance.
+Next we'll do the same for a single primary Postgres instance.  Since adding secondaries involves some cooperation on the Rails side, this iteration doesn't yet add components for high availability or failover.  Those would be the critical next step in fully productionizing this, but for now this matches the level of fault-tolerance in a free Heroku deployment.
 
-These instances have the same kind of creation script, but it also creates a separate EBS volume for mounting the database's data.  This means the data is stored separately from the EC2 instance running the process, so even if you (or Amazon) terminates the instance, you can start another instance that can mount the same data.  So the `scripts/aws/postgres/create.sh` script will create an instance, create an EBS volume, and attach the volume.  It also formats the new volume and mounts it at `/mnt/ebs-a` where the Postgres deploy scripts expect it to be.
+These instances have the same kind of creation script, but it also creates a separate EBS volume for mounting the database's data.  This means the data is stored separately from the EC2 instance running the process, so even if you (or Amazon) terminates the instance, you can start another instance that can mount the same data.  The `aws/postgres/create.sh` script will create an instance, create an EBS volume, and attach the volume.  It also formats the new volume and mounts it at `/mnt/ebs-a` where the Postgres deploy scripts expect it to be.
 
 So the output will have a few more steps:
 ```
@@ -203,10 +203,10 @@ After that that user can ssh into the box with:
 Go ahead...
 ```
 
-Following those instructions will add the user, set them up for SSH-key-only access, and add them to the `wheel` group so they can perform `sudo` commands.  You might also want to add them to the `docker` group so they can run Docker commands without `sudo`.
+Following those instructions will add the user, set them up for SSH-key-only access, and add them to the `wheel` group so they can perform `sudo` commands.  It will also add them to the `docker` group so that they can run Docker commands without `sudo`.
 
 #### Password-less sudo
-Afterward, you can also set up password-less sudo, since these users will have SSH-key-only access and won't have passwords.  This will apply to all users.  You can use a helper script to ssh in:
+You can also set up password-less sudo, since these users will have SSH-key-only access and won't have passwords.  This will apply to all users.  You can use a helper script to ssh in:
 
 ```
 $ scripts/aws/base/superuser_ssh.sh rails2001
@@ -257,23 +257,53 @@ If you'd lke to perform deploys sequentially across multiple instances in a role
 The sequence matters here, since we need to seed the production database, and we'd like to use Rails to do that.
 
   1. Deploy the master Postgres instance like normal, grab its IP address.
-  2. Use the `scripts/aws/rails/seed.sh` script to run a production container on a Rails instance and seed the database.  This is currently setup to seed with demo data.
-    ```
-    # locally
-    $ scp scripts/aws/rails/seed.sh rails2001.yourdomainname.com:~
-    $ ssh rails2001.yourdomainname.com
-
-    # (now remote)
-    $ chmod u+x rails_seed.sh
-    $ sudo ./rails_seed.sh <Postgres IP address>
-    ```
-
+  2. Check out the command in the `scripts/aws/rails/seed.sh` script to run a production container on a Rails instance and seed the database.  This is currently setup to seed with demo data.  ssh into a production Rails instance and run this kind of command.
   3. Deploy the Rails instances with `scripts/aws/rails/deploy.sh <Postgres IP address>`
   4. Try it!
 
 
-## Maintenance
-Older Docker images are not currently garbage collected, so the production boxes will likely fill up their disks relatively quickly if you're deploying frequently.  The `scripts/aws/base/clean_docker_remote.sh` can be run on a remote instance to free some disk space from older images and volumes.  You should look at this script more carefully before running this on a running production instance.  A cron job to identify images and volumes that are not used by the running container, and then safely cleans them out would be a good improvement.
+## Postgres availability and failure
+This iteration doesn't address availability or failure of the primary Postgres instance, but here are some notes on the current status.
+
+#### Impact of failure
+In general, when the primary Postgres instance goes completely down (e.g., the process or instance is stopped), the Rails processes will time out talking to the database, and so those end-user requests will hang until they hit the timeout.  Within a few seconds, Rails instances will start failing the health check and ELB will pull them all out of service.  After that point, ELB will return a 503 for all requests since there are no backend instances that can respond to requests, and the site will be down.
+
+#### Postgres container is stopped and removed
+This does nothing to the data on the EBS volume.  Start a new Postgres container up with the deploy script mounts the the EBS volume into the container, and it's back up.
+
+### EBS volume is unmounted
+This is dangerous - make sure to stop the Postgres container first.
+
+This is a bit confusing.  Running `sudo umount -d /dev/xvdf` unmounts the EBS volume.  But the running Docker container still can read from the database table just fine.  I thought this might just be cached in memory, but inserting worked as well.  There was the same behavior after stopping the running container, removing it, and starting another one.
+
+It was only after restarting the Docker service that the container behaved as expecting.  I suspect this is becuase of the low-level Docker volume mounting implementation, and related to https://github.com/docker/docker/issues/5489#issuecomment-141438777.
+
+After unmounting the EBS volume, stopping and removing the Docker daemon, restarting Docker, and starting up a run container, the behavior was as I expected.  The container couldn't mount the host volume anymore because after unmounting the EBS volume, there wasn't anything at that path on the host file system anymore.  It'd be nice if Docker output a warning or error message when the volume mounting failed, but I didn't look into what it would take to add this.
+
+#### EBS volume is detached
+This is dangerous - make sure to stop the Postgres container and unmount the EBS volume first.
+
+Detaching the ELB volume from the instance in AWS before unmounting the EBS volume is a bad idea, even for testing failure modes as it can put the EBS volume in a `busy` state indefinitely.  See http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-detaching-volume.html.
+
+#### Manual clean shutdown
+```
+docker stop postgres
+docker rm postgres
+sudo umount -d /dev/xvdf
+```
+
+This didn't work, I wasn't able to manually unmount the EBS volume.
+
+
+#### Instance is rebooted
+
+
+#### Instance is stopped
+First, let's bring the Postgres instance and process back up, and then we can deploy the Rails instances so that they point to the new IP for the primary Postgres node.  After they're healthy, ELB will put them back into service and the site will come back up.
+
+After starting up the Postgres node, the EBS volume will still be attached, and `/etc/fstab` will still have the entry to mount it at `/mnt/ebs-a`.  You should be able to see the Postgres data folder in `/mnt/ebs-a`, although it will require sudo permissions to see inside.
+
+#### Instance is terminated
 
 
 ## Destroying things
@@ -322,3 +352,21 @@ Submitted at 2015-11-12T17:40:13.279Z.
 Done deleting DNS record for rails2001.yourdomainname.
 ```
 
+
+## Other notes
+#### Reconnecting to Postgres
+Rails doesn't seem able to reconnect to Postgres after the container is stopped and restarted.  This means anytime Postgres is restarted, the Rails instances need to be restarted as well.
+
+#### Cleaning up Docker images
+Older Docker images are not currently garbage collected, so the production boxes will likely fill up their disks relatively quickly if you're deploying frequently.  The `aws/base/clean_docker_remote.sh` can be run on a remote instance to free some disk space from older images and volumes.  You should look at this script more carefully before running this on a running production instance.  A cron job to identify images and volumes that are not used by the running container, and then safely cleans them out would be a good improvement.
+
+#### DNS problems on El Capitan
+In creating and destroying DNS records, I ran into a bunch of problems with DNS on my computer, where `dig` would report an IP but `ssh` would be unable to resolve the hostname.  Googling about it seems this is relatively common, and the commands to flush the DNS cache are:
+
+```
+# requires sudo
+function flush_dns {
+  dscacheutil -flushcache
+  killall -HUP mDNSResponder
+}
+```

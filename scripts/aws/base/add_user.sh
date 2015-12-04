@@ -32,10 +32,10 @@ echo "Copying public key file $PUBLIC_KEY_FILE for $USERNAME to $INSTANCE_NAME.$
 superuser_scp $PUBLIC_KEY_FILE /tmp/$USERNAME.pub
 
 echo "Copying remote script..."
-superuser_scp scripts/aws/base/add_user_remote.sh /tmp/add_user_remote.sh
+superuser_scp scripts/aws/base/remote_add_user.sh /tmp/remote_add_user.sh
 
 echo "Changing permissions..."
-scripts/aws/base/superuser_ssh chmod u+x /tmp/add_user_remote.sh
+scripts/aws/base/superuser_ssh chmod u+x /tmp/remote_add_user.sh
 
 echo;echo;echo;
 echo "Ready!"
@@ -46,7 +46,13 @@ echo "Run this command on your local shell:"
 echo "  $ ssh -o StrictHostKeyChecking=no -i $SUPERUSER_PEM_FILE $SUPERUSER@$INSTANCE_NAME.$DOMAIN_NAME"
 echo
 echo "And then run this command on the remote box:"
-echo "  $ sudo /tmp/add_user_remote.sh $USERNAME && rm /tmp/add_user_remote.sh && exit" 
+echo "  $ sudo /tmp/remote_add_user.sh $USERNAME && rm /tmp/remote_add_user.sh"
+echo 
+echo "If you'd like to enable password-less sudo access, do it now."
+echo "  $ sudo visudo # and make relevant edits"
+echo 
+echo "All done on the remote box!"
+echo "  $ exit"
 echo
 echo "After that that user can ssh into the box with:"
 echo "  $ ssh $INSTANCE_NAME.$DOMAIN_NAME"

@@ -5,6 +5,7 @@
 #
 # example: postgres_create.sh INSTANCE_NAME
 INSTANCE_NAME=$1
+POSTGRES_ROLE=primary
 
 source scripts/aws/config.sh
 
@@ -24,6 +25,9 @@ scripts/aws/base/wait_for_instance_state.sh $INSTANCE_ID pending
 
 echo "Creating $INSTANCE_NAME name tag..."
 TAG_RESPONSE=$(aws ec2 create-tags --resources $INSTANCE_ID --tags Key=Name,Value=$INSTANCE_NAME)
+
+echo "Creating PostgresRole=$POSTGRES_ROLE tag..."
+TAG_RESPONSE=$(aws ec2 create-tags --resources $INSTANCE_ID --tags Key=PostgresRole,Value=$POSTGRES_ROLE)
 
 echo "Waiting for instance to be 'running'..."
 scripts/aws/base/wait_for_instance_state.sh $INSTANCE_ID running
