@@ -6,16 +6,15 @@ sudo: required
 
 services:
   - postgres
-  - docker
 
 branches:
   only:
     - master
 
-# Install the AWS CLI, so we can push asset artifacts up to S3 when merging to master.
-before_install:
-  - pip install --user awscli
-  - export PATH=$PATH:$HOME/.local/bin
+# For AWS deploy, install the AWS CLI, so we can push asset artifacts up to S3 when merging to master.
+# before_install:
+#   - pip install --user awscli
+#   - export PATH=$PATH:$HOME/.local/bin
 
 install:
  - bundle install --retry=3
