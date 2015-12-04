@@ -337,10 +337,10 @@ sys 0m0.446s
 
 
 #### DNS records
-You can individually delete DNS records with `scripts/aws/base/delete_dns_record.sh`:
+You can individually delete DNS records as well:
 
 ```
-$ scripts/base_delete_dns.sh rails2001
+$ scripts/base/delete_dns_record.sh rails2001
 Deleting rails2001.yourdomainname...
 Looking up instance-id for rails2001...
 Instance id is: i-5946df9d.

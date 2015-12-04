@@ -15,7 +15,7 @@ INSTANCE_ID=$(aws ec2 run-instances \
   --instance-type t2.micro \
   --key-name $KEY_NAME \
   --security-group-ids $SG_DEFAULT $SG_SSH_ACCESS $SG_POSTGRES \
-  --user-data file://$(pwd)/scripts/aws/postgres/provision_remote.sh \
+  --user-data file://$(pwd)/scripts/aws/postgres/remote_provision.sh \
   --output text \
   --query 'Instances[*].InstanceId')
 echo "Created instance $INSTANCE_ID..."
