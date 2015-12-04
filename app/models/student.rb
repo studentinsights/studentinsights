@@ -77,6 +77,20 @@ class Student < ActiveRecord::Base
     discipline_incidents_by_school_year.keys
   end
 
+  def serialized_student_data
+    {
+      student: self,
+      star_math_results: star_math_results,
+      star_reading_results: star_reading_results,
+      mcas_math_results: mcas_math_results,
+      mcas_ela_results: mcas_ela_results,
+      attendance_events_by_school_year: attendance_events_by_school_year,
+      discipline_incidents_by_school_year: discipline_incidents_by_school_year,
+      attendance_events_school_years: attendance_events_school_years,
+      behavior_events_school_years: behavior_events_school_years
+    }
+  end
+
   ## SCHOOL YEARS ##
 
   def find_student_school_years

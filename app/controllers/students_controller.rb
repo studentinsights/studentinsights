@@ -5,18 +5,7 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     @presenter = StudentPresenter.new(@student)
-
-    @serialized_student_data = {
-      student: @student,
-      star_math_results: @student.star_math_results,
-      star_reading_results: @student.star_reading_results,
-      mcas_math_results: @student.mcas_math_results,
-      mcas_ela_results: @student.mcas_ela_results,
-      attendance_events_by_school_year: @student.attendance_events_by_school_year,
-      discipline_incidents_by_school_year: @student.discipline_incidents_by_school_year,
-      attendance_events_school_years: @student.attendance_events_school_years,
-      behavior_events_school_years: @student.behavior_events_school_years
-    }
+    @serialized_student_data = @student.serialized_student_data
 
     @chart_start = params[:chart_start] || "mcas-growth"
     @chart_data = StudentProfileChart.new(@serialized_student_data).chart_data
