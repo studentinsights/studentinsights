@@ -6,7 +6,6 @@ development:
   pool: 5
   database: homeroom_development
   host: localhost
-  timeout: 3000
 
 test:
   adapter: postgresql
@@ -14,11 +13,6 @@ test:
   pool: 5
   database: homeroom_test
   host: localhost
-  timeout: 3000
-
-production:
-  url: <%= ENV['DATABASE_URL'] %>
-  timeout: 3000
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
