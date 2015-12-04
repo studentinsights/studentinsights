@@ -1,9 +1,16 @@
 class ProgressNotesController < ApplicationController
+  include SerializeInterventionHelper
 
+  before_action :authenticate_educator!
+  
   def create
-    @progress_note = ProgressNote.new(progress_note_params)
-    @progress_note.save
-    respond_to :js
+    progress_note = ProgressNote.new(progress_note_params)
+    
+    if progress_note.save
+      render json: serialize_progress_note(progress_note)
+    else
+      render json: { errors: progress_note.errors.full_messages }, status: 422
+    end
   end
 
   def progress_note_params
@@ -13,5 +20,4 @@ class ProgressNotesController < ApplicationController
       :content
     )
   end
-
 end

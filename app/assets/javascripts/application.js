@@ -10,6 +10,8 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
+// third-party:
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
@@ -20,13 +22,15 @@
 //= require mustache.min
 //= require js.cookie
 //= require classList
-//= require_tree ./sorts
-//= require roster
-//= require roster_bulk_assignment
-//= require_tree ./charts
-//= require profile
-//= require profile_interventions
-//= require session_timeout_warning
-//= require datepicker
+//= require lodash.3.10.1.min
 //= require rounded-corners
+//= require handlebars.runtime
+
+// shared across application:
+//= require datepicker_config
+//= require session_timeout_warning
 //= require student-searchbar
+
+// pages:
+//= require_tree ./roster
+//= require_tree ./student

@@ -4,7 +4,7 @@ class Intervention < ActiveRecord::Base
   belongs_to :intervention_type
   belongs_to :school_year
   has_many :progress_notes, dependent: :destroy
-  validates_presence_of :student_id, :intervention_type_id, :start_date
+  validates :student, :intervention_type, :start_date, presence: true
   validate :end_date_cannot_come_before_start_date
   delegate :name, to: :intervention_type
   include DateToSchoolYear

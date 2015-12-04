@@ -7,6 +7,16 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
     xhr :get, :create, params  # AJAX
   end
 
+  def create_valid_bulk_assignment_params
+    {
+      student_ids: [FactoryGirl.create(:student).id],
+      intervention_type_id: '1',
+      comment: 'Useful comment!',
+      end_date: '2020/1/1',
+      educator_id: '1'
+    }
+  end
+
 	describe '#create' do
     before { make_request(params) }
     let!(:student) { FactoryGirl.create(:student) }
@@ -53,13 +63,9 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
     context 'invalid params' do
       context 'for one student' do
         context 'invalid date' do
-          let(:params) {
-            { bulk_intervention_assignment: {
-              student_ids: [student.id],
-              intervention_type_id: '1',
-              end_date: 'Halloween' }
-            }
-          }
+          let(:params) do
+            { bulk_intervention_assignment: create_valid_bulk_assignment_params.merge(end_date: 'Halloween') }
+          end
           it 'returns a detailed error message' do
             expect(assigns(:message)).to eq "invalid date"
           end
@@ -68,7 +74,9 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
           end
         end
         context 'missing intervention type' do
-          let(:params) { { bulk_intervention_assignment: { student_ids: [student.id] } } }
+          let(:params) do
+            { bulk_intervention_assignment: create_valid_bulk_assignment_params.except(:intervention_type_id) }
+          end
           it 'returns a detailed error message' do
             expect(assigns(:message)).to eq "Validation failed: Intervention type can't be blank"
           end
