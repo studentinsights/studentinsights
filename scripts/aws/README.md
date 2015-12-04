@@ -164,8 +164,6 @@ user  0m9.966s
 sys 0m1.821s
 ```
 
-```
-
 
 ## Provisioning instances for administrative access
 Awesome, so we created the instances and their DNS records.  Their setup scripts also provisioned them with other software like Docker that they'll need to function in production.  Now let's provision them so they have the proper users for accessing them through SSH.  This will be semi-automated, with scripts doing some work and walking you through the manual steps around enabling SSH access for users.  Also note that there may be a delay in running the initialization script when creating a new node (eg., it takes a minute or so to perform the "initializing" step and for the system log in the EC2 console to appear).
@@ -299,7 +297,7 @@ In general, when the primary Postgres instance goes completely down (e.g., the p
 #### Postgres container is stopped and removed
 This does nothing to the data on the EBS volume.  Start a new Postgres container up with the deploy script mounts the the EBS volume into the container, and it's back up.
 
-### EBS volume is unmounted
+#### EBS volume is unmounted
 This is dangerous - make sure to stop the Postgres container first.
 
 This is a bit confusing.  Running `sudo umount -d /dev/xvdf` unmounts the EBS volume.  But the running Docker container still can read from the database table just fine.  I thought this might just be cached in memory, but inserting worked as well.  There was the same behavior after stopping the running container, removing it, and starting another one.
