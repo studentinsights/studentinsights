@@ -16,9 +16,9 @@ echo "Cleaning previously built assets from dev or prod builds..."
 clean_assets
 
 echo "Building production assets..."
-docker-compose run webpack npm run build:production
+docker-compose run rails bundle exec rake assets:clean assets:precompile
 
-echo "Copying manifest to Rails and copying assets to S3..."
+echo "Copying assets to S3..."
 MANIFEST_FILE=webpack-assets.json
 mkdir -p rails/public/webpack_build/production
 cp volumes/webpack_build/production/$MANIFEST_FILE rails/public/webpack_build/production/$MANIFEST_FILE

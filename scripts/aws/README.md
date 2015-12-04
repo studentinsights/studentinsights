@@ -135,6 +135,7 @@ Created instance i-2d8febf4...
 Waiting for instance to be 'pending'...
 done.
 Creating postgres2001 name tag...
+Creating PostgresRole=primary tag...
 Waiting for instance to be 'running'...
 ............done.
 Adding DNS entry for postgres2001.exampledomain.com...
@@ -177,13 +178,12 @@ This is semi-automated since there are restrictions on running sudo commands wit
 Keep in mind this is intended for a small number of admins and developers actively working on the system, so for now there's not any more sophisticated permissioning system.  Granting users ssh access gives them full access to the production instance.
 
 ```
-$ scripts/aws/base/add_user.sh rails2001 krobinson ~/.ssh/krobinson-aws.pub
-Copying public key file /Users/krobinson/.ssh/krobinson-aws.pub for krobinson to rails2001.exampledomain.com...
-krobinson-aws.pub                                                                                                          100%  409     0.4KB/s   00:00
+$ aws/base/add_user.sh rails2001 krobinson ~/.ssh/krobinson.pub
+Copying public key file /Users/krobinson/.ssh/krobinson.pub for krobinson to rails2001.yourdomainname.com...
+krobinson.pub                                                                                              100%  409     0.4KB/s   00:00
 Copying remote script...
-add_user_remote.sh                                                                                                         100%  747     0.7KB/s   00:00
+add_user_remote.sh                                                                                             100%  668     0.7KB/s   00:00
 Changing permissions...
-scripts/aws/base/add_user.sh: line 38: scripts/aws/base/superuser_ssh: No such file or directory
 
 
 
@@ -195,7 +195,13 @@ Run this command on your local shell:
   $ ssh -o StrictHostKeyChecking=no -i /Users/krobinson/.ssh/pem/ec2-user.pem ec2-user@rails2001.exampledomain.com
 
 And then run this command on the remote box:
-  $ sudo /tmp/add_user_remote.sh krobinson && rm /tmp/add_user_remote.sh && exit
+  $ sudo /tmp/remote_add_user.sh krobinson && rm /tmp/remote_add_user.sh
+
+If you'd like to enable password-less sudo access, do it now.
+  $ sudo visudo # and make relevant edits
+
+All done on the remote box!
+  $ exit
 
 After that that user can ssh into the box with:
   $ ssh rails2001.exampledomain.com
@@ -205,20 +211,7 @@ Go ahead...
 
 Following those instructions will add the user, set them up for SSH-key-only access, and add them to the `wheel` group so they can perform `sudo` commands.  It will also add them to the `docker` group so that they can run Docker commands without `sudo`.
 
-#### Password-less sudo
-You can also set up password-less sudo, since these users will have SSH-key-only access and won't have passwords.  This will apply to all users.  You can use a helper script to ssh in:
-
-```
-$ scripts/aws/base/superuser_ssh.sh rails2001
-```
-
-and then remotely run:
-
-```
-sudo visudo
-```
-
-and uncomment out the line:
+You can also set up password-less sudo, since these users will have SSH-key-only access and won't have passwords.  This will apply to all users.  After running `sudo visudo` you can uncomment out this line:
 
 ```
 ## Same thing without a password
@@ -228,13 +221,36 @@ and uncomment out the line:
 This will let any user in `wheel` run commands as sudo, since they have SSH-key-only access and don't have passwords.
 
 
+## Building for production
+There is a [Travis build](https://travis-ci.org/codeforamerica/somerville-teacher-tool) set up for the project.  This will run tests for remote branches and pull requests, and is currently configured for a Heroku deploy.  This outlines steps for adapting that to an AWS deployment.
 
-## Building production containers
-There is a [Travis build](https://travis-ci.org/kevinrobinson/somerville-teacher-tool) set up for the project.  This will run tests for remote branches and pull requests, but also will build a production container on merges to master.  It also uploads asset artifacts to S3, so that the production container can point to them.
+Overall, this involves some changes to the Travis build related to building assets and building a production Rails container, and also some setup with S3 and CloudFront to serve those assets from a CDN.
+
+#### Serving assets from the CloudFront CDN
+Instead of serving assets from Rails instances, you can upload them to an S3 bucket and use CloudFront to serve them from a CDN.  This helps reduce latency for requests for assets.
+
+First, create a new S3 bucket for these asset in the AWS S3 UI (eg., 'somerville-teacher-tool-cdn').  Set the bucket policy so that public users are only able to make GET requests for individual objects:
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AddPerm",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::somerville-teacher-tool-cdn/*"
+    }
+  ]
+}
+```
+
+Next, switch over to the AWS CloudFront UI and create a new distribution pointing to the S3 bucket.  This should take effect within a minute or two and you can put some files in the bucket manually and then verify you can request them through the CloudFront domain.
+
+#### Building production containers
 
 If you'd like to build a production container you can do this locally or on a separate EC2 instance.  You'll need Docker Hub and AWS credentials configured, and then can run the `scripts/aws/rails/builds.sh` script.  Keep in mind this will push to the Docker Hub repository, and that subsequent deploys will pull from there.
-
-
 
 ## Deploying production containers
 If you're trying to deploy the service for the first time, you'll have to setup and seed the database first.  See the `First deploy!` section below.
