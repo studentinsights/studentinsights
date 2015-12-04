@@ -1,7 +1,7 @@
 # Remote script to start the production image on a provisioned Rails instance.
 #
-# usage: scripts/rails_deploy.sh POSTGRES_IP_ADDRESS
-POSTGRES_IP_ADDRESS=$1
+# usage: scripts/rails_deploy.sh DATABASE_URL
+DATABASE_URL=$1
 
 
 echo "Deploying Rails!"
@@ -28,7 +28,7 @@ docker run \
   -p 80:3000 \
   --name rails \
   -e 'RAILS_ENV=production' \
-  -e "DATABASE_URL=postgresql://postgres@$POSTGRES_IP_ADDRESS/homeroom_production" \
+  -e "DATABASE_URL=$DATABASE_URL" \
   kevinrobinson/somerville-teacher-tool:somerville_production_rails \
   bundle exec puma -t 5:5 -p 3000 -e production
 

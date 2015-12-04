@@ -1,4 +1,4 @@
-# Seeds the production database from a provisioned Rails instance.
+# Remote script to seed the production database from a Rails instance.
 # usage: scripts/rails_seed.sh POSTGRES_IP_ADDRESS
 POSTGRES_IP_ADDRESS=$1
 
