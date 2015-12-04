@@ -320,11 +320,10 @@ docker rm postgres
 sudo umount -d /dev/xvdf
 ```
 
-This didn't work, I wasn't able to manually unmount the EBS volume.
-
+This didn't work, I wasn't able to manually unmount the EBS volume.  TODO, needs more investigation
 
 #### Instance is rebooted
-
+TODO
 
 #### Instance is stopped
 First, let's bring the Postgres instance and process back up, and then we can deploy the Rails instances so that they point to the new IP for the primary Postgres node.  After they're healthy, ELB will put them back into service and the site will come back up.
@@ -332,6 +331,7 @@ First, let's bring the Postgres instance and process back up, and then we can de
 After starting up the Postgres node, the EBS volume will still be attached, and `/etc/fstab` will still have the entry to mount it at `/mnt/ebs-a`.  You should be able to see the Postgres data folder in `/mnt/ebs-a`, although it will require sudo permissions to see inside.
 
 #### Instance is terminated
+TODO
 
 
 ## Destroying things
