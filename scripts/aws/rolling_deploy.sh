@@ -6,6 +6,6 @@ END_NUMBER=$3
 
 echo "Deploying all '$ROLE' instances..."
 for NUMBER in `seq $START_NUMBER $END_NUMBER`;
-  do echo; echo; aws/$ROLE/deploy.sh $ROLE$NUMBER;
+  do echo; echo; scripts/aws/$ROLE/deploy.sh $ROLE$NUMBER;
 done
 echo "Done."

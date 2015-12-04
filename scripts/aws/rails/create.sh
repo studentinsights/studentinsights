@@ -2,10 +2,10 @@
 # example: rails_create.sh INSTANCE_NAME
 INSTANCE_NAME=$1
 
-source aws/config.sh
+source scripts/aws/config.sh
 
 
-echo "Creating startup script for Postgres instance..."
+echo "Creating startup script for Rails instance..."
 STARTUP_SCRIPT_TMPFILE=$(mktemp)
 cat > $STARTUP_SCRIPT_TMPFILE <<EOL
 #!/bin/bash
@@ -19,21 +19,22 @@ INSTANCE_ID=$(aws ec2 run-instances \
   --instance-type t2.micro \
   --key-name $KEY_NAME \
   --security-group-ids $SG_DEFAULT $SG_SSH_ACCESS $SG_WEB_TRAFFIC \
+  --user-data file://$STARTUP_SCRIPT_TMPFILE \
   --output text \
   --query 'Instances[*].InstanceId')
 echo "Created $INSTANCE_ID..."
 
 echo "Waiting for instance to be 'pending'..."
-aws/base/wait_for_instance_state.sh $INSTANCE_ID pending
+scripts/aws/base/wait_for_instance_state.sh $INSTANCE_ID pending
 
 echo "Creating $INSTANCE_NAME name tag..."
 TAG_RESPONSE=$(aws ec2 create-tags --resources $INSTANCE_ID --tags Key=Name,Value=$INSTANCE_NAME)
 
 echo "Waiting for instance to be 'running'..."
-aws/base/wait_for_instance_state.sh $INSTANCE_ID running
+scripts/aws/base/wait_for_instance_state.sh $INSTANCE_ID running
 
 echo "Adding DNS entry for $INSTANCE_NAME.$DOMAIN_NAME..."
-aws/base/create_dns_record.sh $INSTANCE_ID $INSTANCE_NAME.$DOMAIN_NAME
+scripts/aws/base/create_dns_record.sh $INSTANCE_ID $INSTANCE_NAME.$DOMAIN_NAME
 
 echo "Done creating Rails instance."
 echo $INSTANCE_ID

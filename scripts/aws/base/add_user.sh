@@ -7,7 +7,7 @@ INSTANCE_NAME=$1
 USERNAME=$2
 PUBLIC_KEY_FILE=$3
 
-source aws/config.sh
+source scripts/aws/config.sh
 
 function superuser_scp {
   SOURCE=$1
@@ -32,10 +32,10 @@ echo "Copying public key file $PUBLIC_KEY_FILE for $USERNAME to $INSTANCE_NAME.$
 superuser_scp $PUBLIC_KEY_FILE /tmp/$USERNAME.pub
 
 echo "Copying remote script..."
-superuser_scp aws/base/add_user_remote.sh /tmp/add_user_remote.sh
+superuser_scp scripts/aws/base/add_user_remote.sh /tmp/add_user_remote.sh
 
 echo "Changing permissions..."
-aws/base/superuser_ssh chmod u+x /tmp/add_user_remote.sh
+scripts/aws/base/superuser_ssh chmod u+x /tmp/add_user_remote.sh
 
 echo;echo;echo;
 echo "Ready!"

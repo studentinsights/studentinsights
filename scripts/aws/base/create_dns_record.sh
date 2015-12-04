@@ -6,11 +6,11 @@
 INSTANCE_ID=$1
 FULL_DOMAIN_NAME=$2
 
-source aws/config.sh
+source scripts/aws/config.sh
 
 
 echo "Looking up IP address for $INSTANCE_ID..."
-IP_ADDRESS=$(aws/base/ip_for_instance.sh $INSTANCE_ID)
+IP_ADDRESS=$(scripts/aws/base/ip_for_instance.sh $INSTANCE_ID)
 echo "IP address is: $IP_ADDRESS"
 
 TMPFILE=$(mktemp)

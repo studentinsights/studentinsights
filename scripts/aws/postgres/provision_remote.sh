@@ -20,4 +20,4 @@ rm /etc/fstab.orig
 echo "Done mounting $STORAGE_DEVICE at $MOUNT_POINT."
 
 # In order to first stand up the database, you'll also need to seed it from a production Rails
-# container.  See aws/rails/seed.sh
+# container.  See scripts/aws/rails/seed.sh
