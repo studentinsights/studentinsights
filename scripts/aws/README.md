@@ -8,7 +8,7 @@ These scripts are minimal and intended to be semi-automated rather than a one-bu
 
 The steps here are for setting up a domain and load balancer in front of a few Rails instances, with front-end assets served from CloudFront.  The Rails instances talk to a primary Postgres node that stores data on a separate EBS volume.
 
-This does not cover some important features for a production deploy, most notably Postgres availability, backup or failover.
+This does not cover some important features for a production deploy, most notably Postgres availability, backup or failover.  It also has Puma directly serving requests to ELB (rather than Nginx or another pure HTTP server in between).
 
 
 ## Caveats
@@ -178,7 +178,7 @@ This is semi-automated since there are restrictions on running sudo commands wit
 Keep in mind this is intended for a small number of admins and developers actively working on the system, so for now there's not any more sophisticated permissioning system.  Granting users ssh access gives them full access to the production instance.
 
 ```
-$ aws/base/add_user.sh rails2001 krobinson ~/.ssh/krobinson.pub
+$ scripts/aws/base/add_user.sh rails2001 krobinson ~/.ssh/krobinson.pub
 Copying public key file /Users/krobinson/.ssh/krobinson.pub for krobinson to rails2001.yourdomainname.com...
 krobinson.pub                                                                                              100%  409     0.4KB/s   00:00
 Copying remote script...
@@ -229,7 +229,7 @@ Overall, this involves some changes to the Travis build related to building asse
 #### Serving assets from the CloudFront CDN
 Instead of serving assets from Rails instances, you can upload them to an S3 bucket and use CloudFront to serve them from a CDN.  This helps reduce latency for requests for assets.
 
-First, create a new S3 bucket for these asset in the AWS S3 UI (eg., 'somerville-teacher-tool-cdn').  Set the bucket policy so that public users are only able to make GET requests for individual objects:
+First, create a new S3 bucket for these asset in the AWS S3 UI (eg., 'cdn-somerville-teacher-tool').  Set the bucket policy so that public users are only able to make GET requests for individual objects:
 
 ```
 {
@@ -240,17 +240,29 @@ First, create a new S3 bucket for these asset in the AWS S3 UI (eg., 'somerville
       "Effect": "Allow",
       "Principal": "*",
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::somerville-teacher-tool-cdn/*"
+      "Resource": "arn:aws:s3:::cdn-somerville-teacher-tool/*"
     }
   ]
 }
 ```
 
-Next, switch over to the AWS CloudFront UI and create a new distribution pointing to the S3 bucket.  This should take effect within a minute or two and you can put some files in the bucket manually and then verify you can request them through the CloudFront domain.
+You can click into a file in the S3 UI and then verify the policy allows access by opening one of the test assets in a browser at the S3 URL (eg., `https://s3-us-west-2.amazonaws.com/cdn-somerville-teacher-tool/test.txt`).
 
-#### Building production containers
+Next, switch over to the AWS CloudFront UI and create a new distribution pointing to the S3 bucket.  You might also want to point it to a specific folder (eg., `/production/assets`, which is what the rest of this walkthrough assumes).  This should take effect within a minute or two and you can put some files in the bucket manually and then verify you can request them at the new domain CloudFront creates.
 
-If you'd like to build a production container you can do this locally or on a separate EC2 instance.  You'll need Docker Hub and AWS credentials configured, and then can run the `scripts/aws/rails/builds.sh` script.  Keep in mind this will push to the Docker Hub repository, and that subsequent deploys will pull from there.
+#### Building a production Rails container
+The steps here are to:
+
+  1. build production assets for Rails
+  2. push assets to S3
+  3. build production Rails container
+  4. push container to Docker Hub
+
+If you'd like to build a production container you can do this locally, on a separate EC2 instance, or as part of a Travis build on merging to master.  You'll need Docker Hub and AWS credentials configured, and then can run the `scripts/aws/rails/builds.sh` script.  Keep in mind this will push to the Docker Hub repository, and that subsequent deploys will pull from there.  Some details will need to be adjusted and then tested.
+
+#### Travis workflow for building on merge to master
+Check out `.travis.yml` for comments on what needs to be updated, and `scripts/aws/build_from_travis.sh`, which detects whether it's the master branch and then performs the build.
+
 
 ## Deploying production containers
 If you're trying to deploy the service for the first time, you'll have to setup and seed the database first.  See the `First deploy!` section below.

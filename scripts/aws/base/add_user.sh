@@ -35,7 +35,7 @@ echo "Copying remote script..."
 superuser_scp scripts/aws/base/remote_add_user.sh /tmp/remote_add_user.sh
 
 echo "Changing permissions..."
-scripts/aws/base/superuser_ssh chmod u+x /tmp/remote_add_user.sh
+superuser_ssh chmod u+x /tmp/remote_add_user.sh
 
 echo;echo;echo;
 echo "Ready!"

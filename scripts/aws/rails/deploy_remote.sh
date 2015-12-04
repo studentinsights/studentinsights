@@ -7,7 +7,7 @@ POSTGRES_IP_ADDRESS=$1
 echo "Deploying Rails!"
 
 echo "Pulling latest container..."
-docker pull kevinrobinson/somerville-teacher-tool:production_rails
+docker pull kevinrobinson/somerville-teacher-tool:somerville_production_rails
 
 # Stop the container if it's already running
 # TODO(kr) This isn't a great idea for a real production system, bouncing the container
@@ -29,7 +29,7 @@ docker run \
   --name rails \
   -e 'RAILS_ENV=production' \
   -e "DATABASE_URL=postgresql://postgres@$POSTGRES_IP_ADDRESS/homeroom_production" \
-  kevinrobinson/somerville-teacher-tool:production_rails \
+  kevinrobinson/somerville-teacher-tool:somerville_production_rails \
   bundle exec puma -t 5:5 -p 3000 -e production
 
 # TODO(kr) nginx
