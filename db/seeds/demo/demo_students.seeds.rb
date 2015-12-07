@@ -20,16 +20,12 @@ AttendanceEvent.destroy_all
 InterventionType.destroy_all
 InterventionType.seed_somerville_intervention_types
 
-Assessment.create!(family: "MCAS", subject: "Math")
-Assessment.create!(family: "MCAS", subject: "ELA")
-Assessment.create!(family: "STAR", subject: "Math")
-Assessment.create!(family: "STAR", subject: "Reading")
-Assessment.create!(family: "ACCESS")
-Assessment.create!(family: "DIBELS")
+puts "Creating assessments..."
+Assessment.seed_somerville_assessments
 
-puts "Create students for homeroom #1..."
+puts "Creating students for homeroom #1..."
 15.times { create_demo_student(Homeroom.first) }
-puts "Create students for homeroom #2..."
+puts "Creating students for homeroom #2..."
 15.times { create_demo_student(Homeroom.last) }
 
 Student.update_risk_levels

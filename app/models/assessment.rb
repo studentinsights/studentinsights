@@ -2,6 +2,17 @@ class Assessment < ActiveRecord::Base
   has_many :student_assessments
   has_many :students, through: :student_assessments
 
+  def self.seed_somerville_assessments
+    Assessment.create!([
+      { family: "MCAS", subject: "Math" },
+      { family: "MCAS", subject: "ELA" },
+      { family: "STAR", subject: "Math" },
+      { family: "STAR", subject: "Reading" },
+      { family: "ACCESS" },
+      { family: "DIBELS" }
+    ])
+  end
+
   def self.mcas_ela; where(family: "MCAS", subject: "ELA").last_or_missing end
 
   def self.mcas_math; where(family: "MCAS", subject: "Math").last_or_missing end
