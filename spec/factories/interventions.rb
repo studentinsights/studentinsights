@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :intervention do
     association :student
+    association :intervention_type
     start_date Date.new(2014, 9, 9)
     number_of_hours 10
     trait :end_date do
