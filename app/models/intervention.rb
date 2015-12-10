@@ -28,8 +28,20 @@ class Intervention < ActiveRecord::Base
     end
   end
 
+  def to_highcharts
+    {
+      start_date: { year: start_date.year, month: start_date.month, day: start_date.day },
+      end_date: { year: end_date.year, month: end_date.month, day: end_date.day },
+      name: name
+    }
+  end
+
   def self.most_recent_atp
     where(intervention_type_id: InterventionType.atp.id).order(start_date: :asc).first
+  end
+
+  def self.with_start_and_end_dates
+    where.not(start_date: nil).where.not(end_date: nil)
   end
 
 end
