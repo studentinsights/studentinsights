@@ -2,6 +2,16 @@ require 'rails_helper'
 
 RSpec.describe StudentProfileChart do
 
+  describe '#prepare_student_assessments' do
+    let(:student_assessment) { FactoryGirl.create(:star_math_warning_assessment) }
+    let(:input) { [student_assessment] }
+    let(:student_profile_chart) { StudentProfileChart.new }
+    it 'converts the student assessment to highcharts format' do
+      result = student_profile_chart.prepare_student_assessments(input, :percentile_rank)
+      expect(result).to eq [[2015, 6, 19, 8]]
+    end
+  end
+
   def generate_attendance_events(absences, tardies)
     arr = []
     absences.times do

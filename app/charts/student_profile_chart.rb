@@ -1,8 +1,9 @@
 class StudentProfileChart < Struct.new :data
 
   def prepare_student_assessments(student_assessments, score)
-    return if data[:student_assessments].is_a?(MissingStudentAssessmentCollection) || data[:student_assessments].is_a?(MissingStudentAssessment)
-    student_assessments.map { |s| [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score)] }
+    student_assessments.map do |s|
+      [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score)]
+    end
   end
 
   def prepare_interventions(interventions)
