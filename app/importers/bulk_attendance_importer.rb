@@ -1,6 +1,5 @@
 class BulkAttendanceImporter
   include Connector
-  include DateToSchoolYear
 
   def import(data)
     sql_rows = make_sql_rows(data)
@@ -14,7 +13,7 @@ class BulkAttendanceImporter
     ActiveRecord::Base.transaction do
       data.each do |row|
         student = Student.where(local_id: row[:local_id]).first_or_create!
-        school_year = date_to_school_year(row[:event_date])
+        school_year = DateToSchoolYear.new(row[:event_date]).convert
         sql_row = "(#{student.id}, '#{row[:absence]}', '#{row[:tardy]}', '#{row[:event_date]}', '#{school_year.id}', clock_timestamp(), clock_timestamp())"
         sql_rows.push(sql_row)
       end

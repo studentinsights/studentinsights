@@ -1,42 +1,46 @@
-class StudentSchoolYear < Struct.new :student, :school_year
+class StudentSchoolYear < ActiveRecord::Base
+  belongs_to :student
+  belongs_to :school_year
+  has_many :attendance_events
+  has_many :student_assessments
+  has_many :discipline_incidents
+  has_many :interventions
   delegate :name, to: :school_year
+  default_scope { joins(:school_year).order('school_years.start DESC') }
 
-  def student_school_year_assessments
-    student.student_assessments.where(school_year_id: school_year.id)
+  def mcas_math_result
+    student_assessments.latest
+                       .by_family_and_subject("MCAS", "Math")
+                       .first_or_missing
   end
 
-  def student_school_year_attendance_summary
-    events = student.attendance_events.where(school_year_id: school_year.id)
-    {
-      tardies: events.where(tardy: true).size,
-      absences: events.where(absence: true).size
-    }
+  def mcas_ela_result
+    student_assessments.latest
+                       .by_family_and_subject("MCAS", "ELA")
+                       .first_or_missing
   end
 
-  def student_school_year_discipline_incidents
-    student.discipline_incidents.where(school_year_id: school_year.id)
+  def star
+    student_assessments.by_family("STAR")
+                       .group_by { |result| result.date_taken }
   end
 
-  def assessment_events
-    {
-      mcas_math_result: student_school_year_assessments.latest_mcas_math,
-      mcas_ela_result: student_school_year_assessments.latest_mcas_ela,
-      star: student_school_year_assessments.star.group_by { |result| result.date_taken },
-      dibels: student_school_year_assessments.dibels,
-      access: student_school_year_assessments.access
-    }
+  def dibels
+    student_assessments.by_family("DIBELS")
+                       .order_or_missing
   end
 
-  def attendance_discipline_events
-    {
-      attendance_events_summary: student_school_year_attendance_summary,
-      discipline_incidents: student_school_year_discipline_incidents,
-      discipline_incidents_count: student_school_year_discipline_incidents.count
-    }
+  def access
+    student_assessments.latest
+                       .by_family("ACCESS").first_or_missing
   end
 
-  def events
-    assessment_events.merge(attendance_discipline_events)
+  def absences
+    attendance_events.where(absence: true).count
+  end
+
+  def tardies
+    attendance_events.where(tardy: true).count
   end
 
 end

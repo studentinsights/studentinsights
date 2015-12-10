@@ -1,6 +1,66 @@
 require 'rails_helper'
 
 RSpec.describe StudentAssessment, :type => :model do
+  describe '.latest' do
+    let!(:first_assessment) { FactoryGirl.create(:student_assessment, date_taken: 3.years.ago) }
+    let!(:last_assessment) { FactoryGirl.create(:student_assessment, date_taken: 1.year.ago) }
+
+    it 'orders student assessment by date taken' do
+      expect(StudentAssessment.latest).to eq([last_assessment, first_assessment])
+    end
+  end
+
+  describe '.first_or_missing' do
+    context 'when there are student assessments' do
+      let!(:assessment) { FactoryGirl.create(:student_assessment) }
+      it 'returns the first one' do
+        expect(StudentAssessment.first_or_missing).to eq assessment
+      end
+    end
+    context 'when there are no student assessments' do
+      it 'returns a MissingStudentAssessment' do
+        expect(StudentAssessment.first_or_missing).to be_a MissingStudentAssessment
+      end
+    end
+  end
+
+  describe '.by_family_and_subject' do
+    let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
+    context 'MCAS & math' do
+      let(:result) { StudentAssessment.by_family_and_subject("MCAS", "Math") }
+      context 'there are only MCAS math student assessments' do
+        let(:assessment) { FactoryGirl.create(:assessment, :mcas, :math) }
+        it 'returns the MCAS and math student assessments' do
+          expect(result).to eq([student_assessment])
+        end
+      end
+      context 'there are MCAS reading student assessments' do
+        let(:assessment) { FactoryGirl.create(:assessment, :mcas, :reading) }
+        it 'returns an empty association' do
+          expect(result).to be_empty
+        end
+      end
+    end
+  end
+
+  describe '.by_family' do
+    let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
+    context 'ACCESS' do
+      context 'there are only ACCESS student assessments' do
+        let(:assessment) { FactoryGirl.create(:assessment, :access) }
+        it 'returns the ACCESS student assessments' do
+          expect(StudentAssessment.by_family("ACCESS")).to eq([student_assessment])
+        end
+      end
+      context 'there are no ACCESS student assessments' do
+        let(:assessment) { FactoryGirl.create(:assessment, :star) }
+        it 'returns an empty association' do
+          expect(StudentAssessment.by_family("ACCESS")).to be_empty
+        end
+      end
+    end
+  end
+
   describe '#assign_to_school_year' do
     context 'has date taken' do
       let(:student_assessment) { FactoryGirl.create(:student_assessment) }
@@ -9,9 +69,9 @@ RSpec.describe StudentAssessment, :type => :model do
       end
     end
     context 'does not have date taken' do
-      let(:student_assessment) { FactoryGirl.create(:student_assessment_without_date_taken) }
-      it 'raises an error' do
-        expect { student_assessment.save }.to raise_error NoMethodError
+      let(:student_assessment) { FactoryGirl.build(:student_assessment_without_date_taken) }
+      it 'is invalid' do
+        expect(student_assessment).not_to be_valid
       end
     end
   end

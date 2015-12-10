@@ -30,9 +30,9 @@ describe 'educator views student profile', :type => :feature do
         expect(page).to have_content 'No absences or tardies'
       end
     end
-    context 'student has discipline incidents' do
-      let!(:student) { FactoryGirl.create(:student_with_attendance_event) }
-      it 'shows the discipline incident' do
+    context 'student has absence' do
+      let!(:student) { FactoryGirl.create(:student_with_absence_in_january_2015) }
+      it 'shows the absence' do
         expect(page).not_to have_content 'No absences or tardies'
       end
     end

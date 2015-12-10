@@ -1,41 +1,41 @@
   <div class="school-year">
 
     <div class="year">
-      <h1><%= student_school_year.name %></h1>
+      <h1><%= school_year.name %></h1>
     </div>
 
-    <% unless events[:mcas_math_result].is_a?(MissingStudentAssessment) && events[:mcas_ela_result].is_a?(MissingStudentAssessment)  # Since there is only one MCAS result per student per year %>
+    <% unless school_year.mcas_math_result.is_a?(MissingStudentAssessment) && school_year.mcas_ela_result.is_a?(MissingStudentAssessment)  # Since there is only one MCAS result per student per year %>
       <div class="section mcas-result-section">
         <h2 class="section-header">MCAS</h2>
-        <% unless events[:mcas_ela_result].is_a?(MissingStudentAssessment) %>
+        <% unless school_year.mcas_ela_result.is_a?(MissingStudentAssessment) %>
           <h3 class="assessment-type">English</h3>
           <div class="assessment-dark-background mcas-ela-values">
             <div class="values">
-              <p>Performance: <strong><%= StudentAssessmentPresenter.new(events[:mcas_ela_result]).performance_level %></strong></p>
+              <p>Performance: <strong><%= StudentAssessmentPresenter.new(school_year.mcas_ela_result).performance_level %></strong></p>
             </div>
             <div class="values">
-              <p>Scaled Score: <strong><%= StudentAssessmentPresenter.new(events[:mcas_ela_result]).scale_score %></strong></p>
+              <p>Scaled Score: <strong><%= StudentAssessmentPresenter.new(school_year.mcas_ela_result).scale_score %></strong></p>
             </div>
           </div>
         <% end %>
-        <% unless events[:mcas_math_result].is_a?(MissingStudentAssessment) %>
+        <% unless school_year.mcas_math_result.is_a?(MissingStudentAssessment) %>
           <h3 class="assessment-type">Math</h3>
           <div class="assessment-dark-background mcas-math-values">
             <div class="values">
-              <p>Performance: <strong><%= StudentAssessmentPresenter.new(events[:mcas_math_result]).performance_level %></strong></p>
+              <p>Performance: <strong><%= StudentAssessmentPresenter.new(school_year.mcas_math_result).performance_level %></strong></p>
             </div>
             <div class="values">
-              <p>Scaled Score: <strong><%= StudentAssessmentPresenter.new(events[:mcas_math_result]).scale_score %></strong></p>
+              <p>Scaled Score: <strong><%= StudentAssessmentPresenter.new(school_year.mcas_math_result).scale_score %></strong></p>
             </div>
           </div>
         <% end %>
       </div>
     <% end %>
 
-    <% unless events[:star].is_a?(MissingStudentAssessmentCollection) %>
+    <% if school_year.star.any? %>
       <div class="section star-result-section">
         <h2 class="section-header">STAR</h2>
-        <% events[:star].each do |date, results| %>
+        <% school_year.star.each do |date, results| %>
           <h3 class="assessment-type"><%= date.strftime("%B %e, %Y") %></h3>
           <div class="assessment-dark-background">
             <% results.each do |r| %>
@@ -60,10 +60,10 @@
     <% end %>
 
     <!-- DIBELS -->
-    <% unless events[:dibels].is_a?(MissingStudentAssessmentCollection) %>
+    <% unless school_year.dibels.is_a?(MissingStudentAssessmentCollection) %>
       <div class="section dibels-result-section">
         <h2 class="section-header">DIBELS</h2>
-        <% events[:dibels].each do |e| %>
+        <% school_year.dibels.each do |e| %>
           <% if e.performance_level.present? %>
             <div class="assessment-dark-background dibels-values">
               <div class="values dibels-list">
@@ -86,19 +86,19 @@
     <% end %>
 
     <!-- ACCESS -->
-    <% unless events[:access].is_a?(MissingStudentAssessment) %>
+    <% unless school_year.access.is_a?(MissingStudentAssessment) %>
       <div class="section access-result-section">
         <h2 class="section-header">ACCESS</h2>
         <h3 class="assessment-type">Overall</h3>
         <div class="assessment-dark-background access-values">
           <div class="values">
-            <p>Score: <strong><%= StudentAssessmentPresenter.new(events[:access]).scale_score %></strong></p>
+            <p>Score: <strong><%= StudentAssessmentPresenter.new(school_year.access).scale_score %></strong></p>
           </div>
           <div class="values">
-            <p>Growth: <strong><%= StudentAssessmentPresenter.new(events[:access]).growth_percentile %></strong></p>
+            <p>Growth: <strong><%= StudentAssessmentPresenter.new(school_year.access).growth_percentile %></strong></p>
           </div>
           <div class="values">
-            <p>Level: <strong><%= StudentAssessmentPresenter.new(events[:access]).performance_level %></strong></p>
+            <p>Level: <strong><%= StudentAssessmentPresenter.new(school_year.access).performance_level %></strong></p>
           </div>
         </div>
       </div>
@@ -106,12 +106,12 @@
 
     <div class="section attendance-section">
       <h2 class="section-header">Attendance</h2>
-      <% if events[:attendance_events_summary][:absences] > 0 || events[:attendance_events_summary][:tardies] > 0 %>
+      <% if school_year.absences > 0 || school_year.tardies > 0 %>
         <div class="values">
-          <p>Absences: <strong><%= events[:attendance_events_summary][:absences] %></strong></p>
+          <p>Absences: <strong><%= school_year.absences %></strong></p>
         </div>
         <div class="values">
-          <p>Tardies <strong><%= events[:attendance_events_summary][:tardies] %></strong></p>
+          <p>Tardies <strong><%= school_year.tardies %></strong></p>
         </div>
       <% else %>
         <p class="attendance-type">No absences or tardies</p>
@@ -120,8 +120,8 @@
 
     <div class="section behavior-section">
       <h2 class="section-header">Behavior</h2>
-      <% if events[:discipline_incidents].present? %>
-          <% events[:discipline_incidents].each do |d| %>
+      <% if school_year.discipline_incidents.present? %>
+          <% school_year.discipline_incidents.each do |d| %>
             <div class="referral">
               <p><strong>Code:</strong>  <%= d.incident_code %></p>
               <p><strong>Description:</strong>  <%= d.incident_description %></p>

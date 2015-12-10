@@ -1,5 +1,6 @@
-module DateToSchoolYear
-  def date_to_school_year(event_date)
+class DateToSchoolYear < Struct.new :event_date
+
+  def convert
     # If month is Aug to Dec, event falls in first half of school year
     # If month is Jan to Jul, event falls in second half of school year
     month, year = event_date.month, event_date.year
@@ -13,4 +14,5 @@ module DateToSchoolYear
     school_year.update(start: Date.new(year_start.to_i, 8, 1))
     return school_year
   end
+
 end
