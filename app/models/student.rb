@@ -80,6 +80,7 @@ class Student < ActiveRecord::Base
   def serialized_student_data
     {
       student: self,
+      student_assessments: student_assessments,
       star_math_results: star_math_results,
       star_reading_results: star_reading_results,
       mcas_math_results: mcas_math_results,
@@ -87,7 +88,8 @@ class Student < ActiveRecord::Base
       attendance_events_by_school_year: attendance_events_by_school_year,
       discipline_incidents_by_school_year: discipline_incidents_by_school_year,
       attendance_events_school_years: attendance_events_school_years,
-      behavior_events_school_years: behavior_events_school_years
+      behavior_events_school_years: behavior_events_school_years,
+      interventions: interventions
     }
   end
 

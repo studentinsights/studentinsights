@@ -1,39 +1,13 @@
-class StudentProfileChart
-
-  attr_accessor :student,
-    :star_math_results,
-    :star_reading_results,
-    :mcas_math_results,
-    :mcas_ela_results,
-    :mcas_math_results,
-    :mcas_ela_results,
-    :attendance_events_by_school_year,
-    :discipline_incidents_by_school_year,
-    :attendance_events_school_years,
-    :behavior_events_school_years
-
-  def initialize(options)
-    @student = options[:student]
-    @star_math_results = options[:star_math_results]
-    @star_reading_results = options[:star_reading_results]
-    @mcas_math_results = options[:mcas_math_results]
-    @mcas_ela_results = options[:mcas_ela_results]
-    @mcas_math_results = options[:mcas_math_results]
-    @mcas_ela_results = options[:mcas_ela_results]
-    @attendance_events_by_school_year = options[:attendance_events_by_school_year]
-    @discipline_incidents_by_school_year = options[:discipline_incidents_by_school_year]
-    @attendance_events_school_years = options[:attendance_events_school_years]
-    @behavior_events_school_years = options[:behavior_events_school_years]
-  end
+class StudentProfileChart < Struct.new :data
 
   def prepare_student_assessments(student_assessments, score)
-    return if student_assessments.is_a?(MissingStudentAssessmentCollection) || student_assessments.is_a?(MissingStudentAssessment)
-    student_assessments.map { |s| [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score)] }
+    return if data[:student_assessments].is_a?(MissingStudentAssessmentCollection) || data[:student_assessments].is_a?(MissingStudentAssessment)
+    data[:student_assessments].map { |s| [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.send(score)] }
   end
 
   def prepare_interventions(interventions)
-    return if interventions.blank?
-    interventions_with_start_and_end_dates = interventions.select do |i|
+    return if data[:interventions].blank?
+    interventions_with_start_and_end_dates = data[:interventions].select do |i|
       i.start_date.present? && i.end_date.present?
     end
     interventions_with_start_and_end_dates.map do |i|
@@ -49,18 +23,18 @@ class StudentProfileChart
 
   def chart_data
     {
-      attendance_series_absences: attendance_series_absences(attendance_events_by_school_year),
-      attendance_series_tardies: attendance_series_tardies(attendance_events_by_school_year),
-      attendance_events_school_years: attendance_events_school_years,
-      behavior_series: behavior_series,
-      behavior_series_school_years: behavior_events_school_years,
-      star_series_math_percentile: prepare_student_assessments(star_math_results, :percentile_rank),
-      star_series_reading_percentile: prepare_student_assessments(star_reading_results, :percentile_rank),
-      mcas_series_math_scaled: prepare_student_assessments(mcas_math_results, :scale_score),
-      mcas_series_ela_scaled: prepare_student_assessments(mcas_ela_results, :scale_score),
-      mcas_series_math_growth: prepare_student_assessments(mcas_math_results, :growth_percentile),
-      mcas_series_ela_growth: prepare_student_assessments(mcas_ela_results, :growth_percentile),
-      interventions: prepare_interventions(student.interventions.to_a)
+      attendance_series_absences: attendance_series_absences(data[:attendance_events_by_school_year]),
+      attendance_series_tardies: attendance_series_tardies(data[:attendance_events_by_school_year]),
+      attendance_events_school_years: data[:attendance_events_school_years],
+      behavior_series: data[:behavior_series],
+      behavior_series_school_years: data[:behavior_events_school_years],
+      star_series_math_percentile: prepare_student_assessments(data[:star_math_results], :percentile_rank),
+      star_series_reading_percentile: prepare_student_assessments(data[:star_reading_results], :percentile_rank),
+      mcas_series_math_scaled: prepare_student_assessments(data[:mcas_math_results], :scale_score),
+      mcas_series_ela_scaled: prepare_student_assessments(data[:mcas_ela_results], :scale_score),
+      mcas_series_math_growth: prepare_student_assessments(data[:mcas_math_results], :growth_percentile),
+      mcas_series_ela_growth: prepare_student_assessments(data[:mcas_ela_results], :growth_percentile),
+      interventions: prepare_interventions(data[:interventions].to_a)
     }
   end
 
@@ -79,6 +53,6 @@ class StudentProfileChart
   end
 
   def behavior_series
-    discipline_incidents_by_school_year.values.map { |v| v.size }.reverse
+    data[:discipline_incidents_by_school_year].values.map { |v| v.size }.reverse
   end
 end
