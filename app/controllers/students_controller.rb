@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  include SerializeInterventionHelper
 
   before_action :authenticate_educator!
 
@@ -20,9 +21,8 @@ class StudentsController < ApplicationController
       :interventions
     )
 
-    @intervention = Intervention.new
-    @interventions = @student.interventions.order(start_date: :desc)
-    @progress_note = ProgressNote.new
+    interventions = @student.interventions.order(start_date: :desc)
+    @serialized_interventions = interventions.map { |intervention| serialize_intervention(intervention) }
 
     @roster_url = homeroom_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
@@ -56,5 +56,4 @@ class StudentsController < ApplicationController
       format.json { render json: @result }
     end
   end
-
 end

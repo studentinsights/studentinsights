@@ -28,8 +28,6 @@
 }
 
 #interventions-tab {
-  display: none;  /* Initializes closed */
-
   .intervention-cell {
     padding: 20px;
     border-top: 1px solid $light-line;
@@ -49,11 +47,7 @@
     p {
       margin-bottom: 20px;
     }
-    .add-progress-note {
-      display: block;
-    }
     .add-progress-note-area {
-      display: none;
       .btn {
         float: left;
         margin: 20px 10px 20px 0;
@@ -61,41 +55,46 @@
     }
   }
 
-  #open-intervention-form {
+  .zero-interventions {
+    padding: 25px;
+  }
+
+  .add-new-intervention {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     padding: 5px 20px 0 20px;
     cursor: pointer;
 
-    #add-intervention-plus-sign {
+    .add-intervention-plus-sign {
       color: $light-line;
       font-size: 50px;
       font-weight: bold;
     }
 
-    #add-intervention-text {
+    .add-intervention-text {
       position: relative;
       bottom: 12px;
     }
   }
 
-  #open-intervention-form.selected {
+  .add-new-intervention.selected {
     background-color: $blue;
-    h1, #add-intervention-plus-sign {
+    h1, .add-intervention-plus-sign {
       color: white;
     }
   }
 
-  #open-intervention-form.solo {
+  .add-new-intervention.solo {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
   }
 
-  form.new_intervention {
+  form.new-intervention-form {
     padding: 15px 30px;
 
     h1 {
       border-bottom: 1px solid $light-line;
+      margin-bottom: 20px;
     }
     label {
       display: block;
