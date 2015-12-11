@@ -16,21 +16,21 @@ class Student < ActiveRecord::Base
 
   def latest_result_by_family_and_subject(family_name, subject_name)
     self.student_assessments
-        .latest
         .by_family_and_subject(family_name, subject_name)
-        .first_or_missing
+        .order_by_date_taken_asc
+        .last
   end
 
   def ordered_results_by_family_and_subject(family_name, subject_name)
     self.student_assessments
         .by_family_and_subject(family_name, subject_name)
-        .order_or_missing
+        .order_by_date_taken_asc
   end
 
   def ordered_results_by_family(family_name)
     self.student_assessments
         .by_family(family_name)
-        .order_or_missing
+        .order_by_date_taken_asc
   end
 
   def mcas_math_results
@@ -57,24 +57,22 @@ class Student < ActiveRecord::Base
     ordered_results_by_family("ACCESS")
   end
 
-  def attendance_events_by_school_year
-    Hash[student_school_years.includes(:attendance_events, :school_year).map do |s|
-      [s.name, s.attendance_events]
-    end]
+  def absences_count_by_school_year
+    student_school_years.includes(:attendance_events).map do |s|
+      s.attendance_events.absences_count
+    end
   end
 
-  def discipline_incidents_by_school_year
-    Hash[student_school_years.includes(:discipline_incidents, :school_year).map do |s|
-      [s.name, s.discipline_incidents]
-    end]
+  def tardies_count_by_school_year
+    student_school_years.includes(:attendance_events).map do |s|
+      s.attendance_events.tardies_count
+    end
   end
 
-  def attendance_events_school_years
-    attendance_events_by_school_year.keys
-  end
-
-  def behavior_events_school_years
-    discipline_incidents_by_school_year.keys
+  def discipline_incidents_count_by_school_year
+    student_school_years.includes(:discipline_incidents).map do |s|
+      s.discipline_incidents.count
+    end
   end
 
   def serialized_student_data
@@ -85,10 +83,10 @@ class Student < ActiveRecord::Base
       star_reading_results: star_reading_results,
       mcas_math_results: mcas_math_results,
       mcas_ela_results: mcas_ela_results,
-      attendance_events_by_school_year: attendance_events_by_school_year,
-      discipline_incidents_by_school_year: discipline_incidents_by_school_year,
-      attendance_events_school_years: attendance_events_school_years,
-      behavior_events_school_years: behavior_events_school_years,
+      absences_count_by_school_year: absences_count_by_school_year,
+      tardies_count_by_school_year: tardies_count_by_school_year,
+      discipline_incidents_by_school_year: discipline_incidents_count_by_school_year,
+      school_year_names: student_school_years.pluck(:name),
       interventions: interventions
     }
   end

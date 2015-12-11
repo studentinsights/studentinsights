@@ -4,10 +4,10 @@
       <h1><%= school_year.name %></h1>
     </div>
 
-    <% unless school_year.mcas_math_result.is_a?(MissingStudentAssessment) && school_year.mcas_ela_result.is_a?(MissingStudentAssessment)  # Since there is only one MCAS result per student per year %>
+    <% if school_year.mcas_math_result.present? || school_year.mcas_ela_result.present?  # Since there is only one MCAS result per student per year %>
       <div class="section mcas-result-section">
         <h2 class="section-header">MCAS</h2>
-        <% unless school_year.mcas_ela_result.is_a?(MissingStudentAssessment) %>
+        <% if school_year.mcas_ela_result.present? %>
           <h3 class="assessment-type">English</h3>
           <div class="assessment-dark-background mcas-ela-values">
             <div class="values">
@@ -18,7 +18,7 @@
             </div>
           </div>
         <% end %>
-        <% unless school_year.mcas_math_result.is_a?(MissingStudentAssessment) %>
+        <% if school_year.mcas_math_result.present? %>
           <h3 class="assessment-type">Math</h3>
           <div class="assessment-dark-background mcas-math-values">
             <div class="values">
@@ -60,7 +60,7 @@
     <% end %>
 
     <!-- DIBELS -->
-    <% unless school_year.dibels.is_a?(MissingStudentAssessmentCollection) %>
+    <% if school_year.dibels.present? %>
       <div class="section dibels-result-section">
         <h2 class="section-header">DIBELS</h2>
         <% school_year.dibels.each do |e| %>
@@ -86,7 +86,7 @@
     <% end %>
 
     <!-- ACCESS -->
-    <% unless school_year.access.is_a?(MissingStudentAssessment) %>
+    <% if school_year.access.present? %>
       <div class="section access-result-section">
         <h2 class="section-header">ACCESS</h2>
         <h3 class="assessment-type">Overall</h3>

@@ -6,6 +6,22 @@ class AttendanceEvent < ActiveRecord::Base
   after_create :assign_to_student_school_year
   validates_presence_of :event_date, :student
 
+  def self.absences
+    where(absence: true)
+  end
+
+  def self.tardies
+    where(tardy: true)
+  end
+
+  def self.absences_count
+    absences.count
+  end
+
+  def self.tardies_count
+    tardies.count
+  end
+
   def assign_to_school_year
     self.school_year = DateToSchoolYear.new(event_date).convert
   end

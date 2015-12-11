@@ -14,8 +14,8 @@ RSpec.describe Student do
 
     context 'MCAS Math' do
       context 'when the student has no student assessment results' do
-        it 'returns a missing student assessment' do
-          expect(result).to be_a(MissingStudentAssessment)
+        it 'returns nil' do
+          expect(result).to be_nil
         end
       end
       context 'when the student has results' do
@@ -28,14 +28,14 @@ RSpec.describe Student do
         }
         context 'when the student has an MCAS result but not in Math' do
           let(:assessment_subject) { "Tacos" }
-          it 'returns a missing student assessment' do
-            expect(result).to be_a(MissingStudentAssessment)
+          it 'returns nil' do
+            expect(result).to be_nil
           end
         end
         context 'when the student has a Math result but not MCAS' do
           let(:assessment_family) { "Doc's Special Exam" }
-          it 'returns a missing student assessment' do
-            expect(result).to be_a(MissingStudentAssessment)
+          it 'returns nil' do
+            expect(result).to be_nil
           end
         end
         context 'when the student has an MCAS Math result' do
@@ -67,8 +67,8 @@ RSpec.describe Student do
     let(:result) { student.ordered_results_by_family_and_subject("MCAS", "Math") }
 
     context 'when the student has no MCAS Math result' do
-      it 'returns a missing student assessment collection' do
-        expect(result).to be_a(MissingStudentAssessmentCollection)
+      it 'returns an empty set' do
+        expect(result).to be_empty
       end
     end
     context 'when one MCAS Math result exists' do
@@ -111,6 +111,21 @@ RSpec.describe Student do
           middle_mcas_math_result,
           newest_mcas_math_result
         ])
+      end
+    end
+  end
+
+  describe '#absences_count_by_school_year' do
+    context 'student with no absences or tardies' do
+      let(:student) { FactoryGirl.create(:student_with_registration_date) }
+      it 'returns an array with school years as keys and zeroes as values' do
+        expect(student.absences_count_by_school_year).to eq [0, 0]
+      end
+    end
+    context 'student with absences' do
+      let(:student) { FactoryGirl.create(:student_with_attendance_event) }
+      it 'returns the correct array' do
+        expect(student.absences_count_by_school_year).to eq [1, 0]
       end
     end
   end

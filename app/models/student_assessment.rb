@@ -20,8 +20,12 @@ class StudentAssessment < ActiveRecord::Base
     save
   end
 
-  def self.latest
+  def self.order_by_date_taken_desc
     order(date_taken: :desc)
+  end
+
+  def self.order_by_date_taken_asc
+    order(date_taken: :asc)
   end
 
   def self.by_family(family_name)
@@ -32,20 +36,8 @@ class StudentAssessment < ActiveRecord::Base
     joins(:assessment).where(assessments: {family: family_name, subject: subject_name})
   end
 
-  def self.first_or_missing
-    first || MissingStudentAssessment.new
-  end
-
-  def self.order_or_missing
-    order(date_taken: :asc).present? ? order(date_taken: :asc) : MissingStudentAssessmentCollection.new
-  end
-
   def self.find_by_student(student)
     where(student_id: student.id)
-  end
-
-  def self.last_or_missing
-    order(date_taken: :asc).present? ? order(date_taken: :asc).last : MissingStudentAssessment.new
   end
 
   def risk_level
