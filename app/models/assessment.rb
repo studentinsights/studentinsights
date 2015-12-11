@@ -37,8 +37,4 @@ class Assessment < ActiveRecord::Base
 
   def self.reading; where(subject: "Reading").all_or_missing end
 
-  def self.last_or_missing; last || MissingAssessment.new end
-
-  def self.all_or_missing; present? ? all : MissingAssessment.new end
-
 end
