@@ -5,19 +5,19 @@ class StudentRiskLevel < ActiveRecord::Base
 
   # Use most recent assessments to calculate risk
   def mcas_math
-    student.latest_result_by_family_and_subject("MCAS", "Math")
+    student.latest_result_by_family_and_subject("MCAS", "Math") || MissingStudentAssessment.new
   end
 
   def star_math
-    student.latest_result_by_family_and_subject("STAR", "Math")
+    student.latest_result_by_family_and_subject("STAR", "Math") || MissingStudentAssessment.new
   end
 
   def mcas_ela
-    student.latest_result_by_family_and_subject("MCAS", "ELA")
+    student.latest_result_by_family_and_subject("MCAS", "ELA") || MissingStudentAssessment.new
   end
 
   def star_reading
-    student.latest_result_by_family_and_subject("STAR", "ELA")
+    student.latest_result_by_family_and_subject("STAR", "ELA") || MissingStudentAssessment.new
   end
 
   def mcas_or_star_at_level(this_level)

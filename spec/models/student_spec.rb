@@ -14,8 +14,8 @@ RSpec.describe Student do
 
     context 'MCAS Math' do
       context 'when the student has no student assessment results' do
-        it 'returns a missing student assessment' do
-          expect(result).to be_a(MissingStudentAssessment)
+        it 'returns nil' do
+          expect(result).to be_nil
         end
       end
       context 'when the student has results' do
@@ -28,14 +28,14 @@ RSpec.describe Student do
         }
         context 'when the student has an MCAS result but not in Math' do
           let(:assessment_subject) { "Tacos" }
-          it 'returns a missing student assessment' do
-            expect(result).to be_a(MissingStudentAssessment)
+          it 'returns nil' do
+            expect(result).to be_nil
           end
         end
         context 'when the student has a Math result but not MCAS' do
           let(:assessment_family) { "Doc's Special Exam" }
-          it 'returns a missing student assessment' do
-            expect(result).to be_a(MissingStudentAssessment)
+          it 'returns nil' do
+            expect(result).to be_nil
           end
         end
         context 'when the student has an MCAS Math result' do

@@ -9,15 +9,15 @@ class StudentSchoolYear < ActiveRecord::Base
   default_scope { joins(:school_year).order('school_years.start DESC') }
 
   def mcas_math_result
-    student_assessments.latest
+    student_assessments.order_by_date_taken_asc
                        .by_family_and_subject("MCAS", "Math")
-                       .first_or_missing
+                       .last
   end
 
   def mcas_ela_result
-    student_assessments.latest
+    student_assessments.order_by_date_taken_asc
                        .by_family_and_subject("MCAS", "ELA")
-                       .first_or_missing
+                       .last
   end
 
   def star
@@ -27,12 +27,13 @@ class StudentSchoolYear < ActiveRecord::Base
 
   def dibels
     student_assessments.by_family("DIBELS")
-                       .order_by_date_taken
+                       .order_by_date_taken_desc
   end
 
   def access
-    student_assessments.latest
-                       .by_family("ACCESS").first_or_missing
+    student_assessments.order_by_date_taken_asc
+                       .by_family("ACCESS")
+                       .last
   end
 
   def absences

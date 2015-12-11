@@ -16,21 +16,21 @@ class Student < ActiveRecord::Base
 
   def latest_result_by_family_and_subject(family_name, subject_name)
     self.student_assessments
-        .latest
         .by_family_and_subject(family_name, subject_name)
-        .first_or_missing
+        .order_by_date_taken_asc
+        .last
   end
 
   def ordered_results_by_family_and_subject(family_name, subject_name)
     self.student_assessments
         .by_family_and_subject(family_name, subject_name)
-        .order_by_date_taken
+        .order_by_date_taken_asc
   end
 
   def ordered_results_by_family(family_name)
     self.student_assessments
         .by_family(family_name)
-        .order_by_date_taken
+        .order_by_date_taken_asc
   end
 
   def mcas_math_results
