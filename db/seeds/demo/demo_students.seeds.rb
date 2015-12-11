@@ -16,7 +16,8 @@ Student.destroy_all
 StudentAssessment.destroy_all
 DisciplineIncident.destroy_all
 AttendanceEvent.destroy_all
-
+SchoolYear.destroy_all
+StudentSchoolYear.destroy_all
 InterventionType.destroy_all
 InterventionType.seed_somerville_intervention_types
 
