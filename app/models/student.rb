@@ -24,13 +24,13 @@ class Student < ActiveRecord::Base
   def ordered_results_by_family_and_subject(family_name, subject_name)
     self.student_assessments
         .by_family_and_subject(family_name, subject_name)
-        .order_or_missing
+        .order_by_date_taken
   end
 
   def ordered_results_by_family(family_name)
     self.student_assessments
         .by_family(family_name)
-        .order_or_missing
+        .order_by_date_taken
   end
 
   def mcas_math_results

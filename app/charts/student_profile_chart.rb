@@ -8,21 +8,21 @@ class StudentProfileChart < Struct.new :data
   end
 
   def to_highcharts_growth_percentile_series(student_assessments)
-    return if student_assessments.is_a? MissingStudentAssessmentCollection
+    return if student_assessments.blank?
     student_assessments.map do |s|
       [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.growth_percentile]
     end
   end
 
   def to_highcharts_percentile_rank_series(student_assessments)
-    return if student_assessments.is_a? MissingStudentAssessmentCollection
+    return if student_assessments.blank?
     student_assessments.map do |s|
       [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank]
     end
   end
 
   def to_highcharts_scale_score_series(student_assessments)
-    return if student_assessments.is_a? MissingStudentAssessmentCollection
+    return if student_assessments.blank?
     student_assessments.map do |s|
       [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.scale_score]
     end

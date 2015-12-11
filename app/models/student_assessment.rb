@@ -36,8 +36,8 @@ class StudentAssessment < ActiveRecord::Base
     first || MissingStudentAssessment.new
   end
 
-  def self.order_or_missing
-    order(date_taken: :asc).present? ? order(date_taken: :asc) : MissingStudentAssessmentCollection.new
+  def self.order_by_date_taken
+    order(date_taken: :asc)
   end
 
   def self.find_by_student(student)

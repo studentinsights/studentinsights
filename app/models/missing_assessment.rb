@@ -1,6 +1,6 @@
 class MissingAssessment
   def last_or_missing; MissingStudentAssessment.new end
-  def order_or_missing; self end
+  def order_by_date_taken; self end
   def student_assessments; self end
   def find_by_student(student); self end
   def ela; self end

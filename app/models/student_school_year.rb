@@ -27,7 +27,7 @@ class StudentSchoolYear < ActiveRecord::Base
 
   def dibels
     student_assessments.by_family("DIBELS")
-                       .order_or_missing
+                       .order_by_date_taken
   end
 
   def access

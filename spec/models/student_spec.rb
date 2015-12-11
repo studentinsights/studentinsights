@@ -67,8 +67,8 @@ RSpec.describe Student do
     let(:result) { student.ordered_results_by_family_and_subject("MCAS", "Math") }
 
     context 'when the student has no MCAS Math result' do
-      it 'returns a missing student assessment collection' do
-        expect(result).to be_a(MissingStudentAssessmentCollection)
+      it 'returns an empty set' do
+        expect(result).to be_empty
       end
     end
     context 'when one MCAS Math result exists' do

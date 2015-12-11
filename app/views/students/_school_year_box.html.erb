@@ -60,7 +60,7 @@
     <% end %>
 
     <!-- DIBELS -->
-    <% unless school_year.dibels.is_a?(MissingStudentAssessmentCollection) %>
+    <% if school_year.dibels.present? %>
       <div class="section dibels-result-section">
         <h2 class="section-header">DIBELS</h2>
         <% school_year.dibels.each do |e| %>
