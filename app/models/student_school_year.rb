@@ -37,11 +37,11 @@ class StudentSchoolYear < ActiveRecord::Base
   end
 
   def absences
-    attendance_events.where(absence: true).count
+    attendance_events.absences_count
   end
 
   def tardies
-    attendance_events.where(tardy: true).count
+    attendance_events.tardies_count
   end
 
 end

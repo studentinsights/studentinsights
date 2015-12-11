@@ -115,6 +115,21 @@ RSpec.describe Student do
     end
   end
 
+  describe '#absences_count_by_school_year' do
+    context 'student with no absences or tardies' do
+      let(:student) { FactoryGirl.create(:student_with_registration_date) }
+      it 'returns an array with school years as keys and zeroes as values' do
+        expect(student.absences_count_by_school_year).to eq [0, 0]
+      end
+    end
+    context 'student with absences' do
+      let(:student) { FactoryGirl.create(:student_with_attendance_event) }
+      it 'returns the correct array' do
+        expect(student.absences_count_by_school_year).to eq [1, 0]
+      end
+    end
+  end
+
   describe '#school_years' do
     context 'school years in the 2010s' do
       let!(:sy_2014_2015) { FactoryGirl.create(:sy_2014_2015) }

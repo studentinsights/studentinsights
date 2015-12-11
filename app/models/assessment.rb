@@ -13,28 +13,28 @@ class Assessment < ActiveRecord::Base
     ])
   end
 
-  def self.mcas_ela; where(family: "MCAS", subject: "ELA").last_or_missing end
+  def self.mcas_ela; where(family: "MCAS", subject: "ELA").last end
 
-  def self.mcas_math; where(family: "MCAS", subject: "Math").last_or_missing end
+  def self.mcas_math; where(family: "MCAS", subject: "Math").last end
 
-  def self.star_math; where(family: "STAR", subject: "Math").last_or_missing end
+  def self.star_math; where(family: "STAR", subject: "Math").last end
 
-  def self.star_reading; where(family: "STAR", subject: "Reading").last_or_missing end
+  def self.star_reading; where(family: "STAR", subject: "Reading").last end
 
-  def self.map_test; where(family: "MAP").last_or_missing end
+  def self.map_test; where(family: "MAP").last end
 
-  def self.dibels; where(family: "DIBELS").last_or_missing end
+  def self.dibels; where(family: "DIBELS").last end
 
-  def self.access; where(family: "ACCESS").last_or_missing end
+  def self.access; where(family: "ACCESS").last end
 
-  def self.math; where(subject: "Math").all_or_missing end
+  def self.math; where(subject: "Math").all end
 
-  def self.mcas; where(family: "MCAS").all_or_missing end
+  def self.mcas; where(family: "MCAS").all end
 
-  def self.star; where(family: "STAR").all_or_missing end
+  def self.star; where(family: "STAR").all end
 
-  def self.ela; where(subject: "ELA").all_or_missing end
+  def self.ela; where(subject: "ELA").all end
 
-  def self.reading; where(subject: "Reading").all_or_missing end
+  def self.reading; where(subject: "Reading").all end
 
 end

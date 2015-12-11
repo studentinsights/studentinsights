@@ -1,6 +1,6 @@
 class StudentProfileChart < Struct.new :data
 
-  def to_highcharts_interventions(interventions)
+  def to_highcharts_interventions
     return if data[:interventions].blank?
     data[:interventions].with_start_and_end_dates.map do |intervention|
       intervention.to_highcharts
@@ -28,38 +28,46 @@ class StudentProfileChart < Struct.new :data
     end
   end
 
+  # v We need to reverse series that have school years as their x-axes so that they
+  #   appear on the chart in ascending instead of descending order.
+  #   Time axes on charts need to go from least recent to most recent, as opposed
+  #   to the CSV export which reads vertically downwards, most recent to least.
+
+  def behavior_series
+    return if data[:discipline_incidents_by_school_year].blank?
+    data[:discipline_incidents_by_school_year].reverse
+  end
+
+  def school_year_names
+    return if data[:school_year_names].blank?
+    data[:school_year_names].reverse
+  end
+
+  def attendance_series_absences
+    return if data[:absences_count_by_school_year].blank?
+    data[:absences_count_by_school_year].reverse
+  end
+
+  def attendance_series_tardies
+    return if data[:tardies_count_by_school_year].blank?
+    data[:tardies_count_by_school_year].reverse
+  end
+
   def chart_data
     {
-      behavior_series: behavior_series,
-      behavior_series_school_years: data[:behavior_events_school_years],
-      attendance_series_absences: attendance_series_absences(data[:attendance_events_by_school_year]),
-      attendance_series_tardies: attendance_series_tardies(data[:attendance_events_by_school_year]),
-      attendance_events_school_years: data[:attendance_events_school_years],
       star_series_math_percentile: to_highcharts_percentile_rank_series(data[:star_math_results]),
       star_series_reading_percentile: to_highcharts_percentile_rank_series(data[:star_reading_results]),
       mcas_series_math_scaled: to_highcharts_scale_score_series(data[:mcas_math_results]),
       mcas_series_ela_scaled: to_highcharts_scale_score_series(data[:mcas_ela_results]),
       mcas_series_math_growth: to_highcharts_growth_percentile_series(data[:mcas_math_results]),
       mcas_series_ela_growth: to_highcharts_growth_percentile_series(data[:mcas_ela_results]),
-      interventions: to_highcharts_interventions(data[:interventions])
+      interventions: to_highcharts_interventions,
+      behavior_series: behavior_series,
+      behavior_series_school_years: school_year_names,
+      attendance_series_absences: attendance_series_absences,
+      attendance_series_tardies: attendance_series_tardies,
+      attendance_events_school_years: school_year_names
     }
   end
 
-  def attendance_series_absences(sorted_attendance_events)
-    only_absence_events = sorted_attendance_events.values.map do |events|
-      events.select { |event| event.absence }
-    end
-    only_absence_events.map { |events| events.size }.reverse
-  end
-
-  def attendance_series_tardies(sorted_attendance_events)
-    only_tardy_events = sorted_attendance_events.values.map do |events|
-      events.select { |event| event.tardy }
-    end
-    only_tardy_events.map { |events| events.size }.reverse
-  end
-
-  def behavior_series
-    data[:discipline_incidents_by_school_year].values.map { |v| v.size }.reverse
-  end
 end

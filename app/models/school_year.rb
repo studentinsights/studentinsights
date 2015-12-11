@@ -1,8 +1,8 @@
 class SchoolYear < ActiveRecord::Base
-  has_many :attendance_events, -> (student) { extending FindByStudent }
-  has_many :discipline_incidents, -> (student) { extending FindByStudent }
-  has_many :student_assessments, -> (student) { extending FindByStudent }
-  has_many :interventions, -> (student) { extending FindByStudent }
+  has_many :attendance_events
+  has_many :discipline_incidents
+  has_many :student_assessments
+  has_many :interventions
   validates_uniqueness_of :name, :start
 
   def self.in_between(school_year_1, school_year_2)
