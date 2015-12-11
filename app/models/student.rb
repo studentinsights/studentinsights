@@ -120,9 +120,22 @@ class Student < ActiveRecord::Base
 
   def self.update_student_school_years
     # This method is meant to be called as a scheduled task.
-    # Less expensive than sorting attendance events and assessment
-    # results into student school years on the fly.
+    # Less expensive than calculating student school years on the fly.
     find_each { |s| s.update_student_school_years }
+  end
+
+  def assign_events_to_student_school_years
+    # In case you have events that weren't assigned to student
+    # school years. (This code is kind of like a migration.)
+    [attendance_events, student_assessments, discipline_incidents, interventions].each do |events|
+      events.map do |event|
+        event.assign_to_student_school_year
+      end
+    end
+  end
+
+  def self.assign_events_to_student_school_years
+    find_each { |s| s.assign_events_to_student_school_years }
   end
 
   ## RISK LEVELS ##
