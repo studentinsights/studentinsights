@@ -33,24 +33,9 @@ class StudentProfileChart < Struct.new :data
   #   Time axes on charts need to go from least recent to most recent, as opposed
   #   to the CSV export which reads vertically downwards, most recent to least.
 
-  def behavior_series
-    return if data[:discipline_incidents_by_school_year].blank?
-    data[:discipline_incidents_by_school_year].reverse
-  end
-
-  def school_year_names
-    return if data[:school_year_names].blank?
-    data[:school_year_names].reverse
-  end
-
-  def attendance_series_absences
-    return if data[:absences_count_by_school_year].blank?
-    data[:absences_count_by_school_year].reverse
-  end
-
-  def attendance_series_tardies
-    return if data[:tardies_count_by_school_year].blank?
-    data[:tardies_count_by_school_year].reverse
+  def reverse_for_highcharts(series)
+    return if series.blank?
+    series.reverse
   end
 
   def chart_data
@@ -62,11 +47,11 @@ class StudentProfileChart < Struct.new :data
       mcas_series_math_growth: to_highcharts_growth_percentile_series(data[:mcas_math_results]),
       mcas_series_ela_growth: to_highcharts_growth_percentile_series(data[:mcas_ela_results]),
       interventions: to_highcharts_interventions,
-      behavior_series: behavior_series,
-      behavior_series_school_years: school_year_names,
-      attendance_series_absences: attendance_series_absences,
-      attendance_series_tardies: attendance_series_tardies,
-      attendance_events_school_years: school_year_names
+      behavior_series: reverse_for_highcharts(data[:discipline_incidents_by_school_year]),
+      behavior_series_school_years: reverse_for_highcharts(data[:school_year_names]),
+      attendance_series_absences: reverse_for_highcharts(data[:absences_count_by_school_year]),
+      attendance_series_tardies: reverse_for_highcharts(data[:tardies_count_by_school_year]),
+      attendance_events_school_years: reverse_for_highcharts(data[:school_year_names])
     }
   end
 
