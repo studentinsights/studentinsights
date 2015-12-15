@@ -112,6 +112,12 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def most_recent_school_year
+    # Default_scope on student school years
+    # sorts by recency, with most recent first.
+    student_school_years.first
+  end
+
   def update_student_school_years
     find_student_school_years.each do |s|
       StudentSchoolYear.where(student_id: self.id, school_year_id: s.id).first_or_create!
@@ -163,6 +169,36 @@ class Student < ActiveRecord::Base
       interventions.most_recent_atp.number_of_hours
     else
       0
+    end
+  end
+
+  # ATTENDANCE EVENTS #
+
+  def calculate_absences_count_most_recent_school_year
+    return 0 if most_recent_school_year.blank?
+    most_recent_school_year.attendance_events.absences_count
+  end
+
+  def calculate_tardies_count_most_recent_school_year
+    return 0 if most_recent_school_year.blank?
+    most_recent_school_year.attendance_events.tardies_count
+  end
+
+  def update_absences_count_most_recent_school_year
+    self.absences_count_most_recent_school_year = calculate_absences_count_most_recent_school_year
+    save
+  end
+
+  def update_tardies_count_most_recent_school_year
+    self.tardies_count_most_recent_school_year = calculate_tardies_count_most_recent_school_year
+    save
+  end
+
+  def self.update_attendance_events_counts_most_recent_school_year
+    # Should be called at least daily to update student attendance event counts.
+    find_each do |s|
+      s.update_absences_count_most_recent_school_year
+      s.update_tardies_count_most_recent_school_year
     end
   end
 
