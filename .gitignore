@@ -7,6 +7,7 @@
 coverage
 config/local_env.yml
 config/initializers/capistrano_server.rb
+config/database.yml
 db/seeds/users/educators.seeds.rb
 
 ## Environment normalisation:
