@@ -134,6 +134,14 @@ class Student < ActiveRecord::Base
     where(most_recent_mcas_math_performance: 'W')
   end
 
+  def self.with_mcas_ela
+    where.not(most_recent_mcas_ela_performance: nil)
+  end
+
+  def self.with_mcas_ela_warning
+    where(most_recent_mcas_ela_performance: 'W')
+  end
+
   ## SCHOOL YEARS ##
 
   def find_student_school_years

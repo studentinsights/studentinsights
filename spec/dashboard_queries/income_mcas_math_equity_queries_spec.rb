@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe EquityQueries do
+RSpec.describe IncomeMcasMathEquityQueries do
 
   let(:queries) { described_class.new }
 
