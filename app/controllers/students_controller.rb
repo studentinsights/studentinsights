@@ -1,8 +1,6 @@
 class StudentsController < ApplicationController
   include SerializeInterventionHelper
 
-  before_action :authenticate_educator!
-
   def show
     @student = Student.find(params[:id])
     @presenter = StudentPresenter.new(@student)

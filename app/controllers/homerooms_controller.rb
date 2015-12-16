@@ -1,6 +1,6 @@
 class HomeroomsController < ApplicationController
 
-  before_action :authenticate_educator!, :authorize_and_assign_homeroom
+  before_action :authorize_and_assign_homeroom
 
   def show
     cookies[:columns_selected] ||= ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'].to_json

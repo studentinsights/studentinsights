@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   force_ssl unless Rails.env.development?
 
+  before_action :authenticate_educator!
+
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params
