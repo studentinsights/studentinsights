@@ -1,4 +1,4 @@
-class AttendanceDashboard
+class AttendanceQueries
 
   def top_5_absence_concerns
     Student.order(absences_count_most_recent_school_year: :desc).limit(5)
