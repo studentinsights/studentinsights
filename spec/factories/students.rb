@@ -13,6 +13,17 @@ FactoryGirl.define do
       # If student risk levels are not being created, we want to throw errors.
       FactoryGirl.create(:student_risk_level, student: student)
     end
+
+    trait :low_income do
+      free_reduced_lunch "Free Lunch"
+    end
+
+    trait :with_mcas_math_advanced_assessment do
+      after(:create) do |student|
+        FactoryGirl.create(:mcas_math_advanced_assessment, student: student)
+       end
+    end
+
     factory :student_who_registered_in_2013_2014 do
       registration_date Date.new(2013, 8, 1)
     end
@@ -66,6 +77,8 @@ FactoryGirl.define do
           FactoryGirl.create(:mcas_math_warning_assessment, student: student)
         end
       end
+
+
       factory :student_with_mcas_math_advanced_and_star_math_warning_assessments do
         after(:create) do |student|
           FactoryGirl.create(:mcas_math_advanced_assessment, student: student)

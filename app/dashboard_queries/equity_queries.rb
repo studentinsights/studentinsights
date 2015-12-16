@@ -1,10 +1,12 @@
 class EquityQueries
 
   def percent_of_low_income_students_with_mcas_math_warning
+    return nil if low_income_students_with_mcas_math.empty?
     low_income_students_with_mcas_math_warning.count.to_f / low_income_students_with_mcas_math.count.to_f * 100.0
   end
 
   def percent_of_not_low_income_students_with_mcas_math_warning
+    return nil if not_low_income_students_with_mcas_math.empty?
     not_low_income_students_with_mcas_math_warning.count.to_f / not_low_income_students_with_mcas_math.count.to_f * 100.0
   end
 
