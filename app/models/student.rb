@@ -126,6 +126,14 @@ class Student < ActiveRecord::Base
     }
   end
 
+  def self.with_mcas_math
+    where.not(most_recent_mcas_math_performance: nil)
+  end
+
+  def self.with_mcas_math_warning
+    where(most_recent_mcas_math_performance: 'W')
+  end
+
   ## SCHOOL YEARS ##
 
   def find_student_school_years
@@ -216,6 +224,16 @@ class Student < ActiveRecord::Base
       updater.update_absences_count
       updater.update_tardies_count
     end
+  end
+
+  ## DEMOGRAPHICS ##
+
+  def self.low_income
+    where.not(free_reduced_lunch: "Not Eligible")
+  end
+
+  def self.not_low_income
+    where(free_reduced_lunch: "Not Eligible")
   end
 
 end
