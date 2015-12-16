@@ -1,15 +1,13 @@
 class InterventionsController < ApplicationController
   include SerializeInterventionHelper
 
-  before_action :authenticate_educator!
-
   def create
     intervention = Intervention.new(intervention_params)
     intervention.start_date = Time.zone.now.to_date
     if intervention_params[:end_date].present?
       intervention.end_date = Date.parse(intervention_params[:end_date])
     end
-    
+
     if intervention.save
       render json: serialize_intervention(intervention)
     else
