@@ -57,6 +57,41 @@ class Student < ActiveRecord::Base
     ordered_results_by_family("ACCESS")
   end
 
+  def latest_mcas_math
+    latest_result_by_family_and_subject("MCAS", "Math") || MissingStudentAssessment.new
+  end
+
+  def latest_mcas_ela
+    latest_result_by_family_and_subject("MCAS", "ELA") || MissingStudentAssessment.new
+  end
+
+  def latest_star_math
+    latest_result_by_family_and_subject("STAR", "Math") || MissingStudentAssessment.new
+  end
+
+  def latest_star_reading
+    latest_result_by_family_and_subject("STAR", "Reading") || MissingStudentAssessment.new
+  end
+
+  def update_recent_student_assessments
+    update_attributes({
+      most_recent_mcas_math_growth: latest_mcas_math.growth_percentile,
+      most_recent_mcas_ela_growth: latest_mcas_ela.growth_percentile,
+      most_recent_mcas_math_performance: latest_mcas_math.performance_level,
+      most_recent_mcas_ela_performance: latest_mcas_ela.performance_level,
+      most_recent_mcas_math_scaled: latest_mcas_math.scale_score,
+      most_recent_mcas_ela_scaled: latest_mcas_ela.scale_score,
+      most_recent_star_reading_percentile: latest_star_reading.percentile_rank,
+      most_recent_star_math_percentile: latest_mcas_math.percentile_rank
+    })
+  end
+
+  def self.update_recent_student_assessments
+    find_each do |student|
+      student.update_recent_student_assessments
+    end
+  end
+
   def absences_count_by_school_year
     student_school_years.includes(:attendance_events).map do |s|
       s.attendance_events.absences_count
