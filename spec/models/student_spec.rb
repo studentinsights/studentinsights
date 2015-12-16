@@ -196,6 +196,16 @@ RSpec.describe Student do
     end
   end
 
+  describe '#update_recent_student_assessments' do
+    context 'has student assessments' do
+      let(:student) { FactoryGirl.create(:student_with_mcas_math_warning_assessment) }
+      it 'sets correct attribute on the student' do
+        student.update_recent_student_assessments
+        expect(student.reload.most_recent_mcas_math_performance).to eq 'W'
+      end
+    end
+  end
+
   describe '#create_risk_level' do
     context 'create a non-ELL student' do
       let(:student) { FactoryGirl.create(:student) }
