@@ -31,3 +31,5 @@ puts "Creating students for homeroom #2..."
 
 Student.update_risk_levels
 Student.update_student_school_years
+Student.update_recent_student_assessments
+Student.update_attendance_events_counts_most_recent_school_year
