@@ -17,7 +17,7 @@ branches:
 #   - export PATH=$PATH:$HOME/.local/bin
 
 install:
- - bundle install --retry=3
+ - bundle _1.10.6_ install --retry=3
 
 script:
   - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/homeroom_test
