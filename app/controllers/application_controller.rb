@@ -4,14 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   force_ssl unless Rails.env.development?
 
-  before_action :authenticate_educator!
+  before_action :authenticate_educator!  # Devise method
 
-  before_filter :update_sanitized_params, if: :devise_controller?
-
-  def update_sanitized_params
-    devise_parameter_sanitizer.for(:sign_in) do |u|
-      u.permit(:otp_attempt, :email, :password)
-    end
+  def authenticate_admin!
+    redirect_to(new_educator_session_path) unless current_educator.admin?
   end
 
   def not_found

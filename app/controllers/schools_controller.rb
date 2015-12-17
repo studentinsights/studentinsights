@@ -1,5 +1,7 @@
 class SchoolsController < ApplicationController
 
+  before_action :authenticate_admin!
+
   def show
     @school = School.friendly.find(params[:id])
     attendance_queries = AttendanceQueries.new(@school)
