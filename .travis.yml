@@ -16,6 +16,8 @@ branches:
 #   - pip install --user awscli
 #   - export PATH=$PATH:$HOME/.local/bin
 
+before_install: gem install -v 1.10.6 bundler --no-rdoc --no-ri
+
 install:
  - bundle _1.10.6_ install --retry=3
 
