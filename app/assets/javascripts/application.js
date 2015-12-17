@@ -34,4 +34,3 @@
 // pages:
 //= require_tree ./roster
 //= require_tree ./student
-//= require_tree ./school
