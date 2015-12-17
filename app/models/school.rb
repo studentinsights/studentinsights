@@ -1,6 +1,29 @@
 class School < ActiveRecord::Base
   has_many :students
 
+  def equity_data
+    income_mcas_ela_queries = IncomeMcasElaQueries.new(self)
+    income_mcas_math_queries = IncomeMcasMathQueries.new(self)
+    attendance_queries = AttendanceQueries.new(self)
+
+    return {
+      mcas: {
+        math: {
+          percent_low_income_warning: income_mcas_math_queries.percent_low_income_with_warning,
+          percent_not_low_income_warning: income_mcas_math_queries.percent_not_low_income_with_warning,
+        },
+        ela: {
+          percent_low_income_warning: income_mcas_ela_queries.percent_low_income_with_warning,
+          percent_not_low_income_warning: income_mcas_ela_queries.percent_not_low_income_with_warning,
+        }
+      },
+      attendance: {
+        top_absence_concerns: attendance_queries.top_5_absence_concerns_serialized,
+        top_tardy_concerns: attendance_queries.top_5_tardy_concerns_serialized
+      }
+    }
+  end
+
   def self.seed_somerville_schools
     School.create([
       { state_id: 15, local_id: "BRN", name: "Benjamin G Brown", school_type: "ES" },

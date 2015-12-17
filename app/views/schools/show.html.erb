@@ -1,0 +1,31 @@
+<div class="info-area">
+  <h1>MCAS Math</h1>
+  <div class="left-panel">
+    <div id="mcas-math-low-income" class="pie-chart"></div>
+    <div id="mcas-math-not-low-income" class="pie-chart"></div>
+    <div id="mcas-ela-low-income" class="pie-chart"></div>
+    <div id="mcas-ela-not-low-income" class="pie-chart"></div>
+  </div>
+  <div class="right-panel">
+    <div class="attendance-section" style="margin-left: 60px;">
+      <h1>Attendance</h1>
+      <br/>
+      <h2>Top absence concerns</h2>
+      <ul>
+        <% @absence_concerns.each do |student| %>
+          <li><%= link_to student[:name], student_path(student[:id]) %> (<%= student[:absences] %> absences)</li>
+        <% end %>
+      </ul>
+      <br/>
+      <h2>Top tardies concerns</h2>
+      <ul>
+        <% @tardy_concerns.each do |student| %>
+          <li><%= link_to student[:name], student_path(student[:id]) %> (<%= student[:tardies] %> tardies)</li>
+        <% end %>
+      </ul>
+      <br/>
+      <em>Absences and tardies for this current school year.</em>
+    </div>
+  </div>
+</div>
+<%= tag("div", id: "data", data: @data) %>
