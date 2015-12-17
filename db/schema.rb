@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216165913) do
+ActiveRecord::Schema.define(version: 20151217214622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 20151216165913) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "local_id"
+    t.string   "slug"
   end
 
   add_index "schools", ["local_id"], name: "index_schools_on_local_id", using: :btree

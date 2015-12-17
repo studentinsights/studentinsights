@@ -1,9 +1,9 @@
 class SchoolsController < ApplicationController
 
   def show
-    school = School.find(params[:id])
-    attendance_queries = AttendanceQueries.new(school)
-    mcas_queries = McasQueries.new(school)
+    @school = School.friendly.find(params[:id])
+    attendance_queries = AttendanceQueries.new(@school)
+    mcas_queries = McasQueries.new(@school)
 
     @top_absences = attendance_queries.top_5_absence_concerns_serialized
     @top_tardies = attendance_queries.top_5_tardy_concerns_serialized
