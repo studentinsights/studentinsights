@@ -10,12 +10,12 @@ namespace :update do
   end
 
   desc "Updates student attendance event counts."
-  task student_school_years: :environment do
+  task attendance_events: :environment do
     Student.update_attendance_events_counts_most_recent_school_year
   end
 
   desc "Updates recent student assessment results."
-  task student_school_years: :environment do
+  task recent_assessments: :environment do
     Student.update_recent_student_assessments
   end
 
