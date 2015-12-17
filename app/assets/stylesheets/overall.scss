@@ -26,12 +26,21 @@ body {
   border: solid 1px $light-line;
   margin-bottom: 50px;
   overflow: auto;
-}
-
-.students .info-area {
   padding: 0 0 30px 0;
   margin-top: 0;
   clear: both;
+}
+
+.detailed-content-area {
+  padding: 30px 60px;
+}
+
+.sessions .detailed-content-area {
+  padding: 30px 0px;
+}
+
+.schools .info-area {
+  margin-top: 55px;
 }
 
 .index .info-area {

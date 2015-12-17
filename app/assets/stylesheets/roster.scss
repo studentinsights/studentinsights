@@ -1,11 +1,14 @@
 /* ROSTER */
 
-.roster-chart {
-  height: 150px !important;
-  margin-bottom: 20px !important;
-  padding-bottom: 0 !important;
-  border-bottom: 2px solid $backgroud;
-  margin-top: -40px !important;
+#roster-chart {
+  height: 200px;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+  margin-top: -60px;
+}
+
+#roster-table-wrapper, #roster-chart {
+  padding: 30px;
 }
 
 .highcharts-container {

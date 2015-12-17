@@ -16,11 +16,15 @@ branches:
 #   - pip install --user awscli
 #   - export PATH=$PATH:$HOME/.local/bin
 
+before_install: gem install -v 1.10.6 bundler --no-rdoc --no-ri
+
+before_script: cp config/database.example.yml config/database.yml
+
 install:
- - bundle install --retry=3
+ - bundle _1.10.6_ install --retry=3
 
 script:
-  - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/homeroom_test
+  - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test
   - bundle exec rspec spec
   - bundle exec teaspoon
   # For AWS deploy, add step here:

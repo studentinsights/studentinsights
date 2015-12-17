@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201190110) do
+ActiveRecord::Schema.define(version: 20151217221115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,19 +67,19 @@ ActiveRecord::Schema.define(version: 20151201190110) do
   add_index "discipline_incidents", ["student_id"], name: "index_discipline_incidents_on_student_id", using: :btree
 
   create_table "educators", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin"
+    t.boolean  "admin",                  default: false
     t.string   "phone"
   end
 
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 20151201190110) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "local_id"
+    t.string   "slug"
   end
 
   add_index "schools", ["local_id"], name: "index_schools_on_local_id", using: :btree
@@ -216,6 +217,16 @@ ActiveRecord::Schema.define(version: 20151201190110) do
     t.string   "sped_level_of_need"
     t.string   "plan_504"
     t.string   "limited_english_proficiency"
+    t.integer  "absences_count_most_recent_school_year"
+    t.integer  "tardies_count_most_recent_school_year"
+    t.integer  "most_recent_mcas_math_growth"
+    t.integer  "most_recent_mcas_ela_growth"
+    t.string   "most_recent_mcas_math_performance"
+    t.string   "most_recent_mcas_ela_performance"
+    t.integer  "most_recent_mcas_math_scaled"
+    t.integer  "most_recent_mcas_ela_scaled"
+    t.integer  "most_recent_star_reading_percentile"
+    t.integer  "most_recent_star_math_percentile"
   end
 
   add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree

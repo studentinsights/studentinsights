@@ -1,4 +1,6 @@
 class School < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :local_id, use: :slugged
   has_many :students
 
   def self.seed_somerville_schools

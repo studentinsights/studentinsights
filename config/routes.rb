@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 
   root 'pages#about'
   get 'about' => 'pages#about'
-  get 'demo' => 'pages#roster_demo'
 
   get '/students/names' => 'students#names'
   get '/educators/reset'=> 'educators#reset_session_clock'
@@ -18,5 +17,5 @@ Rails.application.routes.draw do
   resources :interventions
   resources :progress_notes
   resources :bulk_intervention_assignments
-
+  resources :schools
 end

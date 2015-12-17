@@ -4,14 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   force_ssl unless Rails.env.development?
 
-  before_action :authenticate_educator!
+  before_action :authenticate_educator!  # Devise method, applies to all controllers.
+                                         # In this app 'users' are 'educators'.
 
-  before_filter :update_sanitized_params, if: :devise_controller?
-
-  def update_sanitized_params
-    devise_parameter_sanitizer.for(:sign_in) do |u|
-      u.permit(:otp_attempt, :email, :password)
-    end
+  def authenticate_admin!
+    # Some controllers are just for admins (principals + district admins).
+    # For example, the school-wide dashboard, which includes data and
+    # links to student profiles from different classrooms and grade levels.
+    redirect_to(new_educator_session_path) unless current_educator.admin?
   end
 
   def not_found

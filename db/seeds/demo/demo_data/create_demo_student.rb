@@ -47,12 +47,10 @@ def create_demo_student(homeroom)
   end
   94.in(100) do   # 94% of students have absence / attendance events
     5.times do |n|
-      date_begin = Time.local(2010 + n, 8, 1)
-      date_end = Time.local(2011 + n, 7, 31)
       attendance_event_generator.rng.round(0).times do
         attendance_event = AttendanceEvent.new(FakeAttendanceEvent.data)
         attendance_event.student_id = student.id
-        attendance_event.event_date = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
+        attendance_event.event_date = Time.new - (rand * 100).to_i.days
         attendance_event.save
       end
     end

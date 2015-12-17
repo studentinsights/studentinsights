@@ -16,7 +16,7 @@ module SomervilleTeacherTool
     config.autoload_paths += %W(#{config.root}/app/importers/clients)
     config.autoload_paths += %W(#{config.root}/app/importers/settings)
     config.autoload_paths += %W(#{config.root}/app/importers/data_transformers)
-    config.autoload_paths += %W(#{config.root}/lib/modules)
+    config.autoload_paths += %W(#{config.root}/app/dashboard_queries)
 
     require 'pdfkit'
     config.middleware.use PDFKit::Middleware

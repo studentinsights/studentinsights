@@ -118,7 +118,7 @@ RSpec.describe Student do
   describe '#absences_count_by_school_year' do
     context 'student with no absences or tardies' do
       let(:student) { FactoryGirl.create(:student_with_registration_date) }
-      it 'returns an array with school years as keys and zeroes as values' do
+      it 'returns the correct array' do
         expect(student.absences_count_by_school_year).to eq [0, 0]
       end
     end
@@ -192,6 +192,16 @@ RSpec.describe Student do
           expect(StudentSchoolYear.last.school_year.name).to eq '2013-2014'
           expect(StudentSchoolYear.first.school_year.name).to eq '2014-2015'
         end
+      end
+    end
+  end
+
+  describe '#update_recent_student_assessments' do
+    context 'has student assessments' do
+      let(:student) { FactoryGirl.create(:student_with_mcas_math_warning_assessment) }
+      it 'sets correct attribute on the student' do
+        student.update_recent_student_assessments
+        expect(student.reload.most_recent_mcas_math_performance).to eq 'W'
       end
     end
   end

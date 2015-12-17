@@ -10,7 +10,7 @@
       marginTop: -20,
       marginLeft: 0,
       marginRight: 0,
-      renderTo: 'chart',
+      renderTo: 'roster-chart',
             type: 'bar'
         },
         title: {

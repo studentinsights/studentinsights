@@ -57,6 +57,41 @@ class Student < ActiveRecord::Base
     ordered_results_by_family("ACCESS")
   end
 
+  def latest_mcas_math
+    latest_result_by_family_and_subject("MCAS", "Math") || MissingStudentAssessment.new
+  end
+
+  def latest_mcas_ela
+    latest_result_by_family_and_subject("MCAS", "ELA") || MissingStudentAssessment.new
+  end
+
+  def latest_star_math
+    latest_result_by_family_and_subject("STAR", "Math") || MissingStudentAssessment.new
+  end
+
+  def latest_star_reading
+    latest_result_by_family_and_subject("STAR", "Reading") || MissingStudentAssessment.new
+  end
+
+  def update_recent_student_assessments
+    update_attributes({
+      most_recent_mcas_math_growth: latest_mcas_math.growth_percentile,
+      most_recent_mcas_ela_growth: latest_mcas_ela.growth_percentile,
+      most_recent_mcas_math_performance: latest_mcas_math.performance_level,
+      most_recent_mcas_ela_performance: latest_mcas_ela.performance_level,
+      most_recent_mcas_math_scaled: latest_mcas_math.scale_score,
+      most_recent_mcas_ela_scaled: latest_mcas_ela.scale_score,
+      most_recent_star_reading_percentile: latest_star_reading.percentile_rank,
+      most_recent_star_math_percentile: latest_mcas_math.percentile_rank
+    })
+  end
+
+  def self.update_recent_student_assessments
+    find_each do |student|
+      student.update_recent_student_assessments
+    end
+  end
+
   def absences_count_by_school_year
     student_school_years.includes(:attendance_events).map do |s|
       s.attendance_events.absences_count
@@ -91,6 +126,22 @@ class Student < ActiveRecord::Base
     }
   end
 
+  def self.with_mcas_math
+    where.not(most_recent_mcas_math_performance: nil)
+  end
+
+  def self.with_mcas_math_warning
+    where(most_recent_mcas_math_performance: 'W')
+  end
+
+  def self.with_mcas_ela
+    where.not(most_recent_mcas_ela_performance: nil)
+  end
+
+  def self.with_mcas_ela_warning
+    where(most_recent_mcas_ela_performance: 'W')
+  end
+
   ## SCHOOL YEARS ##
 
   def find_student_school_years
@@ -110,6 +161,12 @@ class Student < ActiveRecord::Base
     else
       []
     end
+  end
+
+  def most_recent_school_year
+    # Default_scope on student school years
+    # sorts by recency, with most recent first.
+    student_school_years.first
   end
 
   def update_student_school_years
@@ -164,6 +221,27 @@ class Student < ActiveRecord::Base
     else
       0
     end
+  end
+
+  # ATTENDANCE EVENTS #
+
+  def self.update_attendance_events_counts_most_recent_school_year
+    # Should be called at least daily to update student attendance event counts.
+    find_each do |student|
+      updater = StudentRecentAttendanceEvents.new(student)
+      updater.update_absences_count
+      updater.update_tardies_count
+    end
+  end
+
+  ## DEMOGRAPHICS ##
+
+  def self.low_income
+    where.not(free_reduced_lunch: "Not Eligible")
+  end
+
+  def self.not_low_income
+    where(free_reduced_lunch: "Not Eligible")
   end
 
 end

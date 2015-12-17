@@ -151,13 +151,17 @@
 
 .left-panel {
   float: left;
-  width: 40%;
   margin-right: 5%;
+  width: 45%;
 
   @media screen and (max-width: $phase2) {
     width: 100%;
     margin-right: 0;
   }
+}
+
+.students .left-panel {
+  width: 40%;
 
   .left-panel-item {
     font-size: 14px;
@@ -240,12 +244,16 @@
 }
 
 .right-panel {
-  width: 55%;
   float: right;
+  width: 45%;
 
   @media screen and (max-width: $phase2) {
     width: 100%;
   }
+}
+
+.students .right-panel {
+  width: 55%;
 }
 
 .school-year {
@@ -343,6 +351,9 @@
 
 .topline-info {
   margin-bottom: 15px;
+  background-color: $light-background;
+  border-bottom: 1px solid $light-line;
+  padding: 30px;
 
   h1 {
     font-weight: 400;
@@ -358,14 +369,6 @@
   }
   @media screen and (max-width: $phase2) {
     height: 80px;
-  }
-}
-
-.students {
-  .topline-info {
-    background-color: $light-background;
-    border-bottom: 1px solid $light-line;
-    padding: 30px;
   }
 }
 

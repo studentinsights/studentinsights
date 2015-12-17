@@ -2,6 +2,7 @@ module FakeStudent
 
   def self.data   # Fake data for demo roster
     {
+      school_id: School.first.id,
       grade: "5",
       hispanic_latino: [true, false].sample,
       race: ["A", "B", "H", "W"].sample,
