@@ -4,7 +4,9 @@ class AttendanceQueries < Struct.new :school
     top_5_absence_concerns.map do |student|
       {
         name: StudentPresenter.new(student).full_name,
-        absences: student.absences_count_most_recent_school_year,
+        result_value: student.absences_count_most_recent_school_year,
+        result_name: 'absences',
+        interventions_count: student.most_recent_school_year.interventions.count,
         id: student.id
       }
     end
@@ -14,7 +16,9 @@ class AttendanceQueries < Struct.new :school
     top_5_tardy_concerns.map do |student|
       {
         name: StudentPresenter.new(student).full_name,
-        tardies: student.tardies_count_most_recent_school_year,
+        result_value: student.tardies_count_most_recent_school_year,
+        result_name: 'tardies',
+        interventions_count: student.most_recent_school_year.interventions.count,
         id: student.id
       }
     end

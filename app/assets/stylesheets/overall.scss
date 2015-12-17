@@ -26,9 +26,6 @@ body {
   border: solid 1px $light-line;
   margin-bottom: 50px;
   overflow: auto;
-}
-
-.students .info-area {
   padding: 0 0 30px 0;
   margin-top: 0;
   clear: both;
@@ -36,6 +33,9 @@ body {
 
 .schools .info-area {
   margin-top: 55px;
+  #dashboard-content {
+    padding: 30px 60px;
+  }
 }
 
 .index .info-area {
