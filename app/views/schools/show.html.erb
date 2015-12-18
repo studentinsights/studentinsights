@@ -1,30 +1,25 @@
-<div class="info-area">
+<div class="school-dashboard info-area">
   <div class="topline-info underline">
     <h1><%= @school.name %> School Risk Dashboard</h1>
   </div>
   <div class="detailed-content-area">
     <div class="left-panel">
-      <div id="mcas-math-concern">
-        <h2>Math</h2><br/>
-        <h3>Highest concern: MCAS Math</h3>
-        <%= render "student_list", students: @top_mcas_math_concerns %>
+      <div class="mcas-math-concern">
+        <h2>Math: MCAS</h2>
+        <%= render "student_table", students: @top_mcas_math_concerns, header: 'Score' %>
       </div>
-      <br/>
-      <div id="mcas-ela-concern">
-        <h2>English</h2><br/>
-        <h3>Highest concern: MCAS ELA</h3>
-        <%= render "student_list", students: @top_mcas_ela_concerns %>
+      <div class="mcas-ela-concern">
+        <h2>ELA: MCAS</h2>
+        <%= render "student_table", students: @top_mcas_ela_concerns, header: 'Score' %>
       </div>
-      <br/>
       <p><em>Data reflect most recent available MCAS results.</em></p>
     </div>
     <div class="right-panel">
       <div class="attendance-section">
-        <h2>Attendance</h2><br>
-        <h3>Highest concern: absences</h3>
-        <%= render "student_list", students: @top_absences %>
-        <h3>Highest concern: tardies</h3>
-        <%= render "student_list", students: @top_tardies %>
+        <h2>Attendance: Absences</h2>
+        <%= render "student_table", students: @top_absences, header: 'Absences' %>
+        <h2>Attendance: Tardies</h2>
+        <%= render "student_table", students: @top_tardies, header: 'Tardies' %>
         <p><em>Data reflect absences and tardies during this current school year.</em></p>
       </div>
     </div>

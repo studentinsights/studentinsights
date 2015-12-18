@@ -1,0 +1,24 @@
+.dashboard-table {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  width: 100%;
+
+  thead tr th {
+    background: white;
+    border-bottom: 1px solid #ccc;
+  }
+
+  td:first-child,
+  th:first-child {
+    text-align: left;
+  }
+
+  td, th {
+    text-align: center;
+  }
+
+
+  td, th {
+    padding: 5px;
+  }
+}

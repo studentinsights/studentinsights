@@ -5,7 +5,6 @@ class McasQueries < Struct.new :school
       {
         name: StudentPresenter.new(student).full_name,
         result_value: student.most_recent_mcas_math_scaled,
-        result_name: 'scale score',
         interventions_count: student.most_recent_school_year.interventions.count,
         id: student.id
       }
@@ -17,7 +16,6 @@ class McasQueries < Struct.new :school
       {
         name: StudentPresenter.new(student).full_name,
         result_value: student.most_recent_mcas_ela_scaled,
-        result_name: 'scale score',
         interventions_count: student.most_recent_school_year.interventions.count,
         id: student.id
       }

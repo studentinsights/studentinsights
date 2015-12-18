@@ -1,0 +1,21 @@
+.school-dashboard {
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  .dashboard-table {
+    margin-bottom: 40px;
+  }
+
+  .mcas-ela-concern .dashboard-table {
+    background: $ela;
+  }
+
+  .mcas-math-concern .dashboard-table {
+    background: $math;
+  }
+
+  .attendance-section .dashboard-table {
+    background: $attendance;
+  }
+}

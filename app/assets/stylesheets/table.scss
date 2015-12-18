@@ -2,7 +2,6 @@
 
 table {
   overflow-x: scroll;
-  display: block;
 }
 
 .sort-down, .sort-up {
@@ -21,12 +20,6 @@ th {
 
   th & {
     text-align: center;
-  }
-}
-
-.column-names {
-  th:first-child {
-    padding-left: 20px;
   }
 }
 
@@ -69,39 +62,6 @@ tr, td {
   margin: auto auto;
 }
 
-tbody {
-
-  tr:hover {
-    cursor: pointer;
-    background-color: $table-row-hover;
-    border-radius: 10px;
-  }
-
-  td {
-    text-align: center;
-  }
-
-  .cell-wrapper {
-    padding: 10px;
-  }
-
-  td:hover {
-    z-index: 10;
-    .cell-wrapper {
-      background-color: $table-cell-hover;
-      border-radius: 5px;
-    }
-  }
-
-  a:link, a:visited {
-    color: $gray;
-  }
-
-  a:hover, a:active {
-    color: $gray;
-  }
-}
-
 .bulk-intervention {
   position: absolute;
   right: 0px;
@@ -121,16 +81,6 @@ tbody {
   }
 }
 
-.name {
-  text-align: left;
-}
-
-#roster-table {
-  overflow: auto;
-  width: 100%;
-  margin-right: -100px;
-  min-height: 360px;
-}
 
 #assign-bulk-interventions {
   padding: 4px 16px;
