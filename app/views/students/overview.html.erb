@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Helvetica;
+  padding: 0;
+  margin: 0;
+}
+</style>
+</head>
+
+<body>
+<div id="main"></div>
+<script src="https://fb.me/react-0.14.3.js"></script>
+<script src="https://fb.me/react-dom-0.14.3.js"></script>
+<script type="text/javascript">
+var serializedData = <%= @serialized_data.to_json.html_safe %>;
+var student = serializedData.student;
+
+var dom = React.DOM;
+var merge = function(a, b) {
+  var out = {};
+  Object.keys(a).concat(Object.keys(b)).forEach(function(key) {
+    out[key] = b[key] || a[key];
+  });
+  return out;
+};
+
+var styles = {
+  title: {
+    background: '#eee',
+    padding: 10,
+    margin: 0
+  },
+  box: {
+    width: 800,
+    height: 200,
+    border: '1px solid #ccc'
+  },
+  leftBox: {
+    borderRight: '1px solid #ccc',
+    background: 'white',
+    padding: 5
+  },
+  rightBox: {
+    background: '#eee',
+    padding: 5
+  },
+  section: {
+    margin: 20,
+    border: '1px solid #ccc'
+  },
+  sectionTitle: {
+    padding: 5,
+    background: 'rgba(0, 14, 255, 0.06)'
+  }
+};
+
+var App = React.createClass({
+  render: function() {
+    return (
+      dom.div({},
+        this.renderSection('Personal information', this.renderPersonalProfile()),
+        this.renderSection('Attendance', this.renderAttendanceProfile()),
+        this.renderSection('Behavior', this.renderBehaviorProfile()),
+        this.renderSection('Academics: ELA', this.renderLanguageArtsProfile()),
+        this.renderSection('Academics: Math', this.renderMathProfile())
+      )
+    );
+  },
+
+  renderSection: function(title, child) {
+    return (
+      dom.div({ style: styles.section },
+        dom.h2({ style: styles.sectionTitle}, title),
+        child
+      )
+    );
+  },
+
+  renderAttendanceProfile: function() {
+    return (
+      dom.div({ style: {display: 'flex'} },
+        dom.div({}, '...')
+      )
+    );
+  },
+
+  renderBehaviorProfile: function() {
+    return null;
+  },
+
+  renderLanguageArtsProfile: function() {
+    return null;
+  },
+
+  renderMathProfile: function() {
+    return null;
+  },
+
+  renderPersonalProfile: function() {
+    return (
+      dom.div({ style: {display: 'flex'} },
+        dom.div({ style: merge(styles.leftBox, {flex: 1}) },
+          dom.div({}, student.first_name, ' ', student.last_name),
+          dom.div({},
+            dom.span({}, student.grade, ' grade'),
+            ' with ', dom.span({}, 'Ms. Gonzalez'),
+            ', room ', dom.span({}, student.homeroom_id)
+          ),
+          dom.div({},
+            dom.span({}, student.program_assigned),
+            ' at the ',
+            dom.span({}, student.school_id)
+          )
+        ),
+        dom.div({ style: merge(styles.leftBox, {flex: 1}) },
+          dom.div({},
+            dom.span({}, student.home_language),
+            (student.free_reduced_lunch ? dom.span({}, student.free_reduced_lunch) : null)
+          ),
+          dom.div({}, student.disability),
+          dom.div({}, student.plan_504)
+        ),
+        dom.div({ style: merge(styles.rightBox, {flex: 1}) },
+          dom.div({},
+            dom.span({}, '* MTSS'),
+            dom.span({}, '* SST')
+          ),
+          dom.div({},
+            dom.span({}, '* 51a')
+          ),
+          dom.div({ style: {marginTop: 10}},
+            dom.div({}, '10 days ago | Jill: Last week...'),
+            dom.div({}, '25 days ago | Jill: After talking with the student\'s...')
+          )
+        )
+      )
+    );
+  },
+
+  renderAcrosss: function() {
+    return (
+      dom.div({ style: {padding: 0}}, 
+        dom.div({ style: styles.box }, 
+          dom.h2({ style: styles.title }, 'Risk level by Classroom')
+          // this.renderRiskLevelsByLabel(fixtures.riskByHomeroom),
+        ),
+        dom.div({ style: {height: 50}}),
+        dom.div({ style: styles.box }, 
+          dom.h2({ style: styles.title}, 'Risk level by Race')
+          // {this.renderRiskLevelsByLabel(fixtures.riskByRace)}
+        ),
+        dom.div({ style: {height: 50}}),
+        dom.div({ style: merge(styles.box, {height: 'auto'})}, 
+          dom.h2({ style: styles.title }, 'Increase in risk level by factors')
+          // {this.renderAllGaps(fixtures.allGaps)}
+        )));
+  },
+
+  // renderAllGaps: function(allGaps) {
+  //   var sortedGaps = allGaps.sort(function(a, b) { return Math.abs(b.normalized_gap) - Math.abs(a.normalized_gap); });
+  //   return React.DOM.div({ style: {padding: 20}}, 
+  //     {sortedGaps.map(function(gap) {
+  //       var key = [gap.measure, gap.factor, gap.label].join('-');
+  //       var totalBarWidth = 200;
+  //       var width = Math.abs(gap.normalized_gap * totalBarWidth/2);
+  //       var barStyles = (gap.normalized_gap > 0)
+  //         ? { left: totalBarWidth/2, background: 'rgba(255, 140, 0, 0.75)' }
+  //         : { left: totalBarWidth/2-width, background: 'rgba(0, 100, 0, 0.75)' };
+  //       var normalizedGapText = (gap.normalized_gap > 0 ? '+' : '') + Math.round(gap.normalized_gap * 100, 2) + '%';
+  //       return React.DOM.div({ key={key} style: {lineHeight: 1.8}}, 
+  //         React.DOM.div({ style: {display: 'inline-block', width: 300}}, {gap.label}, {gap.factor});
+  //         <span style: {display: 'inline-block', width: 50, paddingRight: 15, textAlign: 'right', color: 'black', fontWeight: 'bold' }}, {normalizedGapText}</span>
+  //         React.DOM.div({ style: {width: totalBarWidth, background: '#eee', display: 'inline-block' }}, 
+  //           React.DOM.div({ style: {merge(barStyles, { position: 'relative', width: width, display: 'inline-block' })}}, &nbsp;});
+  //         });
+  //         <span style: {fontSize: 14, color: '#666', paddingLeft: 10}}, {gap.student_count} students</span>
+  //       });
+  //     })}
+  //   });
+  // },
+
+  // renderRiskLevelsByLabel: function(riskLevelsByLabel) {
+  //   return React.DOM.div({ 
+  //     {riskLevelsByLabel.map(function(group) {
+  //       return React.DOM.div({ key={group.label} style: {display: 'flex', lineHeight: 1.8 }}, 
+  //         React.DOM.div({ style: {width: 300}}, 
+  //           {group.label == 'all'
+  //             ? <b style: {borderBottom: '1px solid #ccc'}}, All classrooms</b>
+  //             : group.label}
+  //         });
+  //         React.DOM.div({ style: {flex: 1}}, {this.renderRiskBuckets(group.risk_buckets, 400)});
+  //        });
+  //     }, this)}
+  //    });
+  // },
+
+  // renderRiskBuckets: function(riskBuckets, maxWidth) {
+  //   return React.DOM.div({ 
+  //     {riskBuckets.map(function(riskBucket) {
+  //       var width = Math.round(riskBucket.percentage * maxWidth);
+  //       var colorMap = {
+  //         0: 'rgba(0, 100, 0, 0.75)',
+  //         1: 'rgba(0, 100, 0, 0.25)',
+  //         2: 'rgba(255, 140, 0, 0.25)',
+  //         3: 'rgba(255, 140, 0, 0.9)'
+  //       };
+  //       var style = {
+  //         display: 'inline-block',
+  //         background: colorMap[riskBucket.level],
+  //         color: 'black',
+  //         fontWeight: 'bold',
+  //         outline: '1px solid #fff',
+  //         outlineBottom: 'none',
+  //         paddingLeft: 6,
+  //         width: width
+  //       };
+  //       return React.DOM.div({ key={riskBucket.level} style: {style}}, {riskBucket.count});
+  //     })}
+  //   });
+  // }
+});
+
+function main() {
+  ReactDOM.render(React.createElement(App, {}), document.getElementById('main'));
+}
+
+main()
+</script>
+</body>
+</html>
