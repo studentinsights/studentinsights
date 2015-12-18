@@ -25,6 +25,10 @@
   }
 }
 
+.search-label {
+  padding-left: 20px;
+}
+
 .navwrap {
   width: 80%;
   margin: 20px auto 30px auto;
@@ -38,7 +42,7 @@
       padding-top: 38px;
 
       a {
-        padding-left: 20px;
+        padding-right: 10px;
 
         @media screen and (max-width: $phase2) {
           padding-right: 20px;

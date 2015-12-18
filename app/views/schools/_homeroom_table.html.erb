@@ -1,0 +1,25 @@
+        <table class="dashboard-table bigtype">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th><%= header %></th>
+              <th>Interventions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% homerooms.each do |homeroom| %>
+              <tr>
+                <td><%= link_to homeroom[:name], homeroom_path(homeroom[:id]), class: "bigtype" %></td>
+                <td><%= homeroom[:result_value] %></td>
+                <td>
+                  <% if homeroom[:interventions_count] == 0 then %>
+                    <span class="warning-text"><%= homeroom[:interventions_count] %></span>
+                  <% else %>
+                    <%= homeroom[:interventions_count] %>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <br/>
