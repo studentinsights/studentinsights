@@ -7,6 +7,56 @@
   margin-top: -60px;
 }
 
+#roster-table {
+  overflow: auto;
+  width: 100%;
+  margin-right: -100px;
+  min-height: 360px;
+  display: block;
+
+  .column-names {
+    th:first-child {
+      padding-left: 20px;
+    }
+  }
+
+  .name {
+    text-align: left;
+  }
+
+  tbody {
+    tr:hover {
+      cursor: pointer;
+      background-color: $table-row-hover;
+      border-radius: 10px;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    .cell-wrapper {
+      padding: 10px;
+    }
+
+    td:hover {
+      z-index: 10;
+      .cell-wrapper {
+        background-color: $table-cell-hover;
+        border-radius: 5px;
+      }
+    }
+
+    a:link, a:visited {
+      color: $gray;
+    }
+
+    a:hover, a:active {
+      color: $gray;
+    }
+  }
+}
+
 #roster-table-wrapper, #roster-chart {
   padding: 30px;
 }

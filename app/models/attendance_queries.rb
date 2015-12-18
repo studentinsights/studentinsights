@@ -5,7 +5,6 @@ class AttendanceQueries < Struct.new :school
       {
         name: StudentPresenter.new(student).full_name,
         result_value: student.absences_count_most_recent_school_year,
-        result_name: 'absences',
         interventions_count: student.most_recent_school_year.interventions.count,
         id: student.id
       }
@@ -17,7 +16,6 @@ class AttendanceQueries < Struct.new :school
       {
         name: StudentPresenter.new(student).full_name,
         result_value: student.tardies_count_most_recent_school_year,
-        result_name: 'tardies',
         interventions_count: student.most_recent_school_year.interventions.count,
         id: student.id
       }
