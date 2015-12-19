@@ -58,10 +58,32 @@ describe("StudentNotesController", function() {
     // No student notes before ajax:success trigger
     expect($('.student-note-content').length).toEqual(0);
 
-    // Happy path response from server!
+    // Happy path!
     $el.find('form').trigger('ajax:success', serverResponse);
     expect($el.find('.student-note-content').length).toEqual(1);
     expect($el.html()).toContain('George is doing great in geometry!');
   });
 
+
+    // onNewStudentNoteSaveFailed: function (e, data, status, xhr) {
+    //   var $errorsEl = $(e.currentTarget).parent().find('.alert.errors');
+    //   this.insertErrorMessages($errorsEl, xhr.responseJSON.errors);
+    // },
+
+  describe('#onNewStudentNoteSaveFailed', function() {
+
+    it('displays errors if controller can\'t create new student note', function () {
+      // Setup controller and server fixture data
+      var controller = helpers.createController();
+      var $el = controller.render();
+      var form = $el.find('form');
+      var xhr = {
+        responseJSON: {
+          errors: ["Content can't be blank"]
+        }
+      };
+      var result = controller.onNewStudentNoteSaveFailed(form, null, null, xhr);
+      expect(result).toEqual([ "Content can't be blank" ]);
+    });
+  });
 });

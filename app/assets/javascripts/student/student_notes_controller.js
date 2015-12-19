@@ -33,6 +33,7 @@
     onNewStudentNoteSaveFailed: function (e, data, status, xhr) {
       var $errorsEl = $(e.currentTarget).parent().find('.alert.errors');
       this.insertErrorMessages($errorsEl, xhr.responseJSON.errors);
+      return xhr.responseJSON.errors;
     },
 
     // This binds event listeners for user actions, and for events fired by the jquery-ujs
