@@ -16,9 +16,9 @@ $(function() {
     // Profile tab, start here
     var profileController = new window.ProfileController();
     profileController.show();
-    
+
     // Read data for interventions tab
-    // This is persistent for the life of the page right - the state is read in 
+    // This is persistent for the life of the page right - the state is read in
     // on initial page load and is then owned by the controller.
     var interventionsControllerData = JSON.parse($('#interventions-controller-data').html());
     var interventionsController = new window.InterventionsController({
@@ -35,7 +35,7 @@ $(function() {
     });
 
     var notesControllerData = JSON.parse($('#notes-controller-data').html());
-    var notesController = new window.NotesController({
+    var notesController = new window.StudentNotesController({
       // configuration
       $el: $('#notes-tab'),
       //data

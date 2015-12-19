@@ -1,10 +1,10 @@
 (function(root) {
 
-  var NotesController = function (options) {
+  var StudentNotesController = function (options) {
     this.initialize(options);
   };
 
-  _.extend(NotesController.prototype, {
+  _.extend(StudentNotesController.prototype, {
     // Expects: {
     //   $el
     //  }
@@ -70,10 +70,11 @@
     render: function () {
       this.$el.html(this.renderTemplate('main', { studentId: this.studentId }));
       this.$el.find('#student-notes-list').html(this.renderStudentNotesList());
+      return this.$el;
     }
 
   });
 
-  root.NotesController = NotesController;
+  root.StudentNotesController = StudentNotesController;
 
 })(window)
