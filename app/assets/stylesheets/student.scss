@@ -27,6 +27,44 @@
   color: white;
 }
 
+.add-new-thing-button {
+  padding: 5px 20px 0 20px;
+  cursor: pointer;
+
+  .plus-sign {
+    color: $light-line;
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+  .add-text {
+    position: relative;
+    bottom: 12px;
+  }
+}
+
+.add-new-thing-button.selected {
+  background-color: $blue;
+  h1, .plus-sign {
+    color: white;
+  }
+}
+
+#add-new-intervention {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+#add-new-intervention.solo {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+#add-new-student-note.add-new-thing-button {
+  border: 1px solid $light-line;
+  border-radius: 8px;
+}
+
 #interventions-tab {
   .intervention-cell {
     padding: 20px;
@@ -57,36 +95,6 @@
 
   .zero-interventions {
     padding: 25px;
-  }
-
-  .add-new-intervention {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    padding: 5px 20px 0 20px;
-    cursor: pointer;
-
-    .add-intervention-plus-sign {
-      color: $light-line;
-      font-size: 50px;
-      font-weight: bold;
-    }
-
-    .add-intervention-text {
-      position: relative;
-      bottom: 12px;
-    }
-  }
-
-  .add-new-intervention.selected {
-    background-color: $blue;
-    h1, .add-intervention-plus-sign {
-      color: white;
-    }
-  }
-
-  .add-new-intervention.solo {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
   }
 
   form.new-intervention-form {
@@ -149,19 +157,7 @@
 
  /* BELOW GRAPH */
 
-.left-panel {
-  float: left;
-  margin-right: 5%;
-  width: 45%;
-
-  @media screen and (max-width: $phase2) {
-    width: 100%;
-    margin-right: 0;
-  }
-}
-
-.students .left-panel {
-  width: 40%;
+.students {
 
   .left-panel-item {
     font-size: 14px;
@@ -203,16 +199,6 @@
     left: 1px;
   }
 
-  .cancel-btn, .save-btn {
-    float: right;
-    margin-left: 10px;
-  }
-
-  .cancel {
-    padding-top: 8px;
-    padding-right: 20px;
-  }
-
   .intervention-end {
     position: relative;
   }
@@ -222,38 +208,6 @@
     left: 3px;
     top: 6px;
   }
-}
-
-.btn {
-  margin: auto;
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 28px;
-  color: $white;
-  font-size: 14px;
-  background: $blue;
-  padding: 8px 25px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: darken($blue, 10%);
-    text-decoration: none;
-  }
-}
-
-.right-panel {
-  float: right;
-  width: 45%;
-
-  @media screen and (max-width: $phase2) {
-    width: 100%;
-  }
-}
-
-.students .right-panel {
-  width: 55%;
 }
 
 .school-year {

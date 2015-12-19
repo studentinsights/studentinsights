@@ -1,5 +1,5 @@
 class ProgressNotesController < ApplicationController
-  include SerializeInterventionHelper
+  include SerializeDataHelper
 
   def create
     progress_note = ProgressNote.new(progress_note_params)

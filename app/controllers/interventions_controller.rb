@@ -1,5 +1,5 @@
 class InterventionsController < ApplicationController
-  include SerializeInterventionHelper
+  include SerializeDataHelper
 
   def create
     intervention = Intervention.new(intervention_params)

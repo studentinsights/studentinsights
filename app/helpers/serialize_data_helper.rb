@@ -1,4 +1,5 @@
-module SerializeInterventionHelper
+module SerializeDataHelper
+
   def serialize_intervention(intervention)
     {
       id: intervention.id,
@@ -22,4 +23,12 @@ module SerializeInterventionHelper
       created_date: progress_note.created_at.strftime("%B %e, %Y %l:%M %p")
     }
   end
+
+  def serialize_student_note(student_note)
+    {
+      content: student_note.content,
+      created_at: student_note.created_at.strftime('%B %e, %Y')
+    }
+  end
+
 end

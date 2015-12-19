@@ -65,7 +65,7 @@
     // Rails code that is adding behavior to HTML generated with `form_for` server rendering.
     bindListeners: function () {
       // interventions
-      this.$el.on('click', '.add-new-intervention', this.onAddNewIntervention.bind(this));
+      this.$el.on('click', '#add-new-intervention', this.onAddNewIntervention.bind(this));
       this.$el.on('click', '.cancel-new-intervention', this.onCancelNewIntervention.bind(this));
       this.$el.on('click', '.intervention-cell', this.onSelectedIntervention.bind(this));
       this.$el.on('ajax:success', '.new-intervention-form', this.onNewInterventionSaveSucceeded.bind(this));

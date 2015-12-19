@@ -1,23 +1,19 @@
 {{#main}}
-  <div class="left-panel">
-    <div class="add-new-intervention {{addNewClassName}}">
+  <div class="left-panel narrower-panel">
+    <div id="add-new-intervention" class="add-new-thing-button {{addNewClassName}}">
       <h1>
-        <span class="add-intervention-plus-sign">
-          +
-        </span>
-        <span class="add-intervention-text">
-          Add intervention
-        </span>
+        <span class="plus-sign">+</span>
+        <span class="add-text">Add intervention</span>
       </h1>
     </div>
     <div class="intervention-cell-list"></div>
   </div>
-  <div class="right-panel">
+  <div class="right-panel wider-panel">
     <div class="intervention-details-list"></div>
     <div class="new-intervention-container"></div>
   </div>
 {{/main}}
-    
+
 {{#interventionCell}}
   <div class="intervention-cell {{activatedClass}}" data-id="{{id}}">
     <strong>{{name}}</strong>

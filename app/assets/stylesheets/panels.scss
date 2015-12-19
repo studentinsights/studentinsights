@@ -1,0 +1,29 @@
+.narrower-panel {
+  width: 40%;
+}
+
+.wider-panel {
+  width: 55%;
+}
+
+.equal-width-panel {
+  width: 45%;
+}
+
+.left-panel {
+  float: left;
+  margin-right: 5%;
+
+  @media screen and (max-width: $phase2) {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.right-panel {
+  float: right;
+
+  @media screen and (max-width: $phase2) {
+    width: 100%;
+  }
+}

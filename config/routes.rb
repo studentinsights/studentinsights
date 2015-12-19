@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :homerooms
   resources :interventions
   resources :progress_notes
+  resources :student_notes
   resources :bulk_intervention_assignments
   resources :schools
 end

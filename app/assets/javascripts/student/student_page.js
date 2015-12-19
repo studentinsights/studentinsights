@@ -34,18 +34,31 @@ $(function() {
       interventions: interventionsControllerData.interventions
     });
 
+    var notesControllerData = JSON.parse($('#notes-controller-data').html());
+    var notesController = new window.NotesController({
+      // configuration
+      $el: $('#notes-tab'),
+      //data
+      studentId: notesControllerData.student_id,
+      studentNotes: notesControllerData.student_notes
+    });
+
     // Switch between tabs
     $('.tab-select').click(function() {
       var tab = $(this).data('tab');
       $('.tab').hide();
       $('.tab-select').removeClass('selected');
       $(this).addClass('selected');
-      
+
       if (tab === 'interventions-tab') {
         interventionsController.bindListeners();
         interventionsController.render();
         $('#' + tab).show();
         return;
+      } else if (tab === 'notes-tab') {
+        notesController.bindListeners();
+        notesController.render();
+        $('#' + tab).show();
       }
 
       $('#' + tab).show();

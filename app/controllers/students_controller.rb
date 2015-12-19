@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  include SerializeInterventionHelper
+  include SerializeDataHelper
 
   def show
     @student = Student.find(params[:id])
@@ -21,6 +21,9 @@ class StudentsController < ApplicationController
 
     interventions = @student.interventions.order(start_date: :desc)
     @serialized_interventions = interventions.map { |intervention| serialize_intervention(intervention) }
+
+    student_notes = @student.student_notes
+    @serialized_student_notes = student_notes.map { |note| serialize_student_note(note) }
 
     @roster_url = homeroom_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
