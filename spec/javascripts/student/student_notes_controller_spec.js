@@ -9,6 +9,13 @@ describe("StudentNotesController", function() {
       });
       controller.bindListeners();
       return controller;
+    },
+
+    extractFormParams: function($form) {
+      return $form.serializeArray().reduce(function(params, pair) {
+        params[pair.name] = pair.value;
+        return params;
+      }, {});
     }
   };
 
@@ -28,7 +35,16 @@ describe("StudentNotesController", function() {
     expect($el.text()).toContain('Alejandra is doing great at algebra!');
   });
 
-  xit('allows the educator to add a new student note', function() {
+  it('allows educator to fill out new student note form', function() {
+    var $el = helpers.createController().render();
+    $el.find('[name="student_note[content]"]').val('George is doing great in geometry!');
+    $el.find('[name="student_note[student_id]"]').val(1);
+    var form_params = helpers.extractFormParams($el.find('form'));
+    expect(form_params).toEqual({
+       'utf8': '✓',
+       'student_note[content]': 'George is doing great in geometry!',
+       'student_note[student_id]': '1'
+    });
   });
 
 });
