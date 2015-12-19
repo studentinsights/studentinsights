@@ -1,0 +1,27 @@
+
+{{#main}}
+  <div class="left-panel wider-panel">
+    <div id="student-notes-list"></div>
+  </div>
+  <div class="right-panel narrower-panel">
+    <label>Add note</label>
+    <form accept-charset="UTF-8" action="/student_notes" class="new-student-note-form" data-remote="true" id="new_student_note" method="post">
+      <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+      <textarea cols="40" name="student_note[content]" required="required" rows="5"></textarea>
+      <br/>
+      <input name="student_note[student_id]" type="hidden" value="{{studentId}}">
+      <input class="btn save-btn" name="commit" type="submit" value="Save" />
+    </form>
+  </div>
+{{/main}}
+
+{{#studentNote}}
+  <div class="student-note">
+    <div class="student-note-date">
+      {{created_at}}
+    </div>
+    <div class="student-note-content">
+      {{content}}
+    </div>
+  </div>
+{{/studentNote}}

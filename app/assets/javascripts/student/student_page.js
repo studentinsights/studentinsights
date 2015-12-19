@@ -16,9 +16,9 @@ $(function() {
     // Profile tab, start here
     var profileController = new window.ProfileController();
     profileController.show();
-    
+
     // Read data for interventions tab
-    // This is persistent for the life of the page right - the state is read in 
+    // This is persistent for the life of the page right - the state is read in
     // on initial page load and is then owned by the controller.
     var interventionsControllerData = JSON.parse($('#interventions-controller-data').html());
     var interventionsController = new window.InterventionsController({
@@ -34,18 +34,31 @@ $(function() {
       interventions: interventionsControllerData.interventions
     });
 
+    var notesControllerData = JSON.parse($('#notes-controller-data').html());
+    var notesController = new window.StudentNotesController({
+      // configuration
+      $el: $('#notes-tab'),
+      //data
+      studentId: notesControllerData.student_id,
+      studentNotes: notesControllerData.student_notes
+    });
+
     // Switch between tabs
     $('.tab-select').click(function() {
       var tab = $(this).data('tab');
       $('.tab').hide();
       $('.tab-select').removeClass('selected');
       $(this).addClass('selected');
-      
+
       if (tab === 'interventions-tab') {
         interventionsController.bindListeners();
         interventionsController.render();
         $('#' + tab).show();
         return;
+      } else if (tab === 'notes-tab') {
+        notesController.bindListeners();
+        notesController.render();
+        $('#' + tab).show();
       }
 
       $('#' + tab).show();

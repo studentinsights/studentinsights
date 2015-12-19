@@ -23,6 +23,9 @@
       <div class="tab-select selected" data-tab="profile-tab">
         Profile
       </div>
+      <div class="tab-select" data-tab="notes-tab">
+        Notes
+      </div>
       <div class="tab-select" data-tab="interventions-tab">
         Interventions
       </div>
@@ -53,7 +56,7 @@
 
       <div id="chart"></div>
 
-      <div class="left-panel">
+      <div class="left-panel narrower-panel">
         <div id="demographics">
           <h1>Demographics</h1>
 
@@ -92,7 +95,7 @@
         </div>
       </div>
 
-      <div class="right-panel">
+      <div class="right-panel wider-panel">
         <% if @student_school_years.present? %>
           <% @student_school_years.each do |s| %>
             <%= render "school_year_box", school_year: s %>
@@ -100,6 +103,8 @@
         <% end %>
       </div>
     </div>
+
+    <div id="notes-tab" class="tab"></div>
 
     <div id="interventions-tab" class="tab"></div>
   </div>
@@ -109,14 +114,20 @@
   <%= tag("div", id: "chart-start", data: { start: @chart_start }) %>
   <div id="interventions-controller-data" class="hidden">
     <%= {
-      :student_id => @student.id,
-      :interventions => @serialized_interventions,
-      :intervention_types => InterventionType.all,
-      :educators => Educator.all,
-      :current_educator => current_educator
+      student_id: @student.id,
+      interventions: @serialized_interventions,
+      intervention_types: InterventionType.all,
+      educators: Educator.all,
+      current_educator: current_educator
     }.to_json %>
   </div>
 
+  <div id="notes-controller-data" class="hidden">
+    <%= {
+      student_id: @student.id,
+      student_notes: @serialized_student_notes
+    }.to_json %>
+  </div>
 
   <% # Render templates for JS code, using some Rails helpers like `form_for` on the server-side first %>
   <script id="risk-level-tooltip-template" type="x-tmpl-mustache">

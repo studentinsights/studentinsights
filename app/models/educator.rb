@@ -4,6 +4,7 @@ class Educator < ActiveRecord::Base
   has_many :students, through: :homerooms
   has_many :interventions
   has_many :progress_notes, through: :interventions
+  has_many :student_notes
 
   def allowed_homerooms
     # Educator can visit roster view for these homerooms
