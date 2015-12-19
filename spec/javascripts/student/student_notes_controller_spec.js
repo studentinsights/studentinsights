@@ -47,4 +47,21 @@ describe("StudentNotesController", function() {
     });
   });
 
+  it('allows educator to create new student note', function () {
+    // Setup controller and server fixture data
+    var $el = helpers.createController().render();
+    var serverResponse = {
+      content: 'George is doing great in geometry!',
+      student_id: 1
+    };
+
+    // No student notes before ajax:success trigger
+    expect($('.student-note-content').length).toEqual(0);
+
+    // Happy path response from server!
+    $el.find('form').trigger('ajax:success', serverResponse);
+    expect($el.find('.student-note-content').length).toEqual(1);
+    expect($el.html()).toContain('George is doing great in geometry!');
+  });
+
 });
