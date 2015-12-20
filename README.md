@@ -75,14 +75,6 @@ We deployed this app on Heroku once and you can, too. Be sure to set config vari
 
 Scripts deployment on AWS located in `/scripts/aws/`.
 
-### Your own server
-
-Our plan is to deploy Student Insights on Somerville Public Schools' machines and serve over their intranet. Capistrano does our deployment. Set `SERVER_NAME` in `config/initializers/capistrano.rb` and run:
-
-```
-cap production deploy
-```
-
 # Design
 For a history of all design iterations look here:
 https://www.dropbox.com/sh/r71hh9azun8v6as/AABtBghkPI4XUJBZjNpMmRdba?dl=0
