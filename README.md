@@ -10,6 +10,7 @@ Student Insights enables educators to see at-risk students and match them to the
 - [Tests](#tests)
 - [Deployment](#deployment)
     - [Heroku](#heroku)
+    - [AWS](#aws)
     - [Your own server](#your-own-server)
 - [Design](#design)
 - [More](#more)
@@ -61,6 +62,10 @@ It uses [Jasmine](http://jasmine.github.io/) for JavaScript tests, run through t
 ### Heroku
 
 We deployed this app on Heroku once and you can, too. Be sure to set config variables for DEVISE_SECRET_KEY and SECRET_KEY_BASE before deploying.
+
+### AWS
+
+Scripts deployment on AWS located in `/scripts/aws/`.
 
 ### Your own server
 
