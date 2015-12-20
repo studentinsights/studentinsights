@@ -49,7 +49,7 @@ Use the `--district` flag to indicate your school district or charter organizati
 So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, write a new client: `app/importers/clients`.
 
 # Tests
-This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) for Ruby tests. Run the test suite:
+This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
 
 ```
 rspec
@@ -69,7 +69,7 @@ teaspoon
 
 ### Heroku
 
-We deployed this app on Heroku once and you can, too. Be sure to set config variables for DEVISE_SECRET_KEY and SECRET_KEY_BASE before deploying.
+We deployed this app on Heroku and you can, too. Set config variables for DEVISE_SECRET_KEY and SECRET_KEY_BASE in `local_env.yml` before deploying.
 
 ### AWS
 
