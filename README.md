@@ -55,7 +55,15 @@ This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) fo
 rspec
 ```
 
-It uses [Jasmine](http://jasmine.github.io/) for JavaScript tests, run through the [Teaspoon](https://github.com/modeset/teaspoon) gem.  You can run them in the browser at `http://localhost:3000/teaspoon/default`.
+It uses [Jasmine](http://jasmine.github.io/) for JavaScript tests, run through the [Teaspoon](https://github.com/modeset/teaspoon) gem.
+
+You can run them in the browser at `http://localhost:3000/teaspoon/default`.
+
+You can also run them from the command line:
+
+```
+teaspoon
+```
 
 # Deployment
 
