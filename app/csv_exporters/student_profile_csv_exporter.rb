@@ -1,6 +1,6 @@
-class StudentProfileCsvExporter < Struct.new :data
-  require 'csv'
+require 'csv'
 
+class StudentProfileCsvExporter < Struct.new :data
   def profile_csv_export
     CSV.generate do |csv|
       demographic_section(csv).add
