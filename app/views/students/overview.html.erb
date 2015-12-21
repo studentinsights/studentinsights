@@ -47,10 +47,11 @@ var styles = {
   },
   rightBox: {
     background: '#eee',
-    padding: 5
+    padding: 5,
+    height: 140
   },
   section: {
-    margin: 20,
+    marginBottom: 15,
     border: '1px solid #ccc'
   },
   sectionTitle: {
@@ -62,12 +63,15 @@ var styles = {
 var App = React.createClass({
   render: function() {
     return (
-      dom.div({},
-        this.renderSection('Personal information', this.renderPersonalProfile()),
+      dom.div({ style: {fontSize: 14, margin: 40}},
+        this.renderSection('Personal and home', this.renderPersonalProfile()),
         this.renderSection('Attendance', this.renderAttendanceProfile()),
-        this.renderSection('Behavior', this.renderBehaviorProfile()),
-        this.renderSection('Academics: ELA', this.renderLanguageArtsProfile()),
-        this.renderSection('Academics: Math', this.renderMathProfile())
+        this.renderSection('Behavior', this.renderAttendanceProfile()),
+        this.renderSection('ELA: Dibels', this.renderAttendanceProfile()),
+        this.renderSection('ELA: Star', this.renderAttendanceProfile()),
+        this.renderSection('ELA: MCAS', this.renderAttendanceProfile()),
+        this.renderSection('Math: Star', this.renderAttendanceProfile()),
+        this.renderSection('Math: MCAS', this.renderAttendanceProfile())
       )
     );
   },
@@ -75,7 +79,7 @@ var App = React.createClass({
   renderSection: function(title, child) {
     return (
       dom.div({ style: styles.section },
-        dom.h2({ style: styles.sectionTitle}, title),
+        dom.h3({ style: styles.sectionTitle}, title),
         child
       )
     );
@@ -84,27 +88,23 @@ var App = React.createClass({
   renderAttendanceProfile: function() {
     return (
       dom.div({ style: {display: 'flex'} },
-        dom.div({}, '...')
+        dom.div({ style: merge(styles.leftBox, {flex: 2}) },
+          'historical context',
+          '-> go back to there'
+        ),
+        dom.div({ style: merge(styles.leftBox, {flex: 2}) }, 'current status, last 30 days'),
+        dom.div({ style: merge(styles.rightBox, {flex: 3}) },
+          'interventions & notes - work',
+          dom.button({}, '+ Add')
+        )
       )
     );
-  },
-
-  renderBehaviorProfile: function() {
-    return null;
-  },
-
-  renderLanguageArtsProfile: function() {
-    return null;
-  },
-
-  renderMathProfile: function() {
-    return null;
   },
 
   renderPersonalProfile: function() {
     return (
       dom.div({ style: {display: 'flex'} },
-        dom.div({ style: merge(styles.leftBox, {flex: 1}) },
+        dom.div({ style: merge(styles.leftBox, {flex: 2}) },
           dom.div({}, student.first_name, ' ', student.last_name),
           dom.div({},
             dom.span({}, student.grade, ' grade'),
@@ -117,7 +117,7 @@ var App = React.createClass({
             dom.span({}, student.school_id)
           )
         ),
-        dom.div({ style: merge(styles.leftBox, {flex: 1}) },
+        dom.div({ style: merge(styles.leftBox, {flex: 2}) },
           dom.div({},
             dom.span({}, student.home_language),
             (student.free_reduced_lunch ? dom.span({}, student.free_reduced_lunch) : null)
@@ -125,7 +125,7 @@ var App = React.createClass({
           dom.div({}, student.disability),
           dom.div({}, student.plan_504)
         ),
-        dom.div({ style: merge(styles.rightBox, {flex: 1}) },
+        dom.div({ style: merge(styles.rightBox, {flex: 3}) },
           dom.div({},
             dom.span({}, '* MTSS'),
             dom.span({}, '* SST')
@@ -134,8 +134,10 @@ var App = React.createClass({
             dom.span({}, '* 51a')
           ),
           dom.div({ style: {marginTop: 10}},
+            dom.div({}, '3 months ago | Uri: The teacher was able to help out with getting...'),
+            dom.div({}, '25 days ago | Jill: After talking with the student\'s...'),
             dom.div({}, '10 days ago | Jill: Last week...'),
-            dom.div({}, '25 days ago | Jill: After talking with the student\'s...')
+            dom.button({}, '+ Add')
           )
         )
       )
@@ -146,17 +148,17 @@ var App = React.createClass({
     return (
       dom.div({ style: {padding: 0}}, 
         dom.div({ style: styles.box }, 
-          dom.h2({ style: styles.title }, 'Risk level by Classroom')
+          dom.h3({ style: styles.title }, 'Risk level by Classroom')
           // this.renderRiskLevelsByLabel(fixtures.riskByHomeroom),
         ),
         dom.div({ style: {height: 50}}),
         dom.div({ style: styles.box }, 
-          dom.h2({ style: styles.title}, 'Risk level by Race')
+          dom.h3({ style: styles.title}, 'Risk level by Race')
           // {this.renderRiskLevelsByLabel(fixtures.riskByRace)}
         ),
         dom.div({ style: {height: 50}}),
         dom.div({ style: merge(styles.box, {height: 'auto'})}, 
-          dom.h2({ style: styles.title }, 'Increase in risk level by factors')
+          dom.h3({ style: styles.title }, 'Increase in risk level by factors')
           // {this.renderAllGaps(fixtures.allGaps)}
         )));
   },
