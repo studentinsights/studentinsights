@@ -13,4 +13,14 @@ class SchoolsController < ApplicationController
     @top_mcas_ela_concerns = mcas_queries.top_5_ela_concerns_serialized
   end
 
+  def homerooms
+    @school = School.friendly.find(params[:id])
+    homerooms = @school.students.map(&:homeroom).compact.uniq
+    homeroom_queries = HomeroomQueries.new(homerooms)
+
+    @top_absences = homeroom_queries.top_absences
+    @top_tardies = homeroom_queries.top_tardies
+    @top_mcas_math_concerns = homeroom_queries.top_mcas_math_concerns
+    @top_mcas_ela_concerns = homeroom_queries.top_mcas_ela_concerns
+  end
 end

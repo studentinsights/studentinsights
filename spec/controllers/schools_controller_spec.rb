@@ -28,7 +28,26 @@ describe SchoolsController, :type => :controller do
         expect(assigns(:school)).to eq(school)
       end
     end
-
   end
 
+  describe '#homerooms' do
+    before { sign_in(educator) }
+    let!(:school) { FactoryGirl.create(:healey) }
+    let!(:alpha_homeroom) { FactoryGirl.create(:homeroom, name: 'alpha') }
+    let!(:beta_homeroom) { FactoryGirl.create(:homeroom, name: 'beta') }
+    let!(:alpha_students) { 3.times {|i| FactoryGirl.create(:student, homeroom: alpha_homeroom, school: school) } }
+    let!(:beta_students) { 3.times {|i| FactoryGirl.create(:student, homeroom: beta_homeroom, school: school) } }
+    let!(:educator) { FactoryGirl.create(:admin_educator) }
+
+    it 'no exceptions on the happy path' do
+      request.env['HTTPS'] = 'on'
+      get :homerooms, id: school.slug
+
+      expect(response).to be_success
+      expect(assigns(:top_absences).map {|row| row[:name] }).to eq(['beta', 'alpha'])
+      expect(assigns(:top_tardies).map {|row| row[:name] }).to eq(['beta', 'alpha'])
+      expect(assigns(:top_mcas_math_concerns).map {|row| row[:name] }).to eq(['beta', 'alpha'])
+      expect(assigns(:top_mcas_ela_concerns).map {|row| row[:name] }).to eq(['beta', 'alpha'])
+    end
+  end
 end
