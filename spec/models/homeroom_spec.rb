@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Homeroom do
+
   describe '#grade' do
     context 'with no students' do
       let(:homeroom) { FactoryGirl.create(:homeroom_with_student) }
@@ -36,4 +37,57 @@ RSpec.describe Homeroom do
       end
     end
   end
+
+  describe '#average_mcas_math_score' do
+    context 'homerooms has no students' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      it 'returns nil' do
+        expect(homeroom.average_mcas_math_score).to eq nil
+      end
+    end
+    context 'homeroom has one student' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      let!(:student) { FactoryGirl.create(:student, :with_mcas_math_score_240, homeroom: homeroom) }
+      before { Student.update_recent_student_assessments }
+      it 'returns the score of that student' do
+        expect(homeroom.average_mcas_math_score).to eq 240
+      end
+    end
+    context 'homeroom has more than one student' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      let!(:student) { FactoryGirl.create(:student, :with_mcas_math_score_240, homeroom: homeroom) }
+      let!(:other_student) { FactoryGirl.create(:student, :with_mcas_math_score_280, homeroom: homeroom) }
+      before { Student.update_recent_student_assessments }
+      it 'returns the average of their scores' do
+        expect(homeroom.average_mcas_math_score).to eq 260
+      end
+    end
+  end
+
+  describe '#average_mcas_ela_score' do
+    context 'homerooms has no students' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      it 'returns nil' do
+        expect(homeroom.average_mcas_ela_score).to eq nil
+      end
+    end
+    context 'homeroom has one student' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      let!(:student) { FactoryGirl.create(:student, :with_mcas_ela_score_250, homeroom: homeroom) }
+      before { Student.update_recent_student_assessments }
+      it 'returns the score of that student' do
+        expect(homeroom.average_mcas_ela_score).to eq 250
+      end
+    end
+    context 'homeroom has more than one student' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      let!(:student) { FactoryGirl.create(:student, :with_mcas_ela_score_250, homeroom: homeroom) }
+      let!(:other_student) { FactoryGirl.create(:student, :with_mcas_ela_score_290, homeroom: homeroom) }
+      before { Student.update_recent_student_assessments }
+      it 'returns the average of their scores' do
+        expect(homeroom.average_mcas_ela_score).to eq 270
+      end
+    end
+  end
+
 end
