@@ -18,9 +18,10 @@ class SchoolsController < ApplicationController
     homerooms = @school.students.map(&:homeroom).compact.uniq
     homeroom_queries = HomeroomQueries.new(homerooms)
 
-    @top_absences = homeroom_queries.top_absences
-    @top_tardies = homeroom_queries.top_tardies
-    @top_mcas_math_concerns = homeroom_queries.top_mcas_math_concerns
-    @top_mcas_ela_concerns = homeroom_queries.top_mcas_ela_concerns
+    limit = 5
+    @top_absences = homeroom_queries.top_absences.first(limit)
+    @top_tardies = homeroom_queries.top_tardies.first(limit)
+    @top_mcas_math_concerns = homeroom_queries.top_mcas_math_concerns.first(limit)
+    @top_mcas_ela_concerns = homeroom_queries.top_mcas_ela_concerns.first(limit)
   end
 end

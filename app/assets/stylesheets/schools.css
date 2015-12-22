@@ -15,7 +15,12 @@
     background: $math;
   }
 
-  .attendance-section .dashboard-table {
+  .attendance-absences-concern .dashboard-table,
+  .attendance-tardies-concern .dashboard-table {
     background: $attendance;
+  }
+
+  .summary-container {
+    min-height: 288px;
   }
 }
