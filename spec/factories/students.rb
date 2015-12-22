@@ -21,7 +21,65 @@ FactoryGirl.define do
     trait :with_mcas_math_advanced_assessment do
       after(:create) do |student|
         FactoryGirl.create(:mcas_math_advanced_assessment, student: student)
-       end
+      end
+    end
+
+    trait :with_mcas_math_score_240 do
+      after(:create) do |student|
+        FactoryGirl.create(:mcas_math_student_assessment_score_240, student: student)
+      end
+    end
+
+    trait :with_mcas_math_score_280 do
+      after(:create) do |student|
+        FactoryGirl.create(:mcas_math_student_assessment_score_280, student: student)
+      end
+    end
+
+    trait :with_mcas_ela_score_250 do
+      after(:create) do |student|
+        FactoryGirl.create(:mcas_ela_student_assessment_score_250, student: student)
+      end
+    end
+
+    trait :with_mcas_ela_score_290 do
+      after(:create) do |student|
+        FactoryGirl.create(:mcas_ela_student_assessment_score_290, student: student)
+      end
+    end
+
+    trait :with_recent_absence do
+      after(:create) do |student|
+        FactoryGirl.create(:attendance_event, :absence, :recent, student: student)
+      end
+    end
+
+    trait :with_recent_tardy do
+      after(:create) do |student|
+        FactoryGirl.create(:attendance_event, :tardy, :recent, student: student)
+      end
+    end
+
+    trait :with_three_recent_absences do
+      after(:create) do |student|
+        3.times do
+          FactoryGirl.create(:attendance_event, :absence, :recent, student: student)
+        end
+      end
+    end
+
+    trait :with_three_recent_tardies do
+      after(:create) do |student|
+        3.times do
+          FactoryGirl.create(:attendance_event, :tardy, :recent, student: student)
+        end
+      end
+    end
+
+    trait :with_recent_school_year do
+      after(:create) do |student|
+        FactoryGirl.create(:student_school_year, student: student)
+      end
     end
 
     factory :student_who_registered_in_2013_2014 do

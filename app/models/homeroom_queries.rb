@@ -5,44 +5,97 @@ class HomeroomQueries
   end
 
   def top_absences
-    @homerooms.map {|homeroom| attendance_response(homeroom, :absences_count_most_recent_school_year) }
+    homerooms_with_absences_average.sort do |a, b|
+      b[:result_value] <=> a[:result_value]           # Sort descending
+    end
   end
 
   def top_tardies
-    @homerooms.map {|homeroom| attendance_response(homeroom, :tardies_count_most_recent_school_year) }
-  end
-
-  def top_mcas_ela_concerns
-    mcas_concerns(:most_recent_mcas_math_scaled)
+    homerooms_with_tardies_average.sort do |a, b|
+      b[:result_value] <=> a[:result_value]           # Sort descending
+    end
   end
 
   def top_mcas_math_concerns
-    mcas_concerns(:most_recent_mcas_ela_scaled)
+    homerooms_with_mcas_math_average.sort do |a, b|
+      a[:result_value] <=> b[:result_value]
+    end
+  end
+
+  def top_mcas_ela_concerns
+    homerooms_with_mcas_ela_average.sort do |a, b|
+      a[:result_value] <=> b[:result_value]
+    end
   end
 
   private
-  def mcas_concerns(method_name)
-    homeroom_rows = @homerooms.map do |homeroom|
-      # guard for missing mcas scores
-      values = homeroom.students.map {|student| student.send(method_name) }.compact
-      result_value = if values.size == 0 then nil else (values.reduce(:+).to_f / values.size).round(0) end
+
+  def homerooms_serialized_with_mcas_math_results
+    @homerooms.map do |homeroom|
       {
         :id => homeroom.id,
         :name => homeroom.name,
-        :result_value => result_value,
+        :result_value => homeroom.average_mcas_math_score,
         :interventions_count => recent_interventions_for(homeroom.students, math_interventions).length || 0
       }
     end
-    homeroom_rows.sort {|a, b| a[:result_value] <=> b[:result_value] } 
   end
 
-  def attendance_response(homeroom, method_name)
-    {
-      :id => homeroom.id,
-      :name => homeroom.name,
-      :result_value => homeroom.students.map {|student| student.send(method_name) }.compact.reduce(:+),
-      :interventions_count => recent_interventions_for(homeroom.students, attendance_interventions).length || 0
-    }
+  def homerooms_serialized_with_mcas_ela_results
+    @homerooms.map do |homeroom|
+      {
+        :id => homeroom.id,
+        :name => homeroom.name,
+        :result_value => homeroom.average_mcas_ela_score,
+        :interventions_count => recent_interventions_for(homeroom.students, math_interventions).length || 0
+      }
+    end
+  end
+
+  def homerooms_serialized_with_absences_results
+    @homerooms.map do |homeroom|
+      {
+        :id => homeroom.id,
+        :name => homeroom.name,
+        :result_value => homeroom.average_absences_most_recent_school_year,
+        :interventions_count => recent_interventions_for(homeroom.students, attendance_interventions).length || 0
+      }
+    end
+  end
+
+  def homerooms_serialized_with_tardies_results
+    @homerooms.map do |homeroom|
+      {
+        :id => homeroom.id,
+        :name => homeroom.name,
+        :result_value => homeroom.average_tardies_most_recent_school_year,
+        :interventions_count => recent_interventions_for(homeroom.students, attendance_interventions).length || 0
+      }
+    end
+  end
+
+  def homerooms_with_mcas_math_average
+    homerooms_serialized_with_mcas_math_results.delete_if do |homeroom|
+      homeroom[:result_value] == nil
+    end
+  end
+
+  def homerooms_with_mcas_ela_average
+    homerooms_serialized_with_mcas_ela_results.delete_if do |homeroom|
+      homeroom[:result_value] == nil
+    end
+  end
+
+  def homerooms_with_absences_average
+    homerooms_serialized_with_absences_results.delete_if do |homeroom|
+      homeroom[:result_value] == nil
+    end
+  end
+
+  def homerooms_with_tardies_average
+    homerooms_serialized_with_tardies_results.delete_if do |homeroom|
+      homeroom[:result_value] == nil
+    end
   end
 
   def math_interventions
