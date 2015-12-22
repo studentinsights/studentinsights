@@ -36,4 +36,18 @@ class Homeroom < ActiveRecord::Base
     Homeroom.where(students_count: 0).destroy_all
   end
 
+  def average_mcas_math_score
+    most_recent_mcas_math_scores = students.map(&:most_recent_mcas_math_scaled).compact
+    number_of_scores = most_recent_mcas_math_scores.size
+    return nil if number_of_scores == 0
+    (most_recent_mcas_math_scores.reduce(:+).to_f / number_of_scores).round(0)
+  end
+
+  def average_mcas_ela_score
+    most_recent_mcas_math_scores = students.map(&:most_recent_mcas_ela_scaled).compact
+    number_of_scores = most_recent_mcas_math_scores.size
+    return nil if number_of_scores == 0
+    (most_recent_mcas_math_scores.reduce(:+).to_f / number_of_scores).round(0)
+  end
+
 end

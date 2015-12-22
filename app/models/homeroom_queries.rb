@@ -12,29 +12,39 @@ class HomeroomQueries
     @homerooms.map {|homeroom| attendance_response(homeroom, :tardies_count_most_recent_school_year) }
   end
 
-  def top_mcas_ela_concerns
-    mcas_concerns(:most_recent_mcas_math_scaled)
-  end
-
   def top_mcas_math_concerns
-    mcas_concerns(:most_recent_mcas_ela_scaled)
-  end
-
-  private
-  def mcas_concerns(method_name)
-    homeroom_rows = @homerooms.map do |homeroom|
-      # guard for missing mcas scores
-      values = homeroom.students.map {|student| student.send(method_name) }.compact
-      result_value = if values.size == 0 then nil else (values.reduce(:+).to_f / values.size).round(0) end
+    serialized_homerooms = @homerooms.map do |homeroom|
       {
         :id => homeroom.id,
         :name => homeroom.name,
-        :result_value => result_value,
+        :result_value => homeroom.average_mcas_math_score,
         :interventions_count => recent_interventions_for(homeroom.students, math_interventions).length || 0
       }
     end
-    homeroom_rows.sort {|a, b| a[:result_value] <=> b[:result_value] } 
+    serialized_homerooms.delete_if do |homeroom|
+      # Remove homerooms whose students have no MCAS Math assessment results
+      homeroom[:result_value] == nil
+    end
+    serialized_homerooms.sort {|a, b| a[:result_value] <=> b[:result_value] }
   end
+
+  def top_mcas_ela_concerns
+    serialized_homerooms = @homerooms.map do |homeroom|
+      {
+        :id => homeroom.id,
+        :name => homeroom.name,
+        :result_value => homeroom.average_mcas_ela_score,
+        :interventions_count => recent_interventions_for(homeroom.students, math_interventions).length || 0
+      }
+    end
+    serialized_homerooms.delete_if do |homeroom|
+      # Remove homerooms whose students have no MCAS ELA assessment results
+      homeroom[:result_value] == nil
+    end
+    serialized_homerooms.sort {|a, b| a[:result_value] <=> b[:result_value] }
+  end
+
+  private
 
   def attendance_response(homeroom, method_name)
     {
