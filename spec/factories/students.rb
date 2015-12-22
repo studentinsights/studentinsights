@@ -48,6 +48,40 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_recent_absence do
+      after(:create) do |student|
+        FactoryGirl.create(:attendance_event, :absence, :recent, student: student)
+      end
+    end
+
+    trait :with_recent_tardy do
+      after(:create) do |student|
+        FactoryGirl.create(:attendance_event, :tardy, :recent, student: student)
+      end
+    end
+
+    trait :with_three_recent_absences do
+      after(:create) do |student|
+        3.times do
+          FactoryGirl.create(:attendance_event, :absence, :recent, student: student)
+        end
+      end
+    end
+
+    trait :with_three_recent_tardies do
+      after(:create) do |student|
+        3.times do
+          FactoryGirl.create(:attendance_event, :tardy, :recent, student: student)
+        end
+      end
+    end
+
+    trait :with_recent_school_year do
+      after(:create) do |student|
+        FactoryGirl.create(:student_school_year, student: student)
+      end
+    end
+
     factory :student_who_registered_in_2013_2014 do
       registration_date Date.new(2013, 8, 1)
     end
