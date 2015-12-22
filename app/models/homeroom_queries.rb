@@ -13,7 +13,21 @@ class HomeroomQueries
   end
 
   def top_mcas_math_concerns
-    serialized_homerooms = @homerooms.map do |homeroom|
+    homerooms_with_mcas_math_average.sort do |a, b|
+      a[:result_value] <=> b[:result_value]
+    end
+  end
+
+  def top_mcas_ela_concerns
+    homerooms_with_mcas_ela_average.sort do |a, b|
+      a[:result_value] <=> b[:result_value]
+    end
+  end
+
+  private
+
+  def homerooms_serialized_with_mcas_math_results
+    @homerooms.map do |homeroom|
       {
         :id => homeroom.id,
         :name => homeroom.name,
@@ -21,15 +35,10 @@ class HomeroomQueries
         :interventions_count => recent_interventions_for(homeroom.students, math_interventions).length || 0
       }
     end
-    serialized_homerooms.delete_if do |homeroom|
-      # Remove homerooms whose students have no MCAS Math assessment results
-      homeroom[:result_value] == nil
-    end
-    serialized_homerooms.sort {|a, b| a[:result_value] <=> b[:result_value] }
   end
 
-  def top_mcas_ela_concerns
-    serialized_homerooms = @homerooms.map do |homeroom|
+  def homerooms_serialized_with_mcas_ela_results
+    @homerooms.map do |homeroom|
       {
         :id => homeroom.id,
         :name => homeroom.name,
@@ -37,14 +46,19 @@ class HomeroomQueries
         :interventions_count => recent_interventions_for(homeroom.students, math_interventions).length || 0
       }
     end
-    serialized_homerooms.delete_if do |homeroom|
-      # Remove homerooms whose students have no MCAS ELA assessment results
-      homeroom[:result_value] == nil
-    end
-    serialized_homerooms.sort {|a, b| a[:result_value] <=> b[:result_value] }
   end
 
-  private
+  def homerooms_with_mcas_math_average
+    homerooms_serialized_with_mcas_math_results.delete_if do |homeroom|
+      homeroom[:result_value] == nil
+    end
+  end
+
+  def homerooms_with_mcas_ela_average
+    homerooms_serialized_with_mcas_ela_results.delete_if do |homeroom|
+      homeroom[:result_value] == nil
+    end
+  end
 
   def attendance_response(homeroom, method_name)
     {
