@@ -10,6 +10,7 @@ Student Insights enables educators to see at-risk students and match them to the
 - [Tests](#tests)
 - [Deployment](#deployment)
     - [Heroku](#heroku)
+    - [AWS](#aws)
     - [Your own server](#your-own-server)
 - [Design](#design)
 - [More](#more)
@@ -48,27 +49,31 @@ Use the `--district` flag to indicate your school district or charter organizati
 So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, write a new client: `app/importers/clients`.
 
 # Tests
-This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) for Ruby tests. Run the test suite:
+This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
 
 ```
 rspec
 ```
 
-It uses [Jasmine](http://jasmine.github.io/) for JavaScript tests, run through the [Teaspoon](https://github.com/modeset/teaspoon) gem.  You can run them in the browser at `http://localhost:3000/teaspoon/default`.
+It uses [Jasmine](http://jasmine.github.io/) for JavaScript tests, run through the [Teaspoon](https://github.com/modeset/teaspoon) gem.
+
+You can run them in the browser at `http://localhost:3000/teaspoon/default`.
+
+You can also run them from the command line:
+
+```
+teaspoon
+```
 
 # Deployment
 
 ### Heroku
 
-We deployed this app on Heroku once and you can, too. Be sure to set config variables for DEVISE_SECRET_KEY and SECRET_KEY_BASE before deploying.
+We deployed this app on Heroku and you can, too. Set config variables for DEVISE_SECRET_KEY and SECRET_KEY_BASE in `local_env.yml` before deploying.
 
-### Your own server
+### AWS
 
-Our plan is to deploy Student Insights on Somerville Public Schools' machines and serve over their intranet. Capistrano does our deployment. Set `SERVER_NAME` in `config/initializers/capistrano.rb` and run:
-
-```
-cap production deploy
-```
+Scripts deployment on AWS located in `/scripts/aws/`.
 
 # Design
 For a history of all design iterations look here:
