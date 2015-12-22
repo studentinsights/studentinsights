@@ -4,24 +4,26 @@
   </div>
   <div class="detailed-content-area">
     <div class="left-panel">
-      <div class="mcas-math-concern">
+      <div class="mcas-math-concern summary-container">
         <h2>Math: MCAS</h2>
         <%= render "homeroom_table", homerooms: @top_mcas_math_concerns, header: 'Average Score' %>
       </div>
-      <div class="mcas-ela-concern">
+      <div class="mcas-ela-concern summary-container">
         <h2>ELA: MCAS</h2>
         <%= render "homeroom_table", homerooms: @top_mcas_ela_concerns, header: 'Average Score' %>
       </div>
       <p><em>Data reflect most recent available MCAS results.</em></p>
     </div>
     <div class="right-panel">
-      <div class="attendance-section">
+      <div class="attendance-absences-concern summary-container">
         <h2>Attendance: Absences</h2>
         <%= render "homeroom_table", homerooms: @top_absences, header: 'Average Absences per Student' %>
+      </div>
+      <div class="attendance-tardies-concern summary-container">
         <h2>Attendance: Tardies</h2>
         <%= render "homeroom_table", homerooms: @top_tardies, header: 'Average Tardies per Student' %>
-        <p><em>Data reflect absences and tardies during this current school year.</em></p>
       </div>
+      <p><em>Data reflect absences and tardies during this current school year.</em></p>
     </div>
   </div>
 </div>
