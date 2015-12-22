@@ -90,4 +90,56 @@ RSpec.describe Homeroom do
     end
   end
 
+  describe '#average_absences_most_recent_school_year' do
+    context 'homeroom has no students' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      it 'returns nil' do
+        expect(homeroom.average_absences_most_recent_school_year).to eq nil
+      end
+    end
+    context 'homeroom has one student' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      let!(:student) { FactoryGirl.create(:student, :with_recent_absence, homeroom: homeroom) }
+      before { Student.update_attendance_events_counts_most_recent_school_year }
+      it 'returns that student\'s recent absences count' do
+        expect(homeroom.average_absences_most_recent_school_year).to eq 1
+      end
+    end
+    context 'homeroom has more than one student' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      let!(:student) { FactoryGirl.create(:student, :with_recent_absence, homeroom: homeroom) }
+      let!(:often_absent) { FactoryGirl.create(:student, :with_three_recent_absences, homeroom: homeroom) }
+      before { Student.update_attendance_events_counts_most_recent_school_year }
+      it 'return the average of their recent absences counts' do
+        expect(homeroom.average_absences_most_recent_school_year).to eq 2
+      end
+    end
+  end
+
+  describe '#average_tardies_most_recent_school_year' do
+    context 'homeroom has no students' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      it 'returns nil' do
+        expect(homeroom.average_tardies_most_recent_school_year).to eq nil
+      end
+    end
+    context 'homeroom has one student' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      let!(:student) { FactoryGirl.create(:student, :with_recent_tardy, homeroom: homeroom) }
+      before { Student.update_attendance_events_counts_most_recent_school_year }
+      it 'returns that student\'s recent tardies count' do
+        expect(homeroom.average_tardies_most_recent_school_year).to eq 1
+      end
+    end
+    context 'homeroom has more than one student' do
+      let(:homeroom) { FactoryGirl.create(:homeroom) }
+      let!(:student) { FactoryGirl.create(:student, :with_recent_tardy, homeroom: homeroom) }
+      let!(:often_late) { FactoryGirl.create(:student, :with_three_recent_tardies, homeroom: homeroom) }
+      before { Student.update_attendance_events_counts_most_recent_school_year }
+      it 'return the average of their recent tardies counts' do
+        expect(homeroom.average_tardies_most_recent_school_year).to eq 2
+      end
+    end
+  end
+
 end
