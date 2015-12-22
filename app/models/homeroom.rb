@@ -50,4 +50,16 @@ class Homeroom < ActiveRecord::Base
     (most_recent_mcas_math_scores.reduce(:+).to_f / number_of_scores).round(0)
   end
 
+  def average_absences_most_recent_school_year
+    absences = students.map(&:absences_count_most_recent_school_year).compact
+    return nil if absences.size == 0
+    (absences.reduce(:+).to_f / absences.size).round(0)
+  end
+
+  def average_tardies_most_recent_school_year
+    tardies = students.map(&:tardies_count_most_recent_school_year).compact
+    return nil if tardies.size == 0
+    (tardies.reduce(:+).to_f / tardies.size).round(0)
+  end
+
 end
