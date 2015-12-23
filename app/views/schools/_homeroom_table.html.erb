@@ -2,6 +2,7 @@
           <thead>
             <tr>
               <th>Name</th>
+              <th>Grade</th>
               <th><%= header %></th>
               <th>Interventions</th>
             </tr>
@@ -10,6 +11,7 @@
             <% homerooms.each do |homeroom| %>
               <tr>
                 <td><%= link_to homeroom[:name], homeroom_path(homeroom[:id]), class: "bigtype" %></td>
+                <td><%= homeroom[:grade] %></td>
                 <td><%= homeroom[:result_value] %></td>
                 <td>
                   <% if homeroom[:interventions_count] == 0 then %>

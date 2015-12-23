@@ -35,6 +35,7 @@ class HomeroomQueries
       {
         :id => homeroom.id,
         :name => homeroom.name,
+        :grade => HomeroomPresenter.new(homeroom).grade,
         :result_value => homeroom.average_mcas_math_score,
         :interventions_count => recent_interventions_for(homeroom.students, math_interventions).length || 0
       }
@@ -46,6 +47,7 @@ class HomeroomQueries
       {
         :id => homeroom.id,
         :name => homeroom.name,
+        :grade => HomeroomPresenter.new(homeroom).grade,
         :result_value => homeroom.average_mcas_ela_score,
         :interventions_count => recent_interventions_for(homeroom.students, math_interventions).length || 0
       }
@@ -57,6 +59,7 @@ class HomeroomQueries
       {
         :id => homeroom.id,
         :name => homeroom.name,
+        :grade => HomeroomPresenter.new(homeroom).grade,
         :result_value => homeroom.average_absences_most_recent_school_year,
         :interventions_count => recent_interventions_for(homeroom.students, attendance_interventions).length || 0
       }
@@ -68,6 +71,7 @@ class HomeroomQueries
       {
         :id => homeroom.id,
         :name => homeroom.name,
+        :grade => HomeroomPresenter.new(homeroom).grade,
         :result_value => homeroom.average_tardies_most_recent_school_year,
         :interventions_count => recent_interventions_for(homeroom.students, attendance_interventions).length || 0
       }
