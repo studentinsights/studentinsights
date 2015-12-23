@@ -54,72 +54,64 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def update_explanation
-    explanations = []
-    name = student.first_name || "This student"
-
-    case level
+    explanations = case level
     when 3
-      if limited_english_proficiency == "Limited"
-        explanations << "#{name} is limited English proficient."
-      end
-      if mcas_math.risk_level == 3
-        explanations << "#{name}'s MCAS Math performance level is Warning."
-      end
-      if star_math.risk_level == 3
-        explanations << "#{name}'s STAR Math performance is in the warning range (below 10)."
-      end
-      if mcas_ela.risk_level == 3
-        explanations << "#{name}'s MCAS English Language Arts performance level is Warning."
-      end
-      if star_reading.risk_level == 3
-        explanations << "#{name}'s STAR Reading performance is in the warning range (below 10)."
-      end
+       level_3_explanations
     when 2
-      if mcas_math.risk_level == 2
-        explanations << "#{name}'s MCAS Math performance level is Needs Improvement."
-      end
-      if star_math.risk_level == 2
-        explanations << "#{name}'s STAR Math performance is in the 10-30 range."
-      end
-      if mcas_ela.risk_level == 2
-        explanations << "#{name}'s MCAS English Language Arts performance level is Needs Improvement."
-      end
-      if star_reading.risk_level == 2
-        explanations << "#{name}'s STAR Reading performance is in the 10-30 range."
-      end
+       level_2_explanations
     when 1
-      if mcas_math.risk_level == 1
-        explanations << "#{name}'s MCAS Math performance level is Proficient."
-      end
-      if star_math.risk_level == 1
-        explanations << "#{name}'s STAR Math performance is above 30."
-      end
-      if mcas_ela.risk_level == 1
-        explanations << "#{name}'s MCAS English Language Arts performance level is Proficient."
-      end
-      if star_reading.risk_level == 1
-        explanations << "#{name}'s STAR Reading performance is above 30."
-      end
+       level_1_explanations
     when 0
-      if mcas_math.risk_level == 0
-        explanations << "#{name}'s MCAS Math performance level is Advanced."
-      end
-      if star_math.risk_level == 0
-        explanations << "#{name}'s STAR Math performance is above 85."
-      end
-      if mcas_ela.risk_level == 0
-        explanations << "#{name}'s MCAS English Language Arts performance level is Advanced."
-      end
-      if star_reading.risk_level == 0
-        explanations << "#{name}'s STAR Reading performance is above 85."
-      end
+       level_0_explanations
     when nil
-      explanations << "There is not enough information to tell."
+       ["There is not enough information to tell."]
     end
-
     explanation = "#{name} is at Risk #{StudentRiskLevelPresenter.new(level).level_as_string} because:<br/><br/>"
     explanation += "<ul>" + explanations.map { |e| "<li>#{e}</li>" }.join + "</ul>"
     update_attributes(explanation: explanation)
+  end
+
+  private
+
+  def name
+    student.first_name || "This student"
+  end
+
+  def level_3_explanations
+    explanations = []
+    explanations << "#{name} is limited English proficient." if limited_english_proficiency == "Limited"
+    explanations << "#{name}'s MCAS Math performance level is Warning." if mcas_math.risk_level == 3
+    explanations << "#{name}'s STAR Math performance is in the warning range (below 10)." if star_math.risk_level == 3
+    explanations << "#{name}'s MCAS English Language Arts performance level is Warning." if mcas_ela.risk_level == 3
+    explanations << "#{name}'s STAR Reading performance is in the warning range (below 10)." if star_reading.risk_level == 3
+    explanations
+  end
+
+  def level_2_explanations
+    explanations = []
+    explanations << "#{name}'s MCAS Math performance level is Needs Improvement." if mcas_math.risk_level == 2
+    explanations << "#{name}'s STAR Math performance is in the 10-30 range." if star_math.risk_level == 2
+    explanations << "#{name}'s MCAS English Language Arts performance level is Needs Improvement." if mcas_ela.risk_level == 2
+    explanations << "#{name}'s STAR Reading performance is in the 10-30 range." if star_reading.risk_level == 2
+    explanations
+  end
+
+  def level_1_explanations
+    explanations = []
+    explanations << "#{name}'s MCAS Math performance level is Proficient." if mcas_math.risk_level == 1
+    explanations << "#{name}'s STAR Math performance is above 30." if star_math.risk_level == 1
+    explanations << "#{name}'s MCAS English Language Arts performance level is Proficient." if mcas_ela.risk_level == 1
+    explanations << "#{name}'s STAR Reading performance is above 30." if star_reading.risk_level == 1
+    explanations
+  end
+
+  def level_0_explanations
+    explanations = []
+    explanations << "#{name}'s MCAS Math performance level is Advanced." if mcas_math.risk_level == 0
+    explanations << "#{name}'s STAR Math performance is above 85." if star_math.risk_level == 0
+    explanations << "#{name}'s MCAS English Language Arts performance level is Advanced." if mcas_ela.risk_level == 0
+    explanations << "#{name}'s STAR Reading performance is above 85." if star_reading.risk_level == 0
+    explanations
   end
 
 end
