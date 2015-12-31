@@ -8,8 +8,25 @@ class Intervention < ActiveRecord::Base
   before_save :assign_to_school_year
   after_create :assign_to_student_school_year
   validates :student, :intervention_type, :start_date, presence: true
-  validate :end_date_cannot_come_before_start_date
+  validate :end_date_cannot_come_before_start_date,
+           :cannot_have_both_intervention_type_and_custom_intervention_name
   delegate :name, to: :intervention_type
+
+  ## VALIDATIONS ##
+
+  def end_date_cannot_come_before_start_date
+    if end_date.present?
+      if end_date < start_date
+        errors.add(:end_date, "can't be before start date")
+      end
+    end
+  end
+
+  def cannot_have_both_intervention_type_and_custom_intervention_name
+    if intervention_type.present? && custom_intervention_name.present?
+      errors.add(:intervention_type, "can't have both intervention type and custom intervention")
+    end
+  end
 
   def assign_to_school_year
     self.school_year = DateToSchoolYear.new(start_date).convert
@@ -20,14 +37,6 @@ class Intervention < ActiveRecord::Base
       student_id: student.id, school_year_id: school_year.id
     }).first_or_create!
     save
-  end
-
-  def end_date_cannot_come_before_start_date
-    if end_date.present?
-      if end_date < start_date
-        errors.add(:end_date, "can't be before start date")
-      end
-    end
   end
 
   def to_highcharts

@@ -16,4 +16,21 @@ RSpec.describe Intervention, type: :model do
       end
     end
   end
+
+  describe '#cannot_have_both_intervention_type_and_custom_intervention_name' do
+    context 'has only an intervention type' do
+      let(:intervention) { FactoryGirl.build(:intervention) } # Minimal valid intervention includes an intervention_type association
+      it 'is valid' do
+        expect(intervention).to be_valid
+      end
+    end
+
+    context 'has both' do
+      let(:intervention) { FactoryGirl.build(:intervention, :custom_intervention_name) }
+      it 'is invalid' do
+        expect(intervention).to be_invalid
+      end
+    end
+  end
+
 end

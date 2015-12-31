@@ -1,12 +1,19 @@
 FactoryGirl.define do
+
   factory :intervention do
     association :student
     association :intervention_type
     start_date Date.new(2014, 9, 9)
     number_of_hours 10
+
     trait :end_date do
       end_date Date.new(2014, 9, 12)
     end
+
+    trait :custom_intervention_name do
+      custom_intervention_name "More practice time!"
+    end
+
     factory :atp_intervention do
       association :intervention_type, name: "After-School Tutoring (ATP)"
       factory :more_recent_atp_intervention do
@@ -14,8 +21,10 @@ FactoryGirl.define do
         number_of_hours 11
       end
     end
-    factory :non_atp_intervention do
+
+    trait :non_atp_intervention do
       association :intervention_type, name: "Extra Dance "
     end
+
   end
 end
