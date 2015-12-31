@@ -8,9 +8,11 @@ class Intervention < ActiveRecord::Base
   before_save :assign_to_school_year
   after_create :assign_to_student_school_year
   validates :student, :intervention_type, :start_date, presence: true
-  validate :end_date_cannot_come_before_start_date,
-           :cannot_have_both_intervention_type_and_custom_intervention_name
-  delegate :name, to: :intervention_type
+  validate :end_date_cannot_come_before_start_date
+
+  def name
+    custom_intervention_name || intervention_type.try(:name)
+  end
 
   ## VALIDATIONS ##
 
@@ -22,11 +24,7 @@ class Intervention < ActiveRecord::Base
     end
   end
 
-  def cannot_have_both_intervention_type_and_custom_intervention_name
-    if intervention_type.present? && custom_intervention_name.present?
-      errors.add(:intervention_type, "can't have both intervention type and custom intervention")
-    end
-  end
+  ## SCHOOL YEARS ##
 
   def assign_to_school_year
     self.school_year = DateToSchoolYear.new(start_date).convert
@@ -39,6 +37,8 @@ class Intervention < ActiveRecord::Base
     save
   end
 
+  ## CHARTS ##
+
   def to_highcharts
     {
       start_date: { year: start_date.year, month: start_date.month, day: start_date.day },
@@ -46,6 +46,8 @@ class Intervention < ActiveRecord::Base
       name: name
     }
   end
+
+  ## SCOPES ##
 
   def self.most_recent_atp
     where(intervention_type_id: InterventionType.atp.id).order(start_date: :asc).first

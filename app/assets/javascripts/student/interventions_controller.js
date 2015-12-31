@@ -1,9 +1,9 @@
 (function(root) {
 
   /*
-  This owns a piece of the DOM rendered by Rails.  It takes an initial list of `interventions` 
+  This owns a piece of the DOM rendered by Rails.  It takes an initial list of `interventions`
   and then owns that state and any changes to it over time.
-  
+
   This class expects a few Handlers templates to be available on the window.HandlebarsTemplates
   object.
 
@@ -19,7 +19,7 @@
   React component.  An exception is the forms that are rendered.  The state in the input elements
   is not preserved, so if a server error occurs saving the form, the error message are
   inserted into the DOM without a full render.
-  */  
+  */
   var InterventionsController = function (options) {
     this.initialize(options);
   };
@@ -68,6 +68,7 @@
       this.$el.on('click', '#add-new-intervention', this.onAddNewIntervention.bind(this));
       this.$el.on('click', '.cancel-new-intervention', this.onCancelNewIntervention.bind(this));
       this.$el.on('click', '.intervention-cell', this.onSelectedIntervention.bind(this));
+      this.$el.on('change', '#intervention_type_dropdown_select', this.onSelectCustomIntervention.bind(this));
       this.$el.on('ajax:success', '.new-intervention-form', this.onNewInterventionSaveSucceeded.bind(this));
       this.$el.on('ajax:error', '.new-intervention-form', this.onNewInterventionSaveFailed.bind(this));
 
@@ -106,6 +107,14 @@
       this.selectedInterventionId = this.defaultSelectedIntervention();
       this.isShowingNewIntervention = false;
       this.render();
+    },
+
+    onSelectCustomIntervention: function (e) {
+      var selected_options = e.target.selectedOptions;
+      var selected_name = $(selected_options).data('name');
+      if (selected_name === 'Other') {
+        this.renderCustomInterventionField();
+      }
     },
 
     onNewInterventionSaveSucceeded: function (e, data, status, xhr) {
@@ -202,6 +211,11 @@
         isAddingProgressNote: this.isAddingProgressNote,
         educators: this.options.educators
       });
+    },
+
+    renderCustomInterventionField: function () {
+      var html = this.renderTemplate('customInterventionField', {});
+      $('#custom_intervention_field').html(html);
     }
   });
 

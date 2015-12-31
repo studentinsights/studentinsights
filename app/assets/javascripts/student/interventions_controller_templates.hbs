@@ -79,12 +79,15 @@
     <h1>Add Intervention</h1>
     <p class="alert field errors"></p>
     <label>Select Intervention</label>
-    <select name="intervention[intervention_type_id]" required="required">
+    <select id="intervention_type_dropdown_select"
+            name="intervention[intervention_type_id]"
+            required="required">
       <option value=""> -- Intervention type -- </option>
       {{#interventionTypes}}
-        <option value="{{id}}">{{name}}</option>
+        <option value="{{id}}" data-name="{{name}}">{{name}}</option>
       {{/interventionTypes}}
     </select>
+    <div id="custom_intervention_field"></div>
     <label>Comment</label>
     <textarea cols="40" name="intervention[comment]" placeholder="Add comment" rows="5"></textarea>
     <label>Goal</label>
@@ -119,3 +122,8 @@
     {{#errors}}<li>{{.}}</li>{{/errors}}
   </ul>
 {{/formErrors}}
+
+{{#customInterventionField}}
+  <label>Custom intervention name</label>
+  <input name="intervention[custom_intervention_name]">
+{{/customInterventionField}}
