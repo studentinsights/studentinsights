@@ -68,7 +68,7 @@
       this.$el.on('click', '#add-new-intervention', this.onAddNewIntervention.bind(this));
       this.$el.on('click', '.cancel-new-intervention', this.onCancelNewIntervention.bind(this));
       this.$el.on('click', '.intervention-cell', this.onSelectedIntervention.bind(this));
-      this.$el.on('change', '#intervention_type_dropdown_select', this.onSelectCustomIntervention.bind(this));
+      this.$el.on('change', '#intervention_type_dropdown_select', this.onSelectInterventionType.bind(this));
       this.$el.on('ajax:success', '.new-intervention-form', this.onNewInterventionSaveSucceeded.bind(this));
       this.$el.on('ajax:error', '.new-intervention-form', this.onNewInterventionSaveFailed.bind(this));
 
@@ -109,11 +109,13 @@
       this.render();
     },
 
-    onSelectCustomIntervention: function (e) {
+    onSelectInterventionType: function (e) {
       var selected_options = e.target.selectedOptions;
       var selected_name = $(selected_options).data('name');
       if (selected_name === 'Other') {
         this.renderCustomInterventionField();
+      } else {
+        this.removeCustomInterventionField();
       }
     },
 
@@ -216,7 +218,12 @@
     renderCustomInterventionField: function () {
       var html = this.renderTemplate('customInterventionField', {});
       $('#custom_intervention_field').html(html);
+    },
+
+    removeCustomInterventionField: function () {
+      $('#custom_intervention_field').text('');
     }
+
   });
 
   root.InterventionsController = InterventionsController;
