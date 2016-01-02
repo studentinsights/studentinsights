@@ -2,6 +2,30 @@ require 'rails_helper'
 
 RSpec.describe Intervention, type: :model do
 
+  describe '#name' do
+    context 'has custom intervention name' do
+      let(:intervention) { FactoryGirl.create(:intervention, :custom_intervention_name) }
+      it 'shows the custom intervention name' do
+        expect(intervention.name).to eq 'More practice time!'
+      end
+    end
+    context 'does not have custom intervention name' do
+      context 'intervention type has name' do
+        let(:intervention) { FactoryGirl.create(:atp_intervention) }
+        it 'shows the intervention type name' do
+          expect(intervention.name).to eq 'After-School Tutoring (ATP)'
+        end
+      end
+
+      context 'intervention type does not have name' do
+        let(:intervention) { FactoryGirl.create(:intervention) }
+        it 'returns nil' do
+          expect(intervention.name).to eq nil
+        end
+      end
+    end
+  end
+
   describe '.with_start_and_end_dates' do
     context 'intervention with no end date' do
       let!(:intervention) { FactoryGirl.create(:intervention) }
