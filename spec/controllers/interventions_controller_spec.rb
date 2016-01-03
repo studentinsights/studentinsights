@@ -59,4 +59,50 @@ RSpec.describe InterventionsController, type: :controller do
       end
     end
   end
+
+  describe '#delete' do
+    def make_delete_request(id)
+      request.env['HTTPS'] = 'on'
+      delete :destroy, format: :js, id: id
+    end
+
+    context 'educator logged in' do
+      let!(:educator) { FactoryGirl.create(:educator) }
+
+      before do
+        sign_in(educator)
+      end
+
+      context 'valid id' do
+        let!(:intervention) { FactoryGirl.create(:intervention) }
+        it 'deletes the intervention' do
+          expect { make_delete_request(intervention.id) }.to change(Intervention, :count).by -1
+        end
+        it 'redirects to sign in page' do
+          make_delete_request(intervention.id)
+          expect(response).to have_http_status(:ok)
+        end
+      end
+
+      context 'garbage id' do
+        let(:params) { { id: 'garbarge'} }
+        it 'raises an error' do
+          expect { make_delete_request('garbage') }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+    end
+
+    context 'educator not logged in' do
+      let!(:intervention) { FactoryGirl.create(:intervention) }
+      it 'does not change the intervention count' do
+        expect { make_delete_request(intervention.id) }.to change(Intervention, :count).by 0
+      end
+      it 'redirects to sign in page' do
+        make_delete_request(intervention.id)
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+  end
+
 end

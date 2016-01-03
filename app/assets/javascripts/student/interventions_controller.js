@@ -68,6 +68,7 @@
       this.$el.on('click', '#add-new-intervention', this.onAddNewIntervention.bind(this));
       this.$el.on('click', '.cancel-new-intervention', this.onCancelNewIntervention.bind(this));
       this.$el.on('click', '.intervention-cell', this.onSelectedIntervention.bind(this));
+      this.$el.on('click', '.intervention-delete-button', this.onDeleteInterventionAttempt.bind(this));
       this.$el.on('change', '#intervention_type_dropdown_select', this.onSelectInterventionType.bind(this));
       this.$el.on('ajax:success', '.new-intervention-form', this.onNewInterventionSaveSucceeded.bind(this));
       this.$el.on('ajax:error', '.new-intervention-form', this.onNewInterventionSaveFailed.bind(this));
@@ -123,6 +124,36 @@
       this.interventions = [data].concat(this.interventions);
       this.selectedInterventionId = this.defaultSelectedIntervention();
       this.isShowingNewIntervention = false;
+      this.render();
+    },
+
+    onDeleteInterventionAttempt: function (e) {
+      // Give user a confirmation box to cancel deletion
+      if (!confirm("Are you sure you want to delete this intervention?")) { return };
+
+      var intervention_cell = $(e.currentTarget).parent('.intervention-cell')
+      var intervention_id = intervention_cell.data('id');
+      this.deleteIntervention(intervention_id);
+    },
+
+    deleteIntervention: function (id) {
+      $.ajax({
+        url: '/interventions/' + String(id),
+        type: 'DELETE',
+        data: { intervention: { id: String(id) } },
+        success: this.removeDeletedIntervention (id)
+
+      });
+    },
+
+    removeDeletedIntervention: function (id) {
+      var intervention_ids = this.interventions.map(function(intervention) {
+        return intervention.id;
+      });
+
+      var index_to_delete_at = intervention_ids.indexOf(id);
+      this.interventions.splice(index_to_delete_at, 1);
+      this.selectedInterventionId = null;
       this.render();
     },
 

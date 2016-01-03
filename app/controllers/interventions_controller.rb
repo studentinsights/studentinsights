@@ -15,6 +15,12 @@ class InterventionsController < ApplicationController
     end
   end
 
+  def destroy
+    intervention = Intervention.find(params[:id])
+    intervention.destroy
+    render nothing: true
+  end
+
   def intervention_params
     params.require(:intervention).permit(
       :student_id,
@@ -24,7 +30,8 @@ class InterventionsController < ApplicationController
       :comment,
       :start_date,
       :end_date,
-      :goal
+      :goal,
+      :id
     )
   end
 
