@@ -16,7 +16,8 @@ describe("InterventionsController", function() {
     interventionTypes: function() {
       return [
         { id: 4, name: 'After School Tutoring (ATP)' },
-        { id: 6, name: 'Math Tutor' }
+        { id: 6, name: 'Math Tutor' },
+        { id: 7, name: 'Other' }    // for testing custom intervention feature
       ];
     },
     intervention: function(options) {
@@ -86,7 +87,7 @@ describe("InterventionsController", function() {
       expect(helpers.findProgressNotes($el).length).toEqual(progressNotes.length);
       var progressNotesText = $el.find('.progress-notes-list').text();
       progressNotes.forEach(function(progressNote) {
-        expect(progressNotesText).toContain(progressNote.content);  
+        expect(progressNotesText).toContain(progressNote.content);
       });
     }
   };
@@ -177,6 +178,18 @@ describe("InterventionsController", function() {
 
       expect(helpers.findInterventionNames($el)).toEqual(['Math Tutor']);
       expect($el.find('form').length).toEqual(0);
+    });
+
+    xit('allows adding intervention with a custom intervention name', function() {
+      var controller = helpers.createController();
+      var $el = controller.render();
+      $el.find('.add-new-intervention').click();
+
+      $el.find('option[data-name="Other"]').prop('selected', 'selected');
+      $el.find('[name="intervention[intervention_type_id]"]').trigger('change');
+
+      expect($el.text()).toContain('Custom intervention name');
+      expect($el.html()).toContain('intervention[custom_intervention_name]');
     });
   });
 });

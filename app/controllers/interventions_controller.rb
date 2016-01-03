@@ -20,6 +20,7 @@ class InterventionsController < ApplicationController
       :student_id,
       :educator_id,
       :intervention_type_id,
+      :custom_intervention_name,
       :comment,
       :start_date,
       :end_date,

@@ -183,7 +183,7 @@ FactoryGirl.define do
       end
       factory :student_with_one_non_atp_intervention do
         after(:create) do |student|
-          FactoryGirl.create(:non_atp_intervention, student: student)
+          FactoryGirl.create(:intervention, :non_atp_intervention, student: student)
         end
       end
       factory :student_with_multiple_atp_interventions do
