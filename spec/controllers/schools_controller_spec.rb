@@ -21,7 +21,7 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'educator is an admin' do
-      let!(:educator) { FactoryGirl.create(:admin_educator) }
+      let!(:educator) { FactoryGirl.create(:educator, :admin) }
       it 'is successful' do
         make_request('hea')
         expect(response).to be_success
@@ -37,7 +37,7 @@ describe SchoolsController, :type => :controller do
     end
 
     let!(:school) { FactoryGirl.create(:healey) }
-    let!(:educator) { FactoryGirl.create(:admin_educator) }
+    let!(:educator) { FactoryGirl.create(:educator, :admin) }
     let!(:alpha_homeroom) { FactoryGirl.create(:homeroom, name: 'alpha') }
     let!(:beta_homeroom) { FactoryGirl.create(:homeroom, name: 'beta') }
 

@@ -4,7 +4,7 @@ describe HomeroomsController, :type => :controller do
 
   let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom) }
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
-  let!(:admin_educator) { FactoryGirl.create(:admin_educator) }
+  let!(:admin_educator) { FactoryGirl.create(:educator, :admin) }
   let(:first_homeroom_path) { homeroom_path(Homeroom.first) }
 
   describe '#show' do

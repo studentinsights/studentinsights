@@ -6,9 +6,10 @@ FactoryGirl.define do
     password "PairShareCompare"
     email { FactoryGirl.generate(:email) }
 
-    factory :admin_educator do
+    trait :admin do
       admin true
     end
+
     factory :educator_with_homeroom do
       after(:create) do |educator|
         create(:homeroom, educator: educator)
