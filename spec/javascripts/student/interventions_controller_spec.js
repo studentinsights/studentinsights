@@ -196,33 +196,61 @@ describe("InterventionsController", function() {
     describe('educator clicks delete intervention', function() {
 
       beforeEach(function() {
-        var interventions = [Factory.intervention({ name: 'intervention_one' })];
-        this.controller = helpers.createController({ interventions: interventions });
-        this.intervention_id = this.controller.interventions[0].id;
-
-        this.controller.bindListeners();
-        this.$el = this.controller.render();
-        spyOn(this.controller, 'deleteIntervention');
+        this.interventions = [Factory.intervention({ name: 'intervention_one' })];
+        this.intervention_id = this.interventions[0].id;
       });
 
-      describe('confirms deletion', function() {
-        beforeEach(function () { spyOn(window, 'confirm').and.returnValue(true); });
+      describe('educator is admin', function () {
 
-        it('calls deleteIntervention with the appropriate intervention id', function() {
-          this.$el.find('.intervention-delete-button').click();
-          expect(this.controller.deleteIntervention).toHaveBeenCalledWith(this.intervention_id);
+        beforeEach(function() {
+          this.controller = helpers.createController({
+            interventions: this.interventions,
+            educatorIsAdmin: true
+          });
+          this.controller.bindListeners();
+          this.$el = this.controller.render();
+          spyOn(this.controller, 'deleteIntervention');
+        });
+
+        describe('confirms deletion', function() {
+          beforeEach(function () { spyOn(window, 'confirm').and.returnValue(true); });
+
+          it('renders one intervention delete button', function() {
+            var number_of_delete_buttons = this.$el.find('.intervention-delete-button').length;
+            expect(number_of_delete_buttons).toEqual(1);
+          });
+
+          it('calls deleteIntervention with the appropriate intervention id', function() {
+            this.$el.find('.intervention-delete-button').click();
+            expect(this.controller.deleteIntervention).toHaveBeenCalledWith(this.intervention_id);
+          });
+        });
+
+        describe('cancels', function() {
+          beforeEach(function () { spyOn(window, 'confirm').and.returnValue(false); });
+
+          it('does not call deleteIntervention', function() {
+            this.$el.find('.intervention-delete-button').click();
+            expect(this.controller.deleteIntervention).not.toHaveBeenCalled();
+          });
+        });
+
+        describe('educator is not admin', function () {
+
+          beforeEach(function() {
+            this.controller = helpers.createController({
+              interventions: this.interventions,
+              educatorIsAdmin: false
+            });
+            this.$el = this.controller.render();
+          });
+
+          it('does not render any intervention delete buttons', function() {
+            var number_of_delete_buttons = this.$el.find('.intervention-delete-button').length;
+            expect(number_of_delete_buttons).toEqual(0);
+          });
         });
       });
-
-      describe('cancels', function() {
-        beforeEach(function () { spyOn(window, 'confirm').and.returnValue(false); });
-
-        it('does not call deleteIntervention', function() {
-          this.$el.find('.intervention-delete-button').click();
-          expect(this.controller.deleteIntervention).not.toHaveBeenCalled();
-        });
-      });
-
     });
 
     describe('#deleteIntervention', function () {
