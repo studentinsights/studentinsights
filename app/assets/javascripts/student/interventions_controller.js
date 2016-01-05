@@ -34,7 +34,9 @@
     //
     //   studentId
     //   interventions
-    //  }
+    //
+    //   educatorIsAdmin  -- useful for deciding what buttons to render or not
+    // }
     // Optional: {datepickerOptions}
     initialize: function(options) {
       this.options = options;
@@ -208,7 +210,11 @@
     renderInterventionCells: function () {
       var htmlPieces = this.interventions.map(function(intervention) {
         var activatedClass = (intervention.id === this.selectedInterventionId) ? 'activated' : '';
-        return this.renderTemplate('interventionCell', _.assign({}, intervention, { activatedClass: activatedClass }));
+        return this.renderTemplate('interventionCell', _.assign({},
+          intervention,
+          { activatedClass: activatedClass },
+          { renderDeleteButtons: this.options.educatorIsAdmin }
+        ));
       }, this);
       return htmlPieces.join('');
     },

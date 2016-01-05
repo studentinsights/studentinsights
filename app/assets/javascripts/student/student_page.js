@@ -31,7 +31,8 @@ $(function() {
       educators: interventionsControllerData.educators,
       // data
       studentId: interventionsControllerData.student_id,
-      interventions: interventionsControllerData.interventions
+      interventions: interventionsControllerData.interventions,
+      educatorIsAdmin: ($('#educator-is-admin').length > 0)
     });
 
     var notesControllerData = JSON.parse($('#notes-controller-data').html());
