@@ -130,7 +130,7 @@
     },
 
     onDeleteInterventionAttempt: function (e) {
-      // Give user a confirmation box to cancel deletion
+      // Give user a confirmation box to confirm or cancel deletion
       if (!confirm("Are you sure you want to delete this intervention?")) { return };
 
       var intervention_cell = $(e.currentTarget).parent('.intervention-cell')
@@ -144,7 +144,6 @@
         type: 'DELETE',
         data: { intervention: { id: String(id) } },
         success: this.removeDeletedIntervention (id)
-
       });
     },
 
