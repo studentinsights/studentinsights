@@ -1,4 +1,5 @@
 describe("InterventionsController", function() {
+
   // These function generate data for testing.
   var Factory = {
     string: function(prefix) {
@@ -190,6 +191,112 @@ describe("InterventionsController", function() {
 
       expect($el.text()).toContain('Custom intervention name');
       expect($el.html()).toContain('intervention[custom_intervention_name]');
+    });
+
+    describe('educator clicks delete intervention', function() {
+
+      beforeEach(function() {
+        this.interventions = [Factory.intervention({ name: 'intervention_one' })];
+        this.intervention_id = this.interventions[0].id;
+      });
+
+      describe('educator is admin', function () {
+
+        beforeEach(function() {
+          this.controller = helpers.createController({
+            interventions: this.interventions,
+            educatorIsAdmin: true
+          });
+          this.controller.bindListeners();
+          this.$el = this.controller.render();
+          spyOn(this.controller, 'deleteIntervention');
+        });
+
+        describe('confirms deletion', function() {
+          beforeEach(function () { spyOn(window, 'confirm').and.returnValue(true); });
+
+          it('renders one intervention delete button', function() {
+            var number_of_delete_buttons = this.$el.find('.intervention-delete-button').length;
+            expect(number_of_delete_buttons).toEqual(1);
+          });
+
+          it('calls deleteIntervention with the appropriate intervention id', function() {
+            this.$el.find('.intervention-delete-button').click();
+            expect(this.controller.deleteIntervention).toHaveBeenCalledWith(this.intervention_id);
+          });
+        });
+
+        describe('cancels', function() {
+          beforeEach(function () { spyOn(window, 'confirm').and.returnValue(false); });
+
+          it('does not call deleteIntervention', function() {
+            this.$el.find('.intervention-delete-button').click();
+            expect(this.controller.deleteIntervention).not.toHaveBeenCalled();
+          });
+        });
+
+        describe('educator is not admin', function () {
+
+          beforeEach(function() {
+            this.controller = helpers.createController({
+              interventions: this.interventions,
+              educatorIsAdmin: false
+            });
+            this.$el = this.controller.render();
+          });
+
+          it('does not render any intervention delete buttons', function() {
+            var number_of_delete_buttons = this.$el.find('.intervention-delete-button').length;
+            expect(number_of_delete_buttons).toEqual(0);
+          });
+        });
+      });
+    });
+
+    describe('#deleteIntervention', function () {
+
+      describe("success", function() {
+
+        beforeEach(function() {
+          this.intervention = Factory.intervention({ name: 'delete-me' });
+          this.controller = helpers.createController({ interventions: [this.intervention] });
+          spyOn(this.controller, 'removeDeletedIntervention').and.returnValue(function () { return true; });
+        });
+
+        it('sends the correct arguments to the AJAX call', function () {
+          this.ajax = spyOn($, 'ajax');
+
+          this.controller.deleteIntervention(this.intervention.id);
+
+          this.request_args = $.ajax.calls.mostRecent()['args'][0];
+          expect(this.request_args['url']).toEqual('/interventions/' + this.intervention.id);
+          expect(this.request_args['type']).toEqual('DELETE');
+          expect(this.request_args['data']).toEqual({ 'intervention' : { 'id' : String(this.intervention.id) }});
+          expect(this.ajax).toHaveBeenCalledWith(this.request_args);
+        });
+
+        it('calls removeDeletedIntervention with the correct id', function () {
+          this.ajax = spyOn($, "ajax").and.callFake(function(e) { e.success(); });
+
+          this.controller.deleteIntervention(this.intervention.id);
+
+          expect(this.controller.removeDeletedIntervention).toHaveBeenCalledWith(this.intervention.id);
+        });
+      });
+    });
+
+    describe('#removeDeletedIntervention', function () {
+      it('removes the correct intervention and re-renders', function () {
+        var intervention = Factory.intervention({ name: 'delete-me' });
+        var controller = helpers.createController({ interventions: [intervention] });
+        spyOn(controller, 'render');
+
+        controller.removeDeletedIntervention(intervention.id);
+
+        expect(controller.interventions).toEqual([]);
+        expect(controller.render).toHaveBeenCalled();
+        expect(controller.selectedInterventionId).toEqual(null);  // Since there are zero interventions
+      });
     });
   });
 });

@@ -17,6 +17,9 @@
 {{#interventionCell}}
   <div class="intervention-cell {{activatedClass}}" data-id="{{id}}">
     <strong>{{name}}</strong>
+    {{#if renderDeleteButtons}}
+      <span class="intervention-delete-button">x</span>
+    {{/if}}
     <p>{{comment}}</p>
     <p class="intervention-date">
       {{start_date}} - {{end_date}}

@@ -1,6 +1,14 @@
 class InterventionsController < ApplicationController
   include SerializeDataHelper
 
+  before_action :authenticate_admin!, only: [:destroy]
+
+  # ^ Guidance on permissions from Healy Principal Jill Geiser:
+  #
+  # "As for editing/deleting permissions, I would leave to admin only for now.
+  # Teachers can input interventions but maybe need to go through admin (P, AP)
+  # to change or delete."
+
   def create
     intervention = Intervention.new(intervention_params)
     intervention.start_date = Time.zone.now.to_date
@@ -15,6 +23,12 @@ class InterventionsController < ApplicationController
     end
   end
 
+  def destroy
+    intervention = Intervention.find(params[:id])
+    intervention.destroy
+    render nothing: true
+  end
+
   def intervention_params
     params.require(:intervention).permit(
       :student_id,
@@ -24,7 +38,8 @@ class InterventionsController < ApplicationController
       :comment,
       :start_date,
       :end_date,
-      :goal
+      :goal,
+      :id
     )
   end
 
