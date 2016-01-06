@@ -295,6 +295,7 @@ describe("InterventionsController", function() {
 
         expect(controller.interventions).toEqual([]);
         expect(controller.render).toHaveBeenCalled();
+        expect(controller.selectedInterventionId).toEqual(null);  // Since there are zero interventions
       });
     });
   });

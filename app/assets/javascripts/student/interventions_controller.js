@@ -130,6 +130,9 @@
     },
 
     onDeleteInterventionAttempt: function (e) {
+      e.stopPropagation();  // Stop event from propogating up to the intervention
+                            // cell detail, which would trigger a second .render()
+
       // Give user a confirmation box to confirm or cancel deletion
       if (!confirm("Are you sure you want to delete this intervention?")) { return };
 
@@ -154,7 +157,7 @@
 
       var index_to_delete_at = intervention_ids.indexOf(id);
       this.interventions.splice(index_to_delete_at, 1);
-      this.selectedInterventionId = null;
+      this.selectedInterventionId = this.defaultSelectedIntervention();
       this.render();
     },
 
