@@ -73,7 +73,19 @@ We deployed this app on Heroku and you can, too. Set config variables for DEVISE
 
 ### AWS
 
-Scripts deployment on AWS located in `/scripts/aws/`.
+Deploy on an AWS EC2 instance:
+
+```
+/scripts/aws/
+```
+
+Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
+
+### Your own server
+
+Deploy on your own Ubuntu server (not AWS's or Heroku's):
+
+https://github.com/codeforamerica/promptly-deploy-scripts/tree/somerville-v1
 
 # Design
 For a history of all design iterations look here:
