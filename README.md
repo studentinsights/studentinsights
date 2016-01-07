@@ -81,6 +81,12 @@ Deploy on an AWS EC2 instance:
 
 Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
 
+### Your own server
+
+Deploy on your own Ubuntu server (not AWS's or Heroku's):
+
+https://github.com/codeforamerica/promptly-deploy-scripts/tree/somerville-v1
+
 # Design
 For a history of all design iterations look here:
 https://www.dropbox.com/sh/r71hh9azun8v6as/AABtBghkPI4XUJBZjNpMmRdba?dl=0
