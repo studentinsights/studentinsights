@@ -73,7 +73,13 @@ We deployed this app on Heroku and you can, too. Set config variables for DEVISE
 
 ### AWS
 
-Scripts deployment on AWS located in `/scripts/aws/`.
+Deploy on an AWS EC2 instance:
+
+```
+/scripts/aws/
+```
+
+Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
 
 # Design
 For a history of all design iterations look here:
