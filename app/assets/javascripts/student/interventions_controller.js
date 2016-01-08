@@ -113,9 +113,20 @@
     },
 
     onSelectInterventionType: function (e) {
-      var selected_options = e.target.selectedOptions;
-      var selected_name = $(selected_options).data('name');
-      if (selected_name === 'Other') {
+
+      // Would be nice to use .selectedOptions to find the selected intervention type,
+      // but not supported by IE.
+      //
+      // https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement
+
+      var select_dropdown = $(e.target)
+      var selected_value = select_dropdown.val();
+      var options = select_dropdown.children();
+
+      var selected_option = select_dropdown.find('option[value=' + selected_value + ']');
+      var selected_option_name = selected_option.text();
+
+      if (selected_option_name === 'Other') {
         this.renderCustomInterventionField();
       } else {
         this.removeCustomInterventionField();
@@ -256,11 +267,11 @@
 
     renderCustomInterventionField: function () {
       var html = this.renderTemplate('customInterventionField', {});
-      $('#custom_intervention_field').html(html);
+      this.$el.find('#custom_intervention_field').html(html);
     },
 
     removeCustomInterventionField: function () {
-      $('#custom_intervention_field').text('');
+      this.$el.find('#custom_intervention_field').text('');
     }
 
   });
