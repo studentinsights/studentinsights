@@ -181,16 +181,18 @@ describe("InterventionsController", function() {
       expect($el.find('form').length).toEqual(0);
     });
 
-    xit('allows adding intervention with a custom intervention name', function() {
+    it('allows adding intervention with a custom intervention name', function() {
       var controller = helpers.createController();
+      spyOn(controller, 'renderCustomInterventionField');
       var $el = controller.render();
       $el.find('.add-new-intervention').click();
 
-      $el.find('option[data-name="Other"]').prop('selected', 'selected');
-      $el.find('[name="intervention[intervention_type_id]"]').trigger('change');
+      var custom_intervention_option_value = $el.find('option[data-name="Other"]').val();
+      var select_dropdown = $el.find('[name="intervention[intervention_type_id]"]');
+      select_dropdown.val(custom_intervention_option_value);
+      select_dropdown.trigger('change');
 
-      expect($el.text()).toContain('Custom intervention name');
-      expect($el.html()).toContain('intervention[custom_intervention_name]');
+      expect(controller.renderCustomInterventionField).toHaveBeenCalled();
     });
 
     describe('educator clicks delete intervention', function() {
