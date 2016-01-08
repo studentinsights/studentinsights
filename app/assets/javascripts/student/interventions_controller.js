@@ -121,7 +121,6 @@
 
       var select_dropdown = $(e.target)
       var selected_value = select_dropdown.val();
-      var options = select_dropdown.children();
 
       var selected_option = select_dropdown.find('option[value=' + selected_value + ']');
       var selected_option_name = selected_option.text();
