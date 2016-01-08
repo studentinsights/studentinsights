@@ -183,7 +183,7 @@ describe("InterventionsController", function() {
 
     it('allows adding intervention with a custom intervention name', function() {
       var controller = helpers.createController();
-      spyOn(controller, 'renderCustomInterventionField');
+      spyOn(controller, 'renderCustomInterventionField').and.callThrough();
       var $el = controller.render();
       $el.find('.add-new-intervention').click();
 
@@ -193,6 +193,8 @@ describe("InterventionsController", function() {
       select_dropdown.trigger('change');
 
       expect(controller.renderCustomInterventionField).toHaveBeenCalled();
+      expect($el.text()).toContain('Custom intervention name');  // label
+      expect($el.html()).toContain('intervention[custom_intervention_name]'); // field
     });
 
     describe('educator clicks delete intervention', function() {

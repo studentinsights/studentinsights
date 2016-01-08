@@ -267,11 +267,11 @@
 
     renderCustomInterventionField: function () {
       var html = this.renderTemplate('customInterventionField', {});
-      $('#custom_intervention_field').html(html);
+      this.$el.find('#custom_intervention_field').html(html);
     },
 
     removeCustomInterventionField: function () {
-      $('#custom_intervention_field').text('');
+      this.$el.find('#custom_intervention_field').text('');
     }
 
   });
