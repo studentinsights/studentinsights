@@ -12,6 +12,7 @@ Student Insights enables educators to see at-risk students and match them to the
     - [Heroku](#heroku)
     - [AWS](#aws)
     - [Your own server](#your-own-server)
+- [Browsers](#browsers)
 - [Design](#design)
 - [More](#more)
 
@@ -86,6 +87,12 @@ Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
 Deploy on your own Ubuntu server (not AWS's or Heroku's):
 
 https://github.com/codeforamerica/promptly-deploy-scripts/tree/somerville-v1
+
+# Browsers
+
+Primary targeted browser is Internet Explorer, because that's what's used in the Somerville school district.
+
+Mostly IE10 and IE11.
 
 # Design
 For a history of all design iterations look here:
