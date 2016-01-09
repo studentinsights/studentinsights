@@ -22,9 +22,9 @@ authorizations: &AUTHORIZATIONS
 ## Environment
 
 production:
-  host: <%= ENV['SOMERVILLE_SFTP_HOST'] %>
-  port: <%= ENV['SOMERVILLE_SFTP_PORT'] %>
-  attribute: <%= ENV['SOMERVILLE_SFTP_ATTRIBUTE'] %>
-  base: <%= ENV['SOMERVILLE_SFTP_BASE'] %>
+  host: <%= ENV['SOMERVILLE_LDAP_HOST'] %>
+  port: <%= ENV['SOMERVILLE_LDAP_PORT'] %>
+  attribute: <%= ENV['SOMERVILLE_LDAP_ATTRIBUTE'] %>
+  base: <%= ENV['SOMERVILLE_LDAP_BASE'] %>
   ssl: true
   <<: *AUTHORIZATIONS
