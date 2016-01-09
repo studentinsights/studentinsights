@@ -1,5 +1,5 @@
 class Educator < ActiveRecord::Base
-  devise :ldap_authenticatable, :rememberable, :trackable, :validatable, :timeoutable
+  devise :ldap_authenticatable, :rememberable, :trackable, :timeoutable
   has_one :homeroom
   has_many :students, through: :homeroom
   has_many :interventions
