@@ -5,4 +5,7 @@ class PagesController < ApplicationController
   def about
   end
 
+  def no_homeroom
+  end
+
 end

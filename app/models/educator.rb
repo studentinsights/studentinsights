@@ -6,16 +6,24 @@ class Educator < ActiveRecord::Base
   has_many :progress_notes, through: :interventions
   has_many :student_notes
 
+  def default_homeroom
+    return Homeroom.first if admin?
+    return homeroom if homeroom.present?
+    raise "no homeroom"
+  end
+
   def allowed_homerooms
     # Educator can visit roster view for these homerooms
     # For non-admins, all homerooms at their homeroom's grade level
 
     if admin?
       Homeroom.all
-    else
+    elsif homeroom
       # Once the app includes data for multiple schools, will
       # need to scope by school as well as by grade level
       Homeroom.where(grade: homeroom.grade)
+    else
+      []
     end
   end
 

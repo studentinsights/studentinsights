@@ -112,14 +112,16 @@ describe HomeroomsController, :type => :controller do
     context 'non-admin without homeroom logged in' do
       before { sign_in(educator_without_homeroom) }
       context 'no homeroom params' do
-        it 'raises a error' do
-          expect { make_request }.to raise_error ActionController::RoutingError
+        it 'redirects to no-homeroom error page' do
+          make_request
+          expect(response).to redirect_to(no_homeroom_url)
         end
       end
       context 'homeroom params' do
         let!(:homeroom) { FactoryGirl.create(:homeroom) }
-        it 'raises a error' do
-          expect { make_request(homeroom.slug) }.to raise_error ActionController::RoutingError
+        it 'redirects to no-homeroom error page' do
+          make_request(homeroom.slug)
+          expect(response).to redirect_to(no_homeroom_url)
         end
       end
     end
