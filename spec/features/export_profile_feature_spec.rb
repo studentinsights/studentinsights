@@ -10,15 +10,6 @@ describe 'export profile', :type => :feature do
       end
     }
 
-    def educator_sign_in(educator)
-      visit root_url
-      click_link 'Sign In'
-      fill_in 'educator_email', with: educator.email
-      fill_in 'educator_password', with: educator.password
-      click_button 'Log in'
-      expect(page).to have_content 'Signed in successfully.'
-    end
-
     before(:each) do
       Timecop.freeze(DateTime.new(2015, 5, 1)) do
         mock_ldap_authorization
