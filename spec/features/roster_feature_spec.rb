@@ -4,6 +4,7 @@ require 'capybara/rspec'
 describe 'roster', :type => :feature do
   context 'educator with account views roster' do
     before(:each) do
+      mock_ldap_authorization
       educator_sign_in(educator)
     end
 

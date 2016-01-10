@@ -7,6 +7,7 @@ describe 'educator views student profile', :type => :feature do
 
     before(:each) do
       Timecop.freeze(DateTime.new(2015, 5, 1)) do
+        mock_ldap_authorization
         educator_sign_in(educator)
         visit "/students/#{student.id}"
       end

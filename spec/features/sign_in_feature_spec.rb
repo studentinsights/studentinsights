@@ -6,6 +6,7 @@ describe "educator sign in", :type => :feature do
     let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
     let(:homeroom) { FactoryGirl.create(:homeroom) }
     it "can access students page" do
+      mock_ldap_authorization
       visit root_url
       click_link 'Sign In'
       fill_in 'educator_email', with: educator.email
@@ -17,6 +18,7 @@ describe "educator sign in", :type => :feature do
   end
   context "educator without account signs in" do
     it "cannot access students page" do
+      mock_ldap_rejection
       visit root_url
       click_link 'Sign In'
       fill_in 'educator_email', with: "educatorname"
