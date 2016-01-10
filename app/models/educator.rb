@@ -1,5 +1,10 @@
 class Educator < ActiveRecord::Base
-  devise :ldap_authenticatable, :rememberable, :trackable, :timeoutable
+  devise :rememberable, :trackable, :timeoutable
+  devise :ldap_authenticatable if Rails.env.production? || Rails.env.test?          # Mock LDAP in test suite.
+
+  devise :database_authenticatable if Rails.env.development? || ENV['DEMO_SITE']    # Don't make real LDAP
+                                                                                    # queries in development
+                                                                                    # mode or on the demo site.
   has_one :homeroom
   has_many :students, through: :homeroom
   has_many :interventions
