@@ -1,24 +1,21 @@
 class SftpClient
 
-  attr_accessor :remote_file_name
-
   def initialize(options = {})
     # Credentials take the form of a hash with the following keys:
     # user:, host:, (password: or key_data:)
     @credentials = options[:credentials]
-    @remote_file_name = options[:remote_file_name]
   end
 
-  def read_file
-    sftp_session.download!(@remote_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+  def read_file(remote_file_name)
+    sftp_session.download!(remote_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
   end
 
-  def download_file_to_tmp
-    sftp_session.download!(@remote_file_name, file_tmp_path)
+  def download_file_to_tmp(remote_file_name)
+    sftp_session.download!(remote_file_name, file_tmp_path(remote_file_name))
   end
 
-  def file_tmp_path
-    "#{Rails.root}/tmp/#{@remote_file_name}"
+  def file_tmp_path(remote_file_name)
+    "#{Rails.root}/tmp/#{remote_file_name}"
   end
 
   def sftp_session
