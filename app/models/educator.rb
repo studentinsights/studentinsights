@@ -12,9 +12,10 @@ class Educator < ActiveRecord::Base
   has_many :student_notes
 
   def default_homeroom
+    raise Exceptions::NoHomerooms if Homeroom.count == 0
     return Homeroom.first if admin?
     return homeroom if homeroom.present?
-    raise "no homeroom"
+    raise Exceptions::NoAssignedHomeroom
   end
 
   def allowed_homerooms

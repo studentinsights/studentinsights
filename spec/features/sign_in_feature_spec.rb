@@ -16,13 +16,24 @@ describe 'educator sign in', type: :feature do
 
     context 'without homeroom' do
       let(:educator) { FactoryGirl.create(:educator) }
-      it 'redirects to no-homeroom error page' do
-        mock_ldap_authorization
-        educator_sign_in(educator)
-        expect(page).to have_content 'Looks like there\'s no homeroom assigned to you.'
+
+      context 'homerooms exist' do
+        let!(:homeroom) { FactoryGirl.create(:homeroom) }
+        it 'redirects to no-homeroom error page' do
+          mock_ldap_authorization
+          educator_sign_in(educator)
+          expect(page).to have_content 'Looks like there\'s no homeroom assigned to you.'
+        end
+      end
+
+      context 'no homerooms exist' do
+        it 'redirects to no homerooms page' do
+          mock_ldap_authorization
+          educator_sign_in(educator)
+          expect(page).to have_content 'Looks like there are no homerooms.'
+        end
       end
     end
-
   end
 
   context 'person without LDAP authorization attempts to sign in' do
