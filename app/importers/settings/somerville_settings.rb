@@ -39,8 +39,8 @@ class Settings::SomervilleSettings
       StarMathImporter.new(options),
       StarReadingImporter.new(options),
       BehaviorImporter.new(options),
-      HealeyAfterSchoolTutoringImporter.new   # Currently local import only
-      EducatorsImporter.new(options)
+      HealeyAfterSchoolTutoringImporter.new,   # Currently local import only
+      EducatorsImporter.new(options),
     ]
 
     if @first_time
