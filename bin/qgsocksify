@@ -1,0 +1,41 @@
+#!/bin/bash
+# Script inspired by and derived from Proximo (https://github.com/pirateradio/proximo-stacklet)
+# Usage ./qgsocksify rails s
+
+if [ "${QUOTAGUARDSTATIC_URL}" == "" ]; then
+  echo "No QUOTAGUARDSTATIC_URL env variable found. Have you installed QuotaGuard Static?"
+  echo "If using Heroku:"
+  echo "  heroku addons:add quotaguardstatic:test"
+  echo "If using another platform sign-up at quotaguard.com and follow documentation to manually set variable"
+  exit 2
+fi
+
+SOCKS_DIR="$(dirname $(dirname $(readlink -f ${BASH_SOURCE[0]})))/vendor/dante"
+
+QUOTAGUARDSTATIC_HOST=$(awk -F'[/@:]' '{print $6}' <<< ${QUOTAGUARDSTATIC_URL})
+QUOTAGUARDSTATIC_USERNAME=$(awk -F'[/@:]' '{print $4}' <<< ${QUOTAGUARDSTATIC_URL})
+QUOTAGUARDSTATIC_PASSWORD=$(awk -F'[/@:]' '{print $5}' <<< ${QUOTAGUARDSTATIC_URL})
+QUOTAGUARDSTATIC_MASK=${QUOTAGUARDSTATIC_MASK:-0.0.0.0/0}
+
+export SOCKS_CONF="${SOCKS_DIR}/socks.conf"
+export SOCKS_LIBDIR="${SOCKS_DIR}/lib"
+export SOCKS_USERNAME="${QUOTAGUARDSTATIC_USERNAME}"
+export SOCKS_PASSWORD="${QUOTAGUARDSTATIC_PASSWORD}"
+export SOCKS_LIBRARY="${SOCKS_DIR}/lib/libdsocks.so"
+export SOCKS_USEFULLPATH="true"
+
+rm -f $SOCKS_CONF
+IFS=","
+
+for QUOTAGUARDSTATIC_MASK_PART in $QUOTAGUARDSTATIC_MASK; do
+  QUOTAGUARDSTATIC_MASK_ESCAPED=${QUOTAGUARDSTATIC_MASK_PART/\//\\/}
+  cat "${SOCKS_CONF}.template" | \
+    sed -e "s/%QUOTAGUARDSTATIC_HOST%/${QUOTAGUARDSTATIC_HOST}/g" \
+        -e "s/%QUOTAGUARDSTATIC_MASK%/${QUOTAGUARDSTATIC_MASK_ESCAPED}/g" \
+        >> $SOCKS_CONF
+done
+
+chmod +x ${SOCKS_DIR}/bin/socksify
+echo "QuotaGuard Static enabled. Traffic for ${QUOTAGUARDSTATIC_MASK} will be routed via your Static IPs."
+
+exec ${SOCKS_DIR}/bin/socksify $*

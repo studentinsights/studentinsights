@@ -5,7 +5,7 @@ gem 'rails', '4.1.4'
 
 ruby '2.2.3'
 
-gem 'puma' # We need puma for the Heroku deploys to succeed
+gem 'unicorn'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -67,6 +67,7 @@ end
 
 # Auth
 gem 'devise'
+gem 'devise_ldap_authenticatable'
 
 # Better seeds
 gem 'seedbank'

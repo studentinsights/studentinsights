@@ -5,10 +5,14 @@
 /sketch
 /data
 coverage
+
 config/local_env.yml
 config/initializers/capistrano_server.rb
 config/database.yml
+
 db/seeds/users/educators.seeds.rb
+
+spec/logs/logs.txt
 
 ## Environment normalisation:
 /.bundle

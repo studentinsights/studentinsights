@@ -18,6 +18,23 @@
 require 'devise'
 
 RSpec.configure do |config|
+
+  original_stderr = $stderr
+  original_stdout = $stdout
+
+  config.before(:suite) do
+    # Redirect stderr and stdout
+    Dir.mkdir("#{Rails.root}/spec/logs") unless File.exists?("#{Rails.root}/spec/logs")
+    logs_path = "#{Rails.root}/spec/logs/logs.txt"
+    $stderr = File.new(logs_path, 'w')
+    $stdout = File.new(logs_path, 'w')
+  end
+
+  config.after(:suite) do
+    $stderr = original_stderr
+    $stdout = original_stdout
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

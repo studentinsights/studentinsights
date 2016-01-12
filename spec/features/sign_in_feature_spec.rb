@@ -1,28 +1,47 @@
 require 'rails_helper'
 require 'capybara/rspec'
 
-describe "educator sign in", :type => :feature do
-  context "educator with account signs in" do
-    let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
-    let(:homeroom) { FactoryGirl.create(:homeroom) }
-    it "can access students page" do
-      visit root_url
-      click_link 'Sign In'
-      fill_in 'educator_email', with: educator.email
-      fill_in 'educator_password', with: educator.password
-      click_button 'Log in'
-      expect(page).to have_content 'Signed in successfully.'
-      visit homeroom_url(homeroom)
+describe 'educator sign in', type: :feature do
+
+  context 'educator with LDAP authorization signs in' do
+
+    context 'with homeroom' do
+      let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+      it 'signs in' do
+        mock_ldap_authorization
+        educator_sign_in(educator)
+        expect(page).to have_content 'Signed in successfully.'
+      end
+    end
+
+    context 'without homeroom' do
+      let(:educator) { FactoryGirl.create(:educator) }
+
+      context 'homerooms exist' do
+        let!(:homeroom) { FactoryGirl.create(:homeroom) }
+        it 'redirects to no-homeroom error page' do
+          mock_ldap_authorization
+          educator_sign_in(educator)
+          expect(page).to have_content 'Looks like there\'s no homeroom assigned to you.'
+        end
+      end
+
+      context 'no homerooms exist' do
+        it 'redirects to no homerooms page' do
+          mock_ldap_authorization
+          educator_sign_in(educator)
+          expect(page).to have_content 'Looks like there are no homerooms.'
+        end
+      end
     end
   end
-  context "educator without account signs in" do
-    it "cannot access students page" do
-      visit root_url
-      click_link 'Sign In'
-      fill_in 'educator_email', with: "educatorname"
-      fill_in 'educator_password', with: "password"
-      click_button 'Log in'
+
+  context 'person without LDAP authorization attempts to sign in' do
+    it 'cannot access students page' do
+      mock_ldap_rejection
+      sign_in_attempt('educatorname', 'password')
       expect(page).to have_content 'Invalid email or password.'
     end
   end
+
 end

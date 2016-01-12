@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   root 'pages#about'
   get 'about' => 'pages#about'
+  get 'no_homeroom' => 'pages#no_homeroom'
+  get 'no_homerooms' => 'pages#no_homerooms'
 
   get '/students/names' => 'students#names'
   get '/educators/reset'=> 'educators#reset_session_clock'
