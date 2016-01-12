@@ -13,17 +13,16 @@
     border-collapse: collapse;
   }
 
-  .bar {
-    background-color: rgba(49, 119, 201, 0.75);
-  }
-
   table td {
-    font-size: 12px;
     padding: 0;
 
     &.caption-cell {
       width: 130px;
     }
+  }
+
+  .bar {
+    background-color: rgba(49, 119, 201, 0.75);
   }
 
   .grades-column  table td.caption-cell {

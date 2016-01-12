@@ -109,7 +109,6 @@ var StudentsTable = React.createClass({
 
   render: function() {
     return dom.div({},
-      dom.div({}, this.props.students.length + ' students'),
       dom.table({ className: 'student-list', style: { width: '100%' } },
         dom.thead({},
           dom.tr({},
@@ -186,20 +185,20 @@ var FixedTable = React.createClass({
           var isFilterApplied = _.contains(selectedFilterIdentifiers, item.filter.identifier);
           return dom.tr({
             key: item.caption,
-            style: { backgroundColor: (isFilterApplied) ? colors.selection: null }
-            // style: {
-            //   outline: (isFilterApplied) ? '2px solid orange': null,
-            //   outlineOffset: 2
-            // }
+            style: {
+              backgroundColor: (isFilterApplied) ? colors.selection: null,
+              cursor: 'pointer'
+            },
+            onClick: this.onRowClicked.bind(this, item)
           },
             dom.td({ className: 'caption-cell' },
               dom.a({
-                style: { fontSize: 12, paddingLeft: 10 },
-                onClick: this.onRowClicked.bind(this, item)
+                style: { fontSize: styles.fontSize, paddingLeft: 10 }
               }, item.caption)
             ),
-            dom.td({ style: { width: 48, textAlign: 'right', paddingRight: 8 }}, Math.ceil(100 * item.percentage) + '%'),
-            dom.td({ style: { width: 50 } }, this.renderBar(item.percentage, 50))
+            dom.td({ style: { fontSize: styles.fontSize, width: 48, textAlign: 'right', paddingRight: 8 }},
+              (item.percentage < 0.004) ? '' : Math.ceil(100 * item.percentage) + '%'),
+            dom.td({ style: { fontSize: styles.fontSize, width: 50 } }, this.renderBar(item.percentage, 50))
           );
         }, this))
       ),
@@ -260,10 +259,9 @@ var CollapsableTable = React.createClass({
     if (this.props.items.length <= this.props.limit) return;
     return dom.a({
       style: {
-        fontSize: 12,
+        fontSize: styles.fontSize,
         color: '#aaa',
-        paddingTop: 3,
-        marginTop: 3,
+        paddingTop: 5,
         display: 'block'
       },
       onClick: (this.state.isExpanded) ? this.onCollapseClicked : this.onExpandClicked
@@ -277,6 +275,10 @@ var CollapsableTable = React.createClass({
 // colors, styles
 var colors = {
   selection: 'rgb(255, 204, 138)'
+};
+
+var styles = {
+  fontSize: 12
 };
 
 
@@ -343,7 +345,7 @@ var SchoolOverviewPage = React.createClass({
     return dom.div({
       className: 'school-overview',
       style: {
-        fontSize: 12,
+        fontSize: styles.fontSize,
         paddingLeft: 30,
         paddingRight: 30,
         paddingTop: 10
@@ -351,35 +353,40 @@ var SchoolOverviewPage = React.createClass({
     },
       dom.div({ className: 'header' },
         dom.div({ className: 'columns', style: {} },
-          dom.div({ className: 'column grades-column' },
-            this.renderSimpleTable('Grade', 'grade', { limit: 16 }),
+          dom.div({ className: 'column' }, this.renderBackgroundInfo()),
+          dom.div({ className: 'column grades-column pad-column-right' },
+            this.renderGradeTable(),
             // this.renderSimpleTable('Homeroom', 'homeroom_id', { limit: 4 }),
             this.renderRegistrationTable()
           ),
-          dom.div({ className: 'column pad-column-right' }, this.renderBackgroundInfo()),
           dom.div({ className: 'column' }, this.renderELA()),
           dom.div({ className: 'column' }, this.renderMath()),
           dom.div({ className: 'column attendance-column pad-column-right' }, this.renderAttendance()),
           dom.div({ className: 'column interventions-column' }, this.renderInterventions())
         )
       ),
-      dom.div({ className: 'summary' },
+      dom.div({ className: 'summary', style: { marginTop: 20, borderBottom: '1px solid black', padding: 10 } },
+        dom.div({ style: { backgroundColor: 'rgba(49, 119, 201, 0.75)', color: 'white', display: 'inline-block', width: '12em', padding: 5 } },
+          'Found: ' + this.filteredStudents().length + ' students'
+        ),
         dom.a({
           style: {
-            margin: 10,
-            fontSize: 12,
+            marginLeft: 10,
+            marginRight: 10,
+            fontSize: styles.fontSize,
             display: 'inline-block',
             padding: 5,
-            //border: (this.state.filters.length > 0) ? '1px solid ' + colors.selection : ''
+            width: '10em',
             backgroundColor: (this.state.filters.length > 0) ? colors.selection : ''
           },
           onClick: this.onResetClicked
-        }, 'Clear filters (ESC)'),
+        }, (this.state.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
+        dom.a({ href: this.filtersHash(), target: '_blank', style: { fontSize: styles.fontSize } }, 'Share URL')
         // debug only:
         // dom.span({}, this.state.filters.map(function(filter) {
         //   return dom.span({ key: filter.identifier }, filter.identifier);
         // })),
-        dom.a({ href: this.filtersHash(), target: '_blank' }, 'Share URL')
+        
       ),
       dom.div({ className: 'list', style: {} },
         createEl(StudentsTable, { students: this.filteredStudents() })
@@ -516,6 +523,25 @@ var SchoolOverviewPage = React.createClass({
     });
 
     return sortedItems.concat(this.createItem('None', Filters.InterventionType(null)));
+  },
+
+  renderGradeTable: function() {
+    var key = 'grade';
+    var uniqueValues = _.compact(_.unique(_.pluck(this.props.allStudents, key)));
+    var items = uniqueValues.map(function(value) {
+      return this.createItem(value, Filters.Equal(key, value));
+    }, this);
+    var sortedItems = _.sortBy(items, function(item) {
+      if (item.caption === 'PK') return -20;
+      if (item.caption === 'KF') return -10;
+      return parseFloat(item.caption);
+    });
+
+    return this.renderTable({
+      title: 'Grade',
+      items: sortedItems,
+      limit: 10
+    });
   },
 
   renderRegistrationTable: function() {
