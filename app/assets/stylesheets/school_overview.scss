@@ -9,7 +9,7 @@
     }
 
     & > div.CollapsableTable {
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #ddd;
 
       &:last-child {
         border-bottom: 0;
@@ -17,23 +17,10 @@
     }
   }
 
-  table {
-    table-layout: fixed;
-    border-collapse: collapse;
+  .column table td.caption-cell {
+    width: 130px;
   }
-
-  table td {
-    padding: 0;
-
-    &.caption-cell {
-      width: 130px;
-    }
-  }
-
-  .bar {
-    background-color: rgba(49, 119, 201, 0.75);
-  }
-
+  
   .grades-column  table td.caption-cell {
     width: 40px;
   }
@@ -47,16 +34,38 @@
   }
 
 
+  .FixedTable {
+    table {
+      table-layout: fixed;
+      border-collapse: collapse;
+    
+      td {
+        padding: 0;
+      }
+    }
+
+    .bar {
+      background-color: rgba(49, 119, 201, 0.75);
+    }
+  }
+
+
   .StudentsTable {
+    table.students-table {
+      border-collapse: collapse;
+    }
+
     thead th {
       font-size: 12px;
+      padding: 5px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
     }
 
     tbody {
-      border-top: 1px solid #ccc;
-
       td {
         padding: 5px;
+        text-align: left;
       }
     }
   }

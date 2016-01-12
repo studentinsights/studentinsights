@@ -120,29 +120,27 @@ var StudentsTable = React.createClass({
   },
 
   componentDidMount: function() {
-    new Tablesort(document.querySelector('.student-list'), { descending: false });
+    new Tablesort(document.querySelector('.students-table'), { descending: false });
   },
 
   render: function() {
     return dom.div({ className: 'StudentsTable' },
-      dom.table({ className: 'student-list', style: { width: '100%' } },
+      dom.table({ className: 'students-table', style: { width: '100%' } },
         dom.thead({},
           dom.tr({},
             this.renderHeader('Grade'),
             this.renderHeader('Name'),
             this.renderHeader('Disability'),
             this.renderHeader('Low Income'),
-            this.renderHeader('Grade'),
-            this.renderHeader('Name'),
-            this.renderHeader('Disability'),
-            this.renderHeader('Low Income'),
-            this.renderHeader('MCAS ELA'),
+            this.renderHeader('LEP'),
             this.renderHeader('STAR Reading'),
-            this.renderHeader('MCAS Math'),
+            this.renderHeader('MCAS ELA'),
             this.renderHeader('Star Math'),
+            this.renderHeader('MCAS Math'),
             this.renderHeader('Discipline Incidents'),
             this.renderHeader('Absences'),
             this.renderHeader('Tardies'),
+            this.renderHeader('Interventions'),
             this.renderHeader('Program'),
             this.renderHeader('Homeroom')
           )
@@ -150,28 +148,44 @@ var StudentsTable = React.createClass({
         dom.tbody({},
           this.props.students.map(function(student) {
             return dom.tr({ key: student.id },
-              dom.td({ style: { textAlign: 'center' } }, student.grade),
-              dom.td({ style: { textAlign: 'center' } }, dom.a({ href: Routes.student(student.id) }, student.first_name + ' ' + student.last_name)),
-              dom.td({ style: { textAlign: 'center' } }, student.sped_level_of_need),
-              dom.td({ style: { textAlign: 'center' } }, student.free_reduced_lunch),
-              dom.td({ style: { textAlign: 'center' } }, student.most_recent_mcas_ela_scaled),
-              dom.td({ style: { textAlign: 'center' } }, student.most_recent_star_reading_percentile),
-              dom.td({ style: { textAlign: 'center' } }, student.most_recent_mcas_math_scaled),
-              dom.td({ style: { textAlign: 'center' } }, student.most_recent_star_math_percentile),
-              dom.td({ style: { textAlign: 'center' } }, student.discipline_incidents_count),
-              dom.td({ style: { textAlign: 'center' } }, student.absences_count_most_recent_school_year),
-              dom.td({ style: { textAlign: 'center' } }, student.tardies_count_most_recent_school_year),
-              dom.td({ style: { textAlign: 'center' } }, student.program_assigned),
-              dom.td({ style: { textAlign: 'center' } }, dom.a({ href: Routes.homeroom(student.homeroom_id) }, student.homeroom_id))
+              dom.td({}, student.grade),
+              dom.td({}, dom.a({ href: Routes.student(student.id) }, student.first_name + ' ' + student.last_name)),
+              dom.td({}, student.sped_level_of_need),
+              dom.td({ style: { width: '2em' } }, this.renderUnless('Not Eligible', student.free_reduced_lunch)),
+              dom.td({ style: { width: '2em' } }, this.renderUnless('Fluent', student.limited_english_proficiency)),
+              this.renderNumberCell(student.most_recent_star_reading_percentile),
+              this.renderNumberCell(student.most_recent_mcas_ela_scaled),
+              this.renderNumberCell(student.most_recent_star_math_percentile),
+              this.renderNumberCell(student.most_recent_mcas_math_scaled),
+              this.renderNumberCell(this.renderCount(student.discipline_incidents_count)),
+              this.renderNumberCell(this.renderCount(student.absences_count_most_recent_school_year)),
+              this.renderNumberCell(this.renderCount(student.tardies_count_most_recent_school_year)),
+              this.renderNumberCell(this.renderCount(student.interventions.length)),
+              dom.td({}, this.renderUnless('Reg Ed', student.program_assigned)),
+              dom.td({}, dom.a({ href: Routes.homeroom(student.homeroom_id) }, student.homeroom_id))
             );
-          })
+          }, this)
         )
       )
     );
   },
 
+  renderNumberCell: function(children) {
+    return dom.td({ style: { textAlign: 'right', width: '5em', paddingRight: '3em' } }, children);
+  },
+
+  renderUnless: function(ignoredValue, value) {
+    return (value === ignoredValue) ? null : value;
+  },
+
+  renderCount: function(count) {
+    return (count === 0) ? null : count;
+  },
+
   renderHeader: function(caption) {
-    return dom.th({}, dom.span({}, caption.split(' ').map(function(text) { return dom.div({}, text); })));
+    // return dom.th({}, caption.split(' ').map(function(text) { return dom.div({}, text); }));
+    var pieces = caption.split(' ');
+    return dom.th({}, pieces[0], dom.br(), pieces[1]);
   }
 });
 
@@ -200,7 +214,7 @@ var FixedTable = React.createClass({
         paddingBottom: 5
       }
     },
-      dom.div({ style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
+      dom.div({ className: 'FixedTable', style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
       dom.table({},
         dom.tbody({}, items.map(function(item) {
           var key = item.caption;
@@ -282,7 +296,7 @@ var CollapsableTable = React.createClass({
     return dom.a({
       style: {
         fontSize: styles.fontSize,
-        color: '#aaa',
+        color: '#999',
         paddingTop: 5,
         display: 'block'
       },
@@ -305,7 +319,8 @@ var styles = {
   header: {
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: '#eee'
   },
 
   columnsContainer: {
@@ -317,7 +332,9 @@ var styles = {
     marginTop: 0,
     borderTop: '1px solid #ccc',
     background: 'white',
-    padding: 20
+    paddingTop: 5,
+    paddingLeft: 30,
+    paddingBottom: 20
   }
 };
 
@@ -396,8 +413,11 @@ var SchoolOverviewPage = React.createClass({
         )
       ),
       this.renderSummary(),
-      dom.div({ className: 'list', style: {} },
-        createEl(StudentsTable, { students: this.filteredStudents() })
+      dom.div({ className: 'list', style: { padding: 20 } },
+        createEl(StudentsTable, {
+          key: _.pluck(this.state.filters, 'identifier').join(','), // hack for tablesorter
+          students: this.filteredStudents()
+        })
       )
     );
   },
@@ -414,7 +434,7 @@ var SchoolOverviewPage = React.createClass({
           fontSize: styles.fontSize,
           display: 'inline-block',
           padding: 5,
-          width: '11em',
+          width: '10em',
           backgroundColor: (this.state.filters.length > 0) ? colors.selection : ''
         },
         onClick: this.onResetClicked
