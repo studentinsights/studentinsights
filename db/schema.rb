@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111163236) do
+ActiveRecord::Schema.define(version: 20160112013803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,7 +87,6 @@ ActiveRecord::Schema.define(version: 20160111163236) do
     t.string   "staff_type"
   end
 
-  add_index "educators", ["email"], name: "index_educators_on_email", unique: true, using: :btree
   add_index "educators", ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: true do |t|
