@@ -51,6 +51,7 @@ class Import < Thor
       puts "#{StudentAssessment.count} assessments"
       puts "#{DisciplineIncident.count} discipline incidents"
       puts "#{AttendanceEvent.count} attendance events"
+      puts "#{Educator.count} educators"
     end
   end
 end
