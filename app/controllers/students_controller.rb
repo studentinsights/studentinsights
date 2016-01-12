@@ -39,11 +39,6 @@ class StudentsController < ApplicationController
     end
   end
 
-  def overview
-    student = Student.find(params[:id])
-    @serialized_data = student.serialized_student_data
-  end
-
   def names
     @q = params[:q].upcase
     @length = @q.length
