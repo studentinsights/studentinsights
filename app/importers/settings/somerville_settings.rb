@@ -6,11 +6,13 @@ class Settings::SomervilleSettings
     @recent_only = options[:recent_only]
   end
 
-  def base_options
+  def options
     {
       school_scope: @school_scope,
       recent_only: @recent_only,
-      first_time: @first_time
+      first_time: @first_time,
+      client: SftpClient.new(credentials: x2_sftp_credentials),
+      data_transformer: CsvTransformer.new
     }
   end
 
@@ -30,63 +32,24 @@ class Settings::SomervilleSettings
     }
   end
 
-  def students_options
-    students_options = base_options.clone
-    students_options[:client] = SftpClient.new({credentials: x2_sftp_credentials, remote_file_name: 'students_export.txt'})
-    students_options[:data_transformer] = CsvTransformer.new
-    return students_options
-  end
-
-  def assessment_options
-    assessment_options = base_options.clone
-    assessment_options[:client] = SftpClient.new({credentials: x2_sftp_credentials, remote_file_name: 'assessment_export.txt'})
-    assessment_options[:data_transformer] = CsvTransformer.new
-    return assessment_options
-  end
-
-  def star_math_options
-    star_math_options = base_options.clone
-    star_math_options[:client] = SftpClient.new({credentials: star_sftp_credentials, remote_file_name: 'SM.csv'})
-    star_math_options[:data_transformer] = StarMathCsvTransformer.new
-    return star_math_options
-  end
-
-  def star_reading_options
-    star_reading_options = base_options.clone
-    star_reading_options[:client] = SftpClient.new({credentials: star_sftp_credentials, remote_file_name: 'SR.csv'})
-    star_reading_options[:data_transformer] = StarReadingCsvTransformer.new
-    return star_reading_options
-  end
-
-  def behavior_options
-    behavior_options = base_options.clone
-    behavior_options[:client] = SftpClient.new({credentials: x2_sftp_credentials, remote_file_name: 'behavior_export.txt'})
-    behavior_options[:data_transformer] = CsvTransformer.new
-    return behavior_options
-  end
-
-  def attendance_options
-    attendance_options = base_options.clone
-    attendance_options[:client] = SftpClient.new({credentials: x2_sftp_credentials, remote_file_name: 'attendance_export.txt'})
-    attendance_options[:data_transformer] = CsvTransformer.new
-    return attendance_options
-  end
-
   def configuration
     importers = [
-      StudentsImporter.new(students_options),
-      StudentAssessmentImporter.new(assessment_options),
-      StarMathImporter.new(star_math_options),
-      StarReadingImporter.new(star_reading_options),
-      BehaviorImporter.new(behavior_options),
-      HealeyAfterSchoolTutoringImporter.new   # Currently local import only
+      StudentsImporter.new(options),
+      StudentAssessmentImporter.new(options),
+      StarMathImporter.new(options),
+      StarReadingImporter.new(options),
+      BehaviorImporter.new(options),
+      HealeyAfterSchoolTutoringImporter.new,   # Currently local import only
+      EducatorsImporter.new(options),
     ]
 
     if @first_time
-      importers << BulkAttendanceImporter.new(attendance_options)
+      importers << BulkAttendanceImporter.new(options)
     else
-      importers << AttendanceImporter.new(attendance_options)
+      importers << AttendanceImporter.new(options)
     end
+
+    importers
   end
 
 end
