@@ -24,7 +24,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     # Redirect stderr and stdout
-    Dir.mkdir("#{Rails.root}/spec/logs")
+    Dir.mkdir("#{Rails.root}/spec/logs") unless File.exists?("#{Rails.root}/spec/logs")
     logs_path = "#{Rails.root}/spec/logs/logs.txt"
     $stderr = File.new(logs_path, 'w')
     $stdout = File.new(logs_path, 'w')
