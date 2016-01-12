@@ -24,4 +24,11 @@ class SchoolsController < ApplicationController
     @top_mcas_math_concerns = homeroom_queries.top_mcas_math_concerns.first(limit)
     @top_mcas_ela_concerns = homeroom_queries.top_mcas_ela_concerns.first(limit)
   end
+
+  def overview
+    @serialized_data = {
+      :students => Student.all.to_a,
+      :intervention_types => InterventionType.all
+    }
+  end
 end

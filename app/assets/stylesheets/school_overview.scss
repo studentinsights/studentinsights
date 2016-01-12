@@ -1,0 +1,40 @@
+.school-overview {
+  .column {
+    display: inline-block;
+    vertical-align: top;
+
+    &.pad-column-right {
+      padding-right: 10px;
+    }
+  }
+
+  table {
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  .bar {
+    background-color: rgba(49, 119, 201, 0.75);
+  }
+
+  table td {
+    font-size: 12px;
+    padding: 0;
+
+    &.caption-cell {
+      width: 130px;
+    }
+  }
+
+  .grades-column  table td.caption-cell {
+    width: 40px;
+  }
+
+  .attendance-column table td.caption-cell {
+    width: 80px;
+  }
+
+  .interventions-column table td.caption-cell {
+    width: 200px;
+  }
+}

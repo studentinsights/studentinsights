@@ -24,5 +24,6 @@ Rails.application.routes.draw do
   resources :bulk_intervention_assignments
   resources :schools do
     get :homerooms, on: :member
+    get :overview, on: :member
   end
 end
