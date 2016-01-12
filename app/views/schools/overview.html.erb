@@ -19,9 +19,22 @@ body {
 
 <script type="text/javascript">
 
-// notes:
-// discipline all time done
-// layout is whack
+// React helper fns
+var ReactHelpers = {
+  dom: React.DOM,
+  createEl: React.createElement.bind(React),
+  merge: function(a, b) {
+    var out = {};
+    Object.keys(a).concat(Object.keys(b)).forEach(function(key) {
+      out[key] = b[key] || a[key];
+    });
+    return out;
+  }
+};
+var dom = ReactHelpers.dom;
+var createEl = ReactHelpers.createEl;
+var merge = ReactHelpers.merge;
+
 
 
 // Routing functions
@@ -33,19 +46,6 @@ var Routes = {
   homeroom: function(id) {
     return baseUrl + '/homerooms/' + id;
   }
-};
-
-
-
-// React helper fns
-var dom = React.DOM;
-var createEl = React.createElement.bind(React);
-var merge = function(a, b) {
-  var out = {};
-  Object.keys(a).concat(Object.keys(b)).forEach(function(key) {
-    out[key] = b[key] || a[key];
-  });
-  return out;
 };
 
 
@@ -110,6 +110,7 @@ var Filters = {
     return null;
   }
 };
+
 
 
 var StudentsTable = React.createClass({
@@ -364,10 +365,6 @@ var SchoolOverviewPage = React.createClass({
   componentDidUpdate: function() {
     window.history.pushState({}, null, this.filtersHash());
   },
-
-  // onPopState: function(e) {
-  //   this.setState({filters: parseFiltersHash(window.location.hash) });
-  // },
 
   filteredStudents: function() {
     return this.state.filters.reduce(function(filteredStudents, filter) {
@@ -649,13 +646,6 @@ var SchoolOverviewPage = React.createClass({
 });
 
 
-// Returns a list of Filters
-function parseFiltersHash(hash) {
-  var pieces = _.compact(hash.slice(1).split('&'));
-  return _.compact(pieces.map(function(piece) {
-    return Filters.createFromIdentifier(window.decodeURIComponent(piece));
-  }));
-};
 
 function main() {
   // students
@@ -670,12 +660,22 @@ function main() {
     return map;
   }, {});
 
+  // TODO(kr) homeroom names
+
   ReactDOM.render(createEl(SchoolOverviewPage, {
     allStudents: students,
     InterventionTypes: InterventionTypes,
     initialFilters: parseFiltersHash(window.location.hash)
   }), document.getElementById('main'));
 }
+
+// Returns a list of Filters
+function parseFiltersHash(hash) {
+  var pieces = _.compact(hash.slice(1).split('&'));
+  return _.compact(pieces.map(function(piece) {
+    return Filters.createFromIdentifier(window.decodeURIComponent(piece));
+  }));
+};
 
 main()
 </script>
