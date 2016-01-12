@@ -10,6 +10,10 @@ FactoryGirl.define do
       admin true
     end
 
+    trait :local_id_200 do
+      local_id '200'
+    end
+
     factory :educator_with_homeroom do
       after(:create) do |educator|
         create(:homeroom, educator: educator)
