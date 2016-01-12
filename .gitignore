@@ -12,7 +12,7 @@ config/database.yml
 
 db/seeds/users/educators.seeds.rb
 
-spec/logs
+spec/logs/logs.txt
 
 ## Environment normalisation:
 /.bundle

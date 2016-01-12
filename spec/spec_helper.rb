@@ -24,8 +24,10 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     # Redirect stderr and stdout
-    $stderr = File.new(File.join(File.dirname(__FILE__), 'logs', 'logs.txt'), 'w')
-    $stdout = File.new(File.join(File.dirname(__FILE__), 'logs', 'logs.txt'), 'w')
+    Dir.mkdir("#{Rails.root}/spec/logs")
+    logs_path = "#{Rails.root}/spec/logs/logs.txt"
+    $stderr = File.new(logs_path, 'w')
+    $stdout = File.new(logs_path, 'w')
   end
 
   config.after(:suite) do
