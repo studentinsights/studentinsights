@@ -99,32 +99,52 @@ var Filters = {
       }
     };
   },
+  // Has to parse from string back to numeric
+  createFromIdentifier: function(identifier) {
+    var parts = identifier.split(':');
+    if (parts[0] === 'range') return Filters.Range(parts[1], [parseFloat(parts[2]), parseFloat(parts[3])]);
+    if (parts[0] === 'null') return Filters.Null(parts[1]);
+    if (parts[0] === 'equal') return Filters.Equal(parts[1], parts[2]);
+    if (parts[0] === 'intervention_type') return Filters.InterventionType(parts[1]);
+    if (parts[0] === 'years_enrolled') return Filters.YearsEnrolled(parseFloat(parts[1]));
+    return null;
+  }
 };
 
 
 var StudentsTable = React.createClass({
+  displayName: 'StudentsTable',
+
   propTypes: {
     students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
   },
 
+  componentDidMount: function() {
+    new Tablesort(document.querySelector('.student-list'), { descending: false });
+  },
+
   render: function() {
-    return dom.div({},
+    return dom.div({ className: 'StudentsTable' },
       dom.table({ className: 'student-list', style: { width: '100%' } },
         dom.thead({},
           dom.tr({},
-            dom.th({}, 'Grade'),
-            dom.th({}, 'Name'),
-            dom.th({}, 'sped_level_of_need'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'free_reduced_lunch'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'most_recent_mcas_ela_scaled'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'most_recent_star_reading_percentile'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'most_recent_mcas_math_scaled'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'most_recent_star_math_percentile'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'discipline_incidents_count'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'absences_count_most_recent_school_year'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'tardies_count_most_recent_school_year'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'program_assigned'.split('_').map(function(d) { return dom.div({ key: d }, d); })),
-            dom.th({}, 'homeroom_id'.split('_').map(function(d) { return dom.div({ key: d }, d); }))
+            this.renderHeader('Grade'),
+            this.renderHeader('Name'),
+            this.renderHeader('Disability'),
+            this.renderHeader('Low Income'),
+            this.renderHeader('Grade'),
+            this.renderHeader('Name'),
+            this.renderHeader('Disability'),
+            this.renderHeader('Low Income'),
+            this.renderHeader('MCAS ELA'),
+            this.renderHeader('STAR Reading'),
+            this.renderHeader('MCAS Math'),
+            this.renderHeader('Star Math'),
+            this.renderHeader('Discipline Incidents'),
+            this.renderHeader('Absences'),
+            this.renderHeader('Tardies'),
+            this.renderHeader('Program'),
+            this.renderHeader('Homeroom')
           )
         ),
         dom.tbody({},
@@ -148,6 +168,10 @@ var StudentsTable = React.createClass({
         )
       )
     );
+  },
+
+  renderHeader: function(caption) {
+    return dom.th({}, dom.span({}, caption.split(' ').map(function(text) { return dom.div({}, text); })));
   }
 });
 
@@ -163,8 +187,7 @@ var FixedTable = React.createClass({
     return this.renderTableFor(this.props.title, this.props.items, this.props);
   },
 
-  // remove sorting
-  // TODO(kr) font-weight causes loading a font which delays initial render
+  // title height is fixed since font-weight causes loading a font which delays initial render
   renderTableFor: function(title, items, options) {
     options || (options = {});
     var className = options.className || '';
@@ -173,7 +196,6 @@ var FixedTable = React.createClass({
       className: 'FixedTable panel ' + className,
       style: {
         display: 'inline-block',
-        border: '1px solid #eee',
         paddingTop: 5,
         paddingBottom: 5
       }
@@ -197,7 +219,7 @@ var FixedTable = React.createClass({
               }, item.caption)
             ),
             dom.td({ style: { fontSize: styles.fontSize, width: 48, textAlign: 'right', paddingRight: 8 }},
-              (item.percentage < 0.004) ? '' : Math.ceil(100 * item.percentage) + '%'),
+              (item.percentage ===  0) ? '' : Math.ceil(100 * item.percentage) + '%'),
             dom.td({ style: { fontSize: styles.fontSize, width: 50 } }, this.renderBar(item.percentage, 50))
           );
         }, this))
@@ -278,7 +300,25 @@ var colors = {
 };
 
 var styles = {
-  fontSize: 12
+  fontSize: 12,
+  
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column'
+  },
+
+  columnsContainer: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+
+  summary: {
+    marginTop: 0,
+    borderTop: '1px solid #ccc',
+    background: 'white',
+    padding: 20
+  }
 };
 
 
@@ -296,8 +336,7 @@ var SchoolOverviewPage = React.createClass({
 
   componentDidMount: function() {
     $(document).on('keydown', this.onKeyDown);
-    new Tablesort(document.querySelector('.student-list'), { descending: false });
-    window.onpopstate = this.onPopState;
+    // window.onpopstate = this.onPopState;
   },
 
   componentWillUnmount: function() {
@@ -344,53 +383,47 @@ var SchoolOverviewPage = React.createClass({
   render: function() {
     return dom.div({
       className: 'school-overview',
-      style: {
-        fontSize: styles.fontSize,
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingTop: 10
-      }
+      style: { fontSize: styles.fontSize }
     },
-      dom.div({ className: 'header' },
-        dom.div({ className: 'columns', style: {} },
-          dom.div({ className: 'column' }, this.renderBackgroundInfo()),
-          dom.div({ className: 'column grades-column pad-column-right' },
-            this.renderGradeTable(),
-            // this.renderSimpleTable('Homeroom', 'homeroom_id', { limit: 4 }),
-            this.renderRegistrationTable()
-          ),
-          dom.div({ className: 'column' }, this.renderELA()),
-          dom.div({ className: 'column' }, this.renderMath()),
-          dom.div({ className: 'column attendance-column pad-column-right' }, this.renderAttendance()),
-          dom.div({ className: 'column interventions-column' }, this.renderInterventions())
+      dom.div({ className: 'header', style: styles.header },
+        dom.div({ className: 'columns-container', style: styles.columnsContainer },
+          this.renderProfileColumn(),
+          this.renderGradeColumn(),
+          this.renderELAColumn(),
+          this.renderMathColumn(),
+          this.renderAttendanceColumn(),
+          this.renderInterventionsColumn()
         )
       ),
-      dom.div({ className: 'summary', style: { marginTop: 20, borderBottom: '1px solid black', padding: 10 } },
-        dom.div({ style: { backgroundColor: 'rgba(49, 119, 201, 0.75)', color: 'white', display: 'inline-block', width: '12em', padding: 5 } },
-          'Found: ' + this.filteredStudents().length + ' students'
-        ),
-        dom.a({
-          style: {
-            marginLeft: 10,
-            marginRight: 10,
-            fontSize: styles.fontSize,
-            display: 'inline-block',
-            padding: 5,
-            width: '10em',
-            backgroundColor: (this.state.filters.length > 0) ? colors.selection : ''
-          },
-          onClick: this.onResetClicked
-        }, (this.state.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
-        dom.a({ href: this.filtersHash(), target: '_blank', style: { fontSize: styles.fontSize } }, 'Share URL')
-        // debug only:
-        // dom.span({}, this.state.filters.map(function(filter) {
-        //   return dom.span({ key: filter.identifier }, filter.identifier);
-        // })),
-        
-      ),
+      this.renderSummary(),
       dom.div({ className: 'list', style: {} },
         createEl(StudentsTable, { students: this.filteredStudents() })
       )
+    );
+  },
+
+  renderSummary: function() {
+    return dom.div({ className: 'summary', style: styles.summary },
+      dom.div({ style: { backgroundColor: 'rgba(49, 119, 201, 0.75)', color: 'white', display: 'inline-block', width: '12em', padding: 5 } },
+        'Found: ' + this.filteredStudents().length + ' students'
+      ),
+      dom.a({
+        style: {
+          marginLeft: 10,
+          marginRight: 10,
+          fontSize: styles.fontSize,
+          display: 'inline-block',
+          padding: 5,
+          width: '11em',
+          backgroundColor: (this.state.filters.length > 0) ? colors.selection : ''
+        },
+        onClick: this.onResetClicked
+      }, (this.state.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
+      dom.a({ href: this.filtersHash(), target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view')
+      // debug only:
+      // dom.span({}, this.state.filters.map(function(filter) {
+      //   return dom.span({ key: filter.identifier }, filter.identifier);
+      // })),
     );
   },
 
@@ -400,27 +433,31 @@ var SchoolOverviewPage = React.createClass({
     }).join('&');
   },
 
-  renderBackgroundInfo: function() {
-    return dom.div({},
+  renderProfileColumn: function() {
+    return dom.div({ className: 'column' },
       this.renderSimpleTable('Disability', 'sped_level_of_need', { limit: 5 }),
-      this.renderSimpleTable('Low Income', 'free_reduced_lunch', { limit: 3 }),
+      this.renderSimpleTable('Low Income', 'free_reduced_lunch', { limit: 4 }),
       this.renderSimpleTable('LEP', 'limited_english_proficiency', { limit: 3 })
     );
   },
 
-  renderELA: function() {
-    return dom.div({},
-      this.renderPercentileTable('STAR Reading', 'most_recent_star_reading_percentile', { className: 'ela-background' }),
-      this.renderMCASTable('MCAS ELA', 'most_recent_mcas_ela_scaled', { className: 'ela-background' }),
-      this.renderPercentileTable('Growth - MCAS ELA', 'most_recent_mcas_ela_growth', { className: 'ela-background' })
+  wrapWithDivider: function(children) {
+    return dom.div({ style: { borderTop: '1px solid #ddd', borderBottom: '1px solid #ddd' } }, children);
+  },
+
+  renderELAColumn: function() {
+    return dom.div({ className: 'column ela-background' },
+      this.renderPercentileTable('STAR Reading', 'most_recent_star_reading_percentile'),
+      this.renderMCASTable('MCAS ELA', 'most_recent_mcas_ela_scaled'),
+      this.renderPercentileTable('Growth - MCAS ELA', 'most_recent_mcas_ela_growth')
     );
   },
 
-  renderMath: function() {
-    return dom.div({},
-      this.renderPercentileTable('STAR Math', 'most_recent_star_math_percentile', { className: 'math-background' }),
-      this.renderMCASTable('MCAS Math', 'most_recent_mcas_math_scaled', { className: 'math-background' }),
-      this.renderPercentileTable('Growth - MCAS Math', 'most_recent_mcas_math_growth', { className: 'math-background' })
+  renderMathColumn: function() {
+    return dom.div({ className: 'column math-background' },
+      this.renderPercentileTable('STAR Math', 'most_recent_star_math_percentile'),
+      this.renderMCASTable('MCAS Math', 'most_recent_mcas_math_scaled'),
+      this.renderPercentileTable('Growth - MCAS Math', 'most_recent_mcas_math_growth')
     );
   },
 
@@ -437,7 +474,7 @@ var SchoolOverviewPage = React.createClass({
   },
 
   renderMCASTable: function(title, key, props) {
-    return this.renderTable(merge(props, {
+    return this.renderTable(merge(props || {}, {
       title: title,
       items: [this.createItem('None', Filters.Null(key))].concat([
         this.createItem('Warning', Filters.Range(key, [200, 220])),
@@ -448,8 +485,8 @@ var SchoolOverviewPage = React.createClass({
     }));
   },
 
-  renderAttendance: function() {
-    return dom.div({},
+  renderAttendanceColumn: function() {
+    return dom.div({ className: 'column attendance-column attendance-background pad-column-right' },
       this.renderDisciplineTable(),
       this.renderAttendanceTable('Absences', 'absences_count_most_recent_school_year'),
       this.renderAttendanceTable('Tardies', 'tardies_count_most_recent_school_year')
@@ -458,15 +495,15 @@ var SchoolOverviewPage = React.createClass({
 
   renderDisciplineTable: function() {
     var key = 'discipline_incidents_count';
-
     return this.renderTable({
       title: 'Discipline incidents',
-      className: 'attendance-background',
       items: [
         this.createItem('0', Filters.Equal(key, 0)),
-        this.createItem('1 - 2', Filters.Range(key, [1, 3])),
-        this.createItem('3 - 4', Filters.Range(key, [3, 5])),
-        this.createItem('5+', Filters.Range(key, [5, Number.MAX_VALUE]))
+        this.createItem('1', Filters.Equal(key, 1)),
+        this.createItem('2', Filters.Equal(key, 2)),
+        this.createItem('3 - 5', Filters.Range(key, [3, 6])),
+        // this.createItem('6+', Filters.Range(key, [5, 7])),
+        this.createItem('6+', Filters.Range(key, [6, Number.MAX_VALUE]))
       ]
     });
   },
@@ -474,9 +511,9 @@ var SchoolOverviewPage = React.createClass({
   renderAttendanceTable: function(title, key) {
     return this.renderTable({
       title: title,
-      className: 'attendance-background',
       items: [
-        this.createItem('< 1 week', Filters.Range(key, [0, 5])),
+        this.createItem('0 days', Filters.Equal(key, 0)),
+        this.createItem('< 1 week', Filters.Range(key, [1, 5])),
         this.createItem('1 - 2 weeks', Filters.Range(key, [5, 10])),
         this.createItem('2 - 4 weeks', Filters.Range(key, [10, 21])),
         this.createItem('> 4 weeks', Filters.Range(key, [21, Number.MAX_VALUE]))
@@ -484,20 +521,15 @@ var SchoolOverviewPage = React.createClass({
     });
   },
 
-  renderInterventions: function() {
-    return dom.div({},
-      this.renderSimpleTable('Program', 'program_assigned', { limit: 8 }),
+  renderInterventionsColumn: function() {
+    return dom.div({ className: 'column interventions-column' },
       this.renderTable({
         title: 'Interventions',
         items: this.interventionItems(),
-        limit: 8
-      })
-    );
-  },
-
-  renderPlacements: function() {
-    return dom.div({},
-      this.renderSimpleTable('Homeroom', 'homeroom_id', { limit: 20 })
+        limit: 5
+      }),
+      this.renderSimpleTable('Program', 'program_assigned', { limit: 3 }),
+      this.renderSimpleTable('Homeroom', 'homeroom_id', { limit: 3 })
     );
   },
 
@@ -544,7 +576,14 @@ var SchoolOverviewPage = React.createClass({
     });
   },
 
-  renderRegistrationTable: function() {
+  renderGradeColumn: function() {
+    return dom.div({ className: 'column grades-column pad-column-right' },
+      this.renderGradeTable(),
+      this.renderYearsEnrolled()
+    );
+  },
+
+  renderYearsEnrolled: function() {
     var uniqueValues = _.compact(_.unique(this.props.allStudents.map(function(student) {
       return Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
     })));
@@ -556,7 +595,7 @@ var SchoolOverviewPage = React.createClass({
     return this.renderTable({
       title: 'Years enrolled',
       items: sortedItems,
-      limit: 4
+      limit: 5
     });
   },
 
@@ -593,13 +632,8 @@ var SchoolOverviewPage = React.createClass({
 // Returns a list of Filters
 function parseFiltersHash(hash) {
   var pieces = _.compact(hash.slice(1).split('&'));
-  return _.compact(pieces.map(function(encodedIdentifier) {
-    var parts = decodeURIComponent(encodedIdentifier).split(':');
-    if (parts[0] === 'range') return Filters.Range(parts[1], [parseFloat(parts[2]), parseFloat(parts[3])]);
-    if (parts[0] === 'null') return Filters.Null(parts[1]);
-    if (parts[0] === 'equal') return Filters.Equal(parts[1], parts[2]);
-    if (parts[0] === 'intervention_type') return Filters.InterventionType(parts[1]);
-    return null;
+  return _.compact(pieces.map(function(piece) {
+    return Filters.createFromIdentifier(window.decodeURIComponent(piece));
   }));
 };
 

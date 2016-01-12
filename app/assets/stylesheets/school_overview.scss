@@ -2,9 +2,18 @@
   .column {
     display: inline-block;
     vertical-align: top;
+    padding: 8px 5px;
 
     &.pad-column-right {
       padding-right: 10px;
+    }
+
+    & > div.CollapsableTable {
+      border-bottom: 1px solid #ccc;
+
+      &:last-child {
+        border-bottom: 0;
+      }
     }
   }
 
@@ -30,10 +39,25 @@
   }
 
   .attendance-column table td.caption-cell {
-    width: 80px;
+    width: 100px;
   }
 
   .interventions-column table td.caption-cell {
-    width: 200px;
+    width: 175px;
+  }
+
+
+  .StudentsTable {
+    thead th {
+      font-size: 12px;
+    }
+
+    tbody {
+      border-top: 1px solid #ccc;
+
+      td {
+        padding: 5px;
+      }
+    }
   }
 }
