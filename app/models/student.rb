@@ -13,6 +13,17 @@ class Student < ActiveRecord::Base
   validates_uniqueness_of :local_id
   after_create :update_student_school_years
 
+  def data
+    current_school_year = DateToSchoolYear.new(Time.new).convert
+    as_json.merge({
+      interventions: interventions.as_json,
+      homeroom_name: try(:homeroom).try(:name),
+      discipline_incidents_count: discipline_incidents.select do |incident|
+        incident.school_year == current_school_year
+      end.size
+    })
+  end
+
   ## STUDENT ASSESSMENT RESULTS ##
 
   def latest_result_by_family_and_subject(family_name, subject_name)

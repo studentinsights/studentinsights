@@ -31,8 +31,8 @@ class SchoolsController < ApplicationController
 
     unless @use_fixtures
       @serialized_data = {
-        :students => overview_students(Time.new),
-        :intervention_types => InterventionType.all
+        students: overview_students,
+        intervention_types: InterventionType.all
       }
     else
       # To generate new fixture data, look at @serialized_data above and run that Rails code
@@ -57,16 +57,11 @@ class SchoolsController < ApplicationController
   end
 
   private
-  def overview_students(time_now)
-    current_school_year = DateToSchoolYear.new(time_now).convert
+
+  def overview_students
     Student.includes(:interventions, :discipline_incidents).map do |student|
-      student.as_json.merge({
-        :interventions => student.interventions.as_json,
-        :homeroom_name => student.try(:homeroom).try(:name),
-        :discipline_incidents_count => student.discipline_incidents.select do |incident|
-          incident.school_year == current_school_year
-        end.size
-      })
+      student.data
     end
   end
+
 end
