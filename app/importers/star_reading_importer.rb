@@ -25,4 +25,13 @@ class StarReadingImporter
       instructional_reading_level: row[:instructional_reading_level]
     })
   end
+
+  class HistoricalImporter < StarReadingImporter
+    # STAR sends historical data in a separate file
+
+    def remote_file_name
+      'SR_Historical.csv'
+    end
+  end
+
 end

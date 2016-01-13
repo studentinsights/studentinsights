@@ -36,8 +36,10 @@ class Settings::SomervilleSettings
     importers = [
       StudentsImporter.new(options),
       StudentAssessmentImporter.new(options),
-      StarMathImporter.new(options),
       StarReadingImporter.new(options),
+      StarReadingImporter::HistoricalImporter.new(options),
+      StarMathImporter.new(options),
+      StarMathImporter::HistoricalImporter.new(options),
       BehaviorImporter.new(options),
       HealeyAfterSchoolTutoringImporter.new,   # Currently local import only
       EducatorsImporter.new(options),
