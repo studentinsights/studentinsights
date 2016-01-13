@@ -529,7 +529,7 @@ $(function() {
             limit: 5
           }),
           this.renderSimpleTable('Program', 'program_assigned', { limit: 3 }),
-          this.renderSimpleTable('Homeroom', 'homeroom_id', { limit: 3 })
+          this.renderSimpleTable('Homeroom', 'homeroom_id', { limit: 3 })         // TODO(kr or as) homeroom names
         );
       },
 
@@ -634,8 +634,7 @@ $(function() {
 
 
     function main() {
-      var useFixtures = false;  // for switching between development database data and local fixtures
-      var serializedData = (useFixtures) ? loadFixtureData(): $('#serialized-data').data();
+      var serializedData = $('#serialized-data').data();
 
       // index by intervention type id
       var InterventionTypes = serializedData.interventionTypes.reduce(function(map, interventionType) {
@@ -648,37 +647,6 @@ $(function() {
         InterventionTypes: InterventionTypes,
         initialFilters: parseFiltersHash(window.location.hash)
       }), document.getElementById('main'));
-    }
-
-    function readData() {
-      /*
-      To generate new fixture data, look at schools_controller#overview and run that Rails code
-      on a console.
-
-      Take the printed JSON output, and use this JS to remove personal identifers:
-
-        var firstNames = ["Aladdin", "Chip", "Daisy", "Mickey", "Minnie", "Donald", "Elsa", "Mowgli", "Olaf", "Pluto", "Pocahontas", "Rapunzel", "Snow", "Winnie"];
-        var lastNames = ["Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"];
-        ss.forEach(function(s) {
-          delete s.student_address;
-          s.first_name = firstNames[Math.floor(Math.random()* firstNames.length)];
-          s.last_name = lastNames[Math.floor(Math.random()* lastNames.length)];
-        })
-        JSON.stringify(ss);
-
-      This data should still be considered private and not checked into source control, but doing a rough pass
-      to remove names is useful when working in a semi-public space.
-      */
-
-      var useFixtures = false;
-      var serializedData = (useFixtures) ? {} : $('#serialized-data').data();
-      if (useFixtures) {
-        // serializedData.students = <%=
-        //   IO.read("#{Rails.root}/data/cleaned_all_ss.json").html_safe if File.exist? "#{Rails.root}/data/cleaned_all_ss.json"
-        // %>;
-        serializedData.intervention_types = [{"id":20,"name":"After-School Tutoring (ATP)","created_at":"2015-10-20T20:32:26.191Z","updated_at":"2015-10-20T20:32:26.191Z"},{"id":21,"name":"Attendance Officer","created_at":"2015-10-20T20:32:26.198Z","updated_at":"2015-10-20T20:32:26.198Z"},{"id":22,"name":"Attendance Contract","created_at":"2015-10-20T20:32:26.207Z","updated_at":"2015-10-20T20:32:26.207Z"},{"id":23,"name":"Behavior Contract","created_at":"2015-10-20T20:32:26.212Z","updated_at":"2015-10-20T20:32:26.212Z"},{"id":24,"name":"Behavior Plan","created_at":"2015-10-20T20:32:26.219Z","updated_at":"2015-10-20T20:32:26.219Z"},{"id":25,"name":"Boys \u0026 Girls Club","created_at":"2015-10-20T20:32:26.225Z","updated_at":"2015-10-20T20:32:26.225Z"},{"id":26,"name":"Classroom Academic Intervention","created_at":"2015-10-20T20:32:26.229Z","updated_at":"2015-10-20T20:32:26.229Z"},{"id":27,"name":"Classroom Behavior Intervention","created_at":"2015-10-20T20:32:26.234Z","updated_at":"2015-10-20T20:32:26.234Z"},{"id":28,"name":"Community Schools","created_at":"2015-10-20T20:32:26.241Z","updated_at":"2015-10-20T20:32:26.241Z"},{"id":29,"name":"Counseling: In-House","created_at":"2015-10-20T20:32:26.246Z","updated_at":"2015-10-20T20:32:26.246Z"},{"id":30,"name":"Counseling: Outside/Physician Referral","created_at":"2015-10-20T20:32:26.254Z","updated_at":"2015-10-20T20:32:26.254Z"},{"id":31,"name":"ER Referral (Mental Health)","created_at":"2015-10-20T20:32:26.265Z","updated_at":"2015-10-20T20:32:26.265Z"},{"id":32,"name":"Math Tutor","created_at":"2015-10-20T20:32:26.270Z","updated_at":"2015-10-20T20:32:26.270Z"},{"id":33,"name":"Mobile Crisis Referral","created_at":"2015-10-20T20:32:26.284Z","updated_at":"2015-10-20T20:32:26.284Z"},{"id":34,"name":"MTSS Referral","created_at":"2015-10-20T20:32:26.293Z","updated_at":"2015-10-20T20:32:26.293Z"},{"id":35,"name":"OT/PT Consult","created_at":"2015-10-20T20:32:26.297Z","updated_at":"2015-10-20T20:32:26.297Z"},{"id":36,"name":"Parent Communication","created_at":"2015-10-20T20:32:26.309Z","updated_at":"2015-10-20T20:32:26.309Z"},{"id":37,"name":"Parent Conference/Meeting","created_at":"2015-10-20T20:32:26.320Z","updated_at":"2015-10-20T20:32:26.320Z"},{"id":39,"name":"Peer Mediation","created_at":"2015-10-20T20:32:26.342Z","updated_at":"2015-10-20T20:32:26.342Z"},{"id":40,"name":"Reading Specialist","created_at":"2015-10-20T20:32:26.364Z","updated_at":"2015-10-20T20:32:26.364Z"},{"id":41,"name":"Reading Tutor","created_at":"2015-10-20T20:32:26.375Z","updated_at":"2015-10-20T20:32:26.375Z"},{"id":42,"name":"SST Referral","created_at":"2015-10-20T20:32:26.379Z","updated_at":"2015-10-20T20:32:26.379Z"},{"id":43,"name":"Weekly Call/Email Home","created_at":"2015-10-20T20:32:26.389Z","updated_at":"2015-10-20T20:32:26.389Z"},{"id":44,"name":"X Block Tutor","created_at":"2015-10-20T20:32:26.393Z","updated_at":"2015-10-20T20:32:26.393Z"},{"id":45,"name":"51a Filing","created_at":"2015-10-20T20:32:26.399Z","updated_at":"2015-10-20T20:32:26.399Z"},{"id":46,"name":"Other","created_at":"2015-10-20T20:32:26.405Z","updated_at":"2015-10-20T20:32:26.405Z"}];
-        // TODO(kr) homeroom names
-      }
     }
 
     // Returns a list of Filters
