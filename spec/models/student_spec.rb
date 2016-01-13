@@ -198,10 +198,11 @@ RSpec.describe Student do
 
   describe '#update_recent_student_assessments' do
     context 'has student assessments' do
-      let(:student) { FactoryGirl.create(:student_with_mcas_math_warning_assessment) }
+      let(:student) { FactoryGirl.create(:student_with_mcas_math_advanced_and_star_math_warning_assessments) }
       it 'sets correct attribute on the student' do
         student.update_recent_student_assessments
-        expect(student.reload.most_recent_mcas_math_performance).to eq 'W'
+        expect(student.reload.most_recent_mcas_math_performance).to eq 'A'
+        expect(student.reload.most_recent_star_math_percentile).to eq 8
       end
     end
   end

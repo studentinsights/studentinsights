@@ -83,7 +83,7 @@ class Student < ActiveRecord::Base
       most_recent_mcas_math_scaled: latest_mcas_math.scale_score,
       most_recent_mcas_ela_scaled: latest_mcas_ela.scale_score,
       most_recent_star_reading_percentile: latest_star_reading.percentile_rank,
-      most_recent_star_math_percentile: latest_mcas_math.percentile_rank
+      most_recent_star_math_percentile: latest_star_math.percentile_rank
     })
   end
 
