@@ -25,6 +25,8 @@
 //= require lodash.3.10.1.min
 //= require rounded-corners
 //= require handlebars.runtime
+//= require react-0.14.3.js
+//= require react-dom-0.14.3
 
 // shared across application:
 //= require datepicker_config
