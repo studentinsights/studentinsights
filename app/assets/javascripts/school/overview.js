@@ -183,11 +183,16 @@ $(function() {
       },
 
       render: function() {
-        return this.renderTableFor(this.props.title, this.props.items, this.props);
+        return this.renderTableFor(
+          this.props.title,
+          this.props.belowTitleOption,
+          this.props.items,
+          this.props
+        );
       },
 
       // title height is fixed since font-weight causes loading a font which delays initial render
-      renderTableFor: function(title, items, options) {
+      renderTableFor: function(title, belowTitleOption, items, options) {
         options || (options = {});
         var className = options.className || '';
         var selectedFilterIdentifiers = _.pluck(this.props.filters, 'identifier');
@@ -199,7 +204,13 @@ $(function() {
             paddingBottom: 5
           }
         },
-          dom.div({ className: 'FixedTable', style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
+          dom.div({ className: 'FixedTable',
+                    style: { marginBottom: 5,
+                             paddingLeft: 5,
+                             fontWeight: 'bold',
+                             height: '1em' }
+                  }, title),
+          belowTitleOption,
           dom.table({},
             dom.tbody({}, items.map(function(item) {
               var key = item.caption;
@@ -274,7 +285,7 @@ $(function() {
         return dom.div({ className: 'CollapsableTable' },
           createEl(FixedTable, merge(this.props, {
             items: truncatedItems,
-            children: this.renderCollapseOrExpand()
+            belowTitleOption: this.renderCollapseOrExpand()
           }))
         );
       },
@@ -286,6 +297,7 @@ $(function() {
             fontSize: styles.fontSize,
             color: '#999',
             paddingTop: 5,
+            paddingBottom: 5,
             display: 'block'
           },
           onClick: (this.state.isExpanded) ? this.onCollapseClicked : this.onExpandClicked
