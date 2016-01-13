@@ -62,6 +62,7 @@ class SchoolsController < ApplicationController
     Student.includes(:interventions, :discipline_incidents).map do |student|
       student.as_json.merge({
         :interventions => student.interventions.as_json,
+        :homeroom_name => student.try(:homeroom).try(:name),
         :discipline_incidents_count => student.discipline_incidents.select do |incident|
           incident.school_year == current_school_year
         end.size
