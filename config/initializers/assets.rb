@@ -9,3 +9,11 @@ Rails.application.config.assets.version = '1.0'
 
 # Don't require templates to all be under the same /templates folder
 HandlebarsAssets::Config.path_prefix = ''
+
+# react-rails configuration
+if Rails.env.development?
+  Rails.application.config.react.variant = :development
+  Rails.application.config.react.addons = true
+else
+  Rails.application.config.react.variant = :production
+end

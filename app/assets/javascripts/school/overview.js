@@ -6,6 +6,7 @@ $(function() {
     var createEl = ReactHelpers.createEl;
     var merge = ReactHelpers.merge;
 
+
     function main() {
       var serializedData = $('#serialized-data').data();
       window.serializedData = serializedData;

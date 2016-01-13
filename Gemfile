@@ -18,6 +18,8 @@ gem 'net-sftp'
 gem 'net-ssh'
 gem 'pdfkit'
 gem 'probability'
+gem 'react-rails', '~> 1.5.0'   # Provides React, handles swapping between dev/production builds.
+                                # See config/initializers/assets.rb
 gem 'rubystats'
 gem 'sass-rails', '~> 4.0.3'
 gem 'seedbank'
