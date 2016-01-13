@@ -1,0 +1,694 @@
+$(function() {
+
+  if ($('body').hasClass('schools') && $('body').hasClass('overview')) {
+
+    // React helper fns
+    var ReactHelpers = {
+      dom: React.DOM,
+      createEl: React.createElement.bind(React),
+      merge: function(a, b) {
+        var out = {};
+        Object.keys(a).concat(Object.keys(b)).forEach(function(key) {
+          out[key] = b[key] || a[key];
+        });
+        return out;
+      }
+    };
+    var dom = ReactHelpers.dom;
+    var createEl = ReactHelpers.createEl;
+    var merge = ReactHelpers.merge;
+
+
+
+    // Routing functions
+    var baseUrl = 'https://somerville-teacher-tool.herokuapp.com'; // for local hacking
+    var Routes = {
+      student: function(id) {
+        return baseUrl + '/students/' + id;
+      },
+      homeroom: function(id) {
+        return baseUrl + '/homerooms/' + id;
+      }
+    };
+
+
+
+    // Define filter operations
+    var Filters = {
+      Range: function(key, range) {
+        return {
+          identifier: ['range', key, range[0], range[1]].join(':'),
+          filterFn: function(student) {
+            var value = student[key];
+            return (_.isNumber(value) && value >= range[0] && value < range[1]);
+          }
+        };
+      },
+      // Types are loose, since this is serialized from the hash
+      Equal: function(key, value) {
+        return {
+          identifier: ['equal', key, value].join(':'),
+          filterFn: function(student) {
+            return (student[key] == value);
+          }
+        };
+      },
+      Null: function(key) {
+        return {
+          identifier: ['null', key].join(':'),
+          filterFn: function(student) {
+            var value = student[key];
+            return (value === null || value === undefined) ? true : false;
+          }
+        };
+      },
+      InterventionType: function(interventionTypeId) {
+        return {
+          identifier: ['intervention_type', interventionTypeId].join(':'),
+          filterFn: function(student) {
+            if (interventionTypeId === null) return (student.interventions.length === 0);
+            return student.interventions.filter(function(intervention) {
+              return intervention.intervention_type_id === interventionTypeId;
+            }).length > 0;
+          }
+        };
+      },
+      YearsEnrolled: function(value) {
+        return {
+          identifier: ['years_enrolled', value].join(':'),
+          filterFn: function(student) {
+            var yearsEnrolled = Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
+            return (yearsEnrolled === value);
+          }
+        };
+      },
+      // Has to parse from string back to numeric
+      createFromIdentifier: function(identifier) {
+        var parts = identifier.split(':');
+        if (parts[0] === 'range') return Filters.Range(parts[1], [parseFloat(parts[2]), parseFloat(parts[3])]);
+        if (parts[0] === 'null') return Filters.Null(parts[1]);
+        if (parts[0] === 'equal') return Filters.Equal(parts[1], parts[2]);
+        if (parts[0] === 'intervention_type') return Filters.InterventionType(parts[1]);
+        if (parts[0] === 'years_enrolled') return Filters.YearsEnrolled(parseFloat(parts[1]));
+        return null;
+      }
+    };
+
+
+
+    var StudentsTable = React.createClass({
+      displayName: 'StudentsTable',
+
+      propTypes: {
+        students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+      },
+
+      componentDidMount: function() {
+        new Tablesort(document.querySelector('.students-table'), { descending: false });
+      },
+
+      render: function() {
+        return dom.div({ className: 'StudentsTable' },
+          dom.table({ className: 'students-table', style: { width: '100%' } },
+            dom.thead({},
+              dom.tr({},
+                this.renderHeader('Grade'),
+                this.renderHeader('Name'),
+                this.renderHeader('Disability'),
+                this.renderHeader('Low Income'),
+                this.renderHeader('LEP'),
+                this.renderHeader('STAR Reading'),
+                this.renderHeader('MCAS ELA'),
+                this.renderHeader('Star Math'),
+                this.renderHeader('MCAS Math'),
+                this.renderHeader('Discipline Incidents'),
+                this.renderHeader('Absences'),
+                this.renderHeader('Tardies'),
+                this.renderHeader('Interventions'),
+                this.renderHeader('Program'),
+                this.renderHeader('Homeroom')
+              )
+            ),
+            dom.tbody({},
+              this.props.students.map(function(student) {
+                return dom.tr({ key: student.id },
+                  dom.td({}, student.grade),
+                  dom.td({}, dom.a({ href: Routes.student(student.id) }, student.first_name + ' ' + student.last_name)),
+                  dom.td({}, student.sped_level_of_need),
+                  dom.td({ style: { width: '2em' } }, this.renderUnless('Not Eligible', student.free_reduced_lunch)),
+                  dom.td({ style: { width: '2em' } }, this.renderUnless('Fluent', student.limited_english_proficiency)),
+                  this.renderNumberCell(student.most_recent_star_reading_percentile),
+                  this.renderNumberCell(student.most_recent_mcas_ela_scaled),
+                  this.renderNumberCell(student.most_recent_star_math_percentile),
+                  this.renderNumberCell(student.most_recent_mcas_math_scaled),
+                  this.renderNumberCell(this.renderCount(student.discipline_incidents_count)),
+                  this.renderNumberCell(this.renderCount(student.absences_count_most_recent_school_year)),
+                  this.renderNumberCell(this.renderCount(student.tardies_count_most_recent_school_year)),
+                  this.renderNumberCell(this.renderCount(student.interventions.length)),
+                  dom.td({}, this.renderUnless('Reg Ed', student.program_assigned)),
+                  dom.td({}, dom.a({ href: Routes.homeroom(student.homeroom_id) }, student.homeroom_id))
+                );
+              }, this)
+            )
+          )
+        );
+      },
+
+      renderNumberCell: function(children) {
+        return dom.td({ style: { textAlign: 'right', width: '5em', paddingRight: '3em' } }, children);
+      },
+
+      renderUnless: function(ignoredValue, value) {
+        return (value === ignoredValue) ? null : value;
+      },
+
+      renderCount: function(count) {
+        return (count === 0) ? null : count;
+      },
+
+      renderHeader: function(caption) {
+        // return dom.th({}, caption.split(' ').map(function(text) { return dom.div({}, text); }));
+        var pieces = caption.split(' ');
+        return dom.th({}, pieces[0], dom.br(), pieces[1]);
+      }
+    });
+
+    // fixed items, already sorted, no collapsing
+    var FixedTable = React.createClass({
+      displayName: 'FixedTable',
+
+      onRowClicked: function(item, e) {
+        this.props.onFilterToggled(item.filter);
+      },
+
+      render: function() {
+        return this.renderTableFor(this.props.title, this.props.items, this.props);
+      },
+
+      // title height is fixed since font-weight causes loading a font which delays initial render
+      renderTableFor: function(title, items, options) {
+        options || (options = {});
+        var className = options.className || '';
+        var selectedFilterIdentifiers = _.pluck(this.props.filters, 'identifier');
+        return dom.div({
+          className: 'FixedTable panel ' + className,
+          style: {
+            display: 'inline-block',
+            paddingTop: 5,
+            paddingBottom: 5
+          }
+        },
+          dom.div({ className: 'FixedTable', style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
+          dom.table({},
+            dom.tbody({}, items.map(function(item) {
+              var key = item.caption;
+              var isFilterApplied = _.contains(selectedFilterIdentifiers, item.filter.identifier);
+              return dom.tr({
+                key: item.caption,
+                style: {
+                  backgroundColor: (isFilterApplied) ? colors.selection: null,
+                  cursor: 'pointer'
+                },
+                onClick: this.onRowClicked.bind(this, item)
+              },
+                dom.td({ className: 'caption-cell' },
+                  dom.a({
+                    style: { fontSize: styles.fontSize, paddingLeft: 10 }
+                  }, item.caption)
+                ),
+                dom.td({ style: { fontSize: styles.fontSize, width: 48, textAlign: 'right', paddingRight: 8 }},
+                  (item.percentage ===  0) ? '' : Math.ceil(100 * item.percentage) + '%'),
+                dom.td({ style: { fontSize: styles.fontSize, width: 50 } }, this.renderBar(item.percentage, 50))
+              );
+            }, this))
+          ),
+          dom.div({ style: { paddingLeft: 5 } }, this.props.children)
+        );
+      },
+
+      renderBar: function(percentage, width) {
+        return dom.div({
+          className: 'bar',
+          style: {
+            width: Math.round(width*percentage) + '%',
+            height: '1em',
+          }
+        });
+      }
+    });
+
+
+    // table that supports collapsing
+    var CollapsableTable = React.createClass({
+      displayName: 'CollapsableTable',
+      getDefaultProps: function() {
+        return {
+          minHeight: 132,
+          limit: 5,
+          className: ''
+        };
+      },
+
+      getInitialState: function() {
+        return {
+          isExpanded: false
+        };
+      },
+
+      onCollapseClicked: function(e) {
+        this.setState({ isExpanded: false });
+      },
+
+      onExpandClicked: function(e) {
+        this.setState({ isExpanded: true });
+      },
+
+      render: function() {
+        var truncatedItems = (this.state.isExpanded)
+          ? this.props.items
+          : this.props.items.slice(0, this.props.limit);
+        return dom.div({ className: 'CollapsableTable' },
+          createEl(FixedTable, merge(this.props, {
+            items: truncatedItems,
+            children: this.renderCollapseOrExpand()
+          }))
+        );
+      },
+
+      renderCollapseOrExpand: function() {
+        if (this.props.items.length <= this.props.limit) return;
+        return dom.a({
+          style: {
+            fontSize: styles.fontSize,
+            color: '#999',
+            paddingTop: 5,
+            display: 'block'
+          },
+          onClick: (this.state.isExpanded) ? this.onCollapseClicked : this.onExpandClicked
+        }, (this.state.isExpanded) ? '- Hide details' : '+ Show all');
+
+      }
+    });
+
+
+
+    // colors, styles
+    var colors = {
+      selection: 'rgb(255, 204, 138)'
+    };
+
+    var styles = {
+      fontSize: 12,
+
+      header: {
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        backgroundColor: '#eee'
+      },
+
+      columnsContainer: {
+        display: 'flex',
+        flexDirection: 'row'
+      },
+
+      summary: {
+        marginTop: 0,
+        borderTop: '1px solid #ccc',
+        background: 'white',
+        paddingTop: 5,
+        paddingLeft: 30,
+        paddingBottom: 20
+      }
+    };
+
+
+    // page
+    var SchoolOverviewPage = React.createClass({
+      propTypes: {
+        allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+        InterventionTypes: React.PropTypes.object.isRequired,
+        initialFilters: React.PropTypes.arrayOf(React.PropTypes.object)
+      },
+
+      getInitialState: function() {
+        return { filters: this.props.initialFilters };
+      },
+
+      componentDidMount: function() {
+        $(document).on('keydown', this.onKeyDown);
+        // window.onpopstate = this.onPopState;
+      },
+
+      componentWillUnmount: function() {
+        $(document).off('keydown', this.onKeyDown);
+      },
+
+      // sink-only
+      componentDidUpdate: function() {
+        window.history.pushState({}, null, this.filtersHash());
+      },
+
+      filteredStudents: function() {
+        return this.state.filters.reduce(function(filteredStudents, filter) {
+          return filteredStudents.filter(filter.filterFn);
+        }, this.props.allStudents);
+      },
+
+      clearFilters: function() {
+        this.setState({ filters: [] });
+      },
+
+      onFilterToggled: function(toggledFilter) {
+        var withoutToggledFilter = this.state.filters.filter(function(filter) {
+          return filter.identifier !== toggledFilter.identifier;
+        });
+        var updatedFilters = (withoutToggledFilter.length === this.state.filters.length)
+          ? this.state.filters.concat([toggledFilter])
+          : withoutToggledFilter;
+        this.setState({ filters: updatedFilters });
+      },
+
+      onResetClicked: function(e) {
+        this.clearFilters();
+      },
+
+      onKeyDown: function(e) {
+        if (e.keyCode === 27) this.clearFilters();
+      },
+
+      render: function() {
+        return dom.div({
+          className: 'school-overview',
+          style: { fontSize: styles.fontSize }
+        },
+          dom.div({ className: 'header', style: styles.header },
+            dom.div({ className: 'columns-container', style: styles.columnsContainer },
+              this.renderProfileColumn(),
+              this.renderGradeColumn(),
+              this.renderELAColumn(),
+              this.renderMathColumn(),
+              this.renderAttendanceColumn(),
+              this.renderInterventionsColumn()
+            )
+          ),
+          this.renderSummary(),
+          dom.div({ className: 'list', style: { padding: 20 } },
+            createEl(StudentsTable, {
+              key: _.pluck(this.state.filters, 'identifier').join(','), // hack for tablesorter
+              students: this.filteredStudents()
+            })
+          )
+        );
+      },
+
+      renderSummary: function() {
+        return dom.div({ className: 'summary', style: styles.summary },
+          dom.div({ style: { backgroundColor: 'rgba(49, 119, 201, 0.75)', color: 'white', display: 'inline-block', width: '12em', padding: 5 } },
+            'Found: ' + this.filteredStudents().length + ' students'
+          ),
+          dom.a({
+            style: {
+              marginLeft: 10,
+              marginRight: 10,
+              fontSize: styles.fontSize,
+              display: 'inline-block',
+              padding: 5,
+              width: '10em',
+              backgroundColor: (this.state.filters.length > 0) ? colors.selection : ''
+            },
+            onClick: this.onResetClicked
+          }, (this.state.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
+          dom.a({ href: this.filtersHash(), target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view')
+          // debug only:
+          // dom.span({}, this.state.filters.map(function(filter) {
+          //   return dom.span({ key: filter.identifier }, filter.identifier);
+          // })),
+        );
+      },
+
+      filtersHash: function() {
+        return '#' + this.state.filters.map(function(filter) {
+          return encodeURIComponent(filter.identifier);
+        }).join('&');
+      },
+
+      renderProfileColumn: function() {
+        return dom.div({ className: 'column' },
+          this.renderSimpleTable('Disability', 'sped_level_of_need', { limit: 5 }),
+          this.renderSimpleTable('Low Income', 'free_reduced_lunch', { limit: 4 }),
+          this.renderSimpleTable('LEP', 'limited_english_proficiency', { limit: 3 })
+        );
+      },
+
+      wrapWithDivider: function(children) {
+        return dom.div({ style: { borderTop: '1px solid #ddd', borderBottom: '1px solid #ddd' } }, children);
+      },
+
+      renderELAColumn: function() {
+        return dom.div({ className: 'column ela-background' },
+          this.renderPercentileTable('STAR Reading', 'most_recent_star_reading_percentile'),
+          this.renderMCASTable('MCAS ELA', 'most_recent_mcas_ela_scaled'),
+          this.renderPercentileTable('Growth - MCAS ELA', 'most_recent_mcas_ela_growth')
+        );
+      },
+
+      renderMathColumn: function() {
+        return dom.div({ className: 'column math-background' },
+          this.renderPercentileTable('STAR Math', 'most_recent_star_math_percentile'),
+          this.renderMCASTable('MCAS Math', 'most_recent_mcas_math_scaled'),
+          this.renderPercentileTable('Growth - MCAS Math', 'most_recent_mcas_math_growth')
+        );
+      },
+
+      renderPercentileTable: function(title, key, props) {
+        return this.renderTable(merge(props || {}, {
+          title: title,
+          items: [this.createItem('None', Filters.Null(key))].concat([
+            this.createItem('< 25th', Filters.Range(key, [0, 25])),
+            this.createItem('25th - 50th', Filters.Range(key, [25, 50])),
+            this.createItem('50th - 75th', Filters.Range(key, [50, 75])),
+            this.createItem('> 75th', Filters.Range(key, [75, 100]))
+          ])
+        }));
+      },
+
+      renderMCASTable: function(title, key, props) {
+        return this.renderTable(merge(props || {}, {
+          title: title,
+          items: [this.createItem('None', Filters.Null(key))].concat([
+            this.createItem('Warning', Filters.Range(key, [200, 220])),
+            this.createItem('Needs Improvement', Filters.Range(key, [220, 240])),
+            this.createItem('Proficient', Filters.Range(key, [240, 260])),
+            this.createItem('Advanced', Filters.Range(key, [260, 281]))
+          ])
+        }));
+      },
+
+      renderAttendanceColumn: function() {
+        return dom.div({ className: 'column attendance-column attendance-background pad-column-right' },
+          this.renderDisciplineTable(),
+          this.renderAttendanceTable('Absences', 'absences_count_most_recent_school_year'),
+          this.renderAttendanceTable('Tardies', 'tardies_count_most_recent_school_year')
+        );
+      },
+
+      renderDisciplineTable: function() {
+        var key = 'discipline_incidents_count';
+        return this.renderTable({
+          title: 'Discipline incidents',
+          items: [
+            this.createItem('0', Filters.Equal(key, 0)),
+            this.createItem('1', Filters.Equal(key, 1)),
+            this.createItem('2', Filters.Equal(key, 2)),
+            this.createItem('3 - 5', Filters.Range(key, [3, 6])),
+            // this.createItem('6+', Filters.Range(key, [5, 7])),
+            this.createItem('6+', Filters.Range(key, [6, Number.MAX_VALUE]))
+          ]
+        });
+      },
+
+      renderAttendanceTable: function(title, key) {
+        return this.renderTable({
+          title: title,
+          items: [
+            this.createItem('0 days', Filters.Equal(key, 0)),
+            this.createItem('< 1 week', Filters.Range(key, [1, 5])),
+            this.createItem('1 - 2 weeks', Filters.Range(key, [5, 10])),
+            this.createItem('2 - 4 weeks', Filters.Range(key, [10, 21])),
+            this.createItem('> 4 weeks', Filters.Range(key, [21, Number.MAX_VALUE]))
+          ]
+        });
+      },
+
+      renderInterventionsColumn: function() {
+        return dom.div({ className: 'column interventions-column' },
+          this.renderTable({
+            title: 'Interventions',
+            items: this.interventionItems(),
+            limit: 5
+          }),
+          this.renderSimpleTable('Program', 'program_assigned', { limit: 3 }),
+          this.renderSimpleTable('Homeroom', 'homeroom_id', { limit: 3 })
+        );
+      },
+
+      createItem: function(caption, filter) {
+        var students = this.filteredStudents();
+        return {
+          caption: caption,
+          percentage: (students.length === 0) ? 0 : students.filter(filter.filterFn).length / students.length,
+          filter: filter
+        };
+      },
+
+      interventionItems: function() {
+        var students = this.props.allStudents;
+        var allInterventions = _.flatten(_.pluck(students, 'interventions'));
+        var allInterventionTypes = _.unique(allInterventions.map(function(intervention) {
+          return parseInt(intervention.intervention_type_id, 10);
+        }));
+        var interventionItems = allInterventionTypes.map(function(interventionTypeId) {
+          var interventionName = this.props.InterventionTypes[interventionTypeId].name;
+          return this.createItem(interventionName, Filters.InterventionType(interventionTypeId));
+        }, this);
+        var sortedItems =  _.sortBy(interventionItems, function(item) {
+          return -1 * students.filter(item.filter.filterFn).length;
+        });
+
+        return sortedItems.concat(this.createItem('None', Filters.InterventionType(null)));
+      },
+
+      renderGradeTable: function() {
+        var key = 'grade';
+        var uniqueValues = _.compact(_.unique(_.pluck(this.props.allStudents, key)));
+        var items = uniqueValues.map(function(value) {
+          return this.createItem(value, Filters.Equal(key, value));
+        }, this);
+        var sortedItems = _.sortBy(items, function(item) {
+          if (item.caption === 'PK') return -20;
+          if (item.caption === 'KF') return -10;
+          return parseFloat(item.caption);
+        });
+
+        return this.renderTable({
+          title: 'Grade',
+          items: sortedItems,
+          limit: 10
+        });
+      },
+
+      renderGradeColumn: function() {
+        return dom.div({ className: 'column grades-column pad-column-right' },
+          this.renderGradeTable(),
+          this.renderYearsEnrolled()
+        );
+      },
+
+      renderYearsEnrolled: function() {
+        var uniqueValues = _.compact(_.unique(this.props.allStudents.map(function(student) {
+          return Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
+        })));
+        var items = uniqueValues.map(function(value) {
+          return this.createItem(value, Filters.YearsEnrolled(value));
+        }, this);
+        var sortedItems = _.sortBy(items, function(item) { return parseFloat(item.caption); });
+
+        return this.renderTable({
+          title: 'Years enrolled',
+          items: sortedItems,
+          limit: 5
+        });
+      },
+
+      createItemsFromValues: function(key, uniqueValues) {
+        var items = _.compact(uniqueValues).map(function(value) {
+          return this.createItem(value, Filters.Equal(key, value));
+        }, this);
+        var itemsWithNull = (_.any(uniqueValues, _.isNull))
+          ? items.concat(this.createItem('None', Filters.Null(key)))
+          : items;
+        var students = this.props.allStudents;
+        return _.sortBy(itemsWithNull, function(item) {
+          return -1 * students.filter(item.filter.filterFn).length;
+        });
+      },
+
+      renderSimpleTable: function(title, key, props) {
+        var uniqueValues = _.unique(_.pluck(this.props.allStudents, key));
+        var items = this.createItemsFromValues(key, uniqueValues);
+        return this.renderTable(merge(props || {}, {
+          title: title,
+          items: items
+        }));
+      },
+
+      renderTable: function(props) {
+        return createEl(CollapsableTable, merge(props, {
+          filters: this.state.filters,
+          onFilterToggled: this.onFilterToggled
+        }));
+      }
+    });
+
+
+
+    function main() {
+      var useFixtures = false;  // for switching between development database data and local fixtures
+      var serializedData = (useFixtures) ? loadFixtureData(): $('#serialized-data').data();
+
+      // index by intervention type id
+      var InterventionTypes = serializedData.interventionTypes.reduce(function(map, interventionType) {
+        map[interventionType.id] = interventionType;
+        return map;
+      }, {});
+
+      ReactDOM.render(createEl(SchoolOverviewPage, {
+        allStudents: serializedData.students,
+        InterventionTypes: InterventionTypes,
+        initialFilters: parseFiltersHash(window.location.hash)
+      }), document.getElementById('main'));
+    }
+
+    function readData() {
+      /*
+      To generate new fixture data, look at schools_controller#overview and run that Rails code
+      on a console.
+
+      Take the printed JSON output, and use this JS to remove personal identifers:
+
+        var firstNames = ["Aladdin", "Chip", "Daisy", "Mickey", "Minnie", "Donald", "Elsa", "Mowgli", "Olaf", "Pluto", "Pocahontas", "Rapunzel", "Snow", "Winnie"];
+        var lastNames = ["Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"];
+        ss.forEach(function(s) {
+          delete s.student_address;
+          s.first_name = firstNames[Math.floor(Math.random()* firstNames.length)];
+          s.last_name = lastNames[Math.floor(Math.random()* lastNames.length)];
+        })
+        JSON.stringify(ss);
+
+      This data should still be considered private and not checked into source control, but doing a rough pass
+      to remove names is useful when working in a semi-public space.
+      */
+
+      var useFixtures = false;
+      var serializedData = (useFixtures) ? {} : $('#serialized-data').data();
+      if (useFixtures) {
+        // serializedData.students = <%=
+        //   IO.read("#{Rails.root}/data/cleaned_all_ss.json").html_safe if File.exist? "#{Rails.root}/data/cleaned_all_ss.json"
+        // %>;
+        serializedData.intervention_types = [{"id":20,"name":"After-School Tutoring (ATP)","created_at":"2015-10-20T20:32:26.191Z","updated_at":"2015-10-20T20:32:26.191Z"},{"id":21,"name":"Attendance Officer","created_at":"2015-10-20T20:32:26.198Z","updated_at":"2015-10-20T20:32:26.198Z"},{"id":22,"name":"Attendance Contract","created_at":"2015-10-20T20:32:26.207Z","updated_at":"2015-10-20T20:32:26.207Z"},{"id":23,"name":"Behavior Contract","created_at":"2015-10-20T20:32:26.212Z","updated_at":"2015-10-20T20:32:26.212Z"},{"id":24,"name":"Behavior Plan","created_at":"2015-10-20T20:32:26.219Z","updated_at":"2015-10-20T20:32:26.219Z"},{"id":25,"name":"Boys \u0026 Girls Club","created_at":"2015-10-20T20:32:26.225Z","updated_at":"2015-10-20T20:32:26.225Z"},{"id":26,"name":"Classroom Academic Intervention","created_at":"2015-10-20T20:32:26.229Z","updated_at":"2015-10-20T20:32:26.229Z"},{"id":27,"name":"Classroom Behavior Intervention","created_at":"2015-10-20T20:32:26.234Z","updated_at":"2015-10-20T20:32:26.234Z"},{"id":28,"name":"Community Schools","created_at":"2015-10-20T20:32:26.241Z","updated_at":"2015-10-20T20:32:26.241Z"},{"id":29,"name":"Counseling: In-House","created_at":"2015-10-20T20:32:26.246Z","updated_at":"2015-10-20T20:32:26.246Z"},{"id":30,"name":"Counseling: Outside/Physician Referral","created_at":"2015-10-20T20:32:26.254Z","updated_at":"2015-10-20T20:32:26.254Z"},{"id":31,"name":"ER Referral (Mental Health)","created_at":"2015-10-20T20:32:26.265Z","updated_at":"2015-10-20T20:32:26.265Z"},{"id":32,"name":"Math Tutor","created_at":"2015-10-20T20:32:26.270Z","updated_at":"2015-10-20T20:32:26.270Z"},{"id":33,"name":"Mobile Crisis Referral","created_at":"2015-10-20T20:32:26.284Z","updated_at":"2015-10-20T20:32:26.284Z"},{"id":34,"name":"MTSS Referral","created_at":"2015-10-20T20:32:26.293Z","updated_at":"2015-10-20T20:32:26.293Z"},{"id":35,"name":"OT/PT Consult","created_at":"2015-10-20T20:32:26.297Z","updated_at":"2015-10-20T20:32:26.297Z"},{"id":36,"name":"Parent Communication","created_at":"2015-10-20T20:32:26.309Z","updated_at":"2015-10-20T20:32:26.309Z"},{"id":37,"name":"Parent Conference/Meeting","created_at":"2015-10-20T20:32:26.320Z","updated_at":"2015-10-20T20:32:26.320Z"},{"id":39,"name":"Peer Mediation","created_at":"2015-10-20T20:32:26.342Z","updated_at":"2015-10-20T20:32:26.342Z"},{"id":40,"name":"Reading Specialist","created_at":"2015-10-20T20:32:26.364Z","updated_at":"2015-10-20T20:32:26.364Z"},{"id":41,"name":"Reading Tutor","created_at":"2015-10-20T20:32:26.375Z","updated_at":"2015-10-20T20:32:26.375Z"},{"id":42,"name":"SST Referral","created_at":"2015-10-20T20:32:26.379Z","updated_at":"2015-10-20T20:32:26.379Z"},{"id":43,"name":"Weekly Call/Email Home","created_at":"2015-10-20T20:32:26.389Z","updated_at":"2015-10-20T20:32:26.389Z"},{"id":44,"name":"X Block Tutor","created_at":"2015-10-20T20:32:26.393Z","updated_at":"2015-10-20T20:32:26.393Z"},{"id":45,"name":"51a Filing","created_at":"2015-10-20T20:32:26.399Z","updated_at":"2015-10-20T20:32:26.399Z"},{"id":46,"name":"Other","created_at":"2015-10-20T20:32:26.405Z","updated_at":"2015-10-20T20:32:26.405Z"}];
+        // TODO(kr) homeroom names
+      }
+    }
+
+    // Returns a list of Filters
+    function parseFiltersHash(hash) {
+      var pieces = _.compact(hash.slice(1).split('&'));
+      return _.compact(pieces.map(function(piece) {
+        return Filters.createFromIdentifier(window.decodeURIComponent(piece));
+      }));
+    };
+
+    main();
+  }
+});
