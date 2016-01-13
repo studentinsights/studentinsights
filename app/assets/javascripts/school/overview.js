@@ -134,7 +134,7 @@ $(function() {
                 return dom.tr({ key: student.id },
                   dom.td({}, student.grade),
                   dom.td({}, dom.a({ href: Routes.student(student.id) }, student.first_name + ' ' + student.last_name)),
-                  dom.td({}, student.sped_level_of_need),
+                  dom.td({}, this.renderUnless('None', student.sped_level_of_need)),
                   dom.td({ style: { width: '2.5em' } }, this.renderUnless('Not Eligible', student.free_reduced_lunch)),
                   dom.td({ style: { width: '2.5em' } }, this.renderUnless('Fluent', student.limited_english_proficiency)),
                   this.renderNumberCell(student.most_recent_star_reading_percentile),
@@ -159,7 +159,8 @@ $(function() {
       },
 
       renderUnless: function(ignoredValue, value) {
-        return (value === ignoredValue) ? null : value;
+        var valueText = (value === null || value === undefined) ? 'None' : value;
+        return dom.span({ style: { opacity: (valueText === ignoredValue) ? 0.1 : 1 } }, valueText);
       },
 
       renderCount: function(count) {
