@@ -112,8 +112,8 @@ $(function() {
           dom.table({ className: 'students-table', style: { width: '100%' } },
             dom.thead({},
               dom.tr({},
-                this.renderHeader('Grade'),
                 this.renderHeader('Name'),
+                this.renderHeader('Grade'),
                 this.renderHeader('Disability'),
                 this.renderHeader('Low Income'),
                 this.renderHeader('LEP'),
@@ -132,8 +132,8 @@ $(function() {
             dom.tbody({},
               this.props.students.map(function(student) {
                 return dom.tr({ key: student.id },
-                  dom.td({}, student.grade),
                   dom.td({}, dom.a({ href: Routes.student(student.id) }, student.first_name + ' ' + student.last_name)),
+                  dom.td({}, student.grade),
                   dom.td({}, this.renderUnless('None', student.sped_level_of_need)),
                   dom.td({ style: { width: '2.5em' } }, this.renderUnless('Not Eligible', student.free_reduced_lunch)),
                   dom.td({ style: { width: '2.5em' } }, this.renderUnless('Fluent', student.limited_english_proficiency)),
@@ -393,6 +393,7 @@ $(function() {
         if (e.keyCode === 27) this.clearFilters();
       },
 
+
       render: function() {
         return dom.div({
           className: 'school-overview',
@@ -447,9 +448,9 @@ $(function() {
       renderDownloadLink: function() {
         var students = this.filteredStudents();
         var header = [
-          'Grade',
           'First Name',
           'Last Name',
+          'Grade',
           'SPED Level of Need',
           'Free/Reduced Lunch',
           'Limited English Proficient',
@@ -468,9 +469,9 @@ $(function() {
         ];
         var rows = students.map(function(student) {
           return [
-            student.grade,
             student.first_name,
             student.last_name,
+            student.grade,
             student.sped_level_of_need,
             student.free_reduced_lunch,
             student.limited_english_proficiency,
