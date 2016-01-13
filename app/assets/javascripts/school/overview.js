@@ -423,12 +423,32 @@ $(function() {
             },
             onClick: this.onResetClicked
           }, (this.state.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
-          dom.a({ href: this.filtersHash(), target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view')
+          dom.a({ href: this.filtersHash(), target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view'),
+          this.renderDownloadLink()
           // debug only:
           // dom.span({}, this.state.filters.map(function(filter) {
           //   return dom.span({ key: filter.identifier }, filter.identifier);
           // })),
         );
+      },
+
+      renderDownloadLink: function() {
+        var students = this.filteredStudents();
+        var header = ['id', 'grade', 'first_name'];
+        var rows = students.map(function(student) {
+          return [student.id, student.grade, student.first_name].join(',');
+        });
+        var csvText = [header].concat(rows).join('\n');
+
+        return dom.a({
+          href: 'data:attachment/csv,' + encodeURIComponent(csvText),
+          target: '_blank',
+          download: 'student.csv',
+          style: {
+            paddingLeft: 20,
+            fontSize: styles.fontSize
+          }
+        }, 'Download for Excel');
       },
 
       filtersHash: function() {
