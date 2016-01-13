@@ -446,9 +446,47 @@ $(function() {
 
       renderDownloadLink: function() {
         var students = this.filteredStudents();
-        var header = ['id', 'grade', 'first_name'];
+        var header = [
+          'Grade',
+          'First Name',
+          'Last Name',
+          'SPED Level of Need',
+          'Free/Reduced Lunch',
+          'Limited English Proficient',
+          'STAR Reading Percentile',
+          'MCAS ELA Score',
+          'MCAS ELA Growth',
+          'STAR Math Percentile',
+          'MCAS Math Score',
+          'MCAS Math Growth',
+          'Discipline Incidents',
+          'Absences This Year',
+          'Tardies This Year',
+          'Intervention Count',
+          'Program Assigned',
+          'Homeroom Name',
+        ];
         var rows = students.map(function(student) {
-          return [student.id, student.grade, student.first_name].join(',');
+          return [
+            student.grade,
+            student.first_name,
+            student.last_name,
+            student.sped_level_of_need,
+            student.free_reduced_lunch,
+            student.limited_english_proficiency,
+            student.most_recent_star_reading_percentile,
+            student.most_recent_mcas_ela_scaled,
+            student.most_recent_mcas_ela_growth,
+            student.most_recent_star_math_percentile,
+            student.most_recent_mcas_math_scaled,
+            student.most_recent_mcas_math_growth,
+            student.discipline_incidents_count,
+            student.absences_count_most_recent_school_year,
+            student.tardies_count_most_recent_school_year,
+            student.interventions.length,
+            student.program_assigned,
+            student.homeroom_name,
+          ].join(',');
         });
         var csvText = [header].concat(rows).join('\n');
 
