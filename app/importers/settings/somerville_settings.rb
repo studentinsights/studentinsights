@@ -41,16 +41,11 @@ class Settings::SomervilleSettings
     options.merge({ client: SftpClient.new(credentials: star_sftp_credentials) })
   end
 
-  def configuration
+  def x2_importers
     importers = [
       StudentsImporter.new(x2_options),
       StudentAssessmentImporter.new(x2_options),
-      StarReadingImporter.new(star_options),
-      StarReadingImporter::HistoricalImporter.new(star_options),
-      StarMathImporter.new(star_options),
-      StarMathImporter::HistoricalImporter.new(star_options),
       BehaviorImporter.new(x2_options),
-      HealeyAfterSchoolTutoringImporter.new,   # Currently local import only
       EducatorsImporter.new(x2_options),
     ]
 
@@ -59,8 +54,24 @@ class Settings::SomervilleSettings
     else
       importers << AttendanceImporter.new(options)
     end
+  end
 
-    importers
+  def star_importers
+    [
+      StarReadingImporter.new(star_options),
+      StarReadingImporter::HistoricalImporter.new(star_options),
+      StarMathImporter.new(star_options),
+      StarMathImporter::HistoricalImporter.new(star_options),
+    ]
+  end
+
+  def local_importers
+    HealeyAfterSchoolTutoringImporter.new
+  end
+
+  def configuration
+    return x2_importers + star_importers + local_importers if Rails.env.development?
+    return x2_importers + star_importers
   end
 
 end
