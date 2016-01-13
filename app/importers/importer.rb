@@ -13,23 +13,19 @@ module Importer
 
   def import_locally(data)
     # Set up for proress bar
-    if Rails.env.development?
-      n = 0
-      progress_bar = ProgressBar.new(data.size, remote_file_name)
-    end
+    n = 0
+    progress_bar = ProgressBar.new(data.size, remote_file_name)
 
     # Import
     data.each do |row|
       row.length.times { row.delete(nil) }
       handle_row(row)
-      if Rails.env.development?
-        n += 1
-        print progress_bar.current_status(n)
-      end
+      n += 1
+      print progress_bar.current_status(n)
     end
 
     # Exit
-    puts if Rails.env.development?
+    puts
     return data
   end
 
