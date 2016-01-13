@@ -6,6 +6,10 @@ class StarMathImporter
     'SM.csv'
   end
 
+  def data_transformer
+    StarMathCsvTransformer.new
+  end
+
   def assessment
     Assessment.where(family: "STAR", subject: "Math").first_or_create!
   end

@@ -6,6 +6,10 @@ class StarReadingImporter
     'SR.csv'
   end
 
+  def data_transformer
+    StarReadingCsvTransformer.new
+  end
+
   def assessment
     Assessment.where(family: "STAR", subject: "Reading").first_or_create!
   end
