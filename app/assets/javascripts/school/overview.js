@@ -438,14 +438,21 @@ $(function() {
 
       renderProfileColumn: function() {
         return dom.div({ className: 'column' },
-          this.renderSimpleTable('Disability', 'sped_level_of_need', { limit: 5 }),
+          this.renderDisabilityTable(),
           this.renderSimpleTable('Low Income', 'free_reduced_lunch', { limit: 4 }),
           this.renderSimpleTable('LEP', 'limited_english_proficiency', { limit: 3 })
         );
       },
 
-      wrapWithDivider: function(children) {
-        return dom.div({ style: { borderTop: '1px solid #ddd', borderBottom: '1px solid #ddd' } }, children);
+      renderDisabilityTable: function() {
+        var key = 'sped_level_of_need';
+        var items = ['Low < 2', 'Low >= 2', 'Moderate', 'High'].map(function(value) {
+          return this.createItem(value, Filters.Equal(key, value));
+        }, this);
+        return this.renderTable({
+          title: 'Disability',
+          items: [this.createItem('None', Filters.Null(key))].concat(items)
+        });
       },
 
       renderELAColumn: function() {
@@ -638,6 +645,7 @@ $(function() {
 
     function main() {
       var serializedData = $('#serialized-data').data();
+      window.serializedData = serializedData;
 
       // index by intervention type id
       var InterventionTypes = serializedData.interventionTypes.reduce(function(map, interventionType) {
