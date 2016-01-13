@@ -53,18 +53,14 @@
   .StudentsTable {
     table.students-table {
       border-collapse: collapse;
-    }
 
-    thead th {
-      font-size: 12px;
-      padding: 5px;
-      text-align: left;
-      border-bottom: 1px solid #ccc;
-    }
+      thead th {
+        font-size: 12px;
+        border-bottom: 1px solid #ccc;
+      }
 
-    tbody {
-      td {
-        padding: 5px;
+      th, td {
+        padding: 3px;
         text-align: left;
       }
     }
