@@ -20,7 +20,7 @@
   .column table td.caption-cell {
     width: 130px;
   }
-  
+
   .grades-column  table td.caption-cell {
     width: 40px;
   }
@@ -38,7 +38,7 @@
     table {
       table-layout: fixed;
       border-collapse: collapse;
-    
+
       td {
         padding: 0;
       }
@@ -59,8 +59,12 @@
         border-bottom: 1px solid #ccc;
       }
 
+      tr:hover {
+        background-color: $table-row-hover;
+      }
+
       th, td {
-        padding: 2px 10px;
+        padding: 4px 10px;
         text-align: left;
       }
     }
