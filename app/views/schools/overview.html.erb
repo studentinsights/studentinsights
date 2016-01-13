@@ -1,8 +1,3 @@
-
-<!DOCTYPE html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
   font-family: Helvetica;
@@ -10,9 +5,7 @@ body {
   margin: 0;
 }
 </style>
-</head>
 
-<body>
 <div id="main"></div>
 <script src="/react-0.14.3.js"></script>
 <script src="/react-dom-0.14.3.js"></script>
@@ -276,7 +269,7 @@ var CollapsableTable = React.createClass({
     this.setState({ isExpanded: false });
   },
 
-  onExpandClicked: function(e) { 
+  onExpandClicked: function(e) {
     this.setState({ isExpanded: true });
   },
 
@@ -303,7 +296,7 @@ var CollapsableTable = React.createClass({
       },
       onClick: (this.state.isExpanded) ? this.onCollapseClicked : this.onExpandClicked
     }, (this.state.isExpanded) ? '- Hide details' : '+ Show all');
-    
+
   }
 });
 
@@ -316,7 +309,7 @@ var colors = {
 
 var styles = {
   fontSize: 12,
-  
+
   header: {
     display: 'flex',
     alignItems: 'center',
@@ -445,7 +438,7 @@ var SchoolOverviewPage = React.createClass({
   },
 
   filtersHash: function() {
-    return '#' + this.state.filters.map(function(filter) { 
+    return '#' + this.state.filters.map(function(filter) {
       return encodeURIComponent(filter.identifier);
     }).join('&');
   },
@@ -671,9 +664,9 @@ function readData() {
   /*
   To generate new fixture data, look at schools_controller#overview and run that Rails code
   on a console.
-  
+
   Take the printed JSON output, and use this JS to remove personal identifers:
-  
+
     var firstNames = ["Aladdin", "Chip", "Daisy", "Mickey", "Minnie", "Donald", "Elsa", "Mowgli", "Olaf", "Pluto", "Pocahontas", "Rapunzel", "Snow", "Winnie"];
     var lastNames = ["Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"];
     ss.forEach(function(s) {
@@ -708,5 +701,3 @@ function parseFiltersHash(hash) {
 
 main()
 </script>
-</body>
-</html>
