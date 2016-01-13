@@ -5,7 +5,7 @@ module Connector
   def initialize(options = {})
     # Required arguments
     @client = options[:client]
-    @data_transformer = options[:data_transformer]
+    @data_transformer = options[:data_transformer] || data_transformer
 
     # Optional arguments
     @school_scope = options[:school_scope]

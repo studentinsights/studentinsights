@@ -6,6 +6,10 @@ class StarReadingImporter
     'SR.csv'
   end
 
+  def data_transformer
+    StarReadingCsvTransformer.new
+  end
+
   def assessment
     Assessment.where(family: "STAR", subject: "Reading").first_or_create!
   end
@@ -25,4 +29,13 @@ class StarReadingImporter
       instructional_reading_level: row[:instructional_reading_level]
     })
   end
+
+  class HistoricalImporter < StarReadingImporter
+    # STAR sends historical data in a separate file
+
+    def remote_file_name
+      'SR_Historical.csv'
+    end
+  end
+
 end

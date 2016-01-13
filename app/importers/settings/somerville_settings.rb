@@ -11,8 +11,6 @@ class Settings::SomervilleSettings
       school_scope: @school_scope,
       recent_only: @recent_only,
       first_time: @first_time,
-      client: SftpClient.new(credentials: x2_sftp_credentials),
-      data_transformer: CsvTransformer.new
     }
   end
 
@@ -24,6 +22,13 @@ class Settings::SomervilleSettings
     }
   end
 
+  def x2_options
+    options.merge({
+      client: SftpClient.new(credentials: x2_sftp_credentials),
+      data_transformer: CsvTransformer.new
+    })
+  end
+
   def star_sftp_credentials
     {
       user: ENV['STAR_SFTP_USER'],
@@ -32,15 +37,16 @@ class Settings::SomervilleSettings
     }
   end
 
-  def configuration
+  def star_options
+    options.merge({ client: SftpClient.new(credentials: star_sftp_credentials) })
+  end
+
+  def x2_importers
     importers = [
-      StudentsImporter.new(options),
-      StudentAssessmentImporter.new(options),
-      StarMathImporter.new(options),
-      StarReadingImporter.new(options),
-      BehaviorImporter.new(options),
-      HealeyAfterSchoolTutoringImporter.new,   # Currently local import only
-      EducatorsImporter.new(options),
+      StudentsImporter.new(x2_options),
+      StudentAssessmentImporter.new(x2_options),
+      BehaviorImporter.new(x2_options),
+      EducatorsImporter.new(x2_options),
     ]
 
     if @first_time
@@ -48,8 +54,24 @@ class Settings::SomervilleSettings
     else
       importers << AttendanceImporter.new(options)
     end
+  end
 
-    importers
+  def star_importers
+    [
+      StarReadingImporter.new(star_options),
+      StarReadingImporter::HistoricalImporter.new(star_options),
+      StarMathImporter.new(star_options),
+      StarMathImporter::HistoricalImporter.new(star_options),
+    ]
+  end
+
+  def local_importers
+    HealeyAfterSchoolTutoringImporter.new
+  end
+
+  def configuration
+    return x2_importers + star_importers + local_importers if Rails.env.development?
+    return x2_importers + star_importers
   end
 
 end

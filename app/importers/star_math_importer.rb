@@ -6,6 +6,10 @@ class StarMathImporter
     'SM.csv'
   end
 
+  def data_transformer
+    StarMathCsvTransformer.new
+  end
+
   def assessment
     Assessment.where(family: "STAR", subject: "Math").first_or_create!
   end
@@ -22,4 +26,13 @@ class StarMathImporter
 
     star_assessment.update_attributes({percentile_rank: row[:percentile_rank]})
   end
+
+  class HistoricalImporter < StarMathImporter
+    # STAR sends historical data in a separate file
+
+    def remote_file_name
+      'SM_Historical.csv'
+    end
+  end
+
 end

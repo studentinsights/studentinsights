@@ -1,5 +1,7 @@
 class SftpClient
 
+  attr_reader :credentials
+
   def initialize(options = {})
     # Credentials take the form of a hash with the following keys:
     # user:, host:, (password: or key_data:)
