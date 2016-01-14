@@ -119,11 +119,13 @@ $(function() {
           dom.div({ style: { position: 'relative' } },
             dom.div({ style: { flex: 1 } },
               dom.div({ style: { display: 'flex', justifyContent: 'space-around', padding: 20 } },
-                dom.div({ style: { width: 650 } }, this.renderAllTimeStarTrends(merge(sizing, { width: 320 }))),
-                dom.div({ style: { width: 450 } }, this.renderRecentStarChanges(merge(sizing, { width: 180 }))),
-                dom.div({ style: { width: 300 } }, this.renderDeltaHistogram(sizing))
+                dom.div({ style: { flex: 4 } }, this.renderAllTimeStarTrends(merge(sizing, { width: 600 }))),
+                dom.div({ style: { flex: 2 } }, this.renderRecentStarChanges(merge(sizing, { width: 180 })))
               ),
-              this.renderColoredGrades()
+              dom.div({ style: { display: 'flex', justifyContent: 'space-around', padding: 20 } },
+                dom.div({ style: { flex: 4 } }, this.renderAllTimeQuartiles(merge(sizing, { width: 600 }))),
+                dom.div({ style: { flex: 2 } }, this.renderDeltaHistogram(merge(sizing, { width: 450 })))
+              )
             ),
             dom.pre({
               style: {
@@ -193,7 +195,7 @@ $(function() {
       renderRecentStarChanges: function(options) {
         var students = this.studentsWithRecentAssessments();
         var assessments = _.flatten(_.pluck(students, 'star_reading_results'));
-        return this.renderLineChartWithTable('Recent changes', students, assessments, options);
+        return this.renderLineChartWithTable('Student progress, since last assessment', students, assessments, options);
       },
 
       renderLineChartWithTable: function(title, students, assessments, options) {
@@ -239,7 +241,7 @@ $(function() {
                       strokeWidth: (this.isHoverStudent(student))
                         ? 2
                         : thickness(this.allTimeRange(student)),
-                      opacity: this.isHoverBackground(student) ? 0.05 : 1,
+                      opacity: this.isHoverBackground(student) ? 0.05 : 0.75,
                       fill: 'none',
                       d: lineGenerator(results),
                       onMouseEnter: this.onStudentHover.bind(this, student),
@@ -255,27 +257,9 @@ $(function() {
       },
 
       allTimeRange: function(student) {
-        // largest range in scores all-time
-        // var extent = d3.extent(filteredResults(student), function(d) { return d.percentile_rank });
-        // return extent[1] - extent[0];
-
-        // largest change all-time
+        // largest variance all-time
         var scores = _.pluck(this.filteredResults(student), 'percentile_rank');
         return _.last(scores) - _.first(scores);
-
-        // alternately, largest single step
-        // var results = filteredResults(student);
-        // var largestStep = 0;
-        // var lastValue = null;
-        // for (var i = 0; i < results.length; i++) {
-        //   var value = results[i].percentile_rank;
-        //   if (lastValue) {
-        //     var step = value - lastValue;
-        //     if (step > largestStep) largestStep = step;
-        //   }
-        //   lastValue = value;
-        // }
-        // return largestStep;
       },
 
       filteredResults: function(student) {
@@ -292,7 +276,7 @@ $(function() {
           return student.star_reading_results;
         }));
 
-        return this.renderLineChartWithTable('All-time scores', students, assessments, options);
+        return this.renderLineChartWithTable('Student scores, all-time', students, assessments, options);
       },
 
       quarterDate: function(date) {
@@ -306,7 +290,10 @@ $(function() {
         return _.compact(_.pluck(bucket[1], 'percentile_rank')).sort(d3.ascending);
       },
 
-      renderColoredGrades: function() {
+      renderAllTimeQuartiles: function(options) {
+        var width = options.width;
+        var height = options.height;
+
         var students = this.filteredStudents();
         var assessments = this.flattenedAssessments(students);
 
@@ -316,8 +303,6 @@ $(function() {
           return this.quarterDate(new Date(result.date_taken)).getTime();
         }, this));
 
-        var width = 600;
-        var height = 400;
         var bucketWidth = width / (buckets.length - 1); // assumes dense
 
         var dateRange = d3.extent(buckets, function(bucket) {
@@ -327,9 +312,9 @@ $(function() {
         var y = d3.scale.linear().domain([0, 100]).range([height, 0]);
         var color = d3.scale.linear().domain([0, 1, 8]).range(['white', 'white', 'green']);
 
-        return dom.div({ style: { paddingLeft: 20 } },
+        return dom.div({},
           this.renderTitleWithSummary({
-            title: 'All-time scores, quartiles each quarter',
+            title: 'Group quartiles each period, all-time',
             dateRange: dateRange,
             students: students,
             assessments: assessments
@@ -455,7 +440,7 @@ $(function() {
 
         return dom.div({},
           this.renderTitleWithSummary({
-            title: 'Recent change for group',
+            title: 'Group progress, since last assessment',
             dateRange: dateRange,
             students: studentsWithDeltas,
             assessments: assessments
