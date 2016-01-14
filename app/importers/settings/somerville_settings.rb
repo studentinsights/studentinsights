@@ -70,6 +70,10 @@ class Settings::SomervilleSettings
   end
 
   def configuration
+    # Important for X2 importers to come first since they are the sole source of truth about students.
+    # STAR importers don't import students, they only import STAR results.
+    # If STAR importers run first, they won't have students to update STAR results for (at least the first time around).
+
     return x2_importers + star_importers + local_importers if Rails.env.development?
     return x2_importers + star_importers
   end
