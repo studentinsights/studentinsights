@@ -16,7 +16,9 @@ class StarMathImporter
 
   def import_row(row)
     date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
-    student = Student.where(local_id: row[:local_id]).first_or_create!
+    student = Student.find_by_local_id(row[:local_id])
+
+    return if student.nil?
 
     star_assessment = StudentAssessment.where({
       student_id: student.id,

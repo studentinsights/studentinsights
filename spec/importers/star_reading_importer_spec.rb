@@ -7,33 +7,37 @@ RSpec.describe StarReadingImporter do
       let(:transformer) { StarReadingCsvTransformer.new }
       let(:csv) { transformer.transform(file) }
       let(:reading_importer) { StarReadingImporter.new }
+
       context 'with good data' do
-        it 'creates a new student assessment' do
-          expect { reading_importer.import(csv) }.to change { StudentAssessment.count }.by 1
-        end
-        it 'creates a new STAR Reading assessment' do
-          reading_importer.import(csv)
-          student_assessment = StudentAssessment.last
-          expect(student_assessment.family).to eq "STAR"
-          expect(student_assessment.subject).to eq "Reading"
-        end
-        it 'sets instructional reading level correctly' do
-          reading_importer.import(csv)
-          expect(StudentAssessment.last.instructional_reading_level).to eq 5.0
-        end
-        it 'sets date taken correctly' do
-          reading_importer.import(csv)
-          expect(StudentAssessment.last.date_taken).to eq Date.new(2015, 1, 21)
-        end
         context 'existing student' do
           let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
+          it 'creates a new student assessment' do
+            expect { reading_importer.import(csv) }.to change { StudentAssessment.count }.by 1
+          end
+          it 'creates a new STAR Reading assessment' do
+            reading_importer.import(csv)
+            student_assessment = StudentAssessment.last
+            expect(student_assessment.family).to eq "STAR"
+            expect(student_assessment.subject).to eq "Reading"
+          end
+          it 'sets instructional reading level correctly' do
+            reading_importer.import(csv)
+            expect(StudentAssessment.last.instructional_reading_level).to eq 5.0
+          end
+          it 'sets date taken correctly' do
+            reading_importer.import(csv)
+            expect(StudentAssessment.last.date_taken).to eq Date.new(2015, 1, 21)
+          end
           it 'does not create a new student' do
             expect { reading_importer.import(csv) }.to change(Student, :count).by 0
           end
         end
-        context 'new student' do
-          it 'creates a new student object' do
-            expect { reading_importer.import(csv) }.to change(Student, :count).by 1
+        context 'student does not exist' do
+          it 'does not create a new student assessment' do
+            expect { reading_importer.import(csv) }.to change { StudentAssessment.count }.by 0
+          end
+          it 'does not create a new student' do
+            expect { reading_importer.import(csv) }.to change(Student, :count).by 0
           end
         end
       end
