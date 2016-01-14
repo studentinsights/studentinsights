@@ -19,6 +19,10 @@ $(function() {
     var merge = ReactHelpers.merge;
 
 
+    function calculateYearsEnrolled (registration_date) {
+      if (registration_date === null) return null;
+      return Math.floor((new Date() - new Date(registration_date)) / (1000 * 60 * 60 * 24 * 365));
+    };
 
     // Routing functions
     var baseUrl = 'https://somerville-teacher-tool.herokuapp.com'; // for local hacking
@@ -77,11 +81,11 @@ $(function() {
         return {
           identifier: ['years_enrolled', value].join(':'),
           filterFn: function(student) {
-            var yearsEnrolled = Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
-            return (yearsEnrolled === value);
+            return (calculateYearsEnrolled(student.registration_date) === value);
           }
         };
       },
+
       // Has to parse from string back to numeric
       createFromIdentifier: function(identifier) {
         var parts = identifier.split(':');
@@ -669,7 +673,7 @@ $(function() {
 
       renderYearsEnrolled: function() {
         var uniqueValues = _.compact(_.unique(this.props.allStudents.map(function(student) {
-          return Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
+          return calculateYearsEnrolled(student.registration_date)
         })));
         var items = uniqueValues.map(function(value) {
           return this.createItem(value, Filters.YearsEnrolled(value));
@@ -695,6 +699,7 @@ $(function() {
           return -1 * students.filter(item.filter.filterFn).length;
         });
       },
+
 
       renderSimpleTable: function(title, key, props) {
         var uniqueValues = _.unique(_.pluck(this.props.allStudents, key));
