@@ -50,9 +50,9 @@ class Settings::SomervilleSettings
     ]
 
     if @first_time
-      importers << BulkAttendanceImporter.new(options)
+      importers << BulkAttendanceImporter.new(x2_options)
     else
-      importers << AttendanceImporter.new(options)
+      importers << AttendanceImporter.new(x2_options)
     end
   end
 
