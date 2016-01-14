@@ -122,7 +122,7 @@ $(function() {
                 dom.div({ style: { flex: 4 } }, this.renderAllTimeStarTrends(merge(sizing, { width: 600 }))),
                 dom.div({ style: { flex: 2 } }, this.renderRecentStarChanges(merge(sizing, { width: 180 })))
               ),
-              dom.div({ style: { display: 'flex', justifyContent: 'space-around', padding: 20 } },
+              dom.div({ style: { display: 'flex', justifyContent: 'space-around', padding: 20, paddingTop: 0 } },
                 dom.div({ style: { flex: 4 } }, this.renderAllTimeQuartiles(merge(sizing, { width: 600 }))),
                 dom.div({ style: { flex: 2 } }, this.renderDeltaHistogram(merge(sizing, { width: 450 })))
               )
@@ -156,6 +156,7 @@ $(function() {
 
         return dom.div({ style: { padding: 10, fontSize: styles.fontSize } },
           dom.h6({}, props.title),
+          dom.div({}, props.description),
           dom.div({}, dateRangeText),
           dom.div({},
             dom.span({}, 'Students: ', props.students.length),
@@ -195,10 +196,10 @@ $(function() {
       renderRecentStarChanges: function(options) {
         var students = this.studentsWithRecentAssessments();
         var assessments = _.flatten(_.pluck(students, 'star_reading_results'));
-        return this.renderLineChartWithTable('Student progress, since last assessment', students, assessments, options);
+        return this.renderLineChartWithTable('Student progress, since last assessment', 'Change in percentile rank', students, assessments, options);
       },
 
-      renderLineChartWithTable: function(title, students, assessments, options) {
+      renderLineChartWithTable: function(title, description, students, assessments, options) {
         var width = options.width;
         var height = options.height;
 
@@ -216,6 +217,7 @@ $(function() {
         return dom.div({},
           this.renderTitleWithSummary({
             title: title,
+            description: description,
             dateRange: d3.extent(assessments, function(result) { return new Date(result.date_taken); }),
             students: students,
             assessments: assessments
@@ -276,7 +278,7 @@ $(function() {
           return student.star_reading_results;
         }));
 
-        return this.renderLineChartWithTable('Student scores, all-time', students, assessments, options);
+        return this.renderLineChartWithTable('Student scores, all-time', 'Percentile rank each assessment', students, assessments, options);
       },
 
       quarterDate: function(date) {
@@ -315,6 +317,7 @@ $(function() {
         return dom.div({},
           this.renderTitleWithSummary({
             title: 'Group quartiles each period, all-time',
+            description: 'Quartiles of percentile ranks each 3 months',
             dateRange: dateRange,
             students: students,
             assessments: assessments
@@ -337,7 +340,7 @@ $(function() {
                   cy: y(assessment.percentile_rank),
                   opacity: (this.isHoverStudent(assessment.student))
                     ? 1
-                    : this.isHoverBackground(assessment.student) ? 0.05 : 0.25,
+                    : this.isHoverBackground(assessment.student) ? 0.02 : 0.25,
                   r: 4,
                   fill: color(_.isNaN(assessment.student.grade) ? 0 : assessment.student.grade),
                   onMouseEnter: this.onStudentHover.bind(this, assessment.student),
@@ -437,6 +440,7 @@ $(function() {
         return dom.div({},
           this.renderTitleWithSummary({
             title: 'Group progress, since last assessment',
+            description: 'Distribution of change in percentile rank',
             dateRange: dateRange,
             students: studentsWithDeltas,
             assessments: assessments
