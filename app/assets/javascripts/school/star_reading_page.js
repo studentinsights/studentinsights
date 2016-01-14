@@ -404,10 +404,6 @@ $(function() {
         }, options));
       },
 
-      mean: function(values) {
-        return _.sum(values) / values.length;
-      },
-
       clamp: function(domain, value) {
         return Math.min(Math.max(domain[0], value), domain[1]);
       },
@@ -427,7 +423,7 @@ $(function() {
           return this.clamp(bucketDomain, Math.floor(result.delta / bucketSize) * bucketSize);
         }, this));
         var maxCount = d3.max(buckets, function(bucket) { return bucket[1].length; });
-        var mean = this.mean(_.pluck(studentsWithDeltas, 'delta'));
+        var median = d3.median(_.pluck(studentsWithDeltas, 'delta'));
 
         var x = d3.time.scale().domain(bucketDomain).range([0, width]);
         var barHeight = d3.scale.linear().domain([0, maxCount]).range([0, height]);
@@ -467,12 +463,12 @@ $(function() {
                   fill: '#eee'
                 });
               }, this),
-              dom.line({ x1: x(mean),
+              dom.line({ x1: x(median),
                 y1: 0,
-                x2: x(mean),
+                x2: x(median),
                 y2: height,
                 style: {
-                  stroke: color(mean),
+                  stroke: color(median),
                   strokeWidth: 3
                 }
               }),
@@ -507,7 +503,7 @@ $(function() {
                 }, this.withSign(percentileBucket));
               }, this)
             ),
-            dom.div({ style: { textAlign: 'center', fontSize: styles.fontSize } }, 'Mean change: ', this.withSign(mean.toFixed(2)) + ' percentiles')
+            dom.div({ style: { textAlign: 'center', fontSize: styles.fontSize } }, 'Median change: ', this.withSign(median.toFixed(2)) + ' percentiles')
           )
         );
       }
