@@ -43,4 +43,4 @@
 //= require ./school/components/students_table
 //= require ./school/components/school_overview_page
 //= require ./school/overview
-//= require ./school/star_reading
+//= require ./school/star_reading_page

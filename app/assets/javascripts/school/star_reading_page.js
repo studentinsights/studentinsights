@@ -66,6 +66,31 @@ $(function() {
         }, this.props.students);
       },
 
+      studentsWithRecentAssessments: function() {
+        return _.compact(this.filteredStudents().map(function(student) {
+          var januaryResult = _.find(student.star_reading_results, function(result) {
+            var date = new Date(result.date_taken).getTime();
+            var start = new Date('2015-12-01T00:00:00.000Z').getTime();
+            var end = new Date('2016-02-01T00:00:00.000Z').getTime();
+            return date > start && date < end && result.percentile_rank;
+          });
+
+          var octoberResult = _.find(student.star_reading_results, function(result) {
+            var date = new Date(result.date_taken).getTime();
+            var start = new Date('2015-09-01T00:00:00.000Z').getTime();
+            var end = new Date('2015-11-01T00:00:00.000Z').getTime();
+            return date > start && date < end && result.percentile_rank;
+          });
+
+          if (!januaryResult || !octoberResult) return null;
+          var delta = januaryResult.percentile_rank - octoberResult.percentile_rank;
+          return merge(student, {
+            star_reading_results: [octoberResult, januaryResult],
+            delta: delta
+          });
+        }));
+      },
+
       flattenedAssessments: function(students) {
         return _.flatten(students || this.filteredStudents().map(function(student) {
           var studentFields = _.omit(student, 'star_reading_results');
@@ -82,8 +107,7 @@ $(function() {
       render: function() {
         return dom.div({ style: { padding: 10 } },
           dom.div({ className: 'header', style: styles.header }, createEl(SlicePanels, {
-            allStudents: this.props.students,
-            filteredStudents: this.filteredStudents(),
+            students: this.filteredStudents(),
             InterventionTypes: this.props.InterventionTypes,
             filters: this.state.filters,
             onFilterToggled: this.onFilterToggled
@@ -92,7 +116,10 @@ $(function() {
             dom.div({ style: { flex: 1 } },
               dom.div({ style: { display: 'flex', justifyContent: 'space-around' } },
                 this.renderAllTimeStarTrends(),
-                this.renderRecentStarChanges()
+                dom.div({ style: { display: 'flex', flexDirection: 'column' } },
+                  this.renderRecentStarChanges(),
+                  this.renderDeltaHistogram()
+                )
               ),
               this.renderHeatmap(),
               this.renderColoredGrades()
@@ -124,7 +151,6 @@ $(function() {
       },
 
       greatestChanges: function(students, color) {
-        console.log('greatestChanges');
         return dom.div({ style: { padding: 5 } }, 'Greatest changes:',
           dom.table({ style: { borderCollapse: 'collapse' } },
             dom.tbody({}, _.sortBy(students, _.compose(Math.abs, this.resultsDelta)).reverse().slice(0, 15).map(function(student) {
@@ -146,24 +172,7 @@ $(function() {
         var width = 400;
         var height = 400;
 
-        var students = _.compact(this.filteredStudents().map(function(student) {
-          var januaryResult = _.find(student.star_reading_results, function(result) {
-            var date = new Date(result.date_taken).getTime();
-            var start = new Date('2015-12-01T00:00:00.000Z').getTime();
-            var end = new Date('2016-02-01T00:00:00.000Z').getTime();
-            return date > start && date < end;
-          });
-
-          var octoberResult = _.find(student.star_reading_results, function(result) {
-            var date = new Date(result.date_taken).getTime();
-            var start = new Date('2015-09-01T00:00:00.000Z').getTime();
-            var end = new Date('2015-11-01T00:00:00.000Z').getTime();
-            return date > start && date < end;
-          });
-
-          if (!januaryResult || !octoberResult) return null;
-          return merge(student, { star_reading_results: [octoberResult, januaryResult] });
-        }));
+        var students = this.studentsWithRecentAssessments();
         var assessments = _.flatten(_.pluck(students, 'star_reading_results'));
 
         var dateRange = d3.extent(assessments, function(d) { return new Date(d.date_taken); });
@@ -184,8 +193,8 @@ $(function() {
             dom.div({},
               dom.svg( {width: width, height: height },
                 dom.rect({
-                  x0: 0,
-                  y0: 0,
+                  x: 0,
+                  y: 0,
                   width: width,
                   height: height,
                   stroke: '#eee',
@@ -247,8 +256,8 @@ $(function() {
         var filteredResults = function(student) {
           return student.star_reading_results.filter(function(result) { return result.percentile_rank != null; });
         };
-
-        var students = _.sortBy(this.filteredStudents(), range);
+        var filteredStudents = this.filteredStudents().filter(function(student) { return student.star_reading_results.length > 0; });
+        var students = _.sortBy(filteredStudents, range);
         var assessments = _.flatten(students.map(function(student) {
           return student.star_reading_results;
         }));
@@ -271,8 +280,8 @@ $(function() {
             dom.div({},
               dom.svg( {width: width, height: height },
                 dom.rect({
-                  x0: 0,
-                  y0: 0,
+                  x: 0,
+                  y: 0,
                   width: width,
                   height: height,
                   stroke: '#eee',
@@ -315,8 +324,8 @@ $(function() {
           dom.div({},
             dom.svg( {width: width, height: height },
               dom.rect({
-                x0: 0,
-                y0: 0,
+                x: 0,
+                y: 0,
                 width: width,
                 height: height,
                 stroke: '#eee',
@@ -367,8 +376,8 @@ $(function() {
           dom.div({},
             dom.svg( {width: width, height: height },
               dom.rect({
-                x0: 0,
-                y0: 0,
+                x: 0,
+                y: 0,
                 width: width,
                 height: height,
                 stroke: '#eee',
@@ -386,6 +395,108 @@ $(function() {
                   height: height / bucketSize,
                   fill: color(bucket[1].length)
                 })
+              }, this)
+            )
+          )
+        );
+      },
+
+      mean: function(values) {
+        return _.sum(values) / values.length;
+      },
+
+      clamp: function(domain, value) {
+        return Math.min(Math.max(domain[0], value), domain[1]);
+      },
+
+      withSign: function(value) {
+        return (value > 0) ? '+' + value : value;
+      },
+
+      renderDeltaHistogram: function() {
+        var studentsWithDeltas = this.studentsWithRecentAssessments();
+        var bucketSize = 5;
+        var bucketDomain = [-40, 40];
+        var buckets = _.pairs(_.groupBy(studentsWithDeltas, function(result) {
+          return this.clamp(bucketDomain, Math.floor(result.delta / bucketSize) * bucketSize);
+        }, this));
+        var maxCount = d3.max(buckets, function(bucket) { return bucket[1].length; });
+        var mean = this.mean(_.pluck(studentsWithDeltas, 'delta'));
+
+        var width = 400;
+        var height = 300;
+
+        var x = d3.time.scale().domain(bucketDomain).range([0, width]);
+        var barHeight = d3.scale.linear().domain([0, maxCount]).range([0, height]);
+        var barWidth = Math.ceil(width / ((x.domain()[1] - x.domain()[0]) / bucketSize));
+        var color = d3.scale.linear().domain([-2, 0, 2]).range(['red','white','blue']);
+        var ticks = _.range(bucketDomain[0] + bucketSize, bucketDomain[1] + bucketSize, bucketSize * 2);
+        
+
+        return dom.div({},
+          this.renderTitle('Change in STAR math scores - October 2015 to January 2016'),
+          dom.div({}, 'Students: ', studentsWithDeltas.length),
+          dom.div({}, 'Mean change: ', this.withSign(mean.toFixed(3)) + ' percentiles'),
+          dom.div({},
+            dom.svg({width: width, height: height },
+              dom.rect({
+                x: 0,
+                y: 0,
+                width: width,
+                height: height,
+                stroke: '#eee',
+                fill: 'none'
+              }),
+              buckets.map(function(bucket) {
+                var percentileBucket = bucket[0];
+                var count = bucket[1].length;
+                return dom.rect({
+                  key: percentileBucket,
+                  x: x(percentileBucket),
+                  y: height - barHeight(count),
+                  width: barWidth,
+                  height: barHeight(count),
+                  fill: '#eee'
+                });
+              }, this),
+              dom.line({ x1: x(mean),
+                y1: 0,
+                x2: x(mean),
+                y2: height,
+                style: {
+                  stroke: color(mean),
+                  strokeWidth: 3
+                }
+              }),
+              dom.line({
+                x1: x(0),
+                y1: 0,
+                x2: x(0),
+                y2: height,
+                style: {
+                  stroke: '#666',
+                  strokeWidth: 1
+                }
+              }),
+              dom.line({
+                x1: 0,
+                y1: height - 1,
+                x2: width,
+                y2: height - 1,
+                style: {
+                  stroke: '#666',
+                  strokeWidth: 1
+                }
+              }),
+              ticks.map(function(percentileBucket) {
+                return dom.text({
+                  key: percentileBucket,
+                  x: x(percentileBucket),
+                  y: height - 6,
+                  fontSize: 10,
+                  fill: '#666',
+                  textAnchor: 'middle'
+                }, this.withSign(percentileBucket));
               }, this)
             )
           )

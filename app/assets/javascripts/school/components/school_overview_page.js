@@ -191,8 +191,7 @@
         style: { fontSize: styles.fontSize }
       },
         dom.div({ className: 'header', style: styles.header }, createEl(SlicePanels, {
-           allStudents: this.props.allStudents,
-           filteredStudents: this.getFilteredStudents,
+           students: this.getFilteredStudents(),
            InterventionTypes: this.props.InterventionTypes,
            filters: this.state.filters,
            onFilterToggled: this.onFilterToggled

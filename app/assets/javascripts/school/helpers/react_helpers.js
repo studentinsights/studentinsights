@@ -5,10 +5,13 @@
   window.shared.ReactHelpers = {
     dom: React.DOM,
     createEl: React.createElement.bind(React),
-    merge: function(a, b) {
+    merge: function() {
+      var items = Array.prototype.slice.call(arguments);
       var out = {};
-      Object.keys(a).concat(Object.keys(b)).forEach(function(key) {
-        out[key] = b[key] || a[key];
+      items.forEach(function(item) {
+        Object.keys(item).forEach(function(key) {
+          out[key] = item[key];
+        });
       });
       return out;
     }

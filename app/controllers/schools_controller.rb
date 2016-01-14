@@ -50,17 +50,34 @@ class SchoolsController < ApplicationController
 
     # for generating data, or for
     last_school_year = DateToSchoolYear.new(time_now - 1.year).convert
-    clean_student_hashes Student.includes(:assessments).map do |student|
-       student.as_json.merge(star_reading_results: s.star_reading_results.as_json)
+    sliceable_student_hashes(Student.includes(:assessments)) do |student|
+       student.as_json.merge(star_reading_results: student.star_reading_results.as_json)
     end
   end
 
   # remove sensitive-ish fields
-  def clean_student_hashes(student_hashes)
-    student_hashes.map do |student_hash|
-      student_hash.except(:address).merge({
-        first_name: ["Aladdin", "Chip", "Daisy", "Mickey", "Minnie", "Donald", "Elsa", "Mowgli", "Olaf", "Pluto", "Pocahontas", "Rapunzel", "Snow", "Winnie"].sample,
-        last_name: ["Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"].sample
+  def clean_student_hash(student_hash)
+    student_hash.except(:address).merge({
+      first_name: ["Aladdin", "Chip", "Daisy", "Mickey", "Minnie", "Donald", "Elsa", "Mowgli", "Olaf", "Pluto", "Pocahontas", "Rapunzel", "Snow", "Winnie"].sample,
+      last_name: ["Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"].sample
+    })
+  end
+
+  # Takes a lazy collection that has any eager includes needed, and yields each `student`
+  # to a block that returns a hash representation of the student and data from the eager
+  # includes.
+
+  def current_school_year
+    DateToSchoolYear.new(Time.new).convert
+  end
+
+  def sliceable_student_hashes(students_assoc)
+    students_assoc.includes(:interventions, :discipline_incidents).map do |student|
+      yield(student).merge({
+        :interventions => student.interventions.as_json,
+        :discipline_incidents_count => student.discipline_incidents.select do |incident|
+          incident.school_year == current_school_year
+        end.size
       })
     end
   end

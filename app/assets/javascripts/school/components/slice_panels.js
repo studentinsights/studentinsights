@@ -133,7 +133,7 @@
     displayName: 'SlicePanels',
     propTypes: {
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+      students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       InterventionTypes: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
     },
@@ -264,7 +264,7 @@
     },
 
     createItem: function(caption, filter) {
-      var students = this.props.allStudents;
+      var students = this.props.students;
       return {
         caption: caption,
         percentage: (students.length === 0) ? 0 : students.filter(filter.filterFn).length / students.length,
@@ -273,7 +273,7 @@
     },
 
     interventionItems: function() {
-      var students = this.props.allStudents;
+      var students = this.props.students;
       var allInterventions = _.compact(_.flatten(_.pluck(students, 'interventions')));
       var allInterventionTypes = _.unique(allInterventions.map(function(intervention) {
         return parseInt(intervention.intervention_type_id, 10);
@@ -291,7 +291,7 @@
 
     renderGradeTable: function() {
       var key = 'grade';
-      var uniqueValues = _.compact(_.unique(_.pluck(this.props.allStudents, key)));
+      var uniqueValues = _.compact(_.unique(_.pluck(this.props.students, key)));
       var items = uniqueValues.map(function(value) {
         return this.createItem(value, Filters.Equal(key, value));
       }, this);
@@ -316,7 +316,7 @@
     },
 
     renderYearsEnrolled: function() {
-      var uniqueValues = _.compact(_.unique(this.props.allStudents.map(function(student) {
+      var uniqueValues = _.compact(_.unique(this.props.students.map(function(student) {
         return Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
       })));
       var items = uniqueValues.map(function(value) {
@@ -338,14 +338,14 @@
       var itemsWithNull = (_.any(uniqueValues, _.isNull))
         ? items.concat(this.createItem('None', Filters.Null(key)))
         : items;
-      var students = this.props.allStudents;
+      var students = this.props.students;
       return _.sortBy(itemsWithNull, function(item) {
         return -1 * students.filter(item.filter.filterFn).length;
       });
     },
 
     renderSimpleTable: function(title, key, props) {
-      var uniqueValues = _.unique(_.pluck(this.props.allStudents, key));
+      var uniqueValues = _.unique(_.pluck(this.props.students, key));
       var items = this.createItemsFromValues(key, uniqueValues);
       return this.renderTable(merge(props || {}, {
         title: title,
