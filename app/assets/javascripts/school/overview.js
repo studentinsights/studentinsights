@@ -611,7 +611,7 @@ $(function() {
             limit: 5
           }),
           this.renderSimpleTable('Program', 'program_assigned', { limit: 3 }),
-          this.renderSimpleTable('Homeroom', 'homeroom_id', { limit: 3 })         // TODO(kr or as) homeroom names
+          this.renderSimpleTable('Homeroom', 'homeroom_name', { limit: 3 })
         );
       },
 
