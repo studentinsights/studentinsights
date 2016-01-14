@@ -2,10 +2,8 @@ $(function() {
 
   if ($('body').hasClass('schools') && $('body').hasClass('show')) {
 
-    var dom = ReactHelpers.dom;
-    var createEl = ReactHelpers.createEl;
-    var merge = ReactHelpers.merge;
-
+    var Filters = window.shared.Filters;
+    var createEl = window.shared.ReactHelpers.createEl;
 
     function main() {
       var serializedData = $('#serialized-data').data();

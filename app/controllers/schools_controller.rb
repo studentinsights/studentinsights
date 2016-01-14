@@ -32,4 +32,37 @@ class SchoolsController < ApplicationController
     @top_mcas_ela_concerns = homeroom_queries.top_mcas_ela_concerns.first(limit)
   end
 
+  def star_reading
+    time_now = Time.now
+    @serialized_data = {
+      :students_with_star_reading => students_with_star_reading(time_now),
+      :current_school_year => DateToSchoolYear.new(time_now).convert,
+      :intervention_types => InterventionType.all
+    }
+  end
+
+  private
+
+  def students_with_star_reading(time_now)
+    use_fixtures = false
+
+    return IO.read("#{Rails.root}/data/students_with_star_reading.json") if use_fixtures
+
+    # for generating data, or for
+    last_school_year = DateToSchoolYear.new(time_now - 1.year).convert
+    clean_student_hashes Student.includes(:assessments).map do |student|
+       student.as_json.merge(star_reading_results: s.star_reading_results.as_json)
+    end
+  end
+
+  # remove sensitive-ish fields
+  def clean_student_hashes(student_hashes)
+    student_hashes.map do |student_hash|
+      student_hash.except(:address).merge({
+        first_name: ["Aladdin", "Chip", "Daisy", "Mickey", "Minnie", "Donald", "Elsa", "Mowgli", "Olaf", "Pluto", "Pocahontas", "Rapunzel", "Snow", "Winnie"].sample,
+        last_name: ["Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"].sample
+      })
+    end
+  end
+
 end

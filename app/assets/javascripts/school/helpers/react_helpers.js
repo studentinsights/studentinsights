@@ -1,7 +1,8 @@
-(function(root) {
+(function() {
+  window.shared || (window.shared = {});
 
   // React helper fns
-  var ReactHelpers = {
+  window.shared.ReactHelpers = {
     dom: React.DOM,
     createEl: React.createElement.bind(React),
     merge: function(a, b) {
@@ -12,7 +13,4 @@
       return out;
     }
   };
-
-  root.ReactHelpers = ReactHelpers;
-
-})(window)
+})();

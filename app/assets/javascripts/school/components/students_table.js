@@ -1,8 +1,14 @@
 (function(root) {
 
-  var dom = ReactHelpers.dom;
-  var createEl = ReactHelpers.createEl;
-  var merge = ReactHelpers.merge;
+  window.shared || (window.shared = {});
+  var Filters = window.shared.Filters;
+  var Routes = window.shared.Routes;
+  var SlicePanels = window.shared.SlicePanels;
+  var styles = window.shared.styles;
+  var colors = window.shared.colors;
+  var dom = window.shared.ReactHelpers.dom;
+  var createEl = window.shared.ReactHelpers.createEl;
+  var merge = window.shared.ReactHelpers.merge;
 
   var StudentsTable = React.createClass({
     displayName: 'StudentsTable',
