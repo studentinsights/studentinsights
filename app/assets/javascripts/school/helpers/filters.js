@@ -24,7 +24,7 @@
     },
     Null: function(key) {
       return {
-        identifier: ['null', key].join(':'),
+        identifier: ['none', key].join(':'),
         filterFn: function(student) {
           var value = student[key];
           return (value === null || value === undefined) ? true : false;
@@ -59,7 +59,7 @@
       var Filters = window.shared.Filters;
       var parts = identifier.split(':');
       if (parts[0] === 'range') return Filters.Range(parts[1], [parseFloat(parts[2]), parseFloat(parts[3])]);
-      if (parts[0] === 'null') return Filters.Null(parts[1]);
+      if (parts[0] === 'none') return Filters.Null(parts[1]);
       if (parts[0] === 'equal') return Filters.Equal(parts[1], parts[2]);
       if (parts[0] === 'intervention_type') return Filters.InterventionType(parts[1]);
       if (parts[0] === 'years_enrolled') return Filters.YearsEnrolled(parseFloat(parts[1]));
