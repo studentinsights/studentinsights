@@ -14,6 +14,10 @@ $(function() {
     var StarReadingOverviewPage = React.createClass({
       displayName: 'StarReadingOverviewPage',
 
+      propTypes: {
+        initialFilters: React.PropTypes.arrayOf(React.PropTypes.object)
+      },
+
       getDefaultProps: function() {
         return {
           studentLimit: 12
@@ -22,10 +26,21 @@ $(function() {
 
       getInitialState: function() {
         return {
-          filters: [],
+          filters: this.props.initialFilters,
           hoverStudentIds: [],
           hoverText: null
         };
+      },
+
+      // sink-only
+      componentDidUpdate: function() {
+        window.history.pushState({}, null, this.filtersHash());
+      },
+
+      filtersHash: function() {
+        return '#' + this.state.filters.map(function(filter) {
+          return encodeURIComponent(filter.identifier);
+        }).join('&');
       },
 
       setHoverNull: function() {
@@ -288,13 +303,14 @@ $(function() {
         return anchor.add(quartersAfter * 3, 'months').toDate();
       },
 
-      sortedScores: function(bucket) {
-        return _.compact(_.pluck(bucket[1], 'percentile_rank')).sort(d3.ascending);
+      sortedScores: function(assessments) {
+        return _.compact(_.pluck(assessments, 'percentile_rank')).sort(d3.ascending);
       },
 
       renderAllTimeQuartiles: function(options) {
         var width = options.width;
         var height = options.height;
+        var minimumCount = 10; // don't show data points if less than n assessments during period
 
         var students = this.filteredStudents();
         var assessments = this.flattenedAssessments(students);
@@ -349,9 +365,14 @@ $(function() {
               }, this),
               // ticks
               dom.g({}, buckets.map(function(bucket) {
-                var scores = this.sortedScores(bucket);
+                var scores = this.sortedScores(bucket[1]);
                 var date = new Date(parseFloat(bucket[0]));
                 var px = x(date);
+                var tickLines = (bucket[1].length < minimumCount) ? [] : [
+                  this.drawLine(scores, bucket, bucketWidth, px, y(d3.quantile(scores, 0.25)), { key: 25 }),
+                  this.drawLine(scores, bucket, bucketWidth, px, y(d3.quantile(scores, 0.50)), { key: 50, height: 2, fill: '#666' }),
+                  this.drawLine(scores, bucket, bucketWidth, px, y(d3.quantile(scores, 0.75)), { key: 75 })
+                ];
                 return dom.g({ key: bucket[0] },
                   dom.line({
                     x1: px,
@@ -361,19 +382,18 @@ $(function() {
                     stroke: (date.getMonth() === 8) ? '#666' : '#eee',
                     strokeWidth: (date.getMonth() === 8) ? 2 : 1
                   }),
-                  this.drawLine(scores, bucket, bucketWidth, px, y(d3.quantile(scores, 0.25)), { key: 25 }),
-                  this.drawLine(scores, bucket, bucketWidth, px, y(d3.quantile(scores, 0.50)), { key: 50, height: 2, fill: '#666' }),
-                  this.drawLine(scores, bucket, bucketWidth, px, y(d3.quantile(scores, 0.75)), { key: 75 }));
+                  tickLines);
               }, this)),
               // trends
               dom.g({}, [0.25, 0.50, 0.75].map(function(p) {
                 var sortedBuckets = _.sortBy(buckets, function(bucket) { return parseFloat(bucket[0]); });
-                var quantiles = sortedBuckets.map(function(bucket) {
+                var quantiles = _.compact(sortedBuckets.map(function(bucket) {
+                  if (bucket[1].length < minimumCount) return null;
                   return {
                     date: new Date(parseFloat(bucket[0])),
-                    score: d3.quantile(this.sortedScores(bucket), p)
+                    score: d3.quantile(this.sortedScores(bucket[1]), p)
                   };
-                }, this);
+                }, this));
                 var lineGenerator = d3.svg.line()
                   .x(function(d) { return x(d.date) + bucketWidth/2; })
                   .y(function(d) { return y(d.score); })
@@ -527,7 +547,8 @@ $(function() {
 
       ReactDOM.render(createEl(StarReadingOverviewPage, {
         students: serializedData.studentsWithStarReading,
-        InterventionTypes: InterventionTypes
+        InterventionTypes: InterventionTypes,
+        initialFilters: Filters.parseFiltersHash(window.location.hash)
       }), document.getElementById('main'));
     }
 
