@@ -315,8 +315,20 @@
     renderGradeColumn: function() {
       return dom.div({ className: 'column grades-column pad-column-right' },
         this.renderGradeTable(),
-        this.renderYearsEnrolled()
+        this.renderYearsEnrolled(),
+        this.renderRiskLevel()
       );
+    },
+
+    renderRiskLevel: function() {
+      var items = [0, 1, 2, 3].map(function(value) {
+        return this.createItem(value, Filters.RiskLevel(value));
+      }, this);
+
+      return this.renderTable({
+        title: 'Risk level',
+        items: items
+      });
     },
 
     renderYearsEnrolled: function() {
@@ -331,7 +343,7 @@
       return this.renderTable({
         title: 'Years enrolled',
         items: sortedItems,
-        limit: 5
+        limit: 3
       });
     },
 

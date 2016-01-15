@@ -54,6 +54,15 @@
         key: 'years_enrolled'
       };
     },
+    RiskLevel: function(value) {
+      return {
+        identifier: ['risk_level', value].join(':'),
+        filterFn: function(student) {
+          return (student.student_risk_level && student.student_risk_level.level === value);
+        }
+      };
+    },
+
     // Has to parse from string back to numeric
     createFromIdentifier: function(identifier) {
       var Filters = window.shared.Filters;
@@ -62,6 +71,7 @@
       if (parts[0] === 'none') return Filters.Null(parts[1]);
       if (parts[0] === 'equal') return Filters.Equal(parts[1], parts[2]);
       if (parts[0] === 'intervention_type') return Filters.InterventionType(parts[1]);
+      if (parts[0] === 'risk_level') return Filters.InterventionType(parseFloat(parts[1]));
       if (parts[0] === 'years_enrolled') return Filters.YearsEnrolled(parseFloat(parts[1]));
       return null;
     },
