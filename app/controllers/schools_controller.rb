@@ -4,7 +4,7 @@ class SchoolsController < ApplicationController
 
   def show
     @serialized_data = {
-      students: overview_students,
+      students: Student.serialized_data,
       intervention_types: InterventionType.all
     }
   end
@@ -30,14 +30,6 @@ class SchoolsController < ApplicationController
     @top_tardies = homeroom_queries.top_tardies.first(limit)
     @top_mcas_math_concerns = homeroom_queries.top_mcas_math_concerns.first(limit)
     @top_mcas_ela_concerns = homeroom_queries.top_mcas_ela_concerns.first(limit)
-  end
-
-  private
-
-  def overview_students
-    Student.includes(:interventions, :discipline_incidents).map do |student|
-      student.data
-    end
   end
 
 end

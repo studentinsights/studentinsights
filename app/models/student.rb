@@ -13,7 +13,7 @@ class Student < ActiveRecord::Base
   validates_uniqueness_of :local_id
   after_create :update_student_school_years
 
-  def data
+  def serialized_data
     current_school_year = DateToSchoolYear.new(Time.new).convert
     as_json.merge({
       interventions: interventions.as_json,
@@ -22,6 +22,12 @@ class Student < ActiveRecord::Base
         incident.school_year == current_school_year
       end.size
     })
+  end
+
+  def self.serialized_data
+    includes(:interventions, :discipline_incidents).map do |student|
+      student.serialized_data
+    end
   end
 
   ## STUDENT ASSESSMENT RESULTS ##
