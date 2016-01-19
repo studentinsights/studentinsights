@@ -113,7 +113,7 @@ describe HomeroomsController, :type => :controller do
         context 'garbage homeroom params' do
           it 'redirects to first homeroom' do
             make_request('garbage homeroom ids rule')
-            expect(response).to redirect_to(first_homeroom_path)
+            expect(response).to redirect_to(no_homeroom_url)
           end
         end
 

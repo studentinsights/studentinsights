@@ -32,17 +32,31 @@ describe EducatorsController, :type => :controller do
     end
 
     context 'admin' do
-      let(:educator) { FactoryGirl.create(:educator, :admin) }
 
-      context 'school exists' do
-        let!(:school) { FactoryGirl.create(:school) }
-        it 'redirects to first school overview page' do
-          make_request
-          expect(response).to redirect_to(school_url(School.first))
+      context 'schools exist in db' do
+
+        context 'educator assigned to school' do
+          let!(:school) { FactoryGirl.create(:school) }
+          let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+          it 'redirects to the correct school' do
+            make_request
+            expect(response).to redirect_to(school_url(school))
+          end
+        end
+
+        context 'educator not assigned to school' do
+          let(:educator) { FactoryGirl.create(:educator, :admin) }
+          let!(:school) { FactoryGirl.create(:school) }
+          let!(:another_school) { FactoryGirl.create(:school) }
+          it 'redirects to first school page' do
+            make_request
+            expect(response).to redirect_to(school_url(School.first))
+          end
         end
       end
 
       context 'no schools exist' do
+        let(:educator) { FactoryGirl.create(:educator, :admin) }
         it 'throws an error' do
           expect { make_request }.to raise_error ActionController::UrlGenerationError
         end
