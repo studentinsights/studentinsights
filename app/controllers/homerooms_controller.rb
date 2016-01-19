@@ -61,24 +61,5 @@ class HomeroomsController < ApplicationController
     end
   end
 
-  def authorize_and_assign_homeroom
-    @requested_homeroom = Homeroom.friendly.find(params[:id])
-
-    if current_educator.allowed_homerooms.include? @requested_homeroom
-      @homeroom = @requested_homeroom
-    else
-      redirect_to_default_homeroom
-    end
-  rescue ActiveRecord::RecordNotFound     # Params don't match an actual homeroom
-    redirect_to_default_homeroom
-  end
-
-  def redirect_to_default_homeroom
-    redirect_to homeroom_path(current_educator.default_homeroom)
-  rescue Exceptions::NoAssignedHomeroom   # Thrown by educator#default_homeroom if no default homeroom exists
-    redirect_to no_homeroom_path
-  rescue Exceptions::NoHomerooms
-    redirect_to no_homerooms_path
-  end
 
 end

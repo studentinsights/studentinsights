@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :educators
 
   authenticated :educator do
-    root :to => "homerooms#show", as: "roster"
+    root to: 'educators#homepage', as: 'educator_homepage'
   end
 
   root 'pages#about'

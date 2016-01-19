@@ -19,4 +19,25 @@ class ApplicationController < ActionController::Base
     redirect_to(new_educator_session_path) unless current_educator.admin?
   end
 
+  private
+
+  def authorize_and_assign_homeroom
+    @requested_homeroom = Homeroom.friendly.find(params[:id])
+
+    if current_educator.allowed_homerooms.include? @requested_homeroom
+      @homeroom = @requested_homeroom
+    else
+      redirect_to_default_homeroom
+    end
+  rescue ActiveRecord::RecordNotFound     # Params don't match an actual homeroom
+    redirect_to_default_homeroom
+  end
+
+  def redirect_to_default_homeroom
+    redirect_to homeroom_path(current_educator.default_homeroom)
+  rescue Exceptions::NoAssignedHomeroom   # Thrown by educator without default homeroom
+    redirect_to no_homeroom_path
+  rescue Exceptions::NoHomerooms
+    redirect_to no_homerooms_path
+  end
 end
