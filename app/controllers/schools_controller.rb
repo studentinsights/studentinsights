@@ -3,34 +3,10 @@ class SchoolsController < ApplicationController
   before_action :authenticate_admin!
 
   def show
-    @use_fixtures = false      # Toggle between using demo development data
-                               # and real data loaded in as a JSON fixture
-
-    unless @use_fixtures
-      @serialized_data = {
-        students: overview_students,
-        intervention_types: InterventionType.all
-      }
-    else
-      # To generate new fixture data, look at @serialized_data above and run that Rails code
-      # on a console.
-      # Take the printed JSON output, and use this JS to remove personal identifers:
-
-      #   var firstNames = ["Aladdin", "Chip", "Daisy", "Mickey", "Minnie", "Donald", "Elsa", "Mowgli", "Olaf", "Pluto", "Pocahontas", "Rapunzel", "Snow", "Winnie"];
-      #   var lastNames = ["Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"];
-      #   ss.forEach(function(s) {
-      #     delete s.student_address;
-      #     s.first_name = firstNames[Math.floor(Math.random()* firstNames.length)];
-      #     s.last_name = lastNames[Math.floor(Math.random()* lastNames.length)];
-      #   })
-      #   JSON.stringify(ss);
-
-      # This data should still be considered private and not checked into source control, but doing a rough pass
-      # to remove names is useful when working in a semi-public space.
-
-      fixture_path = "#{Rails.root}/data/cleaned_all_ss.json"
-      @serialized_data = IO.read(fixture_path).html_safe if File.exist? fixture_path
-    end
+    @serialized_data = {
+      students: overview_students,
+      intervention_types: InterventionType.all
+    }
   end
 
   def students
