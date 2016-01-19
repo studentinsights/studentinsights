@@ -23,7 +23,7 @@
             <% end %>
             <div class="nav-options">
               <% current_school = current_educator.try(:allowed_homerooms).try(:first).try(:students).try(:first).try(:school) %>
-              <% if educator_signed_in? && current_school.present? %>
+              <% if current_school.present? %>
                 <p class="search-label">Search for student:</p>
                 <input id="student-searchbar" />
                 <% unless controller_name == 'schools' && action_name == 'show' %>
