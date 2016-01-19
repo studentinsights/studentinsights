@@ -1,5 +1,8 @@
 FactoryGirl.define do
 
+  factory :school do
+  end
+
   factory :healey, class: School do
     state_id 15
     slug 'hea'
