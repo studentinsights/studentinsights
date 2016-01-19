@@ -24,12 +24,12 @@
             <div class="nav-options">
               <% current_school = current_educator.try(:allowed_homerooms).try(:first).try(:students).try(:first).try(:school) %>
               <% if educator_signed_in? && current_school.present? %>
-                <p>At risk:</p>
-                <%= link_to 'Students', school_path(current_school.id) %>
-                <%= link_to 'Classrooms', homerooms_school_path(current_school.id) %>
+                <p class="search-label">Search for student:</p>
+                <input id="student-searchbar" />
+                <% unless controller_name == 'schools' && action_name == 'show' %>
+                  <%= link_to 'School Overview Dashboard', school_path(current_school.id) %>
+                <% end %>
               <% end %>
-              <p class="search-label">Search for student:</p>
-              <input id="student-searchbar" />
             </div>
             <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
           <% else %>
