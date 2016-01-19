@@ -19,7 +19,4 @@ class ApplicationController < ActionController::Base
     redirect_to(new_educator_session_path) unless current_educator.admin?
   end
 
-  def not_found
-    raise ActionController::RoutingError.new('Not Found')
-  end
 end
