@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe SchoolsController, :type => :controller do
 
-  describe '#show' do
+  describe '#students' do
 
     def make_request(school_id)
       request.env['HTTPS'] = 'on'
-      get :show, id: school_id
+      get :students, id: school_id
     end
 
     before { sign_in(educator) }

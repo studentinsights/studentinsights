@@ -1,6 +1,6 @@
 $(function() {
 
-  if ($('body').hasClass('schools') && $('body').hasClass('overview')) {
+  if ($('body').hasClass('schools') && $('body').hasClass('show')) {
 
     // React helper fns
     var ReactHelpers = {
