@@ -66,7 +66,7 @@ class Settings::SomervilleSettings
   end
 
   def local_importers
-    HealeyAfterSchoolTutoringImporter.new
+    [HealeyAfterSchoolTutoringImporter.new]
   end
 
   def configuration
