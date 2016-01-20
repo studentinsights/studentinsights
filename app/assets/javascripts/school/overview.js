@@ -11,19 +11,6 @@ $(function() {
       return Math.floor((new Date() - new Date(registration_date)) / (1000 * 60 * 60 * 24 * 365));
     };
 
-    // Routing functions
-    var baseUrl = 'https://somerville-teacher-tool.herokuapp.com'; // for local hacking
-    var Routes = {
-      student: function(id) {
-        return baseUrl + '/students/' + id;
-      },
-      homeroom: function(id) {
-        return baseUrl + '/homerooms/' + id;
-      }
-    };
-
-
-
     // Define filter operations
     var Filters = {
       Range: function(key, range) {
