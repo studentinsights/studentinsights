@@ -29,18 +29,10 @@ module Importer
     end
     file_as_string = File.read(path).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
     data = @data_transformer.transform(file_as_string)
-    import_locally(data)
+    import(data)
   end
 
   def import(data)
-    data.each do |row|
-      row.length.times { row.delete(nil) }
-      handle_row(row)
-    end
-    return data
-  end
-
-  def import_locally(data)
     # Set up for progress bar
     n = 0
     progress_bar = ProgressBar.new(data.size, remote_file_name)
