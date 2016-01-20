@@ -12,9 +12,17 @@ class EducatorsImporter
 
   def import_row(row)
     educator = Educator.where(local_id: row[:local_id]).first_or_create!
-    attributes = Hash[row].except(:homeroom)
+
+    # Set homeroom
     update_homeroom(educator, row[:homeroom]) if row[:homeroom]
+
+    # Set staff_type, name, and IDs
+    attributes = Hash[row].except(:homeroom)
     educator.update_attributes(attributes)
+
+    # Set admin status
+    admin = (row[:staff_type].present? && row[:staff_type].downcase == "administrator")
+    educator.update_attribute(:admin, admin)
   end
 
   def update_homeroom(educator, homeroom_name)
