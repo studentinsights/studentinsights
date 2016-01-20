@@ -21,6 +21,8 @@ GEM
       activemodel (= 4.1.4)
       activesupport (= 4.1.4)
       arel (~> 5.0.0)
+    activerecord-import (0.10.0)
+      activerecord (>= 3.0)
     activesupport (4.1.4)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -99,9 +101,6 @@ GEM
       tilt (~> 1.2)
     hike (1.2.3)
     i18n (0.7.0)
-    jbuilder (2.3.1)
-      activesupport (>= 3.0.0, < 5)
-      multi_json (~> 1.2)
     jmespath (1.0.2)
       multi_json (~> 1.0)
     jquery-rails (3.1.4)
@@ -172,8 +171,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.15.0)
     rake (10.4.2)
-    rdoc (4.2.0)
-      json (~> 1.4)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rspec-core (3.3.2)
@@ -201,10 +198,9 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-    sdoc (0.4.1)
-      json (~> 1.7, >= 1.7.7)
-      rdoc (~> 4.0)
     seedbank (0.3.0)
+    shoulda-matchers (3.0.1)
+      activesupport (>= 4.0.0)
     simplecov (0.10.0)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -257,6 +253,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   aws-sdk-core (~> 2)
   better_errors
   binding_of_caller
@@ -265,7 +262,6 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rails
   capybara
-  coffee-rails (~> 4.0.0)
   database_cleaner
   devise
   devise_ldap_authenticatable
@@ -273,7 +269,6 @@ DEPENDENCIES
   faker
   friendly_id (~> 5.1.0)
   handlebars_assets (~> 0.22.0)
-  jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails (~> 5.0.3)
   launchy
@@ -293,8 +288,8 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   rubystats
   sass-rails (~> 4.0.3)
-  sdoc (~> 0.4.0)
   seedbank
+  shoulda-matchers
   simplecov
   spring
   squasher
