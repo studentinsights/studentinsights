@@ -1,7 +1,7 @@
 module Importer
-  # Any class this module must implement these two methods:
+  # Any class that includes this module must implement these two methods:
   # remote_file_name => string pointing to the name of the remote file to parse
-  # import_row => function that describes how to handle each row (implemented by handle_row)
+  # import_row => function that describes how to handle each row (called by handle_row)
 
   attr_reader :client, :data_transformer, :school_scope, :recent_only, :first_time
 
