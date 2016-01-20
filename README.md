@@ -10,6 +10,7 @@ Student Insights enables educators to see at-risk students and match them to the
 - [Tests](#tests)
 - [Deployment](#deployment)
     - [Heroku](#heroku)
+    - [LDAP](#ldap)
     - [AWS](#aws)
     - [Your own server](#your-own-server)
 - [Browsers](#browsers)
@@ -72,7 +73,13 @@ teaspoon
 
 We deployed this app on Heroku and you can, too.
 
-Set strong secret keys for `DEVISE_SECRET_KEY` and `SECRET_KEY_BASE`.
+[Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with Somerville's LDAP server behind a firewall. This requires additional configuration to prevent Quotaguard Static from interfering with the connection between application and database. One way to accomplish this is to set a `QUOTAGUARDSTATIC_MASK` environment variable that routes only outbound traffic to certain IP subnets using the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
+
+Set strong secret keys for `DEVISE_SECRET_KEY` and `SECRET_KEY_BASE` when you deploy.
+
+### LDAP
+
+The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set a `DEMO_SITE` environment variable. Authentication strategies are defined in `educator.rb`.
 
 ### AWS
 
