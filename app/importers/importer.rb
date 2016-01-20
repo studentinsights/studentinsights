@@ -38,7 +38,7 @@ module Importer
 
     # Import
     data.each do |row|
-      row.length.times { row.delete(nil) }
+      row.delete_if { |key, value| key.empty? }
       handle_row(row)
       n += 1; print progress_bar.current_status(n)
     end
