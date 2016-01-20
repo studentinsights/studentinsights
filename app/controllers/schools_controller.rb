@@ -3,6 +3,13 @@ class SchoolsController < ApplicationController
   before_action :authenticate_admin!
 
   def show
+    @serialized_data = {
+      students: Student.serialized_data,
+      intervention_types: InterventionType.all
+    }
+  end
+
+  def students
     @school = School.friendly.find(params[:id])
     attendance_queries = AttendanceQueries.new(@school)
     mcas_queries = McasQueries.new(@school)
@@ -24,4 +31,5 @@ class SchoolsController < ApplicationController
     @top_mcas_math_concerns = homeroom_queries.top_mcas_math_concerns.first(limit)
     @top_mcas_ela_concerns = homeroom_queries.top_mcas_ela_concerns.first(limit)
   end
+
 end

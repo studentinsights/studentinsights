@@ -2,6 +2,69 @@ require 'rails_helper'
 
 describe EducatorsController, :type => :controller do
 
+  describe '#homepage' do
+
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :homepage
+    end
+
+    before { sign_in(educator) }
+
+    context 'non admin' do
+
+      context 'with homeroom' do
+        let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom) }
+        it 'redirects to default homeroom' do
+          make_request
+          expect(response).to redirect_to(homeroom_url(educator.homeroom))
+        end
+      end
+
+      context 'without homeroom' do
+        let!(:educator) { FactoryGirl.create(:educator) }
+        let!(:homeroom) { FactoryGirl.create(:homeroom) }   # Not associated with educator
+        it 'redirects to no homeroom assigned page' do
+          make_request
+          expect(response).to redirect_to(no_homeroom_url)
+        end
+      end
+    end
+
+    context 'admin' do
+
+      context 'schools exist in db' do
+
+        context 'educator assigned to school' do
+          let!(:school) { FactoryGirl.create(:school) }
+          let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+          it 'redirects to the correct school' do
+            make_request
+            expect(response).to redirect_to(school_url(school))
+          end
+        end
+
+        context 'educator not assigned to school' do
+          let(:educator) { FactoryGirl.create(:educator, :admin) }
+          let!(:school) { FactoryGirl.create(:school) }
+          let!(:another_school) { FactoryGirl.create(:school) }
+          it 'redirects to first school page' do
+            make_request
+            expect(response).to redirect_to(school_url(School.first))
+          end
+        end
+      end
+
+      context 'no schools exist' do
+        let(:educator) { FactoryGirl.create(:educator, :admin) }
+        it 'throws an error' do
+          expect { make_request }.to raise_error ActionController::UrlGenerationError
+        end
+      end
+
+    end
+  end
+
   describe '#reset_session_clock' do
     def make_request
       request.env['HTTPS'] = 'on'
@@ -15,6 +78,7 @@ describe EducatorsController, :type => :controller do
         expect(response).to have_http_status(:unauthorized)
       end
     end
+
     context 'educator is logged in' do
       before(:each) do
         sign_in FactoryGirl.create(:educator)
@@ -29,5 +93,6 @@ describe EducatorsController, :type => :controller do
         # expect(educator_session["last_request_at"]).eq Time.now
       end
     end
+
   end
 end

@@ -20,15 +20,18 @@ describe HomeroomsController, :type => :controller do
         expect(response).to redirect_to(new_educator_session_path)
       end
     end
+
     context 'non-admin educator with homeroom logged in' do
       before { sign_in(educator) }
+
       context 'no homeroom params' do
-        before { make_request }
-        it 'redirects to educator\'s homeroom' do
-          expect(response).to redirect_to(homeroom_path(educator.homeroom))
+        it 'raises an error' do
+          expect { make_request }.to raise_error ActionController::UrlGenerationError
         end
       end
+
       context 'homeroom params' do
+
         context 'garbage params' do
           it 'does not raise an error' do
             expect { make_request('garbage homeroom ids rule') }.not_to raise_error
@@ -38,6 +41,7 @@ describe HomeroomsController, :type => :controller do
             expect(response).to redirect_to(homeroom_path(educator.homeroom))
           end
         end
+
         context 'homeroom belongs to educator' do
           it 'is successful' do
             make_request(educator.homeroom.slug)
@@ -63,6 +67,7 @@ describe HomeroomsController, :type => :controller do
             end
           end
         end
+
         context 'homeroom does not belong to educator' do
           context 'homeroom is grade level as educator\'s' do
             let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
@@ -79,16 +84,19 @@ describe HomeroomsController, :type => :controller do
             end
           end
         end
+
       end
     end
+
     context 'admin educator logged in' do
       before { sign_in(admin_educator) }
+
       context 'no homeroom params' do
-        it 'redirects to first homeroom' do
-          make_request
-          expect(response).to redirect_to(first_homeroom_path)
+        it 'raises an error' do
+          expect { make_request }.to raise_error ActionController::UrlGenerationError
         end
       end
+
       context 'homeroom params' do
         context 'good homeroom params' do
           let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
@@ -101,22 +109,26 @@ describe HomeroomsController, :type => :controller do
             expect(assigns(:homerooms_by_name)).to eq(Homeroom.order(:name))
           end
         end
+
         context 'garbage homeroom params' do
           it 'redirects to first homeroom' do
             make_request('garbage homeroom ids rule')
-            expect(response).to redirect_to(first_homeroom_path)
+            expect(response).to redirect_to(no_homeroom_url)
           end
         end
+
       end
     end
+
     context 'non-admin without homeroom logged in' do
       before { sign_in(educator_without_homeroom) }
+
       context 'no homeroom params' do
-        it 'redirects to no-homeroom error page' do
-          make_request
-          expect(response).to redirect_to(no_homeroom_url)
+        it 'raises an error' do
+          expect { make_request }.to raise_error ActionController::UrlGenerationError
         end
       end
+
       context 'homeroom params' do
         let!(:homeroom) { FactoryGirl.create(:homeroom) }
         it 'redirects to no-homeroom error page' do
@@ -125,5 +137,6 @@ describe HomeroomsController, :type => :controller do
         end
       end
     end
+
   end
 end

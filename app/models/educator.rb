@@ -5,17 +5,21 @@ class Educator < ActiveRecord::Base
   devise :database_authenticatable if Rails.env.development? || ENV['DEMO_SITE']    # Don't make real LDAP
                                                                                     # queries in development
                                                                                     # mode or on the demo site.
-  has_one :homeroom
-  has_many :students, through: :homeroom
-  has_many :interventions
-  has_many :progress_notes, through: :interventions
-  has_many :student_notes
+  belongs_to  :school
+  has_one     :homeroom
+  has_many    :students, through: :homeroom
+  has_many    :interventions
+  has_many    :progress_notes, through: :interventions
+  has_many    :student_notes
 
   def default_homeroom
     raise Exceptions::NoHomerooms if Homeroom.count == 0    # <= We can't show any homerooms if there are none
-    return Homeroom.first if admin?                         # <= Pick a homeroom to show admin (change to admin dashboard when it's ready)
     return homeroom if homeroom.present?                    # <= Logged-in educator has an assigned homeroom
     raise Exceptions::NoAssignedHomeroom                    # <= Logged-in educator has no assigned homeroom
+  end
+
+  def default_school_for_admin
+    school || School.first
   end
 
   def allowed_homerooms

@@ -19,7 +19,13 @@ class ApplicationController < ActionController::Base
     redirect_to(new_educator_session_path) unless current_educator.admin?
   end
 
-  def not_found
-    raise ActionController::RoutingError.new('Not Found')
+  private
+
+  def redirect_to_default_homeroom
+    redirect_to homeroom_path(current_educator.default_homeroom)
+  rescue Exceptions::NoAssignedHomeroom   # Thrown by educator without default homeroom
+    redirect_to no_homeroom_path
+  rescue Exceptions::NoHomerooms
+    redirect_to no_homerooms_path
   end
 end

@@ -13,7 +13,6 @@
 }
 
 body {
-  background-color: $backgroud;
 }
 
 .info-area {
@@ -123,4 +122,18 @@ textarea {
   width: 96%;
   margin: auto auto;
   padding: 10px;
+}
+
+
+/* THEME COLORS */
+.math-background {
+  background-color: $math;
+}
+
+.ela-background {
+  background-color: $ela;
+}
+
+.attendance-background {
+  background-color: $attendance;
 }

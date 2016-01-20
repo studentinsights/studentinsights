@@ -25,12 +25,19 @@
 //= require lodash.3.10.1.min
 //= require rounded-corners
 //= require handlebars.runtime
+//= require react-0.14.3.js
+//= require react-dom-0.14.3
 
 // shared across application:
 //= require datepicker_config
 //= require session_timeout_warning
 //= require student-searchbar
 
+// react components:
+//= require_tree ./react_helpers
+//= require_tree ./components
+
 // pages:
 //= require_tree ./roster
 //= require_tree ./student
+//= require_tree ./school

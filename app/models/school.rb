@@ -2,6 +2,7 @@ class School < ActiveRecord::Base
   extend FriendlyId
   friendly_id :local_id, use: :slugged
   has_many :students
+  has_many :educators
 
   def self.seed_somerville_schools
     School.create([

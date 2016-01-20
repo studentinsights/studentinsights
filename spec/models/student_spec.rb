@@ -1,6 +1,66 @@
 require 'rails_helper'
 
 RSpec.describe Student do
+
+  describe '#serialized_data' do
+    let(:serialized_data) { student.serialized_data }
+
+    context 'no events or student attributes' do
+      let(:student) { FactoryGirl.create(:student) }
+      it 'includes nil student attributes' do
+        expect(serialized_data).to include({
+         "absences_count_most_recent_school_year" => nil,
+         "disability" => nil,
+         "first_name" => nil,
+         "free_reduced_lunch" => nil,
+         "grade" => nil,
+         "hispanic_latino" => nil,
+         "home_language" => nil,
+         "last_name" => nil,
+         "limited_english_proficiency" => nil,
+         "most_recent_mcas_ela_growth" => nil,
+         "most_recent_mcas_ela_performance" => nil,
+         "most_recent_mcas_ela_scaled" => nil,
+         "most_recent_mcas_math_growth" => nil,
+         "most_recent_mcas_math_performance" => nil,
+         "most_recent_mcas_math_scaled" => nil,
+         "most_recent_star_math_percentile" => nil,
+         "most_recent_star_reading_percentile" => nil,
+         "plan_504" => nil,
+         "program_assigned" => nil,
+         "race" => nil,
+         "registration_date" => nil,
+         "school_id" => nil,
+         "sped_level_of_need" => nil,
+         "sped_placement" => nil,
+         "state_id" => nil,
+         "student_address" => nil,
+         "tardies_count_most_recent_school_year" => nil,
+        })
+      end
+      it 'returns an empty array of interventions' do
+        expect(serialized_data[:interventions]).to eq []
+      end
+      it 'returns a discipline incident count of zero' do
+        expect(serialized_data[:discipline_incidents_count]).to eq 0
+      end
+    end
+
+    context 'with interventions' do
+      let(:student) { FactoryGirl.create(:student_with_one_atp_intervention) }
+      it 'returns 1 intervention' do
+        expect(serialized_data[:interventions].size).to eq 1
+      end
+      it 'returns correct intervention data' do
+        expect(serialized_data[:interventions][0]).to include({
+          "student_id"=>student.id,
+          "number_of_hours"=>10,
+        })
+      end
+    end
+
+  end
+
   describe '#latest_result_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
     let(:assessment_family) { "MCAS" }

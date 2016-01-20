@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :educators
 
   authenticated :educator do
-    root :to => "homerooms#show", as: "roster"
+    root to: 'educators#homepage', as: 'educator_homepage'
   end
 
   root 'pages#about'
@@ -22,5 +22,6 @@ Rails.application.routes.draw do
   resources :bulk_intervention_assignments
   resources :schools do
     get :homerooms, on: :member
+    get :students, on: :member
   end
 end
