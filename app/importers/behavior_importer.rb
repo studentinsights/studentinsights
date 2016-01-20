@@ -3,6 +3,11 @@ class BehaviorImporter
   include Importer
 
   def remote_file_name
+    # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
+    #
+    # [ "state_id", "local_id", "incident_code", "event_date", "incident_time",
+    #   "incident_location", "incident_description", "school_local_id" ]
+
     'behavior_export.txt'
   end
 
