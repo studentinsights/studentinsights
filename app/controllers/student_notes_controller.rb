@@ -1,6 +1,8 @@
 class StudentNotesController < ApplicationController
   include SerializeDataHelper
 
+  # Authentication by default inherited from ApplicationController.
+
   def create
     student_note = StudentNote.new(student_note_params)
     student_note.educator = current_educator

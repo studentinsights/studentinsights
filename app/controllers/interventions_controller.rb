@@ -1,7 +1,7 @@
 class InterventionsController < ApplicationController
   include SerializeDataHelper
 
-  before_action :authenticate_admin!, only: [:destroy]
+  before_action :authenticate_admin!, only: [:destroy]   # Defined in ApplicationController.
 
   # ^ Guidance on permissions from Healy Principal Jill Geiser:
   #

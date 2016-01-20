@@ -1,5 +1,7 @@
 class BulkInterventionAssignmentsController < ApplicationController
 
+  # Authentication by default inherited from ApplicationController.
+
   def new
     @bulk_intervention_assignment = BulkInterventionAssignment.new
   end
