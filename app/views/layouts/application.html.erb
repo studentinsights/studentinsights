@@ -23,7 +23,7 @@
               <input id="student-searchbar" />
               <% if current_educator.admin? %>
                 <% unless controller_name == 'schools' && action_name == 'show' %>
-                  <% current_school = educator.try(:allowed_homerooms).try(:first).try(:students).try(:first).try(:school) %>
+                  <% current_school = current_educator.try(:allowed_homerooms).try(:first).try(:students).try(:first).try(:school) %>
                   <%= link_to 'School Overview Dashboard', school_path(current_school.id) %>
                 <% end %>
               <% end %>
