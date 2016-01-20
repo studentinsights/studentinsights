@@ -2,22 +2,9 @@ $(function() {
 
   if ($('body').hasClass('schools') && $('body').hasClass('show')) {
 
-    // React helper fns
-    var ReactHelpers = {
-      dom: React.DOM,
-      createEl: React.createElement.bind(React),
-      merge: function(a, b) {
-        var out = {};
-        Object.keys(a).concat(Object.keys(b)).forEach(function(key) {
-          out[key] = b[key] || a[key];
-        });
-        return out;
-      }
-    };
     var dom = ReactHelpers.dom;
     var createEl = ReactHelpers.createEl;
     var merge = ReactHelpers.merge;
-
 
     function calculateYearsEnrolled (registration_date) {
       if (registration_date === null) return null;

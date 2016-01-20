@@ -33,6 +33,10 @@
 //= require session_timeout_warning
 //= require student-searchbar
 
+// react components:
+//= require_tree ./react_helpers
+//= require_tree ./components
+
 // pages:
 //= require_tree ./roster
 //= require_tree ./student
