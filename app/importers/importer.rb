@@ -41,7 +41,7 @@ module Importer
   end
 
   def import_locally(data)
-    # Set up for proress bar
+    # Set up for progress bar
     n = 0
     progress_bar = ProgressBar.new(data.size, remote_file_name)
 
