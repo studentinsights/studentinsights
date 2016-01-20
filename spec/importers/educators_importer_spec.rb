@@ -5,24 +5,46 @@ RSpec.describe EducatorsImporter do
 
   describe '#import_row' do
     context 'good row' do
-      let(:row) {
-        { state_id: "500", local_id: "200", full_name: "Young, Jenny" }
-      }
       context 'new educator' do
-        it 'creates an educator' do
-          expect { importer.import_row(row) }.to change(Educator, :count).by 1
+
+        context 'non-administrator' do
+          let(:row) {
+            { state_id: "500", local_id: "200", full_name: "Young, Jenny" }
+          }
+          it 'creates an educator' do
+            expect { importer.import_row(row) }.to change(Educator, :count).by 1
+          end
+          it 'sets the attributes correctly' do
+            importer.import_row(row)
+            educator = Educator.last
+            expect(educator.full_name).to eq("Young, Jenny")
+            expect(educator.state_id).to eq("500")
+            expect(educator.local_id).to eq("200")
+            expect(educator.admin).to eq(false)
+          end
         end
-        it 'sets the attributes correctly' do
-          importer.import_row(row)
-          educator = Educator.last
-          expect(educator.full_name).to eq("Young, Jenny")
-          expect(educator.state_id).to eq("500")
-          expect(educator.local_id).to eq("200")
+
+        context 'administrator' do
+          let(:row) {
+            { local_id: "300", full_name: "Hill, Marian", staff_type: "Administrator" }
+          }
+
+          it 'sets the administrator attribute correctly' do
+            importer.import_row(row)
+            educator = Educator.last
+            expect(educator.admin).to eq(true)
+          end
         end
+
       end
 
       context 'educator already exists' do
         let!(:educator) { FactoryGirl.create(:educator, :local_id_200) }
+
+        let(:row) {
+          { state_id: "500", local_id: "200", full_name: "Young, Jenny" }
+        }
+
         it 'does not create an educator' do
           expect { importer.import_row(row) }.to change(Educator, :count).by 0
         end
