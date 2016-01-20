@@ -34,20 +34,17 @@ module Importer
 
   def import(data)
     # Set up for progress bar
-    n = 0
-    progress_bar = ProgressBar.new(data.size, remote_file_name)
+    n = 0; progress_bar = ProgressBar.new(data.size, remote_file_name)
 
     # Import
     data.each do |row|
       row.length.times { row.delete(nil) }
       handle_row(row)
-      n += 1
-      print progress_bar.current_status(n)
+      n += 1; print progress_bar.current_status(n)
     end
 
     # Exit
-    puts
-    return data
+    puts; return data
   end
 
   def handle_row(row)
