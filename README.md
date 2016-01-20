@@ -70,7 +70,9 @@ teaspoon
 
 ### Heroku
 
-We deployed this app on Heroku and you can, too. Set config variables for DEVISE_SECRET_KEY and SECRET_KEY_BASE in `local_env.yml` before deploying.
+We deployed this app on Heroku and you can, too.
+
+Set strong secret keys for `DEVISE_SECRET_KEY` and `SECRET_KEY_BASE`.
 
 ### AWS
 
