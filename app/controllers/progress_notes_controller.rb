@@ -1,6 +1,8 @@
 class ProgressNotesController < ApplicationController
   include SerializeDataHelper
 
+  # Authentication by default inherited from ApplicationController.
+
   def create
     progress_note = ProgressNote.new(progress_note_params)
 

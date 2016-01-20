@@ -1,5 +1,7 @@
 class EducatorsController < ApplicationController
 
+  # Authentication by default inherited from ApplicationController.
+
   def homepage
     if current_educator.admin?
       redirect_to school_url(current_educator.default_school_for_admin)

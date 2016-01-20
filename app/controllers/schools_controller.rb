@@ -1,6 +1,6 @@
 class SchoolsController < ApplicationController
 
-  before_action :authenticate_admin!
+  before_action :authenticate_admin!      # Defined in ApplicationController.
 
   def show
     @serialized_data = {

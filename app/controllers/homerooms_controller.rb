@@ -1,5 +1,7 @@
 class HomeroomsController < ApplicationController
 
+  # Authentication by default inherited from ApplicationController.
+
   before_action :authorize_and_assign_homeroom
 
   def show

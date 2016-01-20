@@ -1,6 +1,8 @@
 class StudentsController < ApplicationController
   include SerializeDataHelper
 
+  # Authentication by default inherited from ApplicationController.
+
   def show
     @student = Student.find(params[:id])
     @presenter = StudentPresenter.new(@student)
