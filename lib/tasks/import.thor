@@ -20,8 +20,8 @@ class Import < Thor
       if options["district"] == "Somerville" && School.count == 0
         School.seed_somerville_schools
       end
-      school_scope = School.find_by_local_id(options["school"])
-      raise "School not found" if school_scope.blank?
+      school_scope = School.find_by_local_id!(options["school"]).local_id  # Use find_by! to make sure
+                                                                           # school exists in database
     end
 
     importers = Settings.new({
