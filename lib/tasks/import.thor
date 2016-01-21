@@ -16,17 +16,20 @@ class Import < Thor
   def start
     require './config/environment'
 
-    if options["school"].present?
-      if options["district"] == "Somerville" && School.count == 0
-        School.seed_somerville_schools
-      end
-      school_scope = School.find_by_local_id!(options["school"]).local_id  # Use find_by! to make sure
-                                                                           # school exists in database
-    end
+    # Create Somerville schools from seed file if they are missing
+
+    School.seed_somerville_schools if options["district"] == "Somerville" &&
+                                      School.count == 0
+
+    # Make sure school exists in database if school scope is set and refers
+    # to a particular school. No need to check if scope is all elementary schools.
+
+    School.find_by_local_id!(options["school"]) if options["school"].present? &&
+                                                   options["school"] != "ELEM"
 
     importers = Settings.new({
       district_scope: options["district"],
-      school_scope: school_scope,
+      school_scope: options["school"],
       first_time: options["first_time"],
       recent_only: options["recent_only"]
     }).configure
@@ -51,5 +54,6 @@ class Import < Thor
     puts "#{DisciplineIncident.count} discipline incidents"
     puts "#{AttendanceEvent.count} attendance events"
     puts "#{Educator.count} educators"
+    puts "#{School.count} schools"
   end
 end
