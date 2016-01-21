@@ -1,3 +1,3 @@
 "state_id","local_id","full_name","home_language","program_assigned","limited_english_proficiency","sped_placement","disability","sped_level_of_need","plan_504","student_address","grade","registration_date","free_reduced_lunch","homeroom","school_local_id"
-"1000000000","100","Fake Student, First","English","Sp Ed","Fluent","Full Inclusion","Specific LDs","Moderate","Not 504","155 9th St, San Francisco, CA","10","2008-02-20","Not Eligible","Homeroom 200","SHS"
+"1000000000","100","Fake Student, First","English","Sp Ed","Fluent","Full Inclusion","Specific LDs","Moderate","Not 504","155 9th St, San Francisco, CA","10","2008-02-20","Not Eligible","Homeroom 200","HEA"
 "1000000001","101","Fake Student, Second","Vietnamese","Reg Ed","FLEP-Transitioning",\N,\N,\N,"Not 504","155 9th St, San Francisco, CA","10","2005-08-05","Free Lunch","Homeroom 200","SHS"
