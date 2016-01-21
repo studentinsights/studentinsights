@@ -2,7 +2,7 @@ class Import < Thor
   desc "start", "Import data into your Student Insights instance"
   method_option :school,
     aliases: "-s",
-    desc: "Scope by school"
+    desc: "Scope by school local ID; use ELEM to import all elementary schools"
   method_option :district,
     aliases: "-d",
     desc: "Scope by school district / charter organization"
