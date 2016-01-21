@@ -44,7 +44,20 @@ module Importer
   end
 
   def check_scope_and_import_row(row)
-    return if (@school_scope.present? && @school_scope != row[:school_local_id])
+    return check_elementary_scope(row) if @school_scope == 'ELEM'
+    return check_school_scope(row) if @school_scope.present?
+    import_row(row)
+  end
+
+  SOMERVILLE_ELEMENTARY_SCHOOL_LOCAL_IDS = ["BRN", "HEA", "KDY", "AFAS", "ESCS", "WSNS", "WHCS"]
+
+  def check_elementary_scope(row)
+    return if SOMERVILLE_ELEMENTARY_SCHOOL_LOCAL_IDS.exclude? row[:school_local_id]
+    import_row(row)
+  end
+
+  def check_school_scope(row)
+    return if @school_scope != row[:school_local_id]
     import_row(row)
   end
 
