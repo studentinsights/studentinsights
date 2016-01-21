@@ -8,8 +8,8 @@ RSpec.describe StudentsImporter do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
-      it 'imports two students' do
-        expect { importer.import(csv) }.to change { Student.count }.by 2
+      it 'imports students' do
+        expect { importer.import(csv) }.to change { Student.count }.by 3
       end
       it "imports first student's data correctly" do
         importer.import(csv)

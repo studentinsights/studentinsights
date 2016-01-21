@@ -12,7 +12,7 @@ RSpec.describe do
       end
     }
 
-    context 'CSV with 1 Somerville High School student and 1 Healey student' do
+    context 'CSV with 1 High School student, 1 Healey student (Elem), 1 Brown student (Elem)' do
 
       let(:fixture_path) { "#{Rails.root}/spec/fixtures/fake_students_export.txt" }
       let(:file) { File.open(fixture_path) }
@@ -22,7 +22,7 @@ RSpec.describe do
       context 'no scope' do
         let(:importer) { import_class.new }
         it 'imports both students' do
-          expect { importer.import(csv) }.to change(Student, :count).by 2
+          expect { importer.import(csv) }.to change(Student, :count).by 3
         end
       end
 
@@ -38,7 +38,7 @@ RSpec.describe do
         let!(:healey) { FactoryGirl.create(:healey) }
         let(:importer) { import_class.new(school_scope: 'ELEM') }
         it 'only imports the Healey student' do
-          expect { importer.import(csv) }.to change(Student, :count).by 1
+          expect { importer.import(csv) }.to change(Student, :count).by 2
         end
       end
 
