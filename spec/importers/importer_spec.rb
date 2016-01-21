@@ -6,10 +6,8 @@ RSpec.describe do
     let(:import_class) {
       Class.new do
         include Importer
-        include Connector
-        def import_row(row)
-          Student.where(local_id: row[:local_id]).first_or_create!
-        end
+        def import_row(row); Student.where(local_id: row[:local_id]).first_or_create! end
+        def remote_file_name; '' end
       end
     }
     context 'students' do

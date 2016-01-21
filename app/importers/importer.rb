@@ -1,32 +1,50 @@
 module Importer
-  # Any class using X2Importer should implement two methods:
+  # Any class that includes this module must implement these two methods:
   # remote_file_name => string pointing to the name of the remote file to parse
-  # import_row => function that describes how to handle each row (implemented by handle_row)
+  # import_row => function that describes how to handle each row (called by handle_row)
 
-  def import(data)
-    data.each do |row|
-      row.length.times { row.delete(nil) }
-      handle_row(row)
-    end
-    return data
+  attr_reader :client, :data_transformer, :school_scope, :recent_only, :first_time
+
+  def initialize(options = {})
+    # Required arguments
+    @client = options[:client]
+    @data_transformer = options[:data_transformer] || data_transformer
+
+    # Optional arguments
+    @school_scope = options[:school_scope]
+    @recent_only = options[:recent_only]
+    @first_time = options[:first_time]
   end
 
-  def import_locally(data)
-    # Set up for proress bar
-    n = 0
-    progress_bar = ProgressBar.new(data.size, remote_file_name)
+  def connect_transform_import
+    file = @client.read_file(remote_file_name)
+    data = @data_transformer.transform(file)
+    import(data)
+  end
+
+  def connect_transform_import_locally
+    path = @client.file_tmp_path(remote_file_name)
+    unless File.exist? path
+      @client.download_file_to_tmp(remote_file_name)
+    end
+    file_as_string = File.read(path).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+    data = @data_transformer.transform(file_as_string)
+    import(data)
+  end
+
+  def import(data)
+    # Set up for progress bar
+    n = 0; progress_bar = ProgressBar.new(data.size, remote_file_name)
 
     # Import
     data.each do |row|
-      row.length.times { row.delete(nil) }
+      row.delete_if { |key, value| key.empty? }
       handle_row(row)
-      n += 1
-      print progress_bar.current_status(n)
+      n += 1; print progress_bar.current_status(n)
     end
 
     # Exit
-    puts
-    return data
+    puts; return data
   end
 
   def handle_row(row)
@@ -50,4 +68,5 @@ module Importer
       import_row row
     end
   end
+
 end

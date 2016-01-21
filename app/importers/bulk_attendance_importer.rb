@@ -1,5 +1,5 @@
 class BulkAttendanceImporter
-  include Connector
+  include Importer
 
   def import(data)
     sql_rows = make_sql_rows(data)
