@@ -33,40 +33,32 @@ module Importer
   end
 
   def import(data)
-    # Set up for progress bar
-    n = 0; progress_bar = ProgressBar.new(data.size, remote_file_name)
+    # Set up progress bar
+    puts; n = 0; progress_bar = ProgressBar.new(data.size, remote_file_name)
 
-    # Import
     data.each do |row|
-      row.delete_if { |key, value| key.empty? }
-      handle_row(row)
+      row.delete_if { |key, value| key.blank? }
+      check_scope_and_import_row(row)
       n += 1; print progress_bar.current_status(n)
     end
-
-    # Exit
-    puts; return data
   end
 
-  def handle_row(row)
-    if @school_scope.present?
-      import_if_in_school_scope(row)
-    elsif @summer_school_local_ids.present?
-      import_if_in_summer_school(row)
-    else
-      import_row row
-    end
+  def check_scope_and_import_row(row)
+    return check_elementary_scope(row) if @school_scope == 'ELEM'
+    return check_school_scope(row) if @school_scope.present?
+    import_row(row)
   end
 
-  def import_if_in_school_scope(row)
-    if @school_scope.local_id == row[:school_local_id]
-      import_row row
-    end
+  SOMERVILLE_ELEMENTARY_SCHOOL_LOCAL_IDS = ["BRN", "HEA", "KDY", "AFAS", "ESCS", "WSNS", "WHCS"]
+
+  def check_elementary_scope(row)
+    return if SOMERVILLE_ELEMENTARY_SCHOOL_LOCAL_IDS.exclude? row[:school_local_id]
+    import_row(row)
   end
 
-  def import_if_in_summer_school(row)
-    if @summer_school_local_ids.include? row[:local_id]
-      import_row row
-    end
+  def check_school_scope(row)
+    return if @school_scope != row[:school_local_id]
+    import_row(row)
   end
 
 end
