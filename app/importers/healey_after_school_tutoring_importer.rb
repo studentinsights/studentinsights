@@ -11,6 +11,10 @@ class HealeyAfterSchoolTutoringImporter
     intervention_type.id
   end
 
+  def self.files_exist?
+    File.exist?(ATP_ROSTER_PATH) || File.exist?(ATP_INACTIVES_ROSTER_PATH)
+  end
+
   def connect_transform_import_locally
     require 'csv'
 

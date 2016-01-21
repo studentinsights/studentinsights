@@ -66,6 +66,7 @@ class Settings::SomervilleSettings
   end
 
   def local_importers
+    return [] unless HealeyAfterSchoolTutoringImporter.files_exist?
     [HealeyAfterSchoolTutoringImporter.new]
   end
 
