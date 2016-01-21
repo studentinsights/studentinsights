@@ -34,6 +34,14 @@ RSpec.describe do
         end
       end
 
+      context 'scope is elementary schools' do
+        let!(:healey) { FactoryGirl.create(:healey) }
+        let(:importer) { import_class.new(school_scope: 'ELEM') }
+        it 'only imports the Healey student' do
+          expect { importer.import(csv) }.to change(Student, :count).by 1
+        end
+      end
+
     end
   end
 end
