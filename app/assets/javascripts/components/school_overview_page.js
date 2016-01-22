@@ -34,10 +34,125 @@
       window.history.pushState({}, null, this.filtersHash());
     },
 
+    filterKey: function (filter) {
+      return filter.key;
+    },
+
+    activeFiltersByCategory: function () {
+      // Group by active filters by category.
+      // Returns an array of arrays; each inner array is a group of filters with the same category.
+
+      return _.values(_.groupBy(this.state.filters, this.filterKey));
+    },
+
+    filterWithOr: function (filterGroups) {
+      // Expects an array of arrays as input; each inner array is a group of filters to be reduced with OR logic.
+      //
+      // Outputs another array of arrays; now, each inner array is an array of students reduced with OR logic.
+      //
+      // The next function will reduce those students down with AND logic.
+      //
+      // Example:
+      //
+      //   input ~> [
+      //     [{FILTER:students_in_8th_grade}, {FILTER:students_in_7th_grade}],
+      //     [{FILTER:students_with_high_math_scores}]
+      //   ]
+      //
+      //   output ~> [
+      //      [students_in_7th_or_8th_grade],
+      //      [students_with_high_math_scores]
+      //   ]
+
+      var allStudents = this.props.allStudents;
+      return filterGroups.map(function(filterGroup) {
+        return filterGroup.reduce(function(filteredStudents, filter) {
+          return _.uniq(filteredStudents.concat(allStudents.filter(filter.filterFn)));
+        }, []);
+      });
+    },
+
+    filterWithAnd: function (studentArrays) {
+      // Expects an array of arrays as input.
+      // Each inner array represents a group of students that has been reduced with OR logic.
+      // Outputs a single array of all students at the intersection of the arrays (AND logic).
+
+      return _.intersection.apply(this, studentArrays);
+    },
+
+    getFilteredStudents: function() {
+      return this._filteredStudents;
+    },
+
+    setFilteredStudents: function(students) {
+      this._filteredStudents = students;
+      this.addToCache(students);
+    },
+
+    activeFiltersIdentifier: function () {
+      // Something like this: 'equal:grade:5-equal:program_assigned:2Way English'
+
+      return this.state.filters.map(function(filter) { return filter.identifier; }).join('-');
+    },
+
+    addToCache: function (students) {
+      if (this._filterCache === undefined) this._filterCache = {};
+      this._filterCache[this.activeFiltersIdentifier()] = students;
+    },
+
+    checkCache: function () {
+      if (this._filterCache === undefined) return;
+      return this._filterCache[this.activeFiltersIdentifier()];
+    },
+
     filteredStudents: function() {
-      return this.state.filters.reduce(function(filteredStudents, filter) {
-        return filteredStudents.filter(filter.filterFn);
-      }, this.props.allStudents);
+      // Filters are applied with OR logic within the same category; AND logic between categories.
+      //
+      // For example: "Students in 7th OR 8th grade AND with an advanced math score."
+      //
+      // There are five major filter states to handle:
+      //
+      // 1. No filters
+      // 2. One filter                                      (no need to consider AND versus OR)
+      // 3. Multiple filters within same category           (all OR)
+      // 4. Multiple filters all different categories       (all AND)
+      // 5. Multiple filters within and between categories  (OR plus AND)
+
+      // Case 1, no filters:
+      if (this.state.filters.length === 0) return this.props.allStudents;
+
+      // Now there's some complexity. Let's check our client-side cache.
+      if (this.checkCache() !== undefined) return this.checkCache();
+
+      // Case 2, one filter:
+      if (this.state.filters.length === 1) {
+        return this.props.allStudents.filter(this.state.filters[0].filterFn);
+      }
+
+      // More than one filter, let's group the filters by category
+      var activeFiltersByCategory = this.activeFiltersByCategory();
+
+      // Filter students using OR logic within each category
+      var studentsOrFiltered = this.filterWithOr.call(this, activeFiltersByCategory);
+
+      // Case 3, all fiters within same category:
+      // Return all of the students that have been filtered with OR logic
+      if (activeFiltersByCategory.length === 1) return studentsOrFiltered[0];
+
+      // Are there categories with more than one filter in them?
+      var maxFiltersPerCategory = _.max(activeFiltersByCategory.map(function(category) {
+        return category.length;
+      }));
+
+      // Case 4, multiple filters but all different categories:
+      if (maxFiltersPerCategory === 1) {
+        return this.state.filters.reduce(function(filteredStudents, filter) {
+          return filteredStudents.filter(filter.filterFn);
+        }, this.props.allStudents);
+      }
+
+      // Case 5, multiple filters within and between categories:
+      return this.filterWithAnd.call(this, studentsOrFiltered);
     },
 
     clearFilters: function() {
@@ -63,6 +178,8 @@
     },
 
     render: function() {
+      this.setFilteredStudents(this.filteredStudents());
+
       return dom.div({
         className: 'school-overview',
         style: { fontSize: styles.fontSize }
@@ -81,7 +198,7 @@
         dom.div({ className: 'list', style: { padding: 20 } },
           createEl(StudentsTable, {
             key: _.pluck(this.state.filters, 'identifier').join(','), // hack for tablesorter
-            students: this.filteredStudents()
+            students: this.getFilteredStudents()
           })
         )
       );
@@ -90,7 +207,7 @@
     renderSummary: function() {
       return dom.div({ className: 'summary', style: styles.summary },
         dom.div({ style: { backgroundColor: 'rgba(49, 119, 201, 0.75)', color: 'white', display: 'inline-block', width: '12em', padding: 5 } },
-          'Found: ' + this.filteredStudents().length + ' students'
+          'Found: ' + this.getFilteredStudents().length + ' students'
         ),
         dom.a({
           style: {
@@ -114,7 +231,7 @@
     },
 
     renderDownloadLink: function() {
-      var students = this.filteredStudents();
+      var students = this.getFilteredStudents();
       var header = [
         'First Name',
         'Last Name',
@@ -284,7 +401,7 @@
     },
 
     createItem: function(caption, filter) {
-      var students = this.filteredStudents();
+      var students = this.getFilteredStudents();
       return {
         caption: caption,
         percentage: (students.length === 0) ? 0 : students.filter(filter.filterFn).length / students.length,
@@ -519,7 +636,8 @@
         filterFn: function(student) {
           var value = student[key];
           return (_.isNumber(value) && value >= range[0] && value < range[1]);
-        }
+        },
+        key: key
       };
     },
     // Types are loose, since this is serialized from the hash
@@ -528,7 +646,8 @@
         identifier: ['equal', key, value].join(':'),
         filterFn: function(student) {
           return (student[key] == value);
-        }
+        },
+        key: key
       };
     },
     Null: function(key) {
@@ -537,7 +656,8 @@
         filterFn: function(student) {
           var value = student[key];
           return (value === null || value === undefined) ? true : false;
-        }
+        },
+        key: key
       };
     },
     InterventionType: function(interventionTypeId) {
@@ -548,7 +668,8 @@
           return student.interventions.filter(function(intervention) {
             return intervention.intervention_type_id === interventionTypeId;
           }).length > 0;
-        }
+        },
+        key: 'intervention_type'
       };
     },
     YearsEnrolled: function(value) {
@@ -556,7 +677,8 @@
         identifier: ['years_enrolled', value].join(':'),
         filterFn: function(student) {
           return (calculateYearsEnrolled(student.registration_date) === value);
-        }
+        },
+        key: 'years_enrolled'
       };
     },
 
