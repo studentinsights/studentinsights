@@ -86,6 +86,23 @@
 
     setFilteredStudents: function(students) {
       this._filteredStudents = students;
+      this.addToCache(students);
+    },
+
+    activeFiltersIdentifier: function () {
+      // Something like this: 'equal:grade:5-equal:program_assigned:2Way English'
+
+      return this.state.filters.map(function(filter) { return filter.identifier; }).join('-');
+    },
+
+    addToCache: function (students) {
+      if (this._filterCache === undefined) this._filterCache = {};
+      this._filterCache[this.activeFiltersIdentifier()] = students;
+    },
+
+    checkCache: function () {
+      if (this._filterCache === undefined) return;
+      return this._filterCache[this.activeFiltersIdentifier()];
     },
 
     filteredStudents: function() {
@@ -103,6 +120,9 @@
 
       // Case 1, no filters:
       if (this.state.filters.length === 0) return this.props.allStudents;
+
+      // Now there's some complexity. Let's check our client-side cache.
+      if (this.checkCache() !== undefined) return this.checkCache();
 
       // Case 2, one filter:
       if (this.state.filters.length === 1) {
