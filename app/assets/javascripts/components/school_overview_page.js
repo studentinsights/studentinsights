@@ -80,6 +80,14 @@
       return _.intersection.apply(this, studentArrays);
     },
 
+    getFilteredStudents: function() {
+      return this._filteredStudents;
+    },
+
+    setFilteredStudents: function(students) {
+      this._filteredStudents = students;
+    },
+
     filteredStudents: function() {
       // Filters are applied with OR logic within the same category; AND logic between categories.
       //
@@ -150,6 +158,8 @@
     },
 
     render: function() {
+      this.setFilteredStudents(this.filteredStudents());
+
       return dom.div({
         className: 'school-overview',
         style: { fontSize: styles.fontSize }
@@ -168,7 +178,7 @@
         dom.div({ className: 'list', style: { padding: 20 } },
           createEl(StudentsTable, {
             key: _.pluck(this.state.filters, 'identifier').join(','), // hack for tablesorter
-            students: this.filteredStudents()
+            students: this.getFilteredStudents()
           })
         )
       );
@@ -177,7 +187,7 @@
     renderSummary: function() {
       return dom.div({ className: 'summary', style: styles.summary },
         dom.div({ style: { backgroundColor: 'rgba(49, 119, 201, 0.75)', color: 'white', display: 'inline-block', width: '12em', padding: 5 } },
-          'Found: ' + this.filteredStudents().length + ' students'
+          'Found: ' + this.getFilteredStudents().length + ' students'
         ),
         dom.a({
           style: {
@@ -201,7 +211,7 @@
     },
 
     renderDownloadLink: function() {
-      var students = this.filteredStudents();
+      var students = this.getFilteredStudents();
       var header = [
         'First Name',
         'Last Name',
@@ -371,7 +381,7 @@
     },
 
     createItem: function(caption, filter) {
-      var students = this.filteredStudents();
+      var students = this.getFilteredStudents();
       return {
         caption: caption,
         percentage: (students.length === 0) ? 0 : students.filter(filter.filterFn).length / students.length,
