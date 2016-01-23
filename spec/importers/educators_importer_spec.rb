@@ -23,6 +23,19 @@ RSpec.describe EducatorsImporter do
           end
         end
 
+        context 'with school local ID' do
+          let!(:healey) { FactoryGirl.create(:healey) }
+          let(:row) {
+            { full_name: "Spirit, Gallant", school_local_id: "HEA" }
+          }
+
+          it 'assigns the educator to the correct school' do
+            described_class.new.import_row(row)
+            educator = Educator.last
+            expect(educator.school).to eq(healey)
+          end
+        end
+
         context 'administrator' do
           let(:row) {
             { local_id: "300", full_name: "Hill, Marian", staff_type: "Administrator" }
