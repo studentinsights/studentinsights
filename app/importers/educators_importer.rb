@@ -1,5 +1,4 @@
 class EducatorsImporter
-  include Importer
 
   def remote_file_name
     # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
