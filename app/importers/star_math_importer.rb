@@ -1,5 +1,4 @@
 class StarMathImporter
-  include Importer
 
   def remote_file_name
     'SM.csv'

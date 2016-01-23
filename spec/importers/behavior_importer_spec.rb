@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.describe BehaviorImporter do
 
-  let(:behavior_importer) { BehaviorImporter.new }
-  let(:import) { behavior_importer.import(csv) }
+  let(:importer) {
+    Importer.new(current_file_importer: described_class.new)
+  }
+
+  let(:import) { importer.start_import(csv) }
 
   describe '#import_row' do
     context 'realistic data ("good" case), not great data' do
