@@ -10,10 +10,12 @@ RSpec.describe StudentAssessmentImporter do
 
       context 'for Healey school' do
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
-        let(:healey_importer) { StudentAssessmentImporter.new(school: healey) }
+        let(:healey_importer) {
+          Importer.new(current_file_importer: described_class.new, school_scope: 'HEA')
+        }
 
         before(:each) do
-          healey_importer.import(csv)
+          healey_importer.start_import(csv)
         end
 
         it 'creates a student' do

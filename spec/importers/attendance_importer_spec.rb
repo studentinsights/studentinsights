@@ -2,10 +2,14 @@ require 'rails_helper'
 
 RSpec.describe AttendanceImporter do
 
-  let(:attendance_importer) { AttendanceImporter.new }
-  let(:import) { attendance_importer.import(csv) }
+  let(:importer) {
+    Importer.new(current_file_importer: described_class.new)
+  }
+
+  let(:import) { importer.start_import(csv) }
 
   describe '#import_row' do
+
     context 'realistic data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_attendance_export.txt") }
       let(:transformer) { CsvTransformer.new }
@@ -31,6 +35,7 @@ RSpec.describe AttendanceImporter do
           expect(event_date).to eq DateTime.new(2005, 9, 16)
         end
       end
+
       context 'student does not already exist' do
         it 'creates a new student' do
           expect { import }.to change(Student, :count).by 2
@@ -41,6 +46,7 @@ RSpec.describe AttendanceImporter do
           expect(new_student.attendance_events.size).to eq 1
         end
       end
+
     end
   end
 end
