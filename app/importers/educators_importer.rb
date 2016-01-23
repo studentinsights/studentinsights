@@ -18,7 +18,8 @@ class EducatorsImporter
     admin_status = (row[:staff_type].present? && row[:staff_type].downcase == "administrator")
 
     # Look up school ID
-    school_id = School.find_by_local_id!(row[:school_local_id]).id if row[:school_local_id].present?
+    school_local_id = row[:school_local_id]
+    school_id = SchoolLocalIdToAppId.instance.ids_dictionary[school_local_id] if school_local_id.present?
 
     # Set staff_type, name, and IDs
 
