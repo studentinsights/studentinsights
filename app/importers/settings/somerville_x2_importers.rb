@@ -34,16 +34,18 @@ class SomervilleX2Importers
   end
 
   def file_importers_plus_attendance
-    return file_importers << BulkAttendanceImporter.new if @first_time
     file_importers << AttendanceImporter.new
   end
 
-  def file_importers_options
-    { file_importers: file_importers_plus_attendance }
-  end
-
   def importer
-    Importer.new(base_options.merge(file_importers_options))
+    unless @first_time
+      Importer.new(base_options.merge({file_importers: file_importers_plus_attendance}))
+    else
+      [
+        Importer.new(base_options.merge({file_importers: file_importers})),
+        BulkAttendanceImporter.new(base_options)
+      ]
+    end
   end
 
 end

@@ -42,7 +42,9 @@ RSpec.describe SomervilleX2Importers do
     context 'with first time setting' do
       let(:options) { { first_time: true } }
       it 'returns first time importer' do
-        expect(importer.first_time).to be true
+        expect(importer).to be_a Array
+        expect(importer.first).to be_a Importer
+        expect(importer.second).to be_a BulkAttendanceImporter
       end
     end
   end

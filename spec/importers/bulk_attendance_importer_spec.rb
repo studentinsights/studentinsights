@@ -9,22 +9,22 @@ RSpec.describe BulkAttendanceImporter do
       let(:json) { transformer.transform(file) }
       context 'mixed good & bad rows' do
         it 'imports two valid attendance events, drops two non-valid events' do
-          bulk_attendance_importer.import(json)
+          bulk_attendance_importer.start_import(json)
           expect(AttendanceEvent.count).to eq 2
         end
         it 'sets the absence/tardy results correctly' do
-          bulk_attendance_importer.import(json)
+          bulk_attendance_importer.start_import(json)
           absences = AttendanceEvent.where(absence: true)
           tardies = AttendanceEvent.where(tardy: true)
           expect(absences.count).to eq 2
           expect(tardies.count).to eq 0
         end
         it 'sets the date correctly' do
-          bulk_attendance_importer.import(json)
+          bulk_attendance_importer.start_import(json)
           expect(AttendanceEvent.last.event_date).to eq DateTime.new(2014, 8, 11)
         end
         it 'assigns a school year and timestamps' do
-          bulk_attendance_importer.import(json)
+          bulk_attendance_importer.start_import(json)
           event = AttendanceEvent.last
           school_year = event.school_year
           expect(school_year).to be_a SchoolYear
@@ -39,16 +39,16 @@ RSpec.describe BulkAttendanceImporter do
       let(:csv) { transformer.transform(file) }
       context 'mixed good & bad rows' do
         it 'imports two valid attendance rows' do
-          bulk_attendance_importer.import(csv)
+          bulk_attendance_importer.start_import(csv)
           expect(AttendanceEvent.count).to eq 2
         end
         it 'sets the dates correctly' do
-          bulk_attendance_importer.import(csv)
+          bulk_attendance_importer.start_import(csv)
           event = AttendanceEvent.last
           expect(event.event_date).to eq DateTime.new(2005, 9, 16)
         end
         it 'assigns a school year and timestamps' do
-          bulk_attendance_importer.import(csv)
+          bulk_attendance_importer.start_import(csv)
           event = AttendanceEvent.last
           school_year = event.school_year
           expect(school_year).to be_a SchoolYear
@@ -58,18 +58,18 @@ RSpec.describe BulkAttendanceImporter do
         context 'existing student' do
           let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
           it 'assigns correct row to existing student' do
-            bulk_attendance_importer.import(csv)
+            bulk_attendance_importer.start_import(csv)
             expect(student.attendance_events.count).to eq 1
           end
           it 'sets the absence/tardy values correctly' do
-            bulk_attendance_importer.import(csv)
+            bulk_attendance_importer.start_import(csv)
             event = student.attendance_events.last
             expect(event.absence).to be true
           end
         end
         context 'missing students' do
           it 'creates new students' do
-            bulk_attendance_importer.import(csv)
+            bulk_attendance_importer.start_import(csv)
             expect(Student.count).to eq 2
           end
         end

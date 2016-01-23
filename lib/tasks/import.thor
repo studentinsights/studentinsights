@@ -40,7 +40,7 @@ class Import < Thor
         # STAR importers don't import students, they only import STAR results.
 
         [ SomervilleX2Importers.new(importer_options).importer,
-          SomervilleStarImporters.new(importer_options).importer ]
+          SomervilleStarImporters.new(importer_options).importer ].flatten
       when "KIPP NJ"
         KippNjSettings.new(importer_options).importers
       else
