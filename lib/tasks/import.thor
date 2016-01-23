@@ -27,12 +27,25 @@ class Import < Thor
     School.find_by_local_id!(options["school"]) if options["school"].present? &&
                                                    options["school"] != "ELEM"
 
-    importers = Settings.new({
+    importer_options = {
       district_scope: options["district"],
       school_scope: options["school"],
       first_time: options["first_time"],
       recent_only: options["recent_only"]
-    }).configure
+    }
+
+    importers = case options["district"]
+      when "Somerville"
+        # X2 importers to come first because they are the sole source of truth about students.
+        # STAR importers don't import students, they only import STAR results.
+
+        [ SomervilleX2Importers.new(importer_options).importer,
+          SomervilleStarImporters.new(importer_options).importer ]
+      when "KIPP NJ"
+        KippNjSettings.new(importer_options).importers
+      else
+        raise "don't know about that school district buddy"
+      end
 
     importers.each do |i|
       begin
