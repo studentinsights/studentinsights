@@ -33,6 +33,10 @@ GEM
     arel (5.0.1.20140414130214)
     aws-sdk-core (2.1.19)
       jmespath (~> 1.0)
+    babel-source (5.8.34)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -69,6 +73,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
+    connection_pool (2.2.0)
     database_cleaner (1.5.0)
     debug_inspector (0.0.2)
     devise (3.5.2)
@@ -171,6 +176,13 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.15.0)
     rake (10.4.2)
+    react-rails (1.5.0)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      rails (>= 3.2)
+      tilt
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rspec-core (3.3.2)
@@ -285,6 +297,7 @@ DEPENDENCIES
   rails (= 4.1.4)
   rails-erd
   rails_12factor
+  react-rails (~> 1.5.0)
   rspec-rails (~> 3.0)
   rubystats
   sass-rails (~> 4.0.3)
