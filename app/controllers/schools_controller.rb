@@ -40,16 +40,14 @@ class SchoolsController < ApplicationController
                               # and real data loaded in as a JSON fixture
     time_now = Time.now
     @serialized_data = {
-      :students_with_star_reading => students_with_star_reading(time_now),
+      :students_with_star_reading => students_with_star_reading(time_now, false),
       :intervention_types => InterventionType.all
     }
   end
 
   private
 
-  def students_with_star_reading(time_now)
-    use_fixtures = false
-
+  def students_with_star_reading(time_now, use_fixtures)
     return IO.read("#{Rails.root}/data/students_with_star_reading.json") if use_fixtures
 
     sliceable_student_hashes(time_now, Student.all.includes(:assessments)) do |student|
