@@ -5,6 +5,7 @@ describe('SchoolOverviewPage', function() {
   describe('#filterWithOr', function() {
     beforeEach(function() {
 
+      var Filters = window.shared.Filters;
       this.mari = { name: 'Mari', classroom: '101' }    // stubby student object
       this.mark = { name: 'Mark', classroom: '101' }    // stubby student object
       this.marv = { name: 'Marv', classroom: '102' }    // stubby student object
@@ -86,6 +87,7 @@ describe('SchoolOverviewPage', function() {
   describe('with one initial filter', function() {
 
     beforeEach(function() {
+      var Filters = window.shared.Filters;
       var TestFilter = Filters.Equal('height', 'short');
       this.page = new SchoolOverviewPage({initialFilters: [TestFilter]});
     });

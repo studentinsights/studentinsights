@@ -25,6 +25,8 @@
 //= require lodash.3.10.1.min
 //= require rounded-corners
 //= require handlebars.runtime
+//= require d3.v3.min.js
+//= require moment.js
 
 // provided by react-rails gem, configured in config/initializers/assets.rb
 //= require react
@@ -34,11 +36,12 @@
 //= require session_timeout_warning
 //= require student-searchbar
 
-// react components:
-//= require_tree ./react_helpers
-//= require_tree ./components
-
 // pages:
 //= require_tree ./roster
 //= require_tree ./student
-//= require_tree ./school
+//= require_tree ./school/helpers
+//= require ./school/components/slice_panels
+//= require ./school/components/students_table
+//= require ./school/components/school_overview_page
+//= require ./school/overview
+//= require ./school/star_reading_page

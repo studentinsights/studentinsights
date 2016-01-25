@@ -1,6 +1,11 @@
-(function(root) {
+(function() {
+  window.shared || (window.shared = {});
+  // colors, styles
+  window.shared.colors = {
+    selection: 'rgb(255, 204, 138)'
+  };
 
-  var styles = {
+  window.shared.styles = {
     fontSize: 12,
 
     header: {
@@ -8,11 +13,6 @@
       alignItems: 'center',
       flexDirection: 'column',
       backgroundColor: '#eee'
-    },
-
-    columnsContainer: {
-      display: 'flex',
-      flexDirection: 'row'
     },
 
     summary: {
@@ -24,7 +24,4 @@
       paddingBottom: 20
     }
   };
-
-  root.styles = styles;
-
-})(window)
+})();

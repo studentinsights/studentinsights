@@ -2,10 +2,8 @@ $(function() {
 
   if ($('body').hasClass('schools') && $('body').hasClass('show')) {
 
-    var dom = ReactHelpers.dom;
-    var createEl = ReactHelpers.createEl;
-    var merge = ReactHelpers.merge;
-
+    var Filters = window.shared.Filters;
+    var createEl = window.shared.ReactHelpers.createEl;
 
     function main() {
       var serializedData = $('#serialized-data').data();
@@ -20,17 +18,9 @@ $(function() {
       ReactDOM.render(createEl(SchoolOverviewPage, {
         allStudents: serializedData.students,
         InterventionTypes: InterventionTypes,
-        initialFilters: parseFiltersHash(window.location.hash)
+        initialFilters: Filters.parseFiltersHash(window.location.hash)
       }), document.getElementById('main'));
     }
-
-    // Returns a list of Filters
-    function parseFiltersHash(hash) {
-      var pieces = _.compact(hash.slice(1).split('&'));
-      return _.compact(pieces.map(function(piece) {
-        return Filters.createFromIdentifier(window.decodeURIComponent(piece));
-      }));
-    };
 
     main();
   }
