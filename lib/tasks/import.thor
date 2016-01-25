@@ -74,6 +74,10 @@ class Import < Thor
     end
 
     Student.update_risk_levels
+    Student.update_student_school_years
+    Student.update_attendance_events_counts_most_recent_school_year
+    Student.update_recent_student_assessments
+
     Homeroom.destroy_empty_homerooms
 
     puts; puts; puts "=== FINAL DATABASE COUNTS ==="; puts
