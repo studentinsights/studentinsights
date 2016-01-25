@@ -67,11 +67,7 @@ class Import < Thor
 
     importers.each do |i|
       begin
-        if Rails.env.development?
-          i.connect_transform_import_locally
-        else
-          i.connect_transform_import
-        end
+        i.connect_transform_import
       rescue Exception => message
         puts message
       end
