@@ -16,6 +16,24 @@ class Import < Thor
   def start
     require './config/environment'
 
+    # Kick up a new report helper object
+    report = ImportTaskReport.new([
+      Student,
+      StudentAssessment,
+      DisciplineIncident,
+      AttendanceEvent,
+      Educator,
+      School
+    ])
+
+    puts; puts "=== STARTING IMPORT TASK... ==="
+
+    puts; puts "=== INITIAL DATABASE COUNTS ==="; puts
+
+    puts report.initial_counts_report                   # Report out db counts before task runs
+
+    initial_counts_hash = report.initial_counts_hash    # Store initial values so we can diff later
+
     # Create Somerville schools from seed file if they are missing
 
     School.seed_somerville_schools if options["district"] == "Somerville" &&
@@ -62,11 +80,7 @@ class Import < Thor
     Student.update_risk_levels
     Homeroom.destroy_empty_homerooms
 
-    puts "#{Student.count} students"
-    puts "#{StudentAssessment.count} assessments"
-    puts "#{DisciplineIncident.count} discipline incidents"
-    puts "#{AttendanceEvent.count} attendance events"
-    puts "#{Educator.count} educators"
-    puts "#{School.count} schools"
+    puts; puts; puts "=== FINAL DATABASE COUNTS ==="; puts
+    puts report.end_of_task_report(initial_counts_hash)
   end
 end
