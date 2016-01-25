@@ -17,6 +17,11 @@ class ProgressBar
     line_progress.times { line_fill_part += "=" }
     (40 - line_progress).times { line_empty_part += " " }
 
-    return "\r #{@file_name} [#{line_fill_part}#{line_empty_part}] #{percentage_progress} (#{n} out of #{@total_size})"
+    header = "#{@file_name}"
+    filler_space = ' ' * (24 - @file_name.size)
+    bar_body = "[#{line_fill_part}#{line_empty_part}] "
+    progress_text = "#{percentage_progress} (#{n} out of #{@total_size}) "
+
+    "\r " + header + filler_space + bar_body + '  ' + progress_text
   end
 end
