@@ -3,7 +3,6 @@ class BulkAttendanceImporter
   def initialize(options = {})
     # Required
     @client = options[:client]
-    @data_transformer = options[:data_transformer]
 
     # Optional
     @school_scope = options[:school_scope]
@@ -19,9 +18,13 @@ class BulkAttendanceImporter
     'attendance_export.txt'
   end
 
+  def data_transformer
+    CsvTransformer.new
+  end
+
   def connect_transform_import
     file = @client.read_file(remote_file_name)
-    data = @data_transformer.transform(file)
+    data = data_transformer.transform(file)
     start_import(data)
   end
 

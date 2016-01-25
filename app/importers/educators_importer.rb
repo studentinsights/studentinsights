@@ -8,6 +8,10 @@ class EducatorsImporter
     'educators_export.txt'
   end
 
+  def data_transformer
+    CsvTransformer.new
+  end
+
   def import_row(row)
     educator = Educator.where(local_id: row[:local_id]).first_or_create!
 

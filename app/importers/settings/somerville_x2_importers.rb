@@ -19,8 +19,7 @@ class SomervilleX2Importers
       school_scope: @school_scope,
       recent_only: @recent_only,
       first_time: @first_time,
-      client: SftpClient.new(credentials: sftp_credentials),
-      data_transformer: CsvTransformer.new
+      client: SftpClient.new(credentials: sftp_credentials)
     }
   end
 

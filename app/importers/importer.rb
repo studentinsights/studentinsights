@@ -14,7 +14,6 @@ class Importer
     # Required
     @file_importers = options[:file_importers]
     @client = options[:client]
-    @data_transformer = options[:data_transformer]
 
     # Optional
     @school_scope = options[:school_scope]
@@ -25,15 +24,11 @@ class Importer
     @current_file_importer = options[:current_file_importer]
   end
 
-  def data_transformer
-    @data_transformer || @current_file_importer.data_transformer
-  end
-
   def connect_transform_import
     file_importers.each do |file_importer|
       @current_file_importer = file_importer
       file = @client.read_file(file_importer.remote_file_name)
-      data = data_transformer.transform(file)
+      data = file_importer.data_transformer.transform(file)
       start_import(data)
     end
   end
@@ -54,7 +49,7 @@ class Importer
                                               undef: :replace,
                                               replace: '')
 
-      data = data_transformer.transform(file_as_string)
+      data = file_importer.data_transformer.transform(file_as_string)
       start_import(data)
     end
   end

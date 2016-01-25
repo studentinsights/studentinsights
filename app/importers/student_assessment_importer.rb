@@ -10,6 +10,10 @@ class StudentAssessmentImporter
     'assessment_export.txt'
   end
 
+  def data_transformer
+    CsvTransformer.new
+  end
+
   def assessment_white_list
     ["ACCESS", "WIDA-ACCESS", "DIBELS", "MCAS", "MAP", "MELA-O", "MEPA", "STAR"]
   end
