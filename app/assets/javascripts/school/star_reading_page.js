@@ -133,6 +133,9 @@ $(function() {
           })),
           dom.div({ style: { position: 'relative' } },
             dom.div({ style: { flex: 1 } },
+              dom.div({ style: { display: 'flex', padding: 20 } },
+                this.renderScatterplot(merge(sizing, { width: 1200, height: 300 }))
+              ),
               dom.div({ style: { display: 'flex', justifyContent: 'space-around', padding: 20 } },
                 dom.div({ style: { flex: 4 } }, this.renderAllTimeStarTrends(merge(sizing, { width: 600 }))),
                 dom.div({ style: { flex: 2 } }, this.renderRecentStarChanges(merge(sizing, { width: 180 })))
@@ -305,6 +308,105 @@ $(function() {
 
       sortedScores: function(assessments) {
         return _.compact(_.pluck(assessments, 'percentile_rank')).sort(d3.ascending);
+      },
+
+      renderScatterplot: function(options) {
+        var width = options.width;
+        var height = options.height;
+
+        var students = this.studentsWithRecentAssessments();
+        var assessments = _.flatten(_.pluck(students, 'star_reading_results'));
+
+        var dateRange = d3.extent(assessments, function(d) { return new Date(d.date_taken); });
+        var x = d3.scale.linear().domain([-50, 50]).range([0, width]);
+        var y = d3.scale.linear().domain([0, 100]).range([height, 0]);
+        var color = d3.scale.linear().domain([-50, 0, 50]).range(['red','#eee','blue']);
+        var thickness = d3.scale.linear().domain([-50, 0, 50]).range([3, 0, 3]);
+
+        var hoverElements = this.state.hoverStudentIds.map(function(studentId) {
+          var student = _.findWhere(students, { id: studentId });
+          var percentile = _.last(student.star_reading_results).percentile_rank;
+          var delta = this.resultsDelta(student);
+          var bubbleY = y(percentile);
+          return dom.text({
+            key: student.id,
+            fontSize: 12,
+            fontWeight: 'normal',
+            x: x(delta),
+            y: (bubbleY > height/2) ? bubbleY - 60 : bubbleY + 5, // flip orientation, to stay in bounds
+            width: 100,
+            height: 100,
+            textAnchor: 'center',
+            stroke: '#333'
+          },
+            dom.tspan({ x: x(delta), dy: '1.4em' }, student.first_name + ' ' + student.last_name),
+            dom.tspan({ x: x(delta), dy: '1.4em', stroke: color(delta) }, (delta > 0) ? '+' + delta : delta),
+            dom.tspan({ x: x(delta), dy: 0 },  ' → Percentile: ' + percentile)
+          );
+        }, this);
+
+        return dom.div({},
+          this.renderTitleWithSummary({
+            title: 'Performance compared to growth, last assessment',
+            description: 'Percentile rank and change in percentile rank',
+            dateRange: dateRange,
+            students: students,
+            assessments: assessments
+          }),
+          dom.div({},
+            dom.svg( {width: width, height: height },
+              dom.rect({
+                x: 0,
+                y: 0,
+                width: width,
+                height: height,
+                stroke: '#eee',
+                fill: 'none'
+              }),
+              students.map(function(student) {
+                var percentile = _.last(student.star_reading_results).percentile_rank;
+                var delta = this.resultsDelta(student);
+                return dom.circle({
+                  key: student.id,
+                  cx: x(delta),
+                  cy: y(percentile),
+                  opacity: (this.isHoverStudent(student))
+                    ? 1
+                    : this.isHoverBackground(student) ? 0.02 : 0.75,
+                  r: 6,
+                  fill: color(delta),
+                  onMouseEnter: this.onStudentHover.bind(this, student),
+                  onMouseLeave: this.onStudentHover.bind(this, null)
+                });
+              }, this),
+              // horizontal lines
+              [25, 50, 75].map(function(percentile) {
+                return dom.line({
+                  key: percentile,
+                  x1: 0,
+                  x2: width,
+                  y1: y(percentile),
+                  y2: y(percentile),
+                  stroke: (percentile === 50) ? '#ccc' : '#eee',
+                  strokeWidth: 1,
+                });
+              }),
+              (_.isEmpty(this.state.hoverStudentIds)) ? null : hoverElements,
+              // vertical lines
+              [-50, -25, 0, 25, 50].map(function(delta) {
+                return dom.line({
+                  key: delta,
+                  x1: x(delta),
+                  x2: x(delta),
+                  y1: height,
+                  y2: 0,
+                  stroke: (delta === 0) ? '#666' : '#eee',
+                  strokeWidth: (delta === 0) ? 2 : 1
+                });
+              })
+            )
+          )
+        );
       },
 
       renderAllTimeQuartiles: function(options) {
