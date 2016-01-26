@@ -21,9 +21,6 @@ RSpec.describe SomervilleX2Importers do
         expect(client.credentials[:user]).to eq('totes valid user')
         expect(client.credentials[:key_data]).to eq('totes valid key')
       end
-      it 'sets the right data transformer' do
-        expect(importer.data_transformer).to be_a CsvTransformer
-      end
       it 'returns importer with no school_scope, first_time, or recent_only' do
         expect(importer.school_scope).to be_nil
         expect(importer.recent_only).to be_nil

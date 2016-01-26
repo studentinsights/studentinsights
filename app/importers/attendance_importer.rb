@@ -8,6 +8,10 @@ class AttendanceImporter
     'attendance_export.txt'
   end
 
+  def data_transformer
+    CsvTransformer.new
+  end
+
   def import_row(row)
     student = Student.where(local_id: row[:local_id]).first_or_create!
     attendance_event = AttendanceEvent.where(
