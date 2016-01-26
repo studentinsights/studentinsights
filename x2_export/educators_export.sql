@@ -5,6 +5,7 @@ SELECT
   'full_name',
   'staff_type',
   'homeroom',
+  'status',
   'school_local_id'
 UNION ALL
 SELECT
@@ -13,6 +14,7 @@ SELECT
   stf_name_view,
   STF_STAFF_TYPE,
   STF_HOMEROOM,
+  STF_STATUS,
   SKL_SCHOOL_ID
 FROM staff
 INNER JOIN school
