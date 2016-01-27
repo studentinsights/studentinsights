@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   get '/students/names' => 'students#names'
   get '/educators/reset'=> 'educators#reset_session_clock'
 
-  resources :students
+  resources :students do
+    get :profile, on: :member
+  end
   resources :homerooms
   resources :interventions
   resources :progress_notes

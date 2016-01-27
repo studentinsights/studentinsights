@@ -46,6 +46,48 @@ class StudentsController < ApplicationController
     end
   end
 
+  def profile
+    student = Student.find(params[:id])
+    # interventions = student.interventions.order(start_date: :desc)
+    # serialized_interventions = interventions.map { |intervention| serialize_intervention(intervention) }
+    # serialized_student_notes = student.student_notes.map { |note| serialize_student_note(note) }
+
+    @serialized_data = {
+      :student => student.serialized_data
+    }
+
+    # @chart_start = params[:chart_start] || "mcas-growth"
+    # @chart_data = StudentProfileChart.new(@serialized_student_data).chart_data
+
+    # @student_risk_level = @student.student_risk_level
+    # @level = @student_risk_level.level
+
+    # @student_school_years = @student.student_school_years.includes(
+    #   :attendance_events,
+    #   :discipline_incidents,
+    #   :student_assessments,
+    #   :interventions
+    # )
+
+    
+
+    # student_notes = @student.student_notes
+    # @serialized_student_notes = student_notes.map { |note| serialize_student_note(note) }
+
+    # @roster_url = homeroom_path(@student.homeroom)
+    # @csv_url = student_path(@student) + ".csv"
+    # @student_url = student_path(@student)
+
+    # respond_to do |format|
+    #   format.html
+    #   format.csv {
+    #     render csv: StudentProfileCsvExporter.new(@serialized_student_data).profile_csv_export,
+    #     filename: 'export'
+    #   }
+    #   format.pdf { render text: PDFKit.new(@student_url).to_pdf }
+    # end
+  end
+
   def names
     @q = params[:q].upcase
     @length = @q.length
