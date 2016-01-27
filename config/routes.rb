@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   resources :student_notes
   resources :bulk_intervention_assignments
   resources :schools do
-    get :homerooms, on: :member
     get :students, on: :member
     get :star_reading, on: :member
   end

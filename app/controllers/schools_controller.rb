@@ -20,18 +20,6 @@ class SchoolsController < ApplicationController
     @top_mcas_ela_concerns = mcas_queries.top_5_ela_concerns_serialized
   end
 
-  def homerooms
-    @school = School.friendly.find(params[:id])
-    homerooms = @school.students.map(&:homeroom).compact.uniq
-    homeroom_queries = HomeroomQueries.new(homerooms)
-
-    limit = 5
-    @top_absences = homeroom_queries.top_absences.first(limit)
-    @top_tardies = homeroom_queries.top_tardies.first(limit)
-    @top_mcas_math_concerns = homeroom_queries.top_mcas_math_concerns.first(limit)
-    @top_mcas_ela_concerns = homeroom_queries.top_mcas_ela_concerns.first(limit)
-  end
-
   # To build local fixtures from production data:
   # copy body of controller code into Rails console, run the code in the body of this method,
   # print it as JSON and then save it in the /data/schools/star_reading
