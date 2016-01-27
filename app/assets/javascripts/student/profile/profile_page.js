@@ -8,6 +8,83 @@ $(function() {
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
+  var Sparkline = React.createClass({
+    displayName: 'Sparkline',
+
+    propTypes: {
+      height: React.PropTypes.number.isRequired,
+      width: React.PropTypes.number.isRequired,
+      quads: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)).isRequired,
+      dateRange: React.PropTypes.array.isRequired,
+      valueRange: React.PropTypes.array.isRequired,
+      thresholdValue: React.PropTypes.number.isRequired,
+    },
+
+    render: function() {
+      var padding = 5;
+      // var color = d3.scale.linear().domain([-50, 0, 50]).range(['red','#eee','blue']);
+      // var thickness = d3.scale.linear().domain([-50, 0, 50]).range([3, 0, 3]);
+      var x = d3.time.scale().domain(this.props.dateRange).range([0, this.props.width - padding]);
+      var y = d3.scale.linear().domain(this.props.valueRange).range([this.props.height - padding, 0]);
+      var lineGenerator = d3.svg.line()
+        .x(function(d) { return x(new Date(d[0], d[1] - 1, d[2])); })
+        .y(function(d) { return y(d[3]); })
+        .interpolate('monotone');
+
+      return dom.div({ className: 'Sparkline' },
+        dom.svg({
+          height: this.props.height,
+          width: this.props.width
+        },
+          dom.line({
+            x1: 0,
+            x2: this.props.width - padding,
+            y1: y(this.props.thresholdValue),
+            y2: y(this.props.thresholdValue),
+            stroke: '#ccc',
+            strokeDasharray: 5
+          }),
+          dom.path({
+            d: lineGenerator(this.props.quads),
+            stroke: 'red',
+            strokeWidth: 3,
+            fill: 'none'
+          })
+        )
+      );
+    }
+  });
+  
+
+  var AcademicSummary = React.createClass({
+    displayName: 'AcademicSummary',
+
+    propTypes: {
+      caption: React.PropTypes.string.isRequired,
+      value: React.PropTypes.number.isRequired,
+      sparkline: React.PropTypes.element.isRequired
+    },
+
+    // TODO(kr) statics?
+    styles: {
+      caption: {
+        marginRight: 5
+      },
+      value: {
+        fontWeight: 'bold'
+      }
+    },
+
+    render: function() {
+      var styles = this.styles;
+      return dom.div({ className: 'AcademicSummary' },
+        dom.span({ style: styles.caption }, this.props.caption + ':'),
+        dom.span({ style: styles.value }, this.props.value),
+        dom.div({}, this.props.sparkline)
+      );
+    }
+  });
+
   // define page component
   var styles = {
     titleContainer: {
@@ -25,14 +102,24 @@ $(function() {
       display: 'flex',
       flexDirection: 'row',
       background: '#eee'
-    }
+    },
+    column: {
+      textAlign: 'center',
+      flex: 1
+    },
+    academicSummaryWrapper: {
+      padding: 20
+    },
+    sparklineWidth: 120,
+    sparklineHeight: 50
   };
 
   var StudentProfilePage = React.createClass({
     displayName: 'StudentProfilePage',
 
     propTypes: {
-      student: React.PropTypes.object.isRequired
+      student: React.PropTypes.object.isRequired,
+      dateRange: React.PropTypes.array.isRequired
     },
 
     getInitialState: function() {
@@ -46,8 +133,8 @@ $(function() {
         this.renderStudentName(),
         dom.div({ style: styles.summaryContainer },
           this.renderDemographics(),
+          this.renderELA(),
           dom.div({ className: 'math-background', style: { flex: 1 }}, 'math'),
-          dom.div({ className: 'ela-background', style: { flex: 1 }}, 'ela'),
           dom.div({ style: { flex: 1 }}, 'behavior'),
           dom.div({ style: { flex: 1 }}, 'interventions')
         )
@@ -76,9 +163,58 @@ $(function() {
     },
 
     renderDemographics: function() {
+      var student = this.props.student;
+
       return dom.div({ style: { flex: 1 }},
-        this.renderTitle('Demographics')
+        this.renderTitle('Demographics'),
+        dom.div({}, 'Disability: ' + student.sped_level_of_need),
+        dom.div({}, 'Low income: ' + student.free_reduced_lunch),
+        dom.div({}, 'Language: ' + student.limited_english_proficiency)
       );
+    },
+
+    renderELA: function() {
+      var student = this.props.student;
+      var chartData = this.props.chartData;
+
+      return dom.div({ className: 'ela-background', style: styles.column},
+        this.wrapAcademicSummary({
+          caption: 'STAR Reading',
+          value: student.most_recent_star_reading_percentile,
+          sparkline: this.renderSparkline(chartData.star_series_reading_percentile)
+        }),
+        this.wrapAcademicSummary({
+          caption: 'MCAS ELA',
+          value: student.most_recent_mcas_ela_scaled,
+          sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled, {
+            valueRange: [200, 300],
+            thresholdValue: 240
+          })
+        }),
+        this.wrapAcademicSummary({
+          caption: 'MCAS ELA Growth',
+          value: student.most_recent_mcas_ela_growth,
+          sparkline: this.renderSparkline(chartData.mcas_series_ela_growth)
+        })
+      );
+    },
+
+    // quads format is: [[year, month, day, value]]
+    renderSparkline: function(quads, props) {
+      var dateRange = this.props.dateRange;
+      return createEl(Sparkline, merge({
+        height: styles.sparklineHeight,
+        width: styles.sparklineWidth,
+        quads: quads,
+        dateRange: dateRange,
+        valueRange: [0, 100],
+        thresholdValue: 50
+      }, props || {}));
+    },
+
+    // render with style wrapper
+    wrapAcademicSummary: function(props) {      
+      return dom.div({ style: styles.academicSummaryWrapper }, createEl(AcademicSummary, props));
     },
 
     renderTitle: function(text) {
@@ -100,8 +236,14 @@ $(function() {
     //   return map;
     // }, {});
 
+    var now = new Date();
+    var dateRange = [now, moment(now).subtract(1, 'year').toDate()];
+    // TODO(kr) hacking around for local data
+    dateRange = [new Date(2010, 11, 19), new Date(2011, 11, 19)]
     ReactDOM.render(createEl(StudentProfilePage, {
-      student: serializedData.student
+      student: serializedData.student,
+      chartData: serializedData.chartData,
+      dateRange: dateRange
     }), document.getElementById('main'));
   }
 
