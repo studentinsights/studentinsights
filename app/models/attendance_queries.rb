@@ -1,35 +1,45 @@
 class AttendanceQueries < Struct.new :school
 
   def top_5_absence_concerns_serialized
-    top_5_absence_concerns.map do |student|
+    absent_students.limit(5).map do |student|
       {
         name: StudentPresenter.new(student).full_name,
-        result_value: student.absences_count_most_recent_school_year,
-        interventions_count: student.most_recent_school_year.interventions.count,
+        result_value: student.student_school_years.first.absences_count,
+        interventions_count: student.student_school_years.first.interventions.count,
         id: student.id
       }
     end
   end
 
   def top_5_tardy_concerns_serialized
-    top_5_tardy_concerns.map do |student|
+    tardy_students.limit(5).map do |student|
       {
         name: StudentPresenter.new(student).full_name,
-        result_value: student.tardies_count_most_recent_school_year,
-        interventions_count: student.most_recent_school_year.interventions.count,
+        result_value: student.student_school_years.first.tardies_count,
+        interventions_count: student.student_school_years.first.interventions.count,
         id: student.id
       }
     end
   end
 
-  private
-
-  def top_5_absence_concerns
-    school.students.order(absences_count_most_recent_school_year: :desc).limit(5)
+  def absent_students
+    current_students
+      .where.not(student_school_years: {absences_count: 0})
+      .order('student_school_years.absences_count DESC')
+      .references(:student_school_years)
   end
 
-  def top_5_tardy_concerns
-    school.students.order(tardies_count_most_recent_school_year: :desc).limit(5)
+  def tardy_students
+    current_students
+      .where.not(student_school_years: {tardies_count: 0})
+      .order('student_school_years.tardies_count DESC')
+      .references(:student_school_years)
   end
 
+  def current_students
+    current_school_year = SchoolYear.order(start: :desc).first
+    school.students
+          .includes(:student_school_years)
+          .where(student_school_years: { school_year: current_school_year })
+  end
 end
