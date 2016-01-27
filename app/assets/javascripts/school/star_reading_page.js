@@ -341,7 +341,7 @@ $(function() {
           },
             dom.tspan({ x: x(delta), dy: '1.4em' }, student.first_name + ' ' + student.last_name),
             dom.tspan({ x: x(delta), dy: '1.4em', stroke: color(delta) }, (delta > 0) ? '+' + delta : delta),
-            dom.tspan({ x: x(delta), dy: 0 },  ' → Percentile: ' + percentile)
+            dom.tspan({ x: x(delta), dy: '1.4em' },  'Percentile: ' + percentile)
           );
         }, this);
 
@@ -391,7 +391,6 @@ $(function() {
                   strokeWidth: 1,
                 });
               }),
-              (_.isEmpty(this.state.hoverStudentIds)) ? null : hoverElements,
               // vertical lines
               [-50, -25, 0, 25, 50].map(function(delta) {
                 return dom.line({
@@ -403,7 +402,8 @@ $(function() {
                   stroke: (delta === 0) ? '#666' : '#eee',
                   strokeWidth: (delta === 0) ? 2 : 1
                 });
-              })
+              }),
+              (_.isEmpty(this.state.hoverStudentIds)) ? null : hoverElements
             )
           )
         );
