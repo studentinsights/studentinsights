@@ -13,14 +13,6 @@ class AttendanceImporter
   end
 
   def import_row(row)
-    student = Student.where(local_id: row[:local_id]).first_or_create!
-    attendance_event = AttendanceEvent.where(
-      student_id: student.id,
-      event_date: row[:event_date],
-      absence: row[:absence],
-      tardy: row[:tardy],
-    ).first_or_create!
+    AttendanceRow.build(row).save!
   end
 end
-
-

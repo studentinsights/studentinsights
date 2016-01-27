@@ -6,44 +6,52 @@ RSpec.describe AttendanceImporter do
     Importer.new(current_file_importer: described_class.new)
   }
 
-  let(:import) { importer.start_import(csv) }
-
   describe '#import_row' do
 
     context 'realistic data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_attendance_export.txt") }
+      let(:local_id_from_file) { '10' }
+      let(:date_from_file) { DateTime.parse('2005-09-16') }
+      let(:school_year) {
+        DateToSchoolYear.new(date_from_file).convert
+      }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 
       context 'student already exists' do
-        let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
-        it 'creates attendence event for the correct student' do
-          import
-          expect(student.reload.attendance_events.size).to eq 1
+        let(:student) {
+          FactoryGirl.create(:student, local_id: local_id_from_file)
+        }
+        let!(:student_school_year) {
+          StudentSchoolYear.create(student: student, school_year: school_year)
+        }
+        it 'creates one absence' do
+          expect {
+            importer.start_import(csv)
+          }.to change { student_school_year.reload.absences.count }.by(1)
         end
-        it 'assigns absence correctly' do
-          import
-          expect(student.reload.attendance_events.last.absence?).to be true
+        it 'creates zero tardies' do
+          expect {
+            importer.start_import(csv)
+          }.not_to change { student_school_year.reload.tardies.count }
         end
-        it 'assigns tardiness correctly' do
-          import
-          expect(student.reload.attendance_events.last.tardy?).to be false
-        end
-        it 'assigns the date correctly' do
-          import
-          event_date = student.reload.attendance_events.last.event_date
-          expect(event_date).to eq DateTime.new(2005, 9, 16)
+        it 'assigns the absence occurred_at correctly' do
+          importer.start_import(csv)
+          expect(student_school_year.reload.absences.last.occurred_at).to eq DateTime.new(2005, 9, 16)
         end
       end
 
       context 'student does not already exist' do
         it 'creates a new student' do
-          expect { import }.to change(Student, :count).by 2
+          expect { importer.start_import(csv) }.to change(Student, :count).by 2
         end
-        it 'assigns the attendance event to the new student' do
-          import
-          new_student = Student.last.reload
-          expect(new_student.attendance_events.size).to eq 1
+        it 'creates a new student school year' do
+          expect { importer.start_import(csv) }.to change(StudentSchoolYear, :count).by 2
+        end
+        it 'assigns the attendance event to the new student school year' do
+          importer.start_import(csv)
+          student_school_year = StudentSchoolYear.last.reload
+          expect(student_school_year.absences.size).to eq 1
         end
       end
 
