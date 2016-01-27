@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119210505) do
+ActiveRecord::Schema.define(version: 20160127202150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "absences", force: true do |t|
+    t.integer  "student_school_year_id", null: false
+    t.datetime "occurred_at",            null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "absences", ["student_school_year_id"], name: "index_absences_on_student_school_year_id", using: :btree
 
   create_table "assessment_families", force: true do |t|
     t.string   "name"
@@ -35,20 +44,6 @@ ActiveRecord::Schema.define(version: 20160119210505) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "attendance_events", force: true do |t|
-    t.integer  "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "absence"
-    t.boolean  "tardy"
-    t.integer  "school_year_id"
-    t.datetime "event_date"
-    t.integer  "student_school_year_id"
-  end
-
-  add_index "attendance_events", ["school_year_id"], name: "index_attendance_events_on_school_year_id", using: :btree
-  add_index "attendance_events", ["student_id"], name: "index_attendance_events_on_student_id", using: :btree
 
   create_table "discipline_incidents", force: true do |t|
     t.integer  "student_id"
@@ -246,5 +241,14 @@ ActiveRecord::Schema.define(version: 20160119210505) do
   add_index "students", ["local_id"], name: "index_students_on_local_id", using: :btree
   add_index "students", ["school_id"], name: "index_students_on_school_id", using: :btree
   add_index "students", ["state_id"], name: "index_students_on_state_id", using: :btree
+
+  create_table "tardies", force: true do |t|
+    t.integer  "student_school_year_id", null: false
+    t.datetime "occurred_at",            null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "tardies", ["student_school_year_id"], name: "index_tardies_on_student_school_year_id", using: :btree
 
 end
