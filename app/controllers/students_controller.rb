@@ -15,7 +15,6 @@ class StudentsController < ApplicationController
     @level = @student_risk_level.level
 
     @student_school_years = @student.student_school_years.includes(
-      :attendance_events,
       :discipline_incidents,
       :student_assessments,
       :interventions

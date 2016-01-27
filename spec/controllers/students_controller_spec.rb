@@ -5,13 +5,15 @@ describe StudentsController, :type => :controller do
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
 
   describe '#show' do
+    let(:student) { FactoryGirl.create(:student) }
+    let!(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
+
     def make_request(options = { student_id: nil, format: :html })
       request.env['HTTPS'] = 'on'
       get :show, id: options[:student_id], format: options[:format]
     end
 
     context 'when educator is not logged in' do
-      let!(:student) { FactoryGirl.create(:student) }
       context 'html' do
         it 'redirects to sign in page' do
           make_request({ student_id: student.id, format: :html })
@@ -27,10 +29,13 @@ describe StudentsController, :type => :controller do
       end
     end
     context 'when educator is logged in' do
-      let!(:student) { FactoryGirl.create(:student) }
-      before do
-        sign_in(educator)
+      before { sign_in(educator) }
+
+      it 'assigns the school year' do
+        make_request({ student_id: student.id, format: :html })
+        expect(assigns(:student_school_years)).to eq [student_school_year]
       end
+
       context 'html' do
         it 'is successful' do
           make_request({ student_id: student.id, format: :html })

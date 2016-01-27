@@ -111,15 +111,11 @@ class Student < ActiveRecord::Base
   end
 
   def absences_count_by_school_year
-    student_school_years.includes(:attendance_events).map do |s|
-      s.attendance_events.absences_count
-    end
+    student_school_years.map(&:absences_count)
   end
 
   def tardies_count_by_school_year
-    student_school_years.includes(:attendance_events).map do |s|
-      s.attendance_events.tardies_count
-    end
+    student_school_years.map(&:tardies_count)
   end
 
   def discipline_incidents_count_by_school_year
@@ -238,17 +234,6 @@ class Student < ActiveRecord::Base
       interventions.most_recent_atp.number_of_hours
     else
       0
-    end
-  end
-
-  # ATTENDANCE EVENTS #
-
-  def self.update_attendance_events_counts_most_recent_school_year
-    # Should be called at least daily to update student attendance event counts.
-    find_each do |student|
-      updater = StudentRecentAttendanceEvents.new(student)
-      updater.update_absences_count
-      updater.update_tardies_count
     end
   end
 

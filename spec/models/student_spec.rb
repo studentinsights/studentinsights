@@ -9,7 +9,6 @@ RSpec.describe Student do
       let(:student) { FactoryGirl.create(:student) }
       it 'includes nil student attributes' do
         expect(serialized_data).to include({
-         "absences_count_most_recent_school_year" => nil,
          "disability" => nil,
          "first_name" => nil,
          "free_reduced_lunch" => nil,
@@ -35,7 +34,6 @@ RSpec.describe Student do
          "sped_placement" => nil,
          "state_id" => nil,
          "student_address" => nil,
-         "tardies_count_most_recent_school_year" => nil,
         })
       end
       it 'returns an empty array of interventions' do
@@ -182,10 +180,10 @@ RSpec.describe Student do
         expect(student.absences_count_by_school_year).to eq [0, 0]
       end
     end
-    context 'student with absences' do
-      let(:student) { FactoryGirl.create(:student_with_attendance_event) }
+    context 'student with absence' do
+      let(:student) { FactoryGirl.create(:student_with_absence) }
       it 'returns the correct array' do
-        expect(student.absences_count_by_school_year).to eq [1, 0]
+        expect(student.absences_count_by_school_year).to eq [1]
       end
     end
   end

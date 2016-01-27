@@ -206,19 +206,15 @@ FactoryGirl.define do
         FactoryGirl.create(:star_assessment_with_irl_above_5, student: student)
       end
     end
+
     # Test event sorting
-    factory :student_with_attendance_event do
-      registration_date Date.new(2014, 8, 1)
+    factory :student_with_absence do
       after(:create) do |student|
-        FactoryGirl.create(:attendance_event, :absence, student: student)
+        student_school_years = FactoryGirl.create_list(:student_school_year, 1, student: student)
+        FactoryGirl.create(:absence, student_school_year: student_school_years.first)
       end
     end
-    factory :student_with_absence_in_january_2015 do
-      registration_date Date.new(2014, 8, 1)
-      after(:create) do |student|
-        FactoryGirl.create(:attendance_event, :absence, :in_january_2015, student: student)
-      end
-    end
+
     factory :student_with_discipline_incident do
       registration_date Date.new(2014, 8, 1)
       after(:create) do |student|
