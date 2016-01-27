@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :student_school_year do
-    association :student
+    student
+    school_year
   end
 end

@@ -1,7 +1,8 @@
 class StudentSchoolYear < ActiveRecord::Base
   belongs_to :student
   belongs_to :school_year
-  has_many :attendance_events
+  has_many :absences
+  has_many :tardies
   has_many :student_assessments
   has_many :discipline_incidents
   has_many :interventions
@@ -35,13 +36,4 @@ class StudentSchoolYear < ActiveRecord::Base
                        .by_family("ACCESS")
                        .last
   end
-
-  def absences
-    attendance_events.absences_count
-  end
-
-  def tardies
-    attendance_events.tardies_count
-  end
-
 end
