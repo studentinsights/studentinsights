@@ -1,6 +1,8 @@
 FactoryGirl.define do
-
   factory :school_year do
+    name { "#{Time.now.year}-#{Time.now.year + 1}" }
+    start { Date.new(Time.now.year, 8, 1) }
+
     factory :sy_2014_2015 do
       name '2014-2015'
       start Date.new(2014, 8, 1)
