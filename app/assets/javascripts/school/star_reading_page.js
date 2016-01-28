@@ -15,12 +15,15 @@ $(function() {
       displayName: 'StarReadingOverviewPage',
 
       propTypes: {
-        initialFilters: React.PropTypes.arrayOf(React.PropTypes.object)
+        initialFilters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+        dateNow: React.PropTypes.object.isRequired,
+        recentThresholdInDays: React.PropTypes.number
       },
 
       getDefaultProps: function() {
         return {
-          studentLimit: 12
+          studentLimit: 12,
+          recentThresholdInDays: 90
         };
       },
 
@@ -79,26 +82,35 @@ $(function() {
         }, this.props.students);
       },
 
+      // find students who took an assessment in the last 90 days
+      // and who had the greatest change since their last assessment
       studentsWithRecentAssessments: function() {
+        var dateNow = this.props.dateNow;
+        var recentThresholdInDays = this.props.recentThresholdInDays;
+
         return _.compact(this.filteredStudents().map(function(student) {
-          var januaryResult = _.find(student.star_reading_results, function(result) {
-            var date = new Date(result.date_taken).getTime();
-            var start = new Date('2015-12-01T00:00:00.000Z').getTime();
-            var end = new Date('2016-02-01T00:00:00.000Z').getTime();
-            return date > start && date < end && result.percentile_rank;
+          // sort assessments by date taken, ascending
+          var assessmentsByDate = _.sortBy(student.star_reading_results, function(assessment) {
+            return new Date(assessment.date_taken);
           });
 
-          var octoberResult = _.find(student.star_reading_results, function(result) {
-            var date = new Date(result.date_taken).getTime();
-            var start = new Date('2015-09-01T00:00:00.000Z').getTime();
-            var end = new Date('2015-11-01T00:00:00.000Z').getTime();
-            return date > start && date < end && result.percentile_rank;
+          // only include students with recent assessments
+          var recentAssessment = _.findLast(assessmentsByDate, function(assessment) {
+            var takenDaysAgo = moment(dateNow).diff(assessment.date_taken, 'days');
+            return (takenDaysAgo < recentThresholdInDays && _.isNumber(assessment.percentile_rank));
           });
+          if (recentAssessment === undefined) return null;
 
-          if (!januaryResult || !octoberResult) return null;
-          var delta = januaryResult.percentile_rank - octoberResult.percentile_rank;
+          // and that also have an assessment before that (however old it was)
+          var previousAssessment = _.findLast(assessmentsByDate, function(assessment) {
+            return (new Date(assessment.date_taken) < new Date(recentAssessment.date_taken) && _.isNumber(assessment.percentile_rank));
+          });
+          if (previousAssessment === undefined) return null;
+
+          // compute the delta
+          var delta = recentAssessment.percentile_rank - previousAssessment.percentile_rank;
           return merge(student, {
-            star_reading_results: [octoberResult, januaryResult],
+            star_reading_results: [previousAssessment, recentAssessment],
             delta: delta
           });
         }));
@@ -144,19 +156,7 @@ $(function() {
                 dom.div({ style: { flex: 4 } }, this.renderAllTimeQuartiles(merge(sizing, { width: 600 }))),
                 dom.div({ style: { flex: 2 } }, this.renderDeltaHistogram(merge(sizing, { width: 450 })))
               )
-            ),
-            dom.pre({
-              style: {
-                display: (this.state.hoverText === null) ? 'none' : 'block',
-                position: 'absolute',
-                top: 450,
-                left: '45%',
-                background: '#ffc',
-                opacity: 0.95,
-                padding: 20,
-                border: '1px solid #ccc'
-              }
-            }, this.state.hoverText)
+            )
           )
         );
       },
@@ -211,6 +211,8 @@ $(function() {
         );
       },
 
+      // find students who took an assessment in the last 90 days
+      // and who had the greatest change since their last assessment
       renderRecentStarChanges: function(options) {
         var students = this.studentsWithRecentAssessments();
         var assessments = _.flatten(_.pluck(students, 'star_reading_results'));
@@ -323,7 +325,8 @@ $(function() {
         var color = d3.scale.linear().domain([-50, 0, 50]).range(['red','#eee','blue']);
         var thickness = d3.scale.linear().domain([-50, 0, 50]).range([3, 0, 3]);
 
-        var hoverElements = this.state.hoverStudentIds.map(function(studentId) {
+        var hoverElements = _.compact(this.state.hoverStudentIds.map(function(studentId) {
+          if (_.isEmpty(students)) return null;
           var student = _.findWhere(students, { id: studentId });
           var percentile = _.last(student.star_reading_results).percentile_rank;
           var delta = this.resultsDelta(student);
@@ -343,7 +346,7 @@ $(function() {
             dom.tspan({ x: x(delta), dy: '1.4em', stroke: color(delta) }, (delta > 0) ? '+' + delta : delta),
             dom.tspan({ x: x(delta), dy: '1.4em' },  'Percentile: ' + percentile)
           );
-        }, this);
+        }, this));
 
         return dom.div({},
           this.renderTitleWithSummary({
@@ -650,6 +653,7 @@ $(function() {
 
       ReactDOM.render(createEl(StarReadingOverviewPage, {
         students: serializedData.studentsWithStarReading,
+        dateNow: new Date(),
         InterventionTypes: InterventionTypes,
         initialFilters: Filters.parseFiltersHash(window.location.hash)
       }), document.getElementById('main'));
