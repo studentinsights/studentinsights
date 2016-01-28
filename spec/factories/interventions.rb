@@ -15,7 +15,7 @@ FactoryGirl.define do
     end
 
     factory :atp_intervention do
-      association :intervention_type, name: "After-School Tutoring (ATP)"
+      intervention_type { InterventionType.find_by_name('After-School Tutoring (ATP)') }
       factory :more_recent_atp_intervention do
         start_date Date.new(2015, 9, 9)
         number_of_hours 11
@@ -23,7 +23,7 @@ FactoryGirl.define do
     end
 
     trait :non_atp_intervention do
-      association :intervention_type, name: "Extra Dance "
+      intervention_type { InterventionType.find_by_name('Attendance Contract') }
     end
 
   end

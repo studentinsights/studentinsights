@@ -14,7 +14,7 @@ RSpec.describe InterventionsController, type: :controller do
         {
           educator_id: educator.id,
           student_id: student.id,
-          intervention_type_id: 1,
+          intervention_type_id: InterventionType.first.id,
           start_date: '2015/1/1',
           end_date: '2020/6/6'
         }
