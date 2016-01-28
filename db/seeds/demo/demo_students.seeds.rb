@@ -15,7 +15,8 @@ Homeroom.last.update_attribute(:educator_id, fifth_grade_educator.id)
 Student.destroy_all
 StudentAssessment.destroy_all
 DisciplineIncident.destroy_all
-AttendanceEvent.destroy_all
+Absence.destroy_all
+Tardy.destroy_all
 SchoolYear.destroy_all
 StudentSchoolYear.destroy_all
 InterventionType.destroy_all
@@ -32,4 +33,3 @@ puts "Creating students for homeroom #2..."
 Student.update_risk_levels
 Student.update_student_school_years
 Student.update_recent_student_assessments
-Student.update_attendance_events_counts_most_recent_school_year
