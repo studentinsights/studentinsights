@@ -27,7 +27,7 @@ class SchoolsController < ApplicationController
   # that are used to perform filtering and slicing of students in the UI.
   # An optional block can be passed that yields each `student`, for merging in other fields
   # that rely on methods defined on the Student model.
-  def fat_student_hashes(students_assoc)  
+  def fat_student_hashes(students_assoc)
     students_assoc.includes(:interventions).map do |student|
       student_hash = if block_given? then yield(student) else student.as_json end
       student_hash.merge({
