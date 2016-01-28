@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127212017) do
+ActiveRecord::Schema.define(version: 20160128014441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,20 +46,17 @@ ActiveRecord::Schema.define(version: 20160127212017) do
   end
 
   create_table "discipline_incidents", force: true do |t|
-    t.integer  "student_id"
     t.string   "incident_code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "incident_location"
     t.text     "incident_description"
-    t.datetime "event_date"
+    t.datetime "occurred_at",            null: false
     t.boolean  "has_exact_time"
-    t.integer  "school_year_id"
-    t.integer  "student_school_year_id"
+    t.integer  "student_school_year_id", null: false
   end
 
-  add_index "discipline_incidents", ["school_year_id"], name: "index_discipline_incidents_on_school_year_id", using: :btree
-  add_index "discipline_incidents", ["student_id"], name: "index_discipline_incidents_on_student_id", using: :btree
+  add_index "discipline_incidents", ["student_school_year_id"], name: "index_discipline_incidents_on_student_school_year_id", using: :btree
 
   create_table "educators", force: true do |t|
     t.string   "email",                  default: "",    null: false
@@ -201,8 +198,9 @@ ActiveRecord::Schema.define(version: 20160127212017) do
     t.integer  "school_year_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "tardies_count",  default: 0
-    t.integer  "absences_count", default: 0
+    t.integer  "tardies_count",              default: 0
+    t.integer  "absences_count",             default: 0
+    t.integer  "discipline_incidents_count", default: 0
   end
 
   create_table "students", force: true do |t|

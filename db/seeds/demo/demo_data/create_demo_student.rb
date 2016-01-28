@@ -39,8 +39,8 @@ def create_demo_student(homeroom)
       date_end = Time.local(2011 + n, 7, 31)
       discipline_event_generator.rng.round(0).times do
         discipline_incident = DisciplineIncident.new(FakeDisciplineIncident.data)
-        discipline_incident.student_id = student.id
-        discipline_incident.event_date = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
+        discipline_incident.student_school_year = student.student_school_years.first
+        discipline_incident.occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
         discipline_incident.save
       end
     end
@@ -49,8 +49,7 @@ def create_demo_student(homeroom)
     5.times do |n|
       attendance_event_generator.rng.round(0).times do
         attendance_event = [Absence.new, Tardy.new].sample
-        student_school_year = student.student_school_years.first
-        attendance_event.student_school_year = student_school_year
+        attendance_event.student_school_year = student.student_school_years.first
         attendance_event.occurred_at = Time.new - (rand * 100).to_i.days
         attendance_event.save
       end
