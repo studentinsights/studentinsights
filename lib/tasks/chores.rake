@@ -4,4 +4,9 @@ namespace :chores do
     Absence.find_each(&:save)
     Tardy.find_each(&:save)
   end
+
+  desc 'Update counter caches for DisciplineIncident'
+  task update_discipline_incident_counts: :environment do
+    DisciplineIncident.find_each(&:save)
+  end
 end
