@@ -28,33 +28,33 @@ RSpec.describe BehaviorImporter do
 
       context 'student we want to update' do
         it 'creates discipline incident for the correct student' do
-          expect(student_we_want_to_update.reload.discipline_incidents.size).to eq 1
+          expect(student_we_want_to_update.reload.most_recent_school_year.discipline_incidents.size).to eq 1
         end
         it 'assigns the incident code correctly' do
-          incident = student_we_want_to_update.reload.discipline_incidents.last
+          incident = student_we_want_to_update.reload.most_recent_school_year.discipline_incidents.last
           expect(incident.incident_code).to eq 'Hitting'
         end
       end
       context 'has exact time' do
-        let(:incident_with_time_data) { Student.find_by_local_id("10").reload.discipline_incidents.last }
+        let(:incident_with_time_data) { Student.find_by_local_id("10").reload.most_recent_school_year.discipline_incidents.last }
         it 'sets has exact time to true' do
           expect(incident_with_time_data.has_exact_time).to eq true
         end
         it 'assigns the date and time correctly' do
-          expect(incident_with_time_data.event_date).to eq Time.utc(2015, 10, 1, 13, 00)
+          expect(incident_with_time_data.occurred_at).to eq Time.utc(2015, 10, 1, 13, 00)
         end
       end
       context 'time missing' do
-        let(:incident_without_time_data) { Student.find_by_local_id("13").discipline_incidents.last }
+        let(:incident_without_time_data) { Student.find_by_local_id("13").most_recent_school_year.discipline_incidents.last }
         it 'sets has exact time to false' do
           expect(incident_without_time_data.has_exact_time).to eq false
         end
         it 'assigns the date without a time' do
-          expect(incident_without_time_data.event_date).to eq Time.utc(2015, 10, 3)
+          expect(incident_without_time_data.occurred_at).to eq Time.utc(2015, 10, 3)
         end
       end
       context 'description text has non UTF-8 byte sequence' do
-        let(:incident_with_non_utf8_description) { Student.find_by_local_id("12").discipline_incidents.last }
+        let(:incident_with_non_utf8_description) { Student.find_by_local_id("12").most_recent_school_year.discipline_incidents.last }
         it 'fights back' do
           expect(incident_with_non_utf8_description.reload.incident_description).to eq("pencil that didn’t need to be")
         end
