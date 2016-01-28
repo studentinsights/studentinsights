@@ -23,7 +23,7 @@ FactoryGirl.define do
     end
 
     trait :non_atp_intervention do
-      intervention_type { InterventionType.find_by_name('Extra Dance') }
+      intervention_type { InterventionType.find_by_name('Attendance Contract') }
     end
 
   end
