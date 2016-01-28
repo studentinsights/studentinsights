@@ -10,7 +10,7 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
   def create_valid_bulk_assignment_params
     {
       student_ids: [FactoryGirl.create(:student).id],
-      intervention_type_id: '1',
+      intervention_type_id: InterventionType.first.id,
       comment: 'Useful comment!',
       end_date: '2020/1/1',
       educator_id: '1'
@@ -33,7 +33,7 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
           let(:params) {
             { bulk_intervention_assignment: {
               student_ids: [student.id],
-              intervention_type_id: '1',
+              intervention_type_id: InterventionType.first.id,
               comment: 'Useful comment!',
               end_date: '2020/1/1',
               educator_id: '1' }
@@ -53,7 +53,7 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
           let(:params) {
             { bulk_intervention_assignment: {
               student_ids: [student.id, other_student.id],
-              intervention_type_id: '1',
+              intervention_type_id: InterventionType.first.id,
               end_date: '2020/1/1',
               educator_id: '1',
               goal: 'Fix the situation.' }
@@ -101,7 +101,7 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
             let(:params) { {
               bulk_intervention_assignment: {
                 student_ids: [1, "Q"],
-                intervention_type_id: '1' }
+                intervention_type_id: InterventionType.first.id }
               }
             }
             it 'returns a detailed error message' do
