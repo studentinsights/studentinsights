@@ -107,7 +107,7 @@ $(function() {
       textAlign: 'center',
       flex: 1
     },
-    academicSummaryWrapper: {
+    summaryWrapper: {
       padding: 20
     },
     sparklineWidth: 120,
@@ -119,6 +119,27 @@ $(function() {
 
     propTypes: {
       student: React.PropTypes.object.isRequired,
+      chartData: React.PropTypes.shape({
+        // ela
+        most_recent_star_reading_percentile: React.PropTypes.number,
+        most_recent_mcas_ela_scaled: React.PropTypes.number,
+        most_recent_mcas_ela_growth: React.PropTypes.number,
+        star_series_reading_percentile: React.PropTypes.array,
+        mcas_series_ela_scaled: React.PropTypes.array,
+        mcas_series_ela_growth: React.PropTypes.array,
+        // math
+        most_recent_star_math_percentile: React.PropTypes.number,
+        most_recent_mcas_math_scaled: React.PropTypes.number,
+        most_recent_mcas_math_growth: React.PropTypes.number,
+        star_series_math_percentile: React.PropTypes.array,
+        mcas_series_math_scaled: React.PropTypes.array,
+        mcas_series_math_growth: React.PropTypes.array
+      }),
+      attendanceData: React.PropTypes.shape({
+        discipline_incidents: React.PropTypes.array, // TODO(kr) case bug serializing from rails
+        tardies: React.PropTypes.array,
+        absences: React.PropTypes.array
+      }),
       dateRange: React.PropTypes.array.isRequired
     },
 
@@ -135,6 +156,7 @@ $(function() {
           this.renderDemographicsColumn(),
           this.renderELAColumn(),
           this.renderMathColumn(),
+          this.renderAttendanceColumn(),
           dom.div({ style: { flex: 1 }}, 'behavior'),
           dom.div({ style: { flex: 1 }}, 'interventions')
         )
@@ -178,12 +200,12 @@ $(function() {
       var chartData = this.props.chartData;
 
       return dom.div({ className: 'ela-background', style: styles.column},
-        this.wrapAcademicSummary({
+        this.wrapSummary({
           caption: 'STAR Reading',
           value: student.most_recent_star_reading_percentile,
           sparkline: this.renderSparkline(chartData.star_series_reading_percentile)
         }),
-        this.wrapAcademicSummary({
+        this.wrapSummary({
           caption: 'MCAS ELA',
           value: student.most_recent_mcas_ela_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled, {
@@ -191,7 +213,7 @@ $(function() {
             thresholdValue: 240
           })
         }),
-        this.wrapAcademicSummary({
+        this.wrapSummary({
           caption: 'MCAS ELA Growth',
           value: student.most_recent_mcas_ela_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_growth)
@@ -204,25 +226,59 @@ $(function() {
       var chartData = this.props.chartData;
 
       return dom.div({ className: 'math-background', style: styles.column},
-        this.wrapAcademicSummary({
+        this.wrapSummary({
           caption: 'STAR Math',
           value: student.most_recent_star_math_percentile,
           sparkline: this.renderSparkline(chartData.star_series_math_percentile)
         }),
-        this.wrapAcademicSummary({
+        this.wrapSummary({
           caption: 'MCAS Math',
-          value: student.most_recent_mcas_ela_scaled,
+          value: student.most_recent_mcas_math_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_math_scaled, {
             valueRange: [200, 300],
             thresholdValue: 240
           })
         }),
-        this.wrapAcademicSummary({
+        this.wrapSummary({
           caption: 'MCAS Math Growth',
           value: student.most_recent_mcas_math_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_math_growth)
         })
       );
+    },
+
+    renderAttendanceColumn: function() {
+      var student = this.props.student;
+      var attendanceData = this.props.attendanceData;
+
+      return dom.div({ className: 'attendance-background', style: styles.column},
+        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, { caption: 'Discipline incidents' }),
+        this.renderAttendanceEventsSummary(attendanceData.absences, { caption: 'Absences' }),
+        this.renderAttendanceEventsSummary(attendanceData.tardies, { caption: 'Tardies' })
+      );
+    },
+
+    renderAttendanceEventsSummary: function(attendanceEvents, props) {
+      var cumulativeQuads = this.cumulativeCountQuads(attendanceEvents);
+      var value = (cumulativeQuads.length > 0) ? _.last(cumulativeQuads)[3] : 0;
+
+      return this.wrapSummary(merge({
+        title: props.title,
+        value: value,
+        sparkline: this.renderSparkline(cumulativeQuads)
+      }, props));
+    },
+
+    cumulativeCountQuads: function(attendanceEvents) {
+      var cumulativeValue = 0;
+      var quads = [];
+      attendanceEvents.forEach(function(attendanceEvent) {
+        var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
+        cumulativeValue = cumulativeValue + 1;
+        quads.push([occurrenceDate.getMonth(), occurrenceDate.getDate(), occurrenceDate.getYear(), cumulativeValue]);
+      });
+
+      return quads;      
     },
 
     // quads format is: [[year, month, day, value]]
@@ -239,8 +295,8 @@ $(function() {
     },
 
     // render with style wrapper
-    wrapAcademicSummary: function(props) {      
-      return dom.div({ style: styles.academicSummaryWrapper }, createEl(AcademicSummary, props));
+    wrapSummary: function(props) {      
+      return dom.div({ style: styles.summaryWrapper }, createEl(AcademicSummary, props));
     },
 
     renderTitle: function(text) {
@@ -269,6 +325,7 @@ $(function() {
     ReactDOM.render(createEl(StudentProfilePage, {
       student: serializedData.student,
       chartData: serializedData.chartData,
+      attendanceData: serializedData.attendanceData,
       dateRange: dateRange
     }), document.getElementById('main'));
   }
