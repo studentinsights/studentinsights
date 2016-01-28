@@ -14,6 +14,7 @@ class Student < ActiveRecord::Base
   def serialized_data
     as_json.merge({
       interventions: interventions.as_json,
+      student_risk_level: student_risk_level.as_json,
       absences_count: most_recent_school_year.absences.count,
       tardies_count: most_recent_school_year.tardies.count,
       homeroom_name: try(:homeroom).try(:name),
