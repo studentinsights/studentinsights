@@ -126,7 +126,7 @@
               <p><strong>Code:</strong>  <%= d.incident_code %></p>
               <p><strong>Description:</strong>  <%= d.incident_description %></p>
               <p><strong>Location:</strong>  <%= d.incident_location %></p>
-              <p><strong>Date:</strong>  <%= d.event_date.strftime("%B %e, %Y") %></p>
+              <p><strong>Date:</strong>  <%= d.occurred_at.strftime("%B %e, %Y") %></p>
             </div>
           <% end %>
       <% else %>

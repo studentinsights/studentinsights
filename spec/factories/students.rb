@@ -216,9 +216,9 @@ FactoryGirl.define do
     end
 
     factory :student_with_discipline_incident do
-      registration_date Date.new(2014, 8, 1)
       after(:create) do |student|
-        FactoryGirl.create(:discipline_incident, student: student)
+        student_school_years = FactoryGirl.create_list(:student_school_year, 1, student: student)
+        FactoryGirl.create(:discipline_incident, student_school_year: student_school_years.first)
       end
     end
   end

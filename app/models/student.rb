@@ -2,7 +2,6 @@ class Student < ActiveRecord::Base
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
   has_many :student_school_years
-  has_many :discipline_incidents, dependent: :destroy
   has_many :student_assessments
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
@@ -23,7 +22,7 @@ class Student < ActiveRecord::Base
   end
 
   def self.serialized_data
-    includes(:interventions, :discipline_incidents).map do |student|
+    includes(:interventions).map do |student|
       student.serialized_data
     end
   end
@@ -117,9 +116,7 @@ class Student < ActiveRecord::Base
   end
 
   def discipline_incidents_count_by_school_year
-    student_school_years.includes(:discipline_incidents).map do |s|
-      s.discipline_incidents.count
-    end
+    student_school_years.map(&:discipline_incidents_count)
   end
 
   def serialized_student_data
@@ -196,7 +193,7 @@ class Student < ActiveRecord::Base
   def assign_events_to_student_school_years
     # In case you have events that weren't assigned to student
     # school years. (This code is kind of like a migration.)
-    [student_assessments, discipline_incidents, interventions].each do |events|
+    [student_assessments, interventions].each do |events|
       events.map do |event|
         event.assign_to_student_school_year
       end
