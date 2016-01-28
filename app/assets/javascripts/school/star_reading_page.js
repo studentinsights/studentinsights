@@ -133,6 +133,9 @@ $(function() {
           })),
           dom.div({ style: { position: 'relative' } },
             dom.div({ style: { flex: 1 } },
+              dom.div({ style: { display: 'flex', padding: 20 } },
+                this.renderScatterplot(merge(sizing, { width: 1200, height: 300 }))
+              ),
               dom.div({ style: { display: 'flex', justifyContent: 'space-around', padding: 20 } },
                 dom.div({ style: { flex: 4 } }, this.renderAllTimeStarTrends(merge(sizing, { width: 600 }))),
                 dom.div({ style: { flex: 2 } }, this.renderRecentStarChanges(merge(sizing, { width: 180 })))
@@ -305,6 +308,105 @@ $(function() {
 
       sortedScores: function(assessments) {
         return _.compact(_.pluck(assessments, 'percentile_rank')).sort(d3.ascending);
+      },
+
+      renderScatterplot: function(options) {
+        var width = options.width;
+        var height = options.height;
+
+        var students = this.studentsWithRecentAssessments();
+        var assessments = _.flatten(_.pluck(students, 'star_reading_results'));
+
+        var dateRange = d3.extent(assessments, function(d) { return new Date(d.date_taken); });
+        var x = d3.scale.linear().domain([-50, 50]).range([0, width]);
+        var y = d3.scale.linear().domain([0, 100]).range([height, 0]);
+        var color = d3.scale.linear().domain([-50, 0, 50]).range(['red','#eee','blue']);
+        var thickness = d3.scale.linear().domain([-50, 0, 50]).range([3, 0, 3]);
+
+        var hoverElements = this.state.hoverStudentIds.map(function(studentId) {
+          var student = _.findWhere(students, { id: studentId });
+          var percentile = _.last(student.star_reading_results).percentile_rank;
+          var delta = this.resultsDelta(student);
+          var bubbleY = y(percentile);
+          return dom.text({
+            key: student.id,
+            fontSize: 12,
+            fontWeight: 'normal',
+            x: x(delta),
+            y: (bubbleY > height/2) ? bubbleY - 60 : bubbleY + 5, // flip orientation, to stay in bounds
+            width: 100,
+            height: 100,
+            textAnchor: 'center',
+            stroke: '#333'
+          },
+            dom.tspan({ x: x(delta), dy: '1.4em' }, student.first_name + ' ' + student.last_name),
+            dom.tspan({ x: x(delta), dy: '1.4em', stroke: color(delta) }, (delta > 0) ? '+' + delta : delta),
+            dom.tspan({ x: x(delta), dy: '1.4em' },  'Percentile: ' + percentile)
+          );
+        }, this);
+
+        return dom.div({},
+          this.renderTitleWithSummary({
+            title: 'Performance compared to growth, last assessment',
+            description: 'Percentile rank and change in percentile rank',
+            dateRange: dateRange,
+            students: students,
+            assessments: assessments
+          }),
+          dom.div({},
+            dom.svg( {width: width, height: height },
+              dom.rect({
+                x: 0,
+                y: 0,
+                width: width,
+                height: height,
+                stroke: '#eee',
+                fill: 'none'
+              }),
+              students.map(function(student) {
+                var percentile = _.last(student.star_reading_results).percentile_rank;
+                var delta = this.resultsDelta(student);
+                return dom.circle({
+                  key: student.id,
+                  cx: x(delta),
+                  cy: y(percentile),
+                  opacity: (this.isHoverStudent(student))
+                    ? 1
+                    : this.isHoverBackground(student) ? 0.02 : 0.75,
+                  r: 6,
+                  fill: color(delta),
+                  onMouseEnter: this.onStudentHover.bind(this, student),
+                  onMouseLeave: this.onStudentHover.bind(this, null)
+                });
+              }, this),
+              // horizontal lines
+              [25, 50, 75].map(function(percentile) {
+                return dom.line({
+                  key: percentile,
+                  x1: 0,
+                  x2: width,
+                  y1: y(percentile),
+                  y2: y(percentile),
+                  stroke: (percentile === 50) ? '#ccc' : '#eee',
+                  strokeWidth: 1,
+                });
+              }),
+              // vertical lines
+              [-50, -25, 0, 25, 50].map(function(delta) {
+                return dom.line({
+                  key: delta,
+                  x1: x(delta),
+                  x2: x(delta),
+                  y1: height,
+                  y2: 0,
+                  stroke: (delta === 0) ? '#666' : '#eee',
+                  strokeWidth: (delta === 0) ? 2 : 1
+                });
+              }),
+              (_.isEmpty(this.state.hoverStudentIds)) ? null : hoverElements
+            )
+          )
+        );
       },
 
       renderAllTimeQuartiles: function(options) {
@@ -539,9 +641,6 @@ $(function() {
       // TODO fix camelCase data attribute deserialization between fixture/real
       var serializedData = $('#serialized-data').data();
       window.serializedData = serializedData;
-
-      //TODO(kr) fix mismatch between dev/prod here
-      serializedData.interventionTypes = [{"id":20,"name":"After-School Tutoring (ATP)","created_at":"2015-10-20T20:32:26.191Z","updated_at":"2015-10-20T20:32:26.191Z"},{"id":21,"name":"Attendance Officer","created_at":"2015-10-20T20:32:26.198Z","updated_at":"2015-10-20T20:32:26.198Z"},{"id":22,"name":"Attendance Contract","created_at":"2015-10-20T20:32:26.207Z","updated_at":"2015-10-20T20:32:26.207Z"},{"id":23,"name":"Behavior Contract","created_at":"2015-10-20T20:32:26.212Z","updated_at":"2015-10-20T20:32:26.212Z"},{"id":24,"name":"Behavior Plan","created_at":"2015-10-20T20:32:26.219Z","updated_at":"2015-10-20T20:32:26.219Z"},{"id":25,"name":"Boys \u0026 Girls Club","created_at":"2015-10-20T20:32:26.225Z","updated_at":"2015-10-20T20:32:26.225Z"},{"id":26,"name":"Classroom Academic Intervention","created_at":"2015-10-20T20:32:26.229Z","updated_at":"2015-10-20T20:32:26.229Z"},{"id":27,"name":"Classroom Behavior Intervention","created_at":"2015-10-20T20:32:26.234Z","updated_at":"2015-10-20T20:32:26.234Z"},{"id":28,"name":"Community Schools","created_at":"2015-10-20T20:32:26.241Z","updated_at":"2015-10-20T20:32:26.241Z"},{"id":29,"name":"Counseling: In-House","created_at":"2015-10-20T20:32:26.246Z","updated_at":"2015-10-20T20:32:26.246Z"},{"id":30,"name":"Counseling: Outside/Physician Referral","created_at":"2015-10-20T20:32:26.254Z","updated_at":"2015-10-20T20:32:26.254Z"},{"id":31,"name":"ER Referral (Mental Health)","created_at":"2015-10-20T20:32:26.265Z","updated_at":"2015-10-20T20:32:26.265Z"},{"id":32,"name":"Math Tutor","created_at":"2015-10-20T20:32:26.270Z","updated_at":"2015-10-20T20:32:26.270Z"},{"id":33,"name":"Mobile Crisis Referral","created_at":"2015-10-20T20:32:26.284Z","updated_at":"2015-10-20T20:32:26.284Z"},{"id":34,"name":"MTSS Referral","created_at":"2015-10-20T20:32:26.293Z","updated_at":"2015-10-20T20:32:26.293Z"},{"id":35,"name":"OT/PT Consult","created_at":"2015-10-20T20:32:26.297Z","updated_at":"2015-10-20T20:32:26.297Z"},{"id":36,"name":"Parent Communication","created_at":"2015-10-20T20:32:26.309Z","updated_at":"2015-10-20T20:32:26.309Z"},{"id":37,"name":"Parent Conference/Meeting","created_at":"2015-10-20T20:32:26.320Z","updated_at":"2015-10-20T20:32:26.320Z"},{"id":39,"name":"Peer Mediation","created_at":"2015-10-20T20:32:26.342Z","updated_at":"2015-10-20T20:32:26.342Z"},{"id":40,"name":"Reading Specialist","created_at":"2015-10-20T20:32:26.364Z","updated_at":"2015-10-20T20:32:26.364Z"},{"id":41,"name":"Reading Tutor","created_at":"2015-10-20T20:32:26.375Z","updated_at":"2015-10-20T20:32:26.375Z"},{"id":42,"name":"SST Referral","created_at":"2015-10-20T20:32:26.379Z","updated_at":"2015-10-20T20:32:26.379Z"},{"id":43,"name":"Weekly Call/Email Home","created_at":"2015-10-20T20:32:26.389Z","updated_at":"2015-10-20T20:32:26.389Z"},{"id":44,"name":"X Block Tutor","created_at":"2015-10-20T20:32:26.393Z","updated_at":"2015-10-20T20:32:26.393Z"},{"id":45,"name":"51a Filing","created_at":"2015-10-20T20:32:26.399Z","updated_at":"2015-10-20T20:32:26.399Z"},{"id":46,"name":"Other","created_at":"2015-10-20T20:32:26.405Z","updated_at":"2015-10-20T20:32:26.405Z"}];
 
       // index by intervention type id
       var InterventionTypes = serializedData.interventionTypes.reduce(function(map, interventionType) {
