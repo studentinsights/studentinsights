@@ -2,7 +2,6 @@ class Student < ActiveRecord::Base
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
   has_many :student_school_years
-  has_many :attendance_events, dependent: :destroy
   has_many :discipline_incidents, dependent: :destroy
   has_many :student_assessments
   has_many :assessments, through: :student_assessments
@@ -14,13 +13,12 @@ class Student < ActiveRecord::Base
   after_create :update_student_school_years
 
   def serialized_data
-    current_school_year = DateToSchoolYear.new(Time.new).convert
     as_json.merge({
       interventions: interventions.as_json,
+      absences_count: most_recent_school_year.absences.count,
+      tardies_count: most_recent_school_year.tardies.count,
       homeroom_name: try(:homeroom).try(:name),
-      discipline_incidents_count: discipline_incidents.select do |incident|
-        incident.school_year == current_school_year
-      end.size
+      discipline_incidents_count: most_recent_school_year.discipline_incidents.count
     })
   end
 
@@ -198,7 +196,7 @@ class Student < ActiveRecord::Base
   def assign_events_to_student_school_years
     # In case you have events that weren't assigned to student
     # school years. (This code is kind of like a migration.)
-    [attendance_events, student_assessments, discipline_incidents, interventions].each do |events|
+    [student_assessments, discipline_incidents, interventions].each do |events|
       events.map do |event|
         event.assign_to_student_school_year
       end

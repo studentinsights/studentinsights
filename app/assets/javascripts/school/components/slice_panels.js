@@ -219,8 +219,8 @@
     renderAttendanceColumn: function() {
       return dom.div({ className: 'column attendance-column attendance-background pad-column-right' },
         this.renderDisciplineTable(),
-        this.renderAttendanceTable('Absences', 'absences_count_most_recent_school_year'),
-        this.renderAttendanceTable('Tardies', 'tardies_count_most_recent_school_year')
+        this.renderAttendanceTable('Absences', 'absences_count'),
+        this.renderAttendanceTable('Tardies', 'tardies_count')
       );
     },
 

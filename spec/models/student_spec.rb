@@ -7,6 +7,7 @@ RSpec.describe Student do
 
     context 'no events or student attributes' do
       let(:student) { FactoryGirl.create(:student) }
+      before { FactoryGirl.create(:student_school_year, student: student) }
       it 'includes nil student attributes' do
         expect(serialized_data).to include({
          "disability" => nil,
