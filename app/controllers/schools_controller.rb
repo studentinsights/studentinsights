@@ -12,18 +12,6 @@ class SchoolsController < ApplicationController
     }
   end
 
-  # TODO(kr) deprecated
-  def students
-    @school = School.friendly.find(params[:id])
-    attendance_queries = AttendanceQueries.new(@school)
-    mcas_queries = McasQueries.new(@school)
-
-    @top_absences = attendance_queries.top_5_absence_concerns_serialized
-    @top_tardies = attendance_queries.top_5_tardy_concerns_serialized
-    @top_mcas_math_concerns = mcas_queries.top_5_math_concerns_serialized
-    @top_mcas_ela_concerns = mcas_queries.top_5_ela_concerns_serialized
-  end
-
   # To build local fixtures from production data:
   # copy body of controller code into Rails console, run the code in the body of this method,
   # print it as JSON and then save it in the /data/schools/star_reading

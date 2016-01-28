@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe SchoolsController, :type => :controller do
 
-  describe '#students' do
+  describe '#show' do
 
     def make_request(school_id)
       request.env['HTTPS'] = 'on'
-      get :students, id: school_id
+      get :show, id: school_id
     end
 
     before { sign_in(educator) }
@@ -25,7 +25,7 @@ describe SchoolsController, :type => :controller do
       it 'is successful' do
         make_request('hea')
         expect(response).to be_success
-        expect(assigns(:school)).to eq(school)
+        expect(assigns(:serialized_data)).to include :students, :intervention_types
       end
     end
   end
