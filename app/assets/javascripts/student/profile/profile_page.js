@@ -24,8 +24,8 @@ $(function() {
       var padding = 5;
       // var color = d3.scale.linear().domain([-50, 0, 50]).range(['red','#eee','blue']);
       // var thickness = d3.scale.linear().domain([-50, 0, 50]).range([3, 0, 3]);
-      var x = d3.time.scale().domain(this.props.dateRange).range([0, this.props.width - padding]);
-      var y = d3.scale.linear().domain(this.props.valueRange).range([this.props.height - padding, 0]);
+      var x = d3.time.scale().domain(this.props.dateRange).range([padding, this.props.width - padding]);
+      var y = d3.scale.linear().domain(this.props.valueRange).range([this.props.height - padding, padding]);
       var lineGenerator = d3.svg.line()
         .x(function(d) { return x(new Date(d[0], d[1] - 1, d[2])); })
         .y(function(d) { return y(d[3]); })
@@ -37,7 +37,7 @@ $(function() {
           width: this.props.width
         },
           dom.line({
-            x1: 0,
+            x1: padding,
             x2: this.props.width - padding,
             y1: y(this.props.thresholdValue),
             y2: y(this.props.thresholdValue),
@@ -132,9 +132,9 @@ $(function() {
       return dom.div({ className: 'StudentProfilePage' },
         this.renderStudentName(),
         dom.div({ style: styles.summaryContainer },
-          this.renderDemographics(),
-          this.renderELA(),
-          dom.div({ className: 'math-background', style: { flex: 1 }}, 'math'),
+          this.renderDemographicsColumn(),
+          this.renderELAColumn(),
+          this.renderMathColumn(),
           dom.div({ style: { flex: 1 }}, 'behavior'),
           dom.div({ style: { flex: 1 }}, 'interventions')
         )
@@ -162,7 +162,7 @@ $(function() {
       );
     },
 
-    renderDemographics: function() {
+    renderDemographicsColumn: function() {
       var student = this.props.student;
 
       return dom.div({ style: { flex: 1 }},
@@ -173,7 +173,7 @@ $(function() {
       );
     },
 
-    renderELA: function() {
+    renderELAColumn: function() {
       var student = this.props.student;
       var chartData = this.props.chartData;
 
@@ -195,6 +195,32 @@ $(function() {
           caption: 'MCAS ELA Growth',
           value: student.most_recent_mcas_ela_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_growth)
+        })
+      );
+    },
+
+    renderMathColumn: function() {
+      var student = this.props.student;
+      var chartData = this.props.chartData;
+
+      return dom.div({ className: 'math-background', style: styles.column},
+        this.wrapAcademicSummary({
+          caption: 'STAR Math',
+          value: student.most_recent_star_math_percentile,
+          sparkline: this.renderSparkline(chartData.star_series_math_percentile)
+        }),
+        this.wrapAcademicSummary({
+          caption: 'MCAS Math',
+          value: student.most_recent_mcas_ela_scaled,
+          sparkline: this.renderSparkline(chartData.mcas_series_math_scaled, {
+            valueRange: [200, 300],
+            thresholdValue: 240
+          })
+        }),
+        this.wrapAcademicSummary({
+          caption: 'MCAS Math Growth',
+          value: student.most_recent_mcas_math_growth,
+          sparkline: this.renderSparkline(chartData.mcas_series_math_growth)
         })
       );
     },
