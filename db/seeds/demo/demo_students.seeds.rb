@@ -2,24 +2,19 @@ Dir["#{Rails.root}/db/seeds/demo/demo_data/*.rb"].each {|file| require file }
 
 puts "Creating demo schools, homerooms, interventions..."
 
-School.destroy_all
+raise "empty yer db" if School.count > 0 ||
+                        Student.count > 0 ||
+                        InterventionType.count > 0 ||
+                        Assessment.count > 0
+
 healey = School.create(name: "Arthur D Healey")
 
-Homeroom.destroy_all
 Homeroom.create(name: "101", grade: "4")
 Homeroom.create(name: "102", grade: "5")
 
 fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
 Homeroom.last.update_attribute(:educator_id, fifth_grade_educator.id)
 
-Student.destroy_all
-StudentAssessment.destroy_all
-DisciplineIncident.destroy_all
-Absence.destroy_all
-Tardy.destroy_all
-SchoolYear.destroy_all
-StudentSchoolYear.destroy_all
-InterventionType.destroy_all
 InterventionType.seed_somerville_intervention_types
 
 puts "Creating assessments..."
