@@ -4,7 +4,7 @@ class SchoolsController < ApplicationController
 
   def show
     @serialized_data = {
-      students: fat_student_hashes(Student.all),
+      students: eager_students().map {|student| fat_student_hash(student) },
       intervention_types: InterventionType.all
     }
   end
@@ -18,26 +18,32 @@ class SchoolsController < ApplicationController
 
   private
   def students_with_star_reading
-    fat_student_hashes(Student.all.includes(:assessments)) do |student|
-      student.as_json.merge(star_reading_results: student.star_reading_results.as_json)
+    eager_students(:student_assessments).map do |student|
+      fat_student_hash(student).merge(star_reading_results: student.star_reading_results)
     end
   end
 
-  # Takes a lazy collection that has any eager includes needed, and mixes in several other fields
-  # that are used to perform filtering and slicing of students in the UI.
-  # An optional block can be passed that yields each `student`, for merging in other fields
-  # that rely on methods defined on the Student model.
-  def fat_student_hashes(students_assoc)
-    students_assoc.includes(:interventions).map do |student|
-      student_hash = if block_given? then yield(student) else student.as_json end
-      student_hash.merge({
-        interventions: student.interventions.as_json,
-        student_risk_level: student.student_risk_level.as_json,
-        discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
-        absences_count: student.most_recent_school_year.absences.count,
-        tardies_count: student.most_recent_school_year.tardies.count,
-        homeroom_name: student.try(:homeroom).try(:name)
-      })
-    end
+  # Eager includes for querying students to product a fat student hash.
+  def eager_students(*additional_includes)
+    Student.all.includes([
+      :interventions,
+      :student_risk_level,
+      :homeroom,
+      :student_school_years
+    ] + additional_includes)
+  end
+
+  # Serializes a Student into a hash with other fields joined in (that are used to perform
+  # filtering and slicing in the UI).
+  # This may be slow if you're doing it for many students without eager includes.
+  def fat_student_hash(student)
+    student.as_json.merge({
+      interventions: student.interventions,
+      student_risk_level: student.student_risk_level.as_json,
+      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
+      absences_count: student.most_recent_school_year.absences.count,
+      tardies_count: student.most_recent_school_year.tardies.count,
+      homeroom_name: student.try(:homeroom).try(:name)
+    })
   end
 end
