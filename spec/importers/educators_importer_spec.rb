@@ -7,38 +7,94 @@ RSpec.describe EducatorsImporter do
       context 'new educator' do
 
         context 'non-administrator' do
-          let(:row) {
-            { state_id: "500", local_id: "200", full_name: "Young, Jenny" }
-          }
-          it 'creates an educator' do
-            expect { described_class.new.import_row(row) }.to change(Educator, :count).by 1
-          end
-          it 'sets the attributes correctly' do
-            described_class.new.import_row(row)
-            educator = Educator.last
-            expect(educator.full_name).to eq("Young, Jenny")
-            expect(educator.state_id).to eq("500")
-            expect(educator.local_id).to eq("200")
-            expect(educator.admin).to eq(false)
-          end
-        end
 
-        context 'with school local ID' do
-          let!(:healey) { FactoryGirl.create(:healey) }
-          let(:row) {
-            { full_name: "Spirit, Gallant", school_local_id: "HEA" }
-          }
+          context 'without homeroom' do
+            let(:row) {
+              { state_id: "500", local_id: "200", full_name: "Young, Jenny", login_name: "jyoung" }
+            }
+            it 'does not create an educator' do
+              expect { described_class.new.import_row(row) }.to change(Educator, :count).by 0
+            end
+          end
 
-          it 'assigns the educator to the correct school' do
-            described_class.new.import_row(row)
-            educator = Educator.last
-            expect(educator.school).to eq(healey)
+          context 'with homeroom' do
+            let(:homeroom) { FactoryGirl.create(:homeroom) }
+            let(:homeroom_name) { homeroom.name }
+
+            context 'without school local id' do
+              let(:row) {
+                {
+                  state_id: "500",
+                  local_id: "200",
+                  full_name: "Young, Jenny",
+                  login_name: "jyoung",
+                  homeroom: homeroom_name
+                }
+              }
+              it 'creates an educator' do
+                expect { described_class.new.import_row(row) }.to change(Educator, :count).by 1
+              end
+              it 'sets the attributes correctly' do
+                described_class.new.import_row(row)
+                educator = Educator.last
+                expect(educator.full_name).to eq("Young, Jenny")
+                expect(educator.state_id).to eq("500")
+                expect(educator.local_id).to eq("200")
+                expect(educator.admin).to eq(false)
+                expect(educator.email).to eq("jyoung@k12.somerville.ma.us")
+              end
+            end
+
+            context 'with school local ID' do
+              let!(:healey) { FactoryGirl.create(:healey) }
+              let(:row) {
+                {
+                  state_id: "500",
+                  local_id: "200",
+                  full_name: "Young, Jenny",
+                  login_name: "jyoung",
+                  homeroom: homeroom_name,
+                  school_local_id: 'HEA'
+                }
+              }
+
+              it 'assigns the educator to the correct school' do
+                described_class.new.import_row(row)
+                educator = Educator.last
+                expect(educator.school).to eq(healey)
+              end
+            end
+
+            context 'educator already exists' do
+              let!(:educator) { FactoryGirl.create(:educator, :local_id_200) }
+
+              let(:row) {
+                {
+                  state_id: "500",
+                  local_id: "200",
+                  full_name: "Young, Jenny",
+                  login_name: "jyoung",
+                  homeroom: homeroom_name
+                }
+              }
+
+              it 'does not create an educator' do
+                expect { described_class.new.import_row(row) }.to change(Educator, :count).by 0
+              end
+              it 'updates the educator attributes' do
+                described_class.new.import_row(row)
+                educator = Educator.last
+                expect(educator.full_name).to eq("Young, Jenny")
+                expect(educator.state_id).to eq("500")
+              end
+            end
+
           end
         end
 
         context 'administrator' do
           let(:row) {
-            { local_id: "300", full_name: "Hill, Marian", staff_type: "Administrator" }
+            { local_id: "300", full_name: "Hill, Marian", staff_type: "Administrator", login_name: "mhill" }
           }
 
           it 'sets the administrator attribute correctly' do
@@ -49,24 +105,6 @@ RSpec.describe EducatorsImporter do
         end
 
       end
-
-      context 'educator already exists' do
-        let!(:educator) { FactoryGirl.create(:educator, :local_id_200) }
-
-        let(:row) {
-          { state_id: "500", local_id: "200", full_name: "Young, Jenny" }
-        }
-
-        it 'does not create an educator' do
-          expect { described_class.new.import_row(row) }.to change(Educator, :count).by 0
-        end
-        it 'updates the educator attributes' do
-          described_class.new.import_row(row)
-          educator = Educator.last
-          expect(educator.full_name).to eq("Young, Jenny")
-          expect(educator.state_id).to eq("500")
-        end
-      end
     end
   end
 
@@ -74,7 +112,7 @@ RSpec.describe EducatorsImporter do
 
     context 'row with homeroom name' do
       let(:row) {
-        { state_id: "500", local_id: "200", full_name: "Young, Jenny", homeroom: "HEA 100" }
+        { state_id: "500", local_id: "200", full_name: "Young, Jenny", homeroom: "HEA 100", login_name: "jyoung" }
       }
 
       context 'name of homeroom that exists' do
