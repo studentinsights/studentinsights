@@ -43,6 +43,26 @@ RSpec.describe EducatorsImporter do
                 expect(educator.admin).to eq(false)
                 expect(educator.email).to eq("jyoung@k12.somerville.ma.us")
               end
+
+              context 'multiple educators' do
+                let(:another_homeroom) { FactoryGirl.create(:homeroom) }
+                let(:another_homeroom_name) { another_homeroom.name }
+                let(:another_row) {
+                  {
+                    state_id: "501",
+                    local_id: "201",
+                    full_name: "Gardner, Dylan",
+                    login_name: "dgardner",
+                    homeroom: another_homeroom_name
+                  }
+                }
+                it 'creates multiple educators' do
+                  expect {
+                    described_class.new.import_row(row)
+                    described_class.new.import_row(another_row)
+                  }.to change(Educator, :count).by 2
+                end
+              end
             end
 
             context 'with school local ID' do
