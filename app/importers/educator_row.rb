@@ -5,7 +5,7 @@ class EducatorRow < Struct.new(:row)
   end
 
   def build
-    educator = Educator.first_or_initialize(local_id: row[:local_id])
+    educator = Educator.find_or_initialize_by(local_id: row[:local_id])
 
     educator.assign_attributes(
       state_id: row[:state_id],
