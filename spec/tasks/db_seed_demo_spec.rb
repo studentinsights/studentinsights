@@ -1,5 +1,4 @@
 require 'rails_helper'
-Dir["#{Rails.root}/db/seeds/demo/demo_data/*.rb"].each {|file| require file }
 
 RSpec.describe 'rake db:seed:demo' do
 
