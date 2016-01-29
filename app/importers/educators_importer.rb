@@ -13,9 +13,12 @@ class EducatorsImporter
   end
 
   def import_row(row)
-    educator = EducatorRow.build(row)
-    educator.save!
     homeroom = Homeroom.find_by_name!(row[:homeroom]) if row[:homeroom].present?
+    educator = EducatorRow.build(row)
+
+    return unless homeroom.present? || educator.admin?
+
+    educator.save!
     homeroom.update(educator: educator) if homeroom.present?
   end
 
