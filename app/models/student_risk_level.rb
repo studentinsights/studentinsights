@@ -31,7 +31,7 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def update_risk_level!
-    calculate_level
+    update_attributes(level: calculate_level)
     update_explanation
   end
 
@@ -49,8 +49,6 @@ class StudentRiskLevel < ActiveRecord::Base
     else
       level = 1
     end
-
-    update_attributes(level: level)
   end
 
   def update_explanation
