@@ -68,11 +68,6 @@ tr, td {
   width: 80px;
   background: white;
   border-left: 1px solid $light-line;
-  &:hover {
-    .cell-wrapper {
-      background-color: transparent;
-    }
-  }
 }
 
 .column-names {
@@ -80,7 +75,6 @@ tr, td {
    border-bottom: 1px solid $dark-line;
   }
 }
-
 
 #assign-bulk-interventions {
   padding: 4px 16px;

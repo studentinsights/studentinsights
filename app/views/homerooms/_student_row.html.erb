@@ -1,8 +1,6 @@
                 <tr class="student-row">
                   <td class="<%= initial_show_or_hide('name') %> name" href="<%= student_url(student_id) %>">
-                    <div class="cell-wrapper">
                       <%= presenter.full_name %>
-                    </div>
                   </td>
                   <td class="<%= initial_show_or_hide('risk') %> risk risk-tooltip-circle" data-student-id="<%= student_id %> "href="<%= student_url(student_id) %>">
                     <div class="warning-bubble <%= presenter.risk_level_css_class_name %>">
@@ -10,39 +8,25 @@
                     </div>
                   </td>
                   <td class="<%= initial_show_or_hide('program') %> program" href="<%= student_url(student_id) + "#demographics-row" %>">
-                    <div class="cell-wrapper">
                       <%= presenter.program_assigned %>
-                    </div>
                   </td>
                   <td class="<%= initial_show_or_hide('sped') %> sped" href="<%= student_url(student_id) + "#demographics-row" %>">
-                    <div class="cell-wrapper">
                       <%= presenter.disability %>
-                    </div
                   </td>
                   <td class="<%= initial_show_or_hide('sped') %> sped" href="<%= student_url(student_id) + "#demographics-row" %>">
-                    <div class="cell-wrapper">
                       <%= presenter.sped_level_of_need %>
-                    </div
                   </td>
                   <td class="<%= initial_show_or_hide('sped') %> sped" href="<%= student_url(student_id) + "#demographics-row" %>">
-                    <div class="cell-wrapper">
                       <%= presenter.plan_504 %>
-                    </div
                   </td>
                   <td class="<%= initial_show_or_hide('language') %> language" href="<%= student_url(student_id) + "#demographics-row" %>">
-                    <div class="cell-wrapper">
                       <%= presenter.limited_english_proficiency %>
-                    </div
                   </td>
                   <td class="<%= initial_show_or_hide('language') %> language" href="<%= student_url(student_id) + "#demographics-row" %>">
-                    <div class="cell-wrapper">
                       <%= presenter.home_language %>
-                    </div
                   </td>
                   <td class="<%= initial_show_or_hide('free-reduced') %> free-reduced" href="<%= student_url(student_id) + "#demographics-row" %>">
-                    <div class="cell-wrapper">
                       <%= presenter.free_reduced_lunch %>
-                    </div
                   </td>
 
                   <%= render "star_math_row_fragment", student_id: student_id, presenter: StarValuePresenter.new(assessment_data[:star_math_row_data]) %>
@@ -60,17 +44,13 @@
                   <td class="<%= initial_show_or_hide('interventions') %> interventions number-of-hours"
                       href="<%= student_url(student_id) %>"
                       title="<%= presenter.most_recent_atp_school_year %> school year">
-                    <div class="cell-wrapper">
                       <%= presenter.most_recent_atp_number_of_hours %>
-                    </div>
                   </td>
 
                   <td class="bulk-intervention">
-                    <div class="cell-wrapper">
                       <input type="checkbox"
                              class="bulk-intervention-checkbox"
                              data-student-id="<%= student_id %>" />
-                    </div>
                   </td>
                   <!--
                     Dummy column to offset absolutely
@@ -78,7 +58,5 @@
                     holds bulk intervention checkboxes.
                   -->
                   <td class="dummy-column">
-                    <div class="cell-wrapper">
-                    </div>
                   </td>
                 </tr>

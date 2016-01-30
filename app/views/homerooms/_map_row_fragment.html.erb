@@ -1,29 +1,25 @@
                     <% if assessment.is_a? MissingStudentAssessment %>
                       <td class="map" href="<%= student_url(student, chart_start: "map-scaled") %>">
-                        <div class="cell-wrapper">—</div>
+                        —
                       </td>
                       <td class="map" href="<%= student_url(student, chart_start: "map-growth") %>">
-                        <div class="cell-wrapper">—</div>
+                      —
                       </td>
                     <% else %>
                       <% present(assessment) do |presenter| %>
                         <td class="map" href="<%= student_url(student, chart_start: "map-scaled") %>">
-                          <div class="cell-wrapper">
                             <% if risk.performance_warning? %>
                               <div class="warning-text"><%= presenter.performance_level %></div>
                             <% else %>
                               <%= presenter.performance_level %>
                             <% end %>
-                          </div>
                         </td>
                         <td class="map" href="<%= student_url(student, chart_start: "map-growth") %>">
-                          <div class="cell-wrapper">
                             <% if risk.growth_warning? %>
                               <div class="warning-text"><%= presenter.growth_percentile %></div>
                             <% else %>
                               <%= presenter.growth_percentile %>
                             <% end %>
-                          </div>
                         </td>
                       <% end %>
                     <% end %>
