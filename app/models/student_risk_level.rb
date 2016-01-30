@@ -50,7 +50,7 @@ class StudentRiskLevel < ActiveRecord::Base
     )
 
     update!(level: calculate_level)
-    update_explanation
+    update!(explanation: explanation)
   end
 
   def calculate_level
@@ -69,65 +69,75 @@ class StudentRiskLevel < ActiveRecord::Base
     end
   end
 
-  def update_explanation
-    explanations = case level
-    when 3
-       level_3_explanations
-    when 2
-       level_2_explanations
-    when 1
-       level_1_explanations
-    when 0
-       level_0_explanations
-    when nil
-       ["There is not enough information to tell."]
-    end
-    explanation = "#{name} is at Risk #{StudentRiskLevelPresenter.new(level).level_as_string} because:<br/><br/>"
-    explanation += "<ul>" + explanations.map { |e| "<li>#{e}</li>" }.join + "</ul>"
-    update_attributes(explanation: explanation)
-  end
-
-  private
-
   def name
     student.first_name || "This student"
   end
 
-  def level_3_explanations
-    explanations = []
-    explanations << "#{name} is limited English proficient." if limited_english_proficiency_risk_level == 3
-    explanations << "#{name}'s MCAS Math performance level is Warning." if mcas_math.risk_level == 3
-    explanations << "#{name}'s STAR Math performance is in the warning range (below 10)." if star_math.risk_level == 3
-    explanations << "#{name}'s MCAS English Language Arts performance level is Warning." if mcas_ela.risk_level == 3
-    explanations << "#{name}'s STAR Reading performance is in the warning range (below 10)." if star_reading.risk_level == 3
-    explanations
+  def risk_factor_names_and_levels
+    [
+      [ :mcas_math_risk_level, mcas_math_risk_level ],
+      [ :star_math_risk_level, star_math_risk_level ],
+      [ :mcas_ela_risk_level, mcas_ela_risk_level ],
+      [ :star_reading_risk_level, star_reading_risk_level ],
+      [ :limited_english_proficiency_risk_level, limited_english_proficiency_risk_level ]
+    ]
   end
 
-  def level_2_explanations
-    explanations = []
-    explanations << "#{name}'s MCAS Math performance level is Needs Improvement." if mcas_math.risk_level == 2
-    explanations << "#{name}'s STAR Math performance is in the 10-30 range." if star_math.risk_level == 2
-    explanations << "#{name}'s MCAS English Language Arts performance level is Needs Improvement." if mcas_ela.risk_level == 2
-    explanations << "#{name}'s STAR Reading performance is in the 10-30 range." if star_reading.risk_level == 2
-    explanations
+  def explanation
+    explanation_intro_html + explanations_array_html_list
   end
 
-  def level_1_explanations
-    explanations = []
-    explanations << "#{name}'s MCAS Math performance level is Proficient." if mcas_math.risk_level == 1
-    explanations << "#{name}'s STAR Math performance is above 30." if star_math.risk_level == 1
-    explanations << "#{name}'s MCAS English Language Arts performance level is Proficient." if mcas_ela.risk_level == 1
-    explanations << "#{name}'s STAR Reading performance is above 30." if star_reading.risk_level == 1
-    explanations
+  def explanation_intro_html
+    "#{name} is at Risk #{StudentRiskLevelPresenter.new(level).level_as_string} because:<br/><br/>"
   end
 
-  def level_0_explanations
-    explanations = []
-    explanations << "#{name}'s MCAS Math performance level is Advanced." if mcas_math.risk_level == 0
-    explanations << "#{name}'s STAR Math performance is above 85." if star_math.risk_level == 0
-    explanations << "#{name}'s MCAS English Language Arts performance level is Advanced." if mcas_ela.risk_level == 0
-    explanations << "#{name}'s STAR Reading performance is above 85." if star_reading.risk_level == 0
-    explanations
+  def explanations_array
+    return ["There is not enough information to tell."] if level == nil
+
+    risk_factor_names_and_levels.map do |factor_name_and_value|
+      factor_name = factor_name_and_value[0]
+      value = factor_name_and_value[1]
+      explanation_phrase(factor_name, value) if value == level
+    end.compact
+  end
+
+  def explanation_phrase(factor_name, value)
+    "#{name}#{risk_factor_names_to_explanations[factor_name][value]}."
+  end
+
+  def explanations_array_html_list
+    "<ul>" + explanations_array.map { |e| "<li>#{e}</li>" }.join + "</ul>"
+  end
+
+  def risk_factor_names_to_explanations
+    {
+      limited_english_proficiency_risk_level: {
+        3 => " is limited English proficient"
+      },
+      mcas_math_risk_level: {
+        3 => "'s MCAS Math performance level is Warning",
+        2 => "'s MCAS Math performance level is Needs Improvement",
+        1 => "'s MCAS Math performance level is Proficient",
+        0 => "'s MCAS Math performance level is Advanced"
+      },
+      mcas_ela_risk_level: {
+        3 => "'s MCAS English Language Arts performance level is Warning",
+        2 => "'s MCAS English Language Arts performance level is Needs Improvement",
+        1 => "'s MCAS English Language Arts performance level is Proficient",
+        0 => "'s MCAS English Language Arts performance level is Advanced"
+      },
+      star_reading_risk_level: {
+        3 => "'s STAR Reading performance is in the warning range (below 10)",
+        2 => "'s STAR Reading performance is in the 10-30 range",
+        1 => "'s STAR Reading performance is above 30",
+        0 => "'s STAR Reading performance is above 85"
+      }, star_math_risk_level: {
+        3 => "'s STAR Math performance is in the warning range (below 10)",
+        2 => "'s STAR Math performance is in the 10-30 range",
+        1 => "'s STAR Math performance is above 30",
+        0 => "'s STAR Math performance is above 85"
+      }
+    }
   end
 
 end
