@@ -21,13 +21,19 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def mcas_or_star_at_level(this_level)
-    mcas_math_risk_level == this_level || star_math_risk_level == this_level \
-    || mcas_ela_risk_level == this_level || star_reading_risk_level == this_level
+    student_assessment_factors.any? { |risk_level| risk_level == this_level }
   end
 
   def mcas_and_star_risk_nil?
-    mcas_math_risk_level == nil && star_math_risk_level == nil \
-    && mcas_ela_risk_level == nil && star_reading_risk_level == nil
+    student_assessment_factors.all? { |risk_level| risk_level.nil? }
+  end
+
+  def student_assessment_factors
+    [ mcas_math_risk_level, star_math_risk_level, mcas_ela_risk_level, star_reading_risk_level ]
+  end
+
+  def risk_level_factors
+    student_assessment_factors << limited_english_proficiency_risk_level
   end
 
   def limited_english_proficiency_risk_level
