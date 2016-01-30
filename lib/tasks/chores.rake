@@ -9,4 +9,9 @@ namespace :chores do
   task update_discipline_incident_counts: :environment do
     DisciplineIncident.find_each(&:save)
   end
+
+  desc 'Update student risk levels'
+  task update_student_risk_levels: :environment do
+    StudentRiskLevel.find_each(&:update_risk_level!)
+  end
 end
