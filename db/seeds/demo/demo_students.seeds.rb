@@ -1,5 +1,3 @@
-Dir["#{Rails.root}/db/seeds/demo/demo_data/*.rb"].each {|file| require file }
-
 puts "Creating demo schools, homerooms, interventions..."
 
 raise "empty yer db" if School.count > 0 ||
@@ -21,9 +19,14 @@ puts "Creating assessments..."
 Assessment.seed_somerville_assessments
 
 puts "Creating students for homeroom #1..."
-15.times { create_demo_student(Homeroom.first) }
+15.times do
+  FakeStudent.new(Homeroom.first)
+end
+
 puts "Creating students for homeroom #2..."
-15.times { create_demo_student(Homeroom.last) }
+15.times do
+  FakeStudent.new(Homeroom.last)
+end
 
 Student.update_risk_levels
 Student.update_student_school_years
