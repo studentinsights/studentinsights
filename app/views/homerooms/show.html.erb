@@ -146,10 +146,107 @@
         <% if @rows.present? %>
           <!-- ROWS -->
           <% @rows.each do |row| %>
-            <%= render "student_row",
-                student_id: row[:student_id],
-                presenter: row[:student_presenter],
-                assessment_data: row[:assessment_data] unless row.nil? %>
+
+            <% presenter = row[:student_presenter] %>
+            <% assessment_data = row[:assessment_data] %>
+
+            <tr class="student-row">
+              <td class="name">
+                  <a href="<%= student_url(row[:student_id]) %>">
+                    <%= presenter.full_name %>
+                  </a>
+              </td>
+              <td class="risk risk-tooltip-circle" data-student-id="<%= row[:student_id] %> ">
+                <div class="warning-bubble <%= presenter.risk_level_css_class_name %>">
+                  <%= presenter.risk_level_as_string %>
+                </div>
+              </td>
+              <td class="program">
+                  <%= presenter.program_assigned %>
+              </td>
+              <td class="sped">
+                  <%= presenter.disability %>
+              </td>
+              <td class="sped">
+                  <%= presenter.sped_level_of_need %>
+              </td>
+              <td class="sped">
+                  <%= presenter.plan_504 %>
+              </td>
+              <td class="language">
+                  <%= presenter.limited_english_proficiency %>
+              </td>
+              <td class="language">
+                  <%= presenter.home_language %>
+              </td>
+              <td class="free-reduced">
+                  <%= presenter.free_reduced_lunch %>
+              </td>
+
+              <% if @homeroom.show_star? %>
+                <td class="star_math">
+                  <%= StarValuePresenter.new(assessment_data[:star_math_row_data]).percentile_rank %>
+                </td>
+                <td class="star_reading">
+                  <%= StarValuePresenter.new(assessment_data[:star_reading_row_data]).percentile_rank %>
+                </td>
+                <td class="star_reading">
+                  <%= StarValuePresenter.new(assessment_data[:star_reading_row_data]).instructional_reading_level %>
+                </td>
+              <% end %>
+
+               <% if @homeroom.show_mcas? %>
+                <td class="mcas_math performance_level">
+                  <%= McasValuePresenter.new(assessment_data[:mcas_math_row_data]).performance_level %>
+                  </div>
+                </td>
+                <td class="mcas_math growth_percentile">
+                  <%= McasValuePresenter.new(assessment_data[:mcas_math_row_data]).growth_percentile %>
+                </td>
+                <td class="mcas_ela performance_level">
+                  <%= McasValuePresenter.new(assessment_data[:mcas_ela_row_data]).performance_level %>
+                  </div>
+                </td>
+                <td class="mcas_ela growth_percentile">
+                  <%= McasValuePresenter.new(assessment_data[:mcas_ela_row_data]).growth_percentile %>
+                </td>
+              <% end %>
+
+              <td class="access">
+                <%= GenericAssessmentValuePresenter.new(assessment_data[:access_row_data]).scale_score %>
+              </td>
+              <td class="access">
+                <%= GenericAssessmentValuePresenter.new(assessment_data[:access_row_data]).performance_level %>
+              </td>
+              <td class="access">
+                <%= GenericAssessmentValuePresenter.new(assessment_data[:access_row_data]).growth_percentile %>
+              </td>
+
+              <% if @homeroom.show_dibels? %>
+                <td class="dibels">
+                  <%= GenericAssessmentValuePresenter.new(assessment_data[:dibels_row_data]).performance_level %>
+                </td>
+              <% end %>
+
+              <td class="interventions number-of-hours"
+                  title="<%= presenter.most_recent_atp_school_year %> school year">
+                  <%= presenter.most_recent_atp_number_of_hours %>
+              </td>
+
+              <td class="bulk-intervention">
+                  <input type="checkbox"
+                         class="bulk-intervention-checkbox"
+                         data-student-id="<%= row[:student_id] %>" />
+              </td>
+              <!--
+                Dummy column to offset absolutely
+                positioned last column. Last column
+                holds bulk intervention checkboxes.
+              -->
+              <td class="dummy-column">
+              </td>
+            </tr>
+
           <% end %>
         <% end %>
       </table>
