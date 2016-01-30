@@ -65,7 +65,7 @@ describe SchoolsController, :type => :controller do
         })
       end
       it 'returns student_risk_level' do
-        expect(student_hash[:student_risk_level]).should_not be_nil
+        expect(student_hash[:student_risk_level]).not_to be_nil
       end
       it 'returns an empty array of interventions' do
         expect(student_hash[:interventions]).to eq []
