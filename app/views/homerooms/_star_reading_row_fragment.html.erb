@@ -1,8 +1,8 @@
                     <% if @homeroom.show_star? %>
-                      <td class="star_reading" href="<%= student_url(student_id, chart_start: "star") %>">
+                      <td class="star_reading">
                           <%= presenter.percentile_rank %>
                       </td>
-                      <td class="star_reading" href="<%= student_url(student_id, chart_start: "star") %>">
+                      <td class="star_reading">
                           <%= presenter.instructional_reading_level %>
                       </td>
                     <% end %>
