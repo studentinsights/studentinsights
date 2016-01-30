@@ -43,13 +43,7 @@
               <td colspan="2" class="mcas_math"><p class="smalltype">MCAS: Math</p></td>
               <td colspan="2" class="mcas_ela"><p class="smalltype">MCAS: ELA</p></td>
             <% end %>
-            <td colspan="3" class="access <%= ('access') %>"><p class="smalltype">ACCESS</p></td>
-            <% if @homeroom.show_dibels? %>
-              <td colspan="1" class="dibels <%= ('dibels') %>"><p class="smalltype">DIBELS</p></td>
-            <% end %>
-            <!-- <td colspan="2" class="attendance <%= ('attendance') %>"><p class="smalltype">Attendance</p></td>
-            <td colspan="1" class="discipline <%= ('discipline') %>"><p class="smalltype">Discipline</p></td> -->
-            <td colspan="1" class="interventions <%= ('interventions') %>">
+            <td colspan="1" class="interventions">
               <p class="smalltype">Interventions</p>
             </td>
             <td id="column-picker-row" class="bulk-intervention">
@@ -102,9 +96,6 @@
               <th class="star_reading" data-sort-method="number">
                 <span class="table-header">Percentile</span>
               </th>
-              <th class="star_reading" data-sort-method="number">
-                <span class="table-header">Reading Level</span>
-              </th>
             <% end %>
             <% if @homeroom.show_mcas? %>
               <th class="mcas_math" data-sort-method="mcas_sort">
@@ -118,20 +109,6 @@
               </th>
               <th class="mcas_ela" data-sort-method="number">
                 <span class="table-header">Growth</span>
-              </th>
-            <% end %>
-            <th class="access">
-              <span class="table-header">Score</span>
-            </th>
-            <th class="access">
-              <span class="table-header">Level</span>
-            </th>
-            <th class="access">
-              <span class="table-header">Growth</span>
-            </th>
-            <% if @homeroom.show_dibels? %>
-              <th class="dibels">
-                <span class="table-header">Level</span>
               </th>
             <% end %>
             <th class="interventions"
@@ -148,95 +125,75 @@
           <% @rows.each do |row| %>
 
             <% presenter = row[:student_presenter] %>
-            <% assessment_data = row[:assessment_data] %>
 
             <tr class="student-row">
               <td class="name">
-                  <a href="<%= student_url(row[:student_id]) %>">
-                    <%= presenter.full_name %>
-                  </a>
+                <a href="<%= student_url(row["id"]) %>">
+                  <%= row['first_name'] + ' ' + row['last_name'] %>
+                </a>
               </td>
-              <td class="risk risk-tooltip-circle" data-student-id="<%= row[:student_id] %> ">
-                <div class="warning-bubble <%= presenter.risk_level_css_class_name %>">
-                  <%= presenter.risk_level_as_string %>
+              <td class="risk risk-tooltip-circle" data-student-id="<%= row['id'] %> ">
+                <div class="warning-bubble risk-<%= row[:student_risk_level]['level'] %>">
+                  <%= row[:student_risk_level]['level'] %>
                 </div>
               </td>
               <td class="program">
-                  <%= presenter.program_assigned %>
+                <%= row['program_assigned'] %>
               </td>
               <td class="sped">
-                  <%= presenter.disability %>
+                <%= row['disability'] %>
               </td>
               <td class="sped">
-                  <%= presenter.sped_level_of_need %>
+                <%= row['sped_level_of_need'] %>
               </td>
               <td class="sped">
-                  <%= presenter.plan_504 %>
+                <%= row['plan_504'] %>
               </td>
               <td class="language">
-                  <%= presenter.limited_english_proficiency %>
+                <%= row['limited_english_proficiency'] %>
               </td>
               <td class="language">
-                  <%= presenter.home_language %>
+                <%= row['home_language'] %>
               </td>
               <td class="free-reduced">
-                  <%= presenter.free_reduced_lunch %>
+                <%= row['free_reduced_lunch'] %>
               </td>
 
               <% if @homeroom.show_star? %>
                 <td class="star_math">
-                  <%= StarValuePresenter.new(assessment_data[:star_math_row_data]).percentile_rank %>
+                  <%= row['most_recent_star_math_percentile'] %>
                 </td>
                 <td class="star_reading">
-                  <%= StarValuePresenter.new(assessment_data[:star_reading_row_data]).percentile_rank %>
-                </td>
-                <td class="star_reading">
-                  <%= StarValuePresenter.new(assessment_data[:star_reading_row_data]).instructional_reading_level %>
+                  <%= row['most_recent_star_reading_percentile'] %>
                 </td>
               <% end %>
 
                <% if @homeroom.show_mcas? %>
                 <td class="mcas_math performance_level">
-                  <%= McasValuePresenter.new(assessment_data[:mcas_math_row_data]).performance_level %>
+                  <%= row['most_recent_mcas_math_performance'] %>
                   </div>
                 </td>
                 <td class="mcas_math growth_percentile">
-                  <%= McasValuePresenter.new(assessment_data[:mcas_math_row_data]).growth_percentile %>
+                  <%= row['most_recent_mcas_math_scaled'] %>
                 </td>
                 <td class="mcas_ela performance_level">
-                  <%= McasValuePresenter.new(assessment_data[:mcas_ela_row_data]).performance_level %>
+                  <%= row['most_recent_mcas_ela_performance'] %>
                   </div>
                 </td>
                 <td class="mcas_ela growth_percentile">
-                  <%= McasValuePresenter.new(assessment_data[:mcas_ela_row_data]).growth_percentile %>
-                </td>
-              <% end %>
-
-              <td class="access">
-                <%= GenericAssessmentValuePresenter.new(assessment_data[:access_row_data]).scale_score %>
-              </td>
-              <td class="access">
-                <%= GenericAssessmentValuePresenter.new(assessment_data[:access_row_data]).performance_level %>
-              </td>
-              <td class="access">
-                <%= GenericAssessmentValuePresenter.new(assessment_data[:access_row_data]).growth_percentile %>
-              </td>
-
-              <% if @homeroom.show_dibels? %>
-                <td class="dibels">
-                  <%= GenericAssessmentValuePresenter.new(assessment_data[:dibels_row_data]).performance_level %>
+                  <%= row['most_recent_mcas_ela_scaled'] %>
                 </td>
               <% end %>
 
               <td class="interventions number-of-hours"
-                  title="<%= presenter.most_recent_atp_school_year %> school year">
-                  <%= presenter.most_recent_atp_number_of_hours %>
+                  title="<%= row['most_recent_atp_number_of_hours'] %> school year">
+                  <%= row['most_recent_atp_number_of_hours'] %>
               </td>
 
               <td class="bulk-intervention">
                   <input type="checkbox"
                          class="bulk-intervention-checkbox"
-                         data-student-id="<%= row[:student_id] %>" />
+                         data-student-id="<%= row['id'] %>" />
               </td>
               <!--
                 Dummy column to offset absolutely
@@ -269,9 +226,9 @@
   </script>
 
   <% @rows.each do |row| %>
-    <script class="risk-level-tooltip" type="x-tmpl-mustache" data-student-id="<%= row[:student_risk_level][:student_id] %>">
+    <script class="risk-level-tooltip" type="x-tmpl-mustache" data-student-id="<%= row[:student_risk_level]['student_id'] %>">
       <div class="tooltip-popup student-risk-level-tooltip">
-        <%= row[:student_risk_level][:explanation].html_safe %>
+        <%= row[:student_risk_level]['explanation'].html_safe %>
       </div>
     </script>
   <% end %>
