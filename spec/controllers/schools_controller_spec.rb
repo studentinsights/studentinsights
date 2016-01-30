@@ -30,7 +30,7 @@ describe SchoolsController, :type => :controller do
   end
 
   describe '#fat_student_hash' do
-    let!(:student) { FactoryGirl.create(:student) }
+    let!(:student) { FactoryGirl.create(:student, :with_risk_level) }
     before { FactoryGirl.create(:student_school_year, student: student) }
     let!(:student_hash) { controller.send(:fat_student_hash, student) }
 
