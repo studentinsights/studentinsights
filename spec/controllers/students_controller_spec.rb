@@ -5,7 +5,7 @@ describe StudentsController, :type => :controller do
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
 
   describe '#show' do
-    let(:student) { FactoryGirl.create(:student) }
+    let(:student) { FactoryGirl.create(:student, :with_risk_level) }
     let!(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
 
     def make_request(options = { student_id: nil, format: :html })

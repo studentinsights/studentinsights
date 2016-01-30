@@ -6,7 +6,7 @@ describe 'export profile', :type => :feature do
     let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
     let!(:student) {
       Timecop.freeze(DateTime.new(2015, 5, 1)) do
-        FactoryGirl.create(:student_who_registered_in_2013_2014)
+        FactoryGirl.create(:student_who_registered_in_2013_2014, :with_risk_level)
       end
     }
 
@@ -32,11 +32,13 @@ describe 'export profile', :type => :feature do
       end
     end
   end
+
   context 'someone without account' do
-    let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014) }
+    let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014, :with_risk_level) }
     it 'does not work' do
       visit "/students/#{student.id}.csv"
       expect(page).to have_content 'You need to sign in before continuing.'
     end
   end
+
 end
