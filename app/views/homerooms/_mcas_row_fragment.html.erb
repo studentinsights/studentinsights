@@ -1,10 +1,10 @@
                    <% column_name = "mcas_" + subject %>
                    <% if @homeroom.show_mcas? %>
-                      <td class="<%= column_name %> <%= initial_show_or_hide(column_name) %> performance_level" href="<%= student_url(student_id, chart_start: "mcas-scaled") %>">
+                      <td class="<%= column_name %> performance_level" href="<%= student_url(student_id, chart_start: "mcas-scaled") %>">
                           <%= presenter.performance_level %>
                         </div>
                       </td>
-                      <td class="<%= column_name %> <%= initial_show_or_hide(column_name) %> growth_percentile" href="<%= student_url(student_id, chart_start: "mcas-growth") %>">
+                      <td class="<%= column_name %> growth_percentile" href="<%= student_url(student_id, chart_start: "mcas-growth") %>">
                           <%= presenter.growth_percentile %>
                       </td>
                     <% end %>

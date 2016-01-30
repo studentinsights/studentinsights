@@ -1,31 +1,31 @@
                 <tr class="student-row">
-                  <td class="<%= initial_show_or_hide('name') %> name" href="<%= student_url(student_id) %>">
+                  <td class="name" href="<%= student_url(student_id) %>">
                       <%= presenter.full_name %>
                   </td>
-                  <td class="<%= initial_show_or_hide('risk') %> risk risk-tooltip-circle" data-student-id="<%= student_id %> "href="<%= student_url(student_id) %>">
+                  <td class="risk risk-tooltip-circle" data-student-id="<%= student_id %> "href="<%= student_url(student_id) %>">
                     <div class="warning-bubble <%= presenter.risk_level_css_class_name %>">
                       <%= presenter.risk_level_as_string %>
                     </div>
                   </td>
-                  <td class="<%= initial_show_or_hide('program') %> program" href="<%= student_url(student_id) + "#demographics-row" %>">
+                  <td class="program" href="<%= student_url(student_id) + "#demographics-row" %>">
                       <%= presenter.program_assigned %>
                   </td>
-                  <td class="<%= initial_show_or_hide('sped') %> sped" href="<%= student_url(student_id) + "#demographics-row" %>">
+                  <td class="sped" href="<%= student_url(student_id) + "#demographics-row" %>">
                       <%= presenter.disability %>
                   </td>
-                  <td class="<%= initial_show_or_hide('sped') %> sped" href="<%= student_url(student_id) + "#demographics-row" %>">
+                  <td class="sped" href="<%= student_url(student_id) + "#demographics-row" %>">
                       <%= presenter.sped_level_of_need %>
                   </td>
-                  <td class="<%= initial_show_or_hide('sped') %> sped" href="<%= student_url(student_id) + "#demographics-row" %>">
+                  <td class="sped" href="<%= student_url(student_id) + "#demographics-row" %>">
                       <%= presenter.plan_504 %>
                   </td>
-                  <td class="<%= initial_show_or_hide('language') %> language" href="<%= student_url(student_id) + "#demographics-row" %>">
+                  <td class="language" href="<%= student_url(student_id) + "#demographics-row" %>">
                       <%= presenter.limited_english_proficiency %>
                   </td>
-                  <td class="<%= initial_show_or_hide('language') %> language" href="<%= student_url(student_id) + "#demographics-row" %>">
+                  <td class="language" href="<%= student_url(student_id) + "#demographics-row" %>">
                       <%= presenter.home_language %>
                   </td>
-                  <td class="<%= initial_show_or_hide('free-reduced') %> free-reduced" href="<%= student_url(student_id) + "#demographics-row" %>">
+                  <td class="free-reduced" href="<%= student_url(student_id) + "#demographics-row" %>">
                       <%= presenter.free_reduced_lunch %>
                   </td>
 
@@ -41,7 +41,7 @@
 
                   <%= render "dibels_row_fragment", student_id: student_id, presenter: GenericAssessmentValuePresenter.new(assessment_data[:dibels_row_data]) %>
 
-                  <td class="<%= initial_show_or_hide('interventions') %> interventions number-of-hours"
+                  <td class="interventions number-of-hours"
                       href="<%= student_url(student_id) %>"
                       title="<%= presenter.most_recent_atp_school_year %> school year">
                       <%= presenter.most_recent_atp_number_of_hours %>
