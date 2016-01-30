@@ -11,9 +11,22 @@ RSpec.describe 'rake db:seed:demo' do
       Assessment.seed_somerville_assessments
     end
 
-    it 'can run without raising an error' do
-      expect { create_demo_student(homeroom) }.not_to raise_error
+    let(:student) { FakeStudent.new(homeroom).student }
+
+    it 'sets student name' do
+      expect(student.first_name).not_to be_nil
+      expect(student.last_name).not_to be_nil
     end
+
+    it 'sets student langauge attributes' do
+      expect(student.limited_english_proficiency).not_to be_nil
+      expect(student.home_language).not_to be_nil
+    end
+
+    it 'adds student assessments' do
+      expect(student.student_assessments).not_to be_empty
+    end
+
   end
 
 end

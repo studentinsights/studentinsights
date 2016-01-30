@@ -8,6 +8,10 @@ class FakeStudent
     homeroom.students << @student
   end
 
+  def student
+    @student
+  end
+
   def data
     base_data.merge(plan_504)
              .merge(program_assigned_and_sped_disability)
