@@ -15,12 +15,16 @@ RSpec.describe StudentsImporter do
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 
+      let!(:high_school) { School.create(local_id: 'SHS') }
+      let!(:healey) { School.create(local_id: 'HEA') }
+
       it 'imports students' do
         expect { import }.to change { Student.count }.by 3
       end
       it "imports first student's data correctly" do
         import
         first_student = Student.find_by_state_id("1000000000")
+        expect(first_student.reload.school).to eq healey
         expect(first_student.program_assigned).to eq "Sp Ed"
         expect(first_student.limited_english_proficiency).to eq "Fluent"
         expect(first_student.student_address).to eq "155 9th St, San Francisco, CA"
@@ -30,6 +34,7 @@ RSpec.describe StudentsImporter do
       it "imports second student's data correctly" do
         import
         second_student = Student.find_by_state_id("1000000001")
+        expect(second_student.reload.school).to eq high_school
         expect(second_student.program_assigned).to eq "Reg Ed"
         expect(second_student.limited_english_proficiency).to eq "FLEP-Transitioning"
         expect(second_student.student_address).to eq "155 9th St, San Francisco, CA"

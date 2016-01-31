@@ -23,6 +23,7 @@ class StudentRow < Struct.new(:row)
     }
 
     attributes = demographic_attributes.merge(name_view_attributes)
+                                       .merge(school_attribute)
 
     student.assign_attributes(attributes)
 
@@ -38,6 +39,22 @@ class StudentRow < Struct.new(:row)
     when 1
       { first_name: nil, last_name: name_split[0] }
     end
+  end
+
+  def school_attribute
+    { school_id: school_rails_id }
+  end
+
+  def school_local_id
+    row[:school_local_id]
+  end
+
+  def school_rails_id
+    school_ids_dictionary[school_local_id] if school_local_id.present?
+  end
+
+  def school_ids_dictionary
+    SchoolLocalIdToAppId.instance.ids_dictionary
   end
 
 end
