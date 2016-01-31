@@ -260,10 +260,10 @@
           limit: 5
         }),
         this.renderSimpleTable('Program', 'program_assigned', { limit: 3 }),
-        this.renderSimpleTable('Homeroom', 'homeroom_id', {
+        this.renderSimpleTable('Homeroom', 'homeroom_name', {
           limit: 3,
           students: this.props.students // these items won't be static
-        })         // TODO(kr or as) homeroom names
+        })
       );
     },
 
