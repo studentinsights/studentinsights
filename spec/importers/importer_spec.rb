@@ -30,7 +30,7 @@ RSpec.describe do
       context 'scope is Healey School' do
         let(:healey) { FactoryGirl.create(:healey) }
         let(:importer) { Importer.new(
-            school_scope: healey.local_id, current_file_importer: file_importer
+            school_scope: [healey.local_id], current_file_importer: file_importer
           )
         }
         it 'only imports the Healey student' do
@@ -41,7 +41,7 @@ RSpec.describe do
       context 'scope is elementary schools' do
         let!(:healey) { FactoryGirl.create(:healey) }
         let(:importer) { Importer.new(
-            school_scope: 'ELEM', current_file_importer: file_importer
+            school_scope: ['ELEM'], current_file_importer: file_importer
           )
         }
         it 'only imports the Healey student' do

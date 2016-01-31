@@ -16,7 +16,7 @@ class Importer
     @client = options[:client]
 
     # Optional
-    @school_scope = options[:school_scope]
+    @school_scope = options[:school_scope]    # Array of school local IDs
     @recent_only = options[:recent_only]
     @first_time = options[:first_time]
 
@@ -45,7 +45,7 @@ class Importer
   end
 
   def check_scope_and_import_row(row)
-    return check_elementary_scope(row) if @school_scope == 'ELEM'
+    return check_elementary_scope(row) if @school_scope == ['ELEM']
     return check_school_scope(row) if @school_scope.present?
     @current_file_importer.import_row(row)
   end
@@ -60,7 +60,7 @@ class Importer
   end
 
   def check_school_scope(row)
-    return if @school_scope != row[:school_local_id]
+    return unless row[:school_local_id].in? @school_scope
     @current_file_importer.import_row(row)
   end
 
