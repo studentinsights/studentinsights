@@ -1,5 +1,9 @@
 class EducatorsImporter
 
+  def initialize
+    @school_ids_dictionary = School.all.map { |school| [school.local_id, school.id] }.to_h
+  end
+
   def remote_file_name
     # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
     #
@@ -14,7 +18,7 @@ class EducatorsImporter
 
   def import_row(row)
     homeroom = Homeroom.find_by_name!(row[:homeroom]) if row[:homeroom].present?
-    educator = EducatorRow.build(row)
+    educator = EducatorRow.new(row, @school_ids_dictionary).build
 
     return unless homeroom.present? || educator.admin?
 

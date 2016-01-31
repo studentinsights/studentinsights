@@ -6,8 +6,6 @@ RSpec.describe StudentsImporter do
     Importer.new(current_file_importer: described_class.new)
   }
 
-  let(:import) { importer.start_import(csv) }
-
   describe '#import_row' do
 
     context 'good data' do
@@ -15,26 +13,31 @@ RSpec.describe StudentsImporter do
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 
+      let!(:high_school) { School.create(local_id: 'SHS') }
+      let!(:healey) { School.create(local_id: 'HEA') }
+
       it 'imports students' do
-        expect { import }.to change { Student.count }.by 3
+        expect { importer.start_import(csv) }.to change { Student.count }.by 3
       end
-      it "imports first student's data correctly" do
-        import
-        first_student = Student.find_by_state_id("1000000000")
-        expect(first_student.program_assigned).to eq "Sp Ed"
-        expect(first_student.limited_english_proficiency).to eq "Fluent"
-        expect(first_student.student_address).to eq "155 9th St, San Francisco, CA"
+
+      it 'imports student data correctly' do
+        importer.start_import(csv)
+
+        first_student = Student.find_by_state_id('1000000000')
+        expect(first_student.reload.school).to eq healey
+        expect(first_student.program_assigned).to eq 'Sp Ed'
+        expect(first_student.limited_english_proficiency).to eq 'Fluent'
+        expect(first_student.student_address).to eq '155 9th St, San Francisco, CA'
         expect(first_student.registration_date).to eq DateTime.new(2008, 2, 20)
-        expect(first_student.free_reduced_lunch).to eq "Not Eligible"
-      end
-      it "imports second student's data correctly" do
-        import
-        second_student = Student.find_by_state_id("1000000001")
-        expect(second_student.program_assigned).to eq "Reg Ed"
-        expect(second_student.limited_english_proficiency).to eq "FLEP-Transitioning"
-        expect(second_student.student_address).to eq "155 9th St, San Francisco, CA"
+        expect(first_student.free_reduced_lunch).to eq 'Not Eligible'
+
+        second_student = Student.find_by_state_id('1000000001')
+        expect(second_student.reload.school).to eq high_school
+        expect(second_student.program_assigned).to eq 'Reg Ed'
+        expect(second_student.limited_english_proficiency).to eq 'FLEP-Transitioning'
+        expect(second_student.student_address).to eq '155 9th St, San Francisco, CA'
         expect(second_student.registration_date).to eq DateTime.new(2005, 8, 5)
-        expect(second_student.free_reduced_lunch).to eq "Free Lunch"
+        expect(second_student.free_reduced_lunch).to eq 'Free Lunch'
       end
     end
     context 'bad data' do
@@ -43,25 +46,6 @@ RSpec.describe StudentsImporter do
         it 'raises an error' do
           expect{ described_class.new.import_row(row) }.to raise_error ActiveRecord::RecordInvalid
         end
-      end
-    end
-  end
-
-  describe '#split_first_and_last_name' do
-    context 'well formatted name' do
-      it 'assigns the first and last name correctly' do
-        name = 'Hoag, George'
-        expect(described_class.new.split_first_and_last_name(name)).to eq(
-          { first_name: 'George', last_name: 'Hoag' }
-        )
-      end
-    end
-    context 'poorly formatted name' do
-      it 'assigns the result to the last name' do
-        name = 'Hoag'
-        expect(described_class.new.split_first_and_last_name(name)).to eq(
-          { first_name: nil, last_name: 'Hoag' }
-        )
       end
     end
   end
@@ -79,7 +63,7 @@ RSpec.describe StudentsImporter do
 
     context 'student does not have a homeroom' do
       let!(:student) { FactoryGirl.create(:student) }
-      let!(:new_homeroom_name) { "152I" }
+      let!(:new_homeroom_name) { '152I' }
       it 'creates a new homeroom' do
         expect {
           described_class.new.assign_student_to_homeroom(student, new_homeroom_name)

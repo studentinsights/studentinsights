@@ -1,8 +1,9 @@
 class Import < Thor
   desc "start", "Import data into your Student Insights instance"
   method_option :school,
+    type: :array,
     aliases: "-s",
-    desc: "Scope by school local ID; use ELEM to import all elementary schools"
+    desc: "Scope by school local IDs; use ELEM to import all elementary schools"
   method_option :district,
     aliases: "-d",
     desc: "Scope by school district / charter organization"
@@ -27,11 +28,7 @@ class Import < Thor
       School
     ])
 
-    puts; puts "=== STARTING IMPORT TASK... ==="
-
-    puts; puts "=== INITIAL DATABASE COUNTS ==="; puts
-
-    puts report.initial_counts_report                   # Report out db counts before task runs
+    report.print_initial_report
 
     initial_counts_hash = report.initial_counts_hash    # Store initial values so we can diff later
 
@@ -43,8 +40,11 @@ class Import < Thor
     # Make sure school exists in database if school scope is set and refers
     # to a particular school. No need to check if scope is all elementary schools.
 
-    School.find_by_local_id!(options["school"]) if options["school"].present? &&
-                                                   options["school"] != "ELEM"
+    if options["school"].present? && options["school"] != ["ELEM"]
+      options["school"].map do |school_local_id|
+        School.find_by_local_id!(school_local_id)
+      end
+    end
 
     importer_options = {
       district_scope: options["district"],
@@ -80,7 +80,6 @@ class Import < Thor
 
     Homeroom.destroy_empty_homerooms
 
-    puts; puts; puts "=== FINAL DATABASE COUNTS ==="; puts
-    puts report.end_of_task_report(initial_counts_hash)
+    report.print_final_report
   end
 end
