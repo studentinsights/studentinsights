@@ -6,8 +6,30 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
 
   def build
     student = Student.find_or_initialize_by(local_id: row[:local_id])
+    student.assign_attributes(attributes)
+    return student
+  end
 
-    demographic_attributes = {
+  def name_view_attributes
+    name_split = row[:full_name].split(", ")
+
+    case name_split.size
+    when 2
+      { first_name: name_split[1], last_name: name_split[0] }
+    when 1
+      { first_name: nil, last_name: name_split[0] }
+    end
+  end
+
+  private
+
+  def attributes
+    demographic_attributes.merge(name_view_attributes)
+                          .merge(school_attribute)
+  end
+
+  def demographic_attributes
+    {
       state_id: row[:state_id],
       home_language: row[:home_language],
       program_assigned: row[:program_assigned],
@@ -21,24 +43,6 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       registration_date: row[:registration_date],
       free_reduced_lunch: row[:free_reduced_lunch]
     }
-
-    attributes = demographic_attributes.merge(name_view_attributes)
-                                       .merge(school_attribute)
-
-    student.assign_attributes(attributes)
-
-    return student
-  end
-
-  def name_view_attributes
-    name_split = row[:full_name].split(", ")
-
-    case name_split.size
-    when 2
-      { first_name: name_split[1], last_name: name_split[0] }
-    when 1
-      { first_name: nil, last_name: name_split[0] }
-    end
   end
 
   def school_attribute
