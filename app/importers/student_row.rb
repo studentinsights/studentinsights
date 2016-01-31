@@ -1,4 +1,4 @@
-class StudentRow < Struct.new(:row)
+class StudentRow < Struct.new(:row, :school_ids_dictionary)
 
   def self.build(row)
     new(row).build
@@ -51,10 +51,6 @@ class StudentRow < Struct.new(:row)
 
   def school_rails_id
     school_ids_dictionary[school_local_id] if school_local_id.present?
-  end
-
-  def school_ids_dictionary
-    SchoolLocalIdToAppId.instance.ids_dictionary
   end
 
 end
