@@ -16,7 +16,7 @@ class ImportTaskReport
 
   def initial_counts_report
     models_for_report.map do |klass|
-      count_report_for_class(klass)
+      count_report_for_class(klass, klass.count)
     end
   end
 
@@ -43,28 +43,27 @@ class ImportTaskReport
   end
 
   def end_of_task_report_for_klass(klass, initial_count)
-    klass_diff = klass.count - initial_count
-    count_report_for_class(klass) + diff_report_for_class(klass_diff)
+    klass_count = klass.count
+    count_report_for_class(klass, klass_count) + diff_report_for_class(klass_count - initial_count)
   end
 
   def by_school_report
     School.all.map do |school|
       [
+        '',
         "=== #{school.name}",
-        [Student, Educator].map { |klass| count_report_for_class_by_school(klass, school) },
-        ''
+        [Student, Educator].map do |klass|
+          count = klass.where(school: school).count
+          count_report_for_class(klass, count)
+        end
       ]
     end
   end
 
   private
 
-  def count_report_for_class_by_school(klass, school)
-    "* #{humanize_class_name(klass).capitalize}: #{humanize_count(klass.where(school: school).count)} "
-  end
-
-  def count_report_for_class(klass)
-    "* #{humanize_class_name(klass).capitalize}: #{humanize_count(klass.count)} "
+  def count_report_for_class(klass, count)
+    "* #{humanize_class_name(klass).capitalize}: #{humanize_count(count)} "
   end
 
   def diff_report_for_class(klass_diff)
