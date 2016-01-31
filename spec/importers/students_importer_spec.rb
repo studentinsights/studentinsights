@@ -47,25 +47,6 @@ RSpec.describe StudentsImporter do
     end
   end
 
-  describe '#split_first_and_last_name' do
-    context 'well formatted name' do
-      it 'assigns the first and last name correctly' do
-        name = 'Hoag, George'
-        expect(described_class.new.split_first_and_last_name(name)).to eq(
-          { first_name: 'George', last_name: 'Hoag' }
-        )
-      end
-    end
-    context 'poorly formatted name' do
-      it 'assigns the result to the last name' do
-        name = 'Hoag'
-        expect(described_class.new.split_first_and_last_name(name)).to eq(
-          { first_name: nil, last_name: 'Hoag' }
-        )
-      end
-    end
-  end
-
   describe '#assign_student_to_homeroom' do
 
     context 'student already has a homeroom' do
