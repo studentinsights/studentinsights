@@ -6,6 +6,14 @@ class ImportTaskReport
     @models_for_report = models_for_report
   end
 
+  ## INITIAL REPORT ##
+
+  def print_initial_report
+    puts; puts "=== STARTING IMPORT TASK... ==="
+    puts; puts "=== INITIAL DATABASE COUNTS ==="
+    puts; puts initial_counts_report
+  end
+
   def initial_counts_report
     models_for_report.map do |klass|
       count_report_for_class(klass)
@@ -16,6 +24,13 @@ class ImportTaskReport
     models_for_report.map do |klass|
       [ klass.to_s, klass.count ]
     end.to_h
+  end
+
+  ## END OF TASK REPORTS ##
+
+  def print_final_report
+    puts; puts; puts "=== FINAL DATABASE COUNTS ==="
+    puts; puts report.end_of_task_report(initial_counts_hash)
   end
 
   def end_of_task_report(initial_counts_hash)

@@ -28,11 +28,7 @@ class Import < Thor
       School
     ])
 
-    puts; puts "=== STARTING IMPORT TASK... ==="
-
-    puts; puts "=== INITIAL DATABASE COUNTS ==="; puts
-
-    puts report.initial_counts_report                   # Report out db counts before task runs
+    report.print_initial_report
 
     initial_counts_hash = report.initial_counts_hash    # Store initial values so we can diff later
 
@@ -84,7 +80,6 @@ class Import < Thor
 
     Homeroom.destroy_empty_homerooms
 
-    puts; puts; puts "=== FINAL DATABASE COUNTS ==="; puts
-    puts report.end_of_task_report(initial_counts_hash)
+    report.print_final_report
   end
 end
