@@ -30,7 +30,9 @@ class ImportTaskReport
 
   def print_final_report
     puts; puts; puts "=== FINAL DATABASE COUNTS ==="
-    puts; puts report.end_of_task_report(initial_counts_hash)
+    puts; puts end_of_task_report(initial_counts_hash)
+    puts; puts; puts "=== BY SCHOOL ==="
+    puts by_school_report
   end
 
   def end_of_task_report(initial_counts_hash)
@@ -45,7 +47,21 @@ class ImportTaskReport
     count_report_for_class(klass) + diff_report_for_class(klass_diff)
   end
 
+  def by_school_report
+    School.all.map do |school|
+      [
+        "=== #{school.name}",
+        [Student, Educator].map { |klass| count_report_for_class_by_school(klass, school) },
+        ''
+      ]
+    end
+  end
+
   private
+
+  def count_report_for_class_by_school(klass, school)
+    "* #{humanize_class_name(klass).capitalize}: #{humanize_count(klass.where(school: school).count)} "
+  end
 
   def count_report_for_class(klass)
     "* #{humanize_class_name(klass).capitalize}: #{humanize_count(klass.count)} "
