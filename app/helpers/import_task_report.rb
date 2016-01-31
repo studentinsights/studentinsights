@@ -6,17 +6,9 @@ class ImportTaskReport
     @models_for_report = models_for_report
   end
 
-  def humanize_class_name(klass)
-    klass.to_s.pluralize.underscore.humanize
-  end
-
-  def humanize_count(count)
-    ActionController::Base.helpers.number_with_delimiter(count, delimiter: ',')
-  end
-
   def initial_counts_report
     models_for_report.map do |klass|
-      "* #{humanize_class_name(klass).capitalize}: #{humanize_count(klass.count)}"
+      count_report_for_class(klass)
     end
   end
 
@@ -35,8 +27,29 @@ class ImportTaskReport
 
   def end_of_task_report_for_klass(klass, initial_count)
     klass_diff = klass.count - initial_count
-    diff_sign = klass_diff >= 0 ? '+' : '-'
-    "* #{humanize_class_name(klass).capitalize}: #{humanize_count(klass.count)} (#{diff_sign}#{humanize_count(klass_diff)})"
+    count_report_for_class(klass) + diff_report_for_class(klass_diff)
+  end
+
+  private
+
+  def count_report_for_class(klass)
+    "* #{humanize_class_name(klass).capitalize}: #{humanize_count(klass.count)} "
+  end
+
+  def diff_report_for_class(klass_diff)
+    "(#{diff_sign(klass_diff)}#{humanize_count(klass_diff)})"
+  end
+
+  def diff_sign(klass_diff)
+    klass_diff >= 0 ? '+' : '-'
+  end
+
+  def humanize_class_name(klass)
+    klass.to_s.pluralize.underscore.humanize
+  end
+
+  def humanize_count(count)
+    ActionController::Base.helpers.number_with_delimiter(count, delimiter: ',')
   end
 
 end
