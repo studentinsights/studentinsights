@@ -4,7 +4,10 @@ describe("BehaviorChart", function() {
       return { series: [ {data: [0, 0, 0] } ] };
     }
     this.behaviorChart = new window.BehaviorChart({ data: this.generator() });
-  })
+  });
+  afterEach(function() {
+    $('#chart').remove();
+  });
 
   describe(".fromChartData", function() {
     it("configures an behavior chart with Behavior Incidents", function() {

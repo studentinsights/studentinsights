@@ -1,11 +1,11 @@
 describe('SchoolOverviewPage', function() {
-
+  var SchoolOverviewPage = window.shared.SchoolOverviewPage;
+  var Filters = window.shared.Filters;
+  
   // FILTERING FUNCTIONS //
 
   describe('#filterWithOr', function() {
     beforeEach(function() {
-
-      var Filters = window.shared.Filters;
       this.mari = { name: 'Mari', classroom: '101' }    // stubby student object
       this.mark = { name: 'Mark', classroom: '101' }    // stubby student object
       this.marv = { name: 'Marv', classroom: '102' }    // stubby student object

@@ -39,6 +39,7 @@
 //= require_tree ./components
 
 // pages:
+//= require_tree ./student
 //= require_tree ./roster
 //= require_tree ./school_overview
 //= require_tree ./school_star
