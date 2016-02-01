@@ -20,7 +20,7 @@
     {{#if renderDeleteButtons}}
       <span class="intervention-delete-button">x</span>
     {{/if}}
-    <p>{{comment}}</p>
+    <p class="intervention-comment">{{comment}}</p>
     <p class="intervention-date">
       {{start_date}} - {{end_date}}
     </p>
@@ -34,9 +34,9 @@
   <div class="intervention-detail" data-id="{{id}}">
     <h2>{{name}}</h2>
     <strong>Description</strong>
-    <p>{{comment}}</p>
+    <p class="intervention-usertext">{{comment}}</p>
     <strong>Goal</strong>
-    <p>{{goal}}</p>
+    <p class="intervention-usertext">{{goal}}</p>
     <strong>Start Date</strong>
     <p>{{start_date}}</p>
     <strong>End Date</strong>
@@ -110,12 +110,10 @@
     <strong>
       {{educator_email}}
     </strong>
-    <p>
-      {{content}}
-      <br/>
-      <span class="smalltype">
-        {{created_date}}
-      </span>
+    <p class="progress-note-comment">{{content}}</p>
+    <div class="smalltype">
+      {{created_date}}
+    </div>
     </p>
   </div>
 {{/progressNote}}

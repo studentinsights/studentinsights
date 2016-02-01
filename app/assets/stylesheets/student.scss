@@ -82,9 +82,20 @@
       border-bottom: 1px solid $light-line;
       margin-bottom: 20px;
     }
+
     p {
       margin-bottom: 20px;
     }
+
+    .intervention-usertext {
+      white-space: pre-wrap;
+    }
+
+    .progress-note-comment {
+      white-space: pre-wrap;
+      margin-bottom: 5px;
+    }
+
     .add-progress-note-area {
       .btn {
         float: left;
@@ -352,4 +363,8 @@
   float: right;
   font-weight: bold;
   color: $gray;
+}
+
+.intervention-comment {
+  white-space: pre-wrap;
 }
