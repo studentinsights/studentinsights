@@ -8,7 +8,7 @@ $(function() {
     function main() {
       var serializedData = $('#serialized-data').data();
       MixpanelUtils.registerUser(serializedData.currentEducator);
-      window.mixpanel.track('PAGE_VISIT', { page_key: 'SCHOOL_OVERVIEW_DASHBOARD' });
+      MixpanelUtils.track('PAGE_VISIT', { page_key: 'SCHOOL_OVERVIEW_DASHBOARD' });
 
       // index by intervention type id
       var InterventionTypes = serializedData.interventionTypes.reduce(function(map, interventionType) {

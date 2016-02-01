@@ -643,7 +643,7 @@ $(function() {
     function main() {
       var serializedData = $('#serialized-data').data();
       MixpanelUtils.registerUser(serializedData.currentEducator);
-      window.mixpanel.track('PAGE_VISIT', { page_key: 'STAR_READING_PAGE' });
+      MixpanelUtils.track('PAGE_VISIT', { page_key: 'STAR_READING_PAGE' });
 
       // index by intervention type id
       var InterventionTypes = serializedData.interventionTypes.reduce(function(map, interventionType) {

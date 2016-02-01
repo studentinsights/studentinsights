@@ -6,7 +6,7 @@ $(function() {
     var homeroom = $('#homeroom-data').data().homeroom;
     var MixpanelUtils = window.shared.MixpanelUtils;
     MixpanelUtils.registerUser(currentEducator);
-    window.mixpanel.track('PAGE_VISIT', {
+    MixpanelUtils.track('PAGE_VISIT', {
       page_key: 'ROSTER_PAGE',
       homeroom_id: homeroom.id,
       homeroom_slug: homeroom.slug,
