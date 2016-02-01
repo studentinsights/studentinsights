@@ -34,7 +34,8 @@
 // shared across application:
 //= require datepicker_config
 //= require session_timeout_warning
-//= require student-searchbar
+//= require student_searchbar
+//= require mixpanel_utils
 
 // pages:
 //= require_tree ./roster
@@ -43,5 +44,5 @@
 //= require ./school/components/slice_panels
 //= require ./school/components/students_table
 //= require ./school/components/school_overview_page
-//= require ./school/overview
+//= require ./school/overview_page
 //= require ./school/star_reading_page

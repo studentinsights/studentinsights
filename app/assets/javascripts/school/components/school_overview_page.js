@@ -16,6 +16,8 @@
   };
 
   var SchoolOverviewPage = React.createClass({
+    displayName: 'SchoolOverviewPage',
+
     propTypes: {
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       InterventionTypes: React.PropTypes.object.isRequired,
@@ -28,7 +30,6 @@
 
     componentDidMount: function() {
       $(document).on('keydown', this.onKeyDown);
-      // window.onpopstate = this.onPopState;
     },
 
     componentWillUnmount: function() {

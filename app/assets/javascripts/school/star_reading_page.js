@@ -1,6 +1,7 @@
 $(function() {
 
   if ($('body').hasClass('schools') && $('body').hasClass('star_reading')) {
+    var MixpanelUtils = window.shared.MixpanelUtils;
     var SlicePanels = window.shared.SlicePanels;
     var Routes = window.shared.Routes;
     var styles = window.shared.styles;
@@ -8,7 +9,6 @@ $(function() {
     var dom = window.shared.ReactHelpers.dom;
     var createEl = window.shared.ReactHelpers.createEl;
     var merge = window.shared.ReactHelpers.merge;
-
 
     // page
     var StarReadingOverviewPage = React.createClass({
@@ -641,9 +641,9 @@ $(function() {
 
 
     function main() {
-      // TODO fix camelCase data attribute deserialization between fixture/real
       var serializedData = $('#serialized-data').data();
-      window.serializedData = serializedData;
+      MixpanelUtils.registerUser(serializedData.currentEducator);
+      window.mixpanel.track('PAGE_VISIT', { page_key: 'STAR_READING_PAGE' });
 
       // index by intervention type id
       var InterventionTypes = serializedData.interventionTypes.reduce(function(map, interventionType) {
