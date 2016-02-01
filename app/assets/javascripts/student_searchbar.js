@@ -8,6 +8,11 @@ $(function() {
           q: request.term
         },
         success: function(data) {
+
+          if (data.length === 0) {
+            data = [{ label: 'No matching students', value: null }];
+          };
+
           response(data);
         }
       });
@@ -18,7 +23,13 @@ $(function() {
     },
     select: function(e, ui) {
       e.preventDefault();
-      window.location.pathname = '/students/' + ui.item.value;
+
+      if (ui.item.label === 'No matching students') {
+        $(this).val('');
+      } else {
+        window.location.pathname = '/students/' + ui.item.value;
+      }
+
     },
   });
 
