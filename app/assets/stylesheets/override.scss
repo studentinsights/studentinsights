@@ -1,4 +1,4 @@
-//==* Override JQuery dialog defaults *==//
+/* Override JQuery dialog defaults */
 
 .ui-widget-header {
 	border: none !important;
@@ -46,5 +46,11 @@ img.ui-datepicker-trigger {
       text-align: center !important;
     }
   }
+}
+
+/* Override JQuery autocomplete defaults */
+
+.ui-autocomplete .ui-menu-item {
+  font-size: 14px !important;
 }
 
