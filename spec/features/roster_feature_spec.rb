@@ -53,7 +53,7 @@ describe 'roster', :type => :feature do
         let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_one_non_atp_intervention) }
         it 'shows a dash' do
           number_of_hours = page.find('td.interventions.number-of-hours')
-          expect(number_of_hours).to have_content '—'
+          expect(number_of_hours).to have_content ''
         end
       end
       context 'multiple ATP interventions, more recent one has 11 hours' do
