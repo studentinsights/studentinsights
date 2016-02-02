@@ -35,14 +35,11 @@
 //= require datepicker_config
 //= require session_timeout_warning
 //= require student_searchbar
-//= require mixpanel_utils
+//= require_tree ./helpers
+//= require_tree ./components
 
 // pages:
-//= require_tree ./roster
 //= require_tree ./student
-//= require_tree ./school/helpers
-//= require ./school/components/slice_panels
-//= require ./school/components/students_table
-//= require ./school/components/school_overview_page
-//= require ./school/overview_page
-//= require ./school/star_reading_page
+//= require_tree ./roster
+//= require_tree ./school_overview
+//= require_tree ./school_star

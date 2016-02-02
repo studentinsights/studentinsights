@@ -1,5 +1,4 @@
 (function(root) {
-
   window.shared || (window.shared = {});
   var Filters = window.shared.Filters;
   var Routes = window.shared.Routes;
@@ -298,6 +297,5 @@
     },
   });
 
-  root.SchoolOverviewPage = SchoolOverviewPage;
-
+  window.shared.SchoolOverviewPage = SchoolOverviewPage;
 })(window)
