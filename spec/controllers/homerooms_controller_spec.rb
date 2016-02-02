@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe HomeroomsController, :type => :controller do
-
+  let!(:school) { FactoryGirl.create(:school) }
   let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom) }
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
   let!(:admin_educator) { FactoryGirl.create(:educator, :admin) }
@@ -111,9 +111,9 @@ describe HomeroomsController, :type => :controller do
         end
 
         context 'garbage homeroom params' do
-          it 'redirects to first homeroom' do
+          it 'redirects to overview page' do
             make_request('garbage homeroom ids rule')
-            expect(response).to redirect_to(no_homeroom_url)
+            expect(response).to redirect_to(school_url(school))
           end
         end
 

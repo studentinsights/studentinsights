@@ -19,13 +19,20 @@ class ApplicationController < ActionController::Base
     redirect_to(new_educator_session_path) unless current_educator.admin?
   end
 
-  private
+  # Return the homepage path, depending on the educator's role
+  def homepage_path_for_role(educator)
+    if educator.admin?
+      school_url(educator.default_school_for_admin)
+    else
+      default_homeroom_path(educator)
+    end
+  end
 
-  def redirect_to_default_homeroom
-    redirect_to homeroom_path(current_educator.default_homeroom)
+  def default_homeroom_path(educator)
+    homeroom_path(educator.default_homeroom)
   rescue Exceptions::NoAssignedHomeroom   # Thrown by educator without default homeroom
-    redirect_to no_homeroom_path
+    no_homeroom_path
   rescue Exceptions::NoHomerooms
-    redirect_to no_homerooms_path
+    no_homerooms_path
   end
 end
