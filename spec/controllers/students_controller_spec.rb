@@ -72,6 +72,7 @@ describe StudentsController, :type => :controller do
       context 'query matches student name' do
         let(:healey) { FactoryGirl.create(:healey) }
         let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '05') }
+        let!(:jacob) { FactoryGirl.create(:student, first_name: 'Jacob', grade: '05') }
 
         it 'is successful' do
           make_request('j')

@@ -11,6 +11,10 @@ class Student < ActiveRecord::Base
   validates_uniqueness_of :local_id
   after_create :update_student_school_years
 
+  def self.with_school
+    where.not(school: nil)
+  end
+
   ## STUDENT ASSESSMENT RESULTS ##
 
   def latest_result_by_family_and_subject(family_name, subject_name)
