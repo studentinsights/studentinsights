@@ -129,7 +129,7 @@
             <tr class="student-row">
               <td class="name">
                 <a href="<%= student_url(row["id"]) %>">
-                  <%= row['first_name'] + ' ' + row['last_name'] %>
+                  <%= "#{row['first_name']} #{row['last_name']}" %>
                 </a>
               </td>
               <td class="risk risk-tooltip-circle" data-student-id="<%= row['id'] %> ">
