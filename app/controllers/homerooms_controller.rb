@@ -5,7 +5,7 @@ class HomeroomsController < ApplicationController
   before_action :authorize_and_assign_homeroom
 
   def show
-    cookies[:columns_selected] ||= ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'].to_json
+    cookies[:columns_selected] ||= initial_columns.to_json
 
     @rows = eager_students().map {|student| fat_student_hash(student) }
 
@@ -21,6 +21,11 @@ class HomeroomsController < ApplicationController
   end
 
   private
+
+  def initial_columns
+    return ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
+    return ['name', 'risk', 'sped', 'interventions']
+  end
 
   def eager_students(*additional_includes)
     Student.all.includes([
