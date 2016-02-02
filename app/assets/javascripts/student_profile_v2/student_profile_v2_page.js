@@ -73,7 +73,7 @@
     },
 
     render: function() {
-      return dom.div({ className: 'StudentProfilePage' },
+      return dom.div({ className: 'StudentProfileV2Page' },
         this.renderStudentName(),
         dom.div({ style: styles.summaryContainer },
           this.renderDemographicsColumn(),
