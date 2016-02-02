@@ -17,6 +17,7 @@ describe 'roster', :type => :feature do
         expect(student_rows.size).to eq 0
       end
     end
+
     context 'one student in homeroom' do
       context 'no student assessments' do
         let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_student) }
@@ -24,6 +25,7 @@ describe 'roster', :type => :feature do
           expect(student_rows.size).to eq 1
         end
       end
+
       context 'one student assessment' do
         context 'MCAS' do
           let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_student_with_mcas_math_warning) }
@@ -33,6 +35,7 @@ describe 'roster', :type => :feature do
           end
         end
       end
+
       context 'multiple student assessments' do
         context 'STAR' do
           let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_multiple_star_math_student_assessments) }
@@ -42,6 +45,7 @@ describe 'roster', :type => :feature do
           end
         end
       end
+
       context 'one ATP intervention' do
         let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_one_atp_intervention) }
         it 'shows the correct number of hours' do
@@ -49,6 +53,7 @@ describe 'roster', :type => :feature do
           expect(number_of_hours).to have_content '10'
         end
       end
+
       context 'non-ATP intervention' do
         let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_one_non_atp_intervention) }
         it 'shows a dash' do
@@ -56,6 +61,7 @@ describe 'roster', :type => :feature do
           expect(number_of_hours).to have_content ''
         end
       end
+
       context 'multiple ATP interventions, more recent one has 11 hours' do
         let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_multiple_atp_interventions) }
         it 'shows the most recent intervention' do
@@ -63,12 +69,15 @@ describe 'roster', :type => :feature do
           expect(number_of_hours).to have_content '11'
         end
       end
+
     end
+
     context 'three students in homeroom' do
       let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_three_students) }
       it 'shows roster with three student rows' do
         expect(student_rows.size).to eq 3
       end
     end
+
   end
 end
