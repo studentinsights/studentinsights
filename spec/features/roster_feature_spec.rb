@@ -3,12 +3,13 @@ require 'capybara/rspec'
 
 describe 'roster', :type => :feature do
   context 'educator with account views roster' do
-    before(:each) do
+    let(:student_rows) { all('.student-row') }
+
+    before do
       mock_ldap_authorization
+      Student.update_student_school_years
       educator_sign_in(educator)
     end
-
-    let(:student_rows) { all('.student-row') }
 
     context 'no students in homeroom' do
       let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }

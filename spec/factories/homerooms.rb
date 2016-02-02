@@ -15,49 +15,59 @@ FactoryGirl.define do
 
     factory :homeroom_with_student do
       after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student, :with_risk_level)
+        homeroom.students << FactoryGirl.create(:student, :with_risk_level, :registered_last_year)
       end
     end
 
     factory :homeroom_with_second_grader do
       after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:second_grade_student, :with_risk_level)
+        homeroom.students << FactoryGirl.create(:second_grade_student, :with_risk_level, :registered_last_year)
       end
     end
 
     factory :homeroom_with_pre_k_student do
       after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:pre_k_student, :with_risk_level)
+        homeroom.students << FactoryGirl.create(:pre_k_student, :with_risk_level, :registered_last_year)
       end
     end
 
     factory :homeroom_with_student_with_mcas_math_warning do
       after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_mcas_math_warning_assessment, :with_risk_level)
+        homeroom.students << FactoryGirl.create(:student_with_mcas_math_warning_assessment,
+                                                :with_risk_level,
+                                                :registered_last_year)
       end
     end
 
     factory :homeroom_with_student_with_multiple_star_math_student_assessments do
       after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_star_math_student_assessments_different_days, :with_risk_level)
+        homeroom.students << FactoryGirl.create(:student_with_star_math_student_assessments_different_days,
+                                                :with_risk_level,
+                                                :registered_last_year)
       end
     end
 
     factory :homeroom_with_one_atp_intervention do
       after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_one_atp_intervention, :with_risk_level)
+        homeroom.students << FactoryGirl.create(:student_with_one_atp_intervention,
+                                                :with_risk_level,
+                                                :registered_last_year)
       end
     end
 
     factory :homeroom_with_one_non_atp_intervention do
       after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_one_non_atp_intervention, :with_risk_level)
+        homeroom.students << FactoryGirl.create(:student_with_one_non_atp_intervention,
+                                                :with_risk_level,
+                                                :registered_last_year)
       end
     end
 
     factory :homeroom_with_multiple_atp_interventions do
       after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_multiple_atp_interventions, :with_risk_level)
+        homeroom.students << FactoryGirl.create(:student_with_multiple_atp_interventions,
+                                                :with_risk_level,
+                                                :registered_last_year)
       end
     end
 
