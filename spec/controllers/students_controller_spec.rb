@@ -70,14 +70,16 @@ describe StudentsController, :type => :controller do
         sign_in(educator)
       end
       context 'query matches student name' do
-        let!(:juan) { FactoryGirl.create(:student_named_juan) }
+        let(:healey) { FactoryGirl.create(:healey) }
+        let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '05') }
+
         it 'is successful' do
           make_request('j')
           expect(response).to be_success
         end
         it 'returns student name and id' do
           make_request('j')
-          expect(assigns(:result)).to eq [{ label: "Juan", value: juan.id }]
+          expect(assigns(:result)).to eq [{ label: "Juan - HEA - 05", value: juan.id }]
         end
       end
       context 'does not match student name' do
