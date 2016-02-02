@@ -102,9 +102,6 @@ FactoryGirl.define do
       first_name Faker::Name.first_name
       last_name Faker::Name.last_name
     end
-    factory :student_named_juan do
-      first_name "Juan"
-    end
     factory :sped_student do
       program_assigned "Sp Ed"
       sped_placement "Full Inclusion"
