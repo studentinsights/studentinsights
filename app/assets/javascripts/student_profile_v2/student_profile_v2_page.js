@@ -80,7 +80,6 @@
           this.renderELAColumn(),
           this.renderMathColumn(),
           this.renderAttendanceColumn(),
-          dom.div({ style: { flex: 1 }}, 'behavior'),
           dom.div({ style: { flex: 1 }}, 'interventions')
         )
       );
