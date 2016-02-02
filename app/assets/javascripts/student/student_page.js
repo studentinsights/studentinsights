@@ -3,6 +3,15 @@ $(function() {
   // It relies on some server-rendering and then passes control to the
   // ProfileController and InterventionsController, which own their respective tabs.
   if ($('body').hasClass('students') && $('body').hasClass('show')) {
+    var interventionsControllerData = JSON.parse($('#interventions-controller-data').html());
+
+    // track usage in mixpanel
+    var MixpanelUtils = window.shared.MixpanelUtils;
+    MixpanelUtils.registerUser(interventionsControllerData.currentEducator);
+    MixpanelUtils.track('PAGE_VISIT', {
+      page_key: 'STUDENT_PROFILE',
+      student_id: interventionsControllerData.student_id
+    });
 
     // Risk level tooltip
     var risk_level_tooltip = $('#risk-level-tooltip-template').html();
@@ -20,7 +29,6 @@ $(function() {
     // Read data for interventions tab
     // This is persistent for the life of the page right - the state is read in
     // on initial page load and is then owned by the controller.
-    var interventionsControllerData = JSON.parse($('#interventions-controller-data').html());
     var interventionsController = new window.InterventionsController({
       // configuration
       $el: $('#interventions-tab'),
