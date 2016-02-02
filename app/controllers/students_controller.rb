@@ -50,7 +50,7 @@ class StudentsController < ApplicationController
     end
     @result = @matches.map do |m|
       {
-        label: StudentPresenter.new(m).full_name,
+        label: "#{StudentPresenter.new(m).full_name} - #{m.school.local_id} - #{m.grade}",
         value: m.id
       }
     end
