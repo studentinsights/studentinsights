@@ -3,7 +3,7 @@
       <%= link_to "< Back to roster for #{@student.homeroom.name}", @roster_url %>
     </div>
     <div id="export">
-      <%= link_to "Export &#9662;".html_safe, @csv_url, method: "get", id: 'export-button' %>
+      <%= link_to 'Export', @csv_url, method: "get", id: 'export-button' %>
     </div>
   </div>
 
