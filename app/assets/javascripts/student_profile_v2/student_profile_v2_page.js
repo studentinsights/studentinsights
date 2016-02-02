@@ -195,7 +195,7 @@
     cumulativeCountQuads: function(attendanceEvents) {
       var cumulativeValue = 0;
       var quads = [];
-      attendanceEvents.forEach(function(attendanceEvent) {
+      _.sortBy(attendanceEvents, 'occurred_at').forEach(function(attendanceEvent) {
         var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
         cumulativeValue = cumulativeValue + 1;
         quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth(), occurrenceDate.getDate(), cumulativeValue]);
