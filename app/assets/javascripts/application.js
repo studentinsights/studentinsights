@@ -32,6 +32,7 @@
 //= require react
 
 // shared across application:
+//= require env
 //= require datepicker_config
 //= require session_timeout_warning
 //= require student_searchbar
