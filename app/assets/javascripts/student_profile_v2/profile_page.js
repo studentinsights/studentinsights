@@ -13,8 +13,8 @@ $(function() {
 
     // TODO(kr) hacking around with local data for now
     var now = new Date();
-    // var dateRange = [now, moment(now).subtract(1, 'year').toDate()];
-    var dateRange = [new Date(2010, 11, 19), new Date(2011, 11, 19)]
+    var dateRange = [now, moment(now).subtract(1, 'year').toDate()];
+    // var dateRange = [new Date(2010, 11, 19), new Date(2011, 11, 19)]
 
     ReactDOM.render(createEl(StudentProfileV2Page, {
       student: serializedData.student,

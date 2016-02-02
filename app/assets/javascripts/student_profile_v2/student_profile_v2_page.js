@@ -198,7 +198,7 @@
       attendanceEvents.forEach(function(attendanceEvent) {
         var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
         cumulativeValue = cumulativeValue + 1;
-        quads.push([occurrenceDate.getMonth(), occurrenceDate.getDate(), occurrenceDate.getYear(), cumulativeValue]);
+        quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth(), occurrenceDate.getDate(), cumulativeValue]);
       });
 
       return quads;      
