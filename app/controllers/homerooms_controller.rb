@@ -9,10 +9,15 @@ class HomeroomsController < ApplicationController
 
     @rows = eager_students().map {|student| fat_student_hash(student) }
 
-    @bulk_intervention_assignment = BulkInterventionAssignment.new
+    # Risk level chart
     @risk_levels = @homeroom.student_risk_levels.group(:level).count
     @risk_levels['null'] = if @risk_levels.has_key? nil then @risk_levels[nil] else 0 end
+
+    # Dropdown for homeroom navigation
     @homerooms_by_name = current_educator.allowed_homerooms_by_name
+
+    # Bulk intervention assignment in far-right column
+    @bulk_intervention_assignment = BulkInterventionAssignment.new
   end
 
   private
