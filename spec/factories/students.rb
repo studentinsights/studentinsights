@@ -14,6 +14,10 @@ FactoryGirl.define do
       end
     end
 
+    trait :registered_last_year do
+      registration_date Time.now - 1.year
+    end
+
     trait :low_income do
       free_reduced_lunch "Free Lunch"
     end
