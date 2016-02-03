@@ -109,6 +109,7 @@
     renderDemographicsColumn: function() {
       var student = this.props.student;
 
+
       return dom.div({ style: { flex: 1 }},
         this.renderTitle('Demographics'),
         dom.div({}, 'Disability: ' + student.sped_level_of_need),
@@ -200,7 +201,7 @@
         quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth(), occurrenceDate.getDate(), cumulativeValue]);
       });
 
-      return quads;      
+      return quads;
     },
 
     // quads format is: [[year, month, day, value]]
@@ -217,12 +218,12 @@
     },
 
     // render with style wrapper
-    wrapSummary: function(props) {      
+    wrapSummary: function(props) {
       return dom.div({ style: styles.summaryWrapper }, createEl(AcademicSummary, props));
     },
 
     renderTitle: function(text) {
-      return dom.div({}, text);
+      return dom.div({style: {fontWeight: "bold"} }, text);
     }
   });
 })();
