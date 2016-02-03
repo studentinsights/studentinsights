@@ -26,7 +26,10 @@ module SerializeDataHelper
 
   def serialize_student_note(student_note)
     {
+      id: student_note.id,
       content: student_note.content,
+      educator_email: student_note.educator.email,
+      created_at_timestamp: student_note.created_at,
       created_at: student_note.created_at.strftime('%B %e, %Y')
     }
   end

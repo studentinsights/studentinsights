@@ -18,6 +18,7 @@ $(function() {
 
     ReactDOM.render(createEl(StudentProfileV2Page, {
       student: serializedData.student,
+      notes: serializedData.notes,
       chartData: serializedData.chartData,
       interventionTypesIndex: serializedData.interventionTypesIndex,
       attendanceData: serializedData.attendanceData,

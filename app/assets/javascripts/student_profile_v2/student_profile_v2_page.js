@@ -8,6 +8,70 @@
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
 
+  var ProfileDetails = React.createClass({
+    styles: {
+      title: {
+        borderBottom: '1px solid #333',
+        fontWeight: 'bold',
+        padding: 10
+      },
+      date: {
+        margin: 5,
+        fontWeight: 'bold'
+      },
+      educator: {
+        borderLeft: '1px solid #333',
+        margin: 5
+      }
+    },
+
+    getInitialState: function() {
+      return {
+        expandedNoteIds: []
+      }
+    },
+
+    isExpanded: function(note) {
+      return (this.state.expandedNoteIds.indexOf(note.id) !== -1);
+    },
+
+    onNoteClicked: function(note) {
+      var updatedNoteIds = (this.isExpanded(note))
+        ? _.without(this.state.expandedNoteIds, note.id)
+        : this.state.expandedNoteIds.concat(note.id);
+      this.setState({ expandedNoteIds: updatedNoteIds });
+    },
+
+    render: function() {
+      var styles = this.styles;
+      return dom.div({ className: 'ProfileDetails' },
+        dom.div({ style: styles.title}, 'Notes'),
+        this.props.notes.map(function(note) {
+          var isExpanded = this.isExpanded(note);
+          return dom.div({
+            key: note.id,
+            onClick: this.onNoteClicked.bind(this, note),
+          },
+            dom.div({},
+              dom.span({ style: styles.date }, moment(note.created_at_timestamp).format('MMMM D, YYYY')),
+              dom.span({ style: styles.educator }, note.educator_email)
+            ),
+            dom.div({ style: { whiteSpace: 'pre-wrap' } },
+              dom.div({ style: (isExpanded) ? styles.expandedNote : styles.collapsedNote }, note.content),
+              (isExpanded ? null : dom.div({}, '(see more'))
+            )
+          );
+        }, this)
+      );
+    }
+  });
+
+  var InterventionsDetails = React.createClass({
+    render: function() {
+      return dom.div({}, 'interventions');
+    }
+  });
+
   var SummaryList = React.createClass({
     render: function() {
       return dom.div({ style: { paddingBottom: 10 } },
@@ -114,8 +178,22 @@
           this.renderMathColumn(),
           this.renderAttendanceColumn(),
           this.renderInterventionsColumn()
-        )
+        ),
+        dom.div({}, this.renderSectionDetails())
       );
+    },
+
+    renderSectionDetails: function() {
+      // TODO(kr) make factoring more explicit
+      var props = {
+        student: this.props.student,
+        notes: this.props.notes
+      };
+      switch (this.state.selectedColumnKey) {
+        case 'profile': return createEl(ProfileDetails, props); break;
+        case 'interventions': return createEl(InterventionsDetails, props); break;
+      }
+      return null;
     },
 
     renderStudentName: function() {
@@ -185,7 +263,7 @@
       var elements = (student.interventions.length === 0) ? ['None'] : _.sortBy(student.interventions, 'start_date').map(function(intervention) {
         var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
         var daysText = moment(intervention.start_date).fromNow(true);
-        return dom.span({},
+        return dom.span({ key: intervention.id },
           dom.span({}, interventionText),
           dom.span({ style: { opacity: 0.25, paddingLeft: 5 } }, daysText)
         );

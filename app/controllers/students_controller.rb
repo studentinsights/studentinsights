@@ -52,6 +52,7 @@ class StudentsController < ApplicationController
     student = Student.find(params[:id])
     @serialized_data = {
       student: student.serialized_data,
+      notes: student.student_notes.map {|note| serialize_student_note(note) },
       chart_data: StudentProfileChart.new(student.serialized_student_data).chart_data,
       intervention_types_index: intervention_types_index,
       attendance_data: {
