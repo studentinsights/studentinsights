@@ -6,24 +6,20 @@
     this.x_axis_bands = intervention_plot_bands;
   };
 
-  StarChart.fromChartData = function mcasScaledChartFromChartData(chartData) {
+  StarChart.fromPureData = function fromPureData(pureData) {
     var datums = [];
-    var math_data = chartData.data('star-series-math-percentile');
-    var reading_data = chartData.data('star-series-reading-percentile');
-    var interventions = chartData.data('interventions');
-
-    if (math_data !== null) {
-      var math = new ProfileChartData("Math percentile rank", math_data).toDateChart();
+    if (pureData.math_data !== null) {
+      var math = new ProfileChartData("Math percentile rank", pureData.math_data).toDateChart();
       datums.push(math);
     }
 
-    if (reading_data !== null) {
-      var reading = new ProfileChartData("English percentile rank", reading_data).toDateChart();
+    if (pureData.reading_data !== null) {
+      var reading = new ProfileChartData("English percentile rank", pureData.reading_data).toDateChart();
       datums.push(reading);
     }
 
-    if (interventions) {
-      var intervention_plot_bands = interventions.map(function(i) {
+    if (pureData.interventions) {
+      var intervention_plot_bands = pureData.interventions.map(function(i) {
         return new InterventionPlotBand(i).toHighCharts();
       });
 
@@ -32,6 +28,14 @@
     }
 
     return new StarChart(datums, intervention_plot_bands);
+  };
+
+  StarChart.fromChartData = function fromChartData(chartData) {
+    return this.fromPureData({
+      math_data: chartData.data('star-series-math-percentile'),
+      reading_data: chartData.data('star-series-reading-percentile'),
+      interventions: chartData.data('interventions')
+    });
   };
 
   StarChart.prototype.toHighChart = function mcasChartToHighChart () {

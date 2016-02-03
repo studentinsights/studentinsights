@@ -8,20 +8,60 @@
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
 
-  var ProfileDetails = React.createClass({
+  var InterventionsDetails = React.createClass({
+    propTypes: {
+      interventionTypesIndex: React.PropTypes.object.isRequired
+    },
+    
     styles: {
+      container: {
+        display: 'flex'
+      },
+      notesContainer: {
+        flex: 1
+      },
+      interventionsContainer: {
+        flex: 1
+      },
+      inlineBlock: {
+        display: 'inline-block'
+      },
+      userText: {
+        whiteSpace: 'pre-wrap'
+      },
+      daysAgo: {
+        opacity: 0.25,
+        paddingLeft: 10,
+        display: 'inline-block'
+      },
       title: {
         borderBottom: '1px solid #333',
         fontWeight: 'bold',
-        padding: 10
+        padding: 10,
+        paddingLeft: 0
       },
       date: {
-        margin: 5,
-        fontWeight: 'bold'
+        padding: 10,
+        paddingLeft: 0,
+        fontWeight: 'bold',
+        display: 'inline-block'
       },
       educator: {
-        borderLeft: '1px solid #333',
-        margin: 5
+        padding: 10,
+        paddingLeft: 5,
+        display: 'inline-block'
+      },
+      expandedNote: {},
+      collapsedNote: {
+        maxHeight: '2em',
+        overflowY: 'hidden'
+      },
+      addButton: {
+        fontSize: 24,
+        outline: '1px solid black',
+        padding: '0px 5px',
+        marginLeft: 10,
+
       }
     },
 
@@ -43,32 +83,76 @@
     },
 
     render: function() {
+      return dom.div({ className: 'InterventionsDetails', style: this.styles.container },
+        dom.div({ style: this.styles.notesContainer },
+          dom.div({ style: this.styles.title},
+            'Notes',
+            dom.span({ style: this.styles.addButton }, '+')
+          ),
+          this.props.notes.map(this.renderNote)
+        ),
+        dom.div({ style: this.styles.interventionsContainer },
+          dom.div({ style: this.styles.title},
+            'Interventions',
+            dom.span({ style: this.styles.addButton }, '+')
+          ),
+          this.props.student.interventions.map(this.renderIntervention)
+        )
+      );
+    },
+
+    // allow editing, fixup.  'no longer active'
+    renderIntervention: function(intervention) {
+      var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
+      var daysText = moment(intervention.start_date).fromNow(true);
+      return dom.div({ key: intervention.id },
+        dom.span({ style: this.styles.inlineBlock }, interventionText),
+        dom.span({ style: this.styles.daysAgo }, daysText),
+        dom.div({}, 'Teacher ' + intervention.educator_id), // TODO(kr)
+        dom.div({ style: merge(this.styles.userText, { paddingTop: 15 }) }, intervention.comment)
+      );
+    },
+
+    renderNote: function(note) {
       var styles = this.styles;
-      return dom.div({ className: 'ProfileDetails' },
-        dom.div({ style: styles.title}, 'Notes'),
-        this.props.notes.map(function(note) {
-          var isExpanded = this.isExpanded(note);
-          return dom.div({
-            key: note.id,
-            onClick: this.onNoteClicked.bind(this, note),
-          },
-            dom.div({},
-              dom.span({ style: styles.date }, moment(note.created_at_timestamp).format('MMMM D, YYYY')),
-              dom.span({ style: styles.educator }, note.educator_email)
-            ),
-            dom.div({ style: { whiteSpace: 'pre-wrap' } },
-              dom.div({ style: (isExpanded) ? styles.expandedNote : styles.collapsedNote }, note.content),
-              (isExpanded ? null : dom.div({}, '(see more'))
-            )
-          );
-        }, this)
+      var isExpanded = this.isExpanded(note);
+      return dom.div({
+        key: note.id,
+        onClick: this.onNoteClicked.bind(this, note),
+      },
+        dom.div({},
+          dom.span({ style: styles.date }, moment(note.created_at_timestamp).format('MMMM D, YYYY')),
+          '|',
+          dom.span({ style: styles.educator }, note.educator_email)
+        ),
+        dom.div({ style: { whiteSpace: 'pre-wrap' } },
+          dom.div({ style: (isExpanded) ? styles.expandedNote : styles.collapsedNote }, note.content),
+          (isExpanded ? null : dom.div({}, '(see more)'))
+        )
       );
     }
   });
 
-  var InterventionsDetails = React.createClass({
+  var ProfileDetails = React.createClass({
     render: function() {
-      return dom.div({}, 'interventions');
+      return dom.div({}, 'profile');
+    }
+  });
+
+  var ELADetails = React.createClass({
+    displayName: 'ELADetails',
+
+    componentDidMount: function(props, state) {
+      var starChart = StarChart.fromPureData({
+        math_data: this.props.chartData.star_series_math_percentile,
+        reading_data: this.props.chartData.star_series_reading_percentile,
+        interventions: this.props.chartData.interventions
+      });
+      Highcharts.Chart(starChart.toHighChart())
+    },
+
+    render: function() {
+      return dom.div({}, JSON.stringify(this.props.chartData));
     }
   });
 
@@ -104,6 +188,9 @@
       display: 'flex',
       flexDirection: 'row',
       background: '#eee'
+    },
+    detailsContainer: {
+      margin: 30
     },
     academicColumn: {
       textAlign: 'center',
@@ -157,7 +244,7 @@
 
     getInitialState: function() {
       return {
-        selectedColumnKey: 'profile'
+        selectedColumnKey: 'interventions' // 'profile'
       };
     },
 
@@ -179,7 +266,7 @@
           this.renderAttendanceColumn(),
           this.renderInterventionsColumn()
         ),
-        dom.div({}, this.renderSectionDetails())
+        dom.div({ style: styles.detailsContainer }, this.renderSectionDetails())
       );
     },
 
@@ -187,11 +274,13 @@
       // TODO(kr) make factoring more explicit
       var props = {
         student: this.props.student,
-        notes: this.props.notes
+        notes: this.props.notes,
+        interventionTypesIndex: this.props.interventionTypesIndex
       };
       switch (this.state.selectedColumnKey) {
         case 'profile': return createEl(ProfileDetails, props); break;
         case 'interventions': return createEl(InterventionsDetails, props); break;
+        case 'ela': return createEl(ELADetails, { chartData: this.props.chartData }); break;
       }
       return null;
     },
@@ -265,7 +354,7 @@
         var daysText = moment(intervention.start_date).fromNow(true);
         return dom.span({ key: intervention.id },
           dom.span({}, interventionText),
-          dom.span({ style: { opacity: 0.25, paddingLeft: 5 } }, daysText)
+          dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
         );
       }, this);
 
