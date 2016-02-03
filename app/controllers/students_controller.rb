@@ -51,12 +51,13 @@ class StudentsController < ApplicationController
   def profile
     student = Student.find(params[:id])
     @serialized_data = {
-      :student => student.serialized_data,
-      :chart_data => StudentProfileChart.new(student.serialized_student_data).chart_data,
-      :attendance_data => {
-        :discipline_incidents => student.most_recent_school_year.discipline_incidents,
-        :tardies => student.most_recent_school_year.tardies,
-        :absences => student.most_recent_school_year.tardies
+      student: student.serialized_data,
+      chart_data: StudentProfileChart.new(student.serialized_student_data).chart_data,
+      intervention_types_index: intervention_types_index,
+      attendance_data: {
+        discipline_incidents: student.most_recent_school_year.discipline_incidents,
+        tardies: student.most_recent_school_year.tardies,
+        absences: student.most_recent_school_year.tardies
       }
     }
   end

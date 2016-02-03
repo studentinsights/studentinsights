@@ -8,8 +8,23 @@
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
 
+  var SummaryList = React.createClass({
+    render: function() {
+      return dom.div({ style: { paddingBottom: 10 } },
+        dom.div({ style: { fontWeight: 'bold' } }, this.props.title),
+        dom.ul({}, this.props.elements.map(function(element, index) {
+          return dom.li({ key: index }, element);
+        }))
+      );
+    }
+  });
+
   // define page component
   var styles = {
+    page: {
+      marginLeft: 20,
+      marginRight: 20
+    },
     titleContainer: {
       fontSize: 16,
       padding: 20
@@ -26,14 +41,23 @@
       flexDirection: 'row',
       background: '#eee'
     },
-    column: {
+    academicColumn: {
       textAlign: 'center',
-      flex: 1
+      flex: 3
+    },
+    column: {
+      flex: 4,
+      padding: 20,
+      cursor: 'pointer'
+    },
+    selectedColumn: {
+      border: '5px solid rgba(49, 119, 201, 0.64)',
+      padding: 15
     },
     summaryWrapper: {
-      padding: 20
+      paddingBottom: 10
     },
-    sparklineWidth: 120,
+    sparklineWidth: 150,
     sparklineHeight: 50
   };
 
@@ -42,6 +66,7 @@
 
     propTypes: {
       student: React.PropTypes.object.isRequired,
+      interventionTypesIndex: React.PropTypes.object.isRequired,
       chartData: React.PropTypes.shape({
         // ela
         most_recent_star_reading_percentile: React.PropTypes.number,
@@ -68,19 +93,27 @@
 
     getInitialState: function() {
       return {
-        selectedSectionKey: 'notes'
+        selectedColumnKey: 'profile'
       };
     },
 
+    selectedColumnStyles: function(columnKey) {
+      return (columnKey === this.state.selectedColumnKey) ? styles.selectedColumn : {};
+    },
+
+    onColumnClicked: function(columnKey) {
+      this.setState({ selectedColumnKey: columnKey });
+    },
+
     render: function() {
-      return dom.div({ className: 'StudentProfileV2Page' },
+      return dom.div({ className: 'StudentProfileV2Page', style: styles.page },
         this.renderStudentName(),
         dom.div({ style: styles.summaryContainer },
-          this.renderDemographicsColumn(),
+          this.renderProfileColumn(),
           this.renderELAColumn(),
           this.renderMathColumn(),
           this.renderAttendanceColumn(),
-          dom.div({ style: { flex: 1 }}, 'interventions')
+          this.renderInterventionsColumn()
         )
       );
     },
@@ -106,11 +139,14 @@
       );
     },
 
-    renderDemographicsColumn: function() {
+    renderProfileColumn: function() {
       var student = this.props.student;
+      var columnKey = 'profile';
 
-
-      return dom.div({ style: { flex: 1 }},
+      return dom.div({
+        style: merge(styles.column, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
         this.renderTitle('Demographics'),
         dom.div({}, 'Disability: ' + student.sped_level_of_need),
         dom.div({}, 'Low income: ' + student.free_reduced_lunch),
@@ -118,11 +154,59 @@
       );
     },
 
+    renderInterventionsColumn: function() {
+      var student = this.props.student;
+      var columnKey = 'interventions';
+
+      return dom.div({
+        style: merge(styles.column, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      }, this.padElements(styles.summaryWrapper, [
+        this.renderPlacement(student),
+        this.renderInterventions(student)
+      ]));
+    },
+
+    renderPlacement: function(student) {
+      var placement = (student.sped_placement !== null)
+        ? student.program_assigned + ', ' + student.sped_placement
+        : student.program_assigned;
+      
+      return createEl(SummaryList, {
+        title: 'Placement',
+        elements: [
+          placement,
+          'Homeroom ' + student.homeroom_name
+        ]
+      });
+    },
+
+    renderInterventions: function(student) {
+      var elements = (student.interventions.length === 0) ? ['None'] : _.sortBy(student.interventions, 'start_date').map(function(intervention) {
+        var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
+        var daysText = moment(intervention.start_date).fromNow(true);
+        return dom.span({},
+          dom.span({}, interventionText),
+          dom.span({ style: { opacity: 0.25, paddingLeft: 5 } }, daysText)
+        );
+      }, this);
+
+      return createEl(SummaryList, {
+        title: 'Interventions',
+        elements: elements
+      });
+    },
+
     renderELAColumn: function() {
       var student = this.props.student;
       var chartData = this.props.chartData;
+      var columnKey = 'ela';
 
-      return dom.div({ className: 'ela-background', style: styles.column},
+      return dom.div({
+        className: 'ela-background',
+        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
         this.wrapSummary({
           caption: 'STAR Reading',
           value: student.most_recent_star_reading_percentile,
@@ -147,8 +231,13 @@
     renderMathColumn: function() {
       var student = this.props.student;
       var chartData = this.props.chartData;
+      var columnKey = 'math';
 
-      return dom.div({ className: 'math-background', style: styles.column},
+      return dom.div({
+        className: 'math-background',
+        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
         this.wrapSummary({
           caption: 'STAR Math',
           value: student.most_recent_star_math_percentile,
@@ -173,8 +262,13 @@
     renderAttendanceColumn: function() {
       var student = this.props.student;
       var attendanceData = this.props.attendanceData;
+      var columnKey = 'attendance';
 
-      return dom.div({ className: 'attendance-background', style: styles.column},
+      return dom.div({
+        className: 'attendance-background',
+        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
         this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, { caption: 'Discipline incidents' }),
         this.renderAttendanceEventsSummary(attendanceData.absences, { caption: 'Absences' }),
         this.renderAttendanceEventsSummary(attendanceData.tardies, { caption: 'Tardies' })
@@ -220,6 +314,12 @@
     // render with style wrapper
     wrapSummary: function(props) {
       return dom.div({ style: styles.summaryWrapper }, createEl(AcademicSummary, props));
+    },
+
+    padElements: function(style, elements) {
+      return dom.div({}, elements.map(function(element, index) {
+        return dom.div({ key: index, style: style }, element);
+      }));
     },
 
     renderTitle: function(text) {

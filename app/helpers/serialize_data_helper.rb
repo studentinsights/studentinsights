@@ -31,4 +31,12 @@ module SerializeDataHelper
     }
   end
 
+  # Used to send down all intervention types, for lookups from student records
+  def intervention_types_index
+    index = {}
+    InterventionType.all.each do |intervention_type|
+      index[intervention_type.id] = intervention_type;
+    end
+    index
+  end
 end

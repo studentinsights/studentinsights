@@ -19,6 +19,7 @@ $(function() {
     ReactDOM.render(createEl(StudentProfileV2Page, {
       student: serializedData.student,
       chartData: serializedData.chartData,
+      interventionTypesIndex: serializedData.interventionTypesIndex,
       attendanceData: serializedData.attendanceData,
       dateRange: dateRange
     }), document.getElementById('main'));

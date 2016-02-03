@@ -1,5 +1,5 @@
 class SchoolsController < ApplicationController
-
+  include SerializeDataHelper
   before_action :authenticate_educator!,
                 :assign_school,
                 :authorize
@@ -15,7 +15,7 @@ class SchoolsController < ApplicationController
     @serialized_data = {
       students: @serialized_students,
       current_educator: current_educator,
-      intervention_types: InterventionType.all
+      intervention_types_index: intervention_types_index
     }
   end
 
@@ -27,7 +27,7 @@ class SchoolsController < ApplicationController
     @serialized_data = {
       students_with_star_reading: @serialized_students,
       current_educator: current_educator,
-      intervention_types: InterventionType.all
+      intervention_types_index: intervention_types_index
     }
   end
 
