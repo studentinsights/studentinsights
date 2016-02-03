@@ -12,6 +12,8 @@ class Educator < ActiveRecord::Base
   has_many    :progress_notes, through: :interventions
   has_many    :student_notes
 
+  validates_uniqueness_of :email
+
   def default_homeroom
     raise Exceptions::NoHomerooms if Homeroom.count == 0    # <= We can't show any homerooms if there are none
     return homeroom if homeroom.present?                    # <= Logged-in educator has an assigned homeroom
