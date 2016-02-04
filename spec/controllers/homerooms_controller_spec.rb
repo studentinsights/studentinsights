@@ -70,8 +70,8 @@ describe HomeroomsController, :type => :controller do
             it 'assigns rows to a non-empty array' do
               make_request(educator.homeroom.slug)
               expect(assigns(:rows).size).to eq 2
-              expect(assigns(:rows)[0]).to include second_student.as_json
-              expect(assigns(:rows)[1]).to include first_student.as_json
+              expect(assigns(:rows)[0]).to include Student.all.second.as_json
+              expect(assigns(:rows)[1]).to include Student.all.first.as_json
             end
           end
 
