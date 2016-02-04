@@ -65,6 +65,12 @@ class Educator < ActiveRecord::Base
       puts "#{educator.full_name} -- #{educator.grade_level_access}"
     end
 
+    puts; puts "=== Staff members limited to student profiles of ELLs:"
+    puts Educator.where(restricted_to_english_language_learners: true).pluck(:full_name)
+
+    puts; puts "=== Staff members limited to student profiles of SPED students:"
+    puts Educator.where(restricted_to_sped_students: true).pluck(:full_name)
+
     puts; puts "=== Homeroom teachers:"
     Educator.all.select { |e| e.homeroom.present? }.each do |educator|
       puts "#{educator.full_name} -- #{educator.homeroom.name} -- Grade #{educator.homeroom.grade}"
