@@ -28,7 +28,7 @@ class HomeroomsController < ApplicationController
   end
 
   def eager_students(*additional_includes)
-    Student.all.includes([
+    @homeroom.students.includes([
       :interventions,
       :student_risk_level,
       :homeroom,
