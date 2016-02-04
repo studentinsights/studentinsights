@@ -30,7 +30,7 @@ class Educator < ActiveRecord::Base
     # Educator can visit roster view for these homerooms
     # For non-admins, all homerooms at their homeroom's grade level
 
-    if admin?
+    if schoolwide_access?
       Homeroom.all
     elsif homeroom
       # Once the app includes data for multiple schools, will
