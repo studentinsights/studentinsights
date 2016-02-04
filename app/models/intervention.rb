@@ -50,7 +50,7 @@ class Intervention < ActiveRecord::Base
   ## SCOPES ##
 
   def self.most_recent_atp
-    where(intervention_type_id: InterventionType.atp.id).order(start_date: :asc).first
+    where(intervention_type_id: InterventionType.atp.id).order(start_date: :desc).first
   end
 
   def self.with_start_and_end_dates

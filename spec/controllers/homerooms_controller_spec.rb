@@ -43,6 +43,7 @@ describe HomeroomsController, :type => :controller do
         end
 
         context 'homeroom belongs to educator' do
+
           it 'is successful' do
             make_request(educator.homeroom.slug)
             expect(response).to be_success
@@ -51,21 +52,47 @@ describe HomeroomsController, :type => :controller do
             make_request(educator.homeroom.slug)
             expect(assigns(:homerooms_by_name)).to eq([educator.homeroom])
           end
+
           context 'when there are no students' do
             it 'assigns rows to empty' do
               make_request(educator.homeroom.slug)
               expect(assigns(:rows)).to be_empty
             end
           end
+
           context 'when there are students' do
-            let!(:first_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
-            let!(:second_student) { FactoryGirl.create(:student, homeroom: educator.homeroom) }
+            let!(:first_student) { FactoryGirl.create(:student, :registered_last_year, homeroom: educator.homeroom) }
+            let!(:second_student) { FactoryGirl.create(:student, :registered_last_year, homeroom: educator.homeroom) }
+            let!(:third_student) { FactoryGirl.create(:student, :registered_last_year) }
+
+            before { Student.update_student_school_years }
+
             it 'assigns rows to a non-empty array' do
               make_request(educator.homeroom.slug)
-              expect(assigns(:rows)).to be_a_kind_of Array
-              expect(assigns(:rows)).to_not be_empty
+              expect(assigns(:rows).size).to eq 2
+              expect(assigns(:rows)[0]).to include Student.all.second.as_json
+              expect(assigns(:rows)[1]).to include Student.all.first.as_json
             end
           end
+
+          context 'homeroom grade level above 3' do
+            before { Homeroom.first.update(grade: '4') }
+            it 'sets initial cookies to show mcas columns on page load' do
+              make_request(educator.homeroom.slug)
+              expect(response.cookies['columns_selected']).to include 'mcas_math'
+              expect(response.cookies['columns_selected']).to include 'mcas_ela'
+            end
+          end
+
+          context 'homeroom grade level below 3' do
+            before { Homeroom.first.update(grade: 'KF') }
+            it 'sets initial cookies to not show mcas columns on page load' do
+              make_request(educator.homeroom.slug)
+              expect(response.cookies['columns_selected']).not_to include 'mcas_math'
+              expect(response.cookies['columns_selected']).not_to include 'mcas_ela'
+            end
+          end
+
         end
 
         context 'homeroom does not belong to educator' do

@@ -5,65 +5,51 @@ class HomeroomsController < ApplicationController
   before_action :authorize_and_assign_homeroom
 
   def show
-    cookies[:columns_selected] ||= ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'].to_json
-    query_results = StudentRowsQuery.new(@homeroom).to_rows
+    cookies[:columns_selected] ||= initial_columns.to_json
 
-    rows_by_student_id = Hash[query_results.group_by { |h| h['id'] }]
-    @rows = []
+    @rows = eager_students().map {|student| fat_student_hash(student) }
 
-    rows_by_student_id.each do |student_id, rows_of_student_assessments|
-      first_row = rows_of_student_assessments[0]
-      row = {
-        student_id: student_id,
-        student_presenter: StudentRowPresenter.new(first_row),
-        assessment_data: {},
-        student_risk_level: {
-          student_id: student_id,
-          level: first_row['level'],
-          explanation: first_row['explanation']
-        }
-      }
-      rows_of_student_assessments.each do |r|
-        assessment_symbol = detect_assessment(r)
-        row[:assessment_data][assessment_symbol] = r
-      end
-      @rows << row
-    end
-    @bulk_intervention_assignment = BulkInterventionAssignment.new
+    # Risk level chart
     @risk_levels = @homeroom.student_risk_levels.group(:level).count
     @risk_levels['null'] = if @risk_levels.has_key? nil then @risk_levels[nil] else 0 end
+
+    # Dropdown for homeroom navigation
     @homerooms_by_name = current_educator.allowed_homerooms_by_name
-    @interventions = @homeroom.students.map { |s| s.interventions.build }
+
+    # Bulk intervention assignment in far-right column
+    @bulk_intervention_assignment = BulkInterventionAssignment.new
   end
 
   private
 
-  def detect_assessment(row)
-    case row['family']
-    when 'DIBELS'
-      :dibels_row_data
-    when 'ACCESS'
-      :access_row_data
-    when 'MAP'
-      :map_row_data
-    when 'MCAS'
-      case row['subject']
-      when 'Math'
-        :mcas_math_row_data
-      when 'ELA'
-        :mcas_ela_row_data
-      end
-    when 'STAR'
-      case row['subject']
-      when 'Math'
-        :star_math_row_data
-      when 'Reading'
-        :star_reading_row_data
-      end
-    end
+  def initial_columns
+    return ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
+    return ['name', 'risk', 'sped', 'interventions']
   end
 
-  private
+  def eager_students(*additional_includes)
+    @homeroom.students.includes([
+      :interventions,
+      :student_risk_level,
+      :homeroom,
+      :student_school_years
+    ] + additional_includes)
+  end
+
+  # Serializes a Student into a hash with other fields joined in (that are used to perform
+  # filtering and slicing in the UI).
+  # This may be slow if you're doing it for many students without eager includes.
+  def fat_student_hash(student)
+    student.as_json.merge({
+      interventions: student.interventions,
+      most_recent_atp_number_of_hours: student.most_recent_atp_hours,
+      student_risk_level: student.student_risk_level.as_json,
+      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
+      absences_count: student.most_recent_school_year.absences.count,
+      tardies_count: student.most_recent_school_year.tardies.count,
+      homeroom_name: student.try(:homeroom).try(:name)
+    })
+  end
 
   def authorize_and_assign_homeroom
     @requested_homeroom = Homeroom.friendly.find(params[:id])
