@@ -25,7 +25,9 @@ class EducatorSummary
     puts Educator.where(restricted_to_sped_students: true).pluck(:full_name)
 
     puts; puts "=== Homeroom teachers:"
-    Educator.all.select { |e| e.homeroom.present? }.each do |educator|
+    Educator.all.select { |e| e.homeroom.present? }
+                .sort_by { |e| e.homeroom.grade }
+                .each do |educator|
       puts "#{educator.full_name} -- #{educator.homeroom.name} -- Grade #{educator.homeroom.grade}"
     end
 
