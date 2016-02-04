@@ -69,7 +69,7 @@ Choose your favorite local development approach:
 * [Local installation on OSX and Debian](docs/local_installation_notes.md)
 
 ### Tests
-This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). stdout from tests is logged to [spec/logs/logs.txt](spec/logs/logs.txt).  Run the test suite:
+This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
 
 ```
 rspec
