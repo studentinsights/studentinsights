@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130143407) do
+ActiveRecord::Schema.define(version: 20160204001545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,8 +78,11 @@ ActiveRecord::Schema.define(version: 20160130143407) do
     t.string   "local_id"
     t.string   "staff_type"
     t.integer  "school_id"
+    t.boolean  "schoolwide_access",      default: false
+    t.string   "grade_level_access",                                  array: true
   end
 
+  add_index "educators", ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   add_index "educators", ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: true do |t|
