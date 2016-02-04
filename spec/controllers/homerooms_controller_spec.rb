@@ -96,6 +96,7 @@ describe HomeroomsController, :type => :controller do
         end
 
         context 'homeroom does not belong to educator' do
+
           context 'homeroom is grade level as educator\'s' do
             let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
             it 'is successful' do
@@ -103,6 +104,7 @@ describe HomeroomsController, :type => :controller do
               expect(response).to be_success
             end
           end
+
           context 'homeroom is different grade level from educator\'s' do
             let(:homeroom) { FactoryGirl.create(:homeroom) }
             it 'redirects to educator\'s homeroom' do
@@ -110,6 +112,27 @@ describe HomeroomsController, :type => :controller do
               expect(response).to redirect_to(homeroom_path(educator.homeroom))
             end
           end
+
+          context 'educator has appropriate grade level access' do
+            let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['5'] )}
+            let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
+
+            it 'is successful' do
+              make_request(homeroom.slug)
+              expect(response).to be_success
+            end
+          end
+
+          context 'educator does not have appropriate grade level access' do
+            let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['3'] )}
+            let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
+
+            it 'redirects' do
+              make_request(homeroom.slug)
+              expect(response).to redirect_to(no_homeroom_url)
+            end
+          end
+
         end
 
       end
