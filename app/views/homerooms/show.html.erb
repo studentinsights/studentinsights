@@ -133,8 +133,8 @@
                 </a>
               </td>
               <td class="risk risk-tooltip-circle" data-student-id="<%= row['id'] %> ">
-                <div class="warning-bubble risk-<%= row[:student_risk_level]['level'] %>">
-                  <%= row[:student_risk_level]['level'] %>
+                <div class="warning-bubble risk-<%= row[:student_risk_level]['level'] || 'na' %>">
+                  <%= row[:student_risk_level]['level'] || 'N/A' %>
                 </div>
               </td>
               <td class="program">
