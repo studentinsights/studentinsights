@@ -7,7 +7,7 @@ describe 'roster', :type => :feature do
 
     before do
       mock_ldap_authorization
-      Student.update_student_school_years
+      educator.students.first.update_recent_student_assessments if educator.students.present?
       educator_sign_in(educator)
     end
 
@@ -29,6 +29,7 @@ describe 'roster', :type => :feature do
       context 'one student assessment' do
         context 'MCAS' do
           let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_student_with_mcas_math_warning) }
+
           it 'shows the student assessment' do
             mcas_math_performance = page.find('td.mcas_math.performance_level')
             expect(mcas_math_performance).to have_content 'W'
@@ -39,6 +40,7 @@ describe 'roster', :type => :feature do
       context 'multiple student assessments' do
         context 'STAR' do
           let!(:educator) { FactoryGirl.create(:educator_with_homeroom_with_multiple_star_math_student_assessments) }
+
           it 'shows only the most recent STAR result in the roster' do
             star_math_percentile_rank = page.find('td.star_math.percentile_rank')
             expect(star_math_percentile_rank).to have_content '10'
