@@ -60,12 +60,15 @@ describe HomeroomsController, :type => :controller do
           context 'when there are students' do
             let!(:first_student) { FactoryGirl.create(:student, :registered_last_year, homeroom: educator.homeroom) }
             let!(:second_student) { FactoryGirl.create(:student, :registered_last_year, homeroom: educator.homeroom) }
+            let!(:third_student) { FactoryGirl.create(:student, :registered_last_year) }
+
             before { Student.update_student_school_years }
 
             it 'assigns rows to a non-empty array' do
               make_request(educator.homeroom.slug)
-              expect(assigns(:rows)).to be_a_kind_of Array
-              expect(assigns(:rows)).to_not be_empty
+              expect(assigns(:rows).size).to eq 2
+              expect(assigns(:rows)[0]).to include second_student.as_json
+              expect(assigns(:rows)[1]).to include first_student.as_json
             end
           end
         end
