@@ -35,12 +35,13 @@ class Importer
 
   def start_import(data)
     # Set up progress bar
-    puts; n = 0; progress_bar = ProgressBar.new(data.size, @current_file_importer.remote_file_name) unless Rails.env.test?
+    progress_bar = ProgressBar.new(data.size, @current_file_importer.remote_file_name)
 
-    data.each do |row|
+    puts unless Rails.env.test?
+    data.each.each_with_index do |row, index|
       row.delete_if { |key, value| key.blank? }
       check_scope_and_import_row(row)
-      n += 1; print progress_bar.current_status(n) unless Rails.env.test?
+      print progress_bar.current_status(index) unless Rails.env.test?
     end
   end
 
