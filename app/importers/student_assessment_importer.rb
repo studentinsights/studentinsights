@@ -1,4 +1,5 @@
 class StudentAssessmentImporter
+  WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/, /MAP/, /MELA-O/, /MEPA/, /STAR/).freeze
 
   def remote_file_name
     # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
@@ -15,19 +16,8 @@ class StudentAssessmentImporter
   end
 
   def import_row(row)
-    return unless assessment_name_inclues_whitelisted_name(row)
-    student_assessment = StudentAssessmentRow.build(row)
-    student_assessment.save!
-  end
-
-  def assessment_name_inclues_whitelisted_name(row)
-    assessment_whitelist.any? do |name|
-      name.in? row[:assessment_test]
-    end
-  end
-
-  def assessment_whitelist
-    ["ACCESS", "WIDA-ACCESS", "DIBELS", "MCAS", "MAP", "MELA-O", "MEPA", "STAR"]
+    return unless row[:assessment_test].match(WHITELIST)
+    StudentAssessmentRow.build(row).save!
   end
 
 end
