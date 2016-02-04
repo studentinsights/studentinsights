@@ -1,7 +1,21 @@
 class StudentsController < ApplicationController
   include SerializeDataHelper
 
-  # Authentication by default inherited from ApplicationController.
+  rescue_from Exceptions::EducatorNotAuthorized, with: :not_authorized
+
+  before_action :authorize!, only: [:show]
+
+  def authorize!
+    student = Student.find(params[:id])
+
+    allowed_conditions = [
+      current_educator.schoolwide_access,                       # <= Schoolwide admin
+      student.grade.in?(current_educator.grade_level_access),   # <= Grade level access
+      student.in?(current_educator.students)                    # <= Homeroom level access
+    ]
+
+    raise Exceptions::EducatorNotAuthorized unless allowed_conditions.any?
+  end
 
   def show
     @student = Student.find(params[:id])
@@ -58,4 +72,9 @@ class StudentsController < ApplicationController
       format.json { render json: @result }
     end
   end
+
+  def not_authorized
+    redirect_to not_authorized_path
+  end
+
 end

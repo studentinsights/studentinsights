@@ -3,7 +3,8 @@ require 'capybara/rspec'
 
 describe 'educator views student profile', :type => :feature do
   context 'educator with account views student profile' do
-    let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+    let!(:school) { FactoryGirl.create(:school) }
+    let!(:educator) { FactoryGirl.create(:educator, :admin) }
 
     before(:each) do
       Timecop.freeze(DateTime.new(2015, 5, 1)) do

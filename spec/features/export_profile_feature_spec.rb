@@ -3,7 +3,9 @@ require 'capybara/rspec'
 
 describe 'export profile', :type => :feature do
   context 'educator with account' do
-    let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+    let!(:school) { FactoryGirl.create(:school) }
+    let!(:educator) { FactoryGirl.create(:educator, :admin) }
+
     let!(:student) {
       Timecop.freeze(DateTime.new(2015, 5, 1)) do
         FactoryGirl.create(:student_who_registered_in_2013_2014, :with_risk_level)
