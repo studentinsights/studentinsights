@@ -36,6 +36,8 @@ class Educator < ActiveRecord::Base
       # Once the app includes data for multiple schools, will
       # need to scope by school as well as by grade level
       Homeroom.where(grade: homeroom.grade)
+    elsif grade_level_access.present?
+      Homeroom.where(grade: grade_level_access)
     else
       []
     end
