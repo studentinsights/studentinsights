@@ -41,6 +41,7 @@ RSpec.describe EducatorsImporter do
                 expect(educator.state_id).to eq("500")
                 expect(educator.local_id).to eq("200")
                 expect(educator.admin).to eq(false)
+                expect(educator.schoolwide_access).to eq(false)
                 expect(educator.email).to eq("jyoung@k12.somerville.ma.us")
               end
 
@@ -121,6 +122,7 @@ RSpec.describe EducatorsImporter do
             described_class.new.import_row(row)
             educator = Educator.last
             expect(educator.admin).to eq(true)
+            expect(educator.schoolwide_access).to eq(true)
           end
         end
 
