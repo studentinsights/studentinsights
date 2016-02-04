@@ -43,4 +43,12 @@ class Educator < ActiveRecord::Base
     allowed_homerooms.order(:name)
   end
 
+  def self.summary
+    puts; puts "=== EDUCATOR REPORT ==="
+    puts; puts "=== ADMINS ==="
+    puts Educator.where(admin: true).pluck(:full_name)
+    puts; puts "=== HOMEROOM TEACHERS ==="
+    puts Educator.all.select { |e| e.homeroom.present? }.map { |e| e.full_name }
+  end
+
 end
