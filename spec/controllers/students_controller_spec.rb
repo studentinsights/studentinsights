@@ -30,6 +30,7 @@ describe StudentsController, :type => :controller do
     end
 
     context 'when educator is logged in' do
+
       before { sign_in(educator) }
 
       context 'educator has schoolwide access' do
@@ -105,6 +106,67 @@ describe StudentsController, :type => :controller do
           end
         end
 
+        context 'educator access restricted to SPED students' do
+          let(:educator) { FactoryGirl.create(:educator,
+                                              grade_level_access: ['1'],
+                                              restricted_to_sped_students: true ) }
+
+          context 'student in SPED' do
+            let(:student) { FactoryGirl.create(:student,
+                                               :with_risk_level,
+                                               grade: '1',
+                                               program_assigned: 'Sp Ed') }
+
+            it 'is successful' do
+              make_request({ student_id: student.id, format: :html })
+              expect(response).to be_success
+            end
+          end
+
+          context 'student in Reg Ed' do
+            let(:student) { FactoryGirl.create(:student,
+                                               :with_risk_level,
+                                               grade: '1',
+                                               program_assigned: 'Reg Ed') }
+
+            it 'fails' do
+              make_request({ student_id: student.id, format: :html })
+              expect(response).to redirect_to(not_authorized_path)
+            end
+          end
+
+        end
+
+        context 'educator access restricted to ELL students' do
+          let(:educator) { FactoryGirl.create(:educator,
+                                              grade_level_access: ['1'],
+                                              restricted_to_english_language_learners: true ) }
+
+          context 'limited English proficiency' do
+            let(:student) { FactoryGirl.create(:student,
+                                               :with_risk_level,
+                                               grade: '1',
+                                               limited_english_proficiency: 'FLEP') }
+
+            it 'is successful' do
+              make_request({ student_id: student.id, format: :html })
+              expect(response).to be_success
+            end
+          end
+
+          context 'fluent in English' do
+            let(:student) { FactoryGirl.create(:student,
+                                               :with_risk_level,
+                                               grade: '1',
+                                               limited_english_proficiency: 'Fluent') }
+
+            it 'fails' do
+              make_request({ student_id: student.id, format: :html })
+              expect(response).to redirect_to(not_authorized_path)
+            end
+          end
+
+        end
 
       end
 
