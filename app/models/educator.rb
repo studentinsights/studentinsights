@@ -23,7 +23,7 @@ class Educator < ActiveRecord::Base
     raise Exceptions::NoAssignedHomeroom                    # <= Logged-in educator has no assigned homeroom
   end
 
-  def default_school_for_admin
+  def default_school
     school || School.first
   end
 
