@@ -27,6 +27,9 @@
     },
 
     // TODO(kr) align these to school year?
+    // The intent of fixing this date range is that when staff are looking at profile of different students,
+    // the scales are consistent (and not changing between 3 mos and 6 years depending on the student's record,
+    // since that's easy to miss and misinterpret.
     timestampRange: function() {
       return {
         min: moment(this.props.now).subtract(this.props.intervalBack[0], this.props.intervalBack[1]).toDate().getTime(),
