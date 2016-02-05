@@ -7,6 +7,7 @@
   var Routes = window.shared.Routes;
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
+  var ELADetails = window.shared.ELADetails;
 
   var InterventionsDetails = React.createClass({
     propTypes: {
@@ -139,22 +140,6 @@
     }
   });
 
-  var ELADetails = React.createClass({
-    displayName: 'ELADetails',
-
-    componentDidMount: function(props, state) {
-      var starChart = StarChart.fromPureData({
-        math_data: this.props.chartData.star_series_math_percentile,
-        reading_data: this.props.chartData.star_series_reading_percentile,
-        interventions: this.props.chartData.interventions
-      });
-      Highcharts.Chart(ReactDOM.findDOMNode(this), starChart.toHighChart());
-    },
-
-    render: function() {
-      return dom.div({}, JSON.stringify(this.props.chartData));
-    }
-  });
 
   var SummaryList = React.createClass({
     render: function() {
