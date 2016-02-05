@@ -2,6 +2,22 @@ require 'rails_helper'
 
 RSpec.describe Educator do
 
+  describe '#local_id' do
+    context 'no local id' do
+      it 'is invalid' do
+        expect(FactoryGirl.build(:educator, :without_local_id)).to be_invalid
+      end
+    end
+  end
+
+  describe '#local_email' do
+    context 'no email' do
+      it 'is invalid' do
+        expect(FactoryGirl.build(:educator, :without_email)).to be_invalid
+      end
+    end
+  end
+
   describe '#default_homeroom' do
 
     context 'no homerooms' do
