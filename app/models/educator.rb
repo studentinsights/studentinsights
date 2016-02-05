@@ -15,6 +15,7 @@ class Educator < ActiveRecord::Base
   has_many    :student_notes
 
   validates :email, presence: true, uniqueness: true
+  validates :local_id, presence: true, uniqueness: true
 
   def default_homeroom
     raise Exceptions::NoHomerooms if Homeroom.count == 0    # <= We can't show any homerooms if there are none
