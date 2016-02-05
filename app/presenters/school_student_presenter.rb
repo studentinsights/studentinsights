@@ -1,12 +1,4 @@
 class SchoolStudentPresenter < Struct.new(:student)
-  def self.from_students(*additional_includes)
-    Student.all.includes([
-      :interventions,
-      :student_risk_level,
-      :homeroom,
-      :student_school_years
-    ] + additional_includes).map { |s| new(s) }
-  end
 
   def as_json
     student.as_json.merge(

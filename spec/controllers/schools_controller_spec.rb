@@ -8,25 +8,68 @@ describe SchoolsController, :type => :controller do
       get :show, id: school_id
     end
 
-    before { sign_in(educator) }
-    let!(:school) { FactoryGirl.create(:healey) }
+    context 'educator is not an admin but does have a homeroom' do
+      let!(:school) { FactoryGirl.create(:healey) }
+      let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+      let!(:homeroom) { educator.homeroom }
 
-    context 'educator is not an admin' do
-      let!(:educator) { FactoryGirl.create(:educator) }
-      it 'redirects to sign in page' do
+      it 'redirects to homeroom page' do
+        sign_in(educator)
         make_request('hea')
-        expect(response).to redirect_to(new_educator_session_path)
+
+        expect(response).to redirect_to(homeroom_path(homeroom))
       end
     end
 
-    context 'educator is an admin' do
-      let!(:educator) { FactoryGirl.create(:educator, :admin) }
-      it 'is successful' do
+    context 'educator is an admin with schoolwide access' do
+      let!(:school) { FactoryGirl.create(:healey) }
+      let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+      let!(:include_me) { FactoryGirl.create(:student, :registered_last_year, school: school) }
+      let!(:include_me_too) { FactoryGirl.create(:student, :registered_last_year, school: school) }
+      let!(:include_me_not) { FactoryGirl.create(:student, :registered_last_year ) }
+
+      before { school.reload }
+      before { Student.update_student_school_years }
+
+      let(:serialized_data) { assigns(:serialized_data) }
+
+      it 'is successful and assigns the correct students' do
+        sign_in(educator)
         make_request('hea')
+
         expect(response).to be_success
-        expect(assigns(:serialized_data)).to include :students, :intervention_types
+
+        expect(assigns(:students)).to include include_me
+        expect(assigns(:students)).to include include_me_too
+        expect(assigns(:students)).not_to include include_me_not
       end
     end
+
+    context 'educator has grade-level access' do
+      let!(:school) { FactoryGirl.create(:healey) }
+      let!(:educator) { FactoryGirl.create(:educator, school: school, grade_level_access: ['4']) }
+
+      let!(:include_me) { FactoryGirl.create(:student, :registered_last_year, grade: '4', school: school) }
+      let!(:include_me_too) { FactoryGirl.create(:student, :registered_last_year, grade: '4', school: school) }
+      let!(:include_me_not) { FactoryGirl.create(:student, :registered_last_year, grade: '5', school: school) }
+
+      before { school.reload }
+      before { Student.update_student_school_years }
+
+      let(:serialized_data) { assigns(:serialized_data) }
+
+      it 'is successful and assigns the correct students' do
+        sign_in(educator)
+        make_request('hea')
+
+        expect(response).to be_success
+
+        expect(assigns(:students)).to include include_me
+        expect(assigns(:students)).to include include_me_too
+        expect(assigns(:students)).not_to include include_me_not
+      end
+    end
+
   end
 
 end

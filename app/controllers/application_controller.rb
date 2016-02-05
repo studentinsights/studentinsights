@@ -21,11 +21,15 @@ class ApplicationController < ActionController::Base
 
   # Return the homepage path, depending on the educator's role
   def homepage_path_for_role(educator)
-    if educator.admin?
-      school_url(educator.default_school_for_admin)
+    if educator.schoolwide_access? || educator.has_access_to_grade_levels?
+      school_url(educator.default_school)
     else
       default_homeroom_path(educator)
     end
+  end
+
+  def homepage_path_for_current_educator
+    homepage_path_for_role(current_educator)
   end
 
   def default_homeroom_path(educator)

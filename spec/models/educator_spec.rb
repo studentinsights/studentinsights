@@ -18,6 +18,36 @@ RSpec.describe Educator do
     end
   end
 
+  describe '#students_for_school_overview' do
+    let!(:school) { FactoryGirl.create(:school) }
+
+    context 'schoolwide_access' do
+      let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, school: school) }
+      let!(:include_me) { FactoryGirl.create(:student, school: school) }
+      let!(:include_me_too) { FactoryGirl.create(:student, school: school) }
+      let!(:include_me_not) { FactoryGirl.create(:student) }
+
+      let(:students_for_school_overview) { educator.students_for_school_overview }
+
+      it 'returns all students in the school' do
+        expect(students_for_school_overview).to include include_me
+        expect(students_for_school_overview).to include include_me_too
+      end
+    end
+
+    context 'has_access_to_grade_levels' do
+      let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['2'], school: school) }
+      let!(:include_me) { FactoryGirl.create(:student, school: school, grade: '2') }
+      let!(:include_me_not) { FactoryGirl.create(:student, school: school, grade: '1') }
+      let!(:include_me_not) { FactoryGirl.create(:student, grade: '2') }
+
+      it 'returns students at the appropriate grade levels' do
+        expect(educator.students_for_school_overview).to include include_me
+      end
+    end
+
+  end
+
   describe '#default_homeroom' do
 
     context 'no homerooms' do
