@@ -4,6 +4,9 @@ class SchoolsController < ApplicationController
                 :assign_school,
                 :authorize
 
+  before_action :assign_students_for_show_page,     only: [:show]
+  before_action :assign_students_for_star_reading,  only: [:star_reading]
+
   def show
     @serialized_data = {
       students: SchoolStudentPresenter.from_students.map(&:as_json),
@@ -29,6 +32,14 @@ class SchoolsController < ApplicationController
 
   def assign_school
     @school = School.friendly.find(params[:id])
+  end
+
+  def assign_students_for_show_page
+    @students = current_educator.students_for_school_overview
+  end
+
+  def assign_students_for_star_reading
+    @students = current_educator.students_for_school_overview(:student_assessments)
   end
 
 end
