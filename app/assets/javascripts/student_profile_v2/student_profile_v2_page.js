@@ -433,9 +433,21 @@
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       },
-        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, { caption: 'Discipline incidents' }),
-        this.renderAttendanceEventsSummary(attendanceData.absences, { caption: 'Absences' }),
-        this.renderAttendanceEventsSummary(attendanceData.tardies, { caption: 'Tardies' })
+        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {
+          caption: 'Discipline incidents',
+          valueRange: [0, 6],
+          thresholdValue: 3
+        }),
+        this.renderAttendanceEventsSummary(attendanceData.absences, {
+          caption: 'Absences',
+          valueRange: [0, 20],
+          thresholdValue: 10
+        }),
+        this.renderAttendanceEventsSummary(attendanceData.tardies, {
+          caption: 'Tardies',
+          valueRange: [0, 20],
+          thresholdValue: 10
+        })
       );
     },
 
@@ -446,7 +458,7 @@
       return this.wrapSummary(merge({
         title: props.title,
         value: value,
-        sparkline: this.renderSparkline(cumulativeQuads)
+        sparkline: this.renderSparkline(cumulativeQuads, props)
       }, props));
     },
 
@@ -480,6 +492,7 @@
       return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
     },
 
+    // Fills in data points for start of the school year (8/15) and for current day.
     cumulativeCountQuads: function(attendanceEvents) {
       var currentYearStart = this.schoolYearStart(moment(this.props.now));
       var schoolYearStarts = this.allSchoolYearStarts(this.props.dateRange);
@@ -499,64 +512,9 @@
       }, this);
 
       return quads;
-      // var startDate = this.cumulativeStartDate(this.props.dateRange[0]);
-      // var quads = [[startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), 0]];
-
-      // var eventsByYear = _.groupBy(attendanceEvents, function(attendanceEvent) {
-      //   return this.schoolYearStart(moment(attendanceEvent.occurred_at));
-      // }, this);
-      // var thisSchoolYearStart = this.schoolYearStart(moment(this.props.now));
-      // if (eventsByYear[thisSchoolYearStart] === undefined) {
-      //   eventsByYear[thisSchoolYearStart] = [thisSchoolYearStart, 7, 15, 0];
-      // }
-
-      // var yearCumulativeCounts = _.pairs(eventsByYear).map(function(schoolYearStart, yearAttendanceEvents) {
-      //   var cumulativeEventQuads = this.toCumulativeQuads(yearAttendanceEvents);
-      //   var thisYear = 
-      //   var startOfYearQuad = ['start';
-      //   var currentQuad = 'current';
-      //   return [startOfYearQuad, cumulativeEventQuads, currentQuad];
-      // }, this);
-      // return _.flatten(yearCumulativeCounts);
     },
 
-    // cumulativeCountQuads: function(attendanceEvents) {
-    //   var eventsByYear = _.groupBy(attendanceEvents, function(attendanceEvent) {
-    //     return this.schoolYearStart(moment(attendanceEvent.occurred_at));
-    //   }, this);
-    //   var thisSchoolYearStart = this.schoolYearStart(moment(this.props.now));
-    //   if (eventsByYear[thisSchoolYearStart] === undefined) eventsByYear[thisSchoolYearStart] = [];
-
-    //   var yearCumulativeCounts = _.pairs(eventsByYear).map(function(schoolYearStart, yearAttendanceEvents) {
-    //     var cumulativeEventQuads = this.toCumulativeQuads(yearAttendanceEvents);
-    //     var thisYear = 
-    //     var startOfYearQuad = ['start';
-    //     var currentQuad = 'current';
-    //     return [startOfYearQuad, cumulativeEventQuads, currentQuad];
-    //   }, this);
-    //   return _.flatten(yearCumulativeCounts);
-    // },
-
-    // // Reset to zero at start of each school year, and inject data point for today.
-    // cumulativeCountQuads: function(attendanceEvents) {
-    //   var cumulativeQuads = [];
-    //   _.sortBy(attendanceEvents, 'occurred_at').forEach(function(attendanceEvent) {
-    //     var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
-    //     if ()
-    //     var year = occurrenceDate.getFullYear();
-    //     var quads = quadsByYear[year] || [];
-    //     var cumulativeValue = (quads.length > 0) ? _.last(quads)[3] : 0;
-    //     quads.push([year, occurrenceDate.getMonth(), occurrenceDate.getDate(), cumulativeValue + 1])
-    //     quadsByYear[year] = quads;
-    //   });
-
-    //   // Inject value today.
-    //   var currentYear = this.props.now.getFullYear();
-
-    //   return _.values(quadsByYear);
-    // },
-
-    // quads format is: [[year, month, day, value]]
+    // quads format is: [[year, month (Ruby), day, value]]
     renderSparkline: function(quads, props) {
       var dateRange = this.props.dateRange;
       return createEl(Sparkline, merge({
