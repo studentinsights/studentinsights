@@ -28,7 +28,7 @@ class Educator < ActiveRecord::Base
             .includes(eager_loads)
     elsif has_access_to_grade_levels?
       school.students
-            .where(grade: current_educator.grade_level_access)
+            .where(grade: grade_level_access)
             .includes(eager_loads)
     end
   end
