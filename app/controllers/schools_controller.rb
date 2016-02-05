@@ -1,6 +1,7 @@
 class SchoolsController < ApplicationController
 
-  before_action :authenticate_admin!      # Defined in ApplicationController.
+  before_action :authenticate_educator!,
+                :authorize
 
   def show
     @serialized_data = {
@@ -17,4 +18,12 @@ class SchoolsController < ApplicationController
       intervention_types: InterventionType.all
     }
   end
+
+  private
+
+  def authorize
+    redirect_to(homepage_path_for_current_educator) unless current_educator.schoolwide_access? ||
+                                                           current_educator.has_access_to_grade_levels?
+  end
+
 end

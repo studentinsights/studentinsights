@@ -124,12 +124,13 @@ describe HomeroomsController, :type => :controller do
           end
 
           context 'educator does not have appropriate grade level access' do
-            let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['3'] )}
+            let(:school) { FactoryGirl.create(:school) }
+            let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['3'], school: school )}
             let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
 
             it 'redirects' do
               make_request(homeroom.slug)
-              expect(response).to redirect_to(no_homeroom_url)
+              expect(response).to redirect_to(school_path(school))
             end
           end
 

@@ -28,6 +28,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def homepage_path_for_current_educator
+    homepage_path_for_role(current_educator)
+  end
+
   def default_homeroom_path(educator)
     homeroom_path(educator.default_homeroom)
   rescue Exceptions::NoAssignedHomeroom   # Thrown by educator without default homeroom

@@ -12,10 +12,12 @@ describe SchoolsController, :type => :controller do
     let!(:school) { FactoryGirl.create(:healey) }
 
     context 'educator is not an admin' do
-      let!(:educator) { FactoryGirl.create(:educator) }
-      it 'redirects to sign in page' do
+      let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+      let!(:homeroom) { educator.homeroom }
+
+      it 'redirects to homeroom page' do
         make_request('hea')
-        expect(response).to redirect_to(new_educator_session_path)
+        expect(response).to redirect_to(homeroom_path(homeroom))
       end
     end
 
