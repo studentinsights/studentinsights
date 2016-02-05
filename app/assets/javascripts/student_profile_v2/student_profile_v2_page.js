@@ -450,17 +450,111 @@
       }, props));
     },
 
-    cumulativeCountQuads: function(attendanceEvents) {
+    toCumulativeQuads: function(yearAttendanceEvents) {
       var cumulativeValue = 0;
       var quads = [];
-      _.sortBy(attendanceEvents, 'occurred_at').forEach(function(attendanceEvent) {
+      _.sortBy(yearAttendanceEvents, 'occurred_at').forEach(function(attendanceEvent) {
         var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
         cumulativeValue = cumulativeValue + 1;
-        quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth(), occurrenceDate.getDate(), cumulativeValue]);
+        quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth() + 1, occurrenceDate.getDate(), cumulativeValue]);
       });
 
       return quads;
     },
+
+    schoolYearStart: function(eventMoment) {
+      var year = eventMoment.year();
+      var isFallSeason = (eventMoment.month() >= 8 && eventMoment.date() > 15);
+      return (isFallSeason) ? year : year - 1;
+    },
+
+    cumulativeStartDate: function(start) {
+      var schoolYearStart = this.schoolYearStart(moment(start));
+      return new Date(schoolYearStart, 8, 15);
+    },
+
+    allSchoolYearStarts: function(dateRange) {
+      var schoolYearStarts = dateRange.map(function(date) {
+        return this.schoolYearStart(moment(date));
+      }, this);
+      return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
+    },
+
+    cumulativeCountQuads: function(attendanceEvents) {
+      var currentYearStart = this.schoolYearStart(moment(this.props.now));
+      var schoolYearStarts = this.allSchoolYearStarts(this.props.dateRange);
+      var quads = [];
+      schoolYearStarts.sort().forEach(function(schoolYearStart) {
+        var yearAttendanceEvents = attendanceEvents.filter(function(attendanceEvent) {
+          return this.schoolYearStart(moment(attendanceEvent.occurred_at)) === schoolYearStart;
+        }, this);
+        var cumulativeEventQuads = this.toCumulativeQuads(yearAttendanceEvents);
+        var startOfYearQuad = [schoolYearStart, 8, 15, 0];
+        quads.push(startOfYearQuad);
+        cumulativeEventQuads.forEach(function(cumulativeQuad) { quads.push(cumulativeQuad); });
+        var lastValue = (cumulativeEventQuads.length === 0) ? 0 : _.last(cumulativeEventQuads)[3];
+        if (schoolYearStart === currentYearStart) {
+          quads.push([this.props.now.getFullYear(), this.props.now.getMonth() + 1, this.props.now.getDate(), lastValue]);
+        }
+      }, this);
+
+      return quads;
+      // var startDate = this.cumulativeStartDate(this.props.dateRange[0]);
+      // var quads = [[startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), 0]];
+
+      // var eventsByYear = _.groupBy(attendanceEvents, function(attendanceEvent) {
+      //   return this.schoolYearStart(moment(attendanceEvent.occurred_at));
+      // }, this);
+      // var thisSchoolYearStart = this.schoolYearStart(moment(this.props.now));
+      // if (eventsByYear[thisSchoolYearStart] === undefined) {
+      //   eventsByYear[thisSchoolYearStart] = [thisSchoolYearStart, 7, 15, 0];
+      // }
+
+      // var yearCumulativeCounts = _.pairs(eventsByYear).map(function(schoolYearStart, yearAttendanceEvents) {
+      //   var cumulativeEventQuads = this.toCumulativeQuads(yearAttendanceEvents);
+      //   var thisYear = 
+      //   var startOfYearQuad = ['start';
+      //   var currentQuad = 'current';
+      //   return [startOfYearQuad, cumulativeEventQuads, currentQuad];
+      // }, this);
+      // return _.flatten(yearCumulativeCounts);
+    },
+
+    // cumulativeCountQuads: function(attendanceEvents) {
+    //   var eventsByYear = _.groupBy(attendanceEvents, function(attendanceEvent) {
+    //     return this.schoolYearStart(moment(attendanceEvent.occurred_at));
+    //   }, this);
+    //   var thisSchoolYearStart = this.schoolYearStart(moment(this.props.now));
+    //   if (eventsByYear[thisSchoolYearStart] === undefined) eventsByYear[thisSchoolYearStart] = [];
+
+    //   var yearCumulativeCounts = _.pairs(eventsByYear).map(function(schoolYearStart, yearAttendanceEvents) {
+    //     var cumulativeEventQuads = this.toCumulativeQuads(yearAttendanceEvents);
+    //     var thisYear = 
+    //     var startOfYearQuad = ['start';
+    //     var currentQuad = 'current';
+    //     return [startOfYearQuad, cumulativeEventQuads, currentQuad];
+    //   }, this);
+    //   return _.flatten(yearCumulativeCounts);
+    // },
+
+    // // Reset to zero at start of each school year, and inject data point for today.
+    // cumulativeCountQuads: function(attendanceEvents) {
+    //   var cumulativeQuads = [];
+    //   _.sortBy(attendanceEvents, 'occurred_at').forEach(function(attendanceEvent) {
+    //     var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
+    //     if ()
+    //     var year = occurrenceDate.getFullYear();
+    //     var quads = quadsByYear[year] || [];
+    //     var cumulativeValue = (quads.length > 0) ? _.last(quads)[3] : 0;
+    //     quads.push([year, occurrenceDate.getMonth(), occurrenceDate.getDate(), cumulativeValue + 1])
+    //     quadsByYear[year] = quads;
+    //   });
+
+    //   // Inject value today.
+    //   var currentYear = this.props.now.getFullYear();
+
+    //   return _.values(quadsByYear);
+    // },
 
     // quads format is: [[year, month, day, value]]
     renderSparkline: function(quads, props) {

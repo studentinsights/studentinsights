@@ -24,6 +24,7 @@ $(function() {
       chartData: serializedData.chartData,
       interventionTypesIndex: serializedData.interventionTypesIndex,
       attendanceData: serializedData.attendanceData,
+      now: now,
       dateRange: dateRange
     }), document.getElementById('main'));
   }
