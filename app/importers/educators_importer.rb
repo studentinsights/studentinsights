@@ -17,12 +17,10 @@ class EducatorsImporter
   end
 
   def import_row(row)
-    homeroom = Homeroom.find_by_name!(row[:homeroom]) if row[:homeroom].present?
     educator = EducatorRow.new(row, @school_ids_dictionary).build
-
-    return unless homeroom.present? || educator.admin?
-
     educator.save!
+
+    homeroom = Homeroom.find_by_name!(row[:homeroom]) if row[:homeroom].present?
     homeroom.update(educator: educator) if homeroom.present?
   end
 

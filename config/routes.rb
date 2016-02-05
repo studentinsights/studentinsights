@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'about' => 'pages#about'
   get 'no_homeroom' => 'pages#no_homeroom'
   get 'no_homerooms' => 'pages#no_homerooms'
+  get 'not_authorized' => 'pages#not_authorized'
 
   get '/students/names' => 'students#names'
   get '/educators/reset'=> 'educators#reset_session_clock'

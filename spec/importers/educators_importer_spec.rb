@@ -12,8 +12,19 @@ RSpec.describe EducatorsImporter do
             let(:row) {
               { state_id: "500", local_id: "200", full_name: "Young, Jenny", login_name: "jyoung" }
             }
-            it 'does not create an educator' do
-              expect { described_class.new.import_row(row) }.to change(Educator, :count).by 0
+
+            before do
+              described_class.new.import_row(row)
+            end
+
+            it 'creates an educator' do
+              expect(Educator.count).to eq(1)
+            end
+            it 'does not give educator school wide access' do
+              expect(Educator.first.schoolwide_access).to eq false
+            end
+            it 'does not give educator a homeroom' do
+              expect(Educator.first.homeroom).to eq nil
             end
           end
 
@@ -41,6 +52,7 @@ RSpec.describe EducatorsImporter do
                 expect(educator.state_id).to eq("500")
                 expect(educator.local_id).to eq("200")
                 expect(educator.admin).to eq(false)
+                expect(educator.schoolwide_access).to eq(false)
                 expect(educator.email).to eq("jyoung@k12.somerville.ma.us")
               end
 
@@ -121,6 +133,7 @@ RSpec.describe EducatorsImporter do
             described_class.new.import_row(row)
             educator = Educator.last
             expect(educator.admin).to eq(true)
+            expect(educator.schoolwide_access).to eq(true)
           end
         end
 

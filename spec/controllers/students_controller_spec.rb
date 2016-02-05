@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe StudentsController, :type => :controller do
-  let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
-  let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
+  let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
 
   describe '#show' do
     let(:student) { FactoryGirl.create(:student, :with_risk_level) }
+    let(:homeroom) { student.homeroom }
     let!(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
 
     def make_request(options = { student_id: nil, format: :html })
@@ -28,35 +28,150 @@ describe StudentsController, :type => :controller do
         end
       end
     end
+
     context 'when educator is logged in' do
+
       before { sign_in(educator) }
 
-      it 'assigns the school year' do
-        make_request({ student_id: student.id, format: :html })
-        expect(assigns(:student_school_years)).to eq [student_school_year]
+      context 'educator has schoolwide access' do
+        let!(:school) { FactoryGirl.create(:school) }
+        let(:educator) { FactoryGirl.create(:educator, :admin )}
+
+        context 'html' do
+
+          it 'is successful' do
+            make_request({ student_id: student.id, format: :html })
+            expect(response).to be_success
+          end
+
+          it 'assigns the student correctly' do
+            make_request({ student_id: student.id, format: :html })
+            expect(assigns(:student)).to eq student
+          end
+
+          it 'assigns the student school year correctly' do
+            make_request({ student_id: student.id, format: :html })
+            expect(assigns(:student_school_years)).to eq [student_school_year]
+          end
+
+        end
+
+        context 'csv' do
+
+          it 'is successful' do
+            make_request({ student_id: student.id, format: :csv })
+            expect(response).to be_success
+          end
+          it 'assigns the student correctly' do
+            make_request({ student_id: student.id, format: :csv })
+            expect(assigns(:student)).to eq student
+          end
+
+        end
+
+        context 'educator has grade level access' do
+          let(:educator) { FactoryGirl.create(:educator, grade_level_access: [student.grade] )}
+
+          it 'is successful' do
+            make_request({ student_id: student.id, format: :html })
+            expect(response).to be_success
+          end
+        end
+
+        context 'educator has homeroom access' do
+          let(:educator) { FactoryGirl.create(:educator) }
+          before { homeroom.update(educator: educator) }
+
+          it 'is successful' do
+            make_request({ student_id: student.id, format: :html })
+            expect(response).to be_success
+          end
+        end
+
+        context 'educator does not have schoolwide, grade level, or homeroom access' do
+          let(:educator) { FactoryGirl.create(:educator) }
+
+          it 'fails' do
+            make_request({ student_id: student.id, format: :html })
+            expect(response).to redirect_to(not_authorized_path)
+          end
+        end
+
+        context 'educator has some grade level access but for the wrong grade' do
+          let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['KF']) }
+
+          it 'fails' do
+            make_request({ student_id: student.id, format: :html })
+            expect(response).to redirect_to(not_authorized_path)
+          end
+        end
+
+        context 'educator access restricted to SPED students' do
+          let(:educator) { FactoryGirl.create(:educator,
+                                              grade_level_access: ['1'],
+                                              restricted_to_sped_students: true ) }
+
+          context 'student in SPED' do
+            let(:student) { FactoryGirl.create(:student,
+                                               :with_risk_level,
+                                               grade: '1',
+                                               program_assigned: 'Sp Ed') }
+
+            it 'is successful' do
+              make_request({ student_id: student.id, format: :html })
+              expect(response).to be_success
+            end
+          end
+
+          context 'student in Reg Ed' do
+            let(:student) { FactoryGirl.create(:student,
+                                               :with_risk_level,
+                                               grade: '1',
+                                               program_assigned: 'Reg Ed') }
+
+            it 'fails' do
+              make_request({ student_id: student.id, format: :html })
+              expect(response).to redirect_to(not_authorized_path)
+            end
+          end
+
+        end
+
+        context 'educator access restricted to ELL students' do
+          let(:educator) { FactoryGirl.create(:educator,
+                                              grade_level_access: ['1'],
+                                              restricted_to_english_language_learners: true ) }
+
+          context 'limited English proficiency' do
+            let(:student) { FactoryGirl.create(:student,
+                                               :with_risk_level,
+                                               grade: '1',
+                                               limited_english_proficiency: 'FLEP') }
+
+            it 'is successful' do
+              make_request({ student_id: student.id, format: :html })
+              expect(response).to be_success
+            end
+          end
+
+          context 'fluent in English' do
+            let(:student) { FactoryGirl.create(:student,
+                                               :with_risk_level,
+                                               grade: '1',
+                                               limited_english_proficiency: 'Fluent') }
+
+            it 'fails' do
+              make_request({ student_id: student.id, format: :html })
+              expect(response).to redirect_to(not_authorized_path)
+            end
+          end
+
+        end
+
       end
 
-      context 'html' do
-        it 'is successful' do
-          make_request({ student_id: student.id, format: :html })
-          expect(response).to be_success
-        end
-        it 'assigns the student correctly' do
-          make_request({ student_id: student.id, format: :html })
-          expect(assigns(:student)).to eq student
-        end
-      end
-      context 'csv' do
-        it 'is successful' do
-          make_request({ student_id: student.id, format: :csv })
-          expect(response).to be_success
-        end
-        it 'assigns the student correctly' do
-          make_request({ student_id: student.id, format: :csv })
-          expect(assigns(:student)).to eq student
-        end
-      end
     end
+
   end
 
   describe '#names' do

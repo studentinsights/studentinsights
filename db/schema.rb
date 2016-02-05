@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130143407) do
+ActiveRecord::Schema.define(version: 20160204033744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,27 +59,32 @@ ActiveRecord::Schema.define(version: 20160130143407) do
   add_index "discipline_incidents", ["student_school_year_id"], name: "index_discipline_incidents_on_student_school_year_id", using: :btree
 
   create_table "educators", force: true do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                                   default: "",    null: false
+    t.string   "encrypted_password",                      default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                           default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                  default: false
+    t.boolean  "admin",                                   default: false
     t.string   "phone"
     t.string   "full_name"
     t.string   "state_id"
     t.string   "local_id"
     t.string   "staff_type"
     t.integer  "school_id"
+    t.boolean  "schoolwide_access",                       default: false
+    t.string   "grade_level_access",                      default: [],                 array: true
+    t.boolean  "restricted_to_sped_students",             default: false
+    t.boolean  "restricted_to_english_language_learners", default: false
   end
 
+  add_index "educators", ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   add_index "educators", ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: true do |t|
