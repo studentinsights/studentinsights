@@ -40,6 +40,19 @@ class EducatorSummary
       puts educator.full_name
     end
 
+    if Educator.where(local_id: nil).present?
+      puts; puts "=== Without local IDs:"
+      puts
+      puts "    These are hand-rolled educator records."
+      puts "    They are here because:"
+      puts "      1. We couldn't get the data from X2."
+      puts "      2. They were created in a lazy way by a certain unnamed developer."
+      puts
+      puts "    Give them a local ID when you have a moment!"
+      puts "    Otherwise they have the potential to block X2 import down the line."
+      puts Educator.where(local_id: nil).pluck(:email)
+    end
+
     return
   end
 
