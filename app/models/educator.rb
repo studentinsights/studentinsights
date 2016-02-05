@@ -17,6 +17,22 @@ class Educator < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
   validates :local_id, presence: true, uniqueness: true
 
+  def students_for_school_overview(*additional_includes)
+    return unless school.present?
+
+    default_eager_loads = [ :interventions, :student_risk_level, :homeroom, :student_school_years ]
+    eager_loads = default_eager_loads + additional_includes
+
+    if schoolwide_access?
+      school.students
+            .includes(eager_loads)
+    elsif has_access_to_grade_levels?
+      school.students
+            .where(grade: current_educator.grade_level_access)
+            .includes(eager_loads)
+    end
+  end
+
   def default_homeroom
     raise Exceptions::NoHomerooms if Homeroom.count == 0    # <= We can't show any homerooms if there are none
     return homeroom if homeroom.present?                    # <= Logged-in educator has an assigned homeroom
