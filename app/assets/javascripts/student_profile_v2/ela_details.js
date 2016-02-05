@@ -7,10 +7,32 @@
   var ProfileChartSettings = window.ProfileChartSettings;
   var HighchartsWrapper = window.shared.HighchartsWrapper;
 
-  // This renders details about ELA performance and growth in 
-  // the student profile page.  It's mostly historical charts.
+  /*
+  This renders details about ELA performance and growth in the student profile page.
+  It's mostly historical charts.
+  
+  On charts, we could filter out older values, since they're drawn outside of the visible projection
+  area, and Highcharts hovers look a little strange because of that.  It shows a bit more
+  historical context though, so we'll keep all data points, even those outside of the visible
+  range since interpolation lines will still be visible.
+  */
   var ELADetails = window.shared.ELADetails = React.createClass({
     displayName: 'ELADetails',
+
+    getDefaultProps: function() {
+      return {
+        now: new Date(),
+        intervalBack: [4, 'years']
+      };
+    },
+
+    // TODO(kr) align these to school year?
+    timestampRange: function() {
+      return {
+        min: moment(this.props.now).subtract(this.props.intervalBack[0], this.props.intervalBack[1]).toDate().getTime(),
+        max: this.props.now.getTime()
+      };
+    },
 
     render: function() {
       return dom.div({ className: 'ELADetails'},
@@ -23,7 +45,7 @@
     renderStarReading: function() {
       return createEl(HighchartsWrapper, merge(this.baseOptions(), {
         title: {
-          text: 'STAR Reading',
+          text: 'STAR Reading, last 4 years',
           align: 'left'
         },
         series: [{
@@ -37,7 +59,7 @@
     renderMCASELAScores: function() {
       return createEl(HighchartsWrapper, merge(this.baseOptions(), {
         title: {
-          text: 'MCAS ELA scores',
+          text: 'MCAS ELA scores, last 4 years',
           align: 'left'
         },
         series: [{
@@ -53,7 +75,7 @@
     renderMCASELAGrowth: function() {
       return createEl(HighchartsWrapper, merge(this.baseOptions(), {
         title: {
-          text: 'MCAS ELA Growth',
+          text: 'MCAS ELA Growth, last 4 years',
           align: 'left'
         },
         series: [{
@@ -76,10 +98,12 @@
     baseOptions: function() {
       // TODO(kr) intervention plot bands, based on particular
       // interventions?
+      var timestampRange = this.timestampRange();
       return merge(ProfileChartSettings.base_options, {
         xAxis: merge(ProfileChartSettings.x_axis_datetime, {
           plotLines: this.x_axis_bands,
-          max: new Date().getTime()
+          min: timestampRange.min,
+          max: timestampRange.max
         })
       });
     },
