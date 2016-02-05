@@ -48,10 +48,6 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'capistrano', '~> 3.4.0'
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-passenger', require: false
-  gem 'capistrano-rails', require: false
   gem 'pivotal_git_scripts'
   gem 'rack-mini-profiler'
   gem 'rails-erd'  # to auto-generate ERD and better understand the data structure
