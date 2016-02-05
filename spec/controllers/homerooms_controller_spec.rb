@@ -123,7 +123,7 @@ describe HomeroomsController, :type => :controller do
             end
           end
 
-          context 'educator does not have appropriate grade level access' do
+          context 'educator does not have correct grade level access, but has access to a different grade' do
             let(:school) { FactoryGirl.create(:school) }
             let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['3'], school: school )}
             let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
