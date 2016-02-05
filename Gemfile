@@ -50,5 +50,4 @@ group :development do
   gem 'pivotal_git_scripts'
   gem 'rails-erd'  # to auto-generate ERD and better understand the data structure
   gem 'spring'
-  gem 'squasher'
 end

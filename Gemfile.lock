@@ -199,7 +199,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    squasher (0.1.5)
     teaspoon (1.0.2)
       railties (>= 3.2.5, < 5)
     teaspoon-jasmine (2.2.0)
@@ -263,7 +262,6 @@ DEPENDENCIES
   shoulda-matchers
   simplecov
   spring
-  squasher
   teaspoon-jasmine
   thor
   timecop
