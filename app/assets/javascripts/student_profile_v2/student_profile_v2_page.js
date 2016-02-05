@@ -148,7 +148,7 @@
         reading_data: this.props.chartData.star_series_reading_percentile,
         interventions: this.props.chartData.interventions
       });
-      Highcharts.Chart(starChart.toHighChart())
+      Highcharts.Chart(ReactDOM.findDOMNode(this), starChart.toHighChart());
     },
 
     render: function() {
@@ -216,6 +216,7 @@
     displayName: 'StudentProfileV2Page',
 
     propTypes: {
+      queryParams: React.PropTypes.object,
       student: React.PropTypes.object.isRequired,
       interventionTypesIndex: React.PropTypes.object.isRequired,
       chartData: React.PropTypes.shape({
@@ -242,10 +243,21 @@
       dateRange: React.PropTypes.array.isRequired
     },
 
+    getDefaultProps: function() {
+      return { queryParams: {} };
+    },
+
     getInitialState: function() {
       return {
-        selectedColumnKey: 'interventions' // 'profile'
+        selectedColumnKey: this.props.queryParams.column || 'interventions'
       };
+    },
+
+    componentDidUpdate: function(props, state) {
+      var path = Routes.studentProfile(this.props.student.id, {
+        column: this.state.selectedColumnKey
+      });
+      window.history.replaceState({}, null, path);
     },
 
     selectedColumnStyles: function(columnKey) {

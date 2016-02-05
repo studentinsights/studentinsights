@@ -5,6 +5,7 @@ $(function() {
   // imports
   var createEl = window.shared.ReactHelpers.createEl;
   var StudentProfileV2Page = window.shared.StudentProfileV2Page;
+  var parseQueryString = window.shared.parseQueryString;
 
   // entry point
   function main() {
@@ -17,6 +18,7 @@ $(function() {
     // var dateRange = [new Date(2010, 11, 19), new Date(2011, 11, 19)]
 
     ReactDOM.render(createEl(StudentProfileV2Page, {
+      queryParams: parseQueryString(window.location.search),
       student: serializedData.student,
       notes: serializedData.notes,
       chartData: serializedData.chartData,
