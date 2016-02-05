@@ -53,7 +53,7 @@
         },
         series: [{
           name: 'Percentile rank',
-          data: this.quadsToPairs(this.props.chartData.star_series_reading_percentile)
+          data: this.quadsToPairs(this.props.chartData.star_series_reading_percentile || [])
         }],
         yAxis: this.percentileYAxis()
       }));
@@ -67,7 +67,7 @@
         },
         series: [{
           name: 'Scaled score',
-          data: this.quadsToPairs(this.props.chartData.mcas_series_ela_scaled)
+          data: this.quadsToPairs(this.props.chartData.mcas_series_ela_scaled || [])
         }],
         yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis, {
           plotLines: ProfileChartSettings.mcas_level_bands
@@ -83,7 +83,7 @@
         },
         series: [{
           name: 'Growth percentile',
-          data: this.quadsToPairs(this.props.chartData.mcas_series_ela_growth)
+          data: this.quadsToPairs(this.props.chartData.mcas_series_ela_growth || [])
         }],
         yAxis: this.percentileYAxis()
       }));

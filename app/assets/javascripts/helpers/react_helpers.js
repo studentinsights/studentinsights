@@ -14,6 +14,16 @@
         });
       });
       return out;
+    },
+    SharedPropTypes: {
+      // Allow a prop to be null, if the prop type explicitly allows this.
+      // Then fall back to another validator if a value is passed.
+      nullable: function(validator) {
+        return function(props, propName, componentName) {
+          if (props[propName] === null) return null;
+          return validator(props, propName, componentName);
+        };
+      }
     }
   };
 })();

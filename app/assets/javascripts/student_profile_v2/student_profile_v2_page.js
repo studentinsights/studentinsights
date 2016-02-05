@@ -374,12 +374,12 @@
         this.wrapSummary({
           caption: 'STAR Reading',
           value: student.most_recent_star_reading_percentile,
-          sparkline: this.renderSparkline(chartData.star_series_reading_percentile)
+          sparkline: this.renderSparkline(chartData.star_series_reading_percentile || [])
         }),
         this.wrapSummary({
           caption: 'MCAS ELA',
           value: student.most_recent_mcas_ela_scaled,
-          sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled, {
+          sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled || [], {
             valueRange: [200, 300],
             thresholdValue: 240
           })
@@ -387,7 +387,7 @@
         this.wrapSummary({
           caption: 'MCAS ELA Growth',
           value: student.most_recent_mcas_ela_growth,
-          sparkline: this.renderSparkline(chartData.mcas_series_ela_growth)
+          sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
         })
       );
     },
@@ -405,12 +405,12 @@
         this.wrapSummary({
           caption: 'STAR Math',
           value: student.most_recent_star_math_percentile,
-          sparkline: this.renderSparkline(chartData.star_series_math_percentile)
+          sparkline: this.renderSparkline(chartData.star_series_math_percentile || [])
         }),
         this.wrapSummary({
           caption: 'MCAS Math',
           value: student.most_recent_mcas_math_scaled,
-          sparkline: this.renderSparkline(chartData.mcas_series_math_scaled, {
+          sparkline: this.renderSparkline(chartData.mcas_series_math_scaled || [], {
             valueRange: [200, 300],
             thresholdValue: 240
           })
@@ -418,7 +418,7 @@
         this.wrapSummary({
           caption: 'MCAS Math Growth',
           value: student.most_recent_mcas_math_growth,
-          sparkline: this.renderSparkline(chartData.mcas_series_math_growth)
+          sparkline: this.renderSparkline(chartData.mcas_series_math_growth || [])
         })
       );
     },
