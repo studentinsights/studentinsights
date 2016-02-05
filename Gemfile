@@ -48,6 +48,5 @@ end
 group :development do
   gem 'better_errors'
   gem 'pivotal_git_scripts'
-  gem 'rails-erd'              # Generate ERD to better understand the data structure
   gem 'spring'
 end
