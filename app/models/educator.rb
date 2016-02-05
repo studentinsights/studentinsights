@@ -27,6 +27,10 @@ class Educator < ActiveRecord::Base
     school || School.first
   end
 
+  def has_access_to_grade_levels?
+    grade_level_access.present? && grade_level_access.size > 0
+  end
+
   def allowed_homerooms
     # Educator can visit roster view for these homerooms
     # For non-admins, all homerooms at their homeroom's grade level
