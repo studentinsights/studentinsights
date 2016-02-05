@@ -48,7 +48,6 @@ end
 group :development do
   gem 'better_errors'
   gem 'pivotal_git_scripts'
-  gem 'rack-mini-profiler'
   gem 'rails-erd'  # to auto-generate ERD and better understand the data structure
   gem 'spring'
   gem 'squasher'
