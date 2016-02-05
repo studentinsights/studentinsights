@@ -7,7 +7,6 @@ gem 'pg'
 gem 'unicorn'
 
 gem 'activerecord-import'
-gem 'aws-sdk-core', '~> 2'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
 gem 'friendly_id', '~> 5.1.0'
@@ -38,7 +37,6 @@ group :development, :test do
   gem 'faker'
   gem 'launchy'
   gem 'phantomjs'
-  gem 'pry'
   gem 'rack-test'
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'
@@ -49,14 +47,7 @@ end
 
 group :development do
   gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'capistrano', '~> 3.4.0'
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-passenger', require: false
-  gem 'capistrano-rails', require: false
   gem 'pivotal_git_scripts'
-  gem 'rack-mini-profiler'
-  gem 'rails-erd'  # to auto-generate ERD and better understand the data structure
+  gem 'rails-erd'              # Generate ERD to better understand the data structure
   gem 'spring'
-  gem 'squasher'
 end
