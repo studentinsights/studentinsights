@@ -1,6 +1,7 @@
 class SchoolsController < ApplicationController
 
   before_action :authenticate_educator!,
+                :assign_school,
                 :authorize
 
   def show
@@ -24,6 +25,10 @@ class SchoolsController < ApplicationController
   def authorize
     redirect_to(homepage_path_for_current_educator) unless current_educator.schoolwide_access? ||
                                                            current_educator.has_access_to_grade_levels?
+  end
+
+  def assign_school
+    @school = School.friendly.find(params[:id])
   end
 
 end
