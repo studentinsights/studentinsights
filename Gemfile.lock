@@ -31,8 +31,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (5.0.1.20140414130214)
-    aws-sdk-core (2.1.19)
-      jmespath (~> 1.0)
     babel-source (5.8.34)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -106,8 +104,6 @@ GEM
       tilt (~> 1.2)
     hike (1.2.3)
     i18n (0.7.0)
-    jmespath (1.0.2)
-      multi_json (~> 1.0)
     jquery-rails (3.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -260,7 +256,6 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
-  aws-sdk-core (~> 2)
   better_errors
   binding_of_caller
   capistrano (~> 3.4.0)

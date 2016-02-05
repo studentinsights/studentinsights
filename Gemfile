@@ -7,7 +7,6 @@ gem 'pg'
 gem 'unicorn'
 
 gem 'activerecord-import'
-gem 'aws-sdk-core', '~> 2'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
 gem 'friendly_id', '~> 5.1.0'
