@@ -38,7 +38,6 @@ group :development, :test do
   gem 'faker'
   gem 'launchy'
   gem 'phantomjs'
-  gem 'pry'
   gem 'rack-test'
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'
