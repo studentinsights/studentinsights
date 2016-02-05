@@ -36,6 +36,11 @@ class SchoolsController < ApplicationController
   def authorize
     redirect_to(homepage_path_for_current_educator) unless current_educator.schoolwide_access? ||
                                                            current_educator.has_access_to_grade_levels?
+
+    if current_educator.has_access_to_grade_levels?
+      grade_message = " Showing students in grades #{current_educator.grade_level_access.to_sentence}."
+      flash[:notice] << grade_message if flash[:notice]
+    end
   end
 
   def assign_school
