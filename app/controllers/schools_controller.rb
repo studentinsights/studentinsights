@@ -8,16 +8,24 @@ class SchoolsController < ApplicationController
   before_action :assign_students_for_star_reading,  only: [:star_reading]
 
   def show
+    @serialized_students = @students.map do |student|
+      SchoolStudentPresenter.new(student).as_json
+    end
+
     @serialized_data = {
-      students: SchoolStudentPresenter.from_students.map(&:as_json),
+      students: @serialized_students,
       current_educator: current_educator,
       intervention_types: InterventionType.all
     }
   end
 
   def star_reading
+    @serialized_students = @students.map do |student|
+      SchoolStudentPresenter.new(student).as_json_with_star_reading
+    end
+
     @serialized_data = {
-      students_with_star_reading: SchoolStudentPresenter.from_students(:student_assessments).map(&:as_json_with_star_reading),
+      students_with_star_reading: @serialized_students,
       current_educator: current_educator,
       intervention_types: InterventionType.all
     }

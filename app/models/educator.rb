@@ -18,7 +18,7 @@ class Educator < ActiveRecord::Base
   validates :local_id, presence: true, uniqueness: true
 
   def students_for_school_overview(*additional_includes)
-    return unless school.present?
+    return [] unless school.present?
 
     default_eager_loads = [ :interventions, :student_risk_level, :homeroom, :student_school_years ]
     eager_loads = default_eager_loads + additional_includes
