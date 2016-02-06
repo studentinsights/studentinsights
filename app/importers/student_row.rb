@@ -10,6 +10,8 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
     return student
   end
 
+  private
+
   def name_view_attributes
     name_split = row[:full_name].split(", ")
 
@@ -20,8 +22,6 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       { first_name: nil, last_name: name_split[0] }
     end
   end
-
-  private
 
   def attributes
     demographic_attributes.merge(name_view_attributes)
