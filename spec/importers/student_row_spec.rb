@@ -25,6 +25,22 @@ RSpec.describe StudentRow do
       end
     end
 
+    context 'grade level KF' do
+      let(:row) { { grade: 'KF', full_name: 'Lee, Nico' } }
+
+      it 'sets grade to KF' do
+        expect(student.grade).to eq 'KF'
+      end
+    end
+
+    context 'grade level 02' do
+      let(:row) { { grade: '02', full_name: 'Lee, Nico' } }
+
+      it 'sets grade to 2' do
+        expect(student.grade).to eq '2'
+      end
+    end
+
   end
 
 end
