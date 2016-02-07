@@ -50,7 +50,6 @@ class StudentRiskLevel < ActiveRecord::Base
     )
 
     update!(level: calculate_level)
-    update!(explanation: explanation)
   end
 
   def calculate_level

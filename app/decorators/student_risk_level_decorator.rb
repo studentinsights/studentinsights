@@ -84,4 +84,9 @@ class StudentRiskLevelDecorator < Draper::Decorator
       }
     }
   end
+
+  def as_json_with_explanation
+    as_json.merge(explanation: explanation)
+  end
+
 end
