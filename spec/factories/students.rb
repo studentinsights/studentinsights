@@ -1,11 +1,12 @@
 FactoryGirl.define do
-  sequence(:local_id) { |n| "#{n}000" }
-end
 
-FactoryGirl.define do
+  sequence(:student_local_id) { |n| "#{n}000" }
+
+  sequence(:valid_grade_level) { [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ].sample }
 
   factory :student do
-    local_id
+    local_id { generate(:student_local_id) }
+    grade { generate(:valid_grade_level) }
     association :homeroom
 
     trait :with_risk_level do
