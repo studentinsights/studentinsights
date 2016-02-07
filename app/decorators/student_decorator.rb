@@ -30,7 +30,7 @@ class StudentDecorator < Draper::Decorator
     value.present? ? value : "—"
   end
 
-  def as_json
+  def as_json_for_school_overview
     student.as_json.merge(
       interventions: student.interventions,
       student_risk_level: student.student_risk_level.as_json,
@@ -41,7 +41,7 @@ class StudentDecorator < Draper::Decorator
     )
   end
 
-  def as_json_with_star_reading
+  def as_json_for_star_reading
     as_json.merge(star_reading_results: student.star_reading_results)
   end
 
