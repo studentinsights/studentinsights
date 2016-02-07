@@ -73,14 +73,20 @@ class StudentRiskLevel < ActiveRecord::Base
     student.first_name || "This student"
   end
 
-  def risk_factor_names_and_levels
-    [
-      [ :mcas_math_risk_level, mcas_math_risk_level ],
-      [ :star_math_risk_level, star_math_risk_level ],
-      [ :mcas_ela_risk_level, mcas_ela_risk_level ],
-      [ :star_reading_risk_level, star_reading_risk_level ],
-      [ :limited_english_proficiency_risk_level, limited_english_proficiency_risk_level ]
-    ]
+  def risk_factors_to_levels
+    {
+      mcas_math_risk_level: mcas_math_risk_level,
+      star_math_risk_level: star_math_risk_level,
+      mcas_ela_risk_level: mcas_ela_risk_level,
+      star_reading_risk_level: star_reading_risk_level,
+      limited_english_proficiency_risk_level: limited_english_proficiency_risk_level
+    }
+  end
+
+  def relevant_risk_factors
+    risk_factors_to_levels.delete_if do |key, value|
+      value != level
+    end
   end
 
   def explanation
@@ -94,11 +100,10 @@ class StudentRiskLevel < ActiveRecord::Base
   def explanations_array
     return ["There is not enough information to tell."] if level == nil
 
-    risk_factor_names_and_levels.map do |factor_name_and_value|
-      factor_name = factor_name_and_value[0]
-      value = factor_name_and_value[1]
-      explanation_phrase(factor_name, value) if value == level
-    end.compact
+    relevant_risk_factors.to_a.map do |key_value_pair|
+      factor_name, value = key_value_pair[0], key_value_pair[1]
+      explanation_phrase(factor_name, value)
+    end
   end
 
   def explanation_phrase(factor_name, value)
