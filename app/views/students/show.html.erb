@@ -10,11 +10,11 @@
   <div class="info-area">
 
     <div class="topline-info underline">
-      <h1 id="student-name"><%= @presenter.full_name %></h1>
+      <h1 id="student-name"><%= @student.full_name %></h1>
       <div id="profile-risk-level" class="tooltip-trigger">
         <p>Risk level</p>
-        <div id="risk-pill" class="<%= StudentRiskLevelPresenter.new(@level).css_class_name %>">
-          <h3><%= StudentRiskLevelPresenter.new(@level).level_as_string %></h3>
+        <div id="risk-pill" class="<%= @student_risk_level.css_class_name %>">
+          <h3><%= @student_risk_level.level_as_string %></h3>
         </div>
       </div>
     </div>
@@ -63,33 +63,33 @@
           <div class="left-panel-block">
             <h2>Information</h2>
             <span class="left-panel-item">
-              Program Assignment: <strong><%= @presenter.program_assigned %></strong>
+              Program Assignment: <strong><%= @student.program_assigned %></strong>
             </span>
             <span class="left-panel-item">
-              504: <strong><%= @presenter.plan_504 %></strong>
+              504: <strong><%= @student.plan_504 %></strong>
             </span>
           </div>
 
           <div class="left-panel-block">
             <h2>Language</h2>
             <span class="left-panel-item">
-              Fluency: <strong><%= @presenter.limited_english_proficiency %></strong>
+              Fluency: <strong><%= @student.limited_english_proficiency %></strong>
             </span>
             <span class="left-panel-item">
-              Home Language: <strong><%= @presenter.home_language %></strong>
+              Home Language: <strong><%= @student.home_language %></strong>
             </span>
           </div>
 
           <div class="left-panel-block">
             <h2>Special Education</h2>
             <span class="left-panel-item">
-              Placement: <strong><%= @presenter.sped_placement %></strong>
+              Placement: <strong><%= @student.sped_placement %></strong>
             </span>
             <span class="left-panel-item">
-              Disability: <strong><%= @presenter.disability %></strong>
+              Disability: <strong><%= @student.disability %></strong>
             </span>
             <span class="left-panel-item">
-              Level: <strong><%= @presenter.sped_level_of_need %></strong>
+              Level: <strong><%= @student.sped_level_of_need %></strong>
             </span>
           </div>
         </div>
@@ -134,7 +134,7 @@
     <div class="tooltip-popup">
       <div class="warning-key">
         <div class="warning-header">
-          Risk level: <%= StudentRiskLevelPresenter.new(@level).level_as_string %>
+          Risk level: <%= @student_risk_level.level_as_string %>
         </div>
         <div class="warning-set">
           <%= @student_risk_level.explanation.html_safe %>

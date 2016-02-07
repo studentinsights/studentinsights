@@ -24,15 +24,13 @@ class StudentsController < ApplicationController
   end
 
   def show
-    @student = Student.find(params[:id])
-    @presenter = StudentPresenter.new(@student)
+    @student = Student.find(params[:id]).decorate
     @serialized_student_data = @student.serialized_student_data
 
     @chart_start = params[:chart_start] || "mcas-growth"
     @chart_data = StudentProfileChart.new(@serialized_student_data).chart_data
 
-    @student_risk_level = @student.student_risk_level
-    @level = @student_risk_level.level
+    @student_risk_level = @student.student_risk_level.decorate
 
     @student_school_years = @student.student_school_years.includes(
       :discipline_incidents,
@@ -63,17 +61,15 @@ class StudentsController < ApplicationController
   def names
     @q = params[:q].upcase
     @length = @q.length
+
     @matches = Student.with_school.select do |s|
       first_name = s.first_name[0..@length - 1].upcase if s.first_name.present?
       last_name = s.last_name[0..@length - 1].upcase if s.last_name.present?
       first_name == @q || last_name == @q
     end
-    @result = @matches.map do |m|
-      {
-        label: "#{StudentPresenter.new(m).full_name} - #{m.school.local_id} - #{m.grade}",
-        value: m.id
-      }
-    end
+
+    @result = @matches.map { |student| student.decorate.presentation_for_autocomplete }
+
     respond_to do |format|
       format.json { render json: @result }
     end

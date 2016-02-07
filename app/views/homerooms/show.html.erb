@@ -124,8 +124,6 @@
           <!-- ROWS -->
           <% @rows.each do |row| %>
 
-            <% presenter = row[:student_presenter] %>
-
             <tr class="student-row">
               <td class="name">
                 <a href="<%= student_url(row["id"]) %>">
@@ -224,9 +222,11 @@
   </script>
 
   <% @rows.each do |row| %>
-    <script class="risk-level-tooltip" type="x-tmpl-mustache" data-student-id="<%= row[:student_risk_level]['student_id'] %>">
+    <script class="risk-level-tooltip"
+            type="x-tmpl-mustache"
+            data-student-id="<%= row[:student_risk_level]['student_id'] %>" >
       <div class="tooltip-popup student-risk-level-tooltip">
-        <%= row[:student_risk_level]['explanation'].html_safe %>
+        <%= row[:student_risk_level][:explanation].html_safe %>
       </div>
     </script>
   <% end %>

@@ -66,6 +66,7 @@ describe HomeroomsController, :type => :controller do
             let!(:third_student) { FactoryGirl.create(:student, :registered_last_year) }
 
             before { Student.update_student_school_years }
+            before { Student.update_risk_levels }
 
             it 'assigns rows to a non-empty array' do
               make_request(educator.homeroom.slug)

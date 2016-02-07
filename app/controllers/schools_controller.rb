@@ -9,7 +9,7 @@ class SchoolsController < ApplicationController
 
   def show
     @serialized_students = @students.map do |student|
-      SchoolStudentPresenter.new(student).as_json
+      student.decorate.as_json_for_school_overview
     end
 
     @serialized_data = {
@@ -21,7 +21,7 @@ class SchoolsController < ApplicationController
 
   def star_reading
     @serialized_students = @students.map do |student|
-      SchoolStudentPresenter.new(student).as_json_with_star_reading
+      student.decorate.as_json_for_star_reading
     end
 
     @serialized_data = {

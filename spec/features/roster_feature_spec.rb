@@ -8,6 +8,7 @@ describe 'roster', :type => :feature do
     before do
       mock_ldap_authorization
       educator.students.first.update_recent_student_assessments if educator.students.present?
+      educator.students.first.update_risk_level if educator.students.present?
       educator_sign_in(educator)
     end
 
