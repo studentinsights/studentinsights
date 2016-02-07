@@ -11,10 +11,10 @@
           <h3 class="assessment-type">English</h3>
           <div class="assessment-dark-background mcas-ela-values">
             <div class="values">
-              <p>Performance: <strong><%= StudentAssessmentPresenter.new(school_year.mcas_ela_result).performance_level %></strong></p>
+              <p>Performance: <strong><%= school_year.mcas_ela_result.decorate.performance_level %></strong></p>
             </div>
             <div class="values">
-              <p>Scaled Score: <strong><%= StudentAssessmentPresenter.new(school_year.mcas_ela_result).scale_score %></strong></p>
+              <p>Scaled Score: <strong><%= school_year.mcas_ela_result.decorate.scale_score %></strong></p>
             </div>
           </div>
         <% end %>
@@ -22,10 +22,10 @@
           <h3 class="assessment-type">Math</h3>
           <div class="assessment-dark-background mcas-math-values">
             <div class="values">
-              <p>Performance: <strong><%= StudentAssessmentPresenter.new(school_year.mcas_math_result).performance_level %></strong></p>
+              <p>Performance: <strong><%= school_year.mcas_math_result.decorate.performance_level %></strong></p>
             </div>
             <div class="values">
-              <p>Scaled Score: <strong><%= StudentAssessmentPresenter.new(school_year.mcas_math_result).scale_score %></strong></p>
+              <p>Scaled Score: <strong><%= school_year.mcas_math_result.decorate.scale_score %></strong></p>
             </div>
           </div>
         <% end %>
@@ -42,14 +42,14 @@
               <div class="star-values">
                 <% if r.assessment.subject == "Math" %>
                   <div class="values star-math-values">
-                    <p>Math percentile: <strong><%= StudentAssessmentPresenter.new(r).percentile_rank %></strong></p>
+                    <p>Math percentile: <strong><%= r.decorate.percentile_rank %></strong></p>
                   </div>
                 <% elsif r.assessment.subject == "Reading" %>
                   <div class="values star-reading-values">
-                    <p>Reading percentile: <strong><%= StudentAssessmentPresenter.new(r).percentile_rank %></strong></p>
+                    <p>Reading percentile: <strong><%= r.decorate.percentile_rank %></strong></p>
                   </div>
                   <div class="values star-reading-values instructional-reading-level">
-                    <p>Reading level: <strong><%= StudentAssessmentPresenter.new(r).instructional_reading_level %></strong></p>
+                    <p>Reading level: <strong><%= r.decorate.instructional_reading_level %></strong></p>
                   </div>
                 <% end %>
               </div>
@@ -92,13 +92,13 @@
         <h3 class="assessment-type">Overall</h3>
         <div class="assessment-dark-background access-values">
           <div class="values">
-            <p>Score: <strong><%= StudentAssessmentPresenter.new(school_year.access).scale_score %></strong></p>
+            <p>Score: <strong><%= school_year.access.decorate.scale_score %></strong></p>
           </div>
           <div class="values">
-            <p>Growth: <strong><%= StudentAssessmentPresenter.new(school_year.access).growth_percentile %></strong></p>
+            <p>Growth: <strong><%= school_year.access.decorate.growth_percentile %></strong></p>
           </div>
           <div class="values">
-            <p>Level: <strong><%= StudentAssessmentPresenter.new(school_year.access).performance_level %></strong></p>
+            <p>Level: <strong><%= school_year.access.decorate.performance_level %></strong></p>
           </div>
         </div>
       </div>

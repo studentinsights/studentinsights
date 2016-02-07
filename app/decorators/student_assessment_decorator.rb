@@ -1,4 +1,5 @@
-class StudentAssessmentPresenter < Struct.new :student_assessment
+class StudentAssessmentDecorator < Draper::Decorator
+  delegate_all
 
   ATTRIBUTES_FOR_PRESENTATION = [
     'performance_level',
