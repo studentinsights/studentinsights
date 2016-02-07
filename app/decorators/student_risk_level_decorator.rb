@@ -1,6 +1,8 @@
 class StudentRiskLevelDecorator < Draper::Decorator
   delegate_all
 
+  # Presentation for Risk Level nil, 'N/A':
+
   def level_as_string
     level.nil? ? "N/A" : level.to_s
   end
@@ -9,9 +11,7 @@ class StudentRiskLevelDecorator < Draper::Decorator
     "risk-" + level_as_string.downcase.gsub("/", "")
   end
 
-  def name
-    student.first_name || "This student"
-  end
+  # Data for Risk Level explanation:
 
   def risk_factors_to_levels
     {
@@ -29,6 +29,8 @@ class StudentRiskLevelDecorator < Draper::Decorator
     end
   end
 
+  # Presentation for Risk Level explanation:
+
   def explanation
     explanation_intro_html + explanations_array_html_list
   end
@@ -37,21 +39,24 @@ class StudentRiskLevelDecorator < Draper::Decorator
     "#{name} is at Risk #{level_as_string} because:<br/><br/>"
   end
 
-  def explanations_array
-    return ["There is not enough information to tell."] if level == nil
-
-    relevant_risk_factors.to_a.map do |key_value_pair|
-      factor_name, value = key_value_pair[0], key_value_pair[1]
-      explanation_phrase(factor_name, value)
-    end
-  end
-
-  def explanation_phrase(factor_name, value)
-    "#{name}#{risk_factor_names_to_explanations[factor_name][value]}."
+  def name
+    student.first_name || "This student"
   end
 
   def explanations_array_html_list
     "<ul>" + explanations_array.map { |e| "<li>#{e}</li>" }.join + "</ul>"
+  end
+
+  def explanations_array
+    return ["There is not enough information to tell."] if level == nil
+
+    relevant_risk_factors.to_a.map do |key_value_pair|
+      factor_name = key_value_pair[0]
+      factor_value = key_value_pair[1]
+      explanation = risk_factor_names_to_explanations[factor_name][factor_value]
+
+      "#{name}#{explanation}."
+    end
   end
 
   def risk_factor_names_to_explanations
