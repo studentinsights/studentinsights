@@ -7,9 +7,18 @@ class Student < ActiveRecord::Base
   has_many :interventions, dependent: :destroy
   has_many :student_notes
   has_one :student_risk_level, dependent: :destroy
+
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
+  validate :valid_grade
+
   after_create :update_student_school_years
+
+  VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ].freeze
+
+  def valid_grade
+    errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
+  end
 
   def self.with_school
     where.not(school: nil)
