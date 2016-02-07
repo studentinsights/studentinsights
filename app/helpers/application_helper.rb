@@ -1,12 +1,5 @@
 module ApplicationHelper
 
-  def present(object)
-    klass ||= "#{object.class}Presenter".constantize
-    presenter = klass.new(object)
-    yield presenter if block_given?
-    presenter
-  end
-
   def resource_name
     :user
   end
