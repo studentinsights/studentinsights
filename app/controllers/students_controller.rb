@@ -31,8 +31,7 @@ class StudentsController < ApplicationController
     @chart_start = params[:chart_start] || "mcas-growth"
     @chart_data = StudentProfileChart.new(@serialized_student_data).chart_data
 
-    @student_risk_level = @student.student_risk_level
-    @level = @student_risk_level.level
+    @student_risk_level = @student.student_risk_level.decorate
 
     @student_school_years = @student.student_school_years.includes(
       :discipline_incidents,

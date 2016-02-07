@@ -219,11 +219,6 @@ RSpec.describe Student do
         student_risk_level = student.student_risk_level
         expect(student_risk_level.level).to eq nil
       end
-      it 'assigns explanation' do
-        student.create_student_risk_level!
-        student_risk_level = student.student_risk_level
-        expect(student_risk_level.explanation).to eq 'This student is at Risk N/A because:<br/><br/><ul><li>There is not enough information to tell.</li></ul>'
-      end
     end
     context 'create an ELL student' do
       let(:student) { FactoryGirl.build(:limited_english_student) }
@@ -234,11 +229,6 @@ RSpec.describe Student do
         student.create_student_risk_level!
         student_risk_level = student.student_risk_level
         expect(student_risk_level.level).to eq 3
-      end
-      it 'assigns explanation' do
-        student.create_student_risk_level!
-        student_risk_level = student.student_risk_level
-        expect(student_risk_level.explanation).to eq 'This student is at Risk 3 because:<br/><br/><ul><li>This student is limited English proficient.</li></ul>'
       end
     end
   end

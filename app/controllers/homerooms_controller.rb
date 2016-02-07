@@ -43,7 +43,7 @@ class HomeroomsController < ApplicationController
     student.as_json.merge({
       interventions: student.interventions,
       most_recent_atp_number_of_hours: student.most_recent_atp_hours,
-      student_risk_level: student.student_risk_level.as_json,
+      student_risk_level: student.student_risk_level.decorate.as_json,
       discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
       absences_count: student.most_recent_school_year.absences.count,
       tardies_count: student.most_recent_school_year.tardies.count,
