@@ -124,8 +124,6 @@
           <!-- ROWS -->
           <% @rows.each do |row| %>
 
-            <% presenter = row[:student_presenter] %>
-
             <tr class="student-row">
               <td class="name">
                 <a href="<%= student_url(row["id"]) %>">
