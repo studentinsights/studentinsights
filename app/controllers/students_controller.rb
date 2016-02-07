@@ -24,8 +24,7 @@ class StudentsController < ApplicationController
   end
 
   def show
-    @student = Student.find(params[:id])
-    @presenter = StudentPresenter.new(@student)
+    @student = Student.find(params[:id]).decorate
     @serialized_student_data = @student.serialized_student_data
 
     @chart_start = params[:chart_start] || "mcas-growth"
@@ -68,8 +67,9 @@ class StudentsController < ApplicationController
       first_name == @q || last_name == @q
     end
     @result = @matches.map do |m|
+      presenter = m.decorate
       {
-        label: "#{StudentPresenter.new(m).full_name} - #{m.school.local_id} - #{m.grade}",
+        label: "#{presenter.full_name} - #{presenter.school.local_id} - #{presenter.grade}",
         value: m.id
       }
     end
