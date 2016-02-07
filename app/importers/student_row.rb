@@ -10,6 +10,8 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
     return student
   end
 
+  private
+
   def name_view_attributes
     name_split = row[:full_name].split(", ")
 
@@ -20,8 +22,6 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       { first_name: nil, last_name: name_split[0] }
     end
   end
-
-  private
 
   def attributes
     demographic_attributes.merge(name_view_attributes)
@@ -39,7 +39,7 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       sped_level_of_need: row[:sped_level_of_need],
       plan_504: row[:plan_504],
       student_address: row[:student_address],
-      grade: row[:grade],
+      grade: grade,
       registration_date: row[:registration_date],
       free_reduced_lunch: row[:free_reduced_lunch]
     }
@@ -55,6 +55,14 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
 
   def school_rails_id
     school_ids_dictionary[school_local_id] if school_local_id.present?
+  end
+
+  def grade
+    # "08" => "8"
+    # "KF" => "KF"
+
+    return row[:grade] if row[:grade].to_i == 0
+    row[:grade].to_i.to_s
   end
 
 end
