@@ -45,4 +45,15 @@ class StudentDecorator < Draper::Decorator
     as_json.merge(star_reading_results: student.star_reading_results)
   end
 
+  def presentation_for_autocomplete
+    {
+      label: name_school_grade_snapshot,
+      value: id
+    }
+  end
+
+  def name_school_grade_snapshot
+    "#{full_name} - #{school.local_id} - #{grade}"
+  end
+
 end

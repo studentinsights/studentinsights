@@ -61,18 +61,15 @@ class StudentsController < ApplicationController
   def names
     @q = params[:q].upcase
     @length = @q.length
+
     @matches = Student.with_school.select do |s|
       first_name = s.first_name[0..@length - 1].upcase if s.first_name.present?
       last_name = s.last_name[0..@length - 1].upcase if s.last_name.present?
       first_name == @q || last_name == @q
     end
-    @result = @matches.map do |m|
-      presenter = m.decorate
-      {
-        label: "#{presenter.full_name} - #{presenter.school.local_id} - #{presenter.grade}",
-        value: m.id
-      }
-    end
+
+    @result = @matches.map { |student| student.decorate.presentation_for_autocomplete }
+
     respond_to do |format|
       format.json { render json: @result }
     end
