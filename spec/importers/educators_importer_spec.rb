@@ -133,7 +133,6 @@ RSpec.describe EducatorsImporter do
             described_class.new.import_row(row)
             educator = Educator.last
             expect(educator.admin).to eq(true)
-            expect(educator.schoolwide_access).to eq(true)
           end
         end
 
