@@ -222,14 +222,6 @@ FactoryGirl.define do
       end
     end
 
-    # Test event sorting
-    factory :student_with_absence do
-      after(:create) do |student|
-        student_school_years = FactoryGirl.create_list(:student_school_year, 1, student: student)
-        FactoryGirl.create(:absence, student_school_year: student_school_years.first)
-      end
-    end
-
     factory :student_with_discipline_incident do
       after(:create) do |student|
         student_school_years = FactoryGirl.create_list(:student_school_year, 1, student: student)

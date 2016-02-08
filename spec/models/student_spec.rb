@@ -120,13 +120,21 @@ RSpec.describe Student do
     context 'student with no absences or tardies' do
       let(:student) { FactoryGirl.create(:student_with_registration_date) }
       it 'returns the correct array' do
-        expect(student.absences_count_by_school_year).to eq [0, 0]
+        expect(student.absences_count_by_school_year.uniq).to eq [0]
       end
     end
+
     context 'student with absence' do
-      let(:student) { FactoryGirl.create(:student_with_absence) }
+      let(:student) { FactoryGirl.create(:student) }
+
+      before do
+        student_school_year = student.most_recent_school_year
+        occurred_at = student_school_year.school_year.start
+        student_school_year.absences.create!(occurred_at: occurred_at)
+      end
+
       it 'returns the correct array' do
-        expect(student.absences_count_by_school_year).to eq [1]
+        expect(student.absences_count_by_school_year.first).to eq 1
       end
     end
   end
