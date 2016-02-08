@@ -159,7 +159,8 @@
         case 'attendance': return createEl(AttendanceDetails, {
           cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
           cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
-          cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies)
+          cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies),
+          disciplineIncidents: attendanceData.discipline_incidents
         });
       }
       return null;

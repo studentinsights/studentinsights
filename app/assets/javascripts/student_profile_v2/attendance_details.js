@@ -11,7 +11,8 @@
     propTypes: {
       cumulativeDisciplineIncidents: React.PropTypes.array.isRequired,
       cumulativeAbsences: React.PropTypes.array.isRequired,
-      cumulativeTardies: React.PropTypes.array.isRequired
+      cumulativeTardies: React.PropTypes.array.isRequired,
+      disciplineIncidents: React.PropTypes.array.isRequired
     },
 
     getDefaultProps: function() {
@@ -38,7 +39,8 @@
     render: function() {
       return dom.div({ className: 'AttendanceDetails' },
         this.renderDisciplineIncidents(),
-        this.renderAbsencesAndTardies()
+        this.renderAbsencesAndTardies(),
+        this.renderIncidentHistory()
       );
     },
 
@@ -72,6 +74,17 @@
           name: 'Tardies per school year',
           data: this.quadsToPairs(this.props.cumulativeTardies)
         }]
+      }));
+    },
+
+    renderIncidentHistory: function() {
+      return dom.div({}, this.props.disciplineIncidents.map(function(incident) {
+        return dom.div({ key: incident.occurred_at },
+          dom.div({}, 'Date: ' + moment.utc(incident.occurred_at).format('MMM D, YYYY')),
+          dom.div({}, 'Code:' + incident.incident_code),
+          dom.div({}, 'Location: ' + incident.incident_location),
+          dom.div({}, 'Description: ' + incident.incident_description)
+        );
       }));
     },
 
