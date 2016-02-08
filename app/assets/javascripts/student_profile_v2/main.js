@@ -9,23 +9,18 @@ $(function() {
 
   // entry point
   function main() {
-    var serializedData = $('#serialized-data').data();
-    window.serializedData = serializedData;
-
-    // TODO(kr) hacking around with local data for now
     var now = new Date();
+    var serializedData = $('#serialized-data').data();
     var dateRange = [moment(now).subtract(1, 'year').toDate(), now];
-    // var dateRange = [new Date(2010, 11, 19), new Date(2011, 11, 19)]
-
     ReactDOM.render(createEl(StudentProfileV2Page, {
+      now: now,
+      dateRange: dateRange,
       queryParams: parseQueryString(window.location.search),
       student: serializedData.student,
       notes: serializedData.notes,
       chartData: serializedData.chartData,
       interventionTypesIndex: serializedData.interventionTypesIndex,
       attendanceData: serializedData.attendanceData,
-      now: now,
-      dateRange: dateRange
     }), document.getElementById('main'));
   }
 

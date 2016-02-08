@@ -32,7 +32,7 @@
       var lineGenerator = d3.svg.line()
         .x(function(d) { return x(this.quadDate(d)); }.bind(this))
         .y(function(d) { return y(d[3]); })
-        .interpolate('monotone');
+        .interpolate('linear');
 
       var lineColor = color(this.delta(this.props.quads));
       return dom.div({ className: 'Sparkline' },

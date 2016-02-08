@@ -19,6 +19,14 @@
   var ELADetails = window.shared.ELADetails = React.createClass({
     displayName: 'ELADetails',
 
+    propTypes: {
+      chartData: React.PropTypes.shape({
+        star_series_reading_percentile: React.PropTypes.array.isRequired,
+        mcas_series_ela_scaled: React.PropTypes.array.isRequired,
+        mcas_series_ela_growth: React.PropTypes.array.isRequired
+      }).isRequired
+    },
+
     getDefaultProps: function() {
       return {
         now: new Date(),
