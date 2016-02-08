@@ -26,7 +26,7 @@ class StudentAssessmentRow < Struct.new(:row)
   private
 
   def student
-    Student.find_or_create_by!(local_id: row[:local_id])
+    Student.find_by_local_id!(row[:local_id])
   end
 
   def assessment
