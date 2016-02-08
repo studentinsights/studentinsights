@@ -7,7 +7,7 @@ $(function() {
 
     // track usage in mixpanel
     var MixpanelUtils = window.shared.MixpanelUtils;
-    MixpanelUtils.registerUser(interventionsControllerData.currentEducator);
+    MixpanelUtils.registerUser(interventionsControllerData.current_educator);
     MixpanelUtils.track('PAGE_VISIT', {
       page_key: 'STUDENT_PROFILE',
       student_id: interventionsControllerData.student_id

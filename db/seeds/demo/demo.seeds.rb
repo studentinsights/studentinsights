@@ -1,11 +1,28 @@
 puts "Creating demo schools, homerooms, interventions..."
-
 raise "empty yer db" if School.count > 0 ||
                         Student.count > 0 ||
                         InterventionType.count > 0 ||
                         Assessment.count > 0
 
 healey = School.create(name: "Arthur D Healey")
+
+puts "Creating demo educators..."
+Educator.destroy_all
+
+Educator.create!([{
+  email: "demo@example.com",
+  password: "demo-password",
+  local_id: '350',
+  schoolwide_access: true,
+  school: School.first,
+  admin: true
+}, {
+  email: "fake-fifth-grade@example.com",
+  password: "demo-password",
+  local_id: '450',
+  school: School.first,
+  admin: false
+}])
 
 Homeroom.create(name: "101", grade: "4")
 Homeroom.create(name: "102", grade: "5")
