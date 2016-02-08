@@ -155,8 +155,12 @@ class Student < ActiveRecord::Base
 
     # If we don't have a registration date on file from X2, our next best option
     # is to guess that the student started Somerville Public Schools in K.
+
     # As of May 2105, about 9% of current students are missing a registration date
     # value in X2, mostly students in the high school.
+
+    # As of February 2016, all students in X2 are associated with a grade level.
+
     # We'll also need to handle non-numerical grade levels: KF, PK, SP
 
     return DateToSchoolYear.new(Time.new - grade.to_i.years).convert
