@@ -150,23 +150,24 @@ class Student < ActiveRecord::Base
 
   ## SCHOOL YEARS ##
 
+  def earliest_school_year
+    return DateToSchoolYear.new(registration_date).convert if registration_date.present?
+
+    # If we don't have a registration date on file from X2, our next best option
+    # is to guess that the student started Somerville Public Schools in K.
+    # As of May 2105, about 9% of current students are missing a registration date
+    # value in X2, mostly students in the high school.
+    # We'll also need to handle non-numerical grade levels: KF, PK, SP
+
+    return DateToSchoolYear.new(Time.new - grade.to_i.years).convert
+  end
+
+  def current_school_year
+    DateToSchoolYear.new(Time.new).convert
+  end
+
   def find_student_school_years
-    if registration_date.present? || grade.present?
-      if registration_date.present?
-        first_school_year = DateToSchoolYear.new(registration_date).convert
-      elsif grade.present?
-        # If we don't have a registration date on file from X2, our next best option
-        # is to guess that the student started Somerville Public Schools in K.
-        # As of May 2105, about 9% of current students are missing a registration date
-        # value in X2, mostly students in the high school.
-        # We'll also need to handle non-numerical grade levels: KF, PK, SP
-        first_school_year = DateToSchoolYear.new(Time.new - grade.to_i.years).convert
-      end
-      current_school_year = DateToSchoolYear.new(Time.new).convert
-      SchoolYear.in_between(first_school_year, current_school_year)
-    else
-      []
-    end
+    SchoolYear.in_between(earliest_school_year, current_school_year)
   end
 
   def most_recent_school_year
