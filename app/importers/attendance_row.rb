@@ -26,7 +26,7 @@ class AttendanceRow < Struct.new(:row)
   end
 
   def student
-    Student.find_or_create_by(local_id: row[:local_id])
+    Student.find_by_local_id! row[:local_id]
   end
 
   def school_year

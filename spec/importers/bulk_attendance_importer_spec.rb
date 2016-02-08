@@ -6,8 +6,13 @@ RSpec.describe BulkAttendanceImporter do
 
     context 'json' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/kipp_nj_fixtures/fake_att.json").read }
+
       let(:transformer) { JsonTransformer.new }
       let(:json) { transformer.transform(file) }
+
+      before { FactoryGirl.create(:student, local_id: '1') }
+      before { FactoryGirl.create(:student, local_id: '2') }
+
       context 'mixed good & bad rows' do
         it 'imports the valid absences' do
           expect {
@@ -25,10 +30,23 @@ RSpec.describe BulkAttendanceImporter do
     context 'csv' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_attendance_export.txt") }
       let(:local_id_from_file) { '10' }
+
       let(:date_from_file) { DateTime.parse('2005-09-16') }
       let(:school_year) {
         DateToSchoolYear.new(date_from_file).convert
       }
+
+      let!(:student) {
+        FactoryGirl.create(:student, local_id: local_id_from_file)
+      }
+
+      before { FactoryGirl.create(:student, local_id: '11') }
+      before { FactoryGirl.create(:student, local_id: '12') }
+
+      let(:student_school_year) {
+        StudentSchoolYear.create(student: student, school_year: school_year)
+      }
+
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 
@@ -38,25 +56,10 @@ RSpec.describe BulkAttendanceImporter do
             bulk_attendance_importer.start_import(csv)
           }.to change(Absence, :count).by 2
         end
-        context 'existing student school year' do
-          let(:student) {
-            FactoryGirl.create(:student, local_id: local_id_from_file)
-          }
-          let(:student_school_year) {
-            StudentSchoolYear.create(student: student, school_year: school_year)
-          }
-          it 'assigns absences to the existing student' do
-            expect {
-              bulk_attendance_importer.start_import(csv)
-            }.to change { student_school_year.reload.absences.count }.by(1)
-          end
-        end
-        context 'missing students' do
-          it 'creates new students' do
-            expect {
-              bulk_attendance_importer.start_import(csv)
-            }.to change(Student, :count).by 2
-          end
+        it 'assigns absences to the existing student' do
+          expect {
+            bulk_attendance_importer.start_import(csv)
+          }.to change { student_school_year.reload.absences.count }.by(1)
         end
       end
 

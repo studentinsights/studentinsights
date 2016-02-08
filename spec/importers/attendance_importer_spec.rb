@@ -10,21 +10,24 @@ RSpec.describe AttendanceImporter do
 
     context 'realistic data' do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_attendance_export.txt") }
-      let(:local_id_from_file) { '10' }
       let(:date_from_file) { DateTime.parse('2005-09-16') }
+      before { FactoryGirl.create(:student, local_id: '11') }
+      before { FactoryGirl.create(:student, local_id: '12') }
+
+      let(:student) { FactoryGirl.create(:student, local_id: '10') }
+
       let(:school_year) {
         DateToSchoolYear.new(date_from_file).convert
       }
+
+      let!(:student_school_year) {
+        StudentSchoolYear.create(student: student, school_year: school_year)
+      }
+
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 
       context 'student already exists' do
-        let(:student) {
-          FactoryGirl.create(:student, local_id: local_id_from_file)
-        }
-        let!(:student_school_year) {
-          StudentSchoolYear.create(student: student, school_year: school_year)
-        }
         it 'creates one absence' do
           expect {
             importer.start_import(csv)
@@ -38,20 +41,6 @@ RSpec.describe AttendanceImporter do
         it 'assigns the absence occurred_at correctly' do
           importer.start_import(csv)
           expect(student_school_year.reload.absences.last.occurred_at).to eq DateTime.new(2005, 9, 16)
-        end
-      end
-
-      context 'student does not already exist' do
-        it 'creates a new student' do
-          expect { importer.start_import(csv) }.to change(Student, :count).by 2
-        end
-        it 'creates a new student school year' do
-          expect { importer.start_import(csv) }.to change(StudentSchoolYear, :count).by 2
-        end
-        it 'assigns the attendance event to the new student school year' do
-          importer.start_import(csv)
-          student_school_year = StudentSchoolYear.last.reload
-          expect(student_school_year.absences.size).to eq 1
         end
       end
 
