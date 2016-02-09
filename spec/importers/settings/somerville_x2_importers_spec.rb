@@ -30,14 +30,14 @@ RSpec.describe SomervilleX2Importers do
 
     context 'with school scope' do
       let(:school) { School.create }
-      let(:options) { { school_scope: school } }
+      let(:options) { { "school" => school } }
       it 'returns importer with school_scope' do
         expect(importer.school_scope).to eq school
       end
     end
 
     context 'with first time setting' do
-      let(:options) { { first_time: true } }
+      let(:options) { { "first_time" => true } }
       it 'returns first time importer' do
         expect(importer).to be_a Array
         expect(importer.first).to be_a Importer

@@ -1,9 +1,9 @@
 class SomervilleStarImporters
 
   def initialize(options = {})
-    @school_scope = options[:school_scope]
-    @first_time = options[:first_time]
-    @recent_only = options[:recent_only]
+    @school_scope = options["school"]
+    @first_time = options["first_time"]
+    @recent_only = options["recent_only"]
   end
 
   def sftp_credentials

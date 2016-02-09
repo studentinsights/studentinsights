@@ -40,18 +40,12 @@ class Import < Thor
       end
     end
 
-    importer_options = {
-      school_scope: options["school"],
-      first_time: options["first_time"],
-      recent_only: options["recent_only"]
-    }
-
     # X2 importers to come first because they are the sole source of truth about students.
     # STAR importers don't import students, they only import STAR results.
 
     importers = [
-      SomervilleX2Importers.new(importer_options).importer,
-      SomervilleStarImporters.new(importer_options).importer
+      SomervilleX2Importers.new(options).importer,
+      SomervilleStarImporters.new(options).importer
     ].flatten
 
     importers.each do |i|
