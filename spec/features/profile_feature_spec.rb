@@ -24,7 +24,9 @@ describe 'educator views student profile', :type => :feature do
     context 'student has discipline incidents' do
       let!(:student) { FactoryGirl.create(:student_with_discipline_incident, :with_risk_level) }
       it 'shows the discipline incident' do
-        expect(page).not_to have_content 'No behavior incidents'
+        expect(page).to have_content 'Code'
+        expect(page).to have_content 'Description'
+        expect(page).to have_content 'Location'
       end
     end
 
@@ -36,13 +38,10 @@ describe 'educator views student profile', :type => :feature do
     end
 
     context 'student has absence' do
-      let!(:student) { FactoryGirl.create(:student, :with_risk_level) }
-      let(:student_school_year) { student.most_recent_school_year }
-      let(:school_year) { student_school_year.school_year }
-      let(:absence) { student_school_year.absences.create!(occurred_at: school_year.start) }
+      let!(:student) { FactoryGirl.create(:student_with_absence, :with_risk_level) }
 
       it 'shows the absence' do
-        expect(page).not_to have_content 'No absences or tardies'
+        expect(page).to have_content 'Absences: 1'
       end
     end
 
