@@ -28,7 +28,7 @@ class Importer
       file = @client.read_file(file_importer.remote_file_name)
 
       pre_cleanup_csv = CSV.parse(file, headers: true)
-      puts; puts "#{pre_cleanup_csv.size} rows of data in #{file_importer.remote_file_name} pre-cleanup"
+      puts; puts; puts "#{pre_cleanup_csv.size} rows of data in #{file_importer.remote_file_name} pre-cleanup"
 
       data = file_importer.data_transformer.transform(file)
       puts "#{data.size} rows of data in #{file_importer.remote_file_name} post-cleanup"
