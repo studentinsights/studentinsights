@@ -51,13 +51,6 @@
       collapsedNote: {
         maxHeight: '2em',
         overflowY: 'hidden'
-      },
-      addButton: {
-        fontSize: 24,
-        outline: '1px solid black',
-        padding: '0px 5px',
-        marginLeft: 10,
-
       }
     },
 
@@ -81,18 +74,12 @@
     render: function() {
       return dom.div({ className: 'InterventionsDetails', style: this.styles.container },
         dom.div({ style: this.styles.notesContainer },
-          dom.div({ style: this.styles.title},
-            'Notes',
-            dom.span({ style: this.styles.addButton }, '+')
-          ),
-          this.props.notes.map(this.renderNote)
+          dom.div({ style: this.styles.title}, 'Notes'),
+          (this.props.notes.length === 0) ? 'No notes' : this.props.notes.map(this.renderNote)
         ),
         dom.div({ style: this.styles.interventionsContainer },
-          dom.div({ style: this.styles.title},
-            'Interventions',
-            dom.span({ style: this.styles.addButton }, '+')
-          ),
-          this.props.student.interventions.map(this.renderIntervention)
+          dom.div({ style: this.styles.title}, 'Interventions'),
+          (this.props.student.interventions.length === 0) ? 'No interventions' : this.props.student.interventions.map(this.renderIntervention)
         )
       );
     },
