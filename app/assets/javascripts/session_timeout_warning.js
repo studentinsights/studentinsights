@@ -1,9 +1,10 @@
 (function(root) {
+  var Env = window.shared.Env;
 
   var SessionTimeoutWarning = function () {}
 
   SessionTimeoutWarning.prototype.count = function () {
-    root.setTimeout(this.show, 3480000);  // count up to 58 minutes
+    root.setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
   };
 
   SessionTimeoutWarning.prototype.show = function () {
