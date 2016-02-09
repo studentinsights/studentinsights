@@ -35,7 +35,7 @@ Student profiles also contain the full case history of demographic information, 
 
 ![Profile](docs/readme_images/profile-mcas.png)
 
-We're working on some big improvements to the student profile page right now, check out [#373](issues/373) for more background.
+We're working on some big improvements to the student profile page right now, check out [#5](https://github.com/studentinsights/studentinsights/issues/5) for more background.
 
 #### Capturing meeting notes and interventions
 It's one thing to have data, but acting on it to improve student outcomes is what really matters.  Schools with regular student support meetings for at-risk students can track interventions like additional tutoring hours, attendance contracts or social skills groups.  This is a building block to close the loop and monitor how effectively these interventions are serving students.
@@ -56,6 +56,10 @@ If you're an educator and want to try this out or have ideas about how to improv
 
 
 
+## How it works
+The project is a Rails app with a Postgres database.  There are background tasks that replicate data from the Aspen SIS system and STAR assessment system into the Postgres database.  This enables rapid iteration and experimentation on new product features with minimal risk to these existing production systems.  The Postgres database is the system of record for unique data captured by the Student Insights product (eg., notes from clinical meetings and information about targeted interventions that students are receiving).  Authentication is handled by the district's LDAP service.
+
+![how it works](docs/readme_images/how_it_works.png)
 
 
 ## Development Environment
