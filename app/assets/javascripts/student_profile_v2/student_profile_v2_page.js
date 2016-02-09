@@ -352,7 +352,14 @@
       _.sortBy(yearAttendanceEvents, 'occurred_at').forEach(function(attendanceEvent) {
         var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
         cumulativeValue = cumulativeValue + 1;
-        quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth() + 1, occurrenceDate.getDate(), cumulativeValue]);
+        
+        // collapse consecutive events on the same day
+        var lastQuad = _.last(quads);
+        if (lastQuad && lastQuad[0] === occurrenceDate.getFullYear() && lastQuad[1] === occurrenceDate.getMonth() + 1 && lastQuad[2] === occurrenceDate.getDate()) {
+          lastQuad[3] = cumulativeValue;
+        } else {
+          quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth() + 1, occurrenceDate.getDate(), cumulativeValue]);
+        }
       });
 
       return quads;
@@ -377,6 +384,7 @@
     },
 
     // Fills in data points for start of the school year (8/15) and for current day.
+    // Also collapses multiple events on the same day.
     cumulativeCountQuads: function(attendanceEvents) {
       var currentYearStart = this.schoolYearStart(moment(this.props.now));
       var schoolYearStarts = this.allSchoolYearStarts(this.props.dateRange);
