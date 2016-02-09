@@ -6,8 +6,9 @@
 /data
 coverage
 
+# This holds configuration for testing production import scripts locally, so it shouldn't be checked into
+# source control.
 config/local_env.yml
-config/database.yml
 
 ## Environment normalisation:
 /.bundle

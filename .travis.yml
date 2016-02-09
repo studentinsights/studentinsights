@@ -18,8 +18,6 @@ branches:
 
 before_install: gem install -v 1.10.6 bundler --no-rdoc --no-ri
 
-before_script: cp config/database.example.yml config/database.yml
-
 install:
  - bundle _1.10.6_ install --retry=3
 
