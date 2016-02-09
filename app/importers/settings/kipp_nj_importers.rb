@@ -1,11 +1,10 @@
 class KippNjImporters
 
-  attr_reader :school_scope, :first_time, :recent_only
+  attr_reader :school_scope, :first_time
 
   def initialize(options = {})
     @school_scope = options[:school_scope]
     @first_time = options[:first_time]
-    @recent_only = options[:recent_only]
   end
 
   def aws_credentials
@@ -20,7 +19,6 @@ class KippNjImporters
   def options
     {
       school_scope: @school_scope,
-      recent_only: @recent_only,
       first_time: @first_time,
       data_transformer: JsonTransformer.new,
       client: AwsAdapter.new(credentials: aws_credentials),

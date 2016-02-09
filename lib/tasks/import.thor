@@ -7,9 +7,6 @@ class Import < Thor
   method_option :first_time,
     type: :boolean,
     desc: "Fill up an empty database"
-  method_option :recent_only,
-    type: :boolean,
-    desc: "For data update, only look at recent rows"
 
   def start
     require './config/environment'

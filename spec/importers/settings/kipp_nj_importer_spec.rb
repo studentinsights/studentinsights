@@ -7,9 +7,8 @@ RSpec.describe KippNjImporters do
 
     context 'with no options' do
       let(:options) { {} }
-      it 'returns importer with no school_scope, first_time, or recent_only' do
+      it 'returns importer with no school_scope or first_time flag' do
         expect(importer.school_scope).to be_nil
-        expect(importer.recent_only).to be_nil
         expect(importer.first_time).to be_nil
       end
     end

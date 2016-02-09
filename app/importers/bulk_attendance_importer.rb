@@ -6,7 +6,6 @@ class BulkAttendanceImporter
 
     # Optional
     @school_scope = options["school"]
-    @recent_only = options["recent_only"]
     @first_time = options["first_time"]
   end
 
