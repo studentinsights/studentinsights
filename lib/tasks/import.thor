@@ -13,24 +13,16 @@ class Import < Thor
 
     # Kick up a new report helper object
     report = ImportTaskReport.new([
-      Student,
-      StudentAssessment,
-      DisciplineIncident,
-      Absence,
-      Tardy,
-      Educator,
-      School
+      Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School
     ])
 
     report.print_initial_report
 
     # Create Somerville schools from seed file if they are missing
-
     School.seed_somerville_schools if School.count == 0
 
     # Make sure school exists in database if school scope is set and refers
     # to a particular school. No need to check if scope is all elementary schools.
-
     if options["school"].present? && options["school"] != ["ELEM"]
       options["school"].map do |school_local_id|
         School.find_by_local_id!(school_local_id)
@@ -39,7 +31,6 @@ class Import < Thor
 
     # X2 importers to come first because they are the sole source of truth about students.
     # STAR importers don't import students, they only import STAR results.
-
     importers = [
       SomervilleX2Importers.new(options).importer,
       SomervilleStarImporters.new(options).importer
@@ -56,7 +47,6 @@ class Import < Thor
     Student.update_risk_levels
     Student.update_student_school_years
     Student.update_recent_student_assessments
-
     Homeroom.destroy_empty_homerooms
 
     report.print_final_report
