@@ -35,7 +35,7 @@ Student profiles also contain the full case history of demographic information, 
 
 ![Profile](docs/readme_images/profile-mcas.png)
 
-We're working on some big improvements to the student profile page right now, check out [#5](issues/5) for more background.
+We're working on some big improvements to the student profile page right now, check out [#5](https://github.com/studentinsights/studentinsights/issues/5) for more background.
 
 #### Capturing meeting notes and interventions
 It's one thing to have data, but acting on it to improve student outcomes is what really matters.  Schools with regular student support meetings for at-risk students can track interventions like additional tutoring hours, attendance contracts or social skills groups.  This is a building block to close the loop and monitor how effectively these interventions are serving students.
