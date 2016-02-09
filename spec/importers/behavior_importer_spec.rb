@@ -1,3 +1,4 @@
+
 require 'rails_helper'
 
 RSpec.describe BehaviorImporter do
@@ -5,6 +6,11 @@ RSpec.describe BehaviorImporter do
   let(:importer) {
     Importer.new(current_file_importer: described_class.new)
   }
+
+  before { FactoryGirl.create(:student, local_id: '11') }
+  before { FactoryGirl.create(:student, local_id: '12') }
+  before { FactoryGirl.create(:student, local_id: '13') }
+  before { FactoryGirl.create(:student, local_id: '14') }
 
   let(:import) { importer.start_import(csv) }
 

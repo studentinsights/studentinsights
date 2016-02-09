@@ -51,7 +51,7 @@ describe StudentsController, :type => :controller do
 
           it 'assigns the student school year correctly' do
             make_request({ student_id: student.id, format: :html })
-            expect(assigns(:student_school_years)).to eq [student_school_year]
+            expect(assigns(:student_school_years)).to eq student.student_school_years
           end
 
         end
@@ -111,6 +111,7 @@ describe StudentsController, :type => :controller do
         end
 
         context 'educator has some grade level access but for the wrong grade' do
+          let(:student) { FactoryGirl.create(:student, :with_risk_level, grade: '1') }
           let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['KF']) }
 
           it 'fails' do
@@ -199,8 +200,8 @@ describe StudentsController, :type => :controller do
       end
       context 'query matches student name' do
         let(:healey) { FactoryGirl.create(:healey) }
-        let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '05') }
-        let!(:jacob) { FactoryGirl.create(:student, first_name: 'Jacob', grade: '05') }
+        let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '5') }
+        let!(:jacob) { FactoryGirl.create(:student, first_name: 'Jacob', grade: '5') }
 
         it 'is successful' do
           make_request('j')
@@ -208,7 +209,7 @@ describe StudentsController, :type => :controller do
         end
         it 'returns student name and id' do
           make_request('j')
-          expect(assigns(:result)).to eq [{ label: "Juan - HEA - 05", value: juan.id }]
+          expect(assigns(:result)).to eq [{ label: "Juan - HEA - 5", value: juan.id }]
         end
       end
       context 'does not match student name' do

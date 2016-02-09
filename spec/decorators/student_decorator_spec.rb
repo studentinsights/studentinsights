@@ -38,7 +38,6 @@ describe StudentDecorator do
          "disability" => nil,
          "first_name" => nil,
          "free_reduced_lunch" => nil,
-         "grade" => nil,
          "hispanic_latino" => nil,
          "home_language" => nil,
          "last_name" => nil,

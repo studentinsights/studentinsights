@@ -4,12 +4,7 @@ RSpec.describe do
 
   describe '#import' do
 
-    let(:file_importer_class) {
-      Class.new do
-        def import_row(row); Student.where(local_id: row[:local_id]).first_or_create! end
-        def remote_file_name; '' end
-      end
-    }
+    let(:file_importer_class) { StudentsImporter }
 
     let(:file_importer) { file_importer_class.new }
 
