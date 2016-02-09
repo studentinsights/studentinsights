@@ -46,6 +46,23 @@ class StudentsController < ApplicationController
     end
   end
 
+  # TODO(kr) clarify serialized_data in student.rb, why both and how used
+  # TODO(kr) can simplify chart_data later
+  def profile
+    student = Student.find(params[:id])
+    @serialized_data = {
+      student: student.serialized_data,
+      notes: student.student_notes.map {|note| serialize_student_note(note) },
+      chart_data: StudentProfileChart.new(student.serialized_student_data).chart_data,
+      intervention_types_index: intervention_types_index,
+      attendance_data: {
+        discipline_incidents: student.most_recent_school_year.discipline_incidents,
+        tardies: student.most_recent_school_year.tardies,
+        absences: student.most_recent_school_year.tardies
+      }
+    }
+  end
+
   def names
     @q = params[:q].upcase
     @length = @q.length

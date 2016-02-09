@@ -52,7 +52,9 @@
   ProfileChartSettings.x_axis_datetime = {
     type: 'datetime',
     dateTimeLabelFormats: {
-        day: '%e of %b'
+      day: '%b %e %Y',
+      week: '%b %e %Y',
+      year: '%b %e %Y'
     }
   }
 

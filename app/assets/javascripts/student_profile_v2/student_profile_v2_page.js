@@ -1,0 +1,441 @@
+(function() {
+  window.shared || (window.shared = {});
+  var dom = window.shared.ReactHelpers.dom;
+  var createEl = window.shared.ReactHelpers.createEl;
+  var merge = window.shared.ReactHelpers.merge;
+
+  var Routes = window.shared.Routes;
+  var Sparkline = window.shared.Sparkline;
+  var AcademicSummary = window.shared.AcademicSummary;
+  var ELADetails = window.shared.ELADetails;
+  var InterventionsDetails = window.shared.InterventionsDetails;
+  var AttendanceDetails = window.shared.AttendanceDetails;
+
+  var ProfileDetails = React.createClass({
+    render: function() {
+      return dom.div({}, 'profile');
+    }
+  });
+
+
+  var SummaryList = React.createClass({
+    render: function() {
+      return dom.div({ style: { paddingBottom: 10 } },
+        dom.div({ style: { fontWeight: 'bold' } }, this.props.title),
+        dom.ul({}, this.props.elements.map(function(element, index) {
+          return dom.li({ key: index }, element);
+        }))
+      );
+    }
+  });
+
+  // define page component
+  var styles = {
+    page: {
+      marginLeft: 20,
+      marginRight: 20
+    },
+    titleContainer: {
+      fontSize: 16,
+      padding: 20
+    },
+    nameTitle: {
+      fontSize: 20,
+      fontWeight: 'bold'
+    },
+    titleItem: {
+      padding: 5
+    },
+    summaryContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      background: '#eee'
+    },
+    detailsContainer: {
+      margin: 30
+    },
+    academicColumn: {
+      textAlign: 'center',
+      flex: 3
+    },
+    column: {
+      flex: 4,
+      padding: 20,
+      cursor: 'pointer'
+    },
+    selectedColumn: {
+      border: '5px solid rgba(49, 119, 201, 0.64)',
+      padding: 15
+    },
+    summaryWrapper: {
+      paddingBottom: 10
+    },
+    sparklineWidth: 150,
+    sparklineHeight: 50
+  };
+
+  var StudentProfileV2Page = window.shared.StudentProfileV2Page = React.createClass({
+    displayName: 'StudentProfileV2Page',
+
+    propTypes: {
+      queryParams: React.PropTypes.object,
+      student: React.PropTypes.object.isRequired,
+      interventionTypesIndex: React.PropTypes.object.isRequired,
+      chartData: React.PropTypes.shape({
+        // ela
+        most_recent_star_reading_percentile: React.PropTypes.number,
+        most_recent_mcas_ela_scaled: React.PropTypes.number,
+        most_recent_mcas_ela_growth: React.PropTypes.number,
+        star_series_reading_percentile: React.PropTypes.array,
+        mcas_series_ela_scaled: React.PropTypes.array,
+        mcas_series_ela_growth: React.PropTypes.array,
+        // math
+        most_recent_star_math_percentile: React.PropTypes.number,
+        most_recent_mcas_math_scaled: React.PropTypes.number,
+        most_recent_mcas_math_growth: React.PropTypes.number,
+        star_series_math_percentile: React.PropTypes.array,
+        mcas_series_math_scaled: React.PropTypes.array,
+        mcas_series_math_growth: React.PropTypes.array
+      }),
+      attendanceData: React.PropTypes.shape({
+        discipline_incidents: React.PropTypes.array, // TODO(kr) case bug serializing from rails
+        tardies: React.PropTypes.array,
+        absences: React.PropTypes.array
+      }),
+      dateRange: React.PropTypes.array.isRequired
+    },
+
+    getDefaultProps: function() {
+      return { queryParams: {} };
+    },
+
+    getInitialState: function() {
+      return {
+        selectedColumnKey: this.props.queryParams.column || 'interventions'
+      };
+    },
+
+    componentDidUpdate: function(props, state) {
+      var path = Routes.studentProfile(this.props.student.id, {
+        column: this.state.selectedColumnKey
+      });
+      window.history.replaceState({}, null, path);
+    },
+
+    selectedColumnStyles: function(columnKey) {
+      return (columnKey === this.state.selectedColumnKey) ? styles.selectedColumn : {};
+    },
+
+    onColumnClicked: function(columnKey) {
+      this.setState({ selectedColumnKey: columnKey });
+    },
+
+    render: function() {
+      return dom.div({ className: 'StudentProfileV2Page', style: styles.page },
+        this.renderStudentName(),
+        dom.div({ style: styles.summaryContainer },
+          this.renderProfileColumn(),
+          this.renderELAColumn(),
+          this.renderMathColumn(),
+          this.renderAttendanceColumn(),
+          this.renderInterventionsColumn()
+        ),
+        dom.div({ style: styles.detailsContainer }, this.renderSectionDetails())
+      );
+    },
+
+    renderSectionDetails: function() {
+      // TODO(kr) make factoring more explicit
+      var attendanceData = this.props.attendanceData;
+      var props = {
+        student: this.props.student,
+        notes: this.props.notes,
+        interventionTypesIndex: this.props.interventionTypesIndex
+      };
+      switch (this.state.selectedColumnKey) {
+        case 'profile': return createEl(ProfileDetails, props);
+        case 'interventions': return createEl(InterventionsDetails, props);
+        case 'ela': return createEl(ELADetails, { chartData: this.props.chartData });
+        case 'attendance': return createEl(AttendanceDetails, {
+          cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
+          cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
+          cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies),
+          disciplineIncidents: attendanceData.discipline_incidents
+        });
+      }
+      return null;
+    },
+
+    renderStudentName: function() {
+      var student =  this.props.student;
+      return dom.div({ style: styles.titleContainer },
+        dom.a({
+          href: Routes.student(student.id),
+          style: styles.nameTitle
+        }, student.first_name + ' ' + student.last_name),
+        dom.a({
+          href: Routes.school(student.school_id),
+          style: styles.titleItem
+        }, student.school_name),
+        dom.span({
+          style: styles.titleItem
+        }, student.grade),
+        dom.a({
+          href: Routes.homeroom(student.homeroom_id),
+          style: styles.titleItem
+        }, student.homeroom_name)
+      );
+    },
+
+    renderProfileColumn: function() {
+      var student = this.props.student;
+      var columnKey = 'profile';
+
+      return dom.div({
+        style: merge(styles.column, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
+        this.renderTitle('Demographics'),
+        dom.div({}, 'Disability: ' + student.sped_level_of_need),
+        dom.div({}, 'Low income: ' + student.free_reduced_lunch),
+        dom.div({}, 'Language: ' + student.limited_english_proficiency)
+      );
+    },
+
+    renderInterventionsColumn: function() {
+      var student = this.props.student;
+      var columnKey = 'interventions';
+
+      return dom.div({
+        style: merge(styles.column, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      }, this.padElements(styles.summaryWrapper, [
+        this.renderPlacement(student),
+        this.renderInterventions(student)
+      ]));
+    },
+
+    renderPlacement: function(student) {
+      var placement = (student.sped_placement !== null)
+        ? student.program_assigned + ', ' + student.sped_placement
+        : student.program_assigned;
+      
+      return createEl(SummaryList, {
+        title: 'Placement',
+        elements: [
+          placement,
+          'Homeroom ' + student.homeroom_name
+        ]
+      });
+    },
+
+    renderInterventions: function(student) {
+      var elements = (student.interventions.length === 0) ? ['None'] : _.sortBy(student.interventions, 'start_date').map(function(intervention) {
+        var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
+        var daysText = moment(intervention.start_date).fromNow(true);
+        return dom.span({ key: intervention.id },
+          dom.span({}, interventionText),
+          dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
+        );
+      }, this);
+
+      return createEl(SummaryList, {
+        title: 'Interventions',
+        elements: elements
+      });
+    },
+
+    renderELAColumn: function() {
+      var student = this.props.student;
+      var chartData = this.props.chartData;
+      var columnKey = 'ela';
+
+      return dom.div({
+        className: 'ela-background',
+        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
+        this.wrapSummary({
+          caption: 'STAR Reading',
+          value: student.most_recent_star_reading_percentile,
+          sparkline: this.renderSparkline(chartData.star_series_reading_percentile || [])
+        }),
+        this.wrapSummary({
+          caption: 'MCAS ELA',
+          value: student.most_recent_mcas_ela_scaled,
+          sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled || [], {
+            valueRange: [200, 300],
+            thresholdValue: 240
+          })
+        }),
+        this.wrapSummary({
+          caption: 'MCAS ELA Growth',
+          value: student.most_recent_mcas_ela_growth,
+          sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
+        })
+      );
+    },
+
+    renderMathColumn: function() {
+      var student = this.props.student;
+      var chartData = this.props.chartData;
+      var columnKey = 'math';
+
+      return dom.div({
+        className: 'math-background',
+        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
+        this.wrapSummary({
+          caption: 'STAR Math',
+          value: student.most_recent_star_math_percentile,
+          sparkline: this.renderSparkline(chartData.star_series_math_percentile || [])
+        }),
+        this.wrapSummary({
+          caption: 'MCAS Math',
+          value: student.most_recent_mcas_math_scaled,
+          sparkline: this.renderSparkline(chartData.mcas_series_math_scaled || [], {
+            valueRange: [200, 300],
+            thresholdValue: 240
+          })
+        }),
+        this.wrapSummary({
+          caption: 'MCAS Math Growth',
+          value: student.most_recent_mcas_math_growth,
+          sparkline: this.renderSparkline(chartData.mcas_series_math_growth || [])
+        })
+      );
+    },
+
+    renderAttendanceColumn: function() {
+      var student = this.props.student;
+      var attendanceData = this.props.attendanceData;
+      var columnKey = 'attendance';
+
+      return dom.div({
+        className: 'attendance-background',
+        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
+        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {
+          caption: 'Discipline incidents',
+          valueRange: [0, 6],
+          thresholdValue: 3
+        }),
+        this.renderAttendanceEventsSummary(attendanceData.absences, {
+          caption: 'Absences',
+          valueRange: [0, 40],
+          thresholdValue: 20
+        }),
+        this.renderAttendanceEventsSummary(attendanceData.tardies, {
+          caption: 'Tardies',
+          valueRange: [0, 20],
+          thresholdValue: 10
+        })
+      );
+    },
+
+    renderAttendanceEventsSummary: function(attendanceEvents, props) {
+      var cumulativeQuads = this.cumulativeCountQuads(attendanceEvents);
+      var value = (cumulativeQuads.length > 0) ? _.last(cumulativeQuads)[3] : 0;
+
+      return this.wrapSummary(merge({
+        title: props.title,
+        value: value,
+        sparkline: this.renderSparkline(cumulativeQuads, props)
+      }, props));
+    },
+
+    toCumulativeQuads: function(yearAttendanceEvents) {
+      var cumulativeValue = 0;
+      var quads = [];
+      _.sortBy(yearAttendanceEvents, 'occurred_at').forEach(function(attendanceEvent) {
+        var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
+        cumulativeValue = cumulativeValue + 1;
+        
+        // collapse consecutive events on the same day
+        var lastQuad = _.last(quads);
+        if (lastQuad && lastQuad[0] === occurrenceDate.getFullYear() && lastQuad[1] === occurrenceDate.getMonth() + 1 && lastQuad[2] === occurrenceDate.getDate()) {
+          lastQuad[3] = cumulativeValue;
+        } else {
+          quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth() + 1, occurrenceDate.getDate(), cumulativeValue]);
+        }
+      });
+
+      return quads;
+    },
+
+    schoolYearStart: function(eventMoment) {
+      var year = eventMoment.year();
+      var startOfSchoolYear = moment(new Date(year, 8, 15));
+      var isFallSeason = eventMoment.clone().diff(startOfSchoolYear, 'days') > 0;
+      return (isFallSeason) ? year : year - 1;
+    },
+
+    cumulativeStartDate: function(start) {
+      var schoolYearStart = this.schoolYearStart(moment(start));
+      return new Date(schoolYearStart, 8, 15);
+    },
+
+    allSchoolYearStarts: function(dateRange) {
+      var schoolYearStarts = dateRange.map(function(date) {
+        return this.schoolYearStart(moment(date));
+      }, this);
+      return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
+    },
+
+    // Fills in data points for start of the school year (8/15) and for current day.
+    // Also collapses multiple events on the same day.
+    // TODO(kr) should extract this, simplify and test it more thoroughly
+    cumulativeCountQuads: function(attendanceEvents) {
+      var currentYearStart = this.schoolYearStart(moment(this.props.now));
+      var schoolYearStarts = this.allSchoolYearStarts(this.props.dateRange);
+      var sortedAttendanceEvents = _.sortBy(attendanceEvents, 'occurred_at');
+
+      var quads = [];
+      schoolYearStarts.sort().forEach(function(schoolYearStart) {
+        var yearAttendanceEvents = sortedAttendanceEvents.filter(function(attendanceEvent) {
+          return this.schoolYearStart(moment(attendanceEvent.occurred_at)) === schoolYearStart;
+        }, this);
+        var cumulativeEventQuads = this.toCumulativeQuads(yearAttendanceEvents);
+        var startOfYearQuad = [schoolYearStart, 8, 15, 0];
+        quads.push(startOfYearQuad);
+        cumulativeEventQuads.forEach(function(cumulativeQuad) { quads.push(cumulativeQuad); });
+        var lastValue = (cumulativeEventQuads.length === 0) ? 0 : _.last(cumulativeEventQuads)[3];
+        if (schoolYearStart === currentYearStart) {
+          quads.push([this.props.now.getFullYear(), this.props.now.getMonth() + 1, this.props.now.getDate(), lastValue]);
+        }
+      }, this);
+
+      return _.sortBy(quads, function(quad) { return new Date(quad[0], quad[1], quad[2]) });
+    },
+
+    // quads format is: [[year, month (Ruby), day, value]]
+    renderSparkline: function(quads, props) {
+      var dateRange = this.props.dateRange;
+      return createEl(Sparkline, merge({
+        height: styles.sparklineHeight,
+        width: styles.sparklineWidth,
+        quads: quads,
+        dateRange: dateRange,
+        valueRange: [0, 100],
+        thresholdValue: 50
+      }, props || {}));
+    },
+
+    // render with style wrapper
+    wrapSummary: function(props) {
+      return dom.div({ style: styles.summaryWrapper }, createEl(AcademicSummary, props));
+    },
+
+    padElements: function(style, elements) {
+      return dom.div({}, elements.map(function(element, index) {
+        return dom.div({ key: index, style: style }, element);
+      }));
+    },
+
+    renderTitle: function(text) {
+      return dom.div({style: {fontWeight: "bold"} }, text);
+    }
+  });
+})();

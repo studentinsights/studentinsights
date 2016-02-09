@@ -18,16 +18,10 @@ $(function() {
       MixpanelUtils.registerUser(serializedData.currentEducator);
       MixpanelUtils.track('PAGE_VISIT', { page_key: 'STAR_READING_PAGE' });
 
-      // index by intervention type id
-      var InterventionTypes = serializedData.interventionTypes.reduce(function(map, interventionType) {
-        map[interventionType.id] = interventionType;
-        return map;
-      }, {});
-
       ReactDOM.render(createEl(StarReadingPage, {
         students: serializedData.studentsWithStarReading,
         dateNow: new Date(),
-        InterventionTypes: InterventionTypes,
+        InterventionTypes: serializedData.interventionTypesIndex,
         initialFilters: Filters.parseFiltersHash(window.location.hash)
       }), document.getElementById('main'));
     }
