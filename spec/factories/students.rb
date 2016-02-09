@@ -117,31 +117,37 @@ FactoryGirl.define do
 
     factory :student_with_registration_date do
       registration_date Date.new(2015, 1, 1)
+
       factory :student_with_mcas_assessment do
+        grade '6'
         after(:create) do |student|
           FactoryGirl.create(:mcas_assessment, student: student)
         end
       end
 
       factory :student_with_mcas_math_assessment do
+        grade '6'
         after(:create) do |student|
           FactoryGirl.create(:mcas_math_assessment, student: student)
         end
       end
 
       factory :student_with_mcas_ela_assessment do
+        grade '6'
         after(:create) do |student|
           FactoryGirl.create(:mcas_ela_assessment, student: student)
         end
       end
 
       factory :student_with_mcas_math_warning_assessment do
+        grade '6'
         after(:create) do |student|
           FactoryGirl.create(:mcas_math_warning_assessment, student: student)
         end
       end
 
       factory :student_with_mcas_math_advanced_and_star_math_warning_assessments do
+        grade '6'
         after(:create) do |student|
           FactoryGirl.create(:mcas_math_advanced_assessment, student: student)
           FactoryGirl.create(:star_math_warning_assessment, student: student)
@@ -149,12 +155,14 @@ FactoryGirl.define do
       end
 
       factory :student_with_star_math_assessment do
+        grade '6'
         after(:create) do |student|
           FactoryGirl.create(:star_math_assessment, student: student)
         end
       end
 
       factory :student_with_star_math_and_star_reading_same_day do
+        grade '6'
         after(:create) do |student|
           FactoryGirl.create(:star_math_assessment, student: student)
           FactoryGirl.create(:star_reading_assessment, student: student)
@@ -162,6 +170,7 @@ FactoryGirl.define do
       end
 
       factory :student_with_star_math_student_assessments_different_days do
+        grade '6'
         after(:create) do |student|
           FactoryGirl.create(:star_math_assessment, student: student)
           FactoryGirl.create(:star_math_assessment_on_different_day, student: student)
@@ -169,6 +178,7 @@ FactoryGirl.define do
       end
 
       factory :student_with_star_assessment_between_30_85 do
+        grade '6'
         after(:create) do |student|
           FactoryGirl.create(:star_assessment_between_30_85, student: student)
         end
@@ -219,6 +229,13 @@ FactoryGirl.define do
       grade "5"
       after(:create) do |student|
         FactoryGirl.create(:star_assessment_with_irl_above_5, student: student)
+      end
+    end
+
+    factory :student_with_absence do
+      after(:create) do |student|
+        student_school_years = FactoryGirl.create_list(:student_school_year, 1, student: student)
+        FactoryGirl.create(:absence, student_school_year: student_school_years.first)
       end
     end
 

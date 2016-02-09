@@ -91,7 +91,7 @@ describe 'educator views student profile', :type => :feature do
       end
 
       context 'math' do
-        let!(:student) { FactoryGirl.create(:student_with_star_math_assessment, :with_risk_level) }
+        let!(:student) { FactoryGirl.create(:student_with_star_math_assessment, :with_risk_level, grade: '6') }
         it 'shows STAR result' do
           expect(page).to have_css '.star-math-values'
         end
