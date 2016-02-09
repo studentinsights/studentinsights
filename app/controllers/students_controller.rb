@@ -8,19 +8,7 @@ class StudentsController < ApplicationController
   def authorize!
     student = Student.find(params[:id])
     educator = current_educator
-
-    raise Exceptions::EducatorNotAuthorized if educator.restricted_to_sped_students &&
-                                               !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
-
-    raise Exceptions::EducatorNotAuthorized if educator.restricted_to_english_language_learners &&
-                                               student.limited_english_proficiency == 'Fluent'
-    allowed_conditions = [
-      educator.schoolwide_access,                       # <= Schoolwide admin
-      student.grade.in?(educator.grade_level_access),   # <= Grade level access
-      student.in?(educator.students)                    # <= Homeroom level access
-    ]
-
-    raise Exceptions::EducatorNotAuthorized unless allowed_conditions.any?
+    raise Exceptions::EducatorNotAuthorized unless educator.is_authorized_for_student(student)
   end
 
   def show
