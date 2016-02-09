@@ -33,7 +33,11 @@ describe 'educator views student profile', :type => :feature do
       end
     end
     context 'student has absence' do
-      let!(:student) { FactoryGirl.create(:student_with_absence, :with_risk_level) }
+      let!(:student) { FactoryGirl.create(:student, :with_risk_level) }
+      let(:student_school_year) { student.most_recent_school_year }
+      let(:school_year) { student_school_year.school_year }
+      let(:absence) { student_school_year.absences.create!(occurred_at: school_year.start) }
+
       it 'shows the absence' do
         expect(page).not_to have_content 'No absences or tardies'
       end
@@ -46,27 +50,27 @@ describe 'educator views student profile', :type => :feature do
     end
     context 'student has MCAS results' do
       context 'English' do
-        let!(:student) { FactoryGirl.create(:student_with_mcas_ela_assessment, :with_risk_level) }
+        let!(:student) { FactoryGirl.create(:student_with_mcas_ela_assessment, :with_risk_level, grade: '6') }
         it 'shows MCAS results' do
           expect(page).to have_css '.mcas-ela-values'
         end
       end
       context 'math' do
-        let!(:student) { FactoryGirl.create(:student_with_mcas_math_assessment, :with_risk_level) }
+        let!(:student) { FactoryGirl.create(:student_with_mcas_math_assessment, :with_risk_level, grade: '6') }
         it 'shows MCAS results' do
           expect(page).to have_css '.mcas-math-values'
         end
       end
     end
     context 'student has no STAR results' do
-      let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014, :with_risk_level) }
+      let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014, :with_risk_level, grade: '6') }
       it 'shows no STAR results' do
         expect(page).not_to have_css '.star-result-section'
       end
     end
     context 'student has a STAR result' do
       context 'reading' do
-        let!(:student) { FactoryGirl.create(:student_ahead_in_reading, :with_risk_level) }
+        let!(:student) { FactoryGirl.create(:student_ahead_in_reading, :with_risk_level, grade: '6') }
         it 'shows STAR result' do
           expect(page).to have_css '.star-reading-values'
         end
