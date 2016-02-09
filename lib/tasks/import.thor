@@ -4,9 +4,6 @@ class Import < Thor
     type: :array,
     aliases: "-s",
     desc: "Scope by school local IDs; use ELEM to import all elementary schools"
-  method_option :district,
-    aliases: "-d",
-    desc: "Scope by school district / charter organization"
   method_option :first_time,
     type: :boolean,
     desc: "Fill up an empty database"
@@ -34,8 +31,7 @@ class Import < Thor
 
     # Create Somerville schools from seed file if they are missing
 
-    School.seed_somerville_schools if options["district"] == "Somerville" &&
-                                      School.count == 0
+    School.seed_somerville_schools if School.count == 0
 
     # Make sure school exists in database if school scope is set and refers
     # to a particular school. No need to check if scope is all elementary schools.
@@ -47,24 +43,16 @@ class Import < Thor
     end
 
     importer_options = {
-      district_scope: options["district"],
       school_scope: options["school"],
       first_time: options["first_time"],
       recent_only: options["recent_only"]
     }
 
-    importers = case options["district"]
-      when "Somerville"
-        # X2 importers to come first because they are the sole source of truth about students.
-        # STAR importers don't import students, they only import STAR results.
+    # X2 importers to come first because they are the sole source of truth about students.
+    # STAR importers don't import students, they only import STAR results.
 
-        [ SomervilleX2Importers.new(importer_options).importer,
-          SomervilleStarImporters.new(importer_options).importer ].flatten
-      when "KIPP NJ"
-        KippNjSettings.new(importer_options).importers
-      else
-        raise "don't know about that school district buddy"
-      end
+    importers = [ SomervilleX2Importers.new(importer_options).importer,
+                  SomervilleStarImporters.new(importer_options).importer ].flatten
 
     importers.each do |i|
       begin
