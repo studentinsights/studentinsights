@@ -5,7 +5,6 @@ class Importer
                                     # import_row => method for importing each row
                   :client,
                   :school_scope,
-                  :recent_only,
                   :first_time
 
   attr_accessor   :current_file_importer
@@ -17,7 +16,6 @@ class Importer
 
     # Optional
     @school_scope = options[:school_scope]    # Array of school local IDs
-    @recent_only = options[:recent_only]
     @first_time = options[:first_time]
 
     # Just for testing convenience, otherwise set internally

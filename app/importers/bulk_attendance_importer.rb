@@ -5,9 +5,8 @@ class BulkAttendanceImporter
     @client = options[:client]
 
     # Optional
-    @school_scope = options[:school_scope]
-    @recent_only = options[:recent_only]
-    @first_time = options[:first_time]
+    @school_scope = options["school"]
+    @first_time = options["first_time"]
   end
 
   def remote_file_name
