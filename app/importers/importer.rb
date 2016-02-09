@@ -26,7 +26,13 @@ class Importer
     file_importers.each do |file_importer|
       @current_file_importer = file_importer
       file = @client.read_file(file_importer.remote_file_name)
+
+      pre_cleanup_csv = CSV.parse(file, headers: true)
+      puts; puts; puts "#{pre_cleanup_csv.size} rows of data in #{file_importer.remote_file_name} pre-cleanup"
+
       data = file_importer.data_transformer.transform(file)
+      puts "#{data.size} rows of data in #{file_importer.remote_file_name} post-cleanup"
+
       start_import(data)
     end
   end
