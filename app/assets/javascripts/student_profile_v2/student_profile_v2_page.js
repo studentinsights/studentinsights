@@ -324,8 +324,8 @@
         }),
         this.renderAttendanceEventsSummary(attendanceData.absences, {
           caption: 'Absences',
-          valueRange: [0, 20],
-          thresholdValue: 10
+          valueRange: [0, 40],
+          thresholdValue: 20
         }),
         this.renderAttendanceEventsSummary(attendanceData.tardies, {
           caption: 'Tardies',
@@ -367,7 +367,8 @@
 
     schoolYearStart: function(eventMoment) {
       var year = eventMoment.year();
-      var isFallSeason = (eventMoment.month() >= 8 && eventMoment.date() > 15);
+      var startOfSchoolYear = moment(new Date(year, 8, 15));
+      var isFallSeason = eventMoment.clone().diff(startOfSchoolYear, 'days') > 0;
       return (isFallSeason) ? year : year - 1;
     },
 
@@ -385,12 +386,15 @@
 
     // Fills in data points for start of the school year (8/15) and for current day.
     // Also collapses multiple events on the same day.
+    // TODO(kr) should extract this, simplify and test it more thoroughly
     cumulativeCountQuads: function(attendanceEvents) {
       var currentYearStart = this.schoolYearStart(moment(this.props.now));
       var schoolYearStarts = this.allSchoolYearStarts(this.props.dateRange);
+      var sortedAttendanceEvents = _.sortBy(attendanceEvents, 'occurred_at');
+
       var quads = [];
       schoolYearStarts.sort().forEach(function(schoolYearStart) {
-        var yearAttendanceEvents = attendanceEvents.filter(function(attendanceEvent) {
+        var yearAttendanceEvents = sortedAttendanceEvents.filter(function(attendanceEvent) {
           return this.schoolYearStart(moment(attendanceEvent.occurred_at)) === schoolYearStart;
         }, this);
         var cumulativeEventQuads = this.toCumulativeQuads(yearAttendanceEvents);
@@ -403,7 +407,7 @@
         }
       }, this);
 
-      return quads;
+      return _.sortBy(quads, function(quad) { return new Date(quad[0], quad[1], quad[2]) });
     },
 
     // quads format is: [[year, month (Ruby), day, value]]
