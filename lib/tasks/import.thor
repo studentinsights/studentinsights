@@ -27,8 +27,6 @@ class Import < Thor
 
     report.print_initial_report
 
-    initial_counts_hash = report.initial_counts_hash    # Store initial values so we can diff later
-
     # Create Somerville schools from seed file if they are missing
 
     School.seed_somerville_schools if School.count == 0
@@ -51,8 +49,10 @@ class Import < Thor
     # X2 importers to come first because they are the sole source of truth about students.
     # STAR importers don't import students, they only import STAR results.
 
-    importers = [ SomervilleX2Importers.new(importer_options).importer,
-                  SomervilleStarImporters.new(importer_options).importer ].flatten
+    importers = [
+      SomervilleX2Importers.new(importer_options).importer,
+      SomervilleStarImporters.new(importer_options).importer
+    ].flatten
 
     importers.each do |i|
       begin

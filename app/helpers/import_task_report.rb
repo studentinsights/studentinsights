@@ -4,6 +4,7 @@ class ImportTaskReport
 
   def initialize(models_for_report)
     @models_for_report = models_for_report
+    @initial_counts_hash = compute_initial_counts
   end
 
   ## INITIAL REPORT ##
@@ -20,7 +21,7 @@ class ImportTaskReport
     end
   end
 
-  def initial_counts_hash
+  def compute_initial_counts
     models_for_report.map do |klass|
       [ klass.to_s, klass.count ]
     end.to_h
@@ -30,14 +31,14 @@ class ImportTaskReport
 
   def print_final_report
     puts; puts; puts "=== FINAL DATABASE COUNTS ==="
-    puts; puts end_of_task_report(initial_counts_hash)
+    puts; puts end_of_task_report
     puts; puts; puts "=== BY SCHOOL ==="
     puts by_school_report
   end
 
-  def end_of_task_report(initial_counts_hash)
+  def end_of_task_report
     models_for_report.map do |klass|
-      initial_count = initial_counts_hash[klass.to_s]
+      initial_count = @initial_counts_hash[klass.to_s]
       end_of_task_report_for_klass(klass, initial_count)
     end
   end
@@ -67,11 +68,7 @@ class ImportTaskReport
   end
 
   def diff_report_for_class(klass_diff)
-    "(#{diff_sign(klass_diff)}#{humanize_count(klass_diff)})"
-  end
-
-  def diff_sign(klass_diff)
-    klass_diff >= 0 ? '+' : '-'
+    "(#{klass_diff >= 0 ? '+' : '-' }#{humanize_count(klass_diff)})"
   end
 
   def humanize_class_name(klass)
