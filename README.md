@@ -57,7 +57,7 @@ If you're an educator and want to try this out or have ideas about how to improv
 
 
 ## How it works
-The project is a Rails app with a Postgres database.  There are tasks that replicate data from the Aspen SIS system and STAR assessment system into the Postgres database.  This enables rapid iteration and experimentation on new product features with minimal risk to these existing production systems.  Unique data captured by the Student Insights product, like which interventions students are receiving, is stored in the Postgres database where it is the system of record.  Authentication is handled by the district's LDAP service.
+The project is a Rails app with a Postgres database.  There are background tasks that replicate data from the Aspen SIS system and STAR assessment system into the Postgres database.  This enables rapid iteration and experimentation on new product features with minimal risk to these existing production systems.  The Postgres database is the system of record for unique data captured by the Student Insights product (eg., notes from clinical meetings and information about targeted interventions that students are receiving).  Authentication is handled by the district's LDAP service.
 
 ![how it works](docs/readme_images/how_it_works.png)
 
