@@ -73,32 +73,32 @@ class FakeStudent
     }
   end
 
-  def x2_assessment_generators
+  def create_x2_assessment_generators(student)
     [
-      FakeMcasMathResultGenerator.new(@student),
-      FakeMcasElaResultGenerator.new(@student),
-      FakeDibelsResultGenerator.new(@student),
-      FakeAccessResultGenerator.new(@student)
+      FakeMcasMathResultGenerator.new(student),
+      FakeMcasElaResultGenerator.new(student),
+      FakeDibelsResultGenerator.new(student),
+      FakeAccessResultGenerator.new(student)
     ]
   end
 
-  def star_assessment_generators
+  def create_star_assessment_generators(student)
     [
-      FakeStarMathResultGenerator.new(@student),
-      FakeStarReadingResultGenerator.new(@student)
+      FakeStarMathResultGenerator.new(student),
+      FakeStarReadingResultGenerator.new(student)
     ]
   end
 
   def add_student_assessments
-    5.times do
-      x2_assessment_generators.each do |assessment|
-        StudentAssessment.new(assessment.next).save
+    create_x2_assessment_generators(@student).each do |assessment_generator|
+      5.times do
+        StudentAssessment.new(assessment_generator.next).save
       end
     end
 
-    12.times do
-     star_assessment_generators.each do |assessment|
-        StudentAssessment.new(assessment.next).save
+    create_star_assessment_generators(@student).each do |assessment_generator|
+      12.times do
+        StudentAssessment.new(assessment_generator.next).save
       end
     end
   end
