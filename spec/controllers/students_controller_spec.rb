@@ -97,6 +97,19 @@ describe StudentsController, :type => :controller do
           end
         end
 
+        context 'educator has schoolwide access but grade_level_access is nil' do
+          let(:educator) { FactoryGirl.create(:educator, {
+            grade_level_access: nil,
+            schoolwide_access: true,
+            restricted_to_sped_students: false
+          }) }
+
+          it 'succeeds without an exception' do
+            make_request({ student_id: student.id, format: :html })
+            expect(response).to be_success
+          end
+        end
+
         context 'educator has some grade level access but for the wrong grade' do
           let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['KF']) }
 

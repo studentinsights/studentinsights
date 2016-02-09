@@ -8,7 +8,7 @@ class StudentsController < ApplicationController
   def authorize!
     student = Student.find(params[:id])
     educator = current_educator
-    raise Exceptions::EducatorNotAuthorized unless educator.is_authorized_for_student(student)educator
+    raise Exceptions::EducatorNotAuthorized unless educator.is_authorized_for_student(student)
   end
 
   def show
