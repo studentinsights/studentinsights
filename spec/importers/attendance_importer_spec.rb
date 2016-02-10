@@ -14,7 +14,7 @@ RSpec.describe AttendanceImporter do
       let!(:student_school_year) { StudentSchoolYear.create(student: student, school_year: school_year) }
 
       context 'row with absence' do
-        let(:row) { { event_date: date, local_id: '1', absence: true, tardy: false } }
+        let(:row) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
 
         it 'creates an absence' do
           expect { described_class.new.import_row(row) }.to change { Absence.count }.by 1
@@ -53,8 +53,8 @@ RSpec.describe AttendanceImporter do
         StudentSchoolYear.create(student: kristen, school_year: school_year)
       end
 
-      let(:row_for_edwin) { { event_date: date, local_id: '1', absence: true, tardy: false } }
-      let(:row_for_kristen) { { event_date: date, local_id: '2', absence: true, tardy: false } }
+      let(:row_for_edwin) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
+      let(:row_for_kristen) { { event_date: date, local_id: '2', absence: '1', tardy: '0' } }
 
       it 'creates an absence for each student' do
         expect {
@@ -71,8 +71,8 @@ RSpec.describe AttendanceImporter do
       let(:school_year) { DateToSchoolYear.new(date).convert }
       let!(:student_school_year) { StudentSchoolYear.create(student: student, school_year: school_year) }
 
-      let(:first_row) { { event_date: date, local_id: '1', absence: true, tardy: false } }
-      let(:second_row) { { event_date: date, local_id: '1', absence: true, tardy: false } }
+      let(:first_row) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
+      let(:second_row) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
 
       it 'creates an absence' do
         expect {
@@ -89,10 +89,10 @@ RSpec.describe AttendanceImporter do
       let(:school_year) { DateToSchoolYear.new(date).convert }
       let!(:student_school_year) { StudentSchoolYear.create(student: student, school_year: school_year) }
 
-      let(:first_row) { { event_date: date, local_id: '1', absence: true, tardy: false } }
-      let(:second_row) { { event_date: date + 1.day, local_id: '1', absence: true, tardy: false } }
-      let(:third_row) { { event_date: date + 2.days, local_id: '1', absence: true, tardy: false } }
-      let(:fourth_row) { { event_date: date + 3.days, local_id: '1', absence: true, tardy: false } }
+      let(:first_row) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
+      let(:second_row) { { event_date: date + 1.day, local_id: '1', absence: '1', tardy: '0' } }
+      let(:third_row) { { event_date: date + 2.days, local_id: '1', absence: '1', tardy: '0' } }
+      let(:fourth_row) { { event_date: date + 3.days, local_id: '1', absence: '1', tardy: '0' } }
 
       it 'creates multiple absences' do
         importer = described_class.new

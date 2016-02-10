@@ -20,8 +20,8 @@ class AttendanceRow < Struct.new(:row)
   private
 
   def attendance_event_class
-    return student_school_year.absences if row[:absence]
-    return student_school_year.tardies if row[:tardy]
+    return student_school_year.absences if row[:absence].to_i == 1
+    return student_school_year.tardies if row[:tardy].to_i == 1
     NullRelation.new
   end
 
