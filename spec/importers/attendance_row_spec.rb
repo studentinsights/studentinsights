@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe AttendanceRow do
-  let(:absence) { true }
-  let(:tardy) { false }
+  let(:absence) { '1' }
+  let(:tardy) { '0' }
 
   let!(:student) { FactoryGirl.create(:student) }
 
@@ -25,8 +25,8 @@ RSpec.describe AttendanceRow do
     end
 
     context 'when the row is a tardy' do
-      let(:absence) { false }
-      let(:tardy) { true }
+      let(:absence) { '0' }
+      let(:tardy) { '1' }
 
       it 'saves a tardy' do
         expect { row.build.save! }.to change(Tardy, :count).by(1)
@@ -34,7 +34,7 @@ RSpec.describe AttendanceRow do
     end
 
     context 'when the row is neither absence nor tardy' do
-      let(:absence) { false }
+      let(:absence) { '0' }
 
       it 'does not save an absence' do
         expect { row.build.save! }.not_to change(Absence, :count)
