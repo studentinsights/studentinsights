@@ -14,17 +14,10 @@ class CsvRowCleaner < Struct.new :csv_row
   end
 
   def clean_booleans?
-    these_boolean_headers = csv_row.headers & boolean_headers
-    return true unless these_boolean_headers.present?
-    result = true
-    these_boolean_headers.each do |b|
-      result = false if !is_parsable_boolean(csv_row[b])
+    return true if boolean_headers.blank?
+    boolean_headers.all? do |header|
+      csv_row[header].in? [true, false, '1', '0', 1, 0, 'true', 'false']
     end
-    return result
-  end
-
-  def is_parsable_boolean(value)
-    [true, false, '1', '0', 1, 0, 'true', 'false'].include? value
   end
 
   private
@@ -37,16 +30,20 @@ class CsvRowCleaner < Struct.new :csv_row
     [:event_date, :date_taken, :assessment_date]
   end
 
-  def boolean_headers
-    [:absence, :tardy, :has_exact_time]
+  def date_header
+    headers.detect { |header| header.in? date_headers }
   end
 
   def has_dates?
     headers.any? { |header| header.in? date_headers }
   end
 
-  def date_header
-    headers.detect { |header| header.in? date_headers }
+  def boolean_header_names
+    [:absence, :tardy, :has_exact_time]
+  end
+
+  def boolean_headers
+    headers.select { |header| header.in? boolean_header_names }
   end
 
 end
