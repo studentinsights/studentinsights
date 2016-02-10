@@ -146,5 +146,5 @@ https://github.com/codeforamerica/promptly-deploy-scripts/tree/somerville-v1
 ## More information
 - For a history of all design iterations look here: https://www.dropbox.com/sh/r71hh9azun8v6as/AABtBghkPI4XUJBZjNpMmRdba?dl=0
 - __[Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)__
-- [Drop into chat](https://cfb-public.slack.com/messages/somerville-schools/)
+- [Drop into chat](https://cfb-public.slack.com/messages/somerville-schools/), [sign up for Slack](http://public.codeforboston.org/)
 - Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter
