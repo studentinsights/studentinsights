@@ -4,7 +4,7 @@ class AttendanceRow < Struct.new(:row)
       def save!; end
     end
 
-    def first_or_initialize(_)
+    def find_or_initialize_by(_)
       NullEvent.new
     end
   end
@@ -14,7 +14,7 @@ class AttendanceRow < Struct.new(:row)
   end
 
   def build
-    attendance_event_class.first_or_initialize(occurred_at: row[:event_date])
+    attendance_event_class.find_or_initialize_by(occurred_at: row[:event_date])
   end
 
   private
