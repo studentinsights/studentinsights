@@ -10,6 +10,7 @@
   var ELADetails = window.shared.ELADetails;
   var InterventionsDetails = window.shared.InterventionsDetails;
   var AttendanceDetails = window.shared.AttendanceDetails;
+  var MathDetails = window.shared.MathDetails;
 
   var ProfileDetails = React.createClass({
     render: function() {
@@ -156,6 +157,7 @@
         case 'profile': return createEl(ProfileDetails, props);
         case 'interventions': return createEl(InterventionsDetails, props);
         case 'ela': return createEl(ELADetails, { chartData: this.props.chartData });
+        case 'math': return createEl(MathDetails, { chartData: this.props.chartData });
         case 'attendance': return createEl(AttendanceDetails, {
           cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
           cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
