@@ -52,9 +52,11 @@ class StudentsController < ApplicationController
     student = Student.find(params[:id])
     @serialized_data = {
       student: student.serialized_data,
-      notes: student.student_notes.map {|note| serialize_student_note(note) },
+      notes: student.student_notes.map { |note| serialize_student_note(note) },
+      feed: student_feed(student),
       chart_data: StudentProfileChart.new(student.serialized_student_data).chart_data,
       intervention_types_index: intervention_types_index,
+      educators_index: educators_index,
       attendance_data: {
         discipline_incidents: student.most_recent_school_year.discipline_incidents,
         tardies: student.most_recent_school_year.tardies,
@@ -80,8 +82,27 @@ class StudentsController < ApplicationController
     end
   end
 
+  private
   def not_authorized
     redirect_to not_authorized_path
   end
 
+  def student_feed(student)
+    v2_notes = [
+      { version: 'v2', id: 42, profile_v2_note_type_id: 1, educator_id: 1, date_recorded: '2016-02-09T20:56:51.638Z', text: 'Call parent in for a meeting - Bridget will work with Heidy to schedule parent meeting' },
+      { version: 'v2', id: 43, profile_v2_note_type_id: 2, educator_id: 1, date_recorded: '2016-02-03T20:56:51.638Z', text: 'Continues to be opposition towards work. Attendance has improved. Karen meets with her weekly to work on some academics. Karen will schedule a meeting with the mother to discuss counseling needs.' }
+    ]
+
+    v2_services = [
+      { version: 'v2', id: 133, profile_v2_service_type_id: 1, recorded_by_educator_id: 1, assigned_to_educator_id: 2, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: 'Working with Bridget' },
+      { version: 'v2', id: 134, profile_v2_service_type_id: 1, recorded_by_educator_id: 1, assigned_to_educator_id: 3, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: ''  }
+    ]
+
+    {
+      v1_notes: student.student_notes.map { |note| serialize_student_note(note) },
+      v2_notes: v2_notes,
+      v1_interventions: student.interventions.map { |intervention| serialize_intervention(intervention) },
+      v2_services: v2_services
+    }
+  end
 end

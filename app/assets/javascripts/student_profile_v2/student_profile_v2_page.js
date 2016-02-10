@@ -80,6 +80,7 @@
     propTypes: {
       queryParams: React.PropTypes.object,
       student: React.PropTypes.object.isRequired,
+      feed: React.PropTypes.object.isRequired,
       interventionTypesIndex: React.PropTypes.object.isRequired,
       chartData: React.PropTypes.shape({
         // ela
@@ -154,7 +155,12 @@
       };
       switch (this.state.selectedColumnKey) {
         case 'profile': return createEl(ProfileDetails, props);
-        case 'interventions': return createEl(InterventionsDetails, props);
+        case 'interventions': return createEl(InterventionsDetails, {
+          student: this.props.student,
+          feed: this.props.feed,
+          interventionTypesIndex: this.props.interventionTypesIndex,
+          educatorsIndex: this.props.educatorsIndex
+        });
         case 'ela': return createEl(ELADetails, { chartData: this.props.chartData });
         case 'attendance': return createEl(AttendanceDetails, {
           cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
@@ -211,7 +217,8 @@
         onClick: this.onColumnClicked.bind(this, columnKey)
       }, this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
-        this.renderInterventions(student)
+        this.renderInterventions(student),
+        this.renderNotes(student)
       ]));
     },
 
@@ -240,8 +247,15 @@
       }, this);
 
       return createEl(SummaryList, {
-        title: 'Interventions',
+        title: 'Services',
         elements: elements
+      });
+    },
+
+    renderNotes: function(student) {
+      return createEl(SummaryList, {
+        title: 'Notes',
+        elements: [] // TODO(kr)
       });
     },
 
@@ -320,17 +334,20 @@
         this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {
           caption: 'Discipline incidents',
           valueRange: [0, 6],
-          thresholdValue: 3
+          thresholdValue: 3,
+          shouldDrawCircles: false
         }),
         this.renderAttendanceEventsSummary(attendanceData.absences, {
           caption: 'Absences',
           valueRange: [0, 40],
-          thresholdValue: 20
+          thresholdValue: 20,
+          shouldDrawCircles: false
         }),
         this.renderAttendanceEventsSummary(attendanceData.tardies, {
           caption: 'Tardies',
           valueRange: [0, 20],
-          thresholdValue: 10
+          thresholdValue: 10,
+          shouldDrawCircles: false
         })
       );
     },
