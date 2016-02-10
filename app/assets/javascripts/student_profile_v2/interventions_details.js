@@ -19,7 +19,11 @@
         flex: 1,
         marginRight: 20
       },
-      addNoteContainer: {
+      dialog: {
+        border: '1px solid #ccc',
+        borderRadius: 2,
+        padding: 20,
+        marginBottom: 20,
         marginTop: 10
       },
       addServiceContainer: {
@@ -87,13 +91,6 @@
         maxHeight: '2em',
         overflowY: 'hidden'
       },
-      recordServiceDialog: {
-        border: '1px solid #ccc',
-        borderRadius: 2,
-        padding: 20,
-        marginBottom: 20,
-        marginTop: 10
-      },
       serviceButton: {
         background: '#eee', // override CSS
         color: 'black',
@@ -103,7 +100,10 @@
         padding: 8
       },
       discontinue: {
-        background: '#eee'
+        background: 'white',
+        opacity: 0.5,
+        border: '1px solid #ccc',
+        color: '#666'
       },
       recordServiceTextArea: {
         fontSize: 14,
@@ -224,7 +224,7 @@
     },
 
     renderTakeNotes: function() {
-      return dom.div({ style: this.styles.addNoteContainer },
+      return dom.div({},
         (this.isTakingNotes())
           ? this.renderTakeNoteTextbox()
           : this.renderTakeNotesButton()
@@ -234,12 +234,13 @@
     renderTakeNotesButton: function() {
       return dom.button({
         className: 'btn',
+        style: { marginTop: 10 },
         onClick: this.onTakeNotesClicked
       }, 'Take notes');
     },
 
     renderTakeNoteTextbox: function() {
-      return dom.div({},
+      return dom.div({ style: this.styles.dialog },
         this.renderNoteHeader({
           noteMoment: moment(),
           educatorEmail: this.props.currentEducator.email
@@ -395,7 +396,7 @@
     },
 
     renderRecordServiceDialog: function() {
-      return dom.div({ style: this.styles.recordServiceDialog },
+      return dom.div({ style: this.styles.dialog },
         dom.div({ style: { marginBottom: 5 } }, 'Which service?'),
         dom.div({ style: { display: 'flex' } },
           dom.div({ style: { flex: 1 } },
@@ -491,11 +492,21 @@
         key: intervention.id,
         style: merge(this.styles.intervention, { background: this.interventionColor(intervention.intervention_type_id) })
       },
-        dom.span({ style: this.styles.inlineBlock }, interventionText),
-        dom.span({ style: this.styles.daysAgo }, daysText),
-        dom.div({}, educatorEmail),
-        dom.div({ style: merge(this.styles.userText, { paddingTop: 15 }) }, intervention.comment),
-        dom.button({ className: 'btn', style: this.styles.discontinue }, 'Discontinue')
+        dom.div({ style: { display: 'flex' } },
+          dom.div({ style: { flex: 1 } },
+            dom.div({ style: { fontWeight: 'bold' } }, interventionText),
+            dom.div({}, 'With ' + educatorEmail),
+            dom.div({},
+              'Since ',
+              moment(intervention.start_date).format('MMMM D, YYYY'),
+              dom.span({ style: this.styles.daysAgo }, daysText)
+            )
+          ),
+          dom.div({},
+            dom.button({ className: 'btn', style: this.styles.discontinue }, 'Discontinue')
+          )
+        ),
+        dom.div({ style: merge(this.styles.userText, { paddingTop: 15 }) }, intervention.comment)
       );
     }
   });
