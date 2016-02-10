@@ -51,6 +51,7 @@ class StudentsController < ApplicationController
   def profile
     student = Student.find(params[:id])
     @serialized_data = {
+      current_educator: current_educator,
       student: student.serialized_data,
       notes: student.student_notes.map { |note| serialize_student_note(note) },
       feed: student_feed(student),
@@ -87,6 +88,8 @@ class StudentsController < ApplicationController
     redirect_to not_authorized_path
   end
 
+  # TODO(kr) this is placeholder fixture data for now, to test design prototypes on the v2 student profile
+  # page
   def student_feed(student)
     v2_notes = [
       { version: 'v2', id: 42, profile_v2_note_type_id: 1, educator_id: 1, date_recorded: '2016-02-09T20:56:51.638Z', text: 'Call parent in for a meeting - Bridget will work with Heidy to schedule parent meeting' },

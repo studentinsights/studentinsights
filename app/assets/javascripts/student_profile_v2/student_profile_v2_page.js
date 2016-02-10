@@ -59,7 +59,7 @@
       flex: 3
     },
     column: {
-      flex: 4,
+      flex: 5,
       padding: 20,
       cursor: 'pointer'
     },
@@ -156,6 +156,7 @@
       switch (this.state.selectedColumnKey) {
         case 'profile': return createEl(ProfileDetails, props);
         case 'interventions': return createEl(InterventionsDetails, {
+          currentEducator: this.props.currentEducator,
           student: this.props.student,
           feed: this.props.feed,
           interventionTypesIndex: this.props.interventionTypesIndex,
@@ -237,7 +238,16 @@
     },
 
     renderInterventions: function(student) {
-      var elements = (student.interventions.length === 0) ? ['None'] : _.sortBy(student.interventions, 'start_date').map(function(intervention) {
+      if (student.interventions.length === 0) {
+        return createEl(SummaryList, {
+          title: 'Services',
+          elements: ['No services']
+        });
+      }
+
+      var limit = 3;
+      var sortedInterventions = _.sortBy(student.interventions, 'start_date').reverse();
+      var elements = sortedInterventions.slice(0, limit).map(function(intervention) {
         var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
         var daysText = moment(intervention.start_date).fromNow(true);
         return dom.span({ key: intervention.id },
@@ -245,7 +255,7 @@
           dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
         );
       }, this);
-
+      if (sortedInterventions.length > limit) elements.push(dom.div({}, '+ ' + (sortedInterventions.length - limit) + ' more'));
       return createEl(SummaryList, {
         title: 'Services',
         elements: elements
@@ -253,9 +263,16 @@
     },
 
     renderNotes: function(student) {
+      // TODO(kr) revisit design and factoring here to support new notes, sort recency
+      var limit = 3;
+      var educatorEmails = _.unique(_.pluck(this.props.feed.v1_notes, 'educator_email'));
+      var elements = educatorEmails.slice(0, limit).map(function(educatorEmail) {
+        return dom.span({ key: educatorEmails }, educatorEmails);
+      }, this);
+      if (educatorEmails.length > limit) elements.push(dom.span({}, '+ ' + (educatorEmails.length - limit) + ' more'));
       return createEl(SummaryList, {
-        title: 'Notes',
-        elements: [] // TODO(kr)
+        title: 'Staff',
+        elements: elements
       });
     },
 

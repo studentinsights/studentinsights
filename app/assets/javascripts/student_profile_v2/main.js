@@ -15,6 +15,7 @@ $(function() {
     ReactDOM.render(createEl(StudentProfileV2Page, {
       now: now,
       dateRange: dateRange,
+      currentEducator: serializedData.currentEducator,
       queryParams: parseQueryString(window.location.search),
       student: serializedData.student,
       feed: serializedData.feed,
