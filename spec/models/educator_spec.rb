@@ -87,7 +87,7 @@ RSpec.describe Educator do
       let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2') }
 
       it 'returns all homerooms' do
-        expect(educator.allowed_homerooms).to eq [homeroom_101, homeroom_102, homeroom_103]
+        expect(educator.allowed_homerooms.sort).to eq [homeroom_101, homeroom_102, homeroom_103].sort
       end
     end
 
