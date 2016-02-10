@@ -15,11 +15,13 @@ $(function() {
     ReactDOM.render(createEl(StudentProfileV2Page, {
       now: now,
       dateRange: dateRange,
+      currentEducator: serializedData.currentEducator,
       queryParams: parseQueryString(window.location.search),
       student: serializedData.student,
-      notes: serializedData.notes,
+      feed: serializedData.feed,
       chartData: serializedData.chartData,
       interventionTypesIndex: serializedData.interventionTypesIndex,
+      educatorsIndex: serializedData.educatorsIndex,
       attendanceData: serializedData.attendanceData,
     }), document.getElementById('main'));
   }

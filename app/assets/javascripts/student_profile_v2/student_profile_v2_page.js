@@ -60,7 +60,7 @@
       flex: 3
     },
     column: {
-      flex: 4,
+      flex: 5,
       padding: 20,
       cursor: 'pointer'
     },
@@ -81,6 +81,7 @@
     propTypes: {
       queryParams: React.PropTypes.object,
       student: React.PropTypes.object.isRequired,
+      feed: React.PropTypes.object.isRequired,
       interventionTypesIndex: React.PropTypes.object.isRequired,
       chartData: React.PropTypes.shape({
         // ela
@@ -155,7 +156,13 @@
       };
       switch (this.state.selectedColumnKey) {
         case 'profile': return createEl(ProfileDetails, props);
-        case 'interventions': return createEl(InterventionsDetails, props);
+        case 'interventions': return createEl(InterventionsDetails, {
+          currentEducator: this.props.currentEducator,
+          student: this.props.student,
+          feed: this.props.feed,
+          interventionTypesIndex: this.props.interventionTypesIndex,
+          educatorsIndex: this.props.educatorsIndex
+        });
         case 'ela': return createEl(ELADetails, { chartData: this.props.chartData });
         case 'math': return createEl(MathDetails, { chartData: this.props.chartData });
         case 'attendance': return createEl(AttendanceDetails, {
@@ -217,7 +224,8 @@
         onClick: this.onColumnClicked.bind(this, columnKey)
       }, this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
-        this.renderInterventions(student)
+        this.renderInterventions(student),
+        this.renderNotes(student)
       ]));
     },
 
@@ -236,7 +244,16 @@
     },
 
     renderInterventions: function(student) {
-      var elements = (student.interventions.length === 0) ? ['None'] : _.sortBy(student.interventions, 'start_date').map(function(intervention) {
+      if (student.interventions.length === 0) {
+        return createEl(SummaryList, {
+          title: 'Services',
+          elements: ['No services']
+        });
+      }
+
+      var limit = 3;
+      var sortedInterventions = _.sortBy(student.interventions, 'start_date').reverse();
+      var elements = sortedInterventions.slice(0, limit).map(function(intervention) {
         var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
         var daysText = moment(intervention.start_date).fromNow(true);
         return dom.span({ key: intervention.id },
@@ -244,9 +261,23 @@
           dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
         );
       }, this);
-
+      if (sortedInterventions.length > limit) elements.push(dom.div({}, '+ ' + (sortedInterventions.length - limit) + ' more'));
       return createEl(SummaryList, {
-        title: 'Interventions',
+        title: 'Services',
+        elements: elements
+      });
+    },
+
+    renderNotes: function(student) {
+      // TODO(kr) revisit design and factoring here to support new notes, sort recency
+      var limit = 3;
+      var educatorEmails = _.unique(_.pluck(this.props.feed.v1_notes, 'educator_email'));
+      var elements = educatorEmails.slice(0, limit).map(function(educatorEmail) {
+        return dom.span({ key: educatorEmails }, educatorEmails);
+      }, this);
+      if (educatorEmails.length > limit) elements.push(dom.span({}, '+ ' + (educatorEmails.length - limit) + ' more'));
+      return createEl(SummaryList, {
+        title: 'Staff',
         elements: elements
       });
     },
@@ -326,17 +357,20 @@
         this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {
           caption: 'Discipline incidents',
           valueRange: [0, 6],
-          thresholdValue: 3
+          thresholdValue: 3,
+          shouldDrawCircles: false
         }),
         this.renderAttendanceEventsSummary(attendanceData.absences, {
           caption: 'Absences',
           valueRange: [0, 40],
-          thresholdValue: 20
+          thresholdValue: 20,
+          shouldDrawCircles: false
         }),
         this.renderAttendanceEventsSummary(attendanceData.tardies, {
           caption: 'Tardies',
           valueRange: [0, 20],
-          thresholdValue: 10
+          thresholdValue: 10,
+          shouldDrawCircles: false
         })
       );
     },

@@ -31,6 +31,11 @@
 // provided by react-rails gem, configured in config/initializers/assets.rb
 //= require react
 
+// react libs
+//= require react-classnames
+//= require react-input-autosize
+//= require react-select
+
 // shared across application:
 //= require env
 //= require datepicker_config

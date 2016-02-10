@@ -38,7 +38,16 @@ module SerializeDataHelper
   def intervention_types_index
     index = {}
     InterventionType.all.each do |intervention_type|
-      index[intervention_type.id] = intervention_type;
+      index[intervention_type.id] = intervention_type
+    end
+    index
+  end
+
+  # Used to send down all educators, for lookups from other records
+  def educators_index
+    index = {}
+    Educator.all.each do |educator|
+      index[educator.id] = educator
     end
     index
   end
