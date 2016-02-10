@@ -1,23 +1,8 @@
 class CsvRowCleaner < Struct.new :csv_row
 
   def transform_row
-    if has_dates
-      date_header = (csv_row.headers & date_headers)[0]
-      csv_row[date_header] = DateTime.parse(csv_row[date_header])
-    end
-    return csv_row
-  end
-
-  def has_dates
-    (csv_row.headers & date_headers).present?
-  end
-
-  def date_headers
-    [:event_date, :date_taken, :assessment_date]
-  end
-
-  def boolean_headers
-    [:absence, :tardy, :has_exact_time]
+    csv_row[date_header] = DateTime.parse(csv_row[date_header]) if has_dates?
+    csv_row
   end
 
   def clean_date?
@@ -45,6 +30,28 @@ class CsvRowCleaner < Struct.new :csv_row
     value.is_a?(DateTime) || Date.parse(value)
   rescue ArgumentError
     false
+  end
+
+  private
+
+  def headers
+    csv_row.headers
+  end
+
+  def date_headers
+    [:event_date, :date_taken, :assessment_date]
+  end
+
+  def boolean_headers
+    [:absence, :tardy, :has_exact_time]
+  end
+
+  def has_dates?
+    headers.any? { |header| header.in? date_headers }
+  end
+
+  def date_header
+    headers.detect { |header| header.in? date_headers }
   end
 
 end
