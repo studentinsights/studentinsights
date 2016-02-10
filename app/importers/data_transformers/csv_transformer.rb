@@ -1,5 +1,6 @@
+require 'csv'
+
 class CsvTransformer
-  require 'csv'
 
   def transform(file)
     csv = CSV.parse(file, headers: true,
