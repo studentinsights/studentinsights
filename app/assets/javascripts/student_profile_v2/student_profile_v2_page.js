@@ -195,10 +195,14 @@
         style: merge(styles.column, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       },
-        this.renderTitle('Demographics'),
-        dom.div({}, 'Disability: ' + student.sped_level_of_need),
-        dom.div({}, 'Low income: ' + student.free_reduced_lunch),
-        dom.div({}, 'Language: ' + student.limited_english_proficiency)
+        createEl(SummaryList, {
+          title: 'Demographics',
+          elements: [
+            'Disability: ' + (student.sped_level_of_need || 'None'),
+            'Low income: ' + student.free_reduced_lunch,
+            'Language: ' + student.limited_english_proficiency
+          ]
+        })
       );
     },
 
