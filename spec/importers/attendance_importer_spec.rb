@@ -83,5 +83,28 @@ RSpec.describe AttendanceImporter do
 
     end
 
+    context 'multiple rows for same student on different dates' do
+      let(:student) { FactoryGirl.create(:student, local_id: '1') }
+      let(:date) { DateTime.parse('2005-09-16') }
+      let(:school_year) { DateToSchoolYear.new(date).convert }
+      let!(:student_school_year) { StudentSchoolYear.create(student: student, school_year: school_year) }
+
+      let(:first_row) { { event_date: date, local_id: '1', absence: true, tardy: false } }
+      let(:second_row) { { event_date: date + 1.day, local_id: '1', absence: true, tardy: false } }
+      let(:third_row) { { event_date: date + 2.days, local_id: '1', absence: true, tardy: false } }
+      let(:fourth_row) { { event_date: date + 3.days, local_id: '1', absence: true, tardy: false } }
+
+      it 'creates multiple absences' do
+        importer = described_class.new
+        expect {
+          importer.import_row(first_row)
+          importer.import_row(second_row)
+          importer.import_row(third_row)
+          importer.import_row(fourth_row)
+        }.to change { Absence.count }.by 4
+      end
+
+    end
+
   end
 end
