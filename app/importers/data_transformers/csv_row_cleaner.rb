@@ -1,14 +1,14 @@
-class CsvRowCleaner < Struct.new :csv_row
+class CsvRowCleaner < Struct.new :row
 
   def transform_row
-    csv_row[date_header] = DateTime.parse(csv_row[date_header]) if has_dates?
-    csv_row
+    row[date_header] = DateTime.parse(row[date_header]) if has_dates?
+    row
   end
 
   def clean_date?
     return true if date_header.blank?
-    return false if csv_row[date_header].blank?
-    (csv_row[date_header].is_a?(DateTime) || Date.parse(csv_row[date_header]))
+    return false if row[date_header].blank?
+    (row[date_header].is_a?(DateTime) || Date.parse(row[date_header]))
   rescue ArgumentError
     false
   end
@@ -16,14 +16,14 @@ class CsvRowCleaner < Struct.new :csv_row
   def clean_booleans?
     return true if boolean_headers.blank?
     boolean_headers.all? do |header|
-      csv_row[header].in? [true, false, '1', '0', 1, 0, 'true', 'false']
+      row[header].in? [true, false, '1', '0', 1, 0, 'true', 'false']
     end
   end
 
   private
 
   def headers
-    csv_row.headers
+    row.headers
   end
 
   def date_headers
