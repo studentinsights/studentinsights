@@ -6,9 +6,11 @@ class CsvRowCleaner < Struct.new :csv_row
   end
 
   def clean_date?
-    date_header = (csv_row.headers & date_headers)[0]
-    return true unless date_header.present?
-    is_parsable_date(csv_row[date_header])
+    return true if date_header.blank?
+    return false if csv_row[date_header].blank?
+    (csv_row[date_header].is_a?(DateTime) || Date.parse(csv_row[date_header]))
+  rescue ArgumentError
+    false
   end
 
   def clean_booleans?
@@ -23,13 +25,6 @@ class CsvRowCleaner < Struct.new :csv_row
 
   def is_parsable_boolean(value)
     [true, false, '1', '0', 1, 0, 'true', 'false'].include? value
-  end
-
-  def is_parsable_date(value)
-    return false if value.blank?
-    value.is_a?(DateTime) || Date.parse(value)
-  rescue ArgumentError
-    false
   end
 
   private
