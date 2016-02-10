@@ -1,5 +1,9 @@
 class CsvRowCleaner < Struct.new :row
 
+  def dirty_data?
+    !clean_date? || !clean_booleans?
+  end
+
   def transform_row
     row[date_header] = DateTime.parse(row[date_header]) if has_dates?
     row

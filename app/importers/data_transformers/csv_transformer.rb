@@ -4,12 +4,7 @@ class CsvTransformer
   def transform(file)
     csv = CSV.parse(file, headers: true, header_converters: :symbol, converters: lambda { |h| nil_converter(h) })
     csv.delete_if do |row|
-      cleaner = CsvRowCleaner.new(row)
-      !cleaner.clean_date?
-    end
-    csv.delete_if do |row|
-      cleaner = CsvRowCleaner.new(row)
-      !cleaner.clean_booleans?
+      CsvRowCleaner.new(row).dirty_data?
     end
     csv.each do |row|
       cleaner = CsvRowCleaner.new(row)
