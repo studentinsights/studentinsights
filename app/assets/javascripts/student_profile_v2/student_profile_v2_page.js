@@ -7,30 +7,16 @@
   var Routes = window.shared.Routes;
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
-  var ELADetails = window.shared.ELADetails;
-  var InterventionsDetails = window.shared.InterventionsDetails;
-  var AttendanceDetails = window.shared.AttendanceDetails;
-  var MathDetails = window.shared.MathDetails;
+  var SummaryList = window.shared.SummaryList;
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
 
-  var ProfileDetails = React.createClass({
-    render: function() {
-      return dom.div({}, 'profile');
-    }
-  });
+  var ProfileDetails = window.shared.ProfileDetails;
+  var ELADetails = window.shared.ELADetails;
+  var MathDetails = window.shared.MathDetails;
+  var AttendanceDetails = window.shared.AttendanceDetails;
+  var InterventionsDetails = window.shared.InterventionsDetails;
 
-
-  var SummaryList = React.createClass({
-    render: function() {
-      return dom.div({ style: { paddingBottom: 10 } },
-        dom.div({ style: { fontWeight: 'bold' } }, this.props.title),
-        dom.ul({}, this.props.elements.map(function(element, index) {
-          return dom.li({ key: index }, element);
-        }))
-      );
-    }
-  });
 
   // define page component
   var styles = {
@@ -77,50 +63,76 @@
     sparklineHeight: 50
   };
 
+  /*
+  TODO:
+  - clarify now, dateRange update rhythm
+  */
   var StudentProfileV2Page = window.shared.StudentProfileV2Page = React.createClass({
     displayName: 'StudentProfileV2Page',
 
     propTypes: {
-      queryParams: React.PropTypes.object,
-      student: React.PropTypes.object.isRequired,
-      feed: React.PropTypes.object.isRequired,
-      interventionTypesIndex: React.PropTypes.object.isRequired,
-      chartData: React.PropTypes.shape({
-        // ela
-        most_recent_star_reading_percentile: React.PropTypes.number,
-        most_recent_mcas_ela_scaled: React.PropTypes.number,
-        most_recent_mcas_ela_growth: React.PropTypes.number,
-        star_series_reading_percentile: React.PropTypes.array,
-        mcas_series_ela_scaled: React.PropTypes.array,
-        mcas_series_ela_growth: React.PropTypes.array,
-        // math
-        most_recent_star_math_percentile: React.PropTypes.number,
-        most_recent_mcas_math_scaled: React.PropTypes.number,
-        most_recent_mcas_math_growth: React.PropTypes.number,
-        star_series_math_percentile: React.PropTypes.array,
-        mcas_series_math_scaled: React.PropTypes.array,
-        mcas_series_math_growth: React.PropTypes.array
-      }),
-      attendanceData: React.PropTypes.shape({
-        discipline_incidents: React.PropTypes.array, // TODO(kr) case bug serializing from rails
-        tardies: React.PropTypes.array,
-        absences: React.PropTypes.array
-      }),
-      dateRange: React.PropTypes.array.isRequired
-    },
+      nowMomentFn: React.PropTypes.func.isRequired,
+      serializedData: React.PropTypes.object.isRequired,
+      queryParams: React.PropTypes.object.isRequired
 
-    getDefaultProps: function() {
-      return { queryParams: {} };
+      // queryParams: React.PropTypes.object,
+      // student: React.PropTypes.object.isRequired,
+      // feed: React.PropTypes.object.isRequired,
+      // interventionTypesIndex: React.PropTypes.object.isRequired,
+      // chartData: React.PropTypes.shape({
+      //   // ela
+      //   most_recent_star_reading_percentile: React.PropTypes.number,
+      //   most_recent_mcas_ela_scaled: React.PropTypes.number,
+      //   most_recent_mcas_ela_growth: React.PropTypes.number,
+      //   star_series_reading_percentile: React.PropTypes.array,
+      //   mcas_series_ela_scaled: React.PropTypes.array,
+      //   mcas_series_ela_growth: React.PropTypes.array,
+      //   // math
+      //   most_recent_star_math_percentile: React.PropTypes.number,
+      //   most_recent_mcas_math_scaled: React.PropTypes.number,
+      //   most_recent_mcas_math_growth: React.PropTypes.number,
+      //   star_series_math_percentile: React.PropTypes.array,
+      //   mcas_series_math_scaled: React.PropTypes.array,
+      //   mcas_series_math_growth: React.PropTypes.array
+      // }),
+      // attendanceData: React.PropTypes.shape({
+      //   discipline_incidents: React.PropTypes.array, // TODO(kr) case bug serializing from rails
+      //   tardies: React.PropTypes.array,
+      //   absences: React.PropTypes.array
+      // }),
+      // dateRange: React.PropTypes.array.isRequired
     },
 
     getInitialState: function() {
+      var serializedData = this.props.serializedData;
+      var queryParams = this.props.queryParams;
+
       return {
-        selectedColumnKey: this.props.queryParams.column || 'interventions'
+        // context
+        currentEducator: serializedData.currentEducator,
+
+        // constants
+        interventionTypesIndex: serializedData.interventionTypesIndex,
+        educatorsIndex: serializedData.educatorsIndex,
+
+        // data
+        student: serializedData.student,
+        feed: serializedData.feed,
+        chartData: serializedData.chartData,
+        attendanceData: serializedData.attendanceData,
+
+        // ui
+        selectedColumnKey: queryParams.column || 'interventions'
       };
     },
 
+    dateRange: function() {
+      var nowMoment = this.props.nowMomentFn();
+      return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
+    },
+
     componentDidUpdate: function(props, state) {
-      var path = Routes.studentProfile(this.props.student.id, {
+      var path = Routes.studentProfile(this.state.student.id, {
         column: this.state.selectedColumnKey
       });
       window.history.replaceState({}, null, path);
@@ -149,36 +161,32 @@
     },
 
     renderSectionDetails: function() {
-      // TODO(kr) make factoring more explicit
-      var attendanceData = this.props.attendanceData;
-      var props = {
-        student: this.props.student,
-        notes: this.props.notes,
-        interventionTypesIndex: this.props.interventionTypesIndex
-      };
       switch (this.state.selectedColumnKey) {
-        case 'profile': return createEl(ProfileDetails, props);
-        case 'interventions': return createEl(InterventionsDetails, {
-          currentEducator: this.props.currentEducator,
-          student: this.props.student,
-          feed: this.props.feed,
-          interventionTypesIndex: this.props.interventionTypesIndex,
-          educatorsIndex: this.props.educatorsIndex
-        });
-        case 'ela': return createEl(ELADetails, { chartData: this.props.chartData });
-        case 'math': return createEl(MathDetails, { chartData: this.props.chartData });
-        case 'attendance': return createEl(AttendanceDetails, {
-          cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
-          cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
-          cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies),
-          disciplineIncidents: attendanceData.discipline_incidents
-        });
+        case 'profile': return createEl(ProfileDetails, {});
+        case 'ela': return createEl(ELADetails, { chartData: this.state.chartData });
+        case 'math': return createEl(MathDetails, { chartData: this.state.chartData });
+        case 'attendance':
+          var attendanceData = this.state.attendanceData;
+          return createEl(AttendanceDetails, {
+            cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
+            cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
+            cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies),
+            disciplineIncidents: attendanceData.discipline_incidents
+          });
+        case 'interventions':
+          return createEl(InterventionsDetails, {
+            currentEducator: this.state.currentEducator,
+            student: this.state.student,
+            feed: this.state.feed,
+            interventionTypesIndex: this.state.interventionTypesIndex,
+            educatorsIndex: this.state.educatorsIndex
+          });
       }
       return null;
     },
 
     renderStudentName: function() {
-      var student =  this.props.student;
+      var student =  this.state.student;
       return dom.div({ style: styles.titleContainer },
         dom.a({
           href: Routes.student(student.id),
@@ -199,7 +207,7 @@
     },
 
     renderProfileColumn: function() {
-      var student = this.props.student;
+      var student = this.state.student;
       var columnKey = 'profile';
 
       return dom.div({
@@ -218,7 +226,7 @@
     },
 
     renderInterventionsColumn: function() {
-      var student = this.props.student;
+      var student = this.state.student;
       var columnKey = 'interventions';
 
       return dom.div({
@@ -256,8 +264,8 @@
       var limit = 3;
       var sortedInterventions = _.sortBy(student.interventions, 'start_date').reverse();
       var elements = sortedInterventions.slice(0, limit).map(function(intervention) {
-        var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
-        var daysText = moment(intervention.start_date).fromNow(true);
+        var interventionText = this.state.interventionTypesIndex[intervention.intervention_type_id].name;
+        var daysText = moment(intervention.start_date).from(this.props.nowMomentFn(), true);
         return dom.span({ key: intervention.id },
           dom.span({}, interventionText),
           dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
@@ -273,7 +281,7 @@
     renderNotes: function(student) {
       // TODO(kr) revisit design and factoring here to support new notes, sort recency
       var limit = 3;
-      var educatorEmails = _.unique(_.pluck(this.props.feed.v1_notes, 'educator_email'));
+      var educatorEmails = _.unique(_.pluck(this.state.feed.v1_notes, 'educator_email'));
       var elements = educatorEmails.slice(0, limit).map(function(educatorEmail) {
         return dom.span({ key: educatorEmails }, educatorEmails);
       }, this);
@@ -285,8 +293,8 @@
     },
 
     renderELAColumn: function() {
-      var student = this.props.student;
-      var chartData = this.props.chartData;
+      var student = this.state.student;
+      var chartData = this.state.chartData;
       var columnKey = 'ela';
 
       return dom.div({
@@ -316,8 +324,8 @@
     },
 
     renderMathColumn: function() {
-      var student = this.props.student;
-      var chartData = this.props.chartData;
+      var student = this.state.student;
+      var chartData = this.state.chartData;
       var columnKey = 'math';
 
       return dom.div({
@@ -347,8 +355,8 @@
     },
 
     renderAttendanceColumn: function() {
-      var student = this.props.student;
-      var attendanceData = this.props.attendanceData;
+      var student = this.state.student;
+      var attendanceData = this.state.attendanceData;
       var columnKey = 'attendance';
 
       return dom.div({
@@ -389,17 +397,16 @@
     },
 
     cumulativeCountQuads: function(attendanceEvents) {
-      return QuadConverter.convert(attendanceEvents, this.props.now, this.props.dateRange);
+      return QuadConverter.convert(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
     },
 
     // quads format is: [[year, month (Ruby), day, value]]
     renderSparkline: function(quads, props) {
-      var dateRange = this.props.dateRange;
       return createEl(Sparkline, merge({
         height: styles.sparklineHeight,
         width: styles.sparklineWidth,
         quads: quads,
-        dateRange: dateRange,
+        dateRange: this.dateRange(),
         valueRange: [0, 100],
         thresholdValue: 50
       }, props || {}));

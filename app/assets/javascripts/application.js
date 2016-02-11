@@ -49,6 +49,8 @@
 //= require ./student_profile_v2/highcharts_wrapper
 //= require ./student_profile_v2/scales
 //= require ./student_profile_v2/take_notes
+//= require ./student_profile_v2/summary_list
+//= require ./student_profile_v2/profile_details
 //= require_tree ./student_profile_v2
 //= require_tree ./roster
 //= require_tree ./school_overview
