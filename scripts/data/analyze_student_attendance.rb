@@ -1,47 +1,6 @@
-require 'csv'
+require_relative '../../lib/analyze_student_attendance'
 
-class StudentAttendanceDataAnalysis
-
-  def initialize
-
-    csv_options = {
-      headers: true,
-      header_converters: :symbol,
-      converters: lambda { |h| nil_converter(h) }
-    }
-
-    @data = []
-
-    CSV.foreach(PATH_TO_FILE, csv_options) do |row|
-      @data << row
-      break if $. == 100000     # Start with the first 100,000 rows for now because after that
-                                # we start getting: Missing or stray quote (CSV::MalformedCSVError)
-                                # TODO: Fix this.
-    end
-
-    @data_size = @data.size
-  end
-
-
-  def nil_converter(value)
-    value == '\N' ? nil : value
-  end
-
-  def select_by_column_value(column_name, column_value)
-    @data.select { |row| row[column_name] == column_value }
-  end
-
-  def count_for_column_value(column_name, column_value)
-    select_by_column_value(column_name, column_value).size
-  end
-
-  def count_versus_total(column_name, column_value)
-    "#{column_name}  =>  #{count_for_column_value(column_name, column_value)} out of #{@data_size}"
-  end
-
-end
-
-analysis = StudentAttendanceDataAnalysis.new
+analysis = AnalyzeStudentAttendance.new(File.expand_path(PATH, __FILE__))
 
 indicators = [ :att_tardy_ind, :att_tardy_ind_02,
                :att_dismissed_ind, :att_dismissed_ind_02,
