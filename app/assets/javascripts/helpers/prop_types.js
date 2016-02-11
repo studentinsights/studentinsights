@@ -17,9 +17,11 @@
     actions: React.PropTypes.shape({
       onClickSaveNotes: React.PropTypes.func.isRequired
     }),
-
     requests: React.PropTypes.shape({
       saveNotes: nullable(React.PropTypes.string).isRequired
+    }),
+    api: React.PropTypes.shape({
+      saveNotes: React.PropTypes.func.isRequired
     })
   };
 })();

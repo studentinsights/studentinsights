@@ -51,6 +51,13 @@ describe('PageContainer', function() {
         queryParams: {}
       });
       return ReactDOM.render(createEl(PageContainer, mergedProps), el);
+    },
+
+    takeNotesAndSave: function(el, typeName, text) {
+      $(el).find('.btn.take-notes').click();
+      helpers.changeTextValue($(el).find('textarea'), 'hello!');
+      $(el).find('.btn.note-type:contains(SST meeting)').click();
+      $(el).find('.btn.save').click();
     }
   };
 
@@ -83,14 +90,11 @@ describe('PageContainer', function() {
       expect(el).toContainText('Record service');
     });
 
-    it('saving notes for SST meetings works, mocking the server calls', function() {
+    it('saving notes for SST meetings works, mocking the action handlers', function() {
       var el = this.testEl;
       var component = helpers.renderInto(el, { actions: helpers.createSpyActions() });
+      helpers.takeNotesAndSave(el, 'SST meeting', 'hello!');
 
-      $(el).find('.btn.take-notes').click();
-      helpers.changeTextValue($(el).find('textarea'), 'hello!');
-      $(el).find('.btn.note-type:contains(SST meeting)').click();
-      $(el).find('.btn.save').click();
       expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
         eventNoteTypeId: 1,
         text: 'hello!'

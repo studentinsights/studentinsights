@@ -7,6 +7,7 @@
   var Routes = window.shared.Routes;
   var StudentProfileV2Page = window.shared.StudentProfileV2Page;
   var PropTypes = window.shared.PropTypes;
+  var Api = window.shared.Api;
 
   /*
   Holds page state, makes API calls to manipulate it.
@@ -19,7 +20,13 @@
       serializedData: React.PropTypes.object.isRequired, // TODO(kr) shape PropType
       queryParams: React.PropTypes.object.isRequired,
 
-      actions: PropTypes.actions // for testing
+      // for testing
+      actions: PropTypes.actions, 
+      api: PropTypes.api
+    },
+
+    componentWillMount: function(props, state) {
+      this.api = this.props.api || new Api();
     },
 
     getInitialState: function() {
@@ -56,9 +63,8 @@
     },
 
     // Sugar for updating request state through setState.
-    setRequestState: function(map) {
-      var requests = merge(this.state.requests, map);
-      this.setState({ requests: requests });
+    updatedRequestsState: function(map) {
+      return { requests: merge(this.state.requests, map) };
     },
 
     onColumnClicked: function(columnKey) {
@@ -67,15 +73,22 @@
 
     onClickSaveNotes: function(eventNoteParams) {
       this.setRequestState({ saveNotes: 'pending' });
-      window.setTimeout(this.onSaveNotesError, 1000);
+      this.api.saveNotes(this.state.student.id, eventNoteParams)
+        .done(this.onSaveNotesDone)
+        .fail(this.onSaveNotesFail);
     },
 
-    onSaveNotesSucceeded: function(response) {
-      this.setRequestState({ saveNotes: null });
+    onSaveNotesDone: function(response) {
+      var updatedEventNotes = this.state.feed.event_notes.concat([response]);
+      var updatedFeed = merge(this.state.feed, event_notes: updatedEventNotes);
+      this.setState({
+        feed: updatedFeed,
+        requests: this.updatedRequestsState({ saveNotes: null })
+      });
     },
 
-    onSaveNotesError: function(response) {
-      this.setRequestState({ saveNotes: 'error' });
+    onSaveNotesFail: function() {
+      this.setState({ requests: this.updatedRequestsState({ saveNotes: 'error' }) });
     },
 
     dateRange: function() {

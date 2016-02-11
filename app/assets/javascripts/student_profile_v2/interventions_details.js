@@ -225,7 +225,7 @@
 
     renderNotes: function() {
       var v1Notes = this.props.feed.v1_notes.map(function(note) { return merge(note, { version: 'v1', sort_timestamp: note.created_at_timestamp }); });
-      var v2Notes = this.props.feed.v2_notes.map(function(note) { return merge(note, { version: 'v2', sort_timestamp: note.date_recorded }); });
+      var v2Notes = this.props.feed.event_notes.map(function(note) { return merge(note, { version: 'v2', sort_timestamp: note.date_recorded }); });
       // TODO(kr) v1 interventions as notes
       // TODO(kr) v1 interventions progress notes as notes
       var mergedNotes = _.sortBy(v1Notes.concat(v2Notes), 'sort_timestamp').reverse();
