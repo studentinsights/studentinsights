@@ -4,6 +4,11 @@ raise "empty yer db" if School.count > 0 ||
                         InterventionType.count > 0 ||
                         Assessment.count > 0
 
+puts 'Seeding constants...'
+Assessment.seed_somerville_assessments
+InterventionType.seed_somerville_intervention_types
+EventNoteType.seed_somerville_event_note_types
+
 healey = School.create(name: "Arthur D Healey")
 
 puts "Creating demo educators..."
@@ -29,11 +34,6 @@ Homeroom.create(name: "102", grade: "5")
 
 fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
 Homeroom.last.update_attribute(:educator_id, fifth_grade_educator.id)
-
-InterventionType.seed_somerville_intervention_types
-
-puts "Creating assessments..."
-Assessment.seed_somerville_assessments
 
 puts "Creating students for homeroom #1..."
 15.times do

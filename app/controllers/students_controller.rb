@@ -66,6 +66,22 @@ class StudentsController < ApplicationController
     }
   end
 
+  # post
+  def event_note
+    clean_params = params.require(:event_note).permit(*[
+      :student_id,
+      :event_note_type_id,
+      :recorded_at,
+      :text
+    ])
+    event_note = EventNote.new(clean_params.merge(educator_id: current_educator.id))
+    if event_note.save
+      render json: event_note.as_json
+    else
+      render json: { errors: event_note.errors.full_messages }, status: 422
+    end
+  end
+
   def names
     @q = params[:q].upcase
     @length = @q.length
