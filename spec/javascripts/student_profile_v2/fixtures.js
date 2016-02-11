@@ -749,24 +749,7 @@
           "progress_notes": []
         }
       ],
-      "v2_notes": [
-        {
-          "version": "v2",
-          "id": 42,
-          "profile_v2_note_type_id": 1,
-          "educator_id": 1,
-          "date_recorded": "2016-02-09T20:56:51.638Z",
-          "text": "Call parent in for a meeting."
-        },
-        {
-          "version": "v2",
-          "id": 43,
-          "profile_v2_note_type_id": 2,
-          "educator_id": 1,
-          "date_recorded": "2016-02-03T20:56:51.638Z",
-          "text": "Attendance has improved, will schedule a meeting with the family to talk about counseling needs."
-        }
-      ],
+      "event_notes": [{"id":1,"student_id":6,"educator_id":1,"event_note_type_id":3,"text":"okay!","recorded_at":"2016-02-11T21:28:02.102Z","created_at":"2016-02-11T21:28:02.103Z","updated_at":"2016-02-11T21:28:02.103Z"},{"id":2,"student_id":6,"educator_id":1,"event_note_type_id":3,"text":"cool!","recorded_at":"2016-02-11T21:29:18.166Z","created_at":"2016-02-11T21:29:18.167Z","updated_at":"2016-02-11T21:29:18.167Z"},{"id":3,"student_id":6,"educator_id":1,"event_note_type_id":1,"text":"sweet","recorded_at":"2016-02-11T21:29:30.287Z","created_at":"2016-02-11T21:29:30.288Z","updated_at":"2016-02-11T21:29:30.288Z"}],
       "v2_services": [
         {
           "version": "v2",
