@@ -5,6 +5,7 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var Routes = window.shared.Routes;
+  var PropTypes = window.shared.PropTypes;
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
   var SummaryList = window.shared.SummaryList;
@@ -98,11 +99,15 @@
         discipline_incidents: React.PropTypes.array, // TODO(kr) case bug serializing from rails
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
-      })
+      }),
+
+      // flux-y bits
+      requests: PropTypes.requests,
+      actions: PropTypes.actions
     },
 
     onColumnClicked: function(columnKey) {
-      this.props.onColumnClicked(columnKey);
+      this.props.actions.onColumnClicked(columnKey);
     },
 
     dateRange: function() {
@@ -116,6 +121,7 @@
 
     render: function() {
       return dom.div({ className: 'StudentProfileV2Page', style: styles.page },
+        this.renderSaveStatus(),
         this.renderStudentName(),
         dom.div({ style: styles.summaryContainer },
           this.renderProfileColumn(),
@@ -125,6 +131,23 @@
           this.renderInterventionsColumn()
         ),
         dom.div({ style: styles.detailsContainer }, this.renderSectionDetails())
+      );
+    },
+
+    renderSaveStatus: function() {
+      var activeRequestCount = _.where(_.values(this.props.requests), { state: 'pending' }).length;
+      return dom.div({
+        style: {
+          position: 'fixed',
+          left: 10,
+          top: 10,
+          padding: 10,
+          opacity: (activeRequestCount === 0) ? 0 : 0.75,
+          borderRadius: 2,
+          background: 'rgb(74,144,226)'
+        }
+      },
+        dom.div({ style: { color: 'white' } }, 'Saving...')
       );
     },
 
@@ -142,13 +165,15 @@
             disciplineIncidents: attendanceData.discipline_incidents
           });
         case 'interventions':
-          return createEl(InterventionsDetails, {
-            currentEducator: this.props.currentEducator,
-            student: this.props.student,
-            feed: this.props.feed,
-            interventionTypesIndex: this.props.interventionTypesIndex,
-            educatorsIndex: this.props.educatorsIndex
-          });
+          return createEl(InterventionsDetails, _.pick(this.props,
+            'currentEducator',
+            'student',
+            'feed',
+            'interventionTypesIndex',
+            'educatorsIndex',
+            'actions',
+            'requests'
+          ));
       }
       return null;
     },

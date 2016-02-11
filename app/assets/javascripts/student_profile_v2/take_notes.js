@@ -4,6 +4,8 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
+  var PropTypes = window.shared.PropTypes;
+
   var styles = {
     dialog: {
       border: '1px solid #ccc',
@@ -29,7 +31,8 @@
     cancelTakeNotesButton: { // overidding CSS
       color: 'black',
       background: '#eee',
-      marginLeft: 10
+      marginLeft: 10,
+      marginRight: 10
     },
     serviceButton: {
       background: '#eee', // override CSS
@@ -51,7 +54,8 @@
       nowMoment: React.PropTypes.object.isRequired,
       onSave: React.PropTypes.func.isRequired,
       onCancel: React.PropTypes.func.isRequired,
-      currentEducator: React.PropTypes.object.isRequired
+      currentEducator: React.PropTypes.object.isRequired,
+      requestState: PropTypes.nullable(React.PropTypes.string.isRequired)
     },
 
     getInitialState: function() {
@@ -123,7 +127,9 @@
           className: 'btn',
           style: styles.cancelTakeNotesButton,
           onClick: this.onClickCancel
-        }, 'Cancel')
+        }, 'Cancel'),
+        (this.props.requestState === 'pending') ? dom.span({}, 'Saving...') : null,
+        (this.props.requestState === 'error') ? dom.span({}, 'Try again!') : null
       );
     },
 

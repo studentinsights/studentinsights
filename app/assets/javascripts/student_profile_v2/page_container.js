@@ -38,7 +38,10 @@
         attendanceData: serializedData.attendanceData,
 
         // ui
-        selectedColumnKey: queryParams.column || 'interventions'
+        selectedColumnKey: queryParams.column || 'interventions',
+        requests: {
+          saveNotes: null
+        }
       };
     },
 
@@ -49,8 +52,27 @@
       window.history.replaceState({}, null, path);
     },
 
+    // Sugar for updating request state through setState.
+    setRequestState: function(map) {
+      var requests = merge(this.state.requests, map);
+      this.setState({ requests: requests });
+    },
+
     onColumnClicked: function(columnKey) {
       this.setState({ selectedColumnKey: columnKey });
+    },
+
+    onClickSaveNotes: function(eventNoteParams) {
+      this.setRequestState({ saveNotes: 'pending' });
+      window.setTimeout(this.onSaveNotesError, 1000);
+    },
+
+    onSaveNotesSucceeded: function(response) {
+      this.setRequestState({ saveNotes: null });
+    },
+
+    onSaveNotesError: function(response) {
+      this.setRequestState({ saveNotes: 'error' });
     },
 
     dateRange: function() {
@@ -72,10 +94,14 @@
           'feed',
           'chartData',
           'attendanceData',
-          'selectedColumnKey'
+          'selectedColumnKey',
+          'requests'
         ), {
           nowMomentFn: this.props.nowMomentFn,
-          onColumnClicked: this.onColumnClicked
+          actions: {
+            onColumnClicked: this.onColumnClicked,
+            onClickSaveNotes: this.onClickSaveNotes
+          }
         }))
       );
     }

@@ -7,114 +7,112 @@
   var ReactSelect = window.Select;
   var datepickerOptions = window.datepicker_options;
   var TakeNotes = window.shared.TakeNotes;
+  var PropTypes = window.shared.PropTypes;
+
+  var styles = {
+    container: {
+      display: 'flex'
+    },
+    notesContainer: {
+      flex: 1,
+      marginRight: 20
+    },
+    dialog: {
+      border: '1px solid #ccc',
+      borderRadius: 2,
+      padding: 20,
+      marginBottom: 20,
+      marginTop: 10
+    },
+    addServiceContainer: {
+      marginTop: 10
+    },
+    interventionsContainer: {
+      flex: 1
+    },
+    noItems: {
+      margin: 10
+    },
+    inlineBlock: {
+      display: 'inline-block'
+    },
+    userText: {
+      whiteSpace: 'pre-wrap'
+    },
+    daysAgo: {
+      opacity: 0.25,
+      paddingLeft: 10,
+      display: 'inline-block'
+    },
+    title: {
+      borderBottom: '1px solid #333',
+      // fontWeight: 'bold',
+      color: 'black',
+      padding: 10,
+      paddingLeft: 0
+    },
+    date: {
+      paddingRight: 10,
+      fontWeight: 'bold',
+      display: 'inline-block'
+    },
+    educator: {
+      paddingLeft: 5,
+      display: 'inline-block'
+    },
+    note: {
+      border: '1px solid #eee',
+      padding: 15,
+      marginTop: 10,
+      marginBottom: 10
+    },
+    intervention: {
+      border: '1px solid #eee',
+      padding: 15,
+      marginTop: 10,
+      marginBottom: 10
+    },
+    cancelTakeNotesButton: { // overidding CSS
+      color: 'black',
+      background: '#eee',
+      marginLeft: 10
+    },
+    expandedNote: {
+      marginTop: 5
+    },
+    collapsedNote: {
+      maxHeight: '2em',
+      overflowY: 'hidden'
+    },
+    serviceButton: {
+      background: '#eee', // override CSS
+      color: 'black',
+      // shrinking:
+      width: '12em',
+      fontSize: 12,
+      padding: 8
+    },
+    discontinue: {
+      background: 'white',
+      opacity: 0.5,
+      border: '1px solid #ccc',
+      color: '#666'
+    },
+    recordServiceTextArea: {
+      fontSize: 14,
+      border: '1px solid #eee',
+      width: '100%' //overriding strange global CSS, should cleanup
+    },
+    recordServiceButton: {
+      marginTop: 5
+    }
+  };
+
 
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
-      interventionTypesIndex: React.PropTypes.object.isRequired
-    },
-    
-    styles: {
-      container: {
-        display: 'flex'
-      },
-      notesContainer: {
-        flex: 1,
-        marginRight: 20
-      },
-      dialog: {
-        border: '1px solid #ccc',
-        borderRadius: 2,
-        padding: 20,
-        marginBottom: 20,
-        marginTop: 10
-      },
-      addServiceContainer: {
-        marginTop: 10
-      },
-      interventionsContainer: {
-        flex: 1
-      },
-      noItems: {
-        margin: 10
-      },
-      inlineBlock: {
-        display: 'inline-block'
-      },
-      userText: {
-        whiteSpace: 'pre-wrap'
-      },
-      daysAgo: {
-        opacity: 0.25,
-        paddingLeft: 10,
-        display: 'inline-block'
-      },
-      title: {
-        borderBottom: '1px solid #333',
-        // fontWeight: 'bold',
-        color: 'black',
-        padding: 10,
-        paddingLeft: 0
-      },
-      date: {
-        paddingRight: 10,
-        fontWeight: 'bold',
-        display: 'inline-block'
-      },
-      educator: {
-        paddingLeft: 5,
-        display: 'inline-block'
-      },
-      note: {
-        border: '1px solid #eee',
-        padding: 15,
-        marginTop: 10,
-        marginBottom: 10
-      },
-      intervention: {
-        border: '1px solid #eee',
-        padding: 15,
-        marginTop: 10,
-        marginBottom: 10
-      },
-      takeNotesTextArea: {
-        fontSize: 14,
-        border: '1px solid #eee',
-        width: '100%' //overriding strange global CSS, should cleanup
-      },
-      cancelTakeNotesButton: { // overidding CSS
-        color: 'black',
-        background: '#eee',
-        marginLeft: 10
-      },
-      expandedNote: {
-        marginTop: 5
-      },
-      collapsedNote: {
-        maxHeight: '2em',
-        overflowY: 'hidden'
-      },
-      serviceButton: {
-        background: '#eee', // override CSS
-        color: 'black',
-        // shrinking:
-        width: '12em',
-        fontSize: 12,
-        padding: 8
-      },
-      discontinue: {
-        background: 'white',
-        opacity: 0.5,
-        border: '1px solid #ccc',
-        color: '#666'
-      },
-      recordServiceTextArea: {
-        fontSize: 14,
-        border: '1px solid #eee',
-        width: '100%' //overriding strange global CSS, should cleanup
-      },
-      recordServiceButton: {
-        marginTop: 5
-      }
+      interventionTypesIndex: React.PropTypes.object.isRequired,
+      actions: PropTypes.actions.isRequired
     },
 
     getInitialState: function() {
@@ -156,7 +154,8 @@
 
     onSaveNotes: function(eventNoteParams, event) {
       // TODO(kr) make request, track it, set up callback
-      this.setState({ isTakingNotes: false });
+      // this.setState({ isTakingNotes: false });
+      this.props.actions.onClickSaveNotes(eventNoteParams);
     },
 
     onRecordServiceClicked: function(event) {
@@ -188,17 +187,17 @@
     },
 
     render: function() {
-      return dom.div({ className: 'InterventionsDetails', style: this.styles.container },
-        dom.div({ style: this.styles.notesContainer },
-          dom.h4({ style: this.styles.title}, 'Notes'),
+      return dom.div({ className: 'InterventionsDetails', style: styles.container },
+        dom.div({ style: styles.notesContainer },
+          dom.h4({ style: styles.title}, 'Notes'),
           this.renderTakeNotesSection(),
           this.renderNotes()
         ),
-        dom.div({ style: this.styles.interventionsContainer },
-          dom.h4({ style: this.styles.title}, 'Services'),
+        dom.div({ style: styles.interventionsContainer },
+          dom.h4({ style: styles.title}, 'Services'),
           this.renderRecordService(),
           (this.props.student.interventions.length === 0)
-            ? dom.div({ style: this.styles.noItems }, 'No services')
+            ? dom.div({ style: styles.noItems }, 'No services')
             : this.renderInterventionsList()
         )
       );
@@ -210,7 +209,8 @@
           nowMoment: moment(), // TODO(kr) thread through
           currentEducator: this.props.currentEducator,
           onSave: this.onSaveNotes,
-          onCancel: this.onCancelNotes
+          onCancel: this.onCancelNotes,
+          requestState: this.props.requests.saveNotes
         });
       }
 
@@ -229,7 +229,7 @@
       // TODO(kr) v1 interventions as notes
       // TODO(kr) v1 interventions progress notes as notes
       var mergedNotes = _.sortBy(v1Notes.concat(v2Notes), 'sort_timestamp').reverse();
-      return dom.div({}, (mergedNotes.length === 0) ? dom.div({ style: this.styles.noItems }, 'No notes') : mergedNotes.map(function(note) {
+      return dom.div({}, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(note) {
         switch (note.version) {
           case 'v1': return this.renderV1Note(note);
           case 'v2': return this.renderV2Note(note);
@@ -239,14 +239,13 @@
 
     renderNoteHeader: function(header) {
       return dom.div({},
-        dom.span({ style: this.styles.date }, header.noteMoment.format('MMMM D, YYYY')),
+        dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
         '|',
-        dom.span({ style: this.styles.educator }, header.educatorEmail)
+        dom.span({ style: styles.educator }, header.educatorEmail)
       );
     },
 
     renderV2Note: function(note) {
-      var styles = this.styles;
       var educatorEmail = this.props.educatorsIndex[note.educator_id].email;
       return dom.div({
         key: ['v2', note.id].join(),
@@ -263,7 +262,6 @@
     },
 
     renderV1Note: function(note) {
-      var styles = this.styles;
       return dom.div({
         key: note.id,
         style: styles.note
@@ -279,7 +277,7 @@
     },
 
     renderRecordService: function() {
-      return dom.div({ style: this.styles.addServiceContainer },
+      return dom.div({ style: styles.addServiceContainer },
         (this.state.isAddingService)
           ? this.renderRecordServiceDialog()
           : this.renderRecordServiceButton()
@@ -307,7 +305,7 @@
       return dom.button({
         onClick: this.onServiceClicked.bind(this, interventionTypeId),
         tabIndex: -1,
-        style: merge(this.styles.serviceButton, {
+        style: merge(styles.serviceButton, {
           background: color,
           opacity: (this.state.serviceTypeId === null || this.state.serviceTypeId === interventionTypeId) ? 1 : 0.25,
           outline: 0,
@@ -320,7 +318,7 @@
     },
 
     renderRecordServiceDialog: function() {
-      return dom.div({ style: this.styles.dialog },
+      return dom.div({ style: styles.dialog },
         dom.div({ style: { marginBottom: 5 } }, 'Which service?'),
         dom.div({ style: { display: 'flex' } },
           dom.div({ style: { flex: 1 } },
@@ -348,14 +346,14 @@
         dom.div({ style: { marginTop: 15 } }, 'Any other context?'),
         dom.textarea({
           rows: 3,
-          style: this.styles.recordServiceTextArea,
+          style: styles.recordServiceTextArea,
           // ref: function(ref) { this.takeNotesTextAreaRef = ref; }.bind(this),
           value: this.state.serviceText,
           onChange: this.onRecordServiceTextChanged
         }),
         dom.div({},
           dom.button({
-            style: merge(this.styles.recordServiceButton, {
+            style: merge(styles.recordServiceButton, {
               background: (this.state.serviceTypeId === null) ? '#ccc' : undefined
             }),
             disabled: (this.state.serviceTypeId === null),
@@ -364,7 +362,7 @@
           }, 'Record service'),
           dom.button({
             className: 'btn',
-            style: this.styles.cancelTakeNotesButton, // TODO(kr) rename
+            style: styles.cancelTakeNotesButton, // TODO(kr) rename
             onClick: this.onCancelRecordServiceClicked
           }, 'Cancel')
         )
@@ -414,7 +412,7 @@
       var educatorEmail = this.props.educatorsIndex[intervention.educator_id].email;
       return dom.div({
         key: intervention.id,
-        style: merge(this.styles.intervention, { background: this.interventionColor(intervention.intervention_type_id) })
+        style: merge(styles.intervention, { background: this.interventionColor(intervention.intervention_type_id) })
       },
         dom.div({ style: { display: 'flex' } },
           dom.div({ style: { flex: 1 } },
@@ -423,14 +421,14 @@
             dom.div({},
               'Since ',
               moment(intervention.start_date).format('MMMM D, YYYY'),
-              dom.span({ style: this.styles.daysAgo }, daysText)
+              dom.span({ style: styles.daysAgo }, daysText)
             )
           ),
           dom.div({},
-            dom.button({ className: 'btn', style: this.styles.discontinue }, 'Discontinue')
+            dom.button({ className: 'btn', style: styles.discontinue }, 'Discontinue')
           )
         ),
-        dom.div({ style: merge(this.styles.userText, { paddingTop: 15 }) }, intervention.comment)
+        dom.div({ style: merge(styles.userText, { paddingTop: 15 }) }, intervention.comment)
       );
     }
   });
