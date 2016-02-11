@@ -153,9 +153,8 @@
     },
 
     onSaveNotes: function(eventNoteParams, event) {
-      // TODO(kr) make request, track it, set up callback
-      // this.setState({ isTakingNotes: false });
       this.props.actions.onClickSaveNotes(eventNoteParams);
+      this.setState({ isTakingNotes: false });
     },
 
     onRecordServiceClicked: function(event) {
@@ -204,7 +203,7 @@
     },
 
     renderTakeNotesSection: function() {
-      if (this.state.isTakingNotes) {
+      if (this.state.isTakingNotes || this.props.requests.saveNotes !== null) {
         return createEl(TakeNotes, {
           nowMoment: moment(), // TODO(kr) thread through
           currentEducator: this.props.currentEducator,

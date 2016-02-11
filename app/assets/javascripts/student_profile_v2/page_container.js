@@ -62,17 +62,12 @@
       window.history.replaceState({}, null, path);
     },
 
-    // Sugar for updating request state through setState.
-    updatedRequestsState: function(map) {
-      return { requests: merge(this.state.requests, map) };
-    },
-
     onColumnClicked: function(columnKey) {
       this.setState({ selectedColumnKey: columnKey });
     },
 
     onClickSaveNotes: function(eventNoteParams) {
-      this.setRequestState({ saveNotes: 'pending' });
+      this.setState({ requests: merge(this.state.requests, { saveNotes: 'pending' }) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
@@ -80,15 +75,15 @@
 
     onSaveNotesDone: function(response) {
       var updatedEventNotes = this.state.feed.event_notes.concat([response]);
-      var updatedFeed = merge(this.state.feed, event_notes: updatedEventNotes);
+      var updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
       this.setState({
         feed: updatedFeed,
-        requests: this.updatedRequestsState({ saveNotes: null })
+        requests: merge(this.state.requests, { saveNotes: null })
       });
     },
 
-    onSaveNotesFail: function() {
-      this.setState({ requests: this.updatedRequestsState({ saveNotes: 'error' }) });
+    onSaveNotesFail: function(request, status, message) {
+      this.setState({ requests: merge(this.state.requests, { saveNotes: 'error' }) });
     },
 
     dateRange: function() {

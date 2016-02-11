@@ -71,10 +71,12 @@ class StudentsController < ApplicationController
     clean_params = params.require(:event_note).permit(*[
       :student_id,
       :event_note_type_id,
-      :recorded_at,
       :text
     ])
-    event_note = EventNote.new(clean_params.merge(educator_id: current_educator.id))
+    event_note = EventNote.new(clean_params.merge({
+      educator_id: current_educator.id,
+      recorded_at: Time.now
+    }))
     if event_note.save
       render json: event_note.as_json
     else
