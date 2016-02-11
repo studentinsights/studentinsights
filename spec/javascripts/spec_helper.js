@@ -2,8 +2,7 @@
 //
 // PhantomJS (Teaspoons default driver) doesn't have support for Function.prototype.bind, which has caused confusion.
 // Use this polyfill to avoid the confusion.
-// KR: this is not the vendored support/bind-poly, which seems to dislike some React functions: https://github.com/facebook/react/issues/945
-//= require support/es5-shim.js
+//= require support/bind-poly
 //
 // You can require your own javascript files here. By default this will include everything in application, however you
 // may get better load performance if you require the specific files that are being used in the spec that tests them.
