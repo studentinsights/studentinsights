@@ -4,11 +4,11 @@ $(function() {
 
   // imports
   var createEl = window.shared.ReactHelpers.createEl;
-  var StudentProfileV2Page = window.shared.StudentProfileV2Page;
+  var PageContainer = window.shared.PageContainer;
   var parseQueryString = window.shared.parseQueryString;
 
   // entry point, reading static bootstrapped data from the page
-  ReactDOM.render(createEl(StudentProfileV2Page, {
+  ReactDOM.render(createEl(PageContainer, {
     nowMomentFn: function() { return moment(); },
     serializedData: $('#serialized-data').data(),
     queryParams: parseQueryString(window.location.search)
