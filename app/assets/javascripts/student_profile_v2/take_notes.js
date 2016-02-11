@@ -120,11 +120,11 @@
             background: (this.state.eventNoteTypeId === null) ? '#ccc' : undefined
           },
           disabled: (this.state.eventNoteTypeId === null),
-          className: 'btn',
-          onClick: this.onClickSave // TODO(kr) non-functional
+          className: 'btn save',
+          onClick: this.onClickSave
         }, 'Save notes'),
         dom.button({
-          className: 'btn',
+          className: 'btn cancel',
           style: styles.cancelTakeNotesButton,
           onClick: this.onClickCancel
         }, 'Cancel'),
@@ -145,6 +145,7 @@
     // TODO(kr) extract
     renderNoteButton: function(noteText, noteTypeId) {
       return dom.button({
+        className: 'btn note-type',
         onClick: this.onClickNoteType.bind(this, noteTypeId),
         tabIndex: -1,
         style: merge(styles.serviceButton, {
@@ -154,8 +155,7 @@
           border: (this.state.eventNoteTypeId === noteTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
-        }),
-        className: 'btn'
+        })
       }, noteText);
     }
   });

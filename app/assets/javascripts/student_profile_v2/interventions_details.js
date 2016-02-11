@@ -216,7 +216,7 @@
 
       return dom.div({},
         dom.button({
-          className: 'btn',
+          className: 'btn take-notes',
           style: { marginTop: 10 },
           onClick: this.onClickTakeNotes
         }, 'Take notes')
@@ -286,9 +286,9 @@
 
     renderRecordServiceButton: function() {
       return dom.button({
-        className: 'btn',
+        className: 'btn record-service',
         onClick: this.onRecordServiceClicked
-      }, 'Record service delivery')
+      }, 'Record service')
     },
 
     renderServiceButton: function(interventionTypeId, options) {
