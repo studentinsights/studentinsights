@@ -91,14 +91,15 @@ class StudentsController < ApplicationController
   # TODO(kr) this is placeholder fixture data for now, to test design prototypes on the v2 student profile
   # page
   def student_feed(student)
+    fixture_educator_id = 12
     v2_notes = [
-      { version: 'v2', id: 42, profile_v2_note_type_id: 1, educator_id: 1, date_recorded: '2016-02-09T20:56:51.638Z', text: 'Call parent in for a meeting.' },
-      { version: 'v2', id: 43, profile_v2_note_type_id: 2, educator_id: 1, date_recorded: '2016-02-03T20:56:51.638Z', text: 'Attendance has improved, will schedule a meeting with the family to talk about counseling needs.' }
+      { version: 'v2', id: 42, profile_v2_note_type_id: 1, educator_id: fixture_educator_id, date_recorded: '2016-02-09T20:56:51.638Z', text: 'Call parent in for a meeting.' },
+      { version: 'v2', id: 43, profile_v2_note_type_id: 2, educator_id: fixture_educator_id, date_recorded: '2016-02-03T20:56:51.638Z', text: 'Attendance has improved, will schedule a meeting with the family to talk about counseling needs.' }
     ]
 
     v2_services = [
-      { version: 'v2', id: 133, profile_v2_service_type_id: 1, recorded_by_educator_id: 1, assigned_to_educator_id: 2, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: 'Working with Bridget' },
-      { version: 'v2', id: 134, profile_v2_service_type_id: 1, recorded_by_educator_id: 1, assigned_to_educator_id: 3, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: ''  }
+      { version: 'v2', id: 133, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: 'Working on goals' },
+      { version: 'v2', id: 134, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: ''  }
     ]
 
     {
