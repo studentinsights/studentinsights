@@ -35,6 +35,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
     InterventionType.seed_somerville_intervention_types
+    EventNoteType.seed_somerville_event_note_types
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

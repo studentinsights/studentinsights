@@ -1,2 +1,3 @@
 School.seed_somerville_schools
 InterventionType.seed_somerville_intervention_types
+EventNoteType.seed_somerville_event_note_types

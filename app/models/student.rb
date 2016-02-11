@@ -6,6 +6,7 @@ class Student < ActiveRecord::Base
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
   has_many :student_notes
+  has_many :event_notes
   has_one :student_risk_level, dependent: :destroy
 
   validates_presence_of :local_id
