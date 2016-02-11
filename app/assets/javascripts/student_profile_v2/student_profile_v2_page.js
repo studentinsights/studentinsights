@@ -123,7 +123,7 @@
       return dom.div({ className: 'StudentProfileV2Page', style: styles.page },
         this.renderSaveStatus(),
         this.renderStudentName(),
-        dom.div({ style: styles.summaryContainer },
+        dom.div({ className: 'summary-container', style: styles.summaryContainer },
           this.renderProfileColumn(),
           this.renderELAColumn(),
           this.renderMathColumn(),

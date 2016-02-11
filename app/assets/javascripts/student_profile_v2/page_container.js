@@ -6,6 +6,7 @@
 
   var Routes = window.shared.Routes;
   var StudentProfileV2Page = window.shared.StudentProfileV2Page;
+  var PropTypes = window.shared.PropTypes;
 
   /*
   Holds page state, makes API calls to manipulate it.
@@ -16,7 +17,9 @@
     propTypes: {
       nowMomentFn: React.PropTypes.func.isRequired,
       serializedData: React.PropTypes.object.isRequired, // TODO(kr) shape PropType
-      queryParams: React.PropTypes.object.isRequired
+      queryParams: React.PropTypes.object.isRequired,
+
+      actions: PropTypes.actions // for testing
     },
 
     getInitialState: function() {
@@ -98,7 +101,7 @@
           'requests'
         ), {
           nowMomentFn: this.props.nowMomentFn,
-          actions: {
+          actions: this.props.actions || {
             onColumnClicked: this.onColumnClicked,
             onClickSaveNotes: this.onClickSaveNotes
           }
