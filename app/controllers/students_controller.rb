@@ -61,7 +61,7 @@ class StudentsController < ApplicationController
       attendance_data: {
         discipline_incidents: student.most_recent_school_year.discipline_incidents,
         tardies: student.most_recent_school_year.tardies,
-        absences: student.most_recent_school_year.tardies
+        absences: student.most_recent_school_year.absences
       }
     }
   end
