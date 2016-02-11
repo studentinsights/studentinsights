@@ -3,8 +3,10 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
+  
   var ReactSelect = window.Select;
   var datepickerOptions = window.datepicker_options;
+  var TakeNotes = window.shared.TakeNotes;
 
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
@@ -120,8 +122,6 @@
         expandedNoteIds: [],
 
         isTakingNotes: false,
-        takeNoteTypeId: null,
-        takeNoteText: null,
 
         isAddingService: false,
         serviceProvidedByEducatorId: null,
@@ -130,21 +130,13 @@
       }
     },
 
-    // Focus on note-taking text area when it first appears.
     componentDidUpdate: function(prevProps, prevState) {
       var el = ReactDOM.findDOMNode(this);
       $(el).find('.datepicker').datepicker(datepickerOptions);
-      if ((prevState.takeNoteTypeId === null && prevState.takeNoteText === null) && this.isTakingNotes() && this.takeNotesTextAreaRef !== null) {
-        this.takeNotesTextAreaRef.focus();
-      }
     },
 
     isExpanded: function(note) {
       return (this.state.expandedNoteIds.indexOf(note.id) !== -1);
-    },
-
-    isTakingNotes: function() {
-      return this.state.isTakingNotes;
     },
 
     onNoteClicked: function(note) {
@@ -154,28 +146,17 @@
       this.setState({ expandedNoteIds: updatedNoteIds });
     },
 
-    onTakeNotesClicked: function() {
-      this.setState({
-        isTakingNotes: true,
-        takeNoteTypeId: null,
-        takeNoteText: ''
-      });
+    onClickTakeNotes: function(event) {
+      this.setState({ isTakingNotes: true });
     },
 
-    onNoteTypeClicked: function(noteTypeId, event) {
-      this.setState({ takeNoteTypeId: noteTypeId });
+    onCancelNotes: function(event) {
+      this.setState({ isTakingNotes: false });
     },
 
-    onCancelTakeNotesClicked: function(event) {
-      this.setState({
-        isTakingNotes: false,
-        takeNoteTypeId: null,
-        takeNoteText: null
-      });
-    },
-
-    onTakeNoteTextChanged: function(event) {
-      this.setState({ takeNoteText: event.target.value });
+    onSaveNotes: function(eventNoteParams, event) {
+      // TODO(kr) make request, track it, set up callback
+      this.setState({ isTakingNotes: false });
     },
 
     onRecordServiceClicked: function(event) {
@@ -210,7 +191,7 @@
       return dom.div({ className: 'InterventionsDetails', style: this.styles.container },
         dom.div({ style: this.styles.notesContainer },
           dom.h4({ style: this.styles.title}, 'Notes'),
-          this.renderTakeNotes(),
+          this.renderTakeNotesSection(),
           this.renderNotes()
         ),
         dom.div({ style: this.styles.interventionsContainer },
@@ -223,63 +204,22 @@
       );
     },
 
-    renderTakeNotes: function() {
+    renderTakeNotesSection: function() {
+      if (this.state.isTakingNotes) {
+        return createEl(TakeNotes, {
+          nowMoment: moment(), // TODO(kr) thread through
+          currentEducator: this.props.currentEducator,
+          onSave: this.onSaveNotes,
+          onCancel: this.onCancelNotes
+        });
+      }
+
       return dom.div({},
-        (this.isTakingNotes())
-          ? this.renderTakeNoteTextbox()
-          : this.renderTakeNotesButton()
-      );
-    },
-
-    renderTakeNotesButton: function() {
-      return dom.button({
-        className: 'btn',
-        style: { marginTop: 10 },
-        onClick: this.onTakeNotesClicked
-      }, 'Take notes');
-    },
-
-    renderTakeNoteTextbox: function() {
-      return dom.div({ style: this.styles.dialog },
-        this.renderNoteHeader({
-          noteMoment: moment(),
-          educatorEmail: this.props.currentEducator.email
-        }),
-        dom.textarea({
-          rows: 10,
-          style: this.styles.takeNotesTextArea,
-          ref: function(ref) { this.takeNotesTextAreaRef = ref; }.bind(this),
-          value: this.state.takeNoteText,
-          onChange: this.onTakeNoteTextChanged
-        }),
-        dom.div({ style: { marginBottom: 5, marginTop: 20 } }, 'What are these notes from?'),
-        dom.div({ style: { display: 'flex' } },
-          dom.div({ style: { flex: 1 } },
-            this.renderNoteButton('SST meeting', 1),
-            this.renderNoteButton('MTSS meeting', 2)
-          ),
-          dom.div({ style: { flex: 1 } },
-            this.renderNoteButton('Parent conversation', 3),
-            this.renderNoteButton('51a filing', 4)
-          ),
-          dom.div({ style: { flex: 'auto' } },
-            this.renderNoteButton('Something else', 5) 
-          )
-        ),
-        dom.button({
-          style: {
-            marginTop: 20,
-            background: (this.state.takeNoteTypeId === null) ? '#ccc' : undefined
-          },
-          disabled: (this.state.takeNoteTypeId === null),
-          className: 'btn',
-          onClick: this.onCancelTakeNotesClicked // TODO(kr) non-functional
-        }, 'Save notes'),
         dom.button({
           className: 'btn',
-          style: this.styles.cancelTakeNotesButton,
-          onClick: this.onCancelTakeNotesClicked
-        }, 'Cancel')
+          style: { marginTop: 10 },
+          onClick: this.onClickTakeNotes
+        }, 'Take notes')
       );
     },
 
@@ -377,22 +317,6 @@
         }),
         className: 'btn'
       }, serviceText);
-    },
-
-    renderNoteButton: function(noteText, noteTypeId) {
-      return dom.button({
-        onClick: this.onNoteTypeClicked.bind(this, noteTypeId),
-        tabIndex: -1,
-        style: merge(this.styles.serviceButton, {
-          background: '#eee',
-          opacity: (this.state.takeNoteTypeId === null || this.state.takeNoteTypeId === noteTypeId) ? 1 : 0.25,
-          outline: 0,
-          border: (this.state.takeNoteTypeId === noteTypeId)
-            ? '4px solid rgba(49, 119, 201, 0.75)'
-            : '4px solid white'
-        }),
-        className: 'btn'
-      }, noteText);
     },
 
     renderRecordServiceDialog: function() {

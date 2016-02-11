@@ -7,24 +7,10 @@ $(function() {
   var StudentProfileV2Page = window.shared.StudentProfileV2Page;
   var parseQueryString = window.shared.parseQueryString;
 
-  // entry point
-  function main() {
-    var now = new Date();
-    var serializedData = $('#serialized-data').data();
-    var dateRange = [moment(now).subtract(1, 'year').toDate(), now];
-    ReactDOM.render(createEl(StudentProfileV2Page, {
-      now: now,
-      dateRange: dateRange,
-      currentEducator: serializedData.currentEducator,
-      queryParams: parseQueryString(window.location.search),
-      student: serializedData.student,
-      feed: serializedData.feed,
-      chartData: serializedData.chartData,
-      interventionTypesIndex: serializedData.interventionTypesIndex,
-      educatorsIndex: serializedData.educatorsIndex,
-      attendanceData: serializedData.attendanceData,
-    }), document.getElementById('main'));
-  }
-
-  main();
+  // entry point, reading static bootstrapped data from the page
+  ReactDOM.render(createEl(StudentProfileV2Page, {
+    nowMomentFn: function() { return moment(); },
+    serializedData: $('#serialized-data').data(),
+    queryParams: parseQueryString(window.location.search)
+  }), document.getElementById('main'));
 });
