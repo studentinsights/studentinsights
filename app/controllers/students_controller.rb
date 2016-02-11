@@ -92,8 +92,8 @@ class StudentsController < ApplicationController
   # page
   def student_feed(student)
     v2_notes = [
-      { version: 'v2', id: 42, profile_v2_note_type_id: 1, educator_id: 1, date_recorded: '2016-02-09T20:56:51.638Z', text: 'Call parent in for a meeting - Bridget will work with Heidy to schedule parent meeting' },
-      { version: 'v2', id: 43, profile_v2_note_type_id: 2, educator_id: 1, date_recorded: '2016-02-03T20:56:51.638Z', text: 'Continues to be opposition towards work. Attendance has improved. Karen meets with her weekly to work on some academics. Karen will schedule a meeting with the mother to discuss counseling needs.' }
+      { version: 'v2', id: 42, profile_v2_note_type_id: 1, educator_id: 1, date_recorded: '2016-02-09T20:56:51.638Z', text: 'Call parent in for a meeting.' },
+      { version: 'v2', id: 43, profile_v2_note_type_id: 2, educator_id: 1, date_recorded: '2016-02-03T20:56:51.638Z', text: 'Attendance has improved, will schedule a meeting with the family to talk about counseling needs.' }
     ]
 
     v2_services = [
