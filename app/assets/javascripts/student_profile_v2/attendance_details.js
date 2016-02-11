@@ -3,7 +3,9 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
+
   var HighchartsWrapper = window.shared.HighchartsWrapper;
+  var Scales = window.shared.Scales;
 
   var AttendanceDetails = window.shared.AttendanceDetails = React.createClass({
     displayName: 'AttendanceDetails',
@@ -45,14 +47,15 @@
     },
 
     renderDisciplineIncidents: function() {
+      var range = Scales.disciplineIncidents.valueRange;
       return createEl(HighchartsWrapper, merge(this.baseOptions(), {
         title: {
           text: 'Discipline incidents, last 4 years',
           align: 'left'
         },
         yAxis: {
-          min: 0,
-          max: 6
+          min: range[0],
+          max: range[1]
         },
         series: [{
           name: 'Events per school year',
@@ -67,12 +70,16 @@
           text: 'Absences and Tardies, last 4 years',
           align: 'left'
         },
+        yAxis: {
+          min: _.min([Scales.absences.valueRange[0], Scales.tardies.valueRange[0]]),
+          max: _.max([Scales.absences.valueRange[1], Scales.tardies.valueRange[1]])
+        },
         series: [{
-          name: 'Absences per school year',
-          data: this.quadsToPairs(this.props.cumulativeAbsences)
-        }, {
           name: 'Tardies per school year',
           data: this.quadsToPairs(this.props.cumulativeTardies)
+        }, {
+          name: 'Absences per school year',
+          data: this.quadsToPairs(this.props.cumulativeAbsences)
         }]
       }));
     },
@@ -106,11 +113,7 @@
           plotLines: this.x_axis_bands,
           min: timestampRange.min,
           max: timestampRange.max
-        }),
-        yAxis: {
-          min: 0,
-          max: 20
-        }
+        })
       });
     },
 

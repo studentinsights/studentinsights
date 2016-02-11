@@ -11,6 +11,8 @@
   var InterventionsDetails = window.shared.InterventionsDetails;
   var AttendanceDetails = window.shared.AttendanceDetails;
   var MathDetails = window.shared.MathDetails;
+  var QuadConverter = window.shared.QuadConverter;
+  var Scales = window.shared.Scales;
 
   var ProfileDetails = React.createClass({
     render: function() {
@@ -301,8 +303,8 @@
           caption: 'MCAS ELA',
           value: student.most_recent_mcas_ela_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled || [], {
-            valueRange: [200, 300],
-            thresholdValue: 240
+            valueRange: Scales.mcas.valueRange,
+            thresholdValue: Scales.mcas.threshold
           })
         }),
         this.wrapSummary({
@@ -332,8 +334,8 @@
           caption: 'MCAS Math',
           value: student.most_recent_mcas_math_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_math_scaled || [], {
-            valueRange: [200, 300],
-            thresholdValue: 240
+            valueRange: Scales.mcas.valueRange,
+            thresholdValue: Scales.mcas.threshold
           })
         }),
         this.wrapSummary({
@@ -356,20 +358,20 @@
       },
         this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {
           caption: 'Discipline incidents',
-          valueRange: [0, 6],
-          thresholdValue: 3,
+          valueRange: Scales.disciplineIncidents.valueRange,
+          thresholdValue: Scales.disciplineIncidents.threshold,
           shouldDrawCircles: false
         }),
         this.renderAttendanceEventsSummary(attendanceData.absences, {
           caption: 'Absences',
-          valueRange: [0, 40],
-          thresholdValue: 20,
+          valueRange: Scales.absences.valueRange,
+          thresholdValue: Scales.absences.threshold,
           shouldDrawCircles: false
         }),
         this.renderAttendanceEventsSummary(attendanceData.tardies, {
           caption: 'Tardies',
-          valueRange: [0, 20],
-          thresholdValue: 10,
+          valueRange: Scales.tardies.valueRange,
+          thresholdValue: Scales.tardies.threshold,
           shouldDrawCircles: false
         })
       );
@@ -386,68 +388,8 @@
       }, props));
     },
 
-    toCumulativeQuads: function(yearAttendanceEvents) {
-      var cumulativeValue = 0;
-      var quads = [];
-      _.sortBy(yearAttendanceEvents, 'occurred_at').forEach(function(attendanceEvent) {
-        var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
-        cumulativeValue = cumulativeValue + 1;
-        
-        // collapse consecutive events on the same day
-        var lastQuad = _.last(quads);
-        if (lastQuad && lastQuad[0] === occurrenceDate.getFullYear() && lastQuad[1] === occurrenceDate.getMonth() + 1 && lastQuad[2] === occurrenceDate.getDate()) {
-          lastQuad[3] = cumulativeValue;
-        } else {
-          quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth() + 1, occurrenceDate.getDate(), cumulativeValue]);
-        }
-      });
-
-      return quads;
-    },
-
-    schoolYearStart: function(eventMoment) {
-      var year = eventMoment.year();
-      var startOfSchoolYear = moment(new Date(year, 8, 15));
-      var isFallSeason = eventMoment.clone().diff(startOfSchoolYear, 'days') > 0;
-      return (isFallSeason) ? year : year - 1;
-    },
-
-    cumulativeStartDate: function(start) {
-      var schoolYearStart = this.schoolYearStart(moment(start));
-      return new Date(schoolYearStart, 8, 15);
-    },
-
-    allSchoolYearStarts: function(dateRange) {
-      var schoolYearStarts = dateRange.map(function(date) {
-        return this.schoolYearStart(moment(date));
-      }, this);
-      return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
-    },
-
-    // Fills in data points for start of the school year (8/15) and for current day.
-    // Also collapses multiple events on the same day.
-    // TODO(kr) should extract this, simplify and test it more thoroughly
     cumulativeCountQuads: function(attendanceEvents) {
-      var currentYearStart = this.schoolYearStart(moment(this.props.now));
-      var schoolYearStarts = this.allSchoolYearStarts(this.props.dateRange);
-      var sortedAttendanceEvents = _.sortBy(attendanceEvents, 'occurred_at');
-
-      var quads = [];
-      schoolYearStarts.sort().forEach(function(schoolYearStart) {
-        var yearAttendanceEvents = sortedAttendanceEvents.filter(function(attendanceEvent) {
-          return this.schoolYearStart(moment(attendanceEvent.occurred_at)) === schoolYearStart;
-        }, this);
-        var cumulativeEventQuads = this.toCumulativeQuads(yearAttendanceEvents);
-        var startOfYearQuad = [schoolYearStart, 8, 15, 0];
-        quads.push(startOfYearQuad);
-        cumulativeEventQuads.forEach(function(cumulativeQuad) { quads.push(cumulativeQuad); });
-        var lastValue = (cumulativeEventQuads.length === 0) ? 0 : _.last(cumulativeEventQuads)[3];
-        if (schoolYearStart === currentYearStart) {
-          quads.push([this.props.now.getFullYear(), this.props.now.getMonth() + 1, this.props.now.getDate(), lastValue]);
-        }
-      }, this);
-
-      return _.sortBy(quads, function(quad) { return new Date(quad[0], quad[1], quad[2]) });
+      return QuadConverter.convert(attendanceEvents, this.props.now, this.props.dateRange);
     },
 
     // quads format is: [[year, month (Ruby), day, value]]
