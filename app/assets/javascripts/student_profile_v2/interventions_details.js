@@ -422,10 +422,11 @@
               moment(intervention.start_date).format('MMMM D, YYYY'),
               dom.span({ style: styles.daysAgo }, daysText)
             )
-          ),
-          dom.div({},
-            dom.button({ className: 'btn', style: styles.discontinue }, 'Discontinue')
           )
+          // TODO(kr) re-enable
+          // dom.div({},
+          //   dom.button({ className: 'btn', style: styles.discontinue }, 'Discontinue')
+          // )
         ),
         dom.div({ style: merge(styles.userText, { paddingTop: 15 }) }, intervention.comment)
       );
