@@ -254,8 +254,7 @@ describe StudentsController, :type => :controller do
           expect(response_body).to eq({
             "errors" => [
               "Student can't be blank",
-              "Event note type can't be blank",
-              "Recorded at can't be blank"
+              "Event note type can't be blank"
             ]
           })
         end
