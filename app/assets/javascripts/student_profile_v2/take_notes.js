@@ -4,6 +4,8 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
+  var PropTypes = window.shared.PropTypes;
+
   var styles = {
     dialog: {
       border: '1px solid #ccc',
@@ -29,7 +31,8 @@
     cancelTakeNotesButton: { // overidding CSS
       color: 'black',
       background: '#eee',
-      marginLeft: 10
+      marginLeft: 10,
+      marginRight: 10
     },
     serviceButton: {
       background: '#eee', // override CSS
@@ -51,7 +54,8 @@
       nowMoment: React.PropTypes.object.isRequired,
       onSave: React.PropTypes.func.isRequired,
       onCancel: React.PropTypes.func.isRequired,
-      currentEducator: React.PropTypes.object.isRequired
+      currentEducator: React.PropTypes.object.isRequired,
+      requestState: PropTypes.nullable(React.PropTypes.string.isRequired)
     },
 
     getInitialState: function() {
@@ -116,14 +120,16 @@
             background: (this.state.eventNoteTypeId === null) ? '#ccc' : undefined
           },
           disabled: (this.state.eventNoteTypeId === null),
-          className: 'btn',
-          onClick: this.onClickSave // TODO(kr) non-functional
+          className: 'btn save',
+          onClick: this.onClickSave
         }, 'Save notes'),
         dom.button({
-          className: 'btn',
+          className: 'btn cancel',
           style: styles.cancelTakeNotesButton,
           onClick: this.onClickCancel
-        }, 'Cancel')
+        }, 'Cancel'),
+        (this.props.requestState === 'pending') ? dom.span({}, 'Saving...') : null,
+        (this.props.requestState === 'error') ? dom.span({}, 'Try again!') : null
       );
     },
 
@@ -139,6 +145,7 @@
     // TODO(kr) extract
     renderNoteButton: function(noteText, noteTypeId) {
       return dom.button({
+        className: 'btn note-type',
         onClick: this.onClickNoteType.bind(this, noteTypeId),
         tabIndex: -1,
         style: merge(styles.serviceButton, {
@@ -148,8 +155,7 @@
           border: (this.state.eventNoteTypeId === noteTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
-        }),
-        className: 'btn'
+        })
       }, noteText);
     }
   });

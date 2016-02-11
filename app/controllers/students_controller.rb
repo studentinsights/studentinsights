@@ -71,10 +71,12 @@ class StudentsController < ApplicationController
     clean_params = params.require(:event_note).permit(*[
       :student_id,
       :event_note_type_id,
-      :recorded_at,
       :text
     ])
-    event_note = EventNote.new(clean_params.merge(educator_id: current_educator.id))
+    event_note = EventNote.new(clean_params.merge({
+      educator_id: current_educator.id,
+      recorded_at: Time.now
+    }))
     if event_note.save
       render json: event_note.as_json
     else
@@ -110,7 +112,7 @@ class StudentsController < ApplicationController
     {
       v1_notes: student.student_notes.map { |note| serialize_student_note(note) },
       v1_interventions: student.interventions.map { |intervention| serialize_intervention(intervention) },
-      v2_notes: if Rails.env.development? then v2_notes_fixture else [] end,
+      event_notes: student.event_notes,
       v2_services: if Rails.env.development? then v2_services_fixture else [] end
     }
   end
@@ -120,14 +122,6 @@ class StudentsController < ApplicationController
     [
       { version: 'v2', id: 133, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: 'Working on goals' },
       { version: 'v2', id: 134, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: ''  }
-    ]
-  end
-
-  def v2_notes_fixture
-    fixture_educator_id = 1
-    [
-      { version: 'v2', id: 42, profile_v2_note_type_id: 1, educator_id: fixture_educator_id, date_recorded: '2016-02-09T20:56:51.638Z', text: 'Call parent in for a meeting.' },
-      { version: 'v2', id: 43, profile_v2_note_type_id: 2, educator_id: fixture_educator_id, date_recorded: '2016-02-03T20:56:51.638Z', text: 'Attendance has improved, will schedule a meeting with the family to talk about counseling needs.' }
     ]
   end
 end

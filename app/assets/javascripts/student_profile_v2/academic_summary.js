@@ -3,14 +3,14 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
-  var SharedPropTypes = window.shared.ReactHelpers.SharedPropTypes;
+  var PropTypes = window.shared.PropTypes;
 
   var AcademicSummary = window.shared.AcademicSummary = React.createClass({
     displayName: 'AcademicSummary',
 
     propTypes: {
       caption: React.PropTypes.string.isRequired,
-      value: SharedPropTypes.nullable(React.PropTypes.number.isRequired),
+      value: PropTypes.nullable(React.PropTypes.number.isRequired),
       sparkline: React.PropTypes.element.isRequired
     },
 
