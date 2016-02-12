@@ -353,9 +353,9 @@
         dom.div({},
           dom.button({
             style: merge(styles.recordServiceButton, {
-              background: (this.state.serviceTypeId === null) ? '#ccc' : undefined
+              background: '#ccc' // TODO(kr) (this.state.serviceTypeId === null) ? '#ccc' : undefined
             }),
-            disabled: (this.state.serviceTypeId === null),
+            disabled: true, // TODO(kr) (this.state.serviceTypeId === null),
             className: 'btn',
             onClick: this.onCancelRecordServiceClicked // TODO(kr) non-functional
           }, 'Record service'),
@@ -369,10 +369,10 @@
     },
 
     renderEducatorSelect: function() {
-      var options = [
-        { value: 1, label: 'Jill Geiser' },
-        { value: 2, label: 'Uri Harel' }
-      ];
+      // TODO(kr) convert to names, are those in Aspen?
+      var options = _.values(this.props.educatorsIndex).map(function(educator) {
+        return { value: educator.id, label: educator.email.split('@')[0] };
+      });
 
       return createEl(ReactSelect, {
         name: 'assigned-educator-select',

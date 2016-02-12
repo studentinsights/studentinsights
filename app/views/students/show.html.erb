@@ -2,6 +2,7 @@
     <div id="roster-back">
       <%= link_to "< Back to roster for #{@student.homeroom.name}", @roster_url %>
     </div>
+    <%= link_to 'Profile v2 prototype', profile_student_path(@student), id: 'profile-v2-link' %>
     <div id="export">
       <%= link_to 'Export', @csv_url, method: "get", id: 'export-button' %>
     </div>
