@@ -342,20 +342,20 @@
         ),
         dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
         dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment().format('MM/DD/YYYY') }),
-        dom.div({ style: { marginTop: 15 } }, 'Any other context?'),
-        dom.textarea({
-          rows: 3,
-          style: styles.recordServiceTextArea,
-          // ref: function(ref) { this.takeNotesTextAreaRef = ref; }.bind(this),
-          value: this.state.serviceText,
-          onChange: this.onRecordServiceTextChanged
-        }),
-        dom.div({},
+        // dom.div({ style: { marginTop: 15 } }, 'Any other context?'),
+        // dom.textarea({
+        //   rows: 3,
+        //   style: styles.recordServiceTextArea,
+        //   // ref: function(ref) { this.takeNotesTextAreaRef = ref; }.bind(this),
+        //   value: this.state.serviceText,
+        //   onChange: this.onRecordServiceTextChanged
+        // }),
+        dom.div({ style: { marginTop: 15 } },
           dom.button({
             style: merge(styles.recordServiceButton, {
-              background: (this.state.serviceTypeId === null) ? '#ccc' : undefined
+              background: '#ccc' // TODO(kr) (this.state.serviceTypeId === null) ? '#ccc' : undefined
             }),
-            disabled: (this.state.serviceTypeId === null),
+            disabled: true, // TODO(kr) (this.state.serviceTypeId === null),
             className: 'btn',
             onClick: this.onCancelRecordServiceClicked // TODO(kr) non-functional
           }, 'Record service'),
@@ -369,10 +369,12 @@
     },
 
     renderEducatorSelect: function() {
-      var options = [
-        { value: 1, label: 'Jill Geiser' },
-        { value: 2, label: 'Uri Harel' }
-      ];
+      var options = _.values(this.props.educatorsIndex).map(function(educator) {
+        var name = (educator.full_name !== null)
+          ? educator.full_name
+          : educator.email.split('@')[0];
+        return { value: educator.id, label: name };
+      });
 
       return createEl(ReactSelect, {
         name: 'assigned-educator-select',
