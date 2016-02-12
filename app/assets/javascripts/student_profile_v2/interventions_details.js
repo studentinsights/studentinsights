@@ -350,7 +350,7 @@
         //   value: this.state.serviceText,
         //   onChange: this.onRecordServiceTextChanged
         // }),
-        dom.div({},
+        dom.div({ style: { marginTop: 15 } },
           dom.button({
             style: merge(styles.recordServiceButton, {
               background: '#ccc' // TODO(kr) (this.state.serviceTypeId === null) ? '#ccc' : undefined
