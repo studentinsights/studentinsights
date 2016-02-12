@@ -342,14 +342,14 @@
         ),
         dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
         dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment().format('MM/DD/YYYY') }),
-        dom.div({ style: { marginTop: 15 } }, 'Any other context?'),
-        dom.textarea({
-          rows: 3,
-          style: styles.recordServiceTextArea,
-          // ref: function(ref) { this.takeNotesTextAreaRef = ref; }.bind(this),
-          value: this.state.serviceText,
-          onChange: this.onRecordServiceTextChanged
-        }),
+        // dom.div({ style: { marginTop: 15 } }, 'Any other context?'),
+        // dom.textarea({
+        //   rows: 3,
+        //   style: styles.recordServiceTextArea,
+        //   // ref: function(ref) { this.takeNotesTextAreaRef = ref; }.bind(this),
+        //   value: this.state.serviceText,
+        //   onChange: this.onRecordServiceTextChanged
+        // }),
         dom.div({},
           dom.button({
             style: merge(styles.recordServiceButton, {
@@ -369,9 +369,11 @@
     },
 
     renderEducatorSelect: function() {
-      // TODO(kr) convert to names, are those in Aspen?
       var options = _.values(this.props.educatorsIndex).map(function(educator) {
-        return { value: educator.id, label: educator.email.split('@')[0] };
+        var name = (educator.full_name !== null)
+          ? educator.full_name
+          : educator.email.split('@')[0];
+        return { value: educator.id, label: name };
       });
 
       return createEl(ReactSelect, {
