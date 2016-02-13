@@ -1,27 +1,27 @@
 require 'csv'
 
-class StudentProfileCsvExporter < Struct.new :data
+class StudentProfileCsvExporter < Struct.new :student
 
   def school_years_and_absences
-    data[:student].student_school_years.map do |student_school_year|
+    student.student_school_years.map do |student_school_year|
       [ student_school_year.school_year.name, student_school_year.absences_count ]
     end
   end
 
   def school_years_and_tardies
-    data[:student].student_school_years.map do |student_school_year|
+    student.student_school_years.map do |student_school_year|
       [ student_school_year.school_year.name, student_school_year.tardies_count ]
     end
   end
 
   def school_years_and_discipline_incidents
-    data[:student].student_school_years.map do |student_school_year|
+    student.student_school_years.map do |student_school_year|
       [ student_school_year.school_year.name, student_school_year.discipline_incidents_count ]
     end
   end
 
   def mcas_math_results
-    data[:mcas_math_results].map do |result|
+    student.mcas_math_results.map do |result|
       [
         result.date_taken,
         result.scale_score,
@@ -32,7 +32,7 @@ class StudentProfileCsvExporter < Struct.new :data
   end
 
   def mcas_ela_results
-    data[:mcas_ela_results].map do |results|
+    student.mcas_ela_results.map do |results|
       [
         result.date_taken,
         result.scale_score,
@@ -43,13 +43,13 @@ class StudentProfileCsvExporter < Struct.new :data
   end
 
   def star_math_results
-    data[:star_math_results].map do |result|
+    student.star_math_results.map do |result|
       [result.date_taken, result.percentile_rank]
     end
   end
 
   def star_reading_results
-    data[:star_reading_results].map do |results|
+    student.star_reading_results.map do |results|
       [result.date_taken, result.percentile_rank, result.instructional_reading_level]
     end
   end
@@ -57,13 +57,13 @@ class StudentProfileCsvExporter < Struct.new :data
   def demographic_row
     [
       ['Demographics'],
-      ['Program Assigned', data[:student].program_assigned],
-      ['504 Plan', data[:student].plan_504],
-      ['Placement', data[:student].sped_placement],
-      ['Disability', data[:student].disability],
-      ['Level of Need', data[:student].sped_level_of_need],
-      ['Language Fluency', data[:student].limited_english_proficiency],
-      ['Home Language', data[:student].home_language],
+      ['Program Assigned', student.program_assigned],
+      ['504 Plan', student.plan_504],
+      ['Placement', student.sped_placement],
+      ['Disability', student.disability],
+      ['Level of Need', student.sped_level_of_need],
+      ['Language Fluency', student.limited_english_proficiency],
+      ['Home Language', student.home_language],
       []
     ]
   end
