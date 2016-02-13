@@ -36,8 +36,15 @@ class AnalyzeStudentAttendance < Struct.new(:path)
     select_by_column(column, value).size
   end
 
+  def total
+    @total ||= data.length
+  end
+
   def count_versus_total(column, value)
-    "#{column} => #{count_for_column(column, value)} out of #{data.length}"
+    count = count_for_column(column, value)
+    percentage = 100 * count.to_f / total.to_f
+
+    "#{column} => #{count} out of #{total} (#{percentage}%)"
   end
 
 end
