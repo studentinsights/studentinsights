@@ -28,9 +28,26 @@ describe 'export profile', :type => :feature do
       end
       it 'sets the right values' do
         csv = CSV.parse(page.body)
-        expect(csv[0]).to eq ["Demographics"]
-        expect(csv[9]).to eq ["School Year", "Number of Absences"]
-        expect(csv[10]).to eq ["2014-2015", "0"]
+        expect(csv).to eq [
+          [ "Demographics" ],
+          [ "Program Assigned", nil ],
+          [ "504 Plan", nil ],
+          [ "Placement", nil ],
+          [ "Disability", nil ],
+          [ "Level of Need", nil ],
+          [ "Language Fluency", nil ],
+          [ "Home Language", nil ],
+          [],
+          [ "School Year", "Number of Absences" ],
+          [ "2014-2015", "0" ],
+          [ "2013-2014", "0" ],
+          [ "School Year", "Number of Tardies" ],
+          [ "2014-2015", "0" ],
+          [ "2013-2014", "0" ],
+          [ "School Year", "Number of Discipline Incidents" ],
+          [ "2014-2015", "0" ],
+          [ "2013-2014", "0" ]
+        ]
       end
     end
   end
