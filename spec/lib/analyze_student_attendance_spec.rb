@@ -17,11 +17,13 @@ RSpec.describe AnalyzeStudentAttendance do
     it 'parses the first row correctly' do
       expect(first_row[:att_tardy_ind]).to eq '1'
       expect(first_row[:att_comment]).to eq 'MTHR CALLED FEW MINUTES LATE'
+      expect(first_row[:att_rat_oid]).to eq nil
     end
 
     it 'parses the second row correctly' do
       expect(second_row[:att_tardy_ind]).to eq '1'
       expect(second_row[:att_comment]).to eq 'still away with family'
+      expect(second_row[:att_rat_oid]).to eq nil
     end
 
   end
