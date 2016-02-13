@@ -53,18 +53,6 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_recent_absence do
-      after(:create) do |student|
-        FactoryGirl.create(:attendance_event, :absence, :recent, student: student)
-      end
-    end
-
-    trait :with_recent_tardy do
-      after(:create) do |student|
-        FactoryGirl.create(:attendance_event, :tardy, :recent, student: student)
-      end
-    end
-
     trait :with_three_recent_absences do
       after(:create) do |student|
         3.times do
