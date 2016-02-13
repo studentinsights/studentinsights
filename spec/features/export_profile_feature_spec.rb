@@ -117,6 +117,7 @@ describe 'export profile', :type => :feature do
           [ "2014-2015", "0" ],
           [ "School Year", "Number of Discipline Incidents" ],
           [ "2014-2015", "0" ],
+          [],
           [ "MCAS Math" ],
           [ "Date", "Scale Score", "Growth", "Performance Level" ],
           [ "2015-06-19 00:00:00 UTC", nil, nil, "W" ]

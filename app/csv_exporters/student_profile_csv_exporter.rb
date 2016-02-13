@@ -77,24 +77,28 @@ class StudentProfileCsvExporter < Struct.new :data
       school_years_and_discipline_incidents.each { |row| csv << row }
 
       if mcas_math_results.present?
+        csv << []
         csv << ["MCAS Math"]
         csv << ['Date', 'Scale Score', 'Growth', 'Performance Level']
         mcas_math_results.each { |row| csv << row }
       end
 
       if mcas_ela_results.present?
+        csv << []
         csv << ["MCAS English Language Arts"]
         csv << ['Date', 'Scale Score', 'Growth', 'Performance Level']
         mcas_ela_results.each { |row| csv << row }
       end
 
       if star_math_results.present?
+        csv << []
         csv << ["STAR Math"]
         csv << ['Date', 'Math Percentile']
         star_math_results.each { |row| csv << row }
       end
 
       if star_reading_results.present?
+        csv << []
         csv << ["STAR Reading"]
         csv << ['Date', 'Reading Percentile', 'Instructional Reading Level']
         star_reading_results.each { |row| csv << row }
