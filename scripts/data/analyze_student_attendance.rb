@@ -31,3 +31,31 @@ indicators.map do |indicator|
 end
 
 
+# Results -->
+
+# COUNTS FOR INDICATOR == "1" (TRUE)
+
+# att_tardy_ind         => 796938 out of 1875435    42.49%
+# att_tardy_ind_02      => 0 out of 1875435         0%
+# att_dismissed_ind     => 180567 out of 1875435    9.63%
+# att_dismissed_ind_02  => 0 out of 1875435         0%
+# att_excused_ind       => 84271 out of 1875435     4.49%
+# att_excused_ind_02    => 0 out of 1875435         0%
+# att_absent_ind        => 856361 out of 1875435    45.66%
+# att_absent_ind_02     => 0 out of 1875435         0%
+
+# Tardies + Absences:                               88.15%
+# Tardies + Absences + Dismissed:                   97.78%
+# Tardies + Absences + Dismissed + Excused:         102.27%
+
+
+# COUNTS FOR INDICATOR == "0" (FALSE)
+
+# att_tardy_ind         => 1078497 out of 1875435   57.50%
+# att_tardy_ind_02      => 1875435 out of 1875435   100%
+# att_dismissed_ind     => 1694868 out of 1875435   90.37%
+# att_dismissed_ind_02  => 1875435 out of 1875435   100%
+# att_excused_ind       => 1791164 out of 1875435   95.50%
+# att_excused_ind_02    => 1875435 out of 1875435   100%
+# att_absent_ind        => 1019074 out of 1875435   54.34%
+# att_absent_ind_02     => 1875435 out of 1875435   100%
