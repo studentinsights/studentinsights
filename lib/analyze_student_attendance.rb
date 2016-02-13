@@ -1,8 +1,17 @@
 require 'csv'
 
 class AnalyzeStudentAttendance < Struct.new(:path)
+
   def contents
-    File.read(path).gsub(/\\\"/, '')
+    encoding_options = {
+      invalid: :replace,
+      undef: :replace,
+      replace: ''
+    }
+
+    File.read(path).encode('UTF-8', 'binary', encoding_options)
+                   .gsub(/\\\\/, '')
+                   .gsub(/\\"/, '')
   end
 
   def data
