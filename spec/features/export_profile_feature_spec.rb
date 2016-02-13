@@ -91,6 +91,38 @@ describe 'export profile', :type => :feature do
       end
     end
 
+    context 'student STAR reading assessment' do
+      let!(:student) {
+        Timecop.freeze(date) {
+          FactoryGirl.create(:student_with_mcas_math_warning_assessment,
+                             :with_risk_level,
+                             grade: '6')
+        }
+      }
+
+      it 'sends the correct CSV ' do
+        expect(csv).to eq [
+          [ "Demographics" ],
+          [ "Program Assigned", nil ],
+          [ "504 Plan", nil ],
+          [ "Placement", nil ],
+          [ "Disability", nil ],
+          [ "Level of Need", nil ],
+          [ "Language Fluency", nil ],
+          [ "Home Language", nil ],
+          [],
+          [ "School Year", "Number of Absences" ],
+          [ "2014-2015", "0" ],
+          [ "School Year", "Number of Tardies" ],
+          [ "2014-2015", "0" ],
+          [ "School Year", "Number of Discipline Incidents" ],
+          [ "2014-2015", "0" ],
+          [ "MCAS Math" ],
+          [ "Date", "Scale Score", "Growth", "Performance Level" ],
+          [ "2015-06-19 00:00:00 UTC", nil, nil, "W" ]
+        ]
+      end
+    end
   end
 
   context 'someone without account' do
