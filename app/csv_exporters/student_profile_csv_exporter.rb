@@ -30,7 +30,7 @@ class StudentProfileCsvExporter < Struct.new :data
 
   def mcas_ela_results
     data[:mcas_ela_results].map do |results|
-      csv << [:date_taken, :scale_score, :growth_percentile, :performance_level].map do |s|
+      [:date_taken, :scale_score, :growth_percentile, :performance_level].map do |s|
         result.send(s)
       end
     end
@@ -38,7 +38,7 @@ class StudentProfileCsvExporter < Struct.new :data
 
   def star_math_results
     data[:star_math_results].map do |result|
-      csv << [:date_taken, :percentile_rank].map do |s|
+      [:date_taken, :percentile_rank].map do |s|
         result.send(s)
       end
     end
@@ -46,7 +46,7 @@ class StudentProfileCsvExporter < Struct.new :data
 
   def star_reading_results
     data[:star_reading_results].map do |results|
-      csv << [:date_taken, :percentile_rank, :instructional_reading_level].map do |s|
+      [:date_taken, :percentile_rank, :instructional_reading_level].map do |s|
         result.send(s)
       end
     end
