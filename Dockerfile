@@ -1,5 +1,6 @@
 # This is based off https://github.com/docker-library/rails/blob/7926577517fb974f9de9ca1511162d6d5e000435/Dockerfile
-FROM ruby:2.2
+# The Ruby version used here needs to match the Ruby version in the Gemfile.
+FROM ruby:2.3.0
 
 # see update.sh for why all "apt-get install"s have to stay as one long line
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
