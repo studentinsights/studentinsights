@@ -4,6 +4,7 @@ RSpec.describe FakeStudent do
 
   let!(:school) { FactoryGirl.create(:school) }
   let!(:homeroom) { FactoryGirl.create(:homeroom) }
+  before { FactoryGirl.create(:educator, :admin) }
 
   before do
     InterventionType.seed_somerville_intervention_types

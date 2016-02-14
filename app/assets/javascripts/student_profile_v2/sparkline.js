@@ -19,6 +19,12 @@
       thresholdValue: React.PropTypes.number.isRequired,
     },
 
+    getDefaultProps: function() {
+      return {
+        shouldDrawCircles: true
+      };
+    },
+
     render: function() {
       var padding = 3; // for allowing circle data points at the edge to be full shown
       // TODO(kr) work more on coloring across all charts
@@ -54,7 +60,7 @@
             strokeWidth: 3,
             fill: 'none'
           }),
-          this.props.quads.map(function(quad) {
+          (!this.props.shouldDrawCircles) ? null : this.props.quads.map(function(quad) {
             return dom.circle({
               key: quad.slice(0, 3).join(','),
               cx: lineGenerator.x()(quad),

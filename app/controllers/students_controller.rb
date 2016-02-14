@@ -51,16 +51,37 @@ class StudentsController < ApplicationController
   def profile
     student = Student.find(params[:id])
     @serialized_data = {
+      current_educator: current_educator,
       student: student.serialized_data,
-      notes: student.student_notes.map {|note| serialize_student_note(note) },
+      notes: student.student_notes.map { |note| serialize_student_note(note) },
+      feed: student_feed(student),
       chart_data: StudentProfileChart.new(student.serialized_student_data).chart_data,
       intervention_types_index: intervention_types_index,
+      educators_index: educators_index,
       attendance_data: {
         discipline_incidents: student.most_recent_school_year.discipline_incidents,
         tardies: student.most_recent_school_year.tardies,
-        absences: student.most_recent_school_year.tardies
+        absences: student.most_recent_school_year.absences
       }
     }
+  end
+
+  # post
+  def event_note
+    clean_params = params.require(:event_note).permit(*[
+      :student_id,
+      :event_note_type_id,
+      :text
+    ])
+    event_note = EventNote.new(clean_params.merge({
+      educator_id: current_educator.id,
+      recorded_at: Time.now
+    }))
+    if event_note.save
+      render json: event_note.as_json
+    else
+      render json: { errors: event_note.errors.full_messages }, status: 422
+    end
   end
 
   def names
@@ -80,8 +101,27 @@ class StudentsController < ApplicationController
     end
   end
 
+  private
   def not_authorized
     redirect_to not_authorized_path
   end
 
+  # TODO(kr) this is placeholder fixture data for now, to test design prototypes on the v2 student profile
+  # page
+  def student_feed(student)
+    {
+      v1_notes: student.student_notes.map { |note| serialize_student_note(note) },
+      v1_interventions: student.interventions.map { |intervention| serialize_intervention(intervention) },
+      event_notes: student.event_notes,
+      v2_services: if Rails.env.development? then v2_services_fixture else [] end
+    }
+  end
+
+  def v2_services_fixture
+    fixture_educator_id = 1
+    [
+      { version: 'v2', id: 133, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: 'Working on goals' },
+      { version: 'v2', id: 134, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: ''  }
+    ]
+  end
 end

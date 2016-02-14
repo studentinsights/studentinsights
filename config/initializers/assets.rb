@@ -11,9 +11,9 @@ Rails.application.config.assets.version = '1.0'
 HandlebarsAssets::Config.path_prefix = ''
 
 # react-rails configuration
-if Rails.env.development?
+if Rails.env.production?
+  Rails.application.config.react.variant = :production
+else
   Rails.application.config.react.variant = :development
   Rails.application.config.react.addons = true
-else
-  Rails.application.config.react.variant = :production
 end

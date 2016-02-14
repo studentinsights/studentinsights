@@ -26,7 +26,7 @@
         dom.table({ className: 'students-table', style: { width: '100%' } },
           dom.thead({},
             dom.tr({},
-              this.renderHeader('Name'),
+              this.renderHeader('Name', { className: 'sort-default' }), // className is read by Tablesort
               this.renderHeader('Grade'),
               this.renderHeader('Disability'),
               this.renderHeader('Low Income'),
@@ -81,10 +81,10 @@
       return (count === 0) ? null : count;
     },
 
-    renderHeader: function(caption) {
-      // return dom.th({}, caption.split(' ').map(function(text) { return dom.div({}, text); }));
+    renderHeader: function(caption, options) {
+      var className = (options && options.className) ? options.className : '';
       var pieces = caption.split(' ');
-      return dom.th({}, pieces[0], dom.br(), pieces[1]);
+      return dom.th({ className: className }, pieces[0], dom.br(), pieces[1]);
     }
   });
 

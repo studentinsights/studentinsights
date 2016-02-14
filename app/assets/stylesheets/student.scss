@@ -127,6 +127,18 @@
   border-radius: 8px;
 }
 
+#profile-v2-link {
+  float: right;
+  display: inline;
+  position: relative;
+  padding: 3px 15px;
+  margin-top: 18px;
+  border-radius: 4px;
+  background-color: #FFADAD;
+  color: black;
+  border: 1px solid $light-line;
+}
+
 #export-button {
   float: right;
   display: inline;
