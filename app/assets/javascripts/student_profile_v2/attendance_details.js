@@ -30,7 +30,7 @@
     // since that's easy to miss and misinterpret.
     timestampRange: function() {
       return {
-        min: moment(this.props.now).subtract(this.props.intervalBack[0], this.props.intervalBack[1]).toDate().getTime(),
+        min: moment.utc(this.props.now).subtract(this.props.intervalBack[0], this.props.intervalBack[1]).toDate().getTime(),
         max: this.props.now.getTime()
       };
     },

@@ -258,7 +258,7 @@
       var sortedInterventions = _.sortBy(student.interventions, 'start_date').reverse();
       var elements = sortedInterventions.slice(0, limit).map(function(intervention) {
         var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
-        var daysText = moment(intervention.start_date).from(this.props.nowMomentFn(), true);
+        var daysText = moment.utc(intervention.start_date).from(this.props.nowMomentFn(), true);
         return dom.span({ key: intervention.id },
           dom.span({}, interventionText),
           dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
