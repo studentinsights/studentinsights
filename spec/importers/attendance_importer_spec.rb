@@ -27,16 +27,16 @@ RSpec.describe AttendanceImporter do
           }.to change { Absence.count }.by 1
         end
 
-        it 'increments the student school year absence counter cache by 1' do
+        it 'increments the student school year absences by 1' do
           expect {
             described_class.new.import_row(row)
-          }.to change { StudentSchoolYear.last.absences_count }.by 1
+          }.to change { StudentSchoolYear.last.absences.size }.by 1
         end
 
-        it 'does not increment the student school year tardies counter cache' do
+        it 'does not increment the student school year tardies' do
           expect {
             described_class.new.import_row(row)
-          }.to change { StudentSchoolYear.last.tardies_count }.by 0
+          }.to change { StudentSchoolYear.last.tardies.size }.by 0
         end
       end
     end
