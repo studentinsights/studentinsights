@@ -19,11 +19,16 @@
       }).isRequired
     },
 
+    // Turns SIS format (Curtatone, Joe) -> Joe Curtatone
+    educatorName: function(educator) {
+      if (educator.full_name === null) return educator.email.split('@')[0] + '@';
+      var parts = educator.full_name.split(', ');
+      return parts[1] + ' ' + parts[0];
+    },
+
     render: function() {
       var educator = this.props.educator;
-      var educatorName = (educator.full_name !== null)
-        ? educator.full_name
-        : educator.email.split('@')[0] + '@';
+      var educatorName = this.educatorName(educator);
       return dom.a({
         className: 'Educator',
         href: 'mailto:' + educator.email
