@@ -5,6 +5,8 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var Educator = window.shared.Educator = React.createClass({
+    displayName: 'Educator',
+    
     propTypes: {
       educatorsIndex: React.PropTypes.object.isRequired,
       educatorId: React.PropTypes.number.isRequired
