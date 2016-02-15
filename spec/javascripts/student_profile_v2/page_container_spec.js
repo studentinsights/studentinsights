@@ -5,34 +5,11 @@ describe('PageContainer', function() {
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
-  var Simulate = React.addons.TestUtils.Simulate;
+  var SpecSugar = window.shared.SpecSugar;
   var PageContainer = window.shared.PageContainer;    
   var Fixtures = window.shared.Fixtures;
 
   var helpers = {
-    withTestEl: function(description, testsFn) {
-      return describe(description, function() {
-        beforeEach(function() {
-          this.testEl = $('<div id="test-el" />').get(0);
-          $('body').append(this.testEl);
-        });
-
-        afterEach(function() {
-          $(this.testEl).remove();
-        });
-
-        testsFn.call(this);
-      });
-    },
-
-    // Update the text value of an input or textarea, and simulate the React
-    // change event.
-    changeTextValue: function($el, value) {
-      $el.val(value);
-      Simulate.change($el.get(0));
-      return undefined;
-    },
-
     findColumns: function(el) {
       return $(el).find('.summary-container > div');
     },
@@ -55,13 +32,13 @@ describe('PageContainer', function() {
 
     takeNotesAndSave: function(el, typeName, text) {
       $(el).find('.btn.take-notes').click();
-      helpers.changeTextValue($(el).find('textarea'), 'hello!');
+      SpecSugar.changeTextValue($(el).find('textarea'), 'hello!');
       $(el).find('.btn.note-type:contains(SST meeting)').click();
       $(el).find('.btn.save').click();
     }
   };
 
-  helpers.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('high-level integration tests', function() {
     it('renders everything on the happy path', function() {
       var el = this.testEl;
       helpers.renderInto(el);

@@ -233,7 +233,7 @@
 
     renderNotes: function() {
       var v1Notes = this.props.feed.v1_notes.map(function(note) { return merge(note, { version: 'v1', sort_timestamp: note.created_at_timestamp }); });
-      var v2Notes = this.props.feed.event_notes.map(function(note) { return merge(note, { version: 'v2', sort_timestamp: note.date_recorded }); });
+      var v2Notes = this.props.feed.event_notes.map(function(note) { return merge(note, { version: 'v2', sort_timestamp: note.recorded_at }); });
       // TODO(kr) v1 interventions as notes
       // TODO(kr) v1 interventions progress notes as notes
       var mergedNotes = _.sortBy(v1Notes.concat(v2Notes), 'sort_timestamp').reverse();
@@ -268,10 +268,11 @@
       var educatorEmail = this.props.educatorsIndex[note.educator_id].email;
       return dom.div({
         key: ['v2', note.id].join(),
+        className: 'note',
         style: styles.note
       },
         this.renderNoteHeader({
-          noteMoment: moment(note.date_recorded),
+          noteMoment: moment(note.recorded_at),
           badge: this.renderEventNoteTypeBadge(note.event_note_type_id),
           educatorEmail: educatorEmail
         }),
@@ -284,6 +285,7 @@
     renderV1Note: function(note) {
       return dom.div({
         key: note.id,
+        className: 'note',
         style: styles.note
       },
         this.renderNoteHeader({
