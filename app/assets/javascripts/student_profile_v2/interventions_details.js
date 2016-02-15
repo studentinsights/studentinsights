@@ -273,8 +273,7 @@
           noteMoment: moment(note.recorded_at),
           badge: this.renderEventNoteTypeBadge(note.event_note_type_id),
           educatorEl: createEl(Educator, {
-            educatorsIndex: this.props.educatorsIndex,
-            educatorId: note.educator_id
+            educator: this.props.educatorsIndex[note.educator_id]
           })
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
@@ -293,8 +292,7 @@
           noteMoment: moment(note.created_at_timestamp),
           badge: dom.span({ style: styles.badge }, 'Older note'),
           educatorEl: createEl(Educator, {
-            educatorsIndex: this.props.educatorsIndex,
-            educatorId: note.educator_id
+            educator: this.props.educatorsIndex[note.educator_id]
           })
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },

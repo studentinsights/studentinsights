@@ -287,11 +287,9 @@
       var mergedNotes = this.mergedNotes();
       var educatorIds = _.unique(_.pluck(mergedNotes, 'educator_id'));
       var elements = educatorIds.slice(0, limit).map(function(educatorId) {
-        return createEl(Educator, {
-          educatorsIndex: this.props.educatorsIndex,
-          educatorId: educatorId
-        });
+        return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);
+      
       if (educatorIds.length > limit) elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
       return createEl(SummaryList, {
         title: 'Staff',
