@@ -56,6 +56,15 @@
       fontWeight: 'bold',
       display: 'inline-block'
     },
+    badge: {
+      display: 'inline-block',
+      background: '#eee',
+      outline: '3px solid #eee',
+      width: '8em',
+      textAlign: 'center',
+      marginLeft: 10,
+      marginRight: 10
+    },
     educator: {
       paddingLeft: 5,
       display: 'inline-block'
@@ -239,9 +248,20 @@
     renderNoteHeader: function(header) {
       return dom.div({},
         dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
-        '|',
+        header.badge,
         dom.span({ style: styles.educator }, header.educatorEmail)
       );
+    },
+
+    renderEventNoteTypeBadge: function(eventNoteTypeId) {
+      switch (eventNoteTypeId) {
+        case 1: return dom.span({ style: styles.badge }, 'SST meeting');
+        case 2: return dom.span({ style: styles.badge }, 'MTSS meeting');
+        case 3: return dom.span({ style: styles.badge }, 'Family');
+        case 5: return dom.span({ style: styles.badge }, 'Something else');
+      }
+
+      return null;
     },
 
     renderV2Note: function(note) {
@@ -252,6 +272,7 @@
       },
         this.renderNoteHeader({
           noteMoment: moment(note.date_recorded),
+          badge: this.renderEventNoteTypeBadge(note.event_note_type_id),
           educatorEmail: educatorEmail
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
@@ -267,6 +288,7 @@
       },
         this.renderNoteHeader({
           noteMoment: moment(note.created_at_timestamp),
+          badge: dom.span({ style: styles.badge }, 'Older note'),
           educatorEmail: note.educator_email
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
