@@ -4,6 +4,7 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
   
+  var Educator = window.shared.Educator;
   var ReactSelect = window.Select;
   var datepickerOptions = window.datepicker_options;
   var TakeNotes = window.shared.TakeNotes;
@@ -121,6 +122,8 @@
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
       interventionTypesIndex: React.PropTypes.object.isRequired,
+      currentEducator: React.PropTypes.object.isRequired,
+      mergedNotes: React.PropTypes.array.isRequired,
       actions: PropTypes.actions.isRequired
     },
 
@@ -232,11 +235,7 @@
     },
 
     renderNotes: function() {
-      var v1Notes = this.props.feed.v1_notes.map(function(note) { return merge(note, { version: 'v1', sort_timestamp: note.created_at_timestamp }); });
-      var v2Notes = this.props.feed.event_notes.map(function(note) { return merge(note, { version: 'v2', sort_timestamp: note.recorded_at }); });
-      // TODO(kr) v1 interventions as notes
-      // TODO(kr) v1 interventions progress notes as notes
-      var mergedNotes = _.sortBy(v1Notes.concat(v2Notes), 'sort_timestamp').reverse();
+      var mergedNotes = this.props.mergedNotes;
       return dom.div({}, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(note) {
         switch (note.version) {
           case 'v1': return this.renderV1Note(note);
@@ -249,7 +248,7 @@
       return dom.div({},
         dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
         header.badge,
-        dom.span({ style: styles.educator }, header.educatorEmail)
+        dom.span({ style: styles.educator }, header.educatorEl)
       );
     },
 
@@ -265,7 +264,6 @@
     },
 
     renderV2Note: function(note) {
-      var educatorEmail = this.props.educatorsIndex[note.educator_id].email;
       return dom.div({
         key: ['v2', note.id].join(),
         className: 'note',
@@ -274,7 +272,9 @@
         this.renderNoteHeader({
           noteMoment: moment(note.recorded_at),
           badge: this.renderEventNoteTypeBadge(note.event_note_type_id),
-          educatorEmail: educatorEmail
+          educatorEl: createEl(Educator, {
+            educator: this.props.educatorsIndex[note.educator_id]
+          })
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
           dom.div({ style: styles.expandedNote }, note.text)
@@ -291,7 +291,9 @@
         this.renderNoteHeader({
           noteMoment: moment(note.created_at_timestamp),
           badge: dom.span({ style: styles.badge }, 'Older note'),
-          educatorEmail: note.educator_email
+          educatorEl: createEl(Educator, {
+            educator: this.props.educatorsIndex[note.educator_id]
+          })
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
           dom.div({ style: styles.expandedNote }, note.content)
