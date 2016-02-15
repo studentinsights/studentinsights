@@ -217,7 +217,7 @@
     renderTakeNotesSection: function() {
       if (this.state.isTakingNotes || this.props.requests.saveNotes !== null) {
         return createEl(TakeNotes, {
-          nowMoment: moment(), // TODO(kr) thread through
+          nowMoment: moment.utc(), // TODO(kr) thread through
           currentEducator: this.props.currentEducator,
           onSave: this.onSaveNotes,
           onCancel: this.onCancelNotes,
@@ -270,7 +270,7 @@
         style: styles.note
       },
         this.renderNoteHeader({
-          noteMoment: moment(note.recorded_at),
+          noteMoment: moment.utc(note.recorded_at),
           badge: this.renderEventNoteTypeBadge(note.event_note_type_id),
           educatorEl: createEl(Educator, {
             educator: this.props.educatorsIndex[note.educator_id]
@@ -289,7 +289,7 @@
         style: styles.note
       },
         this.renderNoteHeader({
-          noteMoment: moment(note.created_at_timestamp),
+          noteMoment: moment.utc(note.created_at_timestamp),
           badge: dom.span({ style: styles.badge }, 'Older note'),
           educatorEl: createEl(Educator, {
             educator: this.props.educatorsIndex[note.educator_id]
@@ -364,10 +364,10 @@
           dom.div({}, 'Who is working with ' + this.props.student.first_name + '?'),
           dom.div({ style: { width: '50%' } }, this.renderEducatorSelect())
           // dom.span({ style: { fontSize: 12, color: '#666', marginLeft: 5, marginRight: 5 } }, ' starting on '),
-          // dom.input({ style: { fontSize: 14 }, defaultValue: moment().format('MM/DD/YYYY') })
+          // dom.input({ style: { fontSize: 14 }, defaultValue: moment.utc().format('MM/DD/YYYY') })
         ),
         dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
-        dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment().format('MM/DD/YYYY') }),
+        dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment.utc().format('MM/DD/YYYY') }),
         // dom.div({ style: { marginTop: 15 } }, 'Any other context?'),
         // dom.textarea({
         //   rows: 3,
@@ -435,7 +435,7 @@
     // allow editing, fixup.  'no longer active'
     renderIntervention: function(intervention) {
       var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
-      var daysText = moment(intervention.start_date).fromNow(true);
+      var daysText = moment.utc(intervention.start_date).fromNow(true);
       var educatorEmail = this.props.educatorsIndex[intervention.educator_id].email;
       return dom.div({
         key: intervention.id,
@@ -447,7 +447,7 @@
             dom.div({}, 'With ' + educatorEmail),
             dom.div({},
               'Since ',
-              moment(intervention.start_date).format('MMMM D, YYYY'),
+              moment.utc(intervention.start_date).format('MMMM D, YYYY'),
               dom.span({ style: styles.daysAgo }, daysText)
             )
           )

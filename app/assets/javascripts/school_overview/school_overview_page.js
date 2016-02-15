@@ -278,7 +278,7 @@
         ].join(',');
       });
       var csvText = [header].concat(rows).join('\n');
-      var dateText = moment().format('YYYY-MM-DD');
+      var dateText = moment.utc().format('YYYY-MM-DD');
       var filtersText = (this.activeFiltersIdentifier().length === 0) ? '' : ' (' + this.activeFiltersIdentifier() + ')';
       var filename = 'Students on ' + dateText + filtersText + '.csv';
 
