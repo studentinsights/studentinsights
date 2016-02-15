@@ -47,6 +47,7 @@
 // student profile page v2:
 // components:
   //= require ./student/profile_charts/profile_chart_settings
+  //= require ./student_profile_v2/educator
   //= require ./student_profile_v2/highcharts_wrapper
   //= require ./student_profile_v2/sparkline
   //= require ./student_profile_v2/scales
