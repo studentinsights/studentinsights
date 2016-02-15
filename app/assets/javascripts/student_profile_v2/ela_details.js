@@ -29,7 +29,7 @@
 
     getDefaultProps: function() {
       return {
-        now: new Date(),
+        now: moment.utc().toDate(),
         intervalBack: [4, 'years']
       };
     },
