@@ -122,18 +122,6 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def absences_count_by_school_year
-    student_school_years.map(&:absences_count)
-  end
-
-  def tardies_count_by_school_year
-    student_school_years.map(&:tardies_count)
-  end
-
-  def discipline_incidents_count_by_school_year
-    student_school_years.map(&:discipline_incidents_count)
-  end
-
   def serialized_student_data
     {
       student: self,
@@ -142,9 +130,9 @@ class Student < ActiveRecord::Base
       star_reading_results: star_reading_results,
       mcas_math_results: mcas_math_results,
       mcas_ela_results: mcas_ela_results,
-      absences_count_by_school_year: absences_count_by_school_year,
-      tardies_count_by_school_year: tardies_count_by_school_year,
-      discipline_incidents_by_school_year: discipline_incidents_count_by_school_year,
+      absences_count_by_school_year: student_school_years.map {|year| year.absences.length },
+      tardies_count_by_school_year: student_school_years.map {|year| year.tardies.length },
+      discipline_incidents_by_school_year: student_school_years.map {|year| year.discipline_incidents.length },
       school_year_names: student_school_years.pluck(:name),
       interventions: interventions
     }

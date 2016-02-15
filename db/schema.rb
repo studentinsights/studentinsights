@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215200930) do
+ActiveRecord::Schema.define(version: 20160215212215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,13 +219,10 @@ ActiveRecord::Schema.define(version: 20160215200930) do
   end
 
   create_table "student_school_years", force: true do |t|
-    t.integer  "student_id",                             null: false
-    t.integer  "school_year_id",                         null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "tardies_count",              default: 0
-    t.integer  "absences_count",             default: 0
-    t.integer  "discipline_incidents_count", default: 0
+    t.integer  "student_id",     null: false
+    t.integer  "school_year_id", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   add_index "student_school_years", ["student_id", "school_year_id"], name: "index_student_school_years_on_student_id_and_school_year_id", unique: true, using: :btree
