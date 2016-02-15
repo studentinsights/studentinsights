@@ -27,3 +27,4 @@
 // For more information: http://github.com/modeset/teaspoon
 
 //= require support/jasmine-jquery
+//= require support/spec_sugar

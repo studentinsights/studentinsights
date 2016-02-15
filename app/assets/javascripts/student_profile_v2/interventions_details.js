@@ -268,6 +268,7 @@
       var educatorEmail = this.props.educatorsIndex[note.educator_id].email;
       return dom.div({
         key: ['v2', note.id].join(),
+        className: 'note',
         style: styles.note
       },
         this.renderNoteHeader({
@@ -284,6 +285,7 @@
     renderV1Note: function(note) {
       return dom.div({
         key: note.id,
+        className: 'note',
         style: styles.note
       },
         this.renderNoteHeader({
