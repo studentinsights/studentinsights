@@ -39,7 +39,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv {
-        render csv: StudentProfileCsvExporter.new(@serialized_student_data).profile_csv_export,
+        render csv: StudentProfileCsvExporter.new(@student).profile_csv_export,
         filename: 'export'
       }
       format.pdf { render text: PDFKit.new(@student_url).to_pdf }
