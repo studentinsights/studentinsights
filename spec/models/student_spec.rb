@@ -5,13 +5,13 @@ RSpec.describe Student do
   describe '#latest_result_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
     let(:assessment_family) { "MCAS" }
-    let(:assessment_subject) { "Math" }
+    let(:assessment_subject) { "Mathematics" }
     let(:assessment) { Assessment.create!(
         family: assessment_family,
         subject: assessment_subject
       )
     }
-    let(:result) { student.latest_result_by_family_and_subject("MCAS", "Math") }
+    let(:result) { student.latest_result_by_family_and_subject("MCAS", "Mathematics") }
 
     context 'MCAS Math' do
       context 'when the student has no student assessment results' do
@@ -27,12 +27,6 @@ RSpec.describe Student do
             date_taken: Date.today - 1.year,
           )
         }
-        context 'when the student has an MCAS result but not in Math' do
-          let(:assessment_subject) { "Tacos" }
-          it 'returns nil' do
-            expect(result).to be_nil
-          end
-        end
         context 'when the student has a Math result but not MCAS' do
           let(:assessment_family) { "Doc's Special Exam" }
           it 'returns nil' do
@@ -64,8 +58,8 @@ RSpec.describe Student do
 
   describe '#ordered_results_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
-    let!(:mcas_math) { Assessment.create!(family: "MCAS", subject: "Math") }
-    let(:result) { student.ordered_results_by_family_and_subject("MCAS", "Math") }
+    let!(:mcas_math) { Assessment.create!(family: "MCAS", subject: "Mathematics") }
+    let(:result) { student.ordered_results_by_family_and_subject("MCAS", "Mathematics") }
 
     context 'when the student has no MCAS Math result' do
       it 'returns an empty set' do

@@ -4,7 +4,7 @@ FactoryGirl.define do
       family "MCAS"
     end
     trait :math do
-      subject "Math"
+      subject "Mathematics"
     end
     trait :reading do
       subject "Reading"

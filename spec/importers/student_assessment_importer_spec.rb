@@ -29,14 +29,14 @@ RSpec.describe StudentAssessmentImporter do
         context 'MCAS' do
           let(:assessments) { Assessment.where(family: "MCAS") }
 
-          it 'creates MCAS Math and ELA assessments' do
+          it 'creates MCAS Mathematics and ELA assessments' do
             expect(assessments.count).to eq 2
             expect(assessments.first.subject).to eq "ELA"
-            expect(assessments.last.subject).to eq "Math"
+            expect(assessments.last.subject).to eq "Mathematics"
           end
           context 'Math' do
             it 'sets the scaled scores and performance levels, growth percentiles correctly' do
-              mcas_assessment = assessments.where(subject: "Math").first
+              mcas_assessment = Assessment.find_by_family_and_subject('MCAS', 'Mathematics')
               mcas_student_assessment = mcas_assessment.student_assessments.last
               expect(mcas_student_assessment.scale_score).to eq(214)
               expect(mcas_student_assessment.performance_level).to eq('W')
