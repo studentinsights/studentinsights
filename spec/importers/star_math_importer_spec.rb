@@ -25,7 +25,7 @@ RSpec.describe StarMathImporter do
             student_assessment = StudentAssessment.last
             assessment = student_assessment.assessment
             expect(assessment.family).to eq "STAR"
-            expect(assessment.subject).to eq "Math"
+            expect(assessment.subject).to eq "Mathematics"
           end
           it 'sets math percentile rank correctly' do
             math_importer.start_import(csv)

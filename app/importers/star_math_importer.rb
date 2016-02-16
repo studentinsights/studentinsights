@@ -8,8 +8,8 @@ class StarMathImporter
     StarMathCsvTransformer.new
   end
 
-  def assessment
-    Assessment.where(family: "STAR", subject: "Math").first_or_create!
+  def star_mathematics_assessment
+    @assessment ||= Assessment.where(family: "STAR", subject: "Mathematics").first_or_create!
   end
 
   def import_row(row)
@@ -21,7 +21,7 @@ class StarMathImporter
     star_assessment = StudentAssessment.where({
       student_id: student.id,
       date_taken: date_taken,
-      assessment_id: assessment.id
+      assessment: star_mathematics_assessment
     }).first_or_create!
 
     star_assessment.update_attributes({percentile_rank: row[:percentile_rank]})

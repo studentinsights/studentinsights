@@ -8,8 +8,8 @@ class StarReadingImporter
     StarReadingCsvTransformer.new
   end
 
-  def assessment
-    Assessment.where(family: "STAR", subject: "Reading").first_or_create!
+  def star_reading_assessment
+    @assessment ||= Assessment.where(family: "STAR", subject: "Reading").first_or_create!
   end
 
   def import_row(row)
@@ -21,7 +21,7 @@ class StarReadingImporter
     star_assessment = StudentAssessment.where({
       student_id: student.id,
       date_taken: date_taken,
-      assessment_id: assessment.id
+      assessment: star_reading_assessment
     }).first_or_create!
 
     star_assessment.update_attributes({
