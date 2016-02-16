@@ -7,8 +7,8 @@ class FakeStarReadingResultGenerator
     @reading_percentile = rand(10..99)
   end
 
-  def star_reading_assessment_id
-    @assessment_id ||= Assessment.find_by_family_and_subject('STAR', 'Reading').id
+  def star_reading_assessment
+    @assessment ||= Assessment.find_by_family_and_subject('STAR', 'Reading')
   end
 
   def next
@@ -18,7 +18,7 @@ class FakeStarReadingResultGenerator
     @test_date += rand(30..60)  # days
 
     return {
-      assessment_id: star_reading_assessment_id,
+      assessment: star_reading_assessment,
       date_taken: @test_date,
       percentile_rank: @reading_percentile,
       instructional_reading_level: @instructional_reading_level,

@@ -9,7 +9,7 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def star_math
-    student.latest_result_by_family_and_subject("STAR", "Math") || MissingStudentAssessment.new
+    student.latest_result_by_family_and_subject("STAR", "Mathematics") || MissingStudentAssessment.new
   end
 
   def mcas_ela
@@ -17,7 +17,7 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def star_reading
-    student.latest_result_by_family_and_subject("STAR", "ELA") || MissingStudentAssessment.new
+    student.latest_result_by_family_and_subject("STAR", "Reading") || MissingStudentAssessment.new
   end
 
   def mcas_or_star_at_level(this_level)
