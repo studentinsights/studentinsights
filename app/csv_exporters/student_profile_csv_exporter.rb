@@ -4,19 +4,19 @@ class StudentProfileCsvExporter < Struct.new :student
 
   def school_years_and_absences
     student.student_school_years.map do |student_school_year|
-      [ student_school_year.school_year.name, student_school_year.absences_count ]
+      [ student_school_year.school_year.name, student_school_year.absences.count ]
     end
   end
 
   def school_years_and_tardies
     student.student_school_years.map do |student_school_year|
-      [ student_school_year.school_year.name, student_school_year.tardies_count ]
+      [ student_school_year.school_year.name, student_school_year.tardies.count ]
     end
   end
 
   def school_years_and_discipline_incidents
     student.student_school_years.map do |student_school_year|
-      [ student_school_year.school_year.name, student_school_year.discipline_incidents_count ]
+      [ student_school_year.school_year.name, student_school_year.discipline_incidents.count ]
     end
   end
 
