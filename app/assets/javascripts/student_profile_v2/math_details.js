@@ -1,13 +1,13 @@
 (function() {
-window.shared || (window.shared = {});
-var dom = window.shared.ReactHelpers.dom;
-var createEl = window.shared.ReactHelpers.createEl;
-var merge = window.shared.ReactHelpers.merge;
+  window.shared || (window.shared = {});
+  var dom = window.shared.ReactHelpers.dom;
+  var createEl = window.shared.ReactHelpers.createEl;
+  var merge = window.shared.ReactHelpers.merge;
 
-var ProfileChartSettings = window.ProfileChartSettings;
-var HighchartsWrapper = window.shared.HighchartsWrapper;
+  var ProfileChartSettings = window.ProfileChartSettings;
+  var HighchartsWrapper = window.shared.HighchartsWrapper;
 
-var MathDetails = window.shared.MathDetails = React.createClass({
+  var MathDetails = window.shared.MathDetails = React.createClass({
     displayName: 'MathDetails',
 
     propTypes: {
@@ -128,5 +128,5 @@ var MathDetails = window.shared.MathDetails = React.createClass({
         }]
       });
     }
-});
+  });
 })();
