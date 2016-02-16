@@ -5,9 +5,13 @@ class FakeDibelsResultGenerator
     @student = student
   end
 
+  def dibels_assessment_id
+    @assessment_id ||= Assessment.find_by_family('DIBELS').id
+  end
+
   def next
     {
-      assessment_id: Assessment.dibels.id,
+      assessment_id: dibels_assessment_id,
       date_taken: DateTime.new(@dates.pop, 5, 15),
       performance_level: ["Intensive", "Strategic", "Core", "Benchmark", "CORE", nil].sample,
       student_id: @student.id
