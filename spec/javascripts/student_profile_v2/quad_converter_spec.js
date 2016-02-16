@@ -11,9 +11,24 @@ describe('QuadConverter', function() {
   });
 
   describe('#convert', function() {
+    it('minimal test case', function() {
+      var now = new Date('Wed Feb 10 2016 22:11:26 GMT+0000');
+      var dateRange = [moment.utc(now).subtract(1, 'year').toDate(), now];
+      var attendanceEvents = [
+        {'occurred_at':'2015-09-08T00:00:00.000Z'}
+      ];
+      var quads = QuadConverter.convert(attendanceEvents, now, dateRange);
+      expect(quads).toEqual([
+        [2014, 8, 15, 0],
+        [2015, 8, 15, 0],
+        [2015, 9, 8, 1],
+        [2016, 2, 10, 1]
+      ]);
+    });
+
     it('returns the expected javascript date', function() {
-      var now = new Date('Wed Feb 10 2016 22:11:26 GMT-0500 (GMT)');
-      var dateRange = [moment.utc((now).subtract(1, 'year').toDate(), now];
+      var now = new Date('Wed Feb 10 2016 22:11:26 GMT+0000');
+      var dateRange = [moment.utc(now).subtract(1, 'year').toDate(), now];
       var attendanceEvents = [
         {'occurred_at':'2015-12-22T00:00:00.000Z'},
         {'occurred_at':'2015-12-21T00:00:00.000Z'},
@@ -29,7 +44,7 @@ describe('QuadConverter', function() {
         {'occurred_at':'2015-09-18T00:00:00.000Z'},
         {'occurred_at':'2015-09-17T00:00:00.000Z'},
         {'occurred_at':'2015-09-15T00:00:00.000Z'},
-        {'occurred_at':'2015-09-08T00:00:00.000'}
+        {'occurred_at':'2015-09-08T00:00:00.000Z'}
       ];
       var quads = QuadConverter.convert(attendanceEvents, now, dateRange);
       expect(quads[0]).toEqual([2014, 8, 15, 0]);
@@ -43,9 +58,9 @@ describe('QuadConverter', function() {
     });
 
     it('always sorts by date', function() {
-      var now = new Date('Mon Feb 15 2016 18:19:55 GMT-0500 (GMT)');
+      var now = new Date('Mon Feb 15 2016 18:19:55 GMT+0000');
       var dateRange = [moment(now).subtract(1, 'year').toDate(), now];
-      var tardyEvents = [{"id":16910,"student_school_year_id":304,"occurred_at":"2016-02-11T00:00:00.000Z"},{"id":16871,"student_school_year_id":304,"occurred_at":"2016-02-10T00:00:00.000Z"},{"id":16628,"student_school_year_id":304,"occurred_at":"2016-02-04T00:00:00.000Z"},{"id":16627,"student_school_year_id":304,"occurred_at":"2016-02-02T00:00:00.000Z"},{"id":16626,"student_school_year_id":304,"occurred_at":"2016-02-01T00:00:00.000Z"},{"id":16547,"student_school_year_id":304,"occurred_at":"2016-01-25T00:00:00.000Z"},{"id":16381,"student_school_year_id":304,"occurred_at":"2016-01-19T00:00:00.000Z"},{"id":16207,"student_school_year_id":304,"occurred_at":"2016-01-12T00:00:00.000Z"},{"id":16206,"student_school_year_id":304,"occurred_at":"2016-01-11T00:00:00.000Z"},{"id":15959,"student_school_year_id":304,"occurred_at":"2015-12-23T00:00:00.000Z"},{"id":15958,"student_school_year_id":304,"occurred_at":"2015-12-22T00:00:00.000Z"},{"id":15732,"student_school_year_id":304,"occurred_at":"2015-12-11T00:00:00.000Z"},{"id":15731,"student_school_year_id":304,"occurred_at":"2015-12-10T00:00:00.000Z"},{"id":15708,"student_school_year_id":304,"occurred_at":"2015-12-09T00:00:00.000Z"},{"id":15671,"student_school_year_id":304,"occurred_at":"2015-12-08T00:00:00.000Z"},{"id":15636,"student_school_year_id":304,"occurred_at":"2015-12-07T00:00:00.000Z"},{"id":15604,"student_school_year_id":304,"occurred_at":"2015-12-04T00:00:00.000Z"},{"id":15527,"student_school_year_id":304,"occurred_at":"2015-12-02T00:00:00.000Z"},{"id":15468,"student_school_year_id":304,"occurred_at":"2015-11-30T00:00:00.000Z"},{"id":15397,"student_school_year_id":304,"occurred_at":"2015-11-23T00:00:00.000Z"},{"id":15258,"student_school_year_id":304,"occurred_at":"2015-11-16T00:00:00.000Z"},{"id":15234,"student_school_year_id":304,"occurred_at":"2015-11-13T00:00:00.000Z"},{"id":15105,"student_school_year_id":304,"occurred_at":"2015-11-04T00:00:00.000Z"},{"id":15064,"student_school_year_id":304,"occurred_at":"2015-10-30T00:00:00.000Z"},{"id":15031,"student_school_year_id":304,"occurred_at":"2015-10-29T00:00:00.000Z"},{"id":14992,"student_school_year_id":304,"occurred_at":"2015-10-28T00:00:00.000Z"},{"id":14908,"student_school_year_id":304,"occurred_at":"2015-10-23T00:00:00.000Z"},{"id":14727,"student_school_year_id":304,"occurred_at":"2015-10-15T00:00:00.000Z"},{"id":14700,"student_school_year_id":304,"occurred_at":"2015-10-14T00:00:00.000Z"},{"id":14598,"student_school_year_id":304,"occurred_at":"2015-10-07T00:00:00.000Z"},{"id":14563,"student_school_year_id":304,"occurred_at":"2015-10-06T00:00:00.000Z"},{"id":14378,"student_school_year_id":304,"occurred_at":"2015-09-25T00:00:00.000Z"},{"id":14297,"student_school_year_id":304,"occurred_at":"2015-09-22T00:00:00.000Z"},{"id":14276,"student_school_year_id":304,"occurred_at":"2015-09-21T00:00:00.000Z"},{"id":14238,"student_school_year_id":304,"occurred_at":"2015-09-17T00:00:00.000Z"},{"id":14161,"student_school_year_id":304,"occurred_at":"2015-09-14T00:00:00.000Z"},{"id":14112,"student_school_year_id":304,"occurred_at":"2015-09-10T00:00:00.000Z"},{"id":14092,"student_school_year_id":304,"occurred_at":"2015-09-09T00:00:00.000Z"},{"id":14062,"student_school_year_id":304,"occurred_at":"2015-09-04T00:00:00.000Z"},{"id":14052,"student_school_year_id":304,"occurred_at":"2015-09-03T00:00:00.000Z"}];
+      var tardyEvents = [{"student_school_year_id":304,"occurred_at":"2016-02-11T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2016-02-10T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2016-02-04T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2016-02-02T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2016-02-01T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2016-01-25T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2016-01-19T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2016-01-12T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2016-01-11T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-12-23T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-12-22T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-12-11T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-12-10T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-12-09T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-12-08T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-12-07T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-12-04T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-12-02T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-11-30T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-11-23T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-11-16T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-11-13T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-11-04T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-10-30T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-10-29T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-10-28T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-10-23T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-10-15T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-10-14T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-10-07T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-10-06T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-09-25T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-09-22T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-09-21T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-09-17T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-09-14T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-09-10T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-09-09T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-09-04T00:00:00.000Z"},{"student_school_year_id":304,"occurred_at":"2015-09-03T00:00:00.000Z"}];
       var quads = QuadConverter.convert(tardyEvents, now, dateRange);
 
       var dates = quads.map(function(quad) {
