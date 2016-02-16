@@ -4,7 +4,7 @@ class Assessment < ActiveRecord::Base
 
   def self.seed_somerville_assessments
     Assessment.create!([
-      { family: "MCAS", subject: "Math" },
+      { family: "MCAS", subject: "Mathematics" },
       { family: "MCAS", subject: "ELA" },
       { family: "STAR", subject: "Math" },
       { family: "STAR", subject: "Reading" },
@@ -15,7 +15,7 @@ class Assessment < ActiveRecord::Base
 
   def self.mcas_ela; where(family: "MCAS", subject: "ELA").last end
 
-  def self.mcas_math; where(family: "MCAS", subject: "Math").last end
+  def self.mcas_math; where(family: "MCAS", subject: "Mathematics").last end
 
   def self.star_math; where(family: "STAR", subject: "Math").last end
 
@@ -27,7 +27,7 @@ class Assessment < ActiveRecord::Base
 
   def self.access; where(family: "ACCESS").last end
 
-  def self.math; where(subject: "Math").all end
+  def self.math; where(subject: "Mathematics").all end
 
   def self.mcas; where(family: "MCAS").all end
 

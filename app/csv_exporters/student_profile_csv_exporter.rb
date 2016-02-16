@@ -20,8 +20,8 @@ class StudentProfileCsvExporter < Struct.new :student
     end
   end
 
-  def mcas_math_results
-    student.mcas_math_results.map do |result|
+  def mcas_mathematics_results
+    student.mcas_mathematics_results.map do |result|
       [
         result.date_taken,
         result.scale_score,
@@ -78,11 +78,11 @@ class StudentProfileCsvExporter < Struct.new :student
       csv << ['School Year', 'Number of Discipline Incidents']
       school_years_and_discipline_incidents.each { |row| csv << row }
 
-      if mcas_math_results.present?
+      if mcas_mathematics_results.present?
         csv << []
-        csv << ["MCAS Math"]
+        csv << ["MCAS Mathematics"]
         csv << ['Date', 'Scale Score', 'Growth', 'Performance Level']
-        mcas_math_results.each { |row| csv << row }
+        mcas_mathematics_results.each { |row| csv << row }
       end
 
       if mcas_ela_results.present?
