@@ -27,12 +27,6 @@ RSpec.describe Student do
             date_taken: Date.today - 1.year,
           )
         }
-        context 'when the student has an MCAS result but not in Math' do
-          let(:assessment_subject) { "Tacos" }
-          it 'returns nil' do
-            expect(result).to be_nil
-          end
-        end
         context 'when the student has a Math result but not MCAS' do
           let(:assessment_family) { "Doc's Special Exam" }
           it 'returns nil' do

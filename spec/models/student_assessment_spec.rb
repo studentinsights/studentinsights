@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StudentAssessment, :type => :model do
+RSpec.describe StudentAssessment, type: :model do
 
   describe '.by_family_and_subject' do
     let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
@@ -13,7 +13,7 @@ RSpec.describe StudentAssessment, :type => :model do
         end
       end
       context 'there are MCAS reading student assessments' do
-        let(:assessment) { FactoryGirl.create(:assessment, :mcas, :reading) }
+        let(:assessment) { FactoryGirl.create(:assessment, :mcas, :ela) }
         it 'returns an empty association' do
           expect(result).to be_empty
         end
