@@ -3,7 +3,8 @@ class RemoveIncorrectMcasMathAssessment < ActiveRecord::Migration
     # "MCAS Math" => incorrect
     # "MCAS Mathematics" => correct
     begin
-      Assessment.find_by_family_and_subject("MCAS", "Math").destroy!
+      incorrect = Assessment.find_by_family_and_subject("MCAS", "Math")
+      incorrect.destroy! unless incorrect.nil?
     rescue ActiveRecord::RecordNotFound
     end
   end
