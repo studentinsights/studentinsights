@@ -5,7 +5,7 @@ FactoryGirl.define do
     association :student
     factory :mcas_assessment do
       factory :mcas_math_assessment do
-        association :assessment, subject: "Math", family: "MCAS"
+        association :assessment, subject: "Mathematics", family: "MCAS"
         factory :mcas_math_warning_assessment do
           performance_level "W"
         end

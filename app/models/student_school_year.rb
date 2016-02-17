@@ -9,9 +9,9 @@ class StudentSchoolYear < ActiveRecord::Base
   delegate :name, to: :school_year
   default_scope { joins(:school_year).order('school_years.start DESC') }
 
-  def mcas_math_result
+  def mcas_mathematics_result
     student_assessments.order_by_date_taken_asc
-                       .by_family_and_subject("MCAS", "Math")
+                       .by_family_and_subject("MCAS", "Mathematics")
                        .last
   end
 

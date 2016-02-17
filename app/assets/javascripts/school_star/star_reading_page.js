@@ -94,7 +94,7 @@ $(function() {
 
         // only include students with recent assessments
         var recentAssessment = _.findLast(assessmentsByDate, function(assessment) {
-          var takenDaysAgo = moment(dateNow).diff(assessment.date_taken, 'days');
+          var takenDaysAgo = moment.utc(dateNow).diff(assessment.date_taken, 'days');
           return (takenDaysAgo < recentThresholdInDays && _.isNumber(assessment.percentile_rank));
         });
         if (recentAssessment === undefined) return null;
@@ -300,8 +300,8 @@ $(function() {
     },
 
     quarterDate: function(date) {
-      var anchor = moment('2000-09-01');
-      var monthsAfter = moment(date).diff(anchor, 'months');
+      var anchor = moment.utc('2000-09-01');
+      var monthsAfter = moment.utc(date).diff(anchor, 'months');
       var quartersAfter = Math.floor(monthsAfter / 3);
       return anchor.add(quartersAfter * 3, 'months').toDate();
     },
@@ -419,7 +419,7 @@ $(function() {
       var assessments = this.flattenedAssessments(students);
 
       // bucket by school quarters
-      var anchorMoment = moment('2000-09-01');
+      var anchorMoment = moment.utc('2000-09-01');
       var buckets = _.pairs(_.groupBy(assessments, function(result) {
         return this.quarterDate(new Date(result.date_taken)).getTime();
       }, this));

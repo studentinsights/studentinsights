@@ -16,6 +16,7 @@ Educator.destroy_all
 
 Educator.create!([{
   email: "demo@example.com",
+  full_name: 'Curtatone, Joe',
   password: "demo-password",
   local_id: '350',
   schoolwide_access: true,
@@ -23,6 +24,7 @@ Educator.create!([{
   admin: true
 }, {
   email: "fake-fifth-grade@example.com",
+  full_name: 'Teacher, Sarah',
   password: "demo-password",
   local_id: '450',
   school: School.first,

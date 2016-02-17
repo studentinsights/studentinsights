@@ -9,7 +9,7 @@ $(function() {
 
   // entry point, reading static bootstrapped data from the page
   ReactDOM.render(createEl(PageContainer, {
-    nowMomentFn: function() { return moment(); },
+    nowMomentFn: function() { return moment.utc(); },
     serializedData: $('#serialized-data').data(),
     queryParams: parseQueryString(window.location.search)
   }), document.getElementById('main'));

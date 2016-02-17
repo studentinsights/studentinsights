@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe StudentAssessment, :type => :model do
+RSpec.describe StudentAssessment, type: :model do
 
   describe '.by_family_and_subject' do
     let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
     context 'MCAS & math' do
-      let(:result) { StudentAssessment.by_family_and_subject("MCAS", "Math") }
+      let(:result) { StudentAssessment.by_family_and_subject("MCAS", "Mathematics") }
       context 'there are only MCAS math student assessments' do
         let(:assessment) { FactoryGirl.create(:assessment, :mcas, :math) }
         it 'returns the MCAS and math student assessments' do
@@ -13,7 +13,7 @@ RSpec.describe StudentAssessment, :type => :model do
         end
       end
       context 'there are MCAS reading student assessments' do
-        let(:assessment) { FactoryGirl.create(:assessment, :mcas, :reading) }
+        let(:assessment) { FactoryGirl.create(:assessment, :mcas, :ela) }
         it 'returns an empty association' do
           expect(result).to be_empty
         end

@@ -63,8 +63,8 @@ class Student < ActiveRecord::Base
         .order_by_date_taken_asc
   end
 
-  def mcas_math_results
-    ordered_results_by_family_and_subject("MCAS", "Math")
+  def mcas_mathematics_results
+    ordered_results_by_family_and_subject("MCAS", "Mathematics")
   end
 
   def mcas_ela_results
@@ -87,8 +87,8 @@ class Student < ActiveRecord::Base
     ordered_results_by_family("ACCESS")
   end
 
-  def latest_mcas_math
-    latest_result_by_family_and_subject("MCAS", "Math") || MissingStudentAssessment.new
+  def latest_mcas_mathematics
+    latest_result_by_family_and_subject("MCAS", "Mathematics") || MissingStudentAssessment.new
   end
 
   def latest_mcas_ela
@@ -105,11 +105,11 @@ class Student < ActiveRecord::Base
 
   def update_recent_student_assessments
     update_attributes({
-      most_recent_mcas_math_growth: latest_mcas_math.growth_percentile,
+      most_recent_mcas_math_growth: latest_mcas_mathematics.growth_percentile,
       most_recent_mcas_ela_growth: latest_mcas_ela.growth_percentile,
-      most_recent_mcas_math_performance: latest_mcas_math.performance_level,
+      most_recent_mcas_math_performance: latest_mcas_mathematics.performance_level,
       most_recent_mcas_ela_performance: latest_mcas_ela.performance_level,
-      most_recent_mcas_math_scaled: latest_mcas_math.scale_score,
+      most_recent_mcas_math_scaled: latest_mcas_mathematics.scale_score,
       most_recent_mcas_ela_scaled: latest_mcas_ela.scale_score,
       most_recent_star_reading_percentile: latest_star_reading.percentile_rank,
       most_recent_star_math_percentile: latest_star_math.percentile_rank
@@ -122,29 +122,17 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def absences_count_by_school_year
-    student_school_years.map(&:absences_count)
-  end
-
-  def tardies_count_by_school_year
-    student_school_years.map(&:tardies_count)
-  end
-
-  def discipline_incidents_count_by_school_year
-    student_school_years.map(&:discipline_incidents_count)
-  end
-
   def serialized_student_data
     {
       student: self,
       student_assessments: student_assessments,
       star_math_results: star_math_results,
       star_reading_results: star_reading_results,
-      mcas_math_results: mcas_math_results,
+      mcas_mathematics_results: mcas_mathematics_results,
       mcas_ela_results: mcas_ela_results,
-      absences_count_by_school_year: absences_count_by_school_year,
-      tardies_count_by_school_year: tardies_count_by_school_year,
-      discipline_incidents_by_school_year: discipline_incidents_count_by_school_year,
+      absences_count_by_school_year: student_school_years.map {|year| year.absences.length },
+      tardies_count_by_school_year: student_school_years.map {|year| year.tardies.length },
+      discipline_incidents_by_school_year: student_school_years.map {|year| year.discipline_incidents.length },
       school_year_names: student_school_years.pluck(:name),
       interventions: interventions
     }

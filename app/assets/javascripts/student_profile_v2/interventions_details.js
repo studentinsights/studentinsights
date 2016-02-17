@@ -4,6 +4,7 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
   
+  var Educator = window.shared.Educator;
   var ReactSelect = window.Select;
   var datepickerOptions = window.datepicker_options;
   var TakeNotes = window.shared.TakeNotes;
@@ -55,6 +56,15 @@
       paddingRight: 10,
       fontWeight: 'bold',
       display: 'inline-block'
+    },
+    badge: {
+      display: 'inline-block',
+      background: '#eee',
+      outline: '3px solid #eee',
+      width: '8em',
+      textAlign: 'center',
+      marginLeft: 10,
+      marginRight: 10
     },
     educator: {
       paddingLeft: 5,
@@ -112,6 +122,8 @@
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
       interventionTypesIndex: React.PropTypes.object.isRequired,
+      currentEducator: React.PropTypes.object.isRequired,
+      mergedNotes: React.PropTypes.array.isRequired,
       actions: PropTypes.actions.isRequired
     },
 
@@ -205,7 +217,7 @@
     renderTakeNotesSection: function() {
       if (this.state.isTakingNotes || this.props.requests.saveNotes !== null) {
         return createEl(TakeNotes, {
-          nowMoment: moment(), // TODO(kr) thread through
+          nowMoment: moment.utc(), // TODO(kr) thread through
           currentEducator: this.props.currentEducator,
           onSave: this.onSaveNotes,
           onCancel: this.onCancelNotes,
@@ -223,11 +235,7 @@
     },
 
     renderNotes: function() {
-      var v1Notes = this.props.feed.v1_notes.map(function(note) { return merge(note, { version: 'v1', sort_timestamp: note.created_at_timestamp }); });
-      var v2Notes = this.props.feed.event_notes.map(function(note) { return merge(note, { version: 'v2', sort_timestamp: note.date_recorded }); });
-      // TODO(kr) v1 interventions as notes
-      // TODO(kr) v1 interventions progress notes as notes
-      var mergedNotes = _.sortBy(v1Notes.concat(v2Notes), 'sort_timestamp').reverse();
+      var mergedNotes = this.props.mergedNotes;
       return dom.div({}, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(note) {
         switch (note.version) {
           case 'v1': return this.renderV1Note(note);
@@ -239,20 +247,34 @@
     renderNoteHeader: function(header) {
       return dom.div({},
         dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
-        '|',
-        dom.span({ style: styles.educator }, header.educatorEmail)
+        header.badge,
+        dom.span({ style: styles.educator }, header.educatorEl)
       );
     },
 
+    renderEventNoteTypeBadge: function(eventNoteTypeId) {
+      switch (eventNoteTypeId) {
+        case 1: return dom.span({ style: styles.badge }, 'SST meeting');
+        case 2: return dom.span({ style: styles.badge }, 'MTSS meeting');
+        case 3: return dom.span({ style: styles.badge }, 'Family');
+        case 5: return dom.span({ style: styles.badge }, 'Something else');
+      }
+
+      return null;
+    },
+
     renderV2Note: function(note) {
-      var educatorEmail = this.props.educatorsIndex[note.educator_id].email;
       return dom.div({
         key: ['v2', note.id].join(),
+        className: 'note',
         style: styles.note
       },
         this.renderNoteHeader({
-          noteMoment: moment(note.date_recorded),
-          educatorEmail: educatorEmail
+          noteMoment: moment.utc(note.recorded_at),
+          badge: this.renderEventNoteTypeBadge(note.event_note_type_id),
+          educatorEl: createEl(Educator, {
+            educator: this.props.educatorsIndex[note.educator_id]
+          })
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
           dom.div({ style: styles.expandedNote }, note.text)
@@ -263,11 +285,15 @@
     renderV1Note: function(note) {
       return dom.div({
         key: note.id,
+        className: 'note',
         style: styles.note
       },
         this.renderNoteHeader({
-          noteMoment: moment(note.created_at_timestamp),
-          educatorEmail: note.educator_email
+          noteMoment: moment.utc(note.created_at_timestamp),
+          badge: dom.span({ style: styles.badge }, 'Older note'),
+          educatorEl: createEl(Educator, {
+            educator: this.props.educatorsIndex[note.educator_id]
+          })
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
           dom.div({ style: styles.expandedNote }, note.content)
@@ -338,10 +364,10 @@
           dom.div({}, 'Who is working with ' + this.props.student.first_name + '?'),
           dom.div({ style: { width: '50%' } }, this.renderEducatorSelect())
           // dom.span({ style: { fontSize: 12, color: '#666', marginLeft: 5, marginRight: 5 } }, ' starting on '),
-          // dom.input({ style: { fontSize: 14 }, defaultValue: moment().format('MM/DD/YYYY') })
+          // dom.input({ style: { fontSize: 14 }, defaultValue: moment.utc().format('MM/DD/YYYY') })
         ),
         dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
-        dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment().format('MM/DD/YYYY') }),
+        dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment.utc().format('MM/DD/YYYY') }),
         // dom.div({ style: { marginTop: 15 } }, 'Any other context?'),
         // dom.textarea({
         //   rows: 3,
@@ -409,7 +435,7 @@
     // allow editing, fixup.  'no longer active'
     renderIntervention: function(intervention) {
       var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
-      var daysText = moment(intervention.start_date).fromNow(true);
+      var daysText = moment.utc(intervention.start_date).fromNow(true);
       var educatorEmail = this.props.educatorsIndex[intervention.educator_id].email;
       return dom.div({
         key: intervention.id,
@@ -421,7 +447,7 @@
             dom.div({}, 'With ' + educatorEmail),
             dom.div({},
               'Since ',
-              moment(intervention.start_date).format('MMMM D, YYYY'),
+              moment.utc(intervention.start_date).format('MMMM D, YYYY'),
               dom.span({ style: styles.daysAgo }, daysText)
             )
           )

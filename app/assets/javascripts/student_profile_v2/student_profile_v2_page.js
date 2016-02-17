@@ -11,6 +11,7 @@
   var SummaryList = window.shared.SummaryList;
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
+  var Educator = window.shared.Educator;
 
   var ProfileDetails = window.shared.ProfileDetails;
   var ELADetails = window.shared.ELADetails;
@@ -119,6 +120,15 @@
       return (columnKey === this.props.selectedColumnKey) ? styles.selectedColumn : {};
     },
 
+    // Merges data from event_notes, services and deprecated tables (notes, interventions).
+    mergedNotes: function() {
+      var v1Notes = this.props.feed.v1_notes.map(function(note) { return merge(note, { version: 'v1', sort_timestamp: note.created_at_timestamp }); });
+      var v2Notes = this.props.feed.event_notes.map(function(note) { return merge(note, { version: 'v2', sort_timestamp: note.recorded_at }); });
+      // TODO(kr) v1 interventions as notes
+      // TODO(kr) v1 interventions progress notes as notes
+      return _.sortBy(v1Notes.concat(v2Notes), 'sort_timestamp').reverse();
+    },
+
     render: function() {
       return dom.div({ className: 'StudentProfileV2Page', style: styles.page },
         this.renderSaveStatus(),
@@ -165,15 +175,16 @@
             disciplineIncidents: attendanceData.discipline_incidents
           });
         case 'interventions':
-          return createEl(InterventionsDetails, _.pick(this.props,
+          return createEl(InterventionsDetails, merge(_.pick(this.props,
             'currentEducator',
             'student',
-            'feed',
             'interventionTypesIndex',
             'educatorsIndex',
             'actions',
             'requests'
-          ));
+          ), {
+            mergedNotes: this.mergedNotes()
+          }));
       }
       return null;
     },
@@ -228,7 +239,7 @@
       }, this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
         this.renderInterventions(student),
-        this.renderNotes(student)
+        this.renderStaff(student)
       ]));
     },
 
@@ -258,7 +269,7 @@
       var sortedInterventions = _.sortBy(student.interventions, 'start_date').reverse();
       var elements = sortedInterventions.slice(0, limit).map(function(intervention) {
         var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
-        var daysText = moment(intervention.start_date).from(this.props.nowMomentFn(), true);
+        var daysText = moment.utc(intervention.start_date).from(this.props.nowMomentFn(), true);
         return dom.span({ key: intervention.id },
           dom.span({}, interventionText),
           dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
@@ -271,14 +282,15 @@
       });
     },
 
-    renderNotes: function(student) {
-      // TODO(kr) revisit design and factoring here to support new notes, sort recency
+    renderStaff: function(student) {
       var limit = 3;
-      var educatorEmails = _.unique(_.pluck(this.props.feed.v1_notes, 'educator_email'));
-      var elements = educatorEmails.slice(0, limit).map(function(educatorEmail) {
-        return dom.span({ key: educatorEmails }, educatorEmails);
+      var mergedNotes = this.mergedNotes();
+      var educatorIds = _.unique(_.pluck(mergedNotes, 'educator_id'));
+      var elements = educatorIds.slice(0, limit).map(function(educatorId) {
+        return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);
-      if (educatorEmails.length > limit) elements.push(dom.span({}, '+ ' + (educatorEmails.length - limit) + ' more'));
+      
+      if (educatorIds.length > limit) elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
       return createEl(SummaryList, {
         title: 'Staff',
         elements: elements

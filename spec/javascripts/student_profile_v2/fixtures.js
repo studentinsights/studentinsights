@@ -1,8 +1,27 @@
 (function() {
   window.shared || (window.shared = {});
-  window.shared.Fixtures = {};
+  var Fixtures = window.shared.Fixtures = {};
   
+  // assuming static time for specs
   window.shared.Fixtures.nowMoment = moment('2016-02-11T10:15:00');
+
+  var currentEducator = window.shared.Fixtures.currentEducator = {
+    "id": 1,
+    "email": "demo@example.com",
+    "created_at": "2016-02-11T14:41:36.284Z",
+    "updated_at": "2016-02-11T15:38:22.288Z",
+    "admin": true,
+    "phone": null,
+    "full_name": null,
+    "state_id": null,
+    "local_id": "350",
+    "staff_type": null,
+    "school_id": 1,
+    "schoolwide_access": true,
+    "grade_level_access": [],
+    "restricted_to_sped_students": false,
+    "restricted_to_english_language_learners": false
+  };
 
   window.shared.Fixtures.studentProfile = {
     "student": {
@@ -321,6 +340,7 @@
         "id": 19,
         "content": "We talked with an outside therapist.",
         "educator_email": "demo@example.com",
+        "educator_id":1,
         "created_at_timestamp": "2016-02-11T14:41:52.857Z",
         "created_at": "February 11, 2016"
       },
@@ -328,6 +348,7 @@
         "id": 20,
         "content": "We talked with the family.",
         "educator_email": "demo@example.com",
+        "educator_id":1,
         "created_at_timestamp": "2016-02-11T14:41:52.861Z",
         "created_at": "February 11, 2016"
       },
@@ -335,6 +356,7 @@
         "id": 21,
         "content": "We talked with an outside therapist.",
         "educator_email": "demo@example.com",
+        "educator_id":1,
         "created_at_timestamp": "2016-02-11T14:41:52.864Z",
         "created_at": "February 11, 2016"
       },
@@ -342,6 +364,7 @@
         "id": 22,
         "content": "We talked with an outside therapist.",
         "educator_email": "demo@example.com",
+        "educator_id":1,
         "created_at_timestamp": "2016-02-11T14:41:52.868Z",
         "created_at": "February 11, 2016"
       },
@@ -349,6 +372,7 @@
         "id": 23,
         "content": "We talked with an outside therapist.",
         "educator_email": "demo@example.com",
+        "educator_id":1,
         "created_at_timestamp": "2016-02-11T14:41:52.872Z",
         "created_at": "February 11, 2016"
       },
@@ -356,6 +380,7 @@
         "id": 24,
         "content": "We talked with the family.",
         "educator_email": "demo@example.com",
+        "educator_id":1,
         "created_at_timestamp": "2016-02-11T14:41:52.875Z",
         "created_at": "February 11, 2016"
       },
@@ -363,6 +388,7 @@
         "id": 25,
         "content": "We talked with the family.",
         "educator_email": "demo@example.com",
+        "educator_id":1,
         "created_at_timestamp": "2016-02-11T14:41:52.879Z",
         "created_at": "February 11, 2016"
       }
@@ -531,6 +557,7 @@
           "id": 19,
           "content": "We talked with an outside therapist.",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "created_at_timestamp": "2016-02-11T14:41:52.857Z",
           "created_at": "February 11, 2016"
         },
@@ -538,6 +565,7 @@
           "id": 20,
           "content": "We talked with the family.",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "created_at_timestamp": "2016-02-11T14:41:52.861Z",
           "created_at": "February 11, 2016"
         },
@@ -545,6 +573,7 @@
           "id": 21,
           "content": "We talked with an outside therapist.",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "created_at_timestamp": "2016-02-11T14:41:52.864Z",
           "created_at": "February 11, 2016"
         },
@@ -552,6 +581,7 @@
           "id": 22,
           "content": "We talked with an outside therapist.",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "created_at_timestamp": "2016-02-11T14:41:52.868Z",
           "created_at": "February 11, 2016"
         },
@@ -559,6 +589,7 @@
           "id": 23,
           "content": "We talked with an outside therapist.",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "created_at_timestamp": "2016-02-11T14:41:52.872Z",
           "created_at": "February 11, 2016"
         },
@@ -566,6 +597,7 @@
           "id": 24,
           "content": "We talked with the family.",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "created_at_timestamp": "2016-02-11T14:41:52.875Z",
           "created_at": "February 11, 2016"
         },
@@ -573,6 +605,7 @@
           "id": 25,
           "content": "We talked with the family.",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "created_at_timestamp": "2016-02-11T14:41:52.879Z",
           "created_at": "February 11, 2016"
         }
@@ -586,6 +619,7 @@
           "start_date": "October  1, 2010",
           "end_date": "October 15, 2010",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -596,6 +630,7 @@
           "start_date": "November 26, 2010",
           "end_date": "December 10, 2010",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -606,6 +641,7 @@
           "start_date": "January 12, 2011",
           "end_date": "January 26, 2011",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -616,6 +652,7 @@
           "start_date": "February 21, 2011",
           "end_date": "March  7, 2011",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -626,6 +663,7 @@
           "start_date": "April  5, 2011",
           "end_date": "April 19, 2011",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -636,6 +674,7 @@
           "start_date": "May 11, 2011",
           "end_date": "May 25, 2011",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -646,6 +685,7 @@
           "start_date": "June 30, 2011",
           "end_date": "July 14, 2011",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -656,6 +696,7 @@
           "start_date": "July 31, 2011",
           "end_date": "August 14, 2011",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -666,6 +707,7 @@
           "start_date": "September 18, 2011",
           "end_date": "October  2, 2011",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -676,6 +718,7 @@
           "start_date": "October 18, 2011",
           "end_date": "November  1, 2011",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -686,6 +729,7 @@
           "start_date": "December 12, 2011",
           "end_date": "December 26, 2011",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -696,6 +740,7 @@
           "start_date": "February  8, 2012",
           "end_date": "February 22, 2012",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -706,6 +751,7 @@
           "start_date": "April  7, 2012",
           "end_date": "April 21, 2012",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -716,6 +762,7 @@
           "start_date": "May 24, 2012",
           "end_date": "June  7, 2012",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -726,6 +773,7 @@
           "start_date": "July  2, 2012",
           "end_date": "July 16, 2012",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -736,6 +784,7 @@
           "start_date": "August 21, 2012",
           "end_date": "September  4, 2012",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         },
         {
@@ -746,6 +795,7 @@
           "start_date": "October 13, 2012",
           "end_date": "October 27, 2012",
           "educator_email": "demo@example.com",
+          "educator_id":1,
           "progress_notes": []
         }
       ],
@@ -809,23 +859,7 @@
         "restricted_to_english_language_learners": false
       }
     },
-    "currentEducator": {
-      "id": 1,
-      "email": "demo@example.com",
-      "created_at": "2016-02-11T14:41:36.284Z",
-      "updated_at": "2016-02-11T15:38:22.288Z",
-      "admin": true,
-      "phone": null,
-      "full_name": null,
-      "state_id": null,
-      "local_id": "350",
-      "staff_type": null,
-      "school_id": 1,
-      "schoolwide_access": true,
-      "grade_level_access": [],
-      "restricted_to_sped_students": false,
-      "restricted_to_english_language_learners": false
-    },
+    "currentEducator": Fixtures.currentEducator,
     "chartData": {
       "star_series_math_percentile": [
         [

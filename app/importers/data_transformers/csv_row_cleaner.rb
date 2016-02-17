@@ -5,16 +5,16 @@ class CsvRowCleaner < Struct.new :row
   end
 
   def transform_row
-    row[date_header] = DateTime.parse(row[date_header]) if has_dates?
+    row[date_header] = parsed_date if has_dates?
     row
   end
 
   def clean_date?
-    return true if date_header.blank?
-    return false if row[date_header].blank?
-    (row[date_header].is_a?(DateTime) || Date.parse(row[date_header]))
-  rescue ArgumentError
-    false
+    return true if date_header.blank?       # <= No dates here, so no more checks to do
+    return false if date_from_row.blank?    # <= Column that should be a date is blank
+    return false unless parsed_date         # <= Column can't be parsed
+    return false if date_out_of_range       # <= Column is out of range
+    return true                             # <= Column is a parsable, reasonable date
   end
 
   def clean_booleans?
@@ -36,6 +36,21 @@ class CsvRowCleaner < Struct.new :row
 
   def date_header
     headers.detect { |header| header.in? date_headers }
+  end
+
+  def date_from_row
+    row[date_header]
+  end
+
+  def parsed_date
+    return date_from_row if date_from_row.is_a?(DateTime)
+    Date.parse(date_from_row)
+  rescue ArgumentError
+    false
+  end
+
+  def date_out_of_range
+    (parsed_date < (Date.today - 50.years)) || (Date.today < parsed_date)
   end
 
   def has_dates?

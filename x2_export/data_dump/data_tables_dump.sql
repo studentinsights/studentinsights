@@ -119,3 +119,18 @@ SELECT * FROM student_assessment
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
   LINES TERMINATED BY '\r\n';
+
+SELECT GROUP_CONCAT(CONCAT("'",COLUMN_NAME,"'"))
+  FROM INFORMATION_SCHEMA.COLUMNS
+  WHERE TABLE_NAME = 'assessment_definition'
+  ORDER BY ORDINAL_POSITION
+  INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/dd_assessment_definition_header.txt"
+  FIELDS TERMINATED BY ','
+  ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n';
+
+SELECT * FROM assessment_definition
+  INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/dd_assessment_definition_table.txt"
+  FIELDS TERMINATED BY ','
+  ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n';

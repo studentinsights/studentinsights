@@ -6,16 +6,16 @@
     // Also collapses multiple events on the same day.
     // TODO(kr) should extract this, simplify and test it more thoroughly
     convert: function(attendanceEvents, nowDate, dateRange) {
-      var currentYearStart = this.schoolYearStart(moment(nowDate));
-      var schoolYearStarts = this.allSchoolYearStarts(dateRange);
+      var currentYearStart = this.schoolYearStart(moment.utc(nowDate));
+      var schoolYearStarts = this._allSchoolYearStarts(dateRange);
       var sortedAttendanceEvents = _.sortBy(attendanceEvents, 'occurred_at');
 
       var quads = [];
       schoolYearStarts.sort().forEach(function(schoolYearStart) {
         var yearAttendanceEvents = sortedAttendanceEvents.filter(function(attendanceEvent) {
-          return this.schoolYearStart(moment(attendanceEvent.occurred_at)) === schoolYearStart;
+          return this.schoolYearStart(moment.utc(attendanceEvent.occurred_at)) === schoolYearStart;
         }, this);
-        var cumulativeEventQuads = this.toCumulativeQuads(yearAttendanceEvents);
+        var cumulativeEventQuads = this._toCumulativeQuads(yearAttendanceEvents);
         var startOfYearQuad = [schoolYearStart, 8, 15, 0];
         quads.push(startOfYearQuad);
         cumulativeEventQuads.forEach(function(cumulativeQuad) { quads.push(cumulativeQuad); });
@@ -25,36 +25,43 @@
         }
       }, this);
 
-      return _.sortBy(quads, function(quad) { return new Date(quad[0], quad[1], quad[2]) });
+      return _.sortBy(quads, this.toMoment.bind(this));
+    },
+
+    toMoment: function(quad) {
+      return moment.utc([quad[0], quad[1], quad[2]].join('-'), 'YYYY-M-D');
     },
 
     schoolYearStart: function(eventMoment) {
       var year = eventMoment.year();
-      var startOfSchoolYear = moment(new Date(year, 7, 15));
+      var startOfSchoolYear = this.toMoment([year, 8, 15]);
       var isEventDuringFall = eventMoment.clone().diff(startOfSchoolYear, 'days') > 0;
       return (isEventDuringFall) ? year : year - 1;
     },
 
-    allSchoolYearStarts: function(dateRange) {
+    _allSchoolYearStarts: function(dateRange) {
       var schoolYearStarts = dateRange.map(function(date) {
-        return this.schoolYearStart(moment(date));
+        return this.schoolYearStart(moment.utc(date));
       }, this);
       return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
     },
 
-    toCumulativeQuads: function(yearAttendanceEvents) {
+    _toCumulativeQuads: function(yearAttendanceEvents) {
       var cumulativeValue = 0;
       var quads = [];
       _.sortBy(yearAttendanceEvents, 'occurred_at').forEach(function(attendanceEvent) {
-        var occurrenceDate = moment(attendanceEvent.occurred_at).toDate();
+        var occurrenceMoment = moment.utc(attendanceEvent.occurred_at);
         cumulativeValue = cumulativeValue + 1;
         
         // collapse consecutive events on the same day
         var lastQuad = _.last(quads);
-        if (lastQuad && lastQuad[0] === occurrenceDate.getFullYear() && lastQuad[1] === occurrenceDate.getMonth() + 1 && lastQuad[2] === occurrenceDate.getDate()) {
+        var year = occurrenceMoment.year();
+        var month = occurrenceMoment.month() + 1;
+        var date = occurrenceMoment.date();
+        if (lastQuad && lastQuad[0] === year && lastQuad[1] === month && lastQuad[2] === date) {
           lastQuad[3] = cumulativeValue;
         } else {
-          quads.push([occurrenceDate.getFullYear(), occurrenceDate.getMonth() + 1, occurrenceDate.getDate(), cumulativeValue]);
+          quads.push([year, month, date, cumulativeValue]);
         }
       });
 

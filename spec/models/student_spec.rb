@@ -5,13 +5,13 @@ RSpec.describe Student do
   describe '#latest_result_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
     let(:assessment_family) { "MCAS" }
-    let(:assessment_subject) { "Math" }
+    let(:assessment_subject) { "Mathematics" }
     let(:assessment) { Assessment.create!(
         family: assessment_family,
         subject: assessment_subject
       )
     }
-    let(:result) { student.latest_result_by_family_and_subject("MCAS", "Math") }
+    let(:result) { student.latest_result_by_family_and_subject("MCAS", "Mathematics") }
 
     context 'MCAS Math' do
       context 'when the student has no student assessment results' do
@@ -27,12 +27,6 @@ RSpec.describe Student do
             date_taken: Date.today - 1.year,
           )
         }
-        context 'when the student has an MCAS result but not in Math' do
-          let(:assessment_subject) { "Tacos" }
-          it 'returns nil' do
-            expect(result).to be_nil
-          end
-        end
         context 'when the student has a Math result but not MCAS' do
           let(:assessment_family) { "Doc's Special Exam" }
           it 'returns nil' do
@@ -64,8 +58,8 @@ RSpec.describe Student do
 
   describe '#ordered_results_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
-    let!(:mcas_math) { Assessment.create!(family: "MCAS", subject: "Math") }
-    let(:result) { student.ordered_results_by_family_and_subject("MCAS", "Math") }
+    let!(:mcas_math) { Assessment.create!(family: "MCAS", subject: "Mathematics") }
+    let(:result) { student.ordered_results_by_family_and_subject("MCAS", "Mathematics") }
 
     context 'when the student has no MCAS Math result' do
       it 'returns an empty set' do
@@ -112,29 +106,6 @@ RSpec.describe Student do
           middle_mcas_math_result,
           newest_mcas_math_result
         ])
-      end
-    end
-  end
-
-  describe '#absences_count_by_school_year' do
-    context 'student with no absences or tardies' do
-      let(:student) { FactoryGirl.create(:student_with_registration_date) }
-      it 'returns the correct array' do
-        expect(student.absences_count_by_school_year.uniq).to eq [0]
-      end
-    end
-
-    context 'student with absence' do
-      let(:student) { FactoryGirl.create(:student) }
-
-      before do
-        student_school_year = student.most_recent_school_year
-        occurred_at = student_school_year.school_year.start
-        student_school_year.absences.create!(occurred_at: occurred_at)
-      end
-
-      it 'returns the correct array' do
-        expect(student.absences_count_by_school_year.first).to eq 1
       end
     end
   end

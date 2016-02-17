@@ -107,8 +107,7 @@
             this.renderNoteButton('MTSS meeting', 2)
           ),
           dom.div({ style: { flex: 1 } },
-            this.renderNoteButton('Parent conversation', 3),
-            this.renderNoteButton('51a filing', 4)
+            this.renderNoteButton('Family conversation', 3)
           ),
           dom.div({ style: { flex: 'auto' } },
             this.renderNoteButton('Something else', 5) 

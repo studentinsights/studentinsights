@@ -5,9 +5,13 @@ class FakeAccessResultGenerator
     @student = student
   end
 
+  def access_assessment_id
+    @assessment_id ||= Assessment.find_by_family('ACCESS').id
+  end
+
   def next
     {
-      assessment_id: Assessment.access.id,
+      assessment_id: access_assessment_id,
       date_taken: DateTime.new(@dates.pop, 5, 15),
       scale_score: rand(300..400),
       performance_level: rand(10),
