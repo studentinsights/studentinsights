@@ -13,6 +13,7 @@
   var Scales = window.shared.Scales;
   var Educator = window.shared.Educator;
 
+  var StudentProfileHeader = window.shared.StudentProfileHeader;
   var ProfileDetails = window.shared.ProfileDetails;
   var ELADetails = window.shared.ELADetails;
   var MathDetails = window.shared.MathDetails;
@@ -25,17 +26,6 @@
     page: {
       marginLeft: 20,
       marginRight: 20
-    },
-    titleContainer: {
-      fontSize: 16,
-      padding: 20
-    },
-    nameTitle: {
-      fontSize: 20,
-      fontWeight: 'bold'
-    },
-    titleItem: {
-      padding: 5
     },
     summaryContainer: {
       display: 'flex',
@@ -132,7 +122,7 @@
     render: function() {
       return dom.div({ className: 'StudentProfileV2Page', style: styles.page },
         this.renderSaveStatus(),
-        this.renderStudentName(),
+        createEl(StudentProfileHeader, { student: this.props.student }),
         dom.div({ className: 'summary-container', style: styles.summaryContainer },
           this.renderProfileColumn(),
           this.renderELAColumn(),
@@ -187,27 +177,6 @@
           }));
       }
       return null;
-    },
-
-    renderStudentName: function() {
-      var student =  this.props.student;
-      return dom.div({ style: styles.titleContainer },
-        dom.a({
-          href: Routes.student(student.id),
-          style: styles.nameTitle
-        }, student.first_name + ' ' + student.last_name),
-        dom.a({
-          href: Routes.school(student.school_id),
-          style: styles.titleItem
-        }, student.school_name),
-        dom.span({
-          style: styles.titleItem
-        }, student.grade),
-        dom.a({
-          href: Routes.homeroom(student.homeroom_id),
-          style: styles.titleItem
-        }, student.homeroom_name)
-      );
     },
 
     renderProfileColumn: function() {
