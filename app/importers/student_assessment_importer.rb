@@ -1,5 +1,5 @@
 class StudentAssessmentImporter
-  WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/, /MAP/, /MELA-O/, /MEPA/, /STAR/).freeze
+  WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/, /MAP/, /MELA-O/, /MEPA/).freeze
 
   def remote_file_name
     # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
