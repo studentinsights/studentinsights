@@ -1,4 +1,6 @@
-class StudentAssessmentImporter
+class X2AssessmentImporter
+  # Aspen X2 is the name of Somerville's Student Information System.
+
   WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/, /MAP/, /MELA-O/, /MEPA/).freeze
 
   def remote_file_name
@@ -17,7 +19,7 @@ class StudentAssessmentImporter
 
   def import_row(row)
     return unless row[:assessment_test].match(WHITELIST)
-    StudentAssessmentRow.build(row).save!
+    X2AssessmentRow.build(row).save!
   end
 
 end
