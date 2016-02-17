@@ -309,7 +309,7 @@ describe StudentsController, :type => :controller do
   describe '#calculate_student_score' do
     context 'happy path' do
       let(:search_tokens) { ['don', 'kenob'] }
-      it 'is 0.9 when no matches' do
+      it 'is 0.0 when no matches' do
         result = controller.send(:calculate_student_score, Student.new(first_name: 'Mickey', last_name: 'Mouse'), search_tokens)
         expect(result).to eq 0.0
       end
