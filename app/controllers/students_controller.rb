@@ -85,19 +85,12 @@ class StudentsController < ApplicationController
   end
 
   def names
-    @q = params[:q].upcase
-    @length = @q.length
-
-    @matches = Student.with_school.select do |s|
-      first_name = s.first_name[0..@length - 1].upcase if s.first_name.present?
-      last_name = s.last_name[0..@length - 1].upcase if s.last_name.present?
-      first_name == @q || last_name == @q
-    end
-
-    @result = @matches.map { |student| student.decorate.presentation_for_autocomplete }
+    q = params[:q]
+    sorted_students = search_and_score(q, Student.with_school)
+    @sorted_results = sorted_students.map {|student| student.decorate.presentation_for_autocomplete }
 
     respond_to do |format|
-      format.json { render json: @result }
+      format.json { render json: @sorted_results }
     end
   end
 
@@ -105,6 +98,34 @@ class StudentsController < ApplicationController
   def not_authorized
     redirect_to not_authorized_path
   end
+
+  def search_and_score(query, students)
+    search_tokens = query.split(' ')
+    students_with_scores = students.flat_map do |student|
+      score = calculate_student_score(student, search_tokens)
+      if score > 0 then [{ student: student, score: score }] else [] end
+    end
+
+    students_with_scores.sort_by {|ss| -1 * ss[:score] }.map {|ss| ss[:student] }
+  end
+
+  # range: [0.0, 1.0]
+  def calculate_student_score(student, search_tokens)
+    student_tokens = [student.first_name, student.last_name].compact
+    
+    search_token_scores = []
+    search_tokens.each do |search_token|
+      student_tokens.each do |student_token|
+        if search_token.upcase == student_token[0..search_token.length - 1].upcase
+          search_token_scores << 1
+          break
+        end
+      end
+    end
+    
+    (search_token_scores.sum.to_f / search_tokens.length)
+  end
+
 
   # TODO(kr) this is placeholder fixture data for now, to test design prototypes on the v2 student profile
   # page
