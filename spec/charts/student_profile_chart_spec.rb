@@ -11,4 +11,26 @@ RSpec.describe StudentProfileChart do
       expect(result).to eq [[2015, 6, 19, 8]]
     end
   end
+
+  describe '#chart_data' do
+    let(:student) { FactoryGirl.create(:student) }
+    it 'has the expected keys' do
+      puts student.serialized_student_data.to_json
+      chart_data = StudentProfileChart.new(student.serialized_student_data).chart_data
+      expect(chart_data.keys).to eq([
+        :star_series_math_percentile,
+        :star_series_reading_percentile,
+        :mcas_series_math_scaled,
+        :mcas_series_ela_scaled,
+        :mcas_series_math_growth,
+        :mcas_series_ela_growth,
+        :interventions,
+        :behavior_series,
+        :behavior_series_school_years,
+        :attendance_series_absences,
+        :attendance_series_tardies,
+        :attendance_events_school_years
+      ])
+    end
+  end
 end
