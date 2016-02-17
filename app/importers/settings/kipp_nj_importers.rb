@@ -29,12 +29,10 @@ class KippNjImporters
   def file_importers
     if @first_time
       [ StudentsImporter.new,
-        StudentAssessmentImporter.new,
         BehaviorImporter.new,
         BulkAttendanceImporter.new ] # Use bulk attendance importer for first-time import
     else
       [ StudentsImporter.new,
-        StudentAssessmentImporter.new,
         BehaviorImporter.new,
         AttendanceImporter.new ]
     end

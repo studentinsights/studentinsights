@@ -76,7 +76,7 @@ class Student < ActiveRecord::Base
   end
 
   def star_math_results
-    ordered_results_by_family_and_subject("STAR", "Math")
+    ordered_results_by_family_and_subject("STAR", "Mathematics")
   end
 
   def dibels
@@ -95,8 +95,8 @@ class Student < ActiveRecord::Base
     latest_result_by_family_and_subject("MCAS", "ELA") || MissingStudentAssessment.new
   end
 
-  def latest_star_math
-    latest_result_by_family_and_subject("STAR", "Math") || MissingStudentAssessment.new
+  def latest_star_mathematics
+    latest_result_by_family_and_subject("STAR", "Mathematics") || MissingStudentAssessment.new
   end
 
   def latest_star_reading
@@ -112,7 +112,7 @@ class Student < ActiveRecord::Base
       most_recent_mcas_math_scaled: latest_mcas_mathematics.scale_score,
       most_recent_mcas_ela_scaled: latest_mcas_ela.scale_score,
       most_recent_star_reading_percentile: latest_star_reading.percentile_rank,
-      most_recent_star_math_percentile: latest_star_math.percentile_rank
+      most_recent_star_math_percentile: latest_star_mathematics.percentile_rank
     })
   end
 

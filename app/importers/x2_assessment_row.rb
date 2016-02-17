@@ -1,4 +1,4 @@
-class StudentAssessmentRow < Struct.new(:row)
+class X2AssessmentRow < Struct.new(:row)
 
   def self.build(row)
     new(row).build

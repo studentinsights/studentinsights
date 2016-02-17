@@ -31,7 +31,7 @@ RSpec.describe StudentAssessment, type: :model do
         end
       end
       context 'there are no ACCESS student assessments' do
-        let(:assessment) { FactoryGirl.create(:assessment, :star) }
+        let(:assessment) { FactoryGirl.create(:assessment, :star, :math) }
         it 'returns an empty association' do
           expect(StudentAssessment.by_family("ACCESS")).to be_empty
         end

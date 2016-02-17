@@ -50,7 +50,7 @@ RSpec.describe SomervilleX2Importers do
     let(:file_importers) { importer.file_importers }
     it 'returns an array of importers' do
       expect(file_importers).to include(a_kind_of(StudentsImporter))
-      expect(file_importers).to include(a_kind_of(StudentAssessmentImporter))
+      expect(file_importers).to include(a_kind_of(X2AssessmentImporter))
       expect(file_importers).to include(a_kind_of(BehaviorImporter))
       expect(file_importers).to include(a_kind_of(EducatorsImporter))
     end

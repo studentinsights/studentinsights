@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StudentAssessmentImporter do
+RSpec.describe X2AssessmentImporter do
 
   describe '#import' do
     context 'with good data' do

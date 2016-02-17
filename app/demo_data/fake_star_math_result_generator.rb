@@ -6,8 +6,8 @@ class FakeStarMathResultGenerator
     @student = student
   end
 
-  def star_math_assessment_id
-    @assessment_id ||= Assessment.find_by_family_and_subject('STAR', 'Math').id
+  def star_math_assessment
+    @assessment ||= Assessment.find_by_family_and_subject('STAR', 'Mathematics')
   end
 
   def next
@@ -16,7 +16,7 @@ class FakeStarMathResultGenerator
     @test_date += rand(30..60)  # days
 
     return {
-      assessment_id: star_math_assessment_id,
+      assessment: star_math_assessment,
       date_taken: @test_date,
       percentile_rank: @math_percentile,
       student_id: @student.id
