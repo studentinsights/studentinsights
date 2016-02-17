@@ -15,6 +15,10 @@ RSpec.describe X2AssessmentRow do
       expect(assessment.family).to eq 'DIBELS'
       expect(assessment.subject).to be_nil
     end
+
+    it 'creates a student assessment result' do
+      expect(StudentAssessment.count).to eq 1
+    end
   end
 
   context 'MCAS Mathematics' do
@@ -31,7 +35,27 @@ RSpec.describe X2AssessmentRow do
       expect(assessment.family).to eq 'MCAS'
       expect(assessment.subject).to eq 'Mathematics'
     end
+
+    it 'creates a student assessment result' do
+      expect(StudentAssessment.count).to eq 1
+    end
+
   end
 
+  context 'MCAS Arts' do
+    let(:row) {
+      {
+        assessment_test: 'MCAS',
+        assessment_subject: 'Arts',
+        local_id: student.local_id,
+        assessment_date: Date.today
+      }
+    }
+
+    it 'does not create an assessment or student assessment result' do
+      expect(Assessment.count).to eq 0
+      expect(StudentAssessment.count).to eq 0
+    end
+  end
 
 end

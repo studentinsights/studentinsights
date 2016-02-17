@@ -1,10 +1,18 @@
 class X2AssessmentRow < Struct.new(:row)
+  MCAS_SUBJECT_WHITELIST = ['Mathematics', 'ELA']
 
   def self.build(row)
     new(row).build
   end
 
+  class NullRow
+    def save!; end
+  end
+
   def build
+    return NullRow.new if family == 'MCAS' &&
+                          !(row[:assessment_subject].in? MCAS_SUBJECT_WHITELIST)
+
     row[:assessment_test] = "ACCESS" if family == "WIDA-ACCESS"
     row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
 
