@@ -1,5 +1,6 @@
 class Import < Thor
   desc "start", "Import data into your Student Insights instance"
+
   method_option :school,
     type: :array,
     aliases: "-s",
@@ -7,6 +8,16 @@ class Import < Thor
   method_option :first_time,
     type: :boolean,
     desc: "Fill up an empty database"
+
+  method_option :all,
+    type: :boolean,
+    desc: "Import data from all sources"
+  method_option :x2,
+    type: :boolean,
+    desc: "Import data from X2 only"
+  method_option :star,
+    type: :boolean,
+    desc: "Import data from STAR only"
 
   def start
     require './config/environment'
@@ -31,12 +42,19 @@ class Import < Thor
 
     # X2 importers to come first because they are the sole source of truth about students.
     # STAR importers don't import students, they only import STAR results.
-    importers = [
-      SomervilleX2Importers.new(options).importer,
-      SomervilleStarImporters.new(options).importer
-    ].flatten
 
-    importers.each do |i|
+    x2_importer = SomervilleX2Importers.new(options).importer
+    star_importer = SomervilleStarImporters.new(options).importer
+
+    importers = if options["all"]
+      [ x2_importer, star_importer]
+    elsif options["x2"]
+      [ x2_importer ]
+    elsif options["star"]
+      [ star_importer ]
+    end
+
+    importers.flatten.each do |i|
       begin
         i.connect_transform_import
       rescue Exception => message
