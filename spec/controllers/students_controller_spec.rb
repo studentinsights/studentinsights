@@ -307,26 +307,36 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#calculate_student_score' do
-    let(:search_tokens) { ['don', 'kenob'] }
+    context 'happy path' do
+      let(:search_tokens) { ['don', 'kenob'] }
+      it 'is 0.9 when no matches' do
+        result = controller.send(:calculate_student_score, Student.new(first_name: 'Mickey', last_name: 'Mouse'), search_tokens)
+        expect(result).to eq 0.0
+      end
 
-    it 'is 0.9 when no matches' do
-      result = controller.send(:calculate_student_score, Student.new(first_name: 'Mickey', last_name: 'Mouse'), search_tokens)
-      expect(result).to eq 0.0
+      it 'is 0.5 when first name only matches' do
+        result = controller.send(:calculate_student_score, Student.new(first_name: 'Donald', last_name: 'Mouse'), search_tokens)
+        expect(result).to eq 0.5
+      end
+
+      it 'is 0.5 when last name only matches' do
+        result = controller.send(:calculate_student_score, Student.new(first_name: 'zzz', last_name: 'Kenobiliiii'), search_tokens)
+        expect(result).to eq 0.5
+      end
+
+      it 'is 1.0 when both names match' do
+        result = controller.send(:calculate_student_score, Student.new(first_name: 'Donald', last_name: 'Kenobi'), search_tokens)
+        expect(result).to eq 1.0
+      end
     end
 
-    it 'is 0.5 when first name only matches' do
-      result = controller.send(:calculate_student_score, Student.new(first_name: 'Donald', last_name: 'Mouse'), search_tokens)
-      expect(result).to eq 0.5
-    end
-
-    it 'is 0.5 when last name only matches' do
-      result = controller.send(:calculate_student_score, Student.new(first_name: 'zzz', last_name: 'Kenobiliiii'), search_tokens)
-      expect(result).to eq 0.5
-    end
-
-    it 'is 1.0 when both names match' do
-      result = controller.send(:calculate_student_score, Student.new(first_name: 'Donald', last_name: 'Kenobi'), search_tokens)
-      expect(result).to eq 1.0
+    it 'works for bug test case' do
+      search_tokens = ['al','p']
+      aladdin_score = controller.send(:calculate_student_score, Student.new(first_name: 'Aladdin', last_name: 'Poppins'), search_tokens)
+      pluto_score = controller.send(:calculate_student_score, Student.new(first_name: 'Pluto', last_name: 'Poppins'), search_tokens)
+      expect(aladdin_score).to be > pluto_score
+      expect(aladdin_score).to eq 1
+      expect(pluto_score).to eq 0.5
     end
   end
 end

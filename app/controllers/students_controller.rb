@@ -109,7 +109,7 @@ class StudentsController < ApplicationController
     students_with_scores.sort_by {|ss| -1 * ss[:score] }.map {|ss| ss[:student] }
   end
 
-  # range: [0, 1]
+  # range: [0.0, 1.0]
   def calculate_student_score(student, search_tokens)
     student_tokens = [student.first_name, student.last_name].compact
     
@@ -118,6 +118,7 @@ class StudentsController < ApplicationController
       student_tokens.each do |student_token|
         if search_token.upcase == student_token[0..search_token.length - 1].upcase
           search_token_scores << 1
+          break
         end
       end
     end
