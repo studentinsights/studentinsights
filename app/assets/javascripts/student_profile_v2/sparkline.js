@@ -47,13 +47,14 @@
           width: this.props.width
         },
           dom.line({
-            x1: padding,
-            x2: this.props.width,
+            x1: x.range()[0],
+            x2: x.range()[1],
             y1: y(this.props.thresholdValue),
             y2: y(this.props.thresholdValue),
             stroke: '#ccc',
             strokeDasharray: 5
           }),
+          this.renderYearStarts(padding, x, y),
           dom.path({
             d: lineGenerator(this.props.quads),
             stroke: lineColor,
@@ -71,6 +72,22 @@
           })
         )
       );
+    },
+
+    // TODO(kr) check start of school year
+    renderYearStarts: function(padding, x, y) {
+      var years = _.range(this.props.dateRange[0].getFullYear(), this.props.dateRange[1].getFullYear());
+      return years.map(function(year) {
+        var yearStartDate = moment.utc([year, 8, 15].join('-'), 'YYYY-M-D').toDate();
+        return dom.line({
+          key: year,
+          x1: x(yearStartDate),
+          x2: x(yearStartDate),
+          y1: y.range()[0],
+          y2: y.range()[1],
+          stroke: '#999'
+        });
+      });
     },
 
     delta: function(quads) {
