@@ -1,25 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe X2AssessmentRow do
+RSpec.describe McasRow do
 
   let(:student) { FactoryGirl.create(:student) }
-  before { X2AssessmentRow.build(row).save! }
+  before { McasRow.build(row).save! }
   let(:assessment) { Assessment.last }
-
-  context 'DIBELS' do
-    let(:row) {
-      { assessment_test: 'DIBELS', local_id: student.local_id, assessment_date: Date.today }
-    }
-
-    it 'creates an assessment with family DIBELS and no subject' do
-      expect(assessment.family).to eq 'DIBELS'
-      expect(assessment.subject).to be_nil
-    end
-
-    it 'creates a student assessment result' do
-      expect(StudentAssessment.count).to eq 1
-    end
-  end
 
   context 'MCAS Mathematics' do
     let(:row) {
