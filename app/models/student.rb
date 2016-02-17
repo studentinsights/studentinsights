@@ -122,22 +122,6 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def serialized_student_data
-    {
-      student: self,
-      student_assessments: student_assessments,
-      star_math_results: star_math_results,
-      star_reading_results: star_reading_results,
-      mcas_mathematics_results: mcas_mathematics_results,
-      mcas_ela_results: mcas_ela_results,
-      absences_count_by_school_year: student_school_years.map {|year| year.absences.length },
-      tardies_count_by_school_year: student_school_years.map {|year| year.tardies.length },
-      discipline_incidents_by_school_year: student_school_years.map {|year| year.discipline_incidents.length },
-      school_year_names: student_school_years.pluck(:name),
-      interventions: interventions
-    }
-  end
-
   def self.with_mcas_math
     where.not(most_recent_mcas_math_performance: nil)
   end
