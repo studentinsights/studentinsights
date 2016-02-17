@@ -85,7 +85,7 @@
           x2: x(yearStartDate),
           y1: y.range()[0],
           y2: y.range()[1],
-          stroke: '#999'
+          stroke: '#ccc'
         });
       });
     },
