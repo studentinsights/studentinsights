@@ -42,9 +42,9 @@ class StudentProfileChart < Struct.new :data
     {
       star_series_math_percentile: percentile_ranks_to_highcharts(data[:star_math_results]),
       star_series_reading_percentile: percentile_ranks_to_highcharts(data[:star_reading_results]),
-      mcas_series_math_scaled: scale_scores_to_highcharts(data[:mcas_math_results]),
+      mcas_series_math_scaled: scale_scores_to_highcharts(data[:mcas_mathematics_results]),
       mcas_series_ela_scaled: scale_scores_to_highcharts(data[:mcas_ela_results]),
-      mcas_series_math_growth: growth_percentiles_to_highcharts(data[:mcas_math_results]),
+      mcas_series_math_growth: growth_percentiles_to_highcharts(data[:mcas_mathematics_results]),
       mcas_series_ela_growth: growth_percentiles_to_highcharts(data[:mcas_ela_results]),
       interventions: interventions_to_highcharts,
       behavior_series: reverse_for_highcharts(data[:discipline_incidents_by_school_year]),
