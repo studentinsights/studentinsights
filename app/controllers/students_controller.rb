@@ -13,10 +13,8 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id]).decorate
-    @serialized_student_data = @student.serialized_student_data
-
     @chart_start = params[:chart_start] || "mcas-growth"
-    @chart_data = StudentProfileChart.new(@serialized_student_data).chart_data
+    @chart_data = StudentProfileChart.new(@student).chart_data
 
     @student_risk_level = @student.student_risk_level.decorate
 
@@ -50,12 +48,13 @@ class StudentsController < ApplicationController
   # TODO(kr) can simplify chart_data later
   def profile
     student = Student.find(params[:id])
+    chart_data = StudentProfileChart.new(student).chart_data
     @serialized_data = {
       current_educator: current_educator,
       student: student.serialized_data,
       notes: student.student_notes.map { |note| serialize_student_note(note) },
       feed: student_feed(student),
-      chart_data: StudentProfileChart.new(student.serialized_student_data).chart_data,
+      chart_data: chart_data,
       intervention_types_index: intervention_types_index,
       educators_index: educators_index,
       attendance_data: {
@@ -126,6 +125,21 @@ class StudentsController < ApplicationController
     (search_token_scores.sum.to_f / search_tokens.length)
   end
 
+  def serialize_student_for_profile(student)
+    {
+      student: student,
+      student_assessments: student.student_assessments,
+      star_math_results: student.star_math_results,
+      star_reading_results: student.star_reading_results,
+      mcas_mathematics_results: student.mcas_mathematics_results,
+      mcas_ela_results: student.mcas_ela_results,
+      absences_count_by_school_year: student.student_school_years.map {|year| year.absences.length },
+      tardies_count_by_school_year: student.student_school_years.map {|year| year.tardies.length },
+      discipline_incidents_by_school_year: student.student_school_years.map {|year| year.discipline_incidents.length },
+      school_year_names: student.student_school_years.pluck(:name),
+      interventions: student.interventions
+    }
+  end
 
   # TODO(kr) this is placeholder fixture data for now, to test design prototypes on the v2 student profile
   # page
