@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id]).decorate
     @chart_start = params[:chart_start] || "mcas-growth"
-    @chart_data = StudentProfileChart.new(serialize_student_for_profile(@student)).chart_data
+    @chart_data = StudentProfileChart.new(@student).chart_data
 
     @student_risk_level = @student.student_risk_level.decorate
 
@@ -48,7 +48,7 @@ class StudentsController < ApplicationController
   # TODO(kr) can simplify chart_data later
   def profile
     student = Student.find(params[:id])
-    chart_data = StudentProfileChart.new(serialize_student_for_profile(student)).chart_data
+    chart_data = StudentProfileChart.new(student).chart_data
     @serialized_data = {
       current_educator: current_educator,
       student: student.serialized_data,

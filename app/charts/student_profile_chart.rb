@@ -1,8 +1,8 @@
-class StudentProfileChart < Struct.new :data
+class StudentProfileChart < Struct.new :student
 
   def interventions_to_highcharts
-    return if data[:interventions].blank?
-    data[:interventions].with_start_and_end_dates.map do |intervention|
+    return if student.interventions.blank?
+    student.interventions.with_start_and_end_dates.map do |intervention|
       intervention.to_highcharts
     end
   end
@@ -39,6 +39,7 @@ class StudentProfileChart < Struct.new :data
   end
 
   def chart_data
+    data = serialize_student_for_profile_chart(student)
     {
       star_series_math_percentile: percentile_ranks_to_highcharts(data[:star_math_results]),
       star_series_reading_percentile: percentile_ranks_to_highcharts(data[:star_reading_results]),
@@ -55,4 +56,19 @@ class StudentProfileChart < Struct.new :data
     }
   end
 
+  def serialize_student_for_profile_chart(student)
+    {
+      student: student,
+      student_assessments: student.student_assessments,
+      star_math_results: student.star_math_results,
+      star_reading_results: student.star_reading_results,
+      mcas_mathematics_results: student.mcas_mathematics_results,
+      mcas_ela_results: student.mcas_ela_results,
+      absences_count_by_school_year: student.student_school_years.map {|year| year.absences.length },
+      tardies_count_by_school_year: student.student_school_years.map {|year| year.tardies.length },
+      discipline_incidents_by_school_year: student.student_school_years.map {|year| year.discipline_incidents.length },
+      school_year_names: student.student_school_years.pluck(:name),
+      interventions: student.interventions
+    }
+  end
 end

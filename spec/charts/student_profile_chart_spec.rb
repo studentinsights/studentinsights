@@ -15,7 +15,7 @@ RSpec.describe StudentProfileChart do
   describe '#chart_data' do
     let(:student) { FactoryGirl.create(:student) }
     it 'has the expected keys' do
-      chart_data = StudentProfileChart.new(student.serialized_student_data).chart_data
+      chart_data = StudentProfileChart.new(student).chart_data
       expect(chart_data.keys).to eq([
         :star_series_math_percentile,
         :star_series_reading_percentile,
