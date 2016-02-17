@@ -113,7 +113,7 @@
 
     dateRange: function() {
       var nowMoment = this.props.nowMomentFn();
-      return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
+      return [nowMoment.clone().subtract(2, 'year').toDate(), nowMoment.toDate()];
     },
 
     selectedColumnStyles: function(columnKey) {

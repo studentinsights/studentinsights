@@ -8,9 +8,10 @@ $(function() {
   var parseQueryString = window.shared.parseQueryString;
 
   // entry point, reading static bootstrapped data from the page
+  var serializedData = $('#serialized-data').data();
   ReactDOM.render(createEl(PageContainer, {
     nowMomentFn: function() { return moment.utc(); },
-    serializedData: $('#serialized-data').data(),
+    serializedData: serializedData,
     queryParams: parseQueryString(window.location.search)
   }), document.getElementById('main'));
 });
