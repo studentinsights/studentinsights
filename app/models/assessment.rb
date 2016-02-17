@@ -1,7 +1,7 @@
 class Assessment < ActiveRecord::Base
   has_many :student_assessments, dependent: :destroy
   has_many :students, through: :student_assessments
-  validate :valid_mcas_subject, :valid_star_subject
+  validate :valid_mcas_subject, :valid_star_subject, :valid_dibels
 
   VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics', 'Science', 'Arts', 'Technology' ].freeze
   VALID_STAR_SUBJECTS = [ 'Mathematics', 'Reading' ].freeze
@@ -14,6 +14,10 @@ class Assessment < ActiveRecord::Base
   def valid_star_subject
     errors.add(:subject, "must be a valid STAR subject") if family == 'STAR' &&
                                                             !subject.in?(VALID_STAR_SUBJECTS)
+  end
+
+  def valid_dibels
+    errors.add(:subject, "DIBELS has no subject") if family == 'DIBELS' && !subject.nil?
   end
 
   def self.seed_somerville_assessments
