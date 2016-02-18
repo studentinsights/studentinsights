@@ -1,13 +1,10 @@
-class X2AssessmentRow < Struct.new(:row)
+class DibelsRow < Struct.new :row
 
   def self.build(row)
     new(row).build
   end
 
   def build
-    row[:assessment_test] = "ACCESS" if family == "WIDA-ACCESS"
-    row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
-
     student_assessment = StudentAssessment.find_or_initialize_by(
       student: student,
       assessment: assessment,
@@ -29,13 +26,8 @@ class X2AssessmentRow < Struct.new(:row)
     Student.find_by_local_id!(row[:local_id])
   end
 
-  def family
-    row[:assessment_test]
-  end
-
   def assessment
-    return Assessment.find_or_create_by!(family: family) if family == 'DIBELS'
-    return Assessment.find_or_create_by!(subject: row[:assessment_subject], family: family)
+    Assessment.find_or_create_by!(family: 'DIBELS')
   end
 
 end
