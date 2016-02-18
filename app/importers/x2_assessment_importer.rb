@@ -1,7 +1,7 @@
 class X2AssessmentImporter
   # Aspen X2 is the name of Somerville's Student Information System.
 
-  WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/, /MAP/, /MELA-O/, /MEPA/).freeze
+  WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/).freeze
 
   def remote_file_name
     # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
