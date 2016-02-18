@@ -11,7 +11,7 @@ class SftpClient
     new(credentials: {
       user: settings_hash.fetch('STAR_SFTP_USER'),
       host: settings_hash.fetch('STAR_SFTP_HOST'),
-      key_data: settings_hash.fetch('STAR_SFTP_PASSWORD')
+      password: settings_hash.fetch('STAR_SFTP_PASSWORD')
     })
   end
 

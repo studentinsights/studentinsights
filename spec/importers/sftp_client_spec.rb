@@ -41,7 +41,7 @@ RSpec.describe SftpClient do
     it 'configures the sftp client for star' do
       expect(SftpClient.for_star(settings).credentials[:host]).to eq("sftp-site@site.com")
       expect(SftpClient.for_star(settings).credentials[:user]).to eq("sftp-user")
-      expect(SftpClient.for_star(settings).credentials[:key_data]).to eq("sftp-password")
+      expect(SftpClient.for_star(settings).credentials[:password]).to eq("sftp-password")
     end
   end
 
