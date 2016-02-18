@@ -1,35 +1,30 @@
 class SomervilleStarImporters
+  def self.from_options(options)
+    new(options).importer
+  end
+
+  IMPORTERS = [
+    StarReadingImporter,
+    StarReadingImporter::HistoricalImporter,
+    StarMathImporter,
+    StarMathImporter::HistoricalImporter
+  ]
 
   def initialize(options = {})
     @school_scope = options["school"]
-    @first_time = options["first_time"]
-  end
-
-  def sftp_credentials
-    {
-      user: ENV['STAR_SFTP_USER'],
-      host: ENV['STAR_SFTP_HOST'],
-      password: ENV['STAR_SFTP_PASSWORD']
-    }
   end
 
   def options
     {
       school_scope: @school_scope,
-      first_time: @first_time,
-      client: SftpClient.new(credentials: sftp_credentials),
+      client: SftpClient.for_star,
       data_transformer: CsvTransformer.new,
-      file_importers: [
-        StarReadingImporter.new,
-        StarReadingImporter::HistoricalImporter.new,
-        StarMathImporter.new,
-        StarMathImporter::HistoricalImporter.new
-      ]
+      file_importers: IMPORTERS.map(&:new)
     }
   end
 
   def importer
-    Importer.new(options)
+    [Importer.new(options)]
   end
 
 end

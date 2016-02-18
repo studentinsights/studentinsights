@@ -4,10 +4,15 @@ class Importer
                                     # remote_file_name => name of the remote file to import
                                     # import_row => method for importing each row
                   :client,
-                  :school_scope,
-                  :first_time
+                  :school_scope
 
   attr_accessor   :current_file_importer
+
+  class Filter < Struct.new(:schools)
+    def include?(row)
+      schools.nil? || schools.include?(row[:school_local_id])
+    end
+  end
 
   def initialize(options = {})
     # Required
@@ -16,10 +21,13 @@ class Importer
 
     # Optional
     @school_scope = options[:school_scope]    # Array of school local IDs
-    @first_time = options[:first_time]
 
     # Just for testing convenience, otherwise set internally
     @current_file_importer = options[:current_file_importer]
+  end
+
+  def filter
+    @filter ||= Filter.new(@school_scope)
   end
 
   def connect_transform_import
@@ -44,30 +52,11 @@ class Importer
     puts unless Rails.env.test?
     data.each.each_with_index do |row, index|
       row.delete_if { |key, value| key.blank? }
-      check_scope_and_import_row(row)
+      @current_file_importer.import_row(row) if filter.include?(row)
       print progress_bar.current_status(index) unless Rails.env.test?
     end
   end
 
-  def check_scope_and_import_row(row)
-    return check_elementary_scope(row) if @school_scope == ['ELEM']
-    return check_school_scope(row) if @school_scope.present?
-    @current_file_importer.import_row(row)
-  end
-
-  def check_elementary_scope(row)
-    somerville_elementary_school_local_ids = [
-      "BRN", "HEA", "KDY", "AFAS", "ESCS", "WSNS", "WHCS"
-    ]
-
-    return if somerville_elementary_school_local_ids.exclude? row[:school_local_id]
-    @current_file_importer.import_row(row)
-  end
-
-  def check_school_scope(row)
-    return unless row[:school_local_id].in? @school_scope
-    @current_file_importer.import_row(row)
-  end
 
   # FOR DEVELOPMENT ONLY (useful when you don't want to redownload files every time):
 

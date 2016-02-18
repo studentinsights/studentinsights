@@ -1,4 +1,19 @@
 class SftpClient
+  def self.for_x2(settings_hash = ENV)
+    new(credentials: {
+      user: settings_hash.fetch('SIS_SFTP_USER'),
+      host: settings_hash.fetch('SIS_SFTP_HOST'),
+      key_data: settings_hash.fetch('SIS_SFTP_KEY')
+    })
+  end
+
+  def self.for_star(settings_hash = ENV)
+    new(credentials: {
+      user: settings_hash.fetch('STAR_SFTP_USER'),
+      host: settings_hash.fetch('STAR_SFTP_HOST'),
+      key_data: settings_hash.fetch('STAR_SFTP_PASSWORD')
+    })
+  end
 
   attr_reader :credentials
 
