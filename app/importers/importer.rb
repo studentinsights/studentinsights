@@ -1,3 +1,5 @@
+require 'csv'
+
 class Importer
 
   attr_reader     :file_importers,  # File imports are classes that implement two methods:
