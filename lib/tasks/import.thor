@@ -10,6 +10,11 @@ class Import
       "ELEM" => %w[BRN HEA KDY AFAS ESCS WSNS WHCS]
     }
 
+    SOURCE_IMPORTERS = {
+      "x2" => SomervilleX2Importers,
+      "star" => SomervilleStarImporters,
+    }
+
     class_option :school,
       type: :array,
       aliases: "-s",
@@ -17,12 +22,6 @@ class Import
     class_option :first_time,
       type: :boolean,
       desc: "Fill up an empty database"
-
-    SOURCE_IMPORTERS = {
-      "x2" => SomervilleX2Importers,
-      "star" => SomervilleStarImporters,
-    }
-
     class_option :source,
       type: :array,
       default: ["x2", "star"],
@@ -30,10 +29,8 @@ class Import
 
     no_commands do
       def report
-        # Kick up a new report helper object
-        @report ||= ImportTaskReport.new([
-          Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School
-        ])
+        models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School ]
+        @report ||= ImportTaskReport.new(models)
       end
 
       def importers(sources = options["source"])
@@ -54,18 +51,12 @@ class Import
     end
 
     def validate_schools
-      # Create Somerville schools from seed file if they are missing
       School.seed_somerville_schools if School.count == 0
-
-      # Make sure school exists in database if school scope is set and refers
-      # to a particular school. No need to check if scope is all elementary schools.
       school_local_ids.each { |id| School.find_by!(local_id: id) }
     end
 
     def connect_transform_import
-      # X2 importers to come first because they are the sole source of truth about students.
-      # STAR importers don't import students, they only import STAR results.
-
+      # X2 importers should come first because they are the sole source of truth about students.
       importers.flat_map { |i| i.from_options(options) }.each(&:connect_transform_import)
     end
 
