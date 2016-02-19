@@ -6,6 +6,7 @@
 
   var ProfileChartSettings = window.ProfileChartSettings;
   var HighchartsWrapper = window.shared.HighchartsWrapper;
+  var MCASScoreChart = window.shared.MCASScoreChart;
 
   var MathDetails = window.shared.MathDetails = React.createClass({
     displayName: 'MathDetails',
@@ -39,7 +40,7 @@
     render: function() {
       return dom.div({ className: 'MathDetails' },
         this.renderStarMath(),
-        this.renderMCASMathScores(),
+        createEl(MCASScoreChart, {data: this.props.chartData.mcas_series_math_scaled, subject: 'Math'}),
         this.renderMCASMathGrowth()
       );
     },
@@ -55,22 +56,6 @@
           data: this.quadsToPairs(this.props.chartData.star_series_math_percentile || [])
         }],
         yAxis: this.percentileYAxis()
-      }));
-    },
-
-    renderMCASMathScores: function() {
-      return createEl(HighchartsWrapper, merge(this.baseOptions(), {
-        title: {
-          text: 'MCAS Math scores, last 4 years',
-          align: 'left'
-        },
-        series: [{
-          name: 'Scaled score',
-          data: this.quadsToPairs(this.props.chartData.mcas_series_math_scaled || [])
-        }],
-        yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis, {
-          plotLines: ProfileChartSettings.mcas_level_bands
-        })
       }));
     },
 
