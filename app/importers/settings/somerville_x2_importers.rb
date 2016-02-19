@@ -24,7 +24,7 @@ class SomervilleX2Importers
   def file_importers
     [
       StudentsImporter.new,
-      StudentAssessmentImporter.new,
+      X2AssessmentImporter.new,
       BehaviorImporter.new,
       EducatorsImporter.new,
     ]

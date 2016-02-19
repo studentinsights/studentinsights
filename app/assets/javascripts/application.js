@@ -56,6 +56,7 @@
   //= require ./student_profile_v2/take_notes
   //= require ./student_profile_v2/summary_list
   //= require ./student_profile_v2/mcas_score_chart
+  //= require ./student_profile_v2/student_profile_header
 // details:
   //= require ./student_profile_v2/profile_details
   //= require ./student_profile_v2/attendance_details

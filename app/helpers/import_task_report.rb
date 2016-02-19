@@ -34,6 +34,7 @@ class ImportTaskReport
     puts; puts end_of_task_report
     puts; puts; puts "=== BY SCHOOL ==="
     puts by_school_report
+    puts; puts assessments_report
   end
 
   def end_of_task_report
@@ -58,6 +59,18 @@ class ImportTaskReport
           count_report_for_class(klass, count)
         end
       ]
+    end
+  end
+
+  def assessments_report
+    headers = [
+                'Assessments:',
+                'Family | Subject | Count',
+                '--- | --- | ---',
+                ''
+              ]
+    headers << Assessment.all.sort_by(&:family).map do |assessment|
+      "#{assessment.family} | #{assessment.subject} | #{assessment.student_assessments.count}"
     end
   end
 
