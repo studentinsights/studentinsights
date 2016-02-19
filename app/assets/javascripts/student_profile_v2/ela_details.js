@@ -4,8 +4,8 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
+  var Chart = window.shared.Chart;
   var ProfileChartSettings = window.ProfileChartSettings;
-  var HighchartsWrapper = window.shared.HighchartsWrapper;
 
   /*
   This renders details about ELA performance and growth in the student profile page.
@@ -27,24 +27,6 @@
       }).isRequired
     },
 
-    getDefaultProps: function() {
-      return {
-        now: moment.utc().toDate(),
-        intervalBack: [4, 'years']
-      };
-    },
-
-    // TODO(kr) align these to school year?
-    // The intent of fixing this date range is that when staff are looking at profile of different students,
-    // the scales are consistent (and not changing between 3 mos and 6 years depending on the student's record,
-    // since that's easy to miss and misinterpret.
-    timestampRange: function() {
-      return {
-        min: moment.utc(this.props.now).subtract(this.props.intervalBack[0], this.props.intervalBack[1]).toDate().getTime(),
-        max: this.props.now.getTime()
-      };
-    },
-
     render: function() {
       return dom.div({ className: 'ELADetails'},
         this.renderStarReading(),
@@ -54,72 +36,42 @@
     },
 
     renderStarReading: function() {
-      return createEl(HighchartsWrapper, merge(this.baseOptions(), {
-        title: {
-          text: 'STAR Reading, last 4 years',
-          align: 'left'
-        },
+      return createEl(Chart, {
         series: [{
           name: 'Percentile rank',
-          data: this.quadsToPairs(this.props.chartData.star_series_reading_percentile || [])
+          data: this.props.chartData.star_series_reading_percentile
         }],
+        title: 'STAR Reading, last 4 years',
         yAxis: this.percentileYAxis()
-      }));
+      });
     },
 
     renderMCASELAScores: function() {
-      return createEl(HighchartsWrapper, merge(this.baseOptions(), {
-        title: {
-          text: 'MCAS ELA scores, last 4 years',
-          align: 'left'
-        },
+      return createEl(Chart, {
         series: [{
           name: 'Scaled score',
-          data: this.quadsToPairs(this.props.chartData.mcas_series_ela_scaled || [])
+          data: this.props.chartData.mcas_series_ela_scaled
         }],
-        yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis, {
-          plotLines: ProfileChartSettings.mcas_level_bands
-        })
-      }));
+        title: 'MCAS ELA scores, last 4 years',
+        yAxis: merge(
+            ProfileChartSettings.default_mcas_score_yaxis,
+            {plotLines: ProfileChartSettings.mcas_level_bands}
+        )
+      });
     },
 
     renderMCASELAGrowth: function() {
-      return createEl(HighchartsWrapper, merge(this.baseOptions(), {
-        title: {
-          text: 'MCAS ELA Growth, last 4 years',
-          align: 'left'
-        },
+      return createEl(Chart, {
         series: [{
           name: 'Growth percentile',
-          data: this.quadsToPairs(this.props.chartData.mcas_series_ela_growth || [])
+          data: this.props.chartData.mcas_series_ela_growth
         }],
+        title: 'MCAS ELA Growth, last 4 years',
         yAxis: this.percentileYAxis()
-      }));
-    },
-
-    // TODO(kr) factor out
-    quadsToPairs: function(quads) {
-      return quads.map(function(quad) {
-        var date = Date.UTC(quad[0], quad[1] - 1, quad[2]);
-        return [date, quad[3]];
       });
     },
 
-    // TODO(kr) factor out
-    baseOptions: function() {
-      // TODO(kr) intervention plot bands, based on particular
-      // interventions?
-      var timestampRange = this.timestampRange();
-      return merge(ProfileChartSettings.base_options, {
-        xAxis: merge(ProfileChartSettings.x_axis_datetime, {
-          plotLines: this.x_axis_bands,
-          min: timestampRange.min,
-          max: timestampRange.max
-        })
-      });
-    },
-
-    // TODO(kr) factor out
+    // TODO(er) factor out
     percentileYAxis: function() {
       return merge(ProfileChartSettings.percentile_yaxis, {
         plotLines: [{
