@@ -1,0 +1,14 @@
+  <h1 id="student-name"><%= @student.full_name %></h1> &#x25cf;
+  <h1> <%= @student.school.name %> </h1> &#x25cf;
+
+  <% if @student.grade.to_i == 1  %>
+    <h1> <%= @student.grade %>st Grade </h1> &#x25cf;
+  <% elsif @student.grade.to_i == 2  %>
+    <h1> <%= @student.grade %>nd Grade </h1> &#x25cf;
+  <% elsif @student.grade.to_i == 3  %>
+    <h1> <%= @student.grade %>rd Grade </h1> &#x25cf;
+  <% else %>
+    <h1> <%= @student.grade %>th Grade </h1> &#x25cf;
+  <% end %>
+
+  <h1> HEA 500 </h1>
