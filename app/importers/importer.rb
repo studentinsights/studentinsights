@@ -26,6 +26,7 @@ class Importer
 
     # Just for testing convenience, otherwise set internally
     @current_file_importer = options[:current_file_importer]
+    @log = options[:log_destination] || STDOUT
   end
 
   def filter
@@ -38,10 +39,10 @@ class Importer
       file = @client.read_file(file_importer.remote_file_name)
 
       pre_cleanup_csv = CSV.parse(file, headers: true)
-      puts; puts; puts "#{pre_cleanup_csv.size} rows of data in #{file_importer.remote_file_name} pre-cleanup"
+      @log.write("\n\n\n#{pre_cleanup_csv.size} rows of data in #{file_importer.remote_file_name} pre-cleanup")
 
       data = file_importer.data_transformer.transform(file)
-      puts "#{data.size} rows of data in #{file_importer.remote_file_name} post-cleanup"
+      @log.write("\n#{data.size} rows of data in #{file_importer.remote_file_name} post-cleanup")
 
       start_import(data)
     end
@@ -51,11 +52,11 @@ class Importer
     # Set up progress bar
     progress_bar = ProgressBar.new(data.size, @current_file_importer.remote_file_name)
 
-    puts unless Rails.env.test?
+    @log.write("\n\n")
     data.each.each_with_index do |row, index|
       row.delete_if { |key, value| key.blank? }
       @current_file_importer.import_row(row) if filter.include?(row)
-      print progress_bar.current_status(index) unless Rails.env.test?
+      @log.print(progress_bar.current_status(index))
     end
   end
 
