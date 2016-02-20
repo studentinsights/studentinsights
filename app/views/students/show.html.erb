@@ -11,7 +11,7 @@
   <div class="info-area">
 
     <div class="topline-info underline">
-      <h1 id="student-name"><%= @student.full_name %></h1>
+      <%= render partial: 'profile_header' %>
       <div id="profile-risk-level" class="tooltip-trigger">
         <p>Risk level</p>
         <div id="risk-pill" class="<%= @student_risk_level.css_class_name %>">
