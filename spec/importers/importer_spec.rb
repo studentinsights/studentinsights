@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe do
+RSpec.describe Importer do
 
   describe '#import' do
 
@@ -30,17 +30,6 @@ RSpec.describe do
         }
         it 'only imports the Healey student' do
           expect { importer.start_import(csv) }.to change(Student, :count).by 1
-        end
-      end
-
-      context 'scope is elementary schools' do
-        let!(:healey) { FactoryGirl.create(:healey) }
-        let(:importer) { Importer.new(
-            school_scope: ['ELEM'], current_file_importer: file_importer
-          )
-        }
-        it 'only imports the Healey student' do
-          expect { importer.start_import(csv) }.to change(Student, :count).by 2
         end
       end
 

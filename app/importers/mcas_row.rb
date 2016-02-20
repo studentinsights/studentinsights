@@ -1,13 +1,10 @@
 class McasRow < Struct.new :row
-  SUBJECT_WHITELIST = ['Mathematics', 'ELA']
 
   def self.build(row)
     new(row).build
   end
 
   def build
-    return NullRow.new unless row[:assessment_subject].in? SUBJECT_WHITELIST
-
     student_assessment = StudentAssessment.find_or_initialize_by(
       student: student,
       assessment: assessment,
@@ -29,8 +26,16 @@ class McasRow < Struct.new :row
     Student.find_by_local_id!(row[:local_id])
   end
 
+  def subject
+    if "English Language Arts".in?(row[:assessment_name])
+      'ELA'
+    else
+      row[:assessment_subject]
+    end
+  end
+
   def assessment
-    Assessment.find_or_create_by!(subject: row[:assessment_subject], family: 'MCAS')
+    Assessment.find_or_create_by!(subject: subject, family: 'MCAS')
   end
 
 end

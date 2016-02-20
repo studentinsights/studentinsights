@@ -11,6 +11,7 @@ RSpec.describe McasRow do
       {
         assessment_test: 'MCAS',
         assessment_subject: 'Mathematics',
+        assessment_name: 'MCAS 2016 Mathematics',
         local_id: student.local_id,
         assessment_date: Date.today
       }
@@ -27,19 +28,24 @@ RSpec.describe McasRow do
 
   end
 
-  context 'MCAS Arts' do
+  context 'MCAS English Language Arts' do
     let(:row) {
       {
         assessment_test: 'MCAS',
         assessment_subject: 'Arts',
+        assessment_name: 'MCAS 2016 English Language Arts',
         local_id: student.local_id,
         assessment_date: Date.today
       }
     }
 
-    it 'does not create an assessment or student assessment result' do
-      expect(Assessment.count).to eq 0
-      expect(StudentAssessment.count).to eq 0
+    it 'creates an assessment' do
+      expect(Assessment.count).to eq 1
+      expect(StudentAssessment.count).to eq 1
+    end
+
+    it 'sets the correct subject' do
+      expect(Assessment.last.subject).to eq 'ELA'
     end
   end
 
