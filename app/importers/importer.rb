@@ -8,8 +8,6 @@ class Importer
                   :client,
                   :school_scope
 
-  attr_accessor   :current_file_importer
-
   class Filter < Struct.new(:schools)
     def include?(row)
       schools.nil? || schools.include?(row[:school_local_id])
@@ -17,15 +15,9 @@ class Importer
   end
 
   def initialize(options = {})
-    # Required
-    @file_importers = options[:file_importers]
-    @client = options[:client]
-
-    # Optional
-    @school_scope = options[:school_scope]    # Array of school local IDs
-
-    # Just for testing convenience, otherwise set internally
-    @current_file_importer = options[:current_file_importer]
+    @client = options[:client]                    # Required - client for connecting to remote site
+    @file_importers = options[:file_importers]    # Required - array of per-file importers
+    @school_scope = options[:school_scope]        # Optional array of school local IDs
     @log = options[:log_destination] || STDOUT
   end
 
@@ -35,7 +27,6 @@ class Importer
 
   def connect_transform_import
     file_importers.each do |file_importer|
-      @current_file_importer = file_importer
       file = @client.read_file(file_importer.remote_file_name)
 
       pre_cleanup_csv = CSV.parse(file, headers: true)
@@ -44,19 +35,15 @@ class Importer
       data = file_importer.data_transformer.transform(file)
       @log.write("\n#{data.size} rows of data in #{file_importer.remote_file_name} post-cleanup")
 
-      start_import(data)
-    end
-  end
+      progress_bar = ProgressBar.new(data.size, file_importer.remote_file_name)
 
-  def start_import(data)
-    # Set up progress bar
-    progress_bar = ProgressBar.new(data.size, @current_file_importer.remote_file_name)
+      @log.write("\n\n")
 
-    @log.write("\n\n")
-    data.each.each_with_index do |row, index|
-      row.delete_if { |key, value| key.blank? }
-      @current_file_importer.import_row(row) if filter.include?(row)
-      @log.print(progress_bar.current_status(index))
+      data.each.each_with_index do |row, index|
+        row.delete_if { |key, value| key.blank? }
+        file_importer.import_row(row) if filter.include?(row)
+        @log.print(progress_bar.current_status(index))
+      end
     end
   end
 
@@ -65,8 +52,6 @@ class Importer
 
   # def connect_transform_import_locally
   #   file_importers.each do |file_importer|
-
-  #     @current_file_importer = file_importer
 
   #     path = @client.file_tmp_path(file_importer.remote_file_name)
   #     unless File.exist? path
@@ -80,7 +65,15 @@ class Importer
   #                                             replace: '')
 
   #     data = file_importer.data_transformer.transform(file_as_string)
-  #     start_import(data)
+
+  #     progress_bar = ProgressBar.new(data.size, file_importer.remote_file_name)
+
+  #     data.each.each_with_index do |row, index|
+  #       row.delete_if { |key, value| key.blank? }
+  #       file_importer.import_row(row) if filter.include?(row)
+  #       @log.print(progress_bar.current_status(index))
+  #     end
+
   #   end
   # end
 
