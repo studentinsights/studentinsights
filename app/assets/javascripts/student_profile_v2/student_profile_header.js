@@ -11,10 +11,11 @@
       padding: 20
     },
     nameTitle: {
-      fontSize: 20,
+      fontSize: 30,
       fontWeight: 'bold'
     },
     titleItem: {
+      fontSize: 25,
       padding: 5
     }
   };
@@ -40,15 +41,15 @@
         dom.a({
           href: Routes.school(student.school_id),
           style: styles.titleItem
-        }, student.school_name),
+        }, '\n\u2022 ' + student.school_name + '\n\u2022'),
         dom.span({
           style: styles.titleItem
-        }, student.grade),
+        }, 'Grade ' + student.grade + '\n\u2022'),
         dom.a({
           className: 'homeroom-link',
           href: Routes.homeroom(student.homeroom_id),
           style: styles.titleItem
-        }, student.homeroom_name)
+        }, 'Homeroom ' + student.homeroom_name)
       );
     }
   });
