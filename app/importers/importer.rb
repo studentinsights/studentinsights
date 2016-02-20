@@ -8,12 +8,6 @@ class Importer
                   :client,
                   :school_scope
 
-  class Filter < Struct.new(:schools)
-    def include?(row)
-      schools.nil? || schools.include?(row[:school_local_id])
-    end
-  end
-
   def initialize(options = {})
     @client = options[:client]                    # Required - client for connecting to remote site
     @file_importers = options[:file_importers]    # Required - array of per-file importers
@@ -22,7 +16,7 @@ class Importer
   end
 
   def filter
-    @filter ||= Filter.new(@school_scope)
+    @filter ||= SchoolFilter.new(@school_scope)
   end
 
   def connect_transform_import
