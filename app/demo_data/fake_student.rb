@@ -6,7 +6,8 @@ class FakeStudent
     add_discipline_incidents
     add_interventions
     add_notes
-    add_student_assessments
+    add_student_assessments_from_x2
+    add_student_assessments_from_star
     homeroom.students << @student
   end
 
@@ -84,23 +85,36 @@ class FakeStudent
     ]
   end
 
-  def create_star_assessment_generators(student)
-    [
-      FakeStarMathResultGenerator.new(student),
-      FakeStarReadingResultGenerator.new(student)
-    ]
+  def create_star_assessment_generators(student, options)
+    
   end
 
-  def add_student_assessments
+  def add_student_assessments_from_x2
     create_x2_assessment_generators(@student).each do |assessment_generator|
       5.times do
         StudentAssessment.new(assessment_generator.next).save
       end
     end
+  end
 
-    create_star_assessment_generators(@student).each do |assessment_generator|
-      12.times do
-        StudentAssessment.new(assessment_generator.next).save
+  def add_student_assessments_from_star
+    # Define semi-realistic date ranges for STAR assessments
+    start_date = DateTime.new(2010, 9, 1)
+    star_period_days = 90
+    now = DateTime.now
+    assessment_count = (now - start_date).to_i / star_period_days
+    options = {
+      start_date: start_date,
+      star_period_days: star_period_days
+    }    
+
+    generators = [
+      FakeStarMathResultGenerator.new(@student, options),
+      FakeStarReadingResultGenerator.new(@student, options)
+    ]
+    generators.each do |star_assessment_generator|
+      assessment_count.times do
+        StudentAssessment.new(star_assessment_generator.next).save
       end
     end
   end
