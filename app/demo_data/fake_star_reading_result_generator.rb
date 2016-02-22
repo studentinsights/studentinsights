@@ -1,8 +1,8 @@
 class FakeStarReadingResultGenerator
-
-  def initialize(student)
-    @test_date = DateTime.new(2010, 9, 1)
+  def initialize(student, options)
     @student = student
+    @test_date = options[:start_date] || DateTime.new(2010, 9, 1)
+    @star_period_days = options[:star_period_days] || 90
     @instructional_reading_level = @student.grade.to_f
     @reading_percentile = rand(10..99)
   end
@@ -15,7 +15,7 @@ class FakeStarReadingResultGenerator
     @reading_percentile += rand(-15..15)
     @reading_percentile = [0, @reading_percentile, 100].sort[1]
     @instructional_reading_level += rand(-1..1)
-    @test_date += rand(30..60)  # days
+    @test_date += @star_period_days + rand(-10..10)  # days
 
     return {
       assessment: star_reading_assessment,
