@@ -34,3 +34,6 @@ On a Debian-like OS you may have to remove this line from the config of the deve
 host: localhost
 ```
 For an explanation, see [this Stackoverflow discussion](http://stackoverflow.com/questions/23375740/pgconnectionbad-fe-sendauth-no-password-supplied).
+
+## Gentoo
+On Gentoo, you may need to ensure that your username exists as a Postgres user.
