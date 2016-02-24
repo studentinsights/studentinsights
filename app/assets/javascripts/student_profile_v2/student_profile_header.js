@@ -38,13 +38,22 @@
           href: Routes.student(student.id),
           style: styles.nameTitle
         }, student.first_name + ' ' + student.last_name),
+        dom.span({
+          style: styles.titleItem
+        }, '•'),
         dom.a({
           href: Routes.school(student.school_id),
           style: styles.titleItem
-        }, '\n\u2022 ' + student.school_name + '\n\u2022'),
+        }, student.school_name),
         dom.span({
           style: styles.titleItem
-        }, 'Grade ' + student.grade + '\n\u2022'),
+        }, '•'),
+        dom.span({
+          style: styles.titleItem
+        }, student.grade),
+        dom.span({
+          style: styles.titleItem
+        }, '•'),
         dom.a({
           className: 'homeroom-link',
           href: Routes.homeroom(student.homeroom_id),
