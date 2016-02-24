@@ -7,7 +7,7 @@ The project runs on a specific version of Ruby, specified in [.ruby-version](/.r
 ruby -v
 ```
 
-If you need to install a newer version of Ruby, we recommend using [rbenv](https://github.com/rbenv/rbenv#installation).
+If you need to install a newer version of Ruby, we recommend using [rbenv](https://github.com/rbenv/rbenv#installation) and [ruby-build](https://github.com/rbenv/ruby-build#installation).
 
 ## Postgres installation on OSX
 
