@@ -109,13 +109,8 @@ The wrinkle with React usage is that at the moment, we don't use the JSX syntax 
 var ProductTable = React.createClass({
   render: function() {
     var rows = [];
-    var lastCategory = null;
     this.props.products.forEach(function(product) {
-      if (product.category !== lastCategory) {
-        rows.push(<ProductCategoryRow category={product.category} key={product.category} />);
-      }
       rows.push(<ProductRow product={product} key={product.name} />);
-      lastCategory = product.category;
     });
     return (
       <table>
@@ -138,16 +133,8 @@ becomes:
 var ProductTable = React.createClass({
   render: function() {
     var rows = [];
-    var lastCategory = null;
     this.props.products.forEach(function(product) {
-      if (product.category !== lastCategory) {
-        rows.push(createEl(ProductCategoryRow, {
-          category: product.category,
-          key: product.category
-        }));
-      }
       rows.push(createEl(ProductRow, { product: product, key: product.name }));
-      lastCategory = product.category;
     });
     return (
       dom.table({},
