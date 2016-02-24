@@ -40,7 +40,7 @@
         // constants
         interventionTypesIndex: serializedData.interventionTypesIndex,
         educatorsIndex: serializedData.educatorsIndex,
-        serviceTypesIndex: {}, // TODO(kr)
+        serviceTypesIndex: serializedData.serviceTypesIndex,
 
         // data
         student: serializedData.student,

@@ -16,20 +16,6 @@
       marginBottom: 20,
       marginTop: 10
     },
-    // date: {
-    //   paddingRight: 10,
-    //   fontWeight: 'bold',
-    //   display: 'inline-block'
-    // },
-    // educator: {
-    //   paddingLeft: 5,
-    //   display: 'inline-block'
-    // },
-    // textarea: {
-    //   fontSize: 14,
-    //   border: '1px solid #eee',
-    //   width: '100%' //overriding strange global CSS, should cleanup
-    // },
     cancelRecordServiceButton: { // overidding CSS
       color: 'black',
       background: '#eee',
@@ -139,7 +125,6 @@
       var serviceText = serviceNameMap[serviceTypeId] || 'Unknown service';
       var color = this.serviceColor(serviceTypeId);
 
-      // TODO(kr) factor out pure button component, unify with TakeNotes
       return dom.button({
         className: 'btn service-type',
         onClick: this.onServiceClicked.bind(this, serviceTypeId),

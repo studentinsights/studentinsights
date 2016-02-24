@@ -100,7 +100,6 @@
 
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
-      // TODO(kr) collapse into statics
       interventionTypesIndex: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
