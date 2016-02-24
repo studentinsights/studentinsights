@@ -2,6 +2,14 @@
   window.shared || (window.shared = {});
 
   var QuadConverter = window.shared.QuadConverter = {
+    toMoment: function(quad) {
+      return moment.utc([quad[0], quad[1], quad[2]].join('-'), 'YYYY-M-D');
+    },
+
+    toDate: function(quad) {
+      return QuadConverter.toMoment(quad).toDate();
+    },
+
     // Fills in data points for start of the school year (8/15) and for current day.
     // Also collapses multiple events on the same day.
     // TODO(kr) should extract this, simplify and test it more thoroughly
@@ -26,10 +34,6 @@
       }, this);
 
       return _.sortBy(quads, this.toMoment.bind(this));
-    },
-
-    toMoment: function(quad) {
-      return moment.utc([quad[0], quad[1], quad[2]].join('-'), 'YYYY-M-D');
     },
 
     schoolYearStart: function(eventMoment) {
