@@ -6,7 +6,6 @@ development:
   pool: 5
   database: student_insights_development
   host: localhost
-  username: postgres
 
 test:
   adapter: postgresql
