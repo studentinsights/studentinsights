@@ -141,6 +141,7 @@
 
       // TODO(kr) factor out pure button component, unify with TakeNotes
       return dom.button({
+        className: 'btn service-type',
         onClick: this.onServiceClicked.bind(this, serviceTypeId),
         tabIndex: -1,
         style: merge(styles.serviceButton, {
@@ -150,8 +151,7 @@
           border: (this.state.serviceTypeId === serviceTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
-        }),
-        className: 'btn'
+        })
       }, serviceText);
     },
 
