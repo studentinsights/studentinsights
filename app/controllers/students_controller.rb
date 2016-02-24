@@ -56,6 +56,7 @@ class StudentsController < ApplicationController
       feed: student_feed(student),
       chart_data: chart_data,
       intervention_types_index: intervention_types_index,
+      service_types_index: {}, # TODO(kr) this is part of the backend work
       educators_index: educators_index,
       attendance_data: {
         discipline_incidents: student.most_recent_school_year.discipline_incidents,

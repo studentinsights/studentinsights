@@ -66,6 +66,7 @@
       // constants
       interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
+      serviceTypesIndex: React.PropTypes.object.isRequired,
 
       // data
       student: React.PropTypes.object.isRequired,
@@ -175,6 +176,7 @@
             'currentEducator',
             'student',
             'interventionTypesIndex',
+            'serviceTypesIndex',
             'educatorsIndex',
             'actions',
             'requests'

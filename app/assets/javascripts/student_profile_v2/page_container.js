@@ -40,6 +40,7 @@
         // constants
         interventionTypesIndex: serializedData.interventionTypesIndex,
         educatorsIndex: serializedData.educatorsIndex,
+        serviceTypesIndex: serializedData.serviceTypesIndex,
 
         // data
         student: serializedData.student,
@@ -101,6 +102,7 @@
           'currentEducator',
           'interventionTypesIndex',
           'educatorsIndex',
+          'serviceTypesIndex',
           'student',
           'feed',
           'chartData',
