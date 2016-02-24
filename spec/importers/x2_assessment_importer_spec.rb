@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StudentAssessmentImporter do
+RSpec.describe X2AssessmentImporter do
 
   describe '#import' do
     context 'with good data' do
@@ -23,7 +23,7 @@ RSpec.describe StudentAssessmentImporter do
         end
 
         it 'imports only white-listed assessments' do
-          expect(StudentAssessment.count).to eq 7
+          expect(StudentAssessment.count).to eq 6
         end
 
         context 'MCAS' do

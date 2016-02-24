@@ -1,5 +1,14 @@
 # Local installation notes
 
+## Ruby installation
+The project runs on a specific version of Ruby, specified in [.ruby-version](/.ruby-version).  You can check your Ruby version by running:
+
+```
+ruby -v
+```
+
+If you need to install a newer version of Ruby, we recommend using [rbenv](https://github.com/rbenv/rbenv#installation) and [ruby-build](https://github.com/rbenv/ruby-build#installation).
+
 ## Postgres installation on OSX
 
 You can use Homebrew to install Postgres: `brew install postgres`
@@ -25,3 +34,6 @@ On a Debian-like OS you may have to remove this line from the config of the deve
 host: localhost
 ```
 For an explanation, see [this Stackoverflow discussion](http://stackoverflow.com/questions/23375740/pgconnectionbad-fe-sendauth-no-password-supplied).
+
+## Gentoo
+On Gentoo, you may need to ensure that your username exists as a Postgres user.

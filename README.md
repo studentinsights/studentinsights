@@ -71,7 +71,7 @@ This is a Ruby on Rails app and uses a PostgreSQL database.
 Choose your favorite local development approach:
 
 * [Local development with Docker](docs/local_development_with_docker.md)
-* [Local installation on OSX and Debian](docs/local_installation_notes.md)
+* [Local installation on OSX or Linux](docs/local_installation_notes.md)
 
 ### Tests
 This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:

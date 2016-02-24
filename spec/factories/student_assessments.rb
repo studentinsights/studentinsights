@@ -30,7 +30,7 @@ FactoryGirl.define do
       end
       factory :star_assessment do
         factory :star_math_assessment do
-          association :assessment, subject: "Math", family: "STAR"
+          association :assessment, subject: "Mathematics", family: "STAR"
           factory :star_math_warning_assessment do
             percentile_rank 8
           end

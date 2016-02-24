@@ -40,7 +40,7 @@
           <div class="assessment-dark-background">
             <% results.each do |r| %>
               <div class="star-values">
-                <% if r.assessment.subject == "Math" %>
+                <% if r.assessment.subject == "Mathematics" %>
                   <div class="values star-math-values">
                     <p>Math percentile: <strong><%= r.decorate.percentile_rank %></strong></p>
                   </div>

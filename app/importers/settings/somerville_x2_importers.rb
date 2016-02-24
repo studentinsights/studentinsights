@@ -1,48 +1,36 @@
 class SomervilleX2Importers
+  def self.from_options(options)
+    new(options).importer
+  end
 
   def initialize(options = {})
     @school_scope = options["school"]
     @first_time = options["first_time"]
   end
 
-  def sftp_credentials
-    {
-      user: ENV['SIS_SFTP_USER'],
-      host: ENV['SIS_SFTP_HOST'],
-      key_data: ENV['SIS_SFTP_KEY']
-    }
-  end
-
   def base_options
     {
       school_scope: @school_scope,
-      first_time: @first_time,
-      client: SftpClient.new(credentials: sftp_credentials)
+      client: SftpClient.for_x2,
+      file_importers: file_importers.map(&:new)
     }
   end
 
   def file_importers
-    [
-      StudentsImporter.new,
-      StudentAssessmentImporter.new,
-      BehaviorImporter.new,
-      EducatorsImporter.new,
+    importers = [
+      StudentsImporter,
+      X2AssessmentImporter,
+      BehaviorImporter,
+      EducatorsImporter,
     ]
-  end
-
-  def file_importers_plus_attendance
-    file_importers << AttendanceImporter.new
+    importers << AttendanceImporter unless @first_time
+    importers
   end
 
   def importer
-    unless @first_time
-      Importer.new(base_options.merge({file_importers: file_importers_plus_attendance}))
-    else
-      [
-        Importer.new(base_options.merge({file_importers: file_importers})),
-        BulkAttendanceImporter.new(base_options)
-      ]
-    end
+    importer_set = [Importer.new(base_options)]
+    importer_set << BulkAttendanceImporter.new(base_options) if @first_time
+    importer_set
   end
 
 end

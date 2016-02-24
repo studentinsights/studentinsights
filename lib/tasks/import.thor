@@ -1,54 +1,74 @@
-class Import < Thor
-  desc "start", "Import data into your Student Insights instance"
-  method_option :school,
-    type: :array,
-    aliases: "-s",
-    desc: "Scope by school local IDs; use ELEM to import all elementary schools"
-  method_option :first_time,
-    type: :boolean,
-    desc: "Fill up an empty database"
+require 'thor'
+require_relative '../../app/importers/settings/somerville_star_importers'
+require_relative '../../app/importers/settings/somerville_x2_importers'
 
-  def start
-    require './config/environment'
+class Import
+  class Start < Thor::Group
+    desc "Import data into your Student Insights instance"
 
-    # Kick up a new report helper object
-    report = ImportTaskReport.new([
-      Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School
-    ])
+    SCHOOL_SHORTCODE_EXPANSIONS = {
+      "ELEM" => %w[BRN HEA KDY AFAS ESCS WSNS WHCS]
+    }
 
-    report.print_initial_report
+    SOURCE_IMPORTERS = {
+      "x2" => SomervilleX2Importers,
+      "star" => SomervilleStarImporters,
+    }
 
-    # Create Somerville schools from seed file if they are missing
-    School.seed_somerville_schools if School.count == 0
+    class_option :school,
+      type: :array,
+      aliases: "-s",
+      desc: "Scope by school local IDs; use ELEM to import all elementary schools"
+    class_option :first_time,
+      type: :boolean,
+      desc: "Fill up an empty database"
+    class_option :source,
+      type: :array,
+      default: ["x2", "star"],
+      desc: "Import data from the specified source: #{SOURCE_IMPORTERS.keys}"
 
-    # Make sure school exists in database if school scope is set and refers
-    # to a particular school. No need to check if scope is all elementary schools.
-    if options["school"].present? && options["school"] != ["ELEM"]
-      options["school"].map do |school_local_id|
-        School.find_by_local_id!(school_local_id)
+    no_commands do
+      def report
+        models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School ]
+        @report ||= ImportTaskReport.new(models)
+      end
+
+      def importers(sources = options["source"])
+        sources.map { |s| SOURCE_IMPORTERS.fetch(s, nil) }.compact.uniq
+      end
+
+      def school_local_ids(schools = options["school"])
+        schools.flat_map { |s| SCHOOL_SHORTCODE_EXPANSIONS.fetch(s, s) }.uniq
       end
     end
 
-    # X2 importers to come first because they are the sole source of truth about students.
-    # STAR importers don't import students, they only import STAR results.
-    importers = [
-      SomervilleX2Importers.new(options).importer,
-      SomervilleStarImporters.new(options).importer
-    ].flatten
-
-    importers.each do |i|
-      begin
-        i.connect_transform_import
-      rescue Exception => message
-        puts message
-      end
+    def load_rails
+      require File.expand_path("../../../config/environment.rb", __FILE__)
     end
 
-    Student.update_risk_levels
-    Student.update_student_school_years
-    Student.update_recent_student_assessments
-    Homeroom.destroy_empty_homerooms
+    def print_initial_report
+      report.print_initial_report
+    end
 
-    report.print_final_report
+    def validate_schools
+      School.seed_somerville_schools if School.count == 0
+      school_local_ids.each { |id| School.find_by!(local_id: id) }
+    end
+
+    def connect_transform_import
+      # X2 importers should come first because they are the sole source of truth about students.
+      importers.flat_map { |i| i.from_options(options) }.each(&:connect_transform_import)
+    end
+
+    def run_update_tasks
+      Student.update_risk_levels
+      Student.update_student_school_years
+      Student.update_recent_student_assessments
+      Homeroom.destroy_empty_homerooms
+    end
+
+    def print_final_report
+      report.print_final_report
+    end
   end
 end

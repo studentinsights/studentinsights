@@ -1,5 +1,7 @@
-class StudentAssessmentImporter
-  WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/, /MAP/, /MELA-O/, /MEPA/, /STAR/).freeze
+class X2AssessmentImporter
+  # Aspen X2 is the name of Somerville's Student Information System.
+
+  WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/).freeze
 
   def remote_file_name
     # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
@@ -17,7 +19,18 @@ class StudentAssessmentImporter
 
   def import_row(row)
     return unless row[:assessment_test].match(WHITELIST)
-    StudentAssessmentRow.build(row).save!
+
+    row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
+    row[:assessment_test] = "ACCESS" if row[:assessment_test] == "WIDA-ACCESS"
+
+    case row[:assessment_test]
+    when 'MCAS'
+      McasRow.build(row).save!
+    when 'ACCESS'
+      AccessRow.build(row).save!
+    when 'DIBELS'
+      DibelsRow.build(row).save!
+    end
   end
 
 end
