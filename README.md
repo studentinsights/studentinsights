@@ -164,6 +164,8 @@ var ProductTable = React.createClass({
 });
 ```
 
+There are also a few places where we use [Flux](https://facebook.github.io/flux/docs/overview.html) patterns.
+
 ## Deployment
 ### Importing real data
 
