@@ -97,65 +97,49 @@
 
     render: function() {
       return dom.div({ className: 'RecordService', style: styles.dialog },
+        this.renderWhichService(),
+        this.renderWhoAndWhen(),
+        this.renderButtons()
+      );
+    },
+
+    renderWhichService: function() {
+      return dom.div({}, 
         dom.div({ style: { marginBottom: 5 } }, 'Which service?'),
         dom.div({ style: { display: 'flex' } },
           dom.div({ style: { flex: 1 } },
-            this.renderServiceButton(29),
-            this.renderServiceButton(30)
+            this.renderServiceButton(505),
+            this.renderServiceButton(506)
           ),
           dom.div({ style: { flex: 1 } },
-            this.renderServiceButton(41),
-            this.renderServiceButton(32)
+            this.renderServiceButton(507),
+            this.renderServiceButton(508)
           ),
           dom.div({ style: { flex: 'auto' } },
-            this.renderServiceButton(21),
-            this.renderServiceButton(22),
-            this.renderServiceButton(23)
+            this.renderServiceButton(502),
+            this.renderServiceButton(503),
+            this.renderServiceButton(504)
           )
-        ),
-        dom.div({ style: { marginTop: 20 } },
-          dom.div({}, 'Who is working with ' + this.props.studentFirstName + '?'),
-          dom.div({ style: { width: '50%' } }, this.renderEducatorSelect())
-          // dom.span({ style: { fontSize: 12, color: '#666', marginLeft: 5, marginRight: 5 } }, ' starting on '),
-          // dom.input({ style: { fontSize: 14 }, defaultValue: moment.utc().format('MM/DD/YYYY') })
-        ),
-        dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
-        dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment.utc().format('MM/DD/YYYY') }),
-
-
-        dom.div({ style: { marginTop: 15 } },
-          dom.button({
-            style: {
-              marginTop: 20,
-              background: (this.state.serviceTypeId === null) ? '#ccc' : undefined
-            },
-            disabled: (this.state.serviceTypeId === null),
-            className: 'btn save',
-            onClick: this.onClickSave
-          }, 'Record service'),
-          dom.button({
-            className: 'btn cancel',
-            style: styles.cancelRecordServiceButton,
-            onClick: this.onClickCancel
-          }, 'Cancel'),
-          (this.props.requestState === 'pending') ? dom.span({}, 'Saving...') : null,
-          (this.props.requestState === 'error') ? dom.span({}, 'Try again!') : null
         )
       );
     },
 
     renderServiceButton: function(serviceTypeId, options) {
       var serviceNameMap = {
-        29: 'Counseling, in-house',
-        30: 'Counseling, outside',
-        41: 'Reading intervention',
-        32: 'Math intervention'
+        502: 'Attendance Officer',
+        503: 'Attendance Contract',
+        504: 'Behavior Contract',
+        505: 'Counseling, in-house',
+        506: 'Counseling, outside',
+        507: 'Reading intervention',
+        508: 'Math intervention'
       };
       var serviceType = this.props.serviceTypesIndex[serviceTypeId];
       // TODO(kr) update default value here after merging server-side migrations
       var serviceText = serviceNameMap[serviceTypeId] || 'Unknown service';
       var color = this.serviceColor(serviceTypeId);
 
+      // TODO(kr) factor out pure button component, unify with TakeNotes
       return dom.button({
         onClick: this.onServiceClicked.bind(this, serviceTypeId),
         tabIndex: -1,
@@ -173,20 +157,17 @@
 
     serviceColor: function(serviceTypeId) {
       var map = {
-       40: '#ffe7d6',
-       41: '#ffe7d6',
-       21: '#e8fce8',
-       22: '#e8fce8',
-       23: '#e8fce8',
-       24: '#e8fce8',
-       29: '#eee',
-       30: '#eee',
-       32: '#e8e9fc'
+       507: '#ffe7d6',
+       502: '#e8fce8',
+       503: '#e8fce8',
+       504: '#e8fce8',
+       505: '#eee',
+       506: '#eee',
+       508: '#e8e9fc'
       };
       return map[serviceTypeId] || null;
     },
 
-    // TODO(kr) Factor out?
     renderEducatorSelect: function() {
       var options = _.values(this.props.educatorsIndex).map(function(educator) {
         var name = (educator.full_name !== null)
@@ -203,6 +184,42 @@
         options: options,
         onChange: this.onAssignedEducatorChanged
       });
+    },
+
+
+    renderWhoAndWhen: function() {
+      return dom.div({},
+        dom.div({ style: { marginTop: 20 } },
+          dom.div({}, 'Who is working with ' + this.props.studentFirstName + '?'),
+          dom.div({ style: { width: '50%' } }, this.renderEducatorSelect())
+        ),
+        dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
+        dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment.utc().format('MM/DD/YYYY') })
+      );
+    },
+
+    renderButtons: function() {
+      // TODO(kr) allow saving once backend is ready
+      var isSaveEnabled = false; // (this.state.serviceTypeId !== null);
+
+      return dom.div({ style: { marginTop: 15 } },
+        dom.button({
+          style: {
+            marginTop: 20,
+            background: (isSaveEnabled) ? undefined : '#ccc'
+          },
+          disabled: !isSaveEnabled,
+          className: 'btn save',
+          onClick: this.onClickSave
+        }, 'Record service'),
+        dom.button({
+          className: 'btn cancel',
+          style: styles.cancelRecordServiceButton,
+          onClick: this.onClickCancel
+        }, 'Cancel'),
+        (this.props.requestState === 'pending') ? dom.span({}, 'Saving...') : null,
+        (this.props.requestState === 'error') ? dom.span({}, 'Try again!') : null
+      );
     }
   });
 })();

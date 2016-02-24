@@ -86,12 +86,8 @@
       background: '#eee',
       marginLeft: 10
     },
-    expandedNote: {
+    noteText: {
       marginTop: 5
-    },
-    collapsedNote: {
-      maxHeight: '2em',
-      overflowY: 'hidden'
     },
     discontinue: {
       background: 'white',
@@ -116,25 +112,9 @@
 
     getInitialState: function() {
       return {
-        expandedNoteIds: [],
-
         isTakingNotes: false,
-
-        isAddingService: false,
-        serviceProvidedByEducatorId: null,
-        serviceTypeId: null
+        isAddingService: false
       }
-    },
-
-    isExpanded: function(note) {
-      return (this.state.expandedNoteIds.indexOf(note.id) !== -1);
-    },
-
-    onNoteClicked: function(note) {
-      var updatedNoteIds = (this.isExpanded(note))
-        ? _.without(this.state.expandedNoteIds, note.id)
-        : this.state.expandedNoteIds.concat(note.id);
-      this.setState({ expandedNoteIds: updatedNoteIds });
     },
 
     onClickTakeNotes: function(event) {
@@ -150,22 +130,16 @@
       this.setState({ isTakingNotes: false });
     },
 
-    onRecordServiceClicked: function(event) {
-      this.setState({
-        isAddingService: true,
-        serviceTypeId: null
-      });
+    onClickRecordService: function(event) {
+      this.setState({ isAddingService: true });
     },
 
-    onCancelRecordServiceClicked: function(event) {
-      this.setState({
-        isAddingService: false,
-        serviceTypeId: null
-      });
+    onCancelRecordService: function(event) {
+      this.setState({ isAddingService: false });
     },
 
-    onAssignedEducatorChanged: function(event) {
-      console.log(event);
+    onSaveRecordService: function(serviceParams, event) {
+      // TODO(kr) not done yet
     },
 
     render: function() {
@@ -248,7 +222,7 @@
           })
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
-          dom.div({ style: styles.expandedNote }, note.text)
+          dom.div({ style: styles.noteText }, note.text)
         )
       );
     },
@@ -267,7 +241,7 @@
           })
         }),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
-          dom.div({ style: styles.expandedNote }, note.content)
+          dom.div({ style: styles.noteText }, note.content)
         )
       );
     },
@@ -290,7 +264,7 @@
 
       return dom.button({
         className: 'btn record-service',
-        onClick: this.onRecordServiceClicked
+        onClick: this.onClickRecordService
       }, 'Record service')
     },
 
