@@ -153,9 +153,15 @@
 
     renderSectionDetails: function() {
       switch (this.props.selectedColumnKey) {
-        case 'profile': return createEl(ProfileDetails, {});
-        case 'ela': return createEl(ELADetails, { chartData: this.props.chartData });
-        case 'math': return createEl(MathDetails, { chartData: this.props.chartData });
+        case 'profile': return createEl(ProfileDetails,
+          {
+            chartData: this.props.chartData,
+            attendanceData: this.props.attendanceData,
+            student: this.props.student
+          }
+        );
+        case 'ela': return createEl(ELADetails, {chartData: this.props.chartData});
+        case 'math': return createEl(MathDetails, {chartData: this.props.chartData});
         case 'attendance':
           var attendanceData = this.props.attendanceData;
           return createEl(AttendanceDetails, {
