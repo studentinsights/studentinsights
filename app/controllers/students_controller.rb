@@ -51,7 +51,7 @@ class StudentsController < ApplicationController
     chart_data = StudentProfileChart.new(student).chart_data
     @serialized_data = {
       current_educator: current_educator,
-      student: student.serialized_data,
+      student: serialize_student_for_profile(student),
       notes: student.student_notes.map { |note| serialize_student_note(note) },
       feed: student_feed(student),
       chart_data: chart_data,
@@ -98,6 +98,18 @@ class StudentsController < ApplicationController
     redirect_to not_authorized_path
   end
 
+  def serialize_student_for_profile(student)
+    student.as_json.merge({
+      interventions: student.interventions.as_json,
+      student_risk_level: student.student_risk_level.as_json,
+      absences_count: student.most_recent_school_year.absences.count,
+      tardies_count: student.most_recent_school_year.tardies.count,
+      school_name: student.try(:school).try(:name),
+      homeroom_name: student.try(:homeroom).try(:name),
+      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count
+    }).stringify_keys
+  end
+
   def search_and_score(query, students)
     search_tokens = query.split(' ')
     students_with_scores = students.flat_map do |student|
@@ -123,22 +135,6 @@ class StudentsController < ApplicationController
     end
     
     (search_token_scores.sum.to_f / search_tokens.length)
-  end
-
-  def serialize_student_for_profile(student)
-    {
-      student: student,
-      student_assessments: student.student_assessments,
-      star_math_results: student.star_math_results,
-      star_reading_results: student.star_reading_results,
-      mcas_mathematics_results: student.mcas_mathematics_results,
-      mcas_ela_results: student.mcas_ela_results,
-      absences_count_by_school_year: student.student_school_years.map {|year| year.absences.length },
-      tardies_count_by_school_year: student.student_school_years.map {|year| year.tardies.length },
-      discipline_incidents_by_school_year: student.student_school_years.map {|year| year.discipline_incidents.length },
-      school_year_names: student.student_school_years.pluck(:name),
-      interventions: student.interventions
-    }
   end
 
   # TODO(kr) this is placeholder fixture data for now, to test design prototypes on the v2 student profile
