@@ -8,38 +8,18 @@
   var HighchartsWrapper = window.shared.HighchartsWrapper;
 
   // Component for all charts in the profile page.
-  window.shared.Chart = React.createClass({
-    displayName: 'Chart',
+  window.shared.ProfileChart = React.createClass({
+    displayName: 'ProfileChart',
 
     propTypes: {
-      series: React.PropTypes.arrayOf( // you can plot multiple series on the same graph
+      quadSeries: React.PropTypes.arrayOf( // you can plot multiple series on the same graph
         React.PropTypes.shape({
           name: React.PropTypes.string.isRequired, // e.g. 'Scaled score'
           data: React.PropTypes.array.isRequired // [year, month, date, value] quads
         })
       ),
-      title: React.PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
+      titleText: React.PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
       yAxis: React.PropTypes.object.isRequired // options for rendering the y-axis
-    },
-
-    quadsToPairs: function(quads) {
-      return quads.map(function(quad) {
-        var year = quad[0],
-            month = quad[1],
-            day = quad[2],
-            value = quad[3];
-        return [Date.UTC(year, month - 1, day), value]; // one-index --> zero-index on month
-      });
-    },
-
-    baseOptions: function() {
-      return merge(ProfileChartSettings.base_options, {
-        xAxis: merge(ProfileChartSettings.x_axis_datetime, {
-          plotLines: this.x_axis_bands,
-          min: this.props.timestampRange.min,
-          max: this.props.timestampRange.max
-        })
-      });
     },
 
     getDefaultProps: function() {
@@ -64,14 +44,34 @@
       var self = this;
       return createEl(HighchartsWrapper, merge(this.baseOptions(), {
         title: {
-          text: this.props.title,
+          text: this.props.titleText,
           align: 'left'
         },
-        series: this.props.series.map(function(obj){
+        series: this.props.quadSeries.map(function(obj){
           return {name: obj.name, data: self.quadsToPairs(obj.data || [])}
         }),
         yAxis: this.props.yAxis
       }));
     },
+
+    baseOptions: function() {
+      return merge(ProfileChartSettings.base_options, {
+        xAxis: merge(ProfileChartSettings.x_axis_datetime, {
+          plotLines: this.x_axis_bands,
+          min: this.props.timestampRange.min,
+          max: this.props.timestampRange.max
+        })
+      });
+    },
+
+    quadsToPairs: function(quads) {
+      return quads.map(function(quad) {
+        var year = quad[0],
+            month = quad[1],
+            day = quad[2],
+            value = quad[3];
+        return [Date.UTC(year, month - 1, day), value]; // one-index --> zero-index on month
+      });
+    }
   });
 })();

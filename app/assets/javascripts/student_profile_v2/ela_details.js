@@ -4,7 +4,7 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
-  var Chart = window.shared.Chart;
+  var ProfileChart = window.shared.ProfileChart;
   var ProfileChartSettings = window.ProfileChartSettings;
 
   /*
@@ -36,23 +36,23 @@
     },
 
     renderStarReading: function() {
-      return createEl(Chart, {
-        series: [{
+      return createEl(ProfileChart, {
+        quadSeries: [{
           name: 'Percentile rank',
           data: this.props.chartData.star_series_reading_percentile
         }],
-        title: 'STAR Reading, last 4 years',
+        titleText: 'STAR Reading, last 4 years',
         yAxis: this.percentileYAxis()
       });
     },
 
     renderMCASELAScores: function() {
-      return createEl(Chart, {
-        series: [{
+      return createEl(ProfileChart, {
+        quadSeries: [{
           name: 'Scaled score',
           data: this.props.chartData.mcas_series_ela_scaled
         }],
-        title: 'MCAS ELA scores, last 4 years',
+        titleText: 'MCAS ELA scores, last 4 years',
         yAxis: merge(
             ProfileChartSettings.default_mcas_score_yaxis,
             {plotLines: ProfileChartSettings.mcas_level_bands}
@@ -61,12 +61,12 @@
     },
 
     renderMCASELAGrowth: function() {
-      return createEl(Chart, {
-        series: [{
+      return createEl(ProfileChart, {
+        quadSeries: [{
           name: 'Growth percentile',
           data: this.props.chartData.mcas_series_ela_growth
         }],
-        title: 'MCAS ELA Growth, last 4 years',
+        titleText: 'MCAS ELA Growth, last 4 years',
         yAxis: this.percentileYAxis()
       });
     },

@@ -4,7 +4,7 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
-  var Chart = window.shared.Chart;
+  var ProfileChart = window.shared.ProfileChart;
   var Scales = window.shared.Scales;
 
   var AttendanceDetails = window.shared.AttendanceDetails = React.createClass({
@@ -28,13 +28,13 @@
 
     renderDisciplineIncidents: function() {
       var range = Scales.disciplineIncidents.valueRange;
-      return createEl(Chart, {
-        title: 'Discipline incidents, last 4 years',
+      return createEl(ProfileChart, {
+        titleText: 'Discipline incidents, last 4 years',
         yAxis: {
           min: range[0],
           max: range[1]
         },
-        series: [{
+        quadSeries: [{
           name: 'Events per school year',
           data: this.props.cumulativeDisciplineIncidents
         }]
@@ -42,13 +42,13 @@
     },
 
     renderAbsencesAndTardies: function() {
-      return createEl(Chart, {
-        title: 'Absences and Tardies, last 4 years',
+      return createEl(ProfileChart, {
+        titleText: 'Absences and Tardies, last 4 years',
         yAxis: {
           min: _.min([Scales.absences.valueRange[0], Scales.tardies.valueRange[0]]),
           max: _.max([Scales.absences.valueRange[1], Scales.tardies.valueRange[1]])
         },
-        series: [{
+        quadSeries: [{
           name: 'Tardies per school year',
           data: this.props.cumulativeTardies
         }, {
