@@ -64,7 +64,8 @@
       return dom.div({},
         dom.ul({},
           this.getEvents().map(function(obj){
-            return dom.li({},
+            var key = [obj.date, obj.message].join();
+            return dom.li({ key: key },
               moment(obj.date).format("MMMM Do, YYYY") + ": " + obj.message
             );
           })
