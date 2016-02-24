@@ -1,5 +1,14 @@
 # Local installation notes
 
+## Ruby installation
+The project runs on a specific version of Ruby, specified in [.ruby-version](/.ruby-version).  You can check your Ruby version by running:
+
+```
+ruby -v
+```
+
+If you need to install a newer version of Ruby, we recommend using [rbenv](https://github.com/rbenv/rbenv#installation).
+
 ## Postgres installation on OSX
 
 You can use Homebrew to install Postgres: `brew install postgres`
