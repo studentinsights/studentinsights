@@ -823,6 +823,7 @@
         }
       ]
     },
+    "serviceTypesIndex": {},
     "educatorsIndex": {
       "1": {
         "id": 1,
