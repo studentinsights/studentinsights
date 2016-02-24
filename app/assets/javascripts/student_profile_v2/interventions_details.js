@@ -5,9 +5,8 @@
   var merge = window.shared.ReactHelpers.merge;
   
   var Educator = window.shared.Educator;
-  var ReactSelect = window.Select;
-  var datepickerOptions = window.datepicker_options;
   var TakeNotes = window.shared.TakeNotes;
+  var RecordService = window.shared.RecordService;
   var PropTypes = window.shared.PropTypes;
 
   var styles = {
@@ -94,35 +93,23 @@
       maxHeight: '2em',
       overflowY: 'hidden'
     },
-    serviceButton: {
-      background: '#eee', // override CSS
-      color: 'black',
-      // shrinking:
-      width: '12em',
-      fontSize: 12,
-      padding: 8
-    },
     discontinue: {
       background: 'white',
       opacity: 0.5,
       border: '1px solid #ccc',
       color: '#666'
-    },
-    recordServiceTextArea: {
-      fontSize: 14,
-      border: '1px solid #eee',
-      width: '100%' //overriding strange global CSS, should cleanup
-    },
-    recordServiceButton: {
-      marginTop: 5
     }
   };
 
 
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
+      // TODO(kr) collapse into statics
       interventionTypesIndex: React.PropTypes.object.isRequired,
+      serviceTypesIndex: React.PropTypes.object.isRequired,
+      educatorsIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
+
       mergedNotes: React.PropTypes.array.isRequired,
       actions: PropTypes.actions.isRequired
     },
@@ -135,14 +122,8 @@
 
         isAddingService: false,
         serviceProvidedByEducatorId: null,
-        serviceTypeId: null,
-        serviceText: null
+        serviceTypeId: null
       }
-    },
-
-    componentDidUpdate: function(prevProps, prevState) {
-      var el = ReactDOM.findDOMNode(this);
-      $(el).find('.datepicker').datepicker(datepickerOptions);
     },
 
     isExpanded: function(note) {
@@ -172,25 +153,15 @@
     onRecordServiceClicked: function(event) {
       this.setState({
         isAddingService: true,
-        serviceTypeId: null,
-        serviceText: null
+        serviceTypeId: null
       });
     },
 
     onCancelRecordServiceClicked: function(event) {
       this.setState({
         isAddingService: false,
-        serviceTypeId: null,
-        serviceText: null
+        serviceTypeId: null
       });
-    },
-
-    onRecordServiceTextChanged: function(event) {
-      this.setState({ serviceText: event.target.value });
-    },
-
-    onServiceClicked: function(interventionTypeId, event) {
-      this.setState({ serviceTypeId: interventionTypeId });
     },
 
     onAssignedEducatorChanged: function(event) {
@@ -206,7 +177,7 @@
         ),
         dom.div({ style: styles.interventionsContainer },
           dom.h4({ style: styles.title}, 'Services'),
-          this.renderRecordService(),
+          dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
           (this.props.student.interventions.length === 0)
             ? dom.div({ style: styles.noItems }, 'No services')
             : this.renderInterventionsList()
@@ -301,115 +272,26 @@
       );
     },
 
-    renderRecordService: function() {
-      return dom.div({ style: styles.addServiceContainer },
-        (this.state.isAddingService)
-          ? this.renderRecordServiceDialog()
-          : this.renderRecordServiceButton()
-      );
-    },
+    renderRecordServiceSection: function() {
+      // TODO(kr) handle saving state
+      if (this.state.isAddingService) {
+        return createEl(RecordService, {
+          studentFirstName: this.props.student.first_name,
+          onSave: this.onSaveNotes,
+          onCancel: this.onCancelNotes,
+          requestState: this.props.requests.saveNotes,
 
-    renderRecordServiceButton: function() {
+          nowMoment: moment.utc(), // TODO(kr) thread through
+          currentEducator: this.props.currentEducator,
+          serviceTypesIndex: this.props.serviceTypesIndex,
+          educatorsIndex: this.props.educatorsIndex
+        });
+      }
+
       return dom.button({
         className: 'btn record-service',
         onClick: this.onRecordServiceClicked
       }, 'Record service')
-    },
-
-    renderServiceButton: function(interventionTypeId, options) {
-      var serviceNameMap = {
-        29: 'Counseling, in-house',
-        30: 'Counseling, outside',
-        41: 'Reading intervention',
-        32: 'Math intervention'
-      };
-      var intervention = this.props.interventionTypesIndex[interventionTypeId];
-      var serviceText = serviceNameMap[interventionTypeId] || intervention.name;
-      var color = this.interventionColor(interventionTypeId);
-
-      return dom.button({
-        onClick: this.onServiceClicked.bind(this, interventionTypeId),
-        tabIndex: -1,
-        style: merge(styles.serviceButton, {
-          background: color,
-          opacity: (this.state.serviceTypeId === null || this.state.serviceTypeId === interventionTypeId) ? 1 : 0.25,
-          outline: 0,
-          border: (this.state.serviceTypeId === interventionTypeId)
-            ? '4px solid rgba(49, 119, 201, 0.75)'
-            : '4px solid white'
-        }),
-        className: 'btn'
-      }, serviceText);
-    },
-
-    renderRecordServiceDialog: function() {
-      return dom.div({ style: styles.dialog },
-        dom.div({ style: { marginBottom: 5 } }, 'Which service?'),
-        dom.div({ style: { display: 'flex' } },
-          dom.div({ style: { flex: 1 } },
-            this.renderServiceButton(29),
-            this.renderServiceButton(30)
-          ),
-          dom.div({ style: { flex: 1 } },
-            this.renderServiceButton(41),
-            this.renderServiceButton(32)
-          ),
-          dom.div({ style: { flex: 'auto' } },
-            this.renderServiceButton(21),
-            this.renderServiceButton(22),
-            this.renderServiceButton(23)
-          )
-        ),
-        dom.div({ style: { marginTop: 20 } },
-          dom.div({}, 'Who is working with ' + this.props.student.first_name + '?'),
-          dom.div({ style: { width: '50%' } }, this.renderEducatorSelect())
-          // dom.span({ style: { fontSize: 12, color: '#666', marginLeft: 5, marginRight: 5 } }, ' starting on '),
-          // dom.input({ style: { fontSize: 14 }, defaultValue: moment.utc().format('MM/DD/YYYY') })
-        ),
-        dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
-        dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment.utc().format('MM/DD/YYYY') }),
-        // dom.div({ style: { marginTop: 15 } }, 'Any other context?'),
-        // dom.textarea({
-        //   rows: 3,
-        //   style: styles.recordServiceTextArea,
-        //   // ref: function(ref) { this.takeNotesTextAreaRef = ref; }.bind(this),
-        //   value: this.state.serviceText,
-        //   onChange: this.onRecordServiceTextChanged
-        // }),
-        dom.div({ style: { marginTop: 15 } },
-          dom.button({
-            style: merge(styles.recordServiceButton, {
-              background: '#ccc' // TODO(kr) (this.state.serviceTypeId === null) ? '#ccc' : undefined
-            }),
-            disabled: true, // TODO(kr) (this.state.serviceTypeId === null),
-            className: 'btn',
-            onClick: this.onCancelRecordServiceClicked // TODO(kr) non-functional
-          }, 'Record service'),
-          dom.button({
-            className: 'btn',
-            style: styles.cancelTakeNotesButton, // TODO(kr) rename
-            onClick: this.onCancelRecordServiceClicked
-          }, 'Cancel')
-        )
-      );
-    },
-
-    renderEducatorSelect: function() {
-      var options = _.values(this.props.educatorsIndex).map(function(educator) {
-        var name = (educator.full_name !== null)
-          ? educator.full_name
-          : educator.email.split('@')[0];
-        return { value: educator.id, label: name };
-      });
-
-      return createEl(ReactSelect, {
-        name: 'assigned-educator-select',
-        clearable: false,
-        placeholder: 'Type name..',
-        value: this.state.serviceProvidedByEducatorId,
-        options: options,
-        onChange: this.onAssignedEducatorChanged
-      });
     },
 
     renderInterventionsList: function() {
