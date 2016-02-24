@@ -66,14 +66,14 @@ The project is a Rails app with a Postgres database.  There are background tasks
 
 This is a Ruby on Rails app that uses a PostgreSQL database, and relies on React for much of the UI code.
 
-### 1. Install dependencies
+#### 1. Install dependencies
 
 Choose your favorite local development approach:
 
 * [Local development with Docker](docs/local_development_with_docker.md)
 * [Local installation on OSX or Linux](docs/local_installation_notes.md)
 
-### 2. Create database tables and seed them with demo data
+#### 2. Create database tables and seed them with demo data
 
 ```
 bundle exec rake db:create db:migrate db:seed:demo
@@ -81,10 +81,10 @@ bundle exec rake db:create db:migrate db:seed:demo
 
 This will create demo students with fake student information. The demo educator username is `demo@example.com` and the demo password is `demo-password`.
 
-### 3. Start Rails
+#### 3. Start Rails
 Once you've created the data, start a local server by running `rails s` from the root of your project. When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.
 
-### 4. Run the tests
+#### 4. Run the tests
 This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
 
 ```
@@ -98,7 +98,7 @@ You can also run them from the command line:
 ```
 teaspoon
 ```
-### 5. Write code!
+#### 5. Write code!
 This project is a Rails app and has a typical Rails project structure.  If you'd like to get up to speed on Rails, we recommend checking out their [great documentation](http://guides.rubyonrails.org/).
 
 It also uses React for much the user interface code, with one minor wrinkle (see below).  If you'd like to get up to speed on React, we recommend their great documentation, and the [Tutorial](https://facebook.github.io/react/docs/tutorial.html) and [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html) pages in particular.
