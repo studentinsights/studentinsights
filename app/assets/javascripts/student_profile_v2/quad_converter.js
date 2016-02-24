@@ -12,8 +12,7 @@
 
     // Fills in data points for start of the school year (8/15) and for current day.
     // Also collapses multiple events on the same day.
-    // TODO(kr) should extract this, simplify and test it more thoroughly
-    convert: function(attendanceEvents, nowDate, dateRange) {
+    convertAttendanceEvents: function(attendanceEvents, nowDate, dateRange) {
       var currentYearStart = this.schoolYearStart(moment.utc(nowDate));
       var schoolYearStarts = this._allSchoolYearStarts(dateRange);
       var sortedAttendanceEvents = _.sortBy(attendanceEvents, 'occurred_at');

@@ -91,10 +91,6 @@
       return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
     },
 
-    cumulativeCountQuads: function(attendanceEvents) {
-      return QuadConverter.convert(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
-    }, 
-
     render: function() {
       return dom.div({ className: 'PageContainer' },
         createEl(StudentProfileV2Page, merge(_.pick(this.state,

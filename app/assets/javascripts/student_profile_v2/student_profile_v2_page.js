@@ -377,7 +377,7 @@
     },
 
     cumulativeCountQuads: function(attendanceEvents) {
-      return QuadConverter.convert(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
+      return QuadConverter.convertAttendanceEvents(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
     },
 
     // quads format is: [[year, month (Ruby), day, value]]
