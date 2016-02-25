@@ -138,22 +138,31 @@ class StudentsController < ApplicationController
     (search_token_scores.sum.to_f / search_tokens.length)
   end
 
-  # TODO(kr) this is placeholder fixture data for now, to test design prototypes on the v2 student profile
+  # TODO(kr) this has some placeholder fixture data for now, to test design prototypes on the v2 student profile
   # page
   def student_feed(student)
     {
-      v1_notes: student.student_notes.map { |note| serialize_student_note(note) },
-      v1_interventions: student.interventions.map { |intervention| serialize_intervention(intervention) },
       event_notes: student.event_notes,
-      v2_services: if Rails.env.development? then v2_services_fixture else [] end
+      services: if Rails.env.development? then services_fixture else [] end,
+      v1_notes: student.student_notes.map { |note| serialize_student_note(note) },
+      v1_interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
     }
   end
 
-  def v2_services_fixture
+  def services_fixture
     fixture_educator_id = 1
-    [
-      { version: 'v2', id: 133, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: 'Working on goals' },
-      { version: 'v2', id: 134, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: ''  }
-    ]
+    [{
+      id: 133,
+      service_type_id: 1,
+      recorded_by_educator_id: fixture_educator_id,
+      assigned_to_educator_id: fixture_educator_id,
+      date_started: '2016-02-09'
+    }, {
+      id: 134,
+      service_type_id: 1,
+      recorded_by_educator_id: fixture_educator_id,
+      assigned_to_educator_id: fixture_educator_id,
+      date_started: '2016-02-08'
+    }]
   end
 end

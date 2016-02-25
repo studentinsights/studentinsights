@@ -800,26 +800,20 @@
         }
       ],
       "event_notes": [{"id":1,"student_id":6,"educator_id":1,"event_note_type_id":3,"text":"okay!","recorded_at":"2016-02-11T21:28:02.102Z","created_at":"2016-02-11T21:28:02.103Z","updated_at":"2016-02-11T21:28:02.103Z"},{"id":2,"student_id":6,"educator_id":1,"event_note_type_id":3,"text":"cool!","recorded_at":"2016-02-11T21:29:18.166Z","created_at":"2016-02-11T21:29:18.167Z","updated_at":"2016-02-11T21:29:18.167Z"},{"id":3,"student_id":6,"educator_id":1,"event_note_type_id":1,"text":"sweet","recorded_at":"2016-02-11T21:29:30.287Z","created_at":"2016-02-11T21:29:30.288Z","updated_at":"2016-02-11T21:29:30.288Z"}],
-      "v2_services": [
+      "services": [
         {
-          "version": "v2",
           "id": 133,
-          "profile_v2_service_type_id": 1,
+          "service_type_id": 1,
           "recorded_by_educator_id": 1,
           "assigned_to_educator_id": 1,
-          "start_date": "2016-02-09T20:56:51.638Z",
-          "end_date": null,
-          "text": "Working on goals"
+          "date_started": "2016-02-09"
         },
         {
-          "version": "v2",
           "id": 134,
-          "profile_v2_service_type_id": 1,
+          "service_type_id": 1,
           "recorded_by_educator_id": 1,
           "assigned_to_educator_id": 1,
-          "start_date": "2016-02-09T20:56:51.638Z",
-          "end_date": null,
-          "text": ""
+          "date_started": "2016-02-09"
         }
       ]
     },
