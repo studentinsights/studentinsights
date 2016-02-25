@@ -40,13 +40,13 @@
       flex: 3
     },
     column: {
-      flex: 5,
-      padding: 20,
+      flex: 4,
+      padding: 15,
       cursor: 'pointer'
     },
     selectedColumn: {
       border: '5px solid rgba(49, 119, 201, 0.64)',
-      padding: 15
+      padding: 10
     },
     summaryWrapper: {
       paddingBottom: 10
