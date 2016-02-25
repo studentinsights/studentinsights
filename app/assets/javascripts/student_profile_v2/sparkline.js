@@ -41,7 +41,7 @@
         .interpolate('linear');
 
       var lineColor = color(this.delta(this.props.quads));
-      return dom.div({ className: 'Sparkline' },
+      return dom.div({ className: 'Sparkline', style: { overflow: 'hidden' }},
         dom.svg({
           height: this.props.height,
           width: this.props.width

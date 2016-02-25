@@ -5,6 +5,22 @@
   var merge = window.shared.ReactHelpers.merge;
   var PropTypes = window.shared.PropTypes;
 
+  var styles = {
+    caption: {
+      marginRight: 5
+    },
+    value: {
+      fontWeight: 'bold'
+    },
+    sparklineContainer: {
+      paddingLeft: 15,
+      paddingRight: 15
+    },
+    textContainer: {
+      paddingBottom: 5
+    }
+  };
+  
   var AcademicSummary = window.shared.AcademicSummary = React.createClass({
     displayName: 'AcademicSummary',
 
@@ -14,22 +30,13 @@
       sparkline: React.PropTypes.element.isRequired
     },
 
-    // TODO(kr) statics?
-    styles: {
-      caption: {
-        marginRight: 5
-      },
-      value: {
-        fontWeight: 'bold'
-      }
-    },
-
     render: function() {
-      var styles = this.styles;
       return dom.div({ className: 'AcademicSummary' },
-        dom.span({ style: styles.caption }, this.props.caption + ':'),
-        dom.span({ style: styles.value }, (this.props.value === undefined) ? 'none' : this.props.value),
-        dom.div({}, this.props.sparkline)
+        dom.div({ style: styles.textContainer },
+          dom.span({ style: styles.caption }, this.props.caption + ':'),
+          dom.span({ style: styles.value }, (this.props.value === undefined) ? 'none' : this.props.value)
+        ),
+        dom.div({ style: styles.sparklineContainer }, this.props.sparkline)
       );
     }
   });

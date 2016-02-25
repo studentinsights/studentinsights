@@ -24,8 +24,9 @@
     },
     serviceButton: {
       background: '#eee', // override CSS
-      color: 'black',
-      // shrinking:
+      color: 'black'
+    },
+    buttonWidth: {
       width: '12em',
       fontSize: 12,
       padding: 8
@@ -92,16 +93,16 @@
     renderWhichService: function() {
       return dom.div({}, 
         dom.div({ style: { marginBottom: 5 } }, 'Which service?'),
-        dom.div({ style: { display: 'flex' } },
-          dom.div({ style: { flex: 1 } },
+        dom.div({ style: { display: 'flex', justifyContent: 'flex-start' } },
+          dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(505),
             this.renderServiceButton(506)
           ),
-          dom.div({ style: { flex: 1 } },
+          dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(507),
             this.renderServiceButton(508)
           ),
-          dom.div({ style: { flex: 'auto' } },
+          dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(502),
             this.renderServiceButton(503),
             this.renderServiceButton(504)
@@ -129,10 +130,9 @@
         className: 'btn service-type',
         onClick: this.onServiceClicked.bind(this, serviceTypeId),
         tabIndex: -1,
-        style: merge(styles.serviceButton, {
+        style: merge(styles.serviceButton, styles.buttonWidth, {
           background: color,
           opacity: (this.state.serviceTypeId === null || this.state.serviceTypeId === serviceTypeId) ? 1 : 0.25,
-          outline: 0,
           border: (this.state.serviceTypeId === serviceTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'

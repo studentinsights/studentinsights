@@ -23,30 +23,29 @@
 
   // define page component
   var styles = {
-    page: {
-      marginLeft: 20,
-      marginRight: 20
-    },
     summaryContainer: {
       display: 'flex',
       flexDirection: 'row',
-      background: '#eee'
+      background: '#eee',
+      marginLeft: 20,
+      marginRight: 20
     },
     detailsContainer: {
       margin: 30
     },
     academicColumn: {
       textAlign: 'center',
-      flex: 3
+      flex: 1,
+      maxWidth: 220
     },
     column: {
-      flex: 5,
-      padding: 20,
+      flex: 1,
+      padding: 15,
       cursor: 'pointer'
     },
     selectedColumn: {
       border: '5px solid rgba(49, 119, 201, 0.64)',
-      padding: 15
+      padding: 10
     },
     summaryWrapper: {
       paddingBottom: 10
@@ -121,7 +120,7 @@
     },
 
     render: function() {
-      return dom.div({ className: 'StudentProfileV2Page', style: styles.page },
+      return dom.div({ className: 'StudentProfileV2Page' },
         this.renderSaveStatus(),
         createEl(StudentProfileHeader, { student: this.props.student }),
         dom.div({ className: 'summary-container', style: styles.summaryContainer },
