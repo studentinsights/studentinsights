@@ -15,6 +15,9 @@
     sparklineContainer: {
       paddingLeft: 15,
       paddingRight: 15
+    },
+    textContainer: {
+      paddingBottom: 5
     }
   };
   
@@ -29,7 +32,7 @@
 
     render: function() {
       return dom.div({ className: 'AcademicSummary' },
-        dom.div({},
+        dom.div({ style: styles.textContainer },
           dom.span({ style: styles.caption }, this.props.caption + ':'),
           dom.span({ style: styles.value }, (this.props.value === undefined) ? 'none' : this.props.value)
         ),
