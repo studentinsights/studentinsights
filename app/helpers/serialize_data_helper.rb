@@ -22,7 +22,7 @@ module SerializeDataHelper
     {
       id: progress_note.id,
       educator_email: progress_note.educator.email,
-      educator_id: intervention.educator.id,
+      educator_id: progress_note.educator.id,
       content: progress_note.content,
       created_date: progress_note.created_at.strftime("%B %e, %Y %l:%M %p")
     }
