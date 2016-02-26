@@ -4,11 +4,13 @@ module SerializeDataHelper
     {
       id: intervention.id,
       name: intervention.name,
+      intervention_type_id: intervention.intervention_type_id,
       comment: intervention.comment,
       goal: intervention.goal,
       start_date: intervention.start_date.strftime('%B %e, %Y'),
       end_date: intervention.end_date.try(:strftime, '%B %e, %Y'),
       educator_email: intervention.educator.try(:email),
+      educator_id: intervention.educator.try(:id),
       progress_notes: intervention.progress_notes.order(created_at: :asc).map do |progress_note|
         serialize_progress_note(progress_note)
       end
@@ -19,6 +21,7 @@ module SerializeDataHelper
     {
       id: progress_note.id,
       educator_email: progress_note.educator.email,
+      educator_id: intervention.educator.id,
       content: progress_note.content,
       created_date: progress_note.created_at.strftime("%B %e, %Y %l:%M %p")
     }

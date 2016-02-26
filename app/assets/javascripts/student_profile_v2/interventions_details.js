@@ -8,6 +8,7 @@
   var TakeNotes = window.shared.TakeNotes;
   var RecordService = window.shared.RecordService;
   var PropTypes = window.shared.PropTypes;
+  var serviceColor = window.shared.serviceColor;
 
   var styles = {
     container: {
@@ -60,7 +61,7 @@
       display: 'inline-block',
       background: '#eee',
       outline: '3px solid #eee',
-      width: '8em',
+      width: '10em',
       textAlign: 'center',
       marginLeft: 10,
       marginRight: 10
@@ -97,6 +98,28 @@
     }
   };
 
+
+  //{key, noteMoment, badge, educator_id, content}
+  var NoteHeader = React.createClass({
+    render: function() {
+      var header = this.props; // TODO(kr)
+      return dom.div({
+        className: 'note',
+        style: styles.note
+      },
+        dom.div({}, 
+          dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
+          header.badge,
+          dom.span({ style: styles.educator }, createEl(Educator, {
+            educator: this.props.educatorsIndex[header.educatorId]
+          }))
+        ),
+        dom.div({ style: { whiteSpace: 'pre-wrap' } },
+          dom.div({ style: styles.noteText }, header.content)
+        )
+      );
+    }
+  });
 
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
@@ -151,9 +174,9 @@
         dom.div({ style: styles.interventionsContainer },
           dom.h4({ style: styles.title}, 'Services'),
           dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
-          (this.props.student.interventions.length === 0)
+          (this.props.feed.services.length === 0)
             ? dom.div({ style: styles.noItems }, 'No services')
-            : this.renderInterventionsList()
+            : this.renderServices()
         )
       );
     },
@@ -180,20 +203,14 @@
 
     renderNotes: function() {
       var mergedNotes = this.props.mergedNotes;
-      return dom.div({}, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(note) {
-        switch (note.version) {
-          case 'v1': return this.renderV1Note(note);
-          case 'v2': return this.renderV2Note(note);
+      return dom.div({}, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
+        switch (mergedNote.type) {
+          case 'event_notes': return this.renderEventNote(mergedNote);
+          case 'deprecated_notes': return this.renderDeprecatedNote(mergedNote);
+          case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
+          case 'deprecated_progress_notes': return this.renderDeprecatedProgressNote(mergedNote);
         }
       }, this));
-    },
-
-    renderNoteHeader: function(header) {
-      return dom.div({},
-        dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
-        header.badge,
-        dom.span({ style: styles.educator }, header.educatorEl)
-      );
     },
 
     renderEventNoteTypeBadge: function(eventNoteTypeId) {
@@ -207,42 +224,45 @@
       return null;
     },
 
-    renderV2Note: function(note) {
-      return dom.div({
-        key: ['v2', note.id].join(),
-        className: 'note',
-        style: styles.note
-      },
-        this.renderNoteHeader({
-          noteMoment: moment.utc(note.recorded_at),
-          badge: this.renderEventNoteTypeBadge(note.event_note_type_id),
-          educatorEl: createEl(Educator, {
-            educator: this.props.educatorsIndex[note.educator_id]
-          })
-        }),
-        dom.div({ style: { whiteSpace: 'pre-wrap' } },
-          dom.div({ style: styles.noteText }, note.text)
-        )
-      );
+    renderEventNote: function(eventNote) {
+      return createEl(NoteHeader, {
+        key: ['event_note', eventNote.id].join(),
+        noteMoment: moment.utc(eventNote.recorded_at),
+        badge: this.renderEventNoteTypeBadge(eventNote.event_note_type_id),
+        educatorId: eventNote.educator_id,
+        content: eventNote.text,
+        educatorsIndex: this.props.educatorsIndex
+      });
     },
 
-    renderV1Note: function(note) {
-      return dom.div({
-        key: note.id,
-        className: 'note',
-        style: styles.note
-      },
-        this.renderNoteHeader({
-          noteMoment: moment.utc(note.created_at_timestamp),
-          badge: dom.span({ style: styles.badge }, 'Older note'),
-          educatorEl: createEl(Educator, {
-            educator: this.props.educatorsIndex[note.educator_id]
-          })
-        }),
-        dom.div({ style: { whiteSpace: 'pre-wrap' } },
-          dom.div({ style: styles.noteText }, note.content)
-        )
-      );
+    renderDeprecatedNote: function(deprecatedNote) {
+      return createEl(NoteHeader, {
+        key: ['deprecated_note', deprecatedNote.id].join(),
+        noteMoment: moment.utc(deprecatedNote.created_at_timestamp),
+        badge: dom.span({ style: styles.badge }, 'Older note'),
+        educatorId: deprecatedNote.educator_id,
+        content: deprecatedNote.content,
+        educatorsIndex: this.props.educatorsIndex
+      });
+    },
+
+    // TODO(kr) support custom intervention type
+    // This assumes that the `end_date` field is not accurate enough to be worth splitting
+    // this out into two note entries.
+    renderDeprecatedIntervention: function(deprecatedIntervention) {
+      return createEl(NoteHeader, {
+        key: ['deprecated_intervention', deprecatedIntervention.id].join(),
+        noteMoment: moment.utc(deprecatedIntervention.start_date),
+        badge: dom.span({ style: styles.badge }, 'Older intervention'),
+        educatorId: deprecatedIntervention.educator_id,
+        content: _.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n'),
+        educatorsIndex: this.props.educatorsIndex
+      });
+    },
+
+    // TODO(kr) not done!
+    renderDeprecatedProgressNote: function(deprecatedProgressNote) {
+      return null;
     },
 
     renderRecordServiceSection: function() {
@@ -267,43 +287,30 @@
       }, 'Record service')
     },
 
-    renderInterventionsList: function() {
-      var sortedInterventions = _.sortBy(this.props.student.interventions, 'start_date').reverse();
-      return sortedInterventions.map(this.renderIntervention);
+    renderServices: function() {
+      var sortedInterventions = _.sortBy(this.props.feed.services, 'date_started').reverse();
+      return sortedInterventions.map(this.renderService);
     },
 
-    interventionColor: function(interventionTypeId) {
-      var map = {
-       40: '#ffe7d6',
-       41: '#ffe7d6',
-       21: '#e8fce8',
-       22: '#e8fce8',
-       23: '#e8fce8',
-       24: '#e8fce8',
-       29: '#eee',
-       30: '#eee',
-       32: '#e8e9fc'
-      };
-      return map[interventionTypeId] || null;
-    },
-
-    // allow editing, fixup.  'no longer active'
-    renderIntervention: function(intervention) {
-      var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
-      var daysText = moment.utc(intervention.start_date).fromNow(true);
-      var educatorEmail = this.props.educatorsIndex[intervention.educator_id].email;
+    // TODO(kr) allow editing, fixup.  'no longer active'
+    // TODO(kr) for now, going with ignoring older data we could interpret to be here,
+    // for end-user simplicity.  Start with fresh data.
+    renderService: function(service) {
+      var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
+      var momentStarted = moment.utc(service.date_started);
+      var educatorEmail = this.props.educatorsIndex[service.assigned_to_educator_id].email;
       return dom.div({
-        key: intervention.id,
-        style: merge(styles.intervention, { background: this.interventionColor(intervention.intervention_type_id) })
+        key: service.id,
+        style: merge(styles.service, { background: serviceColor(service.service_type_id) })
       },
         dom.div({ style: { display: 'flex' } },
           dom.div({ style: { flex: 1 } },
-            dom.div({ style: { fontWeight: 'bold' } }, interventionText),
+            dom.div({ style: { fontWeight: 'bold' } }, serviceText),
             dom.div({}, 'With ' + educatorEmail),
             dom.div({},
               'Since ',
-              moment.utc(intervention.start_date).format('MMMM D, YYYY'),
-              dom.span({ style: styles.daysAgo }, daysText)
+              momentStarted.format('MMMM D, YYYY'),
+              dom.span({ style: styles.daysAgo }, momentStarted.fromNow(true))
             )
           )
           // TODO(kr) re-enable
@@ -311,7 +318,7 @@
           //   dom.button({ className: 'btn', style: styles.discontinue }, 'Discontinue')
           // )
         ),
-        dom.div({ style: merge(styles.userText, { paddingTop: 15 }) }, intervention.comment)
+        dom.div({ style: merge(styles.userText, { paddingTop: 15 }) }, service.comment)
       );
     }
   });

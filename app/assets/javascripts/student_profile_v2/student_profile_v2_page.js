@@ -112,11 +112,40 @@
 
     // Merges data from event_notes, services and deprecated tables (notes, interventions).
     mergedNotes: function() {
-      var v1Notes = this.props.feed.v1_notes.map(function(note) { return merge(note, { version: 'v1', sort_timestamp: note.created_at_timestamp }); });
-      var v2Notes = this.props.feed.event_notes.map(function(note) { return merge(note, { version: 'v2', sort_timestamp: note.recorded_at }); });
-      // TODO(kr) v1 interventions as notes
-      // TODO(kr) v1 interventions progress notes as notes
-      return _.sortBy(v1Notes.concat(v2Notes), 'sort_timestamp').reverse();
+      var deprecatedNotes = this.props.feed.deprecated.notes.map(function(deprecatedNote) {
+        return merge(deprecatedNote, {
+          type: 'deprecated_notes',
+          sort_timestamp: deprecatedNote.created_at_timestamp
+        });
+      });
+      var deprecatedInterventions = this.props.feed.deprecated.interventions.map(function(intervention) {
+        return merge(intervention, {
+          type: 'deprecated_interventions',
+          sort_timestamp: intervention.updated_at
+        });
+      });
+      var deprecatedProgressNotes = _.flatten(this.props.feed.deprecated.interventions.map(function(intervention) {
+        return intervention.progress_notes.map(function(progressNote) {
+          return merge(progressNote, {
+            type: 'deprecated_progress_notes',
+            sort_timestamp: progressNote.updated_at,
+            intervention: intervention
+          });
+        });
+      }));
+      var eventNotes = this.props.feed.event_notes.map(function(eventNote) {
+        return merge(eventNote, {
+          type: 'event_notes',
+          sort_timestamp: eventNote.recorded_at
+        });
+      });
+
+      var mergedNotes = eventNotes.concat.apply(eventNotes, [
+        deprecatedNotes,
+        deprecatedInterventions,
+        deprecatedProgressNotes
+      ]);
+      return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
     },
 
     render: function() {
@@ -174,6 +203,7 @@
           return createEl(InterventionsDetails, merge(_.pick(this.props,
             'currentEducator',
             'student',
+            'feed',
             'interventionTypesIndex',
             'serviceTypesIndex',
             'educatorsIndex',
