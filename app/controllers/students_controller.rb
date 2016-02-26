@@ -151,15 +151,15 @@ class StudentsController < ApplicationController
 
   # TODO(kr) temporary, until building backend tables
   def fixture_service_types_index
-    [
-      { id: 502, name: 'Attendance Officer' },
-      { id: 503, name: 'Attendance Contract' },
-      { id: 504, name: 'Behavior Contract' },
-      { id: 505, name: 'Counseling, in-house' },
-      { id: 506, name: 'Counseling, outside' },
-      { id: 507, name: 'Reading intervention' },
-      { id: 508, name: 'Math intervention' }
-    ]
+    {
+      502 => { id: 502, name: 'Attendance Officer' },
+      503 => { id: 503, name: 'Attendance Contract' },
+      504 => { id: 504, name: 'Behavior Contract' },
+      505 => { id: 505, name: 'Counseling, in-house' },
+      506 => { id: 506, name: 'Counseling, outside' },
+      507 => { id: 507, name: 'Reading intervention' },
+      508 => { id: 508, name: 'Math intervention' }
+    }
   end
 
   # Merges 'event_notes' table with 'discontinued_event_notes' to
@@ -168,7 +168,7 @@ class StudentsController < ApplicationController
     fixture_educator_id = 1
     [{
       id: 133,
-      service_type_id: 1,
+      service_type_id: 503,
       recorded_by_educator_id: fixture_educator_id,
       assigned_to_educator_id: fixture_educator_id,
       date_started: '2016-02-09',
@@ -176,7 +176,7 @@ class StudentsController < ApplicationController
       discontinued_by_educator_id: fixture_educator_id
     }, {
       id: 134,
-      service_type_id: 1,
+      service_type_id: 506,
       recorded_by_educator_id: fixture_educator_id,
       assigned_to_educator_id: fixture_educator_id,
       date_started: '2016-02-08',

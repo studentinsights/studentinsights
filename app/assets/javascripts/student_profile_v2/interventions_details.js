@@ -10,6 +10,7 @@
   var PropTypes = window.shared.PropTypes;
   var serviceColor = window.shared.serviceColor;
 
+  // TODO(kr) need to clean these all out
   var styles = {
     container: {
       display: 'flex'
@@ -76,7 +77,7 @@
       marginTop: 10,
       marginBottom: 10
     },
-    intervention: {
+    service: {
       border: '1px solid #eee',
       padding: 15,
       marginTop: 10,
@@ -252,7 +253,7 @@
     renderDeprecatedIntervention: function(deprecatedIntervention) {
       return createEl(NoteHeader, {
         key: ['deprecated_intervention', deprecatedIntervention.id].join(),
-        noteMoment: moment.utc(deprecatedIntervention.start_date),
+        noteMoment: moment.utc(deprecatedIntervention.start_date_timestamp),
         badge: dom.span({ style: styles.badge }, 'Older intervention'),
         educatorId: deprecatedIntervention.educator_id,
         content: _.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n'),

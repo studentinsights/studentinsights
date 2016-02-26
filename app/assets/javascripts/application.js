@@ -58,6 +58,7 @@
   //= require ./student_profile_v2/summary_list
   //= require ./student_profile_v2/profileChart.js
   //= require ./student_profile_v2/student_profile_header
+  //= require ./student_profile_v2/service_color
 // details:
   //= require ./student_profile_v2/profile_details
   //= require ./student_profile_v2/attendance_details
