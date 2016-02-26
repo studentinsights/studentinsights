@@ -33,6 +33,7 @@ RSpec.describe ProgressNotesController, type: :controller do
         expect(JSON.parse(response.body)).to eq({
           "id" => 2,
           "educator_email" => educator.email,
+          "educator_id" => educator.id,
           "content" => "note text goes here",
           "created_date" => Time.now.utc.strftime("%B %e, %Y %l:%M %p")
         })

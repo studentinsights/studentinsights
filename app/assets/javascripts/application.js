@@ -46,6 +46,7 @@
 
 // student profile page v2:
 // components:
+  //= require ./student_profile_v2/service_color
   //= require ./student/profile_charts/profile_chart_settings
   //= require ./student_profile_v2/educator
   //= require ./student_profile_v2/highcharts_wrapper
@@ -58,7 +59,6 @@
   //= require ./student_profile_v2/summary_list
   //= require ./student_profile_v2/profileChart.js
   //= require ./student_profile_v2/student_profile_header
-  //= require ./student_profile_v2/service_color
 // details:
   //= require ./student_profile_v2/profile_details
   //= require ./student_profile_v2/attendance_details

@@ -13,8 +13,8 @@ describe('RecordService', function() {
     renderInto: function(el, props) {
       var mergedProps = merge(props || {}, {
         studentFirstName: 'Tamyra',
-        serviceTypesIndex: {},
-        educatorsIndex: {},
+        serviceTypesIndex: Fixtures.studentProfile.serviceTypesIndex,
+        educatorsIndex: Fixtures.studentProfile.educatorsIndex,
         nowMoment: Fixtures.nowMoment,
         currentEducator: Fixtures.currentEducator,
         onSave: jasmine.createSpy('onSave'),
