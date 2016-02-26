@@ -100,7 +100,8 @@
   };
 
 
-  //{key, noteMoment, badge, educator_id, content}
+  // TODO(kr) extract, simplify styles
+  //props: {key, noteMoment, badge, educator_id, content}
   var NoteHeader = React.createClass({
     render: function() {
       var header = this.props; // TODO(kr)
