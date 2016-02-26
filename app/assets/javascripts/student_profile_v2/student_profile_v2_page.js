@@ -244,7 +244,7 @@
         onClick: this.onColumnClicked.bind(this, columnKey)
       }, this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
-        this.renderInterventions(student),
+        this.renderServices(student),
         this.renderStaff(student)
       ]));
     },
@@ -263,25 +263,26 @@
       });
     },
 
-    renderInterventions: function(student) {
+    renderServices: function(student) {
       if (student.interventions.length === 0) {
         return createEl(SummaryList, {
           title: 'Services',
           elements: ['No services']
         });
       }
-
+      
       var limit = 3;
-      var sortedInterventions = _.sortBy(student.interventions, 'start_date').reverse();
-      var elements = sortedInterventions.slice(0, limit).map(function(intervention) {
-        var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
-        var daysText = moment.utc(intervention.start_date).from(this.props.nowMomentFn(), true);
-        return dom.span({ key: intervention.id },
-          dom.span({}, interventionText),
+      var sortedServices = _.sortBy(this.props.feed.services, 'date_started').reverse();
+      var elements = sortedServices.slice(0, limit).map(function(service) {
+        var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
+        var daysText = moment.utc(service.date_started).from(this.props.nowMomentFn(), true);
+        return dom.span({ key: service.id },
+          dom.span({}, serviceText),
           dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
         );
       }, this);
-      if (sortedInterventions.length > limit) elements.push(dom.div({}, '+ ' + (sortedInterventions.length - limit) + ' more'));
+      if (sortedServices.length > limit) elements.push(dom.div({}, '+ ' + (sortedServices.length - limit) + ' more'));
+
       return createEl(SummaryList, {
         title: 'Services',
         elements: elements
