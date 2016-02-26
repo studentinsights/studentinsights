@@ -587,14 +587,14 @@
   "services": [
     {
       "id": 133,
-      "service_type_id": 1,
+      "service_type_id": 503,
       "recorded_by_educator_id": 1,
       "assigned_to_educator_id": 1,
       "date_started": "2016-02-09"
     },
     {
       "id": 134,
-      "service_type_id": 1,
+      "service_type_id": 506,
       "recorded_by_educator_id": 1,
       "assigned_to_educator_id": 1,
       "date_started": "2016-02-09"
@@ -850,7 +850,7 @@
     ]
   }
 },
-    "serviceTypesIndex": {},
+    "serviceTypesIndex": {"502":{"id":502,"name":"Attendance Officer"},"503":{"id":503,"name":"Attendance Contract"},"504":{"id":504,"name":"Behavior Contract"},"505":{"id":505,"name":"Counseling, in-house"},"506":{"id":506,"name":"Counseling, outside"},"507":{"id":507,"name":"Reading intervention"},"508":{"id":508,"name":"Math intervention"}},
     "educatorsIndex": {
       "1": {
         "id": 1,
