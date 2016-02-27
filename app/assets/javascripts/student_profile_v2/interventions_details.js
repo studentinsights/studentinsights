@@ -3,7 +3,7 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
-  
+
   var Educator = window.shared.Educator;
   var TakeNotes = window.shared.TakeNotes;
   var NotesList = window.shared.NotesList;
@@ -20,29 +20,11 @@
       flex: 1,
       marginRight: 20
     },
-    dialog: {
-      border: '1px solid #ccc',
-      borderRadius: 2,
-      padding: 20,
-      marginBottom: 20,
-      marginTop: 10
+    servicesContainer: {
+      flex: 1
     },
     addServiceContainer: {
       marginTop: 10
-    },
-    interventionsContainer: {
-      flex: 1
-    },
-    inlineBlock: {
-      display: 'inline-block'
-    },
-    userText: {
-      whiteSpace: 'pre-wrap'
-    },
-    daysAgo: {
-      opacity: 0.25,
-      paddingLeft: 10,
-      display: 'inline-block'
     },
     title: {
       borderBottom: '1px solid #333',
@@ -51,16 +33,20 @@
       padding: 10,
       paddingLeft: 0
     },
+
     service: {
       border: '1px solid #eee',
       padding: 15,
       marginTop: 10,
       marginBottom: 10
     },
-    cancelTakeNotesButton: { // overidding CSS
-      color: 'black',
-      background: '#eee',
-      marginLeft: 10
+    userText: {
+      whiteSpace: 'pre-wrap'
+    },
+    daysAgo: {
+      opacity: 0.25,
+      paddingLeft: 10,
+      display: 'inline-block'
     },
     discontinue: {
       background: 'white',
@@ -130,7 +116,7 @@
             educatorsIndex: this.props.educatorsIndex
           })
         ),
-        dom.div({ style: styles.interventionsContainer },
+        dom.div({ style: styles.servicesContainer },
           dom.h4({ style: styles.title}, 'Services'),
           dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
           (this.props.feed.services.length === 0)
