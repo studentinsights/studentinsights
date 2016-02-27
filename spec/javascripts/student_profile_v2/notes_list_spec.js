@@ -39,7 +39,7 @@ describe('NotesList', function() {
       expect(el).toContainText('Attendance Officer');
       expect(el).toContainText('MTSS meeting');
       expect(el).not.toContainText('SST meeting');
-      expect(el).toContainText('Older note');
+      expect(el).toContainText('Old note');
     });
   });
 });
