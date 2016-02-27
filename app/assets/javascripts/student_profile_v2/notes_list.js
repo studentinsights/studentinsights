@@ -19,6 +19,12 @@
       marginTop: 10,
       marginBottom: 10
     },
+    date: {
+      display: 'inline-block',
+      width: '11em',
+      paddingRight: 10,
+      fontWeight: 'bold'
+    },
     badge: {
       display: 'inline-block',
       background: '#eee',
@@ -27,11 +33,6 @@
       textAlign: 'center',
       marginLeft: 10,
       marginRight: 10
-    },
-    date: {
-      paddingRight: 10,
-      fontWeight: 'bold',
-      display: 'inline-block'
     },
     educator: {
       paddingLeft: 5,
@@ -121,7 +122,7 @@
       return createEl(NoteCard, {
         key: ['deprecated_note', deprecatedNote.id].join(),
         noteMoment: moment.utc(deprecatedNote.created_at_timestamp),
-        badge: dom.span({ style: styles.badge }, 'Older note'),
+        badge: dom.span({ style: styles.badge }, 'Old note'),
         educatorId: deprecatedNote.educator_id,
         text: deprecatedNote.content,
         educatorsIndex: this.props.educatorsIndex
@@ -135,16 +136,22 @@
       return createEl(NoteCard, {
         key: ['deprecated_intervention', deprecatedIntervention.id].join(),
         noteMoment: moment.utc(deprecatedIntervention.start_date_timestamp),
-        badge: dom.span({ style: styles.badge }, 'Older intervention'),
+        badge: dom.span({ style: styles.badge }, 'Old intervention'),
         educatorId: deprecatedIntervention.educator_id,
         text: _.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n'),
         educatorsIndex: this.props.educatorsIndex
       });
     },
 
-    // TODO(kr) not done!
     renderDeprecatedProgressNote: function(deprecatedProgressNote) {
-      return null;
+      return createEl(NoteCard, {
+        key: ['deprecated_progress_note', deprecatedProgressNote.id].join(),
+        noteMoment: moment.utc(deprecatedProgressNote.created_at_timestamp),
+        badge: dom.span({ style: styles.badge }, 'Old progress note'),
+        educatorId: deprecatedProgressNote.educator_id,
+        text: _.compact([deprecatedProgressNote.intervention.name, deprecatedProgressNote.content]).join('\n'),
+        educatorsIndex: this.props.educatorsIndex
+      });
     }
   });
 })();

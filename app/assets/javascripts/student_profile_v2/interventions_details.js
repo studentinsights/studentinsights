@@ -132,8 +132,8 @@
       if (this.state.isAddingService) {
         return createEl(RecordService, {
           studentFirstName: this.props.student.first_name,
-          onSave: this.onSaveNotes,
-          onCancel: this.onCancelNotes,
+          onSave: this.onSaveRecordService,
+          onCancel: this.onCancelRecordService,
           requestState: this.props.requests.saveNotes,
 
           nowMoment: moment.utc(), // TODO(kr) thread through

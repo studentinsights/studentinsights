@@ -25,7 +25,7 @@
         return intervention.progress_notes.map(function(progressNote) {
           return merge(progressNote, {
             type: 'deprecated_progress_notes',
-            sort_timestamp: progressNote.updated_at,
+            sort_timestamp: progressNote.created_at_timestamp,
             intervention: intervention
           });
         });

@@ -24,7 +24,8 @@ module SerializeDataHelper
       educator_email: progress_note.educator.email,
       educator_id: progress_note.educator.id,
       content: progress_note.content,
-      created_date: progress_note.created_at.strftime("%B %e, %Y %l:%M %p")
+      created_date: progress_note.created_at.strftime("%B %e, %Y %l:%M %p"),
+      created_at_timestamp: progress_note.created_at
     }
   end
 
