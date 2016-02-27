@@ -46,7 +46,9 @@
 
 // student profile page v2:
 // components:
+  //= require ./student_profile_v2/service_color
   //= require ./student/profile_charts/profile_chart_settings
+  //= require ./student_profile_v2/feed_helpers
   //= require ./student_profile_v2/educator
   //= require ./student_profile_v2/highcharts_wrapper
   //= require ./student_profile_v2/sparkline
@@ -54,6 +56,8 @@
   //= require ./student_profile_v2/quad_converter
   //= require ./student_profile_v2/academic_summary
   //= require ./student_profile_v2/take_notes
+  //= require ./student_profile_v2/notes_list
+  //= require ./student_profile_v2/services_list
   //= require ./student_profile_v2/record_service
   //= require ./student_profile_v2/summary_list
   //= require ./student_profile_v2/profile_chart

@@ -7,6 +7,7 @@
   var PropTypes = window.shared.PropTypes;
   var ReactSelect = window.Select;
   var datepickerOptions = window.datepicker_options;
+  var serviceColor = window.shared.serviceColor;
 
   var styles = {
     dialog: {
@@ -112,19 +113,8 @@
     },
 
     renderServiceButton: function(serviceTypeId, options) {
-      var serviceNameMap = {
-        502: 'Attendance Officer',
-        503: 'Attendance Contract',
-        504: 'Behavior Contract',
-        505: 'Counseling, in-house',
-        506: 'Counseling, outside',
-        507: 'Reading intervention',
-        508: 'Math intervention'
-      };
-      var serviceType = this.props.serviceTypesIndex[serviceTypeId];
-      // TODO(kr) update default value here after merging server-side migrations
-      var serviceText = serviceNameMap[serviceTypeId] || 'Unknown service';
-      var color = this.serviceColor(serviceTypeId);
+      var serviceText = this.props.serviceTypesIndex[serviceTypeId].name;
+      var color = serviceColor(serviceTypeId);
 
       return dom.button({
         className: 'btn service-type',
@@ -138,19 +128,6 @@
             : '4px solid white'
         })
       }, serviceText);
-    },
-
-    serviceColor: function(serviceTypeId) {
-      var map = {
-       507: '#ffe7d6',
-       502: '#e8fce8',
-       503: '#e8fce8',
-       504: '#e8fce8',
-       505: '#eee',
-       506: '#eee',
-       508: '#e8e9fc'
-      };
-      return map[serviceTypeId] || null;
     },
 
     renderEducatorSelect: function() {
