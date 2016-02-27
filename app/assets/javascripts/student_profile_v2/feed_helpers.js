@@ -42,7 +42,7 @@
         deprecatedInterventions,
         deprecatedProgressNotes
       ]);
-      return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
+      return _.sortBy(mergedNotes, 'sort_timestamp');
     },
 
     // Returns a list of all educatorIds that are active for the student,

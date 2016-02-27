@@ -42,7 +42,7 @@
     }
   };
 
-  // This renders a single card for a 
+  // This renders a single card for a Note of any type.
   var NoteCard = React.createClass({
     propTypes: {
       noteMoment: React.PropTypes.instanceOf(moment).isRequired,
@@ -70,8 +70,12 @@
     }
   });
 
-  //noItems, badge
+  /*
+  Renders the list of notes.
+  */
   var NotesList = window.shared.NotesList = React.createClass({
+    displayName: 'NotesList',
+
     propTypes: {
       feed: PropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired
@@ -79,7 +83,7 @@
 
     render: function() {
       var mergedNotes = FeedHelpers.mergedNotes(this.props.feed);
-      return dom.div({}, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
+      return dom.div({ className: 'NotesList' }, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
         switch (mergedNote.type) {
           case 'event_notes': return this.renderEventNote(mergedNote);
           case 'deprecated_notes': return this.renderDeprecatedNote(mergedNote);

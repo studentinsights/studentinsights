@@ -57,6 +57,7 @@
   //= require ./student_profile_v2/academic_summary
   //= require ./student_profile_v2/take_notes
   //= require ./student_profile_v2/notes_list
+  //= require ./student_profile_v2/services_list
   //= require ./student_profile_v2/record_service
   //= require ./student_profile_v2/summary_list
   //= require ./student_profile_v2/profileChart.js
