@@ -18,7 +18,7 @@
       var deprecatedInterventions = feed.deprecated.interventions.map(function(intervention) {
         return merge(intervention, {
           type: 'deprecated_interventions',
-          sort_timestamp: intervention.updated_at
+          sort_timestamp: intervention.start_date_timestamp
         });
       });
       var deprecatedProgressNotes = _.flatten(feed.deprecated.interventions.map(function(intervention) {
@@ -42,7 +42,7 @@
         deprecatedInterventions,
         deprecatedProgressNotes
       ]);
-      return _.sortBy(mergedNotes, 'sort_timestamp');
+      return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
     },
 
     // Returns a list of all educatorIds that are active for the student,

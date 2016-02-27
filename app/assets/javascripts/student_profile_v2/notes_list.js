@@ -44,6 +44,8 @@
 
   // This renders a single card for a Note of any type.
   var NoteCard = React.createClass({
+    displayName: 'NoteCard',
+
     propTypes: {
       noteMoment: React.PropTypes.instanceOf(moment).isRequired,
       educatorId: React.PropTypes.number.isRequired,
@@ -53,11 +55,11 @@
 
     render: function() {
       return dom.div({
-        className: 'note',
+        className: 'NoteCard',
         style: styles.note
       },
         dom.div({}, 
-          dom.span({ style: styles.date }, this.props.noteMoment.format('MMMM D, YYYY')),
+          dom.span({ className: 'date', style: styles.date }, this.props.noteMoment.format('MMMM D, YYYY')),
           this.props.badge,
           dom.span({ style: styles.educator }, createEl(Educator, {
             educator: this.props.educatorsIndex[this.props.educatorId]
