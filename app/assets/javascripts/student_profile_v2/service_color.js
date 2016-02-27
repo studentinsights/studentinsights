@@ -1,16 +1,23 @@
 (function() {
   window.shared || (window.shared = {});
   
+  var Colors = {
+    purple: '#e8e9fc',
+    orange: '#ffe7d6',
+    green: '#e8fce8',
+    gray: '#eee'
+  };
+
   // Map service_type_id to a themed color.
   var serviceColor = window.shared.serviceColor = function(serviceTypeId) {
     var map = {
-     507: '#ffe7d6',
-     502: '#e8fce8',
-     503: '#e8fce8',
-     504: '#e8fce8',
-     505: '#eee',
-     506: '#eee',
-     508: '#e8e9fc'
+     507: Colors.orange,
+     502: Colors.green,
+     503: Colors.green,
+     504: Colors.green,
+     505: Colors.gray,
+     506: Colors.gray,
+     508: Colors.purple
     };
     return map[serviceTypeId] || null;
   };
