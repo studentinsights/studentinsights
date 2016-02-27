@@ -6,6 +6,7 @@
   
   var Educator = window.shared.Educator;
   var TakeNotes = window.shared.TakeNotes;
+  var NotesList = window.shared.NotesList;
   var RecordService = window.shared.RecordService;
   var PropTypes = window.shared.PropTypes;
   var serviceColor = window.shared.serviceColor;
@@ -32,9 +33,6 @@
     interventionsContainer: {
       flex: 1
     },
-    noItems: {
-      margin: 10
-    },
     inlineBlock: {
       display: 'inline-block'
     },
@@ -53,30 +51,6 @@
       padding: 10,
       paddingLeft: 0
     },
-    date: {
-      paddingRight: 10,
-      fontWeight: 'bold',
-      display: 'inline-block'
-    },
-    badge: {
-      display: 'inline-block',
-      background: '#eee',
-      outline: '3px solid #eee',
-      width: '10em',
-      textAlign: 'center',
-      marginLeft: 10,
-      marginRight: 10
-    },
-    educator: {
-      paddingLeft: 5,
-      display: 'inline-block'
-    },
-    note: {
-      border: '1px solid #eee',
-      padding: 15,
-      marginTop: 10,
-      marginBottom: 10
-    },
     service: {
       border: '1px solid #eee',
       padding: 15,
@@ -88,9 +62,6 @@
       background: '#eee',
       marginLeft: 10
     },
-    noteText: {
-      marginTop: 5
-    },
     discontinue: {
       background: 'white',
       opacity: 0.5,
@@ -100,29 +71,12 @@
   };
 
 
-  // TODO(kr) extract, simplify styles
-  //props: {key, noteMoment, badge, educator_id, content}
-  var NoteHeader = React.createClass({
-    render: function() {
-      var header = this.props; // TODO(kr)
-      return dom.div({
-        className: 'note',
-        style: styles.note
-      },
-        dom.div({}, 
-          dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
-          header.badge,
-          dom.span({ style: styles.educator }, createEl(Educator, {
-            educator: this.props.educatorsIndex[header.educatorId]
-          }))
-        ),
-        dom.div({ style: { whiteSpace: 'pre-wrap' } },
-          dom.div({ style: styles.noteText }, header.content)
-        )
-      );
-    }
-  });
 
+  /*
+  The bottom region of the page, showing notes about the student, services
+  they are receiving, and allowing users to enter new information about
+  these as well.
+  */
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
       interventionTypesIndex: React.PropTypes.object.isRequired,
@@ -171,7 +125,10 @@
         dom.div({ style: styles.notesContainer },
           dom.h4({ style: styles.title}, 'Notes'),
           this.renderTakeNotesSection(),
-          this.renderNotes()
+          createEl(NotesList, {
+            mergedNotes: this.props.mergedNotes,
+            educatorsIndex: this.props.educatorsIndex
+          })
         ),
         dom.div({ style: styles.interventionsContainer },
           dom.h4({ style: styles.title}, 'Services'),
@@ -201,70 +158,6 @@
           onClick: this.onClickTakeNotes
         }, 'Take notes')
       );
-    },
-
-    renderNotes: function() {
-      var mergedNotes = this.props.mergedNotes;
-      return dom.div({}, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
-        switch (mergedNote.type) {
-          case 'event_notes': return this.renderEventNote(mergedNote);
-          case 'deprecated_notes': return this.renderDeprecatedNote(mergedNote);
-          case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
-          case 'deprecated_progress_notes': return this.renderDeprecatedProgressNote(mergedNote);
-        }
-      }, this));
-    },
-
-    renderEventNoteTypeBadge: function(eventNoteTypeId) {
-      switch (eventNoteTypeId) {
-        case 1: return dom.span({ style: styles.badge }, 'SST meeting');
-        case 2: return dom.span({ style: styles.badge }, 'MTSS meeting');
-        case 3: return dom.span({ style: styles.badge }, 'Family');
-        case 5: return dom.span({ style: styles.badge }, 'Something else');
-      }
-
-      return null;
-    },
-
-    renderEventNote: function(eventNote) {
-      return createEl(NoteHeader, {
-        key: ['event_note', eventNote.id].join(),
-        noteMoment: moment.utc(eventNote.recorded_at),
-        badge: this.renderEventNoteTypeBadge(eventNote.event_note_type_id),
-        educatorId: eventNote.educator_id,
-        content: eventNote.text,
-        educatorsIndex: this.props.educatorsIndex
-      });
-    },
-
-    renderDeprecatedNote: function(deprecatedNote) {
-      return createEl(NoteHeader, {
-        key: ['deprecated_note', deprecatedNote.id].join(),
-        noteMoment: moment.utc(deprecatedNote.created_at_timestamp),
-        badge: dom.span({ style: styles.badge }, 'Older note'),
-        educatorId: deprecatedNote.educator_id,
-        content: deprecatedNote.content,
-        educatorsIndex: this.props.educatorsIndex
-      });
-    },
-
-    // TODO(kr) support custom intervention type
-    // This assumes that the `end_date` field is not accurate enough to be worth splitting
-    // this out into two note entries.
-    renderDeprecatedIntervention: function(deprecatedIntervention) {
-      return createEl(NoteHeader, {
-        key: ['deprecated_intervention', deprecatedIntervention.id].join(),
-        noteMoment: moment.utc(deprecatedIntervention.start_date_timestamp),
-        badge: dom.span({ style: styles.badge }, 'Older intervention'),
-        educatorId: deprecatedIntervention.educator_id,
-        content: _.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n'),
-        educatorsIndex: this.props.educatorsIndex
-      });
-    },
-
-    // TODO(kr) not done!
-    renderDeprecatedProgressNote: function(deprecatedProgressNote) {
-      return null;
     },
 
     renderRecordServiceSection: function() {
