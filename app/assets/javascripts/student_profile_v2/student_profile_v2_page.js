@@ -12,6 +12,7 @@
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
   var Educator = window.shared.Educator;
+  var FeedHelpers = window.shared.FeedHelpers;
 
   var StudentProfileHeader = window.shared.StudentProfileHeader;
   var ProfileDetails = window.shared.ProfileDetails;
@@ -110,44 +111,6 @@
       return (columnKey === this.props.selectedColumnKey) ? styles.selectedColumn : {};
     },
 
-    // Merges data from event_notes, services and deprecated tables (notes, interventions).
-    mergedNotes: function() {
-      var deprecatedNotes = this.props.feed.deprecated.notes.map(function(deprecatedNote) {
-        return merge(deprecatedNote, {
-          type: 'deprecated_notes',
-          sort_timestamp: deprecatedNote.created_at_timestamp
-        });
-      });
-      var deprecatedInterventions = this.props.feed.deprecated.interventions.map(function(intervention) {
-        return merge(intervention, {
-          type: 'deprecated_interventions',
-          sort_timestamp: intervention.updated_at
-        });
-      });
-      var deprecatedProgressNotes = _.flatten(this.props.feed.deprecated.interventions.map(function(intervention) {
-        return intervention.progress_notes.map(function(progressNote) {
-          return merge(progressNote, {
-            type: 'deprecated_progress_notes',
-            sort_timestamp: progressNote.updated_at,
-            intervention: intervention
-          });
-        });
-      }));
-      var eventNotes = this.props.feed.event_notes.map(function(eventNote) {
-        return merge(eventNote, {
-          type: 'event_notes',
-          sort_timestamp: eventNote.recorded_at
-        });
-      });
-
-      var mergedNotes = eventNotes.concat.apply(eventNotes, [
-        deprecatedNotes,
-        deprecatedInterventions,
-        deprecatedProgressNotes
-      ]);
-      return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
-    },
-
     render: function() {
       return dom.div({ className: 'StudentProfileV2Page' },
         this.renderSaveStatus(),
@@ -209,9 +172,7 @@
             'educatorsIndex',
             'actions',
             'requests'
-          ), {
-            mergedNotes: this.mergedNotes()
-          }));
+          )));
       }
       return null;
     },
@@ -289,10 +250,10 @@
       });
     },
 
+    // TODO(kr) this should be based on services and notes
     renderStaff: function(student) {
       var limit = 3;
-      var mergedNotes = this.mergedNotes();
-      var educatorIds = _.unique(_.pluck(mergedNotes, 'educator_id'));
+      var educatorIds = FeedHelpers.allEducatorIds(this.props.feed);
       var elements = educatorIds.slice(0, limit).map(function(educatorId) {
         return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);

@@ -83,9 +83,9 @@
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
+      actions: PropTypes.actions.isRequired,
 
-      mergedNotes: React.PropTypes.array.isRequired,
-      actions: PropTypes.actions.isRequired
+      feed: PropTypes.feed.isRequired
     },
 
     getInitialState: function() {
@@ -126,7 +126,7 @@
           dom.h4({ style: styles.title}, 'Notes'),
           this.renderTakeNotesSection(),
           createEl(NotesList, {
-            mergedNotes: this.props.mergedNotes,
+            feed: this.props.feed,
             educatorsIndex: this.props.educatorsIndex
           })
         ),

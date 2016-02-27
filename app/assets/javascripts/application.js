@@ -48,6 +48,7 @@
 // components:
   //= require ./student_profile_v2/service_color
   //= require ./student/profile_charts/profile_chart_settings
+  //= require ./student_profile_v2/feed_helpers
   //= require ./student_profile_v2/educator
   //= require ./student_profile_v2/highcharts_wrapper
   //= require ./student_profile_v2/sparkline

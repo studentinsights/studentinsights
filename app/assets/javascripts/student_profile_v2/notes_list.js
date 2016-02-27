@@ -5,6 +5,8 @@
   var merge = window.shared.ReactHelpers.merge;
   
   var Educator = window.shared.Educator;
+  var PropTypes = window.shared.PropTypes;
+  var FeedHelpers = window.shared.FeedHelpers;
   var moment = window.moment;
 
   var styles = {
@@ -71,12 +73,12 @@
   //noItems, badge
   var NotesList = window.shared.NotesList = React.createClass({
     propTypes: {
-      mergedNotes: React.PropTypes.array.isRequired,
+      feed: PropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired
     },
 
     render: function() {
-      var mergedNotes = this.props.mergedNotes;
+      var mergedNotes = FeedHelpers.mergedNotes(this.props.feed);
       return dom.div({}, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
         switch (mergedNote.type) {
           case 'event_notes': return this.renderEventNote(mergedNote);
