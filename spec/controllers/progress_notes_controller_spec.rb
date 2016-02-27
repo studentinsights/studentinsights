@@ -23,19 +23,23 @@ RSpec.describe ProgressNotesController, type: :controller do
           content: 'note text goes here'
         }
       }
-      it 'creates a new intervention' do
+      it 'creates a new progress note' do
         expect { make_request(params) }.to change(ProgressNote, :count).by 1
       end
       it 'responds with json' do
+        Timecop.freeze
+        now_utc = Time.now.utc
         make_request(params)
+
         expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)).to eq({
-          "id" => 2,
+          "id" => intervention.progress_notes.last.id,
           "educator_email" => educator.email,
           "educator_id" => educator.id,
           "content" => "note text goes here",
-          "created_date" => Time.now.utc.strftime("%B %e, %Y %l:%M %p")
+          "created_date" => now_utc.strftime("%B %e, %Y %l:%M %p"),
+          "created_at_timestamp" => now_utc.as_json
         })
       end
     end
