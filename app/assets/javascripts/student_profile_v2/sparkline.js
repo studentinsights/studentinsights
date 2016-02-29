@@ -27,8 +27,12 @@
 
     render: function() {
       var padding = 3; // for allowing circle data points at the edge to be full shown
+      
       // TODO(kr) work more on coloring across all charts
-      var color = d3.scale.linear().domain([-1, 0, 1]).range(['red', '#666', 'blue']);
+      // for now, disable since the mapping to color isn't clear enough and
+      // doesn't match the longer-view charts
+      var color = function() { return '#666'; };
+
       var x = d3.time.scale()
         .domain(this.props.dateRange)
         .range([padding, this.props.width - padding]);
