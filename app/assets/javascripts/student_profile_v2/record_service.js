@@ -95,7 +95,7 @@
       this.props.onSave({
         serviceTypeId: this.state.serviceTypeId,
         providedByEducatorId: this.state.providedByEducatorId,
-        momentStarted: this.state.momentStarted,
+        dateStartedText: this.state.momentStarted.format('YYYY-MM-DD'),
         recordedByEducatorId: this.props.currentEducator.id
       });
     },

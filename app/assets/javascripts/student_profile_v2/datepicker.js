@@ -55,7 +55,7 @@
     },
 
     render: function() {
-      return dom.div({ className: 'DatePicker', style: this.props.styles.datepicker },
+      return dom.div({ className: 'Datepicker', style: this.props.styles.datepicker },
         dom.input({
           className: 'datepicker',
           style: this.props.styles.input,

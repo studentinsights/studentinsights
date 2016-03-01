@@ -91,9 +91,8 @@ class StudentsController < ApplicationController
       :provided_by_educator_id
     ])
     
-    # TODO(kr) placeholder response in development mode, for
-    # testing UI end-to-end
-    debugger
+    # TODO(kr) Placeholder response in development mode, for
+    # testing UI end-to-end.  Remove this when productionizing.
     if Rails.env.development?
       render json: clean_params.as_json.merge({
         recorded_by_educator_id: current_educator.id,
@@ -102,7 +101,7 @@ class StudentsController < ApplicationController
         id: rand(2000..3000)
       })
     else
-      # TODO(kr) not implemented yet, use event_note as model
+      # TODO(kr) Production path not implemented yet, needs models
       return render json: clean_params.as_json, status: 501
     end
   end
