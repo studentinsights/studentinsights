@@ -16,14 +16,12 @@
     },
 
     saveService: function(studentId, serviceParams) {
-      debugger
       var url = '/students/' + studentId + '/service.json';
       var body = {
         service: {
           service_type_id: serviceParams.serviceTypeId,
           date_started: serviceParams.momentStarted.format('YYYY-MM-DD'),
           provided_by_educator_id: serviceParams.providedByEducatorId,
-          assigned_by_educator_id: serviceParams.assignedByEducatorId,
           student_id: studentId
         }
       };

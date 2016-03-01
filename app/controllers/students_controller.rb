@@ -82,6 +82,24 @@ class StudentsController < ApplicationController
     end
   end
 
+  # post
+  def service
+    clean_params = params.require(:service).permit(*[
+      :student_id,
+      :service_type_id,
+      :date_started,
+      :provided_by_educator_id
+    ])
+    # TODO(kr) not implemented yet, use event_note as model
+    # return render json: clean_params.as_json, status: 501
+    return render json: clean_params.as_json.merge({
+      recorded_by_educator_id: current_educator.id,
+      date_discontinued: nil,
+      discontinued_by_educator_id: nil,
+      id: rand(2000..3000)
+    })
+  end
+
   def names
     q = params[:q]
     sorted_students = search_and_score(q, Student.with_school)
@@ -169,16 +187,16 @@ class StudentsController < ApplicationController
     [{
       id: 133,
       service_type_id: 503,
+      provided_by_educator_id: fixture_educator_id,
       recorded_by_educator_id: fixture_educator_id,
-      assigned_to_educator_id: fixture_educator_id,
       date_started: '2016-02-09',
       date_discontinued: nil,
       discontinued_by_educator_id: fixture_educator_id
     }, {
       id: 134,
       service_type_id: 506,
+      provided_by_educator_id: fixture_educator_id,
       recorded_by_educator_id: fixture_educator_id,
-      assigned_to_educator_id: fixture_educator_id,
       date_started: '2016-02-08',
       date_discontinued: nil,
       discontinued_by_educator_id: fixture_educator_id

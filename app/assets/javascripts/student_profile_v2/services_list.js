@@ -60,7 +60,7 @@
     renderService: function(service) {
       var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
       var momentStarted = moment.utc(service.date_started);
-      var educator = this.props.educatorsIndex[service.assigned_to_educator_id];
+      var educator = this.props.educatorsIndex[service.provided_by_educator_id];
       return dom.div({
         key: service.id,
         style: merge(styles.service, { background: serviceColor(service.service_type_id) })
