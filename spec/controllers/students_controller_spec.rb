@@ -262,6 +262,63 @@ describe StudentsController, :type => :controller do
     end
   end
 
+  describe '#service' do
+    def make_post_request(student, service_params = {})
+      request.env['HTTPS'] = 'on'
+      post :service, format: :json, id: student.id, service: service_params
+    end
+
+    context 'educator logged in' do
+      let!(:provided_by_educator) { FactoryGirl.create(:educator) }
+      let!(:student) { FactoryGirl.create(:student) }
+      
+      before do
+        sign_in(educator)
+      end
+
+      context 'when valid request' do
+        let!(:post_params) do
+          {
+            student_id: student.id,
+            service_type_id: 503,
+            date_started: '2016-02-22',
+            provided_by_educator_id: provided_by_educator.id
+          }
+        end
+
+        it 'creates a new service' do
+          skip 'TODO(kr) as part of backend service work'
+        end
+
+        it 'responds with JSON' do
+          make_post_request(student, post_params)
+          expect(response.status).to eq 501
+          skip 'TODO(kr) as part of backend service work'
+        end
+      end
+
+      context 'when recorded_by_educator_id' do
+        it 'ignores the educator_id' do
+          make_post_request(student, {
+            student_id: student.id,
+            service_type_id: 503,
+            date_started: '2016-02-22',
+            provided_by_educator_id: provided_by_educator.id,
+            recorded_by_educator_id: 187
+          })
+          skip 'TODO(kr) as part of backend service work'
+        end
+      end
+
+      context 'when missing params' do
+        it 'fails with error messages' do
+          make_post_request(student, { text: 'foo' })
+          skip 'TODO(kr) as part of backend service work'
+        end
+      end
+    end
+  end
+
   describe '#names' do
     def make_request(query)
       request.env['HTTPS'] = 'on'
