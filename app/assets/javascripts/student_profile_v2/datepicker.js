@@ -6,7 +6,7 @@
 
   // This must be read lazily, since these options require the DOM
   // to be ready and some specific HTML to be on the page.
-  var datepickerOptionsFn = function() { return window.datepicker_options; };
+  var datepickerOptionsFn = function() { return window.datepicker_options || {}; };
  
   var styles = {
     datepicker: {},
@@ -37,11 +37,9 @@
     },
 
     componentDidMount: function(props, state) {
-      var datepickerOptions = this.props.datepickerOptions || datepickerOptionsFn();
+      var datepickerOptions = merge(datepickerOptionsFn(), this.props.datepickerOptions);
       var el = ReactDOM.findDOMNode(this);
       $(el).find('.datepicker').datepicker(merge(datepickerOptions, {
-        showOn: 'both',
-        dateFormat: 'mm/dd/yy',
         onSelect: this.onDateSelected
       }));
     },

@@ -127,13 +127,12 @@
     },
 
     renderRecordServiceSection: function() {
-      // TODO(kr) handle saving state
-      if (this.state.isAddingService) {
+      if (this.state.isAddingService || this.props.requests.saveService !== null) {
         return createEl(RecordService, {
           studentFirstName: this.props.student.first_name,
           onSave: this.onClickSaveService,
           onCancel: this.onCancelRecordService,
-          requestState: this.props.requests.saveNotes,
+          requestState: this.props.requests.saveService,
 
           nowMoment: moment.utc(), // TODO(kr) thread through
           currentEducator: this.props.currentEducator,

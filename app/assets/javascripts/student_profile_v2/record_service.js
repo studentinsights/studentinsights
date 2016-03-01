@@ -176,7 +176,12 @@
         createEl(Datepicker, {
           styles: { input: styles.datepickerInput },
           defaultValue: (this.state.momentStarted && this.state.momentStarted.format('MM/DD/YYYY')),
-          onChange: this.onDateChanged
+          onChange: this.onDateChanged,
+          datepickerOptions: {
+            showOn: 'both',
+            dateFormat: 'mm/dd/yy',
+            minDate: undefined
+          }
         })
       );
     },

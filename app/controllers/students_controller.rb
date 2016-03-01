@@ -90,14 +90,21 @@ class StudentsController < ApplicationController
       :date_started,
       :provided_by_educator_id
     ])
-    # TODO(kr) not implemented yet, use event_note as model
-    # return render json: clean_params.as_json, status: 501
-    return render json: clean_params.as_json.merge({
-      recorded_by_educator_id: current_educator.id,
-      date_discontinued: nil,
-      discontinued_by_educator_id: nil,
-      id: rand(2000..3000)
-    })
+    
+    # TODO(kr) placeholder response in development mode, for
+    # testing UI end-to-end
+    debugger
+    if Rails.env.development?
+      render json: clean_params.as_json.merge({
+        recorded_by_educator_id: current_educator.id,
+        date_discontinued: nil,
+        discontinued_by_educator_id: nil,
+        id: rand(2000..3000)
+      })
+    else
+      # TODO(kr) not implemented yet, use event_note as model
+      return render json: clean_params.as_json, status: 501
+    end
   end
 
   def names
