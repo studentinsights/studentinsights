@@ -29,7 +29,7 @@
 
     // Simulates opening the react-select dropdown and clicking the item
     // with `optionText`.
-    changeReactSelect: function($el, optionText) {
+    changeReactSelect: function($selectEl, optionText) {
       React.addons.TestUtils.Simulate.mouseDown($selectEl.find('.Select-arrow-zone').get(0));
       React.addons.TestUtils.Simulate.focus($selectEl.find('input:last').get(0));
       $selectEl.find('.Select-option:contains(' + optionText + ')').click()
