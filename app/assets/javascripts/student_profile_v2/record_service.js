@@ -6,7 +6,7 @@
 
   var PropTypes = window.shared.PropTypes;
   var ReactSelect = window.Select;
-  var datepickerOptions = window.datepicker_options;
+  var Datepicker = window.shared.Datepicker;
   var serviceColor = window.shared.serviceColor;
 
   var styles = {
@@ -22,6 +22,11 @@
       background: '#eee',
       marginLeft: 10,
       marginRight: 10
+    },
+    datepickerInput: {
+      fontSize: 14,
+      padding: 5,
+      width: '50%'
     },
     serviceButton: {
       background: '#eee', // override CSS
@@ -40,6 +45,8 @@
   Tracks its own local state and submits values to prop callbacks.
   */
   var RecordService = window.shared.RecordService = React.createClass({
+    displayName: 'RecordService',
+
     propTypes: {
       studentFirstName: React.PropTypes.string.isRequired,
       onSave: React.PropTypes.func.isRequired,
@@ -53,21 +60,31 @@
       currentEducator: React.PropTypes.object.isRequired
     },
 
+    getDefaultProps: function() {
+      // TODO(kr) allow saving once backend is ready
+      return { isSaveEnabled: true };
+    },
+
     getInitialState: function() {
       return {
         serviceTypeId: null,
         providedByEducatorId: null,
-        dateStarted: null
+        momentStarted: moment.utc() // TODO should thread through
       }
     },
 
-    componentDidMount: function(props, state) {
-      var el = ReactDOM.findDOMNode(this);
-      $(el).find('.datepicker').datepicker(datepickerOptions);
+    onDateChanged: function(dateText) {
+      var textMoment = moment.utc(dateText, 'MM/DD/YYYY');
+      var updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      this.setState({ momentStarted: updatedMoment });
     },
 
-    onClickNoteType: function(noteTypeId, event) {
-      this.setState({ eventNoteTypeId: noteTypeId });
+    onAssignedEducatorChanged: function(educatorId) {
+      this.setState({ providedByEducatorId: educatorId });
+    },
+
+    onServiceClicked: function(serviceTypeId, event) {
+      this.setState({ serviceTypeId: serviceTypeId });
     },
 
     onClickCancel: function(event) {
@@ -75,12 +92,12 @@
     },
 
     onClickSave: function(event) {
-      var params = _.pick(this.state, 'eventNoteTypeId', 'text');
-      this.props.onSave(params);
-    },
-
-    onServiceClicked: function(serviceTypeId, event) {
-      this.setState({ serviceTypeId: serviceTypeId });
+      this.props.onSave({
+        serviceTypeId: this.state.serviceTypeId,
+        providedByEducatorId: this.state.providedByEducatorId,
+        momentStarted: this.state.momentStarted,
+        recordedByEducatorId: this.props.currentEducator.id
+      });
     },
 
     render: function() {
@@ -142,7 +159,7 @@
         name: 'assigned-educator-select',
         clearable: false,
         placeholder: 'Type name..',
-        value: this.state.serviceProvidedByEducatorId,
+        value: this.state.providedByEducatorId,
         options: options,
         onChange: this.onAssignedEducatorChanged
       });
@@ -156,14 +173,17 @@
           dom.div({ style: { width: '50%' } }, this.renderEducatorSelect())
         ),
         dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
-        dom.input({ className: 'datepicker', style: { fontSize: 14, padding: 5, width: '50%' }, defaultValue: moment.utc().format('MM/DD/YYYY') })
+        createEl(Datepicker, {
+          styles: { input: styles.datepickerInput },
+          defaultValue: (this.state.momentStarted && this.state.momentStarted.format('MM/DD/YYYY')),
+          onChange: this.onDateChanged
+        })
       );
     },
 
     renderButtons: function() {
-      // TODO(kr) allow saving once backend is ready
-      var isSaveEnabled = false; // (this.state.serviceTypeId !== null);
-
+      var isFormComplete = (this.state.providedByEducatorId && this.state.serviceTypeId && this.state.momentStarted)
+      var isSaveEnabled = this.props.isSaveEnabled && isFormComplete;
       return dom.div({ style: { marginTop: 15 } },
         dom.button({
           style: {

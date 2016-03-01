@@ -11,7 +11,6 @@
   var ServicesList = window.shared.ServicesList;
   var RecordService = window.shared.RecordService;
 
-  // TODO(kr) need to clean these all out
   var styles = {
     container: {
       display: 'flex'
@@ -28,7 +27,6 @@
     },
     title: {
       borderBottom: '1px solid #333',
-      // fontWeight: 'bold',
       color: 'black',
       padding: 10,
       paddingLeft: 0
@@ -68,7 +66,7 @@
       this.setState({ isTakingNotes: false });
     },
 
-    onSaveNotes: function(eventNoteParams, event) {
+    onClickSaveNotes: function(eventNoteParams, event) {
       this.props.actions.onClickSaveNotes(eventNoteParams);
       this.setState({ isTakingNotes: false });
     },
@@ -81,8 +79,9 @@
       this.setState({ isAddingService: false });
     },
 
-    onSaveRecordService: function(serviceParams, event) {
-      // TODO(kr) not done yet
+    onClickSaveService: function(serviceParams, event) {
+      this.props.actions.onClickSaveService(serviceParams);
+      this.setState({ isAddingService: false });
     },
 
     render: function() {
@@ -112,7 +111,7 @@
         return createEl(TakeNotes, {
           nowMoment: moment.utc(), // TODO(kr) thread through
           currentEducator: this.props.currentEducator,
-          onSave: this.onSaveNotes,
+          onSave: this.onClickSaveNotes,
           onCancel: this.onCancelNotes,
           requestState: this.props.requests.saveNotes
         });
@@ -132,7 +131,7 @@
       if (this.state.isAddingService) {
         return createEl(RecordService, {
           studentFirstName: this.props.student.first_name,
-          onSave: this.onSaveRecordService,
+          onSave: this.onClickSaveService,
           onCancel: this.onCancelRecordService,
           requestState: this.props.requests.saveNotes,
 
