@@ -31,7 +31,7 @@ describe('RecordService', function() {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('integration tests', function() {
     it('renders dialog for recording services', function() {
       var el = this.testEl;
       helpers.renderInto(el);
@@ -40,17 +40,17 @@ describe('RecordService', function() {
       expect(helpers.serviceTypes(el)).toEqual([
         'Counseling, in-house',
         'Counseling, outside',
-         'Reading intervention',
-         'Math intervention',
-         'Attendance Officer',
-         'Attendance Contract',
-         'Behavior Contract' 
+        'Reading intervention',
+        'Math intervention',
+        'Attendance Officer',
+        'Attendance Contract',
+        'Behavior Contract' 
       ]);
 
       expect(el).toContainText('Who is working with Tamyra?');
       expect($(el).find('.Select').length).toEqual(1);
       expect(el).toContainText('When did they start?');
-      expect($(el).find('.datepicker.hasDatepicker').length).toEqual(1);
+      expect($(el).find('.Datepicker .datepicker.hasDatepicker').length).toEqual(1);
       expect($(el).find('.btn.save').length).toEqual(1);
       expect($(el).find('.btn.cancel').length).toEqual(1);
     });

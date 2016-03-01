@@ -589,14 +589,14 @@
       "id": 133,
       "service_type_id": 503,
       "recorded_by_educator_id": 1,
-      "assigned_to_educator_id": 1,
+      "provided_by_educator_id": 1,
       "date_started": "2016-02-09"
     },
     {
       "id": 134,
       "service_type_id": 506,
       "recorded_by_educator_id": 1,
-      "assigned_to_educator_id": 1,
+      "provided_by_educator_id": 1,
       "date_started": "2016-02-09"
     }
   ],
