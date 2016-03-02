@@ -6,6 +6,8 @@ class FakeStudent
     add_discipline_incidents
     add_deprecated_interventions
     add_deprecated_notes
+    add_event_notes
+    add_services
     add_student_assessments_from_x2
     add_student_assessments_from_star
     homeroom.students << @student
@@ -181,6 +183,19 @@ class FakeStudent
       0
     end
     note_count.times { StudentNote.new(generator.next).save! }
+    nil
+  end
+
+  def add_event_notes
+    generator = FakeEventNoteGenerator.new(@student)
+    rand(0..9).times { EventNote.new(generator.next).save! }
+    nil
+  end
+
+  def add_services
+    generator = FakeServiceGenerator.new(@student)
+    service_counts = 20.in(100) ? rand(1..5) : 0
+    service_counts.times { Service.new(generator.next).save! }
     nil
   end
 end

@@ -16,7 +16,7 @@ Educator.destroy_all
 
 Educator.create!([{
   email: "demo@example.com",
-  full_name: 'Curtatone, Joe',
+  full_name: 'Principal, Laura',
   password: "demo-password",
   local_id: '350',
   schoolwide_access: true,
