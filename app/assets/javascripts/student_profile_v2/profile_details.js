@@ -4,6 +4,8 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
+  var QuadConverter = window.shared.QuadConverter;
+
   var ProfileDetails = window.shared.ProfileDetails = React.createClass({
     displayName: 'ProfileDetails',
 
