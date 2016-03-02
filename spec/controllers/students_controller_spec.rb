@@ -287,13 +287,25 @@ describe StudentsController, :type => :controller do
         end
 
         it 'creates a new service' do
-          skip 'TODO(kr) as part of backend service work'
+          expect { make_post_request(student, post_params) }.to change(Service, :count).by 1
         end
 
         it 'responds with JSON' do
           make_post_request(student, post_params)
-          expect(response.status).to eq 501
-          skip 'TODO(kr) as part of backend service work'
+          expect(response.status).to eq 200
+          make_post_request(student, post_params)
+          expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
+          expect(JSON.parse(response.body).keys).to eq [
+            'id',
+            'student_id',
+            'provided_by_educator_id',
+            'recorded_by_educator_id',
+            'service_type_id',
+            'recorded_at',
+            'date_started',
+            'created_at',
+            'updated_at'
+          ]
         end
       end
 
@@ -304,16 +316,27 @@ describe StudentsController, :type => :controller do
             service_type_id: 503,
             date_started: '2016-02-22',
             provided_by_educator_id: provided_by_educator.id,
-            recorded_by_educator_id: 187
+            recorded_by_educator_id: 350
           })
-          skip 'TODO(kr) as part of backend service work'
+          response_body = JSON.parse(response.body)
+          expect(response_body['recorded_by_educator_id']).to eq educator.id
+          expect(response_body['recorded_by_educator_id']).not_to eq 350
         end
       end
 
       context 'when missing params' do
         it 'fails with error messages' do
           make_post_request(student, { text: 'foo' })
-          skip 'TODO(kr) as part of backend service work'
+          expect(response.status).to eq 422
+          response_body = JSON.parse(response.body)
+          expect(response_body).to eq({
+            "errors" => [
+              "Provided by educator can't be blank",
+              "Student can't be blank",
+              "Service type can't be blank",
+              "Date started can't be blank"
+            ]
+          })
         end
       end
     end
