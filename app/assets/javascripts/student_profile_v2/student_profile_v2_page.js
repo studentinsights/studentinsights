@@ -225,7 +225,8 @@
     },
 
     renderServices: function(student) {
-      if (student.interventions.length === 0) {
+      var services = this.props.feed.services;
+      if (services.length === 0) {
         return createEl(SummaryList, {
           title: 'Services',
           elements: ['No services']
@@ -233,7 +234,7 @@
       }
       
       var limit = 3;
-      var sortedServices = _.sortBy(this.props.feed.services, 'date_started').reverse();
+      var sortedServices = _.sortBy(services, 'date_started').reverse();
       var elements = sortedServices.slice(0, limit).map(function(service) {
         var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
         var daysText = moment.utc(service.date_started).from(this.props.nowMomentFn(), true);

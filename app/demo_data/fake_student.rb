@@ -6,8 +6,6 @@ class FakeStudent
     add_discipline_incidents
     add_deprecated_interventions
     add_deprecated_notes
-    add_event_notes
-    add_services
     add_student_assessments_from_x2
     add_student_assessments_from_star
     homeroom.students << @student
@@ -184,13 +182,5 @@ class FakeStudent
     end
     note_count.times { StudentNote.new(generator.next).save! }
     nil
-  end
-
-  def add_event_notes
-    # TODO(kr)
-  end
-
-  def add_services
-    # TODO(kr)
   end
 end
