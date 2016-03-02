@@ -4,8 +4,8 @@ class FakeStudent
     @student = Student.create(data)
     add_attendance_events
     add_discipline_incidents
-    add_interventions
-    add_notes
+    add_deprecated_interventions
+    add_deprecated_notes
     add_student_assessments_from_x2
     add_student_assessments_from_star
     homeroom.students << @student
@@ -155,7 +155,7 @@ class FakeStudent
     end
   end
 
-  def add_interventions
+  def add_deprecated_interventions
     15.in(100) do
       generator = FakeInterventionGenerator.new(@student)
       intervention_count = Rubystats::NormalDistribution.new(3, 6).rng.round
@@ -171,7 +171,7 @@ class FakeStudent
     nil
   end
 
-  def add_notes
+  def add_deprecated_notes
     generator = FakeNoteGenerator.new(@student)
     note_count = if @student.interventions.size > 0
       rand(2..10)

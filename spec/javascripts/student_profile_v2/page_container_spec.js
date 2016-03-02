@@ -13,6 +13,10 @@ describe('PageContainer', function() {
     findColumns: function(el) {
       return $(el).find('.summary-container > div');
     },
+
+    interventionSummaryLists: function(el) {
+      return $(el).find('.interventions-column .SummaryList').toArray();
+    },
     
     createSpyActions: function() {
       return {
@@ -54,8 +58,16 @@ describe('PageContainer', function() {
 
       expect(el).toContainText('Daisy Poppins');
       expect(helpers.findColumns(el).length).toEqual(5);
-      expect($('.Sparkline').length).toEqual(9);
-      expect($('.InterventionsDetails').length).toEqual(1);
+      expect($(el).find('.Sparkline').length).toEqual(9);
+      expect($(el).find('.InterventionsDetails').length).toEqual(1);
+
+      var interventionLists = helpers.interventionSummaryLists(el);
+      expect(interventionLists.length).toEqual(3);
+      expect(interventionLists[0]).toContainText('Reg Ed');
+      expect(interventionLists[0]).toContainText('Homeroom 102');
+      expect(interventionLists[1]).toContainText('Counseling, outside');
+      expect(interventionLists[1]).toContainText('Attendance Contract');
+      expect(interventionLists[2]).toContainText('demo@');
     });
 
     it('opens dialog when clicking Take Notes button', function() {

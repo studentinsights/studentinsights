@@ -57,4 +57,13 @@ module SerializeDataHelper
     end
     index
   end
+
+  # Used to send down constants to the UI
+  def service_types_index
+    index = {}
+    ServiceType.all.each do |service_type|
+      index[service_type.id] = service_type
+    end
+    index
+  end
 end
