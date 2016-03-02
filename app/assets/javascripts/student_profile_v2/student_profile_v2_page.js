@@ -262,11 +262,11 @@
       if (educatorIds.length > limit) {
         elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
       } else if (educatorIds.length === 0) {
-        elements.push(['No staff']);
+        elements.push(['None']);
       }
-      
+
       return createEl(SummaryList, {
-        title: 'Staff',
+        title: 'Support staff',
         elements: elements
       });
     },
