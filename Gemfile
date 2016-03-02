@@ -25,6 +25,8 @@ gem 'seedbank'
 gem 'thor'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 group :production do
   gem 'rails_12factor'

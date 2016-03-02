@@ -63,6 +63,15 @@ class StudentsController < ApplicationController
     }
   end
 
+  def sped_referral
+    @student = Student.find(params[:id])
+    respond_to do |format|
+      format.pdf do
+        render pdf: "sped_referral"
+      end
+    end
+  end
+
   # post
   def event_note
     clean_params = params.require(:event_note).permit(*[
