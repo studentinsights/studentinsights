@@ -6,6 +6,7 @@ class CreateServices < ActiveRecord::Migration
       t.integer :service_type_id
       t.text :text
       t.datetime :recorded_at
+      t.datetime :date_started
 
       t.timestamps
     end

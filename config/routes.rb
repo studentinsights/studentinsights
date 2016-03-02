@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :students do
     get :profile, on: :member
     post :event_note, on: :member
+    post :service, on: :member
   end
   resources :homerooms
   resources :interventions
