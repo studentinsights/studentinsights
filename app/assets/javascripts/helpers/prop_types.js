@@ -22,6 +22,17 @@
     }),
     api: React.PropTypes.shape({
       saveNotes: React.PropTypes.func.isRequired
+    }),
+
+    // The feed of all notes and data entered in Student Insights for
+    // a student.
+    feed: React.PropTypes.shape({
+      event_notes: React.PropTypes.array.isRequired,
+      services: React.PropTypes.array.isRequired,
+      deprecated: React.PropTypes.shape({
+        notes: React.PropTypes.array.isRequired,
+        interventions: React.PropTypes.array.isRequired
+      })
     })
   };
 })();

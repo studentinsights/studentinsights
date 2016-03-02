@@ -12,6 +12,7 @@
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
   var Educator = window.shared.Educator;
+  var FeedHelpers = window.shared.FeedHelpers;
 
   var StudentProfileHeader = window.shared.StudentProfileHeader;
   var ProfileDetails = window.shared.ProfileDetails;
@@ -23,30 +24,29 @@
 
   // define page component
   var styles = {
-    page: {
-      marginLeft: 20,
-      marginRight: 20
-    },
     summaryContainer: {
       display: 'flex',
       flexDirection: 'row',
-      background: '#eee'
+      background: '#eee',
+      marginLeft: 20,
+      marginRight: 20
     },
     detailsContainer: {
       margin: 30
     },
     academicColumn: {
       textAlign: 'center',
-      flex: 3
+      flex: 1,
+      maxWidth: 220
     },
     column: {
-      flex: 5,
-      padding: 20,
+      flex: 1,
+      padding: 15,
       cursor: 'pointer'
     },
     selectedColumn: {
       border: '5px solid rgba(49, 119, 201, 0.64)',
-      padding: 15
+      padding: 10
     },
     summaryWrapper: {
       paddingBottom: 10
@@ -66,6 +66,7 @@
       // constants
       interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
+      serviceTypesIndex: React.PropTypes.object.isRequired,
 
       // data
       student: React.PropTypes.object.isRequired,
@@ -110,17 +111,8 @@
       return (columnKey === this.props.selectedColumnKey) ? styles.selectedColumn : {};
     },
 
-    // Merges data from event_notes, services and deprecated tables (notes, interventions).
-    mergedNotes: function() {
-      var v1Notes = this.props.feed.v1_notes.map(function(note) { return merge(note, { version: 'v1', sort_timestamp: note.created_at_timestamp }); });
-      var v2Notes = this.props.feed.event_notes.map(function(note) { return merge(note, { version: 'v2', sort_timestamp: note.recorded_at }); });
-      // TODO(kr) v1 interventions as notes
-      // TODO(kr) v1 interventions progress notes as notes
-      return _.sortBy(v1Notes.concat(v2Notes), 'sort_timestamp').reverse();
-    },
-
     render: function() {
-      return dom.div({ className: 'StudentProfileV2Page', style: styles.page },
+      return dom.div({ className: 'StudentProfileV2Page' },
         this.renderSaveStatus(),
         createEl(StudentProfileHeader, { student: this.props.student }),
         dom.div({ className: 'summary-container', style: styles.summaryContainer },
@@ -153,9 +145,15 @@
 
     renderSectionDetails: function() {
       switch (this.props.selectedColumnKey) {
-        case 'profile': return createEl(ProfileDetails, {});
-        case 'ela': return createEl(ELADetails, { chartData: this.props.chartData });
-        case 'math': return createEl(MathDetails, { chartData: this.props.chartData });
+        case 'profile': return createEl(ProfileDetails,
+          {
+            chartData: this.props.chartData,
+            attendanceData: this.props.attendanceData,
+            student: this.props.student
+          }
+        );
+        case 'ela': return createEl(ELADetails, {chartData: this.props.chartData});
+        case 'math': return createEl(MathDetails, {chartData: this.props.chartData});
         case 'attendance':
           var attendanceData = this.props.attendanceData;
           return createEl(AttendanceDetails, {
@@ -168,13 +166,13 @@
           return createEl(InterventionsDetails, merge(_.pick(this.props,
             'currentEducator',
             'student',
+            'feed',
             'interventionTypesIndex',
+            'serviceTypesIndex',
             'educatorsIndex',
             'actions',
             'requests'
-          ), {
-            mergedNotes: this.mergedNotes()
-          }));
+          )));
       }
       return null;
     },
@@ -207,7 +205,7 @@
         onClick: this.onColumnClicked.bind(this, columnKey)
       }, this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
-        this.renderInterventions(student),
+        this.renderServices(student),
         this.renderStaff(student)
       ]));
     },
@@ -226,35 +224,36 @@
       });
     },
 
-    renderInterventions: function(student) {
+    renderServices: function(student) {
       if (student.interventions.length === 0) {
         return createEl(SummaryList, {
           title: 'Services',
           elements: ['No services']
         });
       }
-
+      
       var limit = 3;
-      var sortedInterventions = _.sortBy(student.interventions, 'start_date').reverse();
-      var elements = sortedInterventions.slice(0, limit).map(function(intervention) {
-        var interventionText = this.props.interventionTypesIndex[intervention.intervention_type_id].name;
-        var daysText = moment.utc(intervention.start_date).from(this.props.nowMomentFn(), true);
-        return dom.span({ key: intervention.id },
-          dom.span({}, interventionText),
+      var sortedServices = _.sortBy(this.props.feed.services, 'date_started').reverse();
+      var elements = sortedServices.slice(0, limit).map(function(service) {
+        var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
+        var daysText = moment.utc(service.date_started).from(this.props.nowMomentFn(), true);
+        return dom.span({ key: service.id },
+          dom.span({}, serviceText),
           dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
         );
       }, this);
-      if (sortedInterventions.length > limit) elements.push(dom.div({}, '+ ' + (sortedInterventions.length - limit) + ' more'));
+      if (sortedServices.length > limit) elements.push(dom.div({}, '+ ' + (sortedServices.length - limit) + ' more'));
+
       return createEl(SummaryList, {
         title: 'Services',
         elements: elements
       });
     },
 
+    // TODO(kr) this should be based on services and notes
     renderStaff: function(student) {
       var limit = 3;
-      var mergedNotes = this.mergedNotes();
-      var educatorIds = _.unique(_.pluck(mergedNotes, 'educator_id'));
+      var educatorIds = FeedHelpers.allEducatorIds(this.props.feed);
       var elements = educatorIds.slice(0, limit).map(function(educatorId) {
         return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);
@@ -371,7 +370,7 @@
     },
 
     cumulativeCountQuads: function(attendanceEvents) {
-      return QuadConverter.convert(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
+      return QuadConverter.convertAttendanceEvents(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
     },
 
     // quads format is: [[year, month (Ruby), day, value]]

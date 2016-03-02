@@ -11,10 +11,11 @@
       padding: 20
     },
     nameTitle: {
-      fontSize: 20,
+      fontSize: 30,
       fontWeight: 'bold'
     },
     titleItem: {
+      fontSize: 25,
       padding: 5
     }
   };
@@ -37,18 +38,27 @@
           href: Routes.student(student.id),
           style: styles.nameTitle
         }, student.first_name + ' ' + student.last_name),
+        dom.span({
+          style: styles.titleItem
+        }, '•'),
         dom.a({
           href: Routes.school(student.school_id),
           style: styles.titleItem
         }, student.school_name),
         dom.span({
           style: styles.titleItem
+        }, '•'),
+        dom.span({
+          style: styles.titleItem
         }, student.grade),
+        dom.span({
+          style: styles.titleItem
+        }, '•'),
         dom.a({
           className: 'homeroom-link',
           href: Routes.homeroom(student.homeroom_id),
           style: styles.titleItem
-        }, student.homeroom_name)
+        }, 'Homeroom ' + student.homeroom_name)
       );
     }
   });

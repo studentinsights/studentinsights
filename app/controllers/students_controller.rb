@@ -44,18 +44,17 @@ class StudentsController < ApplicationController
     end
   end
 
-  # TODO(kr) clarify serialized_data in student.rb, why both and how used
-  # TODO(kr) can simplify chart_data later
   def profile
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
     @serialized_data = {
       current_educator: current_educator,
-      student: student.serialized_data,
+      student: serialize_student_for_profile(student),
       notes: student.student_notes.map { |note| serialize_student_note(note) },
       feed: student_feed(student),
       chart_data: chart_data,
       intervention_types_index: intervention_types_index,
+      service_types_index: fixture_service_types_index, # TODO(kr) implement this as part of the backend work
       educators_index: educators_index,
       attendance_data: {
         discipline_incidents: student.most_recent_school_year.discipline_incidents,
@@ -83,6 +82,30 @@ class StudentsController < ApplicationController
     end
   end
 
+  # post
+  def service
+    clean_params = params.require(:service).permit(*[
+      :student_id,
+      :service_type_id,
+      :date_started,
+      :provided_by_educator_id
+    ])
+    
+    # TODO(kr) Placeholder response in development mode, for
+    # testing UI end-to-end.  Remove this when productionizing.
+    if Rails.env.development?
+      render json: clean_params.as_json.merge({
+        recorded_by_educator_id: current_educator.id,
+        date_discontinued: nil,
+        discontinued_by_educator_id: nil,
+        id: rand(2000..3000)
+      })
+    else
+      # TODO(kr) Production path not implemented yet, needs models
+      return render json: clean_params.as_json, status: 501
+    end
+  end
+
   def names
     q = params[:q]
     sorted_students = search_and_score(q, Student.with_school)
@@ -96,6 +119,18 @@ class StudentsController < ApplicationController
   private
   def not_authorized
     redirect_to not_authorized_path
+  end
+
+  def serialize_student_for_profile(student)
+    student.as_json.merge({
+      interventions: student.interventions.as_json,
+      student_risk_level: student.student_risk_level.as_json,
+      absences_count: student.most_recent_school_year.absences.count,
+      tardies_count: student.most_recent_school_year.tardies.count,
+      school_name: student.try(:school).try(:name),
+      homeroom_name: student.try(:homeroom).try(:name),
+      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count
+    }).stringify_keys
   end
 
   def search_and_score(query, students)
@@ -125,38 +160,52 @@ class StudentsController < ApplicationController
     (search_token_scores.sum.to_f / search_tokens.length)
   end
 
-  def serialize_student_for_profile(student)
-    {
-      student: student,
-      student_assessments: student.student_assessments,
-      star_math_results: student.star_math_results,
-      star_reading_results: student.star_reading_results,
-      mcas_mathematics_results: student.mcas_mathematics_results,
-      mcas_ela_results: student.mcas_ela_results,
-      absences_count_by_school_year: student.student_school_years.map {|year| year.absences.length },
-      tardies_count_by_school_year: student.student_school_years.map {|year| year.tardies.length },
-      discipline_incidents_by_school_year: student.student_school_years.map {|year| year.discipline_incidents.length },
-      school_year_names: student.student_school_years.pluck(:name),
-      interventions: student.interventions
-    }
-  end
-
-  # TODO(kr) this is placeholder fixture data for now, to test design prototypes on the v2 student profile
+  # TODO(kr) this has some placeholder fixture data for now, to test design prototypes on the v2 student profile
   # page
   def student_feed(student)
     {
-      v1_notes: student.student_notes.map { |note| serialize_student_note(note) },
-      v1_interventions: student.interventions.map { |intervention| serialize_intervention(intervention) },
       event_notes: student.event_notes,
-      v2_services: if Rails.env.development? then v2_services_fixture else [] end
+      services: if Rails.env.development? then fixture_services else [] end,
+      deprecated: {
+        notes: student.student_notes.map { |note| serialize_student_note(note) },
+        interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
+      }
     }
   end
 
-  def v2_services_fixture
+  # TODO(kr) temporary, until building backend tables
+  def fixture_service_types_index
+    {
+      502 => { id: 502, name: 'Attendance Officer' },
+      503 => { id: 503, name: 'Attendance Contract' },
+      504 => { id: 504, name: 'Behavior Contract' },
+      505 => { id: 505, name: 'Counseling, in-house' },
+      506 => { id: 506, name: 'Counseling, outside' },
+      507 => { id: 507, name: 'Reading intervention' },
+      508 => { id: 508, name: 'Math intervention' }
+    }
+  end
+
+  # Merges 'event_notes' table with 'discontinued_event_notes' to
+  # present the current view of what's active and what's been discontinued.
+  def fixture_services
     fixture_educator_id = 1
-    [
-      { version: 'v2', id: 133, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: 'Working on goals' },
-      { version: 'v2', id: 134, profile_v2_service_type_id: 1, recorded_by_educator_id: fixture_educator_id, assigned_to_educator_id: fixture_educator_id, start_date: '2016-02-09T20:56:51.638Z', end_date: nil, text: ''  }
-    ]
+    [{
+      id: 133,
+      service_type_id: 503,
+      provided_by_educator_id: fixture_educator_id,
+      recorded_by_educator_id: fixture_educator_id,
+      date_started: '2016-02-09',
+      date_discontinued: nil,
+      discontinued_by_educator_id: fixture_educator_id
+    }, {
+      id: 134,
+      service_type_id: 506,
+      provided_by_educator_id: fixture_educator_id,
+      recorded_by_educator_id: fixture_educator_id,
+      date_started: '2016-02-08',
+      date_discontinued: nil,
+      discontinued_by_educator_id: fixture_educator_id
+    }]
   end
 end
