@@ -201,6 +201,7 @@
       var columnKey = 'interventions';
 
       return dom.div({
+        className: 'interventions-column',
         style: merge(styles.column, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       }, this.padElements(styles.summaryWrapper, [
