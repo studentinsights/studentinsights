@@ -3,7 +3,7 @@ class Assessment < ActiveRecord::Base
   has_many :students, through: :student_assessments
   validate :has_valid_subject
 
-  VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics', 'Science', 'Arts', 'Technology' ].freeze
+  VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
   VALID_STAR_SUBJECTS = [ 'Mathematics', 'Reading' ].freeze
 
   def has_valid_subject

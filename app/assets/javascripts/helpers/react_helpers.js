@@ -6,6 +6,8 @@
     dom: React.DOM,
     createEl: React.createElement.bind(React),
     merge: function() {
+      // Combines several objects into one.
+      // e.g. merge({a: 1, b: 2}, {c: 'hi!'}) = {a: 1, b: 2, c: 'hi!'}
       var items = Array.prototype.slice.call(arguments);
       var out = {};
       items.forEach(function(item) {

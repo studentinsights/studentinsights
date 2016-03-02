@@ -54,6 +54,7 @@ We'd love your help!  If you're interested in figuring out how to help, the best
 
 If you're an educator and want to try this out or have ideas about how to improve the product, we'd love to hear from you.  If you're an experienced developer or designer, there's some work we could use help with and you dive right into it.  We'll work with you to make sure your work can ship and will immediately help out principals and teachers.
 
+If you need help with how to submit a pull request, check out the awesome [GitHub help](https://help.github.com/articles/using-pull-requests/).
 
 
 ## How it works
@@ -64,16 +65,27 @@ The project is a Rails app with a Postgres database.  There are background tasks
 
 ## Development Environment
 
-### Installation
+This is a Ruby on Rails app that uses a PostgreSQL database, and relies on React for much of the UI code.
 
-This is a Ruby on Rails app and uses a PostgreSQL database.
+#### 1. Install dependencies
 
 Choose your favorite local development approach:
 
 * [Local development with Docker](docs/local_development_with_docker.md)
 * [Local installation on OSX or Linux](docs/local_installation_notes.md)
 
-### Tests
+#### 2. Create database tables and seed them with demo data
+
+```
+bundle exec rake db:create db:migrate db:seed:demo
+```
+
+This will create demo students with fake student information. The demo educator username is `demo@example.com` and the demo password is `demo-password`.
+
+#### 3. Start Rails
+Once you've created the data, start a local server by running `rails s` from the root of your project. When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.
+
+#### 4. Run the tests
 This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
 
 ```
@@ -87,18 +99,60 @@ You can also run them from the command line:
 ```
 teaspoon
 ```
+#### 5. Write code!
+This project is a Rails app and has a typical Rails project structure.  If you'd like to get up to speed on Rails, we recommend checking out their [great documentation](http://guides.rubyonrails.org/).
 
-### Demo data
+It also uses React for much the user interface code, with one minor wrinkle (see below).  If you'd like to get up to speed on React, we recommend their great documentation, and the [Tutorial](https://facebook.github.io/react/docs/tutorial.html) and [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html) pages in particular.
+
+The wrinkle with React usage is that at the moment, we don't use the JSX syntax but instead call methods directly.  This is just a syntatic change and means:
 
 ```
-rake db:seed:demo
+var ProductTable = React.createClass({
+  render: function() {
+    var rows = [];
+    this.props.products.forEach(function(product) {
+      rows.push(<ProductRow product={product} key={product.name} />);
+    });
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
+  }
+});
 ```
 
-This will create demo students with fake student information. The demo educator username is `demo@example.com` and the demo password is `demo-password`.
+becomes:
 
-Once you've created the data, start a local server by running `rails s` from the root of your project. When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.
+```
+var ProductTable = React.createClass({
+  render: function() {
+    var rows = [];
+    this.props.products.forEach(function(product) {
+      rows.push(createEl(ProductRow, { product: product, key: product.name }));
+    });
+    return (
+      dom.table({},
+        dom.thead({},
+          dom.tr({},
+            dom.th({}, 'Name'),
+            dom.th({}, 'Price')
+          )
+        ),
+        dom.tbody({}, rows)
+      )
+    );
+  }
+});
+```
 
-
+There are also a few places where we use [Flux](https://facebook.github.io/flux/docs/overview.html) patterns.
 
 ## Deployment
 ### Importing real data

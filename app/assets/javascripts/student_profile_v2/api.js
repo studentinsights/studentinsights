@@ -14,6 +14,20 @@
       };
       return this._post(url, body);
     },
+
+    saveService: function(studentId, serviceParams) {
+      var url = '/students/' + studentId + '/service.json';
+      var body = {
+        service: {
+          service_type_id: serviceParams.serviceTypeId,
+          date_started: serviceParams.dateStartedText,
+          provided_by_educator_id: serviceParams.providedByEducatorId,
+          student_id: studentId
+        }
+      };
+      return this._post(url, body);
+    },
+
     _post: function(url, body) {
       return $.ajax({
         url: url,

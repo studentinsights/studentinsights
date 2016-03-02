@@ -12,7 +12,7 @@
       return '/homerooms/' + id;
     },
     school: function(id) {
-      return '/school/' + id;
+      return '/schools/' + id;
     }
   };
 })();

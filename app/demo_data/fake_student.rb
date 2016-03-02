@@ -159,7 +159,14 @@ class FakeStudent
     15.in(100) do
       generator = FakeInterventionGenerator.new(@student)
       intervention_count = Rubystats::NormalDistribution.new(3, 6).rng.round
-      intervention_count.times { Intervention.new(generator.next).save! }
+      intervention_count.times do
+        intervention = Intervention.new(generator.next)
+        intervention.save!
+        rand(0..2).times do
+          intervention.progress_notes << generator.next_progress_note(intervention)
+        end
+        intervention.save!
+      end
     end
     nil
   end

@@ -40,6 +40,7 @@
         // constants
         interventionTypesIndex: serializedData.interventionTypesIndex,
         educatorsIndex: serializedData.educatorsIndex,
+        serviceTypesIndex: serializedData.serviceTypesIndex,
 
         // data
         student: serializedData.student,
@@ -50,7 +51,8 @@
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
         requests: {
-          saveNotes: null
+          saveNotes: null,
+          saveService: null
         }
       };
     },
@@ -86,14 +88,30 @@
       this.setState({ requests: merge(this.state.requests, { saveNotes: 'error' }) });
     },
 
+    onClickSaveService: function(serviceParams) {
+      this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
+      this.api.saveService(this.state.student.id, serviceParams)
+        .done(this.onSaveServiceDone)
+        .fail(this.onSaveServiceFail);
+    },
+
+    onSaveServiceDone: function(response) {
+      var updatedServices = this.state.feed.services.concat([response]);
+      var updatedFeed = merge(this.state.feed, { services: updatedServices });
+      this.setState({
+        feed: updatedFeed,
+        requests: merge(this.state.requests, { saveService: null })
+      });
+    },
+
+    onSaveServiceFail: function(request, status, message) {
+      this.setState({ requests: merge(this.state.requests, { saveService: 'error' }) });
+    },
+
     dateRange: function() {
       var nowMoment = this.props.nowMomentFn();
       return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
     },
-
-    cumulativeCountQuads: function(attendanceEvents) {
-      return QuadConverter.convert(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
-    }, 
 
     render: function() {
       return dom.div({ className: 'PageContainer' },
@@ -101,6 +119,7 @@
           'currentEducator',
           'interventionTypesIndex',
           'educatorsIndex',
+          'serviceTypesIndex',
           'student',
           'feed',
           'chartData',
@@ -111,7 +130,8 @@
           nowMomentFn: this.props.nowMomentFn,
           actions: this.props.actions || {
             onColumnClicked: this.onColumnClicked,
-            onClickSaveNotes: this.onClickSaveNotes
+            onClickSaveNotes: this.onClickSaveNotes,
+            onClickSaveService: this.onClickSaveService
           }
         }))
       );

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get :profile, on: :member
     get :sped_referral, on: :member
     post :event_note, on: :member
+    post :service, on: :member
   end
   resources :homerooms
   resources :interventions
