@@ -194,8 +194,8 @@ class FakeStudent
 
   def add_services
     generator = FakeServiceGenerator.new(@student)
-    service_count = 10.in(100) ? rand(1..5) : 0
-    service_count.times { Service.new(generator.next).save! }
+    service_counts = 20.in(100) ? rand(1..5) : 0
+    service_counts.times { Service.new(generator.next).save! }
     nil
   end
 end
