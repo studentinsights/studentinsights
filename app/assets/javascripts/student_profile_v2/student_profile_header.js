@@ -5,6 +5,18 @@
   var merge = window.shared.ReactHelpers.merge;
   var Routes = window.shared.Routes;
 
+  var formatGradeNumber = function(grade) {
+      if(grade === 1){
+        return "1st";
+      } else if (grade === 2) {
+        return "2nd";
+      } else if (grade === 3) {
+        return "3rd";
+      } else {
+        return grade + "th";
+      }
+  }
+
   var styles = {
     titleContainer: {
       fontSize: 16,
@@ -50,7 +62,7 @@
         }, '•'),
         dom.span({
           style: styles.titleItem
-        }, student.grade),
+        }, formatGradeNumber(student.grade) + ' Grade'),
         dom.span({
           style: styles.titleItem
         }, '•'),
