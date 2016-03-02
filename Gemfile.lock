@@ -116,7 +116,6 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
-    pdfkit (0.8.2)
     pg (0.18.4)
     phantomjs (2.1.1.0)
     pivotal_git_scripts (1.4.0)
@@ -246,7 +245,6 @@ DEPENDENCIES
   launchy
   net-sftp
   net-ssh
-  pdfkit
   pg
   phantomjs
   pivotal_git_scripts
@@ -270,4 +268,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
