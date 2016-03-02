@@ -17,7 +17,7 @@
 
     propTypes: {
       nowMomentFn: React.PropTypes.func.isRequired,
-      serializedData: React.PropTypes.object.isRequired, // TODO(kr) shape PropType
+      serializedData: React.PropTypes.object.isRequired,
       queryParams: React.PropTypes.object.isRequired,
 
       // for testing

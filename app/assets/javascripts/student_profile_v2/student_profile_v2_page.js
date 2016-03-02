@@ -88,7 +88,7 @@
         mcas_series_math_growth: React.PropTypes.array
       }),
       attendanceData: React.PropTypes.shape({
-        discipline_incidents: React.PropTypes.array, // TODO(kr) case bug serializing from rails
+        discipline_incidents: React.PropTypes.array,
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
       }),
@@ -252,7 +252,6 @@
       });
     },
 
-    // TODO(kr) this should be based on services and notes
     renderStaff: function(student) {
       var limit = 3;
       var educatorIds = FeedHelpers.allEducatorIds(this.props.feed);
@@ -260,7 +259,12 @@
         return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);
       
-      if (educatorIds.length > limit) elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
+      if (educatorIds.length > limit) {
+        elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
+      } else if (educatorIds.length === 0) {
+        elements.push(['No staff']);
+      }
+      
       return createEl(SummaryList, {
         title: 'Staff',
         elements: elements
