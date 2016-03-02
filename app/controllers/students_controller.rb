@@ -32,7 +32,6 @@ class StudentsController < ApplicationController
 
     @roster_url = homeroom_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
-    @student_url = student_path(@student)
 
     respond_to do |format|
       format.html
@@ -40,7 +39,6 @@ class StudentsController < ApplicationController
         render csv: StudentProfileCsvExporter.new(@student).profile_csv_export,
         filename: 'export'
       }
-      format.pdf { render text: PDFKit.new(@student_url).to_pdf }
     end
   end
 
@@ -62,6 +60,15 @@ class StudentsController < ApplicationController
         absences: student.most_recent_school_year.absences
       }
     }
+  end
+
+  def sped_referral
+    @student = Student.find(params[:id])
+    respond_to do |format|
+      format.pdf do
+        render pdf: "sped_referral"
+      end
+    end
   end
 
   # post
