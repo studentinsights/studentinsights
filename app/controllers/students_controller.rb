@@ -44,8 +44,6 @@ class StudentsController < ApplicationController
     end
   end
 
-  # TODO(kr) clarify serialized_data in student.rb, why both and how used
-  # TODO(kr) can simplify chart_data later
   def profile
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
@@ -56,7 +54,7 @@ class StudentsController < ApplicationController
       feed: student_feed(student),
       chart_data: chart_data,
       intervention_types_index: intervention_types_index,
-      service_types_index: {}, # TODO(kr) this is part of the backend work
+      service_types_index: fixture_service_types_index, # TODO(kr) implement this as part of the backend work
       educators_index: educators_index,
       attendance_data: {
         discipline_incidents: student.most_recent_school_year.discipline_incidents,
@@ -81,6 +79,30 @@ class StudentsController < ApplicationController
       render json: event_note.as_json
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
+    end
+  end
+
+  # post
+  def service
+    clean_params = params.require(:service).permit(*[
+      :student_id,
+      :service_type_id,
+      :date_started,
+      :provided_by_educator_id
+    ])
+    
+    # TODO(kr) Placeholder response in development mode, for
+    # testing UI end-to-end.  Remove this when productionizing.
+    if Rails.env.development?
+      render json: clean_params.as_json.merge({
+        recorded_by_educator_id: current_educator.id,
+        date_discontinued: nil,
+        discontinued_by_educator_id: nil,
+        id: rand(2000..3000)
+      })
+    else
+      # TODO(kr) Production path not implemented yet, needs models
+      return render json: clean_params.as_json, status: 501
     end
   end
 
@@ -143,26 +165,47 @@ class StudentsController < ApplicationController
   def student_feed(student)
     {
       event_notes: student.event_notes,
-      services: if Rails.env.development? then services_fixture else [] end,
-      v1_notes: student.student_notes.map { |note| serialize_student_note(note) },
-      v1_interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
+      services: if Rails.env.development? then fixture_services else [] end,
+      deprecated: {
+        notes: student.student_notes.map { |note| serialize_student_note(note) },
+        interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
+      }
     }
   end
 
-  def services_fixture
+  # TODO(kr) temporary, until building backend tables
+  def fixture_service_types_index
+    {
+      502 => { id: 502, name: 'Attendance Officer' },
+      503 => { id: 503, name: 'Attendance Contract' },
+      504 => { id: 504, name: 'Behavior Contract' },
+      505 => { id: 505, name: 'Counseling, in-house' },
+      506 => { id: 506, name: 'Counseling, outside' },
+      507 => { id: 507, name: 'Reading intervention' },
+      508 => { id: 508, name: 'Math intervention' }
+    }
+  end
+
+  # Merges 'event_notes' table with 'discontinued_event_notes' to
+  # present the current view of what's active and what's been discontinued.
+  def fixture_services
     fixture_educator_id = 1
     [{
       id: 133,
-      service_type_id: 1,
+      service_type_id: 503,
+      provided_by_educator_id: fixture_educator_id,
       recorded_by_educator_id: fixture_educator_id,
-      assigned_to_educator_id: fixture_educator_id,
-      date_started: '2016-02-09'
+      date_started: '2016-02-09',
+      date_discontinued: nil,
+      discontinued_by_educator_id: fixture_educator_id
     }, {
       id: 134,
-      service_type_id: 1,
+      service_type_id: 506,
+      provided_by_educator_id: fixture_educator_id,
       recorded_by_educator_id: fixture_educator_id,
-      assigned_to_educator_id: fixture_educator_id,
-      date_started: '2016-02-08'
+      date_started: '2016-02-08',
+      date_discontinued: nil,
+      discontinued_by_educator_id: fixture_educator_id
     }]
   end
 end

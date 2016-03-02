@@ -29,31 +29,31 @@
         });
       });
       _.each(this.props.chartData.mcas_series_ela_scaled, function(quad){
-        var year = quad[0], month = quad[1], day = quad[2], score = quad[3];
+        var score = quad[3];
         events.push({
           message: name + ' scored a ' + score + ' on the ELA section of the MCAS.',
-          date: new Date(year, month, day)
+          date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.mcas_series_math_scaled, function(quad){
-        var year = quad[0], month = quad[1], day = quad[2], score = quad[3];
+        var score = quad[3];
         events.push({
           message: name + ' scored a ' + score + ' on the Math section of the MCAS.',
-          date: new Date(year, month, day)
+          date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_reading_percentile, function(quad){
-        var year = quad[0], month = quad[1], day = quad[2], score = quad[3];
+        var score = quad[3];
         events.push({
           message: name + ' scored a ' + score + '% on the Reading section of STAR.',
-          date: new Date(year, month, day)
+          date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_math_percentile, function(quad){
-        var year = quad[0], month = quad[1], day = quad[2], score = quad[3];
+        var score = quad[3];
         events.push({
           message: name + ' scored a ' + score + '% on the Math section of STAR.',
-          date: new Date(year, month, day)
+          date: QuadConverter.toDate(quad)
         });
       });
       // TODO: incorporate discipline incidents.

@@ -20,23 +20,33 @@ class FakeInterventionGenerator
       number_of_hours: rand(1..8),
       goal: goal_for(intervention_type),
       custom_intervention_name: nil,
-      progress_notes: generate_progress_notes_for(intervention_type, educator)
+      progress_notes: []
     }
   end
 
+  def next_progress_note(intervention)
+    ProgressNote.new({
+      intervention: intervention,
+      created_at: intervention.end_date + rand(0..14).days,
+      content: progress_note_for(intervention),
+      educator_id: intervention.educator.id
+    })
+  end
+
+  private
   def sample_intervention_type
     InterventionType.all.sample
   end
 
   def comment_for(intervention_type)
-    ['foo', 'bar', 'whatever'].sample
+    ['Something happened.', 'The student had a tough day.', 'This intervention has worked well.'].sample
   end
 
   def goal_for(intervention_type)
-    ['reduce behavior', 'increase behavior', 'pass assessment', 'increase growth percentile'].sample
+    ['Reduce behavior.', 'Increase how often the student is engaged in positive behaviors.', 'The student will pass the assessment.', 'Increase growth percentile for this academic subject.'].sample
   end
 
-  def generate_progress_notes_for(intervention_type, educator)
-    []
+  def progress_note_for(intervention)
+    ['Making good progress.', 'Student is struggling.', 'Student is not progressing as expected.'].sample
   end
 end
