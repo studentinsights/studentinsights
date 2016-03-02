@@ -60,11 +60,6 @@
       currentEducator: React.PropTypes.object.isRequired
     },
 
-    getDefaultProps: function() {
-      // TODO(kr) allow saving once backend is ready
-      return { isSaveEnabled: true };
-    },
-
     getInitialState: function() {
       return {
         serviceTypeId: null,
@@ -187,15 +182,15 @@
     },
 
     renderButtons: function() {
-      var isFormComplete = (this.state.providedByEducatorId && this.state.serviceTypeId && this.state.momentStarted)
-      var isSaveEnabled = this.props.isSaveEnabled && isFormComplete;
+      var isFormComplete = (this.state.providedByEducatorId && this.state.serviceTypeId && this.state.momentStarted);
+      var isSaveEnabled = !isFormComplete;
       return dom.div({ style: { marginTop: 15 } },
         dom.button({
           style: {
             marginTop: 20,
             background: (isSaveEnabled) ? undefined : '#ccc'
           },
-          disabled: !isSaveEnabled,
+          disabled: isSaveEnabled,
           className: 'btn save',
           onClick: this.onClickSave
         }, 'Record service'),

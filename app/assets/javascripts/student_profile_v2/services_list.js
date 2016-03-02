@@ -54,9 +54,6 @@
       return dom.div({ className: 'ServicesList' }, elements);
     },
 
-    // TODO(kr) allow editing, fixup.  'no longer active'
-    // TODO(kr) for now, going with ignoring older data we could interpret to be here,
-    // for end-user simplicity.  Start with fresh data.
     renderService: function(service) {
       var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
       var momentStarted = moment.utc(service.date_started);

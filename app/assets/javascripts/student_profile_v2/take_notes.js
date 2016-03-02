@@ -132,7 +132,6 @@
       );
     },
 
-    // TODO(kr) extract
     renderNoteHeader: function(header) {
       return dom.div({},
         dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
@@ -141,7 +140,7 @@
       );
     },
 
-    // TODO(kr) extract
+    // TODO(kr) extract button UI
     renderNoteButton: function(noteText, noteTypeId) {
       return dom.button({
         className: 'btn note-type',
