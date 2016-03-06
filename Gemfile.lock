@@ -105,6 +105,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -121,6 +122,10 @@ GEM
     pivotal_git_scripts (1.4.0)
     polyglot (0.3.5)
     probability (1.0.0)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (1.5.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -188,6 +193,7 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    slop (3.6.0)
     spring (1.6.3)
     sprockets (2.12.4)
       hike (~> 1.2)
@@ -251,6 +257,7 @@ DEPENDENCIES
   phantomjs
   pivotal_git_scripts
   probability
+  pry
   rack-test
   rails (= 4.1.4)
   rails_12factor
