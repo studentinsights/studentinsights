@@ -42,11 +42,24 @@ class FakeStudent
       race: ["A", "B", "H", "W"].sample,
       first_name: DISNEY_FIRST_NAMES.sample,
       last_name: DISNEY_LAST_NAMES.sample,
-      local_id: "000#{rand(1000)}",
+      local_id: unique_local_id,
       limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "FLEP"].sample,
       free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample,
       home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample
     }
+  end
+
+  def unique_local_id
+    existing_local_ids = Student.pluck(:local_id)
+    local_id = random_local_id
+    while existing_local_ids.include?(local_id)
+      local_id = random_local_id
+    end
+    local_id
+  end
+
+  def random_local_id
+    "000#{rand(1000)}"
   end
 
   def plan_504
