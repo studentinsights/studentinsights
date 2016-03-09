@@ -28,6 +28,10 @@ describe('RecordService', function() {
       return $(el).find('.btn.service-type').toArray().map(function(el) {
         return $.trim(el.innerText);
       });
+    },
+
+    findSaveButton: function(el) {
+      return $(el).find('.btn.save');
     }
   };
 
@@ -51,7 +55,8 @@ describe('RecordService', function() {
       expect($(el).find('.Select').length).toEqual(1);
       expect(el).toContainText('When did they start?');
       expect($(el).find('.Datepicker .datepicker.hasDatepicker').length).toEqual(1);
-      expect($(el).find('.btn.save').length).toEqual(1);
+      expect(helpers.findSaveButton(el).length).toEqual(1);
+      expect(helpers.findSaveButton(el).attr('disabled')).toEqual('disabled');
       expect($(el).find('.btn.cancel').length).toEqual(1);
     });
   });
