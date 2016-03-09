@@ -26,7 +26,7 @@ Run the project using `docker-compose`:
   - Start all the services: `docker-compose up`
   - Open `http://docker:3000` in a browser!
 
-Running RSpec tests:
+### Running RSpec tests:
 ```
   # Start a new Rails container from your laptop
   $ docker-compose run rails bash
@@ -37,3 +37,6 @@ Running RSpec tests:
   # Run whatever tests you like
   $ RAILS_ENV=test bundle exec rspec
 ```
+
+### Changes to the Gemfile
+You'll need to rebuild the Docker image when the Gemfile changes.  Run `docker-compose build`.
