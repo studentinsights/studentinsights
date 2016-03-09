@@ -39,6 +39,8 @@ group :development, :test do
   gem 'faker'
   gem 'launchy'
   gem 'phantomjs'
+  gem 'pry'                   # Set a breakpoint in your ruby code by adding `binding.pry`
+                              # See https://github.com/pry/pry
   gem 'rack-test'
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'
