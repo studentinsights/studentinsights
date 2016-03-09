@@ -41,6 +41,7 @@
             var key = item.caption;
             var isFilterApplied = _.contains(selectedFilterIdentifiers, item.filter.identifier);
             return dom.tr({
+              className: 'clickable-row',
               key: item.caption,
               style: {
                 backgroundColor: (isFilterApplied) ? colors.selection: null,
