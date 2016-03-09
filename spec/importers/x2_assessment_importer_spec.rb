@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.describe X2AssessmentImporter do
 
   describe '#import' do
-    context 'with good data' do
+    context 'with good data and no Assessment records in the database' do
+      before { Assessment.destroy_all }
+      after { Assessment.seed_somerville_assessments }
+
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
-
+      
       context 'for Healey school' do
 
         let!(:student) { FactoryGirl.create(:student, local_id: '100') }
@@ -31,8 +34,7 @@ RSpec.describe X2AssessmentImporter do
 
           it 'creates MCAS Mathematics and ELA assessments' do
             expect(assessments.count).to eq 2
-            expect(assessments.first.subject).to eq "ELA"
-            expect(assessments.last.subject).to eq "Mathematics"
+            expect(assessments.map(&:subject)).to contain_exactly 'ELA' , 'Mathematics'
           end
           context 'Math' do
             it 'sets the scaled scores and performance levels, growth percentiles correctly' do
