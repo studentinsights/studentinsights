@@ -42,10 +42,14 @@
 //= require session_timeout_warning
 //= require student_searchbar
 //= require_tree ./helpers
+
+// shared react compoents:
+//= require ./components/fixed_table
+//= require ./components/collapsable_table
 //= require_tree ./components
 
 // student profile page v2:
-// components:
+// pure ui components:
   //= require ./student_profile_v2/service_color
   //= require ./student/profile_charts/profile_chart_settings
   //= require ./student_profile_v2/feed_helpers
