@@ -7,6 +7,23 @@ RSpec.describe McasRow do
     let(:student) { FactoryGirl.create(:student) }
     after { Assessment.seed_somerville_assessments }
 
+    context 'invalid subject (i.e. not used in Student Insights)' do
+      let(:row) {
+        {
+          assessment_test: 'MCAS',
+          assessment_subject: 'Technology',
+          assessment_name: 'MCAS 2016 Technology',
+          local_id: student.local_id,
+          assessment_date: Date.today
+        }
+      }
+      before { McasRow.build(row).save! }
+
+      it 'does not blow up, does not create a student assessment record' do
+        expect(StudentAssessment.count).to eq 0
+      end
+    end
+
     context 'MCAS Mathematics' do
       let(:row) {
         {
@@ -21,7 +38,7 @@ RSpec.describe McasRow do
       context 'when the Assessment family already exists' do
         let(:assessment) { Assessment.where(family: 'MCAS', subject: 'Mathematics').first }
         before { McasRow.build(row).save! }
-        
+
         it 'creates a student assessment record' do
           expect(StudentAssessment.count).to eq 1
         end
@@ -33,7 +50,7 @@ RSpec.describe McasRow do
 
       context 'when the Assessment family does not yet exist' do
         before { McasRow.build(row).save! }
-        
+
         it 'creates a student assessment record' do
           expect(StudentAssessment.count).to eq 1
         end
@@ -65,7 +82,7 @@ RSpec.describe McasRow do
       it 'creates a new Assessment as a side-effect' do
         expect(Assessment.count).to eq 1
         expect(Assessment.last.subject).to eq 'ELA'
-        
+
       end
     end
   end
