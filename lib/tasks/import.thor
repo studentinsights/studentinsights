@@ -1,11 +1,11 @@
 require 'thor'
-require_relative '../../app/importers/settings/somerville_star_importers'
-require_relative '../../app/importers/settings/somerville_x2_importers'
-require_relative '../../app/importers/students_importer'
-require_relative '../../app/importers/x2_assessment_importer'
-require_relative '../../app/importers/behavior_importer'
-require_relative '../../app/importers/educators_importer'
-require_relative '../../app/importers/attendance_importer'
+require_relative '../../app/importers/sources/somerville_star_importers'
+require_relative '../../app/importers/sources/somerville_x2_importers'
+require_relative '../../app/importers/file_importers/students_importer'
+require_relative '../../app/importers/file_importers/x2_assessment_importer'
+require_relative '../../app/importers/file_importers/behavior_importer'
+require_relative '../../app/importers/file_importers/educators_importer'
+require_relative '../../app/importers/file_importers/attendance_importer'
 
 class Import
   class Start < Thor::Group
