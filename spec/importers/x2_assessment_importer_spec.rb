@@ -14,16 +14,9 @@ RSpec.describe X2AssessmentImporter do
       context 'for Healey school' do
 
         let!(:student) { FactoryGirl.create(:student, local_id: '100') }
-
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
-
-        let(:healey_importer) {
-          Importer.new(current_file_importer: described_class.new, school_scope: 'HEA')
-        }
-
-        before(:each) do
-          healey_importer.start_import(csv)
-        end
+        let(:importer) { described_class.new }
+        before { csv.each { |row| importer.import_row(row) }}
 
         it 'imports only white-listed assessments' do
           expect(StudentAssessment.count).to eq 6

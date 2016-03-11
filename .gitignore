@@ -5,6 +5,7 @@
 /sketch
 /data
 coverage
+spec/logs/logs.txt
 
 # This holds configuration for testing production import scripts locally, so it shouldn't be checked into
 # source control.
