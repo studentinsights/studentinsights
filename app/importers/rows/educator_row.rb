@@ -16,6 +16,8 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
       school_id: school_rails_id
     )
 
+    educator.assign_attributes(schoolwide_access: true) if educator.new_record? && is_admin?
+
     return educator
   end
 
