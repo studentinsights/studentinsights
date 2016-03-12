@@ -2,9 +2,6 @@ require 'rails_helper'
 
 RSpec.describe StudentsImporter do
 
-  let(:importer) {
-    Importer.new(current_file_importer: described_class.new)
-  }
 
   describe '#import_row' do
 
@@ -12,16 +9,18 @@ RSpec.describe StudentsImporter do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
+      let(:importer) { described_class.new }
+      let(:import) { csv.each { |row| importer.import_row(row) }}
 
       let!(:high_school) { School.create(local_id: 'SHS') }
       let!(:healey) { School.create(local_id: 'HEA') }
 
       it 'imports students' do
-        expect { importer.start_import(csv) }.to change { Student.count }.by 3
+        expect { import }.to change { Student.count }.by 3
       end
 
       it 'imports student data correctly' do
-        importer.start_import(csv)
+        import
 
         first_student = Student.find_by_state_id('1000000000')
         expect(first_student.reload.school).to eq healey

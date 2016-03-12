@@ -1,4 +1,4 @@
-# TODO(kr) deprecated
+# Deprecated
 class InterventionType < ActiveRecord::Base
   has_many :interventions
 

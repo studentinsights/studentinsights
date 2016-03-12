@@ -1,6 +1,11 @@
 require 'thor'
-require_relative '../../app/importers/settings/somerville_star_importers'
-require_relative '../../app/importers/settings/somerville_x2_importers'
+require_relative '../../app/importers/sources/somerville_star_importers'
+require_relative '../../app/importers/sources/somerville_x2_importers'
+require_relative '../../app/importers/file_importers/students_importer'
+require_relative '../../app/importers/file_importers/x2_assessment_importer'
+require_relative '../../app/importers/file_importers/behavior_importer'
+require_relative '../../app/importers/file_importers/educators_importer'
+require_relative '../../app/importers/file_importers/attendance_importer'
 
 class Import
   class Start < Thor::Group
@@ -17,6 +22,7 @@ class Import
 
     class_option :school,
       type: :array,
+      default: ['HEA'],
       aliases: "-s",
       desc: "Scope by school local IDs; use ELEM to import all elementary schools"
     class_option :first_time,
@@ -24,8 +30,12 @@ class Import
       desc: "Fill up an empty database"
     class_option :source,
       type: :array,
-      default: ["x2", "star"],
+      default: SOURCE_IMPORTERS.keys,
       desc: "Import data from the specified source: #{SOURCE_IMPORTERS.keys}"
+    class_option :x2_file_importers,
+      type: :array,
+      default: SomervilleX2Importers.file_importer_names,
+      desc: "Import data from the specified files: #{SomervilleX2Importers.file_importer_names}"
 
     no_commands do
       def report

@@ -1,22 +1,25 @@
+require "#{Rails.root}/db/seeds/database_constants"
+
 puts "Creating demo schools, homerooms, interventions..."
 raise "empty yer db" if School.count > 0 ||
                         Student.count > 0 ||
                         InterventionType.count > 0 ||
                         Assessment.count > 0
 
-puts 'Seeding constants...'
-Assessment.seed_somerville_assessments
-InterventionType.seed_somerville_intervention_types
-EventNoteType.seed_somerville_event_note_types
-
 healey = School.create(name: "Arthur D Healey")
+
+# The local demo data setup uses the Somerville database constants
+# (eg., the set of `ServiceType`s) for generating local demo data and
+# for tests.
+puts 'Seeding database constants for Somerville...'
+DatabaseConstants.new.seed!
 
 puts "Creating demo educators..."
 Educator.destroy_all
 
 Educator.create!([{
   email: "demo@example.com",
-  full_name: 'Curtatone, Joe',
+  full_name: 'Principal, Laura',
   password: "demo-password",
   local_id: '350',
   schoolwide_access: true,

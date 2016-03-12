@@ -32,41 +32,4 @@
   .interventions-column table td.caption-cell {
     width: 175px;
   }
-
-
-  .FixedTable {
-    table {
-      table-layout: fixed;
-      border-collapse: collapse;
-
-      td {
-        padding: 0;
-      }
-    }
-
-    .bar {
-      background-color: rgba(49, 119, 201, 0.75);
-    }
-  }
-
-
-  .StudentsTable {
-    table.students-table {
-      border-collapse: collapse;
-
-      thead th {
-        font-size: 12px;
-        border-bottom: 1px solid #ccc;
-      }
-
-      tr:hover {
-        background-color: $table-row-hover;
-      }
-
-      th, td {
-        padding: 4px 10px;
-        text-align: left;
-      }
-    }
-  }
 }

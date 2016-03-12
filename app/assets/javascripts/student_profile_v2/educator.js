@@ -19,7 +19,7 @@
       }).isRequired
     },
 
-    // Turns SIS format (Curtatone, Joe) -> Joe Curtatone
+    // Turns SIS format (Watson, Joe) -> Joe Watson
     educatorName: function(educator) {
       if (educator.full_name === null) return educator.email.split('@')[0] + '@';
       var parts = educator.full_name.split(', ');

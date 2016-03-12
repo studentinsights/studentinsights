@@ -4,8 +4,10 @@ class FakeStudent
     @student = Student.create(data)
     add_attendance_events
     add_discipline_incidents
-    add_interventions
-    add_notes
+    add_deprecated_interventions
+    add_deprecated_notes
+    add_event_notes
+    add_services
     add_student_assessments_from_x2
     add_student_assessments_from_star
     homeroom.students << @student
@@ -40,11 +42,24 @@ class FakeStudent
       race: ["A", "B", "H", "W"].sample,
       first_name: DISNEY_FIRST_NAMES.sample,
       last_name: DISNEY_LAST_NAMES.sample,
-      local_id: "000#{rand(1000)}",
+      local_id: unique_local_id,
       limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "FLEP"].sample,
       free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample,
       home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample
     }
+  end
+
+  def unique_local_id
+    existing_local_ids = Student.pluck(:local_id)
+    local_id = random_local_id
+    while existing_local_ids.include?(local_id)
+      local_id = random_local_id
+    end
+    local_id
+  end
+
+  def random_local_id
+    "000#{rand(1000)}"
   end
 
   def plan_504
@@ -155,7 +170,7 @@ class FakeStudent
     end
   end
 
-  def add_interventions
+  def add_deprecated_interventions
     15.in(100) do
       generator = FakeInterventionGenerator.new(@student)
       intervention_count = Rubystats::NormalDistribution.new(3, 6).rng.round
@@ -171,7 +186,7 @@ class FakeStudent
     nil
   end
 
-  def add_notes
+  def add_deprecated_notes
     generator = FakeNoteGenerator.new(@student)
     note_count = if @student.interventions.size > 0
       rand(2..10)
@@ -181,6 +196,19 @@ class FakeStudent
       0
     end
     note_count.times { StudentNote.new(generator.next).save! }
+    nil
+  end
+
+  def add_event_notes
+    generator = FakeEventNoteGenerator.new(@student)
+    rand(0..9).times { EventNote.new(generator.next).save! }
+    nil
+  end
+
+  def add_services
+    generator = FakeServiceGenerator.new(@student)
+    service_counts = 20.in(100) ? rand(1..5) : 0
+    service_counts.times { Service.new(generator.next).save! }
     nil
   end
 end

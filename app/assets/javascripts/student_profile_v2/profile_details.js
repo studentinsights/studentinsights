@@ -3,7 +3,8 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
-  var FeedHelpers = window.shared.FeedHelpers
+  var FeedHelpers = window.shared.FeedHelpers;
+  var QuadConverter = window.shared.QuadConverter;
 
   var Colors = {
     math: '#e8e9fc',
@@ -35,6 +36,7 @@
       marginRight: 10
     }
   };
+
   var ProfileDetails = window.shared.ProfileDetails = React.createClass({
     displayName: 'ProfileDetails',
 
@@ -77,38 +79,38 @@
         });
       });
       _.each(this.props.chartData.mcas_series_ela_scaled, function(quad){
-        var year = quad[0], month = quad[1], day = quad[2], score = quad[3];
+        var score = quad[3];
         events.push({
           type: 'MCAS ELA',
           message: name + ' scored a ' + score + ' on the ELA section of the MCAS.',
-          date: new Date(year, month, day),
-          color: Colors.reading
+          color: Colors.reading,
+          date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.mcas_series_math_scaled, function(quad){
-        var year = quad[0], month = quad[1], day = quad[2], score = quad[3];
+        var score = quad[3];
         events.push({
           type: 'MCAS Math',
           message: name + ' scored a ' + score + ' on the Math section of the MCAS.',
-          date: new Date(year, month, day),
-          color: Colors.math
+          color: Colors.math,
+          date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_reading_percentile, function(quad){
-        var year = quad[0], month = quad[1], day = quad[2], score = quad[3];
+        var score = quad[3];
         events.push({
           type: 'STAR Reading',
           message: name + ' scored in the ' + score + 'th percentile on the Reading section of STAR.',
-          date: new Date(year, month, day),
+          date: QuadConverter.toDate(quad),
           color: Colors.reading
         });
       });
       _.each(this.props.chartData.star_series_math_percentile, function(quad){
-        var year = quad[0], month = quad[1], day = quad[2], score = quad[3];
+        var score = quad[3];
         events.push({
           type: 'STAR Math',
           message: name + ' scored in the ' + score + 'th percentile on the Math section of STAR.',
-          date: new Date(year, month, day),
+          date: QuadConverter.toDate(quad),
           color: Colors.math
         });
       });
@@ -131,7 +133,7 @@
       return _.sortBy(events, 'date').reverse();
     },
 
-    render: function() {
+    render: function(){
       return dom.div({},
         dom.h4({style: styles.title}, 'Full Case History'),
         this.renderCardList()
@@ -154,14 +156,13 @@
           )
         },
         dom.div(event.compressed ? {style: {paddingLeft: '10px'}} : {style: {padding: '10px'}},
-          dom.div({style: styles.feedCardHeader},
-            moment(event.date).format("MMMM Do, YYYY:"),
-            dom.span({style: merge(styles.badge, {background: event.color})}, event.type)
-          ),
-          event.compressed ? '' : event.message
+        dom.div({style: styles.feedCardHeader},
+          moment(event.date).format("MMMM Do, YYYY:"),
+          dom.span({style: merge(styles.badge, {background: event.color})}, event.type)
+        ),
+        event.compressed ? '' : event.message
         )
       );
     }
-
   });
 })();

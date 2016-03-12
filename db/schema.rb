@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226145922) do
+ActiveRecord::Schema.define(version: 20160302143639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,6 +179,23 @@ ActiveRecord::Schema.define(version: 20160226145922) do
 
   add_index "schools", ["local_id"], name: "index_schools_on_local_id", using: :btree
   add_index "schools", ["state_id"], name: "index_schools_on_state_id", using: :btree
+
+  create_table "service_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "services", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "provided_by_educator_id"
+    t.integer  "recorded_by_educator_id"
+    t.integer  "service_type_id"
+    t.datetime "recorded_at"
+    t.datetime "date_started"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "student_assessments", force: true do |t|
     t.integer  "scale_score"

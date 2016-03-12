@@ -88,7 +88,7 @@
         mcas_series_math_growth: React.PropTypes.array
       }),
       attendanceData: React.PropTypes.shape({
-        discipline_incidents: React.PropTypes.array, // TODO(kr) case bug serializing from rails
+        discipline_incidents: React.PropTypes.array,
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
       }),
@@ -202,6 +202,7 @@
       var columnKey = 'interventions';
 
       return dom.div({
+        className: 'interventions-column',
         style: merge(styles.column, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       }, this.padElements(styles.summaryWrapper, [
@@ -226,7 +227,8 @@
     },
 
     renderServices: function(student) {
-      if (student.interventions.length === 0) {
+      var services = this.props.feed.services;
+      if (services.length === 0) {
         return createEl(SummaryList, {
           title: 'Services',
           elements: ['No services']
@@ -234,7 +236,7 @@
       }
       
       var limit = 3;
-      var sortedServices = _.sortBy(this.props.feed.services, 'date_started').reverse();
+      var sortedServices = _.sortBy(services, 'date_started').reverse();
       var elements = sortedServices.slice(0, limit).map(function(service) {
         var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
         var daysText = moment.utc(service.date_started).from(this.props.nowMomentFn(), true);
@@ -251,7 +253,6 @@
       });
     },
 
-    // TODO(kr) this should be based on services and notes
     renderStaff: function(student) {
       var limit = 3;
       var educatorIds = FeedHelpers.allEducatorIds(this.props.feed);
@@ -259,9 +260,14 @@
         return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);
       
-      if (educatorIds.length > limit) elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
+      if (educatorIds.length > limit) {
+        elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
+      } else if (educatorIds.length === 0) {
+        elements.push(['None']);
+      }
+
       return createEl(SummaryList, {
-        title: 'Staff',
+        title: 'Support staff',
         elements: elements
       });
     },
@@ -371,7 +377,7 @@
     },
 
     cumulativeCountQuads: function(attendanceEvents) {
-      return QuadConverter.convert(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
+      return QuadConverter.convertAttendanceEvents(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
     },
 
     // quads format is: [[year, month (Ruby), day, value]]

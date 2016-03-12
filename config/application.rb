@@ -14,13 +14,13 @@ module SomervilleTeacherTool
 
     config.autoload_paths += %W(#{config.root}/app/models)
     config.autoload_paths += %W(#{config.root}/app/importers/clients)
-    config.autoload_paths += %W(#{config.root}/app/importers/settings)
     config.autoload_paths += %W(#{config.root}/app/importers/data_transformers)
+    config.autoload_paths += %W(#{config.root}/app/importers/file_importers)
+    config.autoload_paths += %W(#{config.root}/app/importers/filters)
+    config.autoload_paths += %W(#{config.root}/app/importers/rows)
+    config.autoload_paths += %W(#{config.root}/app/importers/sources)
     config.autoload_paths += %W(#{config.root}/app/dashboard_queries)
     config.autoload_paths += %W(#{config.root}/lib)
-
-    require 'pdfkit'
-    config.middleware.use PDFKit::Middleware
 
     config.generators do |g|
       g.stylesheets false

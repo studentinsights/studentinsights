@@ -47,7 +47,7 @@ RSpec.describe StudentAssessment, type: :model do
       end
     end
     context 'does not have date taken' do
-      let(:student_assessment) { FactoryGirl.build(:student_assessment_without_date_taken) }
+      let(:student_assessment) { FactoryGirl.build(:student_assessment, date_taken: nil) }
       it 'is invalid' do
         expect(student_assessment).not_to be_valid
       end

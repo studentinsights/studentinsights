@@ -32,7 +32,6 @@ class StudentsController < ApplicationController
 
     @roster_url = homeroom_path(@student.homeroom)
     @csv_url = student_path(@student) + ".csv"
-    @student_url = student_path(@student)
 
     respond_to do |format|
       format.html
@@ -40,7 +39,6 @@ class StudentsController < ApplicationController
         render csv: StudentProfileCsvExporter.new(@student).profile_csv_export,
         filename: 'export'
       }
-      format.pdf { render text: PDFKit.new(@student_url).to_pdf }
     end
   end
 
@@ -54,7 +52,7 @@ class StudentsController < ApplicationController
       feed: student_feed(student),
       chart_data: chart_data,
       intervention_types_index: intervention_types_index,
-      service_types_index: fixture_service_types_index, # TODO(kr) implement this as part of the backend work
+      service_types_index: service_types_index,
       educators_index: educators_index,
       attendance_data: {
         discipline_incidents: student.most_recent_school_year.discipline_incidents,
@@ -62,6 +60,15 @@ class StudentsController < ApplicationController
         absences: student.most_recent_school_year.absences
       }
     }
+  end
+
+  def sped_referral
+    @student = Student.find(params[:id])
+    respond_to do |format|
+      format.pdf do
+        render pdf: "sped_referral"
+      end
+    end
   end
 
   # post
@@ -79,6 +86,25 @@ class StudentsController < ApplicationController
       render json: event_note.as_json
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
+    end
+  end
+
+  # post
+  def service
+    clean_params = params.require(:service).permit(*[
+      :student_id,
+      :service_type_id,
+      :date_started,
+      :provided_by_educator_id
+    ])
+    service = Service.new(clean_params.merge({
+      recorded_by_educator_id: current_educator.id,
+      recorded_at: Time.now
+    }))
+    if service.save
+      render json: service.as_json
+    else
+      render json: { errors: service.errors.full_messages }, status: 422
     end
   end
 
@@ -136,52 +162,14 @@ class StudentsController < ApplicationController
     (search_token_scores.sum.to_f / search_tokens.length)
   end
 
-  # TODO(kr) this has some placeholder fixture data for now, to test design prototypes on the v2 student profile
-  # page
   def student_feed(student)
     {
       event_notes: student.event_notes,
-      services: if Rails.env.development? then fixture_services else [] end,
+      services: student.services,
       deprecated: {
         notes: student.student_notes.map { |note| serialize_student_note(note) },
         interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
       }
     }
-  end
-
-  # TODO(kr) temporary, until building backend tables
-  def fixture_service_types_index
-    {
-      502 => { id: 502, name: 'Attendance Officer' },
-      503 => { id: 503, name: 'Attendance Contract' },
-      504 => { id: 504, name: 'Behavior Contract' },
-      505 => { id: 505, name: 'Counseling, in-house' },
-      506 => { id: 506, name: 'Counseling, outside' },
-      507 => { id: 507, name: 'Reading intervention' },
-      508 => { id: 508, name: 'Math intervention' }
-    }
-  end
-
-  # Merges 'event_notes' table with 'discontinued_event_notes' to
-  # present the current view of what's active and what's been discontinued.
-  def fixture_services
-    fixture_educator_id = 1
-    [{
-      id: 133,
-      service_type_id: 503,
-      recorded_by_educator_id: fixture_educator_id,
-      assigned_to_educator_id: fixture_educator_id,
-      date_started: '2016-02-09',
-      date_discontinued: nil,
-      discontinued_by_educator_id: fixture_educator_id
-    }, {
-      id: 134,
-      service_type_id: 506,
-      recorded_by_educator_id: fixture_educator_id,
-      assigned_to_educator_id: fixture_educator_id,
-      date_started: '2016-02-08',
-      date_discontinued: nil,
-      discontinued_by_educator_id: fixture_educator_id
-    }]
   end
 end

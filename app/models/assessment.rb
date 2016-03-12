@@ -18,6 +18,7 @@ class Assessment < ActiveRecord::Base
   end
 
   def self.seed_somerville_assessments
+    Assessment.destroy_all
     Assessment.create!([
       { family: "MCAS", subject: "Mathematics" },
       { family: "MCAS", subject: "ELA" },

@@ -1,10 +1,17 @@
 class McasRow < Struct.new :row
+  VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
+
+  class NullRow
+    def save!; end
+  end
 
   def self.build(row)
     new(row).build
   end
 
   def build
+    return NullRow.new unless subject.in?(VALID_MCAS_SUBJECTS)
+
     student_assessment = StudentAssessment.find_or_initialize_by(
       student: student,
       assessment: assessment,
