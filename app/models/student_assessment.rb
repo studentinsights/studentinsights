@@ -8,6 +8,27 @@ class StudentAssessment < ActiveRecord::Base
   delegate :family, :subject, to: :assessment
   delegate :grade, to: :student
   validates_presence_of :date_taken, :student, :assessment
+  validate :valid_assessment_attributes
+
+  def valid_assessment_attributes
+    case assessment.family
+    when 'MCAS'
+      scale_score.present? &&
+      growth_percentile.present? &&
+      performance_level.present? &&
+      percentile_rank.nil?
+    when 'STAR'
+      percentile_rank.present? &&
+      scale_score.nil? &&
+      growth_percentile.nil? &&
+      performance_level.nil?
+    when 'DIBELS'
+      performance_level.present? &&
+      percentile_rank.nil? &&
+      scale_score.nil? &&
+      growth_percentile.nil?
+    end
+  end
 
   def assign_to_school_year
     self.school_year = DateToSchoolYear.new(date_taken).convert

@@ -62,6 +62,4 @@ FactoryGirl.define do
       association :assessment, family: "ACCESS"
     end
   end
-  factory :student_assessment_without_date_taken, class: StudentAssessment do
-  end
 end
