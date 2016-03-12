@@ -3,6 +3,8 @@ FactoryGirl.define do
   factory :student_assessment do
     date_taken DateTime.new(2015, 6, 19)
     association :student
+    association :assessment
+
     factory :mcas_assessment do
       factory :mcas_math_assessment do
         association :assessment, subject: "Mathematics", family: "MCAS"

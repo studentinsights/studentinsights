@@ -7,7 +7,7 @@ class StudentAssessment < ActiveRecord::Base
   after_create :assign_to_student_school_year
   delegate :family, :subject, to: :assessment
   delegate :grade, to: :student
-  validates_presence_of :date_taken, :student
+  validates_presence_of :date_taken, :student, :assessment
 
   def assign_to_school_year
     self.school_year = DateToSchoolYear.new(date_taken).convert
