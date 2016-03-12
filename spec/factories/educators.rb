@@ -11,6 +11,8 @@ FactoryGirl.define do
     trait :admin do
       admin true
       schoolwide_access true
+      restricted_to_sped_students false
+      restricted_to_english_language_learners false
     end
 
     trait :local_id_200 do
