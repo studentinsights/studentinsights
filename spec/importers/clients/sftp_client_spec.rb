@@ -3,16 +3,6 @@ require 'rails_helper'
 RSpec.describe SftpClient do
   let(:client) { SftpClient.new(credentials: credentials) }
 
-  def mock_environment_with_keys
-    allow(ENV).to receive(:[]).with('STAR_SFTP_HOST').and_return "sftp-site@site.com"
-    allow(ENV).to receive(:[]).with('STAR_SFTP_USER').and_return "sftp-user"
-    allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
-  end
-
-  def mock_sftp_site
-    allow(Net::SFTP).to receive_messages(start: 'connection established')
-  end
-
   describe '.for_x2' do
     let(:settings) do
       {
@@ -46,7 +36,8 @@ RSpec.describe SftpClient do
   end
 
   describe '#sftp_session' do
-    context 'sftp client' do
+
+    context 'using a password' do
       let(:credentials) {
         {
           user: ENV['STAR_SFTP_USER'],
@@ -54,18 +45,62 @@ RSpec.describe SftpClient do
           password: ENV['STAR_SFTP_PASSWORD']
         }
       }
-      context 'with sftp keys' do
+
+      context 'with credentials' do
         before do
-          mock_environment_with_keys
-          mock_sftp_site
+          allow(ENV).to receive(:[]).with('STAR_SFTP_HOST').and_return "sftp-site@site.com"
+          allow(ENV).to receive(:[]).with('STAR_SFTP_USER').and_return "sftp-user"
+          allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
+          allow(Net::SFTP).to receive_messages(start: 'connection established')
         end
+
         it 'establishes a connection' do
           expect(client.sftp_session).to eq 'connection established'
         end
+
+        it 'sends the correct data to Net::SFTP' do
+          expect(Net::SFTP).to receive(:start).with(
+            "sftp-site@site.com", "sftp-user", { :password=>"sftp-password" }
+          )
+
+          client.sftp_session
+        end
       end
-      context 'without sftp keys' do
+
+      context 'without credentials' do
         it 'raises an error' do
           expect { client.sftp_session }.to raise_error "SFTP information missing"
+        end
+      end
+    end
+
+    context 'using a key' do
+      let(:credentials) {
+        {
+          user: ENV['SIS_SFTP_USER'],
+          host: ENV['SIS_SFTP_HOST'],
+          key_data: ENV['SIS_SFTP_KEY']
+        }
+      }
+
+      context 'with credentials' do
+        before do
+          allow(ENV).to receive(:[]).with('SIS_SFTP_USER').and_return "sftp-site@site.com"
+          allow(ENV).to receive(:[]).with('SIS_SFTP_HOST').and_return "sftp-user"
+          allow(ENV).to receive(:[]).with('SIS_SFTP_KEY').and_return "sftp-key"
+          allow(Net::SFTP).to receive_messages(start: 'connection established')
+        end
+
+        it 'establishes a connection' do
+          expect(client.sftp_session).to eq 'connection established'
+        end
+
+        it 'sends the correct data to Net::SFTP' do
+          expect(Net::SFTP).to receive(:start).with(
+            "sftp-user", "sftp-site@site.com", { :key_data=>"sftp-key" }
+          )
+
+          client.sftp_session
         end
       end
     end
