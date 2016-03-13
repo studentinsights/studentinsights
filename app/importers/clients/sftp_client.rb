@@ -27,14 +27,6 @@ class SftpClient
     sftp_session.download!(remote_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
   end
 
-  def download_file_to_tmp(remote_file_name)
-    sftp_session.download!(remote_file_name, file_tmp_path(remote_file_name))
-  end
-
-  def file_tmp_path(remote_file_name)
-    "#{Rails.root}/tmp/#{remote_file_name}"
-  end
-
   def sftp_session
     if sftp_info_present?
       auth = {}
