@@ -1,4 +1,5 @@
 class SftpClient
+
   def self.for_x2(settings_hash = ENV)
     new(credentials: {
       user: settings_hash.fetch('SIS_SFTP_USER'),
@@ -18,8 +19,7 @@ class SftpClient
   attr_reader :credentials
 
   def initialize(options = {})
-    # Credentials take the form of a hash with the following keys:
-    # user:, host:, (password: or key_data:)
+    # Hash with these keys --> :user, :host, { :password OR :key_data }
     @credentials = options[:credentials]
   end
 
@@ -28,14 +28,8 @@ class SftpClient
   end
 
   def sftp_session
-    if sftp_info_present?
-      auth = {}
-      auth[:password] = @credentials[:password] if @credentials[:password].present?
-      auth[:key_data] = @credentials[:key_data] if @credentials[:key_data].present?
-      Net::SFTP.start(@credentials[:host], @credentials[:user], auth)
-    else
-      raise "SFTP information missing"
-    end
+    raise "SFTP information missing" unless sftp_info_present?
+    Net::SFTP.start(@credentials[:host], @credentials[:user], auth_mechanism)
   end
 
   def sftp_info_present?
@@ -43,4 +37,10 @@ class SftpClient
     @credentials[:host].present? &&
     (@credentials[:password].present? || @credentials[:key_data].present?)
   end
+
+  def auth_mechanism
+    return { password: @credentials[:password] } if @credentials[:password].present?
+    { key_data: @credentials[:key_data] } if @credentials[:key_data].present?
+  end
+
 end
