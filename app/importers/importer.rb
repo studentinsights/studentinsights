@@ -28,15 +28,12 @@ class Importer
 
       data = file_importer.data_transformer.transform(file)
       @log.write("\n#{data.size} rows of data in #{file_importer.remote_file_name} post-cleanup")
-
-      progress_bar = ProgressBar.new(data.size, file_importer.remote_file_name)
-
       @log.write("\n\n")
 
       data.each.each_with_index do |row, index|
         row.delete_if { |key, value| key.blank? }
         file_importer.import_row(row) if filter.include?(row)
-        @log.print(progress_bar.current_status(index))
+        ProgressBar.new(@log, file_importer.remote_file_name, data.size, index + 1).print
       end
     end
   end

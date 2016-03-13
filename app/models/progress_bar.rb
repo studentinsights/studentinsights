@@ -1,27 +1,45 @@
-class ProgressBar
+class ProgressBar < Struct.new :log, :file_name, :total_units, :completed_units
 
-  attr_accessor :total_size, :file_name
+  TOTAL_BAR_LENGTH = 40.freeze
 
-  def initialize(total_size, file_name)
-    @total_size = total_size
-    @file_name = file_name
+  def print
+    log.print(header + bar + progress_text)
   end
 
-  def current_status(n)
-    fractional_progress = (n.to_f / @total_size.to_f)
-    percentage_progress = (fractional_progress * 100).to_i.to_s + "%"
+  private
 
-    line_fill_part, line_empty_part = "", ""
-    line_progress = (fractional_progress * 40).to_i
+  def header
+    "\r #{file_name}#{padding_after_file_name}"
+  end
 
-    line_progress.times { line_fill_part += "=" }
-    (40 - line_progress).times { line_empty_part += " " }
+  def padding_after_file_name
+    ' ' * (24 - file_name.size)
+  end
 
-    header = "#{@file_name}"
-    filler_space = ' ' * (24 - @file_name.size)
-    bar_body = "[#{line_fill_part}#{line_empty_part}] "
-    progress_text = "#{percentage_progress} (#{n} out of #{@total_size}) "
+  def bar
+    progress_bar_string = String.new
+    bar_progress.times { progress_bar_string << '=' }
+    bar_remainder.times { progress_bar_string << ' ' }
+    "[#{progress_bar_string}]"
+  end
 
-    "\r " + header + filler_space + bar_body + '  ' + progress_text
+  def bar_progress
+    (fractional_progress * TOTAL_BAR_LENGTH).to_i
+  end
+
+  def fractional_progress
+    completed_units.to_f / total_units.to_f
+  end
+
+  def bar_remainder
+    TOTAL_BAR_LENGTH - bar_progress
+  end
+
+  def progress_text
+    "  #{percentage_progress} (#{completed_units} out of #{total_units}) "
+  end
+
+  def percentage_progress
+    (fractional_progress * 100).to_i.to_s + "%"
   end
 end
