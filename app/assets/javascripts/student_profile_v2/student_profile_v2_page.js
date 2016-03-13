@@ -62,7 +62,7 @@
       //context
       nowMomentFn: React.PropTypes.func.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
-      
+
       // constants
       interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
@@ -215,7 +215,7 @@
       var placement = (student.sped_placement !== null)
         ? student.program_assigned + ', ' + student.sped_placement
         : student.program_assigned;
-      
+
       return createEl(SummaryList, {
         title: 'Placement',
         elements: [
@@ -233,7 +233,7 @@
           elements: ['No services']
         });
       }
-      
+
       var limit = 3;
       var sortedServices = _.sortBy(services, 'date_started').reverse();
       var elements = sortedServices.slice(0, limit).map(function(service) {
@@ -258,7 +258,7 @@
       var elements = educatorIds.slice(0, limit).map(function(educatorId) {
         return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);
-      
+
       if (educatorIds.length > limit) {
         elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
       } else if (educatorIds.length === 0) {
