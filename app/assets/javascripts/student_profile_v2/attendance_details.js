@@ -16,7 +16,8 @@
       width: '100%'
     },
     item: {
-      paddingBottom: 10
+      paddingBottom: 10,
+      width: 160
     },
     itemHead: {
       fontWeight: 'bold',
@@ -41,6 +42,11 @@
     },
     container: {
       width: '50%'
+    },
+    centerItem: {
+      paddingBottom: 10,
+      textAlign: 'center',
+      width: 75
     }
   };
 
@@ -101,7 +107,7 @@
         return dom.div({ style: styles.box, key: incident.occurred_at },
           dom.div({ style: styles.header },
             dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Date: '), dom.span({}, moment.utc(incident.occurred_at).format('MMM D, YYYY'))),
-            dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Code: '), dom.span({}, incident.incident_code)),
+            dom.div({ style: styles.centerItem }, dom.span({ style: styles.itemHead }, 'Code: '), dom.span({}, incident.incident_code)),
             dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Location: '), dom.span({}, incident.incident_location))
           ),
           dom.div({}, dom.span({ style: styles.desc }, 'Description: '), dom.div({}, incident.incident_description))
