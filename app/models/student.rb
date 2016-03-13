@@ -1,11 +1,11 @@
 class Student < ActiveRecord::Base
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
-  has_many :student_school_years
-  has_many :student_assessments
+  has_many :student_school_years, dependent: :destroy
+  has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
-  has_many :student_notes
+  has_many :student_notes, dependent: :destroy
   has_many :event_notes, dependent: :destroy
   has_many :services, dependent: :destroy
   has_one :student_risk_level, dependent: :destroy
