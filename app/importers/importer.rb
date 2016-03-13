@@ -21,19 +21,17 @@ class Importer
 
   def connect_transform_import
     file_importers.each do |file_importer|
-      file = @client.read_file(file_importer.remote_file_name)
+      file_name = file_importer.remote_file_name
+      file = @client.read_file(file_name)
 
       pre_cleanup_csv = CSV.parse(file, headers: true)
-      @log.write("\n\n\n#{pre_cleanup_csv.size} rows of data in #{file_importer.remote_file_name} pre-cleanup")
-
       data = file_importer.data_transformer.transform(file)
-      @log.write("\n#{data.size} rows of data in #{file_importer.remote_file_name} post-cleanup")
-      @log.write("\n\n")
+      CleanupReport.new(@log, file_name, pre_cleanup_csv.size, data.size).print
 
       data.each.each_with_index do |row, index|
         row.delete_if { |key, value| key.blank? }
         file_importer.import_row(row) if filter.include?(row)
-        ProgressBar.new(@log, file_importer.remote_file_name, data.size, index + 1).print
+        ProgressBar.new(@log, file_name, data.size, index + 1).print
       end
     end
   end

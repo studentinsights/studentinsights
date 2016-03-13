@@ -1,26 +1,21 @@
-class SftpClient
+class SftpClient < Struct.new :user, :host, :password, :key_data
 
   def self.for_x2(settings_hash = ENV)
-    new(credentials: {
-      user: settings_hash.fetch('SIS_SFTP_USER'),
-      host: settings_hash.fetch('SIS_SFTP_HOST'),
-      key_data: settings_hash.fetch('SIS_SFTP_KEY')
-    })
+    new(
+      settings_hash.fetch('SIS_SFTP_USER'),
+      settings_hash.fetch('SIS_SFTP_HOST'),
+      nil,
+      settings_hash.fetch('SIS_SFTP_KEY')
+    )
   end
 
   def self.for_star(settings_hash = ENV)
-    new(credentials: {
-      user: settings_hash.fetch('STAR_SFTP_USER'),
-      host: settings_hash.fetch('STAR_SFTP_HOST'),
-      password: settings_hash.fetch('STAR_SFTP_PASSWORD')
-    })
-  end
-
-  attr_reader :credentials
-
-  def initialize(options = {})
-    # Hash with these keys --> :user, :host, { :password OR :key_data }
-    @credentials = options[:credentials]
+    new(
+      settings_hash.fetch('STAR_SFTP_USER'),
+      settings_hash.fetch('STAR_SFTP_HOST'),
+      settings_hash.fetch('STAR_SFTP_PASSWORD'),
+      nil
+    )
   end
 
   def read_file(remote_file_name)
@@ -29,18 +24,16 @@ class SftpClient
 
   def sftp_session
     raise "SFTP information missing" unless sftp_info_present?
-    Net::SFTP.start(@credentials[:host], @credentials[:user], auth_mechanism)
+    Net::SFTP.start(host, user, auth_mechanism)
   end
 
   def sftp_info_present?
-    @credentials[:user].present? &&
-    @credentials[:host].present? &&
-    (@credentials[:password].present? || @credentials[:key_data].present?)
+    user.present? && host.present? && (password.present? || key_data.present?)
   end
 
   def auth_mechanism
-    return { password: @credentials[:password] } if @credentials[:password].present?
-    { key_data: @credentials[:key_data] } if @credentials[:key_data].present?
+    return { password: password } if password.present?
+    { key_data: key_data } if key_data.present?
   end
 
 end

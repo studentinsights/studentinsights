@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SftpClient do
-  let(:client) { SftpClient.new(credentials: credentials) }
+  let(:client) { SftpClient.new(*credentials) }
 
   describe '.for_x2' do
     let(:settings) do
@@ -13,9 +13,9 @@ RSpec.describe SftpClient do
     end
 
     it 'configures the sftp client for X2' do
-      expect(SftpClient.for_x2(settings).credentials[:host]).to eq('totes valid host')
-      expect(SftpClient.for_x2(settings).credentials[:user]).to eq('totes valid user')
-      expect(SftpClient.for_x2(settings).credentials[:key_data]).to eq('totes valid key')
+      expect(SftpClient.for_x2(settings).host).to eq('totes valid host')
+      expect(SftpClient.for_x2(settings).user).to eq('totes valid user')
+      expect(SftpClient.for_x2(settings).key_data).to eq('totes valid key')
     end
   end
 
@@ -29,9 +29,9 @@ RSpec.describe SftpClient do
     end
 
     it 'configures the sftp client for star' do
-      expect(SftpClient.for_star(settings).credentials[:host]).to eq("sftp-site@site.com")
-      expect(SftpClient.for_star(settings).credentials[:user]).to eq("sftp-user")
-      expect(SftpClient.for_star(settings).credentials[:password]).to eq("sftp-password")
+      expect(SftpClient.for_star(settings).host).to eq("sftp-site@site.com")
+      expect(SftpClient.for_star(settings).user).to eq("sftp-user")
+      expect(SftpClient.for_star(settings).password).to eq("sftp-password")
     end
   end
 
@@ -39,11 +39,12 @@ RSpec.describe SftpClient do
 
     context 'using a password' do
       let(:credentials) {
-        {
-          user: ENV['STAR_SFTP_USER'],
-          host: ENV['STAR_SFTP_HOST'],
-          password: ENV['STAR_SFTP_PASSWORD']
-        }
+        [
+          ENV['STAR_SFTP_USER'],
+          ENV['STAR_SFTP_HOST'],
+          ENV['STAR_SFTP_PASSWORD'],
+          nil
+        ]
       }
 
       context 'with credentials' do
@@ -76,11 +77,12 @@ RSpec.describe SftpClient do
 
     context 'using a key' do
       let(:credentials) {
-        {
-          user: ENV['SIS_SFTP_USER'],
-          host: ENV['SIS_SFTP_HOST'],
-          key_data: ENV['SIS_SFTP_KEY']
-        }
+        [
+          ENV['SIS_SFTP_USER'],
+          ENV['SIS_SFTP_HOST'],
+          nil,
+          ENV['SIS_SFTP_KEY']
+        ]
       }
 
       context 'with credentials' do
