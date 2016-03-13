@@ -3,16 +3,6 @@ require 'rails_helper'
 RSpec.describe SftpClient do
   let(:client) { SftpClient.new(credentials: credentials) }
 
-  def mock_environment_with_keys
-    allow(ENV).to receive(:[]).with('STAR_SFTP_HOST').and_return "sftp-site@site.com"
-    allow(ENV).to receive(:[]).with('STAR_SFTP_USER').and_return "sftp-user"
-    allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
-  end
-
-  def mock_sftp_site
-    allow(Net::SFTP).to receive_messages(start: 'connection established')
-  end
-
   describe '.for_x2' do
     let(:settings) do
       {
@@ -56,8 +46,10 @@ RSpec.describe SftpClient do
       }
       context 'with sftp keys' do
         before do
-          mock_environment_with_keys
-          mock_sftp_site
+          allow(ENV).to receive(:[]).with('STAR_SFTP_HOST').and_return "sftp-site@site.com"
+          allow(ENV).to receive(:[]).with('STAR_SFTP_USER').and_return "sftp-user"
+          allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
+          allow(Net::SFTP).to receive_messages(start: 'connection established')
         end
         it 'establishes a connection' do
           expect(client.sftp_session).to eq 'connection established'
