@@ -22,7 +22,6 @@ gem 'react-rails', '~> 1.5.0'   # Provides React, handles swapping between dev/p
 gem 'rubystats'
 gem 'sass-rails', '~> 4.0.3'
 gem 'seedbank'
-gem 'skylight'
 gem 'thor'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
