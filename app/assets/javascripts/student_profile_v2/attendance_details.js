@@ -40,6 +40,7 @@
     },
     container: {
       width: '100%',
+      maxWidth: 1100,
       marginTop: 50,
       border: '1px solid #ccc',
       padding: 30
@@ -54,6 +55,9 @@
       display: 'flex',
       justifyContent: 'space-between',
       borderBottom: '1px solid #333',
+    },
+    navBar: {
+      fontSize: 18
     },
     navTop: {
       textAlign: 'right',
@@ -81,10 +85,10 @@
     },
 
     renderNavBar: function() {
-      return dom.div({},
-          dom.a({ href: '#disciplineChart'}, 'Discipline Chart'), ' | ',
-          dom.a({ href: '#absencesTardies'}, 'Absences and Tardies'), ' | ',
-          dom.a({ href: '#history'}, 'Incident History')
+      return dom.div({ style: styles.navBar },
+          dom.a({ style: styles.navBar, href: '#disciplineChart'}, 'Discipline Chart'), ' | ',
+          dom.a({ style: styles.navBar, href: '#absencesTardies'}, 'Absences & Tardies Chart'), ' | ',
+          dom.a({ style: styles.navBar, href: '#history'}, 'Incident History')
         );
     },
 
