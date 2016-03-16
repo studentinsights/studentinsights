@@ -6,16 +6,11 @@
   var FeedHelpers = window.shared.FeedHelpers;
   var QuadConverter = window.shared.QuadConverter;
 
-  var Colors = {
-    math: '#e8e9fc',
-    reading: '#ffe7d6',
-    procedural: '#e8fce8'
-  };
   var styles = {
     feedCard: {
-      marginBottom: '10px',
-      borderRadius: '10px',
-      fontSize: '10pt'
+      marginBottom: 10,
+      borderRadius: 10,
+      fontSize: 14
     },
     feedCardHeader: {
       fontSize: '120%',
@@ -26,7 +21,8 @@
       borderBottom: '1px solid #333',
       color: 'black',
       padding: 10,
-      paddingLeft: 0
+      paddingLeft: 0,
+      marginBottom: 10
     },
     badge: {
       display: 'inline-block',
@@ -55,27 +51,22 @@
       _.each(this.props.attendanceData.tardies, function(obj){
         events.push({
           type: 'Absence',
-          compressed: true,
           message: name + ' was tardy.',
-          date: Date.parse(obj.occurred_at),
-          color: Colors.procedural
+          date: Date.parse(obj.occurred_at)
         });
       });
       _.each(this.props.attendanceData.absences, function(obj){
         events.push({
           type: 'Tardy',
-          compressed: true,
           message: name + ' was absent.',
-          date: Date.parse(obj.occurred_at),
-          color: Colors.procedural
+          date: Date.parse(obj.occurred_at)
         });
       });
       _.each(this.props.attendanceData.discipline_incidents, function(obj){
         events.push({
           type: 'Incident',
           message: obj.incident_description + ' in the ' + obj.incident_location,
-          date: Date.parse(obj.occurred_at),
-          color: Colors.procedural
+          date: Date.parse(obj.occurred_at)
         });
       });
       _.each(this.props.chartData.mcas_series_ela_scaled, function(quad){
@@ -83,7 +74,6 @@
         events.push({
           type: 'MCAS ELA',
           message: name + ' scored a ' + score + ' on the ELA section of the MCAS.',
-          color: Colors.reading,
           date: QuadConverter.toDate(quad)
         });
       });
@@ -92,7 +82,6 @@
         events.push({
           type: 'MCAS Math',
           message: name + ' scored a ' + score + ' on the Math section of the MCAS.',
-          color: Colors.math,
           date: QuadConverter.toDate(quad)
         });
       });
@@ -101,8 +90,7 @@
         events.push({
           type: 'STAR Reading',
           message: name + ' scored in the ' + score + 'th percentile on the Reading section of STAR.',
-          date: QuadConverter.toDate(quad),
-          color: Colors.reading
+          date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_math_percentile, function(quad){
@@ -110,24 +98,21 @@
         events.push({
           type: 'STAR Math',
           message: name + ' scored in the ' + score + 'th percentile on the Math section of STAR.',
-          date: QuadConverter.toDate(quad),
-          color: Colors.math
+          date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.feed.deprecated.interventions, function(obj){
         events.push({
           type: 'Note',
-          message: _.template("<%=name%> (Goal: <%=goal%>)")(obj),
-          date: moment(obj.start_date_timestamp, "YYYY-MM-DD").toDate(),
-          color: Colors.procedural,
+          message: obj.name + '(Goal: ' + obj.goal + ')',
+          date: moment(obj.start_date_timestamp, "YYYY-MM-DD").toDate()
         });
       });
       _.each(this.props.feed.deprecated.notes, function(obj){
         events.push({
           type: 'Note',
           message: obj.content,
-          date: moment(obj.created_at_timestamp).toDate(),
-          color: Colors.procedural,
+          date: moment(obj.created_at_timestamp).toDate()
         });
       });
       return _.sortBy(events, 'date').reverse();
@@ -141,26 +126,45 @@
     },
 
     renderCardList: function(){
-      return dom.div({style: {marginTop: '10px'}},
-        this.getEvents().map(this.renderCard)
-      );
+      return dom.div({}, this.getEvents().map(this.renderCard));
     },
 
     renderCard: function(event){
       var key = [event.date, event.message].join();
+      if (event.type === 'Absence' || event.type === 'Tardy'){
+        var divStyle = {fontSize: '80%'};
+        var paddingStyle = {paddingLeft: 10};
+        var text = '';
+      } else {
+        var divStyle = {border: '1px solid #eee'};
+        var paddingStyle = {padding: 10};
+        var text = event.message;
+      }
+
+      var type_to_color = {
+        "Absence": '#e8fce8',
+        "Tardy": '#e8fce8',
+        "Incident": '#e8fce8',
+        "Note": '#e8fce8',
+
+        "MCAS ELA": '#ffe7d6',
+        "STAR Reading": '#ffe7d6',
+
+        "MCAS Math": '#e8e9fc',
+        "STAR Math": '#e8e9fc'
+      }
+
       return dom.div(
-        {
-          key: key,
-          style: merge(styles.feedCard,
-            event.compressed ? {fontSize: '80%'} : {border: '1px solid #eee'}
-          )
-        },
-        dom.div(event.compressed ? {style: {paddingLeft: '10px'}} : {style: {padding: '10px'}},
-        dom.div({style: styles.feedCardHeader},
-          moment(event.date).format("MMMM Do, YYYY:"),
-          dom.span({style: merge(styles.badge, {background: event.color})}, event.type)
-        ),
-        event.compressed ? '' : event.message
+        {key: key, style: merge(styles.feedCard, divStyle)},
+        dom.div({style: paddingStyle}, // Provides padding inside card.
+          dom.div({style: styles.feedCardHeader}, // Header (date + badge)
+            moment(event.date).format("MMMM Do, YYYY:"),
+            dom.span( // Brightly-colored badge
+              {style: merge(styles.badge, {background: type_to_color[event.type]})},
+              event.type
+            )
+          ),
+        text
         )
       );
     }
