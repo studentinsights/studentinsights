@@ -1,6 +1,28 @@
 <div class="info-area">
   <div class="about-page detailed-content-area">
 
+    <div class="info-area">
+      <div id="log-in">
+          <h1> Log in </h1>
+            <%= form_for(:educator, :url => new_educator_session_path(:user)) do |f| %>
+            <div class="field">
+              <%= f.label :email %>
+              <%= f.email_field :email, autofocus: true %>
+            </div>
+
+            <div class="field">
+              <%= f.label :password %>
+              <%= f.password_field :password, autocomplete: "off" %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit 'Sign in' %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+
+
   <div class="who">
     <h1 class="about-head">Who is it for</h1>
     <h2 class="about-big">This is a tool for teachers</h2>
