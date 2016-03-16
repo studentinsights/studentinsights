@@ -31,9 +31,6 @@
               <% end %>
             </div>
             <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
-          <% else %>
-            <%= link_to "About", about_url %>
-            <%= link_to "Sign In", new_educator_session_path %>
           <% end %>
         </nav>
         <p class="notice field"><%= notice %></p>

@@ -4,7 +4,7 @@
     <div class="info-area">
       <div id="log-in">
           <h1> Log in </h1>
-            <%= form_for(:educator, :url => new_educator_session_path(:user)) do |f| %>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="field">
               <%= f.label :email %>
               <%= f.email_field :email, autofocus: true %>
@@ -16,7 +16,7 @@
             </div>
 
             <div class="actions">
-              <%= f.submit 'Sign in' %>
+              <%= f.submit "Log in", class: "btn btn-success" %>
             </div>
         <% end %>
       </div>

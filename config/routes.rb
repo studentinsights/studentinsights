@@ -6,7 +6,10 @@ Rails.application.routes.draw do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
 
-  root 'pages#about'
+  devise_scope :educator do
+    root to: "devise/sessions#new"
+  end
+
   get 'about' => 'pages#about'
   get 'no_homeroom' => 'pages#no_homeroom'
   get 'no_homerooms' => 'pages#no_homerooms'

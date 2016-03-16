@@ -1,22 +1,73 @@
 <div class="info-area">
-  <div id="log-in">
-    <div class="detailed-content-area">
-      <h2>Log in</h2>
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="field">
-          <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true %>
-        </div>
+  <div class="about-page detailed-content-area">
 
-        <div class="field">
-          <%= f.label :password %>
-          <%= f.password_field :password, autocomplete: "off" %>
-        </div>
+    <div class="info-area">
+      <div id="log-in">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="field">
+              <%= f.label :email %>
+              <%= f.email_field :email, autofocus: true %>
+            </div>
 
-        <div class="actions">
-          <%= f.submit "Log in" %>
-        </div>
-      <% end %>
+            <div class="field">
+              <%= f.label :password %>
+              <%= f.password_field :password, autocomplete: "off" %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit "Log in", class: "btn btn-success" %>
+            </div>
+        <% end %>
+      </div>
     </div>
+
+
+  <div class="who">
+    <h1 class="about-head">Who is it for</h1>
+    <h2 class="about-big">This is a tool for teachers</h2>
+      <p>It's being built by Code for America's <a href="http://www.codeforamerica.org/governments/somerville/" target="_blank">Team Somerville</a>, working closely with our partners in Somerville: the 5th grade teacher team at Healey School, Principal Jill Geiser, Uri Harel (Elementary Curriculum Coordinator) and Vince McKay (Assistant Superintendent), and Stephanie Hirsch.</p>
+    <div class="teacher-photo">
+      <div id="teachers"></div>
+    </div>
+  </div>
+
+  <div class ="what">
+    <h1 class="about-head">What is it</h1>
+    <p class="headline">We plan for the beta version of tool to have the following three modules</p>
+
+    <div id="pillars">
+      <div class="pillar">
+        <div class="circular" id="roster"></div>
+        <h2 class="about-big">Roster</h2>
+          <p>Giving teachers a current snapshot of their classroom that shows which students are  most at risk.</p>
+      </div>
+      <div class="pillar">
+        <div class="circular" id="profile"></div>
+        <h2 class="about-big">Profile</h2>
+          <p>A deep yearly history of the teacher's current students over time, both academic and behavioural.</p>
+      </div>
+      <div class="pillar">
+        <div class="circular" id="interventions"></div>
+        <h2 class="about-big">Interventions</h2>
+          <p>Showing teachers which students are most in need of interventions and giving the ability to log interventions.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="how">
+    <h1 class="about-head">How is it going</h1>
+    <h2 class="about-big">We are in development</h2>
+      <p>This is currently an <strong>alpha product</strong>. We are still working out bugs and building out new features.</p>
+      <p>See the code for this teacher tool and leave a comment on <a href="https://github.com/codeforamerica/somerville-teacher-tool" target="_blank">GitHub.</a></p>
+  </div>
+
+  <div class="logos">
+    <ul class="logo-list">
+      <li><a href="http://www.somervillema.gov/" target="_blank" class="somerville-logo"><%= image_tag "somerville_logo.png" %></a></li>
+      <li><a href="https://www.codeforamerica.org/" target="_blank" class="cfa-logo"><%= image_tag "cfa_logo.png" %></a></li>
+      <ul>
+  </div>
+
   </div>
 </div>
