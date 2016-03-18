@@ -3,6 +3,8 @@ class StudentsController < ApplicationController
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :not_authorized
 
+  before_action :authorize!, except: [:names]
+
   def authorize!
     student = Student.find(params[:id])
     educator = current_educator
@@ -112,7 +114,10 @@ class StudentsController < ApplicationController
 
   def names
     q = params[:q]
-    sorted_students = search_and_score(q, Student.with_school)
+    authorized_students = Student.with_school.select do |student|
+      current_educator.is_authorized_for_student(student)
+    end
+    sorted_students = search_and_score(q, authorized_students)
     @sorted_results = sorted_students.map {|student| student.decorate.presentation_for_autocomplete }
 
     respond_to do |format|

@@ -1,21 +1,30 @@
 require 'rails_helper'
 
 describe StudentsController, :type => :controller do
-  let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+  describe '#show redirects to profile' do
+    let(:student) { FactoryGirl.create(:student, :with_risk_level) }
+    let(:homeroom) { student.homeroom }
+    let(:educator) { FactoryGirl.create(:educator, :admin )}
+    let!(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
+    before { sign_in(educator) }
+    before { request.env['HTTPS'] = 'on' }
 
+    it 'redirects to profile page' do
+      get :show, id: student.id
+      expect(response).to redirect_to(profile_student_path(student.id))
+    end
 
+  end
 
-
-
-
-  describe '#show' do
+  describe '#deprecated_v1_profile' do
+    let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level) }
     let(:homeroom) { student.homeroom }
     let!(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
 
     def make_request(options = { student_id: nil, format: :html })
       request.env['HTTPS'] = 'on'
-      get :show, id: options[:student_id], format: options[:format]
+      get :deprecated_v1_profile, id: options[:student_id], format: options[:format]
     end
 
     context 'when educator is not logged in' do
@@ -199,8 +208,8 @@ describe StudentsController, :type => :controller do
       post :event_note, format: :json, id: student.id, event_note: event_note_params
     end
 
-    context 'educator logged in' do
-      let!(:educator) { FactoryGirl.create(:educator) }
+    context 'admin educator logged in' do
+      let(:educator) { FactoryGirl.create(:educator, :admin) }
       let!(:student) { FactoryGirl.create(:student) }
       let!(:event_note_type) { EventNoteType.first }
 
@@ -273,7 +282,8 @@ describe StudentsController, :type => :controller do
       post :service, format: :json, id: student.id, service: service_params
     end
 
-    context 'educator logged in' do
+    context 'admin educator logged in' do
+      let!(:educator) { FactoryGirl.create(:educator, :admin) }
       let!(:provided_by_educator) { FactoryGirl.create(:educator) }
       let!(:student) { FactoryGirl.create(:student) }
       
@@ -353,10 +363,9 @@ describe StudentsController, :type => :controller do
       get :names, q: query, format: :json
     end
 
-    context 'educator logged in' do
-      before do
-        sign_in(educator)
-      end
+    context 'admin educator logged in' do
+      let!(:educator) { FactoryGirl.create(:educator, :admin) }
+      before { sign_in(educator) }
       context 'query matches student name' do
         let(:healey) { FactoryGirl.create(:healey) }
         let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '5') }
@@ -376,6 +385,18 @@ describe StudentsController, :type => :controller do
           make_request('j')
           expect(response).to be_success
         end
+        it 'returns an empty array' do
+          make_request('j')
+          expect(assigns(:sorted_results)).to eq []
+        end
+      end
+    end
+    context 'educator without authorization to students' do
+      let!(:educator) { FactoryGirl.create(:educator) }
+      before { sign_in(educator) }
+      context 'query matches student name' do
+        let(:healey) { FactoryGirl.create(:healey) }
+        let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '5') }
         it 'returns an empty array' do
           make_request('j')
           expect(assigns(:sorted_results)).to eq []
