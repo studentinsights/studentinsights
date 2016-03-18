@@ -12,6 +12,30 @@ class StudentsController < ApplicationController
   end
 
   def show
+    redirect_to profile_student_path
+  end
+
+  def profile
+    student = Student.find(params[:id])
+    chart_data = StudentProfileChart.new(student).chart_data
+    @serialized_data = {
+      current_educator: current_educator,
+      student: serialize_student_for_profile(student),
+      notes: student.student_notes.map { |note| serialize_student_note(note) },
+      feed: student_feed(student),
+      chart_data: chart_data,
+      intervention_types_index: intervention_types_index,
+      service_types_index: service_types_index,
+      educators_index: educators_index,
+      attendance_data: {
+        discipline_incidents: student.most_recent_school_year.discipline_incidents,
+        tardies: student.most_recent_school_year.tardies,
+        absences: student.most_recent_school_year.absences
+      }
+    }
+  end
+
+  def deprecated_v1_profile
     @student = Student.find(params[:id]).decorate
     @chart_start = params[:chart_start] || "mcas-growth"
     @chart_data = StudentProfileChart.new(@student).chart_data
@@ -40,26 +64,6 @@ class StudentsController < ApplicationController
         filename: 'export'
       }
     end
-  end
-
-  def profile
-    student = Student.find(params[:id])
-    chart_data = StudentProfileChart.new(student).chart_data
-    @serialized_data = {
-      current_educator: current_educator,
-      student: serialize_student_for_profile(student),
-      notes: student.student_notes.map { |note| serialize_student_note(note) },
-      feed: student_feed(student),
-      chart_data: chart_data,
-      intervention_types_index: intervention_types_index,
-      service_types_index: service_types_index,
-      educators_index: educators_index,
-      attendance_data: {
-        discipline_incidents: student.most_recent_school_year.discipline_incidents,
-        tardies: student.most_recent_school_year.tardies,
-        absences: student.most_recent_school_year.absences
-      }
-    }
   end
 
   def sped_referral
