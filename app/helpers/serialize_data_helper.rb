@@ -66,4 +66,12 @@ module SerializeDataHelper
     end
     index
   end
+
+  def event_note_types_index
+    index = {}
+    EventNoteType.all.each do |event_note_type|
+      index[event_note_type.id] = event_note_type
+    end
+    index
+  end
 end
