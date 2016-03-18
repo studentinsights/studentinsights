@@ -12,6 +12,7 @@
 //
 
 // third-party:
+//= require rollbar
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
