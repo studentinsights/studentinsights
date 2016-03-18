@@ -67,6 +67,7 @@
       interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
 
       // data
       student: React.PropTypes.object.isRequired,
@@ -169,6 +170,7 @@
             'feed',
             'interventionTypesIndex',
             'serviceTypesIndex',
+            'eventNoteTypesIndex',
             'educatorsIndex',
             'actions',
             'requests'

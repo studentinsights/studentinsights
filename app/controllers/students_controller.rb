@@ -26,6 +26,7 @@ class StudentsController < ApplicationController
       chart_data: chart_data,
       intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
+      event_note_types_index: event_note_types_index,
       educators_index: educators_index,
       attendance_data: {
         discipline_incidents: student.most_recent_school_year.discipline_incidents,

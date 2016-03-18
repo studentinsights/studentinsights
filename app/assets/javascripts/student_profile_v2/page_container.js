@@ -41,6 +41,7 @@
         interventionTypesIndex: serializedData.interventionTypesIndex,
         educatorsIndex: serializedData.educatorsIndex,
         serviceTypesIndex: serializedData.serviceTypesIndex,
+        eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
 
         // data
         student: serializedData.student,
@@ -120,6 +121,7 @@
           'interventionTypesIndex',
           'educatorsIndex',
           'serviceTypesIndex',
+          'eventNoteTypesIndex',
           'student',
           'feed',
           'chartData',

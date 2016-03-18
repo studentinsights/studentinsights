@@ -558,7 +558,7 @@
       "id": 1,
       "student_id": 6,
       "educator_id": 1,
-      "event_note_type_id": 3,
+      "event_note_type_id": 302,
       "text": "okay!",
       "recorded_at": "2016-02-11T21:28:02.102Z",
       "created_at": "2016-02-11T21:28:02.103Z",
@@ -568,7 +568,7 @@
       "id": 2,
       "student_id": 6,
       "educator_id": 1,
-      "event_note_type_id": 3,
+      "event_note_type_id": 302,
       "text": "cool!",
       "recorded_at": "2016-02-11T21:29:18.166Z",
       "created_at": "2016-02-11T21:29:18.167Z",
@@ -578,7 +578,7 @@
       "id": 3,
       "student_id": 6,
       "educator_id": 1,
-      "event_note_type_id": 1,
+      "event_note_type_id": 300,
       "text": "sweet",
       "recorded_at": "2016-02-11T21:29:30.287Z",
       "created_at": "2016-02-11T21:29:30.288Z",
@@ -852,6 +852,7 @@
   }
 },
     "serviceTypesIndex": {"502":{"id":502,"name":"Attendance Officer"},"503":{"id":503,"name":"Attendance Contract"},"504":{"id":504,"name":"Behavior Contract"},"505":{"id":505,"name":"Counseling, in-house"},"506":{"id":506,"name":"Counseling, outside"},"507":{"id":507,"name":"Reading intervention"},"508":{"id":508,"name":"Math intervention"}},
+    "eventNoteTypesIndex": {"300":{"id":300,"name":"SST Meeting","created_at":"2016-03-18T00:33:49.036Z","updated_at":"2016-03-18T00:33:49.036Z"},"301":{"id":301,"name":"MTSS Meeting","created_at":"2016-03-18T00:33:49.037Z","updated_at":"2016-03-18T00:33:49.037Z"},"302":{"id":302,"name":"Parent conversation","created_at":"2016-03-18T00:33:49.038Z","updated_at":"2016-03-18T00:33:49.038Z"},"304":{"id":304,"name":"Something else","created_at":"2016-03-18T00:33:49.039Z","updated_at":"2016-03-18T00:33:49.039Z"}},
     "educatorsIndex": {
       "1": {
         "id": 1,
