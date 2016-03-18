@@ -3,8 +3,6 @@ class StudentsController < ApplicationController
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :not_authorized
 
-  before_action :authorize!, only: [:show]
-
   def authorize!
     student = Student.find(params[:id])
     educator = current_educator
@@ -55,7 +53,7 @@ class StudentsController < ApplicationController
     @serialized_student_notes = student_notes.map { |note| serialize_student_note(note) }
 
     @roster_url = homeroom_path(@student.homeroom)
-    @csv_url = student_path(@student) + ".csv"
+    @csv_url = deprecated_v1_profile_student_path(@student) + ".csv"
 
     respond_to do |format|
       format.html

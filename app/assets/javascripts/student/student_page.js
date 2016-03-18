@@ -2,7 +2,7 @@ $(function() {
   // This is the JS entry point for the student page.
   // It relies on some server-rendering and then passes control to the
   // ProfileController and InterventionsController, which own their respective tabs.
-  if ($('body').hasClass('students') && $('body').hasClass('show')) {
+  if ($('body').hasClass('students') && $('body').hasClass('deprecated_v1_profile')) {
     var interventionsControllerData = JSON.parse($('#interventions-controller-data').html());
 
     // track usage in mixpanel

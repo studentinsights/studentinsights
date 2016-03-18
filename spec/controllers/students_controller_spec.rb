@@ -3,6 +3,11 @@ require 'rails_helper'
 describe StudentsController, :type => :controller do
   let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
 
+
+
+
+
+
   describe '#show' do
     let(:student) { FactoryGirl.create(:student, :with_risk_level) }
     let(:homeroom) { student.homeroom }
