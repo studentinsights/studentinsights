@@ -61,7 +61,7 @@ describe('SlicePanels', function() {
         ['STAR Reading', 'MCAS ELA', 'Growth - MCAS ELA'],
         ['STAR Math', 'MCAS Math', 'Growth - MCAS Math'],
         ['Discipline incidents', 'Absences', 'Tardies'],
-        ['Services', 'Interventions', 'Program', 'Homeroom']
+        ['Services', 'Program', 'Homeroom']
       ]);
 
     });
@@ -79,7 +79,7 @@ describe('SlicePanels', function() {
          [5, 5, 5],
          [5, 5, 5],
          [5, 5, 5],
-         [4, 1, 2, 1]
+         [4, 2, 1]
       ]);
     });
   });

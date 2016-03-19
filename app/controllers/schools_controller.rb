@@ -46,7 +46,6 @@ class SchoolsController < ApplicationController
   # to the UI so it can use them for joins.
   def constant_indexes
     {
-      intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index
     }
