@@ -8,6 +8,12 @@ describe SchoolsController, :type => :controller do
       get :show, id: school_id
     end
 
+    # Read the instance variable and pull out the ids of students
+    def extract_serialized_student_ids(controller)
+      serialized_data = controller.instance_variable_get(:@serialized_data)
+      serialized_data[:students].map {|student_hash| student_hash[:id] }
+    end
+
     context 'educator is not an admin but does have a homeroom' do
       let!(:school) { FactoryGirl.create(:healey) }
       let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
@@ -38,10 +44,10 @@ describe SchoolsController, :type => :controller do
         make_request('hea')
 
         expect(response).to be_success
-
-        expect(assigns(:students)).to include include_me
-        expect(assigns(:students)).to include include_me_too
-        expect(assigns(:students)).not_to include include_me_not
+        student_ids = extract_serialized_student_ids(controller)
+        expect(student_ids).to include include_me.id
+        expect(student_ids).to include include_me_too.id
+        expect(student_ids).not_to include include_me_not
       end
     end
 
@@ -63,10 +69,10 @@ describe SchoolsController, :type => :controller do
         make_request('hea')
 
         expect(response).to be_success
-
-        expect(assigns(:students)).to include include_me
-        expect(assigns(:students)).to include include_me_too
-        expect(assigns(:students)).not_to include include_me_not
+        student_ids = extract_serialized_student_ids(controller)
+        expect(student_ids).to include include_me.id
+        expect(student_ids).to include include_me_too.id
+        expect(student_ids).not_to include include_me_not
       end
     end
 
