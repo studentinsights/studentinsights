@@ -13,6 +13,7 @@ $(function() {
     displayName: 'StarReadingPage',
 
     propTypes: {
+      serviceTypesIndex: React.PropTypes.object.isRequired,
       initialFilters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       dateNow: React.PropTypes.object.isRequired,
       recentThresholdInDays: React.PropTypes.number
@@ -137,7 +138,7 @@ $(function() {
         dom.div({ className: 'header', style: styles.header }, createEl(SlicePanels, {
           allStudents: this.props.students,
           students: this.filteredStudents(),
-          InterventionTypes: this.props.InterventionTypes,
+          serviceTypesIndex: this.props.serviceTypesIndex,
           filters: this.state.filters,
           onFilterToggled: this.onFilterToggled
         })),

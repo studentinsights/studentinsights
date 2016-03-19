@@ -44,6 +44,18 @@
         key: 'intervention_type'
       };
     },
+    ServiceType: function(serviceTypeId) {
+      return {
+        identifier: ['service_type', serviceTypeId].join(':'),
+        filterFn: function(student) {
+          if (serviceTypeId === null) return (student.services === undefined || student.services.length === 0);
+          return student.services.filter(function(service) {
+            return service.service_type_id === serviceTypeId;
+          }).length > 0;
+        },
+        key: 'service_type'
+      };
+    },
     YearsEnrolled: function(value) {
       return {
         identifier: ['years_enrolled', value].join(':'),

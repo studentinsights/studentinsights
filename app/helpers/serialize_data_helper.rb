@@ -44,7 +44,7 @@ module SerializeDataHelper
   def intervention_types_index
     index = {}
     InterventionType.all.each do |intervention_type|
-      index[intervention_type.id] = intervention_type
+      index[intervention_type.id] = intervention_type.as_json.symbolize_keys.slice(:id, :name)
     end
     index
   end
@@ -53,7 +53,7 @@ module SerializeDataHelper
   def educators_index
     index = {}
     Educator.all.each do |educator|
-      index[educator.id] = educator
+      index[educator.id] = educator.as_json.symbolize_keys.slice(:id, :email, :full_name)
     end
     index
   end
@@ -62,7 +62,7 @@ module SerializeDataHelper
   def service_types_index
     index = {}
     ServiceType.all.each do |service_type|
-      index[service_type.id] = service_type
+      index[service_type.id] = service_type.as_json.symbolize_keys.slice(:id, :name)
     end
     index
   end
@@ -70,7 +70,7 @@ module SerializeDataHelper
   def event_note_types_index
     index = {}
     EventNoteType.all.each do |event_note_type|
-      index[event_note_type.id] = event_note_type
+      index[event_note_type.id] = event_note_type.as_json.symbolize_keys.slice(:id, :name)
     end
     index
   end
