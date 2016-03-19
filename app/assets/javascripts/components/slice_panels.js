@@ -14,7 +14,7 @@
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      InterventionTypes: React.PropTypes.object.isRequired,
+      interventionTypesIndex: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
     },
 
@@ -112,7 +112,6 @@
           this.createItem('1', Filters.Equal(key, 1)),
           this.createItem('2', Filters.Equal(key, 2)),
           this.createItem('3 - 5', Filters.Range(key, [3, 6])),
-          // this.createItem('6+', Filters.Range(key, [5, 7])),
           this.createItem('6+', Filters.Range(key, [6, Number.MAX_VALUE]))
         ]
       });
@@ -133,6 +132,11 @@
 
     renderInterventionsColumn: function() {
       return dom.div({ className: 'column interventions-column' },
+        this.renderTable({
+          title: 'Services',
+          items: this.serviceItems(),
+          limit: 7
+        }),
         this.renderTable({
           title: 'Interventions',
           items: this.interventionItems(),
@@ -155,6 +159,23 @@
       };
     },
 
+    serviceItems: function() {
+      var students = this.props.allStudents;
+      var allServices = _.compact(_.flatten(_.pluck(students, 'services')));
+      var allServiceTypeIds = _.unique(allServices.map(function(service) {
+        return parseInt(service.service_type_id, 10);
+      }));
+      var serviceItems = allServiceTypeIds.map(function(serviceTypeId) {
+        var serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
+        return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
+      }, this);
+      var sortedItems =  _.sortBy(serviceItems, function(item) {
+        return -1 * students.filter(item.filter.filterFn).length;
+      });
+
+      return [this.createItem('None', Filters.ServiceType(null))].concat(sortedItems);
+    },
+
     interventionItems: function() {
       var students = this.props.allStudents;
       var allInterventions = _.compact(_.flatten(_.pluck(students, 'interventions')));
@@ -162,7 +183,7 @@
         return parseInt(intervention.intervention_type_id, 10);
       }));
       var interventionItems = allInterventionTypes.map(function(interventionTypeId) {
-        var interventionName = this.props.InterventionTypes[interventionTypeId].name;
+        var interventionName = this.props.interventionTypesIndex[interventionTypeId].name;
         return this.createItem(interventionName, Filters.InterventionType(interventionTypeId));
       }, this);
       var sortedItems =  _.sortBy(interventionItems, function(item) {

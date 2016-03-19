@@ -3,7 +3,6 @@
   window.shared || (window.shared = {});
   var Filters = window.shared.Filters;
   var Routes = window.shared.Routes;
-  var SlicePanels = window.shared.SlicePanels;
   var styles = window.shared.styles;
   var colors = window.shared.colors;
   var dom = window.shared.ReactHelpers.dom;

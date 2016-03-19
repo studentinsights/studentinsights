@@ -21,7 +21,8 @@ $(function() {
       ReactDOM.render(createEl(StarReadingPage, {
         students: serializedData.studentsWithStarReading,
         dateNow: new Date(),
-        InterventionTypes: serializedData.interventionTypesIndex,
+        interventionTypesIndex: serializedData.interventionTypesIndex,
+        serviceTypesIndex: serializedData.serviceTypesIndex,
         initialFilters: Filters.parseFiltersHash(window.location.hash)
       }), document.getElementById('main'));
     }

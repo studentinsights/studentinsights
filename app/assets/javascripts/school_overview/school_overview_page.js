@@ -19,7 +19,8 @@
 
     propTypes: {
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      InterventionTypes: React.PropTypes.object.isRequired,
+      interventionTypesIndex: React.PropTypes.object.isRequired,
+      serviceTypesIndex: React.PropTypes.object.isRequired,
       initialFilters: React.PropTypes.arrayOf(React.PropTypes.object)
     },
 
@@ -193,7 +194,8 @@
         dom.div({ className: 'header', style: styles.header }, createEl(SlicePanels, {
            allStudents: this.props.allStudents,
            students: this.getFilteredStudents(),
-           InterventionTypes: this.props.InterventionTypes,
+           interventionTypesIndex: this.props.interventionTypesIndex,
+           serviceTypesIndex: this.props.serviceTypesIndex,
            filters: this.state.filters,
            onFilterToggled: this.onFilterToggled
          })),
