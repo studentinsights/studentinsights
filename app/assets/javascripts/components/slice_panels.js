@@ -15,6 +15,7 @@
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       interventionTypesIndex: React.PropTypes.object.isRequired,
+      serviceTypesIndex: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
     },
 
