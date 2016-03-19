@@ -14,7 +14,6 @@
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      interventionTypesIndex: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
     },
@@ -138,11 +137,6 @@
           items: this.serviceItems(),
           limit: 7
         }),
-        this.renderTable({
-          title: 'Interventions',
-          items: this.interventionItems(),
-          limit: 5
-        }),
         this.renderSimpleTable('Program', 'program_assigned', { limit: 3 }),
         this.renderSimpleTable('Homeroom', 'homeroom_name', {
           limit: 3,
@@ -175,23 +169,6 @@
       });
 
       return [this.createItem('None', Filters.ServiceType(null))].concat(sortedItems);
-    },
-
-    interventionItems: function() {
-      var students = this.props.allStudents;
-      var allInterventions = _.compact(_.flatten(_.pluck(students, 'interventions')));
-      var allInterventionTypes = _.unique(allInterventions.map(function(intervention) {
-        return parseInt(intervention.intervention_type_id, 10);
-      }));
-      var interventionItems = allInterventionTypes.map(function(interventionTypeId) {
-        var interventionName = this.props.interventionTypesIndex[interventionTypeId].name;
-        return this.createItem(interventionName, Filters.InterventionType(interventionTypeId));
-      }, this);
-      var sortedItems =  _.sortBy(interventionItems, function(item) {
-        return -1 * students.filter(item.filter.filterFn).length;
-      });
-
-      return sortedItems.concat(this.createItem('None', Filters.InterventionType(null)));
     },
 
     renderGradeTable: function() {
