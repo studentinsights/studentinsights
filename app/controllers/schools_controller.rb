@@ -17,9 +17,7 @@ class SchoolsController < ApplicationController
     @serialized_data = {
       students: merged_student_hashes,
       current_educator: current_educator,
-      intervention_types_index: intervention_types_index,
-      service_types_index: service_types_index,
-      event_note_types_index: event_note_types_index
+      constant_indexes: constant_indexes
     }
   end
 
@@ -39,13 +37,21 @@ class SchoolsController < ApplicationController
     @serialized_data = {
       students_with_star_reading: merged_student_hashes,
       current_educator: current_educator,
+      constant_indexes: constant_indexes
+    }
+  end
+
+  private
+  # Serialize what are essentially constants stored in the database down
+  # to the UI so it can use them for joins.
+  def constant_indexes
+    {
       intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index
     }
   end
 
-  private
   # Queries for Services and EventNotes for each student, and merges the results
   # into the list of student hashes.
   def student_hash_for_slicing(student)
