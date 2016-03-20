@@ -13,8 +13,8 @@
       fontSize: 14
     },
     feedCardHeader: {
-      fontSize: '120%',
-      fontWeight: '400',
+      fontSize: 17,
+      fontWeight: 400,
       color: '#555555'
     },
     title: {
@@ -132,11 +132,13 @@
     renderCard: function(event){
       var key = [event.date, event.message].join();
       if (event.type === 'Absence' || event.type === 'Tardy'){
-        var divStyle = {fontSize: '80%'};
+        var containingDivStyle = {};
+        var headerDivStyle = {fontSize: 14};
         var paddingStyle = {paddingLeft: 10};
         var text = '';
       } else {
-        var divStyle = {border: '1px solid #eee'};
+        var containingDivStyle = {border: '1px solid #eee'};
+        var headerDivStyle = {};
         var paddingStyle = {padding: 10};
         var text = event.message;
       }
@@ -155,9 +157,9 @@
       }
 
       return dom.div(
-        {key: key, style: merge(styles.feedCard, divStyle)},
+        {key: key, style: merge(styles.feedCard, containingDivStyle)},
         dom.div({style: paddingStyle}, // Provides padding inside card.
-          dom.div({style: styles.feedCardHeader}, // Header (date + badge)
+          dom.div({style: merge(styles.feedCardHeader, headerDivStyle)}, // Header (date + badge)
             moment(event.date).format("MMMM Do, YYYY:"),
             dom.span( // Brightly-colored badge
               {style: merge(styles.badge, {background: type_to_color[event.type]})},
