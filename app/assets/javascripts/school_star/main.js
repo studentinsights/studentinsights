@@ -18,6 +18,7 @@ $(function() {
         students: serializedData.studentsWithStarReading,
         dateNow: new Date(),
         serviceTypesIndex: serializedData.constantIndexes.service_types_index,
+        eventNoteTypesIndex: serializedData.constantIndexes.event_note_types_index,
         initialFilters: Filters.parseFiltersHash(window.location.hash)
       }), document.getElementById('main'));
     }

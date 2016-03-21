@@ -17,6 +17,7 @@ describe('SlicePanels', function() {
         filters: [],
         interventionTypesIndex: FixtureConstantIndexes.interventionTypesIndex,
         serviceTypesIndex: FixtureConstantIndexes.serviceTypesIndex,
+        eventNoteTypesIndex: FixtureConstantIndexes.eventNoteTypesIndex,
         students: [],
         allStudents: [],
         onFilterToggled: jasmine.createSpy('onFilterToggled')
@@ -61,7 +62,7 @@ describe('SlicePanels', function() {
         ['STAR Reading', 'MCAS ELA', 'Growth - MCAS ELA'],
         ['STAR Math', 'MCAS Math', 'Growth - MCAS Math'],
         ['Discipline incidents', 'Absences', 'Tardies'],
-        ['Services', 'Program', 'Homeroom']
+        ['Services', 'Notes', 'Program', 'Homeroom']
       ]);
 
     });
@@ -79,7 +80,7 @@ describe('SlicePanels', function() {
          [5, 5, 5],
          [5, 5, 5],
          [5, 5, 5],
-         [4, 2, 1]
+         [4, 4, 2, 1]
       ]);
     });
   });

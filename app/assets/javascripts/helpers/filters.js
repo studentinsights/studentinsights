@@ -1,6 +1,8 @@
 (function() {
   // Define filter operations
   window.shared || (window.shared = {});
+  var FeedHelpers = window.shared.FeedHelpers;
+
   window.shared.Filters = Filters = {
     Range: function(key, range) {
       return {
@@ -54,6 +56,37 @@
           }).length > 0;
         },
         key: 'service_type'
+      };
+    },
+    EventNoteType: function(eventNoteTypeId) {
+      return {
+        identifier: ['event_note_type', eventNoteTypeId].join(':'),
+        filterFn: function(student) {
+          if (eventNoteTypeId === null) return (student.event_notes.length === 0);
+          return student.event_notes.filter(function(eventNote) {
+            return (eventNote.event_note_type_id === eventNoteTypeId);
+          }).length > 0;
+        },
+        key: 'event_note_type'
+      };
+    },
+    MergedNoteType: function(mergedNoteType, mergedNoteTypeId) {
+      return {
+        identifier: ['merged_note_type', mergedNoteType, mergedNoteTypeId].join(':'),
+        filterFn: function(student) {
+          var mergedNotes = FeedHelpers.mergedNotes({
+            event_notes: student.event_notes,
+            deprecated: {
+              interventions: student.interventions,
+              notes: student.notes
+            }
+          });
+          if (mergedNoteType === null && mergedNoteTypeId === null) return (mergedNotes.length === 0);
+          return mergedNotes.filter(function(mergedNote) {
+            return FeedHelpers.matchesMergedNoteType(mergedNote, mergedNoteType, mergedNoteTypeId);
+          }).length > 0;
+        },
+        key: 'merged_note_type'
       };
     },
     YearsEnrolled: function(value) {
