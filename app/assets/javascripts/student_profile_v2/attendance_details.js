@@ -43,7 +43,8 @@
       maxWidth: 1100,
       marginTop: 50,
       border: '1px solid #ccc',
-      padding: 30
+      padding: '30px 30px 30px 30px',
+      position: 'relative'
     },
     centerItem: {
       paddingBottom: 10,
@@ -51,10 +52,13 @@
       width: 75
     },
     secHead: {
-      width: '100%',
       display: 'flex',
       justifyContent: 'space-between',
       borderBottom: '1px solid #333',
+      position: 'absolute',
+      top: 30,
+      left: 30,
+      right: 30
     },
     navBar: {
       fontSize: 18
@@ -137,7 +141,7 @@
     },
 
     renderIncidents: function() {
-      return this.props.disciplineIncidents.map(function(incident) {
+      return  dom.div({ style: { paddingTop: 60 }}, this.props.disciplineIncidents.map(function(incident) {
         return dom.div({ style: styles.box, key: incident.occurred_at },
           dom.div({ style: styles.header },
             dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Date: '), dom.span({}, moment.utc(incident.occurred_at).format('MMM D, YYYY'))),
@@ -147,7 +151,7 @@
           dom.div({}, dom.span({ style: styles.desc }, 'Description: ')),
           dom.div({}, incident.incident_description))
 
-      });
+      }));
     },
 
     renderIncidentHistory: function() {

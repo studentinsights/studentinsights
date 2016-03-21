@@ -32,32 +32,46 @@
       marginRight: 20,
       width: '100%',
       maxWidth: 1100,
-      height: '100%',
+      height: 360
     },
     detailsContainer: {
       margin: 30
     },
     academicColumn: {
-      textAlign: 'center',
+      textAlign: 'left',
       width: 220
+    },
+    profileColumn: {
+      background: '#ededed'
+    },
+    interventionsColumn: {
+      background: '#ededed'
     },
     column: {
       flex: 1,
-      padding: 15,
+      padding: '16px 25px 11px 25px',
       cursor: 'pointer',
       border: '1px solid #eee',
-      height: '80%'
+      height: '80%',
+      margin: 0,
+      border: '1px solid #ccc',
+      borderRadius: '0 0 5px 5px',
     },
     columnContainer: {
       display: 'flex',
       flexDirection: 'column',
+      margin: '0 3px 0 0',
+      borderRadius: '0 0 5px 5px',
     },
     selectedColumn: {
-      border: '5px solid rgba(49, 119, 201, 0.64)',
-      padding: 10
+      border: '5px solid #3177c9',
+      borderTop: 0,
+      padding: '17px 21px 11px 21px'
     },
     selectedTab: {
-      background: '#ccc'
+      background: '#3177c9',
+      color: 'white',
+      border: '1px solid #3177c9',
     },
     summaryWrapper: {
       paddingBottom: 10
@@ -66,10 +80,11 @@
       fontWeight: 'bold',
       width: '100%',
       height: 40,
-      borderRadius: '15px 15px 0 0',
+      borderRadius: '5px 5px 0 0',
       border: '1px solid #ccc',
       textAlign: 'center',
       padding: '10px 5px 5px 5px',
+      margin: 0
     },
     sparklineWidth: 150,
     sparklineHeight: 50
@@ -208,7 +223,7 @@
 
       return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Overview"),
       dom.div({
-        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn),
         onClick: this.onColumnClicked.bind(this, columnKey)
       },
         createEl(SummaryList, {
@@ -229,7 +244,7 @@
       return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Interventions"),
       dom.div({
         className: 'interventions-column',
-        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+        style: merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       }, this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
