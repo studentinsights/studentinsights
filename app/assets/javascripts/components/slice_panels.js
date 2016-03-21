@@ -15,6 +15,7 @@
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
     },
 
@@ -135,7 +136,12 @@
         this.renderTable({
           title: 'Services',
           items: this.serviceItems(),
-          limit: 7
+          limit: 4
+        }),
+        this.renderTable({
+          title: 'Notes',
+          items: this.mergedNoteItems(),
+          limit: 4
         }),
         this.renderSimpleTable('Program', 'program_assigned', { limit: 3 }),
         this.renderSimpleTable('Homeroom', 'homeroom_name', {
@@ -169,6 +175,24 @@
       });
 
       return [this.createItem('None', Filters.ServiceType(null))].concat(sortedItems);
+    },
+
+    // TODO(kr) add other note types
+    mergedNoteItems: function() {
+      var students = this.props.allStudents;
+      var allEventNotes = _.compact(_.flatten(_.pluck(students, 'event_notes')));
+      var allEventNoteTypesIds = _.unique(allEventNotes.map(function(eventNote) {
+        return parseInt(eventNote.event_note_type_id, 10);
+      }));
+      var eventNoteItems = allEventNoteTypesIds.map(function(eventNoteTypeId) {
+        var eventNoteTypeName = this.props.eventNoteTypesIndex[eventNoteTypeId].name;
+        return this.createItem(eventNoteTypeName, Filters.EventNoteType(eventNoteTypeId));
+      }, this);
+      var sortedItems =  _.sortBy(eventNoteItems, function(item) {
+        return -1 * students.filter(item.filter.filterFn).length;
+      });
+
+      return [this.createItem('None', Filters.EventNoteType(null))].concat(sortedItems);
     },
 
     renderGradeTable: function() {

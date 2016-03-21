@@ -20,6 +20,7 @@
     propTypes: {
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       initialFilters: React.PropTypes.arrayOf(React.PropTypes.object)
     },
 
@@ -194,6 +195,7 @@
            allStudents: this.props.allStudents,
            students: this.getFilteredStudents(),
            serviceTypesIndex: this.props.serviceTypesIndex,
+           eventNoteTypesIndex: this.props.eventNoteTypesIndex,
            filters: this.state.filters,
            onFilterToggled: this.onFilterToggled
          })),

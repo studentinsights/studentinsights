@@ -45,6 +45,18 @@
       return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
     },
 
+    matchesMergedNoteType: function(mergedNote, mergedNoteType, mergedNoteTypeId) {
+      if (mergedNote.type !== mergedNoteType) return false;
+      switch (mergedNote.type) {
+        case 'event_notes': return (mergedNote.event_note_type_id === mergedNoteTypeId);
+        case 'deprecated_notes': return true;
+        case 'deprecated_interventions': return (mergedNote.intervention_type_id === mergedNoteTypeId);
+        case 'deprecated_progress_notes': return (mergedNote.intervention.intervention_type_id === mergedNoteTypeId);
+      }
+
+      return false;
+    },
+
     // Returns a list of all educatorIds that are active for the student,
     // based on the feed.
     allEducatorIds: function(feed) {

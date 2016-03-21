@@ -14,6 +14,7 @@ $(function() {
 
     propTypes: {
       serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       initialFilters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       dateNow: React.PropTypes.object.isRequired,
       recentThresholdInDays: React.PropTypes.number
@@ -139,6 +140,7 @@ $(function() {
           allStudents: this.props.students,
           students: this.filteredStudents(),
           serviceTypesIndex: this.props.serviceTypesIndex,
+          eventNoteTypesIndex: this.props.eventNoteTypesIndex,
           filters: this.state.filters,
           onFilterToggled: this.onFilterToggled
         })),
