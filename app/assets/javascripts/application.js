@@ -11,8 +11,13 @@
 // about supported directives.
 //
 
-// third-party:
+// rollbar reports errors in production, so load it first
+// but first it needs our application's Env config to know which environment
+// we're in
+//= require env
 //= require rollbar
+
+// third-party:
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
@@ -38,7 +43,6 @@
 //= require react-select
 
 // shared across application:
-//= require env
 //= require datepicker_config
 //= require session_timeout_warning
 //= require student_searchbar
