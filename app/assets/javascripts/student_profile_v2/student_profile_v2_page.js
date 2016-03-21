@@ -148,9 +148,10 @@
       switch (this.props.selectedColumnKey) {
         case 'profile': return createEl(ProfileDetails,
           {
+            student: this.props.student,
+            feed: this.props.feed,
             chartData: this.props.chartData,
             attendanceData: this.props.attendanceData,
-            student: this.props.student
           }
         );
         case 'ela': return createEl(ELADetails, {chartData: this.props.chartData});
