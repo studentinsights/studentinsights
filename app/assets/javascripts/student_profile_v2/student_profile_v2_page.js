@@ -49,29 +49,29 @@
     },
     column: {
       flex: 1,
-      padding: '16px 25px 11px 25px',
+      padding: '17px 21px 11px 21px',
       cursor: 'pointer',
-      border: '1px solid #eee',
+      border: '5px solid white',
+      borderColor: 'white',
+      borderTop: 0,
       height: '80%',
       margin: 0,
-      border: '1px solid #ccc',
       borderRadius: '0 0 5px 5px',
     },
     columnContainer: {
       display: 'flex',
       flexDirection: 'column',
-      margin: '0 3px 0 0',
-      borderRadius: '0 0 5px 5px',
-    },
+      margin: '0 5px 0 0',
+      borderRadius: '5px 5px 5px 5px',
+      border: '1px solid #ccc',
+     },
     selectedColumn: {
-      border: '5px solid #3177c9',
-      borderTop: 0,
-      padding: '17px 21px 11px 21px'
+      borderColor: '#3177c9',
     },
     selectedTab: {
       background: '#3177c9',
       color: 'white',
-      border: '1px solid #3177c9',
+      borderBottom: 0,
     },
     summaryWrapper: {
       paddingBottom: 10
@@ -80,11 +80,11 @@
       fontWeight: 'bold',
       width: '100%',
       height: 40,
-      borderRadius: '5px 5px 0 0',
-      border: '1px solid #ccc',
+      borderBottom: 0,
       textAlign: 'center',
       padding: '10px 5px 5px 5px',
-      margin: 0
+      margin: 0,
+      borderRadius: '5px 5px 0 0',
     },
     sparklineWidth: 150,
     sparklineHeight: 50
