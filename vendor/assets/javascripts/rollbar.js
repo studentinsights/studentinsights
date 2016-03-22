@@ -6,8 +6,7 @@
   // Sets global configuration for the Rollbar error reporting library,
   // based on the environment, and then loads the Rollbar code or not.
   var Env = window.shared.Env;
-  if (Env.railsEnvironment !== 'production') return;
-  if (Env.isDemoSite) return;
+  if (!Env.shouldReportAnalytics) return;
   
   var _rollbarConfig = {
     accessToken: "a79df03b6e734ef78f9149de2329d886",

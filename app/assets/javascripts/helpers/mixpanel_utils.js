@@ -6,7 +6,8 @@
   window.shared.MixpanelUtils = {
     registerUser: function(currentEducator) {
       if (!window.mixpanel) return;
-      if (Env.railsEnvironment !== 'production') return;
+      if (!Env.shouldReportAnalytics) return;
+
       try {
         window.mixpanel.register({
           'isDemoSite': Env.isDemoSite,
