@@ -162,6 +162,7 @@
         "Tardy": '#e8fce8',
         "Incident": '#e8fce8',
         "Note": '#e8fce8',
+        "Service": '#e8fce8',
 
         "MCAS ELA": '#ffe7d6',
         "STAR Reading": '#ffe7d6',
