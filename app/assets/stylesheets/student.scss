@@ -330,12 +330,17 @@
   margin-bottom: 15px;
   background-color: $light-background;
   border-bottom: 1px solid $light-line;
-  padding: 30px;
+  padding: 20px;
 
   h1 {
     font-weight: 400;
     display: inline;
   }
+
+  .homeroom-links a:not(:first-child) {
+    padding-left: 10px;
+  }
+
   p {
     float: right;
     @media screen and (max-width: $phase2) {
