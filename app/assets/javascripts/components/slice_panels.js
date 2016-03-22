@@ -24,6 +24,7 @@
         className: 'SlicePanels columns-container',
         style: {
           display: 'flex',
+          width: '100%',
           flexDirection: 'row',
           fontSize: styles.fontSize
         }
