@@ -11,6 +11,12 @@
 // about supported directives.
 //
 
+// rollbar reports errors in production, so load it first
+// but first it needs our application's Env config to know which environment
+// we're in
+//= require env
+//= require rollbar
+
 // third-party:
 //= require jquery
 //= require jquery_ujs
@@ -37,10 +43,12 @@
 //= require react-select
 
 // shared across application:
-//= require env
 //= require datepicker_config
 //= require session_timeout_warning
 //= require student_searchbar
+
+//= require ./helpers/react_helpers
+//= require ./helpers/feed_helpers
 //= require_tree ./helpers
 
 // shared react compoents:
@@ -52,7 +60,6 @@
 // pure ui components:
   //= require ./student_profile_v2/service_color
   //= require ./student/profile_charts/profile_chart_settings
-  //= require ./student_profile_v2/feed_helpers
   //= require ./student_profile_v2/educator
   //= require ./student_profile_v2/datepicker
   //= require ./student_profile_v2/highcharts_wrapper
@@ -80,4 +87,4 @@
 //= require_tree ./student
 //= require_tree ./roster
 //= require_tree ./school_overview
-//= require_tree ./school_star
+//= require_tree .

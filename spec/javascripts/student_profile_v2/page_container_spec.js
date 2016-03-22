@@ -92,12 +92,12 @@ describe('PageContainer', function() {
       var el = this.testEl;
       var component = helpers.renderInto(el, { actions: helpers.createSpyActions() });
       helpers.takeNotesAndSave(el, {
-        eventNoteTypeText: 'SST meeting',
+        eventNoteTypeText: 'SST Meeting',
         text: 'hello!'
       });
 
       expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
-        eventNoteTypeId: 1,
+        eventNoteTypeId: 300,
         text: 'hello!'
       });
     });

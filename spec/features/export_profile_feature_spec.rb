@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'capybara/rspec'
+require 'csv'
 
 describe 'export profile', :type => :feature do
 
@@ -13,7 +14,7 @@ describe 'export profile', :type => :feature do
       Timecop.freeze(date) do
         mock_ldap_authorization
         educator_sign_in(educator)
-        visit "/students/#{student.id}"
+        visit "/students/#{student.id}/deprecated_v1_profile"
         click_on 'Export'
       end
     end

@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :not_authorized
 
-  before_action :authorize!, only: [:show]
+  before_action :authorize!, except: [:names]
 
   def authorize!
     student = Student.find(params[:id])
@@ -12,6 +12,31 @@ class StudentsController < ApplicationController
   end
 
   def show
+    redirect_to profile_student_path
+  end
+
+  def profile
+    student = Student.find(params[:id])
+    chart_data = StudentProfileChart.new(student).chart_data
+    @serialized_data = {
+      current_educator: current_educator,
+      student: serialize_student_for_profile(student),
+      notes: student.student_notes.map { |note| serialize_student_note(note) },
+      feed: student_feed(student),
+      chart_data: chart_data,
+      intervention_types_index: intervention_types_index,
+      service_types_index: service_types_index,
+      event_note_types_index: event_note_types_index,
+      educators_index: educators_index,
+      attendance_data: {
+        discipline_incidents: student.most_recent_school_year.discipline_incidents,
+        tardies: student.most_recent_school_year.tardies,
+        absences: student.most_recent_school_year.absences
+      }
+    }
+  end
+
+  def deprecated_v1_profile
     @student = Student.find(params[:id]).decorate
     @chart_start = params[:chart_start] || "mcas-growth"
     @chart_data = StudentProfileChart.new(@student).chart_data
@@ -31,7 +56,7 @@ class StudentsController < ApplicationController
     @serialized_student_notes = student_notes.map { |note| serialize_student_note(note) }
 
     @roster_url = homeroom_path(@student.homeroom)
-    @csv_url = student_path(@student) + ".csv"
+    @csv_url = deprecated_v1_profile_student_path(@student) + ".csv"
 
     respond_to do |format|
       format.html
@@ -40,26 +65,6 @@ class StudentsController < ApplicationController
         filename: 'export'
       }
     end
-  end
-
-  def profile
-    student = Student.find(params[:id])
-    chart_data = StudentProfileChart.new(student).chart_data
-    @serialized_data = {
-      current_educator: current_educator,
-      student: serialize_student_for_profile(student),
-      notes: student.student_notes.map { |note| serialize_student_note(note) },
-      feed: student_feed(student),
-      chart_data: chart_data,
-      intervention_types_index: intervention_types_index,
-      service_types_index: service_types_index,
-      educators_index: educators_index,
-      attendance_data: {
-        discipline_incidents: student.most_recent_school_year.discipline_incidents,
-        tardies: student.most_recent_school_year.tardies,
-        absences: student.most_recent_school_year.absences
-      }
-    }
   end
 
   def sped_referral
@@ -110,7 +115,10 @@ class StudentsController < ApplicationController
 
   def names
     q = params[:q]
-    sorted_students = search_and_score(q, Student.with_school)
+    authorized_students = Student.with_school.select do |student|
+      current_educator.is_authorized_for_student(student)
+    end
+    sorted_students = search_and_score(q, authorized_students)
     @sorted_results = sorted_students.map {|student| student.decorate.presentation_for_autocomplete }
 
     respond_to do |format|

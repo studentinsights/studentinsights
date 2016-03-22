@@ -52,6 +52,7 @@
   var TakeNotes = window.shared.TakeNotes = React.createClass({
     propTypes: {
       nowMoment: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       onSave: React.PropTypes.func.isRequired,
       onCancel: React.PropTypes.func.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
@@ -103,14 +104,14 @@
         dom.div({ style: { marginBottom: 5, marginTop: 20 } }, 'What are these notes from?'),
         dom.div({ style: { display: 'flex' } },
           dom.div({ style: { flex: 1 } },
-            this.renderNoteButton('SST meeting', 1),
-            this.renderNoteButton('MTSS meeting', 2)
+            this.renderNoteButton(300),
+            this.renderNoteButton(301)
           ),
           dom.div({ style: { flex: 1 } },
-            this.renderNoteButton('Family conversation', 3)
+            this.renderNoteButton(302)
           ),
           dom.div({ style: { flex: 'auto' } },
-            this.renderNoteButton('Something else', 5) 
+            this.renderNoteButton(304)
           )
         ),
         dom.button({
@@ -141,20 +142,21 @@
     },
 
     // TODO(kr) extract button UI
-    renderNoteButton: function(noteText, noteTypeId) {
+    renderNoteButton: function(eventNoteTypeId) {
+      var eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
       return dom.button({
         className: 'btn note-type',
-        onClick: this.onClickNoteType.bind(this, noteTypeId),
+        onClick: this.onClickNoteType.bind(this, eventNoteTypeId),
         tabIndex: -1,
         style: merge(styles.serviceButton, {
           background: '#eee',
-          opacity: (this.state.eventNoteTypeId === null || this.state.eventNoteTypeId === noteTypeId) ? 1 : 0.25,
+          opacity: (this.state.eventNoteTypeId === null || this.state.eventNoteTypeId === eventNoteTypeId) ? 1 : 0.25,
           outline: 0,
-          border: (this.state.eventNoteTypeId === noteTypeId)
+          border: (this.state.eventNoteTypeId === eventNoteTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
         })
-      }, noteText);
+      }, eventNoteType.name);
     }
   });
 })();

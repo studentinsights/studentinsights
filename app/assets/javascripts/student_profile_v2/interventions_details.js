@@ -44,7 +44,9 @@
     propTypes: {
       interventionTypesIndex: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
       actions: PropTypes.actions.isRequired,
 
@@ -91,7 +93,8 @@
           this.renderTakeNotesSection(),
           createEl(NotesList, {
             feed: this.props.feed,
-            educatorsIndex: this.props.educatorsIndex
+            educatorsIndex: this.props.educatorsIndex,
+            eventNoteTypesIndex: this.props.eventNoteTypesIndex
           })
         ),
         dom.div({ style: styles.servicesContainer },
@@ -110,6 +113,7 @@
       if (this.state.isTakingNotes || this.props.requests.saveNotes !== null) {
         return createEl(TakeNotes, {
           nowMoment: moment.utc(), // TODO(kr) thread through
+          eventNoteTypesIndex: this.props.eventNoteTypesIndex,
           currentEducator: this.props.currentEducator,
           onSave: this.onClickSaveNotes,
           onCancel: this.onCancelNotes,

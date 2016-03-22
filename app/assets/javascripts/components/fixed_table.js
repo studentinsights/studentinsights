@@ -4,11 +4,11 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
-
+  var colors = window.shared.colors;
   var styles = window.shared.styles;
 
   /*
-  A fixed-size table of items for SlicePanel, describing a set of 
+  A fixed-size table of items for SlicePanel, describing a set of
   values for a dimension that the user can filter by.
   Items are shown in the order they are passed, and there is
   no user interation to change the list of items.
@@ -37,7 +37,7 @@
           paddingBottom: 5
         }
       },
-        dom.div({ className: 'FixedTable', style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
+        dom.div({ className: 'fixed-table-title', style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
         dom.table({},
           dom.tbody({}, items.map(function(item) {
             var key = item.caption;
