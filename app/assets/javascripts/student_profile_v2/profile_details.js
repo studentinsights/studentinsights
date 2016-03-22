@@ -115,6 +115,20 @@
           date: moment(obj.created_at_timestamp).toDate()
         });
       });
+      _.each(this.props.feed.event_notes, function(obj){
+        events.push({
+          type: 'Note',
+          message: obj.text,
+          date: moment(obj.updated_at).toDate() // TODO: should we care more about created vs updated?
+        });
+      });
+      _.each(this.props.feed.services, function(obj){
+        events.push({
+          type: 'Service',
+          message: obj.id,
+          date: moment(obj.updated_at).toDate() // TODO: should we care more about created vs updated?
+        });
+      });
       return _.sortBy(events, 'date').reverse();
     },
 
