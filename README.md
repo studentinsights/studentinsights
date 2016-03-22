@@ -174,7 +174,7 @@ So far, Student Insights can import CSV and JSON and can fetch data from AWS and
 
 ### LDAP
 
-The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set a `DEMO_SITE` environment variable. Authentication strategies are defined in `educator.rb`.
+The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set the `SHOULD_USE_LDAP` environment variable. Authentication strategies are defined in `educator.rb`.
 
 ### Heroku
 

@@ -11,6 +11,7 @@
       try {
         window.mixpanel.register({
           'isDemoSite': Env.isDemoSite,
+          'deployment': Env.deployment,
           'educator_id': currentEducator.id,
           'educator_is_admin': currentEducator.admin,
           'educator_school_id': currentEducator.school_id
