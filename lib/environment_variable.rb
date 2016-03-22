@@ -1,11 +1,12 @@
 class EnvironmentVariable
-  def is_true(string_key)
+  def self.is_true(string_key)
     value = ENV[string_key]
     return false if value == nil
     return false unless value.downcase == 'true'
+    true
   end
 
-  def value(string_key)
+  def self.value(string_key)
     ENV[string_key]
   end
 end
