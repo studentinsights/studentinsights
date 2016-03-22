@@ -157,7 +157,7 @@
     renderIncidentHistory: function() {
       return dom.div({ id: "history", style: styles.container },
         this.renderHeader('Incident History'),
-        (this.props.disciplineIncidents.length > 0) ? this.renderIncidents() : dom.div({ style: {paddingTop: 10}}, 'No Incidents')
+        (this.props.disciplineIncidents.length > 0) ? this.renderIncidents() : dom.div({ style: {paddingTop: 60}}, 'No Incidents')
       );
     },
   });
