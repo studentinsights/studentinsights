@@ -29,5 +29,6 @@ Rails.application.routes.draw do
   resources :bulk_intervention_assignments
   resources :schools do
     get :star_reading, on: :member
+    get :star_math, on: :member
   end
 end
