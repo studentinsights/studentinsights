@@ -1,3 +1,14 @@
+def sample_from_distribution(distribution)
+    r = Random::rand(1.0)
+    distribution.each {|k, v|
+        if r < v
+            return (if k.is_a?(Range) then k.to_a.sample else k end)
+        else
+            r -= v
+        end
+    }
+end
+
 class FakeStudent
 
   def initialize(homeroom)
@@ -153,20 +164,25 @@ class FakeStudent
   end
 
   def add_discipline_incidents
-    # Probabilities: https://github.com/codeforamerica/somerville-teacher-tool/issues/94
+    d = {
+      0 => 0.83,
+      1 => 0.10,
+      2 => 0.03,
+      (3..5) => 0.03,
+      (6..15) => 0.01,
+    }
 
-    discipline_event_generator = Rubystats::NormalDistribution.new(5.2, 8.3)
-    7.in(100) do
-      5.times do |n|
-        date_begin = Time.local(2010 + n, 8, 1)
-        date_end = Time.local(2011 + n, 7, 31)
-        discipline_event_generator.rng.round(0).times do
-          discipline_incident = DisciplineIncident.new(FakeDisciplineIncident.data)
-          discipline_incident.student_school_year = @student.student_school_years.first
-          discipline_incident.occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
-          discipline_incident.save
-        end
-      end
+    events_for_year = sample_from_distribution(d)
+    events_for_year.times do
+      # Randomly determine the school year it occurred.
+      n = [0, 1, 2, 3, 4].sample
+      date_begin = Time.local(2010 + n, 8, 1)
+      date_end = Time.local(2011 + n, 7, 31)
+
+      discipline_incident = DisciplineIncident.new(FakeDisciplineIncident.data)
+      discipline_incident.student_school_year = @student.student_school_years.first
+      discipline_incident.occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
+      discipline_incident.save
     end
   end
 
