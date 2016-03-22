@@ -19,29 +19,40 @@ class SchoolsController < ApplicationController
       current_educator: current_educator,
       constant_indexes: constant_indexes
     }
+    render 'shared/serialized_data'
+  end
+
+  def star_math
+    serialized_data_for_star {|student| student.star_math_results }
+    render 'shared/serialized_data'
   end
 
   def star_reading
+    serialized_data_for_star {|student| student.star_reading_results }
+    render 'shared/serialized_data'
+  end
+
+  private
+
+  def serialized_data_for_star
     authorized_students = current_educator.students_for_school_overview(:student_assessments)
 
     # TODO(kr) Read from cache, since this only updates daily
     student_hashes = authorized_students.map do |student|
-      HashWithIndifferentAccess.new(student_hash_for_slicing(student).merge({
-        star_reading_results: student.star_reading_results
-      }))
+      student_hash = HashWithIndifferentAccess.new(student_hash_for_slicing(student))
+      student_hash.merge(star_results: yield(student))
     end
 
     # Read data stored StudentInsights each time, with no caching
     merged_student_hashes = merge_mutable_fields_for_slicing(student_hashes)
 
     @serialized_data = {
-      students_with_star_reading: merged_student_hashes,
+      students_with_star_results: merged_student_hashes,
       current_educator: current_educator,
       constant_indexes: constant_indexes
     }
   end
 
-  private
   # Serialize what are essentially constants stored in the database down
   # to the UI so it can use them for joins.
   def constant_indexes

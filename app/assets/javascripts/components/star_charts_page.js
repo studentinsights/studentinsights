@@ -9,8 +9,8 @@ $(function() {
   var merge = window.shared.ReactHelpers.merge;
 
   // page
-  var StarReadingPage = React.createClass({
-    displayName: 'StarReadingPage',
+  var StarChartsPage = React.createClass({
+    displayName: 'StarChartsPage',
 
     propTypes: {
       serviceTypesIndex: React.PropTypes.object.isRequired,
@@ -58,7 +58,7 @@ $(function() {
       var hover = {
         name: student.first_name + ' ' + student.last_name,
         student_id: student.id,
-        scores: _.compact(_.pluck(student.star_reading_results, 'percentile_rank')).join(', ')
+        scores: _.compact(_.pluck(student.star_results, 'percentile_rank')).join(', ')
       };
       this.setState({
         hoverStudentIds: [student.id],
@@ -90,7 +90,7 @@ $(function() {
 
       return _.compact(this.filteredStudents().map(function(student) {
         // sort assessments by date taken, ascending
-        var assessmentsByDate = _.sortBy(student.star_reading_results, function(assessment) {
+        var assessmentsByDate = _.sortBy(student.star_results, function(assessment) {
           return new Date(assessment.date_taken);
         });
 
@@ -110,7 +110,7 @@ $(function() {
         // compute the delta
         var delta = recentAssessment.percentile_rank - previousAssessment.percentile_rank;
         return merge(student, {
-          star_reading_results: [previousAssessment, recentAssessment],
+          star_results: [previousAssessment, recentAssessment],
           delta: delta
         });
       }));
@@ -118,8 +118,8 @@ $(function() {
 
     flattenedAssessments: function(students) {
       return _.flatten(students.map(function(student) {
-        var studentFields = _.omit(student, 'star_reading_results');
-        return student.star_reading_results.filter(function(result) {
+        var studentFields = _.omit(student, 'star_results');
+        return student.star_results.filter(function(result) {
           return result.percentile_rank != null;
         }).map(function(result) { return merge(result, { student: studentFields }); });
       }));
@@ -135,7 +135,7 @@ $(function() {
 
     render: function() {
       var sizing = { width: 300, height: 250 };
-      return dom.div({ className: 'StarReadingPage', style: { paddingBottom: 20 } },
+      return dom.div({ className: 'StarChartsPage', style: { paddingBottom: 20 } },
         dom.div({ className: 'header', style: styles.header }, createEl(SlicePanels, {
           allStudents: this.props.students,
           students: this.filteredStudents(),
@@ -183,7 +183,7 @@ $(function() {
     },
 
     resultsDelta: function(student) {
-      var results = student.star_reading_results.filter(function(result) { return result.percentile_rank != null; });
+      var results = student.star_results.filter(function(result) { return result.percentile_rank != null; });
       if (results.length < 2) return 0;
       return _.last(results).percentile_rank - _.first(results).percentile_rank;
     },
@@ -202,7 +202,7 @@ $(function() {
             },
               dom.td({ style: { textAlign: 'right', color: color(delta) } }, (delta > 0) ? '+' + delta : delta),
               dom.td({ style: { color: '#ccc' } }, ' → '),
-              dom.td({}, + _.last(student.star_reading_results).percentile_rank),
+              dom.td({}, + _.last(student.star_results).percentile_rank),
               dom.td({}, dom.a({ style: { fontSize: styles.fontSize }, href: Routes.student(student.id) }, student.first_name + ' ' + student.last_name)),
               dom.td({}, student.grade),
               dom.td({}, dom.a({ href: Routes.homeroom(student.homeroom_id) }, student.homeroom_id))
@@ -216,7 +216,7 @@ $(function() {
     // and who had the greatest change since their last assessment
     renderRecentStarChanges: function(options) {
       var students = this.studentsWithRecentAssessments();
-      var assessments = _.flatten(_.pluck(students, 'star_reading_results'));
+      var assessments = _.flatten(_.pluck(students, 'star_results'));
       return this.renderLineChartWithTable('Student progress, since last assessment', 'Change in percentile rank', students, assessments, options);
     },
 
@@ -255,7 +255,7 @@ $(function() {
                 fill: 'none'
               }),
               students.map(function(student) {
-                var results = student.star_reading_results.filter(function(result) { return result.percentile_rank != null; });
+                var results = student.star_results.filter(function(result) { return result.percentile_rank != null; });
                 return dom.g({ key: student.id },
                   dom.path({
                     stroke: (this.isHoverStudent(student))
@@ -286,17 +286,17 @@ $(function() {
     },
 
     filteredResults: function(student) {
-      return student.star_reading_results.filter(function(result) { return result.percentile_rank != null; });
+      return student.star_results.filter(function(result) { return result.percentile_rank != null; });
     },
 
     renderAllTimeStarTrends: function(options) {
       var width = options.width;
       var height = options.height;
 
-      var filteredStudents = this.filteredStudents().filter(function(student) { return student.star_reading_results.length > 0; });
+      var filteredStudents = this.filteredStudents().filter(function(student) { return student.star_results.length > 0; });
       var students = _.sortBy(filteredStudents, this.allTimeRange);
       var assessments = _.flatten(students.map(function(student) {
-        return student.star_reading_results;
+        return student.star_results;
       }));
 
       return this.renderLineChartWithTable('Student scores, all-time', 'Percentile rank each assessment', students, assessments, options);
@@ -318,7 +318,7 @@ $(function() {
       var height = options.height;
 
       var students = this.studentsWithRecentAssessments();
-      var assessments = _.flatten(_.pluck(students, 'star_reading_results'));
+      var assessments = _.flatten(_.pluck(students, 'star_results'));
 
       var dateRange = d3.extent(assessments, function(d) { return new Date(d.date_taken); });
       var x = d3.scale.linear().domain([-50, 50]).range([0, width]);
@@ -329,7 +329,7 @@ $(function() {
       var hoverElements = _.compact(this.state.hoverStudentIds.map(function(studentId) {
         if (_.isEmpty(students)) return null;
         var student = _.findWhere(students, { id: studentId });
-        var percentile = _.last(student.star_reading_results).percentile_rank;
+        var percentile = _.last(student.star_results).percentile_rank;
         var delta = this.resultsDelta(student);
         var bubbleY = y(percentile);
         return dom.text({
@@ -368,7 +368,7 @@ $(function() {
               fill: 'none'
             }),
             students.map(function(student) {
-              var percentile = _.last(student.star_reading_results).percentile_rank;
+              var percentile = _.last(student.star_results).percentile_rank;
               var delta = this.resultsDelta(student);
               return dom.circle({
                 key: student.id,
@@ -560,7 +560,7 @@ $(function() {
       var color = d3.scale.linear().domain([-2, 0, 2]).range(['red','white','blue']);
       var ticks = _.range(bucketDomain[0] + bucketSize, bucketDomain[1] + bucketSize, bucketSize * 2);
 
-      var assessments = _.flatten(_.pluck(studentsWithDeltas, 'star_reading_results'));
+      var assessments = _.flatten(_.pluck(studentsWithDeltas, 'star_results'));
       var dateRange = d3.extent(assessments, function(result) { return new Date(result.date_taken); });
 
       return dom.div({},
@@ -639,5 +639,5 @@ $(function() {
     }
   });
 
-  window.shared.StarReadingPage = StarReadingPage;
+  window.shared.StarChartsPage = StarChartsPage;
 });
