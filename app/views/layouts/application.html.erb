@@ -23,9 +23,10 @@
           <% if educator_signed_in? %>
             <div class="nav-options">
               <% if current_educator.admin? %>
-                <%= link_to 'School Overview', school_path(School.first) %>
-                <%= link_to 'STAR Reading', star_reading_school_path(School.first) %>
-                <%= link_to 'STAR Math', star_math_school_path(School.first) %>
+                <% school = current_educator.school %>
+                <%= link_to 'School Overview', school_path(school) %>
+                <%= link_to 'STAR Reading', star_reading_school_path(school) %>
+                <%= link_to 'STAR Math', star_math_school_path(school) %>
               <% end %>
               <p class="search-label">Search for student:</p>
               <input id="student-searchbar" />
