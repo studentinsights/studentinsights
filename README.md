@@ -54,6 +54,11 @@ We'd love your help!  If you're interested in figuring out how to help, the best
 
 If you're an educator and want to try this out or have ideas about how to improve the product, we'd love to hear from you.  If you're an experienced developer or designer, there's some work we could use help with and you dive right into it.  We'll work with you to make sure your work can ship and will immediately help out principals and teachers.
 
+When talking about or suggesting product and design improvemnts, it's helpful to frame these in a few different steps:
+  1. Identify what problem we're trying to help the user with and why it matters.
+  2. What design or UX improvements can help the user with that problem? What are the tradeoffs in the solution?
+  3. How can we execute on sequencing the work or building it in code?
+
 If you need help with how to submit a pull request, check out the awesome [GitHub help](https://help.github.com/articles/using-pull-requests/).
 
 
@@ -169,7 +174,7 @@ So far, Student Insights can import CSV and JSON and can fetch data from AWS and
 
 ### LDAP
 
-The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set a `DEMO_SITE` environment variable. Authentication strategies are defined in `educator.rb`.
+The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set the `SHOULD_USE_LDAP` environment variable. Authentication strategies are defined in `educator.rb`.
 
 ### Heroku
 

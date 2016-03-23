@@ -4,6 +4,20 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
   var Routes = window.shared.Routes;
+  var RiskBubble = window.shared.RiskBubble;
+
+
+  var formatGradeNumber = function(grade) {
+      if(grade === 1){
+        return "1st";
+      } else if (grade === 2) {
+        return "2nd";
+      } else if (grade === 3) {
+        return "3rd";
+      } else {
+        return grade + "th";
+      }
+  }
 
   var styles = {
     titleContainer: {
@@ -50,7 +64,7 @@
         }, '•'),
         dom.span({
           style: styles.titleItem
-        }, student.grade),
+        }, formatGradeNumber(student.grade) + ' Grade'),
         dom.span({
           style: styles.titleItem
         }, '•'),
@@ -58,7 +72,10 @@
           className: 'homeroom-link',
           href: Routes.homeroom(student.homeroom_id),
           style: styles.titleItem
-        }, 'Homeroom ' + student.homeroom_name)
+        }, 'Homeroom ' + student.homeroom_name),
+        createEl(RiskBubble, {
+          riskLevel: student.student_risk_level.level
+        })
       );
     }
   });

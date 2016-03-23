@@ -37,7 +37,7 @@
           paddingBottom: 5
         }
       },
-        dom.div({ className: 'FixedTable', style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
+        dom.div({ className: 'fixed-table-title', style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
         dom.table({},
           dom.tbody({}, items.map(function(item) {
             var key = item.caption;

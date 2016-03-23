@@ -1,10 +1,10 @@
 class Educator < ActiveRecord::Base
   devise :rememberable, :trackable, :timeoutable
 
-  if Rails.env.development? || ENV['DEMO_SITE']
-    devise :database_authenticatable
-  else
+  if EnvironmentVariable.is_true('SHOULD_USE_LDAP')
     devise :ldap_authenticatable
+  else
+    devise :database_authenticatable
   end
 
   belongs_to  :school
