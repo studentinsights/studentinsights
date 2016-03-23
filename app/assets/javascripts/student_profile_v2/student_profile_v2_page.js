@@ -284,7 +284,7 @@
         this.wrapSummary({
           caption: 'STAR Reading',
           value: student.most_recent_star_reading_percentile,
-          sparkline: this.renderSparkline(chartData.star_series_reading_percentile || [])
+          sparkline: this.renderSparkline(chartData.star_series_reading_percentile || [], null, true)
         }),
         this.wrapSummary({
           caption: 'MCAS ELA',
@@ -292,12 +292,12 @@
           sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled || [], {
             valueRange: Scales.mcas.valueRange,
             thresholdValue: Scales.mcas.threshold
-          })
+          }, true)
         }),
         this.wrapSummary({
           caption: 'MCAS ELA Growth',
           value: student.most_recent_mcas_ela_growth,
-          sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
+          sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [], null, true)
         })
       );
     },
@@ -315,7 +315,7 @@
         this.wrapSummary({
           caption: 'STAR Math',
           value: student.most_recent_star_math_percentile,
-          sparkline: this.renderSparkline(chartData.star_series_math_percentile || [])
+          sparkline: this.renderSparkline(chartData.star_series_math_percentile || [], null, true)
         }),
         this.wrapSummary({
           caption: 'MCAS Math',
@@ -323,12 +323,12 @@
           sparkline: this.renderSparkline(chartData.mcas_series_math_scaled || [], {
             valueRange: Scales.mcas.valueRange,
             thresholdValue: Scales.mcas.threshold
-          })
+          }, true)
         }),
         this.wrapSummary({
           caption: 'MCAS Math Growth',
           value: student.most_recent_mcas_math_growth,
-          sparkline: this.renderSparkline(chartData.mcas_series_math_growth || [])
+          sparkline: this.renderSparkline(chartData.mcas_series_math_growth || [], null, true)
         })
       );
     },
@@ -380,9 +380,10 @@
     },
 
     // quads format is: [[year, month (Ruby), day, value]]
-    renderSparkline: function(quads, props) {
+    renderSparkline: function(quads, props, do_color) {
       return createEl(Sparkline, merge({
         height: styles.sparklineHeight,
+        colorize: do_color,
         width: styles.sparklineWidth,
         quads: quads,
         dateRange: this.dateRange(),
