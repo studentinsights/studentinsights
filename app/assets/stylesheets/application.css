@@ -16,3 +16,19 @@
  *= require jquery-ui
  *= require react-select
  */
+
+.flex-container {
+   display: -webkit-flex;
+   display: flex;
+   flex-direction: row;
+   width: 500px;
+   height: 35px;
+   margin-left: 450px;
+}
+
+.flex-item {
+    width: 141px;
+    height: 100px;
+    display: inline-block;
+    margin: 10px;
+}
