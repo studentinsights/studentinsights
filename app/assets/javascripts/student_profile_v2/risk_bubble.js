@@ -35,7 +35,7 @@
     },
 
     render: function() {
-      return dom.div({},
+      return dom.span({},
         dom.span({
           style: merge(styles.riskBubble, { backgroundColor: this.bubbleColor() })
         }, this.props.riskLevel),
