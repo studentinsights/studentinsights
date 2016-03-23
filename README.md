@@ -9,7 +9,16 @@ Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
   - username: `demo@example.com`
   - password: `demo-password`
 
-## Product overview
+## User personas: Who we're serving
+There are three main user personas we're serving. Principals, Interventionists and Classroom Teachers. Right now we're focused primarily on serving principals, and the rough progression will likely be to Interventionists next. Early adopter Classroom Teachers are great, but focused on scaling adoption across all classroom teachers isn't a priority yet.
+
+Principals are responsible for a school, from ensuring all students are progressing academically to making hiring and staffing decisions for teachers.
+
+Interventionists are typically folks who provide some kind of specialized service to students, like counseling, behavioral services or specialized reading instruction. They caseloads of 20-70 students and are often involved in interdisciplinary teams focused on supporting students who are most at-risk.
+
+Classroom Teachers are responsible for teaching all subjects in an elementary level, and at the middle school level typically teach two subjects, with a few periods of each subject.
+
+## Product overview: How we're helping
 #### School overview
 Principals and intervention specialists can get an overview of all students at school, updated automatically as new data comes in.  This includes demographic information (left), academic progress indicators (center), and educational interventions (right).
 
