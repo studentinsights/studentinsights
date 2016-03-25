@@ -282,6 +282,7 @@ ActiveRecord::Schema.define(version: 20160402225642) do
     t.integer  "most_recent_mcas_ela_scaled"
     t.integer  "most_recent_star_reading_percentile"
     t.integer  "most_recent_star_math_percentile"
+    t.string   "enrollment_status",                   null: false
   end
 
   add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree
