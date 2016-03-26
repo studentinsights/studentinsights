@@ -29,7 +29,6 @@ class Importer
       CleanupReport.new(@log, file_name, pre_cleanup_csv.size, data.size).print
 
       data.each.each_with_index do |row, index|
-        row.delete_if { |key, value| key.blank? }
         file_importer.import_row(row) if filter.include?(row)
         ProgressBar.new(@log, file_name, data.size, index + 1).print
       end
