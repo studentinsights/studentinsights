@@ -4,6 +4,33 @@ load File.expand_path('../../../../lib/tasks/import.thor', __FILE__)
 RSpec.describe Import do
   let(:task) { Import::Start.new }
 
+  describe '.start' do
+    before do
+      sftp_client_double = double(read_file: 'meow')
+      allow(SftpClient).to receive_messages(for_x2: sftp_client_double, for_star: sftp_client_double)
+    end
+
+    let(:commands) { Import::Start.start }
+
+    it 'invokes all the commands and returns the correct kind of values' do
+      expect(commands[0]).to eq false
+      expect(commands[1]).to eq nil
+      expect(commands[2]).to eq ['HEA']
+      expect(commands[3]).to be_a Array
+      expect(commands[4]).to eq []
+      expect(commands[5]).to eq nil
+    end
+
+    let(:importers) { commands[3] }
+
+    it 'returns the correct importers' do
+      expect(importers.size).to eq 2
+      expect(importers[0]).to be_a Importer
+      expect(importers[1]).to be_a Importer
+    end
+
+  end
+
   describe '#importers' do
     context 'when provided with the default sources' do
       it 'returns X2 and STAR importers' do
