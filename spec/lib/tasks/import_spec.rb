@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 load File.expand_path('../../../../lib/tasks/import.thor', __FILE__)
 
 RSpec.describe Import do
@@ -10,10 +10,9 @@ RSpec.describe Import do
       allow(SftpClient).to receive_messages(for_x2: sftp_client_double, for_star: sftp_client_double)
     end
 
-    let(:commands) { Import::Start.start }
+    let(:commands) { Import::Start.start(%w[--test-mode]) }
 
     it 'invokes all the commands and returns the correct kind of values' do
-      expect(commands[0]).to eq false
       expect(commands[1]).to eq nil
       expect(commands[2]).to eq ['HEA']
       expect(commands[3]).to be_a Array
