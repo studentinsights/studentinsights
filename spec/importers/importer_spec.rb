@@ -4,10 +4,7 @@ RSpec.describe Importer do
 
   describe '#connect_transform_import' do
 
-    let(:log_dir) { "#{Rails.root}/spec/logs" }
-    before { Dir.mkdir(log_dir) unless File.exists?(log_dir) }
-    let(:logs_path) { "#{Rails.root}/spec/logs/logs.txt" }
-    let(:log) { File.new(logs_path, 'w') }
+    let(:log) { LogHelper::Redirect.instance.file }
 
     context 'CSV with 1 High School student, 1 Healey student (Elem), 1 Brown student (Elem)' do
 
