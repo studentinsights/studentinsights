@@ -13,7 +13,7 @@ class ImportTaskReport
   end
 
   def puts(text)
-    @log.write(text)
+    @log.puts(text)
   end
 
   ## INITIAL REPORT ##
