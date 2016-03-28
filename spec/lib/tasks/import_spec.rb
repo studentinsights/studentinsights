@@ -6,10 +6,10 @@ RSpec.describe Import do
 
   describe '.start' do
     before do
-      sftp_client_double = double(read_file: 'meow')
       allow(SftpClient).to receive_messages(for_x2: sftp_client_double, for_star: sftp_client_double)
     end
 
+    let(:sftp_client_double) { double(read_file: 'meow') }
     let(:commands) { Import::Start.start(%w[--test-mode]) }
 
     it 'invokes all the commands and returns the correct kind of values' do
@@ -21,11 +21,33 @@ RSpec.describe Import do
     end
 
     let(:importers) { commands[3] }
+    let(:first_importer) { importers[0] }
+    let(:second_importer) { importers[1] }
 
     it 'returns the correct importers' do
       expect(importers.size).to eq 2
-      expect(importers[0]).to be_a Importer
-      expect(importers[1]).to be_a Importer
+
+      expect(first_importer).to be_a Importer
+      expect(second_importer).to be_a Importer
+
+      expect(first_importer.client).to eq sftp_client_double
+      expect(first_importer.school_scope).to eq ["HEA"]
+      expect(first_importer.file_importers.map { |i| i.class }).to eq [
+        StudentsImporter,
+        X2AssessmentImporter,
+        BehaviorImporter,
+        EducatorsImporter,
+        AttendanceImporter
+      ]
+
+      expect(second_importer.client).to eq sftp_client_double
+      expect(second_importer.school_scope).to eq ["HEA"]
+      expect(second_importer.file_importers.map { |i| i.class }).to eq [
+        StarReadingImporter,
+        StarReadingImporter::HistoricalImporter,
+        StarMathImporter,
+        StarMathImporter::HistoricalImporter
+      ]
     end
 
   end
