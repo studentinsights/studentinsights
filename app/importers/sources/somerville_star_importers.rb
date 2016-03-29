@@ -5,6 +5,7 @@ class SomervilleStarImporters
 
   def initialize(options = {})
     @school_scope = options["school"]
+    @log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
   end
 
   def options
@@ -17,7 +18,8 @@ class SomervilleStarImporters
         StarReadingImporter::HistoricalImporter,
         StarMathImporter,
         StarMathImporter::HistoricalImporter
-      ].map(&:new)
+      ].map(&:new),
+      log_destination: @log
     }
   end
 
