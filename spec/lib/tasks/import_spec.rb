@@ -1,8 +1,56 @@
-require 'spec_helper'
+require 'rails_helper'
 load File.expand_path('../../../../lib/tasks/import.thor', __FILE__)
 
 RSpec.describe Import do
   let(:task) { Import::Start.new }
+
+  describe '.start' do
+    before do
+      allow(SftpClient).to receive_messages(for_x2: sftp_client_double, for_star: sftp_client_double)
+    end
+
+    let(:sftp_client_double) { double(read_file: 'meow') }
+    let(:commands) { Import::Start.start(%w[--test-mode]) }
+
+    it 'invokes all the commands and returns the correct kind of values' do
+      expect(commands[1]).to eq nil
+      expect(commands[2]).to eq ['HEA']
+      expect(commands[3]).to be_a Array
+      expect(commands[4]).to eq []
+      expect(commands[5]).to eq nil
+    end
+
+    let(:importers) { commands[3] }
+    let(:first_importer) { importers[0] }
+    let(:second_importer) { importers[1] }
+
+    it 'returns the correct importers' do
+      expect(importers.size).to eq 2
+
+      expect(first_importer).to be_a Importer
+      expect(second_importer).to be_a Importer
+
+      expect(first_importer.client).to eq sftp_client_double
+      expect(first_importer.school_scope).to eq ["HEA"]
+      expect(first_importer.file_importers.map { |i| i.class }).to eq [
+        StudentsImporter,
+        X2AssessmentImporter,
+        BehaviorImporter,
+        EducatorsImporter,
+        AttendanceImporter
+      ]
+
+      expect(second_importer.client).to eq sftp_client_double
+      expect(second_importer.school_scope).to eq ["HEA"]
+      expect(second_importer.file_importers.map { |i| i.class }).to eq [
+        StarReadingImporter,
+        StarReadingImporter::HistoricalImporter,
+        StarMathImporter,
+        StarMathImporter::HistoricalImporter
+      ]
+    end
+
+  end
 
   describe '#importers' do
     context 'when provided with the default sources' do
