@@ -32,4 +32,10 @@ class AnalyzeStaffTable < Struct.new(:path)
     data.select { |row| row[:stf_name_view] == full_name }[0].to_hash
   end
 
+  def get_educators_missing_local_ids
+    data.select { |row| row[:stf_id_local].nil? }
+        .map { |row| row[:stf_name_view] }
+        .sort
+  end
+
 end
