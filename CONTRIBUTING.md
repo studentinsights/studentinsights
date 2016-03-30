@@ -17,7 +17,7 @@ When talking about or suggesting product and design improvemnts, it's helpful to
 
 ## Have an Issue With Us?  Good! 
 
-One of the most valuable ways anybody can contribute to this project is by identifying bugs and other issues to look at.  It is easy to create an issue ticket on GitHub with the click of a button. Before you submit a new issue, please take a look at the other issues (open and closed) and the README file to check if it is already be addressed.  
+One of the most valuable ways anybody can contribute to this project is by identifying bugs and other issues to look at.  It is easy to create an issue ticket on GitHub with the [click of a button](https://github.com/studentinsights/studentinsights/issues/new). Before you submit a new issue, please take a look at the other issues (both [open](https://github.com/studentinsights/studentinsights/issues?q=is%3Aopen+is%3Aissue) and [closed](https://github.com/studentinsights/studentinsights/issues?q=is%3Aissue+is%3Aclosed) and the [README](README.md) file to check if it is already be addressed.  
 
 ## If It's Tuesday, It Must Be Hack Night! 
 
