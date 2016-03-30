@@ -81,7 +81,8 @@
 
     propTypes: {
       feed: PropTypes.feed.isRequired,
-      educatorsIndex: React.PropTypes.object.isRequired
+      educatorsIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired
     },
 
     render: function() {
@@ -97,14 +98,9 @@
     },
 
     renderEventNoteTypeBadge: function(eventNoteTypeId) {
-      switch (eventNoteTypeId) {
-        case 1: return dom.span({ style: styles.badge }, 'SST meeting');
-        case 2: return dom.span({ style: styles.badge }, 'MTSS meeting');
-        case 3: return dom.span({ style: styles.badge }, 'Family');
-        case 5: return dom.span({ style: styles.badge }, 'Something else');
-      }
-
-      return null;
+      var eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
+      if (eventNoteType === undefined) return null;
+      return dom.span({ style: styles.badge }, eventNoteType.name);
     },
 
     renderEventNote: function(eventNote) {

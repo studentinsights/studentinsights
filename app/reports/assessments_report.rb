@@ -1,7 +1,7 @@
-class AssessmentsReport
+class AssessmentsReport < Struct.new :log
 
   def print_report
-    puts report
+    log.puts(report)
   end
 
   def headers

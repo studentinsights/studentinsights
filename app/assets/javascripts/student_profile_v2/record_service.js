@@ -183,14 +183,13 @@
 
     renderButtons: function() {
       var isFormComplete = (this.state.providedByEducatorId && this.state.serviceTypeId && this.state.momentStarted);
-      var isSaveEnabled = !isFormComplete;
       return dom.div({ style: { marginTop: 15 } },
         dom.button({
           style: {
             marginTop: 20,
-            background: (isSaveEnabled) ? undefined : '#ccc'
+            background: (isFormComplete) ? undefined : '#ccc'
           },
-          disabled: isSaveEnabled,
+          disabled: !isFormComplete,
           className: 'btn save',
           onClick: this.onClickSave
         }, 'Record service'),

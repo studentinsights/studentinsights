@@ -2,6 +2,27 @@ require 'rails_helper'
 
 RSpec.describe Educator do
 
+  describe '#admin_gets_access_to_all_students' do
+    context 'admin with access to all students' do
+      let(:admin) { FactoryGirl.build(:educator, :admin) }
+      it 'is valid' do
+        expect(admin).to be_valid
+      end
+    end
+    context 'admin without access to all students' do
+      let(:admin) { FactoryGirl.build(:educator, :admin, schoolwide_access: false) }
+      it 'is invalid' do
+        expect(admin).to be_invalid
+      end
+    end
+    context 'non-admin, no specific permissions set' do
+      let(:educator) { FactoryGirl.build(:educator) }
+      it 'is valid' do
+        expect(educator).to be_valid
+      end
+    end
+  end
+
   describe '#local_id' do
     context 'no local id' do
       it 'is invalid' do

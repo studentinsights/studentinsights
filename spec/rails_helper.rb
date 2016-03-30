@@ -4,6 +4,8 @@ ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require "#{Rails.root}/db/seeds/database_constants"
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -34,8 +36,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
-    InterventionType.seed_somerville_intervention_types
-    EventNoteType.seed_somerville_event_note_types
+    DatabaseConstants.new.seed!
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

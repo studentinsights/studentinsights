@@ -1,3 +1,4 @@
-School.seed_somerville_schools
-InterventionType.seed_somerville_intervention_types
-EventNoteType.seed_somerville_event_note_types
+require "#{Rails.root}/db/seeds/database_constants"
+
+puts 'Seeding constants...'
+DatabaseConstants.new.seed!

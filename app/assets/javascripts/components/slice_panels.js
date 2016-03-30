@@ -1,141 +1,21 @@
 (function() {
 
   window.shared || (window.shared = {});
-  var Filters = window.shared.Filters;
-  var Routes = window.shared.Routes;
-  var SlicePanels = window.shared.SlicePanels;
+  var CollapsableTable = window.shared.CollapsableTable;
   var styles = window.shared.styles;
   var colors = window.shared.colors;
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
-  // fixed items, already sorted, no collapsing
-  var FixedTable = React.createClass({
-    displayName: 'FixedTable',
-
-    onRowClicked: function(item, e) {
-      this.props.onFilterToggled(item.filter);
-    },
-
-    render: function() {
-      return this.renderTableFor(this.props.title, this.props.items, this.props);
-    },
-
-    // title height is fixed since font-weight causes loading a font which delays initial render
-    renderTableFor: function(title, items, options) {
-      options || (options = {});
-      var className = options.className || '';
-      var selectedFilterIdentifiers = _.pluck(this.props.filters, 'identifier');
-      return dom.div({
-        className: 'FixedTable panel ' + className,
-        style: {
-          display: 'inline-block',
-          paddingTop: 5,
-          paddingBottom: 5
-        }
-      },
-        dom.div({ className: 'FixedTable', style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
-        dom.table({},
-          dom.tbody({}, items.map(function(item) {
-            var key = item.caption;
-            var isFilterApplied = _.contains(selectedFilterIdentifiers, item.filter.identifier);
-            return dom.tr({
-              key: item.caption,
-              style: {
-                backgroundColor: (isFilterApplied) ? colors.selection: null,
-                cursor: 'pointer'
-              },
-              onClick: this.onRowClicked.bind(this, item)
-            },
-              dom.td({
-                className: 'caption-cell',
-                style: { opacity: (item.percentage === 0) ? 0.15 : 1 }
-              },
-                dom.a({
-                  style: { fontSize: styles.fontSize, paddingLeft: 10 }
-                }, item.caption)
-              ),
-              dom.td({ style: { fontSize: styles.fontSize, width: 48, textAlign: 'right', paddingRight: 8 }},
-                (item.percentage ===  0) ? '' : Math.ceil(100 * item.percentage) + '%'),
-              dom.td({ style: { fontSize: styles.fontSize, width: 50 } }, this.renderBar(item.percentage, 50))
-            );
-          }, this))
-        ),
-        dom.div({ style: { paddingLeft: 5 } }, this.props.children)
-      );
-    },
-
-    renderBar: function(percentage, width) {
-      return dom.div({
-        className: 'bar',
-        style: {
-          width: Math.round(width*percentage) + '%',
-          height: '1em',
-        }
-      });
-    }
-  });
-
-  // table that supports collapsing
-  var CollapsableTable = React.createClass({
-    displayName: 'CollapsableTable',
-    getDefaultProps: function() {
-      return {
-        minHeight: 132,
-        limit: 5,
-        className: ''
-      };
-    },
-
-    getInitialState: function() {
-      return {
-        isExpanded: false
-      };
-    },
-
-    onCollapseClicked: function(e) {
-      this.setState({ isExpanded: false });
-    },
-
-    onExpandClicked: function(e) {
-      this.setState({ isExpanded: true });
-    },
-
-    render: function() {
-      var truncatedItems = (this.state.isExpanded)
-        ? this.props.items
-        : this.props.items.slice(0, this.props.limit);
-      return dom.div({ className: 'CollapsableTable' },
-        createEl(FixedTable, merge(this.props, {
-          items: truncatedItems,
-          children: this.renderCollapseOrExpand()
-        }))
-      );
-    },
-
-    renderCollapseOrExpand: function() {
-      if (this.props.items.length <= this.props.limit) return;
-      return dom.a({
-        style: {
-          fontSize: styles.fontSize,
-          color: '#999',
-          paddingTop: 5,
-          display: 'block'
-        },
-        onClick: (this.state.isExpanded) ? this.onCollapseClicked : this.onExpandClicked
-      }, (this.state.isExpanded) ? '- Hide details' : '+ Show all');
-
-    }
-  });
-
-  window.shared.SlicePanels = React.createClass({
+  var SlicePanels = window.shared.SlicePanels = React.createClass({
     displayName: 'SlicePanels',
     propTypes: {
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      InterventionTypes: React.PropTypes.object.isRequired,
+      serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
     },
 
@@ -144,6 +24,7 @@
         className: 'SlicePanels columns-container',
         style: {
           display: 'flex',
+          width: '100%',
           flexDirection: 'row',
           fontSize: styles.fontSize
         }
@@ -233,7 +114,6 @@
           this.createItem('1', Filters.Equal(key, 1)),
           this.createItem('2', Filters.Equal(key, 2)),
           this.createItem('3 - 5', Filters.Range(key, [3, 6])),
-          // this.createItem('6+', Filters.Range(key, [5, 7])),
           this.createItem('6+', Filters.Range(key, [6, Number.MAX_VALUE]))
         ]
       });
@@ -255,9 +135,14 @@
     renderInterventionsColumn: function() {
       return dom.div({ className: 'column interventions-column' },
         this.renderTable({
-          title: 'Interventions',
-          items: this.interventionItems(),
-          limit: 5
+          title: 'Services',
+          items: this.serviceItems(),
+          limit: 4
+        }),
+        this.renderTable({
+          title: 'Notes',
+          items: this.mergedNoteItems(),
+          limit: 4
         }),
         this.renderSimpleTable('Program', 'program_assigned', { limit: 3 }),
         this.renderSimpleTable('Homeroom', 'homeroom_name', {
@@ -276,21 +161,39 @@
       };
     },
 
-    interventionItems: function() {
+    serviceItems: function() {
       var students = this.props.allStudents;
-      var allInterventions = _.compact(_.flatten(_.pluck(students, 'interventions')));
-      var allInterventionTypes = _.unique(allInterventions.map(function(intervention) {
-        return parseInt(intervention.intervention_type_id, 10);
+      var allServices = _.compact(_.flatten(_.pluck(students, 'services')));
+      var allServiceTypeIds = _.unique(allServices.map(function(service) {
+        return parseInt(service.service_type_id, 10);
       }));
-      var interventionItems = allInterventionTypes.map(function(interventionTypeId) {
-        var interventionName = this.props.InterventionTypes[interventionTypeId].name;
-        return this.createItem(interventionName, Filters.InterventionType(interventionTypeId));
+      var serviceItems = allServiceTypeIds.map(function(serviceTypeId) {
+        var serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
+        return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
       }, this);
-      var sortedItems =  _.sortBy(interventionItems, function(item) {
+      var sortedItems =  _.sortBy(serviceItems, function(item) {
         return -1 * students.filter(item.filter.filterFn).length;
       });
 
-      return sortedItems.concat(this.createItem('None', Filters.InterventionType(null)));
+      return [this.createItem('None', Filters.ServiceType(null))].concat(sortedItems);
+    },
+
+    // TODO(kr) add other note types
+    mergedNoteItems: function() {
+      var students = this.props.allStudents;
+      var allEventNotes = _.compact(_.flatten(_.pluck(students, 'event_notes')));
+      var allEventNoteTypesIds = _.unique(allEventNotes.map(function(eventNote) {
+        return parseInt(eventNote.event_note_type_id, 10);
+      }));
+      var eventNoteItems = allEventNoteTypesIds.map(function(eventNoteTypeId) {
+        var eventNoteTypeName = this.props.eventNoteTypesIndex[eventNoteTypeId].name;
+        return this.createItem(eventNoteTypeName, Filters.EventNoteType(eventNoteTypeId));
+      }, this);
+      var sortedItems =  _.sortBy(eventNoteItems, function(item) {
+        return -1 * students.filter(item.filter.filterFn).length;
+      });
+
+      return [this.createItem('None', Filters.EventNoteType(null))].concat(sortedItems);
     },
 
     renderGradeTable: function() {

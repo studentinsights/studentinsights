@@ -32,7 +32,7 @@ class StudentProfileCsvExporter < Struct.new :student
   end
 
   def mcas_ela_results
-    student.mcas_ela_results.map do |results|
+    student.mcas_ela_results.map do |result|
       [
         result.date_taken,
         result.scale_score,
@@ -49,7 +49,7 @@ class StudentProfileCsvExporter < Struct.new :student
   end
 
   def star_reading_results
-    student.star_reading_results.map do |results|
+    student.star_reading_results.map do |result|
       [result.date_taken, result.percentile_rank, result.instructional_reading_level]
     end
   end

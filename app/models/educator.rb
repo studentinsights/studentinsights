@@ -1,10 +1,10 @@
 class Educator < ActiveRecord::Base
   devise :rememberable, :trackable, :timeoutable
 
-  if Rails.env.development? || ENV['DEMO_SITE']
-    devise :database_authenticatable
-  else
+  if EnvironmentVariable.is_true('SHOULD_USE_LDAP')
     devise :ldap_authenticatable
+  else
+    devise :database_authenticatable
   end
 
   belongs_to  :school
@@ -13,9 +13,14 @@ class Educator < ActiveRecord::Base
   has_many    :interventions
   has_many    :progress_notes, through: :interventions
   has_many    :student_notes
-  
+
   validates :email, presence: true, uniqueness: true
   validates :local_id, presence: true, uniqueness: true
+  validate :admin_gets_access_to_all_students
+
+  def admin_gets_access_to_all_students
+    errors.add(:admin, "needs access to all students") if admin? && !has_access_to_all_students?
+  end
 
   # This method is the source of truth for whether an educator is authorized to view information about a particular
   # student.
@@ -78,6 +83,14 @@ class Educator < ActiveRecord::Base
 
   def allowed_homerooms_by_name
     allowed_homerooms.order(:name)
+  end
+
+  private
+
+  def has_access_to_all_students?
+    restricted_to_sped_students == false &&
+    restricted_to_english_language_learners == false &&
+    schoolwide_access == true
   end
 
 end

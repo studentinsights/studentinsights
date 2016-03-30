@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.1.4'
+gem 'rails', '4.1.14.1'
 gem 'pg'
 gem 'unicorn'
 
@@ -41,6 +41,8 @@ group :development, :test do
   gem 'faker'
   gem 'launchy'
   gem 'phantomjs'
+  gem 'pry'                   # Set a breakpoint in your ruby code by adding `binding.pry`
+                              # See https://github.com/pry/pry
   gem 'rack-test'
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers'

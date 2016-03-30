@@ -5,12 +5,6 @@ RSpec.describe FakeStudent do
   let!(:school) { FactoryGirl.create(:school) }
   let!(:homeroom) { FactoryGirl.create(:homeroom) }
   before { FactoryGirl.create(:educator, :admin) }
-
-  before do
-    InterventionType.seed_somerville_intervention_types
-    Assessment.seed_somerville_assessments
-  end
-
   let(:student) { described_class.new(homeroom).student }
 
   it 'sets student name' do

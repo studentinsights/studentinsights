@@ -14,7 +14,8 @@ $(function() {
 
       ReactDOM.render(createEl(SchoolOverviewPage, {
         allStudents: serializedData.students,
-        InterventionTypes: serializedData.interventionTypesIndex,
+        serviceTypesIndex: serializedData.constantIndexes.service_types_index,
+        eventNoteTypesIndex: serializedData.constantIndexes.event_note_types_index,
         initialFilters: Filters.parseFiltersHash(window.location.hash)
       }), document.getElementById('main'));
     }
