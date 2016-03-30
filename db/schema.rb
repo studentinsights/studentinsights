@@ -291,9 +291,23 @@ ActiveRecord::Schema.define(version: 20160330000130) do
   add_index "tardies", ["student_school_year_id"], name: "index_tardies_on_student_school_year_id", using: :btree
 
   Foreigner.load
+  add_foreign_key "absences", "student_school_years", name: "absences_student_school_year_id_fk"
+
+  add_foreign_key "discipline_incidents", "student_school_years", name: "discipline_incidents_student_school_year_id_fk"
+
+  add_foreign_key "educators", "schools", name: "educators_school_id_fk"
+
   add_foreign_key "event_notes", "educators", name: "event_notes_educator_id_fk"
   add_foreign_key "event_notes", "event_note_types", name: "event_notes_event_note_type_id_fk"
   add_foreign_key "event_notes", "students", name: "event_notes_student_id_fk"
+
+  add_foreign_key "homerooms", "educators", name: "homerooms_educator_id_fk"
+
+  add_foreign_key "interventions", "educators", name: "interventions_educator_id_fk"
+  add_foreign_key "interventions", "intervention_types", name: "interventions_intervention_type_id_fk"
+  add_foreign_key "interventions", "school_years", name: "interventions_school_year_id_fk"
+  add_foreign_key "interventions", "student_school_years", name: "interventions_student_school_year_id_fk"
+  add_foreign_key "interventions", "students", name: "interventions_student_id_fk"
 
   add_foreign_key "progress_notes", "educators", name: "progress_notes_educator_id_fk"
   add_foreign_key "progress_notes", "interventions", name: "progress_notes_intervention_id_fk"
@@ -303,6 +317,21 @@ ActiveRecord::Schema.define(version: 20160330000130) do
   add_foreign_key "services", "service_types", name: "services_service_type_id_fk"
   add_foreign_key "services", "students", name: "services_student_id_fk"
 
+  add_foreign_key "student_assessments", "assessments", name: "student_assessments_assessment_id_fk"
+  add_foreign_key "student_assessments", "school_years", name: "student_assessments_school_year_id_fk"
+  add_foreign_key "student_assessments", "student_school_years", name: "student_assessments_student_school_year_id_fk"
   add_foreign_key "student_assessments", "students", name: "student_assessments_student_id_fk"
+
+  add_foreign_key "student_notes", "educators", name: "student_notes_educator_id_fk"
+  add_foreign_key "student_notes", "students", name: "student_notes_student_id_fk"
+
+  add_foreign_key "student_risk_levels", "students", name: "student_risk_levels_student_id_fk"
+
+  add_foreign_key "student_school_years", "students", name: "student_school_years_student_id_fk"
+
+  add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"
+  add_foreign_key "students", "schools", name: "students_school_id_fk"
+
+  add_foreign_key "tardies", "student_school_years", name: "tardies_student_school_year_id_fk"
 
 end
