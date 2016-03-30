@@ -290,6 +290,7 @@ ActiveRecord::Schema.define(version: 20160330000130) do
 
   add_index "tardies", ["student_school_year_id"], name: "index_tardies_on_student_school_year_id", using: :btree
 
+  Foreigner.load
   add_foreign_key "event_notes", "educators", name: "event_notes_educator_id_fk"
   add_foreign_key "event_notes", "event_note_types", name: "event_notes_event_note_type_id_fk"
   add_foreign_key "event_notes", "students", name: "event_notes_student_id_fk"
