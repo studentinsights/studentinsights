@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302143639) do
+ActiveRecord::Schema.define(version: 20160330000130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -289,5 +289,19 @@ ActiveRecord::Schema.define(version: 20160302143639) do
   end
 
   add_index "tardies", ["student_school_year_id"], name: "index_tardies_on_student_school_year_id", using: :btree
+
+  add_foreign_key "event_notes", "educators", name: "event_notes_educator_id_fk"
+  add_foreign_key "event_notes", "event_note_types", name: "event_notes_event_note_type_id_fk"
+  add_foreign_key "event_notes", "students", name: "event_notes_student_id_fk"
+
+  add_foreign_key "progress_notes", "educators", name: "progress_notes_educator_id_fk"
+  add_foreign_key "progress_notes", "interventions", name: "progress_notes_intervention_id_fk"
+
+  add_foreign_key "services", "educators", name: "services_provided_by_educator_id_fk", column: "provided_by_educator_id"
+  add_foreign_key "services", "educators", name: "services_recorded_by_educator_id_fk", column: "recorded_by_educator_id"
+  add_foreign_key "services", "service_types", name: "services_service_type_id_fk"
+  add_foreign_key "services", "students", name: "services_student_id_fk"
+
+  add_foreign_key "student_assessments", "students", name: "student_assessments_student_id_fk"
 
 end
