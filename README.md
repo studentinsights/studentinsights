@@ -50,7 +50,8 @@ This is a web product, integrated with the Aspen SIS, district LDAP authorizatio
 
 
 ## Contributing
-We'd love your help!  If you're interested in figuring out how to help, the best first step is to come drop into [chat](https://cfb-public.slack.com/messages/somerville-schools/), or connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter.
+We'd love your help! Take a look at our [CONTRIBUTING.md](CONTRIBUTING.md) file for more information on ways educators, developers and others can get involved and contribute directly to the project.  To talk with other people about way to help, the best first step is to come drop into [chat](https://cfb-public.slack.com/messages/somerville-schools/), or connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter. 
+
 
 If you're an educator and want to try this out or have ideas about how to improve the product, we'd love to hear from you.  If you're an experienced developer or designer, there's some work we could use help with and you dive right into it.  We'll work with you to make sure your work can ship and will immediately help out principals and teachers.
 
