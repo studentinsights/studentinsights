@@ -23,7 +23,7 @@
    flex-direction: row;
    width: 500px;
    height: 35px;
-   margin-left: 450px;
+   margin-left: 462px;
 }
 
 .flex-item {
@@ -31,4 +31,8 @@
     height: 100px;
     display: inline-block;
     margin: 10px;
+}
+
+.border-sign_in {
+     border: 3px inset #4a90e2
 }

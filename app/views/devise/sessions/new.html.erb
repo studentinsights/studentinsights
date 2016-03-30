@@ -2,12 +2,12 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="flex-item">
         <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true %>
+        <%= f.email_field :email, class: 'border-sign_in', autofocus: true %>
       </div>
 
       <div class="flex-item">
         <%= f.label :password %>
-        <%= f.password_field :password, autocomplete: "off" %>
+        <%= f.password_field :password, class: 'border-sign_in', autocomplete: "off" %>
       </div>
 
       <div class="flex-item">
