@@ -14,7 +14,7 @@ There are three main user personas we're serving. Principals, Interventionists a
 
 Principals are responsible for a school, from ensuring all students are progressing academically to making hiring and staffing decisions for teachers.
 
-Interventionists are typically folks who provide some kind of specialized service to students, like counseling, behavioral services or specialized reading instruction. They caseloads of 20-70 students and are often involved in interdisciplinary teams focused on supporting students who are most at-risk.
+Interventionists are typically folks who provide some kind of specialized service to students, like counseling, behavioral services or specialized reading instruction. They have caseloads of 20-70 students and are often involved in interdisciplinary teams focused on supporting students who are most at-risk.
 
 Classroom Teachers are responsible for teaching all subjects in an elementary level, and at the middle school level typically teach two subjects, with a few periods of each subject.
 
