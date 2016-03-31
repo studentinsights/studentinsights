@@ -23,5 +23,5 @@ One of the most valuable ways anybody can contribute to this project is by ident
 Join us on Tuesday night at [Code for Boston](http://www.codeforboston.org) to work on the project together in person, we could use your help!  Each week folks are shipping incremental improvements, prototyping new features and squashing bugs, all while learning new things and meeting new people.  We typically create an [agenda issue]( https://github.com/studentinsights/studentinsights/issues?utf8=%E2%9C%93&q=is%3Aissue+agenda+) for each meeting.
 
 ## Contribute Your Work by Submitting a Pull Request
-If you need help with how to submit a pull request, check out the awesome [GitHub help](https://help.github.com/articles/using-pull-requests/).
+If you need help with how to submit a pull request, check out the awesome [GitHub help](https://help.github.com/articles/using-pull-requests/), or this [walkthrough tutorial](https://guides.github.com/introduction/flow/) on the workflow for working on projects in GitHub.
 
