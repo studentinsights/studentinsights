@@ -37,7 +37,7 @@ class FakeStudent
   def base_data
     {
       school_id: School.first.id,
-      enrollment_status: "Active",
+      enrollment_status: enrollment_status,
       grade: "5",
       hispanic_latino: [true, false].sample,
       race: ["A", "B", "H", "W"].sample,
@@ -57,6 +57,10 @@ class FakeStudent
       local_id = random_local_id
     end
     local_id
+  end
+
+  def enrollment_status
+    7.in(8) ? 'Active' : 'Transferred'
   end
 
   def random_local_id
