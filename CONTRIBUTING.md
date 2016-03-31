@@ -8,7 +8,8 @@ As a first step, please take a little time to become familiar with the project a
 
 If you're **an educator** and want to try this out or have ideas about how to improve the product, we'd love to hear from you.  If you're **an experienced developer or designer**, there's some work we could use help with and you dive right into it.  We'll work with you to make sure your work can ship and will immediately help out principals and teachers.
 
-## Get clear on the basic problem or issue you want to work on
+## Find something to help with!
+At Code for Boston each week, we start by making an [agenda issue]( https://github.com/studentinsights/studentinsights/issues?utf8=%E2%9C%93&q=is%3Aissue+agenda+).  This has the overall flow for the meeting, and can help you understand the broad product priorities and find something that aligns with your interests and skillset.  There's often not a perfect match, so we bias slightly towards finding something where contributors can jump in and start working right away, even if that's not the highest priority at the moment.  
 
 When talking about or suggesting product and design improvemnts, it's helpful to frame these in a few different steps:
   1. Identify what problem we're trying to help the user with and why it matters.
@@ -16,14 +17,11 @@ When talking about or suggesting product and design improvemnts, it's helpful to
   3. How can we execute on sequencing the work or building it in code?
 
 ## Have an Issue With Us?  Good! 
-
 One of the most valuable ways anybody can contribute to this project is by identifying bugs and other issues to look at.  It is easy to create an issue ticket on GitHub with the [click of a button](https://github.com/studentinsights/studentinsights/issues/new). Before you submit a new issue, please take a look at the other issues (both [open](https://github.com/studentinsights/studentinsights/issues?q=is%3Aopen+is%3Aissue) and [closed](https://github.com/studentinsights/studentinsights/issues?q=is%3Aissue+is%3Aclosed) and the [README](README.md) file to check if it is already be addressed.  
 
 ## If It's Tuesday, It Must Be Hack Night! 
+Join us on Tuesday night at [Code for Boston](http://www.codeforboston.org) to work on the project together in person, we could use your help!  Each week folks are shipping incremental improvements, prototyping new features and squashing bugs, all while learning new things and meeting new people.  We typically create an [agenda issue]( https://github.com/studentinsights/studentinsights/issues?utf8=%E2%9C%93&q=is%3Aissue+agenda+) for each meeting.
 
-Join us pretty much every Tuesday night to hack together on this project.  A group of us gathers in person as part of [Code for Boston](http://www.codeforboston.org).  Pizza, beverages, learn new things, meet new people and squash new bugs! 
-
-## Contribute Your Work by Submitting a Pull Request 
-
+## Contribute Your Work by Submitting a Pull Request
 If you need help with how to submit a pull request, check out the awesome [GitHub help](https://help.github.com/articles/using-pull-requests/).
 
