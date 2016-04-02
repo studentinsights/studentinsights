@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   include SerializeDataHelper
 
-  rescue_from Exceptions::EducatorNotAuthorized, with: :not_authorized
+  rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
 
   before_action :authorize!, except: [:names]
 
@@ -127,10 +127,6 @@ class StudentsController < ApplicationController
   end
 
   private
-  def not_authorized
-    redirect_to not_authorized_path
-  end
-
   def serialize_student_for_profile(student)
     student.as_json.merge({
       interventions: student.interventions.as_json,

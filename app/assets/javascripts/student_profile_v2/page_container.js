@@ -8,6 +8,7 @@
   var StudentProfileV2Page = window.shared.StudentProfileV2Page;
   var PropTypes = window.shared.PropTypes;
   var Api = window.shared.Api;
+  var updatedMap = window.shared.updatedMap;
 
   /*
   Holds page state, makes API calls to manipulate it.
@@ -109,6 +110,22 @@
       this.setState({ requests: merge(this.state.requests, { saveService: 'error' }) });
     },
 
+    onClickDiscontinueService: function(serviceId) {
+      this.setState(updatedMap(this.state, ['requests', 'discontinueService', serviceId], 'pending'));
+      this.api.discontinueService(serviceId)
+        .done(this.onDiscontinueServiceDone)
+        .fail(this.onDiscontinueServiceFail);
+    },
+
+    onDiscontinueServiceDone: function(response) {
+      var withoutServiceId = _.omit(this.state.requests.discontinueService, serviceId);
+      this.setState(updatedMap(this.state, ['requests', 'discontinueService'], withoutServiceId));
+    },
+
+    onDiscontinueServiceFail: function(request, status, message) {
+      this.setState(updatedMap(this.state, ['requests', 'discontinueService', serviceId], 'error'));
+    },
+    
     dateRange: function() {
       var nowMoment = this.props.nowMomentFn();
       return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
@@ -134,6 +151,7 @@
             onColumnClicked: this.onColumnClicked,
             onClickSaveNotes: this.onClickSaveNotes,
             onClickSaveService: this.onClickSaveService
+            onClickDiscontinueService: this.onClickDiscontinueService
           }
         }))
       );

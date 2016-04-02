@@ -28,6 +28,11 @@
       return this._post(url, body);
     },
 
+    discontinueService: function(studentId, serviceId) {
+      var url = '/students/' + studentId + '/services/' + serviceId;
+      return this._delete(url);
+    },
+
     _post: function(url, body) {
       return $.ajax({
         url: url,
@@ -35,6 +40,13 @@
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
         data: JSON.stringify(body)
+      });
+    },
+
+    _delete: function(url) {
+      return $.ajax({
+        url: url,
+        method: 'DELETE'
       });
     }
   };

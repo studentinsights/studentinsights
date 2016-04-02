@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       post :service
     end
   end
+  resources :services, only: [:destroy]
 
   resources :homerooms, only: [:show]
   resources :interventions, only: [:create, :destroy]

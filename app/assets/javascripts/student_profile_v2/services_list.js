@@ -45,8 +45,13 @@
       services: React.PropTypes.array.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired
+      onClickDiscontinueService: React.PropTypes.func.isRequired
     },
 
+    onClickDiscontinueService: function(service) {
+      this.props.onClickDiscontinueService(service);
+    },
+    
     render: function() {
       var elements = (this.props.services.length === 0)
         ? dom.div({ style: styles.noItems }, 'No services')
@@ -75,10 +80,12 @@
               dom.span({ style: styles.daysAgo }, momentStarted.fromNow(true))
             )
           )
-          // TODO(kr) re-enable
-          // dom.div({},
-          //   dom.button({ className: 'btn', style: styles.discontinue }, 'Discontinue')
-          // )
+          dom.div({},
+            dom.button({
+              className: 'btn', style: styles.discontinue
+              onClick: this.onClickDiscontinueService.bind(this, service)
+            }, 'Discontinue')
+          )
         ),
         dom.div({ style: merge(styles.userText, { paddingTop: 15 }) }, service.comment)
       );
