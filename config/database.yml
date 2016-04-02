@@ -6,6 +6,8 @@ development:
   pool: 5
   database: student_insights_development
   host: localhost
+  username: postgres
+  password: password
 
 test:
   adapter: postgresql
@@ -13,6 +15,8 @@ test:
   pool: 5
   database: student_insights_test
   host: localhost
+  username: postgres
+  password: password
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
