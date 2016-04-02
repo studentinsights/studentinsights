@@ -51,7 +51,7 @@ describe ServicesController, :type => :controller do
     it 'records that the service was discontinued' do
       make_request(service.id)
       expect(response.status).to eq 200
-      expect(service.discontinued?).to eq true
+      expect(service.reload.discontinued?).to eq true
     end
   end
 end

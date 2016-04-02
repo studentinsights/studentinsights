@@ -1,5 +1,13 @@
 require 'rails_helper'
 
+def create_service(student, educator)
+  FactoryGirl.create(:service, {
+    student: student,
+    recorded_by_educator: educator,
+    provided_by_educator: educator
+  })
+end
+
 describe StudentsController, :type => :controller do
   describe '#show redirects to profile' do
     let(:student) { FactoryGirl.create(:student, :with_risk_level) }
@@ -459,6 +467,33 @@ describe StudentsController, :type => :controller do
       expect(aladdin_score).to be > pluto_score
       expect(aladdin_score).to eq 1
       expect(pluto_score).to eq 0.5
+    end
+  end
+
+  describe '#student_feed' do
+    let(:student) { FactoryGirl.create(:student) }
+    let(:educator) { FactoryGirl.create(:educator, :admin) }
+    let!(:service) { create_service(student, educator) }
+
+    it 'returns services' do
+      feed = controller.send(:student_feed, student)
+      expect(feed.keys).to eq([:event_notes, :services, :deprecated])
+      expect(feed[:services].size).to eq 1
+      expect(feed[:services].first[:id]).to eq service.id
+    end
+
+    context 'after service is discontinued' do
+      before do
+        DiscontinuedService.create!({
+          service_id: service.id,
+          recorded_by_educator_id: educator.id,
+          recorded_at: Time.now
+        })
+      end
+      it 'filters it' do
+        feed = controller.send(:student_feed, student)
+        expect(feed[:services].size).to eq 0
+      end
     end
   end
 end
