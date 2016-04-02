@@ -1,4 +1,3 @@
 FactoryGirl.define do
-  factory :intervention_type do
-  end
+  factory :intervention_type
 end

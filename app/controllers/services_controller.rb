@@ -12,7 +12,7 @@ class ServicesController < ApplicationController
     service_id = params[:id]
     discontinued_service = DiscontinuedService.new({
       service_id: service_id,
-      educator_id: current_educator.id,
+      recorded_by_educator_id: current_educator.id,
       recorded_at: Time.now
     })
     if discontinued_service.save

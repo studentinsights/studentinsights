@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313100123) do
+ActiveRecord::Schema.define(version: 20160402225642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,14 @@ ActiveRecord::Schema.define(version: 20160313100123) do
   end
 
   add_index "discipline_incidents", ["student_school_year_id"], name: "index_discipline_incidents_on_student_school_year_id", using: :btree
+
+  create_table "discontinued_services", force: true do |t|
+    t.integer  "service_id"
+    t.integer  "recorded_by_educator_id"
+    t.datetime "recorded_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "educators", force: true do |t|
     t.string   "email",                                   default: "",    null: false

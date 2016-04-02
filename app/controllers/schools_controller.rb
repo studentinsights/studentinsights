@@ -77,7 +77,7 @@ class SchoolsController < ApplicationController
   def merge_mutable_fields_for_slicing(student_hashes)
     student_ids = student_hashes.map {|student_hash| student_hash[:id] }
     all_event_notes = EventNote.where(student_id: student_ids)
-    all_services = Service.where(student_id: student_ids)
+    all_services = Service.active.where(student_id: student_ids)
     all_interventions = Intervention.where(student_id: student_ids)
 
     student_hashes.map do |student_hash|

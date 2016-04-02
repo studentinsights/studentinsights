@@ -169,7 +169,7 @@ class StudentsController < ApplicationController
   def student_feed(student)
     {
       event_notes: student.event_notes,
-      services: student.services,
+      services: student.services.active,
       deprecated: {
         notes: student.student_notes.map { |note| serialize_student_note(note) },
         interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
