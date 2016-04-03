@@ -48,7 +48,7 @@
     displayName: 'ServicesList',
 
     propTypes: {
-      services: React.PropTypes.array.isRequired,
+      servicesFeed: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       discontinueServiceRequests: React.PropTypes.object.isRequired,
@@ -109,14 +109,17 @@
     },
     
     // Active services before inactive, then sorted by time
-    sortFn: function(service) {
-      return [this.wasDiscontinued(service) ? false : true, service.date_started];
+    sortedMergedServices: function(servicesFeed) {
+      return _.flatten([
+        _.sortBy(servicesFeed.active, 'date_started').reverse(),
+        _.sortBy(servicesFeed.discontinued, 'date_started').reverse()
+      ]);
     },
 
     render: function() {
-      var elements = (this.props.services.length === 0)
+      var elements = (this.props.servicesFeed.active.length === 0 && this.props.servicesFeed.discontinued.length === 0)
         ? dom.div({ style: styles.noItems }, 'No services')
-        : _.sortBy(this.props.services, this.sortFn).reverse().map(this.renderService);
+        : this.sortedMergedServices(this.props.servicesFeed).map(this.renderService);
       return dom.div({ className: 'ServicesList' }, elements);
     },
 

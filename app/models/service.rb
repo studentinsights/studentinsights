@@ -14,4 +14,8 @@ class Service < ActiveRecord::Base
   def self.active
     self.includes(:discontinued_services).where(:discontinued_services => { :id => nil })
   end
+
+  def self.discontinued
+    self.includes(:discontinued_services).where.not(:discontinued_services => { :id => nil })
+  end
 end

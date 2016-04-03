@@ -105,7 +105,7 @@
           dom.h4({ style: styles.title}, 'Services'),
           dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
           createEl(ServicesList, {
-            services: this.props.feed.services,
+            servicesFeed: this.props.feed.services,
             educatorsIndex: this.props.educatorsIndex,
             serviceTypesIndex: this.props.serviceTypesIndex,
             onClickDiscontinueService: this.onClickDiscontinueService,

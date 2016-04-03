@@ -31,7 +31,10 @@
     // a student.
     feed: React.PropTypes.shape({
       event_notes: React.PropTypes.array.isRequired,
-      services: React.PropTypes.array.isRequired,
+      services: React.PropTypes.shape({
+        active: React.PropTypes.array.isRequired,
+        discontinued: React.PropTypes.array.isRequired
+      }),
       deprecated: React.PropTypes.shape({
         notes: React.PropTypes.array.isRequired,
         interventions: React.PropTypes.array.isRequired

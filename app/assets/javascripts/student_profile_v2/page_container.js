@@ -99,8 +99,13 @@
     },
 
     onSaveServiceDone: function(response) {
-      var updatedServices = this.state.feed.services.concat([response]);
-      var updatedFeed = merge(this.state.feed, { services: updatedServices });
+      var updatedActiveServices = this.state.feed.services.active.concat([response]);
+      var updatedFeed = merge(this.state.feed, {
+        services: merge(this.state.feed.services, {
+          active: updatedActiveServices
+        })
+      });
+
       this.setState({
         feed: updatedFeed,
         requests: merge(this.state.requests, { saveService: null })
@@ -120,14 +125,14 @@
 
     onDiscontinueServiceDone: function(serviceId, response) {
       var updatedStateOfRequests = this.mergedDiscontinueService(this.state, serviceId, null);
-      var updatedServices = this.state.feed.services.map(function(service) {
-        return (service.id !== serviceId) ? service : merge(service, {
-          discontinued_recorded_at: response.discontinued_recorded_at,
-          discontinued_by_educator_id: response.discontinued_by_educator_id
-        });
+      var updatedFeed = merge(this.state.feed, {
+        services: merge(this.state.feed.services, {
+          discontinued: this.state.feed.services.discontinued.concat([response]),
+          active: this.state.feed.services.active.filter(function(service) {
+            return service.id !== serviceId;
+          }),
+        })
       });
-      var updatedFeed = merge(this.state.feed, { services: updatedServices });
-      
       this.setState(merge(updatedStateOfRequests, { feed: updatedFeed }));
     },
 
