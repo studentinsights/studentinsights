@@ -160,12 +160,6 @@ ActiveRecord::Schema.define(version: 20160406202337) do
     t.string   "custom_intervention_name"
   end
 
-  create_table "precomputed_student_hashes", primary_key: "key", force: true do |t|
-    t.json     "doc"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "precomputed_student_hashes_docs", primary_key: "key", force: true do |t|
     t.json     "json"
     t.datetime "created_at"
