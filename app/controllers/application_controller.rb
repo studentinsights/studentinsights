@@ -39,4 +39,9 @@ class ApplicationController < ActionController::Base
   rescue Exceptions::NoHomerooms
     no_homerooms_path
   end
+
+  # Sugar for filters checking authorization
+  def redirect_unauthorized!
+    redirect_to not_authorized_path
+  end
 end

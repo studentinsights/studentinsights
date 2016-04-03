@@ -13,6 +13,7 @@ class StudentNotesController < ApplicationController
     end
   end
 
+  private
   def student_note_params
     params.require(:student_note).permit(:student_id, :content)
   end

@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   include SerializeDataHelper
 
-  rescue_from Exceptions::EducatorNotAuthorized, with: :not_authorized
+  rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
 
   before_action :authorize!, except: [:names]
 
@@ -88,7 +88,7 @@ class StudentsController < ApplicationController
       recorded_at: Time.now
     }))
     if event_note.save
-      render json: event_note.as_json
+      render json: serialize_event_note(event_note)
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
     end
@@ -107,7 +107,7 @@ class StudentsController < ApplicationController
       recorded_at: Time.now
     }))
     if service.save
-      render json: service.as_json
+      render json: serialize_service(service)
     else
       render json: { errors: service.errors.full_messages }, status: 422
     end
@@ -127,13 +127,8 @@ class StudentsController < ApplicationController
   end
 
   private
-  def not_authorized
-    redirect_to not_authorized_path
-  end
-
   def serialize_student_for_profile(student)
     student.as_json.merge({
-      interventions: student.interventions.as_json,
       student_risk_level: student.student_risk_level.as_json,
       absences_count: student.most_recent_school_year.absences.count,
       tardies_count: student.most_recent_school_year.tardies.count,
@@ -172,8 +167,11 @@ class StudentsController < ApplicationController
 
   def student_feed(student)
     {
-      event_notes: student.event_notes,
-      services: student.services,
+      event_notes: student.event_notes.map {|event_note| serialize_event_note(event_note) },
+      services: {
+        active: student.services.active.map {|service| serialize_service(service) },
+        discontinued: student.services.discontinued.map {|service| serialize_service(service) }
+      },
       deprecated: {
         notes: student.student_notes.map { |note| serialize_student_note(note) },
         interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }

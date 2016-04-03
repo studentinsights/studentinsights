@@ -29,6 +29,7 @@ class InterventionsController < ApplicationController
     render nothing: true
   end
 
+  private
   def intervention_params
     params.require(:intervention).permit(
       :student_id,
@@ -42,5 +43,4 @@ class InterventionsController < ApplicationController
       :id
     )
   end
-
 end

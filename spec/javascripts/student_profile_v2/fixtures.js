@@ -8,6 +8,150 @@
   // assuming static time for specs
   window.shared.Fixtures.nowMoment = moment('2016-02-11T10:15:00');
 
+  window.shared.Fixtures.feedForTestingNotes = {
+    "event_notes": [
+      {
+        "id": 3,
+        "student_id": 5,
+        "educator_id": 1,
+        "event_note_type_id": 301,
+        "text": "Awesome!",
+        "recorded_at": "2016-02-26T22:20:55.398Z",
+        "created_at": "2016-02-26T22:20:55.416Z",
+        "updated_at": "2016-02-26T22:20:55.416Z"
+      },
+      {
+        "id": 4,
+        "student_id": 5,
+        "educator_id": 1,
+        "event_note_type_id": 301,
+        "text": "Sweet!",
+        "recorded_at": "2016-02-27T19:23:26.835Z",
+        "created_at": "2016-02-27T19:23:26.836Z",
+        "updated_at": "2016-02-27T19:23:26.836Z"
+      }
+    ],
+    "services": {
+      "active": [
+        {
+          "id": 133,
+          "service_type_id": 503,
+          "recorded_by_educator_id": 1,
+          "provided_by_educator_id": 1,
+          "date_started": "2016-02-09",
+          "date_discontinued": null,
+          "discontinued_by_educator_id": 1
+        },
+        {
+          "id": 134,
+          "service_type_id": 506,
+          "recorded_by_educator_id": 1,
+          "provided_by_educator_id": 1,
+          "date_started": "2016-02-08",
+          "date_discontinued": null,
+          "discontinued_by_educator_id": 1
+        }
+      ],
+      "discontinued": []
+    },
+    "deprecated": {
+      "notes": [
+        {
+          "id": 5,
+          "content": "We talked with the family.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.950Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 6,
+          "content": "We talked with an outside therapist.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.955Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 7,
+          "content": "We talked with an outside therapist.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.960Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 8,
+          "content": "We talked with the family.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.963Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 9,
+          "content": "We talked with the family.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.967Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 10,
+          "content": "We talked with an outside therapist.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.970Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 11,
+          "content": "We talked with the family.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.974Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 12,
+          "content": "We talked with an outside therapist.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.978Z",
+          "created_at": "February 24, 2016"
+        }
+      ],
+      "interventions": [
+        {
+          "id": 1,
+          "name": "Behavior Plan",
+          "intervention_type_id": 24,
+          "comment": "bar",
+          "goal": "increase growth percentile",
+          "start_date": "October 27, 2010",
+          "start_date_timestamp": "2010-10-27",
+          "end_date": "November 10, 2010",
+          "educator_email": "demo@example.com",
+          "educator_id": 1,
+          "progress_notes": []
+        },
+        {
+          "id": 2,
+          "name": "Attendance Officer",
+          "intervention_type_id": 21,
+          "comment": "whatever",
+          "goal": "increase growth percentile",
+          "start_date": "December 11, 2010",
+          "start_date_timestamp": "2010-12-11",
+          "end_date": "December 25, 2010",
+          "educator_email": "demo@example.com",
+          "educator_id": 1,
+          "progress_notes": []
+        }
+      ]
+    }
+  };
+
   var currentEducator = window.shared.Fixtures.currentEducator = {
     "id": 1,
     "email": "demo@example.com",
@@ -433,22 +577,25 @@
       "updated_at": "2016-02-11T21:29:30.288Z"
     }
   ],
-  "services": [
-    {
-      "id": 133,
-      "service_type_id": 503,
-      "recorded_by_educator_id": 1,
-      "provided_by_educator_id": 1,
-      "date_started": "2016-02-09"
-    },
-    {
-      "id": 134,
-      "service_type_id": 506,
-      "recorded_by_educator_id": 1,
-      "provided_by_educator_id": 1,
-      "date_started": "2016-02-09"
-    }
-  ],
+  "services": {
+    "active": [
+      {
+        "id": 133,
+        "service_type_id": 503,
+        "recorded_by_educator_id": 1,
+        "provided_by_educator_id": 1,
+        "date_started": "2016-02-09"
+      },
+      {
+        "id": 134,
+        "service_type_id": 506,
+        "recorded_by_educator_id": 1,
+        "provided_by_educator_id": 1,
+        "date_started": "2016-02-09"
+      }
+    ],
+    "discontinued": []
+  },
   "deprecated": {
     "notes": [
       {

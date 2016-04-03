@@ -7,7 +7,7 @@
   all notes and services for a student.
   */
   var FeedHelpers = window.shared.FeedHelpers = {
-    // Merges data from event_notes, services and deprecated tables (notes, interventions).
+    // Merges data from event_notes and deprecated tables (notes, interventions).
     mergedNotes: function(feed) {
       var deprecatedNotes = feed.deprecated.notes.map(function(deprecatedNote) {
         return merge(deprecatedNote, {
@@ -62,7 +62,7 @@
     allEducatorIds: function(feed) {
       var mergedNotes = FeedHelpers.mergedNotes(feed);
       var idsFromNotes = _.pluck(mergedNotes, 'educator_id');
-      var idsFromServices = _.pluck(feed.services, 'provided_by_educator_id');
+      var idsFromServices = _.pluck(feed.services.active, 'provided_by_educator_id');
       return _.unique(idsFromNotes.concat(idsFromServices));
     }
   };
