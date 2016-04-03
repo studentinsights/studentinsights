@@ -7,7 +7,7 @@
   all notes and services for a student.
   */
   var FeedHelpers = window.shared.FeedHelpers = {
-    // Merges data from event_notes, services and deprecated tables (notes, interventions).
+    // Merges data from event_notes and deprecated tables (notes, interventions).
     mergedNotes: function(feed) {
       var deprecatedNotes = feed.deprecated.notes.map(function(deprecatedNote) {
         return merge(deprecatedNote, {
