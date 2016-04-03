@@ -44,7 +44,7 @@
     propTypes: {
       services: React.PropTypes.array.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
-      educatorsIndex: React.PropTypes.object.isRequired
+      educatorsIndex: React.PropTypes.object.isRequired,
       onClickDiscontinueService: React.PropTypes.func.isRequired
     },
 
@@ -79,10 +79,11 @@
               momentStarted.format('MMMM D, YYYY'),
               dom.span({ style: styles.daysAgo }, momentStarted.fromNow(true))
             )
-          )
+          ),
           dom.div({},
             dom.button({
-              className: 'btn', style: styles.discontinue
+              className: 'btn',
+              style: styles.discontinue,
               onClick: this.onClickDiscontinueService.bind(this, service)
             }, 'Discontinue')
           )

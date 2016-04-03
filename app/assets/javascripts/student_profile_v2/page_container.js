@@ -8,7 +8,7 @@
   var StudentProfileV2Page = window.shared.StudentProfileV2Page;
   var PropTypes = window.shared.PropTypes;
   var Api = window.shared.Api;
-  var updatedMap = window.shared.updatedMap;
+  var fromPair = window.shared.fromPair;
 
   /*
   Holds page state, makes API calls to manipulate it.
@@ -54,7 +54,8 @@
         selectedColumnKey: queryParams.column || 'interventions',
         requests: {
           saveNotes: null,
-          saveService: null
+          saveService: null,
+          discontinueService: {}
         }
       };
     },
@@ -111,19 +112,32 @@
     },
 
     onClickDiscontinueService: function(serviceId) {
-      this.setState(updatedMap(this.state, ['requests', 'discontinueService', serviceId], 'pending'));
+      this.setState(this.mergedDiscontinueService(this.state, serviceId, 'pending'));
       this.api.discontinueService(serviceId)
         .done(this.onDiscontinueServiceDone)
         .fail(this.onDiscontinueServiceFail);
     },
 
     onDiscontinueServiceDone: function(response) {
-      var withoutServiceId = _.omit(this.state.requests.discontinueService, serviceId);
-      this.setState(updatedMap(this.state, ['requests', 'discontinueService'], withoutServiceId));
+      this.setState(this.mergedDiscontinueService(this.state, serviceId, null));
     },
 
     onDiscontinueServiceFail: function(request, status, message) {
-      this.setState(updatedMap(this.state, ['requests', 'discontinueService', serviceId], 'error'));
+      this.setState(this.mergedDiscontinueService(this.state, serviceId, 'error'));
+    },
+
+    // Returns an updated state, adding serviceId and requestState, or removing
+    // the `serviceId` from the map if `requestState` is null.
+    mergedDiscontinueService: function(state, serviceId, requestState) {
+      var updatedDiscontinueService = (requestState === null)
+        ? _.omit(state.requests.discontinueService, serviceId)
+        : merge(state.requests.discontinueService, fromPair(serviceId, requestState));
+
+      return merge(state, {
+        requests: merge(state.requests, {
+          discontinueService: updatedDiscontinueService
+        })
+      });
     },
     
     dateRange: function() {
@@ -150,7 +164,7 @@
           actions: this.props.actions || {
             onColumnClicked: this.onColumnClicked,
             onClickSaveNotes: this.onClickSaveNotes,
-            onClickSaveService: this.onClickSaveService
+            onClickSaveService: this.onClickSaveService,
             onClickDiscontinueService: this.onClickDiscontinueService
           }
         }))

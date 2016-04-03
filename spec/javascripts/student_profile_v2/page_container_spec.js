@@ -120,5 +120,14 @@ describe('PageContainer', function() {
     //     recordedByEducatorId: 1
     //   });
     // });
+
+    it('#mergedDiscontinueService', function() {
+      var el = this.testEl;
+      var instance = helpers.renderInto(el);
+      var updatedState = instance.mergedDiscontinueService(instance.state, 312, 'foo');
+      expect(Object.keys(updatedState)).toEqual(Object.keys(instance.state));
+      expect(updatedState.requests.discontinueService).toEqual({ 312: 'foo' });
+      expect(instance.mergedDiscontinueService(updatedState, 312, null)).toEqual(instance.state);
+    });
   });
 });
