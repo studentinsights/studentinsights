@@ -10,8 +10,6 @@ gem 'activerecord-import'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
 gem 'draper', '~> 1.3'
-gem 'foreigner' # Methods for adding and removing foreign key constraints. Will no longer be required if project is
-                # upgraded to rails 4.2 https://github.com/matthuhiggins/foreigner
 gem 'friendly_id', '~> 5.1.0'
 gem 'handlebars_assets', '~> 0.22.0'
 gem 'jquery-rails'
