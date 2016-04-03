@@ -108,7 +108,8 @@
             services: this.props.feed.services,
             educatorsIndex: this.props.educatorsIndex,
             serviceTypesIndex: this.props.serviceTypesIndex,
-            onClickDiscontinueService: this.onClickDiscontinueService
+            onClickDiscontinueService: this.onClickDiscontinueService,
+            discontinueServiceRequests: this.props.requests.discontinueService
           })
         )
       );

@@ -22,7 +22,8 @@ describe('PageContainer', function() {
       return {
         onColumnClicked: jasmine.createSpy('onColumnClicked'),
         onClickSaveNotes: jasmine.createSpy('onClickSaveNotes'),
-        onClickSaveService: jasmine.createSpy('onClickSaveService')
+        onClickSaveService: jasmine.createSpy('onClickSaveService'),
+        onClickDiscontinueService: jasmine.createSpy('onClickDiscontinueService')
       };
     },
     

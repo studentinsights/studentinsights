@@ -31,6 +31,13 @@
       opacity: 0.5,
       border: '1px solid #ccc',
       color: '#666'
+    },
+    cancel: {
+      background: 'white',
+      color: 'black'
+    },
+    discontinueConfirm: {
+      background: '#E2664A'
     }
   };
 
@@ -45,11 +52,57 @@
       services: React.PropTypes.array.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
+      discontinueServiceRequests: React.PropTypes.object.isRequired,
       onClickDiscontinueService: React.PropTypes.func.isRequired
     },
 
+    getInitialState: function() {
+      return {
+        hoveringDiscontinueServiceId: null,
+        hoveringCancelServiceId: null,
+        discontinuingServiceId: null
+      };
+    },
+
+    resetDiscontinueState: function() {
+      return {
+        discontinuingServiceId: null,
+        hoveringCancelServiceId: null,
+        hoveringDiscontinueServiceId: null
+      };
+    },
+
+    // Confirmation step
     onClickDiscontinueService: function(serviceId) {
+      if (this.state.discontinuingServiceId !== serviceId) {
+        this.setState(merge(this.resetDiscontinueState(), {
+          discontinuingServiceId: serviceId,
+        }));
+        return;
+      }
+
       this.props.onClickDiscontinueService(serviceId);
+      this.setState(this.resetDiscontinueState());
+    },
+
+    onClickCancelDiscontinue: function(serviceId) {
+      this.setState(this.resetDiscontinueState());
+    },
+
+    onMouseEnterDiscontinue: function(serviceId) {
+      this.setState({ hoveringDiscontinueServiceId: serviceId });
+    },
+
+    onMouseLeaveDiscontinue: function() {
+      this.setState({ hoveringDiscontinueServiceId: null });
+    },
+
+    onMouseEnterCancel: function(serviceId) {
+      this.setState({ hoveringCancelServiceId: serviceId });
+    },
+
+    onMouseLeaveCancel: function() {
+      this.setState({ hoveringCancelServiceId: null });
     },
     
     render: function() {
@@ -80,16 +133,48 @@
               dom.span({ style: styles.daysAgo }, momentStarted.fromNow(true))
             )
           ),
-          dom.div({},
-            dom.button({
-              className: 'btn',
-              style: styles.discontinue,
-              onClick: this.onClickDiscontinueService.bind(this, service.id)
-            }, 'Discontinue')
-          )
+          this.renderDiscontinueButton(service)
         ),
         dom.div({ style: merge(styles.userText, { paddingTop: 15 }) }, service.comment)
       );
+    },
+
+    // Toggles when in confirmation state
+    renderDiscontinueButton: function(service) {
+      var isConfirming = (this.state.discontinuingServiceId === service.id);
+      var isHovering = (this.state.hoveringDiscontinueServiceId === service.id);
+      var isPending = (this.props.discontinueServiceRequests[service.id] === 'pending');
+
+      var buttonText = (isPending)
+        ? 'Updating...'
+        : (isConfirming) ? 'Confirm' : 'Discontinue';
+      var style = (isConfirming || isPending) ?
+        styles.discontinueConfirm
+        : (isHovering) ? {} : styles.discontinue;
+
+      var discontinueButton = dom.button({
+        className: 'btn',
+        onMouseEnter: this.onMouseEnterDiscontinue.bind(this, service.id),
+        onMouseLeave: this.onMouseLeaveDiscontinue,
+        style: style,
+        onClick: this.onClickDiscontinueService.bind(this, service.id)
+      }, buttonText);
+
+      var cancelButton = (isConfirming) ? this.renderCancelDiscontinueButton(service) : null;
+      return dom.div({}, discontinueButton, cancelButton);
+    },
+
+    renderCancelDiscontinueButton: function(service) {
+      var isHovering = (this.state.hoveringCancelServiceId === service.id);
+      var style = (isHovering) ? {} : styles.cancel;
+
+      return dom.button({
+        className: 'btn',
+        onMouseEnter: this.onMouseEnterCancel.bind(this, service.id),
+        onMouseLeave: this.onMouseLeaveCancel,
+        style: merge(style, { marginLeft: 5 }),
+        onClick: this.onClickCancelDiscontinue.bind(this, service.id)
+      }, 'Cancel');
     }
   });
 })();
