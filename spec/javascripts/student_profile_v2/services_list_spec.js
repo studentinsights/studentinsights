@@ -70,5 +70,16 @@ describe('ServicesList', function() {
       });
       expect($(el).find('.btn').text()).toEqual('Updating...');
     });
+
+    it('renders discontinued services correctly', function() {
+      var el = this.testEl;
+      var service = merge(helpers.fixtureService(), {
+        discontinued_by_educator_id: 1,
+        discontinued_recorded_at: "2016-04-05T01:43:15.256Z"
+      });
+      helpers.renderInto(el, { services: [service] });
+      expect(el).toContainText('Discontinued');
+      expect(el).toContainText('April 5, 2016');
+    });
   });
 });
