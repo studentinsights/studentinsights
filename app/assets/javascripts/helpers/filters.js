@@ -118,6 +118,9 @@
       if (parts[0] === 'intervention_type') return Filters.InterventionType(parts[1]);
       if (parts[0] === 'risk_level') return Filters.InterventionType(parseFloat(parts[1]));
       if (parts[0] === 'years_enrolled') return Filters.YearsEnrolled(parseFloat(parts[1]));
+      if (parts[0] === 'service_type') return Filters.ServiceType(parseFloat(parts[1]));
+      if (parts[0] === 'event_note_type') return Filters.EventNoteType(parseFloat(parts[1]));
+      
       return null;
     },
 
