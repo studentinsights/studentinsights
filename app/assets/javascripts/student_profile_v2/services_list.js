@@ -23,8 +23,7 @@
     },
     daysAgo: {
       opacity: 0.25,
-      paddingLeft: 10,
-      display: 'inline-block'
+      paddingLeft: '0.5em'
     },
     discontinue: {
       background: 'white',
@@ -104,21 +103,35 @@
     onMouseLeaveCancel: function() {
       this.setState({ hoveringCancelServiceId: null });
     },
+
+    wasDiscontinued: function(service) {
+      return (service.discontinued_by_educator_id !== null);
+    },
     
+    // Active services before inactive, then sorted by time
+    sortFn: function(service) {
+      return [this.wasDiscontinued(service) ? false : true, service.date_started];
+    },
+
     render: function() {
       var elements = (this.props.services.length === 0)
         ? dom.div({ style: styles.noItems }, 'No services')
-        : _.sortBy(this.props.services, 'date_started').reverse().map(this.renderService);
+        : _.sortBy(this.props.services, this.sortFn).reverse().map(this.renderService);
       return dom.div({ className: 'ServicesList' }, elements);
     },
 
     renderService: function(service) {
+      var wasDiscontinued = this.wasDiscontinued(service);
       var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
       var momentStarted = moment.utc(service.date_started);
       var educator = this.props.educatorsIndex[service.provided_by_educator_id];
+
       return dom.div({
         key: service.id,
-        style: merge(styles.service, { background: serviceColor(service.service_type_id) })
+        style: merge(styles.service, {
+          background: serviceColor(service.service_type_id),
+          opacity: (wasDiscontinued) ? 0.25 : 1
+        })
       },
         dom.div({ style: { display: 'flex' } },
           dom.div({ style: { flex: 1 } },
@@ -129,14 +142,27 @@
             ),
             dom.div({},
               'Since ',
-              momentStarted.format('MMMM D, YYYY'),
-              dom.span({ style: styles.daysAgo }, momentStarted.fromNow(true))
-            )
+              momentStarted.format('MMMM D, YYYY')
+            ),
+            dom.div({}, (wasDiscontinued)
+              ? moment.utc(service.discontinued_recorded_at).from(moment.utc(service.date_started), true)
+              : moment.utc(service.date_started).fromNow(true))
           ),
-          this.renderDiscontinueButton(service)
+          this.renderDiscontinuedInformation(service)
         ),
         dom.div({ style: merge(styles.userText, { paddingTop: 15 }) }, service.comment)
       );
+    },
+
+    renderDiscontinuedInformation: function(service) {
+      if (this.wasDiscontinued(service)) {
+        return dom.div({},
+          dom.div({}, 'Discontinued'),
+          dom.div({}, moment.utc(service.discontinued_recorded_at).format('MMMM D, YYYY'))
+        );
+      }
+
+      return this.renderDiscontinueButton(service)
     },
 
     // Toggles when in confirmation state
