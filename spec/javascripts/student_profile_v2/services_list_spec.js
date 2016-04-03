@@ -50,7 +50,6 @@ describe('ServicesList', function() {
       expect(el).toContainText('Reading intervention');
       expect(el).toContainText('With');
       expect(el).toContainText('Since April 3, 2016');
-      expect(el).toContainText('2 hours');
       expect(el).toContainText('Discontinue');
     });
 
