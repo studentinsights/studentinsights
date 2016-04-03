@@ -13,7 +13,7 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
       intervention_type_id: InterventionType.first.id,
       comment: 'Useful comment!',
       end_date: '2020/1/1',
-      educator_id: Educator.first.id
+      educator_id: '1'
     }
   end
 
@@ -36,7 +36,7 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
               intervention_type_id: InterventionType.first.id,
               comment: 'Useful comment!',
               end_date: '2020/1/1',
-              educator_id: Educator.first.id }
+              educator_id: '1' }
             }
           }
           it 'creates one student intervention' do
@@ -55,7 +55,7 @@ RSpec.describe BulkInterventionAssignmentsController, type: :controller do
               student_ids: [student.id, other_student.id],
               intervention_type_id: InterventionType.first.id,
               end_date: '2020/1/1',
-              educator_id: Educator.first.id,
+              educator_id: '1',
               goal: 'Fix the situation.' }
             }
           }
