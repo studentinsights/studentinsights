@@ -74,8 +74,8 @@
       this.setState({ momentStarted: updatedMoment });
     },
 
-    onAssignedEducatorChanged: function(educatorId) {
-      this.setState({ providedByEducatorId: educatorId });
+    onAssignedEducatorChanged: function(selectParams) {
+      this.setState({ providedByEducatorId: selectParams.value });
     },
 
     onServiceClicked: function(serviceTypeId, event) {
