@@ -53,12 +53,6 @@ class SchoolsController < ApplicationController
     end
   end
 
-  def precomputed_student_hashes_key(time_now, authorized_student_ids)
-    timestamp = Time.now.beginning_of_day.to_i
-    authorized_students_key = authorized_student_ids.sort.join(',')
-    [timestamp, authorized_students_key].join('_')
-  end
-
   def serialized_data_for_star
     authorized_students = current_educator.students_for_school_overview(:student_assessments)
 

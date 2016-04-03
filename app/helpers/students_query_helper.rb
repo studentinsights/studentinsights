@@ -1,7 +1,7 @@
 module StudentsQueryHelper
-# Used to serializes a Student into a hash with other fields joined in (that are used to perform
-# filtering and slicing in the UI).
-# This may be slow if you're doing it for many students without eager includes.
+  # Used to serializes a Student into a hash with other fields joined in (that are used to perform
+  # filtering and slicing in the UI).
+  # This may be slow if you're doing it for many students without eager includes.
   def student_hash_for_slicing(student)
     HashWithIndifferentAccess.new(student.as_json.merge({
       student_risk_level: student.student_risk_level.as_json,
@@ -32,5 +32,12 @@ module StudentsQueryHelper
         interventions: for_student[:interventions].map {|x| serialize_intervention(x) },
       })
     end
+  end
+
+  # Used to compute key for reading and writing precomputed student_hashes documents
+  def precomputed_student_hashes_key(time_now, authorized_student_ids)
+    timestamp = Time.now.beginning_of_day.to_i
+    authorized_students_key = authorized_student_ids.sort.join(',')
+    [timestamp, authorized_students_key].join('_')
   end
 end
