@@ -7,9 +7,10 @@ module SerializeDataHelper
       :id,
       :student_id,
       :provided_by_educator_id,
-      :recorded_by_educator_id,
       :service_type_id,
-      :date_started
+      :date_started,
+      :recorded_by_educator_id,
+      :recorded_at
     ]).merge({
       discontinued_by_educator_id: discontinued_service.try(:recorded_by_educator_id),
       discontinued_recorded_at: discontinued_service.try(:recorded_at)

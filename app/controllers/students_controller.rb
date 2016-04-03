@@ -88,7 +88,7 @@ class StudentsController < ApplicationController
       recorded_at: Time.now
     }))
     if event_note.save
-      render json: event_note.as_json
+      render json: serialize_event_note(event_note)
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
     end

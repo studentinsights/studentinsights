@@ -246,9 +246,7 @@ describe StudentsController, :type => :controller do
             'educator_id',
             'event_note_type_id',
             'text',
-            'recorded_at',
-            'created_at',
-            'updated_at'
+            'recorded_at'
           ]
         end
       end
@@ -318,7 +316,7 @@ describe StudentsController, :type => :controller do
           expect(response.status).to eq 200
           make_post_request(student, post_params)
           expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
-          expect(JSON.parse(response.body).keys).to eq [
+          expect(JSON.parse(response.body).keys).to contain_exactly(
             'id',
             'student_id',
             'provided_by_educator_id',
@@ -326,9 +324,9 @@ describe StudentsController, :type => :controller do
             'service_type_id',
             'recorded_at',
             'date_started',
-            'created_at',
-            'updated_at'
-          ]
+            'discontinued_by_educator_id',
+            'discontinued_recorded_at'
+          )
         end
       end
 
@@ -478,8 +476,8 @@ describe StudentsController, :type => :controller do
     it 'returns services' do
       feed = controller.send(:student_feed, student)
       expect(feed.keys).to eq([:event_notes, :services, :deprecated])
-      expect(feed[:services].size).to eq 1
-      expect(feed[:services].first[:id]).to eq service.id
+      expect(feed[:services].keys).to eq [:active, :discontinued]
+      expect(feed[:services][:active].first[:id]).to eq service.id
     end
 
     context 'after service is discontinued' do
@@ -492,7 +490,8 @@ describe StudentsController, :type => :controller do
       end
       it 'filters it' do
         feed = controller.send(:student_feed, student)
-        expect(feed[:services].size).to eq 0
+        expect(feed[:services][:active].size).to eq 0
+        expect(feed[:services][:discontinued].first[:id]).to eq service.id
       end
     end
   end
