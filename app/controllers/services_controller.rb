@@ -16,7 +16,7 @@ class ServicesController < ApplicationController
       recorded_at: Time.now
     })
     if discontinued_service.save
-      render json: discontinued_service.as_json
+      head :no_content
     else
       render json: { errors: discontinued_service.errors.full_messages }, status: 422
     end

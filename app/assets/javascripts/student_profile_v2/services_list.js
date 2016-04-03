@@ -48,8 +48,8 @@
       onClickDiscontinueService: React.PropTypes.func.isRequired
     },
 
-    onClickDiscontinueService: function(service) {
-      this.props.onClickDiscontinueService(service);
+    onClickDiscontinueService: function(serviceId) {
+      this.props.onClickDiscontinueService(serviceId);
     },
     
     render: function() {
@@ -84,7 +84,7 @@
             dom.button({
               className: 'btn',
               style: styles.discontinue,
-              onClick: this.onClickDiscontinueService.bind(this, service)
+              onClick: this.onClickDiscontinueService.bind(this, service.id)
             }, 'Discontinue')
           )
         ),

@@ -114,15 +114,19 @@
     onClickDiscontinueService: function(serviceId) {
       this.setState(this.mergedDiscontinueService(this.state, serviceId, 'pending'));
       this.api.discontinueService(serviceId)
-        .done(this.onDiscontinueServiceDone)
-        .fail(this.onDiscontinueServiceFail);
+        .done(this.onDiscontinueServiceDone.bind(this, serviceId))
+        .fail(this.onDiscontinueServiceFail.bind(this, serviceId));
     },
 
-    onDiscontinueServiceDone: function(response) {
-      this.setState(this.mergedDiscontinueService(this.state, serviceId, null));
+    onDiscontinueServiceDone: function(serviceId, response) {
+      var updatedStateOfRequests = this.mergedDiscontinueService(this.state, serviceId, null);
+      var updatedServices = this.state.feed.services.filter(function(service) { return service.id !== serviceId; });
+      var updatedFeed = merge(this.state.feed, { services: updatedServices });
+      
+      this.setState(merge(updatedStateOfRequests, { feed: updatedFeed }));
     },
 
-    onDiscontinueServiceFail: function(request, status, message) {
+    onDiscontinueServiceFail: function(serviceId, request, status, message) {
       this.setState(this.mergedDiscontinueService(this.state, serviceId, 'error'));
     },
 

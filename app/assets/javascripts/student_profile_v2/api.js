@@ -28,8 +28,8 @@
       return this._post(url, body);
     },
 
-    discontinueService: function(studentId, serviceId) {
-      var url = '/students/' + studentId + '/services/' + serviceId;
+    discontinueService: function(serviceId) {
+      var url = '/services/' + serviceId;
       return this._delete(url);
     },
 
