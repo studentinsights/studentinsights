@@ -11,6 +11,17 @@ describe('ServicesList', function() {
   var Fixtures = window.shared.Fixtures;
 
   var helpers = {
+    emptyServicesFeed: function() {
+      return { active: [], discontinued: [] };
+    },
+
+    oneActiveServiceFeed: function() {
+      return {
+        active: [helpers.fixtureService()],
+        discontinued: []
+      };
+    },
+
     fixtureService: function() {
       return {
         id: 267,
@@ -27,7 +38,10 @@ describe('ServicesList', function() {
 
     renderInto: function(el, props) {
       var mergedProps = merge({
-        services: [],
+        servicesFeed: {
+          active: [],
+          discontinued: []
+        },
         educatorsIndex: Fixtures.studentProfile.educatorsIndex,
         serviceTypesIndex: Fixtures.studentProfile.serviceTypesIndex,
         discontinueServiceRequests: {},
@@ -40,13 +54,13 @@ describe('ServicesList', function() {
   SpecSugar.withTestEl('high-level integration tests', function() {
     it('renders message when no services', function() {
       var el = this.testEl;
-      helpers.renderInto(el);
+      helpers.renderInto(el, { servicesFeed: helpers.emptyServicesFeed() });
       expect(el).toContainText('No services');
     });
 
     it('renders everything on the happy path', function() {
       var el = this.testEl;
-      helpers.renderInto(el, { services: [helpers.fixtureService()] });
+      helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
       expect(el).toContainText('Reading intervention');
       expect(el).toContainText('With');
       expect(el).toContainText('Since April 3, 2016');
@@ -55,7 +69,7 @@ describe('ServicesList', function() {
 
     it('asks for confirmation before discontinuing', function() {
       var el = this.testEl;
-      helpers.renderInto(el, { services: [helpers.fixtureService()] });
+      helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
       $(el).find('.btn').click();
       expect(el).toContainText('Confirm');
       expect(el).toContainText('Cancel');
@@ -65,7 +79,7 @@ describe('ServicesList', function() {
       var el = this.testEl;
       var service = helpers.fixtureService();
       helpers.renderInto(el, {
-        services: [service],
+        servicesFeed: helpers.oneActiveServiceFeed(),
         discontinueServiceRequests: fromPair(service.id, 'pending')
       });
       expect($(el).find('.btn').text()).toEqual('Updating...');
@@ -73,11 +87,16 @@ describe('ServicesList', function() {
 
     it('renders discontinued services correctly', function() {
       var el = this.testEl;
-      var service = merge(helpers.fixtureService(), {
+      var discontinuedService = merge(helpers.fixtureService(), {
         discontinued_by_educator_id: 1,
         discontinued_recorded_at: "2016-04-05T01:43:15.256Z"
       });
-      helpers.renderInto(el, { services: [service] });
+      helpers.renderInto(el, {
+        servicesFeed: {
+          active: [],
+          discontinued: [discontinuedService]
+        }
+      });
       expect(el).toContainText('Discontinued');
       expect(el).toContainText('April 5, 2016');
     });
