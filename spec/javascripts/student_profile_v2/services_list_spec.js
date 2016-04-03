@@ -20,8 +20,8 @@ describe('ServicesList', function() {
         service_type_id: 507,
         recorded_at: "2016-04-03T01:43:15.256Z",
         date_started: "2016-04-03T00:00:00.000Z",
-        created_at: "2016-04-03T01:43:15.257Z",
-        updated_at: "2016-04-03T01:43:15.257Z"
+        discontinued_by_educator_id: null,
+        discontinued_recorded_at: null
       };
     },
 
