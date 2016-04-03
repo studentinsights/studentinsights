@@ -1,5 +1,7 @@
 class SchoolsController < ApplicationController
   include SerializeDataHelper
+  include StudentsQueryHelper
+  
   before_action :authenticate_educator!,
                 :authorize
 
@@ -8,7 +10,7 @@ class SchoolsController < ApplicationController
     
     # TODO(kr) Read from cache, since this only updates daily
     student_hashes = authorized_students.map do |student|
-      HashWithIndifferentAccess.new(student_hash_for_slicing(student))
+      student_hash_for_slicing(student)
     end
 
     # Read data stored StudentInsights each time, with no caching
@@ -39,7 +41,7 @@ class SchoolsController < ApplicationController
 
     # TODO(kr) Read from cache, since this only updates daily
     student_hashes = authorized_students.map do |student|
-      student_hash = HashWithIndifferentAccess.new(student_hash_for_slicing(student))
+      student_hash = student_hash_for_slicing(student)
       student_hash.merge(star_results: yield(student))
     end
 
@@ -60,38 +62,6 @@ class SchoolsController < ApplicationController
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index
     }
-  end
-
-  # Queries for Services and EventNotes for each student, and merges the results
-  # into the list of student hashes.
-  def student_hash_for_slicing(student)
-    student.as_json.merge({
-      student_risk_level: student.student_risk_level.as_json,
-      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
-      absences_count: student.most_recent_school_year.absences.count,
-      tardies_count: student.most_recent_school_year.tardies.count,
-      homeroom_name: student.try(:homeroom).try(:name)
-    })
-  end
-
-  def merge_mutable_fields_for_slicing(student_hashes)
-    student_ids = student_hashes.map {|student_hash| student_hash[:id] }
-    all_event_notes = EventNote.where(student_id: student_ids)
-    all_services = Service.where(student_id: student_ids)
-    all_interventions = Intervention.where(student_id: student_ids)
-
-    student_hashes.map do |student_hash|
-      for_student = {
-        event_notes: all_event_notes.select {|event_note| event_note.student_id == student_hash[:id] },
-        services: all_services.select {|service| service.student_id == student_hash[:id] },
-        interventions: all_interventions.select {|intervention| intervention.student_id == student_hash[:id] }
-      }
-      student_hash.merge({
-        event_notes: for_student[:event_notes].map {|x| serialize_event_note(x) },
-        services: for_student[:services].map {|x| serialize_service(x) },
-        interventions: for_student[:interventions].map {|x| serialize_intervention(x) },
-      })
-    end
   end
 
   def authorize

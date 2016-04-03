@@ -129,7 +129,6 @@ class StudentsController < ApplicationController
   private
   def serialize_student_for_profile(student)
     student.as_json.merge({
-      interventions: student.interventions.as_json,
       student_risk_level: student.student_risk_level.as_json,
       absences_count: student.most_recent_school_year.absences.count,
       tardies_count: student.most_recent_school_year.tardies.count,

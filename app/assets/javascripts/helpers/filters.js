@@ -50,8 +50,8 @@
       return {
         identifier: ['service_type', serviceTypeId].join(':'),
         filterFn: function(student) {
-          if (serviceTypeId === null) return (student.services === undefined || student.services.length === 0);
-          return student.services.filter(function(service) {
+          if (serviceTypeId === null) return (student.active_services === undefined || student.active_services.length === 0);
+          return student.active_services.filter(function(service) {
             return service.service_type_id === serviceTypeId;
           }).length > 0;
         },

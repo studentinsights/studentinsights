@@ -253,7 +253,7 @@
         'Discipline Incidents',
         'Absences This Year',
         'Tardies This Year',
-        'Intervention Count',
+        'Active Services',
         'Program Assigned',
         'Homeroom Name',
       ];
@@ -274,7 +274,7 @@
           student.discipline_incidents_count,
           student.absences_count,
           student.tardies_count,
-          student.interventions.length,
+          student.active_services.length,
           student.program_assigned,
           student.homeroom_name,
         ].join(',');

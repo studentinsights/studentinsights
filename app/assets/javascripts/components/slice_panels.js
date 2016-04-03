@@ -163,8 +163,8 @@
 
     serviceItems: function() {
       var students = this.props.allStudents;
-      var allServices = _.compact(_.flatten(_.pluck(students, 'services')));
-      var allServiceTypeIds = _.unique(allServices.map(function(service) {
+      var activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));
+      var allServiceTypeIds = _.unique(activeServices.map(function(service) {
         return parseInt(service.service_type_id, 10);
       }));
       var serviceItems = allServiceTypeIds.map(function(serviceTypeId) {

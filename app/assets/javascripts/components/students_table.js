@@ -57,7 +57,7 @@
                 this.renderNumberCell(this.renderCount(student.discipline_incidents_count)),
                 this.renderNumberCell(this.renderCount(student.absences_count)),
                 this.renderNumberCell(this.renderCount(student.tardies_count)),
-                this.renderNumberCell(this.renderCount(student.services.length)),
+                this.renderNumberCell(this.renderCount(student.active_services.length)),
                 dom.td({}, this.renderUnless('Reg Ed', student.program_assigned)),
                 dom.td({}, dom.a({ href: Routes.homeroom(student.homeroom_id) }, student.homeroom_name))
               );

@@ -423,7 +423,6 @@ describe StudentsController, :type => :controller do
       student = FactoryGirl.create(:student)
       serialized_student = controller.send(:serialize_student_for_profile, student)
       expect(serialized_student.keys).to include(*[
-        'interventions',
         'student_risk_level',
         'absences_count',
         'tardies_count',

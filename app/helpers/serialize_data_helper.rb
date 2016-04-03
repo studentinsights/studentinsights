@@ -1,6 +1,4 @@
 module SerializeDataHelper
-
-
   def serialize_service(service)
     discontinued_service = service.discontinued_services.order(:recorded_at).last
     service.as_json.symbolize_keys.slice(*[
