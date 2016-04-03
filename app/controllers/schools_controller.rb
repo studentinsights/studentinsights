@@ -7,14 +7,16 @@ class SchoolsController < ApplicationController
 
   def show
     authorized_students = current_educator.students_for_school_overview
-    
+
     # TODO(kr) Read from cache, since this only updates daily
-    student_hashes = authorized_students.map do |student|
-      student_hash_for_slicing(student)
+    student_hashes = log_timing('schools#show student_hashes') do
+      authorized_students.map {|student| student_hash_for_slicing(student) }
     end
 
     # Read data stored StudentInsights each time, with no caching
-    merged_student_hashes = merge_mutable_fields_for_slicing(student_hashes)
+    merged_student_hashes = log_timing('schools#show merge_mutable_fields_for_slicing') do
+      merge_mutable_fields_for_slicing(student_hashes)
+    end
 
     @serialized_data = {
       students: merged_student_hashes,
