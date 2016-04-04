@@ -1,14 +1,8 @@
 class IntegrityCheck
 
   def check!
-    begin
-      has_data?
-      has_valid_data?
-      puts 'All good!'
-    rescue => error
-      puts 'Uh oh! Data check failed:'
-      puts error.message
-    end
+    has_data?
+    has_valid_data?
   end
 
   private
@@ -26,6 +20,7 @@ class IntegrityCheck
     StudentAssessment.find_each(&:save!)
     Educator.find_each(&:save!)
     Student.find_each(&:save!)
+    StudentSchoolYear.find_each(&:save!)
   end
 
 end
