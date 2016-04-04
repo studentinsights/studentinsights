@@ -37,6 +37,43 @@ RSpec.describe BehaviorImporter do
       end
     end
 
+    context 'multiple rows' do
+      let(:student) { FactoryGirl.create(:student, local_id: '10') }
+      before { importer.import_row(row_two) }
+
+      let(:row) {
+        {
+          local_id: student.local_id,
+          incident_code: "Hitting",
+          event_date: Date.new(2015, 10, 1),
+          incident_time: "13:00:00",
+          incident_location: "Classroom",
+          incident_description: "Hit another student.",
+          school_local_id: "SHS"
+        }
+      }
+      let(:row_two) {
+        {
+          local_id: student.local_id,
+          incident_code: "Hitting",
+          event_date: Date.new(2015, 10, 2),
+          incident_location: "Classroom",
+          incident_description: "Hit another student again.",
+          school_local_id: "SHS"
+        }
+      }
+
+      it 'creates two discipline incidents' do
+        expect(incidents.size).to eq 2
+      end
+
+      it 'sets the descriptions correctly' do
+        expect(incidents[1].incident_description).to eq "Hit another student."
+        expect(incidents[0].incident_description).to eq "Hit another student again."
+      end
+
+    end
+
     context 'very long incident description' do
       let!(:student) { FactoryGirl.create(:student, local_id: '11') }
       let(:big_block_of_text) { "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." }
