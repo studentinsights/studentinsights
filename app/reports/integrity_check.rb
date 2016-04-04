@@ -26,6 +26,7 @@ class IntegrityCheck
     StudentAssessment.find_each(&:save!)
     Educator.find_each(&:save!)
     Student.find_each(&:save!)
+    StudentSchoolYear.find_each(&:save!)
   end
 
 end
