@@ -31,6 +31,7 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
   def demographic_attributes
     {
       state_id: row[:state_id],
+      enrollment_status: row[:enrollment_status],
       home_language: row[:home_language],
       program_assigned: row[:program_assigned],
       limited_english_proficiency: row[:limited_english_proficiency],

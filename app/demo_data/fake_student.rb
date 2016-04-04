@@ -37,6 +37,7 @@ class FakeStudent
   def base_data
     {
       school_id: School.first.id,
+      enrollment_status: enrollment_status,
       grade: "5",
       hispanic_latino: [true, false].sample,
       race: ["A", "B", "H", "W"].sample,
@@ -56,6 +57,10 @@ class FakeStudent
       local_id = random_local_id
     end
     local_id
+  end
+
+  def enrollment_status
+    7.in(8) ? 'Active' : 'Transferred'
   end
 
   def random_local_id
@@ -101,7 +106,7 @@ class FakeStudent
   end
 
   def create_star_assessment_generators(student, options)
-    
+
   end
 
   def add_student_assessments_from_x2
@@ -121,7 +126,7 @@ class FakeStudent
     options = {
       start_date: start_date,
       star_period_days: star_period_days
-    }    
+    }
 
     generators = [
       FakeStarMathResultGenerator.new(@student, options),

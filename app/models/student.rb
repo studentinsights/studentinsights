@@ -26,6 +26,10 @@ class Student < ActiveRecord::Base
     where.not(school: nil)
   end
 
+  def self.active
+    where(enrollment_status: 'Active')
+  end
+
   ## STUDENT ASSESSMENT RESULTS ##
 
   def latest_result_by_family_and_subject(family_name, subject_name)
