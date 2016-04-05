@@ -8,15 +8,17 @@
 
 
   var formatGradeNumber = function(grade) {
-      if(grade === 1){
-        return "1st";
-      } else if (grade === 2) {
-        return "2nd";
-      } else if (grade === 3) {
-        return "3rd";
-      } else {
-        return grade + "th";
-      }
+    if (grade === 'PK' || grade === 'KF') {
+      return grade;
+    } else if (grade === 1) {
+      return "1st";
+    } else if (grade === 2) {
+      return "2nd";
+    } else if (grade === 3) {
+      return "3rd";
+    } else {
+      return grade + "th";
+    }
   }
 
   var styles = {
