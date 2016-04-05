@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   resources :students, only: [:show] do
     member do
       get :profile
-      get :deprecated_v1_profile
       get :sped_referral
       post :event_note
       post :service
