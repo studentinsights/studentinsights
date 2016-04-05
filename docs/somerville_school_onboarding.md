@@ -5,12 +5,17 @@
 _These are based on the [user personas](https://github.com/studentinsights/studentinsights#user-personas-who-were-serving) we are serving. The primary focus at this stage is Principals._
 
 + [ ] Meet with the principal:
-  + [ ] Ask about the school's strengths
-  + [ ] Ask about what kind of data queries s/he asks for or produces most often
-  + [ ] Ask about what data processes need improvement within the school
-  + [ ] Ask about MTSS and SST meetings: how these work what s/he would want to improve about them
+  + [ ] Give overview of Student Insights:
+    1. [ ] [Project goals](https://github.com/studentinsights/studentinsights#student-insights)
+    1. [ ] [User personas](https://github.com/studentinsights/studentinsights#user-personas-who-were-serving)
+    1. [ ] [Product features](https://github.com/studentinsights/studentinsights#product-overview-how-were-helping)
+    1. [ ] [Development priorities](https://github.com/studentinsights/studentinsights#project-priorities)
+  + [ ] Show principal what the school overview page / STAR graphs for her/his school look like
+  + [ ] Ask principal what kind of data queries s/he asks for or produces most often
+  + [ ] Ask principal what data processes need improvement within her/his school
 + [ ] Observe a MTSS / SST meeting to get a baseline understanding of how these meetings are run
-+ [ ] Meet with Assistant Principal / interventionists to gather feedback and ideas
++ [ ] Schedule follow-up meeting with whichever member of the school staff takes the most active role in MTSS / SST; discuss how to use Student Insights for note-taking and service recording during those meetings
+
 
 + _Others?_
 
