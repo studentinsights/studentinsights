@@ -57,6 +57,10 @@ It also allows capturing meeting notes as part of the student's record, which is
 This is a web product, integrated with the Aspen SIS, district LDAP authorization and STAR assessments.  Principals and teachers sign in using their usual credentials, and can access the product securely anywhere they have internet access.  The project is primarily targeted browser is Internet Explorer, because that's what's used in the Somerville school district.
 
 
+## Project priorities
+ 1. Finish Student profile improvements (DIBELS data, ACCESS data, speed up overview page) - target 4/13/2016
+ 2. Adopted at second school for MTSS or SST meeting - target April 2016
+ 3. SPED referral packet
 
 ## Contributing
 We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge. 
