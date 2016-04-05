@@ -42,13 +42,6 @@ describe StudentsController, :type => :controller do
           expect(response).to redirect_to(new_educator_session_path)
         end
       end
-      context 'csv' do
-        it 'sends a 401 unauthorized' do
-          make_request({ student_id: student.id, format: :csv })
-          expect(response.status).to eq 401
-          expect(response.body).to eq "You need to sign in before continuing."
-        end
-      end
     end
 
     context 'when educator is logged in' do
@@ -74,19 +67,6 @@ describe StudentsController, :type => :controller do
           it 'assigns the student school year correctly' do
             make_request({ student_id: student.id, format: :html })
             expect(assigns(:student_school_years)).to eq student.student_school_years
-          end
-
-        end
-
-        context 'csv' do
-
-          it 'is successful' do
-            make_request({ student_id: student.id, format: :csv })
-            expect(response).to be_success
-          end
-          it 'assigns the student correctly' do
-            make_request({ student_id: student.id, format: :csv })
-            expect(assigns(:student)).to eq student
           end
 
         end
@@ -292,7 +272,7 @@ describe StudentsController, :type => :controller do
       let!(:educator) { FactoryGirl.create(:educator, :admin) }
       let!(:provided_by_educator) { FactoryGirl.create(:educator) }
       let!(:student) { FactoryGirl.create(:student) }
-      
+
       before do
         sign_in(educator)
       end
