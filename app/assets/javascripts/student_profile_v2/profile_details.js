@@ -115,6 +115,13 @@
           date: moment(obj.created_at_timestamp).toDate()
         });
       });
+      _.each(this.props.feed.dibels, function(obj) {
+        events.push({
+          type: 'DIBELS',
+          message: name + ' scored ' + obj.performance_level.toUpperCase() + ' in DIBELS.',
+          date: moment(obj.date_taken).toDate()
+        });
+      });
       return _.sortBy(events, 'date').reverse();
     },
 
@@ -153,7 +160,9 @@
         "STAR Reading": '#ffe7d6',
 
         "MCAS Math": '#e8e9fc',
-        "STAR Math": '#e8e9fc'
+        "STAR Math": '#e8e9fc',
+
+        "DIBELS": '#e8fce8'
       }
 
       return dom.div(
