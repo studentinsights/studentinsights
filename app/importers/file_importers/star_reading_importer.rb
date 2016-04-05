@@ -1,4 +1,4 @@
-class StarReadingImporter
+class StarReadingImporter < Struct.new :school_scope
 
   def remote_file_name
     'SR.csv'

@@ -1,4 +1,4 @@
-class BulkAttendanceImporter
+class BulkAttendanceImporter < Struct.new :school_scope
 
   def initialize(options = {})
     # Required
@@ -19,6 +19,10 @@ class BulkAttendanceImporter
 
   def data_transformer
     CsvTransformer.new
+  end
+
+  def filter
+    SchoolFilter.new(school_scope)
   end
 
   def connect_transform_import

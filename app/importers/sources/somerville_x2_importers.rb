@@ -12,9 +12,8 @@ class SomervilleX2Importers
 
   def base_options
     {
-      school_scope: @school_scope,
       client: SftpClient.for_x2,
-      file_importers: file_importers.map(&:new),
+      file_importers: file_importers.map { |i| i.new(@school_scope) },
       log_destination: @log
     }
   end

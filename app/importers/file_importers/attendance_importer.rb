@@ -1,4 +1,4 @@
-class AttendanceImporter
+class AttendanceImporter < Struct.new :school_scope
 
   def remote_file_name
     # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
@@ -10,6 +10,10 @@ class AttendanceImporter
 
   def data_transformer
     CsvTransformer.new
+  end
+
+  def filter
+    SchoolFilter.new(school_scope)
   end
 
   def import_row(row)

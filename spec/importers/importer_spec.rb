@@ -29,11 +29,10 @@ RSpec.describe Importer do
 
       context 'scope is Healey School' do
         let(:healey) { FactoryGirl.create(:healey) }
-        let(:file_importer) { StudentsImporter.new }
+        let(:school_scope) { [healey.local_id] }
         let(:importer) {
           Importer.new(
-            school_scope: [healey.local_id],
-            file_importers: [file_importer],
+            file_importers: [StudentsImporter.new(school_scope)],
             client: mock_client,
             log_destination: log
           )

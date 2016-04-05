@@ -10,7 +10,6 @@ class SomervilleStarImporters
 
   def options
     {
-      school_scope: @school_scope,
       client: SftpClient.for_star,
       data_transformer: CsvTransformer.new,
       file_importers: [
@@ -18,7 +17,7 @@ class SomervilleStarImporters
         StarReadingImporter::HistoricalImporter,
         StarMathImporter,
         StarMathImporter::HistoricalImporter
-      ].map(&:new),
+      ].map { |i| i.new(@school_scope) },
       log_destination: @log
     }
   end

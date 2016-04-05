@@ -1,4 +1,4 @@
-class X2AssessmentImporter
+class X2AssessmentImporter < Struct.new :school_scope
   # Aspen X2 is the name of Somerville's Student Information System.
 
   WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/).freeze
@@ -15,6 +15,10 @@ class X2AssessmentImporter
 
   def data_transformer
     CsvTransformer.new
+  end
+
+  def filter
+    SchoolFilter.new(school_scope)
   end
 
   def import_row(row)

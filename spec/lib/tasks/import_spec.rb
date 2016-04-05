@@ -31,7 +31,6 @@ RSpec.describe Import do
       expect(second_importer).to be_a Importer
 
       expect(first_importer.client).to eq sftp_client_double
-      expect(first_importer.school_scope).to eq ["HEA"]
       expect(first_importer.file_importers.map { |i| i.class }).to eq [
         StudentsImporter,
         X2AssessmentImporter,
@@ -41,7 +40,6 @@ RSpec.describe Import do
       ]
 
       expect(second_importer.client).to eq sftp_client_double
-      expect(second_importer.school_scope).to eq ["HEA"]
       expect(second_importer.file_importers.map { |i| i.class }).to eq [
         StarReadingImporter,
         StarReadingImporter::HistoricalImporter,

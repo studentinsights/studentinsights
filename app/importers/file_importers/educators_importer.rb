@@ -1,8 +1,4 @@
-class EducatorsImporter
-
-  def initialize
-    @school_ids_dictionary = School.all.map { |school| [school.local_id, school.id] }.to_h
-  end
+class EducatorsImporter < Struct.new :school_scope
 
   def remote_file_name
     # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
@@ -16,8 +12,16 @@ class EducatorsImporter
     CsvTransformer.new
   end
 
+  def filter
+    SchoolFilter.new(school_scope)
+  end
+
+  def school_ids_dictionary
+    @dictionary ||= School.all.map { |school| [school.local_id, school.id] }.to_h
+  end
+
   def import_row(row)
-    educator = EducatorRow.new(row, @school_ids_dictionary).build
+    educator = EducatorRow.new(row, school_ids_dictionary).build
     educator.save!
 
     homeroom = Homeroom.find_by_name!(row[:homeroom]) if row[:homeroom].present?
