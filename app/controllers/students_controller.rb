@@ -36,37 +36,6 @@ class StudentsController < ApplicationController
     }
   end
 
-  def deprecated_v1_profile
-    @student = Student.find(params[:id]).decorate
-    @chart_start = params[:chart_start] || "mcas-growth"
-    @chart_data = StudentProfileChart.new(@student).chart_data
-
-    @student_risk_level = @student.student_risk_level.decorate
-
-    @student_school_years = @student.student_school_years.includes(
-      :discipline_incidents,
-      :student_assessments,
-      :interventions
-    )
-
-    interventions = @student.interventions.order(start_date: :desc)
-    @serialized_interventions = interventions.map { |intervention| serialize_intervention(intervention) }
-
-    student_notes = @student.student_notes
-    @serialized_student_notes = student_notes.map { |note| serialize_student_note(note) }
-
-    @roster_url = homeroom_path(@student.homeroom)
-    @csv_url = deprecated_v1_profile_student_path(@student) + ".csv"
-
-    respond_to do |format|
-      format.html
-      format.csv {
-        render csv: StudentProfileCsvExporter.new(@student).profile_csv_export,
-        filename: 'export'
-      }
-    end
-  end
-
   def sped_referral
     @student = Student.find(params[:id])
     respond_to do |format|
@@ -151,7 +120,7 @@ class StudentsController < ApplicationController
   # range: [0.0, 1.0]
   def calculate_student_score(student, search_tokens)
     student_tokens = [student.first_name, student.last_name].compact
-    
+
     search_token_scores = []
     search_tokens.each do |search_token|
       student_tokens.each do |student_token|
@@ -161,7 +130,7 @@ class StudentsController < ApplicationController
         end
       end
     end
-    
+
     (search_token_scores.sum.to_f / search_tokens.length)
   end
 
