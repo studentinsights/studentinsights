@@ -152,6 +152,7 @@
           {
             student: this.props.student,
             feed: this.props.feed,
+            access: this.props.access,
             chartData: this.props.chartData,
             attendanceData: this.props.attendanceData,
           }
