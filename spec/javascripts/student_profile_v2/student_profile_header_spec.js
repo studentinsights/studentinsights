@@ -10,22 +10,41 @@ describe('StudentProfileHeader', function() {
   var Fixtures = window.shared.Fixtures;
 
   var helpers = {
-    renderInto: function(el, props) {
-      var mergedProps = merge(props || {}, {
-        student: Fixtures.studentProfile.student
-      });
+    renderActiveStudent: function(el, props) {
+      var mergedProps = merge(props || {}, { student: Fixtures.studentProfile.student });
+      return ReactDOM.render(createEl(StudentProfileHeader, mergedProps), el);
+    },
+
+    renderTransferredStudent: function(el, props) {
+      var this_student = Fixtures.studentProfile.student;
+      this_student['enrollment_status'] = 'Transferred';
+
+      var mergedProps = merge(props || {}, { student: this_student });
       return ReactDOM.render(createEl(StudentProfileHeader, mergedProps), el);
     }
+
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
-    it('renders note-taking area', function() {
+  SpecSugar.withTestEl('active enrolled student', function() {
+    it('renders note-taking area with homeroom', function() {
       var el = this.testEl;
-      helpers.renderInto(el);
+      helpers.renderActiveStudent(el);
 
       expect(el).toContainText('Daisy Poppins');
       expect(el).toContainText('Arthur D Healey');
       expect($(el).find('a.homeroom-link')).toContainText('102');
     });
   });
+
+  SpecSugar.withTestEl('non-active Transferred student', function() {
+    it('renders note-taking area with Transferred status', function() {
+      var el = this.testEl;
+      helpers.renderTransferredStudent(el);
+
+      expect(el).toContainText('Daisy Poppins');
+      expect(el).toContainText('Arthur D Healey');
+      expect(el).toContainText('Transferred');
+    });
+  });
+
 });
