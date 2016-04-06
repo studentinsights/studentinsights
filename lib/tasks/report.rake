@@ -1,7 +1,7 @@
 namespace :report do
   desc 'Print assessment families, subjects, counts'
   task assessments: :environment do
-    AssessmentsReport.new.print_report
+    AssessmentsReport.new(STDOUT).print_report
   end
 
   desc 'Run data integrity check'
