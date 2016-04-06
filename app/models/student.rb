@@ -71,8 +71,15 @@ class Student < ActiveRecord::Base
     ordered_results_by_family("DIBELS")
   end
 
-  def access
-    ordered_results_by_family("ACCESS")
+  def latest_access_results
+    return if latest_result_by_family_and_subject('ACCESS', 'Composite').nil?
+
+    access_categories = [ :composite, :comprehension, :literacy, :oral, :listening, :reading, :speaking, :writing, ]
+
+    access_categories.map do |category|
+      [category, latest_result_by_family_and_subject('ACCESS', category.to_s.capitalize).try(:scale_score)]
+    end.to_h
+
   end
 
   def latest_mcas_mathematics
