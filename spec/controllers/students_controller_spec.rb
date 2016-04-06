@@ -126,6 +126,35 @@ describe StudentsController, :type => :controller do
           ]
         end
 
+        context 'student has multiple discipline incidents' do
+          let!(:student) { FactoryGirl.create(:student) }
+          let(:most_recent_school_year) { student.most_recent_school_year }
+          let(:serialized_data) { assigns(:serialized_data) }
+          let(:attendance_data) { serialized_data[:attendance_data] }
+          let(:discipline_incidents) { attendance_data[:discipline_incidents] }
+
+          let!(:more_recent_incident) {
+            FactoryGirl.create(
+              :discipline_incident,
+              student_school_year: most_recent_school_year,
+              occurred_at: Time.now - 1.day
+            )
+          }
+
+          let!(:less_recent_incident) {
+            FactoryGirl.create(
+              :discipline_incident,
+              student_school_year: most_recent_school_year,
+              occurred_at: Time.now - 2.days
+            )
+          }
+
+          it 'sets the correct order' do
+            make_request({ student_id: student.id, format: :html })
+            expect(discipline_incidents).to eq [more_recent_incident, less_recent_incident]
+          end
+        end
+
         context 'educator has grade level access' do
           let(:educator) { FactoryGirl.create(:educator, grade_level_access: [student.grade] )}
 
@@ -529,4 +558,5 @@ describe StudentsController, :type => :controller do
       end
     end
   end
+
 end
