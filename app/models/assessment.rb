@@ -30,7 +30,14 @@ class Assessment < ActiveRecord::Base
       { family: "MCAS", subject: "ELA" },
       { family: "STAR", subject: "Mathematics" },
       { family: "STAR", subject: "Reading" },
-      { family: "ACCESS" },
+      { family: "ACCESS", subject: "Composite" },
+      { family: "ACCESS", subject: "Comprehension" },
+      { family: "ACCESS", subject: "Literacy" },
+      { family: "ACCESS", subject: "Oral" },
+      { family: "ACCESS", subject: "Listening" },
+      { family: "ACCESS", subject: "Reading" },
+      { family: "ACCESS", subject: "Speaking" },
+      { family: "ACCESS", subject: "Writing" },
       { family: "DIBELS" }
     ])
   end
