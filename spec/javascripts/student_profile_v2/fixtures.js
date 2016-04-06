@@ -186,6 +186,7 @@
       "first_name": "Daisy",
       "last_name": "Poppins",
       "state_id": null,
+      "enrollment_status": "Active",
       "home_language": "English",
       "school_id": 1,
       "student_address": null,
