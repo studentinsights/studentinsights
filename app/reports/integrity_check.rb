@@ -16,12 +16,15 @@ class IntegrityCheck
     raise "no educators" unless Educator.count > 0
   end
 
+  def models_to_check
+    [StudentAssessment, Assessment, Educator, Student, StudentSchoolYear]
+  end
+
   def has_valid_data?
-    StudentAssessment.find_each(&:save!)
-    Assessment.find_each(&:save!)
-    Educator.find_each(&:save!)
-    Student.find_each(&:save!)
-    StudentSchoolYear.find_each(&:save!)
+    models_to_check.each do |model|
+      puts "Validating #{model.to_s.pluralize}..."
+      model.find_each(&:save!)
+    end
   end
 
 end
