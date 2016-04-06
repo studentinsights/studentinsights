@@ -45,7 +45,7 @@ class SchoolsController < ApplicationController
     begin
       key = precomputed_student_hashes_key(time_now, authorized_student_ids)
       doc = PrecomputedStudentHashesDoc.find(key)
-      doc.json['student_hashes']
+      JSON.parse(doc.json)['student_hashes']
     rescue ActiveRecord::RecordNotFound => err
       logger.error "load_precomputed_student_hashes failed, err: #{err.inspect}"
       authorized_students = Student.find(authorized_student_ids)

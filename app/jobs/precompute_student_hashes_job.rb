@@ -35,6 +35,6 @@ class PrecomputeStudentHashesJob
 
     # This is a non-atomic upsert
     PrecomputedStudentHashesDoc.find(key).destroy! if PrecomputedStudentHashesDoc.exists?(key)
-    PrecomputedStudentHashesDoc.create!(key: key, json: { student_hashes: student_hashes })
+    PrecomputedStudentHashesDoc.create!(key: key, json: { student_hashes: student_hashes }.to_json )
   end
 end
