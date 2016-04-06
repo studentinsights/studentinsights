@@ -10,7 +10,7 @@ RSpec.describe X2AssessmentImporter do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
-      
+
       context 'for Healey school' do
 
         let!(:student) { FactoryGirl.create(:student, local_id: '100') }
@@ -67,7 +67,7 @@ RSpec.describe X2AssessmentImporter do
         end
 
         context 'ACCESS' do
-          let(:assessments) { Assessment.where(family: "ACCESS") }
+          let(:assessments) { Assessment.where(family: "ACCESS", subject: "Composite") }
           let(:assessment) { assessments.first }
 
           it 'creates assessment' do
