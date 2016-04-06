@@ -212,14 +212,4 @@ class Student < ActiveRecord::Base
     end
   end
 
-  ## DEMOGRAPHICS ##
-
-  def self.low_income
-    where.not(free_reduced_lunch: "Not Eligible")
-  end
-
-  def self.not_low_income
-    where(free_reduced_lunch: "Not Eligible")
-  end
-
 end
