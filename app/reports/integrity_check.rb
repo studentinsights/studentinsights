@@ -18,6 +18,7 @@ class IntegrityCheck
 
   def has_valid_data?
     StudentAssessment.find_each(&:save!)
+    Assessment.find_each(&:save!)
     Educator.find_each(&:save!)
     Student.find_each(&:save!)
     StudentSchoolYear.find_each(&:save!)
