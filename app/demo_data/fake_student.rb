@@ -106,10 +106,6 @@ class FakeStudent
     ]
   end
 
-  def create_star_assessment_generators(student, options)
-
-  end
-
   def add_student_assessments_from_x2
     create_x2_assessment_generators(@student).each do |assessment_generator|
       5.times do
