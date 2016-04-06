@@ -29,7 +29,7 @@ class StudentsController < ApplicationController
       event_note_types_index: event_note_types_index,
       educators_index: educators_index,
       attendance_data: {
-        discipline_incidents: student.most_recent_school_year.discipline_incidents,
+        discipline_incidents: student.most_recent_school_year.discipline_incidents.order(occurred_at: :desc),
         tardies: student.most_recent_school_year.tardies,
         absences: student.most_recent_school_year.absences
       }
