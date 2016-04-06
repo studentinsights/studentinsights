@@ -10,6 +10,7 @@ class FakeStudent
     add_services
     add_student_assessments_from_x2
     add_student_assessments_from_star
+    add_student_assessments_from_access
     homeroom.students << @student
   end
 
@@ -137,6 +138,12 @@ class FakeStudent
         StudentAssessment.new(star_assessment_generator.next).save
       end
     end
+  end
+
+  def add_student_assessments_from_access
+    return if @student.limited_english_proficiency == 'Fluent'
+    fake_access_generator = FakeAccessResultGenerator.new(@student)
+    StudentAssessment.new(fake_access_generator.next).save
   end
 
   def add_attendance_events
