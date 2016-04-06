@@ -1,6 +1,6 @@
 require 'csv'
 
-class AnalyzeAssessments < Struct.new(:path)
+class AnalyzeAssessmentsTable < Struct.new(:path)
 
   def contents
     encoding_options = {
