@@ -27,7 +27,7 @@
             dom.tr({},
               this.renderHeader('Name', { className: 'sort-default' }), // className is read by Tablesort
               this.renderHeader('Grade'),
-              this.renderHeader('Disability'),
+              this.renderHeader('Disability', { 'data-sort-method': "disability" }),
               this.renderHeader('Low Income'),
               this.renderHeader('LEP'),
               this.renderHeader('STAR Reading'),
@@ -81,9 +81,8 @@
     },
 
     renderHeader: function(caption, options) {
-      var className = (options && options.className) ? options.className : '';
       var pieces = caption.split(' ');
-      return dom.th({ className: className }, pieces[0], dom.br(), pieces[1]);
+      return dom.th(options || {}, pieces[0], dom.br(), pieces[1]);
     }
   });
 
