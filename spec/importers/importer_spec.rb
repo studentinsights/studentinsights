@@ -13,11 +13,10 @@ RSpec.describe Importer do
       let(:mock_client) { double(:sftp_client, read_file: file) }
 
       context 'no scope' do
-        let(:file_importer) { StudentsImporter.new }
+        let(:file_importer) { StudentsImporter.new(nil, mock_client) }
         let(:importer) {
           Importer.new(
             file_importers: [file_importer],
-            client: mock_client,
             log_destination: log
           )
         }
@@ -32,8 +31,7 @@ RSpec.describe Importer do
         let(:school_scope) { [healey.local_id] }
         let(:importer) {
           Importer.new(
-            file_importers: [StudentsImporter.new(school_scope)],
-            client: mock_client,
+            file_importers: [StudentsImporter.new(school_scope, mock_client)],
             log_destination: log
           )
         }

@@ -1,4 +1,4 @@
-class BulkAttendanceImporter < Struct.new :school_scope
+class BulkAttendanceImporter < Struct.new :school_scope, :client
 
   def initialize(options = {})
     # Required

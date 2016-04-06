@@ -1,4 +1,4 @@
-class X2AssessmentImporter < Struct.new :school_scope
+class X2AssessmentImporter < Struct.new :school_scope, :client
   # Aspen X2 is the name of Somerville's Student Information System.
 
   WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/).freeze

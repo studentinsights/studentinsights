@@ -1,4 +1,4 @@
-class StudentsImporter < Struct.new :school_scope
+class StudentsImporter < Struct.new :school_scope, :client
 
   def remote_file_name
     # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:

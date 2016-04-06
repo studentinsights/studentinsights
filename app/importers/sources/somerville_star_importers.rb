@@ -12,14 +12,18 @@ class SomervilleStarImporters
     {
       client: SftpClient.for_star,
       data_transformer: CsvTransformer.new,
-      file_importers: [
-        StarReadingImporter,
-        StarReadingImporter::HistoricalImporter,
-        StarMathImporter,
-        StarMathImporter::HistoricalImporter
-      ].map { |i| i.new(@school_scope) },
+      file_importers: file_importers,
       log_destination: @log
     }
+  end
+
+  def file_importers
+    [
+      StarReadingImporter,
+      StarReadingImporter::HistoricalImporter,
+      StarMathImporter,
+      StarMathImporter::HistoricalImporter
+    ].map { |i| i.new(@school_scope, SftpClient.for_star) }
   end
 
   def importer
