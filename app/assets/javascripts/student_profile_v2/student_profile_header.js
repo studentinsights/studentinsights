@@ -39,31 +39,39 @@
           href: Routes.student(student.id),
           style: styles.nameTitle
         }, student.first_name + ' ' + student.last_name),
-        dom.span({
-          style: styles.titleItem
-        }, '•'),
+        this.bulletSpacer(),
         dom.a({
           href: Routes.school(student.school_id),
           style: styles.titleItem
         }, student.school_name),
-        dom.span({
-          style: styles.titleItem
-        }, '•'),
+        this.bulletSpacer(),
         dom.span({
           style: styles.titleItem
         }, 'Grade ' + student.grade),
-        dom.span({
-          style: styles.titleItem
-        }, '•'),
-        dom.a({
-          className: 'homeroom-link',
-          href: Routes.homeroom(student.homeroom_id),
-          style: styles.titleItem
-        }, 'Homeroom ' + student.homeroom_name),
+        this.bulletSpacer(),
+        this.homeroomOrEnrollmentStatus(),
         createEl(RiskBubble, {
           riskLevel: student.student_risk_level.level
         })
       );
+    },
+
+    bulletSpacer: function() {
+      return dom.span({ style: styles.titleItem }, '•');
+    },
+
+    homeroomOrEnrollmentStatus: function() {
+      var student =  this.props.student;
+      if (student.enrollment_status === 'Active') {
+        return dom.a({
+          className: 'homeroom-link',
+          href: Routes.homeroom(student.homeroom_id),
+          style: styles.titleItem
+        }, 'Homeroom ' + student.homeroom_name);
+      } else {
+        return dom.span({ style: styles.titleItem }, student.enrollment_status);
+      }
     }
+
   });
 })();
