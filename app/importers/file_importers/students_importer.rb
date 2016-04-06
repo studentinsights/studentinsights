@@ -1,13 +1,6 @@
 class StudentsImporter < Struct.new :school_scope, :client
 
   def remote_file_name
-    # Expects a CSV with the following headers, transformed to symbols by CsvTransformer during import:
-    #
-    # [ "state_id", "local_id", "full_name", "home_language", "program_assigned",
-    #   "limited_english_proficiency", "sped_placement", "disability", "sped_level_of_need",
-    #   "plan_504", "student_address", "grade", "registration_date", "free_reduced_lunch",
-    #   "homeroom", "school_local_id" ]
-
     'students_export.txt'
   end
 

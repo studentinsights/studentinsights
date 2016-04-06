@@ -1,4 +1,9 @@
 class BehaviorRow < Struct.new(:row)
+  # Expects the following headers:
+  #
+  #  :state_id, :local_id, :incident_code, :event_date, :incident_time,
+  #  :incident_location, :incident_description, :school_local_id
+
   def self.build(row)
     new(row).build
   end

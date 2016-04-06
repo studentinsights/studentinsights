@@ -1,4 +1,10 @@
 class StudentRow < Struct.new(:row, :school_ids_dictionary)
+  # Expects the following headers:
+  #
+  #   :state_id, :local_id, :full_name, :home_language, :program_assigned,
+  #   :limited_english_proficiency, :sped_placement, :disability,
+  #   sped_level_of_need: :plan_504, :student_address, :grade,
+  #   :registration_date, :free_reduced_lunch, :homeroom, :school_local_id
 
   def self.build(row)
     new(row).build
