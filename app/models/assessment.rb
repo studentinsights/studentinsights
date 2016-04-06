@@ -5,15 +5,21 @@ class Assessment < ActiveRecord::Base
 
   VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
   VALID_STAR_SUBJECTS = [ 'Mathematics', 'Reading' ].freeze
+  VALID_ACCESS_SUBJECTS = [
+    "Composite", "Comprehension", "Literacy", "Oral",
+    "Listening", "Reading", "Speaking", "Writing"
+  ].freeze
 
   def has_valid_subject
     case family
     when 'MCAS'
-      errors.add(:subject, "must be a valid MCAS subject") unless subject.in?(VALID_MCAS_SUBJECTS)
+      errors.add(:subject, "invalid MCAS subject") unless subject.in?(VALID_MCAS_SUBJECTS)
     when 'STAR'
-      errors.add(:subject, "must be a valid STAR subject") unless subject.in?(VALID_STAR_SUBJECTS)
+      errors.add(:subject, "invalid STAR subject") unless subject.in?(VALID_STAR_SUBJECTS)
     when 'DIBELS'
       errors.add(:subject, "DIBELS has no subject") unless subject.nil?
+    when 'ACCESS'
+      errors.add(:subject, "invalid ACCESS subject") unless subject.in?(VALID_ACCESS_SUBJECTS)
     end
   end
 
