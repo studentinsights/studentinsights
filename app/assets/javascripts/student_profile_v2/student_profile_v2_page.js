@@ -315,7 +315,7 @@
       var chartData = this.props.chartData;
       var grade = student.grade;
       var dibels = this.props.feed.dibels;
-      var latest_dibels = dibels[0].performance_level;
+      var latest_dibels = dibels[0].performance_level.toUpperCase();
 
       if (_.includes(['KF', 'PK', '1', '2', '3'], grade)) {
         return dom.div({ style: styles.summaryWrapper },
