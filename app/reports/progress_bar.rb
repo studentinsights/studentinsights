@@ -17,10 +17,7 @@ class ProgressBar < Struct.new :log, :file_name, :total_units, :completed_units
   end
 
   def bar
-    progress_bar_string = String.new
-    bar_progress.times { progress_bar_string << '=' }
-    bar_remainder.times { progress_bar_string << ' ' }
-    "[#{progress_bar_string}]"
+    "[#{''.ljust(bar_progress, '=')}#{''.ljust(bar_remainder, ' ')}]"
   end
 
   def bar_progress
