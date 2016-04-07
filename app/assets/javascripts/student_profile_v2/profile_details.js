@@ -52,21 +52,21 @@
         events.push({
           type: 'Absence',
           message: name + ' was tardy.',
-          date: Date.parse(obj.occurred_at)
+          date: new Date(obj.occurred_at)
         });
       });
       _.each(this.props.attendanceData.absences, function(obj){
         events.push({
           type: 'Tardy',
           message: name + ' was absent.',
-          date: Date.parse(obj.occurred_at)
+          date: new Date(obj.occurred_at)
         });
       });
       _.each(this.props.attendanceData.discipline_incidents, function(obj){
         events.push({
           type: 'Incident',
           message: obj.incident_description + ' in the ' + obj.incident_location,
-          date: Date.parse(obj.occurred_at)
+          date: new Date(obj.occurred_at)
         });
       });
       _.each(this.props.chartData.mcas_series_ela_scaled, function(quad){
@@ -116,6 +116,9 @@
         });
       });
       _.each(this.props.feed.dibels, function(obj) {
+        // TODO(kr) need to investigate further, whether this is local demo data or production
+        // data quality issue
+        if (obj.performance_level === null) return;
         events.push({
           type: 'DIBELS',
           message: name + ' scored ' + obj.performance_level.toUpperCase() + ' in DIBELS.',
@@ -137,7 +140,7 @@
     },
 
     renderCard: function(event){
-      var key = [event.date, event.message].join();
+      var key = [event.date.getTime(), event.message].join();
       if (event.type === 'Absence' || event.type === 'Tardy'){
         var containingDivStyle = {};
         var headerDivStyle = {fontSize: 14};
