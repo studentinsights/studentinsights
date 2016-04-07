@@ -42,7 +42,9 @@
           data: this.props.chartData.star_series_math_percentile
         }],
         titleText: 'STAR Math, last 4 years',
-        yAxis: this.percentileYAxis()
+        yAxis: merge(this.percentileYAxis(), {
+          title: { text: 'Percentile rank' }
+        })
       });
     },
 
@@ -52,22 +54,24 @@
           name: 'Scaled score',
           data: this.props.chartData.mcas_series_math_scaled
         }],
-        titleText: 'MCAS Math scores, last 4 years',
-        yAxis: merge(
-            ProfileChartSettings.default_mcas_score_yaxis,
-            {plotLines: ProfileChartSettings.mcas_level_bands}
-        )
+        titleText: 'MCAS Math Scores, last 4 years',
+        yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis,{
+          plotLines: ProfileChartSettings.mcas_level_bands,
+          title: { text: 'Scaled score' }
+        })
       });
     },
 
     renderMCASMathGrowth: function() {
       return createEl(ProfileChart, {
         quadSeries: [{
-          name: 'Growth percentile',
+          name: 'Student growth percentile (SGP)',
           data: this.props.chartData.mcas_series_math_growth
         }],
-        titleText: 'MCAS Math Growth, last 4 years',
-        yAxis: this.percentileYAxis()
+        titleText: 'MCAS Math SGPs, last 4 years',
+        yAxis: merge(this.percentileYAxis(), {
+          title: { text: 'Student growth percentile (SGP)' }
+        })
       });
     },
 
