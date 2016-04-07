@@ -12,8 +12,9 @@
   };
 
   Tablesort.extend('prog_assign_sort', function(item) {
-    cleaned_cell = $.trim(item);
-    program_levels.indexOf(cleaned_cell) > 0;
+    return (
+      program_levels.indexOf($.trim(item)) > 0 
+    );
   }, function(a, b) {
       return compareProgramLevel(b, a);
   });

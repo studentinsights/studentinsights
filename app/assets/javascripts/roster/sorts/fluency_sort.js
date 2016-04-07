@@ -1,10 +1,6 @@
 // Extend TableSort with Fluency levels
 (function(){
 
-  function clean_cell(i) {
-    return $.trim(i);
-  }
-
   var fluency_levels = ["FLEP-Transitioning", "FLEP", "Fluent"];
 
   compareFluencyLevel = function(a, b) {
@@ -16,8 +12,9 @@
   };
 
   Tablesort.extend('fluency_sort', function(item) {
-    cleaned_cell = $.trim(item);
-    fluency_levels.indexOf(cleaned_cell) > 0;
+    return (
+      fluency_levels.indexOf($.trim(item)) > 0
+    );
   }, function(a, b) {
       return compareFluencyLevel(b, a);
   });

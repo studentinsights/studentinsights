@@ -12,8 +12,9 @@
   };
 
   Tablesort.extend('need_sort', function(item) {
-    cleaned_cell = $.trim(item);
-    need_levels.indexOf(cleaned_cell) > 0;
+    return (
+      need_levels.indexOf($.trim(item)) > 0
+    );
   }, function(a, b) {
       return compareNeedLevel(b, a);
   });
