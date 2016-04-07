@@ -8,6 +8,7 @@
   var PropTypes = window.shared.PropTypes;
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
+  var SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
   var SummaryList = window.shared.SummaryList;
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
@@ -305,12 +306,28 @@
             thresholdValue: Scales.mcas.threshold
           })
         }),
-        this.wrapSummary({
+        this.renderMcasElaSgpOrDibels()
+      );
+    },
+
+    renderMcasElaSgpOrDibels: function () {
+      var student = this.props.student;
+      var chartData = this.props.chartData;
+      var grade = student.grade;
+      var dibels = this.props.feed.dibels;
+      var latest_dibels = dibels[0].performance_level;
+
+      if (_.includes(['KF', 'PK', '1', '2', '3'], grade)) {
+        return dom.div({ style: styles.summaryWrapper },
+          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latest_dibels })
+        );
+      } else {
+        return this.wrapSummary({
           caption: 'MCAS ELA SGP',
           value: student.most_recent_mcas_ela_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
         })
-      );
+      }
     },
 
     renderMathColumn: function() {

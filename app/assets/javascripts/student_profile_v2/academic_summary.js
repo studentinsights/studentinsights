@@ -20,7 +20,7 @@
       paddingBottom: 5
     }
   };
-  
+
   var AcademicSummary = window.shared.AcademicSummary = React.createClass({
     displayName: 'AcademicSummary',
 
@@ -40,4 +40,25 @@
       );
     }
   });
+
+  var SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline = React.createClass({
+    displayName: 'SummaryWithoutSparkline',
+
+    propTypes: {
+      caption: React.PropTypes.string.isRequired,
+      value: PropTypes.nullable(React.PropTypes.string.isRequired)
+    },
+
+    render: function() {
+      return dom.div({ className: 'AcademicSummary' },
+        dom.div({ style: styles.textContainer },
+          dom.span({ style: styles.caption }, this.props.caption + ':'),
+          dom.br(),
+          dom.br(),
+          dom.span({ style: styles.value }, (this.props.value === undefined) ? 'none' : this.props.value)
+        )
+      );
+    }
+  });
+
 })();

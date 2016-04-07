@@ -146,7 +146,7 @@ class StudentsController < ApplicationController
         notes: student.student_notes.map { |note| serialize_student_note(note) },
         interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
       },
-      dibels: student.student_assessments.by_family('DIBELS')
+      dibels: student.student_assessments.by_family('DIBELS').order_by_date_taken_desc
     }
   end
 end
