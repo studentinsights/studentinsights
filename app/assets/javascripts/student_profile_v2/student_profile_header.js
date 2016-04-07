@@ -9,14 +9,15 @@
   var styles = {
     titleContainer: {
       fontSize: 16,
-      padding: 20
+      padding: 20,
+      display: 'flex'
     },
     nameTitle: {
-      fontSize: 30,
+      fontSize: 28,
       fontWeight: 'bold'
     },
     titleItem: {
-      fontSize: 25,
+      fontSize: 24,
       padding: 5
     }
   };
@@ -35,24 +36,36 @@
     render: function() {
       var student =  this.props.student;
       return dom.div({ style: styles.titleContainer },
-        dom.a({
-          href: Routes.student(student.id),
-          style: styles.nameTitle
-        }, student.first_name + ' ' + student.last_name),
-        this.bulletSpacer(),
-        dom.a({
-          href: Routes.school(student.school_id),
-          style: styles.titleItem
-        }, student.school_name),
-        this.bulletSpacer(),
-        dom.span({
-          style: styles.titleItem
-        }, 'Grade ' + student.grade),
-        this.bulletSpacer(),
-        this.homeroomOrEnrollmentStatus(),
-        createEl(RiskBubble, {
-          riskLevel: student.student_risk_level.level
-        })
+        dom.div({ style: { display: 'inline-block', flex: 'auto' } },
+          dom.a({
+            href: Routes.student(student.id),
+            style: styles.nameTitle
+          }, student.first_name + ' ' + student.last_name),
+          dom.div({ style: { display: 'inline-block' } },
+            this.bulletSpacer(),
+            this.homeroomOrEnrollmentStatus(),
+            this.bulletSpacer(),
+            dom.span({
+              style: styles.titleItem
+            }, 'Grade ' + student.grade),
+            this.bulletSpacer(),
+            dom.a({
+              href: Routes.school(student.school_id),
+              style: styles.titleItem
+            }, student.school_name)
+          )
+        ),
+        dom.div({
+          style: {
+            width: '15em',
+            display: 'flex',
+            justifyContent: 'flex-end'
+          },
+        },
+          createEl(RiskBubble, {
+            riskLevel: student.student_risk_level.level
+          })
+        )
       );
     },
 
