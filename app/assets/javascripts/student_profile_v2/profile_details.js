@@ -116,6 +116,9 @@
         });
       });
       _.each(this.props.feed.dibels, function(obj) {
+        // TODO(kr) need to investigate further, whether this is local demo data or production
+        // data quality issue
+        if (obj.performance_level === null) return;
         events.push({
           type: 'DIBELS',
           message: name + ' scored ' + obj.performance_level.toUpperCase() + ' in DIBELS.',
