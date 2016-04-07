@@ -104,7 +104,6 @@ GEM
       addressable (~> 2.3)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    memory_profiler (0.9.6)
     method_source (0.8.2)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
@@ -247,7 +246,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails (~> 5.0.3)
   launchy
-  memory_profiler
   net-sftp
   net-ssh
   pg

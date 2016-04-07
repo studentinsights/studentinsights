@@ -7,8 +7,6 @@ require_relative '../../app/importers/file_importers/behavior_importer'
 require_relative '../../app/importers/file_importers/educators_importer'
 require_relative '../../app/importers/file_importers/attendance_importer'
 
-require 'memory_profiler'
-
 class Import
   class Start < Thor::Group
     desc "Import data into your Student Insights instance"
@@ -74,12 +72,7 @@ class Import
 
     def connect_transform_import
       # X2 importers should come first because they are the sole source of truth about students.
-      importers.flat_map { |i| i.from_options(options) }.each do |i|
-        memory_profiler = MemoryProfiler.report do
-          i.connect_transform_import
-        end
-        memory_profiler.pretty_print
-      end
+      importers.flat_map { |i| i.from_options(options) }.each(&:connect_transform_import)
     end
 
     def run_update_tasks
@@ -88,8 +81,8 @@ class Import
       Student.update_recent_student_assessments
       Homeroom.destroy_empty_homerooms
     end
-    def print_final_report
 
+    def print_final_report
       report.print_final_report
     end
   end
