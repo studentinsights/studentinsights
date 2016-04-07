@@ -315,9 +315,12 @@
       var chartData = this.props.chartData;
       var grade = student.grade;
       var dibels = this.props.feed.dibels;
-      var latest_dibels = dibels[0].performance_level.toUpperCase();
 
-      if (_.includes(['KF', 'PK', '1', '2', '3'], grade)) {
+      var belowGradeFour = _.includes(['KF', 'PK', '1', '2', '3'], grade)
+      var hasDibels = (dibels.size > 0)
+
+      if (belowGradeFour && hasDibels) {
+        var latest_dibels = dibels[0].performance_level.toUpperCase();
         return dom.div({ style: styles.summaryWrapper },
           createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latest_dibels })
         );
