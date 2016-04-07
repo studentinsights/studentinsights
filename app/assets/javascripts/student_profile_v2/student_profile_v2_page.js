@@ -290,7 +290,7 @@
           sparkline: this.renderSparkline(chartData.star_series_reading_percentile || [])
         }),
         this.wrapSummary({
-          caption: 'MCAS ELA',
+          caption: 'MCAS ELA Score',
           value: student.most_recent_mcas_ela_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled || [], {
             valueRange: Scales.mcas.valueRange,
@@ -298,7 +298,7 @@
           })
         }),
         this.wrapSummary({
-          caption: 'MCAS ELA Growth',
+          caption: 'MCAS ELA SGP',
           value: student.most_recent_mcas_ela_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
         })
@@ -321,7 +321,7 @@
           sparkline: this.renderSparkline(chartData.star_series_math_percentile || [])
         }),
         this.wrapSummary({
-          caption: 'MCAS Math',
+          caption: 'MCAS Math Score',
           value: student.most_recent_mcas_math_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_math_scaled || [], {
             valueRange: Scales.mcas.valueRange,
@@ -329,7 +329,7 @@
           })
         }),
         this.wrapSummary({
-          caption: 'MCAS Math Growth',
+          caption: 'MCAS Math SGP',
           value: student.most_recent_mcas_math_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_math_growth || [])
         })

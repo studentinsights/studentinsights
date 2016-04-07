@@ -60,16 +60,16 @@
     renderELAColumn: function() {
       return dom.div({ className: 'column ela-background' },
         this.renderPercentileTable('STAR Reading', 'most_recent_star_reading_percentile'),
-        this.renderMCASTable('MCAS ELA', 'most_recent_mcas_ela_scaled'),
-        this.renderPercentileTable('Growth - MCAS ELA', 'most_recent_mcas_ela_growth')
+        this.renderMCASTable('MCAS ELA Score', 'most_recent_mcas_ela_scaled'),
+        this.renderPercentileTable('MCAS ELA SGP', 'most_recent_mcas_ela_growth')
       );
     },
 
     renderMathColumn: function() {
       return dom.div({ className: 'column math-background' },
         this.renderPercentileTable('STAR Math', 'most_recent_star_math_percentile'),
-        this.renderMCASTable('MCAS Math', 'most_recent_mcas_math_scaled'),
-        this.renderPercentileTable('Growth - MCAS Math', 'most_recent_mcas_math_growth')
+        this.renderMCASTable('MCAS Math Score', 'most_recent_mcas_math_scaled'),
+        this.renderPercentileTable('MCAS Math SGP', 'most_recent_mcas_math_growth')
       );
     },
 

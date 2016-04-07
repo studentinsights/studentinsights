@@ -68,7 +68,8 @@
         titleText: 'Discipline incidents, last 4 years',
         yAxis: {
           min: range[0],
-          max: range[1]
+          max: range[1],
+          title: { text: 'Count per year' }
         },
         quadSeries: [{
           name: 'Events per school year',
@@ -80,9 +81,11 @@
     renderAbsencesAndTardies: function() {
       return createEl(ProfileChart, {
         titleText: 'Absences and Tardies, last 4 years',
+        legend: { enabled: true },
         yAxis: {
           min: _.min([Scales.absences.valueRange[0], Scales.tardies.valueRange[0]]),
-          max: _.max([Scales.absences.valueRange[1], Scales.tardies.valueRange[1]])
+          max: _.max([Scales.absences.valueRange[1], Scales.tardies.valueRange[1]]),
+          title: { text: 'Count per year' }
         },
         quadSeries: [{
           name: 'Tardies per school year',
@@ -97,7 +100,7 @@
     renderIncidentHistory: function() {
       return dom.div({ style: styles.container },
         dom.h4({ style: styles.title }, 'Incident History'),
-        this.props.disciplineIncidents.map(function(incident) {
+        (this.props.disciplineIncidents.length === 0) ? dom.div({}, 'None') : this.props.disciplineIncidents.map(function(incident) {
         return dom.div({ style: styles.box, key: incident.occurred_at },
           dom.div({ style: styles.header },
             dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Date: '), dom.span({}, moment.utc(incident.occurred_at).format('MMM D, YYYY'))),

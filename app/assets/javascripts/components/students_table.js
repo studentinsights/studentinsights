@@ -32,7 +32,7 @@
               this.renderHeader('LEP'),
               this.renderHeader('STAR Reading'),
               this.renderHeader('MCAS ELA'),
-              this.renderHeader('Star Math'),
+              this.renderHeader('STAR Math'),
               this.renderHeader('MCAS Math'),
               this.renderHeader('Discipline Incidents'),
               this.renderHeader('Absences'),
