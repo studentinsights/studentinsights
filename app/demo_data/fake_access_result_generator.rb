@@ -6,7 +6,7 @@ class FakeAccessResultGenerator
   end
 
   def access_assessment_id
-    @assessment_id ||= Assessment.find_by_family('ACCESS').id
+    @assessment_id ||= Assessment.find_by_family_and_subject('ACCESS', 'Composite').id
   end
 
   def next

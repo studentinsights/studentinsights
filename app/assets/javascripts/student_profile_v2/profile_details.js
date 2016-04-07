@@ -30,6 +30,20 @@
       textAlign: 'center',
       marginLeft: 10,
       marginRight: 10
+    },
+    accessTableHeader: {
+      fontWeight: 'bold',
+      textAlign: 'left',
+      marginBottom: 10
+    },
+    accessLeftTableCell: {
+      paddingRight: 25
+    },
+    accessTableFootnote: {
+      fontStyle: 'italic',
+      fontSize: 13,
+      marginTop: 15,
+      marginBottom: 20
     }
   };
 
@@ -37,10 +51,11 @@
     displayName: 'ProfileDetails',
 
     propTypes: {
-        student: React.PropTypes.object,
-        feed: React.PropTypes.object,
-        chartData: React.PropTypes.object,
-        attendanceData: React.PropTypes.object
+      student: React.PropTypes.object,
+      feed: React.PropTypes.object,
+      access: React.PropTypes.object,
+      chartData: React.PropTypes.object,
+      attendanceData: React.PropTypes.object,
     },
 
     getEvents: function(){
@@ -130,9 +145,37 @@
 
     render: function(){
       return dom.div({},
+        this.renderAccessDetails(),
         dom.h4({style: styles.title}, 'Full Case History'),
         this.renderCardList()
       )
+    },
+
+    renderAccessDetails: function () {
+      var access = this.props.access;
+      if (!access) return null;
+
+      var access_result_rows = Object.keys(access).map(function(subject) {
+        return dom.tr({ key: subject },
+          dom.td({ style: styles.accessLeftTableCell }, subject),
+          dom.td({}, access[subject] || '—')
+        );
+      });
+
+      return dom.div({},
+        dom.h4({style: styles.title}, 'ACCESS'),
+        dom.table({},
+          dom.thead({},
+            dom.tr({},
+              dom.th({ style: styles.accessTableHeader }, 'Subject'),
+              dom.th({ style: styles.accessTableHeader }, 'Score')
+            )
+          ),
+          dom.tbody({}, access_result_rows)
+        ),
+        dom.div({}),
+        dom.div({ style: styles.accessTableFootnote }, 'Most recent ACCESS scores shown.')
+      );
     },
 
     renderCardList: function(){

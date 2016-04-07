@@ -62,7 +62,7 @@
       //context
       nowMomentFn: React.PropTypes.func.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
-      
+
       // constants
       interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
@@ -93,6 +93,8 @@
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
       }),
+
+      access: React.PropTypes.object,
 
       // flux-y bits
       requests: PropTypes.requests,
@@ -150,6 +152,7 @@
           {
             student: this.props.student,
             feed: this.props.feed,
+            access: this.props.access,
             chartData: this.props.chartData,
             attendanceData: this.props.attendanceData,
           }
@@ -183,6 +186,15 @@
     renderProfileColumn: function() {
       var student = this.props.student;
       var columnKey = 'profile';
+      var demographicsElements = [
+        'Disability: ' + (student.sped_level_of_need || 'None'),
+        'Low income: ' + student.free_reduced_lunch,
+        'Language: ' + student.limited_english_proficiency
+      ];
+
+      if (this.props.access) {
+        demographicsElements.push('ACCESS Composite score: ' + this.props.access.composite);
+      };
 
       return dom.div({
         style: merge(styles.column, this.selectedColumnStyles(columnKey)),
@@ -190,11 +202,7 @@
       },
         createEl(SummaryList, {
           title: 'Demographics',
-          elements: [
-            'Disability: ' + (student.sped_level_of_need || 'None'),
-            'Low income: ' + student.free_reduced_lunch,
-            'Language: ' + student.limited_english_proficiency
-          ]
+          elements: demographicsElements,
         })
       );
     },
@@ -218,7 +226,7 @@
       var placement = (student.sped_placement !== null)
         ? student.program_assigned + ', ' + student.sped_placement
         : student.program_assigned;
-      
+
       return createEl(SummaryList, {
         title: 'Placement',
         elements: [
@@ -236,7 +244,7 @@
           elements: ['No services']
         });
       }
-      
+
       var limit = 3;
       var sortedServices = _.sortBy(activeServices, 'date_started').reverse();
       var elements = sortedServices.slice(0, limit).map(function(service) {
@@ -261,7 +269,7 @@
       var elements = educatorIds.slice(0, limit).map(function(educatorId) {
         return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);
-      
+
       if (educatorIds.length > limit) {
         elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
       } else if (educatorIds.length === 0) {
