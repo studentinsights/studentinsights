@@ -8,6 +8,10 @@ class StarReadingImporter < Struct.new :school_scope, :client
     StarReadingCsvTransformer.new
   end
 
+  def filter
+    SchoolFilter.new(school_scope)
+  end
+
   def star_reading_assessment
     @assessment ||= Assessment.where(family: "STAR", subject: "Reading").first_or_create!
   end
