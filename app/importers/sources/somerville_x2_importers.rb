@@ -10,9 +10,13 @@ class SomervilleX2Importers
     @log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
   end
 
+  def sftp_client
+    @client ||= SftpClient.for_x2
+  end
+
   def base_options
     {
-      file_importers: file_importers.map { |i| i.new(@school_scope, SftpClient.for_x2) },
+      file_importers: file_importers.map { |i| i.new(@school_scope, sftp_client) },
       log_destination: @log
     }
   end
