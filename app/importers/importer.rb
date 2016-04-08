@@ -25,7 +25,10 @@ class Importer
 
       data.each.each_with_index do |row, index|
         file_importer.import_row(row) if file_importer.filter.include?(row)
-        ProgressBar.new(@log, file_name, data.size, index + 1).print if @progress_bar
+
+        if @progress_bar == :true  # Thor passes Boolean options as Symbols :/
+          ProgressBar.new(@log, file_name, data.size, index + 1).print
+        end
       end
     end
   end
