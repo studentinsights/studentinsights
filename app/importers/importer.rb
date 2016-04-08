@@ -15,8 +15,9 @@ class Importer
   def connect_transform_import
     file_importers.each do |file_importer|
       file_name = file_importer.remote_file_name
-      file = file_importer.client.read_file(file_name)
+      @log.write("\nImporting #{file_name}...")
 
+      file = file_importer.client.read_file(file_name)
       transformer = file_importer.data_transformer
       data = transformer.transform(file)
       pre_cleanup_csv_size = transformer.pre_cleanup_csv_size
