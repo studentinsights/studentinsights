@@ -5,6 +5,7 @@ class SomervilleStarImporters
 
   def initialize(options = {})
     @school_scope = options["school"]
+    @progress_bar = options["progress_bar"]
     @log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
   end
 
@@ -13,7 +14,8 @@ class SomervilleStarImporters
       client: SftpClient.for_star,
       data_transformer: CsvTransformer.new,
       file_importers: file_importers,
-      log_destination: @log
+      log_destination: @log,
+      progress_bar: @progress_bar
     }
   end
 
