@@ -16,9 +16,11 @@ class Importer
       file_name = file_importer.remote_file_name
       file = file_importer.client.read_file(file_name)
 
-      pre_cleanup_csv = CSV.parse(file, headers: true)
-      data = file_importer.data_transformer.transform(file)
-      CleanupReport.new(@log, file_name, pre_cleanup_csv.size, data.size).print
+      transformer = file_importer.data_transformer
+      data = transformer.transform(file)
+      pre_cleanup_csv_size = transformer.pre_cleanup_csv_size
+
+      CleanupReport.new(@log, file_name, pre_cleanup_csv_size, data.size).print
 
       data.each.each_with_index do |row, index|
         file_importer.import_row(row) if file_importer.filter.include?(row)
