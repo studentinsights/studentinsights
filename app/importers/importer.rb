@@ -8,6 +8,7 @@ class Importer
 
   def initialize(options = {})
     @file_importers = options[:file_importers]    # Required - array of per-file importers
+    @progress_bar = options[:progress_bar]
     @log = options[:log_destination] || STDOUT
   end
 
@@ -24,7 +25,7 @@ class Importer
 
       data.each.each_with_index do |row, index|
         file_importer.import_row(row) if file_importer.filter.include?(row)
-        ProgressBar.new(@log, file_name, data.size, index + 1).print
+        ProgressBar.new(@log, file_name, data.size, index + 1).print if @progress_bar
       end
     end
   end
