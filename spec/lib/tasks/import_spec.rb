@@ -20,32 +20,32 @@ RSpec.describe Import do
       expect(commands[5]).to eq nil
     end
 
-    let(:importers) { commands[3] }
-    let(:first_importer) { importers[0] }
-    let(:second_importer) { importers[1] }
+    let(:file_importers) { commands[3] }
+    let(:log_destination) { LogHelper::Redirect.instance.file }
+    let(:expected_file_importer_arguments) {
+      [ ['HEA'], sftp_client_double, log_destination, :false ]
+    }
 
-    it 'returns the correct importers' do
-      expect(importers.size).to eq 2
-
-      expect(first_importer).to be_a Importer
-      expect(second_importer).to be_a Importer
-
-      expect(first_importer.file_importers.first.client).to eq sftp_client_double
-      expect(first_importer.file_importers.map { |i| i.class }).to eq [
+    let(:expected_file_importer_classes) {
+      [
         StudentsImporter,
         X2AssessmentImporter,
         BehaviorImporter,
         EducatorsImporter,
-        AttendanceImporter
-      ]
-
-      expect(second_importer.file_importers.first.client).to eq sftp_client_double
-      expect(second_importer.file_importers.map { |i| i.class }).to eq [
+        AttendanceImporter,
         StarReadingImporter,
         StarReadingImporter::HistoricalImporter,
         StarMathImporter,
-        StarMathImporter::HistoricalImporter
+        StarMathImporter::HistoricalImporter,
       ]
+    }
+
+    let(:expected_file_importers) {
+      expected_file_importer_classes.map { |c| c.new(*expected_file_importer_arguments) }
+    }
+
+    it 'returns the correct importers' do
+      expect(file_importers).to eq expected_file_importers
     end
 
   end
@@ -105,13 +105,17 @@ RSpec.describe Import do
   end
 
   describe '#connect_transform_import' do
-    let(:fake_importer) { double(:importer) }
-    let(:fake_importer_set) { double(:importers, from_options: [fake_importer]) }
+    let(:fake_file_importer) { double }
+    let(:fake_importer) { double(file_importers: [fake_file_importer]) }
+    let(:fake_importer_class) { double(new: fake_importer) }
 
-    before { allow(task).to receive(:importers).and_return([fake_importer_set]) }
+    before do
+      allow(task).to receive(:importers).and_return([fake_importer_class])
+      allow_any_instance_of(FileImport).to receive(:import).and_return('meow')
+    end
 
     it 'calls #connect_transform_import on configured importers' do
-      expect(fake_importer).to receive(:connect_transform_import)
+      expect_any_instance_of(FileImport).to receive(:import).and_return('meow')
       task.connect_transform_import
     end
   end

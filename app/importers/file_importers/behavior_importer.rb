@@ -1,4 +1,4 @@
-class BehaviorImporter < Struct.new :school_scope, :client
+class BehaviorImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def remote_file_name
     'behavior_export.txt'
