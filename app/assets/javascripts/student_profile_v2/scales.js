@@ -10,8 +10,8 @@
     },
 
     disciplineIncidents: {
-      valueRange: [0, 10],
-      threshold: 5,
+      valueRange: [0, 6],
+      threshold: 3,
       flexibleRange: function(cumulativeQuads) {
         return Scales.flexibleQuadRange(cumulativeQuads, Scales.disciplineIncidents.valueRange);
       }

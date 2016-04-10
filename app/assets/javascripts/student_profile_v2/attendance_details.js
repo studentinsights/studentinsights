@@ -58,7 +58,8 @@
     render: function() {
       return dom.div({ className: 'AttendanceDetails' },
         this.renderDisciplineIncidents(),
-        this.renderAbsencesAndTardies(),
+        this.renderAbsences(),
+        this.renderTardies(),
         this.renderIncidentHistory()
       );
     },
@@ -79,26 +80,34 @@
       });
     },
 
-    renderAbsencesAndTardies: function() {
+    renderAbsences: function() {
+      var range = Scales.absences.flexibleRange(this.props.cumulativeAbsences);
       return createEl(ProfileChart, {
-        titleText: 'Absences and Tardies, last 4 years',
-        legend: { enabled: true },
+        titleText: 'Absences, last 4 years',
         yAxis: {
-          min: _.min([Scales.absences.valueRange[0], Scales.tardies.valueRange[0]]),
-          max: _.max([
-            Scales.absences.valueRange[1],
-            Scales.tardies.valueRange[1],
-            d3.max(this.props.cumulativeTardies, QuadConverter.toValue),
-            d3.max(this.props.cumulativeAbsences, QuadConverter.toValue)
-          ]),
+          min: range[0],
+          max: range[1],
+          title: { text: 'Count per year' }
+        },
+        quadSeries: [{
+          name: 'Absences per school year',
+          data: this.props.cumulativeAbsences
+        }]
+      });
+    },
+
+    renderTardies: function() {
+      var range = Scales.tardies.flexibleRange(this.props.cumulativeTardies);
+      return createEl(ProfileChart, {
+        titleText: 'Tardies, last 4 years',
+        yAxis: {
+          min: range[0],
+          max: range[1],
           title: { text: 'Count per year' }
         },
         quadSeries: [{
           name: 'Tardies per school year',
           data: this.props.cumulativeTardies
-        }, {
-          name: 'Absences per school year',
-          data: this.props.cumulativeAbsences
         }]
       });
     },
