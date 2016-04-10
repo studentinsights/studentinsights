@@ -38,6 +38,6 @@ module StudentsQueryHelper
   def precomputed_student_hashes_key(time_now, authorized_student_ids)
     timestamp = Time.now.beginning_of_day.to_i
     authorized_students_key = authorized_student_ids.sort.join(',')
-    [timestamp, authorized_students_key].join('_')
+    ['precomputed_student_hashes', timestamp, authorized_students_key].join('_')
   end
 end
