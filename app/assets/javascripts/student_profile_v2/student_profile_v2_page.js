@@ -374,35 +374,33 @@
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       },
-        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {
+        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, Scales.disciplineIncidents.flexibleRange, {
           caption: 'Discipline incidents',
-          valueRange: Scales.disciplineIncidents.valueRange,
           thresholdValue: Scales.disciplineIncidents.threshold,
           shouldDrawCircles: false
         }),
-        this.renderAttendanceEventsSummary(attendanceData.absences, {
+        this.renderAttendanceEventsSummary(attendanceData.absences, Scales.absences.flexibleRange, {
           caption: 'Absences',
-          valueRange: Scales.absences.valueRange,
           thresholdValue: Scales.absences.threshold,
           shouldDrawCircles: false
         }),
-        this.renderAttendanceEventsSummary(attendanceData.tardies, {
+        this.renderAttendanceEventsSummary(attendanceData.tardies, Scales.tardies.flexibleRange, {
           caption: 'Tardies',
-          valueRange: Scales.tardies.valueRange,
           thresholdValue: Scales.tardies.threshold,
           shouldDrawCircles: false
         })
       );
     },
 
-    renderAttendanceEventsSummary: function(attendanceEvents, props) {
+    renderAttendanceEventsSummary: function(attendanceEvents, flexibleRangeFn, props) {
       var cumulativeQuads = this.cumulativeCountQuads(attendanceEvents);
       var value = (cumulativeQuads.length > 0) ? _.last(cumulativeQuads)[3] : 0;
+      var valueRange = flexibleRangeFn(cumulativeQuads);
 
       return this.wrapSummary(merge({
         title: props.title,
         value: value,
-        sparkline: this.renderSparkline(cumulativeQuads, props)
+        sparkline: this.renderSparkline(cumulativeQuads, merge({ valueRange: valueRange }, props))
       }, props));
     },
 

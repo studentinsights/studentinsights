@@ -5,6 +5,7 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var ProfileChart = window.shared.ProfileChart;
+  var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
 
   var styles = {
@@ -63,12 +64,12 @@
     },
 
     renderDisciplineIncidents: function() {
-      var range = Scales.disciplineIncidents.valueRange;
+      var flexibleRange = Scales.disciplineIncidents.flexibleRange(this.props.cumulativeDisciplineIncidents);
       return createEl(ProfileChart, {
         titleText: 'Discipline incidents, last 4 years',
         yAxis: {
-          min: range[0],
-          max: range[1],
+          min: flexibleRange[0],
+          max: flexibleRange[1],
           title: { text: 'Count per year' }
         },
         quadSeries: [{
@@ -84,7 +85,12 @@
         legend: { enabled: true },
         yAxis: {
           min: _.min([Scales.absences.valueRange[0], Scales.tardies.valueRange[0]]),
-          max: _.max([Scales.absences.valueRange[1], Scales.tardies.valueRange[1]]),
+          max: _.max([
+            Scales.absences.valueRange[1],
+            Scales.tardies.valueRange[1],
+            d3.max(this.props.cumulativeTardies, QuadConverter.toValue),
+            d3.max(this.props.cumulativeAbsences, QuadConverter.toValue)
+          ]),
           title: { text: 'Count per year' }
         },
         quadSeries: [{
@@ -101,7 +107,10 @@
       return dom.div({ style: styles.container },
         dom.h4({ style: styles.title }, 'Incident History'),
         (this.props.disciplineIncidents.length === 0) ? dom.div({}, 'None') : this.props.disciplineIncidents.map(function(incident) {
-        return dom.div({ style: styles.box, key: incident.occurred_at },
+        return dom.div({
+          style: styles.box,
+          key: [incident.occurred_at, incident.incident_description].join()
+        },
           dom.div({ style: styles.header },
             dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Date: '), dom.span({}, moment.utc(incident.occurred_at).format('MMM D, YYYY'))),
             dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Code: '), dom.span({}, incident.incident_code)),
