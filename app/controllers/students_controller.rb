@@ -14,6 +14,7 @@ class StudentsController < ApplicationController
   def show
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
+
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
@@ -25,11 +26,7 @@ class StudentsController < ApplicationController
       event_note_types_index: event_note_types_index,
       educators_index: educators_index,
       access: student.latest_access_results,
-      attendance_data: {
-        discipline_incidents: student.most_recent_school_year.discipline_incidents.order(occurred_at: :desc),
-        tardies: student.most_recent_school_year.tardies,
-        absences: student.most_recent_school_year.absences
-      }
+      attendance_data: student_profile_attendance_data(student)
     }
   end
 
@@ -94,6 +91,23 @@ class StudentsController < ApplicationController
   end
 
   private
+  def student_profile_attendance_data(student)
+    student_school_years = student.student_school_years
+    {
+      discipline_incidents: flatmap_and_sort(student_school_years) {|year| year.discipline_incidents },
+      tardies: flatmap_and_sort(student_school_years) {|year| year.tardies },
+      absences: flatmap_and_sort(student_school_years) {|year| year.absences }
+    }
+  end
+
+  # Takes a list of student_school_years, yields each one to the block provided, then flattens
+  # and sorts the results.
+  def flatmap_and_sort(student_school_years)
+    student_school_years.map do |student_school_year|
+      yield student_school_year
+    end.flatten.sort_by(&:occurred_at).reverse
+  end
+
   def serialize_student_for_profile(student)
     student.as_json.merge({
       student_risk_level: student.student_risk_level.as_json,
