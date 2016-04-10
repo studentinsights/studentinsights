@@ -73,6 +73,7 @@
       // data
       student: React.PropTypes.object.isRequired,
       feed: React.PropTypes.object.isRequired,
+      dibels: React.PropTypes.array.isRequired,
       chartData: React.PropTypes.shape({
         // ela
         most_recent_star_reading_percentile: React.PropTypes.number,
@@ -314,15 +315,15 @@
       var student = this.props.student;
       var chartData = this.props.chartData;
       var grade = student.grade;
-      var dibels = this.props.feed.dibels;
+      var dibels = _.sortBy(this.props.dibels, 'date_taken');
 
       var belowGradeFour = _.includes(['KF', 'PK', '1', '2', '3'], grade);
       var hasDibels = (dibels.length > 0);
 
       if (belowGradeFour && hasDibels) {
-        var latest_dibels = dibels[0].performance_level.toUpperCase();
+        var latestDibels = _.last(dibels).performance_level.toUpperCase();
         return dom.div({ style: styles.summaryWrapper },
-          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latest_dibels })
+          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latestDibels })
         );
       } else {
         return this.wrapSummary({

@@ -50,6 +50,7 @@
         chartData: serializedData.chartData,
         attendanceData: serializedData.attendanceData,
         access: serializedData.access,
+        dibels: serializedData.dibels,
 
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
@@ -172,6 +173,7 @@
           'feed',
           'access',
           'chartData',
+          'dibels',
           'attendanceData',
           'selectedColumnKey',
           'requests'

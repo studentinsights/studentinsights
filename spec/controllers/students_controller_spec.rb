@@ -46,12 +46,11 @@ describe StudentsController, :type => :controller do
           expect(serialized_data[:current_educator]).to eq educator
           expect(serialized_data[:student]["id"]).to eq student.id
           expect(serialized_data[:notes]).to eq []
-
+          expect(serialized_data[:dibels]).to eq []
           expect(serialized_data[:feed]).to eq ({
             event_notes: [],
             services: {active: [], discontinued: []},
-            deprecated: {notes: [], interventions: []},
-            dibels: []
+            deprecated: {notes: [], interventions: []}
           })
 
           expect(serialized_data[:chart_data]).to include(:attendance_events_school_years)
@@ -523,7 +522,7 @@ describe StudentsController, :type => :controller do
 
     it 'returns services' do
       feed = controller.send(:student_feed, student)
-      expect(feed.keys).to eq([:event_notes, :services, :deprecated, :dibels])
+      expect(feed.keys).to eq([:event_notes, :services, :deprecated])
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:active].first[:id]).to eq service.id
     end
