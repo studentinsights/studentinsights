@@ -42,13 +42,17 @@ class SchoolsController < ApplicationController
   # raw query.
   # Results an array of student_hashes.
   def load_precomputed_student_hashes(time_now, authorized_student_ids)
-    key = precomputed_student_hashes_key(time_now, authorized_student_ids)
-    doc = PrecomputedQueryDoc.find_by_key(key)
-    return JSON.parse(doc.json)['student_hashes'] unless doc.nil?
-    
+    begin
+      key = precomputed_student_hashes_key(time_now, authorized_student_ids)
+      doc = PrecomputedQueryDoc.find_by_key(key)
+      return JSON.parse(doc.json)['student_hashes'] unless doc.nil?
+    rescue ActiveRecord::StatementInvalid => err
+      logger.error "load_precomputed_student_hashes raised error #{err.inspect}"
+    end
+
     # Fallback to performing the full query if something went wrong reading the 
     # precomputed value
-    logger.error "load_precomputed_student_hashes failed for key: #{key}"
+    logger.error "falling back to full load_precomputed_student_hashes query for key: #{key}"
     authorized_students = Student.find(authorized_student_ids)
     authorized_students.map {|student| student_hash_for_slicing(student) }
   end
