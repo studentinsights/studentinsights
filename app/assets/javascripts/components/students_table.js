@@ -45,7 +45,7 @@
           dom.tbody({},
             this.props.students.map(function(student) {
               return dom.tr({ key: student.id },
-                dom.td({}, dom.a({ href: Routes.student(student.id) }, student.first_name + ' ' + student.last_name)),
+                dom.td({}, dom.a({ href: Routes.studentProfile(student.id) }, student.first_name + ' ' + student.last_name)),
                 dom.td({}, student.grade),
                 dom.td({}, this.renderUnless('None', student.sped_level_of_need)),
                 dom.td({ style: { width: '2.5em' } }, this.renderUnless('Not Eligible', student.free_reduced_lunch)),

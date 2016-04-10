@@ -203,7 +203,7 @@ $(function() {
               dom.td({ style: { textAlign: 'right', color: color(delta) } }, (delta > 0) ? '+' + delta : delta),
               dom.td({ style: { color: '#ccc' } }, ' → '),
               dom.td({}, + _.last(student.star_results).percentile_rank),
-              dom.td({}, dom.a({ style: { fontSize: styles.fontSize }, href: Routes.student(student.id) }, student.first_name + ' ' + student.last_name))
+              dom.td({}, dom.a({ style: { fontSize: styles.fontSize }, href: Routes.studentProfile(student.id) }, student.first_name + ' ' + student.last_name))
             );
           }, this))
         )

@@ -12,10 +12,6 @@ class StudentsController < ApplicationController
   end
 
   def show
-    redirect_to profile_student_path
-  end
-
-  def profile
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
     @serialized_data = {
@@ -83,6 +79,7 @@ class StudentsController < ApplicationController
     end
   end
 
+  # Used by the search bar to query for student names
   def names
     q = params[:q]
     authorized_students = Student.with_school.select do |student|
