@@ -7,16 +7,16 @@
       threshold: 240
     },
     disciplineIncidents: {
-      valueRange: [0, 6],
-      threshold: 3
-    },
-    absences: {
       valueRange: [0, 20],
       threshold: 10
     },
-    tardies: {
+    absences: {
       valueRange: [0, 40],
       threshold: 20
+    },
+    tardies: {
+      valueRange: [0, 60],
+      threshold: 30
     }
   };
 })();
