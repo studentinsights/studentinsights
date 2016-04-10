@@ -1,6 +1,7 @@
 class FakeStudent
 
   def initialize(homeroom)
+    @homeroom = homeroom
     @student = Student.create(data)
     add_attendance_events
     add_discipline_incidents
@@ -11,7 +12,7 @@ class FakeStudent
     add_student_assessments_from_x2
     add_student_assessments_from_star
     add_student_assessments_from_access
-    homeroom.students << @student
+    @homeroom.students << @student
   end
 
   def student
@@ -39,7 +40,7 @@ class FakeStudent
     {
       school_id: School.first.id,
       enrollment_status: enrollment_status,
-      grade: "5",
+      grade: @homeroom.grade,
       hispanic_latino: [true, false].sample,
       race: ["A", "B", "H", "W"].sample,
       first_name: DISNEY_FIRST_NAMES.sample,

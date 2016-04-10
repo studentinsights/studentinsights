@@ -12,7 +12,7 @@ RSpec.describe FakeStudent do
     expect(student.last_name).not_to be_nil
   end
 
-  it 'sets student langauge attributes' do
+  it 'sets student language attributes' do
     expect(student.limited_english_proficiency).not_to be_nil
     expect(student.home_language).not_to be_nil
   end
