@@ -9,34 +9,46 @@ RSpec.describe StudentAssessment, type: :model do
     let(:day_before_yesterday) { Time.now - 2.days }
 
     context 'unique across the combination of student/assessment/date_taken' do
-      before {
-        FactoryGirl.create(
-          :student_assessment, assessment: dibels, date_taken: day_before_yesterday, student: student
-        )
-      }
+      before do
+        FactoryGirl.create(:student_assessment, {
+          assessment: dibels,
+          performance_level: 'Strategic',
+          date_taken: day_before_yesterday,
+          student: student
+        })
+      end
 
-      subject(:student_assessment) {
-        FactoryGirl.build(
-          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
-        )
-      }
+      subject(:student_assessment) do
+        FactoryGirl.build(:student_assessment, {
+          assessment: dibels,
+          performance_level: 'Strategic',
+          date_taken: yesterday,
+          student: student
+        })
+      end
 
       it 'is valid' do
         expect(subject).to be_valid
       end
     end
     context 'not unique across the combination of student/assessment/date_taken' do
-      before {
-        FactoryGirl.create(
-          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
-        )
-      }
+      before do
+        FactoryGirl.create(:student_assessment, {
+          assessment: dibels,
+          performance_level: 'Strategic',
+          date_taken: yesterday,
+          student: student
+        })
+      end
 
-      subject(:student_assessment) {
-        FactoryGirl.build(
-          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
-        )
-      }
+      subject(:student_assessment) do
+        FactoryGirl.build(:student_assessment, {
+          assessment: dibels,
+          performance_level: 'Strategic',
+          date_taken: yesterday,
+          student: student
+        })
+      end
 
       it 'is not valid' do
         expect(subject).not_to be_valid
@@ -44,8 +56,34 @@ RSpec.describe StudentAssessment, type: :model do
     end
   end
 
+  describe 'validates that DIBELS records have performance_level' do
+    let!(:student) { FactoryGirl.create(:student) }
+    let!(:yesterday) { Time.now - 1.day }
+    let!(:dibels) { FactoryGirl.create(:assessment, family: 'DIBELS') }
+
+    it 'cannot make DIBELS assessment with no performance_level' do
+      student_assessment = StudentAssessment.create({
+        :student_id =>  student.id,
+        :assessment_id => dibels.id,
+        :date_taken =>  yesterday,
+        :scale_score => nil,
+        :growth_percentile => nil,
+        :performance_level => nil,
+        :percentile_rank => nil,
+        :instructional_reading_level => nil
+      })
+      expect(student_assessment).not_to be_valid
+    end
+  end
+
   describe '.by_family_and_subject' do
-    let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
+    let!(:mcas_math) { FactoryGirl.create(:assessment, family: 'MCAS', subject: 'Mathematics' ) }
+    let!(:student_assessment) do
+      FactoryGirl.create(:student_assessment, {
+        assessment: mcas_math,
+        scale_score: 280
+      })
+    end
     context 'MCAS & math' do
       let(:result) { StudentAssessment.by_family_and_subject("MCAS", "Mathematics") }
       context 'there are only MCAS math student assessments' do

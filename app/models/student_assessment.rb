@@ -9,7 +9,13 @@ class StudentAssessment < ActiveRecord::Base
   delegate :grade, to: :student
   validates_presence_of :date_taken, :student, :assessment
   validates :student, uniqueness: { scope: [:assessment_id, :date_taken] }
-  validate :valid_assessment_attributes
+  validate :validate_assessment_attributes
+
+  def validate_assessment_attributes
+    if !valid_assessment_attributes
+      errors.add(:base, "Invalid assessment attributes: #{self.attributes.inspect}")
+    end
+  end
 
   def valid_assessment_attributes
     case assessment.family
