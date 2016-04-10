@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410171252) do
+ActiveRecord::Schema.define(version: 20160410174144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,7 +161,7 @@ ActiveRecord::Schema.define(version: 20160410171252) do
   end
 
   create_table "precomputed_query_docs", force: true do |t|
-    t.string   "key"
+    t.text     "key"
     t.text     "json"
     t.datetime "created_at"
     t.datetime "updated_at"
