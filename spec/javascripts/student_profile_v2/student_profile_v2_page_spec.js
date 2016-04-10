@@ -12,7 +12,7 @@ describe('StudentProfileV2Page', function() {
 
   var helpers = {
     renderStudentProfilePage: function(el, grade, dibels) {
-      var serializedData = Fixtures.studentProfile;
+      var serializedData = _.cloneDeep(Fixtures.studentProfile);
       if (grade) { serializedData["student"]["grade"] = grade; };
       if (dibels) { serializedData["feed"]["dibels"] = dibels; };
 
