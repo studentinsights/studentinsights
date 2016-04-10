@@ -9,22 +9,7 @@ def create_service(student, educator)
 end
 
 describe StudentsController, :type => :controller do
-  describe '#show redirects to profile' do
-    let(:student) { FactoryGirl.create(:student, :with_risk_level) }
-    let(:homeroom) { student.homeroom }
-    let(:educator) { FactoryGirl.create(:educator, :admin )}
-    let!(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
-    before { sign_in(educator) }
-    before { request.env['HTTPS'] = 'on' }
-
-    it 'redirects to profile page' do
-      get :show, id: student.id
-      expect(response).to redirect_to(profile_student_path(student.id))
-    end
-
-  end
-
-  describe '#profile' do
+  describe '#show' do
     let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level) }
     let(:homeroom) { student.homeroom }
@@ -32,7 +17,7 @@ describe StudentsController, :type => :controller do
 
     def make_request(options = { student_id: nil, format: :html })
       request.env['HTTPS'] = 'on'
-      get :profile, id: options[:student_id], format: options[:format]
+      get :show, id: options[:student_id], format: options[:format]
     end
 
     context 'when educator is not logged in' do

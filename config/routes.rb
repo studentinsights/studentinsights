@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get '/students/names' => 'students#names'
   resources :students, only: [:show] do
     member do
-      get :profile
       get :sped_referral
       post :event_note
       post :service

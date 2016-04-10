@@ -38,7 +38,7 @@
       return dom.div({ style: styles.titleContainer },
         dom.div({ style: { display: 'inline-block', flex: 'auto' } },
           dom.a({
-            href: Routes.student(student.id),
+            href: Routes.studentProfile(student.id),
             style: styles.nameTitle
           }, student.first_name + ' ' + student.last_name),
           dom.div({ style: { display: 'inline-block' } },
