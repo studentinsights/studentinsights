@@ -20,6 +20,7 @@ class StudentsController < ApplicationController
       notes: student.student_notes.map { |note| serialize_student_note(note) },
       feed: student_feed(student),
       chart_data: chart_data,
+      dibels: student.student_assessments.by_family('DIBELS'),
       intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,
@@ -132,6 +133,7 @@ class StudentsController < ApplicationController
     (search_token_scores.sum.to_f / search_tokens.length)
   end
 
+  # The feed of mutable data that changes most frequently and is owned by Student Insights
   def student_feed(student)
     {
       event_notes: student.event_notes.map {|event_note| serialize_event_note(event_note) },
@@ -142,8 +144,7 @@ class StudentsController < ApplicationController
       deprecated: {
         notes: student.student_notes.map { |note| serialize_student_note(note) },
         interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
-      },
-      dibels: student.student_assessments.by_family('DIBELS').order_by_date_taken_desc
+      }
     }
   end
 end

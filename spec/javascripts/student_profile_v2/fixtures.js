@@ -174,6 +174,7 @@
     "serviceTypesIndex": FixtureConstantIndexes.serviceTypesIndex,
     "eventNoteTypesIndex": FixtureConstantIndexes.eventNoteTypesIndex,
     "interventionTypesIndex": FixtureConstantIndexes.interventionTypesIndex,
+    "dibels": [],
     "student": {
       "id": 23,
       "grade": "5",
@@ -845,8 +846,7 @@
             "progress_notes": []
           }
         ]
-      },
-      "dibels": []
+      }
     },
     "educatorsIndex": {
       "1": {

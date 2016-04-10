@@ -14,7 +14,7 @@ describe('StudentProfileV2Page', function() {
     renderStudentProfilePage: function(el, grade, dibels) {
       var serializedData = _.cloneDeep(Fixtures.studentProfile);
       if (grade) { serializedData["student"]["grade"] = grade; };
-      if (dibels) { serializedData["feed"]["dibels"] = dibels; };
+      if (dibels) { serializedData["dibels"] = dibels; };
 
       var mergedProps = {
         serializedData: serializedData,
