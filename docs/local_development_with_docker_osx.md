@@ -1,30 +1,71 @@
 # Local development with Docker on OSX
 
-You can run the project locally in Docker containers using docker-compose.  This [blog post](http://www.ybrikman.com/writing/2015/05/19/docker-osx-dev/) has great background motivation on why it's useful to use Docker for local development.
+You can run the project locally in Docker containers using docker-compose.
 
-First, install VirtualBox and Docker Toolbox.
+### What does that mean?
 
-  - Install VirtualBox 5.0.8: https://www.virtualbox.org/wiki/Downloads
-  - Install Docker Toolbox: http://docs.docker.com/mac/started/
-  - Use docker-machine to create a new Docker host: `https://docs.docker.com/machine/get-started/`
-  - For convenience, add the IP from `docker-machine ip default` as a line in `/etc/hosts` so you can work with `http://docker:3000` in your browser.
-  - Install https://github.com/adlogix/docker-machine-nfs to use NFS for sharing files between the host machine and the VirtualBoxVM.  This is much faster than VirtualBox shared folders ([more info](https://github.com/codeforamerica/somerville-teacher-tool/pull/336#issuecomment-158441877)).
+Docker is virtualization software (it's a way for your computer to run other computers). Using Docker, you can define a whole computer in a text file, using a special syntax. That's called a Dockerfile -- if you're curious, [here's](/Dockerfile) the one for this project.
 
-Run the project using `docker-compose`:
-  - Rebuild all container images: `docker-compose build` (slow the first time)
-  - Start bash in a Rails container to create the database and seed it:
-    ```
-    # Start a new Rails container from your laptop
-    $ docker-compose run rails bash
+Once you define the computer, it can be shared on Github, just like you share code. The **docker** program lets you run it inside your computer, enter & exit at any time. The **docker-compose** program lets you hook two or more containers together (when one of these computers is running inside docker, it's called a "container").
 
-    # Then run tasks within that container
-    $ RAILS_ENV=development bundle exec rake db:setup db:seed:demo
+### Why is it a good idea to use Docker?
 
-    # And exit to discard the container when you're done.
-    $ exit
-    ```
-  - Start all the services: `docker-compose up`
-  - Open `http://docker:3000` in a browser!
+This [blog post](http://www.ybrikman.com/writing/2015/05/19/docker-osx-dev/) has an in-depth explanation of how Docker saves time and headaches. It will probably be most relatable if you've had to do this the hard way a few times.
+
+If you haven't had that experience, you'll have to take my word for it. Downloading a big project like ours from Github and running it often doesn't work the first time, nor the second through fifth, because the internals of your machine don't look exactly like the internals of ours. Dependencies will be missing and need to be installed, etc. Using Docker insulates you from all that.
+
+### When is it a bad idea to use Docker?
+
+If you already have a dev environment running to your satisfaction on your machine, there's no need to switch to Docker.
+
+### Okay, how do I start using it?
+
+Before you do any of this, clone the project from github by starting up Terminal and running `git clone https://github.com/studentinsights/studentinsights.git`. This will create a folder named `studentinsights` in the current directory.
+
+Docker only runs on Linux. So, in order to run it on OS X, you need to start up a virtual machine on OS X that runs Linux. We use VirtualBox for this.
+
+  - [Install VirtualBox 5.0.8](https://www.virtualbox.org/wiki/Downloads)
+
+You don't need to do anything with it right now.
+
+  - [Install Docker Toolbox](http://docs.docker.com/mac/started/)
+
+This is a detailed tutorial. Everything after completing "Install Docker on OS X" is fun (and useful, but unnecessary if you just want to get the project running already. So feel free to stop there.
+
+  - [Use docker-machine to create a new Docker host](https://docs.docker.com/machine/get-started/)
+
+**docker-machine** is the command line program, thoughtfully included by the Docker folks, which uses VirtualBox to set up a Linux machine and run the **docker** program on it.
+
+Again, everything in this tutorial after "Create a machine" is fun but unnecessary.
+
+Normally, when you run a dev copy of the project on your machine, you visit it by visiting "http://localhost" in your browser. (This is an alias for a certain IP). That won't work here, because the project is running inside VirtualBox, which has its own IP. You can get this IP by running `docker-machine ip default` (where "default" is the name of the VirtualBox machine) in your terminal.
+
+Your computer has a special file named "/etc/hosts" which maps names to IP addresses. (You can edit it by typing `nano /etc/hosts` in your terminal, or any other way you know how to edit system files). We recommend adding the IP from `docker-machine ip default` as a line in this file (the format is **<IP> <name>**) so you can work with "http://docker:3000" in your browser (instead of typing that IP directly).
+
+So, we have three command-line programs (**docker**, **docker-compose** and **docker-machine**).
+
+  - Navigate to where you cloned the project (so you should be at the root of the project, in the folder named "studentinsights").
+  - Run the project using **docker-compose**:
+    - Rebuild all container images: `docker-compose build` (slow the first time)
+    - Start bash in a temporary Rails container to create the database and seed it:
+       - Start a new Rails container from your laptop: `docker-compose run rails bash`. This will give you a new command line, something like "root@8595f0db21aa:/mnt/somerville-teacher-tool". That means you're inside the container.
+       - Set up the database and seed it with demo data: `RAILS_ENV=development bundle exec rake db:setup db:seed:demo`
+       - Get back to your terminal (and discard the container): `exit` or Control+D.
+    - Start all the services: `docker-compose up`. (This will occupy your terminal. To stop it and bring the server down, press Control+C).
+    - Open [http://docker:3000](http://docker:3000) in a browser! Log in using *demo@example.com* and *demo-password*.
+
+Okay, now make sure you can get at what you just did. Bookmark "http://docker:3000" and put VirtualBox in your Dock so you can access it later.
+
+### Troubleshooting:
+**Changes to the Gemfile:** The Gemfile lists all of the Ruby dependencies for the project. When it changes, you need to run `docker-compose build` again to install the new dependencies. If you're experiencing problems after pulling from master, it might be because the Gemfile changed.
+
+**docker-compose up not working:** Try restarting the Linux machine by typing `docker-machine restart`. If that is taking forever, check VirtualBox to see if the machine is running. If it's not, shift-click on the "Start" arrow.
+
+**Illegal Instruction: 4 when running docker-compose**: This is a [known issue](https://github.com/docker/compose/issues/1885) with older Macs. The fix suggested in the link is to run `pip install docker-compose` and try it again.
+
+**A server is already running. Check /mnt/somerville-teacher-tool/tmp/pids/server.pid.**: Sometimes **docker-compose** doesn't clean up after itself when it shuts down. There's a file at "tmp/pids/server.pid" -- delete it (from within the studentinsights folder, you can run `rm tmp/pids/server.pid`) and try again.
+
+**Loading pages is really slow!**: This is an unfortunate side effect of Docker -- going through the layer of virtualization to get CSS and image files is slow. Note that this is only a problem for us, not for users. You can try [https://github.com/adlogix/docker-machine-nfs](https://github.com/adlogix/docker-machine-nfs) to use NFS for sharing files between the host machine and the VirtualBoxVM. It may solve the problem, but I haven't been able to get it to work. ([Kevin looked into this](https://github.com/codeforamerica/somerville-teacher-tool/pull/336#issuecomment-158441877)). If it does work for you, let me know at really.eli@gmail.com or on Slack.
 
 ### Running RSpec tests:
 ```
@@ -37,6 +78,3 @@ Run the project using `docker-compose`:
   # Run whatever tests you like
   $ RAILS_ENV=test bundle exec rspec
 ```
-
-### Changes to the Gemfile
-You'll need to rebuild the Docker image when the Gemfile changes.  Run `docker-compose build`.
