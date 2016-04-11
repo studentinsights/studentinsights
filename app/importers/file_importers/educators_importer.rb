@@ -20,7 +20,7 @@ class EducatorsImporter < Struct.new :school_scope, :client
     educator = EducatorRow.new(row, school_ids_dictionary).build
     educator.save!
 
-    homeroom = Homeroom.find_by_name!(row[:homeroom]) if row[:homeroom].present?
+    homeroom = Homeroom.find_by_name(row[:homeroom]) if row[:homeroom].present?
     homeroom.update(educator: educator) if homeroom.present?
   end
 
