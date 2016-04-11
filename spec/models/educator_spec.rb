@@ -23,6 +23,56 @@ RSpec.describe Educator do
     end
   end
 
+  describe '#is_authorized_for_student' do
+    let(:authorized?) { educator.is_authorized_for_student(student) }
+
+    context 'educator belongs to school' do
+      let(:healey) { FactoryGirl.create(:healey) }
+
+      context 'student belongs to same school' do
+        let(:student) { FactoryGirl.create(:student, school: healey) }
+        context 'educator does not have schoolwide access' do
+          let(:educator) { FactoryGirl.create(:educator, school: healey) }
+          it 'is not authorized' do
+            expect(authorized?).to be false
+          end
+        end
+        context 'educator has schoolwide access' do
+          let(:educator) { FactoryGirl.create(:educator, school: healey, schoolwide_access: true) }
+          it 'is authorized' do
+            expect(authorized?).to be true
+          end
+        end
+      end
+
+      context 'student belongs to different school' do
+        let(:brown) { FactoryGirl.create(:brown) }
+        let(:educator) { FactoryGirl.create(:educator, school: healey, schoolwide_access: true) }
+        let(:student) { FactoryGirl.create(:student, school: brown) }
+        it 'is not authorized' do
+          expect(authorized?).to be false
+        end
+      end
+
+    end
+
+    context 'educator does not belong to school' do
+      let(:student) { FactoryGirl.create(:student) }
+      context 'educator is admin' do
+        let(:educator) { FactoryGirl.create(:educator, :admin) }
+        it 'is authorized' do
+          expect(authorized?).to be true
+        end
+      end
+      context 'educator is not admin' do
+        let(:educator) { FactoryGirl.create(:educator) }
+        it 'is not authorized' do
+          expect(authorized?).to be false
+        end
+      end
+    end
+  end
+
   describe '#local_id' do
     context 'no local id' do
       it 'is invalid' do
