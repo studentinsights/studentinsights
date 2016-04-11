@@ -28,18 +28,16 @@
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'stretch',
-      marginLeft: 20,
-      marginRight: 20,
-      width: '100%',
-      maxWidth: 1100,
-      height: 360
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: '95%',
+
     },
     detailsContainer: {
       margin: 30
     },
     academicColumn: {
       textAlign: 'left',
-      width: 220
     },
     profileColumn: {
       background: '#ededed'
@@ -49,14 +47,14 @@
     },
     column: {
       flex: 1,
-      padding: '17px 21px 11px 21px',
+      padding: '22px 26px 16px 26px',
       cursor: 'pointer',
-      border: '5px solid white',
       borderColor: 'white',
       borderTop: 0,
       height: '80%',
       margin: 0,
       borderRadius: '0 0 5px 5px',
+      width: '100%'
     },
     columnContainer: {
       display: 'flex',
@@ -64,9 +62,13 @@
       margin: '0 5px 0 0',
       borderRadius: '5px 5px 5px 5px',
       border: '1px solid #ccc',
+      width: '20%'
      },
     selectedColumn: {
+      borderStyle: 'solid',
       borderColor: '#3177c9',
+      borderWidth: '0 5px 5px 5px',
+      padding: '22px 21px 11px 21px',
     },
     selectedTab: {
       background: '#3177c9',
@@ -85,6 +87,7 @@
       padding: '10px 5px 5px 5px',
       margin: 0,
       borderRadius: '5px 5px 0 0',
+      background: 'white'
     },
     sparklineWidth: 150,
     sparklineHeight: 50

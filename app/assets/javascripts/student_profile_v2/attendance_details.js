@@ -40,8 +40,9 @@
     },
     container: {
       width: '100%',
-      maxWidth: 1100,
       marginTop: 50,
+      marginLeft: 'auto',
+      marginRight: 'auto',
       border: '1px solid #ccc',
       padding: '30px 30px 30px 30px',
       position: 'relative'
