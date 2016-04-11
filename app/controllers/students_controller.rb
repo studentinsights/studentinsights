@@ -43,14 +43,54 @@ class StudentsController < ApplicationController
   # post
   def event_note
     clean_params = params.require(:event_note).permit(*[
+      :id,
       :student_id,
       :event_note_type_id,
       :text
     ])
-    event_note = EventNote.new(clean_params.merge({
-      educator_id: current_educator.id,
-      recorded_at: Time.now
-    }))
+
+    if clean_params[:id]
+      event_note_id = clean_params[:id]
+      event_note = EventNote.find(event_note_id)
+
+      # Save the state of the existing event note.
+      previous_event_note_revision = EventNoteRevision.where(
+        event_note_id: event_note_id
+      ).order(
+        :version
+      ).take
+
+      if previous_event_note_revision
+        version = previous_event_note_revision.version + 1
+      else
+        version = 1
+      end
+
+      event_note_revision = EventNoteRevision.new({
+        educator_id: event_note.educator_id,
+        student_id: event_note.student_id,
+        event_note_type_id: event_note.event_note_type_id,
+        text: event_note.text,
+        recorded_at: event_note.recorded_at,
+        event_note_id: event_note.id,
+        version: version
+      })
+
+      unless event_note_revision.save
+        render json: { errors: event_note_revision.errors.full_messages }, status: 422
+      end
+
+      event_note.student_id = clean_params[:student_id]
+      event_note.event_note_type_id = clean_params[:event_note_type_id]
+      event_note.text = clean_params[:text]
+      event_note.recorded_at = Time.now
+    else
+      event_note = EventNote.new(clean_params.merge({
+        educator_id: current_educator.id,
+        recorded_at: Time.now
+      }))
+    end
+
     if event_note.save
       render json: serialize_event_note(event_note)
     else
