@@ -63,7 +63,7 @@ class Educator < ActiveRecord::Base
   end
 
   def default_school
-    school || School.first
+    school || School.with_students.first
   end
 
   def has_access_to_grade_levels?
