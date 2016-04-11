@@ -90,6 +90,26 @@ class Educator < ActiveRecord::Base
     allowed_homerooms.order(:name)
   end
 
+  def permissions_hash
+    {
+      admin: admin,
+      school: school,
+      schoolwide_access: schoolwide_access,
+      grade_level_access: grade_level_access,
+      restricted_to_sped_students: restricted_to_sped_students,
+      restricted_to_english_language_learners: restricted_to_english_language_learners,
+    }
+  end
+
+  def clone_permissions_from(educator_full_name)
+    # Useful for debugging and QA on staff with different schools & permissions
+
+    target_educator = Educator.find_by_full_name(educator_full_name)
+    permissions = target_educator.permissions_hash
+    assign_attributes(permissions)
+    save!
+  end
+
   private
 
   def has_access_to_all_students?
