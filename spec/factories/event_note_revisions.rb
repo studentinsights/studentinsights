@@ -7,7 +7,7 @@ FactoryGirl.define do
     recorded_at "2016-04-11 01:41:48"
     created_at "2016-04-11 01:41:48"
     updated_at "2016-04-11 01:41:48"
-    event_note_id 1
+    association :event_note
     version 1
   end
 end
