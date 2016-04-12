@@ -8,6 +8,7 @@ class StudentAssessment < ActiveRecord::Base
   delegate :family, :subject, to: :assessment
   delegate :grade, to: :student
   validates_presence_of :date_taken, :student, :assessment
+  validates :student, uniqueness: { scope: [:assessment_id, :date_taken] }
   validate :valid_assessment_attributes
 
   def valid_assessment_attributes

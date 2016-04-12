@@ -19,7 +19,6 @@ module SomervilleTeacherTool
     config.autoload_paths += %W(#{config.root}/app/importers/filters)
     config.autoload_paths += %W(#{config.root}/app/importers/rows)
     config.autoload_paths += %W(#{config.root}/app/importers/sources)
-    config.autoload_paths += %W(#{config.root}/app/dashboard_queries)
     config.autoload_paths += %W(#{config.root}/lib)
 
     config.generators do |g|

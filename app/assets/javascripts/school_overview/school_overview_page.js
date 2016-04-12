@@ -19,7 +19,8 @@
 
     propTypes: {
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      InterventionTypes: React.PropTypes.object.isRequired,
+      serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       initialFilters: React.PropTypes.arrayOf(React.PropTypes.object)
     },
 
@@ -193,7 +194,8 @@
         dom.div({ className: 'header', style: styles.header }, createEl(SlicePanels, {
            allStudents: this.props.allStudents,
            students: this.getFilteredStudents(),
-           InterventionTypes: this.props.InterventionTypes,
+           serviceTypesIndex: this.props.serviceTypesIndex,
+           eventNoteTypesIndex: this.props.eventNoteTypesIndex,
            filters: this.state.filters,
            onFilterToggled: this.onFilterToggled
          })),
@@ -244,14 +246,14 @@
         'Limited English Proficient',
         'STAR Reading Percentile',
         'MCAS ELA Score',
-        'MCAS ELA Growth',
+        'MCAS ELA SGP',
         'STAR Math Percentile',
         'MCAS Math Score',
-        'MCAS Math Growth',
+        'MCAS Math SGP',
         'Discipline Incidents',
         'Absences This Year',
         'Tardies This Year',
-        'Intervention Count',
+        'Active Services',
         'Program Assigned',
         'Homeroom Name',
       ];
@@ -272,7 +274,7 @@
           student.discipline_incidents_count,
           student.absences_count,
           student.tardies_count,
-          student.interventions.length,
+          student.active_services.length,
           student.program_assigned,
           student.homeroom_name,
         ].join(',');

@@ -2,6 +2,7 @@ use x2data
 SELECT
   'state_id',
   'local_id', -- LASID
+  'enrollment_status',
   'full_name',
   'home_language',
   'program_assigned',
@@ -20,6 +21,7 @@ UNION ALL
 SELECT
   STD_ID_STATE,
   STD_ID_LOCAL,
+  STD_ENROLLMENT_STATUS,
   std_name_view,
   STD_HOME_LANGUAGE_CODE,
   STD_FIELDB_068, -- Program assigned
@@ -37,7 +39,6 @@ SELECT
 FROM student
 INNER JOIN school
   ON student.STD_SKL_OID=school.SKL_OID
-WHERE STD_ENROLLMENT_STATUS = 'Active'
 AND STD_ID_STATE IS NOT NULL
 AND STD_OID IS NOT NULL
   INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/students_export.txt"

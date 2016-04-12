@@ -1,6 +1,8 @@
 (function() {
   // Define filter operations
   window.shared || (window.shared = {});
+  var FeedHelpers = window.shared.FeedHelpers;
+
   window.shared.Filters = Filters = {
     Range: function(key, range) {
       return {
@@ -44,6 +46,49 @@
         key: 'intervention_type'
       };
     },
+    ServiceType: function(serviceTypeId) {
+      return {
+        identifier: ['service_type', serviceTypeId].join(':'),
+        filterFn: function(student) {
+          if (serviceTypeId === null) return (student.active_services === undefined || student.active_services.length === 0);
+          return student.active_services.filter(function(service) {
+            return service.service_type_id === serviceTypeId;
+          }).length > 0;
+        },
+        key: 'service_type'
+      };
+    },
+    EventNoteType: function(eventNoteTypeId) {
+      return {
+        identifier: ['event_note_type', eventNoteTypeId].join(':'),
+        filterFn: function(student) {
+          if (eventNoteTypeId === null) return (student.event_notes.length === 0);
+          return student.event_notes.filter(function(eventNote) {
+            return (eventNote.event_note_type_id === eventNoteTypeId);
+          }).length > 0;
+        },
+        key: 'event_note_type'
+      };
+    },
+    MergedNoteType: function(mergedNoteType, mergedNoteTypeId) {
+      return {
+        identifier: ['merged_note_type', mergedNoteType, mergedNoteTypeId].join(':'),
+        filterFn: function(student) {
+          var mergedNotes = FeedHelpers.mergedNotes({
+            event_notes: student.event_notes,
+            deprecated: {
+              interventions: student.interventions,
+              notes: student.notes
+            }
+          });
+          if (mergedNoteType === null && mergedNoteTypeId === null) return (mergedNotes.length === 0);
+          return mergedNotes.filter(function(mergedNote) {
+            return FeedHelpers.matchesMergedNoteType(mergedNote, mergedNoteType, mergedNoteTypeId);
+          }).length > 0;
+        },
+        key: 'merged_note_type'
+      };
+    },
     YearsEnrolled: function(value) {
       return {
         identifier: ['years_enrolled', value].join(':'),
@@ -73,6 +118,9 @@
       if (parts[0] === 'intervention_type') return Filters.InterventionType(parts[1]);
       if (parts[0] === 'risk_level') return Filters.InterventionType(parseFloat(parts[1]));
       if (parts[0] === 'years_enrolled') return Filters.YearsEnrolled(parseFloat(parts[1]));
+      if (parts[0] === 'service_type') return Filters.ServiceType(parseFloat(parts[1]));
+      if (parts[0] === 'event_note_type') return Filters.EventNoteType(parseFloat(parts[1]));
+      
       return null;
     },
 

@@ -1,8 +1,12 @@
 module StarCsvTransformer
   require 'csv'
 
+  attr_accessor :pre_cleanup_csv_size
+
   def transform(file)
-    CSV.parse(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
+    csv = CSV.parse(file, headers: true, header_converters: lambda { |h| convert_headers(h) })
+    @pre_cleanup_csv_size = csv.size
+    csv
   end
 
   def convert_headers(header)

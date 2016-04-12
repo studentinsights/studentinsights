@@ -9,7 +9,16 @@ Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
   - username: `demo@example.com`
   - password: `demo-password`
 
-## Product overview
+## User personas: Who we're serving
+There are three main user personas we're serving. Principals, Interventionists and Classroom Teachers. Right now we're focused primarily on serving principals, and the rough progression will likely be to Interventionists next. Early adopter Classroom Teachers are great, but focused on scaling adoption across all classroom teachers isn't a priority yet.
+
+Principals are responsible for a school, from ensuring all students are progressing academically to making hiring and staffing decisions for teachers.
+
+Interventionists are typically folks who provide some kind of specialized service to students, like counseling, behavioral services or specialized reading instruction. They have caseloads of 20-70 students and are often involved in interdisciplinary teams focused on supporting students who are most at-risk.
+
+Classroom Teachers are responsible for teaching all subjects in an elementary level, and at the middle school level typically teach two subjects, with a few periods of each subject.
+
+## Product overview: How we're helping
 #### School overview
 Principals and intervention specialists can get an overview of all students at school, updated automatically as new data comes in.  This includes demographic information (left), academic progress indicators (center), and educational interventions (right).
 
@@ -48,14 +57,13 @@ It also allows capturing meeting notes as part of the student's record, which is
 This is a web product, integrated with the Aspen SIS, district LDAP authorization and STAR assessments.  Principals and teachers sign in using their usual credentials, and can access the product securely anywhere they have internet access.  The project is primarily targeted browser is Internet Explorer, because that's what's used in the Somerville school district.
 
 
+## Project priorities
+ 1. Finish Student profile improvements (DIBELS data, ACCESS data, speed up overview page) - target 4/13/2016
+ 2. Adopted at second school for MTSS or SST meeting - target April 2016
+ 3. SPED referral packet
 
 ## Contributing
-We'd love your help!  If you're interested in figuring out how to help, the best first step is to come drop into [chat](https://cfb-public.slack.com/messages/somerville-schools/), or connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter.
-
-If you're an educator and want to try this out or have ideas about how to improve the product, we'd love to hear from you.  If you're an experienced developer or designer, there's some work we could use help with and you dive right into it.  We'll work with you to make sure your work can ship and will immediately help out principals and teachers.
-
-If you need help with how to submit a pull request, check out the awesome [GitHub help](https://help.github.com/articles/using-pull-requests/).
-
+We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge. 
 
 ## How it works
 The project is a Rails app with a Postgres database.  There are background tasks that replicate data from the Aspen SIS system and STAR assessment system into the Postgres database.  This enables rapid iteration and experimentation on new product features with minimal risk to these existing production systems.  The Postgres database is the system of record for unique data captured by the Student Insights product (eg., notes from clinical meetings and information about targeted interventions that students are receiving).  Authentication is handled by the district's LDAP service.
@@ -169,7 +177,7 @@ So far, Student Insights can import CSV and JSON and can fetch data from AWS and
 
 ### LDAP
 
-The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set a `DEMO_SITE` environment variable. Authentication strategies are defined in `educator.rb`.
+The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set the `SHOULD_USE_LDAP` environment variable. Authentication strategies are defined in `educator.rb`.
 
 ### Heroku
 
@@ -189,6 +197,21 @@ This is how to execute a standard Rails migration.  This is focused on the produ
 
 So concretely, once your commit is on master, `git push heroku master && heroku run rake db:migrate` will deploy the new code and run the migration.  This will cause a few seconds of downtime.
 
+##### Rebuilding database in staging environment
+Rebuilding the database in a staging deployment is a destructive action and permanently deletes data in the staging environment.
+
+To do this:
+
+```
+# drop database
+heroku pg:reset DATABASE --app student-insights-staging
+
+# create database tables, run migrations and seed
+heroku run bundle exec rake db:create db:migrate db:seed:somerville --app student-insights-staging
+
+# import data
+heroku run:detached thor import:start --app student-insights-staging
+```
 
 ### AWS
 

@@ -29,6 +29,9 @@
 
     a {
       padding-right: 10px;
+      &:hover {
+        text-decoration: underline;
+      }
 
       @media screen and (max-width: $phase2) {
         padding-right: 20px;

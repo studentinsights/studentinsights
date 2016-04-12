@@ -24,6 +24,7 @@
       }
     },
     legend: {
+      enabled: false,
       layout: 'horizontal',
       align: 'right',
       verticalAlign: 'top',

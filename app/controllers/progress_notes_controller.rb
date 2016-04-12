@@ -13,6 +13,7 @@ class ProgressNotesController < ApplicationController
     end
   end
 
+  private
   def progress_note_params
     params.require(:progress_note).permit(
       :intervention_id,

@@ -1,4 +1,5 @@
 class HomeroomsController < ApplicationController
+  include StudentsQueryHelper
 
   # Authentication by default inherited from ApplicationController.
 
@@ -18,6 +19,10 @@ class HomeroomsController < ApplicationController
 
     # Bulk intervention assignment in far-right column
     @bulk_intervention_assignment = BulkInterventionAssignment.new
+
+    # For links to STAR pages
+    @school_id = @homeroom.students.map(&:school_id).uniq.first # should be only one
+    @star_homeroom_anchor = "equal:homeroom_name:#{@homeroom.name}"
   end
 
   private
@@ -40,7 +45,7 @@ class HomeroomsController < ApplicationController
   # filtering and slicing in the UI).
   # This may be slow if you're doing it for many students without eager includes.
   def fat_student_hash(student)
-    student.as_json.merge({
+    student_hash_for_slicing(student).merge({
       interventions: student.interventions,
       most_recent_atp_number_of_hours: student.most_recent_atp_hours,
       student_risk_level: student.student_risk_level.decorate.as_json_with_explanation,

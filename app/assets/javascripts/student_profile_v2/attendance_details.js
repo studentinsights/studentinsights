@@ -5,6 +5,7 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var ProfileChart = window.shared.ProfileChart;
+  var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
 
   var styles = {
@@ -84,7 +85,8 @@
       return dom.div({ className: 'AttendanceDetails' },
         this.renderNavBar(),
         this.renderDisciplineIncidents(),
-        this.renderAbsencesAndTardies(),
+        this.renderAbsences(),
+        this.renderTardies(),
         this.renderIncidentHistory()
       );
     },
@@ -92,7 +94,8 @@
     renderNavBar: function() {
       return dom.div({ style: styles.navBar },
           dom.a({ style: styles.navBar, href: '#disciplineChart'}, 'Discipline Chart'), ' | ',
-          dom.a({ style: styles.navBar, href: '#absencesTardies'}, 'Absences & Tardies Chart'), ' | ',
+          dom.a({ style: styles.navBar, href: '#absences'}, 'Absences Chart'), ' | ',
+          dom.a({ style: styles.navBar, href: '#tardies'}, 'Tardies Chart'), ' | ',
           dom.a({ style: styles.navBar, href: '#history'}, 'Incident History')
         );
     },
@@ -105,14 +108,15 @@
     },
 
     renderDisciplineIncidents: function() {
-      var range = Scales.disciplineIncidents.valueRange;
+      var flexibleRange = Scales.disciplineIncidents.flexibleRange(this.props.cumulativeDisciplineIncidents);
       return dom.div({ id: 'disciplineChart', style: styles.container},
         this.renderHeader('Discipline incidents, last 4 years'),
         createEl(ProfileChart, {
           titleText: '',
           yAxis: {
-            min: range[0],
-            max: range[1]
+            min: flexibleRange[0],
+            max: flexibleRange[1],
+            title: { text: 'Count per year' }
           },
           quadSeries: [{
             name: 'Events per school year',
@@ -121,22 +125,38 @@
         }));
     },
 
-    renderAbsencesAndTardies: function() {
-      return dom.div({ id: 'absencesTardies', style: styles.container},
-        this.renderHeader('Absences and Tardies, last 4 years'),
+    renderAbsences: function() {
+      var range = Scales.absences.flexibleRange(this.props.cumulativeAbsences);
+      return dom.div({ id: 'absences', style: styles.container},
+        this.renderHeader('Absences, last 4 years'),
         createEl(ProfileChart, {
         titleText: '',
-        //'Absences and Tardies, last 4 years',
         yAxis: {
-          min: _.min([Scales.absences.valueRange[0], Scales.tardies.valueRange[0]]),
-          max: _.max([Scales.absences.valueRange[1], Scales.tardies.valueRange[1]])
+          min: range[0],
+          max: range[1],
+          title: { text: 'Count per year' }
+        },
+        quadSeries: [{
+          name: 'Absences per school year',
+          data: this.props.cumulativeAbsences
+        }]
+      }));
+    },
+
+    renderTardies: function() {
+      var range = Scales.tardies.flexibleRange(this.props.cumulativeTardies);
+      return dom.div({ id: 'tardies', style: styles.container},
+        this.renderHeader('Tardies, last 4 years'),
+        createEl(ProfileChart, {
+        titleText: '',
+        yAxis: {
+          min: range[0],
+          max: range[1],
+          title: { text: 'Count per year' }
         },
         quadSeries: [{
           name: 'Tardies per school year',
           data: this.props.cumulativeTardies
-        }, {
-          name: 'Absences per school year',
-          data: this.props.cumulativeAbsences
         }]
       }));
     },

@@ -2,17 +2,27 @@ class ImportTaskReport
 
   attr_accessor :models_for_report
 
-  def initialize(models_for_report)
+  def initialize(models_for_report, log)
+    @log = log
     @models_for_report = models_for_report
     @initial_counts_hash = compute_initial_counts
+  end
+
+  def newline
+    @log.write("\n")
+  end
+
+  def puts(text)
+    @log.puts(text)
   end
 
   ## INITIAL REPORT ##
 
   def print_initial_report
-    puts; puts "=== STARTING IMPORT TASK... ==="
-    puts; puts "=== INITIAL DATABASE COUNTS ==="
-    puts; puts initial_counts_report
+    newline; puts "=== STARTING IMPORT TASK... ==="
+    newline; puts "=== INITIAL DATABASE COUNTS ==="
+    newline; puts initial_counts_report
+    return
   end
 
   def initial_counts_report
@@ -30,11 +40,11 @@ class ImportTaskReport
   ## END OF TASK REPORTS ##
 
   def print_final_report
-    puts; puts; puts "=== FINAL DATABASE COUNTS ==="
-    puts; puts end_of_task_report
-    puts; puts; puts "=== BY SCHOOL ==="
+    newline; newline; puts "=== FINAL DATABASE COUNTS ==="
+    newline; puts end_of_task_report
+    newline; newline; puts "=== BY SCHOOL ==="
     puts by_school_report
-    puts; AssessmentsReport.new.print_report
+    newline; AssessmentsReport.new(@log).print_report
   end
 
   def end_of_task_report

@@ -1,4 +1,4 @@
-class StarMathImporter
+class StarMathImporter < Struct.new :school_scope, :client
 
   def remote_file_name
     'SM.csv'
@@ -6,6 +6,10 @@ class StarMathImporter
 
   def data_transformer
     StarMathCsvTransformer.new
+  end
+
+  def filter
+    SchoolFilter.new(school_scope)
   end
 
   def star_mathematics_assessment

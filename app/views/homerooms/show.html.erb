@@ -20,6 +20,12 @@
         <p>Help</p>
         <span id="roster-help-icon">?</span>
       </div>
+      <% if current_educator.admin? %>
+        <div class="homeroom-links">
+          <%= link_to 'STAR Reading', star_reading_school_path(@school_id, anchor: @star_homeroom_anchor) %>
+          <%= link_to 'STAR Math', star_math_school_path(@school_id, anchor: @star_homeroom_anchor) %>
+        </div>
+      <% end %>
     </div>
 
     <div id="roster-chart"></div>

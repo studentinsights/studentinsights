@@ -44,7 +44,9 @@
     propTypes: {
       interventionTypesIndex: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
       actions: PropTypes.actions.isRequired,
 
@@ -84,6 +86,10 @@
       this.setState({ isAddingService: false });
     },
 
+    onClickDiscontinueService: function(serviceId, event) {
+      this.props.actions.onClickDiscontinueService(serviceId);
+    },
+
     render: function() {
       return dom.div({ className: 'InterventionsDetails', style: styles.container },
         dom.div({ style: styles.notesContainer },
@@ -91,16 +97,19 @@
           this.renderTakeNotesSection(),
           createEl(NotesList, {
             feed: this.props.feed,
-            educatorsIndex: this.props.educatorsIndex
+            educatorsIndex: this.props.educatorsIndex,
+            eventNoteTypesIndex: this.props.eventNoteTypesIndex
           })
         ),
         dom.div({ style: styles.servicesContainer },
           dom.h4({ style: styles.title}, 'Services'),
           dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
           createEl(ServicesList, {
-            services: this.props.feed.services,
+            servicesFeed: this.props.feed.services,
             educatorsIndex: this.props.educatorsIndex,
-            serviceTypesIndex: this.props.serviceTypesIndex
+            serviceTypesIndex: this.props.serviceTypesIndex,
+            onClickDiscontinueService: this.onClickDiscontinueService,
+            discontinueServiceRequests: this.props.requests.discontinueService
           })
         )
       );
@@ -110,6 +119,7 @@
       if (this.state.isTakingNotes || this.props.requests.saveNotes !== null) {
         return createEl(TakeNotes, {
           nowMoment: moment.utc(), // TODO(kr) thread through
+          eventNoteTypesIndex: this.props.eventNoteTypesIndex,
           currentEducator: this.props.currentEducator,
           onSave: this.onClickSaveNotes,
           onCancel: this.onCancelNotes,

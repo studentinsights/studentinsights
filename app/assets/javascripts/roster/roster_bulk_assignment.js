@@ -1,6 +1,6 @@
 $(function() {
 
-  if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
+  if ($('body').hasClass('homerooms') && $('body').hasClass('deprecated_v1_profile')) {
 
     function toggleBulkInterventionsButton () {
       var student_count = window.bulkInterventionStudents().length;

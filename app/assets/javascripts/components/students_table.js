@@ -3,7 +3,6 @@
   window.shared || (window.shared = {});
   var Filters = window.shared.Filters;
   var Routes = window.shared.Routes;
-  var SlicePanels = window.shared.SlicePanels;
   var styles = window.shared.styles;
   var colors = window.shared.colors;
   var dom = window.shared.ReactHelpers.dom;
@@ -28,17 +27,17 @@
             dom.tr({},
               this.renderHeader('Name', { className: 'sort-default' }), // className is read by Tablesort
               this.renderHeader('Grade'),
-              this.renderHeader('Disability'),
+              this.renderHeader('Disability', { 'data-sort-method': "disability" }),
               this.renderHeader('Low Income'),
               this.renderHeader('LEP'),
               this.renderHeader('STAR Reading'),
               this.renderHeader('MCAS ELA'),
-              this.renderHeader('Star Math'),
+              this.renderHeader('STAR Math'),
               this.renderHeader('MCAS Math'),
               this.renderHeader('Discipline Incidents'),
               this.renderHeader('Absences'),
               this.renderHeader('Tardies'),
-              this.renderHeader('Interventions'),
+              this.renderHeader('Services'),
               this.renderHeader('Program'),
               this.renderHeader('Homeroom')
             )
@@ -46,7 +45,7 @@
           dom.tbody({},
             this.props.students.map(function(student) {
               return dom.tr({ key: student.id },
-                dom.td({}, dom.a({ href: Routes.student(student.id) }, student.first_name + ' ' + student.last_name)),
+                dom.td({}, dom.a({ href: Routes.studentProfile(student.id) }, student.first_name + ' ' + student.last_name)),
                 dom.td({}, student.grade),
                 dom.td({}, this.renderUnless('None', student.sped_level_of_need)),
                 dom.td({ style: { width: '2.5em' } }, this.renderUnless('Not Eligible', student.free_reduced_lunch)),
@@ -58,7 +57,7 @@
                 this.renderNumberCell(this.renderCount(student.discipline_incidents_count)),
                 this.renderNumberCell(this.renderCount(student.absences_count)),
                 this.renderNumberCell(this.renderCount(student.tardies_count)),
-                this.renderNumberCell(this.renderCount(student.interventions.length)),
+                this.renderNumberCell(this.renderCount(student.active_services.length)),
                 dom.td({}, this.renderUnless('Reg Ed', student.program_assigned)),
                 dom.td({}, dom.a({ href: Routes.homeroom(student.homeroom_id) }, student.homeroom_name))
               );
@@ -82,9 +81,8 @@
     },
 
     renderHeader: function(caption, options) {
-      var className = (options && options.className) ? options.className : '';
       var pieces = caption.split(' ');
-      return dom.th({ className: className }, pieces[0], dom.br(), pieces[1]);
+      return dom.th(options || {}, pieces[0], dom.br(), pieces[1]);
     }
   });
 

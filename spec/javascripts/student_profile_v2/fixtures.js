@@ -1,9 +1,156 @@
+//= require ../fixtures/fixture_constant_indexes
+
 (function() {
   window.shared || (window.shared = {});
+  var FixtureConstantIndexes = window.shared.FixtureConstantIndexes;
+
   var Fixtures = window.shared.Fixtures = {};
-  
   // assuming static time for specs
   window.shared.Fixtures.nowMoment = moment('2016-02-11T10:15:00');
+
+  window.shared.Fixtures.feedForTestingNotes = {
+    "event_notes": [
+      {
+        "id": 3,
+        "student_id": 5,
+        "educator_id": 1,
+        "event_note_type_id": 301,
+        "text": "Awesome!",
+        "recorded_at": "2016-02-26T22:20:55.398Z",
+        "created_at": "2016-02-26T22:20:55.416Z",
+        "updated_at": "2016-02-26T22:20:55.416Z"
+      },
+      {
+        "id": 4,
+        "student_id": 5,
+        "educator_id": 1,
+        "event_note_type_id": 301,
+        "text": "Sweet!",
+        "recorded_at": "2016-02-27T19:23:26.835Z",
+        "created_at": "2016-02-27T19:23:26.836Z",
+        "updated_at": "2016-02-27T19:23:26.836Z"
+      }
+    ],
+    "services": {
+      "active": [
+        {
+          "id": 133,
+          "service_type_id": 503,
+          "recorded_by_educator_id": 1,
+          "provided_by_educator_id": 1,
+          "date_started": "2016-02-09",
+          "date_discontinued": null,
+          "discontinued_by_educator_id": 1
+        },
+        {
+          "id": 134,
+          "service_type_id": 506,
+          "recorded_by_educator_id": 1,
+          "provided_by_educator_id": 1,
+          "date_started": "2016-02-08",
+          "date_discontinued": null,
+          "discontinued_by_educator_id": 1
+        }
+      ],
+      "discontinued": []
+    },
+    "deprecated": {
+      "notes": [
+        {
+          "id": 5,
+          "content": "We talked with the family.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.950Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 6,
+          "content": "We talked with an outside therapist.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.955Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 7,
+          "content": "We talked with an outside therapist.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.960Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 8,
+          "content": "We talked with the family.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.963Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 9,
+          "content": "We talked with the family.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.967Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 10,
+          "content": "We talked with an outside therapist.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.970Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 11,
+          "content": "We talked with the family.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.974Z",
+          "created_at": "February 24, 2016"
+        },
+        {
+          "id": 12,
+          "content": "We talked with an outside therapist.",
+          "educator_id": 1,
+          "educator_email": "demo@example.com",
+          "created_at_timestamp": "2016-02-24T01:24:32.978Z",
+          "created_at": "February 24, 2016"
+        }
+      ],
+      "interventions": [
+        {
+          "id": 1,
+          "name": "Behavior Plan",
+          "intervention_type_id": 24,
+          "comment": "bar",
+          "goal": "increase growth percentile",
+          "start_date": "October 27, 2010",
+          "start_date_timestamp": "2010-10-27",
+          "end_date": "November 10, 2010",
+          "educator_email": "demo@example.com",
+          "educator_id": 1,
+          "progress_notes": []
+        },
+        {
+          "id": 2,
+          "name": "Attendance Officer",
+          "intervention_type_id": 21,
+          "comment": "whatever",
+          "goal": "increase growth percentile",
+          "start_date": "December 11, 2010",
+          "start_date_timestamp": "2010-12-11",
+          "end_date": "December 25, 2010",
+          "educator_email": "demo@example.com",
+          "educator_id": 1,
+          "progress_notes": []
+        }
+      ]
+    }
+  };
 
   var currentEducator = window.shared.Fixtures.currentEducator = {
     "id": 1,
@@ -24,6 +171,10 @@
   };
 
   window.shared.Fixtures.studentProfile = {
+    "serviceTypesIndex": FixtureConstantIndexes.serviceTypesIndex,
+    "eventNoteTypesIndex": FixtureConstantIndexes.eventNoteTypesIndex,
+    "interventionTypesIndex": FixtureConstantIndexes.interventionTypesIndex,
+    "dibels": [],
     "student": {
       "id": 23,
       "grade": "5",
@@ -36,6 +187,7 @@
       "first_name": "Daisy",
       "last_name": "Poppins",
       "state_id": null,
+      "enrollment_status": "Active",
       "home_language": "English",
       "school_id": 1,
       "student_address": null,
@@ -394,464 +546,308 @@
         "created_at": "February 11, 2016"
       }
     ],
-    "interventionTypesIndex": {
-      "20": {
-        "id": 20,
-        "name": "After-School Tutoring (ATP)",
-        "created_at": "2016-02-11T14:41:36.090Z",
-        "updated_at": "2016-02-11T14:41:36.090Z"
-      },
-      "21": {
-        "id": 21,
-        "name": "Attendance Officer",
-        "created_at": "2016-02-11T14:41:36.092Z",
-        "updated_at": "2016-02-11T14:41:36.092Z"
-      },
-      "22": {
-        "id": 22,
-        "name": "Attendance Contract",
-        "created_at": "2016-02-11T14:41:36.094Z",
-        "updated_at": "2016-02-11T14:41:36.094Z"
-      },
-      "23": {
-        "id": 23,
-        "name": "Behavior Contract",
-        "created_at": "2016-02-11T14:41:36.096Z",
-        "updated_at": "2016-02-11T14:41:36.096Z"
-      },
-      "24": {
-        "id": 24,
-        "name": "Behavior Plan",
-        "created_at": "2016-02-11T14:41:36.098Z",
-        "updated_at": "2016-02-11T14:41:36.098Z"
-      },
-      "25": {
-        "id": 25,
-        "name": "Boys & Girls Club",
-        "created_at": "2016-02-11T14:41:36.100Z",
-        "updated_at": "2016-02-11T14:41:36.100Z"
-      },
-      "26": {
-        "id": 26,
-        "name": "Classroom Academic Intervention",
-        "created_at": "2016-02-11T14:41:36.102Z",
-        "updated_at": "2016-02-11T14:41:36.102Z"
-      },
-      "27": {
-        "id": 27,
-        "name": "Classroom Behavior Intervention",
-        "created_at": "2016-02-11T14:41:36.104Z",
-        "updated_at": "2016-02-11T14:41:36.104Z"
-      },
-      "28": {
-        "id": 28,
-        "name": "Community Schools",
-        "created_at": "2016-02-11T14:41:36.105Z",
-        "updated_at": "2016-02-11T14:41:36.105Z"
-      },
-      "29": {
-        "id": 29,
-        "name": "Counseling: In-House",
-        "created_at": "2016-02-11T14:41:36.107Z",
-        "updated_at": "2016-02-11T14:41:36.107Z"
-      },
-      "30": {
-        "id": 30,
-        "name": "Counseling: Outside/Physician Referral",
-        "created_at": "2016-02-11T14:41:36.108Z",
-        "updated_at": "2016-02-11T14:41:36.108Z"
-      },
-      "31": {
-        "id": 31,
-        "name": "ER Referral (Mental Health)",
-        "created_at": "2016-02-11T14:41:36.109Z",
-        "updated_at": "2016-02-11T14:41:36.109Z"
-      },
-      "32": {
-        "id": 32,
-        "name": "Math Tutor",
-        "created_at": "2016-02-11T14:41:36.110Z",
-        "updated_at": "2016-02-11T14:41:36.110Z"
-      },
-      "33": {
-        "id": 33,
-        "name": "Mobile Crisis Referral",
-        "created_at": "2016-02-11T14:41:36.112Z",
-        "updated_at": "2016-02-11T14:41:36.112Z"
-      },
-      "34": {
-        "id": 34,
-        "name": "MTSS Referral",
-        "created_at": "2016-02-11T14:41:36.113Z",
-        "updated_at": "2016-02-11T14:41:36.113Z"
-      },
-      "35": {
-        "id": 35,
-        "name": "OT/PT Consult",
-        "created_at": "2016-02-11T14:41:36.114Z",
-        "updated_at": "2016-02-11T14:41:36.114Z"
-      },
-      "36": {
-        "id": 36,
-        "name": "Parent Communication",
-        "created_at": "2016-02-11T14:41:36.116Z",
-        "updated_at": "2016-02-11T14:41:36.116Z"
-      },
-      "37": {
-        "id": 37,
-        "name": "Parent Conference/Meeting",
-        "created_at": "2016-02-11T14:41:36.119Z",
-        "updated_at": "2016-02-11T14:41:36.119Z"
-      },
-      "39": {
-        "id": 39,
-        "name": "Peer Mediation",
-        "created_at": "2016-02-11T14:41:36.121Z",
-        "updated_at": "2016-02-11T14:41:36.121Z"
-      },
-      "40": {
-        "id": 40,
-        "name": "Reading Specialist",
-        "created_at": "2016-02-11T14:41:36.122Z",
-        "updated_at": "2016-02-11T14:41:36.122Z"
-      },
-      "41": {
-        "id": 41,
-        "name": "Reading Tutor",
-        "created_at": "2016-02-11T14:41:36.124Z",
-        "updated_at": "2016-02-11T14:41:36.124Z"
-      },
-      "42": {
-        "id": 42,
-        "name": "SST Referral",
-        "created_at": "2016-02-11T14:41:36.126Z",
-        "updated_at": "2016-02-11T14:41:36.126Z"
-      },
-      "43": {
-        "id": 43,
-        "name": "Weekly Call/Email Home",
-        "created_at": "2016-02-11T14:41:36.128Z",
-        "updated_at": "2016-02-11T14:41:36.128Z"
-      },
-      "44": {
-        "id": 44,
-        "name": "X Block Tutor",
-        "created_at": "2016-02-11T14:41:36.130Z",
-        "updated_at": "2016-02-11T14:41:36.130Z"
-      },
-      "45": {
-        "id": 45,
-        "name": "51a Filing",
-        "created_at": "2016-02-11T14:41:36.131Z",
-        "updated_at": "2016-02-11T14:41:36.131Z"
-      },
-      "46": {
-        "id": 46,
-        "name": "Other ",
-        "created_at": "2016-02-11T14:41:36.134Z",
-        "updated_at": "2016-02-11T14:41:36.134Z"
-      }
-    },
     "feed": {
-  "event_notes": [
-    {
-      "id": 1,
-      "student_id": 6,
-      "educator_id": 1,
-      "event_note_type_id": 3,
-      "text": "okay!",
-      "recorded_at": "2016-02-11T21:28:02.102Z",
-      "created_at": "2016-02-11T21:28:02.103Z",
-      "updated_at": "2016-02-11T21:28:02.103Z"
-    },
-    {
-      "id": 2,
-      "student_id": 6,
-      "educator_id": 1,
-      "event_note_type_id": 3,
-      "text": "cool!",
-      "recorded_at": "2016-02-11T21:29:18.166Z",
-      "created_at": "2016-02-11T21:29:18.167Z",
-      "updated_at": "2016-02-11T21:29:18.167Z"
-    },
-    {
-      "id": 3,
-      "student_id": 6,
-      "educator_id": 1,
-      "event_note_type_id": 1,
-      "text": "sweet",
-      "recorded_at": "2016-02-11T21:29:30.287Z",
-      "created_at": "2016-02-11T21:29:30.288Z",
-      "updated_at": "2016-02-11T21:29:30.288Z"
-    }
-  ],
-  "services": [
-    {
-      "id": 133,
-      "service_type_id": 503,
-      "recorded_by_educator_id": 1,
-      "provided_by_educator_id": 1,
-      "date_started": "2016-02-09"
-    },
-    {
-      "id": 134,
-      "service_type_id": 506,
-      "recorded_by_educator_id": 1,
-      "provided_by_educator_id": 1,
-      "date_started": "2016-02-09"
-    }
-  ],
-  "deprecated": {
-    "notes": [
-      {
-        "id": 19,
-        "content": "We talked with an outside therapist.",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "created_at_timestamp": "2016-02-11T14:41:52.857Z",
-        "created_at": "February 11, 2016"
+      "event_notes": [
+        {
+          "id": 1,
+          "student_id": 6,
+          "educator_id": 1,
+          "event_note_type_id": 302,
+          "text": "okay!",
+          "recorded_at": "2016-02-11T21:28:02.102Z",
+          "created_at": "2016-02-11T21:28:02.103Z",
+          "updated_at": "2016-02-11T21:28:02.103Z"
+        },
+        {
+          "id": 2,
+          "student_id": 6,
+          "educator_id": 1,
+          "event_note_type_id": 302,
+          "text": "cool!",
+          "recorded_at": "2016-02-11T21:29:18.166Z",
+          "created_at": "2016-02-11T21:29:18.167Z",
+          "updated_at": "2016-02-11T21:29:18.167Z"
+        },
+        {
+          "id": 3,
+          "student_id": 6,
+          "educator_id": 1,
+          "event_note_type_id": 300,
+          "text": "sweet",
+          "recorded_at": "2016-02-11T21:29:30.287Z",
+          "created_at": "2016-02-11T21:29:30.288Z",
+          "updated_at": "2016-02-11T21:29:30.288Z"
+        }
+      ],
+      "services": {
+        "active": [
+          {
+            "id": 133,
+            "service_type_id": 503,
+            "recorded_by_educator_id": 1,
+            "provided_by_educator_id": 1,
+            "date_started": "2016-02-09"
+          },
+          {
+            "id": 134,
+            "service_type_id": 506,
+            "recorded_by_educator_id": 1,
+            "provided_by_educator_id": 1,
+            "date_started": "2016-02-09"
+          }
+        ],
+        "discontinued": []
       },
-      {
-        "id": 20,
-        "content": "We talked with the family.",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "created_at_timestamp": "2016-02-11T14:41:52.861Z",
-        "created_at": "February 11, 2016"
-      },
-      {
-        "id": 21,
-        "content": "We talked with an outside therapist.",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "created_at_timestamp": "2016-02-11T14:41:52.864Z",
-        "created_at": "February 11, 2016"
-      },
-      {
-        "id": 22,
-        "content": "We talked with an outside therapist.",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "created_at_timestamp": "2016-02-11T14:41:52.868Z",
-        "created_at": "February 11, 2016"
-      },
-      {
-        "id": 23,
-        "content": "We talked with an outside therapist.",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "created_at_timestamp": "2016-02-11T14:41:52.872Z",
-        "created_at": "February 11, 2016"
-      },
-      {
-        "id": 24,
-        "content": "We talked with the family.",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "created_at_timestamp": "2016-02-11T14:41:52.875Z",
-        "created_at": "February 11, 2016"
-      },
-      {
-        "id": 25,
-        "content": "We talked with the family.",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "created_at_timestamp": "2016-02-11T14:41:52.879Z",
-        "created_at": "February 11, 2016"
+      "deprecated": {
+        "notes": [
+          {
+            "id": 19,
+            "content": "We talked with an outside therapist.",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "created_at_timestamp": "2016-02-11T14:41:52.857Z",
+            "created_at": "February 11, 2016"
+          },
+          {
+            "id": 20,
+            "content": "We talked with the family.",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "created_at_timestamp": "2016-02-11T14:41:52.861Z",
+            "created_at": "February 11, 2016"
+          },
+          {
+            "id": 21,
+            "content": "We talked with an outside therapist.",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "created_at_timestamp": "2016-02-11T14:41:52.864Z",
+            "created_at": "February 11, 2016"
+          },
+          {
+            "id": 22,
+            "content": "We talked with an outside therapist.",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "created_at_timestamp": "2016-02-11T14:41:52.868Z",
+            "created_at": "February 11, 2016"
+          },
+          {
+            "id": 23,
+            "content": "We talked with an outside therapist.",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "created_at_timestamp": "2016-02-11T14:41:52.872Z",
+            "created_at": "February 11, 2016"
+          },
+          {
+            "id": 24,
+            "content": "We talked with the family.",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "created_at_timestamp": "2016-02-11T14:41:52.875Z",
+            "created_at": "February 11, 2016"
+          },
+          {
+            "id": 25,
+            "content": "We talked with the family.",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "created_at_timestamp": "2016-02-11T14:41:52.879Z",
+            "created_at": "February 11, 2016"
+          }
+        ],
+        "interventions": [
+          {
+            "id": 7,
+            "name": "Classroom Academic Intervention",
+            "comment": "whatever",
+            "goal": "increase growth percentile",
+            "start_date": "October  1, 2010",
+            "end_date": "October 15, 2010",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 8,
+            "name": "MTSS Referral",
+            "comment": "bar",
+            "goal": "increase growth percentile",
+            "start_date": "November 26, 2010",
+            "end_date": "December 10, 2010",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 9,
+            "name": "Classroom Academic Intervention",
+            "comment": "whatever",
+            "goal": "pass assessment",
+            "start_date": "January 12, 2011",
+            "end_date": "January 26, 2011",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 10,
+            "name": "Other ",
+            "comment": "foo",
+            "goal": "increase growth percentile",
+            "start_date": "February 21, 2011",
+            "end_date": "March  7, 2011",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 11,
+            "name": "Classroom Behavior Intervention",
+            "comment": "whatever",
+            "goal": "reduce behavior",
+            "start_date": "April  5, 2011",
+            "end_date": "April 19, 2011",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 12,
+            "name": "51a Filing",
+            "comment": "whatever",
+            "goal": "pass assessment",
+            "start_date": "May 11, 2011",
+            "end_date": "May 25, 2011",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 13,
+            "name": "Mobile Crisis Referral",
+            "comment": "foo",
+            "goal": "pass assessment",
+            "start_date": "June 30, 2011",
+            "end_date": "July 14, 2011",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 14,
+            "name": "MTSS Referral",
+            "comment": "bar",
+            "goal": "increase growth percentile",
+            "start_date": "July 31, 2011",
+            "end_date": "August 14, 2011",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 15,
+            "name": "Reading Tutor",
+            "comment": "foo",
+            "goal": "increase growth percentile",
+            "start_date": "September 18, 2011",
+            "end_date": "October  2, 2011",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 16,
+            "name": "Behavior Contract",
+            "comment": "foo",
+            "goal": "increase growth percentile",
+            "start_date": "October 18, 2011",
+            "end_date": "November  1, 2011",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 17,
+            "name": "After-School Tutoring (ATP)",
+            "comment": "bar",
+            "goal": "increase growth percentile",
+            "start_date": "December 12, 2011",
+            "end_date": "December 26, 2011",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 18,
+            "name": "Attendance Officer",
+            "comment": "foo",
+            "goal": "reduce behavior",
+            "start_date": "February  8, 2012",
+            "end_date": "February 22, 2012",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 19,
+            "name": "Attendance Officer",
+            "comment": "foo",
+            "goal": "increase growth percentile",
+            "start_date": "April  7, 2012",
+            "end_date": "April 21, 2012",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 20,
+            "name": "Other ",
+            "comment": "whatever",
+            "goal": "increase growth percentile",
+            "start_date": "May 24, 2012",
+            "end_date": "June  7, 2012",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 21,
+            "name": "51a Filing",
+            "comment": "bar",
+            "goal": "pass assessment",
+            "start_date": "July  2, 2012",
+            "end_date": "July 16, 2012",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 22,
+            "name": "Community Schools",
+            "comment": "whatever",
+            "goal": "pass assessment",
+            "start_date": "August 21, 2012",
+            "end_date": "September  4, 2012",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          },
+          {
+            "id": 23,
+            "name": "X Block Tutor",
+            "comment": "bar",
+            "goal": "reduce behavior",
+            "start_date": "October 13, 2012",
+            "end_date": "October 27, 2012",
+            "educator_email": "demo@example.com",
+            "educator_id": 1,
+            "progress_notes": []
+          }
+        ]
       }
-    ],
-    "interventions": [
-      {
-        "id": 7,
-        "name": "Classroom Academic Intervention",
-        "comment": "whatever",
-        "goal": "increase growth percentile",
-        "start_date": "October  1, 2010",
-        "end_date": "October 15, 2010",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 8,
-        "name": "MTSS Referral",
-        "comment": "bar",
-        "goal": "increase growth percentile",
-        "start_date": "November 26, 2010",
-        "end_date": "December 10, 2010",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 9,
-        "name": "Classroom Academic Intervention",
-        "comment": "whatever",
-        "goal": "pass assessment",
-        "start_date": "January 12, 2011",
-        "end_date": "January 26, 2011",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 10,
-        "name": "Other ",
-        "comment": "foo",
-        "goal": "increase growth percentile",
-        "start_date": "February 21, 2011",
-        "end_date": "March  7, 2011",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 11,
-        "name": "Classroom Behavior Intervention",
-        "comment": "whatever",
-        "goal": "reduce behavior",
-        "start_date": "April  5, 2011",
-        "end_date": "April 19, 2011",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 12,
-        "name": "51a Filing",
-        "comment": "whatever",
-        "goal": "pass assessment",
-        "start_date": "May 11, 2011",
-        "end_date": "May 25, 2011",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 13,
-        "name": "Mobile Crisis Referral",
-        "comment": "foo",
-        "goal": "pass assessment",
-        "start_date": "June 30, 2011",
-        "end_date": "July 14, 2011",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 14,
-        "name": "MTSS Referral",
-        "comment": "bar",
-        "goal": "increase growth percentile",
-        "start_date": "July 31, 2011",
-        "end_date": "August 14, 2011",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 15,
-        "name": "Reading Tutor",
-        "comment": "foo",
-        "goal": "increase growth percentile",
-        "start_date": "September 18, 2011",
-        "end_date": "October  2, 2011",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 16,
-        "name": "Behavior Contract",
-        "comment": "foo",
-        "goal": "increase growth percentile",
-        "start_date": "October 18, 2011",
-        "end_date": "November  1, 2011",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 17,
-        "name": "After-School Tutoring (ATP)",
-        "comment": "bar",
-        "goal": "increase growth percentile",
-        "start_date": "December 12, 2011",
-        "end_date": "December 26, 2011",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 18,
-        "name": "Attendance Officer",
-        "comment": "foo",
-        "goal": "reduce behavior",
-        "start_date": "February  8, 2012",
-        "end_date": "February 22, 2012",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 19,
-        "name": "Attendance Officer",
-        "comment": "foo",
-        "goal": "increase growth percentile",
-        "start_date": "April  7, 2012",
-        "end_date": "April 21, 2012",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 20,
-        "name": "Other ",
-        "comment": "whatever",
-        "goal": "increase growth percentile",
-        "start_date": "May 24, 2012",
-        "end_date": "June  7, 2012",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 21,
-        "name": "51a Filing",
-        "comment": "bar",
-        "goal": "pass assessment",
-        "start_date": "July  2, 2012",
-        "end_date": "July 16, 2012",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 22,
-        "name": "Community Schools",
-        "comment": "whatever",
-        "goal": "pass assessment",
-        "start_date": "August 21, 2012",
-        "end_date": "September  4, 2012",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      },
-      {
-        "id": 23,
-        "name": "X Block Tutor",
-        "comment": "bar",
-        "goal": "reduce behavior",
-        "start_date": "October 13, 2012",
-        "end_date": "October 27, 2012",
-        "educator_email": "demo@example.com",
-        "educator_id": 1,
-        "progress_notes": []
-      }
-    ]
-  }
-},
-    "serviceTypesIndex": {"502":{"id":502,"name":"Attendance Officer"},"503":{"id":503,"name":"Attendance Contract"},"504":{"id":504,"name":"Behavior Contract"},"505":{"id":505,"name":"Counseling, in-house"},"506":{"id":506,"name":"Counseling, outside"},"507":{"id":507,"name":"Reading intervention"},"508":{"id":508,"name":"Math intervention"}},
+    },
     "educatorsIndex": {
       "1": {
         "id": 1,

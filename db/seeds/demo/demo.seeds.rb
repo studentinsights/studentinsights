@@ -34,20 +34,21 @@ Educator.create!([{
   admin: false
 }])
 
-Homeroom.create(name: "101", grade: "4")
-Homeroom.create(name: "102", grade: "5")
+puts 'Creating homerooms..'
+homerooms = [
+  Homeroom.create(name: "103", grade: "3"),
+  Homeroom.create(name: "104", grade: "4"),
+  Homeroom.create(name: "105", grade: "5")
+]
 
 fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
 Homeroom.last.update_attribute(:educator_id, fifth_grade_educator.id)
 
-puts "Creating students for homeroom #1..."
-15.times do
-  FakeStudent.new(Homeroom.first)
-end
-
-puts "Creating students for homeroom #2..."
-15.times do
-  FakeStudent.new(Homeroom.last)
+homerooms.each do |homeroom|
+  puts "Creating students for homeroom #{homeroom.name}..."
+  15.times do
+    FakeStudent.new(homeroom)
+  end
 end
 
 Student.update_risk_levels

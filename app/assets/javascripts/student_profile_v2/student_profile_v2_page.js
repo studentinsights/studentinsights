@@ -8,6 +8,7 @@
   var PropTypes = window.shared.PropTypes;
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
+  var SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
   var SummaryList = window.shared.SummaryList;
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
@@ -106,10 +107,12 @@
       interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
 
       // data
       student: React.PropTypes.object.isRequired,
       feed: React.PropTypes.object.isRequired,
+      dibels: React.PropTypes.array.isRequired,
       chartData: React.PropTypes.shape({
         // ela
         most_recent_star_reading_percentile: React.PropTypes.number,
@@ -131,6 +134,8 @@
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
       }),
+
+      access: React.PropTypes.object,
 
       // flux-y bits
       requests: PropTypes.requests,
@@ -190,9 +195,11 @@
       switch (this.props.selectedColumnKey) {
         case 'profile': return createEl(ProfileDetails,
           {
+            student: this.props.student,
+            feed: this.props.feed,
+            access: this.props.access,
             chartData: this.props.chartData,
             attendanceData: this.props.attendanceData,
-            student: this.props.student
           }
         );
         case 'ela': return createEl(ELADetails, {chartData: this.props.chartData});
@@ -212,6 +219,7 @@
             'feed',
             'interventionTypesIndex',
             'serviceTypesIndex',
+            'eventNoteTypesIndex',
             'educatorsIndex',
             'actions',
             'requests'
@@ -223,6 +231,15 @@
     renderProfileColumn: function() {
       var student = this.props.student;
       var columnKey = 'profile';
+      var demographicsElements = [
+        'Disability: ' + (student.sped_level_of_need || 'None'),
+        'Low income: ' + student.free_reduced_lunch,
+        'Language: ' + student.limited_english_proficiency
+      ];
+
+      if (this.props.access) {
+        demographicsElements.push('ACCESS Composite score: ' + this.props.access.composite);
+      };
 
       return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Overview"),
       dom.div({
@@ -231,11 +248,7 @@
       },
         createEl(SummaryList, {
           title: 'Demographics',
-          elements: [
-            'Disability: ' + (student.sped_level_of_need || 'None'),
-            'Low income: ' + student.free_reduced_lunch,
-            'Language: ' + student.limited_english_proficiency
-          ]
+          elements: demographicsElements,
         })
       ));
     },
@@ -271,8 +284,8 @@
     },
 
     renderServices: function(student) {
-      var services = this.props.feed.services;
-      if (services.length === 0) {
+      var activeServices = this.props.feed.services.active;
+      if (activeServices.length === 0) {
         return createEl(SummaryList, {
           title: 'Services',
           elements: ['No services']
@@ -280,7 +293,7 @@
       }
 
       var limit = 3;
-      var sortedServices = _.sortBy(services, 'date_started').reverse();
+      var sortedServices = _.sortBy(activeServices, 'date_started').reverse();
       var elements = sortedServices.slice(0, limit).map(function(service) {
         var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
         var daysText = moment.utc(service.date_started).from(this.props.nowMomentFn(), true);
@@ -333,19 +346,38 @@
           sparkline: this.renderSparkline(chartData.star_series_reading_percentile || [])
         }),
         this.wrapSummary({
-          caption: 'MCAS ELA',
+          caption: 'MCAS ELA Score',
           value: student.most_recent_mcas_ela_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled || [], {
             valueRange: Scales.mcas.valueRange,
             thresholdValue: Scales.mcas.threshold
           })
         }),
-        this.wrapSummary({
-          caption: 'MCAS ELA Growth',
+        this.renderMcasElaSgpOrDibels()
+      ));
+    },
+
+    renderMcasElaSgpOrDibels: function () {
+      var student = this.props.student;
+      var chartData = this.props.chartData;
+      var grade = student.grade;
+      var dibels = _.sortBy(this.props.dibels, 'date_taken');
+
+      var belowGradeFour = _.includes(['KF', 'PK', '1', '2', '3'], grade);
+      var hasDibels = (dibels.length > 0);
+
+      if (belowGradeFour && hasDibels) {
+        var latestDibels = _.last(dibels).performance_level.toUpperCase();
+        return dom.div({ style: styles.summaryWrapper },
+          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latestDibels })
+        );
+      } else {
+        return this.wrapSummary({
+          caption: 'MCAS ELA SGP',
           value: student.most_recent_mcas_ela_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
         })
-      ));
+      }
     },
 
     renderMathColumn: function() {
@@ -365,7 +397,7 @@
           sparkline: this.renderSparkline(chartData.star_series_math_percentile || [])
         }),
         this.wrapSummary({
-          caption: 'MCAS Math',
+          caption: 'MCAS Math Score',
           value: student.most_recent_mcas_math_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_math_scaled || [], {
             valueRange: Scales.mcas.valueRange,
@@ -373,7 +405,7 @@
           })
         }),
         this.wrapSummary({
-          caption: 'MCAS Math Growth',
+          caption: 'MCAS Math SGP',
           value: student.most_recent_mcas_math_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_math_growth || [])
         })
@@ -391,35 +423,33 @@
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       },
-        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {
+        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, Scales.disciplineIncidents.flexibleRange, {
           caption: 'Discipline incidents',
-          valueRange: Scales.disciplineIncidents.valueRange,
           thresholdValue: Scales.disciplineIncidents.threshold,
           shouldDrawCircles: false
         }),
-        this.renderAttendanceEventsSummary(attendanceData.absences, {
+        this.renderAttendanceEventsSummary(attendanceData.absences, Scales.absences.flexibleRange, {
           caption: 'Absences',
-          valueRange: Scales.absences.valueRange,
           thresholdValue: Scales.absences.threshold,
           shouldDrawCircles: false
         }),
-        this.renderAttendanceEventsSummary(attendanceData.tardies, {
+        this.renderAttendanceEventsSummary(attendanceData.tardies, Scales.tardies.flexibleRange, {
           caption: 'Tardies',
-          valueRange: Scales.tardies.valueRange,
           thresholdValue: Scales.tardies.threshold,
           shouldDrawCircles: false
         })
       ));
     },
 
-    renderAttendanceEventsSummary: function(attendanceEvents, props) {
+    renderAttendanceEventsSummary: function(attendanceEvents, flexibleRangeFn, props) {
       var cumulativeQuads = this.cumulativeCountQuads(attendanceEvents);
       var value = (cumulativeQuads.length > 0) ? _.last(cumulativeQuads)[3] : 0;
+      var valueRange = flexibleRangeFn(cumulativeQuads);
 
       return this.wrapSummary(merge({
         title: props.title,
         value: value,
-        sparkline: this.renderSparkline(cumulativeQuads, props)
+        sparkline: this.renderSparkline(cumulativeQuads, merge({ valueRange: valueRange }, props))
       }, props));
     },
 

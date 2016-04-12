@@ -14,7 +14,8 @@
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      InterventionTypes: React.PropTypes.object.isRequired,
+      serviceTypesIndex: React.PropTypes.object.isRequired,
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
     },
 
@@ -23,6 +24,7 @@
         className: 'SlicePanels columns-container',
         style: {
           display: 'flex',
+          width: '100%',
           flexDirection: 'row',
           fontSize: styles.fontSize
         }
@@ -58,16 +60,16 @@
     renderELAColumn: function() {
       return dom.div({ className: 'column ela-background' },
         this.renderPercentileTable('STAR Reading', 'most_recent_star_reading_percentile'),
-        this.renderMCASTable('MCAS ELA', 'most_recent_mcas_ela_scaled'),
-        this.renderPercentileTable('Growth - MCAS ELA', 'most_recent_mcas_ela_growth')
+        this.renderMCASTable('MCAS ELA Score', 'most_recent_mcas_ela_scaled'),
+        this.renderPercentileTable('MCAS ELA SGP', 'most_recent_mcas_ela_growth')
       );
     },
 
     renderMathColumn: function() {
       return dom.div({ className: 'column math-background' },
         this.renderPercentileTable('STAR Math', 'most_recent_star_math_percentile'),
-        this.renderMCASTable('MCAS Math', 'most_recent_mcas_math_scaled'),
-        this.renderPercentileTable('Growth - MCAS Math', 'most_recent_mcas_math_growth')
+        this.renderMCASTable('MCAS Math Score', 'most_recent_mcas_math_scaled'),
+        this.renderPercentileTable('MCAS Math SGP', 'most_recent_mcas_math_growth')
       );
     },
 
@@ -112,7 +114,6 @@
           this.createItem('1', Filters.Equal(key, 1)),
           this.createItem('2', Filters.Equal(key, 2)),
           this.createItem('3 - 5', Filters.Range(key, [3, 6])),
-          // this.createItem('6+', Filters.Range(key, [5, 7])),
           this.createItem('6+', Filters.Range(key, [6, Number.MAX_VALUE]))
         ]
       });
@@ -134,9 +135,14 @@
     renderInterventionsColumn: function() {
       return dom.div({ className: 'column interventions-column' },
         this.renderTable({
-          title: 'Interventions',
-          items: this.interventionItems(),
-          limit: 5
+          title: 'Services',
+          items: this.serviceItems(),
+          limit: 4
+        }),
+        this.renderTable({
+          title: 'Notes',
+          items: this.mergedNoteItems(),
+          limit: 4
         }),
         this.renderSimpleTable('Program', 'program_assigned', { limit: 3 }),
         this.renderSimpleTable('Homeroom', 'homeroom_name', {
@@ -155,21 +161,39 @@
       };
     },
 
-    interventionItems: function() {
+    serviceItems: function() {
       var students = this.props.allStudents;
-      var allInterventions = _.compact(_.flatten(_.pluck(students, 'interventions')));
-      var allInterventionTypes = _.unique(allInterventions.map(function(intervention) {
-        return parseInt(intervention.intervention_type_id, 10);
+      var activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));
+      var allServiceTypeIds = _.unique(activeServices.map(function(service) {
+        return parseInt(service.service_type_id, 10);
       }));
-      var interventionItems = allInterventionTypes.map(function(interventionTypeId) {
-        var interventionName = this.props.InterventionTypes[interventionTypeId].name;
-        return this.createItem(interventionName, Filters.InterventionType(interventionTypeId));
+      var serviceItems = allServiceTypeIds.map(function(serviceTypeId) {
+        var serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
+        return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
       }, this);
-      var sortedItems =  _.sortBy(interventionItems, function(item) {
+      var sortedItems =  _.sortBy(serviceItems, function(item) {
         return -1 * students.filter(item.filter.filterFn).length;
       });
 
-      return sortedItems.concat(this.createItem('None', Filters.InterventionType(null)));
+      return [this.createItem('None', Filters.ServiceType(null))].concat(sortedItems);
+    },
+
+    // TODO(kr) add other note types
+    mergedNoteItems: function() {
+      var students = this.props.allStudents;
+      var allEventNotes = _.compact(_.flatten(_.pluck(students, 'event_notes')));
+      var allEventNoteTypesIds = _.unique(allEventNotes.map(function(eventNote) {
+        return parseInt(eventNote.event_note_type_id, 10);
+      }));
+      var eventNoteItems = allEventNoteTypesIds.map(function(eventNoteTypeId) {
+        var eventNoteTypeName = this.props.eventNoteTypesIndex[eventNoteTypeId].name;
+        return this.createItem(eventNoteTypeName, Filters.EventNoteType(eventNoteTypeId));
+      }, this);
+      var sortedItems =  _.sortBy(eventNoteItems, function(item) {
+        return -1 * students.filter(item.filter.filterFn).length;
+      });
+
+      return [this.createItem('None', Filters.EventNoteType(null))].concat(sortedItems);
     },
 
     renderGradeTable: function() {
