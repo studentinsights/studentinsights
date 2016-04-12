@@ -1,6 +1,8 @@
 # Local development with Docker
 
-You can run the project locally, on your Windows or OS X machine, in Docker containers using docker-compose.
+You can run the project locally in Docker containers using docker-compose.
+
+You can do this on Windows or OS X.
 
 ### What does that mean?
 
@@ -22,13 +24,13 @@ If you already have a dev environment running to your satisfaction on your machi
 
 Before you do any of this, clone the project from github by starting up Terminal and running `git clone https://github.com/studentinsights/studentinsights.git`. This will create a folder named `studentinsights` in the current directory.
 
-Docker only runs on Linux. So, in order to run it on OS X, you need to start up a virtual machine on OS X that runs Linux. We use VirtualBox for this.
+Docker only runs on Linux. So, in order to run it on Windows or OS X, you need to start up a virtual machine that runs Linux. We use VirtualBox for this.
 
   - [Install VirtualBox 5.0.8](https://www.virtualbox.org/wiki/Downloads)
 
 You don't need to do anything with it right now.
 
-  - [Install Docker Toolbox](http://docs.docker.com/mac/started/)
+  - Install Docker Toolbox: [OS X](http://docs.docker.com/mac/started/), [Windows](http://docs.docker.com/windows/started/)
 
 This is a detailed tutorial. Everything after completing "Install Docker on OS X" is fun (and useful, but unnecessary if you just want to get the project running already. So feel free to stop there.
 
@@ -55,6 +57,11 @@ So, we have three command-line programs (**docker**, **docker-compose** and **do
     - Open [http://docker:3000](http://docker:3000) in a browser! Log in using *demo@example.com* and *demo-password*.
 
 Okay, now make sure you can get at what you just did. Bookmark "http://docker:3000" and put VirtualBox in your Dock so you can access it later.
+
+### Getting inside your Docker container:
+We just created a temporary rails container to access the database with, but you can also get inside a running container. Run `docker ps` to see all the running containers you have. An ID will be displayed next to the container's name. Run `docker exec -it <ID> bash` to get inside your container. From here you can run rake tasks or whatever else you need.
+
+(This means: run command **bash**, in **i**nteractive mode, attached to (this) **t**erminal, inside container **<ID>**.
 
 ### Troubleshooting:
 **Changes to the Gemfile:** The Gemfile lists all of the Ruby dependencies for the project. When it changes, you need to run `docker-compose build` again to install the new dependencies. If you're experiencing problems after pulling from master, it might be because the Gemfile changed.
