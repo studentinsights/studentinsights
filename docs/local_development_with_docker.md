@@ -85,3 +85,6 @@ We just created a temporary rails container to access the database with, but you
   # Run whatever tests you like
   $ RAILS_ENV=test bundle exec rspec
 ```
+
+### Feedback:
+If you have any difficulties with or ideas to improve this tutorial, make an issue, let us know on [Slack](https://cfb-public.slack.com/messages/somerville-schools/), or email me at really.eli@gmail.com!
