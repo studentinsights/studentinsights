@@ -205,10 +205,12 @@ ActiveRecord::Schema.define(version: 20160410174144) do
 
   create_table "services", force: true do |t|
     t.integer  "student_id"
-    t.integer  "educator_id"
+    t.integer  "provided_by_educator_id"
+    t.integer  "recorded_by_educator_id"
     t.integer  "service_type_id"
-    t.text     "text"
+
     t.datetime "recorded_at"
+    t.datetime "date_started"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
