@@ -17,6 +17,18 @@
       fontWeight: 400,
       color: '#555555'
     },
+    box: {
+      border: '1px solid #ccc',
+      padding: 15,
+      marginTop: 10,
+      marginBottom: 10,
+      width: '100%',
+    },
+    header: {
+      display: 'flex',
+      flexFlow: 'row',
+      justifyContent: 'space-between'
+    },
     title: {
       borderBottom: '1px solid #333',
       color: 'black',
@@ -192,8 +204,33 @@
       );
     },
 
+    toSchoolYear: function(date){
+      // Takes in a date, returns an integer (0, 1, 2...) school year, counting the 2009 - 2010 school year as number 0.
+
+      var ARBITRARY_LARGE_CAP = 100;
+      for (var n = 0; n < ARBITRARY_LARGE_CAP; n++){
+        if (moment(date).isBetween(
+          moment({y: 2009 + n, m: 8, d: 1}), // School year starts on August 1st and runs until July 31st.
+          moment({y: 2010 + n, m: 7, d: 31}))
+        ){
+          return n;
+        }
+      }
+    },
+
     renderCardList: function(){
-      return dom.div({}, this.getEvents().map(this.renderCard));
+      var self = this;
+      var bySchoolYearDescending = _.toArray(
+        _.groupBy(this.getEvents(), function(event){ return self.toSchoolYear(event.date) })
+      ).reverse();
+
+      console.log(_.groupBy(this.getEvents(), function(event){ return self.toSchoolYear(event.date) }));
+
+      return dom.div({}, bySchoolYearDescending.map(function(eventsForYear, year){
+        return dom.div(
+          {style: styles.box, key: year}, eventsForYear.map(self.renderCard))
+        })
+      );
     },
 
     renderCard: function(event){

@@ -28,7 +28,6 @@
       display: 'flex',
       flexFlow: 'row',
       justifyContent: 'space-between'
-
     },
     desc: {
       fontWeight: 'bold',
@@ -162,7 +161,7 @@
     },
 
     renderIncidents: function() {
-      return  dom.div({ style: { paddingTop: 60 }}, this.props.disciplineIncidents.map(function(incident) {
+      return dom.div({ style: { paddingTop: 60 }}, this.props.disciplineIncidents.map(function(incident) {
         return dom.div({ style: styles.box, key: incident.occurred_at },
           dom.div({ style: styles.header },
             dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Date: '), dom.span({}, moment.utc(incident.occurred_at).format('MMM D, YYYY'))),
