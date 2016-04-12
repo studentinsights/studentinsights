@@ -172,14 +172,19 @@ class FakeStudent
     94.in(100) do
       5.times do |n|
         attendance_event_generator.rng.round(0).times do
+
+          # Randomly determine the school year it occurred.
+          year = [0, 1, 2, 3, 4].sample
+          date_begin = Time.local(2010 + year, 8, 1)
+          date_end = Time.local(2011 + year, 7, 31)
+
           attendance_event = [Absence.new, Tardy.new].sample
           attendance_event.student_school_year = @student.student_school_years.first
-          attendance_event.occurred_at = Time.new - (rand * 100).to_i.days
+          attendance_event.occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
           attendance_event.save
         end
       end
     end
-
   end
 
   def add_discipline_incidents
