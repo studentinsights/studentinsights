@@ -36,11 +36,20 @@ class Import
       type: :array,
       default: SomervilleX2Importers.file_importer_names,
       desc: "Import data from the specified files: #{SomervilleX2Importers.file_importer_names}"
+    class_option :test_mode,
+      type: :boolean,
+      default: false,
+      desc: "Redirect log output away from STDOUT; do not load Rails during import"
+    class_option :progress_bar,
+      type: :boolean,
+      default: :false,
+      desc: "Show a progress bar for CSV reading (useful in development)"
 
     no_commands do
       def report
         models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School ]
-        @report ||= ImportTaskReport.new(models)
+        log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
+        @report ||= ImportTaskReport.new(models, log)
       end
 
       def importers(sources = options["source"])
@@ -53,7 +62,7 @@ class Import
     end
 
     def load_rails
-      require File.expand_path("../../../config/environment.rb", __FILE__)
+      require File.expand_path("../../../config/environment.rb", __FILE__) unless options["test_mode"]
     end
 
     def print_initial_report

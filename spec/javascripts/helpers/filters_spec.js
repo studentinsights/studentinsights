@@ -4,10 +4,10 @@ describe('Filters', function() {
   var helpers = {
     students: function() {
       return [
-       { services: [{ service_type_id: 504 }] },
-       { services: [{ service_type_id: 503 }, { service_type_id: 501 }] },
-       { services: [{ service_type_id: 504 }] },
-       { services: [] }
+       { active_services: [{ service_type_id: 504 }] },
+       { active_services: [{ service_type_id: 503 }, { service_type_id: 501 }] },
+       { active_services: [{ service_type_id: 504 }] },
+       { active_services: [] }
       ];
     }
   };

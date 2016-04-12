@@ -42,11 +42,16 @@ class Educator < ActiveRecord::Base
 
     if schoolwide_access?
       school.students
+            .active
             .includes(eager_loads)
     elsif has_access_to_grade_levels?
       school.students
+            .active
             .where(grade: grade_level_access)
             .includes(eager_loads)
+    else
+      logger.warn("Fell through to empty array in #students_for_school_overview for educator_id: #{self.id}")
+      []
     end
   end
 

@@ -1,18 +1,22 @@
 class SchoolsController < ApplicationController
   include SerializeDataHelper
+  include StudentsQueryHelper
+  
   before_action :authenticate_educator!,
                 :authorize
 
   def show
     authorized_students = current_educator.students_for_school_overview
-    
+
     # TODO(kr) Read from cache, since this only updates daily
-    student_hashes = authorized_students.map do |student|
-      HashWithIndifferentAccess.new(student_hash_for_slicing(student))
+    student_hashes = log_timing('schools#show student_hashes') do
+      load_precomputed_student_hashes(Time.now, authorized_students.map(&:id))
     end
 
     # Read data stored StudentInsights each time, with no caching
-    merged_student_hashes = merge_mutable_fields_for_slicing(student_hashes)
+    merged_student_hashes = log_timing('schools#show merge_mutable_fields_for_slicing') do
+      merge_mutable_fields_for_slicing(student_hashes)
+    end
 
     @serialized_data = {
       students: merged_student_hashes,
@@ -34,12 +38,27 @@ class SchoolsController < ApplicationController
 
   private
 
+  # This should always find a record, but if it doesn't we fall back to the
+  # raw query.
+  # Results an array of student_hashes.
+  def load_precomputed_student_hashes(time_now, authorized_student_ids)
+    begin
+      key = precomputed_student_hashes_key(time_now, authorized_student_ids)
+      doc = PrecomputedStudentHashesDoc.find(key)
+      JSON.parse(doc.json)['student_hashes']
+    rescue ActiveRecord::RecordNotFound => err
+      logger.error "load_precomputed_student_hashes failed, err: #{err.inspect}"
+      authorized_students = Student.find(authorized_student_ids)
+      authorized_students.map {|student| student_hash_for_slicing(student) }
+    end
+  end
+
   def serialized_data_for_star
     authorized_students = current_educator.students_for_school_overview(:student_assessments)
 
     # TODO(kr) Read from cache, since this only updates daily
     student_hashes = authorized_students.map do |student|
-      student_hash = HashWithIndifferentAccess.new(student_hash_for_slicing(student))
+      student_hash = student_hash_for_slicing(student)
       student_hash.merge(star_results: yield(student))
     end
 
@@ -60,33 +79,6 @@ class SchoolsController < ApplicationController
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index
     }
-  end
-
-  # Queries for Services and EventNotes for each student, and merges the results
-  # into the list of student hashes.
-  def student_hash_for_slicing(student)
-    student.as_json.merge({
-      student_risk_level: student.student_risk_level.as_json,
-      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
-      absences_count: student.most_recent_school_year.absences.count,
-      tardies_count: student.most_recent_school_year.tardies.count,
-      homeroom_name: student.try(:homeroom).try(:name)
-    })
-  end
-
-  def merge_mutable_fields_for_slicing(student_hashes)
-    student_ids = student_hashes.map {|student_hash| student_hash[:id] }
-    all_event_notes = EventNote.where(student_id: student_ids)
-    all_services = Service.where(student_id: student_ids)
-    all_interventions = Intervention.where(student_id: student_ids)
-
-    student_hashes.map do |student_hash|
-      student_hash.merge({
-        event_notes: all_event_notes.select {|event_note| event_note.student_id == student_hash[:id] },
-        services: all_services.select {|service| service.student_id == student_hash[:id] },
-        interventions: all_interventions.select {|intervention| intervention.student_id == student_hash[:id] }
-      })
-    end
   end
 
   def authorize

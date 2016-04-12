@@ -8,6 +8,7 @@
   var PropTypes = window.shared.PropTypes;
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
+  var SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
   var SummaryList = window.shared.SummaryList;
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
@@ -62,7 +63,7 @@
       //context
       nowMomentFn: React.PropTypes.func.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
-      
+
       // constants
       interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
@@ -93,6 +94,8 @@
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
       }),
+
+      access: React.PropTypes.object,
 
       // flux-y bits
       requests: PropTypes.requests,
@@ -150,6 +153,7 @@
           {
             student: this.props.student,
             feed: this.props.feed,
+            access: this.props.access,
             chartData: this.props.chartData,
             attendanceData: this.props.attendanceData,
           }
@@ -183,6 +187,15 @@
     renderProfileColumn: function() {
       var student = this.props.student;
       var columnKey = 'profile';
+      var demographicsElements = [
+        'Disability: ' + (student.sped_level_of_need || 'None'),
+        'Low income: ' + student.free_reduced_lunch,
+        'Language: ' + student.limited_english_proficiency
+      ];
+
+      if (this.props.access) {
+        demographicsElements.push('ACCESS Composite score: ' + this.props.access.composite);
+      };
 
       return dom.div({
         style: merge(styles.column, this.selectedColumnStyles(columnKey)),
@@ -190,11 +203,7 @@
       },
         createEl(SummaryList, {
           title: 'Demographics',
-          elements: [
-            'Disability: ' + (student.sped_level_of_need || 'None'),
-            'Low income: ' + student.free_reduced_lunch,
-            'Language: ' + student.limited_english_proficiency
-          ]
+          elements: demographicsElements,
         })
       );
     },
@@ -218,7 +227,7 @@
       var placement = (student.sped_placement !== null)
         ? student.program_assigned + ', ' + student.sped_placement
         : student.program_assigned;
-      
+
       return createEl(SummaryList, {
         title: 'Placement',
         elements: [
@@ -229,16 +238,16 @@
     },
 
     renderServices: function(student) {
-      var services = this.props.feed.services;
-      if (services.length === 0) {
+      var activeServices = this.props.feed.services.active;
+      if (activeServices.length === 0) {
         return createEl(SummaryList, {
           title: 'Services',
           elements: ['No services']
         });
       }
-      
+
       var limit = 3;
-      var sortedServices = _.sortBy(services, 'date_started').reverse();
+      var sortedServices = _.sortBy(activeServices, 'date_started').reverse();
       var elements = sortedServices.slice(0, limit).map(function(service) {
         var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
         var daysText = moment.utc(service.date_started).from(this.props.nowMomentFn(), true);
@@ -261,7 +270,7 @@
       var elements = educatorIds.slice(0, limit).map(function(educatorId) {
         return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);
-      
+
       if (educatorIds.length > limit) {
         elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
       } else if (educatorIds.length === 0) {
@@ -290,19 +299,38 @@
           sparkline: this.renderSparkline(chartData.star_series_reading_percentile || [])
         }),
         this.wrapSummary({
-          caption: 'MCAS ELA',
+          caption: 'MCAS ELA Score',
           value: student.most_recent_mcas_ela_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled || [], {
             valueRange: Scales.mcas.valueRange,
             thresholdValue: Scales.mcas.threshold
           })
         }),
-        this.wrapSummary({
-          caption: 'MCAS ELA Growth',
+        this.renderMcasElaSgpOrDibels()
+      );
+    },
+
+    renderMcasElaSgpOrDibels: function () {
+      var student = this.props.student;
+      var chartData = this.props.chartData;
+      var grade = student.grade;
+      var dibels = this.props.feed.dibels;
+
+      var belowGradeFour = _.includes(['KF', 'PK', '1', '2', '3'], grade);
+      var hasDibels = (dibels.length > 0);
+
+      if (belowGradeFour && hasDibels) {
+        var latest_dibels = dibels[0].performance_level.toUpperCase();
+        return dom.div({ style: styles.summaryWrapper },
+          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latest_dibels })
+        );
+      } else {
+        return this.wrapSummary({
+          caption: 'MCAS ELA SGP',
           value: student.most_recent_mcas_ela_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
         })
-      );
+      }
     },
 
     renderMathColumn: function() {
@@ -321,7 +349,7 @@
           sparkline: this.renderSparkline(chartData.star_series_math_percentile || [])
         }),
         this.wrapSummary({
-          caption: 'MCAS Math',
+          caption: 'MCAS Math Score',
           value: student.most_recent_mcas_math_scaled,
           sparkline: this.renderSparkline(chartData.mcas_series_math_scaled || [], {
             valueRange: Scales.mcas.valueRange,
@@ -329,7 +357,7 @@
           })
         }),
         this.wrapSummary({
-          caption: 'MCAS Math Growth',
+          caption: 'MCAS Math SGP',
           value: student.most_recent_mcas_math_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_math_growth || [])
         })

@@ -7,13 +7,19 @@ class SomervilleX2Importers
     @school_scope = options["school"]
     @first_time = options["first_time"]
     @x2_file_importers = options["x2_file_importers"]
+    @progress_bar = options["progress_bar"]
+    @log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
+  end
+
+  def sftp_client
+    @client ||= SftpClient.for_x2
   end
 
   def base_options
     {
-      school_scope: @school_scope,
-      client: SftpClient.for_x2,
-      file_importers: file_importers.map(&:new)
+      file_importers: file_importers.map { |i| i.new(@school_scope, sftp_client) },
+      log_destination: @log,
+      progress_bar: @progress_bar
     }
   end
 

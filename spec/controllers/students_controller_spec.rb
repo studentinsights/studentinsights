@@ -1,5 +1,13 @@
 require 'rails_helper'
 
+def create_service(student, educator)
+  FactoryGirl.create(:service, {
+    student: student,
+    recorded_by_educator: educator,
+    provided_by_educator: educator
+  })
+end
+
 describe StudentsController, :type => :controller do
   describe '#show redirects to profile' do
     let(:student) { FactoryGirl.create(:student, :with_risk_level) }
@@ -16,7 +24,7 @@ describe StudentsController, :type => :controller do
 
   end
 
-  describe '#deprecated_v1_profile' do
+  describe '#profile' do
     let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level) }
     let(:homeroom) { student.homeroom }
@@ -24,22 +32,13 @@ describe StudentsController, :type => :controller do
 
     def make_request(options = { student_id: nil, format: :html })
       request.env['HTTPS'] = 'on'
-      get :deprecated_v1_profile, id: options[:student_id], format: options[:format]
+      get :profile, id: options[:student_id], format: options[:format]
     end
 
     context 'when educator is not logged in' do
-      context 'html' do
-        it 'redirects to sign in page' do
-          make_request({ student_id: student.id, format: :html })
-          expect(response).to redirect_to(new_educator_session_path)
-        end
-      end
-      context 'csv' do
-        it 'sends a 401 unauthorized' do
-          make_request({ student_id: student.id, format: :csv })
-          expect(response.status).to eq 401
-          expect(response.body).to eq "You need to sign in before continuing."
-        end
+      it 'redirects to sign in page' do
+        make_request({ student_id: student.id, format: :html })
+        expect(response).to redirect_to(new_educator_session_path)
       end
     end
 
@@ -50,37 +49,110 @@ describe StudentsController, :type => :controller do
       context 'educator has schoolwide access' do
         let!(:school) { FactoryGirl.create(:school) }
         let(:educator) { FactoryGirl.create(:educator, :admin )}
+        let(:serialized_data) { assigns(:serialized_data) }
 
-        context 'html' do
-
-          it 'is successful' do
-            make_request({ student_id: student.id, format: :html })
-            expect(response).to be_success
-          end
-
-          it 'assigns the student correctly' do
-            make_request({ student_id: student.id, format: :html })
-            expect(assigns(:student)).to eq student
-          end
-
-          it 'assigns the student school year correctly' do
-            make_request({ student_id: student.id, format: :html })
-            expect(assigns(:student_school_years)).to eq student.student_school_years
-          end
-
+        it 'is successful' do
+          make_request({ student_id: student.id, format: :html })
+          expect(response).to be_success
         end
 
-        context 'csv' do
+        it 'assigns the student\'s serialized data correctly' do
+          make_request({ student_id: student.id, format: :html })
+          expect(serialized_data[:current_educator]).to eq educator
+          expect(serialized_data[:student]["id"]).to eq student.id
+          expect(serialized_data[:notes]).to eq []
 
-          it 'is successful' do
-            make_request({ student_id: student.id, format: :csv })
-            expect(response).to be_success
-          end
-          it 'assigns the student correctly' do
-            make_request({ student_id: student.id, format: :csv })
-            expect(assigns(:student)).to eq student
-          end
+          expect(serialized_data[:feed]).to eq ({
+            event_notes: [],
+            services: {active: [], discontinued: []},
+            deprecated: {notes: [], interventions: []},
+            dibels: []
+          })
 
+          expect(serialized_data[:chart_data]).to include(:attendance_events_school_years)
+
+          expect(serialized_data[:intervention_types_index]).to eq({
+            20 => {:id=>20, :name=>"After-School Tutoring (ATP)"},
+            21 => {:id=>21, :name=>"Attendance Officer"},
+            22 => {:id=>22, :name=>"Attendance Contract"},
+            23 => {:id=>23, :name=>"Behavior Contract"},
+            24 => {:id=>24, :name=>"Behavior Plan"},
+            25 => {:id=>25, :name=>"Boys & Girls Club"},
+            26 => {:id=>26, :name=>"Classroom Academic Intervention"},
+            27 => {:id=>27, :name=>"Classroom Behavior Intervention"},
+            28 => {:id=>28, :name=>"Community Schools"},
+            29 => {:id=>29, :name=>"Counseling: In-House"},
+            30 => {:id=>30, :name=>"Counseling: Outside/Physician Referral"},
+            31 => {:id=>31, :name=>"ER Referral (Mental Health)"},
+            32 => {:id=>32, :name=>"Math Tutor"},
+            33 => {:id=>33, :name=>"Mobile Crisis Referral"},
+            34 => {:id=>34, :name=>"MTSS Referral"},
+            35 => {:id=>35, :name=>"OT/PT Consult"},
+            36 => {:id=>36, :name=>"Parent Communication"},
+            37 => {:id=>37, :name=>"Parent Conference/Meeting"},
+            39 => {:id=>39, :name=>"Peer Mediation"},
+            40 => {:id=>40, :name=>"Reading Specialist"},
+            41 => {:id=>41, :name=>"Reading Tutor"},
+            42 => {:id=>42, :name=>"SST Referral"},
+            43 => {:id=>43, :name=>"Weekly Call/Email Home"},
+            44 => {:id=>44, :name=>"X Block Tutor"},
+            45 => {:id=>45, :name=>"51a Filing"},
+            46 => {:id=>46, :name=>"Other "},
+          })
+
+          expect(serialized_data[:service_types_index]).to eq({
+            502 => {:id=>502, :name=>"Attendance Officer"},
+            503 => {:id=>503, :name=>"Attendance Contract"},
+            504 => {:id=>504, :name=>"Behavior Contract"},
+            505 => {:id=>505, :name=>"Counseling, in-house"},
+            506 => {:id=>506, :name=>"Counseling, outside"},
+            507 => {:id=>507, :name=>"Reading intervention"},
+            508 => {:id=>508, :name=>"Math intervention"},
+          })
+
+          expect(serialized_data[:event_note_types_index]).to eq({
+            300 => {:id=>300, :name=>"SST Meeting"},
+            301 => {:id=>301, :name=>"MTSS Meeting"},
+            302 => {:id=>302, :name=>"Parent conversation"},
+            304 => {:id=>304, :name=>"Something else"},
+          })
+
+          expect(serialized_data[:educators_index]).to eq({
+            educator.id => {:id=>educator.id, :email=>educator.email, :full_name=>nil}
+          })
+
+          expect(serialized_data[:attendance_data].keys).to eq [
+            :discipline_incidents, :tardies, :absences
+          ]
+        end
+
+        context 'student has multiple discipline incidents' do
+          let!(:student) { FactoryGirl.create(:student) }
+          let(:most_recent_school_year) { student.most_recent_school_year }
+          let(:serialized_data) { assigns(:serialized_data) }
+          let(:attendance_data) { serialized_data[:attendance_data] }
+          let(:discipline_incidents) { attendance_data[:discipline_incidents] }
+
+          let!(:more_recent_incident) {
+            FactoryGirl.create(
+              :discipline_incident,
+              student_school_year: most_recent_school_year,
+              occurred_at: Time.now - 1.day
+            )
+          }
+
+          let!(:less_recent_incident) {
+            FactoryGirl.create(
+              :discipline_incident,
+              student_school_year: most_recent_school_year,
+              occurred_at: Time.now - 2.days
+            )
+          }
+
+          it 'sets the correct order' do
+            make_request({ student_id: student.id, format: :html })
+            expect(discipline_incidents).to eq [more_recent_incident, less_recent_incident]
+          end
         end
 
         context 'educator has grade level access' do
@@ -238,9 +310,7 @@ describe StudentsController, :type => :controller do
             'educator_id',
             'event_note_type_id',
             'text',
-            'recorded_at',
-            'created_at',
-            'updated_at'
+            'recorded_at'
           ]
         end
       end
@@ -286,7 +356,7 @@ describe StudentsController, :type => :controller do
       let!(:educator) { FactoryGirl.create(:educator, :admin) }
       let!(:provided_by_educator) { FactoryGirl.create(:educator) }
       let!(:student) { FactoryGirl.create(:student) }
-      
+
       before do
         sign_in(educator)
       end
@@ -310,7 +380,7 @@ describe StudentsController, :type => :controller do
           expect(response.status).to eq 200
           make_post_request(student, post_params)
           expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
-          expect(JSON.parse(response.body).keys).to eq [
+          expect(JSON.parse(response.body).keys).to contain_exactly(
             'id',
             'student_id',
             'provided_by_educator_id',
@@ -318,9 +388,9 @@ describe StudentsController, :type => :controller do
             'service_type_id',
             'recorded_at',
             'date_started',
-            'created_at',
-            'updated_at'
-          ]
+            'discontinued_by_educator_id',
+            'discontinued_recorded_at'
+          )
         end
       end
 
@@ -417,7 +487,6 @@ describe StudentsController, :type => :controller do
       student = FactoryGirl.create(:student)
       serialized_student = controller.send(:serialize_student_for_profile, student)
       expect(serialized_student.keys).to include(*[
-        'interventions',
         'student_risk_level',
         'absences_count',
         'tardies_count',
@@ -461,4 +530,33 @@ describe StudentsController, :type => :controller do
       expect(pluto_score).to eq 0.5
     end
   end
+
+  describe '#student_feed' do
+    let(:student) { FactoryGirl.create(:student) }
+    let(:educator) { FactoryGirl.create(:educator, :admin) }
+    let!(:service) { create_service(student, educator) }
+
+    it 'returns services' do
+      feed = controller.send(:student_feed, student)
+      expect(feed.keys).to eq([:event_notes, :services, :deprecated, :dibels])
+      expect(feed[:services].keys).to eq [:active, :discontinued]
+      expect(feed[:services][:active].first[:id]).to eq service.id
+    end
+
+    context 'after service is discontinued' do
+      before do
+        DiscontinuedService.create!({
+          service_id: service.id,
+          recorded_by_educator_id: educator.id,
+          recorded_at: Time.now
+        })
+      end
+      it 'filters it' do
+        feed = controller.send(:student_feed, student)
+        expect(feed[:services][:active].size).to eq 0
+        expect(feed[:services][:discontinued].first[:id]).to eq service.id
+      end
+    end
+  end
+
 end

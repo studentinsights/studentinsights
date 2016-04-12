@@ -8,6 +8,7 @@ FactoryGirl.define do
     local_id { generate(:student_local_id) }
     grade { generate(:valid_grade_level) }
     association :homeroom
+    enrollment_status "Active"
 
     trait :with_risk_level do
       after(:create) do |student|

@@ -8,6 +8,7 @@
   var StudentProfileV2Page = window.shared.StudentProfileV2Page;
   var PropTypes = window.shared.PropTypes;
   var Api = window.shared.Api;
+  var fromPair = window.shared.fromPair;
 
   /*
   Holds page state, makes API calls to manipulate it.
@@ -21,7 +22,7 @@
       queryParams: React.PropTypes.object.isRequired,
 
       // for testing
-      actions: PropTypes.actions, 
+      actions: PropTypes.actions,
       api: PropTypes.api
     },
 
@@ -48,12 +49,14 @@
         feed: serializedData.feed,
         chartData: serializedData.chartData,
         attendanceData: serializedData.attendanceData,
+        access: serializedData.access,
 
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
         requests: {
           saveNotes: null,
-          saveService: null
+          saveService: null,
+          discontinueService: {}
         }
       };
     },
@@ -97,8 +100,13 @@
     },
 
     onSaveServiceDone: function(response) {
-      var updatedServices = this.state.feed.services.concat([response]);
-      var updatedFeed = merge(this.state.feed, { services: updatedServices });
+      var updatedActiveServices = this.state.feed.services.active.concat([response]);
+      var updatedFeed = merge(this.state.feed, {
+        services: merge(this.state.feed.services, {
+          active: updatedActiveServices
+        })
+      });
+
       this.setState({
         feed: updatedFeed,
         requests: merge(this.state.requests, { saveService: null })
@@ -107,6 +115,44 @@
 
     onSaveServiceFail: function(request, status, message) {
       this.setState({ requests: merge(this.state.requests, { saveService: 'error' }) });
+    },
+
+    onClickDiscontinueService: function(serviceId) {
+      this.setState(this.mergedDiscontinueService(this.state, serviceId, 'pending'));
+      this.api.discontinueService(serviceId)
+        .done(this.onDiscontinueServiceDone.bind(this, serviceId))
+        .fail(this.onDiscontinueServiceFail.bind(this, serviceId));
+    },
+
+    onDiscontinueServiceDone: function(serviceId, response) {
+      var updatedStateOfRequests = this.mergedDiscontinueService(this.state, serviceId, null);
+      var updatedFeed = merge(this.state.feed, {
+        services: merge(this.state.feed.services, {
+          discontinued: this.state.feed.services.discontinued.concat([response]),
+          active: this.state.feed.services.active.filter(function(service) {
+            return service.id !== serviceId;
+          }),
+        })
+      });
+      this.setState(merge(updatedStateOfRequests, { feed: updatedFeed }));
+    },
+
+    onDiscontinueServiceFail: function(serviceId, request, status, message) {
+      this.setState(this.mergedDiscontinueService(this.state, serviceId, 'error'));
+    },
+
+    // Returns an updated state, adding serviceId and requestState, or removing
+    // the `serviceId` from the map if `requestState` is null.
+    mergedDiscontinueService: function(state, serviceId, requestState) {
+      var updatedDiscontinueService = (requestState === null)
+        ? _.omit(state.requests.discontinueService, serviceId)
+        : merge(state.requests.discontinueService, fromPair(serviceId, requestState));
+
+      return merge(state, {
+        requests: merge(state.requests, {
+          discontinueService: updatedDiscontinueService
+        })
+      });
     },
 
     dateRange: function() {
@@ -124,6 +170,7 @@
           'eventNoteTypesIndex',
           'student',
           'feed',
+          'access',
           'chartData',
           'attendanceData',
           'selectedColumnKey',
@@ -133,7 +180,8 @@
           actions: this.props.actions || {
             onColumnClicked: this.onColumnClicked,
             onClickSaveNotes: this.onClickSaveNotes,
-            onClickSaveService: this.onClickSaveService
+            onClickSaveService: this.onClickSaveService,
+            onClickDiscontinueService: this.onClickDiscontinueService
           }
         }))
       );
