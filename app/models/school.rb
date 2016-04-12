@@ -8,8 +8,16 @@ class School < ActiveRecord::Base
     School.all.select { |s| s.students.count > 0 }
   end
 
+  def educators_no_test_accounts
+    educators.where.not(local_id: 'LDAP')
+  end
+
+  def educators_by_name
+    educators_no_test_accounts.order(:full_name)
+  end
+
   def educators_index
-    educators.order(:full_name).map { |e| [e.id, e.for_index] }.to_h
+    educators_by_name.map { |e| [e.id, e.for_index] }.to_h
   end
 
   def self.seed_somerville_schools
