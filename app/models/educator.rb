@@ -91,6 +91,10 @@ class Educator < ActiveRecord::Base
     allowed_homerooms.order(:name)
   end
 
+  def for_index
+    as_json.symbolize_keys.slice(:id, :email, :full_name)
+  end
+
   def permissions_hash
     {
       admin: admin,
