@@ -1,8 +1,6 @@
 # Local development with Docker
 
-You can run the project locally in Docker containers using docker-compose.
-
-You can do this on Windows or OS X.
+You can run the project locally, on Windows, Linux or OS X, in Docker containers using docker-compose.
 
 ### What does that mean?
 
