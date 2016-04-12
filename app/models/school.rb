@@ -8,6 +8,10 @@ class School < ActiveRecord::Base
     School.all.select { |s| s.students.count > 0 }
   end
 
+  def educators_index
+    educators.map { |e| [e.id, e.for_index] }.to_h
+  end
+
   def self.seed_somerville_schools
     School.create([
       { state_id: 15, local_id: "BRN", name: "Benjamin G Brown", school_type: "ES" },
