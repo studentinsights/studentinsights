@@ -58,14 +58,15 @@
 
 // student profile page v2:
 // pure ui components:
+  //= require ./student_profile_v2/risk_bubble
   //= require ./student_profile_v2/service_color
   //= require ./student/profile_charts/profile_chart_settings
   //= require ./student_profile_v2/educator
   //= require ./student_profile_v2/datepicker
   //= require ./student_profile_v2/highcharts_wrapper
   //= require ./student_profile_v2/sparkline
-  //= require ./student_profile_v2/scales
   //= require ./student_profile_v2/quad_converter
+  //= require ./student_profile_v2/scales
   //= require ./student_profile_v2/academic_summary
   //= require ./student_profile_v2/take_notes
   //= require ./student_profile_v2/notes_list

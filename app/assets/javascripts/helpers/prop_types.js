@@ -15,7 +15,10 @@
 
     // UI actions, stepping stone to Flux
     actions: React.PropTypes.shape({
-      onClickSaveNotes: React.PropTypes.func.isRequired
+      onColumnClicked: React.PropTypes.func.isRequired,
+      onClickSaveNotes: React.PropTypes.func.isRequired,
+      onClickSaveService: React.PropTypes.func.isRequired,
+      onClickDiscontinueService: React.PropTypes.func.isRequired
     }),
     requests: React.PropTypes.shape({
       saveNotes: nullable(React.PropTypes.string).isRequired
@@ -28,7 +31,10 @@
     // a student.
     feed: React.PropTypes.shape({
       event_notes: React.PropTypes.array.isRequired,
-      services: React.PropTypes.array.isRequired,
+      services: React.PropTypes.shape({
+        active: React.PropTypes.array.isRequired,
+        discontinued: React.PropTypes.array.isRequired
+      }),
       deprecated: React.PropTypes.shape({
         notes: React.PropTypes.array.isRequired,
         interventions: React.PropTypes.array.isRequired

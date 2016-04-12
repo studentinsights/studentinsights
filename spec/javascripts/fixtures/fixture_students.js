@@ -109,7 +109,7 @@
         "updated_at": "2016-03-18T00:33:49.613Z"
       }
     ],
-    "services": [
+    "active_services": [
       {
         "id": 1,
         "student_id": 1,
@@ -285,7 +285,7 @@
         "updated_at": "2016-03-18T00:33:50.546Z"
       }
     ],
-    "services": [],
+    "active_services": [],
     "interventions": []
   }];
 

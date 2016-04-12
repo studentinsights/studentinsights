@@ -1,14 +1,8 @@
 class IntegrityCheck
 
   def check!
-    begin
-      has_data?
-      has_valid_data?
-      puts 'All good!'
-    rescue => error
-      puts 'Uh oh! Data check failed:'
-      puts error.message
-    end
+    has_data?
+    has_valid_data?
   end
 
   private
@@ -22,10 +16,15 @@ class IntegrityCheck
     raise "no educators" unless Educator.count > 0
   end
 
+  def models_to_check
+    [StudentAssessment, Assessment, Educator, Student, StudentSchoolYear]
+  end
+
   def has_valid_data?
-    StudentAssessment.find_each(&:save!)
-    Educator.find_each(&:save!)
-    Student.find_each(&:save!)
+    models_to_check.each do |model|
+      puts "Validating #{model.to_s.pluralize}..."
+      model.find_each(&:save!)
+    end
   end
 
 end

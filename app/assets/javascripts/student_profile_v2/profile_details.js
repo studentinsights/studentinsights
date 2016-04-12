@@ -30,6 +30,20 @@
       textAlign: 'center',
       marginLeft: 10,
       marginRight: 10
+    },
+    accessTableHeader: {
+      fontWeight: 'bold',
+      textAlign: 'left',
+      marginBottom: 10
+    },
+    accessLeftTableCell: {
+      paddingRight: 25
+    },
+    accessTableFootnote: {
+      fontStyle: 'italic',
+      fontSize: 13,
+      marginTop: 15,
+      marginBottom: 20
     }
   };
 
@@ -37,10 +51,11 @@
     displayName: 'ProfileDetails',
 
     propTypes: {
-        student: React.PropTypes.object,
-        feed: React.PropTypes.object,
-        chartData: React.PropTypes.object,
-        attendanceData: React.PropTypes.object
+      student: React.PropTypes.object,
+      feed: React.PropTypes.object,
+      access: React.PropTypes.object,
+      chartData: React.PropTypes.object,
+      attendanceData: React.PropTypes.object,
     },
 
     getEvents: function(){
@@ -52,21 +67,21 @@
         events.push({
           type: 'Absence',
           message: name + ' was tardy.',
-          date: Date.parse(obj.occurred_at)
+          date: new Date(obj.occurred_at)
         });
       });
       _.each(this.props.attendanceData.absences, function(obj){
         events.push({
           type: 'Tardy',
           message: name + ' was absent.',
-          date: Date.parse(obj.occurred_at)
+          date: new Date(obj.occurred_at)
         });
       });
       _.each(this.props.attendanceData.discipline_incidents, function(obj){
         events.push({
           type: 'Incident',
           message: obj.incident_description + ' in the ' + obj.incident_location,
-          date: Date.parse(obj.occurred_at)
+          date: new Date(obj.occurred_at)
         });
       });
       _.each(this.props.chartData.mcas_series_ela_scaled, function(quad){
@@ -127,6 +142,16 @@
           type: 'Service',
           message: obj.id,
           date: moment(obj.updated_at).toDate() // TODO: should we care more about created vs updated?
+        })
+      });
+      _.each(this.props.feed.dibels, function(obj) {
+        // TODO(kr) need to investigate further, whether this is local demo data or production
+        // data quality issue
+        if (obj.performance_level === null) return;
+        events.push({
+          type: 'DIBELS',
+          message: name + ' scored ' + obj.performance_level.toUpperCase() + ' in DIBELS.',
+          date: moment(obj.date_taken).toDate()
         });
       });
       return _.sortBy(events, 'date').reverse();
@@ -134,9 +159,37 @@
 
     render: function(){
       return dom.div({},
+        this.renderAccessDetails(),
         dom.h4({style: styles.title}, 'Full Case History'),
         this.renderCardList()
       )
+    },
+
+    renderAccessDetails: function () {
+      var access = this.props.access;
+      if (!access) return null;
+
+      var access_result_rows = Object.keys(access).map(function(subject) {
+        return dom.tr({ key: subject },
+          dom.td({ style: styles.accessLeftTableCell }, subject),
+          dom.td({}, access[subject] || '—')
+        );
+      });
+
+      return dom.div({},
+        dom.h4({style: styles.title}, 'ACCESS'),
+        dom.table({},
+          dom.thead({},
+            dom.tr({},
+              dom.th({ style: styles.accessTableHeader }, 'Subject'),
+              dom.th({ style: styles.accessTableHeader }, 'Score')
+            )
+          ),
+          dom.tbody({}, access_result_rows)
+        ),
+        dom.div({}),
+        dom.div({ style: styles.accessTableFootnote }, 'Most recent ACCESS scores shown.')
+      );
     },
 
     renderCardList: function(){
@@ -144,7 +197,7 @@
     },
 
     renderCard: function(event){
-      var key = [event.date, event.message].join();
+      var key = [event.date.getTime(), event.message].join();
       if (event.type === 'Absence' || event.type === 'Tardy'){
         var containingDivStyle = {};
         var headerDivStyle = {fontSize: 14};
@@ -168,7 +221,9 @@
         "STAR Reading": '#ffe7d6',
 
         "MCAS Math": '#e8e9fc',
-        "STAR Math": '#e8e9fc'
+        "STAR Math": '#e8e9fc',
+
+        "DIBELS": '#e8fce8'
       }
 
       return dom.div(

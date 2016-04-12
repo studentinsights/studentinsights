@@ -1,14 +1,26 @@
 class BehaviorRow < Struct.new(:row)
+  # Expects the following headers:
+  #
+  #  :state_id, :local_id, :incident_code, :event_date, :incident_time,
+  #  :incident_location, :incident_description, :school_local_id
+
   def self.build(row)
     new(row).build
   end
 
   def build
-    student_school_year.discipline_incidents.first_or_initialize(occurred_at: occurred_at, incident_code: row[:incident_code]) do |incident|
-      incident.has_exact_time = has_exact_time?
-      incident.incident_location = row[:incident_location]
-      incident.incident_description = row[:incident_description]
-    end
+    discipline_incident = student_school_year.discipline_incidents.find_or_initialize_by(
+      occurred_at: occurred_at,
+      incident_code: row[:incident_code]
+    )
+
+    discipline_incident.assign_attributes(
+      has_exact_time: has_exact_time?,
+      incident_location: row[:incident_location],
+      incident_description: row[:incident_description],
+    )
+
+    discipline_incident
   end
 
   private

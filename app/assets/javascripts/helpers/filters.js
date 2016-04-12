@@ -50,8 +50,8 @@
       return {
         identifier: ['service_type', serviceTypeId].join(':'),
         filterFn: function(student) {
-          if (serviceTypeId === null) return (student.services === undefined || student.services.length === 0);
-          return student.services.filter(function(service) {
+          if (serviceTypeId === null) return (student.active_services === undefined || student.active_services.length === 0);
+          return student.active_services.filter(function(service) {
             return service.service_type_id === serviceTypeId;
           }).length > 0;
         },
@@ -118,6 +118,9 @@
       if (parts[0] === 'intervention_type') return Filters.InterventionType(parts[1]);
       if (parts[0] === 'risk_level') return Filters.InterventionType(parseFloat(parts[1]));
       if (parts[0] === 'years_enrolled') return Filters.YearsEnrolled(parseFloat(parts[1]));
+      if (parts[0] === 'service_type') return Filters.ServiceType(parseFloat(parts[1]));
+      if (parts[0] === 'event_note_type') return Filters.EventNoteType(parseFloat(parts[1]));
+      
       return null;
     },
 

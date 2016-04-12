@@ -1,6 +1,6 @@
 $(function() {
   // only run if the correct page
-  if (!($('body').hasClass('students') && $('body').hasClass('profile'))) return;
+  if (!($('body').hasClass('students') && $('body').hasClass('show'))) return;
 
   // imports
   var createEl = window.shared.ReactHelpers.createEl;

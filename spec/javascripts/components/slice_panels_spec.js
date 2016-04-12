@@ -59,8 +59,8 @@ describe('SlicePanels', function() {
       expect(helpers.columnTitlesMatrix(el)).toEqual([
         ['Disability', 'Low Income', 'LEP'],
         ['Grade', 'Years enrolled', 'Risk level'],
-        ['STAR Reading', 'MCAS ELA', 'Growth - MCAS ELA'],
-        ['STAR Math', 'MCAS Math', 'Growth - MCAS Math'],
+        ['STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP'],
+        ['STAR Math', 'MCAS Math Score', 'MCAS Math SGP'],
         ['Discipline incidents', 'Absences', 'Tardies'],
         ['Services', 'Notes', 'Program', 'Homeroom']
       ]);

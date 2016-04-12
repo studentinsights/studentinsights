@@ -1,9 +1,9 @@
 require "spec_helper"
-require_relative '../../lib/analyze_student_attendance'
+require_relative '../../lib/analysis/analyze_student_attendance_table'
 
-RSpec.describe AnalyzeStudentAttendance do
+RSpec.describe AnalyzeStudentAttendanceTable do
   let(:attendance_fixture_path) { File.expand_path('../../fixtures/attendance_dump.csv', __FILE__) }
-  let(:analyze) { AnalyzeStudentAttendance.new(attendance_fixture_path) }
+  let(:analyze) { AnalyzeStudentAttendanceTable.new(attendance_fixture_path) }
   let(:data) { analyze.data }
 
   describe '#data' do

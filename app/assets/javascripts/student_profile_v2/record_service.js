@@ -74,8 +74,8 @@
       this.setState({ momentStarted: updatedMoment });
     },
 
-    onAssignedEducatorChanged: function(educatorId) {
-      this.setState({ providedByEducatorId: educatorId });
+    onAssignedEducatorChanged: function(selectParams) {
+      this.setState({ providedByEducatorId: selectParams.value });
     },
 
     onServiceClicked: function(serviceTypeId, event) {
@@ -104,7 +104,7 @@
     },
 
     renderWhichService: function() {
-      return dom.div({}, 
+      return dom.div({},
         dom.div({ style: { marginBottom: 5 } }, 'Which service?'),
         dom.div({ style: { display: 'flex', justifyContent: 'flex-start' } },
           dom.div({ style: styles.buttonWidth },
@@ -150,12 +150,16 @@
         return { value: educator.id, label: name };
       });
 
+      var sortedOptions = _.sortBy(options, function(o)
+        { return o.label; }
+      );
+
       return createEl(ReactSelect, {
         name: 'assigned-educator-select',
         clearable: false,
         placeholder: 'Type name..',
         value: this.state.providedByEducatorId,
-        options: options,
+        options: sortedOptions,
         onChange: this.onAssignedEducatorChanged
       });
     },

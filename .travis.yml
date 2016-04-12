@@ -17,10 +17,11 @@ branches:
 #   - export PATH=$PATH:$HOME/.local/bin
 
 before_install:
+  - echo psql --version
   - gem install -v 1.10.6 bundler --no-rdoc --no-ri
  # workarounds for phantomjs 1, see: https://github.com/travis-ci/travis-ci/issues/3225#issuecomment-177592725
   - mkdir travis-phantomjs
-  - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
+  - wget https://studentinsights-public.s3.amazonaws.com/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
   - tar -xvf $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis-phantomjs
   - export PATH=$PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH
 

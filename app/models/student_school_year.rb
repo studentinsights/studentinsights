@@ -1,6 +1,10 @@
 class StudentSchoolYear < ActiveRecord::Base
   belongs_to :student
+  validates :student, presence: true
+
   belongs_to :school_year
+  validates :school_year, presence: true
+
   has_many :absences
   has_many :tardies
   has_many :student_assessments
