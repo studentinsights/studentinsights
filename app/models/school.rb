@@ -9,7 +9,7 @@ class School < ActiveRecord::Base
   end
 
   def educators_index
-    educators.map { |e| [e.id, e.for_index] }.to_h
+    educators.order(:full_name).map { |e| [e.id, e.for_index] }.to_h
   end
 
   def self.seed_somerville_schools
