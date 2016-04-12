@@ -1,3 +1,13 @@
+# Given a map of integers or ranges to weights, e.g
+# 
+#     d = {
+#      0 => 0.83,
+#      1 => 0.10,
+#      (2..3) => 0.07,
+#    }
+# 
+# Randomly chooses an integer in a correctly weighted way.
+# Range keys mean that we sample uniformly from the range.
 def sample_from_distribution(distribution)
     r = Random::rand(1.0)
     distribution.each {|k, v|
@@ -50,7 +60,8 @@ class FakeStudent
     {
       school_id: School.first.id,
       enrollment_status: enrollment_status,
-      grade: "5",
+      # PK = preschool, KF = kindergarten
+      grade: ["1", "2", "3", "4", "5", "6", "7", "8", "PK", "KF"].sample,
       hispanic_latino: [true, false].sample,
       race: ["A", "B", "H", "W"].sample,
       first_name: DISNEY_FIRST_NAMES.sample,
