@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407194935) do
+ActiveRecord::Schema.define(version: 20160410174144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,11 +160,14 @@ ActiveRecord::Schema.define(version: 20160407194935) do
     t.string   "custom_intervention_name"
   end
 
-  create_table "precomputed_student_hashes_docs", primary_key: "key", force: true do |t|
+  create_table "precomputed_query_docs", force: true do |t|
+    t.text     "key"
     t.text     "json"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "precomputed_query_docs", ["key"], name: "index_precomputed_query_docs_on_key", unique: true, using: :btree
 
   create_table "progress_notes", force: true do |t|
     t.integer  "intervention_id"

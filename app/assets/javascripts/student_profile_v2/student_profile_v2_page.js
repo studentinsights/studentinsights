@@ -73,6 +73,7 @@
       // data
       student: React.PropTypes.object.isRequired,
       feed: React.PropTypes.object.isRequired,
+      dibels: React.PropTypes.array.isRequired,
       chartData: React.PropTypes.shape({
         // ela
         most_recent_star_reading_percentile: React.PropTypes.number,
@@ -314,15 +315,15 @@
       var student = this.props.student;
       var chartData = this.props.chartData;
       var grade = student.grade;
-      var dibels = this.props.feed.dibels;
+      var dibels = _.sortBy(this.props.dibels, 'date_taken');
 
       var belowGradeFour = _.includes(['KF', 'PK', '1', '2', '3'], grade);
       var hasDibels = (dibels.length > 0);
 
       if (belowGradeFour && hasDibels) {
-        var latest_dibels = dibels[0].performance_level.toUpperCase();
+        var latestDibels = _.last(dibels).performance_level.toUpperCase();
         return dom.div({ style: styles.summaryWrapper },
-          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latest_dibels })
+          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latestDibels })
         );
       } else {
         return this.wrapSummary({
@@ -374,35 +375,33 @@
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       },
-        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {
+        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, Scales.disciplineIncidents.flexibleRange, {
           caption: 'Discipline incidents',
-          valueRange: Scales.disciplineIncidents.valueRange,
           thresholdValue: Scales.disciplineIncidents.threshold,
           shouldDrawCircles: false
         }),
-        this.renderAttendanceEventsSummary(attendanceData.absences, {
+        this.renderAttendanceEventsSummary(attendanceData.absences, Scales.absences.flexibleRange, {
           caption: 'Absences',
-          valueRange: Scales.absences.valueRange,
           thresholdValue: Scales.absences.threshold,
           shouldDrawCircles: false
         }),
-        this.renderAttendanceEventsSummary(attendanceData.tardies, {
+        this.renderAttendanceEventsSummary(attendanceData.tardies, Scales.tardies.flexibleRange, {
           caption: 'Tardies',
-          valueRange: Scales.tardies.valueRange,
           thresholdValue: Scales.tardies.threshold,
           shouldDrawCircles: false
         })
       );
     },
 
-    renderAttendanceEventsSummary: function(attendanceEvents, props) {
+    renderAttendanceEventsSummary: function(attendanceEvents, flexibleRangeFn, props) {
       var cumulativeQuads = this.cumulativeCountQuads(attendanceEvents);
       var value = (cumulativeQuads.length > 0) ? _.last(cumulativeQuads)[3] : 0;
+      var valueRange = flexibleRangeFn(cumulativeQuads);
 
       return this.wrapSummary(merge({
         title: props.title,
         value: value,
-        sparkline: this.renderSparkline(cumulativeQuads, props)
+        sparkline: this.renderSparkline(cumulativeQuads, merge({ valueRange: valueRange }, props))
       }, props));
     },
 

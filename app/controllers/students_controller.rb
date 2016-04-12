@@ -12,28 +12,22 @@ class StudentsController < ApplicationController
   end
 
   def show
-    redirect_to profile_student_path
-  end
-
-  def profile
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
+
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
       notes: student.student_notes.map { |note| serialize_student_note(note) },
       feed: student_feed(student),
       chart_data: chart_data,
+      dibels: student.student_assessments.by_family('DIBELS'),
       intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,
-      educators_index: educators_index,
+      educators_index: student.try(:school).try(:educators_index),
       access: student.latest_access_results,
-      attendance_data: {
-        discipline_incidents: student.most_recent_school_year.discipline_incidents.order(occurred_at: :desc),
-        tardies: student.most_recent_school_year.tardies,
-        absences: student.most_recent_school_year.absences
-      }
+      attendance_data: student_profile_attendance_data(student)
     }
   end
 
@@ -83,6 +77,7 @@ class StudentsController < ApplicationController
     end
   end
 
+  # Used by the search bar to query for student names
   def names
     q = params[:q]
     authorized_students = Student.with_school.select do |student|
@@ -97,6 +92,23 @@ class StudentsController < ApplicationController
   end
 
   private
+  def student_profile_attendance_data(student)
+    student_school_years = student.student_school_years
+    {
+      discipline_incidents: flatmap_and_sort(student_school_years) {|year| year.discipline_incidents },
+      tardies: flatmap_and_sort(student_school_years) {|year| year.tardies },
+      absences: flatmap_and_sort(student_school_years) {|year| year.absences }
+    }
+  end
+
+  # Takes a list of student_school_years, yields each one to the block provided, then flattens
+  # and sorts the results.
+  def flatmap_and_sort(student_school_years)
+    student_school_years.map do |student_school_year|
+      yield student_school_year
+    end.flatten.sort_by(&:occurred_at).reverse
+  end
+
   def serialize_student_for_profile(student)
     student.as_json.merge({
       student_risk_level: student.student_risk_level.as_json,
@@ -135,6 +147,7 @@ class StudentsController < ApplicationController
     (search_token_scores.sum.to_f / search_tokens.length)
   end
 
+  # The feed of mutable data that changes most frequently and is owned by Student Insights
   def student_feed(student)
     {
       event_notes: student.event_notes.map {|event_note| serialize_event_note(event_note) },
@@ -145,8 +158,7 @@ class StudentsController < ApplicationController
       deprecated: {
         notes: student.student_notes.map { |note| serialize_student_note(note) },
         interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
-      },
-      dibels: student.student_assessments.by_family('DIBELS').order_by_date_taken_desc
+      }
     }
   end
 end

@@ -27,8 +27,9 @@ class Educator < ActiveRecord::Base
   def is_authorized_for_student(student)
     return false if self.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
     return false if self.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
+    return false if self.school.present? && self.school != student.school
 
-    return true if self.schoolwide_access? # Schoolwide admin
+    return true if self.schoolwide_access? || self.admin? # Schoolwide admin
     return true if self.has_access_to_grade_levels? && student.grade.in?(self.grade_level_access) # Grade level access
     return true if student.in?(self.students) # Homeroom level access
     false
@@ -62,7 +63,7 @@ class Educator < ActiveRecord::Base
   end
 
   def default_school
-    school || School.first
+    school || School.with_students.first
   end
 
   def has_access_to_grade_levels?
@@ -88,6 +89,30 @@ class Educator < ActiveRecord::Base
 
   def allowed_homerooms_by_name
     allowed_homerooms.order(:name)
+  end
+
+  def for_index
+    as_json.symbolize_keys.slice(:id, :email, :full_name)
+  end
+
+  def permissions_hash
+    {
+      admin: admin,
+      school: school,
+      schoolwide_access: schoolwide_access,
+      grade_level_access: grade_level_access,
+      restricted_to_sped_students: restricted_to_sped_students,
+      restricted_to_english_language_learners: restricted_to_english_language_learners,
+    }
+  end
+
+  def clone_permissions_from(educator_full_name)
+    # Useful for debugging and QA on staff with different schools & permissions
+
+    target_educator = Educator.find_by_full_name(educator_full_name)
+    permissions = target_educator.permissions_hash
+    assign_attributes(permissions)
+    save!
   end
 
   private

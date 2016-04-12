@@ -9,30 +9,16 @@ def create_service(student, educator)
 end
 
 describe StudentsController, :type => :controller do
-  describe '#show redirects to profile' do
-    let(:student) { FactoryGirl.create(:student, :with_risk_level) }
-    let(:homeroom) { student.homeroom }
-    let(:educator) { FactoryGirl.create(:educator, :admin )}
-    let!(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
-    before { sign_in(educator) }
-    before { request.env['HTTPS'] = 'on' }
-
-    it 'redirects to profile page' do
-      get :show, id: student.id
-      expect(response).to redirect_to(profile_student_path(student.id))
-    end
-
-  end
-
-  describe '#profile' do
+  describe '#show' do
+    let!(:school) { FactoryGirl.create(:school) }
     let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
-    let(:student) { FactoryGirl.create(:student, :with_risk_level) }
+    let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
     let(:homeroom) { student.homeroom }
     let!(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
 
     def make_request(options = { student_id: nil, format: :html })
       request.env['HTTPS'] = 'on'
-      get :profile, id: options[:student_id], format: options[:format]
+      get :show, id: options[:student_id], format: options[:format]
     end
 
     context 'when educator is not logged in' do
@@ -47,8 +33,7 @@ describe StudentsController, :type => :controller do
       before { sign_in(educator) }
 
       context 'educator has schoolwide access' do
-        let!(:school) { FactoryGirl.create(:school) }
-        let(:educator) { FactoryGirl.create(:educator, :admin )}
+        let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
         let(:serialized_data) { assigns(:serialized_data) }
 
         it 'is successful' do
@@ -61,12 +46,11 @@ describe StudentsController, :type => :controller do
           expect(serialized_data[:current_educator]).to eq educator
           expect(serialized_data[:student]["id"]).to eq student.id
           expect(serialized_data[:notes]).to eq []
-
+          expect(serialized_data[:dibels]).to eq []
           expect(serialized_data[:feed]).to eq ({
             event_notes: [],
             services: {active: [], discontinued: []},
-            deprecated: {notes: [], interventions: []},
-            dibels: []
+            deprecated: {notes: [], interventions: []}
           })
 
           expect(serialized_data[:chart_data]).to include(:attendance_events_school_years)
@@ -127,7 +111,7 @@ describe StudentsController, :type => :controller do
         end
 
         context 'student has multiple discipline incidents' do
-          let!(:student) { FactoryGirl.create(:student) }
+          let!(:student) { FactoryGirl.create(:student, school: school) }
           let(:most_recent_school_year) { student.most_recent_school_year }
           let(:serialized_data) { assigns(:serialized_data) }
           let(:attendance_data) { serialized_data[:attendance_data] }
@@ -538,7 +522,7 @@ describe StudentsController, :type => :controller do
 
     it 'returns services' do
       feed = controller.send(:student_feed, student)
-      expect(feed.keys).to eq([:event_notes, :services, :deprecated, :dibels])
+      expect(feed.keys).to eq([:event_notes, :services, :deprecated])
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:active].first[:id]).to eq service.id
     end
