@@ -12,12 +12,8 @@ class School < ActiveRecord::Base
     educators.where.not(local_id: 'LDAP')
   end
 
-  def educators_by_name
-    educators_no_test_accounts.order(:full_name)
-  end
-
   def educators_index
-    educators_by_name.map { |e| [e.id, e.for_index] }.to_h
+    educators_no_test_accounts.map { |e| [e.id, e.for_index] }.to_h
   end
 
   def self.seed_somerville_schools
