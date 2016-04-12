@@ -1,5 +1,32 @@
 module SerializeDataHelper
+  def serialize_service(service)
+    discontinued_service = service.discontinued_services.order(:recorded_at).last
+    service.as_json.symbolize_keys.slice(*[
+      :id,
+      :student_id,
+      :provided_by_educator_id,
+      :service_type_id,
+      :date_started,
+      :recorded_by_educator_id,
+      :recorded_at
+    ]).merge({
+      discontinued_by_educator_id: discontinued_service.try(:recorded_by_educator_id),
+      discontinued_recorded_at: discontinued_service.try(:recorded_at)
+    })
+  end
 
+  def serialize_event_note(event_note)
+    event_note.as_json.symbolize_keys.slice(*[
+      :id,
+      :student_id,
+      :educator_id,
+      :event_note_type_id,
+      :text,
+      :recorded_at
+    ])
+  end
+
+  # deprecated
   def serialize_intervention(intervention)
     {
       id: intervention.id,
@@ -18,6 +45,7 @@ module SerializeDataHelper
     }
   end
 
+  # deprecated
   def serialize_progress_note(progress_note)
     {
       id: progress_note.id,
@@ -29,6 +57,7 @@ module SerializeDataHelper
     }
   end
 
+  # deprecated
   def serialize_student_note(student_note)
     {
       id: student_note.id,
@@ -40,25 +69,6 @@ module SerializeDataHelper
     }
   end
 
-  # Used to send down all intervention types, for lookups from student records
-  def intervention_types_index
-    index = {}
-    InterventionType.all.each do |intervention_type|
-      index[intervention_type.id] = intervention_type.as_json.symbolize_keys.slice(:id, :name)
-    end
-    index
-  end
-
-  # Used to send down all educators, for lookups from other records
-  def educators_index
-    index = {}
-    Educator.all.each do |educator|
-      index[educator.id] = educator.as_json.symbolize_keys.slice(:id, :email, :full_name)
-    end
-    index
-  end
-
-  # Used to send down constants to the UI
   def service_types_index
     index = {}
     ServiceType.all.each do |service_type|
@@ -71,6 +81,15 @@ module SerializeDataHelper
     index = {}
     EventNoteType.all.each do |event_note_type|
       index[event_note_type.id] = event_note_type.as_json.symbolize_keys.slice(:id, :name)
+    end
+    index
+  end
+
+  # deprecated
+  def intervention_types_index
+    index = {}
+    InterventionType.all.each do |intervention_type|
+      index[intervention_type.id] = intervention_type.as_json.symbolize_keys.slice(:id, :name)
     end
     index
   end

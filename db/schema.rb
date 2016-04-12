@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313100123) do
+ActiveRecord::Schema.define(version: 20160410174144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,14 @@ ActiveRecord::Schema.define(version: 20160313100123) do
   end
 
   add_index "discipline_incidents", ["student_school_year_id"], name: "index_discipline_incidents_on_student_school_year_id", using: :btree
+
+  create_table "discontinued_services", force: true do |t|
+    t.integer  "service_id"
+    t.integer  "recorded_by_educator_id"
+    t.datetime "recorded_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "educators", force: true do |t|
     t.string   "email",                                   default: "",    null: false
@@ -151,6 +159,15 @@ ActiveRecord::Schema.define(version: 20160313100123) do
     t.integer  "student_school_year_id"
     t.string   "custom_intervention_name"
   end
+
+  create_table "precomputed_query_docs", force: true do |t|
+    t.text     "key"
+    t.text     "json"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "precomputed_query_docs", ["key"], name: "index_precomputed_query_docs_on_key", unique: true, using: :btree
 
   create_table "progress_notes", force: true do |t|
     t.integer  "intervention_id"
@@ -273,6 +290,7 @@ ActiveRecord::Schema.define(version: 20160313100123) do
     t.integer  "most_recent_mcas_ela_scaled"
     t.integer  "most_recent_star_reading_percentile"
     t.integer  "most_recent_star_math_percentile"
+    t.string   "enrollment_status"
   end
 
   add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree

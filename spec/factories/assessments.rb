@@ -17,6 +17,7 @@ FactoryGirl.define do
     end
     trait :access do
       family "ACCESS"
+      subject "Composite"
     end
   end
 end

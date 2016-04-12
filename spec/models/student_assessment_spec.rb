@@ -2,6 +2,48 @@ require 'rails_helper'
 
 RSpec.describe StudentAssessment, type: :model do
 
+  describe 'validation by student/assessment/date_taken' do
+    let!(:student) { FactoryGirl.create(:student) }
+    let!(:dibels) { FactoryGirl.create(:assessment, family: 'DIBELS') }
+    let(:yesterday) { Time.now - 1.day }
+    let(:day_before_yesterday) { Time.now - 2.days }
+
+    context 'unique across the combination of student/assessment/date_taken' do
+      before {
+        FactoryGirl.create(
+          :student_assessment, assessment: dibels, date_taken: day_before_yesterday, student: student
+        )
+      }
+
+      subject(:student_assessment) {
+        FactoryGirl.build(
+          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
+        )
+      }
+
+      it 'is valid' do
+        expect(subject).to be_valid
+      end
+    end
+    context 'not unique across the combination of student/assessment/date_taken' do
+      before {
+        FactoryGirl.create(
+          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
+        )
+      }
+
+      subject(:student_assessment) {
+        FactoryGirl.build(
+          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
+        )
+      }
+
+      it 'is not valid' do
+        expect(subject).not_to be_valid
+      end
+    end
+  end
+
   describe '.by_family_and_subject' do
     let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
     context 'MCAS & math' do

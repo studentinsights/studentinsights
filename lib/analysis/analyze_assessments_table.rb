@@ -1,6 +1,6 @@
 require 'csv'
 
-class AnalyzeStudentAttendance < Struct.new(:path)
+class AnalyzeAssessmentsTable < Struct.new(:path)
 
   def contents
     encoding_options = {
@@ -28,23 +28,12 @@ class AnalyzeStudentAttendance < Struct.new(:path)
     value unless value == '\N'
   end
 
-  def select_by_column(column, value)
-    data.select { |row| row[column] == value }
+  def dibels
+    data.select { |row| row[:asd_name].include?('DIBELS') }
   end
 
-  def count_for_column(column, value)
-    select_by_column(column, value).size
-  end
-
-  def total
-    @total ||= data.length
-  end
-
-  def count_versus_total(column, value)
-    count = count_for_column(column, value)
-    percentage = 100 * count.to_f / total.to_f
-
-    "#{column} => #{count} out of #{total} (#{percentage}%)"
+  def access
+    data.select { |row| row[:asd_name].include?('ACCESS') }
   end
 
 end

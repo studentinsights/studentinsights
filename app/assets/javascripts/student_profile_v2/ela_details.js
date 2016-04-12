@@ -42,7 +42,9 @@
           data: this.props.chartData.star_series_reading_percentile
         }],
         titleText: 'STAR Reading, last 4 years',
-        yAxis: this.percentileYAxis()
+        yAxis: merge(this.percentileYAxis(), {
+          title: { text: 'Percentile rank' }
+        })
       });
     },
 
@@ -52,22 +54,24 @@
           name: 'Scaled score',
           data: this.props.chartData.mcas_series_ela_scaled
         }],
-        titleText: 'MCAS ELA scores, last 4 years',
-        yAxis: merge(
-            ProfileChartSettings.default_mcas_score_yaxis,
-            {plotLines: ProfileChartSettings.mcas_level_bands}
-        )
+        titleText: 'MCAS ELA Scores, last 4 years',
+        yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis,{
+          plotLines: ProfileChartSettings.mcas_level_bands,
+          title: { text: 'Scaled score' }
+        })
       });
     },
 
     renderMCASELAGrowth: function() {
       return createEl(ProfileChart, {
         quadSeries: [{
-          name: 'Growth percentile',
+          name: 'Student growth percentile (SGP)',
           data: this.props.chartData.mcas_series_ela_growth
         }],
-        titleText: 'MCAS ELA Growth, last 4 years',
-        yAxis: this.percentileYAxis()
+        titleText: 'MCAS ELA SGPs, last 4 years',
+        yAxis: merge(this.percentileYAxis(), {
+          title: { text: 'Student growth percentile (SGP)' }
+        })
       });
     },
 

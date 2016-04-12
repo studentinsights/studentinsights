@@ -7,23 +7,22 @@
   var styles = {
     riskBubble: {
       fontSize: 20,
-      width: '35',
-      height: '35',
+      width: 35,
+      height: 35,
       color: 'white',
-      borderRadius: '30',
-      paddingTop: '3',
+      borderRadius: 30,
+      paddingTop: 3,
       textAlign: 'center',
-      marginTop: '10',
-      marginRight: '25',
-      display: 'inline-block',
-      float: 'right'
+      marginTop: 10,
+      marginLeft: 5, 
+      marginRight: 5,
+      display: 'inline-block'
     },
 
     riskItem: {
       fontSize: 25,
       padding: 5,
-      float: 'right',
-      marginTop: '3'
+      marginTop: 3
     }
 };
 
@@ -35,21 +34,23 @@
     },
 
     render: function() {
-      return dom.span({},
-        dom.span({
-          style: merge(styles.riskBubble, { backgroundColor: this.bubbleColor() })
-        }, this.props.riskLevel),
+      return dom.span({}, 
         dom.span({
           style: styles.riskItem
-        }, "Risk Level")
+        }, 'Risk Level'),
+        dom.span({
+          style: merge(styles.riskBubble, { backgroundColor: this.bubbleColor() })
+        }, (this.props.riskLevel === null) ? 'NA' : this.props.riskLevel)
       );
 
     },
 
     bubbleColor: function() {
-      if (this.props.riskLevel === 1) return 'green';
-      if (this.props.riskLevel === 2) return '#ffc41d';
-      if (this.props.riskLevel === 3) return 'red';
+      if (this.props.riskLevel === null) return '#555555';
+      if (this.props.riskLevel === 0) return '#bbd86b';
+      if (this.props.riskLevel === 1) return '#62c186';
+      if (this.props.riskLevel === 2) return '#ffcb08';
+      if (this.props.riskLevel === 3) return '#f15a3d';
     }
   })
 

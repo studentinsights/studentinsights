@@ -26,8 +26,13 @@ class AccessRow < Struct.new :row
     Student.find_by_local_id!(row[:local_id])
   end
 
+  def subject
+    return 'Composite' if row[:assessment_subject] == 'Overall'
+    row[:assessment_subject]
+  end
+
   def assessment
-    Assessment.find_or_create_by!(subject: row[:assessment_subject], family: 'ACCESS')
+    Assessment.find_or_create_by!(subject: subject, family: 'ACCESS')
   end
 
 end

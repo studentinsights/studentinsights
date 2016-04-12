@@ -1,4 +1,7 @@
 class EducatorRow < Struct.new(:row, :school_ids_dictionary)
+  # Expects a CSV with the following headers:
+  #
+  # :state_id, :local_id, :full_name, :staff_type, :homeroom, :school_local_id
 
   def self.build(row)
     new(row).build
@@ -24,7 +27,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   private
 
   def is_admin?
-    row[:staff_type].present? && row[:staff_type] == "Administrator"
+    row[:staff_type].present? && row[:staff_type] == 'Administrator'
   end
 
   def school_local_id

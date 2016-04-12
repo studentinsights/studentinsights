@@ -1,6 +1,6 @@
 require 'csv'
 
-class AnalyzeStaffTable < Struct.new(:path)
+class AnalyzeStudentAttendanceTable < Struct.new(:path)
 
   def contents
     encoding_options = {
@@ -28,8 +28,23 @@ class AnalyzeStaffTable < Struct.new(:path)
     value unless value == '\N'
   end
 
-  def get_educator_data_by_full_name(full_name)
-    data.select { |row| row[:stf_name_view] == full_name }[0].to_hash
+  def select_by_column(column, value)
+    data.select { |row| row[column] == value }
+  end
+
+  def count_for_column(column, value)
+    select_by_column(column, value).size
+  end
+
+  def total
+    @total ||= data.length
+  end
+
+  def count_versus_total(column, value)
+    count = count_for_column(column, value)
+    percentage = 100 * count.to_f / total.to_f
+
+    "#{column} => #{count} out of #{total} (#{percentage}%)"
   end
 
 end

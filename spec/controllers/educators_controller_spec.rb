@@ -47,6 +47,7 @@ describe EducatorsController, :type => :controller do
         context 'educator not assigned to school' do
           let(:educator) { FactoryGirl.create(:educator, :admin) }
           let!(:school) { FactoryGirl.create(:school) }
+          before { FactoryGirl.create(:student, school: school) }
           let!(:another_school) { FactoryGirl.create(:school) }
           it 'redirects to first school page' do
             make_request

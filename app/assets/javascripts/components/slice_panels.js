@@ -60,16 +60,16 @@
     renderELAColumn: function() {
       return dom.div({ className: 'column ela-background' },
         this.renderPercentileTable('STAR Reading', 'most_recent_star_reading_percentile'),
-        this.renderMCASTable('MCAS ELA', 'most_recent_mcas_ela_scaled'),
-        this.renderPercentileTable('Growth - MCAS ELA', 'most_recent_mcas_ela_growth')
+        this.renderMCASTable('MCAS ELA Score', 'most_recent_mcas_ela_scaled'),
+        this.renderPercentileTable('MCAS ELA SGP', 'most_recent_mcas_ela_growth')
       );
     },
 
     renderMathColumn: function() {
       return dom.div({ className: 'column math-background' },
         this.renderPercentileTable('STAR Math', 'most_recent_star_math_percentile'),
-        this.renderMCASTable('MCAS Math', 'most_recent_mcas_math_scaled'),
-        this.renderPercentileTable('Growth - MCAS Math', 'most_recent_mcas_math_growth')
+        this.renderMCASTable('MCAS Math Score', 'most_recent_mcas_math_scaled'),
+        this.renderPercentileTable('MCAS Math SGP', 'most_recent_mcas_math_growth')
       );
     },
 
@@ -163,8 +163,8 @@
 
     serviceItems: function() {
       var students = this.props.allStudents;
-      var allServices = _.compact(_.flatten(_.pluck(students, 'services')));
-      var allServiceTypeIds = _.unique(allServices.map(function(service) {
+      var activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));
+      var allServiceTypeIds = _.unique(activeServices.map(function(service) {
         return parseInt(service.service_type_id, 10);
       }));
       var serviceItems = allServiceTypeIds.map(function(serviceTypeId) {

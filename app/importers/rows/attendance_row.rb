@@ -1,4 +1,9 @@
 class AttendanceRow < Struct.new(:row)
+
+  # Expects the following headers:
+  #
+  # :state_id, :local_id, :absence, :tardy, :event_date, :school_local_id
+
   class NullRelation
     class NullEvent
       def save!; end
