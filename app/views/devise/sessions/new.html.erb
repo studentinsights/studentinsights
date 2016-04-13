@@ -1,21 +1,3 @@
-  <div class="flex-container">
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="flex-item">
-        <%= f.label :email %>
-        <%= f.email_field :email, class: 'border-sign_in', autofocus: true %>
-      </div>
-
-      <div class="flex-item">
-        <%= f.label :password %>
-        <%= f.password_field :password, class: 'border-sign_in', autocomplete: "off" %>
-      </div>
-
-      <div class="flex-item">
-        <%= f.submit "Log in", class: "btn btn-primary" %>
-      </div>
-  <% end %>
-  </div>
-
 <div class="info-area">
   <div class="about-page detailed-content-area">
     <div class="who">

@@ -23,14 +23,14 @@
    flex-direction: row;
    width: 500px;
    height: 35px;
-   margin-left: 462px;
+   margin-right: 253px;
 }
 
 .flex-item {
-    width: 141px;
-    height: 100px;
-    display: inline-block;
-    margin: 10px;
+   width: 185px;
+   display: inline-block;
+   bottom: : 10px;
+   margin: -18px;
 }
 
 .border-sign_in {
