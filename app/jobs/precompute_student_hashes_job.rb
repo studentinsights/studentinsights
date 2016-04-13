@@ -34,7 +34,8 @@ class PrecomputeStudentHashesJob
     key = precomputed_student_hashes_key(precomputed_time, authorized_student_ids)
 
     # This is a non-atomic upsert
-    PrecomputedQueryDoc.find(key).destroy! if PrecomputedQueryDoc.exists?(key)
+    pre_existing_doc = PrecomputedQueryDoc.find_by_key(key)
+    pre_existing_doc.destroy! if pre_existing_doc.present?
     PrecomputedQueryDoc.create!(key: key, json: { student_hashes: student_hashes }.to_json )
   end
 end
