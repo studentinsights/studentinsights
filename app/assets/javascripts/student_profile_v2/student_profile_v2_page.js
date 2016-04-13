@@ -296,10 +296,8 @@
       var sortedServices = _.sortBy(activeServices, 'date_started').reverse();
       var elements = sortedServices.slice(0, limit).map(function(service) {
         var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
-        var daysText = moment.utc(service.date_started).from(this.props.nowMomentFn(), true);
         return dom.span({ key: service.id },
-          dom.span({}, serviceText),
-          dom.span({ style: { opacity: 0.25, paddingLeft: 10 } }, daysText)
+          dom.span({}, serviceText)
         );
       }, this);
       if (sortedServices.length > limit) elements.push(dom.div({}, '+ ' + (sortedServices.length - limit) + ' more'));
