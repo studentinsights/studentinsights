@@ -10,16 +10,14 @@
 
   var styles = {
     box: {
-      border: '1px solid #ccc',
+      border: '1px solid #eee',
       padding:15,
       marginTop: 10,
       marginBottom: 10,
-      width: '100%',
-      backgroundColor: '#f2f2f2'
+      width: '100%'
     },
     item: {
-      paddingBottom: 10,
-      width: 160
+      paddingBottom: 10
     },
     itemHead: {
       fontWeight: 'bold',
@@ -36,38 +34,14 @@
     },
     title: {
       color: 'black',
-      paddingBottom: 20,
+      borderBottom: '1px solid #333',
+      paddingBottom: 10,
+      marginBottom: 20,
+      marginTop: 20,
       fontSize: 24
     },
     container: {
-      width: '100%',
-      marginTop: 50,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      border: '1px solid #ccc',
-      padding: '30px 30px 30px 30px',
-      position: 'relative'
-    },
-    centerItem: {
-      paddingBottom: 10,
-      textAlign: 'center',
-      width: 75
-    },
-    secHead: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      borderBottom: '1px solid #333',
-      position: 'absolute',
-      top: 30,
-      left: 30,
-      right: 30
-    },
-    navBar: {
-      fontSize: 18
-    },
-    navTop: {
-      textAlign: 'right',
-      verticalAlign: 'text-top'
+      width: '50%'
     }
   };
 
@@ -83,7 +57,6 @@
     // TODO(kr) clicking on data point jumps to timeline with full details
     render: function() {
       return dom.div({ className: 'AttendanceDetails' },
-        this.renderNavBar(),
         this.renderDisciplineIncidents(),
         this.renderAbsences(),
         this.renderTardies(),
@@ -91,46 +64,26 @@
       );
     },
 
-    renderNavBar: function() {
-      return dom.div({ style: styles.navBar },
-          dom.a({ style: styles.navBar, href: '#disciplineChart'}, 'Discipline Chart'), ' | ',
-          dom.a({ style: styles.navBar, href: '#absences'}, 'Absences Chart'), ' | ',
-          dom.a({ style: styles.navBar, href: '#tardies'}, 'Tardies Chart'), ' | ',
-          dom.a({ style: styles.navBar, href: '#history'}, 'Incident History')
-        );
-    },
-
-    renderHeader: function(title) {
-      return dom.div({ style: styles.secHead },
-        dom.h4({ style: styles.title }, title),
-        dom.span({ style: styles.navTop }, dom.a({ href: '#' }, 'Back to top'))
-      );
-    },
-
     renderDisciplineIncidents: function() {
       var flexibleRange = Scales.disciplineIncidents.flexibleRange(this.props.cumulativeDisciplineIncidents);
-      return dom.div({ id: 'disciplineChart', style: styles.container},
-        this.renderHeader('Discipline incidents, last 4 years'),
-        createEl(ProfileChart, {
-          titleText: '',
-          yAxis: {
-            min: flexibleRange[0],
-            max: flexibleRange[1],
-            title: { text: 'Count per year' }
-          },
-          quadSeries: [{
-            name: 'Events per school year',
-            data: this.props.cumulativeDisciplineIncidents
-          }]
-        }));
+      return createEl(ProfileChart, {
+        titleText: 'Discipline incidents, last 4 years',
+        yAxis: {
+          min: flexibleRange[0],
+          max: flexibleRange[1],
+          title: { text: 'Count per year' }
+        },
+        quadSeries: [{
+          name: 'Events per school year',
+          data: this.props.cumulativeDisciplineIncidents
+        }]
+      });
     },
 
     renderAbsences: function() {
       var range = Scales.absences.flexibleRange(this.props.cumulativeAbsences);
-      return dom.div({ id: 'absences', style: styles.container},
-        this.renderHeader('Absences, last 4 years'),
-        createEl(ProfileChart, {
-        titleText: '',
+      return createEl(ProfileChart, {
+        titleText: 'Absences, last 4 years',
         yAxis: {
           min: range[0],
           max: range[1],
@@ -140,15 +93,13 @@
           name: 'Absences per school year',
           data: this.props.cumulativeAbsences
         }]
-      }));
+      });
     },
 
     renderTardies: function() {
       var range = Scales.tardies.flexibleRange(this.props.cumulativeTardies);
-      return dom.div({ id: 'tardies', style: styles.container},
-        this.renderHeader('Tardies, last 4 years'),
-        createEl(ProfileChart, {
-        titleText: '',
+      return createEl(ProfileChart, {
+        titleText: 'Tardies, last 4 years',
         yAxis: {
           min: range[0],
           max: range[1],
@@ -158,28 +109,25 @@
           name: 'Tardies per school year',
           data: this.props.cumulativeTardies
         }]
-      }));
-    },
-
-    renderIncidents: function() {
-      return  dom.div({ style: { paddingTop: 60 }}, this.props.disciplineIncidents.map(function(incident) {
-        return dom.div({ style: styles.box, key: incident.occurred_at },
-          dom.div({ style: styles.header },
-            dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Date: '), dom.span({}, moment.utc(incident.occurred_at).format('MMM D, YYYY'))),
-            dom.div({ style: styles.centerItem }, dom.span({ style: styles.itemHead }, 'Code: '), dom.span({}, incident.incident_code)),
-            dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Location: '), dom.span({}, incident.incident_location))
-          ),
-          dom.div({}, dom.span({ style: styles.desc }, 'Description: ')),
-          dom.div({}, incident.incident_description))
-
-      }));
+      });
     },
 
     renderIncidentHistory: function() {
-      return dom.div({ id: "history", style: styles.container },
-        this.renderHeader('Incident History'),
-        (this.props.disciplineIncidents.length > 0) ? this.renderIncidents() : dom.div({ style: {paddingTop: 60}}, 'No Incidents')
-      );
+      return dom.div({ style: styles.container },
+        dom.h4({ style: styles.title }, 'Incident History'),
+        (this.props.disciplineIncidents.length === 0) ? dom.div({}, 'None') : this.props.disciplineIncidents.map(function(incident) {
+        return dom.div({
+          style: styles.box,
+          key: [incident.occurred_at, incident.incident_description].join()
+        },
+          dom.div({ style: styles.header },
+            dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Date: '), dom.span({}, moment.utc(incident.occurred_at).format('MMM D, YYYY'))),
+            dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Code: '), dom.span({}, incident.incident_code)),
+            dom.div({ style: styles.item }, dom.span({ style: styles.itemHead }, 'Location: '), dom.span({}, incident.incident_location))
+          ),
+          dom.div({}, dom.span({ style: styles.desc }, 'Description: '), dom.div({}, incident.incident_description))
+        )
+      }));
     },
   });
 })();
