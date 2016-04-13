@@ -47,12 +47,12 @@
       background: '#ededed'
     },
     column: {
-      flex: 1,
+      flexGrow: '1',
+      flexShrink: '0',
       padding: '22px 26px 16px 26px',
       cursor: 'pointer',
       borderColor: 'white',
       borderTop: 0,
-      height: '80%',
       margin: 0,
       borderRadius: '0 0 5px 5px',
       width: '100%'
@@ -63,7 +63,7 @@
       margin: '0 5px 0 0',
       borderRadius: '5px 5px 5px 5px',
       border: '1px solid #ccc',
-      width: '20%'
+      width: '20%',
      },
     selectedColumn: {
       borderStyle: 'solid',
@@ -88,7 +88,8 @@
       padding: '10px 5px 5px 5px',
       margin: 0,
       borderRadius: '5px 5px 0 0',
-      background: 'white'
+      background: 'white',
+      cursor: 'pointer'
     },
     sparklineWidth: 150,
     sparklineHeight: 50
