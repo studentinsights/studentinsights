@@ -54,7 +54,7 @@ It's one thing to have data, but acting on it to improve student outcomes is wha
 It also allows capturing meeting notes as part of the student's record, which is particularly important on interdisciplinary teams.
 
 #### User experience
-This is a web product, integrated with the Aspen SIS, district LDAP authorization and STAR assessments.  Principals and teachers sign in using their usual credentials, and can access the product securely anywhere they have internet access.  The project is primarily targeted browser is Internet Explorer, because that's what's used in the Somerville school district.
+This is a web product, integrated with the Aspen SIS, district LDAP authorization and STAR assessments.  Principals and teachers sign in using their usual credentials, and can access the product securely anywhere they have internet access.
 
 
 ## Project priorities
@@ -161,6 +161,14 @@ var ProductTable = React.createClass({
 ```
 
 There are also a few places where we use [Flux](https://facebook.github.io/flux/docs/overview.html) patterns.
+
+## Browser/OS Targeting
+
+Category | Target | Comment
+--- | --- | ---
+Browser | IE 11 | "Should be all IE 11 by now." <br>    – John Breslin, Technology Department, Somerville Public Schools
+OS | Windows 7 and 8.1 | "Maybe some Win10 next year." <br>    – John Breslin, Technology Department, Somerville Public Schools
+
 
 ## Deployment
 ### Importing real data
