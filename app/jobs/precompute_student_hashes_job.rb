@@ -1,19 +1,19 @@
-class PrecomputeStudentHashesJob
+class PrecomputeStudentHashesJob < Struct.new :log
   include StudentsQueryHelper
 
   # Runs the job for a particular day, querying for all educators' authorizations,
   # precomputing the `student_hashes` for them and writing them to the database.
   def precompute_all!(date_timestamp)
-    puts 'Querying for jobs...'
+    log.puts 'Querying for jobs...'
     jobs = school_overview_precompute_jobs(date_timestamp)
-    puts "Found #{jobs.size} jobs."
+    log.puts "Found #{jobs.size} jobs."
 
-    puts 'Starting precomputing...'
+    log.puts 'Starting precomputing...'
     jobs.each_with_index do |job, index|
       precompute_and_write_student_hashes!(job[:date_timestamp], job[:authorized_student_ids])
-      puts "Wrote document #{index+1}..."
+      log.puts "Wrote document #{index+1}..."
     end
-    puts 'Done.'
+    log.puts 'Done.'
   end
 
   private
