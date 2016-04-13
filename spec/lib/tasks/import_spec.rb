@@ -14,7 +14,7 @@ RSpec.describe Import do
 
     it 'invokes all the commands and returns the correct kind of values' do
       expect(commands[1]).to eq nil
-      expect(commands[2]).to eq ['HEA']
+      expect(commands[2]).to eq ['HEA', 'WSNS']
       expect(commands[3]).to be_a Array
       expect(commands[4]).to eq []
       expect(commands[5]).to eq nil
