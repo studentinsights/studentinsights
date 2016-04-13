@@ -1,26 +1,4 @@
-# Given a map of integers or ranges to weights, e.g
-# 
-#     d = {
-#      0 => 0.83,
-#      1 => 0.10,
-#      (2..3) => 0.07,
-#    }
-# 
-# Randomly chooses an integer in a correctly weighted way.
-# Range keys mean that we sample uniformly from the range.
-def sample_from_distribution(distribution)
-    r = Random::rand(1.0)
-    distribution.each {|k, v|
-        if r < v
-            return (if k.is_a?(Range) then k.to_a.sample else k end)
-        else
-            r -= v
-        end
-    }
-end
-
 class FakeStudent
-
   def initialize(homeroom)
     @homeroom = homeroom
     @student = Student.create(data)
@@ -196,7 +174,7 @@ class FakeStudent
       (6..15) => 0.01,
     }
 
-    events_for_year = sample_from_distribution(d)
+    events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
       # Randomly determine the school year it occurred.
       n = [0, 1, 2, 3, 4].sample
