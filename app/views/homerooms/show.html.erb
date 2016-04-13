@@ -64,9 +64,6 @@
               <td colspan="2" class="mcas_math"><p class="smalltype">MCAS: Math</p></td>
               <td colspan="2" class="mcas_ela"><p class="smalltype">MCAS: ELA</p></td>
             <% end %>
-            <td colspan="1" class="interventions">
-              <p class="smalltype">Interventions</p>
-            </td>
           </tr>
           <tr class="column-names">
             <!-- COLUMN HEADERS -->
@@ -120,9 +117,6 @@
                 <span class="table-header">Growth</span>
               </th>
             <% end %>
-            <th class="interventions"
-              <span class="table-header">ATP Hours</span>
-            </th>
           </tr>
        </thead>
         <% if @rows.present? %>
@@ -186,10 +180,6 @@
                 </td>
               <% end %>
 
-              <td class="interventions number-of-hours"
-                  title="<%= row[:most_recent_atp_number_of_hours] %> school year">
-                  <%= row[:most_recent_atp_number_of_hours] %>
-              </td>
             </tr>
 
           <% end %>
