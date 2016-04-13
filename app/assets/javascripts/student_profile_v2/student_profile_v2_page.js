@@ -28,72 +28,33 @@
     summaryContainer: {
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'stretch',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      width: '95%',
-
+      background: '#eee',
+      marginLeft: 20,
+      marginRight: 20
     },
     detailsContainer: {
       margin: 30
     },
     academicColumn: {
-      textAlign: 'left',
-    },
-    profileColumn: {
-      background: '#ededed'
-    },
-    interventionsColumn: {
-      background: '#ededed'
+      textAlign: 'center',
+      flex: 1,
+      maxWidth: 220
     },
     column: {
       flex: 1,
-      padding: '22px 26px 16px 26px',
-      cursor: 'pointer',
-      borderColor: 'white',
-      borderTop: 0,
-      height: '80%',
-      margin: 0,
-      borderRadius: '0 0 5px 5px',
-      width: '100%'
+      padding: 15,
+      cursor: 'pointer'
     },
-    columnContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      margin: '0 5px 0 0',
-      borderRadius: '5px 5px 5px 5px',
-      border: '1px solid #ccc',
-      width: '20%'
-     },
     selectedColumn: {
-      borderStyle: 'solid',
-      borderColor: '#3177c9',
-      borderWidth: '0 5px 5px 5px',
-      padding: '22px 21px 11px 21px',
-    },
-    selectedTab: {
-      background: '#3177c9',
-      color: 'white',
-      borderBottom: 0,
+      border: '5px solid rgba(49, 119, 201, 0.64)',
+      padding: 10
     },
     summaryWrapper: {
       paddingBottom: 10
     },
-    tab: {
-      fontWeight: 'bold',
-      width: '100%',
-      height: 40,
-      borderBottom: 0,
-      textAlign: 'center',
-      padding: '10px 5px 5px 5px',
-      margin: 0,
-      borderRadius: '5px 5px 0 0',
-      background: 'white'
-    },
     sparklineWidth: 150,
     sparklineHeight: 50
   };
-
 
   var StudentProfileV2Page = window.shared.StudentProfileV2Page = React.createClass({
     displayName: 'StudentProfileV2Page',
@@ -154,9 +115,6 @@
     selectedColumnStyles: function(columnKey) {
       return (columnKey === this.props.selectedColumnKey) ? styles.selectedColumn : {};
     },
-    selectedTabStyles: function(columnKey) {
-      return (columnKey === this.props.selectedColumnKey) ? styles.selectedTab : {};
-    },
 
     render: function() {
       return dom.div({ className: 'StudentProfileV2Page' },
@@ -168,7 +126,6 @@
           this.renderMathColumn(),
           this.renderAttendanceColumn(),
           this.renderInterventionsColumn()
-
         ),
         dom.div({ style: styles.detailsContainer }, this.renderSectionDetails())
       );
@@ -241,32 +198,30 @@
         demographicsElements.push('ACCESS Composite score: ' + this.props.access.composite);
       };
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Overview"),
-      dom.div({
-        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn),
+      return dom.div({
+        style: merge(styles.column, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       },
         createEl(SummaryList, {
           title: 'Demographics',
           elements: demographicsElements,
         })
-      ));
+      );
     },
 
     renderInterventionsColumn: function() {
       var student = this.props.student;
       var columnKey = 'interventions';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Interventions"),
-      dom.div({
+      return dom.div({
         className: 'interventions-column',
-        style: merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey)),
+        style: merge(styles.column, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
       }, this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
         this.renderServices(student),
         this.renderStaff(student)
-      ])));
+      ]));
     },
 
     renderPlacement: function(student) {
@@ -332,8 +287,7 @@
       var chartData = this.props.chartData;
       var columnKey = 'ela';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Reading"),
-      dom.div({
+      return dom.div({
         className: 'ela-background',
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
@@ -352,7 +306,7 @@
           })
         }),
         this.renderMcasElaSgpOrDibels()
-      ));
+      );
     },
 
     renderMcasElaSgpOrDibels: function () {
@@ -383,8 +337,7 @@
       var chartData = this.props.chartData;
       var columnKey = 'math';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey)}, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Math"),
-      dom.div({
+      return dom.div({
         className: 'math-background',
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
@@ -407,7 +360,7 @@
           value: student.most_recent_mcas_math_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_math_growth || [])
         })
-      ));
+      );
     },
 
     renderAttendanceColumn: function() {
@@ -415,8 +368,7 @@
       var attendanceData = this.props.attendanceData;
       var columnKey = 'attendance';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Attendance and Behavior"),
-        dom.div({
+      return dom.div({
         className: 'attendance-background',
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
         onClick: this.onColumnClicked.bind(this, columnKey)
@@ -436,7 +388,7 @@
           thresholdValue: Scales.tardies.threshold,
           shouldDrawCircles: false
         })
-      ));
+      );
     },
 
     renderAttendanceEventsSummary: function(attendanceEvents, flexibleRangeFn, props) {
