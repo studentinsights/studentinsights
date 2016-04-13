@@ -55,7 +55,6 @@ $(function() {
         'mcas_ela': 'MCAS ELA',
         'access': 'Access',
         'dibels': 'DIBELS',
-        'interventions': 'Interventions'
         // 'attendance': 'Attendance',
         // 'discipline': 'Discipline',
     };
