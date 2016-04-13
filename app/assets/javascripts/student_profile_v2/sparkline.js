@@ -31,7 +31,75 @@
       // TODO(kr) work more on coloring across all charts
       // for now, disable since the mapping to color isn't clear enough and
       // doesn't match the longer-view charts
-      var color = function() { return '#666'; };
+      function makeGradientColor(color1, color2, percent) {
+          var newColor = {};
+
+          function makeChannel(a, b) {
+              return(a + Math.round((b-a)*(percent/100)));
+          }
+
+          function makeColorPiece(num) {
+              num = Math.min(num, 255);   // not more than 255
+              num = Math.max(num, 0);     // not less than 0
+              var str = num.toString(16);
+              if (str.length < 2) {
+                  str = "0" + str;
+              }
+              return(str);
+          }
+
+          newColor.r = makeChannel(color1.r, color2.r);
+          newColor.g = makeChannel(color1.g, color2.g);
+          newColor.b = makeChannel(color1.b, color2.b);
+          newColor.cssColor = "#" + 
+                              makeColorPiece(newColor.r) + 
+                              makeColorPiece(newColor.g) + 
+                              makeColorPiece(newColor.b);
+          return(newColor);
+      }
+
+      var color = function(val) {
+          //val represents a number of how much the line on the 
+          //chart increased or decreased.
+
+          //If the line in the viewable area of the chart 
+          //increases, color it green, otherwise color it red.
+
+          //This amplifies the amount of the move so that 
+          //the colorizing significantly colorizes small moves
+          //
+          //Perhaps an argument could be made to colorize against
+          //the maximum change from the maximum student
+          if (val < 5){
+             val = val * 8
+          }
+
+          if (val > 100)    {  val = 100;  }
+          else if (val < -100) {  val = -100;    }
+
+          var red = new Object();
+          red.r = 255;
+          red.g = 0;
+          red.b = 0;
+
+          var blue = new Object();
+          blue.r = 0;
+          blue.g = 0;
+          blue.b = 255;
+
+          var grey = new Object();
+          grey.r = 120;
+          grey.g = 120;
+          grey.b = 120;
+          if (val > 0){
+              var stuff = makeGradientColor(grey, blue, val)
+          }
+          else{
+              var stuff = makeGradientColor(grey, red, -val)
+          }
+          var rgb = "rgb(" + stuff.r + "," + stuff.g + "," + stuff.b + ")"
+          return rgb;
+      };
 
       var x = d3.time.scale()
         .domain(this.props.dateRange)
@@ -43,8 +111,13 @@
         .x(function(d) { return x(this.quadDate(d)); }.bind(this))
         .y(function(d) { return y(d[3]); })
         .interpolate('linear');
-
-      var lineColor = color(this.delta(this.props.quads));
+      //console.log(this.props);
+      if (this.props.colorize == true){
+        var lineColor = color(this.delta(this.props));
+      }
+      else{
+        var lineColor = color(0);  //0 means default grey color
+      }
       return dom.div({ className: 'Sparkline', style: { overflow: 'hidden' }},
         dom.svg({
           height: this.props.height,
@@ -93,19 +166,67 @@
         });
       });
     },
+    delta: function(local_props) {
+      //This method returns a number representing the amount of gain or loss 
+      //in the viewable box of the chart.  If the window cuts off the
+      //line between two points, the midpoint between the two points is 
+      //estimated.  This is a hack because the chart is hidden from view by 
+      //the css overflow:hidden property and we have to be clever
+      //to find that point again so we can decide is the visible slope is
+      //positive or negative, to color the line correctly.
 
-    delta: function(quads) {
-      var filteredQuadValues = _.compact(quads.map(function(quad) {
-        var date = this.quadDate(quad);
-        if (date > this.props.dateRange[0] && date < this.props.dateRange[1]) return null;
-        return quad[3];
-      }, this));
-      if (filteredQuadValues.length < 2) return 0;
-      return _.last(filteredQuadValues) - _.first(filteredQuadValues);
+      //If there are no quads for data points, this method returns zero.
+      //console.log(local_props);
+
+      var leftWindowDate = local_props.dateRange[0];
+      //flipPoint tells us the first index where the line got cut off by the overflow:hidden
+      var flipPoint = -1;
+      for(index = 0; index < local_props.quads.length; index++){
+          var pointdate = new Date(local_props.quads[index][0] + "-" + 
+                  local_props.quads[index][1] + "-" + 
+                  local_props.quads[index][2]);
+          if (pointdate < leftWindowDate){
+              flipPoint = index; 
+          }
+      }
+      //console.log("flipPoint: " + flipPoint);
+      if (flipPoint == -1){
+          return 0;
+      }
+      if (flipPoint == local_props.quads.length-1){
+          return local_props.quads[local_props.quads.length-1] - local_props.quads[local_props.quads.length-2];
+      }
+
+      var rightDate = this.quadDate(local_props.quads[flipPoint+1]);
+      var leftDate =  this.quadDate(local_props.quads[flipPoint]);
+      //what percentage is the leftMost Boundary date of the window between
+      //the two data points found left and right of that leftmost point.
+      var percentageBetweenDates = Math.round(100 - ((rightDate.valueOf() - 
+          leftDate.valueOf()) * 100 ) / local_props.dateRange[0].valueOf());
+
+      //console.log("percentageBetweenDates: " + percentageBetweenDates);
+
+      var left_value1 = local_props.quads[flipPoint][3];
+      var left_value2 = local_props.quads[flipPoint+1][3];
+      var right_value = local_props.quads[local_props.quads.length-1][3];
+
+      var difference = left_value2 - left_value1;   
+      //We need the difference value with positive/negative sign, so we can calculate slope
+
+      //console.log("left_value1: " + left_value1);
+      //The leftmost value is the percentage we are at between the dates plus the left.
+      var leftWindowValue = (left_value1 + ((percentageBetweenDates /100) * difference));
+
+      //console.log("leftWindowValue: " + leftWindowValue);
+      var gain = right_value - leftWindowValue;    //This is the gain or loss in the viewable window
+      //console.log("gain is: " + gain);
+      return gain;
+
+
     },
-
-    quadDate: function(quad) { 
+    quadDate: function(quad) {
       return new Date(quad[0], quad[1] - 1, quad[2]);
     }
+
   });
 })();
