@@ -62,21 +62,20 @@
 
 #column-picker-toggle {
   cursor: pointer;
-  padding: 10px;
-  margin-right: 10px;
+  float: right;
 }
 
 #column-picker {
   display: none;
   position: absolute;
-  right: 0px;
+  right: 25px;
+  top: 330px;
   background-color: white;
   z-index: 100;
   border: 2px solid $backgroud;
   border-radius: 4px;
   padding: 20px;
   text-align: left;
-  line-height: 150%;
 
   p {
     border-bottom: 1px solid $dark-line;

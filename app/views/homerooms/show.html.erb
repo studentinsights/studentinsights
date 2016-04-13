@@ -30,7 +30,22 @@
 
     <div id="roster-chart"></div>
 
+
     <div id="roster-table-wrapper">
+
+      <div id="column-picker-toggle">
+        <img src="<%= asset_path('menu.svg') %>"/>
+      </div>
+      <div id="column-picker">
+        <p>Select columns</p>
+        <form id="column-listing">
+          <div id="column-template">
+            <input type="checkbox" name="" value="">
+            <label></label>
+          </div>
+        </form>
+      </div>
+
       <table id="roster-table" border="0" cellspacing="0" cellpadding="10" class="sort-default">
         <thead>
           <tr class="column-groups">
