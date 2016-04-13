@@ -17,9 +17,6 @@ class HomeroomsController < ApplicationController
     # Dropdown for homeroom navigation
     @homerooms_by_name = current_educator.allowed_homerooms_by_name
 
-    # Bulk intervention assignment in far-right column
-    @bulk_intervention_assignment = BulkInterventionAssignment.new
-
     # For links to STAR pages
     @school_id = @homeroom.students.map(&:school_id).uniq.first # should be only one
     @star_homeroom_anchor = "equal:homeroom_name:#{@homeroom.name}"
