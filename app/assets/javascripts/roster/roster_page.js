@@ -126,9 +126,7 @@ $(function() {
 
     // Turn table rows into links to student profiles
     $('tbody td').click(function () {
-      if (!$(this).hasClass('bulk-intervention')) {
-        location.href = $(this).attr('href');
-      }
+      location.href = $(this).attr('href');
     });
 
     // Make Risk Level summary chart
