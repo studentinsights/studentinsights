@@ -209,14 +209,4 @@ class Student < ActiveRecord::Base
     end
   end
 
-  ## INTERVENTIONS ##
-
-  def most_recent_atp_hours
-    if interventions.most_recent_atp.present?
-      interventions.most_recent_atp.number_of_hours
-    else
-      0
-    end
-  end
-
 end
