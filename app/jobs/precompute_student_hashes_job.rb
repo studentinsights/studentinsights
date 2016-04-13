@@ -17,14 +17,18 @@ class PrecomputeStudentHashesJob
   end
 
   private
+
   def school_overview_precompute_jobs(date_timestamp)
-    all_jobs = Educator.all.map do |educator|
-      {
-        date_timestamp: date_timestamp,
-        authorized_student_ids: educator.students_for_school_overview.map(&:id)
-      }
-    end
-    all_jobs.uniq
+    Educator.all.map { |educator| educator_to_job(educator, date_timestamp) }.uniq.compact
+  end
+
+  def educator_to_job(educator, date_timestamp)
+    return unless educator.students_for_school_overview.size > 0
+
+    return {
+      date_timestamp: date_timestamp,
+      authorized_student_ids: educator.students_for_school_overview.map(&:id)
+    }
   end
 
   def precompute_and_write_student_hashes!(date_timestamp, authorized_student_ids)
