@@ -59,24 +59,24 @@
       }
 
       var color = function(val) {
-          //val represents a number of how much the line on the chart increased
-          //or decreased.
+          //val represents a number of how much the line on the 
+          //chart increased or decreased.
 
-          //If the line in the viewable area of the chart increases, color it green
-          //otherwise color it red.
+          //If the line in the viewable area of the chart 
+          //increases, color it green, otherwise color it red.
 
-          //if (d >= 0){ return 'green'; }
-          //else       { return 'red'; }
-          val = val * 2
-          //val = val + 50;   //Casting a range of roughly -100 to 100 to be from 0 to 100
-          //console.log("val: " + val);
+          //This amplifies the amount of the move so that 
+          //the colorizing significantly colorizes small moves
+          //
+          //Perhaps an argument could be made to colorize against
+          //the maximum change from the maximum student
+          if (val < 5){
+             val = val * 8
+          }
 
           if (val > 100)    {  val = 100;  }
           else if (val < -100) {  val = -100;    }
 
-          //var r = Math.floor((255 * (100 - val)) / 100),
-          //    g = Math.floor((255 * val) / 100),
-          //    b = 0;
           var red = new Object();
           red.r = 255;
           red.g = 0;
@@ -97,13 +97,8 @@
           else{
               var stuff = makeGradientColor(grey, red, -val)
           }
-          //console.log(stuff.r + " " + stuff.g + " " + stuff.b);
-
           var rgb = "rgb(" + stuff.r + "," + stuff.g + "," + stuff.b + ")"
-          //console.log("rgb: " + rgb);
           return rgb;
-           
-
       };
 
       var x = d3.time.scale()
