@@ -22,7 +22,7 @@ class Import
 
     class_option :school,
       type: :array,
-      default: ['HEA'],
+      default: ['HEA', 'WSNS'],
       aliases: "-s",
       desc: "Scope by school local IDs; use ELEM to import all elementary schools"
     class_option :first_time,
