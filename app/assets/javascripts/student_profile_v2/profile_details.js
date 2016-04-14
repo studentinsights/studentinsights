@@ -54,6 +54,7 @@
       student: React.PropTypes.object,
       feed: React.PropTypes.object,
       access: React.PropTypes.object,
+      dibels: React.PropTypes.object,
       chartData: React.PropTypes.object,
       attendanceData: React.PropTypes.object,
     },
@@ -130,7 +131,7 @@
           date: moment(obj.created_at_timestamp).toDate()
         });
       });
-      _.each(this.props.feed.dibels, function(obj) {
+      _.each(this.props.dibels, function(obj) {
         // TODO(kr) need to investigate further, whether this is local demo data or production
         // data quality issue
         if (obj.performance_level === null) return;

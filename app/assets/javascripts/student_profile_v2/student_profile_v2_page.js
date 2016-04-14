@@ -199,6 +199,7 @@
             student: this.props.student,
             feed: this.props.feed,
             access: this.props.access,
+            dibels: this.props.dibels,
             chartData: this.props.chartData,
             attendanceData: this.props.attendanceData,
           }
