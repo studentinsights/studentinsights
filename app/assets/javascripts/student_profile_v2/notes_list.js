@@ -51,7 +51,35 @@
       noteMoment: React.PropTypes.instanceOf(moment).isRequired,
       educatorId: React.PropTypes.number.isRequired,
       badge: React.PropTypes.element.isRequired,
-      text: React.PropTypes.string.isRequired
+      text: React.PropTypes.string.isRequired,
+      onSave: React.PropTypes.func,
+      eventNoteId: React.PropTypes.number,
+      eventNoteTypeId: React.PropTypes.number
+    },
+
+    getInitialState: function() {
+      return {
+        isEditingNote: false,
+        text: this.props.text
+      };
+    },
+
+    onClickEdit: function () {
+      this.setState({ isEditingNote: true });
+    },
+
+    onChangeText: function(event) {
+      this.setState({ text: event.target.value });
+    },
+
+    onClickSave: function(event) {
+      var params = {
+        id: this.props.eventNoteId,
+        eventNoteTypeId: this.props.eventNoteTypeId,
+        text: this.state.text
+      };
+      this.props.onSave(params);
+      this.setState({ isEditingNote: false });
     },
 
     render: function() {
@@ -67,7 +95,27 @@
           }))
         ),
         dom.div({ style: { whiteSpace: 'pre-wrap' } },
-          dom.div({ style: styles.noteText }, this.props.text)
+          this.state.isEditingNote
+            ? dom.div({},
+              dom.textarea({
+                rows: 10,
+                // style: styles.textarea,
+                ref: function(ref) { this.textareaRef = ref; }.bind(this),
+                value: this.state.text,
+                onChange: this.onChangeText
+              }),
+              dom.button({
+                className: 'btn save',
+                onClick: this.onClickSave
+              }, 'Save')
+            )
+            : dom.div({ style: styles.noteText },
+              this.props.text,
+              dom.button({
+                className: 'btn edit-note',
+                onClick: this.onClickEdit
+              }, 'Edit')
+            )
         )
       );
     }
@@ -82,7 +130,8 @@
     propTypes: {
       feed: PropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
-      eventNoteTypesIndex: React.PropTypes.object.isRequired
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
+      onSaveNote: React.PropTypes.func.isRequired
     },
 
     render: function() {
@@ -106,11 +155,14 @@
     renderEventNote: function(eventNote) {
       return createEl(NoteCard, {
         key: ['event_note', eventNote.id].join(),
+        eventNoteId: eventNote.id,
+        eventNoteTypeId: eventNote.event_note_type_id,
         noteMoment: moment.utc(eventNote.recorded_at),
         badge: this.renderEventNoteTypeBadge(eventNote.event_note_type_id),
         educatorId: eventNote.educator_id,
         text: eventNote.text,
-        educatorsIndex: this.props.educatorsIndex
+        educatorsIndex: this.props.educatorsIndex,
+        onSave: this.props.onSaveNote
       });
     },
 

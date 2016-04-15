@@ -81,7 +81,23 @@
     },
 
     onSaveNotesDone: function(response) {
-      var updatedEventNotes = this.state.feed.event_notes.concat([response]);
+      var updatedEventNotes;
+      var foundEventNote = false;
+
+      updatedEventNotes = this.state.feed.event_notes.map(function(eventNote) {
+        if (eventNote.id === response.id) {
+          foundEventNote = true;
+          return merge(eventNote, response);
+        }
+        else {
+          return eventNote;
+        }
+      });
+
+      if (!foundEventNote) {
+        updatedEventNotes = this.state.feed.event_notes.concat([response]);
+      }
+
       var updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
       this.setState({
         feed: updatedFeed,

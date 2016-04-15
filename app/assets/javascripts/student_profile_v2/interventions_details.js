@@ -98,7 +98,8 @@
           createEl(NotesList, {
             feed: this.props.feed,
             educatorsIndex: this.props.educatorsIndex,
-            eventNoteTypesIndex: this.props.eventNoteTypesIndex
+            eventNoteTypesIndex: this.props.eventNoteTypesIndex,
+            onSaveNote: this.onClickSaveNotes
           })
         ),
         dom.div({ style: styles.servicesContainer },

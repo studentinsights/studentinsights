@@ -4,15 +4,35 @@
   var Api = window.shared.Api = function() {};
   Api.prototype = {
     saveNotes: function(studentId, eventNoteParams) {
-      var url = '/students/' + studentId + '/event_note.json';
-      var body = {
+      if (eventNoteParams.id) {
+        return this._updateNote(studentId, eventNoteParams);
+      }
+      else {
+        return this._createNote(studentId, eventNoteParams);
+      }
+    },
+
+    _createNote: function(studentId, eventNoteParams) {
+      return this._post('/students/' + studentId + '/event_notes.json', {
         event_note: {
           event_note_type_id: eventNoteParams.eventNoteTypeId,
           text: eventNoteParams.text,
           student_id: studentId
         }
-      };
-      return this._post(url, body);
+      });
+    },
+
+    _updateNote: function(studentId, eventNoteParams) {
+      var id = eventNoteParams.id;
+
+      return this._put('/students/' + studentId + '/event_notes/' + id + '.json', {
+        event_note: {
+          id: eventNoteParams.id,
+          event_note_type_id: eventNoteParams.eventNoteTypeId,
+          text: eventNoteParams.text,
+          student_id: studentId
+        }
+      });
     },
 
     saveService: function(studentId, serviceParams) {
@@ -37,6 +57,16 @@
       return $.ajax({
         url: url,
         method: 'POST',
+        contentType: 'application/json; charset=UTF-8',
+        dataType: 'json',
+        data: JSON.stringify(body)
+      });
+    },
+
+    _put: function(url, body) {
+      return $.ajax({
+        url: url,
+        method: 'PATCH',
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
         data: JSON.stringify(body)
