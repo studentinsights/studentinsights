@@ -82,7 +82,7 @@
   //= require ./student_profile/math_details
   //= require ./student_profile/interventions_details
 // page:
-  //= require ./student_profile/student_profile_v2_page
+  //= require ./student_profile/student_profile_page
   //= require_tree ./student_profile
 
 //= require_tree ./student

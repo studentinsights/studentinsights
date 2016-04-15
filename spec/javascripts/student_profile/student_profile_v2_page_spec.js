@@ -1,6 +1,6 @@
 //= require ./fixtures
 
-describe('StudentProfileV2Page', function() {
+describe('StudentProfilePage', function() {
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
@@ -8,7 +8,7 @@ describe('StudentProfileV2Page', function() {
   var SpecSugar = window.shared.SpecSugar;
   var Fixtures = window.shared.Fixtures;
   var PageContainer = window.shared.PageContainer;
-  var StudentProfileV2Page = window.shared.StudentProfileV2Page;
+  var StudentProfilePage = window.shared.StudentProfilePage;
 
   var helpers = {
     renderStudentProfilePage: function(el, grade, dibels) {
