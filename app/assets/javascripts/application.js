@@ -60,6 +60,7 @@
 // pure ui components:
   //= require ./student_profile/risk_bubble
   //= require ./student_profile/service_color
+  //= require ./student_profile/provided_by_educator_dropdown
   //= require ./student_profile/profile_chart_settings
   //= require ./student_profile/educator
   //= require ./student_profile/datepicker

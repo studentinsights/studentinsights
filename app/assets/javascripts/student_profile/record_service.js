@@ -9,6 +9,8 @@
   var Datepicker = window.shared.Datepicker;
   var serviceColor = window.shared.serviceColor;
 
+  var ProvidedByEducatorDropdown = window.shared.ProvidedByEducatorDropdown;
+
   var styles = {
     dialog: {
       border: '1px solid #ccc',
@@ -155,13 +157,8 @@
         { return o.label; }
       );
 
-      return createEl(ReactSelect, {
-        name: 'assigned-educator-select',
-        clearable: false,
-        placeholder: 'Type name..',
-        value: this.state.providedByEducatorId,
-        options: sortedOptions,
-        onChange: this.onAssignedEducatorChanged
+      return createEl(ProvidedByEducatorDropdown, {
+        educatorsIndex: this.props.educatorsIndex
       });
     },
 
