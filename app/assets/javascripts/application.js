@@ -85,7 +85,6 @@
   //= require ./student_profile/student_profile_page
   //= require_tree ./student_profile
 
-//= require_tree ./student
 //= require_tree ./roster
 //= require_tree ./school_overview
 //= require_tree .
