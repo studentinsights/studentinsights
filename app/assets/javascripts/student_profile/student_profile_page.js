@@ -96,8 +96,8 @@
   };
 
 
-  var StudentProfileV2Page = window.shared.StudentProfileV2Page = React.createClass({
-    displayName: 'StudentProfileV2Page',
+  var StudentProfilePage = window.shared.StudentProfilePage = React.createClass({
+    displayName: 'StudentProfilePage',
 
     propTypes: {
       //context
@@ -160,7 +160,7 @@
     },
 
     render: function() {
-      return dom.div({ className: 'StudentProfileV2Page' },
+      return dom.div({ className: 'StudentProfilePage' },
         this.renderSaveStatus(),
         createEl(StudentProfileHeader, { student: this.props.student }),
         dom.div({ className: 'summary-container', style: styles.summaryContainer },

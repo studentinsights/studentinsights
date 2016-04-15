@@ -56,36 +56,35 @@
 //= require ./components/collapsable_table
 //= require_tree ./components
 
-// student profile page v2:
+// student profile page:
 // pure ui components:
-  //= require ./student_profile_v2/risk_bubble
-  //= require ./student_profile_v2/service_color
-  //= require ./student/profile_charts/profile_chart_settings
-  //= require ./student_profile_v2/educator
-  //= require ./student_profile_v2/datepicker
-  //= require ./student_profile_v2/highcharts_wrapper
-  //= require ./student_profile_v2/sparkline
-  //= require ./student_profile_v2/quad_converter
-  //= require ./student_profile_v2/scales
-  //= require ./student_profile_v2/academic_summary
-  //= require ./student_profile_v2/take_notes
-  //= require ./student_profile_v2/notes_list
-  //= require ./student_profile_v2/services_list
-  //= require ./student_profile_v2/record_service
-  //= require ./student_profile_v2/summary_list
-  //= require ./student_profile_v2/profile_chart
-  //= require ./student_profile_v2/student_profile_header
+  //= require ./student_profile/risk_bubble
+  //= require ./student_profile/service_color
+  //= require ./student_profile/profile_chart_settings
+  //= require ./student_profile/educator
+  //= require ./student_profile/datepicker
+  //= require ./student_profile/highcharts_wrapper
+  //= require ./student_profile/sparkline
+  //= require ./student_profile/quad_converter
+  //= require ./student_profile/scales
+  //= require ./student_profile/academic_summary
+  //= require ./student_profile/take_notes
+  //= require ./student_profile/notes_list
+  //= require ./student_profile/services_list
+  //= require ./student_profile/record_service
+  //= require ./student_profile/summary_list
+  //= require ./student_profile/profile_chart
+  //= require ./student_profile/student_profile_header
 // details:
-  //= require ./student_profile_v2/profile_details
-  //= require ./student_profile_v2/attendance_details
-  //= require ./student_profile_v2/ela_details
-  //= require ./student_profile_v2/math_details
-  //= require ./student_profile_v2/interventions_details
+  //= require ./student_profile/profile_details
+  //= require ./student_profile/attendance_details
+  //= require ./student_profile/ela_details
+  //= require ./student_profile/math_details
+  //= require ./student_profile/interventions_details
 // page:
-  //= require ./student_profile_v2/student_profile_v2_page
-  //= require_tree ./student_profile_v2
+  //= require ./student_profile/student_profile_page
+  //= require_tree ./student_profile
 
-//= require_tree ./student
 //= require_tree ./roster
 //= require_tree ./school_overview
 //= require_tree .
