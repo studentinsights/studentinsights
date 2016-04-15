@@ -144,6 +144,17 @@ $(function() {
           filters: this.state.filters,
           onFilterToggled: this.onFilterToggled
         })),
+        dom.div({
+          style: {
+            background: 'red',
+            color: 'white',
+            fontWeight: 'bold',
+            padding: 20
+          },
+        },
+          dom.span({}, 'This is an experimental prototype page!'),
+          dom.span({ style: { marginLeft: 10 } }, 'Please try it out and share your feedback.')
+        ),
         dom.div({ style: { position: 'relative' } },
           dom.div({ style: { flex: 1 } },
             dom.div({ style: { display: 'flex', padding: 20 } },
