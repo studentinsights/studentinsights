@@ -64,9 +64,9 @@
       var idsFromNotes = _.pluck(mergedNotes, 'educator_id');
       var idsFromServices = _.pluck(feed.services.active, 'provided_by_educator_id');
       var uniqueIds = _.unique(idsFromNotes.concat(idsFromServices));
-      return _.filter(uniqueIds, function(id) {
-        return id !== null;
-      });
+
+      // Filter out null ids: for services with no recorded provided_by_educator
+      return _.filter(uniqueIds, function(id) { return id !== null; });
     }
   };
 })();
