@@ -27,7 +27,6 @@ Rails.application.routes.draw do
   resources :interventions, only: [:create, :destroy]
   resources :progress_notes, only: [:create]
   resources :student_notes, only: [:create]
-  resources :bulk_intervention_assignments, only: [:new, :create]
 
   resources :schools, only: [:show] do
     get :star_reading, on: :member

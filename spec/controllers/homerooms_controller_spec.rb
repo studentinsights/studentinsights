@@ -126,6 +126,7 @@ describe HomeroomsController, :type => :controller do
 
           context 'educator does not have correct grade level access, but has access to a different grade' do
             let(:school) { FactoryGirl.create(:school) }
+            before { FactoryGirl.create(:student, school: school) }
             let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['3'], school: school )}
             let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
 
@@ -163,6 +164,7 @@ describe HomeroomsController, :type => :controller do
         end
 
         context 'garbage homeroom params' do
+          before { FactoryGirl.create(:student, school: school) }
           it 'redirects to overview page' do
             make_request('garbage homeroom ids rule')
             expect(response).to redirect_to(school_url(school))

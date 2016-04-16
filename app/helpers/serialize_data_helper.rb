@@ -69,15 +69,6 @@ module SerializeDataHelper
     }
   end
 
-  # Used to send down all types, for lookups from otherrecords
-  def educators_index
-    index = {}
-    Educator.all.each do |educator|
-      index[educator.id] = educator.as_json.symbolize_keys.slice(:id, :email, :full_name)
-    end
-    index
-  end
-
   def service_types_index
     index = {}
     ServiceType.all.each do |service_type|
