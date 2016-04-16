@@ -124,13 +124,6 @@
           date: moment(obj.start_date_timestamp, "YYYY-MM-DD").toDate()
         });
       });
-      _.each(this.props.feed.deprecated.notes, function(obj){
-        events.push({
-          type: 'Note',
-          message: obj.content,
-          date: moment(obj.created_at_timestamp).toDate()
-        });
-      });
       _.each(this.props.dibels, function(obj) {
         // TODO(kr) need to investigate further, whether this is local demo data or production
         // data quality issue

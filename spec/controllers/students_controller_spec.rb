@@ -45,12 +45,11 @@ describe StudentsController, :type => :controller do
           make_request({ student_id: student.id, format: :html })
           expect(serialized_data[:current_educator]).to eq educator
           expect(serialized_data[:student]["id"]).to eq student.id
-          expect(serialized_data[:notes]).to eq []
           expect(serialized_data[:dibels]).to eq []
           expect(serialized_data[:feed]).to eq ({
             event_notes: [],
             services: {active: [], discontinued: []},
-            deprecated: {notes: [], interventions: []}
+            deprecated: {interventions: []}
           })
 
           expect(serialized_data[:chart_data]).to include(:attendance_events_school_years)

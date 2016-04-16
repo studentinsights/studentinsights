@@ -9,12 +9,6 @@
   var FeedHelpers = window.shared.FeedHelpers = {
     // Merges data from event_notes and deprecated tables (notes, interventions).
     mergedNotes: function(feed) {
-      var deprecatedNotes = feed.deprecated.notes.map(function(deprecatedNote) {
-        return merge(deprecatedNote, {
-          type: 'deprecated_notes',
-          sort_timestamp: deprecatedNote.created_at_timestamp
-        });
-      });
       var deprecatedInterventions = feed.deprecated.interventions.map(function(intervention) {
         return merge(intervention, {
           type: 'deprecated_interventions',
@@ -38,7 +32,6 @@
       });
 
       var mergedNotes = eventNotes.concat.apply(eventNotes, [
-        deprecatedNotes,
         deprecatedInterventions,
         deprecatedProgressNotes
       ]);
@@ -49,7 +42,6 @@
       if (mergedNote.type !== mergedNoteType) return false;
       switch (mergedNote.type) {
         case 'event_notes': return (mergedNote.event_note_type_id === mergedNoteTypeId);
-        case 'deprecated_notes': return true;
         case 'deprecated_interventions': return (mergedNote.intervention_type_id === mergedNoteTypeId);
         case 'deprecated_progress_notes': return (mergedNote.intervention.intervention_type_id === mergedNoteTypeId);
       }
