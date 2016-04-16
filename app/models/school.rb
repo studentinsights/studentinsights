@@ -4,6 +4,18 @@ class School < ActiveRecord::Base
   has_many :students
   has_many :educators
 
+  def self.with_students
+    School.all.select { |s| s.students.count > 0 }
+  end
+
+  def educators_no_test_accounts
+    educators.where.not(local_id: 'LDAP')
+  end
+
+  def educators_index
+    educators_no_test_accounts.map { |e| [e.id, e.for_index] }.to_h
+  end
+
   def self.seed_somerville_schools
     School.create([
       { state_id: 15, local_id: "BRN", name: "Benjamin G Brown", school_type: "ES" },

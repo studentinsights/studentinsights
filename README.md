@@ -54,7 +54,7 @@ It's one thing to have data, but acting on it to improve student outcomes is wha
 It also allows capturing meeting notes as part of the student's record, which is particularly important on interdisciplinary teams.
 
 #### User experience
-This is a web product, integrated with the Aspen SIS, district LDAP authorization and STAR assessments.  Principals and teachers sign in using their usual credentials, and can access the product securely anywhere they have internet access.  The project is primarily targeted browser is Internet Explorer, because that's what's used in the Somerville school district.
+This is a web product, integrated with the Aspen SIS, district LDAP authorization and STAR assessments.  Principals and teachers sign in using their usual credentials, and can access the product securely anywhere they have internet access.
 
 
 ## Project priorities
@@ -63,7 +63,7 @@ This is a web product, integrated with the Aspen SIS, district LDAP authorizatio
  3. SPED referral packet
 
 ## Contributing
-We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge. 
+We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge.
 
 ## How it works
 The project is a Rails app with a Postgres database.  There are background tasks that replicate data from the Aspen SIS system and STAR assessment system into the Postgres database.  This enables rapid iteration and experimentation on new product features with minimal risk to these existing production systems.  The Postgres database is the system of record for unique data captured by the Student Insights product (eg., notes from clinical meetings and information about targeted interventions that students are receiving).  Authentication is handled by the district's LDAP service.
@@ -161,6 +161,14 @@ var ProductTable = React.createClass({
 ```
 
 There are also a few places where we use [Flux](https://facebook.github.io/flux/docs/overview.html) patterns.
+
+## Browser/OS Targeting
+
+Category | Target | Comment
+--- | --- | ---
+Browser | IE 11 | "Should be all IE 11 by now." <br>    – John Breslin, Technology Department, Somerville Public Schools
+OS | Windows 7 and 8.1 | "Maybe some Win10 next year." <br>    – John Breslin, Technology Department, Somerville Public Schools
+
 
 ## Deployment
 ### Importing real data

@@ -5,7 +5,7 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var Routes = window.shared.Routes;
-  var StudentProfileV2Page = window.shared.StudentProfileV2Page;
+  var StudentProfilePage = window.shared.StudentProfilePage;
   var PropTypes = window.shared.PropTypes;
   var Api = window.shared.Api;
   var fromPair = window.shared.fromPair;
@@ -163,7 +163,7 @@
 
     render: function() {
       return dom.div({ className: 'PageContainer' },
-        createEl(StudentProfileV2Page, merge(_.pick(this.state,
+        createEl(StudentProfilePage, merge(_.pick(this.state,
           'currentEducator',
           'interventionTypesIndex',
           'educatorsIndex',
