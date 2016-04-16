@@ -187,7 +187,7 @@ RSpec.describe EducatorsImporter do
 
       context 'name of homeroom that does not exist' do
         it 'raises an error' do
-          expect { described_class.new.import_row(row) }.to raise_error ActiveRecord::RecordNotFound
+          expect { described_class.new.import_row(row) }.to_not raise_error
         end
       end
     end

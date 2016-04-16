@@ -17,9 +17,6 @@ class HomeroomsController < ApplicationController
     # Dropdown for homeroom navigation
     @homerooms_by_name = current_educator.allowed_homerooms_by_name
 
-    # Bulk intervention assignment in far-right column
-    @bulk_intervention_assignment = BulkInterventionAssignment.new
-
     # For links to STAR pages
     @school_id = @homeroom.students.map(&:school_id).uniq.first # should be only one
     @star_homeroom_anchor = "equal:homeroom_name:#{@homeroom.name}"
@@ -47,7 +44,6 @@ class HomeroomsController < ApplicationController
   def fat_student_hash(student)
     student_hash_for_slicing(student).merge({
       interventions: student.interventions,
-      most_recent_atp_number_of_hours: student.most_recent_atp_hours,
       student_risk_level: student.student_risk_level.decorate.as_json_with_explanation,
       discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
       absences_count: student.most_recent_school_year.absences.count,

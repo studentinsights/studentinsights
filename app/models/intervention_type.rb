@@ -2,7 +2,7 @@
 class InterventionType < ActiveRecord::Base
   has_many :interventions
 
-  # If this becomes out of sync with production, you can 
+  # If this becomes out of sync with production, you can
   # generate this with:
   # `puts InterventionType.all.as_json.map {|i| i.except('created_at', 'updated_at') }`
   def self.seed_somerville_intervention_types
@@ -35,10 +35,6 @@ class InterventionType < ActiveRecord::Base
       { id: 45, name: "51a Filing" },
       { id: 46, name: "Other "}
     ])
-  end
-
-  def self.atp
-    find_by_name("After-School Tutoring (ATP)")
   end
 
 end
