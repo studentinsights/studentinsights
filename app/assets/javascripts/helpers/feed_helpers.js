@@ -63,7 +63,10 @@
       var mergedNotes = FeedHelpers.mergedNotes(feed);
       var idsFromNotes = _.pluck(mergedNotes, 'educator_id');
       var idsFromServices = _.pluck(feed.services.active, 'provided_by_educator_id');
-      return _.unique(idsFromNotes.concat(idsFromServices));
+      var uniqueIds = _.unique(idsFromNotes.concat(idsFromServices));
+      return _.filter(uniqueIds, function(id) {
+        return id !== null;
+      });
     }
   };
 })();
