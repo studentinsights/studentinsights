@@ -36,7 +36,6 @@
         discontinued: React.PropTypes.array.isRequired
       }),
       deprecated: React.PropTypes.shape({
-        notes: React.PropTypes.array.isRequired,
         interventions: React.PropTypes.array.isRequired
       })
     })
