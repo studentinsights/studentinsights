@@ -12,7 +12,6 @@ class Educator < ActiveRecord::Base
   has_many    :students, through: :homeroom
   has_many    :interventions
   has_many    :progress_notes, through: :interventions
-  has_many    :student_notes
 
   validates :email, presence: true, uniqueness: true
   validates :local_id, presence: true, uniqueness: true
