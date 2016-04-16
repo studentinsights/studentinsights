@@ -400,7 +400,6 @@ describe StudentsController, :type => :controller do
           response_body = JSON.parse(response.body)
           expect(response_body).to eq({
             "errors" => [
-              "Provided by educator can't be blank",
               "Student can't be blank",
               "Service type can't be blank",
               "Date started can't be blank"
