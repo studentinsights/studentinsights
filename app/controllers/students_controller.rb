@@ -18,7 +18,6 @@ class StudentsController < ApplicationController
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
-      notes: student.student_notes.map { |note| serialize_student_note(note) },
       feed: student_feed(student),
       chart_data: chart_data,
       dibels: student.student_assessments.by_family('DIBELS'),
@@ -156,7 +155,6 @@ class StudentsController < ApplicationController
         discontinued: student.services.discontinued.map {|service| serialize_service(service) }
       },
       deprecated: {
-        notes: student.student_notes.map { |note| serialize_student_note(note) },
         interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
       }
     }

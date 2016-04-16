@@ -186,7 +186,7 @@
     },
 
     renderButtons: function() {
-      var isFormComplete = (this.state.providedByEducatorId && this.state.serviceTypeId && this.state.momentStarted);
+      var isFormComplete = (this.state.serviceTypeId && this.state.momentStarted);
       return dom.div({ style: { marginTop: 15 } },
         dom.button({
           style: {

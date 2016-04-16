@@ -311,8 +311,14 @@
     },
 
     renderStaff: function(student) {
+      var activeServices = this.props.feed.services.active;
+      var educatorIdsFromServices = _.pluck(activeServices, 'provided_by_educator_id');
+      var uniqueIds = _.unique(educatorIdsFromServices);
+      var nonNullIds = _.filter(uniqueIds, function(id) { return id !== null; });
+      var educatorIds = nonNullIds;
+
       var limit = 3;
-      var educatorIds = FeedHelpers.allEducatorIds(this.props.feed);
+
       var elements = educatorIds.slice(0, limit).map(function(educatorId) {
         return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
       }, this);
@@ -324,7 +330,7 @@
       }
 
       return createEl(SummaryList, {
-        title: 'Support staff',
+        title: 'Staff providing services',
         elements: elements
       });
     },
