@@ -5,7 +5,6 @@ class FakeStudent
     add_attendance_events
     add_discipline_incidents
     add_deprecated_interventions
-    add_deprecated_notes
     add_event_notes
     add_services
     add_student_assessments_from_x2
@@ -201,19 +200,6 @@ class FakeStudent
         intervention.save!
       end
     end
-    nil
-  end
-
-  def add_deprecated_notes
-    generator = FakeNoteGenerator.new(@student)
-    note_count = if @student.interventions.size > 0
-      rand(2..10)
-    elsif 20.in(100)
-      rand(1..3)
-    else
-      0
-    end
-    note_count.times { StudentNote.new(generator.next).save! }
     nil
   end
 
