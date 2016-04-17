@@ -25,7 +25,7 @@ class StudentsController < ApplicationController
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,
       educators_index: Educator.to_index,
-      educators_for_services_dropdown: student.try(:school).try(:educators_index),
+      educators_for_services_dropdown: get_educator_names_for_dropdown(student),
       access: student.latest_access_results,
       attendance_data: student_profile_attendance_data(student)
     }
@@ -92,6 +92,17 @@ class StudentsController < ApplicationController
   end
 
   private
+
+  def get_educator_names_for_dropdown(student)
+    school = student.school
+    school_educators = school.educators.where.not(local_id: 'LDAP')
+    school_educator_names = school_educators.pluck(:full_name)
+
+    service_educator_names = Service.pluck(:provided_by_educator_name)
+
+    return (school_educator_names + service_educator_names).uniq.compact.sort
+  end
+
   def student_profile_attendance_data(student)
     student_school_years = student.student_school_years
     {

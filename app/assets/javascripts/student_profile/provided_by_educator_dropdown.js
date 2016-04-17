@@ -6,17 +6,8 @@
     displayName: 'ProvidedByEducatorDropdown',
 
     propTypes: {
-      educatorsIndex: React.PropTypes.object.isRequired,
+      educatorsForServicesDropdown: React.PropTypes.array.isRequired,
       onChange: React.PropTypes.func.isRequired,
-    },
-
-    educatorNames: function() {
-      var educatorsIndex = this.props.educatorsIndex;
-      var educatorIds = Object.keys(educatorsIndex);
-
-      return educatorIds.map(function(educatorId) {
-        return educatorsIndex[educatorId].full_name;
-      });
     },
 
     render: function () {
@@ -33,7 +24,7 @@
     },
 
     componentDidMount: function() {
-      $(ReactDOM.findDOMNode(this)).autocomplete({ source: this.educatorNames() });
+      $(ReactDOM.findDOMNode(this)).autocomplete({ source: this.props.educatorsForServicesDropdown });
     },
 
     componentWillUnmount: function() {

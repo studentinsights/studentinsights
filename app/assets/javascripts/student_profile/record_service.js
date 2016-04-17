@@ -59,7 +59,7 @@
       nowMoment: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
-      educatorsForServicesDropdown: React.PropTypes.object.isRequired,
+      educatorsForServicesDropdown: React.PropTypes.array.isRequired,
       currentEducator: React.PropTypes.object.isRequired
     },
 
@@ -147,19 +147,8 @@
     },
 
     renderEducatorSelect: function() {
-      var options = _.values(this.props.educatorsForServicesDropdown).map(function(educator) {
-        var name = (educator.full_name !== null)
-          ? educator.full_name
-          : educator.email.split('@')[0];
-        return { value: educator.id, label: name };
-      });
-
-      var sortedOptions = _.sortBy(options, function(o)
-        { return o.label; }
-      );
-
       return createEl(ProvidedByEducatorDropdown, {
-        educatorsIndex: this.props.educatorsIndex,
+        educatorsForServicesDropdown: this.props.educatorsForServicesDropdown,
         onChange: this.onProvidedByEducatorChanged
       });
     },
