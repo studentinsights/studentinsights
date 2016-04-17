@@ -64,7 +64,7 @@ class StudentsController < ApplicationController
       :student_id,
       :service_type_id,
       :date_started,
-      :provided_by_educator_id
+      :provided_by_educator_name
     ])
     service = Service.new(clean_params.merge({
       recorded_by_educator_id: current_educator.id,

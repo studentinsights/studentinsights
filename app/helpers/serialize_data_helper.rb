@@ -4,7 +4,7 @@ module SerializeDataHelper
     service.as_json.symbolize_keys.slice(*[
       :id,
       :student_id,
-      :provided_by_educator_id,
+      :provided_by_educator_name,
       :service_type_id,
       :date_started,
       :recorded_by_educator_id,
