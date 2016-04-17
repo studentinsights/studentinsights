@@ -12,7 +12,6 @@
   var SummaryList = window.shared.SummaryList;
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
-  var Educator = window.shared.Educator;
   var FeedHelpers = window.shared.FeedHelpers;
 
   var StudentProfileHeader = window.shared.StudentProfileHeader;
@@ -316,12 +315,13 @@
       var uniqueIds = _.unique(educatorIdsFromServices);
       var nonNullIds = _.filter(uniqueIds, function(id) { return id !== null; });
       var educatorIds = nonNullIds;
+      var educatorsIndex = this.props.educatorsIndex;
 
       var limit = 3;
 
       var elements = educatorIds.slice(0, limit).map(function(educatorId) {
-        return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
-      }, this);
+        return (educatorsIndex[educatorId]).full_name;
+      });
 
       if (educatorIds.length > limit) {
         elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
