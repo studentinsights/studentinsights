@@ -1,10 +1,14 @@
 class MigrateProgressNotesToEventNotes < ActiveRecord::Migration
-  def change
 
+  class DeprecatedProgressNotesClass < ActiveRecord::Base
+    self.table_name = :progress_notes
+  end
+
+  def change
     sst_meeting = EventNoteType.find_by_name('SST Meeting')
     raise "Please run DatabaseConstants.new.seed!" if sst_meeting.nil?
 
-    ProgressNote.find_each do |progress_note|
+    DeprecatedProgressNotesClass.find_each do |progress_note|
       student = progress_note.intervention.student
       educator = progress_note.educator
 
@@ -18,6 +22,6 @@ class MigrateProgressNotesToEventNotes < ActiveRecord::Migration
     end
 
     drop_table :progress_notes
-
   end
+
 end
