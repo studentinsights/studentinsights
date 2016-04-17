@@ -91,7 +91,6 @@
         switch (mergedNote.type) {
           case 'event_notes': return this.renderEventNote(mergedNote);
           case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
-          case 'deprecated_progress_notes': return this.renderDeprecatedProgressNote(mergedNote);
         }
       }, this));
     },
@@ -127,15 +126,5 @@
       });
     },
 
-    renderDeprecatedProgressNote: function(deprecatedProgressNote) {
-      return createEl(NoteCard, {
-        key: ['deprecated_progress_note', deprecatedProgressNote.id].join(),
-        noteMoment: moment.utc(deprecatedProgressNote.created_at_timestamp),
-        badge: dom.span({ style: styles.badge }, 'Old progress note'),
-        educatorId: deprecatedProgressNote.educator_id,
-        text: _.compact([deprecatedProgressNote.intervention.name, deprecatedProgressNote.content]).join('\n'),
-        educatorsIndex: this.props.educatorsIndex
-      });
-    }
   });
 })();

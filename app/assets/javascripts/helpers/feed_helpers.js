@@ -15,15 +15,6 @@
           sort_timestamp: intervention.start_date_timestamp
         });
       });
-      var deprecatedProgressNotes = _.flatten(feed.deprecated.interventions.map(function(intervention) {
-        return intervention.progress_notes.map(function(progressNote) {
-          return merge(progressNote, {
-            type: 'deprecated_progress_notes',
-            sort_timestamp: progressNote.created_at_timestamp,
-            intervention: intervention
-          });
-        });
-      }));
       var eventNotes = feed.event_notes.map(function(eventNote) {
         return merge(eventNote, {
           type: 'event_notes',
@@ -31,10 +22,7 @@
         });
       });
 
-      var mergedNotes = eventNotes.concat.apply(eventNotes, [
-        deprecatedInterventions,
-        deprecatedProgressNotes
-      ]);
+      var mergedNotes = eventNotes.concat.apply(eventNotes, [deprecatedInterventions]);
       return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
     },
 
@@ -43,7 +31,6 @@
       switch (mergedNote.type) {
         case 'event_notes': return (mergedNote.event_note_type_id === mergedNoteTypeId);
         case 'deprecated_interventions': return (mergedNote.intervention_type_id === mergedNoteTypeId);
-        case 'deprecated_progress_notes': return (mergedNote.intervention.intervention_type_id === mergedNoteTypeId);
       }
 
       return false;
