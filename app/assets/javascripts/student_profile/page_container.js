@@ -41,6 +41,7 @@
         // constants
         interventionTypesIndex: serializedData.interventionTypesIndex,
         educatorsIndex: serializedData.educatorsIndex,
+        educatorsForServicesDropdown: serializedData.educatorsForServicesDropdown,
         serviceTypesIndex: serializedData.serviceTypesIndex,
         eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
 
@@ -167,6 +168,7 @@
           'currentEducator',
           'interventionTypesIndex',
           'educatorsIndex',
+          'educatorsForServicesDropdown',
           'serviceTypesIndex',
           'eventNoteTypesIndex',
           'student',

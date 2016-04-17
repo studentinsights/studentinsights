@@ -57,6 +57,7 @@
       nowMoment: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
+      educatorsForServicesDropdown: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired
     },
 
@@ -143,7 +144,7 @@
     },
 
     renderEducatorSelect: function() {
-      var options = _.values(this.props.educatorsIndex).map(function(educator) {
+      var options = _.values(this.props.educatorsForServicesDropdown).map(function(educator) {
         var name = (educator.full_name !== null)
           ? educator.full_name
           : educator.email.split('@')[0];
