@@ -24,7 +24,8 @@ class StudentsController < ApplicationController
       intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,
-      educators_index: student.try(:school).try(:educators_index),
+      educators_index: Educator.to_index,
+      educators_for_services_dropdown: student.try(:school).try(:educators_index),
       access: student.latest_access_results,
       attendance_data: student_profile_attendance_data(student)
     }

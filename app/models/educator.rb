@@ -89,6 +89,10 @@ class Educator < ActiveRecord::Base
     allowed_homerooms.order(:name)
   end
 
+  def self.to_index
+    all.map { |e| [e.id, e.for_index] }.to_h
+  end
+
   def for_index
     as_json.symbolize_keys.slice(:id, :email, :full_name)
   end

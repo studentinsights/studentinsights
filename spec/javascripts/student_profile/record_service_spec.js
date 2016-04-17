@@ -15,6 +15,7 @@ describe('RecordService', function() {
         studentFirstName: 'Tamyra',
         serviceTypesIndex: Fixtures.studentProfile.serviceTypesIndex,
         educatorsIndex: Fixtures.studentProfile.educatorsIndex,
+        educatorsForServicesDropdown: Fixtures.studentProfile.educatorsForServicesDropdown,
         nowMoment: Fixtures.nowMoment,
         currentEducator: Fixtures.currentEducator,
         onSave: jasmine.createSpy('onSave'),
@@ -48,7 +49,7 @@ describe('RecordService', function() {
         'Math intervention',
         'Attendance Officer',
         'Attendance Contract',
-        'Behavior Contract' 
+        'Behavior Contract'
       ]);
 
       expect(el).toContainText('Who is working with Tamyra?');
