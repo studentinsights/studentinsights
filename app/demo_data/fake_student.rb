@@ -194,9 +194,6 @@ class FakeStudent
       intervention_count.times do
         intervention = Intervention.new(generator.next)
         intervention.save!
-        rand(0..2).times do
-          intervention.progress_notes << generator.next_progress_note(intervention)
-        end
         intervention.save!
       end
     end
