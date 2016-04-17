@@ -66,7 +66,7 @@
     getInitialState: function() {
       return {
         serviceTypeId: null,
-        providedByEducatorId: null,
+        providedByEducatorName: null,
         momentStarted: moment.utc() // TODO should thread through
       }
     },
@@ -77,8 +77,8 @@
       this.setState({ momentStarted: updatedMoment });
     },
 
-    onAssignedEducatorChanged: function(selectParams) {
-      this.setState({ providedByEducatorId: selectParams.value });
+    onProvidedByEducatorChanged: function(event) {
+      this.setState({ providedByEducatorName: event.target.value });
     },
 
     onServiceClicked: function(serviceTypeId, event) {
@@ -90,9 +90,10 @@
     },
 
     onClickSave: function(event) {
+      // Get the value of the autocomplete input
       this.props.onSave({
         serviceTypeId: this.state.serviceTypeId,
-        providedByEducatorId: this.state.providedByEducatorId,
+        providedByEducatorName: this.state.providedByEducatorName,
         dateStartedText: this.state.momentStarted.format('YYYY-MM-DD'),
         recordedByEducatorId: this.props.currentEducator.id
       });
@@ -158,10 +159,10 @@
       );
 
       return createEl(ProvidedByEducatorDropdown, {
-        educatorsIndex: this.props.educatorsIndex
+        educatorsIndex: this.props.educatorsIndex,
+        onChange: this.onProvidedByEducatorChanged
       });
     },
-
 
     renderWhoAndWhen: function() {
       return dom.div({},

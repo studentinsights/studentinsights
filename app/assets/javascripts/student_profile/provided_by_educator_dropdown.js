@@ -7,6 +7,7 @@
 
     propTypes: {
       educatorsIndex: React.PropTypes.object.isRequired,
+      onChange: React.PropTypes.func.isRequired,
     },
 
     educatorNames: function() {
@@ -21,6 +22,7 @@
     render: function () {
       return dom.input({
         className: 'ProvidedByEducatorDropdown',
+        onChange: this.props.onChange,
         style: {
           marginTop: 2,
           fontSize: 14,
