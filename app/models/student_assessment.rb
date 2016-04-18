@@ -12,29 +12,26 @@ class StudentAssessment < ActiveRecord::Base
   validate :validate_assessment_attributes
 
   def validate_assessment_attributes
-    if !valid_assessment_attributes
-      errors.add(:base, "Invalid assessment attributes: #{self.attributes.inspect}")
+    case assessment.family
+      when 'MCAS' then validate_mcas_attributes
+      when 'STAR' then validate_star_attributes
+      when 'DIBELS' then validate_dibels_attributes
     end
   end
 
-  def valid_assessment_attributes
-    case assessment.family
-    when 'MCAS'
-      scale_score.present? &&
-      growth_percentile.present? &&
-      performance_level.present? &&
-      percentile_rank.nil?
-    when 'STAR'
-      percentile_rank.present? &&
-      scale_score.nil? &&
-      growth_percentile.nil? &&
-      performance_level.nil?
-    when 'DIBELS'
-      performance_level.present? &&
-      percentile_rank.nil? &&
-      scale_score.nil? &&
-      growth_percentile.nil?
-    end
+  def validate_mcas_attributes
+    return if scale_score.present? && growth_percentile.present? && performance_level.present? && percentile_rank.nil?
+    errors.add(:scale_score, "Invalid MCAS attributes: #{self.attributes.inspect}")
+  end
+
+  def validate_star_attributes
+    return if percentile_rank.present? && scale_score.nil? && growth_percentile.nil? && performance_level.nil?
+    errors.add(:percentile_rank, "Invalid STAR attributes: #{self.attributes.inspect}")
+  end
+
+  def validate_dibels_attributes
+    return if performance_level.present? && percentile_rank.nil? && scale_score.nil? && growth_percentile.nil?
+    errors.add(:performance_level, "Invalid DIBELS attributes: #{self.attributes.inspect}")
   end
 
   def assign_to_school_year

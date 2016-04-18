@@ -13,6 +13,8 @@ FactoryGirl.define do
         end
         factory :mcas_math_advanced_assessment do
           performance_level "A"
+          scale_score { rand(260..280) }
+          growth_percentile { rand(25..75) }
         end
         factory :mcas_math_student_assessment_score_240 do
           scale_score 240
