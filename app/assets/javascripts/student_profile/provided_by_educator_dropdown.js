@@ -14,6 +14,7 @@
       return dom.input({
         className: 'ProvidedByEducatorDropdown',
         onChange: this.props.onChange,
+        placeholder: 'Last Name, First Name...',
         style: {
           marginTop: 2,
           fontSize: 14,
