@@ -53,7 +53,7 @@ describe('RecordService', function() {
       ]);
 
       expect(el).toContainText('Who is working with Tamyra?');
-      expect($(el).find('.Select').length).toEqual(1);
+      // TODO (as): test staff dropdown autocomplete async
       expect(el).toContainText('When did they start?');
       expect($(el).find('.Datepicker .datepicker.hasDatepicker').length).toEqual(1);
       expect(helpers.findSaveButton(el).length).toEqual(1);
