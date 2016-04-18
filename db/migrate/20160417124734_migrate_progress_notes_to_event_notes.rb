@@ -2,6 +2,8 @@ class MigrateProgressNotesToEventNotes < ActiveRecord::Migration
 
   class DeprecatedProgressNotesClass < ActiveRecord::Base
     self.table_name = :progress_notes
+    belongs_to :intervention
+    belongs_to :educator
   end
 
   def change
