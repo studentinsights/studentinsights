@@ -11,10 +11,12 @@ If you're **an educator** and want to try this out or have ideas about how to im
 ## Find something to help with!
 At Code for Boston each week, we start by making an [agenda issue]( https://github.com/studentinsights/studentinsights/issues?utf8=%E2%9C%93&q=is%3Aissue+agenda+).  This has the overall flow for the meeting, and can help you understand the broad product priorities and find something that aligns with your interests and skillset.  There's often not a perfect match, so we bias slightly towards finding something where contributors can jump in and start working right away, even if that's not the highest priority at the moment.  
 
-When talking about or suggesting product and design improvemnts, it's helpful to frame these in a few different steps:
+When talking about or suggesting product and design improvements, it's helpful to frame these in a few different steps:
   1. Identify what problem we're trying to help the user with and why it matters.
   2. What design or UX improvements can help the user with that problem? What are the tradeoffs in the solution?
   3. How can we execute on sequencing the work or building it in code?
+
+See [this issue](https://github.com/studentinsights/studentinsights/issues/307#issuecomment-210643323) for a great example of this.
 
 ## Have an Issue With Us?  Good! 
 One of the most valuable ways anybody can contribute to this project is by identifying bugs and other issues to look at.  It is easy to create an issue ticket on GitHub with the [click of a button](https://github.com/studentinsights/studentinsights/issues/new). Before you submit a new issue, please take a look at the other issues (both [open](https://github.com/studentinsights/studentinsights/issues?q=is%3Aopen+is%3Aissue) and [closed](https://github.com/studentinsights/studentinsights/issues?q=is%3Aissue+is%3Aclosed) and the [README](README.md) file to check if it is already be addressed.  
@@ -23,5 +25,7 @@ One of the most valuable ways anybody can contribute to this project is by ident
 Join us on Tuesday night at [Code for Boston](http://www.codeforboston.org) to work on the project together in person, we could use your help!  Each week folks are shipping incremental improvements, prototyping new features and squashing bugs, all while learning new things and meeting new people.  We typically create an [agenda issue]( https://github.com/studentinsights/studentinsights/issues?utf8=%E2%9C%93&q=is%3Aissue+agenda+) for each meeting.
 
 ## Contribute Your Work by Submitting a Pull Request
+Often, pull requests come out of really good thinking, feedback or discussions.  It's extremely helpful to summarize these as part of submitting a pull request.  See [this issue](https://github.com/studentinsights/studentinsights/issues/307#issuecomment-210643323) for a great example.
+
 If you need help with how to submit a pull request, check out the awesome [GitHub help](https://help.github.com/articles/using-pull-requests/), or this [walkthrough tutorial](https://guides.github.com/introduction/flow/) on the workflow for working on projects in GitHub.
 
