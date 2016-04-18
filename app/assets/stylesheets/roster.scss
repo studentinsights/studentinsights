@@ -7,6 +7,10 @@
   margin-top: -60px;
 }
 
+.topline-info {
+  padding: 20px 40px;
+}
+
 #roster-table {
   overflow: auto;
   width: 100%;
@@ -49,15 +53,6 @@
     }
   }
 
-  .bulk-intervention {
-    position: absolute;
-    right: 0px;
-    width: 80px;
-    height: 100px;
-    background: white;
-    border-left: 1px solid $light-line;
-  }
-
 }
 
 #roster-table-wrapper, #roster-chart {
@@ -71,21 +66,20 @@
 
 #column-picker-toggle {
   cursor: pointer;
-  padding: 10px;
-  margin-right: 10px;
+  float: right;
 }
 
 #column-picker {
   display: none;
   position: absolute;
-  right: 0px;
+  right: 25px;
+  top: 330px;
   background-color: white;
   z-index: 100;
   border: 2px solid $backgroud;
   border-radius: 4px;
   padding: 20px;
   text-align: left;
-  line-height: 150%;
 
   p {
     border-bottom: 1px solid $dark-line;

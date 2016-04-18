@@ -39,33 +39,6 @@ module SerializeDataHelper
       end_date: intervention.end_date.try(:strftime, '%B %e, %Y'), # profile v1
       educator_email: intervention.educator.try(:email), # profile v1
       educator_id: intervention.educator.try(:id),
-      progress_notes: intervention.progress_notes.order(created_at: :asc).map do |progress_note|
-        serialize_progress_note(progress_note)
-      end
-    }
-  end
-
-  # deprecated
-  def serialize_progress_note(progress_note)
-    {
-      id: progress_note.id,
-      educator_email: progress_note.educator.email,
-      educator_id: progress_note.educator.id,
-      content: progress_note.content,
-      created_date: progress_note.created_at.strftime("%B %e, %Y %l:%M %p"),
-      created_at_timestamp: progress_note.created_at
-    }
-  end
-
-  # deprecated
-  def serialize_student_note(student_note)
-    {
-      id: student_note.id,
-      content: student_note.content,
-      educator_id: student_note.educator.id,
-      educator_email: student_note.educator.email,
-      created_at_timestamp: student_note.created_at,
-      created_at: student_note.created_at.strftime('%B %e, %Y')
     }
   end
 

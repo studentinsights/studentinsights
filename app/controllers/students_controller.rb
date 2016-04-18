@@ -18,14 +18,14 @@ class StudentsController < ApplicationController
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
-      notes: student.student_notes.map { |note| serialize_student_note(note) },
       feed: student_feed(student),
       chart_data: chart_data,
       dibels: student.student_assessments.by_family('DIBELS'),
       intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,
-      educators_index: student.try(:school).try(:educators_index),
+      educators_index: Educator.to_index,
+      educators_for_services_dropdown: student.try(:school).try(:educators_index),
       access: student.latest_access_results,
       attendance_data: student_profile_attendance_data(student)
     }
@@ -156,7 +156,6 @@ class StudentsController < ApplicationController
         discontinued: student.services.discontinued.map {|service| serialize_service(service) }
       },
       deprecated: {
-        notes: student.student_notes.map { |note| serialize_student_note(note) },
         interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
       }
     }

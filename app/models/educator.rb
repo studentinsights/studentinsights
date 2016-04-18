@@ -11,8 +11,6 @@ class Educator < ActiveRecord::Base
   has_one     :homeroom
   has_many    :students, through: :homeroom
   has_many    :interventions
-  has_many    :progress_notes, through: :interventions
-  has_many    :student_notes
 
   validates :email, presence: true, uniqueness: true
   validates :local_id, presence: true, uniqueness: true
@@ -89,6 +87,10 @@ class Educator < ActiveRecord::Base
 
   def allowed_homerooms_by_name
     allowed_homerooms.order(:name)
+  end
+
+  def self.to_index
+    all.map { |e| [e.id, e.for_index] }.to_h
   end
 
   def for_index

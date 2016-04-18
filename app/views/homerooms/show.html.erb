@@ -30,7 +30,22 @@
 
     <div id="roster-chart"></div>
 
+
     <div id="roster-table-wrapper">
+
+      <div id="column-picker-toggle">
+        <img src="<%= asset_path('menu.svg') %>"/>
+      </div>
+      <div id="column-picker">
+        <p>Select columns</p>
+        <form id="column-listing">
+          <div id="column-template">
+            <input type="checkbox" name="" value="">
+            <label></label>
+          </div>
+        </form>
+      </div>
+
       <table id="roster-table" border="0" cellspacing="0" cellpadding="10" class="sort-default">
         <thead>
           <tr class="column-groups">
@@ -49,21 +64,6 @@
               <td colspan="2" class="mcas_math"><p class="smalltype">MCAS: Math</p></td>
               <td colspan="2" class="mcas_ela"><p class="smalltype">MCAS: ELA</p></td>
             <% end %>
-            <td colspan="1" class="interventions">
-              <p class="smalltype">Interventions</p>
-            </td>
-            <td id="column-picker-row" class="bulk-intervention">
-                <span id="column-picker-toggle"><img src="<%= asset_path('menu.svg') %>"/></span>
-                <div id="column-picker">
-                  <p>Select columns</p>
-                  <form id="column-listing">
-                    <div id="column-template">
-                      <input type="checkbox" name="" value="">
-                      <label></label>
-                    </div>
-                  </form>
-                </div>
-            </td>
           </tr>
           <tr class="column-names">
             <!-- COLUMN HEADERS -->
@@ -117,13 +117,6 @@
                 <span class="table-header">Growth</span>
               </th>
             <% end %>
-            <th class="interventions"
-              <span class="table-header">ATP Hours</span>
-            </th>
-            <th colspan="1" rowspan="1" class="bulk-intervention no-sort">
-              &nbsp;
-              <%= link_to "+", new_bulk_intervention_assignment_path, id: 'assign-bulk-interventions', class: 'hidden' %>
-            </th>
           </tr>
        </thead>
         <% if @rows.present? %>
@@ -187,23 +180,6 @@
                 </td>
               <% end %>
 
-              <td class="interventions number-of-hours"
-                  title="<%= row[:most_recent_atp_number_of_hours] %> school year">
-                  <%= row[:most_recent_atp_number_of_hours] %>
-              </td>
-
-              <td class="bulk-intervention">
-                  <input type="checkbox"
-                         class="bulk-intervention-checkbox"
-                         data-student-id="<%= row['id'] %>" />
-              </td>
-              <!--
-                Dummy column to offset absolutely
-                positioned last column. Last column
-                holds bulk intervention checkboxes.
-              -->
-              <td class="dummy-column">
-              </td>
             </tr>
 
           <% end %>

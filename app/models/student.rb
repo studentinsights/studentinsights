@@ -5,7 +5,6 @@ class Student < ActiveRecord::Base
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
-  has_many :student_notes, dependent: :destroy
   has_many :event_notes, dependent: :destroy
   has_many :services, dependent: :destroy
   has_one :student_risk_level, dependent: :destroy
@@ -206,16 +205,6 @@ class Student < ActiveRecord::Base
       student_risk_level.update_risk_level!
     else
       create_student_risk_level!
-    end
-  end
-
-  ## INTERVENTIONS ##
-
-  def most_recent_atp_hours
-    if interventions.most_recent_atp.present?
-      interventions.most_recent_atp.number_of_hours
-    else
-      0
     end
   end
 
