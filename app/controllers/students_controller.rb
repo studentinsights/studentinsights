@@ -95,6 +95,8 @@ class StudentsController < ApplicationController
 
   def get_educator_names_for_dropdown(student)
     school = student.school
+    return [] if school.nil?
+
     school_educators = school.educators.where.not(local_id: 'LDAP')
     school_educator_names = school_educators.pluck(:full_name)
 
