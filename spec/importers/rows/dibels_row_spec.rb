@@ -4,7 +4,12 @@ RSpec.describe DibelsRow do
 
   let(:student) { FactoryGirl.create(:student) }
   let(:row) {
-    { assessment_test: 'DIBELS', local_id: student.local_id, assessment_date: Date.today }
+    {
+      assessment_test: 'DIBELS',
+      local_id: student.local_id,
+      assessment_date: Date.today,
+      assessment_performance_level: 'Strategic'
+    }
   }
 
   let(:assessment) { Assessment.last }
@@ -18,5 +23,4 @@ RSpec.describe DibelsRow do
   it 'creates a student assessment result' do
     expect(StudentAssessment.count).to eq 1
   end
-
 end
