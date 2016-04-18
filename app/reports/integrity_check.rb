@@ -14,7 +14,6 @@ class IntegrityCheck
     raise "no homerooms" unless Homeroom.count > 0
     raise "no student assessments" unless StudentAssessment.count > 0
     raise "no educators" unless Educator.count > 0
-    # StudentAssessment.by_family('DIBELS').where(:performance_level => nil).to_a
   end
 
   def models_to_check

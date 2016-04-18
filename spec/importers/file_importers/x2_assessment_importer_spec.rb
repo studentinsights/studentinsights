@@ -3,12 +3,25 @@ require 'rails_helper'
 RSpec.describe X2AssessmentImporter do
 
   describe '#import' do
-    # context 'with bad data' do
-    #   let(:file) { File.open("#{Rails.root}/spec/fixtures/bad_x2_assessments.csv") }
-    #   let(:transformer) { CsvTransformer.new }
-    #   let(:csv) { transformer.transform(file) }
-    #   # expect({ csv.each { |row| importer.import_row(row) } }).to raise
-    # end
+    context 'with bad data' do
+      before { Assessment.destroy_all }
+      after { Assessment.seed_somerville_assessments }
+
+      let(:file) { File.open("#{Rails.root}/spec/fixtures/invalid_mcas_x2_assessments.csv") }
+      let(:transformer) { CsvTransformer.new }
+      let(:csv) { transformer.transform(file) }
+
+      let!(:student) { FactoryGirl.create(:student, local_id: '100') }
+      let(:healey) { School.where(local_id: "HEA").first_or_create! }
+      let(:importer) { described_class.new }
+      
+      it 'raises when encountering invalid rows' do
+        expect do
+          csv.each { |row| importer.import_row(row) }
+        end.to raise_error(ActiveRecord::RecordInvalid)
+        expect(StudentAssessment.count).to eq 0
+      end
+    end
 
     context 'with good data and no Assessment records in the database' do
       before { Assessment.destroy_all }
