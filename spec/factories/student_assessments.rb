@@ -61,7 +61,7 @@ FactoryGirl.define do
       end
     end
     factory :access do
-      association :assessment, family: "ACCESS"
+      association :assessment, family: "ACCESS", subject: 'Composite'
     end
   end
 end
