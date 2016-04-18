@@ -157,7 +157,7 @@
       return dom.div({},
         dom.div({ style: { marginTop: 20 } },
           dom.div({}, 'Who is working with ' + this.props.studentFirstName + '?'),
-          dom.div({ style: { width: '50%' } }, this.renderEducatorSelect())
+          dom.div({}, this.renderEducatorSelect())
         ),
         dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
         createEl(Datepicker, {
