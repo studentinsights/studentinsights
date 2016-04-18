@@ -36,6 +36,12 @@
       paddingLeft: 0,
       marginBottom: 10
     },
+    schoolYearTitle: {
+      padding: 10,
+      paddingLeft: 10,
+      marginBottom: 10,
+      color: '#555555'
+    },
     badge: {
       display: 'inline-block',
       width: '10em',
@@ -172,8 +178,7 @@
     render: function(){
       return dom.div({},
         this.renderAccessDetails(),
-        dom.h4({style: styles.title}, 'Full Case History'),
-        this.renderCardList()
+        this.renderFullCaseHistory()
       )
     },
 
@@ -205,44 +210,53 @@
     },
 
     toSchoolYear: function(date){
-      // Takes in a date, returns an integer (0, 1, 2...) school year, counting the 2009 - 2010 school year as number 0.
-
-      var ARBITRARY_LARGE_CAP = 100;
-      for (var n = 0; n < ARBITRARY_LARGE_CAP; n++){
-        if (moment(date).isBetween(
-          moment({y: 2009 + n, m: 8, d: 1}), // School year starts on August 1st and runs until July 31st.
-          moment({y: 2010 + n, m: 7, d: 31}))
-        ){
-          return n;
-        }
+      // Takes in a date, returns the start of the school year into which it falls.
+      var d = moment(date);
+      if (d.month() < 8){
+        // The school year starts on August 1st.
+        // So if the month is before August, it falls in the previous year.
+        return d.year() - 1;
+      } else {
+        return d.year();
       }
     },
 
-    renderCardList: function(){
+    renderFullCaseHistory: function(){
       var self = this;
       var bySchoolYearDescending = _.toArray(
         _.groupBy(this.getEvents(), function(event){ return self.toSchoolYear(event.date) })
       ).reverse();
 
-      console.log(_.groupBy(this.getEvents(), function(event){ return self.toSchoolYear(event.date) }));
-
-      return dom.div({}, bySchoolYearDescending.map(function(eventsForYear, year){
-        return dom.div(
-          {style: styles.box, key: year}, eventsForYear.map(self.renderCard))
-        })
+      return dom.div({},
+        dom.h4({style: styles.title}, 'Full Case History'),
+        bySchoolYearDescending.map(this.renderCardsForYear)
       );
+    },
+
+    renderCardsForYear: function(eventsForYear){
+      // Grab what school year we're in from any object in the list.
+      var year = this.toSchoolYear(moment(eventsForYear[0].date));
+      // Computes '2016 - 2017 School Year' for input 2016, etc.
+      var schoolYearString = year.toString() + ' - ' + (year+1).toString() + ' School Year';
+
+      return dom.div(
+        {style: styles.box, key: year},
+        dom.h4({style: styles.schoolYearTitle}, schoolYearString),
+        eventsForYear.map(this.renderCard)
+      )
     },
 
     renderCard: function(event){
       var key = [event.date.getTime(), event.message].join();
       if (event.type === 'Absence' || event.type === 'Tardy'){
-        var containingDivStyle = {};
-        var headerDivStyle = {fontSize: 14};
+        // These event types are less important, so make them smaller and no description text.
+        var containingDivStyle = styles.feedCard;
+        var headerDivStyle = merge(styles.feedCardHeader, {fontSize: 14});
         var paddingStyle = {paddingLeft: 10};
         var text = '';
       } else {
-        var containingDivStyle = {border: '1px solid #eee'};
-        var headerDivStyle = {};
+        var containingDivStyle = merge(styles.feedCard, {border: '1px solid #eee'});
+        var headerDivStyle = styles.feedCardHeader;
         var paddingStyle = {padding: 10};
         var text = event.message;
       }
@@ -261,17 +275,14 @@
         "STAR Math": '#e8e9fc',
 
         "DIBELS": '#e8fce8'
-      }
+      };
+      var badgeStyle = merge(styles.badge, {background: type_to_color[event.type]});
 
-      return dom.div(
-        {key: key, style: merge(styles.feedCard, containingDivStyle)},
-        dom.div({style: paddingStyle}, // Provides padding inside card.
-          dom.div({style: merge(styles.feedCardHeader, headerDivStyle)}, // Header (date + badge)
+      return dom.div({key: key, style: containingDivStyle},
+        dom.div({style: paddingStyle},
+          dom.div({style: headerDivStyle},
             moment(event.date).format("MMMM Do, YYYY:"),
-            dom.span( // Brightly-colored badge
-              {style: merge(styles.badge, {background: type_to_color[event.type]})},
-              event.type
-            )
+            dom.span({style: badgeStyle}, event.type)
           ),
         text
         )
