@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe McasRow do
+  def mcas_row_attributes(attrs)
+    {
+      assessment_test: 'MCAS',
+      assessment_date: Date.today,
+      assessment_scale_score: rand(220..280),
+      assessment_performance_level: ['W', 'P', 'NI'].sample,
+      assessment_growth: rand(25..75)
+    }.merge(attrs)
+  end
 
   context 'with no Assessment records in the database' do
     before { Assessment.destroy_all }
@@ -9,13 +18,11 @@ RSpec.describe McasRow do
 
     context 'invalid subject (i.e. not used in Student Insights)' do
       let(:row) {
-        {
-          assessment_test: 'MCAS',
+        mcas_row_attributes({
           assessment_subject: 'Technology',
           assessment_name: 'MCAS 2016 Technology',
-          local_id: student.local_id,
-          assessment_date: Date.today
-        }
+          local_id: student.local_id
+        })
       }
       before { McasRow.build(row).save! }
 
@@ -26,13 +33,11 @@ RSpec.describe McasRow do
 
     context 'MCAS Mathematics' do
       let(:row) {
-        {
-          assessment_test: 'MCAS',
+        mcas_row_attributes({
           assessment_subject: 'Mathematics',
           assessment_name: 'MCAS 2016 Mathematics',
-          local_id: student.local_id,
-          assessment_date: Date.today
-        }
+          local_id: student.local_id
+        })
       }
 
       context 'when the Assessment family already exists' do
@@ -65,13 +70,11 @@ RSpec.describe McasRow do
 
     context 'MCAS English Language Arts, when the ELA Assessment does not yet exist' do
       let(:row) {
-        {
-          assessment_test: 'MCAS',
+        mcas_row_attributes({
           assessment_subject: 'Arts',
           assessment_name: 'MCAS 2016 English Language Arts',
           local_id: student.local_id,
-          assessment_date: Date.today
-        }
+        })
       }
       before { McasRow.build(row).save! }
 
@@ -82,7 +85,6 @@ RSpec.describe McasRow do
       it 'creates a new Assessment as a side-effect' do
         expect(Assessment.count).to eq 1
         expect(Assessment.last.subject).to eq 'ELA'
-
       end
     end
   end
