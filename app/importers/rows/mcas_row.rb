@@ -20,7 +20,8 @@ class McasRow < Struct.new :row
       date_taken: row[:assessment_date]
     )
 
-    student_assessment.assign_attributes(
+    # TODO(kr) not sure what we want here if validation fails, right now this will raise
+    student_assessment.update!(
       scale_score: row[:assessment_scale_score],
       performance_level: row[:assessment_performance_level],
       growth_percentile: row[:assessment_growth]

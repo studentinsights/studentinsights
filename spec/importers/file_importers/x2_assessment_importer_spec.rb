@@ -3,6 +3,13 @@ require 'rails_helper'
 RSpec.describe X2AssessmentImporter do
 
   describe '#import' do
+    # context 'with bad data' do
+    #   let(:file) { File.open("#{Rails.root}/spec/fixtures/bad_x2_assessments.csv") }
+    #   let(:transformer) { CsvTransformer.new }
+    #   let(:csv) { transformer.transform(file) }
+    #   # expect({ csv.each { |row| importer.import_row(row) } }).to raise
+    # end
+
     context 'with good data and no Assessment records in the database' do
       before { Assessment.destroy_all }
       after { Assessment.seed_somerville_assessments }
@@ -35,7 +42,7 @@ RSpec.describe X2AssessmentImporter do
               mcas_student_assessment = mcas_assessment.student_assessments.last
               expect(mcas_student_assessment.scale_score).to eq(214)
               expect(mcas_student_assessment.performance_level).to eq('W')
-              expect(mcas_student_assessment.growth_percentile).to eq(nil)
+              expect(mcas_student_assessment.growth_percentile).to eq(35)
             end
           end
           context 'ELA' do
