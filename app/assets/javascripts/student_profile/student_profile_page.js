@@ -212,7 +212,9 @@
             cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
             cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
             cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies),
-            disciplineIncidents: attendanceData.discipline_incidents
+            disciplineIncidents: attendanceData.discipline_incidents,
+            absences: attendanceData.absences,
+            tardies: attendanceData.tardies
           });
         case 'interventions':
           return createEl(InterventionsDetails, merge(_.pick(this.props,
