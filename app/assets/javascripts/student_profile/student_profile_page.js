@@ -457,6 +457,7 @@
       return this.wrapSummary(merge({
         title: props.title,
         value: value,
+        postMessage: 'this school year',
         sparkline: this.renderSparkline(cumulativeQuads, merge({ valueRange: valueRange }, props))
       }, props));
     },

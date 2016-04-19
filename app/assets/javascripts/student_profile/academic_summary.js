@@ -27,6 +27,7 @@
     propTypes: {
       caption: React.PropTypes.string.isRequired,
       value: PropTypes.nullable(React.PropTypes.number.isRequired),
+      postMessage: React.PropTypes.string,
       sparkline: React.PropTypes.element.isRequired
     },
 
@@ -34,7 +35,8 @@
       return dom.div({ className: 'AcademicSummary' },
         dom.div({ style: styles.textContainer },
           dom.span({ style: styles.caption }, this.props.caption + ':'),
-          dom.span({ style: styles.value }, (this.props.value === undefined) ? 'none' : this.props.value)
+          dom.span({ style: styles.value }, (this.props.value === undefined) ? 'none' : this.props.value),
+          dom.span({ style: styles.caption }, (this.props.postMessage === undefined) ? '' : " " + this.props.postMessage)
         ),
         dom.div({ style: styles.sparklineContainer }, this.props.sparkline)
       );
