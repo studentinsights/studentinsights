@@ -425,12 +425,13 @@
       var attendanceData = this.props.attendanceData;
       var columnKey = 'attendance';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Attendance and Behavior"),
+      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) },
+        dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Attendance and Behavior"),
         dom.div({
-        className: 'attendance-background',
-        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
-        onClick: this.onColumnClicked.bind(this, columnKey)
-      },
+          className: 'attendance-background',
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+          onClick: this.onColumnClicked.bind(this, columnKey)
+        },
         this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, Scales.disciplineIncidents.flexibleRange, {
           caption: 'Discipline incidents',
           thresholdValue: Scales.disciplineIncidents.threshold,
