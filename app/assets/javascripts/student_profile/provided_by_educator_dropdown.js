@@ -11,6 +11,13 @@
     },
 
     render: function () {
+      return dom.div({},
+        this.renderInput(),
+        this.renderDropdownToggle()
+      )
+    },
+
+    renderInput: function () {
       return dom.input({
         className: 'ProvidedByEducatorDropdown',
         onChange: this.props.onChange,
@@ -24,12 +31,32 @@
       });
     },
 
+    renderDropdownToggle: function () {
+      return dom.a({
+        onClick: this.toggleOpenMenu,
+        style: {
+          position: 'relative',
+          right: 20,
+          fontSize: 10,
+          color: '#4d4d4d'
+        }
+      }, String.fromCharCode('0x25BC'));
+    },
+
+    toggleOpenMenu: function () {
+      $('.ProvidedByEducatorDropdown').autocomplete( "search", "" );
+    },
+
     componentDidMount: function() {
-      $(ReactDOM.findDOMNode(this)).autocomplete({ source: this.props.educatorsForServicesDropdown });
+      $('.ProvidedByEducatorDropdown').autocomplete({
+        source: this.props.educatorsForServicesDropdown,
+        delay: 0,
+        minLength: 0,
+      });
     },
 
     componentWillUnmount: function() {
-      $(ReactDOM.findDOMNode(this)).autocomplete('destroy');
+      $('.ProvidedByEducatorDropdown').autocomplete('destroy');
     }
 
   });
