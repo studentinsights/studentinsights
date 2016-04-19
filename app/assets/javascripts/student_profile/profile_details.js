@@ -262,6 +262,7 @@
         var text = event.message;
       }
 
+      var dateStyle = {display: 'inline-block', width: 180};
       var type_to_color = {
         "Absence": '#e8fce8',
         "Tardy": '#e8fce8',
@@ -282,7 +283,7 @@
       return dom.div({key: key, style: containingDivStyle},
         dom.div({style: paddingStyle},
           dom.div({style: headerDivStyle},
-            moment(event.date).format("MMMM Do, YYYY:"),
+            dom.span({style: dateStyle}, moment(event.date).format("MMMM Do, YYYY:")),
             dom.span({style: badgeStyle}, event.type)
           ),
         text
