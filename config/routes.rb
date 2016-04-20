@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   end
   get '/educators/reset'=> 'educators#reset_session_clock'
 
-  root 'pages#about'
-  get 'about' => 'pages#about'
+  devise_scope :educator do
+    root to: "devise/sessions#new"
+  end
+
   get 'no_homeroom' => 'pages#no_homeroom'
   get 'no_homerooms' => 'pages#no_homerooms'
   get 'not_authorized' => 'pages#not_authorized'
