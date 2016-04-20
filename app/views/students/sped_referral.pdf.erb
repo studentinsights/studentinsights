@@ -11,7 +11,6 @@
 <p>
   <h4><%= "#{@student.first_name} #{@student.last_name}"%></h4>
   <ul style="list-style-type:none">
-    <li>Birthdate:</li>
     <li>Language: <%= @student.home_language %></li>
     <li>Disability: <%= @student.disability || "None"%></li>
     <li>504 plan: <%= @student.plan_504 %></li>
@@ -30,7 +29,28 @@
   <ul style="list-style-type:none">
     <li><%= "NOTE: #{@current_school_year} school year is still in progress" %></li>
     <% @student_school_years.each do |year| %>
-      <li><%= "Year: #{year.name} - Attendance: - Absences: #{year.absences.count} - Tardies: #{year.tardies.count}" %></li>
+      <li><%= "Year: #{year.name} - Absences: #{year.absences.count} - Tardies: #{year.tardies.count}" %></li>
     <% end %>
   </ul>
+</p>
+<p>
+  <h4>Behavioral incidents:</h4>
+  <% @discipline_incidents.each do |incident| %>
+    <ul style="list-style-type:none">
+      <li><%= "#{incident.occurred_at.strftime("%-m/%-d/%Y")} - #{incident.incident_code} - #{incident.incident_location}"%></li>
+      <li><%= incident.incident_description %></li>
+    </ul>
+  <% end %>
+</p>
+<p>
+  <h4>Academic assessments:</h4>
+  <% @student_assessments.each do |test| %>
+    <ul style="list-style-type:none">
+      <li><%= "#{test.date_taken.strftime("%-m/%-d/%Y")} - #{test.assessment.family} #{test.assessment.subject} - #{test.percentile_rank.try(:ordinalize) || 'Unknown'} percentile" %></li>
+    </ul>
+  <% end %>
+</p>
+<p>
+  <h4>Additional notes:</h4>
+  <p>Coming Soon!</p>
 </p>

@@ -187,6 +187,8 @@ class StudentsController < ApplicationController
     @url = root_url.chomp('/') + request.path
     @services = @student.services
     @current_school_year = DateToSchoolYear.new(Date.today).convert.name
-    @student_school_years = @student.student_school_years
+    @student_school_years = @student.student_school_years.includes(:absences).includes(:tardies).includes(:discipline_incidents)
+    @discipline_incidents = @student_school_years.flat_map(&:discipline_incidents).sort_by(&:occurred_at)
+    @student_assessments = @student.student_assessments.includes(:assessment)
   end
 end
