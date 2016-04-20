@@ -77,8 +77,12 @@
       this.setState({ momentStarted: updatedMoment });
     },
 
-    onProvidedByEducatorChanged: function(event) {
+    onProvidedByEducatorTyping: function(event) {
       this.setState({ providedByEducatorName: event.target.value });
+    },
+
+    onProvidedByEducatorDropdownSelect: function(string) {
+      this.setState({ providedByEducatorName: string });
     },
 
     onServiceClicked: function(serviceTypeId, event) {
@@ -149,7 +153,8 @@
     renderEducatorSelect: function() {
       return createEl(ProvidedByEducatorDropdown, {
         educatorsForServicesDropdown: this.props.educatorsForServicesDropdown,
-        onChange: this.onProvidedByEducatorChanged
+        onUserTyping: this.onProvidedByEducatorTyping,
+        onUserDropdownSelect: this.onProvidedByEducatorDropdownSelect,
       });
     },
 

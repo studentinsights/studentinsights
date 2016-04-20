@@ -7,7 +7,8 @@
 
     propTypes: {
       educatorsForServicesDropdown: React.PropTypes.array.isRequired,
-      onChange: React.PropTypes.func.isRequired,
+      onUserTyping: React.PropTypes.func.isRequired,
+      onUserDropdownSelect: React.PropTypes.func.isRequired,
     },
 
     render: function () {
@@ -20,7 +21,7 @@
     renderInput: function () {
       return dom.input({
         className: 'ProvidedByEducatorDropdown',
-        onChange: this.props.onChange,
+        onChange: this.props.onUserTyping,
         placeholder: 'Last Name, First Name...',
         style: {
           marginTop: 2,
@@ -44,14 +45,18 @@
     },
 
     toggleOpenMenu: function () {
-      $('.ProvidedByEducatorDropdown').autocomplete( "search", "" );
+      $('.ProvidedByEducatorDropdown').autocomplete("search", "");
     },
 
     componentDidMount: function() {
+      var self = this;
       $('.ProvidedByEducatorDropdown').autocomplete({
         source: this.props.educatorsForServicesDropdown,
         delay: 0,
         minLength: 0,
+        select: function(event, ui) {
+          self.props.onUserDropdownSelect(ui.item.value);
+        }
       });
     },
 
