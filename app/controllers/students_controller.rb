@@ -32,7 +32,7 @@ class StudentsController < ApplicationController
   end
 
   def sped_referral
-    @student = Student.find(params[:id])
+    set_up_sped_data
     respond_to do |format|
       format.pdf do
         render pdf: "sped_referral"
@@ -159,5 +159,16 @@ class StudentsController < ApplicationController
         interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
       }
     }
+  end
+
+  def set_up_sped_data
+    @student = Student.find(params[:id])
+    @current_educator = current_educator
+    @url = root_url.chomp('/') + request.path
+    @services = @student.services
+    @current_school_year = DateToSchoolYear.new(Date.today).convert.name
+    @student_school_years = @student.student_school_years.includes(:absences).includes(:tardies).includes(:discipline_incidents)
+    @discipline_incidents = @student_school_years.flat_map(&:discipline_incidents).sort_by(&:occurred_at)
+    @student_assessments = @student.student_assessments.includes(:assessment)
   end
 end
