@@ -202,38 +202,38 @@
     renderTardies: function() {
       // var range = Scales.tardies.flexibleRange(this.props.cumulativeTardies);
 
-      // return dom.div({ id: 'tardies', style: styles.container},
-      //   this.renderHeader('Tardies, last 4 years'),
-      //   createEl(HighchartsWrapper, {
-      //     chart: {type: 'column'},
-      //     xAxis: {categories: this.lastNMonthNames(48)},
-      //     yAxis: {
-      //         min: 0,
-      //         max: 20,
-      //         allowDecimals: false,
-      //         title: {text: 'Tardies.'}
-      //     },
-      //     series: [{
-      //         showInLegend: false,
-      //         data: this.eventsToSparseArray(this.props.tardies, 48)
-      //     }]
-      //   })
-      // );
-
       return dom.div({ id: 'tardies', style: styles.container},
         this.renderHeader('Tardies, last 4 years'),
-        createEl(ProfileChart, {
-          titleText: '',
+        createEl(HighchartsWrapper, {
+          chart: {type: 'column'},
+          xAxis: {categories: this.lastNMonthNames(48)},
           yAxis: {
-            min: range[0],
-            max: range[1],
-            title: { text: 'Count per year' }
+              min: 0,
+              max: 20,
+              allowDecimals: false,
+              title: {text: 'Tardies.'}
           },
-          quadSeries: [{
-            name: 'Tardies per school year',
-            data: this.props.cumulativeTardies
+          series: [{
+              showInLegend: false,
+              data: this.eventsToSparseArray(this.props.tardies, 48)
           }]
-      }));
+        })
+      );
+
+      // return dom.div({ id: 'tardies', style: styles.container},
+      //   this.renderHeader('Tardies, last 4 years'),
+      //   createEl(ProfileChart, {
+      //     titleText: '',
+      //     yAxis: {
+      //       min: range[0],
+      //       max: range[1],
+      //       title: { text: 'Count per year' }
+      //     },
+      //     quadSeries: [{
+      //       name: 'Tardies per school year',
+      //       data: this.props.cumulativeTardies
+      //     }]
+      // }));
     },
 
     renderIncidents: function() {
