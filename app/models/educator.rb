@@ -138,7 +138,7 @@ class Educator < ActiveRecord::Base
   def self.print_permissions
     # Useful for double-checking permissions levels with Somerville admins
 
-    Educator.all.sort_by { |educator| educator.school }.each do |educator|
+    Educator.order(:school_id, :full_name).each do |educator|
       puts "#{educator.full_name} (#{educator.school.local_id}):"
       puts educator.permissions_in_words
       puts
