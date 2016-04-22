@@ -135,7 +135,38 @@ class Educator < ActiveRecord::Base
     end
   end
 
+  def self.print_permissions
+    # Useful for double-checking permissions levels with Somerville admins
+
+    Educator.all.sort_by { |educator| educator.school }.each do |educator|
+      puts "#{educator.full_name} (#{educator.school.local_id}):"
+      puts educator.permissions_in_words
+      puts
+    end
+
+    return
+  end
+
+  def permissions_in_words
+    return "No access" if has_access_to_no_students?
+
+    permissions = []
+    permissions << "Has access to homeroom #{homeroom.name}" if homeroom.present?
+    permissions << "Has schoolwide access" if schoolwide_access?
+    permissions << "Has grade level access to #{grade_level_access}" if has_grade_level_access?
+
+    return permissions
+  end
+
   private
+
+  def has_access_to_no_students?
+    schoolwide_access == false && grade_level_access == [] && homeroom.blank?
+  end
+
+  def has_grade_level_access?
+    grade_level_access != [] && !grade_level_access.nil?
+  end
 
   def has_access_to_all_students?
     restricted_to_sped_students == false &&
