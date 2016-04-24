@@ -19,7 +19,8 @@ describe('RecordService', function() {
         currentEducator: Fixtures.currentEducator,
         onSave: jasmine.createSpy('onSave'),
         onCancel: jasmine.createSpy('onCancel'),
-        requestState: null
+        requestState: null,
+        studentId: 1
       });
       return ReactDOM.render(createEl(RecordService, mergedProps), el);
     },
