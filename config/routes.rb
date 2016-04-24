@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
   get '/educators/reset'=> 'educators#reset_session_clock'
+  get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
 
   devise_scope :educator do
     root to: "devise/sessions#new"

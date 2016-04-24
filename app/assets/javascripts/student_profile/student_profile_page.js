@@ -106,7 +106,6 @@
       // constants
       interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
-      educatorsForServicesDropdown: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
 
@@ -223,7 +222,6 @@
             'serviceTypesIndex',
             'eventNoteTypesIndex',
             'educatorsIndex',
-            'educatorsForServicesDropdown',
             'actions',
             'requests'
           )));
@@ -313,27 +311,24 @@
 
     renderStaff: function(student) {
       var activeServices = this.props.feed.services.active;
-      var educatorIdsFromServices = _.pluck(activeServices, 'provided_by_educator_id');
-      var uniqueIds = _.unique(educatorIdsFromServices);
-      var nonNullIds = _.filter(uniqueIds, function(id) { return id !== null; });
-      var educatorIds = nonNullIds;
-      var educatorsIndex = this.props.educatorsIndex;
+      var educatorNamesFromServices = _.pluck(activeServices, 'provided_by_educator_name');
+      var uniqueNames = _.unique(educatorNamesFromServices);
+      var nonNullNames = _.filter(uniqueNames, function(id) { return id !== null; });
+      var educatorNames = nonNullNames;
 
       var limit = 3;
 
-      var elements = educatorIds.slice(0, limit).map(function(educatorId) {
-        return (educatorsIndex[educatorId]).full_name;
-      });
+      var elements = educatorNames.slice(0, limit);
 
-      if (educatorIds.length > limit) {
-        elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
-      } else if (educatorIds.length === 0) {
+      if (educatorNames.length > limit) {
+        elements.push(dom.span({}, '+ ' + (educatorNames.length - limit) + ' more'));
+      } else if (educatorNames.length === 0) {
         elements.push(['None']);
       }
 
       return createEl(SummaryList, {
         title: 'Staff providing services',
-        elements: elements
+        elements: educatorNames
       });
     },
 

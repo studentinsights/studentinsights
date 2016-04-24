@@ -46,7 +46,6 @@
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
-      educatorsForServicesDropdown: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
       actions: PropTypes.actions.isRequired,
@@ -141,6 +140,7 @@
       if (this.state.isAddingService || this.props.requests.saveService !== null) {
         return createEl(RecordService, {
           studentFirstName: this.props.student.first_name,
+          studentId: this.props.student.id,
           onSave: this.onClickSaveService,
           onCancel: this.onCancelRecordService,
           requestState: this.props.requests.saveService,
@@ -149,7 +149,6 @@
           currentEducator: this.props.currentEducator,
           serviceTypesIndex: this.props.serviceTypesIndex,
           educatorsIndex: this.props.educatorsIndex,
-          educatorsForServicesDropdown: this.props.educatorsForServicesDropdown,
         });
       }
 

@@ -15,12 +15,12 @@ describe('RecordService', function() {
         studentFirstName: 'Tamyra',
         serviceTypesIndex: Fixtures.studentProfile.serviceTypesIndex,
         educatorsIndex: Fixtures.studentProfile.educatorsIndex,
-        educatorsForServicesDropdown: Fixtures.studentProfile.educatorsForServicesDropdown,
         nowMoment: Fixtures.nowMoment,
         currentEducator: Fixtures.currentEducator,
         onSave: jasmine.createSpy('onSave'),
         onCancel: jasmine.createSpy('onCancel'),
-        requestState: null
+        requestState: null,
+        studentId: 1
       });
       return ReactDOM.render(createEl(RecordService, mergedProps), el);
     },
@@ -53,7 +53,7 @@ describe('RecordService', function() {
       ]);
 
       expect(el).toContainText('Who is working with Tamyra?');
-      expect($(el).find('.Select').length).toEqual(1);
+      // TODO (as): test staff dropdown autocomplete async
       expect(el).toContainText('When did they start?');
       expect($(el).find('.Datepicker .datepicker.hasDatepicker').length).toEqual(1);
       expect(helpers.findSaveButton(el).length).toEqual(1);

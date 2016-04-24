@@ -16,7 +16,7 @@ class FakeServiceGenerator
     return {
       student_id: @student.id,
       service_type_id: service_type_id,
-      provided_by_educator_id: [educator.id, nil].sample,
+      provided_by_educator_name: [educator.full_name, nil].sample,
       date_started: @date - rand(0..7),
       recorded_at: @date,
       recorded_by_educator_id: Educator.all.sample.id

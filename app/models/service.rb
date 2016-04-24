@@ -1,6 +1,5 @@
 class Service < ActiveRecord::Base
   belongs_to :student
-  belongs_to :provided_by_educator, class_name: 'Educator'
   belongs_to :recorded_by_educator, class_name: 'Educator'
   belongs_to :service_type
   has_many :discontinued_services
@@ -18,4 +17,9 @@ class Service < ActiveRecord::Base
   def self.discontinued
     self.includes(:discontinued_services).where.not(:discontinued_services => { :id => nil })
   end
+
+  def self.provider_names
+    pluck(:provided_by_educator_name)
+  end
+
 end

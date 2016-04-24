@@ -127,13 +127,7 @@
       var wasDiscontinued = this.wasDiscontinued(service);
       var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
       var momentStarted = moment.utc(service.date_started);
-      var providedByEducatorId = service.provided_by_educator_id;
-
-      if (providedByEducatorId) {
-        var educator = this.props.educatorsIndex[service.provided_by_educator_id];
-      } else {
-        var educator = null;
-      };
+      var providedByEducatorName = service.provided_by_educator_name;
 
       return dom.div({
         key: service.id,
@@ -145,7 +139,7 @@
         dom.div({ style: { display: 'flex' } },
           dom.div({ style: { flex: 1 } },
             dom.div({ style: { fontWeight: 'bold' } }, serviceText),
-            this.renderEducator(educator),
+            this.renderEducatorName(providedByEducatorName),
             dom.div({},
               'Since ',
               momentStarted.format('MMMM D, YYYY')
@@ -160,11 +154,11 @@
       );
     },
 
-    renderEducator: function (educator) {
-      if (educator === null) {
+    renderEducatorName: function (educatorName) {
+      if (educatorName === null) {
         return dom.div({}, 'No staff recorded');
       } else {
-        return dom.div({}, 'With ', createEl(Educator, { educator: educator }))
+        return dom.div({}, 'With ' + educatorName);
       };
     },
 

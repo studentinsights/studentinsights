@@ -25,7 +25,6 @@ class StudentsController < ApplicationController
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,
       educators_index: Educator.to_index,
-      educators_for_services_dropdown: student.try(:school).try(:educators_index),
       access: student.latest_access_results,
       attendance_data: student_profile_attendance_data(student)
     }
@@ -64,7 +63,7 @@ class StudentsController < ApplicationController
       :student_id,
       :service_type_id,
       :date_started,
-      :provided_by_educator_id
+      :provided_by_educator_name
     ])
     service = Service.new(clean_params.merge({
       recorded_by_educator_id: current_educator.id,
@@ -92,6 +91,7 @@ class StudentsController < ApplicationController
   end
 
   private
+
   def student_profile_attendance_data(student)
     student_school_years = student.student_school_years
     {
