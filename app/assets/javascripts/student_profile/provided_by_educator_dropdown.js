@@ -9,6 +9,7 @@
       educatorsForServicesDropdown: React.PropTypes.array.isRequired,
       onUserTyping: React.PropTypes.func.isRequired,
       onUserDropdownSelect: React.PropTypes.func.isRequired,
+      studentId: React.PropTypes.number.isRequired
     },
 
     render: function () {
@@ -51,7 +52,7 @@
     componentDidMount: function() {
       var self = this;
       $('.ProvidedByEducatorDropdown').autocomplete({
-        source: this.props.educatorsForServicesDropdown,
+        source: '/educators/services_dropdown/' + this.props.studentId,
         delay: 0,
         minLength: 0,
         select: function(event, ui) {

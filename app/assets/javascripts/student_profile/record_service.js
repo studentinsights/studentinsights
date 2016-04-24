@@ -51,6 +51,7 @@
 
     propTypes: {
       studentFirstName: React.PropTypes.string.isRequired,
+      studentId: React.PropTypes.number.isRequired,
       onSave: React.PropTypes.func.isRequired,
       onCancel: React.PropTypes.func.isRequired,
       requestState: PropTypes.nullable(React.PropTypes.string.isRequired),
@@ -155,6 +156,7 @@
         educatorsForServicesDropdown: this.props.educatorsForServicesDropdown,
         onUserTyping: this.onProvidedByEducatorTyping,
         onUserDropdownSelect: this.onProvidedByEducatorDropdownSelect,
+        studentId: this.props.studentId
       });
     },
 

@@ -141,6 +141,7 @@
       if (this.state.isAddingService || this.props.requests.saveService !== null) {
         return createEl(RecordService, {
           studentFirstName: this.props.student.first_name,
+          studentId: this.props.student.id,
           onSave: this.onClickSaveService,
           onCancel: this.onCancelRecordService,
           requestState: this.props.requests.saveService,
