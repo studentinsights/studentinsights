@@ -25,6 +25,7 @@
 //= require jquery.tooltipster.min.js
 //= require tablesort.min
 //= require tablesort.numeric
+//= require_tree ./sorts
 //= require mustache.min
 //= require js.cookie
 //= require classList
