@@ -1,4 +1,3 @@
-// Extend TableSort with MCAS performance levels
 (function(){
 
   function clean_cell(i) {
