@@ -14,7 +14,7 @@ class EducatorsController < ApplicationController
       render json: [] and return
     end
 
-    render json: (school.educator_names_for_services + Service.provider_names).uniq.compact.sort_by(&:downcase)
+    render json: filtered_names(params[:term], school)
   end
 
   def reset_session_clock
@@ -23,6 +23,23 @@ class EducatorsController < ApplicationController
     respond_to do |format|
       format.json { render json: :ok }
     end
+  end
+
+  private
+
+  def filtered_names(term, school)
+    unfiltered = (school.educator_names_for_services + Service.provider_names).uniq.compact
+
+    filtered = unfiltered.select do |name|
+      split_name = name.split(', ')   # SIS name format expected
+      split_name.any? { |name_part| match?(term, name_part) }
+    end
+
+    return filtered.sort_by(&:downcase)
+  end
+
+  def match?(term, string_to_test)
+    term.downcase == string_to_test.slice(0, term.length).downcase
   end
 
 end
