@@ -30,6 +30,8 @@ class EducatorsController < ApplicationController
   def filtered_names(term, school)
     unfiltered = (school.educator_names_for_services + Service.provider_names).uniq.compact
 
+    return unfiltered.sort_by(&:downcase) if term.nil?  # Handle missing param
+
     filtered = unfiltered.select do |name|
       split_name = name.split(', ')   # SIS name format expected
       split_name.any? { |name_part| match?(term, name_part) }
