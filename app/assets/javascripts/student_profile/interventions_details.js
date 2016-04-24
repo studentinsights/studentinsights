@@ -46,7 +46,6 @@
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
-      educatorsForServicesDropdown: React.PropTypes.array.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
       actions: PropTypes.actions.isRequired,
@@ -150,7 +149,6 @@
           currentEducator: this.props.currentEducator,
           serviceTypesIndex: this.props.serviceTypesIndex,
           educatorsIndex: this.props.educatorsIndex,
-          educatorsForServicesDropdown: this.props.educatorsForServicesDropdown,
         });
       }
 

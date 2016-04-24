@@ -106,7 +106,6 @@
       // constants
       interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
-      educatorsForServicesDropdown: React.PropTypes.array.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
 
@@ -223,7 +222,6 @@
             'serviceTypesIndex',
             'eventNoteTypesIndex',
             'educatorsIndex',
-            'educatorsForServicesDropdown',
             'actions',
             'requests'
           )));

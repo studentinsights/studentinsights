@@ -6,7 +6,6 @@
     displayName: 'ProvidedByEducatorDropdown',
 
     propTypes: {
-      educatorsForServicesDropdown: React.PropTypes.array.isRequired,
       onUserTyping: React.PropTypes.func.isRequired,
       onUserDropdownSelect: React.PropTypes.func.isRequired,
       studentId: React.PropTypes.number.isRequired

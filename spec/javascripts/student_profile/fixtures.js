@@ -799,9 +799,6 @@
         "restricted_to_english_language_learners": false
       }
     },
-    "educatorsForServicesDropdown": [
-      'Healey, Sarah', 'West, Alejandra'
-    ],
     "currentEducator": Fixtures.currentEducator,
     "chartData": {
       "star_series_math_percentile": [

@@ -15,7 +15,6 @@ describe('RecordService', function() {
         studentFirstName: 'Tamyra',
         serviceTypesIndex: Fixtures.studentProfile.serviceTypesIndex,
         educatorsIndex: Fixtures.studentProfile.educatorsIndex,
-        educatorsForServicesDropdown: Fixtures.studentProfile.educatorsForServicesDropdown,
         nowMoment: Fixtures.nowMoment,
         currentEducator: Fixtures.currentEducator,
         onSave: jasmine.createSpy('onSave'),

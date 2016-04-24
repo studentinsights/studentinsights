@@ -60,7 +60,6 @@
       nowMoment: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
-      educatorsForServicesDropdown: React.PropTypes.array.isRequired,
       currentEducator: React.PropTypes.object.isRequired
     },
 
@@ -153,7 +152,6 @@
 
     renderEducatorSelect: function() {
       return createEl(ProvidedByEducatorDropdown, {
-        educatorsForServicesDropdown: this.props.educatorsForServicesDropdown,
         onUserTyping: this.onProvidedByEducatorTyping,
         onUserDropdownSelect: this.onProvidedByEducatorDropdownSelect,
         studentId: this.props.studentId
