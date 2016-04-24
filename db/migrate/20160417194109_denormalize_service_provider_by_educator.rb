@@ -3,7 +3,9 @@ class DenormalizeServiceProviderByEducator < ActiveRecord::Migration
     add_column :services, :provided_by_educator_name, :string
 
     Service.find_each do |service|
-      educator_name = service.provided_by_educator.try(:full_name)
+      educator_id = service.provided_by_educator_id
+      educator = Educator.find(educator_id)
+      educator_name = educator.try(:full_name)
       service.provided_by_educator_name = educator_name
       service.save
     end
