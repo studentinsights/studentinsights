@@ -11,7 +11,7 @@
   };
 
   Tablesort.extend('mcas_sort', function(item) {
-    cleaned_cell = clean_cell(item);
+    cleaned_cell = $.trim(item);
     performance_levels.indexOf(cleaned_cell) > 0;
   }, function(a, b) {
       return compareMcasLevel(b, a);
