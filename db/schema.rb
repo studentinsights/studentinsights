@@ -199,7 +199,6 @@ ActiveRecord::Schema.define(version: 20160417194109) do
     t.integer  "student_id"
     t.integer  "recorded_by_educator_id"
     t.integer  "service_type_id"
-
     t.datetime "recorded_at"
     t.datetime "date_started"
     t.datetime "created_at"
