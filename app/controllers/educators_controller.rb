@@ -14,7 +14,7 @@ class EducatorsController < ApplicationController
       render json: [] and return
     end
 
-    render json: (school.educator_names_for_services + Service.provider_names).uniq.compact.sort
+    render json: (school.educator_names_for_services + Service.provider_names).uniq.compact.sort_by(&:downcase)
   end
 
   def reset_session_clock
