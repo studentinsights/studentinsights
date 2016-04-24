@@ -118,6 +118,21 @@ describe EducatorsController, :type => :controller do
             make_request(student)
             expect(json).to eq ['Butler, Octavia', 'Stephenson, Neal']
           end
+
+          context 'search for "o"' do
+            it 'returns Octavia' do
+              get :names_for_dropdown, format: :json, id: student.id, term: 'o'
+              expect(json).to eq ['Butler, Octavia']
+            end
+          end
+
+          context 'search for "s"' do
+            it 'returns Stephenson' do
+              get :names_for_dropdown, format: :json, id: student.id, term: 's'
+              expect(json).to eq ['Stephenson, Neal']
+            end
+          end
+
         end
 
         context 'no educators at school or providing services' do
