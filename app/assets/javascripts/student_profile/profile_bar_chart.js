@@ -122,7 +122,7 @@
 
         var htmlstring = "";
         _.each(events, function(e){
-          htmlstring += "<span>" + moment(e.occurred_at).format("MM-DD-YYYY") + "</span>";
+          htmlstring += "<span>" + moment(e.occurred_at).format("MMMM Do, YYYY") + "</span>";
           htmlstring += "<br>";
         });
         return htmlstring;
@@ -134,7 +134,7 @@
       var positionsForYearStarts = this.getPositionsForYearStarts();
 
       return dom.div({ id: 'chart: ' + this.props.titleText, style: styles.container},
-        this.renderHeader(this.props.titleText + ', last ' + this.props.monthsBack + ' months'),
+        this.renderHeader(this.props.titleText + ', last ' + Math.ceil(this.props.monthsBack / 12) + ' years'),
         createEl(HighchartsWrapper, {
           chart: {type: 'column'},
           credits: false,
