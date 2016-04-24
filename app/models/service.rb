@@ -18,4 +18,9 @@ class Service < ActiveRecord::Base
   def self.discontinued
     self.includes(:discontinued_services).where.not(:discontinued_services => { :id => nil })
   end
+
+  def self.provider_names
+    pluck(:provided_by_educator_name)
+  end
+
 end

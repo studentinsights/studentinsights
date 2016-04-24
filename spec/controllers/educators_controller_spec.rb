@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe EducatorsController, :type => :controller do
-
   describe '#homepage' do
-
     def make_request
       request.env['HTTPS'] = 'on'
       get :homepage
@@ -64,6 +62,81 @@ describe EducatorsController, :type => :controller do
       end
 
     end
+  end
+
+  describe '#names_for_dropdown' do
+    def make_request(student)
+      request.env['HTTPS'] = 'on'
+      request.env["devise.mapping"] = Devise.mappings[:educator]
+      get :names_for_dropdown, format: :json, id: student.id
+    end
+
+    context 'authorized' do
+      let(:json) { JSON.parse!(response.body) }
+
+      before(:each) do
+        sign_in FactoryGirl.create(:educator)
+        make_request(student)
+      end
+
+      context 'student has no school' do
+        let(:student) { FactoryGirl.create(:student) }
+        it 'returns an empty array' do
+          expect(json).to eq []
+        end
+      end
+
+      context 'student has school' do
+        let(:student) { FactoryGirl.create(:student, school: school) }
+
+        context 'educators at school' do
+          let(:school) { FactoryGirl.create(:healey, :with_educator) }
+          it 'returns array of their names' do
+            expect(json).to eq ['Stephenson, Neal']
+          end
+        end
+
+        context 'educators providing services' do
+          let(:school) { FactoryGirl.create(:healey) }
+          let!(:service) {
+            FactoryGirl.create(:service, provided_by_educator_name: 'Butler, Octavia')
+          }
+
+          it 'returns array of their names' do
+            make_request(student)
+            expect(json).to eq ['Butler, Octavia']
+          end
+        end
+
+        context 'educators at school and providing services' do
+          let(:school) { FactoryGirl.create(:healey, :with_educator) }
+          let!(:service) {
+            FactoryGirl.create(:service, provided_by_educator_name: 'Butler, Octavia')
+          }
+
+          it 'returns names of both, sorted alphabetically' do
+            make_request(student)
+            expect(json).to eq ['Butler, Octavia', 'Stephenson, Neal']
+          end
+        end
+
+        context 'no educators at school or providing services' do
+          let(:school) { FactoryGirl.create(:healey) }
+          it 'returns an empty array' do
+            expect(json).to eq []
+          end
+        end
+
+      end
+    end
+
+    context 'unauthorized' do
+      it 'returns unauthorized' do
+        make_request(FactoryGirl.create(:student))
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
   end
 
   describe '#reset_session_clock' do

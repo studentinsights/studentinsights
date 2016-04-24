@@ -8,6 +8,14 @@ class School < ActiveRecord::Base
     School.all.select { |s| s.students.count > 0 }
   end
 
+  def educators_without_test_account
+    educators.where.not(local_id: 'LDAP')
+  end
+
+  def educator_names_for_services
+    educators_without_test_account.pluck(:full_name)
+  end
+
   def self.seed_somerville_schools
     School.create([
       { state_id: 15, local_id: "BRN", name: "Benjamin G Brown", school_type: "ES" },
