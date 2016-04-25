@@ -84,14 +84,14 @@
 
       _.each(this.props.attendanceData.tardies, function(obj){
         events.push({
-          type: 'Absence',
+          type: 'Tardy',
           message: name + ' was tardy.',
           date: new Date(obj.occurred_at)
         });
       });
       _.each(this.props.attendanceData.absences, function(obj){
         events.push({
-          type: 'Tardy',
+          type: 'Absence',
           message: name + ' was absent.',
           date: new Date(obj.occurred_at)
         });

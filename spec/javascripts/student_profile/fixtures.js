@@ -799,42 +799,6 @@
         "restricted_to_english_language_learners": false
       }
     },
-    "educatorsForServicesDropdown": {
-      "1": {
-        "id": 1,
-        "email": "demo@example.com",
-        "created_at": "2016-02-11T14:41:36.284Z",
-        "updated_at": "2016-02-11T15:38:22.288Z",
-        "admin": true,
-        "phone": null,
-        "full_name": null,
-        "state_id": null,
-        "local_id": "350",
-        "staff_type": null,
-        "school_id": 1,
-        "schoolwide_access": true,
-        "grade_level_access": [],
-        "restricted_to_sped_students": false,
-        "restricted_to_english_language_learners": false
-      },
-      "2": {
-        "id": 2,
-        "email": "fake-fifth-grade@example.com",
-        "created_at": "2016-02-11T14:41:36.354Z",
-        "updated_at": "2016-02-11T14:41:36.354Z",
-        "admin": false,
-        "phone": null,
-        "full_name": null,
-        "state_id": null,
-        "local_id": "450",
-        "staff_type": null,
-        "school_id": 1,
-        "schoolwide_access": false,
-        "grade_level_access": [],
-        "restricted_to_sped_students": false,
-        "restricted_to_english_language_learners": false
-      }
-    },
     "currentEducator": Fixtures.currentEducator,
     "chartData": {
       "star_series_math_percentile": [

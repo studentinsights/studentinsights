@@ -4,7 +4,7 @@ def create_service(student, educator)
   FactoryGirl.create(:service, {
     student: student,
     recorded_by_educator: educator,
-    provided_by_educator: educator
+    provided_by_educator_name: 'Muraki, Mari'
   })
 end
 
@@ -366,7 +366,7 @@ describe StudentsController, :type => :controller do
           expect(JSON.parse(response.body).keys).to contain_exactly(
             'id',
             'student_id',
-            'provided_by_educator_id',
+            'provided_by_educator_name',
             'recorded_by_educator_id',
             'service_type_id',
             'recorded_at',
