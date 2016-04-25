@@ -78,7 +78,8 @@
       cumulativeTardies: React.PropTypes.array.isRequired,
       absences: React.PropTypes.array.isRequired,
       tardies: React.PropTypes.array.isRequired,
-      disciplineIncidents: React.PropTypes.array.isRequired
+      disciplineIncidents: React.PropTypes.array.isRequired,
+      student: React.PropTypes.object.isRequired
     },
 
     render: function() {

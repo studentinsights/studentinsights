@@ -19,7 +19,8 @@
         })
       ),
       titleText: React.PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
-      yAxis: React.PropTypes.object.isRequired // options for rendering the y-axis
+      yAxis: React.PropTypes.object.isRequired, // options for rendering the y-axis
+      student: React.PropTypes.object.isRequired
     },
 
     getDefaultProps: function() {
@@ -54,13 +55,48 @@
       }));
     },
 
+    getPositionsForYearStarts: function(){
+      var result = {};
+      var current = moment();
+      var current_grade = parseInt(this.props.student.grade);
+      var n = 48;
+
+      n -= (current.month() + 1);
+      current.dayOfYear(1);
+
+      result[current.valueOf()] = current.year().toString() + "<br>" + "<b>" + "Grade " + current_grade.toString() + "</b>";
+
+      // Take 12-month jumps backwards until we can't anymore.
+      while (n - 12 > 0){
+        current.subtract(1, 'year');
+        n -= 12;
+        current_grade -= 1;
+
+        result[current.valueOf()] = current.year().toString() + "<br>" + "<b>" +
+          (current_grade != 0 ? "Grade " + current_grade.toString() + "</b>" : "");
+      }
+
+      return result;
+    },
+
     baseOptions: function() {
+      var positionsForYearStarts = this.getPositionsForYearStarts();
+
       return merge(ProfileChartSettings.base_options, {
-        xAxis: merge(ProfileChartSettings.x_axis_datetime, {
-          plotLines: this.x_axis_bands,
-          min: this.props.timestampRange.min,
-          max: this.props.timestampRange.max
-        })
+        xAxis: [
+          merge(ProfileChartSettings.x_axis_datetime, {
+            plotLines: this.x_axis_bands,
+            min: this.props.timestampRange.min,
+            max: this.props.timestampRange.max
+          }),
+          {
+            type: "datetime",
+            offset: 35,
+            linkedTo: 0,
+            tickPositions: _.keys(positionsForYearStarts).map(Number),
+            categories: positionsForYearStarts,
+          }
+        ]
       });
     },
 
