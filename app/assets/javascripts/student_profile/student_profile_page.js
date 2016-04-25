@@ -233,14 +233,15 @@
             serviceTypesIndex: this.props.serviceTypesIndex
           }
         );
-        case 'ela': return createEl(ELADetails, {chartData: this.props.chartData});
-        case 'math': return createEl(MathDetails, {chartData: this.props.chartData});
+        case 'ela': return createEl(ELADetails, {chartData: this.props.chartData, student: this.props.student});
+        case 'math': return createEl(MathDetails, {chartData: this.props.chartData, student: this.props.student});
         case 'attendance':
           var attendanceData = this.props.attendanceData;
           return createEl(AttendanceDetails, {
             disciplineIncidents: attendanceData.discipline_incidents,
             absences: attendanceData.absences,
-            tardies: attendanceData.tardies
+            tardies: attendanceData.tardies,
+            student: this.props.student
           });
         case 'interventions':
           return dom.div({ className: 'InterventionsDetails', style: {display: 'flex'} },
