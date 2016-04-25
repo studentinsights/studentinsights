@@ -42,7 +42,14 @@
     propTypes: {
       events: React.PropTypes.array.isRequired, // array of JSON event objects.
       monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
+      tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
       titleText: React.PropTypes.string.isRequired
+    },
+
+    getDefaultProps: function(){
+      return {
+        tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>"
+      }
     },
 
     renderHeader: function(title) {
@@ -53,7 +60,7 @@
     },
 
     getMonthNames: function(){
-      var first_of_this_month = moment().date(1);
+      var first_of_this_month = moment.utc().date(1);
       var results = [];
       for (var i = 0; i < this.props.monthsBack; i++){
         results.splice(0, 0, first_of_this_month.clone().subtract(i, 'months').format("MMM"));
@@ -70,10 +77,10 @@
       var n = this.props.monthsBack;
 
       _.each(events, function(event){
-        var m = moment(event.occurred_at).date(1);
+        var m = moment.utc(event.occurred_at).date(1);
 
         // Only include events from less than n months ago.
-        var now = moment();
+        var now = moment.utc();
         var first_category = now.clone().subtract(n, 'months');
 
         if (now.diff(m, 'months') < n){
@@ -97,7 +104,7 @@
 
     getPositionsForYearStarts: function(){
       var result = {};
-      var current = moment();
+      var current = moment.utc();
       var current_year = current.year();
       var n = this.props.monthsBack;
 
@@ -113,7 +120,7 @@
       return result;
     },
 
-    get_tooltip_formatter: function(eventsByCategory){
+    create_tooltip_formatter: function(eventsByCategory, templatestring){
       return function(){
         var events = eventsByCategory[this.series.data.indexOf(this.point)];
         if (events.length == 0){
@@ -122,7 +129,7 @@
 
         var htmlstring = "";
         _.each(events, function(e){
-          htmlstring += "<span>" + moment(e.occurred_at).format("MMMM Do, YYYY") + "</span>";
+          htmlstring += _.template(templatestring)({e: e});
           htmlstring += "<br>";
         });
         return htmlstring;
@@ -156,7 +163,8 @@
               title: {text: this.props.titleText}
           },
           tooltip: {
-            formatter: this.get_tooltip_formatter(eventsByCategory)
+            formatter: this.create_tooltip_formatter(eventsByCategory, this.props.tooltipTemplateString),
+            useHTML: true
           },
           series: [
             {

@@ -112,6 +112,7 @@
         events: this.props.disciplineIncidents,
         titleText: 'Discipline Incidents',
         monthsBack: 48,
+        tooltipTemplateString: "<span><a href='#history' style='font-size: 12px'><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></a></span>"
       });
     },
 
@@ -132,8 +133,8 @@
     },
 
     renderIncidents: function() {
-      return dom.div({ style: { paddingTop: 60 }}, this.props.disciplineIncidents.map(function(incident) {
-        return dom.div({ style: styles.box, key: incident.occurred_at },
+      return dom.div({ style: {paddingTop: 60} }, this.props.disciplineIncidents.map(function(incident) {
+        return dom.div({ style: styles.box, key: incident.id},
           dom.div({ style: styles.header },
             dom.div({ style: styles.item },
               dom.span({ style: styles.itemHead }, 'Date: '),
