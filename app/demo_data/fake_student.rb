@@ -2,6 +2,7 @@ class FakeStudent
   def initialize(homeroom)
     @homeroom = homeroom
     @student = Student.create(data)
+    @newstudent = rand > 0.95
     add_attendance_events
     add_discipline_incidents
     add_deprecated_interventions
@@ -107,30 +108,34 @@ class FakeStudent
 
   def add_student_assessments_from_x2
     create_x2_assessment_generators(@student).each do |assessment_generator|
-      5.times do
-        StudentAssessment.new(assessment_generator.next).save
+      unless @newstudent
+        5.times do
+          StudentAssessment.new(assessment_generator.next).save
+        end
       end
     end
   end
 
   def add_student_assessments_from_star
-    # Define semi-realistic date ranges for STAR assessments
-    start_date = DateTime.new(2010, 9, 1)
-    star_period_days = 90
-    now = DateTime.now
-    assessment_count = (now - start_date).to_i / star_period_days
-    options = {
-      start_date: start_date,
-      star_period_days: star_period_days
-    }
+    unless @newstudent
+      star_period_days = 90
+      # Define semi-realistic date ranges for STAR assessments
+      start_date = DateTime.new(2010, 9, 1)
+      now = DateTime.now
+      assessment_count = (now - start_date).to_i / star_period_days
+      options = {
+        start_date: start_date,
+        star_period_days: star_period_days
+      }
 
-    generators = [
-      FakeStarMathResultGenerator.new(@student, options),
-      FakeStarReadingResultGenerator.new(@student, options)
-    ]
-    generators.each do |star_assessment_generator|
-      assessment_count.times do
-        StudentAssessment.new(star_assessment_generator.next).save
+      generators = [
+        FakeStarMathResultGenerator.new(@student, options),
+        FakeStarReadingResultGenerator.new(@student, options)
+      ]
+      generators.each do |star_assessment_generator|
+        assessment_count.times do
+          StudentAssessment.new(star_assessment_generator.next).save
+        end
       end
     end
   end
@@ -194,9 +199,6 @@ class FakeStudent
       intervention_count.times do
         intervention = Intervention.new(generator.next)
         intervention.save!
-        rand(0..2).times do
-          intervention.progress_notes << generator.next_progress_note(intervention)
-        end
         intervention.save!
       end
     end

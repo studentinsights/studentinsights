@@ -32,8 +32,24 @@
             </div>
             <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
           <% else %>
-            <%= link_to "About", about_url %>
-            <%= link_to "Sign In", new_educator_session_path %>
+          <div class="flex-container">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="flex-item">
+                <%= f.label :email %>
+                <%= f.email_field :email, class: 'border-sign_in', autofocus: true %>
+              </div>
+
+              <div class="flex-item">
+                <%= f.label :password %>
+                <%= f.password_field :password, class: 'border-sign_in', autocomplete: "off" %>
+              </div>
+
+              <div class="flex-item">
+                <%= f.submit "Log in", class: "btn btn-primary" %>
+              </div>
+          <% end %>
+          </div>
+
           <% end %>
         </nav>
         <p class="notice field"><%= notice %></p>

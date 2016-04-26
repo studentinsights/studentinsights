@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416130628) do
+ActiveRecord::Schema.define(version: 20160417194109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,14 +169,6 @@ ActiveRecord::Schema.define(version: 20160416130628) do
 
   add_index "precomputed_query_docs", ["key"], name: "index_precomputed_query_docs_on_key", unique: true, using: :btree
 
-  create_table "progress_notes", force: true do |t|
-    t.integer  "intervention_id"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "educator_id"
-  end
-
   create_table "school_years", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -205,13 +197,13 @@ ActiveRecord::Schema.define(version: 20160416130628) do
 
   create_table "services", force: true do |t|
     t.integer  "student_id"
-    t.integer  "provided_by_educator_id"
     t.integer  "recorded_by_educator_id"
     t.integer  "service_type_id"
     t.datetime "recorded_at"
     t.datetime "date_started"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provided_by_educator_name"
   end
 
   create_table "student_assessments", force: true do |t|

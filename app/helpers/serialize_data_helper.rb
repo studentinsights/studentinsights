@@ -4,7 +4,7 @@ module SerializeDataHelper
     service.as_json.symbolize_keys.slice(*[
       :id,
       :student_id,
-      :provided_by_educator_id,
+      :provided_by_educator_name,
       :service_type_id,
       :date_started,
       :recorded_by_educator_id,
@@ -39,21 +39,6 @@ module SerializeDataHelper
       end_date: intervention.end_date.try(:strftime, '%B %e, %Y'), # profile v1
       educator_email: intervention.educator.try(:email), # profile v1
       educator_id: intervention.educator.try(:id),
-      progress_notes: intervention.progress_notes.order(created_at: :asc).map do |progress_note|
-        serialize_progress_note(progress_note)
-      end
-    }
-  end
-
-  # deprecated
-  def serialize_progress_note(progress_note)
-    {
-      id: progress_note.id,
-      educator_email: progress_note.educator.email,
-      educator_id: progress_note.educator.id,
-      content: progress_note.content,
-      created_date: progress_note.created_at.strftime("%B %e, %Y %l:%M %p"),
-      created_at_timestamp: progress_note.created_at
     }
   end
 

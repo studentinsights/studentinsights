@@ -11,7 +11,6 @@ class Educator < ActiveRecord::Base
   has_one     :homeroom
   has_many    :students, through: :homeroom
   has_many    :interventions
-  has_many    :progress_notes, through: :interventions
 
   validates :email, presence: true, uniqueness: true
   validates :local_id, presence: true, uniqueness: true
@@ -90,6 +89,10 @@ class Educator < ActiveRecord::Base
     allowed_homerooms.order(:name)
   end
 
+  def self.to_index
+    all.map { |e| [e.id, e.for_index] }.to_h
+  end
+
   def for_index
     as_json.symbolize_keys.slice(:id, :email, :full_name)
   end
@@ -114,7 +117,56 @@ class Educator < ActiveRecord::Base
     save!
   end
 
+  def self.load_permissions(permissions_array)
+    # Expects an array of hashes:
+    # [{
+    #   full_name: EDUCATOR_FULL_NAME_1,
+    #   PERMISSIONS_ATTRIBUTES
+    # },
+    # {
+    #   full_name: EDUCATOR_FULL_NAME_2,
+    #   PERMISSIONS_ATTRIBUTES
+    # }]
+
+    permissions_array.each do |permissions_info|
+      educator = Educator.find_by_full_name!(permissions_info[:full_name])
+      educator.assign_attributes(permissions_info)
+      educator.save!
+    end
+  end
+
+  def self.print_permissions
+    # Useful for double-checking permissions levels with Somerville admins
+
+    Educator.order(:school_id, :full_name).each do |educator|
+      puts "#{educator.full_name} (#{educator.school.local_id}):"
+      puts educator.permissions_in_words
+      puts
+    end
+
+    return
+  end
+
+  def permissions_in_words
+    return "No access" if has_access_to_no_students?
+
+    permissions = []
+    permissions << "Has access to homeroom #{homeroom.name}" if homeroom.present?
+    permissions << "Has schoolwide access" if schoolwide_access?
+    permissions << "Has grade level access to #{grade_level_access}" if has_grade_level_access?
+
+    return permissions
+  end
+
   private
+
+  def has_access_to_no_students?
+    schoolwide_access == false && grade_level_access == [] && homeroom.blank?
+  end
+
+  def has_grade_level_access?
+    grade_level_access != [] && !grade_level_access.nil?
+  end
 
   def has_access_to_all_students?
     restricted_to_sped_students == false &&
