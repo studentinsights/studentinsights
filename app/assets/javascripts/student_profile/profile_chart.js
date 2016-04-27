@@ -55,11 +55,9 @@
       }));
     },
 
-    getPositionsForYearStarts: function(){
+    getPositionsForYearStarts: function(n, d, current_grade){
       var result = {};
-      var current = moment();
-      var current_grade = parseInt(this.props.student.grade);
-      var n = 48;
+      var current = d;
 
       n -= (current.month() + 1);
       current.dayOfYear(1);
@@ -80,7 +78,7 @@
     },
 
     baseOptions: function() {
-      var positionsForYearStarts = this.getPositionsForYearStarts();
+      var positionsForYearStarts = this.getPositionsForYearStarts(48, moment.utc(), parseInt(this.props.student.grade));
 
       return merge(ProfileChartSettings.base_options, {
         xAxis: [
