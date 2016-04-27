@@ -4,7 +4,7 @@ def create_service(student, educator)
   FactoryGirl.create(:service, {
     student: student,
     recorded_by_educator: educator,
-    provided_by_educator: educator
+    provided_by_educator_name: 'Muraki, Mari'
   })
 end
 
@@ -45,12 +45,11 @@ describe StudentsController, :type => :controller do
           make_request({ student_id: student.id, format: :html })
           expect(serialized_data[:current_educator]).to eq educator
           expect(serialized_data[:student]["id"]).to eq student.id
-          expect(serialized_data[:notes]).to eq []
           expect(serialized_data[:dibels]).to eq []
           expect(serialized_data[:feed]).to eq ({
             event_notes: [],
             services: {active: [], discontinued: []},
-            deprecated: {notes: [], interventions: []}
+            deprecated: {interventions: []}
           })
 
           expect(serialized_data[:chart_data]).to include(:attendance_events_school_years)
@@ -367,7 +366,7 @@ describe StudentsController, :type => :controller do
           expect(JSON.parse(response.body).keys).to contain_exactly(
             'id',
             'student_id',
-            'provided_by_educator_id',
+            'provided_by_educator_name',
             'recorded_by_educator_id',
             'service_type_id',
             'recorded_at',
@@ -400,7 +399,6 @@ describe StudentsController, :type => :controller do
           response_body = JSON.parse(response.body)
           expect(response_body).to eq({
             "errors" => [
-              "Provided by educator can't be blank",
               "Student can't be blank",
               "Service type can't be blank",
               "Date started can't be blank"

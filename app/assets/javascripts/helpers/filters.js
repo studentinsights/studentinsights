@@ -70,25 +70,6 @@
         key: 'event_note_type'
       };
     },
-    MergedNoteType: function(mergedNoteType, mergedNoteTypeId) {
-      return {
-        identifier: ['merged_note_type', mergedNoteType, mergedNoteTypeId].join(':'),
-        filterFn: function(student) {
-          var mergedNotes = FeedHelpers.mergedNotes({
-            event_notes: student.event_notes,
-            deprecated: {
-              interventions: student.interventions,
-              notes: student.notes
-            }
-          });
-          if (mergedNoteType === null && mergedNoteTypeId === null) return (mergedNotes.length === 0);
-          return mergedNotes.filter(function(mergedNote) {
-            return FeedHelpers.matchesMergedNoteType(mergedNote, mergedNoteType, mergedNoteTypeId);
-          }).length > 0;
-        },
-        key: 'merged_note_type'
-      };
-    },
     YearsEnrolled: function(value) {
       return {
         identifier: ['years_enrolled', value].join(':'),
@@ -120,7 +101,7 @@
       if (parts[0] === 'years_enrolled') return Filters.YearsEnrolled(parseFloat(parts[1]));
       if (parts[0] === 'service_type') return Filters.ServiceType(parseFloat(parts[1]));
       if (parts[0] === 'event_note_type') return Filters.EventNoteType(parseFloat(parts[1]));
-      
+
       return null;
     },
 

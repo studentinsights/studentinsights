@@ -9,6 +9,8 @@
   var Datepicker = window.shared.Datepicker;
   var serviceColor = window.shared.serviceColor;
 
+  var ProvidedByEducatorDropdown = window.shared.ProvidedByEducatorDropdown;
+
   var styles = {
     dialog: {
       border: '1px solid #ccc',
@@ -49,6 +51,7 @@
 
     propTypes: {
       studentFirstName: React.PropTypes.string.isRequired,
+      studentId: React.PropTypes.number.isRequired,
       onSave: React.PropTypes.func.isRequired,
       onCancel: React.PropTypes.func.isRequired,
       requestState: PropTypes.nullable(React.PropTypes.string.isRequired),
@@ -63,7 +66,7 @@
     getInitialState: function() {
       return {
         serviceTypeId: null,
-        providedByEducatorId: null,
+        providedByEducatorName: null,
         momentStarted: moment.utc() // TODO should thread through
       }
     },
@@ -74,8 +77,12 @@
       this.setState({ momentStarted: updatedMoment });
     },
 
-    onAssignedEducatorChanged: function(selectParams) {
-      this.setState({ providedByEducatorId: selectParams.value });
+    onProvidedByEducatorTyping: function(event) {
+      this.setState({ providedByEducatorName: event.target.value });
+    },
+
+    onProvidedByEducatorDropdownSelect: function(string) {
+      this.setState({ providedByEducatorName: string });
     },
 
     onServiceClicked: function(serviceTypeId, event) {
@@ -87,9 +94,10 @@
     },
 
     onClickSave: function(event) {
+      // Get the value of the autocomplete input
       this.props.onSave({
         serviceTypeId: this.state.serviceTypeId,
-        providedByEducatorId: this.state.providedByEducatorId,
+        providedByEducatorName: this.state.providedByEducatorName,
         dateStartedText: this.state.momentStarted.format('YYYY-MM-DD'),
         recordedByEducatorId: this.props.currentEducator.id
       });
@@ -143,33 +151,18 @@
     },
 
     renderEducatorSelect: function() {
-      var options = _.values(this.props.educatorsIndex).map(function(educator) {
-        var name = (educator.full_name !== null)
-          ? educator.full_name
-          : educator.email.split('@')[0];
-        return { value: educator.id, label: name };
-      });
-
-      var sortedOptions = _.sortBy(options, function(o)
-        { return o.label; }
-      );
-
-      return createEl(ReactSelect, {
-        name: 'assigned-educator-select',
-        clearable: false,
-        placeholder: 'Type name..',
-        value: this.state.providedByEducatorId,
-        options: sortedOptions,
-        onChange: this.onAssignedEducatorChanged
+      return createEl(ProvidedByEducatorDropdown, {
+        onUserTyping: this.onProvidedByEducatorTyping,
+        onUserDropdownSelect: this.onProvidedByEducatorDropdownSelect,
+        studentId: this.props.studentId
       });
     },
-
 
     renderWhoAndWhen: function() {
       return dom.div({},
         dom.div({ style: { marginTop: 20 } },
           dom.div({}, 'Who is working with ' + this.props.studentFirstName + '?'),
-          dom.div({ style: { width: '50%' } }, this.renderEducatorSelect())
+          dom.div({}, this.renderEducatorSelect())
         ),
         dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
         createEl(Datepicker, {
@@ -186,7 +179,7 @@
     },
 
     renderButtons: function() {
-      var isFormComplete = (this.state.providedByEducatorId && this.state.serviceTypeId && this.state.momentStarted);
+      var isFormComplete = (this.state.serviceTypeId && this.state.momentStarted);
       return dom.div({ style: { marginTop: 15 } },
         dom.button({
           style: {

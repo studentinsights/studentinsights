@@ -49,7 +49,7 @@ class SchoolsController < ApplicationController
       query_time = time_now - 9.hours
       key = precomputed_student_hashes_key(query_time, authorized_student_ids)
       doc = PrecomputedQueryDoc.find_by_key(key)
-      return JSON.parse(doc.json)['student_hashes'] unless doc.nil?
+      return JSON.parse(doc.json).deep_symbolize_keys![:student_hashes] unless doc.nil?
     rescue ActiveRecord::StatementInvalid => err
       logger.error "load_precomputed_student_hashes raised error #{err.inspect}"
     end

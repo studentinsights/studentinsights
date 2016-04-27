@@ -25,6 +25,7 @@
 //= require jquery.tooltipster.min.js
 //= require tablesort.min
 //= require tablesort.numeric
+//= require_tree ./sorts
 //= require mustache.min
 //= require js.cookie
 //= require classList
@@ -60,6 +61,7 @@
 // pure ui components:
   //= require ./student_profile/risk_bubble
   //= require ./student_profile/service_color
+  //= require ./student_profile/provided_by_educator_dropdown
   //= require ./student_profile/profile_chart_settings
   //= require ./student_profile/educator
   //= require ./student_profile/datepicker
@@ -74,6 +76,7 @@
   //= require ./student_profile/record_service
   //= require ./student_profile/summary_list
   //= require ./student_profile/profile_chart
+  //= require ./student_profile/profile_bar_chart
   //= require ./student_profile/student_profile_header
 // details:
   //= require ./student_profile/profile_details

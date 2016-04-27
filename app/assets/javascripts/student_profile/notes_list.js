@@ -3,7 +3,7 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
-  
+
   var Educator = window.shared.Educator;
   var PropTypes = window.shared.PropTypes;
   var FeedHelpers = window.shared.FeedHelpers;
@@ -87,7 +87,7 @@
         className: 'NoteCard',
         style: styles.note
       },
-        dom.div({}, 
+        dom.div({},
           dom.span({ className: 'date', style: styles.date }, this.props.noteMoment.format('MMMM D, YYYY')),
           this.props.badge,
           dom.span({ style: styles.educator }, createEl(Educator, {
@@ -139,9 +139,7 @@
       return dom.div({ className: 'NotesList' }, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
         switch (mergedNote.type) {
           case 'event_notes': return this.renderEventNote(mergedNote);
-          case 'deprecated_notes': return this.renderDeprecatedNote(mergedNote);
           case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
-          case 'deprecated_progress_notes': return this.renderDeprecatedProgressNote(mergedNote);
         }
       }, this));
     },
@@ -166,17 +164,6 @@
       });
     },
 
-    renderDeprecatedNote: function(deprecatedNote) {
-      return createEl(NoteCard, {
-        key: ['deprecated_note', deprecatedNote.id].join(),
-        noteMoment: moment.utc(deprecatedNote.created_at_timestamp),
-        badge: dom.span({ style: styles.badge }, 'Old note'),
-        educatorId: deprecatedNote.educator_id,
-        text: deprecatedNote.content,
-        educatorsIndex: this.props.educatorsIndex
-      });
-    },
-
     // TODO(kr) support custom intervention type
     // This assumes that the `end_date` field is not accurate enough to be worth splitting
     // this out into two note entries.
@@ -191,15 +178,5 @@
       });
     },
 
-    renderDeprecatedProgressNote: function(deprecatedProgressNote) {
-      return createEl(NoteCard, {
-        key: ['deprecated_progress_note', deprecatedProgressNote.id].join(),
-        noteMoment: moment.utc(deprecatedProgressNote.created_at_timestamp),
-        badge: dom.span({ style: styles.badge }, 'Old progress note'),
-        educatorId: deprecatedProgressNote.educator_id,
-        text: _.compact([deprecatedProgressNote.intervention.name, deprecatedProgressNote.content]).join('\n'),
-        educatorsIndex: this.props.educatorsIndex
-      });
-    }
   });
 })();

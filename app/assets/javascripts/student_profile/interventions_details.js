@@ -141,6 +141,7 @@
       if (this.state.isAddingService || this.props.requests.saveService !== null) {
         return createEl(RecordService, {
           studentFirstName: this.props.student.first_name,
+          studentId: this.props.student.id,
           onSave: this.onClickSaveService,
           onCancel: this.onCancelRecordService,
           requestState: this.props.requests.saveService,
@@ -148,7 +149,7 @@
           nowMoment: moment.utc(), // TODO(kr) thread through
           currentEducator: this.props.currentEducator,
           serviceTypesIndex: this.props.serviceTypesIndex,
-          educatorsIndex: this.props.educatorsIndex
+          educatorsIndex: this.props.educatorsIndex,
         });
       }
 

@@ -55,72 +55,6 @@
       "discontinued": []
     },
     "deprecated": {
-      "notes": [
-        {
-          "id": 5,
-          "content": "We talked with the family.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.950Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 6,
-          "content": "We talked with an outside therapist.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.955Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 7,
-          "content": "We talked with an outside therapist.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.960Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 8,
-          "content": "We talked with the family.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.963Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 9,
-          "content": "We talked with the family.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.967Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 10,
-          "content": "We talked with an outside therapist.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.970Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 11,
-          "content": "We talked with the family.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.974Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 12,
-          "content": "We talked with an outside therapist.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.978Z",
-          "created_at": "February 24, 2016"
-        }
-      ],
       "interventions": [
         {
           "id": 1,
@@ -132,8 +66,7 @@
           "start_date_timestamp": "2010-10-27",
           "end_date": "November 10, 2010",
           "educator_email": "demo@example.com",
-          "educator_id": 1,
-          "progress_notes": []
+          "educator_id": 1
         },
         {
           "id": 2,
@@ -145,8 +78,7 @@
           "start_date_timestamp": "2010-12-11",
           "end_date": "December 25, 2010",
           "educator_email": "demo@example.com",
-          "educator_id": 1,
-          "progress_notes": []
+          "educator_id": 1
         }
       ]
     }
@@ -667,7 +599,6 @@
             "end_date": "October 15, 2010",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 8,
@@ -678,7 +609,6 @@
             "end_date": "December 10, 2010",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 9,
@@ -689,7 +619,6 @@
             "end_date": "January 26, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 10,
@@ -700,7 +629,6 @@
             "end_date": "March  7, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 11,
@@ -711,7 +639,6 @@
             "end_date": "April 19, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 12,
@@ -722,7 +649,6 @@
             "end_date": "May 25, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 13,
@@ -733,7 +659,6 @@
             "end_date": "July 14, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 14,
@@ -744,7 +669,6 @@
             "end_date": "August 14, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 15,
@@ -755,7 +679,6 @@
             "end_date": "October  2, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 16,
@@ -766,7 +689,6 @@
             "end_date": "November  1, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 17,
@@ -777,7 +699,6 @@
             "end_date": "December 26, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 18,
@@ -788,7 +709,6 @@
             "end_date": "February 22, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 19,
@@ -799,7 +719,6 @@
             "end_date": "April 21, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 20,
@@ -810,7 +729,6 @@
             "end_date": "June  7, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 21,
@@ -821,7 +739,6 @@
             "end_date": "July 16, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 22,
@@ -832,7 +749,6 @@
             "end_date": "September  4, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 23,
@@ -843,7 +759,6 @@
             "end_date": "October 27, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           }
         ]
       }

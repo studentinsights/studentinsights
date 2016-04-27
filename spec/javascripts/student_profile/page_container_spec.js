@@ -6,7 +6,7 @@ describe('PageContainer', function() {
   var merge = window.shared.ReactHelpers.merge;
 
   var SpecSugar = window.shared.SpecSugar;
-  var PageContainer = window.shared.PageContainer;    
+  var PageContainer = window.shared.PageContainer;
   var Fixtures = window.shared.Fixtures;
 
   var helpers = {
@@ -17,7 +17,7 @@ describe('PageContainer', function() {
     interventionSummaryLists: function(el) {
       return $(el).find('.interventions-column .SummaryList').toArray();
     },
-    
+
     createSpyActions: function() {
       return {
         onColumnClicked: jasmine.createSpy('onColumnClicked'),
@@ -26,7 +26,7 @@ describe('PageContainer', function() {
         onClickDiscontinueService: jasmine.createSpy('onClickDiscontinueService')
       };
     },
-    
+
     renderInto: function(el, props) {
       var mergedProps = merge(props || {}, {
         nowMomentFn: function() { return Fixtures.nowMoment; },
@@ -75,7 +75,6 @@ describe('PageContainer', function() {
       expect(interventionLists[0]).toContainText('Homeroom 102');
       expect(interventionLists[1]).toContainText('Counseling, outside');
       expect(interventionLists[1]).toContainText('Attendance Contract');
-      expect(interventionLists[2]).toContainText('demo@');
     });
 
     it('opens dialog when clicking Take Notes button', function() {

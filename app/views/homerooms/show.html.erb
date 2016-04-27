@@ -74,19 +74,28 @@
             <th class="risk sort-default" data-sort-method="reverse_number">
               <span class="table-header">Risk</span>
             </th>
-            <th class="program">
+            <% 
+            #The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses. 
+            # You can see the method at: app/assets/javascripts/roster/sorts/prog_assign_sort.js %>
+            <th class="program" data-sort-method="prog_assign_sort">
               <span class="table-header">Program Assigned</span>
             </th>
             <th class="sped">
               <span class="table-header">Disability</span>
             </th>
-            <th class="sped">
+            <% 
+             #The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses. 
+             #See the method at: app/assets/javascripts/roster/sorts/level_of_need_sort.js %>
+            <th class="sped" data-sort-method="need_sort">
               <span class="table-header">Level of Need</span>
             </th>
             <th class="sped">
               <span class="table-header">504 Plan</span>
             </th>
-            <th class="language">
+            <%
+              #The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses. 
+              # You can see the method at: app/assets/javascripts/roster/sorts/fluency_sort.js %>
+            <th class="language" data-sort-method="fluency_sort">
               <span class="table-header">Fluency</span>
             </th>
             <th class="language">

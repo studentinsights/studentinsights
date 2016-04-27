@@ -13,7 +13,7 @@ class FakeDibelsResultGenerator
     {
       assessment_id: dibels_assessment_id,
       date_taken: DateTime.new(@dates.pop, 5, 15),
-      performance_level: ["Intensive", "Strategic", "Core", "Benchmark", "CORE", nil].sample,
+      performance_level: ["Intensive", "Strategic", "Core"].sample,
       student_id: @student.id
     }
   end

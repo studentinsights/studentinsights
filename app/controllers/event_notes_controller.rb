@@ -12,13 +12,7 @@ class EventNotesController < ApplicationController
   end
 
   def create
-    clean_params = params.require(:event_note).permit(*[
-      :student_id,
-      :event_note_type_id,
-      :text
-    ])
-
-    event_note = EventNote.new(clean_params.merge({
+    event_note = EventNote.new(event_note_params.merge({
       educator_id: current_educator.id,
       recorded_at: Time.now
     }))
@@ -31,14 +25,8 @@ class EventNotesController < ApplicationController
   end
 
   def update
-    clean_params = params.require(:event_note).permit(*[
-      :id,
-      :student_id,
-      :event_note_type_id,
-      :text
-    ])
+    event_note_id = params[:id]
 
-    event_note_id = clean_params[:id]
     event_note = EventNote.find(event_note_id)
 
     # Save the state of the existing event note.
@@ -46,7 +34,7 @@ class EventNotesController < ApplicationController
       event_note_id: event_note_id
     ).order(
       :version
-    ).take
+    ).last
 
     if previous_event_note_revision
       version = previous_event_note_revision.version + 1
@@ -68,15 +56,20 @@ class EventNotesController < ApplicationController
       render json: { errors: event_note_revision.errors.full_messages }, status: 422
     end
 
-    event_note.student_id = clean_params[:student_id]
-    event_note.event_note_type_id = clean_params[:event_note_type_id]
-    event_note.text = clean_params[:text]
-    event_note.recorded_at = Time.now
-
-    if event_note.save
+    if event_note.update!(event_note_params)
       render json: serialize_event_note(event_note)
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
     end
   end
+
+  private
+    def event_note_params
+      params.require(:event_note).permit(
+        :student_id,
+        :event_note_type_id,
+        :text
+      )
+    end
+
 end

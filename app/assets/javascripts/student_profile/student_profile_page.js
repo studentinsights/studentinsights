@@ -12,7 +12,6 @@
   var SummaryList = window.shared.SummaryList;
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
-  var Educator = window.shared.Educator;
   var FeedHelpers = window.shared.FeedHelpers;
 
   var StudentProfileHeader = window.shared.StudentProfileHeader;
@@ -212,7 +211,9 @@
             cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
             cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
             cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies),
-            disciplineIncidents: attendanceData.discipline_incidents
+            disciplineIncidents: attendanceData.discipline_incidents,
+            absences: attendanceData.absences,
+            tardies: attendanceData.tardies
           });
         case 'interventions':
           return createEl(InterventionsDetails, merge(_.pick(this.props,
@@ -311,21 +312,25 @@
     },
 
     renderStaff: function(student) {
-      var limit = 3;
-      var educatorIds = FeedHelpers.allEducatorIds(this.props.feed);
-      var elements = educatorIds.slice(0, limit).map(function(educatorId) {
-        return createEl(Educator, { educator: this.props.educatorsIndex[educatorId] });
-      }, this);
+      var activeServices = this.props.feed.services.active;
+      var educatorNamesFromServices = _.pluck(activeServices, 'provided_by_educator_name');
+      var uniqueNames = _.unique(educatorNamesFromServices);
+      var nonNullNames = _.filter(uniqueNames, function(id) { return id !== null; });
+      var educatorNames = nonNullNames;
 
-      if (educatorIds.length > limit) {
-        elements.push(dom.span({}, '+ ' + (educatorIds.length - limit) + ' more'));
-      } else if (educatorIds.length === 0) {
+      var limit = 3;
+
+      var elements = educatorNames.slice(0, limit);
+
+      if (educatorNames.length > limit) {
+        elements.push(dom.span({}, '+ ' + (educatorNames.length - limit) + ' more'));
+      } else if (educatorNames.length === 0) {
         elements.push(['None']);
       }
 
       return createEl(SummaryList, {
-        title: 'Support staff',
-        elements: elements
+        title: 'Staff providing services',
+        elements: educatorNames
       });
     },
 
