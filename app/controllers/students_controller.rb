@@ -40,7 +40,7 @@ class StudentsController < ApplicationController
   end
 
   # post
-  def event_note
+  def event_note # DEPRECATED. Use EventNotesController#create instead.
     clean_params = params.require(:event_note).permit(*[
       :student_id,
       :event_note_type_id,
