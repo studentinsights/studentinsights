@@ -143,7 +143,7 @@
 
     render: function() {
       var eventsByCategory = this.eventsToSparseArray(this.props.events, this.props.monthsBack, moment.utc());
-      var yearStartPositions = this.getYearStartPositions();
+      var yearStartPositions = this.getYearStartPositions(this.props.monthsBack, moment.utc());
 
       return dom.div({ id: 'chart: ' + this.props.titleText, style: styles.container},
         this.renderHeader(this.props.titleText + ', last ' + Math.ceil(this.props.monthsBack / 12) + ' years'),
