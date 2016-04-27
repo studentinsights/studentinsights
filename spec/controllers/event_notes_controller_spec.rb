@@ -107,7 +107,7 @@ describe EventNotesController, :type => :controller do
             make_put_request(student, post_params)
           end
           updated_event_note = EventNote.find(event_note.id)
-          expect(updated_event_note.recorded_at.to_i).to eq post_params[:recorded_at].to_i
+          expect(updated_event_note.recorded_at.to_i).to eq event_note.recorded_at.to_i
           expect(updated_event_note.attributes.except(
             'educator_id',
             'created_at',
