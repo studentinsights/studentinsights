@@ -14,44 +14,41 @@
         Please click <a href="#" id="renew-sesion-link">this link</a> or your session will timeout due to inactivity.
       </div>
       <div class="navwrap">
-        <a href="/">
-          <div id="logo">
-            <div id="title" alt="Student Insights"></div>
+        <a class="logo-container" href="/">
+          <div class="logo">
+            <div class="title" alt="Student Insights"></div>
           </div>
         </a>
-        <nav>
-          <% if educator_signed_in? %>
-            <div class="nav-options">
-              <% if current_educator.admin? && current_educator.school != nil %>
-                <%= link_to 'School Overview', school_path(current_educator.school) %>
-                <%= link_to 'STAR Reading', star_reading_school_path(current_educator.school) %>
-                <%= link_to 'STAR Math', star_math_school_path(current_educator.school) %>
-              <% end %>
-              <p class="search-label">Search for student:</p>
-              <input id="student-searchbar" />
-            </div>
+        <% if educator_signed_in? %>
+          <div class="nav-options">
+            <% if current_educator.admin? && current_educator.school != nil %>
+              <%= link_to 'School Overview', school_path(current_educator.school) %>
+              <%= link_to 'STAR Reading', star_reading_school_path(current_educator.school) %>
+              <%= link_to 'STAR Math', star_math_school_path(current_educator.school) %>
+            <% end %>
+            <p class="search-label">Search for student:</p>
+            <input id="student-searchbar" />
             <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
-          <% else %>
-          <div class="flex-container">
+          </div>
+        <% else %>
+          <div class="sign-in-container">
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-              <div class="flex-item">
+              <div class="sign-in-item">
                 <%= f.label :email %>
-                <%= f.email_field :email, class: 'border-sign_in', autofocus: true %>
+                <%= f.email_field :email, class: 'sign-in-text', autofocus: true %>
               </div>
-
-              <div class="flex-item">
+              <div class="sign-in-item">
                 <%= f.label :password %>
-                <%= f.password_field :password, class: 'border-sign_in', autocomplete: "off" %>
+                <%= f.password_field :password, class: 'sign-in-text', autocomplete: "off" %>
               </div>
-
-              <div class="flex-item">
+              <div class="sign-in-item">
                 <%= f.submit "Log in", class: "btn btn-primary" %>
               </div>
-          <% end %>
+            <% end %>
           </div>
-
-          <% end %>
-        </nav>
+        <% end %>
+      </div>
+      <div class="flash">
         <p class="notice field"><%= notice %></p>
         <p class="alert field"><%= alert %></p>
       </div>
