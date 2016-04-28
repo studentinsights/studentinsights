@@ -56,21 +56,6 @@ RSpec.describe Educator do
 
     end
 
-    context 'educator does not belong to school' do
-      let(:student) { FactoryGirl.create(:student) }
-      context 'educator is admin' do
-        let(:educator) { FactoryGirl.create(:educator, :admin) }
-        it 'is authorized' do
-          expect(authorized?).to be true
-        end
-      end
-      context 'educator is not admin' do
-        let(:educator) { FactoryGirl.create(:educator) }
-        it 'is not authorized' do
-          expect(authorized?).to be false
-        end
-      end
-    end
   end
 
   describe '#local_id' do
