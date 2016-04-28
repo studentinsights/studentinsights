@@ -75,13 +75,11 @@ class Educator < ActiveRecord::Base
     # For non-admins, all homerooms at their homeroom's grade level
 
     if schoolwide_access?
-      Homeroom.all
+      school.homerooms.all
     elsif homeroom
-      # Once the app includes data for multiple schools, will
-      # need to scope by school as well as by grade level
-      Homeroom.where(grade: homeroom.grade)
+      school.homerooms.where(grade: homeroom.grade)
     elsif grade_level_access.present?
-      Homeroom.where(grade: grade_level_access)
+      school.homerooms.where(grade: grade_level_access)
     else
       []
     end
