@@ -73,9 +73,6 @@
   var AttendanceDetails = window.shared.AttendanceDetails = React.createClass({
     displayName: 'AttendanceDetails',
     propTypes: {
-      cumulativeDisciplineIncidents: React.PropTypes.array.isRequired,
-      cumulativeAbsences: React.PropTypes.array.isRequired,
-      cumulativeTardies: React.PropTypes.array.isRequired,
       absences: React.PropTypes.array.isRequired,
       tardies: React.PropTypes.array.isRequired,
       disciplineIncidents: React.PropTypes.array.isRequired

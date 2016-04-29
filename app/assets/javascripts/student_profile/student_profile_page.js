@@ -9,6 +9,7 @@
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
   var SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
+  var AttendanceEventsSummary = window.shared.AttendanceEventsSummary;
   var SummaryList = window.shared.SummaryList;
   var QuadConverter = window.shared.QuadConverter;
   var Scales = window.shared.Scales;
@@ -89,6 +90,11 @@
       borderRadius: '5px 5px 0 0',
       background: 'white',
       cursor: 'pointer'
+    },
+    subtitle: {
+      fontStyle: 'italic',
+      width: '100%',
+      textAlign: 'center',
     },
     sparklineWidth: 150,
     sparklineHeight: 50
@@ -208,9 +214,6 @@
         case 'attendance':
           var attendanceData = this.props.attendanceData;
           return createEl(AttendanceDetails, {
-            cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
-            cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
-            cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies),
             disciplineIncidents: attendanceData.discipline_incidents,
             absences: attendanceData.absences,
             tardies: attendanceData.tardies
@@ -422,40 +425,69 @@
       var attendanceData = this.props.attendanceData;
       var columnKey = 'attendance';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Attendance and Behavior"),
-        dom.div({
-        className: 'attendance-background',
-        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
-        onClick: this.onColumnClicked.bind(this, columnKey)
-      },
-        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, Scales.disciplineIncidents.flexibleRange, {
-          caption: 'Discipline incidents',
-          thresholdValue: Scales.disciplineIncidents.threshold,
-          shouldDrawCircles: false
-        }),
-        this.renderAttendanceEventsSummary(attendanceData.absences, Scales.absences.flexibleRange, {
-          caption: 'Absences',
-          thresholdValue: Scales.absences.threshold,
-          shouldDrawCircles: false
-        }),
-        this.renderAttendanceEventsSummary(attendanceData.tardies, Scales.tardies.flexibleRange, {
-          caption: 'Tardies',
-          thresholdValue: Scales.tardies.threshold,
-          shouldDrawCircles: false
-        })
+      return dom.div(
+        {
+          style: styles.columnContainer,
+          onClick: this.onColumnClicked.bind(this, columnKey)
+        },
+        dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Attendance and Behavior"),
+        dom.div(
+        {
+          className: 'attendance-background',
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+          onClick: this.onColumnClicked.bind(this, columnKey)
+        },
+        dom.div({ style: styles.subtitle }, "(this year)"),
+        dom.br(),
+        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {caption: 'Discipline incidents'}),
+        dom.br(),
+        dom.br(),
+        this.renderAttendanceEventsSummary(attendanceData.absences, {caption: 'Absences'}),
+        dom.br(),
+        dom.br(),
+        this.renderAttendanceEventsSummary(attendanceData.tardies, {caption: 'Tardies'})
       ));
     },
 
-    renderAttendanceEventsSummary: function(attendanceEvents, flexibleRangeFn, props) {
-      var cumulativeQuads = this.cumulativeCountQuads(attendanceEvents);
-      var value = (cumulativeQuads.length > 0) ? _.last(cumulativeQuads)[3] : 0;
-      var valueRange = flexibleRangeFn(cumulativeQuads);
+    toSchoolYear: function(date){
+      // Takes in a date, returns the start of the school year into which it falls.
+      var d = moment(date);
+      if (d.month() < 8){
+        // The school year starts on August 1st.
+        // So if the month is before August, it falls in the previous year.
+        return d.year() - 1;
+      } else {
+        return d.year();
+      }
+    },
 
-      return this.wrapSummary(merge({
-        title: props.title,
-        value: value,
-        sparkline: this.renderSparkline(cumulativeQuads, merge({ valueRange: valueRange }, props))
-      }, props));
+    daysSinceStartOfSchoolYear: function(m){
+      var schoolYearForDate = this.toSchoolYear(m.toDate());
+      return m.diff(moment().year(schoolYearForDate).month(8).date(1));
+    },
+
+    renderAttendanceEventsSummary: function(attendanceEvents, props){
+      var self = this;
+      var currentDayInSchoolYear = this.daysSinceStartOfSchoolYear(moment.utc());
+
+      var thisSchoolYearSoFar = _.filter(attendanceEvents, function(event){
+        var m = moment.utc(event.occurred_at);
+        return self.toSchoolYear(m) == self.toSchoolYear(moment.utc());
+      }).length;
+      var lastSchoolYearSoFar = _.filter(attendanceEvents, function(event){
+        var m = moment.utc(event.occurred_at);
+        return (self.toSchoolYear(m) == self.toSchoolYear(moment.utc()) - 1)
+          &&
+        (self.daysSinceStartOfSchoolYear(m) <= currentDayInSchoolYear);
+      }).length;
+
+      return dom.div(
+        {style: merge(styles.summaryWrapper, {textAlign: 'center'})},
+        createEl(AttendanceEventsSummary, merge(props, {
+          diff: thisSchoolYearSoFar - lastSchoolYearSoFar,
+          value: thisSchoolYearSoFar.toString()
+        }))
+      );
     },
 
     cumulativeCountQuads: function(attendanceEvents) {
@@ -483,10 +515,6 @@
       return dom.div({}, elements.map(function(element, index) {
         return dom.div({ key: index, style: style }, element);
       }));
-    },
-
-    renderTitle: function(text) {
-      return dom.div({style: {fontWeight: "bold"} }, text);
     }
   });
 })();
