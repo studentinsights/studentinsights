@@ -14,7 +14,7 @@ class Educator < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true
   validates :local_id, presence: true, uniqueness: true
-  validates :school_id, presence: true
+  validates :school, presence: true
 
   validate :admin_gets_access_to_all_students
 
