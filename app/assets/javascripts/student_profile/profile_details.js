@@ -153,14 +153,15 @@
         events.push({
           type: 'Note',
           message: obj.text,
-          date: moment(obj.updated_at).toDate() // TODO: should we care more about created vs updated?
+          date: moment(obj.updated_at).toDate()
         });
       });
-      _.each(this.props.feed.services, function(obj){
+      var services = this.props.feed.services.active.concat(this.props.feed.services.discontinued);
+      _.each(services, function(obj){
         events.push({
           type: 'Service',
           message: obj.id,
-          date: moment(obj.updated_at).toDate() // TODO: should we care more about created vs updated?
+          date: moment(obj.date_started).toDate()
         })
       });
       _.each(this.props.dibels, function(obj) {
