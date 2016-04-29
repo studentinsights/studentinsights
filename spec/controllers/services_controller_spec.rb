@@ -42,9 +42,10 @@ describe ServicesController, :type => :controller do
   end
 
   describe '#destroy when authorized' do
-    let(:student) { FactoryGirl.create(:student) }
+    let(:school) { FactoryGirl.create(:school) }
+    let(:student) { FactoryGirl.create(:student, school: school) }
     let(:homeroom) { student.homeroom }
-    let(:educator) { FactoryGirl.create(:educator, :admin )}
+    let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
     let(:service) { create_service(student, educator) }
     before { sign_in(educator) }
 
