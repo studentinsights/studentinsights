@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe EducatorsImporter do
 
   describe '#import_row' do
+    let!(:school) { FactoryGirl.create(:healey) }
 
     context 'good row' do
 
@@ -12,7 +13,8 @@ RSpec.describe EducatorsImporter do
 
           context 'without homeroom' do
             let(:row) {
-              { state_id: "500", local_id: "200", full_name: "Young, Jenny", login_name: "jyoung" }
+              { state_id: "500", local_id: "200", full_name: "Young, Jenny",
+                login_name: "jyoung", school_local_id: "HEA" }
             }
 
             before do
@@ -41,7 +43,8 @@ RSpec.describe EducatorsImporter do
                   local_id: "200",
                   full_name: "Young, Jenny",
                   login_name: "jyoung",
-                  homeroom: homeroom_name
+                  homeroom: homeroom_name,
+                  school_local_id: "HEA"
                 }
               }
               it 'creates an educator' do
@@ -67,7 +70,8 @@ RSpec.describe EducatorsImporter do
                     local_id: "201",
                     full_name: "Gardner, Dylan",
                     login_name: "dgardner",
-                    homeroom: another_homeroom_name
+                    homeroom: another_homeroom_name,
+                    school_local_id: "HEA"
                   }
                 }
                 it 'creates multiple educators' do
@@ -80,7 +84,6 @@ RSpec.describe EducatorsImporter do
             end
 
             context 'with school local ID' do
-              let!(:healey) { FactoryGirl.create(:healey) }
               let(:row) {
                 {
                   state_id: "500",
@@ -88,14 +91,14 @@ RSpec.describe EducatorsImporter do
                   full_name: "Young, Jenny",
                   login_name: "jyoung",
                   homeroom: homeroom_name,
-                  school_local_id: 'HEA'
+                  school_local_id: "HEA"
                 }
               }
 
               it 'assigns the educator to the correct school' do
                 described_class.new.import_row(row)
                 educator = Educator.last
-                expect(educator.school).to eq(healey)
+                expect(educator.school).to eq(school)
               end
             end
           end
@@ -108,7 +111,8 @@ RSpec.describe EducatorsImporter do
               full_name: "Hill,
               Marian", staff_type:
               "Administrator",
-              login_name: "mhill"
+              login_name: "mhill",
+              school_local_id: "HEA"
             }
           }
 
@@ -126,11 +130,8 @@ RSpec.describe EducatorsImporter do
         let!(:educator) { FactoryGirl.create(:educator, :local_id_200) }
         let(:row) {
           {
-            state_id: "500",
-            local_id: "200",
-            full_name: "Young, Jenny",
-            login_name: "jyoung",
-            homeroom: homeroom_name
+            state_id: "500", local_id: "200", full_name: "Young, Jenny",
+            login_name: "jyoung", homeroom: homeroom_name, school_local_id: "HEA"
           }
         }
 
@@ -149,10 +150,8 @@ RSpec.describe EducatorsImporter do
         let!(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, local_id: '1' )}
         let(:row) {
           {
-            state_id: "1",
-            local_id: "1",
-            full_name: "Grrr, Bettina",
-            login_name: "bttgrr"
+            state_id: "1", local_id: "1", full_name: "Grrr, Bettina",
+            login_name: "bttgrr", school_local_id: "HEA"
           }
         }
 
@@ -168,18 +167,21 @@ RSpec.describe EducatorsImporter do
       end
 
     end
+
   end
 
   describe '#update_homeroom' do
+    let!(:school) { FactoryGirl.create(:healey) }
 
     context 'row with homeroom name' do
       let(:row) {
-        { state_id: "500", local_id: "200", full_name: "Young, Jenny", homeroom: "HEA 100", login_name: "jyoung" }
+        { state_id: "500", local_id: "200", full_name: "Young, Jenny",
+          homeroom: "HEA 100", login_name: "jyoung", school_local_id: "HEA" }
       }
 
       context 'name of homeroom that exists' do
         let!(:homeroom) { FactoryGirl.create(:homeroom, :named_hea_100) }
-        it 'assigns the homeroom tho the educator' do
+        it 'assigns the homeroom to the educator' do
           described_class.new.import_row(row)
           expect(Educator.last.homeroom).to eq homeroom
         end

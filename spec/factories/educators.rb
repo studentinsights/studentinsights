@@ -7,6 +7,7 @@ FactoryGirl.define do
     password "PairShareCompare"
     email { FactoryGirl.generate(:email) }
     local_id { FactoryGirl.generate(:staff_local_id) }
+    association :school
 
     trait :admin do
       admin true
