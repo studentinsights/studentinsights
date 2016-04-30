@@ -60,20 +60,5 @@ FactoryGirl.define do
         educator.homeroom = FactoryGirl.create(:homeroom_with_student_with_multiple_star_math_student_assessments)
       end
     end
-    factory :educator_with_homeroom_with_one_atp_intervention do
-      after(:create) do |educator|
-        educator.homeroom = FactoryGirl.create(:homeroom_with_one_atp_intervention)
-      end
-    end
-    factory :educator_with_homeroom_with_one_non_atp_intervention do
-      after(:create) do |educator|
-        educator.homeroom = FactoryGirl.create(:homeroom_with_one_non_atp_intervention)
-      end
-    end
-    factory :educator_with_homeroom_with_multiple_atp_interventions do
-      after(:create) do |educator|
-        educator.homeroom = FactoryGirl.create(:homeroom_with_multiple_atp_interventions)
-      end
-    end
   end
 end
