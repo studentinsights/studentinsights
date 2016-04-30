@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe EventNotesController, :type => :controller do
+  let(:school) { FactoryGirl.create(:school) }
+  
   describe '#create' do
     def make_post_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
@@ -8,8 +10,8 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'admin educator logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin) }
-      let!(:student) { FactoryGirl.create(:student) }
+      let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
       let!(:event_note_type) { EventNoteType.first }
 
       before do
@@ -80,8 +82,8 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'admin educator logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin) }
-      let!(:student) { FactoryGirl.create(:student) }
+      let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
       let!(:event_note_type) { EventNoteType.first }
 
       before do
@@ -133,7 +135,12 @@ describe EventNotesController, :type => :controller do
             'version',
             'created_at',
             'updated_at'
-          )).to eq event_note.attributes.except('id', 'created_at', 'updated_at')
+          )).to eq event_note.attributes.except(
+            'id',
+            'created_at',
+            'updated_at',
+            'recorded_at'
+          )
         end
       end
 

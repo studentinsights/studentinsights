@@ -47,7 +47,6 @@ class EventNotesController < ApplicationController
       student_id: event_note.student_id,
       event_note_type_id: event_note.event_note_type_id,
       text: event_note.text,
-      recorded_at: event_note.recorded_at,
       event_note_id: event_note.id,
       version: version
     })
