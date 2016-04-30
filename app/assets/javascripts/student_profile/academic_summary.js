@@ -63,4 +63,47 @@
     }
   });
 
+  var AttendanceEventsSummary = window.shared.AttendanceEventsSummary = React.createClass({
+    displayName: 'AttendanceEventsSummary',
+
+    propTypes: {
+      caption: React.PropTypes.string.isRequired,
+      diff: React.PropTypes.number.isRequired,
+      value: PropTypes.nullable(React.PropTypes.string.isRequired)
+    },
+
+    renderTrendArrow: function(caption){
+      var arrowSpanStyle = {display: 'inline', marginLeft: 5};
+      if (this.props.diff > 0){
+        // Bad thing going up is bad == red.
+        var text = "⬆";
+        var titleText = caption + " are higher than they were this time last year.";
+        arrowSpanStyle.color = "red";
+      } else if (this.props.diff == 0){
+        var text = "--";
+        var titleText = caption + " are the same as they were this time last year.";
+        arrowSpanStyle.color = "purple";
+      } else {
+        // Bad thing going down is good == green.
+        var text = "⬇";
+        var titleText = caption + " are lower than they were this time last year.";
+        arrowSpanStyle.color = "green";
+      }
+
+      return dom.span({style: arrowSpanStyle, title: titleText}, text);
+    },
+
+    render: function() {
+      return dom.div({ className: 'AcademicSummary' },
+        dom.div({ style: styles.textContainer },
+          dom.span({ style: styles.caption }, this.props.caption + ':'),
+          dom.span({ style: styles.value },
+            (this.props.value === undefined) ? 'none' : this.props.value,
+            this.renderTrendArrow(this.props.caption)
+          )
+        )
+      );
+    }
+  });
+
 })();

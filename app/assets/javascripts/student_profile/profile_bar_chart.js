@@ -59,31 +59,35 @@
       );
     },
 
-    getMonthNames: function(){
-      var first_of_this_month = moment.utc().date(1);
+    lastNMonthNamesFrom: function(n, d){
+      // Takes in an integer and the current date as a Moment object (UTC).
+      // Returns an array of the last n month names from the first of this month.
+      // i.e. ["Jan", "Dec", "Nov"]
+
+      var first_of_current_month = d.clone().date(1)
       var results = [];
-      for (var i = 0; i < this.props.monthsBack; i++){
-        results.splice(0, 0, first_of_this_month.clone().subtract(i, 'months').format("MMM"));
+      for (var i = 0; i < n; i++){
+        results.splice(0, 0, first_of_current_month.format("MMM"));
+        first_of_current_month.subtract(1, 'months');
       }
 
       return results;
     },
 
-    eventsToSparseArray: function(events){
-      // Return an array of arrays of events for each month in the range (i.e. 0 - 48).
-      // If there are no events in a month, the array will be empty.
+    eventsToSparseArray: function(events, n, d){
+      // Takes in an array of event objects, an integer and the current date as a Moment object (UTC).
+      // Returns an array which, for each month in the range (0 -- n), contains an array of events that happened that month.
+      // 
+      // If there are no events in a month, the array for that month will be empty.
 
       var data = {};
-      var n = this.props.monthsBack;
-
       _.each(events, function(event){
         var m = moment.utc(event.occurred_at).date(1);
 
         // Only include events from less than n months ago.
-        var now = moment.utc();
-        var first_category = now.clone().subtract(n, 'months');
+        var first_category = d.clone().subtract(n, 'months');
 
-        if (now.diff(m, 'months') < n){
+        if (d.diff(m, 'months') < n){
           var category = m.diff(first_category, 'months');
           if (data[category]){
             data[category] = data[category].concat(event);
@@ -102,14 +106,15 @@
       return _.toArray(data);
     },
 
-    getPositionsForYearStarts: function(){
+    getYearStartPositions: function(n, d){
+      // Takes in an integer (number of months back) and the current date as a Moment object (UTC).
+      // Returns an object mapping integer (tick position) --> string (year starting at that position).
+
       var result = {};
-      var current = moment.utc();
-      var current_year = current.year();
-      var n = this.props.monthsBack;
+      var current_year = d.year();
 
       // Take 12-month jumps backwards until we can't anymore.
-      n -= (current.month() + 1);
+      n -= (d.month() + 1);
       result[n] = current_year.toString();
       while (n - 12 > 0){
         n -= 12;
@@ -137,8 +142,8 @@
     },
 
     render: function() {
-      var eventsByCategory = this.eventsToSparseArray(this.props.events);
-      var positionsForYearStarts = this.getPositionsForYearStarts();
+      var eventsByCategory = this.eventsToSparseArray(this.props.events, this.props.monthsBack, moment.utc());
+      var yearStartPositions = this.getYearStartPositions(this.props.monthsBack, moment.utc());
 
       return dom.div({ id: 'chart: ' + this.props.titleText, style: styles.container},
         this.renderHeader(this.props.titleText + ', last ' + Math.ceil(this.props.monthsBack / 12) + ' years'),
@@ -146,14 +151,14 @@
           chart: {type: 'column'},
           credits: false,
           xAxis: [{
-            categories: this.getMonthNames(),
+            categories: this.lastNMonthNamesFrom(this.props.monthsBack, moment.utc()),
           },
           {
             offset: 35,
             linkedTo: 0,
-            tickPositions: _.keys(positionsForYearStarts).map(Number),
+            tickPositions: _.keys(yearStartPositions).map(Number),
             tickmarkPlacement: "on",
-            categories: positionsForYearStarts,
+            categories: yearStartPositions,
           }],
           title: {text: ''},
           yAxis: {

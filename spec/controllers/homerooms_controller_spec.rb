@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe HomeroomsController, :type => :controller do
   let!(:school) { FactoryGirl.create(:school) }
-  let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom) }
+  let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom, school: school) }
   let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
-  let!(:admin_educator) { FactoryGirl.create(:educator, :admin) }
+  let!(:admin_educator) { FactoryGirl.create(:educator, :admin, school: school) }
   let(:first_homeroom_path) { homeroom_path(Homeroom.first) }
 
   describe '#show' do
