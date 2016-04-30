@@ -31,22 +31,6 @@ FactoryGirl.define do
       end
     end
 
-    factory :homeroom_with_student_with_mcas_math_warning do
-      after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_mcas_math_warning_assessment,
-                                                :with_risk_level,
-                                                :registered_last_year)
-      end
-    end
-
-    factory :homeroom_with_student_with_multiple_star_math_student_assessments do
-      after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_star_math_student_assessments_different_days,
-                                                :with_risk_level,
-                                                :registered_last_year)
-      end
-    end
-
     factory :homeroom_with_one_atp_intervention do
       after(:create) do |homeroom|
         homeroom.students << FactoryGirl.create(:student_with_one_atp_intervention,
