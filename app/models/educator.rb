@@ -72,7 +72,7 @@ class Educator < ActiveRecord::Base
 
   def allowed_homerooms
     # Educator can visit roster view for these homerooms
-    # For non-admins, all homerooms at their homeroom's grade level
+    return [] if school.nil?
 
     if schoolwide_access?
       school.homerooms.all
