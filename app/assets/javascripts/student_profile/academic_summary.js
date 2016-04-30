@@ -75,7 +75,7 @@
       if (this.props.diff > 0){
         // Bad thing going up is bad == red.
         var text = "⬆";
-        var titleText = caption + " are lower than they were this time last year.";
+        var titleText = caption + " are higher than they were this time last year.";
         arrowSpanStyle.color = "red";
       } else if (this.props.diff == 0){
         var text = "--";
@@ -84,7 +84,7 @@
       } else {
         // Bad thing going down is good == green.
         var text = "⬇";
-        var titleText = caption + " are higher than they were this time last year.";
+        var titleText = caption + " are lower than they were this time last year.";
         arrowSpanStyle.color = "green";
       }
 

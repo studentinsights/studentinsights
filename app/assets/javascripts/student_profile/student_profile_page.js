@@ -247,7 +247,10 @@
         demographicsElements.push('ACCESS Composite score: ' + this.props.access.composite);
       };
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Overview"),
+      return dom.div({
+        style: styles.columnContainer,
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Overview"),
       dom.div({
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn),
         onClick: this.onColumnClicked.bind(this, columnKey)
@@ -263,7 +266,12 @@
       var student = this.props.student;
       var columnKey = 'interventions';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Interventions"),
+      return dom.div({
+        style: styles.columnContainer,
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      }, dom.div({
+        style: merge(styles.tab, this.selectedTabStyles(columnKey))
+      }, "Interventions"),
       dom.div({
         className: 'interventions-column',
         style: merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey)),
@@ -342,7 +350,13 @@
       var chartData = this.props.chartData;
       var columnKey = 'ela';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Reading"),
+      return dom.div({
+        style: styles.columnContainer,
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
+      dom.div({
+        style: merge(styles.tab, this.selectedTabStyles(columnKey))
+      }, "Reading"),
       dom.div({
         className: 'ela-background',
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
@@ -393,7 +407,13 @@
       var chartData = this.props.chartData;
       var columnKey = 'math';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey)}, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Math"),
+      return dom.div({
+        style: styles.columnContainer,
+        onClick: this.onColumnClicked.bind(this, columnKey)
+      },
+      dom.div({
+        style: merge(styles.tab, this.selectedTabStyles(columnKey))
+      }, "Math"),
       dom.div({
         className: 'math-background',
         style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
@@ -449,9 +469,9 @@
       ));
     },
 
-    toSchoolYear: function(date){
-      // Takes in a date, returns the start of the school year into which it falls.
-      var d = moment(date);
+    toSchoolYear: function(event){
+      // Takes in an event, returns the start of the school year into which it falls.
+      var d = moment(event.occurred_at);
       if (d.month() < 8){
         // The school year starts on August 1st.
         // So if the month is before August, it falls in the previous year.
@@ -461,24 +481,23 @@
       }
     },
 
-    daysSinceStartOfSchoolYear: function(m){
-      var schoolYearForDate = this.toSchoolYear(m.toDate());
-      return m.diff(moment().year(schoolYearForDate).month(8).date(1));
+    startOfSchoolYear: function(year){
+      // Takes in a school year integer (2015, 2014, etc.) and returns August 1st on that year.
+      return moment().year(year).month(8 - 1).date(1);
     },
 
     renderAttendanceEventsSummary: function(attendanceEvents, props){
       var self = this;
-      var currentDayInSchoolYear = this.daysSinceStartOfSchoolYear(moment.utc());
+      var currentSchoolYear = this.toSchoolYear(moment.utc());
+
+      var startOfLastSchoolYear = self.startOfSchoolYear(currentSchoolYear - 1);
+      var oneYearAgo = moment.utc().subtract(1, 'year');
 
       var thisSchoolYearSoFar = _.filter(attendanceEvents, function(event){
-        var m = moment.utc(event.occurred_at);
-        return self.toSchoolYear(m) == self.toSchoolYear(moment.utc());
+        return self.toSchoolYear(event) == currentSchoolYear;
       }).length;
       var lastSchoolYearSoFar = _.filter(attendanceEvents, function(event){
-        var m = moment.utc(event.occurred_at);
-        return (self.toSchoolYear(m) == self.toSchoolYear(moment.utc()) - 1)
-          &&
-        (self.daysSinceStartOfSchoolYear(m) <= currentDayInSchoolYear);
+        return moment(event.occurred_at).isBetween(startOfLastSchoolYear, oneYearAgo);
       }).length;
 
       return dom.div(
