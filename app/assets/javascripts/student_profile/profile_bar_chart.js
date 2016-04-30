@@ -40,6 +40,7 @@
     displayName: 'ProfileChart',
 
     propTypes: {
+      id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
       events: React.PropTypes.array.isRequired, // array of JSON event objects.
       monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
       tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
@@ -145,7 +146,7 @@
       var eventsByCategory = this.eventsToSparseArray(this.props.events, this.props.monthsBack, moment.utc());
       var yearStartPositions = this.getYearStartPositions(this.props.monthsBack, moment.utc());
 
-      return dom.div({ id: 'chart: ' + this.props.titleText, style: styles.container},
+      return dom.div({ id: this.props.id, style: styles.container},
         this.renderHeader(this.props.titleText + ', last ' + Math.ceil(this.props.monthsBack / 12) + ' years'),
         createEl(HighchartsWrapper, {
           chart: {type: 'column'},
