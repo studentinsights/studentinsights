@@ -316,7 +316,7 @@
       var educatorNamesFromServices = _.pluck(activeServices, 'provided_by_educator_name');
       var uniqueNames = _.unique(educatorNamesFromServices);
       var nonNullNames = _.filter(uniqueNames, function(id) { return id !== null; });
-      var educatorNames = nonNullNames;
+      var educatorNames = _.isEmpty( nonNullNames ) ? ["No staff"] : nonNullNames;
 
       var limit = 3;
 

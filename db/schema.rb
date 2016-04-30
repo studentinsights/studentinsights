@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(version: 20160427201310) do
     t.integer  "educator_id"
     t.integer  "event_note_type_id"
     t.text     "text"
-    t.datetime "recorded_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "event_note_id"
