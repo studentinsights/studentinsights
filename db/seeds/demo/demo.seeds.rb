@@ -36,9 +36,9 @@ Educator.create!([{
 
 puts 'Creating homerooms..'
 homerooms = [
-  Homeroom.create(name: "103", grade: "3"),
-  Homeroom.create(name: "104", grade: "4"),
-  Homeroom.create(name: "105", grade: "5")
+  Homeroom.create(name: "103", grade: "3", school: School.first),
+  Homeroom.create(name: "104", grade: "4", school: School.first),
+  Homeroom.create(name: "105", grade: "5", school: School.first),
 ]
 
 fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
