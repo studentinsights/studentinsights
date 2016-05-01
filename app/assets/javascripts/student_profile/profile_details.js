@@ -72,7 +72,7 @@
       student: React.PropTypes.object,
       feed: React.PropTypes.object,
       access: React.PropTypes.object,
-      dibels: React.PropTypes.object,
+      dibels: React.PropTypes.array,
       chartData: React.PropTypes.object,
       attendanceData: React.PropTypes.object,
     },
@@ -85,6 +85,7 @@
       _.each(this.props.attendanceData.tardies, function(obj){
         events.push({
           type: 'Tardy',
+          id: obj.id,
           message: name + ' was tardy.',
           date: new Date(obj.occurred_at)
         });
@@ -92,6 +93,7 @@
       _.each(this.props.attendanceData.absences, function(obj){
         events.push({
           type: 'Absence',
+          id: obj.id,
           message: name + ' was absent.',
           date: new Date(obj.occurred_at)
         });
@@ -99,6 +101,7 @@
       _.each(this.props.attendanceData.discipline_incidents, function(obj){
         events.push({
           type: 'Incident',
+          id: obj.id,
           message: obj.incident_description + ' in the ' + obj.incident_location,
           date: new Date(obj.occurred_at)
         });
@@ -106,7 +109,8 @@
       _.each(this.props.chartData.mcas_series_ela_scaled, function(quad){
         var score = quad[3];
         events.push({
-          type: 'MCAS ELA',
+          type: 'MCAS-ELA',
+          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
           message: name + ' scored a ' + score + ' on the ELA section of the MCAS.',
           date: QuadConverter.toDate(quad)
         });
@@ -114,7 +118,8 @@
       _.each(this.props.chartData.mcas_series_math_scaled, function(quad){
         var score = quad[3];
         events.push({
-          type: 'MCAS Math',
+          type: 'MCAS-Math',
+          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
           message: name + ' scored a ' + score + ' on the Math section of the MCAS.',
           date: QuadConverter.toDate(quad)
         });
@@ -122,7 +127,8 @@
       _.each(this.props.chartData.star_series_reading_percentile, function(quad){
         var score = quad[3];
         events.push({
-          type: 'STAR Reading',
+          type: 'STAR-Reading',
+          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
           message: name + ' scored in the ' + score + 'th percentile on the Reading section of STAR.',
           date: QuadConverter.toDate(quad)
         });
@@ -130,7 +136,8 @@
       _.each(this.props.chartData.star_series_math_percentile, function(quad){
         var score = quad[3];
         events.push({
-          type: 'STAR Math',
+          type: 'STAR-Math',
+          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
           message: name + ' scored in the ' + score + 'th percentile on the Math section of STAR.',
           date: QuadConverter.toDate(quad)
         });
@@ -138,6 +145,7 @@
       _.each(this.props.feed.deprecated.interventions, function(obj){
         events.push({
           type: 'Note',
+          id: obj.id,
           message: obj.name + '(Goal: ' + obj.goal + ')',
           date: moment(obj.start_date_timestamp, "YYYY-MM-DD").toDate()
         });
@@ -145,6 +153,7 @@
       _.each(this.props.feed.deprecated.notes, function(obj){
         events.push({
           type: 'Note',
+          id: obj.id,
           message: obj.content,
           date: moment(obj.created_at_timestamp).toDate()
         });
@@ -152,15 +161,18 @@
       _.each(this.props.feed.event_notes, function(obj){
         events.push({
           type: 'Note',
+          id: obj.id,
           message: obj.text,
-          date: moment(obj.updated_at).toDate() // TODO: should we care more about created vs updated?
+          date: moment(obj.recorded_at).toDate()
         });
       });
-      _.each(this.props.feed.services, function(obj){
+      var services = this.props.feed.services.active.concat(this.props.feed.services.discontinued);
+      _.each(services, function(obj){
         events.push({
           type: 'Service',
+          id: obj.id,
           message: obj.id,
-          date: moment(obj.updated_at).toDate() // TODO: should we care more about created vs updated?
+          date: moment(obj.date_started).toDate()
         })
       });
       _.each(this.props.dibels, function(obj) {
@@ -169,6 +181,7 @@
         if (obj.performance_level === null) return;
         events.push({
           type: 'DIBELS',
+          id: obj.id,
           message: name + ' scored ' + obj.performance_level.toUpperCase() + ' in DIBELS.',
           date: moment(obj.date_taken).toDate()
         });
@@ -228,7 +241,7 @@
         _.groupBy(this.getEvents(), function(event){ return self.toSchoolYear(event.date) })
       ).reverse();
 
-      return dom.div({},
+      return dom.div({id: "full-case-history"},
         dom.h4({style: styles.title}, 'Full Case History'),
         bySchoolYearDescending.map(this.renderCardsForYear)
       );
@@ -236,19 +249,21 @@
 
     renderCardsForYear: function(eventsForYear){
       // Grab what school year we're in from any object in the list.
-      var year = this.toSchoolYear(moment(eventsForYear[0].date));
+      var year = this.toSchoolYear(eventsForYear[0].date);
       // Computes '2016 - 2017 School Year' for input 2016, etc.
       var schoolYearString = year.toString() + ' - ' + (year+1).toString() + ' School Year';
 
+      var key = 'school-year-starting-' + year;
       return dom.div(
-        {style: styles.box, key: year},
+        {style: styles.box, key: key, id: key},
         dom.h4({style: styles.schoolYearTitle}, schoolYearString),
         eventsForYear.map(this.renderCard)
       )
     },
 
     renderCard: function(event){
-      var key = [event.date.getTime(), event.message].join();
+      var key = [event.type, event.id].join("-");
+
       if (event.type === 'Absence' || event.type === 'Tardy'){
         // These event types are less important, so make them smaller and no description text.
         var containingDivStyle = styles.feedCard;
@@ -270,21 +285,21 @@
         "Note": '#e8fce8',
         "Service": '#e8fce8',
 
-        "MCAS ELA": '#ffe7d6',
-        "STAR Reading": '#ffe7d6',
+        "MCAS-ELA": '#ffe7d6',
+        "STAR-Reading": '#ffe7d6',
 
-        "MCAS Math": '#e8e9fc',
-        "STAR Math": '#e8e9fc',
+        "MCAS-Math": '#e8e9fc',
+        "STAR-Math": '#e8e9fc',
 
         "DIBELS": '#e8fce8'
       };
       var badgeStyle = merge(styles.badge, {background: type_to_color[event.type]});
 
-      return dom.div({key: key, style: containingDivStyle},
+      return dom.div({key: key, id: key, style: containingDivStyle},
         dom.div({style: paddingStyle},
           dom.div({style: headerDivStyle},
             dom.span({style: dateStyle}, moment(event.date).format("MMMM Do, YYYY:")),
-            dom.span({style: badgeStyle}, event.type)
+            dom.span({style: badgeStyle}, event.type.replace("-", " "))
           ),
         text
         )
