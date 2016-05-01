@@ -81,11 +81,19 @@ describe HomeroomsController, :type => :controller do
 
         context 'homeroom does not belong to educator' do
 
-          context 'homeroom is grade level as educator\'s' do
+          context 'homeroom is grade level as educator\'s and same school' do
             let(:another_homeroom) { FactoryGirl.create(:homeroom, grade: '5', school: school) }
             it 'is successful' do
               make_request(another_homeroom.slug)
               expect(response.status).to eq 200
+            end
+          end
+
+          context 'homeroom is grade level as educator\'s -- but different school!' do
+            let(:another_homeroom) { FactoryGirl.create(:homeroom, grade: '5', school: FactoryGirl.create(:school)) }
+            it 'redirects' do
+              make_request(another_homeroom.slug)
+              expect(response.status).to eq 302
             end
           end
 
