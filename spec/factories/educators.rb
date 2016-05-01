@@ -40,12 +40,5 @@ FactoryGirl.define do
       end
     end
 
-    factory :educator_with_homeroom_with_student do
-      after(:create) do |educator|
-        homeroom = create(:homeroom, educator: educator)
-        create(:student, :with_risk_level, :registered_last_year, homeroom: homeroom)
-      end
-    end
-
   end
 end
