@@ -119,6 +119,20 @@ class Educator < ActiveRecord::Base
     save!
   end
 
+  def clone_permissions_and_homeroom_in_staging_from(educator_full_name)
+    # :alert: do not use in production :alert:
+    # This will change whom the homeroom belongs to!
+
+    target_educator = Educator.find_by_full_name(educator_full_name)
+    permissions = target_educator.permissions_hash
+    assign_attributes(permissions)
+    save!
+
+    target_homeroom = target_educator.homeroom
+    target_homeroom.educator = self
+    target_homeroom.save!
+  end
+
   def self.load_permissions(permissions_array)
     # Expects an array of hashes:
     # [{
