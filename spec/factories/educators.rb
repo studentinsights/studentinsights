@@ -34,11 +34,5 @@ FactoryGirl.define do
       end
     end
 
-    factory :educator_with_grade_5_homeroom do
-      after(:create) do |educator|
-        create(:homeroom, educator: educator, grade: "5")
-      end
-    end
-
   end
 end
