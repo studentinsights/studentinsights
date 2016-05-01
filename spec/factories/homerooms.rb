@@ -31,29 +31,5 @@ FactoryGirl.define do
       end
     end
 
-    factory :homeroom_with_one_atp_intervention do
-      after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_one_atp_intervention,
-                                                :with_risk_level,
-                                                :registered_last_year)
-      end
-    end
-
-    factory :homeroom_with_one_non_atp_intervention do
-      after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_one_non_atp_intervention,
-                                                :with_risk_level,
-                                                :registered_last_year)
-      end
-    end
-
-    factory :homeroom_with_multiple_atp_interventions do
-      after(:create) do |homeroom|
-        homeroom.students << FactoryGirl.create(:student_with_multiple_atp_interventions,
-                                                :with_risk_level,
-                                                :registered_last_year)
-      end
-    end
-
   end
 end
