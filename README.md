@@ -58,7 +58,13 @@ This is a web product, integrated with the Aspen SIS, district LDAP authorizatio
 
 
 ## Project priorities
-These are tracked in GitHub with [milestones](https://github.com/studentinsights/studentinsights/milestones).
+Immediate priorites are tracked in GitHub with [milestones](https://github.com/studentinsights/studentinsights/milestones).
+ 1. Whole district classroom teacher rosters and profile in September
+ 2. X2 roll-over to next school year (in July or August)
+ 3. Healey SST/MTSS
+ 4. West SST/MTSS
+ 5. East SST/MTSS
+ 6. PDF Data dump
 
 ## Contributing
 We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge.
