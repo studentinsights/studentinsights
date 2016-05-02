@@ -147,28 +147,30 @@ class FakeStudent
   end
 
   def add_attendance_events
-    # Probabilities: https://github.com/codeforamerica/somerville-teacher-tool/issues/94
-    attendance_event_generator = Rubystats::NormalDistribution.new(8.8, 10)
+    d = {
+      0 => 0.04,
+      (1..6) => 0.41,
+      (15..28) => 0.52,
+      (29..100) => 0.03,
+    }
 
-    94.in(100) do
-      attendance_event_generator.rng.round(0).times do
+    events_for_year = DemoDataUtil.sample_from_distribution(d)
+    events_for_year.times do
+      # Randomly determine the school year it occurred.
+      year = [0, 1, 2, 3, 4, 5].sample
+      date_begin = Time.local(2010 + year, 8, 1)
+      date_end = Time.local(2011 + year, 7, 31)
 
-        # Randomly determine the school year it occurred.
-        year = [0, 1, 2, 3, 4, 5].sample
-        date_begin = Time.local(2010 + year, 8, 1)
-        date_end = Time.local(2011 + year, 7, 31)
+      attendance_event = [Absence.new, Tardy.new].sample
+      attendance_event.student_school_year = @student.student_school_years.first
 
-        attendance_event = [Absence.new, Tardy.new].sample
-        attendance_event.student_school_year = @student.student_school_years.first
-
-        # Make sure event isn't listed as having happened in the future.
-        occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
-        if occurred_at < Time.new then
-          attendance_event.occurred_at = occurred_at
-        end
-
-        attendance_event.save
+      # Make sure event isn't listed as having happened in the future.
+      occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
+      if occurred_at < Time.new then
+        attendance_event.occurred_at = occurred_at
       end
+
+      attendance_event.save
     end
   end
 
