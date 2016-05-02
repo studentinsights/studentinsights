@@ -12,7 +12,7 @@ describe EducatorsController, :type => :controller do
     context 'non admin' do
 
       context 'with homeroom' do
-        let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom) }
+        let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
         it 'redirects to default homeroom' do
           make_request
           expect(response).to redirect_to(homeroom_url(educator.homeroom))

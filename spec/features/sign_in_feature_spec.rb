@@ -6,7 +6,10 @@ describe 'educator sign in', type: :feature do
   context 'educator with LDAP authorization signs in' do
 
     context 'with homeroom' do
-      let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+      let(:school) { FactoryGirl.create(:school) }
+      let(:homeroom) { FactoryGirl.create(:homeroom, school: school) }
+      let(:educator) { FactoryGirl.create(:educator, homeroom: homeroom, school: school) }
+
       it 'signs in' do
         mock_ldap_authorization
         educator_sign_in(educator)
