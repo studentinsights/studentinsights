@@ -84,10 +84,10 @@
       if (lookup.hasOwnProperty(service_type_id)){
         var text = lookup[service_type_id].name;
       } else {
-        var text = "";
+        var text = "Description not found for code: " + service_type_id;
       }
 
-      return service_type_id + ": " + text;
+      return text;
     },
 
     getEvents: function(){
