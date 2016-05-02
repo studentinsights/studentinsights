@@ -201,6 +201,7 @@
             dibels: this.props.dibels,
             chartData: this.props.chartData,
             attendanceData: this.props.attendanceData,
+            serviceTypesIndex: this.props.serviceTypesIndex
           }
         );
         case 'ela': return createEl(ELADetails, {chartData: this.props.chartData});

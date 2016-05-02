@@ -75,6 +75,19 @@
       dibels: React.PropTypes.array,
       chartData: React.PropTypes.object,
       attendanceData: React.PropTypes.object,
+      serviceTypesIndex: React.PropTypes.object
+    },
+
+    getMessageForServiceType: function(service_type_id){
+      // Given a service_type_id, returns a message suitable for human consumption describing the service.
+      var lookup = this.props.serviceTypesIndex;
+      if (lookup.hasOwnProperty(service_type_id)){
+        var text = lookup[service_type_id].name;
+      } else {
+        var text = "";
+      }
+
+      return service_type_id + ": " + text;
     },
 
     getEvents: function(){
@@ -166,15 +179,16 @@
           date: moment(obj.recorded_at).toDate()
         });
       });
+
       var services = this.props.feed.services.active.concat(this.props.feed.services.discontinued);
       _.each(services, function(obj){
         events.push({
           type: 'Service',
           id: obj.id,
-          message: obj.id,
+          message: this.getMessageForServiceType(obj.service_type_id),
           date: moment(obj.date_started).toDate()
         })
-      });
+      }.bind(this));
       _.each(this.props.dibels, function(obj) {
         // TODO(kr) need to investigate further, whether this is local demo data or production
         // data quality issue
