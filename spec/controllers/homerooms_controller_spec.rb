@@ -2,33 +2,17 @@ require 'rails_helper'
 
 describe HomeroomsController, :type => :controller do
   let!(:school) { FactoryGirl.create(:school) }
-  let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom, school: school) }
-  let!(:educator_without_homeroom) { FactoryGirl.create(:educator) }
-  let!(:admin_educator) { FactoryGirl.create(:educator, :admin, school: school) }
-  let(:first_homeroom_path) { homeroom_path(Homeroom.first) }
 
   describe '#show' do
-
     def make_request(slug = nil)
       request.env['HTTPS'] = 'on'
       get :show, id: slug
     end
 
-    context 'educator not logged in' do
-      it 'redirects to sign in page' do
-        make_request(educator.homeroom.slug)
-        expect(response).to redirect_to(new_educator_session_path)
-      end
-    end
-
-    context 'non-admin educator with homeroom logged in' do
+    context 'educator with homeroom logged in' do
+      let!(:educator) { FactoryGirl.create(:educator, school: school) }
+      let!(:homeroom) { FactoryGirl.create(:homeroom, educator: educator, grade: "5", school: school) }
       before { sign_in(educator) }
-
-      context 'no homeroom params' do
-        it 'raises an error' do
-          expect { make_request }.to raise_error ActionController::UrlGenerationError
-        end
-      end
 
       context 'homeroom params' do
 
@@ -42,11 +26,10 @@ describe HomeroomsController, :type => :controller do
           end
         end
 
-        context 'homeroom belongs to educator' do
-
+        context 'params for homeroom belonging to educator' do
           it 'is successful' do
             make_request(educator.homeroom.slug)
-            expect(response).to be_success
+            expect(response.status).to eq 200
           end
           it 'assigns correct homerooms to drop-down' do
             make_request(educator.homeroom.slug)
@@ -98,29 +81,37 @@ describe HomeroomsController, :type => :controller do
 
         context 'homeroom does not belong to educator' do
 
-          context 'homeroom is grade level as educator\'s' do
-            let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
+          context 'homeroom is grade level as educator\'s and same school' do
+            let(:another_homeroom) { FactoryGirl.create(:homeroom, grade: '5', school: school) }
             it 'is successful' do
-              make_request(homeroom.slug)
-              expect(response).to be_success
+              make_request(another_homeroom.slug)
+              expect(response.status).to eq 200
+            end
+          end
+
+          context 'homeroom is grade level as educator\'s -- but different school!' do
+            let(:another_homeroom) { FactoryGirl.create(:homeroom, grade: '5', school: FactoryGirl.create(:school)) }
+            it 'redirects' do
+              make_request(another_homeroom.slug)
+              expect(response.status).to eq 302
             end
           end
 
           context 'homeroom is different grade level from educator\'s' do
-            let(:homeroom) { FactoryGirl.create(:homeroom) }
+            let(:yet_another_homeroom) { FactoryGirl.create(:homeroom, school: school) }
             it 'redirects to educator\'s homeroom' do
-              make_request(homeroom.slug)
+              make_request(yet_another_homeroom.slug)
               expect(response).to redirect_to(homeroom_path(educator.homeroom))
             end
           end
 
           context 'educator has appropriate grade level access' do
-            let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['5'] )}
-            let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
+            let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['5'], school: school) }
+            let(:homeroom) { FactoryGirl.create(:homeroom, grade: '5', school: school) }
 
             it 'is successful' do
               make_request(homeroom.slug)
-              expect(response).to be_success
+              expect(response.status).to eq 200
             end
           end
 
@@ -128,7 +119,7 @@ describe HomeroomsController, :type => :controller do
             let(:school) { FactoryGirl.create(:school) }
             before { FactoryGirl.create(:student, school: school) }
             let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['3'], school: school )}
-            let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
+            let(:homeroom) { FactoryGirl.create(:homeroom, grade: '5', school: school) }
 
             it 'redirects' do
               make_request(homeroom.slug)
@@ -139,9 +130,17 @@ describe HomeroomsController, :type => :controller do
         end
 
       end
+
+      context 'no homeroom params' do
+        it 'raises an error' do
+          expect { make_request }.to raise_error ActionController::UrlGenerationError
+        end
+      end
+
     end
 
     context 'admin educator logged in' do
+      let(:admin_educator) { FactoryGirl.create(:educator, :admin, school: school) }
       before { sign_in(admin_educator) }
 
       context 'no homeroom params' do
@@ -152,10 +151,10 @@ describe HomeroomsController, :type => :controller do
 
       context 'homeroom params' do
         context 'good homeroom params' do
-          let(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
+          let(:homeroom) { FactoryGirl.create(:homeroom, grade: '5', school: school) }
           it 'is successful' do
             make_request(homeroom.slug)
-            expect(response).to be_success
+            expect(response.status).to eq 200
           end
           it 'assigns correct homerooms to drop-down' do
             make_request(homeroom.slug)
@@ -174,8 +173,8 @@ describe HomeroomsController, :type => :controller do
       end
     end
 
-    context 'non-admin without homeroom logged in' do
-      before { sign_in(educator_without_homeroom) }
+    context 'educator without schoolwide access logged in' do
+      before { sign_in(FactoryGirl.create(:educator)) }
 
       context 'no homeroom params' do
         it 'raises an error' do
@@ -189,6 +188,16 @@ describe HomeroomsController, :type => :controller do
           make_request(homeroom.slug)
           expect(response).to redirect_to(no_homeroom_url)
         end
+      end
+    end
+
+    context 'educator not logged in' do
+      let!(:educator) { FactoryGirl.create(:educator, school: school) }
+      let!(:homeroom) { FactoryGirl.create(:homeroom, educator: educator, grade: "5", school: school) }
+
+      it 'redirects to sign in page' do
+        make_request(educator.homeroom.slug)
+        expect(response).to redirect_to(new_educator_session_path)
       end
     end
 

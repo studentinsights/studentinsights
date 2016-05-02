@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe FakeStudent do
 
   let!(:school) { FactoryGirl.create(:school) }
-  let!(:homeroom) { FactoryGirl.create(:grade_5_homeroom) }
+  let!(:homeroom) { FactoryGirl.create(:homeroom, grade: '5') }
   before { FactoryGirl.create(:educator, :admin) }
   let(:student) { described_class.new(homeroom).student }
 

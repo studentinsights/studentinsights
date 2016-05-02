@@ -3,6 +3,7 @@ class School < ActiveRecord::Base
   friendly_id :local_id, use: :slugged
   has_many :students
   has_many :educators
+  has_many :homerooms
 
   def self.with_students
     School.all.select { |s| s.students.count > 0 }
