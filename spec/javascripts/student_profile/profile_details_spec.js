@@ -30,11 +30,14 @@ describe('ProfileDetails', function() {
           },
           event_notes: [{id: 992, recorded_at: "2010-10-17T00:00:00.000Z"}],
           services: {
-            active: [{id: 996, date_started: "2010-02-09"}],
+            active: [{id: 996, date_started: "2010-02-09", service_type_id: 508}],
             discontinued: [{id: 945, date_started: "2010-10-08"}]
           }
         },
-        dibels: [{id: 901, date_taken: "2012-05-15Z", performance_level: "Strategic"}]
+        dibels: [{id: 901, date_taken: "2012-05-15Z", performance_level: "Strategic"}],
+        serviceTypesIndex: {
+          "508": {name: "Math intervention", id: 508}
+        }
       }, props || {});
       return ReactDOM.render(createEl(ProfileDetails, mergedProps), el);
     }
