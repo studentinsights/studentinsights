@@ -460,52 +460,40 @@
         },
         dom.div({ style: styles.subtitle }, "(this year)"),
         dom.br(),
-        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, {caption: 'Discipline incidents'}),
+        this.renderAttendanceEventsSummary(
+          attendanceData.discipline_incidents, {caption: 'Discipline incidents'}
+        ),
         dom.br(),
         dom.br(),
-        this.renderAttendanceEventsSummary(attendanceData.absences, {caption: 'Absences'}),
+        this.renderAttendanceEventsSummary(
+          attendanceData.absences, {caption: 'Absences'}
+        ),
         dom.br(),
         dom.br(),
-        this.renderAttendanceEventsSummary(attendanceData.tardies, {caption: 'Tardies'})
+        this.renderAttendanceEventsSummary(
+          attendanceData.tardies, {caption: 'Tardies'}
+        )
       ));
     },
 
-    toSchoolYear: function(event){
-      // Takes in an event, returns the start of the school year into which it falls.
-      var d = moment(event.occurred_at);
-      if (d.month() < 8){
-        // The school year starts on August 1st.
-        // So if the month is before August, it falls in the previous year.
-        return d.year() - 1;
-      } else {
-        return d.year();
-      }
-    },
-
-    startOfSchoolYear: function(year){
-      // Takes in a school year integer (2015, 2014, etc.) and returns August 1st on that year.
-      return moment().year(year).month(8 - 1).date(1);
-    },
+    // toSchoolYear: function(event){
+    //   // Takes in an event, returns the start of the school year into which it falls.
+    //   var d = moment(event.occurred_at);
+    //   if (d.month() < 8){
+    //     // The school year starts on August 1st.
+    //     // So if the month is before August, it falls in the previous year.
+    //     return d.year() - 1;
+    //   } else {
+    //     return d.year();
+    //   }
+    // },
 
     renderAttendanceEventsSummary: function(attendanceEvents, props){
-      var self = this;
-      var currentSchoolYear = this.toSchoolYear(moment.utc());
-
-      var startOfLastSchoolYear = self.startOfSchoolYear(currentSchoolYear - 1);
-      var oneYearAgo = moment.utc().subtract(1, 'year');
-
-      var thisSchoolYearSoFar = _.filter(attendanceEvents, function(event){
-        return self.toSchoolYear(event) == currentSchoolYear;
-      }).length;
-      var lastSchoolYearSoFar = _.filter(attendanceEvents, function(event){
-        return moment(event.occurred_at).isBetween(startOfLastSchoolYear, oneYearAgo);
-      }).length;
-
       return dom.div(
         {style: merge(styles.summaryWrapper, {textAlign: 'center'})},
         createEl(AttendanceEventsSummary, merge(props, {
-          diff: thisSchoolYearSoFar - lastSchoolYearSoFar,
-          value: thisSchoolYearSoFar.toString()
+          attendanceEvents: attendanceEvents,
+          caption: props.caption
         }))
       );
     },
