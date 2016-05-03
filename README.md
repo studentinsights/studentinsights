@@ -38,18 +38,19 @@ Classroom teachers can see rosters of all students in their classroom, calling o
 #### Student profiles
 Individual student profiles show how students are progressing on core academic skills, as measured summatively by MCAS or on more frequent formative measures like STAR assessments.
 
-![Profile](docs/readme_images/profile-history.png)
+![Profile](docs/readme_images/profile-summary-screenshot.png)
 
 Student profiles also contain the full case history of demographic information, attendance and behavioral support.
 
-![Profile](docs/readme_images/profile-mcas.png)
+![Profile](docs/readme_images/profile-full-case-history-screenshot.png)
 
 We're working on some big improvements to the student profile page right now, check out [#5](https://github.com/studentinsights/studentinsights/issues/5) for more background.
+
 
 #### Capturing meeting notes and interventions
 It's one thing to have data, but acting on it to improve student outcomes is what really matters.  Schools with regular student support meetings for at-risk students can track interventions like additional tutoring hours, attendance contracts or social skills groups.  This is a building block to close the loop and monitor how effectively these interventions are serving students.
 
-![Interventions](docs/readme_images/interventions.png)
+![Interventions](docs/readme_images/recording-services-screenshot.png)
 
 It also allows capturing meeting notes as part of the student's record, which is particularly important on interdisciplinary teams.
 
