@@ -10,7 +10,7 @@ Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
   - password: `demo-password`
   Student Insights - Demo Night slides.pdf
 
-Our presentation at [Code for Boston demo night](docs/Student%20Insights%20-%20Demo%20Night%20slides.pdf) in May 2016 also has a good product overview.
+Our presentation at [Code for Boston demo night](docs/readme_images/Student%20Insights%20-%20Demo%20Night%20slides.pdf) in May 2016 also has a good product overview.
 
 ## User personas: Who we're serving
 There are three main user personas we're serving. Principals, Interventionists and Classroom Teachers. Right now we're focused primarily on serving principals, and the rough progression will likely be to Interventionists next. Early adopter Classroom Teachers are great, but focused on scaling adoption across all classroom teachers isn't a priority yet.
