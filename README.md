@@ -8,6 +8,9 @@ Student Insights gives educators an overview of student progress at their school
 Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
   - username: `demo@example.com`
   - password: `demo-password`
+  Student Insights - Demo Night slides.pdf
+
+The slides from [Code for Bosotn demo night in May 2016](docs/Student%20Insights%20-%20Demo%20Night%20slides.pdf) also have a good product overview.
 
 ## User personas: Who we're serving
 There are three main user personas we're serving. Principals, Interventionists and Classroom Teachers. Right now we're focused primarily on serving principals, and the rough progression will likely be to Interventionists next. Early adopter Classroom Teachers are great, but focused on scaling adoption across all classroom teachers isn't a priority yet.
