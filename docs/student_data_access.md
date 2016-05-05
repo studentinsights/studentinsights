@@ -26,6 +26,7 @@ Below are four levels of access — from new folks who walk in the door at Code 
   + _When this level of access makes sense:_
     + When you are already an admin on the repo, and lack of access to real data is a blocker to being able to contribute further (i.e. you often find yourself needing to ask other project members for distributions of real data or other info)
   + _Requirements:_
+    + Meet the project leaders driving this work on the Somerville Public Schools side — they will want to meet with you in person before you get keys to real student data
     + Sign an MOU with Somerville to become an authorized agent of the district
     + Use a password manager for all Student Insights work
     + Read through the Laptop security doc
