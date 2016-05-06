@@ -18,6 +18,10 @@
       return quad[3];
     },
 
+    toPair: function(quad){
+      return [QuadConverter.toMoment(quad).valueOf(), QuadConverter.toValue(quad)];
+    },
+
     // Fills in data points for start of the school year (8/15) and for current day.
     // Also collapses multiple events on the same day.
     convertAttendanceEvents: function(attendanceEvents, nowDate, dateRange) {
