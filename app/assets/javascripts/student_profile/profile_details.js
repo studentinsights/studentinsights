@@ -120,38 +120,38 @@
         });
       });
       _.each(this.props.chartData.mcas_series_ela_scaled, function(quad){
-        var score = quad[3];
+        // var score = quad[3];
         events.push({
           type: 'MCAS-ELA',
-          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
-          message: name + ' scored a ' + score + ' on the ELA section of the MCAS.',
+          id: QuadConverter.toMoment(quad).format("MM-DD"),
+          message: name + ' scored a ' + QuadConverter.toValue(quad) +' on the ELA section of the MCAS.',
           date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.mcas_series_math_scaled, function(quad){
-        var score = quad[3];
+        // var score = quad[3];
         events.push({
           type: 'MCAS-Math',
-          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
-          message: name + ' scored a ' + score + ' on the Math section of the MCAS.',
+          id: QuadConverter.toMoment(quad).format("MM-DD"),
+          message: name + ' scored a ' + QuadConverter.toValue(quad) +' on the Math section of the MCAS.',
           date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_reading_percentile, function(quad){
-        var score = quad[3];
+        // var score = quad[3];
         events.push({
           type: 'STAR-Reading',
-          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
-          message: name + ' scored in the ' + score + 'th percentile on the Reading section of STAR.',
+          id: QuadConverter.toMoment(quad).format("MM-DD"),
+          message: name + ' scored in the ' + QuadConverter.toValue(quad) +'th percentile on the Reading section of STAR.',
           date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_math_percentile, function(quad){
-        var score = quad[3];
+        // var score = quad[3];
         events.push({
           type: 'STAR-Math',
-          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
-          message: name + ' scored in the ' + score + 'th percentile on the Math section of STAR.',
+          id: QuadConverter.toMoment(quad).format("MM-DD"),
+          message: name + ' scored in the ' + QuadConverter.toValue(quad) +'th percentile on the Math section of STAR.',
           date: QuadConverter.toDate(quad)
         });
       });
@@ -237,22 +237,10 @@
       );
     },
 
-    toSchoolYear: function(date){
-      // Takes in a date, returns the start of the school year into which it falls.
-      var d = moment(date);
-      if (d.month() < 8){
-        // The school year starts on August 1st.
-        // So if the month is before August, it falls in the previous year.
-        return d.year() - 1;
-      } else {
-        return d.year();
-      }
-    },
-
     renderFullCaseHistory: function(){
       var self = this;
       var bySchoolYearDescending = _.toArray(
-        _.groupBy(this.getEvents(), function(event){ return self.toSchoolYear(event.date) })
+        _.groupBy(this.getEvents(), function(event){ return QuadConverter.toSchoolYear(event.date) })
       ).reverse();
 
       return dom.div({id: "full-case-history"},
@@ -263,7 +251,7 @@
 
     renderCardsForYear: function(eventsForYear){
       // Grab what school year we're in from any object in the list.
-      var year = this.toSchoolYear(eventsForYear[0].date);
+      var year = QuadConverter.toSchoolYear(eventsForYear[0].date);
       // Computes '2016 - 2017 School Year' for input 2016, etc.
       var schoolYearString = year.toString() + ' - ' + (year+1).toString() + ' School Year';
 
