@@ -120,38 +120,38 @@
         });
       });
       _.each(this.props.chartData.mcas_series_ela_scaled, function(quad){
-        var score = quad[3];
+        // var score = quad[3];
         events.push({
           type: 'MCAS-ELA',
-          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
-          message: name + ' scored a ' + score + ' on the ELA section of the MCAS.',
+          id: QuadConverter.toMoment(quad).format("MM-DD"),
+          message: name + ' scored a ' + QuadConverter.toValue(quad) +' on the ELA section of the MCAS.',
           date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.mcas_series_math_scaled, function(quad){
-        var score = quad[3];
+        // var score = quad[3];
         events.push({
           type: 'MCAS-Math',
-          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
-          message: name + ' scored a ' + score + ' on the Math section of the MCAS.',
+          id: QuadConverter.toMoment(quad).format("MM-DD"),
+          message: name + ' scored a ' + QuadConverter.toValue(quad) +' on the Math section of the MCAS.',
           date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_reading_percentile, function(quad){
-        var score = quad[3];
+        // var score = quad[3];
         events.push({
           type: 'STAR-Reading',
-          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
-          message: name + ' scored in the ' + score + 'th percentile on the Reading section of STAR.',
+          id: QuadConverter.toMoment(quad).format("MM-DD"),
+          message: name + ' scored in the ' + QuadConverter.toValue(quad) +'th percentile on the Reading section of STAR.',
           date: QuadConverter.toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_math_percentile, function(quad){
-        var score = quad[3];
+        // var score = quad[3];
         events.push({
           type: 'STAR-Math',
-          id: moment.utc(QuadConverter.toDate(quad)).format("MM-DD"),
-          message: name + ' scored in the ' + score + 'th percentile on the Math section of STAR.',
+          id: QuadConverter.toMoment(quad).format("MM-DD"),
+          message: name + ' scored in the ' + QuadConverter.toValue(quad) +'th percentile on the Math section of STAR.',
           date: QuadConverter.toDate(quad)
         });
       });
