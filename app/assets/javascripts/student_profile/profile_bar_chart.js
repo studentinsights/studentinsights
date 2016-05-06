@@ -5,6 +5,7 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var HighchartsWrapper = window.shared.HighchartsWrapper;
+  var QuadConverter = window.shared.QuadConverter;
 
   var styles = {
     title: {
