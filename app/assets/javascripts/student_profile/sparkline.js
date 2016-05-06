@@ -4,6 +4,8 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
+  var QuadConverter = window.shared.QuadConverter;
+
   /*
   Project quads outside of the date range, since interpolation will connect with previous data points.
   */
@@ -40,7 +42,7 @@
         .domain(this.props.valueRange)
         .range([this.props.height - padding, padding]);
       var lineGenerator = d3.svg.line()
-        .x(function(d) { return x(this.quadDate(d)); }.bind(this))
+        .x(function(d) { return x(QuadConverter.toDate(d)); }.bind(this))
         .y(function(d) { return y(d[3]); })
         .interpolate('linear');
 
@@ -96,7 +98,7 @@
 
     delta: function(quads) {
       var filteredQuadValues = _.compact(quads.map(function(quad) {
-        var date = this.quadDate(quad);
+        var date = QuadConverter.toDate(quad);
         if (date > this.props.dateRange[0] && date < this.props.dateRange[1]) return null;
         return quad[3];
       }, this));
@@ -104,8 +106,8 @@
       return _.last(filteredQuadValues) - _.first(filteredQuadValues);
     },
 
-    quadDate: function(quad) { 
-      return new Date(quad[0], quad[1] - 1, quad[2]);
-    }
+    // quadDate: function(quad) { 
+    //   return new Date(quad[0], quad[1] - 1, quad[2]);
+    // }
   });
 })();

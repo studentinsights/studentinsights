@@ -59,6 +59,7 @@
 
 // student profile page:
 // pure ui components:
+  //= require ./student_profile/quad_converter
   //= require ./student_profile/risk_bubble
   //= require ./student_profile/service_color
   //= require ./student_profile/provided_by_educator_dropdown
@@ -67,7 +68,6 @@
   //= require ./student_profile/datepicker
   //= require ./student_profile/highcharts_wrapper
   //= require ./student_profile/sparkline
-  //= require ./student_profile/quad_converter
   //= require ./student_profile/scales
   //= require ./student_profile/academic_summary
   //= require ./student_profile/take_notes
