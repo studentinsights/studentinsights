@@ -56,21 +56,6 @@ RSpec.describe Educator do
 
     end
 
-    context 'educator does not belong to school' do
-      let(:student) { FactoryGirl.create(:student) }
-      context 'educator is admin' do
-        let(:educator) { FactoryGirl.create(:educator, :admin) }
-        it 'is authorized' do
-          expect(authorized?).to be true
-        end
-      end
-      context 'educator is not admin' do
-        let(:educator) { FactoryGirl.create(:educator) }
-        it 'is not authorized' do
-          expect(authorized?).to be false
-        end
-      end
-    end
   end
 
   describe '#local_id' do
@@ -150,34 +135,39 @@ RSpec.describe Educator do
   end
 
   describe '#allowed_homerooms' do
+    let!(:school) { FactoryGirl.create(:healey) }
+    let!(:other_school) { FactoryGirl.create(:brown) }
 
     context 'admin' do
-      let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom) }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom) }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2') }
+      let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, school: school) }
+      let!(:homeroom_101) { FactoryGirl.create(:homeroom, school: school) }
+      let!(:homeroom_102) { FactoryGirl.create(:homeroom, school: school) }
+      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: school) }
 
-      it 'returns all homerooms' do
-        expect(educator.allowed_homerooms.sort).to eq [homeroom_101, homeroom_102, homeroom_103].sort
+      it 'returns all homerooms in the school' do
+        expect(educator.allowed_homerooms.sort).to eq [
+          homeroom_101, homeroom_102, homeroom_103
+        ].sort
       end
     end
 
     context 'homeroom teacher' do
-      let(:educator) { FactoryGirl.create(:educator) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom, grade: 'K', educator: educator) }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom, grade: 'K') }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2') }
+      let(:educator) { FactoryGirl.create(:educator, school: school) }
+      let!(:homeroom_101) { FactoryGirl.create(:homeroom, grade: 'K', educator: educator, school: school) }
+      let!(:homeroom_102) { FactoryGirl.create(:homeroom, grade: 'K', school: school) }
+      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: school) }
+      let!(:homeroom_brn) { FactoryGirl.create(:homeroom, grade: '2', school: other_school) }
 
-      it 'returns the teacher\'s homeroom and other homerooms with the same grade level' do
+      it 'returns educator\'s homeroom plus other homerooms at same grade level in same school' do
         expect(educator.allowed_homerooms).to eq [homeroom_101, homeroom_102]
       end
     end
 
     context 'teacher with grade level access' do
-      let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['2']) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom, grade: 'K') }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom, grade: 'K') }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2') }
+      let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['2'], school: school) }
+      let!(:homeroom_101) { FactoryGirl.create(:homeroom, grade: 'K', school: school) }
+      let!(:homeroom_102) { FactoryGirl.create(:homeroom, grade: 'K', school: school) }
+      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: school) }
 
       it 'returns all homerooms that match the grade level access' do
         expect(educator.allowed_homerooms).to eq [homeroom_103]
@@ -188,10 +178,11 @@ RSpec.describe Educator do
 
   describe '#allowed_homerooms_by_name' do
     context 'admin' do
-      let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom, name: 'Muskrats') }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom, name: 'Hawks') }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, name: 'Badgers') }
+      let(:school) { FactoryGirl.create(:healey) }
+      let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, school: school) }
+      let!(:homeroom_101) { FactoryGirl.create(:homeroom, name: 'Muskrats', school: school) }
+      let!(:homeroom_102) { FactoryGirl.create(:homeroom, name: 'Hawks', school: school) }
+      let!(:homeroom_103) { FactoryGirl.create(:homeroom, name: 'Badgers', school: school) }
 
       it 'returns all homerooms\', ordered alphabetically by name' do
         expect(educator.allowed_homerooms_by_name).to eq [homeroom_103, homeroom_102, homeroom_101]

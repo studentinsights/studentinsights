@@ -14,6 +14,8 @@ class Educator < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true
   validates :local_id, presence: true, uniqueness: true
+  validates :school, presence: true
+
   validate :admin_gets_access_to_all_students
 
   def admin_gets_access_to_all_students
@@ -70,16 +72,14 @@ class Educator < ActiveRecord::Base
 
   def allowed_homerooms
     # Educator can visit roster view for these homerooms
-    # For non-admins, all homerooms at their homeroom's grade level
+    return [] if school.nil?
 
     if schoolwide_access?
-      Homeroom.all
+      school.homerooms.all
     elsif homeroom
-      # Once the app includes data for multiple schools, will
-      # need to scope by school as well as by grade level
-      Homeroom.where(grade: homeroom.grade)
+      school.homerooms.where(grade: homeroom.grade)
     elsif grade_level_access.present?
-      Homeroom.where(grade: grade_level_access)
+      school.homerooms.where(grade: grade_level_access)
     else
       []
     end
@@ -115,6 +115,20 @@ class Educator < ActiveRecord::Base
     permissions = target_educator.permissions_hash
     assign_attributes(permissions)
     save!
+  end
+
+  def clone_permissions_and_homeroom_in_staging_from(educator_full_name)
+    # :alert: do not use in production :alert:
+    # This will change whom the homeroom belongs to!
+
+    target_educator = Educator.find_by_full_name(educator_full_name)
+    permissions = target_educator.permissions_hash
+    assign_attributes(permissions)
+    save!
+
+    target_homeroom = target_educator.homeroom
+    target_homeroom.educator = self
+    target_homeroom.save!
   end
 
   def self.load_permissions(permissions_array)

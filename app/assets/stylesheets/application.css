@@ -16,23 +16,3 @@
  *= require jquery-ui
  *= require react-select
  */
-
-.flex-container {
-   display: -webkit-flex;
-   display: flex;
-   flex-direction: row;
-   width: 500px;
-   height: 35px;
-   margin-right: 253px;
-}
-
-.flex-item {
-   width: 185px;
-   display: inline-block;
-   bottom: 10px;
-   margin: -18px;
-}
-
-.border-sign_in {
-     border: 3px inset #4a90e2
-}

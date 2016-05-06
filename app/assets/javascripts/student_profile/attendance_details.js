@@ -112,6 +112,7 @@
       return createEl(ProfileBarChart, {
         events: this.props.disciplineIncidents,
         titleText: 'Discipline Incidents',
+        id: "disciplineChart",
         monthsBack: 48,
         tooltipTemplateString: "<span><a href='#history' style='font-size: 12px'><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></a></span>"
       });
@@ -120,6 +121,7 @@
     renderAbsences: function() {
       return createEl(ProfileBarChart, {
         events: this.props.absences,
+        id: "absences",
         titleText: 'Absences',
         monthsBack: 48
       });
@@ -128,6 +130,7 @@
     renderTardies: function() {
       return createEl(ProfileBarChart, {
         events: this.props.tardies,
+        id: "tardies",
         titleText: 'Tardies',
         monthsBack: 48
       });
