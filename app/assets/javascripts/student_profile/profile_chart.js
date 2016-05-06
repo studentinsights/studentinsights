@@ -42,7 +42,6 @@
     },
 
     render: function() {
-      var self = this;
       return createEl(HighchartsWrapper, merge(this.baseOptions(), {
         title: {
           text: this.props.titleText,
