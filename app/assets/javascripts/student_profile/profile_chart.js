@@ -54,11 +54,14 @@
       }));
     },
 
-    getPositionsForYearStarts: function(n, d, current_grade){
+    getSchoolYearStartPositions: function(n, d, current_grade){
+      // Takes in an integer (number of months back), the current date as a Moment object (UTC), and the student's current grade.
+      // Returns an object mapping integer (tick position) --> string (school year starting at that position).
+
       var result = {};
       var current = d;
 
-      n -= (current.month() + 1);
+      n -= current.month() + 1;
       current.dayOfYear(1);
 
       result[current.valueOf()] = current.year().toString() + "<br>" + "<b>" + "Grade " + current_grade.toString() + "</b>";
@@ -77,7 +80,7 @@
     },
 
     baseOptions: function() {
-      var positionsForYearStarts = this.getPositionsForYearStarts(48, moment.utc(), parseInt(this.props.student.grade));
+      var positionsForYearStarts = this.getSchoolYearStartPositions(48, moment.utc(), parseInt(this.props.student.grade));
 
       return merge(ProfileChartSettings.base_options, {
         xAxis: [
