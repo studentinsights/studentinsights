@@ -64,9 +64,10 @@
       var range = [now.clone().subtract(n, 'months'), now];
       var startDates = QuadConverter.schoolYearStartDates(range);
       var create_label = function(current, current_grade){
-        return current.year().toString() + " - " + (current.year() + 1).toString()
-          + "<br>" + "<b>" +
-          (current_grade != 0 ? "Grade " + current_grade.toString() + "</b>" : "");
+        return _.template("<%=year%> - <%=year + 1%><br><b>Grade <%=grade%></b>")({
+          year: current.year(),
+          grade: current_grade
+        });
       };
 
       return _.object(
