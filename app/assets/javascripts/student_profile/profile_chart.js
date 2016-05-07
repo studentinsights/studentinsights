@@ -26,7 +26,6 @@
 
     getDefaultProps: function() {
       var now = moment.utc().toDate();
-      // TODO(kr) align to school year?
       // The intent of fixing this date range is that when staff are looking at profile of different students,
       // the scales are consistent (and not changing between 3 mos and 6 years depending on the student's record,
       // since that's easy to miss and misinterpret.
