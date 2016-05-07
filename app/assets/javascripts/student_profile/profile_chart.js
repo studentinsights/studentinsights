@@ -54,33 +54,28 @@
       }));
     },
 
-    getSchoolYearStartPositions: function(n, d, current_grade){
+    getSchoolYearStartPositions: function(n, now, current_grade){
       // Takes in an integer (number of months back), the current date as a Moment object (UTC), and the student's current grade.
       // Returns an object mapping integer (tick position) --> string (school year starting at that position).
 
-      var result = {};
-      var current = d;
-
-      n -= current.month() + 1;
-      current.dayOfYear(1);
-
-      result[current.valueOf()] = current.year().toString() + "<br>" + "<b>" + "Grade " + current_grade.toString() + "</b>";
-
-      // Take 12-month jumps backwards until we can't anymore.
-      while (n - 12 > 0){
-        current.subtract(1, 'year');
-        n -= 12;
-        current_grade -= 1;
-
-        result[current.valueOf()] = current.year().toString() + "<br>" + "<b>" +
+      var range = [now.clone().subtract(n, 'months'), now];
+      var startDates = QuadConverter.schoolYearStartDates(range);
+      var create_label = function(current, current_grade){
+        return current.year().toString() + " - " + (current.year() + 1).toString()
+          + "<br>" + "<b>" +
           (current_grade != 0 ? "Grade " + current_grade.toString() + "</b>" : "");
-      }
+      };
 
-      return result;
+      return _.object(
+        startDates.map(function(date){ return date.valueOf(); }),
+        startDates.map(function(date){ return create_label(date, 5); })
+      );
     },
 
     baseOptions: function() {
-      var positionsForYearStarts = this.getSchoolYearStartPositions(48, moment.utc(), parseInt(this.props.student.grade));
+      var positionsForYearStarts = this.getSchoolYearStartPositions(
+        48, moment.utc(), parseInt(this.props.student.grade)
+      );
 
       return merge(ProfileChartSettings.base_options, {
         xAxis: [

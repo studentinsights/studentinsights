@@ -29,8 +29,51 @@ describe('QuadConverter', function() {
     });
   });
 
-  describe('#cumulativeByMonthFromEvents', function(){
-    it('works', function(){
+  describe('#firstDayOfSchool', function() {
+    it('works', function() {
+      expect(QuadConverter.firstDayOfSchool(2016).isSame(moment.utc("2016-08-15"))).toEqual(true);
+      expect(QuadConverter.firstDayOfSchool(2013).isSame(moment.utc("2013-08-15"))).toEqual(true);
+    });
+  });
+
+  describe('#schoolYearStartDates', function(){
+    it('works', function() {
+      // TODO: Write a Jasmine custom matcher for this?
+      var toISOString = function(m){return m.toISOString(); };
+      expect(
+        QuadConverter.schoolYearStartDates([moment.utc("2013-10-11"), moment.utc("2017-05-01")])
+        .map(toISOString)
+      ).toEqual(
+        [
+          moment.utc("2013-08-15"),
+          moment.utc("2014-08-15"),
+          moment.utc("2015-08-15"),
+          moment.utc("2016-08-15")
+        ].map(toISOString)
+      );
+
+    });
+  });
+
+  describe('#convertAttendanceEvents', function() {
+    it('minimal test case', function() {
+      var now = new Date('Wed Feb 10 2016 22:11:26 GMT+0000');
+      var dateRange = [moment.utc(now).subtract(1, 'year').toDate(), now];
+      var attendanceEvents = [
+        {'occurred_at':'2015-09-08T00:00:00.000Z'}
+      ];
+      var quads = QuadConverter.convertAttendanceEvents(attendanceEvents, now, dateRange);
+      expect(quads).toEqual([
+        [2014, 8, 15, 0],
+        [2015, 8, 15, 0],
+        [2015, 9, 8, 1],
+        [2016, 2, 10, 1]
+      ]);
+    });
+
+    it('returns the expected javascript date', function() {
+      var now = new Date('Wed Feb 10 2016 22:11:26 GMT+0000');
+      var dateRange = [moment.utc(now).subtract(1, 'year').toDate(), now];
       var attendanceEvents = [
         {'occurred_at':'2015-12-22T00:00:00.000Z'},
         {'occurred_at':'2015-12-21T00:00:00.000Z'},
