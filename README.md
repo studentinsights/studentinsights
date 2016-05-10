@@ -164,6 +164,8 @@ var ProductTable = React.createClass({
 
 There are also a few places where we use [Flux](https://facebook.github.io/flux/docs/overview.html) patterns.
 
+If you use **Sublime Text Editor**, we include the `studentinsights.sublime-project` file to standardize minor things like tabs vs. spaces, indentation, and generally make it easier to work with our folder structure. Go to `Project --> Open Project` and select that file to load it. Sublime remembers which project you were last in, so you only need to do this once. ([Here](http://www.joshuawinn.com/understanding-projects-in-sublime-text-saving-switching-etc/)'s some background info on how projects work in Sublime).
+
 ## Browser/OS Targeting
 
 Category | Target | Comment
