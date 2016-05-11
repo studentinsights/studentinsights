@@ -59,7 +59,7 @@ describe('PageContainer', function() {
 
       expect(el).toContainText('Daisy Poppins');
       expect(helpers.findColumns(el).length).toEqual(5);
-      expect($(el).find('.Sparkline').length).toEqual(9);
+      expect($(el).find('.Sparkline').length).toEqual(6);
       expect($(el).find('.InterventionsDetails').length).toEqual(1);
 
       var interventionLists = helpers.interventionSummaryLists(el);
