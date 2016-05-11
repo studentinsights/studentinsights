@@ -3,6 +3,7 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
+  var QuadConverter = window.shared.QuadConverter;
 
   var ProfileChartSettings = window.ProfileChartSettings;
   var HighchartsWrapper = window.shared.HighchartsWrapper;
@@ -41,14 +42,16 @@
     },
 
     render: function() {
-      var self = this;
       return createEl(HighchartsWrapper, merge(this.baseOptions(), {
         title: {
           text: this.props.titleText,
           align: 'left'
         },
         series: this.props.quadSeries.map(function(obj){
-          return {name: obj.name, data: self.quadsToPairs(obj.data || [])}
+          return {
+            name: obj.name,
+            data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
+          }
         }),
         yAxis: this.props.yAxis
       }));
@@ -63,15 +66,5 @@
         })
       });
     },
-
-    quadsToPairs: function(quads) {
-      return quads.map(function(quad) {
-        var year = quad[0],
-            month = quad[1],
-            day = quad[2],
-            value = quad[3];
-        return [Date.UTC(year, month - 1, day), value]; // one-index --> zero-index on month
-      });
-    }
   });
 })();

@@ -17,12 +17,15 @@ describe('QuadConverter', function() {
     });
   });
 
-  describe('#schoolYearStart', function() {
-    it('aligns to school year', function() {
-      expect(QuadConverter.schoolYearStart(moment.utc('2013-09-12'))).toEqual(2013);
-      expect(QuadConverter.schoolYearStart(moment.utc('2014-05-12'))).toEqual(2013);
-      expect(QuadConverter.schoolYearStart(moment.utc('2014-08-19'))).toEqual(2014);
-      expect(QuadConverter.schoolYearStart(moment.utc('2014-11-19'))).toEqual(2014);
+  describe('#toSchoolYear', function() {
+    it('works with JS Date objects', function() {
+      expect(QuadConverter.toSchoolYear(moment.utc('2014-08-19').valueOf())).toEqual(2014);
+      expect(QuadConverter.toSchoolYear(moment.utc('2013-09-12').valueOf())).toEqual(2013);
+    });
+
+    it('works with Moment objects', function() {
+      expect(QuadConverter.toSchoolYear(moment.utc('2014-11-19'))).toEqual(2014);
+      expect(QuadConverter.toSchoolYear(moment.utc('2014-05-12'))).toEqual(2013);
     });
   });
 

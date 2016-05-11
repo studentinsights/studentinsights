@@ -16,7 +16,7 @@ If you haven't had that experience, you'll have to take my word for it. Download
 
 ### When is it a bad idea to use Docker?
 
-If you already have a dev environment running to your satisfaction on your machine, there's no need to switch to Docker.
+If you already have a dev environment running to your satisfaction on your machine, there's no need to switch to Docker. If you're experienced at cloning Rails projects and getting them running the old-fashioned way, you can go either way. Docker is fun, but we just want to get a dev environment running; do whatever works for you.
 
 ### Okay, how do I start using it?
 
@@ -73,6 +73,8 @@ We just created a temporary rails container to access the database with, but you
 **Loading pages is really slow!**: This is an unfortunate side effect of Docker -- going through the layer of virtualization to get CSS and image files is slow. Note that this is only a problem for us, not for users. You can try [https://github.com/adlogix/docker-machine-nfs](https://github.com/adlogix/docker-machine-nfs) to use NFS for sharing files between the host machine and the VirtualBoxVM. It may solve the problem, but I haven't been able to get it to work. ([Kevin looked into this](https://github.com/codeforamerica/somerville-teacher-tool/pull/336#issuecomment-158441877)). If it does work for you, let me know at really.eli@gmail.com or on Slack.
 
 **ERROR: Service failed to build: failed to register layer: ...**: Docker on your VirtualBox machine is in a bad state for some reason. Run `docker-machine rm default` and `docker-machine create --driver virtualbox default` to set up a new one.
+
+**bash: gem: command not found** when running `docker-compose up` for the first time: We had this happen once with the gem **wkhtmltopdf-binary**, though it may have been temporary. Open an issue letting us know the problem. Then you can comment out the relevant line in your Gemfile. 
 
 ### Running RSpec tests:
 ```
