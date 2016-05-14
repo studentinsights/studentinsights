@@ -93,7 +93,20 @@
     render: function() {
       return dom.div({ className: 'InterventionsDetails', style: styles.container },
         dom.div({ style: styles.notesContainer },
-          dom.h4({ style: styles.title}, 'Notes'),
+          dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
+            dom.h4({style: {display: 'inline', color: 'black'}}, 'Notes'),
+            dom.span({style: {
+              fontSize: 14,
+              width: 20,
+              height: 20,
+              marginLeft: 5,
+              color: 'white',
+              borderRadius: 30,
+              textAlign: 'center',
+              display: 'inline-block',
+              backgroundColor: '#3177AF'
+            }}, '?')
+          ),
           this.renderTakeNotesSection(),
           createEl(NotesList, {
             feed: this.props.feed,
@@ -102,7 +115,20 @@
           })
         ),
         dom.div({ style: styles.servicesContainer },
-          dom.h4({ style: styles.title}, 'Services'),
+          dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
+            dom.h4({style: {display: 'inline', color: 'black'}}, 'Services'),
+            dom.span({style: {
+              fontSize: 14,
+              width: 20,
+              height: 20,
+              marginLeft: 5,
+              color: 'white',
+              borderRadius: 30,
+              textAlign: 'center',
+              display: 'inline-block',
+              backgroundColor: '#3177AF'
+            }}, '?')
+          ),
           dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
           createEl(ServicesList, {
             servicesFeed: this.props.feed.services,
