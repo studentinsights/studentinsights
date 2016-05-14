@@ -1,4 +1,6 @@
 class BehaviorRow < Struct.new(:row)
+  # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
+  # 
   # Expects the following headers:
   #
   #  :state_id, :local_id, :incident_code, :event_date, :incident_time,

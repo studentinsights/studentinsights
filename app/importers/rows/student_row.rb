@@ -1,4 +1,13 @@
 class StudentRow < Struct.new(:row, :school_ids_dictionary)
+  # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
+  # Some of those rows will enter Student Insights, and the data in the CSV will be written into the database
+  # (see name_view_attributes, demographic_attributes, school_attribute).
+  # 
+  # Contrast with student.rb, which is represents a student once they've entered the DB.
+  # 
+  # Not every student row enters the database. For example, as of 2016-05-14, a student row
+  # representing a high school student won't ever enter the database.
+  # 
   # Expects the following headers:
   #
   #   :state_id, :local_id, :full_name, :home_language, :program_assigned,
