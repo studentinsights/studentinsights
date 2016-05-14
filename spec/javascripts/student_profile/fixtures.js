@@ -1316,51 +1316,6 @@
           },
           "name": "X Block Tutor"
         }
-      ],
-      "behavior_series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "behavior_series_school_years": [
-        "2009-2010",
-        "2010-2011",
-        "2011-2012",
-        "2012-2013",
-        "2013-2014",
-        "2014-2015",
-        "2015-2016"
-      ],
-      "attendance_series_absences": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        15
-      ],
-      "attendance_series_tardies": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        23
-      ],
-      "attendance_events_school_years": [
-        "2009-2010",
-        "2010-2011",
-        "2011-2012",
-        "2012-2013",
-        "2013-2014",
-        "2014-2015",
-        "2015-2016"
       ]
     },
     "attendanceData": {
