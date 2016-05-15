@@ -95,6 +95,17 @@ ActiveRecord::Schema.define(version: 20160502001001) do
   add_index "educators", ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   add_index "educators", ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true, using: :btree
 
+  create_table "event_note_revisions", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "educator_id"
+    t.integer  "event_note_type_id"
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_note_id"
+    t.integer  "version"
+  end
+
   create_table "event_note_types", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
