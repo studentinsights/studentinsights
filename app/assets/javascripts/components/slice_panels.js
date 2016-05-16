@@ -166,7 +166,10 @@
       var activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));
       var allServiceTypeIds = _.unique(activeServices.map(function(service) {
         return parseInt(service.service_type_id, 10);
-      }));
+      }))
+
+      var allServiceTypeIds = _.pull(allServiceTypeIds, 508);  // Deprecated Math intervention service type
+
       var serviceItems = allServiceTypeIds.map(function(serviceTypeId) {
         var serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
         return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
