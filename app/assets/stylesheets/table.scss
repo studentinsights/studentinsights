@@ -1,4 +1,5 @@
 /* TABLE */
+/* Everything here should go in shared except as noted. */
 
 table {
   overflow-x: scroll;
@@ -51,6 +52,7 @@ tr, td {
   padding-left: 10px;
 }
 
+/* TODO: Move this into shared folder. */
 .warning-bubble {
   width: 30px;
   height: 30px;
