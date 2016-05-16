@@ -170,7 +170,7 @@ RSpec.describe Educator do
       let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: school) }
 
       it 'returns all homerooms that match the grade level access' do
-        expect(educator.allowed_homerooms.sort).to eq [homeroom_103].sort
+        expect(educator.allowed_homerooms).to eq [homeroom_103]
       end
     end
 
@@ -185,7 +185,7 @@ RSpec.describe Educator do
       let!(:homeroom_103) { FactoryGirl.create(:homeroom, name: 'Badgers', school: school) }
 
       it 'returns all homerooms\', ordered alphabetically by name' do
-        expect(educator.allowed_homerooms_by_name.sort).to eq [homeroom_103, homeroom_102, homeroom_101].sort
+        expect(educator.allowed_homerooms_by_name).to eq [homeroom_103, homeroom_102, homeroom_101]
       end
     end
   end
