@@ -46,7 +46,6 @@ describe('RecordService', function() {
         'Counseling, in-house',
         'Counseling, outside',
         'Reading intervention',
-        'Math intervention',
         'Attendance Officer',
         'Attendance Contract',
         'Behavior Contract'

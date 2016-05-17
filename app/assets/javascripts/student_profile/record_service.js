@@ -117,11 +117,8 @@
         dom.div({ style: { display: 'flex', justifyContent: 'flex-start' } },
           dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(505),
-            this.renderServiceButton(506)
-          ),
-          dom.div({ style: styles.buttonWidth },
-            this.renderServiceButton(507),
-            this.renderServiceButton(508)
+            this.renderServiceButton(506),
+            this.renderServiceButton(507)
           ),
           dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(502),
