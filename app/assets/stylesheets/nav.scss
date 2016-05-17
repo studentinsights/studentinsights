@@ -1,4 +1,5 @@
 /* NAV */
+/* Move to shared. */
 
 .nav {
   border-bottom: 1px solid $light-line;
@@ -81,15 +82,10 @@
   }
 
   .flash {
-    position: absolute;
     padding: 10px;
   }
 
   /* SIGN IN FLOW & MESSAGES */
-
-  .field {
-    margin-bottom: 20px;
-  }
 
   .notice {
     color: $warning-green;

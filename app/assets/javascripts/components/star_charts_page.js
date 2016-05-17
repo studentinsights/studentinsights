@@ -342,6 +342,11 @@ $(function() {
       var color = d3.scale.linear().domain([-50, 0, 50]).range(['red','#eee','blue']);
       var thickness = d3.scale.linear().domain([-50, 0, 50]).range([3, 0, 3]);
 
+      var verticalTicks = [25, 50, 75, 100];
+      var horizontalTicks = [-50, -25, 25, 50];
+
+      var isStudentSelected = _.isEmpty(this.state.hoverStudentIds);
+
       var hoverElements = _.compact(this.state.hoverStudentIds.map(function(studentId) {
         if (_.isEmpty(students)) return null;
         var student = _.findWhere(students, { id: studentId });
@@ -364,7 +369,6 @@ $(function() {
           dom.tspan({ x: x(delta), dy: '1.4em' },  'Percentile: ' + percentile)
         );
       }, this));
-
       return dom.div({},
         this.renderTitleWithSummary({
           title: 'Performance compared to growth, last assessment',
@@ -383,6 +387,62 @@ $(function() {
               stroke: '#eee',
               fill: 'none'
             }),
+            dom.text({
+              x: x(40),
+              y: y(57),
+              fontWeight: 'normal',
+              fontSize: 10,
+                opacity: 0.7,
+              width: 100,
+              height: 100,
+              textAnchor: 'center',
+              stroke: '#333'
+            }, dom.tspan({ x: x(38), dy: '1.4em' }, 'Change in percentile rank')),
+            horizontalTicks.map(function(percentile) {
+              var opacity = isStudentSelected ? 0.7 : 0.3;
+              var offset = percentile > 0 ? '-2.4em' : '1em';
+               return dom.text({
+                key: percentile,
+                x: x(percentile),
+                y: y(50),
+                opacity: 0.7,
+                fontWeight: 'normal',
+                fontSize: 10,
+                width: 100,
+                height: 100,
+                textAnchor: 'center',
+                stroke: '#333'
+              },
+                dom.tspan({dx: offset, dy: '1.4em', opacity: opacity }, percentile + '%')
+              );
+            }, this),
+            dom.text({
+              x: x(1),
+              y: y(100),
+              fontWeight: 'normal',
+              fontSize: 10,
+              width: 100,
+              height: 100,
+              opacity: 0.7,
+              textAnchor: 'center',
+              stroke: '#333'
+            }, dom.tspan({ x: x(-8), dy: '1.4em' }, 'Percentile Rank')),
+            verticalTicks.map(function(percentile) {
+              var opacity = isStudentSelected ? 0.7 : 0.3;
+               return dom.text({
+                key: percentile,
+                x: x(1),
+                y: y(percentile),
+                fontWeight: 'normal',
+                fontSize: 10,
+                width: 100,
+                height: 100,
+                textAnchor: 'center',
+                stroke: '#333'
+              },
+                dom.tspan({ x: x(1), dy: '1.4em', opacity: opacity }, percentile )
+              );
+            }, this),
             students.map(function(student) {
               var percentile = _.last(student.star_results).percentile_rank;
               var delta = this.resultsDelta(student);

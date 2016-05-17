@@ -75,5 +75,17 @@ RSpec.describe StudentsImporter do
       end
     end
 
+    context 'student is inactive' do
+      let!(:student) { FactoryGirl.create(:student, enrollment_status: 'Inactive') }
+      let!(:new_homeroom_name) { '152K' }
+
+      it 'does not create a new homeroom' do
+        expect {
+          described_class.new.assign_student_to_homeroom(student, new_homeroom_name)
+        }.to change(Homeroom, :count).by(0)
+      end
+
+    end
+
   end
 end
