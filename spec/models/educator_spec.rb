@@ -159,7 +159,7 @@ RSpec.describe Educator do
       let!(:homeroom_brn) { FactoryGirl.create(:homeroom, grade: '2', school: other_school) }
 
       it 'returns educator\'s homeroom plus other homerooms at same grade level in same school' do
-        expect(educator.allowed_homerooms).to eq [homeroom_101, homeroom_102]
+        expect(educator.allowed_homerooms.sort).to eq [homeroom_101, homeroom_102].sort
       end
     end
 
