@@ -22,6 +22,8 @@ If you already have a dev environment running to your satisfaction on your machi
 
 Before you do any of this, clone the project from github by starting up Terminal and running `git clone https://github.com/studentinsights/studentinsights.git`. This will create a folder named `studentinsights` in the current directory.
 
+#### Windows / OS X
+
 Docker only runs on Linux. So, in order to run it on Windows or OS X, you need to start up a virtual machine that runs Linux. We use VirtualBox for this.
 
   - [Install VirtualBox 5.0.8](https://www.virtualbox.org/wiki/Downloads)
@@ -43,6 +45,17 @@ Normally, when you run a dev copy of the project on your machine, you visit it b
 Your computer has a special file named "/etc/hosts" which maps names to IP addresses. (You can edit it by typing `nano /etc/hosts` in your terminal, or any other way you know how to edit system files). We recommend adding the IP from `docker-machine ip default` as a line in this file (the format is **<IP> <name>**) so you can work with "http://docker:3000" in your browser (instead of typing that IP directly).
 
 So, we have three command-line programs (**docker**, **docker-compose** and **docker-machine**).
+
+#### Linux
+
+If you're already on Linux, you don't need to worry about **docker-machine**. Just install using your package manager and you're good to go. Here are instructions specific to [Ubuntu](https://docs.docker.com/engine/installation/linux/ubuntulinux/), but you can also pick from a number of distros on the sidebar.
+
+The docker daemon needs root permissions, so by default you'll have to use **sudo** for all your docker commands. You can avoid this by adding yourself to the **docker** group.
+
+'$ sudo groupadd docker'
+'$ sudo usermod -aG docker yourname'
+
+### Okay, now what?
 
   - Navigate to where you cloned the project (so you should be at the root of the project, in the folder named "studentinsights").
   - Run the project using **docker-compose**:
