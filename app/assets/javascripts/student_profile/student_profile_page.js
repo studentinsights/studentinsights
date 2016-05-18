@@ -316,8 +316,8 @@
       var activeServices = this.props.feed.services.active;
       var educatorNamesFromServices = _.pluck(activeServices, 'provided_by_educator_name');
       var uniqueNames = _.unique(educatorNamesFromServices);
-      var nonNullNames = _.filter(uniqueNames, function(id) { return id !== null; });
-      var educatorNames = _.isEmpty( nonNullNames ) ? ["No staff"] : nonNullNames;
+      var nonEmptyNames = _.filter(uniqueNames, function(id) { return id !== "" && id !== null; });
+      var educatorNames = _.isEmpty( nonEmptyNames ) ? ["No staff"] : nonEmptyNames;
 
       var limit = 3;
 
