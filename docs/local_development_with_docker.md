@@ -65,7 +65,7 @@ The docker daemon needs root permissions, so by default you'll have to use **sud
        - Set up the database and seed it with demo data: `RAILS_ENV=development bundle exec rake db:setup db:seed:demo`
        - Get back to your terminal (and discard the container): `exit` or Control+D.
     - Start all the services: `docker-compose up`. (This will occupy your terminal. To stop it and bring the server down, press Control+C).
-    - Open [http://docker:3000](http://docker:3000) in a browser! Log in using *demo@example.com* and *demo-password*.
+    - Open [http://docker:3000](http://docker:3000) (or [http://localhost:3000](http://localhost:3000) on Linux) in a browser! Log in using *demo@example.com* and *demo-password*.
 
 Okay, now make sure you can get at what you just did. Bookmark "http://docker:3000" and put VirtualBox in your Dock so you can access it later.
 
