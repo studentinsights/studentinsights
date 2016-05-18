@@ -139,7 +139,6 @@
         tabIndex: -1,
         style: merge(styles.serviceButton, styles.buttonWidth, {
           background: color,
-          opacity: (this.state.serviceTypeId === null || this.state.serviceTypeId === serviceTypeId) ? 1 : 0.25,
           outline: 0,
           border: (this.state.serviceTypeId === serviceTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
