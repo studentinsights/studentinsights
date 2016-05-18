@@ -66,7 +66,7 @@
     getInitialState: function() {
       return {
         serviceTypeId: null,
-        providedByEducatorName: null,
+        providedByEducatorName: "",
         momentStarted: moment.utc() // TODO should thread through
       }
     },
@@ -196,8 +196,7 @@
           style: styles.cancelRecordServiceButton,
           onClick: this.onClickCancel
         }, 'Cancel'),
-        (this.props.requestState === 'pending') ? dom.span({}, 'Saving...') : null,
-        (this.props.requestState === 'error') ? dom.span({}, 'Try again!') : null
+        (this.props.requestState === 'pending') ? dom.span({}, 'Saving...') : this.props.requestState
       );
     }
   });
