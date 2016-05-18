@@ -5,8 +5,6 @@ class Service < ActiveRecord::Base
   has_many :discontinued_services
 
   validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id, :recorded_at, :date_started
-  validates :provided_by_educator_name, allow_nil: true,
-            format: { with: /(\w+, \w+|^$)/, message: "Please use the form Last Name, First Name" }
 
   def discontinued?
     discontinued_services.size > 0

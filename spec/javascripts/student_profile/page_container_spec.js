@@ -115,6 +115,12 @@ describe('PageContainer', function() {
 	    onProvidedByEducatorName: 'Teacher, Test'
 	});
 	expect(el).toContainText('Saving...');
+
+	// Name can also be blank
+	component.onClickSaveService({
+	    onProvidedByEducatorName: ''
+	});
+	expect(el).toContainText('Saving...');
     });
 
     // TODO(kr) the spec helper here was reaching into the react-select internals,
