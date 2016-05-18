@@ -39,7 +39,19 @@
       display: 'inline-block'
     },
     noteText: {
-      marginTop: 5
+      marginTop: 5,
+      padding: 0,
+      resize: 'none',
+      overflow: 'auto',
+      fontFamily: "'Open Sans', sans-serif",
+      fontSize: 14,
+      whiteSpace: 'pre-wrap'
+    },
+    cancelEditNoteButton: {
+      color: 'black',
+      background: '#eee',
+      marginLeft: 10,
+      marginRight: 10
     }
   };
 
@@ -59,27 +71,31 @@
 
     getInitialState: function() {
       return {
-        isEditingNote: false,
         text: this.props.text
       };
     },
 
-    onClickEdit: function () {
-      this.setState({ isEditingNote: true });
-    },
-
-    onChangeText: function(event) {
-      this.setState({ text: event.target.value });
-    },
-
-    onClickSave: function(event) {
+    onBlurText: function(event) {
       var params = {
         id: this.props.eventNoteId,
         eventNoteTypeId: this.props.eventNoteTypeId,
         text: this.state.text
       };
       this.props.onSave(params);
-      this.setState({ isEditingNote: false });
+    },
+
+    shouldComponentUpdate: function(nextProps){
+      return nextProps.html !== ReactDOM.findDOMNode(this).innerHTML;
+    },
+
+    emitChange: function(){debugger;
+      var text = ReactDOM.findDOMNode(this).getElementsByClassName('note-text')[0].innerHTML;
+
+      if (text !== this.lastText) {
+        this.setState({ text: text });
+      }
+
+      this.lastText = text;
     },
 
     render: function() {
@@ -94,29 +110,27 @@
             educator: this.props.educatorsIndex[this.props.educatorId]
           }))
         ),
-        dom.div({ style: { whiteSpace: 'pre-wrap' } },
-          this.state.isEditingNote
-            ? dom.div({},
-              dom.textarea({
-                rows: 10,
-                // style: styles.textarea,
-                ref: function(ref) { this.textareaRef = ref; }.bind(this),
-                value: this.state.text,
-                onChange: this.onChangeText
-              }),
-              dom.button({
-                className: 'btn save',
-                onClick: this.onClickSave
-              }, 'Save')
-            )
-            : dom.div({ style: styles.noteText },
-              this.props.text,
-              dom.button({
-                className: 'btn edit-note',
-                onClick: this.onClickEdit
-              }, 'Edit')
-            )
-        )
+        dom.div({
+          contentEditable: true,
+          className: 'note-text',
+          // rows: 10,
+          style: styles.noteText,
+          // ref: function(ref) { this.textareaRef = ref; }.bind(this),
+          // defaultValue: this.state.text,
+          dangerouslySetInnerHTML: { __html: this.state.text },
+          // onChange: this.onChangeText,
+          onInput: this.emitChange,
+          onBlur: this.onBlurText
+        })
+        // dom.textarea({
+        //   className: 'note-text',
+        //   rows: 10,
+        //   style: styles.noteText,
+        //   ref: function(ref) { this.textareaRef = ref; }.bind(this),
+        //   defaultValue: this.state.text,
+        //   // onChange: this.onChangeText,
+        //   onBlur: this.onBlurText
+        // })
       );
     }
   });

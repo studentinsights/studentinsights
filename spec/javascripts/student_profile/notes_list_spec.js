@@ -14,7 +14,8 @@ describe('NotesList', function() {
       var mergedProps = merge(props || {}, {
         feed: Fixtures.feedForTestingNotes,
         educatorsIndex: Fixtures.studentProfile.educatorsIndex,
-        eventNoteTypesIndex: Fixtures.studentProfile.eventNoteTypesIndex
+        eventNoteTypesIndex: Fixtures.studentProfile.eventNoteTypesIndex,
+        onSaveNote: jasmine.createSpy('onSaveNote')
       });
       return ReactDOM.render(createEl(NotesList, mergedProps), el);
     },
