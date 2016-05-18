@@ -96,7 +96,10 @@
         dom.div({ style: styles.notesContainer },
           dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
             dom.h4({style: {display: 'inline', color: 'black'}}, 'Notes'),
-            createEl(HelpBubble, {content: 'Hi!'})
+            createEl(HelpBubble, {
+              title: 'What is a Note?',
+              content_id: 'notes-help'
+            })
           ),
           this.renderTakeNotesSection(),
           createEl(NotesList, {
@@ -108,7 +111,10 @@
         dom.div({ style: styles.servicesContainer },
           dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
             dom.h4({style: {display: 'inline', color: 'black'}}, 'Services'),
-            createEl(HelpBubble, {content: 'Hi!'})
+            createEl(HelpBubble, {
+              title: 'What is a Service?',
+              content_id: 'services-help'
+            })
           ),
           dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
           createEl(ServicesList, {

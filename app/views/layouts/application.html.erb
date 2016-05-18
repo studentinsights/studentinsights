@@ -7,6 +7,12 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
     <%= render('shared/mixpanel') if Rails.env.production? %>
+
+    <!-- Help stuff is stored here, but not displayed. -->
+    <div id='notes-help' style="display: none;">
+      <h1>Hi!</h1>
+    </div>
+
   </head>
   <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">
     <div class="nav">
