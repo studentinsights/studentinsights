@@ -29,10 +29,25 @@
       borderBottom: '1px solid #333',
       color: 'black',
       padding: 10,
-      paddingLeft: 0
+      paddingLeft: 0,
+    },
+    servicesTitle: {
+      color: 'black'
+    },
+    servicesHeading: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      borderBottom: '1px solid #333',
+      padding: 10,
+      paddingLeft: 0,
+    },
+    spedButton: {
+      backgroundColor: '#E5370E',
+      width: '20em',
+      fontSize: 12,
+      padding: 8
     }
   };
-
 
 
   /*
@@ -73,6 +88,11 @@
       this.setState({ isTakingNotes: false });
     },
 
+    onClickGenerateSpedReferral: function(event) {
+      window.location = this.props.student.id + '/sped_referral.pdf';
+      return null;
+    },
+
     onClickRecordService: function(event) {
       this.setState({ isAddingService: true });
     },
@@ -102,7 +122,14 @@
           })
         ),
         dom.div({ style: styles.servicesContainer },
-          dom.h4({ style: styles.title}, 'Services'),
+          dom.div({ className: 'ServicesHeader', style: styles.servicesHeading },
+            dom.h4({ style: styles.servicesTitle }, 'Services'),
+            dom.button({
+              className: 'btn',
+              style: styles.spedButton,
+              onClick: this.onClickGenerateSpedReferral
+            }, 'BETA: Generate SPED Referral')
+          ),
           dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
           createEl(ServicesList, {
             servicesFeed: this.props.feed.services,
