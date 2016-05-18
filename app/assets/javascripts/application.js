@@ -62,6 +62,7 @@
 
 // student profile page:
 // pure ui components:
+  //= require ./student_profile/help_bubble
   //= require ./student_profile/quad_converter
   //= require ./student_profile/risk_bubble
   //= require ./student_profile/service_color

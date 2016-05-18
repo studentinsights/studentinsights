@@ -10,6 +10,7 @@
   var NotesList = window.shared.NotesList;
   var ServicesList = window.shared.ServicesList;
   var RecordService = window.shared.RecordService;
+  var HelpBubble = window.shared.HelpBubble;
 
   var styles = {
     container: {
@@ -95,17 +96,7 @@
         dom.div({ style: styles.notesContainer },
           dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
             dom.h4({style: {display: 'inline', color: 'black'}}, 'Notes'),
-            dom.span({style: {
-              fontSize: 14,
-              width: 20,
-              height: 20,
-              marginLeft: 5,
-              color: 'white',
-              borderRadius: 30,
-              textAlign: 'center',
-              display: 'inline-block',
-              backgroundColor: '#3177AF'
-            }}, '?')
+            createEl(HelpBubble, {content: 'Hi!'})
           ),
           this.renderTakeNotesSection(),
           createEl(NotesList, {
@@ -117,17 +108,7 @@
         dom.div({ style: styles.servicesContainer },
           dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
             dom.h4({style: {display: 'inline', color: 'black'}}, 'Services'),
-            dom.span({style: {
-              fontSize: 14,
-              width: 20,
-              height: 20,
-              marginLeft: 5,
-              color: 'white',
-              borderRadius: 30,
-              textAlign: 'center',
-              display: 'inline-block',
-              backgroundColor: '#3177AF'
-            }}, '?')
+            createEl(HelpBubble, {content: 'Hi!'})
           ),
           dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
           createEl(ServicesList, {
