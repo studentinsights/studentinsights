@@ -114,7 +114,6 @@
     renderWhichService: function() {
       return dom.div({},
         dom.div({ style: { marginBottom: 5, display: 'inline' }}, 'Which service?'),
-        dom.a({ href: "#", style: {fontSize: 12}}, ' (help me decide)'),
         dom.div({ style: { display: 'flex', justifyContent: 'flex-start' } },
           dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(505),

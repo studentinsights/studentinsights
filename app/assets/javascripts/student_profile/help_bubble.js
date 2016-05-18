@@ -4,21 +4,6 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
-  // var styles = {
-  //   bubble: {
-  //     fontSize: 14,
-  //     width: 20,
-  //     height: 20,
-  //     marginLeft: 5,
-  //     color: 'white',
-  //     borderRadius: 30,
-  //     textAlign: 'center',
-  //     display: 'inline-block',
-  //     backgroundColor: '#3177AF',
-  //     cursor: 'pointer'
-  //   }
-  // };
-
   var HelpBubble = window.shared.HelpBubble = React.createClass({
     propTypes: {
       title: React.PropTypes.string.isRequired,
@@ -53,8 +38,12 @@
             dom.a({href: '#', onClick: this.closeModal, style: {float: 'right', cursor: 'pointer'}}, '(ESC)')
           ),
           dom.div({
-            dangerouslySetInnerHTML: {__html: $("#" + this.props.content_id).text()}
-          })
+            dangerouslySetInnerHTML: {__html: $("#" + this.props.content_id).html()}
+          }),
+          dom.div({}, dom.a({
+            href: '#', onClick: this.closeModal,
+            style: {cursor: 'pointer', position: 'absolute', bottom: 20, left: 20},
+          }, '(close)'))
         )
       );
     }
