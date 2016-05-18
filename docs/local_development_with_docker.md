@@ -52,8 +52,8 @@ If you're already on Linux, you don't need to worry about **docker-machine**. Ju
 
 The docker daemon needs root permissions, so by default you'll have to use **sudo** for all your docker commands. You can avoid this by adding yourself to the **docker** group.
 
-'$ sudo groupadd docker'
-'$ sudo usermod -aG docker yourname'
+`$ sudo groupadd docker`
+`$ sudo usermod -aG docker yourname`
 
 ### Okay, now what?
 
