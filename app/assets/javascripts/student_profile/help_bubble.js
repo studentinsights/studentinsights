@@ -5,11 +5,9 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var HelpBubble = window.shared.HelpBubble = React.createClass({
-    //
-    //
     propTypes: {
       title: React.PropTypes.string.isRequired, // e.g. 'What is a Note?'
-      content_id: React.PropTypes.string.isRequired // id attribute of the hidden div we grab the content from, e.g. 'notes-help'
+      content: React.PropTypes.string.isRequired // HTML string which will be rendered in the modal's box.
     },
 
     getInitialState: function(){ return {modalIsOpen: false}; },
@@ -44,10 +42,9 @@
             dom.a({href: '#', onClick: this.closeModal, style: {float: 'right', cursor: 'pointer'}}, '(ESC)')
           ),
           dom.div({
-            // We grab the content from a display-none div stored in <head></head> on every page.
             // React says this is 'dangerous' because rendering an untrusted string can allow an
             // XSS attack; however, we generated this string, so we trust it.
-            dangerouslySetInnerHTML: {__html: $("#" + this.props.content_id).html()}
+            dangerouslySetInnerHTML: {__html: this.props.content}
           }),
           dom.div({}, dom.a({
             href: '#', onClick: this.closeModal,
