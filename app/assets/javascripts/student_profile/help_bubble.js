@@ -7,7 +7,8 @@
   var HelpBubble = window.shared.HelpBubble = React.createClass({
     propTypes: {
       title: React.PropTypes.string.isRequired, // e.g. 'What is a Note?'
-      content: React.PropTypes.string.isRequired // HTML string which will be rendered in the modal's box.
+      content: React.PropTypes.string.isRequired, // HTML string which will be rendered in the modal's box.
+      teaserText: React.PropTypes.string.isRequired // text displayed before the user clicks, e.g. 'Find out more.'
     },
 
     getInitialState: function(){ return {modalIsOpen: false}; },
@@ -15,15 +16,19 @@
       this.setState({modalIsOpen: false});
       e.preventDefault();
     },
-    openModal: function(e){ this.setState({modalIsOpen: true}); },
+    openModal: function(e){
+      this.setState({modalIsOpen: true});
+      e.preventDefault();
+    },
     componentWillMount: function(){
       // This needs to be called for some reason, and we need to do it by the time the DOM exists.
       ReactModal.setAppElement(document.body);
     },
 
     render: function(){
-      return dom.div({style: {display: 'inline'}},
-        dom.span({className: 'HelpBubble', onClick: this.openModal}, '?'),
+      return dom.div({style: {display: 'inline', marginLeft: 10}},
+        dom.a({href: '#', onClick: this.openModal, style: {fontSize: 12, outline: 'none'}}, this.props.teaserText),
+        // dom.span({className: 'HelpBubble', onClick: this.openModal}, '?'),
         this.renderModal() // The modal is not logically here, but even while not displayed it needs a location in the DOM.
       );
     },

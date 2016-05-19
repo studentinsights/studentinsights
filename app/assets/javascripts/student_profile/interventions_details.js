@@ -158,6 +158,7 @@
             dom.h4({style: {display: 'inline', color: 'black'}}, 'Notes'),
             createEl(HelpBubble, {
               title: 'What is a Note?',
+              teaserText: '(what is this?)',
               content: this.getNotesHelpContent()
             })
           ),
@@ -173,6 +174,7 @@
             dom.h4({style: {display: 'inline', color: 'black'}}, 'Services'),
             createEl(HelpBubble, {
               title: 'What is a Service?',
+              teaserText: '(what is this?)',
               content: this.getServicesHelpContent()
             })
           ),
