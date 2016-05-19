@@ -9,7 +9,7 @@
   var FeedHelpers = window.shared.FeedHelpers;
   var moment = window.moment;
   var sanitize = new Sanitize({
-    elements: ['br', 'div']
+    elements: ['br', 'div', 'p']
   });
 
   var styles = {
@@ -73,23 +73,35 @@
     return newNode.innerHTML;
   }
 
-  function htmlToText(html) {
-    var node = document.createElement('div');
-    var text;
+  function domNodeToText(node, previousSiblingNode) {
+    var text = previousSiblingNode && _(['BR', 'DIV', 'P']).contains(node.tagName) ? '\n'
+      : previousSiblingNode ? ' '
+      : '';
 
-    html = html.replace(/\<div\>\<br\>\<\/div\>/, '\n');
-    html = html.replace(/\<\/?div\>/, '\n');
-
-    node.innerHTML = html;
-    text = node.textContent;
+    if (node.childNodes.length === 0) {
+      text = text.concat(node.textContent);
+    }
+    else {
+      for (var i = 0; i < node.childNodes.length; i++) {
+        text = text.concat(domNodeToText(node.childNodes[i], i > 0 && node.childNodes[i - 1]));
+      }
+    }
 
     return text;
+  }
+
+  function htmlToText(html) {
+    var node = document.createElement('div');
+
+    node.innerHTML = html;
+
+    return domNodeToText(node);
   }
 
   function textToHTML(text) {
     var html = text || '';
 
-    html = html.replace(/\n/, '<div><br></div>');
+    html = html.replace(/\n/g, '<br>');
 
     return html;
   }
@@ -145,7 +157,7 @@
       }
     },
 
-    onInputText: function(){
+    onModifyText: function(){
       var text = htmlToText(this.contentEditableEl.innerHTML);
 
       if (text !== this.lastText) {
@@ -173,7 +185,9 @@
           style: styles.noteText,
           ref: function(ref) { this.contentEditableEl = ref; }.bind(this),
           dangerouslySetInnerHTML: { __html: textToSanitizedHTML(this.state.text) },
-          onInput: this.onInputText,
+          onInput: this.onModifyText,
+          onKeyUp: this.onModifyText,
+          onPaste: this.onModifyText,
           onBlur: this.onBlurText
         })
       );
