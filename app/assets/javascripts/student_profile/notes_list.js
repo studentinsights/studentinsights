@@ -8,6 +8,9 @@
   var PropTypes = window.shared.PropTypes;
   var FeedHelpers = window.shared.FeedHelpers;
   var moment = window.moment;
+  var sanitize = new Sanitize({
+    elements: ['br', 'div']
+  });
 
   var styles = {
     noItems: {
@@ -55,6 +58,46 @@
     }
   };
 
+  function htmlToSanitizedHTML(html) {
+    var node = document.createElement('div');
+    var newNode = document.createElement('div');
+    var sanitizedHTML;
+
+    node.innerHTML = html;
+    sanitizedDOM = sanitize.clean_node(node);
+
+    while (sanitizedDOM.childNodes.length > 0) {
+      newNode.appendChild(sanitizedDOM.childNodes[0]);
+    }
+
+    return newNode.innerHTML;
+  }
+
+  function htmlToText(html) {
+    var node = document.createElement('div');
+    var text;
+
+    html = html.replace(/\<div\>\<br\>\<\/div\>/, '\n');
+    html = html.replace(/\<\/?div\>/, '\n');
+
+    node.innerHTML = html;
+    text = node.textContent;
+
+    return text;
+  }
+
+  function textToHTML(text) {
+    var html = text || '';
+
+    html = html.replace(/\n/, '<div><br></div>');
+
+    return html;
+  }
+
+  function textToSanitizedHTML(text) {
+    return htmlToSanitizedHTML(textToHTML(text));
+  }
+
   // This renders a single card for a Note of any type.
   var NoteCard = React.createClass({
     displayName: 'NoteCard',
@@ -84,12 +127,26 @@
       this.props.onSave(params);
     },
 
-    shouldComponentUpdate: function(nextProps){
-      return nextProps.html !== ReactDOM.findDOMNode(this).innerHTML;
+    shouldComponentUpdate: function(nextProps, nextState) {
+      var currentHTML = this.contentEditableEl.innerHTML;
+
+      return currentHTML !== htmlToSanitizedHTML(currentHTML)
+        || nextState.text !== htmlToText(currentHTML);
     },
 
-    emitChange: function(){debugger;
-      var text = ReactDOM.findDOMNode(this).getElementsByClassName('note-text')[0].innerHTML;
+    componentDidUpdate: function() {
+      var expectedHTML = textToSanitizedHTML(this.state.text);
+
+      if (
+        this.contentEditableEl
+        && expectedHTML !== this.contentEditableEl.innerHTML
+      ) {
+       this.contentEditableEl.innerHTML = expectedHTML;
+      }
+    },
+
+    onInputText: function(){
+      var text = htmlToText(this.contentEditableEl.innerHTML);
 
       if (text !== this.lastText) {
         this.setState({ text: text });
@@ -113,24 +170,12 @@
         dom.div({
           contentEditable: true,
           className: 'note-text',
-          // rows: 10,
           style: styles.noteText,
-          // ref: function(ref) { this.textareaRef = ref; }.bind(this),
-          // defaultValue: this.state.text,
-          dangerouslySetInnerHTML: { __html: this.state.text },
-          // onChange: this.onChangeText,
-          onInput: this.emitChange,
+          ref: function(ref) { this.contentEditableEl = ref; }.bind(this),
+          dangerouslySetInnerHTML: { __html: textToSanitizedHTML(this.state.text) },
+          onInput: this.onInputText,
           onBlur: this.onBlurText
         })
-        // dom.textarea({
-        //   className: 'note-text',
-        //   rows: 10,
-        //   style: styles.noteText,
-        //   ref: function(ref) { this.textareaRef = ref; }.bind(this),
-        //   defaultValue: this.state.text,
-        //   // onChange: this.onChangeText,
-        //   onBlur: this.onBlurText
-        // })
       );
     }
   });
