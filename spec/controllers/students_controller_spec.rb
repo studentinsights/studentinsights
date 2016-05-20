@@ -52,8 +52,6 @@ describe StudentsController, :type => :controller do
             deprecated: {interventions: []}
           })
 
-          expect(serialized_data[:chart_data]).to include(:attendance_events_school_years)
-
           expect(serialized_data[:intervention_types_index]).to eq({
             20 => {:id=>20, :name=>"After-School Tutoring (ATP)"},
             21 => {:id=>21, :name=>"Attendance Officer"},

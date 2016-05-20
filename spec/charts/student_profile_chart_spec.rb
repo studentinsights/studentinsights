@@ -23,12 +23,7 @@ RSpec.describe StudentProfileChart do
         :mcas_series_ela_scaled,
         :mcas_series_math_growth,
         :mcas_series_ela_growth,
-        :interventions,
-        :behavior_series,
-        :behavior_series_school_years,
-        :attendance_series_absences,
-        :attendance_series_tardies,
-        :attendance_events_school_years
+        :interventions
       ])
     end
   end
