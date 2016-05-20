@@ -15,10 +15,8 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Table of Contents
-*Generated with [DocToc](https://github.com/thlorenz/doctoc)*
+*Generated with [DocToc](https://github.com/thlorenz/doctoc).*
 
-- [Student Insights](#student-insights)
-- [Table of Contents](#table-of-contents)
 - [User personas: Who we're serving](#user-personas-who-were-serving)
 - [Product overview: How we're helping](#product-overview-how-were-helping)
   - [School overview](#school-overview)
