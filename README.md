@@ -42,7 +42,9 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
     - [Rebuilding database in staging environment](#rebuilding-database-in-staging-environment)
   - [AWS](#aws)
   - [Your own server](#your-own-server)
-  - [More information](#more-information)
+- [More information](#more-information)
+  - [Current](#current)
+  - [Code for America prototype phase (2015)](#code-for-america-prototype-phase-2015)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -285,9 +287,12 @@ Deploy on your own Ubuntu server (not AWS's or Heroku's):
 
 https://github.com/codeforamerica/promptly-deploy-scripts/tree/somerville-v1
 
+# More information
 
+## Current
 
-## More information
-- __[Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)__
-- [Drop into chat](https://cfb-public.slack.com/messages/somerville-schools/), [sign up for Slack](http://public.codeforboston.org/)
-- Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter
+- [Drop into the #somerville-schools chat](https://cfb-public.slack.com/messages/somerville-schools/) on [Code for Boston Slack](http://public.codeforboston.org/)
+- Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter or with @eli-rose on Code for Boston Slack
+
+## Code for America prototype phase (2015)
+- Code for America [Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)
