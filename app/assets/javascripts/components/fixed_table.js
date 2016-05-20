@@ -37,7 +37,10 @@
           paddingBottom: 5
         }
       },
-        dom.div({ className: 'fixed-table-title', style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }}, title),
+        dom.div({
+          className: 'fixed-table-title',
+          style: { marginBottom: 5, paddingLeft: 5, fontWeight: 'bold', height: '1em' }
+        }, title),
         dom.table({},
           dom.tbody({}, items.map(function(item) {
             var key = item.caption;
@@ -77,58 +80,6 @@
           height: '1em',
         }
       });
-    }
-  });
-
-  // table that supports collapsing
-  var CollapsableTable = React.createClass({
-    displayName: 'CollapsableTable',
-    getDefaultProps: function() {
-      return {
-        minHeight: 132,
-        limit: 5,
-        className: ''
-      };
-    },
-
-    getInitialState: function() {
-      return {
-        isExpanded: false
-      };
-    },
-
-    onCollapseClicked: function(e) {
-      this.setState({ isExpanded: false });
-    },
-
-    onExpandClicked: function(e) {
-      this.setState({ isExpanded: true });
-    },
-
-    render: function() {
-      var truncatedItems = (this.state.isExpanded)
-        ? this.props.items
-        : this.props.items.slice(0, this.props.limit);
-      return dom.div({ className: 'CollapsableTable' },
-        createEl(FixedTable, merge(this.props, {
-          items: truncatedItems,
-          children: this.renderCollapseOrExpand()
-        }))
-      );
-    },
-
-    renderCollapseOrExpand: function() {
-      if (this.props.items.length <= this.props.limit) return;
-      return dom.a({
-        style: {
-          fontSize: styles.fontSize,
-          color: '#999',
-          paddingTop: 5,
-          display: 'block'
-        },
-        onClick: (this.state.isExpanded) ? this.onCollapseClicked : this.onExpandClicked
-      }, (this.state.isExpanded) ? '- Hide details' : '+ Show all');
-
     }
   });
 })();

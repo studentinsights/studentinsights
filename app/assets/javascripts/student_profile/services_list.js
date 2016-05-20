@@ -155,8 +155,8 @@
     },
 
     renderEducatorName: function (educatorName) {
-      if (educatorName === null) {
-        return dom.div({}, 'No staff recorded');
+      if (educatorName === "" || educatorName === null) {
+	return dom.div({}, 'No staff recorded');
       } else {
         return dom.div({}, 'With ' + educatorName);
       };

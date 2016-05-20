@@ -1,4 +1,5 @@
 /* TYPE STYLES */
+/* These are global styles included on every page. Be careful because changes here will affect everything. */
 
 p, label {
   font-size: 14px;
@@ -28,6 +29,19 @@ h3 {
   font-size: 14px;
   font-weight: 700;
   color: $gray;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 300;
+  color: $blue;
+}
+
+h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: $gray;
+  text-transform: uppercase;
 }
 
 h6 {

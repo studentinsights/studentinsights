@@ -66,7 +66,7 @@
     getInitialState: function() {
       return {
         serviceTypeId: null,
-        providedByEducatorName: null,
+        providedByEducatorName: "",
         momentStarted: moment.utc() // TODO should thread through
       }
     },
@@ -113,15 +113,12 @@
 
     renderWhichService: function() {
       return dom.div({},
-        dom.div({ style: { marginBottom: 5 } }, 'Which service?'),
+        dom.div({ style: { marginBottom: 5, display: 'inline' }}, 'Which service?'),
         dom.div({ style: { display: 'flex', justifyContent: 'flex-start' } },
           dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(505),
-            this.renderServiceButton(506)
-          ),
-          dom.div({ style: styles.buttonWidth },
-            this.renderServiceButton(507),
-            this.renderServiceButton(508)
+            this.renderServiceButton(506),
+            this.renderServiceButton(507)
           ),
           dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(502),
@@ -142,7 +139,6 @@
         tabIndex: -1,
         style: merge(styles.serviceButton, styles.buttonWidth, {
           background: color,
-          opacity: (this.state.serviceTypeId === null || this.state.serviceTypeId === serviceTypeId) ? 1 : 0.25,
           outline: 0,
           border: (this.state.serviceTypeId === serviceTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
@@ -196,8 +192,7 @@
           style: styles.cancelRecordServiceButton,
           onClick: this.onClickCancel
         }, 'Cancel'),
-        (this.props.requestState === 'pending') ? dom.span({}, 'Saving...') : null,
-        (this.props.requestState === 'error') ? dom.span({}, 'Try again!') : null
+        (this.props.requestState === 'pending') ? dom.span({}, 'Saving...') : this.props.requestState
       );
     }
   });

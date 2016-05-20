@@ -1,4 +1,6 @@
 class McasRow < Struct.new :row
+  # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
+  
   VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
 
   class NullRow
