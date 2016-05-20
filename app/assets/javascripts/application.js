@@ -38,10 +38,13 @@
 // provided by react-rails gem, configured in config/initializers/assets.rb
 //= require react
 
+//= require ./react-compatibility.js
+
 // react libs
 //= require react-classnames
 //= require react-input-autosize
 //= require react-select
+//= require react-modal
 
 // shared across application:
 //= require datepicker_config
@@ -59,6 +62,7 @@
 
 // student profile page:
 // pure ui components:
+  //= require ./student_profile/help_bubble
   //= require ./student_profile/quad_converter
   //= require ./student_profile/risk_bubble
   //= require ./student_profile/service_color

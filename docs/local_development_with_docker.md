@@ -22,6 +22,8 @@ If you already have a dev environment running to your satisfaction on your machi
 
 Before you do any of this, clone the project from github by starting up Terminal and running `git clone https://github.com/studentinsights/studentinsights.git`. This will create a folder named `studentinsights` in the current directory.
 
+#### Windows / OS X
+
 Docker only runs on Linux. So, in order to run it on Windows or OS X, you need to start up a virtual machine that runs Linux. We use VirtualBox for this.
 
   - [Install VirtualBox 5.0.8](https://www.virtualbox.org/wiki/Downloads)
@@ -44,6 +46,18 @@ Your computer has a special file named "/etc/hosts" which maps names to IP addre
 
 So, we have three command-line programs (**docker**, **docker-compose** and **docker-machine**).
 
+#### Linux
+
+If you're already on Linux, you don't need to worry about **docker-machine**. Just install using your package manager and you're good to go. Here are instructions specific to [Ubuntu](https://docs.docker.com/engine/installation/linux/ubuntulinux/), but you can also pick from a number of distros on the sidebar.
+
+The docker daemon needs root permissions, so by default you'll have to use **sudo** for all your docker commands. You can avoid this by adding yourself to the **docker** group.
+
+`$ sudo groupadd docker`
+
+`$ sudo usermod -aG docker yourname`
+
+### Okay, now what?
+
   - Navigate to where you cloned the project (so you should be at the root of the project, in the folder named "studentinsights").
   - Run the project using **docker-compose**:
     - Rebuild all container images: `docker-compose build` (slow the first time)
@@ -52,7 +66,7 @@ So, we have three command-line programs (**docker**, **docker-compose** and **do
        - Set up the database and seed it with demo data: `RAILS_ENV=development bundle exec rake db:setup db:seed:demo`
        - Get back to your terminal (and discard the container): `exit` or Control+D.
     - Start all the services: `docker-compose up`. (This will occupy your terminal. To stop it and bring the server down, press Control+C).
-    - Open [http://docker:3000](http://docker:3000) in a browser! Log in using *demo@example.com* and *demo-password*.
+    - Open [http://docker:3000](http://docker:3000) (or [http://localhost:3000](http://localhost:3000) on Linux) in a browser! Log in using *demo@example.com* and *demo-password*.
 
 Okay, now make sure you can get at what you just did. Bookmark "http://docker:3000" and put VirtualBox in your Dock so you can access it later.
 

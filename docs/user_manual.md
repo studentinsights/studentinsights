@@ -39,9 +39,6 @@ The **Notes** tab is the place to keep notes about a student, whether it’s SST
 The **Services** tab is place to keep track of more formal extensive interventions for a student.  It includes a specific person responsible and dates.
 
 * Reading Teacher: Student works with a reading specialist at least 4x/week for 30-40 minutes.
-* Afterschool Tutoring (ATP): Student is receiving 25 hours of afterschool tutoring math or reading services in a small group through Title I.  
 * Behavior/Attendance Contract: This is usually done in cooperation with the attendance officer, school adjustment counselor, and/or principal.  This is a more formal document that requires a parent and student signature, along with regular checkpoints.
-* X-Block Tutor: Student works with a Title I tutor 3x-4x a week for 30-40 minutes in a research based intervention for math or ELA.
-* Summer School: Student participates in 18 day program that includes both ELA/Math research-based intervention. 
 * Attendance Officer: This usually includes home visit(s), regular follow-up, and could later on lead to a formal attendance contract.
 * Counseling: Student receives regular weekly or bi-weekly counseling from an SPS counselor or outside (ex. Riverside, Home for Little Wanderers).    One time or infrequent check-ins by a counselor should just be recorded in notes.

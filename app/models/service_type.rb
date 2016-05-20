@@ -1,4 +1,6 @@
 class ServiceType < ActiveRecord::Base
+  has_many :services
+
   def self.seed_somerville_service_types
     ServiceType.destroy_all
     ServiceType.create([

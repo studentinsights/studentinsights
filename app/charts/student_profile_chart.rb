@@ -47,12 +47,7 @@ class StudentProfileChart < Struct.new :student
       mcas_series_ela_scaled: scale_scores_to_highcharts(data[:mcas_ela_results]),
       mcas_series_math_growth: growth_percentiles_to_highcharts(data[:mcas_mathematics_results]),
       mcas_series_ela_growth: growth_percentiles_to_highcharts(data[:mcas_ela_results]),
-      interventions: interventions_to_highcharts,
-      behavior_series: reverse_for_highcharts(data[:discipline_incidents_by_school_year]),
-      behavior_series_school_years: reverse_for_highcharts(data[:school_year_names]),
-      attendance_series_absences: reverse_for_highcharts(data[:absences_count_by_school_year]),
-      attendance_series_tardies: reverse_for_highcharts(data[:tardies_count_by_school_year]),
-      attendance_events_school_years: reverse_for_highcharts(data[:school_year_names])
+      interventions: interventions_to_highcharts
     }
   end
 
