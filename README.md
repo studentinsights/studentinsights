@@ -23,7 +23,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [Classroom rosters](#classroom-rosters)
   - [Student profiles](#student-profiles)
     - [Capturing meeting notes and interventions](#capturing-meeting-notes-and-interventions)
-    - [User experience](#user-experience)
 - [Project priorities](#project-priorities)
 - [Contributing](#contributing)
 - [How it works](#how-it-works)
@@ -91,10 +90,6 @@ It's one thing to have data, but acting on it to improve student outcomes is wha
 ![Interventions](docs/readme_images/recording-services-screenshot.png)
 
 It also allows capturing meeting notes as part of the student's record, which is particularly important on interdisciplinary teams.
-
-### User experience
-This is a web product, integrated with the Aspen SIS, district LDAP authorization and STAR assessments.  Principals and teachers sign in using their usual credentials, and can access the product securely anywhere they have internet access.
-
 
 # Project priorities
 Immediate priorites are tracked in GitHub with [milestones](https://github.com/studentinsights/studentinsights/milestones).
