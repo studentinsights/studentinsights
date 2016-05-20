@@ -41,8 +41,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
     - [Rebuilding database in staging environment](#rebuilding-database-in-staging-environment)
   - [AWS](#aws)
 - [More information](#more-information)
-  - [Current](#current)
-  - [Code for America prototype phase (2015)](#code-for-america-prototype-phase-2015)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -277,11 +275,6 @@ Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
 
 # More information
 
-## Current
-
 - [Drop into the #somerville-schools chat](https://cfb-public.slack.com/messages/somerville-schools/) on [Code for Boston Slack](http://public.codeforboston.org/)
 - Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter or with @eli-rose on Code for Boston Slack
 - More docs in the `docs` folder!
-
-## Code for America prototype phase (2015)
-- Code for America [Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)
