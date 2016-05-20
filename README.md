@@ -12,10 +12,11 @@ Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
 
 Our presentation at [Code for Boston demo night](docs/readme_images/Student%20Insights%20-%20Demo%20Night%20slides.pdf) in May 2016 also has a good product overview.
 
+<!-- UPDATE WITH DOCTOC: $ doctoc README.md -->
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Table of Contents
-*Generated with [DocToc](https://github.com/thlorenz/doctoc).*
 
 - [User personas: Who we're serving](#user-personas-who-were-serving)
 - [Product overview: How we're helping](#product-overview-how-were-helping)
