@@ -42,7 +42,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
     - [Migrations on Heroku](#migrations-on-heroku)
     - [Rebuilding database in staging environment](#rebuilding-database-in-staging-environment)
   - [AWS](#aws)
-  - [Your own server](#your-own-server)
 - [More information](#more-information)
   - [Current](#current)
   - [Code for America prototype phase (2015)](#code-for-america-prototype-phase-2015)
@@ -281,12 +280,6 @@ The project can also be deployed on AWS.  There's a starting point for provision
 ```
 
 Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
-
-## Your own server
-
-Deploy on your own Ubuntu server (not AWS's or Heroku's):
-
-https://github.com/codeforamerica/promptly-deploy-scripts/tree/somerville-v1
 
 # More information
 
