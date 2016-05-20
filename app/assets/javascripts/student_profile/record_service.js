@@ -113,7 +113,7 @@
 
     renderWhichService: function() {
       return dom.div({},
-        dom.div({ style: { marginBottom: 5 } }, 'Which service?'),
+        dom.div({ style: { marginBottom: 5, display: 'inline' }}, 'Which service?'),
         dom.div({ style: { display: 'flex', justifyContent: 'flex-start' } },
           dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(505),
