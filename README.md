@@ -8,7 +8,6 @@ Student Insights gives educators an overview of student progress at their school
 Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
   - username: `demo@example.com`
   - password: `demo-password`
-  Student Insights - Demo Night slides.pdf
 
 Our presentation at [Code for Boston demo night](docs/readme_images/Student%20Insights%20-%20Demo%20Night%20slides.pdf) in May 2016 also has a good product overview.
 
