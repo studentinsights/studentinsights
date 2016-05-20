@@ -26,7 +26,7 @@
       "required": true,
       "description": "verifies integrity of signed cookies",
       "generator": "secret"
-    },
+    }
   },
   "formation": {
     "web": {
