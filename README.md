@@ -8,14 +8,14 @@ Student Insights gives educators an overview of student progress at their school
 Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
   - username: `demo@example.com`
   - password: `demo-password`
-  Student Insights - Demo Night slides.pdf
 
 Our presentation at [Code for Boston demo night](docs/readme_images/Student%20Insights%20-%20Demo%20Night%20slides.pdf) in May 2016 also has a good product overview.
+
+<!-- UPDATE WITH DOCTOC: $ doctoc README.md -->
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Table of Contents
-*Generated with [DocToc](https://github.com/thlorenz/doctoc).*
 
 - [User personas: Who we're serving](#user-personas-who-were-serving)
 - [Product overview: How we're helping](#product-overview-how-were-helping)
@@ -23,7 +23,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [Classroom rosters](#classroom-rosters)
   - [Student profiles](#student-profiles)
     - [Capturing meeting notes and interventions](#capturing-meeting-notes-and-interventions)
-    - [User experience](#user-experience)
 - [Project priorities](#project-priorities)
 - [Contributing](#contributing)
 - [How it works](#how-it-works)
@@ -41,8 +40,7 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
     - [Migrations on Heroku](#migrations-on-heroku)
     - [Rebuilding database in staging environment](#rebuilding-database-in-staging-environment)
   - [AWS](#aws)
-  - [Your own server](#your-own-server)
-  - [More information](#more-information)
+- [More information](#more-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -90,10 +88,6 @@ It's one thing to have data, but acting on it to improve student outcomes is wha
 ![Interventions](docs/readme_images/recording-services-screenshot.png)
 
 It also allows capturing meeting notes as part of the student's record, which is particularly important on interdisciplinary teams.
-
-### User experience
-This is a web product, integrated with the Aspen SIS, district LDAP authorization and STAR assessments.  Principals and teachers sign in using their usual credentials, and can access the product securely anywhere they have internet access.
-
 
 # Project priorities
 Immediate priorites are tracked in GitHub with [milestones](https://github.com/studentinsights/studentinsights/milestones).
@@ -279,15 +273,8 @@ The project can also be deployed on AWS.  There's a starting point for provision
 
 Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
 
-## Your own server
+# More information
 
-Deploy on your own Ubuntu server (not AWS's or Heroku's):
-
-https://github.com/codeforamerica/promptly-deploy-scripts/tree/somerville-v1
-
-
-
-## More information
-- __[Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)__
-- [Drop into chat](https://cfb-public.slack.com/messages/somerville-schools/), [sign up for Slack](http://public.codeforboston.org/)
-- Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter
+- [Drop into the #somerville-schools chat](https://cfb-public.slack.com/messages/somerville-schools/) on [Code for Boston Slack](http://public.codeforboston.org/)
+- Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter or with @eli-rose on Code for Boston Slack
+- More docs in the `docs` folder!

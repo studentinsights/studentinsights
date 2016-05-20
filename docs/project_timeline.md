@@ -1,4 +1,12 @@
-## Project timeline
+# Project timeline
+
+## 2015: Code for America prototype year
+
+### Documents
+
++ __[Team Somerville Mid-Year Report](http://codeforamerica.github.io/somerville-story/)__
+
+### Month-by-month
 
 * __September 2015__: We will pilot the tool with the Healey School at the start of the 2015-16 school year. We also started looking into out-of-school data e.g., after-school tutoring to help address the question of "Are students in need receiving interventions & support?".
 * __August 2015__:  We iterated on the tool, tweaking and adding features prioritized by teachers, principals, and partners. We collaborated with KIPP NJ to build more robust data integration processes and demonstrated how this tool can be deployed more extensively to other districts (even having different SIS systems).
