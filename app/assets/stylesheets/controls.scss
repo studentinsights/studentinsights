@@ -1,31 +1,27 @@
 /* CONTROLS */
-
-.nav-options {
-  right: 30px;
-  float: left;
-  margin-right: 15px;
-}
-
-.nav-options p {
-  display: inline-block;
-  font-weight: normal;
-  color: $light-gray;
-  margin-right: 5px;
-  margin-top: 3px;
-  margin-left: 15px;
-}
+/* Used only in the roster page, except where noted. */
 
 #roster-nav-options {
   display: inline-block;
+  right: 30px;
+  float: left;
+  margin-right: 15px;
+
+  p {
+    display: inline-block;
+    font-weight: normal;
+    color: $light-gray;
+    margin-right: 5px;
+    margin-top: 3px;
+    margin-left: 15px;
+  }
 }
 
 #controls {
   width: 80%;
   margin: auto auto;
   height: 60px;
-  .nav-options {
-    margin-top: 17px;
-  }
+
   @media screen and (max-width: $phase1) {
     height: 100px;
   }
@@ -33,6 +29,7 @@
   clear: both;
 }
 
+/* Is this used? */
 .chosen-container {
 
   @media screen and (max-width: $phase2) {

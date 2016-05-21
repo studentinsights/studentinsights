@@ -9,7 +9,8 @@
       spacingBottom: 0,
       spacingTop: 0,
       spacingLeft: 0,
-      spacingRight: 0
+      spacingRight: 0,
+      marginTop: 10
     },
     title: {
       text: '',

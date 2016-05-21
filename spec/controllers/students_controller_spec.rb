@@ -9,6 +9,7 @@ def create_service(student, educator)
 end
 
 describe StudentsController, :type => :controller do
+
   describe '#show' do
     let!(:school) { FactoryGirl.create(:school) }
     let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
@@ -29,7 +30,6 @@ describe StudentsController, :type => :controller do
     end
 
     context 'when educator is logged in' do
-
       before { sign_in(educator) }
 
       context 'educator has schoolwide access' do
@@ -51,8 +51,6 @@ describe StudentsController, :type => :controller do
             services: {active: [], discontinued: []},
             deprecated: {interventions: []}
           })
-
-          expect(serialized_data[:chart_data]).to include(:attendance_events_school_years)
 
           expect(serialized_data[:intervention_types_index]).to eq({
             20 => {:id=>20, :name=>"After-School Tutoring (ATP)"},
@@ -139,7 +137,7 @@ describe StudentsController, :type => :controller do
         end
 
         context 'educator has grade level access' do
-          let(:educator) { FactoryGirl.create(:educator, grade_level_access: [student.grade] )}
+          let(:educator) { FactoryGirl.create(:educator, grade_level_access: [student.grade], school: school )}
 
           it 'is successful' do
             make_request({ student_id: student.id, format: :html })
@@ -148,7 +146,7 @@ describe StudentsController, :type => :controller do
         end
 
         context 'educator has homeroom access' do
-          let(:educator) { FactoryGirl.create(:educator) }
+          let(:educator) { FactoryGirl.create(:educator, school: school) }
           before { homeroom.update(educator: educator) }
 
           it 'is successful' do
@@ -158,7 +156,7 @@ describe StudentsController, :type => :controller do
         end
 
         context 'educator does not have schoolwide, grade level, or homeroom access' do
-          let(:educator) { FactoryGirl.create(:educator) }
+          let(:educator) { FactoryGirl.create(:educator, school: school) }
 
           it 'fails' do
             make_request({ student_id: student.id, format: :html })
@@ -170,7 +168,8 @@ describe StudentsController, :type => :controller do
           let(:educator) { FactoryGirl.create(:educator, {
             grade_level_access: nil,
             schoolwide_access: true,
-            restricted_to_sped_students: false
+            restricted_to_sped_students: false,
+            school: school
           }) }
 
           it 'succeeds without an exception' do
@@ -180,8 +179,8 @@ describe StudentsController, :type => :controller do
         end
 
         context 'educator has some grade level access but for the wrong grade' do
-          let(:student) { FactoryGirl.create(:student, :with_risk_level, grade: '1') }
-          let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['KF']) }
+          let(:student) { FactoryGirl.create(:student, :with_risk_level, grade: '1', school: school) }
+          let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['KF'], school: school) }
 
           it 'fails' do
             make_request({ student_id: student.id, format: :html })
@@ -192,13 +191,15 @@ describe StudentsController, :type => :controller do
         context 'educator access restricted to SPED students' do
           let(:educator) { FactoryGirl.create(:educator,
                                               grade_level_access: ['1'],
-                                              restricted_to_sped_students: true ) }
+                                              restricted_to_sped_students: true,
+                                              school: school ) }
 
           context 'student in SPED' do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
-                                               program_assigned: 'Sp Ed') }
+                                               program_assigned: 'Sp Ed',
+                                               school: school) }
 
             it 'is successful' do
               make_request({ student_id: student.id, format: :html })
@@ -223,13 +224,15 @@ describe StudentsController, :type => :controller do
         context 'educator access restricted to ELL students' do
           let(:educator) { FactoryGirl.create(:educator,
                                               grade_level_access: ['1'],
-                                              restricted_to_english_language_learners: true ) }
+                                              restricted_to_english_language_learners: true,
+                                              school: school ) }
 
           context 'limited English proficiency' do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
-                                               limited_english_proficiency: 'FLEP') }
+                                               limited_english_proficiency: 'FLEP',
+                                               school: school) }
 
             it 'is successful' do
               make_request({ student_id: student.id, format: :html })
@@ -258,14 +261,16 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#event_note' do
+    let(:school) { FactoryGirl.create(:school) }
+
     def make_post_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
       post :event_note, format: :json, id: student.id, event_note: event_note_params
     end
 
-    context 'admin educator logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin) }
-      let!(:student) { FactoryGirl.create(:student) }
+    context 'educator logged in' do
+      let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
       let!(:event_note_type) { EventNoteType.first }
 
       before do
@@ -330,15 +335,17 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#service' do
+    let!(:school) { FactoryGirl.create(:school) }
+
     def make_post_request(student, service_params = {})
       request.env['HTTPS'] = 'on'
       post :service, format: :json, id: student.id, service: service_params
     end
 
     context 'admin educator logged in' do
-      let!(:educator) { FactoryGirl.create(:educator, :admin) }
-      let!(:provided_by_educator) { FactoryGirl.create(:educator) }
-      let!(:student) { FactoryGirl.create(:student) }
+      let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+      let!(:provided_by_educator) { FactoryGirl.create(:educator, school: school) }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
 
       before do
         sign_in(educator)
@@ -410,17 +417,18 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#names' do
+    let(:school) { FactoryGirl.create(:healey) }
+
     def make_request(query)
       request.env['HTTPS'] = 'on'
       get :names, q: query, format: :json
     end
 
     context 'admin educator logged in' do
-      let!(:educator) { FactoryGirl.create(:educator, :admin) }
+      let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
       before { sign_in(educator) }
       context 'query matches student name' do
-        let(:healey) { FactoryGirl.create(:healey) }
-        let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '5') }
+        let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: school, grade: '5') }
         let!(:jacob) { FactoryGirl.create(:student, first_name: 'Jacob', grade: '5') }
 
         it 'is successful' do

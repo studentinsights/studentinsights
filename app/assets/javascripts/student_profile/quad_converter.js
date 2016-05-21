@@ -2,6 +2,10 @@
   window.shared || (window.shared = {});
 
   var QuadConverter = window.shared.QuadConverter = {
+    // A quad is a 4-element array of numbers that represents numerical data on a given date.
+    // The first three elements are (year, month, date) and the last is the value.
+
+    // These functions are provided for getting data out of quads.
     toMoment: function(quad) {
       return moment.utc([quad[0], quad[1], quad[2]].join('-'), 'YYYY-M-D');
     },
@@ -14,17 +18,21 @@
       return quad[3];
     },
 
+    toPair: function(quad){
+      return [QuadConverter.toMoment(quad).valueOf(), QuadConverter.toValue(quad)];
+    },
+
     // Fills in data points for start of the school year (8/15) and for current day.
     // Also collapses multiple events on the same day.
     convertAttendanceEvents: function(attendanceEvents, nowDate, dateRange) {
-      var currentYearStart = this.schoolYearStart(moment.utc(nowDate));
+      var currentYearStart = this.toSchoolYear(nowDate);
       var schoolYearStarts = this._allSchoolYearStarts(dateRange);
       var sortedAttendanceEvents = _.sortBy(attendanceEvents, 'occurred_at');
 
       var quads = [];
       schoolYearStarts.sort().forEach(function(schoolYearStart) {
         var yearAttendanceEvents = sortedAttendanceEvents.filter(function(attendanceEvent) {
-          return this.schoolYearStart(moment.utc(attendanceEvent.occurred_at)) === schoolYearStart;
+          return this.toSchoolYear(attendanceEvent.occurred_at) === schoolYearStart;
         }, this);
         var cumulativeEventQuads = this._toCumulativeQuads(yearAttendanceEvents);
         var startOfYearQuad = [schoolYearStart, 8, 15, 0];
@@ -39,17 +47,19 @@
       return _.sortBy(quads, this.toMoment.bind(this));
     },
 
-    schoolYearStart: function(eventMoment) {
-      var year = eventMoment.year();
+    toSchoolYear: function(date) {
+      // date: A JS date object or Moment object.
+      // returns: Integer representing what the calendar year was in the fall of date's school year.
+      var momentObject = moment.utc(date);
+
+      var year = momentObject.year();
       var startOfSchoolYear = this.toMoment([year, 8, 15]);
-      var isEventDuringFall = eventMoment.clone().diff(startOfSchoolYear, 'days') > 0;
+      var isEventDuringFall = momentObject.diff(startOfSchoolYear, 'days') > 0;
       return (isEventDuringFall) ? year : year - 1;
     },
 
     _allSchoolYearStarts: function(dateRange) {
-      var schoolYearStarts = dateRange.map(function(date) {
-        return this.schoolYearStart(moment.utc(date));
-      }, this);
+      var schoolYearStarts = _.map(dateRange, this.toSchoolYear, this);
       return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
     },
 

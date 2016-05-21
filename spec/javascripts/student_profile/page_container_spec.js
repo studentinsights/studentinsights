@@ -102,6 +102,27 @@ describe('PageContainer', function() {
       });
     });
 
+    it('verifies that the educator name is in the correct format', function() {
+	var el = this.testEl;
+	var component = helpers.renderInto(el, {});
+
+	component.onClickSaveService({
+	    onProvidedByEducatorName: 'badinput'
+	});
+	expect(el).toContainText('Please use the form Last Name, First Name');
+
+	component.onClickSaveService({
+	    onProvidedByEducatorName: 'Teacher, Test'
+	});
+	expect(el).toContainText('Saving...');
+
+	// Name can also be blank
+	component.onClickSaveService({
+	    onProvidedByEducatorName: ''
+	});
+	expect(el).toContainText('Saving...');
+    });
+
     // TODO(kr) the spec helper here was reaching into the react-select internals,
     // which changed in 1.0.0, this needs to be updated.
     // it('can save an Attendance Contract service, mocking the action handlers', function() {

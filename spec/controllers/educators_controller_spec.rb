@@ -12,7 +12,7 @@ describe EducatorsController, :type => :controller do
     context 'non admin' do
 
       context 'with homeroom' do
-        let!(:educator) { FactoryGirl.create(:educator_with_grade_5_homeroom) }
+        let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
         it 'redirects to default homeroom' do
           make_request
           expect(response).to redirect_to(homeroom_url(educator.homeroom))
@@ -29,35 +29,25 @@ describe EducatorsController, :type => :controller do
       end
     end
 
-    context 'admin' do
+    context 'schoolwide access' do
 
-      context 'schools exist in db' do
-
-        context 'educator assigned to school' do
-          let!(:school) { FactoryGirl.create(:school) }
-          let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-          it 'redirects to the correct school' do
-            make_request
-            expect(response).to redirect_to(school_url(school))
-          end
-        end
-
-        context 'educator not assigned to school' do
-          let(:educator) { FactoryGirl.create(:educator, :admin) }
-          let!(:school) { FactoryGirl.create(:school) }
-          before { FactoryGirl.create(:student, school: school) }
-          let!(:another_school) { FactoryGirl.create(:school) }
-          it 'redirects to first school page' do
-            make_request
-            expect(response).to redirect_to(school_url(School.first))
-          end
+      context 'educator assigned to school' do
+        let!(:school) { FactoryGirl.create(:school) }
+        let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+        it 'redirects to the correct school' do
+          make_request
+          expect(response).to redirect_to(school_url(school))
         end
       end
 
-      context 'no schools exist' do
+      context 'educator not assigned to school' do
         let(:educator) { FactoryGirl.create(:educator, :admin) }
-        it 'throws an error' do
-          expect { make_request }.to raise_error ActionController::UrlGenerationError
+        let!(:school) { FactoryGirl.create(:school) }
+        before { FactoryGirl.create(:student, school: school) }
+        let!(:another_school) { FactoryGirl.create(:school) }
+        it 'redirects to first school page' do
+          make_request
+          expect(response).to redirect_to(school_url(School.first))
         end
       end
 
