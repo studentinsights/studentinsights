@@ -1,11 +1,17 @@
 class Student < ActiveRecord::Base
+  # Model for a student in the district, backed by information in the database.
+  # Class methods (self.active) concern collections of students,
+  # and instance methods (latest_mcas_mathematics) concern a single student.
+  # 
+  # Contrast with student_row.rb, which represents a row imported from X2,
+  # (not necessarily in the database yet).
+
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
   has_many :student_school_years, dependent: :destroy
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
-  has_many :student_notes, dependent: :destroy
   has_many :event_notes, dependent: :destroy
   has_many :services, dependent: :destroy
   has_one :student_risk_level, dependent: :destroy
@@ -28,6 +34,10 @@ class Student < ActiveRecord::Base
 
   def self.active
     where(enrollment_status: 'Active')
+  end
+
+  def active?
+    enrollment_status == 'Active'
   end
 
   ## STUDENT ASSESSMENT RESULTS ##
@@ -196,7 +206,7 @@ class Student < ActiveRecord::Base
   def self.update_risk_levels
     # This method is meant to be called daily to
     # check for updates to all student's risk levels
-    # and save the results to the do (too expensive
+    # and save the results to the db (too expensive
     # to calculate on the fly with each page load).
     find_each { |s| s.update_risk_level }
   end

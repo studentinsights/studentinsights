@@ -25,7 +25,8 @@ class StudentsImporter < Struct.new :school_scope, :client
   end
 
   def assign_student_to_homeroom(student, homeroom_name)
-    homeroom = Homeroom.where(name: homeroom_name).first_or_create!
+    return unless student.active?
+    homeroom = Homeroom.where(name: homeroom_name, school: student.school).first_or_create!
     homeroom.students << student
   end
 

@@ -21,7 +21,7 @@
       onClickDiscontinueService: React.PropTypes.func.isRequired
     }),
     requests: React.PropTypes.shape({
-      saveNotes: nullable(React.PropTypes.string).isRequired
+      saveNotes: nullable(React.PropTypes.object).isRequired
     }),
     api: React.PropTypes.shape({
       saveNotes: React.PropTypes.func.isRequired
@@ -36,7 +36,6 @@
         discontinued: React.PropTypes.array.isRequired
       }),
       deprecated: React.PropTypes.shape({
-        notes: React.PropTypes.array.isRequired,
         interventions: React.PropTypes.array.isRequired
       })
     })

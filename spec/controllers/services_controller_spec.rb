@@ -9,7 +9,7 @@ def create_service(student, educator)
   FactoryGirl.create(:service, {
     student: student,
     recorded_by_educator: educator,
-    provided_by_educator: educator
+    provided_by_educator_name: 'Hadjihabib, Amir'
   })
 end
 
@@ -19,7 +19,7 @@ describe ServicesController, :type => :controller do
     let(:homeroom) { student.homeroom }
     let(:educator) { FactoryGirl.create(:educator) }
     let(:service) { create_service(student, educator) }
-    
+
     it 'redirects' do
       make_request(service.id)
       expect(response.status).to eq 302
@@ -42,9 +42,10 @@ describe ServicesController, :type => :controller do
   end
 
   describe '#destroy when authorized' do
-    let(:student) { FactoryGirl.create(:student) }
+    let(:school) { FactoryGirl.create(:school) }
+    let(:student) { FactoryGirl.create(:student, school: school) }
     let(:homeroom) { student.homeroom }
-    let(:educator) { FactoryGirl.create(:educator, :admin )}
+    let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
     let(:service) { create_service(student, educator) }
     before { sign_in(educator) }
 

@@ -150,7 +150,6 @@
         tabIndex: -1,
         style: merge(styles.serviceButton, {
           background: '#eee',
-          opacity: (this.state.eventNoteTypeId === null || this.state.eventNoteTypeId === eventNoteTypeId) ? 1 : 0.25,
           outline: 0,
           border: (this.state.eventNoteTypeId === eventNoteTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'

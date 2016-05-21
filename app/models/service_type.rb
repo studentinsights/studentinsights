@@ -1,4 +1,6 @@
 class ServiceType < ActiveRecord::Base
+  has_many :services
+
   def self.seed_somerville_service_types
     ServiceType.destroy_all
     ServiceType.create([
@@ -8,7 +10,9 @@ class ServiceType < ActiveRecord::Base
       { id: 505, name: 'Counseling, in-house'},
       { id: 506, name: 'Counseling, outside'},
       { id: 507, name: 'Reading intervention'},
-      { id: 508, name: 'Math intervention'}
+      { id: 508, name: 'Math intervention'}     # Deprecated: No adding new Math interventions
+                                                # going forward. Focusing on shorter list of
+                                                # services with sharp, clear definitions.
     ])
   end
 end

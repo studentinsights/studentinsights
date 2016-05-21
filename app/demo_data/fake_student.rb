@@ -2,10 +2,10 @@ class FakeStudent
   def initialize(homeroom)
     @homeroom = homeroom
     @student = Student.create(data)
+    @newstudent = rand > 0.95
     add_attendance_events
     add_discipline_incidents
     add_deprecated_interventions
-    add_deprecated_notes
     add_event_notes
     add_services
     add_student_assessments_from_x2
@@ -108,30 +108,34 @@ class FakeStudent
 
   def add_student_assessments_from_x2
     create_x2_assessment_generators(@student).each do |assessment_generator|
-      5.times do
-        StudentAssessment.new(assessment_generator.next).save
+      unless @newstudent
+        5.times do
+          StudentAssessment.new(assessment_generator.next).save
+        end
       end
     end
   end
 
   def add_student_assessments_from_star
-    # Define semi-realistic date ranges for STAR assessments
-    start_date = DateTime.new(2010, 9, 1)
-    star_period_days = 90
-    now = DateTime.now
-    assessment_count = (now - start_date).to_i / star_period_days
-    options = {
-      start_date: start_date,
-      star_period_days: star_period_days
-    }
+    unless @newstudent
+      star_period_days = 90
+      # Define semi-realistic date ranges for STAR assessments
+      start_date = DateTime.new(2010, 9, 1)
+      now = DateTime.now
+      assessment_count = (now - start_date).to_i / star_period_days
+      options = {
+        start_date: start_date,
+        star_period_days: star_period_days
+      }
 
-    generators = [
-      FakeStarMathResultGenerator.new(@student, options),
-      FakeStarReadingResultGenerator.new(@student, options)
-    ]
-    generators.each do |star_assessment_generator|
-      assessment_count.times do
-        StudentAssessment.new(star_assessment_generator.next).save
+      generators = [
+        FakeStarMathResultGenerator.new(@student, options),
+        FakeStarReadingResultGenerator.new(@student, options)
+      ]
+      generators.each do |star_assessment_generator|
+        assessment_count.times do
+          StudentAssessment.new(star_assessment_generator.next).save
+        end
       end
     end
   end
@@ -143,25 +147,30 @@ class FakeStudent
   end
 
   def add_attendance_events
-    # Probabilities: https://github.com/codeforamerica/somerville-teacher-tool/issues/94
+    d = {
+      0 => 0.04,
+      (1..6) => 0.41,
+      (15..28) => 0.52,
+      (29..100) => 0.03,
+    }
 
-    attendance_event_generator = Rubystats::NormalDistribution.new(8.8, 10)
+    events_for_year = DemoDataUtil.sample_from_distribution(d)
+    events_for_year.times do
+      # Randomly determine the school year it occurred.
+      year = [0, 1, 2, 3, 4, 5].sample
+      date_begin = Time.local(2010 + year, 8, 1)
+      date_end = Time.local(2011 + year, 7, 31)
 
-    94.in(100) do
-      5.times do |n|
-        attendance_event_generator.rng.round(0).times do
+      attendance_event = [Absence.new, Tardy.new].sample
+      attendance_event.student_school_year = @student.student_school_years.first
 
-          # Randomly determine the school year it occurred.
-          year = [0, 1, 2, 3, 4].sample
-          date_begin = Time.local(2010 + year, 8, 1)
-          date_end = Time.local(2011 + year, 7, 31)
-
-          attendance_event = [Absence.new, Tardy.new].sample
-          attendance_event.student_school_year = @student.student_school_years.first
-          attendance_event.occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
-          attendance_event.save
-        end
+      # Make sure event isn't listed as having happened in the future.
+      occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
+      if occurred_at < Time.new then
+        attendance_event.occurred_at = occurred_at
       end
+
+      attendance_event.save
     end
   end
 
@@ -177,13 +186,19 @@ class FakeStudent
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
       # Randomly determine the school year it occurred.
-      n = [0, 1, 2, 3, 4].sample
+      n = [0, 1, 2, 3, 4, 5].sample
       date_begin = Time.local(2010 + n, 8, 1)
       date_end = Time.local(2011 + n, 7, 31)
 
       discipline_incident = DisciplineIncident.new(FakeDisciplineIncident.data)
       discipline_incident.student_school_year = @student.student_school_years.first
-      discipline_incident.occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
+
+      # Make sure event isn't listed as having happened in the future.
+      occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
+      if occurred_at < Time.new then
+        discipline_incident.occurred_at = occurred_at
+      end
+
       discipline_incident.save
     end
   end
@@ -195,25 +210,9 @@ class FakeStudent
       intervention_count.times do
         intervention = Intervention.new(generator.next)
         intervention.save!
-        rand(0..2).times do
-          intervention.progress_notes << generator.next_progress_note(intervention)
-        end
         intervention.save!
       end
     end
-    nil
-  end
-
-  def add_deprecated_notes
-    generator = FakeNoteGenerator.new(@student)
-    note_count = if @student.interventions.size > 0
-      rand(2..10)
-    elsif 20.in(100)
-      rand(1..3)
-    else
-      0
-    end
-    note_count.times { StudentNote.new(generator.next).save! }
     nil
   end
 

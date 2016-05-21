@@ -11,11 +11,11 @@ class Educator < ActiveRecord::Base
   has_one     :homeroom
   has_many    :students, through: :homeroom
   has_many    :interventions
-  has_many    :progress_notes, through: :interventions
-  has_many    :student_notes
 
   validates :email, presence: true, uniqueness: true
   validates :local_id, presence: true, uniqueness: true
+  validates :school, presence: true
+
   validate :admin_gets_access_to_all_students
 
   def admin_gets_access_to_all_students
@@ -72,16 +72,14 @@ class Educator < ActiveRecord::Base
 
   def allowed_homerooms
     # Educator can visit roster view for these homerooms
-    # For non-admins, all homerooms at their homeroom's grade level
+    return [] if school.nil?
 
     if schoolwide_access?
-      Homeroom.all
+      school.homerooms.all
     elsif homeroom
-      # Once the app includes data for multiple schools, will
-      # need to scope by school as well as by grade level
-      Homeroom.where(grade: homeroom.grade)
+      school.homerooms.where(grade: homeroom.grade)
     elsif grade_level_access.present?
-      Homeroom.where(grade: grade_level_access)
+      school.homerooms.where(grade: grade_level_access)
     else
       []
     end
@@ -89,6 +87,10 @@ class Educator < ActiveRecord::Base
 
   def allowed_homerooms_by_name
     allowed_homerooms.order(:name)
+  end
+
+  def self.to_index
+    all.map { |e| [e.id, e.for_index] }.to_h
   end
 
   def for_index
@@ -115,7 +117,70 @@ class Educator < ActiveRecord::Base
     save!
   end
 
+  def clone_permissions_and_homeroom_in_staging_from(educator_full_name)
+    # :alert: do not use in production :alert:
+    # This will change whom the homeroom belongs to!
+
+    target_educator = Educator.find_by_full_name(educator_full_name)
+    permissions = target_educator.permissions_hash
+    assign_attributes(permissions)
+    save!
+
+    target_homeroom = target_educator.homeroom
+    target_homeroom.educator = self
+    target_homeroom.save!
+  end
+
+  def self.load_permissions(permissions_array)
+    # Expects an array of hashes:
+    # [{
+    #   full_name: EDUCATOR_FULL_NAME_1,
+    #   PERMISSIONS_ATTRIBUTES
+    # },
+    # {
+    #   full_name: EDUCATOR_FULL_NAME_2,
+    #   PERMISSIONS_ATTRIBUTES
+    # }]
+
+    permissions_array.each do |permissions_info|
+      educator = Educator.find_by_full_name!(permissions_info[:full_name])
+      educator.assign_attributes(permissions_info)
+      educator.save!
+    end
+  end
+
+  def self.print_permissions
+    # Useful for double-checking permissions levels with Somerville admins
+
+    Educator.order(:school_id, :full_name).each do |educator|
+      puts "#{educator.full_name} (#{educator.school.local_id}):"
+      puts educator.permissions_in_words
+      puts
+    end
+
+    return
+  end
+
+  def permissions_in_words
+    return "No access" if has_access_to_no_students?
+
+    permissions = []
+    permissions << "Has access to homeroom #{homeroom.name}" if homeroom.present?
+    permissions << "Has schoolwide access" if schoolwide_access?
+    permissions << "Has grade level access to #{grade_level_access}" if has_grade_level_access?
+
+    return permissions
+  end
+
   private
+
+  def has_access_to_no_students?
+    schoolwide_access == false && grade_level_access == [] && homeroom.blank?
+  end
+
+  def has_grade_level_access?
+    grade_level_access != [] && !grade_level_access.nil?
+  end
 
   def has_access_to_all_students?
     restricted_to_sped_students == false &&

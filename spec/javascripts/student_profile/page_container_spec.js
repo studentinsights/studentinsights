@@ -6,7 +6,7 @@ describe('PageContainer', function() {
   var merge = window.shared.ReactHelpers.merge;
 
   var SpecSugar = window.shared.SpecSugar;
-  var PageContainer = window.shared.PageContainer;    
+  var PageContainer = window.shared.PageContainer;
   var Fixtures = window.shared.Fixtures;
 
   var helpers = {
@@ -17,7 +17,7 @@ describe('PageContainer', function() {
     interventionSummaryLists: function(el) {
       return $(el).find('.interventions-column .SummaryList').toArray();
     },
-    
+
     createSpyActions: function() {
       return {
         onColumnClicked: jasmine.createSpy('onColumnClicked'),
@@ -26,7 +26,7 @@ describe('PageContainer', function() {
         onClickDiscontinueService: jasmine.createSpy('onClickDiscontinueService')
       };
     },
-    
+
     renderInto: function(el, props) {
       var mergedProps = merge(props || {}, {
         nowMomentFn: function() { return Fixtures.nowMoment; },
@@ -41,6 +41,14 @@ describe('PageContainer', function() {
       SpecSugar.changeTextValue($(el).find('textarea'), uiParams.text);
       $(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').click();
       $(el).find('.btn.save').click();
+    },
+
+    editNoteAndSave: function(el, uiParams) {
+      var $noteCard = $(el).find('.NotesList .NoteCard[data-reactid*=event_note]').first();
+      var $text = $noteCard.find('.note-text');
+      $text.html(uiParams.text);
+      React.addons.TestUtils.Simulate.input($text.get(0));
+      React.addons.TestUtils.Simulate.blur($text.get(0));
     },
 
     recordServiceAndSave: function(el, uiParams) {
@@ -68,7 +76,6 @@ describe('PageContainer', function() {
       expect(interventionLists[0]).toContainText('Homeroom 102');
       expect(interventionLists[1]).toContainText('Counseling, outside');
       expect(interventionLists[1]).toContainText('Attendance Contract');
-      expect(interventionLists[2]).toContainText('demo@');
     });
 
     it('opens dialog when clicking Take Notes button', function() {
@@ -101,6 +108,42 @@ describe('PageContainer', function() {
         eventNoteTypeId: 300,
         text: 'hello!'
       });
+    });
+
+    it('can edit notes for SST meetings, mocking the action handlers', function() {
+      var el = this.testEl;
+      var component = helpers.renderInto(el, { actions: helpers.createSpyActions() });
+      helpers.editNoteAndSave(el, {
+        eventNoteTypeText: 'SST Meeting',
+        text: 'world!'
+      });
+
+      expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
+        id: 3,
+        eventNoteTypeId: 300,
+        text: 'world!'
+      });
+    });
+
+    it('verifies that the educator name is in the correct format', function() {
+	var el = this.testEl;
+	var component = helpers.renderInto(el, {});
+
+	component.onClickSaveService({
+	    onProvidedByEducatorName: 'badinput'
+	});
+	expect(el).toContainText('Please use the form Last Name, First Name');
+
+	component.onClickSaveService({
+	    onProvidedByEducatorName: 'Teacher, Test'
+	});
+	expect(el).toContainText('Saving...');
+
+	// Name can also be blank
+	component.onClickSaveService({
+	    onProvidedByEducatorName: ''
+	});
+	expect(el).toContainText('Saving...');
     });
 
     // TODO(kr) the spec helper here was reaching into the react-select internals,

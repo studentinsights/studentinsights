@@ -55,72 +55,6 @@
       "discontinued": []
     },
     "deprecated": {
-      "notes": [
-        {
-          "id": 5,
-          "content": "We talked with the family.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.950Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 6,
-          "content": "We talked with an outside therapist.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.955Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 7,
-          "content": "We talked with an outside therapist.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.960Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 8,
-          "content": "We talked with the family.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.963Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 9,
-          "content": "We talked with the family.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.967Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 10,
-          "content": "We talked with an outside therapist.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.970Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 11,
-          "content": "We talked with the family.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.974Z",
-          "created_at": "February 24, 2016"
-        },
-        {
-          "id": 12,
-          "content": "We talked with an outside therapist.",
-          "educator_id": 1,
-          "educator_email": "demo@example.com",
-          "created_at_timestamp": "2016-02-24T01:24:32.978Z",
-          "created_at": "February 24, 2016"
-        }
-      ],
       "interventions": [
         {
           "id": 1,
@@ -132,8 +66,7 @@
           "start_date_timestamp": "2010-10-27",
           "end_date": "November 10, 2010",
           "educator_email": "demo@example.com",
-          "educator_id": 1,
-          "progress_notes": []
+          "educator_id": 1
         },
         {
           "id": 2,
@@ -145,8 +78,7 @@
           "start_date_timestamp": "2010-12-11",
           "end_date": "December 25, 2010",
           "educator_email": "demo@example.com",
-          "educator_id": 1,
-          "progress_notes": []
+          "educator_id": 1
         }
       ]
     }
@@ -664,10 +596,10 @@
             "comment": "whatever",
             "goal": "increase growth percentile",
             "start_date": "October  1, 2010",
+            "start_date_timestamp": "2010-10-1",
             "end_date": "October 15, 2010",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 8,
@@ -675,10 +607,10 @@
             "comment": "bar",
             "goal": "increase growth percentile",
             "start_date": "November 26, 2010",
+            "start_date_timestamp": "2010-11-26",
             "end_date": "December 10, 2010",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 9,
@@ -686,10 +618,10 @@
             "comment": "whatever",
             "goal": "pass assessment",
             "start_date": "January 12, 2011",
+            "start_date_timestamp": "2011-01-12",
             "end_date": "January 26, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 10,
@@ -697,10 +629,10 @@
             "comment": "foo",
             "goal": "increase growth percentile",
             "start_date": "February 21, 2011",
+            "start_date_timestamp": "2011-02-21",
             "end_date": "March  7, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 11,
@@ -708,10 +640,10 @@
             "comment": "whatever",
             "goal": "reduce behavior",
             "start_date": "April  5, 2011",
+            "start_date_timestamp": "2011-04-11",
             "end_date": "April 19, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 12,
@@ -719,10 +651,10 @@
             "comment": "whatever",
             "goal": "pass assessment",
             "start_date": "May 11, 2011",
+            "start_date_timestamp": "2011-05-11",
             "end_date": "May 25, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 13,
@@ -730,10 +662,10 @@
             "comment": "foo",
             "goal": "pass assessment",
             "start_date": "June 30, 2011",
+            "start_date_timestamp": "2011-06-30",
             "end_date": "July 14, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 14,
@@ -741,10 +673,10 @@
             "comment": "bar",
             "goal": "increase growth percentile",
             "start_date": "July 31, 2011",
+            "start_date_timestamp": "2011-07-31",
             "end_date": "August 14, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 15,
@@ -752,10 +684,10 @@
             "comment": "foo",
             "goal": "increase growth percentile",
             "start_date": "September 18, 2011",
+            "start_date_timestamp": "2011-09-18",
             "end_date": "October  2, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 16,
@@ -763,10 +695,10 @@
             "comment": "foo",
             "goal": "increase growth percentile",
             "start_date": "October 18, 2011",
+            "start_date_timestamp": "2011-10-18",
             "end_date": "November  1, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 17,
@@ -774,10 +706,10 @@
             "comment": "bar",
             "goal": "increase growth percentile",
             "start_date": "December 12, 2011",
+            "start_date_timestamp": "2011-12-12",
             "end_date": "December 26, 2011",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 18,
@@ -785,10 +717,10 @@
             "comment": "foo",
             "goal": "reduce behavior",
             "start_date": "February  8, 2012",
+            "start_date_timestamp": "2012-02-08",
             "end_date": "February 22, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 19,
@@ -796,10 +728,10 @@
             "comment": "foo",
             "goal": "increase growth percentile",
             "start_date": "April  7, 2012",
+            "start_date_timestamp": "2012-04-07",
             "end_date": "April 21, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 20,
@@ -807,10 +739,10 @@
             "comment": "whatever",
             "goal": "increase growth percentile",
             "start_date": "May 24, 2012",
+            "start_date_timestamp": "2012-05-24",
             "end_date": "June  7, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 21,
@@ -818,10 +750,10 @@
             "comment": "bar",
             "goal": "pass assessment",
             "start_date": "July  2, 2012",
+            "start_date_timestamp": "2012-07-12",
             "end_date": "July 16, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 22,
@@ -829,10 +761,10 @@
             "comment": "whatever",
             "goal": "pass assessment",
             "start_date": "August 21, 2012",
+            "start_date_timestamp": "2012-08-21",
             "end_date": "September  4, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           },
           {
             "id": 23,
@@ -840,10 +772,10 @@
             "comment": "bar",
             "goal": "reduce behavior",
             "start_date": "October 13, 2012",
+            "start_date_timestamp": "2012-10-13",
             "end_date": "October 27, 2012",
             "educator_email": "demo@example.com",
             "educator_id": 1,
-            "progress_notes": []
           }
         ]
       }
@@ -1384,51 +1316,6 @@
           },
           "name": "X Block Tutor"
         }
-      ],
-      "behavior_series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "behavior_series_school_years": [
-        "2009-2010",
-        "2010-2011",
-        "2011-2012",
-        "2012-2013",
-        "2013-2014",
-        "2014-2015",
-        "2015-2016"
-      ],
-      "attendance_series_absences": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        15
-      ],
-      "attendance_series_tardies": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        23
-      ],
-      "attendance_events_school_years": [
-        "2009-2010",
-        "2010-2011",
-        "2011-2012",
-        "2012-2013",
-        "2013-2014",
-        "2014-2015",
-        "2015-2016"
       ]
     },
     "attendanceData": {

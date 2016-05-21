@@ -1,3 +1,13 @@
+/* TODO: Move to components. */
+
 .StudentProfilePage {
   font-size: 14px;
+
+  .note-text {
+    border: 1px solid transparent;
+  }
+
+  .note-text:hover {
+  	border-color: #e5e5e5;
+  }
 }

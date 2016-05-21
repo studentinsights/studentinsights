@@ -3,7 +3,7 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
-  
+
   var Educator = window.shared.Educator;
   var serviceColor = window.shared.serviceColor;
   var moment = window.moment;
@@ -107,7 +107,7 @@
     wasDiscontinued: function(service) {
       return (service.discontinued_by_educator_id !== null);
     },
-    
+
     // Active services before inactive, then sorted by time
     sortedMergedServices: function(servicesFeed) {
       return _.flatten([
@@ -127,7 +127,7 @@
       var wasDiscontinued = this.wasDiscontinued(service);
       var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
       var momentStarted = moment.utc(service.date_started);
-      var educator = this.props.educatorsIndex[service.provided_by_educator_id];
+      var providedByEducatorName = service.provided_by_educator_name;
 
       return dom.div({
         key: service.id,
@@ -139,10 +139,7 @@
         dom.div({ style: { display: 'flex' } },
           dom.div({ style: { flex: 1 } },
             dom.div({ style: { fontWeight: 'bold' } }, serviceText),
-            dom.div({},
-              'With ',
-              createEl(Educator, { educator: educator })
-            ),
+            this.renderEducatorName(providedByEducatorName),
             dom.div({},
               'Since ',
               momentStarted.format('MMMM D, YYYY')
@@ -155,6 +152,14 @@
         ),
         dom.div({ style: merge(styles.userText, { paddingTop: 15 }) }, service.comment)
       );
+    },
+
+    renderEducatorName: function (educatorName) {
+      if (educatorName === "" || educatorName === null) {
+	return dom.div({}, 'No staff recorded');
+      } else {
+        return dom.div({}, 'With ' + educatorName);
+      };
     },
 
     renderDiscontinuedInformation: function(service) {

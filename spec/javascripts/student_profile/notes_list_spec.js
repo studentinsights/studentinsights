@@ -9,12 +9,13 @@ describe('NotesList', function() {
   var NotesList = window.shared.NotesList;
   var Fixtures = window.shared.Fixtures;
 
-  var helpers = { 
+  var helpers = {
     renderInto: function(el, props) {
       var mergedProps = merge(props || {}, {
         feed: Fixtures.feedForTestingNotes,
         educatorsIndex: Fixtures.studentProfile.educatorsIndex,
-        eventNoteTypesIndex: Fixtures.studentProfile.eventNoteTypesIndex
+        eventNoteTypesIndex: Fixtures.studentProfile.eventNoteTypesIndex,
+        onSaveNote: jasmine.createSpy('onSaveNote')
       });
       return ReactDOM.render(createEl(NotesList, mergedProps), el);
     },
@@ -34,12 +35,11 @@ describe('NotesList', function() {
       var noteTimestamps = helpers.noteTimestamps(el);
       expect(_.first(noteTimestamps)).toBeGreaterThan(_.last(noteTimestamps));
       expect(_.sortBy(noteTimestamps).reverse()).toEqual(noteTimestamps);
-      expect($(el).find('.NoteCard').length).toEqual(12);
+      expect($(el).find('.NoteCard').length).toEqual(4);
       expect(el).toContainText('Behavior Plan');
       expect(el).toContainText('Attendance Officer');
       expect(el).toContainText('MTSS Meeting');
       expect(el).not.toContainText('SST Meeting');
-      expect(el).toContainText('Old note');
     });
   });
 });

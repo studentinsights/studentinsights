@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe EventNotesController, :type => :controller do
+  let(:school) { FactoryGirl.create(:school) }
+  
   describe '#create' do
     def make_post_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
@@ -8,8 +10,8 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'admin educator logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin) }
-      let!(:student) { FactoryGirl.create(:student) }
+      let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
       let!(:event_note_type) { EventNoteType.first }
 
       before do
@@ -80,8 +82,8 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'admin educator logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin) }
-      let!(:student) { FactoryGirl.create(:student) }
+      let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
       let!(:event_note_type) { EventNoteType.first }
 
       before do
@@ -107,7 +109,7 @@ describe EventNotesController, :type => :controller do
             make_put_request(student, post_params)
           end
           updated_event_note = EventNote.find(event_note.id)
-          expect(updated_event_note.recorded_at.to_i).to eq post_params[:recorded_at].to_i
+          expect(updated_event_note.recorded_at.to_i).to eq event_note.recorded_at.to_i
           expect(updated_event_note.attributes.except(
             'educator_id',
             'created_at',
@@ -133,7 +135,12 @@ describe EventNotesController, :type => :controller do
             'version',
             'created_at',
             'updated_at'
-          )).to eq event_note.attributes.except('id', 'created_at', 'updated_at')
+          )).to eq event_note.attributes.except(
+            'id',
+            'created_at',
+            'updated_at',
+            'recorded_at'
+          )
         end
       end
 

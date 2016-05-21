@@ -7,6 +7,7 @@ raise "empty yer db" if School.count > 0 ||
                         Assessment.count > 0
 
 healey = School.create(name: "Arthur D Healey")
+wsns = School.create(name: "West Somerville Neighborhood")
 
 # The local demo data setup uses the Somerville database constants
 # (eg., the set of `ServiceType`s) for generating local demo data and
@@ -22,27 +23,41 @@ Educator.create!([{
   full_name: 'Principal, Laura',
   password: "demo-password",
   local_id: '350',
-  schoolwide_access: true,
   school: School.first,
-  admin: true
+  admin: true,
+  schoolwide_access: true,
 }, {
   email: "fake-fifth-grade@example.com",
   full_name: 'Teacher, Sarah',
   password: "demo-password",
   local_id: '450',
   school: School.first,
-  admin: false
+  admin: false,
+  schoolwide_access: false,
+}, {
+  email: "wsns@example.com",
+  full_name: 'Teacher, Mari',
+  password: 'demo-password',
+  local_id: '550',
+  school: School.second,
+  admin: false,
+  schoolwide_access: false,
 }])
 
 puts 'Creating homerooms..'
 homerooms = [
-  Homeroom.create(name: "103", grade: "3"),
-  Homeroom.create(name: "104", grade: "4"),
-  Homeroom.create(name: "105", grade: "5")
+  Homeroom.create(name: "HEA 300", grade: "3", school: School.first),
+  Homeroom.create(name: "HEA 400", grade: "4", school: School.first),
+  Homeroom.create(name: "HEA 500", grade: "5", school: School.first),
+  Homeroom.create(name: "HEA 501", grade: "5", school: School.first),
+  Homeroom.create(name: "WSNS 500", grade: "5", school: School.second),
 ]
 
 fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
-Homeroom.last.update_attribute(:educator_id, fifth_grade_educator.id)
+wsns_fifth_grade_educator = Educator.find_by_email('wsns@example.com')
+
+Homeroom.find_by_name("HEA 500").update_attribute(:educator, fifth_grade_educator)
+Homeroom.find_by_name("WSNS 500").update_attribute(:educator, wsns_fifth_grade_educator)
 
 homerooms.each do |homeroom|
   puts "Creating students for homeroom #{homeroom.name}..."

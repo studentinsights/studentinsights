@@ -25,6 +25,7 @@
 //= require jquery.tooltipster.min.js
 //= require tablesort.min
 //= require tablesort.numeric
+//= require_tree ./sorts
 //= require mustache.min
 //= require js.cookie
 //= require classList
@@ -33,14 +34,18 @@
 //= require handlebars.runtime
 //= require d3.v3.min.js
 //= require moment.js
+//= require sanitize
 
 // provided by react-rails gem, configured in config/initializers/assets.rb
 //= require react
+
+//= require ./react-compatibility.js
 
 // react libs
 //= require react-classnames
 //= require react-input-autosize
 //= require react-select
+//= require react-modal
 
 // shared across application:
 //= require datepicker_config
@@ -58,22 +63,26 @@
 
 // student profile page:
 // pure ui components:
+  //= require ./student_profile/help_bubble
+  //= require ./student_profile/quad_converter
   //= require ./student_profile/risk_bubble
   //= require ./student_profile/service_color
+  //= require ./student_profile/provided_by_educator_dropdown
   //= require ./student_profile/profile_chart_settings
   //= require ./student_profile/educator
   //= require ./student_profile/datepicker
   //= require ./student_profile/highcharts_wrapper
   //= require ./student_profile/sparkline
-  //= require ./student_profile/quad_converter
   //= require ./student_profile/scales
   //= require ./student_profile/academic_summary
   //= require ./student_profile/take_notes
+  //= require ./student_profile/note_card
   //= require ./student_profile/notes_list
   //= require ./student_profile/services_list
   //= require ./student_profile/record_service
   //= require ./student_profile/summary_list
   //= require ./student_profile/profile_chart
+  //= require ./student_profile/profile_bar_chart
   //= require ./student_profile/student_profile_header
 // details:
   //= require ./student_profile/profile_details
