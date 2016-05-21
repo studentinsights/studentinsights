@@ -42,13 +42,12 @@
   function htmlToSanitizedHTML(html) {
     var node = document.createElement('div');
     var newNode = document.createElement('div');
-    var sanitizedHTML;
 
     node.innerHTML = html;
-    sanitizedDOM = sanitize.clean_node(node);
+    var sanitizedDocumentFragment = sanitize.clean_node(node);
 
-    while (sanitizedDOM.childNodes.length > 0) {
-      newNode.appendChild(sanitizedDOM.childNodes[0]);
+    while (sanitizedDocumentFragment.childNodes.length > 0) {
+      newNode.appendChild(sanitizedDocumentFragment.childNodes[0]);
     }
 
     return newNode.innerHTML;
