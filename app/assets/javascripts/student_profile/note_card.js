@@ -54,22 +54,16 @@
     return newNode.innerHTML;
   }
 
-  // Given a DOM node and its previous sibling (if it has one), attempt to
-  // transform it into text with reasonable whitespace and newlines.
-  function domNodeToText(node, previousSiblingNode) {
+  // Given a DOM node, attempt to transform it into plain text with reasonable
+  // newlines.
+  function domNodeToText(node) {
     var text = '';
 
     if (
-      previousSiblingNode
+      node.previousSibling
       && _(['BR', 'DIV', 'P']).contains(node.tagName)
     ) {
       text = '\n';
-    }
-    else if (
-      previousSiblingNode
-      && previousSiblingNode.nodeType === Node.TEXT_NODE
-    ) {
-      text = ' ';
     }
 
     if (node.childNodes.length === 0) {
@@ -77,7 +71,7 @@
     }
     else {
       for (var i = 0; i < node.childNodes.length; i++) {
-        text = text.concat(domNodeToText(node.childNodes[i], i > 0 && node.childNodes[i - 1]));
+        text = text.concat(domNodeToText(node.childNodes[i]));
       }
     }
 
@@ -85,7 +79,7 @@
   }
 
   // Convert HTML to text. This will involve attempting to add expected
-  // whitespace and newlines.
+  // newlines.
   function htmlToText(html) {
     var node = document.createElement('div');
 
@@ -132,14 +126,28 @@
     },
 
     onBlurText: function(event) {
+      if (!this.isDirty) {
+        return;
+      }
+
       var params = {
         id: this.props.eventNoteId,
         eventNoteTypeId: this.props.eventNoteTypeId,
         text: this.state.text
       };
+
       this.props.onSave(params);
+      this.isDirty = false;
     },
 
+    // Different user agents generate different HTML to achieve the same visual
+    // rendering in contenteditable elements. In other words, `htmlToText` may
+    // return the same plain text for different HTML strings, which means
+    // `textToSanitizedHTML(htmlToText(html))` is not guaranteed to return `html`.
+    // For our purposes, there's no need to normalize the HTML content between
+    // page loads. Instead, we simply need to make sure that (1) the HTML is
+    // sanitized, and (2) the HTML converted to plain text matches the next
+    // state of the text.
     shouldComponentUpdate: function(nextProps, nextState) {
       var currentHTML = this.contentEditableEl.innerHTML;
 
@@ -163,6 +171,7 @@
 
       if (text !== this.lastText) {
         this.setState({ text: text });
+        this.isDirty = true;
       }
 
       this.lastText = text;
@@ -187,7 +196,7 @@
           ref: function(ref) { this.contentEditableEl = ref; }.bind(this),
           dangerouslySetInnerHTML: { __html: textToSanitizedHTML(this.state.text) },
           onInput: this.onModifyText,
-          onKeyUp: this.onModifyText,
+          onKeyUp: this.onModifyText, // For IE compatibility.
           onPaste: this.onModifyText,
           onBlur: this.onBlurText
         })

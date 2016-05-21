@@ -184,7 +184,7 @@
     },
 
     renderTakeNotesSection: function() {
-      if (this.state.isTakingNotes || this.props.requests.saveNotes !== null) {
+      if (this.state.isTakingNotes || this.props.requests.saveNotes === 'error') {
         return createEl(TakeNotes, {
           nowMoment: moment.utc(), // TODO(kr) thread through
           eventNoteTypesIndex: this.props.eventNoteTypesIndex,
