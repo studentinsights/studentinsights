@@ -45,9 +45,10 @@ describe('PageContainer', function() {
 
     editNoteAndSave: function(el, uiParams) {
       var $noteCard = $(el).find('.NotesList .NoteCard[data-reactid*=event_note]').first();
-      $noteCard.find('.edit-note').click();
-      SpecSugar.changeTextValue($noteCard.find('textarea'), uiParams.text);
-      $noteCard.find('.btn.save').click();
+      var $text = $noteCard.find('.note-text');
+      $text.html(uiParams.text);
+      React.addons.TestUtils.Simulate.input($text.get(0));
+      React.addons.TestUtils.Simulate.blur($text.get(0));
     },
 
     recordServiceAndSave: function(el, uiParams) {
