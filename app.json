@@ -7,20 +7,14 @@
   },
   "env": {
     "SHOULD_REPORT_ANALYTICS": {
-      "required": true,
       "value": "false"
     },
-    "QUOTAGUARDSTATIC_MASK": {
-      "required": true
-    },
-    "RACK_ENV": {
-      "required": true
-    },
-    "RAILS_ENV": {
-      "required": true
-    },
+    "DEMO_SITE": {
+      "value": "true"
+    }
+    "RACK_ENV": {},
+    "RAILS_ENV": {}
     "SECRET_KEY_BASE": {
-      "required": true,
       "description": "verifies integrity of signed cookies",
       "generator": "secret"
     }
