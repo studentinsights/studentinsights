@@ -6,12 +6,8 @@
     "postdeploy": "rake db:migrate db:seed:demo"
   },
   "env": {
-    "SHOULD_REPORT_ANALYTICS": {
-      "value": "false"
-    },
-    "DEMO_SITE": {
-      "value": "true"
-    },
+    "SHOULD_REPORT_ANALYTICS": "false",
+    "DEMO_SITE": "true",
     "RACK_ENV": {},
     "RAILS_ENV": {},
     "SECRET_KEY_BASE": {
