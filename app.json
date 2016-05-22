@@ -3,27 +3,14 @@
   "description": "insights for educators at Somerville Public Schools",
   "repository": "https://github.com/studentinsights/studentinsights",
   "scripts": {
-    "postdeploy": [
-      "rake db:migrate",
-      "rake db:seed:demo"
-    ]
+    "postdeploy": "rake db:migrate db:seed:demo"
   },
   "env": {
-    "SHOULD_REPORT_ANALYTICS": {
-      "required": true,
-      "value": "false"
-    },
-    "QUOTAGUARDSTATIC_MASK": {
-      "required": true
-    },
-    "RACK_ENV": {
-      "required": true
-    },
-    "RAILS_ENV": {
-      "required": true
-    },
+    "SHOULD_REPORT_ANALYTICS": "false",
+    "DEMO_SITE": "true",
+    "RACK_ENV": {},
+    "RAILS_ENV": {},
     "SECRET_KEY_BASE": {
-      "required": true,
       "description": "verifies integrity of signed cookies",
       "generator": "secret"
     }
