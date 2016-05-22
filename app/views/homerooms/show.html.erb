@@ -67,15 +67,14 @@
           </tr>
           <tr class="column-names">
             <!-- COLUMN HEADERS -->
-            <!-- i.e. "MCAS Math Growth", "STAR Reading Performance" -->
             <th class="name">
               <span id="first-column-header" class="table-header">Name</span>
             </th>
             <th class="risk sort-default" data-sort-method="reverse_number">
               <span class="table-header">Risk</span>
             </th>
-            <%# 
-            # The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses. 
+            <%#
+            # The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses.
             # You can see the method at: app/assets/javascripts/roster/sorts/prog_assign_sort.js
             %>
             <th class="program" data-sort-method="prog_assign_sort">
@@ -84,8 +83,8 @@
             <th class="sped">
               <span class="table-header">Disability</span>
             </th>
-            <%# 
-            # The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses. 
+            <%#
+            # The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses.
             # See the method at: app/assets/javascripts/roster/sorts/level_of_need_sort.js
             %>
             <th class="sped" data-sort-method="need_sort">
@@ -95,7 +94,7 @@
               <span class="table-header">504 Plan</span>
             </th>
             <%#
-            # The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses. 
+            # The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses.
             # You can see the method at: app/assets/javascripts/roster/sorts/fluency_sort.js
             %>
             <th class="language" data-sort-method="fluency_sort">
@@ -120,13 +119,13 @@
                 <span class="table-header">Performance</span>
               </th>
               <th class="mcas_math" data-sort-method="number">
-                <span class="table-header">Growth</span>
+                <span class="table-header">Score</span>
               </th>
               <th class="mcas_ela" data-sort-method="mcas_sort">
                 <span class="table-header">Performance</span>
               </th>
               <th class="mcas_ela" data-sort-method="number">
-                <span class="table-header">Growth</span>
+                <span class="table-header">Score</span>
               </th>
             <% end %>
           </tr>
@@ -181,13 +180,13 @@
                 <td class="mcas_math performance_level">
                   <%= row['most_recent_mcas_math_performance'] %>
                 </td>
-                <td class="mcas_math growth_percentile">
+                <td class="mcas_math">
                   <%= row['most_recent_mcas_math_scaled'] %>
                 </td>
                 <td class="mcas_ela performance_level">
                   <%= row['most_recent_mcas_ela_performance'] %>
                 </td>
-                <td class="mcas_ela growth_percentile">
+                <td class="mcas_ela">
                   <%= row['most_recent_mcas_ela_scaled'] %>
                 </td>
               <% end %>
