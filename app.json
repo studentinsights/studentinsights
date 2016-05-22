@@ -11,9 +11,9 @@
     },
     "DEMO_SITE": {
       "value": "true"
-    }
+    },
     "RACK_ENV": {},
-    "RAILS_ENV": {}
+    "RAILS_ENV": {},
     "SECRET_KEY_BASE": {
       "description": "verifies integrity of signed cookies",
       "generator": "secret"
