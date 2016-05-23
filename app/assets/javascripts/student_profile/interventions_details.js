@@ -74,6 +74,10 @@
       this.setState({ isTakingNotes: false });
     },
 
+    onClickDeleteNote: function(eventNoteId) {
+      this.props.actions.onClickDeleteNote(eventNoteId);
+    },
+
     onClickRecordService: function(event) {
       this.setState({ isAddingService: true });
     },
@@ -159,7 +163,8 @@
             feed: this.props.feed,
             educatorsIndex: this.props.educatorsIndex,
             eventNoteTypesIndex: this.props.eventNoteTypesIndex,
-            onSaveNote: this.onClickSaveNotes
+            onSaveNote: this.onClickSaveNotes,
+            onDeleteNote: this.onClickDeleteNote
           })
         ),
         dom.div({ style: styles.servicesContainer },
