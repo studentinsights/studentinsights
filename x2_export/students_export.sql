@@ -15,6 +15,7 @@ SELECT
   'grade',
   'registration_date',
   'free_reduced_lunch',
+  'date_of_birth',
   'homeroom',
   'school_local_id'
 UNION ALL
@@ -34,11 +35,14 @@ SELECT
   STD_GRADE_LEVEL,
   STD_FIELDA_081, -- Registration date
   STD_FIELDB_031, -- Free/reduced lunch status
+  PSN_DOB,
   STD_HOMEROOM,
   SKL_SCHOOL_ID
 FROM student
 INNER JOIN school
   ON student.STD_SKL_OID=school.SKL_OID
+INNER JOIN person
+  ON student.STD_PSN_OID = person.PSN_OID
 AND STD_ID_STATE IS NOT NULL
 AND STD_OID IS NOT NULL
   INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/students_export.txt"

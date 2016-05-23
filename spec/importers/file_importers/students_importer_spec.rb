@@ -29,6 +29,7 @@ RSpec.describe StudentsImporter do
         expect(first_student.student_address).to eq '155 9th St, San Francisco, CA'
         expect(first_student.registration_date).to eq DateTime.new(2008, 2, 20)
         expect(first_student.free_reduced_lunch).to eq 'Not Eligible'
+        expect(first_student.date_of_birth).to eq DateTime.new(1998, 7, 15)
 
         second_student = Student.find_by_state_id('1000000001')
         expect(second_student.reload.school).to eq high_school
@@ -37,6 +38,7 @@ RSpec.describe StudentsImporter do
         expect(second_student.student_address).to eq '155 9th St, San Francisco, CA'
         expect(second_student.registration_date).to eq DateTime.new(2005, 8, 5)
         expect(second_student.free_reduced_lunch).to eq 'Free Lunch'
+        expect(second_student.date_of_birth).to eq DateTime.new(2000, 7, 15)
       end
     end
     context 'bad data' do

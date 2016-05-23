@@ -23,6 +23,7 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [Classroom rosters](#classroom-rosters)
   - [Student profiles](#student-profiles)
     - [Capturing meeting notes and interventions](#capturing-meeting-notes-and-interventions)
+- [School deployment](#school-deployment)
 - [Project priorities](#project-priorities)
 - [Contributing](#contributing)
 - [How it works](#how-it-works)
@@ -40,6 +41,8 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
     - [Migrations on Heroku](#migrations-on-heroku)
     - [Rebuilding database in staging environment](#rebuilding-database-in-staging-environment)
   - [AWS](#aws)
+- [Other Tools](#other-tools)
+  - [Mixpanel](#mixpanel)
 - [More information](#more-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -88,6 +91,22 @@ It's one thing to have data, but acting on it to improve student outcomes is wha
 ![Interventions](docs/readme_images/recording-services-screenshot.png)
 
 It also allows capturing meeting notes as part of the student's record, which is particularly important on interdisciplinary teams.
+
+# School deployment
+
+Somerville Public Schools has seven elementary schools, one high school, and two alternative schools.
+
+We are focusing on rolling out Student Insights for Somerville's elementary schools:
+
+School | Data imported | Principal on-boarded | Used at an SST/MTSS meeting
+--- | --- | --- | ---
+Healey | :white_check_mark: | :white_check_mark: | :white_check_mark:
+West | :white_check_mark: | :white_check_mark: | :white_check_mark:
+East | :white_check_mark: | |
+Brown | | |
+Kennedy | | |
+Argenziano | | |
+Winter Hill | | |
 
 # Project priorities
 Immediate priorites are tracked in GitHub with [milestones](https://github.com/studentinsights/studentinsights/milestones).
@@ -272,6 +291,11 @@ The project can also be deployed on AWS.  There's a starting point for provision
 ```
 
 Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
+
+# Other Tools
+## Mixpanel
+
+We use [Mixpanel](https://mixpanel.com) to track user interactions on the client side. It gives us nice graphs so we can see who's using the app and how.
 
 # More information
 
