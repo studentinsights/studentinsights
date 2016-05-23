@@ -244,4 +244,52 @@ describe EventNotesController, :type => :controller do
       end
     end
   end
+
+  describe '#destroy' do
+    def make_delete_request(student, event_note_id)
+      request.env['HTTPS'] = 'on'
+      delete :destroy, format: :json, student_id: student.id, id: event_note_id
+    end
+
+    context 'admin educator logged in' do
+      let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let!(:event_note_type) { EventNoteType.first }
+
+      before do
+        sign_in(educator)
+      end
+
+      context 'delete request' do
+        let!(:event_note) { FactoryGirl.create(:event_note) }
+
+        it 'deletes an existing event note' do
+          expect { make_delete_request(student, event_note.id) }.to change(EventNote, :count).by -1
+        end
+
+        it 'creates a new event note revision' do
+          expect { make_delete_request(student, event_note.id) }.to change(EventNoteRevision, :count).by 1
+        end
+
+        it 'saves a revision of the deleted note' do
+          make_delete_request(student, event_note.id)
+          event_note_revision = EventNoteRevision.last
+          expect(event_note_revision.event_note_id).to eq event_note.id
+          expect(event_note_revision.version).to eq 1
+          expect(event_note_revision.attributes.except(
+            'id',
+            'event_note_id',
+            'version',
+            'created_at',
+            'updated_at'
+          )).to eq event_note.attributes.except(
+            'id',
+            'created_at',
+            'updated_at',
+            'recorded_at'
+          )
+        end
+      end
+    end
+  end
 end

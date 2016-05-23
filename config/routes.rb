@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   get '/students/names' => 'students#names'
   resources :students, only: [:show] do
-    resources :event_notes, only: [:create, :update]
+    resources :event_notes, only: [:create, :update, :destroy]
     member do
       get :sped_referral
       get :restricted_notes

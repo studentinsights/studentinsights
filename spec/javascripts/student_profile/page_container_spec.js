@@ -22,6 +22,7 @@ describe('PageContainer', function() {
       return {
         onColumnClicked: jasmine.createSpy('onColumnClicked'),
         onClickSaveNotes: jasmine.createSpy('onClickSaveNotes'),
+        onClickDeleteNote: jasmine.createSpy('onClickDeleteNote'),
         onClickSaveService: jasmine.createSpy('onClickSaveService'),
         onClickDiscontinueService: jasmine.createSpy('onClickDiscontinueService')
       };
@@ -49,6 +50,14 @@ describe('PageContainer', function() {
       $text.html(uiParams.text);
       React.addons.TestUtils.Simulate.input($text.get(0));
       React.addons.TestUtils.Simulate.blur($text.get(0));
+    },
+
+    deleteNoteAndSave: function(el) {
+      var $noteCard = $(el).find('.NotesList .NoteCard[data-reactid*=event_note]').first();
+      var $delete = $noteCard.find('.delete-note');
+      React.addons.TestUtils.Simulate.click($delete.get(0));
+      var $confirm = $noteCard.find('.btn').first();
+      React.addons.TestUtils.Simulate.click($confirm.get(0));
     },
 
     recordServiceAndSave: function(el, uiParams) {
@@ -123,6 +132,14 @@ describe('PageContainer', function() {
         eventNoteTypeId: 300,
         text: 'world!'
       });
+    });
+
+    it('can delete notes for SST meetings, mocking the action handlers', function() {
+      var el = this.testEl;
+      var component = helpers.renderInto(el, { actions: helpers.createSpyActions() });
+      helpers.deleteNoteAndSave(el);
+
+      expect(component.props.actions.onClickDeleteNote).toHaveBeenCalledWith(3);
     });
 
     it('verifies that the educator name is in the correct format', function() {
