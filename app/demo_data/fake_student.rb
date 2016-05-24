@@ -38,6 +38,7 @@ class FakeStudent
   def base_data
     {
       school_id: School.first.id,
+      date_of_birth: fake_date_of_birth,
       enrollment_status: enrollment_status,
       grade: @homeroom.grade,
       hispanic_latino: [true, false].sample,
@@ -49,6 +50,18 @@ class FakeStudent
       free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample,
       home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample
     }
+  end
+
+  def fake_date_of_birth
+    kindergarten_year - 5.years + rand(0..365).days
+  end
+
+  def kindergarten_year
+    start_of_this_school_year - @homeroom.grade.to_i.years
+  end
+
+  def start_of_this_school_year
+    DateTime.new(DateTime.now.year, 9, 1)
   end
 
   def unique_local_id
