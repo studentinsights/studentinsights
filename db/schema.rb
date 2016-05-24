@@ -288,6 +288,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.integer  "most_recent_star_reading_percentile"
     t.integer  "most_recent_star_math_percentile"
     t.string   "enrollment_status"
+    t.datetime "date_of_birth"
   end
 
   add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree
