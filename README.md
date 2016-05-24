@@ -134,8 +134,8 @@ This is a Ruby on Rails app that uses a PostgreSQL database, and relies on React
 
 Choose your favorite local development approach:
 
-* [Local development with Docker](docs/local_development_with_docker.md)
-* [Local installation on OSX or Linux](docs/local_installation_notes.md)
+* [Local development with Docker](docs/technical/local_development_with_docker.md)
+* [Local installation on OSX or Linux](docs/technical/local_installation_notes.md)
 
 ## 2. Create database tables and seed them with demo data
 
