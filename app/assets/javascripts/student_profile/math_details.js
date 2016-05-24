@@ -57,7 +57,8 @@
         star_series_math_percentile: React.PropTypes.array.isRequired,
         mcas_series_math_scaled: React.PropTypes.array.isRequired,
         mcas_series_math_growth: React.PropTypes.array.isRequired
-      }).isRequired
+      }).isRequired,
+      student: React.PropTypes.object.isRequired
     },
 
     render: function() {
@@ -89,14 +90,15 @@
       return dom.div({ id: 'starMath', style: styles.container},
         this.renderHeader('STAR Math, last 4 years'),
         createEl(ProfileChart, {
-        quadSeries: [{
-          name: 'Percentile rank',
-          data: this.props.chartData.star_series_math_percentile
-        }],
-        titleText: 'STAR Math, last 4 years',
-        yAxis: merge(this.percentileYAxis(), {
-          title: { text: 'Percentile rank' }
-        })
+          quadSeries: [{
+            name: 'Percentile rank',
+            data: this.props.chartData.star_series_math_percentile
+          }],
+          titleText: 'STAR Math, last 4 years',
+          student: this.props.student,
+          yAxis: merge(this.percentileYAxis(), {
+            title: { text: 'Percentile rank' }
+          })
       }));
     },
 
@@ -104,15 +106,16 @@
       return dom.div({ id: 'MCASMath', style: styles.container},
         this.renderHeader('MCAS Math Scores, last 4 years'),
         createEl(ProfileChart, {
-        quadSeries: [{
-          name: 'Scaled score',
-          data: this.props.chartData.mcas_series_math_scaled
-        }],
-        titleText: 'MCAS Math Scores, last 4 years',
-        yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis,{
-          plotLines: ProfileChartSettings.mcas_level_bands,
-          title: { text: 'Scaled score' }
-        })
+          quadSeries: [{
+            name: 'Scaled score',
+            data: this.props.chartData.mcas_series_math_scaled
+          }],
+          titleText: 'MCAS Math Scores, last 4 years',
+          student: this.props.student,
+          yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis,{
+            plotLines: ProfileChartSettings.mcas_level_bands,
+            title: { text: 'Scaled score' }
+          })
       }));
     },
 
@@ -120,14 +123,15 @@
       return dom.div({ id: 'MCASMathGrowth', style: styles.container},
         this.renderHeader('MCAS Math SGPs, last 4 years'),
         createEl(ProfileChart, {
-        quadSeries: [{
-          name: 'Student growth percentile (SGP)',
-          data: this.props.chartData.mcas_series_math_growth
-        }],
-        titleText: 'MCAS Math SGPs, last 4 years',
-        yAxis: merge(this.percentileYAxis(), {
-          title: { text: 'Student growth percentile (SGP)' }
-        })
+          quadSeries: [{
+            name: 'Student growth percentile (SGP)',
+            data: this.props.chartData.mcas_series_math_growth
+          }],
+          titleText: 'MCAS Math SGPs, last 4 years',
+          student: this.props.student,
+          yAxis: merge(this.percentileYAxis(), {
+            title: { text: 'Student growth percentile (SGP)' }
+          })
       }));
     },
 

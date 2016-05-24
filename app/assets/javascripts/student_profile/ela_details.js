@@ -57,7 +57,8 @@
         star_series_reading_percentile: React.PropTypes.array.isRequired,
         mcas_series_ela_scaled: React.PropTypes.array.isRequired,
         mcas_series_ela_growth: React.PropTypes.array.isRequired
-      }).isRequired
+      }).isRequired,
+      student: React.PropTypes.object.isRequired
     },
 
     render: function() {
@@ -92,6 +93,7 @@
           name: 'Percentile rank',
           data: this.props.chartData.star_series_reading_percentile
         }],
+        student: this.props.student,
         yAxis: merge(this.percentileYAxis(), {
           title: { text: 'Percentile rank' }
         })
@@ -106,6 +108,7 @@
           name: 'Scaled score',
           data: this.props.chartData.mcas_series_ela_scaled
         }],
+        student: this.props.student,
         yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis,{
           plotLines: ProfileChartSettings.mcas_level_bands,
           title: { text: 'Scaled score' }
@@ -121,6 +124,7 @@
           name: '',
           data: this.props.chartData.mcas_series_ela_growth
         }],
+        student: this.props.student,
         yAxis: merge(this.percentileYAxis(), {
           title: { text: 'Student growth percentile (SGP)' }
         })

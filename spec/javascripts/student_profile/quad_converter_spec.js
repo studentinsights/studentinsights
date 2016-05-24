@@ -29,6 +29,32 @@ describe('QuadConverter', function() {
     });
   });
 
+  describe('#firstDayOfSchool', function() {
+    it('works', function() {
+      expect(QuadConverter.firstDayOfSchool(2016).isSame(moment.utc("2016-08-15"))).toEqual(true);
+      expect(QuadConverter.firstDayOfSchool(2013).isSame(moment.utc("2013-08-15"))).toEqual(true);
+    });
+  });
+
+  describe('#schoolYearStartDates', function(){
+    it('works', function() {
+      // TODO: Write a Jasmine custom matcher for this?
+      var toISOString = function(m){return m.toISOString(); };
+      expect(
+        QuadConverter.schoolYearStartDates([moment.utc("2013-10-11"), moment.utc("2017-05-01")])
+        .map(toISOString)
+      ).toEqual(
+        [
+          moment.utc("2013-08-15"),
+          moment.utc("2014-08-15"),
+          moment.utc("2015-08-15"),
+          moment.utc("2016-08-15")
+        ].map(toISOString)
+      );
+
+    });
+  });
+
   describe('#convertAttendanceEvents', function() {
     it('minimal test case', function() {
       var now = new Date('Wed Feb 10 2016 22:11:26 GMT+0000');
