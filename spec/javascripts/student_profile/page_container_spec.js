@@ -103,24 +103,24 @@ describe('PageContainer', function() {
     });
 
     it('verifies that the educator name is in the correct format', function() {
-	var el = this.testEl;
-	var component = helpers.renderInto(el, {});
+      var el = this.testEl;
+      var component = helpers.renderInto(el, {});
 
-	component.onClickSaveService({
-	    onProvidedByEducatorName: 'badinput'
-	});
-	expect(el).toContainText('Please use the form Last Name, First Name');
+      component.onClickSaveService({
+        onProvidedByEducatorName: 'badinput'
+      });
+      expect(el).toContainText('Please use the form Last Name, First Name');
 
-	component.onClickSaveService({
-	    onProvidedByEducatorName: 'Teacher, Test'
-	});
-	expect(el).toContainText('Saving...');
+      component.onClickSaveService({
+        onProvidedByEducatorName: 'Teacher, Test'
+      });
+      expect(el).toContainText('Saving...');
 
-	// Name can also be blank
-	component.onClickSaveService({
-	    onProvidedByEducatorName: ''
-	});
-	expect(el).toContainText('Saving...');
+      // Name can also be blank
+      component.onClickSaveService({
+        onProvidedByEducatorName: ''
+      });
+      expect(el).toContainText('Saving...');
     });
 
     // TODO(kr) the spec helper here was reaching into the react-select internals,
