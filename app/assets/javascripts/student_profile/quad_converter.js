@@ -47,19 +47,34 @@
       return _.sortBy(quads, this.toMoment.bind(this));
     },
 
+    schoolYearStartDates: function(dateRange){
+      // dateRange: A 2-element array of Moment objects.
+      // returns: An array of Moment objects representing the start dates of each school year in the calendar year range.
+      return QuadConverter._allSchoolYearStarts(dateRange)
+            .map(QuadConverter.firstDayOfSchool);
+    },
+
+    firstDayOfSchool: function(year){
+      // year: An integer year.
+      // returns: A moment object representing the first day of the school year that year starts.
+      return QuadConverter.toMoment([year, 8, 15]);
+    },
+
     toSchoolYear: function(date) {
       // date: A JS date object or Moment object.
       // returns: Integer representing what the calendar year was in the fall of date's school year.
       var momentObject = moment.utc(date);
 
       var year = momentObject.year();
-      var startOfSchoolYear = this.toMoment([year, 8, 15]);
+      var startOfSchoolYear = QuadConverter.toMoment([year, 8, 15]);
       var isEventDuringFall = momentObject.diff(startOfSchoolYear, 'days') > 0;
       return (isEventDuringFall) ? year : year - 1;
     },
 
     _allSchoolYearStarts: function(dateRange) {
-      var schoolYearStarts = _.map(dateRange, this.toSchoolYear, this);
+      // dateRange: A 2-element array of Moment objects.
+      // returns: An array of integers, each school year in the range.
+      var schoolYearStarts = _.map(dateRange, QuadConverter.toSchoolYear);
       return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
     },
 
