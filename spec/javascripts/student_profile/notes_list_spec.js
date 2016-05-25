@@ -15,7 +15,8 @@ describe('NotesList', function() {
         feed: Fixtures.feedForTestingNotes,
         educatorsIndex: Fixtures.studentProfile.educatorsIndex,
         eventNoteTypesIndex: Fixtures.studentProfile.eventNoteTypesIndex,
-        onSaveNote: jasmine.createSpy('onSaveNote')
+        onSaveNote: jasmine.createSpy('onSaveNote'),
+        onDeleteNote: jasmine.createSpy('onSaveNote')
       });
       return ReactDOM.render(createEl(NotesList, mergedProps), el);
     },
