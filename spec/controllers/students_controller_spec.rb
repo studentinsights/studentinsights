@@ -549,4 +549,50 @@ describe StudentsController, :type => :controller do
     end
   end
 
+  describe '#sped_referral' do
+    let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+    let(:school) { FactoryGirl.create(:school) }
+    let(:service) { FactoryGirl.create(:service, student: student) }
+    let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
+    let(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
+
+    def make_request(options = { student_id: nil, format: :pdf })
+      request.env['HTTPS'] = 'on'
+      get :sped_referral, id: options[:student_id], format: options[:format]
+    end
+
+    context 'when educator is not logged in' do
+      it 'does not render a SPED referral' do
+        make_request({ student_id: student.id, format: :pdf })
+        expect(response.status).to eq 401
+      end
+    end
+
+    context 'when educator is logged in' do
+      before do
+        sign_in(educator)
+        make_request({ student_id: student.id, format: :pdf })
+      end
+
+      context 'educator has schoolwide access' do
+
+        it 'is successful' do
+          expect(response).to be_success
+        end
+
+        it 'assigns the student correctly' do
+          expect(assigns(:student)).to eq student
+        end
+
+        it 'assigns the student\'s services correctly' do
+          expect(assigns(:services)).to eq student.services
+        end
+
+        it 'assigns the student\'s school years correctly' do
+          expect(assigns(:student_school_years)).to eq student.student_school_years
+        end
+      end
+    end
+  end
+
 end
