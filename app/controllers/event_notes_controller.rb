@@ -55,7 +55,7 @@ class EventNotesController < ApplicationController
       render json: { errors: event_note_revision.errors.full_messages }, status: 422
     end
 
-    if event_note.destroy()
+    if event_note.destroy
       render json: serialize_event_note(event_note)
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
@@ -72,6 +72,7 @@ class EventNotesController < ApplicationController
       )
     end
 
+    # Builds a revision of a given event note.
     def build_revision(event_note)
       previous_event_note_revision = EventNoteRevision.where(
         event_note_id: event_note.id
