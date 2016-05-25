@@ -102,7 +102,7 @@ School | Data imported | Principal on-boarded | Used at an SST/MTSS meeting
 --- | --- | --- | ---
 Healey | :white_check_mark: | :white_check_mark: | :white_check_mark:
 West | :white_check_mark: | :white_check_mark: | :white_check_mark:
-East | :white_check_mark: | |
+East | :white_check_mark: | :soon: |
 Brown | | |
 Kennedy | | |
 Argenziano | | |
