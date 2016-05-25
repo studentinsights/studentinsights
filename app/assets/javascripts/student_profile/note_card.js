@@ -209,7 +209,8 @@
             className: 'btn',
             style: {
               background: '#eee',
-              color: 'black'
+              color: 'black',
+              marginLeft: 5
             },
             onClick: this.onCancelDelete
           }, 'Cancel')
@@ -219,7 +220,7 @@
         return dom.div({
           className: 'delete-note',
           style: {
-            color: '#666',
+            color: '#777',
             cursor: 'pointer',
             float: 'right'
           },
