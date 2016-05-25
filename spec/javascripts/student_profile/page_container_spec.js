@@ -43,6 +43,14 @@ describe('PageContainer', function() {
       $(el).find('.btn.save').click();
     },
 
+    editNoteAndSave: function(el, uiParams) {
+      var $noteCard = $(el).find('.NotesList .NoteCard[data-reactid*=event_note]').first();
+      var $text = $noteCard.find('.note-text');
+      $text.html(uiParams.text);
+      React.addons.TestUtils.Simulate.input($text.get(0));
+      React.addons.TestUtils.Simulate.blur($text.get(0));
+    },
+
     recordServiceAndSave: function(el, uiParams) {
       $(el).find('.btn.record-service').click();
       $(el).find('.btn.service-type:contains(' + uiParams.serviceText + ')').click();
@@ -99,6 +107,21 @@ describe('PageContainer', function() {
       expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
         eventNoteTypeId: 300,
         text: 'hello!'
+      });
+    });
+
+    it('can edit notes for SST meetings, mocking the action handlers', function() {
+      var el = this.testEl;
+      var component = helpers.renderInto(el, { actions: helpers.createSpyActions() });
+      helpers.editNoteAndSave(el, {
+        eventNoteTypeText: 'SST Meeting',
+        text: 'world!'
+      });
+
+      expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
+        id: 3,
+        eventNoteTypeId: 300,
+        text: 'world!'
       });
     });
 

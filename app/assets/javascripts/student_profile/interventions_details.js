@@ -158,7 +158,8 @@
           createEl(NotesList, {
             feed: this.props.feed,
             educatorsIndex: this.props.educatorsIndex,
-            eventNoteTypesIndex: this.props.eventNoteTypesIndex
+            eventNoteTypesIndex: this.props.eventNoteTypesIndex,
+            onSaveNote: this.onClickSaveNotes
           })
         ),
         dom.div({ style: styles.servicesContainer },
@@ -183,14 +184,17 @@
     },
 
     renderTakeNotesSection: function() {
-      if (this.state.isTakingNotes || this.props.requests.saveNotes !== null) {
+      if (
+        this.state.isTakingNotes
+        || this.props.requests.saveNotes[undefined]
+      ) {
         return createEl(TakeNotes, {
           nowMoment: moment.utc(), // TODO(kr) thread through
           eventNoteTypesIndex: this.props.eventNoteTypesIndex,
           currentEducator: this.props.currentEducator,
           onSave: this.onClickSaveNotes,
           onCancel: this.onCancelNotes,
-          requestState: this.props.requests.saveNotes
+          requestState: this.props.requests.saveNotes[undefined] || ''
         });
       }
 

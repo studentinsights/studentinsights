@@ -55,7 +55,7 @@
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
         requests: {
-          saveNotes: null,
+          saveNotes: {},
           saveService: null,
           discontinueService: {}
         }
@@ -74,23 +74,43 @@
     },
 
     onClickSaveNotes: function(eventNoteParams) {
-      this.setState({ requests: merge(this.state.requests, { saveNotes: 'pending' }) });
+      var saveNotes = {};
+      saveNotes[eventNoteParams.id] = 'pending';
+      this.setState({ requests: merge(this.state.requests, { saveNotes: saveNotes }) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
     },
 
     onSaveNotesDone: function(response) {
-      var updatedEventNotes = this.state.feed.event_notes.concat([response]);
+      var updatedEventNotes;
+      var foundEventNote = false;
+
+      updatedEventNotes = this.state.feed.event_notes.map(function(eventNote) {
+        if (eventNote.id === response.id) {
+          foundEventNote = true;
+          return merge(eventNote, response);
+        }
+        else {
+          return eventNote;
+        }
+      });
+
+      if (!foundEventNote) {
+        updatedEventNotes = this.state.feed.event_notes.concat([response]);
+      }
+
       var updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
       this.setState({
         feed: updatedFeed,
-        requests: merge(this.state.requests, { saveNotes: null })
+        requests: merge(this.state.requests, { saveNotes: {} })
       });
     },
 
     onSaveNotesFail: function(request, status, message) {
-      this.setState({ requests: merge(this.state.requests, { saveNotes: 'error' }) });
+      var saveNotes = {};
+      saveNotes[request.event_note.id] = 'error';
+      this.setState({ requests: merge(this.state.requests, saveNotes) });
     },
 
     onClickSaveService: function(serviceParams) {
