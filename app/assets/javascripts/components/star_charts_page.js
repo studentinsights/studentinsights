@@ -185,8 +185,8 @@ $(function() {
         dom.div({}, props.description),
         dom.div({}, dateRangeText),
         dom.div({},
-          dom.span({}, 'Students: ', props.students.length),
-          dom.span({ style: { paddingLeft: 10 }}, 'Data points: ', (props.assessments || []).length)));
+          dom.span({}, 'Students in filter: ', props.students.length),
+          dom.span({ style: { paddingLeft: 10 }}, '# Data points for students in filter: ', (props.assessments || []).length)));
     },
 
     resultsDelta: function(student) {
