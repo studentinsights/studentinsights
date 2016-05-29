@@ -83,7 +83,7 @@ docker exec -it studentinsights_postgres_1 psql -U postgres -d student_insights_
 
 Here `studentinsights_postgres_1` is the name of the running container, `-U postgres` means "with `user == 'postgres'`" and `-d student_insights_development` means "connect to database `student_insights_development`". There are four databases, but to my knowledge only this one is used.
 
-This database contains educators, student, etc.
+This database contains educators, students, etc.
 
 ### Troubleshooting:
 **Changes to the Gemfile:** The Gemfile lists all of the Ruby dependencies for the project. When it changes, you need to run `docker-compose build` again to install the new dependencies. If you're experiencing problems after pulling from master, it might be because the Gemfile changed.
