@@ -31,6 +31,12 @@
       color: 'black',
       padding: 10,
       paddingLeft: 0
+    },
+    restrictedNotesButton: {
+      backgroundColor: '#E5370E',
+      fontSize: 12,
+      padding: 8,
+      float: 'right'
     }
   };
 
@@ -43,6 +49,7 @@
   */
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
+      student: React.PropTypes.object.isRequired,
       interventionTypesIndex: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
@@ -144,6 +151,8 @@
     },
 
     render: function() {
+      var self = this;
+
       return dom.div({ className: 'InterventionsDetails', style: styles.container },
         dom.div({ style: styles.notesContainer },
           dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
@@ -152,7 +161,14 @@
               title: 'What is a Note?',
               teaserText: '(what is this?)',
               content: this.getNotesHelpContent()
-            })
+            }),
+            dom.button({
+              className: 'btn',
+              style: styles.restrictedNotesButton,
+              onClick: function(){
+                location.href = '/students/' + self.props.student.id + '/restricted_notes';
+              }
+            }, 'Restricted Notes')
           ),
           this.renderTakeNotesSection(),
           createEl(NotesList, {
