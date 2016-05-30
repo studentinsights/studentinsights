@@ -40,6 +40,8 @@ class StudentsController < ApplicationController
   end
 
   def restricted_notes
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
+
     student = Student.find(params[:id])
     @serialized_data = {
       current_educator: current_educator,

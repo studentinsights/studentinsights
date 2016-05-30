@@ -150,9 +150,23 @@
         <p>If your data fits into one of these categories, it's a Service. Otherwise, it's a Note.</p>"
     },
 
-    render: function() {
+    renderRestrictedNotesButtonIfAppropriate: function(){
       var self = this;
 
+      if (this.props.currentEducator.can_view_restricted_notes){
+        return dom.button({
+          className: 'btn',
+          style: styles.restrictedNotesButton,
+          onClick: function(){
+            location.href = '/students/' + self.props.student.id + '/restricted_notes';
+          }
+        }, 'Restricted Notes')
+      } else {
+        return null;
+      }
+    },
+
+    render: function() {
       return dom.div({ className: 'InterventionsDetails', style: styles.container },
         dom.div({ style: styles.notesContainer },
           dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
@@ -162,13 +176,7 @@
               teaserText: '(what is this?)',
               content: this.getNotesHelpContent()
             }),
-            dom.button({
-              className: 'btn',
-              style: styles.restrictedNotesButton,
-              onClick: function(){
-                location.href = '/students/' + self.props.student.id + '/restricted_notes';
-              }
-            }, 'Restricted Notes')
+            this.renderRestrictedNotesButtonIfAppropriate()
           ),
           this.renderTakeNotesSection(),
           createEl(NotesList, {
