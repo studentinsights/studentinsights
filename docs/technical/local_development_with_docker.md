@@ -75,6 +75,15 @@ We just created a temporary rails container to access the database with, but you
 
 (This means: run command **bash**, in **i**nteractive mode, attached to (this) **t**erminal, inside container **<ID>**.
 
+### Get inside the database:
+You can get a **psql** shell (which lets you run SQL against the database) by running
+
+```
+docker exec -it studentinsights_rails_1 rails dbconsole
+```
+
+This is executing, in the Rails container, the `dbconsole` Rails command which figures out the username, password etc. for `psql`. It will connect you to the `student_insights_development` database, which contains educators, students, etc.
+
 ### Troubleshooting:
 **Changes to the Gemfile:** The Gemfile lists all of the Ruby dependencies for the project. When it changes, you need to run `docker-compose build` again to install the new dependencies. If you're experiencing problems after pulling from master, it might be because the Gemfile changed.
 
