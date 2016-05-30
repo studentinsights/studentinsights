@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe EventNotesController, :type => :controller do
   let(:school) { FactoryGirl.create(:school) }
-  
+
   describe '#create' do
     def make_post_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
@@ -98,7 +98,8 @@ describe EventNotesController, :type => :controller do
             student_id: student.id,
             event_note_type_id: event_note_type.id,
             recorded_at: Time.now,
-            text: 'bar'
+            text: 'bar',
+            is_restricted: false
           }
         }
         it 'does not add a new event note' do
@@ -134,12 +135,14 @@ describe EventNotesController, :type => :controller do
             'event_note_id',
             'version',
             'created_at',
-            'updated_at'
+            'updated_at',
+            'is_restricted' # TODO: Revisit when we implement updating existing notes to be restricted.
           )).to eq event_note.attributes.except(
             'id',
             'created_at',
             'updated_at',
-            'recorded_at'
+            'recorded_at',
+            'is_restricted' # TODO: Revisit when we implement updating existing notes to be restricted.
           )
         end
       end
