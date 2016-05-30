@@ -68,15 +68,15 @@
     render: function() {
       return dom.div({ className: 'RestrictedNotesDetails', style: styles.container },
         dom.div({ style: styles.notesContainer },
-          dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
+          dom.div({style: {padding: 10}},
             dom.h4({style: {display: 'inline', color: 'black'}}, 'Restricted Notes'),
             createEl(HelpBubble, {
               title: 'What is a Restricted Note?',
               teaserText: '(what is this?)',
               content: this.getNotesHelpContent()
-            })
+            }),
+            this.renderTakeNotesSection()
           ),
-          this.renderTakeNotesSection(),
           createEl(NotesList, {
             feed: this.props.feed,
             educatorsIndex: this.props.educatorsIndex,
@@ -98,7 +98,7 @@
         });
       }
 
-      return dom.div({},
+      return dom.div({style: {display: 'inline', marginLeft: 10}},
         dom.button({
           className: 'btn take-notes',
           style: { marginTop: 10 },
