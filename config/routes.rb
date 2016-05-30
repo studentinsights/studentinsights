@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :event_notes, only: [:create, :update]
     member do
       get :sped_referral
+      get :restricted_notes
       post :event_note # DEPRECATED. Use `POST /students/:student_id/event_notes` instead.
       post :service
     end

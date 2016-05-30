@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502001001) do
+ActiveRecord::Schema.define(version: 20160529173939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.datetime "recorded_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_restricted",      default: false
   end
 
   create_table "friendly_id_slugs", force: true do |t|

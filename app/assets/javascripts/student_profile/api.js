@@ -9,9 +9,11 @@
         event_note: {
           event_note_type_id: eventNoteParams.eventNoteTypeId,
           text: eventNoteParams.text,
-          student_id: studentId
+          student_id: studentId,
+          is_restricted: eventNoteParams.is_restricted || false
         }
       };
+
       return this._post(url, body);
     },
 
