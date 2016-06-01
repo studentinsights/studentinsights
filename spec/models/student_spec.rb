@@ -71,7 +71,7 @@ RSpec.describe Student do
         StudentAssessment.create!(
           student: student,
           assessment: mcas_math,
-          date_taken: Date.new,
+          date_taken: Date.today,
         )
       }
       it "returns the student's most recent MCAS math results" do
