@@ -55,9 +55,14 @@
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
         
-        // This holds the state of network requests, so that UI components can show that to the user.
-        // These might be null (no requests), 'pending' (request currently in-flight), and 'error' or another
-        // value if the request failed.
+        // This map holds the state of network requests for various actions.  This allows UI components to branch on this
+        // and show waiting messages or error messages.
+        // The state of a network request is described with null (no requests in-flight), 'pending' (a request is currently in-flight),
+        // and 'error' or another value if the request failed.
+        // The keys within `request` hold either a single value describing the state of the request, or a map that describes the
+        // state of requests related to a particular object.
+        // For example, `saveService` holds the state of that request, but `saveNotes` is a map that can track multiple active
+        // requests, using `serviceId` as a key.
         requests: {
           saveNotes: {},
           saveService: null,
