@@ -93,6 +93,9 @@
 // page:
   //= require ./student_profile/student_profile_page
   //= require_tree ./student_profile
+// restricted notes
+  //= require ./restricted_notes/restricted-notes-details
+  //= require ./restricted_notes/restricted-notes-page-container
 
 //= require_tree ./roster
 //= require_tree ./school_overview

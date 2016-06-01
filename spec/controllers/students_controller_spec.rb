@@ -475,6 +475,39 @@ describe StudentsController, :type => :controller do
     end
   end
 
+  describe '#restricted_notes' do
+    let!(:school) { FactoryGirl.create(:school) }
+    let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+    let(:student) { FactoryGirl.create(:student, school: school) }
+
+    def make_request(student)
+      request.env['HTTPS'] = 'on'
+      get :restricted_notes, id: student.id
+    end
+
+    context 'when educator is logged in' do
+      before { sign_in(educator) }
+
+      context 'educator cannot view restricted notes' do
+        let(:educator) { FactoryGirl.create(:educator, :admin, can_view_restricted_notes: false, school: school) }
+
+        it 'is not successful' do
+          make_request(student)
+          expect(response).to redirect_to(not_authorized_path)
+        end
+      end
+
+      context 'educator can view restricted notes' do
+        let(:educator) { FactoryGirl.create(:educator, :admin, can_view_restricted_notes: true, school: school) }
+
+        it 'is successful' do
+          make_request(student)
+          expect(response).to be_success
+        end
+      end
+    end
+  end
+
   describe '#sped_referral' do
     let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
     let(:school) { FactoryGirl.create(:school) }

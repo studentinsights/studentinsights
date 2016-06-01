@@ -26,6 +26,7 @@ Educator.create!([{
   school: School.first,
   admin: true,
   schoolwide_access: true,
+  can_view_restricted_notes: true
 }, {
   email: "fake-fifth-grade@example.com",
   full_name: 'Teacher, Sarah',

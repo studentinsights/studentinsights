@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :event_notes, only: [:create, :update]
     member do
       get :sped_referral
+      get :restricted_notes
       post :service
     end
   end

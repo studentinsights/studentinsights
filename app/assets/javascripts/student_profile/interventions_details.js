@@ -26,12 +26,18 @@
     addServiceContainer: {
       marginTop: 10
     },
-    title: {
+    title: { // Is this dead?
       borderBottom: '1px solid #333',
       color: 'black',
       padding: 10,
-      paddingLeft: 0,
+      paddingLeft: 0
     },
+    restrictedNotesButton: {
+      backgroundColor: '#E5370E',
+      fontSize: 12,
+      padding: 8,
+      float: 'right'
+    }
   };
 
 
@@ -42,6 +48,7 @@
   */
   var InterventionsDetails = window.shared.InterventionsDetails = React.createClass({
     propTypes: {
+      student: React.PropTypes.object.isRequired,
       interventionTypesIndex: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
@@ -109,8 +116,6 @@
           she is not showing many gains despite the volunteer tutor and the change in seating…."</li> \
           <li>"Alex just got an M on the latest F&P. Will try having him go next door to \
           join the other 4th grade group during guided reading."</li> \
-          <li>"Medicine change for Uri on 4/10. So far slight increase in focus."</li> \
-          <li>"51a filed on 3/21. Waiting determination and follow-up from DCF."</li> \
           <li>"Just found that Cora really likes to go help out in grade 1. \
           Best incentive yet for when she stays on task and completes work."</li> \
           <li>"Arranged for Kevin to go to community schools 2x/week and to get extra homework help."</li> \
@@ -142,6 +147,22 @@
         <p>If your data fits into one of these categories, it's a Service. Otherwise, it's a Note.</p>"
     },
 
+    renderRestrictedNotesButtonIfAppropriate: function(){
+      var self = this;
+
+      if (this.props.currentEducator.can_view_restricted_notes){
+        return dom.button({
+          className: 'btn',
+          style: styles.restrictedNotesButton,
+          onClick: function(){
+            location.href = '/students/' + self.props.student.id + '/restricted_notes';
+          }
+        }, 'Restricted Notes')
+      } else {
+        return null;
+      }
+    },
+
     render: function() {
       return dom.div({ className: 'InterventionsDetails', style: styles.container },
         dom.div({ style: styles.notesContainer },
@@ -151,7 +172,8 @@
               title: 'What is a Note?',
               teaserText: '(what is this?)',
               content: this.getNotesHelpContent()
-            })
+            }),
+            this.renderRestrictedNotesButtonIfAppropriate()
           ),
           this.renderTakeNotesSection(),
           createEl(NotesList, {
