@@ -23,6 +23,7 @@ gem 'react-rails', '~> 1.5.0'   # Provides React, handles swapping between dev/p
                                 # See config/initializers/assets.rb
 gem 'rubystats'
 gem 'sass-rails', '~> 5.0'
+gem 'sprockets', '2.12.3'
 gem 'seedbank'
 gem 'thor'
 gem 'turbolinks'
