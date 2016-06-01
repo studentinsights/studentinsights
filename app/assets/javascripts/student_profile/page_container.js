@@ -54,6 +54,10 @@
 
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
+        
+        // This holds the state of network requests, so that UI components can show that to the user.
+        // These might be null (no requests), 'pending' (request currently in-flight), and 'error' or another
+        // value if the request failed.
         requests: {
           saveNotes: {},
           saveService: null,
