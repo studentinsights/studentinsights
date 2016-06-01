@@ -68,8 +68,8 @@ RSpec.describe BehaviorImporter do
       end
 
       it 'sets the descriptions correctly' do
-        expect(incidents[1].incident_description).to eq "Hit another student."
-        expect(incidents[0].incident_description).to eq "Hit another student again."
+        descriptions = incidents.pluck(:incident_description).sort
+        expect(descriptions).to eq ["Hit another student again.", "Hit another student."]
       end
 
     end

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.1.14.1'
+gem 'rails', '~> 4.2'
 gem 'pg'
 gem 'unicorn'
 
