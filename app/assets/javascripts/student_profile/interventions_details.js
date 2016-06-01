@@ -30,10 +30,9 @@
       borderBottom: '1px solid #333',
       color: 'black',
       padding: 10,
-      paddingLeft: 0
-    }
+      paddingLeft: 0,
+    },
   };
-
 
 
   /*
