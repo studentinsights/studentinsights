@@ -7,6 +7,7 @@ gem 'pg'
 gem 'unicorn'
 
 gem 'activerecord-import'
+gem 'administrate', '~> 0.2.1'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
 gem 'draper', '~> 1.3'
@@ -21,7 +22,7 @@ gem 'rails-sanitize-js'
 gem 'react-rails', '~> 1.5.0'   # Provides React, handles swapping between dev/production builds.
                                 # See config/initializers/assets.rb
 gem 'rubystats'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0'
 gem 'seedbank'
 gem 'thor'
 gem 'turbolinks'
