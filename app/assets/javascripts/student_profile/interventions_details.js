@@ -116,8 +116,6 @@
           she is not showing many gains despite the volunteer tutor and the change in seating…."</li> \
           <li>"Alex just got an M on the latest F&P. Will try having him go next door to \
           join the other 4th grade group during guided reading."</li> \
-          <li>"Medicine change for Uri on 4/10. So far slight increase in focus."</li> \
-          <li>"51a filed on 3/21. Waiting determination and follow-up from DCF."</li> \
           <li>"Just found that Cora really likes to go help out in grade 1. \
           Best incentive yet for when she stays on task and completes work."</li> \
           <li>"Arranged for Kevin to go to community schools 2x/week and to get extra homework help."</li> \

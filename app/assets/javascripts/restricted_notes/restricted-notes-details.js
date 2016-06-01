@@ -62,7 +62,16 @@
     },
 
     getNotesHelpContent: function(){
-      return 'Info on Restricted Notes.'
+      return 'Restricted Notes are only visible to the principal, AP, and guidance counselors. \
+      If a note contains sensitive information about healthcare, courts, or child abuse, consider using a Restricted Note. \
+      This feature is currently in development. \
+      <br> \
+      <br> \
+      Examples include: \
+      <ul> \
+      <li>"Medicine change for Uri on 4/10. So far slight increase in focus."</li> \
+      <li>"51a filed on 3/21. Waiting determination and follow-up from DCF."</li> \
+      </ul>'
     },
 
     render: function() {
