@@ -39,7 +39,8 @@ describe EventNotesController, :type => :controller do
             'educator_id',
             'event_note_type_id',
             'text',
-            'recorded_at'
+            'recorded_at',
+            'is_restricted'
           ]
         end
       end
@@ -70,6 +71,42 @@ describe EventNotesController, :type => :controller do
               "Event note type can't be blank"
             ]
           })
+        end
+      end
+    end
+
+    context 'educator who can view restricted notes logged in' do
+      let(:educator) { FactoryGirl.create(:educator, :admin, school: school, can_view_restricted_notes: true) }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let!(:event_note_type) { EventNoteType.first }
+
+      before do
+        sign_in(educator)
+      end
+
+      context 'valid request' do
+        let(:post_params) {
+          {
+            student_id: student.id,
+            event_note_type_id: event_note_type.id,
+            recorded_at: Time.now,
+            text: 'foo',
+            is_restricted: true
+          }
+        }
+        it 'responds with json' do
+          make_post_request(student, post_params)
+          expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
+          expect(JSON.parse(response.body).keys).to eq [
+            'id',
+            'student_id',
+            'educator_id',
+            'event_note_type_id',
+            'text',
+            'recorded_at',
+            'is_restricted'
+          ]
+          expect(JSON.parse(response.body)["is_restricted"]).to eq true
         end
       end
     end
@@ -162,6 +199,47 @@ describe EventNotesController, :type => :controller do
         it 'creates a second event note revision' do
           make_put_request(student, post_params)
           expect(EventNoteRevision.last.version).to eq 2
+        end
+      end
+    end
+
+    context 'educator who can view restricted notes logged in' do
+      let(:educator) { FactoryGirl.create(:educator, :admin, school: school, can_view_restricted_notes: true) }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let!(:event_note_type) { EventNoteType.first }
+
+      before do
+        sign_in(educator)
+      end
+
+      context 'valid first edit request' do
+        let!(:event_note) { FactoryGirl.create(:event_note) }
+        let(:post_params) {
+          {
+            id: event_note.id,
+            student_id: student.id,
+            event_note_type_id: event_note_type.id,
+            recorded_at: Time.now,
+            text: 'bar',
+            is_restricted: true
+          }
+        }
+        it 'updates an existing event note' do
+          Timecop.freeze(post_params[:recorded_at]) do
+            make_put_request(student, post_params)
+          end
+          updated_event_note = EventNote.find(event_note.id)
+          expect(updated_event_note.recorded_at.to_i).to eq event_note.recorded_at.to_i
+          expect(updated_event_note.attributes.except(
+            'educator_id',
+            'created_at',
+            'updated_at',
+            'recorded_at'
+          )).to eq post_params.stringify_keys.except(
+            'created_at',
+            'updated_at',
+            'recorded_at'
+          )
         end
       end
     end

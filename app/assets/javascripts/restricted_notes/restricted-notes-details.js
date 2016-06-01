@@ -101,9 +101,9 @@
       return dom.div({style: {display: 'inline', marginLeft: 10}},
         dom.button({
           className: 'btn take-notes',
-          style: { marginTop: 10 },
+          style: { marginTop: 10, backgroundColor: '#E5370E' },
           onClick: this.onClickTakeNotes
-        }, 'Take notes')
+        }, 'Take restricted notes')
       );
     }
   });
