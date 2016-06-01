@@ -26,7 +26,7 @@
     addServiceContainer: {
       marginTop: 10
     },
-    title: {
+    title: { // Is this dead?
       borderBottom: '1px solid #333',
       color: 'black',
       padding: 10,
@@ -39,7 +39,6 @@
       float: 'right'
     }
   };
-
 
 
   /*
