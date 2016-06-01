@@ -1,12 +1,23 @@
+
+#This script uses browserstack.com to spin up an instance of windows
+#and open an instance of Internet Explorer version 11 and then
+#logs in with a trial login 'ericleschinski1'.  It then visits
+#the studentinsights website and finds the username and passwords
+#field to login autonomously.  Then it visits a student, takes a
+#screenshot and saves the screenshots.png of the whole browser
+#content area.  
+
+#Then we can dump the image to slack for review.
+
 require 'rubygems'
 require 'selenium-webdriver'
 
 # Input capabilities
 caps = Selenium::WebDriver::Remote::Capabilities.new
-#caps["browser"] = "IE"
-caps["browser"] = "Chrome"
+caps["browser"] = "IE"
+#caps["browser"] = "Chrome"
 #caps["browser_version"] = "7.0"
-caps["browser_version"] = "50.0"
+caps["browser_version"] = "11.0"
 caps["os"] = "Windows"
 caps["os_version"] = "7"
 caps['resolution'] = '1024x768'
