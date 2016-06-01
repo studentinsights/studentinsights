@@ -60,24 +60,6 @@ class StudentsController < ApplicationController
   end
 
   # post
-  def event_note # DEPRECATED. Use EventNotesController#create instead.
-    clean_params = params.require(:event_note).permit(*[
-      :student_id,
-      :event_note_type_id,
-      :text
-    ])
-    event_note = EventNote.new(clean_params.merge({
-      educator_id: current_educator.id,
-      recorded_at: Time.now
-    }))
-    if event_note.save
-      render json: serialize_event_note(event_note)
-    else
-      render json: { errors: event_note.errors.full_messages }, status: 422
-    end
-  end
-
-  # post
   def service
     clean_params = params.require(:service).permit(*[
       :student_id,
