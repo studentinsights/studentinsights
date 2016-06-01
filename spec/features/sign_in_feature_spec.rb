@@ -43,7 +43,7 @@ describe 'educator sign in', type: :feature do
     it 'cannot access students page' do
       mock_ldap_rejection
       sign_in_attempt('educatorname', 'password')
-      expect(page).to have_content 'Invalid email or password.'
+      expect(page).to have_content 'Invalid Email or password.'
     end
   end
 
