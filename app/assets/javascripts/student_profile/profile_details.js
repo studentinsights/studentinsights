@@ -62,7 +62,23 @@
       fontSize: 13,
       marginTop: 15,
       marginBottom: 20
-    }
+    },
+    fullCaseHistoryTitle: {
+      color: 'black',
+      display: 'inline-block',
+      flex: 'auto',
+    },
+    fullCaseHistoryHeading: {
+      display: 'flex',
+      borderBottom: '1px solid #333',
+      padding: 10,
+      paddingLeft: 0,
+    },
+    spedButton: {
+      width: '20em',
+      fontSize: 12,
+      padding: 8
+    },
   };
 
   var ProfileDetails = window.shared.ProfileDetails = React.createClass({
@@ -203,6 +219,11 @@
       return _.sortBy(events, 'date').reverse();
     },
 
+    onClickGenerateSpedReferral: function(event) {
+      window.location = this.props.student.id + '/sped_referral.pdf';
+      return null;
+    },
+
     render: function(){
       return dom.div({},
         this.renderAccessDetails(),
@@ -244,7 +265,14 @@
       ).reverse();
 
       return dom.div({id: "full-case-history"},
-        dom.h4({style: styles.title}, 'Full Case History'),
+        dom.div({ className: 'ServicesHeader', style: styles.fullCaseHistoryHeading },
+          dom.h4({style: styles.fullCaseHistoryTitle}, 'Full Case History'),
+          dom.button({
+            className: 'btn btn-warning',
+            style: styles.spedButton,
+            onClick: this.onClickGenerateSpedReferral
+          }, 'BETA: Generate SPED Referral')
+        ),
         bySchoolYearDescending.map(this.renderCardsForYear)
       );
     },
