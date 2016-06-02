@@ -69,14 +69,6 @@ to display a collection of resources in an HTML table.
           [:edit, namespace, resource],
           class: "action-edit",
         ) %></td>
-
-        <td><%= link_to(
-          t("administrate.actions.destroy"),
-          [namespace, resource],
-          class: "table__action--destroy",
-          method: :delete,
-          data: { confirm: t("administrate.actions.confirm") }
-        ) %></td>
       </tr>
     <% end %>
   </tbody>
