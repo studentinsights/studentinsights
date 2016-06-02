@@ -44,10 +44,10 @@ class EducatorDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :school,
+    :full_name,
     :homeroom,
-    :students,
-    :interventions,
+    :schoolwide_access,
+    :can_view_restricted_notes,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
