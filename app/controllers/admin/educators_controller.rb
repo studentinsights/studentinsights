@@ -1,12 +1,12 @@
 module Admin
   class EducatorsController < Admin::ApplicationController
     # To customize the behavior of this controller,
-    # simply overwrite any of the RESTful actions. For example:
-    #
-    # def index
-    #   super
-    #   @resources = Educator.all.paginate(10, params[:page])
-    # end
+    # simply overwrite any of the RESTful actions.
+
+    def index
+      @_order = Administrate::Order.new(:full_name)
+      super
+    end
 
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
