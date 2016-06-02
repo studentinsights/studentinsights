@@ -8,8 +8,8 @@ class EducatorDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    school: Field::BelongsTo,
-    homeroom: Field::HasOne,
+    school: Field::SchoolNameField,
+    homeroom: Field::HomeroomNameField,
     students: Field::HasMany,
     interventions: Field::HasMany,
     id: Field::Number,
@@ -55,7 +55,6 @@ class EducatorDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :school,
     :homeroom,
-    :students,
     :interventions,
     :email,
     :sign_in_count,
