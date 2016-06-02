@@ -55,7 +55,6 @@ class EducatorDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :school,
     :homeroom,
-    :interventions,
     :email,
     :sign_in_count,
     :admin,
