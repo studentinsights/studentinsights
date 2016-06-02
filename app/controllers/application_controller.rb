@@ -12,13 +12,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_educator!  # Devise method, applies to all controllers.
                                          # In this app 'users' are 'educators'.
 
-  def authenticate_admin!
-    # Some controllers are just for admins (principals + district admins).
-    # For example, the school-wide dashboard, which includes data and
-    # links to student profiles from different classrooms and grade levels.
-    redirect_to(new_educator_session_path) unless current_educator.admin?
-  end
-
   # Return the homepage path, depending on the educator's role
   def homepage_path_for_role(educator)
     if educator.schoolwide_access? || educator.has_access_to_grade_levels?
