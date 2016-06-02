@@ -22,7 +22,8 @@ module SerializeDataHelper
       :educator_id,
       :event_note_type_id,
       :text,
-      :recorded_at
+      :recorded_at,
+      :is_restricted
     ])
   end
 

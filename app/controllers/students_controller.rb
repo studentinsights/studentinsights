@@ -39,22 +39,24 @@ class StudentsController < ApplicationController
     end
   end
 
-  # post
-  def event_note # DEPRECATED. Use EventNotesController#create instead.
-    clean_params = params.require(:event_note).permit(*[
-      :student_id,
-      :event_note_type_id,
-      :text
-    ])
-    event_note = EventNote.new(clean_params.merge({
-      educator_id: current_educator.id,
-      recorded_at: Time.now
-    }))
-    if event_note.save
-      render json: serialize_event_note(event_note)
-    else
-      render json: { errors: event_note.errors.full_messages }, status: 422
-    end
+  def restricted_notes
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
+
+    student = Student.find(params[:id])
+    @serialized_data = {
+      current_educator: current_educator,
+      student: serialize_student_for_profile(student),
+      feed: {
+        event_notes: student.event_notes
+          .select {|note| note.is_restricted}
+          .map {|event_note| serialize_event_note(event_note)},
+        deprecated: {
+          interventions: []
+        }
+      },
+      educators_index: Educator.to_index,
+      event_note_types_index: event_note_types_index
+    }
   end
 
   # post
@@ -150,7 +152,11 @@ class StudentsController < ApplicationController
   # The feed of mutable data that changes most frequently and is owned by Student Insights
   def student_feed(student)
     {
-      event_notes: student.event_notes.map {|event_note| serialize_event_note(event_note) },
+      # Only the unrestricted notes are delivered in the feed.
+      # Restricted notes are delivered in a separate view.
+      event_notes: student.event_notes
+        .select {|note| !note.is_restricted}
+        .map {|event_note| serialize_event_note(event_note) },
       services: {
         active: student.services.active.map {|service| serialize_service(service) },
         discontinued: student.services.discontinued.map {|service| serialize_service(service) }

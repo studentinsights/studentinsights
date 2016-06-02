@@ -260,80 +260,6 @@ describe StudentsController, :type => :controller do
 
   end
 
-  describe '#event_note' do
-    let(:school) { FactoryGirl.create(:school) }
-
-    def make_post_request(student, event_note_params = {})
-      request.env['HTTPS'] = 'on'
-      post :event_note, format: :json, id: student.id, event_note: event_note_params
-    end
-
-    context 'educator logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-      let!(:student) { FactoryGirl.create(:student, school: school) }
-      let!(:event_note_type) { EventNoteType.first }
-
-      before do
-        sign_in(educator)
-      end
-
-      context 'valid request' do
-        let(:post_params) {
-          {
-            student_id: student.id,
-            event_note_type_id: event_note_type.id,
-            recorded_at: Time.now,
-            text: 'foo'
-          }
-        }
-        it 'creates a new event note' do
-          expect { make_post_request(student, post_params) }.to change(EventNote, :count).by 1
-        end
-        it 'responds with json' do
-          make_post_request(student, post_params)
-          expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
-          expect(JSON.parse(response.body).keys).to eq [
-            'id',
-            'student_id',
-            'educator_id',
-            'event_note_type_id',
-            'text',
-            'recorded_at'
-          ]
-        end
-      end
-
-      context 'with explicit educator_id' do
-        it 'ignores the educator_id' do
-          make_post_request(student, {
-            educator_id: 350,
-            student_id: student.id,
-            event_note_type_id: event_note_type.id,
-            recorded_at: Time.now,
-            text: 'foo'
-          })
-          response_body = JSON.parse(response.body)
-          expect(response_body['educator_id']).to eq educator.id
-          expect(response_body['educator_id']).not_to eq 350
-        end
-      end
-
-      context 'fails with missing params' do
-        it 'ignores the educator_id' do
-          make_post_request(student, { text: 'foo' })
-          expect(response.status).to eq 422
-          response_body = JSON.parse(response.body)
-          expect(response_body).to eq({
-            "errors" => [
-              "Student can't be blank",
-              "Event note type can't be blank"
-            ]
-          })
-        end
-      end
-    end
-  end
-
   describe '#service' do
     let!(:school) { FactoryGirl.create(:school) }
 
@@ -545,6 +471,39 @@ describe StudentsController, :type => :controller do
         feed = controller.send(:student_feed, student)
         expect(feed[:services][:active].size).to eq 0
         expect(feed[:services][:discontinued].first[:id]).to eq service.id
+      end
+    end
+  end
+
+  describe '#restricted_notes' do
+    let!(:school) { FactoryGirl.create(:school) }
+    let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+    let(:student) { FactoryGirl.create(:student, school: school) }
+
+    def make_request(student)
+      request.env['HTTPS'] = 'on'
+      get :restricted_notes, id: student.id
+    end
+
+    context 'when educator is logged in' do
+      before { sign_in(educator) }
+
+      context 'educator cannot view restricted notes' do
+        let(:educator) { FactoryGirl.create(:educator, :admin, can_view_restricted_notes: false, school: school) }
+
+        it 'is not successful' do
+          make_request(student)
+          expect(response).to redirect_to(not_authorized_path)
+        end
+      end
+
+      context 'educator can view restricted notes' do
+        let(:educator) { FactoryGirl.create(:educator, :admin, can_view_restricted_notes: true, school: school) }
+
+        it 'is successful' do
+          make_request(student)
+          expect(response).to be_success
+        end
       end
     end
   end

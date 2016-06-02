@@ -17,4 +17,8 @@
     background-color: darken($blue, 10%);
     text-decoration: none;
   }
+
+  &.btn-warning {
+    background-color: $warning-red
+  }
 }
