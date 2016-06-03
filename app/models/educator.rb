@@ -16,7 +16,11 @@ class Educator < ActiveRecord::Base
   validates :local_id, presence: true, uniqueness: true
   validates :school, presence: true
 
-  validate :admin_gets_access_to_all_students, :grade_level_access_is_array_of_strings
+  validate :admin_gets_access_to_all_students,
+           :grade_level_access_is_array_of_strings,
+           :grade_level_strings_are_valid
+
+  VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ].freeze
 
   def admin_gets_access_to_all_students
     errors.add(:admin, "needs access to all students") if admin? && !has_access_to_all_students?
@@ -25,6 +29,12 @@ class Educator < ActiveRecord::Base
   def grade_level_access_is_array_of_strings
     unless grade_level_access.all? { |grade| grade.instance_of? String }
       errors.add(:grade_level_access, "should be an array of strings")
+    end
+  end
+
+  def grade_level_strings_are_valid
+    if grade_level_access.any? { |grade| !(VALID_GRADES.include?(grade)) }
+      errors.add(:grade_level_access, "invalid grade")
     end
   end
 
