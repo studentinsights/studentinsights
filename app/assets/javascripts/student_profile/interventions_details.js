@@ -133,13 +133,13 @@
         Restricted Notes are only visible to the Principal, AP, and guidance counselors. \
         If a note contains sensitive information about healthcare, courts, or child abuse, think about using a Restricted Note.\
         <br> \
-        This feature is currently in development. \
-        <br> \
         <br> \
         <ul> \
           <li>"51a filed on 3/21. Waiting determination and follow-up from DCF."</li> \
           <li>"Medicine change for Uri on 4/10. So far slight increase in focus."</li> \
         </ul> \
+        <br> \
+        This feature is currently in development. \
         '
     },
 
