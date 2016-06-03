@@ -79,8 +79,8 @@ class EducatorDashboard < Administrate::BaseDashboard
 
   # Overwrite this method to customize how educators are displayed
   # across all pages of the admin dashboard.
-  #
-  # def display_resource(educator)
-  #   "Educator ##{educator.id}"
-  # end
+
+  def display_resource(educator)
+    "#{educator.full_name}"
+  end
 end
