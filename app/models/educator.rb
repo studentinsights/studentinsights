@@ -16,10 +16,16 @@ class Educator < ActiveRecord::Base
   validates :local_id, presence: true, uniqueness: true
   validates :school, presence: true
 
-  validate :admin_gets_access_to_all_students
+  validate :admin_gets_access_to_all_students, :grade_level_access_is_array_of_strings
 
   def admin_gets_access_to_all_students
     errors.add(:admin, "needs access to all students") if admin? && !has_access_to_all_students?
+  end
+
+  def grade_level_access_is_array_of_strings
+    unless grade_level_access.all? { |grade| grade.instance_of? String }
+      errors.add(:grade_level_access, "should be an array of strings")
+    end
   end
 
   # This method is the source of truth for whether an educator is authorized to view information about a particular

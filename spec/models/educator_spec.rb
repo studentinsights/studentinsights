@@ -23,6 +23,21 @@ RSpec.describe Educator do
     end
   end
 
+  describe 'grade level access' do
+    context 'mix of strings and not strings' do
+      let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['3', 4]) }
+      it 'is coerced into an array of strings' do
+        expect(educator.grade_level_access).to eq ["3", "4"]
+      end
+    end
+    context 'only integers' do
+      let(:educator) { FactoryGirl.create(:educator, grade_level_access: [3, 4]) }
+      it 'is coerced into an array of strings' do
+        expect(educator.grade_level_access).to eq ["3", "4"]
+      end
+    end
+  end
+
   describe '#is_authorized_for_student' do
     let(:authorized?) { educator.is_authorized_for_student(student) }
 
