@@ -8,10 +8,12 @@ module Admin
       super
     end
 
-    # Define a custom finder by overriding the `find_resource` method:
-    # def find_resource(param)
-    #   Educator.find_by!(slug: param)
-    # end
+    def resource_params
+      # Turn user-entered string into an array:
+
+      params["educator"]["grade_level_access"] = params["educator"]["grade_level_access"].split(', ')
+      params.require(resource_name).permit(*permitted_attributes, grade_level_access: [])
+    end
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
