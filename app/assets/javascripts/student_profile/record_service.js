@@ -116,14 +116,14 @@
         dom.div({ style: { marginBottom: 5, display: 'inline' }}, 'Which service?'),
         dom.div({ style: { display: 'flex', justifyContent: 'flex-start' } },
           dom.div({ style: styles.buttonWidth },
+            this.renderServiceButton(503),
+            this.renderServiceButton(502),
+            this.renderServiceButton(504)
+          ),
+          dom.div({ style: styles.buttonWidth },
             this.renderServiceButton(505),
             this.renderServiceButton(506),
             this.renderServiceButton(507)
-          ),
-          dom.div({ style: styles.buttonWidth },
-            this.renderServiceButton(502),
-            this.renderServiceButton(503),
-            this.renderServiceButton(504)
           )
         )
       );
