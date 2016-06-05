@@ -18,7 +18,8 @@ class Educator < ActiveRecord::Base
 
   validate :admin_gets_access_to_all_students,
            :grade_level_access_is_array_of_strings,
-           :grade_level_strings_are_valid
+           :grade_level_strings_are_valid,
+           :grade_level_strings_are_uniq
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ].freeze
 
@@ -35,6 +36,12 @@ class Educator < ActiveRecord::Base
   def grade_level_strings_are_valid
     if grade_level_access.any? { |grade| !(VALID_GRADES.include?(grade)) }
       errors.add(:grade_level_access, "invalid grade")
+    end
+  end
+
+  def grade_level_strings_are_uniq
+    unless grade_level_access.uniq.size == grade_level_access.size
+      errors.add(:grade_level_access, "duplicate values")
     end
   end
 
