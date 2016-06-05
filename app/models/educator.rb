@@ -19,7 +19,8 @@ class Educator < ActiveRecord::Base
   validate :admin_gets_access_to_all_students,
            :grade_level_access_is_array_of_strings,
            :grade_level_strings_are_valid,
-           :grade_level_strings_are_uniq
+           :grade_level_strings_are_uniq,
+           :grade_level_access_is_not_nil
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ].freeze
 
@@ -43,6 +44,10 @@ class Educator < ActiveRecord::Base
     unless grade_level_access.uniq.size == grade_level_access.size
       errors.add(:grade_level_access, "duplicate values")
     end
+  end
+
+  def grade_level_access_is_not_nil
+    errors.add(:grade_level_access, "cannot be nil") if grade_level_access.nil?
   end
 
   # This method is the source of truth for whether an educator is authorized to view information about a particular
