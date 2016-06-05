@@ -32,7 +32,7 @@ class EducatorDashboard < Administrate::BaseDashboard
     local_id: Field::String.with_options(searchable: false),
     staff_type: Field::String.with_options(searchable: false),
     schoolwide_access: Field::Boolean.with_options(searchable: false),
-    grade_level_access: Field::String.with_options(searchable: false),
+    grade_level_access: Field::PostgresArrayField.with_options(searchable: false),
     restricted_to_sped_students: Field::Boolean.with_options(searchable: false),
     restricted_to_english_language_learners: Field::Boolean.with_options(searchable: false),
     can_view_restricted_notes: Field::Boolean.with_options(searchable: false),
