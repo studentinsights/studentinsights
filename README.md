@@ -134,6 +134,13 @@ The project is a Rails app with a Postgres database.  There are background tasks
 
 ![how it works](docs/readme_images/how_it_works.png)
 
+## Admin dashboard
+
+This project includes an admin dashboard built with [thoughtbot/administrate](https://github.com/thoughtbot/administrate).
+
+The admin dashboard has one function: Allow admins (principals, assistant principals, district admins) to set user roles and permissions for other staff, in particular staff who are not classroom-based teachers.
+
+The admin dashboard is available at `/admin` for educators whose `admin` attribute is `true`.
 
 # Development Environment
 
