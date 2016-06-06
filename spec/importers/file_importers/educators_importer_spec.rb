@@ -30,6 +30,9 @@ RSpec.describe EducatorsImporter do
             it 'does not give educator a homeroom' do
               expect(Educator.first.homeroom).to eq nil
             end
+            it 'cannot view restricted notes' do
+              expect(Educator.first.can_view_restricted_notes).to eq false
+            end
           end
 
           context 'with homeroom' do
@@ -116,10 +119,11 @@ RSpec.describe EducatorsImporter do
             }
           }
 
-          it 'sets the administrator attribute correctly' do
+          it 'sets the administrator attributes correctly' do
             described_class.new.import_row(row)
             educator = Educator.last
             expect(educator.admin).to eq(true)
+            expect(educator.can_view_restricted_notes).to eq true
           end
         end
       end
