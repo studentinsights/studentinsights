@@ -9,8 +9,7 @@ module Admin
     end
 
     def resource_params
-      # Turn user-entered string into an array:
-
+      # Transform string for storage as a Postgres array:
       params["educator"]["grade_level_access"] = params["educator"]["grade_level_access"].split(', ')
       params.require(resource_name).permit(*permitted_attributes, grade_level_access: [])
     end
