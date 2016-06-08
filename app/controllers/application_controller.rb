@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   force_ssl unless Rails.env.development?
 
+  before_filter :redirect_domain!
   before_action :authenticate_educator!  # Devise method, applies to all controllers.
                                          # In this app 'users' are 'educators'.
 
@@ -36,6 +37,14 @@ class ApplicationController < ActionController::Base
   # Sugar for filters checking authorization
   def redirect_unauthorized!
     redirect_to not_authorized_path
+  end
+
+  # For redirecting requests directly to the Heroku domain to the canonical domain name
+  def redirect_domain!
+    canonical_domain = EnvironmentVariable.value('CANONICAL_DOMAIN')
+    return if canonical_domain == nil
+    return if request.host == canonical_domain
+    redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently 
   end
 
   # Used to wrap a block with timing measurements and logging, returning the value of the
