@@ -39,12 +39,12 @@ class ApplicationController < ActionController::Base
     redirect_to not_authorized_path
   end
 
-  # For redirecting requests directly to the Heroku domain to the canonical domain name
+  # For redirecting requests directly from the Heroku domain to the canonical domain name
   def redirect_domain!
     canonical_domain = EnvironmentVariable.value('CANONICAL_DOMAIN')
     return if canonical_domain == nil
     return if request.host == canonical_domain
-    redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently 
+    redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently
   end
 
   # Used to wrap a block with timing measurements and logging, returning the value of the
