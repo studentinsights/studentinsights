@@ -10,7 +10,7 @@ RSpec.describe FileImport do
                                               data_transformer: CsvTransformer.new,
                                               client: mock_client,
                                               progress_bar: true,
-                                              filter: SchoolFilter.new(nil),
+                                              filter: filter,
                                               import_row: 'woohoo, row imported!')
                  }
 
@@ -18,26 +18,41 @@ RSpec.describe FileImport do
 
   describe '#import' do
 
-    it 'runs the data through the CSV transformer' do
-      expect_any_instance_of(CsvTransformer).to receive(:transform).and_return(fake_data)
-      subject.import
+    context 'filter accepts every row' do
+      let(:filter) { SchoolFilter.new(nil) }
+
+      it 'runs the data through the CSV transformer' do
+        expect_any_instance_of(CsvTransformer).to receive(:transform).and_return(fake_data)
+        subject.import
+      end
+
+      it 'calls import_row for each row' do
+        expect(importer).to receive(:import_row).exactly(3).times
+        subject.import
+      end
+
+      it 'prints a new progress bar for each row' do
+        expect(ProgressBar).to receive(:new).exactly(3).times
+                                            .and_return(progress_bar_double)
+        subject.import
+      end
     end
 
-    it 'calls import_row with rows that the filter includes' do
-      expect(importer).to receive(:import_row).exactly(3).times
-      subject.import
-    end
+    context 'filter rejects some rows' do
+      let(:filter) { SchoolFilter.new(['HEA', 'BRN']) }
 
-    it 'does not call import_row with rows that the filter excludes' do
-      pending
-    end
+      it 'calls import_row for each row that the filter includes' do
+        expect(importer).to receive(:import_row).exactly(2).times
+        subject.import
+      end
 
-    it 'prints a new progress bar for each row' do
-      expect(ProgressBar).to receive(:new).exactly(3).times
-                                          .and_return(progress_bar_double)
-      subject.import
-    end
+      it 'prints a new progress bar for each row' do
+        expect(ProgressBar).to receive(:new).exactly(3).times
+                                            .and_return(progress_bar_double)
+        subject.import
+      end
 
+    end
   end
 
 end
