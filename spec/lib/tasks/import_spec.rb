@@ -23,7 +23,7 @@ RSpec.describe Import do
     let(:file_importers) { commands[3] }
     let(:log_destination) { LogHelper::Redirect.instance.file }
     let(:expected_file_importer_arguments) {
-      [ ['HEA'], sftp_client_double, log_destination, :false ]
+      [ ['HEA', 'WSNS', 'ESCS'], sftp_client_double, log_destination, :false ]
     }
 
     let(:expected_file_importer_classes) {
