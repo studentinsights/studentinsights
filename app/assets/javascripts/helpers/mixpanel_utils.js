@@ -10,7 +10,6 @@
 
       try {
         window.mixpanel.register({
-          'isDemoSite': Env.isDemoSite, // deprecated
           'deployment_key': Env.deploymentKey,
           'educator_id': currentEducator.id,
           'educator_is_admin': currentEducator.admin,
