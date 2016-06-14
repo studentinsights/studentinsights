@@ -20,6 +20,7 @@
 
     renderInput: function () {
       return dom.input({
+        ref: 'ProvidedByEducatorDropdown',
         className: 'ProvidedByEducatorDropdown',
         onChange: this.props.onUserTyping,
         placeholder: 'Last Name, First Name...',
@@ -45,25 +46,31 @@
     },
 
     toggleOpenMenu: function () {
-      $('.ProvidedByEducatorDropdown').autocomplete("search", "");
+      $(this.refs.ProvidedByEducatorDropdown).autocomplete("search", "");
     },
-
+    closeMenu: function () {
+      $(this.refs.ProvidedByEducatorDropdown).autocomplete('close');
+    },
     componentDidMount: function() {
       var self = this;
-      $('.ProvidedByEducatorDropdown').autocomplete({
+
+      $(this.refs.ProvidedByEducatorDropdown).autocomplete({
         source: '/educators/services_dropdown/' + this.props.studentId,
         delay: 0,
         minLength: 0,
         select: function(event, ui) {
           self.props.onUserDropdownSelect(ui.item.value);
+        },
+        open: function() {
+          $('body').bind('click.closeProvidedByEducatorDropdownMenu', self.closeMenu);
+        },
+        close: function() {
+          $('body').unbind('click.closeProvidedByEducatorDropdownMenu', self.closeMenu);
         }
       });
     },
-
     componentWillUnmount: function() {
-      $('.ProvidedByEducatorDropdown').autocomplete('destroy');
+      $(this.refs.ProvidedByEducatorDropdown).autocomplete('destroy');
     }
-
   });
-
 })();

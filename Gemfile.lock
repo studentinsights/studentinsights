@@ -39,7 +39,20 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    administrate (0.2.2)
+      autoprefixer-rails (~> 6.0)
+      datetime_picker_rails (~> 0.0.7)
+      jquery-rails (~> 4.0)
+      kaminari (~> 0.16)
+      momentjs-rails (~> 2.8)
+      neat (~> 1.1)
+      normalize-rails (~> 3.0)
+      rails (~> 4.2)
+      sass-rails (~> 5.0)
+      selectize-rails (~> 0.6)
     arel (6.0.3)
+    autoprefixer-rails (6.3.6.2)
+      execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -49,6 +62,9 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
+    bourbon (4.2.7)
+      sass (~> 3.4)
+      thor (~> 0.19)
     builder (3.2.2)
     capybara (2.7.1)
       addressable
@@ -67,6 +83,8 @@ GEM
     coffee-script-source (1.10.0)
     connection_pool (2.2.0)
     database_cleaner (1.5.3)
+    datetime_picker_rails (0.0.7)
+      momentjs-rails (>= 2.8.1)
     devise (4.1.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -110,6 +128,9 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.10.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -123,13 +144,19 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
+    momentjs-rails (2.11.1)
+      railties (>= 3.1)
     multi_json (1.12.1)
+    neat (1.7.4)
+      bourbon (>= 4.0)
+      sass (>= 3.3)
     net-ldap (0.11)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (3.1.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    normalize-rails (3.0.3)
     orm_adapter (0.5.0)
     pg (0.18.4)
     phantomjs (2.1.1.0)
@@ -202,13 +229,15 @@ GEM
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
     rubystats (0.2.4)
-    sass (3.2.19)
-    sass-rails (4.0.5)
+    sass (3.4.22)
+    sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
-      sass (~> 3.2.2)
-      sprockets (~> 2.8, < 3.0)
-      sprockets-rails (~> 2.0)
+      sass (~> 3.1)
+      sprockets (>= 2.8, < 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+      tilt (>= 1.1, < 3)
     seedbank (0.3.0)
+    selectize-rails (0.12.1)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     simplecov (0.11.2)
@@ -218,7 +247,7 @@ GEM
     simplecov-html (0.10.0)
     slop (3.6.0)
     spring (1.7.1)
-    sprockets (2.12.4)
+    sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -256,6 +285,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
+  administrate (~> 0.2.1)
   better_errors
   capybara
   database_cleaner
@@ -283,11 +313,12 @@ DEPENDENCIES
   react-rails (~> 1.5.0)
   rspec-rails (~> 3.0)
   rubystats
-  sass-rails (~> 4.0.3)
+  sass-rails (~> 5.0)
   seedbank
   shoulda-matchers
   simplecov
   spring
+  sprockets (= 2.12.3)
   teaspoon-jasmine
   thor
   timecop
