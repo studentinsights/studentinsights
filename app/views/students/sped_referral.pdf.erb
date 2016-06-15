@@ -44,10 +44,13 @@
 </p>
 <p>
   <h4>Academic assessments:</h4>
-  <% @student_assessments.each do |test| %>
-    <ul style="list-style-type:none">
-      <li><%= "#{test.date_taken.strftime("%-m/%-d/%Y")} - #{test.assessment.family} #{test.assessment.subject} - #{test.percentile_rank.try(:ordinalize) || 'Unknown'} percentile" %></li>
-    </ul>
+  <% @student_assessments.each do |test_name, test_scores| %>
+    <h5><%= test_name %></h5>
+      <% test_scores.each do |score| %>
+        <ul style="list-style-type:none">
+          <li><%= "#{score.date_taken.strftime("%-m/%-d/%Y")} #{score.percentile_rank.try(:ordinalize) || 'Unknown'} percentile" %></li>
+        </ul>
+      <% end %>
   <% end %>
 </p>
 <p>
