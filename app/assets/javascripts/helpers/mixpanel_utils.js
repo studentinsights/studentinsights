@@ -8,7 +8,7 @@
       return (window.mixpanel && Env.shouldReportAnalytics);
     },
     registerUser: function(currentEducator) {
-      if (!Mixpanel.isMixpanelEnabled()) return;
+      if (!MixpanelUtils.isMixpanelEnabled()) return;
 
       try {
         window.mixpanel.register({
@@ -23,7 +23,7 @@
       }
     },
     track: function(key, attrs) {
-      if (!Mixpanel.isMixpanelEnabled()) return;
+      if (!MixpanelUtils.isMixpanelEnabled()) return;
       try {
         return window.mixpanel.track(key, attrs);
       }
