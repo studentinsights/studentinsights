@@ -59,7 +59,7 @@
         source: '/educators/services_dropdown/' + this.props.studentId,
         delay: 0,
         minLength: 0,
-        autofocus: true,
+        autoFocus: true,
 
         select: function(event, ui) {
           self.props.onUserDropdownSelect(ui.item.value);
