@@ -4,9 +4,11 @@
   var Env = window.shared.Env;
 
   window.shared.MixpanelUtils = {
+    isMixpanelEnabled: function() {
+      return (window.mixpanel && Env.shouldReportAnalytics);
+    },
     registerUser: function(currentEducator) {
-      if (!window.mixpanel) return;
-      if (!Env.shouldReportAnalytics) return;
+      if (!Mixpanel.isMixpanelEnabled()) return;
 
       try {
         window.mixpanel.register({
@@ -21,7 +23,7 @@
       }
     },
     track: function(key, attrs) {
-      if (!window.mixpanel) return;
+      if (!Mixpanel.isMixpanelEnabled()) return;
       try {
         return window.mixpanel.track(key, attrs);
       }
