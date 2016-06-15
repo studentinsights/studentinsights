@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def format_date(date)
-    return "" unless date.class == Date
+    return "" unless date.respond_to?(:strftime)
 
     date.strftime("%m/%d/%Y")
   end
