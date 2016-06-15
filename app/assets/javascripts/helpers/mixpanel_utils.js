@@ -3,7 +3,7 @@
   window.shared || (window.shared = {});
   var Env = window.shared.Env;
 
-  window.shared.MixpanelUtils = {
+  var MixpanelUtils = window.shared.MixpanelUtils = {
     isMixpanelEnabled: function() {
       return (window.mixpanel && Env.shouldReportAnalytics);
     },
