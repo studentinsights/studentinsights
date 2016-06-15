@@ -46,7 +46,7 @@
   <h4>Academic assessments:</h4>
   <% @student_assessments.each do |test| %>
     <ul style="list-style-type:none">
-      <li><%= "#{test.date_taken.strftime("%-m/%-d/%Y")} - #{test.assessment.family} #{test.assessment.subject} - #{test.percentile_rank.try(:ordinalize) || 'Unknown'} percentile" %></li>
+      <li><%= "#{test.date_taken.strftime("%-m/%-d/%Y")} - #{test.assessment.family} #{test.assessment.subject} - #{formatted_academic_assessment_score(test)}" %></li>
     </ul>
   <% end %>
 </p>
