@@ -192,20 +192,19 @@
         className: 'school-overview',
         style: { fontSize: styles.fontSize }
       },
-        dom.div({ className: 'header', style: styles.header }, createEl(SlicePanels, {
-           allStudents: this.props.allStudents,
-           students: this.getFilteredStudents(),
-           serviceTypesIndex: this.props.serviceTypesIndex,
-           eventNoteTypesIndex: this.props.eventNoteTypesIndex,
-           filters: this.state.filters,
-           onFilterToggled: this.onFilterToggled
-         })),
-        //this.renderSummary(),
+	dom.div({ className: 'header', style: styles.header }, createEl(SlicePanels, {
+	  allStudents: this.props.allStudents,
+          students: this.getFilteredStudents(),
+          serviceTypesIndex: this.props.serviceTypesIndex,
+          eventNoteTypesIndex: this.props.eventNoteTypesIndex,
+          filters: this.state.filters,
+          onFilterToggled: this.onFilterToggled
+	})),
         dom.div({ className: 'summary', style: styles.summary }, createEl(SliceButtons, {
-	    students: this.getFilteredStudents(),
-	    filters: this.state.filters,
-	    filtersHash: this.filtersHash,
-	    activeFiltersIdentifier: this.activeFiltersIdentifier
+	  students: this.getFilteredStudents(),
+	  filters: this.state.filters,
+	  filtersHash: this.filtersHash,
+	  activeFiltersIdentifier: this.activeFiltersIdentifier
 	})),
 	
 	

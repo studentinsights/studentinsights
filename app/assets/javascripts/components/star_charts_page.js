@@ -1,6 +1,7 @@
 $(function() {
   window.shared || (window.shared = {});
   var SlicePanels = window.shared.SlicePanels;
+  var SliceButtons = window.shared.SliceButtons;
   var Routes = window.shared.Routes;
   var styles = window.shared.styles;
   var colors = window.shared.colors;
@@ -44,6 +45,10 @@ $(function() {
       return '#' + this.state.filters.map(function(filter) {
         return encodeURIComponent(filter.identifier);
       }).join('&');
+    },
+
+    activeFiltersIdentifier: function() {
+      return this.state.filters.map(function(filter) { return filter.identifier; }).join('-');
     },
 
     setHoverNull: function() {
@@ -144,6 +149,12 @@ $(function() {
           filters: this.state.filters,
           onFilterToggled: this.onFilterToggled
         })),
+	dom.div({ className: 'summary', style: styles.summary }, createEl(SliceButtons, {
+	  students: this.filteredStudents(),
+	  filters: this.state.filters,
+	  filtersHash: this.filtersHash,
+	  activeFiltersIdentifier: this.activeFiltersIdentifier
+	})),
         dom.div({
           style: {
             background: 'red',
