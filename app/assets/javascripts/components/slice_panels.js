@@ -20,36 +20,22 @@
     },
 
     render: function() {
-      return dom.div({},
-	dom.div({
-          className: 'SlicePanels columns-container',
-          style: {
-            display: 'flex',
-            width: '100%',
-            flexDirection: 'row',
-            fontSize: styles.fontSize
-          }
-        },
-          this.renderProfileColumn(),
-          this.renderGradeColumn(),
-          this.renderELAColumn(),
-          this.renderMathColumn(),
-          this.renderAttendanceColumn(),
-          this.renderInterventionsColumn()
-        ),
-	this.renderFilterSummary());
+      return dom.div({
+        className: 'SlicePanels columns-container',
+        style: {
+          display: 'flex',
+          width: '100%',
+          flexDirection: 'row',
+          fontSize: styles.fontSize
+        }
       },
-
-    renderFilterSummary: function() {
-      return dom.div({ className: 'summary',
-                       style: {
-                         background: '#fff',
-			 display: 'flex',
-			 padding: 20,
-			 fontWeight: 'bold'
-                       }
-                     },
-               dom.span({}, 'Students in filter: ', this.props.students.length));
+        this.renderProfileColumn(),
+        this.renderGradeColumn(),
+        this.renderELAColumn(),
+        this.renderMathColumn(),
+        this.renderAttendanceColumn(),
+        this.renderInterventionsColumn()
+      );
     },
 
     renderProfileColumn: function() {
