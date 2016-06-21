@@ -91,12 +91,10 @@
   //= require ./student_profile/attendance_details
   //= require ./student_profile/ela_details
   //= require ./student_profile/math_details
-  //= require ./student_profile/interventions_details
 // page:
   //= require ./student_profile/student_profile_page
   //= require_tree ./student_profile
 // restricted notes
-  //= require ./restricted_notes/restricted_notes_details
   //= require ./restricted_notes/restricted_notes_page_container
 
 //= require_tree ./roster

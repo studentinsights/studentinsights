@@ -20,6 +20,8 @@
   var MathDetails = window.shared.MathDetails;
   var AttendanceDetails = window.shared.AttendanceDetails;
   var InterventionsDetails = window.shared.InterventionsDetails;
+  var ServicesDetails = window.shared.ServicesDetails;
+  var NotesDetails = window.shared.NotesDetails;
 
 
   // define page component
@@ -217,17 +219,31 @@
             tardies: attendanceData.tardies
           });
         case 'interventions':
-          return createEl(InterventionsDetails, merge(_.pick(this.props,
-            'currentEducator',
-            'student',
-            'feed',
-            'interventionTypesIndex',
-            'serviceTypesIndex',
-            'eventNoteTypesIndex',
-            'educatorsIndex',
-            'actions',
-            'requests'
-          )));
+          return dom.div({ className: 'InterventionsDetails', style: {display: 'flex'} },
+            createEl(NotesDetails, {
+              student: this.props.student,
+              eventNoteTypesIndex: this.props.eventNoteTypesIndex,
+              educatorsIndex: this.props.educatorsIndex,
+              currentEducator: this.props.currentEducator,
+              feed: this.props.feed,
+              actions: this.props.actions,
+              requests: this.props.requests,
+
+              showingRestrictedNotes: false,
+              helpContent: '',
+              helpTitle: 'What is a Note?',
+              title: 'Notes'
+            }),
+            createEl(ServicesDetails, {
+              student: this.props.student,
+              serviceTypesIndex: this.props.serviceTypesIndex,
+              educatorsIndex: this.props.educatorsIndex,
+              currentEducator: this.props.currentEducator,
+              feed: this.props.feed,
+              actions: this.props.actions,
+              requests: this.props.requests
+            })
+          );
       }
       return null;
     },

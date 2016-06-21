@@ -6,7 +6,7 @@
 
   var StudentProfilePage = window.shared.StudentProfilePage;
   var PropTypes = window.shared.PropTypes;
-  var RestrictedNotesDetails = window.shared.RestrictedNotesDetails;
+  var NotesDetails = window.shared.NotesDetails;
   var Api = window.shared.Api;
 
   /*
@@ -45,7 +45,8 @@
         // ui
         // This map holds the state of network requests for various actions.  This allows UI components to branch on this
         // and show waiting messages or error messages.
-        // The state of a network request is described with null (no requests in-flight), 'pending' (a request is currently in-flight),
+        // The state of a network request is described with null (no requests in-flight),
+        // 'pending' (a request is currently in-flight),
         // and 'error' or another value if the request failed.
         // The keys within `request` hold either a single value describing the state of the request, or a map that describes the
         // state of requests related to a particular object.
@@ -82,21 +83,40 @@
       this.setState({ requests: merge(this.state.requests, { saveNotes: 'error' }) });
     },
 
+    getNotesHelpContent: function(){
+      return 'Restricted Notes are only visible to the principal, AP, and guidance counselors. \
+      If a note contains sensitive information about healthcare, courts, or child abuse, consider using a Restricted Note. \
+      This feature is currently in development. \
+      <br> \
+      <br> \
+      Examples include: \
+      <ul> \
+      <li>"Medicine change for Uri on 4/10. So far slight increase in focus."</li> \
+      <li>"51a filed on 3/21. Waiting determination and follow-up from DCF."</li> \
+      </ul>'
+    },
+
     render: function() {
       return dom.div({ className: 'RestrictedNotesPageContainer' },
-        createEl(RestrictedNotesDetails, merge(_.pick(this.state,
-          'currentEducator',
-          'educatorsIndex',
-          'eventNoteTypesIndex',
-          'feed',
-          'student',
-          'requests'
-        ), {
-          nowMomentFn: this.props.nowMomentFn,
-          actions: this.props.actions || {
-            onClickSaveNotes: this.onClickSaveNotes,
-          }
-        }))
+        dom.div({ className: 'InterventionsDetails', style: {display: 'flex'} },
+          createEl(NotesDetails, merge(_.pick(this.state,
+            'currentEducator',
+            'educatorsIndex',
+            'eventNoteTypesIndex',
+            'feed',
+            'student',
+            'requests'
+          ), {
+            nowMomentFn: this.props.nowMomentFn,
+            actions: this.props.actions || {
+              onClickSaveNotes: this.onClickSaveNotes,
+            },
+            showingRestrictedNotes: true,
+            helpContent: this.getNotesHelpContent(),
+            helpTitle: 'What is a Restricted Note?',
+            title: 'Restricted Notes'
+          }))
+        )
       );
     }
   });

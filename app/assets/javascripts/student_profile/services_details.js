@@ -83,25 +83,23 @@
     },
 
     render: function() {
-      return dom.div({ className: 'ServicesDetails', style: styles.container },
-        dom.div({ style: styles.servicesContainer },
-          dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
-            dom.h4({style: {display: 'inline', color: 'black'}}, 'Services'),
-            createEl(HelpBubble, {
-              title: 'What is a Service?',
-              teaserText: '(what is this?)',
-              content: this.getServicesHelpContent()
-            })
-          ),
-          dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
-          createEl(ServicesList, {
-            servicesFeed: this.props.feed.services,
-            educatorsIndex: this.props.educatorsIndex,
-            serviceTypesIndex: this.props.serviceTypesIndex,
-            onClickDiscontinueService: this.onClickDiscontinueService,
-            discontinueServiceRequests: this.props.requests.discontinueService
+      return dom.div({ className: 'ServicesDetails', style: styles.servicesContainer },
+        dom.div({style: {borderBottom: '1px solid #333', padding: 10}},
+          dom.h4({style: {display: 'inline', color: 'black'}}, 'Services'),
+          createEl(HelpBubble, {
+            title: 'What is a Service?',
+            teaserText: '(what is this?)',
+            content: this.getServicesHelpContent()
           })
-        )
+        ),
+        dom.div({ style: styles.addServiceContainer }, this.renderRecordServiceSection()),
+        createEl(ServicesList, {
+          servicesFeed: this.props.feed.services,
+          educatorsIndex: this.props.educatorsIndex,
+          serviceTypesIndex: this.props.serviceTypesIndex,
+          onClickDiscontinueService: this.onClickDiscontinueService,
+          discontinueServiceRequests: this.props.requests.discontinueService
+        })
       );
     },
 
