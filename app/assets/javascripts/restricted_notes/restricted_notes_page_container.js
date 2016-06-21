@@ -20,7 +20,9 @@
       serializedData: React.PropTypes.object.isRequired,
 
       // for testing
-      actions: PropTypes.actions,
+      actions: React.PropTypes.shape({
+        onClickSaveNotes: React.PropTypes.func.isRequired
+      }),
       api: PropTypes.api
     },
 
@@ -41,15 +43,28 @@
         feed: serializedData.feed,
         student: serializedData.student,
         // ui
+        // This map holds the state of network requests for various actions.  This allows UI components to branch on this
+        // and show waiting messages or error messages.
+        // The state of a network request is described with null (no requests in-flight), 'pending' (a request is currently in-flight),
+        // and 'error' or another value if the request failed.
+        // The keys within `request` hold either a single value describing the state of the request, or a map that describes the
+        // state of requests related to a particular object.
+        // For example, `saveService` holds the state of that request, but `saveNotes` is a map that can track multiple active
+        // requests, using `serviceId` as a key.
         requests: {
-          saveNotes: null
+          saveNotes: {},
+          saveService: null,
+          discontinueService: {}
         }
       };
     },
 
     onClickSaveNotes: function(eventNoteParams) {
+      // All notes taken on this page should be restricted.
+      var mergedParams = merge(eventNoteParams, {is_restricted: true});
+
       this.setState({ requests: merge(this.state.requests, { saveNotes: 'pending' }) });
-      this.api.saveNotes(this.state.student.id, eventNoteParams)
+      this.api.saveNotes(this.state.student.id, mergedParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
     },
@@ -79,10 +94,7 @@
         ), {
           nowMomentFn: this.props.nowMomentFn,
           actions: this.props.actions || {
-            onColumnClicked: this.onColumnClicked,
             onClickSaveNotes: this.onClickSaveNotes,
-            onClickSaveService: this.onClickSaveService,
-            onClickDiscontinueService: this.onClickDiscontinueService
           }
         }))
       );

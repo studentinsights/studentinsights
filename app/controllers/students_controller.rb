@@ -11,14 +11,14 @@ class StudentsController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless educator.is_authorized_for_student(student)
   end
 
-  def show
+  def show(restricted_notes: false)
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
-      feed: student_feed(student),
+      feed: student_feed(student, restricted_notes),
       chart_data: chart_data,
       dibels: student.student_assessments.by_family('DIBELS'),
       intervention_types_index: intervention_types_index,
@@ -30,6 +30,10 @@ class StudentsController < ApplicationController
     }
   end
 
+  def restricted_notes
+    show(restricted_notes: true)
+  end
+
   def sped_referral
     set_up_sped_data
     respond_to do |format|
@@ -37,26 +41,6 @@ class StudentsController < ApplicationController
         render pdf: "sped_referral"
       end
     end
-  end
-
-  def restricted_notes
-    raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
-
-    student = Student.find(params[:id])
-    @serialized_data = {
-      current_educator: current_educator,
-      student: serialize_student_for_profile(student),
-      feed: {
-        event_notes: student.event_notes
-          .select {|note| note.is_restricted}
-          .map {|event_note| serialize_event_note(event_note)},
-        deprecated: {
-          interventions: []
-        }
-      },
-      educators_index: Educator.to_index,
-      event_note_types_index: event_note_types_index
-    }
   end
 
   # post
@@ -149,13 +133,11 @@ class StudentsController < ApplicationController
     (search_token_scores.sum.to_f / search_tokens.length)
   end
 
-  # The feed of mutable data that changes most frequently and is owned by Student Insights
-  def student_feed(student)
+  # The feed of mutable data that changes most frequently and is owned by Student Insights.
+  def student_feed(student, restricted_notes)
     {
-      # Only the unrestricted notes are delivered in the feed.
-      # Restricted notes are delivered in a separate view.
       event_notes: student.event_notes
-        .select {|note| !note.is_restricted}
+        .select {|note| note.is_restricted == restricted_notes}
         .map {|event_note| serialize_event_note(event_note) },
       services: {
         active: student.services.active.map {|service| serialize_service(service) },

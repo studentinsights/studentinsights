@@ -36,14 +36,21 @@
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
-      actions: PropTypes.actions.isRequired,
       feed: PropTypes.feed.isRequired,
+      actions: React.PropTypes.shape({
+        onClickSaveNotes: React.PropTypes.func.isRequired
+      })
     },
 
     getInitialState: function() {
       return {
         isTakingNotes: false,
       }
+    },
+
+    onClickSaveNotes: function(eventNoteParams, event) {
+      this.props.actions.onClickSaveNotes(eventNoteParams);
+      this.setState({ isTakingNotes: false });
     },
 
     onClickTakeNotes: function(event) {
@@ -60,6 +67,7 @@
       );
       this.setState({ isTakingNotes: false });
     },
+
 
     getNotesHelpContent: function(){
       return 'Restricted Notes are only visible to the principal, AP, and guidance counselors. \
@@ -89,7 +97,8 @@
           createEl(NotesList, {
             feed: this.props.feed,
             educatorsIndex: this.props.educatorsIndex,
-            eventNoteTypesIndex: this.props.eventNoteTypesIndex
+            eventNoteTypesIndex: this.props.eventNoteTypesIndex,
+            onSaveNote: this.onClickSaveNotes
           })
         )
       );
