@@ -54,10 +54,11 @@
 
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
-        
+
         // This map holds the state of network requests for various actions.  This allows UI components to branch on this
         // and show waiting messages or error messages.
-        // The state of a network request is described with null (no requests in-flight), 'pending' (a request is currently in-flight),
+        // The state of a network request is described with null (no requests in-flight),
+        // 'pending' (a request is currently in-flight),
         // and 'error' or another value if the request failed.
         // The keys within `request` hold either a single value describing the state of the request, or a map that describes the
         // state of requests related to a particular object.
@@ -123,15 +124,15 @@
     },
 
     onClickSaveService: function(serviceParams) {
-	// Very quick name validation, just check for a comma between two words
-	if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
-	    this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
-	    this.api.saveService(this.state.student.id, serviceParams)
-		.done(this.onSaveServiceDone)
-		.fail(this.onSaveServiceFail);
-	} else {
-	    this.setState({ requests: merge(this.state.requests, { saveService: 'Please use the form Last Name, First Name' }) });
-	}
+    	// Very quick name validation, just check for a comma between two words
+    	if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
+    	    this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
+    	    this.api.saveService(this.state.student.id, serviceParams)
+    		.done(this.onSaveServiceDone)
+    		.fail(this.onSaveServiceFail);
+    	} else {
+    	    this.setState({ requests: merge(this.state.requests, { saveService: 'Please use the form Last Name, First Name' }) });
+    	}
     },
 
     onSaveServiceDone: function(response) {

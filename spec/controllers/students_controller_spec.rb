@@ -483,6 +483,15 @@ describe StudentsController, :type => :controller do
         end
       end
 
+      context 'educator can view restricted notes but is not authorized for student' do
+        let(:educator) { FactoryGirl.create(:educator, schoolwide_access: false, can_view_restricted_notes: true, school: school) }
+
+        it 'is not successful' do
+          make_request(student)
+          expect(response).to redirect_to(not_authorized_path)
+        end
+      end
+
       context 'educator can view restricted notes' do
         let(:educator) { FactoryGirl.create(:educator, :admin, can_view_restricted_notes: true, school: school) }
 

@@ -85,17 +85,17 @@
   //= require ./student_profile/profile_bar_chart
   //= require ./student_profile/student_profile_header
 // details:
+  //= require ./student_profile/services_details
+  //= require ./student_profile/notes_details
   //= require ./student_profile/profile_details
   //= require ./student_profile/attendance_details
   //= require ./student_profile/ela_details
   //= require ./student_profile/math_details
-  //= require ./student_profile/interventions_details
 // page:
   //= require ./student_profile/student_profile_page
   //= require_tree ./student_profile
 // restricted notes
-  //= require ./restricted_notes/restricted-notes-details
-  //= require ./restricted_notes/restricted-notes-page-container
+  //= require ./restricted_notes/restricted_notes_page_container
 
 //= require_tree ./roster
 //= require_tree ./school_overview
