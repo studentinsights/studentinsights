@@ -20,12 +20,16 @@ describe('RestrictedNotesPageContainer', function() {
 
     createMockApi: function(){
       var mockApi = jasmine.createSpyObj('api', ['saveNotes']);
-      // We need to mock a promise object -- this is a poor man's solution.
-      mockApi.saveNotes.and.returnValue({
-        done: function(){
-          return {fail: function(){} }
-        }
-      });
+      mockApi.saveNotes.and.returnValue(
+        $.Deferred().resolve({
+          id: 9999,
+          text: 'hi',
+          is_restricted: true,
+          event_note_type_id: 301,
+          student_id: 23,
+          educator_id: 1
+        })
+      );
       return mockApi;
     },
 
