@@ -11,9 +11,22 @@
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       filtersHash: React.PropTypes.func.isRequired,
-      activeFiltersIdentifier: React.PropTypes.func.isRequired
+      activeFiltersIdentifier: React.PropTypes.func.isRequired,
+      clearFilters: React.PropTypes.func.isRequired
     },
     
+    onKeyDown: function(e) {
+      if (e.keyCode == 27) this.props.clearFilters();
+    },
+
+    componentDidMount: function() {
+      $(document).on('keydown', this.onKeyDown);
+    },
+
+    componentWillUnmount: function() {
+      $(document).off('keydown', this.onKeyDown);
+    },
+
     render: function() {
       return dom.div({ className: 'sliceButtons' },
 	dom.div({ style: { backgroundColor: 'rgba(49, 119, 201, 0.75)', color: 'white', display: 'inline-block', width: '12em', padding: 5 } },
@@ -29,7 +42,7 @@
 	    width: '10em',
 	    backgroundColor: (this.props.filters.length > 0) ? colors.selection : ''
 	  },
-	  onClick: this.onResetClicked
+	  onClick: this.props.clearFilters
 	}, (this.props.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
 	dom.a({ href: this.props.filtersHash(), target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view'),
 	this.renderDownloadLink()

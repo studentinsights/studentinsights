@@ -71,6 +71,10 @@ $(function() {
       });
     },
 
+    clearFilters: function() {
+      this.setState({ filters: [] });
+    },
+
     onFilterToggled: function(toggledFilter) {
       var withoutToggledFilter = this.state.filters.filter(function(filter) {
         return filter.identifier !== toggledFilter.identifier;
@@ -80,6 +84,14 @@ $(function() {
         : withoutToggledFilter;
       this.setState({ filters: updatedFilters });
     },
+
+    onResetClicked: function(e) {
+      this.clearFilters();
+    },
+
+    //onKeyDown: function(e) {
+    //  if (e.keyCode == 27) this.clearFilters();
+    //},
 
     filteredStudents: function() {
       return this.state.filters.reduce(function(filteredStudents, filter) {
@@ -153,7 +165,8 @@ $(function() {
 	  students: this.filteredStudents(),
 	  filters: this.state.filters,
 	  filtersHash: this.filtersHash,
-	  activeFiltersIdentifier: this.activeFiltersIdentifier
+	  activeFiltersIdentifier: this.activeFiltersIdentifier,
+	  clearFilters: this.clearFilters
 	})),
         dom.div({
           style: {

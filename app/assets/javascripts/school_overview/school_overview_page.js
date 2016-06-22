@@ -29,13 +29,15 @@
       return { filters: this.props.initialFilters };
     },
 
-    componentDidMount: function() {
-      $(document).on('keydown', this.onKeyDown);
-    },
+    // Moved to slice_buttons.js
+    //componentDidMount: function() {
+    //  $(document).on('keydown', this.onKeyDown);
+    //},
 
-    componentWillUnmount: function() {
-      $(document).off('keydown', this.onKeyDown);
-    },
+    // Moved to slice_buttons.js
+    //componentWillUnmount: function() {
+    //  $(document).off('keydown', this.onKeyDown);
+    //},
 
     // sink-only
     componentDidUpdate: function() {
@@ -180,10 +182,10 @@
     onResetClicked: function(e) {
       this.clearFilters();
     },
-
-    onKeyDown: function(e) {
-      if (e.keyCode === 27) this.clearFilters();
-    },
+    // key code 27 is the ESC key
+    //onKeyDown: function(e) {
+    //  if (e.keyCode === 27) this.clearFilters();
+    //},
 
     render: function() {
       this.setFilteredStudents(this.filteredStudents());
@@ -204,7 +206,8 @@
 	  students: this.getFilteredStudents(),
 	  filters: this.state.filters,
 	  filtersHash: this.filtersHash,
-	  activeFiltersIdentifier: this.activeFiltersIdentifier
+	  activeFiltersIdentifier: this.activeFiltersIdentifier,
+	  clearFilters: this.clearFilters
 	})),
 	
 	
