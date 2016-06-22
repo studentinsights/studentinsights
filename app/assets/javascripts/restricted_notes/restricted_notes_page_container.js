@@ -21,7 +21,7 @@
 
       // for testing
       actions: React.PropTypes.shape({
-        onClickSaveNotes: React.PropTypes.func.isRequired
+        onClickSaveNotes: React.PropTypes.func
       }),
       api: PropTypes.api
     },

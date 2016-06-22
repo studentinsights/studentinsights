@@ -103,7 +103,6 @@
     },
 
     renderTakeNotesSection: function() {
-      console.log(this.props.requests.saveNotes, this.props.requests.saveNotes[undefined]);
       if (this.state.isTakingNotes || this.props.requests.saveNotes[undefined]) {
         return createEl(TakeNotes, {
           nowMoment: moment.utc(), // TODO(kr) thread through

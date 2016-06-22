@@ -101,7 +101,7 @@
     displayName: 'StudentProfilePage',
 
     propTypes: {
-      //context
+      // context
       nowMomentFn: React.PropTypes.func.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
 
