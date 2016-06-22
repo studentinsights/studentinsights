@@ -20,6 +20,7 @@ describe('RestrictedNotesPageContainer', function() {
 
     createMockApi: function(){
       var mockApi = jasmine.createSpyObj('api', ['saveNotes']);
+      // We need to mock a promise object -- this is a poor man's solution.
       mockApi.saveNotes.and.returnValue({
         done: function(){
           return {fail: function(){} }
