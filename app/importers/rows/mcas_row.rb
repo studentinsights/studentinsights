@@ -19,13 +19,11 @@ class McasRow < Struct.new :row
       assessment: assessment,
       date_taken: row[:assessment_date]
     )
-
-    student_assessment.assign_attributes(
+    student_assessment.update!(
       scale_score: row[:assessment_scale_score],
       performance_level: row[:assessment_performance_level],
       growth_percentile: row[:assessment_growth]
     )
-
     student_assessment
   end
 

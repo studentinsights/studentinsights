@@ -10,9 +10,13 @@ FactoryGirl.define do
         association :assessment, subject: "Mathematics", family: "MCAS"
         factory :mcas_math_warning_assessment do
           performance_level "W"
+          scale_score { rand(220..240) }
+          growth_percentile { rand(25..75) }
         end
         factory :mcas_math_advanced_assessment do
           performance_level "A"
+          scale_score { rand(260..280) }
+          growth_percentile { rand(25..75) }
         end
         factory :mcas_math_student_assessment_score_240 do
           scale_score 240
@@ -32,6 +36,7 @@ FactoryGirl.define do
       end
       factory :star_assessment do
         factory :star_math_assessment do
+          percentile_rank { rand(25..75) }
           association :assessment, subject: "Mathematics", family: "STAR"
           factory :star_math_warning_assessment do
             percentile_rank 8
@@ -59,7 +64,7 @@ FactoryGirl.define do
       end
     end
     factory :access do
-      association :assessment, family: "ACCESS"
+      association :assessment, family: "ACCESS", subject: 'Composite'
     end
   end
 end

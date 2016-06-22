@@ -19,7 +19,7 @@ class StudentsController < ApplicationController
       student: serialize_student_for_profile(student),
       feed: student_feed(student, restricted_notes: false),
       chart_data: chart_data,
-      dibels: student.student_assessments.by_family('DIBELS'),
+      dibels: student.student_assessments.by_family('DIBELS').select {|dibels| !dibels.performance_level.nil? },
       intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,

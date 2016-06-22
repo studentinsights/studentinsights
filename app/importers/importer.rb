@@ -25,7 +25,11 @@ class Importer
       CleanupReport.new(@log, file_name, pre_cleanup_csv_size, data.size).print
 
       data.each.each_with_index do |row, index|
-        file_importer.import_row(row) if file_importer.filter.include?(row)
+        begin
+          file_importer.import_row(row) if file_importer.filter.include?(row)
+        rescue ActiveRecord::RecordInvalid => import_row_error
+          @log.write("Caught exception importing a row: #{import_row_error}")
+        end
 
         if @progress_bar == :true  # Thor passes Boolean options as Symbols :/
           ProgressBar.new(@log, file_name, data.size, index + 1).print

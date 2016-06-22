@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Student do
+  def create_student_assessment(attrs)
+    StudentAssessment.create!(attrs.merge({
+      scale_score: 240,
+      growth_percentile: 35,
+      performance_level: 'A'
+    }))
+  end
 
   describe '#latest_result_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
@@ -21,11 +28,11 @@ RSpec.describe Student do
       end
       context 'when the student has results' do
         let!(:mcas_math_result) {
-          StudentAssessment.create!(
+          create_student_assessment({
             student: student,
             assessment: assessment,
-            date_taken: Date.today - 1.year,
-          )
+            date_taken: Date.today - 1.year
+          })
         }
         context 'when the student has a Math result but not MCAS' do
           let(:assessment_family) { "Doc's Special Exam" }
@@ -41,7 +48,7 @@ RSpec.describe Student do
           end
           context 'when the student has multiple MCAS math results' do
             let!(:more_recent_mcas_math_result) {
-              StudentAssessment.create!(
+              create_student_assessment(
                 student: student,
                 assessment: assessment,
                 date_taken: Date.today,
@@ -58,7 +65,7 @@ RSpec.describe Student do
 
   describe '#ordered_results_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
-    let!(:mcas_math) { Assessment.create!(family: "MCAS", subject: "Mathematics") }
+    let!(:mcas_math) { FactoryGirl.create(:assessment, :mcas, :math) }
     let(:result) { student.ordered_results_by_family_and_subject("MCAS", "Mathematics") }
 
     context 'when the student has no MCAS Math result' do
@@ -68,11 +75,11 @@ RSpec.describe Student do
     end
     context 'when one MCAS Math result exists' do
       let!(:mcas_math_result) {
-        StudentAssessment.create!(
+        create_student_assessment({
           student: student,
           assessment: mcas_math,
           date_taken: Date.today,
-        )
+        })
       }
       it "returns the student's most recent MCAS math results" do
         expect(result).to eq([mcas_math_result])
@@ -80,25 +87,25 @@ RSpec.describe Student do
     end
     context 'when several MCAS Math results exist' do
       let!(:newest_mcas_math_result) {
-        StudentAssessment.create!(
+        create_student_assessment({
           student: student,
           assessment: mcas_math,
           date_taken: 1.year.ago,
-        )
+        })
       }
       let!(:oldest_mcas_math_result) {
-        StudentAssessment.create!(
+        create_student_assessment({
           student: student,
           assessment: mcas_math,
           date_taken: 5.years.ago,
-        )
+        })
       }
       let!(:middle_mcas_math_result) {
-        StudentAssessment.create!(
+        create_student_assessment({
           student: student,
           assessment: mcas_math,
           date_taken: 3.years.ago,
-        )
+        })
       }
       it "returns the student's most MCAS math results in ascending order" do
         expect(result).to eq([

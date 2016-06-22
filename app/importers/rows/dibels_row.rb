@@ -13,9 +13,7 @@ class DibelsRow < Struct.new :row
     )
 
     student_assessment.assign_attributes(
-      scale_score: row[:assessment_scale_score],
-      performance_level: row[:assessment_performance_level],
-      growth_percentile: row[:assessment_growth]
+      performance_level: row[:assessment_performance_level]
     )
 
     student_assessment
