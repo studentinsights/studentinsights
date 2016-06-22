@@ -34,7 +34,7 @@ class EducatorsController < ApplicationController
 
     filtered = unfiltered.select do |name|
       split_name = name.split(', ')   # SIS name format expected
-      split_name.any? { |name_part| match?(term, name_part) }
+      split_name.any? { |name_part| match?(term, name_part) } || match?(term, name)
     end
 
     return filtered.sort_by(&:downcase)
