@@ -38,6 +38,7 @@
         onClickSaveNotes: React.PropTypes.func.isRequired
       }),
       feed: PropTypes.feed.isRequired,
+      requests: React.PropTypes.object.isRequired,
 
       showingRestrictedNotes: React.PropTypes.bool.isRequired,
       title: React.PropTypes.string.isRequired,
@@ -102,6 +103,7 @@
     },
 
     renderTakeNotesSection: function() {
+      console.log(this.props.requests.saveNotes, this.props.requests.saveNotes[undefined]);
       if (this.state.isTakingNotes || this.props.requests.saveNotes[undefined]) {
         return createEl(TakeNotes, {
           nowMoment: moment.utc(), // TODO(kr) thread through

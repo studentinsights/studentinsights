@@ -7,8 +7,7 @@ class StudentsController < ApplicationController
 
   def authorize!
     student = Student.find(params[:id])
-    educator = current_educator
-    raise Exceptions::EducatorNotAuthorized unless educator.is_authorized_for_student(student)
+    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
   end
 
   def show(restricted_notes: false)
@@ -18,7 +17,7 @@ class StudentsController < ApplicationController
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
-      feed: student_feed(student, restricted_notes),
+      feed: student_feed(student, restricted_notes: restricted_notes),
       chart_data: chart_data,
       dibels: student.student_assessments.by_family('DIBELS'),
       intervention_types_index: intervention_types_index,
@@ -31,6 +30,7 @@ class StudentsController < ApplicationController
   end
 
   def restricted_notes
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
     show(restricted_notes: true)
   end
 
@@ -134,7 +134,8 @@ class StudentsController < ApplicationController
   end
 
   # The feed of mutable data that changes most frequently and is owned by Student Insights.
-  def student_feed(student, restricted_notes)
+  # restricted_notes: If false display non-restricted notes, if true display only restricted notes.
+  def student_feed(student, restricted_notes: false)
     {
       event_notes: student.event_notes
         .select {|note| note.is_restricted == restricted_notes}

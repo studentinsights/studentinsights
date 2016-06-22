@@ -62,10 +62,12 @@
 
     onClickSaveNotes: function(eventNoteParams) {
       // All notes taken on this page should be restricted.
-      var mergedParams = merge(eventNoteParams, {is_restricted: true});
+      var eventNoteParams = merge(eventNoteParams, {is_restricted: true});
 
-      this.setState({ requests: merge(this.state.requests, { saveNotes: 'pending' }) });
-      this.api.saveNotes(this.state.student.id, mergedParams)
+      var saveNotes = {}
+      saveNotes[eventNoteParams.id] = 'pending';
+      this.setState({ requests: merge(this.state.requests, { saveNotes: saveNotes}) });
+      this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
     },
@@ -75,12 +77,16 @@
       var updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
       this.setState({
         feed: updatedFeed,
-        requests: merge(this.state.requests, { saveNotes: null })
+        requests: merge(this.state.requests, { saveNotes: {} })
       });
     },
 
     onSaveNotesFail: function(request, status, message) {
-      this.setState({ requests: merge(this.state.requests, { saveNotes: 'error' }) });
+      var saveNotes = {}
+      saveNotes[eventNoteParams.id] = 'pending';
+      this.setState({
+        requests: merge(this.state.requests, {saveNotes: saveNotes})
+      });
     },
 
     getNotesHelpContent: function(){
