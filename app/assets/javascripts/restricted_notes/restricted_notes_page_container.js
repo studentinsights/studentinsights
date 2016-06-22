@@ -104,7 +104,7 @@
 
     render: function() {
       return dom.div({ className: 'RestrictedNotesPageContainer' },
-        dom.div({ className: 'InterventionsDetails', style: {display: 'flex'} },
+        dom.div({ className: 'RestrictedNotesDetails', style: {display: 'flex'} },
           createEl(NotesDetails, merge(_.pick(this.state,
             'currentEducator',
             'educatorsIndex',

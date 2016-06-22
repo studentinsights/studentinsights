@@ -10,14 +10,14 @@ class StudentsController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
   end
 
-  def show(restricted_notes: false)
+  def show
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
-      feed: student_feed(student, restricted_notes: restricted_notes),
+      feed: student_feed(student, restricted_notes: false),
       chart_data: chart_data,
       dibels: student.student_assessments.by_family('DIBELS'),
       intervention_types_index: intervention_types_index,
@@ -31,7 +31,15 @@ class StudentsController < ApplicationController
 
   def restricted_notes
     raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
-    show(restricted_notes: true)
+
+    student = Student.find(params[:id])
+    @serialized_data = {
+      current_educator: current_educator,
+      student: serialize_student_for_profile(student),
+      feed: student_feed(student, restricted_notes: true),
+      event_note_types_index: event_note_types_index,
+      educators_index: Educator.to_index,
+    }
   end
 
   def sped_referral
