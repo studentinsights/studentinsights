@@ -29,16 +29,6 @@
       return { filters: this.props.initialFilters };
     },
 
-    // Moved to slice_buttons.js
-    //componentDidMount: function() {
-    //  $(document).on('keydown', this.onKeyDown);
-    //},
-
-    // Moved to slice_buttons.js
-    //componentWillUnmount: function() {
-    //  $(document).off('keydown', this.onKeyDown);
-    //},
-
     // sink-only
     componentDidUpdate: function() {
       window.history.pushState({}, null, this.filtersHash());

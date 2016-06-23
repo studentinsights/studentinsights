@@ -89,10 +89,6 @@ $(function() {
       this.clearFilters();
     },
 
-    //onKeyDown: function(e) {
-    //  if (e.keyCode == 27) this.clearFilters();
-    //},
-
     filteredStudents: function() {
       return this.state.filters.reduce(function(filteredStudents, filter) {
         return filteredStudents.filter(filter.filterFn);
@@ -210,7 +206,7 @@ $(function() {
         dom.div({}, dateRangeText),
         dom.div({},
           dom.span({}, 'Students: ', props.students.length),
-          dom.span({ style: { paddingLeft: 10 }}, '# Data points: ', (props.assessments || []).length)));
+          dom.span({ style: { paddingLeft: 10 }}, 'Number of data points: ', (props.assessments || []).length)));
     },
 
     resultsDelta: function(student) {
