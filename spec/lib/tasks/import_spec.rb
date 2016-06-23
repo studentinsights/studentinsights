@@ -23,10 +23,6 @@ RSpec.describe Import do
 
     let(:file_importers) { commands[3] }
 
-    let(:expected_file_importer_arguments) {
-      [ ['HEA', 'WSNS', 'ESCS'], sftp_client_double, log_destination, :false ]
-    }
-
     let(:expected_file_importer_classes) {
       [
         StudentsImporter,
@@ -41,12 +37,8 @@ RSpec.describe Import do
       ]
     }
 
-    let(:expected_file_importers) {
-      expected_file_importer_classes.map { |c| c.new(*expected_file_importer_arguments) }
-    }
-
     it 'returns the correct importers' do
-      expect(file_importers).to eq expected_file_importers
+      expect(file_importers.map { |f| f.class }).to eq expected_file_importer_classes
     end
 
   end
