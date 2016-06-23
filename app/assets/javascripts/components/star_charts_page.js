@@ -160,8 +160,8 @@ $(function() {
 	dom.div({ className: 'summary', style: styles.summary }, createEl(SliceButtons, {
 	  students: this.filteredStudents(),
 	  filters: this.state.filters,
-	  filtersHash: this.filtersHash,
-	  activeFiltersIdentifier: this.activeFiltersIdentifier,
+	  filtersHash: this.filtersHash(),
+	  activeFiltersIdentifier: this.activeFiltersIdentifier(),
 	  clearFilters: this.clearFilters
 	})),
         dom.div({

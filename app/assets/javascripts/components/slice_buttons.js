@@ -10,8 +10,8 @@
     propTypes: {
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      filtersHash: React.PropTypes.func.isRequired,
-      activeFiltersIdentifier: React.PropTypes.func.isRequired,
+      filtersHash: React.PropTypes.object.isRequired,
+      activeFiltersIdentifier: React.PropTypes.object.isRequired,
       clearFilters: React.PropTypes.func.isRequired
     },
     
@@ -44,7 +44,7 @@
 	  },
 	  onClick: this.props.clearFilters
 	}, (this.props.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
-	dom.a({ href: this.props.filtersHash(), target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view'),
+	dom.a({ href: this.props.filtersHash, target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view'),
 	this.renderDownloadLink()
       );
     },
@@ -95,7 +95,7 @@
       });
       var csvText = [header].concat(rows).join('\n');
       var dateText = moment.utc().format('YYYY-MM-DD');
-      var filtersText = (this.props.activeFiltersIdentifier().length === 0) ? '' : ' (' + this.props.activeFiltersIdentifier() + ')';
+      var filtersText = (this.props.activeFiltersIdentifier.length === 0) ? '' : ' (' + this.props.activeFiltersIdentifier + ')';
       var filename = 'Students on ' + dateText + filtersText + '.csv';
 
       return dom.a({
