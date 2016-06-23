@@ -3,7 +3,7 @@
   "description": "insights for educators at Somerville Public Schools",
   "repository": "https://github.com/studentinsights/studentinsights",
   "scripts": {
-    "postdeploy": "rake db:migrate db:seed:demo"
+    "postdeploy": "rake db:migrate db:seed"
   },
   "env": {
     "SHOULD_REPORT_ANALYTICS": "false",

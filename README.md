@@ -156,7 +156,7 @@ Choose your favorite local development approach:
 ## 2. Create database tables and seed them with demo data
 
 ```
-bundle exec rake db:create db:migrate db:seed:demo
+bundle exec rake db:create db:migrate db:seed
 ```
 
 This will create demo students with fake student information. The demo educator username is `demo@example.com` and the demo password is `demo-password`.
