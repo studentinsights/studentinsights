@@ -14,7 +14,10 @@ RSpec.describe McasRow do
           assessment_subject: 'Technology',
           assessment_name: 'MCAS 2016 Technology',
           local_id: student.local_id,
-          assessment_date: Date.today
+          assessment_date: Date.today,
+          assessment_scale_score: rand(0..300),
+          assessment_performance_level: ['A', 'W'],
+          assessment_growth: rand(0..100),
         }
       }
       before { McasRow.build(row).save! }
@@ -31,7 +34,10 @@ RSpec.describe McasRow do
           assessment_subject: 'Mathematics',
           assessment_name: 'MCAS 2016 Mathematics',
           local_id: student.local_id,
-          assessment_date: Date.today
+          assessment_date: Date.today,
+          assessment_scale_score: rand(0..300),
+          assessment_performance_level: ['A', 'W'],
+          assessment_growth: rand(0..100),
         }
       }
 
@@ -70,7 +76,10 @@ RSpec.describe McasRow do
           assessment_subject: 'Arts',
           assessment_name: 'MCAS 2016 English Language Arts',
           local_id: student.local_id,
-          assessment_date: Date.today
+          assessment_date: Date.today,
+          assessment_scale_score: rand(0..300),
+          assessment_performance_level: ['A', 'W'],
+          assessment_growth: rand(0..100),
         }
       }
       before { McasRow.build(row).save! }
