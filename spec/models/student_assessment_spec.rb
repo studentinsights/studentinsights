@@ -10,14 +10,20 @@ RSpec.describe StudentAssessment, type: :model do
 
     context 'unique across the combination of student/assessment/date_taken' do
       before {
-        FactoryGirl.create(
-          :student_assessment, assessment: dibels, date_taken: day_before_yesterday, student: student
+        FactoryGirl.create(:student_assessment,
+          assessment: dibels,
+          date_taken: day_before_yesterday,
+          student: student,
+          performance_level: 'DECENT',
         )
       }
 
       subject(:student_assessment) {
-        FactoryGirl.build(
-          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
+        FactoryGirl.build(:student_assessment,
+          assessment: dibels,
+          date_taken: yesterday,
+          student: student,
+          performance_level: 'DECENT',
         )
       }
 
@@ -25,16 +31,23 @@ RSpec.describe StudentAssessment, type: :model do
         expect(subject).to be_valid
       end
     end
+
     context 'not unique across the combination of student/assessment/date_taken' do
       before {
-        FactoryGirl.create(
-          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
+        FactoryGirl.create(:student_assessment,
+          assessment: dibels,
+          date_taken: yesterday,
+          student: student,
+          performance_level: 'DECENT',
         )
       }
 
       subject(:student_assessment) {
-        FactoryGirl.build(
-          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
+        FactoryGirl.build(:student_assessment,
+          assessment: dibels,
+          date_taken: yesterday,
+          student: student,
+          performance_level: 'DECENT',
         )
       }
 
@@ -45,7 +58,14 @@ RSpec.describe StudentAssessment, type: :model do
   end
 
   describe '.by_family_and_subject' do
-    let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
+    let!(:student_assessment) {
+      FactoryGirl.create(:student_assessment,
+        assessment: assessment,
+        scale_score: rand(0..300),
+        growth_percentile: rand(0..100),
+        performance_level: ['A', 'W']
+      )
+    }
     context 'MCAS & math' do
       let(:result) { StudentAssessment.by_family_and_subject("MCAS", "Mathematics") }
       context 'there are only MCAS math student assessments' do
@@ -64,7 +84,9 @@ RSpec.describe StudentAssessment, type: :model do
   end
 
   describe '.by_family' do
-    let!(:student_assessment) { FactoryGirl.create(:student_assessment, assessment: assessment) }
+    let!(:student_assessment) {
+      FactoryGirl.create(:student_assessment, assessment: assessment, percentile_rank: 2)
+    }
     context 'ACCESS' do
       context 'there are only ACCESS student assessments' do
         let(:assessment) { FactoryGirl.create(:assessment, :access) }
