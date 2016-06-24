@@ -25,6 +25,9 @@ RSpec.describe Student do
             student: student,
             assessment: assessment,
             date_taken: Date.today - 1.year,
+            scale_score: rand(0..300),
+            growth_percentile: rand(0..100),
+            performance_level: ["A", "W"].sample
           )
         }
         context 'when the student has a Math result but not MCAS' do
@@ -45,6 +48,9 @@ RSpec.describe Student do
                 student: student,
                 assessment: assessment,
                 date_taken: Date.today,
+                scale_score: rand(0..300),
+                growth_percentile: rand(0..100),
+                performance_level: ["A", "W"].sample
               )
             }
             it 'returns the later one' do
@@ -72,6 +78,9 @@ RSpec.describe Student do
           student: student,
           assessment: mcas_math,
           date_taken: Date.today,
+          scale_score: rand(0..300),
+          growth_percentile: rand(0..100),
+          performance_level: ["A", "W"].sample
         )
       }
       it "returns the student's most recent MCAS math results" do
@@ -84,6 +93,10 @@ RSpec.describe Student do
           student: student,
           assessment: mcas_math,
           date_taken: 1.year.ago,
+          scale_score: rand(0..300),
+          growth_percentile: rand(0..100),
+          performance_level: ["A", "W"].sample
+
         )
       }
       let!(:oldest_mcas_math_result) {
@@ -91,6 +104,9 @@ RSpec.describe Student do
           student: student,
           assessment: mcas_math,
           date_taken: 5.years.ago,
+          scale_score: rand(0..300),
+          growth_percentile: rand(0..100),
+          performance_level: ["A", "W"].sample
         )
       }
       let!(:middle_mcas_math_result) {
@@ -98,6 +114,9 @@ RSpec.describe Student do
           student: student,
           assessment: mcas_math,
           date_taken: 3.years.ago,
+          scale_score: rand(0..300),
+          growth_percentile: rand(0..100),
+          performance_level: ["A", "W"].sample
         )
       }
       it "returns the student's most MCAS math results in ascending order" do
