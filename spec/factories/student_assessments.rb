@@ -6,6 +6,9 @@ FactoryGirl.define do
     association :assessment
 
     factory :mcas_assessment do
+      scale_score 0
+      growth_percentile 0
+      performance_level "W"
       factory :mcas_math_assessment do
         association :assessment, subject: "Mathematics", family: "MCAS"
         factory :mcas_math_warning_assessment do
@@ -30,36 +33,40 @@ FactoryGirl.define do
           scale_score 290
         end
       end
-      factory :star_assessment do
-        factory :star_math_assessment do
-          association :assessment, subject: "Mathematics", family: "STAR"
-          factory :star_math_warning_assessment do
-            percentile_rank 8
-          end
-          factory :star_assessment_between_30_85 do
-            percentile_rank 40
-          end
-          factory :star_math_assessment_on_different_day do
-            date_taken DateTime.new(2015, 6, 20)
-            percentile_rank 10
-          end
+    end
+
+    factory :star_assessment do
+      factory :star_math_assessment do
+        association :assessment, subject: "Mathematics", family: "STAR"
+        factory :star_math_warning_assessment do
+          percentile_rank 8
         end
-        factory :star_reading_assessment do
-          association :assessment, subject: "Reading", family: "STAR"
-          factory :star_assessment_with_irl_above_5 do
-            instructional_reading_level 6
-          end
+        factory :star_assessment_between_30_85 do
+          percentile_rank 40
+        end
+        factory :star_math_assessment_on_different_day do
+          date_taken DateTime.new(2015, 6, 20)
+          percentile_rank 10
+        end
+      end
+      factory :star_reading_assessment do
+        association :assessment, subject: "Reading", family: "STAR"
+        factory :star_assessment_with_irl_above_5 do
+          instructional_reading_level 6
         end
       end
     end
+
     factory :dibels do
       association :assessment, family: "DIBELS"
       factory :dibels_with_performance_level do
         performance_level "Strategic"
       end
     end
+
     factory :access do
       association :assessment, family: "ACCESS"
     end
+
   end
 end
