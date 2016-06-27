@@ -1,4 +1,7 @@
 .modal-help {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
   * {
     font-size: 14px;
     color: #555555;

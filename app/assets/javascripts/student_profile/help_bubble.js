@@ -49,12 +49,16 @@
           dom.div({
             // React says this is 'dangerous' because rendering an untrusted string can allow an
             // XSS attack; however, we generated this string, so we trust it.
-            dangerouslySetInnerHTML: {__html: this.props.content}
+            dangerouslySetInnerHTML: {__html: this.props.content},
           }),
-          dom.div({}, dom.a({
-            href: '#', onClick: this.closeModal,
-            style: {cursor: 'pointer', position: 'absolute', bottom: 20, left: 20},
-          }, '(close)'))
+          dom.div({style: {flex: 1, minHeight: 20}}, ""), // Fills the empty space
+          dom.div({},
+            dom.a({
+              href: '#', onClick: this.closeModal, style: {cursor: 'pointer'}
+            },
+              '(close)'
+            )
+          )
         )
       );
     }
