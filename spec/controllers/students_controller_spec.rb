@@ -52,35 +52,6 @@ describe StudentsController, :type => :controller do
             deprecated: {interventions: []}
           })
 
-          # expect(serialized_data[:intervention_types_index]).to eq({
-          #   20 => {:id=>20, :name=>"After-School Tutoring (ATP)"},
-          #   21 => {:id=>21, :name=>"Attendance Officer"},
-          #   22 => {:id=>22, :name=>"Attendance Contract"},
-          #   23 => {:id=>23, :name=>"Behavior Contract"},
-          #   24 => {:id=>24, :name=>"Behavior Plan"},
-          #   25 => {:id=>25, :name=>"Boys & Girls Club"},
-          #   26 => {:id=>26, :name=>"Classroom Academic Intervention"},
-          #   27 => {:id=>27, :name=>"Classroom Behavior Intervention"},
-          #   28 => {:id=>28, :name=>"Community Schools"},
-          #   29 => {:id=>29, :name=>"Counseling: In-House"},
-          #   30 => {:id=>30, :name=>"Counseling: Outside/Physician Referral"},
-          #   31 => {:id=>31, :name=>"ER Referral (Mental Health)"},
-          #   32 => {:id=>32, :name=>"Math Tutor"},
-          #   33 => {:id=>33, :name=>"Mobile Crisis Referral"},
-          #   34 => {:id=>34, :name=>"MTSS Referral"},
-          #   35 => {:id=>35, :name=>"OT/PT Consult"},
-          #   36 => {:id=>36, :name=>"Parent Communication"},
-          #   37 => {:id=>37, :name=>"Parent Conference/Meeting"},
-          #   39 => {:id=>39, :name=>"Peer Mediation"},
-          #   40 => {:id=>40, :name=>"Reading Specialist"},
-          #   41 => {:id=>41, :name=>"Reading Tutor"},
-          #   42 => {:id=>42, :name=>"SST Referral"},
-          #   43 => {:id=>43, :name=>"Weekly Call/Email Home"},
-          #   44 => {:id=>44, :name=>"X Block Tutor"},
-          #   45 => {:id=>45, :name=>"51a Filing"},
-          #   46 => {:id=>46, :name=>"Other "},
-          # })
-
           expect(serialized_data[:service_types_index]).to eq({
             502 => {:id=>502, :name=>"Attendance Officer"},
             503 => {:id=>503, :name=>"Attendance Contract"},
