@@ -1,7 +1,4 @@
 class SomervilleStarImporters
-  def self.from_options(options)
-    new(options).importer
-  end
 
   def initialize(options = {})
     @school_scope = options["school"]
@@ -9,31 +6,23 @@ class SomervilleStarImporters
     @log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
   end
 
-  def options
-    {
-      client: SftpClient.for_star,
-      data_transformer: CsvTransformer.new,
-      file_importers: file_importers,
-      log_destination: @log,
-      progress_bar: @progress_bar
-    }
-  end
-
   def sftp_client
     @client ||= SftpClient.for_star
   end
 
-  def file_importers
+  def file_importer_classes
     [
       StarReadingImporter,
       StarReadingImporter::HistoricalImporter,
       StarMathImporter,
       StarMathImporter::HistoricalImporter
-    ].map { |i| i.new(@school_scope, sftp_client) }
+    ]
   end
 
-  def importer
-    [Importer.new(options)]
+  def file_importers
+    file_importer_classes.map do |file_importer_class|
+      file_importer_class.new(@school_scope, sftp_client, @log, @progress_bar)
+    end
   end
 
 end

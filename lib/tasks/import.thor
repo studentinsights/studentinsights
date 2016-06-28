@@ -1,3 +1,4 @@
+
 require 'thor'
 require_relative '../../app/importers/sources/somerville_star_importers'
 require_relative '../../app/importers/sources/somerville_x2_importers'
@@ -76,7 +77,9 @@ class Import
 
     def connect_transform_import
       # X2 importers should come first because they are the sole source of truth about students.
-      importers.flat_map { |i| i.from_options(options) }.each(&:connect_transform_import)
+      importers.flat_map { |i| i.new(options).file_importers }.each do |file_importer|
+        FileImport.new(file_importer).import
+      end
     end
 
     def run_update_tasks

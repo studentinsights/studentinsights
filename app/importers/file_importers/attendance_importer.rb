@@ -1,4 +1,4 @@
-class AttendanceImporter < Struct.new :school_scope, :client
+class AttendanceImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def remote_file_name
     'attendance_export.txt'
