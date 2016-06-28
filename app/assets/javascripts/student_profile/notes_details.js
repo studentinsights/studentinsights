@@ -15,7 +15,7 @@
       marginRight: 20
     },
     restrictedNotesButton: {
-      backgroundColor: '#E5370E',
+      color: 'white',
       fontSize: 12,
       padding: 8,
       float: 'right'
@@ -42,7 +42,7 @@
 
       showingRestrictedNotes: React.PropTypes.bool.isRequired,
       title: React.PropTypes.string.isRequired,
-      helpContent: React.PropTypes.string.isRequired,
+      helpContent: React.PropTypes.object.isRequired,
       helpTitle: React.PropTypes.string.isRequired,
     },
 
@@ -69,12 +69,10 @@
       var self = this;
 
       if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
-        return dom.button({
-          className: 'btn',
+        return dom.a({
+          className: 'btn btn-warning',
           style: styles.restrictedNotesButton,
-          onClick: function(){
-            location.href = '/students/' + self.props.student.id + '/restricted_notes';
-          }
+          href: '/students/' + self.props.student.id + '/restricted_notes',
         }, 'Restricted Notes')
       } else {
         return null;

@@ -7,11 +7,13 @@
   var HelpBubble = window.shared.HelpBubble = React.createClass({
     propTypes: {
       title: React.PropTypes.string.isRequired, // e.g. 'What is a Note?'
-      content: React.PropTypes.string.isRequired, // HTML string which will be rendered in the modal's box.
+      content: React.PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.
       teaserText: React.PropTypes.string.isRequired // text displayed before the user clicks, e.g. 'Find out more.'
     },
 
-    getInitialState: function(){ return {modalIsOpen: false}; },
+    getInitialState: function(){
+      return {modalIsOpen: false};
+    },
     closeModal: function(e){
       this.setState({modalIsOpen: false});
       e.preventDefault();
@@ -28,7 +30,6 @@
     render: function(){
       return dom.div({style: {display: 'inline', marginLeft: 10}},
         dom.a({href: '#', onClick: this.openModal, style: {fontSize: 12, outline: 'none'}}, this.props.teaserText),
-        // dom.span({className: 'HelpBubble', onClick: this.openModal}, '?'),
         this.renderModal() // The modal is not logically here, but even while not displayed it needs a location in the DOM.
       );
     },
@@ -46,11 +47,9 @@
             dom.h1({style: {display: 'inline-block'}}, this.props.title),
             dom.a({href: '#', onClick: this.closeModal, style: {float: 'right', cursor: 'pointer'}}, '(ESC)')
           ),
-          dom.div({
-            // React says this is 'dangerous' because rendering an untrusted string can allow an
-            // XSS attack; however, we generated this string, so we trust it.
-            dangerouslySetInnerHTML: {__html: this.props.content},
-          }),
+          dom.div({},
+            this.props.content
+          ),
           dom.div({style: {flex: 1, minHeight: 20}}, ""), // Fills the empty space
           dom.div({},
             dom.a({
