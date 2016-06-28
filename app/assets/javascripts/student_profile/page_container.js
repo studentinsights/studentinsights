@@ -39,7 +39,6 @@
         currentEducator: serializedData.currentEducator,
 
         // constants
-        interventionTypesIndex: serializedData.interventionTypesIndex,
         educatorsIndex: serializedData.educatorsIndex,
         serviceTypesIndex: serializedData.serviceTypesIndex,
         eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
@@ -200,7 +199,6 @@
       return dom.div({ className: 'PageContainer' },
         createEl(StudentProfilePage, merge(_.pick(this.state,
           'currentEducator',
-          'interventionTypesIndex',
           'educatorsIndex',
           'serviceTypesIndex',
           'eventNoteTypesIndex',
