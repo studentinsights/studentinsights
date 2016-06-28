@@ -9,8 +9,8 @@
   /*
   Project quads outside of the date range, since interpolation will connect with previous data points.
   */
-  var Sparkline = window.shared.Sparkline = React.createClass({
-    displayName: 'Sparkline',
+  var BarChartSparkline = window.shared.BarChartSparkline = React.createClass({
+    displayName: 'BarChartSparkline',
 
     propTypes: {
       height: React.PropTypes.number.isRequired,
@@ -47,7 +47,7 @@
         .interpolate('linear');
 
       var lineColor = color(this.delta(this.props.quads));
-      return dom.div({ className: 'Sparkline', style: { overflow: 'hidden' }},
+      return dom.div({ className: 'BarChartSparkline', style: { overflow: 'hidden' }},
         dom.svg({
           height: this.props.height,
           width: this.props.width
