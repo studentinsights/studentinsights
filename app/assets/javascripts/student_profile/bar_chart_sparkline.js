@@ -52,10 +52,11 @@
       var self = this;
       return quads.map(function(quad){
         return dom.rect({
+          key: quad.toString(), // TODO: Unique enough? Will it cause namespace conflicts?
           x: x(QuadConverter.toDate(quad)),
           y: y(quad[3]),
           height: y.range()[0] - y(quad[3]),
-          width: 5,
+          width: 5, // Arbitrary width for now, seems to work fine.
           fill: color
         })
       });

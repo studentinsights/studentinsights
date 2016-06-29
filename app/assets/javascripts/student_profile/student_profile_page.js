@@ -239,9 +239,6 @@
         case 'attendance':
           var attendanceData = this.props.attendanceData;
           return createEl(AttendanceDetails, {
-            cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
-            cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
-            cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies),
             disciplineIncidents: attendanceData.discipline_incidents,
             absences: attendanceData.absences,
             tardies: attendanceData.tardies
@@ -495,7 +492,7 @@
     },
 
     renderAttendanceEventsSummary: function(attendanceEvents, flexibleRangeFn, props) {
-      var cumulativeQuads = this.cumulativeCountQuads(attendanceEvents);
+      var cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(attendanceEvents);
       var value = (cumulativeQuads.length > 0) ? _.last(cumulativeQuads)[3] : 0;
       var valueRange = flexibleRangeFn(cumulativeQuads);
 
@@ -510,17 +507,6 @@
           dateRange: this.dateRange(),
         }, props)),
       }, props));
-    },
-
-    cumulativeCountQuads: function(attendanceEvents) {
-      var groupedByMonth = _.groupBy(attendanceEvents, function(event){
-        return moment.utc(event.occurred_at).startOf('month').toISOString();
-      });
-      result = [];
-      _.each(groupedByMonth, function(value, key){
-        result.push(QuadConverter.fromMoment(moment(key), value.length));
-      });
-      return _.sortBy(result, QuadConverter.toMoment.bind(this));
     },
 
     // quads format is: [[year, month (Ruby), day, value]]
