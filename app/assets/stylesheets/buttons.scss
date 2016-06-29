@@ -19,6 +19,10 @@
   }
 
   &.btn-warning {
-    background-color: $warning-red
+    background-color: $warning-red;
+
+    &:hover {
+      background-color: darken($warning-red, 10%);
+    }
   }
 }

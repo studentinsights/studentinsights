@@ -57,29 +57,30 @@
     },
 
     getServicesHelpContent: function(){
-      return "\
-        <p>While Notes are a catch-all for student information, Services are a place to keep track of more formal \
-        extensive interventions for a student. It includes a specific person responsible and dates.</p> \
-        <br> \
-        <p>The types of Services are:</p> \
-        <ul> \
-          <li><b>Attendance Officer:</b> This usually includes home visit(s), regular follow-up, \
-          and could later on lead to a formal attendance contract.</li> \
-          <li><b>Attendance Contract:</b> This is usually done in cooperation with the attendance officer, \
+      return dom.div({},
+        dom.p({}, 'While Notes are a catch-all for student information, Services are a place to keep track of more formal \
+        extensive interventions for a student. It includes a specific person responsible and dates.'),
+        dom.br({}),
+        dom.p({}, 'The types of Services are:'),
+        dom.ul({},
+          dom.li({}, dom.b({}, 'Attendance Officer: '), 'This usually includes home visit(s), regular follow-up, \
+          and could later on lead to a formal attendance contract.'),
+          dom.li({}, dom.b({}, 'Attendance Contract: '), 'This is usually done in cooperation with the attendance officer, \
           school adjustment counselor, and/or principal. This is a more formal document that requires a parent and \
-          student signature, along with regular checkpoints.</li> \
-          <li><b>Behavior Contract:</b> This is usually done in cooperation with the attendance officer, \
+          student signature, along with regular checkpoints.'),
+          dom.li({}, dom.b({}, 'Behavior Contract: '), 'This is usually done in cooperation with the attendance officer, \
           school adjustment counselor, and/or principal. This is a more formal document that requires a parent and \
-          student signature, along with regular checkpoints.</li> \
-          <li><b>Counseling, in-house:</b> Student receives regular weekly or bi-weekly counseling from an SPS counselor. \
-          One time or infrequent check-ins by a counselor should just be recorded in Notes.</li> \
-          <li><b>Counseling, outside:</b> Student receives regular weekly or bi-weekly counseling from an outside \
+          student signature, along with regular checkpoints.'),
+          dom.li({}, dom.b({}, 'Counseling, in-house: '), 'Student receives regular weekly or bi-weekly counseling from an SPS counselor. \
+          One time or infrequent check-ins by a counselor should just be recorded in Notes.'),
+          dom.li({}, dom.b({}, 'Counseling, outside: '), 'Student receives regular weekly or bi-weekly counseling from an outside \
           counselor, ex. Riverside, Home for Little Wanderers. One time or infrequent check-ins by a counselor should \
-          just be recorded in Notes.</li> \
-          <li><b>Reading Intervention:</b> Student works with a reading specialist at least 4x/week for 30-40 minutes.</li> \
-        </ul> \
-        <br> \
-        <p>If your data fits into one of these categories, it's a Service. Otherwise, it's a Note.</p>"
+          just be recorded in Notes.'),
+          dom.li({}, dom.b({}, 'Reading Intervention: '), 'Student works with a reading specialist at least 4x/week for 30-40 minutes.')
+        ),
+        dom.br({}),
+        dom.p({}, "If your data fits into one of these categories, it's a Service. Otherwise, it's a Note.")
+      )
     },
 
     render: function() {

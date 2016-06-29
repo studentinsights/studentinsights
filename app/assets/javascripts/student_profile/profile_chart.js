@@ -19,7 +19,6 @@
           data: React.PropTypes.array.isRequired // [year, month, date, value] quads
         })
       ),
-      titleText: React.PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
       yAxis: React.PropTypes.object.isRequired // options for rendering the y-axis
     },
 
@@ -43,10 +42,6 @@
 
     render: function() {
       return createEl(HighchartsWrapper, merge(this.baseOptions(), {
-        title: {
-          text: this.props.titleText,
-          align: 'left'
-        },
         series: this.props.quadSeries.map(function(obj){
           return {
             name: obj.name,
