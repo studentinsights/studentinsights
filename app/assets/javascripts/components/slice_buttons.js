@@ -15,6 +15,7 @@
       clearFilters: React.PropTypes.func.isRequired
     },
     
+    // Key code 27 is the ESC key
     onKeyDown: function(e) {
       if (e.keyCode == 27) this.props.clearFilters();
     },
