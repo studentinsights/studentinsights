@@ -72,6 +72,7 @@
   //= require ./student_profile/educator
   //= require ./student_profile/datepicker
   //= require ./student_profile/highcharts_wrapper
+  //= require ./student_profile/bar_chart_sparkline
   //= require ./student_profile/sparkline
   //= require ./student_profile/scales
   //= require ./student_profile/academic_summary

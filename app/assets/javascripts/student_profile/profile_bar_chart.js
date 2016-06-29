@@ -79,7 +79,7 @@
     eventsToSparseArray: function(events, n, d){
       // Takes in an array of event objects, an integer and the current date as a Moment object (UTC).
       // Returns an array which, for each month in the range (0 -- n), contains an array of events that happened that month.
-      // 
+      //
       // If there are no events in a month, the array for that month will be empty.
 
       var data = {};

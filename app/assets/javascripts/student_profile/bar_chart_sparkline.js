@@ -28,60 +28,52 @@
     },
 
     render: function() {
-      var padding = 3; // for allowing circle data points at the edge to be full shown
-
-      // TODO(kr) work more on coloring across all charts
-      // for now, disable since the mapping to color isn't clear enough and
-      // doesn't match the longer-view charts
-      var color = function() { return '#666'; };
+      var color = '#666';
 
       var x = d3.time.scale()
         .domain(this.props.dateRange)
-        .range([padding, this.props.width - padding]);
+        .range([0, this.props.width]);
       var y = d3.scale.linear()
         .domain(this.props.valueRange)
-        .range([this.props.height - padding, padding]);
-      var lineGenerator = d3.svg.line()
-        .x(function(d) { return x(QuadConverter.toDate(d)); }.bind(this))
-        .y(function(d) { return y(d[3]); })
-        .interpolate('linear');
+        .range([this.props.height, 0]);
 
-      var lineColor = color(this.delta(this.props.quads));
-      return dom.div({ className: 'BarChartSparkline', style: { overflow: 'hidden' }},
+      return dom.div({ className: 'Sparkline', style: { overflow: 'hidden' }},
         dom.svg({
           height: this.props.height,
           width: this.props.width
         },
-          dom.line({
-            x1: x.range()[0],
-            x2: x.range()[1],
-            y1: y(this.props.thresholdValue),
-            y2: y(this.props.thresholdValue),
-            stroke: '#ccc',
-            strokeDasharray: 5
-          }),
-          this.renderYearStarts(padding, x, y),
-          dom.path({
-            d: lineGenerator(this.props.quads),
-            stroke: lineColor,
-            strokeWidth: 3,
-            fill: 'none'
-          }),
-          (!this.props.shouldDrawCircles) ? null : this.props.quads.map(function(quad) {
-            return dom.circle({
-              key: quad.slice(0, 3).join(','),
-              cx: lineGenerator.x()(quad),
-              cy: lineGenerator.y()(quad),
-              r: 3,
-              fill: lineColor
-            });
-          })
-        )
-      );
+        this.renderThresholdLine(this.props.thresholdValue, '#ccc', x, y),
+        this.renderYearStarts(x, y),
+        this.renderBars(this.props.quads, color, x, y)
+      ));
+    },
+
+    renderBars: function(quads, color, x, y){
+      var self = this;
+      return quads.map(function(quad){
+        return dom.rect({
+          x: x(QuadConverter.toDate(quad)),
+          y: y(quad[3]),
+          height: y.range()[0] - y(quad[3]),
+          width: 5,
+          fill: color
+        })
+      });
+    },
+
+    renderThresholdLine: function(value, color, x, y){
+      return dom.line({
+        x1: x.range()[0],
+        x2: x.range()[1],
+        y1: y(value),
+        y2: y(value),
+        stroke: color,
+        strokeDasharray: 5
+      });
     },
 
     // TODO(kr) check start of school year
-    renderYearStarts: function(padding, x, y) {
+    renderYearStarts: function(x, y) {
       var years = _.range(this.props.dateRange[0].getFullYear(), this.props.dateRange[1].getFullYear());
       return years.map(function(year) {
         var yearStartDate = moment.utc([year, 8, 15].join('-'), 'YYYY-M-D').toDate();
@@ -94,16 +86,6 @@
           stroke: '#ccc'
         });
       });
-    },
-
-    delta: function(quads) {
-      var filteredQuadValues = _.compact(quads.map(function(quad) {
-        var date = QuadConverter.toDate(quad);
-        if (date > this.props.dateRange[0] && date < this.props.dateRange[1]) return null;
-        return quad[3];
-      }, this));
-      if (filteredQuadValues.length < 2) return 0;
-      return _.last(filteredQuadValues) - _.first(filteredQuadValues);
-    },
+    }
   });
 })();
