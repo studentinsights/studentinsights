@@ -21,12 +21,6 @@
       thresholdValue: React.PropTypes.number.isRequired,
     },
 
-    getDefaultProps: function() {
-      return {
-        shouldDrawCircles: true
-      };
-    },
-
     render: function() {
       var color = '#666';
 
@@ -44,7 +38,8 @@
         },
         this.renderThresholdLine(this.props.thresholdValue, '#ccc', x, y),
         this.renderYearStarts(x, y),
-        this.renderBars(this.props.quads, color, x, y)
+        this.renderBars(this.props.quads, color, x, y),
+        this.renderXAxis('#ccc', x, y)
       ));
     },
 
@@ -60,6 +55,16 @@
           fill: color
         })
       });
+    },
+
+    renderXAxis: function(color, x, y){
+      return dom.line({
+        x1: x.range()[0],
+        x2: x.range()[1],
+        y1: y.range()[0],
+        y2: y.range()[0],
+        stroke: color
+      })
     },
 
     renderThresholdLine: function(value, color, x, y){
