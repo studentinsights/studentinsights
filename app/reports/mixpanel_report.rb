@@ -6,9 +6,12 @@ require 'json'
 class MixpanelReport
   def initialize(api_secret)
     @api_secret = api_secret
+    @buffer = []
   end
 
+  # Returns a string
   def run
+    @buffer = []
     event_name = 'PAGE_VISIT'
     schools = [
       { :name => 'Healey', :id => 2 },
@@ -16,18 +19,50 @@ class MixpanelReport
       { :name => 'East', :id => 5 }
     ]
     schools.each do |school|
-      puts school[:name]
+      output school[:name]
       print_summary_header
-      puts school_summary_table(event_name, school[:id])
-      puts
+      output school_summary_table(event_name, school[:id])
+      output
     end
 
     print_totals(event_name)
+    @buffer.join("\n")
+  end
+
+  def run_and_email!(mailgun_url, target_emails)
+    puts 'Running report...'
+    output = run
+    puts 'Done.'
+    puts
+    puts 'Report output:'
+    puts output
+    puts
+
+    puts 'Sending emails...'
+    target_emails.each do |email|
+      post_data = Net::HTTP.post_form(URI.parse(mailgun_url), {
+        :from => "Student Insights job <kevin.robinson.0@gmail.com>",
+        :to => "Kevin Robinson <kevin.robinson.0@gmail.com>",
+        :subject => "Student Insights Usage Report for #{DateTime.now.beginning_of_day}",
+        :text => output
+      })
+      puts "email: #{email}"
+      puts "code: #{post_data.code}"
+      puts "body: #{post_data.body}"
+      puts
+    end
+
+    puts
+    puts 'Done.'
   end
 
   private
+  def output(string)
+
+  end
+
   def print_totals(event_name)
-    puts 'TOTAL'
+    output 'TOTAL'
     print_summary_header
     visits = extract(event_name, query_for({
       event: event_name,
@@ -40,12 +75,12 @@ class MixpanelReport
       unit: 'week',
       where: where_string_with_defaults
     }))
-    puts zip_series(visits, uniques)
+    output zip_series(visits, uniques)
   end
 
   def print_summary_header
-    puts '---------------------------------------------------'
-    puts "Date\t\t\tVisits\t\tUsers"
+    output '---------------------------------------------------'
+    output "Date\t\t\tVisits\t\tUsers"
   end
 
   def school_summary_table(event_name, school_id)
@@ -117,6 +152,3 @@ class MixpanelReport
     JSON.parse(output)
   end
 end
-
-
-MixpanelReport.new(ENV['API_SECRET']).run
