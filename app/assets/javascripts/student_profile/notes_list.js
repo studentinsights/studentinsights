@@ -38,7 +38,8 @@
 
     render: function() {
       var mergedNotes = FeedHelpers.mergedNotes(this.props.feed);
-      return dom.div({ className: 'NotesList' }, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
+      return dom.div({ className: 'NotesList' },
+        (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
         switch (mergedNote.type) {
           case 'event_notes': return this.renderEventNote(mergedNote);
           case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);

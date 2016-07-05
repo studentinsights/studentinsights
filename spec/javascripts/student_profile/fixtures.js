@@ -107,7 +107,6 @@
   window.shared.Fixtures.studentProfile = {
     "serviceTypesIndex": FixtureConstantIndexes.serviceTypesIndex,
     "eventNoteTypesIndex": FixtureConstantIndexes.eventNoteTypesIndex,
-    "interventionTypesIndex": FixtureConstantIndexes.interventionTypesIndex,
     "dibels": [],
     "student": {
       "id": 23,

@@ -20,7 +20,6 @@ class StudentsController < ApplicationController
       feed: student_feed(student, restricted_notes: false),
       chart_data: chart_data,
       dibels: student.student_assessments.by_family('DIBELS'),
-      intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,
       educators_index: Educator.to_index,

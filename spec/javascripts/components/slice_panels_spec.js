@@ -15,7 +15,6 @@ describe('SlicePanels', function() {
     renderInto: function(el, props) {
       var mergedProps = merge({
         filters: [],
-        interventionTypesIndex: FixtureConstantIndexes.interventionTypesIndex,
         serviceTypesIndex: FixtureConstantIndexes.serviceTypesIndex,
         eventNoteTypesIndex: FixtureConstantIndexes.eventNoteTypesIndex,
         students: [],

@@ -58,13 +58,4 @@ module SerializeDataHelper
     end
     index
   end
-
-  # deprecated
-  def intervention_types_index
-    index = {}
-    InterventionType.all.each do |intervention_type|
-      index[intervention_type.id] = intervention_type.as_json.symbolize_keys.slice(:id, :name)
-    end
-    index
-  end
 end
