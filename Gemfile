@@ -2,11 +2,12 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.1.14.1'
+gem 'rails', '~> 4.2'
 gem 'pg'
 gem 'unicorn'
 
 gem 'activerecord-import'
+gem 'administrate', '~> 0.2.1'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
 gem 'draper', '~> 1.3'
@@ -17,16 +18,22 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'net-sftp'
 gem 'net-ssh'
 gem 'probability'
+gem 'rails-sanitize-js'
 gem 'react-rails', '~> 1.5.0'   # Provides React, handles swapping between dev/production builds.
                                 # See config/initializers/assets.rb
 gem 'rubystats'
-gem 'sass-rails', '~> 4.0.3'
-gem 'seedbank'
+gem 'sass-rails', '~> 5.0'
+gem 'sprockets', '2.12.3'
 gem 'thor'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'selenium-webdriver'
+#code for browserstack api usage and storing the png to slack:
+#gem 'slack-ruby-client'
+#gem 'dotenv'
+#gem 'picky'
 
 group :production do
   gem 'rails_12factor'

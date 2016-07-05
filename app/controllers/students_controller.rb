@@ -7,8 +7,7 @@ class StudentsController < ApplicationController
 
   def authorize!
     student = Student.find(params[:id])
-    educator = current_educator
-    raise Exceptions::EducatorNotAuthorized unless educator.is_authorized_for_student(student)
+    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
   end
 
   def show
@@ -18,15 +17,27 @@ class StudentsController < ApplicationController
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
-      feed: student_feed(student),
+      feed: student_feed(student, restricted_notes: false),
       chart_data: chart_data,
       dibels: student.student_assessments.by_family('DIBELS'),
-      intervention_types_index: intervention_types_index,
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
       attendance_data: student_profile_attendance_data(student)
+    }
+  end
+
+  def restricted_notes
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
+
+    student = Student.find(params[:id])
+    @serialized_data = {
+      current_educator: current_educator,
+      student: serialize_student_for_profile(student),
+      feed: student_feed(student, restricted_notes: true),
+      event_note_types_index: event_note_types_index,
+      educators_index: Educator.to_index,
     }
   end
 
@@ -36,24 +47,6 @@ class StudentsController < ApplicationController
       format.pdf do
         render pdf: "sped_referral"
       end
-    end
-  end
-
-  # post
-  def event_note # DEPRECATED. Use EventNotesController#create instead.
-    clean_params = params.require(:event_note).permit(*[
-      :student_id,
-      :event_note_type_id,
-      :text
-    ])
-    event_note = EventNote.new(clean_params.merge({
-      educator_id: current_educator.id,
-      recorded_at: Time.now
-    }))
-    if event_note.save
-      render json: serialize_event_note(event_note)
-    else
-      render json: { errors: event_note.errors.full_messages }, status: 422
     end
   end
 
@@ -147,10 +140,13 @@ class StudentsController < ApplicationController
     (search_token_scores.sum.to_f / search_tokens.length)
   end
 
-  # The feed of mutable data that changes most frequently and is owned by Student Insights
-  def student_feed(student)
+  # The feed of mutable data that changes most frequently and is owned by Student Insights.
+  # restricted_notes: If false display non-restricted notes, if true display only restricted notes.
+  def student_feed(student, restricted_notes: false)
     {
-      event_notes: student.event_notes.map {|event_note| serialize_event_note(event_note) },
+      event_notes: student.event_notes
+        .select {|note| note.is_restricted == restricted_notes}
+        .map {|event_note| serialize_event_note(event_note) },
       services: {
         active: student.services.active.map {|service| serialize_service(service) },
         discontinued: student.services.discontinued.map {|service| serialize_service(service) }

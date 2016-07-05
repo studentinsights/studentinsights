@@ -1,6 +1,7 @@
 $(function() {
   window.shared || (window.shared = {});
   var SlicePanels = window.shared.SlicePanels;
+  var SliceButtons = window.shared.SliceButtons;
   var Routes = window.shared.Routes;
   var styles = window.shared.styles;
   var colors = window.shared.colors;
@@ -46,6 +47,10 @@ $(function() {
       }).join('&');
     },
 
+    activeFiltersIdentifier: function() {
+      return this.state.filters.map(function(filter) { return filter.identifier; }).join('-');
+    },
+
     setHoverNull: function() {
       this.setState({
         hoverStudentIds: [],
@@ -66,6 +71,10 @@ $(function() {
       });
     },
 
+    clearFilters: function() {
+      this.setState({ filters: [] });
+    },
+
     onFilterToggled: function(toggledFilter) {
       var withoutToggledFilter = this.state.filters.filter(function(filter) {
         return filter.identifier !== toggledFilter.identifier;
@@ -74,6 +83,10 @@ $(function() {
         ? this.state.filters.concat([toggledFilter])
         : withoutToggledFilter;
       this.setState({ filters: updatedFilters });
+    },
+
+    onResetClicked: function(e) {
+      this.clearFilters();
     },
 
     filteredStudents: function() {
@@ -144,6 +157,13 @@ $(function() {
           filters: this.state.filters,
           onFilterToggled: this.onFilterToggled
         })),
+	dom.div({ className: 'summary', style: styles.summary }, createEl(SliceButtons, {
+	  students: this.filteredStudents(),
+	  filters: this.state.filters,
+	  filtersHash: this.filtersHash(),
+	  activeFiltersIdentifier: this.activeFiltersIdentifier(),
+	  clearFilters: this.clearFilters
+	})),
         dom.div({
           style: {
             background: 'red',
@@ -186,7 +206,7 @@ $(function() {
         dom.div({}, dateRangeText),
         dom.div({},
           dom.span({}, 'Students: ', props.students.length),
-          dom.span({ style: { paddingLeft: 10 }}, 'Data points: ', (props.assessments || []).length)));
+          dom.span({ style: { paddingLeft: 10 }}, 'Number of data points: ', (props.assessments || []).length)));
     },
 
     resultsDelta: function(student) {

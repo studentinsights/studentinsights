@@ -22,7 +22,8 @@ module SerializeDataHelper
       :educator_id,
       :event_note_type_id,
       :text,
-      :recorded_at
+      :recorded_at,
+      :is_restricted
     ])
   end
 
@@ -54,15 +55,6 @@ module SerializeDataHelper
     index = {}
     EventNoteType.all.each do |event_note_type|
       index[event_note_type.id] = event_note_type.as_json.symbolize_keys.slice(:id, :name)
-    end
-    index
-  end
-
-  # deprecated
-  def intervention_types_index
-    index = {}
-    InterventionType.all.each do |intervention_type|
-      index[intervention_type.id] = intervention_type.as_json.symbolize_keys.slice(:id, :name)
     end
     index
   end

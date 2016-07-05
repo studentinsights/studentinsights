@@ -41,6 +41,8 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
     - [Migrations on Heroku](#migrations-on-heroku)
     - [Rebuilding database in staging environment](#rebuilding-database-in-staging-environment)
   - [AWS](#aws)
+- [Other Tools](#other-tools)
+  - [Mixpanel](#mixpanel)
 - [More information](#more-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -100,20 +102,29 @@ School | Data imported | Principal on-boarded | Used at an SST/MTSS meeting
 --- | --- | --- | ---
 Healey | :white_check_mark: | :white_check_mark: | :white_check_mark:
 West | :white_check_mark: | :white_check_mark: | :white_check_mark:
-East | :white_check_mark: | |
+East | :white_check_mark: | :soon: |
 Brown | | |
 Kennedy | | |
 Argenziano | | |
 Winter Hill | | |
 
 # Project priorities
-Immediate priorites are tracked in GitHub with [milestones](https://github.com/studentinsights/studentinsights/milestones).
- 1. Whole district classroom teacher rosters and profile in September
- 2. X2 roll-over to next school year (in July or August)
- 3. Healey SST/MTSS
- 4. West SST/MTSS
- 5. East SST/MTSS
- 6. PDF Data dump
+Priorites are tracked in GitHub with [milestones](https://github.com/studentinsights/studentinsights/milestones).
+
+__Expansion goal:__
+
++ Whole district classroom teacher rosters and profile in September
+
+__New feature goal:__
+
++ PDF data dump
+
+__Processes we are supporting:__
+
++ X2 roll-over to next school year (in July or August)
++ Healey SST/MTSS
++ West SST/MTSS
++ East SST/MTSS
 
 # Contributing
 We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge.
@@ -123,6 +134,13 @@ The project is a Rails app with a Postgres database.  There are background tasks
 
 ![how it works](docs/readme_images/how_it_works.png)
 
+## Admin dashboard
+
+This project includes an admin dashboard built with [thoughtbot/administrate](https://github.com/thoughtbot/administrate).
+
+The admin dashboard has one function: Allow admins (principals, assistant principals, district admins) to set user roles and permissions for other staff, in particular staff who are not classroom-based teachers.
+
+The admin dashboard is available at `/admin` for educators whose `admin` attribute is `true`.
 
 # Development Environment
 
@@ -132,13 +150,13 @@ This is a Ruby on Rails app that uses a PostgreSQL database, and relies on React
 
 Choose your favorite local development approach:
 
-* [Local development with Docker](docs/local_development_with_docker.md)
-* [Local installation on OSX or Linux](docs/local_installation_notes.md)
+* [Local development with Docker](docs/technical/local_development_with_docker.md)
+* [Local installation on OSX or Linux](docs/technical/local_installation_notes.md)
 
 ## 2. Create database tables and seed them with demo data
 
 ```
-bundle exec rake db:create db:migrate db:seed:demo
+bundle exec rake db:create db:migrate db:seed
 ```
 
 This will create demo students with fake student information. The demo educator username is `demo@example.com` and the demo password is `demo-password`.
@@ -289,6 +307,11 @@ The project can also be deployed on AWS.  There's a starting point for provision
 ```
 
 Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
+
+# Other Tools
+## Mixpanel
+
+We use [Mixpanel](https://mixpanel.com) to track user interactions on the client side. It gives us nice graphs so we can see who's using the app and how.
 
 # More information
 

@@ -39,7 +39,6 @@
         currentEducator: serializedData.currentEducator,
 
         // constants
-        interventionTypesIndex: serializedData.interventionTypesIndex,
         educatorsIndex: serializedData.educatorsIndex,
         serviceTypesIndex: serializedData.serviceTypesIndex,
         eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
@@ -54,8 +53,18 @@
 
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
+
+        // This map holds the state of network requests for various actions.  This allows UI components to branch on this
+        // and show waiting messages or error messages.
+        // The state of a network request is described with null (no requests in-flight),
+        // 'pending' (a request is currently in-flight),
+        // and 'error' or another value if the request failed.
+        // The keys within `request` hold either a single value describing the state of the request, or a map that describes the
+        // state of requests related to a particular object.
+        // For example, `saveService` holds the state of that request, but `saveNotes` is a map that can track multiple active
+        // requests, using `serviceId` as a key.
         requests: {
-          saveNotes: null,
+          saveNotes: {},
           saveService: null,
           discontinueService: {}
         }
@@ -74,35 +83,55 @@
     },
 
     onClickSaveNotes: function(eventNoteParams) {
-      this.setState({ requests: merge(this.state.requests, { saveNotes: 'pending' }) });
+      var saveNotes = {};
+      saveNotes[eventNoteParams.id] = 'pending';
+      this.setState({ requests: merge(this.state.requests, { saveNotes: saveNotes }) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
     },
 
     onSaveNotesDone: function(response) {
-      var updatedEventNotes = this.state.feed.event_notes.concat([response]);
+      var updatedEventNotes;
+      var foundEventNote = false;
+
+      updatedEventNotes = this.state.feed.event_notes.map(function(eventNote) {
+        if (eventNote.id === response.id) {
+          foundEventNote = true;
+          return merge(eventNote, response);
+        }
+        else {
+          return eventNote;
+        }
+      });
+
+      if (!foundEventNote) {
+        updatedEventNotes = this.state.feed.event_notes.concat([response]);
+      }
+
       var updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
       this.setState({
         feed: updatedFeed,
-        requests: merge(this.state.requests, { saveNotes: null })
+        requests: merge(this.state.requests, { saveNotes: {} })
       });
     },
 
     onSaveNotesFail: function(request, status, message) {
-      this.setState({ requests: merge(this.state.requests, { saveNotes: 'error' }) });
+      var saveNotes = {};
+      saveNotes[request.event_note.id] = 'error';
+      this.setState({ requests: merge(this.state.requests, saveNotes) });
     },
 
     onClickSaveService: function(serviceParams) {
-	// Very quick name validation, just check for a comma between two words
-	if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
-	    this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
-	    this.api.saveService(this.state.student.id, serviceParams)
-		.done(this.onSaveServiceDone)
-		.fail(this.onSaveServiceFail);
-	} else {
-	    this.setState({ requests: merge(this.state.requests, { saveService: 'Please use the form Last Name, First Name' }) });
-	}
+    	// Very quick name validation, just check for a comma between two words
+    	if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
+    	    this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
+    	    this.api.saveService(this.state.student.id, serviceParams)
+    		.done(this.onSaveServiceDone)
+    		.fail(this.onSaveServiceFail);
+    	} else {
+    	    this.setState({ requests: merge(this.state.requests, { saveService: 'Please use the form Last Name, First Name' }) });
+    	}
     },
 
     onSaveServiceDone: function(response) {
@@ -170,7 +199,6 @@
       return dom.div({ className: 'PageContainer' },
         createEl(StudentProfilePage, merge(_.pick(this.state,
           'currentEducator',
-          'interventionTypesIndex',
           'educatorsIndex',
           'serviceTypesIndex',
           'eventNoteTypesIndex',

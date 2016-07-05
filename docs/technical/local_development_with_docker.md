@@ -63,7 +63,7 @@ The docker daemon needs root permissions, so by default you'll have to use **sud
     - Rebuild all container images: `docker-compose build` (slow the first time)
     - Start bash in a temporary Rails container to create the database and seed it:
        - Start a new Rails container from your laptop: `docker-compose run rails bash`. This will give you a new command line, something like "root@8595f0db21aa:/mnt/somerville-teacher-tool". That means you're inside the container.
-       - Set up the database and seed it with demo data: `RAILS_ENV=development bundle exec rake db:setup db:seed:demo`
+       - Set up the database and seed it with demo data: `RAILS_ENV=development bundle exec rake db:setup db:seed`
        - Get back to your terminal (and discard the container): `exit` or Control+D.
     - Start all the services: `docker-compose up`. (This will occupy your terminal. To stop it and bring the server down, press Control+C).
     - Open [http://docker:3000](http://docker:3000) (or [http://localhost:3000](http://localhost:3000) on Linux) in a browser! Log in using *demo@example.com* and *demo-password*.
@@ -74,6 +74,15 @@ Okay, now make sure you can get at what you just did. Bookmark "http://docker:30
 We just created a temporary rails container to access the database with, but you can also get inside a running container. Run `docker ps` to see all the running containers you have. An ID will be displayed next to the container's name. Run `docker exec -it <ID> bash` to get inside your container. From here you can run rake tasks or whatever else you need.
 
 (This means: run command **bash**, in **i**nteractive mode, attached to (this) **t**erminal, inside container **<ID>**.
+
+### Get inside the database:
+You can get a **psql** shell (which lets you run SQL against the database) by running
+
+```
+docker exec -it studentinsights_rails_1 rails dbconsole
+```
+
+This is executing, in the Rails container, the `dbconsole` Rails command which figures out the username, password etc. for `psql`. It will connect you to the `student_insights_development` database, which contains educators, students, etc.
 
 ### Troubleshooting:
 **Changes to the Gemfile:** The Gemfile lists all of the Ruby dependencies for the project. When it changes, you need to run `docker-compose build` again to install the new dependencies. If you're experiencing problems after pulling from master, it might be because the Gemfile changed.
@@ -88,7 +97,7 @@ We just created a temporary rails container to access the database with, but you
 
 **ERROR: Service failed to build: failed to register layer: ...**: Docker on your VirtualBox machine is in a bad state for some reason. Run `docker-machine rm default` and `docker-machine create --driver virtualbox default` to set up a new one.
 
-**bash: gem: command not found** when running `docker-compose up` for the first time: We had this happen once with the gem **wkhtmltopdf-binary**, though it may have been temporary. Open an issue letting us know the problem. Then you can comment out the relevant line in your Gemfile. 
+**bash: gem: command not found** when running `docker-compose up` for the first time: We had this happen once with the gem **wkhtmltopdf-binary**, though it may have been temporary. Open an issue letting us know the problem. Then you can comment out the relevant line in your Gemfile.
 
 ### Running RSpec tests:
 ```

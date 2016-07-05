@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502001001) do
+ActiveRecord::Schema.define(version: 20160606223646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "absences", force: true do |t|
+  create_table "absences", force: :cascade do |t|
     t.integer  "student_school_year_id", null: false
     t.datetime "occurred_at",            null: false
     t.datetime "created_at",             null: false
@@ -25,19 +25,19 @@ ActiveRecord::Schema.define(version: 20160502001001) do
 
   add_index "absences", ["student_school_year_id"], name: "index_absences_on_student_school_year_id", using: :btree
 
-  create_table "assessment_families", force: true do |t|
+  create_table "assessment_families", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "assessment_subjects", force: true do |t|
+  create_table "assessment_subjects", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "assessments", force: true do |t|
+  create_table "assessments", force: :cascade do |t|
     t.string   "name"
     t.string   "family"
     t.string   "subject"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.datetime "updated_at"
   end
 
-  create_table "discipline_incidents", force: true do |t|
+  create_table "discipline_incidents", force: :cascade do |t|
     t.string   "incident_code"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
 
   add_index "discipline_incidents", ["student_school_year_id"], name: "index_discipline_incidents_on_student_school_year_id", using: :btree
 
-  create_table "discontinued_services", force: true do |t|
+  create_table "discontinued_services", force: :cascade do |t|
     t.integer  "service_id"
     t.integer  "recorded_by_educator_id"
     t.datetime "recorded_at"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.datetime "updated_at"
   end
 
-  create_table "educators", force: true do |t|
+  create_table "educators", force: :cascade do |t|
     t.string   "email",                                   default: "",    null: false
     t.string   "encrypted_password",                      default: "",    null: false
     t.string   "reset_password_token"
@@ -86,16 +86,17 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.string   "local_id"
     t.string   "staff_type"
     t.integer  "school_id"
-    t.boolean  "schoolwide_access",                       default: false
+    t.boolean  "schoolwide_access",                       default: false, null: false
     t.string   "grade_level_access",                      default: [],                 array: true
-    t.boolean  "restricted_to_sped_students",             default: false
-    t.boolean  "restricted_to_english_language_learners", default: false
+    t.boolean  "restricted_to_sped_students",             default: false, null: false
+    t.boolean  "restricted_to_english_language_learners", default: false, null: false
+    t.boolean  "can_view_restricted_notes",               default: false, null: false
   end
 
   add_index "educators", ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   add_index "educators", ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true, using: :btree
 
-  create_table "event_note_revisions", force: true do |t|
+  create_table "event_note_revisions", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "educator_id"
     t.integer  "event_note_type_id"
@@ -106,13 +107,13 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.integer  "version"
   end
 
-  create_table "event_note_types", force: true do |t|
+  create_table "event_note_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "event_notes", force: true do |t|
+  create_table "event_notes", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "educator_id"
     t.integer  "event_note_type_id"
@@ -120,9 +121,10 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.datetime "recorded_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_restricted",      default: false
   end
 
-  create_table "friendly_id_slugs", force: true do |t|
+  create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 50
@@ -135,7 +137,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
-  create_table "homerooms", force: true do |t|
+  create_table "homerooms", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -150,13 +152,13 @@ ActiveRecord::Schema.define(version: 20160502001001) do
   add_index "homerooms", ["name"], name: "index_homerooms_on_name", unique: true, using: :btree
   add_index "homerooms", ["slug"], name: "index_homerooms_on_slug", unique: true, using: :btree
 
-  create_table "intervention_types", force: true do |t|
+  create_table "intervention_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "interventions", force: true do |t|
+  create_table "interventions", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "intervention_type_id"
     t.text     "comment"
@@ -172,7 +174,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.string   "custom_intervention_name"
   end
 
-  create_table "precomputed_query_docs", force: true do |t|
+  create_table "precomputed_query_docs", force: :cascade do |t|
     t.text     "key"
     t.text     "json"
     t.datetime "created_at"
@@ -181,14 +183,14 @@ ActiveRecord::Schema.define(version: 20160502001001) do
 
   add_index "precomputed_query_docs", ["key"], name: "index_precomputed_query_docs_on_key", unique: true, using: :btree
 
-  create_table "school_years", force: true do |t|
+  create_table "school_years", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "start"
   end
 
-  create_table "schools", force: true do |t|
+  create_table "schools", force: :cascade do |t|
     t.integer  "state_id"
     t.string   "school_type"
     t.string   "name"
@@ -201,13 +203,13 @@ ActiveRecord::Schema.define(version: 20160502001001) do
   add_index "schools", ["local_id"], name: "index_schools_on_local_id", using: :btree
   add_index "schools", ["state_id"], name: "index_schools_on_state_id", using: :btree
 
-  create_table "service_types", force: true do |t|
+  create_table "service_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "services", force: true do |t|
+  create_table "services", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "recorded_by_educator_id"
     t.integer  "service_type_id"
@@ -218,7 +220,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.string   "provided_by_educator_name"
   end
 
-  create_table "student_assessments", force: true do |t|
+  create_table "student_assessments", force: :cascade do |t|
     t.integer  "scale_score"
     t.integer  "growth_percentile"
     t.string   "performance_level"
@@ -236,7 +238,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
   add_index "student_assessments", ["school_year_id"], name: "index_student_assessments_on_school_year_id", using: :btree
   add_index "student_assessments", ["student_id"], name: "index_student_assessments_on_student_id", using: :btree
 
-  create_table "student_risk_levels", force: true do |t|
+  create_table "student_risk_levels", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "level"
     t.datetime "created_at"
@@ -248,7 +250,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.integer  "limited_english_proficiency_risk_level"
   end
 
-  create_table "student_school_years", force: true do |t|
+  create_table "student_school_years", force: :cascade do |t|
     t.integer  "student_id",     null: false
     t.integer  "school_year_id", null: false
     t.datetime "created_at",     null: false
@@ -257,7 +259,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
 
   add_index "student_school_years", ["student_id", "school_year_id"], name: "index_student_school_years_on_student_id_and_school_year_id", unique: true, using: :btree
 
-  create_table "students", force: true do |t|
+  create_table "students", force: :cascade do |t|
     t.string   "grade"
     t.boolean  "hispanic_latino"
     t.string   "race"
@@ -288,6 +290,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
     t.integer  "most_recent_star_reading_percentile"
     t.integer  "most_recent_star_math_percentile"
     t.string   "enrollment_status"
+    t.datetime "date_of_birth"
   end
 
   add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree
@@ -295,7 +298,7 @@ ActiveRecord::Schema.define(version: 20160502001001) do
   add_index "students", ["school_id"], name: "index_students_on_school_id", using: :btree
   add_index "students", ["state_id"], name: "index_students_on_state_id", using: :btree
 
-  create_table "tardies", force: true do |t|
+  create_table "tardies", force: :cascade do |t|
     t.integer  "student_school_year_id", null: false
     t.datetime "occurred_at",            null: false
     t.datetime "created_at",             null: false

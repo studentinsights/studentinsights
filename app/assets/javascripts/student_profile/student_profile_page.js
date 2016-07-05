@@ -20,6 +20,8 @@
   var MathDetails = window.shared.MathDetails;
   var AttendanceDetails = window.shared.AttendanceDetails;
   var InterventionsDetails = window.shared.InterventionsDetails;
+  var ServicesDetails = window.shared.ServicesDetails;
+  var NotesDetails = window.shared.NotesDetails;
 
 
   // define page component
@@ -99,12 +101,11 @@
     displayName: 'StudentProfilePage',
 
     propTypes: {
-      //context
+      // context
       nowMomentFn: React.PropTypes.func.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
 
       // constants
-      interventionTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
@@ -191,6 +192,33 @@
       );
     },
 
+    getNotesHelpContent: function(){
+      return dom.div({},
+        dom.p({}, 'The Notes tab is the place to keep notes about a student, whether it’s SST, MTSS, \
+        a parent conversation, or some informal strategies that a teacher/team is using to help a student. \
+        More formal strategies (e.g. the student meets with a tutor or counselor every week) should be recorded in Services.'),
+        dom.br({}),
+        dom.p({}, dom.b({}, 'Who can enter a note? '), 'Anyone who works with or involved with the student, \
+        including classroom/ELL/SPED teachers, principals/assistant principals, counselors, and attendance officers.'),
+        dom.br({}),
+        dom.p({}, dom.b({}, 'What can/should I put in a note? '), 'The true test is to think about whether the information will help your \
+        team down the road in supporting this student, either in the coming weeks, or a few years from now. Examples include:'),
+        dom.br({}),
+        dom.ul({},
+          dom.li({}, '"Oscar just showed a 20 point increase in ORF. It seems like the take home readings are working (parents are very supportive) and we will continue it."'),
+          dom.li({}, '"This is a follow-up MTSS meeting for Julie. Over the last 4 weeks, she is not showing many gains despite the volunteer tutor and the change in seating…."'),
+          dom.li({}, '"Alex just got an M on the latest F&P. Will try having him go next door to join the other 4th grade group during guided reading."'),
+          dom.li({}, '"Medicine change for Uri on 4/10. So far slight increase in focus."'),
+          dom.li({}, '"51a filed on 3/21. Waiting determination and follow-up from DCF."'),
+          dom.li({}, '"Just found that Cora really likes to go help out in grade 1. Best incentive yet for when she stays on task and completes work."'),
+          dom.li({}, '"Arranged for Kevin to go to community schools 2x/week and to get extra homework help."'),
+          dom.li({}, '"Julia will do an FBA and report back at the next SST meeting to determine sources of the behavior."'),
+          dom.li({}, '"Mediation occurred between Oscar and Uri and went well. Both have agreed to keep distance for 2 weeks."'),
+          dom.li({}, '"Parent called to report that Jill won art award and will be going to nationals. She suggested this might be an outlet if she shows frustration in schoolwork."')
+        )
+      )
+    },
+
     renderSectionDetails: function() {
       switch (this.props.selectedColumnKey) {
         case 'profile': return createEl(ProfileDetails,
@@ -217,17 +245,31 @@
             tardies: attendanceData.tardies
           });
         case 'interventions':
-          return createEl(InterventionsDetails, merge(_.pick(this.props,
-            'currentEducator',
-            'student',
-            'feed',
-            'interventionTypesIndex',
-            'serviceTypesIndex',
-            'eventNoteTypesIndex',
-            'educatorsIndex',
-            'actions',
-            'requests'
-          )));
+          return dom.div({ className: 'InterventionsDetails', style: {display: 'flex'} },
+            createEl(NotesDetails, {
+              student: this.props.student,
+              eventNoteTypesIndex: this.props.eventNoteTypesIndex,
+              educatorsIndex: this.props.educatorsIndex,
+              currentEducator: this.props.currentEducator,
+              feed: this.props.feed,
+              actions: this.props.actions,
+              requests: this.props.requests,
+
+              showingRestrictedNotes: false,
+              helpContent: this.getNotesHelpContent(),
+              helpTitle: 'What is a Note?',
+              title: 'Notes'
+            }),
+            createEl(ServicesDetails, {
+              student: this.props.student,
+              serviceTypesIndex: this.props.serviceTypesIndex,
+              educatorsIndex: this.props.educatorsIndex,
+              currentEducator: this.props.currentEducator,
+              feed: this.props.feed,
+              actions: this.props.actions,
+              requests: this.props.requests
+            })
+          );
       }
       return null;
     },

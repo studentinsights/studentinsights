@@ -2,9 +2,8 @@
   window.shared || (window.shared = {});
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
-  var merge = window.shared.ReactHelpers.merge;
 
-  var Educator = window.shared.Educator;
+  var NoteCard = window.shared.NoteCard;
   var PropTypes = window.shared.PropTypes;
   var FeedHelpers = window.shared.FeedHelpers;
   var moment = window.moment;
@@ -12,18 +11,6 @@
   var styles = {
     noItems: {
       margin: 10
-    },
-    note: {
-      border: '1px solid #eee',
-      padding: 15,
-      marginTop: 10,
-      marginBottom: 10
-    },
-    date: {
-      display: 'inline-block',
-      width: '11em',
-      paddingRight: 10,
-      fontWeight: 'bold'
     },
     badge: {
       display: 'inline-block',
@@ -33,45 +20,8 @@
       textAlign: 'center',
       marginLeft: 10,
       marginRight: 10
-    },
-    educator: {
-      paddingLeft: 5,
-      display: 'inline-block'
-    },
-    noteText: {
-      marginTop: 5
     }
   };
-
-  // This renders a single card for a Note of any type.
-  var NoteCard = React.createClass({
-    displayName: 'NoteCard',
-
-    propTypes: {
-      noteMoment: React.PropTypes.instanceOf(moment).isRequired,
-      educatorId: React.PropTypes.number.isRequired,
-      badge: React.PropTypes.element.isRequired,
-      text: React.PropTypes.string.isRequired
-    },
-
-    render: function() {
-      return dom.div({
-        className: 'NoteCard',
-        style: styles.note
-      },
-        dom.div({},
-          dom.span({ className: 'date', style: styles.date }, this.props.noteMoment.format('MMMM D, YYYY')),
-          this.props.badge,
-          dom.span({ style: styles.educator }, createEl(Educator, {
-            educator: this.props.educatorsIndex[this.props.educatorId]
-          }))
-        ),
-        dom.div({ style: { whiteSpace: 'pre-wrap' } },
-          dom.div({ style: styles.noteText }, this.props.text)
-        )
-      );
-    }
-  });
 
   /*
   Renders the list of notes.
@@ -82,12 +32,14 @@
     propTypes: {
       feed: PropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
-      eventNoteTypesIndex: React.PropTypes.object.isRequired
+      eventNoteTypesIndex: React.PropTypes.object.isRequired,
+      onSaveNote: React.PropTypes.func.isRequired
     },
 
     render: function() {
       var mergedNotes = FeedHelpers.mergedNotes(this.props.feed);
-      return dom.div({ className: 'NotesList' }, (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
+      return dom.div({ className: 'NotesList' },
+        (mergedNotes.length === 0) ? dom.div({ style: styles.noItems }, 'No notes') : mergedNotes.map(function(mergedNote) {
         switch (mergedNote.type) {
           case 'event_notes': return this.renderEventNote(mergedNote);
           case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
@@ -104,11 +56,14 @@
     renderEventNote: function(eventNote) {
       return createEl(NoteCard, {
         key: ['event_note', eventNote.id].join(),
+        eventNoteId: eventNote.id,
+        eventNoteTypeId: eventNote.event_note_type_id,
         noteMoment: moment.utc(eventNote.recorded_at),
         badge: this.renderEventNoteTypeBadge(eventNote.event_note_type_id),
         educatorId: eventNote.educator_id,
         text: eventNote.text,
-        educatorsIndex: this.props.educatorsIndex
+        educatorsIndex: this.props.educatorsIndex,
+        onSave: this.props.onSaveNote
       });
     },
 

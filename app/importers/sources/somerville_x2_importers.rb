@@ -1,7 +1,4 @@
 class SomervilleX2Importers
-  def self.from_options(options)
-    new(options).importer
-  end
 
   def initialize(options = {})
     @school_scope = options["school"]
@@ -13,14 +10,6 @@ class SomervilleX2Importers
 
   def sftp_client
     @client ||= SftpClient.for_x2
-  end
-
-  def base_options
-    {
-      file_importers: file_importers.map { |i| i.new(@school_scope, sftp_client) },
-      log_destination: @log,
-      progress_bar: @progress_bar
-    }
   end
 
   def self.file_importer_options
@@ -37,7 +26,7 @@ class SomervilleX2Importers
     self.file_importer_options.keys
   end
 
-  def file_importers
+  def file_importer_classes
     @x2_file_importers.map do |importer_option|
       unless importer_option == 'attendance' && @first_time
         SomervilleX2Importers.file_importer_options.fetch(importer_option)
@@ -45,10 +34,10 @@ class SomervilleX2Importers
     end.compact.uniq
   end
 
-  def importer
-    importer_set = [Importer.new(base_options)]
-    importer_set << BulkAttendanceImporter.new(base_options) if include_bulk_attendance?
-    importer_set
+  def file_importers
+    file_importer_classes.map do |file_importer_class|
+      file_importer_class.new(@school_scope, sftp_client, @log, @progress_bar)
+    end
   end
 
   private

@@ -57,7 +57,8 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       student_address: row[:student_address],
       grade: grade,
       registration_date: row[:registration_date],
-      free_reduced_lunch: row[:free_reduced_lunch]
+      free_reduced_lunch: row[:free_reduced_lunch],
+      date_of_birth: row[:date_of_birth]
     }
   end
 

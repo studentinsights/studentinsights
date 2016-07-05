@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    resources :educators
+    root to: "educators#index"
+  end
+
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
@@ -20,7 +25,7 @@ Rails.application.routes.draw do
     resources :event_notes, only: [:create, :update]
     member do
       get :sped_referral
-      post :event_note # DEPRECATED. Use `POST /students/:student_id/event_notes` instead.
+      get :restricted_notes
       post :service
     end
   end

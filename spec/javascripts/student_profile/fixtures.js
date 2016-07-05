@@ -18,17 +18,19 @@
         "text": "Awesome!",
         "recorded_at": "2016-02-26T22:20:55.398Z",
         "created_at": "2016-02-26T22:20:55.416Z",
-        "updated_at": "2016-02-26T22:20:55.416Z"
+        "updated_at": "2016-02-26T22:20:55.416Z",
+        "is_restricted": false
       },
       {
         "id": 4,
         "student_id": 5,
         "educator_id": 1,
         "event_note_type_id": 301,
-        "text": "Sweet!",
+        "text": "Sweet! (Restricted)",
         "recorded_at": "2016-02-27T19:23:26.835Z",
         "created_at": "2016-02-27T19:23:26.836Z",
-        "updated_at": "2016-02-27T19:23:26.836Z"
+        "updated_at": "2016-02-27T19:23:26.836Z",
+        "is_restricted": true
       }
     ],
     "services": {
@@ -105,7 +107,6 @@
   window.shared.Fixtures.studentProfile = {
     "serviceTypesIndex": FixtureConstantIndexes.serviceTypesIndex,
     "eventNoteTypesIndex": FixtureConstantIndexes.eventNoteTypesIndex,
-    "interventionTypesIndex": FixtureConstantIndexes.interventionTypesIndex,
     "dibels": [],
     "student": {
       "id": 23,
