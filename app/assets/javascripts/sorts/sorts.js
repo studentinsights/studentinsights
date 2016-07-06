@@ -31,5 +31,5 @@
     makeEnumSort("prog_assign_sort", ["Reg Ed", "2Way English", "2Way Spanish", "Sp Ed"]);
     makeEnumSort("mcas_sort", ["W", "NI", "P", "A"]);
     makeEnumSort("fluency_sort", ["FLEP-Transitioning", "FLEP", "Fluent"]);
-    makeEnumSort("need_sort", ["High", "Moderate", "Low >= 2", "Low < 2", "—"]);
+    makeEnumSort("need_sort", ["—", "Low < 2", "Low >= 2", "Moderate", "High"]);
 }());
