@@ -1,0 +1,80 @@
+{% extends function == 'json' ? '_corkscrew-api.twig' : '_corkscrew-section.twig' %}
+
+{% set label = 'Forms' %}
+{% set description = 'Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipiscing elit. Aliquam et lectus et tortor placerat euismod.' %}
+
+{% block block_content %}
+
+<form>
+<div class="form-group">
+  <label for="f1">Text field</label>
+  <input type="text" id="f1" name="f1" placeholder="a text field">
+</div>
+
+<div class="form-group">
+  <label for="f3">Textarea</label>
+  <textarea cols="50" rows="10" id="f3"></textarea>
+</div>
+
+<div class="form-group">
+  <label for="f10">Select menu</label>
+  <select>
+    <option disabled="" selected="">Select an option</option>
+    <option>Option 1</option>
+    <option>Option 2</option>
+    <option>Option 3</option>
+    <option>Option 4</option>
+  </select>
+</div>
+
+<div class="form-group checkbox-group">
+  <fieldset>
+    <legend>Checkbox group with fieldset & legend</legend>
+
+    <input type="checkbox" id="f4" name="f4" value="1">
+    <label for="f4">Option 1</label>
+
+    <input type="checkbox" id="f5" name="f5" value="2">
+    <label for="f5">Option 2</label>
+
+    <input type="checkbox" id="f6" name="f6" value="3">
+    <label for="f6">Option 3</label>
+
+  </fieldset>
+</div>
+
+<div class="form-group radio-group">
+  <fieldset>
+    <legend>Radio group with fieldset & legend</legend>
+
+    <input type="radio" id="f7" name="group" value="1">
+    <label for="f7">Option 1</label>
+
+    <input type="radio" id="f8" name="group" value="2">
+    <label for="f8">Option 2</label>
+
+    <input type="radio" id="f9" name="group" value="3">
+    <label for="f9">Option 3</label>
+
+  </fieldset>
+</div>
+
+<div class="form-group">
+  <label for="f11">Datalist</label>
+  <input list="dlist-options" id="f11">
+
+  <datalist id="dlist-options">
+    <option value="option 1">
+    </option><option value="option 2">
+    </option><option value="option 3">
+    </option><option value="option 4">
+    </option><option value="option 5">
+  </option></datalist>
+</div>
+
+</form>
+
+
+
+{% endblock %}
+

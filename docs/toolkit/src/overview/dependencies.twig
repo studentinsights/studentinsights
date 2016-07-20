@@ -1,0 +1,35 @@
+{# Disable the HTML Viewer for this section #}
+
+{% set project =
+  {
+    htmlViewer: false
+  }
+%}
+
+{% extends function == 'json' ? '_corkscrew-api.twig' : '_corkscrew-section.twig' %}
+
+{% set label = 'Dependencies' %}
+{% set description = 'Dependencies are 3rd party software tools we used to help us build your product, this list will help you get up and running as quickly as possible making sure your system has all the requirements.' %}
+
+{% block block_content %}
+
+<div class="cs-table-wrap">
+  <table class="cs-table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Purpose</th>
+        <th scope="col">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="http://jquery.com/">jQuery</a></td>
+        <td>JavaScript library for cross-browser feature support</td>
+        <td>Size: 86KB</td>
+      </tr>
+    </tbody>
+  </table>
+</div><!--/.cs-table-wrap-->
+
+{% endblock %}

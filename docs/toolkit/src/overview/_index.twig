@@ -1,0 +1,11 @@
+{% set section = 'overview' %}
+{% extends "_corkscrew-layout.twig" %}
+
+{% block content %}
+
+  {% embed "overview/colors.twig" %}{% endembed %}
+  {% embed "overview/installation.twig" %}{% endembed %}
+  {% embed "overview/dependencies.twig" %}{% endembed %}
+  {% embed "overview/documentation.twig" %}{% endembed %}
+
+{% endblock content %}

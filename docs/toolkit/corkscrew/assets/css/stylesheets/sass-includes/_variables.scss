@@ -1,0 +1,29 @@
+$font-sans-serif: "Open Sans", Sans-serif;
+$font-serif: Georgia, serif;
+$font-mono: Courier, Monospace;
+
+$font-primary: $font-sans-serif;
+$font-secondary: $font-serif;
+$font-tertiary: $font-mono;
+
+$color-base: #fff;
+
+$color-primary: #363E40;
+$color-secondary: #eee;
+$color-tertiary: #96908a;
+$color-accent: #C3BDB9;
+$color-highlight: #666;
+$color-teal: #6ed8ce;
+$color-teal-a11y: #1a847a;
+$color-purple-dk: #565664;
+
+$color-action: #767676;
+$color-action-active: darken($color-action, 20);
+$color-cta: #81005C;
+
+$breakpoint-wide: 1280px;
+$breakpoint-large: 1000px;
+$breakpoint-mid: 800px;
+$breakpoint-small: 600px;
+
+$layout-gutter-multiple: 10px;

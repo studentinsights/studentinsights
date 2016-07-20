@@ -1,0 +1,60 @@
+.cs-banner {
+  @include font-size(14);
+  @include clearfix;
+  width: 240px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  bottom: 0;
+  overflow-y: auto;
+  background: $color-base;
+  border-right: 1px solid $color-accent;
+}
+
+.cs-logo {
+  display: block;
+  max-width: 100%;
+}
+
+@media screen and ( max-width: $breakpoint-mid ) {
+
+  .cs-banner {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    width: auto;
+    border: 0;
+    background: none;
+    bottom: auto;
+
+    .cs-gutter {
+      padding: 0;
+    }
+
+  }
+
+  .cs-nav-header {
+    display: table;
+  }
+
+  .cs-branding {
+    display: table-cell;
+    vertical-align: middle;
+    background: $color-base;
+    padding-left: $layout-gutter-multiple;
+    border-bottom: 1px solid $color-accent;
+    border-right: 1px solid $color-accent;
+
+    @media screen and ( max-width: $breakpoint-mid ) {
+      border-bottom: 0;
+    }
+
+  }
+
+  .cs-logo {
+    max-width: none;
+    max-height: 33px;
+    margin-right: 15px;
+  }
+
+}

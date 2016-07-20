@@ -1,0 +1,26 @@
+{# Disable the HTML Viewer for this section #}
+
+{% set project =
+  {
+    htmlViewer: false
+  }
+%}
+
+{% extends function == 'json' ? '_corkscrew-api.twig' : '_corkscrew-section.twig' %}
+
+{% set label = 'Color Palette' %}
+{% set description = 'A color palette' %}
+
+{% block block_content %}
+
+  {% for color in colors %}
+
+    <div class="cs-color-wrap">
+      <div data-color="{{ color.hex }}" class="cs-color" style="background: {{ color.hex }};"></div>
+      <div class="cs-color-label">{{ color.label }}</div>
+      <div class="cs-color-hex">{{ color.hex }}</div>
+    </div><!--/.cs-color-wrap-->
+
+  {% endfor %}
+
+{% endblock %}

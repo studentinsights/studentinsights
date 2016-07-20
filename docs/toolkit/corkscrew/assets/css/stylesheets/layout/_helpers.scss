@@ -1,0 +1,48 @@
+.cs-is-hidden {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  opacity: 0;
+  @include transition(opacity ease-in-out .2s);
+  visibility: hidden;
+}
+
+.cs-is-removed {
+  display: none;
+}
+
+.cs-is-inline {
+  @include inline-block;
+  
+  li {
+    @include inline-block;
+  }
+  
+}
+
+.cs-is-clean {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.cs-clearfix {
+  @include clearfix;
+}
+
+.cs-pulse {
+  @include animation(pulse infinite 2s ease-in-out);
+}
+
+.cs-fadeout {
+  opacity: 0 !important;
+}
+
+.cs-fadein {
+  opacity: 1 !important;
+}
+
+.cs-is-uppercase {
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}

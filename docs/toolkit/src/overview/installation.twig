@@ -1,0 +1,18 @@
+{# Disable the HTML Viewer for this section #}
+
+{% set project =
+  {
+    htmlViewer: false
+  }
+%}
+
+{% extends function == 'json' ? '_corkscrew-api.twig' : '_corkscrew-section.twig' %}
+
+{% set label = 'Installation' %}
+{% set description = 'Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipiscing elit. Aliquam et lectus et tortor placerat euismod.' %}
+
+{% block block_content %}
+
+<p>php -S localhost:8080 -t ./styleguide</p>
+
+{% endblock %}

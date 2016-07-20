@@ -1,0 +1,37 @@
+{% extends function == 'json' ? '_corkscrew-api.twig' : '_corkscrew-section.twig' %}
+
+{% set label = 'Tables' %}
+{% set description = 'The HTML table model allows authors to arrange data &ndash; text, preformatted text, images, links, forms, form fields, other tables, etc. &ndash; into rows and columns of cells (<a href="https://www.w3.org/TR/html4/struct/tables.html">W3C, Tables</a>).' %}
+
+{% block block_content %}
+
+<table>
+<tbody>
+  <tr>
+    <th scope="col">Table heading</th>
+    <th scope="col">Table heading</th>
+    <th scope="col">Table heading</th>
+    <th scope="col">Table heading</th>
+  </tr>
+  <tr>
+    <td>data</td>
+    <td>data</td>
+    <td>data</td>
+    <td>data</td>
+  </tr>
+  <tr>
+    <td>data</td>
+    <td>data</td>
+    <td>data</td>
+    <td>data</td>
+  </tr>
+  <tr>
+    <td>data</td>
+    <td>data</td>
+    <td>data</td>
+    <td>data</td>
+  </tr>
+</tbody>
+</table>
+
+{% endblock %}

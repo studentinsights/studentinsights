@@ -1,0 +1,11 @@
+{% extends function == 'json' ? '_corkscrew-api.twig' : '_corkscrew-section.twig' %}
+
+{% set label = 'Paragraphs' %}
+{% set description = 'Paragraphs are usually represented in visual media as blocks of text that are separated from adjacent blocks by vertical blank space and/or first-line indentation (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">MDN, Paragraphs</a>).' %}
+
+{% block block_content %}
+
+<p>Paragraph text lorem ipsum dolor sit amet, consect etur adipi scing elit. Aliquam et lectus et tortor placerat euismod.adipiscing elit. Aliquam et lectus et tortor placerat euismod. Adi piscing elit. Aliquam et lectus et tortor placerat euismod.</p>
+
+{% endblock %}
+
