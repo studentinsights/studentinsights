@@ -1,4 +1,3 @@
-
 require 'thor'
 require_relative '../../app/importers/sources/somerville_star_importers'
 require_relative '../../app/importers/sources/somerville_x2_importers'
@@ -23,7 +22,7 @@ class Import
 
     class_option :school,
       type: :array,
-      default: ['HEA', 'WSNS', 'ESCS'],
+      default: ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS'],
       aliases: "-s",
       desc: "Scope by school local IDs; use ELEM to import all elementary schools"
     class_option :first_time,
