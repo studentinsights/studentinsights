@@ -9,6 +9,7 @@ RSpec.describe Import do
       allow(SftpClient).to receive_messages(for_x2: sftp_client_double, for_star: sftp_client_double)
     end
 
+    let(:log_destination) { File.new(LogHelper.path, 'w') }
     let(:sftp_client_double) { double(read_file: 'meow') }
     let(:commands) { Import::Start.start(%w[--test-mode]) }
 
@@ -21,10 +22,6 @@ RSpec.describe Import do
     end
 
     let(:file_importers) { commands[3] }
-    let(:log_destination) { LogHelper::Redirect.instance.file }
-    let(:expected_file_importer_arguments) {
-      [ ['HEA', 'WSNS', 'ESCS'], sftp_client_double, log_destination, :false ]
-    }
 
     let(:expected_file_importer_classes) {
       [
@@ -40,12 +37,8 @@ RSpec.describe Import do
       ]
     }
 
-    let(:expected_file_importers) {
-      expected_file_importer_classes.map { |c| c.new(*expected_file_importer_arguments) }
-    }
-
     it 'returns the correct importers' do
-      expect(file_importers).to eq expected_file_importers
+      expect(file_importers.map { |f| f.class }).to eq expected_file_importer_classes
     end
 
   end

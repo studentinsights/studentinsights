@@ -5,7 +5,7 @@ class SomervilleX2Importers
     @first_time = options["first_time"]
     @x2_file_importers = options["x2_file_importers"]
     @progress_bar = options["progress_bar"]
-    @log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
+    @log = options["test_mode"] ? File.new(LogHelper.path, 'w') : STDOUT
   end
 
   def sftp_client

@@ -4,7 +4,7 @@ RSpec.describe PrecomputeStudentHashesJob do
 
   let(:outcome) { PrecomputedQueryDoc.all }
   let(:first_json_blob) { JSON.parse!(outcome.first.json) }
-  let(:log) { LogHelper::Redirect.instance.file }
+  let(:log) { File.new(LogHelper.path, 'w') }
 
   describe '#school_overview_precompute_jobs' do
 

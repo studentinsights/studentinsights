@@ -49,7 +49,7 @@ class Import
     no_commands do
       def report
         models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School ]
-        log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
+        log = options["test_mode"] ? File.new(LogHelper.path, 'w') : STDOUT
         @report ||= ImportTaskReport.new(models, log)
       end
 
