@@ -28,7 +28,11 @@ describe StudentDecorator do
 
 
   describe '#as_json_for_school_overview' do
-    before { FactoryGirl.create(:student_school_year, student: student) }
+    before {
+      student.student_school_years.first.present? || StudentSchoolYear.create!(
+        student: student, school_year: SchoolYear.first_or_create!
+      )
+    }
 
     context 'no events or student attributes' do
       let(:student) { FactoryGirl.create(:student, :with_risk_level).decorate }
