@@ -1,12 +1,16 @@
 class Homeroom < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: :slugged
-  validates :name, presence: true, uniqueness: { scope: [:name, :school] }
+  friendly_id :slug_candidates, use: :slugged
+  # validates :name, presence: true, uniqueness: { scope: [:name, :school] }
   validates :slug, uniqueness: true, presence: true
   has_many :students, after_add: :update_grade
   has_many :student_risk_levels, through: :students
   belongs_to :educator
   belongs_to :school
+
+  def slug_candidates
+    [ :name, school.local_id ]
+  end
 
   def update_grade(student)
     # Set homeroom grade level to be first student's grade level, since
