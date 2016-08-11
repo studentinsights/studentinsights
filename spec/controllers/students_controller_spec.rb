@@ -15,7 +15,11 @@ describe StudentsController, :type => :controller do
     let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
     let(:homeroom) { student.homeroom }
-    let!(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
+    let!(:student_school_year) {
+      student.student_school_years.first || StudentSchoolYear.create!(
+        student: student, school_year: SchoolYear.first_or_create!
+      )
+    }
 
     def make_request(options = { student_id: nil, format: :html })
       request.env['HTTPS'] = 'on'
