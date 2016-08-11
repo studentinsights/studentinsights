@@ -92,7 +92,7 @@ describe StudentsController, :type => :controller do
           let!(:more_recent_incident) {
             FactoryGirl.create(
               :discipline_incident,
-              student_school_year: most_recent_school_year,
+              student_school_year: student.student_school_years.first,
               occurred_at: Time.now - 1.day
             )
           }
