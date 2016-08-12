@@ -15,7 +15,7 @@ RSpec.describe BehaviorImporter do
         {
           local_id: student.local_id,
           incident_code: "Hitting",
-          event_date: Date.new(2015, 10, 1),
+          event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
           incident_description: "Hit another student.",
@@ -33,7 +33,7 @@ RSpec.describe BehaviorImporter do
         expect(incident.has_exact_time).to eq true
       end
       it 'assigns the date and time correctly' do
-        expect(incident.occurred_at).to eq Time.utc(2015, 10, 1, 13, 00)
+        expect(incident.occurred_at).to eq Time.utc(Time.now.year, 10, 1, 13, 00)
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe BehaviorImporter do
         {
           local_id: student.local_id,
           incident_code: "Hitting",
-          event_date: Date.new(2015, 10, 1),
+          event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
           incident_description: "Hit another student.",
@@ -56,7 +56,7 @@ RSpec.describe BehaviorImporter do
         {
           local_id: student.local_id,
           incident_code: "Hitting",
-          event_date: Date.new(2015, 10, 2),
+          event_date: Date.new(Time.now.year, 10, 2),
           incident_location: "Classroom",
           incident_description: "Hit another student again.",
           school_local_id: "SHS"
@@ -81,7 +81,7 @@ RSpec.describe BehaviorImporter do
         {
           local_id: student.local_id,
           incident_code: "Lorem ipsuming",
-          event_date: Date.new(2015, 10, 1),
+          event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
           incident_description: big_block_of_text,
@@ -101,7 +101,7 @@ RSpec.describe BehaviorImporter do
         {
           local_id: student.local_id,
           incident_code: "Bullying",
-          event_date: Date.new(2015, 10, 3),
+          event_date: Date.new(Time.now.year, 10, 3),
           incident_time: nil,
           incident_location: "Classroom",
           incident_description: "Bullied another student.",
@@ -113,7 +113,7 @@ RSpec.describe BehaviorImporter do
         expect(incident.has_exact_time).to eq false
       end
       it 'assigns the date without a time' do
-        expect(incident.occurred_at).to eq Time.utc(2015, 10, 3)
+        expect(incident.occurred_at).to eq Time.utc(Time.now.year, 10, 3)
       end
     end
 
@@ -123,7 +123,7 @@ RSpec.describe BehaviorImporter do
         {
           local_id: student.local_id,
           incident_code: "Unauthorized pencil sharpening",
-          event_date: Date.new(2015, 10, 2),
+          event_date: Date.new(Time.now.year, 10, 2),
           incident_time: "13:00:00",
           incident_location: "Classroom",
           incident_description: "pencil that didn’t need to be",
