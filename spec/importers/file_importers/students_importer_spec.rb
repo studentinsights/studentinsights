@@ -54,11 +54,13 @@ RSpec.describe StudentsImporter do
   describe '#assign_student_to_homeroom' do
 
     context 'student already has a homeroom' do
-      let!(:student) { FactoryGirl.create(:student_with_homeroom) }
-      let!(:new_homeroom) { FactoryGirl.create(:homeroom) }
+      let!(:school) { FactoryGirl.create(:school) }
+      let!(:student) { FactoryGirl.create(:student_with_homeroom, school: school) }
+      let!(:new_homeroom) { FactoryGirl.create(:homeroom, school: school) }
+
       it 'assigns the student to the homeroom' do
         described_class.new.assign_student_to_homeroom(student, new_homeroom.name)
-        expect(student.homeroom_id).to eq(new_homeroom.id)
+        expect(student.reload.homeroom).to eq(new_homeroom)
       end
     end
 
