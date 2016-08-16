@@ -1,7 +1,7 @@
 class Homeroom < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
-  # validates :name, presence: true, uniqueness: { scope: [:name, :school] }
+  validates :name, presence: true, uniqueness: { scope: [:name, :school] }
   validates :slug, uniqueness: true, presence: true
   validates :school, presence: true
   has_many :students, after_add: :update_grade
