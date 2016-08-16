@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe StudentsImporter do
 
-
   describe '#import_row' do
 
     context 'good data' do
@@ -14,6 +13,7 @@ RSpec.describe StudentsImporter do
 
       let!(:high_school) { School.create(local_id: 'SHS') }
       let!(:healey) { School.create(local_id: 'HEA') }
+      let!(:brown) { School.create(local_id: 'BRN') }
 
       it 'imports students' do
         expect { import }.to change { Student.count }.by 3
