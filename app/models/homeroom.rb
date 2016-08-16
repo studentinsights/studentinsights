@@ -10,7 +10,7 @@ class Homeroom < ActiveRecord::Base
   belongs_to :school
 
   def slug_candidates
-    [ :name, school.local_id ]
+    [ :name, school.try(:local_id) ]
   end
 
   def update_grade(student)
