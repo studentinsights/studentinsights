@@ -42,7 +42,7 @@ class Import
       desc: "Redirect log output away from STDOUT; do not load Rails during import"
     class_option :progress_bar,
       type: :boolean,
-      default: :false,
+      default: false,
       desc: "Show a progress bar for CSV reading (useful in development)"
 
     no_commands do
