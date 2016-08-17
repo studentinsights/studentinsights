@@ -58,7 +58,7 @@ describe StudentDecorator do
          "program_assigned" => nil,
          "race" => nil,
          "registration_date" => nil,
-         "school_id" => nil,
+         "school_id" => student.school.id,
          "sped_level_of_need" => nil,
          "sped_placement" => nil,
          "state_id" => nil,

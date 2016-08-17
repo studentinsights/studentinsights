@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606223646) do
+ActiveRecord::Schema.define(version: 20160728221807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,7 +149,6 @@ ActiveRecord::Schema.define(version: 20160606223646) do
   end
 
   add_index "homerooms", ["educator_id"], name: "index_homerooms_on_educator_id", using: :btree
-  add_index "homerooms", ["name"], name: "index_homerooms_on_name", unique: true, using: :btree
   add_index "homerooms", ["slug"], name: "index_homerooms_on_slug", unique: true, using: :btree
 
   create_table "intervention_types", force: :cascade do |t|

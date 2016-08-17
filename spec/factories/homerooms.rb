@@ -8,6 +8,7 @@ FactoryGirl.define do
 
   factory :homeroom do
     name { FactoryGirl.generate(:name) }
+    association :school
 
     factory :homeroom_with_student do
       after(:create) do |homeroom|
