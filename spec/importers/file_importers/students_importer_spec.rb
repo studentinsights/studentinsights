@@ -16,7 +16,7 @@ RSpec.describe StudentsImporter do
       let!(:brown) { School.create(local_id: 'BRN') }
 
       it 'imports students' do
-        expect { import }.to change { Student.count }.by 3
+        expect { import }.to change { Student.count }.by 2
       end
 
       it 'imports student data correctly' do
