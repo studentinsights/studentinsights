@@ -27,7 +27,7 @@ RSpec.describe Import do
         ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS'],
         sftp_client_double,
         log_destination,
-        :false
+        false
       ]
     }
 
