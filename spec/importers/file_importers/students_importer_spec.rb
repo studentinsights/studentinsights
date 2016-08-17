@@ -8,8 +8,13 @@ RSpec.describe StudentsImporter do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
-      let(:importer) { described_class.new }
-      let(:import) { csv.each { |row| importer.import_row(row) }}
+
+      let(:importer) { described_class.new }          # We don't pass in args
+
+      let(:import) {
+        csv.each { |row| importer.import_row(row) }   # No school filter here because
+      }                                               # we are calling 'import' directly
+                                                      # on each row
 
       let!(:high_school) { School.create(local_id: 'SHS') }
       let!(:healey) { School.create(local_id: 'HEA') }
