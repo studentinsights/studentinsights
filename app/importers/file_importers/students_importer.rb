@@ -27,10 +27,9 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def handle_high_school_student(student)
-    puts 'HS, no import!' && return if student.new_record?  # We don't want to import HS students into the db
-                                                            # since this app isn't being used at the high school
+    return if student.new_record?  # We don't want to import HS students into the db
+                                 # since this app isn't being used at the high school
 
-    puts 'HS, update row!'
     student.enrollment_status = 'High School'
     student.grade = 'HS'
     student.school = nil
