@@ -9,7 +9,7 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS'])
   end
 
   def school_ids_dictionary
