@@ -1,12 +1,17 @@
 class SchoolsController < ApplicationController
   include SerializeDataHelper
   include StudentsQueryHelper
-  
+
   before_action :authenticate_educator!,
                 :authorize
 
   def show
-    authorized_students = current_educator.students_for_school_overview
+    if current_educator.admin?
+      @school = School.find_by_id(params[:id])
+      authorized_students = @school.students
+    else
+      authorized_students = current_educator.students_for_school_overview
+    end
 
     # TODO(kr) Read from cache, since this only updates daily
     student_hashes = log_timing('schools#show student_hashes') do
