@@ -9,7 +9,7 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS'])
   end
 
   def school_ids_dictionary
@@ -18,6 +18,25 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def import_row(row)
     student = StudentRow.new(row, school_ids_dictionary).build
+
+    if student.grade.in? ['9', '10', '11', '12', 'SP']
+      handle_high_school_student(student)
+    else
+      handle_elementary_student(student, row)
+    end
+  end
+
+  def handle_high_school_student(student)
+    return if student.new_record?  # We don't want to import HS students into the db
+                                   # since this app isn't being used at the high school
+
+    student.enrollment_status = 'High School'
+    student.grade = 'HS'
+    student.school = nil
+    student.save!
+  end
+
+  def handle_elementary_student(student, row)
     if student.save!
       assign_student_to_homeroom(student, row[:homeroom])
       student.create_student_risk_level!
