@@ -59,7 +59,7 @@ class SchoolsController < ApplicationController
       logger.error "load_precomputed_student_hashes raised error #{err.inspect}"
     end
 
-    # Fallback to performing the full query if something went wrong reading the 
+    # Fallback to performing the full query if something went wrong reading the
     # precomputed value
     logger.error "falling back to full load_precomputed_student_hashes query for key: #{key}"
     authorized_students = Student.find(authorized_student_ids)
