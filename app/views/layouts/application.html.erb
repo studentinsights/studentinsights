@@ -21,6 +21,17 @@
         </a>
         <% if educator_signed_in? %>
           <div class="nav-options">
+            <% if current_educator.districtwide_access? %>
+              [
+                <%= link_to 'BRN', school_path(School.find_by_local_id('BRN')) %> |
+                <%= link_to 'HEA', school_path(School.find_by_local_id('HEA')) %> |
+                <%= link_to 'KDY', school_path(School.find_by_local_id('KDY')) %> |
+                <%= link_to 'AFAS', school_path(School.find_by_local_id('AFAS')) %> |
+                <%= link_to 'ESCS', school_path(School.find_by_local_id('ESCS')) %> |
+                <%= link_to 'WSNS', school_path(School.find_by_local_id('WSNS')) %> |
+                <%= link_to 'WHCS', school_path(School.find_by_local_id('WHCS')) %>
+              ] &nbsp;
+            <% end %>
             <% if current_educator.admin? && current_educator.school != nil %>
               <%= link_to 'School Overview', school_path(current_educator.school) %>
               <%= link_to 'STAR Reading', star_reading_school_path(current_educator.school) %>
