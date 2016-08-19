@@ -39,7 +39,7 @@ describe SchoolsController, :type => :controller do
         FactoryGirl.create(:educator, schoolwide_access: true, school: hea)
       }
 
-      it 'cannot access any school in the district' do
+      it 'can only access assigned school' do
         sign_in(educator)
         make_request('hea')
         expect(response).to be_success
