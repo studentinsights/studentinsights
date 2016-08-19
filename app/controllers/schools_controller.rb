@@ -7,7 +7,6 @@ class SchoolsController < ApplicationController
 
   def show
     if current_educator.districtwide_access?
-      @school = School.find_by_slug(params[:id])
       authorized_students = @school.students
     else
       authorized_students = current_educator.students_for_school_overview
@@ -95,13 +94,20 @@ class SchoolsController < ApplicationController
   end
 
   def authorize
-    redirect_to(homepage_path_for_current_educator) unless current_educator.schoolwide_access? ||
-                                                           current_educator.has_access_to_grade_levels? ||
-                                                           current_educator.districtwide_access
+    redirect_to(homepage_path_for_current_educator) unless educator_authorized_for_school
 
     if current_educator.has_access_to_grade_levels?
       grade_message = " Showing students in grades #{current_educator.grade_level_access.to_sentence}."
       flash[:notice] << grade_message if flash[:notice]
     end
   end
+
+  def educator_authorized_for_school
+    @school = School.find_by_slug(params[:id])
+
+    (current_educator.schoolwide_access? && current_educator.school == @school) ||
+    (current_educator.has_access_to_grade_levels? && current_educator.school == @school) ||
+    current_educator.districtwide_access?
+  end
+
 end
