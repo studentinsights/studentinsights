@@ -1,12 +1,16 @@
 class SchoolsController < ApplicationController
   include SerializeDataHelper
   include StudentsQueryHelper
-  
+
   before_action :authenticate_educator!,
                 :authorize
 
   def show
-    authorized_students = current_educator.students_for_school_overview
+    if current_educator.districtwide_access?
+      authorized_students = @school.students
+    else
+      authorized_students = current_educator.students_for_school_overview
+    end
 
     # TODO(kr) Read from cache, since this only updates daily
     student_hashes = log_timing('schools#show student_hashes') do
@@ -54,7 +58,7 @@ class SchoolsController < ApplicationController
       logger.error "load_precomputed_student_hashes raised error #{err.inspect}"
     end
 
-    # Fallback to performing the full query if something went wrong reading the 
+    # Fallback to performing the full query if something went wrong reading the
     # precomputed value
     logger.error "falling back to full load_precomputed_student_hashes query for key: #{key}"
     authorized_students = Student.find(authorized_student_ids)
@@ -90,12 +94,20 @@ class SchoolsController < ApplicationController
   end
 
   def authorize
-    redirect_to(homepage_path_for_current_educator) unless current_educator.schoolwide_access? ||
-                                                           current_educator.has_access_to_grade_levels?
+    redirect_to(homepage_path_for_current_educator) unless educator_authorized_for_school
 
     if current_educator.has_access_to_grade_levels?
       grade_message = " Showing students in grades #{current_educator.grade_level_access.to_sentence}."
       flash[:notice] << grade_message if flash[:notice]
     end
   end
+
+  def educator_authorized_for_school
+    @school = School.find_by_slug(params[:id])
+
+    (current_educator.schoolwide_access? && current_educator.school == @school) ||
+    (current_educator.has_access_to_grade_levels? && current_educator.school == @school) ||
+    current_educator.districtwide_access?
+  end
+
 end

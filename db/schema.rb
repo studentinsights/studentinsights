@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728221807) do
+ActiveRecord::Schema.define(version: 20160819183332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160728221807) do
     t.boolean  "restricted_to_sped_students",             default: false, null: false
     t.boolean  "restricted_to_english_language_learners", default: false, null: false
     t.boolean  "can_view_restricted_notes",               default: false, null: false
+    t.boolean  "districtwide_access",                     default: false, null: false
   end
 
   add_index "educators", ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
