@@ -6,7 +6,7 @@ class SchoolsController < ApplicationController
                 :authorize
 
   def show
-    if current_educator.admin?
+    if current_educator.districtwide_access?
       @school = School.find_by_slug(params[:id])
       authorized_students = @school.students
     else
