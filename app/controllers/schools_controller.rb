@@ -7,7 +7,7 @@ class SchoolsController < ApplicationController
 
   def show
     if current_educator.admin?
-      @school = School.find_by_id(params[:id])
+      @school = School.find_by_slug(params[:id])
       authorized_students = @school.students
     else
       authorized_students = current_educator.students_for_school_overview
