@@ -105,6 +105,8 @@ class SchoolsController < ApplicationController
   def educator_authorized_for_school
     @school = School.find_by_slug(params[:id]) || School.find_by_id(params[:id])
 
+    raise 'No school found' if @school.nil?
+
     (current_educator.schoolwide_access? && current_educator.school == @school) ||
     (current_educator.has_access_to_grade_levels? && current_educator.school == @school) ||
     current_educator.districtwide_access?
