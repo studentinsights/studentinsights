@@ -22,13 +22,18 @@ class StarMathImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
     return if student.nil?
 
-    star_assessment = StudentAssessment.where({
+    return if StudentAssessment.where({
       student_id: student.id,
       date_taken: date_taken,
       assessment: star_mathematics_assessment
-    }).first_or_create!
+    }).present?
 
-    star_assessment.update_attributes({percentile_rank: row[:percentile_rank]})
+    StudentAssessment.where({
+      student_id: student.id,
+      date_taken: date_taken,
+      assessment: star_mathematics_assessment,
+      percentile_rank: row[:percentile_rank]
+    }).create!
   end
 
   class HistoricalImporter < StarMathImporter
