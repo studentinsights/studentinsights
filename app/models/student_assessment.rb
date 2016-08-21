@@ -14,11 +14,11 @@ class StudentAssessment < ActiveRecord::Base
   def valid_assessment_attributes
     case assessment.family
     when 'MCAS'
-      errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
+      # errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
     when 'STAR'
-      errors.add(:scale_score, "invalid attributes") unless valid_star_attributes
+      # errors.add(:scale_score, "invalid attributes") unless valid_star_attributes
     when 'DIBELS'
-      errors.add(:scale_score, "invalid attributes") unless valid_dibels_attributes
+      # errors.add(:scale_score, "invalid attributes") unless valid_dibels_attributes
     end
   end
 
