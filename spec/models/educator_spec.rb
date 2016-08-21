@@ -40,35 +40,46 @@ RSpec.describe Educator do
 
   describe '#is_authorized_for_student' do
     let(:authorized?) { educator.is_authorized_for_student(student) }
+    let(:healey) { FactoryGirl.create(:healey) }
+    let(:brown) { FactoryGirl.create(:brown) }
 
-    context 'educator belongs to school' do
-      let(:healey) { FactoryGirl.create(:healey) }
+    context 'educator has districtwide access' do
+      let(:student) { FactoryGirl.create(:student, school: healey) }
+      let(:educator) {
+        FactoryGirl.create(:educator, school: brown, districtwide_access: true)
+      }
 
-      context 'student belongs to same school' do
-        let(:student) { FactoryGirl.create(:student, school: healey) }
-        context 'educator does not have schoolwide access' do
-          let(:educator) { FactoryGirl.create(:educator, school: healey) }
-          it 'is not authorized' do
-            expect(authorized?).to be false
-          end
-        end
-        context 'educator has schoolwide access' do
-          let(:educator) { FactoryGirl.create(:educator, school: healey, schoolwide_access: true) }
-          it 'is authorized' do
-            expect(authorized?).to be true
-          end
-        end
+      it 'grants access despite student being from different school' do
+        expect(authorized?).to be true
       end
+    end
 
-      context 'student belongs to different school' do
-        let(:brown) { FactoryGirl.create(:brown) }
-        let(:educator) { FactoryGirl.create(:educator, school: healey, schoolwide_access: true) }
-        let(:student) { FactoryGirl.create(:student, school: brown) }
+    context 'student belongs to same school' do
+      let(:student) { FactoryGirl.create(:student, school: healey) }
+
+      context 'educator does not have schoolwide access' do
+        let(:educator) { FactoryGirl.create(:educator, school: healey) }
         it 'is not authorized' do
           expect(authorized?).to be false
         end
       end
 
+      context 'educator has schoolwide access' do
+        let(:educator) { FactoryGirl.create(:educator, school: healey, schoolwide_access: true) }
+        it 'is authorized' do
+          expect(authorized?).to be true
+        end
+      end
+
+    end
+
+    context 'student belongs to different school' do
+      let(:educator) { FactoryGirl.create(:educator, school: healey, schoolwide_access: true) }
+      let(:student) { FactoryGirl.create(:student, school: brown) }
+
+      it 'is not authorized' do
+        expect(authorized?).to be false
+      end
     end
 
   end

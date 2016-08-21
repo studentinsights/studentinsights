@@ -53,6 +53,8 @@ class Educator < ActiveRecord::Base
   # This method is the source of truth for whether an educator is authorized to view information about a particular
   # student.
   def is_authorized_for_student(student)
+    return true if self.districtwide_access?
+
     return false if self.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
     return false if self.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
     return false if self.school.present? && self.school != student.school
