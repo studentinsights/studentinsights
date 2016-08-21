@@ -6,14 +6,16 @@ raise "empty yer db" if School.count > 0 ||
                         InterventionType.count > 0 ||
                         Assessment.count > 0
 
-healey = School.create(name: "Arthur D Healey")
-wsns = School.create(name: "West Somerville Neighborhood")
-
 # The local demo data setup uses the Somerville database constants
 # (eg., the set of `ServiceType`s) for generating local demo data and
 # for tests.
 puts 'Seeding database constants for Somerville...'
+
 DatabaseConstants.new.seed!
+School.seed_somerville_schools
+
+healey = School.find_by_name("Arthur D Healey")
+wsns = School.find_by_name("West Somerville Neighborhood")
 
 puts "Creating demo educators..."
 Educator.destroy_all
