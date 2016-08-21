@@ -14,21 +14,33 @@ class StudentAssessment < ActiveRecord::Base
   def valid_assessment_attributes
     case assessment.family
     when 'MCAS'
-      scale_score.present? &&
-      growth_percentile.present? &&
-      performance_level.present? &&
-      percentile_rank.nil?
+      # errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
     when 'STAR'
-      percentile_rank.present? &&
-      scale_score.nil? &&
-      growth_percentile.nil? &&
-      performance_level.nil?
+      # errors.add(:scale_score, "invalid attributes") unless valid_star_attributes
     when 'DIBELS'
-      performance_level.present? &&
-      percentile_rank.nil? &&
-      scale_score.nil? &&
-      growth_percentile.nil?
+      # errors.add(:scale_score, "invalid attributes") unless valid_dibels_attributes
     end
+  end
+
+  def valid_mcas_attributes
+    scale_score.present? &&
+    growth_percentile.present? &&
+    performance_level.present? &&
+    percentile_rank.nil?
+  end
+
+  def valid_star_attributes
+    percentile_rank.present? &&
+    scale_score.nil? &&
+    growth_percentile.nil? &&
+    performance_level.nil?
+  end
+
+  def valid_dibels_attributes
+    performance_level.present? &&
+    percentile_rank.nil? &&
+    scale_score.nil? &&
+    growth_percentile.nil?
   end
 
   def assign_to_school_year
