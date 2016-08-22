@@ -20,18 +20,6 @@
       serviceTypesIndex: React.PropTypes.object
     },
 
-    getMessageForServiceType: function(service_type_id){
-      // Given a service_type_id, returns a message suitable for human consumption describing the service.
-      var lookup = this.props.serviceTypesIndex;
-      if (lookup.hasOwnProperty(service_type_id)){
-        var text = lookup[service_type_id].name;
-      } else {
-        var text = "Description not found for code: " + service_type_id;
-      }
-
-      return text;
-    },
-
     getEvents: function(){
       // Returns a list of {type: ..., date: ..., value: ...} pairs, sorted by date of occurrence.
       var name = this.props.student.first_name;
@@ -251,6 +239,19 @@
         text
         )
       );
+    },
+
+    getMessageForServiceType: function(service_type_id){
+      // Given a service_type_id, returns a message suitable for human consumption describing the service.
+      var lookup = this.props.serviceTypesIndex;
+      if (lookup.hasOwnProperty(service_type_id)){
+        var text = lookup[service_type_id].name;
+      } else {
+        var text = "Description not found for code: " + service_type_id;
+      }
+
+      return text;
     }
+
   });
 })();
