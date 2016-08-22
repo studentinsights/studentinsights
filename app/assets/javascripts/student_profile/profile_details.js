@@ -205,15 +205,20 @@
           date: moment(obj.date_started).toDate()
         })
       }.bind(this));
+
       _.each(this.props.dibels, function(obj) {
         // TODO(kr) need to investigate further, whether this is local demo data or production
         // data quality issue
         if (obj.performance_level === null) return;
+
+        var cleanedDate = obj.date_taken.split('T')[0];
+        var parsedDate = moment(cleanedDate).toDate();
+
         events.push({
           type: 'DIBELS',
           id: obj.id,
           message: name + ' scored ' + obj.performance_level.toUpperCase() + ' in DIBELS.',
-          date: moment(obj.date_taken).toDate()
+          date: parsedDate
         });
       });
       return _.sortBy(events, 'date').reverse();
