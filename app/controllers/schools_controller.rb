@@ -7,7 +7,7 @@ class SchoolsController < ApplicationController
 
   def show
     if current_educator.districtwide_access?
-      authorized_students = @school.students
+      authorized_students = @school.students.active
     else
       authorized_students = current_educator.students_for_school_overview
     end
