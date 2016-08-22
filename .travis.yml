@@ -17,6 +17,7 @@ branches:
 #   - export PATH=$PATH:$HOME/.local/bin
 
 before_install:
+  - export TZ=America/New_York
   - echo psql --version
   - gem install -v 1.10.6 bundler --no-rdoc --no-ri
  # workarounds for phantomjs 1, see: https://github.com/travis-ci/travis-ci/issues/3225#issuecomment-177592725
