@@ -5,81 +5,7 @@
   var merge = window.shared.ReactHelpers.merge;
   var FeedHelpers = window.shared.FeedHelpers;
   var QuadConverter = window.shared.QuadConverter;
-
-  var styles = {
-    feedCard: {
-      marginBottom: 10,
-      borderRadius: 10,
-      fontSize: 14
-    },
-    feedCardHeader: {
-      fontSize: 17,
-      fontWeight: 400,
-      color: '#555555'
-    },
-    box: {
-      border: '1px solid #ccc',
-      padding: 15,
-      marginTop: 10,
-      marginBottom: 10,
-      width: '100%',
-    },
-    header: {
-      display: 'flex',
-      flexFlow: 'row',
-      justifyContent: 'space-between'
-    },
-    title: {
-      borderBottom: '1px solid #333',
-      color: 'black',
-      padding: 10,
-      paddingLeft: 0,
-      marginBottom: 10
-    },
-    schoolYearTitle: {
-      padding: 10,
-      paddingLeft: 10,
-      marginBottom: 10,
-      color: '#555555'
-    },
-    badge: {
-      display: 'inline-block',
-      width: '10em',
-      textAlign: 'center',
-      marginLeft: 10,
-      marginRight: 10
-    },
-    accessTableHeader: {
-      fontWeight: 'bold',
-      textAlign: 'left',
-      marginBottom: 10
-    },
-    accessLeftTableCell: {
-      paddingRight: 25
-    },
-    accessTableFootnote: {
-      fontStyle: 'italic',
-      fontSize: 13,
-      marginTop: 15,
-      marginBottom: 20
-    },
-    fullCaseHistoryTitle: {
-      color: 'black',
-      display: 'inline-block',
-      flex: 'auto',
-    },
-    fullCaseHistoryHeading: {
-      display: 'flex',
-      borderBottom: '1px solid #333',
-      padding: 10,
-      paddingLeft: 0,
-    },
-    spedButton: {
-      width: '20em',
-      fontSize: 12,
-      padding: 8
-    },
-  };
+  var styles = window.shared.ProfileDetailsStyle;
 
   var ProfileDetails = window.shared.ProfileDetails = React.createClass({
     displayName: 'ProfileDetails',
@@ -92,18 +18,6 @@
       chartData: React.PropTypes.object,
       attendanceData: React.PropTypes.object,
       serviceTypesIndex: React.PropTypes.object
-    },
-
-    getMessageForServiceType: function(service_type_id){
-      // Given a service_type_id, returns a message suitable for human consumption describing the service.
-      var lookup = this.props.serviceTypesIndex;
-      if (lookup.hasOwnProperty(service_type_id)){
-        var text = lookup[service_type_id].name;
-      } else {
-        var text = "Description not found for code: " + service_type_id;
-      }
-
-      return text;
     },
 
     getEvents: function(){
@@ -313,22 +227,8 @@
       }
 
       var dateStyle = {display: 'inline-block', width: 180};
-      var type_to_color = {
-        "Absence": '#e8fce8',
-        "Tardy": '#e8fce8',
-        "Incident": '#e8fce8',
-        "Note": '#e8fce8',
-        "Service": '#e8fce8',
 
-        "MCAS-ELA": '#ffe7d6',
-        "STAR-Reading": '#ffe7d6',
-
-        "MCAS-Math": '#e8e9fc',
-        "STAR-Math": '#e8e9fc',
-
-        "DIBELS": '#e8fce8'
-      };
-      var badgeStyle = merge(styles.badge, {background: type_to_color[event.type]});
+      var badgeStyle = merge(styles.badge, {background: styles.type_to_color[event.type]});
 
       return dom.div({key: key, id: key, style: containingDivStyle},
         dom.div({style: paddingStyle},
@@ -339,6 +239,19 @@
         text
         )
       );
+    },
+
+    getMessageForServiceType: function(service_type_id){
+      // Given a service_type_id, returns a message suitable for human consumption describing the service.
+      var lookup = this.props.serviceTypesIndex;
+      if (lookup.hasOwnProperty(service_type_id)){
+        var text = lookup[service_type_id].name;
+      } else {
+        var text = "Description not found for code: " + service_type_id;
+      }
+
+      return text;
     }
+
   });
 })();
