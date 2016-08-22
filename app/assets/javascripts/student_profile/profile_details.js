@@ -233,12 +233,19 @@
       return dom.div({key: key, id: key, style: containingDivStyle},
         dom.div({style: paddingStyle},
           dom.div({style: headerDivStyle},
-            dom.span({style: dateStyle}, moment(event.date).format("MMMM Do, YYYY:")),
+            dom.span({style: dateStyle}, this.displayEventDate(event.date)),
             dom.span({style: badgeStyle}, event.type.replace("-", " "))
           ),
         text
         )
       );
+    },
+
+    displayEventDate: function(event_date){
+      // Use UTC to avoid timezone-related display errors. (See GitHub issue #622.)
+      // Timezone is irrelevant for this UI. We are not displaying times, only dates.
+
+      return moment(event_date).utc().format("MMMM Do, YYYY:");
     },
 
     getMessageForServiceType: function(service_type_id){

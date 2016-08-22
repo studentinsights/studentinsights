@@ -55,22 +55,58 @@ describe('ProfileDetails', function() {
         expect("#school-year-starting-" + year).toExist();
       });
 
-      expect("#school-year-starting-2015 > #Absence-991").toExist();
-      expect("#school-year-starting-2013 > #Tardy-998").toExist();
-      expect("#school-year-starting-2011 > #Incident-9912").toExist();
+      expect($("#school-year-starting-2015 > #Absence-991", el).text()).toEqual(
+        'February 21st, 2016:Absence'
+      );
 
-      expect("#school-year-starting-2014 > #MCAS-ELA-02-18").toExist();
-      expect("#school-year-starting-2014 > #MCAS-Math-09-18").toExist();
-      expect("#school-year-starting-2015 > #STAR-Reading-01-18").toExist();
-      expect("#school-year-starting-2012 > #STAR-Math-11-18").toExist();
+      expect($("#school-year-starting-2013 > #Tardy-998", el).text()).toEqual(
+        'January 1st, 2014:Tardy'
+      );
 
-      expect("#school-year-starting-2010 > #Note-997").toExist();
-      expect("#school-year-starting-2012 > #Note-945").toExist();
-      expect("#school-year-starting-2010 > #Note-992").toExist();
-      expect("#school-year-starting-2009 > #Service-996").toExist();
-      expect("#school-year-starting-2010 > #Service-945").toExist();
+      expect($("#school-year-starting-2011 > #Incident-9912", el).text()).toEqual(
+        'January 10th, 2012:Incidentundefined in the undefined'   // We could make this better
+      );
 
-      expect("#school-year-starting-2011 > #DIBELS-901").toExist();
+      expect($("#school-year-starting-2014 > #MCAS-ELA-02-18", el).text()).toEqual(
+        'February 18th, 2015:MCAS ELATest scored a 63 on the ELA section of the MCAS.'
+      );
+
+      expect($("#school-year-starting-2014 > #MCAS-Math-09-18", el).text()).toEqual(
+        'September 18th, 2014:MCAS MathTest scored a 23 on the Math section of the MCAS.'
+      );
+
+      expect($("#school-year-starting-2015 > #STAR-Reading-01-18", el).text()).toEqual(
+        'January 18th, 2016:STAR ReadingTest scored in the 83th percentile on the Reading section of STAR.'
+      );
+
+      expect($("#school-year-starting-2012 > #STAR-Math-11-18", el).text()).toEqual(
+        'November 18th, 2012:STAR MathTest scored in the 43th percentile on the Math section of STAR.'
+      );
+
+      expect($("#school-year-starting-2010 > #Note-997", el).text()).toEqual(
+        'October 1st, 2010:Noteundefined(Goal: undefined)'    // We could make this better
+      );
+
+      expect($("#school-year-starting-2012 > #Note-945", el).text()).toEqual(
+        'February 11th, 2013:Note'
+      );
+
+      expect($("#school-year-starting-2010 > #Note-992", el).text()).toEqual(
+        'October 17th, 2010:Note'
+      );
+
+      expect($("#school-year-starting-2009 > #Service-996", el).text()).toEqual(
+        'February 9th, 2010:ServiceMath intervention'
+      );
+
+      expect($("#school-year-starting-2010 > #Service-945", el).text()).toEqual(
+        'October 8th, 2010:ServiceDescription not found for code: undefined'    // We could make this better
+      );
+
+      expect($("#school-year-starting-2011 > #DIBELS-901", el).text()).toEqual(
+        'May 15th, 2012:DIBELSTest scored STRATEGIC in DIBELS.'
+      );
+
     });
   });
 });
