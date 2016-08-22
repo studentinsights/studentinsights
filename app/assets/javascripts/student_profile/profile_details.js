@@ -233,7 +233,7 @@
       return dom.div({key: key, id: key, style: containingDivStyle},
         dom.div({style: paddingStyle},
           dom.div({style: headerDivStyle},
-            dom.span({style: dateStyle}, moment(event.date).format("MMMM Do, YYYY:")),
+            dom.span({style: dateStyle}, moment(event.date).utc().format("MMMM Do, YYYY:")),
             dom.span({style: badgeStyle}, event.type.replace("-", " "))
           ),
         text
