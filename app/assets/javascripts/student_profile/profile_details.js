@@ -239,22 +239,8 @@
       }
 
       var dateStyle = {display: 'inline-block', width: 180};
-      var type_to_color = {
-        "Absence": '#e8fce8',
-        "Tardy": '#e8fce8',
-        "Incident": '#e8fce8',
-        "Note": '#e8fce8',
-        "Service": '#e8fce8',
 
-        "MCAS-ELA": '#ffe7d6',
-        "STAR-Reading": '#ffe7d6',
-
-        "MCAS-Math": '#e8e9fc',
-        "STAR-Math": '#e8e9fc',
-
-        "DIBELS": '#e8fce8'
-      };
-      var badgeStyle = merge(styles.badge, {background: type_to_color[event.type]});
+      var badgeStyle = merge(styles.badge, {background: styles.type_to_color[event.type]});
 
       return dom.div({key: key, id: key, style: containingDivStyle},
         dom.div({style: paddingStyle},
