@@ -1,5 +1,4 @@
 # This is based off https://docs.docker.com/compose/rails/
-
 rails:
   build: .
   volumes:
@@ -19,3 +18,10 @@ postgres:
     - "5432:5432"
   volumes:
     - /var/lib/postgresql/data
+
+tools:
+  build: ./scripts/tools
+  volumes:
+    - .:/mnt/somerville-teacher-tool
+  working_dir: /mnt/somerville-teacher-tool/scripts/tools
+  command: npm run lint-quiet

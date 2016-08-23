@@ -2,6 +2,7 @@
 
   window.shared || (window.shared = {});
   var dom = window.shared.ReactHelpers.dom;
+  var React = window.React;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
@@ -11,8 +12,14 @@
   // Table for SlicePanels that shows a set of filters for a particular
   // dimension, and supports collapsing the list when there are no items
   // that fix particular values.
-  var CollapsableTable = window.shared.CollapsableTable = React.createClass({
+  window.shared.CollapsableTable = React.createClass({
     displayName: 'CollapsableTable',
+
+    propTypes: {
+      items: React.PropTypes.array.isRequired,
+      limit: React.PropTypes.number
+    },
+
     getDefaultProps: function() {
       return {
         minHeight: 132,
