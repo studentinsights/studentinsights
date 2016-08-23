@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "lint-quiet": "eslint --ext jsx --ext js -c ../../.eslintrc ../../app/assets/javascripts; exit 0",
-    "lint": "eslint --ext jsx --ext js -c ../../.eslintrc ../../app/assets/javascripts"
+    "lint": "eslint --ext jsx --ext js -c ../../.eslintrc ../../app/assets/javascripts",
+    "ping": "casperjs pinger.js"
   },
   "repository": {
     "type": "git",
