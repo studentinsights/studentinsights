@@ -104,7 +104,9 @@ class Educator < ActiveRecord::Base
     # Educator can visit roster view for these homerooms
     return [] if school.nil?
 
-    if schoolwide_access?
+    if districtwide_access?
+      Homeroom.all
+    elsif schoolwide_access?
       school.homerooms.all
     elsif homeroom
       school.homerooms.where(grade: homeroom.grade)
