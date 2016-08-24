@@ -45,6 +45,7 @@ class EducatorDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :full_name,
+    :school,
     :homeroom,
     :schoolwide_access,
     :can_view_restricted_notes,
