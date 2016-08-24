@@ -164,11 +164,24 @@ RSpec.describe Educator do
     let!(:school) { FactoryGirl.create(:healey) }
     let!(:other_school) { FactoryGirl.create(:brown) }
 
-    context 'admin' do
+    context 'schoolwide_access' do
       let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, school: school) }
       let!(:homeroom_101) { FactoryGirl.create(:homeroom, school: school) }
       let!(:homeroom_102) { FactoryGirl.create(:homeroom, school: school) }
       let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: school) }
+
+      it 'returns all homerooms in the school' do
+        expect(educator.allowed_homerooms.sort).to eq [
+          homeroom_101, homeroom_102, homeroom_103
+        ].sort
+      end
+    end
+
+    context 'districtwide_access' do
+      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, school: school) }
+      let!(:homeroom_101) { FactoryGirl.create(:homeroom, school: school) }
+      let!(:homeroom_102) { FactoryGirl.create(:homeroom, school: other_school) }
+      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: other_school) }
 
       it 'returns all homerooms in the school' do
         expect(educator.allowed_homerooms.sort).to eq [
