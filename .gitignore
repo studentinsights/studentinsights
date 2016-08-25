@@ -6,6 +6,7 @@
 /data
 coverage
 spec/logs/logs.txt
+node_modules
 
 # This holds configuration for testing production import scripts locally, so it shouldn't be checked into
 # source control.

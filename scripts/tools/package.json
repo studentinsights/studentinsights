@@ -1,0 +1,22 @@
+{
+  "name": "studentinsights-tools",
+  "version": "0.1.0",
+  "scripts": {
+    "lint-quiet": "eslint --ext jsx --ext js -c ../../.eslintrc ../../app/assets/javascripts; exit 0",
+    "lint": "eslint --ext jsx --ext js -c ../../.eslintrc ../../app/assets/javascripts",
+    "ping": "casperjs pinger.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/studentinsights/studentinsights.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/studentinsights/studentinsights/issues"
+  },
+  "devDependencies": {
+    "casperjs": "^1.1.3",
+    "eslint": "^3.3.1",
+    "eslint-plugin-react": "^6.1.2"
+  }
+}

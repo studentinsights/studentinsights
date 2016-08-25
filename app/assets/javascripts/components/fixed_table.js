@@ -1,9 +1,9 @@
 (function() {
 
   window.shared || (window.shared = {});
+  var React = window.React;
+  var _ = window._;
   var dom = window.shared.ReactHelpers.dom;
-  var createEl = window.shared.ReactHelpers.createEl;
-  var merge = window.shared.ReactHelpers.merge;
   var colors = window.shared.colors;
   var styles = window.shared.styles;
 
@@ -13,8 +13,16 @@
   Items are shown in the order they are passed, and there is
   no user interation to change the list of items.
   */
-  var FixedTable = window.shared.FixedTable = React.createClass({
+  window.shared.FixedTable = React.createClass({
     displayName: 'FixedTable',
+
+    propTypes: {
+      onFilterToggled: React.PropTypes.func.isRequired,
+      filters: React.PropTypes.array.isRequired,
+      title: React.PropTypes.string.isRequired,
+      items: React.PropTypes.array.isRequired,
+      children: React.PropTypes.element.isRequired
+    },
 
     onRowClicked: function(item, e) {
       this.props.onFilterToggled(item.filter);
@@ -43,7 +51,6 @@
         }, title),
         dom.table({},
           dom.tbody({}, items.map(function(item) {
-            var key = item.caption;
             var isFilterApplied = _.contains(selectedFilterIdentifiers, item.filter.identifier);
             return dom.tr({
               className: 'clickable-row',

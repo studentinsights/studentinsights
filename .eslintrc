@@ -1,0 +1,40 @@
+{
+  "env": {
+    "browser": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "indent": ["error", 2],
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "only-multiline"],
+    "no-unused-vars": ["error", {
+      "args": "none"
+    }],
+    "no-use-before-define": "off",
+    "eol-last": "off",
+    "react/prefer-stateless-function": "off",
+    "react/prefer-es6-class": "off",
+    "react/sort-comp": ["error", {
+      order: [
+        'static-methods',
+        'mixins',
+        'lifecycle',
+        'everything-else',
+        '/^on.+$/',
+        'rendering'
+      ],
+      groups: {
+        rendering: [
+          'render',
+          '/^render.+$/'
+        ]
+      }
+    }]
+  }
+}
