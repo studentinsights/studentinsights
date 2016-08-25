@@ -20,7 +20,7 @@ postgres:
     - /var/lib/postgresql/data
 
 tools:
-  build: ./scripts/tools
+  image: node:6.4.0
   volumes:
     - .:/mnt/somerville-teacher-tool
   working_dir: /mnt/somerville-teacher-tool/scripts/tools
