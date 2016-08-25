@@ -8,8 +8,8 @@ class EducatorDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    school: Field::SchoolNameField.with_options(searchable: false),
-    homeroom: Field::HomeroomNameField.with_options(searchable: false),
+    school: SchoolNameField.with_options(searchable: false),
+    homeroom: HomeroomNameField.with_options(searchable: false),
     students: Field::HasMany.with_options(searchable: false),
     interventions: Field::HasMany.with_options(searchable: false),
     id: Field::Number.with_options(searchable: false),
@@ -25,17 +25,17 @@ class EducatorDashboard < Administrate::BaseDashboard
     last_sign_in_ip: Field::String.with_options(searchable: false),
     created_at: Field::DateTime.with_options(searchable: false),
     updated_at: Field::DateTime.with_options(searchable: false),
-    admin: Field::Boolean.with_options(searchable: false),
+    admin: YesNoBooleanField.with_options(searchable: false),
     phone: Field::String.with_options(searchable: false),
     full_name: Field::String,
     state_id: Field::String.with_options(searchable: false),
     local_id: Field::String.with_options(searchable: false),
     staff_type: Field::String.with_options(searchable: false),
-    schoolwide_access: Field::Boolean.with_options(searchable: false),
-    grade_level_access: Field::PostgresArrayField.with_options(searchable: false),
-    restricted_to_sped_students: Field::Boolean.with_options(searchable: false),
-    restricted_to_english_language_learners: Field::Boolean.with_options(searchable: false),
-    can_view_restricted_notes: Field::Boolean.with_options(searchable: false),
+    schoolwide_access: YesNoBooleanField.with_options(searchable: false),
+    grade_level_access: PostgresArrayField.with_options(searchable: false),
+    restricted_to_sped_students: YesNoBooleanField.with_options(searchable: false),
+    restricted_to_english_language_learners: YesNoBooleanField.with_options(searchable: false),
+    can_view_restricted_notes: YesNoBooleanField.with_options(searchable: false),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
