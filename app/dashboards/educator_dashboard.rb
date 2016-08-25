@@ -8,8 +8,8 @@ class EducatorDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    school: Field::SchoolNameField.with_options(searchable: false),
-    homeroom: Field::HomeroomNameField.with_options(searchable: false),
+    school: SchoolNameField.with_options(searchable: false),
+    homeroom: HomeroomNameField.with_options(searchable: false),
     students: Field::HasMany.with_options(searchable: false),
     interventions: Field::HasMany.with_options(searchable: false),
     id: Field::Number.with_options(searchable: false),
@@ -32,7 +32,7 @@ class EducatorDashboard < Administrate::BaseDashboard
     local_id: Field::String.with_options(searchable: false),
     staff_type: Field::String.with_options(searchable: false),
     schoolwide_access: YesNoBooleanField.with_options(searchable: false),
-    grade_level_access: Field::PostgresArrayField.with_options(searchable: false),
+    grade_level_access: PostgresArrayField.with_options(searchable: false),
     restricted_to_sped_students: YesNoBooleanField.with_options(searchable: false),
     restricted_to_english_language_learners: YesNoBooleanField.with_options(searchable: false),
     can_view_restricted_notes: YesNoBooleanField.with_options(searchable: false),
