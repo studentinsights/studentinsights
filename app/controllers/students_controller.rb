@@ -76,7 +76,8 @@ class StudentsController < ApplicationController
       current_educator.is_authorized_for_student(student)
     end
     sorted_students = search_and_score(q, authorized_students)
-    @sorted_results = sorted_students.map {|student| student.decorate.presentation_for_autocomplete }
+    truncated_students = sorted_students.take(20)
+    @sorted_results = truncated_students.map {|student| student.decorate.presentation_for_autocomplete }
 
     respond_to do |format|
       format.json { render json: @sorted_results }

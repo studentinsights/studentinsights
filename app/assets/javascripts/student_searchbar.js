@@ -1,6 +1,7 @@
 $(function() {
 
   $("#student-searchbar").autocomplete({
+    minLength: 2,
     source: function(request, response) {
       $.ajax({
         url: "/students/names",
