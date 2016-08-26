@@ -7,6 +7,10 @@ $(function() {
   var PageContainer = window.shared.PageContainer;
   var parseQueryString = window.shared.parseQueryString;
 
+  // mixpanel analytics
+  MixpanelUtils.registerUser(serializedData.currentEducator);
+  MixpanelUtils.track('PAGE_VISIT', { page_key: 'STUDENT_PROFILE' });
+
   // entry point, reading static bootstrapped data from the page
   var serializedData = $('#serialized-data').data();
   ReactDOM.render(createEl(PageContainer, {
