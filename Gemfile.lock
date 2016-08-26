@@ -160,6 +160,7 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     normalize-rails (3.0.3)
+    oj (2.17.3)
     orm_adapter (0.5.0)
     pg (0.18.4)
     phantomjs (2.1.1.0)
@@ -312,6 +313,7 @@ DEPENDENCIES
   launchy
   net-sftp
   net-ssh
+  oj
   pg
   phantomjs
   pivotal_git_scripts
