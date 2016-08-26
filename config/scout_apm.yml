@@ -1,2 +1,0 @@
-production:
-  monitoring: ENV['SCOUT_MONITORING'] || true
