@@ -8,12 +8,11 @@ $(function() {
   var parseQueryString = window.shared.parseQueryString;
   var MixpanelUtils = window.shared.MixpanelUtils;
 
-  // mixpanel analytics
+  // entry point, reading static bootstrapped data from the page
+  var serializedData = $('#serialized-data').data();
   MixpanelUtils.registerUser(serializedData.currentEducator);
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'STUDENT_PROFILE' });
 
-  // entry point, reading static bootstrapped data from the page
-  var serializedData = $('#serialized-data').data();
   ReactDOM.render(createEl(PageContainer, {
     nowMomentFn: function() { return moment.utc(); },
     serializedData: serializedData,
