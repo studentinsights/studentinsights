@@ -6,6 +6,7 @@ $(function() {
   var createEl = window.shared.ReactHelpers.createEl;
   var PageContainer = window.shared.PageContainer;
   var parseQueryString = window.shared.parseQueryString;
+  var MixpanelUtils = window.shared.MixpanelUtils;
 
   // mixpanel analytics
   MixpanelUtils.registerUser(serializedData.currentEducator);
