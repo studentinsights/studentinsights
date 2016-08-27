@@ -9,15 +9,18 @@ namespace :report do
     IntegrityCheck.new.check!
   end
 
-  desc 'Query Mixpanel and email usage reports'
+  desc 'Query Mixpanel and print usage report'
   task mixpanel_usage: :environment do
-    mailgun_url = ENV['MAILGUN_URL']
-    api_secret = ENV['API_SECRET']
+    mailgun_url = MixpanelReport.mailgun_url_from_env(ENV)
+    mixpanel_api_secret = ENV['MIXPANEL_API_SECRET']
+    puts MixpanelReport.new(mixpanel_api_secret).run
+  end
 
-    MixpanelReport.new(api_secret).run_and_email!(mailgun_url, [
-      'kevin.robinson.0@gmail.com',
-      'asoble@gmail.com',
-      'really.eli@gmail.com'
-    ])
+  desc 'Generate and email Mixpanel usage report'
+  task email_mixpanel_usage: :environment do
+    mailgun_url = MixpanelReport.mailgun_url_from_env(ENV)
+    mixpanel_api_secret = ENV['MIXPANEL_API_SECRET']
+    target_emails = ENV['USAGE_REPORT_EMAILS_LIST'].split(',')
+    MixpanelReport.new(mixpanel_api_secret).run_and_email!(mailgun_url, target_emails)
   end
 end
