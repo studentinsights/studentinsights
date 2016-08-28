@@ -134,11 +134,9 @@
           <!-- ROWS -->
           <% @rows.select{|row| row[:enrollment_status] == "Active"}.each do |row| %>
 
-            <tr class="student-row">
+            <tr class="student-row" href="<%= student_url(row["id"]) %>">
               <td class="name">
-                <a href="<%= student_url(row["id"]) %>">
-                  <%= "#{row['first_name']} #{row['last_name']}" %>
-                </a>
+                <%= "#{row['first_name']} #{row['last_name']}" %>
               </td>
               <td class="risk risk-tooltip-circle" data-student-id="<%= row['id'] %> ">
                 <div class="warning-bubble risk-<%= row[:student_risk_level]['level'] || 'na' %>">
