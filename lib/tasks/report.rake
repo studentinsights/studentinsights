@@ -16,8 +16,12 @@ namespace :report do
     puts MixpanelReport.new(mixpanel_api_secret).run
   end
 
-  desc 'Generate and email Mixpanel usage report'
+  desc 'Generate and email weekly Mixpanel usage report'
   task email_mixpanel_usage: :environment do
+    # Heroku scheduler can only trigger daily, so this only emails
+    # a report once a week.
+    return unless Date.today.sunday?
+
     mailgun_url = MixpanelReport.mailgun_url_from_env(ENV)
     mixpanel_api_secret = ENV['MIXPANEL_API_SECRET']
     target_emails = ENV['USAGE_REPORT_EMAILS_LIST'].split(',')
