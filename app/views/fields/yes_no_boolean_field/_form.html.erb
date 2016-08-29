@@ -1,13 +1,26 @@
 <%#
-# Boolean Form Partial
+# YesNoBooleanField Form Partial
 
-This partial renders an input element for a boolean attribute.
+This partial renders an input element for a YesNoBoolean attribute.
 By default, the input is a checkbox.
 %>
 
-<div class="field-unit__label">
-  <%= f.label field.attribute %>
-</div>
-<div class="field-unit__field">
-  <%= f.check_box field.attribute %>
-</div>
+<% if field.name == 'districtwide_access' %>
+  <% # Only users with permission to set districtwide access can see this field
+    if current_educator.can_set_districtwide_access
+   %>
+    <div class="field-unit__label">
+      <%= f.label field.attribute %>
+    </div>
+    <div class="field-unit__field">
+      <%= f.check_box field.attribute %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="field-unit__label">
+    <%= f.label field.attribute %>
+  </div>
+  <div class="field-unit__field">
+    <%= f.check_box field.attribute %>
+  </div>
+<% end %>

@@ -36,6 +36,7 @@ class EducatorDashboard < Administrate::BaseDashboard
     restricted_to_sped_students: YesNoBooleanField.with_options(searchable: false),
     restricted_to_english_language_learners: YesNoBooleanField.with_options(searchable: false),
     can_view_restricted_notes: YesNoBooleanField.with_options(searchable: false),
+    districtwide_access: YesNoBooleanField.with_options(searchable: false),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -76,6 +77,7 @@ class EducatorDashboard < Administrate::BaseDashboard
     :restricted_to_sped_students,
     :restricted_to_english_language_learners,
     :can_view_restricted_notes,
+    :districtwide_access
   ].freeze
 
   # Overwrite this method to customize how educators are displayed
