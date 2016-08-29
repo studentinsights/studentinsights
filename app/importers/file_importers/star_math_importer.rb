@@ -1,7 +1,7 @@
 class StarMathImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def remote_file_name
-    'SM.csv'
+    "SomervillePublicSchools\ -\ Generic\ SM\ Pipeline\ Extract\ -\ Active.csv"
   end
 
   def data_transformer

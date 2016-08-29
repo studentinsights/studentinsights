@@ -1,7 +1,7 @@
 class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def remote_file_name
-    'SR.csv'
+    "SomervillePublicSchools\ -\ Generic\ SR\ Pipeline\ Extract\ -\ Active.csv"
   end
 
   def data_transformer
