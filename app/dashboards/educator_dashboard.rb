@@ -66,6 +66,7 @@ class EducatorDashboard < Administrate::BaseDashboard
     :restricted_to_sped_students,
     :restricted_to_english_language_learners,
     :can_view_restricted_notes,
+    :districtwide_access
   ].freeze
 
   # FORM_ATTRIBUTES
