@@ -6,6 +6,10 @@ class SchoolsController < ApplicationController
                 :authorize
 
   def show
+    render 'shared/main'
+  end
+
+  def serialized_data
     if current_educator.districtwide_access?
       eager_loads = [:interventions, :student_risk_level, :homeroom, :student_school_years]
       authorized_students = @school.students.active.includes(eager_loads)
@@ -28,7 +32,8 @@ class SchoolsController < ApplicationController
       current_educator: current_educator,
       constant_indexes: constant_indexes
     }
-    render 'shared/serialized_data'
+
+    render json: @serialized_data
   end
 
   def star_math
