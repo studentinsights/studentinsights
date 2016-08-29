@@ -4,6 +4,7 @@
   var QuadConverter = window.shared.QuadConverter = {
     // A quad is a 4-element array of numbers that represents numerical data on a given date.
     // The first three elements are (year, month, date) and the last is the value.
+    // Months are 1-indexed (the way humans write months) and not 0-indexed like Date.getMonth.
 
     // These functions are provided for getting data out of quads.
     toMoment: function(quad) {
@@ -53,7 +54,7 @@
       // result is an array of quads, one quad per month.
       result = [];
       _.each(groupedByMonth, function(value, key){
-        result.push(QuadConverter.fromMoment(moment(key), value.length));
+        result.push(QuadConverter.fromMoment(moment.utc(key), value.length));
       });
 
       // sort chronologically.
