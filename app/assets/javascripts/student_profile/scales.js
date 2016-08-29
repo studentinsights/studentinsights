@@ -19,14 +19,14 @@
 
     absences: {
       valueRange: [0, 20],
-      threshold: 10,
+      threshold: 5,
       flexibleRange: function(cumulativeQuads) {
         return Scales.flexibleQuadRange(cumulativeQuads, Scales.absences.valueRange);
       }
     },
     tardies: {
-      valueRange: [0, 40],
-      threshold: 20,
+      valueRange: [0, 20],
+      threshold: 5,
       flexibleRange: function(cumulativeQuads) {
         return Scales.flexibleQuadRange(cumulativeQuads, Scales.tardies.valueRange);
       }

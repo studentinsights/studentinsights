@@ -6,6 +6,7 @@
 
   var Routes = window.shared.Routes;
   var PropTypes = window.shared.PropTypes;
+  var BarChartSparkline = window.shared.BarChartSparkline;
   var Sparkline = window.shared.Sparkline;
   var AcademicSummary = window.shared.AcademicSummary;
   var SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
@@ -237,9 +238,6 @@
         case 'attendance':
           var attendanceData = this.props.attendanceData;
           return createEl(AttendanceDetails, {
-            cumulativeDisciplineIncidents: this.cumulativeCountQuads(attendanceData.discipline_incidents),
-            cumulativeAbsences: this.cumulativeCountQuads(attendanceData.absences),
-            cumulativeTardies: this.cumulativeCountQuads(attendanceData.tardies),
             disciplineIncidents: attendanceData.discipline_incidents,
             absences: attendanceData.absences,
             tardies: attendanceData.tardies
@@ -287,11 +285,12 @@
         demographicsElements.push('ACCESS Composite score: ' + this.props.access.composite);
       };
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Overview"),
-      dom.div({
-        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn),
-        onClick: this.onColumnClicked.bind(this, columnKey)
-      },
+      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) },
+        dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Overview"),
+        dom.div({
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn),
+          onClick: this.onColumnClicked.bind(this, columnKey)
+        },
         createEl(SummaryList, {
           title: 'Demographics',
           elements: demographicsElements,
@@ -303,12 +302,14 @@
       var student = this.props.student;
       var columnKey = 'interventions';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Interventions"),
-      dom.div({
-        className: 'interventions-column',
-        style: merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey)),
-        onClick: this.onColumnClicked.bind(this, columnKey)
-      }, this.padElements(styles.summaryWrapper, [
+      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) },
+        dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Interventions"),
+        dom.div({
+          className: 'interventions-column',
+          style: merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey)),
+          onClick: this.onColumnClicked.bind(this, columnKey)
+        },
+        this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
         this.renderServices(student),
         this.renderStaff(student)
@@ -382,12 +383,13 @@
       var chartData = this.props.chartData;
       var columnKey = 'ela';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Reading"),
-      dom.div({
-        className: 'ela-background',
-        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
-        onClick: this.onColumnClicked.bind(this, columnKey)
-      },
+      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) },
+        dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Reading"),
+        dom.div({
+          className: 'ela-background',
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+          onClick: this.onColumnClicked.bind(this, columnKey)
+        },
         this.wrapSummary({
           caption: 'STAR Reading',
           value: student.most_recent_star_reading_percentile,
@@ -433,12 +435,13 @@
       var chartData = this.props.chartData;
       var columnKey = 'math';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey)}, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Math"),
-      dom.div({
-        className: 'math-background',
-        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
-        onClick: this.onColumnClicked.bind(this, columnKey)
-      },
+      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey)},
+        dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Math"),
+        dom.div({
+          className: 'math-background',
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+          onClick: this.onColumnClicked.bind(this, columnKey)
+        },
         this.wrapSummary({
           caption: 'STAR Math',
           value: student.most_recent_star_math_percentile,
@@ -465,44 +468,44 @@
       var attendanceData = this.props.attendanceData;
       var columnKey = 'attendance';
 
-      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) }, dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Attendance and Behavior"),
+      return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) },
+        dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Attendance and Behavior"),
         dom.div({
-        className: 'attendance-background',
-        style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
-        onClick: this.onColumnClicked.bind(this, columnKey)
+          className: 'attendance-background',
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
+          onClick: this.onColumnClicked.bind(this, columnKey)
       },
         this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, Scales.disciplineIncidents.flexibleRange, {
           caption: 'Discipline incidents',
           thresholdValue: Scales.disciplineIncidents.threshold,
-          shouldDrawCircles: false
         }),
         this.renderAttendanceEventsSummary(attendanceData.absences, Scales.absences.flexibleRange, {
           caption: 'Absences',
           thresholdValue: Scales.absences.threshold,
-          shouldDrawCircles: false
         }),
         this.renderAttendanceEventsSummary(attendanceData.tardies, Scales.tardies.flexibleRange, {
           caption: 'Tardies',
           thresholdValue: Scales.tardies.threshold,
-          shouldDrawCircles: false
         })
       ));
     },
 
     renderAttendanceEventsSummary: function(attendanceEvents, flexibleRangeFn, props) {
-      var cumulativeQuads = this.cumulativeCountQuads(attendanceEvents);
+      var cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(attendanceEvents);
       var value = (cumulativeQuads.length > 0) ? _.last(cumulativeQuads)[3] : 0;
       var valueRange = flexibleRangeFn(cumulativeQuads);
 
       return this.wrapSummary(merge({
         title: props.title,
         value: value,
-        sparkline: this.renderSparkline(cumulativeQuads, merge({ valueRange: valueRange }, props))
+        sparkline: createEl(BarChartSparkline, merge({
+          height: styles.sparklineHeight,
+          width: styles.sparklineWidth,
+          valueRange: valueRange,
+          quads: cumulativeQuads,
+          dateRange: this.dateRange(),
+        }, props)),
       }, props));
-    },
-
-    cumulativeCountQuads: function(attendanceEvents) {
-      return QuadConverter.convertAttendanceEvents(attendanceEvents, this.props.nowMomentFn().toDate(), this.dateRange());
     },
 
     // quads format is: [[year, month (Ruby), day, value]]

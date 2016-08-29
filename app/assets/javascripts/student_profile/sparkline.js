@@ -29,7 +29,7 @@
 
     render: function() {
       var padding = 3; // for allowing circle data points at the edge to be full shown
-      
+
       // TODO(kr) work more on coloring across all charts
       // for now, disable since the mapping to color isn't clear enough and
       // doesn't match the longer-view charts
@@ -105,9 +105,5 @@
       if (filteredQuadValues.length < 2) return 0;
       return _.last(filteredQuadValues) - _.first(filteredQuadValues);
     },
-
-    // quadDate: function(quad) { 
-    //   return new Date(quad[0], quad[1] - 1, quad[2]);
-    // }
   });
 })();
