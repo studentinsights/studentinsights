@@ -124,7 +124,7 @@ $(function() {
     });
 
     // Turn table rows into links to student profiles
-    $('tbody td').click(function () {
+    $('tbody tr').click(function () {
       location.href = $(this).attr('href');
     });
 
