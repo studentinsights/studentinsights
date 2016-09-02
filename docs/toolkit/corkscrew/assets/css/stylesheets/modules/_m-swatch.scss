@@ -4,20 +4,23 @@
   overflow: hidden;
   font-family: $font-primary;
   margin: 0 1% $layout-gutter-multiple * 2 0;
-  border: 1px solid $color-accent;
   border-radius: 3px;
   box-sizing: border-box;
+  position: relative;
+  border: none;
+  box-shadow: 0 0 5px 2px rgba(200,200,200,.35);
 }
 
 .cs-color-label,
 .cs-color-hex {
-  display: block;
   @include font-size(11);
-  padding: 0 0 $layout-gutter-multiple;
-  text-align: center;
   @extend .cs-is-uppercase;
   letter-spacing: .02em;
-  color: $color-highlight;
+  display: block;
+  font-size: 0.6875rem;
+  padding: 0 0 10px 10px;
+  text-align: left;
+  color: #666; 
 }
 
 .cs-color-label {
@@ -26,9 +29,9 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  padding-top: $layout-gutter-multiple;
   padding-bottom: 0;
   font-weight: 700;
+  padding-top: 10px;
 }
 
 .cs-color-hex {
@@ -36,10 +39,97 @@
 }
 
 .cs-color {
-  height: 120px;
-  width: 100%;
   margin: auto;
-  border-bottom: 1px solid $color-accent;
+  float: left;
+  height: 130px;
+  width: 58%;
+  position: relative;
+  border: none;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.label-box {
+    float:left;
+    width: 40%;
+    padding-right: 3px;
+}
+
+.decoration {
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+#Blue {
+background: linear-gradient(
+      to right, 
+      #78C3F2 0%, 
+      #78C3F2 50%, 
+      #137DBE 50%, 
+      #137DBE 100%
+    );
+}
+
+#Green {
+background: linear-gradient(
+      to right, 
+      #99E24B 0%, 
+      #99E24B 50%, 
+      #4C7F15 50%, 
+      #4C7F15 100%
+    );
+}
+
+#Yellow {
+background: linear-gradient(
+      to right, 
+      #FCE79C 0%, 
+      #FCE79C 50%, 
+      #F7C308 50%, 
+      #F7C308 100%
+    );
+}
+
+#Ruby {
+background: linear-gradient(
+      to right, 
+      #F37785 0%, 
+      #F37785 50%, 
+      #C01125 50%, 
+      #C01125 100%
+    );
+}
+
+div[id='Dk Gray'] {
+background: linear-gradient(
+      to right, 
+      #787878 0%, 
+      #787878 50%, 
+      #2B2B2B 50%, 
+      #2B2B2B 100%
+    );
+}
+
+div[id='Mid Gray'] {
+background: linear-gradient(
+      to right, 
+      #D1D1D1 0%, 
+      #D1D1D1 50%, 
+      #858585 50%, 
+      #858585 100%
+    );
+}
+
+div[id='Lt Gray'] {
+background: linear-gradient(
+      to right, 
+      #F2F2F2 0%, 
+      #F2F2F2 50%, 
+      #B8B8B8 50%, 
+      #B8B8B8 100%
+    );
 }
 
 @media screen and ( max-width: $breakpoint-large ) {

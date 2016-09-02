@@ -16,9 +16,16 @@
   {% for color in colors %}
 
     <div class="cs-color-wrap">
-      <div data-color="{{ color.hex }}" class="cs-color" style="background: {{ color.hex }};"></div>
-      <div class="cs-color-label">{{ color.label }}</div>
-      <div class="cs-color-hex">{{ color.hex }}</div>
+      <div class="label-box">
+        <div class="cs-color-label">{{ color.label }}</div>
+        <div class="cs-color-hex">{{ color.hex }}</div>
+        <div class="cs-color-hex"><strong>R:</strong> {{ color.R }}</div>
+        <div class="cs-color-hex"><strong>G:</strong> {{ color.G }}</div>
+        <div class="cs-color-hex"><strong>B:</strong> {{ color.B }}</div>
+      </div>
+      <div data-color="{{ color.hex }}" class="cs-color color-box" style="background: {{ color.hex }};">
+        <div id="{{color.label}}" class="decoration"></div>
+      </div>
     </div><!--/.cs-color-wrap-->
 
   {% endfor %}

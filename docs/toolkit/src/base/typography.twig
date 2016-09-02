@@ -1,19 +1,34 @@
 {% extends function == 'json' ? '_corkscrew-api.twig' : '_corkscrew-section.twig' %}
 
 {% set label = 'Typography' %}
-{% set description = 'Main fonts are Montserrat and Open Sans <div style=\"font-face:Monserrat;font-size:160px;\">Aa</div>' %}
+{% set description = 'Main fonts are Montserrat and Open Sans' %}
 
 {% block block_content %}
 
+<div class="i-block">
+  <div class="big mont">Aa</div>
 
-<h1>Heading 1</h1>
+  <h2>Montserrat</h2>
 
-<h2>Heading 2</h2>
+  <p class="mont">abcdefghijklmnopqrstuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>1234567890!”·$%&amp;/()=</p>
+</div>
+<div class="i-block">
+  <div class="big open-sans">Aa</div>
 
-<h3>Heading 3</h3>
+  <h2>Open Sans</h2>
 
-<h4>Heading 4</h4>
+  <p >abcdefghijklmnopqrstuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>1234567890!”·$%&amp;/()=</p>
+</div>
 
-<h5>Heading 5</h5>
+<div class="i-block">
+  <h1>Heading 1</h1>
 
+  <h2>Heading 2</h2>
+
+  <h3>Heading 3</h3>
+
+  <h4>Heading 4</h4>
+
+  <h5>Heading 5</h5>
+</div>
 {% endblock %}
