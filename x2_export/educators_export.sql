@@ -26,7 +26,6 @@ INNER JOIN person
 INNER JOIN user_info
   ON person.PSN_OID=user_info.USR_PSN_OID
 WHERE STF_STATUS = 'Active'
-AND STF_ID_LOCAL IS NOT NULL
   INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/educators_export.txt"
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
