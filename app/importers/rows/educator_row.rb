@@ -10,7 +10,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def build
-    educator = Educator.find_or_initialize_by(local_id: row[:local_id])
+    educator = Educator.find_or_initialize_by(email: email)
 
     educator.assign_attributes(
       state_id: row[:state_id],
@@ -18,7 +18,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
       staff_type: row[:staff_type],
       admin: is_admin?,
       can_view_restricted_notes: is_admin?,
-      email: row[:login_name] + '@k12.somerville.ma.us',
+      local_id: row[:local_id],
       school_id: school_rails_id
     )
 
@@ -28,6 +28,10 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   private
+
+  def email
+    row[:login_name] + '@k12.somerville.ma.us'
+  end
 
   def is_admin?
     row[:staff_type].present? && row[:staff_type] == 'Administrator'
