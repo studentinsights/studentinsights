@@ -16,10 +16,6 @@ FactoryGirl.define do
       restricted_to_english_language_learners false
     end
 
-    trait :without_local_id do
-      local_id nil
-    end
-
     trait :without_email do
       email nil
     end
