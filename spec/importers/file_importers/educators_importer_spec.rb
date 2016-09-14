@@ -57,7 +57,6 @@ RSpec.describe EducatorsImporter do
                 educator = Educator.last
                 expect(educator.full_name).to eq("Young, Jenny")
                 expect(educator.state_id).to eq("500")
-                expect(educator.local_id).to eq("200")
                 expect(educator.admin).to eq(false)
                 expect(educator.schoolwide_access).to eq(false)
                 expect(educator.email).to eq("jyoung@k12.somerville.ma.us")
@@ -128,7 +127,7 @@ RSpec.describe EducatorsImporter do
       context 'existing educator' do
         let(:homeroom) { FactoryGirl.create(:homeroom) }
         let(:homeroom_name) { homeroom.name }
-        let!(:educator) { FactoryGirl.create(:educator, :local_id_200) }
+        let!(:educator) { FactoryGirl.create(:educator) }
         let(:row) {
           {
             state_id: "500", full_name: "Young, Jenny",
