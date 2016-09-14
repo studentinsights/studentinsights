@@ -18,10 +18,10 @@ class EducatorsImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def import_row(row)
     educator = EducatorRow.new(row, school_ids_dictionary).build
-    educator.save!
+    educator.save! if educator.present?
 
     homeroom = Homeroom.find_by_name(row[:homeroom]) if row[:homeroom].present?
-    homeroom.update(educator: educator) if homeroom.present?
+    homeroom.update(educator: educator) if (homeroom.present? && educator.present?)
   end
 
 end
