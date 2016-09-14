@@ -13,7 +13,6 @@ class Educator < ActiveRecord::Base
   has_many    :interventions
 
   validates :email, presence: true, uniqueness: true
-  validates :local_id, presence: true, uniqueness: true
   validates :school, presence: true
 
   validate :admin_gets_access_to_all_students,
