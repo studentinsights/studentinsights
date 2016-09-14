@@ -171,6 +171,18 @@ RSpec.describe EducatorsImporter do
 
     end
 
+    context 'bad data' do
+      context 'no login name' do
+        let(:row) {
+          { state_id: "500", full_name: "Young, Jenny" }
+        }
+
+        it 'does not create an educator' do
+          expect { described_class.new.import_row(row) }.to change(Educator, :count).by 0
+        end
+      end
+    end
+
   end
 
   describe '#update_homeroom' do

@@ -10,6 +10,8 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def build
+    return if row[:login_name].nil?
+
     educator = Educator.find_or_initialize_by(email: email)
 
     educator.assign_attributes(
