@@ -127,7 +127,7 @@ RSpec.describe EducatorsImporter do
       context 'existing educator' do
         let(:homeroom) { FactoryGirl.create(:homeroom) }
         let(:homeroom_name) { homeroom.name }
-        let!(:educator) { FactoryGirl.create(:educator) }
+        let!(:educator) { FactoryGirl.create(:educator, email: 'jyoung@k12.somerville.ma.us') }
         let(:row) {
           {
             state_id: "500", full_name: "Young, Jenny",
@@ -147,11 +147,14 @@ RSpec.describe EducatorsImporter do
       end
 
       context 'existing non-admin educator with schoolwide access' do
-        let!(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, local_id: '1' )}
+        let!(:educator) {
+          FactoryGirl.create(:educator, schoolwide_access: true, email: 'aqsoble@k12.somerville.ma.us' )
+        }
         let(:row) {
           {
-            state_id: "1", local_id: "1", full_name: "Grrr, Bettina",
-            login_name: "bttgrr", school_local_id: "HEA"
+            state_id: "1", full_name: "Soble, Alex.",
+            email: 'aqsoble@k12.somerville.ma.us',
+            login_name: "aqsoble", school_local_id: "HEA"
           }
         }
 
