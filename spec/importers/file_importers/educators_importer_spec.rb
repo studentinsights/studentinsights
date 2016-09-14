@@ -13,7 +13,7 @@ RSpec.describe EducatorsImporter do
 
           context 'without homeroom' do
             let(:row) {
-              { state_id: "500", local_id: "200", full_name: "Young, Jenny",
+              { state_id: "500", full_name: "Young, Jenny",
                 login_name: "jyoung", school_local_id: "HEA" }
             }
 
@@ -43,7 +43,6 @@ RSpec.describe EducatorsImporter do
               let(:row) {
                 {
                   state_id: "500",
-                  local_id: "200",
                   full_name: "Young, Jenny",
                   login_name: "jyoung",
                   homeroom: homeroom_name,
@@ -70,7 +69,6 @@ RSpec.describe EducatorsImporter do
                 let(:another_row) {
                   {
                     state_id: "501",
-                    local_id: "201",
                     full_name: "Gardner, Dylan",
                     login_name: "dgardner",
                     homeroom: another_homeroom_name,
@@ -90,7 +88,6 @@ RSpec.describe EducatorsImporter do
               let(:row) {
                 {
                   state_id: "500",
-                  local_id: "200",
                   full_name: "Young, Jenny",
                   login_name: "jyoung",
                   homeroom: homeroom_name,
@@ -134,7 +131,7 @@ RSpec.describe EducatorsImporter do
         let!(:educator) { FactoryGirl.create(:educator, :local_id_200) }
         let(:row) {
           {
-            state_id: "500", local_id: "200", full_name: "Young, Jenny",
+            state_id: "500", full_name: "Young, Jenny",
             login_name: "jyoung", homeroom: homeroom_name, school_local_id: "HEA"
           }
         }
@@ -179,7 +176,7 @@ RSpec.describe EducatorsImporter do
 
     context 'row with homeroom name' do
       let(:row) {
-        { state_id: "500", local_id: "200", full_name: "Young, Jenny",
+        { state_id: "500", full_name: "Young, Jenny",
           homeroom: "HEA 100", login_name: "jyoung", school_local_id: "HEA" }
       }
 
