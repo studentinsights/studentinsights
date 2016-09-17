@@ -476,15 +476,15 @@
           onClick: this.onColumnClicked.bind(this, columnKey)
       },
         this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, Scales.disciplineIncidents.flexibleRange, {
-          caption: 'Discipline incidents',
+          caption: 'Discipline this month',
           thresholdValue: Scales.disciplineIncidents.threshold,
         }),
         this.renderAttendanceEventsSummary(attendanceData.absences, Scales.absences.flexibleRange, {
-          caption: 'Absences',
+          caption: 'Absences this month',
           thresholdValue: Scales.absences.threshold,
         }),
         this.renderAttendanceEventsSummary(attendanceData.tardies, Scales.tardies.flexibleRange, {
-          caption: 'Tardies',
+          caption: 'Tardies this month',
           thresholdValue: Scales.tardies.threshold,
         })
       ));
@@ -492,8 +492,24 @@
 
     renderAttendanceEventsSummary: function(attendanceEvents, flexibleRangeFn, props) {
       var cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(attendanceEvents);
-      var value = (cumulativeQuads.length > 0) ? _.last(cumulativeQuads)[3] : 0;
       var valueRange = flexibleRangeFn(cumulativeQuads);
+
+      if (cumulativeQuads.length === 0) {
+        var value = 0;  // if there are no attendance events, this month's count is zero
+      } else {
+        var mostRecentQuad = _.last(cumulativeQuads);
+        // if the most recent month with events isn't this month, this month's count is zero:
+
+        var thisYear = moment().year();
+        var thisMonthToRuby = moment().month() + 1; // moment.js months are zero-indexed; quad months
+                                                    // start at 1,  so we need to adjust
+
+        if (mostRecentQuad[0] !== thisYear || mostRecentQuad[1] !== thisMonthToRuby)
+          var value = 0;
+        else {
+          var value = mostRecentQuad[3];   // get this month's count
+        }
+      };
 
       return this.wrapSummary(merge({
         title: props.title,

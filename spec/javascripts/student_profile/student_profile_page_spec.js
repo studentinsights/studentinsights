@@ -11,10 +11,12 @@ describe('StudentProfilePage', function() {
   var StudentProfilePage = window.shared.StudentProfilePage;
 
   var helpers = {
-    renderStudentProfilePage: function(el, grade, dibels) {
+    renderStudentProfilePage: function(el, grade, dibels, tardies, absences) {
       var serializedData = _.cloneDeep(Fixtures.studentProfile);
       if (grade) { serializedData["student"]["grade"] = grade; };
       if (dibels) { serializedData["dibels"] = dibels; };
+      if (tardies) { serializedData["attendanceData"]["tardies"] = tardies; };
+      if (absences) { serializedData["attendanceData"]["absences"] = absences; };
 
       var mergedProps = {
         serializedData: serializedData,
@@ -25,7 +27,38 @@ describe('StudentProfilePage', function() {
     }
   }
 
-  SpecSugar.withTestEl('#renderMcasElaSgpOrDibels', function() {
+  SpecSugar.withTestEl('renders attendance event summaries correctly', function() {
+
+    describe('student with no absences this month', function () {
+      it('displays zero absences', function () {
+        var el = this.testEl;
+        helpers.renderStudentProfilePage(el);   // fixture absences are way in the past,
+                                                // so should return zero for this month's absences
+
+        expect(el).toContainText('Absences this month:0');
+      });
+    });
+
+    describe('student with 3 absences this month', function () {
+      it('displays 3 absences', function () {
+        var el = this.testEl;
+        var nowString = moment().utc().toISOString();
+
+        var absences = [
+          { "occurred_at": nowString },
+          { "occurred_at": nowString },
+          { "occurred_at": nowString },
+        ]
+
+        helpers.renderStudentProfilePage(el, null, null, null, absences);
+
+        expect(el).toContainText('Absences this month:3');
+      });
+    });
+
+  });
+
+  SpecSugar.withTestEl('renders MCAS/DIBELS correctly according to grade level', function() {
 
     describe('student in grade 3', function() {
 
