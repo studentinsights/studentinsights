@@ -16,9 +16,9 @@ class StudentsController < ApplicationController
 
     @serialized_data = {
       current_educator: current_educator,
-      student: serialize_student_for_profile(student),
-      feed: student_feed(student, restricted_notes: false),
-      chart_data: chart_data,
+      student: serialize_student_for_profile(student),          # Risk level, school homeroom, most recent school year attendance/discipline counts
+      feed: student_feed(student, restricted_notes: false),     # Notes, services
+      chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
       service_types_index: service_types_index,
       event_note_types_index: event_note_types_index,
