@@ -2,6 +2,28 @@ require 'rails_helper'
 
 RSpec.describe Educator do
 
+  describe '#has_school_unless_districtwide' do
+    context 'no school assigned' do
+      context 'has districtwide_access' do
+        let(:educator) {
+          FactoryGirl.build(:educator, school: nil, districtwide_access: true)
+        }
+        it 'is valid' do
+          expect(educator).to be_valid
+        end
+      end
+
+      context 'does not have districtwide_access' do
+        let(:educator) {
+          FactoryGirl.build(:educator, school: nil, districtwide_access: false)
+        }
+        it 'is not valid' do
+          expect(educator).to be_invalid
+        end
+      end
+    end
+  end
+
   describe '#admin_gets_access_to_all_students' do
     context 'admin with access to all students' do
       let(:admin) { FactoryGirl.build(:educator, :admin) }
