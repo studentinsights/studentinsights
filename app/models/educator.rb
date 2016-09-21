@@ -13,15 +13,21 @@ class Educator < ActiveRecord::Base
   has_many    :interventions
 
   validates :email, presence: true, uniqueness: true
-  validates :school, presence: true
 
-  validate :admin_gets_access_to_all_students,
+  validate :has_school_unless_districtwide,
+           :admin_gets_access_to_all_students,
            :grade_level_access_is_array_of_strings,
            :grade_level_strings_are_valid,
            :grade_level_strings_are_uniq,
            :grade_level_access_is_not_nil
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ].freeze
+
+  def has_school_unless_districtwide
+    if school.blank?
+      errors.add(:school_id, "must be assigned a school") unless districtwide_access?
+    end
+  end
 
   def admin_gets_access_to_all_students
     errors.add(:admin, "needs access to all students") if admin? && !has_access_to_all_students?
