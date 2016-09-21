@@ -1,28 +1,5 @@
  /* TOOLTIPS */
 
-/* TODO: Move to folder for /homerooms (roster page). */
-#roster-tooltip {
-  float: right;
-  text-align: center;
-  position: relative;
-
-  #roster-help-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
-    background-color: $dark-line;
-    padding-top: 4px;
-    padding-bottom: 6px;
-    text-align: center;
-    position: relative;
-    bottom: 4px;
-    margin-left: 5px;
-    display: inline-block;
-    color: #fff;
-    font-size: 16px;
-    float: left;
-  }
-}
 
 /*#profile-risk-level {
   float: right;
