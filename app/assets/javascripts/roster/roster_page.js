@@ -130,7 +130,6 @@ $(function() {
 
     // Make Risk Level summary chart
     var chartData = $('#chart-data');
-    RosterChart.fromChartData(chartData).render();
 
     // Replace blank cells with em dashes
     $('#roster-table tbody td').each(function() {
