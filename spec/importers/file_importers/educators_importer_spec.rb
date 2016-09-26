@@ -146,9 +146,14 @@ RSpec.describe EducatorsImporter do
         end
       end
 
-      context 'existing non-admin educator with schoolwide access' do
+      context 'existing non-admin educator with schoolwide access, restricted notes access' do
         let!(:educator) {
-          FactoryGirl.create(:educator, schoolwide_access: true, email: 'aqsoble@k12.somerville.ma.us' )
+          FactoryGirl.create(
+            :educator,
+            schoolwide_access: true,
+            can_view_restricted_notes: true,
+            email: 'aqsoble@k12.somerville.ma.us'
+          )
         }
         let(:row) {
           {
@@ -162,10 +167,11 @@ RSpec.describe EducatorsImporter do
           expect { described_class.new.import_row(row) }.to change(Educator, :count).by 0
         end
 
-        it 'does not revoke the schoolwide access' do
+        it 'does not revoke the schoolwide access, restricted notes access' do
           described_class.new.import_row(row)
           educator = Educator.last
           expect(educator.schoolwide_access).to eq(true)
+          expect(educator.can_view_restricted_notes).to eq(true)
         end
       end
 
