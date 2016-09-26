@@ -19,12 +19,16 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
       full_name: row[:full_name],
       staff_type: row[:staff_type],
       admin: is_admin?,
-      can_view_restricted_notes: is_admin?,
       local_id: row[:local_id],
       school_id: school_rails_id
     )
 
-    educator.assign_attributes(schoolwide_access: true) if educator.new_record? && is_admin?
+    if educator.new_record? && is_admin?
+      educator.assign_attributes({
+        schoolwide_access: true,
+        can_view_restricted_notes: true,
+      })
+    end
 
     return educator
   end
