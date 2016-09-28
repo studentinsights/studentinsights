@@ -14,8 +14,11 @@ class SomervilleStarImporters
     [
       StarReadingImporter,
       StarReadingImporter::HistoricalImporter,
+      StarReadingImporter::RecentImporter,
+
       StarMathImporter,
-      StarMathImporter::HistoricalImporter
+      StarMathImporter::HistoricalImporter,
+      StarMathImporter::RecentImporter,
     ]
   end
 

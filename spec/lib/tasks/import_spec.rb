@@ -40,8 +40,10 @@ RSpec.describe Import do
         AttendanceImporter,
         StarReadingImporter,
         StarReadingImporter::HistoricalImporter,
+        StarReadingImporter::RecentImporter,
         StarMathImporter,
         StarMathImporter::HistoricalImporter,
+        StarMathImporter::RecentImporter,
       ]
     }
 
