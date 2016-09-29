@@ -476,15 +476,15 @@
           onClick: this.onColumnClicked.bind(this, columnKey)
       },
         this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, Scales.disciplineIncidents.flexibleRange, {
-          caption: 'Discipline this month',
+          caption: 'Discipline this school year',
           thresholdValue: Scales.disciplineIncidents.threshold,
         }),
         this.renderAttendanceEventsSummary(attendanceData.absences, Scales.absences.flexibleRange, {
-          caption: 'Absences this month',
+          caption: 'Absences this school year',
           thresholdValue: Scales.absences.threshold,
         }),
         this.renderAttendanceEventsSummary(attendanceData.tardies, Scales.tardies.flexibleRange, {
-          caption: 'Tardies this month',
+          caption: 'Tardies this school year',
           thresholdValue: Scales.tardies.threshold,
         })
       ));
