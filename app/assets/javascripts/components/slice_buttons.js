@@ -6,7 +6,7 @@
 
   var SliceButtons = window.shared.SliceButtons = React.createClass({
     displayName: 'SliceButtons',
-      
+
     propTypes: {
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
@@ -14,7 +14,7 @@
       activeFiltersIdentifier: React.PropTypes.object.isRequired,
       clearFilters: React.PropTypes.func.isRequired
     },
-    
+
     // Key code 27 is the ESC key
     onKeyDown: function(e) {
       if (e.keyCode == 27) this.props.clearFilters();
@@ -30,31 +30,44 @@
 
     render: function() {
       return dom.div({ className: 'sliceButtons' },
-	dom.div({ style: { backgroundColor: 'rgba(49, 119, 201, 0.75)', color: 'white', display: 'inline-block', width: '12em', padding: 5 } },
-	  'Found: ' + this.props.students.length + ' students'
-	),
-	dom.a({
-	  style: {
-	    marginLeft: 10,
-	    marginRight: 10,
-	    fontSize: styles.fontSize,
-	    display: 'inline-block',
-	    padding: 5,
-	    width: '10em',
-	    backgroundColor: (this.props.filters.length > 0) ? colors.selection : ''
-	  },
-	  onClick: this.props.clearFilters
-	}, (this.props.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
-	dom.a({ href: this.props.filtersHash, target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view'),
-	this.renderDownloadLink()
+        dom.div({
+          style: {
+            backgroundColor: 'rgba(49, 119, 201, 0.75)',
+            color: 'white',
+            display: 'inline-block',
+            width: '12em',
+            padding: 5
+          }
+        },
+          'Found: ' + this.props.students.length + ' students'
+        ),
+        dom.a({
+          style: {
+            marginLeft: 10,
+            marginRight: 10,
+            fontSize: styles.fontSize,
+            display: 'inline-block',
+            padding: 5,
+            width: '10em',
+            backgroundColor: (this.props.filters.length > 0) ? colors.selection : ''
+          },
+          onClick: this.props.clearFilters
+        }, (this.props.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
+        dom.a({
+          href: this.props.filtersHash,
+          target: '_blank', style: {
+              fontSize: styles.fontSize
+            }
+          }, 'Share this view'),
+        this.renderDownloadLink()
       );
     },
 
     renderDownloadLink: function() {
       var students = this.props.students;
       var header = [
-	'First Name',
-	'Last Name',
+        'First Name',
+        'Last Name',
         'Grade',
         'SPED Level of Need',
         'Free/Reduced Lunch',
@@ -76,7 +89,7 @@
         return [
           student.first_name,
           student.last_name,
-	  student.grade,
+          student.grade,
           student.sped_level_of_need,
           student.free_reduced_lunch,
           student.limited_english_proficiency,
@@ -100,14 +113,15 @@
       var filename = 'Students on ' + dateText + filtersText + '.csv';
 
       return dom.a({
-	href: 'data:attachment/csv,' + encodeURIComponent(csvText),
-	target: '_blank',
-	download: filename,
-	style: {
-	  paddingLeft: 20,
-	  fontSize: styles.fontSize
-	}
+        href: 'data:attachment/csv,' + encodeURIComponent(csvText),
+        target: '_blank',
+        download: filename,
+        style: {
+          paddingLeft: 20,
+          fontSize: styles.fontSize
+        }
       }, 'Download for Excel');
     }
   });
+
 })();
