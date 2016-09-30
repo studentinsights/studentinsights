@@ -15,7 +15,6 @@ class MixpanelReport
     @mixpanel_api_secret = mixpanel_api_secret
     @today = Date.today
     @reporting_period_in_days = 35
-    @developer_educator_id = 12  # Filter this educator_id out
     @buffer = []
   end
 
@@ -161,9 +160,8 @@ class MixpanelReport
     query_for({
       event: event_name,
       unit: 'week',
-      where: where_string_with_defaults([
+      where: where_string_with_defaults(where_no_developers + [
         [:deployment_key, '==', 'production'],
-        [:educator_id, '!=', @developer_educator_id],
         [:educator_school_id, '==', school_id]
       ])
     })
@@ -172,8 +170,13 @@ class MixpanelReport
   def where_string_with_defaults(where_clauses = [])
     where_string(where_clauses + [
       [:deployment_key, '==', 'production'],
-      [:educator_id, '!=', @developer_educator_id],
     ])
+  end
+
+  # Filter out developer users
+  def where_no_developers
+    [[:educator_id, '!=', 12],
+     [:educator_id, '!=', 509]]
   end
 
   def where_string(where_clauses)
