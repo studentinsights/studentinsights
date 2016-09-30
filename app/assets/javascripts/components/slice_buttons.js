@@ -21,12 +21,12 @@
     },
 
     // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
-    onClickDownload: function(csvText, e) {
+    onClickDownload: function(csvText, filename, e) {
       if (!window.navigator.msSaveOrOpenBlob) return;
 
       e.preventDefault();
       var blob = new Blob([csvText], {type: 'text/csv;charset=utf-8;'});
-      window.navigator.msSaveBlob(blob, e.target.download);
+      window.navigator.msSaveBlob(blob, filename);
     },
 
     componentDidMount: function() {
@@ -110,7 +110,7 @@
 
       return dom.a({
 	href: 'data:attachment/csv,' + encodeURIComponent(csvText),
-  onClick: this.onClickDownload.bind(this, csvText),
+  onClick: this.onClickDownload.bind(this, csvText, filename),
 	target: '_blank',
 	download: filename,
 	style: {
