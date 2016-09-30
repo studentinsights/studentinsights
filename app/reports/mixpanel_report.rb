@@ -13,6 +13,9 @@ class MixpanelReport
 
   def initialize(mixpanel_api_secret)
     @mixpanel_api_secret = mixpanel_api_secret
+    @today = Date.today
+    @reporting_period_in_days = 35
+    @developer_educator_id = 12  # Filter this educator_id out
     @buffer = []
   end
 
@@ -25,9 +28,11 @@ class MixpanelReport
     output
     output 'This is the usage report for Student Insights.'
     output 'It shows the number of visits and the number of unique users each week.'
+    output 'It also shows the number of notes created in Student Insights, and the number '
+    output 'of unique users creating them each week.'
     output 'For these reports, a week starts on Monday and ends on Sunday.'
     output
-    output 'Unique users is the better number to watch, since visits will be more variable.'
+    output 'Unique users is the better number to watch, since visits and counts will be more variable.'
     output 'The total across all schools is shown first, with individual schools after.'
     output 'Please reply to this email if you have any questions!'
     output
@@ -44,7 +49,11 @@ class MixpanelReport
       print_summary_header
       output school_summary_table(event_name, school[:id])
       output
+      print_student_insights_data_for_school(school[:id])
+      output
+      output
     end
+
 
     @buffer.join("\n")
   end
@@ -146,7 +155,7 @@ class MixpanelReport
       unit: 'week',
       where: where_string_with_defaults([
         [:deployment_key, '==', 'production'],
-        [:educator_id, '!=', 12],
+        [:educator_id, '!=', @developer_educator_id],
         [:educator_school_id, '==', school_id]
       ])
     })
@@ -155,7 +164,7 @@ class MixpanelReport
   def where_string_with_defaults(where_clauses = [])
     where_string(where_clauses + [
       [:deployment_key, '==', 'production'],
-      [:educator_id, '!=', 12],
+      [:educator_id, '!=', @developer_educator_id],
     ])
   end
 
@@ -167,8 +176,8 @@ class MixpanelReport
   end
 
   def query_for(params)
-    to_date = Date.today
-    from_date = to_date - 35
+    to_date = @today
+    from_date = Date.today - @reporting_period_in_days
 
     params_list = params.keys.map do |key|
       "-d #{key}='#{params[key]}'"
@@ -181,5 +190,42 @@ class MixpanelReport
     ] + params_list).join ' '
     output = `#{cmd}`
     JSON.parse(output)
+  end
+
+
+
+  # Example:
+  # ---------------------------------------------------
+  # Date      Count   Users
+  # 2016-08-22    1   1
+  # 2016-08-29    1   1
+  # 2016-09-05    18    3
+  # 2016-09-12    22    3
+  # 2016-09-19    14    3
+  # 2016-09-26    25    3
+  #
+  def print_student_insights_data_for_school(school_id = nil)
+    output '---------------------------------------------------'
+    output "Date\t\t\tCount\t\tUsers"
+
+    # Allow querying for a school or all schools
+    where_school = if school_id then {:students => { school_id: school_id }} else {} end
+    event_notes = EventNote
+      .joins(:student)
+      .where(where_school)
+      .where('recorded_at > ?', @today - @reporting_period_in_days.days)
+
+    # Group by week
+    notes_per_week = event_notes.group_by {|event_note| event_note.recorded_at.to_date.beginning_of_week }
+    (0..@reporting_period_in_days).each do |days_back|
+      monday = (@today - days_back.days).beginning_of_week
+      notes_per_week[monday] = [] unless notes_per_week.has_key?(monday)
+    end
+
+    # Print each line
+    notes_per_week.sort.each do |monday, weekly_event_notes|
+      educators_count = weekly_event_notes.map(&:educator_id).uniq.size
+      output "#{monday.strftime('%Y-%m-%d')}\t\t#{weekly_event_notes.size}\t\t#{educators_count}"
+    end
   end
 end
