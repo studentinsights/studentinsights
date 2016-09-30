@@ -20,6 +20,15 @@
       if (e.keyCode == 27) this.props.clearFilters();
     },
 
+    // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
+    onClickDownload: function(e) {
+      if (!window.navigator.msSaveOrOpenBlob) return;
+
+      e.preventDefault();
+      var blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
+      window.navigator.msSaveBlob(blob, e.target.download);
+    },
+
     componentDidMount: function() {
       $(document).on('keydown', this.onKeyDown);
     },
@@ -101,6 +110,7 @@
 
       return dom.a({
 	href: 'data:attachment/csv,' + encodeURIComponent(csvText),
+  onClick: this.onClickDownload,
 	target: '_blank',
 	download: filename,
 	style: {
