@@ -45,7 +45,7 @@ class MixpanelReport
     print_totals(event_name)
     output
     print_notes_header
-    print_student_insights_data_for_school(school[:id])
+    print_student_insights_data_for_school(nil) # all schools
     output
     output
     output
