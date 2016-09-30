@@ -2,18 +2,17 @@
   // Define filter operations
   window.shared || (window.shared = {});
   var Env = window.shared.Env;
-  var mixpanel = window.mixpanel;
 
   var MixpanelUtils = window.shared.MixpanelUtils = {
     isMixpanelEnabled: function() {
-      return (mixpanel && Env.shouldReportAnalytics);
+      return (window.mixpanel && Env.shouldReportAnalytics);
     },
     registerUser: function(currentEducator) {
       if (!MixpanelUtils.isMixpanelEnabled()) return;
 
       try {
-        mixpanel.identify(currentEducator.id);
-        mixpanel.register({
+        window.mixpanel.identify(currentEducator.id);
+        window.mixpanel.register({
           'deployment_key': Env.deploymentKey,
           'educator_id': currentEducator.id,
           'educator_is_admin': currentEducator.admin,
@@ -27,7 +26,7 @@
     track: function(key, attrs) {
       if (!MixpanelUtils.isMixpanelEnabled()) return;
       try {
-        return mixpanel.track(key, attrs);
+        return window.mixpanel.track(key, attrs);
       }
       catch (err) {
         console.error(err);
