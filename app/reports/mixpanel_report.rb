@@ -36,6 +36,11 @@ class MixpanelReport
     output 'Please reply to this email if you have any questions!'
     output
     output
+    output 'Recent changes in reporting methodology:'
+    output '-----------------------------------------'
+    output '9/30/2016  Fixed bug inflating metrics over the last two weeks'
+    output '9/30/2016  Improved "unique" accuracy from devices to account'
+    output
 
     print_totals(event_name)
     output
