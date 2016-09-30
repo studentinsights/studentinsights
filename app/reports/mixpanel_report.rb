@@ -40,6 +40,9 @@ class MixpanelReport
 
     print_totals(event_name)
     output
+    print_notes_header
+    print_student_insights_data_for_school(school[:id])
+    output
     output
     output
     output
@@ -48,8 +51,8 @@ class MixpanelReport
       output school[:name]
       print_summary_header
       output school_summary_table(event_name, school[:id])
-      output
       print_student_insights_data_for_school(school[:id])
+      output
       output
       output
     end
@@ -121,6 +124,11 @@ class MixpanelReport
   def print_summary_header
     output '---------------------------------------------------'
     output "Date\t\t\tVisits\t\tUsers"
+  end
+
+  def print_notes_header
+    output '---------------------------------------------------'
+    output "Date\t\t\tNotes\t\tUsers"
   end
 
   def school_summary_table(event_name, school_id)
@@ -196,7 +204,7 @@ class MixpanelReport
 
   # Example:
   # ---------------------------------------------------
-  # Date      Count   Users
+  # Date      Notes   Users
   # 2016-08-22    1   1
   # 2016-08-29    1   1
   # 2016-09-05    18    3
@@ -205,8 +213,7 @@ class MixpanelReport
   # 2016-09-26    25    3
   #
   def print_student_insights_data_for_school(school_id = nil)
-    output '---------------------------------------------------'
-    output "Date\t\t\tCount\t\tUsers"
+    print_notes_header
 
     # Allow querying for a school or all schools
     where_school = if school_id then {:students => { school_id: school_id }} else {} end
