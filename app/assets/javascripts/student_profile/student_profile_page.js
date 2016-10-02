@@ -134,10 +134,7 @@
       attendanceData: React.PropTypes.shape({
         discipline_incidents: React.PropTypes.array,
         tardies: React.PropTypes.array,
-        absences: React.PropTypes.array,
-        discipline_incidents_this_school_year: React.PropTypes.number,
-        tardies_this_school_year: React.PropTypes.number,
-        abseneces_this_school_year: React.PropTypes.number,
+        absences: React.PropTypes.array
       }),
 
       access: React.PropTypes.object,
@@ -479,7 +476,7 @@
           onClick: this.onColumnClicked.bind(this, columnKey)
       },
         this.renderAttendanceEventsSummary(
-          attendanceData.discipline_incidents_this_school_year,
+          student.discipline_incidents_count,
           attendanceData.discipline_incidents,
           Scales.disciplineIncidents.flexibleRange, {
             caption: 'Discipline this school year',
@@ -487,7 +484,7 @@
           }
         ),
         this.renderAttendanceEventsSummary(
-          attendanceData.abseneces_this_school_year,
+          student.absences_count,
           attendanceData.abseneces,
           Scales.absences.flexibleRange, {
             caption: 'Absences this school year',
@@ -495,7 +492,7 @@
           }
         ),
         this.renderAttendanceEventsSummary(
-          attendanceData.tardies_this_school_year,
+          student.tardies_count,
           attendanceData.tardies,
           Scales.tardies.flexibleRange, {
             caption: 'Tardies this school year',

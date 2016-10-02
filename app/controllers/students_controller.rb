@@ -94,9 +94,6 @@ class StudentsController < ApplicationController
       discipline_incidents: flatmap_and_sort(student_school_years) {|year| year.discipline_incidents },
       tardies: flatmap_and_sort(student_school_years) {|year| year.tardies },
       absences: flatmap_and_sort(student_school_years) {|year| year.absences },
-      discipline_incidents_this_school_year: most_recent_school_year.discipline_incidents.count,
-      tardies_this_school_year: most_recent_school_year.tardies.count,
-      abseneces_this_school_year: most_recent_school_year.absences.count,
     }
   end
 
