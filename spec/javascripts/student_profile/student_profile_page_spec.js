@@ -29,17 +29,17 @@ describe('StudentProfilePage', function() {
 
   SpecSugar.withTestEl('renders attendance event summaries correctly', function() {
 
-    describe('student with no absences this month', function () {
+    describe('student with no absences this school year', function () {
       it('displays zero absences', function () {
         var el = this.testEl;
         helpers.renderStudentProfilePage(el);   // fixture absences are way in the past,
-                                                // so should return zero for this month's absences
+                                                // so should return zero for this school year's absences
 
-        expect(el).toContainText('Absences this month:0');
+        expect(el).toContainText('Absences this school year:0');
       });
     });
 
-    describe('student with 3 absences this month', function () {
+    describe('student with 3 absences this school year', function () {
       it('displays 3 absences', function () {
         var el = this.testEl;
         var nowString = moment().utc().toISOString();
@@ -52,7 +52,7 @@ describe('StudentProfilePage', function() {
 
         helpers.renderStudentProfilePage(el, null, null, null, absences);
 
-        expect(el).toContainText('Absences this month:3');
+        expect(el).toContainText('Absences this school year:3');
       });
     });
 
