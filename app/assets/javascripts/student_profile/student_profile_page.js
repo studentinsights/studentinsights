@@ -134,7 +134,10 @@
       attendanceData: React.PropTypes.shape({
         discipline_incidents: React.PropTypes.array,
         tardies: React.PropTypes.array,
-        absences: React.PropTypes.array
+        absences: React.PropTypes.array,
+        discipline_incidents_this_school_year: React.PropTypes.number,
+        tardies_this_school_year: React.PropTypes.number,
+        abseneces_this_school_year: React.PropTypes.number,
       }),
 
       access: React.PropTypes.object,
@@ -475,41 +478,37 @@
           style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
           onClick: this.onColumnClicked.bind(this, columnKey)
       },
-        this.renderAttendanceEventsSummary(attendanceData.discipline_incidents, Scales.disciplineIncidents.flexibleRange, {
-          caption: 'Discipline this school year',
-          thresholdValue: Scales.disciplineIncidents.threshold,
-        }),
-        this.renderAttendanceEventsSummary(attendanceData.absences, Scales.absences.flexibleRange, {
-          caption: 'Absences this school year',
-          thresholdValue: Scales.absences.threshold,
-        }),
-        this.renderAttendanceEventsSummary(attendanceData.tardies, Scales.tardies.flexibleRange, {
-          caption: 'Tardies this school year',
-          thresholdValue: Scales.tardies.threshold,
-        })
+        this.renderAttendanceEventsSummary(
+          attendanceData.discipline_incidents_this_school_year,
+          attendanceData.discipline_incidents,
+          Scales.disciplineIncidents.flexibleRange, {
+            caption: 'Discipline this school year',
+            thresholdValue: Scales.disciplineIncidents.threshold,
+          }
+        ),
+        this.renderAttendanceEventsSummary(
+          attendanceData.abseneces_this_school_year,
+          attendanceData.abseneces,
+          Scales.absences.flexibleRange, {
+            caption: 'Absences this school year',
+            thresholdValue: Scales.absences.threshold,
+          }
+        ),
+        this.renderAttendanceEventsSummary(
+          attendanceData.tardies_this_school_year,
+          attendanceData.tardies,
+          Scales.tardies.flexibleRange, {
+            caption: 'Tardies this school year',
+            thresholdValue: Scales.tardies.threshold,
+          }
+        )
       ));
     },
 
-    renderAttendanceEventsSummary: function(attendanceEvents, flexibleRangeFn, props) {
-      var cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(attendanceEvents);
+    renderAttendanceEventsSummary: function(count, events, flexibleRangeFn, props) {
+      var cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(events);
       var valueRange = flexibleRangeFn(cumulativeQuads);
-
-      if (cumulativeQuads.length === 0) {
-        var value = 0;  // if there are no attendance events, this month's count is zero
-      } else {
-        var mostRecentQuad = _.last(cumulativeQuads);
-        // if the most recent month with events isn't this month, this month's count is zero:
-
-        var thisYear = moment().year();
-        var thisMonthToRuby = moment().month() + 1; // moment.js months are zero-indexed; quad months
-                                                    // start at 1,  so we need to adjust
-
-        if (mostRecentQuad[0] !== thisYear || mostRecentQuad[1] !== thisMonthToRuby)
-          var value = 0;
-        else {
-          var value = mostRecentQuad[3];   // get this month's count
-        }
-      };
+      var value = count;
 
       return this.wrapSummary(merge({
         title: props.title,
