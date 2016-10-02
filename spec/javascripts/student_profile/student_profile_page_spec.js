@@ -11,12 +11,20 @@ describe('StudentProfilePage', function() {
   var StudentProfilePage = window.shared.StudentProfilePage;
 
   var helpers = {
-    renderStudentProfilePage: function(el, grade, dibels, tardies, absences) {
+    renderStudentProfilePage: function(el, grade, dibels, absencesCount) {
       var serializedData = _.cloneDeep(Fixtures.studentProfile);
-      if (grade) { serializedData["student"]["grade"] = grade; };
-      if (dibels) { serializedData["dibels"] = dibels; };
-      if (tardies) { serializedData["attendanceData"]["tardies"] = tardies; };
-      if (absences) { serializedData["attendanceData"]["absences"] = absences; };
+      if (grade !== undefined) {
+        serializedData["student"]["grade"] = grade;
+      };
+
+      if (dibels !== undefined) {
+        serializedData["dibels"] = dibels;
+      };
+
+      if (absencesCount !== undefined) {
+        serializedData["student"]["absences_count"] = absencesCount;
+      };
+
 
       var mergedProps = {
         serializedData: serializedData,
@@ -29,30 +37,19 @@ describe('StudentProfilePage', function() {
 
   SpecSugar.withTestEl('renders attendance event summaries correctly', function() {
 
-    describe('student with no absences this month', function () {
+    describe('student with no absences this school year', function () {
       it('displays zero absences', function () {
         var el = this.testEl;
-        helpers.renderStudentProfilePage(el);   // fixture absences are way in the past,
-                                                // so should return zero for this month's absences
-
-        expect(el).toContainText('Absences this month:0');
+        helpers.renderStudentProfilePage(el, null, null, 0);
+        expect(el).toContainText('Absences this school year:0');
       });
     });
 
-    describe('student with 3 absences this month', function () {
-      it('displays 3 absences', function () {
+    describe('student with 15 absences this school year', function () {
+      it('displays 15 absences', function () {
         var el = this.testEl;
-        var nowString = moment().utc().toISOString();
-
-        var absences = [
-          { "occurred_at": nowString },
-          { "occurred_at": nowString },
-          { "occurred_at": nowString },
-        ]
-
-        helpers.renderStudentProfilePage(el, null, null, null, absences);
-
-        expect(el).toContainText('Absences this month:3');
+        helpers.renderStudentProfilePage(el);
+        expect(el).toContainText('Absences this school year:15');
       });
     });
 

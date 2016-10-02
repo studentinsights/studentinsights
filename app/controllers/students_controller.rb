@@ -88,7 +88,8 @@ class StudentsController < ApplicationController
 
   def student_profile_attendance_data(student)
     student_school_years = student.student_school_years
-    {
+
+    return {
       discipline_incidents: flatmap_and_sort(student_school_years) {|year| year.discipline_incidents },
       tardies: flatmap_and_sort(student_school_years) {|year| year.tardies },
       absences: flatmap_and_sort(student_school_years) {|year| year.absences }
