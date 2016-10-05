@@ -103,10 +103,10 @@ School | Data imported | Principal on-boarded | Used at an SST/MTSS meeting
 Healey | :white_check_mark: | :white_check_mark: | :white_check_mark:
 West | :white_check_mark: | :white_check_mark: | :white_check_mark:
 East | :white_check_mark: | :soon: |
-Brown | | |
-Kennedy | | |
-Argenziano | | |
-Winter Hill | | |
+Brown | :white_check_mark: | |
+Kennedy | :white_check_mark: | |
+Argenziano | :white_check_mark: | |
+Winter Hill | :white_check_mark: | |
 
 # Project priorities
 Priorites are tracked in GitHub with [milestones](https://github.com/studentinsights/studentinsights/milestones).
