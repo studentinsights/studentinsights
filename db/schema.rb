@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(version: 20161007140922) do
     t.integer  "uploaded_by_educator_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "file_name"
   end
 
   create_table "services", force: :cascade do |t|
