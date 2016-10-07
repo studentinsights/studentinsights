@@ -1,24 +1,26 @@
+require 'csv'
+
 class StudentServiceImporter
 
   def import
     puts "Files in remote server: #{file_names_in_remote_server}"; puts
 
-    puts "Files that haven't been uploaded: #{file_names_to_upload.size}"; puts
+    puts "Files that haven't been uploaded: #{file_names_to_import.size}"; puts
 
-    puts "Importing new services..."
+    puts "Importing new services..."; puts
 
-    puts csvs_to_upload; puts
+    import_files
   end
 
   protected
 
-  def csvs_to_upload
-    file_names_to_upload.map do |file_name|
-      sftp_client.read_file("services_upload/#{file_name}")
+  def import_files
+    file_names_to_import.map do |file_name|
+      StudentServicesFile.new(file_name, sftp_client).import
     end
   end
 
-  def file_names_to_upload
+  def file_names_to_import
     file_names_in_remote_server - files_names_already_uploaded
   end
 
