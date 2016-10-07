@@ -22,7 +22,7 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client
   end
 
   def date_started
-    csv[0][:start_date]
+    Date.strptime(csv[0][:start_date], '%D')
   end
 
   def import
