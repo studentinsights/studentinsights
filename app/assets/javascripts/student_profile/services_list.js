@@ -132,8 +132,7 @@
       return dom.div({
         key: service.id,
         style: merge(styles.service, {
-          background: serviceColor(service.service_type_id),
-          opacity: (wasDiscontinued) ? 0.25 : 1
+          background: serviceColor(service.service_type_id)
         })
       },
         dom.div({ style: { display: 'flex' } },
@@ -141,7 +140,7 @@
             dom.div({ style: { fontWeight: 'bold' } }, serviceText),
             this.renderEducatorName(providedByEducatorName),
             dom.div({},
-              'Since ',
+              'Started ',
               momentStarted.format('MMMM D, YYYY')
             ),
             dom.div({}, (wasDiscontinued)
@@ -155,9 +154,7 @@
     },
 
     renderEducatorName: function (educatorName) {
-      if (educatorName === "" || educatorName === null) {
-	return dom.div({}, 'No staff recorded');
-      } else {
+      if (educatorName !== "" && educatorName !== null) {
         return dom.div({}, 'With ' + educatorName);
       };
     },
@@ -165,7 +162,7 @@
     renderDiscontinuedInformation: function(service) {
       if (this.wasDiscontinued(service)) {
         return dom.div({},
-          dom.div({}, 'Discontinued'),
+          dom.div({}, 'Ended'),
           dom.div({}, moment.utc(service.discontinued_recorded_at).format('MMMM D, YYYY'))
         );
       }
