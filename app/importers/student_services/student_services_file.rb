@@ -25,6 +25,14 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client
     Date.strptime(csv[0][:start_date], '%D')
   end
 
+  def recorded_by_educator
+    Educator.find_by_id!(ENV["URI_ID"])
+  end
+
+  def service_type
+    ServiceType.find_by_name!(service_type_name)
+  end
+
   def import
     csv_to_students
 
@@ -32,8 +40,8 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client
       Service.create!(
         student: student,
         service_upload: service_upload,
-        recorded_by_educator_id: ENV["URI_ID"],
-        service_type: ServiceType.find_by_name!(service_type_name),
+        recorded_by_educator: recorded_by_educator,
+        service_type: service_type,
         recorded_at: recorded_at,
         date_started: date_started
       )
