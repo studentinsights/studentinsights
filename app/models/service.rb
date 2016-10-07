@@ -2,6 +2,7 @@ class Service < ActiveRecord::Base
   belongs_to :student
   belongs_to :recorded_by_educator, class_name: 'Educator'
   belongs_to :service_type
+  belongs_to :service_upload          # For bulk-uploaded services
   has_many :discontinued_services
 
   validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id, :recorded_at, :date_started
