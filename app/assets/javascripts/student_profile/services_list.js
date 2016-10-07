@@ -132,7 +132,8 @@
       return dom.div({
         key: service.id,
         style: merge(styles.service, {
-          background: serviceColor(service.service_type_id)
+          background: serviceColor(service.service_type_id),
+          opacity: (wasDiscontinued) ? 0.8 : 1
         })
       },
         dom.div({ style: { display: 'flex' } },
