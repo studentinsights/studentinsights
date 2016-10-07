@@ -4,13 +4,6 @@ require 'json'
 # Querys the MixPanel API for aggregate, non-personally identifiable usage data.
 # Intended to be run weekly.
 class MixpanelReport
-  # Parse the Heroku environment variables into the URL form the Mailgun API expects
-  def self.mailgun_url_from_env(env)
-    api_key = env['MAILGUN_API_KEY']
-    domain = env['MAILGUN_DOMAIN']
-    "https://api:#{api_key}@api.mailgun.net/v3/#{domain}/messages"
-  end
-
   def initialize(mixpanel_api_secret)
     @mixpanel_api_secret = mixpanel_api_secret
     @today = Date.today
