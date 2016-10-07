@@ -23,15 +23,24 @@ namespace :report do
 
   desc 'Weekly update for educators'
   task email_weekly_update: :environment do
-    mailgun_url = MailgunHelper.new.mailgun_url_from_env(ENV)
-    target_emails = ENV['WEEKLY_UPDATE_EMAILS_LIST'].split(',')
-    WeeklyUpdate.new.run_and_email!(mailgun_url, target_emails)
+    # Heroku scheduler can only trigger daily, so this only emails
+    # a report once a week.
+    if Date.today.sunday?
+      mailgun_url = MailgunHelper.new.mailgun_url_from_env(ENV)
+      target_emails = ENV['WEEKLY_UPDATE_EMAILS_LIST'].split(',')
+      WeeklyUpdate.new.run_and_email!(mailgun_url, target_emails)
+    end
   end
 
-  desc 'Query Mixpanel and print usage report (for debugging purposes)'
+  desc 'Print usage report from Mixpanel (for debugging purposes)'
   task mixpanel_usage: :environment do
     mixpanel_api_secret = ENV['MIXPANEL_API_SECRET']
     puts MixpanelReport.new(mixpanel_api_secret).run
+  end
+
+  desc 'Print weekly update for educators for debugging'
+  task weekly_update: :environment do
+    puts WeeklyUpdate.new.run
   end
 
 end
