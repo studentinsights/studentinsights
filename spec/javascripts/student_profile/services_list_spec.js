@@ -63,7 +63,7 @@ describe('ServicesList', function() {
       helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
       expect(el).toContainText('Reading intervention');
       expect(el).toContainText('With');
-      expect(el).toContainText('Since April 3, 2016');
+      expect(el).toContainText('Started April 3, 2016');
       expect(el).toContainText('Discontinue');
     });
 
@@ -97,7 +97,7 @@ describe('ServicesList', function() {
           discontinued: [discontinuedService]
         }
       });
-      expect(el).toContainText('Discontinued');
+      expect(el).toContainText('Ended');
       expect(el).toContainText('April 5, 2016');
     });
   });
