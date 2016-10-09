@@ -25,6 +25,14 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client
     Date.strptime(csv[0][:start_date], '%D')
   end
 
+  def has_end_date?
+    csv[0][:end_date].present?
+  end
+
+  def date_ended
+    Date.strptime(csv[0][:end_date], '%D')
+  end
+
   def recorded_by_educator
     Educator.find_by_id!(ENV["URI_ID"])
   end
@@ -36,22 +44,32 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client
   def import
     csv_to_students
 
-    @present_students.map do |student|
-      Service.create!(
-        student: student,
-        service_upload: service_upload,
-        recorded_by_educator: recorded_by_educator,
-        service_type: service_type,
-        recorded_at: recorded_at,
-        date_started: date_started
-      )
-    end
+    @present_students.map { |student| create_service_for_student(student) }
 
     puts "#{service_type_name} imported for #{@present_students.size} students."; puts
 
     return if @missing_student_names == []
 
     puts "Unable to match these students against the database: #{@missing_student_names.join(', ')}"; puts
+  end
+
+  def create_service_for_student(student)
+    service = Service.create!(
+      student: student,
+      service_upload: service_upload,
+      recorded_by_educator: recorded_by_educator,
+      service_type: service_type,
+      recorded_at: recorded_at,
+      date_started: date_started
+    )
+
+    return unless has_end_date?
+
+    DiscontinuedService.create!(
+      service: service,
+      recorded_at: date_ended,
+      recorded_by_educator: recorded_by_educator,
+    )
   end
 
   def row_to_student(row)
