@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <% @data.each do |school_hash| %>
+      <h2><%= school_hash[:name] %></h2>
+      <table>
+        <%= school_hash[:absences] %>
+      </table>
+    <% end %>
+  </body>
+</html>
