@@ -8,7 +8,7 @@ class WeeklyUpdateMailer < ActionMailer::Base
     @column_width = 20
     @data = data
 
-    @target_emails = 'asoble@gmail.com' # ENV['WEEKLY_UPDATE_EMAILS_LIST'].split(',')
+    @target_emails = ENV['WEEKLY_UPDATE_EMAILS_LIST'].split(',')
     @date_text = DateTime.now.beginning_of_day.strftime('%B %e, %Y')
     @subject = "Student Insights Weekly update for educators for #{@date_text}"
 
