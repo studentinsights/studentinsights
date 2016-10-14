@@ -6,9 +6,10 @@
     <% @data.each do |school_hash| %>
       <h2><%= school_hash[:name] %></h2>
       <h3>Absences:</h3>
-      <table width="100%" style="border-collapse: collapse; border: 1px solid grey;">
+      <table width="100%"
+             style="border-collapse: collapse; border: 1px solid grey; font-size: 16px;">
         <tr>
-          <th style="border: 1px solid grey;">Student</th>
+          <th style="border: 1px solid grey; text-align: left;">Student</th>
           <th style="border: 1px solid grey;">Last week</th>
           <th style="border: 1px solid grey;">Total</th>
         </tr>
@@ -17,8 +18,8 @@
             <td style="border: 1px solid grey;">
               <%= link_to absences[2], "https://somerville.studentinsights.org/students/#{(absences[3])}" %>
             </td>
-            <td style="border: 1px solid grey;"><%= absences[0] %></td>
-            <td style="border: 1px solid grey;"><%= absences[1] %></td>
+            <td style="border: 1px solid grey; text-align: center;"><%= absences[0] %></td>
+            <td style="border: 1px solid grey; text-align: center;"><%= absences[1] %></td>
           </tr>
         <% end %>
       </table>
