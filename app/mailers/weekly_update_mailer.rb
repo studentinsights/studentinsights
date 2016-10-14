@@ -50,6 +50,7 @@ class WeeklyUpdateMailer < ActionMailer::Base
         events_in_the_last_week(student, method_name),
         student.most_recent_school_year.send(method_name).size,
         "#{student.last_name}, #{student.first_name}",
+        student.id
       ]
     end
   end

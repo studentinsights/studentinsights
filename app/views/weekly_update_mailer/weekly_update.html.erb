@@ -16,7 +16,7 @@
           <tr>
             <td><%= absences[0] %></td>
             <td><%= absences[1] %></td>
-            <td><%= absences[2] %></td>
+            <td><%= link_to absences[2], student_url(absences[3]) %></td>
           </tr>
         <% end %>
       </table>
