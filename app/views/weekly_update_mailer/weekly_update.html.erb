@@ -5,8 +5,20 @@
   <body>
     <% @data.each do |school_hash| %>
       <h2><%= school_hash[:name] %></h2>
+      <h3>Absences:</h3>
       <table>
-        <%= school_hash[:absences] %>
+        <tr>
+          <th>Last week</th>
+          <th>Total</th>
+          <th>Student</th>
+        </tr>
+        <% school_hash[:absences].each do |absences| %>
+          <tr>
+            <td><%= absences[0] %></td>
+            <td><%= absences[1] %></td>
+            <td><%= absences[2] %></td>
+          </tr>
+        <% end %>
       </table>
     <% end %>
   </body>
