@@ -8,15 +8,15 @@
       <h3>Absences:</h3>
       <table width="100%" style="border-collapse: collapse; border: 1px solid grey;">
         <tr>
+          <th>Student</th>
           <th>Last week</th>
           <th>Total</th>
-          <th>Student</th>
         </tr>
         <% school_hash[:absences].each do |absences| %>
           <tr>
+            <td><%= link_to absences[2], student_url(absences[3]) %></td>
             <td><%= absences[0] %></td>
             <td><%= absences[1] %></td>
-            <td><%= link_to absences[2], student_url(absences[3]) %></td>
           </tr>
         <% end %>
       </table>
