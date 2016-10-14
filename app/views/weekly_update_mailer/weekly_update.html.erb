@@ -8,17 +8,17 @@
       <h3>Absences:</h3>
       <table width="100%" style="border-collapse: collapse; border: 1px solid grey;">
         <tr>
-          <th>Student</th>
-          <th>Last week</th>
-          <th>Total</th>
+          <th style="border: 1px solid grey;">Student</th>
+          <th style="border: 1px solid grey;">Last week</th>
+          <th style="border: 1px solid grey;">Total</th>
         </tr>
         <% school_hash[:absences].each do |absences| %>
           <tr>
-            <td>
+            <td style="border: 1px solid grey;">
               <%= link_to absences[2], "https://somerville.studentinsights.org/students/#{(absences[3])}" %>
             </td>
-            <td><%= absences[0] %></td>
-            <td><%= absences[1] %></td>
+            <td style="border: 1px solid grey;"><%= absences[0] %></td>
+            <td style="border: 1px solid grey;"><%= absences[1] %></td>
           </tr>
         <% end %>
       </table>
