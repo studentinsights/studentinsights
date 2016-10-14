@@ -7,7 +7,7 @@ class MixpanelReport
   def initialize(mixpanel_api_secret)
     @mixpanel_api_secret = mixpanel_api_secret
     @today = Date.today
-    @reporting_period_in_days = 35
+    @reporting_period_in_days = 14
     @buffer = []
   end
 
@@ -27,12 +27,6 @@ class MixpanelReport
     output 'Unique users is the better number to watch, since visits and counts will be more variable.'
     output 'The total across all schools is shown first, with individual schools after.'
     output 'Please reply to this email if you have any questions!'
-    output
-    output
-    output 'Recent changes in reporting methodology:'
-    output '-----------------------------------------'
-    output '9/30/2016  Fixed bug inflating metrics over the last two weeks'
-    output '9/30/2016  Improved "unique" accuracy from devices to account'
     output
 
     print_totals(event_name)
