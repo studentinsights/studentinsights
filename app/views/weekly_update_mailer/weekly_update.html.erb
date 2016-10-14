@@ -14,7 +14,9 @@
         </tr>
         <% school_hash[:absences].each do |absences| %>
           <tr>
-            <td><%= link_to absences[2], student_url(absences[3]) %></td>
+            <td>
+              <%= link_to absences[2], "https://somerville.studentinsights.org/students/#{(absences[3])}" %>
+            </td>
             <td><%= absences[0] %></td>
             <td><%= absences[1] %></td>
           </tr>
