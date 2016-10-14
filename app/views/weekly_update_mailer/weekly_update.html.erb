@@ -6,7 +6,7 @@
     <% @data.each do |school_hash| %>
       <h2><%= school_hash[:name] %></h2>
       <h3>Absences:</h3>
-      <table>
+      <table width="100%" style="border-collapse: collapse; border: 1px solid grey;">
         <tr>
           <th>Last week</th>
           <th>Total</th>
@@ -16,7 +16,7 @@
           <tr>
             <td><%= absences[0] %></td>
             <td><%= absences[1] %></td>
-            <td><%= absences[2] %></td>
+            <td><%= link_to absences[2], student_url(absences[3]) %></td>
           </tr>
         <% end %>
       </table>
