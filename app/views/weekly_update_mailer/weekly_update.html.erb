@@ -5,6 +5,39 @@
   <body>
     <% @data.each do |school_hash| %>
       <h2><%= school_hash[:name] %>:</h2>
+      <h3 style="font-size: 18px; font-style: italic;">MTSS follow-up</h3>
+      <table width="100%"
+             style="border-collapse: collapse; border: 1px solid grey; font-size: 16px;">
+        <tr>
+          <th style="border: 1px solid grey; text-align: left;"></th>
+          <th style="border: 1px solid grey;">Days since last MTSS</th>
+        </tr>
+        <% school_hash[:mtss_watchlist].each do |mtss_row| %>
+          <tr>
+            <td style="border: 1px solid grey;">
+              <%= link_to "#{mtss_row[:student].last_name}, #{mtss_row[:student].first_name}", "https://somerville.studentinsights.org/students/#{mtss_row[:student].id}" %>
+            </td>
+            <td style="border: 1px solid grey; text-align: center;"><%= mtss_row[:days_since] %></td>
+          </tr>
+        <% end %>
+      </table>
+
+      <h3 style="font-size: 18px; font-style: italic;">SST follow-up</h3>
+      <table width="100%"
+             style="border-collapse: collapse; border: 1px solid grey; font-size: 16px;">
+        <tr>
+          <th style="border: 1px solid grey; text-align: left;"></th>
+          <th style="border: 1px solid grey;">Days since last SST</th>
+        </tr>
+        <% school_hash[:sst_watchlist].each do |sst_row| %>
+          <tr>
+            <td style="border: 1px solid grey;">
+              <%= link_to "#{sst_row[:student].last_name}, #{sst_row[:student].first_name}", "https://somerville.studentinsights.org/students/#{sst_row[:student].id}" %>
+            </td>
+            <td style="border: 1px solid grey; text-align: center;"><%= sst_row[:days_since] %></td>
+          </tr>
+        <% end %>
+      </table>
 
       <h3 style="font-size: 18px; font-style: italic;">Absences</h3>
       <table width="100%"
