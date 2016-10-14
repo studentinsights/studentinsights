@@ -3,8 +3,12 @@ class WeeklyUpdateMailer < ActionMailer::Base
   def weekly_update
     @today = Date.today
     @reporting_period_in_days = 7
+
     @absences_threshold = 2
     @tardies_threshold = 2
+    @mtss_watchlist_threshold_in_days = 14
+    @sst_watchlist_threshold_in_days = 14
+
     @column_width = 20
     @data = data
 
@@ -23,7 +27,9 @@ class WeeklyUpdateMailer < ActionMailer::Base
     schools_for_report.map do |school_hash|
       school_hash.merge({
         absences: events_for_school(school_hash[:id], :absences, @absences_threshold),
-        tardies: events_for_school(school_hash[:id], :tardies, @tardies_threshold)
+        tardies: events_for_school(school_hash[:id], :tardies, @tardies_threshold),
+        mtss_watchlist: watchlist_for_school(school_hash[:id], @mtss_watchlist_threshold_in_days, 301),
+        sst_watchlist: watchlist_for_school(school_hash[:id], @sst_watchlist_threshold_in_days, 300)
       })
     end
   end
@@ -53,6 +59,30 @@ class WeeklyUpdateMailer < ActionMailer::Base
         student.id
       ]
     end
+  end
+
+  def watchlist_for_school(school_id, threshold, event_note_type_id)
+    watchlist = []
+
+    School.find(school_id).students.active.each do |student|
+      # Students who have been in MTSS, and more than `threshold` days have passed
+      # without another note
+      start_of_school_year_date = DateToSchoolYear.new(Date.today).convert.start
+      most_recent_note = student.event_notes
+        .where(event_note_type_id: event_note_type_id)
+        .where('recorded_at >= ?', start_of_school_year_date)
+        .order(recorded_at: :desc).first
+      next unless most_recent_note.present?
+      next unless most_recent_note.recorded_at < @today.beginning_of_day - threshold.days
+
+      days_since = (@today - most_recent_note.recorded_at.to_date).to_i
+      watchlist << {
+        student: student,
+        days_since: days_since
+      }
+    end
+
+    watchlist
   end
 
   def events_in_the_last_week(student, method_name)
