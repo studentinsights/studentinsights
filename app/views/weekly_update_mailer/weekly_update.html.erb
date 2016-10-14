@@ -6,13 +6,13 @@
     <% @data.each do |school_hash| %>
       <h2><%= school_hash[:name] %></h2>
 
-      <h3>Absences:</h3>
+      <h3 style="font-size: 20px;">Absences</h3>
       <table width="100%"
              style="border-collapse: collapse; border: 1px solid grey; font-size: 16px;">
         <tr>
-          <th style="border: 1px solid grey; text-align: left;">Student</th>
-          <th style="border: 1px solid grey;">Last week</th>
-          <th style="border: 1px solid grey;">Total</th>
+          <th style="border: 1px solid grey; text-align: left;"></th>
+          <th style="border: 1px solid grey;">Absences Last Week</th>
+          <th style="border: 1px solid grey;">Absences This School Year</th>
         </tr>
         <% school_hash[:absences].each do |absences| %>
           <tr>
@@ -25,13 +25,13 @@
         <% end %>
       </table>
 
-      <h3>Tardies:</h3>
+      <h3 style="font-size: 20px;">Tardies</h3>
       <table width="100%"
              style="border-collapse: collapse; border: 1px solid grey; font-size: 16px;">
         <tr>
-          <th style="border: 1px solid grey; text-align: left;">Student</th>
-          <th style="border: 1px solid grey;">Last week</th>
-          <th style="border: 1px solid grey;">Total</th>
+          <th style="border: 1px solid grey; text-align: left;"></th>
+          <th style="border: 1px solid grey;">Tardies Last Week</th>
+          <th style="border: 1px solid grey;">Tardies This School Year</th>
         </tr>
         <% school_hash[:tardies].each do |tardies| %>
           <tr>
