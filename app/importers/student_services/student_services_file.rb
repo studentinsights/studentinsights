@@ -1,3 +1,5 @@
+require 'csv'
+
 class StudentServicesFile < Struct.new :file_name, :sftp_client
 
   def service_upload
