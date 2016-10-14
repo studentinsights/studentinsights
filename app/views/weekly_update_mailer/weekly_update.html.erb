@@ -4,9 +4,9 @@
   </head>
   <body>
     <% @data.each do |school_hash| %>
-      <h2><%= school_hash[:name] %></h2>
+      <h2><%= school_hash[:name] %>:</h2>
 
-      <h3 style="font-size: 20px;">Absences</h3>
+      <h3 style="font-size: 18px; font-style: italic;">Absences</h3>
       <table width="100%"
              style="border-collapse: collapse; border: 1px solid grey; font-size: 16px;">
         <tr>
@@ -25,7 +25,7 @@
         <% end %>
       </table>
 
-      <h3 style="font-size: 20px;">Tardies</h3>
+      <h3 style="font-size: 18px; font-style: italic;">Tardies</h3>
       <table width="100%"
              style="border-collapse: collapse; border: 1px solid grey; font-size: 16px;">
         <tr>
