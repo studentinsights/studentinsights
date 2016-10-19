@@ -23,6 +23,7 @@
   var InterventionsDetails = window.shared.InterventionsDetails;
   var ServicesDetails = window.shared.ServicesDetails;
   var NotesDetails = window.shared.NotesDetails;
+  var HelpBubble = window.shared.HelpBubble;
 
 
   // define page component
@@ -219,6 +220,8 @@
         )
       )
     },
+
+
 
     renderSectionDetails: function() {
       switch (this.props.selectedColumnKey) {
@@ -419,7 +422,12 @@
       if (belowGradeFour && hasDibels) {
         var latestDibels = _.last(dibels).performance_level.toUpperCase();
         return dom.div({ style: styles.summaryWrapper },
-          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latestDibels })
+          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latestDibels }), 
+          createEl(HelpBubble, {
+            title: 'What do the different DIBELS levels mean?',
+            teaserText: '(what do DIBELS levels mean?)',
+            content: this.getNotesHelpContent()
+          })
         );
       } else {
         return this.wrapSummary({
