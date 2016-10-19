@@ -10,7 +10,7 @@ RSpec.describe EventNote, type: :model do
   end
 
   context 'is_restricted undefined' do
-    let(:note) { FactoryGirl.build(:event_note, is_restricted: false) }
+    let(:note) { FactoryGirl.build(:event_note, is_restricted: nil) }
     it 'is invalid' do
       expect(note).to be_invalid
     end
