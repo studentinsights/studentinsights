@@ -435,7 +435,7 @@
           createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latestDibels }), 
           createEl(HelpBubble, {
             title: 'What do the different DIBELS levels mean?',
-            teaserText: '(what do DIBELS levels mean?)',
+            teaserText: '(What do DIBELS levels mean?)',
             content: this.getDibelsHelpContent()
           })
         );
