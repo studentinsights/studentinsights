@@ -24,7 +24,8 @@ describe EventNotesController, :type => :controller do
             student_id: student.id,
             event_note_type_id: event_note_type.id,
             recorded_at: Time.now,
-            text: 'foo'
+            text: 'foo',
+            is_restricted: false
           }
         }
         it 'creates a new event note' do
@@ -52,7 +53,8 @@ describe EventNotesController, :type => :controller do
             student_id: student.id,
             event_note_type_id: event_note_type.id,
             recorded_at: Time.now,
-            text: 'foo'
+            text: 'foo',
+            is_restricted: false
           })
           response_body = JSON.parse(response.body)
           expect(response_body['educator_id']).to eq educator.id
