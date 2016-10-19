@@ -221,7 +221,17 @@
       )
     },
 
-
+    getDibelsHelpContent: function(){
+      return dom.div({},
+        dom.p({}, 'DIBELS seems super complicated, so one of the teachers should probably write this part!'),
+        dom.br({}),
+        dom.p({}, dom.b({}, 'What does CORE mean? '), 'A designation of CORE means a student is likely to need CORE (or basic) support to achieve subsequent early literacy goals.'),
+        dom.br({}),
+        dom.p({}, dom.b({}, 'What does STRATEGIC mean? '), 'A designation of STRATEGIC means a student is likely to need STRATEGIC (or intermediate-level) support to achieve subsequent early literacy goals.'),
+        dom.br({}),
+        dom.p({}, dom.b({}, 'What does INTENSIVE mean? '), 'A designation of INTENSIVE means a student is likely to need INTENSIVE (or high-level) support to achieve subsequent early literacy goals.')  
+      )
+    },
 
     renderSectionDetails: function() {
       switch (this.props.selectedColumnKey) {
@@ -426,7 +436,7 @@
           createEl(HelpBubble, {
             title: 'What do the different DIBELS levels mean?',
             teaserText: '(what do DIBELS levels mean?)',
-            content: this.getNotesHelpContent()
+            content: this.getDibelsHelpContent()
           })
         );
       } else {
