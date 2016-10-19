@@ -317,7 +317,7 @@
           elements: demographicsElements,
         }),
         createEl(HelpBubble, {
-          title: 'What do the different ACCESS designations mean?',
+          title: 'What do the different ACCESS scores mean?',
           teaserText: '(More on ACCESS raw scores)',
           content: this.getAccessHelpContent()
         })
