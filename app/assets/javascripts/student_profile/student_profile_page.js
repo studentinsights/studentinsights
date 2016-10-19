@@ -233,6 +233,14 @@
       )
     },
 
+    getAccessHelpContent: function(){
+      return dom.div({},
+        dom.p({}, 'ACCESS seems super complicated, so one of the teachers should probably write this part!'),
+        dom.br({}),
+        dom.a({ href: 'https://www.wida.us/assessment/ACCESS/ScoreReports/ACCESS_Interpretive_Guide11.pdf' }, 'Click here for a full guide to ACCESS scores.') 
+      )
+    },
+
     renderSectionDetails: function() {
       switch (this.props.selectedColumnKey) {
         case 'profile': return createEl(ProfileDetails,
@@ -307,6 +315,11 @@
         createEl(SummaryList, {
           title: 'Demographics',
           elements: demographicsElements,
+        }),
+        createEl(HelpBubble, {
+          title: 'What do the different ACCESS designations mean?',
+          teaserText: '(More on ACCESS raw scores)',
+          content: this.getAccessHelpContent()
         })
       ));
     },
