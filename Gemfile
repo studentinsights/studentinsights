@@ -4,7 +4,7 @@ ruby '2.3.0'
 
 gem 'rails', '~> 4.2'
 gem 'pg'
-gem 'unicorn'
+gem 'puma'
 
 gem 'activerecord-import'
 gem 'administrate', '~> 0.2.1'
