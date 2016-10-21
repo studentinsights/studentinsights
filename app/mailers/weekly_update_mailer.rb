@@ -82,7 +82,9 @@ class WeeklyUpdateMailer < ActionMailer::Base
       }
     end
 
-    watchlist
+    watchlist.sort_by do |watchlist_row|
+      watchlist_row[:days_since]
+    end.reverse
   end
 
   def events_in_the_last_week(student, method_name)
