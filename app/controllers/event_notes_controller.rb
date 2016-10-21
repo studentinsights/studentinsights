@@ -3,7 +3,7 @@ class EventNotesController < ApplicationController
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
 
-  before_action :authorize!, except: [:names] # TODO: Why is this here? :names is an action called on students only, right?
+  before_action :authorize!
 
   def authorize!
     student = Student.find(params[:student_id])
