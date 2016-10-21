@@ -171,6 +171,14 @@ class StudentsController < ApplicationController
     @current_school_year = DateToSchoolYear.new(Date.today).convert.name
     @student_school_years = @student.student_school_years.includes(:absences).includes(:tardies).includes(:discipline_incidents)
     @discipline_incidents = @student_school_years.flat_map(&:discipline_incidents).sort_by(&:occurred_at)
-    @student_assessments = @student.student_assessments.includes(:assessment)
+    student_assessments_by_date = @student.student_assessments.order_by_date_taken_asc.includes(:assessment)
+
+    # This is a hash with the test name as the key and an array of date-sorted student assessment objects as the value
+    @student_assessments = student_assessments_by_date.each_with_object({}) do |student_assessment, hash|
+      test = student_assessment.assessment
+      test_name = "#{test.family} #{test.subject}"
+      hash[test_name] ||= []
+      hash[test_name].push(student_assessment)
+    end.sort.to_h
   end
 end
