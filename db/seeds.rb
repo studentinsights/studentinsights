@@ -64,8 +64,9 @@ Homeroom.find_by_name("WSNS 500").update_attribute(:educator, wsns_fifth_grade_e
 
 homerooms.each do |homeroom|
   puts "Creating students for homeroom #{homeroom.name}..."
+  school = homeroom.school
   15.times do
-    FakeStudent.new(homeroom)
+    FakeStudent.new(school, homeroom)
   end
 end
 
