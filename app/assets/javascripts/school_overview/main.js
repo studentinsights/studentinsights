@@ -8,12 +8,14 @@ $(function() {
     var createEl = window.shared.ReactHelpers.createEl;
 
     function main() {
+      var schoolId = $('#school-id').data('id');
+
       $.ajax({
         url: window.location.href + '/serialized_data',
         method: 'GET',
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
-        data: 1,
+        data: { id: schoolId },
         success: function (serializedData) {
           MixpanelUtils.registerUser(serializedData.currentEducator);
           MixpanelUtils.track('PAGE_VISIT', { page_key: 'SCHOOL_OVERVIEW_DASHBOARD' });
@@ -26,7 +28,6 @@ $(function() {
           }), document.getElementById('main'));
         }
       });
-
     }
 
     main();

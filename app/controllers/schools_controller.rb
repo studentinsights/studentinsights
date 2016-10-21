@@ -109,7 +109,7 @@ class SchoolsController < ApplicationController
   end
 
   def educator_authorized_for_school
-    @school = School.find_by_slug(params[:id]) || School.find_by_id(params[:id])
+    @school = School.find_by_slug(params[:id].downcase) || School.find_by_id(params[:id])
 
     raise 'No school found' if @school.nil?
 
