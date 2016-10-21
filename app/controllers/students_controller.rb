@@ -3,7 +3,11 @@ class StudentsController < ApplicationController
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
 
-  before_action :authorize!, except: [:names]
+  before_action :authorize!, except: [:names]   # The :names action is still subject to
+                                                # educator authentication via :authenticate_educator!
+                                                # inherited from ApplicationController.
+                                                # It then does further authorization filtering using
+                                                # current_educator.is_authorized_for_student.
 
   def authorize!
     student = Student.find(params[:id])
