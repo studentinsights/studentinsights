@@ -14,15 +14,14 @@ $(function() {
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
         data: 1,
-        success: function () {
-          var serializedData = $('#serialized-data').data();
+        success: function (serializedData) {
           MixpanelUtils.registerUser(serializedData.currentEducator);
           MixpanelUtils.track('PAGE_VISIT', { page_key: 'SCHOOL_OVERVIEW_DASHBOARD' });
 
           ReactDOM.render(createEl(SchoolOverviewPage, {
             allStudents: serializedData.students,
-            serviceTypesIndex: serializedData.constantIndexes.service_types_index,
-            eventNoteTypesIndex: serializedData.constantIndexes.event_note_types_index,
+            serviceTypesIndex: serializedData.constant_indexes.service_types_index,
+            eventNoteTypesIndex: serializedData.constant_indexes.event_note_types_index,
             initialFilters: Filters.parseFiltersHash(window.location.hash)
           }), document.getElementById('main'));
         }
