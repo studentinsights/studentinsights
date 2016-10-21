@@ -25,7 +25,7 @@ Educator.create!([{
   full_name: 'Principal, Laura',
   password: "demo-password",
   local_id: '350',
-  school: School.first,
+  school: healey,
   admin: true,
   schoolwide_access: true,
   can_view_restricted_notes: true
@@ -34,7 +34,7 @@ Educator.create!([{
   full_name: 'Teacher, Sarah',
   password: "demo-password",
   local_id: '450',
-  school: School.first,
+  school: healey,
   admin: false,
   schoolwide_access: false,
 }, {
@@ -42,18 +42,19 @@ Educator.create!([{
   full_name: 'Teacher, Mari',
   password: 'demo-password',
   local_id: '550',
-  school: School.second,
+  school: wsns,
   admin: false,
   schoolwide_access: false,
 }])
 
 puts 'Creating homerooms..'
+
 homerooms = [
-  Homeroom.create(name: "HEA 300", grade: "3", school: School.first),
-  Homeroom.create(name: "HEA 400", grade: "4", school: School.first),
-  Homeroom.create(name: "HEA 500", grade: "5", school: School.first),
-  Homeroom.create(name: "HEA 501", grade: "5", school: School.first),
-  Homeroom.create(name: "WSNS 500", grade: "5", school: School.second),
+  Homeroom.create(name: "HEA 300", grade: "3", school: healey),
+  Homeroom.create(name: "HEA 400", grade: "4", school: healey),
+  Homeroom.create(name: "HEA 500", grade: "5", school: healey),
+  Homeroom.create(name: "HEA 501", grade: "5", school: healey),
+  Homeroom.create(name: "WSNS 500", grade: "5", school: wsns),
 ]
 
 fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
@@ -64,8 +65,9 @@ Homeroom.find_by_name("WSNS 500").update_attribute(:educator, wsns_fifth_grade_e
 
 homerooms.each do |homeroom|
   puts "Creating students for homeroom #{homeroom.name}..."
+  school = homeroom.school
   15.times do
-    FakeStudent.new(homeroom)
+    FakeStudent.new(school, homeroom)
   end
 end
 

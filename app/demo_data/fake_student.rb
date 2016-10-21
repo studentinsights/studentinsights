@@ -1,5 +1,6 @@
 class FakeStudent
-  def initialize(homeroom)
+  def initialize(school, homeroom)
+    @school = school
     @homeroom = homeroom
     @student = Student.create(data)
     @newstudent = rand > 0.95
@@ -37,7 +38,7 @@ class FakeStudent
 
   def base_data
     {
-      school_id: School.first.id,
+      school: @school,
       date_of_birth: fake_date_of_birth,
       enrollment_status: enrollment_status,
       grade: @homeroom.grade,
