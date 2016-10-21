@@ -25,7 +25,7 @@ Educator.create!([{
   full_name: 'Principal, Laura',
   password: "demo-password",
   local_id: '350',
-  school: School.first,
+  school: healey,
   admin: true,
   schoolwide_access: true,
   can_view_restricted_notes: true
@@ -34,7 +34,7 @@ Educator.create!([{
   full_name: 'Teacher, Sarah',
   password: "demo-password",
   local_id: '450',
-  school: School.first,
+  school: healey,
   admin: false,
   schoolwide_access: false,
 }, {
@@ -42,19 +42,18 @@ Educator.create!([{
   full_name: 'Teacher, Mari',
   password: 'demo-password',
   local_id: '550',
-  school: School.second,
+  school: wsns,
   admin: false,
   schoolwide_access: false,
 }])
 
 puts 'Creating homerooms..'
-hea = School.find_by_local_id 'HEA'
-wsns = School.find_by_local_id 'WSNS'
+
 homerooms = [
-  Homeroom.create(name: "HEA 300", grade: "3", school: hea),
-  Homeroom.create(name: "HEA 400", grade: "4", school: hea),
-  Homeroom.create(name: "HEA 500", grade: "5", school: hea),
-  Homeroom.create(name: "HEA 501", grade: "5", school: hea),
+  Homeroom.create(name: "HEA 300", grade: "3", school: healey),
+  Homeroom.create(name: "HEA 400", grade: "4", school: healey),
+  Homeroom.create(name: "HEA 500", grade: "5", school: healey),
+  Homeroom.create(name: "HEA 501", grade: "5", school: healey),
   Homeroom.create(name: "WSNS 500", grade: "5", school: wsns),
 ]
 
