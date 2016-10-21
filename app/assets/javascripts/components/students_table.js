@@ -38,7 +38,7 @@
               this.renderHeader('Absences'),
               this.renderHeader('Tardies'),
               this.renderHeader('Services'),
-              this.renderHeader('Program'),
+              this.renderHeader('Program', { 'data-sort-method': 'prog_assign_sort' }),
               this.renderHeader('Homeroom')
             )
           ),
