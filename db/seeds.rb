@@ -48,12 +48,14 @@ Educator.create!([{
 }])
 
 puts 'Creating homerooms..'
+hea = School.find_by_local_id 'HEA'
+wsns = School.find_by_local_id 'WSNS'
 homerooms = [
-  Homeroom.create(name: "HEA 300", grade: "3", school: School.first),
-  Homeroom.create(name: "HEA 400", grade: "4", school: School.first),
-  Homeroom.create(name: "HEA 500", grade: "5", school: School.first),
-  Homeroom.create(name: "HEA 501", grade: "5", school: School.first),
-  Homeroom.create(name: "WSNS 500", grade: "5", school: School.second),
+  Homeroom.create(name: "HEA 300", grade: "3", school: hea),
+  Homeroom.create(name: "HEA 400", grade: "4", school: hea),
+  Homeroom.create(name: "HEA 500", grade: "5", school: hea),
+  Homeroom.create(name: "HEA 501", grade: "5", school: hea),
+  Homeroom.create(name: "WSNS 500", grade: "5", school: wsns),
 ]
 
 fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
