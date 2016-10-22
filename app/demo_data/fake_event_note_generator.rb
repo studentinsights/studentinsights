@@ -14,7 +14,8 @@ class FakeEventNoteGenerator
       educator_id: educator.id,
       event_note_type_id: EventNoteType.all.sample.id,
       recorded_at: @date,
-      text: sample_text
+      text: sample_text,
+      is_restricted: false
     }
   end
 

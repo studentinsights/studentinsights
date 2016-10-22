@@ -85,7 +85,7 @@ $(function() {
       $('#column-picker').hide();
     });
 
-    $("#column-picker").click(function() {
+    $("#column-picker").click(function(event) {
       event.stopPropagation();
     });
 

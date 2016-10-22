@@ -5,5 +5,7 @@ FactoryGirl.define do
     association :educator
     association :student
     event_note_type { EventNoteType.first }
+    is_restricted false
   end
+
 end

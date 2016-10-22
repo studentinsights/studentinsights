@@ -46,11 +46,14 @@
 </p>
 <p>
   <h4>Academic assessments:</h4>
-  <% @student_assessments.each do |test| %>
-    <ul style="list-style-type:none">
-      <li><%= "#{format_date(test.date_taken)} - #{test.assessment.family} #{test.assessment.subject} - #{test.percentile_rank.try(:ordinalize) || 'Unknown'} percentile" %></li>
-    </ul>
-  <% end %>
+    <% @student_assessments.each do |test_name, test_scores| %>
+      <h5><%= test_name %></h5>
+        <% test_scores.each do |score| %>
+          <ul style="list-style-type:none">
+            <li><%= "#{format_date(score.date_taken)} #{score.percentile_rank.try(:ordinalize) || 'Unknown'} percentile" %></li>
+          </ul>
+        <% end %>
+    <% end %>
 </p>
 <p>
   <h4>Additional notes:</h4>
