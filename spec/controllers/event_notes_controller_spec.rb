@@ -24,7 +24,8 @@ describe EventNotesController, :type => :controller do
             student_id: student.id,
             event_note_type_id: event_note_type.id,
             recorded_at: Time.now,
-            text: 'foo'
+            text: 'foo',
+            is_restricted: false
           }
         }
         it 'creates a new event note' do
@@ -52,7 +53,8 @@ describe EventNotesController, :type => :controller do
             student_id: student.id,
             event_note_type_id: event_note_type.id,
             recorded_at: Time.now,
-            text: 'foo'
+            text: 'foo',
+            is_restricted: false
           })
           response_body = JSON.parse(response.body)
           expect(response_body['educator_id']).to eq educator.id
@@ -108,6 +110,27 @@ describe EventNotesController, :type => :controller do
           ]
           expect(JSON.parse(response.body)["is_restricted"]).to eq true
         end
+      end
+    end
+
+    context 'not logged in' do
+      let!(:event_note_type) { EventNoteType.first }
+      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let(:post_params) {
+        {
+          student_id: student.id,
+          event_note_type_id: event_note_type.id,
+          recorded_at: Time.now,
+          text: 'foo',
+          is_restricted: false
+        }
+      }
+
+      it 'creates a new event note' do
+        make_post_request(student, { text: 'foo' })
+        expect(response.status).to eq 401
+
+        expect { make_post_request(student, post_params) }.to change(EventNote, :count).by 0
       end
     end
   end
