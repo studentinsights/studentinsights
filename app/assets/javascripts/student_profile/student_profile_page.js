@@ -23,7 +23,6 @@
   var InterventionsDetails = window.shared.InterventionsDetails;
   var ServicesDetails = window.shared.ServicesDetails;
   var NotesDetails = window.shared.NotesDetails;
-  var HelpBubble = window.shared.HelpBubble;
 
 
   // define page component
@@ -218,18 +217,6 @@
           dom.li({}, '"Mediation occurred between Oscar and Uri and went well. Both have agreed to keep distance for 2 weeks."'),
           dom.li({}, '"Parent called to report that Jill won art award and will be going to nationals. She suggested this might be an outlet if she shows frustration in schoolwork."')
         )
-      )
-    },
-
-    getDibelsHelpContent: function(){
-      return dom.div({},
-        dom.p({}, 'DIBELS seems super complicated, so one of the teachers should probably write this part!'),
-        dom.br({}),
-        dom.p({}, dom.b({}, 'What does CORE mean? '), 'A designation of CORE means a student is likely to need CORE (or basic) support to achieve subsequent early literacy goals.'),
-        dom.br({}),
-        dom.p({}, dom.b({}, 'What does STRATEGIC mean? '), 'A designation of STRATEGIC means a student is likely to need STRATEGIC (or intermediate-level) support to achieve subsequent early literacy goals.'),
-        dom.br({}),
-        dom.p({}, dom.b({}, 'What does INTENSIVE mean? '), 'A designation of INTENSIVE means a student is likely to need INTENSIVE (or high-level) support to achieve subsequent early literacy goals.')  
       )
     },
 
@@ -432,12 +419,7 @@
       if (belowGradeFour && hasDibels) {
         var latestDibels = _.last(dibels).performance_level.toUpperCase();
         return dom.div({ style: styles.summaryWrapper },
-          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latestDibels }), 
-          createEl(HelpBubble, {
-            title: 'What do the different DIBELS levels mean?',
-            teaserText: '(What do DIBELS levels mean?)',
-            content: this.getDibelsHelpContent()
-          })
+          createEl(SummaryWithoutSparkline, { caption: 'DIBELS', value: latestDibels })
         );
       } else {
         return this.wrapSummary({
