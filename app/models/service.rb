@@ -11,6 +11,10 @@ class Service < ActiveRecord::Base
     discontinued_services.size > 0
   end
 
+  def active?
+    !discontinued?
+  end
+
   def self.active
     self.includes(:discontinued_services).where(:discontinued_services => { :id => nil })
   end

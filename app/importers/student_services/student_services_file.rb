@@ -12,7 +12,8 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client
 
   SERVICE_TYPE_CODE_TO_NAME = {
     'SPELL' => 'Summer Program for English Language Learners',
-    'SomerSession' => 'SomerSession'
+    'SomerSession' => 'SomerSession',
+    'ReadingIntervention' => 'Reading intervention',
   }
 
   def service_type_name
@@ -56,6 +57,11 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client
   end
 
   def create_service_for_student(student)
+    return if service_type.id == 507 && # Reading intervention
+              student.services
+                     .where(service_type_id: 507)
+                     .select { |service| service.active? }.size > 0
+
     service = Service.create!(
       student: student,
       service_upload: service_upload,
