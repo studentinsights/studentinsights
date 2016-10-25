@@ -13,7 +13,7 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client
   SERVICE_TYPE_CODE_TO_NAME = {
     'SPELL' => 'Summer Program for English Language Learners',
     'SomerSession' => 'SomerSession',
-    'Reading Teacher' => 'Reading intervention',
+    'ReadingIntervention' => 'Reading intervention',
   }
 
   def service_type_name
