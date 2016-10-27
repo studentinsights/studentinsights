@@ -57,7 +57,8 @@
         star_series_reading_percentile: React.PropTypes.array.isRequired,
         mcas_series_ela_scaled: React.PropTypes.array.isRequired,
         mcas_series_ela_growth: React.PropTypes.array.isRequired
-      }).isRequired
+      }).isRequired,
+      student: React.PropTypes.object.isRequired
     },
 
     render: function() {
@@ -88,13 +89,15 @@
       return dom.div({ id: 'Star', style: styles.container},
         this.renderHeader('STAR Reading, last 4 years'),
         createEl(ProfileChart, {
-        quadSeries: [{
-          name: 'Percentile rank',
-          data: this.props.chartData.star_series_reading_percentile
-        }],
-        yAxis: merge(this.percentileYAxis(), {
-          title: { text: 'Percentile rank' }
-        })
+          quadSeries: [{
+            name: 'Percentile rank',
+            data: this.props.chartData.star_series_reading_percentile
+          }],
+          titleText: '',
+          student: this.props.student,
+          yAxis: merge(this.percentileYAxis(), {
+            title: { text: 'Percentile rank' }
+          })
       }));
     },
 
@@ -102,14 +105,16 @@
       return dom.div({ id: 'Scores', style: styles.container},
         this.renderHeader('MCAS ELA Scores, last 4 years'),
         createEl(ProfileChart, {
-        quadSeries: [{
-          name: 'Scaled score',
-          data: this.props.chartData.mcas_series_ela_scaled
-        }],
-        yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis,{
-          plotLines: ProfileChartSettings.mcas_level_bands,
-          title: { text: 'Scaled score' }
-        })
+          quadSeries: [{
+            name: 'Scaled score',
+            data: this.props.chartData.mcas_series_ela_scaled
+          }],
+          titleText: '',
+          student: this.props.student,
+          yAxis: merge(ProfileChartSettings.default_mcas_score_yaxis,{
+            plotLines: ProfileChartSettings.mcas_level_bands,
+            title: { text: 'Scaled score' }
+          })
       }));
     },
 
@@ -117,13 +122,15 @@
       return dom.div({ id: 'SGPs', style: styles.container},
         this.renderHeader('Student growth percentile (SGP), last 4 years'),
         createEl(ProfileChart, {
-        quadSeries: [{
-          name: '',
-          data: this.props.chartData.mcas_series_ela_growth
-        }],
-        yAxis: merge(this.percentileYAxis(), {
-          title: { text: 'Student growth percentile (SGP)' }
-        })
+          quadSeries: [{
+            name: '',
+            data: this.props.chartData.mcas_series_ela_growth
+          }],
+          titleText: 'MCAS ELA SGPs, last 4 years',
+          student: this.props.student,
+          yAxis: merge(this.percentileYAxis(), {
+            title: { text: 'Student growth percentile (SGP)' }
+          })
       }));
     },
 

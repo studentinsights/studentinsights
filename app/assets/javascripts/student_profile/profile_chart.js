@@ -19,12 +19,13 @@
           data: React.PropTypes.array.isRequired // [year, month, date, value] quads
         })
       ),
-      yAxis: React.PropTypes.object.isRequired // options for rendering the y-axis
+      titleText: React.PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
+      yAxis: React.PropTypes.object.isRequired, // options for rendering the y-axis
+      student: React.PropTypes.object.isRequired
     },
 
     getDefaultProps: function() {
       var now = moment.utc().toDate();
-      // TODO(kr) align to school year?
       // The intent of fixing this date range is that when staff are looking at profile of different students,
       // the scales are consistent (and not changing between 3 mos and 6 years depending on the student's record,
       // since that's easy to miss and misinterpret.
@@ -52,14 +53,72 @@
       }));
     },
 
-    baseOptions: function() {
-      return merge(ProfileChartSettings.base_options, {
-        xAxis: merge(ProfileChartSettings.x_axis_datetime, {
-          plotLines: this.x_axis_bands,
-          min: this.props.timestampRange.min,
-          max: this.props.timestampRange.max
+    getSchoolYearStartPositions: function(n, now, current_grade){
+      // Takes in an integer (number of months back), the current date
+      // as a Moment object (UTC), and the student's current grade.
+      // Returns an object mapping:
+      // integer (timestamp) --> string (school year starting at that position).
+
+      var range = [now.clone().subtract(n, 'months'), now];
+      var startDates = QuadConverter.schoolYearStartDates(range);
+      var create_label = function(current, grade){
+        // Assumes that the student progressed grades in the usual fashion;
+        // wasn't held back or skipped forward.
+        // John Breslin says these events are very rare.
+
+        // Handle grade before 1st grade
+        if (grade === 0) grade = 'KF';
+
+        // No label for "negative" grades
+        if (grade < 0) return '';
+
+        return _.template("<b>Grade <%=grade%><br>started</b>")({
+          year: current.year(),
+          grade: grade
+        });
+      };
+
+      return _.object(
+        startDates.map(function(date){ return date.valueOf(); }),
+        startDates.map(function(date, i){
+          return create_label(
+            date,
+            (current_grade - startDates.length) + (i + 1) // (current_grade - n/12) to current_grade inclusive
+          );
         })
-      });
+      );
     },
+
+    baseOptions: function() {
+      if (this.props.student.grade === 'KF') {
+        return ProfileChartSettings.base_options;
+      } else {
+        return this.baseOptionsForNonKF();
+      };
+    },
+
+    baseOptionsForNonKF: function () {
+      var positionsForYearStarts = this.getSchoolYearStartPositions(
+        48, moment.utc(), parseInt(this.props.student.grade)
+      );
+
+      return merge(ProfileChartSettings.base_options, {
+        xAxis: [
+          merge(ProfileChartSettings.x_axis_datetime, {
+            plotLines: this.x_axis_bands,
+            min: this.props.timestampRange.min,
+            max: this.props.timestampRange.max
+          }),
+          {
+            type: "datetime",
+            offset: 35,
+            linkedTo: 0,
+            tickPositions: _.keys(positionsForYearStarts).map(Number),
+            categories: positionsForYearStarts,
+          }
+        ]
+      });
+    }
+
   });
 })();
