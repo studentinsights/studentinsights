@@ -54,13 +54,16 @@
     },
 
     getSchoolYearStartPositions: function(n, now, current_grade){
-      // Takes in an integer (number of months back), the current date as a Moment object (UTC), and the student's current grade.
-      // Returns an object mapping integer (timestamp) --> string (school year starting at that position).
+      // Takes in an integer (number of months back), the current date
+      // as a Moment object (UTC), and the student's current grade.
+      // Returns an object mapping:
+      // integer (timestamp) --> string (school year starting at that position).
 
       var range = [now.clone().subtract(n, 'months'), now];
       var startDates = QuadConverter.schoolYearStartDates(range);
       var create_label = function(current, grade){
-        // Assumes that the student progressed grades in the usual fashion; wasn't held back or skipped forward.
+        // Assumes that the student progressed grades in the usual fashion;
+        // wasn't held back or skipped forward.
         // John Breslin says these events are very rare.
         return _.template("<b>Grade <%=grade%><br>started</b>")({
           year: current.year(),
