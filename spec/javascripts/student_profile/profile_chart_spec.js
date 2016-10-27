@@ -4,7 +4,7 @@ describe('ProfileBarCharts', function() {
   describe('#getSchoolYearStartPositions', function(){
     it('works', function(){
         expect(
-            ProfileChart.prototype.getSchoolYearStartPositions(28, moment.utc("2016-09-10"), 5)
+            ProfileChart.prototype.getSchoolYearStartPositions(24, moment.utc("2016-09-10"), 5)
         ).toEqual(
             _.object([
                 [moment.utc("2016-08-15").valueOf(), "<b>Grade 5<br>started</b>"],
