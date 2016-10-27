@@ -54,46 +54,4 @@ describe('QuadConverter', function() {
 
     });
   });
-
-  describe('#convertAttendanceEvents', function() {
-    it('minimal test case', function() {
-      var now = new Date('Wed Feb 10 2016 22:11:26 GMT+0000');
-      var dateRange = [moment.utc(now).subtract(1, 'year').toDate(), now];
-      var attendanceEvents = [
-        {'occurred_at':'2015-09-08T00:00:00.000Z'}
-      ];
-      var quads = QuadConverter.convertAttendanceEvents(attendanceEvents, now, dateRange);
-      expect(quads).toEqual([
-        [2014, 8, 15, 0],
-        [2015, 8, 15, 0],
-        [2015, 9, 8, 1],
-        [2016, 2, 10, 1]
-      ]);
-    });
-
-    it('returns the expected javascript date', function() {
-      var now = new Date('Wed Feb 10 2016 22:11:26 GMT+0000');
-      var dateRange = [moment.utc(now).subtract(1, 'year').toDate(), now];
-      var attendanceEvents = [
-        {'occurred_at':'2015-12-22T00:00:00.000Z'},
-        {'occurred_at':'2015-12-21T00:00:00.000Z'},
-        {'occurred_at':'2015-12-08T00:00:00.000Z'},
-        {'occurred_at':'2015-10-16T00:00:00.000Z'},
-        {'occurred_at':'2015-10-14T00:00:00.000Z'},
-        {'occurred_at':'2015-10-08T00:00:00.000Z'},
-        {'occurred_at':'2015-10-07T00:00:00.000Z'},
-        {'occurred_at':'2015-10-06T00:00:00.000Z'},
-        {'occurred_at':'2015-09-23T00:00:00.000Z'},
-        {'occurred_at':'2015-09-22T00:00:00.000Z'},
-        {'occurred_at':'2015-09-21T00:00:00.000Z'},
-        {'occurred_at':'2015-09-18T00:00:00.000Z'},
-        {'occurred_at':'2015-09-17T00:00:00.000Z'},
-        {'occurred_at':'2015-09-15T00:00:00.000Z'},
-        {'occurred_at':'2015-09-08T00:00:00.000Z'}
-      ];
-      var quads = QuadConverter.cumulativeByMonthFromEvents(attendanceEvents);
-      expect(quads[0]).toEqual([2015, 9, 1, 7]);
-      expect(quads[2]).toEqual([2015, 12, 1, 3]);
-    });
-  });
 });
