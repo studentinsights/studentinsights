@@ -65,6 +65,13 @@
         // Assumes that the student progressed grades in the usual fashion;
         // wasn't held back or skipped forward.
         // John Breslin says these events are very rare.
+
+        // Handle grade before 1st grade
+        if (grade === 0) grade = 'KF';
+
+        // No label for "negative" grades
+        if (grade < 0) return '';
+
         return _.template("<b>Grade <%=grade%><br>started</b>")({
           year: current.year(),
           grade: grade
