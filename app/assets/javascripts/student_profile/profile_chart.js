@@ -90,6 +90,14 @@
     },
 
     baseOptions: function() {
+      if (this.props.student.grade === 'KF') {
+        return ProfileChartSettings.base_options;
+      } else {
+        return this.baseOptionsForNonKF();
+      };
+    },
+
+    baseOptionsForNonKF: function () {
       var positionsForYearStarts = this.getSchoolYearStartPositions(
         48, moment.utc(), parseInt(this.props.student.grade)
       );
@@ -110,6 +118,7 @@
           }
         ]
       });
-    },
+    }
+
   });
 })();
