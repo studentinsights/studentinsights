@@ -31,11 +31,11 @@ class Service < ActiveRecord::Base
   end
 
   def self.active
-    self.includes(:discontinued_services).where(:discontinued_services => { :id => nil })
+    select { |service| service.active? }
   end
 
   def self.discontinued
-    self.includes(:discontinued_services).where.not(:discontinued_services => { :id => nil })
+    select { |service| service.discontinued? }
   end
 
   def self.provider_names
