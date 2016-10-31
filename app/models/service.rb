@@ -31,11 +31,13 @@ class Service < ActiveRecord::Base
   end
 
   def self.active
-    select { |service| service.active? }
+    includes(:discontinued_services).where('discontinued_services.recorded_at > ?', DateTime.current)
+                                    .references(:discontinued_services)
   end
 
   def self.discontinued
-    select { |service| service.discontinued? }
+    includes(:discontinued_services).where('discontinued_services.recorded_at < ?', DateTime.current)
+                                    .references(:discontinued_services)
   end
 
   def self.provider_names
