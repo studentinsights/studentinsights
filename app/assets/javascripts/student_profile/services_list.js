@@ -140,18 +140,41 @@
           dom.div({ style: { flex: 1 } },
             dom.div({ style: { fontWeight: 'bold' } }, serviceText),
             this.renderEducatorName(providedByEducatorName),
-            dom.div({},
-              'Started ',
-              momentStarted.format('MMMM D, YYYY')
-            ),
-            dom.div({}, (wasDiscontinued)
-              ? moment.utc(service.discontinued_recorded_at).from(moment.utc(service.date_started), true)
-              : moment.utc(service.date_started).fromNow(true))
+            this.renderDateStarted(service),
+            this.renderTimeSinceStarted(service)
           ),
           this.renderDiscontinuedInformation(service)
         ),
         dom.div({ style: merge(styles.userText, { paddingTop: 15 }) }, service.comment)
       );
+    },
+
+    renderDateStarted: function (service) {
+      var momentStarted = moment.utc(service.date_started);
+      var startedToday = moment().utc().subtract(1, 'day') < momentStarted;
+
+      if (startedToday) return dom.div({}, 'Started today');
+
+      return dom.div({}, 'Started ', momentStarted.format('MMMM D, YYYY'));
+    },
+
+    renderTimeSinceStarted: function (service) {
+      var wasDiscontinued = this.wasDiscontinued(service);
+      var momentStarted = moment.utc(service.date_started);
+
+      if (wasDiscontinued) {
+        return dom.div({},
+          moment.utc(service.discontinued_recorded_at).from(moment.utc(service.date_started), true)
+        );
+      } else {
+        var startedToday = moment().utc().subtract(1, 'day') < momentStarted;
+
+        if (startedToday) {
+          return;
+        } else {
+          return dom.div({}, moment.utc(service.date_started).fromNow(true));
+        };
+      };
     },
 
     renderEducatorName: function (educatorName) {
