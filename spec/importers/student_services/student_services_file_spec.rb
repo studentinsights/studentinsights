@@ -25,7 +25,7 @@ RSpec.describe StudentServicesFile do
     let(:services_uploaded) { service_upload.services }
 
     it 'handles a fixture file correctly' do
-      described_class.new('SomerSession', nil).import
+      described_class.new('SomerSession', nil, double('log', puts: 'ok')).import
 
       expect(ServiceUpload.count).to eq 1
       expect(service_upload.file_name).to eq 'SomerSession'

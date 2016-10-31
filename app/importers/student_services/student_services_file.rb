@@ -1,6 +1,6 @@
 require 'csv'
 
-class StudentServicesFile < Struct.new :file_name, :sftp_client
+class StudentServicesFile < Struct.new :file_name, :sftp_client, :log
 
   def service_upload
     @upload ||= ServiceUpload.create!(file_name: file_name)
@@ -49,11 +49,13 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client
 
     @present_students.map { |student| create_service_for_student(student) }
 
-    puts "#{service_type_name} imported for #{@present_students.size} students."; puts
+    log.puts "#{service_type_name} imported for #{@present_students.size} students.";
+    log.puts
 
     return if @missing_student_names == []
 
-    puts "Unable to match these students against the database: #{@missing_student_names.join(', ')}"; puts
+    log.puts "Unable to match these students against the database: #{@missing_student_names.join(', ')}";
+    log.puts
   end
 
   def create_service_for_student(student)

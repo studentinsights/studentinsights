@@ -16,7 +16,7 @@ class StudentServiceImporter
 
   def import_files
     file_names_to_import.map do |file_name|
-      StudentServicesFile.new(file_name, sftp_client).import
+      StudentServicesFile.new(file_name, sftp_client, STDOUT).import
     end
   end
 
