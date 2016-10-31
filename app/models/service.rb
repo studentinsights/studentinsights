@@ -31,6 +31,14 @@ class Service < ActiveRecord::Base
   end
 
   def self.active
+    future_discontinue + never_discontinued
+  end
+
+  def self.never_discontinued
+    includes(:discontinued_services).where(:discontinued_services => { :id => nil })
+  end
+
+  def self.future_discontinue
     includes(:discontinued_services).where('discontinued_services.recorded_at > ?', DateTime.current)
                                     .references(:discontinued_services)
   end
