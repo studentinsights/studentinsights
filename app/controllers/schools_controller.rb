@@ -6,11 +6,35 @@ class SchoolsController < ApplicationController
                 :authorize
 
   def show
-    if current_educator.districtwide_access?
+    @serialized_data = serialized_data_for_school(current_educator, @school)
+    render 'shared/serialized_data'
+  end
+
+  def star_math
+    serialized_data_for_star {|student| student.star_math_results }
+    render 'shared/serialized_data'
+  end
+
+  def star_reading
+    serialized_data_for_star {|student| student.star_reading_results }
+    render 'shared/serialized_data'
+  end
+
+  def show_fast
+    @serialized_data = { school_id: @school.id}
+    render 'shared/serialized_data'
+  end
+
+  def json_endpoint
+    render json: serialized_data_for_school(current_educator, @school)
+  end
+
+  def serialized_data_for_school(educator, school)
+    if educator.districtwide_access?
       eager_loads = [:interventions, :student_risk_level, :homeroom, :student_school_years]
-      authorized_students = @school.students.active.includes(eager_loads)
+      authorized_students = school.students.active.includes(eager_loads)
     else
-      authorized_students = current_educator.students_for_school_overview
+      authorized_students = educator.students_for_school_overview
     end
 
     # TODO(kr) Read from cache, since this only updates daily
@@ -23,22 +47,11 @@ class SchoolsController < ApplicationController
       merge_mutable_fields_for_slicing(student_hashes)
     end
 
-    @serialized_data = {
+    {
       students: merged_student_hashes,
-      current_educator: current_educator,
+      current_educator: educator,
       constant_indexes: constant_indexes
     }
-    render 'shared/serialized_data'
-  end
-
-  def star_math
-    serialized_data_for_star {|student| student.star_math_results }
-    render 'shared/serialized_data'
-  end
-
-  def star_reading
-    serialized_data_for_star {|student| student.star_reading_results }
-    render 'shared/serialized_data'
   end
 
   private
