@@ -36,5 +36,7 @@ Rails.application.routes.draw do
   resources :schools, only: [:show] do
     get :star_reading, on: :member
     get :star_math, on: :member
+    get :show_fast, on: :member
+    get :json_endpoint, on: :member
   end
 end
