@@ -42,14 +42,10 @@ class HomeroomsController < ApplicationController
   # filtering and slicing in the UI).
   # This may be slow if you're doing it for many students without eager includes.
   def fat_student_hash(student)
-    student_hash_for_slicing(student).merge({
+    HashWithIndifferentAccess.new(student_hash_for_slicing(student).merge({
       interventions: student.interventions,
       student_risk_level: student.student_risk_level.decorate.as_json_with_explanation,
-      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
-      absences_count: student.most_recent_school_year.absences.count,
-      tardies_count: student.most_recent_school_year.tardies.count,
-      homeroom_name: student.try(:homeroom).try(:name)
-    })
+    }))
   end
 
   def authorize_and_assign_homeroom
