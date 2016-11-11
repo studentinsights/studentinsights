@@ -312,6 +312,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails (~> 5.0.3)
   launchy
+  memory_profiler
   net-sftp
   net-ssh
   oj

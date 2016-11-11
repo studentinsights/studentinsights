@@ -11,7 +11,7 @@ describe SchoolsController, :type => :controller do
     # Read the instance variable and pull out the ids of students
     def extract_serialized_student_ids(controller)
       serialized_data = controller.instance_variable_get(:@serialized_data)
-      serialized_data[:students].map {|student_hash| student_hash[:id] }
+      serialized_data[:students].map {|student_hash| student_hash['id'] }
     end
 
     context 'districtwide access' do
