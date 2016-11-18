@@ -34,6 +34,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'selenium-webdriver'
+gem 'sidekiq'
 gem 'scout_apm'
 #code for browserstack api usage and storing the png to slack:
 #gem 'slack-ruby-client'
