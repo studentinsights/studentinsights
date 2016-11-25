@@ -6,6 +6,7 @@
 /data
 coverage
 spec/logs/logs.txt
+dump.rdb
 
 # Node.js
 node_modules

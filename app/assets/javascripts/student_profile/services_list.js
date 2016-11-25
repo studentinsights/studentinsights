@@ -161,10 +161,19 @@
     },
 
     renderDiscontinuedInformation: function(service) {
+      var discontinuedAt = moment.utc(service.discontinued_recorded_at);
+      var now = moment();
+
+      if (discontinuedAt > now) {
+        var description = 'Ending';
+      } else {
+        var description = 'Ended';
+      };
+
       if (this.wasDiscontinued(service)) {
         return dom.div({},
-          dom.div({}, 'Ended'),
-          dom.div({}, moment.utc(service.discontinued_recorded_at).format('MMMM D, YYYY'))
+          dom.div({}, description),
+          dom.div({}, discontinuedAt.format('MMMM D, YYYY'))
         );
       }
 
