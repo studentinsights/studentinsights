@@ -23,6 +23,7 @@
   var InterventionsDetails = window.shared.InterventionsDetails;
   var ServicesDetails = window.shared.ServicesDetails;
   var NotesDetails = window.shared.NotesDetails;
+  var HelpBubble = window.shared.HelpBubble;
 
 
   // define page component
@@ -220,6 +221,26 @@
       )
     },
 
+    getDibelsHelpContent: function(){
+      return dom.div({},
+        dom.p({}, 'DIBELS seems super complicated, so one of the teachers should probably write this part!'),
+        dom.br({}),
+        dom.p({}, dom.b({}, 'What does CORE mean? '), 'A designation of CORE means a student is likely to need CORE (or basic) support to achieve subsequent early literacy goals.'),
+        dom.br({}),
+        dom.p({}, dom.b({}, 'What does STRATEGIC mean? '), 'A designation of STRATEGIC means a student is likely to need STRATEGIC (or intermediate-level) support to achieve subsequent early literacy goals.'),
+        dom.br({}),
+        dom.p({}, dom.b({}, 'What does INTENSIVE mean? '), 'A designation of INTENSIVE means a student is likely to need INTENSIVE (or high-level) support to achieve subsequent early literacy goals.')  
+      )
+    },
+
+    getAccessHelpContent: function(){
+      return dom.div({},
+        dom.p({}, 'ACCESS seems super complicated, so one of the teachers should probably write this part!'),
+        dom.br({}),
+        dom.a({ href: 'https://www.wida.us/assessment/ACCESS/ScoreReports/ACCESS_Interpretive_Guide11.pdf' }, 'Click here for a full guide to ACCESS scores.') 
+      )
+    },
+
     renderSectionDetails: function() {
       switch (this.props.selectedColumnKey) {
         case 'profile': return createEl(ProfileDetails,
@@ -294,6 +315,11 @@
         createEl(SummaryList, {
           title: 'Demographics',
           elements: demographicsElements,
+        }),
+        createEl(HelpBubble, {
+          title: 'What do the different ACCESS scores mean?',
+          teaserText: 'more',
+          content: this.getAccessHelpContent()
         })
       ));
     },
