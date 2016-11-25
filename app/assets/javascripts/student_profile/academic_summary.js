@@ -20,6 +20,29 @@
     },
     textContainer: {
       paddingBottom: 5
+    },
+    table: {
+      border: 1,
+      borderStyle: 'solid',
+      borderColor: 'black',
+      paddingLeft: 5,
+      paddingRight: 5 
+    },
+    gradeHeader: {
+      border: 1,
+      borderStyle: 'solid',
+      borderColor: 'black',
+      paddingLeft: 5,
+      paddingRight: 5 
+    },
+    core: {
+      backgroundColor: 'green'
+    },
+    strategic: {
+      backgroundColor: 'yellow'
+    },
+    intensive: {
+      backgroundColor: 'red'
     }
   };
 
@@ -60,11 +83,33 @@
         dom.p({}, dom.b({}, 'What does INTENSIVE mean? '), 'A designation of INTENSIVE means a student is likely to need INTENSIVE (or high-level) support to achieve subsequent early literacy goals.'),
         dom.br({}),
         dom.h2({}, 'DIBELS BY GRADE:'),
-        dom.table({},
+        dom.table({ style: styles.table },
           dom.thead({},
-            dom.tr(),
-              dom.th({}, '1'),
-              dom.th({}, '2')
+            dom.tr({},
+              dom.th({ style: styles.table, maxWidth: 30 }, 'Test'),
+              dom.th({ style: styles.table, colSpan: 3 }, 'K - Beg'),
+              dom.th({ style: styles.table, colSpan: 3 }, 'K - Mid'),
+              dom.th({ style: styles.table, colSpan: 3 }, 'K - End'),
+              dom.th({ style: styles.table, colSpan: 3 }, '1 - Beg'),
+              dom.th({ style: styles.table, colSpan: 3 }, '1 - Mid'),
+              dom.th({ style: styles.table, colSpan: 3 }, '1 - End')
+              ),
+            dom.tr({})
+            ),
+          dom.tbody({},
+            dom.tr({},
+              dom.td({}, 'First Sound Fluency'),
+              dom.td({ style: styles.core }, '18'),
+              dom.td({ style: styles.strategic }, ' '),
+              dom.td({ style: styles.intensive }, '7')
+              ),
+            dom.tr({},
+              dom.td({}, 'Letter Naming Fluency'),
+              dom.td({}, dom.b({}, '22 '), '| 10'),
+              dom.td({}, dom.b({}, '42 '), '| 19'),
+              dom.td({}, dom.b({}, '52 '), '| 38'),
+              dom.td({}, dom.b({}, '50 '), '| 36')
+              )
             )
           ) 
           ); 
