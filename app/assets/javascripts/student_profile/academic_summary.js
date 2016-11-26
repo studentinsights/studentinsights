@@ -36,13 +36,13 @@
       paddingRight: 5 
     },
     core: {
-      backgroundColor: 'green'
+      backgroundColor: '#b3ffb3'
     },
     strategic: {
-      backgroundColor: 'yellow'
+      backgroundColor: '#ffffb3'
     },
     intensive: {
-      backgroundColor: 'red'
+      backgroundColor: '#ff9999'
     }
   };
 
@@ -101,15 +101,39 @@
               dom.td({}, 'First Sound Fluency'),
               dom.td({ style: styles.core }, '18'),
               dom.td({ style: styles.strategic }, ' '),
-              dom.td({ style: styles.intensive }, '7')
+              dom.td({ style: styles.intensive }, '7'),
+              dom.td({ style: styles.core }, '44'),
+              dom.td({ style: styles.strategic }, ' '),
+              dom.td({ style: styles.intensive }, '31')
               ),
             dom.tr({},
               dom.td({}, 'Letter Naming Fluency'),
-              dom.td({}, dom.b({}, '22 '), '| 10'),
-              dom.td({}, dom.b({}, '42 '), '| 19'),
-              dom.td({}, dom.b({}, '52 '), '| 38'),
-              dom.td({}, dom.b({}, '50 '), '| 36')
-              )
+              dom.td({ style: styles.core }, '22 '),
+              dom.td({ style: styles.strategic }, ' '),
+              dom.td({ style: styles.intensive }, '10'),
+              dom.td({ style: styles.core }, '42'),
+              dom.td({ style: styles.strategic }, ' '),
+              dom.td({ style: styles.intensive }, '19'),
+              dom.td({ style: styles.core }, '52'),
+              dom.td({ style: styles.strategic }, ' '),
+              dom.td({ style: styles.intensive }, '38'),
+              dom.td({ style: styles.core }, '50'),
+              dom.td({ style: styles.strategic }, ' '),
+              dom.td({ style: styles.intensive }, '36')
+              ),
+            dom.tr({},
+              dom.td({}, 'Phoneme Segmentation Fluency'),
+              dom.td({ style: styles.core }, ' '),
+              dom.td({ style: styles.strategic }, ' '),
+              dom.td({ style: styles.intensive }, ' '),
+              dom.td({ style: styles.core }, '27'),
+              dom.td({ style: styles.strategic }, ' '),
+              dom.td({ style: styles.intensive }, '12'),
+              dom.td({ style: styles.core }, '45'),
+              dom.td({ style: styles.strategic }, ' '),
+              dom.td({ style: styles.intensive }, '30')
+              ),
+            dom.tr({})
             )
           ) 
           ); 
