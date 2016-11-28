@@ -14,6 +14,7 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client, :log
     'SPELL' => 'Summer Program for English Language Learners',
     'SomerSession' => 'SomerSession',
     'ReadingIntervention' => 'Reading intervention',
+    'ATP' => 'Afterschool Tutoring',
   }
 
   def service_type_name
