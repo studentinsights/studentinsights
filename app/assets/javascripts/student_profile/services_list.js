@@ -140,8 +140,8 @@
           dom.div({ style: { flex: 1 } },
             dom.div({ style: { fontWeight: 'bold' } }, serviceText),
             this.renderEducatorName(providedByEducatorName),
-            this.renderDateStarted(service),
-            this.renderTimeSinceStarted(service)
+            this.renderDateStarted(service),          // When did the service start?
+            this.renderTimeSinceStarted(service)      // How long has it been going?
           ),
           this.renderDiscontinuedInformation(service)
         ),
@@ -153,8 +153,10 @@
       var momentStarted = moment.utc(service.date_started);
       var startedToday = moment().utc().subtract(1, 'day') < momentStarted;
 
+      // For services added today, return "Started today" instead of the date:
       if (startedToday) return dom.div({}, 'Started today');
 
+      // For services started earlier than today, show the date started:
       return dom.div({}, 'Started ', momentStarted.format('MMMM D, YYYY'));
     },
 
@@ -163,17 +165,18 @@
       var momentStarted = moment.utc(service.date_started);
 
       if (wasDiscontinued) {
+        // For discontinued services, display the length of time between start and discontinue dates
         return dom.div({},
           moment.utc(service.discontinued_recorded_at).from(moment.utc(service.date_started), true)
         );
       } else {
         var startedToday = moment().utc().subtract(1, 'day') < momentStarted;
 
-        if (startedToday) {
-          return;
-        } else {
-          return dom.div({}, moment.utc(service.date_started).fromNow(true));
-        };
+        // Don't show how long service has been going if it was added today
+        if (startedToday) return null;
+
+        // Show how long the service has been going
+        return dom.div({}, moment.utc(service.date_started).fromNow(true));
       };
     },
 
