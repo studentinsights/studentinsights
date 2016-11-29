@@ -13,6 +13,7 @@ module SomervilleTeacherTool
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths += %W(#{config.root}/app/models)
+    config.autoload_paths += %W(#{config.root}/app/jobs)
     config.autoload_paths += %W(#{config.root}/app/importers/clients)
     config.autoload_paths += %W(#{config.root}/app/importers/data_transformers)
     config.autoload_paths += %W(#{config.root}/app/importers/file_importers)

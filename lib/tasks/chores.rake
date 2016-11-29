@@ -17,11 +17,11 @@ namespace :chores do
 
   desc 'Kick off background worker for data import'
   task import_data_in_background: :environment do
-    ImportWorker.perform_async
+    Delayed::Job.enqueue ImportJob.new
   end
 
   desc 'Kick off console output for fun'
   task console_output_in_background: :environment do
-    ConsoleOutputWorker.perform_async
+    Delayed::Job.enqueue ConsoleJob.new
   end
 end
