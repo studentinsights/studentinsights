@@ -184,24 +184,26 @@
         className: 'school-overview',
         style: { fontSize: styles.fontSize }
       },
-	dom.div({ className: 'header', style: styles.header }, createEl(SlicePanels, {
-	  allStudents: this.props.allStudents,
-          students: this.getFilteredStudents(),
-          serviceTypesIndex: this.props.serviceTypesIndex,
-          eventNoteTypesIndex: this.props.eventNoteTypesIndex,
-          filters: this.state.filters,
-          onFilterToggled: this.onFilterToggled
-	})),
-        dom.div({ className: 'summary', style: styles.summary }, createEl(SliceButtons, {
-	  students: this.getFilteredStudents(),
-	  filters: this.state.filters,
-	  filtersHash: this.filtersHash(),
-	  activeFiltersIdentifier: this.activeFiltersIdentifier(),
-	  clearFilters: this.clearFilters
-	})),
-	
-	
-	dom.div({ className: 'list', style: { padding: 20 } },
+        dom.div({ className: 'header', style: styles.header },
+          createEl(SlicePanels, {
+            allStudents: this.props.allStudents,
+            students: this.getFilteredStudents(),
+            serviceTypesIndex: this.props.serviceTypesIndex,
+            eventNoteTypesIndex: this.props.eventNoteTypesIndex,
+            filters: this.state.filters,
+            onFilterToggled: this.onFilterToggled
+          })
+        ),
+        dom.div({ className: 'summary', style: styles.summary },
+          createEl(SliceButtons, {
+            students: this.getFilteredStudents(),
+            filters: this.state.filters,
+            filtersHash: this.filtersHash(),
+            activeFiltersIdentifier: this.activeFiltersIdentifier(),
+            clearFilters: this.clearFilters
+          })
+        ),
+        dom.div({ className: 'list', style: { padding: 20 } },
           createEl(StudentsTable, {
             key: _.pluck(this.state.filters, 'identifier').join(','), // hack for tablesorter
             students: this.getFilteredStudents()
