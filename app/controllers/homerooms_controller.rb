@@ -18,7 +18,7 @@ class HomeroomsController < ApplicationController
     @homerooms_by_name = current_educator.allowed_homerooms_by_name
 
     # For links to STAR pages
-    @school_id = @homeroom.students.map(&:school_id).uniq.first # should be only one
+    @school_id = @homeroom.students.active.map(&:school_id).uniq.first
     @star_homeroom_anchor = "equal:homeroom_name:#{@homeroom.name}"
   end
 
@@ -30,7 +30,7 @@ class HomeroomsController < ApplicationController
   end
 
   def eager_students(*additional_includes)
-    @homeroom.students.includes([
+    @homeroom.students.active.includes([
       :interventions,
       :student_risk_level,
       :homeroom,
