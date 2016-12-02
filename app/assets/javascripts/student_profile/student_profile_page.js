@@ -162,7 +162,6 @@
 
     render: function() {
       return dom.div({ className: 'StudentProfilePage' },
-        this.renderSaveStatus(),
         createEl(StudentProfileHeader, { student: this.props.student }),
         dom.div({ className: 'summary-container', style: styles.summaryContainer },
           this.renderProfileColumn(),
@@ -173,23 +172,6 @@
 
         ),
         dom.div({ style: styles.detailsContainer }, this.renderSectionDetails())
-      );
-    },
-
-    renderSaveStatus: function() {
-      var activeRequestCount = _.where(_.values(this.props.requests), { state: 'pending' }).length;
-      return dom.div({
-        style: {
-          position: 'fixed',
-          left: 10,
-          top: 10,
-          padding: 10,
-          opacity: (activeRequestCount === 0) ? 0 : 0.75,
-          borderRadius: 2,
-          background: 'rgb(74,144,226)'
-        }
-      },
-        dom.div({ style: { color: 'white' } }, 'Saving...')
       );
     },
 

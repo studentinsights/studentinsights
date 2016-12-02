@@ -130,18 +130,18 @@ describe('PageContainer', function() {
       var component = helpers.renderInto(el, {});
 
       component.onClickSaveService({
-        onProvidedByEducatorName: 'badinput'
+        providedByEducatorName: 'badinput'
       });
       expect(el).toContainText('Please use the form Last Name, First Name');
 
       component.onClickSaveService({
-        onProvidedByEducatorName: 'Teacher, Test'
+        providedByEducatorName: 'Teacher, Test'
       });
       expect(el).toContainText('Saving...');
 
       // Name can also be blank
       component.onClickSaveService({
-        onProvidedByEducatorName: ''
+        providedByEducatorName: ''
       });
       expect(el).toContainText('Saving...');
     });

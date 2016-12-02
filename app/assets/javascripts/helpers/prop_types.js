@@ -21,7 +21,7 @@
       onClickDiscontinueService: React.PropTypes.func.isRequired
     }),
     requests: React.PropTypes.shape({
-      saveNotes: nullable(React.PropTypes.object).isRequired
+      saveNote: nullable(React.PropTypes.string).isRequired
     }),
     api: React.PropTypes.shape({
       saveNotes: React.PropTypes.func.isRequired
