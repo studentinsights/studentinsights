@@ -36,6 +36,10 @@
       });
     },
 
+    deleteNote: function(studentId, eventNoteId) {
+      return this._delete('/students/' + studentId + /event_notes/ + eventNoteId + '.json');
+    },
+
     saveService: function(studentId, serviceParams) {
       var url = '/students/' + studentId + '/service.json';
       var body = {

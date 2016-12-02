@@ -65,6 +65,7 @@
         // requests, using `serviceId` as a key.
         requests: {
           saveNotes: {},
+          deleteNotes: {},
           saveService: null,
           discontinueService: {}
         }
@@ -91,6 +92,15 @@
         .fail(this.onSaveNotesFail);
     },
 
+    onClickDeleteNote: function(eventNoteId) {
+      var deleteNotes = {};
+      deleteNotes[eventNoteId] = 'pending';
+      this.setState({ requests: merge(this.state.requests, { deleteNotes: deleteNotes }) });
+      this.api.deleteNote(this.state.student.id, eventNoteId)
+        .done(this.onDeleteNoteDone)
+        .fail(this.onSaveNotesFail);
+    },
+
     onSaveNotesDone: function(response) {
       var updatedEventNotes;
       var foundEventNote = false;
@@ -113,6 +123,19 @@
       this.setState({
         feed: updatedFeed,
         requests: merge(this.state.requests, { saveNotes: {} })
+      });
+    },
+
+    onDeleteNoteDone: function(response) {
+      var updatedEventNotes = _(this.state.feed.event_notes).filter(function (eventNote) {
+        return eventNote.id !== response.id;
+      }).value();
+
+      var updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
+
+      this.setState({
+        feed: updatedFeed,
+        requests: merge(this.state.requests, { deleteNotes: {} })
       });
     },
 
@@ -215,6 +238,7 @@
           actions: this.props.actions || {
             onColumnClicked: this.onColumnClicked,
             onClickSaveNotes: this.onClickSaveNotes,
+            onClickDeleteNote: this.onClickDeleteNote,
             onClickSaveService: this.onClickSaveService,
             onClickDiscontinueService: this.onClickDiscontinueService
           }

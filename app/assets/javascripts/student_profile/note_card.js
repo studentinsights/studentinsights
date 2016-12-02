@@ -111,6 +111,7 @@
       badge: React.PropTypes.element.isRequired,
       text: React.PropTypes.string.isRequired,
       onSave: React.PropTypes.func,
+      onDelete: React.PropTypes.func,
       eventNoteId: React.PropTypes.number,
       eventNoteTypeId: React.PropTypes.number,
       educatorsIndex: React.PropTypes.object.isRequired
@@ -118,7 +119,8 @@
 
     getInitialState: function() {
       return {
-        text: this.props.text
+        text: this.props.text,
+        isDeletingNote: false
       };
     },
 
@@ -137,6 +139,18 @@
       this.isDirty = false;
     },
 
+    onClickDelete: function(event) {
+      this.setState({ isDeletingNote: true });
+    },
+
+    onConfirmDelete: function(event) {
+      this.props.onDelete(this.props.eventNoteId);
+    },
+
+    onCancelDelete: function(event) {
+      this.setState({ isDeletingNote: false });
+    },
+
     // Different user agents generate different HTML to achieve the same visual
     // rendering in contenteditable elements. In other words, `htmlToText` may
     // return the same plain text for different HTML strings, which means
@@ -149,7 +163,8 @@
       var currentHTML = this.contentEditableEl.innerHTML;
 
       return currentHTML !== htmlToSanitizedHTML(currentHTML)
-        || nextState.text !== htmlToText(currentHTML);
+        || nextState.text !== htmlToText(currentHTML)
+        || this.state.isDeletingNote !== nextState.isDeletingNote;
     },
 
     componentDidUpdate: function() {
@@ -174,12 +189,51 @@
       this.lastText = text;
     },
 
+    renderDeleteButton: function () {
+      if (this.state.isDeletingNote) {
+        return dom.div({
+          style: {
+            float: 'right'
+          }
+        },
+          dom.button({
+            className: 'btn',
+            style: {
+              background: '#E2664A'
+            },
+            onClick: this.onConfirmDelete
+          }, 'Delete'),
+          dom.button({
+            className: 'btn',
+            style: {
+              background: '#eee',
+              color: 'black',
+              marginLeft: 5
+            },
+            onClick: this.onCancelDelete
+          }, 'Cancel')
+        );
+      }
+      else {
+        return dom.div({
+          className: 'delete-note',
+          style: {
+            color: '#777',
+            cursor: 'pointer',
+            float: 'right'
+          },
+          onClick: this.onClickDelete
+        }, 'x');
+      }
+    },
+
     render: function() {
       return dom.div({
         className: 'NoteCard',
         style: styles.note
       },
         dom.div({},
+          this.renderDeleteButton(),
           dom.span({ className: 'date', style: styles.date }, this.props.noteMoment.format('MMMM D, YYYY')),
           this.props.badge,
           dom.span({ style: styles.educator }, createEl(Educator, {

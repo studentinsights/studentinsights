@@ -33,7 +33,8 @@
       feed: PropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
-      onSaveNote: React.PropTypes.func.isRequired
+      onSaveNote: React.PropTypes.func.isRequired,
+      onDeleteNote: React.PropTypes.func.isRequired
     },
 
     render: function() {
@@ -63,7 +64,8 @@
         educatorId: eventNote.educator_id,
         text: eventNote.text,
         educatorsIndex: this.props.educatorsIndex,
-        onSave: this.props.onSaveNote
+        onSave: this.props.onSaveNote,
+        onDelete: this.props.onDeleteNote
       });
     },
 
