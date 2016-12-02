@@ -50,10 +50,8 @@
         // and 'error' or another value if the request failed.
         // The keys within `request` hold either a single value describing the state of the request, or a map that describes the
         // state of requests related to a particular object.
-        // For example, `saveService` holds the state of that request, but `saveNotes` is a map that can track multiple active
-        // requests, using `serviceId` as a key.
         requests: {
-          saveNotes: {},
+          saveNote: null,
           saveService: null,
           discontinueService: {}
         }
@@ -63,10 +61,7 @@
     onClickSaveNotes: function(eventNoteParams) {
       // All notes taken on this page should be restricted.
       var eventNoteParams = merge(eventNoteParams, {is_restricted: true});
-
-      var saveNotes = {}
-      saveNotes[eventNoteParams.id] = 'pending';
-      this.setState({ requests: merge(this.state.requests, { saveNotes: saveNotes}) });
+      this.setState({ requests: merge(this.state.requests, { saveNote: 'pending'}) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
@@ -77,15 +72,13 @@
       var updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
       this.setState({
         feed: updatedFeed,
-        requests: merge(this.state.requests, { saveNotes: {} })
+        requests: merge(this.state.requests, { saveNote: null })
       });
     },
 
     onSaveNotesFail: function(request, status, message) {
-      var saveNotes = {}
-      saveNotes[eventNoteParams.id] = 'pending';
       this.setState({
-        requests: merge(this.state.requests, {saveNotes: saveNotes})
+        requests: merge(this.state.requests, { saveNote: 'error' })
       });
     },
 

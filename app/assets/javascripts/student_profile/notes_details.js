@@ -101,14 +101,14 @@
     },
 
     renderTakeNotesSection: function() {
-      if (this.state.isTakingNotes || this.props.requests.saveNotes[undefined]) {
+      if (this.state.isTakingNotes || this.props.requests.saveNote !== null) {
         return createEl(TakeNotes, {
           nowMoment: moment.utc(), // TODO(kr) thread through
           eventNoteTypesIndex: this.props.eventNoteTypesIndex,
           currentEducator: this.props.currentEducator,
           onSave: this.onClickSaveNotes,
           onCancel: this.onCancelNotes,
-          requestState: this.props.requests.saveNotes[undefined] || ''
+          requestState: this.props.requests.saveNote
         });
       }
 
