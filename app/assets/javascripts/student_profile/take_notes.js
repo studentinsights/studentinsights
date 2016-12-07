@@ -136,9 +136,9 @@
         dom.button({
           style: {
             marginTop: 20,
-            background: (this.state.eventNoteTypeId === null) ? '#ccc' : undefined
+            background: (this.disabledSaveButton()) ? '#ccc' : undefined
           },
-          disabled: (this.state.eventNoteTypeId === null),
+          disabled: (this.disabledSaveButton()),
           className: 'btn save',
           onClick: this.onClickSave
         }, 'Save notes'),
@@ -152,12 +152,28 @@
       );
     },
 
+    disabledSaveButton: function () {
+      return (
+        this.state.eventNoteTypeId === null || !this.validAttachmentUrls()
+      );
+    },
+
     renderNoteHeader: function(header) {
       return dom.div({},
         dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
         '|',
         dom.span({ style: styles.educator }, header.educatorEmail)
       );
+    },
+
+    validAttachmentUrls: function () {
+      var eventNoteAttachments = this.state.eventNoteAttachments;
+      if (eventNoteAttachments === []) return true;
+
+      return eventNoteAttachments.map(function (attachment) {
+        return (attachment.url.slice(0, 7) === 'http://' ||
+                attachment.url.slice(0, 8) === 'https://');
+      }).reduce(function (a, b) { return a && b }, true);
     },
 
     // TODO(kr) extract button UI
