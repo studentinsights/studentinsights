@@ -129,7 +129,8 @@
         ),
         dom.input({
           style: styles.input,
-          onChange: this.onChangeAttachmentUrl
+          onChange: this.onChangeAttachmentUrl,
+          placeholder: 'Please use the format https://www.example.com.'
         }),
         dom.br({}),
         dom.button({
