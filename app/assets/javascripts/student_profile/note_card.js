@@ -113,10 +113,12 @@
       onSave: React.PropTypes.func,
       eventNoteId: React.PropTypes.number,
       eventNoteTypeId: React.PropTypes.number,
-      educatorsIndex: React.PropTypes.object.isRequired
+      educatorsIndex: React.PropTypes.object.isRequired,
+      attachmentUrls: React.PropTypes.array.isRequired,
     },
 
     getInitialState: function() {
+      console.log('attachmentUrls', this.props.attachmentUrls);
       return {
         text: this.props.text
       };
@@ -201,8 +203,27 @@
           onKeyUp: this.onModifyText, // For IE compatibility.
           onPaste: this.onModifyText,
           onBlur: this.onBlurText
-        })
+        }),
+        this.renderAttachmentUrls()
       );
-    }
+    },
+
+    renderAttachmentUrls: function() {
+      var urls = this.props.attachmentUrls;
+
+      return urls.map(function(url) {
+        return dom.div({},
+          dom.br({}),
+          dom.p({}, 'Attachment: ',
+            dom.a({
+              href: url,
+              target: '_blank',
+              rel: 'noopener noreferrer'
+            }, url)
+          )
+        )
+      });
+    },
+
   });
 })();

@@ -16,6 +16,8 @@ module SerializeDataHelper
   end
 
   def serialize_event_note(event_note)
+    attachment_urls = event_note.event_note_attachments.pluck(:url)
+
     event_note.as_json.symbolize_keys.slice(*[
       :id,
       :student_id,
@@ -24,7 +26,9 @@ module SerializeDataHelper
       :text,
       :recorded_at,
       :is_restricted
-    ])
+    ]).merge(
+      attachment_urls: attachment_urls
+    )
   end
 
   # deprecated
