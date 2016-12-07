@@ -118,7 +118,6 @@
     },
 
     getInitialState: function() {
-      console.log('attachmentUrls', this.props.attachmentUrls);
       return {
         text: this.props.text
       };
