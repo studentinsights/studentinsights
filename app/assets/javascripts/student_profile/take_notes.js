@@ -28,6 +28,11 @@
       border: '1px solid #eee',
       width: '100%' //overriding strange global CSS, should cleanup
     },
+    input: {
+      fontSize: 14,
+      border: '1px solid #eee',
+      width: '100%'
+    },
     cancelTakeNotesButton: { // overidding CSS
       color: 'black',
       background: '#eee',
@@ -114,6 +119,11 @@
             this.renderNoteButton(304)
           )
         ),
+        dom.div({ style: { marginBottom: 5, marginTop: 20 } },
+          'Add a link (i.e. to an attachment on Google Drive):'
+        ),
+        dom.input({ style: styles.input }),
+        dom.br({}),
         dom.button({
           style: {
             marginTop: 20,
