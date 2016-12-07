@@ -68,7 +68,8 @@ class EventNotesController < ApplicationController
         :student_id,
         :event_note_type_id,
         :text,
-        :is_restricted
+        :is_restricted,
+        event_note_attachments_attributes: [:url]
       )
     end
 

@@ -18,7 +18,8 @@
           event_note_type_id: eventNoteParams.eventNoteTypeId,
           text: eventNoteParams.text,
           student_id: studentId,
-          is_restricted: eventNoteParams.is_restricted || false
+          is_restricted: eventNoteParams.is_restricted || false,
+          event_note_attachments_attributes: eventNoteParams.eventNoteAttachments
         }
       });
     },

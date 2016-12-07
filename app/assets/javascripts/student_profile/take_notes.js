@@ -67,7 +67,8 @@
     getInitialState: function() {
       return {
         eventNoteTypeId: null,
-        text: null
+        text: null,
+        eventNoteAttachments: [],
       }
     },
 
@@ -80,6 +81,10 @@
       this.setState({ text: event.target.value });
     },
 
+    onChangeAttachmentUrl: function (event) {
+      this.setState({ eventNoteAttachments: [ { url: event.target.value } ] });
+    },
+
     onClickNoteType: function(noteTypeId, event) {
       this.setState({ eventNoteTypeId: noteTypeId });
     },
@@ -89,7 +94,7 @@
     },
 
     onClickSave: function(event) {
-      var params = _.pick(this.state, 'eventNoteTypeId', 'text');
+      var params = _.pick(this.state, 'eventNoteTypeId', 'text', 'eventNoteAttachments');
       this.props.onSave(params);
     },
 
@@ -122,7 +127,10 @@
         dom.div({ style: { marginBottom: 5, marginTop: 20 } },
           'Add a link (i.e. to an attachment on Google Drive):'
         ),
-        dom.input({ style: styles.input }),
+        dom.input({
+          style: styles.input,
+          onChange: this.onChangeAttachmentUrl
+        }),
         dom.br({}),
         dom.button({
           style: {
