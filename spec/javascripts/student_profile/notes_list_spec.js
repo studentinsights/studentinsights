@@ -39,7 +39,12 @@ describe('NotesList', function() {
       expect(el).toContainText('Behavior Plan');
       expect(el).toContainText('Attendance Officer');
       expect(el).toContainText('MTSS Meeting');
+
       expect(el).not.toContainText('SST Meeting');
+
+      // Notes attachments expectations
+      expect(el).toContainText("Attachment: https://www.example.com/morestudentwork")
+      expect(el).toContainText("Attachment: https://www.example.com/studentwork")
     });
   });
 });

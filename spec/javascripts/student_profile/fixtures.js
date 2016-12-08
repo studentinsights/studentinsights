@@ -20,7 +20,10 @@
         "created_at": "2016-02-26T22:20:55.416Z",
         "updated_at": "2016-02-26T22:20:55.416Z",
         "is_restricted": false,
-        "attachment_urls": []
+        "attachment_urls": [
+          "https://www.example.com/studentwork",
+          "https://www.example.com/morestudentwork",
+        ]
       },
       {
         "id": 4,
