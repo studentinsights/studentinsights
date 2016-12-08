@@ -68,7 +68,7 @@
       return {
         eventNoteTypeId: null,
         text: null,
-        eventNoteAttachments: [],
+        eventNoteAttachments: {},
       }
     },
 
@@ -82,7 +82,11 @@
     },
 
     onChangeAttachmentUrl: function (event) {
-      this.setState({ eventNoteAttachments: [ { url: event.target.value } ] });
+      var id = event.target.id;
+      var eventNoteAttachments = this.state.eventNoteAttachments;
+
+      eventNoteAttachments[id] = event.target.value;
+      this.setState({ eventNoteAttachments: eventNoteAttachments });
     },
 
     onClickNoteType: function(noteTypeId, event) {
@@ -94,8 +98,20 @@
     },
 
     onClickSave: function(event) {
-      var params = _.pick(this.state, 'eventNoteTypeId', 'text', 'eventNoteAttachments');
+      var params = merge(
+        _.pick(this.state, 'eventNoteTypeId', 'text'),
+        this.eventNoteUrlsForSave()
+      );
+
       this.props.onSave(params);
+    },
+
+    eventNoteUrlsForSave: function () {
+      var eventNoteAttachmentUrls = Object.values(this.state.eventNoteAttachments);
+
+      var wrappedUrls = eventNoteAttachmentUrls.map(function(url) { return { url: url }; });
+
+      return { eventNoteAttachments: wrappedUrls };
     },
 
     render: function() {
@@ -127,11 +143,7 @@
         dom.div({ style: { marginBottom: 5, marginTop: 20 } },
           'Add a link (i.e. to an attachment on Google Drive):'
         ),
-        dom.input({
-          style: styles.input,
-          onChange: this.onChangeAttachmentUrl,
-          placeholder: 'Please use the format https://www.example.com.'
-        }),
+        this.renderAttachmentLinkArea(),
         dom.br({}),
         this.renderLinkFormatReminder(),
         dom.button({
@@ -168,12 +180,12 @@
     },
 
     validAttachmentUrls: function () {
-      var eventNoteAttachments = this.state.eventNoteAttachments;
-      if (eventNoteAttachments === []) return true;
+      var urls = Object.values(this.state.eventNoteAttachments);
+      if (urls === []) return true;
 
-      return eventNoteAttachments.map(function (attachment) {
-        return (attachment.url.slice(0, 7) === 'http://' ||
-                attachment.url.slice(0, 8) === 'https://');
+      return urls.map(function (url) {
+        return (url.slice(0, 7) === 'http://' ||
+                url.slice(0, 8) === 'https://');
       }).reduce(function (a, b) { return a && b }, true);
     },
 
@@ -192,6 +204,47 @@
             : '4px solid white'
         })
       }, eventNoteType.name);
+    },
+
+    renderAttachmentLinkArea: function () {
+      var self = this;
+      var urls = Object.values(this.state.eventNoteAttachments);
+
+      return dom.div({},
+        urls.map(function (url, index) {
+          return self.renderAttachmentLinkInput(
+            url,
+            'link-attachment-input-' + String(index),
+            (index === urls.length - 1)
+          )
+        }),
+        this.renderNewAttachmentLinkInput(
+          '', 'link-attachment-input-' + String(urls.length), false
+        )
+      )
+    },
+
+    renderAttachmentLinkInput: function (value, id, autofocus) {
+      return dom.div({},
+        dom.input({
+          id: id,
+          value: value,
+          style: styles.input,
+          onInput: this.onChangeAttachmentUrl,
+          placeholder: 'Please use the format https://www.example.com.',
+          autoFocus: autofocus,
+          style: {
+            marginBottom: '10px'
+          }
+        }),
+        dom.br({})
+      )
+    },
+
+    renderNewAttachmentLinkInput: function (value, id, autofocus) {
+      if (!this.validAttachmentUrls()) return null;
+
+      return this.renderAttachmentLinkInput(value, id, autofocus);
     },
 
     renderLinkFormatReminder: function () {
