@@ -78,7 +78,8 @@
         badge: dom.span({ style: styles.badge }, 'Old intervention'),
         educatorId: deprecatedIntervention.educator_id,
         text: _.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n'),
-        educatorsIndex: this.props.educatorsIndex
+        educatorsIndex: this.props.educatorsIndex,
+        attachmentUrls: []  // deprecated interventions have no attachments
       });
     },
 
