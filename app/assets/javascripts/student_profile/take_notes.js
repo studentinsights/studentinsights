@@ -133,6 +133,7 @@
           placeholder: 'Please use the format https://www.example.com.'
         }),
         dom.br({}),
+        this.renderLinkFormatReminder(),
         dom.button({
           style: {
             marginTop: 20,
@@ -191,6 +192,21 @@
             : '4px solid white'
         })
       }, eventNoteType.name);
-    }
+    },
+
+    renderLinkFormatReminder: function () {
+      if (this.validAttachmentUrls()) return null;
+
+      return dom.div({
+          style: {
+            fontStyle: 'italic',
+            marginTop: '20px'
+          }
+        },
+        'Please use the format https://www.example.com.'
+      );
+    },
+
   });
+
 })();
