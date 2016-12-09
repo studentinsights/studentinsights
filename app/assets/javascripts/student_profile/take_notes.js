@@ -234,7 +234,10 @@
           placeholder: 'Please use the format https://www.example.com.',
           autoFocus: autofocus,
           style: {
-            marginBottom: '10px'
+            marginBottom: '20px',
+            fontSize: 14,
+            padding: 5,
+            width: '100%',
           }
         }),
         dom.br({})
