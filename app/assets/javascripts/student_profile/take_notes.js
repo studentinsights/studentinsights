@@ -106,12 +106,21 @@
       this.props.onSave(params);
     },
 
+    wrapUrlInObject: function(url_string) {
+      return { url: url_string };
+    },
+
+    stringNotEmpty: function (url_string) {
+      return url_string.length !== 0;
+    },
+
     eventNoteUrlsForSave: function () {
       var eventNoteAttachmentUrls = Object.values(this.state.eventNoteAttachments);
 
-      var wrappedUrls = eventNoteAttachmentUrls.map(function(url) { return { url: url }; });
+      var urlsToSave = eventNoteAttachmentUrls.filter(this.stringNotEmpty)
+                                              .map(this.wrapUrlInObject);
 
-      return { eventNoteAttachments: wrappedUrls };
+      return { eventNoteAttachments: urlsToSave };
     },
 
     render: function() {
@@ -183,8 +192,9 @@
       if (urls === []) return true;
 
       return urls.map(function (url) {
-        return (url.slice(0, 7) === 'http://' ||
-                url.slice(0, 8) === 'https://');
+        return (url.slice(0, 7) === 'http://'  ||
+                url.slice(0, 8) === 'https://' ||
+                url.length === 0);
       }).reduce(function (a, b) { return a && b }, true);
     },
 
