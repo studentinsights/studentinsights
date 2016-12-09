@@ -144,7 +144,6 @@
           'Add a link (i.e. to an attachment on Google Drive):'
         ),
         this.renderAttachmentLinkArea(),
-        dom.br({}),
         this.renderLinkFormatReminder(),
         dom.button({
           style: {
@@ -256,7 +255,7 @@
       return dom.div({
           style: {
             fontStyle: 'italic',
-            marginTop: '20px'
+            marginTop: '10px 0'
           }
         },
         'Please use the format https://www.example.com.'
