@@ -95,7 +95,8 @@
           feed: this.props.feed,
           educatorsIndex: this.props.educatorsIndex,
           eventNoteTypesIndex: this.props.eventNoteTypesIndex,
-          onSaveNote: this.onClickSaveNotes
+          onSaveNote: this.onClickSaveNotes,
+          onEventNoteAttachmentDeleted: this.props.actions.onDeleteEventNoteAttachment
         })
       );
     },

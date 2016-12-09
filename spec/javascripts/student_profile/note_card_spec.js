@@ -20,7 +20,7 @@ describe('NoteCard', function() {
         eventNoteId: 1,
         eventNoteTypeId: 1,
         educatorsIndex: Fixtures.studentProfile.educatorsIndex,
-        attachmentUrls: []
+        attachments: []
       });
 
       return ReactDOM.render(createEl(NoteCard, mergedProps), el);

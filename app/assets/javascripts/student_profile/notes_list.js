@@ -33,7 +33,8 @@
       feed: PropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
-      onSaveNote: React.PropTypes.func.isRequired
+      onSaveNote: React.PropTypes.func.isRequired,
+      onEventNoteAttachmentDeleted: React.PropTypes.func.isRequired
     },
 
     render: function() {
@@ -62,9 +63,10 @@
         badge: this.renderEventNoteTypeBadge(eventNote.event_note_type_id),
         educatorId: eventNote.educator_id,
         text: eventNote.text || '',
-        attachmentUrls: eventNote.attachment_urls || [],
+        attachments: eventNote.attachments,
         educatorsIndex: this.props.educatorsIndex,
-        onSave: this.props.onSaveNote
+        onSave: this.props.onSaveNote,
+        onEventNoteAttachmentDeleted: this.props.onEventNoteAttachmentDeleted
       });
     },
 
@@ -79,7 +81,7 @@
         educatorId: deprecatedIntervention.educator_id,
         text: _.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n'),
         educatorsIndex: this.props.educatorsIndex,
-        attachmentUrls: []  // deprecated interventions have no attachments
+        attachments: []  // deprecated interventions have no attachments
       });
     },
 

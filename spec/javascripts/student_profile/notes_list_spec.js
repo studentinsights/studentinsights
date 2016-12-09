@@ -15,7 +15,8 @@ describe('NotesList', function() {
         feed: Fixtures.feedForTestingNotes,
         educatorsIndex: Fixtures.studentProfile.educatorsIndex,
         eventNoteTypesIndex: Fixtures.studentProfile.eventNoteTypesIndex,
-        onSaveNote: jasmine.createSpy('onSaveNote')
+        onSaveNote: jasmine.createSpy('onSaveNote'),
+        onEventNoteAttachmentDeleted: jasmine.createSpy('onEventNoteAttachmentDeleted')
       });
       return ReactDOM.render(createEl(NotesList, mergedProps), el);
     },
@@ -43,8 +44,9 @@ describe('NotesList', function() {
       expect(el).not.toContainText('SST Meeting');
 
       // Notes attachments expectations
-      expect(el).toContainText("Attachment: https://www.example.com/morestudentwork")
-      expect(el).toContainText("Attachment: https://www.example.com/studentwork")
+      expect(el).toContainText("link: https://www.example.com/morestudentwork")
+      expect(el).toContainText("link: https://www.example.com/studentwork")
+      expect(el).toContainText("(remove)")
     });
   });
 });

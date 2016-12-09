@@ -42,7 +42,7 @@ describe EventNotesController, :type => :controller do
             'text',
             'recorded_at',
             'is_restricted',
-            'attachment_urls'
+            'attachments'
           ]
         end
       end
@@ -108,7 +108,7 @@ describe EventNotesController, :type => :controller do
             'text',
             'recorded_at',
             'is_restricted',
-            'attachment_urls'
+            'attachments',
           ]
           expect(JSON.parse(response.body)["is_restricted"]).to eq true
         end

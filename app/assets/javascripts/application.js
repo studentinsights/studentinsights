@@ -77,6 +77,7 @@
   //= require ./student_profile/scales
   //= require ./student_profile/academic_summary
   //= require ./student_profile/take_notes
+  //= require ./student_profile/editable_text_component
   //= require ./student_profile/note_card
   //= require ./student_profile/notes_list
   //= require ./student_profile/services_list

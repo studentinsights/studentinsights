@@ -20,9 +20,9 @@
         "created_at": "2016-02-26T22:20:55.416Z",
         "updated_at": "2016-02-26T22:20:55.416Z",
         "is_restricted": false,
-        "attachment_urls": [
-          "https://www.example.com/studentwork",
-          "https://www.example.com/morestudentwork",
+        "attachments": [
+          { id: 42, url: "https://www.example.com/studentwork" },
+          { id: 47, url: "https://www.example.com/morestudentwork" }
         ]
       },
       {
@@ -35,7 +35,7 @@
         "created_at": "2016-02-27T19:23:26.836Z",
         "updated_at": "2016-02-27T19:23:26.836Z",
         "is_restricted": true,
-        "attachment_urls": []
+        "attachments": []
       }
     ],
     "services": {
@@ -495,7 +495,7 @@
           "recorded_at": "2016-02-11T21:28:02.102Z",
           "created_at": "2016-02-11T21:28:02.103Z",
           "updated_at": "2016-02-11T21:28:02.103Z",
-          "attachment_urls": []
+          "attachments": []
         },
         {
           "id": 2,
@@ -506,7 +506,7 @@
           "recorded_at": "2016-02-11T21:29:18.166Z",
           "created_at": "2016-02-11T21:29:18.167Z",
           "updated_at": "2016-02-11T21:29:18.167Z",
-          "attachment_urls": []
+          "attachments": []
         },
         {
           "id": 3,
@@ -517,7 +517,7 @@
           "recorded_at": "2016-02-11T21:29:30.287Z",
           "created_at": "2016-02-11T21:29:30.288Z",
           "updated_at": "2016-02-11T21:29:30.288Z",
-          "attachment_urls": []
+          "attachments": []
         }
       ],
       "services": {
