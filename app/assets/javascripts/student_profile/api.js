@@ -12,13 +12,19 @@
       }
     },
 
+    deleteEventNoteAttachment: function (id) {
+      var url = '/event_note_attachments/' + id;
+      return this._delete(url);
+    },
+
     _createNote: function(studentId, eventNoteParams) {
       return this._post('/students/' + studentId + '/event_notes.json', {
         event_note: {
           event_note_type_id: eventNoteParams.eventNoteTypeId,
           text: eventNoteParams.text,
           student_id: studentId,
-          is_restricted: eventNoteParams.is_restricted || false
+          is_restricted: eventNoteParams.is_restricted || false,
+          event_note_attachments_attributes: eventNoteParams.eventNoteAttachments
         }
       });
     },

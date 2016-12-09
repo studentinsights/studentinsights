@@ -56,7 +56,8 @@ describe('RestrictedNotesPageContainer', function() {
       expect(mockApi.saveNotes).toHaveBeenCalledWith(23, {
         eventNoteTypeId: 301,
         text: 'hi',
-        is_restricted: true
+        is_restricted: true,
+        eventNoteAttachments: []
       });
     });
   });

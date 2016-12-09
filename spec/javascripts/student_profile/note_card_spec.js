@@ -19,7 +19,8 @@ describe('NoteCard', function() {
         onSave: jasmine.createSpy('onSave'),
         eventNoteId: 1,
         eventNoteTypeId: 1,
-        educatorsIndex: Fixtures.studentProfile.educatorsIndex
+        educatorsIndex: Fixtures.studentProfile.educatorsIndex,
+        attachments: []
       });
 
       return ReactDOM.render(createEl(NoteCard, mergedProps), el);

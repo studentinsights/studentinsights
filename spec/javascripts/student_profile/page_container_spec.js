@@ -106,7 +106,8 @@ describe('PageContainer', function() {
 
       expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
         eventNoteTypeId: 300,
-        text: 'hello!'
+        text: 'hello!',
+        eventNoteAttachments: []
       });
     });
 

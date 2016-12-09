@@ -28,6 +28,11 @@
       border: '1px solid #eee',
       width: '100%' //overriding strange global CSS, should cleanup
     },
+    input: {
+      fontSize: 14,
+      border: '1px solid #eee',
+      width: '100%'
+    },
     cancelTakeNotesButton: { // overidding CSS
       color: 'black',
       background: '#eee',
@@ -62,7 +67,8 @@
     getInitialState: function() {
       return {
         eventNoteTypeId: null,
-        text: null
+        text: null,
+        attachmentUrls: []
       }
     },
 
@@ -75,6 +81,17 @@
       this.setState({ text: event.target.value });
     },
 
+    onChangeAttachmentUrl: function(changedIndex, event) {
+      var newValue = event.target.value;
+      var updatedAttachmentUrls = (this.state.attachmentUrls.length === changedIndex)
+        ? this.state.attachmentUrls.concat(newValue)
+        : this.state.attachmentUrls.map(function(attachmentUrl, index) {
+          return (changedIndex === index) ? newValue : attachmentUrl;
+        });
+      var filteredAttachmentUrls = updatedAttachmentUrls.filter(this.stringNotEmpty);
+      this.setState({ attachmentUrls: filteredAttachmentUrls });
+    },
+
     onClickNoteType: function(noteTypeId, event) {
       this.setState({ eventNoteTypeId: noteTypeId });
     },
@@ -84,8 +101,25 @@
     },
 
     onClickSave: function(event) {
-      var params = _.pick(this.state, 'eventNoteTypeId', 'text');
+      var params = merge(
+        _.pick(this.state, 'eventNoteTypeId', 'text'),
+        this.eventNoteUrlsForSave()
+      );
+
       this.props.onSave(params);
+    },
+
+    wrapUrlInObject: function(urlString) {
+      return { url: urlString };
+    },
+
+    stringNotEmpty: function (urlString) {
+      return urlString.length !== 0;
+    },
+
+    eventNoteUrlsForSave: function () {
+      var urlsToSave = this.state.attachmentUrls.map(this.wrapUrlInObject);
+      return { eventNoteAttachments: urlsToSave };
     },
 
     render: function() {
@@ -114,12 +148,16 @@
             this.renderNoteButton(304)
           )
         ),
+        dom.div({ style: { marginBottom: 5, marginTop: 20 } },
+          'Add a link (i.e. to a file of student work on Google Drive):'
+        ),
+        this.renderAttachmentLinkArea(),
         dom.button({
           style: {
             marginTop: 20,
-            background: (this.state.eventNoteTypeId === null) ? '#ccc' : undefined
+            background: (this.disabledSaveButton()) ? '#ccc' : undefined
           },
-          disabled: (this.state.eventNoteTypeId === null),
+          disabled: (this.disabledSaveButton()),
           className: 'btn save',
           onClick: this.onClickSave
         }, 'Save notes'),
@@ -133,12 +171,26 @@
       );
     },
 
+    disabledSaveButton: function () {
+      return (
+        this.state.eventNoteTypeId === null || !this.isValidAttachmentUrls()
+      );
+    },
+
     renderNoteHeader: function(header) {
       return dom.div({},
         dom.span({ style: styles.date }, header.noteMoment.format('MMMM D, YYYY')),
         '|',
         dom.span({ style: styles.educator }, header.educatorEmail)
       );
+    },
+
+    isValidAttachmentUrls: function () {
+      return _.all(this.state.attachmentUrls, function (url) {
+        return (url.slice(0, 7) === 'http://'  ||
+                url.slice(0, 8) === 'https://' ||
+                url.length      === 0);
+      });
     },
 
     // TODO(kr) extract button UI
@@ -156,6 +208,42 @@
             : '4px solid white'
         })
       }, eventNoteType.name);
+    },
+
+    renderAttachmentLinkArea: function () {
+      var isValidUrls = this.isValidAttachmentUrls();
+      var urls = (isValidUrls)
+        ? this.state.attachmentUrls.concat('')
+        : this.state.attachmentUrls;
+
+      return dom.div({},
+        urls.map(function (url, index) {
+          return this.renderAttachmentLinkInput(url, index)
+        }, this),
+        dom.div({
+          style: {
+            fontStyle: 'italic',
+            marginTop: '10px 0'
+          }
+        }, 'Please use the format https://www.example.com.')
+      );
+    },
+
+    renderAttachmentLinkInput: function (value, index) {
+      return dom.div({ key: index },
+        dom.input({
+          value: value,
+          onChange: this.onChangeAttachmentUrl.bind(this, index),
+          placeholder: 'Please use the format https://www.example.com.',
+          style: {
+            marginBottom: '20px',
+            fontSize: 14,
+            padding: 5,
+            width: '100%'
+          }
+        })
+      )
     }
   });
+
 })();

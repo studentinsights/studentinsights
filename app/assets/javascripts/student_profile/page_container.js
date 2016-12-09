@@ -118,6 +118,30 @@
       this.setState({ requests: merge(this.state.requests, { saveNote: 'error' }) });
     },
 
+
+    onDeleteEventNoteAttachment: function(eventNoteAttachmentId) {
+      // optimistically update the UI
+      // essentially, find the eventNote that has eventNoteAttachmentId in attachments
+      // remove it
+      var eventNote = _.find(this.state.feed.event_notes, function(eventNote) {
+        return _.findWhere(eventNote.attachments, { id: eventNoteAttachmentId });
+      });
+      var updatedAttachments = eventNote.attachments.filter(function(eventNote) {
+        return eventNote.id !== eventNoteAttachmentId;
+      });
+      var updatedEventNotes = this.state.feed.event_notes.map(function(eventNote) {
+        return (eventNote.id !== eventNote.id)
+          ? eventNote
+          : merge(eventNote, { attachments: updatedAttachments });
+      });
+      this.setState({
+        feed: merge(this.state.feed, { event_notes: updatedEventNotes })
+      });
+
+      // Server call, fire and forget
+      this.api.deleteEventNoteAttachment(eventNoteAttachmentId);
+    },
+
     onClickSaveService: function(serviceParams) {
     	// Very quick name validation, just check for a comma between two words
     	if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
@@ -211,6 +235,7 @@
           actions: this.props.actions || {
             onColumnClicked: this.onColumnClicked,
             onClickSaveNotes: this.onClickSaveNotes,
+            onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
             onClickSaveService: this.onClickSaveService,
             onClickDiscontinueService: this.onClickDiscontinueService
           }

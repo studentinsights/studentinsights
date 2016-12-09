@@ -33,7 +33,8 @@
       feed: PropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
-      onSaveNote: React.PropTypes.func.isRequired
+      onSaveNote: React.PropTypes.func.isRequired,
+      onEventNoteAttachmentDeleted: React.PropTypes.func.isRequired
     },
 
     render: function() {
@@ -61,9 +62,11 @@
         noteMoment: moment.utc(eventNote.recorded_at),
         badge: this.renderEventNoteTypeBadge(eventNote.event_note_type_id),
         educatorId: eventNote.educator_id,
-        text: eventNote.text,
+        text: eventNote.text || '',
+        attachments: eventNote.attachments,
         educatorsIndex: this.props.educatorsIndex,
-        onSave: this.props.onSaveNote
+        onSave: this.props.onSaveNote,
+        onEventNoteAttachmentDeleted: this.props.onEventNoteAttachmentDeleted
       });
     },
 
@@ -77,7 +80,8 @@
         badge: dom.span({ style: styles.badge }, 'Old intervention'),
         educatorId: deprecatedIntervention.educator_id,
         text: _.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n'),
-        educatorsIndex: this.props.educatorsIndex
+        educatorsIndex: this.props.educatorsIndex,
+        attachments: []  // deprecated interventions have no attachments
       });
     },
 
