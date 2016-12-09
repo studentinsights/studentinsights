@@ -61,7 +61,7 @@
         noteMoment: moment.utc(eventNote.recorded_at),
         badge: this.renderEventNoteTypeBadge(eventNote.event_note_type_id),
         educatorId: eventNote.educator_id,
-        text: eventNote.text,
+        text: eventNote.text || '',
         attachmentUrls: eventNote.attachment_urls || [],
         educatorsIndex: this.props.educatorsIndex,
         onSave: this.props.onSaveNote
