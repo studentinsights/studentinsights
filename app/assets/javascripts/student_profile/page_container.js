@@ -123,14 +123,14 @@
       // optimistically update the UI
       // essentially, find the eventNote that has eventNoteAttachmentId in attachments
       // remove it
-      var eventNote = _.find(this.state.feed.event_notes, function(eventNote) {
+      var eventNoteToUpdate = _.find(this.state.feed.event_notes, function(eventNote) {
         return _.findWhere(eventNote.attachments, { id: eventNoteAttachmentId });
       });
-      var updatedAttachments = eventNote.attachments.filter(function(eventNote) {
-        return eventNote.id !== eventNoteAttachmentId;
+      var updatedAttachments = eventNoteToUpdate.attachments.filter(function(attachment) {
+        return attachment.id !== eventNoteAttachmentId;
       });
       var updatedEventNotes = this.state.feed.event_notes.map(function(eventNote) {
-        return (eventNote.id !== eventNote.id)
+        return (eventNote.id !== eventNoteToUpdate.id)
           ? eventNote
           : merge(eventNote, { attachments: updatedAttachments });
       });
