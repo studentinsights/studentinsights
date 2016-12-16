@@ -135,7 +135,7 @@
     renderInterventionsColumn: function() {
       return dom.div({ className: 'column interventions-column' },
         this.renderTable({
-          title: 'Services',
+          title: 'Services (past year)',
           items: this.serviceItems(),
           limit: 4
         }),
