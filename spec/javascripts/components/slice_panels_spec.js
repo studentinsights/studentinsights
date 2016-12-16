@@ -11,7 +11,7 @@ describe('SlicePanels', function() {
   var FixtureConstantIndexes = window.shared.FixtureConstantIndexes;
   var FixtureStudents = window.shared.FixtureStudents;
 
-  var helpers = { 
+  var helpers = {
     renderInto: function(el, props) {
       var mergedProps = merge({
         filters: [],
@@ -61,7 +61,7 @@ describe('SlicePanels', function() {
         ['STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP'],
         ['STAR Math', 'MCAS Math Score', 'MCAS Math SGP'],
         ['Discipline incidents', 'Absences', 'Tardies'],
-        ['Services', 'Notes', 'Program', 'Homeroom']
+        ['Services (past year)', 'Notes', 'Program', 'Homeroom']
       ]);
 
     });
