@@ -34,6 +34,11 @@ class Service < ActiveRecord::Base
     future_discontinue + never_discontinued
   end
 
+  def self.past_year
+    one_year_ago = Date.today - 1.year
+    where("date_started > ?", one_year_ago)
+  end
+
   def self.never_discontinued
     includes(:discontinued_services).where(:discontinued_services => { :id => nil })
   end
