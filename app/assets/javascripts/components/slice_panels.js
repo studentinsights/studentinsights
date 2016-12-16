@@ -163,8 +163,8 @@
 
     serviceItems: function() {
       var students = this.props.allStudents;
-      var activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));
-      var allServiceTypeIds = _.unique(activeServices.map(function(service) {
+      var pastYearServices = _.compact(_.flatten(_.pluck(students, 'past_year_services')));
+      var allServiceTypeIds = _.unique(pastYearServices.map(function(service) {
         return parseInt(service.service_type_id, 10);
       }));
 
