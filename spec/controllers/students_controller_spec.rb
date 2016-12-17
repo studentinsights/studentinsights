@@ -306,53 +306,42 @@ describe StudentsController, :type => :controller do
   describe '#names' do
     let(:school) { FactoryGirl.create(:healey) }
 
-    def make_request(query)
+    def make_request
       request.env['HTTPS'] = 'on'
-      get :names, q: query, format: :json
+      get :names, format: :json
     end
 
     context 'admin educator logged in' do
       let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
       before { sign_in(educator) }
-      context 'query matches student name' do
-        let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: school, grade: '5') }
-        let!(:jacob) { FactoryGirl.create(:student, first_name: 'Jacob', grade: '5') }
+      let!(:juan) {
+        FactoryGirl.create(:student, first_name: 'Juan', last_name: 'P', school: school, grade: '5')
+      }
 
-        it 'is successful' do
-          make_request('j')
-          expect(response).to be_success
-        end
-        it 'returns student name and id' do
-          make_request('j')
-          expect(assigns(:sorted_results)).to eq [{ label: "Juan - HEA - 5", value: juan.id }]
-        end
-      end
-      context 'does not match student name' do
-        it 'is successful' do
-          make_request('j')
-          expect(response).to be_success
-        end
-        it 'returns an empty array' do
-          make_request('j')
-          expect(assigns(:sorted_results)).to eq []
-        end
+      let!(:jacob) {
+        FactoryGirl.create(:student, first_name: 'Jacob', grade: '5')
+      }
+
+      it 'returns an array of student labels and ids that match the educator\'s students' do
+        make_request
+        expect(response).to be_success
+        expect(JSON.parse(response.body)).to eq [{ "label" => "Juan P - HEA - 5", "id" => juan.id }]
       end
     end
     context 'educator without authorization to students' do
       let!(:educator) { FactoryGirl.create(:educator) }
       before { sign_in(educator) }
-      context 'query matches student name' do
-        let(:healey) { FactoryGirl.create(:healey) }
-        let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '5') }
-        it 'returns an empty array' do
-          make_request('j')
-          expect(assigns(:sorted_results)).to eq []
-        end
+      let(:healey) { FactoryGirl.create(:healey) }
+      let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '5') }
+
+      it 'returns an empty array' do
+        make_request
+        expect(JSON.parse(response.body)).to eq []
       end
     end
     context 'educator not logged in' do
       it 'is not successful' do
-        make_request('j')
+        make_request
         expect(response.status).to eq 401
         expect(response.body).to include "You need to sign in before continuing."
       end
@@ -371,40 +360,6 @@ describe StudentsController, :type => :controller do
         'homeroom_name',
         'discipline_incidents_count'
       ])
-    end
-  end
-
-  describe '#calculate_student_score' do
-    context 'happy path' do
-      let(:search_tokens) { ['don', 'kenob'] }
-      it 'is 0.0 when no matches' do
-        result = controller.send(:calculate_student_score, Student.new(first_name: 'Mickey', last_name: 'Mouse'), search_tokens)
-        expect(result).to eq 0.0
-      end
-
-      it 'is 0.5 when first name only matches' do
-        result = controller.send(:calculate_student_score, Student.new(first_name: 'Donald', last_name: 'Mouse'), search_tokens)
-        expect(result).to eq 0.5
-      end
-
-      it 'is 0.5 when last name only matches' do
-        result = controller.send(:calculate_student_score, Student.new(first_name: 'zzz', last_name: 'Kenobiliiii'), search_tokens)
-        expect(result).to eq 0.5
-      end
-
-      it 'is 1.0 when both names match' do
-        result = controller.send(:calculate_student_score, Student.new(first_name: 'Donald', last_name: 'Kenobi'), search_tokens)
-        expect(result).to eq 1.0
-      end
-    end
-
-    it 'works for bug test case' do
-      search_tokens = ['al','p']
-      aladdin_score = controller.send(:calculate_student_score, Student.new(first_name: 'Aladdin', last_name: 'Poppins'), search_tokens)
-      pluto_score = controller.send(:calculate_student_score, Student.new(first_name: 'Pluto', last_name: 'Poppins'), search_tokens)
-      expect(aladdin_score).to be > pluto_score
-      expect(aladdin_score).to eq 1
-      expect(pluto_score).to eq 0.5
     end
   end
 

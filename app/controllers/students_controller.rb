@@ -75,16 +75,19 @@ class StudentsController < ApplicationController
 
   # Used by the search bar to query for student names
   def names
-    q = params[:q]
     authorized_students = Student.with_school.select do |student|
       current_educator.is_authorized_for_student(student)
     end
-    sorted_students = search_and_score(q, authorized_students)
-    truncated_students = sorted_students.take(20)
-    @sorted_results = truncated_students.map {|student| student.decorate.presentation_for_autocomplete }
+
+    students_for_searchbar = authorized_students.map do |student|
+      {
+        label: "#{student.first_name} #{student.last_name} - #{student.school.local_id} - #{student.grade}",
+        id: student.id
+      }
+    end
 
     respond_to do |format|
-      format.json { render json: @sorted_results }
+      format.json { render json: students_for_searchbar }
     end
   end
 
@@ -117,33 +120,6 @@ class StudentsController < ApplicationController
       homeroom_name: student.try(:homeroom).try(:name),
       discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count
     }).stringify_keys
-  end
-
-  def search_and_score(query, students)
-    search_tokens = query.split(' ')
-    students_with_scores = students.flat_map do |student|
-      score = calculate_student_score(student, search_tokens)
-      if score > 0 then [{ student: student, score: score }] else [] end
-    end
-
-    students_with_scores.sort_by {|ss| -1 * ss[:score] }.map {|ss| ss[:student] }
-  end
-
-  # range: [0.0, 1.0]
-  def calculate_student_score(student, search_tokens)
-    student_tokens = [student.first_name, student.last_name].compact
-
-    search_token_scores = []
-    search_tokens.each do |search_token|
-      student_tokens.each do |student_token|
-        if search_token.upcase == student_token[0..search_token.length - 1].upcase
-          search_token_scores << 1
-          break
-        end
-      end
-    end
-
-    (search_token_scores.sum.to_f / search_tokens.length)
   end
 
   # The feed of mutable data that changes most frequently and is owned by Student Insights.
