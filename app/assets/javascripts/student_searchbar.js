@@ -1,41 +1,20 @@
 $(function() {
 
-  if ($("#student-searchbar").length > 0) {
+  if ($('#student-searchbar').length > 0) {
 
-    $("#student-searchbar").autocomplete({
-      minLength: 2,
-      source: function(request, response) {
-        $.ajax({
-          url: "/students/names",
-          data: {
-            q: request.term
+    $.get({
+      url: '/students/names',
+      success: function (data) {
+        $("#student-searchbar").autocomplete({
+          minLength: 2,
+          source: data,
+          select: function(e, ui) {
+            window.location.pathname = '/students/' + ui.item.id;
           },
-          success: function(data) {
-
-            if (data.length === 0) {
-              data = [{ label: 'No matching students', value: null }];
-            };
-
-            response(data);
-          }
         });
-      },
-      focus: function(e, ui) {
-        e.preventDefault();
-        $(this).val(ui.item.label);
-      },
-      select: function(e, ui) {
-        e.preventDefault();
+      }
+    })
 
-        if (ui.item.label === 'No matching students') {
-          $(this).val('');
-        } else {
-          window.location.pathname = '/students/' + ui.item.value;
-        }
-
-      },
-    });
-
-  }
+  };
 
 });

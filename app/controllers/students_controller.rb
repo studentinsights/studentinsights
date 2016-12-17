@@ -75,16 +75,19 @@ class StudentsController < ApplicationController
 
   # Used by the search bar to query for student names
   def names
-    q = params[:q]
     authorized_students = Student.with_school.select do |student|
       current_educator.is_authorized_for_student(student)
     end
-    sorted_students = search_and_score(q, authorized_students)
-    truncated_students = sorted_students.take(20)
-    @sorted_results = truncated_students.map {|student| student.decorate.presentation_for_autocomplete }
+
+    students_for_searchbar = authorized_students.map do |student|
+      {
+        label: "#{student.first_name} #{student.last_name} - #{student.school.local_id} - #{student.grade}",
+        id: student.id
+      }
+    end
 
     respond_to do |format|
-      format.json { render json: @sorted_results }
+      format.json { render json: students_for_searchbar }
     end
   end
 
