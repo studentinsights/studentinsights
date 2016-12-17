@@ -122,33 +122,6 @@ class StudentsController < ApplicationController
     }).stringify_keys
   end
 
-  def search_and_score(query, students)
-    search_tokens = query.split(' ')
-    students_with_scores = students.flat_map do |student|
-      score = calculate_student_score(student, search_tokens)
-      if score > 0 then [{ student: student, score: score }] else [] end
-    end
-
-    students_with_scores.sort_by {|ss| -1 * ss[:score] }.map {|ss| ss[:student] }
-  end
-
-  # range: [0.0, 1.0]
-  def calculate_student_score(student, search_tokens)
-    student_tokens = [student.first_name, student.last_name].compact
-
-    search_token_scores = []
-    search_tokens.each do |search_token|
-      student_tokens.each do |student_token|
-        if search_token.upcase == student_token[0..search_token.length - 1].upcase
-          search_token_scores << 1
-          break
-        end
-      end
-    end
-
-    (search_token_scores.sum.to_f / search_tokens.length)
-  end
-
   # The feed of mutable data that changes most frequently and is owned by Student Insights.
   # restricted_notes: If false display non-restricted notes, if true display only restricted notes.
   def student_feed(student, restricted_notes: false)
