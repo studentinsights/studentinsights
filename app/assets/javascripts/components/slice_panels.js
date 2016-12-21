@@ -227,8 +227,9 @@
     },
 
     renderRiskLevel: function() {
+      var key = 'risk_level';
       var items = [0, 1, 2, 3].map(function(value) {
-        return this.createItem(value, Filters.RiskLevel(value));
+        return this.createItem(value, Filters.Equal(key, value));
       }, this);
 
       return this.renderTable({
