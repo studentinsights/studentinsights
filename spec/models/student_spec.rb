@@ -184,27 +184,31 @@ RSpec.describe Student do
     end
   end
 
-  describe '#create_risk_level' do
-    context 'create a non-ELL student' do
-      let(:student) { FactoryGirl.create(:student) }
-      it 'creates a risk level' do
-        expect { student.create_student_risk_level! }.to change(StudentRiskLevel, :count).by 1
+  describe '#update_risk_level' do
+    context 'no pre-existing risk level' do
+      context 'non-ELL student with no test results' do
+        let(:student) { FactoryGirl.create(:student) }
+        it 'creates a risk level' do
+          expect { student.update_risk_level }.to change(StudentRiskLevel, :count).by 1
+        end
+        it 'assigns correct level' do
+          student.update_risk_level
+          student_risk_level = student.student_risk_level
+          expect(student_risk_level.level).to eq nil
+          expect(student.risk_level).to eq nil
+        end
       end
-      it 'assigns correct level' do
-        student.create_student_risk_level!
-        student_risk_level = student.student_risk_level
-        expect(student_risk_level.level).to eq nil
-      end
-    end
-    context 'create an ELL student' do
-      let(:student) { FactoryGirl.build(:limited_english_student) }
-      it 'creates a risk level' do
-        expect { student.create_student_risk_level! }.to change(StudentRiskLevel, :count).by 1
-      end
-      it 'assigns correct level' do
-        student.create_student_risk_level!
-        student_risk_level = student.student_risk_level
-        expect(student_risk_level.level).to eq 3
+      context 'ELL student with no test results' do
+        let(:student) { FactoryGirl.build(:limited_english_student) }
+        it 'creates a risk level' do
+          expect { student.update_risk_level }.to change(StudentRiskLevel, :count).by 1
+        end
+        it 'assigns correct level' do
+          student.update_risk_level
+          student_risk_level = student.student_risk_level
+          expect(student_risk_level.level).to eq 3
+          expect(student.risk_level).to eq 3
+        end
       end
     end
   end
