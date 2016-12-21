@@ -217,6 +217,12 @@ class Student < ActiveRecord::Base
     else
       create_student_risk_level!
     end
+
+    # Cache risk level to the student table
+    if self.risk_level != student_risk_level.level
+      self.risk_level = student_risk_level.level
+      self.save
+    end
   end
 
 end
