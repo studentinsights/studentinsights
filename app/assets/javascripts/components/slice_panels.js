@@ -232,6 +232,8 @@
         return this.createItem(value, Filters.Equal(key, value));
       }, this);
 
+      items.push(this.createItem('N/A', Filters.Null(key)));
+
       return this.renderTable({
         title: 'Risk level',
         items: items
