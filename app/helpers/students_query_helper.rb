@@ -4,7 +4,6 @@ module StudentsQueryHelper
   # This may be slow if you're doing it for many students without eager includes.
   def student_hash_for_slicing(student)
     student.as_json.merge({
-      student_risk_level: student.student_risk_level.as_json,
       discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
       absences_count: student.most_recent_school_year.absences.count,
       tardies_count: student.most_recent_school_year.tardies.count,

@@ -80,14 +80,6 @@
         key: 'years_enrolled'
       };
     },
-    RiskLevel: function(value) {
-      return {
-        identifier: ['risk_level', value].join(':'),
-        filterFn: function(student) {
-          return (student.student_risk_level && student.student_risk_level.level === value);
-        }
-      };
-    },
 
     // Has to parse from string back to numeric
     createFromIdentifier: function(identifier) {
