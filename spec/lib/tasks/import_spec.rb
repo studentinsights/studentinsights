@@ -38,11 +38,7 @@ RSpec.describe Import do
         BehaviorImporter,
         EducatorsImporter,
         AttendanceImporter,
-        StarReadingImporter,
-        StarReadingImporter::HistoricalImporter,
         StarReadingImporter::RecentImporter,
-        StarMathImporter,
-        StarMathImporter::HistoricalImporter,
         StarMathImporter::RecentImporter,
       ]
     }
