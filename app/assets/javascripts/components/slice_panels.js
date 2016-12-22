@@ -140,6 +140,10 @@
           limit: 4
         }),
         this.renderTable({
+          title: 'Summer',
+          items: this.summerItems()
+        }),
+        this.renderTable({
           title: 'Notes',
           items: this.mergedNoteItems(),
           limit: 4
@@ -179,6 +183,21 @@
       });
 
       return [this.createItem('None', Filters.ServiceType(null))].concat(sortedItems);
+    },
+
+    summerItems: function () {
+      var students = this.props.allStudents;
+      var summerServices = _.compact(_.flatten(_.pluck(students, 'summer_services')));
+      var allSummerServiceTypeIds = _.unique(summerServices.map(function(service) {
+        return parseInt(service.service_type_id, 10);
+      }));
+
+      var serviceItems = allSummerServiceTypeIds.map(function(serviceTypeId) {
+        var serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
+        return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
+      }, this);
+
+      return [this.createItem('None', Filters.ServiceType(null))].concat(serviceItems);
     },
 
     // TODO(kr) add other note types
