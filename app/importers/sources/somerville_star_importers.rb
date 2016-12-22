@@ -12,12 +12,7 @@ class SomervilleStarImporters
 
   def file_importer_classes
     [
-      StarReadingImporter,
-      StarReadingImporter::HistoricalImporter,
       StarReadingImporter::RecentImporter,
-
-      StarMathImporter,
-      StarMathImporter::HistoricalImporter,
       StarMathImporter::RecentImporter,
     ]
   end
