@@ -264,6 +264,8 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    skylight (1.0.1)
+      activesupport (>= 3.0.0)
     slop (3.6.0)
     spring (1.7.1)
     sprockets (2.12.3)
@@ -341,6 +343,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   simplecov
+  skylight
   spring
   sprockets (= 2.12.3)
   teaspoon-jasmine
@@ -352,7 +355,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 2.3.0p0
+   ruby 2.3.0
 
 BUNDLED WITH
-   1.13.5
+   1.13.6

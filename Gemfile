@@ -21,6 +21,7 @@ gem 'probability'
 gem 'rails-sanitize-js'
 gem 'react-rails', '~> 1.5.0'   # Provides React, handles swapping between dev/production builds.
                                 # See config/initializers/assets.rb
+gem 'skylight'
 gem 'memory_profiler'
 gem 'oj'
 gem 'oj_mimic_json'
