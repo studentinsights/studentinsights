@@ -58,6 +58,18 @@
         key: 'service_type'
       };
     },
+    SummerServiceType: function (serviceTypeId) {
+      return {
+        identifier: ['summer_service_type', serviceTypeId].join(':'),
+        filterFn: function(student) {
+          if (serviceTypeId === null) return (student.summer_services === undefined || student.summer_services.length === 0);
+          return student.summer_services.filter(function(service) {
+            return service.service_type_id === serviceTypeId;
+          }).length > 0;
+        },
+        key: 'summer_service_type'
+      };
+    },
     EventNoteType: function(eventNoteTypeId) {
       return {
         identifier: ['event_note_type', eventNoteTypeId].join(':'),

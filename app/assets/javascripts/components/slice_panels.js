@@ -194,10 +194,10 @@
 
       var serviceItems = allSummerServiceTypeIds.map(function(serviceTypeId) {
         var serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
-        return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
+        return this.createItem(serviceName, Filters.SummerServiceType(serviceTypeId));
       }, this);
 
-      return [this.createItem('None', Filters.ServiceType(null))].concat(serviceItems);
+      return [this.createItem('None', Filters.SummerServiceType(null))].concat(serviceItems);
     },
 
     // TODO(kr) add other note types
