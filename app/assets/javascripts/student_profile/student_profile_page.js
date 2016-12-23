@@ -271,8 +271,7 @@
       return dom.div({ style: styles.columnContainer, onClick: this.onColumnClicked.bind(this, columnKey) },
         dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Overview"),
         dom.div({
-          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn),
-          onClick: this.onColumnClicked.bind(this, columnKey)
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn)
         },
         createEl(SummaryList, {
           title: 'Demographics',
@@ -289,8 +288,7 @@
         dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Interventions"),
         dom.div({
           className: 'interventions-column',
-          style: merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey)),
-          onClick: this.onColumnClicked.bind(this, columnKey)
+          style: merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey))
         },
         this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
@@ -370,8 +368,7 @@
         dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Reading"),
         dom.div({
           className: 'ela-background',
-          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
-          onClick: this.onColumnClicked.bind(this, columnKey)
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))
         },
         this.wrapSummary({
           caption: 'STAR Reading',
@@ -422,8 +419,7 @@
         dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Math"),
         dom.div({
           className: 'math-background',
-          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
-          onClick: this.onColumnClicked.bind(this, columnKey)
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))
         },
         this.wrapSummary({
           caption: 'STAR Math',
@@ -455,8 +451,7 @@
         dom.div({ style: merge(styles.tab, this.selectedTabStyles(columnKey)) }, "Attendance and Behavior"),
         dom.div({
           className: 'attendance-background',
-          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey)),
-          onClick: this.onColumnClicked.bind(this, columnKey)
+          style: merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))
       },
         this.renderAttendanceEventsSummary(
           student.discipline_incidents_count,

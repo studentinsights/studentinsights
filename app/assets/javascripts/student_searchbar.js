@@ -8,6 +8,8 @@ $(function() {
         $("#student-searchbar").autocomplete({
           source: data,
           select: function(e, ui) {
+            var MixpanelUtils = window.shared.MixpanelUtils;
+            MixpanelUtils.track('SEARCHBAR_SELECTED_STUDENT', {});
             window.location.pathname = '/students/' + ui.item.id;
           },
         });
