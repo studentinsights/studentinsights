@@ -1,5 +1,6 @@
 $(function() {
   window.shared || (window.shared = {});
+  var PropTypes = window.shared.PropTypes;
   var SlicePanels = window.shared.SlicePanels;
   var SliceButtons = window.shared.SliceButtons;
   var Routes = window.shared.Routes;
@@ -18,6 +19,7 @@ $(function() {
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       initialFilters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       dateNow: React.PropTypes.object.isRequired,
+      history: PropTypes.history.isRequired,
       recentThresholdInDays: React.PropTypes.number
     },
 
@@ -38,7 +40,7 @@ $(function() {
 
     // sink-only
     componentDidUpdate: function() {
-      window.history.pushState({}, null, this.filtersHash());
+      this.props.history.pushState({}, null, this.filtersHash());
     },
 
     filtersHash: function() {

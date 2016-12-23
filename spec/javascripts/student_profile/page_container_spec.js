@@ -31,7 +31,8 @@ describe('PageContainer', function() {
       var mergedProps = merge(props || {}, {
         nowMomentFn: function() { return Fixtures.nowMoment; },
         serializedData: Fixtures.studentProfile,
-        queryParams: {}
+        queryParams: {},
+        history: SpecSugar.history()
       });
       return ReactDOM.render(createEl(PageContainer, mergedProps), el);
     },

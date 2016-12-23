@@ -20,7 +20,8 @@
       nowMomentFn: React.PropTypes.func.isRequired,
       serializedData: React.PropTypes.object.isRequired,
       queryParams: React.PropTypes.object.isRequired,
-
+      history: PropTypes.history.isRequired,
+      
       // for testing
       actions: PropTypes.actions,
       api: PropTypes.api
@@ -75,7 +76,7 @@
       var path = Routes.studentProfile(this.state.student.id, {
         column: this.state.selectedColumnKey
       });
-      window.history.replaceState({}, null, path);
+      this.props.history.replaceState({}, null, path);
     },
 
     onColumnClicked: function(columnKey) {

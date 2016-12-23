@@ -38,6 +38,11 @@
       deprecated: React.PropTypes.shape({
         interventions: React.PropTypes.array.isRequired
       })
+    }),
+
+    history: React.PropTypes.shape({
+      pushState: React.PropTypes.func.isRequired,
+      replaceState: React.PropTypes.func.isRequired
     })
   };
 })();
