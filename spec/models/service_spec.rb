@@ -31,17 +31,25 @@ RSpec.describe Service do
     service
   }
 
+  let!(:yesterday_service) {
+    FactoryGirl.create(:service, date_started: Date.today - 1.day, id: 70007)
+  }
+
+  let!(:ten_months_ago_service) {
+    FactoryGirl.create(:service, date_started: Date.today - 10.months, id: 70008)
+  }
+
   describe '.active' do
     it 'collects the correct services' do
       active_ids = Service.active.map(&:id).sort
-      expect(active_ids).to eq [70001, 70002, 70005, 70006]
+      expect(active_ids).to eq [70001, 70002, 70005, 70006, 70007, 70008]
     end
   end
 
   describe '.never_discontinued' do
     it 'collects the correct services' do
       never_discontinued_ids = Service.never_discontinued.pluck(:id).sort
-      expect(never_discontinued_ids).to eq [70001, 70002]
+      expect(never_discontinued_ids).to eq [70001, 70002, 70007, 70008]
     end
   end
 
@@ -56,6 +64,13 @@ RSpec.describe Service do
     it 'collects the correct services' do
       discontinued_ids = Service.discontinued.pluck(:id).sort
       expect(discontinued_ids).to eq [70003, 70004]
+    end
+  end
+
+  describe '.past_year' do
+    it 'collects the correct services' do
+      past_year_ids = Service.past_year.pluck(:id).sort
+      expect(past_year_ids).to eq [70007, 70008]
     end
   end
 

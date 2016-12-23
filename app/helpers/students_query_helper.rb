@@ -17,17 +17,20 @@ module StudentsQueryHelper
     student_ids = student_hashes.map {|student_hash| student_hash[:id] }
     all_event_notes = EventNote.where(student_id: student_ids)
     all_active_services = Service.where(student_id: student_ids).active
+    past_year_services = Service.where(student_id: student_ids).past_year
     all_interventions = Intervention.where(student_id: student_ids)
 
     student_hashes.map do |student_hash|
       for_student = {
         event_notes: all_event_notes.select {|event_note| event_note.student_id == student_hash[:id] },
         active_services: all_active_services.select {|service| service.student_id == student_hash[:id] },
-        interventions: all_interventions.select {|intervention| intervention.student_id == student_hash[:id] }
+        interventions: all_interventions.select {|intervention| intervention.student_id == student_hash[:id] },
+        past_year_services: past_year_services.select {|service| service.student_ids == student_hash[:id] }
       }
       student_hash.merge({
         event_notes: for_student[:event_notes].map {|x| serialize_event_note(x) },
         active_services: for_student[:active_services].map {|x| serialize_service(x) },
+        past_year_services: for_student[:past_year_services].map {|x| serialize_service(x) },
         interventions: for_student[:interventions].map {|x| serialize_intervention(x) },
       })
     end

@@ -109,7 +109,8 @@
         "updated_at": "2016-03-18T00:33:49.613Z"
       }
     ],
-    "active_services": [
+    "active_services": [],
+    "past_year_services": [
       {
         "id": 1,
         "student_id": 1,
@@ -286,6 +287,7 @@
       }
     ],
     "active_services": [],
+    "past_year_services": [],
     "interventions": []
   }];
 
