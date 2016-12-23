@@ -54,19 +54,8 @@
           },
           onClick: this.props.clearFilters
         }, (this.props.filters.length === 0) ? 'No filters' : 'Clear filters (ESC)'),
-        dom.a({ href: this.props.filtersHash, target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view'),
-        this.renderPowerBILink()
+        dom.a({ href: this.props.filtersHash, target: '_blank', style: { fontSize: styles.fontSize } }, 'Share this view')
       );
-    },
-
-    renderPowerBILink: function() {
-      return dom.a({
-        href: window.location + '/csv',
-        style: {
-          paddingLeft: 20,
-          fontSize: styles.fontSize
-        }
-      }, 'Download for PowerBI');
     }
   });
 })();
