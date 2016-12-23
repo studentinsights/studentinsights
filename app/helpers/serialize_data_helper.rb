@@ -19,7 +19,12 @@ module SerializeDataHelper
     attachments = event_note.event_note_attachments.map do |event_note_attachment|
       event_note_attachment.as_json.symbolize_keys.slice(:id, :url)
     end
+    serialize_event_note_without_attachments(event_note).merge({
+      attachments: attachments
+    })
+  end
 
+  def serialize_event_note_without_attachments(event_note)
     event_note.as_json.symbolize_keys.slice(*[
       :id,
       :student_id,
@@ -28,9 +33,7 @@ module SerializeDataHelper
       :text,
       :recorded_at,
       :is_restricted
-    ]).merge(
-      attachments: attachments
-    )
+    ])
   end
 
   # deprecated
