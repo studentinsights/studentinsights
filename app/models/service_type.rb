@@ -17,4 +17,11 @@ class ServiceType < ActiveRecord::Base
       { id: 512, name: 'Freedom School' },
     ])
   end
+
+  def self.add_summer_program_status_to_service_types
+    [509, 510, 512].each do |id|
+      ServiceType.find(id).update!({ summer_program: true })
+    end
+  end
+
 end
