@@ -3,12 +3,12 @@ module StudentsQueryHelper
   # filtering and slicing in the UI).
   # This may be slow if you're doing it for many students without eager includes.
   def student_hash_for_slicing(student)
-    student.as_json.merge({
+    HashWithIndifferentAccess.new(student.as_json.merge({
       discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
       absences_count: student.most_recent_school_year.absences.count,
       tardies_count: student.most_recent_school_year.tardies.count,
       homeroom_name: student.try(:homeroom).try(:name)
-    })
+    }))
   end
 
   # Queries for Services and EventNotes for each student, and merges the results
