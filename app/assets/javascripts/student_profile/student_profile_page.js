@@ -463,7 +463,7 @@
         ),
         this.renderAttendanceEventsSummary(
           student.absences_count,
-          attendanceData.abseneces,
+          attendanceData.absences,
           Scales.absences.flexibleRange, {
             caption: 'Absences this school year',
             thresholdValue: Scales.absences.threshold,
