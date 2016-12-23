@@ -10,9 +10,18 @@ class ServiceType < ActiveRecord::Base
       { id: 505, name: 'Counseling, in-house'},
       { id: 506, name: 'Counseling, outside'},
       { id: 507, name: 'Reading intervention'},
-      { id: 508, name: 'Math intervention'}     # Deprecated: No adding new Math interventions
-                                                # going forward. Focusing on shorter list of
-                                                # services with sharp, clear definitions.
+      { id: 508, name: 'Math intervention'},
+      { id: 509, name: 'SomerSession' },
+      { id: 510, name: 'Summer Program for English Language Learners' },
+      { id: 511, name: 'Afterschool Tutoring' },
+      { id: 512, name: 'Freedom School' },
     ])
   end
+
+  def self.add_summer_program_status_to_service_types
+    [509, 510, 512].each do |id|
+      ServiceType.find(id).update!({ summer_program: true })
+    end
+  end
+
 end

@@ -11,7 +11,7 @@ describe('SlicePanels', function() {
   var FixtureConstantIndexes = window.shared.FixtureConstantIndexes;
   var FixtureStudents = window.shared.FixtureStudents;
 
-  var helpers = { 
+  var helpers = {
     renderInto: function(el, props) {
       var mergedProps = merge({
         filters: [],
@@ -56,14 +56,13 @@ describe('SlicePanels', function() {
       expect($(el).find('.SlicePanels').length).toEqual(1);
       expect($(el).find('.column').length).toEqual(6);
       expect(helpers.columnTitlesMatrix(el)).toEqual([
-        ['Disability', 'Low Income', 'LEP'],
-        ['Grade', 'Years enrolled', 'Risk level'],
-        ['STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP'],
-        ['STAR Math', 'MCAS Math Score', 'MCAS Math SGP'],
-        ['Discipline incidents', 'Absences', 'Tardies'],
-        ['Services', 'Notes', 'Program', 'Homeroom']
+        [ 'Disability', 'Low Income', 'LEP' ],
+        [ 'Grade', 'Years enrolled', 'Risk level' ],
+        [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
+        [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
+        [ 'Discipline incidents', 'Absences', 'Tardies' ],
+        [ 'Services', 'Summer', 'Notes', 'Program', 'Homeroom' ]
       ]);
-
     });
 
     it('renders attributes for slicing based on student data', function() {
@@ -74,12 +73,12 @@ describe('SlicePanels', function() {
       });
 
       expect(helpers.rowsPerColumnMatrix(el)).toEqual([
-         [5, 1, 1],
-         [1, 1, 5],
-         [5, 5, 5],
-         [5, 5, 5],
-         [5, 5, 5],
-         [4, 4, 2, 1]
+        [ 5, 1, 1 ],
+        [ 1, 1, 5 ],
+        [ 5, 5, 5 ],
+        [ 5, 5, 5 ],
+        [ 5, 5, 5 ],
+        [ 4, 1, 4, 2, 1 ]
       ]);
     });
   });

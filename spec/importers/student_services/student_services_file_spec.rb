@@ -11,7 +11,6 @@ RSpec.describe StudentServicesFile do
     let!(:student_101) { FactoryGirl.create(:student, local_id: '101') }
     let!(:student_102) { FactoryGirl.create(:student, local_id: '102') }
     let!(:administrator) { FactoryGirl.create(:educator) }
-    let!(:somer_session) { ServiceType.create({ id: 509, name: 'SomerSession' }) }
 
     before do
       allow_any_instance_of(
