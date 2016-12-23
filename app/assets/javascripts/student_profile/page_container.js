@@ -4,6 +4,7 @@
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
 
+  var MixpanelUtils = window.shared.MixpanelUtils;
   var Routes = window.shared.Routes;
   var StudentProfilePage = window.shared.StudentProfilePage;
   var PropTypes = window.shared.PropTypes;
@@ -80,6 +81,10 @@
     },
 
     onColumnClicked: function(columnKey) {
+      MixpanelUtils.track('STUDENT_PROFILE_CLICKED_COLUMN', {
+        page_key: 'STUDENT_PROFILE',
+        column_key: columnKey
+      });
       this.setState({ selectedColumnKey: columnKey });
     },
 

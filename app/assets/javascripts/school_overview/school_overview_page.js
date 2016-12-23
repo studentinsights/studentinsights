@@ -1,5 +1,6 @@
 (function(root) {
   window.shared || (window.shared = {});
+  var MixpanelUtils = window.shared.MixpanelUtils;
   var Filters = window.shared.Filters;
   var Routes = window.shared.Routes;
   var SlicePanels = window.shared.SlicePanels;
@@ -160,6 +161,11 @@
     },
 
     onFilterToggled: function(toggledFilter) {
+      MixpanelUtils.track('SCHOOL_OVERVIEW_TOGGLED_FILTER', {
+        page_key: 'SCHOOL_OVERVIEW_DASHBOARD',
+        filter_identifier: toggledFilter.identifier
+      });
+      
       var withoutToggledFilter = this.state.filters.filter(function(filter) {
         return filter.identifier !== toggledFilter.identifier;
       });
