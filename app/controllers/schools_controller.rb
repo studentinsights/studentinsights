@@ -41,8 +41,17 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
-  private
+  def csv
+    authorized_students = @school.students.active
+    csv_string = StudentsSpreadsheet.new.csv_string(authorized_students)
+    filename = "#{@school.name} - Exported #{Time.now.strftime("%Y-%m-%d")}.csv"
+    send_data(csv_string, {
+      type: Mime[:csv],
+      disposition: "attachment; filename='#{filename}"
+    })
+  end
 
+  private
   # This should always find a record, but if it doesn't we fall back to the
   # raw query.
   # Results an array of student_hashes.
