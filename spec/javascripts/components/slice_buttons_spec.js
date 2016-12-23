@@ -29,7 +29,7 @@ describe('SliceButtons', function() {
       var el = this.testEl;
       helpers.renderInto(el);
 
-      expect(el).toContainText('Download for PowerBI');
+      expect(el).toContainText('Share');
     });
   });
 });
