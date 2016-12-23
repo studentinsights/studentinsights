@@ -16,6 +16,7 @@ $(function() {
   ReactDOM.render(createEl(PageContainer, {
     nowMomentFn: function() { return moment.utc(); },
     serializedData: serializedData,
-    queryParams: parseQueryString(window.location.search)
+    queryParams: parseQueryString(window.location.search),
+    history: window.history
   }), document.getElementById('main'));
 });

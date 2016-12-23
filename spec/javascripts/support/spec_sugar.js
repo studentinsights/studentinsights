@@ -34,6 +34,14 @@
       React.addons.TestUtils.Simulate.focus($selectEl.find('input:last').get(0));
       $selectEl.find('.Select-option:contains(' + optionText + ')').click()
       return undefined;
+    },
+
+    // For mocking history API
+    history: function() {
+      return {
+        replaceState: jasmine.createSpy('replaceState'),
+        pushState: jasmine.createSpy('pushState')
+      };
     }
   };
 })();
