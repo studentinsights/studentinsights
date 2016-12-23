@@ -75,20 +75,8 @@ class StudentsController < ApplicationController
 
   # Used by the search bar to query for student names
   def names
-    authorized_students = Student.with_school.select do |student|
-      current_educator.is_authorized_for_student(student)
-    end
-
-    students_for_searchbar = authorized_students.map do |student|
-      {
-        label: "#{student.first_name} #{student.last_name} - #{student.school.local_id} - #{student.grade}",
-        id: student.id
-      }
-    end
-
-    respond_to do |format|
-      format.json { render json: students_for_searchbar }
-    end
+    students_for_searchbar = SearchbarHelper.names_for(current_educator)
+    render json: students_for_searchbar
   end
 
   private
