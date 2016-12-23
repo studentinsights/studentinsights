@@ -2,25 +2,27 @@ require 'rails_helper'
 
 RSpec.describe StudentsSpreadsheet do
   context 'with generated students' do
-    before { srand(42) } # seed random number generator for deterministic test data
     before { School.seed_somerville_schools }
     let!(:school) { School.find_by_name('Arthur D Healey') }
     let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
     let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school) }
     before do
-      5.times { FakeStudent.new(school, homeroom) }
+      # the test data is not deterministic (setting a seed in srand only worked on
+      # a single-file test run), so we only test for the output shape
+      3.times { FakeStudent.new(school, homeroom) }
       Student.update_risk_levels
       Student.update_student_school_years
       Student.update_recent_student_assessments
     end
 
     describe '#csv_string' do
-      it 'generates expected CSV' do
-        csv_string = StudentsSpreadsheet.new.csv_string(school.students)
-        expected_csv_filename = File.expand_path("#{Rails.root}/spec/reports/students_spreadsheet_expected.csv")
-        expect(csv_string).to eq(IO.read(expected_csv_filename))
+      it 'generates a CSV with the expected number of lines' do
+        csv_string = StudentsSpreadsheet.new.csv_string(school.students) 
+        expect(csv_string.split("\n").size).to eq(1 + school.students.size)
       end
+    end
 
+    describe '#flat_row_hash' do 
       it 'creates expected fields' do
         flat_row_hash = StudentsSpreadsheet.new.send(:flat_row_hash, school.students.first, ServiceType.all)
         expect(flat_row_hash.keys).to eq([
