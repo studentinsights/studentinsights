@@ -115,4 +115,23 @@ describe SchoolsController, :type => :controller do
 
   end
 
+  describe '#csv' do
+    def make_request(school_id)
+      request.env['HTTPS'] = 'on'
+      get :csv, id: school_id
+    end
+
+    context 'with school-wide access' do
+      before { School.seed_somerville_schools }
+      before { FactoryGirl.create(:homeroom) }
+      let!(:school) { FactoryGirl.create(:healey) }
+      let!(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+
+      it 'succeeds without throwing' do
+        sign_in(educator)
+        make_request('hea')
+        expect(response).to be_success
+      end
+    end
+  end
 end
