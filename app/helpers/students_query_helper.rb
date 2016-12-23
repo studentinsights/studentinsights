@@ -31,7 +31,7 @@ module StudentsQueryHelper
         interventions: all_interventions.select {|intervention| intervention.student_id == student_hash[:id] }
       }
       student_hash.merge({
-        event_notes: for_student[:event_notes].map {|x| serialize_event_note(x) },
+        event_notes: for_student[:event_notes].map {|x| serialize_event_note_without_attachments(x) },
         active_services: for_student[:active_services].map {|x| serialize_service(x) },
         summer_services: for_student[:summer_services].map {|x| serialize_service(x) },
         interventions: for_student[:interventions].map {|x| serialize_intervention(x) },
