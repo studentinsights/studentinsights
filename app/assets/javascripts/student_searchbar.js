@@ -1,7 +1,7 @@
 $(function() {
 
   function setupSearchBarAutocomplete (names) {
-    $("#student-searchbar").autocomplete({
+    $(".student-searchbar").autocomplete({
       source: names,
       select: function(e, ui) {
         var MixpanelUtils = window.shared.MixpanelUtils;
@@ -26,7 +26,7 @@ $(function() {
     });
   };
 
-  if ($('#student-searchbar').length > 0) {
+  if ($('.student-searchbar').length > 0) {
     if (!(window.sessionStorage)) {
       downloadStudentNames();       // Query for names if we have no local storage
       throw 'no session storage';   // Let rollbar know we're not caching

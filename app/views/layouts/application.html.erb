@@ -38,7 +38,7 @@
               <%= link_to 'STAR Math', star_math_school_path(current_educator.school) %>
             <% end %>
             <p class="search-label">Search for student:</p>
-            <input id="student-searchbar" />
+            <input class="student-searchbar" />
             <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
           </div>
         <% else %>
