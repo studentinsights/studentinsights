@@ -6,6 +6,10 @@ class EducatorsController < ApplicationController
     redirect_to homepage_path_for_role(current_educator)
   end
 
+  def districtwide_admin_homepage
+
+  end
+
   def names_for_dropdown
     student = Student.find(params[:id])
     school = student.school
