@@ -6,15 +6,14 @@
 
   var SliceButtons = window.shared.SliceButtons = React.createClass({
     displayName: 'SliceButtons',
-      
+
     propTypes: {
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       filtersHash: React.PropTypes.object.isRequired,
-      activeFiltersIdentifier: React.PropTypes.object.isRequired,
       clearFilters: React.PropTypes.func.isRequired
     },
-    
+
     // Key code 27 is the ESC key
     onKeyDown: function(e) {
       if (e.keyCode == 27) this.props.clearFilters();
