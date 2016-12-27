@@ -30,6 +30,10 @@ Educator.create!([{
   schoolwide_access: true,
   can_view_restricted_notes: true
 }, {
+  email: "demo-admin@example.com",
+  password: "demo-password",
+  districtwide_access: true,
+}, {
   email: "fake-fifth-grade@example.com",
   full_name: 'Teacher, Sarah',
   password: "demo-password",
