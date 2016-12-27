@@ -41,7 +41,7 @@ describe('StudentProfilePage', function() {
     describe('student with no absences this school year', function () {
       it('displays zero absences', function () {
         var el = this.testEl;
-        helpers.renderStudentProfilePage(el, null, null, 0);
+        helpers.renderStudentProfilePage(el, null, [], 0);
         expect(el).toContainText('Absences this school year:0');
       });
     });
