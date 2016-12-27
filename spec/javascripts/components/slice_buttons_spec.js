@@ -11,13 +11,12 @@ describe('SliceButtons', function() {
   var FixtureConstantIndexes = window.shared.FixtureConstantIndexes;
   var FixtureStudents = window.shared.FixtureStudents;
 
-  var helpers = { 
+  var helpers = {
     renderInto: function(el, props) {
       var mergedProps = merge({
         students: [],
         filters: [],
         filtersHash: {},
-        activeFiltersIdentifier: '',
         clearFilters: jasmine.createSpy('clearFilters')
       }, props || {});
       return ReactDOM.render(createEl(SliceButtons, mergedProps), el);
