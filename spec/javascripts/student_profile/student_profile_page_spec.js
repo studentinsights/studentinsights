@@ -29,7 +29,8 @@ describe('StudentProfilePage', function() {
       var mergedProps = {
         serializedData: serializedData,
         nowMomentFn: function() { return Fixtures.nowMoment; },
-        queryParams: {}
+        queryParams: {},
+        history: SpecSugar.history()
       };
       return ReactDOM.render(createEl(PageContainer, mergedProps), el);
     }
