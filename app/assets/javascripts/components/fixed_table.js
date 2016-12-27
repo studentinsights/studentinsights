@@ -21,7 +21,7 @@
       filters: React.PropTypes.array.isRequired,
       title: React.PropTypes.string.isRequired,
       items: React.PropTypes.array.isRequired,
-      children: React.PropTypes.element.isRequired
+      children: React.PropTypes.element,
     },
 
     onRowClicked: function(item, e) {
