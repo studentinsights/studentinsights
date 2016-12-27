@@ -7,7 +7,7 @@ class EducatorsController < ApplicationController
   end
 
   def districtwide_admin_homepage
-
+    @elementary_schools = School.all
   end
 
   def names_for_dropdown

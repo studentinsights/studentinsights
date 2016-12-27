@@ -1,2 +1,11 @@
 <h2 style="text-align: center; padding: 30px; font-size: 35px; margin-top: 30px;">Search for a student:</h2>
 <input class="student-searchbar" style="width: 80%; height: 60px; margin: auto; display: block; font-size: 20px;" />
+
+<div style="width: 50%;">
+<h3>Look up a school:</h3>
+  <ul>
+    <% @elementary_schools.each do |school| %>
+      <li><%= link_to school.name, school_path(school) %></li>
+    <% end %>
+  </ul>
+</div>
