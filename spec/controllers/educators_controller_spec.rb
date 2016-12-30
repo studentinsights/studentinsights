@@ -54,7 +54,7 @@ describe EducatorsController, :type => :controller do
 
     context 'districtwide access' do
       let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
-      it 'redirects to the correct school' do
+      it 'redirects to districtwide homepage' do
         make_request
         expect(response).to redirect_to(educators_districtwide_url)
       end
@@ -79,7 +79,7 @@ describe EducatorsController, :type => :controller do
 
     context 'educator w/o districtwide access' do
       let(:educator) { FactoryGirl.create(:educator) }
-      it 'gets redirected' do
+      it 'cannot access the page; gets redirected' do
         make_request
         expect(response).to redirect_to(not_authorized_url)
       end
