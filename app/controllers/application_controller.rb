@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     if educator.districtwide_access?
       educators_districtwide_url
     elsif educator.schoolwide_access? || educator.has_access_to_grade_levels?
-      school_url(educator.default_school)
+      school_url(educator.school)
     else
       default_homeroom_path(educator)
     end

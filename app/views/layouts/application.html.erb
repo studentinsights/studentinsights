@@ -21,7 +21,7 @@
         </a>
         <% if educator_signed_in? %>
           <div class="nav-options">
-            <% if current_educator.admin? && current_educator.school != nil %>
+            <% if educator.schoolwide_access? || educator.has_access_to_grade_levels? %>
               <%= link_to 'School Overview', school_path(current_educator.school) %>
             <% end %>
             <p class="search-label">Search for student:</p>
