@@ -1,6 +1,7 @@
 class EducatorsController < ApplicationController
-
   # Authentication by default inherited from ApplicationController.
+
+  before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage]
 
   def homepage
     redirect_to homepage_path_for_role(current_educator)
@@ -26,6 +27,12 @@ class EducatorsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: :ok }
+    end
+  end
+
+  def authenticate_districtwide_access!
+    unless current_educator.districtwide_access
+      redirect_to not_authorized_path
     end
   end
 

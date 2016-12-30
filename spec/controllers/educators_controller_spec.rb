@@ -50,7 +50,39 @@ describe EducatorsController, :type => :controller do
           expect(response).to redirect_to(school_url(School.first))
         end
       end
+    end
 
+    context 'districtwide access' do
+      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+      it 'redirects to the correct school' do
+        make_request
+        expect(response).to redirect_to(educators_districtwide_url)
+      end
+    end
+  end
+
+  describe '#districtwide_admin_homepage' do
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :districtwide_admin_homepage
+    end
+
+    before { sign_in(educator) }
+
+    context 'educator w districtwide access' do
+      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+      it 'can access the page' do
+        make_request
+        expect(response).to be_success
+      end
+    end
+
+    context 'educator w/o districtwide access' do
+      let(:educator) { FactoryGirl.create(:educator) }
+      it 'gets redirected' do
+        make_request
+        expect(response).to redirect_to(not_authorized_url)
+      end
     end
   end
 
