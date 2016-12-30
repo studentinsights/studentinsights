@@ -21,11 +21,16 @@
         </a>
         <% if educator_signed_in? %>
           <div class="nav-options">
-            <% if educator.schoolwide_access? || educator.has_access_to_grade_levels? %>
+            <% if current_educator.districtwide_access? %>
+              <%= link_to 'Admin Homepage', educators_districtwide_url %>
+              &nbsp; &nbsp; &nbsp;
+            <% elsif current_educator.schoolwide_access? || current_educator.has_access_to_grade_levels? %>
               <%= link_to 'School Overview', school_path(current_educator.school) %>
+              &nbsp; &nbsp; &nbsp;
             <% end %>
             <p class="search-label">Search for student:</p>
             <input class="student-searchbar" />
+            &nbsp; &nbsp; &nbsp;
             <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
           </div>
         <% else %>
