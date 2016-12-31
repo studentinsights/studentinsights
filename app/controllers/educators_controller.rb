@@ -14,7 +14,19 @@ class EducatorsController < ApplicationController
   end
 
   def bulk_services_upload
-    @uploads = ServiceUpload.all
+    @serialized_data = { service_uploads: ServiceUpload.all.as_json(
+      only: [:created_at, :file_name],
+      include: {
+        services: {
+          only: [],
+          include: {
+            student: {
+              only: [:first_name, :last_name, :id]
+            }
+          }
+        }
+      })
+    }
   end
 
   def names_for_dropdown
