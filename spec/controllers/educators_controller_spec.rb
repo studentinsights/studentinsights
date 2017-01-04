@@ -67,23 +67,34 @@ describe EducatorsController, :type => :controller do
       get :districtwide_admin_homepage
     end
 
-    before { sign_in(educator) }
+    context 'educator signed in' do
 
-    context 'educator w districtwide access' do
-      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
-      it 'can access the page' do
-        make_request
-        expect(response).to be_success
+      before { sign_in(educator) }
+
+      context 'educator w districtwide access' do
+        let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+        it 'can access the page' do
+          make_request
+          expect(response).to be_success
+        end
+      end
+
+      context 'educator w/o districtwide access' do
+        let(:educator) { FactoryGirl.create(:educator) }
+        it 'cannot access the page; gets redirected' do
+          make_request
+          expect(response).to redirect_to(not_authorized_url)
+        end
       end
     end
 
-    context 'educator w/o districtwide access' do
-      let(:educator) { FactoryGirl.create(:educator) }
-      it 'cannot access the page; gets redirected' do
+    context 'not signed in' do
+      it 'redirects' do
         make_request
-        expect(response).to redirect_to(not_authorized_url)
+        expect(response).to redirect_to(new_educator_session_url)
       end
     end
+
   end
 
   describe '#names_for_dropdown' do
