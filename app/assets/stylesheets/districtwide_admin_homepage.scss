@@ -1,0 +1,80 @@
+.districtwide_admin_homepage {
+
+  #searchbar-title {
+    text-align: center;
+    padding: 30px;
+    font-size: 25px;
+    margin-top: 30px;
+    color: black;
+  }
+
+  #searchbar-icon {
+    position: relative;
+    top: 10px;
+    right: 10px;
+  }
+
+  #page-wrapper {
+    width: 80%;
+    margin: auto;
+  }
+
+  #big-searchbar {
+    height: 60px;
+    display: block;
+    font-size: 20px;
+    width: 100%;
+  }
+
+  #lower-area-wrapper {
+    margin-top: 120px;
+  }
+
+  .lower-area-column {
+    width: 50%;
+    float: left;
+  }
+
+  .lower-area-column.only-column {
+    width: 380px;
+    margin: auto;
+    float: none;
+    position: relative;
+    left: 12px;
+  }
+
+  .column-title {
+    color: black;
+    font-size: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .column-content {
+    float: left;
+    margin-left: 5px;
+  }
+
+  .prominent-link {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  #school-icon {
+    float: left;
+    position: relative;
+    top: -30px
+  }
+
+  #pliers-icon {
+    float: left;
+    position: relative;
+    top: -30px;
+    transform: rotate(50deg);
+  }
+
+  .coming-soon {
+    color: red;
+    font-size: 16px;
+  }
+}

@@ -97,10 +97,6 @@ class Educator < ActiveRecord::Base
     raise Exceptions::NoAssignedHomeroom                    # <= Logged-in educator has no assigned homeroom
   end
 
-  def default_school
-    school || School.with_students.first
-  end
-
   def has_access_to_grade_levels?
     grade_level_access.present? && grade_level_access.size > 0
   end
