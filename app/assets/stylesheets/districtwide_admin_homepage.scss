@@ -35,6 +35,12 @@
     float: left;
   }
 
+  .lower-area-column.only-column {
+    width: 380px;
+    margin: auto;
+    float: none;
+  }
+
   .column-title {
     color: black;
     font-size: 20px;

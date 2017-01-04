@@ -8,7 +8,8 @@
   <input id="big-searchbar" class="student-searchbar" />
 
   <div id="lower-area-wrapper">
-    <div class="lower-area-column">
+
+    <div class="lower-area-column <% unless current_educator.admin? %>only-column<% end %>">
       <%= image_tag 'school-icon.svg',
         width: 70, height: 70, id: 'school-icon' %>
       <div class="column-content">
@@ -27,25 +28,28 @@
       </div>
     </div>
 
-    <div class="lower-area-column">
-      <%= image_tag 'pliers-icon.svg',
-        width: 70, height: 70, id: 'pliers-icon' %>
-      <div class="column-content">
-        <h3 class="column-title">
-          Administration
-        </h3>
-        <ul>
-          <li>
-            <%= link_to 'Adjust educator permissions', admin_root_url, {
-              class: 'prominent-link'
-            } %>
-          </li>
-          <li class="prominent-link">
-            Upload student services file
-            <span class="coming-soon">(coming soon!)</span>
-          </li>
-        </ul>
+    <% if current_educator.admin? %>
+      <div class="lower-area-column">
+        <%= image_tag 'pliers-icon.svg',
+          width: 70, height: 70, id: 'pliers-icon' %>
+        <div class="column-content">
+          <h3 class="column-title">
+            Administration
+          </h3>
+          <ul>
+            <li>
+              <%= link_to 'Adjust educator permissions', admin_root_url, {
+                class: 'prominent-link'
+              } %>
+            </li>
+            <li class="prominent-link">
+              Upload student services file
+              <span class="coming-soon">(coming soon!)</span>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    <% end %>
+
   </div>
 </div>
