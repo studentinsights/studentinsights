@@ -61,6 +61,13 @@ homerooms = [
   Homeroom.create(name: "WSNS 500", grade: "5", school: wsns),
 ]
 
+ServiceUpload.create([
+  { file_name: "ReadingIntervention-2016.csv" },
+  { file_name: "ATP-2016.csv" },
+  { file_name: "SPELL-2016.csv" },
+  { file_name: "SomerSession-2016.csv" },
+])
+
 fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
 wsns_fifth_grade_educator = Educator.find_by_email('wsns@example.com')
 

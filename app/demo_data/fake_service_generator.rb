@@ -5,6 +5,7 @@ class FakeServiceGenerator
     @student = student
     @drawn_service_type_ids = Set.new
     @all_service_type_ids = ServiceType.all.map(&:id).to_set
+    @service_upload_ids = ServiceUpload.pluck(:id)
   end
 
   def next
@@ -19,7 +20,8 @@ class FakeServiceGenerator
       provided_by_educator_name: [educator.full_name, nil].sample,
       date_started: @date - rand(0..7),
       recorded_at: @date,
-      recorded_by_educator_id: Educator.all.sample.id
+      recorded_by_educator_id: Educator.all.sample.id,
+      service_upload_id: 1.in(2) ? @service_upload_ids.sample : nil
     }
   end
 end

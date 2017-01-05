@@ -22,6 +22,13 @@
       paddingTop: 5,
       paddingLeft: 30,
       paddingBottom: 20
-    }
+    },
+
+    link: {
+      color: '#4A90E2',
+      cursor: 'pointer',
+      fontSize: 16
+    },
+
   };
 })();
