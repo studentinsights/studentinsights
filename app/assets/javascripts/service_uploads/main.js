@@ -1,17 +1,17 @@
 $(function() {
   // only run if the correct page
-  if (!($('body').hasClass('educators') &&
-        $('body').hasClass('bulk_services_upload'))) return;
+  if (!($('body').hasClass('service_uploads') &&
+        $('body').hasClass('index'))) return;
 
   var createEl = window.shared.ReactHelpers.createEl;
-  var BulkServicesPage = window.shared.BulkServicesPage;
+  var ServiceUploadsPage = window.shared.ServiceUploadsPage;
   var MixpanelUtils = window.shared.MixpanelUtils;
 
   var serializedData = $('#serialized-data').data();
   MixpanelUtils.registerUser(serializedData.currentEducator);
-  MixpanelUtils.track('PAGE_VISIT', { page_key: 'BULK_SERVICES_PAGE' });
+  MixpanelUtils.track('PAGE_VISIT', { page_key: 'SERVICE_UPLOADS_PAGE' });
 
-  ReactDOM.render(createEl(BulkServicesPage, {
+  ReactDOM.render(createEl(ServiceUploadsPage, {
     serializedData: serializedData,
   }), document.getElementById('main'));
 });

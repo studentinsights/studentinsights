@@ -98,6 +98,8 @@
   //= require_tree ./student_profile
 // restricted notes
   //= require ./restricted_notes/restricted_notes_page_container
+// bulk services:
+  //= require ./service_uploads/service_type_dropdown
 
 //= require_tree ./roster
 //= require_tree ./school_overview

@@ -97,42 +97,6 @@ describe EducatorsController, :type => :controller do
 
   end
 
-  describe '#bulk_services_upload' do
-    def make_request
-      request.env['HTTPS'] = 'on'
-      get :bulk_services_upload
-    end
-
-    context 'educator signed in' do
-
-      before { sign_in(educator) }
-
-      context 'educator w districtwide access' do
-        let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
-        it 'can access the page' do
-          make_request
-          expect(response).to be_success
-        end
-      end
-
-      context 'educator w/o districtwide access' do
-        let(:educator) { FactoryGirl.create(:educator) }
-        it 'cannot access the page; gets redirected' do
-          make_request
-          expect(response).to redirect_to(not_authorized_url)
-        end
-      end
-    end
-
-    context 'not signed in' do
-      it 'redirects' do
-        make_request
-        expect(response).to redirect_to(new_educator_session_url)
-      end
-    end
-
-  end
-
   describe '#names_for_dropdown' do
     def make_request(student)
       request.env['HTTPS'] = 'on'

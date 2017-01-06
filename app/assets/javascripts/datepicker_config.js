@@ -1,6 +1,8 @@
 $(function() {
 
-  if ($('body').hasClass('students') || $('body').hasClass('homerooms')) {
+  if ($('body').hasClass('students')  ||
+      $('body').hasClass('homerooms') ||
+      $('body').hasClass('service_uploads')) {
 
     window.datepicker_options = {
       showOn: "button",
