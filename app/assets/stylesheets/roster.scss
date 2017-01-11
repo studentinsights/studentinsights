@@ -16,10 +16,18 @@
     th:first-child {
       padding-left: 20px;
     }
+
+    th:nth-child(2) {
+      padding-left: 15em;
+    }
   }
 
   .name {
+    width: 15em;
     text-align: left;
+    position: absolute;
+    overflow-x: inherit;
+    background-color: white;
   }
 
   tbody {
@@ -36,6 +44,14 @@
 
     td:hover {
       z-index: 10;
+    }
+
+    td:first-child {
+      padding-top: 15px;
+    }
+
+    td:nth-child(2) {
+      padding-left: 15em;
     }
 
     a:link, a:visited {
@@ -147,4 +163,3 @@
   padding-bottom: 15px;
   clear: both;
 }
-
