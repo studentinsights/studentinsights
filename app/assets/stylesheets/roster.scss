@@ -26,12 +26,17 @@
     width: 15em;
     text-align: left;
     position: absolute;
-    overflow-x: inherit;
     background-color: white;
   }
 
   tbody {
     tr:hover {
+      cursor: pointer;
+      background-color: $table-row-hover;
+      border-radius: 10px;
+    }
+
+    tr:hover .name {
       cursor: pointer;
       background-color: $table-row-hover;
       border-radius: 10px;
