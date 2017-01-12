@@ -217,8 +217,7 @@ class Educator < ActiveRecord::Base
 
   def has_access_to_all_students?
     restricted_to_sped_students == false &&
-    restricted_to_english_language_learners == false &&
-    schoolwide_access == true
+    restricted_to_english_language_learners == false
   end
 
 end

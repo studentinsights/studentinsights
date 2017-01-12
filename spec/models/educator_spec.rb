@@ -32,15 +32,9 @@ RSpec.describe Educator do
       end
     end
     context 'admin without access to all students' do
-      let(:admin) { FactoryGirl.build(:educator, :admin, schoolwide_access: false) }
+      let(:admin) { FactoryGirl.build(:educator, :admin, restricted_to_sped_students: true) }
       it 'is invalid' do
         expect(admin).to be_invalid
-      end
-    end
-    context 'non-admin, no specific permissions set' do
-      let(:educator) { FactoryGirl.build(:educator) }
-      it 'is valid' do
-        expect(educator).to be_valid
       end
     end
   end
