@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     end
   end
   resources :services, only: [:destroy]
+  resources :service_types, only: [:index]
   resources :event_note_attachments, only: [:destroy]
 
   resources :homerooms, only: [:show]
