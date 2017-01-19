@@ -26,7 +26,7 @@ module SomervilleTeacherTool
     config.generators do |g|
       g.stylesheets false
       g.javascripts false
-      g.test_framework :rspec, fixture_replacement: :factory_girl
+      g.helpers false
     end
 
     console do
