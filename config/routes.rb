@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'not_authorized' => 'pages#not_authorized'
 
   get '/students/names' => 'students#names'
+  get '/students/lasids' => 'students#lasids'
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
     member do

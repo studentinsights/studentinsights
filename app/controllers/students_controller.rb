@@ -3,15 +3,23 @@ class StudentsController < ApplicationController
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
 
-  before_action :authorize!, except: [:names]   # The :names action is still subject to
-                                                # educator authentication via :authenticate_educator!
-                                                # inherited from ApplicationController.
-                                                # It then does further authorization filtering using
-                                                # current_educator.is_authorized_for_student.
+  before_action :authorize!, except: [          # The :names and lasids actions are subject to
+    :names, :lasids                             # educator authentication via :authenticate_educator!
+  ]                                             # inherited from ApplicationController.
+                                                # They then get further authorization filtering using
+                                                # The custom authorization methods below.
+
+  before_action :authorize_for_districtwide_access_admin, only: [:lasids]
 
   def authorize!
     student = Student.find(params[:id])
     raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
+  end
+
+  def authorize_for_districtwide_access_admin
+    unless current_educator.admin? && current_educator.districtwide_access?
+      render json: { error: "You don't have the correct authorization." }
+    end
   end
 
   def show
@@ -77,6 +85,12 @@ class StudentsController < ApplicationController
   def names
     students_for_searchbar = SearchbarHelper.names_for(current_educator)
     render json: students_for_searchbar
+  end
+
+  # Used by the service upload page to validate student local ids
+  # LASID => "locally assigned ID"
+  def lasids
+    render json: Student.pluck(:local_id)
   end
 
   private
