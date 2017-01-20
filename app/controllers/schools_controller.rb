@@ -148,8 +148,7 @@ class SchoolsController < ApplicationController
 
   def authorized_students_for_overview(school)
     if current_educator.districtwide_access?
-      eager_loads = [:interventions, :student_risk_level, :homeroom, :student_school_years]
-      school.students.active.includes(eager_loads)
+      school.students.active
     else
       current_educator.students_for_school_overview
     end
