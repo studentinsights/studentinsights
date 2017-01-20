@@ -36,10 +36,7 @@ class PrecomputeStudentHashesJob < Struct.new :log
 
     student_ids = educator.students_for_school_overview.map(&:id)
     return [] if student_ids.size == 0
-    return [{
-      date_timestamp: date_timestamp,
-      authorized_student_ids: educator.students_for_school_overview.map(&:id)
-    }]
+    return [{ date_timestamp: date_timestamp, authorized_student_ids: student_ids }]
   end
 
   def precompute_and_write_student_hashes!(date_timestamp, authorized_student_ids)
