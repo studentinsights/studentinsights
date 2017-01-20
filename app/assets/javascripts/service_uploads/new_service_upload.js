@@ -128,15 +128,8 @@
           color: 'red',
         },
       },
-        dom.div({
-          style: {
-            width: '80%',
-            margin: 'auto'
-          }
-        },
-          this.renderClientSideErrors(),
-          this.renderServerSideErrors()
-        )
+        this.renderClientSideErrors(),
+        this.renderServerSideErrors()
       );
     },
 
@@ -170,15 +163,15 @@
       var parsed_date_ended = moment(formData.date_ended, 'MM/DD/YYYY', true);
 
       if (!parsed_date_started.isValid()) {
-        errors.push('Start Date invalid, please use MM/DD/YYYY format.');
+        errors.push('Start date invalid, please use MM/DD/YYYY format.');
       };
 
       if (!parsed_date_ended.isValid()) {
-        errors.push('End Date invalid, please use MM/DD/YYYY format.');
+        errors.push('End date invalid, please use MM/DD/YYYY format.');
       };
 
       if (parsed_date_ended.isBefore(parsed_date_started)) {
-        errors.push('Start Date can\'t be after End Date.');
+        errors.push('Start date can\'t be after end date.');
       };
 
       if (this.props.serviceTypeNames.indexOf(this.props.formData.service_type_name) === -1) {
@@ -193,7 +186,7 @@
 
       return dom.div({},
         this.clientSideErrors().map(function (error) {
-          return dom.div({ style: { padding: 10 } }, error);
+          return dom.div({}, error);
         })
       );
     },
@@ -203,7 +196,7 @@
 
       return dom.div({},
         this.props.serverSideErrors.map(function (error) {
-          return dom.div({ style: { padding: 10 } }, error);
+          return dom.div({}, error);
         })
       );
     },
