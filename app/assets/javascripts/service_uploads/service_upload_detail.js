@@ -71,7 +71,7 @@
           dom.br({}),
           dom.button({
             className: 'btn',
-            onClick: this.props.onClickBulkDeleteServices.bind(null, this.props.data.id)
+            onClick: this.props.onClickDeleteServiceUpload.bind(null, this.props.data.id)
           }, 'Yes, confirm deletion.'),
           dom.button({
             className: 'btn',
