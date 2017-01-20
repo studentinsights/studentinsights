@@ -6,19 +6,12 @@ class SchoolsController < ApplicationController
                 :authorize
 
   def show
-    if current_educator.districtwide_access?
-      eager_loads = [:interventions, :student_risk_level, :homeroom, :student_school_years]
-      authorized_students = @school.students.active.includes(eager_loads)
-    else
-      authorized_students = current_educator.students_for_school_overview
-    end
+    authorized_students = authorized_students_for_overview(@school)
 
-    # TODO(kr) Read from cache, since this only updates daily
     student_hashes = log_timing('schools#show student_hashes') do
       load_precomputed_student_hashes(Time.now, authorized_students.map(&:id))
     end
 
-    # Read data stored StudentInsights each time, with no caching
     merged_student_hashes = log_timing('schools#show merge_mutable_fields_for_slicing') do
       merge_mutable_fields_for_slicing(student_hashes)
     end
@@ -29,6 +22,36 @@ class SchoolsController < ApplicationController
       constant_indexes: constant_indexes
     }
     render 'shared/serialized_data'
+  end
+
+  def show_fast
+    @serialized_data = {
+      school_id: @school.id,
+      current_educator: current_educator,
+      constant_indexes: constant_indexes
+    }
+
+    render 'shared/serialized_data'
+  end
+
+  def get_precomputed_hashes_for_school
+    authorized_students = authorized_students_for_overview(@school)
+
+    student_hashes = log_timing('schools#get_precomputed_hashes_for_school') do
+      load_precomputed_student_hashes(Time.now, authorized_students.map(&:id))
+    end
+
+    render json: student_hashes
+  end
+
+  def get_mutable_fields_for_school
+    authorized_students = authorized_students_for_overview(@school)
+
+    mutable_fields = log_timing('schools#get_mutable_hashes_for_school') do
+      mutable_fields_for_slicing(authorized_students.map(&:id))
+    end
+
+    render json: mutable_fields
   end
 
   def star_math
@@ -52,6 +75,7 @@ class SchoolsController < ApplicationController
   end
 
   private
+
   # This should always find a record, but if it doesn't we fall back to the
   # raw query.
   # Results an array of student_hashes.
@@ -122,4 +146,12 @@ class SchoolsController < ApplicationController
     current_educator.districtwide_access?
   end
 
+  def authorized_students_for_overview(school)
+    if current_educator.districtwide_access?
+      eager_loads = [:interventions, :student_risk_level, :homeroom, :student_school_years]
+      school.students.active.includes(eager_loads)
+    else
+      current_educator.students_for_school_overview
+    end
+  end
 end
