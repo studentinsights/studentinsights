@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ServiceUploadsController, type: :controller do
 
   describe '#create' do
-    let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+    let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
     before { sign_in(educator) }
 
     def make_post_request(params)
@@ -57,7 +57,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
           service_type_name: 'Attendance Officer',
           student_lasids: ['111', '222'],
           recorded_at: '01/19/2017',
-          date_started: '01/20/2017',
+          date_started: '04/20/2017',
           date_ended: '03/03/2017',
         }
       }
@@ -147,7 +147,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
       before { sign_in(educator) }
 
       context 'educator w districtwide access' do
-        let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+        let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
         it 'can access the page' do
           make_request
           expect(response).to be_success
@@ -158,7 +158,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
         let(:educator) { FactoryGirl.create(:educator) }
         it 'cannot access the page; gets redirected' do
           make_request
-          expect(response).to redirect_to(not_authorized_url)
+          expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })
         end
       end
     end
