@@ -19,7 +19,7 @@ class PrecomputeStudentHashesJob < Struct.new :log
   private
 
   def school_overview_precompute_jobs(date_timestamp)
-    Educator.all.flat_map { |educator| educator_to_job(educator, date_timestamp) }.uniq
+    Educator.all.flat_map { |educator| educator_to_jobs(educator, date_timestamp) }.uniq
   end
 
   # Educators with district-wide access will have different authorization
