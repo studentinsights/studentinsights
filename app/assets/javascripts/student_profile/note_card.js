@@ -24,6 +24,13 @@
       paddingLeft: 5,
       display: 'inline-block'
     },
+    noteText: {
+      marginTop: 5,
+      padding: 0,
+      fontFamily: "'Open Sans', sans-serif",
+      fontSize: 14,
+      whiteSpace: 'pre-wrap'
+    }
   };
 
   // This renders a single card for a Note of any type.
@@ -48,7 +55,9 @@
       this.props.onEventNoteAttachmentDeleted(eventNoteAttachmentId);
     },
 
-    onBlurText: function (textValue) {
+    onBlurText: function(textValue) {
+      if (!this.props.onSave) return;
+
       this.props.onSave({
         id: this.props.eventNoteId,
         eventNoteTypeId: this.props.eventNoteTypeId,
@@ -68,12 +77,27 @@
             educator: this.props.educatorsIndex[this.props.educatorId]
           }))
         ),
-        createEl(EditableTextComponent, {
-          text: this.props.text,
-          onBlurText: this.onBlurText
-        }),
+        this.renderTextArea(),
         this.renderAttachmentUrls()
       );
+    },
+
+    // If an onSave callback is provided, the text is editable.
+    // If not (eg., for older interventions), 
+    renderTextArea: function() {
+      if (this.props.onSave) {
+        return createEl(EditableTextComponent, {
+          style: styles.noteText,
+          className: 'note-text',
+          text: this.props.text,
+          onBlurText: this.onBlurText
+        });
+      } else {
+        return dom.div({
+          style: styles.noteText,
+          className: 'note-text'
+        }, this.props.text);
+      }
     },
 
     renderAttachmentUrls: function() {

@@ -1,15 +1,6 @@
 (function() {
   window.shared || (window.shared = {});
   var dom = window.shared.ReactHelpers.dom;
-  var styles = {
-    noteText: {
-      marginTop: 5,
-      padding: 0,
-      fontFamily: "'Open Sans', sans-serif",
-      fontSize: 14,
-      whiteSpace: 'pre-wrap'
-    }
-  };
 
   var sanitize = new Sanitize({
     elements: ['br', 'div', 'p']
@@ -91,7 +82,15 @@
 
     propTypes: {
       text: React.PropTypes.string.isRequired,
-      onBlurText: React.PropTypes.func.isRequired
+      onBlurText: React.PropTypes.func.isRequired,
+      className: React.PropTypes.string,
+      style: React.PropTypes.object
+    },
+
+    getDefaultProps: function() {
+      return {
+        style: {}
+      };
     },
 
     getInitialState: function() {
@@ -149,8 +148,8 @@
       return (
         dom.div({
           contentEditable: true,
-          className: 'note-text',
-          style: styles.noteText,
+          className: this.props.className,
+          style: this.props.style,
           ref: function(ref) { this.contentEditableEl = ref; }.bind(this),
           dangerouslySetInnerHTML: { __html: textToSanitizedHTML(this.state.text) },
           onInput: this.onModifyText,
