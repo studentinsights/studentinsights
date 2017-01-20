@@ -82,20 +82,48 @@
           )
         ),
         dom.br({}),
+        this.renderErrors(),
         dom.br({}),
         dom.div({ style: { width: 300, textAlign: 'center' } },
           dom.button({
             className: 'btn',
             onClick: this.props.onClickUploadButton,
-            disabled: this.props.missingRequiredFields,
+            disabled: this.disableUploadButton(),
             title: this.renderConfimationButtonHelptext(),
             style: {
               fontSize: 18,
-              background: (this.props.missingRequiredFields) ? '#ccc' : undefined,
+              background: this.disableUploadButton() ? '#ccc' : undefined,
               textAlign: 'center'
             }
-          }, this.uploadButtonText()),
-          dom.br({}),
+          }, this.uploadButtonText())
+        )
+      );
+    },
+
+    renderErrors: function () {
+      if (this.props.missingRequiredFields) return null;
+
+      if (!this.hasClientSideErrors() && !this.hasServerSideErrors()) return null;
+
+      return dom.div({
+        style: {
+          width: 300,
+          padding: '30px',
+          border: '1px dashed red',
+          marginTop: 30,
+          marginBottom: 30,
+          fontSize: 15,
+          textAlign: 'left',
+          cursor: 'pointer',
+          color: 'red',
+        },
+      },
+        dom.div({
+          style: {
+            width: '80%',
+            margin: 'auto'
+          }
+        },
           this.renderClientSideErrors(),
           this.renderServerSideErrors()
         )
@@ -112,23 +140,31 @@
       };
     },
 
-    renderClientSideErrors: function () {
-      if (this.props.missingRequiredFields) return null;   // Only show errors when all fields are full
+    disableUploadButton: function () {
+      return (this.props.missingRequiredFields || this.hasClientSideErrors());
+    },
 
+    hasClientSideErrors: function () {
+      return (this.clientSideErrors().length > 0);
+    },
+
+    hasServerSideErrors: function () {
+      return (this.props.serverSideErrors.length > 0);
+    },
+
+    clientSideErrors: function () {
       var errors = [];
+      var formData = this.props.formData;
 
-      var date_started = this.props.formData.date_started;
-      var parsed_date_started = moment(date_started, 'MM/DD/YYYY', true);
+      var parsed_date_started = moment(formData.date_started, 'MM/DD/YYYY', true);
+      var parsed_date_ended = moment(formData.date_ended, 'MM/DD/YYYY', true);
 
       if (!parsed_date_started.isValid()) {
-        errors.push('Start Date invalid. Please use MM/DD/YYYY format.');
+        errors.push('Start Date invalid, please use MM/DD/YYYY format.');
       };
 
-      var date_ended = this.props.formData.date_ended;
-      var parsed_date_ended = moment(date_ended, 'MM/DD/YYYY', true);
-
       if (!parsed_date_ended.isValid()) {
-        errors.push('End Date invalid. Please use MM/DD/YYYY format.');
+        errors.push('End Date invalid, please use MM/DD/YYYY format.');
       };
 
       if (parsed_date_ended.isBefore(parsed_date_started)) {
@@ -136,16 +172,18 @@
       };
 
       if (this.props.serviceTypeNames.indexOf(this.props.formData.service_type_name) === -1) {
-        errors.push('Please select a valid Service Type Name');
+        errors.push('Please select a valid service type.');
       };
 
-      return dom.div({
-          style: {
-            fontSize: 14, padding: '28px 14px', color: 'red', textAlign: 'left'
-          }
-        },
-        errors.map(function (error) {
-          return dom.div({ margin: 20 }, error);
+      return errors;
+    },
+
+    renderClientSideErrors: function () {
+      if (this.props.missingRequiredFields) return null;   // Only show errors when all fields are full
+
+      return dom.div({},
+        this.clientSideErrors().map(function (error) {
+          return dom.div({ style: { padding: 10 } }, error);
         })
       );
     },
@@ -153,13 +191,9 @@
     renderServerSideErrors: function () {
       if (!this.props.serverSideErrors.length === 0) return null;
 
-      return dom.div({
-          style: {
-            fontSize: 14, padding: '28px 14px', color: 'red', textAlign: 'left'
-          }
-        },
+      return dom.div({},
         this.props.serverSideErrors.map(function (error) {
-          return dom.div({ margin: 10 }, error);
+          return dom.div({ style: { padding: 10 } }, error);
         })
       );
     },
