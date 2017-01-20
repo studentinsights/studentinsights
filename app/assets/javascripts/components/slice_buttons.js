@@ -10,7 +10,7 @@
     propTypes: {
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-      filtersHash: React.PropTypes.object.isRequired,
+      filtersHash: React.PropTypes.string.isRequired,
       clearFilters: React.PropTypes.func.isRequired
     },
 
