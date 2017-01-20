@@ -70,7 +70,7 @@
             ' services?'),
           dom.br({}),
           dom.button({
-            className: 'btn',
+            className: 'btn btn-warning',
             onClick: this.props.onClickDeleteServiceUpload.bind(null, this.props.data.id)
           }, 'Yes, confirm deletion.'),
           dom.button({
