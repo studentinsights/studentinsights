@@ -19,16 +19,27 @@ class PrecomputeStudentHashesJob < Struct.new :log
   private
 
   def school_overview_precompute_jobs(date_timestamp)
-    Educator.all.map { |educator| educator_to_job(educator, date_timestamp) }.uniq.compact
+    Educator.all.flat_map { |educator| educator_to_job(educator, date_timestamp) }.uniq
   end
 
-  def educator_to_job(educator, date_timestamp)
-    return unless educator.students_for_school_overview.size > 0
+  # Educators with district-wide access will have different authorization
+  # for each school than other users.
+  def educator_to_jobs(educator, date_timestamp)
+    if educator.districtwide_access?
+      return School.all.map do |school|
+        {
+          date_timestamp: date_timestamp,
+          authorized_student_ids: school.students.active.map(&:id)
+        }
+      end
+    end
 
-    return {
+    student_ids = educator.students_for_school_overview.map(&:id)
+    return [] if student_ids.size == 0
+    return [{
       date_timestamp: date_timestamp,
       authorized_student_ids: educator.students_for_school_overview.map(&:id)
-    }
+    }]
   end
 
   def precompute_and_write_student_hashes!(date_timestamp, authorized_student_ids)
