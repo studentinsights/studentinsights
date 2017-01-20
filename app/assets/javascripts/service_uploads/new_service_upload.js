@@ -74,7 +74,7 @@
               textAlign: 'center',
               margin: 'auto'
             }
-          }, 'Select CSV to Upload'),
+          }, this.selectCsvButtonText()),
           dom.br({}),
           dom.br({}),
           dom.div({ style: { fontSize: 14, padding: '14px 28px' } },
@@ -98,6 +98,16 @@
           }, this.uploadButtonText())
         )
       );
+    },
+
+    selectCsvButtonText: function () {
+      var file_name = this.props.formData.file_name;
+
+      if (file_name) {
+        return file_name;
+      } else {
+        return 'Select CSV to Upload';
+      };
     },
 
     renderErrors: function () {
