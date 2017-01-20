@@ -17,15 +17,18 @@
       onUserTypingServiceType: React.PropTypes.func.isRequired,
       onUserSelectServiceType: React.PropTypes.func.isRequired,
 
-      // Form validation states
+      // Student LASID validation
       lasidAuthorizationError: React.PropTypes.bool.isRequired,
       studentLasidsReceivedFromBackend: React.PropTypes.bool.isRequired,
       incorrectLasids: React.PropTypes.array.isRequired,
       missingLasidHeader: React.PropTypes.bool.isRequired,
+
+      // Overall form validation
       missingRequiredFields: React.PropTypes.bool.isRequired,
       formData: React.PropTypes.object.isRequired,
       serverSideErrors: React.PropTypes.array.isRequired,
       uploadingInProgress: React.PropTypes.bool.isRequired,
+      serviceTypeNames: React.PropTypes.array.isRequired,
     },
 
     render: function () {
@@ -93,6 +96,7 @@
             }
           }, this.uploadButtonText()),
           dom.br({}),
+          this.renderClientSideErrors(),
           this.renderServerSideErrors()
         )
       );
@@ -106,6 +110,44 @@
       } else {
         return 'Confirm Upload';
       };
+    },
+
+    renderClientSideErrors: function () {
+      if (this.props.missingRequiredFields) return null;   // Only show errors when all fields are full
+
+      var errors = [];
+
+      var date_started = this.props.formData.date_started;
+      var parsed_date_started = moment(date_started, 'MM/DD/YYYY', true);
+
+      if (!parsed_date_started.isValid()) {
+        errors.push('Start Date invalid. Please use MM/DD/YYYY format.');
+      };
+
+      var date_ended = this.props.formData.date_ended;
+      var parsed_date_ended = moment(date_ended, 'MM/DD/YYYY', true);
+
+      if (!parsed_date_ended.isValid()) {
+        errors.push('End Date invalid. Please use MM/DD/YYYY format.');
+      };
+
+      if (parsed_date_ended.isBefore(parsed_date_started)) {
+        errors.push('Start Date can\'t be after End Date.');
+      };
+
+      if (this.props.serviceTypeNames.indexOf(this.props.formData.service_type_name) === -1) {
+        errors.push('Please select a valid Service Type Name');
+      };
+
+      return dom.div({
+          style: {
+            fontSize: 14, padding: '28px 14px', color: 'red', textAlign: 'left'
+          }
+        },
+        errors.map(function (error) {
+          return dom.div({ margin: 20 }, error);
+        })
+      );
     },
 
     renderServerSideErrors: function () {

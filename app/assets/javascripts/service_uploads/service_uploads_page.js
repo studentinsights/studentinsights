@@ -31,7 +31,8 @@
     },
 
     render: function() {
-      console.log('this.state', this.state)
+      console.log('this.props', this.props);
+      console.log('this.state', this.state);
       return dom.div({},
         dom.div({
           style: {
@@ -52,20 +53,26 @@
 
     renderNewServiceUploadForm: function () {
       return createEl(NewServiceUpload, {
+        // Actions
         onClickUploadButton: this.onClickUploadButton,
         onSelectStartDate: this.onSelectStartDate,
         onSelectEndDate: this.onSelectEndDate,
         onSelectFile: this.onSelectFile,
         onUserTypingServiceType: this.onUserTypingServiceType,
         onUserSelectServiceType: this.onUserSelectServiceType,
+
+        // Student LASID validation
         lasidAuthorizationError: this.state.lasidAuthorizationError,
         studentLasidsReceivedFromBackend: this.state.studentLasidsReceivedFromBackend,
         incorrectLasids: this.state.incorrectLasids,
         missingLasidHeader: this.state.missingLasidHeader,
+
+        // Overall form validation
         missingRequiredFields: this.state.missingRequiredFields,
         formData: this.state.formData,
         serverSideErrors: this.state.serverSideErrors,
         uploadingInProgress: this.state.uploadingInProgress,
+        serviceTypeNames: this.props.serializedData.serviceTypeNames,
       });
     },
 
