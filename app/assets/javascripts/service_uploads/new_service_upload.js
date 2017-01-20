@@ -76,6 +76,7 @@
             }
           }, this.selectCsvButtonText()),
           dom.br({}),
+          this.renderFileName(),
           dom.br({}),
           dom.div({ style: { fontSize: 14, padding: '14px 28px' } },
             this.renderCSVValidationMessages()
@@ -101,13 +102,21 @@
     },
 
     selectCsvButtonText: function () {
-      var file_name = this.props.formData.file_name;
-
-      if (file_name) {
-        return file_name;
+      if (this.props.formData.file_name) {
+        return 'File Selected';
       } else {
         return 'Select CSV to Upload';
       };
+    },
+
+    renderFileName: function () {
+      if (!this.props.formData.file_name) return null;
+
+      return dom.div({ style: { fontWeight: 'bold' } },
+        dom.br({}),
+        dom.br({}),
+        this.props.formData.file_name
+      );
     },
 
     renderErrors: function () {
@@ -234,6 +243,7 @@
       } else if (this.props.incorrectLasids.length > 0) {
         return dom.div({ style: { color: 'red', textAlign: 'left' }},
           'The following LASIDs do not match with any students in Insights:',
+          dom.br({}),
           dom.br({}),
           dom.ul({},
             this.props.incorrectLasids.map(function(lasid) {
