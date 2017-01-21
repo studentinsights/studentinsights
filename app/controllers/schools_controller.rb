@@ -2,8 +2,7 @@ class SchoolsController < ApplicationController
   include SerializeDataHelper
   include StudentsQueryHelper
 
-  before_action :authenticate_educator!,
-                :authorize
+  before_action :authorize
 
   def show
     authorized_students = authorized_students_for_overview(@school)
