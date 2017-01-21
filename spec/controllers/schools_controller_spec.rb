@@ -113,6 +113,24 @@ describe SchoolsController, :type => :controller do
       end
     end
 
+    context 'not logged in' do
+      let!(:school) { FactoryGirl.create(:healey) }
+
+      let!(:include_me) { FactoryGirl.create(:student, :registered_last_year, grade: '4', school: school) }
+
+      before { school.reload }
+      before { Student.update_student_school_years }
+
+      let(:serialized_data) { assigns(:serialized_data) }
+
+      it 'is successful and assigns the correct students' do
+        make_request('hea')
+
+        expect(response).to redirect_to(new_educator_session_path)
+      end
+    end
+
+
   end
 
   describe '#csv' do
