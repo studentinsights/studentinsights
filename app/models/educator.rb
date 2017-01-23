@@ -70,6 +70,12 @@ class Educator < ActiveRecord::Base
     false
   end
 
+  def is_authorized_for_school(currentSchool)
+    self.districtwide_access? ||
+    (self.schoolwide_access? && self.school == currentSchool) ||
+    (self.has_access_to_grade_levels? && self.school == currentSchool)
+  end
+
   def students_for_school_overview(*additional_includes)
     return [] unless school.present?
 

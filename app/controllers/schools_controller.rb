@@ -2,8 +2,7 @@ class SchoolsController < ApplicationController
   include SerializeDataHelper
   include StudentsQueryHelper
 
-  before_action :authenticate_educator!,
-                :authorize
+  before_action :set_school, :authorize_for_school
 
   def show
     authorized_students = authorized_students_for_overview(@school)
@@ -127,8 +126,10 @@ class SchoolsController < ApplicationController
     }
   end
 
-  def authorize
-    redirect_to(homepage_path_for_current_educator) unless educator_authorized_for_school
+  def authorize_for_school
+    unless current_educator.is_authorized_for_school(@school)
+      redirect_to(homepage_path_for_current_educator)
+    end
 
     if current_educator.has_access_to_grade_levels?
       grade_message = " Showing students in grades #{current_educator.grade_level_access.to_sentence}."
@@ -136,14 +137,10 @@ class SchoolsController < ApplicationController
     end
   end
 
-  def educator_authorized_for_school
+  def set_school
     @school = School.find_by_slug(params[:id]) || School.find_by_id(params[:id])
 
-    raise 'No school found' if @school.nil?
-
-    (current_educator.schoolwide_access? && current_educator.school == @school) ||
-    (current_educator.has_access_to_grade_levels? && current_educator.school == @school) ||
-    current_educator.districtwide_access?
+    redirect_to root_url if @school.nil?
   end
 
   def authorized_students_for_overview(school)
