@@ -51,9 +51,8 @@ describe('ServiceUploadsPage', function() {
 
       helpers.renderInto(el, props);
 
-      console.log($(el).text());
-      // expect(el).toContainText('Upload new services');
-      // expect(el).toContainText('Confirm Upload');
+      expect(el).toContainText('bulk_upload.csv'); // Renders the file name
+      expect(el).toContainText('Extra Tutoring');  // Renders the service type name
     });
 
   });
