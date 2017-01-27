@@ -19,6 +19,7 @@ class Student < ActiveRecord::Base
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
   validate :valid_grade
+  validate :registration_date_cannot_be_in_future
 
   after_create :update_student_school_years
 
@@ -26,6 +27,12 @@ class Student < ActiveRecord::Base
 
   def valid_grade
     errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
+  end
+
+  def registration_date_cannot_be_in_future
+    if registration_date && (registration_date > DateTime.now)
+      errors.add(:registration_date, "cannot be in future")
+    end
   end
 
   def self.with_school
