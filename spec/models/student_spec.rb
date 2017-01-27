@@ -2,6 +2,27 @@ require 'rails_helper'
 
 RSpec.describe Student do
 
+  describe '#registration_date_cannot_be_in_future' do
+    context 'no registration date' do
+      let(:student) { FactoryGirl.build(:student) }
+      it 'is valid' do
+        expect(student).to be_valid
+      end
+    end
+    context 'future registration date' do
+      let(:student) { FactoryGirl.build(:student, registration_date: Time.now + 1.year) }
+      it 'is invalid' do
+        expect(student).to be_invalid
+      end
+    end
+    context 'past registration date' do
+      let(:student) { FactoryGirl.build(:student, :registered_last_year) }
+      it 'is valid' do
+        expect(student).to be_valid
+      end
+    end
+  end
+
   describe '#latest_result_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
     let(:assessment_family) { "MCAS" }
