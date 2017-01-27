@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
-  get '/educators/services' => 'educators#bulk_services_upload'
 
   devise_scope :educator do
     root to: "devise/sessions#new"
@@ -35,7 +34,7 @@ Rails.application.routes.draw do
   resources :services, only: [:destroy]
   resources :service_types, only: [:index]
   resources :event_note_attachments, only: [:destroy]
-
+  resources :service_uploads, only: [:create, :index, :destroy]
   resources :homerooms, only: [:show]
 
   resources :schools, only: [:show] do

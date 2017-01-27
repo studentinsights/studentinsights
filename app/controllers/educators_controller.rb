@@ -1,9 +1,7 @@
 class EducatorsController < ApplicationController
   # Authentication by default inherited from ApplicationController.
 
-  before_action :authenticate_districtwide_access!, only: [
-    :districtwide_admin_homepage, :bulk_services_upload
-  ]
+  before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage] # Extra authentication layer, defined in ApplicationController
 
   def homepage
     redirect_to homepage_path_for_role(current_educator)
@@ -11,22 +9,6 @@ class EducatorsController < ApplicationController
 
   def districtwide_admin_homepage
     @elementary_schools = School.where(school_type: ['ES', 'ESMS'])
-  end
-
-  def bulk_services_upload
-    @serialized_data = { service_uploads: ServiceUpload.all.as_json(
-      only: [:created_at, :file_name],
-      include: {
-        services: {
-          only: [],
-          include: {
-            student: {
-              only: [:first_name, :last_name, :id]
-            }
-          }
-        }
-      })
-    }
   end
 
   def names_for_dropdown
