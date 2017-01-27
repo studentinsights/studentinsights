@@ -5,7 +5,6 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var HighchartsWrapper = window.shared.HighchartsWrapper;
-  var QuadConverter = window.shared.QuadConverter;
 
   var styles = {
     title: {
@@ -45,12 +44,14 @@
       events: React.PropTypes.array.isRequired, // array of JSON event objects.
       monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
       tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
-      titleText: React.PropTypes.string.isRequired
+      titleText: React.PropTypes.string.isRequired,
+      plotLines: React.PropTypes.array.isRequired
     },
 
     getDefaultProps: function(){
       return {
-        tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>"
+        tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
+        plotLines: []
       }
     },
 
@@ -152,16 +153,19 @@
         createEl(HighchartsWrapper, {
           chart: {type: 'column'},
           credits: false,
-          xAxis: [{
-            categories: this.lastNMonthNamesFrom(this.props.monthsBack, moment.utc()),
-          },
-          {
-            offset: 35,
-            linkedTo: 0,
-            tickPositions: _.keys(yearStartPositions).map(Number),
-            tickmarkPlacement: "on",
-            categories: yearStartPositions,
-          }],
+          xAxis: [
+            {
+              categories: this.lastNMonthNamesFrom(this.props.monthsBack, moment.utc()),
+            },
+            {
+              offset: 35,
+              linkedTo: 0,
+              tickPositions: _.keys(yearStartPositions).map(Number),
+              tickmarkPlacement: "on",
+              categories: yearStartPositions,
+            }
+          ],
+          plotLines: this.props.plotLines,
           title: {text: ''},
           yAxis: {
               min: 0,

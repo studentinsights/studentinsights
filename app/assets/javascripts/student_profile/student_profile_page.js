@@ -223,7 +223,8 @@
             disciplineIncidents: attendanceData.discipline_incidents,
             absences: attendanceData.absences,
             tardies: attendanceData.tardies,
-            student: this.props.student
+            student: this.props.student,
+            feed: this.props.feed
           });
         case 'interventions':
           return dom.div({ className: 'InterventionsDetails', style: {display: 'flex'} },
