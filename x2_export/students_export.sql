@@ -17,7 +17,10 @@ SELECT
   'free_reduced_lunch',
   'date_of_birth',
   'homeroom',
-  'school_local_id'
+  'school_local_id',
+  'gender',
+  'race',
+  'hispanic_latino'
 UNION ALL
 SELECT
   STD_ID_STATE,
@@ -37,7 +40,10 @@ SELECT
   STD_FIELDB_031, -- Free/reduced lunch status
   PSN_DOB,
   STD_HOMEROOM,
-  SKL_SCHOOL_ID
+  SKL_SCHOOL_ID,
+  PSN_GENDER_CODE,
+  PSN_RACE_VIEW,
+  PSN_HISPANIC_LATINO_IND
 FROM student
 INNER JOIN school
   ON student.STD_SKL_OID=school.SKL_OID
