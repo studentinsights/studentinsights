@@ -49,7 +49,7 @@ class ServiceUploadsController < ApplicationController
 
         discontinued_service = DiscontinuedService.new(
           service: service,
-          recorded_at: recorded_at,
+          recorded_at: date_ended,
           recorded_by_educator: current_educator,
         )
 
