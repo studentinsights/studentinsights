@@ -24,7 +24,7 @@
       history: PropTypes.history.isRequired,
       
       // for testing
-      actions: PropTypes.actions.isRequired,
+      actions: PropTypes.actions,
       api: PropTypes.api
     },
 

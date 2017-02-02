@@ -35,7 +35,8 @@
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
       actions: React.PropTypes.shape({
-        onClickSaveNotes: React.PropTypes.func.isRequired
+        onClickSaveNotes: React.PropTypes.func.isRequired,
+        onEventNoteAttachmentDeleted: React.PropTypes.func
       }),
       feed: PropTypes.feed.isRequired,
       requests: React.PropTypes.object.isRequired,
