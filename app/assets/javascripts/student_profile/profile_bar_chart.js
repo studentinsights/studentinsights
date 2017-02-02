@@ -5,7 +5,6 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var HighchartsWrapper = window.shared.HighchartsWrapper;
-  var Colors = window.shared.Colors;
 
   var styles = {
     title: {
