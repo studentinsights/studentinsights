@@ -70,13 +70,24 @@
                 }, item.caption)
               ),
               dom.td({ style: { fontSize: styles.fontSize, width: 48, textAlign: 'right', paddingRight: 8 }},
-                (item.percentage ===  0) ? '' : Math.ceil(100 * item.percentage) + '%'),
+                this.renderPercentage(item.percentage)
+              ),
               dom.td({ style: { fontSize: styles.fontSize, width: 50 } }, this.renderBar(item.percentage, 50))
             );
           }, this))
         ),
         dom.div({ style: { paddingLeft: 5 } }, this.props.children)
       );
+    },
+
+    renderPercentage: function (percentage) {
+      if (percentage === 0) {
+        return '';
+      } else if (percentage < 0.01) {
+        return '< 1%';
+      } else {
+        return Math.round(100 * percentage) + '%';
+      };
     },
 
     renderBar: function(percentage, width) {
