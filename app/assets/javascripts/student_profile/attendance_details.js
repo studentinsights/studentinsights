@@ -7,6 +7,7 @@
   var ProfileChart = window.shared.ProfileChart;
   var ProfileBarChart = window.shared.ProfileBarChart;
   var HighchartsWrapper = window.shared.HighchartsWrapper;
+  var PropTypes = window.shared.PropTypes;
 
   var styles = {
     box: {
@@ -76,7 +77,27 @@
       absences: React.PropTypes.array.isRequired,
       tardies: React.PropTypes.array.isRequired,
       disciplineIncidents: React.PropTypes.array.isRequired,
-      student: React.PropTypes.object.isRequired
+      student: React.PropTypes.object.isRequired,
+      feed: PropTypes.feed.isRequired,
+      serviceTypesIndex: React.PropTypes.object.isRequired
+    },
+
+    phaselines: function () {
+      var activeServices = this.props.feed.services.active;
+
+      var attendanceServiceTypes = [502, 503, 504, 505, 506];
+      var attendanceServices = activeServices.filter(function (service) {
+        return (attendanceServiceTypes.indexOf(service.service_type_id) > -1);
+      });
+
+      return attendanceServices.map(function (service) {
+        var serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
+
+        return {
+          momentUTC: moment.utc(service.date_started),
+          text: 'Started ' + serviceText
+        };
+      }, this);
     },
 
     render: function() {
@@ -111,7 +132,8 @@
         titleText: 'Discipline Incidents',
         id: "disciplineChart",
         monthsBack: 48,
-        tooltipTemplateString: "<span><a href='#history' style='font-size: 12px'><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></a></span>"
+        tooltipTemplateString: "<span><a href='#history' style='font-size: 12px'><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></a></span>",
+        phaselines: this.phaselines()
       });
     },
 
@@ -120,7 +142,8 @@
         events: this.props.absences,
         id: "absences",
         titleText: 'Absences',
-        monthsBack: 48
+        monthsBack: 48,
+        phaselines: this.phaselines()
       });
     },
 
@@ -129,7 +152,8 @@
         events: this.props.tardies,
         id: "tardies",
         titleText: 'Tardies',
-        monthsBack: 48
+        monthsBack: 48,
+        phaselines: this.phaselines()
       });
     },
 

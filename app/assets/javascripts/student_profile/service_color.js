@@ -1,6 +1,6 @@
 (function() {
   window.shared || (window.shared = {});
-  
+
   var Colors = {
     purple: '#e8e9fc',
     orange: '#ffe7d6',
