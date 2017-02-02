@@ -38,6 +38,7 @@
         }
       },
         dom.h1({}, 'Upload new services file'),
+        this.renderErrors(),
         dom.div({ style: { marginTop: 30 } }, 'Start Date'),
         this.renderDatepicker(this.props.onSelectStartDate),
         dom.div({ style: { marginTop: 20 } }, 'End Date'),
@@ -82,8 +83,6 @@
             this.renderCSVValidationMessages()
           )
         ),
-        dom.br({}),
-        this.renderErrors(),
         dom.br({}),
         dom.div({ style: { width: 300, textAlign: 'center' } },
           dom.button({
