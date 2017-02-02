@@ -76,25 +76,7 @@
       absences: React.PropTypes.array.isRequired,
       tardies: React.PropTypes.array.isRequired,
       disciplineIncidents: React.PropTypes.array.isRequired,
-      student: React.PropTypes.object.isRequired,
-      feed: React.PropTypes.object.isRequired
-    },
-
-    // TODO(KR) date, label
-    plotLines: function() {
-      return this.props.feed.services.active.map(function(activeService) {
-        return {
-          color: 'red',
-          dashStyle: 'longdashdot', // Style of the plot line. Default to solid
-          value: activeService.date_started,
-          width: 2, // Width of the line    
-          label: { 
-            text: 'I am a label', // Content of the label. 
-            align: 'left' // Positioning of the label. 
-            // Default to center. x: +10 // Amount of pixels the label will be repositioned according to the alignment. 
-          }
-        };
-      });
+      student: React.PropTypes.object.isRequired
     },
 
     render: function() {
@@ -129,8 +111,7 @@
         titleText: 'Discipline Incidents',
         id: "disciplineChart",
         monthsBack: 48,
-        tooltipTemplateString: "<span><a href='#history' style='font-size: 12px'><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></a></span>",
-        plotLines: this.plotLines()
+        tooltipTemplateString: "<span><a href='#history' style='font-size: 12px'><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></a></span>"
       });
     },
 
@@ -139,8 +120,7 @@
         events: this.props.absences,
         id: "absences",
         titleText: 'Absences',
-        monthsBack: 48,
-        plotLines: this.plotLines()
+        monthsBack: 48
       });
     },
 
@@ -149,8 +129,7 @@
         events: this.props.tardies,
         id: "tardies",
         titleText: 'Tardies',
-        monthsBack: 48,
-        plotLines: this.plotLines()
+        monthsBack: 48
       });
     },
 
@@ -184,6 +163,6 @@
           ? this.renderIncidents()
           : dom.div({ style: {paddingTop: 60}}, 'No Incidents')
       );
-    }
+    },
   });
 })();
