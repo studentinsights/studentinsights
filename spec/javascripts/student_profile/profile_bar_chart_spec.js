@@ -14,7 +14,7 @@ describe('ProfileBarCharts', function() {
         nowMomentUTC: moment.utc('2017-02-02T13:23:15+00:00')
       }, props || {});
       return ReactDOM.render(createEl(ProfileBarChart, mergedProps), el);
-    }
+    },
     namedEvents: function() {
       return {
         A: {occurred_at: '2015-03-13T15:13:28.176Z'},
@@ -70,9 +70,14 @@ describe('ProfileBarCharts', function() {
 
       it('works with default props', function(){
         var instance = helpers.renderInto(this.testEl);
-        var monthKeys = instance.monthKeys(props.nowMomentUTC, props.monthsBack);
+        var monthKeys = instance.monthKeys(instance.props.nowMomentUTC, instance.props.monthsBack);
         var categories = instance.yearCategories(monthKeys);
-        expect(categories).toEqual(43223);
+        expect(categories).toEqual({
+          11: '2014',
+          23: '2015',
+          35: '2016',
+          47: '2017'
+        });
       });
     });
   });

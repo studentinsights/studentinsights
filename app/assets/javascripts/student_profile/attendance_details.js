@@ -80,6 +80,7 @@
       feed: React.PropTypes.object.isRequired
     },
 
+    // TODO(KR) date, label
     plotLines: function() {
       return this.props.feed.services.active.map(function(activeService) {
         return {
