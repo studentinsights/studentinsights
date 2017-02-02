@@ -34,7 +34,7 @@
       educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       onSaveNote: React.PropTypes.func.isRequired,
-      onEventNoteAttachmentDeleted: React.PropTypes.func.isRequired
+      onEventNoteAttachmentDeleted: React.PropTypes.func
     },
 
     render: function() {

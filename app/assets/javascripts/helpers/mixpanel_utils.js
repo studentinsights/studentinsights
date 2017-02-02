@@ -20,7 +20,7 @@
         });
       }
       catch (err) {
-        console.error(err);
+        console.error(err); // eslint-disable-line no-console
       }
     },
     track: function(key, attrs) {
@@ -29,7 +29,7 @@
         return window.mixpanel.track(key, attrs);
       }
       catch (err) {
-        console.error(err);
+        console.error(err); // eslint-disable-line no-console
       }
     }
   };

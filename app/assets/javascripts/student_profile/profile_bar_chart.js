@@ -5,7 +5,6 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var HighchartsWrapper = window.shared.HighchartsWrapper;
-  var QuadConverter = window.shared.QuadConverter;
 
   var styles = {
     title: {
@@ -36,6 +35,13 @@
     }
   };
 
+  // A function that grabs a monthKey from an event that is passed in.  Should return
+  // a string in the format YYYYMMDD for the first day of the month.
+  // Used for grouping events on the chart.
+  function defaultMonthKeyFn(event) {
+    return moment.utc(event.occurred_at).date(1).format('YYYYMMDD');
+  };
+
   // Component for all charts in the profile page.
   window.shared.ProfileBarChart = React.createClass({
     displayName: 'ProfileChart',
@@ -45,123 +51,84 @@
       events: React.PropTypes.array.isRequired, // array of JSON event objects.
       monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
       tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
-      titleText: React.PropTypes.string.isRequired
+      titleText: React.PropTypes.string.isRequired,
+      plotLines: React.PropTypes.array,
+      nowMomentUTC: React.PropTypes.instanceOf(moment),
+      monthKeyFn: React.PropTypes.func
     },
 
     getDefaultProps: function(){
       return {
-        tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>"
+        tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
+        plotLines: [],
+        nowMomentUTC: moment.utc(),
+        monthKeyFn: defaultMonthKeyFn
       }
     },
 
-    renderHeader: function(title) {
-      return dom.div({ style: styles.secHead },
-        dom.h4({ style: styles.title }, title),
-        dom.span({ style: styles.navTop }, dom.a({ href: '#' }, 'Back to top'))
-      );
+    // Returns a list of monthKeys that are within the time window for this chart.
+    monthKeys: function(nowMomentUTC, monthsBack) {
+      var lastMonthMomentUTC = nowMomentUTC.clone().date(1);
+      return _.range(monthsBack, -1, -1).map(function(monthsBack) {
+        var monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
+        var monthKey = monthMomentUTC.format('YYYYMMDD');
+        return monthKey; 
+      }, this);
     },
 
-    lastNMonthNamesFrom: function(n, d){
-      // Takes in an integer and the current date as a Moment object (UTC).
-      // Returns an array of the last n month names from the first of this month.
-      // i.e. ["Jan", "Dec", "Nov"]
-
-      var first_of_current_month = d.clone().date(1)
-      var results = [];
-      for (var i = 0; i < n; i++){
-        results.splice(0, 0, first_of_current_month.format("MMM"));
-        first_of_current_month.subtract(1, 'months');
-      }
-
-      return results;
-    },
-
-    eventsToSparseArray: function(events, n, d){
-      // Takes in an array of event objects, an integer and the current date as a Moment object (UTC).
-      // Returns an array which, for each month in the range (0 -- n), contains an array of events that happened that month.
-      //
-      // If there are no events in a month, the array for that month will be empty.
-
-      var data = {};
-      _.each(events, function(event){
-        var m = moment.utc(event.occurred_at).date(1);
-
-        // Only include events from less than n months ago.
-        var first_category = d.clone().subtract(n, 'months');
-
-        if (d.diff(m, 'months') < n){
-          var category = m.diff(first_category, 'months');
-          if (data[category]){
-            data[category] = data[category].concat(event);
-          } else {
-            data[category] = [event];
-          }
-        }
+    // Given a list of monthKeys, map over that to return a list of all events that fall within
+    // that month.
+    eventsToMonthBuckets: function(monthKeys, events){
+      var eventsByMonth = _.groupBy(events, this.props.monthKeyFn);
+      return monthKeys.map(function(monthKey) {
+        return eventsByMonth[monthKey] || [];
       });
+    },
 
-      // Fill in 'holes' with empty arrays.
-      _.each(_.range(n), function(i){
-        if (!data.hasOwnProperty(i)){
-          data[i] = [];
+    // Returns HighCharts categories map, which describes how to place year captions in relation
+    // to the list of monthKeys.  Returns a map of (index into monthKeys array) -> (caption text)
+    //
+    // Example output: {3: '2014', 15: '2015'}
+    yearCategories: function(monthKeys) {
+      var categories = {};
+
+      monthKeys.forEach(function(monthKey, monthKeyIndex) {
+        var monthMomentUTC = moment.utc(monthKey);
+        var isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
+        if (isFirstMonthOfYear) {
+          categories[monthKeyIndex] = this.yearAxisCaption(monthKey);
         }
-      });
-      return _.toArray(data);
+      }, this);
+
+      return categories;
     },
 
-    getYearStartPositions: function(n, d){
-      // Takes in an integer (number of months back) and the current date as a Moment object (UTC).
-      // Returns an object mapping integer (tick position) --> string (year starting at that position).
-
-      var result = {};
-      var current_year = d.year();
-
-      // Take 12-month jumps backwards until we can't anymore.
-      n -= (d.month() + 1);
-      result[n] = current_year.toString();
-      while (n - 12 > 0){
-        n -= 12;
-        current_year -= 1;
-        result[n] = current_year.toString();
-      }
-
-      return result;
-    },
-
-    create_tooltip_formatter: function(eventsByCategory, templatestring){
-      return function(){
-        var events = eventsByCategory[this.series.data.indexOf(this.point)];
-        if (events.length == 0){
-          return false;
-        }
-
-        var htmlstring = "";
-        _.each(events, function(e){
-          htmlstring += _.template(templatestring)({e: e});
-          htmlstring += "<br>";
-        });
-        return htmlstring;
-      }
-    },
-
+    // Compute the month range that's relevant for the current date and months back we're showing
+    // on the chart.  Then map each month onto captions, and bucket the list of events into
+    // each month.
     render: function() {
-      var eventsByCategory = this.eventsToSparseArray(this.props.events, this.props.monthsBack, moment.utc());
-      var yearStartPositions = this.getYearStartPositions(this.props.monthsBack, moment.utc());
+      var monthKeys = this.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
+      var monthBuckets = this.eventsToMonthBuckets(monthKeys, this.props.events);
+      var yearCategories = this.yearCategories(monthKeys);
 
       return dom.div({ id: this.props.id, style: styles.container},
-        this.renderHeader(this.props.titleText + ', last ' + Math.ceil(this.props.monthsBack / 12) + ' years'),
+        this.renderHeader(),
         createEl(HighchartsWrapper, {
           chart: {type: 'column'},
           credits: false,
-          xAxis: [{
-            categories: this.lastNMonthNamesFrom(this.props.monthsBack, moment.utc()),
-          },
-          {
-            offset: 35,
-            linkedTo: 0,
-            tickPositions: _.keys(yearStartPositions).map(Number),
-            tickmarkPlacement: "on",
-            categories: yearStartPositions,
-          }],
+          xAxis: [
+            {
+              categories: monthKeys.map(this.monthAxisCaption)
+            },
+            {
+              offset: 35,
+              linkedTo: 0,
+              categories: yearCategories,
+              tickPositions: Object.keys(yearCategories).map(Number),
+              tickmarkPlacement: "on"
+            }
+          ],
+          plotLines: this.props.plotLines,
           title: {text: ''},
           yAxis: {
               min: 0,
@@ -170,19 +137,52 @@
               title: {text: this.props.titleText}
           },
           tooltip: {
-            formatter: this.create_tooltip_formatter(eventsByCategory, this.props.tooltipTemplateString),
+            formatter: this.createUnsafeTooltipFormatter(monthBuckets, this.props),
             useHTML: true
           },
           series: [
             {
               showInLegend: false,
-              data: eventsByCategory.map(
-                function(list){ return list.length; }
-              )
+              data: _.map(monthBuckets, 'length')
             }
           ]
         })
       );
+    },
+
+    renderHeader: function() {
+      var nYearsBack = Math.ceil(this.props.monthsBack / 12);
+      var title = this.props.titleText + ', last ' + nYearsBack + ' years';
+
+      return dom.div({ style: styles.secHead },
+        dom.h4({ style: styles.title }, title),
+        dom.span({ style: styles.navTop }, dom.a({ href: '#' }, 'Back to top'))
+      );
+    },
+
+    // This returns a function, since HighCharts passes in the current element
+    // as `this` instead of a parameter.
+    createUnsafeTooltipFormatter: function(monthBuckets, props){
+      return function() {
+        var graphPointIndex = this.series.data.indexOf(this.point);
+        var events = monthBuckets[graphPointIndex];
+        if (events.length == 0) return false;
+
+        var htmlstring = "";
+        _.each(events, function(e){
+          htmlstring += _.template(props.tooltipTemplateString)({e: e});
+          htmlstring += "<br>";
+        });
+        return htmlstring;
+      }
+    },
+
+    monthAxisCaption: function(monthKey) {
+      return moment.utc(monthKey).format('MMM');
+    },
+
+    yearAxisCaption: function(monthKey) {
+      return moment.utc(monthKey).format('YYYY');
     }
   });
 })();

@@ -23,7 +23,17 @@ describe('PageContainer', function() {
         onColumnClicked: jasmine.createSpy('onColumnClicked'),
         onClickSaveNotes: jasmine.createSpy('onClickSaveNotes'),
         onClickSaveService: jasmine.createSpy('onClickSaveService'),
-        onClickDiscontinueService: jasmine.createSpy('onClickDiscontinueService')
+        onClickDiscontinueService: jasmine.createSpy('onClickDiscontinueService'),
+        onDeleteEventNoteAttachment: jasmine.createSpy('onDeleteEventNoteAttachment')
+      };
+    },
+
+    createSpyApi: function() {
+      return {
+        saveNotes: jasmine.createSpy('saveNotes'),
+        deleteEventNoteAttachment: jasmine.createSpy('deleteEventNoteAttachment'),
+        saveService: jasmine.createSpy('saveService'),
+        discontinueService: jasmine.createSpy('discontinueService')
       };
     },
 
@@ -32,7 +42,9 @@ describe('PageContainer', function() {
         nowMomentFn: function() { return Fixtures.nowMoment; },
         serializedData: Fixtures.studentProfile,
         queryParams: {},
-        history: SpecSugar.history()
+        history: SpecSugar.history(),
+        actions: helpers.createSpyActions(),
+        api: helpers.createSpyApi()
       });
       return ReactDOM.render(createEl(PageContainer, mergedProps), el);
     },
@@ -99,7 +111,7 @@ describe('PageContainer', function() {
 
     it('can save notes for SST meetings, mocking the action handlers', function() {
       var el = this.testEl;
-      var component = helpers.renderInto(el, { actions: helpers.createSpyActions() });
+      var component = helpers.renderInto(el);
       helpers.takeNotesAndSave(el, {
         eventNoteTypeText: 'SST Meeting',
         text: 'hello!'
@@ -114,7 +126,7 @@ describe('PageContainer', function() {
 
     it('can edit notes for SST meetings, mocking the action handlers', function() {
       var el = this.testEl;
-      var component = helpers.renderInto(el, { actions: helpers.createSpyActions() });
+      var component = helpers.renderInto(el);
       helpers.editNoteAndSave(el, {
         eventNoteTypeText: 'SST Meeting',
         text: 'world!'
@@ -131,6 +143,8 @@ describe('PageContainer', function() {
       var el = this.testEl;
       var component = helpers.renderInto(el, {});
 
+      // Simulate that the server call is still pending
+      component.props.api.saveService.and.returnValue($.Deferred());
       component.onClickSaveService({
         providedByEducatorName: 'badinput'
       });
@@ -152,7 +166,7 @@ describe('PageContainer', function() {
     // which changed in 1.0.0, this needs to be updated.
     // it('can save an Attendance Contract service, mocking the action handlers', function() {
     //   var el = this.testEl;
-    //   var component = helpers.renderInto(el, { actions: helpers.createSpyActions() });
+    //   var component = helpers.renderInto(el);
     //   helpers.recordServiceAndSave(el, {
     //     serviceText: 'Attendance Contract',
     //     educatorText: 'fake-fifth-grade',

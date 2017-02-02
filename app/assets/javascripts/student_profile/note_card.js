@@ -34,7 +34,7 @@
   };
 
   // This renders a single card for a Note of any type.
-  var NoteCard = window.shared.NoteCard = React.createClass({
+  window.shared.NoteCard = React.createClass({
     displayName: 'NoteCard',
 
     propTypes: {
@@ -115,17 +115,25 @@
                 marginTop: 20
               }
             }, attachment.url),
-            dom.a({
-              onClick: this.onDeleteAttachmentClicked.bind(this, attachment.id),
-              style: {
-                display: 'inline-block',
-                marginLeft: 10
-              }
-            }, '(remove)')
+            this.renderRemoveAttachmentLink(attachment)
           )
-        )
+        );
       }, this);
     },
 
+    // Can only remove attachments if callback is provided
+    renderRemoveAttachmentLink: function(attachment) {
+      if (!this.props.onEventNoteAttachmentDeleted) return null;
+
+      return (
+        dom.a({
+          onClick: this.onDeleteAttachmentClicked.bind(this, attachment.id),
+          style: {
+            display: 'inline-block',
+            marginLeft: 10
+          }
+        }, '(remove)')
+      );
+    }
   });
 })();

@@ -67,6 +67,8 @@
         .fail(this.onSaveNotesFail);
     },
 
+    // TODO(kr) suspect bug here with merging in notes.  Should factor out this
+    // code from `PageContainer` and re-use here.
     onSaveNotesDone: function(response) {
       var updatedEventNotes = this.state.feed.event_notes.concat([response]);
       var updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
