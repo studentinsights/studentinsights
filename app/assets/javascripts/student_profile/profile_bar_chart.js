@@ -52,7 +52,7 @@
       monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
       tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
       titleText: React.PropTypes.string.isRequired,
-      plotLines: React.PropTypes.array.isRequired,
+      plotLines: React.PropTypes.array,
       nowMomentUTC: React.PropTypes.instanceOf(moment),
       monthKeyFn: React.PropTypes.func
     },
