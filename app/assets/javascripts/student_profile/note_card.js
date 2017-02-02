@@ -34,7 +34,7 @@
   };
 
   // This renders a single card for a Note of any type.
-  var NoteCard = window.shared.NoteCard = React.createClass({
+  window.shared.NoteCard = React.createClass({
     displayName: 'NoteCard',
 
     propTypes: {
@@ -123,7 +123,7 @@
               }
             }, '(remove)')
           )
-        )
+        );
       }, this);
     },
 

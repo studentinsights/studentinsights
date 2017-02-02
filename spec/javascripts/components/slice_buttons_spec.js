@@ -16,7 +16,7 @@ describe('SliceButtons', function() {
       var mergedProps = merge({
         students: [],
         filters: [],
-        filtersHash: {},
+        filtersHash: '',
         clearFilters: jasmine.createSpy('clearFilters')
       }, props || {});
       return ReactDOM.render(createEl(SliceButtons, mergedProps), el);
