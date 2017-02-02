@@ -70,7 +70,7 @@
                 }, item.caption)
               ),
               dom.td({ style: { fontSize: styles.fontSize, width: 48, textAlign: 'right', paddingRight: 8 }},
-                (item.percentage ===  0) ? '' : Math.ceil(100 * item.percentage) + '%'),
+                (item.percentage ===  0) ? '' : Math.round(100 * item.percentage) + '%'),
               dom.td({ style: { fontSize: styles.fontSize, width: 50 } }, this.renderBar(item.percentage, 50))
             );
           }, this))
