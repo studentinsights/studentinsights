@@ -5,6 +5,7 @@
   var merge = window.shared.ReactHelpers.merge;
 
   var HighchartsWrapper = window.shared.HighchartsWrapper;
+  var Colors = window.shared.Colors;
 
   var styles = {
     title: {
@@ -52,15 +53,15 @@
       monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
       tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
       titleText: React.PropTypes.string.isRequired,
-      plotLines: React.PropTypes.array,
       nowMomentUTC: React.PropTypes.instanceOf(moment),
-      monthKeyFn: React.PropTypes.func
+      monthKeyFn: React.PropTypes.func,
+      phaselines: React.PropTypes.array
     },
 
     getDefaultProps: function(){
       return {
         tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
-        plotLines: [],
+        phaselines: [],
         nowMomentUTC: moment.utc(),
         monthKeyFn: defaultMonthKeyFn
       }
@@ -72,7 +73,7 @@
       return _.range(monthsBack, -1, -1).map(function(monthsBack) {
         var monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
         var monthKey = monthMomentUTC.format('YYYYMMDD');
-        return monthKey; 
+        return monthKey;
       }, this);
     },
 
@@ -118,7 +119,8 @@
           credits: false,
           xAxis: [
             {
-              categories: monthKeys.map(this.monthAxisCaption)
+              categories: monthKeys.map(this.monthAxisCaption),
+              plotLines: this.makePlotlines(monthKeys)
             },
             {
               offset: 35,
@@ -128,7 +130,6 @@
               tickmarkPlacement: "on"
             }
           ],
-          plotLines: this.props.plotLines,
           title: {text: ''},
           yAxis: {
               min: 0,
@@ -148,6 +149,24 @@
           ]
         })
       );
+    },
+
+    makePlotlines: function (monthKeys) {
+      return this.props.phaselines.map(function(phaseline) {
+        var phaselineMonthKey = phaseline.momentUTC.clone().date(1).format('YYYYMMDD');
+        var monthIndex = monthKeys.indexOf(phaselineMonthKey);
+
+        return {
+          color: '#ccc',
+          value: monthIndex,
+          width: 2,
+          zIndex: 10,
+          label: {
+            text: phaseline.text,
+            align: 'left',
+          }
+        };
+      });
     },
 
     renderHeader: function() {
