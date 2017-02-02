@@ -179,6 +179,21 @@ You can also run them from the command line:
 teaspoon
 ```
 
+[eslint](http://eslint.org/) is setup, but not in the build yet since it would take some cleanup.  See https://github.com/studentinsights/studentinsights/pull/637 for more information, and try this out with either:
+
+```
+docker-compose build tools
+docker-compose run tools
+```
+
+or 
+
+```
+cd scripts/tools
+npm install
+npm run lint-quiet
+```
+
 ## 5. Write code!
 This project is a Rails app and has a typical Rails project structure.  If you'd like to get up to speed on Rails, we recommend checking out their [great documentation](http://guides.rubyonrails.org/).
 

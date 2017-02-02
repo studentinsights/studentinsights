@@ -9,7 +9,7 @@ $(function() {
         window.location.pathname = '/students/' + ui.item.id;
       },
     });
-  };
+  }
 
   function downloadStudentNames () {
     $.get({
@@ -21,16 +21,16 @@ $(function() {
           window.sessionStorage.student_names_cache = JSON.stringify(data);
         } else {
           throw 'no session storage';
-        };
+        }
       }
     });
-  };
+  }
 
   if ($('.student-searchbar').length > 0) {
     if (!(window.sessionStorage)) {
       downloadStudentNames();       // Query for names if we have no local storage
       throw 'no session storage';   // Let rollbar know we're not caching
-    };
+    }
 
     var namesCache = window.sessionStorage.student_names_cache;
 
@@ -38,6 +38,6 @@ $(function() {
 
     return downloadStudentNames();  // Student names haven't cached yet,
                                     // so let's download and cache them
-  };
+  }
 
 });

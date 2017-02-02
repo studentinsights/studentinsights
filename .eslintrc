@@ -2,6 +2,11 @@
   "env": {
     "browser": true
   },
+  "globals": {
+    "_": true,
+    "$": true,
+    "React": true
+  },
   "plugins": [
     "react"
   ],

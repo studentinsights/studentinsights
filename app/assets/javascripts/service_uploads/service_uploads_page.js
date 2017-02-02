@@ -31,8 +31,6 @@
     },
 
     render: function() {
-      console.log('this.props', this.props);
-      console.log('this.state', this.state);
       return dom.div({},
         dom.div({
           style: {
