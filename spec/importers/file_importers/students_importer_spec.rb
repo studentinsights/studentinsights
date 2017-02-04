@@ -39,10 +39,12 @@ RSpec.describe StudentsImporter do
           expect(first_student.date_of_birth).to eq DateTime.new(1998, 7, 15)
           expect(first_student.race).to eq 'Black'
           expect(first_student.hispanic_latino).to eq false
+          expect(first_student.gender).to eq 'F'
 
           second_student = Student.find_by_state_id('1000000002')
           expect(second_student.race).to eq 'White'
           expect(second_student.hispanic_latino).to eq true
+          expect(second_student.gender).to eq 'F'
         end
 
       end
