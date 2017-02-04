@@ -33,11 +33,11 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
     student.enrollment_status = 'High School'
     student.grade = 'HS'
     student.school = nil
-    student.save!
+    student.save
   end
 
   def handle_elementary_student(student, row)
-    if student.save!
+    if student.save
       assign_student_to_homeroom(student, row[:homeroom])
       student.create_student_risk_level!
     end
