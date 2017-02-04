@@ -42,14 +42,15 @@ class FakeStudent
       date_of_birth: fake_date_of_birth,
       enrollment_status: enrollment_status,
       grade: @homeroom.grade,
-      hispanic_latino: [true, false].sample,
-      race: ["A", "B", "H", "W"].sample,
       first_name: DISNEY_FIRST_NAMES.sample,
       last_name: DISNEY_LAST_NAMES.sample,
       local_id: unique_local_id,
       limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "FLEP"].sample,
       free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample,
-      home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample
+      home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample,
+      race: ['Black', 'White', 'Asian'].sample,
+      hispanic_latino: [true, false].sample,
+      gender: ['M', 'F'].sample,
     }
   end
 
