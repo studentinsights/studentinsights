@@ -74,7 +74,9 @@ RSpec.describe StudentsImporter do
       context 'missing state id' do
         let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '1', homeroom: '101' } }
         it 'raises an error' do
-          expect{ described_class.new.import_row(row) }.to raise_error ActiveRecord::RecordInvalid
+          expect{ described_class.new.import_row(row) }.not_to raise_error
+
+          # TODO -- expect it to notify us or print something out ...
         end
       end
     end
