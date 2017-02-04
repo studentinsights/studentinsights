@@ -43,6 +43,9 @@
         this.renderDisabilityTable(),
         this.renderSimpleTable('Low Income', 'free_reduced_lunch', { limit: 4 }),
         this.renderSimpleTable('LEP', 'limited_english_proficiency', { limit: 3 })
+        this.renderSimpleTable('Race', 'race', { limit: 3 })
+        this.renderSimpleTable('Hispanic/Latino', 'hispanic_latino', { limit: 3 })
+        this.renderSimpleTable('Gender', 'gender', { limit: 3 })
       );
     },
 
