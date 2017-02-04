@@ -56,7 +56,7 @@ describe('SlicePanels', function() {
       expect($(el).find('.SlicePanels').length).toEqual(1);
       expect($(el).find('.column').length).toEqual(6);
       expect(helpers.columnTitlesMatrix(el)).toEqual([
-        [ 'Disability', 'Low Income', 'LEP' ],
+        [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
         [ 'Grade', 'Years enrolled', 'Risk level' ],
         [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
         [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
@@ -73,7 +73,7 @@ describe('SlicePanels', function() {
       });
 
       expect(helpers.rowsPerColumnMatrix(el)).toEqual([
-        [ 5, 1, 1 ],
+        [ 5, 1, 1, 2, 2, 0 ],
         [ 1, 1, 5 ],
         [ 5, 5, 5 ],
         [ 5, 5, 5 ],
