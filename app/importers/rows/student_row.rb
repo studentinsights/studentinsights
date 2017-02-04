@@ -61,6 +61,7 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       date_of_birth: row[:date_of_birth],
       race: row[:race],
       hispanic_latino: row[:hispanic_latino],
+      gender: row[:gender],
     }
   end
 
