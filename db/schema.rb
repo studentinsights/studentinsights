@@ -332,6 +332,7 @@ ActiveRecord::Schema.define(version: 20170204021435) do
     t.string   "enrollment_status"
     t.datetime "date_of_birth"
     t.integer  "risk_level"
+    t.string   "gender"
   end
 
   add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree
