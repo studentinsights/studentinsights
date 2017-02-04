@@ -1,6 +1,7 @@
 (function() {
-
   window.shared || (window.shared = {});
+
+  var FixedTable = window.shared.FixedTable;
   var CollapsableTable = window.shared.CollapsableTable;
   var styles = window.shared.styles;
   var colors = window.shared.colors;
@@ -42,10 +43,18 @@
       return dom.div({ className: 'column' },
         this.renderDisabilityTable(),
         this.renderSimpleTable('Low Income', 'free_reduced_lunch', { limit: 4 }),
-        this.renderSimpleTable('LEP', 'limited_english_proficiency', { limit: 3 })
-        this.renderSimpleTable('Race', 'race', { limit: 3 })
-        this.renderSimpleTable('Hispanic/Latino', 'hispanic_latino', { limit: 3 })
-        this.renderSimpleTable('Gender', 'gender', { limit: 3 })
+        this.renderSimpleTable('LEP', 'limited_english_proficiency', { limit: 3 }),
+        this.renderSimpleTable('Race', 'race', {}),
+        createEl(FixedTable, {
+          onFilterToggled: this.props.onFilterToggled,
+          filters: this.props.filters,
+          title: 'Hispanic/Latino',
+          items: [
+            this.createItem('Yes', Filters.Equal('hispanic_latino', true)),
+            this.createItem('No', Filters.Equal('hispanic_latino', false)),
+          ]
+        }),
+        this.renderSimpleTable('Gender', 'gender', {})
       );
     },
 
