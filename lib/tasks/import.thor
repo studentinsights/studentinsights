@@ -52,6 +52,10 @@ class Import
         @report ||= ImportTaskReport.new(models, log)
       end
 
+      def record
+        @record ||= ImportRecord.create(time_started: DateTime.current)
+      end
+
       def importers(sources = options["source"])
         sources.map { |s| SOURCE_IMPORTERS.fetch(s, nil) }.compact.uniq
       end
@@ -63,6 +67,10 @@ class Import
 
     def load_rails
       require File.expand_path("../../../config/environment.rb", __FILE__) unless options["test_mode"]
+    end
+
+    def set_up_initial_record
+      record
     end
 
     def print_initial_report
@@ -89,6 +97,8 @@ class Import
     end
 
     def print_final_report
+      record.time_ended = DateTime.current
+      record.save
       report.print_final_report
     end
   end
