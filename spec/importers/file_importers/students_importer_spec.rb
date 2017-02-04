@@ -40,9 +40,9 @@ RSpec.describe StudentsImporter do
           expect(first_student.race).to eq 'Black'
           expect(first_student.hispanic_latino).to eq false
 
-          second = Student.find_by_state_id('1000000002')
-          expect(first_student.race).to eq 'White'
-          expect(first_student.hispanic_latino).to eq true
+          second_student = Student.find_by_state_id('1000000002')
+          expect(second_student.race).to eq 'White'
+          expect(second_student.hispanic_latino).to eq true
         end
 
       end
