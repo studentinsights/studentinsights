@@ -13,14 +13,15 @@ RSpec.describe Import do
     let(:commands) { Import::Start.start(%w[--test-mode]) }
 
     it 'invokes all the commands and returns the correct kind of values' do
-      expect(commands[1]).to eq nil
-      expect(commands[2]).to eq ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS']
-      expect(commands[3]).to be_a Array
-      expect(commands[4]).to eq []
-      expect(commands[5]).to eq nil
+      expect(commands[1]).to be_a ImportRecord
+      expect(commands[2]).to eq nil
+      expect(commands[3]).to eq ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS']
+      expect(commands[4]).to be_a Array
+      expect(commands[5]).to eq []
+      expect(commands[6]).to eq nil
     end
 
-    let(:file_importers) { commands[3] }
+    let(:file_importers) { commands[4] }
     let(:log_destination) { LogHelper::Redirect.instance.file }
     let(:expected_file_importer_arguments) {
       [
