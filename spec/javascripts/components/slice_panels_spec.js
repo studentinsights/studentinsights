@@ -73,7 +73,7 @@ describe('SlicePanels', function() {
       });
 
       expect(helpers.rowsPerColumnMatrix(el)).toEqual([
-        [ 5, 1, 1, 2, 2, 0 ],
+        [ 5, 1, 1, 2, 3, 0 ],
         [ 1, 1, 5 ],
         [ 5, 5, 5 ],
         [ 5, 5, 5 ],

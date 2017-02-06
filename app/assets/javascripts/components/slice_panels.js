@@ -52,6 +52,7 @@
           items: [
             this.createItem('Yes', Filters.Equal('hispanic_latino', true)),
             this.createItem('No', Filters.Equal('hispanic_latino', false)),
+            this.createItem('None', Filters.Equal('hispanic_latino', null)),
           ]
         }),
         this.renderSimpleTable('Gender', 'gender', {})
