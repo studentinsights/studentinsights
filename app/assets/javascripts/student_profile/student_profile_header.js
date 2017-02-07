@@ -96,6 +96,8 @@
     dateOfBirth: function () {
       var student =  this.props.student;
       var momentDOB = moment.utc(student.date_of_birth);
+      if (!momentDOB) return null;
+
       var ageInWords = ' (' + moment().diff(momentDOB, 'years') + ' years old)';
 
       return dom.span({ style: styles.subtitleItem },
