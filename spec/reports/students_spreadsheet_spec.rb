@@ -25,7 +25,7 @@ RSpec.describe StudentsSpreadsheet do
     describe '#flat_row_hash' do
       it 'creates expected fields' do
         flat_row_hash = StudentsSpreadsheet.new.send(:flat_row_hash, school.students.first, ServiceType.all)
-        expect(flat_row_hash.keys).to eq([
+        expect(flat_row_hash.keys.sort).to eq([
            "id",
            "grade",
            "free_reduced_lunch",
@@ -63,6 +63,7 @@ RSpec.describe StudentsSpreadsheet do
            "Attendance Officer (active_service_date_started)",
            "Attendance Contract (active_service_date_started)",
            "Behavior Contract (active_service_date_started)",
+           "Community Schools (active_service_date_started)",
            "Counseling, in-house (active_service_date_started)",
            "Counseling, outside (active_service_date_started)",
            "Reading intervention (active_service_date_started)",
@@ -74,7 +75,9 @@ RSpec.describe StudentsSpreadsheet do
            "SST Meeting (last_event_note_recorded_at)",
            "MTSS Meeting (last_event_note_recorded_at)",
            "Parent conversation (last_event_note_recorded_at)",
-           "Something else (last_event_note_recorded_at)"]
+           "Something else (last_event_note_recorded_at)",
+           "X-Block (active_service_date_started)",
+         ].sort
         )
       end
     end

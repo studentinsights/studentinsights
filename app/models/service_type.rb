@@ -15,6 +15,8 @@ class ServiceType < ActiveRecord::Base
       { id: 510, name: 'Summer Program for English Language Learners' },
       { id: 511, name: 'Afterschool Tutoring' },
       { id: 512, name: 'Freedom School' },
+      { id: 513, name: 'Community Schools' },
+      { id: 514, name: 'X-Block' },
     ])
   end
 

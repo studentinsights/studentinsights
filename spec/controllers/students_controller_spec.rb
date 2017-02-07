@@ -68,6 +68,8 @@ describe StudentsController, :type => :controller do
             510 => {:id=>510, :name=>"Summer Program for English Language Learners"},
             511 => {:id=>511, :name=>"Afterschool Tutoring"},
             512 => {:id=>512, :name=>"Freedom School"},
+            513 => {:id=>513, :name=>"Community Schools"},
+            514 => {:id=>514, :name=>"X-Block"},
           })
 
           expect(serialized_data[:event_note_types_index]).to eq({
