@@ -119,6 +119,7 @@
       "hispanic_latino": false,
       "race": "A",
       "free_reduced_lunch": "Not Eligible",
+      "date_of_birth": "2008-05-23T00:00:00.000Z",
       "created_at": "2016-02-11T14:41:52.437Z",
       "updated_at": "2016-02-11T14:41:59.433Z",
       "homeroom_id": 2,
