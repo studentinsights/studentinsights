@@ -20,13 +20,15 @@ describe ServiceTypesController, :type => :controller do
            "Attendance Contract",
            "Attendance Officer",
            "Behavior Contract",
+           "Community Schools",
            "Counseling, in-house",
            "Counseling, outside",
            "Freedom School",
            "Math intervention",
            "Reading intervention",
            "SomerSession",
-           "Summer Program for English Language Learners"
+           "Summer Program for English Language Learners",
+           "X-Block"
           ]
       end
     end
