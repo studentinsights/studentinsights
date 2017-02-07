@@ -99,7 +99,7 @@
       var ageInWords = ' (' + moment().diff(momentDOB, 'years') + ' years old)';
 
       return dom.span({ style: styles.subtitleItem },
-        momentDOB.format('D/M/YYYY'), ageInWords
+        momentDOB.format('M/D/YYYY'), ageInWords
       );
     },
 
