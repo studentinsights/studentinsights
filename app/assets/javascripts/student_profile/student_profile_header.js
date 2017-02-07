@@ -14,10 +14,15 @@
     },
     nameTitle: {
       fontSize: 28,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      marginRight: 5
     },
     titleItem: {
       fontSize: 24,
+      padding: 5
+    },
+    subtitleItem: {
+      fontSize: 22,
       padding: 5
     }
   };
@@ -43,16 +48,18 @@
           }, student.first_name + ' ' + student.last_name),
           dom.div({ style: { display: 'inline-block' } },
             this.bulletSpacer(),
+            dom.a({
+              href: Routes.school(student.school_id),
+              style: styles.subtitleItem
+            }, student.school_name),
+            this.bulletSpacer(),
             this.homeroomOrEnrollmentStatus(),
             this.bulletSpacer(),
             dom.span({
-              style: styles.titleItem
+              style: styles.subtitleItem
             }, 'Grade ' + student.grade),
             this.bulletSpacer(),
-            dom.a({
-              href: Routes.school(student.school_id),
-              style: styles.titleItem
-            }, student.school_name)
+            this.dateOfBirth()
           )
         ),
         dom.div({
@@ -70,7 +77,7 @@
     },
 
     bulletSpacer: function() {
-      return dom.span({ style: styles.titleItem }, '•');
+      return dom.span({ style: styles.subtitleItem }, '•');
     },
 
     homeroomOrEnrollmentStatus: function() {
@@ -79,12 +86,22 @@
         return dom.a({
           className: 'homeroom-link',
           href: Routes.homeroom(student.homeroom_id),
-          style: styles.titleItem
+          style: styles.subtitleItem
         }, 'Homeroom ' + student.homeroom_name);
       } else {
-        return dom.span({ style: styles.titleItem }, student.enrollment_status);
+        return dom.span({ style: styles.subtitleItem }, student.enrollment_status);
       }
-    }
+    },
+
+    dateOfBirth: function () {
+      var student =  this.props.student;
+      var momentDOB = moment.utc(student.date_of_birth);
+      var ageInWords = ' (' + moment().diff(momentDOB, 'years') + ' years old)';
+
+      return dom.span({ style: styles.subtitleItem },
+        momentDOB.format('D/M/YYYY'), ageInWords
+      );
+    },
 
   });
 })();
