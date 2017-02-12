@@ -116,8 +116,6 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'not logged in' do
-      before { with_signed_out_user! }
-
       let!(:event_note_type) { EventNoteType.first }
       let!(:student) { FactoryGirl.create(:student, school: school) }
       let(:post_params) {
@@ -132,7 +130,7 @@ describe EventNotesController, :type => :controller do
 
       it 'creates a new event note' do
         make_post_request(student, { text: 'foo' })
-        expect(response.status).to eq 403
+        expect(response.status).to eq 401
 
         expect { make_post_request(student, post_params) }.to change(EventNote, :count).by 0
       end

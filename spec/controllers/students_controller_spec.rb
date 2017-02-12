@@ -23,7 +23,10 @@ describe StudentsController, :type => :controller do
 
     def make_request(options = { student_id: nil, format: :html })
       request.env['HTTPS'] = 'on'
-      get :show, id: options[:student_id], format: options[:format]
+      get :show, params: {
+        id: options[:student_id],
+        format: options[:format]
+      }
     end
 
     context 'when educator is not logged in' do
@@ -232,7 +235,11 @@ describe StudentsController, :type => :controller do
 
     def make_post_request(student, service_params = {})
       request.env['HTTPS'] = 'on'
-      post :service, params: { format: :json, id: student.id, service: service_params }
+      post :service, params: {
+        format: :json,
+        id: student.id,
+        service: service_params
+      }
     end
 
     context 'admin educator logged in' do
@@ -404,7 +411,7 @@ describe StudentsController, :type => :controller do
 
     def make_request(student)
       request.env['HTTPS'] = 'on'
-      get :restricted_notes, id: student.id
+      get :restricted_notes, params: { id: student.id }
     end
 
     context 'when educator is logged in' do
@@ -487,7 +494,10 @@ describe StudentsController, :type => :controller do
 
     def make_request(options = { student_id: nil, format: :pdf })
       request.env['HTTPS'] = 'on'
-      get :sped_referral, id: options[:student_id], format: options[:format]
+      get :sped_referral, params: {
+        id: options[:student_id],
+        format: options[:format]
+      }
     end
 
     context 'when educator is not logged in' do
