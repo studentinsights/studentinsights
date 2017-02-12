@@ -1,7 +1,7 @@
 class EducatorsController < ApplicationController
   # Authentication by default inherited from ApplicationController.
 
-  before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage] # Extra authentication layer, defined in ApplicationController
+  before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage] # Extra authentication layer
 
   def homepage
     redirect_to homepage_path_for_role(current_educator)

@@ -8,9 +8,7 @@ gem 'puma'
 
 gem 'activerecord-import'
 gem 'administrate'
-
-# Bug with 4.2.0, see https://github.com/plataformatec/devise/issues/4189
-gem 'devise', '= 4.1.1'
+gem 'devise'
 gem 'devise_ldap_authenticatable'
 
 # Draper raised errors in the upgrade to Rails 5. See:

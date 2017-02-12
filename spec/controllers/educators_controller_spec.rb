@@ -90,7 +90,6 @@ describe EducatorsController, :type => :controller do
 
     context 'not signed in' do
       it 'redirects' do
-        with_signed_out_user!
         make_request
         expect(response).to redirect_to(new_educator_session_url)
       end
@@ -154,14 +153,14 @@ describe EducatorsController, :type => :controller do
 
           context 'search for "o"' do
             it 'returns Octavia' do
-              get :names_for_dropdown, format: :json, id: student.id, term: 'o'
+              get :names_for_dropdown, params: { format: :json, id: student.id, term: 'o' }
               expect(json).to eq ['Butler, Octavia']
             end
           end
 
           context 'search for "s"' do
             it 'returns Stephenson' do
-              get :names_for_dropdown, format: :json, id: student.id, term: 's'
+              get :names_for_dropdown, params: { format: :json, id: student.id, term: 's' }
               expect(json).to eq ['Stephenson, Neal']
             end
           end
@@ -195,9 +194,7 @@ describe EducatorsController, :type => :controller do
 
     context 'educator is not logged in' do
       it 'returns 401 Unauthorized' do
-        with_signed_out_user!
         make_request
-        binding.pry
         expect(response).to have_http_status(:unauthorized)
       end
     end
