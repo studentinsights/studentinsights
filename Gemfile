@@ -8,7 +8,9 @@ gem 'puma'
 
 gem 'activerecord-import'
 gem 'administrate'
-gem 'devise'
+
+# Bug with 4.2.0, see https://github.com/plataformatec/devise/issues/4189
+gem 'devise', '= 4.1.1'
 gem 'devise_ldap_authenticatable'
 
 # Draper raised errors in the upgrade to Rails 5. See:
@@ -61,7 +63,7 @@ group :development, :test do
   gem 'pry'                   # Set a breakpoint in your ruby code by adding `binding.pry`
                               # See https://github.com/pry/pry
   gem 'rack-test'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'teaspoon-jasmine'

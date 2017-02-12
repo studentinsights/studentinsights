@@ -1,5 +1,6 @@
 # Pulled out from application.rb as part of upgrading to Ruby 5
 Rails.application.config.tap do |config|
+  puts '  KR: tap'
   class_paths = [
     "#{config.root}/app/models",
     "#{config.root}/app/jobs",

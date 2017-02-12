@@ -96,4 +96,11 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # ---- Student Insights additions ----
+  # Added during Rails 5 upgrade, also required fixing Devise
+  # version in Gemfile.
+  # See see https://github.com/plataformatec/devise/issues/4189
+  require 'devise'
+  config.include Devise::TestHelpers, type: :controller
 end

@@ -6,7 +6,7 @@ describe EventNotesController, :type => :controller do
   describe '#create' do
     def make_post_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
-      post :create, format: :json, student_id: student.id, event_note: event_note_params
+      post :create, params: { format: :json, student_id: student.id, event_note: event_note_params }
     end
 
     context 'admin educator logged in' do

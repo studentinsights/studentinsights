@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   force_ssl unless Rails.env.development?
 
-  before_filter :redirect_domain!
+  before_action :redirect_domain!
   before_action :authenticate_educator!  # Devise method, applies to all controllers.
                                          # In this app 'users' are 'educators'.
 
