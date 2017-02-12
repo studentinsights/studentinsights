@@ -41,6 +41,10 @@ class ApplicationController < ActionController::Base
     redirect_to not_authorized_path
   end
 
+  def render_unauthorized_json!
+    render json: { error: 'unauthorized' }, status: 403
+  end
+
   # For redirecting requests directly from the Heroku domain to the canonical domain name
   def redirect_domain!
     canonical_domain = EnvironmentVariable.value('CANONICAL_DOMAIN')

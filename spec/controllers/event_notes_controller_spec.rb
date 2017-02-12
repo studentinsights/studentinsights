@@ -1,9 +1,18 @@
 require 'rails_helper'
 
-describe EventNotesController, :type => :controller do
+describe EventNotesController, :type => :controller do  
   let(:school) { FactoryGirl.create(:school) }
 
   describe '#create' do
+    # See http://stackoverflow.com/questions/9261191/stubbing-warden-on-controller-tests
+    def with_signed_out_user!
+      request.env['warden'] = double(Warden, {
+        :authenticate => nil,
+        :authenticate! => nil,
+        :authenticated? => false
+      })
+    end
+    
     def make_post_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
       post :create, params: { format: :json, student_id: student.id, event_note: event_note_params }
@@ -116,6 +125,8 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'not logged in' do
+      before { with_signed_out_user! }
+
       let!(:event_note_type) { EventNoteType.first }
       let!(:student) { FactoryGirl.create(:student, school: school) }
       let(:post_params) {
@@ -130,7 +141,7 @@ describe EventNotesController, :type => :controller do
 
       it 'creates a new event note' do
         make_post_request(student, { text: 'foo' })
-        expect(response.status).to eq 401
+        expect(response.status).to eq 403
 
         expect { make_post_request(student, post_params) }.to change(EventNote, :count).by 0
       end
@@ -140,7 +151,7 @@ describe EventNotesController, :type => :controller do
   describe '#update' do
     def make_put_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
-      put :update, format: :json, student_id: student.id, id: event_note_params[:id], event_note: event_note_params
+      put :update, params: { format: :json, student_id: student.id, id: event_note_params[:id], event_note: event_note_params }
     end
 
     context 'admin educator logged in' do
