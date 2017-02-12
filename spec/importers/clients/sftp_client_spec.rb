@@ -1,5 +1,7 @@
+# require 'sftp_client'
 require 'rails_helper'
 
+binding.pry
 RSpec.describe SftpClient do
   let(:client) { SftpClient.new(*credentials) }
 
