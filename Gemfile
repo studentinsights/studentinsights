@@ -42,6 +42,7 @@ gem 'wkhtmltopdf-binary'
 gem 'selenium-webdriver'
 gem 'delayed_job_active_record'
 gem 'scout_apm'
+
 #code for browserstack api usage and storing the png to slack:
 #gem 'slack-ruby-client'
 #gem 'dotenv'
@@ -66,6 +67,8 @@ group :development, :test do
   gem 'teaspoon-jasmine'
   gem 'timecop'
   gem 'rails-controller-testing'
+  gem 'coffee-rails'
+  gem 'bourbon'
 end
 
 group :development do
