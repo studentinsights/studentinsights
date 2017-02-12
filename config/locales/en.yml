@@ -20,5 +20,4 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  TrueClass: "Yes"
-  FalseClass: "No"
+  hello: "Hello world"

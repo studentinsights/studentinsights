@@ -10,7 +10,13 @@ gem 'activerecord-import'
 gem 'administrate'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
-gem 'draper', '~> 1.3'
+
+# Draper raised errors in the upgrade to Rails 5. See:
+# - https://github.com/drapergem/draper/issues/697
+# - https://github.com/drapergem/draper/issues/681
+gem 'draper', "3.0.0.pre1"
+gem 'activemodel-serializers-xml' 
+
 gem 'friendly_id', '~> 5.1.0'
 gem 'handlebars_assets', '~> 0.22.0'
 gem 'jquery-rails'
