@@ -4,15 +4,6 @@ describe EventNotesController, :type => :controller do
   let(:school) { FactoryGirl.create(:school) }
 
   describe '#create' do
-    # See http://stackoverflow.com/questions/9261191/stubbing-warden-on-controller-tests
-    def with_signed_out_user!
-      request.env['warden'] = double(Warden, {
-        :authenticate => nil,
-        :authenticate! => nil,
-        :authenticated? => false
-      })
-    end
-    
     def make_post_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
       post :create, params: { format: :json, student_id: student.id, event_note: event_note_params }

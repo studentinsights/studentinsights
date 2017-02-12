@@ -7,8 +7,8 @@ describe Admin::EducatorsController do
   end
 
   describe '#index' do
-
     context 'not logged in' do
+      before { with_signed_out_user! }
       it 'fails' do
         make_request
         expect(response.status).to eq 302

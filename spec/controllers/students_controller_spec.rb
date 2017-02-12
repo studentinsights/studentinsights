@@ -232,7 +232,7 @@ describe StudentsController, :type => :controller do
 
     def make_post_request(student, service_params = {})
       request.env['HTTPS'] = 'on'
-      post :service, format: :json, id: student.id, service: service_params
+      post :service, params: { format: :json, id: student.id, service: service_params }
     end
 
     context 'admin educator logged in' do
@@ -314,7 +314,7 @@ describe StudentsController, :type => :controller do
 
     def make_request
       request.env['HTTPS'] = 'on'
-      get :names, format: :json
+      get :names, params: { format: :json }
     end
 
     context 'admin educator logged in' do
@@ -442,7 +442,7 @@ describe StudentsController, :type => :controller do
   describe '#lasids' do
     def make_request
       request.env['HTTPS'] = 'on'
-      get :lasids, format: :json
+      get :lasids, params: { format: :json }
     end
 
     before do
