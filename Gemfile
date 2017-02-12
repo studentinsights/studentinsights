@@ -18,7 +18,7 @@ gem 'draper', "3.0.0.pre1"
 gem 'activemodel-serializers-xml' 
 
 gem 'friendly_id', '~> 5.1.0'
-gem 'handlebars_assets', '~> 0.22.0'
+gem 'handlebars_assets'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'net-sftp'
