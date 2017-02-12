@@ -26,7 +26,6 @@ gem 'net-ssh'
 gem 'probability'
 gem 'rails-sanitize-js'
 gem 'react-rails' # Provides React, handles swapping between dev/production builds.  See config/initializers/assets.rb
-gem 'skylight'
 gem 'memory_profiler'
 gem 'oj'
 gem 'oj_mimic_json'
@@ -50,6 +49,7 @@ gem 'scout_apm'
 
 group :production do
   gem 'rails_12factor'
+  gem 'skylight'
 end
 
 group :development, :test do
