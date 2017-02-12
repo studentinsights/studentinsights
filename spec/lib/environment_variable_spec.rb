@@ -1,5 +1,4 @@
 require 'spec_helper'
-require './lib/environment_variable'
 
 RSpec.describe EnvironmentVariable do
   describe '#is_true' do
