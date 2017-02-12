@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 5.0.1'
 gem 'pg'
 gem 'puma'
 
 gem 'activerecord-import'
-gem 'administrate', '~> 0.2.1'
+gem 'administrate'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
 gem 'draper', '~> 1.3'
@@ -19,8 +19,7 @@ gem 'net-sftp'
 gem 'net-ssh'
 gem 'probability'
 gem 'rails-sanitize-js'
-gem 'react-rails', '~> 1.5.0'   # Provides React, handles swapping between dev/production builds.
-                                # See config/initializers/assets.rb
+gem 'react-rails' # Provides React, handles swapping between dev/production builds.  See config/initializers/assets.rb
 gem 'skylight'
 gem 'memory_profiler'
 gem 'oj'
@@ -28,7 +27,7 @@ gem 'oj_mimic_json'
 gem 'benchmark-memory'
 gem 'rubystats'
 gem 'sass-rails', '~> 5.0'
-gem 'sprockets', '2.12.3'
+gem 'sprockets'
 gem 'thor'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
