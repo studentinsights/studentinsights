@@ -2,7 +2,7 @@ require 'rails_helper'
 
 def make_request(service_id)
   request.env['HTTPS'] = 'on'
-  delete :destroy, id: service_id
+  delete :destroy, params: { id: service_id }
 end
 
 def create_service(student, educator)

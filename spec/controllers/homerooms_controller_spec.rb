@@ -53,9 +53,8 @@ describe HomeroomsController, :type => :controller do
 
             it 'assigns rows to a non-empty array' do
               make_request(educator.homeroom.slug)
-              expect(assigns(:rows).size).to eq 2
-              expect(assigns(:rows)[0][:id]).to eq(first_student.id)
-              expect(assigns(:rows)[1][:id]).to eq(second_student.id)
+              expected_student_ids = [first_student, second_student].map(&:id)
+              expect(assigns(:rows).map {|row| row[:id] }).to match_array(expected_student_ids)
             end
           end
 
