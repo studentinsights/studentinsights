@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Absence do
+RSpec.describe Absence, type: :model do
   let!(:student) { FactoryGirl.create(:student) }
   let!(:student_school_year) {
     student.student_school_years.first || StudentSchoolYear.create!(
