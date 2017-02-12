@@ -1,4 +1,4 @@
-class AssignHomeroomsToSchools < ActiveRecord::Migration
+class AssignHomeroomsToSchools < ActiveRecord::Migration[4.2]
   def change
     Homeroom.find_each do |homeroom|
       if homeroom.school.nil?

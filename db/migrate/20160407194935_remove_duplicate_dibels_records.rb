@@ -1,4 +1,4 @@
-class RemoveDuplicateDibelsRecords < ActiveRecord::Migration
+class RemoveDuplicateDibelsRecords < ActiveRecord::Migration[4.2]
   def change
     dibels = Assessment.find_by_family('DIBELS')
     if dibels.present?

@@ -1,4 +1,4 @@
-class AddGradeToHomeroom < ActiveRecord::Migration
+class AddGradeToHomeroom < ActiveRecord::Migration[4.2]
   def change
     add_column :homerooms, :grade, :string
   end

@@ -1,4 +1,4 @@
-class UpdateDisciplineIncidentsAttributes < ActiveRecord::Migration
+class UpdateDisciplineIncidentsAttributes < ActiveRecord::Migration[4.2]
   def change
     remove_column :discipline_incidents, :student_id, :integer
     remove_column :discipline_incidents, :school_year_id, :integer

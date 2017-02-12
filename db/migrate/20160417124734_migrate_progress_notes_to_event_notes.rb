@@ -1,4 +1,4 @@
-class MigrateProgressNotesToEventNotes < ActiveRecord::Migration
+class MigrateProgressNotesToEventNotes < ActiveRecord::Migration[4.2]
 
   class DeprecatedProgressNotesClass < ActiveRecord::Base
     self.table_name = :progress_notes

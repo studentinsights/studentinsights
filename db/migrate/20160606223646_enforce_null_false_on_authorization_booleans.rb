@@ -1,4 +1,4 @@
-class EnforceNullFalseOnAuthorizationBooleans < ActiveRecord::Migration
+class EnforceNullFalseOnAuthorizationBooleans < ActiveRecord::Migration[4.2]
   def change
     change_column :educators, :schoolwide_access, :boolean, null: false
     change_column :educators, :restricted_to_sped_students, :boolean, null: false

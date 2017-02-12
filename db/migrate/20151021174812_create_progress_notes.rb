@@ -1,4 +1,4 @@
-class CreateProgressNotes < ActiveRecord::Migration
+class CreateProgressNotes < ActiveRecord::Migration[4.2]
   def change
     create_table :progress_notes do |t|
       t.integer :intervention_id

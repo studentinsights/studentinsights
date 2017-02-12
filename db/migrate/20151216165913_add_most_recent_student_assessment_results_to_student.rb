@@ -1,4 +1,4 @@
-class AddMostRecentStudentAssessmentResultsToStudent < ActiveRecord::Migration
+class AddMostRecentStudentAssessmentResultsToStudent < ActiveRecord::Migration[4.2]
   def change
     add_column :students, :most_recent_mcas_math_growth, :integer
     add_column :students, :most_recent_mcas_ela_growth, :integer

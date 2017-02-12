@@ -1,4 +1,4 @@
-class CreateStudentRiskLevels < ActiveRecord::Migration
+class CreateStudentRiskLevels < ActiveRecord::Migration[4.2]
   def change
     create_table :student_risk_levels do |t|
       t.integer :student_id

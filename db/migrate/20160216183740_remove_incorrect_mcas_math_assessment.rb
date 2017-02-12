@@ -1,4 +1,4 @@
-class RemoveIncorrectMcasMathAssessment < ActiveRecord::Migration
+class RemoveIncorrectMcasMathAssessment < ActiveRecord::Migration[4.2]
   def change
     # "MCAS Math" => incorrect
     # "MCAS Mathematics" => correct

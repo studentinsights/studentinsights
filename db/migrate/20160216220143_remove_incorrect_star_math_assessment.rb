@@ -1,4 +1,4 @@
-class RemoveIncorrectStarMathAssessment < ActiveRecord::Migration
+class RemoveIncorrectStarMathAssessment < ActiveRecord::Migration[4.2]
   def change
     # "STAR Math" => incorrect
     # "STAR Mathematics" => correct

@@ -1,4 +1,4 @@
-class AddServiceTypesForCommunitySchoolsAndXBlock < ActiveRecord::Migration
+class AddServiceTypesForCommunitySchoolsAndXBlock < ActiveRecord::Migration[4.2]
   def change
     if ServiceType.find_by_id(513).nil?
       ServiceType.create({ id: 513, name: 'Community Schools' })
