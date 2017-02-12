@@ -71,6 +71,6 @@ RSpec.configure do |config|
   end
 
   # Devise helpers for controller tests (eg., `sign_in`)
-  config.include Devise::Test::ControllerHelpers
+  config.include Devise::Test::ControllerHelpers, type: :controller
 end
 
