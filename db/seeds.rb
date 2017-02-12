@@ -1,4 +1,15 @@
+# This forces updating schema.rb before seeding.  This is necessary
+# to allow `bundle exec rake db:migrate db:seed`, which otherwise would
+# not update the schema until all rake tasks are completed, and the seed task
+# would fail.
+#
+# See http://stackoverflow.com/questions/37850322/rails-dbseed-unknown-attribute
+ActiveRecord::Base.descendants.each do |klass|
+  klass.reset_column_information
+end
+
 require "#{Rails.root}/db/seeds/database_constants"
+
 
 puts "Creating demo schools, homerooms, interventions..."
 raise "empty yer db" if School.count > 0 ||

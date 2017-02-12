@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -21,9 +20,8 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.datetime "occurred_at",            null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["student_school_year_id"], name: "index_absences_on_student_school_year_id", using: :btree
   end
-
-  add_index "absences", ["student_school_year_id"], name: "index_absences_on_student_school_year_id", using: :btree
 
   create_table "assessment_families", force: :cascade do |t|
     t.string   "name"
@@ -57,9 +55,8 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.string   "queue"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discipline_incidents", force: :cascade do |t|
     t.string   "incident_code"
@@ -70,9 +67,8 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.datetime "occurred_at",            null: false
     t.boolean  "has_exact_time"
     t.integer  "student_school_year_id", null: false
+    t.index ["student_school_year_id"], name: "index_discipline_incidents_on_student_school_year_id", using: :btree
   end
-
-  add_index "discipline_incidents", ["student_school_year_id"], name: "index_discipline_incidents_on_student_school_year_id", using: :btree
 
   create_table "discontinued_services", force: :cascade do |t|
     t.integer  "service_id"
@@ -109,10 +105,9 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.boolean  "can_view_restricted_notes",               default: false, null: false
     t.boolean  "districtwide_access",                     default: false, null: false
     t.boolean  "can_set_districtwide_access",             default: false, null: false
+    t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
+    t.index ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "educators", ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
-  add_index "educators", ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true, using: :btree
 
   create_table "event_note_attachments", force: :cascade do |t|
     t.string   "url",           null: false
@@ -155,12 +150,11 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.string   "sluggable_type", limit: 50
     t.string   "scope"
     t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
-
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "homerooms", force: :cascade do |t|
     t.string   "name"
@@ -171,10 +165,9 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.string   "slug"
     t.string   "grade"
     t.integer  "school_id"
+    t.index ["educator_id"], name: "index_homerooms_on_educator_id", using: :btree
+    t.index ["slug"], name: "index_homerooms_on_slug", unique: true, using: :btree
   end
-
-  add_index "homerooms", ["educator_id"], name: "index_homerooms_on_educator_id", using: :btree
-  add_index "homerooms", ["slug"], name: "index_homerooms_on_slug", unique: true, using: :btree
 
   create_table "import_records", force: :cascade do |t|
     t.datetime "time_started"
@@ -210,9 +203,8 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.text     "json"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["key"], name: "index_precomputed_query_docs_on_key", unique: true, using: :btree
   end
-
-  add_index "precomputed_query_docs", ["key"], name: "index_precomputed_query_docs_on_key", unique: true, using: :btree
 
   create_table "school_years", force: :cascade do |t|
     t.string   "name"
@@ -229,10 +221,9 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.datetime "updated_at"
     t.string   "local_id"
     t.string   "slug"
+    t.index ["local_id"], name: "index_schools_on_local_id", using: :btree
+    t.index ["state_id"], name: "index_schools_on_state_id", using: :btree
   end
-
-  add_index "schools", ["local_id"], name: "index_schools_on_local_id", using: :btree
-  add_index "schools", ["state_id"], name: "index_schools_on_state_id", using: :btree
 
   create_table "service_types", force: :cascade do |t|
     t.string   "name"
@@ -273,10 +264,9 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.integer  "school_year_id"
     t.integer  "assessment_id"
     t.integer  "student_school_year_id"
+    t.index ["school_year_id"], name: "index_student_assessments_on_school_year_id", using: :btree
+    t.index ["student_id"], name: "index_student_assessments_on_student_id", using: :btree
   end
-
-  add_index "student_assessments", ["school_year_id"], name: "index_student_assessments_on_school_year_id", using: :btree
-  add_index "student_assessments", ["student_id"], name: "index_student_assessments_on_student_id", using: :btree
 
   create_table "student_risk_levels", force: :cascade do |t|
     t.integer  "student_id"
@@ -295,9 +285,8 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.integer  "school_year_id", null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["student_id", "school_year_id"], name: "index_student_school_years_on_student_id_and_school_year_id", unique: true, using: :btree
   end
-
-  add_index "student_school_years", ["student_id", "school_year_id"], name: "index_student_school_years_on_student_id_and_school_year_id", unique: true, using: :btree
 
   create_table "students", force: :cascade do |t|
     t.string   "grade"
@@ -333,20 +322,18 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.datetime "date_of_birth"
     t.integer  "risk_level"
     t.string   "gender"
+    t.index ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree
+    t.index ["local_id"], name: "index_students_on_local_id", using: :btree
+    t.index ["school_id"], name: "index_students_on_school_id", using: :btree
+    t.index ["state_id"], name: "index_students_on_state_id", using: :btree
   end
-
-  add_index "students", ["homeroom_id"], name: "index_students_on_homeroom_id", using: :btree
-  add_index "students", ["local_id"], name: "index_students_on_local_id", using: :btree
-  add_index "students", ["school_id"], name: "index_students_on_school_id", using: :btree
-  add_index "students", ["state_id"], name: "index_students_on_state_id", using: :btree
 
   create_table "tardies", force: :cascade do |t|
     t.integer  "student_school_year_id", null: false
     t.datetime "occurred_at",            null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["student_school_year_id"], name: "index_tardies_on_student_school_year_id", using: :btree
   end
-
-  add_index "tardies", ["student_school_year_id"], name: "index_tardies_on_student_school_year_id", using: :btree
 
 end
