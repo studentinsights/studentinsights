@@ -90,6 +90,7 @@ describe EducatorsController, :type => :controller do
 
     context 'not signed in' do
       it 'redirects' do
+        with_signed_out_user!
         make_request
         expect(response).to redirect_to(new_educator_session_url)
       end
@@ -100,8 +101,7 @@ describe EducatorsController, :type => :controller do
   describe '#names_for_dropdown' do
     def make_request(student)
       request.env['HTTPS'] = 'on'
-      request.env["devise.mapping"] = Devise.mappings[:educator]
-      get :names_for_dropdown, format: :json, id: student.id
+      get :names_for_dropdown, params: { format: :json, id: student.id }
     end
 
     context 'authorized' do
@@ -190,13 +190,14 @@ describe EducatorsController, :type => :controller do
   describe '#reset_session_clock' do
     def make_request
       request.env['HTTPS'] = 'on'
-      request.env["devise.mapping"] = Devise.mappings[:educator]
-      get :reset_session_clock, format: :json
+      get :reset_session_clock, params: { format: :json }
     end
 
     context 'educator is not logged in' do
       it 'returns 401 Unauthorized' do
+        with_signed_out_user!
         make_request
+        binding.pry
         expect(response).to have_http_status(:unauthorized)
       end
     end

@@ -24,19 +24,17 @@ class EducatorsController < ApplicationController
 
   def reset_session_clock
     # Send arbitrary request to reset Devise Timeoutable
-
     respond_to do |format|
       format.json { render json: :ok }
     end
   end
 
+  private
   def authenticate_districtwide_access!
     unless current_educator.districtwide_access
       redirect_to not_authorized_path
     end
   end
-
-  private
 
   def filtered_names(term, school)
     unfiltered = (school.educator_names_for_services + Service.provider_names).uniq.compact
