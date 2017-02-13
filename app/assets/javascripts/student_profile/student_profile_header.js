@@ -58,7 +58,6 @@
             dom.span({
               style: styles.subtitleItem
             }, 'Grade ' + student.grade),
-            this.bulletSpacer(),
             this.dateOfBirth()
           )
         ),
@@ -95,14 +94,18 @@
 
     dateOfBirth: function () {
       var student =  this.props.student;
-      var momentDOB = moment.utc(student.date_of_birth);
-      if (!momentDOB) return null;
+      var dateOfBirth = student.date_of_birth;
+      if (!dateOfBirth) return null;
 
+      var momentDOB = moment.utc(dateOfBirth);
       var ageInWords = ' (' + moment().diff(momentDOB, 'years') + ' years old)';
 
-      return dom.span({ style: styles.subtitleItem },
-        momentDOB.format('M/D/YYYY'), ageInWords
-      );
+      return dom.span({},
+        this.bulletSpacer(),
+        dom.span({ style: styles.subtitleItem },
+          momentDOB.format('M/D/YYYY'), ageInWords
+        )
+      )
     },
 
   });
