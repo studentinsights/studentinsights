@@ -24,7 +24,6 @@
         lasidAuthorizationError: false,
 
         // Overall form validation
-        missingRequiredFields: true,
         serverSideErrors: [],
         uploadingInProgress: false,
       };
@@ -66,7 +65,7 @@
         missingLasidHeader: this.state.missingLasidHeader,
 
         // Overall form validation
-        missingRequiredFields: this.state.missingRequiredFields,
+        missingRequiredFields: this.isMissingRequiredFields(),
         formData: this.state.formData,
         serverSideErrors: this.state.serverSideErrors,
         uploadingInProgress: this.state.uploadingInProgress,
@@ -106,47 +105,41 @@
       this.setState({
         formData: merge(this.state.formData, { date_started: event })
       });
-
-      this.verifyRequiredFields();
     },
 
     onSelectEndDate: function (event) {
       this.setState({
         formData: merge(this.state.formData, { date_ended: event })
       });
-
-      this.verifyRequiredFields();
     },
 
     onUserTypingServiceType: function(event) {
       this.setState({
         formData: merge(this.state.formData, { service_type_name: event.target.value })
       });
-
-      this.verifyRequiredFields();
     },
 
     onUserSelectServiceType: function(string) {
       this.setState({
         formData: merge(this.state.formData, { service_type_name: string })
       });
-
-      this.verifyRequiredFields();
     },
 
     onClickUploadButton: function () {
-      if (this.state.missingRequiredFields === true) return;
+      if (this.isMissingRequiredFields()) return;
 
       this.upload();
     },
 
-    verifyRequiredFields: function () {
+    isMissingRequiredFields: function () {
       var formData = this.state.formData;
 
-      if (formData.file_name && formData.student_lasids &&
-          formData.service_type_name && formData.date_started) {
-            this.setState({ missingRequiredFields: false });
-      };
+      if (!formData.file_name) return true;
+      if (!formData.student_lasids) return true;
+      if (!formData.service_type_name) return true;
+      if (!formData.date_started) return true;
+
+      return false;
     },
 
     upload: function () {
@@ -181,26 +174,30 @@
 
     onSelectFile: function (event) {
       var file = event.target.files[0];
+      if (!file || !file.name) return;
+
       this.setState({ formData: merge(this.state.formData, { file_name: file.name }) });
+      
       var reader = new FileReader();
-
-      reader.onload = function (e) {
-        var text = reader.result;
-        var rows = text.split("\n");
-        var headerRow = rows.shift().split(",");
-
-        if (headerRow[0] !== 'LASID') {
-          this.setState({ missingLasidHeader: true }); return;
-        };
-
-        var student_lasids = rows.map(function(row) { return row.split(",")[0]; })
-                                 .filter(function (lasid) { return lasid !== '' });
-
-        this.validateLASIDs(student_lasids);
-      }.bind(this);
-
+      reader.onload = this.onFileReaderLoaded.bind(this, reader);
       reader.readAsText(file);
     },
+
+    onFileReaderLoaded: function (reader, e) {
+      var text = reader.result;
+      var rows = text.split("\n");
+      var headerRow = rows.shift().split(",");
+
+      if (headerRow[0] !== 'LASID') {
+        this.setState({ missingLasidHeader: true });
+        return;
+      };
+
+      var student_lasids = rows.map(function(row) { return row.split(",")[0]; })
+                               .filter(function (lasid) { return lasid !== '' });
+      this.validateLASIDs(student_lasids);
+    },
+
 
     validateLASIDs: function (student_lasids) {
       return $.ajax({
@@ -220,11 +217,9 @@
               lasidAuthorizationError: true
             })
           };
-
-          this.verifyRequiredFields();
         }.bind(this)
       });
-    },
+    }
 
   });
 

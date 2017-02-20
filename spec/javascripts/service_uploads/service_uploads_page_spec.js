@@ -9,7 +9,7 @@ describe('ServiceUploadsPage', function() {
   var helpers = {
     renderInto: function(el, props) {
       return ReactDOM.render(createEl(ServiceUploadsPage, props), el);
-    },
+    }
   };
 
   SpecSugar.withTestEl('integration tests', function() {
@@ -53,6 +53,20 @@ describe('ServiceUploadsPage', function() {
 
       expect(el).toContainText('bulk_upload.csv'); // Renders the file name
       expect(el).toContainText('Extra Tutoring');  // Renders the service type name
+    });
+
+    it('tolerates cancelling file upload', function() {
+      var el = this.testEl;
+      var instance = helpers.renderInto(el, {
+        serializedData: {
+          serviceUploads: [],
+          serviceTypeNames: ['Extra Tutoring', 'After-School Art Class'],
+        }
+      });
+
+      var fileInputEl = $(el).find('input[type=file]').get(0);
+      React.addons.TestUtils.Simulate.change(fileInputEl);
+      expect(instance.state.formData.file_name).toEqual(undefined);
     });
 
   });
