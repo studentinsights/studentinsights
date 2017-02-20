@@ -25,12 +25,14 @@ config = {
     rules: [
       { test: /\.coffee(.erb)?$/, loader: "coffee-loader" },
       {
-        test: /\.js(.erb)?$/,
+        test: /\.jsx?(.erb)?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
           presets: [
-            [ 'latest', { 'es2015': { 'modules': false } } ]
+            'react',
+            'es2015',
+            'stage-2'
           ]
         }
       },

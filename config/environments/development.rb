@@ -1,7 +1,4 @@
 Rails.application.configure do
-  # Make javascript_pack_tag load assets from webpack-dev-server.
-  # config.x.webpacker[:dev_server_host] = "http://localhost:8080"
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -70,4 +67,7 @@ Rails.application.configure do
   YAML.load(File.open(env_file)).each do |key, value|
     ENV[key.to_s] = value
   end if File.exists?(env_file)
+
+  # Make javascript_pack_tag load assets from webpack-dev-server.
+  config.x.webpacker[:dev_server_host] = "http://localhost:8080"
 end

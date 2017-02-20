@@ -1,12 +1,14 @@
-$(function() {
-  // only run if the correct page
-  if (!($('body').hasClass('students') && $('body').hasClass('show'))) return;
+import PageContainer from './student_profile/page_container.jsx';
+import ReactDOM from 'react-dom';
+import moment from 'moment';
 
+
+document.addEventListener("DOMContentLoaded", e => {
   // imports
   var createEl = window.shared.ReactHelpers.createEl;
-  var PageContainer = window.shared.PageContainer;
   var parseQueryString = window.shared.parseQueryString;
   var MixpanelUtils = window.shared.MixpanelUtils;
+  var $ = window.$;
 
   // entry point, reading static bootstrapped data from the page
   var serializedData = $('#serialized-data').data();

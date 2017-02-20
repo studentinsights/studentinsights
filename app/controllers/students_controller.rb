@@ -27,6 +27,7 @@ class StudentsController < ApplicationController
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
 
+    @javascript_pack_tag = :student_profile
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),          # Risk level, school homeroom, most recent school year attendance/discipline counts
