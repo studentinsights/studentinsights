@@ -488,10 +488,8 @@ describe StudentsController, :type => :controller do
   describe '#sped_referral' do
     let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
     let(:school) { FactoryGirl.create(:school) }
-    let(:service) { FactoryGirl.create(:service, student: student) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
-    let(:student_school_year) { FactoryGirl.create(:student_school_year, student: student) }
-
+    
     def make_request(options = { student_id: nil, format: :pdf })
       request.env['HTTPS'] = 'on'
       get :sped_referral, params: {
@@ -523,15 +521,38 @@ describe StudentsController, :type => :controller do
           expect(assigns(:student)).to eq student
         end
 
-        it 'assigns the student\'s services correctly' do
-          expect(assigns(:services)).to eq student.services
+        it 'assigns the student\'s services correctly with full history' do
+          old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student)
+          recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student)
+          expect(assigns(:services)).to include(old_service)
+          expect(assigns(:services)).to include(recent_service)
         end
 
-        it 'assigns the student\'s school years correctly' do
-          expect(assigns(:student_school_years)).to eq student.student_school_years
+        it 'assigns the student\'s notes correctly excluding restricted notes' do
+          restricted_note = FactoryGirl.create(:event_note, :restricted, student: student, educator: educator) 
+          note = FactoryGirl.create(:event_note, student: student, educator: educator)
+          expect(assigns(:event_notes)).to include(note)
+          expect(assigns(:event_notes)).not_to include(restricted_note)
+        end
+
+        it 'assigns the student\'s attendance data correctly with 2 years of history' do
+          
+          # Get the school years
+          old_school_year = DateToSchoolYear.new(Date.new(2013, 9, 1)).convert
+          current_school_year = DateToSchoolYear.new(Date.today).convert
+
+          # Find or create the student school years
+          old_student_school_year = student.student_school_years.find_or_create_by(school_year: old_school_year)
+          current_student_school_year = student.student_school_years.find_or_create_by(school_year: current_school_year)
+
+          # Add an absence in the current school year
+          current_absence = FactoryGirl.create(:absence, student_school_year: current_student_school_year)
+          
+          expect(assigns(:student_school_years)).not_to include(old_student_school_year)
+          expect(assigns(:student_school_years)).to include(current_student_school_year)
+          expect(assigns(:student_school_years).find_by_id(current_student_school_year.id).absences).to include(current_absence)
         end
       end
     end
   end
-
 end

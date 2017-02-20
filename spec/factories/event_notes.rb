@@ -6,6 +6,10 @@ FactoryGirl.define do
     association :student
     event_note_type { EventNoteType.first }
     is_restricted false
+
+    trait :restricted do
+      is_restricted true
+    end
   end
 
 end

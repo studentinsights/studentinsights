@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   include SerializeDataHelper
+  include ApplicationHelper
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
 
@@ -57,7 +58,8 @@ class StudentsController < ApplicationController
     set_up_sped_data
     respond_to do |format|
       format.pdf do
-        render pdf: "sped_referral"
+        footer = "Somerville Public Schools Student Report -- Generated #{format_date(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
+        render pdf: 'sped_referral', footer: { center: footer, font_name: 'Open Sans', font_size: 9}
       end
     end
   end
@@ -145,18 +147,40 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @current_educator = current_educator
     @url = root_url.chomp('/') + request.path
-    @services = @student.services
-    @current_school_year = DateToSchoolYear.new(Date.today).convert.name
-    @student_school_years = @student.student_school_years.includes(:absences).includes(:tardies).includes(:discipline_incidents)
+    
+    # Calculate the current and prior school year ids for use with report data 
+    # only displaying 2 years of data
+    current_school_year_id = DateToSchoolYear.new(Date.today).convert.id
+    prior_school_year_id = DateToSchoolYear.new(Date.today.ago(1.years)).convert.id
+    
+
+    # Load all event notes that are NOT restricted for the student
+    @event_notes = @student.event_notes.where(:is_restricted => false)
+
+    # Load all services for the student
+    @services = @student.services.includes(:discontinued_services)
+
+    # Load last 2 student schools years for absences, tardies, and discipline incidents
+    @student_school_years = @student.student_school_years.includes(:absences).includes(:tardies).includes(:discipline_incidents).where(school_year_id: [prior_school_year_id, current_school_year_id])
+    # Flatten the discipline incidents, sorted by occurrance date
     @discipline_incidents = @student_school_years.flat_map(&:discipline_incidents).sort_by(&:occurred_at)
+    # This is a hash with the test name as the key and an array of date-sorted student assessment objects as the value
     student_assessments_by_date = @student.student_assessments.order_by_date_taken_asc.includes(:assessment)
 
-    # This is a hash with the test name as the key and an array of date-sorted student assessment objects as the value
     @student_assessments = student_assessments_by_date.each_with_object({}) do |student_assessment, hash|
       test = student_assessment.assessment
       test_name = "#{test.family} #{test.subject}"
       hash[test_name] ||= []
-      hash[test_name].push(student_assessment)
+
+      result = case test.family
+        when "MCAS" then student_assessment.scale_score
+        when "STAR" then student_assessment.percentile_rank
+        when "DIBELS" then student_assessment.performance_level
+        else student_assessment.scale_score
+      end
+
+
+      hash[test_name].push([student_assessment.date_taken,result])
     end.sort.to_h
   end
 end
