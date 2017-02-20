@@ -324,7 +324,7 @@ DEPENDENCIES
   administrate
   benchmark-memory
   better_errors
-  bourbon
+  bourbon (~> 4.3.2)
   capybara
   coffee-rails
   database_cleaner

@@ -7,7 +7,6 @@ gem 'pg'
 gem 'puma'
 
 gem 'activerecord-import'
-gem 'administrate'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
 
@@ -41,6 +40,7 @@ gem 'wkhtmltopdf-binary'
 gem 'selenium-webdriver'
 gem 'delayed_job_active_record'
 gem 'scout_apm'
+gem 'administrate'
 
 #code for browserstack api usage and storing the png to slack:
 #gem 'slack-ruby-client'
@@ -68,7 +68,7 @@ group :development, :test do
   gem 'timecop'
   gem 'rails-controller-testing'
   gem 'coffee-rails'
-  gem 'bourbon'
+  gem 'bourbon', '~> 4.3.2' 
 end
 
 group :development do
