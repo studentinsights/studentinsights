@@ -5,7 +5,7 @@ describe ServiceTypesController, :type => :controller do
   describe '#index' do
     def make_request
       request.env['HTTPS'] = 'on'
-      get :index, format: :json
+      get :index, params: { format: :json }
     end
 
     let(:parsed_response) { JSON.parse(response.body) }

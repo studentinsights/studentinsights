@@ -1,4 +1,4 @@
-class RemoveSchoolYearAttendanceCounterColumns < ActiveRecord::Migration
+class RemoveSchoolYearAttendanceCounterColumns < ActiveRecord::Migration[4.2]
   def change
     remove_column :student_school_years, :tardies_count
     remove_column :student_school_years, :absences_count

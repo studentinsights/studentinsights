@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe EventNotesController, :type => :controller do
+describe EventNotesController, :type => :controller do  
   let(:school) { FactoryGirl.create(:school) }
 
   describe '#create' do
     def make_post_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
-      post :create, format: :json, student_id: student.id, event_note: event_note_params
+      post :create, params: { format: :json, student_id: student.id, event_note: event_note_params }
     end
 
     context 'admin educator logged in' do
@@ -140,7 +140,7 @@ describe EventNotesController, :type => :controller do
   describe '#update' do
     def make_put_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
-      put :update, format: :json, student_id: student.id, id: event_note_params[:id], event_note: event_note_params
+      put :update, params: { format: :json, student_id: student.id, id: event_note_params[:id], event_note: event_note_params }
     end
 
     context 'admin educator logged in' do

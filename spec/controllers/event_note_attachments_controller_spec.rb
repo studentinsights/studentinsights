@@ -4,7 +4,7 @@ RSpec.describe EventNoteAttachmentsController, type: :controller do
 
   def make_delete_request(id = nil)
     request.env['HTTPS'] = 'on'
-    delete :destroy, id: id
+    delete :destroy, params: { id: id }
   end
 
   describe '#destroy' do

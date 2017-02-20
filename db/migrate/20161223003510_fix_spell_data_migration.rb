@@ -1,4 +1,4 @@
-class FixSpellDataMigration < ActiveRecord::Migration
+class FixSpellDataMigration < ActiveRecord::Migration[4.2]
   def change
 
     if !(ServiceType.find_by_id(510).nil?)

@@ -1,4 +1,4 @@
-class SetRestrictedNotesAccessForUsersWithNil < ActiveRecord::Migration
+class SetRestrictedNotesAccessForUsersWithNil < ActiveRecord::Migration[4.2]
   def change
     Educator.find_each do |educator|
       if educator.can_view_restricted_notes.nil?

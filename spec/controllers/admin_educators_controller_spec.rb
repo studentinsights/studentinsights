@@ -7,7 +7,6 @@ describe Admin::EducatorsController do
   end
 
   describe '#index' do
-
     context 'not logged in' do
       it 'fails' do
         make_request

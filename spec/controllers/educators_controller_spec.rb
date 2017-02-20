@@ -100,8 +100,7 @@ describe EducatorsController, :type => :controller do
   describe '#names_for_dropdown' do
     def make_request(student)
       request.env['HTTPS'] = 'on'
-      request.env["devise.mapping"] = Devise.mappings[:educator]
-      get :names_for_dropdown, format: :json, id: student.id
+      get :names_for_dropdown, params: { format: :json, id: student.id }
     end
 
     context 'authorized' do
@@ -154,14 +153,14 @@ describe EducatorsController, :type => :controller do
 
           context 'search for "o"' do
             it 'returns Octavia' do
-              get :names_for_dropdown, format: :json, id: student.id, term: 'o'
+              get :names_for_dropdown, params: { format: :json, id: student.id, term: 'o' }
               expect(json).to eq ['Butler, Octavia']
             end
           end
 
           context 'search for "s"' do
             it 'returns Stephenson' do
-              get :names_for_dropdown, format: :json, id: student.id, term: 's'
+              get :names_for_dropdown, params: { format: :json, id: student.id, term: 's' }
               expect(json).to eq ['Stephenson, Neal']
             end
           end
@@ -190,8 +189,7 @@ describe EducatorsController, :type => :controller do
   describe '#reset_session_clock' do
     def make_request
       request.env['HTTPS'] = 'on'
-      request.env["devise.mapping"] = Devise.mappings[:educator]
-      get :reset_session_clock, format: :json
+      get :reset_session_clock, params: { format: :json }
     end
 
     context 'educator is not logged in' do

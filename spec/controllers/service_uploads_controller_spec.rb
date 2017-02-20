@@ -8,7 +8,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
     def make_post_request(params)
       request.env['HTTPS'] = 'on'
-      post :create, params.merge(format: :json)
+      post :create, params: params.merge(format: :json) 
     end
 
     let(:response_json) { JSON.parse(response.body) }

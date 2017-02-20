@@ -6,7 +6,7 @@ describe HomeroomsController, :type => :controller do
   describe '#show' do
     def make_request(slug = nil)
       request.env['HTTPS'] = 'on'
-      get :show, id: slug
+      get :show, params: { id: slug }
     end
 
     context 'educator with homeroom logged in' do
@@ -53,9 +53,8 @@ describe HomeroomsController, :type => :controller do
 
             it 'assigns rows to a non-empty array' do
               make_request(educator.homeroom.slug)
-              expect(assigns(:rows).size).to eq 2
-              expect(assigns(:rows)[0]).to include Student.all.second.as_json
-              expect(assigns(:rows)[1]).to include Student.all.first.as_json
+              expected_student_ids = [first_student, second_student].map(&:id)
+              expect(assigns(:rows).map {|row| row[:id] }).to match_array(expected_student_ids)
             end
           end
 

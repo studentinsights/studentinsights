@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe StudentProfileChart do
 
   describe 'percentile_ranks_to_highcharts' do

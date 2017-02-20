@@ -1,14 +1,14 @@
 class EventNotesController < ApplicationController
   include SerializeDataHelper
 
-  rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
+  rescue_from Exceptions::EducatorNotAuthorized, with: :render_unauthorized_json!
 
   before_action :authorize!
 
   def authorize!
     student = Student.find(params[:student_id])
     educator = current_educator
-    raise Exceptions::EducatorNotAuthorized unless educator.is_authorized_for_student(student)
+    raise Exceptions::EducatorNotAuthorized unless educator && educator.is_authorized_for_student(student)
   end
 
   def create

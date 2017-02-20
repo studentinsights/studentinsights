@@ -1,4 +1,4 @@
-class CreateEventNoteAttachments < ActiveRecord::Migration
+class CreateEventNoteAttachments < ActiveRecord::Migration[4.2]
   def change
     create_table :event_note_attachments do |t|
       t.string :url, null: false

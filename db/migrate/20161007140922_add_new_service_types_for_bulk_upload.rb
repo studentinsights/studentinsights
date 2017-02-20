@@ -1,4 +1,4 @@
-class AddNewServiceTypesForBulkUpload < ActiveRecord::Migration
+class AddNewServiceTypesForBulkUpload < ActiveRecord::Migration[4.2]
   def change
     if ServiceType.find_by_id(509).nil?
       ServiceType.create({ id: 509, name: 'SomerSession' })

@@ -1,7 +1,7 @@
 class Educator < ActiveRecord::Base
   devise :rememberable, :trackable, :timeoutable
 
-  if EnvironmentVariable.is_true('SHOULD_USE_LDAP')
+  if ::EnvironmentVariable.is_true('SHOULD_USE_LDAP')
     devise :ldap_authenticatable
   else
     devise :database_authenticatable

@@ -5,7 +5,7 @@ describe SchoolsController, :type => :controller do
   describe '#show' do
     def make_request(school_id)
       request.env['HTTPS'] = 'on'
-      get :show, id: school_id
+      get :show, params: { id: school_id }
     end
 
     # Read the instance variable and pull out the ids of students
@@ -136,7 +136,7 @@ describe SchoolsController, :type => :controller do
   describe '#csv' do
     def make_request(school_id)
       request.env['HTTPS'] = 'on'
-      get :csv, id: school_id
+      get :csv, params: { id: school_id }
     end
 
     context 'with school-wide access' do

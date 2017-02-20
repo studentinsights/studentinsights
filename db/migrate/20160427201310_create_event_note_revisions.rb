@@ -1,4 +1,4 @@
-class CreateEventNoteRevisions < ActiveRecord::Migration
+class CreateEventNoteRevisions < ActiveRecord::Migration[4.2]
   def change
     create_table :event_note_revisions do |t|
       t.integer :student_id

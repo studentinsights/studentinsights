@@ -1,4 +1,4 @@
-class AddDefaultValueToIsRestricted < ActiveRecord::Migration
+class AddDefaultValueToIsRestricted < ActiveRecord::Migration[4.2]
   def up
     change_column :event_notes, :is_restricted, :boolean, :default => false
   end

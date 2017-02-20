@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   force_ssl unless Rails.env.development?
 
-  before_filter :redirect_domain!
+  before_action :redirect_domain!
   before_action :authenticate_educator!  # Devise method, applies to all controllers.
                                          # In this app 'users' are 'educators'.
 
@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
   # Sugar for filters checking authorization
   def redirect_unauthorized!
     redirect_to not_authorized_path
+  end
+
+  def render_unauthorized_json!
+    render json: { error: 'unauthorized' }, status: 403
   end
 
   # For redirecting requests directly from the Heroku domain to the canonical domain name

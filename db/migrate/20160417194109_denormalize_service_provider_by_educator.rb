@@ -1,4 +1,4 @@
-class DenormalizeServiceProviderByEducator < ActiveRecord::Migration
+class DenormalizeServiceProviderByEducator < ActiveRecord::Migration[4.2]
   def change
     add_column :services, :provided_by_educator_name, :string
 

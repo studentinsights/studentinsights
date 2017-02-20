@@ -1,4 +1,4 @@
-class ConsolidateDibelsIntoOneAssessment < ActiveRecord::Migration
+class ConsolidateDibelsIntoOneAssessment < ActiveRecord::Migration[4.2]
   def change
     if Assessment.where(family: 'DIBELS').count > 1
       one_true_assessment = Assessment.find_or_create_by!(family: 'DIBELS', subject: nil)
