@@ -14,7 +14,7 @@
 
     propTypes: {
       educator: React.PropTypes.shape({
-        full_name: PropTypes.nullable(React.PropTypes.string.isRequired),
+        full_name: React.PropTypes.string, // or null
         email: React.PropTypes.string.isRequired
       }).isRequired
     },

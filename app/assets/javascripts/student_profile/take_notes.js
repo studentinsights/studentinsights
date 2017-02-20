@@ -60,13 +60,13 @@
       onSave: React.PropTypes.func.isRequired,
       onCancel: React.PropTypes.func.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
-      requestState: PropTypes.nullable(React.PropTypes.string.isRequired)
+      requestState: React.PropTypes.string // or null
     },
 
     getInitialState: function() {
       return {
         eventNoteTypeId: null,
-        text: null,
+        text: '',
         attachmentUrls: []
       }
     },
