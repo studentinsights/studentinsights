@@ -1,3 +1,21 @@
+GIT
+  remote: https://github.com/thoughtbot/administrate.git
+  revision: 077f6d370b3d0eff325a3de0509aeaa21b47b632
+  branch: 077f6d370b3d0eff325a3de0509aeaa21b47b632
+  specs:
+    administrate (0.3.0)
+      autoprefixer-rails (~> 6.0)
+      bourbon (~> 4.2)
+      datetime_picker_rails (~> 0.0.7)
+      jquery-rails (~> 4.0)
+      kaminari (~> 0.16)
+      momentjs-rails (~> 2.8)
+      neat (~> 1.1)
+      normalize-rails (~> 3.0)
+      rails (>= 4.2, < 5.1)
+      sass-rails (~> 5.0)
+      selectize-rails (~> 0.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -47,20 +65,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
-    administrate (0.3.0)
-      autoprefixer-rails (~> 6.0)
-      bourbon (~> 4.2)
-      datetime_picker_rails (~> 0.0.7)
-      jquery-rails (~> 4.0)
-      kaminari (~> 0.16)
-      momentjs-rails (~> 2.8)
-      neat (~> 1.1)
-      normalize-rails (~> 3.0)
-      rails (>= 4.2, < 5.1)
-      sass-rails (~> 5.0)
-      selectize-rails (~> 0.6)
     arel (7.1.4)
-    autoprefixer-rails (6.7.3)
+    autoprefixer-rails (6.7.4)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -321,7 +327,7 @@ PLATFORMS
 DEPENDENCIES
   activemodel-serializers-xml
   activerecord-import
-  administrate
+  administrate!
   benchmark-memory
   better_errors
   bourbon (~> 4.3.2)

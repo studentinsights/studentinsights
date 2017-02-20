@@ -40,7 +40,14 @@ gem 'wkhtmltopdf-binary'
 gem 'selenium-webdriver'
 gem 'delayed_job_active_record'
 gem 'scout_apm'
-gem 'administrate'
+
+# See https://github.com/thoughtbot/administrate/issues/615;
+# this is pulling in https://github.com/thoughtbot/administrate/pull/673
+# from the commit on master as of the data of the Rails 5 upgrade.
+gem 'administrate', {
+  git: 'https://github.com/thoughtbot/administrate.git',
+  branch: '077f6d370b3d0eff325a3de0509aeaa21b47b632'
+}
 
 #code for browserstack api usage and storing the png to slack:
 #gem 'slack-ruby-client'
