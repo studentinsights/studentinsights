@@ -38,5 +38,9 @@ module SomervilleTeacherTool
         g.helpers false
       end
     end
+
+    # This is included for Administrate, which will fail in precompiling assets otherwise.
+    # See https://github.com/thoughtbot/administrate/issues/615
+    require 'bourbon'
   end
 end
