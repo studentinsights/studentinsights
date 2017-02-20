@@ -40,6 +40,7 @@ gem 'wkhtmltopdf-binary'
 gem 'selenium-webdriver'
 gem 'delayed_job_active_record'
 gem 'scout_apm'
+gem 'webpacker', github: 'rails/webpacker'
 
 # See https://github.com/thoughtbot/administrate/issues/615;
 # this is pulling in https://github.com/thoughtbot/administrate/pull/673
