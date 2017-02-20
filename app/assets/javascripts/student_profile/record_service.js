@@ -54,7 +54,7 @@
       studentId: React.PropTypes.number.isRequired,
       onSave: React.PropTypes.func.isRequired,
       onCancel: React.PropTypes.func.isRequired,
-      requestState: PropTypes.nullable(React.PropTypes.string.isRequired),
+      requestState: React.PropTypes.string, // or null
 
       // context
       nowMoment: React.PropTypes.object.isRequired,

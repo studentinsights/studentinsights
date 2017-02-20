@@ -57,7 +57,7 @@ describe('PageContainer', function() {
     },
 
     editNoteAndSave: function(el, uiParams) {
-      var $noteCard = $(el).find('.NotesList .NoteCard[data-reactid*=event_note]').first();
+      var $noteCard = $(el).find('.NotesList .NoteCard').first();
       var $text = $noteCard.find('.note-text');
       $text.html(uiParams.text);
       React.addons.TestUtils.Simulate.input($text.get(0));
@@ -127,6 +127,7 @@ describe('PageContainer', function() {
     it('can edit notes for SST meetings, mocking the action handlers', function() {
       var el = this.testEl;
       var component = helpers.renderInto(el);
+
       helpers.editNoteAndSave(el, {
         eventNoteTypeText: 'SST Meeting',
         text: 'world!'

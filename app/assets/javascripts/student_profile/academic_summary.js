@@ -44,8 +44,8 @@
 
     propTypes: {
       caption: React.PropTypes.string.isRequired,
-      value: PropTypes.nullable(React.PropTypes.number.isRequired),
-      sparkline: React.PropTypes.element.isRequired
+      sparkline: React.PropTypes.element.isRequired,
+      value: React.PropTypes.number // value or null
     },
 
     render: function() {
@@ -64,7 +64,7 @@
 
     propTypes: {
       caption: React.PropTypes.string.isRequired,
-      value: PropTypes.nullable(React.PropTypes.string.isRequired)
+      value: React.PropTypes.string // or null
     },
 
     getDibelsHelpContent: function(){
