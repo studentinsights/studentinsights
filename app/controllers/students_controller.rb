@@ -122,7 +122,8 @@ class StudentsController < ApplicationController
       tardies_count: student.most_recent_school_year.tardies.count,
       school_name: student.try(:school).try(:name),
       homeroom_name: student.try(:homeroom).try(:name),
-      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count
+      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
+      restricted_notes_count: student.event_notes.where(is_restricted: true).count
     }).stringify_keys
   end
 
@@ -147,12 +148,12 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @current_educator = current_educator
     @url = root_url.chomp('/') + request.path
-    
-    # Calculate the current and prior school year ids for use with report data 
+
+    # Calculate the current and prior school year ids for use with report data
     # only displaying 2 years of data
     current_school_year_id = DateToSchoolYear.new(Date.today).convert.id
     prior_school_year_id = DateToSchoolYear.new(Date.today.ago(1.years)).convert.id
-    
+
 
     # Load all event notes that are NOT restricted for the student
     @event_notes = @student.event_notes.where(:is_restricted => false)

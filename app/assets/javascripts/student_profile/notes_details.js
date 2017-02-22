@@ -67,14 +67,12 @@
     },
 
     renderRestrictedNotesButtonIfAppropriate: function(){
-      var self = this;
-
       if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
         return dom.a({
           className: 'btn btn-warning',
           style: styles.restrictedNotesButton,
-          href: '/students/' + self.props.student.id + '/restricted_notes',
-        }, 'Restricted Notes')
+          href: '/students/' + this.props.student.id + '/restricted_notes',
+        }, 'Restricted Notes (' + this.props.student.restricted_notes_count + ')')
       } else {
         return null;
       }
