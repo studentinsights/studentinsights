@@ -52,12 +52,15 @@ describe StudentsController, :type => :controller do
           make_request({ student_id: student.id, format: :html })
           expect(serialized_data[:current_educator]).to eq educator
           expect(serialized_data[:student]["id"]).to eq student.id
+          expect(serialized_data[:student]["restricted_notes_count"]).to eq 0
+
           expect(serialized_data[:dibels]).to eq []
           expect(serialized_data[:feed]).to eq ({
             event_notes: [],
             services: {active: [], discontinued: []},
             deprecated: {interventions: []}
           })
+
 
           expect(serialized_data[:service_types_index]).to eq({
             502 => {:id=>502, :name=>"Attendance Officer"},
@@ -489,7 +492,7 @@ describe StudentsController, :type => :controller do
     let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
     let(:school) { FactoryGirl.create(:school) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
-    
+
     def make_request(options = { student_id: nil, format: :pdf })
       request.env['HTTPS'] = 'on'
       get :sped_referral, params: {
@@ -529,14 +532,14 @@ describe StudentsController, :type => :controller do
         end
 
         it 'assigns the student\'s notes correctly excluding restricted notes' do
-          restricted_note = FactoryGirl.create(:event_note, :restricted, student: student, educator: educator) 
+          restricted_note = FactoryGirl.create(:event_note, :restricted, student: student, educator: educator)
           note = FactoryGirl.create(:event_note, student: student, educator: educator)
           expect(assigns(:event_notes)).to include(note)
           expect(assigns(:event_notes)).not_to include(restricted_note)
         end
 
         it 'assigns the student\'s attendance data correctly with 2 years of history' do
-          
+
           # Get the school years
           old_school_year = DateToSchoolYear.new(Date.new(2013, 9, 1)).convert
           current_school_year = DateToSchoolYear.new(Date.today).convert
@@ -547,7 +550,7 @@ describe StudentsController, :type => :controller do
 
           # Add an absence in the current school year
           current_absence = FactoryGirl.create(:absence, student_school_year: current_student_school_year)
-          
+
           expect(assigns(:student_school_years)).not_to include(old_student_school_year)
           expect(assigns(:student_school_years)).to include(current_student_school_year)
           expect(assigns(:student_school_years).find_by_id(current_student_school_year.id).absences).to include(current_absence)
