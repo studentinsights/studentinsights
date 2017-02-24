@@ -135,6 +135,11 @@ Choose your favorite local development approach:
 * [Local development with Docker](docs/technical/local_development_with_docker.md)
 * [Local installation on OSX or Linux](docs/technical/local_installation_notes.md)
 
+Make sure you have our JS dependencies installed:
+
+* yarn
+* node (latest version)
+
 ## 2. Create database tables and seed them with demo data
 
 ```
