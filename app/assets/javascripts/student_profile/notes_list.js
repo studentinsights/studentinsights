@@ -63,6 +63,7 @@
         badge: this.renderEventNoteTypeBadge(eventNote.event_note_type_id),
         educatorId: eventNote.educator_id,
         text: eventNote.text || '',
+        numberOfRevisions: eventNote.event_note_revisions.length,
         attachments: eventNote.attachments,
         educatorsIndex: this.props.educatorsIndex,
         onSave: this.props.onSaveNote,

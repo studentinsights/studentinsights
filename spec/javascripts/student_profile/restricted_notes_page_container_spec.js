@@ -28,7 +28,8 @@ describe('RestrictedNotesPageContainer', function() {
           event_note_type_id: 301,
           student_id: 23,
           educator_id: 1,
-          attachments: []
+          attachments: [],
+          event_note_revisions: []
         })
       );
       return mockApi;
