@@ -30,8 +30,9 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [1. Install dependencies](#1-install-dependencies)
   - [2. Create database tables and seed them with demo data](#2-create-database-tables-and-seed-them-with-demo-data)
   - [3. Start Rails](#3-start-rails)
-  - [4. Run the tests](#4-run-the-tests)
-  - [5. Write code!](#5-write-code)
+  - [4. Start JS](#4-start-js)
+  - [5. Run the tests](#5-run-the-tests)
+  - [6. Write code!](#6-write-code)
 - [Browser/OS Targeting](#browseros-targeting)
 - [Deployment](#deployment)
   - [Importing real data](#importing-real-data)
@@ -145,7 +146,11 @@ This will create demo students with fake student information. The demo educator 
 ## 3. Start Rails
 Once you've created the data, start a local server by running `rails s` from the root of your project. When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.
 
-## 4. Run the tests
+## 4. Start JS
+
+`bin/webpack-dev-server`
+
+## 5. Run the tests
 This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
 
 ```
@@ -175,7 +180,7 @@ npm install
 npm run lint-quiet
 ```
 
-## 5. Write code!
+## 6. Write code!
 This project is a Rails app and has a typical Rails project structure.  If you'd like to get up to speed on Rails, we recommend checking out their [great documentation](http://guides.rubyonrails.org/).
 
 It also uses React for much the user interface code, with one minor wrinkle (see below).  If you'd like to get up to speed on React, we recommend their great documentation, and the [Tutorial](https://facebook.github.io/react/docs/tutorial.html) and [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html) pages in particular.
