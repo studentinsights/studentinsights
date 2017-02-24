@@ -24,7 +24,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [Student profiles](#student-profiles)
     - [Capturing meeting notes and interventions](#capturing-meeting-notes-and-interventions)
 - [School deployment](#school-deployment)
-- [Project priorities](#project-priorities)
 - [Contributing](#contributing)
 - [How it works](#how-it-works)
 - [Development Environment](#development-environment)
@@ -108,24 +107,6 @@ Kennedy | :white_check_mark: | |
 Argenziano | :white_check_mark: | |
 Winter Hill | :white_check_mark: | |
 
-# Project priorities
-Priorites are tracked in GitHub with [milestones](https://github.com/studentinsights/studentinsights/milestones).
-
-__Expansion goal:__
-
-+ Whole district classroom teacher rosters and profile in September
-
-__New feature goal:__
-
-+ PDF data dump
-
-__Processes we are supporting:__
-
-+ X2 roll-over to next school year (in July or August)
-+ Healey SST/MTSS
-+ West SST/MTSS
-+ East SST/MTSS
-
 # Contributing
 We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge.
 
@@ -186,7 +167,7 @@ docker-compose build tools
 docker-compose run tools
 ```
 
-or 
+or
 
 ```
 cd scripts/tools
