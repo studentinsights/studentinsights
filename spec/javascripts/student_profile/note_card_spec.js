@@ -50,6 +50,17 @@ describe('NoteCard', function() {
       expect(helpers.getNoteHTML(el)).toEqual('hello');
     });
 
+    it('renders number of revisions', function() {
+      var el = this.testEl;
+
+      helpers.renderInto(el, {
+        text: 'hello',
+        numberOfRevisions: 1
+      });
+
+      expect(el).toContainText('Revised 1 time');
+    });
+
     it('escapes HTML-meaningful characters in text', function() {
       var el = this.testEl;
 

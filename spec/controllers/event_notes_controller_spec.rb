@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe EventNotesController, :type => :controller do  
+describe EventNotesController, :type => :controller do
   let(:school) { FactoryGirl.create(:school) }
 
   describe '#create' do
@@ -42,6 +42,7 @@ describe EventNotesController, :type => :controller do
             'text',
             'recorded_at',
             'is_restricted',
+            'event_note_revisions',
             'attachments'
           ]
         end
@@ -108,7 +109,8 @@ describe EventNotesController, :type => :controller do
             'text',
             'recorded_at',
             'is_restricted',
-            'attachments',
+            'event_note_revisions',
+            'attachments'
           ]
           expect(JSON.parse(response.body)["is_restricted"]).to eq true
         end

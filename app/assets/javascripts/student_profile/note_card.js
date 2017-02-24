@@ -47,7 +47,14 @@
       educatorsIndex: React.PropTypes.object.isRequired,
       attachments: React.PropTypes.array.isRequired,
       onSave: React.PropTypes.func,
-      onEventNoteAttachmentDeleted: React.PropTypes.func
+      onEventNoteAttachmentDeleted: React.PropTypes.func,
+      numberOfRevisions: React.PropTypes.number
+    },
+
+    getDefaultProps: function() {
+      return {
+        numberOfRevisions: 0
+      };
     },
 
     // No feedback, fire and forget
@@ -77,27 +84,47 @@
             educator: this.props.educatorsIndex[this.props.educatorId]
           }))
         ),
-        this.renderTextArea(),
+        (this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea(),
         this.renderAttachmentUrls()
       );
     },
 
-    // If an onSave callback is provided, the text is editable.
-    // If not (eg., for older interventions), 
-    renderTextArea: function() {
-      if (this.props.onSave) {
-        return createEl(EditableTextComponent, {
+    renderSaveableTextArea: function() {
+      return dom.div({},
+        createEl(EditableTextComponent, {
           style: styles.noteText,
           className: 'note-text',
           text: this.props.text,
           onBlurText: this.onBlurText
-        });
-      } else {
-        return dom.div({
-          style: styles.noteText,
-          className: 'note-text'
-        }, this.props.text);
-      }
+        }),
+        this.renderNumberOfRevisions()
+      );
+    },
+
+    renderNumberOfRevisions: function () {
+      var numberOfRevisions = this.props.numberOfRevisions;
+      if (numberOfRevisions === 0) return null;
+
+      return dom.div({
+        style: {
+          color: '#aaa',
+          fontSize: 13,
+          marginTop: 13
+        }
+      },
+        ((numberOfRevisions === 1)
+          ? 'Revised 1 time'
+          : 'Revised ' + numberOfRevisions + ' times')
+      );
+    },
+
+    // If an onSave callback is provided, the text is editable.
+    // If not (eg., for older interventions),
+    renderStaticTextArea: function () {
+      return dom.div({
+        style: styles.noteText,
+        className: 'note-text'
+      }, this.props.text);
     },
 
     renderAttachmentUrls: function() {

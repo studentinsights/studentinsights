@@ -25,14 +25,15 @@ module SerializeDataHelper
   end
 
   def serialize_event_note_without_attachments(event_note)
-    event_note.as_json.symbolize_keys.slice(*[
+    event_note.as_json(include: :event_note_revisions).symbolize_keys.slice(*[
       :id,
       :student_id,
       :educator_id,
       :event_note_type_id,
       :text,
       :recorded_at,
-      :is_restricted
+      :is_restricted,
+      :event_note_revisions
     ])
   end
 

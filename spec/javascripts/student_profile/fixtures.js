@@ -20,6 +20,7 @@
         "created_at": "2016-02-26T22:20:55.416Z",
         "updated_at": "2016-02-26T22:20:55.416Z",
         "is_restricted": false,
+        "event_note_revisions": [],
         "attachments": [
           { id: 42, url: "https://www.example.com/studentwork" },
           { id: 47, url: "https://www.example.com/morestudentwork" }
@@ -35,6 +36,7 @@
         "created_at": "2016-02-27T19:23:26.836Z",
         "updated_at": "2016-02-27T19:23:26.836Z",
         "is_restricted": true,
+        "event_note_revisions": [],
         "attachments": []
       }
     ],
@@ -496,6 +498,7 @@
           "recorded_at": "2016-02-11T21:28:02.102Z",
           "created_at": "2016-02-11T21:28:02.103Z",
           "updated_at": "2016-02-11T21:28:02.103Z",
+          "event_note_revisions": [],
           "attachments": []
         },
         {
@@ -507,6 +510,7 @@
           "recorded_at": "2016-02-11T21:29:18.166Z",
           "created_at": "2016-02-11T21:29:18.167Z",
           "updated_at": "2016-02-11T21:29:18.167Z",
+          "event_note_revisions": [],
           "attachments": []
         },
         {
@@ -518,6 +522,7 @@
           "recorded_at": "2016-02-11T21:29:30.287Z",
           "created_at": "2016-02-11T21:29:30.288Z",
           "updated_at": "2016-02-11T21:29:30.288Z",
+          "event_note_revisions": [],
           "attachments": []
         }
       ],
