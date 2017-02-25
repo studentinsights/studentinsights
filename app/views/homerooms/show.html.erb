@@ -147,7 +147,7 @@
                 <%= row['disability'] %>
               </td>
               <td class="sped">
-                <%= row['sped_level_of_need'] %>
+                <%= react_component 'WarningBubble', { data: row['sped_level_of_need'] } %>
               </td>
               <td class="sped">
                 <%= row['plan_504'] %>
