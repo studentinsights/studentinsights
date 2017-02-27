@@ -12,7 +12,7 @@ var WarningBubble = React.createClass({
 
   getClass: function() {
     switch (this.getLevel()) {
-      case "1": return "warning-bubble risk-1";
+      case "1": return "warning-bubble risk-1 tooltip";
       case "2": return "warning-bubble risk-2";
       case "3": return "warning-bubble risk-3";
       case "4": return "warning-bubble risk-4";
@@ -20,9 +20,18 @@ var WarningBubble = React.createClass({
     }
   },
 
+  getSpedTooltipText: function() {
+    switch (this.getLevel()) {
+      case "1": return "receives less than 2 hours of special education services per week.";
+    }
+  },
+
   render: function() {
   	return(
-      <div className={this.getClass()}>{this.getLevel()}</div>
+      <div className={this.getClass()}>
+        {this.getLevel()}
+        <span className="tooltiptext">{this.getSpedTooltipText()}</span>
+      </div>
   	)
   }
 
