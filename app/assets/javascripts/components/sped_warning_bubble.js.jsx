@@ -1,4 +1,4 @@
-var WarningBubble = React.createClass({
+var SpedWarningBubble = React.createClass({
 
   getLevel: function() {
     switch (this.props.data.sped_level_of_need) {
@@ -22,7 +22,7 @@ var WarningBubble = React.createClass({
 
   getSpedTooltipText: function() {
     switch (this.getLevel()) {
-      case "1": return this.props.data.first_name+" receives less than 2 hours of special education services per week.";
+      case "1": return this.props.data.first_name+" receives 0-2 hours of special education services per week.";
       case "2": return this.props.data.first_name+" receives 2-5 hours of special education services per week.";
       case "3": return this.props.data.first_name+" receives 6-14 hours of special education services per week.";
       case "4": return this.props.data.first_name+" receives 15+ hours of special education services per week.";

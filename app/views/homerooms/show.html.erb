@@ -135,11 +135,11 @@
               <td class="name">
                 <%= "#{row['first_name']} #{row['last_name']}" %>
               </td>
-              <td class="risk risk-tooltip-circle" data-student-id="<%= row['id'] %> ">
-                <div class="warning-bubble risk-<%= row[:student_risk_level]['level'] || 'na' %>">
-                  <%= row[:student_risk_level]['level'] || 'N/A' %>
-                </div>
+
+              <td class="risk">
+                <%= react_component 'RiskWarningBubble', { data: row } %>
               </td>
+
               <td class="program">
                 <%= row['program_assigned'] %>
               </td>
@@ -147,7 +147,7 @@
                 <%= row['disability'] %>
               </td>
               <td class="sped">
-                <%= react_component 'WarningBubble', { data: row } %>
+                <%= react_component 'SpedWarningBubble', { data: row } %>
               </td>
               <td class="sped">
                 <%= row['plan_504'] %>
