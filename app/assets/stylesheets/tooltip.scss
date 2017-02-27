@@ -77,24 +77,26 @@
   display: inline-block;
 }
 
-.tooltiptext {
+.tooltip .tooltiptext {
   visibility: hidden;
   width: 240px;
   background-color: black;
   color: #fff;
   text-align: center;
-  padding: 5px 0;
   border-radius: 6px;
+  padding: 5px 0;
+  overflow: visible;
+  white-space: pre-line;
+
+  /* Position the tooltip */
   position: absolute;
   z-index: 1;
-
   bottom: 100%;
   left: 50%; 
   margin-left: -120px;
+
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-  width: 220px;
-  max-width: 220px;
 }
