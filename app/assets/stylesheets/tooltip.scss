@@ -72,6 +72,7 @@
   max-width: 240px;
 }
 
+/* These styles based on tooltipster.scss */
 .tooltip {
   position: relative;
   display: inline-block;
@@ -80,21 +81,24 @@
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 240px;
-  background-color: black;
-  color: #fff;
   text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  overflow: visible;
+  border-radius: 3px;
   white-space: pre-line;
+  background: #fff;
+  box-shadow: 0px 0px 14px rgba(0,0,0,0.3);
+  color: #2c2c2c;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 20px;
+  overflow: hidden;
 
-  /* Position the tooltip */
+  /* Position of the tooltip */
   position: absolute;
   z-index: 1;
-  bottom: 100%;
+  bottom: 120%;
   left: 50%; 
   margin-left: -120px;
-
 }
 
 .tooltip:hover .tooltiptext {
