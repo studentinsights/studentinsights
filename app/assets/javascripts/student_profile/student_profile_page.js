@@ -261,7 +261,8 @@
       var student = this.props.student;
       var columnKey = 'profile';
       var demographicsElements = [
-        'Disability: ' + (student.sped_level_of_need || 'None'),
+        'Disability: ' + (student.disability || 'None'),
+        'SpEd level of need: ' + (student.sped_level_of_need || 'None'),
         'Low income: ' + student.free_reduced_lunch,
         'Language: ' + student.limited_english_proficiency
       ];
