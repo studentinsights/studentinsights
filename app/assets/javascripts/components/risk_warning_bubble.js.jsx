@@ -14,8 +14,7 @@ var RiskWarningBubble = React.createClass({
   	return(
       <div className={this.getClass()}>
         {this.props.data.student_risk_level.level}
-        <span className="tooltiptext">
-          <p>{this.props.data.student_risk_level.explanation}</p>
+        <span className="tooltiptext" dangerouslySetInnerHTML={{__html: this.props.data.student_risk_level.explanation}}>
         </span>
       </div>
   	)

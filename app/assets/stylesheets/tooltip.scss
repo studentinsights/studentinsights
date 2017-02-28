@@ -81,7 +81,7 @@
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 240px;
-  text-align: center;
+  text-align: left;
   border-radius: 3px;
   white-space: pre-line;
   background: #fff;
@@ -91,11 +91,11 @@
   font-size: 14px;
   line-height: 20px;
   padding: 20px;
-  overflow: hidden;
+  overflow: visible;
 
   /* Position of the tooltip */
   position: absolute;
-  z-index: 1;
+  z-index: 999999;
   bottom: 120%;
   left: 50%; 
   margin-left: -120px;
