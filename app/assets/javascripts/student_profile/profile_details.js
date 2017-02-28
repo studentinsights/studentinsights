@@ -190,7 +190,7 @@
             className: 'btn btn-warning',
             style: styles.spedButton,
             onClick: this.onClickGenerateSpedReferral
-          }, 'BETA: Generate SPED Referral')
+          }, 'Generate Student Report')
         ),
         bySchoolYearDescending.map(this.renderCardsForYear)
       );
