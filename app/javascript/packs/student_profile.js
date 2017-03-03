@@ -1,6 +1,5 @@
 import PageContainer from './student_profile/page_container.jsx';
 import ReactDOM from 'react-dom';
-import moment from 'moment';
 
 
 document.addEventListener("DOMContentLoaded", e => {
@@ -9,6 +8,7 @@ document.addEventListener("DOMContentLoaded", e => {
   var parseQueryString = window.shared.parseQueryString;
   var MixpanelUtils = window.shared.MixpanelUtils;
   var $ = window.$;
+  var moment = window.moment;
 
   // entry point, reading static bootstrapped data from the page
   var serializedData = $('#serialized-data').data();
