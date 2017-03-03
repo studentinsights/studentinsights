@@ -1,5 +1,3 @@
-import React from 'react';
-
 var merge = window.shared.ReactHelpers.merge;
 var MixpanelUtils = window.shared.MixpanelUtils;
 var Routes = window.shared.Routes;
@@ -8,6 +6,7 @@ var PropTypes = window.shared.PropTypes;
 var Api = window.shared.Api;
 var fromPair = window.shared.fromPair;
 var _ = window._;
+var React = window.React;
 
 /*
 Holds page state, makes API calls to manipulate it.
