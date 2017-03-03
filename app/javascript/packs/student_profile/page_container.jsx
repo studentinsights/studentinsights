@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 var merge = window.shared.ReactHelpers.merge;
 var MixpanelUtils = window.shared.MixpanelUtils;
@@ -8,6 +7,7 @@ var StudentProfilePage = window.shared.StudentProfilePage;
 var PropTypes = window.shared.PropTypes;
 var Api = window.shared.Api;
 var fromPair = window.shared.fromPair;
+var _ = window._;
 
 /*
 Holds page state, makes API calls to manipulate it.
@@ -20,7 +20,7 @@ export default React.createClass({
     serializedData: React.PropTypes.object.isRequired,
     queryParams: React.PropTypes.object.isRequired,
     history: PropTypes.history.isRequired,
-    
+
     // for testing
     actions: PropTypes.actions,
     api: PropTypes.api

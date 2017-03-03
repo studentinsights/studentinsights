@@ -1,7 +1,6 @@
 import PageContainer from './student_profile/page_container.jsx';
 import ReactDOM from 'react-dom';
 
-
 document.addEventListener("DOMContentLoaded", e => {
   // imports
   var createEl = window.shared.ReactHelpers.createEl;
