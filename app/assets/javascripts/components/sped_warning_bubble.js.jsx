@@ -12,10 +12,10 @@ var SpedWarningBubble = React.createClass({
 
   getClass: function() {
     switch (this.getLevel()) {
-      case "1": return "warning-bubble risk-1 tooltip";
-      case "2": return "warning-bubble risk-2 tooltip";
-      case "3": return "warning-bubble risk-3 tooltip";
-      case "4": return "warning-bubble risk-4 tooltip";
+      case "1": return "warning-bubble sped-risk-bubble tooltip";
+      case "2": return "warning-bubble sped-risk-bubble tooltip";
+      case "3": return "warning-bubble sped-risk-bubble tooltip";
+      case "4": return "warning-bubble sped-risk-bubble tooltip";
       default: return "sped";
     }
   },

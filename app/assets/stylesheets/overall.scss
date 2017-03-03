@@ -76,6 +76,14 @@ body {
   background-color: $gray;
 }
 
+.sped-risk-bubble {
+  background-color: #773c96;
+
+  &:hover {
+    background-color: darken(#773c96, 10%);
+  }
+}
+
 .hide {
   display: none;
 }
