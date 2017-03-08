@@ -1,7 +1,15 @@
-var RiskWarningBubble = React.createClass({
+const { string, object } = React.PropTypes;
+
+const RiskWarningBubble = React.createClass({
+
+  propTypes: {
+    data: object,
+    student_risk_level: object
+  },
 
   getClass: function() {
-    switch (this.props.data.student_risk_level.level) {
+    const { student_risk_level } = this.props.data
+    switch (student_risk_level.level) {
       case 0: return "warning-bubble risk-0 tooltip";
       case 1: return "warning-bubble risk-1 tooltip";
       case 2: return "warning-bubble risk-2 tooltip";
@@ -11,10 +19,12 @@ var RiskWarningBubble = React.createClass({
   },
 
   render: function() {
+    const { student_risk_level } = this.props.data
+
   	return(
       <div className={this.getClass()}>
-        {this.props.data.student_risk_level.level}
-        <span className="tooltiptext" dangerouslySetInnerHTML={{__html: this.props.data.student_risk_level.explanation}}>
+        {student_risk_level.level}
+        <span className="tooltiptext" dangerouslySetInnerHTML={{__html: student_risk_level.explanation}}>
         </span>
       </div>
   	)

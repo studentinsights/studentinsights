@@ -1,7 +1,17 @@
-var SpedWarningBubble = React.createClass({
+const { string, object } = React.PropTypes;
+
+const SpedWarningBubble = React.createClass({
+
+  propTypes: {
+    data: object,
+    first_name: string,
+    sped_level_of_need: string
+  },
 
   getLevel: function() {
-    switch (this.props.data.sped_level_of_need) {
+    const { sped_level_of_need } = this.props.data;
+
+    switch (sped_level_of_need) {
       case "Low < 2": return "1";
       case "Low >= 2": return "2";
       case "Moderate": return "3";
@@ -21,11 +31,13 @@ var SpedWarningBubble = React.createClass({
   },
 
   getSpedTooltipText: function() {
+    const { first_name } = this.props.data;
+
     switch (this.getLevel()) {
-      case "1": return this.props.data.first_name+" receives 0-2 hours of special education services per week.";
-      case "2": return this.props.data.first_name+" receives 2-5 hours of special education services per week.";
-      case "3": return this.props.data.first_name+" receives 6-14 hours of special education services per week.";
-      case "4": return this.props.data.first_name+" receives 15+ hours of special education services per week.";
+      case "1": return `${first_name} receives 0-2 hours of special education services per week.`;
+      case "2": return `${first_name} receives 2-5 hours of special education services per week.`;
+      case "3": return `${first_name} receives 6-14 hours of special education services per week.`;
+      case "4": return `${first_name} receives 15+ hours of special education services per week.`;
       default: return null;
     }
   },
