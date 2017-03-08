@@ -1,14 +1,19 @@
-const { string, object } = React.PropTypes;
+const { number, shape, string } = React.PropTypes;
 
 const RiskWarningBubble = React.createClass({
 
   propTypes: {
-    data: object,
-    student_risk_level: object
+    data: shape({
+      student_risk_level: shape({
+        level: number,
+        explanation: string
+      })
+    })
   },
 
   getClass: function() {
     const { student_risk_level } = this.props.data
+
     switch (student_risk_level.level) {
       case 0: return "warning-bubble risk-0 tooltip";
       case 1: return "warning-bubble risk-1 tooltip";
