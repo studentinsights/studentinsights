@@ -1,11 +1,12 @@
-const { string, object } = React.PropTypes;
+const { string, shape } = React.PropTypes;
 
 const SpedWarningBubble = React.createClass({
 
   propTypes: {
-    data: object,
-    first_name: string,
-    sped_level_of_need: string
+    data: shape({
+      first_name: string,
+      sped_level_of_need: string
+    }),
   },
 
   getLevel: function() {
