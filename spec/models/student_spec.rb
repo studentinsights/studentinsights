@@ -246,12 +246,14 @@ RSpec.describe Student do
     context 'student has access results' do
       let(:access) { FactoryGirl.create(:assessment, :access) }
       before {
-        FactoryGirl.create(:student_assessment, student: student, assessment: access, scale_score: 300)
+        FactoryGirl.create(
+          :student_assessment, student: student, assessment: access, performance_level: '3.0'
+        )
       }
 
       it 'returns the correct hash of values by score' do
         expect(student.latest_access_results).to eq ({
-          :composite=>300, :comprehension=>nil, :literacy=>nil, :oral=>nil,
+          :composite=>'3.0', :comprehension=>nil, :literacy=>nil, :oral=>nil,
           :listening=>nil, :reading=>nil, :speaking=>nil, :writing=>nil
         })
       end

@@ -94,7 +94,7 @@ class Student < ActiveRecord::Base
     access_categories = [ :composite, :comprehension, :literacy, :oral, :listening, :reading, :speaking, :writing, ]
 
     access_categories.map do |category|
-      [category, latest_result_by_family_and_subject('ACCESS', category.to_s.capitalize).try(:scale_score)]
+      [category, latest_result_by_family_and_subject('ACCESS', category.to_s.capitalize).try(:performance_level)]
     end.to_h
 
   end
