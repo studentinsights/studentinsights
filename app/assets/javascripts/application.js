@@ -22,16 +22,13 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require highcharts
-//= require jquery.tooltipster.min.js
 //= require tablesort.min
 //= require tablesort.numeric
 //= require_tree ./sorts
-//= require mustache.min
 //= require js.cookie
 //= require classList
 //= require lodash.3.10.1.min
 //= require rounded-corners
-//= require handlebars.runtime
 //= require d3.v3.min.js
 //= require moment.js
 //= require sanitize
