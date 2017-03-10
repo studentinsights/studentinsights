@@ -1,13 +1,13 @@
 (function() {
   window.shared || (window.shared = {});
-  var dom = window.shared.ReactHelpers.dom;
-  var createEl = window.shared.ReactHelpers.createEl;
+  const dom = window.shared.ReactHelpers.dom;
+  const createEl = window.shared.ReactHelpers.createEl;
 
-  var Educator = window.shared.Educator;
-  var EditableTextComponent = window.shared.EditableTextComponent;
-  var moment = window.moment;
+  const Educator = window.shared.Educator;
+  const EditableTextComponent = window.shared.EditableTextComponent;
+  const moment = window.moment;
 
-  var styles = {
+  const styles = {
     note: {
       border: '1px solid #eee',
       padding: 15,
@@ -73,77 +73,85 @@
     },
 
     render: function() {
-      return dom.div({
-        className: 'NoteCard',
-        style: styles.note
-      },
-        dom.div({},
-          dom.span({ className: 'date', style: styles.date }, this.props.noteMoment.format('MMMM D, YYYY')),
-          this.props.badge,
-          dom.span({ style: styles.educator }, createEl(Educator, {
-            educator: this.props.educatorsIndex[this.props.educatorId]
-          }))
-        ),
-        (this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea(),
-        this.renderAttachmentUrls()
+      return (
+        <div className="NoteCard" style={styles.note}>
+          <div>
+            <span className="date" style={styles.date}>
+              {this.props.noteMoment.format('MMMM D, YYYY')}
+            </span>
+            {this.props.badge}
+            <span style={styles.educator}>
+              <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
+            </span>
+          </div>
+          {(this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea()}
+          {this.renderAttachmentUrls()}
+        </div>
       );
     },
 
     renderSaveableTextArea: function() {
-      return dom.div({},
-        createEl(EditableTextComponent, {
-          style: styles.noteText,
-          className: 'note-text',
-          text: this.props.text,
-          onBlurText: this.onBlurText
-        }),
-        this.renderNumberOfRevisions()
+      return (
+        <div>
+          <EditableTextComponent
+            style={styles.noteText}
+            className="note-text"
+            text={this.props.text}
+            onBlurText={this.onBlurText} />
+          {this.renderNumberOfRevisions()}
+        </div>
       );
     },
 
     renderNumberOfRevisions: function () {
-      var numberOfRevisions = this.props.numberOfRevisions;
+      const numberOfRevisions = this.props.numberOfRevisions;
       if (numberOfRevisions === 0) return null;
 
-      return dom.div({
-        style: {
-          color: '#aaa',
-          fontSize: 13,
-          marginTop: 13
-        }
-      },
-        ((numberOfRevisions === 1)
-          ? 'Revised 1 time'
-          : 'Revised ' + numberOfRevisions + ' times')
+      return (
+        <div
+          style={{
+            color: '#aaa',
+            fontSize: 13,
+            marginTop: 13
+          }}>
+          {(numberOfRevisions === 1)
+              ? 'Revised 1 time'
+              : 'Revised ' + numberOfRevisions + ' times'}
+        </div>
       );
     },
 
     // If an onSave callback is provided, the text is editable.
     // If not (eg., for older interventions),
     renderStaticTextArea: function () {
-      return dom.div({
-        style: styles.noteText,
-        className: 'note-text'
-      }, this.props.text);
+      return (
+        <div style={styles.noteText} className="note-text">
+          {this.props.text}
+        </div>
+      );
     },
 
     renderAttachmentUrls: function() {
-      var attachments = this.props.attachments;
+      const attachments = this.props.attachments;
 
       return attachments.map(function(attachment) {
-        return dom.div({ key: attachment.id },
-          dom.p({}, 'link: ',
-            dom.a({
-              href: attachment.url,
-              target: '_blank',
-              rel: 'noopener noreferrer',
-              style: {
-                display: 'inline-block',
-                marginTop: 20
-              }
-            }, attachment.url),
-            this.renderRemoveAttachmentLink(attachment)
-          )
+        return (
+          <div key={attachment.id}>
+            <p>
+              {'link: '}
+              <a
+                href={attachment.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  marginTop: 20
+                }}>
+                {attachment.url}
+              </a>
+              {this.renderRemoveAttachmentLink(attachment)}
+            </p>
+          </div>
         );
       }, this);
     },
@@ -153,13 +161,14 @@
       if (!this.props.onEventNoteAttachmentDeleted) return null;
 
       return (
-        dom.a({
-          onClick: this.onDeleteAttachmentClicked.bind(this, attachment.id),
-          style: {
+        <a
+          onClick={this.onDeleteAttachmentClicked.bind(this, attachment.id)}
+          style={{
             display: 'inline-block',
             marginLeft: 10
-          }
-        }, '(remove)')
+          }}>
+          (remove)
+        </a>
       );
     }
   });
