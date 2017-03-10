@@ -35,8 +35,6 @@
 
 // provided by react-rails gem, configured in config/initializers/assets.rb
 //= require react
-//= require react_ujs
-
 
 //= require ./react-compatibility.js
 
