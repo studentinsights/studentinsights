@@ -177,7 +177,7 @@
       if (!file || !file.name) return;
 
       this.setState({ formData: merge(this.state.formData, { file_name: file.name }) });
-      
+
       var reader = new FileReader();
       reader.onload = this.onFileReaderLoaded.bind(this, reader);
       reader.readAsText(file);
@@ -188,13 +188,14 @@
       var rows = text.split("\n");
       var headerRow = rows.shift().split(",");
 
-      if (headerRow[0] !== 'LASID') {
+      if (headerRow[0].trim() !== 'LASID') {
         this.setState({ missingLasidHeader: true });
         return;
       };
 
-      var student_lasids = rows.map(function(row) { return row.split(",")[0]; })
+      var student_lasids = rows.map(function(row) { return row.split(",")[0].trim(); })
                                .filter(function (lasid) { return lasid !== '' });
+
       this.validateLASIDs(student_lasids);
     },
 
