@@ -20,7 +20,10 @@ Rails.application.routes.draw do
   get 'no_homeroom' => 'pages#no_homeroom'
   get 'no_homerooms' => 'pages#no_homerooms'
   get 'not_authorized' => 'pages#not_authorized'
-  get 'lets_encrypt_endpoint' => 'pages#lets_encrypt_endpoint'
+
+  if ENV['LETS_ENCRYPT_ENDPOINT']
+    get ENV['LETS_ENCRYPT_ENDPOINT'] => 'pages#lets_encrypt_endpoint'
+  end
 
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'
