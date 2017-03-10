@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'no_homeroom' => 'pages#no_homeroom'
   get 'no_homerooms' => 'pages#no_homerooms'
   get 'not_authorized' => 'pages#not_authorized'
+  get 'lets_encrypt_endpoint' => 'pages#lets_encrypt_endpoint'
 
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'
