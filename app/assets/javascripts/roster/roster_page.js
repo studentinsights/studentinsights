@@ -112,16 +112,16 @@ $(function() {
       return mustache_rendered;
     }
 
-    $.each($('.risk-tooltip-circle'), function() {
-      $this = $(this)
-      var student_id = parseInt($this.data('student-id'))
-      var tooltip = getRiskLevelToolTip(student_id)
-      $this.tooltipster({
-        content: tooltip,
-        position: 'bottom',
-        contentAsHTML: true
-      });
-    });
+    // $.each($('.risk-tooltip-circle'), function() {
+    //   $this = $(this)
+    //   var student_id = parseInt($this.data('student-id'))
+    //   var tooltip = getRiskLevelToolTip(student_id)
+    //   $this.tooltipster({
+    //     content: tooltip,
+    //     position: 'bottom',
+    //     contentAsHTML: true
+    //   });
+    // });
 
     // Turn table rows into links to student profiles
     $('tbody tr').click(function () {

@@ -136,8 +136,12 @@
                 <%= "#{row['first_name']} #{row['last_name']}" %>
               </td>
 
-              <td class="risk">
-                <%= react_component 'RiskWarningBubble', { data: row } %>
+              
+              <td class="risk" data-student-id="<%= row['id'] %> ">
+                <div class="warning-bubble risk-<%= row[:student_risk_level]['level'] || 'na' %> tooltip">
+                  <%= row[:student_risk_level]['level'] || 'N/A' %>
+                  <span class="tooltiptext"><%= row[:student_risk_level]['explanation'].html_safe %></span>
+                </div>
               </td>
 
               <td class="program">
@@ -147,8 +151,14 @@
                 <%= row['disability'] %>
               </td>
               <td class="sped">
-                <%= react_component 'SpedWarningBubble', { data: row } %>
+                <div class="<%= row[:sped_data]['sped_bubble_class'] %>">
+                  <%= row[:sped_data]['sped_level'] %>
+                    <span class="tooltiptext">
+                      <%= row[:sped_data]['sped_tooltip_message'] %>
+                    </span>
+                </div>
               </td>
+
               <td class="sped">
                 <%= row['plan_504'] %>
               </td>

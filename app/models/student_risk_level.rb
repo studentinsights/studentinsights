@@ -68,4 +68,8 @@ class StudentRiskLevel < ActiveRecord::Base
     end
   end
 
+  def sped_levelz
+    12
+  end
+
 end
