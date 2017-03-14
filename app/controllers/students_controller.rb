@@ -58,9 +58,14 @@ class StudentsController < ApplicationController
     set_up_sped_data
     respond_to do |format|
       format.pdf do
-        title = "Student Report"
         footer = "Somerville Public Schools Student Report -- Generated #{format_date(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
-        render pdf: 'sped_referral', title: title, footer: { center: footer, font_name: 'Open Sans', font_size: 9}, javascript_delay: 1000
+        render({
+          pdf: 'sped_referral', 
+          title: 'Student Report', 
+          footer: { center: footer, font_name: 'Open Sans', font_size: 9}, 
+          window_status: 'READY',
+          show_as_html: Rails.env.development? && params.key?('debug')
+        })
       end
     end
   end

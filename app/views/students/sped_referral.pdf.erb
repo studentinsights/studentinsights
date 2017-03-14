@@ -203,220 +203,196 @@ ul, li {
 
 <%= tag("div", id: "serialized-data", data: @serialized_data) %>
 
-<script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<div class="scripts">
+  <script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
-<script>
+  <script>
 
-function lpadMonth(month) {
-  if(month < 10) {
-    return "0" + month;
-  }
-  else {
-    return month;
-  }
-}
-
-function initializeDataArray(dataArray) {
-  var outputArray = new Object;
-
-  var presentDate = new Date();
-  var presentYear = presentDate.getFullYear();
-  var presentMonth = presentDate.getMonth() + 1;
-
-  var iterationYear = presentMonth < 8 ? presentYear - 2 : presentYear - 1;
-  var iterationMonth = 8;
-
-  var index = 0;
-
-  while(!(iterationYear == presentYear && iterationMonth > presentMonth)) {
-    outputArray[""+iterationYear + lpadMonth(iterationMonth)] = 0;
-
-    if(iterationMonth < 12) {
-      iterationMonth++;
-    }
-    else {
-      iterationMonth = 1;
-      iterationYear++;
-    }
-
-    index++;
-  }
-
-  for (i=0; i < dataArray.length; i++) {
-    addDate(outputArray, dataArray[i].occurred_at);
-  }
-
-  return flattenArray(outputArray);
-}
-
-function monthLabel(month) {
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-  return months[month - 1];
-}
-
-function generateXAxisSettings() {
-  var monthLabels = [];
-  var yearLabels = [];
-  var yearTickPositions = [];
-
-  var presentDate = new Date();
-  var presentYear = presentDate.getFullYear();
-  var presentMonth = presentDate.getMonth() + 1;
-
-  var iterationYear = presentMonth < 8 ? presentYear - 2 : presentYear - 1
-  var iterationMonth = 8;
-
-  var index = 0;
-
-  while(!(iterationYear == presentYear && iterationMonth > presentMonth)) {
-    monthLabels[index] = monthLabel(iterationMonth);
-    yearLabels[index] = iterationYear;
-    
-    if(iterationMonth < 12) {
-      iterationMonth++;
-    }
-    else {
-      iterationMonth = 1;
-      iterationYear++;
-      yearTickPositions.push(index+1);
-    }
-
-    index++;
-
-  }
-
-  return {
-    'monthLabels' : monthLabels,
-    'yearLabels' : yearLabels,
-    'yearTickPositions' : yearTickPositions
+  // Returns a list of monthKeys that are within the time window for this chart.
+  function monthKeys(nowMomentUTC, monthsBack) {
+    var lastMonthMomentUTC = nowMomentUTC.clone().date(1);
+    return _.range(monthsBack, -1, -1).map(function(monthsBack) {
+      var monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
+      var monthKey = monthMomentUTC.format('YYYYMMDD');
+      return monthKey;
+    }, this);
   };
-}
 
-function addDate(monthlyTotalArray, dateString) {
-  var eventDate = new Date(dateString);
-  var month = eventDate.getMonth() + 1;
-  var year = eventDate.getFullYear();
+  function defaultMonthKey(event) {
+    return moment.utc(event.occurred_at).date(1).format('YYYYMMDD');
+  };
 
-  monthlyTotalArray["" + year + lpadMonth(month)]++;
-}
+  function eventsToMonthBuckets(monthKeys, events){
+    var eventsByMonth = _.groupBy(events, defaultMonthKey);
+    return monthKeys.map(function(monthKey) {
+      return eventsByMonth[monthKey] || [];
+    });
+  };
 
-function flattenArray(arrayObject) {
-  var flattenedArray = [];
-  for (var key in arrayObject) {
-    flattenedArray.push(arrayObject[key]);
+  function yearAxisCaption(monthKey) {
+    return moment.utc(monthKey).format('YYYY');
+  };
+
+  // Returns HighCharts categories map, which describes how to place year captions in relation
+  // to the list of monthKeys.  Returns a map of (index into monthKeys array) -> (caption text)
+  //
+  // Example output: {3: '2014', 15: '2015'}
+  function yearCategories(monthKeys) {
+    var categories = {};
+
+    monthKeys.forEach(function(monthKey, monthKeyIndex) {
+      var monthMomentUTC = moment.utc(monthKey);
+      var isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
+      if (isFirstMonthOfYear) {
+        categories[monthKeyIndex] = yearAxisCaption(monthKey);
+      }
+    }, this);
+
+    return categories;
+  };
+
+  function monthAxisCaption(monthKey) {
+    return moment.utc(monthKey).format('MMM');
+  };
+
+
+  function calculateMonths(nowMomentUTC) {
+    return nowMomentUTC.month() < 8 ? nowMomentUTC.month() + 17 : nowMomentUTC.month() + 4;
   }
-  return flattenedArray;
-}
 
-function generateGraph(containerSelector, yAxisLabel, xAxisSettings, dataSeries){
-  
-  var stacking ="";
-
-  if(dataSeries.length > 1) {
-    stacking = "normal";
+  function graphReady() {
+    window.status = "READY";
   }
 
-  $(containerSelector).highcharts({
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: ''
-    },
-    credits: false,
-    exporting: {
-      enabled: false
-    },
-    plotOptions: {
-      column: {
-        stacking: stacking,
-        dataLabels: {
+  function generateGraph(containerSelector, yAxisLabel, xAxisSettings, dataSeries, callback){
+    
+    var stacking ="";
+
+    if(dataSeries.length > 1) {
+      stacking = "normal";
+    }
+
+    $(containerSelector).highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: ''
+      },
+      credits: false,
+      exporting: {
+        enabled: false
+      },
+      plotOptions: {
+        column: {
+          stacking: stacking,
+          dataLabels: {
+            enabled: true,
+            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+            formatter: function(){
+              var val = this.y;
+              if (val < 1) {
+                  return '';
+              }
+              return val;
+            },
+          }
+        }
+      },
+      xAxis: xAxisSettings,
+      yAxis: {
+        title: {
+          text: yAxisLabel
+        },
+        stackLabels: {
           enabled: true,
-          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-          formatter: function(){
-            var val = this.y;
-            if (val < 1) {
-                return '';
-            }
-            return val;
+          style: {
+              fontWeight: 'bold',
+              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
           },
+          formatter: function(){
+              var val = this.total;
+              if (val < 1) {
+                  return '';
+              }
+              return val;
+          },
+        },
+        min: 0,
+        max: 20,
+      },
+      series: dataSeries
+    },callback);
+
+  };
+
+  $(function() {
+    var attendanceData = $('#serialized-data').data('attendance-data');
+
+    var allMonthKeys = monthKeys(moment.utc(), calculateMonths(moment.utc()));
+    console.log(allMonthKeys);
+    var allYearCategories = yearCategories(allMonthKeys);
+
+    var tardyMonthBuckets = eventsToMonthBuckets(allMonthKeys, attendanceData.tardies);
+    var absenceMonthBuckets = eventsToMonthBuckets(allMonthKeys, attendanceData.absences);
+    var disciplineMonthBuckets = eventsToMonthBuckets(allMonthKeys, attendanceData.discipline_incidents);
+
+    Highcharts.setOptions({
+      plotOptions: {
+        series: {
+          animation: false
         }
       }
-    },
-    xAxis: [
+    });
+    
+    var xAxisSettings = [
       {
-        categories: xAxisSettings.monthLabels
+        categories: allMonthKeys.map(monthAxisCaption)
       },
       {
         offset: 35,
         linkedTo: 0,
-        categories: xAxisSettings.yearLabels,
-        tickPositions: xAxisSettings.yearTickPositions,
+        categories: allYearCategories,
+        tickPositions: Object.keys(allYearCategories).map(Number),
         tickmarkPlacement: "on"
       }
-    ],
-    yAxis: {
-      title: {
-        text: yAxisLabel
+    ];
+
+    var attendanceDataSeries = [
+      {
+        name: "Tardies",
+        showInLegend: true,
+        color: "#0072b2",
+        data: _.map(tardyMonthBuckets, 'length')
       },
-      stackLabels: {
-        enabled: true,
-        style: {
-            fontWeight: 'bold',
-            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-        },
-        formatter: function(){
-            var val = this.total;
-            if (val < 1) {
-                return '';
-            }
-            return val;
-        },
-      },
-      min: 0,
-      max: 20,
-    },
-    series: dataSeries
+      {
+        name: "Absences",
+        showInLegend: true,
+        color: "#e69f00",
+        data: _.map(absenceMonthBuckets, 'length')
+      }
+    ];
+
+    var disciplineDataSeries = [
+      {
+        name: "Discipline Incidents",
+        showInLegend: true,
+        color: "#0072b2",
+        data: _.map(disciplineMonthBuckets, 'length')
+      }
+    ];
+
+    generateGraph("#attendance_container", "Number of Absences / Tardies", xAxisSettings, attendanceDataSeries);
+
+    generateGraph("#discipline_incident_container", "Number of Discipline Incidents", xAxisSettings, disciplineDataSeries, graphReady);
+
   });
 
-}
+  </script>
 
-$(function() {
-  var attendanceData = $('#serialized-data').data('attendance-data');
+</div>
 
-  var xAxisSettings = generateXAxisSettings();
-
-  var attendanceDataSeries = [
-    {
-      name: "Tardies",
-      showInLegend: true,
-      color: "#0072b2",
-      data: initializeDataArray(attendanceData.tardies)
-    },
-    {
-      name: "Absences",
-      showInLegend: true,
-      color: "#e69f00",
-      data: initializeDataArray(attendanceData.absences)
-    }
-  ];
-
-  var disciplineDataSeries = [
-    {
-      name: "Discipline Incidents",
-      showInLegend: true,
-      color: "#0072b2",
-      data: initializeDataArray(attendanceData.discipline_incidents)
-    }
-  ];
-
-  generateGraph("#attendance_container", "Number of Absences / Tardies", xAxisSettings, attendanceDataSeries);
-
-  generateGraph("#discipline_incident_container", "Number of Discipline Incidents", xAxisSettings, disciplineDataSeries);
-  
-});
-
-</script>
