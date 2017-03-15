@@ -63,7 +63,7 @@ class StudentsController < ApplicationController
           pdf: 'sped_referral', 
           title: 'Student Report', 
           footer: { center: footer, font_name: 'Open Sans', font_size: 9}, 
-          window_status: 'READY',
+          javascript_delay: 1000,
           show_as_html: Rails.env.development? && params.key?('debug')
         })
       end
