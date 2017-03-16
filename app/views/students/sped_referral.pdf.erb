@@ -54,6 +54,7 @@ ul, li {
 
 
 <!-- Notes -->
+<% if @sections.include?("notes") %>
 <div>
 <% right = false %>
 <h4>Notes:</h4>
@@ -76,8 +77,10 @@ ul, li {
   <% end %>
 </div>
 <br style="clear: left;" /><br/>
+<% end %>
 
 <!-- Services -->
+<% if @sections.include?("services") %>
 <% right = false %>
 <div>
 <h4>Services:</h4>
@@ -107,8 +110,10 @@ ul, li {
 
 </div>
 <br style="clear: left;" /><br/>
+<% end %>
 
  
+<% if @sections.include?("attendance") %>
 <p>
   <h4>Attendance record (current and prior school year):</h4>
   <table class="data-table" width="768 px">
@@ -142,8 +147,10 @@ ul, li {
   <h4>Attendance graph (current and prior school year):</h4>
   <div id="attendance_container"></div>
 </p>
+<% end %>
 
 <!-- Discipline Incidents -->
+<% if @sections.include?("discipline_incidents") %>
 <% right = false %>
 <div>
 <h4>Discipline Incidents:</h4>
@@ -169,8 +176,10 @@ ul, li {
   <h4>Discipline Incident graph (current and prior school year):</h4>
   <div id="discipline_incident_container"></div>
 </p>
+<% end %>
 
 <!-- Academic Assessments -->
+<% if @sections.include?("assessments") %>
 <% right = false %>
 <div>
 <h4>Academic Assesments:</h4>
@@ -198,8 +207,7 @@ ul, li {
   <% end %>
 </div>
 <br style="clear: left;" /><br/>
-    
-<div id="discipline_container"></div>
+<% end %>
 
 <%= tag("div", id: "serialized-data", data: @serialized_data) %>
 

@@ -152,6 +152,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @current_educator = current_educator
     @url = root_url.chomp('/') + request.path
+    @sections = (params[:sections] || "").split(/\s*,\s*/)
 
     # Calculate the current and prior school year ids for use with report data
     # only displaying 2 years of data
