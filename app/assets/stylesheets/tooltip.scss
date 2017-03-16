@@ -75,7 +75,6 @@
 /* These styles based on tooltipster.scss */
 .tooltip {
   position: relative;
-  display: inline-block;
 }
 
 .tooltip .tooltiptext {
@@ -104,3 +103,4 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
