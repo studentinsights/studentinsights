@@ -23,11 +23,12 @@ ul, li {
 
 <div style="width: 768px;">
  
-
 <!-- Demographic Information -->
 <div style="float: left; width: 512px;">
   <div>
-    <span style="font-size:24px; font-weight:bold;"><%= "#{@student.first_name} #{@student.last_name}"%></span>
+    <span style="font-size:24px; font-weight:bold;"><%= "#{@student.first_name} #{@student.last_name}"%></span><br>
+    Report dates: <span><%="#{format_date(@filter_from_date)} to #{format_date(@filter_to_date)}"%></span>
+    <p>
   </div>
   <div style="float: left; width: 200px;">
     <ul>
@@ -115,7 +116,7 @@ ul, li {
  
 <% if @sections.include?("attendance") %>
 <p>
-  <h4>Attendance record (current and prior school year):</h4>
+  <h4>Attendance record:</h4>
   <table class="data-table" width="768 px">
     <tr>
       <th></th>
@@ -127,14 +128,14 @@ ul, li {
         <td><%= year.name %></td>
         <td>
           <ul>
-          <% year.absences.order(:occurred_at).each do |absence| %>
+          <% year.absences.where('occurred_at BETWEEN ? AND ?', @filter_from_date, @filter_to_date).order(:occurred_at).each do |absence| %>
             <li><%= format_date(absence.occurred_at) %></li>
           <% end %>
           </ul>
         </td>
         <td>
           <ul>
-          <% year.tardies.order(:occurred_at).each do |tardy| %>
+          <% year.tardies.where('occurred_at BETWEEN ? AND ?', @filter_from_date, @filter_to_date).order(:occurred_at).each do |tardy| %>
             <li><%= format_date(tardy.occurred_at) %></li>
           <% end %>
           </ul>
@@ -144,7 +145,6 @@ ul, li {
   </table>
 </p>
 <p>
-  <h4>Attendance graph (current and prior school year):</h4>
   <div id="attendance_container"></div>
 </p>
 <% end %>
@@ -173,7 +173,6 @@ ul, li {
 </div>
 <br style="clear: left;" /><br/>
 <p>
-  <h4>Discipline Incident graph (current and prior school year):</h4>
   <div id="discipline_incident_container"></div>
 </p>
 <% end %>
@@ -213,6 +212,7 @@ ul, li {
 
 <div class="scripts">
   <%= wicked_pdf_javascript_include_tag 'application' %>
+  <%= wicked_pdf_javascript_include_tag 'student_profile/pdf/student_profile_pdf' %>
   <script>
     $(window.shared.StudentProfilePdf.load);
   </script>

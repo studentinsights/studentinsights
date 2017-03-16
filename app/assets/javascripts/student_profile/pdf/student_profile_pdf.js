@@ -28,7 +28,6 @@
     });
   };
 
-  
 
   // Returns HighCharts categories map, which describes how to place year captions in relation
   // to the list of monthKeys.  Returns a map of (index into monthKeys array) -> (caption text)
@@ -56,26 +55,12 @@
     return moment.utc(monthKey).format('MMM');
   };
 
-  // For the moment the graphs generated show data for current and one previous school year
-  // Returns the number of months from the beginning of last school year (August) to the
-  // current month.
-
-  // If the current month is before August, we know we are in the latter year of the current
-  // school year (i.e. 2017 in school year 2016-2017). We know at least 17 months (12 
-  // for the previous school year and 5 in the first part of the school year have elapsed). 
-  // We simply need to add the number of months elapsed this calendar year to that 17.
-
-  // Otherwise, we are in the first year of the current school year (i.e. 2016 in school year
-  // 2016-2017). Months 1 - 7 belong to the prior school year so we subtract 7 from the current
-  // month and add 12 for the prior school year. Combining 12 - 7 gives us 5. So we add
-  // 5 to the current month to yield the correct number of months in the current and prior
-  // school years.
-
-  function calculateMonths(nowMomentUTC) {
-    return nowMomentUTC.month() < 8 ? nowMomentUTC.month() + 17 : nowMomentUTC.month() + 5;
+  function dateTitle(endDate, monthsBack) {
+    var startDate = endDate.clone().subtract(monthsBack,'months');
+    return "(" + startDate.format("MM/YYYY") + " to " + endDate.format("MM/YYYY") + ")";
   }
 
-  function generateGraph(containerSelector, yAxisLabel, xAxisSettings, dataSeries){
+  function generateGraph(containerSelector, yAxisLabel, xAxisSettings, title, dataSeries){
     
     var stacking ="";
 
@@ -88,7 +73,7 @@
         type: 'column'
       },
       title: {
-        text: ''
+        text: title
       },
       credits: false,
       exporting: {
@@ -141,15 +126,21 @@
     load: function() {
 
       var attendanceData = $('#serialized-data').data('attendance-data');
+      var filterDateRange = $('#serialized-data').data('graph-date-range');
 
-      var allMonthKeys = monthKeys(moment.utc(), calculateMonths(moment.utc()));
-      console.log(allMonthKeys);
+      var filterFromDate = moment.utc(filterDateRange.filter_from_date, "YYYY-MM-DD");
+      var filterToDate = moment.utc(filterDateRange.filter_to_date, "YYYY-MM-DD");
+
+      var monthsBack = filterToDate.diff(filterFromDate, 'months') <= 23 ? filterToDate.diff(filterFromDate, 'months') : 23;
+      
+      var allMonthKeys = monthKeys(filterToDate, monthsBack);
       var allYearCategories = yearCategories(allMonthKeys);
 
       var tardyMonthBuckets = eventsToMonthBuckets(allMonthKeys, attendanceData.tardies);
       var absenceMonthBuckets = eventsToMonthBuckets(allMonthKeys, attendanceData.absences);
       var disciplineMonthBuckets = eventsToMonthBuckets(allMonthKeys, attendanceData.discipline_incidents);
       
+
       var xAxisSettings = [
         {
           categories: allMonthKeys.map(monthAxisCaption)
@@ -187,9 +178,14 @@
         }
       ];
 
-      generateGraph("#attendance_container", "Number of Absences / Tardies", xAxisSettings, attendanceDataSeries);
+      
+      if(_.flatten(absenceMonthBuckets).length + _.flatten(tardyMonthBuckets).length > 0) {
+        generateGraph("#attendance_container", "Number of Absences / Tardies", xAxisSettings, "Absences & Tardies " + dateTitle(filterToDate, monthsBack), attendanceDataSeries);
+      }
 
-      generateGraph("#discipline_incident_container", "Number of Discipline Incidents", xAxisSettings, disciplineDataSeries);
+      if(_.flatten(disciplineMonthBuckets).length > 0) {
+        generateGraph("#discipline_incident_container", "Number of Discipline Incidents", xAxisSettings, "Discipline Incidents " + dateTitle(filterToDate, monthsBack), disciplineDataSeries);
+      }
     }
   };
 })();

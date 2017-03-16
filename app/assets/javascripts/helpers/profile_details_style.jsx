@@ -44,7 +44,7 @@
       marginLeft: 10,
       marginRight: 10
     },
-    accessTableHeader: {
+    tableHeader: {
       fontWeight: 'bold',
       textAlign: 'left',
       marginBottom: 10
@@ -88,6 +88,42 @@
       "STAR-Math": '#e8e9fc',
 
       "DIBELS": '#e8fce8'
-    }
+    },
+    column: {
+      flexGrow: '1',
+      flexShrink: '0',
+      padding: '22px 26px 16px 26px',
+      cursor: 'pointer',
+      borderColor: 'white',
+      borderTop: 0,
+      margin: 0,
+      borderRadius: '0 0 5px 5px',
+      display: 'flex',
+      flexDirection: 'column',
+      margin: '0 5px 0 0',
+      borderRadius: '5px 5px 5px 5px',
+      border: '1px solid #ccc',
+      width: '50%',
+    },
+    option3Column: {
+      float: 'left',
+      width: '33%'
+    },
+    option2Column: {
+      float: 'left',
+      width: '50%'
+    },
+    optionCheckbox: {
+      float: 'left',
+    },
+    optionLabel: {
+      float: 'left',
+      padding: '0px 0px 20px 5px'
+    },
+    datepickerInput: {
+      fontSize: 14,
+      padding: 5,
+      width: '50%'
+    },
   };
 })();
