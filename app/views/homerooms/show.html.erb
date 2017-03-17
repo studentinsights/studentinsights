@@ -202,31 +202,6 @@
     </div>
   </div>
 
-  <script id="roster-tooltip-template" type="x-tmpl-mustache">
-    <div class="tooltip-popup">
-      <div class="warning-header">
-        <div class="warning-dot"></div>
-        <h6>Warning Indicators</h6>
-      </div>
-      <div class="warning-set">
-        <p><strong>MCAS Performance:</strong> Warning</p>
-        <p><strong>MCAS Growth:</strong> Below the 40th percentile</p>
-        <p><strong>STAR Percentile:</strong> Below the 40th percentile</p>
-        <p><strong>STAR Reading IRL:</strong> A year or more behind</p>
-      </div>
-    </div>
-  </script>
-
-  <% @rows.each do |row| %>
-    <script class="risk-level-tooltip"
-            type="x-tmpl-mustache"
-            data-student-id="<%= row[:student_risk_level]['student_id'] %>" >
-      <div class="tooltip-popup student-risk-level-tooltip">
-        <%= row[:student_risk_level][:explanation].html_safe %>
-      </div>
-    </script>
-  <% end %>
-
   <%= tag("div", id: "chart-data", data: @risk_levels) %>
   <%= tag("div", id: "homeroom-data", data: { homeroom: @homeroom}) %>
   <%= tag("div", id: "current-educator-data", data: { current_educator: current_educator}) %>
