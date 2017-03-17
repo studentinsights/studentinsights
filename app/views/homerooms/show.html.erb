@@ -136,7 +136,7 @@
                 <%= "#{row['first_name']} #{row['last_name']}" %>
               </td>
 
-              
+
               <td class="risk" data-student-id="<%= row['id'] %> ">
                 <div class="warning-bubble risk-<%= row[:student_risk_level]['level'] || 'na' %> tooltip">
                   <%= row[:student_risk_level]['level'] || 'N/A' %>
@@ -153,9 +153,7 @@
               <td class="sped">
                 <div class="<%= row[:sped_data]['sped_bubble_class'] %>">
                   <%= row[:sped_data]['sped_level'] %>
-                    <span class="tooltiptext">
-                      <%= row[:sped_data]['sped_tooltip_message'] %>
-                    </span>
+                  <span class="tooltiptext"><%= row[:sped_data]['sped_tooltip_message'] %></span>
                 </div>
               </td>
 
