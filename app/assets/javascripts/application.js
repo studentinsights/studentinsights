@@ -28,7 +28,6 @@
 //= require js.cookie
 //= require classList
 //= require lodash.3.10.1.min
-//= require rounded-corners
 //= require d3.v3.min.js
 //= require moment.js
 //= require sanitize
