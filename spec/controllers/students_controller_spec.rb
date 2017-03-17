@@ -493,11 +493,13 @@ describe StudentsController, :type => :controller do
     let(:school) { FactoryGirl.create(:school) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
 
-    def make_request(options = { student_id: nil, format: :pdf })
+    def make_request(options = { student_id: nil, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017'})
       request.env['HTTPS'] = 'on'
       get :sped_referral, params: {
         id: options[:student_id],
-        format: options[:format]
+        format: options[:format],
+        from_date: options[:from_date],
+        to_date: options[:to_date]
       }
     end
 
@@ -511,7 +513,7 @@ describe StudentsController, :type => :controller do
     context 'when educator is logged in' do
       before do
         sign_in(educator)
-        make_request({ student_id: student.id, format: :pdf })
+        make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
       end
 
       context 'educator has schoolwide access' do
@@ -527,7 +529,7 @@ describe StudentsController, :type => :controller do
         it 'assigns the student\'s services correctly with full history' do
           old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student)
           recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student)
-          expect(assigns(:services)).to include(old_service)
+          expect(assigns(:services)).not_to include(old_service)
           expect(assigns(:services)).to include(recent_service)
         end
 
