@@ -382,10 +382,10 @@
 
     spedLevelText: function(student) {
       switch (student.sped_level_of_need) {
-        case "Low < 2": return "less than 2 hours of special education services per week"
-        case "Low >= 2": return "2-5 hours of SpEd services / week";
-        case "Moderate": return "6-14 hours of SpEd services / week";
-        case "High": return "15+ hours of SpEd services / week";
+        case "Low < 2": return "less than 2 hours / week"
+        case "Low >= 2": return "2-5 hours / week";
+        case "Moderate": return "6-14 hours / week";
+        case "High": return "15+ hours / week";
         default: return "None"
      }
    },
