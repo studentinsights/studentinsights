@@ -372,35 +372,23 @@
         <div>
           <span style={styles.spedTitle}>SpEd services</span>
           <ul>
-            <li className="tooltip">
-              Level of Need: { this.spedLevel(student) }
-              <span className="tooltiptext">{this.getSpedTooltipText(student)}</span>
+            <li>
+              { this.spedLevelText(student) }
             </li>
           </ul>
         </div>
       )
     },
 
-    spedLevel: function(student) {
+    spedLevelText: function(student) {
       switch (student.sped_level_of_need) {
-        case "Low < 2": return "1";
-        case "Low >= 2": return "2";
-        case "Moderate": return "3";
-        case "High": return "4";
+        case "Low < 2": return "less than 2 hours of special education services per week"
+        case "Low >= 2": return "2-5 hours of SpEd services / week";
+        case "Moderate": return "6-14 hours of SpEd services / week";
+        case "High": return "15+ hours of SpEd services / week";
         default: return "None"
      }
    },
-
-    getSpedTooltipText: function(student) {
-      switch (this.spedLevel(student)) {
-       case "1": return "receives less than 2 hours of special education services per week.";
-       case "1": return student.first_name+" receives less than 2 hours of special education services per week.";
-       case "2": return student.first_name+" receives 2-5 hours of special education services per week.";
-       case "3": return student.first_name+" receives 6-14 hours of special education services per week.";
-       case "4": return student.first_name+" receives 15+ hours of special education services per week.";
-       default: return null;
-      }
-    },
 
     renderELAColumn: function() {
       var student = this.props.student;
