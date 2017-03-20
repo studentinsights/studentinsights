@@ -22,6 +22,13 @@
       serviceTypesIndex: React.PropTypes.object
     },
 
+    getInitialState: function() {
+      return {
+        filterFromDate: QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1),
+        filterToDate: moment()
+      }
+    },
+
     getEvents: function(){
       // Returns a list of {type: ..., date: ..., value: ...} pairs, sorted by date of occurrence.
       const name = this.props.student.first_name;
