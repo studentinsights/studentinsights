@@ -181,8 +181,8 @@ class StudentsController < ApplicationController
     @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_date..@filter_to_date)
 
     # Load all services for the student
-    @services = @student.services.includes(:discontinued_services).where(date_started: @filter_from_date..@filter_to_date)
-
+    @services = @student.services.includes(:discontinued_services).where("date_started <= ? AND (discontinued_services.recorded_at >= ? OR discontinued_services.recorded_at IS NULL)", @filter_to_date, @filter_from_date).references(:discontinued_services)
+    
     # Load last 2 student schools years for absences, tardies, and discipline incidents
     @student_school_years = @student.student_school_years.includes(:absences).includes(:tardies).includes(:discipline_incidents).where(school_year_id: school_year_ids)
     
