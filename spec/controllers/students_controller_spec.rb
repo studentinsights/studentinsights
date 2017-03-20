@@ -528,6 +528,7 @@ describe StudentsController, :type => :controller do
 
         it 'assigns the student\'s services correctly with full history' do
           old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student)
+          FactoryGirl.create(:discontinued_service, service: old_service, recorded_at: '2012-05-21')
           recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student)
           expect(assigns(:services)).not_to include(old_service)
           expect(assigns(:services)).to include(recent_service)
@@ -540,7 +541,7 @@ describe StudentsController, :type => :controller do
           expect(assigns(:event_notes)).not_to include(restricted_note)
         end
 
-        it 'assigns the student\'s attendance data correctly with 2 years of history' do
+        it 'assigns the student\'s attendance data correctly filtered history' do
 
           # Get the school years
           old_school_year = DateToSchoolYear.new(Date.new(2013, 9, 1)).convert
