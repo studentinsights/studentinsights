@@ -367,17 +367,11 @@
     },
 
     renderSped: function(student) {
-        
-      return(
-        <div>
-          <span style={styles.spedTitle}>SpEd services</span>
-          <ul>
-            <li>
-              { this.spedLevelText(student) }
-            </li>
-          </ul>
-        </div>
-      )
+      return dom.div({},
+               dom.span({ style: styles.spedTitle }, "SpEd services"),
+                 dom.ul({},
+                   dom.li({}, this.spedLevelText(student))
+             ));
     },
 
     spedLevelText: function(student) {
