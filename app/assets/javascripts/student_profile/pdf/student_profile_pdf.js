@@ -180,11 +180,11 @@
 
       
       if(_.flatten(absenceMonthBuckets).length + _.flatten(tardyMonthBuckets).length > 0) {
-        generateGraph("#attendance_container", "Number of Absences / Tardies", xAxisSettings, "Absences & Tardies " + dateTitle(filterToDate, monthsBack), attendanceDataSeries);
+        generateGraph("#attendance-container", "Number of Absences / Tardies", xAxisSettings, "Absences & Tardies " + dateTitle(filterToDate, monthsBack), attendanceDataSeries);
       }
 
       if(_.flatten(disciplineMonthBuckets).length > 0) {
-        generateGraph("#discipline_incident_container", "Number of Discipline Incidents", xAxisSettings, "Discipline Incidents " + dateTitle(filterToDate, monthsBack), disciplineDataSeries);
+        generateGraph("#discipline-incident-container", "Number of Discipline Incidents", xAxisSettings, "Discipline Incidents " + dateTitle(filterToDate, monthsBack), disciplineDataSeries);
       }
     }
   };
