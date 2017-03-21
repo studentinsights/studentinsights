@@ -54,13 +54,13 @@ class StudentsController < ApplicationController
     }
   end
 
-  def sped_referral
-    set_up_sped_data
+  def student_report
+    set_up_student_report_data
     respond_to do |format|
       format.pdf do
         footer = "Somerville Public Schools Student Report -- Generated #{format_date(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
         render({
-          pdf: 'sped_referral', 
+          pdf: 'student_report', 
           title: 'Student Report', 
           footer: { center: footer, font_name: 'Open Sans', font_size: 9}, 
           javascript_delay: 1000,
@@ -165,7 +165,7 @@ class StudentsController < ApplicationController
 
   end
 
-  def set_up_sped_data
+  def set_up_student_report_data
     @student = Student.find(params[:id])
     @current_educator = current_educator
     @url = root_url.chomp('/') + request.path

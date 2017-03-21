@@ -488,14 +488,14 @@ describe StudentsController, :type => :controller do
     end
   end
 
-  describe '#sped_referral' do
+  describe '#student_report' do
     let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
     let(:school) { FactoryGirl.create(:school) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
 
     def make_request(options = { student_id: nil, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017'})
       request.env['HTTPS'] = 'on'
-      get :sped_referral, params: {
+      get :student_report, params: {
         id: options[:student_id],
         format: options[:format],
         from_date: options[:from_date],
@@ -504,7 +504,7 @@ describe StudentsController, :type => :controller do
     end
 
     context 'when educator is not logged in' do
-      it 'does not render a SPED referral' do
+      it 'does not render a student report' do
         make_request({ student_id: student.id, format: :pdf })
         expect(response.status).to eq 401
       end

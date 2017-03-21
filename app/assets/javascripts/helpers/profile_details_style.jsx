@@ -69,7 +69,7 @@
       padding: 10,
       paddingLeft: 0,
     },
-    spedButton: {
+    studentReportButton: {
       width: '20em',
       fontSize: 12,
       padding: 8
