@@ -91,7 +91,7 @@ ul, li {
         <ul>
           <li><span style="font-weight:bold;"><%= format_date(service.date_started) %> - 
             <% if service.discontinued_services.count > 0%>
-              <%= "#{format_date(service.discontinued_services[0].try(:recorded_at))}" %>
+              <%= "#{format_date(service.discontinued_services.last.try(:recorded_at))}" %>
             <% else %>
               Present
             <% end %>
