@@ -158,7 +158,13 @@
           if (data.service_upload) {
             this.setState({
               serviceUploads: [data.service_upload].concat(this.state.serviceUploads),
-              uploadingInProgress: false
+              uploadingInProgress: false,
+              formData: {},
+              studentLasidsReceivedFromBackend: false,
+              incorrectLasids: [],
+              missingLasidHeader: false,
+              lasidAuthorizationError: false,
+              serverSideErrors: [],
             });
           };
 
