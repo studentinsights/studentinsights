@@ -33,9 +33,7 @@ class ServiceUploadsController < ApplicationController
     params['student_lasids'].map do |student_lasid|
       student = Student.find_by_local_id(student_lasid)
 
-      if student.nil?
-        errors << "Could not find student with LASID #{student_lasid}."
-      else
+      if student.present?
         service = Service.create!(
           student: student,
           service_upload: service_upload,
