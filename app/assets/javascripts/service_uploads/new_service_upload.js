@@ -146,6 +146,8 @@
         return 'Uploading...';
       } else if (this.props.serverSideErrors.length > 0) {
         return 'Error Uploading';
+      } else if (this.props.incorrectLasids.length > 0) {
+        return 'Confirm Upload Despite LASID Mismatches?';
       } else {
         return 'Confirm Upload';
       };
