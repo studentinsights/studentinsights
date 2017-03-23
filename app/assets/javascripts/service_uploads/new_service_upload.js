@@ -40,9 +40,15 @@
         dom.h1({}, 'Upload new services file'),
         this.renderErrors(),
         dom.div({ style: { marginTop: 30 } }, 'Start Date'),
-        this.renderDatepicker(this.props.onSelectStartDate),
+        this.renderDatepicker(
+          this.props.onSelectStartDate,
+          this.props.formData.date_started || ''
+        ),
         dom.div({ style: { marginTop: 20 } }, 'End Date'),
-        this.renderDatepicker(this.props.onSelectEndDate),
+        this.renderDatepicker(
+          this.props.onSelectEndDate,
+          this.props.formData.date_ended || ''
+        ),
         createEl(ServiceTypeDropdown, {
           onUserTypingServiceType: this.props.onUserTypingServiceType,
           onUserSelectServiceType: this.props.onUserSelectServiceType
@@ -272,14 +278,15 @@
       };
     },
 
-    renderDatepicker: function (onChangeFn) {
+    renderDatepicker: function (onChangeFn, value) {
       return createEl(Datepicker, {
+        onChange: onChangeFn,
+        value: value,
         styles: { input: {
           fontSize: 14,
           padding: 5,
           width: '50%'
         } },
-        onChange: onChangeFn,
         datepickerOptions: {
           showOn: 'both',
           dateFormat: 'mm/dd/yy',

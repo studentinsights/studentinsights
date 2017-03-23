@@ -7,7 +7,7 @@
   // This must be read lazily, since these options require the DOM
   // to be ready and some specific HTML to be on the page.
   var datepickerOptionsFn = function() { return window.datepicker_options || {}; };
- 
+
   var styles = {
     datepicker: {},
     input: {}
@@ -20,7 +20,7 @@
     displayName: 'Datepicker',
 
     propTypes: {
-      defaultValue: React.PropTypes.string,
+      value: React.PropTypes.string,
       onChange: React.PropTypes.func.isRequired,
       styles: React.PropTypes.shape({
         datepicker: React.PropTypes.object,
@@ -31,7 +31,6 @@
 
     getDefaultProps: function() {
       return {
-        defaultValue: '',
         styles: styles
       };
     },
@@ -49,7 +48,7 @@
     onDateSelected: function(dateText) {
       this.props.onChange(dateText);
     },
-    
+
     onDateChanged: function(e) {
       this.props.onChange(e.target.value);
     },
@@ -59,8 +58,8 @@
         dom.input({
           className: 'datepicker',
           style: this.props.styles.input,
-          defaultValue: this.props.defaultValue,
-          onChange: this.onDateChanged
+          onChange: this.onDateChanged,
+          value: this.props.value
         })
       );
     }
