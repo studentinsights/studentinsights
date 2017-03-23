@@ -78,6 +78,10 @@
       color: 'white',
       borderBottom: 0,
     },
+    spedTitle: {
+      fontWeight: 'bold',
+      fontColor: 'black'
+    },
     summaryWrapper: {
       paddingBottom: 10
     },
@@ -295,7 +299,8 @@
         this.padElements(styles.summaryWrapper, [
         this.renderPlacement(student),
         this.renderServices(student),
-        this.renderStaff(student)
+        this.renderStaff(student),
+        this.renderSped(student)
       ])));
     },
 
@@ -360,6 +365,24 @@
         elements: educatorNames
       });
     },
+
+    renderSped: function(student) {
+      return dom.div({},
+               dom.span({ style: styles.spedTitle }, "SpEd services"),
+                 dom.ul({},
+                   dom.li({}, this.spedLevelText(student))
+             ));
+    },
+
+    spedLevelText: function(student) {
+      switch (student.sped_level_of_need) {
+        case "Low < 2": return "less than 2 hours / week"
+        case "Low >= 2": return "2-5 hours / week";
+        case "Moderate": return "6-14 hours / week";
+        case "High": return "15+ hours / week";
+        default: return "None"
+     }
+   },
 
     renderELAColumn: function() {
       var student = this.props.student;
