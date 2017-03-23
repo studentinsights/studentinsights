@@ -51,7 +51,8 @@
         ),
         createEl(ServiceTypeDropdown, {
           onUserTypingServiceType: this.props.onUserTypingServiceType,
-          onUserSelectServiceType: this.props.onUserSelectServiceType
+          onUserSelectServiceType: this.props.onUserSelectServiceType,
+          value: this.props.formData.service_type_name || ''
         }),
         dom.input({
           type: 'file',

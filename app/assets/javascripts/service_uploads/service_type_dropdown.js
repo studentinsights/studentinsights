@@ -9,6 +9,7 @@
     propTypes: {
       onUserTypingServiceType: React.PropTypes.func.isRequired,
       onUserSelectServiceType: React.PropTypes.func.isRequired,
+      value: React.PropTypes.string.isRequired
     },
 
     render: function () {
@@ -21,7 +22,8 @@
             width: '50%'
           },
           ref: 'ServiceTypeDropdown',
-          onChange: this.props.onUserTypingServiceType
+          onChange: this.props.onUserTypingServiceType,
+          value: this.props.value
         }),
         dom.a({
           style: {
