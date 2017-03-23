@@ -92,7 +92,7 @@
             title: this.renderConfimationButtonHelptext(),
             style: {
               fontSize: 18,
-              background: this.disableUploadButton() ? '#ccc' : undefined,
+              background: this.uploadButtonColor(),
               textAlign: 'center'
             }
           }, this.uploadButtonText())
@@ -139,6 +139,18 @@
         this.renderClientSideErrors(),
         this.renderServerSideErrors()
       );
+    },
+
+    uploadButtonColor: function () {
+      if (this.disableUploadButton()) {
+        return '#ccc';
+      } else if (this.props.serverSideErrors.length > 0) {
+        return 'red';
+      } else if (this.props.incorrectLasids.length > 0) {
+        return 'orange';
+      } else {
+        return undefined;
+      }
     },
 
     uploadButtonText: function () {
