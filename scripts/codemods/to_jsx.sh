@@ -38,5 +38,5 @@ yarn
 popd
 jscodeshift -t tmp/codemods/js-codemod/transforms/no-vars.js $TARGET
 
-# Rename them
-echo Rename them to JSX too!
+# Rename
+mv "$TARGET" "${TARGET%.js}.jsx"
