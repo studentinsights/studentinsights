@@ -3,13 +3,13 @@
   var dom = window.shared.ReactHelpers.dom;
   var createEl = window.shared.ReactHelpers.createEl;
   var merge = window.shared.ReactHelpers.merge;
-  var Datepicker = window.shared.Datepicker;
 
   var ServiceTypeDropdown = window.shared.ServiceTypeDropdown = React.createClass({
 
     propTypes: {
       onUserTypingServiceType: React.PropTypes.func.isRequired,
       onUserSelectServiceType: React.PropTypes.func.isRequired,
+      value: React.PropTypes.string.isRequired
     },
 
     render: function () {
@@ -22,7 +22,8 @@
             width: '50%'
           },
           ref: 'ServiceTypeDropdown',
-          onChange: this.props.onUserTypingServiceType
+          onChange: this.props.onUserTypingServiceType,
+          value: this.props.value
         }),
         dom.a({
           style: {

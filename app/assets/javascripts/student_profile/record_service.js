@@ -164,7 +164,7 @@
         dom.div({ style: { marginTop: 20 } }, 'When did they start?'),
         createEl(Datepicker, {
           styles: { input: styles.datepickerInput },
-          defaultValue: (this.state.momentStarted && this.state.momentStarted.format('MM/DD/YYYY')),
+          value: this.state.momentStarted.format('MM/DD/YYYY'),
           onChange: this.onDateChanged,
           datepickerOptions: {
             showOn: 'both',

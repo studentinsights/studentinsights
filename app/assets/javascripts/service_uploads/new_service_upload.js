@@ -40,12 +40,19 @@
         dom.h1({}, 'Upload new services file'),
         this.renderErrors(),
         dom.div({ style: { marginTop: 30 } }, 'Start Date'),
-        this.renderDatepicker(this.props.onSelectStartDate),
+        this.renderDatepicker(
+          this.props.onSelectStartDate,
+          this.props.formData.date_started || ''
+        ),
         dom.div({ style: { marginTop: 20 } }, 'End Date'),
-        this.renderDatepicker(this.props.onSelectEndDate),
+        this.renderDatepicker(
+          this.props.onSelectEndDate,
+          this.props.formData.date_ended || ''
+        ),
         createEl(ServiceTypeDropdown, {
           onUserTypingServiceType: this.props.onUserTypingServiceType,
-          onUserSelectServiceType: this.props.onUserSelectServiceType
+          onUserSelectServiceType: this.props.onUserSelectServiceType,
+          value: this.props.formData.service_type_name || ''
         }),
         dom.input({
           type: 'file',
@@ -92,7 +99,7 @@
             title: this.renderConfimationButtonHelptext(),
             style: {
               fontSize: 18,
-              background: this.disableUploadButton() ? '#ccc' : undefined,
+              background: this.uploadButtonColor(),
               textAlign: 'center'
             }
           }, this.uploadButtonText())
@@ -141,11 +148,25 @@
       );
     },
 
+    uploadButtonColor: function () {
+      if (this.disableUploadButton()) {
+        return '#ccc';
+      } else if (this.props.serverSideErrors.length > 0) {
+        return 'red';
+      } else if (this.props.incorrectLasids.length > 0) {
+        return 'orange';
+      } else {
+        return undefined;
+      }
+    },
+
     uploadButtonText: function () {
       if (this.props.uploadingInProgress) {
         return 'Uploading...';
       } else if (this.props.serverSideErrors.length > 0) {
         return 'Error Uploading';
+      } else if (this.props.incorrectLasids.length > 0) {
+        return 'Confirm Upload Despite LASID Mismatches?';
       } else {
         return 'Confirm Upload';
       };
@@ -258,14 +279,15 @@
       };
     },
 
-    renderDatepicker: function (onChangeFn) {
+    renderDatepicker: function (onChangeFn, value) {
       return createEl(Datepicker, {
+        onChange: onChangeFn,
+        value: value,
         styles: { input: {
           fontSize: 14,
           padding: 5,
           width: '50%'
         } },
-        onChange: onChangeFn,
         datepickerOptions: {
           showOn: 'both',
           dateFormat: 'mm/dd/yy',
