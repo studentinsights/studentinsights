@@ -4,7 +4,7 @@
 # - dom.div(...) into JSX
 # - var into const where possible
 # - (does not do ES6 class transform)
-# usage: scripts/codemods/to_jsx.sh app/assets/javascripts/student_profile/note_card.js
+# usage: scripts/codemods/to_jsx.sh
 #
 
 JSX_DIRS=(
