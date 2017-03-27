@@ -50,6 +50,7 @@
 
 //= require ./helpers/react_helpers
 //= require ./helpers/feed_helpers
+//= require ./helpers/graph_helpers
 //= require_tree ./helpers
 
 // shared react compoents:

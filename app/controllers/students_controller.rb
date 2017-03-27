@@ -168,8 +168,7 @@ class StudentsController < ApplicationController
   def set_up_student_report_data
     @student = Student.find(params[:id])
     @current_educator = current_educator
-    @url = root_url.chomp('/') + request.path
-    @sections = (params[:sections] || "").split(/\s*,\s*/)
+    @sections = (params[:sections] || "").split(",")
     
 
     @filter_from_date = params[:from_date] ? Date.strptime(params[:from_date],  "%m/%d/%Y") : Date.today()
