@@ -8,7 +8,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
     def make_post_request(params)
       request.env['HTTPS'] = 'on'
-      post :create, params: params.merge(format: :json) 
+      post :create, params: params.merge(format: :json)
     end
 
     let(:response_json) { JSON.parse(response.body) }
@@ -122,12 +122,10 @@ RSpec.describe ServiceUploadsController, type: :controller do
         }
       }
 
-      it 'returns the correct JSON' do
+      it 'returns the correct JSON: '\
+         '(no error b/c this means Uri confirmed the LASID mismatch was OK)' do
         make_post_request(params)
-        expect(response_json['errors']).to eq [
-          "Could not find student with LASID 111.",
-          "Could not find student with LASID 222."
-        ]
+        expect(response_json['errors']).to eq []
       end
     end
 

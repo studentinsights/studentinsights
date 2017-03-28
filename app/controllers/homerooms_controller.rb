@@ -44,7 +44,8 @@ class HomeroomsController < ApplicationController
   def fat_student_hash(student)
     HashWithIndifferentAccess.new(student_hash_for_slicing(student).merge({
       interventions: student.interventions,
-      student_risk_level: student.student_risk_level.decorate.as_json_with_explanation,
+      sped_data: student.sped_data,
+      student_risk_level: student.student_risk_level.decorate.as_json_with_explanation
     }))
   end
 
