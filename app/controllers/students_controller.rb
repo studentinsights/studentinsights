@@ -37,7 +37,7 @@ class StudentsController < ApplicationController
       event_note_types_index: event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
-      attendance_data: student_profile_attendance_data(student)
+      attendance_data: student_profile_attendance_data(student.student_school_years)
     }
   end
 
@@ -59,7 +59,13 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.pdf do
         footer = "Somerville Public Schools Student Report -- Generated #{format_date(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
-        render pdf: 'sped_referral', footer: { center: footer, font_name: 'Open Sans', font_size: 9}
+        render({
+          pdf: 'sped_referral', 
+          title: 'Student Report', 
+          footer: { center: footer, font_name: 'Open Sans', font_size: 9}, 
+          javascript_delay: 1000,
+          show_as_html: Rails.env.development? && params.key?('debug')
+        })
       end
     end
   end
@@ -97,9 +103,7 @@ class StudentsController < ApplicationController
 
   private
 
-  def student_profile_attendance_data(student)
-    student_school_years = student.student_school_years
-
+  def student_profile_attendance_data(student_school_years)
     return {
       discipline_incidents: flatmap_and_sort(student_school_years) {|year| year.discipline_incidents },
       tardies: flatmap_and_sort(student_school_years) {|year| year.tardies },
@@ -183,5 +187,9 @@ class StudentsController < ApplicationController
 
       hash[test_name].push([student_assessment.date_taken,result])
     end.sort.to_h
+
+    @serialized_data = {
+      attendance_data: student_profile_attendance_data(@student_school_years)
+    }
   end
 end

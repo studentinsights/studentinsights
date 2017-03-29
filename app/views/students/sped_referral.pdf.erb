@@ -138,6 +138,10 @@ ul, li {
     <% end %>
   </table>
 </p>
+<p>
+  <h4>Attendance graph (current and prior school year):</h4>
+  <div id="attendance_container"></div>
+</p>
 
 <!-- Discipline Incidents -->
 <% right = false %>
@@ -161,6 +165,10 @@ ul, li {
   <% end %>
 </div>
 <br style="clear: left;" /><br/>
+<p>
+  <h4>Discipline Incident graph (current and prior school year):</h4>
+  <div id="discipline_incident_container"></div>
+</p>
 
 <!-- Academic Assessments -->
 <% right = false %>
@@ -190,3 +198,15 @@ ul, li {
   <% end %>
 </div>
 <br style="clear: left;" /><br/>
+    
+<div id="discipline_container"></div>
+
+<%= tag("div", id: "serialized-data", data: @serialized_data) %>
+
+<div class="scripts">
+  <%= wicked_pdf_javascript_include_tag 'application' %>
+  <script>
+    $(window.shared.StudentProfilePdf.load);
+  </script>
+</div>
+
