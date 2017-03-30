@@ -15,11 +15,15 @@ class FakeStarMathResultGenerator
     @math_percentile += rand(-15..15)
     @math_percentile = [0, @math_percentile, 100].sort[1]
     @test_date += @star_period_days + rand(-10..10)  # days
+    @grade_equivalent = [
+      "10.80", "5.30", "5.70", "6.70", "4.00", "5.70", "2.60"
+    ].sample
 
     return {
       assessment: star_math_assessment,
       date_taken: @test_date,
       percentile_rank: @math_percentile,
+      grade_equivalent: @grade_equivalent,
       student_id: @student.id
     }
   end
