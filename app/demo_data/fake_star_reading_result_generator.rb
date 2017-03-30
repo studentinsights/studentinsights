@@ -16,11 +16,15 @@ class FakeStarReadingResultGenerator
     @reading_percentile = [0, @reading_percentile, 100].sort[1]
     @instructional_reading_level += rand(-1..1)
     @test_date += @star_period_days + rand(-10..10)  # days
+    @grade_equivalent = [
+      "10.80", "5.30", "5.70", "6.70", "4.00", "5.70", "2.60"
+    ].sample
 
     return {
       assessment: star_reading_assessment,
       date_taken: @test_date,
       percentile_rank: @reading_percentile,
+      grade_equivalent: @grade_equivalent,
       instructional_reading_level: @instructional_reading_level,
       student_id: @student.id
     }

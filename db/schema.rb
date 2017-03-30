@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207173755) do
+ActiveRecord::Schema.define(version: 20170327145319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 20170207173755) do
     t.integer  "school_year_id"
     t.integer  "assessment_id"
     t.integer  "student_school_year_id"
+    t.string   "grade_equivalent"
     t.index ["school_year_id"], name: "index_student_assessments_on_school_year_id", using: :btree
     t.index ["student_id"], name: "index_student_assessments_on_student_id", using: :btree
   end
