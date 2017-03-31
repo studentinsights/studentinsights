@@ -70,9 +70,9 @@
     // on the chart.  Then map each month onto captions, and bucket the list of events into
     // each month.
     render: function() {
-      const monthKeys = this.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
-      const monthBuckets = this.eventsToMonthBuckets(monthKeys, this.props.events);
-      const yearCategories = this.yearCategories(monthKeys);
+      const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
+      const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
+      const yearCategories = GraphHelpers.yearCategories(monthKeys);
 
       return (
         <div id={this.props.id} style={styles.container}>
@@ -82,7 +82,7 @@
             credits={false}
             xAxis={[
               {
-                categories: monthKeys.map(this.monthAxisCaption),
+                categories: monthKeys.map(GraphHelpers.monthAxisCaption),
                 plotLines: this.makePlotlines(monthKeys)
               },
               {
