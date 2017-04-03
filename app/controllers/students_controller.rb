@@ -37,7 +37,7 @@ class StudentsController < ApplicationController
       event_note_types_index: event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
-      attendance_data: student_profile_attendance_data(student)
+      attendance_data: student_profile_attendance_data(student.student_school_years)
     }
   end
 
@@ -54,12 +54,18 @@ class StudentsController < ApplicationController
     }
   end
 
-  def sped_referral
-    set_up_sped_data
+  def student_report
+    set_up_student_report_data
     respond_to do |format|
       format.pdf do
         footer = "Somerville Public Schools Student Report -- Generated #{format_date(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
-        render pdf: 'sped_referral', footer: { center: footer, font_name: 'Open Sans', font_size: 9}
+        render({
+          pdf: 'student_report', 
+          title: 'Student Report', 
+          footer: { center: footer, font_name: 'Open Sans', font_size: 9}, 
+          javascript_delay: 1000,
+          show_as_html: Rails.env.development? && params.key?('debug')
+        })
       end
     end
   end
@@ -97,9 +103,7 @@ class StudentsController < ApplicationController
 
   private
 
-  def student_profile_attendance_data(student)
-    student_school_years = student.student_school_years
-
+  def student_profile_attendance_data(student_school_years)
     return {
       discipline_incidents: flatmap_and_sort(student_school_years) {|year| year.discipline_incidents },
       tardies: flatmap_and_sort(student_school_years) {|year| year.tardies },
@@ -144,29 +148,51 @@ class StudentsController < ApplicationController
     }
   end
 
-  def set_up_sped_data
+  def school_year_id_range(from_date, to_date) 
+    # Find the years represented by the dates
+
+    #start with to_date and work backward each year until < from_date
+    current_date = to_date
+    school_year_ids = []
+
+    while current_date > from_date do
+      school_year_ids.push(DateToSchoolYear.new(current_date).convert.id)
+
+      current_date = current_date - 1.year
+    end
+
+    return school_year_ids
+
+  end
+
+  def set_up_student_report_data
     @student = Student.find(params[:id])
     @current_educator = current_educator
-    @url = root_url.chomp('/') + request.path
+    @sections = (params[:sections] || "").split(",")
+    
 
-    # Calculate the current and prior school year ids for use with report data
-    # only displaying 2 years of data
-    current_school_year_id = DateToSchoolYear.new(Date.today).convert.id
-    prior_school_year_id = DateToSchoolYear.new(Date.today.ago(1.years)).convert.id
+    @filter_from_date = params[:from_date] ? Date.strptime(params[:from_date],  "%m/%d/%Y") : Date.today()
+    @filter_to_date = params[:from_date] ? Date.strptime(params[:to_date],  "%m/%d/%Y") : Date.today()
 
+    school_year_ids = school_year_id_range(@filter_from_date, @filter_to_date)
+    
+    # Load event notes that are NOT restricted for the student for the filtered dates
+    @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_date..@filter_to_date)
 
-    # Load all event notes that are NOT restricted for the student
-    @event_notes = @student.event_notes.where(:is_restricted => false)
-
-    # Load all services for the student
-    @services = @student.services.includes(:discontinued_services)
-
-    # Load last 2 student schools years for absences, tardies, and discipline incidents
-    @student_school_years = @student.student_school_years.includes(:absences).includes(:tardies).includes(:discipline_incidents).where(school_year_id: [prior_school_year_id, current_school_year_id])
+    # Load services for the student for the filtered dates
+    @services = @student.services.includes(:discontinued_services).where("date_started <= ? AND (discontinued_services.recorded_at >= ? OR discontinued_services.recorded_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_services.recorded_at').references(:discontinued_services)
+    
+    # Load for absences, tardies, and discipline incidents for the filtered dates
+    @student_school_years = @student.student_school_years.includes(:absences).includes(:tardies).includes(:discipline_incidents).where(school_year_id: school_year_ids)
+    
     # Flatten the discipline incidents, sorted by occurrance date
-    @discipline_incidents = @student_school_years.flat_map(&:discipline_incidents).sort_by(&:occurred_at)
+    @discipline_incidents = @student_school_years.flat_map(&:discipline_incidents).sort_by(&:occurred_at).select do |hash| 
+      hash[:occurred_at] >= @filter_from_date && hash[:occurred_at] <= @filter_to_date
+    end
+
+
     # This is a hash with the test name as the key and an array of date-sorted student assessment objects as the value
-    student_assessments_by_date = @student.student_assessments.order_by_date_taken_asc.includes(:assessment)
+    student_assessments_by_date = @student.student_assessments.order_by_date_taken_asc.includes(:assessment).where(date_taken: @filter_from_date..@filter_to_date)
 
     @student_assessments = student_assessments_by_date.each_with_object({}) do |student_assessment, hash|
       test = student_assessment.assessment
@@ -183,5 +209,13 @@ class StudentsController < ApplicationController
 
       hash[test_name].push([student_assessment.date_taken,result])
     end.sort.to_h
+
+    @serialized_data = {
+      graph_date_range: {
+        filter_from_date: @filter_from_date,
+        filter_to_date: @filter_to_date
+      },
+      attendance_data: student_profile_attendance_data(@student_school_years)
+    }
   end
 end
