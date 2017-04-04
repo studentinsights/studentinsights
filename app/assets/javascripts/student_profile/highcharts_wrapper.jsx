@@ -17,7 +17,7 @@
     },
 
     componentDidMount: function(props, state) {
-      $(this._chartEl).highcharts(this.props);
+      $(this._chartEl).highcharts(this.props);  
     },
 
     componentWillUnmount: function(props, state) { 
@@ -25,6 +25,7 @@
     },
 
     render: function() {
+
       return (
         <div className="HighchartsWrapper">
           <div ref={this.onRefForChart} />

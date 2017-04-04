@@ -125,6 +125,7 @@
         most_recent_mcas_ela_scaled: React.PropTypes.number,
         most_recent_mcas_ela_growth: React.PropTypes.number,
         star_series_reading_percentile: React.PropTypes.array,
+        
         mcas_series_ela_scaled: React.PropTypes.array,
         mcas_series_ela_growth: React.PropTypes.array,
         // math

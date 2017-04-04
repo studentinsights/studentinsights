@@ -119,7 +119,8 @@
             student={this.props.student}
             yAxis={merge(this.percentileYAxis(), {
               title: { text: 'Percentile rank' }
-            })} />
+            })} 
+            showGradeLevelEquivalent= { true }/>
         </div>
       );
     },

@@ -23,6 +23,18 @@
       return [QuadConverter.toMoment(quad).valueOf(), QuadConverter.toValue(quad)];
     },
 
+    toStarObject: function(quad){
+      return { 
+        x: QuadConverter.toMoment(quad).valueOf(), 
+        y: QuadConverter.toValue(quad), 
+        gradeLevelEquivalent: QuadConverter.toGradeLevelEquivalent(quad)
+      }
+    },
+
+    toGradeLevelEquivalent: function(quad){
+      return quad[4]
+    },
+
     // These functions are provided for constructing quads.
     fromMoment: function(momentObj, value){
       const year = momentObj.year();
