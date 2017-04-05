@@ -149,7 +149,7 @@
 
     onClickGenerateStudentReport: function(event) {
       const sections = $('#section:checked').map(function() {return this.value;}).get().join(',');
-      window.location = this.props.student.id + '/sped_referral.pdf?sections=' + sections + '&from_date=' + filterFromDate.format('MM/DD/YYYY') + '&to_date=' + filterToDate.format('MM/DD/YYYY');
+      window.location = this.props.student.id + '/student_report.pdf?sections=' + sections + '&from_date=' + filterFromDate.format('MM/DD/YYYY') + '&to_date=' + filterToDate.format('MM/DD/YYYY');
       return null;
     },
 
@@ -278,7 +278,7 @@
           </div>
           <br/>
           <button
-            style={styles.spedButton}
+            style={styles.studentReportButton}
             className="btn btn-warning"
             onClick={this.onClickGenerateStudentReport}>
             Generate Student Report
