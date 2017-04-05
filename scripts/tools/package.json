@@ -2,8 +2,8 @@
   "name": "studentinsights-tools",
   "version": "0.1.0",
   "scripts": {
-    "lint-quiet": "eslint --ext jsx --ext js -c ../../.eslintrc ../../app/assets/javascripts; exit 0",
-    "lint": "eslint --ext jsx --ext js -c ../../.eslintrc ../../app/assets/javascripts"
+    "lint-quiet": "eslint --ext jsx --ext js -c ../../.eslintrc ../../app/javascript; exit 0",
+    "lint": "eslint --ext jsx --ext js -c ../../.eslintrc ../../app/javascript"
   },
   "repository": {
     "type": "git",

@@ -1,11 +1,11 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true
   },
-  "globals": {
-    "_": true,
-    "$": true,
-    "React": true
+  "globals": {},
+  "parserOptions": {
+    "sourceType": "module",
   },
   "plugins": [
     "react"

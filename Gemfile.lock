@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/rails/webpacker.git
+  revision: 7bae1f9a6249752a83fe94a7a3aec51a955e9c25
+  specs:
+    webpacker (0.2)
+      activesupport (>= 5.0)
+      multi_json (~> 1.2)
+      railties (>= 5.0)
+
+GIT
   remote: https://github.com/thoughtbot/administrate.git
   revision: 077f6d370b3d0eff325a3de0509aeaa21b47b632
   branch: 077f6d370b3d0eff325a3de0509aeaa21b47b632
@@ -377,6 +386,7 @@ DEPENDENCIES
   timecop
   turbolinks
   uglifier (>= 1.3.0)
+  webpacker!
   wicked_pdf
   wkhtmltopdf-binary
 

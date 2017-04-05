@@ -5,6 +5,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+    <%= javascript_pack_tag(@javascript_pack_tag) if @javascript_pack_tag %>
     <%= csrf_meta_tags %>
     <%= render('shared/mixpanel') if Rails.env.production? %>
   </head>
