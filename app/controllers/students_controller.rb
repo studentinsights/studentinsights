@@ -63,7 +63,7 @@ class StudentsController < ApplicationController
           pdf: 'student_report', 
           title: 'Student Report', 
           footer: { center: footer, font_name: 'Open Sans', font_size: 9}, 
-          javascript_delay: params[:delay_ms] || 1000,
+          window_status: 'READY',
           show_as_html: params.key?('debug')
         })
       end

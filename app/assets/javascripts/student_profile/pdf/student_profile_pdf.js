@@ -128,6 +128,11 @@
       if(_.flatten(disciplineMonthBuckets).length > 0) {
         generateGraph("#discipline-incident-container", "Number of Discipline Incidents", xAxisSettings, "Discipline Incidents " + GraphHelpers.dateTitle(filterToDate, monthsBack), disciplineDataSeries);
       }
+
+
+      // Set a special value that wicked_pdf can check for to know JS rendering
+      // is done.
+      window.status = 'READY';
     }
   };
 })();
