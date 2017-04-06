@@ -499,7 +499,8 @@ describe StudentsController, :type => :controller do
         id: options[:student_id],
         format: options[:format],
         from_date: options[:from_date],
-        to_date: options[:to_date]
+        to_date: options[:to_date],
+        disable_js: true
       }
     end
 
