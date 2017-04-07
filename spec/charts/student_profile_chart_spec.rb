@@ -6,7 +6,7 @@ RSpec.describe StudentProfileChart do
     let(:student_profile_chart) { StudentProfileChart.new }
     it 'converts the student assessment to highcharts format' do
       result = student_profile_chart.percentile_ranks_to_highcharts(input)
-      expect(result).to eq [[2015, 6, 19, 8]]
+      expect(result).to eq [[2015, 6, 19, 8, 0]]
     end
   end
 

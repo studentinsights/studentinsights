@@ -43,12 +43,43 @@
 
     render: function() {
       return (
+        <div>
+          {this.renderHighchartsWrapper()}
+        </div>
+      );
+    },
+
+    renderHighchartsWrapper: function() {
+      if (this.props.showGradeLevelEquivalent === true) {
+        return this.renderStarHighchartsWrapper()
+      } else {
+        return this.renderNonStarHighchartsWrapper()
+      }
+    },
+
+    renderNonStarHighchartsWrapper: function() {
+      return (
         <HighchartsWrapper
           {...merge(this.baseOptions(), {
             series: this.props.quadSeries.map(function(obj){
               return {
                 name: obj.name,
-                data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
+                data: obj.data  ? _.map(obj.data, QuadConverter.toPair): []
+              }
+            }),
+            yAxis: this.props.yAxis
+          })} />
+      );
+    },
+
+    renderStarHighchartsWrapper: function() {
+      return (
+        <HighchartsWrapper
+          {...merge(this.baseOptions(), {
+            series: this.props.quadSeries.map(function(obj){
+              return {
+                name: obj.name,
+                data: obj.data  ? _.map(obj.data, QuadConverter.toStarObject): []
               }
             }),
             yAxis: this.props.yAxis
@@ -95,9 +126,34 @@
     baseOptions: function() {
       if (this.props.student.grade === 'KF') {
         return ProfileChartSettings.base_options;
+      } else if (this.props.showGradeLevelEquivalent === true) {
+        return  this.baseOptionsForStar();
       } else {
         return this.baseOptionsForNonKF();
       };
+    },
+
+    baseOptionsForStar: function () {
+      const positionsForYearStarts = this.getSchoolYearStartPositions(
+        48, moment.utc(), parseInt(this.props.student.grade)
+      );
+
+      return merge(ProfileChartSettings.star_chart_base_options, {
+        xAxis: [
+          merge(ProfileChartSettings.x_axis_datetime, {
+            plotLines: this.x_axis_bands,
+            min: this.props.timestampRange.min,
+            max: this.props.timestampRange.max
+          }),
+          {
+            type: "datetime",
+            offset: 35,
+            linkedTo: 0,
+            tickPositions: _.keys(positionsForYearStarts).map(Number),
+            categories: positionsForYearStarts,
+          }
+        ]
+      });
     },
 
     baseOptionsForNonKF: function () {
