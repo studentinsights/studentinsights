@@ -28,8 +28,7 @@ module SomervilleTeacherTool
       ]
 
       config.browserify_rails.commandline_options = "-t [ babelify --presets [ react es2015 ] ]"
-      # config.browserify_rails.paths << "#{config.root}/spec/javascripts"
-      config.browserify_rails.paths << -> (p) { p.start_with?(Rails.root.join("spec/javascripts").to_s) }
+      # config.browserify_rails.paths << -> (p) { p.start_with?(Rails.root.join("spec/javascripts").to_s) }
 
       config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
       class_paths.each do |class_path|
