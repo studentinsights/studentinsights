@@ -1,8 +1,7 @@
 {
   "name": "studentinsights",
   "version": "0.1.0",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "babel-eslint": "^6.0.4",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-preset-es2015": "^6.9.0",
