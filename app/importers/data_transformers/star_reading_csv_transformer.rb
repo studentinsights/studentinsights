@@ -8,7 +8,8 @@ class StarReadingCsvTransformer
       'AssessmentDate' => :date_taken,
       'PercentileRank' => :percentile_rank,
       'SchoolLocalID' => :school_local_id,
-      'IRL' => :instructional_reading_level
+      'IRL' => :instructional_reading_level,
+      'GradeEquivalent' => :grade_equivalent
     }
   end
 end

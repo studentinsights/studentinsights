@@ -30,7 +30,8 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
 
     star_assessment.update_attributes({
       percentile_rank: row[:percentile_rank],
-      instructional_reading_level: row[:instructional_reading_level]
+      instructional_reading_level: row[:instructional_reading_level],
+      grade_equivalent: row[:grade_equivalent]
     })
   end
 
