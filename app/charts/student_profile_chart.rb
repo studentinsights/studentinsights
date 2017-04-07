@@ -17,7 +17,7 @@ class StudentProfileChart < Struct.new :student
   def percentile_ranks_to_highcharts(student_assessments)
     return if student_assessments.blank?
     student_assessments.map do |s|
-      [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank, s.grade_equivalent.to_i]
+      [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank, s.grade_equivalent.to_f]
     end
   end
 
