@@ -205,7 +205,11 @@ class StudentsController < ApplicationController
 
     @student_assessments = student_assessments_by_date.each_with_object({}) do |student_assessment, hash|
       test = student_assessment.assessment
-      test_name = "#{test.family} #{test.subject}"
+      test_name = case test.family
+        when "STAR" then "#{test.family} #{test.subject} Percentile"
+        else "#{test.family} #{test.subject}"
+      end
+      
       hash[test_name] ||= []
 
       result = case test.family
