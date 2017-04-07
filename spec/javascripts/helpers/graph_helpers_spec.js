@@ -14,7 +14,7 @@ describe('Graph Helpers', function() {
 
   describe('#monthKeys', function() {
     it('works looking back four years', function(){
-      var nowMomentUTC = moment.utc("20170211", "YYYYMMDD");;
+      var nowMomentUTC = moment.utc("20170211", "YYYYMMDD");
       var monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 48);
       expect(monthKeys.length).toEqual(48 + 1);
       expect(monthKeys[0]).toEqual('20130201');
@@ -33,8 +33,8 @@ describe('Graph Helpers', function() {
       expect(monthKeys.length).toEqual(12 + 1);
       expect(monthBuckets.length).toEqual(monthKeys.length);
       expect(_.compact(_.map(monthBuckets, 'length')).length).toEqual(2);
-      expect(monthBuckets[7]).toEqual([namedEvents.C])
-      expect(monthBuckets[12]).toEqual([namedEvents.A, namedEvents.B])
+      expect(monthBuckets[7]).toEqual([namedEvents.C]);
+      expect(monthBuckets[12]).toEqual([namedEvents.A, namedEvents.B]);
     });
   });
 

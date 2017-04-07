@@ -30,7 +30,7 @@
             formatter: function(){
               var val = this.y;
               if (val < 1) {
-                  return '';
+                return '';
               }
               return val;
             },
@@ -45,15 +45,15 @@
         stackLabels: {
           enabled: true,
           style: {
-              fontWeight: 'bold',
-              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            fontWeight: 'bold',
+            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
           },
           formatter: function(){
-              var val = this.total;
-              if (val < 1) {
-                  return '';
-              }
-              return val;
+            var val = this.total;
+            if (val < 1) {
+              return '';
+            }
+            return val;
           },
         },
         min: 0,
@@ -62,7 +62,7 @@
       series: dataSeries
     });
 
-  };
+  }
 
   window.shared.StudentProfilePdf = {
     load: function() {

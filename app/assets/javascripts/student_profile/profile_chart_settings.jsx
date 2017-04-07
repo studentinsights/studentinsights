@@ -93,7 +93,7 @@
         fillOpacity: 0
       }
     }
-  }
+  };
 
   ProfileChartSettings.x_axis_datetime = {
     type: 'datetime',
@@ -102,13 +102,13 @@
       week: '%b %e %Y',
       year: '%b %e %Y'
     }
-  }
+  };
 
   ProfileChartSettings.x_axis_schoolyears = {
     type: 'linear',
     categories: [],
     dateTimeLabelFormats: {}
-  }
+  };
 
   ProfileChartSettings.default_yaxis = {
     allowDecimals: false,
@@ -121,7 +121,7 @@
     plotLines: [],
     min: undefined,
     max: undefined
-  }
+  };
 
   ProfileChartSettings.mcas_level_bands = [{
     color: '#E7EBED',
@@ -167,7 +167,7 @@
         color: '#999999'
       }
     }
-  }]
+  }];
 
   ProfileChartSettings.default_mcas_score_yaxis = {
     allowDecimals: false,
@@ -180,7 +180,7 @@
     plotLines: [],
     min: 200,
     max: 280
-  }
+  };
 
   ProfileChartSettings.percentile_yaxis =  {
     allowDecimals: false,
@@ -193,7 +193,7 @@
     plotLines: [],
     min: 0,
     max: 100
-  }
+  };
 
   ProfileChartSettings.benchmark_plotline = [{
     color: '#B90504',
@@ -221,6 +221,6 @@
     }
   }];
 
-  root.ProfileChartSettings = ProfileChartSettings
+  root.ProfileChartSettings = ProfileChartSettings;
 
-})(window)
+})(window);

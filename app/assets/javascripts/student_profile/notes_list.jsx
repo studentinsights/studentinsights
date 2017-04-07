@@ -44,11 +44,11 @@
           {(mergedNotes.length === 0) ? <div style={styles.noItems}>
             No notes
           </div> : mergedNotes.map(function(mergedNote) {
-          switch (mergedNote.type) {
+            switch (mergedNote.type) {
             case 'event_notes': return this.renderEventNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
-          }
-        }, this)}
+            }
+          }, this)}
         </div>
       );
     },

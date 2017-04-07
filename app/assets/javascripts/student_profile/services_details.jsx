@@ -36,7 +36,7 @@
     getInitialState: function() {
       return {
         isAddingService: false
-      }
+      };
     },
 
     onClickRecordService: function(event) {

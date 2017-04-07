@@ -29,7 +29,7 @@ describe('StudentProfileHeader', function() {
     it('renders note-taking area with homeroom', function() {
       var el = this.testEl;
       helpers.renderActiveStudent(el);
-      var yearsOld = moment().diff(Fixtures.studentProfile.student.date_of_birth, 'years') // TODO (ARS): mock moment.utc() for spec
+      var yearsOld = moment().diff(Fixtures.studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
                                                                                            // so we don't have to calculate this
 
       expect(el).toContainText('Daisy Poppins');

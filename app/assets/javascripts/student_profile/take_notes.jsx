@@ -1,270 +1,266 @@
-(function() {
-  window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const merge = window.shared.ReactHelpers.merge;
+window.shared || (window.shared = {});
+const merge = window.shared.ReactHelpers.merge;
 
-  const PropTypes = window.shared.PropTypes;
-
-  const styles = {
-    dialog: {
-      border: '1px solid #ccc',
-      borderRadius: 2,
-      padding: 20,
-      marginBottom: 20,
-      marginTop: 10
-    },
-    date: {
-      paddingRight: 10,
-      fontWeight: 'bold',
-      display: 'inline-block'
-    },
-    educator: {
-      paddingLeft: 5,
-      display: 'inline-block'
-    },
-    textarea: {
-      fontSize: 14,
-      border: '1px solid #eee',
-      width: '100%' //overriding strange global CSS, should cleanup
-    },
-    input: {
-      fontSize: 14,
-      border: '1px solid #eee',
-      width: '100%'
-    },
-    cancelTakeNotesButton: { // overidding CSS
-      color: 'black',
-      background: '#eee',
-      marginLeft: 10,
-      marginRight: 10
-    },
-    serviceButton: {
-      background: '#eee', // override CSS
-      color: 'black',
-      // shrinking:
-      width: '12em',
-      fontSize: 12,
-      padding: 8
-    }
-  };
+const styles = {
+  dialog: {
+    border: '1px solid #ccc',
+    borderRadius: 2,
+    padding: 20,
+    marginBottom: 20,
+    marginTop: 10
+  },
+  date: {
+    paddingRight: 10,
+    fontWeight: 'bold',
+    display: 'inline-block'
+  },
+  educator: {
+    paddingLeft: 5,
+    display: 'inline-block'
+  },
+  textarea: {
+    fontSize: 14,
+    border: '1px solid #eee',
+    width: '100%' //overriding strange global CSS, should cleanup
+  },
+  input: {
+    fontSize: 14,
+    border: '1px solid #eee',
+    width: '100%'
+  },
+  cancelTakeNotesButton: { // overidding CSS
+    color: 'black',
+    background: '#eee',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  serviceButton: {
+    background: '#eee', // override CSS
+    color: 'black',
+    // shrinking:
+    width: '12em',
+    fontSize: 12,
+    padding: 8
+  }
+};
 
 
-  /*
-  Pure UI form for taking notes about an event, tracking its own local state
-  and submitting it to prop callbacks.
-  */
-  const TakeNotes = window.shared.TakeNotes = React.createClass({
-    propTypes: {
-      nowMoment: React.PropTypes.object.isRequired,
-      eventNoteTypesIndex: React.PropTypes.object.isRequired,
-      onSave: React.PropTypes.func.isRequired,
-      onCancel: React.PropTypes.func.isRequired,
-      currentEducator: React.PropTypes.object.isRequired,
-      requestState: React.PropTypes.string // or null
-    },
+/*
+Pure UI form for taking notes about an event, tracking its own local state
+and submitting it to prop callbacks.
+*/
+export default React.createClass({
+  displayName: 'TakeNotes',
 
-    getInitialState: function() {
-      return {
-        eventNoteTypeId: null,
-        text: '',
-        attachmentUrls: []
-      }
-    },
+  propTypes: {
+    nowMoment: React.PropTypes.object.isRequired,
+    eventNoteTypesIndex: React.PropTypes.object.isRequired,
+    onSave: React.PropTypes.func.isRequired,
+    onCancel: React.PropTypes.func.isRequired,
+    currentEducator: React.PropTypes.object.isRequired,
+    requestState: React.PropTypes.string // or null
+  },
 
-    // Focus on note-taking text area when it first appears.
-    componentDidMount: function(prevProps, prevState) {
-      this.textareaRef.focus();
-    },
+  getInitialState: function() {
+    return {
+      eventNoteTypeId: null,
+      text: '',
+      attachmentUrls: []
+    };
+  },
 
-    onChangeText: function(event) {
-      this.setState({ text: event.target.value });
-    },
+  // Focus on note-taking text area when it first appears.
+  componentDidMount: function(prevProps, prevState) {
+    this.textareaRef.focus();
+  },
 
-    onChangeAttachmentUrl: function(changedIndex, event) {
-      const newValue = event.target.value;
-      const updatedAttachmentUrls = (this.state.attachmentUrls.length === changedIndex)
-        ? this.state.attachmentUrls.concat(newValue)
-        : this.state.attachmentUrls.map(function(attachmentUrl, index) {
-          return (changedIndex === index) ? newValue : attachmentUrl;
-        });
-      const filteredAttachmentUrls = updatedAttachmentUrls.filter(this.stringNotEmpty);
-      this.setState({ attachmentUrls: filteredAttachmentUrls });
-    },
+  wrapUrlInObject: function(urlString) {
+    return { url: urlString };
+  },
 
-    onClickNoteType: function(noteTypeId, event) {
-      this.setState({ eventNoteTypeId: noteTypeId });
-    },
+  stringNotEmpty: function (urlString) {
+    return urlString.length !== 0;
+  },
 
-    onClickCancel: function(event) {
-      this.props.onCancel();
-    },
+  eventNoteUrlsForSave: function () {
+    const urlsToSave = this.state.attachmentUrls.map(this.wrapUrlInObject);
+    return { eventNoteAttachments: urlsToSave };
+  },
 
-    onClickSave: function(event) {
-      const params = merge(
-        _.pick(this.state, 'eventNoteTypeId', 'text'),
-        this.eventNoteUrlsForSave()
-      );
+  disabledSaveButton: function () {
+    return (
+      this.state.eventNoteTypeId === null || !this.isValidAttachmentUrls()
+    );
+  },
 
-      this.props.onSave(params);
-    },
+  isValidAttachmentUrls: function () {
+    return _.all(this.state.attachmentUrls, function (url) {
+      return (url.slice(0, 7) === 'http://'  ||
+              url.slice(0, 8) === 'https://' ||
+              url.length      === 0);
+    });
+  },
 
-    wrapUrlInObject: function(urlString) {
-      return { url: urlString };
-    },
+  onChangeText: function(event) {
+    this.setState({ text: event.target.value });
+  },
 
-    stringNotEmpty: function (urlString) {
-      return urlString.length !== 0;
-    },
-
-    eventNoteUrlsForSave: function () {
-      const urlsToSave = this.state.attachmentUrls.map(this.wrapUrlInObject);
-      return { eventNoteAttachments: urlsToSave };
-    },
-
-    render: function() {
-      return (
-        <div className="TakeNotes" style={styles.dialog}>
-          {this.renderNoteHeader({
-            noteMoment: this.props.nowMoment,
-            educatorEmail: this.props.currentEducator.email
-          })}
-          <textarea
-            rows={10}
-            style={styles.textarea}
-            ref={function(ref) { this.textareaRef = ref; }.bind(this)}
-            value={this.state.text}
-            onChange={this.onChangeText} />
-          <div style={{ marginBottom: 5, marginTop: 20 }}>
-            What are these notes from?
-          </div>
-          <div style={{ display: 'flex' }}>
-            <div style={{ flex: 1 }}>
-              {this.renderNoteButton(300)}
-              {this.renderNoteButton(301)}
-            </div>
-            <div style={{ flex: 1 }}>
-              {this.renderNoteButton(302)}
-            </div>
-            <div style={{ flex: 'auto' }}>
-              {this.renderNoteButton(304)}
-            </div>
-          </div>
-          <div style={{ marginBottom: 5, marginTop: 20 }}>
-            Add a link (i.e. to a file of student work on Google Drive):
-          </div>
-          {this.renderAttachmentLinkArea()}
-          <button
-            style={{
-              marginTop: 20,
-              background: (this.disabledSaveButton()) ? '#ccc' : undefined
-            }}
-            disabled={this.disabledSaveButton()}
-            className="btn save"
-            onClick={this.onClickSave}>
-            Save notes
-          </button>
-          <button
-            className="btn cancel"
-            style={styles.cancelTakeNotesButton}
-            onClick={this.onClickCancel}>
-            Cancel
-          </button>
-          {(this.props.requestState === 'pending') ? <span>
-            Saving...
-          </span> : null}
-          {(this.props.requestState === 'error') ? <span>
-            Try again!
-          </span> : null}
-        </div>
-      );
-    },
-
-    disabledSaveButton: function () {
-      return (
-        this.state.eventNoteTypeId === null || !this.isValidAttachmentUrls()
-      );
-    },
-
-    renderNoteHeader: function(header) {
-      return (
-        <div>
-          <span style={styles.date}>
-            {header.noteMoment.format('MMMM D, YYYY')}
-          </span>
-          |
-          <span style={styles.educator}>
-            {header.educatorEmail}
-          </span>
-        </div>
-      );
-    },
-
-    isValidAttachmentUrls: function () {
-      return _.all(this.state.attachmentUrls, function (url) {
-        return (url.slice(0, 7) === 'http://'  ||
-                url.slice(0, 8) === 'https://' ||
-                url.length      === 0);
+  onChangeAttachmentUrl: function(changedIndex, event) {
+    const newValue = event.target.value;
+    const updatedAttachmentUrls = (this.state.attachmentUrls.length === changedIndex)
+      ? this.state.attachmentUrls.concat(newValue)
+      : this.state.attachmentUrls.map(function(attachmentUrl, index) {
+        return (changedIndex === index) ? newValue : attachmentUrl;
       });
-    },
+    const filteredAttachmentUrls = updatedAttachmentUrls.filter(this.stringNotEmpty);
+    this.setState({ attachmentUrls: filteredAttachmentUrls });
+  },
 
-    // TODO(kr) extract button UI
-    renderNoteButton: function(eventNoteTypeId) {
-      const eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
-      return (
-        <button
-          className="btn note-type"
-          onClick={this.onClickNoteType.bind(this, eventNoteTypeId)}
-          tabIndex={-1}
-          style={merge(styles.serviceButton, {
-            background: '#eee',
-            outline: 0,
-            border: (this.state.eventNoteTypeId === eventNoteTypeId)
-              ? '4px solid rgba(49, 119, 201, 0.75)'
-              : '4px solid white'
-          })}>
-          {eventNoteType.name}
-        </button>
-      );
-    },
+  onClickNoteType: function(noteTypeId, event) {
+    this.setState({ eventNoteTypeId: noteTypeId });
+  },
 
-    renderAttachmentLinkArea: function () {
-      const isValidUrls = this.isValidAttachmentUrls();
-      const urls = (isValidUrls)
-        ? this.state.attachmentUrls.concat('')
-        : this.state.attachmentUrls;
+  onClickCancel: function(event) {
+    this.props.onCancel();
+  },
 
-      return (
-        <div>
-          {urls.map(function (url, index) {
-            return this.renderAttachmentLinkInput(url, index)
-          }, this)}
-          <div
-            style={{
-              fontStyle: 'italic',
-              marginTop: '10px 0'
-            }}>
-            Please use the format https://www.example.com.
+  onClickSave: function(event) {
+    const params = merge(
+      _.pick(this.state, 'eventNoteTypeId', 'text'),
+      this.eventNoteUrlsForSave()
+    );
+
+    this.props.onSave(params);
+  },
+
+  render: function() {
+    return (
+      <div className="TakeNotes" style={styles.dialog}>
+        {this.renderNoteHeader({
+          noteMoment: this.props.nowMoment,
+          educatorEmail: this.props.currentEducator.email
+        })}
+        <textarea
+          rows={10}
+          style={styles.textarea}
+          ref={function(ref) { this.textareaRef = ref; }.bind(this)}
+          value={this.state.text}
+          onChange={this.onChangeText} />
+        <div style={{ marginBottom: 5, marginTop: 20 }}>
+          What are these notes from?
+        </div>
+        <div style={{ display: 'flex' }}>
+          <div style={{ flex: 1 }}>
+            {this.renderNoteButton(300)}
+            {this.renderNoteButton(301)}
+          </div>
+          <div style={{ flex: 1 }}>
+            {this.renderNoteButton(302)}
+          </div>
+          <div style={{ flex: 'auto' }}>
+            {this.renderNoteButton(304)}
           </div>
         </div>
-      );
-    },
-
-    renderAttachmentLinkInput: function (value, index) {
-      return (
-        <div key={index}>
-          <input
-            value={value}
-            onChange={this.onChangeAttachmentUrl.bind(this, index)}
-            placeholder="Please use the format https://www.example.com."
-            style={{
-              marginBottom: '20px',
-              fontSize: 14,
-              padding: 5,
-              width: '100%'
-            }} />
+        <div style={{ marginBottom: 5, marginTop: 20 }}>
+          Add a link (i.e. to a file of student work on Google Drive):
         </div>
-      );
-    }
-  });
+        {this.renderAttachmentLinkArea()}
+        <button
+          style={{
+            marginTop: 20,
+            background: (this.disabledSaveButton()) ? '#ccc' : undefined
+          }}
+          disabled={this.disabledSaveButton()}
+          className="btn save"
+          onClick={this.onClickSave}>
+          Save notes
+        </button>
+        <button
+          className="btn cancel"
+          style={styles.cancelTakeNotesButton}
+          onClick={this.onClickCancel}>
+          Cancel
+        </button>
+        {(this.props.requestState === 'pending') ? <span>
+          Saving...
+        </span> : null}
+        {(this.props.requestState === 'error') ? <span>
+          Try again!
+        </span> : null}
+      </div>
+    );
+  },
 
-})();
+  renderNoteHeader: function(header) {
+    return (
+      <div>
+        <span style={styles.date}>
+          {header.noteMoment.format('MMMM D, YYYY')}
+        </span>
+        |
+        <span style={styles.educator}>
+          {header.educatorEmail}
+        </span>
+      </div>
+    );
+  },
+
+  // TODO(kr) extract button UI
+  renderNoteButton: function(eventNoteTypeId) {
+    const eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
+    return (
+      <button
+        className="btn note-type"
+        onClick={this.onClickNoteType.bind(this, eventNoteTypeId)}
+        tabIndex={-1}
+        style={merge(styles.serviceButton, {
+          background: '#eee',
+          outline: 0,
+          border: (this.state.eventNoteTypeId === eventNoteTypeId)
+            ? '4px solid rgba(49, 119, 201, 0.75)'
+            : '4px solid white'
+        })}>
+        {eventNoteType.name}
+      </button>
+    );
+  },
+
+  renderAttachmentLinkArea: function () {
+    const isValidUrls = this.isValidAttachmentUrls();
+    const urls = (isValidUrls)
+      ? this.state.attachmentUrls.concat('')
+      : this.state.attachmentUrls;
+
+    return (
+      <div>
+        {urls.map(function (url, index) {
+          return this.renderAttachmentLinkInput(url, index);
+        }, this)}
+        <div
+          style={{
+            fontStyle: 'italic',
+            marginTop: '10px 0'
+          }}>
+          Please use the format https://www.example.com.
+        </div>
+      </div>
+    );
+  },
+
+  renderAttachmentLinkInput: function (value, index) {
+    return (
+      <div key={index}>
+        <input
+          value={value}
+          onChange={this.onChangeAttachmentUrl.bind(this, index)}
+          placeholder="Please use the format https://www.example.com."
+          style={{
+            marginBottom: '20px',
+            fontSize: 14,
+            padding: 5,
+            width: '100%'
+          }} />
+      </div>
+    );
+  }
+});

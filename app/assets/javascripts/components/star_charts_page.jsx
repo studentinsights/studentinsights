@@ -471,7 +471,7 @@ $(function() {
               {horizontalTicks.map(function(percentile) {
                 const opacity = isStudentSelected ? 0.7 : 0.3;
                 const offset = percentile > 0 ? '-2.4em' : '1em';
-                 return (
+                return (
                    <text
                      key={percentile}
                      x={x(percentile)}
@@ -487,7 +487,7 @@ $(function() {
                        {percentile + '%'}
                      </tspan>
                    </text>
-                 );
+                );
               }, this)}
               <text
                 x={x(1)}
@@ -505,7 +505,7 @@ $(function() {
               </text>
               {verticalTicks.map(function(percentile) {
                 const opacity = isStudentSelected ? 0.7 : 0.3;
-                 return (
+                return (
                    <text
                      key={percentile}
                      x={x(1)}
@@ -520,7 +520,7 @@ $(function() {
                        {percentile}
                      </tspan>
                    </text>
-                 );
+                );
               }, this)}
               {students.map(function(student) {
                 const percentile = _.last(student.star_results).percentile_rank;
