@@ -27,8 +27,10 @@ module SomervilleTeacherTool
         "#{config.root}/lib"
       ]
 
+      config.browserify_rails.commandline_options = "-t [ babelify --presets [ react es2015 ] ]"
+
       config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
-      class_paths.each do |class_path| 
+      class_paths.each do |class_path|
         config.autoload_paths << class_path
       end
 

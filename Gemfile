@@ -7,6 +7,7 @@ gem 'pg'
 gem 'puma'
 
 gem 'activerecord-import'
+gem 'browserify-rails'
 gem 'devise'
 gem 'devise_ldap_authenticatable'
 
@@ -14,7 +15,7 @@ gem 'devise_ldap_authenticatable'
 # - https://github.com/drapergem/draper/issues/697
 # - https://github.com/drapergem/draper/issues/681
 gem 'draper', "3.0.0.pre1"
-gem 'activemodel-serializers-xml' 
+gem 'activemodel-serializers-xml'
 
 gem 'friendly_id', '~> 5.1.0'
 gem 'handlebars_assets'
@@ -75,7 +76,7 @@ group :development, :test do
   gem 'timecop'
   gem 'rails-controller-testing'
   gem 'coffee-rails'
-  gem 'bourbon', '~> 4.3.2' 
+  gem 'bourbon', '~> 4.3.2'
 end
 
 group :development do
