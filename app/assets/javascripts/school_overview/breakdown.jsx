@@ -64,6 +64,15 @@ const hashCode = function(s){
 }
 
 
+const styles = {
+  bar: {
+    color: 'black',
+    backgroundColor: '#ccc',
+    borderLeft: '1px solid #aaa'
+  }
+};
+
+
 export default React.createClass({
   displayName: 'CohortBreakdown',
 
@@ -94,7 +103,7 @@ export default React.createClass({
   render: function() {
     // Clean and filter
     const {gradeFilter} = this.state;
-    const rawStudents = this.props.students;
+    const rawStudents = JSON.parse(sessionStorage.getItem('kevin'));
     const cleanedStudents = cleanNulls(rawStudents);
     const students = (gradeFilter === null)
       ? cleanedStudents
@@ -118,7 +127,8 @@ export default React.createClass({
       const hispanicPercent = percentageOf(students, 'hispanic_latino', true);
       const disabilityPercent = 100 - percentageOf(students, 'disability', null);
       const lepPercent = 100 - percentageOf(students, 'limited_english_proficiency', 'Fluent');
-      console.log(lepPercent);
+      const colorPercent = 100 * students.filter(s => s.hispanic_latino || s.race !== 'White').length / students.length;
+      
 
       return {
         homeroomName,
@@ -130,6 +140,7 @@ export default React.createClass({
         disabilityPercent,
         lepPercent,
         hispanicPercent,
+        colorPercent,
         studentCount: students.length
       };
     });
@@ -172,17 +183,17 @@ export default React.createClass({
         </div>
         <div>
           {this.renderTitle('Compare across homeroom')}
-          <table style={{width: '100%', margin: 5, borderCollapse: 'collapse', border: '1px solid #eee'}}>
-            <thead style={{borderBottom: '1px solid #666'}}>
+          <table style={{width: '100%', margin: 5, marginTop: 10, borderCollapse: 'collapse'}}>
+            <thead style={{borderBottom: '1px solid #999'}}>
               <tr>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Grade</th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Homeroom</th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Size</th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Disability</th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Limited English</th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Low income</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Hispanic</th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Racial composition</th>
+                <th title="Not white or Hispanic" style={{cursor: 'help', padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Students of color</th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Hispanic</th>
               </tr>
             </thead>
             <tbody>
@@ -196,33 +207,30 @@ export default React.createClass({
                   lunchPercent,
                   hispanicPercent,
                   disabilityPercent,
-                  lepPercent
+                  lepPercent,
+                  colorPercent
                 } = statsForHomeroom;
                 const total = _.map(raceGroups, 'count').reduce((sum, a) => {
                   return sum + a; 
                 }, 0);
                 
                 return (
-                  <tr key={homeroomName}>
-                    <td style={{width: '3em', padding: 5}}>{grades.join(', ')}</td>
+                  <tr key={homeroomName} style={{marginBottom: 20}}>
                     <td style={{width: '5em', padding: 5}}>
                       <a href={`/homerooms/${homeroomId}`}>{homeroomName}</a>
                     </td>
                     <td style={{width: '3em', padding: 5}}>{studentCount}</td>
-                    <td style={{height: '100%', width: 200, padding: 5}}>
-                      <Bar percent={disabilityPercent} color="#ccc" threshold={10} />
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={disabilityPercent} styles={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 200, padding: 5}}>
-                      <Bar percent={lunchPercent} color="#ccc" threshold={10} />
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={lunchPercent} styles={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 200, padding: 5}}>
-                      <Bar percent={lepPercent} color="#ccc" threshold={10} />
-                    </td>
-                    <td style={{height: '100%', width: 200, padding: 5}}>
-                      <Bar percent={hispanicPercent} color="#ccc" threshold={10} />
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={lepPercent} styles={styles.bar} threshold={10} />
                     </td>
                     <td style={{padding: 5}}>
-                      <div style={{flex: 1, width: 400, backgroundColor: 'white', height: '4em'}}>
+                      <div style={{flex: 1, width: 400, backgroundColor: 'white', height: '3em'}}>
                         {_.sortBy(raceGroups, 'race').map((group) => {
                           const {race, count} = group;
                           const percent = 100 * count / total;
@@ -235,10 +243,17 @@ export default React.createClass({
                               percent={percent}
                               threshold={10}
                               title={title}
-                              color={color(race)} />
+                              styles={{backgroundColor: color(race)}}
+                              innerStyles={{color: 'white'}} />
                           );
                         })}
                       </div>
+                    </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={colorPercent} styles={styles.bar} threshold={10} />
+                    </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={hispanicPercent} styles={styles.bar} threshold={10} />
                     </td>
                   </tr>
                 );
@@ -250,7 +265,13 @@ export default React.createClass({
           {this.renderTitle('Color key')}
           <div style={{margin: 5}}>
             {allRaces.map((race) => {
-              return <div key={race} style={{display: 'inline-block', margin: 10, color: color(race)}}>{race}</div>;
+              return <div key={race} style={{
+                display: 'inline-block',
+                margin: 10,
+                color: 'white',
+                padding: 5,
+                backgroundColor: color(race)
+              }}>{race}</div>;
             })}
           </div>
         </div>
@@ -259,6 +280,6 @@ export default React.createClass({
   },
 
   renderTitle: function(title) {
-    return <div style={{marginTop: 50}}><b>{title}</b></div>;
+    return <div style={{marginTop: 60}}><b>{title}</b></div>;
   }
 });
