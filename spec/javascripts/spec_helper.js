@@ -27,5 +27,5 @@
 // For more information: http://github.com/modeset/teaspoon
 
 //= require support/spec_config
-//= require support/jasmine-jquery
+//= require support/spec_matchers
 //= require support/spec_sugar

@@ -48,11 +48,12 @@ describe('ProfileDetails', function() {
       var el = this.testEl;
       helpers.renderInto(el);
 
+      debugger
       // Is header here?
-      expect("#full-case-history").toExist();
+      expect($(el).find("#full-case-history").length).toEqual(1);
       // Are all the school years represented?
       _.each([2009, 2010, 2011, 2012, 2013, 2014, 2015], function(year){
-        expect("#school-year-starting-" + year).toExist();
+        expect($(el).find("#school-year-starting-" + year).length).toEqual(1);
       });
 
       expect($("#school-year-starting-2015 > #Absence-991", el).text()).toEqual(
