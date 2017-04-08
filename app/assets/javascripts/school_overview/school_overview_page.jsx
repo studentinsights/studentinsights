@@ -1,13 +1,16 @@
+import StudentsTable from '../components/students_table.jsx';
+import Breakdown from './breakdown.jsx';
+
+
 (function(root) {
   window.shared || (window.shared = {});
-  const MixpanelUtils = window.shared.MixpanelUtils;
-  const StudentsTable = window.shared.StudentsTable;
+  const MixpanelUtils = window.shared.MixpanelUtils;  
   const SlicePanels = window.shared.SlicePanels;
   const SliceButtons = window.shared.SliceButtons;
   const styles = window.shared.styles;
   
 
-  const SchoolOverviewPage = React.createClass({
+  const SchoolOverviewPage = window.shared.SchoolOverviewPage = React.createClass({
     displayName: 'SchoolOverviewPage',
 
     propTypes: {
@@ -18,7 +21,10 @@
     },
 
     getInitialState: function() {
-      return { filters: this.props.initialFilters };
+      return {
+        filters: this.props.initialFilters,
+        showBreakdown: true // TODO(kr)
+      };
     },
 
     // sink-only
@@ -176,8 +182,15 @@
       this.clearFilters();
     },
 
+    onBreakdownClicked: function(e) {
+      this.setState({ showBreakdown: true });
+    },
+
     render: function() {
       this.setFilteredStudents(this.filteredStudents());
+      const {showBreakdown} = this.state;
+
+      if (showBreakdown) return <Breakdown students={this.getFilteredStudents()} />;
 
       return (
         <div className="school-overview" style={{ fontSize: styles.fontSize }}>
@@ -197,6 +210,7 @@
               filtersHash={this.filtersHash()}
               activeFiltersIdentifier={this.activeFiltersIdentifier()}
               clearFilters={this.clearFilters} />
+            <button onClick={this.onBreakdownClicked}>Breakdown</button>
           </div>
           <div className="list" style={{ padding: 20 }}>
             <StudentsTable
@@ -208,6 +222,4 @@
       );
     }
   });
-
-  window.shared.SchoolOverviewPage = SchoolOverviewPage;
 })(window);

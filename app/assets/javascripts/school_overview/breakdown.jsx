@@ -1,12 +1,14 @@
 import Bar from '../components/bar.jsx';
 
 // Translate null values
-const students = rawStudents.map((student) => {
-  return {
-    ...student,
-    race: (student.race) ? student.race : 'Unknown'
-  };
-});
+function cleanNulls(students) {
+  return students.map((student) => {
+    return {
+      ...student,
+      race: (student.race) ? student.race : 'Unknown'
+    };
+  });
+};
 
 
 // Helpers
@@ -57,133 +59,157 @@ const hashCode = function(s){
 
 
 export default React.createClass({
-    displayName: 'CohortBreakdown',
+  displayName: 'CohortBreakdown',
 
-    propTypes: {
-      students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-    },
+  propTypes: {
+    students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  },
 
-    getInitialState: function() {
-      return {};
-    },
+  getInitialState: function() {
+    return {
+      gradeFilter: null
+    };
+  },
 
-    render: function() {
-      // Compute
-      const studentsByHomeroom = _.map(_.groupBy(students, 'homeroom_name'), (students, homeroomName) => {
-        return {
-          homeroomName,
-          students,
-          homeroomId: students[0].homeroom_id
-        };
-      });
-      const allRaces = _.sortBy(_.uniq(_.map(students, 'race')));
-      const statsForHomerooms = studentsByHomeroom.map(({homeroomName, homeroomId, students}) => {
-        const grades = _.uniq(_.map(students, 'grade'));
-        const raceGroups = completeCountBy(students, 'race', allRaces);
-        const lunchMap = makeCountMap(students, 'free_reduced_lunch');
-        const lunchPercent = 100 - percentageOf(students, 'free_reduced_lunch', 'Not Eligible');
-        const hispanicPercent = percentageOf(students, 'hispanic_latino', true);
-        return {
-          homeroomName,
-          homeroomId,
-          grades,
-          raceGroups,
-          lunchMap,
-          lunchPercent,
-          hispanicPercent,
-          studentCount: students.length
-        };
-      });
+  onGradeClicked: function(grade) {
+    this.setState({ gradeFilter: grade });
+  },
+
+  render: function() {
+    // TODO(kr)
+    const {gradeFilter} = this.state;
+    const rawStudents = JSON.parse(sessionStorage.getItem('kevin'));
+    const cleanedStudents = cleanNulls(rawStudents);
+    const students = (gradeFilter === null)
+      ? cleanedStudents
+      : cleanedStudents.filter(student => student.grade === gradeFilter);
+    
+    // Compute
+    const studentsByHomeroom = _.map(_.groupBy(students, 'homeroom_name'), (students, homeroomName) => {
+      return {
+        homeroomName,
+        students,
+        homeroomId: students[0].homeroom_id
+      };
+    });
+    const allRaces = _.sortBy(_.uniq(_.map(students, 'race')));
+    const statsForHomerooms = studentsByHomeroom.map(({homeroomName, homeroomId, students}) => {
+      const grades = _.uniq(_.map(students, 'grade'));
+      const raceGroups = completeCountBy(students, 'race', allRaces);
+      const lunchMap = makeCountMap(students, 'free_reduced_lunch');
+      const lunchPercent = 100 - percentageOf(students, 'free_reduced_lunch', 'Not Eligible');
+      const hispanicPercent = percentageOf(students, 'hispanic_latino', true);
+      return {
+        homeroomName,
+        homeroomId,
+        grades,
+        raceGroups,
+        lunchMap,
+        lunchPercent,
+        hispanicPercent,
+        studentCount: students.length
+      };
+    });
 
 
-      // Render
-      const color = d3.scale.category10();
-      const orderedGrades = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ];
-      const sortedStatsForHomerooms = _.sortBy(statsForHomerooms, ({grades}) => {
-        if (grades.length === 1) return orderedGrades.indexOf(grades[0]);
-        if (grades.length > 1) return -100;
-        return -200;
-      });
+    // Render
+    const color = d3.scale.category10();
+    const orderedGrades = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ];
+    const sortedStatsForHomerooms = _.sortBy(statsForHomerooms, ({grades, studentCount}) => {
+      if (grades.length === 1) return (100 * orderedGrades.indexOf(grades[0])) - studentCount;
+      if (grades.length > 1) return -1000 - studentCount;
+      return -2000 - studentCount;
+    });
 
 
-      return (
-        <div style={{margin: 40}}>
-          <div style={{marginBottom: 40}}>
-            <b>Grades:</b>
+    return (
+      <div style={{margin: 40}}>
+        <div style={{marginBottom: 40}}>
+          <div><b>Homerooms by grade:</b></div>
+          <div>
             {orderedGrades.map((grade) => {
-              return <button onClick={this.onGradeClicked.bind(this, grade)}>{grade}</button>;
+              return <button
+                style={{padding: 10, paddingTop: 5, paddingBottom: 5}}
+                key={grade}
+                onClick={this.onGradeClicked.bind(this, grade)}>{grade}</button>;
             })}
           </div>
-          <div style={{marginBottom: 40}}>
-            <b>Race key</b>
-            {allRaces.map((race) => {
-              return <div key={race} style={{color: color(race)}}>{race}</div>;
-            })}
-          </div>
-          <table id="equity-table" style={{borderCollapse: 'collapse', border: '1px solid #eee'}}>
-            <thead style={{borderBottom: '1px solid #666'}}>
-              <tr>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Grade</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Homeroom</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Size</th>
-                {/*allRaces.map((race) => {
-                  return <th key={race} style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>{race}</th>;
-                })*/}
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Low income</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Hispanic</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Racial composition</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedStatsForHomerooms.map((statsForHomeroom) => {
-                const {
-                  homeroomName,
-                  studentCount,
-                  raceGroups,
-                  grades,
-                  lunchPercent,
-                  hispanicPercent
-                } = statsForHomeroom;
-                const total = _.map(raceGroups, 'count').reduce((sum, a) => {
-                  return sum + a; 
-                }, 0);
-                
-                return (
-                  <tr key={homeroomName}>
-                    <td style={{width: '3em', padding: 5}}>{grades.join(', ')}</td>
-                    <td style={{width: '5em', padding: 5}}>{bucket(homeroomName, codes)}</td>
-                    <td style={{width: '3em', padding: 5}}>{studentCount}</td>
-                    {/*_.sortBy(raceGroups, 'race').map((group) => {
-                      const {race, count} = group;
-                      const percent = 100 * count / total;
-                      return (
-                        <td key={race} style={{padding: 5}}>
-                          <div style={{flex: 1, width: 100, backgroundColor: 'white', height: '4em'}}>
-                            <Bar percent={percent} threshold={10} color={color(race)} />
-                          </div>
-                        </td>
-                      );
-                    })*/}
-                    <td style={{width: 250, height: '100%', padding: 5}}>
-                      <Bar percent={lunchPercent} color="darkgreen" threshold={10} />
-                    </td>
-                    <td style={{width: 250, height: '100%', padding: 5}}>
-                      <Bar percent={hispanicPercent} color="darkblue" threshold={10} />
-                    </td>
-                    <td style={{padding: 5}}>
-                      <div style={{flex: 1, width: 400, backgroundColor: 'white', height: '4em'}}>
-                        {_.sortBy(raceGroups, 'race').map((group) => {
-                          const {race, count} = group;
-                          const percent = 100 * count / total;
-                          return <Bar key={race} percent={percent} threshold={10} color={color(race)} />;
-                        })}
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div>This excludes mixed grade homerooms.</div>
         </div>
-      );
-    }
+        <div style={{marginBottom: 40}}>
+          <b>Race key</b>
+          {allRaces.map((race) => {
+            return <div key={race} style={{color: color(race)}}>{race}</div>;
+          })}
+        </div>
+        <table id="equity-table" style={{borderCollapse: 'collapse', border: '1px solid #eee'}}>
+          <thead style={{borderBottom: '1px solid #666'}}>
+            <tr>
+              <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Grade</th>
+              <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Homeroom</th>
+              <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Size</th>
+              {/*allRaces.map((race) => {
+                return <th key={race} style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>{race}</th>;
+              })*/}
+              <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Low income</th>
+              <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Hispanic</th>
+              <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Racial composition</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedStatsForHomerooms.map((statsForHomeroom) => {
+              const {
+                homeroomName,
+                homeroomId,
+                studentCount,
+                raceGroups,
+                grades,
+                lunchPercent,
+                hispanicPercent
+              } = statsForHomeroom;
+              const total = _.map(raceGroups, 'count').reduce((sum, a) => {
+                return sum + a; 
+              }, 0);
+              
+              return (
+                <tr key={homeroomName}>
+                  <td style={{width: '3em', padding: 5}}>{grades.join(', ')}</td>
+                  <td style={{width: '5em', padding: 5}}>
+                    <a href="/homerooms/${homeroomId}">{homeroomName}</a>
+                  </td>
+                  <td style={{width: '3em', padding: 5}}>{studentCount}</td>
+                  {/*_.sortBy(raceGroups, 'race').map((group) => {
+                    const {race, count} = group;
+                    const percent = 100 * count / total;
+                    return (
+                      <td key={race} style={{padding: 5}}>
+                        <div style={{flex: 1, width: 100, backgroundColor: 'white', height: '4em'}}>
+                          <Bar percent={percent} threshold={10} color={color(race)} />
+                        </div>
+                      </td>
+                    );
+                  })*/}
+                  <td style={{width: 250, height: '100%', padding: 5}}>
+                    <Bar percent={lunchPercent} color="darkgreen" threshold={10} />
+                  </td>
+                  <td style={{width: 250, height: '100%', padding: 5}}>
+                    <Bar percent={hispanicPercent} color="darkblue" threshold={10} />
+                  </td>
+                  <td style={{padding: 5}}>
+                    <div style={{flex: 1, width: 400, backgroundColor: 'white', height: '4em'}}>
+                      {_.sortBy(raceGroups, 'race').map((group) => {
+                        const {race, count} = group;
+                        const percent = 100 * count / total;
+                        return <Bar key={race} percent={percent} threshold={10} color={color(race)} />;
+                      })}
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+});
