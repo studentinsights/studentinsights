@@ -29,8 +29,8 @@ before_install:
 
   # install newer version of node
   - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
+  - nvm install --lts
+  - nvm use --lts
   - npm install
   - node --version
   - npm --version
