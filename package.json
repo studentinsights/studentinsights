@@ -1,6 +1,11 @@
 {
   "name": "studentinsights",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/studentinsights/studentinsights.git"
+  },
+  "license": "MIT",
   "scripts": {
     "lint": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts; exit 0",
     "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts"
