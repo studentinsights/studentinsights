@@ -6,9 +6,9 @@ describe('SchoolOverviewPage', function() {
 
   describe('#filterWithOr', function() {
     beforeEach(function() {
-      this.mari = { name: 'Mari', classroom: '101' }    // stubby student object
-      this.mark = { name: 'Mark', classroom: '101' }    // stubby student object
-      this.marv = { name: 'Marv', classroom: '102' }    // stubby student object
+      this.mari = { name: 'Mari', classroom: '101' };    // stubby student object
+      this.mark = { name: 'Mark', classroom: '101' };    // stubby student object
+      this.marv = { name: 'Marv', classroom: '102' };    // stubby student object
 
       // Test filters
       this.MariFilter = Filters.Equal('name', 'Mari');
@@ -55,8 +55,8 @@ describe('SchoolOverviewPage', function() {
   describe('#filterWithAnd', function() {
     beforeEach(function() {
       this.page = new SchoolOverviewPage({initialFilters: []});
-      this.mari = { name: 'Mari' }    // stubby student object
-      this.mark = { name: 'Mark' }    // stubby student object
+      this.mari = { name: 'Mari' };    // stubby student object
+      this.mark = { name: 'Mark' };    // stubby student object
     });
 
     describe('with array of two arrays of students that intersect', function() {

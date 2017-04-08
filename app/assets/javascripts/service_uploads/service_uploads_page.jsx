@@ -170,14 +170,14 @@
               lasidAuthorizationError: false,
               serverSideErrors: [],
             });
-          };
+          }
 
           if (data.errors) {
             this.setState({
               serverSideErrors: data.errors,
               uploadingInProgress: false
             });
-          };
+          }
         }.bind(this)
       });
     },
@@ -201,10 +201,10 @@
       if (headerRow[0].trim() !== 'LASID') {
         this.setState({ missingLasidHeader: true });
         return;
-      };
+      }
 
       const student_lasids = rows.map(function(row) { return row.split(",")[0].trim(); })
-                               .filter(function (lasid) { return lasid !== '' });
+                               .filter(function (lasid) { return lasid !== ''; });
 
       this.validateLASIDs(student_lasids);
     },
@@ -226,8 +226,8 @@
           } else {
             this.setState({
               lasidAuthorizationError: true
-            })
-          };
+            });
+          }
         }.bind(this)
       });
     }

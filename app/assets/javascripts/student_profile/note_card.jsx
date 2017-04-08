@@ -1,6 +1,5 @@
 import Educator from './educator.jsx';
 
-
 (function() {
   window.shared || (window.shared = {});
   const dom = window.shared.ReactHelpers.dom;

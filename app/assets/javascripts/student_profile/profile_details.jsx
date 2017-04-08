@@ -26,7 +26,7 @@
       return {
         filterFromDate: QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1),
         filterToDate: moment()
-      }
+      };
     },
 
     getEvents: function(){
@@ -126,7 +126,7 @@
           id: obj.id,
           message: this.getMessageForServiceType(obj.service_type_id),
           date: moment(obj.date_started).toDate()
-        })
+        });
       }.bind(this));
 
       _.each(this.props.dibels, function(obj) {
@@ -290,10 +290,10 @@
     renderFullCaseHistory: function(){
       const self = this;
       const bySchoolYearDescending = _.toArray(
-        _.groupBy(this.getEvents(), function(event){ return QuadConverter.toSchoolYear(event.date) })
+        _.groupBy(this.getEvents(), function(event){ return QuadConverter.toSchoolYear(event.date); })
       ).reverse();
 
-     return (
+      return (
         <div id="full-case-history">
           <div className="ServicesHeader" style={styles.fullCaseHistoryHeading}>
             <h4 style={styles.fullCaseHistoryTitle}>

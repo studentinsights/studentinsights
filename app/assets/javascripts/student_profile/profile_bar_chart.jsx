@@ -40,7 +40,7 @@
   // Used for grouping events on the chart.
   function defaultMonthKeyFn(event) {
     return moment.utc(event.occurred_at).date(1).format('YYYYMMDD');
-  };
+  }
 
   // Component for all charts in the profile page.
   window.shared.ProfileBarChart = React.createClass({
@@ -63,7 +63,7 @@
         phaselines: [],
         nowMomentUTC: moment.utc(),
         monthKeyFn: defaultMonthKeyFn
-      }
+      };
     },
 
     // Compute the month range that's relevant for the current date and months back we're showing
@@ -95,10 +95,10 @@
             ]}
             title={{text: ''}}
             yAxis={{
-                min: 0,
-                max: 20,
-                allowDecimals: false,
-                title: {text: this.props.titleText}
+              min: 0,
+              max: 20,
+              allowDecimals: false,
+              title: {text: this.props.titleText}
             }}
             tooltip={{
               formatter: this.createUnsafeTooltipFormatter(monthBuckets, this.props),
@@ -164,7 +164,7 @@
           htmlstring += "<br>";
         });
         return htmlstring;
-      }
+      };
     }
   });
 })();

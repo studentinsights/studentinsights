@@ -14,7 +14,7 @@
   function calculateYearsEnrolled (registration_date) {
     if (registration_date === null) return null;
     return Math.floor((new Date() - new Date(registration_date)) / (1000 * 60 * 60 * 24 * 365));
-  };
+  }
 
   const SchoolOverviewPage = React.createClass({
     displayName: 'SchoolOverviewPage',
@@ -223,4 +223,4 @@
   });
 
   window.shared.SchoolOverviewPage = SchoolOverviewPage;
-})(window)
+})(window);

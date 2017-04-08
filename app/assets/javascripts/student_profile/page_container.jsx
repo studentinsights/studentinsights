@@ -151,12 +151,12 @@
     onClickSaveService: function(serviceParams) {
       // Very quick name validation, just check for a comma between two words
       if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
-          this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
-          this.api.saveService(this.state.student.id, serviceParams)
+        this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
+        this.api.saveService(this.state.student.id, serviceParams)
             .done(this.onSaveServiceDone)
             .fail(this.onSaveServiceFail);
       } else {
-          this.setState({ requests: merge(this.state.requests, { saveService: 'Please use the form Last Name, First Name' }) });
+        this.setState({ requests: merge(this.state.requests, { saveService: 'Please use the form Last Name, First Name' }) });
       }
     },
 

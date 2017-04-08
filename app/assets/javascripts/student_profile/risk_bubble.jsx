@@ -24,7 +24,7 @@
       padding: 5,
       marginTop: 3
     }
-};
+  };
 
   const RiskBubble = window.shared.RiskBubble = React.createClass({
     displayName: 'RiskBubble',

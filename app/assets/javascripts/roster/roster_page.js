@@ -43,16 +43,16 @@ $(function() {
 
     // Show/hide column groups
     var roster_columns = {
-        'name': 'Name',
-        'risk': 'Risk',
-        'program': 'Program',
-        'sped': 'SPED & Disability',
-        'language': 'Language',
-        'free-reduced': 'Free/Reduced Lunch',
-        'star_math': 'STAR Math',
-        'star_reading': 'STAR Reading',
-        'mcas_math': 'MCAS Math',
-        'mcas_ela': 'MCAS ELA',
+      'name': 'Name',
+      'risk': 'Risk',
+      'program': 'Program',
+      'sped': 'SPED & Disability',
+      'language': 'Language',
+      'free-reduced': 'Free/Reduced Lunch',
+      'star_math': 'STAR Math',
+      'star_reading': 'STAR Reading',
+      'mcas_math': 'MCAS Math',
+      'mcas_ela': 'MCAS ELA',
         // 'access': 'Access',
         // 'dibels': 'DIBELS',
         // 'attendance': 'Attendance',
@@ -64,7 +64,7 @@ $(function() {
 
     $.each(roster_columns, function(key, column){
       var newColumnTemplate = columnTemplate.clone(),
-      isselected = columns_selected.indexOf(key) !== -1;
+        isselected = columns_selected.indexOf(key) !== -1;
       newColumnTemplate
         .find("input")
           .attr("name", key)
@@ -77,7 +77,7 @@ $(function() {
         .find("label")
           .text(column)
         .end()
-        .appendTo("#column-listing")
+        .appendTo("#column-listing");
     });
 
     // "Click off" for column select
@@ -107,7 +107,7 @@ $(function() {
       var content = $.trim($(this).html());
       if (content.length === 0) {
         $(this).html('—');
-      };
+      }
     });
 
   }

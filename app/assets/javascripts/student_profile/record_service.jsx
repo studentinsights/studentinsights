@@ -68,7 +68,7 @@
         serviceTypeId: null,
         providedByEducatorName: "",
         momentStarted: moment.utc() // TODO should thread through
-      }
+      };
     },
 
     onDateChanged: function(dateText) {

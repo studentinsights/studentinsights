@@ -205,7 +205,7 @@
             {moment.utc(service.date_started).fromNow(true)}
           </div>
         );
-      };
+      }
     },
 
     renderEducatorName: function (educatorName) {
@@ -215,7 +215,7 @@
             {'With ' + educatorName}
           </div>
         );
-      };
+      }
     },
 
     renderDiscontinuedInformation: function(service) {
@@ -226,7 +226,7 @@
         var description = 'Ending';
       } else {
         var description = 'Ended';
-      };
+      }
 
       if (this.wasDiscontinued(service)) {
         return (
@@ -241,7 +241,7 @@
         );
       }
 
-      return this.renderDiscontinueButton(service)
+      return this.renderDiscontinueButton(service);
     },
 
     // Toggles when in confirmation state
