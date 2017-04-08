@@ -6,15 +6,18 @@ export default React.createClass({
   propTypes: {
     color: React.PropTypes.string.isRequired,
     percent: React.PropTypes.number.isRequired,
-    threshold: React.PropTypes.number.isRequired
+    threshold: React.PropTypes.number.isRequired,
+    title: React.PropTypes.string
   },
 
   render() {
     const {color, percent, threshold} = this.props;
+    const title = this.props.title || percent + '%';
 
     return (
-      <div title={percent + '%'} style={{
+      <div title={title} style={{
         backgroundColor: color,
+        cursor: 'default',
         display: 'inline-block',
         width: percent + '%',
         height: '100%'
