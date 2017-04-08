@@ -1,20 +1,11 @@
 (function(root) {
   window.shared || (window.shared = {});
   const MixpanelUtils = window.shared.MixpanelUtils;
-  const Filters = window.shared.Filters;
-  const Routes = window.shared.Routes;
+  const StudentsTable = window.shared.StudentsTable;
   const SlicePanels = window.shared.SlicePanels;
   const SliceButtons = window.shared.SliceButtons;
   const styles = window.shared.styles;
-  const colors = window.shared.colors;
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
-  const merge = window.shared.ReactHelpers.merge;
-
-  function calculateYearsEnrolled (registration_date) {
-    if (registration_date === null) return null;
-    return Math.floor((new Date() - new Date(registration_date)) / (1000 * 60 * 60 * 24 * 365));
-  }
+  
 
   const SchoolOverviewPage = React.createClass({
     displayName: 'SchoolOverviewPage',
@@ -156,6 +147,12 @@
       return this.filterWithAnd.call(this, studentsOrFiltered);
     },
 
+    filtersHash: function() {
+      return '#' + this.state.filters.map(function(filter) {
+        return encodeURIComponent(filter.identifier);
+      }).join('&');
+    },
+
     clearFilters: function() {
       this.setState({ filters: [] });
     },
@@ -178,10 +175,6 @@
     onResetClicked: function(e) {
       this.clearFilters();
     },
-    // key code 27 is the ESC key
-    //onKeyDown: function(e) {
-    //  if (e.keyCode === 27) this.clearFilters();
-    //},
 
     render: function() {
       this.setFilteredStudents(this.filteredStudents());
@@ -213,13 +206,7 @@
           </div>
         </div>
       );
-    },
-
-    filtersHash: function() {
-      return '#' + this.state.filters.map(function(filter) {
-        return encodeURIComponent(filter.identifier);
-      }).join('&');
-    },
+    }
   });
 
   window.shared.SchoolOverviewPage = SchoolOverviewPage;

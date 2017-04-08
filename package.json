@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "lint": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts; exit 0",
+    "lint-file": "eslint --fix --ext jsx --ext js -c .eslintrc",
     "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts"
   },
   "dependencies": {
