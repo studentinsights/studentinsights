@@ -48,7 +48,6 @@ describe('ProfileDetails', function() {
       var el = this.testEl;
       helpers.renderInto(el);
 
-      debugger
       // Is header here?
       expect($(el).find("#full-case-history").length).toEqual(1);
       // Are all the school years represented?
