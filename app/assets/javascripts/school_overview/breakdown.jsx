@@ -103,7 +103,7 @@ export default React.createClass({
   render: function() {
     // Clean and filter
     const {gradeFilter} = this.state;
-    const rawStudents = JSON.parse(sessionStorage.getItem('kevin'));
+    const rawStudents = this.props.students;
     const cleanedStudents = cleanNulls(rawStudents);
     const students = (gradeFilter === null)
       ? cleanedStudents
@@ -128,7 +128,6 @@ export default React.createClass({
       const disabilityPercent = 100 - percentageOf(students, 'disability', null);
       const lepPercent = 100 - percentageOf(students, 'limited_english_proficiency', 'Fluent');
       const colorPercent = 100 * students.filter(s => s.hispanic_latino || s.race !== 'White').length / students.length;
-      
 
       return {
         homeroomName,
@@ -224,10 +223,10 @@ export default React.createClass({
                       <Bar percent={disabilityPercent} styles={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lunchPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={lepPercent} styles={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lepPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={lunchPercent} styles={styles.bar} threshold={10} />
                     </td>
                     <td style={{padding: 5}}>
                       <div style={{flex: 1, width: 400, backgroundColor: 'white', height: '3em'}}>
@@ -280,6 +279,6 @@ export default React.createClass({
   },
 
   renderTitle: function(title) {
-    return <div style={{marginTop: 60}}><b>{title}</b></div>;
+    return <div style={{marginTop: 50}}><b>{title}</b></div>;
   }
 });
