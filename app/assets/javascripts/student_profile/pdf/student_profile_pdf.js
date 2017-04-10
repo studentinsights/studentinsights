@@ -22,6 +22,10 @@
         enabled: false
       },
       plotOptions: {
+        // This sets charts to render immediately, so we can 
+        // synchronously set window.status and pass control back
+        // to wkhtmltopdf to render the PDF.
+        series: { animation: false },
         column: {
           stacking: stacking,
           dataLabels: {
