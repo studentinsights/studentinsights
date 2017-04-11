@@ -81,7 +81,7 @@
         var percentileRank = this.y
         var gradeLevelEquivalent = this.points[0].point.gradeLevelEquivalent
 
-        if (gradeLevelEquivalent === 0 || gradeLevelEquivalent === null) {
+        if (gradeLevelEquivalent === null) {
           return date + '<br>Percentile Rank:<b> ' + percentileRank
         } else {
           return date + '<br>Percentile Rank:<b> ' + percentileRank +
