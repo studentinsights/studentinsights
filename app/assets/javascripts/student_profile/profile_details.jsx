@@ -6,7 +6,9 @@
   const FeedHelpers = window.shared.FeedHelpers;
   const QuadConverter = window.shared.QuadConverter;
   const styles = window.shared.ProfileDetailsStyle;
-
+  const Datepicker = window.shared.Datepicker;
+  const filterFromDate = QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1);
+  const filterToDate = moment();
   const ProfileDetails = window.shared.ProfileDetails = React.createClass({
     displayName: 'ProfileDetails',
 
@@ -18,6 +20,13 @@
       chartData: React.PropTypes.object,
       attendanceData: React.PropTypes.object,
       serviceTypesIndex: React.PropTypes.object
+    },
+
+    getInitialState: function() {
+      return {
+        filterFromDate: QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1),
+        filterToDate: moment()
+      };
     },
 
     getEvents: function(){
@@ -117,7 +126,7 @@
           id: obj.id,
           message: this.getMessageForServiceType(obj.service_type_id),
           date: moment(obj.date_started).toDate()
-        })
+        });
       }.bind(this));
 
       _.each(this.props.dibels, function(obj) {
@@ -138,16 +147,26 @@
       return _.sortBy(events, 'date').reverse();
     },
 
-    onClickGenerateSpedReferral: function(event) {
-      window.location = this.props.student.id + '/sped_referral.pdf';
+    onClickGenerateStudentReport: function(event) {
+      const sections = $('#section:checked').map(function() {return this.value;}).get().join(',');
+      window.location = this.props.student.id + '/student_report.pdf?sections=' + sections + '&from_date=' + filterFromDate.format('MM/DD/YYYY') + '&to_date=' + filterToDate.format('MM/DD/YYYY');
       return null;
     },
 
     render: function(){
       return (
         <div>
-          {this.renderAccessDetails()}
-          {this.renderFullCaseHistory()}
+          <div>
+            <div style={{float: 'left', display: 'flex', width: '50%'}}>
+              {this.renderAccessDetails()}
+            </div>
+            <div style={{display: 'flex', width: '50%'}}>
+              {this.renderStudentReportFilters()}
+            </div>
+          </div>
+          <div style={{clear: 'both'}}>
+            {this.renderFullCaseHistory()}
+          </div>
         </div>
       );
     },
@@ -170,17 +189,17 @@
       });
 
       return (
-        <div>
+        <div style={styles.column}>
           <h4 style={styles.title}>
             ACCESS
           </h4>
           <table>
             <thead>
               <tr>
-                <th style={styles.accessTableHeader}>
+                <th style={styles.tableHeader}>
                   Subject
                 </th>
-                <th style={styles.accessTableHeader}>
+                <th style={styles.tableHeader}>
                   Score
                 </th>
               </tr>
@@ -197,10 +216,81 @@
       );
     },
 
+    onFilterFromDateChanged: function(dateText) {
+      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
+      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      this.filterFromDate = updatedMoment;
+    },
+
+    onFilterToDateChanged: function(dateText) {
+      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
+      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      this.filterToDate = updatedMoment;
+    },
+
+    renderStudentReportSectionOption: function(optionValue, optionName) {
+      return (
+        <div style={styles.option3Column}>
+          <input style={styles.optionCheckbox} type='checkbox' id='section' name={optionValue} defaultChecked value={optionValue} />
+          <label style={styles.optionLabel}>{optionName}</label>
+        </div>
+      );
+    },
+
+    renderStudentReportFilters: function () {
+      return (
+        <div style={styles.column}>
+          <h4 style={styles.title}>Student Report</h4>
+          <span style={styles.tableHeader}>Select sections to include in report:</span>
+          <div>
+            {this.renderStudentReportSectionOption('notes','Notes')}
+            {this.renderStudentReportSectionOption('services','Services')}
+            {this.renderStudentReportSectionOption('attendance','Attendance')}
+            {this.renderStudentReportSectionOption('discipline_incidents','Discipline Incidents')}
+            {this.renderStudentReportSectionOption('assessments','Assessments')}
+          </div>
+          <span style={styles.tableHeader}>Select dates for the report:</span>
+          <div>
+            <div style={styles.option2Column}>
+              <label>From date:</label>
+              <Datepicker
+                styles={{ input: styles.datepickerInput }}
+                value={filterFromDate.format('MM/DD/YYYY')}
+                onChange={this.onFilterFromDateChanged}
+                datepickerOptions={{
+                  showOn: 'both',
+                  dateFormat: 'mm/dd/yy',
+                  minDate: undefined
+                }} />
+            </div>
+            <div style={styles.option2Column}>
+              <label>To date:</label>
+              <Datepicker
+                styles={{ input: styles.datepickerInput }}
+                value={filterToDate.format('MM/DD/YYYY')}
+                onChange={this.onFilterToDateChanged}
+                datepickerOptions={{
+                  showOn: 'both',
+                  dateFormat: 'mm/dd/yy',
+                  minDate: undefined
+                }} />
+            </div>
+          </div>
+          <br/>
+          <button
+            style={styles.studentReportButton}
+            className="btn btn-warning"
+            onClick={this.onClickGenerateStudentReport}>
+            Generate Student Report
+          </button>
+        </div>
+      );
+    },
+
     renderFullCaseHistory: function(){
       const self = this;
       const bySchoolYearDescending = _.toArray(
-        _.groupBy(this.getEvents(), function(event){ return QuadConverter.toSchoolYear(event.date) })
+        _.groupBy(this.getEvents(), function(event){ return QuadConverter.toSchoolYear(event.date); })
       ).reverse();
 
       return (
@@ -209,12 +299,6 @@
             <h4 style={styles.fullCaseHistoryTitle}>
               Full Case History
             </h4>
-            <button
-              className="btn btn-warning"
-              style={styles.spedButton}
-              onClick={this.onClickGenerateSpedReferral}>
-              Generate Student Report
-            </button>
           </div>
           {bySchoolYearDescending.map(this.renderCardsForYear)}
         </div>

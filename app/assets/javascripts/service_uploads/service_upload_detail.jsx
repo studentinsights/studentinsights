@@ -106,11 +106,11 @@
             </a>
           </span>
         );
-      };
+      }
     },
 
     toggleDeletionConfirmation: function () {
-      this.setState({ showDeletionConfirmation: !this.state.showDeletionConfirmation })
+      this.setState({ showDeletionConfirmation: !this.state.showDeletionConfirmation });
     },
 
     renderStudentLinks: function () {
@@ -143,7 +143,7 @@
     },
 
     toggleShowStudents: function () {
-      this.setState({ showStudentLinks: !(this.state.showStudentLinks) })
+      this.setState({ showStudentLinks: !(this.state.showStudentLinks) });
     },
 
     dataCellStyle: function () {

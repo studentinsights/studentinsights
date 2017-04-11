@@ -64,7 +64,7 @@
             series: this.props.quadSeries.map(function(obj){
               return {
                 name: obj.name,
-                data: obj.data  ? _.map(obj.data, QuadConverter.toPair): []
+                data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
               }
             }),
             yAxis: this.props.yAxis
@@ -130,7 +130,7 @@
         return  this.baseOptionsForStar();
       } else {
         return this.baseOptionsForNonKF();
-      };
+      }
     },
 
     baseOptionsForStar: function () {

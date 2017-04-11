@@ -28,7 +28,10 @@ class StarMathImporter < Struct.new :school_scope, :client, :log, :progress_bar
       assessment: star_mathematics_assessment
     }).first_or_create!
 
-    star_assessment.update_attributes({percentile_rank: row[:percentile_rank]})
+    star_assessment.update_attributes({
+      percentile_rank: row[:percentile_rank],
+      grade_equivalent: row[:grade_equivalent]
+    })
   end
 
   class HistoricalImporter < StarMathImporter

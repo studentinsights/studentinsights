@@ -3,8 +3,8 @@
   const dom = window.shared.ReactHelpers.dom;
   const createEl = window.shared.ReactHelpers.createEl;
   const merge = window.shared.ReactHelpers.merge;
-
   const HighchartsWrapper = window.shared.HighchartsWrapper;
+  const GraphHelpers = window.shared.GraphHelpers;
 
   const styles = {
     title: {
@@ -40,7 +40,7 @@
   // Used for grouping events on the chart.
   function defaultMonthKeyFn(event) {
     return moment.utc(event.occurred_at).date(1).format('YYYYMMDD');
-  };
+  }
 
   // Component for all charts in the profile page.
   window.shared.ProfileBarChart = React.createClass({
@@ -63,53 +63,16 @@
         phaselines: [],
         nowMomentUTC: moment.utc(),
         monthKeyFn: defaultMonthKeyFn
-      }
-    },
-
-    // Returns a list of monthKeys that are within the time window for this chart.
-    monthKeys: function(nowMomentUTC, monthsBack) {
-      const lastMonthMomentUTC = nowMomentUTC.clone().date(1);
-      return _.range(monthsBack, -1, -1).map(function(monthsBack) {
-        const monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
-        const monthKey = monthMomentUTC.format('YYYYMMDD');
-        return monthKey;
-      }, this);
-    },
-
-    // Given a list of monthKeys, map over that to return a list of all events that fall within
-    // that month.
-    eventsToMonthBuckets: function(monthKeys, events){
-      const eventsByMonth = _.groupBy(events, this.props.monthKeyFn);
-      return monthKeys.map(function(monthKey) {
-        return eventsByMonth[monthKey] || [];
-      });
-    },
-
-    // Returns HighCharts categories map, which describes how to place year captions in relation
-    // to the list of monthKeys.  Returns a map of (index into monthKeys array) -> (caption text)
-    //
-    // Example output: {3: '2014', 15: '2015'}
-    yearCategories: function(monthKeys) {
-      const categories = {};
-
-      monthKeys.forEach(function(monthKey, monthKeyIndex) {
-        const monthMomentUTC = moment.utc(monthKey);
-        const isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
-        if (isFirstMonthOfYear) {
-          categories[monthKeyIndex] = this.yearAxisCaption(monthKey);
-        }
-      }, this);
-
-      return categories;
+      };
     },
 
     // Compute the month range that's relevant for the current date and months back we're showing
     // on the chart.  Then map each month onto captions, and bucket the list of events into
     // each month.
     render: function() {
-      const monthKeys = this.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
-      const monthBuckets = this.eventsToMonthBuckets(monthKeys, this.props.events);
-      const yearCategories = this.yearCategories(monthKeys);
+      const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
+      const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
+      const yearCategories = GraphHelpers.yearCategories(monthKeys);
 
       return (
         <div id={this.props.id} style={styles.container}>
@@ -119,7 +82,7 @@
             credits={false}
             xAxis={[
               {
-                categories: monthKeys.map(this.monthAxisCaption),
+                categories: monthKeys.map(GraphHelpers.monthAxisCaption),
                 plotLines: this.makePlotlines(monthKeys)
               },
               {
@@ -132,10 +95,10 @@
             ]}
             title={{text: ''}}
             yAxis={{
-                min: 0,
-                max: 20,
-                allowDecimals: false,
-                title: {text: this.props.titleText}
+              min: 0,
+              max: 20,
+              allowDecimals: false,
+              title: {text: this.props.titleText}
             }}
             tooltip={{
               formatter: this.createUnsafeTooltipFormatter(monthBuckets, this.props),
@@ -202,14 +165,6 @@
         });
         return htmlstring;
       };
-    },
-
-    monthAxisCaption: function(monthKey) {
-      return moment.utc(monthKey).format('MMM');
-    },
-
-    yearAxisCaption: function(monthKey) {
-      return moment.utc(monthKey).format('YYYY');
     }
   });
 })();

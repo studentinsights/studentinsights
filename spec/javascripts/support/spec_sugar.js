@@ -32,7 +32,7 @@
     changeReactSelect: function($selectEl, optionText) {
       React.addons.TestUtils.Simulate.mouseDown($selectEl.find('.Select-arrow-zone').get(0));
       React.addons.TestUtils.Simulate.focus($selectEl.find('input:last').get(0));
-      $selectEl.find('.Select-option:contains(' + optionText + ')').click()
+      $selectEl.find('.Select-option:contains(' + optionText + ')').click();
       return undefined;
     },
 

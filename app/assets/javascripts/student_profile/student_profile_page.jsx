@@ -66,7 +66,7 @@
       borderRadius: '5px 5px 5px 5px',
       border: '1px solid #ccc',
       width: '20%',
-     },
+    },
     selectedColumn: {
       borderStyle: 'solid',
       borderColor: '#3177c9',
@@ -241,7 +241,7 @@
 
     renderSectionDetails: function() {
       switch (this.props.selectedColumnKey) {
-        case 'profile': return (
+      case 'profile': return (
           <ProfileDetails
             student={this.props.student}
             feed={this.props.feed}
@@ -250,12 +250,12 @@
             chartData={this.props.chartData}
             attendanceData={this.props.attendanceData}
             serviceTypesIndex={this.props.serviceTypesIndex} />
-        );
-        case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
-        case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
-        case 'attendance':
-          var attendanceData = this.props.attendanceData;
-          return (
+      );
+      case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
+      case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
+      case 'attendance':
+        var attendanceData = this.props.attendanceData;
+        return (
             <AttendanceDetails
               disciplineIncidents={attendanceData.discipline_incidents}
               absences={attendanceData.absences}
@@ -263,9 +263,9 @@
               student={this.props.student}
               feed={this.props.feed}
               serviceTypesIndex={this.props.serviceTypesIndex} />
-          );
-        case 'interventions':
-          return (
+        );
+      case 'interventions':
+        return (
             <div className="InterventionsDetails" style={{display: 'flex'}}>
               <NotesDetails
                 student={this.props.student}
@@ -288,7 +288,7 @@
                 actions={this.props.actions}
                 requests={this.props.requests} />
             </div>
-          );
+        );
       }
       return null;
     },
@@ -304,7 +304,7 @@
 
       if (this.props.access) {
         demographicsElements.push('ACCESS Composite score: ' + this.props.access.composite);
-      };
+      }
 
       return (
         <div
@@ -336,11 +336,11 @@
             className="interventions-column"
             style={merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey))}>
             {this.padElements(styles.summaryWrapper, [
-            this.renderPlacement(student),
-            this.renderServices(student),
-            this.renderStaff(student),
-            this.renderSped(student)
-          ])}
+              this.renderPlacement(student),
+              this.renderServices(student),
+              this.renderStaff(student),
+              this.renderSped(student)
+            ])}
           </div>
         </div>
       );
@@ -425,13 +425,13 @@
 
     spedLevelText: function(student) {
       switch (student.sped_level_of_need) {
-        case "Low < 2": return "less than 2 hours / week"
-        case "Low >= 2": return "2-5 hours / week";
-        case "Moderate": return "6-14 hours / week";
-        case "High": return "15+ hours / week";
-        default: return "None"
-     }
-   },
+      case "Low < 2": return "less than 2 hours / week";
+      case "Low >= 2": return "2-5 hours / week";
+      case "Moderate": return "6-14 hours / week";
+      case "High": return "15+ hours / week";
+      default: return "None";
+      }
+    },
 
     renderELAColumn: function() {
       const student = this.props.student;
@@ -488,7 +488,7 @@
           caption: 'MCAS ELA SGP',
           value: student.most_recent_mcas_ela_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
-        })
+        });
       }
     },
 

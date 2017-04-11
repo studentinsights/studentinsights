@@ -44,9 +44,9 @@ describe('NotesList', function() {
       expect(el).not.toContainText('SST Meeting');
 
       // Notes attachments expectations
-      expect(el).toContainText("link: https://www.example.com/morestudentwork")
-      expect(el).toContainText("link: https://www.example.com/studentwork")
-      expect(el).toContainText("(remove)")
+      expect(el).toContainText("link: https://www.example.com/morestudentwork");
+      expect(el).toContainText("link: https://www.example.com/studentwork");
+      expect(el).toContainText("(remove)");
     });
   });
 });
