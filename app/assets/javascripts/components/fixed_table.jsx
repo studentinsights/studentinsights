@@ -96,7 +96,7 @@
         return '< 1%';
       } else {
         return Math.round(100 * percentage) + '%';
-      };
+      }
     },
 
     renderBar: function(percentage, width) {

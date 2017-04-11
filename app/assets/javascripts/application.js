@@ -18,6 +18,7 @@
 //= require rollbar
 
 // third-party:
+//= require function-bind-polyfill
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
@@ -50,6 +51,7 @@
 
 //= require ./helpers/react_helpers
 //= require ./helpers/feed_helpers
+//= require ./helpers/graph_helpers
 //= require_tree ./helpers
 
 // shared react compoents:
@@ -82,6 +84,7 @@
   //= require ./student_profile/profile_chart
   //= require ./student_profile/profile_bar_chart
   //= require ./student_profile/student_profile_header
+  //= require ./student_profile/pdf/student_profile_pdf
 // details:
   //= require ./student_profile/services_details
   //= require ./student_profile/notes_details

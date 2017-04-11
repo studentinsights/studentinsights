@@ -3,7 +3,7 @@ describe('ProfileBarCharts', function() {
 
   describe('#getSchoolYearStartPositions', function(){
     it('works when current grade is 5', function(){
-        expect(
+      expect(
             ProfileChart.prototype.getSchoolYearStartPositions(24, moment.utc("2016-09-10"), 5)
         ).toEqual(
             _.object([
@@ -15,7 +15,7 @@ describe('ProfileBarCharts', function() {
     }),
 
     it('works when current grade is 1', function() {
-        expect(
+      expect(
             ProfileChart.prototype.getSchoolYearStartPositions(24, moment.utc("2016-09-10"), 1)
         ).toEqual(
             _.object([
@@ -24,6 +24,6 @@ describe('ProfileBarCharts', function() {
                 [moment.utc("2014-08-15").valueOf(), ""]
             ])
         );
-    })
+    });
   });
 });

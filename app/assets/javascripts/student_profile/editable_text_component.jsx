@@ -121,7 +121,7 @@
         this.contentEditableEl
         && expectedHTML !== this.contentEditableEl.innerHTML
       ) {
-       this.contentEditableEl.innerHTML = expectedHTML;
+        this.contentEditableEl.innerHTML = expectedHTML;
       }
     },
 
@@ -139,7 +139,7 @@
     onBlurText: function(event) {
       if (!this.isDirty) return null;
 
-      this.props.onBlurText(this.state.text)
+      this.props.onBlurText(this.state.text);
 
       this.isDirty = false;
     },

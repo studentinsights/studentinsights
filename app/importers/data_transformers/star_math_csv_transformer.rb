@@ -8,6 +8,7 @@ class StarMathCsvTransformer
       'AssessmentDate' => :date_taken,
       'SchoolLocalID' => :school_local_id,
       'PercentileRank' => :percentile_rank,
+      'GradeEquivalent' => :grade_equivalent
     }
   end
 end

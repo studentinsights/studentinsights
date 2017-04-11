@@ -15,15 +15,15 @@ describe('StudentProfilePage', function() {
       var serializedData = _.cloneDeep(Fixtures.studentProfile);
       if (grade !== undefined) {
         serializedData["student"]["grade"] = grade;
-      };
+      }
 
       if (dibels !== undefined) {
         serializedData["dibels"] = dibels;
-      };
+      }
 
       if (absencesCount !== undefined) {
         serializedData["student"]["absences_count"] = absencesCount;
-      };
+      }
 
 
       var mergedProps = {
@@ -34,7 +34,7 @@ describe('StudentProfilePage', function() {
       };
       return ReactDOM.render(createEl(PageContainer, mergedProps), el);
     }
-  }
+  };
 
   SpecSugar.withTestEl('renders attendance event summaries correctly', function() {
 

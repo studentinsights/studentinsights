@@ -23,11 +23,12 @@ ul, li {
 
 <div style="width: 768px;">
  
-
 <!-- Demographic Information -->
 <div style="float: left; width: 512px;">
   <div>
-    <span style="font-size:24px; font-weight:bold;"><%= "#{@student.first_name} #{@student.last_name}"%></span>
+    <span style="font-size:24px; font-weight:bold;"><%= "#{@student.first_name} #{@student.last_name}"%></span><br>
+    Report dates: <span><%="#{format_date(@filter_from_date)} to #{format_date(@filter_to_date)}"%></span>
+    <p>
   </div>
   <div style="float: left; width: 200px;">
     <ul>
@@ -54,6 +55,7 @@ ul, li {
 
 
 <!-- Notes -->
+<% if @sections.include?("notes") %>
 <div>
 <% right = false %>
 <h4>Notes:</h4>
@@ -76,8 +78,10 @@ ul, li {
   <% end %>
 </div>
 <br style="clear: left;" /><br/>
+<% end %>
 
 <!-- Services -->
+<% if @sections.include?("services") %>
 <% right = false %>
 <div>
 <h4>Services:</h4>
@@ -86,8 +90,8 @@ ul, li {
       <div style="float: left; width:370px; padding:5px">
         <ul>
           <li><span style="font-weight:bold;"><%= format_date(service.date_started) %> - 
-            <% if service.try(:discontinued_services).try(:recorded_at) %>
-              <%= "#{format_date(service.try(:discontinued_services).try(:recoded_at))}" %>
+            <% if service.discontinued_services.count > 0%>
+              <%= "#{format_date(service.discontinued_services.last.try(:recorded_at))}" %>
             <% else %>
               Present
             <% end %>
@@ -107,10 +111,12 @@ ul, li {
 
 </div>
 <br style="clear: left;" /><br/>
+<% end %>
 
  
+<% if @sections.include?("attendance") %>
 <p>
-  <h4>Attendance record (current and prior school year):</h4>
+  <h4>Attendance record:</h4>
   <table class="data-table" width="768 px">
     <tr>
       <th></th>
@@ -122,14 +128,14 @@ ul, li {
         <td><%= year.name %></td>
         <td>
           <ul>
-          <% year.absences.order(:occurred_at).each do |absence| %>
+          <% year.absences.where('occurred_at BETWEEN ? AND ?', @filter_from_date, @filter_to_date).order(:occurred_at).each do |absence| %>
             <li><%= format_date(absence.occurred_at) %></li>
           <% end %>
           </ul>
         </td>
         <td>
           <ul>
-          <% year.tardies.order(:occurred_at).each do |tardy| %>
+          <% year.tardies.where('occurred_at BETWEEN ? AND ?', @filter_from_date, @filter_to_date).order(:occurred_at).each do |tardy| %>
             <li><%= format_date(tardy.occurred_at) %></li>
           <% end %>
           </ul>
@@ -138,8 +144,13 @@ ul, li {
     <% end %>
   </table>
 </p>
+<p>
+  <div id="attendance-container"></div>
+</p>
+<% end %>
 
 <!-- Discipline Incidents -->
+<% if @sections.include?("discipline_incidents") %>
 <% right = false %>
 <div>
 <h4>Discipline Incidents:</h4>
@@ -161,8 +172,13 @@ ul, li {
   <% end %>
 </div>
 <br style="clear: left;" /><br/>
+<p>
+  <div id="discipline-incident-container"></div>
+</p>
+<% end %>
 
 <!-- Academic Assessments -->
+<% if @sections.include?("assessments") %>
 <% right = false %>
 <div>
 <h4>Academic Assesments:</h4>
@@ -190,3 +206,16 @@ ul, li {
   <% end %>
 </div>
 <br style="clear: left;" /><br/>
+<% end %>
+
+<%= tag("div", id: "serialized-data", data: @serialized_data) %>
+
+<div class="scripts">
+  <%= wicked_pdf_javascript_include_tag 'application' %>
+  <%= wicked_pdf_javascript_include_tag 'helpers/graph_helpers' %>
+  <%= wicked_pdf_javascript_include_tag 'student_profile/pdf/student_profile_pdf' %>
+  <script>
+    $(window.shared.StudentProfilePdf.load);
+  </script>
+</div>
+

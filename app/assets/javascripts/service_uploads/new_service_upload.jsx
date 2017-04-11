@@ -118,7 +118,7 @@
         return 'File Selected';
       } else {
         return 'Select CSV to Upload';
-      };
+      }
     },
 
     renderFileName: function () {
@@ -178,7 +178,7 @@
         return 'Confirm Upload Despite LASID Mismatches?';
       } else {
         return 'Confirm Upload';
-      };
+      }
     },
 
     disableUploadButton: function () {
@@ -202,19 +202,19 @@
 
       if (!parsed_date_started.isValid()) {
         errors.push('Start date invalid, please use MM/DD/YYYY format.');
-      };
+      }
 
       if (!parsed_date_ended.isValid()) {
         errors.push('End date invalid, please use MM/DD/YYYY format.');
-      };
+      }
 
       if (parsed_date_ended.isBefore(parsed_date_started)) {
         errors.push('Start date can\'t be after end date.');
-      };
+      }
 
       if (this.props.serviceTypeNames.indexOf(this.props.formData.service_type_name) === -1) {
         errors.push('Please select a valid service type.');
-      };
+      }
 
       return errors;
     },
@@ -270,7 +270,7 @@
       formFields.map(function (formField) {
         if (formData[formField] === undefined) {
           missingFormFieldNames.push(formFieldsToNames[formField]);
-        };
+        }
       });
 
       return 'Oooh, we are missing ' + missingFormFieldNames.join(' ');
@@ -319,7 +319,7 @@
             The first CSV column should be the LASID one.
           </div>
         );
-      };
+      }
     },
 
     renderDatepicker: function (onChangeFn, value) {

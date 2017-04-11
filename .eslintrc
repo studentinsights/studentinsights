@@ -1,15 +1,19 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true
   },
   "globals": {
     "_": true,
+    "moment": true,
     "$": true,
     "React": true
   },
-  "plugins": [
-    "react"
-  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended"

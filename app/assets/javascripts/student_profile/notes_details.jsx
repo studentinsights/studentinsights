@@ -1,11 +1,10 @@
+import TakeNotes from './take_notes.jsx';
+
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
-  const merge = window.shared.ReactHelpers.merge;
 
   const PropTypes = window.shared.PropTypes;
-  const TakeNotes = window.shared.TakeNotes;
+  
   const NotesList = window.shared.NotesList;
   const HelpBubble = window.shared.HelpBubble;
 
@@ -27,16 +26,16 @@
   they are receiving, and allowing users to enter new information about
   these as well.
   */
-  const NotesDetails = window.shared.NotesDetails = React.createClass({
+  window.shared.NotesDetails = React.createClass({
     propTypes: {
       student: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
-      eventNoteTypesIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
       actions: React.PropTypes.shape({
         onClickSaveNotes: React.PropTypes.func.isRequired,
-        onEventNoteAttachmentDeleted: React.PropTypes.func
+        onEventNoteAttachmentDeleted: React.PropTypes.func,
+        onDeleteEventNoteAttachment: React.PropTypes.func
       }),
       feed: PropTypes.feed.isRequired,
       requests: React.PropTypes.object.isRequired,
@@ -50,7 +49,7 @@
     getInitialState: function() {
       return {
         isTakingNotes: false,
-      }
+      };
     },
 
     onClickTakeNotes: function(event) {
@@ -64,21 +63,6 @@
     onClickSaveNotes: function(eventNoteParams, event) {
       this.props.actions.onClickSaveNotes(eventNoteParams);
       this.setState({ isTakingNotes: false });
-    },
-
-    renderRestrictedNotesButtonIfAppropriate: function(){
-      if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
-        return (
-          <a
-            className="btn btn-warning"
-            style={styles.restrictedNotesButton}
-            href={'/students/' + this.props.student.id + '/restricted_notes'}>
-            {'Restricted Notes (' + this.props.student.restricted_notes_count + ')'}
-          </a>
-        );
-      } else {
-        return null;
-      }
     },
 
     render: function() {
@@ -129,6 +113,21 @@
           </button>
         </div>
       );
+    },
+
+    renderRestrictedNotesButtonIfAppropriate() {
+      if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
+        return (
+          <a
+            className="btn btn-warning"
+            style={styles.restrictedNotesButton}
+            href={'/students/' + this.props.student.id + '/restricted_notes'}>
+            {'Restricted Notes (' + this.props.student.restricted_notes_count + ')'}
+          </a>
+        );
+      } else {
+        return null;
+      }
     }
   });
 })();

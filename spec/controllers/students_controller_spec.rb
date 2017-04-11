@@ -488,21 +488,24 @@ describe StudentsController, :type => :controller do
     end
   end
 
-  describe '#sped_referral' do
+  describe '#student_report' do
     let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
     let(:school) { FactoryGirl.create(:school) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
 
-    def make_request(options = { student_id: nil, format: :pdf })
+    def make_request(options = { student_id: nil, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017'})
       request.env['HTTPS'] = 'on'
-      get :sped_referral, params: {
+      get :student_report, params: {
         id: options[:student_id],
-        format: options[:format]
+        format: options[:format],
+        from_date: options[:from_date],
+        to_date: options[:to_date],
+        disable_js: true
       }
     end
 
     context 'when educator is not logged in' do
-      it 'does not render a SPED referral' do
+      it 'does not render a student report' do
         make_request({ student_id: student.id, format: :pdf })
         expect(response.status).to eq 401
       end
@@ -511,7 +514,7 @@ describe StudentsController, :type => :controller do
     context 'when educator is logged in' do
       before do
         sign_in(educator)
-        make_request({ student_id: student.id, format: :pdf })
+        make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
       end
 
       context 'educator has schoolwide access' do
@@ -526,8 +529,9 @@ describe StudentsController, :type => :controller do
 
         it 'assigns the student\'s services correctly with full history' do
           old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student)
+          FactoryGirl.create(:discontinued_service, service: old_service, recorded_at: '2012-05-21')
           recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student)
-          expect(assigns(:services)).to include(old_service)
+          expect(assigns(:services)).not_to include(old_service)
           expect(assigns(:services)).to include(recent_service)
         end
 
@@ -538,7 +542,7 @@ describe StudentsController, :type => :controller do
           expect(assigns(:event_notes)).not_to include(restricted_note)
         end
 
-        it 'assigns the student\'s attendance data correctly with 2 years of history' do
+        it 'assigns the student\'s attendance data correctly filtered history' do
 
           # Get the school years
           old_school_year = DateToSchoolYear.new(Date.new(2013, 9, 1)).convert
