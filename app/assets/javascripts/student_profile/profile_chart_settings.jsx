@@ -77,11 +77,16 @@
     },
     tooltip: {
        formatter: function () {
-        return  Highcharts.dateFormat('%A, %b %e, %Y', new Date(this.x)) +
-                '<br>Percentile Rank:<b> ' +
-                  this.y +
-                '</b><br>Grade Level Equivalent: <b>' +
-                  this.points[0].point.gradeLevelEquivalent + '</b>';
+        var date = Highcharts.dateFormat('%A, %b %e, %Y', new Date(this.x))
+        var percentileRank = this.y
+        var gradeLevelEquivalent = this.points[0].point.gradeLevelEquivalent
+
+        if ( gradeLevelEquivalent === null ) {
+          return date + '<br>Percentile Rank:<b> ' + percentileRank
+        } else {
+          return date + '<br>Percentile Rank:<b> ' + percentileRank +
+                 '</b><br>Grade Level Equivalent: <b>' + gradeLevelEquivalent
+        }
       },
       shared: true
     },
