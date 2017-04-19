@@ -1,0 +1,46 @@
+.cs-container {
+  max-width: 1000px;
+  margin: auto;
+
+  &.cs-align-normal {
+    margin: 0;
+    width: auto;
+    max-width: none;
+  }
+
+}
+
+.cs-col {
+  float: left;
+  position: relative;
+}
+
+.cs-col-last {
+  float: right;
+  position: relative;
+}
+
+.cs-gutter {
+  padding: $layout-gutter-multiple * 2;
+}
+
+.cs-main {
+  > .cs-container {
+    padding-left: 240px;
+  }
+}
+
+@media screen and ( max-width: $breakpoint-mid ) {
+
+  .cs-main {
+    > .cs-container {
+      padding-top: $layout-gutter-multiple * 4.5;
+      padding-left: 0;
+    }
+  }
+
+  .cs-gutter {
+    padding: 15px;
+  }
+
+}

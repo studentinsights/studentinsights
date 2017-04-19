@@ -1,0 +1,22 @@
+{% extends function == 'json' ? '_corkscrew-api.twig' : '_corkscrew-section.twig' %}
+
+{% set label = 'Buttons' %}
+{% set description = 'Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipiscing elit. Aliquam et lectus et tortor placerat euismod.' %}
+
+{# BUTTON CONTENT #}
+
+{% set buttonStandardContent = 'Standard Button' %}
+{% set buttonPrimaryContent = 'Primary Button' %}
+{% set buttonSecondaryContent = 'Secondary Button' %}
+
+{% block block_content %}
+
+{% embed "/components/buttons/button-standard.twig" %}{% endembed %}
+
+{% embed "/components/buttons/button-primary.twig" %}{% endembed %}
+
+{% embed "/components/buttons/button-secondary.twig" %}{% endembed %}
+
+
+
+{% endblock %}

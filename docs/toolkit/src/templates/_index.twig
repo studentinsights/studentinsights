@@ -1,0 +1,33 @@
+{% set section = 'templates' %}
+{% extends "_corkscrew-layout.twig" %}
+
+{% block content %}
+
+  {% set project =
+    {
+      htmlViewer: false
+    }
+  %}
+
+  {% embed "_corkscrew-section.twig" %}
+
+    {% set label = 'Templates' %}
+    {% set description = 'Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipiscing elit. Aliquam et lectus et tortor placerat euismod.' %}
+
+    {% block block_content %}
+
+      {% for template in templates %}
+
+        <ul class="cs-template-list">
+          <li class="cs-template-list__item">
+            <a href="{{ template.url }}">{{ template.name }}</a>
+          </li>
+        </ul>
+
+      {% endfor %}
+
+    {% endblock %}
+
+  {% endembed %}
+
+{% endblock content %}

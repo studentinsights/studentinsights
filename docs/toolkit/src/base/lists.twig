@@ -1,0 +1,20 @@
+{% extends function == 'json' ? '_corkscrew-api.twig' : '_corkscrew-section.twig' %}
+
+{% set label = 'Lists' %}
+{% set description = 'HTML offers authors several mechanisms for specifying lists of information. All lists must contain one or more list elements <a href="https://www.w3.org/TR/html401/struct/lists.html">W3C, Lists</a>' %}
+
+{% block block_content %}
+
+<ul>
+<li>List item</li>
+<li>List item</li>
+<li>List item</li>
+</ul>
+
+<ol>
+<li>List item</li>
+<li>List item</li>
+<li>List item</li>
+</ol>
+
+{% endblock %}

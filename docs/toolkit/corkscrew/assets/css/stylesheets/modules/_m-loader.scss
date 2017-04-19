@@ -1,0 +1,33 @@
+.loader {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-base;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  text-align: center;
+  opacity: 1;
+  @include transition(opacity 1s ease-in-out);
+  
+  .logo {
+    @extend .cs-pulse;
+    margin: auto;
+    display: block;
+  }
+  
+}
+  
+.is-loading {
+  .loader {
+    display: flex;
+    display: -webkit-flexbox;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+  }
+}

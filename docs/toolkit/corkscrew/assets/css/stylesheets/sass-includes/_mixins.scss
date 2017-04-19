@@ -1,0 +1,92 @@
+@mixin inline-block( $vertical-align: baseline ) {
+  display: inline-block;
+  vertical-align: $vertical-align;
+  zoom: 1;
+  *display: inline;
+  *vertical-align: auto;
+}
+
+@mixin move-off-screen() {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+@mixin font-size ($size: 14, $parentSize: 16) {
+  font-size: $size + 0px;
+  font-size: 0rem + $size/$parentSize;
+}
+
+@mixin clearfix () {
+  *zoom: 1;
+  
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  
+  &:after {
+    clear: both;
+  }
+}
+
+// Vendor prefix'd helpers
+
+@mixin border-radius ( $values ) {
+  -webkit-border-radius: $values;
+     -moz-border-radius: $values;
+          border-radius: $values;
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding; 
+          background-clip: padding-box;
+}
+
+@mixin box-shadow ( $values ) {
+  -webkit-box-shadow: $values;
+     -moz-box-shadow: $values;
+          box-shadow: $values;
+}
+
+@mixin box-sizing ( $values ) {
+  -webkit-box-sizing: $values;
+     -moz-box-sizing: $values;
+          box-sizing: $values;
+}
+
+@mixin text-rendering ( $string ) {
+  -webkit-text-rendering: $string;
+     -moz-text-rendering: $string;
+          text-rendering: $string;
+}
+
+@mixin transform ( $values ) {
+  -webkit-transform: $values;
+     -moz-transform: $values;
+      -ms-transform: $values;
+       -o-transform: $values;
+          transform: $values;
+}
+
+@mixin transition ( $values ) {
+  -webkit-transition: $values;
+     -moz-transition: $values;
+      -ms-transition: $values;
+       -o-transition: $values;
+          transition: $values;
+}
+
+@mixin animation ( $string ) {
+  -webkit-animation: $string;
+     -moz-animation: $string;
+          animation: $string;
+}
+
+@mixin gradient-linear ( $start, $end ) {
+  background: $start;
+  background: -moz-linear-gradient(top,  $start 0%, $end 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$start), color-stop(100%,$end));
+  background: -webkit-linear-gradient(top,  $start 0%,$end 100%);
+  background: -o-linear-gradient(top,  $start 0%,$end 100%);
+  background: -ms-linear-gradient(top,  $start 0%,$end 100%);
+  background: linear-gradient(to bottom,  $start 0%,$end 100%);
+}

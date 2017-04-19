@@ -1,0 +1,20 @@
+{% spaceless %}
+<section id="{{ label|replace({' ': '-'})|lower }}" class="cs-content-section {% if project.htmlViewer == true %}generate-html{% endif %}">
+
+  <header class="cs-content-header">
+    <div class="cs-content-heading">
+    <h1>{{ label }} <a href="#{{ label|replace({' ': '-'})|lower }}" class="cs-content-anchor">#{{ label|replace({' ': '-'})|lower }}</a></h1>
+    <p>{{ description|raw }}</p>
+  </div>
+
+</header><!--/.cs-content-header-->
+
+  <div class="cs-content">
+
+{% endspaceless %}
+{% block block_content %}{% endblock %}
+{% spaceless %}
+
+  </div><!--/.cs-content-->
+</section><!--/.cs-content-section-->
+{% endspaceless %}

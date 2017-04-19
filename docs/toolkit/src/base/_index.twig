@@ -1,0 +1,12 @@
+{% set section = 'base' %}
+{% extends "_corkscrew-layout.twig" %}
+
+{% block content %}
+
+  {% embed "base/typography.twig" %}{% endembed %}
+  {% embed "base/lists.twig" %}{% endembed %}
+  {% embed "base/paragraphs.twig" %}{% endembed %}
+  {% embed "base/tables.twig" %}{% endembed %}
+  {% embed "base/links.twig" %}{% endembed %}
+
+{% endblock content %}

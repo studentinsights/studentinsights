@@ -1,0 +1,15 @@
+{
+    "name": "freshtilledsoil/corkscrew",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tim Wright",
+            "email": "timwright12@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^1.19",
+        "slim/slim": "^3.0",
+        "slim/twig-view": "^2.1"
+    }
+}

@@ -1,0 +1,32 @@
+# Sass
+.sass-cache
+.sass-cache/
+.sass-cache/*
+*.map
+
+# Slim & Twig
+/composer.lock
+/vendor
+
+# NPM
+node_modules/
+
+# Editors
+*.esproj
+*.tmproj
+*.tmproject
+tmtags
+.*.sw[a-z]
+*.un~
+Session.vim
+*.swp
+
+# Mac OSX
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Desktop.ini

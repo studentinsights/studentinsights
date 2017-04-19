@@ -1,0 +1,124 @@
+.cs-content-section {
+  margin: auto auto $layout-gutter-multiple * 8;
+  max-width: 1200px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+.cs-content-header {
+  padding: $layout-gutter-multiple * 2 0 0 0;
+  line-height: 1;
+  overflow: hidden;
+
+  @media screen and ( max-width: $breakpoint-mid ) {
+
+    .cs-button {
+      margin-bottom: 15px;
+      margin-top: -5px;
+      width: 100%;
+    }
+
+  }
+
+}
+
+.cs-content-anchor {
+  font-weight: 700;
+  font-size: 80%;
+  line-height: 1.4;
+  display: inline-block;
+  text-transform: lowercase;
+  opacity: 0;
+  margin-left: 5px;
+  transition: opacity linear .3s;
+}
+
+.cs-content-heading:hover {
+  .cs-content-anchor { opacity: 1; }
+}
+
+.cs-content-heading {
+  @include inline-block(middle);
+  margin-bottom: 15px;
+  max-width: 66%;
+
+  @media screen and ( max-width: $breakpoint-mid ) {
+    max-width: none;
+  }
+
+  h1 {
+    font-family: $font-primary;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 700;
+    color: $color-primary;
+    @include font-size(14);
+    @extend .cs-is-clean;
+    @extend .cs-is-uppercase;
+    letter-spacing: .02em;
+    line-height: 1.2;
+    margin-bottom: 5px;
+  }
+
+  p {
+    @extend .cs-is-clean;
+    @include font-size(12);
+    font-family: $font-primary;
+    color: $color-highlight;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  a {
+    color: $color-highlight;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+
+  }
+
+}
+
+.cs-content {
+  padding: $layout-gutter-multiple * 4;
+  background: $color-base;
+  border-radius: 2px;
+
+  @media screen and ( max-width: $breakpoint-mid ) {
+    padding: $layout-gutter-multiple * 2;
+  }
+
+}
+
+.cs-message {
+  p {
+    margin: 0;
+    padding:0;
+    color: $color-primary;
+    @include font-size(14);
+  }
+}
+
+.cs-template-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include font-size(18);
+  font-family: $font-primary;
+}
+
+.cs-template-list__item {
+
+  a {
+    @extend .cs-link;
+    color: $color-action;
+    display: block;
+    padding: 10px 0;
+  }
+
+}

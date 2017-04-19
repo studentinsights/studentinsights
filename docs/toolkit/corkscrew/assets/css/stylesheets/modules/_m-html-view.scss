@@ -1,0 +1,45 @@
+.cs-view-html {
+  clear: both;
+
+  .cs-code-block {
+    min-height: 0;
+    max-height: none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-appearance: none;
+    appearance: none;
+    white-space: pre;
+    font-family: $font-tertiary;
+    display: block;
+    width: 100%;
+    height: 200px;
+    line-height: 1.5;
+    padding: $layout-gutter-multiple * 2;
+    border: 0;
+    border-radius: 2px 2px 0 0;
+    color: $color-secondary;
+    box-shadow: none;
+    background: lighten($color-primary, 5);
+    resize: none;
+    @include box-sizing(border-box);
+    // @include transition(all ease-in .15s);
+    @include font-size(13);
+
+    &:focus {
+      background: lighten($color-primary, 10);
+      outline: none;
+    }
+
+    &.cs-is-hidden {
+      height: 0;
+      padding: 0;
+      position: static;
+    }
+
+  }
+
+  // HTML isn't rendering inside the textarea for IE 9, so let's just remove it, OK?
+  .lt-ie10 & {
+    display: none;
+  }
+
+}

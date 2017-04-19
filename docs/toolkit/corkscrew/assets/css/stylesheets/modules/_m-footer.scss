@@ -1,0 +1,11 @@
+.cs-footer {
+  display: none !important;
+  @include font-size(14);
+  @include clearfix;
+  // border-top: 1px solid $color-tertiary;
+  
+  .is-loading & {
+    display: none;
+  }
+  
+}

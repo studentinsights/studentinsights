@@ -1,0 +1,30 @@
+.cs-msg {
+  background: $color-action;
+  padding: 10px;
+  text-align: center;
+
+  p {
+    margin: 0;
+    padding: 0;
+    font-family: $font-primary;
+    color: $color-base;
+    @include font-size(14);
+
+    + p {
+      margin-top: 10px;
+    }
+
+  }
+
+  a {
+    color: $color-base;
+    border-bottom: 1px solid rgba($color-base, .3);
+    text-decoration: none;
+
+    &:hover, &:focus {
+      border-bottom-color: $color-base;
+    }
+
+  }
+
+}
