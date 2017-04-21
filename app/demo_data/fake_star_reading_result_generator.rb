@@ -17,7 +17,7 @@ class FakeStarReadingResultGenerator
     @instructional_reading_level += rand(-1..1)
     @test_date += @star_period_days + rand(-10..10)  # days
     @grade_equivalent = [
-      "10.80", "5.30", "5.70", "6.70", "4.00", "5.70", "2.60"
+      nil, nil, nil, nil, "0.00", "4.00", "5.70", "2.60"
     ].sample
 
     return {
