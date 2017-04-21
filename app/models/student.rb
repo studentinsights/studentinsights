@@ -25,6 +25,21 @@ class Student < ActiveRecord::Base
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', 'HS'].freeze
 
+  def self.as_json_with_notes_and_services(ids)
+    with_associations = where(id: ids).includes(
+      event_notes: [], interventions: [], services: [:discontinued_services]
+    )
+
+    with_associations.map { |s| s.as_json_with_notes_and_services }
+  end
+
+  def as_json_with_notes_and_services
+    as_json(include: [:event_notes, :interventions, services: {
+        include: :discontinued_services
+      }
+    ])
+  end
+
   def valid_grade
     errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
   end
