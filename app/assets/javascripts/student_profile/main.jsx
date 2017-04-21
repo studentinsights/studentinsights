@@ -3,7 +3,6 @@ $(function() {
   if (!($('body').hasClass('students') && $('body').hasClass('show'))) return;
 
   // imports
-  const createEl = window.shared.ReactHelpers.createEl;
   const PageContainer = window.shared.PageContainer;
   const parseQueryString = window.shared.parseQueryString;
   const MixpanelUtils = window.shared.MixpanelUtils;

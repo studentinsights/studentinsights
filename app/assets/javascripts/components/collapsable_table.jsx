@@ -1,9 +1,7 @@
 (function() {
 
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
   const React = window.React;
-  const createEl = window.shared.ReactHelpers.createEl;
   const merge = window.shared.ReactHelpers.merge;
 
   const FixedTable = window.shared.FixedTable;

@@ -3,8 +3,6 @@ $(function() {
   if ($('body').hasClass('schools') && $('body').hasClass('star_reading')) {
     const MixpanelUtils = window.shared.MixpanelUtils;
     const StarChartsPage = window.shared.StarChartsPage;
-    const dom = window.shared.ReactHelpers.dom;
-    const createEl = window.shared.ReactHelpers.createEl;
     const merge = window.shared.ReactHelpers.merge;
 
     function main() {

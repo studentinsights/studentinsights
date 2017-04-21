@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
 
   const ProvidedByEducatorDropdown = window.shared.ProvidedByEducatorDropdown = React.createClass({
     displayName: 'ProvidedByEducatorDropdown',

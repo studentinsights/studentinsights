@@ -1,6 +1,4 @@
 window.shared || (window.shared = {});
-const dom = window.shared.ReactHelpers.dom;
-const createEl = window.shared.ReactHelpers.createEl;
 const merge = window.shared.ReactHelpers.merge;
 
 const PropTypes = window.shared.PropTypes;
