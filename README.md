@@ -178,55 +178,7 @@ npm run lint-quiet
 ## 5. Write code!
 This project is a Rails app and has a typical Rails project structure.  If you'd like to get up to speed on Rails, we recommend checking out their [great documentation](http://guides.rubyonrails.org/).
 
-It also uses React for much the user interface code, with one minor wrinkle (see below).  If you'd like to get up to speed on React, we recommend their great documentation, and the [Tutorial](https://facebook.github.io/react/docs/tutorial.html) and [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html) pages in particular.
-
-The wrinkle with React usage is that at the moment, we don't use the JSX syntax but instead call methods directly.  This is just a syntatic change and means:
-
-```
-var ProductTable = React.createClass({
-  render: function() {
-    var rows = [];
-    this.props.products.forEach(function(product) {
-      rows.push(<ProductRow product={product} key={product.name} />);
-    });
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
-    );
-  }
-});
-```
-
-becomes:
-
-```
-var ProductTable = React.createClass({
-  render: function() {
-    var rows = [];
-    this.props.products.forEach(function(product) {
-      rows.push(createEl(ProductRow, { product: product, key: product.name }));
-    });
-    return (
-      dom.table({},
-        dom.thead({},
-          dom.tr({},
-            dom.th({}, 'Name'),
-            dom.th({}, 'Price')
-          )
-        ),
-        dom.tbody({}, rows)
-      )
-    );
-  }
-});
-```
+It also uses React for much the user interface code.  If you'd like to get up to speed on React, we recommend their great documentation, and the [Tutorial](https://facebook.github.io/react/docs/tutorial.html) and [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html) pages in particular.
 
 There are also a few places where we use [Flux](https://facebook.github.io/flux/docs/overview.html) patterns.
 
