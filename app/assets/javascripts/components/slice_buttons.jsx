@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
   const styles = window.shared.styles;
   const colors = window.shared.colors;
 

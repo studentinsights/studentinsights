@@ -3,7 +3,6 @@ $(function() {
   if (!($('body').hasClass('service_uploads') &&
         $('body').hasClass('index'))) return;
 
-  const createEl = window.shared.ReactHelpers.createEl;
   const ServiceUploadsPage = window.shared.ServiceUploadsPage;
   const MixpanelUtils = window.shared.MixpanelUtils;
 

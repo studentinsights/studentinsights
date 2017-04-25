@@ -1,7 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
   const merge = window.shared.ReactHelpers.merge;
 
   // This component wraps Highcharts so that you can provide Highcharts

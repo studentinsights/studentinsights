@@ -5,7 +5,6 @@ $(function() {
     const MixpanelUtils = window.shared.MixpanelUtils;
     const SchoolOverviewPage = window.shared.SchoolOverviewPage;
     const Filters = window.shared.Filters;
-    const createEl = window.shared.ReactHelpers.createEl;
 
     function main() {
       const serializedData = $('#serialized-data').data();

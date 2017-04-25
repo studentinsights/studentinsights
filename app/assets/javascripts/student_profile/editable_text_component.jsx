@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
 
   const sanitize = new Sanitize({
     elements: ['br', 'div', 'p']

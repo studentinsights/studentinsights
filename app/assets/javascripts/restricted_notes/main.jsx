@@ -3,7 +3,6 @@ $(function() {
   if (!($('body').hasClass('students') && $('body').hasClass('restricted_notes'))) return;
 
   // imports
-  const createEl = window.shared.ReactHelpers.createEl;
   const RestrictedNotesPageContainer = window.shared.RestrictedNotesPageContainer;
 
   // entry point, reading static bootstrapped data from the page

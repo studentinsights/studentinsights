@@ -3,7 +3,6 @@
   window.shared || (window.shared = {});
   const React = window.React;
   const _ = window._;
-  const dom = window.shared.ReactHelpers.dom;
   const colors = window.shared.colors;
   const styles = window.shared.styles;
 

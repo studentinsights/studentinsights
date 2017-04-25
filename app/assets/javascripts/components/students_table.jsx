@@ -5,8 +5,6 @@
   const Routes = window.shared.Routes;
   const styles = window.shared.styles;
   const colors = window.shared.colors;
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
   const merge = window.shared.ReactHelpers.merge;
 
   const StudentsTable = React.createClass({

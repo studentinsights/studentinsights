@@ -2,8 +2,6 @@ import Educator from './educator.jsx';
 
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
 
   const EditableTextComponent = window.shared.EditableTextComponent;
   const moment = window.moment;

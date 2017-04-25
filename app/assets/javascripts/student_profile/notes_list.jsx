@@ -1,7 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
 
   const NoteCard = window.shared.NoteCard;
   const PropTypes = window.shared.PropTypes;
