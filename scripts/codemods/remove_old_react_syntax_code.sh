@@ -23,5 +23,6 @@ for dir in ${JSX_DIRS[@]}; do
 
     sed -i '' '/const dom = window.shared.ReactHelpers.dom;/d' "$TARGET"
     sed -i '' '/const createEl = window.shared.ReactHelpers.createEl;/d' "$TARGET"
+    sed -i '' '/var dom = window.shared.ReactHelpers.dom;/d' "$TARGET"
   done;
 done;

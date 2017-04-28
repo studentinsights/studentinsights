@@ -1,7 +1,7 @@
 describe('Graph Helpers', function() {
-  var GraphHelpers = window.shared.GraphHelpers;
+  const GraphHelpers = window.shared.GraphHelpers;
 
-  var helpers = {
+  const helpers = {
     namedEvents: function() {
       return {
         A: {occurred_at: '2015-03-13T15:13:28.176Z'},
@@ -14,8 +14,8 @@ describe('Graph Helpers', function() {
 
   describe('#monthKeys', function() {
     it('works looking back four years', function(){
-      var nowMomentUTC = moment.utc("20170211", "YYYYMMDD");
-      var monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 48);
+      const nowMomentUTC = moment.utc("20170211", "YYYYMMDD");
+      const monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 48);
       expect(monthKeys.length).toEqual(48 + 1);
       expect(monthKeys[0]).toEqual('20130201');
       expect(monthKeys[48]).toEqual('20170201');
@@ -24,10 +24,10 @@ describe('Graph Helpers', function() {
 
   describe('#eventsToMonthBuckets', function() {
     it('works on happy path', function(){
-      var nowMomentUTC = moment.utc('2015-03-30');
-      var namedEvents = helpers.namedEvents();
-      var monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 12);
-      var monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, _.values(namedEvents));
+      const nowMomentUTC = moment.utc('2015-03-30');
+      const namedEvents = helpers.namedEvents();
+      const monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 12);
+      const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, _.values(namedEvents));
 
       // Expect only two buckets to have events, and the others to be empty
       expect(monthKeys.length).toEqual(12 + 1);
@@ -40,14 +40,14 @@ describe('Graph Helpers', function() {
 
   describe('#yearCategories', function() {
     it('works on simple case', function(){
-      var categories = GraphHelpers.yearCategories(['20141101', '20141201', '20150101', '20150201']);
+      const categories = GraphHelpers.yearCategories(['20141101', '20141201', '20150101', '20150201']);
       expect(categories).toEqual({ 2: '2015'});
     });
 
     it('works with default props', function(){
-      var nowMomentUTC = moment.utc('2017-02-02T13:23:15+00:00');
-      var monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 48);
-      var categories = GraphHelpers.yearCategories(monthKeys);
+      const nowMomentUTC = moment.utc('2017-02-02T13:23:15+00:00');
+      const monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 48);
+      const categories = GraphHelpers.yearCategories(monthKeys);
       expect(categories).toEqual({
         11: '2014',
         23: '2015',

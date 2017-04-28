@@ -125,4 +125,4 @@
 
   root.StudentsTable = StudentsTable;
 
-})(window)
+})(window);

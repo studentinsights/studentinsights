@@ -1,33 +1,30 @@
-//= require ../fixtures/fixture_constant_indexes
-//= require ../fixtures/fixture_students
+import SpecSugar from '../support/spec_sugar.jsx';
+import {serviceTypesIndex, eventNoteTypesIndex} from '../fixtures/database_constants.jsx';
+import FixtureStudents from '../fixtures/students.jsx';
+
 
 describe('SlicePanels', function() {
-  var dom = window.shared.ReactHelpers.dom;
-  var createEl = window.shared.ReactHelpers.createEl;
-  var merge = window.shared.ReactHelpers.merge;
+  const ReactDOM = window.ReactDOM;
+  const merge = window.shared.ReactHelpers.merge;
+  const SlicePanels = window.shared.SlicePanels;
 
-  var SpecSugar = window.shared.SpecSugar;
-  var SlicePanels = window.shared.SlicePanels;
-  var FixtureConstantIndexes = window.shared.FixtureConstantIndexes;
-  var FixtureStudents = window.shared.FixtureStudents;
-
-  var helpers = {
+  const helpers = {
     renderInto: function(el, props) {
-      var mergedProps = merge({
+      const mergedProps = merge({
         filters: [],
-        serviceTypesIndex: FixtureConstantIndexes.serviceTypesIndex,
-        eventNoteTypesIndex: FixtureConstantIndexes.eventNoteTypesIndex,
+        serviceTypesIndex,
+        eventNoteTypesIndex,
         students: [],
         allStudents: [],
         onFilterToggled: jasmine.createSpy('onFilterToggled')
       }, props || {});
-      return ReactDOM.render(createEl(SlicePanels, mergedProps), el);
+      ReactDOM.render(<SlicePanels {...mergedProps} />, el);
     },
 
     // Returns a matrix of the kinds of things that users can slice by in each
     // column (eg., disability, STAR reading quartile).
     columnTitlesMatrix: function(el) {
-      var columnEls = $(el).find('.column').toArray();
+      const columnEls = $(el).find('.column').toArray();
       return columnEls.map(function(columnEl) {
         return $(columnEl).find('.fixed-table-title').toArray().map(function(titleEl) {
           return $(titleEl).text();
@@ -39,7 +36,7 @@ describe('SlicePanels', function() {
     // (e.g., how many "Disability" options are there, and how many
     // "STAR Reading" options are there for slicing by.
     rowsPerColumnMatrix: function(el) {
-      var columnEls = $(el).find('.column').toArray();
+      const columnEls = $(el).find('.column').toArray();
       return columnEls.map(function(columnEl) {
         return $(columnEl).find('table').toArray().map(function(tableEl) {
           return $(tableEl).find('tbody tr').length;
@@ -50,7 +47,7 @@ describe('SlicePanels', function() {
 
   SpecSugar.withTestEl('high-level integration tests', function() {
     it('renders everything on the happy path', function() {
-      var el = this.testEl;
+      const el = this.testEl;
       helpers.renderInto(el);
 
       expect($(el).find('.SlicePanels').length).toEqual(1);
@@ -66,7 +63,7 @@ describe('SlicePanels', function() {
     });
 
     it('renders attributes for slicing based on student data', function() {
-      var el = this.testEl;
+      const el = this.testEl;
       helpers.renderInto(el, {
         students: FixtureStudents,
         allStudents: FixtureStudents

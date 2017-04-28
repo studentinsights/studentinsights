@@ -1,9 +1,9 @@
 describe('QuadConverter', function() {
-  var QuadConverter = window.shared.QuadConverter;
+  const QuadConverter = window.shared.QuadConverter;
 
   describe('#toDate', function() {
     it('works', function() {
-      var result = QuadConverter.toDate([2015, 7, 2, 42]);
+      const result = QuadConverter.toDate([2015, 7, 2, 42]);
       expect(result instanceof Date).toEqual(true);
       expect(result.toUTCString()).toEqual('Thu, 02 Jul 2015 00:00:00 GMT');
     });
@@ -11,7 +11,7 @@ describe('QuadConverter', function() {
 
   describe('#toMoment', function() {
     it('works', function() {
-      var result = QuadConverter.toMoment([2015, 7, 2, 42]);
+      const result = QuadConverter.toMoment([2015, 7, 2, 42]);
       expect(result instanceof moment).toEqual(true);
       expect(result.toString()).toEqual('Thu Jul 02 2015 00:00:00 GMT+0000');
     });
@@ -39,7 +39,7 @@ describe('QuadConverter', function() {
   describe('#schoolYearStartDates', function(){
     it('works', function() {
       // TODO: Write a Jasmine custom matcher for this?
-      var toISOString = function(m){return m.toISOString(); };
+      const toISOString = function(m){return m.toISOString(); };
       expect(
         QuadConverter.schoolYearStartDates([moment.utc("2013-10-11"), moment.utc("2017-05-01")])
         .map(toISOString)

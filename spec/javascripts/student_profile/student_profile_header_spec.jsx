@@ -1,35 +1,33 @@
-//= require ./fixtures
+import {studentProfile} from './fixtures.jsx';
+import SpecSugar from '../support/spec_sugar.jsx';
+
 
 describe('StudentProfileHeader', function() {
-  var dom = window.shared.ReactHelpers.dom;
-  var createEl = window.shared.ReactHelpers.createEl;
-  var merge = window.shared.ReactHelpers.merge;
+  const merge = window.shared.ReactHelpers.merge;
+  const ReactDOM = window.ReactDOM;
+  const StudentProfileHeader = window.shared.StudentProfileHeader;
 
-  var StudentProfileHeader = window.shared.StudentProfileHeader;
-  var SpecSugar = window.shared.SpecSugar;
-  var Fixtures = window.shared.Fixtures;
-
-  var helpers = {
+  const helpers = {
     renderActiveStudent: function(el, props) {
-      var mergedProps = merge(props || {}, { student: Fixtures.studentProfile.student });
-      return ReactDOM.render(createEl(StudentProfileHeader, mergedProps), el);
+      const mergedProps = merge(props || {}, { student: studentProfile.student });
+      ReactDOM.render(<StudentProfileHeader {...mergedProps} />, el);
     },
 
     renderTransferredStudent: function(el, props) {
-      var this_student = Fixtures.studentProfile.student;
+      const this_student = studentProfile.student;
       this_student['enrollment_status'] = 'Transferred';
 
-      var mergedProps = merge(props || {}, { student: this_student });
-      return ReactDOM.render(createEl(StudentProfileHeader, mergedProps), el);
+      const mergedProps = merge(props || {}, { student: this_student });
+      ReactDOM.render(<StudentProfileHeader {...mergedProps} />, el);
     }
 
   };
 
   SpecSugar.withTestEl('active enrolled student', function() {
     it('renders note-taking area with homeroom', function() {
-      var el = this.testEl;
+      const el = this.testEl;
       helpers.renderActiveStudent(el);
-      var yearsOld = moment().diff(Fixtures.studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
+      const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
                                                                                            // so we don't have to calculate this
 
       expect(el).toContainText('Daisy Poppins');
@@ -42,7 +40,7 @@ describe('StudentProfileHeader', function() {
 
   SpecSugar.withTestEl('non-active Transferred student', function() {
     it('renders note-taking area with Transferred status', function() {
-      var el = this.testEl;
+      const el = this.testEl;
       helpers.renderTransferredStudent(el);
 
       expect(el).toContainText('Daisy Poppins');

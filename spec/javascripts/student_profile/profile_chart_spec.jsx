@@ -1,5 +1,5 @@
 describe('ProfileBarCharts', function() {
-  var ProfileChart = window.shared.ProfileChart;
+  const ProfileChart = window.shared.ProfileChart;
 
   describe('#getSchoolYearStartPositions', function(){
     it('works when current grade is 5', function(){

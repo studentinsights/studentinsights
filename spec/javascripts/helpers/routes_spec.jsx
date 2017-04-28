@@ -1,5 +1,5 @@
 describe('Routes', function() {
-  var Routes = window.shared.Routes;
+  const Routes = window.shared.Routes;
 
   describe('#studentProfile', function() {
     it('returns URLs with encoded query string', function() {

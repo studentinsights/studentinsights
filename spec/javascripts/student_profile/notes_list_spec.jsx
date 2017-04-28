@@ -1,24 +1,21 @@
-//= require ./fixtures
+import {studentProfile, feedForTestingNotes} from './fixtures.jsx';
+import SpecSugar from '../support/spec_sugar.jsx';
 
 describe('NotesList', function() {
-  var dom = window.shared.ReactHelpers.dom;
-  var createEl = window.shared.ReactHelpers.createEl;
-  var merge = window.shared.ReactHelpers.merge;
+  const merge = window.shared.ReactHelpers.merge;
+  const ReactDOM = window.ReactDOM;
+  const NotesList = window.shared.NotesList;
 
-  var SpecSugar = window.shared.SpecSugar;
-  var NotesList = window.shared.NotesList;
-  var Fixtures = window.shared.Fixtures;
-
-  var helpers = {
+  const helpers = {
     renderInto: function(el, props) {
-      var mergedProps = merge(props || {}, {
-        feed: Fixtures.feedForTestingNotes,
-        educatorsIndex: Fixtures.studentProfile.educatorsIndex,
-        eventNoteTypesIndex: Fixtures.studentProfile.eventNoteTypesIndex,
+      const mergedProps = merge(props || {}, {
+        feed: feedForTestingNotes,
+        educatorsIndex: studentProfile.educatorsIndex,
+        eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
         onSaveNote: jasmine.createSpy('onSaveNote'),
         onEventNoteAttachmentDeleted: jasmine.createSpy('onEventNoteAttachmentDeleted')
       });
-      return ReactDOM.render(createEl(NotesList, mergedProps), el);
+      ReactDOM.render(<NotesList {...mergedProps} />, el);
     },
 
     noteTimestamps: function(el) {
@@ -30,10 +27,10 @@ describe('NotesList', function() {
 
   SpecSugar.withTestEl('high-level integration tests', function() {
     it('renders everything on the happy path', function() {
-      var el = this.testEl;
+      const el = this.testEl;
       helpers.renderInto(el);
 
-      var noteTimestamps = helpers.noteTimestamps(el);
+      const noteTimestamps = helpers.noteTimestamps(el);
       expect(_.first(noteTimestamps)).toBeGreaterThan(_.last(noteTimestamps));
       expect(_.sortBy(noteTimestamps).reverse()).toEqual(noteTimestamps);
       expect($(el).find('.NoteCard').length).toEqual(4);

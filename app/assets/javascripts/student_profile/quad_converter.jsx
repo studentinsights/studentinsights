@@ -30,11 +30,11 @@
         x: QuadConverter.toMoment(quad).valueOf(),
         y: QuadConverter.toValue(quad),
         gradeLevelEquivalent: QuadConverter.toGradeLevelEquivalent(quad)
-      }
+      };
     },
 
     toGradeLevelEquivalent: function(quad){
-      return quad[4]
+      return quad[4];
     },
 
     // These functions are provided for constructing quads.

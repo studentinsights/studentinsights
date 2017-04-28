@@ -28,4 +28,3 @@
 
 //= require support/spec_config
 //= require support/spec_matchers
-//= require support/spec_sugar
