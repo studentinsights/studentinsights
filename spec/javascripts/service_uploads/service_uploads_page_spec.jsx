@@ -6,7 +6,7 @@ describe('ServiceUploadsPage', function() {
 
   const helpers = {
     renderInto: function(el, props) {
-      ReactDOM.render(<ServiceUploadsPage {...props} />, el);
+      return ReactDOM.render(<ServiceUploadsPage {...props} />, el); //eslint-disable-line react/no-render-return-value
     }
   };
 

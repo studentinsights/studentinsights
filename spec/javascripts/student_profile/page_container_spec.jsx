@@ -43,7 +43,7 @@ describe('PageContainer', function() {
         actions: helpers.createSpyActions(),
         api: helpers.createSpyApi()
       });
-      ReactDOM.render(<PageContainer {...mergedProps} />, el);
+      return ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
     },
 
     takeNotesAndSave: function(el, uiParams) {
