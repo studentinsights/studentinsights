@@ -1,7 +1,7 @@
 describe('Filters', function() {
-  var Filters = window.shared.Filters;
+  const Filters = window.shared.Filters;
 
-  var helpers = {
+  const helpers = {
     students: function() {
       return [
        { active_services: [{ service_type_id: 504 }] },
@@ -14,14 +14,14 @@ describe('Filters', function() {
 
   describe('#ServiceType', function() {
     it('filters for a value', function() {
-      var filter = Filters.ServiceType(504);
+      const filter = Filters.ServiceType(504);
       expect(filter.key).toEqual('service_type');
       expect(filter.identifier).toEqual('service_type:504');
       expect(helpers.students().filter(filter.filterFn).length).toEqual(2);
     });
 
     it('filters null', function() {
-      var filter = Filters.ServiceType(null);
+      const filter = Filters.ServiceType(null);
       expect(filter.key).toEqual('service_type');
       expect(filter.identifier).toEqual('service_type:');
       expect(helpers.students().filter(filter.filterFn).length).toEqual(1);

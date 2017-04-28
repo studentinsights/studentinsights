@@ -49,9 +49,9 @@
 
     renderHighchartsWrapper: function() {
       if (this.props.showGradeLevelEquivalent === true) {
-        return this.renderStarHighchartsWrapper()
+        return this.renderStarHighchartsWrapper();
       } else {
-        return this.renderNonStarHighchartsWrapper()
+        return this.renderNonStarHighchartsWrapper();
       }
     },
 
@@ -63,7 +63,7 @@
               return {
                 name: obj.name,
                 data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
-              }
+              };
             }),
             yAxis: this.props.yAxis
           })} />
@@ -78,7 +78,7 @@
               return {
                 name: obj.name,
                 data: obj.data  ? _.map(obj.data, QuadConverter.toStarObject): []
-              }
+              };
             }),
             yAxis: this.props.yAxis
           })} />

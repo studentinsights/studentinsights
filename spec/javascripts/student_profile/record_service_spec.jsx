@@ -1,28 +1,30 @@
-//= require ./fixtures
+import {
+  studentProfile,
+  nowMoment,
+  currentEducator
+} from './fixtures.jsx';
+import SpecSugar from '../support/spec_sugar.jsx';
+
 
 describe('RecordService', function() {
-  var dom = window.shared.ReactHelpers.dom;
-  var createEl = window.shared.ReactHelpers.createEl;
-  var merge = window.shared.ReactHelpers.merge;
-
-  var RecordService = window.shared.RecordService;
-  var SpecSugar = window.shared.SpecSugar;
-  var Fixtures = window.shared.Fixtures;
-
-  var helpers = {
+  const merge = window.shared.ReactHelpers.merge;
+  const ReactDOM = window.ReactDOM;
+  const RecordService = window.shared.RecordService;
+  
+  const helpers = {
     renderInto: function(el, props) {
-      var mergedProps = merge(props || {}, {
+      const mergedProps = merge(props || {}, {
         studentFirstName: 'Tamyra',
-        serviceTypesIndex: Fixtures.studentProfile.serviceTypesIndex,
-        educatorsIndex: Fixtures.studentProfile.educatorsIndex,
-        nowMoment: Fixtures.nowMoment,
-        currentEducator: Fixtures.currentEducator,
+        serviceTypesIndex: studentProfile.serviceTypesIndex,
+        educatorsIndex: studentProfile.educatorsIndex,
+        nowMoment: nowMoment,
+        currentEducator: currentEducator,
         onSave: jasmine.createSpy('onSave'),
         onCancel: jasmine.createSpy('onCancel'),
         requestState: null,
         studentId: 1
       });
-      return ReactDOM.render(createEl(RecordService, mergedProps), el);
+      ReactDOM.render(<RecordService {...mergedProps} />, el);
     },
 
     serviceTypes: function(el) {
@@ -38,7 +40,7 @@ describe('RecordService', function() {
 
   SpecSugar.withTestEl('integration tests', function() {
     it('renders dialog for recording services', function() {
-      var el = this.testEl;
+      const el = this.testEl;
       helpers.renderInto(el);
 
       expect(el).toContainText('Which service?');

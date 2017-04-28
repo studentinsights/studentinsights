@@ -1,18 +1,13 @@
-//= require ./fixtures
+import {studentProfile, nowMoment} from './fixtures.jsx';
+import SpecSugar from '../support/spec_sugar.jsx';
 
-describe('StudentProfilePage', function() {
-  var dom = window.shared.ReactHelpers.dom;
-  var createEl = window.shared.ReactHelpers.createEl;
-  var merge = window.shared.ReactHelpers.merge;
+describe('StudentProfilePage integration test', function() {
+  const ReactDOM = window.ReactDOM;
+  const PageContainer = window.shared.PageContainer;
 
-  var SpecSugar = window.shared.SpecSugar;
-  var Fixtures = window.shared.Fixtures;
-  var PageContainer = window.shared.PageContainer;
-  var StudentProfilePage = window.shared.StudentProfilePage;
-
-  var helpers = {
+  const helpers = {
     renderStudentProfilePage: function(el, grade, dibels, absencesCount) {
-      var serializedData = _.cloneDeep(Fixtures.studentProfile);
+      const serializedData = _.cloneDeep(studentProfile);
       if (grade !== undefined) {
         serializedData["student"]["grade"] = grade;
       }
@@ -26,13 +21,13 @@ describe('StudentProfilePage', function() {
       }
 
 
-      var mergedProps = {
+      const mergedProps = {
         serializedData: serializedData,
-        nowMomentFn: function() { return Fixtures.nowMoment; },
+        nowMomentFn: function() { return nowMoment; },
         queryParams: {},
         history: SpecSugar.history()
       };
-      return ReactDOM.render(createEl(PageContainer, mergedProps), el);
+      ReactDOM.render(<PageContainer {...mergedProps} />, el);
     }
   };
 
@@ -40,7 +35,7 @@ describe('StudentProfilePage', function() {
 
     describe('student with no absences this school year', function () {
       it('displays zero absences', function () {
-        var el = this.testEl;
+        const el = this.testEl;
         helpers.renderStudentProfilePage(el, null, [], 0);
         expect(el).toContainText('Absences this school year:0');
       });
@@ -48,7 +43,7 @@ describe('StudentProfilePage', function() {
 
     describe('student with 15 absences this school year', function () {
       it('displays 15 absences', function () {
-        var el = this.testEl;
+        const el = this.testEl;
         helpers.renderStudentProfilePage(el);
         expect(el).toContainText('Absences this school year:15');
       });
@@ -62,7 +57,7 @@ describe('StudentProfilePage', function() {
 
       describe('student with DIBELS result', function() {
         it('renders the latest DIBELS', function () {
-          var el = this.testEl;
+          const el = this.testEl;
           helpers.renderStudentProfilePage(el, '3', [{ 'performance_level': 'INTENSIVE '}]);
           expect(el).not.toContainText('MCAS ELA SGP');
           expect(el).toContainText('DIBELS');
@@ -73,7 +68,7 @@ describe('StudentProfilePage', function() {
 
       describe('student without DIBELS result', function() {
         it('renders MCAS ELA SGP', function () {
-          var el = this.testEl;
+          const el = this.testEl;
           helpers.renderStudentProfilePage(el, '3', []);
           expect(el).toContainText('MCAS ELA SGP');
         });
@@ -85,7 +80,7 @@ describe('StudentProfilePage', function() {
 
       describe('student with DIBELS result', function() {
         it('renders MCAS ELA SGP', function () {
-          var el = this.testEl;
+          const el = this.testEl;
           helpers.renderStudentProfilePage(el, '5', [{ 'performance_level': 'INTENSIVE '}]);
           expect(el).toContainText('MCAS ELA SGP');
         });
@@ -93,7 +88,7 @@ describe('StudentProfilePage', function() {
 
       describe('student without DIBELS result', function() {
         it('renders MCAS ELA SGP', function () {
-          var el = this.testEl;
+          const el = this.testEl;
           helpers.renderStudentProfilePage(el, '5', []);
           expect(el).toContainText('MCAS ELA SGP');
         });

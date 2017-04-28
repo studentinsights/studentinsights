@@ -1,21 +1,19 @@
+import SpecSugar from '../support/spec_sugar.jsx';
+
 describe('ServiceUploadsPage', function() {
-  var dom = window.shared.ReactHelpers.dom;
-  var createEl = window.shared.ReactHelpers.createEl;
-  var merge = window.shared.ReactHelpers.merge;
+  const ReactDOM = window.ReactDOM;
+  const ServiceUploadsPage = window.shared.ServiceUploadsPage;
 
-  var SpecSugar = window.shared.SpecSugar;
-  var ServiceUploadsPage = window.shared.ServiceUploadsPage;
-
-  var helpers = {
+  const helpers = {
     renderInto: function(el, props) {
-      return ReactDOM.render(createEl(ServiceUploadsPage, props), el);
+      return ReactDOM.render(<ServiceUploadsPage {...props} />, el); //eslint-disable-line react/no-render-return-value
     }
   };
 
   SpecSugar.withTestEl('integration tests', function() {
     it('renders the page with no service uploads', function() {
-      var el = this.testEl;
-      var props = {
+      const el = this.testEl;
+      const props = {
         serializedData: {
           serviceUploads: [],
           serviceTypeNames: ['Extra Tutoring', 'After-School Art Class'],
@@ -29,8 +27,8 @@ describe('ServiceUploadsPage', function() {
     });
 
     it('renders the page with existing service upload', function() {
-      var el = this.testEl;
-      var props = {
+      const el = this.testEl;
+      const props = {
         serializedData: {
           serviceUploads: [
             {
@@ -56,15 +54,15 @@ describe('ServiceUploadsPage', function() {
     });
 
     it('tolerates cancelling file upload', function() {
-      var el = this.testEl;
-      var instance = helpers.renderInto(el, {
+      const el = this.testEl;
+      const instance = helpers.renderInto(el, {
         serializedData: {
           serviceUploads: [],
           serviceTypeNames: ['Extra Tutoring', 'After-School Art Class'],
         }
       });
 
-      var fileInputEl = $(el).find('input[type=file]').get(0);
+      const fileInputEl = $(el).find('input[type=file]').get(0);
       React.addons.TestUtils.Simulate.change(fileInputEl);
       expect(instance.state.formData.file_name).toEqual(undefined);
     });

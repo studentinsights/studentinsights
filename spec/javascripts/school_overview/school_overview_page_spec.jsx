@@ -1,6 +1,6 @@
 describe('SchoolOverviewPage', function() {
-  var SchoolOverviewPage = window.shared.SchoolOverviewPage;
-  var Filters = window.shared.Filters;
+  const SchoolOverviewPage = window.shared.SchoolOverviewPage;
+  const Filters = window.shared.Filters;
   
   // FILTERING FUNCTIONS //
 
@@ -24,8 +24,8 @@ describe('SchoolOverviewPage', function() {
 
     describe('with filters that overlap', function() {
       it('reduces each array to the set students that match either filter with no duplicates', function() {
-        var filters  = [[this.MariFilter, this.Classroom101Filter], [this.MarkFilter]];
-        var result = this.page.filterWithOr(filters);
+        const filters  = [[this.MariFilter, this.Classroom101Filter], [this.MarkFilter]];
+        const result = this.page.filterWithOr(filters);
         expect(result).toEqual([
           [this.mari, this.mark], [this.mark]
         ]);
@@ -34,8 +34,8 @@ describe('SchoolOverviewPage', function() {
 
     describe('with one filter', function() {
       it('returns an array of students that match the fitler inside another array', function() {
-        var filters = [[this.Classroom101Filter]];
-        var result = this.page.filterWithOr(filters);
+        const filters = [[this.Classroom101Filter]];
+        const result = this.page.filterWithOr(filters);
         expect(result).toEqual([
           [this.mark, this.mari]
         ]);
@@ -44,8 +44,8 @@ describe('SchoolOverviewPage', function() {
 
     describe('with an empty array', function() {
       it('returns an empty array', function() {
-        var filters = [];
-        var result = this.page.filterWithOr(filters);
+        const filters = [];
+        const result = this.page.filterWithOr(filters);
         expect(result).toEqual([]);
       });
     });
@@ -61,21 +61,21 @@ describe('SchoolOverviewPage', function() {
 
     describe('with array of two arrays of students that intersect', function() {
       it('returns an array of the intersection', function() {
-        var studentArrays = [[this.mari, this.mark], [this.mari]];
+        const studentArrays = [[this.mari, this.mark], [this.mari]];
         expect(this.page.filterWithAnd(studentArrays)).toEqual([this.mari]);
       });
     });
 
     describe('with array of one array of students', function() {
       it('returns the array with one less level of nesting', function() {
-        var studentArrays = [[this.mari]];
+        const studentArrays = [[this.mari]];
         expect(this.page.filterWithAnd(studentArrays)).toEqual([this.mari]);
       });
     });
 
     describe('with an empty array', function() {
       it('returns an empty array', function() {
-        var studentArrays = [];
+        const studentArrays = [];
         expect(this.page.filterWithAnd(studentArrays)).toEqual([]);
       });
     });
@@ -87,8 +87,8 @@ describe('SchoolOverviewPage', function() {
   describe('with one initial filter', function() {
 
     beforeEach(function() {
-      var Filters = window.shared.Filters;
-      var TestFilter = Filters.Equal('height', 'short');
+      const Filters = window.shared.Filters;
+      const TestFilter = Filters.Equal('height', 'short');
       this.page = new SchoolOverviewPage({initialFilters: [TestFilter]});
     });
 
@@ -106,9 +106,9 @@ describe('SchoolOverviewPage', function() {
 
     describe('#checkCache when students have been added', function() {
       it('returns the correct students', function() {
-        var students = [{ name: 'Jaime' }, { name: 'Jin' }, { name: 'Jack'}];
+        const students = [{ name: 'Jaime' }, { name: 'Jin' }, { name: 'Jack'}];
         this.page.addToCache(students);
-        var cache = this.page.checkCache();
+        const cache = this.page.checkCache();
         expect(cache.length).toEqual(3);
         expect(cache[0].name).toEqual('Jaime');
       });

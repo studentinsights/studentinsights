@@ -1,14 +1,13 @@
+import SpecSugar from '../support/spec_sugar.jsx';
+
 describe('ProfileDetails', function() {
-  var dom = window.shared.ReactHelpers.dom;
-  var createEl = window.shared.ReactHelpers.createEl;
-  var merge = window.shared.ReactHelpers.merge;
+  const merge = window.shared.ReactHelpers.merge;
+  const ReactDOM = window.ReactDOM;
+  const ProfileDetails = window.shared.ProfileDetails;
 
-  var ProfileDetails = window.shared.ProfileDetails;
-  var SpecSugar = window.shared.SpecSugar;
-
-  var helpers = {
+  const helpers = {
     renderInto: function(el, props) {
-      var mergedProps = merge({
+      const mergedProps = merge({
         student: {
           first_name: 'Test'
         },
@@ -39,13 +38,13 @@ describe('ProfileDetails', function() {
           "508": {name: "Math intervention", id: 508}
         }
       }, props || {});
-      return ReactDOM.render(createEl(ProfileDetails, mergedProps), el);
+      ReactDOM.render(<ProfileDetails {...mergedProps} />, el);
     }
   };
 
   SpecSugar.withTestEl('', function() {
     it('renders everything in the right location', function() {
-      var el = this.testEl;
+      const el = this.testEl;
       helpers.renderInto(el);
 
       // Is header here?

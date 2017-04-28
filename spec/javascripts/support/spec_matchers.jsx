@@ -5,7 +5,7 @@
       toContainText: function () {
         return {
           compare: function (actual, text) {
-            var trimmedText = $.trim($(actual).text());
+            const trimmedText = $.trim($(actual).text());
 
             if (text && $.isFunction(text.test)) {
               return { pass: text.test(trimmedText) };

@@ -7,7 +7,13 @@
     "_": true,
     "moment": true,
     "$": true,
-    "React": true
+    "React": true,
+    "describe": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "jasmine": true,
+    "expect": true,
+    "it": true
   },
   "parserOptions": {
     "ecmaVersion": 6,
