@@ -27,6 +27,8 @@ VOLUME /mnt/somerville-teacher-tool
 WORKDIR /mnt/somerville-teacher-tool
 RUN bundle install
 
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
 COPY . /mnt/somerville-teacher-tool
 
 EXPOSE 3000
