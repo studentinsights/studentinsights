@@ -17,6 +17,23 @@
       new Tablesort(document.querySelector('.students-table'), { descending: false });
     },
 
+    mergeInDateOfLastSST (student) {
+      const eventNotes = student.event_notes;
+      const sstNotes = eventNotes.filter((note) => {
+        return note.event_note_type_id === 300 });
+
+      if (sstNotes.length === 0) return merge(student, { dateOfLastSST: null });
+
+      const sstNoteDates = sstNotes.map(note => moment.utc(note.recorded_at)).sort();
+      const latestSstDate = _.last(sstNoteDates).format('M/D/YY');
+
+      return merge(student, { dateOfLastSST: latestSstDate });
+    },
+
+    studentsWithDateOfLastSST () {
+      return this.props.students.map(student => this.mergeInDateOfLastSST(student));
+    },
+
     render: function() {
       return (
         <div className='StudentsTable'>
@@ -24,6 +41,7 @@
             <thead>
               <tr>
                 {this.renderHeader('Name', { className: 'sort-default' }) /* className is read by Tablesort */}
+                {this.renderHeader('Last SST')}
                 {this.renderHeader('Grade')}
                 {this.renderHeader('Disability', { 'data-sort-method': "disability" })}
                 {this.renderHeader('Low Income')}
@@ -41,7 +59,7 @@
               </tr>
             </thead>
             <tbody>
-              {this.props.students.map(function(student) {
+              {this.studentsWithDateOfLastSST().map(function(student) {
                 return (
                   <tr key={student.id}>
                     <td>
@@ -49,18 +67,11 @@
                         {student.first_name + ' ' + student.last_name}
                       </a>
                     </td>
-                    <td>
-                      {student.grade}
-                    </td>
-                    <td>
-                      {this.renderUnless('None', student.sped_level_of_need)}
-                    </td>
-                    <td style={{width: '2.5em'}}>
-                      {this.renderUnless('Not Eligible', student.free_reduced_lunch)}
-                    </td>
-                    <td style={{width: '2.5em'}}>
-                      {this.renderUnless('Fluent', student.limited_english_proficiency)}
-                    </td>
+                    <td>{student.dateOfLastSST}</td>
+                    <td>{student.grade}</td>
+                    <td>{this.renderUnless('None', student.sped_level_of_need)}</td>
+                    <td style={{width: '2.5em'}}>{this.renderUnless('Not Eligible', student.free_reduced_lunch)}</td>
+                    <td style={{width: '2.5em'}}>{this.renderUnless('Fluent', student.limited_english_proficiency)}</td>
                     {this.renderNumberCell(student.most_recent_star_reading_percentile)}
                     {this.renderNumberCell(student.most_recent_mcas_ela_scaled)}
                     {this.renderNumberCell(student.most_recent_star_math_percentile)}
