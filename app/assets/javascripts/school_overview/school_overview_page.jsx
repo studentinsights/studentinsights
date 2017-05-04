@@ -1,3 +1,5 @@
+import StudentsTable from '../components/students_table.jsx';
+
 (function(root) {
   window.shared || (window.shared = {});
   const MixpanelUtils = window.shared.MixpanelUtils;
@@ -163,7 +165,7 @@
         page_key: 'SCHOOL_OVERVIEW_DASHBOARD',
         filter_identifier: toggledFilter.identifier
       });
-      
+
       const withoutToggledFilter = this.state.filters.filter(function(filter) {
         return filter.identifier !== toggledFilter.identifier;
       });
