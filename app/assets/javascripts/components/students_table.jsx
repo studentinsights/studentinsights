@@ -40,9 +40,9 @@ export default React.createClass({
           <thead>
             <tr>
               {this.renderHeader('Name', { className: 'sort-default' }) /* className is read by Tablesort */}
-              {this.renderHeader('Last SST')}
+              {this.renderHeader('Last SST', { 'data-sort-method': 'sst_date' })}
               {this.renderHeader('Grade')}
-              {this.renderHeader('Disability', { 'data-sort-method': "disability" })}
+              {this.renderHeader('Disability', { 'data-sort-method': 'disability' })}
               {this.renderHeader('Low Income')}
               {this.renderHeader('LEP')}
               {this.renderHeader('STAR Reading')}
@@ -124,7 +124,7 @@ export default React.createClass({
     const dataSortMethod = (options ? options['data-sort-method'] : null);
 
     return (
-      <th className={className} data={{'sort-method': dataSortMethod}}>
+      <th className={className} data-sort-method={dataSortMethod}>
         {pieces[0]}
         <br/>
         {pieces[1]}
