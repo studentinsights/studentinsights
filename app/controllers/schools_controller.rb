@@ -23,16 +23,6 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
-  def show_fast
-    @serialized_data = {
-      school_id: @school.id,
-      current_educator: current_educator,
-      constant_indexes: constant_indexes
-    }
-
-    render 'shared/serialized_data'
-  end
-
   def get_precomputed_hashes_for_school
     authorized_students = authorized_students_for_overview(@school)
 
