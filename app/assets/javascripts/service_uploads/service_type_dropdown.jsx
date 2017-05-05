@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
   const ServiceTypeDropdown = window.shared.ServiceTypeDropdown = React.createClass({
 

@@ -42,7 +42,6 @@
     },
 
     renderBars: function(quads, color, x, y){
-      const self = this;
       return quads.map(function(quad){
         return (
           <rect
