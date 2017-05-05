@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
   const HelpBubble = window.shared.HelpBubble = React.createClass({
     propTypes: {
