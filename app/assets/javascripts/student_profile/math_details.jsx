@@ -47,7 +47,7 @@
   historical context though, so we'll keep all data points, even those outside of the visible
   range since interpolation lines will still be visible.
   */
-  const MathDetails = window.shared.MathDetails = React.createClass({
+  window.shared.MathDetails = React.createClass({
     displayName: 'MathDetails',
 
     propTypes: {
@@ -117,7 +117,7 @@
             student={this.props.student}
             yAxis={merge(this.percentileYAxis(), {
               title: { text: 'Percentile rank' }
-            })} 
+            })}
             showGradeLevelEquivalent= { true }/>
         </div>
       );

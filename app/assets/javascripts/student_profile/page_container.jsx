@@ -12,7 +12,7 @@
   /*
   Holds page state, makes API calls to manipulate it.
   */
-  const PageContainer = window.shared.PageContainer = React.createClass({
+  window.shared.PageContainer = React.createClass({
     displayName: 'PageContainer',
 
     propTypes: {
@@ -20,7 +20,7 @@
       serializedData: React.PropTypes.object.isRequired,
       queryParams: React.PropTypes.object.isRequired,
       history: PropTypes.history.isRequired,
-      
+
       // for testing
       actions: PropTypes.actions,
       api: PropTypes.api

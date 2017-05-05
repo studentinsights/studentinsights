@@ -24,7 +24,7 @@
   /*
   Renders the list of notes.
   */
-  const NotesList = window.shared.NotesList = React.createClass({
+  window.shared.NotesList = React.createClass({
     displayName: 'NotesList',
 
     propTypes: {
