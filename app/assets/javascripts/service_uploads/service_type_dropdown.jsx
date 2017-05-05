@@ -1,7 +1,7 @@
 (function() {
   window.shared || (window.shared = {});
 
-  const ServiceTypeDropdown = window.shared.ServiceTypeDropdown = React.createClass({
+  window.shared.ServiceTypeDropdown = React.createClass({
 
     propTypes: {
       onUserTypingServiceType: React.PropTypes.func.isRequired,
