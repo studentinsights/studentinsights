@@ -3,20 +3,11 @@ import StudentsTable from '../components/students_table.jsx';
 (function(root) {
   window.shared || (window.shared = {});
   const MixpanelUtils = window.shared.MixpanelUtils;
-  const Filters = window.shared.Filters;
-  const Routes = window.shared.Routes;
   const SlicePanels = window.shared.SlicePanels;
   const SliceButtons = window.shared.SliceButtons;
   const styles = window.shared.styles;
-  const colors = window.shared.colors;
-  const merge = window.shared.ReactHelpers.merge;
 
-  function calculateYearsEnrolled (registration_date) {
-    if (registration_date === null) return null;
-    return Math.floor((new Date() - new Date(registration_date)) / (1000 * 60 * 60 * 24 * 365));
-  }
-
-  const SchoolOverviewPage = React.createClass({
+  window.shared.SchoolOverviewPage = React.createClass({
     displayName: 'SchoolOverviewPage',
 
     propTypes: {
@@ -160,6 +151,12 @@ import StudentsTable from '../components/students_table.jsx';
       this.setState({ filters: [] });
     },
 
+    filtersHash: function() {
+      return '#' + this.state.filters.map(function(filter) {
+        return encodeURIComponent(filter.identifier);
+      }).join('&');
+    },
+
     onFilterToggled: function(toggledFilter) {
       MixpanelUtils.track('SCHOOL_OVERVIEW_TOGGLED_FILTER', {
         page_key: 'SCHOOL_OVERVIEW_DASHBOARD',
@@ -213,14 +210,6 @@ import StudentsTable from '../components/students_table.jsx';
           </div>
         </div>
       );
-    },
-
-    filtersHash: function() {
-      return '#' + this.state.filters.map(function(filter) {
-        return encodeURIComponent(filter.identifier);
-      }).join('&');
-    },
+    }
   });
-
-  window.shared.SchoolOverviewPage = SchoolOverviewPage;
 })(window);
