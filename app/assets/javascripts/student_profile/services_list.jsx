@@ -2,7 +2,6 @@
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
-  const Educator = window.shared.Educator;
   const serviceColor = window.shared.serviceColor;
   const moment = window.moment;
 
@@ -42,7 +41,7 @@
   /*
   Renders the list of services.
   */
-  const ServicesList = window.shared.ServicesList = React.createClass({
+  window.shared.ServicesList = React.createClass({
     displayName: 'ServicesList',
 
     propTypes: {
@@ -61,29 +60,33 @@
       };
     },
 
-    resetDiscontinueState: function() {
-      return {
-        discontinuingServiceId: null,
-        hoveringCancelServiceId: null,
-        hoveringDiscontinueServiceId: null
-      };
+    wasDiscontinued: function(service) {
+      return (service.discontinued_by_educator_id !== null);
+    },
+
+    // Active services before inactive, then sorted by time
+    sortedMergedServices: function(servicesFeed) {
+      return _.flatten([
+        _.sortBy(servicesFeed.active, 'date_started').reverse(),
+        _.sortBy(servicesFeed.discontinued, 'date_started').reverse()
+      ]);
     },
 
     // Confirmation step
     onClickDiscontinueService: function(serviceId) {
       if (this.state.discontinuingServiceId !== serviceId) {
-        this.setState(merge(this.resetDiscontinueState(), {
+        this.setState(merge(this.getInitialState(), {
           discontinuingServiceId: serviceId,
         }));
         return;
       }
 
       this.props.onClickDiscontinueService(serviceId);
-      this.setState(this.resetDiscontinueState());
+      this.setState(this.getInitialState());
     },
 
     onClickCancelDiscontinue: function(serviceId) {
-      this.setState(this.resetDiscontinueState());
+      this.setState(this.getInitialState());
     },
 
     onMouseEnterDiscontinue: function(serviceId) {
@@ -102,18 +105,6 @@
       this.setState({ hoveringCancelServiceId: null });
     },
 
-    wasDiscontinued: function(service) {
-      return (service.discontinued_by_educator_id !== null);
-    },
-
-    // Active services before inactive, then sorted by time
-    sortedMergedServices: function(servicesFeed) {
-      return _.flatten([
-        _.sortBy(servicesFeed.active, 'date_started').reverse(),
-        _.sortBy(servicesFeed.discontinued, 'date_started').reverse()
-      ]);
-    },
-
     render: function() {
       const elements = (this.props.servicesFeed.active.length === 0 && this.props.servicesFeed.discontinued.length === 0)
         ? <div style={styles.noItems}>
@@ -130,7 +121,6 @@
     renderService: function(service) {
       const wasDiscontinued = this.wasDiscontinued(service);
       const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
-      const momentStarted = moment.utc(service.date_started);
       const providedByEducatorName = service.provided_by_educator_name;
 
       return (
@@ -220,11 +210,9 @@
       const discontinuedAt = moment.utc(service.discontinued_recorded_at);
       const now = moment();
 
-      if (discontinuedAt > now) {
-        var description = 'Ending';
-      } else {
-        var description = 'Ended';
-      }
+      const description = (discontinuedAt > now)
+        ? 'Ending'
+        : 'Ended';
 
       if (this.wasDiscontinued(service)) {
         return (

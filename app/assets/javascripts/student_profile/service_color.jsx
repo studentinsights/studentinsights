@@ -9,7 +9,7 @@
   };
 
   // Map service_type_id to a themed color.
-  const serviceColor = window.shared.serviceColor = function(serviceTypeId) {
+  window.shared.serviceColor = function(serviceTypeId) {
     const map = {
       507: Colors.orange,
       502: Colors.green,

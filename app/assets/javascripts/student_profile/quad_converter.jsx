@@ -78,7 +78,8 @@
       });
 
       // result is an array of quads, one quad per month.
-      result = [];
+      var result = [];
+
       _.each(groupedByMonth, function(value, key){
         result.push(QuadConverter.fromMoment(moment.utc(key), value.length));
       });

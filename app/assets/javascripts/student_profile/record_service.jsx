@@ -2,8 +2,6 @@
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
-  const PropTypes = window.shared.PropTypes;
-  const ReactSelect = window.Select;
   const Datepicker = window.shared.Datepicker;
   const serviceColor = window.shared.serviceColor;
 
@@ -44,7 +42,7 @@
   Pure UI form for recording that a student is receiving a service.
   Tracks its own local state and submits values to prop callbacks.
   */
-  const RecordService = window.shared.RecordService = React.createClass({
+  window.shared.RecordService = React.createClass({
     displayName: 'RecordService',
 
     propTypes: {

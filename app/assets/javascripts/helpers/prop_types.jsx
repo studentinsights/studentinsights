@@ -10,7 +10,8 @@
       onClickDiscontinueService: React.PropTypes.func.isRequired
     }),
     requests: React.PropTypes.shape({
-      saveNote: React.PropTypes.string // or null
+      saveNote: React.PropTypes.string,
+      discontinueService: React.PropTypes.func,
     }),
     api: React.PropTypes.shape({
       saveNotes: React.PropTypes.func.isRequired
