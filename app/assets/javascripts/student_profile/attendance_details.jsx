@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
   const ProfileChart = window.shared.ProfileChart;
   const ProfileBarChart = window.shared.ProfileBarChart;

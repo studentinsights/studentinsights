@@ -67,15 +67,15 @@
       };
     },
 
+    componentWillMount: function(props, state) {
+      this.api = this.props.api || new Api();
+    },
+
     componentDidUpdate: function(props, state) {
       const path = Routes.studentProfile(this.state.student.id, {
         column: this.state.selectedColumnKey
       });
       this.props.history.replaceState({}, null, path);
-    },
-
-    componentWillMount: function(props, state) {
-      this.api = this.props.api || new Api();
     },
 
     // Returns an updated state, adding serviceId and requestState, or removing

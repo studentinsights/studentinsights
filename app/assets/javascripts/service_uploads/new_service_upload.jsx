@@ -3,7 +3,7 @@
   const Datepicker = window.shared.Datepicker;
   const ServiceTypeDropdown = window.shared.ServiceTypeDropdown;
 
-  const NewServiceUpload = window.shared.NewServiceUpload = React.createClass({
+  window.shared.NewServiceUpload = React.createClass({
 
     propTypes: {
       // Actions

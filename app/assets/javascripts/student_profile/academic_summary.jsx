@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const PropTypes = window.shared.PropTypes;
   const HelpBubble = window.shared.HelpBubble;
 
   const styles = {
@@ -63,7 +62,7 @@
     }
   });
 
-  const SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline = React.createClass({
+  window.shared.SummaryWithoutSparkline = React.createClass({
     displayName: 'SummaryWithoutSparkline',
 
     propTypes: {

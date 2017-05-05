@@ -4,7 +4,7 @@
   const ServiceUploadDetail = window.shared.ServiceUploadDetail;
   const NewServiceUpload = window.shared.NewServiceUpload;
 
-  const ServiceUploadsPage = window.shared.ServiceUploadsPage = React.createClass({
+  window.shared.ServiceUploadsPage = React.createClass({
 
     propTypes: {
       serializedData: React.PropTypes.object.isRequired,
