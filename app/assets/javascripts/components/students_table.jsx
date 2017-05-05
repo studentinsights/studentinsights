@@ -1,8 +1,5 @@
 window.shared || (window.shared = {});
-const Filters = window.shared.Filters;
 const Routes = window.shared.Routes;
-const styles = window.shared.styles;
-const colors = window.shared.colors;
 const merge = window.shared.ReactHelpers.merge;
 
 export default React.createClass({
@@ -130,6 +127,17 @@ export default React.createClass({
     }
   },
 
+  headerClassName (sortBy) {
+    // Using tablesort classes here for the cute CSS carets,
+    // not for the acutal table sorting JS (that logic is handled by this class).
+
+    if (sortBy !== this.state.sortBy) return 'sort-header';
+
+    if (this.state.sortDesc) return 'sort-header sort-down';
+
+    return 'sort-header sort-up';
+  },
+
   onClickHeader (sortBy, sortType) {
     if (sortBy === this.state.sortBy) {
       this.setState({ sortDesc: !this.state.sortDesc });
@@ -220,17 +228,6 @@ export default React.createClass({
 
   renderCount (count) {
     return (count === 0) ? null : count;
-  },
-
-  headerClassName (sortBy) {
-    // Using tablesort classes here for the cute CSS carets,
-    // not for the acutal table sorting JS (that logic is handled by this class).
-
-    if (sortBy !== this.state.sortBy) return 'sort-header';
-
-    if (this.state.sortDesc) return 'sort-header sort-down';
-
-    return 'sort-header sort-up';
   },
 
   renderHeader (caption, sortBy, sortType) {
