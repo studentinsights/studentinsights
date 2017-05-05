@@ -7,5 +7,5 @@ $(function() {
 
   // entry point, reading static bootstrapped data from the page
   // var serializedData = $('#serialized-data').data();
-  ReactDOM.render(<RestrictedNotesPageContainer serializedData={$('#serialized-data').data()} nowMomentFn={moment.utc} />, document.getElementById('main'));
+  window.ReactDOM.render(<RestrictedNotesPageContainer serializedData={$('#serialized-data').data()} nowMomentFn={moment.utc} />, document.getElementById('main'));
 });

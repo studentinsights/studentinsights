@@ -6,7 +6,7 @@
   Functions for transforming the feed data structure that holds
   all notes and services for a student.
   */
-  const FeedHelpers = window.shared.FeedHelpers = {
+  window.shared.FeedHelpers = {
     // Merges data from event_notes and deprecated tables (notes, interventions).
     mergedNotes: function(feed) {
       const deprecatedInterventions = feed.deprecated.interventions.map(function(intervention) {

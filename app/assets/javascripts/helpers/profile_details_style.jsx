@@ -96,8 +96,6 @@
       cursor: 'pointer',
       borderColor: 'white',
       borderTop: 0,
-      margin: 0,
-      borderRadius: '0 0 5px 5px',
       display: 'flex',
       flexDirection: 'column',
       margin: '0 5px 0 0',

@@ -3,7 +3,7 @@
   const styles = window.shared.styles;
   const colors = window.shared.colors;
 
-  const SliceButtons = window.shared.SliceButtons = React.createClass({
+  window.shared.SliceButtons = React.createClass({
     displayName: 'SliceButtons',
 
     propTypes: {
@@ -11,6 +11,14 @@
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       filtersHash: React.PropTypes.string.isRequired,
       clearFilters: React.PropTypes.func.isRequired
+    },
+
+    componentDidMount: function() {
+      $(document).on('keydown', this.onKeyDown);
+    },
+
+    componentWillUnmount: function() {
+      $(document).off('keydown', this.onKeyDown);
     },
 
     // Key code 27 is the ESC key
@@ -25,14 +33,6 @@
       e.preventDefault();
       const blob = new Blob([csvText], {type: 'text/csv;charset=utf-8;'});
       window.navigator.msSaveBlob(blob, filename);
-    },
-
-    componentDidMount: function() {
-      $(document).on('keydown', this.onKeyDown);
-    },
-
-    componentWillUnmount: function() {
-      $(document).off('keydown', this.onKeyDown);
     },
 
     render: function() {

@@ -5,8 +5,7 @@
   Functions for transforming the feed data structure that holds
   all notes and services for a student.
   */
-  var GraphHelpers = window.shared.GraphHelpers = {
-    
+  window.shared.GraphHelpers = {
     // Returns a list of monthKeys that are within the time window for this chart.
     monthKeys: function(nowMomentUTC, monthsBack) {
       var lastMonthMomentUTC = nowMomentUTC.clone().date(1);

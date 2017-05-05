@@ -1,9 +1,8 @@
 (function() {
   // Define filter operations
   window.shared || (window.shared = {});
-  const FeedHelpers = window.shared.FeedHelpers;
 
-  window.shared.Filters = Filters = {
+  const Filters = window.shared.Filters = {
     Range: function(key, range) {
       return {
         identifier: ['range', key, range[0], range[1]].join(':'),
@@ -95,7 +94,6 @@
 
     // Has to parse from string back to numeric
     createFromIdentifier: function(identifier) {
-      const Filters = window.shared.Filters;
       const parts = identifier.split(':');
       if (parts[0] === 'range') return Filters.Range(parts[1], [parseFloat(parts[2]), parseFloat(parts[3])]);
       if (parts[0] === 'none') return Filters.Null(parts[1]);

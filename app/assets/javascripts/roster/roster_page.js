@@ -1,6 +1,9 @@
 $(function() {
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
+    var Tablesort = window.Tablesort;
+    var Cookies = window.Cookies;
+    
     // track user for mixpanel
     var currentEducator = $('#current-educator-data').data().currentEducator;
     var homeroom = $('#homeroom-data').data().homeroom;

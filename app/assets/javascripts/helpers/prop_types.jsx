@@ -1,7 +1,7 @@
 (function() {
   window.shared || (window.shared = {});
 
-  const PropTypes = window.shared.PropTypes = {
+  window.shared.PropTypes = {
     // UI actions, stepping stone to Flux
     actions: React.PropTypes.shape({
       onColumnClicked: React.PropTypes.func.isRequired,

@@ -4,10 +4,10 @@
   const FixedTable = window.shared.FixedTable;
   const CollapsableTable = window.shared.CollapsableTable;
   const styles = window.shared.styles;
-  const colors = window.shared.colors;
+  const Filters = window.shared.Filters;
   const merge = window.shared.ReactHelpers.merge;
 
-  const SlicePanels = window.shared.SlicePanels = React.createClass({
+  window.shared.SlicePanels = React.createClass({
     displayName: 'SlicePanels',
     propTypes: {
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
@@ -16,6 +16,78 @@
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
+    },
+
+    createItem: function(caption, filter) {
+      const students = this.props.students;
+      return {
+        caption: caption,
+        percentage: (students.length === 0) ? 0 : students.filter(filter.filterFn).length / students.length,
+        filter: filter
+      };
+    },
+
+    createItemsFromValues: function(key, uniqueValues) {
+      const items = _.compact(uniqueValues).map(function(value) {
+        return this.createItem(value, Filters.Equal(key, value));
+      }, this);
+      const itemsWithNull = (_.any(uniqueValues, _.isNull))
+        ? items.concat(this.createItem('None', Filters.Null(key)))
+        : items;
+      const students = this.props.allStudents;
+      return _.sortBy(itemsWithNull, function(item) {
+        return -1 * students.filter(item.filter.filterFn).length;
+      });
+    },
+    
+    serviceItems: function() {
+      const students = this.props.allStudents;
+      const activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));
+      const activeServiceTypeIds = activeServices.map(service => parseInt(service.service_type_id, 10));
+      const allServiceTypeIds = _.pull(_.unique(activeServiceTypeIds), 508); // Deprecated Math intervention service type
+
+      const serviceItems = allServiceTypeIds.map(function(serviceTypeId) {
+        const serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
+        return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
+      }, this);
+      const sortedItems =  _.sortBy(serviceItems, function(item) {
+        return -1 * students.filter(item.filter.filterFn).length;
+      });
+
+      return [this.createItem('None', Filters.ServiceType(null))].concat(sortedItems);
+    },
+
+    summerItems: function () {
+      const students = this.props.allStudents;
+      const summerServices = _.compact(_.flatten(_.pluck(students, 'summer_services')));
+      const allSummerServiceTypeIds = _.unique(summerServices.map(function(service) {
+        return parseInt(service.service_type_id, 10);
+      }));
+
+      const serviceItems = allSummerServiceTypeIds.map(function(serviceTypeId) {
+        const serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
+        return this.createItem(serviceName, Filters.SummerServiceType(serviceTypeId));
+      }, this);
+
+      return [this.createItem('None', Filters.SummerServiceType(null))].concat(serviceItems);
+    },
+
+    // TODO(kr) add other note types
+    mergedNoteItems: function() {
+      const students = this.props.allStudents;
+      const allEventNotes = _.compact(_.flatten(_.pluck(students, 'event_notes')));
+      const allEventNoteTypesIds = _.unique(allEventNotes.map(function(eventNote) {
+        return parseInt(eventNote.event_note_type_id, 10);
+      }));
+      const eventNoteItems = allEventNoteTypesIds.map(function(eventNoteTypeId) {
+        const eventNoteTypeName = this.props.eventNoteTypesIndex[eventNoteTypeId].name;
+        return this.createItem(eventNoteTypeName, Filters.EventNoteType(eventNoteTypeId));
+      }, this);
+      const sortedItems =  _.sortBy(eventNoteItems, function(item) {
+        return -1 * students.filter(item.filter.filterFn).length;
+      });
+
+      return [this.createItem('None', Filters.EventNoteType(null))].concat(sortedItems);
     },
 
     render: function() {
@@ -178,68 +250,6 @@
       );
     },
 
-    createItem: function(caption, filter) {
-      const students = this.props.students;
-      return {
-        caption: caption,
-        percentage: (students.length === 0) ? 0 : students.filter(filter.filterFn).length / students.length,
-        filter: filter
-      };
-    },
-
-    serviceItems: function() {
-      const students = this.props.allStudents;
-      const activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));
-      var allServiceTypeIds = _.unique(activeServices.map(function(service) {
-        return parseInt(service.service_type_id, 10);
-      }));
-
-      var allServiceTypeIds = _.pull(allServiceTypeIds, 508);  // Deprecated Math intervention service type
-
-      const serviceItems = allServiceTypeIds.map(function(serviceTypeId) {
-        const serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
-        return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
-      }, this);
-      const sortedItems =  _.sortBy(serviceItems, function(item) {
-        return -1 * students.filter(item.filter.filterFn).length;
-      });
-
-      return [this.createItem('None', Filters.ServiceType(null))].concat(sortedItems);
-    },
-
-    summerItems: function () {
-      const students = this.props.allStudents;
-      const summerServices = _.compact(_.flatten(_.pluck(students, 'summer_services')));
-      const allSummerServiceTypeIds = _.unique(summerServices.map(function(service) {
-        return parseInt(service.service_type_id, 10);
-      }));
-
-      const serviceItems = allSummerServiceTypeIds.map(function(serviceTypeId) {
-        const serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
-        return this.createItem(serviceName, Filters.SummerServiceType(serviceTypeId));
-      }, this);
-
-      return [this.createItem('None', Filters.SummerServiceType(null))].concat(serviceItems);
-    },
-
-    // TODO(kr) add other note types
-    mergedNoteItems: function() {
-      const students = this.props.allStudents;
-      const allEventNotes = _.compact(_.flatten(_.pluck(students, 'event_notes')));
-      const allEventNoteTypesIds = _.unique(allEventNotes.map(function(eventNote) {
-        return parseInt(eventNote.event_note_type_id, 10);
-      }));
-      const eventNoteItems = allEventNoteTypesIds.map(function(eventNoteTypeId) {
-        const eventNoteTypeName = this.props.eventNoteTypesIndex[eventNoteTypeId].name;
-        return this.createItem(eventNoteTypeName, Filters.EventNoteType(eventNoteTypeId));
-      }, this);
-      const sortedItems =  _.sortBy(eventNoteItems, function(item) {
-        return -1 * students.filter(item.filter.filterFn).length;
-      });
-
-      return [this.createItem('None', Filters.EventNoteType(null))].concat(sortedItems);
-    },
-
     renderGradeTable: function() {
       const key = 'grade';
       const uniqueValues = _.compact(_.unique(_.pluck(this.props.allStudents, key)));
@@ -296,19 +306,6 @@
         title: 'Years enrolled',
         items: sortedItems,
         limit: 3
-      });
-    },
-
-    createItemsFromValues: function(key, uniqueValues) {
-      const items = _.compact(uniqueValues).map(function(value) {
-        return this.createItem(value, Filters.Equal(key, value));
-      }, this);
-      const itemsWithNull = (_.any(uniqueValues, _.isNull))
-        ? items.concat(this.createItem('None', Filters.Null(key)))
-        : items;
-      const students = this.props.allStudents;
-      return _.sortBy(itemsWithNull, function(item) {
-        return -1 * students.filter(item.filter.filterFn).length;
       });
     },
 
