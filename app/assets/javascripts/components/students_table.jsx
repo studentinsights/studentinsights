@@ -23,7 +23,7 @@ export default React.createClass({
   mergeInDateOfLastSST (student) {
     const eventNotes = student.event_notes;
     const sstNotes = eventNotes.filter((note) => {
-      return note.event_note_type_id === 300 });
+      return note.event_note_type_id === 300; });
 
     if (sstNotes.length === 0) return merge(student, { dateOfLastSST: null });
 
@@ -38,8 +38,8 @@ export default React.createClass({
   },
 
   sortByDate (a, b, sortBy) {
-    const dateA = moment(a[sortBy], 'MM/D/YY')
-    const dateB = moment(b[sortBy], 'MM/D/YY')
+    const dateA = moment(a[sortBy], 'MM/D/YY');
+    const dateB = moment(b[sortBy], 'MM/D/YY');
 
     if (!dateA.isValid() && !dateB.isValid()) return 0;
 
@@ -103,30 +103,30 @@ export default React.createClass({
     let customEnum;
 
     switch(sortType) {
-      case 'string':
-        return students.sort((a, b) => this.sortByString(a, b, sortBy));
-      case 'number':
-        return students.sort((a, b) => this.sortByNumber(a, b, sortBy));
-      case 'date':
-        return students.sort((a, b) => this.sortByDate(a, b, sortBy));
-      case 'free_reduced_lunch':
-        return students.sort((a, b) => this.sortByString(a, b, sortBy));
-      case 'grade':
-        customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
-        return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum))
-      case 'sped_level_of_need':
-        customEnum = ['—', 'Low < 2', 'Low >= 2', 'Moderate', 'High'];
-        return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
-      case 'limited_english_proficiency':
-        customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
-        return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
-      case 'program_assigned':
-        customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
-        return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
-      case 'active_services':
-        return students.sort((a, b) => this.sortByActiveServices(a, b));
-      default:
-        return students;
+    case 'string':
+      return students.sort((a, b) => this.sortByString(a, b, sortBy));
+    case 'number':
+      return students.sort((a, b) => this.sortByNumber(a, b, sortBy));
+    case 'date':
+      return students.sort((a, b) => this.sortByDate(a, b, sortBy));
+    case 'free_reduced_lunch':
+      return students.sort((a, b) => this.sortByString(a, b, sortBy));
+    case 'grade':
+      customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
+      return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
+    case 'sped_level_of_need':
+      customEnum = ['—', 'Low < 2', 'Low >= 2', 'Moderate', 'High'];
+      return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
+    case 'limited_english_proficiency':
+      customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
+      return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
+    case 'program_assigned':
+      customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
+      return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
+    case 'active_services':
+      return students.sort((a, b) => this.sortByActiveServices(a, b));
+    default:
+      return students;
     }
   },
 
