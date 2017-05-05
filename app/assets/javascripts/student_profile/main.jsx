@@ -1,3 +1,5 @@
+const ReactDOM = window.ReactDOM;
+
 $(function() {
   // only run if the correct page
   if (!($('body').hasClass('students') && $('body').hasClass('show'))) return;
