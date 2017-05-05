@@ -6,7 +6,7 @@
 
     propTypes: {
       title: React.PropTypes.string.isRequired,
-      elements: React.PropTypes.arrayOf(React.PropType.element).isRequired
+      elements: React.PropTypes.arrayOf(React.PropTypes.node).isRequired
     },
 
     render: function() {

@@ -11,7 +11,7 @@
     }),
     requests: React.PropTypes.shape({
       saveNote: React.PropTypes.string,
-      discontinueService: React.PropTypes.func,
+      discontinueService: React.PropTypes.object
     }),
     api: React.PropTypes.shape({
       saveNotes: React.PropTypes.func.isRequired
