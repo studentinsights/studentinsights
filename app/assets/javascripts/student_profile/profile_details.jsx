@@ -1,13 +1,13 @@
 (function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
-  const FeedHelpers = window.shared.FeedHelpers;
   const QuadConverter = window.shared.QuadConverter;
   const styles = window.shared.ProfileDetailsStyle;
   const Datepicker = window.shared.Datepicker;
   const filterFromDate = QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1);
   const filterToDate = moment();
-  const ProfileDetails = window.shared.ProfileDetails = React.createClass({
+
+  window.shared.ProfileDetails = React.createClass({
     displayName: 'ProfileDetails',
 
     propTypes: {
@@ -25,6 +25,22 @@
         filterFromDate: QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1),
         filterToDate: moment()
       };
+    },
+
+    displayEventDate: function(event_date){
+      // Use UTC to avoid timezone-related display errors. (See GitHub issue #622.)
+      // Timezone is irrelevant for this UI. We are not displaying times, only dates.
+
+      return moment(event_date).utc().format("MMMM Do, YYYY:");
+    },
+
+    getMessageForServiceType: function(service_type_id){
+      // Given a service_type_id, returns a message suitable for human consumption describing the service.
+      const lookup = this.props.serviceTypesIndex;
+
+      return (lookup.hasOwnProperty(service_type_id))
+        ? lookup[service_type_id].name
+        : "Description not found for code: " + service_type_id;
     },
 
     getEvents: function(){
@@ -145,6 +161,18 @@
       return _.sortBy(events, 'date').reverse();
     },
 
+    onFilterFromDateChanged: function(dateText) {
+      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
+      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      this.filterFromDate = updatedMoment;
+    },
+
+    onFilterToDateChanged: function(dateText) {
+      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
+      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      this.filterToDate = updatedMoment;
+    },
+
     onClickGenerateStudentReport: function(event) {
       const sections = $('#section:checked').map(function() {return this.value;}).get().join(',');
       window.location = this.props.student.id + '/student_report.pdf?sections=' + sections + '&from_date=' + filterFromDate.format('MM/DD/YYYY') + '&to_date=' + filterToDate.format('MM/DD/YYYY');
@@ -214,18 +242,6 @@
       );
     },
 
-    onFilterFromDateChanged: function(dateText) {
-      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
-      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
-      this.filterFromDate = updatedMoment;
-    },
-
-    onFilterToDateChanged: function(dateText) {
-      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
-      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
-      this.filterToDate = updatedMoment;
-    },
-
     renderStudentReportSectionOption: function(optionValue, optionName) {
       return (
         <div style={styles.option3Column}>
@@ -286,7 +302,6 @@
     },
 
     renderFullCaseHistory: function(){
-      const self = this;
       const bySchoolYearDescending = _.toArray(
         _.groupBy(this.getEvents(), function(event){ return QuadConverter.toSchoolYear(event.date); })
       ).reverse();
@@ -323,17 +338,22 @@
     renderCard: function(event){
       const key = [event.type, event.id].join("-");
 
+      let containingDivStyle;
+      let headerDivStyle;
+      let paddingStyle;
+      let text;
+
       if (event.type === 'Absence' || event.type === 'Tardy'){
         // These event types are less important, so make them smaller and no description text.
-        var containingDivStyle = styles.feedCard;
-        var headerDivStyle = merge(styles.feedCardHeader, {fontSize: 14});
-        var paddingStyle = {paddingLeft: 10};
-        var text = '';
+        containingDivStyle = styles.feedCard;
+        headerDivStyle = merge(styles.feedCardHeader, {fontSize: 14});
+        paddingStyle = {paddingLeft: 10};
+        text = '';
       } else {
-        var containingDivStyle = merge(styles.feedCard, {border: '1px solid #eee'});
-        var headerDivStyle = styles.feedCardHeader;
-        var paddingStyle = {padding: 10};
-        var text = event.message;
+        containingDivStyle = merge(styles.feedCard, {border: '1px solid #eee'});
+        headerDivStyle = styles.feedCardHeader;
+        paddingStyle = {padding: 10};
+        text = event.message;
       }
 
       const dateStyle = {display: 'inline-block', width: 180};
@@ -355,25 +375,6 @@
           </div>
         </div>
       );
-    },
-
-    displayEventDate: function(event_date){
-      // Use UTC to avoid timezone-related display errors. (See GitHub issue #622.)
-      // Timezone is irrelevant for this UI. We are not displaying times, only dates.
-
-      return moment(event_date).utc().format("MMMM Do, YYYY:");
-    },
-
-    getMessageForServiceType: function(service_type_id){
-      // Given a service_type_id, returns a message suitable for human consumption describing the service.
-      const lookup = this.props.serviceTypesIndex;
-      if (lookup.hasOwnProperty(service_type_id)){
-        var text = lookup[service_type_id].name;
-      } else {
-        var text = "Description not found for code: " + service_type_id;
-      }
-
-      return text;
     }
 
   });
