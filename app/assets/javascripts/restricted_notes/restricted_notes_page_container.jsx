@@ -2,7 +2,6 @@
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
-  const StudentProfilePage = window.shared.StudentProfilePage;
   const PropTypes = window.shared.PropTypes;
   const NotesDetails = window.shared.NotesDetails;
   const Api = window.shared.Api;
@@ -10,7 +9,7 @@
   /*
   Holds page state, makes API calls to manipulate it.
   */
-  const RestrictedNotesPageContainer = window.shared.RestrictedNotesPageContainer = React.createClass({
+  window.shared.RestrictedNotesPageContainer = React.createClass({
     displayName: 'RestrictedNotesPageContainer',
 
     propTypes: {
@@ -22,10 +21,6 @@
         onClickSaveNotes: React.PropTypes.func
       }),
       api: PropTypes.api
-    },
-
-    componentWillMount: function(props, state) {
-      this.api = this.props.api || new Api();
     },
 
     getInitialState: function() {
@@ -56,9 +51,13 @@
       };
     },
 
-    onClickSaveNotes: function(eventNoteParams) {
+    componentWillMount: function(props, state) {
+      this.api = this.props.api || new Api();
+    },
+
+    onClickSaveNotes: function(inputEventNoteParams) {
       // All notes taken on this page should be restricted.
-      var eventNoteParams = merge(eventNoteParams, {is_restricted: true});
+      const eventNoteParams = merge(inputEventNoteParams, {is_restricted: true});
       this.setState({ requests: merge(this.state.requests, { saveNote: 'pending'}) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
@@ -82,29 +81,6 @@
       });
     },
 
-    getNotesHelpContent: function(){
-      return (
-        <div>
-          <p>
-            Restricted Notes are only visible to the principal, AP, and guidance counselors.         If a note contains sensitive information about healthcare, courts, or child abuse, consider using a Restricted Note.         This feature is currently in development.
-          </p>
-          <br />
-          <br />
-          <p>
-            Examples include:
-          </p>
-          <ul>
-            <li>
-              "Medicine change for Uri on 4/10. So far slight increase in focus."
-            </li>
-            <li>
-              "51a filed on 3/21. Waiting determination and follow-up from DCF."
-            </li>
-          </ul>
-        </div>
-      );
-    },
-
     render: function() {
       return (
         <div className="RestrictedNotesPageContainer">
@@ -123,11 +99,34 @@
                   onClickSaveNotes: this.onClickSaveNotes,
                 },
                 showingRestrictedNotes: true,
-                helpContent: this.getNotesHelpContent(),
+                helpContent: this.renderNotesHelpContent(),
                 helpTitle: 'What is a Restricted Note?',
                 title: 'Restricted Notes'
               })} />
           </div>
+        </div>
+      );
+    },
+
+    renderNotesHelpContent: function(){
+      return (
+        <div>
+          <p>
+            Restricted Notes are only visible to the principal, AP, and guidance counselors.         If a note contains sensitive information about healthcare, courts, or child abuse, consider using a Restricted Note.         This feature is currently in development.
+          </p>
+          <br />
+          <br />
+          <p>
+            Examples include:
+          </p>
+          <ul>
+            <li>
+              "Medicine change for Uri on 4/10. So far slight increase in focus."
+            </li>
+            <li>
+              "51a filed on 3/21. Waiting determination and follow-up from DCF."
+            </li>
+          </ul>
         </div>
       );
     }
