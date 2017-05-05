@@ -1,9 +1,7 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
   const PropTypes = window.shared.PropTypes;
   const HelpBubble = window.shared.HelpBubble;
-
 
   const styles = {
     caption: {
@@ -24,7 +22,7 @@
       borderStyle: 'solid',
       borderColor: 'black',
       paddingLeft: 5,
-      paddingRight: 5 
+      paddingRight: 5
     },
     core: {
       backgroundColor: '#b3ffb3'
@@ -516,7 +514,7 @@
             </tbody>
           </table>
         </div>
-      ); 
+      );
     },
 
     render: function() {

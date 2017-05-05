@@ -59,7 +59,26 @@
       student: React.PropTypes.object.isRequired
     },
 
-    render: function() {
+    // TODO(er) factor out
+    percentileYAxis () {
+      return merge(ProfileChartSettings.percentile_yaxis, {
+        plotLines: [{
+          color: '#666',
+          width: 1,
+          zIndex: 3,
+          value: 50,
+          label: {
+            text: '50th percentile',
+            align: 'center',
+            style: {
+              color: '#999999'
+            }
+          }
+        }]
+      });
+    },
+
+    render () {
       return (
         <div className="MathDetails">
           {this.renderNavBar()}
@@ -70,7 +89,7 @@
       );
     },
 
-    renderNavBar: function() {
+    renderNavBar () {
       return (
         <div style={styles.navBar}>
           <a style={styles.navBar} href="#starMath">
@@ -88,7 +107,7 @@
       );
     },
 
-    renderHeader: function(title) {
+    renderHeader (title) {
       return (
         <div style={styles.secHead}>
           <h4 style={styles.title}>
@@ -103,8 +122,7 @@
       );
     },
 
-
-    renderStarMath: function() {
+    renderStarMath () {
       return (
         <div id="starMath" style={styles.container}>
           {this.renderHeader('STAR Math, last 4 years')}
@@ -123,7 +141,7 @@
       );
     },
 
-    renderMCASMathScore: function() {
+    renderMCASMathScore () {
       return (
         <div id="MCASMath" style={styles.container}>
           {this.renderHeader('MCAS Math Scores, last 4 years')}
@@ -158,25 +176,7 @@
             })} />
         </div>
       );
-    },
-
-    // TODO(er) factor out
-    percentileYAxis: function() {
-      return merge(ProfileChartSettings.percentile_yaxis, {
-        plotLines: [{
-          color: '#666',
-          width: 1,
-          zIndex: 3,
-          value: 50,
-          label: {
-            text: '50th percentile',
-            align: 'center',
-            style: {
-              color: '#999999'
-            }
-          }
-        }]
-      });
     }
+
   });
 })();
