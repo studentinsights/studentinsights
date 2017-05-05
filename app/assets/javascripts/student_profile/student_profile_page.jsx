@@ -2,7 +2,6 @@
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
-  const Routes = window.shared.Routes;
   const PropTypes = window.shared.PropTypes;
   const BarChartSparkline = window.shared.BarChartSparkline;
   const Sparkline = window.shared.Sparkline;
@@ -11,14 +10,12 @@
   const SummaryList = window.shared.SummaryList;
   const QuadConverter = window.shared.QuadConverter;
   const Scales = window.shared.Scales;
-  const FeedHelpers = window.shared.FeedHelpers;
 
   const StudentProfileHeader = window.shared.StudentProfileHeader;
   const ProfileDetails = window.shared.ProfileDetails;
   const ELADetails = window.shared.ELADetails;
   const MathDetails = window.shared.MathDetails;
   const AttendanceDetails = window.shared.AttendanceDetails;
-  const InterventionsDetails = window.shared.InterventionsDetails;
   const ServicesDetails = window.shared.ServicesDetails;
   const NotesDetails = window.shared.NotesDetails;
 
@@ -32,7 +29,6 @@
       marginLeft: 'auto',
       marginRight: 'auto',
       width: '95%',
-
     },
     detailsContainer: {
       margin: 30
@@ -99,11 +95,13 @@
     sparklineHeight: 50
   };
 
-
-  const StudentProfilePage = window.shared.StudentProfilePage = React.createClass({
+  window.shared.StudentProfilePage = React.createClass({
     displayName: 'StudentProfilePage',
 
     propTypes: {
+      // UI
+      selectedColumnKey: React.PropTypes.string.isRequired,
+
       // context
       nowMomentFn: React.PropTypes.func.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
@@ -146,10 +144,6 @@
       actions: PropTypes.actions
     },
 
-    onColumnClicked: function(columnKey) {
-      this.props.actions.onColumnClicked(columnKey);
-    },
-
     dateRange: function() {
       const nowMoment = this.props.nowMomentFn();
       return [nowMoment.clone().subtract(2, 'year').toDate(), nowMoment.toDate()];
@@ -158,8 +152,13 @@
     selectedColumnStyles: function(columnKey) {
       return (columnKey === this.props.selectedColumnKey) ? styles.selectedColumn : {};
     },
+
     selectedTabStyles: function(columnKey) {
       return (columnKey === this.props.selectedColumnKey) ? styles.selectedTab : {};
+    },
+
+    onColumnClicked: function(columnKey) {
+      this.props.actions.onColumnClicked(columnKey);
     },
 
     render: function() {
@@ -180,7 +179,7 @@
       );
     },
 
-    getNotesHelpContent: function(){
+    renderNotesHelpContent: function(){
       return (
         <div>
           <p>
@@ -193,14 +192,14 @@
             </b>
             Anyone who works with or involved with the student,         including classroom/ELL/SPED teachers, principals/assistant principals, counselors, and attendance officers.
           </p>
-          <br />
+          <br/>
           <p>
             <b>
               {'What can/should I put in a note? '}
             </b>
             The true test is to think about whether the information will help your         team down the road in supporting this student, either in the coming weeks, or a few years from now. Examples include:
           </p>
-          <br />
+          <br/>
           <ul>
             <li>
               "Oscar just showed a 20 point increase in ORF. It seems like the take home readings are working (parents are very supportive) and we will continue it."
@@ -274,7 +273,7 @@
                 actions={this.props.actions}
                 requests={this.props.requests}
                 showingRestrictedNotes={false}
-                helpContent={this.getNotesHelpContent()}
+                helpContent={this.renderNotesHelpContent()}
                 helpTitle="What is a Note?"
                 title="Notes" />
               <ServicesDetails
@@ -333,7 +332,7 @@
           <div
             className="interventions-column"
             style={merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey))}>
-            {this.padElements(styles.summaryWrapper, [
+            {this.renderPaddedElements(styles.summaryWrapper, [
               this.renderPlacement(student),
               this.renderServices(student),
               this.renderStaff(student),
@@ -414,14 +413,14 @@
           </span>
           <ul>
             <li>
-              {this.spedLevelText(student)}
+              {this.renderSpedLevelText(student)}
             </li>
           </ul>
         </div>
       );
     },
 
-    spedLevelText: function(student) {
+    renderSpedLevelText: function(student) {
       switch (student.sped_level_of_need) {
       case "Low < 2": return "less than 2 hours / week";
       case "Low >= 2": return "2-5 hours / week";
@@ -446,12 +445,12 @@
           <div
             className="ela-background"
             style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
-            {this.wrapSummary({
+            {this.renderWrappedSummary({
               caption: 'STAR Reading',
               value: student.most_recent_star_reading_percentile,
               sparkline: this.renderSparkline(chartData.star_series_reading_percentile || [])
             })}
-            {this.wrapSummary({
+            {this.renderWrappedSummary({
               caption: 'MCAS ELA Score',
               value: student.most_recent_mcas_ela_scaled,
               sparkline: this.renderSparkline(chartData.mcas_series_ela_scaled || [], {
@@ -482,7 +481,7 @@
           </div>
         );
       } else {
-        return this.wrapSummary({
+        return this.renderWrappedSummary({
           caption: 'MCAS ELA SGP',
           value: student.most_recent_mcas_ela_growth,
           sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
@@ -505,12 +504,12 @@
           <div
             className="math-background"
             style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
-            {this.wrapSummary({
+            {this.renderWrappedSummary({
               caption: 'STAR Math',
               value: student.most_recent_star_math_percentile,
               sparkline: this.renderSparkline(chartData.star_series_math_percentile || [])
             })}
-            {this.wrapSummary({
+            {this.renderWrappedSummary({
               caption: 'MCAS Math Score',
               value: student.most_recent_mcas_math_scaled,
               sparkline: this.renderSparkline(chartData.mcas_series_math_scaled || [], {
@@ -518,7 +517,7 @@
                 thresholdValue: Scales.mcas.threshold
               })
             })}
-            {this.wrapSummary({
+            {this.renderWrappedSummary({
               caption: 'MCAS Math SGP',
               value: student.most_recent_mcas_math_growth,
               sparkline: this.renderSparkline(chartData.mcas_series_math_growth || [])
@@ -577,7 +576,7 @@
       const valueRange = flexibleRangeFn(cumulativeQuads);
       const value = count;
 
-      return this.wrapSummary(merge({
+      return this.renderWrappedSummary(merge({
         title: props.title,
         value: value,
         sparkline: <BarChartSparkline
@@ -607,7 +606,7 @@
     },
 
     // render with style wrapper
-    wrapSummary: function(props) {
+    renderWrappedSummary: function(props) {
       return (
         <div style={styles.summaryWrapper}>
           <AcademicSummary {...props} />
@@ -615,7 +614,7 @@
       );
     },
 
-    padElements: function(style, elements) {
+    renderPaddedElements: function(style, elements) {
       return (
         <div>
           {elements.map(function(element, index) {
@@ -636,5 +635,6 @@
         </div>
       );
     }
+
   });
 })();

@@ -12,7 +12,7 @@
   /*
   Holds page state, makes API calls to manipulate it.
   */
-  const PageContainer = window.shared.PageContainer = React.createClass({
+  window.shared.PageContainer = React.createClass({
     displayName: 'PageContainer',
 
     propTypes: {
@@ -20,14 +20,10 @@
       serializedData: React.PropTypes.object.isRequired,
       queryParams: React.PropTypes.object.isRequired,
       history: PropTypes.history.isRequired,
-      
+
       // for testing
       actions: PropTypes.actions,
       api: PropTypes.api
-    },
-
-    componentWillMount: function(props, state) {
-      this.api = this.props.api || new Api();
     },
 
     getInitialState: function() {
@@ -71,11 +67,34 @@
       };
     },
 
+    componentWillMount: function(props, state) {
+      this.api = this.props.api || new Api();
+    },
+
     componentDidUpdate: function(props, state) {
       const path = Routes.studentProfile(this.state.student.id, {
         column: this.state.selectedColumnKey
       });
       this.props.history.replaceState({}, null, path);
+    },
+
+    // Returns an updated state, adding serviceId and requestState, or removing
+    // the `serviceId` from the map if `requestState` is null.
+    mergedDiscontinueService: function(state, serviceId, requestState) {
+      const updatedDiscontinueService = (requestState === null)
+        ? _.omit(state.requests.discontinueService, serviceId)
+        : merge(state.requests.discontinueService, fromPair(serviceId, requestState));
+
+      return merge(state, {
+        requests: merge(state.requests, {
+          discontinueService: updatedDiscontinueService
+        })
+      });
+    },
+
+    dateRange: function() {
+      const nowMoment = this.props.nowMomentFn();
+      return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
     },
 
     onColumnClicked: function(columnKey) {
@@ -121,7 +140,6 @@
     onSaveNotesFail: function(request, status, message) {
       this.setState({ requests: merge(this.state.requests, { saveNote: 'error' }) });
     },
-
 
     onDeleteEventNoteAttachment: function(eventNoteAttachmentId) {
       // optimistically update the UI
@@ -200,25 +218,6 @@
       this.setState(this.mergedDiscontinueService(this.state, serviceId, 'error'));
     },
 
-    // Returns an updated state, adding serviceId and requestState, or removing
-    // the `serviceId` from the map if `requestState` is null.
-    mergedDiscontinueService: function(state, serviceId, requestState) {
-      const updatedDiscontinueService = (requestState === null)
-        ? _.omit(state.requests.discontinueService, serviceId)
-        : merge(state.requests.discontinueService, fromPair(serviceId, requestState));
-
-      return merge(state, {
-        requests: merge(state.requests, {
-          discontinueService: updatedDiscontinueService
-        })
-      });
-    },
-
-    dateRange: function() {
-      const nowMoment = this.props.nowMomentFn();
-      return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
-    },
-
     render: function() {
       return (
         <div className="PageContainer">
@@ -249,5 +248,6 @@
         </div>
       );
     }
+
   });
 })();

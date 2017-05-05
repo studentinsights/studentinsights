@@ -1,7 +1,7 @@
 (function() {
   window.shared || (window.shared = {});
 
-  const PropTypes = window.shared.PropTypes = {
+  window.shared.PropTypes = {
     // UI actions, stepping stone to Flux
     actions: React.PropTypes.shape({
       onColumnClicked: React.PropTypes.func.isRequired,
@@ -10,7 +10,8 @@
       onClickDiscontinueService: React.PropTypes.func.isRequired
     }),
     requests: React.PropTypes.shape({
-      saveNote: React.PropTypes.string // or null
+      saveNote: React.PropTypes.string,
+      discontinueService: React.PropTypes.object
     }),
     api: React.PropTypes.shape({
       saveNotes: React.PropTypes.func.isRequired

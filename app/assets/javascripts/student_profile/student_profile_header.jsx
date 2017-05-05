@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
   const Routes = window.shared.Routes;
   const RiskBubble = window.shared.RiskBubble;
 
@@ -29,7 +28,7 @@
   This pure UI component renders top-line information like the student's name, school and
   classroom.
   */
-  const StudentProfileHeader = window.shared.StudentProfileHeader = React.createClass({
+  window.shared.StudentProfileHeader = React.createClass({
     displayName: 'StudentProfileHeader',
 
     propTypes: {
@@ -45,17 +44,17 @@
               {student.first_name + ' ' + student.last_name}
             </a>
             <div style={{ display: 'inline-block' }}>
-              {this.bulletSpacer()}
+              {this.renderBulletSpacer()}
               <a href={Routes.school(student.school_id)} style={styles.subtitleItem}>
                 {student.school_name}
               </a>
-              {this.bulletSpacer()}
-              {this.homeroomOrEnrollmentStatus()}
-              {this.bulletSpacer()}
+              {this.renderBulletSpacer()}
+              {this.renderHomeroomOrEnrollmentStatus()}
+              {this.renderBulletSpacer()}
               <span style={styles.subtitleItem}>
                 {'Grade ' + student.grade}
               </span>
-              {this.dateOfBirth()}
+              {this.renderDateOfBirth()}
             </div>
           </div>
           <div
@@ -70,7 +69,7 @@
       );
     },
 
-    bulletSpacer: function() {
+    renderBulletSpacer: function() {
       return (
         <span style={styles.subtitleItem}>
           •
@@ -78,7 +77,7 @@
       );
     },
 
-    homeroomOrEnrollmentStatus: function() {
+    renderHomeroomOrEnrollmentStatus: function() {
       const student =  this.props.student;
       if (student.enrollment_status === 'Active') {
         return (
@@ -98,7 +97,7 @@
       }
     },
 
-    dateOfBirth: function () {
+    renderDateOfBirth: function () {
       const student =  this.props.student;
       const dateOfBirth = student.date_of_birth;
       if (!dateOfBirth) return null;
@@ -108,7 +107,7 @@
 
       return (
         <span>
-          {this.bulletSpacer()}
+          {this.renderBulletSpacer()}
           <span style={styles.subtitleItem}>
             {momentDOB.format('M/D/YYYY')}
             {ageInWords}

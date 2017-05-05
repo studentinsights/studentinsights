@@ -12,7 +12,7 @@
       paddingTop: 3,
       textAlign: 'center',
       marginTop: 10,
-      marginLeft: 5, 
+      marginLeft: 5,
       marginRight: 5,
       display: 'inline-block'
     },
@@ -24,11 +24,19 @@
     }
   };
 
-  const RiskBubble = window.shared.RiskBubble = React.createClass({
+  window.shared.RiskBubble = React.createClass({
     displayName: 'RiskBubble',
 
     propTypes: {
       riskLevel: React.PropTypes.number.isRequired
+    },
+
+    bubbleColor: function() {
+      if (this.props.riskLevel === null) return '#555555';
+      if (this.props.riskLevel === 0) return '#bbd86b';
+      if (this.props.riskLevel === 1) return '#62c186';
+      if (this.props.riskLevel === 2) return '#ffcb08';
+      if (this.props.riskLevel === 3) return '#f15a3d';
     },
 
     render: function() {
@@ -42,16 +50,8 @@
           </span>
         </span>
       );
-
-    },
-
-    bubbleColor: function() {
-      if (this.props.riskLevel === null) return '#555555';
-      if (this.props.riskLevel === 0) return '#bbd86b';
-      if (this.props.riskLevel === 1) return '#62c186';
-      if (this.props.riskLevel === 2) return '#ffcb08';
-      if (this.props.riskLevel === 3) return '#f15a3d';
     }
+
   });
 
 })();

@@ -14,7 +14,7 @@
   /*
   React wrapper for jQuery datepicker.
   */
-  const Datepicker = window.shared.Datepicker = React.createClass({
+  window.shared.Datepicker = React.createClass({
     displayName: 'Datepicker',
 
     propTypes: {

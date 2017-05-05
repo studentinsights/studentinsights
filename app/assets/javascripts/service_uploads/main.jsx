@@ -1,7 +1,8 @@
+const ReactDOM = window.ReactDOM;
+
 $(function() {
   // only run if the correct page
-  if (!($('body').hasClass('service_uploads') &&
-        $('body').hasClass('index'))) return;
+  if (!($('body').hasClass('service_uploads') && $('body').hasClass('index'))) return;
 
   const ServiceUploadsPage = window.shared.ServiceUploadsPage;
   const MixpanelUtils = window.shared.MixpanelUtils;

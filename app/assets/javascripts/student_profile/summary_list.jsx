@@ -1,9 +1,14 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
-  const SummaryList = window.shared.SummaryList = React.createClass({
+  window.shared.SummaryList = React.createClass({
     displayName: 'SummaryList',
+
+    propTypes: {
+      title: React.PropTypes.string.isRequired,
+      elements: React.PropTypes.arrayOf(React.PropTypes.node).isRequired
+    },
+
     render: function() {
       return (
         <div className="SummaryList" style={{ paddingBottom: 10 }}>

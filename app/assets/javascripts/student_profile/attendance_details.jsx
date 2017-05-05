@@ -1,10 +1,7 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
-  const ProfileChart = window.shared.ProfileChart;
   const ProfileBarChart = window.shared.ProfileBarChart;
-  const HighchartsWrapper = window.shared.HighchartsWrapper;
   const PropTypes = window.shared.PropTypes;
 
   const styles = {
@@ -69,7 +66,7 @@
     }
   };
 
-  const AttendanceDetails = window.shared.AttendanceDetails = React.createClass({
+  window.shared.AttendanceDetails = React.createClass({
     displayName: 'AttendanceDetails',
     propTypes: {
       absences: React.PropTypes.array.isRequired,

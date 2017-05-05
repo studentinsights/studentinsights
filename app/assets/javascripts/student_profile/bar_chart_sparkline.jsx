@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
   const QuadConverter = window.shared.QuadConverter;
 
@@ -42,7 +41,6 @@
     },
 
     renderBars: function(quads, color, x, y){
-      const self = this;
       return quads.map(function(quad){
         return (
           <rect

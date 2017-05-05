@@ -1,8 +1,7 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
-  const HelpBubble = window.shared.HelpBubble = React.createClass({
+  window.shared.HelpBubble = React.createClass({
     propTypes: {
       title: React.PropTypes.string.isRequired, // e.g. 'What is a Note?'
       content: React.PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.

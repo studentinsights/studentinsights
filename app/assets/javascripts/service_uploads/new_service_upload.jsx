@@ -1,10 +1,9 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
   const Datepicker = window.shared.Datepicker;
   const ServiceTypeDropdown = window.shared.ServiceTypeDropdown;
 
-  const NewServiceUpload = window.shared.NewServiceUpload = React.createClass({
+  window.shared.NewServiceUpload = React.createClass({
 
     propTypes: {
       // Actions
@@ -27,6 +26,76 @@
       serverSideErrors: React.PropTypes.array.isRequired,
       uploadingInProgress: React.PropTypes.bool.isRequired,
       serviceTypeNames: React.PropTypes.array.isRequired,
+    },
+
+    selectCsvButtonText: function () {
+      if (this.props.formData.file_name) {
+        return 'File Selected';
+      } else {
+        return 'Select CSV to Upload';
+      }
+    },
+
+    uploadButtonColor: function () {
+      if (this.disableUploadButton()) {
+        return '#ccc';
+      } else if (this.props.serverSideErrors.length > 0) {
+        return 'red';
+      } else if (this.props.incorrectLasids.length > 0) {
+        return 'orange';
+      } else {
+        return undefined;
+      }
+    },
+
+    uploadButtonText: function () {
+      if (this.props.uploadingInProgress) {
+        return 'Uploading...';
+      } else if (this.props.serverSideErrors.length > 0) {
+        return 'Error Uploading';
+      } else if (this.props.incorrectLasids.length > 0) {
+        return 'Confirm Upload Despite LASID Mismatches?';
+      } else {
+        return 'Confirm Upload';
+      }
+    },
+
+    disableUploadButton: function () {
+      return (this.props.missingRequiredFields || this.hasClientSideErrors());
+    },
+
+    hasClientSideErrors: function () {
+      return (this.clientSideErrors().length > 0);
+    },
+
+    hasServerSideErrors: function () {
+      return (this.props.serverSideErrors.length > 0);
+    },
+
+    clientSideErrors: function () {
+      const errors = [];
+      const formData = this.props.formData;
+
+      const parsed_date_started = moment(formData.date_started, 'MM/DD/YYYY', true);
+      const parsed_date_ended = moment(formData.date_ended, 'MM/DD/YYYY', true);
+
+      if (!parsed_date_started.isValid()) {
+        errors.push('Start date invalid, please use MM/DD/YYYY format.');
+      }
+
+      if (!parsed_date_ended.isValid()) {
+        errors.push('End date invalid, please use MM/DD/YYYY format.');
+      }
+
+      if (parsed_date_ended.isBefore(parsed_date_started)) {
+        errors.push('Start date can\'t be after end date.');
+      }
+
+      if (this.props.serviceTypeNames.indexOf(this.props.formData.service_type_name) === -1) {
+        errors.push('Please select a valid service type.');
+      }
+
+      return errors;
     },
 
     render: function () {
@@ -111,14 +180,6 @@
       );
     },
 
-    selectCsvButtonText: function () {
-      if (this.props.formData.file_name) {
-        return 'File Selected';
-      } else {
-        return 'Select CSV to Upload';
-      }
-    },
-
     renderFileName: function () {
       if (!this.props.formData.file_name) return null;
 
@@ -153,68 +214,6 @@
           {this.renderServerSideErrors()}
         </div>
       );
-    },
-
-    uploadButtonColor: function () {
-      if (this.disableUploadButton()) {
-        return '#ccc';
-      } else if (this.props.serverSideErrors.length > 0) {
-        return 'red';
-      } else if (this.props.incorrectLasids.length > 0) {
-        return 'orange';
-      } else {
-        return undefined;
-      }
-    },
-
-    uploadButtonText: function () {
-      if (this.props.uploadingInProgress) {
-        return 'Uploading...';
-      } else if (this.props.serverSideErrors.length > 0) {
-        return 'Error Uploading';
-      } else if (this.props.incorrectLasids.length > 0) {
-        return 'Confirm Upload Despite LASID Mismatches?';
-      } else {
-        return 'Confirm Upload';
-      }
-    },
-
-    disableUploadButton: function () {
-      return (this.props.missingRequiredFields || this.hasClientSideErrors());
-    },
-
-    hasClientSideErrors: function () {
-      return (this.clientSideErrors().length > 0);
-    },
-
-    hasServerSideErrors: function () {
-      return (this.props.serverSideErrors.length > 0);
-    },
-
-    clientSideErrors: function () {
-      const errors = [];
-      const formData = this.props.formData;
-
-      const parsed_date_started = moment(formData.date_started, 'MM/DD/YYYY', true);
-      const parsed_date_ended = moment(formData.date_ended, 'MM/DD/YYYY', true);
-
-      if (!parsed_date_started.isValid()) {
-        errors.push('Start date invalid, please use MM/DD/YYYY format.');
-      }
-
-      if (!parsed_date_ended.isValid()) {
-        errors.push('End date invalid, please use MM/DD/YYYY format.');
-      }
-
-      if (parsed_date_ended.isBefore(parsed_date_started)) {
-        errors.push('Start date can\'t be after end date.');
-      }
-
-      if (this.props.serviceTypeNames.indexOf(this.props.formData.service_type_name) === -1) {
-        errors.push('Please select a valid service type.');
-      }
-
-      return errors;
     },
 
     renderClientSideErrors: function () {

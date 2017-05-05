@@ -1,9 +1,6 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
-  const PropTypes = window.shared.PropTypes;
   const HelpBubble = window.shared.HelpBubble;
-
 
   const styles = {
     caption: {
@@ -24,7 +21,7 @@
       borderStyle: 'solid',
       borderColor: 'black',
       paddingLeft: 5,
-      paddingRight: 5 
+      paddingRight: 5
     },
     core: {
       backgroundColor: '#b3ffb3'
@@ -65,7 +62,7 @@
     }
   });
 
-  const SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline = React.createClass({
+  window.shared.SummaryWithoutSparkline = React.createClass({
     displayName: 'SummaryWithoutSparkline',
 
     propTypes: {
@@ -516,7 +513,7 @@
             </tbody>
           </table>
         </div>
-      ); 
+      );
     },
 
     render: function() {

@@ -1,11 +1,7 @@
-window.shared || (window.shared = {});
-const merge = window.shared.ReactHelpers.merge;
-
-const PropTypes = window.shared.PropTypes;
-
 /*
 Canonical display of an educator, showing their name as a link to email them.
 */
+
 export default React.createClass({
   displayName: 'Educator',
 

@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
   const HighchartsWrapper = window.shared.HighchartsWrapper;
   const GraphHelpers = window.shared.GraphHelpers;
 
@@ -64,6 +63,41 @@
       };
     },
 
+    // This returns a function, since HighCharts passes in the current element
+    // as `this` instead of a parameter.
+    createUnsafeTooltipFormatter: function(monthBuckets, props){
+      return function() {
+        const graphPointIndex = this.series.data.indexOf(this.point);
+        const events = monthBuckets[graphPointIndex];
+        if (events.length == 0) return false;
+
+        let htmlstring = "";
+        _.each(events, function(e){
+          htmlstring += _.template(props.tooltipTemplateString)({e: e});
+          htmlstring += "<br>";
+        });
+        return htmlstring;
+      };
+    },
+
+    makePlotlines: function (monthKeys) {
+      return this.props.phaselines.map(function(phaseline) {
+        const phaselineMonthKey = phaseline.momentUTC.clone().date(1).format('YYYYMMDD');
+        const monthIndex = monthKeys.indexOf(phaselineMonthKey);
+
+        return {
+          color: '#ccc',
+          value: monthIndex,
+          width: 2,
+          zIndex: 10,
+          label: {
+            text: phaseline.text,
+            align: 'left',
+          }
+        };
+      });
+    },
+
     // Compute the month range that's relevant for the current date and months back we're showing
     // on the chart.  Then map each month onto captions, and bucket the list of events into
     // each month.
@@ -112,23 +146,6 @@
       );
     },
 
-    makePlotlines: function (monthKeys) {
-      return this.props.phaselines.map(function(phaseline) {
-        const phaselineMonthKey = phaseline.momentUTC.clone().date(1).format('YYYYMMDD');
-        const monthIndex = monthKeys.indexOf(phaselineMonthKey);
-
-        return {
-          color: '#ccc',
-          value: monthIndex,
-          width: 2,
-          zIndex: 10,
-          label: {
-            text: phaseline.text,
-            align: 'left',
-          }
-        };
-      });
-    },
 
     renderHeader: function() {
       const nYearsBack = Math.ceil(this.props.monthsBack / 12);
@@ -146,23 +163,7 @@
           </span>
         </div>
       );
-    },
-
-    // This returns a function, since HighCharts passes in the current element
-    // as `this` instead of a parameter.
-    createUnsafeTooltipFormatter: function(monthBuckets, props){
-      return function() {
-        const graphPointIndex = this.series.data.indexOf(this.point);
-        const events = monthBuckets[graphPointIndex];
-        if (events.length == 0) return false;
-
-        let htmlstring = "";
-        _.each(events, function(e){
-          htmlstring += _.template(props.tooltipTemplateString)({e: e});
-          htmlstring += "<br>";
-        });
-        return htmlstring;
-      };
     }
+
   });
 })();

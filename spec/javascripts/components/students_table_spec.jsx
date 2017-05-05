@@ -16,12 +16,12 @@ describe('StudentsTable', function() {
       const props = {
         students: [
           { event_notes:
-            [
-              { "recorded_at": "2010-11-30T00:00:00.000Z",
-                "event_note_type_id": 301 },
-              { "recorded_at": "2010-11-28T00:00:00.000Z",
-                "event_note_type_id": 300 }
-            ],
+          [
+            { "recorded_at": "2010-11-30T00:00:00.000Z",
+              "event_note_type_id": 301 },
+            { "recorded_at": "2010-11-28T00:00:00.000Z",
+              "event_note_type_id": 300 }
+          ],
             active_services: [],
             id: '1'
           }
