@@ -16,6 +16,23 @@
       };
     },
 
+    toggleDeletionConfirmation: function () {
+      this.setState({ showDeletionConfirmation: !this.state.showDeletionConfirmation });
+    },
+
+    toggleShowStudents: function () {
+      this.setState({ showStudentLinks: !(this.state.showStudentLinks) });
+    },
+
+    dataCellStyle: function () {
+      return {
+        width: '100%',
+        borderBottom: '1px solid #999',
+        borderLeft: '1px solid #999',
+        padding: 30,
+      };
+    },
+
     render: function () {
       const data = this.props.data;
 
@@ -47,7 +64,7 @@
 
       return (
         <span>
-          {this.infoSeparator()}
+          {this.renderInfoSeparator()}
           <a style={window.shared.styles.link} onClick={this.toggleShowStudents}>
             {this.state.showStudentLinks ? 'Hide students' : 'Show students'}
           </a>
@@ -94,7 +111,7 @@
       } else {
         return (
           <span>
-            {this.infoSeparator()}
+            {this.renderInfoSeparator()}
             <a
               style={merge(window.shared.styles.link, {
                 color: 'red', fontSize: 15
@@ -105,10 +122,6 @@
           </span>
         );
       }
-    },
-
-    toggleDeletionConfirmation: function () {
-      this.setState({ showDeletionConfirmation: !this.state.showDeletionConfirmation });
     },
 
     renderStudentLinks: function () {
@@ -140,20 +153,7 @@
       );
     },
 
-    toggleShowStudents: function () {
-      this.setState({ showStudentLinks: !(this.state.showStudentLinks) });
-    },
-
-    dataCellStyle: function () {
-      return {
-        width: '100%',
-        borderBottom: '1px solid #999',
-        borderLeft: '1px solid #999',
-        padding: 30,
-      };
-    },
-
-    infoSeparator: function () {
+    renderInfoSeparator: function () {
       return (
         <span>
           {' | '}
