@@ -11,17 +11,20 @@
     getInitialState: function(){
       return {modalIsOpen: false};
     },
+
+    componentWillMount: function(){
+      // This needs to be called for some reason, and we need to do it by the time the DOM exists.
+      ReactModal.setAppElement(document.body);
+    },
+
     closeModal: function(e){
       this.setState({modalIsOpen: false});
       e.preventDefault();
     },
+
     openModal: function(e){
       this.setState({modalIsOpen: true});
       e.preventDefault();
-    },
-    componentWillMount: function(){
-      // This needs to be called for some reason, and we need to do it by the time the DOM exists.
-      ReactModal.setAppElement(document.body);
     },
 
     render: function(){
