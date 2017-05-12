@@ -35,7 +35,7 @@
 
     componentDidMount: function(props, state) {
       const datepickerOptions = merge(datepickerOptionsFn(), this.props.datepickerOptions);
-      const el = ReactDOM.findDOMNode(this);
+      const el = this.el;
       $(el).find('.datepicker').datepicker(merge(datepickerOptions, {
         onSelect: this.onDateSelected
       }));
@@ -53,7 +53,10 @@
 
     render: function() {
       return (
-        <div className="Datepicker" style={this.props.styles.datepicker}>
+        <div
+          ref={el => this.el = el}
+          className="Datepicker"
+          style={this.props.styles.datepicker}>
           <input
             className="datepicker"
             style={this.props.styles.input}
