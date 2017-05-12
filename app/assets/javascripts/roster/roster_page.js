@@ -103,9 +103,6 @@ $(function() {
       location.href = $(this).attr('href');
     });
 
-    // Make Risk Level summary chart
-    var chartData = $('#chart-data');
-
     // Replace blank cells with em dashes
     $('#roster-table tbody td').each(function() {
       var content = $.trim($(this).html());
