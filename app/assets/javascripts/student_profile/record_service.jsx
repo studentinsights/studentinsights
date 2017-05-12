@@ -1,11 +1,11 @@
 import ProvidedByEducatorDropdown from './provided_by_educator_dropdown.jsx';
 
 (function() {
-  // window.shared || (window.shared = {});
-  // const merge = window.shared.ReactHelpers.merge;
+  window.shared || (window.shared = {});
+  const merge = window.shared.ReactHelpers.merge;
 
-  // const Datepicker = window.shared.Datepicker;
-  // const serviceColor = window.shared.serviceColor;
+  const Datepicker = window.shared.Datepicker;
+  const serviceColor = window.shared.serviceColor;
 
   
 
