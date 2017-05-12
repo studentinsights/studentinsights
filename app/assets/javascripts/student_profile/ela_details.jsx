@@ -59,7 +59,26 @@
       student: React.PropTypes.object.isRequired
     },
 
-    render: function() {
+    // TODO(er) factor out
+    percentileYAxis () {
+      return merge(ProfileChartSettings.percentile_yaxis, {
+        plotLines: [{
+          color: '#666',
+          width: 1,
+          zIndex: 3,
+          value: 50,
+          label: {
+            text: '50th percentile',
+            align: 'center',
+            style: {
+              color: '#999999'
+            }
+          }
+        }]
+      });
+    },
+
+    render () {
       return (
         <div className="ELADetails">
           {this.renderNavBar()}
@@ -70,7 +89,7 @@
       );
     },
 
-    renderNavBar: function() {
+    renderNavBar () {
       return (
         <div style={styles.navBar}>
           <a style={styles.navBar} href="#Star">
@@ -88,7 +107,7 @@
       );
     },
 
-    renderHeader: function(title) {
+    renderHeader (title) {
       return (
         <div style={styles.secHead}>
           <h4 style={styles.title}>
@@ -103,7 +122,7 @@
       );
     },
 
-    renderStarReading: function() {
+    renderStarReading () {
       return (
         <div id="Star" style={styles.container}>
           {this.renderHeader('STAR Reading, last 4 years')}
@@ -122,7 +141,7 @@
       );
     },
 
-    renderMCASELAScores: function() {
+    renderMCASELAScores () {
       return (
         <div id="Scores" style={styles.container}>
           {this.renderHeader('MCAS ELA Scores, last 4 years')}
@@ -141,7 +160,7 @@
       );
     },
 
-    renderMCASELAGrowth: function() {
+    renderMCASELAGrowth () {
       return (
         <div id="SGPs" style={styles.container}>
           {this.renderHeader('Student growth percentile (SGP), last 4 years')}
@@ -159,23 +178,5 @@
       );
     },
 
-    // TODO(er) factor out
-    percentileYAxis: function() {
-      return merge(ProfileChartSettings.percentile_yaxis, {
-        plotLines: [{
-          color: '#666',
-          width: 1,
-          zIndex: 3,
-          value: 50,
-          label: {
-            text: '50th percentile',
-            align: 'center',
-            style: {
-              color: '#999999'
-            }
-          }
-        }]
-      });
-    }
   });
 })();
