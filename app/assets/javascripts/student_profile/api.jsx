@@ -1,6 +1,5 @@
 (function() {
   window.shared || (window.shared = {});
-  const foo = 4;
 
   const Api = window.shared.Api = function() {};
   Api.prototype = {
@@ -16,7 +15,7 @@
     deleteEventNoteAttachment: function (id) {
       const url = '/event_note_attachments/' + id;
       return this._delete(url);
-    },,,,,,,,,
+    },
 
     _createNote: function(studentId, eventNoteParams) {
       return this._post('/students/' + studentId + '/event_notes.json', {
