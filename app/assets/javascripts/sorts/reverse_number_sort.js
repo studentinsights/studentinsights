@@ -1,4 +1,5 @@
 (function(){
+  var Tablesort = window.Tablesort;
 
   var cleanNumber = function(i) {
       var n = parseFloat(i.replace(/[^\-?0-9.]/g, ''));

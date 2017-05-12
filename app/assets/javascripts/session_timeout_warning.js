@@ -1,21 +1,15 @@
-(function(root) {
+$(function() {
   var Env = window.shared.Env;
 
   var SessionTimeoutWarning = function () {};
 
   SessionTimeoutWarning.prototype.count = function () {
-    root.setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
+    window.setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
   };
 
   SessionTimeoutWarning.prototype.show = function () {
     $('#renew-session').slideDown();
   };
-
-  root.SessionTimeoutWarning = SessionTimeoutWarning;
-
-})(window);
-
-$(function() {
 
   if ($('body').hasClass('educator-signed-in')) {
     var warning = new SessionTimeoutWarning;
