@@ -44,52 +44,6 @@
       };
     },
 
-    render: function() {
-      return (
-        <div>
-          {this.renderHighchartsWrapper()}
-        </div>
-      );
-    },
-
-    renderHighchartsWrapper: function() {
-      if (this.props.showGradeLevelEquivalent === true) {
-        return this.renderStarHighchartsWrapper();
-      } else {
-        return this.renderNonStarHighchartsWrapper();
-      }
-    },
-
-    renderNonStarHighchartsWrapper: function() {
-      return (
-        <HighchartsWrapper
-          {...merge(this.baseOptions(), {
-            series: this.props.quadSeries.map(function(obj){
-              return {
-                name: obj.name,
-                data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
-              };
-            }),
-            yAxis: this.props.yAxis
-          })} />
-      );
-    },
-
-    renderStarHighchartsWrapper: function() {
-      return (
-        <HighchartsWrapper
-          {...merge(this.baseOptions(), {
-            series: this.props.quadSeries.map(function(obj){
-              return {
-                name: obj.name,
-                data: obj.data  ? _.map(obj.data, QuadConverter.toStarObject): []
-              };
-            }),
-            yAxis: this.props.yAxis
-          })} />
-      );
-    },
-
     getSchoolYearStartPositions: function(n, now, current_grade){
       // Takes in an integer (number of months back), the current date
       // as a Moment object (UTC), and the student's current grade.
@@ -180,7 +134,53 @@
           }
         ]
       });
-    }
+    },
+
+    render: function() {
+      return (
+        <div>
+          {this.renderHighchartsWrapper()}
+        </div>
+      );
+    },
+
+    renderHighchartsWrapper: function() {
+      if (this.props.showGradeLevelEquivalent === true) {
+        return this.renderStarHighchartsWrapper();
+      } else {
+        return this.renderNonStarHighchartsWrapper();
+      }
+    },
+
+    renderNonStarHighchartsWrapper: function() {
+      return (
+        <HighchartsWrapper
+          {...merge(this.baseOptions(), {
+            series: this.props.quadSeries.map(function(obj){
+              return {
+                name: obj.name,
+                data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
+              };
+            }),
+            yAxis: this.props.yAxis
+          })} />
+      );
+    },
+
+    renderStarHighchartsWrapper: function() {
+      return (
+        <HighchartsWrapper
+          {...merge(this.baseOptions(), {
+            series: this.props.quadSeries.map(function(obj){
+              return {
+                name: obj.name,
+                data: obj.data  ? _.map(obj.data, QuadConverter.toStarObject): []
+              };
+            }),
+            yAxis: this.props.yAxis
+          })} />
+      );
+    },
 
   });
 })();
