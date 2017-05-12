@@ -40,6 +40,7 @@ install:
  - bundle _1.10.6_ install --retry=3
 
 script:
+  - npm run lint-cli
   - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test
   - bundle exec rspec spec
   - bundle exec teaspoon

@@ -11,6 +11,7 @@
     displayName: 'ProfileChart',
 
     propTypes: {
+      showGradeLevelEquivalent: React.PropTypes.bool,
       quadSeries: React.PropTypes.arrayOf( // you can plot multiple series on the same graph
         React.PropTypes.shape({
           name: React.PropTypes.string.isRequired, // e.g. 'Scaled score'
@@ -19,7 +20,11 @@
       ),
       titleText: React.PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
       yAxis: React.PropTypes.object.isRequired, // options for rendering the y-axis
-      student: React.PropTypes.object.isRequired
+      student: React.PropTypes.object.isRequired,
+      timestampRange: React.PropTypes.shape({
+        min: React.PropTypes.number,
+        max: React.PropTypes.number
+      })
     },
 
     getDefaultProps: function() {
@@ -37,52 +42,6 @@
           max: now.getTime(),
         }
       };
-    },
-
-    render: function() {
-      return (
-        <div>
-          {this.renderHighchartsWrapper()}
-        </div>
-      );
-    },
-
-    renderHighchartsWrapper: function() {
-      if (this.props.showGradeLevelEquivalent === true) {
-        return this.renderStarHighchartsWrapper();
-      } else {
-        return this.renderNonStarHighchartsWrapper();
-      }
-    },
-
-    renderNonStarHighchartsWrapper: function() {
-      return (
-        <HighchartsWrapper
-          {...merge(this.baseOptions(), {
-            series: this.props.quadSeries.map(function(obj){
-              return {
-                name: obj.name,
-                data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
-              };
-            }),
-            yAxis: this.props.yAxis
-          })} />
-      );
-    },
-
-    renderStarHighchartsWrapper: function() {
-      return (
-        <HighchartsWrapper
-          {...merge(this.baseOptions(), {
-            series: this.props.quadSeries.map(function(obj){
-              return {
-                name: obj.name,
-                data: obj.data  ? _.map(obj.data, QuadConverter.toStarObject): []
-              };
-            }),
-            yAxis: this.props.yAxis
-          })} />
-      );
     },
 
     getSchoolYearStartPositions: function(n, now, current_grade){
@@ -175,7 +134,53 @@
           }
         ]
       });
-    }
+    },
+
+    render: function() {
+      return (
+        <div>
+          {this.renderHighchartsWrapper()}
+        </div>
+      );
+    },
+
+    renderHighchartsWrapper: function() {
+      if (this.props.showGradeLevelEquivalent === true) {
+        return this.renderStarHighchartsWrapper();
+      } else {
+        return this.renderNonStarHighchartsWrapper();
+      }
+    },
+
+    renderNonStarHighchartsWrapper: function() {
+      return (
+        <HighchartsWrapper
+          {...merge(this.baseOptions(), {
+            series: this.props.quadSeries.map(function(obj){
+              return {
+                name: obj.name,
+                data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
+              };
+            }),
+            yAxis: this.props.yAxis
+          })} />
+      );
+    },
+
+    renderStarHighchartsWrapper: function() {
+      return (
+        <HighchartsWrapper
+          {...merge(this.baseOptions(), {
+            series: this.props.quadSeries.map(function(obj){
+              return {
+                name: obj.name,
+                data: obj.data  ? _.map(obj.data, QuadConverter.toStarObject): []
+              };
+            }),
+            yAxis: this.props.yAxis
+          })} />
+      );
+    },
 
   });
 })();

@@ -6,13 +6,6 @@
   window.shared.HighchartsWrapper = React.createClass({
     displayName: 'HighchartsWrapper',
 
-    // direct passthrough to highcharts
-    propsTypes: {},
-
-    onRefForChart: function(el) {
-      this._chartEl = el;
-    },
-
     componentDidMount: function(props, state) {
       $(this._chartEl).highcharts(this.props);
     },
@@ -21,12 +14,17 @@
       delete this._chartEl;
     },
 
+    onRefForChart: function(el) {
+      this._chartEl = el;
+    },
+
     render: function() {
       return (
         <div className="HighchartsWrapper">
           <div ref={this.onRefForChart} />
         </div>
       );
-    }
+    },
+
   });
 })();

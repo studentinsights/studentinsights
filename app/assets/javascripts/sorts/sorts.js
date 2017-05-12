@@ -1,4 +1,6 @@
 (function(){
+  var Tablesort = window.Tablesort;
+
   function enumSort(values) {
         // For quick lookup, build a map:
     var position = {};

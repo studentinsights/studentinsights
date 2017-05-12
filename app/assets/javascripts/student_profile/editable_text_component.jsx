@@ -1,6 +1,7 @@
 (function() {
   window.shared || (window.shared = {});
-
+  const Sanitize = window.Sanitize;
+  
   const sanitize = new Sanitize({
     elements: ['br', 'div', 'p']
   });

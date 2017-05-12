@@ -6,7 +6,7 @@
   /*
   Project quads outside of the date range, since interpolation will connect with previous data points.
   */
-  const BarChartSparkline = window.shared.BarChartSparkline = React.createClass({
+  window.shared.BarChartSparkline = React.createClass({
     displayName: 'BarChartSparkline',
 
     propTypes: {

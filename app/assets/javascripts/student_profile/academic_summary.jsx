@@ -34,7 +34,7 @@
     }
   };
 
-  const AcademicSummary = window.shared.AcademicSummary = React.createClass({
+  window.shared.AcademicSummary = React.createClass({
     displayName: 'AcademicSummary',
 
     propTypes: {

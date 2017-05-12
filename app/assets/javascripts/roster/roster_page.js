@@ -3,7 +3,7 @@ $(function() {
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
     var Tablesort = window.Tablesort;
     var Cookies = window.Cookies;
-    
+
     // track user for mixpanel
     var currentEducator = $('#current-educator-data').data().currentEducator;
     var homeroom = $('#homeroom-data').data().homeroom;
@@ -25,8 +25,8 @@ $(function() {
       window.location.pathname = '/homerooms/' + $(this).val();
     });
 
-    function updateColumns () {
-      columns_selected_inputs = $("#column-listing").find("input:checked");
+    const updateColumns = function updateColumns () {
+      const columns_selected_inputs = $("#column-listing").find("input:checked");
       columns_selected = $.map(columns_selected_inputs, function(c) {
         return c.name;
       });
@@ -37,12 +37,13 @@ $(function() {
           $('.' + column).show();
         }
       }
-    }
+    };
+
     updateColumns();
 
-    function updateCookies () {
+    const updateCookies = function updateCookies () {
       Cookies.set("columns_selected", columns_selected);
-    }
+    };
 
     // Show/hide column groups
     var roster_columns = {
@@ -101,9 +102,6 @@ $(function() {
     $('tbody tr').click(function () {
       location.href = $(this).attr('href');
     });
-
-    // Make Risk Level summary chart
-    var chartData = $('#chart-data');
 
     // Replace blank cells with em dashes
     $('#roster-table tbody td').each(function() {
