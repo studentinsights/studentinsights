@@ -25,7 +25,7 @@ $(function() {
       window.location.pathname = '/homerooms/' + $(this).val();
     });
 
-    function updateColumns () {
+    const updateColumns = function updateColumns () {
       const columns_selected_inputs = $("#column-listing").find("input:checked");
       columns_selected = $.map(columns_selected_inputs, function(c) {
         return c.name;
@@ -37,13 +37,13 @@ $(function() {
           $('.' + column).show();
         }
       }
-    }
+    };
 
     updateColumns();
 
-    function updateCookies () {
+    const updateCookies = function updateCookies () {
       Cookies.set("columns_selected", columns_selected);
-    }
+    };
 
     // Show/hide column groups
     var roster_columns = {
