@@ -1,5 +1,6 @@
 (function() {
   window.shared || (window.shared = {});
+  const ReactModal = window.ReactModal;
 
   window.shared.HelpBubble = React.createClass({
     propTypes: {
