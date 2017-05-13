@@ -7,7 +7,7 @@ function computeNetwork(network, filters) {
   const {grade, schoolId} = filters;
   const students = network.students
     .filter(s => s.school_id === schoolId)
-    .filter(s => s.grade === grade)
+    .filter(s => !grade || s.grade === grade)
     .filter(s => s.enrollment_status === 'Active');
   const educators = network.educators
     .filter(e => e.school_id === schoolId)
@@ -79,7 +79,7 @@ $(function() {
 
     console.log('wat');
     // Read grade filter to explore
-    const grade = window.location.search.slice(1) || '8';
+    const grade = window.location.search.slice(1) || null;
     const {nodes, links} = computeNetwork(network, {
       grade,
       schoolId: school.id
