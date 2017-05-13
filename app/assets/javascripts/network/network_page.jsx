@@ -1,7 +1,6 @@
 import Viva from 'vivagraphjs';
 
 
-
 function textForNode(node) {
   if (node.data.type === 'student') return (node.data.student.first_name.slice(0, 1) + node.data.student.last_name.slice(0, 1)).toUpperCase();
   if (node.data.type === 'educator') return node.data.educator.full_name;
@@ -19,7 +18,7 @@ function generateDOMLabels(graph, container) {
   var labels = Object.create(null);
   graph.forEachNode(function(node) {
     // Filter orphan nodes
-    if (node.links.length === 0) return;
+    // if (node.links.length === 0) return;
 
     var label = document.createElement('span');
     label.classList.add(classNameForNode(node));
@@ -80,7 +79,7 @@ function openNode(node) {
 }
 
 function nodeUrl(node) {
-  const baseUrl = 'https://somerville.studentinsights.org';
+  const baseUrl = '';
   if (node.data.type === 'student') {
     return baseUrl + '/students/' + node.data.student.id;
   }
@@ -149,14 +148,12 @@ export default React.createClass({
     const graph = Viva.Graph.graph();
     const linkedIds = allLinkedIds(links);
     links.forEach(({left, right}) => graph.addLink(left, right));
-    nodes
-      .filter(({id}) => linkedIds.indexOf(id) !== -1)
-      .forEach(({id, data}) => graph.addNode(id, data));
+    nodes.forEach(({id, data}) => graph.addNode(id, data));
+      // .filter(({id}) => linkedIds.indexOf(id) !== -1)
 
     // Define graphics
     const container = this.el;
     const graphics = createLabelGraphics(graph, container);
-    // const graphics = Viva.Graph.View.webglGraphics();
 
     // Layout
     const layout = Viva.Graph.Layout.forceDirected(graph, {

@@ -54,12 +54,12 @@ class SchoolsController < ApplicationController
   end
 
   def network
+    social_network = SocialNetwork.new(@school)
     @serialized_data = {
-      pairs: File.read('/Users/krobinson/Desktop/pairs.json'),
-      tables: File.read('/Users/krobinson/Desktop/tables.json'),
       school: @school,
       current_educator: current_educator,
-      constant_indexes: constant_indexes
+      constant_indexes: constant_indexes,
+      network: social_network.network
     }
     render 'shared/serialized_data'
   end
