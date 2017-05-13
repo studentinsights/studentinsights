@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :schools, only: [:show] do
     get :star_reading, on: :member
     get :star_math, on: :member
+    get :network, on: :member
     get :csv, on: :member
     get :get_precomputed_hashes_for_school, on: :member
     get :get_mutable_fields_for_school, on: :member

@@ -53,6 +53,17 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
+  def network
+    @serialized_data = {
+      pairs: File.read('/Users/krobinson/Desktop/pairs.json'),
+      tables: File.read('/Users/krobinson/Desktop/tables.json'),
+      school: @school,
+      current_educator: current_educator,
+      constant_indexes: constant_indexes
+    }
+    render 'shared/serialized_data'
+  end
+
   def csv
     authorized_students = @school.students.active
     csv_string = StudentsSpreadsheet.new.csv_string(authorized_students)

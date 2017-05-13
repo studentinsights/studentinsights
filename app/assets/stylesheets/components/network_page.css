@@ -1,0 +1,23 @@
+.NetworkPage-node-label {
+  position: absolute;
+  pointer-events: none;
+  font-size: 10px;
+  z-index: 10;
+}
+.NetworkPage-node-label-student {
+  color: white;
+  opacity: 0.8;
+}
+.NetworkPage-node-label-educator {
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 30;
+  border: 1px solid #ccc;
+  background: rgba(240, 240, 240, 0.5);
+}
+.NetworkPage-node-label-external {
+  color: #666;
+  font-size: 14px;
+  z-index: 20;
+}
