@@ -1,3 +1,6 @@
+require 'csv'
+
+
 class SchoolsController < ApplicationController
   include SerializeDataHelper
   include StudentsQueryHelper
@@ -50,6 +53,23 @@ class SchoolsController < ApplicationController
 
   def star_reading
     serialized_data_for_star {|student| student.star_reading_results }
+    render 'shared/serialized_data'
+  end
+
+  # experiment, doesn't belong in schools controller
+  def places
+    schools = JSON.parse(File.read('/Users/krobinson/Desktop/schools.json'))
+    plots = Placer.new.plots(schools, {
+      n: 5000,
+      seed: 42
+    })
+
+    @serialized_data = {
+      plots: plots,
+      current_educator: current_educator,
+      constant_indexes: constant_indexes,
+      schools: schools
+    }
     render 'shared/serialized_data'
   end
 
