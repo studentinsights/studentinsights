@@ -10,7 +10,7 @@ class ImportRecordsController < ApplicationController
   end
 
   def index
-    @import_records = ImportRecord.all
+    @import_records = ImportRecord.order(created_at: :desc).take(25)
   end
 
 end
