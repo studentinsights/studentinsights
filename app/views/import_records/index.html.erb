@@ -1,0 +1,3 @@
+<% @import_records.all do |record| %>
+  <div>Completed in <%= record.time_ended - record.time_started %>.</div>
+<% end %>
