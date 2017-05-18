@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   resources :event_note_attachments, only: [:destroy]
   resources :service_uploads, only: [:create, :index, :destroy]
   resources :homerooms, only: [:show]
+  resources :import_records, only: [:index]
 
   resources :schools, only: [:show] do
     get :star_reading, on: :member
