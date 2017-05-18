@@ -1,3 +1,7 @@
 <% @import_records.all do |record| %>
-  <div>Completed in <%= record.time_ended - record.time_started %>.</div>
+  <% if record.completed? %>
+    <div>Completed in <%= distance_of_time_in_words(time_to_complete) %>.</div>
+  <% else %>
+    <div>Process did not complete.</div>
+  <% end %>
 <% end %>
