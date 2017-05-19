@@ -85,9 +85,15 @@ class Import
     end
 
     def connect_transform_import
-      importers.flat_map { |i| i.new(options).file_importers }.each do |file_importer|
-        FileImport.new(file_importer).import
+      begin
+        importers.flat_map { |i| i.new(options).file_importers }.each do |file_importer|
+          FileImport.new(file_importer).import
+        end
+      rescue => exception
+        # do some logging
+        raise exception
       end
+
     end
 
     def run_update_tasks
