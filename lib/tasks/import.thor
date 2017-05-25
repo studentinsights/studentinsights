@@ -89,9 +89,9 @@ class Import
         importers.flat_map { |i| i.new(options).file_importers }.each do |file_importer|
           FileImport.new(file_importer).import
         end
-      rescue => exception
-        # do some logging
-        raise exception
+      rescue => error
+        ImportErrorMailer.error_report(error).deliver_now
+        raise error
       end
 
     end
