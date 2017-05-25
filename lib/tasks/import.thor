@@ -16,6 +16,8 @@ class Import
     }
 
     SOURCE_IMPORTERS = {
+      # X2 importers should come first because they are the sole source of truth about students.
+
       "x2" => SomervilleX2Importers,
       "star" => SomervilleStarImporters,
     }
@@ -83,10 +85,15 @@ class Import
     end
 
     def connect_transform_import
-      # X2 importers should come first because they are the sole source of truth about students.
-      importers.flat_map { |i| i.new(options).file_importers }.each do |file_importer|
-        FileImport.new(file_importer).import
+      begin
+        importers.flat_map { |i| i.new(options).file_importers }.each do |file_importer|
+          FileImport.new(file_importer).import
+        end
+      rescue => error
+        ImportErrorMailer.error_report(error).deliver_now
+        raise error
       end
+
     end
 
     def run_update_tasks
