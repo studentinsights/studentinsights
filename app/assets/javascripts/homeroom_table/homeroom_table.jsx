@@ -18,6 +18,12 @@
       return this.props.rows.filter(this.activeStudentRowFilter);
     },
 
+    warningBubbleClassName (row) {
+      const riskLevel = row['student_risk_level']['level'] || 'na';
+
+      return `warning-bubble risk-${riskLevel} tooltip`
+    },
+
     render () {
       return (
         <div id="roster-table-wrapper">
@@ -198,7 +204,7 @@
           </td>
 
           <td className="risk" data-student-id={row['id']}>
-            <div className={`warning-bubble risk-{row['student_risk_level']['level'] || 'na'} tooltip`}>
+            <div className={this.warningBubbleClassName(row)}>
               {row['student_risk_level']['level'] || 'N/A'}
               <span className="tooltiptext">
                 {row['student_risk_level']['explanation']}
