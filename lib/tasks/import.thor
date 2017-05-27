@@ -93,20 +93,27 @@ class Import
         ImportErrorMailer.error_report(error).deliver_now
         raise error
       end
-
     end
 
     def run_update_tasks
-      Student.update_risk_levels
-      Student.update_student_school_years
-      Student.update_recent_student_assessments
-      Homeroom.destroy_empty_homerooms
+      begin
+        Student.update_risk_levels
+        Student.update_student_school_years
+        Student.update_recent_student_assessments
+        Homeroom.destroy_empty_homerooms
+      rescue => error
+        ImportErrorMailer.error_report(error).deliver_now
+        raise error
+      end
     end
 
     def print_final_report
+      report.print_final_report
+    end
+
+    def record_end_time
       record.time_ended = DateTime.current
       record.save
-      report.print_final_report
     end
   end
 end
