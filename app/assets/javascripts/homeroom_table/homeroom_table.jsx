@@ -21,7 +21,7 @@
     warningBubbleClassName (row) {
       const riskLevel = row['student_risk_level']['level'] || 'na';
 
-      return `warning-bubble risk-${riskLevel} tooltip`
+      return `warning-bubble risk-${riskLevel} tooltip`;
     },
 
     render () {
@@ -40,18 +40,18 @@
       if (!this.props.showStar) return null;
 
       return (
-        <div>
-          <td colSpan="1" className="star_math">
+      [
+        <td colSpan="1" className="star_math">
             <p className="smalltype">
               STAR: Math
             </p>
-          </td>
-          <td colSpan="1" className="star_reading">
+          </td>,
+        <td colSpan="1" className="star_reading">
             <p className="smalltype">
               STAR: Reading
             </p>
           </td>
-        </div>
+      ]
       );
     },
 
@@ -59,14 +59,14 @@
       if (!this.props.showStar) return null;
 
       return (
-        <div>
-          <th className="star_math">
+      [
+        <th className="star_math">
+            <span className="table-header">Percentile</span>
+          </th>,
+        <th className="star_reading">
             <span className="table-header">Percentile</span>
           </th>
-          <th className="star_reading">
-            <span className="table-header">Percentile</span>
-          </th>
-        </div>
+      ]
       );
     },
 
@@ -74,18 +74,18 @@
       if (!this.props.showMcas) return null;
 
       return (
-        <div>
-          <td colSpan="2" className="mcas_math">
+      [
+        <td colSpan="2" className="mcas_math">
             <p className="smalltype">
               MCAS: Math
             </p>
-          </td>
-          <td colSpan="2" className="mcas_ela">
+          </td>,
+        <td colSpan="2" className="mcas_ela">
             <p className="smalltype">
               MCAS: ELA
             </p>
           </td>
-        </div>
+      ]
       );
     },
 
@@ -93,20 +93,20 @@
       if (!this.props.showMcas) return null;
 
       return (
-        <div>
-          <th className="mcas_math">
+      [
+        <th className="mcas_math">
             <span className="table-header">Performance</span>
-          </th>
-          <th className="mcas_math">
+          </th>,
+        <th className="mcas_math">
+            <span className="table-header">Score</span>
+          </th>,
+        <th className="mcas_ela">
+            <span className="table-header">Performance</span>
+          </th>,
+        <th className="mcas_ela">
             <span className="table-header">Score</span>
           </th>
-          <th className="mcas_ela">
-            <span className="table-header">Performance</span>
-          </th>
-          <th className="mcas_ela">
-            <span className="table-header">Score</span>
-          </th>
-        </div>
+      ]
       );
     },
 
@@ -114,14 +114,14 @@
       if (!this.props.showStar) return null;
 
       return (
-        <div>
-          <td className="star_math percentile_rank">
+      [
+        <td className="star_math percentile_rank">
             {row['most_recent_star_math_percentile']}
-          </td>
-          <td className="star_reading percentile_rank">
+          </td>,
+        <td className="star_reading percentile_rank">
             {row['most_recent_star_reading_percentile']}
           </td>
-        </div>
+      ]
       );
     },
 
@@ -129,20 +129,20 @@
       if (!this.props.showMcas) return null;
 
       return (
-        <div>
-          <td className="mcas_math performance_level">
+      [
+        <td className="mcas_math performance_level">
             {row['most_recent_mcas_math_performance']}
-          </td>
-          <td className="mcas_math">
+          </td>,
+        <td className="mcas_math">
             {row['most_recent_mcas_math_scaled']}
-          </td>
-          <td className="mcas_ela performance_level">
+          </td>,
+        <td className="mcas_ela performance_level">
             {row['most_recent_mcas_ela_performance']}
-          </td>
-          <td className="mcas_ela">
+          </td>,
+        <td className="mcas_ela">
             {row['most_recent_mcas_ela_scaled']}
           </td>
-        </div>
+      ]
       );
     },
 
@@ -191,6 +191,8 @@
             <th className="free-reduced">
               <span className="table-header">Free/Reduced Lunch</span>
             </th>
+            {this.renderStarSubHeaders()}
+            {this.renderMcasSubHeaders()}
           </tr>
        </thead>
       );
