@@ -1,7 +1,6 @@
 $(function() {
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
-    var Tablesort = window.Tablesort;
     var Cookies = window.Cookies;
 
     // track user for mixpanel
@@ -15,10 +14,6 @@ $(function() {
       homeroom_slug: homeroom.slug,
       homeroom_grade: homeroom.grade
     });
-
-    // Initialize table sort on roster table
-    var table = document.getElementById('roster-table');
-    new Tablesort(table, { descending: false });
 
     // Initialize table sort on roster table
     $('#homeroom-select').bind('change', function() {
