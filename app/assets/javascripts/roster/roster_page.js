@@ -1,7 +1,6 @@
 $(function() {
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
-    var Cookies = window.Cookies;
 
     // Initialize table sort on roster table
     $('#homeroom-select').bind('change', function() {

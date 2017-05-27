@@ -1,5 +1,6 @@
 (function(root) {
   window.shared || (window.shared = {});
+  const Cookies = window.Cookies;
 
   window.shared.HomeroomTable = React.createClass({
     displayName: 'HomeroomTable',
@@ -8,6 +9,37 @@
       showStar: React.PropTypes.bool.isRequired,
       showMcas: React.PropTypes.bool.isRequired,
       rows: React.PropTypes.array.isRequired
+    },
+
+    getInitialState () {
+      return {
+        columnsDisplayed: this.getInitialColumnsDisplayed()
+      };
+    },
+
+    columnKeysToNames () {
+      return {
+        'name': 'Name',
+        'risk': 'Risk',
+        'program': 'Program',
+        'sped': 'SPED & Disability',
+        'language': 'Language',
+        'free-reduced': 'Free/Reduced Lunch',
+        'star_math': 'STAR Math',
+        'star_reading': 'STAR Reading',
+        'mcas_math': 'MCAS Math',
+        'mcas_ela': 'MCAS ELA',
+      };
+    },
+
+    columnKeys () {
+      return Object.keys(this.columnKeysToNames());
+    },
+
+    getInitialColumnsDisplayed () {
+      return (
+        Cookies.getJSON("columns_selected") || this.columnKeys()
+      );
     },
 
     activeStudentRowFilter (row) {
