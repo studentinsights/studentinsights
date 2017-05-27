@@ -40,10 +40,4 @@ class SomervilleX2Importers
     end
   end
 
-  private
-
-  def include_bulk_attendance?
-    @first_time && @x2_file_importers.include?('attendance')
-  end
-
 end
