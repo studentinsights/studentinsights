@@ -186,8 +186,16 @@
             <td colSpan="1" className="name block"></td>
             <td colSpan="1" className="risk"></td>
             <td colSpan="1" className="program"></td>
-            <td colSpan="3" className="sped"><p className="smalltype">SPED & Disability</p></td>
-            <td colSpan="2" className="language"><p className="smalltype">Language</p></td>
+            <td colSpan="3" className="sped">
+              <p className="smalltype">
+                SPED & Disability
+              </p>
+            </td>
+            <td colSpan="2" className="language">
+              <p className="smalltype">
+                Language
+              </p>
+            </td>
             <td colSpan="1" className="free-reduced"></td>
             {this.renderStarHeaders()}
             {this.renderMcasHeaders()}
