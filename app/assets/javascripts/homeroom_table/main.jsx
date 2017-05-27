@@ -4,6 +4,18 @@ const HomeroomTable = window.shared.HomeroomTable;
 $(function() {
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
 
+    // track user for mixpanel
+    const currentEducator = $('#current-educator-data').data().currentEducator;
+    const homeroom = $('#homeroom-data').data().homeroom;
+    const MixpanelUtils = window.shared.MixpanelUtils;
+    MixpanelUtils.registerUser(currentEducator);
+    MixpanelUtils.track('PAGE_VISIT', {
+      page_key: 'ROSTER_PAGE',
+      homeroom_id: homeroom.id,
+      homeroom_slug: homeroom.slug,
+      homeroom_grade: homeroom.grade
+    });
+
     // entry point, reading static bootstrapped data from the page
     const serializedData = $('#serialized-data').data();
 
