@@ -178,63 +178,107 @@
       );
     },
 
+    renderSubHeader (columnKey, label) {
+      const columnsDisplayed = this.state.columnsDisplayed;
+
+      if (columnsDisplayed.indexOf(columnKey) === -1) return null;
+
+      return (
+        <th>
+          <span className="table-header">{label}</span>
+        </th>
+      );
+    },
+
+    renderSuperHeader (columnKey, columnSpan, label) {
+      const columnsDisplayed = this.state.columnsDisplayed;
+
+      if (columnsDisplayed.indexOf(columnKey) === -1) return null;
+
+      if (!label) return (
+        <td colSpan={columnSpan}></td>
+      );
+
+      return (
+        <td colSpan={columnSpan}>
+          <p className="smalltype">
+            {label}
+          </p>
+        </td>
+      );
+    },
+
+    renderSubHeaders () {
+      return (
+        <tr className="column-names">
+          {/* COLUMN HEADERS */}
+          <th className="name">
+            <span id="first-column-header" className="table-header">
+              Name
+            </span>
+          </th>
+          {this.renderSubHeader('risk', 'Risk')}
+          {this.renderSubHeader('program', 'Program Assigned')}
+          {this.renderSubHeader('sped', 'Disability')}
+          {this.renderSubHeader('sped', 'Level of Need')}
+          {this.renderSubHeader('sped', '504 Plan')}
+          {this.renderSubHeader('language', 'Fluency')}
+          {this.renderSubHeader('language', 'Home Language')}
+          {this.renderSubHeader('free-reduced', 'Free/Reduced Lunch')}
+          {this.renderStarSubHeaders()}
+          {this.renderMcasSubHeaders()}
+        </tr>
+      );
+    },
+
     renderHeaders () {
       return (
         <thead>
           <tr className="column-groups">
             {/*  TOP-LEVEL COLUMN GROUPS */}
-            <td colSpan="1" className="name block"></td>
-            <td colSpan="1" className="risk"></td>
-            <td colSpan="1" className="program"></td>
-            <td colSpan="3" className="sped">
-              <p className="smalltype">
-                SPED & Disability
-              </p>
-            </td>
-            <td colSpan="2" className="language">
-              <p className="smalltype">
-                Language
-              </p>
-            </td>
-            <td colSpan="1" className="free-reduced"></td>
+            {this.renderSuperHeader ('name', '1')}
+            {this.renderSuperHeader ('risk', '1')}
+            {this.renderSuperHeader ('program', '1')}
+            {this.renderSuperHeader ('sped', '3', 'SPED & Disability')}
+            {this.renderSuperHeader ('language', '2', 'Language')}
+            {this.renderSuperHeader ('free-reduced', '1')}
             {this.renderStarHeaders()}
             {this.renderMcasHeaders()}
           </tr>
-          <tr className="column-names">
-            {/* COLUMN HEADERS */}
-            <th className="name">
-              <span id="first-column-header" className="table-header">
-                Name
-              </span>
-            </th>
-            <th className="risk">
-              <span className="table-header">Risk</span>
-            </th>
-            <th className="program">
-              <span className="table-header">Program Assigned</span>
-            </th>
-            <th className="sped">
-              <span className="table-header">Disability</span>
-            </th>
-            <th className="sped">
-              <span className="table-header">Level of Need</span>
-            </th>
-            <th className="sped">
-              <span className="table-header">504 Plan</span>
-            </th>
-            <th className="language">
-              <span className="table-header">Fluency</span>
-            </th>
-            <th className="language">
-              <span className="table-header">Home Language</span>
-            </th>
-            <th className="free-reduced">
-              <span className="table-header">Free/Reduced Lunch</span>
-            </th>
-            {this.renderStarSubHeaders()}
-            {this.renderMcasSubHeaders()}
-          </tr>
-       </thead>
+          {this.renderSubHeaders()}
+        </thead>
+      );
+    },
+
+    renderDataCell (columnKey, data) {
+      const columnsDisplayed = this.state.columnsDisplayed;
+
+      if (columnsDisplayed.indexOf(columnKey) === -1) return null;
+
+      return (
+        <td>{data}</td>
+      );
+    },
+
+    renderWarningBubble (row) {
+      return (
+        <div className={this.warningBubbleClassName(row)}>
+          {row['student_risk_level']['level'] || 'N/A'}
+          <span className="tooltiptext">
+            {row['student_risk_level']['explanation']}
+          </span>
+        </div>
+      );
+    },
+
+    renderDataWithSpedTooltip (row) {
+      return (
+        <div className={row['sped_data']['sped_bubble_class']}>
+          {row['sped_data']['sped_level']}
+          <span className="tooltiptext">
+            {row['sped_data']['sped_tooltip_message']}
+          </span>
+        </div>
       );
     },
 
@@ -245,45 +289,15 @@
             {`${row['first_name']} ${row['last_name']}`}
           </td>
 
-          <td className="risk" data-student-id={row['id']}>
-            <div className={this.warningBubbleClassName(row)}>
-              {row['student_risk_level']['level'] || 'N/A'}
-              <span className="tooltiptext">
-                {row['student_risk_level']['explanation']}
-              </span>
-            </div>
-          </td>
-
-          <td className="program">
-            {row['program_assigned']}
-          </td>
-          <td className="sped">
-            {row['disability']}
-          </td>
-          <td className="sped">
-            <div className={row['sped_data']['sped_bubble_class']}>
-              {row['sped_data']['sped_level']}
-              <span className="tooltiptext">
-                {row['sped_data']['sped_tooltip_message']}
-              </span>
-            </div>
-          </td>
-
-          <td className="sped">
-            {row['plan_504']}
-          </td>
-          <td className="language">
-            {row['limited_english_proficiency']}
-          </td>
-          <td className="language">
-            {row['home_language']}
-          </td>
-          <td className="free-reduced">
-            {row['free_reduced_lunch']}
-          </td>
-
+          {this.renderDataCell('risk', this.renderWarningBubble(row))}
+          {this.renderDataCell('program', row['program_assigned'])}
+          {this.renderDataCell('sped', row['disability'])}
+          {this.renderDataCell('sped', this.renderDataWithSpedTooltip(row))}
+          {this.renderDataCell('sped', row['plan_504'])}
+          {this.renderDataCell('language', row['limited_english_proficiency'])}
+          {this.renderDataCell('language', row['home_language'])}
+          {this.renderDataCell('free-reduced', row['free_reduced_lunch'])}
           {this.renderStarData(row)}
-
           {this.renderMcasData(row)}
         </tr>
       );
