@@ -11,7 +11,6 @@
  * file per style scope.
  *
  *= require style
- *= require tablesort
  *= require jquery-ui
  *= require react-select
  */

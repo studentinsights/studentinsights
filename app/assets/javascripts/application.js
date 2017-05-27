@@ -23,9 +23,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require highcharts
-//= require tablesort.min
-//= require tablesort.numeric
-//= require_tree ./sorts
 //= require js.cookie
 //= require classList
 //= require lodash.3.10.1.min
