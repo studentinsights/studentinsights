@@ -311,11 +311,27 @@
       return activeStudentRows.map(this.renderRow);
     },
 
+    renderMenu () {
+      return (
+        <svg width="24px" height="6px" viewBox="0 0 24 6" version="1.1" >
+            <g id="Roster" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" >
+                <g id="Roster---home---add-1" transform="translate(-930.000000, -416.000000)" fill="#555555">
+                    <g id="menu" transform="translate(930.000000, 416.000000)">
+                        <circle id="Oval-137" cx="3" cy="3" r="3"></circle>
+                        <path d="M12,6 C13.6568542,6 15,4.65685425 15,3 C15,1.34314575 13.6568542,0 12,0 C10.3431458,0 9,1.34314575 9,3 C9,4.65685425 10.3431458,6 12,6 Z" id="Oval-138"></path>
+                        <circle id="Oval-139" cx="21" cy="3" r="3"></circle>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      );
+    },
+
     renderColumnPicker () {
       return (
         <div>
           <div id="column-picker-toggle">
-            <img src="menu.svg" /* TODO: update */ />
+            {this.renderMenu()}
           </div>
           <div id="column-picker">
             <p>Select columns</p>
