@@ -13,7 +13,8 @@
 
     getInitialState () {
       return {
-        columnsDisplayed: this.getInitialColumnsDisplayed()
+        columnsDisplayed: this.getInitialColumnsDisplayed(),
+        showColumnPicker: false
       };
     },
 
@@ -59,7 +60,7 @@
     render () {
       return (
         <div id="roster-table-wrapper">
-          {this.renderColumnPicker()}
+          {this.renderColumnPickerArea()}
           <table id="roster-table" border="0" cellSpacing="0" cellPadding="10" className="sort-default">
             {this.renderHeaders()}
             {this.renderRows()}
@@ -327,24 +328,39 @@
       );
     },
 
-    renderColumnPicker () {
+    toggleColumnPicker () {
+      this.setState({ showColumnPicker: !this.state.showColumnPicker });
+    },
+
+    renderColumnPickerArea () {
       return (
         <div>
-          <div id="column-picker-toggle">
+          <div onClick={this.toggleColumnPicker} id="column-picker-toggle">
             {this.renderMenu()}
           </div>
-          <div id="column-picker">
-            <p>Select columns</p>
-            <form id="column-listing">
-              <div id="column-template">
-                <input type="checkbox" name="" value="" />
-                <label></label>
-              </div>
-            </form>
-          </div>
+          {this.renderColumnPickerMenu()}
         </div>
       );
     },
+
+    renderColumnPickerMenu () {
+      if (this.state.showColumnPicker === false) return null;
+
+      return (
+        <div id="column-picker">
+          <p>Select columns</p>
+          <form id="column-listing">
+            <div id="column-template">
+              {/*
+                map over column names here ....
+                <input type="checkbox" name="" value="" />
+                <label></label>
+              */}
+            </div>
+          </form>
+        </div>
+      );
+    }
 
   });
 })(window);
