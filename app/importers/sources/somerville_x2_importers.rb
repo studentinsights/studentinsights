@@ -28,9 +28,7 @@ class SomervilleX2Importers
 
   def file_importer_classes
     @x2_file_importers.map do |importer_option|
-      unless importer_option == 'attendance' && @first_time
-        SomervilleX2Importers.file_importer_options.fetch(importer_option)
-      end
+      SomervilleX2Importers.file_importer_options.fetch(importer_option)
     end.compact.uniq
   end
 
@@ -38,12 +36,6 @@ class SomervilleX2Importers
     file_importer_classes.map do |file_importer_class|
       file_importer_class.new(@school_scope, sftp_client, @log, @progress_bar)
     end
-  end
-
-  private
-
-  def include_bulk_attendance?
-    @first_time && @x2_file_importers.include?('attendance')
   end
 
 end

@@ -21,15 +21,6 @@ RSpec.describe SomervilleX2Importers do
       ]
     end
 
-    context 'when factorying importers for a first-time import' do
-      let(:first_time) { true }
-      it 'does not include the attendance importer' do
-        expect(importer_factory.file_importer_classes).to eq [
-          StudentsImporter, X2AssessmentImporter, BehaviorImporter, EducatorsImporter
-        ]
-      end
-    end
-
     context 'when passed non-default options' do
 
       context 'when passed an empty array' do

@@ -1,6 +1,6 @@
 class AttendanceRow < Struct.new(:row)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
-  # 
+  #
   # Expects the following headers:
   #
   # :state_id, :local_id, :absence, :tardy, :event_date, :school_local_id
@@ -20,7 +20,9 @@ class AttendanceRow < Struct.new(:row)
   end
 
   def build
-    attendance_event_class.find_or_initialize_by(occurred_at: row[:event_date])
+    attendance_event_class.find_or_initialize_by(
+      occurred_at: row[:event_date]
+    )
   end
 
   private
@@ -32,7 +34,7 @@ class AttendanceRow < Struct.new(:row)
   end
 
   def student
-    Student.find_by_local_id! row[:local_id]
+    Student.find_by_local_id!(row[:local_id])
   end
 
   def school_year
