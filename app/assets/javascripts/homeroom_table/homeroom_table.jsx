@@ -92,12 +92,12 @@
     renderStarHeaders () {
       return (
       [
-        <td colSpan="1" className="star_math" key="star_math_header">
+        <td colSpan="1" key="star_math_header">
             <p className="smalltype">
               STAR: Math
             </p>
           </td>,
-        <td colSpan="1" className="star_reading" key="star_reading_header">
+        <td colSpan="1" key="star_reading_header">
             <p className="smalltype">
               STAR: Reading
             </p>
@@ -109,10 +109,10 @@
     renderStarSubHeaders () {
       return (
       [
-        <th className="star_math" key="star_math_sub_header">
+        <th key="star_math_sub_header">
             <span className="table-header">Percentile</span>
           </th>,
-        <th className="star_reading" key="star_reading_sub_header">
+        <th key="star_reading_sub_header">
             <span className="table-header">Percentile</span>
           </th>
       ]
@@ -122,12 +122,12 @@
     renderMcasHeaders () {
       return (
       [
-        <td colSpan="2" className="mcas_math" key="mcas_math_header">
+        <td colSpan="2" key="mcas_math_header">
             <p className="smalltype">
               MCAS: Math
             </p>
           </td>,
-        <td colSpan="2" className="mcas_ela" key="mcas_ela_header">
+        <td colSpan="2" key="mcas_ela_header">
             <p className="smalltype">
               MCAS: ELA
             </p>
@@ -139,16 +139,16 @@
     renderMcasSubHeaders () {
       return (
       [
-        <th className="mcas_math" key="mcas_math_sub_header_perf">
+        <th key="mcas_math_sub_header_perf">
             <span className="table-header">Performance</span>
           </th>,
-        <th className="mcas_math" key="mcas_math_sub_header_score">
+        <th key="mcas_math_sub_header_score">
             <span className="table-header">Score</span>
           </th>,
-        <th className="mcas_ela" key="mcas_ela_sub_header_perf">
+        <th key="mcas_ela_sub_header_perf">
             <span className="table-header">Performance</span>
           </th>,
-        <th className="mcas_ela" key="mcas_ela_sub_header_score">
+        <th key="mcas_ela_sub_header_score">
             <span className="table-header">Score</span>
           </th>
       ]
@@ -160,10 +160,10 @@
 
       return (
       [
-        <td className="star_math percentile_rank">
+        <td key="star_math_percentile_rank">
             {row['most_recent_star_math_percentile']}
           </td>,
-        <td className="star_reading percentile_rank">
+        <td key="star_reading_percentile_rank">
             {row['most_recent_star_reading_percentile']}
           </td>
       ]
@@ -175,16 +175,16 @@
 
       return (
       [
-        <td className="mcas_math performance_level">
+        <td key="mcas_math_performance_level">
             {row['most_recent_mcas_math_performance']}
           </td>,
-        <td className="mcas_math">
+        <td key="mcas_math_scaled">
             {row['most_recent_mcas_math_scaled']}
           </td>,
-        <td className="mcas_ela performance_level">
+        <td key="mcas_ela performance_level">
             {row['most_recent_mcas_ela_performance']}
           </td>,
-        <td className="mcas_ela">
+        <td key="mcas_ela_scaled">
             {row['most_recent_mcas_ela_scaled']}
           </td>
       ]
