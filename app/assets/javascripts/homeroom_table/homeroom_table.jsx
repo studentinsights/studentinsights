@@ -41,7 +41,7 @@
 
     getInitialColumnsDisplayed () {
       return (
-        Cookies.getJSON("columns_selected") || this.columnKeys()
+        Cookies.getJSON("columnsDisplayed") || this.columnKeys()
       );
     },
 
@@ -370,6 +370,8 @@
       } else {
         columnsDisplayed.push(columnKey);
       }
+
+      Cookies.set("columnsDisplayed", columnsDisplayed);
 
       this.setState({ columnsDisplayed: columnsDisplayed });
     },
