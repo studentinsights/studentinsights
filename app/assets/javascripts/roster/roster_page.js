@@ -7,46 +7,11 @@ $(function() {
     //   window.location.pathname = '/homerooms/' + $(this).val();
     // });
 
-    // const updateColumns = function updateColumns () {
-    //   const columns_selected_inputs = $("#column-listing").find("input:checked");
-    //   columns_selected = $.map(columns_selected_inputs, function(c) {
-    //     return c.name;
-    //   });
-    //   for (var column in roster_columns) {
-    //     if (columns_selected.indexOf(column) === -1) {
-    //       $('.' + column).hide();
-    //     } else {
-    //       $('.' + column).show();
-    //     }
-    //   }
-    // };
-
     // updateColumns();
 
     // const updateCookies = function updateCookies () {
     //   Cookies.set("columns_selected", columns_selected);
     // };
-
-    // // Show/hide column groups
-    // var roster_columns = {
-    //   'name': 'Name',
-    //   'risk': 'Risk',
-    //   'program': 'Program',
-    //   'sped': 'SPED & Disability',
-    //   'language': 'Language',
-    //   'free-reduced': 'Free/Reduced Lunch',
-    //   'star_math': 'STAR Math',
-    //   'star_reading': 'STAR Reading',
-    //   'mcas_math': 'MCAS Math',
-    //   'mcas_ela': 'MCAS ELA',
-    //     // 'access': 'Access',
-    //     // 'dibels': 'DIBELS',
-    //     // 'attendance': 'Attendance',
-    //     // 'discipline': 'Discipline',
-    // };
-
-    // var columns_selected = Cookies.getJSON("columns_selected");
-    // var columnTemplate = $("#column-template").remove();
 
     // $.each(roster_columns, function(key, column){
     //   var newColumnTemplate = columnTemplate.clone(),
