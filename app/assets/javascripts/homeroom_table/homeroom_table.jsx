@@ -295,13 +295,17 @@
       );
     },
 
+    visitStudentProfile (id) {
+      window.location.href = `/students/${id}`;
+    },
+
     renderRow (row) {
       const fullName = `${row['first_name']} ${row['last_name']}`;
       const id = row["id"];
 
       return (
         <tr className="student-row"
-            href={`/students/${id}`}
+            onClick={this.visitStudentProfile.bind(null, id)}
             key={id}>
           <td className="name">{fullName}</td>
           {this.renderDataCell('risk', this.renderWarningBubble(row))}

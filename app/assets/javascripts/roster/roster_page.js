@@ -7,11 +7,6 @@ $(function() {
     //   window.location.pathname = '/homerooms/' + $(this).val();
     // });
 
-    // // Turn table rows into links to student profiles
-    // $('tbody tr').click(function () {
-    //   location.href = $(this).attr('href');
-    // });
-
     // // Replace blank cells with em dashes
     // $('#roster-table tbody td').each(function() {
     //   var content = $.trim($(this).html());
