@@ -353,23 +353,36 @@
       );
     },
 
+    toggleColumn (columnKey) {
+      const columnsDisplayed = Object.assign(this.state.columnsDisplayed, {});
+      const isColumnDisplayed = (columnsDisplayed.indexOf(columnKey) > -1);
+
+      if (isColumnDisplayed) {
+        columnsDisplayed.unshift(columnKey);
+      } else {
+        columnsDisplayed.push(columnKey);
+      }
+
+      this.setState({ columnsDisplayed: columnsDisplayed });
+    },
+
     renderColumnSelect (columnKey) {
       const columnKeysToNames = this.columnKeysToNames();
       const columnName = columnKeysToNames[columnKey];
-      const columnsDisplayed = this.state.columnsDisplayed;
 
+      const columnsDisplayed = this.state.columnsDisplayed;
       const isColumnDisplayed = (columnsDisplayed.indexOf(columnKey) > -1);
 
       if (isColumnDisplayed) return (
         <div key={columnKey}>
-          <input type="checkbox" defaultChecked />
+          <input type="checkbox" defaultChecked onClick={this.toggleColumn.bind(null, columnKey)}/>
           <label>{columnName}</label>
         </div>
       );
 
       return (
         <div key={columnKey}>
-          <input type="checkbox" />
+          <input type="checkbox" onClick={this.toggleColumn.bind(null, columnKey)}/>
           <label>{columnName}</label>
         </div>
       );
