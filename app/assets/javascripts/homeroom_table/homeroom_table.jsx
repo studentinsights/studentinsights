@@ -384,19 +384,21 @@
       const columnKeysToNames = this.columnKeysToNames();
       const columnName = columnKeysToNames[columnKey];
 
+      const onToggleColumn = this.toggleColumn.bind(null, columnKey);
+
       const columnsDisplayed = this.state.columnsDisplayed;
       const isColumnDisplayed = (columnsDisplayed.indexOf(columnKey) > -1);
 
       if (isColumnDisplayed) return (
         <div key={columnKey}>
-          <input type="checkbox" defaultChecked onClick={this.toggleColumn.bind(null, columnKey)}/>
+          <input type="checkbox" defaultChecked onClick={onToggleColumn}/>
           <label>{columnName}</label>
         </div>
       );
 
       return (
         <div key={columnKey}>
-          <input type="checkbox" onClick={this.toggleColumn.bind(null, columnKey)}/>
+          <input type="checkbox" onClick={onToggleColumn}/>
           <label>{columnName}</label>
         </div>
       );
