@@ -26,10 +26,8 @@
         'sped': 'SPED & Disability',
         'language': 'Language',
         'free-reduced': 'Free/Reduced Lunch',
-        'star_math': 'STAR Math',
-        'star_reading': 'STAR Reading',
-        'mcas_math': 'MCAS Math',
-        'mcas_ela': 'MCAS ELA',
+        'star': 'STAR',
+        'mcas': 'MCAS',
       };
     },
 
@@ -61,6 +59,24 @@
       return `warning-bubble risk-${riskLevel} tooltip`;
     },
 
+    showStar () {
+      const columnsDisplayed = this.state.columnsDisplayed;
+      const starDisplayed = columnsDisplayed.indexOf('star') > -1;
+
+      if (this.props.showStar === true && starDisplayed === true) return true;
+
+      return false;
+    },
+
+    showMcas () {
+      const columnsDisplayed = this.state.columnsDisplayed;
+      const mcasDisplayed = columnsDisplayed.indexOf('mcas') > -1;
+
+      if (this.props.showMcas === true && mcasDisplayed === true) return true;
+
+      return false;
+    },
+
     render () {
       return (
         <div id="roster-table-wrapper">
@@ -74,8 +90,6 @@
     },
 
     renderStarHeaders () {
-      if (!this.props.showStar) return null;
-
       return (
       [
         <td colSpan="1" className="star_math" key="star_math_header">
@@ -93,8 +107,6 @@
     },
 
     renderStarSubHeaders () {
-      if (!this.props.showStar) return null;
-
       return (
       [
         <th className="star_math" key="star_math_sub_header">
@@ -108,8 +120,6 @@
     },
 
     renderMcasHeaders () {
-      if (!this.props.showMcas) return null;
-
       return (
       [
         <td colSpan="2" className="mcas_math" key="mcas_math_header">
@@ -127,8 +137,6 @@
     },
 
     renderMcasSubHeaders () {
-      if (!this.props.showMcas) return null;
-
       return (
       [
         <th className="mcas_math" key="mcas_math_sub_header_perf">
@@ -148,7 +156,7 @@
     },
 
     renderStarData (row) {
-      if (!this.props.showStar) return null;
+      if (!this.showStar()) return null;
 
       return (
       [
@@ -163,7 +171,7 @@
     },
 
     renderMcasData (row) {
-      if (!this.props.showMcas) return null;
+      if (!this.showMcas()) return null;
 
       return (
       [
@@ -230,8 +238,8 @@
           {this.renderSubHeader('language', 'Fluency')}
           {this.renderSubHeader('language', 'Home Language')}
           {this.renderSubHeader('free-reduced', 'Free/Reduced Lunch')}
-          {this.renderStarSubHeaders()}
-          {this.renderMcasSubHeaders()}
+          {(this.showStar()) ? this.renderStarSubHeaders() : null}
+          {(this.showMcas()) ? this.renderMcasSubHeaders() : null}
         </tr>
       );
     },
@@ -247,8 +255,8 @@
             {this.renderSuperHeader ('sped', '3', 'SPED & Disability')}
             {this.renderSuperHeader ('language', '2', 'Language')}
             {this.renderSuperHeader ('free-reduced', '1')}
-            {this.renderStarHeaders()}
-            {this.renderMcasHeaders()}
+            {(this.showStar()) ? this.renderStarHeaders() : null}
+            {(this.showMcas()) ? this.renderMcasHeaders() : null}
           </tr>
           {this.renderSubHeaders()}
         </thead>
@@ -358,7 +366,7 @@
       const isColumnDisplayed = (columnsDisplayed.indexOf(columnKey) > -1);
 
       if (isColumnDisplayed) {
-        columnsDisplayed.unshift(columnKey);
+        columnsDisplayed.pop(columnKey);
       } else {
         columnsDisplayed.push(columnKey);
       }
