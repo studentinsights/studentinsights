@@ -37,6 +37,10 @@
       return Object.keys(this.columnKeysToNames());
     },
 
+    columnNames () {
+      return Object.values(this.columnKeysToNames());
+    },
+
     getInitialColumnsDisplayed () {
       return (
         Cookies.getJSON("columns_selected") || this.columnKeys()
@@ -61,7 +65,7 @@
       return (
         <div id="roster-table-wrapper">
           {this.renderColumnPickerArea()}
-          <table id="roster-table" border="0" cellSpacing="0" cellPadding="10" className="sort-default">
+          <table id="roster-table" cellSpacing="0" cellPadding="10" className="sort-default">
             {this.renderHeaders()}
             {this.renderRows()}
           </table>
@@ -74,12 +78,12 @@
 
       return (
       [
-        <td colSpan="1" className="star_math">
+        <td colSpan="1" className="star_math" key="star_math_header">
             <p className="smalltype">
               STAR: Math
             </p>
           </td>,
-        <td colSpan="1" className="star_reading">
+        <td colSpan="1" className="star_reading" key="star_reading_header">
             <p className="smalltype">
               STAR: Reading
             </p>
@@ -93,10 +97,10 @@
 
       return (
       [
-        <th className="star_math">
+        <th className="star_math" key="star_math_sub_header">
             <span className="table-header">Percentile</span>
           </th>,
-        <th className="star_reading">
+        <th className="star_reading" key="star_reading_sub_header">
             <span className="table-header">Percentile</span>
           </th>
       ]
@@ -108,12 +112,12 @@
 
       return (
       [
-        <td colSpan="2" className="mcas_math">
+        <td colSpan="2" className="mcas_math" key="mcas_math_header">
             <p className="smalltype">
               MCAS: Math
             </p>
           </td>,
-        <td colSpan="2" className="mcas_ela">
+        <td colSpan="2" className="mcas_ela" key="mcas_ela_header">
             <p className="smalltype">
               MCAS: ELA
             </p>
@@ -127,16 +131,16 @@
 
       return (
       [
-        <th className="mcas_math">
+        <th className="mcas_math" key="mcas_math_sub_header_perf">
             <span className="table-header">Performance</span>
           </th>,
-        <th className="mcas_math">
+        <th className="mcas_math" key="mcas_math_sub_header_score">
             <span className="table-header">Score</span>
           </th>,
-        <th className="mcas_ela">
+        <th className="mcas_ela" key="mcas_ela_sub_header_perf">
             <span className="table-header">Performance</span>
           </th>,
-        <th className="mcas_ela">
+        <th className="mcas_ela" key="mcas_ela_sub_header_score">
             <span className="table-header">Score</span>
           </th>
       ]
@@ -284,12 +288,14 @@
     },
 
     renderRow (row) {
-      return (
-        <tr className="student-row" href={`/students/${row["id"]}`}>
-          <td className="name">
-            {`${row['first_name']} ${row['last_name']}`}
-          </td>
+      const fullName = `${row['first_name']} ${row['last_name']}`;
+      const id = row["id"];
 
+      return (
+        <tr className="student-row"
+            href={`/students/${id}`}
+            key={id}>
+          <td className="name">{fullName}</td>
           {this.renderDataCell('risk', this.renderWarningBubble(row))}
           {this.renderDataCell('program', row['program_assigned'])}
           {this.renderDataCell('sped', row['disability'])}
@@ -309,7 +315,11 @@
 
       const activeStudentRows = this.activeStudentRows();
 
-      return activeStudentRows.map(this.renderRow);
+      return (
+        <tbody>
+          {activeStudentRows.map(this.renderRow)}
+        </tbody>
+      );
     },
 
     renderMenu () {
@@ -343,6 +353,34 @@
       );
     },
 
+    renderColumnSelect (columnKey) {
+      const columnKeysToNames = this.columnKeysToNames();
+      const columnName = columnKeysToNames[columnKey];
+      const columnsDisplayed = this.state.columnsDisplayed;
+
+      const isColumnDisplayed = (columnsDisplayed.indexOf(columnKey) > -1);
+
+      if (isColumnDisplayed) return (
+        <div key={columnKey}>
+          <input type="checkbox" defaultChecked />
+          <label>{columnName}</label>
+        </div>
+      );
+
+      return (
+        <div key={columnKey}>
+          <input type="checkbox" />
+          <label>{columnName}</label>
+        </div>
+      );
+    },
+
+    renderColumnSelectors () {
+      const columnKeys = this.columnKeys();
+
+      return columnKeys.map((key) => { return this.renderColumnSelect(key) });
+    },
+
     renderColumnPickerMenu () {
       if (this.state.showColumnPicker === false) return null;
 
@@ -351,11 +389,7 @@
           <p>Select columns</p>
           <form id="column-listing">
             <div id="column-template">
-              {/*
-                map over column names here ....
-                <input type="checkbox" name="" value="" />
-                <label></label>
-              */}
+              {this.renderColumnSelectors()}
             </div>
           </form>
         </div>
