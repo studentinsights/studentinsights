@@ -12,17 +12,18 @@ class Service < ActiveRecord::Base
                                                                   # the service isn't discontinued yet.
   end
 
-  def has_scheduled_end_date?
+  def end_date
     # Some services are scheduled to be discontinued in the future. When staff
     # enter new student services in the UI, they can't select a future end date yet.
     # But bulk-uploaded services can have a future end date. If a service has an
     # end date in the future, we don't want it to show up as "discontinued."
+    #
+    # This attribute name isn't accurate
+    # anymore, we should change it to "date_ended"
+    discontinued_services.order(recorded_at: :desc).first.try(:recorded_at)
+  end
 
-    end_date = discontinued_services.order(recorded_at: :desc)
-                                    .first
-                                    .recorded_at  # This attribute name isn't accurate
-                                                  # anymore, we should change it to "date_ended"
-
+  def has_scheduled_end_date?
     return end_date > DateTime.current
   end
 
