@@ -47,11 +47,17 @@ export default React.createClass({
   },
 
   sortByString (a, b, sortBy) {
-    const stringA = a[sortBy].toUpperCase(); // ignore upper and lowercase
-    const stringB = b[sortBy].toUpperCase(); // ignore upper and lowercase
+    const stringA = a[sortBy];
+    const stringB = b[sortBy];
 
-    if (stringA < stringB) return -1;
-    if (stringA > stringB) return 1;
+    if (!stringA && !stringB) return 0;
+
+    if (!stringA) return -1;
+    if (!stringB) return 1;
+
+    if (stringA.toUpperCase() < stringB.toUpperCase()) return -1;
+    if (stringA.toUpperCase() > stringB.toUpperCase()) return 1;
+
     return 0;
   },
 
