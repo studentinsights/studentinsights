@@ -5,82 +5,8 @@
   padding: 20px 40px;
 }
 
-#roster-table {
-  overflow: visible;
-  width: 100%;
-  margin-right: -100px;
-  min-height: 360px;
-  display: block;
-
-  .column-names {
-    th:first-child {
-      padding-left: 20px;
-    }
-
-    th:nth-child(2) {
-      padding-left: 15em;
-    }
-  }
-
-  .name {
-    width: 15em;
-    text-align: left;
-    position: absolute;
-    background-color: white;
-  }
-
-  .block {
-    height: 50px;
-  }
-
-  tbody {
-    tr:hover {
-      cursor: pointer;
-      background-color: $table-row-hover;
-      border-radius: 10px;
-    }
-
-    tr:hover .name {
-      cursor: pointer;
-      background-color: $table-row-hover;
-      border-radius: 10px;
-    }
-
-    td {
-      padding: 10px;
-      text-align: center;
-    }
-
-    td:hover {
-      z-index: 10;
-    }
-
-    td:first-child {
-      padding-top: 15px;
-    }
-
-    td:nth-child(2) {
-      padding-left: 15em;
-    }
-
-    a:link, a:visited {
-      color: $gray;
-    }
-
-    a:hover, a:active {
-      color: $gray;
-    }
-  }
-
-}
-
 #roster-table-wrapper {
   padding: 30px;
-}
-
-.highcharts-container {
- overflow: visible !important;
- margin-top: 60px !important;
 }
 
 #column-picker-toggle {
@@ -112,12 +38,6 @@
 
   #column-template {
     padding-bottom: 5px;
-  }
-}
-
-#dialog-form {
-  input, textarea, select {
-    margin-bottom: 16px;
   }
 }
 
