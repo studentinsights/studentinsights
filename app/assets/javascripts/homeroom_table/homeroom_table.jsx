@@ -351,14 +351,18 @@
       );
     },
 
-    toggleColumnPicker () {
-      this.setState({ showColumnPicker: !this.state.showColumnPicker });
+    openColumnPicker () {
+      this.setState({ showColumnPicker: true });
+    },
+
+    closeColumnPicker () {
+      this.setState({ showColumnPicker: false });
     },
 
     renderColumnPickerArea () {
       return (
         <div>
-          <div onClick={this.toggleColumnPicker} id="column-picker-toggle">
+          <div onClick={this.openColumnPicker} id="column-picker-toggle">
             {this.renderMenu()}
           </div>
           {this.renderColumnPickerMenu()}
@@ -417,7 +421,12 @@
 
       return (
         <div id="column-picker">
-          <p>Select columns</p>
+          <p>
+            Select columns
+            <span className="close" onClick={this.closeColumnPicker}>
+              close
+            </span>
+          </p>
           <form id="column-listing">
             <div id="column-template">
               {this.renderColumnSelectors()}

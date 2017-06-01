@@ -31,6 +31,16 @@
     font-weight: 700;
   }
 
+  .close {
+    float: right;
+    color: blue;
+    font-weight: lighter;
+    font-size: 12px;
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+  }
+
   label {
     padding-left: 3px;
     display: inline-block;
