@@ -139,8 +139,9 @@
 
     mergeInStudentRiskLevel (row) {
       let risk = { risk: row['student_risk_level']['level'] };
+      let sped_level = { sped_level: row['sped_data']['sped_level'] };
 
-      return { ...row, ...risk };
+      return { ...row, ...risk, ...sped_level };
     },
 
     activeMergedStudentRows () {
@@ -315,16 +316,22 @@
       );
     },
 
+    renderNameSubheader () {
+      return (
+        <th className="name"
+            onClick={this.onClickHeader.bind(null, 'first_name', 'string')}>
+          <span className="table-header">
+            Name
+          </span>
+        </th>
+      );
+    },
+
     renderSubHeaders () {
       return (
         <tr className="column-names">
           {/* COLUMN HEADERS */}
-          <th className="name"
-              onClick={this.onClickHeader.bind(null, 'first_name', 'string')}>
-            <span className="table-header">
-              Name
-            </span>
-          </th>
+          {this.renderNameSubheader()}
           {this.renderSubHeader(
             'risk', 'Risk', 'risk', 'number'
           )}
@@ -334,7 +341,9 @@
           {this.renderSubHeader(
             'sped', 'Disability', 'disability', 'string'
           )}
-          {this.renderSubHeader('sped', 'Level of Need')}
+          {this.renderSubHeader(
+            'sped', 'Level of Need', 'sped_level', 'number'
+          )}
           {this.renderSubHeader(
             'sped', '504 Plan', 'plan_504', 'string'
           )}
