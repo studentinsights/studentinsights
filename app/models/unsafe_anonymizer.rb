@@ -112,7 +112,7 @@ class UnsafeAnonymizer
     CSV.generate do |csv|
       csv << hashes.first.keys
       hashes.each {|hash| csv << hash.values }
-    end  
+    end
   end
 
   private
@@ -122,7 +122,7 @@ class UnsafeAnonymizer
 
     attrs = object.as_json
     output_hash = {}
-    hashed_strs.each {|key| output_hash[key] = sha(attrs[key])} 
+    hashed_strs.each {|key| output_hash[key] = sha(attrs[key])}
     whitelisted_strs.each {|key| output_hash[key] = attrs[key] }
     output_hash
   end
