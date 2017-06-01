@@ -368,10 +368,11 @@
 
     toggleColumn (columnKey) {
       const columnsDisplayed = Object.assign(this.state.columnsDisplayed, {});
-      const isColumnDisplayed = (columnsDisplayed.indexOf(columnKey) > -1);
+      const index = columnsDisplayed.indexOf(columnKey);
+      const isColumnDisplayed = (index > -1);
 
       if (isColumnDisplayed) {
-        columnsDisplayed.pop(columnKey);
+        columnsDisplayed.splice(index, 1);
       } else {
         columnsDisplayed.push(columnKey);
       }
