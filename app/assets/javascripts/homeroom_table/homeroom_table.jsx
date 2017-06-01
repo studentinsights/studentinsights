@@ -249,12 +249,12 @@
         <thead>
           <tr className="column-groups">
             {/*  TOP-LEVEL COLUMN GROUPS */}
-            {this.renderSuperHeader ('name', '1')}
-            {this.renderSuperHeader ('risk', '1')}
-            {this.renderSuperHeader ('program', '1')}
-            {this.renderSuperHeader ('sped', '3', 'SPED & Disability')}
-            {this.renderSuperHeader ('language', '2', 'Language')}
-            {this.renderSuperHeader ('free-reduced', '1')}
+            {this.renderSuperHeader('name', '1')}
+            {this.renderSuperHeader('risk', '1')}
+            {this.renderSuperHeader('program', '1')}
+            {this.renderSuperHeader('sped', '3', 'SPED & Disability')}
+            {this.renderSuperHeader('language', '2', 'Language')}
+            {this.renderSuperHeader('free-reduced', '1')}
             {(this.showStar()) ? this.renderStarHeaders() : null}
             {(this.showMcas()) ? this.renderMcasHeaders() : null}
           </tr>
