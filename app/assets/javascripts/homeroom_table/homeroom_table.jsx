@@ -12,15 +12,16 @@
     },
 
     getInitialState () {
+      const initialColumns = this.getInitialColumnsDisplayed();
+
       return {
-        columnsDisplayed: this.getInitialColumnsDisplayed(),
+        columnsDisplayed: initialColumns,
         showColumnPicker: false
       };
     },
 
     columnKeysToNames () {
       return {
-        'name': 'Name',
         'risk': 'Risk',
         'program': 'Program',
         'sped': 'SPED & Disability',
@@ -249,7 +250,7 @@
         <thead>
           <tr className="column-groups">
             {/*  TOP-LEVEL COLUMN GROUPS */}
-            {this.renderSuperHeader('name', '1')}
+            <td colSpan="1"></td>
             {this.renderSuperHeader('risk', '1')}
             {this.renderSuperHeader('program', '1')}
             {this.renderSuperHeader('sped', '3', 'SPED & Disability')}
