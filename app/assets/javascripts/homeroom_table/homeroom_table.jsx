@@ -309,7 +309,8 @@
       return (
         <tr className="column-names">
           {/* COLUMN HEADERS */}
-          <th className="name">
+          <th className="name"
+              onClick={this.onClickHeader.bind(null, 'first_name', 'string')}>
             <span className="table-header">
               Name
             </span>
