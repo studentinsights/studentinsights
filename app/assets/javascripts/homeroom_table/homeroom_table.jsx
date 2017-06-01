@@ -23,6 +23,14 @@
       };
     },
 
+    onClickHeader (sortBy, sortType) {
+      if (sortBy === this.state.sortBy) {
+        this.setState({ sortDesc: !this.state.sortDesc });
+      } else {
+        this.setState({ sortBy: sortBy, sortType: sortType });
+      }
+    },
+
     sortByNumber (a, b, sortBy) {
       const numA = parseInt(a[sortBy]);
       const numB = parseInt(b[sortBy]);
@@ -41,6 +49,15 @@
 
       if (stringA < stringB) return -1;
       if (stringA > stringB) return 1;
+      return 0;
+    },
+
+    sortByCustomEnum (a, b, sortBy, customEnum) {
+      const indexA = customEnum.indexOf(a[sortBy]);
+      const indexB = customEnum.indexOf(b[sortBy]);
+
+      if (indexA > indexB) return 1;
+      if (indexB > indexA) return -1;
       return 0;
     },
 
@@ -258,13 +275,13 @@
       );
     },
 
-    renderSubHeader (columnKey, label) {
+    renderSubHeader (columnKey, label, sortBy, sortType) {
       const columnsDisplayed = this.state.columnsDisplayed;
 
       if (columnsDisplayed.indexOf(columnKey) === -1) return null;
 
       return (
-        <th>
+        <th onClick={this.onClickHeader.bind(null, sortBy, sortType)}>
           <span className="table-header">{label}</span>
         </th>
       );
@@ -298,13 +315,19 @@
             </span>
           </th>
           {this.renderSubHeader('risk', 'Risk')}
-          {this.renderSubHeader('program', 'Program Assigned')}
+          {this.renderSubHeader(
+            'program', 'Program Assigned', 'program_assigned', 'program_assigned'
+          )}
           {this.renderSubHeader('sped', 'Disability')}
           {this.renderSubHeader('sped', 'Level of Need')}
           {this.renderSubHeader('sped', '504 Plan')}
           {this.renderSubHeader('language', 'Fluency')}
-          {this.renderSubHeader('language', 'Home Language')}
-          {this.renderSubHeader('free-reduced', 'Free/Reduced Lunch')}
+          {this.renderSubHeader(
+            'language', 'Home Language', 'home_language', 'string'
+          )}
+          {this.renderSubHeader(
+            'free-reduced', 'Free/Reduced Lunch', 'free_reduced_lunch', 'string'
+          )}
           {(this.showStar()) ? this.renderStarSubHeaders() : null}
           {(this.showMcas()) ? this.renderMcasSubHeaders() : null}
         </tr>
