@@ -226,7 +226,7 @@
         <tr className="column-names">
           {/* COLUMN HEADERS */}
           <th className="name">
-            <span id="first-column-header" className="table-header">
+            <span className="table-header">
               Name
             </span>
           </th>
