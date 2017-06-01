@@ -387,7 +387,7 @@
       if (columnsDisplayed.indexOf(columnKey) === -1) return null;
 
       return (
-        <td>{data}</td>
+        <td>{data || '—'}</td>
       );
     },
 
