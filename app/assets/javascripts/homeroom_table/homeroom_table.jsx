@@ -70,7 +70,7 @@
     },
 
     sortedStudents () {
-      const students = this.activeStudentRows();
+      const students = this.activeMergedStudentRows();
       const sortBy = this.state.sortBy;
       const sortType = this.state.sortType;
       let customEnum;
@@ -135,6 +135,16 @@
 
     activeStudentRows () {
       return this.props.rows.filter(this.activeStudentRowFilter);
+    },
+
+    mergeInStudentRiskLevel (row) {
+      let risk = { risk: row['student_risk_level']['level'] };
+
+      return { ...row, ...risk };
+    },
+
+    activeMergedStudentRows () {
+      return this.activeStudentRows().map(this.mergeInStudentRiskLevel);
     },
 
     warningBubbleClassName (row) {
@@ -315,14 +325,22 @@
               Name
             </span>
           </th>
-          {this.renderSubHeader('risk', 'Risk')}
+          {this.renderSubHeader(
+            'risk', 'Risk', 'risk', 'number'
+          )}
           {this.renderSubHeader(
             'program', 'Program Assigned', 'program_assigned', 'program_assigned'
           )}
-          {this.renderSubHeader('sped', 'Disability')}
+          {this.renderSubHeader(
+            'sped', 'Disability', 'disability', 'string'
+          )}
           {this.renderSubHeader('sped', 'Level of Need')}
-          {this.renderSubHeader('sped', '504 Plan')}
-          {this.renderSubHeader('language', 'Fluency')}
+          {this.renderSubHeader(
+            'sped', '504 Plan', 'plan_504', 'string'
+          )}
+          {this.renderSubHeader(
+            'language', 'Fluency', 'limited_english_proficiency', 'limited_english_proficiency'
+          )}
           {this.renderSubHeader(
             'language', 'Home Language', 'home_language', 'string'
           )}
