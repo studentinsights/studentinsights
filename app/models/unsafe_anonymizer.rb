@@ -1,4 +1,5 @@
 require 'digest'
+require 'csv'
 
 # Serializes to JSON with personally-identifiable information stripped out.
 #
