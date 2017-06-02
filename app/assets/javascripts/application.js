@@ -23,9 +23,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require highcharts
-//= require tablesort.min
-//= require tablesort.numeric
-//= require_tree ./sorts
 //= require js.cookie
 //= require classList
 //= require lodash.3.10.1.min
@@ -100,6 +97,5 @@
 // bulk services:
   //= require ./service_uploads/service_type_dropdown
 
-//= require_tree ./roster
 //= require_tree ./school_overview
 //= require_tree .

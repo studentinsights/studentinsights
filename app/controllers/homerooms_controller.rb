@@ -20,6 +20,13 @@ class HomeroomsController < ApplicationController
     # For links to STAR pages
     @school_id = @homeroom.students.active.map(&:school_id).uniq.first
     @star_homeroom_anchor = "equal:homeroom_name:#{@homeroom.name}"
+
+    # For JSX Table:
+    @serialized_data = {
+      show_star: @homeroom.show_star?,
+      show_mcas: @homeroom.show_mcas?,
+      rows: @rows
+    }
   end
 
   private
