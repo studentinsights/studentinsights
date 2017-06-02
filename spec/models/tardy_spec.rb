@@ -9,7 +9,11 @@ RSpec.describe Tardy do
   }
 
   subject(:tardy) {
-    Tardy.create!(student_school_year: student_school_year, occurred_at: Time.now)
+    Tardy.create!(
+      student_school_year: student_school_year,
+      occurred_at: Time.now,
+      student: student
+    )
   }
 
   it { is_expected.to belong_to :student_school_year }
