@@ -105,6 +105,7 @@ describe StudentsController, :type => :controller do
             FactoryGirl.create(
               :discipline_incident,
               student_school_year: student.student_school_years.first,
+              student: student,
               occurred_at: Time.now - 1.day
             )
           }
@@ -113,6 +114,7 @@ describe StudentsController, :type => :controller do
             FactoryGirl.create(
               :discipline_incident,
               student_school_year: most_recent_school_year,
+              student: student,
               occurred_at: Time.now - 2.days
             )
           }
@@ -553,7 +555,11 @@ describe StudentsController, :type => :controller do
           current_student_school_year = student.student_school_years.find_or_create_by(school_year: current_school_year)
 
           # Add an absence in the current school year
-          current_absence = FactoryGirl.create(:absence, student_school_year: current_student_school_year)
+          current_absence = FactoryGirl.create(
+            :absence,
+            student_school_year: current_student_school_year,
+            student: student
+          )
 
           expect(assigns(:student_school_years)).not_to include(old_student_school_year)
           expect(assigns(:student_school_years)).to include(current_student_school_year)
