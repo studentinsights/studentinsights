@@ -23,27 +23,6 @@ export default React.createClass({
     };
   },
 
-  sortByNumber (a, b, sortBy) {
-    const numA = parseInt(a[sortBy]);
-    const numB = parseInt(b[sortBy]);
-
-    if (!Number.isInteger(numA) && !Number.isInteger(numB)) return 0;
-
-    if (!Number.isInteger(numA) || numA < numB) return 1;
-    if (!Number.isInteger(numB) || numA > numB) return -1;
-
-    return 0;
-  },
-
-  sortByCustomEnum (a, b, sortBy, customEnum) {
-    const indexA = customEnum.indexOf(a[sortBy]);
-    const indexB = customEnum.indexOf(b[sortBy]);
-
-    if (indexA > indexB) return 1;
-    if (indexB > indexA) return -1;
-    return 0;
-  },
-
   orderedStudents () {
     const sortedStudents = this.sortedStudents();
 
@@ -62,23 +41,23 @@ export default React.createClass({
     case 'string':
       return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
     case 'number':
-      return students.sort((a, b) => this.sortByNumber(a, b, sortBy));
+      return students.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
     case 'date':
-      return students.sort((a, b) => this.sortByDate(a, b, sortBy));
+      return students.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
     case 'grade':
       customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
-      return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
     case 'sped_level_of_need':
       customEnum = ['—', 'Low < 2', 'Low >= 2', 'Moderate', 'High'];
-      return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
     case 'limited_english_proficiency':
       customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
-      return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
     case 'program_assigned':
       customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
-      return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
     case 'active_services':
-      return students.sort((a, b) => this.sortByActiveServices(a, b));
+      return students.sort((a, b) => SortHelpers.sortByActiveServices(a, b));
     default:
       return students;
     }
