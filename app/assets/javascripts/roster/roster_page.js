@@ -7,14 +7,6 @@ $(function() {
     //   window.location.pathname = '/homerooms/' + $(this).val();
     // });
 
-    // // Replace blank cells with em dashes
-    // $('#roster-table tbody td').each(function() {
-    //   var content = $.trim($(this).html());
-    //   if (content.length === 0) {
-    //     $(this).html('—');
-    //   }
-    // });
-
   }
 
 });
