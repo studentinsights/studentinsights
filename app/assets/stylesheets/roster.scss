@@ -1,6 +1,12 @@
 /* ROSTER */
 /* TODO: Scopeify this. */
 
+#roster-table {
+  th.sortable_header {
+    cursor: pointer;
+  }
+}
+
 .topline-info {
   padding: 20px 40px;
 }

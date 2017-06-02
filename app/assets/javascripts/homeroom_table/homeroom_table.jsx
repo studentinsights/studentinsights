@@ -298,7 +298,8 @@
       if (columnsDisplayed.indexOf(columnKey) === -1) return null;
 
       return (
-        <th onClick={this.onClickHeader.bind(null, sortBy, sortType)}>
+        <th className="sortable_header"
+            onClick={this.onClickHeader.bind(null, sortBy, sortType)}>
           <span className="table-header">{label}</span>
         </th>
       );
@@ -324,7 +325,7 @@
 
     renderNameSubheader () {
       return (
-        <th className="name"
+        <th className="name sortable_header"
             onClick={this.onClickHeader.bind(null, 'first_name', 'string')}>
           <span className="table-header">
             Name
