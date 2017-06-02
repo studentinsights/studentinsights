@@ -37,8 +37,8 @@
 
       if (!Number.isInteger(numA) && !Number.isInteger(numB)) return 0;
 
-      if (!Number.isInteger(numA) || numA > numB) return -1;
-      if (!Number.isInteger(numB) || numA < numB) return 1;
+      if (!Number.isInteger(numA) || numA < numB) return 1;
+      if (!Number.isInteger(numB) || numA > numB) return -1;
 
       return 0;
     },
