@@ -23,6 +23,12 @@ class AttendanceRow < Struct.new(:row)
     attendance_event_class.find_or_initialize_by(
       occurred_at: row[:event_date]
     )
+
+    attendance_event_class.assign_attributes(
+      student: student
+    )
+
+    attendance_event_class
   end
 
   private
