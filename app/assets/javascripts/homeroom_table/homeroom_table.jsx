@@ -210,10 +210,12 @@
     renderStarSubHeaders () {
       return (
       [
-        <th key="star_math_sub_header">
+        <th className="sortable_header" key="star_math_sub_header"
+            onClick={this.onClickHeader.bind(null, 'most_recent_star_math_percentile', 'number')}>
             <span className="table-header">Percentile</span>
           </th>,
-        <th key="star_reading_sub_header">
+        <th className="sortable_header" key="star_reading_sub_header"
+            onClick={this.onClickHeader.bind(null, 'most_recent_star_reading_percentile', 'number')}>
             <span className="table-header">Percentile</span>
           </th>
       ]
@@ -240,16 +242,20 @@
     renderMcasSubHeaders () {
       return (
       [
-        <th key="mcas_math_sub_header_perf">
+        <th className="sortable_header" key="mcas_math_sub_header_perf"
+            onClick={this.onClickHeader.bind(null, 'most_recent_mcas_math_performance', 'string')}>
             <span className="table-header">Performance</span>
           </th>,
-        <th key="mcas_math_sub_header_score">
+        <th className="sortable_header" key="mcas_math_sub_header_score"
+            onClick={this.onClickHeader.bind(null, 'most_recent_mcas_math_scaled', 'number')}>
             <span className="table-header">Score</span>
           </th>,
-        <th key="mcas_ela_sub_header_perf">
+        <th className="sortable_header" key="mcas_ela_sub_header_perf"
+            onClick={this.onClickHeader.bind(null, 'most_recent_mcas_ela_performance', 'string')}>
             <span className="table-header">Performance</span>
           </th>,
-        <th key="mcas_ela_sub_header_score">
+        <th className="sortable_header" key="mcas_ela_sub_header_score"
+            onClick={this.onClickHeader.bind(null, 'most_recent_mcas_ela_scaled', 'number')}>
             <span className="table-header">Score</span>
           </th>
       ]
@@ -262,10 +268,10 @@
       return (
       [
         <td key="star_math_percentile_rank">
-            {row['most_recent_star_math_percentile']}
+            {row['most_recent_star_math_percentile'] || '—'}
           </td>,
         <td key="star_reading_percentile_rank">
-            {row['most_recent_star_reading_percentile']}
+            {row['most_recent_star_reading_percentile'] || '—'}
           </td>
       ]
       );
@@ -277,16 +283,16 @@
       return (
       [
         <td key="mcas_math_performance_level">
-            {row['most_recent_mcas_math_performance']}
+            {row['most_recent_mcas_math_performance'] || '—'}
           </td>,
         <td key="mcas_math_scaled">
-            {row['most_recent_mcas_math_scaled']}
+            {row['most_recent_mcas_math_scaled'] || '—'}
           </td>,
         <td key="mcas_ela performance_level">
-            {row['most_recent_mcas_ela_performance']}
+            {row['most_recent_mcas_ela_performance'] || '—'}
           </td>,
         <td key="mcas_ela_scaled">
-            {row['most_recent_mcas_ela_scaled']}
+            {row['most_recent_mcas_ela_scaled'] || '—'}
           </td>
       ]
       );
