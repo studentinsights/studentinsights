@@ -97,6 +97,5 @@
 // bulk services:
   //= require ./service_uploads/service_type_dropdown
 
-//= require_tree ./roster
 //= require_tree ./school_overview
 //= require_tree .
