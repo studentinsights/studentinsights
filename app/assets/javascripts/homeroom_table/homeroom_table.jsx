@@ -23,14 +23,6 @@
       };
     },
 
-    onClickHeader (sortBy, sortType) {
-      if (sortBy === this.state.sortBy) {
-        this.setState({ sortDesc: !this.state.sortDesc });
-      } else {
-        this.setState({ sortBy: sortBy, sortType: sortType });
-      }
-    },
-
     sortByNumber (a, b, sortBy) {
       const numA = parseInt(a[sortBy]);
       const numB = parseInt(b[sortBy]);
@@ -109,6 +101,30 @@
       }
     },
 
+    openColumnPicker () {
+      this.setState({ showColumnPicker: true });
+    },
+
+    closeColumnPicker () {
+      this.setState({ showColumnPicker: false });
+    },
+
+    toggleColumn (columnKey) {
+      const columnsDisplayed = Object.assign(this.state.columnsDisplayed, {});
+      const index = columnsDisplayed.indexOf(columnKey);
+      const isColumnDisplayed = (index > -1);
+
+      if (isColumnDisplayed) {
+        columnsDisplayed.splice(index, 1);
+      } else {
+        columnsDisplayed.push(columnKey);
+      }
+
+      Cookies.set("columnsDisplayed", columnsDisplayed);
+
+      this.setState({ columnsDisplayed: columnsDisplayed });
+    },
+
     columnKeysToNames () {
       return {
         'risk': 'Risk',
@@ -160,6 +176,10 @@
       return `warning-bubble risk-${riskLevel} tooltip`;
     },
 
+    visitStudentProfile (id) {
+      window.location.href = `/students/${id}`;
+    },
+
     showStar () {
       const columnsDisplayed = this.state.columnsDisplayed;
       const starDisplayed = columnsDisplayed.indexOf('star') > -1;
@@ -176,6 +196,14 @@
       if (this.props.showMcas === true && mcasDisplayed === true) return true;
 
       return false;
+    },
+
+    onClickHeader (sortBy, sortType) {
+      if (sortBy === this.state.sortBy) {
+        this.setState({ sortDesc: !this.state.sortDesc });
+      } else {
+        this.setState({ sortBy: sortBy, sortType: sortType });
+      }
     },
 
     render () {
@@ -426,10 +454,6 @@
       );
     },
 
-    visitStudentProfile (id) {
-      window.location.href = `/students/${id}`;
-    },
-
     renderRow (row) {
       const fullName = `${row['first_name']} ${row['last_name']}`;
       const id = row["id"];
@@ -481,14 +505,6 @@
       );
     },
 
-    openColumnPicker () {
-      this.setState({ showColumnPicker: true });
-    },
-
-    closeColumnPicker () {
-      this.setState({ showColumnPicker: false });
-    },
-
     renderColumnPickerArea () {
       return (
         <div>
@@ -498,22 +514,6 @@
           {this.renderColumnPickerMenu()}
         </div>
       );
-    },
-
-    toggleColumn (columnKey) {
-      const columnsDisplayed = Object.assign(this.state.columnsDisplayed, {});
-      const index = columnsDisplayed.indexOf(columnKey);
-      const isColumnDisplayed = (index > -1);
-
-      if (isColumnDisplayed) {
-        columnsDisplayed.splice(index, 1);
-      } else {
-        columnsDisplayed.push(columnKey);
-      }
-
-      Cookies.set("columnsDisplayed", columnsDisplayed);
-
-      this.setState({ columnsDisplayed: columnsDisplayed });
     },
 
     renderColumnSelect (columnKey) {
@@ -543,7 +543,7 @@
     renderColumnSelectors () {
       const columnKeys = this.columnKeys();
 
-      return columnKeys.map((key) => { return this.renderColumnSelect(key) });
+      return columnKeys.map((key) => { return this.renderColumnSelect(key); });
     },
 
     renderColumnPickerMenu () {
