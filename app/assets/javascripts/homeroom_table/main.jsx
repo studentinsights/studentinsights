@@ -1,5 +1,5 @@
+import HomeroomTable from './homeroom_table.jsx';
 const ReactDOM = window.ReactDOM;
-const HomeroomTable = window.shared.HomeroomTable;
 
 $(function() {
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
