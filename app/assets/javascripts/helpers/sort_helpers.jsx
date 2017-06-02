@@ -48,15 +48,6 @@ export default {
     return 0;
   },
 
-  sortByCustomEnum: function (a, b, sortBy, customEnum) {
-    const indexA = customEnum.indexOf(a[sortBy]);
-    const indexB = customEnum.indexOf(b[sortBy]);
-
-    if (indexA > indexB) return 1;
-    if (indexB > indexA) return -1;
-    return 0;
-  },
-
   sortByActiveServices: function (a, b) {
     const numA = a.active_services.length;
     const numB = b.active_services.length;
