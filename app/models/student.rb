@@ -14,6 +14,10 @@ class Student < ActiveRecord::Base
   has_many :interventions, dependent: :destroy
   has_many :event_notes, dependent: :destroy
   has_many :services, dependent: :destroy
+  has_many :tardies, dependent: :destroy
+  has_many :absences, dependent: :destroy
+  has_many :discipline_incidents, dependent: :destroy
+
   has_one :student_risk_level, dependent: :destroy
 
   validates_presence_of :local_id
