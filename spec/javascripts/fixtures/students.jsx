@@ -1,5 +1,6 @@
 export default [{
   "id": 1,
+  "enrollment_status": "Active",
   "grade": "5",
   "hispanic_latino": true,
   "race": "H",
@@ -146,6 +147,7 @@ export default [{
 },
 {
   "id": 2,
+  "enrollment_status": "Active",
   "grade": "5",
   "hispanic_latino": false,
   "race": "B",
