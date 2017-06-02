@@ -1,3 +1,5 @@
+import SortHelpers from '../helpers/sort_helpers.jsx';
+
 (function(root) {
   window.shared || (window.shared = {});
   const Cookies = window.Cookies;
@@ -35,21 +37,6 @@
       return 0;
     },
 
-    sortByString (a, b, sortBy) {
-      const stringA = a[sortBy];
-      const stringB = b[sortBy];
-
-      if (!stringA && !stringB) return 0;
-
-      if (!stringA) return -1;
-      if (!stringB) return 1;
-
-      if (stringA.toUpperCase() < stringB.toUpperCase()) return -1;
-      if (stringA.toUpperCase() > stringB.toUpperCase()) return 1;
-
-      return 0;
-    },
-
     sortByCustomEnum (a, b, sortBy, customEnum) {
       const indexA = customEnum.indexOf(a[sortBy]);
       const indexB = customEnum.indexOf(b[sortBy]);
@@ -75,13 +62,11 @@
 
       switch(sortType) {
       case 'string':
-        return students.sort((a, b) => this.sortByString(a, b, sortBy));
+        return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
       case 'number':
         return students.sort((a, b) => this.sortByNumber(a, b, sortBy));
       case 'date':
         return students.sort((a, b) => this.sortByDate(a, b, sortBy));
-      case 'free_reduced_lunch':
-        return students.sort((a, b) => this.sortByString(a, b, sortBy));
       case 'grade':
         customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
         return students.sort((a, b) => this.sortByCustomEnum(a, b, sortBy, customEnum));
