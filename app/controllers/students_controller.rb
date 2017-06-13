@@ -37,7 +37,11 @@ class StudentsController < ApplicationController
       event_note_types_index: event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
-      attendance_data: student_profile_attendance_data(student.student_school_years)
+      attendance_data: {
+        discipline_incidents: student.discipline_incidents.order(occurred_at: :desc),
+        tardies: student.tardies.order(occurred_at: :desc),
+        absences: student.absences.order(occurred_at: :desc)
+      }
     }
   end
 
@@ -111,22 +115,6 @@ class StudentsController < ApplicationController
   end
 
   private
-
-  def student_profile_attendance_data(student_school_years)
-    return {
-      discipline_incidents: flatmap_and_sort(student_school_years) {|year| year.discipline_incidents },
-      tardies: flatmap_and_sort(student_school_years) {|year| year.tardies },
-      absences: flatmap_and_sort(student_school_years) {|year| year.absences }
-    }
-  end
-
-  # Takes a list of student_school_years, yields each one to the block provided, then flattens
-  # and sorts the results.
-  def flatmap_and_sort(student_school_years)
-    student_school_years.map do |student_school_year|
-      yield student_school_year
-    end.flatten.sort_by(&:occurred_at).reverse
-  end
 
   def serialize_student_for_profile(student)
     student.as_json.merge({
