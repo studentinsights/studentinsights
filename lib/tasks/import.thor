@@ -90,7 +90,7 @@ class Import
           FileImport.new(file_importer).import
         end
       rescue => error
-        ImportErrorMailer.error_report(error).deliver_now
+        ImportErrorMailer.error_report(error).deliver_now if Rails.env.production?
         raise error
       end
     end
@@ -102,7 +102,7 @@ class Import
         Student.update_recent_student_assessments
         Homeroom.destroy_empty_homerooms
       rescue => error
-        ImportErrorMailer.error_report(error).deliver_now
+        ImportErrorMailer.error_report(error).deliver_now if Rails.env.production?
         raise error
       end
     end

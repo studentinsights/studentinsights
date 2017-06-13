@@ -8,11 +8,13 @@ class AttendanceRow < Struct.new(:row)
   class NullRelation
     class NullEvent
       def save!; end
+      def assign_attributes(_); end
     end
 
     def find_or_initialize_by(_)
       NullEvent.new
     end
+
   end
 
   def self.build(row)
@@ -20,9 +22,15 @@ class AttendanceRow < Struct.new(:row)
   end
 
   def build
-    attendance_event_class.find_or_initialize_by(
+    attendance_event = attendance_event_class.find_or_initialize_by(
       occurred_at: row[:event_date]
     )
+
+    attendance_event.assign_attributes(
+      student: student
+    )
+
+    attendance_event
   end
 
   private
