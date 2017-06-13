@@ -23,6 +23,79 @@ RSpec.describe Student do
     end
   end
 
+  describe '#most_recent_school_year_absences_count' do
+    let(:student) { FactoryGirl.create(:student) }
+    let(:school_year) { FactoryGirl.create(:school_year) }
+    let(:student_school_year) {
+      StudentSchoolYear.create(student: student, school_year: school_year)
+    }
+
+    context 'no absences ever' do
+
+      it 'returns zero' do
+        expect(student.most_recent_school_year_absences_count).to eq(0)
+      end
+    end
+
+    context 'no absences this school year, one last year' do
+      let!(:absence) {
+        FactoryGirl.create(:absence,
+          student: student,
+          student_school_year: student_school_year,
+          occurred_at: DateTime.new(2016, 9, 1)
+        )
+      }
+
+      it 'returns zero' do
+        Timecop.freeze(DateTime.new(2017, 9, 1)) do
+          expect(student.most_recent_school_year_absences_count).to eq(0)
+        end
+      end
+    end
+
+    context 'two absences this school year (first half of year)' do
+      before do
+        FactoryGirl.create(:absence,
+          student: student,
+          student_school_year: student_school_year,
+          occurred_at: DateTime.new(2017, 9, 1)
+        )
+        FactoryGirl.create(:absence,
+          student: student,
+          student_school_year: student_school_year,
+          occurred_at: DateTime.new(2017, 9, 2)
+        )
+      end
+
+      it 'returns two' do
+        Timecop.freeze(DateTime.new(2018, 6, 1)) do
+          expect(student.most_recent_school_year_absences_count).to eq(2)
+        end
+      end
+    end
+
+    context 'two absences this school year (second half of year)' do
+      before do
+        FactoryGirl.create(:absence,
+          student: student,
+          student_school_year: student_school_year,
+          occurred_at: DateTime.new(2018, 5, 1)
+        )
+        FactoryGirl.create(:absence,
+          student: student,
+          student_school_year: student_school_year,
+          occurred_at: DateTime.new(2018, 5, 2)
+        )
+      end
+
+      it 'returns two' do
+        Timecop.freeze(DateTime.new(2018, 6, 1)) do
+          expect(student.most_recent_school_year_absences_count).to eq(2)
+        end
+      end
+    end
+  end
+
   describe '#latest_result_by_family_and_subject' do
     let(:student) { FactoryGirl.create(:student) }
     let(:assessment_family) { "MCAS" }
