@@ -10,19 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602060046) do
+ActiveRecord::Schema.define(version: 20170613224011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "absences", force: :cascade do |t|
-    t.integer  "student_school_year_id", null: false
-    t.datetime "occurred_at",            null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "occurred_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "student_id"
     t.index ["student_id"], name: "index_absences_on_student_id", using: :btree
-    t.index ["student_school_year_id"], name: "index_absences_on_student_school_year_id", using: :btree
   end
 
   create_table "assessment_families", force: :cascade do |t|
@@ -62,16 +60,14 @@ ActiveRecord::Schema.define(version: 20170602060046) do
 
   create_table "discipline_incidents", force: :cascade do |t|
     t.string   "incident_code"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "incident_location"
     t.text     "incident_description"
-    t.datetime "occurred_at",            null: false
+    t.datetime "occurred_at",          null: false
     t.boolean  "has_exact_time"
-    t.integer  "student_school_year_id", null: false
     t.integer  "student_id"
     t.index ["student_id"], name: "index_discipline_incidents_on_student_id", using: :btree
-    t.index ["student_school_year_id"], name: "index_discipline_incidents_on_student_school_year_id", using: :btree
   end
 
   create_table "discontinued_services", force: :cascade do |t|
@@ -334,13 +330,11 @@ ActiveRecord::Schema.define(version: 20170602060046) do
   end
 
   create_table "tardies", force: :cascade do |t|
-    t.integer  "student_school_year_id", null: false
-    t.datetime "occurred_at",            null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "occurred_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "student_id"
     t.index ["student_id"], name: "index_tardies_on_student_id", using: :btree
-    t.index ["student_school_year_id"], name: "index_tardies_on_student_school_year_id", using: :btree
   end
 
   add_foreign_key "absences", "students"
