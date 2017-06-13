@@ -51,6 +51,26 @@ class Student < ActiveRecord::Base
     enrollment_status == 'Active'
   end
 
+  ## ABSENCES / TARDIES ##
+
+  def most_recent_school_year_discipline_incidents_count
+    discipline_incidents.where(
+      'occurred_at > ?', start_of_this_school_year
+    ).count
+  end
+
+  def most_recent_school_year_absences_count
+    absences.where(
+      'occurred_at > ?', start_of_this_school_year
+    ).count
+  end
+
+  def most_recent_school_year_tardies_count
+    tardies.where(
+      'occurred_at > ?', start_of_this_school_year
+    ).count
+  end
+
   ## STUDENT ASSESSMENT RESULTS ##
 
   def latest_result_by_family_and_subject(family_name, subject_name)
@@ -284,5 +304,23 @@ class Student < ActiveRecord::Base
       "warning-bubble sped-risk-bubble tooltip"
     end
   end
+
+  private
+
+    def this_year
+      DateTime.now.year
+    end
+
+    def august_of_this_year
+      DateTime.new(this_year, 8, 1)
+    end
+
+    def start_of_this_school_year
+      if august_of_this_year > DateTime.now
+        DateTime.new(this_year - 1, 8, 1)
+      else
+        august_of_this_year
+      end
+    end
 
 end
