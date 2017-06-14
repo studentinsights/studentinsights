@@ -179,6 +179,14 @@ class StudentsController < ApplicationController
     # Load for absences, tardies, and discipline incidents for the filtered dates
     @student_school_years = @student.events_by_student_school_years
 
+    @absences = @student.absences.sort_by(&:occurred_at).select do |hash|
+      hash[:occurred_at] >= @filter_from_date && hash[:occurred_at] <= @filter_to_date
+    end
+
+    @tardies = @student.tardies.sort_by(&:occurred_at).select do |hash|
+      hash[:occurred_at] >= @filter_from_date && hash[:occurred_at] <= @filter_to_date
+    end
+
     # Sort the discipline incidents by occurrance date
     @discipline_incidents = @student.discipline_incidents.sort_by(&:occurred_at).select do |hash|
       hash[:occurred_at] >= @filter_from_date && hash[:occurred_at] <= @filter_to_date

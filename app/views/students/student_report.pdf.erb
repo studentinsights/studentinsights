@@ -125,17 +125,17 @@ ul, li {
     </tr>
     <% @student_school_years.each do |year| %>
       <tr>
-        <td><%= name %></td>
+        <td><%= year.name %></td>
         <td>
           <ul>
-          <% year.absences.where('occurred_at BETWEEN ? AND ?', @filter_from_date, @filter_to_date).order(:occurred_at).each do |absence| %>
+          <% @absences.each do |absence| %>
             <li><%= format_date(absence.occurred_at) %></li>
           <% end %>
           </ul>
         </td>
         <td>
           <ul>
-          <% year.tardies.where('occurred_at BETWEEN ? AND ?', @filter_from_date, @filter_to_date).order(:occurred_at).each do |tardy| %>
+          <% @tardies.each do |tardy| %>
             <li><%= format_date(tardy.occurred_at) %></li>
           <% end %>
           </ul>
