@@ -71,26 +71,8 @@ class Student < ActiveRecord::Base
     ).count
   end
 
-  def events
-    [
-      discipline_incidents,
-      absences,
-      tardies,
-    ].flatten
-  end
-
   def events_by_student_school_years
-    events.inject({}) do |memo, event|
-      school_year_name = find_school_year_name(event)
-
-      if memo[school_year_name]
-        memo[school_year_name] << event
-      else
-        memo[school_year_name] = [event]
-      end
-
-      memo
-    end
+    StudentSchoolYearSorter.new(student: self).sort
   end
 
   ## STUDENT ASSESSMENT RESULTS ##
@@ -342,18 +324,6 @@ class Student < ActiveRecord::Base
         DateTime.new(this_year - 1, 8, 1)
       else
         august_of_this_year
-      end
-    end
-
-    def find_school_year_name(event)
-      occurred_at = event.occurred_at
-      month = occurred_at.month
-      year = occurred_at.year
-
-      if month >= 8
-        "#{year}-#{year + 1}"
-      elsif month >= 1 && month <= 7
-        "#{year - 1}-#{year}"
       end
     end
 
