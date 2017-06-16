@@ -177,7 +177,7 @@ class StudentsController < ApplicationController
     @services = @student.services.includes(:discontinued_services).where("date_started <= ? AND (discontinued_services.recorded_at >= ? OR discontinued_services.recorded_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_services.recorded_at').references(:discontinued_services)
 
     # Load student school years for the filtered dates
-    @student_school_years = @student.events_by_student_school_years
+    @student_school_years = @student.events_by_student_school_years(@filter_from_date, @filter_to_date)
 
     # Sort the discipline incidents by occurrance date
     @discipline_incidents = @student.discipline_incidents.sort_by(&:occurred_at).select do |hash|

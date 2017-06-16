@@ -71,8 +71,10 @@ class Student < ActiveRecord::Base
     ).count
   end
 
-  def events_by_student_school_years
-    StudentSchoolYearSorter.new(student: self).sort
+  def events_by_student_school_years(filter_to_date, filter_from_date)
+    sorter = StudentSchoolYearSorter.new(student: self)
+
+    sorter.sort_and_filter(filter_to_date, filter_from_date)
   end
 
   ## STUDENT ASSESSMENT RESULTS ##
