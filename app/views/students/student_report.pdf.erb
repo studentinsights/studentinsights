@@ -128,14 +128,14 @@ ul, li {
         <td><%= year.name %></td>
         <td>
           <ul>
-          <% @absences.each do |absence| %>
+          <% year.absences.each do |absence| %>
             <li><%= format_date(absence.occurred_at) %></li>
           <% end %>
           </ul>
         </td>
         <td>
           <ul>
-          <% @tardies.each do |tardy| %>
+          <% year.tardies.each do |tardy| %>
             <li><%= format_date(tardy.occurred_at) %></li>
           <% end %>
           </ul>
