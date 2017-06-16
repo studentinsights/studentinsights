@@ -44,10 +44,5 @@ RSpec.describe AttendanceRow do
         expect { row.build.save! }.not_to change(Tardy, :count)
       end
     end
-
-    it 'creates the appropriate school year' do
-      expect { row.build }.to change(SchoolYear, :count).by(1)
-      expect(SchoolYear.last.name).to eq('1981-1982')
-    end
   end
 end

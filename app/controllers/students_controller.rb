@@ -37,7 +37,11 @@ class StudentsController < ApplicationController
       event_note_types_index: event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
-      attendance_data: student_profile_attendance_data(student.student_school_years)
+      attendance_data: {
+        discipline_incidents: student.discipline_incidents.order(occurred_at: :desc),
+        tardies: student.tardies.order(occurred_at: :desc),
+        absences: student.absences.order(occurred_at: :desc)
+      }
     }
   end
 
@@ -112,22 +116,6 @@ class StudentsController < ApplicationController
 
   private
 
-  def student_profile_attendance_data(student_school_years)
-    return {
-      discipline_incidents: flatmap_and_sort(student_school_years) {|year| year.discipline_incidents },
-      tardies: flatmap_and_sort(student_school_years) {|year| year.tardies },
-      absences: flatmap_and_sort(student_school_years) {|year| year.absences }
-    }
-  end
-
-  # Takes a list of student_school_years, yields each one to the block provided, then flattens
-  # and sorts the results.
-  def flatmap_and_sort(student_school_years)
-    student_school_years.map do |student_school_year|
-      yield student_school_year
-    end.flatten.sort_by(&:occurred_at).reverse
-  end
-
   def serialize_student_for_profile(student)
     student.as_json.merge({
       student_risk_level: student.student_risk_level.as_json,
@@ -179,11 +167,8 @@ class StudentsController < ApplicationController
     @current_educator = current_educator
     @sections = (params[:sections] || "").split(",")
 
-
     @filter_from_date = params[:from_date] ? Date.strptime(params[:from_date],  "%m/%d/%Y") : Date.today()
     @filter_to_date = params[:from_date] ? Date.strptime(params[:to_date],  "%m/%d/%Y") : Date.today()
-
-    school_year_ids = school_year_id_range(@filter_from_date, @filter_to_date)
 
     # Load event notes that are NOT restricted for the student for the filtered dates
     @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_date..@filter_to_date)
@@ -191,14 +176,13 @@ class StudentsController < ApplicationController
     # Load services for the student for the filtered dates
     @services = @student.services.includes(:discontinued_services).where("date_started <= ? AND (discontinued_services.recorded_at >= ? OR discontinued_services.recorded_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_services.recorded_at').references(:discontinued_services)
 
-    # Load for absences, tardies, and discipline incidents for the filtered dates
-    @student_school_years = @student.student_school_years.includes(:absences).includes(:tardies).includes(:discipline_incidents).where(school_year_id: school_year_ids)
+    # Load student school years for the filtered dates
+    @student_school_years = @student.events_by_student_school_years(@filter_from_date, @filter_to_date)
 
-    # Flatten the discipline incidents, sorted by occurrance date
-    @discipline_incidents = @student_school_years.flat_map(&:discipline_incidents).sort_by(&:occurred_at).select do |hash|
+    # Sort the discipline incidents by occurrance date
+    @discipline_incidents = @student.discipline_incidents.sort_by(&:occurred_at).select do |hash|
       hash[:occurred_at] >= @filter_from_date && hash[:occurred_at] <= @filter_to_date
     end
-
 
     # This is a hash with the test name as the key and an array of date-sorted student assessment objects as the value
     student_assessments_by_date = @student.student_assessments.order_by_date_taken_asc.includes(:assessment).where(date_taken: @filter_from_date..@filter_to_date)
@@ -228,7 +212,11 @@ class StudentsController < ApplicationController
         filter_from_date: @filter_from_date,
         filter_to_date: @filter_to_date
       },
-      attendance_data: student_profile_attendance_data(@student_school_years)
+      attendance_data: {
+        discipline_incidents: @student.discipline_incidents.order(occurred_at: :desc),
+        tardies: @student.tardies.order(occurred_at: :desc),
+        absences: @student.absences.order(occurred_at: :desc)
+      }
     }
   end
 end

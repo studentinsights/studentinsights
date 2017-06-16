@@ -25,10 +25,6 @@ RSpec.describe Student do
 
   describe '#most_recent_school_year_absences_count' do
     let(:student) { FactoryGirl.create(:student) }
-    let(:school_year) { FactoryGirl.create(:school_year) }
-    let(:student_school_year) {
-      StudentSchoolYear.create(student: student, school_year: school_year)
-    }
 
     context 'no absences ever' do
 
@@ -41,7 +37,6 @@ RSpec.describe Student do
       let!(:absence) {
         FactoryGirl.create(:absence,
           student: student,
-          student_school_year: student_school_year,
           occurred_at: DateTime.new(2016, 9, 1)
         )
       }
@@ -57,12 +52,10 @@ RSpec.describe Student do
       before do
         FactoryGirl.create(:absence,
           student: student,
-          student_school_year: student_school_year,
           occurred_at: DateTime.new(2017, 9, 1)
         )
         FactoryGirl.create(:absence,
           student: student,
-          student_school_year: student_school_year,
           occurred_at: DateTime.new(2017, 9, 2)
         )
       end
@@ -78,12 +71,10 @@ RSpec.describe Student do
       before do
         FactoryGirl.create(:absence,
           student: student,
-          student_school_year: student_school_year,
           occurred_at: DateTime.new(2018, 5, 1)
         )
         FactoryGirl.create(:absence,
           student: student,
-          student_school_year: student_school_year,
           occurred_at: DateTime.new(2018, 5, 2)
         )
       end

@@ -22,7 +22,7 @@ ul, li {
 
 
 <div style="width: 768px;">
- 
+
 <!-- Demographic Information -->
 <div style="float: left; width: 512px;">
   <div>
@@ -89,7 +89,7 @@ ul, li {
     <% @services.each do |service| %>
       <div style="float: left; width:370px; padding:5px">
         <ul>
-          <li><span style="font-weight:bold;"><%= format_date(service.date_started) %> - 
+          <li><span style="font-weight:bold;"><%= format_date(service.date_started) %> -
             <% if service.discontinued_services.count > 0%>
               <%= "#{format_date(service.discontinued_services.last.try(:recorded_at))}" %>
             <% else %>
@@ -113,7 +113,7 @@ ul, li {
 <br style="clear: left;" /><br/>
 <% end %>
 
- 
+
 <% if @sections.include?("attendance") %>
 <p>
   <h4>Attendance record:</h4>
@@ -128,14 +128,14 @@ ul, li {
         <td><%= year.name %></td>
         <td>
           <ul>
-          <% year.absences.where('occurred_at BETWEEN ? AND ?', @filter_from_date, @filter_to_date).order(:occurred_at).each do |absence| %>
+          <% year.filtered_absences(@filter_from_date, @filter_to_date).each do |absence| %>
             <li><%= format_date(absence.occurred_at) %></li>
           <% end %>
           </ul>
         </td>
         <td>
           <ul>
-          <% year.tardies.where('occurred_at BETWEEN ? AND ?', @filter_from_date, @filter_to_date).order(:occurred_at).each do |tardy| %>
+          <% year.filtered_tardies(@filter_from_date, @filter_to_date).each do |tardy| %>
             <li><%= format_date(tardy.occurred_at) %></li>
           <% end %>
           </ul>

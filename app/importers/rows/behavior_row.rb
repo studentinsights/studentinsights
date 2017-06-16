@@ -11,7 +11,7 @@ class BehaviorRow < Struct.new(:row)
   end
 
   def build
-    discipline_incident = student_school_year.discipline_incidents.find_or_initialize_by(
+    discipline_incident = student.discipline_incidents.find_or_initialize_by(
       occurred_at: occurred_at,
       incident_code: row[:incident_code]
     )
@@ -20,7 +20,6 @@ class BehaviorRow < Struct.new(:row)
       has_exact_time: has_exact_time?,
       incident_location: row[:incident_location],
       incident_description: row[:incident_description],
-      student: student
     )
 
     discipline_incident
@@ -43,14 +42,6 @@ class BehaviorRow < Struct.new(:row)
   end
 
   def student
-    Student.find_by_local_id! row[:local_id]
-  end
-
-  def school_year
-    DateToSchoolYear.new(occurred_at).convert
-  end
-
-  def student_school_year
-    student.student_school_years.find_or_create_by(school_year: school_year)
+    Student.find_by_local_id!(row[:local_id])
   end
 end

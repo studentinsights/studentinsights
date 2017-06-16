@@ -6,7 +6,7 @@ RSpec.describe BehaviorImporter do
   describe '#import_row' do
     let(:importer) { described_class.new }
     before { importer.import_row(row) }
-    let(:incidents) { student.reload.most_recent_school_year.discipline_incidents }
+    let(:incidents) { student.discipline_incidents }
     let(:incident) { incidents.last }
 
     context 'typical row' do

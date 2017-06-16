@@ -36,6 +36,8 @@ class FakeStudent
     "Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"
   ]
 
+  FIVE_YEARS_OF_SECONDS = 157766400
+
   def base_data
     {
       school: @school,
@@ -171,19 +173,12 @@ class FakeStudent
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      # Randomly determine the school year it occurred.
-      year = [0, 1, 2, 3, 4, 5].sample
-      date_begin = Time.local(2010 + year, 8, 1)
-      date_end = Time.local(2011 + year, 7, 31)
+      # Randomly determine when it occurred.
+      occurred_at = Time.at(DateTime.now.to_i - (rand * FIVE_YEARS_OF_SECONDS))
 
       attendance_event = [Absence.new, Tardy.new].sample
-      attendance_event.student_school_year = @student.student_school_years.first
-
-      # Make sure event isn't listed as having happened in the future.
-      occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
-      if occurred_at < Time.new then
-        attendance_event.occurred_at = occurred_at
-      end
+      attendance_event.occurred_at = occurred_at
+      attendance_event.student = student
 
       attendance_event.save
     end
@@ -200,19 +195,15 @@ class FakeStudent
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      # Randomly determine the school year it occurred.
-      n = [0, 1, 2, 3, 4, 5].sample
-      date_begin = Time.local(2010 + n, 8, 1)
-      date_end = Time.local(2011 + n, 7, 31)
+      # Randomly determine when it occurred.
+      occurred_at = Time.at(DateTime.now.to_i - (rand * FIVE_YEARS_OF_SECONDS))
 
-      discipline_incident = DisciplineIncident.new(FakeDisciplineIncident.data)
-      discipline_incident.student_school_year = @student.student_school_years.first
-
-      # Make sure event isn't listed as having happened in the future.
-      occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
-      if occurred_at < Time.new then
-        discipline_incident.occurred_at = occurred_at
-      end
+      discipline_incident = DisciplineIncident.new(
+        FakeDisciplineIncident.data.merge({
+          occurred_at: occurred_at,
+          student: student
+        })
+      )
 
       discipline_incident.save
     end

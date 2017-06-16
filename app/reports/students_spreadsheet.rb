@@ -34,9 +34,9 @@ class StudentsSpreadsheet
 
     additional_student_fields = {
       student_risk_level: student.student_risk_level.level,
-      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
-      absences_count: student.most_recent_school_year.absences.count,
-      tardies_count: student.most_recent_school_year.tardies.count,
+      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
+      absences_count: student.most_recent_school_year_absences_count,
+      tardies_count: student.most_recent_school_year_tardies_count,
       homeroom_name: student.try(:homeroom).try(:name)
     }
 
