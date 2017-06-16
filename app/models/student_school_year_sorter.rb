@@ -18,7 +18,7 @@ class StudentSchoolYearSorter
         )
       end
 
-      memo
+      memo.sort_by { |student_school_year| student_school_year.name }.reverse
     end
   end
 
