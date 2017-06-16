@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613224011) do
+ActiveRecord::Schema.define(version: 20170616185340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,11 +261,8 @@ ActiveRecord::Schema.define(version: 20170613224011) do
     t.datetime "updated_at"
     t.integer  "percentile_rank"
     t.decimal  "instructional_reading_level"
-    t.integer  "school_year_id"
     t.integer  "assessment_id"
-    t.integer  "student_school_year_id"
     t.string   "grade_equivalent"
-    t.index ["school_year_id"], name: "index_student_assessments_on_school_year_id", using: :btree
     t.index ["student_id"], name: "index_student_assessments_on_student_id", using: :btree
   end
 
