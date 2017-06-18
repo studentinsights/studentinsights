@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170616185340) do
+ActiveRecord::Schema.define(version: 20170616200955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,9 +192,7 @@ ActiveRecord::Schema.define(version: 20170616185340) do
     t.datetime "updated_at"
     t.integer  "educator_id"
     t.integer  "number_of_hours"
-    t.integer  "school_year_id"
     t.text     "goal"
-    t.integer  "student_school_year_id"
     t.string   "custom_intervention_name"
   end
 
