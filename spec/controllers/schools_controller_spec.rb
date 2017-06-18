@@ -72,7 +72,6 @@ describe SchoolsController, :type => :controller do
       let!(:include_me_not) { FactoryGirl.create(:student, :registered_last_year ) }
 
       before { school.reload }
-      before { Student.update_student_school_years }
 
       let(:serialized_data) { assigns(:serialized_data) }
 
@@ -97,7 +96,6 @@ describe SchoolsController, :type => :controller do
       let!(:include_me_not) { FactoryGirl.create(:student, :registered_last_year, grade: '5', school: school) }
 
       before { school.reload }
-      before { Student.update_student_school_years }
 
       let(:serialized_data) { assigns(:serialized_data) }
 
@@ -119,7 +117,6 @@ describe SchoolsController, :type => :controller do
       let!(:include_me) { FactoryGirl.create(:student, :registered_last_year, grade: '4', school: school) }
 
       before { school.reload }
-      before { Student.update_student_school_years }
 
       let(:serialized_data) { assigns(:serialized_data) }
 

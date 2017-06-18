@@ -235,29 +235,6 @@ RSpec.describe Student do
     end
   end
 
-  describe '#update_student_school_years' do
-    context 'when student has been in school for two years' do
-      let!(:student) { FactoryGirl.build(:student_who_registered_in_2013_2014) }
-      it 'creates two new student school years' do
-        Timecop.freeze(Time.new(2015, 5, 24)) do
-          expect {
-            student.save
-          }.to change {
-            StudentSchoolYear.count
-          }.by 2
-        end
-      end
-      it 'assigns the student school year attributes' do
-        Timecop.freeze(Time.new(2015, 5, 24)) do
-          student.save
-          expect(StudentSchoolYear.last.student).to eq(student)
-          expect(StudentSchoolYear.last.school_year.name).to eq '2013-2014'
-          expect(StudentSchoolYear.first.school_year.name).to eq '2014-2015'
-        end
-      end
-    end
-  end
-
   describe '#update_recent_student_assessments' do
     context 'has student assessments' do
       let(:student) { FactoryGirl.create(:student_with_mcas_math_advanced_and_star_math_warning_assessments) }
