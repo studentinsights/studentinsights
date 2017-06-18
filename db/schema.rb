@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170616200955) do
+ActiveRecord::Schema.define(version: 20170618234256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,13 +204,6 @@ ActiveRecord::Schema.define(version: 20170616200955) do
     t.index ["key"], name: "index_precomputed_query_docs_on_key", unique: true, using: :btree
   end
 
-  create_table "school_years", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.date     "start"
-  end
-
   create_table "schools", force: :cascade do |t|
     t.integer  "state_id"
     t.string   "school_type"
@@ -274,14 +267,6 @@ ActiveRecord::Schema.define(version: 20170616200955) do
     t.integer  "mcas_ela_risk_level"
     t.integer  "star_reading_risk_level"
     t.integer  "limited_english_proficiency_risk_level"
-  end
-
-  create_table "student_school_years", force: :cascade do |t|
-    t.integer  "student_id",     null: false
-    t.integer  "school_year_id", null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["student_id", "school_year_id"], name: "index_student_school_years_on_student_id_and_school_year_id", unique: true, using: :btree
   end
 
   create_table "students", force: :cascade do |t|
