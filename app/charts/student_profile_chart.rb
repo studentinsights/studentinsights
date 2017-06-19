@@ -63,7 +63,6 @@ class StudentProfileChart < Struct.new :student
       star_reading_results: student.star_reading_results,
       mcas_mathematics_results: student.mcas_mathematics_results,
       mcas_ela_results: student.mcas_ela_results,
-      school_year_names: student.student_school_years.pluck(:name),
       interventions: student.interventions
     }
   end
