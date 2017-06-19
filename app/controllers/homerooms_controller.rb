@@ -41,7 +41,6 @@ class HomeroomsController < ApplicationController
       :interventions,
       :student_risk_level,
       :homeroom,
-      :student_school_years
     ] + additional_includes)
   end
 

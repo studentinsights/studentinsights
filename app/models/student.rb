@@ -8,7 +8,6 @@ class Student < ActiveRecord::Base
 
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
-  has_many :student_school_years, dependent: :destroy
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
@@ -24,8 +23,6 @@ class Student < ActiveRecord::Base
   validates_uniqueness_of :local_id
   validate :valid_grade
   validate :registration_date_cannot_be_in_future
-
-  after_create :update_student_school_years
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', 'HS'].freeze
 
@@ -178,64 +175,6 @@ class Student < ActiveRecord::Base
 
   def self.with_mcas_ela_warning
     where(most_recent_mcas_ela_performance: 'W')
-  end
-
-  ## SCHOOL YEARS ##
-
-  def earliest_school_year
-    return DateToSchoolYear.new(registration_date).convert if registration_date.present?
-
-    # If we don't have a registration date on file from X2, our next best option
-    # is to guess that the student started Somerville Public Schools in K.
-
-    # As of May 2105, about 9% of current students are missing a registration date
-    # value in X2, mostly students in the high school.
-
-    # As of February 2016, all students in X2 are associated with a grade level.
-
-    # We'll also need to handle non-numerical grade levels: KF, PK, SP
-
-    return DateToSchoolYear.new(Time.new - grade.to_i.years).convert
-  end
-
-  def current_school_year
-    DateToSchoolYear.new(Time.new).convert
-  end
-
-  def find_student_school_years
-    SchoolYear.in_between(earliest_school_year, current_school_year)
-  end
-
-  def most_recent_school_year
-    # Default_scope on student school years
-    # sorts by recency, with most recent first.
-    student_school_years.first
-  end
-
-  def update_student_school_years
-    find_student_school_years.each do |s|
-      StudentSchoolYear.where(student_id: self.id, school_year_id: s.id).first_or_create!
-    end
-  end
-
-  def self.update_student_school_years
-    # This method is meant to be called as a scheduled task.
-    # Less expensive than calculating student school years on the fly.
-    find_each { |s| s.update_student_school_years }
-  end
-
-  def assign_events_to_student_school_years
-    # In case you have events that weren't assigned to student
-    # school years. (This code is kind of like a migration.)
-    [student_assessments, interventions].each do |events|
-      events.map do |event|
-        event.assign_to_student_school_year
-      end
-    end
-  end
-
-  def self.assign_events_to_student_school_years
-    find_each { |s| s.assign_events_to_student_school_years }
   end
 
   ## RISK LEVELS ##
