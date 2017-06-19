@@ -12,7 +12,15 @@ class FileImport < Struct.new :file_importer
   private
 
   def file
-    client.read_file(remote_file_name)
+    encoding_options = {
+      invalid: :replace,
+      undef: :replace,
+      replace: ''
+    }
+
+    downloaded_file = client.read_file(remote_file_name)
+
+    File.read(downloaded_file).encode('UTF-8', 'binary', encoding_options)
   end
 
   def log_start_of_import
