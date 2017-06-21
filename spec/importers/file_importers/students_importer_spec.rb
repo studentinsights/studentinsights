@@ -23,7 +23,7 @@ RSpec.describe StudentsImporter do
       context 'no existing students in database' do
 
         it 'imports students' do
-          expect { import }.to change { Student.count }.by 2
+          expect { import }.to change { Student.count }.by 3
         end
 
         it 'imports student data correctly' do
@@ -61,9 +61,9 @@ RSpec.describe StudentsImporter do
         it 'updates the student\'s data correctly' do
           import
 
-          expect(graduating_student.reload.school).to eq nil
-          expect(graduating_student.grade).to eq 'HS'
-          expect(graduating_student.enrollment_status).to eq 'High School'
+          expect(graduating_student.reload.school).to eq high_school
+          expect(graduating_student.grade).to eq '10'
+          expect(graduating_student.enrollment_status).to eq 'Active'
         end
 
       end

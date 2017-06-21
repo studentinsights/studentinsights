@@ -24,7 +24,7 @@ class Student < ActiveRecord::Base
   validate :valid_grade
   validate :registration_date_cannot_be_in_future
 
-  VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', 'HS'].freeze
+  VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'].freeze
 
   def valid_grade
     errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)

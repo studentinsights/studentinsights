@@ -24,7 +24,7 @@ class Import
 
     class_option :school,
       type: :array,
-      default: ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS'],
+      default: ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS'],
       aliases: "-s",
       desc: "Scope by school local IDs; use ELEM to import all elementary schools"
     class_option :first_time,

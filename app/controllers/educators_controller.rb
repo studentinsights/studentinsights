@@ -8,7 +8,7 @@ class EducatorsController < ApplicationController
   end
 
   def districtwide_admin_homepage
-    @elementary_schools = School.where(school_type: ['ES', 'ESMS'])
+    @schools = School.where(school_type: ['ES', 'ESMS', 'HS'])
   end
 
   def names_for_dropdown
