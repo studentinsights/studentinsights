@@ -17,7 +17,7 @@
           School Data Overview
         </h3>
         <ul>
-          <% @elementary_schools.each do |school| %>
+          <% @schools.each do |school| %>
             <li>
               <%= link_to school.name, school_path(school), {
                 class: 'prominent-link'
