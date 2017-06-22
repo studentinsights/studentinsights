@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 20170712184651) do
     t.datetime "updated_at"
   end
 
+  create_table "courses", force: :cascade do |t|
+    t.string   "local_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "school_id"
+    t.string   "name"
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
@@ -223,6 +231,14 @@ ActiveRecord::Schema.define(version: 20170712184651) do
     t.string   "slug"
     t.index ["local_id"], name: "index_schools_on_local_id", using: :btree
     t.index ["state_id"], name: "index_schools_on_state_id", using: :btree
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string   "local_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "school_id"
+    t.integer  "course_id"
   end
 
   create_table "service_types", force: :cascade do |t|
