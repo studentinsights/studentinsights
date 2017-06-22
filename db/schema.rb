@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618234256) do
+ActiveRecord::Schema.define(version: 20170622072910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 20170618234256) do
     t.string   "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "local_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "school_id"
+    t.string   "name"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -214,6 +222,14 @@ ActiveRecord::Schema.define(version: 20170618234256) do
     t.string   "slug"
     t.index ["local_id"], name: "index_schools_on_local_id", using: :btree
     t.index ["state_id"], name: "index_schools_on_state_id", using: :btree
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string   "local_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "school_id"
+    t.integer  "course_id"
   end
 
   create_table "service_types", force: :cascade do |t|
