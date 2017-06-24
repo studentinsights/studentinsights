@@ -1,3 +1,5 @@
+require 'digest'
+
 module StudentsQueryHelper
   # Used to serializes a Student into a hash with other fields joined in (that are used to perform
   # filtering and slicing in the UI).
@@ -46,9 +48,17 @@ module StudentsQueryHelper
   end
 
   # Used to compute key for reading and writing precomputed student_hashes documents
-  def precomputed_student_hashes_key(time_now, authorized_student_ids)
+  # There are two formats to this key: the old one which concatenated all student_ids
+  # and the newer one that hashes the old key so that it's shorter (but more opaque).
+  def precomputed_student_hashes_key(time_now, authorized_student_ids, options = {})
     timestamp = time_now.beginning_of_day.to_i
     authorized_students_key = authorized_student_ids.sort.join(',')
-    ['precomputed_student_hashes', timestamp, authorized_students_key].join('_')
+    key = ['precomputed_student_hashes', timestamp, authorized_students_key].join('_')
+
+    if options[:use_hashed_key]
+      ['short', timestamp, authorized_student_ids.size, Digest::SHA256.hexdigest(authorized_students_key)].join(':')
+    else
+      key
+    end
   end
 end
