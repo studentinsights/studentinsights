@@ -65,7 +65,7 @@ class PrecomputeStudentHashesJob < Struct.new :log
     begin
       PrecomputedQueryDoc.create!(key: key, json: json_hash.to_json )
     rescue => error
-      PrecomputeErrorMailer.error_report(error).deliver_now if Rails.env.production?
+      ErrorMailer.error_report(error).deliver_now if Rails.env.production?
       log.puts "write_doc_or_log failed for key: #{key}"
       log.puts err.inspect
       nil
