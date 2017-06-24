@@ -44,15 +44,8 @@ class PrecomputeStudentHashesJob < Struct.new :log
     authorized_students = Student.find(authorized_student_ids)
     student_hashes = authorized_students.map {|student| student_hash_for_slicing(student) }
 
-    # We're going to double-write, since the original key strategy just concatenated all
-    # the student ids, but for the high school this is too large.  So we'll hash that
-    # string and write both.  The write to the old concatenated string will fail, and we'll
-    # catch that, log, and continue on.
-    new_key = precomputed_student_hashes_key(precomputed_time, authorized_student_ids, use_hashed_key: true)
-    old_key = precomputed_student_hashes_key(precomputed_time, authorized_student_ids)
-    write_doc_or_log(new_key, { student_hashes: student_hashes })
-    write_doc_or_log(old_key, { student_hashes: student_hashes })
-
+    key = precomputed_student_hashes_key(precomputed_time, authorized_student_ids)
+    write_doc_or_log(key, { student_hashes: student_hashes })
     nil
   end
 

@@ -47,18 +47,21 @@ module StudentsQueryHelper
     }
   end
 
-  # Used to compute key for reading and writing precomputed student_hashes documents
-  # There are two formats to this key: the old one which concatenated all student_ids
-  # and the newer one that hashes the old key so that it's shorter (but more opaque).
+  # Computes a key for reading and writing precomputed student_hashes documents.
+  # 
+  # The original formats to this key concatenated all student_ids but is deprecated and
+  # no longer used (although it's still here since data still exists thats keyed like that).
+  # That can be accessed with `force_deprecated_key`.
+  #
+  # The newer key strategy hashes the values that made up the old key so it's length is
+  # capped.
   def precomputed_student_hashes_key(time_now, authorized_student_ids, options = {})
     timestamp = time_now.beginning_of_day.to_i
     authorized_students_key = authorized_student_ids.sort.join(',')
-    key = ['precomputed_student_hashes', timestamp, authorized_students_key].join('_')
-
-    if options[:use_hashed_key]
-      ['short', timestamp, authorized_student_ids.size, Digest::SHA256.hexdigest(authorized_students_key)].join(':')
+    if options[:force_deprecated_key]
+      ['precomputed_student_hashes', timestamp, authorized_students_key].join('_')
     else
-      key
+      ['short', timestamp, authorized_student_ids.size, Digest::SHA256.hexdigest(authorized_students_key)].join(':')
     end
   end
 end
