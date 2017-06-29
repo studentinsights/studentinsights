@@ -74,27 +74,17 @@ class SchoolsController < ApplicationController
       # so keep a buffer that makes sure the import task and precompute job
       # can finish before cutting over to the next day.
       query_time = time_now - 9.hours
-
-      # There are two keying strategies, and we're double-writing to migrate over.
-      # The older keying strategy concatenated student ids; the newer hashes them
-      # to keep the size down to avoid Postgres size limitations on indexes.
-      # Query new first, fall back to old, and if nothing then fall all the way back.
-      new_key = precomputed_student_hashes_key(query_time, authorized_student_ids, use_hashed_key: true)
-      logger.warn "load_precomputed_student_hashes querying new_key: #{new_key}..."
-      new_doc = PrecomputedQueryDoc.find_by_key(new_key)
-      return parse_hashes_from_doc(new_doc) unless new_doc.nil?
-
-      old_key = precomputed_student_hashes_key(query_time, authorized_student_ids)
-      logger.warn "load_precomputed_student_hashes querying old_key: #{old_key}..."
-      old_doc = PrecomputedQueryDoc.find_by_key(old_key)
-      return parse_hashes_from_doc(old_doc) unless old_doc.nil?
+      key = precomputed_student_hashes_key(query_time, authorized_student_ids)
+      logger.warn "load_precomputed_student_hashes querying key: #{key}..."
+      doc = PrecomputedQueryDoc.find_by_key(key)
+      return parse_hashes_from_doc(doc) unless doc.nil?
     rescue ActiveRecord::StatementInvalid => err
       logger.error "load_precomputed_student_hashes raised error #{err.inspect}"
     end
 
     # Fallback to performing the full query if something went wrong reading the
     # precomputed value
-    logger.error "falling back to full load_precomputed_student_hashes query for old_key: #{old_key}, new_key: #{new_key}"
+    logger.error "falling back to full load_precomputed_student_hashes query for key: #{key}"
     authorized_students = Student.find(authorized_student_ids)
     authorized_students.map {|student| student_hash_for_slicing(student) }
   end
