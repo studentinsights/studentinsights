@@ -44,11 +44,11 @@ ActiveRecord::Schema.define(version: 20170712184651) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.string   "local_id"
+    t.string   "course_number"
+    t.string   "course_description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "school_id"
-    t.string   "name"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -234,7 +234,10 @@ ActiveRecord::Schema.define(version: 20170712184651) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.string   "local_id"
+    t.string   "section_number"
+    t.string   "term_local_id"
+    t.string   "schedule"
+    t.string   "room_number"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "school_id"
