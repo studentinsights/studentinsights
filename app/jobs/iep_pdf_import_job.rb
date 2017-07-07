@@ -9,11 +9,11 @@ class IepPdfImportJob
 
   # This imports all the IEP PDFs from a zip that
   # contains several older documents (ie., for a first-time import).
-  # 
+  #
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
     remote_filename = 'student-documents_old.zip'
-    
+
     # pull down the file to heroku dyno
     zip_file = download(remote_filename)
     log "got a zip: #{zip_file.path}"
@@ -51,7 +51,7 @@ class IepPdfImportJob
     # extract: (date, student lasid, student name)
     # split on the 0321321_whatever.pdf to get the lasid
     records = []
-    filename_pairs.map do |pair| 
+    filename_pairs.map do |pair|
       # parse pdf filename
       log '    parsing pdf...'
       pdf_filename = pair[:pdf_filename]
