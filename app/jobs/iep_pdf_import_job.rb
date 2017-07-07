@@ -1,7 +1,6 @@
 require 'zip'
 require 'tempfile'
 
-
 class IepPdfImportJob
   def initialize(options = {})
     @time_now = options[:time_now] || Time.now
@@ -84,8 +83,6 @@ class IepPdfImportJob
 
     # delete all files
   end
-
-
 
   def nightly_import!
     # TODO
