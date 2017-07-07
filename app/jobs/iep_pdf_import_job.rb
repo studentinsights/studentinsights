@@ -95,17 +95,12 @@ class IepPdfImportJob
 
   def download(remote_filename)
     local_file = Tempfile.new('iep_pdf_zip')
-    # TODO(kr) for shortcutting
-    # local_filename = File.join('tmp/', remote_filename)
-    # return File.open(local_filename, 'r')
-
-    local_file = File.open(local_filename, 'w')
-    log "local zip file: #{local_file.path}"
     client = SftpClient.for_x2
     log "have a client!"
     client.sftp_session.download!(remote_filename, local_file.path)
-    log "downloaded"
-    local_file
+    log "downloaded a file!"
+
+    return local_file
   end
 
   def unzip_to_folder(zip_file, target_folder)
