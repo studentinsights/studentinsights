@@ -7,15 +7,16 @@ class IepPdfImportJob
     @time_now = options[:time_now] || Time.now
   end
 
+  REMOTE_FILENAME = 'student-documents_old.zip'
+
   # This imports all the IEP PDFs from a zip that
   # contains several older documents (ie., for a first-time import).
   #
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-    remote_filename = 'student-documents_old.zip'
 
     # pull down the file to heroku dyno
-    zip_file = download(remote_filename)
+    zip_file = download(REMOTE_FILENAME)
     log "got a zip: #{zip_file.path}"
 
     log 'making a folder for the unzipped files...'
