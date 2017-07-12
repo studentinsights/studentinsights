@@ -18,9 +18,7 @@ class IepPdfImportJob
     zip_file = download(REMOTE_FILENAME)
     log "got a zip: #{zip_file.path}"
 
-    log 'making a folder for the unzipped files...'
-    date_zip_folder = Rails.root.join('tmp/iep_pdfs/date_zips')
-    FileUtils.mkdir_p(date_zip_folder)
+    date_zip_folder = make_folder_for_zipped_files
 
     log 'unzipping date bundles...'
     date_zip_filenames = unzip_to_folder(zip_file, date_zip_folder)
@@ -116,4 +114,14 @@ class IepPdfImportJob
     end
     output_filenames
   end
+
+  private
+
+    def make_folder_for_zipped_files
+      date_zip_folder = Rails.root.join('tmp/iep_pdfs/date_zips')
+      FileUtils.mkdir_p(date_zip_folder)
+
+      return date_zip_folder
+    end
+
 end
