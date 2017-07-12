@@ -25,12 +25,10 @@ class IepPdfImportJob
     log "got #{date_zip_filenames.size} date zips!"
     filename_pairs = []
     date_zip_filenames.each do |date_zip_filename|
-      log "making a folder for #{date_zip_filename}..."
       folder = File.join(date_zip_filename + '.unzipped')
       FileUtils.mkdir_p(folder)
       date_zip = File.open(date_zip_filename)
 
-      log "  unzipping..."
       pdf_filenames = unzip_to_folder(date_zip, folder)
       pdf_filenames.each do |pdf_filename|
         filename_pairs << {
@@ -38,7 +36,6 @@ class IepPdfImportJob
           date_zip_filename: date_zip_filename
         }
       end
-      log "  creating pairs..."
     end
 
     # translate to records
@@ -65,11 +62,11 @@ class IepPdfImportJob
     end
 
     records.map do |record|
-      log "storing iep for student ##{record[:local_id]} to db..."
-
       student = Student.find_by_local_id(record[:local_id])
 
-      return unless student
+      log "student not in db! ##{record[:local_id]}" && return unless student
+
+      log "storing iep for student ##{record[:local_id]} to db..."
 
       IepDocument.create!(
         file_date: record[:date],
@@ -109,9 +106,7 @@ class IepPdfImportJob
     output_filenames = []
     Zip::File.open(zip_file) do |files_in_zip|
       files_in_zip.each do |file_in_zip|
-        log "Extracting #{file_in_zip.name}..."
         output_filename = File.join(target_folder, file_in_zip.name)
-        log output_filename
         files_in_zip.extract(file_in_zip, output_filename)
         output_filenames << output_filename
       end
