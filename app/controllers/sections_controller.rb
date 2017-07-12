@@ -3,11 +3,15 @@ class SectionsController < ApplicationController
 
   
   def index
-    @courses = Course
+    #just setting this to all courses for now 
+    #since we are only testing with district wide admins
+    @educator_courses = Course.all.order(:course_number)
   end
+  
   def show
     @section = Section.find(params[:id])
   end
+
 
   private
   def authenticate_districtwide_access!
