@@ -72,6 +72,8 @@ class IepPdfImportJob
     end
 
     records.map do |record|
+      log "storing iep for student ##{record[:local_id]} to db..."
+
       student = Student.find_by_local_id!(record[:local_id])
 
       IepDocument.create!(
