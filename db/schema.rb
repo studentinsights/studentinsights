@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618234256) do
+ActiveRecord::Schema.define(version: 20170712184651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,15 @@ ActiveRecord::Schema.define(version: 20170618234256) do
     t.integer  "school_id"
     t.index ["educator_id"], name: "index_homerooms_on_educator_id", using: :btree
     t.index ["slug"], name: "index_homerooms_on_slug", unique: true, using: :btree
+  end
+
+  create_table "iep_documents", force: :cascade do |t|
+    t.datetime "file_date"
+    t.string   "file_name"
+    t.integer  "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_iep_documents_on_student_id", using: :btree
   end
 
   create_table "import_records", force: :cascade do |t|
