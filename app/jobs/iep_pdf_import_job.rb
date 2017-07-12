@@ -49,8 +49,6 @@ class IepPdfImportJob
     # split on the 0321321_whatever.pdf to get the lasid
     records = []
     filename_pairs.map do |pair|
-      # parse pdf filename
-      log '    parsing pdf...'
       pdf_filename = pair[:pdf_filename]
       pdf_basename = Pathname.new(pdf_filename).basename.sub_ext('').to_s
       local_id, iep_at_a_glance, *student_names = pdf_basename.split('_')
@@ -59,8 +57,6 @@ class IepPdfImportJob
         raise 'oh no!'
       end
 
-      # parse date filename
-      log '    parsing date...'
       date_zip_filename = pair[:date_zip_filename]
       date_zip_basename = Pathname.new(date_zip_filename).basename.sub_ext('').to_s
       date = Date.strptime(date_zip_basename, '%m-%d-%Y')
