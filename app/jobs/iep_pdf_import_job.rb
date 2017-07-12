@@ -64,15 +64,17 @@ class IepPdfImportJob
     records.map do |record|
       student = Student.find_by_local_id(record[:local_id])
 
-      log "student not in db! ##{record[:local_id]}" && return unless student
+      if student
+        log "storing iep for student ##{record[:local_id]} to db..."
 
-      log "storing iep for student ##{record[:local_id]} to db..."
-
-      IepDocument.create!(
-        file_date: record[:date],
-        file_name: record[:pdf_filename],
-        student: student
-      )
+        IepDocument.create!(
+          file_date: record[:date],
+          file_name: record[:pdf_filename],
+          student: student
+        )
+      else
+        log "student not in db! ##{record[:local_id]}"
+      end
     end
 
     # TODO
