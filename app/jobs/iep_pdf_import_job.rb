@@ -41,9 +41,6 @@ class IepPdfImportJob
       log "  creating pairs..."
     end
 
-    log "got #{filename_pairs.size} filename_pairs!"
-    log filename_pairs.inspect
-
     # translate to records
     # extract: (date, student lasid, student name)
     # split on the 0321321_whatever.pdf to get the lasid
