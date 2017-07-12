@@ -13,7 +13,6 @@ class IepPdfImportJob
   #
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-
     # pull down the file to heroku dyno
     zip_file = download(REMOTE_FILENAME)
     log "got a zip: #{zip_file.path}"
@@ -72,7 +71,15 @@ class IepPdfImportJob
       }
     end
 
-    log records.to_json
+    records.map do |record|
+      student = Student.find_by_local_id!(record[:local_id])
+
+      IepDocument.create!(
+        file_date: record[:date],
+        file_name: record[:pdf_filename],
+        student: student
+      )
+    end
 
     # TODO
     # write to blob store and db
