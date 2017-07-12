@@ -27,7 +27,7 @@ class IepPdfImportJob
     filename_pairs = []
     date_zip_filenames.each do |date_zip_filename|
       log "making a folder for #{date_zip_filename}..."
-      folder = File.join(date_zip_folder, date_zip_filename)
+      folder = File.join(date_zip_filename + '.unzipped')
       FileUtils.mkdir_p(folder)
       date_zip = File.open(date_zip_filename)
 
