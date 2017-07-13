@@ -82,9 +82,8 @@ class IepPdfImportJob
     end
 
     # TODO
-    # write to blob store and db
+    # write to blob store
     #     put the file in blob store key: (date, local_id, filename)
-    #     write a record into postgres (date, local_id, filename)
 
     delete_folder_for_zipped_files
   end
