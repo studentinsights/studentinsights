@@ -30,9 +30,10 @@ class IepPdfImportJob
       date_zip = File.open(date_zip_filename)
 
       pdf_filenames = unzip_to_folder(date_zip, folder)
+
       pdf_filenames.each do |pdf_filename|
         filename_pairs << {
-          pdf_filename: pdf_filename,
+          pdf_filename: pdf_filename.split("/").last,
           date_zip_filename: date_zip_filename
         }
       end
