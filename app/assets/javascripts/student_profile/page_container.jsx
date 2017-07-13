@@ -46,6 +46,7 @@
         attendanceData: serializedData.attendanceData,
         access: serializedData.access,
         dibels: serializedData.dibels,
+        iepDocuments: serializedData.iepDocuments,
 
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
@@ -234,6 +235,7 @@
               'dibels',
               'attendanceData',
               'selectedColumnKey',
+              'iepDocuments',
               'requests'
             ), {
               nowMomentFn: this.props.nowMomentFn,
