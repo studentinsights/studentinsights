@@ -22,6 +22,7 @@ describe('ProfileDetails', function() {
           star_series_reading_percentile: [[2016, 1, 18, 83]],
           star_series_math_percentile: [[2012, 11, 18, 43]],
         },
+        iepDocuments: [],
         feed: {
           deprecated: {
             interventions: [{id: 997, start_date_timestamp: "2010-10-1"}],
