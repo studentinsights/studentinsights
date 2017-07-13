@@ -138,6 +138,7 @@
       }),
 
       access: React.PropTypes.object,
+      iepDocuments: React.PropTypes.object,
 
       // flux-y bits
       requests: PropTypes.requests,
