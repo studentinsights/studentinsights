@@ -91,33 +91,32 @@ class IepPdfImportJob
   end
 
   private
-  def log(str)
-    puts str
-  end
 
-  def download(remote_filename)
-    local_file = Tempfile.new('iep_pdf_zip')
-    client = SftpClient.for_x2
-    log "have a client!"
-    client.sftp_session.download!(remote_filename, local_file.path)
-    log "downloaded a file!"
-
-    return local_file
-  end
-
-  def unzip_to_folder(zip_file, target_folder)
-    output_filenames = []
-    Zip::File.open(zip_file) do |files_in_zip|
-      files_in_zip.each do |file_in_zip|
-        output_filename = File.join(target_folder, file_in_zip.name)
-        files_in_zip.extract(file_in_zip, output_filename)
-        output_filenames << output_filename
-      end
+    def log(str)
+      puts str
     end
-    output_filenames
-  end
 
-  private
+    def download(remote_filename)
+      local_file = Tempfile.new('iep_pdf_zip')
+      client = SftpClient.for_x2
+      log "have a client!"
+      client.sftp_session.download!(remote_filename, local_file.path)
+      log "downloaded a file!"
+
+      return local_file
+    end
+
+    def unzip_to_folder(zip_file, target_folder)
+      output_filenames = []
+      Zip::File.open(zip_file) do |files_in_zip|
+        files_in_zip.each do |file_in_zip|
+          output_filename = File.join(target_folder, file_in_zip.name)
+          files_in_zip.extract(file_in_zip, output_filename)
+          output_filenames << output_filename
+        end
+      end
+      output_filenames
+    end
 
     def make_folder_for_zipped_files
       date_zip_folder = Rails.root.join('tmp/iep_pdfs/date_zips')
