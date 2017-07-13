@@ -138,6 +138,7 @@
       }),
 
       access: React.PropTypes.object,
+      iepDocuments: React.PropTypes.array,
 
       // flux-y bits
       requests: PropTypes.requests,
@@ -245,6 +246,7 @@
             access={this.props.access}
             dibels={this.props.dibels}
             chartData={this.props.chartData}
+            iepDocuments={this.props.iepDocuments}
             attendanceData={this.props.attendanceData}
             serviceTypesIndex={this.props.serviceTypesIndex} />
       );
