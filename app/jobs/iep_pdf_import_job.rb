@@ -1,5 +1,6 @@
 require 'zip'
 require 'tempfile'
+require 'fileutils'
 
 class IepPdfImportJob
   def initialize(options = {})
@@ -37,6 +38,8 @@ class IepPdfImportJob
           date_zip_filename: date_zip_filename
         }
       end
+
+      date_zip.close
     end
 
     # translate to records
@@ -83,7 +86,7 @@ class IepPdfImportJob
     #     put the file in blob store key: (date, local_id, filename)
     #     write a record into postgres (date, local_id, filename)
 
-    # delete all files
+    delete_folder_for_zipped_files
   end
 
   def nightly_import!
@@ -123,6 +126,12 @@ class IepPdfImportJob
       FileUtils.mkdir_p(date_zip_folder)
 
       return date_zip_folder
+    end
+
+    def delete_folder_for_zipped_files
+      date_zip_folder = Rails.root.join('tmp/iep_pdfs')
+
+      FileUtils.rm_rf(date_zip_folder)
     end
 
 end
