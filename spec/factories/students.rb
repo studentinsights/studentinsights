@@ -83,6 +83,9 @@ FactoryGirl.define do
     factory :second_grade_student do
       grade "2"
     end
+    factory :high_school_student do
+      grade "11"
+    end
     factory :pre_k_student do
       grade "PK"
     end
