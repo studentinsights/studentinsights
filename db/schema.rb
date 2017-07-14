@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712184651) do
+ActiveRecord::Schema.define(version: 20170714142657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -288,6 +288,13 @@ ActiveRecord::Schema.define(version: 20170712184651) do
     t.integer  "limited_english_proficiency_risk_level"
   end
 
+  create_table "student_section_assignments", id: false, force: :cascade do |t|
+    t.integer "section_id"
+    t.integer "student_id"
+    t.index ["section_id"], name: "index_student_section_assignments_on_section_id", using: :btree
+    t.index ["student_id"], name: "index_student_section_assignments_on_student_id", using: :btree
+  end
+
   create_table "students", force: :cascade do |t|
     t.string   "grade"
     t.boolean  "hispanic_latino"
@@ -338,5 +345,7 @@ ActiveRecord::Schema.define(version: 20170712184651) do
 
   add_foreign_key "absences", "students"
   add_foreign_key "discipline_incidents", "students"
+  add_foreign_key "student_section_assignments", "sections"
+  add_foreign_key "student_section_assignments", "students"
   add_foreign_key "tardies", "students"
 end
