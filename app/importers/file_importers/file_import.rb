@@ -1,12 +1,13 @@
 class FileImport < Struct.new :file_importer
 
   delegate :log, :remote_file_name, :client, :data_transformer,
-    :import_row, :filter, :progress_bar, to: :file_importer
+    :import_row, :filter, :progress_bar, :delete_rows, to: :file_importer
 
   def import
     log_start_of_import
+    delete_data if file_importer.class.name == 'StudentSectionAssignmentsImporter'
     fetch_data
-    import_data
+    import_data 
   end
 
   private
@@ -19,6 +20,10 @@ class FileImport < Struct.new :file_importer
     log.write("\nImporting #{remote_file_name}...")
   end
 
+  def delete_data
+    delete_rows()
+  end
+  
   def fetch_data
     transformer = data_transformer
     @data = transformer.transform(file)
