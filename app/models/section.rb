@@ -4,4 +4,6 @@ class Section < ActiveRecord::Base
   validates :course, presence: true
   belongs_to :school
   belongs_to :course
+  has_many :student_section_assignments
+  has_many :students, through: :student_section_assignments
 end
