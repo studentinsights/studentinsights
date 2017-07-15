@@ -9,4 +9,9 @@
   <li><%= link_to "#{student.last_name}, #{student.first_name}", student %></li>
 <% end %>
 </ul>
+<h2>Educators:</h2>
+<ul><% @section.educators.order(:full_name).each do |educator| %>
+  <li><%=educator.full_name%></li>
+<% end %>
+</ul>
 
