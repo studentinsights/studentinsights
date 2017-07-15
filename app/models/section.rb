@@ -6,4 +6,6 @@ class Section < ActiveRecord::Base
   belongs_to :course
   has_many :student_section_assignments
   has_many :students, through: :student_section_assignments
+  has_many :educator_section_assignments
+  has_many :educators, through: :educator_section_assignments
 end
