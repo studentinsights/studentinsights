@@ -5,7 +5,7 @@ class FileImport < Struct.new :file_importer
 
   def import
     log_start_of_import
-    delete_data if file_importer.class.name == 'StudentSectionAssignmentsImporter'
+    delete_data if deletion_models.include?(file_importer.class)
     fetch_data
     import_data 
   end
@@ -22,6 +22,11 @@ class FileImport < Struct.new :file_importer
 
   def delete_data
     delete_rows()
+  end
+
+  def deletion_models
+    [StudentSectionAssignmentsImporter, 
+    EducatorSectionAssignmentsImporter]
   end
   
   def fetch_data
