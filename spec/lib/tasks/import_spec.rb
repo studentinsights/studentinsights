@@ -41,6 +41,7 @@ RSpec.describe Import do
         AttendanceImporter,
         CoursesSectionsImporter,
         StudentSectionAssignmentsImporter,
+        EducatorSectionAssignmentsImporter,
         StarReadingImporter::RecentImporter,
         StarMathImporter::RecentImporter,
       ]
