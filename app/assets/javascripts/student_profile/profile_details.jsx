@@ -249,8 +249,29 @@
       );
     },
 
+    renderIepDownloadLinks: function () {
+      const iepDocuments = this.props.iepDocuments;
+
+      return iepDocuments.map((iepDocument) => {
+        return this.renderIepDownloadLink(iepDocument);
+      }, this);
+    },
+
+    renderIepDownloadLink: function (iepDocument) {
+      const url = `/iep_documents/${iepDocument.id}`;
+
+      return (
+        <p style={{fontSize: 15}}>
+          <a href={url}>
+            Download {iepDocument.file_name}.
+          </a>
+        </p>
+      );
+    },
+
     renderIepDocuments: function () {
-      const numberOfDocuments = this.props.iepDocuments.length;
+      const iepDocuments = this.props.iepDocuments;
+      const numberOfDocuments = iepDocuments.length;
 
       if (numberOfDocuments === 0) return null;
 
@@ -261,9 +282,7 @@
             This student has {numberOfDocuments} IEP documents.
           </p>
           <br/>
-          <p style={{fontSize: 15}}>
-            <a href="/iep_documents/1">Download.</a>
-          </p>
+          {this.renderIepDownloadLinks()}
         </div>
       );
     },
