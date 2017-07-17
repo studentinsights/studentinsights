@@ -29,18 +29,14 @@ class IepPdfImportJob
       pdf_filenames = unzip_to_folder(date_zip, folder)
 
       pdf_filenames.each do |path_to_file|
-        pdf_basename = Pathname.new(path_to_file).basename.sub_ext('').to_s
-        local_id, iep_at_a_glance, *student_names = pdf_basename.split('_')
-        raise 'oh no!' if iep_at_a_glance != 'IEPAtAGlance'
-
-        date_zip_basename = Pathname.new(date_zip_filename).basename.sub_ext('').to_s
-        date = Date.strptime(date_zip_basename, '%m-%d-%Y')
+        file_info = IepFileNameParser.new(path_to_file, date_zip_filename)
+        file_into.check_iep_at_a_glance
 
         IepStorer.new(
-          file_name: path_to_file.split("/").last,
           path_to_file: path_to_file,
-          file_date: date.to_s,
-          local_id: local_id
+          file_name: file_info.file_name,
+          file_date: file_info.file_date,
+          local_id: file_info.local_id
         ).store
       end
 
