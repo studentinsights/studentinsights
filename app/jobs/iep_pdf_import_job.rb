@@ -24,41 +24,31 @@ class IepPdfImportJob
     date_zip_filenames = unzip_to_folder(zip_file, date_zip_folder)
 
     log "got #{date_zip_filenames.size} date zips!"
-    filename_pairs = []
+
     date_zip_filenames.each do |date_zip_filename|
       folder = File.join(date_zip_filename + '.unzipped')
       FileUtils.mkdir_p(folder)
-      date_zip = File.open(date_zip_filename)
 
+      date_zip = File.open(date_zip_filename)
       pdf_filenames = unzip_to_folder(date_zip, folder)
 
-      pdf_filenames.each do |pdf_filename|
-        filename_pairs << {
-          pdf_filename: pdf_filename.split("/").last,
-          date_zip_filename: date_zip_filename,
-          path_to_file: pdf_filename
-        }
+      pdf_filenames.each do |path_to_file|
+        pdf_basename = Pathname.new(path_to_file).basename.sub_ext('').to_s
+        local_id, iep_at_a_glance, *student_names = pdf_basename.split('_')
+        raise 'oh no!' if iep_at_a_glance != 'IEPAtAGlance'
+
+        date_zip_basename = Pathname.new(date_zip_filename).basename.sub_ext('').to_s
+        date = Date.strptime(date_zip_basename, '%m-%d-%Y')
+
+        IepStorer.new(
+          file_name: path_to_file.split("/").last,
+          path_to_file: path_to_file,
+          file_date: date.to_s,
+          local_id: local_id
+        ).store
       end
 
       date_zip.close
-    end
-
-    filename_pairs.map do |pair|
-      pdf_filename = pair[:pdf_filename]
-      pdf_basename = Pathname.new(pdf_filename).basename.sub_ext('').to_s
-      local_id, iep_at_a_glance, *student_names = pdf_basename.split('_')
-      raise 'oh no!' if iep_at_a_glance != 'IEPAtAGlance'
-
-      date_zip_filename = pair[:date_zip_filename]
-      date_zip_basename = Pathname.new(date_zip_filename).basename.sub_ext('').to_s
-      date = Date.strptime(date_zip_basename, '%m-%d-%Y')
-
-      IepStorer.new(
-        file_name: pdf_filename,
-        path_to_file: pair[:path_to_file],
-        file_date: date.to_s,
-        local_id: local_id
-      ).store
     end
 
     delete_folder_for_zipped_files
