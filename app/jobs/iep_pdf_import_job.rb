@@ -28,16 +28,8 @@ class IepPdfImportJob
       date_zip = File.open(date_zip_filename)
       pdf_filenames = unzip_to_folder(date_zip, folder)
 
-      pdf_filenames.each do |path_to_file|
-        file_info = IepFileNameParser.new(path_to_file, date_zip_filename)
-        file_into.check_iep_at_a_glance
-
-        IepStorer.new(
-          path_to_file: path_to_file,
-          file_name: file_info.file_name,
-          file_date: file_info.file_date,
-          local_id: file_info.local_id
-        ).store
+      pdf_filenames.each do |path|
+        parse_file_name_and_store_file(path)
       end
 
       date_zip.close
@@ -58,6 +50,18 @@ class IepPdfImportJob
 
     def s3
       @client ||= Aws::S3::Client.new
+    end
+
+    def parse_file_name_and_store_file(path_to_file)
+      file_info = IepFileNameParser.new(path_to_file, date_zip_filename)
+      file_into.check_iep_at_a_glance
+
+      IepStorer.new(
+        path_to_file: path_to_file,
+        file_name: file_info.file_name,
+        file_date: file_info.file_date,
+        local_id: file_info.local_id
+      ).store
     end
 
     def download(remote_filename)
