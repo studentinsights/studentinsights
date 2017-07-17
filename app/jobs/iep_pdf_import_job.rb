@@ -14,7 +14,7 @@ class IepPdfImportJob
   #
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-    date_zip_folder = make_folder_for_zipped_files
+    date_zip_folder = make_top_level_folder
 
     zip_file = download(REMOTE_FILENAME)
     log "got a zip: #{zip_file.path}"
@@ -87,7 +87,7 @@ class IepPdfImportJob
       output_filenames
     end
 
-    def make_folder_for_zipped_files
+    def make_top_level_folder
       date_zip_folder = Rails.root.join('tmp/iep_pdfs/date_zips')
       FileUtils.mkdir_p(date_zip_folder)
 
