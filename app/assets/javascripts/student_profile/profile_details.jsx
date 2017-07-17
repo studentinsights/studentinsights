@@ -262,7 +262,7 @@
           </p>
           <br/>
           <p style={{fontSize: 15}}>
-            PDFs of the documents will be available in Insights soon.
+            <a href="/iep_documents/1">Download.</a>
           </p>
         </div>
       );

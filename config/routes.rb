@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   resources :service_uploads, only: [:create, :index, :destroy]
   resources :homerooms, only: [:show]
   resources :import_records, only: [:index]
+  resources :iep_documents, only: [:show]
 
   resources :schools, only: [:show] do
     get :star_reading, on: :member
