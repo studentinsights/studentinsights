@@ -72,7 +72,6 @@ class IepPdfImportJob
       date_zip.close
     end
 
-    records = []
     filename_pairs.map do |pair|
       pdf_filename = pair[:pdf_filename]
       pdf_basename = Pathname.new(pdf_filename).basename.sub_ext('').to_s
@@ -83,20 +82,11 @@ class IepPdfImportJob
       date_zip_basename = Pathname.new(date_zip_filename).basename.sub_ext('').to_s
       date = Date.strptime(date_zip_basename, '%m-%d-%Y')
 
-      records << {
-        local_id: local_id,
-        pdf_filename: pdf_filename,
-        date: date.to_s,
-        path_to_file: pair[:path_to_file]
-      }
-    end
-
-    records.map do |record|
       IepStorer.new(
-        file_name: record[:pdf_filename],
-        path_to_file: record[:path_to_file],
-        file_date: record[:date],
-        local_id: record[:local_id]
+        file_name: pdf_filename,
+        path_to_file: pair[:path_to_file],
+        file_date: date.to_s,
+        local_id: local_id
       ).store
     end
 
