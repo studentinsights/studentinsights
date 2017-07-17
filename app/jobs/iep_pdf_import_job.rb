@@ -14,16 +14,13 @@ class IepPdfImportJob
   #
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-    # pull down the file to heroku dyno
+    date_zip_folder = make_folder_for_zipped_files
+
     zip_file = download(REMOTE_FILENAME)
     log "got a zip: #{zip_file.path}"
 
-    date_zip_folder = make_folder_for_zipped_files
-
-    log 'unzipping date bundles...'
     date_zip_filenames = unzip_to_folder(zip_file, date_zip_folder)
-
-    log "got #{date_zip_filenames.size} date zips!"
+    log "unzipped #{date_zip_filenames.size} date zips!"
 
     date_zip_filenames.each do |date_zip_filename|
       folder = File.join(date_zip_filename + '.unzipped')
