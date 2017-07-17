@@ -71,6 +71,12 @@ class IepPdfImportJob
       if student
         log "storing iep for student ##{record[:local_id]} to db..."
 
+        s3.put_object(
+          bucket: ENV['AWS_S3_IEP_BUCKET'],
+          key: student.id.to_s + rand.to_s,
+          body: 'eeeee'
+        )
+
         IepDocument.create!(
           file_date: record[:date],
           file_name: record[:pdf_filename],
@@ -96,6 +102,10 @@ class IepPdfImportJob
 
     def log(str)
       puts str
+    end
+
+    def s3
+      @client ||= Aws::S3::Client.new
     end
 
     def download(remote_filename)
