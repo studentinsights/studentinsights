@@ -23,8 +23,7 @@ class IepPdfImportJob
     log "unzipped #{date_zip_filenames.size} date zips!"
 
     date_zip_filenames.each do |date_zip_filename|
-      folder = File.join(date_zip_filename + '.unzipped')
-      FileUtils.mkdir_p(folder)
+      folder = make_folder_for_unzipped_file(date_zip_filename)
 
       date_zip = File.open(date_zip_filename)
       pdf_filenames = unzip_to_folder(date_zip, folder)
@@ -92,6 +91,13 @@ class IepPdfImportJob
       FileUtils.mkdir_p(date_zip_folder)
 
       return date_zip_folder
+    end
+
+    def make_folder_for_unzipped_file(date_zip_filename)
+      folder = File.join(date_zip_filename + '.unzipped')
+      FileUtils.mkdir_p(folder)
+
+      return folder
     end
 
     def delete_folder_for_zipped_files
