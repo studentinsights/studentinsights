@@ -35,7 +35,8 @@ class IepPdfImportJob
       pdf_filenames.each do |pdf_filename|
         filename_pairs << {
           pdf_filename: pdf_filename.split("/").last,
-          date_zip_filename: date_zip_filename
+          date_zip_filename: date_zip_filename,
+          path_to_file: pdf_filename
         }
       end
 
@@ -58,10 +59,12 @@ class IepPdfImportJob
       date_zip_filename = pair[:date_zip_filename]
       date_zip_basename = Pathname.new(date_zip_filename).basename.sub_ext('').to_s
       date = Date.strptime(date_zip_basename, '%m-%d-%Y')
+
       records << {
         local_id: local_id,
         pdf_filename: pdf_filename,
-        date: date.to_s
+        date: date.to_s,
+        path_to_file: pair[:path_to_file]
       }
     end
 
@@ -73,8 +76,8 @@ class IepPdfImportJob
 
         s3.put_object(
           bucket: ENV['AWS_S3_IEP_BUCKET'],
-          key: student.id.to_s + rand.to_s,
-          body: 'eeeee'
+          key: record[:pdf_filename],
+          body: File.open(record[:path_to_file])
         )
 
         IepDocument.create!(
