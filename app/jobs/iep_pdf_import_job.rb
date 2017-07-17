@@ -66,9 +66,6 @@ class IepPdfImportJob
       date_zip.close
     end
 
-    # translate to records
-    # extract: (date, student lasid, student name)
-    # split on the 0321321_whatever.pdf to get the lasid
     records = []
     filename_pairs.map do |pair|
       pdf_filename = pair[:pdf_filename]
@@ -107,10 +104,6 @@ class IepPdfImportJob
         log "student not in db! ##{record[:local_id]}"
       end
     end
-
-    # TODO
-    # write to blob store
-    #     put the file in blob store key: (date, local_id, filename)
 
     delete_folder_for_zipped_files
   end
