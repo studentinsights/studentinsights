@@ -7,6 +7,29 @@ class IepPdfImportJob
     @time_now = options[:time_now] || Time.now
   end
 
+  class IepStorer
+    def initialize(file_name:, path_to_file:, file_date:, student:)
+      @file_name = file_name
+      @path_to_file = path_to_file
+      @file_date = file_date
+      @student = student
+    end
+
+    def store
+      s3.put_object(
+        bucket: ENV['AWS_S3_IEP_BUCKET'],
+        key: @file_name,
+        body: File.open(@path_to_file)
+      )
+
+      IepDocument.create!(
+        file_date: @file_date,
+        file_name: @path_to_file,
+        student: @student
+      )
+    end
+  end
+
   REMOTE_FILENAME = 'student-documents_old.zip'
 
   # This imports all the IEP PDFs from a zip that
@@ -74,17 +97,12 @@ class IepPdfImportJob
       if student
         log "storing iep for student ##{record[:local_id]} to db..."
 
-        s3.put_object(
-          bucket: ENV['AWS_S3_IEP_BUCKET'],
-          key: record[:pdf_filename],
-          body: File.open(record[:path_to_file])
-        )
-
-        IepDocument.create!(
-          file_date: record[:date],
+        IepStorer.new(
           file_name: record[:pdf_filename],
+          path_to_file: record[:path_to_file],
+          file_date: record[:date],
           student: student
-        )
+        ).store
       else
         log "student not in db! ##{record[:local_id]}"
       end
