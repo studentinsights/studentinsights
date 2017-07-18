@@ -7,7 +7,7 @@ class IepStorer
   end
 
   def store
-    student = Student.find_by_local_id(record[:local_id])
+    student = Student.find_by_local_id(@local_id)
 
     log "student not in db!" && return unless student
 
@@ -25,4 +25,15 @@ class IepStorer
       student: @student
     )
   end
+
+  private
+
+    def log(str)
+      puts str
+    end
+
+    def s3
+      @client ||= Aws::S3::Client.new
+    end
+
 end
