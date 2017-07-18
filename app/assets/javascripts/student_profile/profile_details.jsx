@@ -252,9 +252,7 @@
     renderIepDownloadLinks: function () {
       const iepDocuments = this.props.iepDocuments;
 
-      return iepDocuments.map((iepDocument) => {
-        return this.renderIepDownloadLink(iepDocument);
-      }, this);
+      return iepDocuments.map(this.renderIepDownloadLink, this);
     },
 
     renderIepDownloadLink: function (iepDocument) {
