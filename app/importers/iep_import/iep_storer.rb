@@ -3,20 +3,22 @@ class IepStorer
                  path_to_file:,
                  file_date:,
                  local_id:,
-                 client:)
+                 client:,
+                 logger:)
     @file_name = file_name
     @path_to_file = path_to_file
     @file_date = file_date
     @local_id = local_id
     @client = client
+    @logger = logger
   end
 
   def store
     student = Student.find_by_local_id(@local_id)
 
-    log "student not in db!" && return unless student
+    return @logger.log("student not in db!") unless student
 
-    log "storing iep for student to db."
+    @logger.log("storing iep for student to db.")
 
     @client.put_object(
       bucket: ENV['AWS_S3_IEP_BUCKET'],
@@ -31,11 +33,5 @@ class IepStorer
       student: @student
     )
   end
-
-  private
-
-    def log(str)
-      puts str
-    end
 
 end

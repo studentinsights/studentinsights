@@ -44,10 +44,6 @@ class IepPdfImportJob
 
   private
 
-    def log(str)
-      puts str
-    end
-
     def parse_file_name_and_store_file(path_to_file, date_zip_filename)
       file_info = IepFileNameParser.new(path_to_file, date_zip_filename)
       file_info.check_iep_at_a_glance
@@ -57,7 +53,8 @@ class IepPdfImportJob
         file_name: file_info.file_name,
         file_date: file_info.file_date,
         local_id: file_info.local_id,
-        client: s3
+        client: s3,
+        logger: logger
       ).store
     end
 
