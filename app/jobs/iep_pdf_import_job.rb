@@ -56,8 +56,13 @@ class IepPdfImportJob
         path_to_file: path_to_file,
         file_name: file_info.file_name,
         file_date: file_info.file_date,
-        local_id: file_info.local_id
+        local_id: file_info.local_id,
+        client: s3
       ).store
+    end
+
+    def s3
+      @client ||= Aws::S3::Client.new
     end
 
     def download(remote_filename)
