@@ -12,13 +12,13 @@ RSpec.describe IepStorer, type: :model do
 
   context 'local id matches to student' do
     it 'stores an object to the db' do
-
+      skip 'need to factor out client'
     end
   end
 
   context 'local id does not match to student' do
     it 'does not store an object to the db' do
-
+      skip 'need to factor out client'
     end
   end
 
