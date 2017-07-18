@@ -16,7 +16,8 @@ class IepStorer
     s3.put_object(
       bucket: ENV['AWS_S3_IEP_BUCKET'],
       key: @file_name,
-      body: File.open(@path_to_file)
+      body: File.open(@path_to_file),
+      server_side_encryption: 'AES256'
     )
 
     IepDocument.create!(
