@@ -44,8 +44,12 @@ class IepPdfImportJob
 
   private
 
+    def logger
+      @iep_import_logger ||= Logger.new(STDOUT)
+    end
+
     def log(msg)
-      Rails.logger.info(msg)
+      logger.info(msg)
     end
 
     def parse_file_name_and_store_file(path_to_file, date_zip_filename)
@@ -58,7 +62,7 @@ class IepPdfImportJob
         file_date: file_info.file_date,
         local_id: file_info.local_id,
         client: s3,
-        logger: Rails.logger
+        logger: logger
       ).store
     end
 
