@@ -18,14 +18,31 @@ class IepStorer
 
     return @logger.info("student not in db!") unless @student
 
-    @logger.info("storing iep for student to db.")
+    return unless store_object_in_s3
 
-    @client.put_object(
+    store_object_in_database
+  end
+
+  def store_object_in_s3
+    @logger.info("storing iep for student to s3...")
+
+    response = @client.put_object(
       bucket: ENV['AWS_S3_IEP_BUCKET'],
       key: @file_name,
       body: File.open(@path_to_file),
       server_side_encryption: 'AES256'
     )
+
+    return false unless response
+
+    @logger.info("    successfully stored to s3!")
+    @logger.info("    encrypted with: #{response[:server_side_encryption]}")
+
+    return true
+  end
+
+  def store_object_in_database
+    @logger.info("storing iep for student to db.")
 
     IepDocument.create!(
       file_date: @file_date,
