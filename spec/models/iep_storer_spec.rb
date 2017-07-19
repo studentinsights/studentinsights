@@ -6,7 +6,7 @@ RSpec.describe IepStorer, type: :model do
   end
 
   class QuietLogger
-    def self.log(message); end
+    def self.info(message); end
   end
 
   before do
