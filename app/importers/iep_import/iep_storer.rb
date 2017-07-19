@@ -16,9 +16,9 @@ class IepStorer
   def store
     student = Student.find_by_local_id(@local_id)
 
-    return @logger.log("student not in db!") unless student
+    return @logger.info("student not in db!") unless student
 
-    @logger.log("storing iep for student to db.")
+    @logger.info("storing iep for student to db.")
 
     @client.put_object(
       bucket: ENV['AWS_S3_IEP_BUCKET'],
