@@ -14,9 +14,9 @@ class IepStorer
   end
 
   def store
-    student = Student.find_by_local_id(@local_id)
+    @student = Student.find_by_local_id(@local_id)
 
-    return @logger.info("student not in db!") unless student
+    return @logger.info("student not in db!") unless @student
 
     @logger.info("storing iep for student to db.")
 
