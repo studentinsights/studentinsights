@@ -29,7 +29,7 @@ class IepStorer
 
     IepDocument.create!(
       file_date: @file_date,
-      file_name: @path_to_file,
+      file_name: @file_name,
       student: @student
     )
   end
