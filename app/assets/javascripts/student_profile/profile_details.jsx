@@ -259,7 +259,7 @@
       const url = `/iep_documents/${iepDocument.id}`;
 
       return (
-        <p style={{fontSize: 15}}>
+        <p style={{fontSize: 15}} key={iepDocument.id}>
           <a href={url}>
             Download {iepDocument.file_name}.
           </a>
