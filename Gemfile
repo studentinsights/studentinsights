@@ -7,6 +7,7 @@ gem 'pg'
 gem 'puma'
 
 gem 'activerecord-import'
+gem 'aws-sdk', '~> 2'
 gem 'browserify-rails'
 gem 'devise'
 gem 'devise_ldap_authenticatable'

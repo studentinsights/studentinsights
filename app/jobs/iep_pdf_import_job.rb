@@ -14,76 +14,26 @@ class IepPdfImportJob
   #
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-    # pull down the file to heroku dyno
+    date_zip_folder = make_top_level_folder
+
     zip_file = download(REMOTE_FILENAME)
     log "got a zip: #{zip_file.path}"
 
-    date_zip_folder = make_folder_for_zipped_files
-
-    log 'unzipping date bundles...'
     date_zip_filenames = unzip_to_folder(zip_file, date_zip_folder)
+    log "unzipped #{date_zip_filenames.size} date zips!"
 
-    log "got #{date_zip_filenames.size} date zips!"
-    filename_pairs = []
     date_zip_filenames.each do |date_zip_filename|
-      folder = File.join(date_zip_filename + '.unzipped')
-      FileUtils.mkdir_p(folder)
-      date_zip = File.open(date_zip_filename)
+      folder = make_folder_for_unzipped_file(date_zip_filename)
 
+      date_zip = File.open(date_zip_filename)
       pdf_filenames = unzip_to_folder(date_zip, folder)
 
-      pdf_filenames.each do |pdf_filename|
-        filename_pairs << {
-          pdf_filename: pdf_filename.split("/").last,
-          date_zip_filename: date_zip_filename
-        }
+      pdf_filenames.each do |path|
+        parse_file_name_and_store_file(path, date_zip_filename)
       end
 
       date_zip.close
     end
-
-    # translate to records
-    # extract: (date, student lasid, student name)
-    # split on the 0321321_whatever.pdf to get the lasid
-    records = []
-    filename_pairs.map do |pair|
-      pdf_filename = pair[:pdf_filename]
-      pdf_basename = Pathname.new(pdf_filename).basename.sub_ext('').to_s
-      local_id, iep_at_a_glance, *student_names = pdf_basename.split('_')
-      if iep_at_a_glance != 'IEPAtAGlance'
-        log 'oh no!'
-        raise 'oh no!'
-      end
-
-      date_zip_filename = pair[:date_zip_filename]
-      date_zip_basename = Pathname.new(date_zip_filename).basename.sub_ext('').to_s
-      date = Date.strptime(date_zip_basename, '%m-%d-%Y')
-      records << {
-        local_id: local_id,
-        pdf_filename: pdf_filename,
-        date: date.to_s
-      }
-    end
-
-    records.map do |record|
-      student = Student.find_by_local_id(record[:local_id])
-
-      if student
-        log "storing iep for student ##{record[:local_id]} to db..."
-
-        IepDocument.create!(
-          file_date: record[:date],
-          file_name: record[:pdf_filename],
-          student: student
-        )
-      else
-        log "student not in db! ##{record[:local_id]}"
-      end
-    end
-
-    # TODO
-    # write to blob store
-    #     put the file in blob store key: (date, local_id, filename)
 
     delete_folder_for_zipped_files
   end
@@ -94,8 +44,30 @@ class IepPdfImportJob
 
   private
 
-    def log(str)
-      puts str
+    def logger
+      @iep_import_logger ||= Logger.new(STDOUT)
+    end
+
+    def log(msg)
+      logger.info(msg)
+    end
+
+    def parse_file_name_and_store_file(path_to_file, date_zip_filename)
+      file_info = IepFileNameParser.new(path_to_file, date_zip_filename)
+      file_info.check_iep_at_a_glance
+
+      IepStorer.new(
+        path_to_file: path_to_file,
+        file_name: file_info.file_name,
+        file_date: file_info.file_date,
+        local_id: file_info.local_id,
+        client: s3,
+        logger: logger
+      ).store
+    end
+
+    def s3
+      @client ||= Aws::S3::Client.new
     end
 
     def download(remote_filename)
@@ -120,11 +92,18 @@ class IepPdfImportJob
       output_filenames
     end
 
-    def make_folder_for_zipped_files
+    def make_top_level_folder
       date_zip_folder = Rails.root.join('tmp/iep_pdfs/date_zips')
       FileUtils.mkdir_p(date_zip_folder)
 
       return date_zip_folder
+    end
+
+    def make_folder_for_unzipped_file(date_zip_filename)
+      folder = File.join(date_zip_filename + '.unzipped')
+      FileUtils.mkdir_p(folder)
+
+      return folder
     end
 
     def delete_folder_for_zipped_files

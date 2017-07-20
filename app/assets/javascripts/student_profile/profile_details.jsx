@@ -249,8 +249,27 @@
       );
     },
 
+    renderIepDownloadLinks: function () {
+      const iepDocuments = this.props.iepDocuments;
+
+      return iepDocuments.map(this.renderIepDownloadLink, this);
+    },
+
+    renderIepDownloadLink: function (iepDocument) {
+      const url = `/iep_documents/${iepDocument.id}`;
+
+      return (
+        <p style={{fontSize: 15}} key={iepDocument.id}>
+          <a href={url}>
+            Download {iepDocument.file_name}.
+          </a>
+        </p>
+      );
+    },
+
     renderIepDocuments: function () {
-      const numberOfDocuments = this.props.iepDocuments.length;
+      const iepDocuments = this.props.iepDocuments;
+      const numberOfDocuments = iepDocuments.length;
 
       if (numberOfDocuments === 0) return null;
 
@@ -261,9 +280,7 @@
             This student has {numberOfDocuments} IEP documents.
           </p>
           <br/>
-          <p style={{fontSize: 15}}>
-            PDFs of the documents will be available in Insights soon.
-          </p>
+          {this.renderIepDownloadLinks()}
         </div>
       );
     },
