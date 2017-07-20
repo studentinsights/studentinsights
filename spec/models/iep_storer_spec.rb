@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe IepStorer, type: :model do
   class FakeAwsClient
-    def self.put_object(args); end
+    def self.put_object(args)
+      {
+        server_side_encryption: 'AES256'
+      }
+    end
   end
 
   class QuietLogger
