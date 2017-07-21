@@ -1,0 +1,396 @@
+<html>
+  <head>
+    <link rel=stylesheet type=text/css href="styles.css">
+    <script src="vendor/jquery.min.js"></script>
+    <script src="vendor/d3.v4.min.js"></script>
+    <script src="vendor/d3.tip.v0.6.3.js"></script>
+    <script src="functions.js"></script>
+    <script src="data.js"></script>
+    <script type="text/javascript">
+      function main() {
+        var data = window.loadData();
+        var state = {
+          previousElement: '',
+          individualStudent: '',
+          newElement: '',
+          studentsInfo: data.studentsInfo,
+          fieldInfo: data.fieldInfo
+        };
+        var class_map = {};
+        class_map['no_class'] = 'None';
+        class_map['473'] = 'Teacher 1';
+        class_map['474'] = 'Teacher 2';
+        class_map['475'] = 'Teacher 3';
+        class_map['476'] = 'Teacher 4';
+        class_map['477'] = 'Teacher 5';
+        class_map['478'] = 'Teacher 6';
+        class_map['479'] = 'Teacher 7';
+        class_map['480'] = 'Teacher 8';
+        
+        var metrics = calculateMetrics(state);
+        window.drawCharts(metrics, state.fieldInfo, class_map, state.studentsInfo);
+
+        $('#no_class, .class_item_left, .class_item_right')
+          .on('drop', drop.bind(null, state))
+          .on('dragover', allowDrop);
+
+        $('.student_item')
+          .on('mouseover', showStudentInfo.bind(null, state))
+          .on('dragstart', drag.bind(null, state));
+      }
+
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+
+      function drag(state, event) {
+        var ev = event.originalEvent;
+        ev.dataTransfer.setData("text", ev.target.id);
+        state.previousElement = ev['path'][1].id;
+        state.individualStudent = (ev['srcElement'].id).substr(1);
+      }
+
+      function drop(state, event) {
+        var ev = event.originalEvent;
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        if (ev['target'].className != 'class_item_left' && ev['target'].className != 'class_item_right' && ev['target'].className != 'students_subcontainer') {
+          target = ev['path'][1];
+        } else {
+          target = ev.target;
+        }
+        target.appendChild(document.getElementById(data));
+        state.newElement = target.id;
+        state.studentsInfo[state.newElement][state.individualStudent] = state.studentsInfo[state.previousElement][state.individualStudent];
+        delete state.studentsInfo[state.previousElement][state.individualStudent];
+        window.updateCharts(calculateMetrics(state), state.fieldInfo);
+        saveData(state, state.individualStudent, state.newElement);
+      }
+
+      function saveData(state, student_id, classroom_id) {
+        data = {'student_id':student_id, 'classroom_id':classroom_id};
+
+        console.log('saveData', data, state);
+        // disabled for now
+        // $.ajax({
+        //     type: 'POST',
+        //     url: window.location.href,
+        //     data: JSON.stringify(data),
+        //     dataType: 'json',
+        //     contentType: 'application/json; charset=utf-8'
+        // });
+      }
+
+      function calculateMetrics(state) {
+        var classroom_data = [];
+        for (classroom in state.studentsInfo) {
+          class_info = {'class':classroom ,'num_of_students':Object.keys(state.studentsInfo[classroom]).length};
+            for (field in state.fieldInfo) {
+              var item_dict = {};
+              for (item in state.fieldInfo[field]) {
+                item_dict[state.fieldInfo[field][item]] = 0;
+              }
+              for (student in state.studentsInfo[classroom]) {
+                var field_value = String(state.studentsInfo[classroom][student][field]);
+                if (field_value == 'null') {
+                  field_value = 'None';
+                }
+                item_dict[field_value] = item_dict[field_value] + 1; 
+              }
+              class_info[field] = item_dict;
+            }
+          classroom_data.push(class_info);
+        }
+        return classroom_data;
+      }
+
+      function showStudentInfo(state, ev) {
+        var element = ev.currentTarget;
+        var student_id = (element.id).substr(1);
+        var student = {};
+        for (classroom in state.studentsInfo) {
+          if (student_id in state.studentsInfo[classroom]) {
+            student = state.studentsInfo[classroom][student_id];
+          }
+        }
+        document.getElementById("student_name").innerHTML = element.innerHTML;
+        for (field in state.fieldInfo) {
+          table_row = document.getElementById("student_" + field);
+          if (student[field] == null) {
+            table_row.innerHTML = 'None';
+          } else {
+            table_row.innerHTML = student[field];
+          }
+          
+        }
+      }
+
+    </script>
+  </head>       
+  <body onload="main()">
+    <select onchange="window.location.href=this.value", class="select_dropdown select_school">
+      
+        
+          <option value=/19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7/6/>School - shs</option>
+        
+      
+        
+          <option value=/2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3/6/>School - nw</option>
+        
+      
+        
+          <option value=/4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5/6/>School - fc</option>
+        
+      
+        
+          <option value=/4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a/6/>School - afas</option>
+        
+      
+        
+          <option value=/4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce/6/>School - kdy</option>
+        
+      
+        
+          <option selected="selected" value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/6/>School - brn</option>
+        
+      
+        
+          <option value=/7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451/6/>School - whcs</option>
+        
+      
+        
+          <option value=/d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35/6/>School - hea</option>
+        
+      
+        
+          <option value=/e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683/6/>School - wsns</option>
+        
+      
+        
+          <option value=/ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d/6/>School - escs</option>
+        
+      
+    </select>
+    <select onchange="window.location.href=this.value", class="select_dropdown select_grade">
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/1/>Grade - 1</option>
+        
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/2/>Grade - 2</option>
+        
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/3/>Grade - 3</option>
+        
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/4/>Grade - 4</option>
+        
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/5/>Grade - 5</option>
+        
+      
+        
+          <option selected="selected" value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/6/>Grade - 6</option>
+        
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/7/>Grade - 7</option>
+        
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/8/>Grade - 8</option>
+        
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/HS/>Grade - HS</option>
+        
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/KF/>Grade - KF</option>
+        
+      
+        
+          <option value=/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/PK/>Grade - PK</option>
+        
+      
+    </select>
+    <button class="download_button" id="download" onclick="window.location='/4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8/6/get_csv';">Download Assignments</button>
+    <div class="drag_drop_container">
+      <div class="students_container">
+        <div id="no_class" class="students_subcontainer">
+          <h4 class="students_subcontainer_header">No Assigned Class</h4>
+          
+            <div id='s8e9b669109df89620b94f2387dc53206a82ddc71d658f8f7a2b3a9b417370d3e' class="student_item" draggable="true">Alice Harvey</div>
+          
+            <div id='s98eb1f769cc46eb269ebbc76ebc73b6b2e212782ac2dc85d00ad839b8aaf6eed' class="student_item" draggable="true">Andrew Porter</div>
+          
+            <div id='s3bbcf69de876e98ac944c5276eaeb44308c00a4e89260ad0067c7c9aeb4532b8' class="student_item" draggable="true">Debra Chen</div>
+          
+            <div id='se38ab7d3075c2759fc079276fc667a4963ffe572d0ae90b4b87fb7813872b540' class="student_item" draggable="true">Diana Miller</div>
+          
+            <div id='sec54e99514663edb97adef400fbf34a77daae108303d3da8008a7dfb4cdf0f52' class="student_item" draggable="true">Emma Greene</div>
+          
+            <div id='s5313e5bf17148de844ff74be3663d47c6e361ca469b30a36337701233c89a15e' class="student_item" draggable="true">Grace Lucas</div>
+          
+            <div id='s51f8abfe29ee9821b5727c55d31f9d29115fe91b610751d7c9586b91178c0119' class="student_item" draggable="true">James Keller</div>
+          
+            <div id='s01ba9d7ab5112ec9ec9a570d13dac64010bfc179927edf24a047005b4996cad5' class="student_item" draggable="true">Jason Ryan</div>
+          
+            <div id='s2b5d2ba5803e6fe3a2bc08b5f3965f47a92918a9c44b8090618d5d5a2876cf8c' class="student_item" draggable="true">Jeffrey Alvarez</div>
+          
+            <div id='sd54123de468bd42ea00dafbd777f85fe5fa1ff6404d9838c007953c25c92a1c5' class="student_item" draggable="true">Judith Cook</div>
+          
+            <div id='s6eac02c2ab0dc9378be87d5d04da2fd747fb2340dad4977778defee7da92f657' class="student_item" draggable="true">Sara Romero</div>
+          
+            <div id='sb18a5e6b50af3073f63ac2c4ee837a7c9c6f06d7e91206980283509e3738311e' class="student_item" draggable="true">Steven Barrett</div>
+          
+        </div>
+        <div class="count_individual_container">
+          <svg class="count_chart"></svg>
+          <div class="table_header">Student Info</div>
+          <table class="individual_student_table">
+            <tr>
+              <td class="table_label">Name</td>
+              <td id="student_name">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Hispanic/Latino</td>
+              <td id="student_hispanic_latino">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Race</td>
+              <td id="student_race">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Free/Reduced Lunch</td>
+              <td id="student_free_reduced_lunch">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Home Language</td>
+              <td id="student_home_language">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Program Assigned</td>
+              <td id="student_program_assigned">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Sped Placement</td>
+              <td id="student_sped_placement">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Disability</td>
+              <td id="student_disability">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Sped Level of Need</td>
+              <td id="student_sped_level_of_need">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Plan 504</td>
+              <td id="student_plan_504">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Limited English Proficiency</td>
+              <td id="student_limited_english_proficiency">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Enrollment Status</td>
+              <td id="student_enrollment_status">None</td>
+            </tr>
+            <tr>
+              <td class="table_label">Risk Level</td>
+              <td id="student_risk_level">None</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="classes_container">
+        <div>
+          
+            
+              <div id=473 class="class_item_left">
+                <h4 class="class_item_header">Teacher 1</h4>
+                  
+                    <div id='s5997fffe609051d65f99ba4fdec2d391d5a4d015d815f4c1f0f226c8eba64ea6' class="student_item" draggable="true">Charles Cunningham</div>
+                  
+                    <div id='s1ba71fb680250d97f045b4653bb05eda11362e5ef7f69538b6261af1a84112e8' class="student_item" draggable="true">Deborah Wood</div>
+                  
+                    <div id='s66a7a5807c3130eb2d0b55bb260a6a001b9d62095c94b753cbb215f3e4f099e1' class="student_item" draggable="true">Diana Davidson</div>
+                  
+              </div>
+            
+          
+            
+              <div id=474 class="class_item_right">
+                <h4 class="class_item_header">Teacher 2</h4>
+                  
+                    <div id='s0359bdb72fa3b3ee4adfdfcae848c4b5cc3c889bc7400efc01051e9cd67482c9' class="student_item" draggable="true">Douglas Flores</div>
+                  
+              </div>
+            
+          
+            
+              <div id=475 class="class_item_left">
+                <h4 class="class_item_header">Teacher 3</h4>
+                  
+                    <div id='s744b93f9950fc38dad705556931ea48193b99dcb191cc9bd77097f65fbe2f0b8' class="student_item" draggable="true">Grace Brooks</div>
+                  
+                    <div id='s3510a92fc7dd04f69b1aeeef5489ef168dbf1d9c4d528b8f4af4240a8b295ab4' class="student_item" draggable="true">Joe Bowman</div>
+                  
+                    <div id='s3f46bdea034f311a14efe877f5592d84a7a6c97d9b917be3f55573311e6cdda7' class="student_item" draggable="true">Raymond Peterson</div>
+                  
+              </div>
+            
+          
+            
+              <div id=476 class="class_item_right">
+                <h4 class="class_item_header">Teacher 4</h4>
+                  
+              </div>
+            
+          
+            
+              <div id=477 class="class_item_left">
+                <h4 class="class_item_header">Teacher 5</h4>
+                  
+              </div>
+            
+          
+            
+              <div id=478 class="class_item_right">
+                <h4 class="class_item_header">Teacher 6</h4>
+                  
+              </div>
+            
+          
+            
+              <div id=479 class="class_item_left">
+                <h4 class="class_item_header">Teacher 7</h4>
+                  
+              </div>
+            
+          
+            
+              <div id=480 class="class_item_right">
+                <h4 class="class_item_header">Teacher 8</h4>
+                  
+              </div>
+            
+          
+        </div>
+      </div>
+    </div>
+    <svg id="hispanic_latino_chart"></svg>
+    <svg id="race_chart"></svg>
+    <svg id="free_reduced_lunch_chart"></svg>
+    <svg id="program_assigned_chart"></svg>
+    <svg id="sped_level_of_need_chart"></svg>
+    <svg id="plan_504_chart"></svg>
+    <svg id="limited_english_proficiency_chart"></svg>
+    <svg id="risk_level_chart"></svg>
+  </body>
+</html>

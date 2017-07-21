@@ -1,0 +1,197 @@
+
+.students_container {
+  float: left;
+  width: 50%;
+}
+
+.students_subcontainer {
+  overflow-y: scroll;
+  height: 200px;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #000000;
+
+}
+
+.students_subcontainer_header {
+  text-align: center;
+  margin: 0px;
+  padding: 5px;
+  font: 12px sans-serif;
+  background-color: #FF7F0E;
+  color: black;
+  font-weight: bold;
+}
+
+.classes_container {
+  margin-left: 50%;
+}
+
+.count_chart {
+  float: left;
+}
+
+.individual_student_table {
+  font: 10px sans-serif;
+  width: 330px;
+  table-layout: fixed;
+}
+
+.table_header {
+  font: 12px sans-serif;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.table_label {
+  font-weight: bold;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+.class_item_left {
+  float: left;
+  width: 47%;
+  height: 100px;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #000000;
+  overflow-y: scroll;
+}
+
+.class_item_right {
+  height: 100px;
+  border-radius: 10px;
+  margin-left: 52%;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #000000;
+  overflow-y: scroll;
+}
+
+.class_item_header {
+  text-align: center;
+  margin: 0px;
+  padding: 5px;
+  font: 12px sans-serif;
+  background-color: #1F77B4;
+  color: white;
+  font-weight: bold;
+}
+
+.student_item {
+  background-color: #d3d3d3;
+  border-radius: 5px;
+  margin-bottom: 4px;
+  padding: 5px;
+  display: inline-block;
+  font: 10px sans-serif;
+}
+
+.drag_drop_container {
+  margin-bottom: 10px;
+  height: 450px;
+}
+
+.bar-label {
+  font: 10px sans-serif;
+  text-anchor: end;
+  fill: black;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  display: none;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 120px;
+  height: 28px;
+  padding-top: 5px;
+  font: 8px sans-serif;
+  color: white;
+  background: black;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.select_dropdown {
+  -webkit-appearance: button;
+   -webkit-border-radius: 2px;
+   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+   -webkit-padding-end: 20px;
+   -webkit-padding-start: 2px;
+   -webkit-user-select: none;
+   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+   background-position: 97% center;
+   background-repeat: no-repeat;
+   border: 1px solid #AAA;
+   color: #555;
+   font-size: 14px;
+   margin: 20px;
+   overflow: hidden;
+   padding: 5px 10px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 300px;
+   color: #fff;
+   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#1F77B4, #1F77B4 40%, #1F77B4);
+   background-color: #1F77B4;
+   -webkit-border-radius: 20px;
+   -moz-border-radius: 20px;
+   border-radius: 20px;
+   padding-left: 15px;
+}
+
+.select_grade {
+   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#1F77B4, #1F77B4 40%, #1F77B4);
+   background-color: #1F77B4; 
+}
+
+.select_school {
+  background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#D62728, #D62728 40%, #D62728);
+  background-color: #D62728;
+}
+
+.download_button {
+    background-color: #2CA02C; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border-radius: 16px;
+    float: right;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.download_button:hover {
+    background-color: #FFFFFF;
+    color: #2CA02C;
+    border: 1px solid #2CA02C;
+}
+
+.download_button:active {
+    background-color: #2CA02C;
+    color: #FFFFFF;
+}
