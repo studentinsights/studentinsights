@@ -31,5 +31,27 @@ RSpec.describe CoursesSectionsImporter do
           expect(Section.first.course).to eq(Course.first)
         end
       end
+
+      context 'missing school_local_id' do
+        let(:row) { { course_number:'ART-205', 
+                    course_description:'Handmade Ceramics I', 
+                    section_number:'ART-205B', 
+                    term_local_id:'FY', 
+                    section_schedule:'3(M-R)', 
+                    section_room_number:'232B'
+                } }
+
+        before do
+          described_class.new.import_row(row)
+        end
+
+        it 'creates a course' do
+          expect(Course.count).to eq(0)
+        end
+
+        it 'creates a section' do
+          expect(Section.count).to eq(0)
+        end
+      end
     end
   end

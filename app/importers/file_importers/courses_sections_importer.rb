@@ -18,9 +18,12 @@ class CoursesSectionsImporter < Struct.new :school_scope, :client, :log, :progre
 
   def import_row(row)
     course = CourseRow.new(row, school_ids_dictionary).build
-    course.save!
-    section = SectionRow.new(row, school_ids_dictionary, course.id).build
-    section.save
+    if course.school.present?
+      if course.save! 
+        section = SectionRow.new(row, school_ids_dictionary, course.id).build
+        section.save
+      end
+    end
   end
 
 end
