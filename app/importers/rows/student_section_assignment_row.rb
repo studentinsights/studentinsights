@@ -15,17 +15,19 @@ class StudentSectionAssignmentRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def build
-    student_section_assignment = StudentSectionAssignment.find_or_initialize_by(student: student,
+    if student and section
+      student_section_assignment = StudentSectionAssignment.find_or_initialize_by(student: student,
                                                                                 section: section)
-    return student_section_assignment
+      return student_section_assignment
+    end
   end
 
   def student
-    Student.find_by_local_id!(row[:local_id])
+    return Student.find_by_local_id(row[:local_id]) if row[:local_id]
   end
 
   def section
-    Section.find_by_section_number!(row[:section_number])
+    return Section.find_by_section_number(row[:section_number]) if row[:section_number]
   end
 
 end

@@ -8,13 +8,17 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
     CsvTransformer.new
   end
 
+  def filter
+    SchoolFilter.new(school_scope)
+  end
+
   def delete_rows()
     StudentSectionAssignment.delete_all
   end
 
   def import_row(row)
     student_section_assignment = StudentSectionAssignmentRow.new(row).build
-    student_section_assignment.save!
+    student_section_assignment.save! if student_section_assignment
   end
 
 end
