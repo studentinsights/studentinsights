@@ -9,7 +9,7 @@ RSpec.describe Import do
       allow(SftpClient).to receive_messages(for_x2: sftp_client_double, for_star: sftp_client_double)
     end
 
-    let(:sftp_client_double) { double(read_file: 'meow') }
+    let(:sftp_client_double) { double(download_file: 'meow') }
     let(:commands) { Import::Start.start(%w[--test-mode]) }
 
     it 'invokes all the commands and returns the correct kind of values' do
