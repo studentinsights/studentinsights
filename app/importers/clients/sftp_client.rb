@@ -18,8 +18,14 @@ class SftpClient < Struct.new :user, :host, :password, :key_data
     )
   end
 
-  def read_file(remote_file_name)
-    sftp_session.download!(remote_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+  def download_file(remote_file_name)
+    Dir.mkdir('tmp/data_download/') unless File.exists?('tmp/data_download/')
+
+    local_filename = File.join('tmp/data_download/', remote_file_name)
+    local_file = File.open(local_filename, 'w')
+    sftp_session.download!(remote_file_name, local_file.path)
+
+    return local_file
   end
 
   def sftp_session

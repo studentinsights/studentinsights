@@ -7,9 +7,11 @@ RSpec.describe Import do
   describe '.start' do
     before do
       allow(SftpClient).to receive_messages(for_x2: sftp_client_double, for_star: sftp_client_double)
+      allow_any_instance_of(FileImport).to receive(:import).and_return(true)
     end
 
-    let(:sftp_client_double) { double(read_file: 'meow') }
+    let(:fake_data) { File.open("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
+    let(:sftp_client_double) { double(download_file: fake_data) }
     let(:commands) { Import::Start.start(%w[--test-mode]) }
 
     it 'invokes all the commands and returns the correct kind of values' do
@@ -115,11 +117,11 @@ RSpec.describe Import do
 
     before do
       allow(task).to receive(:importers).and_return([fake_importer_class])
-      allow_any_instance_of(FileImport).to receive(:import).and_return('meow')
+      allow_any_instance_of(FileImport).to receive(:import).and_return(true)
     end
 
     it 'calls #connect_transform_import on configured importers' do
-      expect_any_instance_of(FileImport).to receive(:import).and_return('meow')
+      expect_any_instance_of(FileImport).to receive(:import)
       task.connect_transform_import
     end
   end
