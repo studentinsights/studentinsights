@@ -15,6 +15,10 @@ heroku create $HEROKU_APP_NAME
 HEROKU_GIT_REMOTE_NAME="heroku-$HEROKU_APP_NAME-student-insights"
 HEROKU_GIT_REMOTE_ADDRESS="https://git.heroku.com/$HEROKU_APP_NAME.git"
 
+echo "Adding nodejs buildpack..."
+
+heroku buildpacks:add --index 1 heroku/nodejs --app $HEROKU_APP_NAME
+
 echo "Pushing code to Heroku app..."
 
 git remote add $HEROKU_GIT_REMOTE_NAME $HEROKU_GIT_REMOTE_ADDRESS
