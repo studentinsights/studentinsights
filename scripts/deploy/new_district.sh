@@ -46,7 +46,7 @@ if [ $FILL_WITH_FAKE_DATA = "Y" ]; then
   echo "All done!"
   echo "Log in with {email => demo-admin@example.com, pw => demo-password}"
   echo "Taking you there now..."
-  open "https://$HEROKU_APP_NAME.herokuapp.com -a Google Chrome"
+  open "https://$HEROKU_APP_NAME.herokuapp.com" -a "Google Chrome"
 else
   echo "All done!"
 fi
