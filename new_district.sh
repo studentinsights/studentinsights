@@ -21,6 +21,7 @@ HEROKU_GIT_REMOTE_ADDRESS="https://git.heroku.com/$HEROKU_APP_NAME.git"
 echo "Adding nodejs buildpack..."
 
 heroku buildpacks:add --index 1 heroku/nodejs --app $HEROKU_APP_NAME
+heroku buildpacks:add --index 2 heroku/ruby --app $HEROKU_APP_NAME
 
 echo "Pushing code to Heroku app..."
 
