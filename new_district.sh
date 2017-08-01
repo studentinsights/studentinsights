@@ -29,3 +29,5 @@ git remote add $HEROKU_GIT_REMOTE_NAME $HEROKU_GIT_REMOTE_ADDRESS
 git push $HEROKU_GIT_REMOTE_NAME master
 
 heroku run rake db:migrate --app $HEROKU_APP_NAME
+
+heroku config:set DISTRICT_NAME="$DISTRICT_NAME" --app $HEROKU_APP_NAME
