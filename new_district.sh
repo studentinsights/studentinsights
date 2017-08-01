@@ -11,3 +11,11 @@ HEROKU_APP_NAME=$(sed -e 's/ /-/g' <<< "$DISTRICT_NAME" | awk '{print tolower($0
 echo "Creating Heroku app $HEROKU_APP_NAME..."
 
 heroku create $HEROKU_APP_NAME
+
+HEROKU_GIT_REMOTE_NAME="heroku-$HEROKU_APP_NAME-student-insights"
+HEROKU_GIT_REMOTE_ADDRESS="https://git.heroku.com/$HEROKU_APP_NAME.git"
+
+echo "Pushing code to Heroku app..."
+
+git remote add $HEROKU_GIT_REMOTE_NAME $HEROKU_GIT_REMOTE_ADDRESS
+git push $HEROKU_GIT_REMOTE_NAME master
