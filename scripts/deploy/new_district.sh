@@ -1,5 +1,5 @@
 # Usage:
-# ./new_district.sh "My New District Name"
+# $ scripts/deploy/new_district.sh "My New District Name"
 
 DISTRICT_NAME=$1
 
