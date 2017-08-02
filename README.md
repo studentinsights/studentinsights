@@ -39,7 +39,7 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [Heroku](#heroku)
     - [Migrations on Heroku](#migrations-on-heroku)
     - [Rebuilding database in staging environment](#rebuilding-database-in-staging-environment)
-  - [AWS](#aws)
+  - [Adding a new district](#new-district)
 - [Other Tools](#other-tools)
   - [Mixpanel](#mixpanel)
 - [More information](#more-information)
@@ -246,15 +246,15 @@ heroku run bundle exec rake db:create db:migrate db:seed:somerville --app studen
 heroku run:detached thor import:start --app student-insights-staging
 ```
 
-## AWS
+## New district
 
-The project can also be deployed on AWS.  There's a starting point for provisioning and deploying scripts here:
+Set up a new district:
 
 ```
-/scripts/aws/
+$ scripts/deploy/new_district.sh "My New District Name"
 ```
 
-Scripts by the fantastic [Kevin Robinson](https://github.com/kevinrobinson).
+This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
 
 # Other Tools
 ## Mixpanel
