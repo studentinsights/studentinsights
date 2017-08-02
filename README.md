@@ -248,6 +248,8 @@ heroku run:detached thor import:start --app student-insights-staging
 
 ## New district
 
+Insights uses a separate-instance strategy for new districts (one database and one Heroku app per district).
+
 Set up a new district:
 
 ```
