@@ -21,13 +21,13 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
     student.save!
 
     if row[:homeroom].present?
-      assign_student_to_homeroom!(student, row[:homeroom])
+      assign_student_to_homeroom(student, row[:homeroom])
     end
 
     student.create_student_risk_level!
   end
 
-  def assign_student_to_homeroom!(student, homeroom_name)
+  def assign_student_to_homeroom(student, homeroom_name)
     return unless student.active?
 
     homeroom = Homeroom.where({
