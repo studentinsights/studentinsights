@@ -18,17 +18,23 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def import_row(row)
     student = StudentRow.new(row, school_ids_dictionary).build
+    student.save!
 
-    if student.save!
-      assign_student_to_homeroom(student, row[:homeroom])
-      student.create_student_risk_level!
+    if row[:homeroom].present?
+      assign_student_to_homeroom!(student, row[:homeroom])
     end
+
+    student.create_student_risk_level!
   end
 
-  def assign_student_to_homeroom(student, homeroom_name)
+  def assign_student_to_homeroom!(student, homeroom_name)
     return unless student.active?
-    name = homeroom_name || (student.school.local_id + ' HOMEROOM')
-    homeroom = Homeroom.where(name: name, school: student.school).first_or_create!
+
+    homeroom = Homeroom.where({
+      name: homeroom_name,
+      school: student.school
+    }).first_or_create!
+
     homeroom.students << student
   end
 
