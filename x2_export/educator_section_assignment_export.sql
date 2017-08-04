@@ -1,6 +1,6 @@
 use x2data
 SELECT
-  'local_id'
+  'local_id',
   'course_number',
   'school_local_id',
   'section_number',
