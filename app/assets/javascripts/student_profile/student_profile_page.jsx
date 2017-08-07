@@ -350,7 +350,7 @@
         ? student.program_assigned + ', ' + student.sped_placement
         : student.program_assigned;
 
-      const homeroom = student.homeroom_name || 'No homeroom'
+      const homeroom = student.homeroom_name || 'No homeroom';
 
       return (
         <SummaryList
