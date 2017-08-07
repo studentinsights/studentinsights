@@ -69,7 +69,6 @@ homerooms = [
   Homeroom.create(name: "HEA 300", grade: "3", school: healey),
   Homeroom.create(name: "HEA 400", grade: "4", school: healey),
   Homeroom.create(name: "HEA 500", grade: "5", school: healey),
-  Homeroom.create(name: "HEA 501", grade: "5", school: healey),
   Homeroom.create(name: "WSNS 500", grade: "5", school: wsns),
 ]
 
@@ -92,6 +91,10 @@ homerooms.each do |homeroom|
   15.times do
     FakeStudent.new(school, homeroom)
   end
+end
+
+15.times do
+  FakeStudent.new(healey, nil)
 end
 
 Student.update_risk_levels
