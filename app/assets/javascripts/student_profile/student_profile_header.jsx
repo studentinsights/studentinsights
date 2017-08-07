@@ -80,7 +80,7 @@
     renderHomeroomOrEnrollmentStatus: function() {
       const student =  this.props.student;
       if (student.enrollment_status === 'Active') {
-        return (
+        if (student.homeroom_name) return (
           <a
             className="homeroom-link"
             href={Routes.homeroom(student.homeroom_id)}
@@ -88,6 +88,8 @@
             {'Homeroom ' + student.homeroom_name}
           </a>
         );
+
+        return (<span style={styles.subtitleItem}>No homeroom</span>);
       } else {
         return (
           <span style={styles.subtitleItem}>
