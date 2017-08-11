@@ -23,8 +23,8 @@ describe('HomeroomTable', function() {
       const el = this.testEl;
       helpers.renderInto(el, props);
 
-      expect(el).toContainText('Pluto White');
-      expect($(el).find('tr').length).toEqual(13);
+      expect(el).toContainText('Minnie Poppins');
+      expect($(el).find('tr').length).toEqual(15);
     });
   });
 

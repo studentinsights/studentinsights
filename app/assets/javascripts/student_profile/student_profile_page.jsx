@@ -350,13 +350,17 @@
         ? student.program_assigned + ', ' + student.sped_placement
         : student.program_assigned;
 
+      const homeroom_name = student.homeroom_name;
+
+      const homeroom = (homeroom_name)
+        ? 'Homeroom ' + homeroom_name
+        : 'No homeroom';
+
       return (
         <SummaryList
           title="Placement"
-          elements={[
-            placement,
-            'Homeroom ' + student.homeroom_name
-          ]} />
+          elements={[ placement, homeroom ]}
+        />
       );
     },
 
