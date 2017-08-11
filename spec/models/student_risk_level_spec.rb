@@ -103,7 +103,10 @@ RSpec.describe StudentRiskLevel, type: :model do
         let(:student) { FactoryGirl.create(:student) }
         let(:student_risk_level) { StudentRiskLevel.create!(student: student) }
         it 'has an explanation' do
-          expect(student_risk_level.explanation).to eq "This student is at Risk N/A because:<br/><br/><ul><li>There is not enough information to tell.</li></ul>"
+          expect(student_risk_level.explanation).to eq({
+            intro: "This student is at Risk N/A because:",
+            reasons: ["There is not enough information to tell."]
+          })
         end
       end
 
@@ -111,7 +114,10 @@ RSpec.describe StudentRiskLevel, type: :model do
         let(:student) { FactoryGirl.create(:limited_english_student) }
         let(:student_risk_level) { StudentRiskLevel.create!(student: student) }
         it 'has a correct explanation' do
-          expect(student_risk_level.explanation).to eq "This student is at Risk 3 because:<br/><br/><ul><li>This student is limited English proficient.</li></ul>"
+          expect(student_risk_level.explanation).to eq({
+            intro: "This student is at Risk 3 because:",
+            reasons: ["This student is limited English proficient."]
+          })
         end
       end
     end
@@ -122,8 +128,10 @@ RSpec.describe StudentRiskLevel, type: :model do
           let(:student) { FactoryGirl.create(:student_with_mcas_math_warning_assessment) }
           let!(:student_risk_level) { StudentRiskLevel.create!(student: student) }
           it 'has a correct explanation' do
-            correct_explanation = "This student is at Risk 3 because:<br/><br/><ul><li>This student's MCAS Math performance level is Warning.</li></ul>"
-            expect(student_risk_level.explanation).to eq correct_explanation
+            expect(student_risk_level.explanation).to eq({
+              intro: "This student is at Risk 3 because:",
+              reasons: ["This student's MCAS Math performance level is Warning."]
+            })
           end
         end
       end
@@ -135,8 +143,10 @@ RSpec.describe StudentRiskLevel, type: :model do
           let(:student) { FactoryGirl.create(:student_with_star_assessment_between_30_85) }
           let!(:student_risk_level) { StudentRiskLevel.create!(student: student) }
           it 'has a correct explanation' do
-            correct_explanation = "This student is at Risk 1 because:<br/><br/><ul><li>This student's STAR Math performance is above 30.</li></ul>"
-            expect(student_risk_level.explanation).to eq correct_explanation
+            expect(student_risk_level.explanation).to eq({
+              intro: "This student is at Risk 1 because:",
+              reasons: ["This student's STAR Math performance is above 30."]
+            })
           end
         end
       end
@@ -147,8 +157,12 @@ RSpec.describe StudentRiskLevel, type: :model do
         let(:student) { FactoryGirl.create(:student_with_mcas_math_advanced_and_star_math_warning_assessments) }
         let!(:student_risk_level) { StudentRiskLevel.create!(student: student) }
         it 'has a correct explanation' do
-          correct_explanation = "This student is at Risk 3 because:<br/><br/><ul><li>This student's STAR Math performance is in the warning range (below 10).</li></ul>"
-          expect(student_risk_level.explanation).to eq correct_explanation
+          expect(student_risk_level.explanation).to eq({
+            intro: "This student is at Risk 3 because:",
+            reasons: [
+              "This student's STAR Math performance is in the warning range (below 10)."
+            ]
+          })
         end
       end
     end
