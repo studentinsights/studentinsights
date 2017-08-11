@@ -401,7 +401,7 @@ export default React.createClass({
 
     return (
       <div>
-        <span>{explanationData.intro}</span>
+        <span>{intro}</span>
         <br/>
         <br/>
         <ul>
