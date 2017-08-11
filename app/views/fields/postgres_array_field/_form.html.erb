@@ -2,10 +2,14 @@
   <%= f.label field.attribute %>
 </div>
 <div class="field-unit__field" id="grade-level-access-field">
-  <input type="text" value="<%= field.to_s %>" name="educator[grade_level_access]" id="educator_grade_level_access" />
-  <em style="font-size: 14px">
-    Valid grades: PK, KF, 1, 2, 3, 4, 5, 6, 7, 8.
-    <br/>
-    Please enter grade levels separated by commas.
-  </em>
+  <% @valid_grades.each do |grade| %>
+    <label>
+      <input type="checkbox"
+             name="educator[grade_level_access][<%= grade %>]"
+             <%= field.checkbox_on?(grade) %>
+
+      />
+      <%= grade %>
+    </label>
+  <% end %>
 </div>

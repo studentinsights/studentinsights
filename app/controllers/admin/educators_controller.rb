@@ -8,8 +8,13 @@ module Admin
       super
     end
 
+    def edit
+      @valid_grades = %w(PK KF SP 1 2 3 4 5 6 7 8 9 10 11 12)
+      super
+    end
+
     def resource_params
-      params["educator"]["grade_level_access"] = params["educator"]["grade_level_access"].split(",")
+      params["educator"]["grade_level_access"] = params["educator"]["grade_level_access"].keys
 
       params.require("educator").permit(*dashboard.permitted_attributes, grade_level_access: [])
     end
