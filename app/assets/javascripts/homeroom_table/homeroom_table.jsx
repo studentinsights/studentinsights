@@ -394,12 +394,31 @@ export default React.createClass({
     );
   },
 
+  renderRiskLevelExplanation(row) {
+    const explanationData = row['student_risk_level']['explanation'];
+    const intro = explanationData.intro;
+    const reasons = explanationData.reasons;
+
+    return (
+      <div>
+        <span>{intro}</span>
+        <br/>
+        <br/>
+        <ul>
+          {reasons.map((reason, index) => {
+            return <li key={index}>{reason}</li>;
+          })}
+        </ul>
+      </div>
+    );
+  },
+
   renderWarningBubble (row) {
     return (
       <div className={this.warningBubbleClassName(row)}>
         {row['student_risk_level']['level'] || 'N/A'}
         <span className="tooltiptext">
-          {row['student_risk_level']['explanation']}
+          {this.renderRiskLevelExplanation(row)}
         </span>
       </div>
     );
