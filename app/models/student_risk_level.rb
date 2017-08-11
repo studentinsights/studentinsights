@@ -94,22 +94,16 @@ class StudentRiskLevel < ActiveRecord::Base
     end
   end
 
-  # Presentation for Risk Level explanation:
-
   def explanation
-    explanation_intro_html + explanations_array_html_list
+    { intro: explanation_intro_html, reasons: explanations_array }
   end
 
   def explanation_intro_html
-    "#{name} is at Risk #{level_as_string} because:<br/><br/>"
+    "#{name} is at Risk #{level_as_string} because:"
   end
 
   def name
     student.first_name || "This student"
-  end
-
-  def explanations_array_html_list
-    "<ul>" + explanations_array.map { |e| "<li>#{e}</li>" }.join + "</ul>"
   end
 
   def explanations_array
