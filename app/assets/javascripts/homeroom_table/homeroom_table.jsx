@@ -405,8 +405,8 @@ export default React.createClass({
         <br/>
         <br/>
         <ul>
-          {reasons.map((reason) => {
-            return <li>{reason}</li>;
+          {reasons.map((reason, index) => {
+            return <li key={index}>{reason}</li>;
           })}
         </ul>
       </div>
