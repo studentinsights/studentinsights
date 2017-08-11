@@ -11,11 +11,6 @@ gem 'aws-sdk', '~> 2'
 gem 'browserify-rails'
 gem 'devise', '~> 4.3.0'
 gem 'devise_ldap_authenticatable'
-
-# Draper raised errors in the upgrade to Rails 5. See:
-# - https://github.com/drapergem/draper/issues/697
-# - https://github.com/drapergem/draper/issues/681
-gem 'draper', "3.0.0.pre1"
 gem 'activemodel-serializers-xml'
 gem 'administrate', '~> 0.8.1'
 gem 'friendly_id', '~> 5.1.0'
