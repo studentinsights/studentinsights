@@ -10,6 +10,9 @@ class Educator < ActiveRecord::Base
   belongs_to  :school
   has_one     :homeroom
   has_many    :students, through: :homeroom
+  has_many    :educator_section_assignments
+  has_many    :sections, through: :educator_section_assignments
+  has_many    :section_students, source: :students, through: :sections
   has_many    :interventions
 
   validates :email, presence: true, uniqueness: true
@@ -67,6 +70,7 @@ class Educator < ActiveRecord::Base
     return true if self.schoolwide_access? || self.admin? # Schoolwide admin
     return true if self.has_access_to_grade_levels? && student.grade.in?(self.grade_level_access) # Grade level access
     return true if student.in?(self.students) # Homeroom level access
+    return true if student.in?(self.section_students) # Section level access
     false
   end
 
