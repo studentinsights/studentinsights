@@ -55,7 +55,10 @@ class StudentRiskLevel < ActiveRecord::Base
   def calculate_level
     # As defined by Somerville Public Schools
 
-    if mcas_or_star_at_level(3) || limited_english_proficiency_risk_level == 3
+    if student.school.school_type == "HS"
+      #High School risk levels have not been defined
+      level = nil
+    elsif mcas_or_star_at_level(3) || limited_english_proficiency_risk_level == 3
       level = 3
     elsif mcas_or_star_at_level(2)
       level = 2
