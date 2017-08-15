@@ -4,6 +4,5 @@ FactoryGirl.define do
   factory :section do
     section_number { generate(:section_number_seq) }
     association :course
-    association :school
   end
 end
