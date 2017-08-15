@@ -2,21 +2,17 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.1'
 gem 'pg'
 gem 'puma'
 
 gem 'activerecord-import'
+gem 'aws-sdk', '~> 2'
 gem 'browserify-rails'
-gem 'devise'
+gem 'devise', '~> 4.3.0'
 gem 'devise_ldap_authenticatable'
-
-# Draper raised errors in the upgrade to Rails 5. See:
-# - https://github.com/drapergem/draper/issues/697
-# - https://github.com/drapergem/draper/issues/681
-gem 'draper', "3.0.0.pre1"
 gem 'activemodel-serializers-xml'
-
+gem 'administrate', '~> 0.8.1'
 gem 'friendly_id', '~> 5.1.0'
 gem 'handlebars_assets'
 gem 'jquery-rails'
@@ -41,14 +37,6 @@ gem 'wkhtmltopdf-binary'
 gem 'selenium-webdriver'
 gem 'delayed_job_active_record'
 gem 'scout_apm'
-
-# See https://github.com/thoughtbot/administrate/issues/615;
-# this is pulling in https://github.com/thoughtbot/administrate/pull/673
-# from the commit on master as of the data of the Rails 5 upgrade.
-gem 'administrate', {
-  git: 'https://github.com/thoughtbot/administrate.git',
-  branch: '077f6d370b3d0eff325a3de0509aeaa21b47b632'
-}
 
 #code for browserstack api usage and storing the png to slack:
 #gem 'slack-ruby-client'

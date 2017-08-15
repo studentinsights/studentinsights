@@ -69,7 +69,6 @@ homerooms = [
   Homeroom.create(name: "HEA 300", grade: "3", school: healey),
   Homeroom.create(name: "HEA 400", grade: "4", school: healey),
   Homeroom.create(name: "HEA 500", grade: "5", school: healey),
-  Homeroom.create(name: "HEA 501", grade: "5", school: healey),
   Homeroom.create(name: "WSNS 500", grade: "5", school: wsns),
 ]
 
@@ -94,6 +93,17 @@ homerooms.each do |homeroom|
   end
 end
 
+15.times do
+  FakeStudent.new(healey, nil)
+end
+
 Student.update_risk_levels
 Student.update_recent_student_assessments
+
+IepDocument.create!(
+  file_name: 'fake-iep-document.pdf',
+  file_date: DateTime.current,
+  student: Student.first
+)
+
 PrecomputeStudentHashesJob.new(STDOUT).precompute_all!(Time.now)

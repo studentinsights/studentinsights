@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe FileImport do
   let(:log) { LogHelper::Redirect.instance.file }
-  let(:mock_client) { double(:sftp_client, read_file: fake_data) }
+  let(:mock_client) { double(:sftp_client, download_file: fake_data) }
   let(:fake_data) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
   let(:progress_bar_double) { double(:progress_bar, print: 'okay, i like to print!')}
   let(:importer) { double(:students_importer, log: log,

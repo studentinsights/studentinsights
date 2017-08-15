@@ -52,7 +52,11 @@ class Import
 
     no_commands do
       def report
+<<<<<<< HEAD
         models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section, StudentSectionAssignment, EducatorSectionAssignment ]
+=======
+        models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section ]
+>>>>>>> master
         log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
         @report ||= ImportTaskReport.new(models, log)
       end

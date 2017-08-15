@@ -16,6 +16,7 @@
       access: React.PropTypes.object,
       dibels: React.PropTypes.array,
       chartData: React.PropTypes.object,
+      iepDocuments: React.PropTypes.array,
       attendanceData: React.PropTypes.object,
       serviceTypesIndex: React.PropTypes.object
     },
@@ -182,13 +183,10 @@
     render: function(){
       return (
         <div>
-          <div>
-            <div style={{float: 'left', display: 'flex', width: '50%'}}>
-              {this.renderAccessDetails()}
-            </div>
-            <div style={{display: 'flex', width: '50%'}}>
-              {this.renderStudentReportFilters()}
-            </div>
+          <div style={{display: 'flex'}}>
+            {this.renderAccessDetails()}
+            {this.renderStudentReportFilters()}
+            {this.renderIepDocuments()}
           </div>
           <div style={{clear: 'both'}}>
             {this.renderFullCaseHistory()}
@@ -215,7 +213,7 @@
       });
 
       return (
-        <div style={styles.column}>
+        <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
           <h4 style={styles.title}>
             ACCESS
           </h4>
@@ -251,9 +249,45 @@
       );
     },
 
+    renderIepDownloadLinks: function () {
+      const iepDocuments = this.props.iepDocuments;
+
+      return iepDocuments.map(this.renderIepDownloadLink, this);
+    },
+
+    renderIepDownloadLink: function (iepDocument) {
+      const url = `/iep_documents/${iepDocument.id}`;
+
+      return (
+        <p style={{fontSize: 15}} key={iepDocument.id}>
+          <a href={url}>
+            Download {iepDocument.file_name}.
+          </a>
+        </p>
+      );
+    },
+
+    renderIepDocuments: function () {
+      const iepDocuments = this.props.iepDocuments;
+      const numberOfDocuments = iepDocuments.length;
+
+      if (numberOfDocuments === 0) return null;
+
+      return (
+        <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
+          <h4 style={styles.title}>IEPs</h4>
+          <p style={{fontSize: 15}}>
+            This student has {numberOfDocuments} IEP documents.
+          </p>
+          <br/>
+          {this.renderIepDownloadLinks()}
+        </div>
+      );
+    },
+
     renderStudentReportFilters: function () {
       return (
-        <div style={styles.column}>
+        <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
           <h4 style={styles.title}>Student Report</h4>
           <span style={styles.tableHeader}>Select sections to include in report:</span>
           <div>

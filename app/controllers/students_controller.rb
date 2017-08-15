@@ -37,6 +37,7 @@ class StudentsController < ApplicationController
       event_note_types_index: event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
+      iep_documents: student.iep_documents,
       attendance_data: {
         discipline_incidents: student.discipline_incidents.order(occurred_at: :desc),
         tardies: student.tardies.order(occurred_at: :desc),

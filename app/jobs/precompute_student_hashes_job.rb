@@ -54,9 +54,14 @@ class PrecomputeStudentHashesJob < Struct.new :log
   def write_doc_or_log(key, json_hash)
     pre_existing_doc = PrecomputedQueryDoc.find_by_key(key)
     pre_existing_doc.destroy! if pre_existing_doc.present?
+    authorized_students_digest = key.split(':').last
 
     begin
-      PrecomputedQueryDoc.create!(key: key, json: json_hash.to_json )
+      PrecomputedQueryDoc.create!(
+        key: key,
+        json: json_hash.to_json,
+        authorized_students_digest: authorized_students_digest
+      )
     rescue => error
       ErrorMailer.error_report(error).deliver_now if Rails.env.production?
       log.puts "write_doc_or_log failed for key: #{key}"
