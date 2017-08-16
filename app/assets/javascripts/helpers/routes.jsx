@@ -13,6 +13,9 @@
     },
     school: function(id) {
       return '/schools/' + id;
+    },
+    section: function(id) {
+      return '/sections/' + id;
     }
   };
 })();
