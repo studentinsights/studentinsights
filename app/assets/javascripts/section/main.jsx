@@ -47,6 +47,7 @@ $(function() {
         <StudentRoster
           students={serializedData.students}
           columns={columns}
+          initialSort='first_name'
         />
       </div>, document.getElementById('main'));
   }

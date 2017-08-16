@@ -1,3 +1,5 @@
+import SortHelpers from '../helpers/sort_helpers.jsx';
+
 window.shared || (window.shared = {});
 
 const Routes = window.shared.Routes;
@@ -7,7 +9,38 @@ export default React.createClass({
 
   propTypes: {
     students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    initialSort: React.PropTypes.string
+  },
+
+  getInitialState () {
+    return {
+      sortBy: this.props.initialSort,
+      sortDesc: true
+    };
+  },
+
+  orderedStudents () {
+    const sortedStudents = this.sortedStudents();
+
+    if (!this.state.sortDesc) return sortedStudents.reverse();
+
+    return sortedStudents;
+  },
+
+  sortedStudents () {
+    const students = this.props.students;
+    const sortBy = this.state.sortBy;
+    
+    return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
+  },
+    
+  onClickHeader(sortBy) {
+    if (sortBy === this.state.sortBy) {
+      this.setState({ sortDesc: !this.state.sortDesc });
+    } else {
+      this.setState({ sortBy: sortBy});
+    }
   },
   
   render () {
@@ -27,7 +60,7 @@ export default React.createClass({
         <tr>
           {this.props.columns.map(column => {
             return (
-              <td>
+              <td onClick={this.onClickHeader.bind(null, column.key)}>
                 {column.label}
               </td>
           );
@@ -49,7 +82,7 @@ export default React.createClass({
   renderBody() {
     return (
       <tbody>
-        {this.props.students.map(student => {
+        {this.orderedStudents().map(student => {
           return (
             <tr key={student.id}>
               {this.props.columns.map(column => {
