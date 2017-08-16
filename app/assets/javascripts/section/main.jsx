@@ -29,7 +29,10 @@ $(function() {
       {label: '504 Plan', key: 'plan_504'},
       {label: 'Fluency', key: 'limited_english_proficiency'},
       {label: 'Home Language', key: 'home_language'},
-      {label: 'Free / Reduced Lunch', key: 'free_reduced_lunch'}
+      {label: 'Free / Reduced Lunch', key: 'free_reduced_lunch'},
+      {label: 'Absences', key: 'most_recent_school_year_absences_count'},
+      {label: 'Tardies', key: 'most_recent_school_year_tardies_count'},
+      {label: 'Discipline Incidents', key: 'most_recent_school_year_discipline_incidents_count'},
     ];
 
 

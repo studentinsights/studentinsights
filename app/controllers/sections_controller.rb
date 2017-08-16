@@ -11,8 +11,11 @@ class SectionsController < ApplicationController
   
   
   def show
+
+    section_students = serialize_students(@current_section.students)
+
     @serialized_data = {
-      students: @current_section.students,
+      students: section_students,
       educators: @current_section.educators,
       section: @current_section,
       course: @current_section.course,
@@ -38,5 +41,9 @@ class SectionsController < ApplicationController
     unless current_educator.districtwide_access
       redirect_to not_authorized_path
     end
+  end
+
+  def serialize_students(students)
+    students.as_json(methods: [:most_recent_school_year_discipline_incidents_count, :most_recent_school_year_absences_count, :most_recent_school_year_tardies_count])
   end
 end
