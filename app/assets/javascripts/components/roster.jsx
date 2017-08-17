@@ -5,10 +5,10 @@ window.shared || (window.shared = {});
 const Routes = window.shared.Routes;
 
 export default React.createClass({
-  displayName: 'StudentRoster',
+  displayName: 'Roster',
 
   propTypes: {
-    students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     initialSort: React.PropTypes.string
   },
@@ -20,19 +20,19 @@ export default React.createClass({
     };
   },
 
-  orderedStudents () {
-    const sortedStudents = this.sortedStudents();
+  orderedRows () {
+    const sortedRows = this.sortedRows();
 
-    if (!this.state.sortDesc) return sortedStudents.reverse();
+    if (!this.state.sortDesc) return sortedRows.reverse();
 
-    return sortedStudents;
+    return sortedRows;
   },
 
-  sortedStudents () {
-    const students = this.props.students;
+  sortedRows () {
+    const rows = this.props.rows;
     const sortBy = this.state.sortBy;
     
-    return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
+    return rows.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
   },
     
   onClickHeader(sortBy) {
@@ -42,11 +42,22 @@ export default React.createClass({
       this.setState({ sortBy: sortBy});
     }
   },
+
+  headerClassName (sortBy) {
+    // Using tablesort classes here for the cute CSS carets,
+    // not for the acutal table sorting JS (that logic is handled by this class).
+
+    if (sortBy !== this.state.sortBy) return 'sort-header';
+
+    if (this.state.sortDesc) return 'sort-header sort-down';
+
+    return 'sort-header sort-up';
+  },
   
   render () {
     return (
-      <div className='StudentRoster'>
-        <table className='students-table' style={{ width: '100%' }}>
+      <div className='Roster'>
+        <table className='roster-table' style={{ width: '100%' }}>
           {this.renderHeaders()}
           {this.renderBody()}
         </table>
@@ -60,9 +71,10 @@ export default React.createClass({
         <tr>
           {this.props.columns.map(column => {
             return (
-              <td onClick={this.onClickHeader.bind(null, column.key)}>
+              <th onClick={this.onClickHeader.bind(null, column.key)}
+                  className={this.headerClassName(column.key)}>
                 {column.label}
-              </td>
+              </th>
           );
         }, this)}
         </tr>
@@ -82,13 +94,13 @@ export default React.createClass({
   renderBody() {
     return (
       <tbody>
-        {this.orderedStudents().map(student => {
+        {this.orderedRows().map(row => {
           return (
-            <tr key={student.id}>
+            <tr key={row.id}>
               {this.props.columns.map(column => {
                 return (
                   <td>
-                    {this.renderBodyValue(student, column)}
+                    {this.renderBodyValue(row, column)}
                   </td>
                 );
               }, this)}

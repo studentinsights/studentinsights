@@ -1,4 +1,4 @@
-import StudentRoster from '../components/student_roster.jsx';
+import Roster from '../components/roster.jsx';
 import SectionHeader from './section_header.jsx';
 
 $(function() {
@@ -44,8 +44,8 @@ $(function() {
           educators={serializedData.educators}
           sections={serializedData.sections}
         />
-        <StudentRoster
-          students={serializedData.students}
+        <Roster
+          rows={serializedData.students}
           columns={columns}
           initialSort='first_name'
         />
