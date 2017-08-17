@@ -34,6 +34,7 @@ describe('StudentProfileHeader', function() {
       expect(el).toContainText('Arthur D Healey');
       expect(el).toContainText('5/23/2008');
       expect(el).toContainText('(' + yearsOld + ' years old)');
+      expect(el).toContainText('1 Memorial Dr, Cambridge, MA 02142');
       expect($(el).find('a.homeroom-link')).toContainText('102');
     });
   });
