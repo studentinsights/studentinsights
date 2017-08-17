@@ -48,6 +48,6 @@ class SectionsController < ApplicationController
   end
 
   def serialize_section(section)
-    section.as_json(methods: :course_number)
+    section.as_json(methods: [:course_number, :course_description])
   end
 end

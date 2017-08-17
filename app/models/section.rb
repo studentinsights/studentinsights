@@ -10,4 +10,8 @@ class Section < ActiveRecord::Base
   def course_number
     course.course_number
   end
+
+  def course_description
+    course.course_description
+  end
 end

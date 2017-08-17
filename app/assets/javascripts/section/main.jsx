@@ -11,43 +11,10 @@ $(function() {
     MixpanelUtils.registerUser(serializedData.currentEducator);
     MixpanelUtils.track('PAGE_VISIT', { page_key: 'SECTION' });
 
-    
-    const styleStudentName = function(student, column) {
-      return (
-        <a href={Routes.studentProfile(student.id)}>
-          {student.first_name + ' ' + student.last_name}
-        </a>
-      );
-    };
-
-    
-    
-    var columns = [
-      {label: 'Name', key: 'first_name', cell:styleStudentName},
-      {label: 'Program Assigned', key: 'program_assigned'},
-      {label: 'Disability', key: 'disability'},
-      {label: '504 Plan', key: 'plan_504'},
-      {label: 'Fluency', key: 'limited_english_proficiency'},
-      {label: 'Home Language', key: 'home_language'},
-      {label: 'Free / Reduced Lunch', key: 'free_reduced_lunch'},
-      {label: 'Absences', key: 'most_recent_school_year_absences_count'},
-      {label: 'Tardies', key: 'most_recent_school_year_tardies_count'},
-      {label: 'Discipline Incidents', key: 'most_recent_school_year_discipline_incidents_count'},
-    ];
-
-
-    window.ReactDOM.render(
-      <div>
-        <SectionHeader 
+    window.ReactDOM.render(<SectionPage 
+          students={serializedData.students}
           section={serializedData.section}
           educators={serializedData.educators}
-          sections={serializedData.sections}
-        />
-        <Roster
-          rows={serializedData.students}
-          columns={columns}
-          initialSort='first_name'
-        />
-      </div>, document.getElementById('main'));
+          sections={serializedData.sections}/>, document.getElementById('main'));
   }
 });
