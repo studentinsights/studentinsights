@@ -80,6 +80,16 @@ class Educator < ActiveRecord::Base
     (self.has_access_to_grade_levels? && self.school == currentSchool)
   end
 
+  def is_authorized_for_section(section)
+    return true if self.districtwide_access?
+
+    return false if self.school.present? && self.school != section.course.school
+
+    return true if self.schoolwide_access? || self.admin?
+    return true if section.in?(self.sections)
+    false
+  end
+
   def students_for_school_overview(*additional_includes)
     return [] unless school.present?
 
@@ -120,6 +130,16 @@ class Educator < ActiveRecord::Base
       school.homerooms.where(grade: homeroom.grade)
     elsif grade_level_access.present?
       school.homerooms.where(grade: grade_level_access)
+    else
+      []
+    end
+  end
+
+  def allowed_sections
+    if districtwide_access?
+      Section.all
+    elsif schoolwide_access?
+      Section.joins(:courses).where("courses.school = ", school) 
     else
       []
     end

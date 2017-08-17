@@ -7,7 +7,6 @@ export default React.createClass({
 
   propTypes: {
     section: React.PropTypes.object.isRequired,
-    course: React.PropTypes.object.isRequired,
     educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
   },
 
@@ -17,13 +16,11 @@ export default React.createClass({
   
   render () {
     const section = this.props.section;
-    const course = this.props.course;
-
     
     return (
       <div className='SectionHeader'>
         <h1>Section Number: {section.section_number}</h1>
-        <p>Course Number: {course.course_number}</p>
+        <p>Course Number: {section.course_number}</p>
         <p>Term: {section.term_local_id}</p>
         <p>Schedule: {section.schedule}</p>
         <p>Room Number: {section.room_number}</p>

@@ -40,7 +40,6 @@ $(function() {
       <div>
         <SectionHeader 
           section={serializedData.section}
-          course={serializedData.course}
           educators={serializedData.educators}
           sections={serializedData.sections}
         />

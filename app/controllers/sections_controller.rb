@@ -13,13 +13,13 @@ class SectionsController < ApplicationController
   def show
 
     section_students = serialize_students(@current_section.students)
+    section = serialize_section(@current_section)
 
     @serialized_data = {
       students: section_students,
       educators: @current_section.educators,
-      section: @current_section,
-      course: @current_section.course,
-      sections: current_educator.sections,
+      section: section,
+      sections: current_educator.allowed_sections,
       current_educator: current_educator,
     }
   end
@@ -28,7 +28,7 @@ class SectionsController < ApplicationController
   def authorize_and_assign_section    
     requested_section = Section.find(params[:id])
 
-    if current_educator.sections.include? requested_section
+    if current_educator.is_authorized_for_section(requested_section)
       @current_section = requested_section
     else
       redirect_to homepage_path_for_role(current_educator)
@@ -45,5 +45,9 @@ class SectionsController < ApplicationController
 
   def serialize_students(students)
     students.as_json(methods: [:most_recent_school_year_discipline_incidents_count, :most_recent_school_year_absences_count, :most_recent_school_year_tardies_count])
+  end
+
+  def serialize_section(section)
+    section.as_json(methods: :course_number)
   end
 end
