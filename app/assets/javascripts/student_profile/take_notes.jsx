@@ -38,8 +38,9 @@ const styles = {
     background: '#eee', // override CSS
     color: 'black',
     // shrinking:
-    width: '12em',
+    minWidth: '14em',
     fontSize: 12,
+    marginRight: '1em',
     padding: 8
   }
 };
@@ -156,8 +157,9 @@ export default React.createClass({
           </div>
           <div style={{ flex: 1 }}>
             {this.renderNoteButton(302)}
+            {this.renderNoteButton(305)}
           </div>
-          <div style={{ flex: 'auto' }}>
+          <div style={{ flex: 1 }}>
             {this.renderNoteButton(304)}
           </div>
         </div>
