@@ -139,9 +139,9 @@ class Educator < ActiveRecord::Base
     if districtwide_access?
       Section.all
     elsif schoolwide_access?
-      Section.joins(:courses).where("courses.school = ", school) 
+      Section.joins(:course).where('courses.school_id = ?', school.id) 
     else
-      []
+      sections
     end
   end
 
