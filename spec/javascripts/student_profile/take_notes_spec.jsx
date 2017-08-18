@@ -32,7 +32,7 @@ describe('TakeNotes', function() {
       expect(el).toContainText('February 11, 2016');
       expect(el).toContainText('demo@example.com');
       expect($(el).find('textarea').length).toEqual(1);
-      expect($(el).find('.btn.note-type').length).toEqual(4);
+      expect($(el).find('.btn.note-type').length).toEqual(5);
       expect($(el).find('.btn.save').length).toEqual(1);
       expect($(el).find('.btn.cancel').length).toEqual(1);
     });
