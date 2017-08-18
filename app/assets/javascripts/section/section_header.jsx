@@ -70,7 +70,7 @@ export default React.createClass({
             <div style={{ display: 'inline-block' }}>
               <p style={styles.nameTitle}>Section {section.section_number}</p>
             </div>
-            <div style={{ display: 'inline-block' }}>
+            <div id='sectionHeaderData' style={{ display: 'inline-block' }}>
               {this.renderBulletSpacer()}
               <span style={styles.subtitleItem}>
                 {section.course_description} ({section.course_number})

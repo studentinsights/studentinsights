@@ -68,10 +68,10 @@ export default React.createClass({
   renderHeaders() {
     return (
       <thead>
-        <tr>
+        <tr id='roster-header'>
           {this.props.columns.map(column => {
             return (
-              <th onClick={this.onClickHeader.bind(null, column.key)}
+              <th key={column.key} onClick={this.onClickHeader.bind(null, column.key)}
                   className={this.headerClassName(column.key)}>
                 {column.label}
               </th>
@@ -93,13 +93,13 @@ export default React.createClass({
 
   renderBody() {
     return (
-      <tbody>
+      <tbody id='roster-data'>
         {this.orderedRows().map(row => {
           return (
-            <tr key={row.id}>
+            <tr  key={row.id}>
               {this.props.columns.map(column => {
                 return (
-                  <td>
+                  <td key={row.id + column.key}>
                     {this.renderBodyValue(row, column)}
                   </td>
                 );
