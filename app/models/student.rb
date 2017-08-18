@@ -40,7 +40,9 @@ class Student < ActiveRecord::Base
 
     return if grade == 'PK'
 
-    errors.add(:registration_date, "cannot be in future")
+    message = "cannot be in future for student local id ##{local_id}"
+
+    errors.add(:registration_date, message)
   end
 
   def self.with_school
