@@ -30,6 +30,11 @@ RSpec.describe FakeStudent do
     expect(student.student_assessments).not_to be_empty
   end
 
+  it 'adds student attendance events' do
+    expect(student.absences).not_to be_empty
+    expect(student.tardies).not_to be_empty
+  end
+
   context 'd is 1 always' do
     let(:d) { {1 => 1.0} }
     it 'samples from a distribution correctly' do
