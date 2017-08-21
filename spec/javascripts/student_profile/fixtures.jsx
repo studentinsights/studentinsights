@@ -129,7 +129,7 @@ export const studentProfile = {
     "enrollment_status": "Active",
     "home_language": "English",
     "school_id": 1,
-    "student_address": null,
+    "student_address": "1 Memorial Dr, Cambridge, MA 02142",
     "registration_date": null,
     "local_id": "000816",
     "program_assigned": "Reg Ed",

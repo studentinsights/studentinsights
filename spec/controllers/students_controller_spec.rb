@@ -73,12 +73,17 @@ describe StudentsController, :type => :controller do
             514 => {:id=>514, :name=>"X-Block"},
           })
 
-          expect(serialized_data[:event_note_types_index]).to eq({
-            300 => {:id=>300, :name=>"SST Meeting"},
-            301 => {:id=>301, :name=>"MTSS Meeting"},
-            302 => {:id=>302, :name=>"Parent conversation"},
-            304 => {:id=>304, :name=>"Something else"},
-          })
+          expect(serialized_data[:event_note_types_index].keys).to match_array([
+            300, 301, 302, 304, 305
+          ])
+
+          expect(serialized_data[:event_note_types_index].values).to match_array([
+            {:id=>300, :name=>"SST Meeting"},
+            {:id=>301, :name=>"MTSS Meeting"},
+            {:id=>302, :name=>"Parent conversation"},
+            {:id=>304, :name=>"Something else"},
+            {:id=>305, :name=>"9th Grade Experience"}
+          ])
 
           expect(serialized_data[:educators_index]).to eq({
             educator.id => {:id=>educator.id, :email=>educator.email, :full_name=>nil}

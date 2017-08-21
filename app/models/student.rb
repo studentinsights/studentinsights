@@ -34,9 +34,15 @@ class Student < ActiveRecord::Base
   end
 
   def registration_date_cannot_be_in_future
-    if registration_date && (registration_date > DateTime.now)
-      errors.add(:registration_date, "cannot be in future")
-    end
+    return unless registration_date
+
+    return if DateTime.now > registration_date
+
+    return if grade == 'PK'
+
+    message = "cannot be in future for student local id ##{local_id}"
+
+    errors.add(:registration_date, message)
   end
 
   def self.with_school

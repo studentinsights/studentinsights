@@ -10,9 +10,24 @@ RSpec.describe Student do
       end
     end
     context 'future registration date' do
-      let(:student) { FactoryGirl.build(:student, registration_date: Time.now + 1.year) }
+      let(:student) {
+        FactoryGirl.build(
+          :student, registration_date: Time.now + 1.year, local_id: '2000'
+        )
+      }
       it 'is invalid' do
         expect(student).to be_invalid
+        expect(student.errors.messages).to eq({
+          registration_date: ["cannot be in future for student local id #2000"]
+        })
+      end
+    end
+    context 'future registration date, PK' do
+      let(:student) {
+        FactoryGirl.build(:student, registration_date: Time.now + 1.year, grade: 'PK')
+      }
+      it 'is valid' do
+        expect(student).to be_valid
       end
     end
     context 'past registration date' do

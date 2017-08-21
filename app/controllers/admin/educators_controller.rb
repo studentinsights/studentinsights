@@ -14,7 +14,7 @@ module Admin
     end
 
     def resource_params
-      params["educator"]["grade_level_access"] = params["educator"]["grade_level_access"].keys
+      params["educator"]["grade_level_access"] = params["educator"]["grade_level_access"].try(:keys) || []
 
       params.require("educator").permit(*dashboard.permitted_attributes, grade_level_access: [])
     end
