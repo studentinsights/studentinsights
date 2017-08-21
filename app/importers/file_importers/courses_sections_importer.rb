@@ -22,7 +22,11 @@ class CoursesSectionsImporter < Struct.new :school_scope, :client, :log, :progre
       if course.save! 
         section = SectionRow.new(row, school_ids_dictionary, course.id).build
         section.save
+      else
+        log.write("Course import invalid row: #{row}")
       end
+    else
+      log.write("Course import invalid row missing school_local_id: #{row}")
     end
   end
 

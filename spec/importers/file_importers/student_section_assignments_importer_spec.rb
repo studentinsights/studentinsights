@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe StudentSectionAssignmentsImporter do
 
   describe '#import_row' do
+    let(:log) { LogHelper::Redirect.instance.file }
     let!(:school) { FactoryGirl.create(:shs) }
     let!(:section) { FactoryGirl.create(:section) }
     let!(:student) { FactoryGirl.create(:student) }
@@ -37,7 +38,8 @@ RSpec.describe StudentSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer = described_class.new(nil, nil, log, nil)
+          importer.import_row(row)
         end
 
         it 'does not create a student section assignment' do
@@ -53,7 +55,8 @@ RSpec.describe StudentSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer = described_class.new(nil, nil, log, nil)
+          importer.import_row(row)
         end
 
         it 'does not create a student section assignment' do
@@ -70,10 +73,11 @@ RSpec.describe StudentSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer = described_class.new(nil, nil, log, nil)
+          importer.import_row(row)
         end
 
-        it 'creates a student section assignment' do
+        it 'does not create a student section assignment' do
           expect(StudentSectionAssignment.count).to eq(0)
         end
       end
@@ -87,10 +91,11 @@ RSpec.describe StudentSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer = described_class.new(nil, nil, log, nil)
+          importer.import_row(row)
         end
 
-        it 'creates a student section assignment' do
+        it 'does not create a student section assignment' do
           expect(StudentSectionAssignment.count).to eq(0)
         end
       end

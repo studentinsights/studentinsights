@@ -18,7 +18,11 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
 
   def import_row(row)
     student_section_assignment = StudentSectionAssignmentRow.new(row).build
-    student_section_assignment.save! if student_section_assignment
+    if student_section_assignment
+      student_section_assignment.save!
+    else
+      log.write("Student Section Assignment Import invalid row: #{row}")
+    end
   end
 
 end

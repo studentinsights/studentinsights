@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe CoursesSectionsImporter do
 
   describe '#import_row' do
+    let(:log) { LogHelper::Redirect.instance.file }
     let!(:school) { FactoryGirl.create(:shs) }
 
     context 'happy path' do
@@ -42,7 +43,8 @@ RSpec.describe CoursesSectionsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer = described_class.new(nil, nil, log, nil)
+          importer.import_row(row)
         end
 
         it 'does not create a course' do

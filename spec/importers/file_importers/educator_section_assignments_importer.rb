@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe EducatorSectionAssignmentsImporter do
 
   describe '#import_row' do
+    let(:log) { LogHelper::Redirect.instance.file }
     let!(:school) { FactoryGirl.create(:shs) }
     let!(:section) { FactoryGirl.create(:section) }
     let!(:educator) { FactoryGirl.create(:educator) }
@@ -37,7 +38,8 @@ RSpec.describe EducatorSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer = described_class.new(nil, nil, log, nil)
+          importer.import_row(row)
         end
 
         it 'does not create an educator section assignment' do
@@ -54,7 +56,8 @@ RSpec.describe EducatorSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer = described_class.new(nil, nil, log, nil)
+          importer.import_row(row)
         end
 
         it 'does not create an educator section assignment' do
@@ -72,7 +75,8 @@ RSpec.describe EducatorSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer = described_class.new(nil, nil, log, nil)
+          importer.import_row(row)
         end
 
         it 'does not create an educator section assignment' do
@@ -90,7 +94,8 @@ RSpec.describe EducatorSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer = described_class.new(nil, nil, log, nil)
+          importer.import_row(row)
         end
 
         it 'does not create an educator section assignment' do
