@@ -12,7 +12,7 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
     SchoolFilter.new(school_scope)
   end
 
-  def delete_rows()
+  def delete_rows
     StudentSectionAssignment.delete_all
   end
 

@@ -45,11 +45,11 @@ RSpec.describe CoursesSectionsImporter do
           described_class.new.import_row(row)
         end
 
-        it 'creates a course' do
+        it 'does not create a course' do
           expect(Course.count).to eq(0)
         end
 
-        it 'creates a section' do
+        it 'does not create a section' do
           expect(Section.count).to eq(0)
         end
       end
