@@ -232,14 +232,14 @@ class FakeStudent
     nil
   end
 
-  #These really aren't saving for each student.
+  #These are saving for some students only.
   def add_event_notes
     generator = FakeEventNoteGenerator.new(@student)
     rand(0..9).times { EventNote.new(generator.next).save! }
     nil
   end
 
-  #These really aren't saving for each student.
+  #These are saving for some students only.
   def add_services
     generator = FakeServiceGenerator.new(@student)
     service_counts = 20.in(100) ? rand(1..5) : 0
