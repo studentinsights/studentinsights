@@ -227,7 +227,6 @@ class FakeStudent
       intervention_count.times do
         intervention = Intervention.new(generator.next)
         intervention.save!
-        intervention.save!
       end
     end
     nil
