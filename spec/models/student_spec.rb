@@ -12,7 +12,10 @@ RSpec.describe Student do
     context 'future registration date' do
       let(:student) {
         FactoryGirl.build(
-          :student, registration_date: Time.now + 1.year, local_id: '2000'
+          :student,
+          registration_date: Time.now + 1.year,
+          local_id: '2000',
+          grade: '1'
         )
       }
       it 'is invalid' do
