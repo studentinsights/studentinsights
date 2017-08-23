@@ -23,7 +23,7 @@ RSpec.describe FakeStudent do
   end
 
   it "sets student race attributes" do
-    expect(student.enrollment_status).not_to be_nil
+    expect(student.race).not_to be_nil
   end
 
   it 'adds student assessments' do
