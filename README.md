@@ -37,7 +37,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [LDAP](#ldap)
   - [Heroku](#heroku)
     - [Migrations on Heroku](#migrations-on-heroku)
-    - [Rebuilding database in staging environment](#rebuilding-database-in-staging-environment)
   - [Adding a new district](#new-district)
 - [Other Tools](#other-tools)
   - [Mixpanel](#mixpanel)
@@ -211,23 +210,6 @@ This is how to execute a standard Rails migration.  This is focused on the produ
   - after deploying, you can run the migration and restart Rails through the Heroku CLI
 
 So concretely, once your commit is on master, `git push heroku master && heroku run rake db:migrate` will deploy the new code and run the migration.  This will cause a few seconds of downtime.
-
-### Rebuilding database in staging environment
-
-Rebuilding the database in a staging deployment is a destructive action and permanently deletes data in the staging environment.
-
-To do this:
-
-```
-# drop database
-heroku pg:reset DATABASE --app student-insights-staging
-
-# create database tables, run migrations and seed
-heroku run bundle exec rake db:create db:migrate db:seed:somerville --app student-insights-staging
-
-# import data
-heroku run:detached thor import:start --app student-insights-staging
-```
 
 ## New district
 
