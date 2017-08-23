@@ -33,4 +33,4 @@ export default {
       console.error(err); // eslint-disable-line no-console
     }
   }
-}
+};
