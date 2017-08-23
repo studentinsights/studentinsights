@@ -176,7 +176,25 @@ OS | Windows 7 and 8.1 | "Maybe some Win10 next year." <br>    – John Breslin,
 
 # Deployment
 
-## Importing real data
+## Deploying new code to the Insights project
+
+See our guide on [merging and deploying new code to Heroku](docs/technical/merging_and_deploying_to_heroku.md).
+
+## Setting up Insights for a new district
+
+### New district script
+
+Insights uses a separate-instance strategy for new districts (one database and one Heroku app per district).
+
+Set up a new district:
+
+```
+$ scripts/deploy/new_district.sh "My New District Name"
+```
+
+This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
+
+### Importing real data
 
 If you're working with a real school district, you'll need flat files of the data you want to import.
 
@@ -188,17 +206,15 @@ thor import:start
 
 So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, write a new client: `app/importers/clients`.
 
-## LDAP
+### LDAP
 
 The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set the `SHOULD_USE_LDAP` environment variable. Authentication strategies are defined in `educator.rb`.
 
-## Heroku
+### Heroku
 
-We deployed this app on Heroku and you can, too.
+[Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with Somerville's LDAP server behind a firewall. This requires additional configuration to prevent Quotaguard Static from interfering with the connection between application and database.
 
-[Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with Somerville's LDAP server behind a firewall. This requires additional configuration to prevent Quotaguard Static from interfering with the connection between application and database. One way to accomplish this is to set a `QUOTAGUARDSTATIC_MASK` environment variable that routes only outbound traffic to certain IP subnets using the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
-
-Set strong secret keys for `DEVISE_SECRET_KEY` and `SECRET_KEY_BASE` when you deploy.
+One way to accomplish this is to set a `QUOTAGUARDSTATIC_MASK` environment variable that routes only outbound traffic to certain IP subnets using the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
 
 ### Migrations on Heroku
 
@@ -211,19 +227,8 @@ This is how to execute a standard Rails migration.  This is focused on the produ
 
 So concretely, once your commit is on master, `git push heroku master && heroku run rake db:migrate` will deploy the new code and run the migration.  This will cause a few seconds of downtime.
 
-## New district
-
-Insights uses a separate-instance strategy for new districts (one database and one Heroku app per district).
-
-Set up a new district:
-
-```
-$ scripts/deploy/new_district.sh "My New District Name"
-```
-
-This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
-
 # Other Tools
+
 ## Mixpanel
 
 We use [Mixpanel](https://mixpanel.com) to track user interactions on the client side. It gives us nice graphs so we can see who's using the app and how.
