@@ -54,4 +54,9 @@ A good idea is to run the migration against the demo site as well so that it doe
 git push heroku master && heroku run rake db:migrate --app somerville-teacher-tool-demo
 ```
 
+Note (Alex): At some point we should set up an automatic migrate-after-deploy process for Heroku.
 
+### After deploying
+
++ **Manual QA**. Poke around the production project to triple-check that everything looks right.
++ **Keep an eye on the logs**. We use Logentries. We also have a custom ErrorMailer that will email you with any errors that come up in the precomputing or data import jobs. Keep a close eye on these if you touch those areas of the codebase. Note (Alex): At some point we should think about setting up Airbrake, in my experience it's better than Logentries or Rollbar about notifying and capturing errors.
