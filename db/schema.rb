@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818154033) do
+ActiveRecord::Schema.define(version: 20170823184540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -327,7 +327,7 @@ ActiveRecord::Schema.define(version: 20170818154033) do
     t.index ["student_id"], name: "index_tardies_on_student_id"
   end
 
-  add_foreign_key "absences", "students"
-  add_foreign_key "discipline_incidents", "students"
-  add_foreign_key "tardies", "students"
+  add_foreign_key "absences", "students", on_delete: :cascade
+  add_foreign_key "discipline_incidents", "students", on_delete: :cascade
+  add_foreign_key "tardies", "students", on_delete: :cascade
 end
