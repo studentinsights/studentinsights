@@ -170,7 +170,7 @@ export default React.createClass({
 
   render () {
     return (
-      <div id="roster-table-wrapper">
+      <div>
         {this.renderColumnPickerArea()}
         <table id="roster-table" cellSpacing="0" cellPadding="10" className="sort-default">
           {this.renderHeaders()}
