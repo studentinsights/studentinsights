@@ -1,8 +1,8 @@
 import StudentsTable from '../components/students_table.jsx';
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
 (function(root) {
   window.shared || (window.shared = {});
-  const MixpanelUtils = window.shared.MixpanelUtils;
   const SlicePanels = window.shared.SlicePanels;
   const SliceButtons = window.shared.SliceButtons;
   const styles = window.shared.styles;

@@ -1,8 +1,8 @@
 //= require ./school_overview_page
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
 $(function() {
   if ($('body').hasClass('schools') && $('body').hasClass('show')) {
-    const MixpanelUtils = window.shared.MixpanelUtils;
     const SchoolOverviewPage = window.shared.SchoolOverviewPage;
     const Filters = window.shared.Filters;
 

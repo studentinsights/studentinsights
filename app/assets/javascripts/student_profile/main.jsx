@@ -1,3 +1,4 @@
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 const ReactDOM = window.ReactDOM;
 
 $(function() {
@@ -7,7 +8,6 @@ $(function() {
   // imports
   const PageContainer = window.shared.PageContainer;
   const parseQueryString = window.shared.parseQueryString;
-  const MixpanelUtils = window.shared.MixpanelUtils;
 
   // entry point, reading static bootstrapped data from the page
   const serializedData = $('#serialized-data').data();
