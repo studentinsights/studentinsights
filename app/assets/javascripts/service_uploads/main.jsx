@@ -1,11 +1,11 @@
 const ReactDOM = window.ReactDOM;
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
 $(function() {
   // only run if the correct page
   if (!($('body').hasClass('service_uploads') && $('body').hasClass('index'))) return;
 
   const ServiceUploadsPage = window.shared.ServiceUploadsPage;
-  const MixpanelUtils = window.shared.MixpanelUtils;
 
   const serializedData = $('#serialized-data').data();
   MixpanelUtils.registerUser(serializedData.currentEducator);

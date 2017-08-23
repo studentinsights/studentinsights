@@ -1,7 +1,8 @@
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+
 $(function() {
 
   if ($('body').hasClass('schools') && $('body').hasClass('star_math')) {
-    const MixpanelUtils = window.shared.MixpanelUtils;
     const StarChartsPage = window.shared.StarChartsPage;
     const Filters = window.shared.Filters;
 

@@ -1,8 +1,9 @@
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+
 (function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
-  const MixpanelUtils = window.shared.MixpanelUtils;
   const Routes = window.shared.Routes;
   const StudentProfilePage = window.shared.StudentProfilePage;
   const PropTypes = window.shared.PropTypes;

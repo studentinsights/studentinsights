@@ -1,10 +1,11 @@
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+
 $(function() {
 
   if ($('body').hasClass('schools') && $('body').hasClass('star_reading')) {
-    const MixpanelUtils = window.shared.MixpanelUtils;
     const StarChartsPage = window.shared.StarChartsPage;
     const Filters = window.shared.Filters;
-    
+
     const serializedData = $('#serialized-data').data();
     MixpanelUtils.registerUser(serializedData.currentEducator);
     MixpanelUtils.track('PAGE_VISIT', { page_key: 'STAR_READING_PAGE' });
