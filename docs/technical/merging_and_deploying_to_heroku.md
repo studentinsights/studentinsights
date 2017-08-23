@@ -17,23 +17,41 @@ Two rules of thumb:
 
 To merge in code, all you need to do is push a button on the GitHub website:
 
-![Merge button on GitHub](../readme-images/merge-button.png)
+![Merge button on GitHub](./readme-images/merge-button.png)
 
 If you realize you've made a mistake after you merged, GitHub offers a Revert button to create a new PR that will reverse the changes:
 
-![Revert button on GitHub](../readme-images/revert-button.png)
+![Revert button on GitHub](./readme-images/revert-button.png)
 
 There's no automatic deployment set up, so your code will not go into production until you or another dev deploy it.
 
 ## Deploying
 
-### Migrations on Heroku
+### Commands
 
-This is how to execute a standard Rails migration.  This is focused on the production deployment, but the demo site is the same, just add `--app somerville-teacher-tool-demo` to the Heroku CLI commands.
+If your code doesn't include a migration, to deploy to Heroku
+you can just run:
 
-  - db:migrate isn't run as part of the deploy process and needs to be done manually
-  - in order to `heroku run rake db:migrate` in production, the migration code needs to be merged to master and deployed to heroku
-  - this means the commit adding migrations needs to work both with and without the migrations having been run
-  - after deploying, you can run the migration and restart Rails through the Heroku CLI
+```
+git push heroku master
+```
 
-So concretely, once your commit is on master, `git push heroku master && heroku run rake db:migrate` will deploy the new code and run the migration.  This will cause a few seconds of downtime.
+If your code includes a migration, to deploy, run:
+
+```
+git push heroku master && heroku run rake db:migrate
+```
+
+If you have multiple heroku apps in your folder (i.e. demo and production), you will have to tell Heroku which one you want to migrate:
+
+```
+git push heroku master && heroku run rake db:migrate --app NAME_OF_HEROKU_APP
+```
+
+A good idea is to run the migration against the demo site as well so that it doesn't fall behind:
+
+```
+git push heroku master && heroku run rake db:migrate --app somerville-teacher-tool-demo
+```
+
+
