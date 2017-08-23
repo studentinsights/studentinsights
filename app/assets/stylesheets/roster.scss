@@ -82,30 +82,12 @@
     }
   }
 
-  #roster-nav-options {
-    top: 25px;
-    position: relative;
-    float: left;
-
-    p {
-      display: inline-block;
-      font-weight: normal;
-      color: $light-gray;
-      margin-right: 5px;
-      margin-top: 3px;
-      margin-left: 15px;
-    }
-  }
-
   #roster-controls {
-    width: 80%;
-    margin: auto auto;
-    height: 80px;
-
     @media screen and (max-width: $phase1) {
       height: 100px;
     }
-    padding-bottom: 15px;
+
+    padding: 20px 40px;
     clear: both;
   }
 
