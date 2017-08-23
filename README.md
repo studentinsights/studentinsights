@@ -25,6 +25,7 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
     - [Capturing meeting notes and interventions](#capturing-meeting-notes-and-interventions)
 - [Contributing](#contributing)
 - [How it works](#how-it-works)
+  - [Admin dashboard](#admin-dashboard)
 - [Development Environment](#development-environment)
   - [1. Install dependencies](#1-install-dependencies)
   - [2. Create database tables and seed them with demo data](#2-create-database-tables-and-seed-them-with-demo-data)
@@ -33,11 +34,12 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [5. Write code!](#5-write-code)
 - [Browser/OS Targeting](#browseros-targeting)
 - [Deployment](#deployment)
-  - [Importing real data](#importing-real-data)
-  - [LDAP](#ldap)
-  - [Heroku](#heroku)
-    - [Migrations on Heroku](#migrations-on-heroku)
-  - [Adding a new district](#new-district)
+  - [Deploying new code to Insights](#deploying-new-code-to-insights)
+  - [Setting up Insights for a new district](#setting-up-insights-for-a-new-district)
+    - [New district script](#new-district-script)
+    - [Importing real data](#importing-real-data)
+    - [LDAP](#ldap)
+    - [Heroku notes](#heroku-notes)
 - [Other Tools](#other-tools)
   - [Mixpanel](#mixpanel)
 - [More information](#more-information)
@@ -176,9 +178,11 @@ OS | Windows 7 and 8.1 | "Maybe some Win10 next year." <br>    – John Breslin,
 
 # Deployment
 
-## Deploying new code to the Insights project
+## Deploying new code to Insights
 
-See our guide on [merging and deploying new code to Heroku](docs/technical/merging_and_deploying_to_heroku.md).
+See our guide:
+
+[Merging and deploying new code to Heroku](docs/technical/merging_and_deploying_to_heroku.md).
 
 ## Setting up Insights for a new district
 
@@ -210,22 +214,12 @@ So far, Student Insights can import CSV and JSON and can fetch data from AWS and
 
 The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set the `SHOULD_USE_LDAP` environment variable. Authentication strategies are defined in `educator.rb`.
 
-### Heroku
+### Heroku notes
 
 [Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with Somerville's LDAP server behind a firewall. This requires additional configuration to prevent Quotaguard Static from interfering with the connection between application and database.
 
 One way to accomplish this is to set a `QUOTAGUARDSTATIC_MASK` environment variable that routes only outbound traffic to certain IP subnets using the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
 
-### Migrations on Heroku
-
-This is how to execute a standard Rails migration.  This is focused on the production deployment, but the demo site is the same, just add `--app somerville-teacher-tool-demo` to the Heroku CLI commands.
-
-  - db:migrate isn't run as part of the deploy process and needs to be done manually
-  - in order to `heroku run rake db:migrate` in production, the migration code needs to be merged to master and deployed to heroku
-  - this means the commit adding migrations needs to work both with and without the migrations having been run
-  - after deploying, you can run the migration and restart Rails through the Heroku CLI
-
-So concretely, once your commit is on master, `git push heroku master && heroku run rake db:migrate` will deploy the new code and run the migration.  This will cause a few seconds of downtime.
 
 # Other Tools
 
