@@ -9,7 +9,7 @@ Two rules of thumb:
 
 + **"Merge early and often."**
 
-  It's easier to complete a big feature by breaking it into a bunch of smaller pieces, merging them in one step at a time, and testing in production at each step. It also avoids dealing with big merge conflicts.
+  It's easier to complete a big feature by breaking it into a bunch of smaller pieces, merging them in one step at a time, and testing in production at each step. It also avoids dealing with big merge conflicts.  For large features with interdependent changes, another tactic is to deploy code "dark," meaning that it is in production but disabled from running via a flag or environment variable.
 
 + **"Make sure specs pass and do some local QA, *especially* when you touch authorization or authentication."**
 
