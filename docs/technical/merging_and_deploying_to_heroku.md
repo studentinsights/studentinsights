@@ -17,11 +17,11 @@ Two rules of thumb:
 
 To merge in code, all you need to do is push a button on the GitHub website:
 
-![Merge button on GitHub](/docs/readme-images/merge-button.png)
+![Merge button on GitHub](https://github.com/studentinsights/studentinsights/blob/master/docs/readme_images/merge-button.png)
 
 If you realize you've made a mistake after you merged, GitHub offers a Revert button to create a new PR that will reverse the changes:
 
-![Revert button on GitHub](/docs/readme-images/revert-button.png)
+![Revert button on GitHub](https://github.com/studentinsights/studentinsights/blob/master/docs/readme_images/revert-button.png)
 
 There's no automatic deployment set up, so your code will not go into production until you or another dev deploy it.
 
