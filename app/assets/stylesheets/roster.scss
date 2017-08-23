@@ -14,13 +14,15 @@
 
   #column-picker-toggle {
     cursor: pointer;
-    float: right;
+    position: absolute;
+    right: 25px;
+    top: 130px;
   }
 
   #column-picker {
     position: absolute;
     right: 25px;
-    top: 130px;
+    top: 160px;
     background-color: white;
     z-index: 100;
     border: 2px solid $backgroud;
