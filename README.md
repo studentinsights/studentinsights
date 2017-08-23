@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/studentinsights/studentinsights.svg?branch=master)](https://travis-ci.org/studentinsights/studentinsights)
 [![Code Climate](https://codeclimate.com/github/studentinsights/studentinsights/badges/gpa.svg)](https://codeclimate.com/github/studentinsights/studentinsights)
 
-Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings focused on the most at-risk students.  It’s currently in use at the pilot elementary school in Somerville.
+Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings focused on the most at-risk students.
 
 Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
   - username: `demo@example.com`
@@ -23,7 +23,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [Classroom rosters](#classroom-rosters)
   - [Student profiles](#student-profiles)
     - [Capturing meeting notes and interventions](#capturing-meeting-notes-and-interventions)
-- [School deployment](#school-deployment)
 - [Contributing](#contributing)
 - [How it works](#how-it-works)
 - [Development Environment](#development-environment)
@@ -90,22 +89,6 @@ It's one thing to have data, but acting on it to improve student outcomes is wha
 ![Interventions](docs/readme_images/recording-services-screenshot.png)
 
 It also allows capturing meeting notes as part of the student's record, which is particularly important on interdisciplinary teams.
-
-# School deployment
-
-Somerville Public Schools has seven elementary schools, one high school, and two alternative schools.
-
-We are focusing on rolling out Student Insights for Somerville's elementary schools:
-
-School | Data imported | Principal on-boarded | Used at an SST/MTSS meeting
---- | --- | --- | ---
-Healey | :white_check_mark: | :white_check_mark: | :white_check_mark:
-West | :white_check_mark: | :white_check_mark: | :white_check_mark:
-East | :white_check_mark: | :soon: |
-Brown | :white_check_mark: | |
-Kennedy | :white_check_mark: | |
-Argenziano | :white_check_mark: | |
-Winter Hill | :white_check_mark: | |
 
 # Contributing
 We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge.
