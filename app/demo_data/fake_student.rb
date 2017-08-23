@@ -67,16 +67,20 @@ class FakeStudent
     }
   end
 
-  def fake_date_of_birth
-    kindergarten_year - 5.years + rand(0..365).days
+  def start_of_this_school_year
+    DateTime.new(DateTime.now.year, 9, 1)
   end
 
   def kindergarten_year
     start_of_this_school_year - grade.to_i.years
   end
 
-  def start_of_this_school_year
-    DateTime.new(DateTime.now.year, 9, 1)
+  def fake_date_of_birth
+    kindergarten_year - 5.years + rand(0..365).days
+  end
+
+  def random_local_id
+    "000#{rand(1000)}"
   end
 
   def unique_local_id
@@ -90,10 +94,6 @@ class FakeStudent
 
   def enrollment_status
     7.in(8) ? 'Active' : 'Transferred'
-  end
-
-  def random_local_id
-    "000#{rand(1000)}"
   end
 
   def plan_504
@@ -227,18 +227,19 @@ class FakeStudent
       intervention_count.times do
         intervention = Intervention.new(generator.next)
         intervention.save!
-        intervention.save!
       end
     end
     nil
   end
 
+  #These are saving for some students only.
   def add_event_notes
     generator = FakeEventNoteGenerator.new(@student)
     rand(0..9).times { EventNote.new(generator.next).save! }
     nil
   end
 
+  #These are saving for some students only.
   def add_services
     generator = FakeServiceGenerator.new(@student)
     service_counts = 20.in(100) ? rand(1..5) : 0
