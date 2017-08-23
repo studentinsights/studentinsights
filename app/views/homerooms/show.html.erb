@@ -12,24 +12,22 @@
     <div id="student-searchbar-wrapper" class="dropdown">
     </div>
   </div>
-  <div class="info-area">
 
-    <div class="underline topline-info">
-      <h1 id="student-name">Room <%= @homeroom.name %></h1>
-      <div id="roster-tooltip" class="tooltip-trigger">
-        <p>Help</p>
-        <span id="roster-help-icon">?</span>
-      </div>
-      <% if current_educator.admin? && @school_id.present? %>
-        <div class="homeroom-links">
-          <%= link_to 'STAR Reading', star_reading_school_path(@school_id, anchor: @star_homeroom_anchor) %>
-          <%= link_to 'STAR Math', star_math_school_path(@school_id, anchor: @star_homeroom_anchor) %>
-        </div>
-      <% end %>
+  <div class="underline topline-info">
+    <h1 id="student-name">Room <%= @homeroom.name %></h1>
+    <div id="roster-tooltip" class="tooltip-trigger">
+      <p>Help</p>
+      <span id="roster-help-icon">?</span>
     </div>
-
-    <div id="homeroom-table"></div>
+    <% if current_educator.admin? && @school_id.present? %>
+      <div class="homeroom-links">
+        <%= link_to 'STAR Reading', star_reading_school_path(@school_id, anchor: @star_homeroom_anchor) %>
+        <%= link_to 'STAR Math', star_math_school_path(@school_id, anchor: @star_homeroom_anchor) %>
+      </div>
+    <% end %>
   </div>
+
+  <div id="homeroom-table"></div>
 
   <%= tag("div", id: "chart-data", data: @risk_levels) %>
   <%= tag("div", id: "homeroom-data", data: { homeroom: @homeroom}) %>
