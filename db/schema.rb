@@ -42,13 +42,13 @@ ActiveRecord::Schema.define(version: 20170818154033) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  
-  create_table "courses", force: :cascade do |t|
-    t.string   "course_number"
-    t.string   "course_description"
+
+  create_table "courses", id: :serial, force: :cascade do |t|
+    t.string "course_number"
+    t.string "course_description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "school_id"
+    t.integer "school_id"
   end
 
   create_table "delayed_jobs", id: :serial, force: :cascade do |t|
@@ -86,24 +86,17 @@ ActiveRecord::Schema.define(version: 20170818154033) do
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
   create_table "educator_section_assignments", id: false, force: :cascade do |t|
     t.integer "section_id"
     t.integer "educator_id"
-    t.index ["educator_id"], name: "index_educator_section_assignments_on_educator_id", using: :btree
-    t.index ["section_id"], name: "index_educator_section_assignments_on_section_id", using: :btree
+    t.index ["educator_id"], name: "index_educator_section_assignments_on_educator_id"
+    t.index ["section_id"], name: "index_educator_section_assignments_on_section_id"
   end
 
-  create_table "educators", force: :cascade do |t|
-    t.string   "email",                                   default: "",    null: false
-    t.string   "encrypted_password",                      default: "",    null: false
-    t.string   "reset_password_token"
-=======
   create_table "educators", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
->>>>>>> upstream/master
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
@@ -248,24 +241,18 @@ ActiveRecord::Schema.define(version: 20170818154033) do
     t.index ["state_id"], name: "index_schools_on_state_id"
   end
 
-<<<<<<< HEAD
-  create_table "sections", force: :cascade do |t|
-    t.string   "section_number"
-    t.string   "term_local_id"
-    t.string   "schedule"
-    t.string   "room_number"
+  create_table "sections", id: :serial, force: :cascade do |t|
+    t.string "section_number"
+    t.string "term_local_id"
+    t.string "schedule"
+    t.string "room_number"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "school_id"
-    t.integer  "course_id"
+    t.integer "course_id"
   end
 
-  create_table "service_types", force: :cascade do |t|
-    t.string   "name"
-=======
   create_table "service_types", id: :serial, force: :cascade do |t|
     t.string "name"
->>>>>>> upstream/master
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "summer_program", default: false
@@ -317,26 +304,18 @@ ActiveRecord::Schema.define(version: 20170818154033) do
     t.integer "limited_english_proficiency_risk_level"
   end
 
-<<<<<<< HEAD
   create_table "student_section_assignments", id: false, force: :cascade do |t|
     t.integer "section_id"
     t.integer "student_id"
-    t.index ["section_id"], name: "index_student_section_assignments_on_section_id", using: :btree
-    t.index ["student_id"], name: "index_student_section_assignments_on_student_id", using: :btree
+    t.index ["section_id"], name: "index_student_section_assignments_on_section_id"
+    t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
   end
 
-  create_table "students", force: :cascade do |t|
-    t.string   "grade"
-    t.boolean  "hispanic_latino"
-    t.string   "race"
-    t.string   "free_reduced_lunch"
-=======
   create_table "students", id: :serial, force: :cascade do |t|
     t.string "grade"
     t.boolean "hispanic_latino"
     t.string "race"
     t.string "free_reduced_lunch"
->>>>>>> upstream/master
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "homeroom_id"
