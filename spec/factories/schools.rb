@@ -15,6 +15,12 @@ FactoryGirl.define do
     local_id "BRN"
   end
 
+  factory :shs, class: School do
+    state_id 33
+    slug 'shs'
+    local_id "SHS"
+  end
+
   trait :with_educator do
     after(:create) do |school|
       school.educators << FactoryGirl.create(:educator, full_name: 'Stephenson, Neal')

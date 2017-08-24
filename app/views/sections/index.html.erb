@@ -1,0 +1,16 @@
+<h1>Course Listing</h1>
+<p>Currently this is only available to district administrators and shows ALL courses and sections</p>
+</br></br>
+<% @educator_courses.each do |course| %>
+    <p>
+        <%= course.course_number %> (<%= course.course_description %>)
+
+        <ul>
+        <% course.sections.order(:section_number).each do |section| %>
+        <li>
+          <%= link_to section.section_number, section %>
+        </li>
+        <% end %>
+        </ul>
+    </p>
+<% end %>

@@ -6,6 +6,9 @@ require_relative '../../app/importers/file_importers/x2_assessment_importer'
 require_relative '../../app/importers/file_importers/behavior_importer'
 require_relative '../../app/importers/file_importers/educators_importer'
 require_relative '../../app/importers/file_importers/attendance_importer'
+require_relative '../../app/importers/file_importers/courses_sections_importer'
+require_relative '../../app/importers/file_importers/student_section_assignments_importer'
+require_relative '../../app/importers/file_importers/educator_section_assignments_importer'
 
 class Import
   class Start < Thor::Group
@@ -49,7 +52,7 @@ class Import
 
     no_commands do
       def report
-        models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School ]
+        models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section, StudentSectionAssignment, EducatorSectionAssignment ]
         log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
         @report ||= ImportTaskReport.new(models, log)
       end

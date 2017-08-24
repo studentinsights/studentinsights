@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 20170818154033) do
     t.datetime "updated_at"
   end
 
+  create_table "courses", id: :serial, force: :cascade do |t|
+    t.string "course_number"
+    t.string "course_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "school_id"
+  end
+
   create_table "delayed_jobs", id: :serial, force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -76,6 +84,13 @@ ActiveRecord::Schema.define(version: 20170818154033) do
     t.datetime "recorded_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "educator_section_assignments", id: false, force: :cascade do |t|
+    t.integer "section_id"
+    t.integer "educator_id"
+    t.index ["educator_id"], name: "index_educator_section_assignments_on_educator_id"
+    t.index ["section_id"], name: "index_educator_section_assignments_on_section_id"
   end
 
   create_table "educators", id: :serial, force: :cascade do |t|
@@ -226,6 +241,16 @@ ActiveRecord::Schema.define(version: 20170818154033) do
     t.index ["state_id"], name: "index_schools_on_state_id"
   end
 
+  create_table "sections", id: :serial, force: :cascade do |t|
+    t.string "section_number"
+    t.string "term_local_id"
+    t.string "schedule"
+    t.string "room_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "course_id"
+  end
+
   create_table "service_types", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at"
@@ -279,6 +304,13 @@ ActiveRecord::Schema.define(version: 20170818154033) do
     t.integer "limited_english_proficiency_risk_level"
   end
 
+  create_table "student_section_assignments", id: false, force: :cascade do |t|
+    t.integer "section_id"
+    t.integer "student_id"
+    t.index ["section_id"], name: "index_student_section_assignments_on_section_id"
+    t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
+  end
+
   create_table "students", id: :serial, force: :cascade do |t|
     t.string "grade"
     t.boolean "hispanic_latino"
@@ -329,5 +361,9 @@ ActiveRecord::Schema.define(version: 20170818154033) do
 
   add_foreign_key "absences", "students"
   add_foreign_key "discipline_incidents", "students"
+  add_foreign_key "educator_section_assignments", "educators"
+  add_foreign_key "educator_section_assignments", "sections"
+  add_foreign_key "student_section_assignments", "sections"
+  add_foreign_key "student_section_assignments", "students"
   add_foreign_key "tardies", "students"
 end
