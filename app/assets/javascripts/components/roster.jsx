@@ -2,8 +2,6 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
 
 window.shared || (window.shared = {});
 
-const Routes = window.shared.Routes;
-
 export default React.createClass({
   displayName: 'Roster',
 
@@ -58,27 +56,62 @@ export default React.createClass({
     return (
       <div className='Roster'>
         <table className='roster-table' style={{ width: '100%' }}>
-          {this.renderHeaders()}
+          <thead>
+            {this.renderSuperHeaders()}
+            {this.renderHeaders()}
+          </thead>
           {this.renderBody()}
         </table>
       </div>
     );
   },
 
+  renderSuperHeaders() {
+    var currentCount = 0;
+    const columns = this.props.columns;
+
+
+    var superHeaders = [];
+
+    for (var i=0; i<columns.length; i++) {
+      currentCount++;
+      
+      // if this is the last column 
+      // or this column group differs from the next colum group,
+      // push the super header with a length of currentCount
+      // and reset currentCount for a new column group
+
+      if(i+1 == columns.length || columns[i].group != columns[i+1].group) {
+        superHeaders.push({label: columns[i].group, span: currentCount});
+        currentCount = 0;
+      }
+    }
+
+    return (
+      <tr className='column-groups'>
+        {superHeaders.map((superHeader, index) => {
+          return (
+            <th key={index} colSpan={superHeader.span}>
+              {superHeader.label}
+            </th>
+          );
+        },this)}
+      </tr>
+    );
+  },
+
   renderHeaders() {
     return (
-      <thead>
-        <tr id='roster-header'>
-          {this.props.columns.map(column => {
-            return (
-              <th key={column.key} onClick={this.onClickHeader.bind(null, column.key)}
-                  className={this.headerClassName(column.key)}>
-                {column.label}
-              </th>
-          );
-        }, this)}
-        </tr>
-      </thead>
+      <tr id='roster-header'>
+        {this.props.columns.map(column => {
+          return (
+            <th key={column.key} onClick={this.onClickHeader.bind(null, column.key)}
+                className={this.headerClassName(column.key)}>
+              {column.label}
+            </th>
+        );
+      }, this)}
+      </tr>
     );
   },
 
