@@ -8,12 +8,12 @@ export default React.createClass({
   propTypes: {
     rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    initialSort: React.PropTypes.string
+    initialSortIndex: React.PropTypes.integer
   },
 
   getInitialState () {
     return {
-      sortBy: this.props.initialSort,
+      sortByIndex: this.props.initialSortIndex,
       sortDesc: true
     };
   },
@@ -28,24 +28,30 @@ export default React.createClass({
 
   sortedRows () {
     const rows = this.props.rows;
-    const sortBy = this.state.sortBy;
+    const sortByIndex = this.state.sortByIndex;
+
+    if ('sortFunc' in this.props.columns[sortByIndex]) {
+      return rows.sort((a, b) => this.props.columns[sortByIndex].sortFunc(a, b, this.props.columns[sortByIndex].key));
+    }
+    else {
+      return rows.sort((a, b) => SortHelpers.sortByString(a, b, this.props.columns[sortByIndex].key));
+    }
     
-    return rows.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
   },
     
-  onClickHeader(sortBy) {
-    if (sortBy === this.state.sortBy) {
+  onClickHeader(sortByIndex) {
+    if (sortByIndex === this.state.sortByIndex) {
       this.setState({ sortDesc: !this.state.sortDesc });
     } else {
-      this.setState({ sortBy: sortBy});
+      this.setState({ sortByIndex: sortByIndex});
     }
   },
 
-  headerClassName (sortBy) {
+  headerClassName (sortByIndex) {
     // Using tablesort classes here for the cute CSS carets,
     // not for the acutal table sorting JS (that logic is handled by this class).
 
-    if (sortBy !== this.state.sortBy) return 'sort-header';
+    if (sortByIndex !== this.state.sortByIndex) return 'sort-header';
 
     if (this.state.sortDesc) return 'sort-header sort-down';
 
@@ -103,10 +109,10 @@ export default React.createClass({
   renderHeaders() {
     return (
       <tr id='roster-header'>
-        {this.props.columns.map(column => {
+        {this.props.columns.map((column, index) => {
           return (
-            <th key={column.key} onClick={this.onClickHeader.bind(null, column.key)}
-                className={this.headerClassName(column.key)}>
+            <th key={column.key} onClick={this.onClickHeader.bind(null, index)}
+                className={this.headerClassName(index)}>
               {column.label}
             </th>
         );
