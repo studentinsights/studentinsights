@@ -170,9 +170,9 @@ export default React.createClass({
 
   render () {
     return (
-      <div id="roster-table-wrapper">
+      <div>
         {this.renderColumnPickerArea()}
-        <table id="roster-table" cellSpacing="0" cellPadding="10" className="sort-default">
+        <table id="roster-table" cellSpacing="0" cellPadding="5" className="sort-default">
           {this.renderHeaders()}
           {this.renderRows()}
         </table>
@@ -435,14 +435,18 @@ export default React.createClass({
     );
   },
 
-  renderRow (row) {
+  renderRow (row, index) {
     const fullName = `${row['first_name']} ${row['last_name']}`;
     const id = row["id"];
+    const style = (index % 2 === 0)
+                    ? { backgroundColor: '#FFFFFF' }
+                    : { backgroundColor: '#F7F7F7' };
 
     return (
       <tr className="student-row"
           onClick={this.visitStudentProfile.bind(null, id)}
-          key={id}>
+          key={id}
+          style={style}>
         <td className="name">{fullName}</td>
         {this.renderDataCell('risk', this.renderWarningBubble(row))}
         {this.renderDataCell('program', row['program_assigned'])}
@@ -461,11 +465,11 @@ export default React.createClass({
   renderRows () {
     if (!this.props.rows) return null;
 
-    const activeStudentRows = this.orderedStudents();
+    const rows = this.orderedStudents();
 
     return (
       <tbody>
-        {activeStudentRows.map(this.renderRow)}
+        {rows.map((row, index) => { return this.renderRow(row, index); }, this)}
       </tbody>
     );
   },

@@ -1,37 +1,30 @@
-  <div id="roster-controls">
-    <div id="roster-nav-options">
-      <p>Homeroom:</p>
-      <select id="homeroom-select">
-        <% @homerooms_by_name.each do |r| %>
-          <option <% if r == @homeroom %>selected<% end %> value="<%= r.slug %>">
-            <%= r.name %>
-          </option>
-        <% end %>
-      </select>
+<div class="topline-info">
+  <h1>Room <%= @homeroom.name %></h1>
+  <% if current_educator.admin? && @school_id.present? %>
+    <div class="homeroom-links">
+      <%= link_to 'STAR Reading', star_reading_school_path(@school_id, anchor: @star_homeroom_anchor) %>
+      <%= link_to 'STAR Math', star_math_school_path(@school_id, anchor: @star_homeroom_anchor) %>
     </div>
-    <div id="student-searchbar-wrapper" class="dropdown">
-    </div>
-  </div>
-  <div class="info-area">
+  <% end %>
+</div>
 
-    <div class="underline topline-info">
-      <h1 id="student-name">Room <%= @homeroom.name %></h1>
-      <div id="roster-tooltip" class="tooltip-trigger">
-        <p>Help</p>
-        <span id="roster-help-icon">?</span>
-      </div>
-      <% if current_educator.admin? && @school_id.present? %>
-        <div class="homeroom-links">
-          <%= link_to 'STAR Reading', star_reading_school_path(@school_id, anchor: @star_homeroom_anchor) %>
-          <%= link_to 'STAR Math', star_math_school_path(@school_id, anchor: @star_homeroom_anchor) %>
-        </div>
+<div id="roster-controls">
+  <div>
+    <p>Homeroom:</p>
+    <select id="homeroom-select">
+      <% @homerooms_by_name.each do |r| %>
+        <option <% if r == @homeroom %>selected<% end %> value="<%= r.slug %>">
+          <%= r.name %>
+        </option>
       <% end %>
-    </div>
-
-    <div id="homeroom-table"></div>
+    </select>
   </div>
+  <div id="student-searchbar-wrapper" class="dropdown"></div>
+</div>
 
-  <%= tag("div", id: "chart-data", data: @risk_levels) %>
-  <%= tag("div", id: "homeroom-data", data: { homeroom: @homeroom}) %>
-  <%= tag("div", id: "current-educator-data", data: { current_educator: current_educator}) %>
-  <%= tag("div", id: "serialized-data", data: @serialized_data) %>
+<div id="homeroom-table"></div>
+
+<%= tag("div", id: "chart-data", data: @risk_levels) %>
+<%= tag("div", id: "homeroom-data", data: { homeroom: @homeroom}) %>
+<%= tag("div", id: "current-educator-data", data: { current_educator: current_educator}) %>
+<%= tag("div", id: "serialized-data", data: @serialized_data) %>

@@ -2,29 +2,28 @@
 
 .homerooms.show {
 
+  #roster-controls, .topline-info {
+    padding: 30px 20px 20px 30px;
+    float: left;
+  }
+
   #roster-table {
     th.sortable_header {
       cursor: pointer;
     }
   }
 
-  .topline-info {
-    padding: 20px 40px;
-  }
-
-  #roster-table-wrapper {
-    padding: 30px;
-  }
-
   #column-picker-toggle {
     cursor: pointer;
-    float: right;
+    position: absolute;
+    right: 25px;
+    top: 130px;
   }
 
   #column-picker {
     position: absolute;
     right: 25px;
-    top: 130px;
+    top: 160px;
     background-color: white;
     z-index: 100;
     border: 2px solid $backgroud;
@@ -57,56 +56,4 @@
       padding-bottom: 5px;
     }
   }
-
-  #roster-tooltip {
-    float: right;
-    text-align: center;
-    position: relative;
-    bottom: 25px;
-
-    #roster-help-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 30px;
-      background-color: $dark-line;
-      padding-top: 4px;
-      padding-bottom: 6px;
-      text-align: center;
-      position: relative;
-      bottom: 4px;
-      margin-left: 5px;
-      display: inline-block;
-      color: #fff;
-      font-size: 16px;
-      float: left;
-    }
-  }
-
-  #roster-nav-options {
-    top: 25px;
-    position: relative;
-    float: left;
-
-    p {
-      display: inline-block;
-      font-weight: normal;
-      color: $light-gray;
-      margin-right: 5px;
-      margin-top: 3px;
-      margin-left: 15px;
-    }
-  }
-
-  #roster-controls {
-    width: 80%;
-    margin: auto auto;
-    height: 80px;
-
-    @media screen and (max-width: $phase1) {
-      height: 100px;
-    }
-    padding-bottom: 15px;
-    clear: both;
-  }
-
 }
