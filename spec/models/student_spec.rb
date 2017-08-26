@@ -25,14 +25,6 @@ RSpec.describe Student do
         })
       end
     end
-    context 'future registration date, PK' do
-      let(:student) {
-        FactoryGirl.build(:student, registration_date: Time.now + 1.year, grade: 'PK')
-      }
-      it 'is valid' do
-        expect(student).to be_valid
-      end
-    end
     context 'past registration date' do
       let(:student) { FactoryGirl.build(:student, :registered_last_year) }
       it 'is valid' do
