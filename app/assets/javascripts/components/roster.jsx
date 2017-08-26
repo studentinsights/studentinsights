@@ -8,7 +8,7 @@ export default React.createClass({
   propTypes: {
     rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    initialSortIndex: React.PropTypes.integer
+    initialSortIndex: React.PropTypes.number
   },
 
   getInitialState () {
@@ -25,16 +25,18 @@ export default React.createClass({
 
     return sortedRows;
   },
-
+  
   sortedRows () {
     const rows = this.props.rows;
+    const columns = this.props.columns;
     const sortByIndex = this.state.sortByIndex;
+    const key = columns[sortByIndex].key;
 
-    if ('sortFunc' in this.props.columns[sortByIndex]) {
-      return rows.sort((a, b) => this.props.columns[sortByIndex].sortFunc(a, b, this.props.columns[sortByIndex].key));
+    if ('sortFunc' in columns[sortByIndex]) {
+      return rows.sort((a,b) => columns[sortByIndex].sortFunc(a,b,key));
     }
     else {
-      return rows.sort((a, b) => SortHelpers.sortByString(a, b, this.props.columns[sortByIndex].key));
+      return rows.sort((a, b) => SortHelpers.sortByString(a, b, key));
     }
     
   },

@@ -2,6 +2,7 @@ import SpecSugar from '../support/spec_sugar.jsx';
 import Roster from '../../../app/assets/javascripts/components/roster.jsx';
 
 describe('Roster', function() {
+  
   const ReactDOM = window.ReactDOM;
 
   const helpers = {
@@ -21,7 +22,7 @@ describe('Roster', function() {
       { id: 2, element1: 'Data 2-1', element2: 'Data 2-2', element3: 'Data 2-3'},
       { id: 3, element1: 'Data 3-1', element2: 'Data 3-2', element3: 'Data 3-3'}
     ],
-    initialSort: 'element1'
+    initialSortIndex: 0
   };
 
   SpecSugar.withTestEl('high-level integration test', function() {
