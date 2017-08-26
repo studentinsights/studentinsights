@@ -58,7 +58,7 @@ describe('SectionPage', function() {
       
       const headers = $(el).find('#roster-header th')
 
-      expect(headers.length).toEqual(10);
+      expect(headers.length).toEqual(16);
       expect(headers[0].innerHTML).toEqual('Name');
     });
 
