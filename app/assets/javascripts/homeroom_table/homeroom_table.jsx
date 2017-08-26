@@ -172,7 +172,7 @@ export default React.createClass({
     return (
       <div>
         {this.renderColumnPickerArea()}
-        <table id="roster-table" cellSpacing="0" cellPadding="10" className="sort-default">
+        <table id="roster-table" cellSpacing="0" cellPadding="5" className="sort-default">
           {this.renderHeaders()}
           {this.renderRows()}
         </table>
