@@ -23,7 +23,7 @@ RSpec.describe StudentsImporter do
       context 'no existing students in database' do
 
         it 'imports students' do
-          expect { import }.to change { Student.count }.by 3
+          expect { import }.to change { Student.count }.by 4
         end
 
         it 'imports student data correctly' do
@@ -55,7 +55,7 @@ RSpec.describe StudentsImporter do
         }
 
         it 'imports students' do
-          expect { import }.to change { Student.count }.by 2
+          expect { import }.to change { Student.count }.by 3
         end
 
         it 'updates the student\'s data correctly' do
