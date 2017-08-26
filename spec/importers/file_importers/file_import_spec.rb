@@ -27,12 +27,12 @@ RSpec.describe FileImport do
       end
 
       it 'calls import_row for each row' do
-        expect(importer).to receive(:import_row).exactly(3).times
+        expect(importer).to receive(:import_row).exactly(5).times
         subject.import
       end
 
       it 'prints a new progress bar for each row' do
-        expect(ProgressBar).to receive(:new).exactly(3).times
+        expect(ProgressBar).to receive(:new).exactly(5).times
                                             .and_return(progress_bar_double)
         subject.import
       end
@@ -42,12 +42,12 @@ RSpec.describe FileImport do
       let(:filter) { SchoolFilter.new(['HEA', 'BRN']) }
 
       it 'calls import_row for each row that the filter includes' do
-        expect(importer).to receive(:import_row).exactly(2).times
+        expect(importer).to receive(:import_row).exactly(4).times
         subject.import
       end
 
       it 'prints a new progress bar for each row' do
-        expect(ProgressBar).to receive(:new).exactly(3).times
+        expect(ProgressBar).to receive(:new).exactly(5).times
                                             .and_return(progress_bar_double)
         subject.import
       end
