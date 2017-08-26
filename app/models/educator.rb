@@ -114,6 +114,12 @@ class Educator < ActiveRecord::Base
     raise Exceptions::NoAssignedHomeroom                    # <= Logged-in educator has no assigned homeroom
   end
 
+  def default_section
+    raise Exceptions::NoSections if Section.count == 0    # <= We can't show any sectionss if there are none
+    return sections[0] if sections.present?                      # <= Logged-in educator has at least one assigned section
+    raise Exceptions::NoAssignedSections                    # <= Logged-in educator has no assigned section
+  end
+
   def has_access_to_grade_levels?
     grade_level_access.present? && grade_level_access.size > 0
   end

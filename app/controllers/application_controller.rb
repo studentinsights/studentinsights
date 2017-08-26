@@ -21,6 +21,8 @@ class ApplicationController < ActionController::Base
       educators_districtwide_url
     elsif educator.schoolwide_access? || educator.has_access_to_grade_levels?
       school_url(educator.school)
+    elsif educator.school.school_type == 'HS'
+      default_section_path(educator)
     else
       default_homeroom_path(educator)
     end
@@ -36,6 +38,14 @@ class ApplicationController < ActionController::Base
     no_homeroom_path
   rescue Exceptions::NoHomerooms
     no_homerooms_path
+  end
+
+  def default_section_path(educator)
+    section_path(educator.default_section)
+  rescue Exceptions::NoAssignedSections   # Thrown by educator without any sections
+    no_section_path
+  rescue Exceptions::NoSections
+    no_sections_path
   end
 
   # Sugar for filters checking authorization

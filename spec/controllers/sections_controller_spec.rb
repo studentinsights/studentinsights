@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SectionsController, :type => :controller do
-  let!(:school) { FactoryGirl.create(:school) }
+  let!(:school) { FactoryGirl.create(:shs) }
   let!(:course) { FactoryGirl.create(:course, school: school) }
   let!(:first_section) { FactoryGirl.create(:section, course: course) }
   let!(:second_section) { FactoryGirl.create(:section, course: course) }
@@ -37,14 +37,14 @@ describe SectionsController, :type => :controller do
       before { sign_in(educator) }
 
       context 'section params' do
-
+        
         context 'garbage params' do
           it 'does not raise an error' do
             expect { make_request('garbage section ids rule') }.not_to raise_error
           end
-          it 'redirects' do
+          it 'redirects to educator\'s first section' do
             make_request('garbage ids rule')
-            expect(response.status).to eq 302
+            expect(response).to redirect_to(section_path(educator.sections[0]))
           end
         end
 

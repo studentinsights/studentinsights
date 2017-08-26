@@ -19,6 +19,10 @@ Rails.application.routes.draw do
 
   get 'no_homeroom' => 'pages#no_homeroom'
   get 'no_homerooms' => 'pages#no_homerooms'
+
+  get 'no_section' => 'pages#no_section'
+  get 'no_sections' => 'pages#no_sections'
+
   get 'not_authorized' => 'pages#not_authorized'
 
   if ENV['LETS_ENCRYPT_ENDPOINT']
