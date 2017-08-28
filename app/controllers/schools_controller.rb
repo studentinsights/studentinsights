@@ -23,26 +23,6 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
-  def get_precomputed_hashes_for_school
-    authorized_students = authorized_students_for_overview(@school)
-
-    student_hashes = log_timing('schools#get_precomputed_hashes_for_school') do
-      load_precomputed_student_hashes(Time.now, authorized_students.map(&:id))
-    end
-
-    render json: student_hashes
-  end
-
-  def get_mutable_fields_for_school
-    authorized_students = authorized_students_for_overview(@school)
-
-    mutable_fields = log_timing('schools#get_mutable_hashes_for_school') do
-      mutable_fields_for_slicing(authorized_students.map(&:id))
-    end
-
-    render json: mutable_fields
-  end
-
   def star_math
     serialized_data_for_star {|student| student.star_math_results }
     render 'shared/serialized_data'
