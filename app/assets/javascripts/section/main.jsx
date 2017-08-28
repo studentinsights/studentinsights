@@ -1,9 +1,9 @@
 import Roster from '../components/roster.jsx';
 import SectionHeader from './section_header.jsx';
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
 $(function() {
   if ($('body').hasClass('sections') && $('body').hasClass('show')) {
-    const MixpanelUtils = window.shared.MixpanelUtils;
     const SectionPage = window.shared.SectionPage;
     const Routes = window.shared.Routes;
 
