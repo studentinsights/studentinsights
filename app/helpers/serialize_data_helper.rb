@@ -37,6 +37,17 @@ module SerializeDataHelper
     ])
   end
 
+  def serialize_event_note_for_school_overview(event_note)
+    event_note.as_json.symbolize_keys.slice(*[
+      :id,
+      :student_id,
+      :educator_id,
+      :event_note_type_id,
+      :recorded_at,
+      :is_restricted,
+    ])
+  end
+
   # deprecated
   def serialize_intervention(intervention)
     {

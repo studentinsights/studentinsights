@@ -27,7 +27,7 @@ module StudentsQueryHelper
         interventions: mutable_fields[:all_interventions].select {|intervention| intervention.student_id == student_hash[:id] }
       }
       student_hash.merge({
-        event_notes: for_student[:event_notes].map {|x| serialize_event_note_without_attachments(x) },
+        event_notes: for_student[:event_notes].map {|x| serialize_event_note_for_school_overview(x) },
         active_services: for_student[:active_services].map {|x| serialize_service(x) },
         summer_services: for_student[:summer_services].map {|x| serialize_service(x) },
         interventions: for_student[:interventions].map {|x| serialize_intervention(x) },
@@ -48,7 +48,7 @@ module StudentsQueryHelper
   end
 
   # Computes a key for reading and writing precomputed student_hashes documents.
-  # 
+  #
   # The original formats to this key concatenated all student_ids but is deprecated and
   # no longer used (although it's still here since data still exists thats keyed like that).
   # That can be accessed with `force_deprecated_key`.
