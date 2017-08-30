@@ -107,8 +107,13 @@ class StudentsController < ApplicationController
 
   # Used by the search bar to query for student names
   def names
-    students_for_searchbar = SearchbarHelper.names_for(current_educator)
-    render json: students_for_searchbar
+    cached_json_for_searchbar = current_educator.student_searchbar_json
+
+    if cached_json_for_searchbar
+      render json: cached_json_for_searchbar
+    else
+      render json: SearchbarHelper.names_for(current_educator)
+    end
   end
 
   # Used by the service upload page to validate student local ids
