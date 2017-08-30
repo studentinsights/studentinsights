@@ -34,7 +34,7 @@ class StudentsController < ApplicationController
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
       service_types_index: service_types_index,
-      event_note_types_index: event_note_types_index,
+      event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
       iep_documents: student.iep_documents,
@@ -54,7 +54,7 @@ class StudentsController < ApplicationController
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
       feed: student_feed(student, restricted_notes: true),
-      event_note_types_index: event_note_types_index,
+      event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
     }
   end
