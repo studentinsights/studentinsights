@@ -144,6 +144,15 @@ class Educator < ActiveRecord::Base
     }
   end
 
+  def self.save_student_searchbar_json
+    find_each { |educator| educator.save_student_searchbar_json }
+  end
+
+  def save_student_searchbar_json
+    self.student_searchbar_json = SearchbarHelper.names_for(self).to_json
+    save!
+  end
+
   private
 
   def has_access_to_no_students?
