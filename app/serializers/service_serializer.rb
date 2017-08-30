@@ -1,4 +1,4 @@
-class Service < Struct.new :service
+class ServiceSerializer < Struct.new :service
 
   def serialize_service
     discontinued_service = service.discontinued_services.order(:recorded_at).last

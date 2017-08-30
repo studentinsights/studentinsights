@@ -1,5 +1,4 @@
 class SchoolsController < ApplicationController
-  include SerializeDataHelper
   include StudentsQueryHelper
 
   before_action :set_school, :authorize_for_school
@@ -96,7 +95,7 @@ class SchoolsController < ApplicationController
   # to the UI so it can use them for joins.
   def constant_indexes
     {
-      service_types_index: service_types_index,
+      service_types_index: ServiceSerializer.service_types_index,
       event_note_types_index: EventNoteSerializer.event_note_types_index
     }
   end
