@@ -17,6 +17,7 @@ module SomervilleTeacherTool
       class_paths = [
         "#{config.root}/app/models",
         "#{config.root}/app/jobs",
+        "#{config.root}/app/serializers",
         "#{config.root}/app/importers/clients",
         "#{config.root}/app/importers/data_transformers",
         "#{config.root}/app/importers/file_importers",

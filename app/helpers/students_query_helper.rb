@@ -27,7 +27,7 @@ module StudentsQueryHelper
         interventions: mutable_fields[:all_interventions].select {|intervention| intervention.student_id == student_hash[:id] }
       }
       student_hash.merge({
-        event_notes: for_student[:event_notes].map {|x| serialize_event_note_for_school_overview(x) },
+        event_notes: for_student[:event_notes].map {|x| EventNoteSerializer.new(x).serialize_for_school_overview },
         active_services: for_student[:active_services].map {|x| serialize_service(x) },
         summer_services: for_student[:summer_services].map {|x| serialize_service(x) },
         interventions: for_student[:interventions].map {|x| serialize_intervention(x) },

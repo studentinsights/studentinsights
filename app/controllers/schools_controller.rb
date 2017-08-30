@@ -97,7 +97,7 @@ class SchoolsController < ApplicationController
   def constant_indexes
     {
       service_types_index: service_types_index,
-      event_note_types_index: event_note_types_index
+      event_note_types_index: EventNoteSerializer.event_note_types_index
     }
   end
 
