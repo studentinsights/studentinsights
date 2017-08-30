@@ -53,7 +53,7 @@ class SchoolsController < ApplicationController
       # so keep a buffer that makes sure the import task and precompute job
       # can finish before cutting over to the next day.
       query_time = time_now - 9.hours
-      key = precomputed_student_hashes_key(query_time, authorized_student_ids)
+      key = PrecomputedQueryDoc.precomputed_student_hashes_key(query_time, authorized_student_ids)
       logger.warn "load_precomputed_student_hashes querying key: #{key}..."
       doc = PrecomputedQueryDoc.find_by_key(key)
       return parse_hashes_from_doc(doc) unless doc.nil?
