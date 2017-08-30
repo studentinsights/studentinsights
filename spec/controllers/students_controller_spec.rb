@@ -8,6 +8,13 @@ def create_service(student, educator)
   })
 end
 
+def create_event_note(student, educator)
+  FactoryGirl.create(:event_note, {
+    student: student,
+    educator: educator,
+  })
+end
+
 describe StudentsController, :type => :controller do
 
   describe '#show' do
@@ -55,7 +62,6 @@ describe StudentsController, :type => :controller do
             services: {active: [], discontinued: []},
             deprecated: {interventions: []}
           })
-
 
           expect(serialized_data[:service_types_index]).to eq({
             502 => {:id=>502, :name=>"Attendance Officer"},
@@ -383,12 +389,18 @@ describe StudentsController, :type => :controller do
     let(:student) { FactoryGirl.create(:student) }
     let(:educator) { FactoryGirl.create(:educator, :admin) }
     let!(:service) { create_service(student, educator) }
+    let!(:event_note) { create_event_note(student, educator) }
 
     it 'returns services' do
       feed = controller.send(:student_feed, student)
       expect(feed.keys).to eq([:event_notes, :services, :deprecated])
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:active].first[:id]).to eq service.id
+    end
+
+    it 'returns event notes' do
+      feed = controller.send(:student_feed, student)
+      expect(feed[:event_notes]).to eq 'okay'
     end
 
     context 'after service is discontinued' do
