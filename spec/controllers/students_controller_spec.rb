@@ -400,7 +400,11 @@ describe StudentsController, :type => :controller do
 
     it 'returns event notes' do
       feed = controller.send(:student_feed, student)
-      expect(feed[:event_notes]).to eq 'okay'
+      event_notes = feed[:event_notes]
+
+      expect(event_notes.size).to eq 1
+      expect(event_notes.first[:student_id]).to eq(student.id)
+      expect(event_notes.first[:educator_id]).to eq(educator.id)
     end
 
     context 'after service is discontinued' do
