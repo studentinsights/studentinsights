@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20170905171916) do
     t.boolean "can_view_restricted_notes", default: false, null: false
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
+    t.text "student_searchbar_json"
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
     t.index ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true
   end
