@@ -11,8 +11,6 @@ class MigrateInterventionsToServices < ActiveRecord::Migration[5.0]
     # Don't run if there are no deprecated Interventions to migrate
     return if Intervention.count == 0
 
-    jill = Educator.find_by_id!(ENV['JILL_ID'])
-
     Intervention.all.each do |intervention|
       InterventionMigrationHelper.new(intervention).migrate
     end

@@ -29,12 +29,20 @@ class InterventionMigrationHelper < Struct.new :intervention
     46 => nil,
   }
 
+  def jill
+    @jill ||= Educator.find_by_id!(ENV['JILL_ID'])
+  end
+
   def migrate
+    create_service && create_event_note
+  end
+
+  def create_service
     intervention_type_id = intervention.intervention_type_id
 
     service_type_id = INTERVENTION_TYPES_TO_SERVICE_TYPES[intervention_type_id]
 
-    return if service_type_id.nil?  # This doesn't match our new service type schema so we toss it, TODO -- turn this into an event note so we're not losing any data
+    return if service_type_id.nil?
 
     Service.create(
       student: intervention.student,
@@ -43,6 +51,19 @@ class InterventionMigrationHelper < Struct.new :intervention
       recorded_at: intervention.created_at,
       date_started: intervention.start_date,
       provided_by_educator_name: intervention.educator.full_name,
+    )
+  end
+
+  def create_event_note
+    text = "#{intervention.comment} - Goal: #{intervention.goal}"
+
+    EventNote.create(
+      student: intervention.student,
+      educator: jill,
+      event_note_type_id: 304,
+      text: text,
+      recorded_at: intervention.created_at,
+      is_restricted: true,
     )
   end
 
