@@ -30,7 +30,7 @@ module StudentsQueryHelper
         event_notes: for_student[:event_notes].map {|x| EventNoteSerializer.new(x).serialize_for_school_overview },
         active_services: for_student[:active_services].map {|x| serialize_service(x) },
         summer_services: for_student[:summer_services].map {|x| serialize_service(x) },
-        interventions: for_student[:interventions].map {|x| DeprecatedInterventionSerializer.new(intervention).serialize_intervention },
+        interventions: for_student[:interventions].map {|x| DeprecatedInterventionSerializer.new(x).serialize_intervention },
       })
     end
   end
