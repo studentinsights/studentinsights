@@ -13,6 +13,11 @@ module Admin
       super
     end
 
+    def update
+      # TODO (ARS): re-compute student searchbar JSON once permissions are updated
+      super
+    end
+
     def resource_params
       params["educator"]["grade_level_access"] = params["educator"]["grade_level_access"].try(:keys) || []
 
