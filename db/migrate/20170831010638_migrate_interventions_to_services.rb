@@ -3,7 +3,7 @@ class MigrateInterventionsToServices < ActiveRecord::Migration[5.0]
     district_name = ENV['DISTRICT_NAME']
 
     # Only run this migration with Somerville
-    return unless district_name = 'Somerville'
+    return unless district_name == 'Somerville'
 
     # Don't run the migration if we don't have a Jill ID lookup configured
     return unless ENV['JILL_ID'].present?
