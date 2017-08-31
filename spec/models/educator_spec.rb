@@ -237,4 +237,17 @@ RSpec.describe Educator do
     end
   end
 
+  describe '#save_student_searchbar_json' do
+    context 'educator has permissions for a few students' do
+      it 'saves the correct JSON' do
+
+      end
+    end
+    context 'educator has permissions for no students' do
+      it 'saves the correct JSON' do
+
+      end
+    end
+  end
+
 end
