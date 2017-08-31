@@ -14,22 +14,7 @@ class MigrateInterventionsToServices < ActiveRecord::Migration[5.0]
     jill = Educator.find_by_id!(ENV['JILL_ID'])
 
     Intervention.all.each do |intervention|
-      intervention_type_id = intervention.intervention_type_id
-
-      lookup_hash = InterventionMigrationHelper::INTERVENTION_TYPES_TO_SERVICE_TYPES
-
-      service_type_id = lookup_hash[intervention_type_id]
-
-      return if service_type_id.nil?  # This doesn't match our new service type schema so we toss it, TODO -- turn this into an event note so we're not losing any data
-
-      Service.create(
-        student: intervention.student,
-        recorded_by_educator: jill,
-        service_type_id: service_type_id,
-        recorded_at: intervention.created_at,
-        date_started: intervention.start_date,
-        provided_by_educator_name: intervention.educator.full_name,
-      )
+      InterventionMigrationHelper.new(intervention).migrate
     end
 
     Intervention.destroy_all
