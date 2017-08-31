@@ -333,23 +333,48 @@ describe StudentsController, :type => :controller do
       get :names, params: { format: :json }
     end
 
-    context 'admin educator logged in' do
+    context 'admin educator logged in, no cached student names' do
       let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
       before { sign_in(educator) }
       let!(:juan) {
-        FactoryGirl.create(:student, first_name: 'Juan', last_name: 'P', school: school, grade: '5')
+        FactoryGirl.create(
+          :student, first_name: 'Juan', last_name: 'P', school: school, grade: '5'
+        )
       }
 
       let!(:jacob) {
         FactoryGirl.create(:student, first_name: 'Jacob', grade: '5')
       }
 
-      it 'returns an array of student labels and ids that match the educator\'s students' do
+      it 'returns an array of student labels and ids that match educator\'s students' do
         make_request
         expect(response).to be_success
-        expect(JSON.parse(response.body)).to eq [{ "label" => "Juan P - HEA - 5", "id" => juan.id }]
+        expect(JSON.parse(response.body)).to eq [
+          { "label" => "Juan P - HEA - 5", "id" => juan.id }
+        ]
       end
     end
+
+    context 'admin educator logged in, cached student names' do
+      let!(:educator) {
+        FactoryGirl.create(
+          :educator, :admin,
+          school: school,
+          student_searchbar_json: "[{\"label\":\"Juan P - HEA - 5\",\"id\":\"700\"}]"
+        )
+      }
+      before { sign_in(educator) }
+
+      it 'returns an array of student labels and ids that match cached students' do
+        make_request
+        expect(response).to be_success
+        expect(JSON.parse(response.body)).to eq [
+          { "label" => "Juan P - HEA - 5", "id" => "700" }
+        ]
+      end
+
+    end
+
     context 'educator without authorization to students' do
       let!(:educator) { FactoryGirl.create(:educator) }
       before { sign_in(educator) }
@@ -361,6 +386,7 @@ describe StudentsController, :type => :controller do
         expect(JSON.parse(response.body)).to eq []
       end
     end
+
     context 'educator not logged in' do
       it 'is not successful' do
         make_request
