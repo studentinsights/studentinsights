@@ -15,6 +15,11 @@ namespace :chores do
     StudentRiskLevel.find_each(&:update_risk_level!)
   end
 
+  desc 'Update educator student searchbar cached data'
+  task update_educator_student_searchbars: :environment do
+    Educator.save_student_searchbar_json
+  end
+
   desc 'Kick off background worker for data import'
   task import_data_in_background: :environment do
     Delayed::Job.enqueue ImportJob.new
