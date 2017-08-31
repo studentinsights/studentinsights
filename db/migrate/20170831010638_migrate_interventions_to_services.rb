@@ -13,39 +13,12 @@ class MigrateInterventionsToServices < ActiveRecord::Migration[5.0]
 
     jill = Educator.find_by_id!(ENV['JILL_ID'])
 
-    INTERVENTION_TYPES_TO_SERVICE_TYPES = {
-      20 => 511,
-      21 => 502,
-      22 => 503,
-      23 => 504,
-      24 => nil,
-      25 => nil,
-      26 => nil,
-      27 => nil,
-      28 => 513,
-      29 => 505,
-      30 => 506,
-      31 => nil,
-      32 => 507,
-      33 => nil,
-      34 => nil,
-      35 => nil,
-      36 => nil,
-      37 => nil,
-      39 => nil,
-      40 => 507,
-      41 => 507,
-      42 => nil,
-      43 => nil,
-      44 => 514,
-      45 => nil,
-      46 => nil,
-    }
-
     Intervention.all.each do |intervention|
       intervention_type_id = intervention.intervention_type_id
 
-      service_type_id = INTERVENTION_TYPES_TO_SERVICE_TYPES[intervention_type_id]
+      lookup_hash = InterventionMigrationHelper::INTERVENTION_TYPES_TO_SERVICE_TYPES
+
+      service_type_id = lookup_hash[intervention_type_id]
 
       return if service_type_id.nil?  # This doesn't match our new service type schema so we toss it, TODO -- turn this into an event note so we're not losing any data
 
