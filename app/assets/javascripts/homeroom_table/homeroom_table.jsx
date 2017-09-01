@@ -72,7 +72,7 @@ export default React.createClass({
   },
 
   toggleColumn (columnKey) {
-    const columnsDisplayed = _.assign({}, this.state.columnsDisplayed);
+    const columnsDisplayed = _.clone(this.state.columnsDisplayed);
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
     const isColumnDisplayed = (columnKeyIndex > -1);
