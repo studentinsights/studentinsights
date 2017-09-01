@@ -72,12 +72,13 @@ export default React.createClass({
   },
 
   toggleColumn (columnKey) {
-    const columnsDisplayed = Object.assign(this.state.columnsDisplayed, {});
-    const index = columnsDisplayed.indexOf(columnKey);
-    const isColumnDisplayed = (index > -1);
+    const columnsDisplayed = _.assign({}, this.state.columnsDisplayed);
+    const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
+
+    const isColumnDisplayed = (columnKeyIndex > -1);
 
     if (isColumnDisplayed) {
-      columnsDisplayed.splice(index, 1);
+      columnsDisplayed.splice(columnKeyIndex, 1);
     } else {
       columnsDisplayed.push(columnKey);
     }
@@ -144,7 +145,7 @@ export default React.createClass({
 
   showStar () {
     const columnsDisplayed = this.state.columnsDisplayed;
-    const starDisplayed = columnsDisplayed.indexOf('star') > -1;
+    const starDisplayed = _.indexOf(columnsDisplayed, 'star') > -1;
 
     if (this.props.showStar === true && starDisplayed === true) return true;
 
@@ -153,7 +154,7 @@ export default React.createClass({
 
   showMcas () {
     const columnsDisplayed = this.state.columnsDisplayed;
-    const mcasDisplayed = columnsDisplayed.indexOf('mcas') > -1;
+    const mcasDisplayed = _.indexOf(columnsDisplayed, 'mcas') > -1;
 
     if (this.props.showMcas === true && mcasDisplayed === true) return true;
 
@@ -290,8 +291,9 @@ export default React.createClass({
 
   renderSubHeader (columnKey, label, sortBy, sortType) {
     const columnsDisplayed = this.state.columnsDisplayed;
+    const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
-    if (columnsDisplayed.indexOf(columnKey) === -1) return null;
+    if (columnKeyIndex === -1) return null;
 
     return (
       <th className="sortable_header"
@@ -303,8 +305,9 @@ export default React.createClass({
 
   renderSuperHeader (columnKey, columnSpan, label) {
     const columnsDisplayed = this.state.columnsDisplayed;
+    const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
-    if (columnsDisplayed.indexOf(columnKey) === -1) return null;
+    if (columnKeyIndex === -1) return null;
 
     if (!label) return (
       <td colSpan={columnSpan}></td>
@@ -386,8 +389,9 @@ export default React.createClass({
 
   renderDataCell (columnKey, data) {
     const columnsDisplayed = this.state.columnsDisplayed;
+    const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
-    if (columnsDisplayed.indexOf(columnKey) === -1) return null;
+    if (columnKeyIndex === -1) return null;
 
     return (
       <td>{data || '—'}</td>
@@ -508,7 +512,7 @@ export default React.createClass({
     const onToggleColumn = this.toggleColumn.bind(null, columnKey);
 
     const columnsDisplayed = this.state.columnsDisplayed;
-    const isColumnDisplayed = (columnsDisplayed.indexOf(columnKey) > -1);
+    const isColumnDisplayed = (_.indexOf(columnsDisplayed, columnKey) > -1);
 
     if (isColumnDisplayed) return (
       <div key={columnKey}>
