@@ -30,6 +30,11 @@
     "plugin:react/recommended"
   ],
   "rules": {
+    "no-restricted-properties": [2, {
+      "object": "Object",
+      "property": "assign",
+      "message": "Not supported by IE 11, try _.clone."
+    }],
     "indent": ["error", 2],
     "semi": ["error", "always"],
     "comma-dangle": ["error", "only-multiline"],
