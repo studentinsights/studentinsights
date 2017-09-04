@@ -25,6 +25,14 @@ FactoryGirl.define do
       free_reduced_lunch "Free Lunch"
     end
 
+    trait :with_service_and_event_note_and_intervention do
+      after(:create) do |student|
+        FactoryGirl.create(:service, student: student)
+        FactoryGirl.create(:event_note, student: student)
+        FactoryGirl.create(:intervention, student: student)
+      end
+    end
+
     trait :with_mcas_math_advanced_assessment do
       after(:create) do |student|
         FactoryGirl.create(:mcas_math_advanced_assessment, student: student)
