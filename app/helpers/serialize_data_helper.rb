@@ -1,6 +1,6 @@
 module SerializeDataHelper
   def serialize_service(service)
-    discontinued_service = service.discontinued_services.order(:recorded_at).last
+    discontinued_service = service.discontinued_services.order(:discontinued_at).last
     service.as_json.symbolize_keys.slice(*[
       :id,
       :student_id,
@@ -11,7 +11,7 @@ module SerializeDataHelper
       :recorded_at
     ]).merge({
       discontinued_by_educator_id: discontinued_service.try(:recorded_by_educator_id),
-      discontinued_recorded_at: discontinued_service.try(:recorded_at)
+      discontinued_recorded_at: discontinued_service.try(:discontinued_at)
     })
   end
 

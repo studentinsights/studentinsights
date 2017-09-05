@@ -20,7 +20,7 @@ class Service < ActiveRecord::Base
     #
     # This attribute name isn't accurate
     # anymore, we should change it to "date_ended"
-    discontinued_services.order(recorded_at: :desc).first.try(:recorded_at)
+    discontinued_services.order(discontinued_at: :desc).first.try(:discontinued_at)
   end
 
   def has_scheduled_end_date?
@@ -40,12 +40,12 @@ class Service < ActiveRecord::Base
   end
 
   def self.future_discontinue
-    includes(:discontinued_services).where('discontinued_services.recorded_at > ?', DateTime.current)
+    includes(:discontinued_services).where('discontinued_services.discontinued_at > ?', DateTime.current)
                                     .references(:discontinued_services)
   end
 
   def self.discontinued
-    includes(:discontinued_services).where('discontinued_services.recorded_at < ?', DateTime.current)
+    includes(:discontinued_services).where('discontinued_services.discontinued_at < ?', DateTime.current)
                                     .references(:discontinued_services)
   end
 

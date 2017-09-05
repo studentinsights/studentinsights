@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe DiscontinuedService do
 
-  describe '#must_be_recorded_after_service_start_date' do
+  describe '#must_be_discontinued_after_service_start_date' do
     let(:educator) { FactoryGirl.create(:educator) }
 
     context 'recorded before service start date' do
@@ -11,7 +11,7 @@ RSpec.describe DiscontinuedService do
         DiscontinuedService.new(
           service: service,
           recorded_by_educator: educator,
-          recorded_at: service.date_started - 1.day,
+          discontinued_at: service.date_started - 1.day,
         )
       }
       it 'is invalid' do
@@ -25,7 +25,7 @@ RSpec.describe DiscontinuedService do
         DiscontinuedService.new(
           service: service,
           recorded_by_educator: educator,
-          recorded_at: service.date_started + 1.day,
+          discontinued_at: service.date_started + 1.day,
         )
       }
       it 'valid' do

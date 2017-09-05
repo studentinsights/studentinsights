@@ -78,7 +78,7 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client, :log
 
     DiscontinuedService.create!(
       service: service,
-      recorded_at: date_ended,
+      discontinued_at: date_ended,
       recorded_by_educator: recorded_by_educator,
     )
   end
