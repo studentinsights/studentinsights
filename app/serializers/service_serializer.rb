@@ -1,7 +1,6 @@
 class ServiceSerializer < Struct.new :service
 
   def serialize_service
-    discontinued_service = service.discontinued_services.order(:recorded_at).last
     service.as_json.symbolize_keys.slice(*[
       :id,
       :student_id,
@@ -11,9 +10,13 @@ class ServiceSerializer < Struct.new :service
       :recorded_by_educator_id,
       :recorded_at
     ]).merge({
-      discontinued_by_educator_id: discontinued_service.try(:recorded_by_educator_id),
-      discontinued_recorded_at: discontinued_service.try(:recorded_at)
+      discontinued_by_educator_id: discontinued.try(:recorded_by_educator_id),
+      discontinued_recorded_at: discontinued.try(:discontinued_at)
     })
+  end
+
+  def discontinued
+    service.discontinued_services.order(:discontinued_at).last
   end
 
   def self.service_types_index
