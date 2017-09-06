@@ -9,25 +9,25 @@ RSpec.describe Service do
 
   let!(:discontinued_now) {
     service = FactoryGirl.create(:service, id: 70003)
-    DiscontinuedService.create(service: service, recorded_by_educator: educator, recorded_at: Time.now)
+    DiscontinuedService.create(service: service, recorded_by_educator: educator, discontinued_at: Time.now)
     service
   }
 
   let!(:past_discontinued) {
     service = FactoryGirl.create(:service, id: 70004)
-    DiscontinuedService.create(service: service, recorded_by_educator: educator, recorded_at: Time.now - 1.day)
+    DiscontinuedService.create(service: service, recorded_by_educator: educator, discontinued_at: Time.now - 1.day)
     service
   }
 
   let!(:future_discontinued) {
     service = FactoryGirl.create(:service, id: 70005)
-    DiscontinuedService.create(service: service, recorded_by_educator: educator, recorded_at: Time.now + 1.day)
+    DiscontinuedService.create(service: service, recorded_by_educator: educator, discontinued_at: Time.now + 1.day)
     service
   }
 
   let!(:another_future_discontinued) {
     service = FactoryGirl.create(:service, id: 70006)
-    DiscontinuedService.create(service: service, recorded_by_educator: educator, recorded_at: Time.now + 2.days)
+    DiscontinuedService.create(service: service, recorded_by_educator: educator, discontinued_at: Time.now + 2.days)
     service
   }
 

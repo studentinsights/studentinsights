@@ -412,7 +412,7 @@ describe StudentsController, :type => :controller do
         DiscontinuedService.create!({
           service_id: service.id,
           recorded_by_educator_id: educator.id,
-          recorded_at: Time.now
+          discontinued_at: Time.now
         })
       end
       it 'filters it' do
@@ -545,7 +545,7 @@ describe StudentsController, :type => :controller do
 
         it 'assigns the student\'s services correctly with full history' do
           old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student)
-          FactoryGirl.create(:discontinued_service, service: old_service, recorded_at: '2012-05-21')
+          FactoryGirl.create(:discontinued_service, service: old_service, discontinued_at: '2012-05-21')
           recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student)
           expect(assigns(:services)).not_to include(old_service)
           expect(assigns(:services)).to include(recent_service)
