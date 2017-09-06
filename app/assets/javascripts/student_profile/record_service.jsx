@@ -63,7 +63,8 @@
       return {
         serviceTypeId: null,
         providedByEducatorName: "",
-        momentStarted: moment.utc() // TODO should thread through
+        momentStarted: moment.utc(),
+        momentEnded: moment.utc() // TODO should thread through
       };
     },
 
@@ -71,6 +72,12 @@
       const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
       const updatedMoment = (textMoment.isValid()) ? textMoment : null;
       this.setState({ momentStarted: updatedMoment });
+    },
+
+    onEndDateChanged: function(dateText) {
+      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
+      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      this.setState({ momentEnded: updatedMoment });
     },
 
     onProvidedByEducatorTyping: function(event) {
@@ -95,7 +102,8 @@
         serviceTypeId: this.state.serviceTypeId,
         providedByEducatorName: this.state.providedByEducatorName,
         dateStartedText: this.state.momentStarted.format('YYYY-MM-DD'),
-        recordedByEducatorId: this.props.currentEducator.id
+        recordedByEducatorId: this.props.currentEducator.id,
+        dateEndedText: this.state.momentEnded.format('YYYY-MM-DD')
       });
     },
 
@@ -179,6 +187,18 @@
             styles={{ input: styles.datepickerInput }}
             value={this.state.momentStarted.format('MM/DD/YYYY')}
             onChange={this.onDateChanged}
+            datepickerOptions={{
+              showOn: 'both',
+              dateFormat: 'mm/dd/yy',
+              minDate: undefined
+            }} />
+          <div style={{ marginTop: 20 }}>
+            When did they end?
+          </div>
+          <Datepicker
+            styles={{ input: styles.datepickerInput }}
+            value={this.state.momentEnded.format('MM/DD/YYYY')}
+            onChange={this.onEndDateChanged}
             datepickerOptions={{
               showOn: 'both',
               dateFormat: 'mm/dd/yy',

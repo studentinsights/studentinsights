@@ -49,7 +49,8 @@
           service_type_id: serviceParams.serviceTypeId,
           date_started: serviceParams.dateStartedText,
           provided_by_educator_name: serviceParams.providedByEducatorName,
-          student_id: studentId
+          student_id: studentId,
+          date_ended: serviceParams.dateEndedText
         }
       };
       return this._post(url, body);
