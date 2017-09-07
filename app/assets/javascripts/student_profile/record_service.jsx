@@ -76,7 +76,7 @@
 
     onEndDateChanged: function(dateText) {
       const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
-      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      /* const updatedMoment = (textMoment.isValid()) ? textMoment : null; */
       this.setState({ momentEnded: updatedMoment });
     },
 
@@ -202,7 +202,7 @@
             datepickerOptions={{
               showOn: 'both',
               dateFormat: 'mm/dd/yy',
-              minDate: undefined
+              minDate: null
             }} />
         </div>
       );
