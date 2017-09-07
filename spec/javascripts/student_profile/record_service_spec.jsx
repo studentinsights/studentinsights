@@ -10,7 +10,7 @@ describe('RecordService', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const RecordService = window.shared.RecordService;
-  
+
   const helpers = {
     renderInto: function(el, props) {
       const mergedProps = merge(props || {}, {
@@ -57,7 +57,7 @@ describe('RecordService', function() {
       expect(el).toContainText('Who is working with Tamyra?');
       // TODO (as): test staff dropdown autocomplete async
       expect(el).toContainText('When did they start?');
-      expect($(el).find('.Datepicker .datepicker.hasDatepicker').length).toEqual(1);
+      expect($(el).find('.Datepicker .datepicker.hasDatepicker').length).toEqual(2);
       expect(helpers.findSaveButton(el).length).toEqual(1);
       expect(helpers.findSaveButton(el).attr('disabled')).toEqual('disabled');
       expect($(el).find('.btn.cancel').length).toEqual(1);
