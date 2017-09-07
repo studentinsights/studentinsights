@@ -63,8 +63,8 @@
       return {
         serviceTypeId: null,
         providedByEducatorName: "",
-        momentStarted: moment.utc(),
-        momentEnded: moment.utc() // TODO should thread through
+        momentStarted: moment.utc(), // TODO should thread through
+        momentEnded: moment.utc()
       };
     },
 
@@ -102,8 +102,8 @@
         serviceTypeId: this.state.serviceTypeId,
         providedByEducatorName: this.state.providedByEducatorName,
         dateStartedText: this.state.momentStarted.format('YYYY-MM-DD'),
-        recordedByEducatorId: this.props.currentEducator.id,
-        dateEndedText: this.state.momentEnded.format('YYYY-MM-DD')
+        dateEndedText: this.state.momentEnded.format('YYYY-MM-DD'),
+        recordedByEducatorId: this.props.currentEducator.id
       });
     },
 
