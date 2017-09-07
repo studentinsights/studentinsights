@@ -1,5 +1,3 @@
-import Roster from '../components/roster.jsx';
-import SectionHeader from './section_header.jsx';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
 $(function() {
