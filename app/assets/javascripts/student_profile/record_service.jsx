@@ -193,7 +193,7 @@
               minDate: undefined
             }} />
           <div style={{ marginTop: 20 }}>
-            When will or when did they end?
+            When did they end?
           </div>
           <Datepicker
             styles={{ input: styles.datepickerInput }}

@@ -99,7 +99,7 @@ class StudentsController < ApplicationController
       recorded_at: Time.now
     }))
     if service.save
-      if date_ended["date_ended"].to_time < Time.now
+      if date_ended["date_ended"].present? && date_ended["date_ended"].to_time < Time.now
         discontinued_service = DiscontinuedService.new({
           service_id: service.id,
           recorded_by_educator_id: current_educator.id,
