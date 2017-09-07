@@ -1,11 +1,10 @@
-import Roster from '../components/roster.jsx';
+import FlexibleRoster from '../components/roster.jsx';
 import SectionHeader from './section_header.jsx';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 
 (function(root) {
   window.shared || (window.shared = {});
   const MixpanelUtils = window.shared.MixpanelUtils;
-  const styles = window.shared.styles;
   const Routes = window.shared.Routes;
 
   window.shared.SectionPage = React.createClass({
@@ -72,15 +71,15 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
       ];
       
       return (
-        <div className="section" style={{ fontSize: styles.fontSize }}>
-          <div className="header" style={styles.symmary}>
+        <div className="section">
+          <div className="header">
             <SectionHeader 
               section={this.props.section}
               educators={this.props.educators}
               sections={this.props.sections}/>
           </div>
-          <div className="roster" style={{ padding: 20 }}>
-            <Roster
+          <div className="roster">
+            <FlexibleRoster
               rows={this.props.students}
               columns={columns}
               initialSortIndex={0}/>

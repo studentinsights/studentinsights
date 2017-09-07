@@ -3,7 +3,7 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
 window.shared || (window.shared = {});
 
 export default React.createClass({
-  displayName: 'Roster',
+  displayName: 'FlexibleRoster',
 
   propTypes: {
     rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
@@ -62,8 +62,8 @@ export default React.createClass({
   
   render () {
     return (
-      <div className='Roster'>
-        <table className='roster-table' style={{ width: '100%' }}>
+      <div className='FlexibleRoster'>
+        <table id='roster-table' className='roster-table' style={{ width: '100%' }}>
           <thead>
             {this.renderSuperHeaders()}
             {this.renderHeaders()}
@@ -99,7 +99,7 @@ export default React.createClass({
       <tr className='column-groups'>
         {superHeaders.map((superHeader, index) => {
           return (
-            <th key={index} colSpan={superHeader.span}>
+            <th key={index} className={superHeader.label == null ? '' : 'column-group'} colSpan={superHeader.span}>
               {superHeader.label}
             </th>
           );
@@ -135,9 +135,13 @@ export default React.createClass({
   renderBody() {
     return (
       <tbody id='roster-data'>
-        {this.orderedRows().map(row => {
+        {this.orderedRows().map((row, index) => {
+          const style = (index % 2 === 0)
+                    ? { backgroundColor: '#FFFFFF' }
+                    : { backgroundColor: '#F7F7F7' };
+          
           return (
-            <tr  key={row.id}>
+            <tr key={row.id} style={style}>
               {this.props.columns.map(column => {
                 return (
                   <td key={row.id + column.key}>

@@ -37,7 +37,7 @@ export default React.createClass({
   renderSectionSelector() {
     return (
       <span>
-        Section: <select id="section-select" value={this.props.section.id} onChange={this.handleChangeSection}>
+        <select id="section-select" value={this.props.section.id} onChange={this.handleChangeSection}>
             {this.props.sections.map(section => {
               return (
                 <option key={section.id} value={section.id}>
@@ -52,7 +52,7 @@ export default React.createClass({
   
   renderBulletSpacer: function() {
     return (
-      <span style={styles.subtitleItem}>
+      <span>
         •
       </span>
     );
@@ -61,35 +61,14 @@ export default React.createClass({
   render () {
     const section = this.props.section;
 
-    
     return (
-      <div>
-        <div>{this.renderSectionSelector()}</div>
-        <div style={styles.titleContainer}>
-          <div style={{ display: 'inline-block', flex: 'auto' }}>
-            <div style={{ display: 'inline-block' }}>
-              <p style={styles.nameTitle}>Section {section.section_number}</p>
-            </div>
-            <div id='sectionHeaderData' style={{ display: 'inline-block' }}>
-              {this.renderBulletSpacer()}
-              <span style={styles.subtitleItem}>
-                {section.course_description} ({section.course_number})
-              </span>
-              {this.renderBulletSpacer()}
-              <span style={styles.subtitleItem}>
-                {section.term_local_id}
-              </span>
-              {this.renderBulletSpacer()}
-              <span style={styles.subtitleItem}>
-                Room {section.room_number}
-              </span>
-              {this.renderBulletSpacer()}
-              <span style={styles.subtitleItem}>
-                {section.schedule}
-                </span>
-            </div>
-          </div>
+      <div className='SectionHeader'>
+        <div>
+          <h1>{section.section_number}</h1>
+          <p>{section.course_description} {'(' + section.course_number + ')'}</p>
+          <p>Room {section.room_number} {this.renderBulletSpacer()} Schedule: {section.schedule} {this.renderBulletSpacer()} Term: {section.term_local_id}</p>
         </div>
+        <div><p>Section: {this.renderSectionSelector()}</p></div>
       </div>
     );
   }

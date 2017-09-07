@@ -1,19 +1,25 @@
-.Roster {
+.FlexibleRoster {
   table.roster-table {
     border-collapse: collapse;
-
+  
     thead th {
       font-size: 12px;
-      border-bottom: 1px solid #ccc;
-    }
-
-    tr:hover {
-      background-color: $table-row-hover;
     }
 
     th, td {
-      padding: 4px 10px;
+      padding: 5px 10px;
       text-align: left;
+    }
+
+    th.column-group {
+      font-size: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th.sort-header {
+      border-bottom: 1px solid #000;
+      cursor: pointer;
     }
   }
 }
