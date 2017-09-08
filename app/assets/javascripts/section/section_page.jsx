@@ -4,7 +4,6 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
 
 (function(root) {
   window.shared || (window.shared = {});
-  const MixpanelUtils = window.shared.MixpanelUtils;
   const Routes = window.shared.Routes;
 
   window.shared.SectionPage = React.createClass({
@@ -26,15 +25,15 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
     },
     
     programSorter: function(a, b, sortBy) {
-      return SortHelpers.sortByCustomEnum(a,b,sortBy,['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'])
+      return SortHelpers.sortByCustomEnum(a,b,sortBy,['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed']);
     },
 
     languageProficiencySorter: function(a, b, sortBy) {
-      return SortHelpers.sortByCustomEnum(a,b,sortBy,['FLEP-Transitioning', 'FLEP', 'Fluent'])
+      return SortHelpers.sortByCustomEnum(a,b,sortBy,['FLEP-Transitioning', 'FLEP', 'Fluent']);
     },
 
     mcasPerformanceSorter: function(a, b, sortBy) {
-      return SortHelpers.sortByCustomEnum(a,b,sortBy,['A','P','NI','W','F'])
+      return SortHelpers.sortByCustomEnum(a,b,sortBy,['A','P','NI','W','F']);
     },
 
     render: function() {

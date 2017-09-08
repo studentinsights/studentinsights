@@ -40,14 +40,6 @@ export default React.createClass({
     }
     
   },
-    
-  onClickHeader(sortByIndex) {
-    if (sortByIndex === this.state.sortByIndex) {
-      this.setState({ sortDesc: !this.state.sortDesc });
-    } else {
-      this.setState({ sortByIndex: sortByIndex});
-    }
-  },
 
   headerClassName (sortByIndex) {
     // Using tablesort classes here for the cute CSS carets,
@@ -58,6 +50,14 @@ export default React.createClass({
     if (this.state.sortDesc) return 'sort-header sort-down';
 
     return 'sort-header sort-up';
+  },
+
+  onClickHeader(sortByIndex) {
+    if (sortByIndex === this.state.sortByIndex) {
+      this.setState({ sortDesc: !this.state.sortDesc });
+    } else {
+      this.setState({ sortByIndex: sortByIndex});
+    }
   },
   
   render () {
@@ -117,8 +117,8 @@ export default React.createClass({
                 className={this.headerClassName(index)}>
               {column.label}
             </th>
-        );
-      }, this)}
+          );
+        }, this)}
       </tr>
     );
   },
@@ -128,7 +128,7 @@ export default React.createClass({
       return column.cell(item,column);
     } 
     else {
-      return item[column.key]
+      return item[column.key];
     }
   },
 

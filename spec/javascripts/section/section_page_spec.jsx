@@ -1,7 +1,6 @@
 import SpecSugar from '../support/spec_sugar.jsx';
 
 describe('SectionPage', function() {
-  const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const SectionPage = window.shared.SectionPage;
 
@@ -48,15 +47,21 @@ describe('SectionPage', function() {
       const el = this.testEl;
       helpers.renderInto(el, props);
 
-      const headerText = $(el).find('#sectionHeaderData').text();
-      expect(headerText).toEqual('•Awesome Art Class (Art)•9•Room 304•3(M-R)');
+      const headerInfo = $(el).find('#section-header-info')
+      const sectionName = headerInfo.find('h1').text();
+      const courseInfo = headerInfo.find('#course-info').text();
+      const sectionDetail = headerInfo.find('#section-detail').text();
+     
+      expect(sectionName).toEqual('Art-1');
+      expect(courseInfo).toEqual('Awesome Art Class (Art)');
+      expect(sectionDetail).toEqual('Room 304 • Schedule: 3(M-R) • Term: 9');
     });
 
     it('renders the correct roster headers', function() {
       const el = this.testEl;
       helpers.renderInto(el, props);
       
-      const headers = $(el).find('#roster-header th')
+      const headers = $(el).find('#roster-header th');
 
       expect(headers.length).toEqual(16);
       expect(headers[0].innerHTML).toEqual('Name');

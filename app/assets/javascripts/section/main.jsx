@@ -3,7 +3,6 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 $(function() {
   if ($('body').hasClass('sections') && $('body').hasClass('show')) {
     const SectionPage = window.shared.SectionPage;
-    const Routes = window.shared.Routes;
 
     const serializedData = $('#serialized-data').data();
     MixpanelUtils.registerUser(serializedData.currentEducator);

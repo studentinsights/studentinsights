@@ -1,5 +1,5 @@
 import SpecSugar from '../support/spec_sugar.jsx';
-import Roster from '../../../app/assets/javascripts/components/roster.jsx';
+import Roster from '../../../app/assets/javascripts/components/flexible_roster.jsx';
 
 describe('Roster', function() {
   
@@ -30,7 +30,7 @@ describe('Roster', function() {
       const el = this.testEl;
 
       helpers.renderInto(el, props);
-      const headers = $(el).find('#roster-header th')
+      const headers = $(el).find('#roster-header th');
 
       expect(headers.length).toEqual(3);
       expect(headers[0].innerHTML).toEqual('Test Label 1');
