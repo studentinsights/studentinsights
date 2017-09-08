@@ -1,26 +1,6 @@
 window.shared || (window.shared = {});
 
 const Routes = window.shared.Routes;
-const styles = {
-    titleContainer: {
-      fontSize: 16,
-      padding: 20,
-      display: 'flex'
-    },
-    nameTitle: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginRight: 5
-    },
-    titleItem: {
-      fontSize: 24,
-      padding: 5
-    },
-    subtitleItem: {
-      fontSize: 22,
-      padding: 5
-    }
-  };
 
 export default React.createClass({
   displayName: 'SectionHeader',
