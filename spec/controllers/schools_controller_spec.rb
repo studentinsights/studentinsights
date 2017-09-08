@@ -29,6 +29,20 @@ describe SchoolsController, :type => :controller do
         expect(response).to be_success
       end
 
+      before do
+        FactoryGirl.create(
+          :student,
+          :with_service_and_event_note_and_intervention,
+          school: School.find_by_local_id('HEA')
+        )
+      end
+
+      it 'succeeds when students in the school have event notes and services' do
+        sign_in(educator)
+        make_request('hea')
+        expect(response).to be_success
+      end
+
     end
 
     context 'schoolwide access but no districtwide access' do
