@@ -14,8 +14,8 @@ module Admin
     end
 
     def update
-      # TODO (ARS): re-compute student searchbar JSON once permissions are updated
       super
+      requested_resource.save_student_searchbar_json
     end
 
     def resource_params
