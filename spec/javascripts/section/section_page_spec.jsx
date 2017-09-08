@@ -47,7 +47,7 @@ describe('SectionPage', function() {
       const el = this.testEl;
       helpers.renderInto(el, props);
 
-      const headerInfo = $(el).find('#section-header-info')
+      const headerInfo = $(el).find('#section-header-info');
       const sectionName = headerInfo.find('h1').text();
       const courseInfo = headerInfo.find('#course-info').text();
       const sectionDetail = headerInfo.find('#section-detail').text();
