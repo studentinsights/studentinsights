@@ -1,5 +1,4 @@
 class StudentsController < ApplicationController
-  include SerializeDataHelper
   include ApplicationHelper
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
@@ -33,7 +32,7 @@ class StudentsController < ApplicationController
       feed: student_feed(student, restricted_notes: false),     # Notes, services
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
-      service_types_index: service_types_index,
+      service_types_index: ServiceSerializer.service_types_index,
       event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
@@ -98,6 +97,9 @@ class StudentsController < ApplicationController
       recorded_by_educator_id: current_educator.id,
       recorded_at: Time.now
     }))
+
+    serializer = ServiceSerializer.new(service)
+
     if service.save
       if date_ended["date_ended"].present? && date_ended["date_ended"].to_time < Time.now
         discontinued_service = DiscontinuedService.new({
@@ -107,7 +109,7 @@ class StudentsController < ApplicationController
         })
         discontinued_service.save
       end
-      render json: serialize_service(service)
+      render json: serializer.serialize_service
     else
       render json: { errors: service.errors.full_messages }, status: 422
     end
@@ -147,11 +149,11 @@ class StudentsController < ApplicationController
         .select {|note| note.is_restricted == restricted_notes}
         .map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
       services: {
-        active: student.services.active.map {|service| serialize_service(service) },
-        discontinued: student.services.discontinued.map {|service| serialize_service(service) }
+        active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
+        discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }
       },
       deprecated: {
-        interventions: student.interventions.map { |intervention| serialize_intervention(intervention) }
+        interventions: student.interventions.map { |intervention| DeprecatedInterventionSerializer.new(intervention).serialize_intervention }
       }
     }
   end
