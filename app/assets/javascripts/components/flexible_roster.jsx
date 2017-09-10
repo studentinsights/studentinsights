@@ -75,22 +75,27 @@ export default React.createClass({
   },
 
   renderSuperHeaders() {
-    var currentCount = 0;
     const columns = this.props.columns;
+    let superHeaders = [];
+    let currentCount = 0;
 
+    for (let i=0; i<columns.length; i++) {
+      // group for the current column
+      let itemGroup = columns[i].group;
 
-    var superHeaders = [];
+      // group for the next column for comparison
+      // set to null if this is the last column
+      let nextItemGroup = columns.length > i+1 ? columns[i+1].group : null;
 
-    for (var i=0; i<columns.length; i++) {
+      // count of items with the same group
+      // increment in the beginning since colSpan starts at 1
       currentCount++;
       
-      // if this is the last column 
-      // or this column group differs from the next colum group,
+      // if the current item doesn't equal the next
       // push the super header with a length of currentCount
       // and reset currentCount for a new column group
-
-      if(i+1 == columns.length || columns[i].group != columns[i+1].group) {
-        superHeaders.push({label: columns[i].group, span: currentCount});
+      if(itemGroup != nextItemGroup) {
+        superHeaders.push({label: itemGroup, span: currentCount});
         currentCount = 0;
       }
     }
