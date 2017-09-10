@@ -116,11 +116,11 @@ describe SectionsController, :type => :controller do
     end
     
     context 'districtwide educator logged in' do
-      let(:dw_educator) { FactoryGirl.create(:educator, districtwide_access: true, school: school) }
+      let(:dw_educator) { FactoryGirl.create(:educator, districtwide_access: true) }
   
       before { sign_in(dw_educator) }
 
-      context 'when requesting a section inside their school' do
+      context 'when requesting a section in any school' do
         it 'is successful' do
           make_request(first_section.id)
           expect(response.status).to eq 200
@@ -131,13 +131,6 @@ describe SectionsController, :type => :controller do
           expected_section_ids = [first_section, second_section, third_section, other_school_section].map(&:id)
           sections = extract_serialized_ids(controller, :sections)
           expect(sections).to match_array(expected_section_ids)
-        end
-      end
-
-      context 'when requesting section outside their school' do
-        it 'is successful' do
-          make_request(other_school_section.id)
-          expect(response.status).to eq 200
         end
       end
     end
