@@ -44,7 +44,7 @@ class PrecomputeStudentHashesJob < Struct.new :log
     authorized_students = Student.find(authorized_student_ids)
     student_hashes = authorized_students.map {|student| student_hash_for_slicing(student) }
 
-    key = precomputed_student_hashes_key(precomputed_time, authorized_student_ids)
+    key = PrecomputedQueryDoc.precomputed_student_hashes_key(precomputed_time, authorized_student_ids)
     write_doc_or_log(key, { student_hashes: student_hashes })
     nil
   end
