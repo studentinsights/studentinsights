@@ -1,7 +1,7 @@
-$(function() {
-  var Env = window.shared.Env;
+$(() => {
+  const Env = window.shared.Env;
 
-  var SessionTimeoutWarning = function () {};
+  const SessionTimeoutWarning = function () {};
 
   SessionTimeoutWarning.prototype.count = function () {
     window.setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
@@ -12,14 +12,14 @@ $(function() {
   };
 
   if ($('body').hasClass('educator-signed-in')) {
-    var warning = new SessionTimeoutWarning;
+    var warning = new SessionTimeoutWarning();
     warning.count();
   }
 
-  $("#renew-sesion-link").click(function () {
+  $('#renew-sesion-link').click(() => {
     $.ajax({
       url: '/educators/reset',
-      success: function () {
+      success() {
         $('#renew-session').slideUp();
         warning.count();   // Resent timeout count
       }

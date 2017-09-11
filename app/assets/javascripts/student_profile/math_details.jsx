@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
@@ -60,7 +60,7 @@
     },
 
     // TODO(er) factor out
-    percentileYAxis () {
+    percentileYAxis() {
       return merge(ProfileChartSettings.percentile_yaxis, {
         plotLines: [{
           color: '#666',
@@ -78,7 +78,7 @@
       });
     },
 
-    render () {
+    render() {
       return (
         <div className="MathDetails">
           {this.renderNavBar()}
@@ -89,7 +89,7 @@
       );
     },
 
-    renderNavBar () {
+    renderNavBar() {
       return (
         <div style={styles.navBar}>
           <a style={styles.navBar} href="#starMath">
@@ -107,7 +107,7 @@
       );
     },
 
-    renderHeader (title) {
+    renderHeader(title) {
       return (
         <div style={styles.secHead}>
           <h4 style={styles.title}>
@@ -122,7 +122,7 @@
       );
     },
 
-    renderStarMath () {
+    renderStarMath() {
       return (
         <div id="starMath" style={styles.container}>
           {this.renderHeader('STAR Math, last 4 years')}
@@ -136,12 +136,13 @@
             yAxis={merge(this.percentileYAxis(), {
               title: { text: 'Percentile rank' }
             })}
-            showGradeLevelEquivalent= { true }/>
+            showGradeLevelEquivalent
+          />
         </div>
       );
     },
 
-    renderMCASMathScore () {
+    renderMCASMathScore() {
       return (
         <div id="MCASMath" style={styles.container}>
           {this.renderHeader('MCAS Math Scores, last 4 years')}
@@ -152,15 +153,16 @@
             }]}
             titleText="MCAS Math Scores, last 4 years"
             student={this.props.student}
-            yAxis={merge(ProfileChartSettings.default_mcas_score_yaxis,{
+            yAxis={merge(ProfileChartSettings.default_mcas_score_yaxis, {
               plotLines: ProfileChartSettings.mcas_level_bands,
               title: { text: 'Scaled score' }
-            })} />
+            })}
+          />
         </div>
       );
     },
 
-    renderMCASMathGrowth: function() {
+    renderMCASMathGrowth() {
       return (
         <div id="MCASMathGrowth" style={styles.container}>
           {this.renderHeader('MCAS Math SGPs, last 4 years')}
@@ -173,10 +175,11 @@
             student={this.props.student}
             yAxis={merge(this.percentileYAxis(), {
               title: { text: 'Student growth percentile (SGP)' }
-            })} />
+            })}
+          />
         </div>
       );
     }
 
   });
-})();
+}());

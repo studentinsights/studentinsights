@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
 
   window.shared.ServiceTypeDropdown = React.createClass({
@@ -9,7 +9,7 @@
       value: React.PropTypes.string.isRequired
     },
 
-    componentDidMount: function() {
+    componentDidMount() {
       const self = this;
 
       $(this.refs.ServiceTypeDropdown).autocomplete({
@@ -18,18 +18,18 @@
         minLength: 0,
         autoFocus: true,
 
-        select: function(event, ui) {
+        select(event, ui) {
           self.props.onUserSelectServiceType(ui.item.value);
         },
 
       });
     },
 
-    toggleOpenMenu: function () {
+    toggleOpenMenu() {
       $(this.refs.ServiceTypeDropdown).autocomplete('search', '');
     },
 
-    render: function () {
+    render() {
       return (
         <div>
           <div style={{ marginTop: 20 }}>
@@ -43,7 +43,8 @@
             }}
             ref="ServiceTypeDropdown"
             onChange={this.props.onUserTypingServiceType}
-            value={this.props.value} />
+            value={this.props.value}
+          />
           <a
             style={{
               position: 'relative',
@@ -51,7 +52,8 @@
               fontSize: 10,
               color: '#4d4d4d'
             }}
-            onClick={this.toggleOpenMenu}>
+            onClick={this.toggleOpenMenu}
+          >
             {String.fromCharCode('0x25BC')}
           </a>
         </div>
@@ -59,6 +61,5 @@
     },
 
   });
-
-})();
+}());
 

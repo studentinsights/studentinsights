@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts; exit 0",
-    "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts"
+    "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts",
+    "lint-features-only": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts"
   },
   "dependencies": {
     "babel-eslint": "^6.0.4",
@@ -19,7 +20,10 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "browserify-incremental": "^3.1.1",
-    "eslint": "^3.3.1",
-    "eslint-plugin-react": "^6.1.2"
+    "eslint": "3.19.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "5",
+    "eslint-plugin-react": "^7.1.0"
   }
 }

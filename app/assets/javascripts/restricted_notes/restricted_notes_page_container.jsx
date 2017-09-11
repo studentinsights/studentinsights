@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
@@ -23,7 +23,7 @@
       api: PropTypes.api
     },
 
-    getInitialState: function() {
+    getInitialState() {
       const serializedData = this.props.serializedData;
 
       return {
@@ -51,14 +51,14 @@
       };
     },
 
-    componentWillMount: function(props, state) {
+    componentWillMount(props, state) {
       this.api = this.props.api || new Api();
     },
 
-    onClickSaveNotes: function(inputEventNoteParams) {
+    onClickSaveNotes(inputEventNoteParams) {
       // All notes taken on this page should be restricted.
-      const eventNoteParams = merge(inputEventNoteParams, {is_restricted: true});
-      this.setState({ requests: merge(this.state.requests, { saveNote: 'pending'}) });
+      const eventNoteParams = merge(inputEventNoteParams, { is_restricted: true });
+      this.setState({ requests: merge(this.state.requests, { saveNote: 'pending' }) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
@@ -66,7 +66,7 @@
 
     // TODO(kr) suspect bug here with merging in notes.  Should factor out this
     // code from `PageContainer` and re-use here.
-    onSaveNotesDone: function(response) {
+    onSaveNotesDone(response) {
       const updatedEventNotes = this.state.feed.event_notes.concat([response]);
       const updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
       this.setState({
@@ -75,16 +75,16 @@
       });
     },
 
-    onSaveNotesFail: function(request, status, message) {
+    onSaveNotesFail(request, status, message) {
       this.setState({
         requests: merge(this.state.requests, { saveNote: 'error' })
       });
     },
 
-    render: function() {
+    render() {
       return (
         <div className="RestrictedNotesPageContainer">
-          <div className="RestrictedNotesDetails" style={{display: 'flex'}}>
+          <div className="RestrictedNotesDetails" style={{ display: 'flex' }}>
             <NotesDetails
               {...merge(_.pick(this.state,
                 'currentEducator',
@@ -102,13 +102,14 @@
                 helpContent: this.renderNotesHelpContent(),
                 helpTitle: 'What is a Restricted Note?',
                 title: 'Restricted Notes'
-              })} />
+              })}
+            />
           </div>
         </div>
       );
     },
 
-    renderNotesHelpContent: function(){
+    renderNotesHelpContent() {
       return (
         <div>
           <p>
@@ -131,4 +132,4 @@
       );
     }
   });
-})();
+}());
