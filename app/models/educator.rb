@@ -145,7 +145,7 @@ class Educator < ActiveRecord::Base
     if districtwide_access?
       Section.all
     elsif schoolwide_access?
-      Section.joins(:course).where('courses.school_id = ?', school.id) 
+      Section.joins(:course).where('courses.school_id = ?', school.id)
     else
       sections
     end
@@ -176,6 +176,12 @@ class Educator < ActiveRecord::Base
 
   def self.save_student_searchbar_json
     find_each { |educator| educator.save_student_searchbar_json }
+  end
+
+  def self.save_student_searchbar_json_for_folks_who_log_in
+    educators_who_log_in = Educator.where("sign_in_count > ?", 0)
+
+    educators_who_log_in.find_each { |e| e.save_student_searchbar_json }
   end
 
   def save_student_searchbar_json
