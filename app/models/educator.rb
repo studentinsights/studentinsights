@@ -10,6 +10,9 @@ class Educator < ActiveRecord::Base
   belongs_to  :school
   has_one     :homeroom
   has_many    :students, through: :homeroom
+  has_many    :educator_section_assignments
+  has_many    :sections, through: :educator_section_assignments
+  has_many    :section_students, source: :students, through: :sections
   has_many    :interventions
 
   validates :email, presence: true, uniqueness: true
@@ -67,6 +70,7 @@ class Educator < ActiveRecord::Base
     return true if self.schoolwide_access? || self.admin? # Schoolwide admin
     return true if self.has_access_to_grade_levels? && student.grade.in?(self.grade_level_access) # Grade level access
     return true if student.in?(self.students) # Homeroom level access
+    return true if student.in?(self.section_students) # Section level access
     false
   end
 
@@ -74,6 +78,16 @@ class Educator < ActiveRecord::Base
     self.districtwide_access? ||
     (self.schoolwide_access? && self.school == currentSchool) ||
     (self.has_access_to_grade_levels? && self.school == currentSchool)
+  end
+
+  def is_authorized_for_section(section)
+    return true if self.districtwide_access?
+
+    return false if self.school.present? && self.school != section.course.school
+
+    return true if self.schoolwide_access? || self.admin?
+    return true if section.in?(self.sections)
+    false
   end
 
   def students_for_school_overview(*additional_includes)
@@ -100,6 +114,12 @@ class Educator < ActiveRecord::Base
     raise Exceptions::NoAssignedHomeroom                    # <= Logged-in educator has no assigned homeroom
   end
 
+  def default_section
+    raise Exceptions::NoSections if Section.count == 0    # <= We can't show any sectionss if there are none
+    return sections[0] if sections.present?                      # <= Logged-in educator has at least one assigned section
+    raise Exceptions::NoAssignedSections                    # <= Logged-in educator has no assigned section
+  end
+
   def has_access_to_grade_levels?
     grade_level_access.present? && grade_level_access.size > 0
   end
@@ -118,6 +138,16 @@ class Educator < ActiveRecord::Base
       school.homerooms.where(grade: grade_level_access)
     else
       []
+    end
+  end
+
+  def allowed_sections
+    if districtwide_access?
+      Section.all
+    elsif schoolwide_access?
+      Section.joins(:course).where('courses.school_id = ?', school.id) 
+    else
+      sections
     end
   end
 

@@ -27,6 +27,7 @@ School.seed_somerville_schools
 
 healey = School.find_by_name("Arthur D Healey")
 wsns = School.find_by_name("West Somerville Neighborhood")
+shs = School.find_by_name("Somerville High")
 
 puts "Creating demo educators..."
 Educator.destroy_all
@@ -61,6 +62,22 @@ Educator.create!([{
   school: wsns,
   admin: false,
   schoolwide_access: false,
+}, {
+  email: "shs_art@example.com",
+  full_name: 'Teacher, Hugo',
+  password: 'demo-password',
+  local_id: '650',
+  school: shs,
+  admin: false,
+  schoolwide_access: false,
+}, {
+  email: "shs_science@example.com",
+  full_name: 'Teacher, Fatima',
+  password: 'demo-password',
+  local_id: '750',
+  school: shs,
+  admin: false,
+  schoolwide_access: false,
 }])
 
 puts 'Creating homerooms..'
@@ -72,6 +89,19 @@ homerooms = [
   Homeroom.create(name: "WSNS 500", grade: "5", school: wsns),
 ]
 
+puts 'Creating course and sections..'
+
+art_course = Course.create(course_number: "ART-302", course_description: "Ceramic Art 3", school: shs)
+science_course = Course.create(course_number: "SCI-201", course_description: "Physics 2", school: shs)
+
+sections = [
+  Section.create(section_number: "ART-302A", term_local_id: "FY", schedule: "2(M,R)", room_number: "201", course: art_course),
+  Section.create(section_number: "ART-302B", term_local_id: "FY", schedule: "4(M,R)", room_number: "234", course: art_course),
+  Section.create(section_number: "SCI-201A", term_local_id: "S1", schedule: "3(M,W,F)", room_number: "306W", course: science_course),
+  Section.create(section_number: "SCI-201B", term_local_id: "S1", schedule: "4(M,W,F)", room_number: "306W", course: science_course),
+]
+
+
 ServiceUpload.create([
   { file_name: "ReadingIntervention-2016.csv" },
   { file_name: "ATP-2016.csv" },
@@ -81,15 +111,36 @@ ServiceUpload.create([
 
 fifth_grade_educator = Educator.find_by_email('fake-fifth-grade@example.com')
 wsns_fifth_grade_educator = Educator.find_by_email('wsns@example.com')
+shs_art_educator = Educator.find_by_email('shs_art@example.com')
+shs_science_educator = Educator.find_by_email('shs_science@example.com')
 
 Homeroom.find_by_name("HEA 500").update_attribute(:educator, fifth_grade_educator)
 Homeroom.find_by_name("WSNS 500").update_attribute(:educator, wsns_fifth_grade_educator)
+
+art_course.sections.each do |section|
+  EducatorSectionAssignment.create(educator: shs_art_educator, section: section)
+end
+
+science_course.sections.each do |section|
+  EducatorSectionAssignment.create(educator: shs_science_educator, section: section)
+end
 
 homerooms.each do |homeroom|
   puts "Creating students for homeroom #{homeroom.name}..."
   school = homeroom.school
   15.times do
     FakeStudent.new(school, homeroom)
+  end
+end
+
+shs_homeroom = Homeroom.create(name: "SHS ALL", grade: "10", school: shs)
+
+sections.each do |section|
+  puts "Creating students for section #{section.section_number}..."
+  school = section.course.school
+  15.times do
+    fake_student = FakeStudent.new(school, shs_homeroom)
+    StudentSectionAssignment.create(student: fake_student.student, section: section)
   end
 end
 

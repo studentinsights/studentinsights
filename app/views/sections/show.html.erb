@@ -1,17 +1,3 @@
-<h1><%=@section.section_number%></h1>
-<p>Course Number: <%=@section.course.course_number%></p>
-<p>School Name: <%=@section.course.school.local_id%></p>
-<p>Term: <%=@section.term_local_id%></p>
-<p>Schedule: <%=@section.schedule%></p>
-<p>Room Number: <%=@section.room_number%></p>
-<h2>Students:</h2>
-<ul><% @section.students.order(:last_name, :first_name).each do |student| %>
-  <li><%= link_to "#{student.last_name}, #{student.first_name}", student %></li>
-<% end %>
-</ul>
-<h2>Educators:</h2>
-<ul><% @section.educators.order(:full_name).each do |educator| %>
-  <li><%=educator.full_name%></li>
-<% end %>
-</ul>
+<div id="main"></div>
+<%= tag("div", id: "serialized-data", data: @serialized_data) %>
 
