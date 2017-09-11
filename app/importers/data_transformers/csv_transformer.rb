@@ -4,8 +4,12 @@ class CsvTransformer
 
   attr_accessor :pre_cleanup_csv_size
 
+  def initialize(headers=true)
+    @headers=headers
+  end
+  
   def transform(file)
-    csv = CSV.parse(file, headers: true,
+    csv = CSV.parse(file, headers: @headers,
                           header_converters: :symbol,
                           converters: lambda { |h| nil_converter(h) })
 
