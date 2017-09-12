@@ -51,3 +51,6 @@ Lint/DuplicateMethods:
 
 Lint/HandleExceptions:
   Enabled: true
+
+Lint/InheritException:
+  Enabled: true
