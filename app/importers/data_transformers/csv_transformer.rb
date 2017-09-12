@@ -7,7 +7,7 @@ class CsvTransformer
   def initialize(headers=true)
     @headers=headers
   end
-  
+
   def transform(file)
     csv = CSV.parse(file, headers: @headers,
                           header_converters: :symbol,
@@ -21,7 +21,7 @@ class CsvTransformer
 
     csv
   end
-  
+
   def nil_converter(value)
     value == '\N' ? nil : value
   end
