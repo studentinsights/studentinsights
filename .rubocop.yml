@@ -54,3 +54,6 @@ Lint/HandleExceptions:
 
 Lint/InheritException:
   Enabled: true
+
+Lint/Loop:
+  Enabled: true
