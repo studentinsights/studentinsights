@@ -18,7 +18,7 @@ class StudentSectionGradeRow < Struct.new(:row, :school_ids_dictionary)
       student_section_assignment = StudentSectionAssignment.find_or_initialize_by(student: student,
                                                                                 section: section)
       student_section_assignment.assign_attributes(
-        grade: row[:grade]
+        grade: grade
       )
       student_section_assignment
     end
@@ -32,4 +32,7 @@ class StudentSectionGradeRow < Struct.new(:row, :school_ids_dictionary)
     return Section.find_by_section_number(row[:section_number]) if row[:section_number]
   end
 
+  def grade
+    return row[:grade] if row[:grade].is_a? Integer
+  end
 end
