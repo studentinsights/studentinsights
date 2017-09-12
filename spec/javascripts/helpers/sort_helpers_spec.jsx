@@ -36,4 +36,40 @@ describe('SortHelpers', function() {
       
     });
   });
+
+  describe('#sortByNumber', function() {
+    const preSortData = [
+      {testElement: 5},
+      {testElement: 4},
+      {testElement: 5},
+      {testElement: 1},
+      {testElement: 0}
+    ];
+    
+    it('correctly sorts', function() {
+      let sortData = preSortData.slice();
+      
+      let targetData = [
+        {testElement: 5},
+        {testElement: 5},
+        {testElement: 4},
+        {testElement: 1},
+        {testElement: 0}
+      ];
+      
+      sortData.sort((a, b) => SortHelpers.sortByNumber(a, b, 'testElement'));
+      
+      let match = true;
+
+      for(let i=0; i<preSortData.length; i++){
+        if(sortData[i]['testElement'] != targetData[i]['testElement']) {
+          match = false;
+        }
+      }
+
+      expect(match).toBe(true);
+      
+    });
+  });
+
 });
