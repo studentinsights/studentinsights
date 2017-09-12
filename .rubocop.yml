@@ -45,3 +45,6 @@ Lint/Debugger:
 
 Lint/DeprecatedClassMethods:
   Enabled: true
+
+Lint/DuplicateMethods:
+  Enabled: true
