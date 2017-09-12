@@ -42,3 +42,6 @@ Lint/ConditionPosition:
 
 Lint/Debugger:
   Enabled: true
+
+Lint/DeprecatedClassMethods:
+  Enabled: true
