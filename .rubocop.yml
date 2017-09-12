@@ -33,3 +33,6 @@ Layout/Tab:
 
 Layout/SpaceInsideStringInterpolation:
   Enabled: true
+
+Lint/AssignmentInCondition:
+  Enabled: true
