@@ -33,6 +33,6 @@ class StudentSectionGradeRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def grade
-    return row[:grade] if row[:grade].is_a? Integer
+    return Integer(row[:grade]) rescue nil
   end
 end

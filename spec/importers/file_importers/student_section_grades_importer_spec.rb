@@ -43,7 +43,26 @@ RSpec.describe StudentSectionGradesImporter do
         described_class.new.import_row(row)
       end
 
-      it 'creates adds grade to student section assignment' do
+      it 'adds grade to student section assignment' do
+        ssa.reload
+        expect(ssa.grade).to eq(nil)
+      end
+    end
+
+    context 'nonsense grade' do
+      let(:row) { { section_number:section.section_number,
+                  student_local_id:student.local_id, 
+                  school_local_id: 'SHS',
+                  course_number:section.course_number, 
+                  term_local_id:'FY',
+                  grade: 'NONSENSE'
+              } }
+
+      before do
+        described_class.new.import_row(row)
+      end
+
+      it 'does not add grade to student section assignment' do
         ssa.reload
         expect(ssa.grade).to eq(nil)
       end
