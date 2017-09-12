@@ -16,8 +16,13 @@ namespace :chores do
   end
 
   desc 'Update educator student searchbar cached data'
-  task update_educator_student_searchbars: :environment do
+  task update_searchbar_data_for_all_educators: :environment do
     Educator.save_student_searchbar_json
+  end
+
+  desc 'Update educator student searchbar data for those who have logged in'
+  task update_searchbar_data_for_educators_who_log_in: :environment do
+    Educator.save_student_searchbar_json_for_folks_who_log_in
   end
 
   desc 'Kick off background worker for data import'
