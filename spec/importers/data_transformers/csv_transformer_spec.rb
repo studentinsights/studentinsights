@@ -16,7 +16,6 @@ RSpec.describe CsvTransformer do
           expect(output.headers).to match_array(headers_symbols)
         end
       end
-      
       context 'headers not in csv' do
         let!(:file) { File.open("#{Rails.root}/spec/fixtures/fake_no_headers.csv") }
         let(:headers) {["section_number","student_local_id","school_local_id","course_number","term_local_id","grade"]}
