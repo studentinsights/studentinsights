@@ -48,3 +48,6 @@ Lint/DeprecatedClassMethods:
 
 Lint/DuplicateMethods:
   Enabled: true
+
+Lint/HandleExceptions:
+  Enabled: true
