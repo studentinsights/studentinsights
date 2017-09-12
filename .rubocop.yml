@@ -21,3 +21,6 @@ Layout/TrailingBlankLines:
 
 Layout/BlockEndNewline:
   Enabled: true
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: true

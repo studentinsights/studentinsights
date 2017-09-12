@@ -195,8 +195,6 @@ class MixpanelReport
     JSON.parse(output)
   end
 
-
-
   # Example:
   # ---------------------------------------------------
   # Date      Notes   Users
