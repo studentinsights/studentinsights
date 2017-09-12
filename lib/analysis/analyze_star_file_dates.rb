@@ -23,4 +23,3 @@ class AnalyzeStarFileDates < Struct.new(:path)
     return Date.new(year, month, day)
   end
 end
-

@@ -8,4 +8,3 @@ class ImportJob
     1
   end
 end
-

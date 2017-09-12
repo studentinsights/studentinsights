@@ -15,3 +15,6 @@ AllCops:
 
 Layout/TrailingWhitespace:
   Enabled: true
+
+Layout/TrailingBlankLines:
+  Enabled: true
