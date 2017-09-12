@@ -4,11 +4,11 @@ class EducatorSectionAssignmentRow < Struct.new(:row, :school_ids_dictionary)
   #
   # Expects the following headers:
   #
-  #   :local_id, :course_number, :school_local_id, :section_number, 
+  #   :local_id, :course_number, :school_local_id, :section_number,
   #   :term_local_id
   #
 
-  
+
   def self.build(row)
     new(row).build
   end

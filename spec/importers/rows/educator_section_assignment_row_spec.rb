@@ -10,8 +10,8 @@ RSpec.describe EducatorSectionAssignmentRow do
     context 'happy path' do
       let!(:section) { FactoryGirl.create(:section) }
       let!(:educator) { FactoryGirl.create(:educator) }
-      let(:row) { { local_id: educator.local_id, 
-                    section_number: section.section_number, 
+      let(:row) { { local_id: educator.local_id,
+                    section_number: section.section_number,
                 } }
 
       it 'assigns info correctly' do

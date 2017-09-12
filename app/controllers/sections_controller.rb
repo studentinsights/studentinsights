@@ -1,15 +1,15 @@
 class SectionsController < ApplicationController
   before_action :authorize_and_assign_section, only: :show
   before_action :authenticate_districtwide_access!, only: :index # Extra authentication layer
-  
+
   def index
-    #just setting this to all courses for now 
+    #just setting this to all courses for now
     #since we are only testing with district wide admins
     @educator_courses = Course.all.order(:course_number)
   end
-  
-  
-  
+
+
+
   def show
 
     section_students = serialize_students(@current_section.students)
@@ -25,7 +25,7 @@ class SectionsController < ApplicationController
   end
 
   private
-  def authorize_and_assign_section    
+  def authorize_and_assign_section
     requested_section = Section.find(params[:id])
 
     if current_educator.is_authorized_for_section(requested_section)

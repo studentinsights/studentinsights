@@ -1,14 +1,14 @@
 class CourseRow < Struct.new(:row, :school_ids_dictionary)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
-  # This structure represents courses ignoring the section data. Unfortunately this is run 
+  # This structure represents courses ignoring the section data. Unfortunately this is run
   # for each section, rather than each course.
   #
   # Expects the following headers:
   #
-  #   :course_number, :course_description, :school_local_id, 
+  #   :course_number, :course_description, :school_local_id,
   #   :section_number, :term_local_id, :section_schedule,
   #   :section_room_number
-  
+
   def self.build(row)
     new(row).build
   end

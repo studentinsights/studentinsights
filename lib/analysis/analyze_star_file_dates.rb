@@ -13,7 +13,7 @@ class AnalyzeStarFileDates < Struct.new(:path)
     puts 'Last date:'
     puts sorted_csv.last
   end
-  
+
   private
   def star_date_to_ruby_date(star_date)
     date_part = star_date.split(' ')[0]
