@@ -36,3 +36,6 @@ Layout/SpaceInsideStringInterpolation:
 
 Lint/AssignmentInCondition:
   Enabled: true
+
+Lint/ConditionPosition:
+  Enabled: true
