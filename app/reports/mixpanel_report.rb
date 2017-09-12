@@ -48,7 +48,6 @@ class MixpanelReport
       output
     end
 
-
     @buffer.join("\n")
   end
 
@@ -194,8 +193,6 @@ class MixpanelReport
     output = `#{cmd}`
     JSON.parse(output)
   end
-
-
 
   # Example:
   # ---------------------------------------------------

@@ -62,4 +62,3 @@ RSpec.describe SomervilleX2Importers do
   end
 
 end
-

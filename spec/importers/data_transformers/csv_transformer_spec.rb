@@ -12,4 +12,3 @@ RSpec.describe CsvTransformer do
     end
   end
 end
-

@@ -9,7 +9,6 @@ class StudentSectionAssignmentRow < Struct.new(:row, :school_ids_dictionary)
   #
   # Eventually this will also include the letter grade for graded courses
 
-
   def self.build(row)
     new(row).build
   end

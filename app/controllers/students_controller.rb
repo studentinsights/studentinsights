@@ -211,7 +211,6 @@ class StudentsController < ApplicationController
         else student_assessment.scale_score
       end
 
-
       hash[test_name].push([student_assessment.date_taken,result])
     end.sort.to_h
 

@@ -16,7 +16,6 @@ describe SectionsController, :type => :controller do
   let(:other_school_course) { FactoryGirl.create(:course, school: other_school) }
   let(:other_school_section) { FactoryGirl.create(:section, course: other_school_course) }
 
-
   describe '#show' do
     def make_request(id = nil)
       request.env['HTTPS'] = 'on'
@@ -27,7 +26,6 @@ describe SectionsController, :type => :controller do
       serialized_data = controller.instance_variable_get(:@serialized_data)
       serialized_data[instance].map {|data_hash| data_hash['id'] }
     end
-
 
     context 'educator with section logged in' do
       let!(:educator) { FactoryGirl.create(:educator, school: school) }

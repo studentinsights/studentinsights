@@ -15,3 +15,15 @@ AllCops:
 
 Layout/TrailingWhitespace:
   Enabled: true
+
+Layout/TrailingBlankLines:
+  Enabled: true
+
+Layout/BlockEndNewline:
+  Enabled: true
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
+
+Layout/EmptyLines:
+  Enabled: true

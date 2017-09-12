@@ -8,8 +8,6 @@ class SectionsController < ApplicationController
     @educator_courses = Course.all.order(:course_number)
   end
 
-
-
   def show
 
     section_students = serialize_students(@current_section.students)

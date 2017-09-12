@@ -105,7 +105,6 @@ RSpec.describe EducatorSectionAssignmentsImporter do
       end
     end
 
-
     describe '#delete_rows' do
 
       context 'happy path' do

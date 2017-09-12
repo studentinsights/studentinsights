@@ -8,7 +8,6 @@ class EducatorSectionAssignmentRow < Struct.new(:row, :school_ids_dictionary)
   #   :term_local_id
   #
 
-
   def self.build(row)
     new(row).build
   end
