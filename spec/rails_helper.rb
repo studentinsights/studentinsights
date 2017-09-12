@@ -62,7 +62,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-
   # ---- Student Insights additions ----
   # Use DatabaseCleaner
   require "#{Rails.root}/db/seeds/database_constants"

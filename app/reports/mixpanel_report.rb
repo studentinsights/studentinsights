@@ -48,7 +48,6 @@ class MixpanelReport
       output
     end
 
-
     @buffer.join("\n")
   end
 

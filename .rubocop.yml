@@ -24,3 +24,6 @@ Layout/BlockEndNewline:
 
 Layout/EmptyLineBetweenDefs:
   Enabled: true
+
+Layout/EmptyLines:
+  Enabled: true

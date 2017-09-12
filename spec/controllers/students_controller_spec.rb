@@ -162,7 +162,6 @@ describe StudentsController, :type => :controller do
           end
         end
 
-
         context 'educator does not have schoolwide, grade level, or homeroom access' do
           let(:educator) { FactoryGirl.create(:educator, school: school) }
 
