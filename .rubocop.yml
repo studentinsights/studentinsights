@@ -30,3 +30,6 @@ Layout/EmptyLines:
 
 Layout/Tab:
   Enabled: true
+
+Layout/SpaceInsideStringInterpolation:
+  Enabled: true
