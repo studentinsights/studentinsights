@@ -19,7 +19,7 @@ class SftpClient < Struct.new :user, :host, :password, :key_data
   end
 
   def download_file(remote_file_name)
-    Dir.mkdir('tmp/data_download/') unless File.exists?('tmp/data_download/')
+    Dir.mkdir('tmp/data_download/') unless File.exist?('tmp/data_download/')
 
     local_filename = File.join('tmp/data_download/', remote_file_name)
     local_file = File.open(local_filename, 'w')

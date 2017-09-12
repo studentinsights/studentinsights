@@ -93,7 +93,7 @@ RSpec.describe Educator do
         let!(:section) { FactoryGirl.create(:section, course: course) }
         let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: section) }
         let!(:ssa) { FactoryGirl.create(:student_section_assignment, student: student, section: section) }
-        
+
         it 'is authorized' do
           expect(authorized?).to be true
         end
@@ -321,7 +321,7 @@ RSpec.describe Educator do
 
     context 'schoolwide_access' do
       let(:schoolwide_educator) { FactoryGirl.create(:educator, school: school, schoolwide_access: true)}
-      
+
       it 'has access to a section in their school' do
         expect(schoolwide_educator.is_authorized_for_section(in_school_section)).to be true
       end
@@ -333,7 +333,7 @@ RSpec.describe Educator do
 
     context 'districtwide_access' do
       let(:districtwide_educator) { FactoryGirl.create(:educator, school: school, districtwide_access: true)}
-      
+
       it 'has access to a section outside their school' do
         expect(districtwide_educator.is_authorized_for_section(out_of_school_section)).to be true
       end
@@ -343,7 +343,7 @@ RSpec.describe Educator do
       let(:educator) { FactoryGirl.create(:educator, school: school) }
       let!(:other_in_school_section) { FactoryGirl.create(:section, course: in_school_course) }
       let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: in_school_section) }
-      
+
       it 'has access to a section assigned to that educator' do
         expect(educator.is_authorized_for_section(in_school_section)).to be true
       end

@@ -79,7 +79,7 @@ class ImportTaskReport
   end
 
   def diff_report_for_class(klass_diff)
-    "(#{klass_diff >= 0 ? '+' : '-' }#{humanize_count(klass_diff)})"
+    "(#{klass_diff >= 0 ? '+' : '-'}#{humanize_count(klass_diff)})"
   end
 
   def humanize_class_name(klass)

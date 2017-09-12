@@ -8,6 +8,7 @@ class AttendanceRow < Struct.new(:row)
   class NullRelation
     class NullEvent
       def save!; end
+
       def assign_attributes(_); end
     end
 

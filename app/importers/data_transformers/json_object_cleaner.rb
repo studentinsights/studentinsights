@@ -79,4 +79,3 @@ class JsonObjectCleaner < Struct.new :json_object
   end
 
 end
-

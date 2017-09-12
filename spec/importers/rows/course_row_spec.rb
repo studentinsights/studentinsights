@@ -8,11 +8,11 @@ RSpec.describe CourseRow do
     let(:course) { course_row.build }
 
     context 'happy path' do
-      let(:row) { { course_number:'ART-205', 
-                    course_description:'Handmade Ceramics I', 
-                    section_number:'ART-205B', 
-                    term_local_id:'FY', 
-                    section_schedule:'3(M-R)', 
+      let(:row) { { course_number:'ART-205',
+                    course_description:'Handmade Ceramics I',
+                    section_number:'ART-205B',
+                    term_local_id:'FY',
+                    section_schedule:'3(M-R)',
                     section_room_number:'232B'
                 } }
 

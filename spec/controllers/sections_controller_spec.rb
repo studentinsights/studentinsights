@@ -15,7 +15,6 @@ describe SectionsController, :type => :controller do
   let(:other_school) { FactoryGirl.create(:school) }
   let(:other_school_course) { FactoryGirl.create(:course, school: other_school) }
   let(:other_school_section) { FactoryGirl.create(:section, course: other_school_course) }
-  
 
   describe '#show' do
     def make_request(id = nil)
@@ -26,18 +25,17 @@ describe SectionsController, :type => :controller do
     def extract_serialized_ids(controller, instance)
       serialized_data = controller.instance_variable_get(:@serialized_data)
       serialized_data[instance].map {|data_hash| data_hash['id'] }
-    end 
-
+    end
 
     context 'educator with section logged in' do
       let!(:educator) { FactoryGirl.create(:educator, school: school) }
       let!(:first_esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: first_section)}
       let!(:second_esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: second_section)}
-      
+
       before { sign_in(educator) }
 
       context 'section params' do
-        
+
         context 'garbage params' do
           it 'does not raise an error' do
             expect { make_request('garbage section ids rule') }.not_to raise_error
@@ -90,7 +88,7 @@ describe SectionsController, :type => :controller do
 
     context 'admin educator logged in' do
       let(:admin_educator) { FactoryGirl.create(:educator, :admin, school: school) }
-      
+
       before { sign_in(admin_educator) }
 
       context 'when requesting a section inside their school' do
@@ -105,7 +103,7 @@ describe SectionsController, :type => :controller do
           sections = extract_serialized_ids(controller, :sections)
           expect(sections).to match_array(expected_section_ids)
         end
-      end 
+      end
 
       context 'when requesting section outside their school' do
         it 'redirects' do
@@ -114,10 +112,10 @@ describe SectionsController, :type => :controller do
         end
       end
     end
-    
+
     context 'districtwide educator logged in' do
       let(:dw_educator) { FactoryGirl.create(:educator, districtwide_access: true) }
-  
+
       before { sign_in(dw_educator) }
 
       context 'when requesting a section in any school' do
