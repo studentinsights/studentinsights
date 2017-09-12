@@ -7,12 +7,12 @@ RSpec.describe CoursesSectionsImporter do
     let!(:school) { FactoryGirl.create(:shs) }
 
     context 'happy path' do
-      let(:row) { { course_number:'ART-205', 
-                    course_description:'Handmade Ceramics I', 
-                    section_number:'ART-205B', 
+      let(:row) { { course_number:'ART-205',
+                    course_description:'Handmade Ceramics I',
+                    section_number:'ART-205B',
                     school_local_id: 'SHS',
-                    term_local_id:'FY', 
-                    section_schedule:'3(M-R)', 
+                    term_local_id:'FY',
+                    section_schedule:'3(M-R)',
                     section_room_number:'232B'
                 } }
 
@@ -34,11 +34,11 @@ RSpec.describe CoursesSectionsImporter do
       end
 
       context 'missing school_local_id' do
-        let(:row) { { course_number:'ART-205', 
-                    course_description:'Handmade Ceramics I', 
-                    section_number:'ART-205B', 
-                    term_local_id:'FY', 
-                    section_schedule:'3(M-R)', 
+        let(:row) { { course_number:'ART-205',
+                    course_description:'Handmade Ceramics I',
+                    section_number:'ART-205B',
+                    term_local_id:'FY',
+                    section_schedule:'3(M-R)',
                     section_room_number:'232B'
                 } }
 

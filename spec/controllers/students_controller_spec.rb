@@ -155,13 +155,13 @@ describe StudentsController, :type => :controller do
           let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: section) }
           let!(:section_student) { FactoryGirl.create(:student, school: school) }
           let!(:ssa) { FactoryGirl.create(:student_section_assignment, student: section_student, section: section) }
-          
+
           it 'is successful' do
             make_request({ student_id: section_student.id, format: :html })
             expect(response).to be_success
           end
         end
-          
+
 
         context 'educator does not have schoolwide, grade level, or homeroom access' do
           let(:educator) { FactoryGirl.create(:educator, school: school) }

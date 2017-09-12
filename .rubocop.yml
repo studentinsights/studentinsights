@@ -1,0 +1,17 @@
+AllCops:
+  DisabledByDefault: true
+  Exclude:
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'docs/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'scripts/**/*'
+    - 'sketch/**/*'
+    - 'vendor/**/*'
+    - 'x2_export/**/*'
+    - spec/teaspoon_env.rb
+
+Layout/TrailingWhitespace:
+  Enabled: true

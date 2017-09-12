@@ -22,6 +22,7 @@ gem 'net-ssh'
 gem 'probability'
 gem 'rails-sanitize-js'
 gem 'react-rails' # Provides React, handles swapping between dev/production builds.  See config/initializers/assets.rb
+gem 'rubocop', require: false
 gem 'memory_profiler'
 gem 'oj'
 gem 'oj_mimic_json'
