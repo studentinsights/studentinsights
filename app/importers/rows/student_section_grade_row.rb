@@ -4,19 +4,19 @@ class StudentSectionGradeRow < Struct.new(:row, :school_ids_dictionary)
   #
   # Expects the following headers:
   #
-  #   :section_number, :student_local_id, :school_local_id, :course_number, 
+  #   :section_number, :student_local_id, :school_local_id, :course_number,
   #   :term_local_id, :grade
   #
   # Eventually this will also include the letter grade for graded courses
-  
+
   def self.build(row)
     new(row).build
   end
 
   def build
-    if student and section
+    if student && section
       student_section_assignment = StudentSectionAssignment.find_or_initialize_by(student: student,
-                                                                                section: section)
+                                                                                  section: section)
       student_section_assignment.assign_attributes(
         grade: grade
       )
@@ -33,6 +33,8 @@ class StudentSectionGradeRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def grade
-    return Integer(row[:grade]) rescue nil
+    return Integer(row[:grade])
+  rescue
+    nil
   end
 end

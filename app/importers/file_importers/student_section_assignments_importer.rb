@@ -1,5 +1,4 @@
 class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
-
   def remote_file_name
     'student_section_assignment_export.txt'
   end
@@ -25,5 +24,4 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
       log.write("Student Section Assignment Import invalid row: #{row}")
     end
   end
-
 end
