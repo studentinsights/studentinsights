@@ -186,14 +186,16 @@ describe StudentsController, :type => :controller do
           let(:educator) { FactoryGirl.create(:educator,
                                               grade_level_access: ['1'],
                                               restricted_to_sped_students: true,
-                                              school: school ) }
+                                              school: school )
+          }
 
           context 'student in SPED' do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
                                                program_assigned: 'Sp Ed',
-                                               school: school) }
+                                               school: school)
+            }
 
             it 'is successful' do
               make_request({ student_id: student.id, format: :html })
@@ -205,7 +207,8 @@ describe StudentsController, :type => :controller do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
-                                               program_assigned: 'Reg Ed') }
+                                               program_assigned: 'Reg Ed')
+            }
 
             it 'fails' do
               make_request({ student_id: student.id, format: :html })
@@ -219,14 +222,16 @@ describe StudentsController, :type => :controller do
           let(:educator) { FactoryGirl.create(:educator,
                                               grade_level_access: ['1'],
                                               restricted_to_english_language_learners: true,
-                                              school: school ) }
+                                              school: school )
+          }
 
           context 'limited English proficiency' do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
                                                limited_english_proficiency: 'FLEP',
-                                               school: school) }
+                                               school: school)
+            }
 
             it 'is successful' do
               make_request({ student_id: student.id, format: :html })
@@ -238,7 +243,8 @@ describe StudentsController, :type => :controller do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
-                                               limited_english_proficiency: 'Fluent') }
+                                               limited_english_proficiency: 'Fluent')
+            }
 
             it 'fails' do
               make_request({ student_id: student.id, format: :html })
