@@ -27,3 +27,6 @@ Layout/EmptyLineBetweenDefs:
 
 Layout/EmptyLines:
   Enabled: true
+
+Layout/Tab:
+  Enabled: true
