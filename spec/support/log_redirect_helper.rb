@@ -13,7 +13,7 @@ module LogHelper
     end
 
     def initialize
-      Dir.mkdir(log_directory) unless File.exists?(log_directory)
+      Dir.mkdir(log_directory) unless File.exist?(log_directory)
       @file = File.new(log_path, 'w')
     end
   end
