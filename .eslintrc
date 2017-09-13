@@ -54,7 +54,6 @@
     "no-underscore-dangle": 0,
     "react/no-array-index-key": 0,
     "react/no-unescaped-entities": 0,
-    "vars-on-top": 0,
     "block-scoped-var": 0,
     "no-return-assign": 0,
     "react/no-danger": 0,
