@@ -1,14 +1,14 @@
-import {studentProfile} from './fixtures.jsx';
+import { studentProfile } from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 
-describe('NoteCard', function() {
+describe('NoteCard', () => {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const NoteCard = window.shared.NoteCard;
   const moment = window.moment;
 
   const helpers = {
-    renderInto: function(el, props) {
+    renderInto(el, props) {
       const mergedProps = merge(props || {}, {
         noteMoment: moment(),
         educatorId: 1,
@@ -22,10 +22,10 @@ describe('NoteCard', function() {
         attachments: []
       });
 
-      return ReactDOM.render(<NoteCard {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
+      return ReactDOM.render(<NoteCard {...mergedProps} />, el); // eslint-disable-line react/no-render-return-value
     },
 
-    editNoteAndSave: function(el, uiParams) {
+    editNoteAndSave(el, uiParams) {
       const $text = $(el).find('.note-text');
       $text.html(uiParams.html);
       React.addons.TestUtils.Simulate.input($text.get(0));
@@ -33,13 +33,13 @@ describe('NoteCard', function() {
       return $text.html();
     },
 
-    getNoteHTML: function(el) {
+    getNoteHTML(el) {
       return $(el).find('.note-text').html();
     }
   };
 
-  SpecSugar.withTestEl('render', function() {
-    it('renders simple text', function() {
+  SpecSugar.withTestEl('render', () => {
+    it('renders simple text', function () {
       const el = this.testEl;
 
       helpers.renderInto(el, {
@@ -49,7 +49,7 @@ describe('NoteCard', function() {
       expect(helpers.getNoteHTML(el)).toEqual('hello');
     });
 
-    it('renders number of revisions', function() {
+    it('renders number of revisions', function () {
       const el = this.testEl;
 
       helpers.renderInto(el, {
@@ -60,7 +60,7 @@ describe('NoteCard', function() {
       expect(el).toContainText('Revised 1 time');
     });
 
-    it('escapes HTML-meaningful characters in text', function() {
+    it('escapes HTML-meaningful characters in text', function () {
       const el = this.testEl;
 
       helpers.renderInto(el, {
@@ -70,7 +70,7 @@ describe('NoteCard', function() {
       expect(helpers.getNoteHTML(el)).toEqual('hello &lt;script src="xss.js"&gt;&lt;/script&gt;world');
     });
 
-    it('renders newlines as <br> tags', function() {
+    it('renders newlines as <br> tags', function () {
       const el = this.testEl;
 
       helpers.renderInto(el, {
@@ -81,8 +81,8 @@ describe('NoteCard', function() {
     });
   });
 
-  SpecSugar.withTestEl('integration tests', function() {
-    it('replaces HTML with newlines in saved text', function() {
+  SpecSugar.withTestEl('integration tests', () => {
+    it('replaces HTML with newlines in saved text', function () {
       const el = this.testEl;
 
       const component = helpers.renderInto(el, {
@@ -100,7 +100,7 @@ describe('NoteCard', function() {
       });
     });
 
-    it('sanitizes undesirable HTML', function() {
+    it('sanitizes undesirable HTML', function () {
       const el = this.testEl;
 
       const component = helpers.renderInto(el, {

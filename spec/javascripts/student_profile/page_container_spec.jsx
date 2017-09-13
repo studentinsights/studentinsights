@@ -1,21 +1,21 @@
-import {nowMoment, studentProfile} from './fixtures.jsx';
+import { nowMoment, studentProfile } from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 
-describe('PageContainer', function() {
+describe('PageContainer', () => {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const PageContainer = window.shared.PageContainer;
 
   const helpers = {
-    findColumns: function(el) {
+    findColumns(el) {
       return $(el).find('.summary-container > div');
     },
 
-    interventionSummaryLists: function(el) {
+    interventionSummaryLists(el) {
       return $(el).find('.interventions-column .SummaryList').toArray();
     },
 
-    createSpyActions: function() {
+    createSpyActions() {
       return {
         onColumnClicked: jasmine.createSpy('onColumnClicked'),
         onClickSaveNotes: jasmine.createSpy('onClickSaveNotes'),
@@ -25,7 +25,7 @@ describe('PageContainer', function() {
       };
     },
 
-    createSpyApi: function() {
+    createSpyApi() {
       return {
         saveNotes: jasmine.createSpy('saveNotes'),
         deleteEventNoteAttachment: jasmine.createSpy('deleteEventNoteAttachment'),
@@ -34,26 +34,26 @@ describe('PageContainer', function() {
       };
     },
 
-    renderInto: function(el, props) {
+    renderInto(el, props) {
       const mergedProps = merge(props || {}, {
-        nowMomentFn: function() { return nowMoment; },
+        nowMomentFn() { return nowMoment; },
         serializedData: studentProfile,
         queryParams: {},
         history: SpecSugar.history(),
         actions: helpers.createSpyActions(),
         api: helpers.createSpyApi()
       });
-      return ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
+      return ReactDOM.render(<PageContainer {...mergedProps} />, el); // eslint-disable-line react/no-render-return-value
     },
 
-    takeNotesAndSave: function(el, uiParams) {
+    takeNotesAndSave(el, uiParams) {
       $(el).find('.btn.take-notes').click();
       SpecSugar.changeTextValue($(el).find('textarea'), uiParams.text);
-      $(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').click();
+      $(el).find(`.btn.note-type:contains(${uiParams.eventNoteTypeText})`).click();
       $(el).find('.btn.save').click();
     },
 
-    editNoteAndSave: function(el, uiParams) {
+    editNoteAndSave(el, uiParams) {
       const $noteCard = $(el).find('.NotesList .NoteCard').first();
       const $text = $noteCard.find('.note-text');
       $text.html(uiParams.text);
@@ -61,17 +61,17 @@ describe('PageContainer', function() {
       React.addons.TestUtils.Simulate.blur($text.get(0));
     },
 
-    recordServiceAndSave: function(el, uiParams) {
+    recordServiceAndSave(el, uiParams) {
       $(el).find('.btn.record-service').click();
-      $(el).find('.btn.service-type:contains(' + uiParams.serviceText + ')').click();
+      $(el).find(`.btn.service-type:contains(${uiParams.serviceText})`).click();
       SpecSugar.changeReactSelect($(el).find('.Select'), uiParams.educatorText);
       SpecSugar.changeTextValue($(el).find('.datepicker'), uiParams.dateStartedText);
       $(el).find('.btn.save').click();
     }
   };
 
-  SpecSugar.withTestEl('integration tests', function() {
-    it('renders everything on the happy path', function() {
+  SpecSugar.withTestEl('integration tests', () => {
+    it('renders everything on the happy path', function () {
       const el = this.testEl;
       helpers.renderInto(el);
 
@@ -88,7 +88,7 @@ describe('PageContainer', function() {
       expect(interventionLists[1]).toContainText('Attendance Contract');
     });
 
-    it('opens dialog when clicking Take Notes button', function() {
+    it('opens dialog when clicking Take Notes button', function () {
       const el = this.testEl;
       helpers.renderInto(el);
 
@@ -97,7 +97,7 @@ describe('PageContainer', function() {
       expect(el).toContainText('Save notes');
     });
 
-    it('opens dialog when clicking Record Service button', function() {
+    it('opens dialog when clicking Record Service button', function () {
       const el = this.testEl;
       helpers.renderInto(el);
 
@@ -106,7 +106,7 @@ describe('PageContainer', function() {
       expect(el).toContainText('Record service');
     });
 
-    it('can save notes for SST meetings, mocking the action handlers', function() {
+    it('can save notes for SST meetings, mocking the action handlers', function () {
       const el = this.testEl;
       const component = helpers.renderInto(el);
       helpers.takeNotesAndSave(el, {
@@ -121,7 +121,7 @@ describe('PageContainer', function() {
       });
     });
 
-    it('can edit notes for SST meetings, mocking the action handlers', function() {
+    it('can edit notes for SST meetings, mocking the action handlers', function () {
       const el = this.testEl;
       const component = helpers.renderInto(el);
 
@@ -137,7 +137,7 @@ describe('PageContainer', function() {
       });
     });
 
-    it('verifies that the educator name is in the correct format', function() {
+    it('verifies that the educator name is in the correct format', function () {
       const el = this.testEl;
       const component = helpers.renderInto(el, {});
 
@@ -179,7 +179,7 @@ describe('PageContainer', function() {
     //   });
     // });
 
-    it('#mergedDiscontinueService', function() {
+    it('#mergedDiscontinueService', function () {
       const el = this.testEl;
       const instance = helpers.renderInto(el);
       const updatedState = instance.mergedDiscontinueService(instance.state, 312, 'foo');
