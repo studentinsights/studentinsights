@@ -57,3 +57,6 @@ Lint/InheritException:
 
 Lint/Loop:
   Enabled: true
+
+Lint/UnreachableCode:
+  Enabled: true
