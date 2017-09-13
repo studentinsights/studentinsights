@@ -7,5 +7,10 @@
     <p>
       <%= @error_backtrace %>
     </p>
+    <% if @extra_info %>
+      <p>
+        <%= @extra_info %>
+      </p>
+    <% end %>
   </body>
 </html>

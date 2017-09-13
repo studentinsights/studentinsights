@@ -89,12 +89,21 @@ class Import
     end
 
     def connect_transform_import
+      timing_log = []
+
       begin
-        importers.flat_map { |i| i.new(options).file_importers }.each do |file_importer|
+        file_importers = importers.flat_map { |i| i.new(options).file_importers }
+
+        file_importers.each do |file_importer|
+          timing_data = { importer: file_importer.to_s, start_time: Time.current }
+
           FileImport.new(file_importer).import
+
+          timing_data[:end_time] = Time.current
+          timing_log << timing_data
         end
       rescue => error
-        ErrorMailer.error_report(error).deliver_now if Rails.env.production?
+        ErrorMailer.error_report(error, timing_log).deliver_now if Rails.env.production?
         raise error
       end
     end
