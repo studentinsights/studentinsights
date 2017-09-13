@@ -33,7 +33,6 @@
     "jsx-a11y/href-no-hash": 0,
     "func-names": 0,
     "prefer-rest-params": 0,
-    "eqeqeq": 0,
     "import/extensions": 0,
     "import/no-named-as-default": 0,
     "import/no-named-as-default-member": 0,
