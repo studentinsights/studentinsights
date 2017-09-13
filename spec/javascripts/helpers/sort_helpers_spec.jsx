@@ -27,7 +27,7 @@ describe('SortHelpers', () => {
       let match = true;
 
       for (let i = 0; i < preSortData.length; i++) {
-        if (sortData[i].testElement != targetData[i].testElement) {
+        if (sortData[i].testElement !== targetData[i].testElement) {
           match = false;
         }
       }
@@ -61,7 +61,7 @@ describe('SortHelpers', () => {
       let match = true;
 
       for (let i = 0; i < preSortData.length; i++) {
-        if (sortData[i].testElement != targetData[i].testElement) {
+        if (sortData[i].testElement !== targetData[i].testElement) {
           match = false;
         }
       }
