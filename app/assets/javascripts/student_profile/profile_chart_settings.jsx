@@ -1,4 +1,5 @@
-(function (root) {
+(function(root) {
+
   const ProfileChartSettings = {};
 
   ProfileChartSettings.base_options = {
@@ -75,16 +76,17 @@
       dateTimeLabelFormats: {}
     },
     tooltip: {
-      formatter() {
+      formatter: function () {
         var date = Highcharts.dateFormat('%A, %b %e, %Y', new Date(this.x));
         var percentileRank = this.y;
         var gradeLevelEquivalent = this.points[0].point.gradeLevelEquivalent;
 
-        if (gradeLevelEquivalent === undefined) {
-          return `${date}<br>Percentile Rank:<b> ${percentileRank}`;
+        if ( gradeLevelEquivalent === undefined ) {
+          return date + '<br>Percentile Rank:<b> ' + percentileRank;
+        } else {
+          return date + '<br>Percentile Rank:<b> ' + percentileRank +
+                 '</b><br>Grade Level Equivalent: <b>' + gradeLevelEquivalent;
         }
-        return `${date}<br>Percentile Rank:<b> ${percentileRank
-                 }</b><br>Grade Level Equivalent: <b>${gradeLevelEquivalent}`;
       },
       shared: true
     },
@@ -185,7 +187,7 @@
     max: 280
   };
 
-  ProfileChartSettings.percentile_yaxis = {
+  ProfileChartSettings.percentile_yaxis =  {
     allowDecimals: false,
     title: {
       text: '',
@@ -225,4 +227,5 @@
   }];
 
   root.ProfileChartSettings = ProfileChartSettings;
-}(window));
+
+})(window);

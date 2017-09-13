@@ -1,4 +1,4 @@
-$(() => {
+$(function() {
   var Env = window.shared.Env;
 
   var SessionTimeoutWarning = function () {};
@@ -12,14 +12,14 @@ $(() => {
   };
 
   if ($('body').hasClass('educator-signed-in')) {
-    var warning = new SessionTimeoutWarning();
+    var warning = new SessionTimeoutWarning;
     warning.count();
   }
 
-  $('#renew-sesion-link').click(() => {
+  $("#renew-sesion-link").click(function () {
     $.ajax({
       url: '/educators/reset',
-      success() {
+      success: function () {
         $('#renew-session').slideUp();
         warning.count();   // Resent timeout count
       }

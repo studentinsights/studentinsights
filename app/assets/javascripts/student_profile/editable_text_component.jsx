@@ -1,7 +1,7 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
   const Sanitize = window.Sanitize;
-
+  
   const sanitize = new Sanitize({
     elements: ['br', 'div', 'p']
   });
@@ -36,7 +36,8 @@
 
     if (node.childNodes.length === 0) {
       text = text.concat(node.textContent);
-    } else {
+    }
+    else {
       for (let i = 0; i < node.childNodes.length; i++) {
         text = text.concat(domNodeToText(node.childNodes[i]));
       }
@@ -86,13 +87,13 @@
       style: React.PropTypes.object
     },
 
-    getDefaultProps() {
+    getDefaultProps: function() {
       return {
         style: {}
       };
     },
 
-    getInitialState() {
+    getInitialState: function() {
       return {
         text: this.props.text
       };
@@ -106,14 +107,14 @@
     // page loads. Instead, we simply need to make sure that (1) the HTML is
     // sanitized, and (2) the HTML converted to plain text matches the next
     // state of the text.
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate: function(nextProps, nextState) {
       const currentHTML = this.contentEditableEl.innerHTML;
 
       return currentHTML !== htmlToSanitizedHTML(currentHTML)
         || nextState.text !== htmlToText(currentHTML);
     },
 
-    componentDidUpdate() {
+    componentDidUpdate: function() {
       const expectedHTML = textToSanitizedHTML(this.state.text);
 
       if (
@@ -124,18 +125,18 @@
       }
     },
 
-    onModifyText() {
+    onModifyText: function(){
       const text = htmlToText(this.contentEditableEl.innerHTML);
 
       if (text !== this.lastText) {
-        this.setState({ text });
+        this.setState({ text: text });
         this.isDirty = true;
       }
 
       this.lastText = text;
     },
 
-    onBlurText(event) {
+    onBlurText: function(event) {
       if (!this.isDirty) return null;
 
       this.props.onBlurText(this.state.text);
@@ -143,22 +144,22 @@
       this.isDirty = false;
     },
 
-    render() {
+    render: function() {
       return (
         <div
-          contentEditable
+          contentEditable={true}
           className={this.props.className}
           style={this.props.style}
-          ref={function (ref) { this.contentEditableEl = ref; }.bind(this)}
+          ref={function(ref) { this.contentEditableEl = ref; }.bind(this)}
           dangerouslySetInnerHTML={{ __html: textToSanitizedHTML(this.state.text) }}
           onInput={this.onModifyText}
           // For IE compatibility.
           onKeyUp={this.onModifyText}
           onPaste={this.onModifyText}
-          onBlur={this.onBlurText}
-        />
+          onBlur={this.onBlurText} />
       );
     },
 
   });
-}());
+
+})();

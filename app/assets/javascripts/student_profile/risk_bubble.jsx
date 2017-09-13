@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
@@ -31,7 +31,7 @@
       riskLevel: React.PropTypes.number.isRequired
     },
 
-    bubbleColor() {
+    bubbleColor: function() {
       if (this.props.riskLevel === null) return '#555555';
       if (this.props.riskLevel === 0) return '#bbd86b';
       if (this.props.riskLevel === 1) return '#62c186';
@@ -39,7 +39,7 @@
       if (this.props.riskLevel === 3) return '#f15a3d';
     },
 
-    render() {
+    render: function() {
       return (
         <span>
           <span style={styles.riskItem}>
@@ -53,4 +53,5 @@
     }
 
   });
-}());
+
+})();

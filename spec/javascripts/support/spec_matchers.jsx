@@ -1,16 +1,17 @@
-(function () {
+(function() {
   // Adapted from https://github.com/velesin/jasmine-jquery
-  beforeEach(() => {
+  beforeEach(function() {
     jasmine.addMatchers({
-      toContainText() {
+      toContainText: function () {
         return {
-          compare(actual, text) {
+          compare: function (actual, text) {
             const trimmedText = $.trim($(actual).text());
 
             if (text && $.isFunction(text.test)) {
               return { pass: text.test(trimmedText) };
+            } else {
+              return { pass: trimmedText.indexOf(text) != -1 };
             }
-            return { pass: trimmedText.indexOf(text) != -1 };
           }
         };
       }

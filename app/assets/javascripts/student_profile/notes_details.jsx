@@ -1,10 +1,10 @@
 import TakeNotes from './take_notes.jsx';
 
-(function () {
+(function() {
   window.shared || (window.shared = {});
 
   const PropTypes = window.shared.PropTypes;
-
+  
   const NotesList = window.shared.NotesList;
   const HelpBubble = window.shared.HelpBubble;
 
@@ -46,37 +46,36 @@ import TakeNotes from './take_notes.jsx';
       helpTitle: React.PropTypes.string.isRequired,
     },
 
-    getInitialState() {
+    getInitialState: function() {
       return {
         isTakingNotes: false,
       };
     },
 
-    onClickTakeNotes(event) {
+    onClickTakeNotes: function(event) {
       this.setState({ isTakingNotes: true });
     },
 
-    onCancelNotes(event) {
+    onCancelNotes: function(event) {
       this.setState({ isTakingNotes: false });
     },
 
-    onClickSaveNotes(eventNoteParams, event) {
+    onClickSaveNotes: function(eventNoteParams, event) {
       this.props.actions.onClickSaveNotes(eventNoteParams);
       this.setState({ isTakingNotes: false });
     },
 
-    render() {
+    render: function() {
       return (
         <div className="NotesDetails" style={styles.notesContainer}>
-          <div style={{ borderBottom: '1px solid #333', padding: 10 }}>
-            <h4 style={{ display: 'inline', color: 'black' }}>
+          <div style={{borderBottom: '1px solid #333', padding: 10}}>
+            <h4 style={{display: 'inline', color: 'black'}}>
               {this.props.title}
             </h4>
             <HelpBubble
               title={this.props.helpTitle}
               teaserText="(what is this?)"
-              content={this.props.helpContent}
-            />
+              content={this.props.helpContent} />
             {this.renderRestrictedNotesButtonIfAppropriate()}
           </div>
           {this.renderTakeNotesSection()}
@@ -85,13 +84,12 @@ import TakeNotes from './take_notes.jsx';
             educatorsIndex={this.props.educatorsIndex}
             eventNoteTypesIndex={this.props.eventNoteTypesIndex}
             onSaveNote={this.onClickSaveNotes}
-            onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment}
-          />
+            onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
         </div>
       );
     },
 
-    renderTakeNotesSection() {
+    renderTakeNotesSection: function() {
       if (this.state.isTakingNotes || this.props.requests.saveNote !== null) {
         return (
           <TakeNotes
@@ -101,8 +99,7 @@ import TakeNotes from './take_notes.jsx';
             currentEducator={this.props.currentEducator}
             onSave={this.onClickSaveNotes}
             onCancel={this.onCancelNotes}
-            requestState={this.props.requests.saveNote}
-          />
+            requestState={this.props.requests.saveNote} />
         );
       }
 
@@ -111,8 +108,7 @@ import TakeNotes from './take_notes.jsx';
           <button
             className="btn take-notes"
             style={{ marginTop: 10, display: 'inline' }}
-            onClick={this.onClickTakeNotes}
-          >
+            onClick={this.onClickTakeNotes}>
             Take notes
           </button>
         </div>
@@ -120,18 +116,18 @@ import TakeNotes from './take_notes.jsx';
     },
 
     renderRestrictedNotesButtonIfAppropriate() {
-      if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes) {
+      if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
         return (
           <a
             className="btn btn-warning"
             style={styles.restrictedNotesButton}
-            href={`/students/${this.props.student.id}/restricted_notes`}
-          >
-            {`Restricted Notes (${this.props.student.restricted_notes_count})`}
+            href={'/students/' + this.props.student.id + '/restricted_notes'}>
+            {'Restricted Notes (' + this.props.student.restricted_notes_count + ')'}
           </a>
         );
+      } else {
+        return null;
       }
-      return null;
     }
   });
-}());
+})();

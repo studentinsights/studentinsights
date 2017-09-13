@@ -1,40 +1,40 @@
-import { studentProfile } from './fixtures.jsx';
+import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 
 
-describe('ServicesList', () => {
+describe('ServicesList', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const ServicesList = window.shared.ServicesList;
   const fromPair = window.shared.fromPair;
 
   const helpers = {
-    emptyServicesFeed() {
+    emptyServicesFeed: function() {
       return { active: [], discontinued: [] };
     },
 
-    oneActiveServiceFeed() {
+    oneActiveServiceFeed: function() {
       return {
         active: [helpers.fixtureService()],
         discontinued: []
       };
     },
 
-    fixtureService() {
+    fixtureService: function() {
       return {
         id: 267,
         student_id: 3,
         provided_by_educator_id: 2,
         recorded_by_educator_id: 1,
         service_type_id: 507,
-        recorded_at: '2016-04-03T01:43:15.256Z',
-        date_started: '2016-04-03T00:00:00.000Z',
+        recorded_at: "2016-04-03T01:43:15.256Z",
+        date_started: "2016-04-03T00:00:00.000Z",
         discontinued_by_educator_id: null,
         discontinued_recorded_at: null
       };
     },
 
-    renderInto(el, props) {
+    renderInto: function(el, props) {
       const mergedProps = merge({
         servicesFeed: {
           active: [],
@@ -49,14 +49,14 @@ describe('ServicesList', () => {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', () => {
-    it('renders message when no services', function () {
+  SpecSugar.withTestEl('high-level integration tests', function() {
+    it('renders message when no services', function() {
       const el = this.testEl;
       helpers.renderInto(el, { servicesFeed: helpers.emptyServicesFeed() });
       expect(el).toContainText('No services');
     });
 
-    it('renders everything on the happy path', function () {
+    it('renders everything on the happy path', function() {
       const el = this.testEl;
       helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
       expect(el).toContainText('Reading intervention');
@@ -65,7 +65,7 @@ describe('ServicesList', () => {
       expect(el).toContainText('Discontinue');
     });
 
-    it('asks for confirmation before discontinuing', function () {
+    it('asks for confirmation before discontinuing', function() {
       const el = this.testEl;
       helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
       $(el).find('.btn').click();
@@ -73,7 +73,7 @@ describe('ServicesList', () => {
       expect(el).toContainText('Cancel');
     });
 
-    it('shows a message when request in progress', function () {
+    it('shows a message when request in progress', function() {
       const el = this.testEl;
       const service = helpers.fixtureService();
       helpers.renderInto(el, {
@@ -83,11 +83,11 @@ describe('ServicesList', () => {
       expect($(el).find('.btn').text()).toEqual('Updating...');
     });
 
-    it('renders discontinued services correctly', function () {
+    it('renders discontinued services correctly', function() {
       const el = this.testEl;
       const discontinuedService = merge(helpers.fixtureService(), {
         discontinued_by_educator_id: 1,
-        discontinued_recorded_at: '2016-04-05T01:43:15.256Z'
+        discontinued_recorded_at: "2016-04-05T01:43:15.256Z"
       });
       helpers.renderInto(el, {
         servicesFeed: {

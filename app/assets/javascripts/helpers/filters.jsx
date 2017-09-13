@@ -1,82 +1,90 @@
-(function () {
+(function() {
   // Define filter operations
   window.shared || (window.shared = {});
 
   const Filters = window.shared.Filters = {
-    Range(key, range) {
+    Range: function(key, range) {
       return {
         identifier: ['range', key, range[0], range[1]].join(':'),
-        filterFn(student) {
+        filterFn: function(student) {
           const value = student[key];
           return (_.isNumber(value) && value >= range[0] && value < range[1]);
         },
-        key
+        key: key
       };
     },
     // Types are loose, since this is serialized from the hash
-    Equal(key, value) {
+    Equal: function(key, value) {
       return {
         identifier: ['equal', key, value].join(':'),
-        filterFn(student) {
+        filterFn: function(student) {
           return (student[key] == value);
         },
-        key
+        key: key
       };
     },
-    Null(key) {
+    Null: function(key) {
       return {
         identifier: ['none', key].join(':'),
-        filterFn(student) {
+        filterFn: function(student) {
           const value = student[key];
-          return !!((value === null || value === undefined));
+          return (value === null || value === undefined) ? true : false;
         },
-        key
+        key: key
       };
     },
-    InterventionType(interventionTypeId) {
+    InterventionType: function(interventionTypeId) {
       return {
         identifier: ['intervention_type', interventionTypeId].join(':'),
-        filterFn(student) {
+        filterFn: function(student) {
           if (interventionTypeId === null) return (student.interventions === undefined || student.interventions.length === 0);
-          return student.interventions.filter(intervention => intervention.intervention_type_id === interventionTypeId).length > 0;
+          return student.interventions.filter(function(intervention) {
+            return intervention.intervention_type_id === interventionTypeId;
+          }).length > 0;
         },
         key: 'intervention_type'
       };
     },
-    ServiceType(serviceTypeId) {
+    ServiceType: function(serviceTypeId) {
       return {
         identifier: ['service_type', serviceTypeId].join(':'),
-        filterFn(student) {
+        filterFn: function(student) {
           if (serviceTypeId === null) return (student.active_services === undefined || student.active_services.length === 0);
-          return student.active_services.filter(service => service.service_type_id === serviceTypeId).length > 0;
+          return student.active_services.filter(function(service) {
+            return service.service_type_id === serviceTypeId;
+          }).length > 0;
         },
         key: 'service_type'
       };
     },
-    SummerServiceType(serviceTypeId) {
+    SummerServiceType: function (serviceTypeId) {
       return {
         identifier: ['summer_service_type', serviceTypeId].join(':'),
-        filterFn(student) {
+        filterFn: function(student) {
           if (serviceTypeId === null) return (student.summer_services === undefined || student.summer_services.length === 0);
-          return student.summer_services.filter(service => service.service_type_id === serviceTypeId).length > 0;
+          return student.summer_services.filter(function(service) {
+            return service.service_type_id === serviceTypeId;
+          }).length > 0;
         },
         key: 'summer_service_type'
       };
     },
-    EventNoteType(eventNoteTypeId) {
+    EventNoteType: function(eventNoteTypeId) {
       return {
         identifier: ['event_note_type', eventNoteTypeId].join(':'),
-        filterFn(student) {
+        filterFn: function(student) {
           if (eventNoteTypeId === null) return (student.event_notes.length === 0);
-          return student.event_notes.filter(eventNote => (eventNote.event_note_type_id === eventNoteTypeId)).length > 0;
+          return student.event_notes.filter(function(eventNote) {
+            return (eventNote.event_note_type_id === eventNoteTypeId);
+          }).length > 0;
         },
         key: 'event_note_type'
       };
     },
-    YearsEnrolled(value) {
+    YearsEnrolled: function(value) {
       return {
         identifier: ['years_enrolled', value].join(':'),
-        filterFn(student) {
+        filterFn: function(student) {
           const yearsEnrolled = Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
           return (yearsEnrolled === value);
         },
@@ -85,7 +93,7 @@
     },
 
     // Has to parse from string back to numeric
-    createFromIdentifier(identifier) {
+    createFromIdentifier: function(identifier) {
       const parts = identifier.split(':');
       if (parts[0] === 'range') return Filters.Range(parts[1], [parseFloat(parts[2]), parseFloat(parts[3])]);
       if (parts[0] === 'none') return Filters.Null(parts[1]);
@@ -100,9 +108,11 @@
     },
 
     // Returns a list of Filters
-    parseFiltersHash(hash) {
+    parseFiltersHash: function(hash) {
       const pieces = _.compact(hash.slice(1).split('&'));
-      return _.compact(pieces.map(piece => Filters.createFromIdentifier(window.decodeURIComponent(piece))));
+      return _.compact(pieces.map(function(piece) {
+        return Filters.createFromIdentifier(window.decodeURIComponent(piece));
+      }));
     }
   };
-}());
+})();

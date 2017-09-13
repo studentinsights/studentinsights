@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
   const QuadConverter = window.shared.QuadConverter;
@@ -27,7 +27,7 @@
       })
     },
 
-    getDefaultProps() {
+    getDefaultProps: function() {
       const now = moment.utc().toDate();
       // The intent of fixing this date range is that when staff are looking at profile of different students,
       // the scales are consistent (and not changing between 3 mos and 6 years depending on the student's record,
@@ -35,8 +35,8 @@
       const intervalBack = [4, 'years'];
 
       return {
-        now,
-        intervalBack,
+        now: now,
+        intervalBack: intervalBack,
         timestampRange: {
           min: moment(now).subtract(4, 'years').toDate().getTime(),
           max: now.getTime(),
@@ -44,7 +44,7 @@
       };
     },
 
-    getSchoolYearStartPositions(n, now, current_grade) {
+    getSchoolYearStartPositions: function(n, now, current_grade){
       // Takes in an integer (number of months back), the current date
       // as a Moment object (UTC), and the student's current grade.
       // Returns an object mapping:
@@ -52,7 +52,7 @@
 
       const range = [now.clone().subtract(n, 'months'), now];
       const startDates = QuadConverter.schoolYearStartDates(range);
-      const create_label = function (current, grade) {
+      const create_label = function(current, grade){
         // Assumes that the student progressed grades in the usual fashion;
         // wasn't held back or skipped forward.
         // John Breslin says these events are very rare.
@@ -63,31 +63,34 @@
         // No label for "negative" grades
         if (grade < 0) return '';
 
-        return _.template('<b>Grade <%=grade%><br>started</b>')({
+        return _.template("<b>Grade <%=grade%><br>started</b>")({
           year: current.year(),
-          grade
+          grade: grade
         });
       };
 
       return _.object(
-        startDates.map(date => date.valueOf()),
-        startDates.map((date, i) => create_label(
+        startDates.map(function(date){ return date.valueOf(); }),
+        startDates.map(function(date, i){
+          return create_label(
             date,
             (current_grade - startDates.length) + (i + 1) // (current_grade - n/12) to current_grade inclusive
-          ))
+          );
+        })
       );
     },
 
-    baseOptions() {
+    baseOptions: function() {
       if (this.props.student.grade === 'KF') {
         return ProfileChartSettings.base_options;
       } else if (this.props.showGradeLevelEquivalent === true) {
-        return this.baseOptionsForStar();
+        return  this.baseOptionsForStar();
+      } else {
+        return this.baseOptionsForNonKF();
       }
-      return this.baseOptionsForNonKF();
     },
 
-    baseOptionsForStar() {
+    baseOptionsForStar: function () {
       const positionsForYearStarts = this.getSchoolYearStartPositions(
         48, moment.utc(), parseInt(this.props.student.grade)
       );
@@ -100,7 +103,7 @@
             max: this.props.timestampRange.max
           }),
           {
-            type: 'datetime',
+            type: "datetime",
             offset: 35,
             linkedTo: 0,
             tickPositions: _.keys(positionsForYearStarts).map(Number),
@@ -110,7 +113,7 @@
       });
     },
 
-    baseOptionsForNonKF() {
+    baseOptionsForNonKF: function () {
       const positionsForYearStarts = this.getSchoolYearStartPositions(
         48, moment.utc(), parseInt(this.props.student.grade)
       );
@@ -123,7 +126,7 @@
             max: this.props.timestampRange.max
           }),
           {
-            type: 'datetime',
+            type: "datetime",
             offset: 35,
             linkedTo: 0,
             tickPositions: _.keys(positionsForYearStarts).map(Number),
@@ -133,7 +136,7 @@
       });
     },
 
-    render() {
+    render: function() {
       return (
         <div>
           {this.renderHighchartsWrapper()}
@@ -141,40 +144,43 @@
       );
     },
 
-    renderHighchartsWrapper() {
+    renderHighchartsWrapper: function() {
       if (this.props.showGradeLevelEquivalent === true) {
         return this.renderStarHighchartsWrapper();
+      } else {
+        return this.renderNonStarHighchartsWrapper();
       }
-      return this.renderNonStarHighchartsWrapper();
     },
 
-    renderNonStarHighchartsWrapper() {
+    renderNonStarHighchartsWrapper: function() {
       return (
         <HighchartsWrapper
           {...merge(this.baseOptions(), {
-            series: this.props.quadSeries.map(obj => ({
-              name: obj.name,
-              data: obj.data ? _.map(obj.data, QuadConverter.toPair) : []
-            })),
+            series: this.props.quadSeries.map(function(obj){
+              return {
+                name: obj.name,
+                data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
+              };
+            }),
             yAxis: this.props.yAxis
-          })}
-        />
+          })} />
       );
     },
 
-    renderStarHighchartsWrapper() {
+    renderStarHighchartsWrapper: function() {
       return (
         <HighchartsWrapper
           {...merge(this.baseOptions(), {
-            series: this.props.quadSeries.map(obj => ({
-              name: obj.name,
-              data: obj.data ? _.map(obj.data, QuadConverter.toStarObject) : []
-            })),
+            series: this.props.quadSeries.map(function(obj){
+              return {
+                name: obj.name,
+                data: obj.data  ? _.map(obj.data, QuadConverter.toStarObject): []
+              };
+            }),
             yAxis: this.props.yAxis
-          })}
-        />
+          })} />
       );
     },
 
   });
-}());
+})();

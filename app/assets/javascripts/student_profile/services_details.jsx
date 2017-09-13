@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
 
   const PropTypes = window.shared.PropTypes;
@@ -31,41 +31,40 @@
       requests: PropTypes.requests.isRequired
     },
 
-    getInitialState() {
+    getInitialState: function() {
       return {
         isAddingService: false
       };
     },
 
-    onClickRecordService(event) {
+    onClickRecordService: function(event) {
       this.setState({ isAddingService: true });
     },
 
-    onCancelRecordService(event) {
+    onCancelRecordService: function(event) {
       this.setState({ isAddingService: false });
     },
 
-    onClickSaveService(serviceParams, event) {
+    onClickSaveService: function(serviceParams, event) {
       this.props.actions.onClickSaveService(serviceParams);
       this.setState({ isAddingService: false });
     },
 
-    onClickDiscontinueService(serviceId, event) {
+    onClickDiscontinueService: function(serviceId, event) {
       this.props.actions.onClickDiscontinueService(serviceId);
     },
 
-    render() {
+    render: function() {
       return (
         <div className="ServicesDetails" style={styles.servicesContainer}>
-          <div style={{ borderBottom: '1px solid #333', padding: 10 }}>
-            <h4 style={{ display: 'inline', color: 'black' }}>
+          <div style={{borderBottom: '1px solid #333', padding: 10}}>
+            <h4 style={{display: 'inline', color: 'black'}}>
               Services
             </h4>
             <HelpBubble
               title="What is a Service?"
               teaserText="(what is this?)"
-              content={this.renderServicesHelpContent()}
-            />
+              content={this.renderServicesHelpContent()} />
           </div>
           <div style={styles.addServiceContainer}>
             {this.renderRecordServiceSection()}
@@ -75,13 +74,12 @@
             educatorsIndex={this.props.educatorsIndex}
             serviceTypesIndex={this.props.serviceTypesIndex}
             onClickDiscontinueService={this.onClickDiscontinueService}
-            discontinueServiceRequests={this.props.requests.discontinueService}
-          />
+            discontinueServiceRequests={this.props.requests.discontinueService} />
         </div>
       );
     },
 
-    renderServicesHelpContent() {
+    renderServicesHelpContent: function(){
       return (
         <div>
           <p>
@@ -137,7 +135,7 @@
       );
     },
 
-    renderRecordServiceSection() {
+    renderRecordServiceSection: function() {
       if (this.state.isAddingService || this.props.requests.saveService !== null) {
         return (
           <RecordService
@@ -150,8 +148,7 @@
             nowMoment={moment.utc()}
             currentEducator={this.props.currentEducator}
             serviceTypesIndex={this.props.serviceTypesIndex}
-            educatorsIndex={this.props.educatorsIndex}
-          />
+            educatorsIndex={this.props.educatorsIndex} />
         );
       }
 
@@ -162,4 +159,4 @@
       );
     }
   });
-}());
+})();
