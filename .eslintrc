@@ -63,7 +63,6 @@
     "no-prototype-builtins": 0,
     "react/prop-types": 0,
     "no-mixed-operators": 0,
-    "import/no-extraneous-dependencies": 0,
     "radix": 0,
     "import/first": 0,
     "jsx-a11y/label-has-for": 0,
