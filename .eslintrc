@@ -18,10 +18,12 @@
     "Highcharts": true
   },
   "parserOptions": {
-    "ecmaVersion": 6,
+    "parser": "babel-eslint",
+    "ecmaVersion": 7,
     "sourceType": "module",
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+      "experimentalObjectRestSpread": true,
+      "jsx": true,
     }
   },
   "plugins": ["react"],
@@ -67,6 +69,7 @@
     "import/no-extraneous-dependencies": 0,
     "radix": 0,
     "import/first": 0,
+    "comma-dangle": 0,
 
     "no-restricted-properties": [2, {
       "object": "Object",
