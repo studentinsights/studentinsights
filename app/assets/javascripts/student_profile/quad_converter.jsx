@@ -76,7 +76,7 @@
       const groupedByMonth = _.groupBy(attendanceEvents, event => moment.utc(event.occurred_at).startOf('month').toISOString());
 
       // result is an array of quads, one quad per month.
-      var result = [];
+      const result = [];
 
       _.each(groupedByMonth, (value, key) => {
         result.push(QuadConverter.fromMoment(moment.utc(key), value.length));
