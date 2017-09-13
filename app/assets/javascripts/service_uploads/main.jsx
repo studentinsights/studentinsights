@@ -1,5 +1,6 @@
-const ReactDOM = window.ReactDOM;
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+
+const ReactDOM = window.ReactDOM;
 
 $(() => {
   // only run if the correct page

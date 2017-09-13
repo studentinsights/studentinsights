@@ -64,7 +64,6 @@
     "react/prop-types": 0,
     "no-mixed-operators": 0,
     "radix": 0,
-    "import/first": 0,
     "jsx-a11y/label-has-for": 0,
     "no-confusing-arrow": 0,
     "no-sequences": 0,
