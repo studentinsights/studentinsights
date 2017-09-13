@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
 
   const Colors = {
@@ -9,7 +9,7 @@
   };
 
   // Map service_type_id to a themed color.
-  window.shared.serviceColor = function(serviceTypeId) {
+  window.shared.serviceColor = function (serviceTypeId) {
     const map = {
       507: Colors.orange,
       502: Colors.green,
@@ -21,4 +21,4 @@
     };
     return map[serviceTypeId] || null;
   };
-})();
+}());

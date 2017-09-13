@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
   const HighchartsWrapper = window.shared.HighchartsWrapper;
   const GraphHelpers = window.shared.GraphHelpers;
@@ -54,7 +54,7 @@
       phaselines: React.PropTypes.array
     },
 
-    getDefaultProps: function(){
+    getDefaultProps() {
       return {
         tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
         phaselines: [],
@@ -65,23 +65,23 @@
 
     // This returns a function, since HighCharts passes in the current element
     // as `this` instead of a parameter.
-    createUnsafeTooltipFormatter: function(monthBuckets, props){
-      return function() {
+    createUnsafeTooltipFormatter(monthBuckets, props) {
+      return function () {
         const graphPointIndex = this.series.data.indexOf(this.point);
         const events = monthBuckets[graphPointIndex];
         if (events.length == 0) return false;
 
-        let htmlstring = "";
-        _.each(events, function(e){
-          htmlstring += _.template(props.tooltipTemplateString)({e: e});
-          htmlstring += "<br>";
+        let htmlstring = '';
+        _.each(events, (e) => {
+          htmlstring += _.template(props.tooltipTemplateString)({ e });
+          htmlstring += '<br>';
         });
         return htmlstring;
       };
     },
 
-    makePlotlines: function (monthKeys) {
-      return this.props.phaselines.map(function(phaseline) {
+    makePlotlines(monthKeys) {
+      return this.props.phaselines.map((phaseline) => {
         const phaselineMonthKey = phaseline.momentUTC.clone().date(1).format('YYYYMMDD');
         const monthIndex = monthKeys.indexOf(phaselineMonthKey);
 
@@ -101,7 +101,7 @@
     // Compute the month range that's relevant for the current date and months back we're showing
     // on the chart.  Then map each month onto captions, and bucket the list of events into
     // each month.
-    render: function() {
+    render() {
       const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
       const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
       const yearCategories = GraphHelpers.yearCategories(monthKeys);
@@ -110,7 +110,7 @@
         <div id={this.props.id} style={styles.container}>
           {this.renderHeader()}
           <HighchartsWrapper
-            chart={{type: 'column'}}
+            chart={{ type: 'column' }}
             credits={false}
             xAxis={[
               {
@@ -122,15 +122,15 @@
                 linkedTo: 0,
                 categories: yearCategories,
                 tickPositions: Object.keys(yearCategories).map(Number),
-                tickmarkPlacement: "on"
+                tickmarkPlacement: 'on'
               }
             ]}
-            title={{text: ''}}
+            title={{ text: '' }}
             yAxis={{
               min: 0,
               max: 20,
               allowDecimals: false,
-              title: {text: this.props.titleText}
+              title: { text: this.props.titleText }
             }}
             tooltip={{
               formatter: this.createUnsafeTooltipFormatter(monthBuckets, this.props),
@@ -141,15 +141,16 @@
                 showInLegend: false,
                 data: _.map(monthBuckets, 'length')
               }
-            ]} />
+            ]}
+          />
         </div>
       );
     },
 
 
-    renderHeader: function() {
+    renderHeader() {
       const nYearsBack = Math.ceil(this.props.monthsBack / 12);
-      const title = this.props.titleText + ', last ' + nYearsBack + ' years';
+      const title = `${this.props.titleText}, last ${nYearsBack} years`;
 
       return (
         <div style={styles.secHead}>
@@ -166,4 +167,4 @@
     }
 
   });
-})();
+}());

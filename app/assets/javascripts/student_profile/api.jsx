@@ -1,24 +1,23 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
 
-  const Api = window.shared.Api = function() {};
+  const Api = window.shared.Api = function () {};
   Api.prototype = {
-    saveNotes: function(studentId, eventNoteParams) {
+    saveNotes(studentId, eventNoteParams) {
       if (eventNoteParams.id) {
         return this._updateNote(studentId, eventNoteParams);
       }
-      else {
-        return this._createNote(studentId, eventNoteParams);
-      }
+
+      return this._createNote(studentId, eventNoteParams);
     },
 
-    deleteEventNoteAttachment: function (id) {
-      const url = '/event_note_attachments/' + id;
+    deleteEventNoteAttachment(id) {
+      const url = `/event_note_attachments/${id}`;
       return this._delete(url);
     },
 
-    _createNote: function(studentId, eventNoteParams) {
-      return this._post('/students/' + studentId + '/event_notes.json', {
+    _createNote(studentId, eventNoteParams) {
+      return this._post(`/students/${studentId}/event_notes.json`, {
         event_note: {
           event_note_type_id: eventNoteParams.eventNoteTypeId,
           text: eventNoteParams.text,
@@ -29,10 +28,10 @@
       });
     },
 
-    _updateNote: function(studentId, eventNoteParams) {
+    _updateNote(studentId, eventNoteParams) {
       const id = eventNoteParams.id;
 
-      return this._put('/students/' + studentId + '/event_notes/' + id + '.json', {
+      return this._put(`/students/${studentId}/event_notes/${id}.json`, {
         event_note: {
           id: eventNoteParams.id,
           event_note_type_id: eventNoteParams.eventNoteTypeId,
@@ -42,8 +41,8 @@
       });
     },
 
-    saveService: function(studentId, serviceParams) {
-      const url = '/students/' + studentId + '/service.json';
+    saveService(studentId, serviceParams) {
+      const url = `/students/${studentId}/service.json`;
       const body = {
         service: {
           service_type_id: serviceParams.serviceTypeId,
@@ -55,14 +54,14 @@
       return this._post(url, body);
     },
 
-    discontinueService: function(serviceId) {
-      const url = '/services/' + serviceId;
+    discontinueService(serviceId) {
+      const url = `/services/${serviceId}`;
       return this._delete(url);
     },
 
-    _post: function(url, body) {
+    _post(url, body) {
       return $.ajax({
-        url: url,
+        url,
         method: 'POST',
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
@@ -70,9 +69,9 @@
       });
     },
 
-    _put: function(url, body) {
+    _put(url, body) {
       return $.ajax({
-        url: url,
+        url,
         method: 'PATCH',
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
@@ -80,11 +79,11 @@
       });
     },
 
-    _delete: function(url) {
+    _delete(url) {
       return $.ajax({
-        url: url,
+        url,
         method: 'DELETE'
       });
     }
   };
-})();
+}());
