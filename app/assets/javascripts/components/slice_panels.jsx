@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
 
   const FixedTable = window.shared.FixedTable;
@@ -18,53 +18,47 @@
       onFilterToggled: React.PropTypes.func.isRequired
     },
 
-    createItem: function(caption, filter) {
+    createItem(caption, filter) {
       const students = this.props.students;
       return {
-        caption: caption,
+        caption,
         percentage: (students.length === 0) ? 0 : students.filter(filter.filterFn).length / students.length,
-        filter: filter
+        filter
       };
     },
 
-    createItemsFromValues: function(key, uniqueValues) {
-      const items = _.compact(uniqueValues).map(function(value) {
+    createItemsFromValues(key, uniqueValues) {
+      const items = _.compact(uniqueValues).map(function (value) {
         return this.createItem(value, Filters.Equal(key, value));
       }, this);
       const itemsWithNull = (_.any(uniqueValues, _.isNull))
         ? items.concat(this.createItem('None', Filters.Null(key)))
         : items;
       const students = this.props.allStudents;
-      return _.sortBy(itemsWithNull, function(item) {
-        return -1 * students.filter(item.filter.filterFn).length;
-      });
+      return _.sortBy(itemsWithNull, item => -1 * students.filter(item.filter.filterFn).length);
     },
-    
-    serviceItems: function() {
+
+    serviceItems() {
       const students = this.props.allStudents;
       const activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));
       const activeServiceTypeIds = activeServices.map(service => parseInt(service.service_type_id, 10));
       const allServiceTypeIds = _.pull(_.unique(activeServiceTypeIds), 508); // Deprecated Math intervention service type
 
-      const serviceItems = allServiceTypeIds.map(function(serviceTypeId) {
+      const serviceItems = allServiceTypeIds.map(function (serviceTypeId) {
         const serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
         return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
       }, this);
-      const sortedItems =  _.sortBy(serviceItems, function(item) {
-        return -1 * students.filter(item.filter.filterFn).length;
-      });
+      const sortedItems = _.sortBy(serviceItems, item => -1 * students.filter(item.filter.filterFn).length);
 
       return [this.createItem('None', Filters.ServiceType(null))].concat(sortedItems);
     },
 
-    summerItems: function () {
+    summerItems() {
       const students = this.props.allStudents;
       const summerServices = _.compact(_.flatten(_.pluck(students, 'summer_services')));
-      const allSummerServiceTypeIds = _.unique(summerServices.map(function(service) {
-        return parseInt(service.service_type_id, 10);
-      }));
+      const allSummerServiceTypeIds = _.unique(summerServices.map(service => parseInt(service.service_type_id, 10)));
 
-      const serviceItems = allSummerServiceTypeIds.map(function(serviceTypeId) {
+      const serviceItems = allSummerServiceTypeIds.map(function (serviceTypeId) {
         const serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
         return this.createItem(serviceName, Filters.SummerServiceType(serviceTypeId));
       }, this);
@@ -73,24 +67,20 @@
     },
 
     // TODO(kr) add other note types
-    mergedNoteItems: function() {
+    mergedNoteItems() {
       const students = this.props.allStudents;
       const allEventNotes = _.compact(_.flatten(_.pluck(students, 'event_notes')));
-      const allEventNoteTypesIds = _.unique(allEventNotes.map(function(eventNote) {
-        return parseInt(eventNote.event_note_type_id, 10);
-      }));
-      const eventNoteItems = allEventNoteTypesIds.map(function(eventNoteTypeId) {
+      const allEventNoteTypesIds = _.unique(allEventNotes.map(eventNote => parseInt(eventNote.event_note_type_id, 10)));
+      const eventNoteItems = allEventNoteTypesIds.map(function (eventNoteTypeId) {
         const eventNoteTypeName = this.props.eventNoteTypesIndex[eventNoteTypeId].name;
         return this.createItem(eventNoteTypeName, Filters.EventNoteType(eventNoteTypeId));
       }, this);
-      const sortedItems =  _.sortBy(eventNoteItems, function(item) {
-        return -1 * students.filter(item.filter.filterFn).length;
-      });
+      const sortedItems = _.sortBy(eventNoteItems, item => -1 * students.filter(item.filter.filterFn).length);
 
       return [this.createItem('None', Filters.EventNoteType(null))].concat(sortedItems);
     },
 
-    render: function() {
+    render() {
       return (
         <div
           className="SlicePanels columns-container"
@@ -99,7 +89,8 @@
             width: '100%',
             flexDirection: 'row',
             fontSize: styles.fontSize
-          }}>
+          }}
+        >
           {this.renderProfileColumn()}
           {this.renderGradeColumn()}
           {this.renderELAColumn()}
@@ -110,7 +101,7 @@
       );
     },
 
-    renderProfileColumn: function() {
+    renderProfileColumn() {
       return (
         <div className="column">
           {this.renderDisabilityTable()}
@@ -125,15 +116,16 @@
               this.createItem('Yes', Filters.Equal('hispanic_latino', true)),
               this.createItem('No', Filters.Equal('hispanic_latino', false)),
               this.createItem('None', Filters.Equal('hispanic_latino', null)),
-            ]} />
+            ]}
+          />
           {this.renderSimpleTable('Gender', 'gender', {})}
         </div>
       );
     },
 
-    renderDisabilityTable: function() {
+    renderDisabilityTable() {
       const key = 'sped_level_of_need';
-      const items = ['Low < 2', 'Low >= 2', 'Moderate', 'High'].map(function(value) {
+      const items = ['Low < 2', 'Low >= 2', 'Moderate', 'High'].map(function (value) {
         return this.createItem(value, Filters.Equal(key, value));
       }, this);
       return this.renderTable({
@@ -142,7 +134,7 @@
       });
     },
 
-    renderELAColumn: function() {
+    renderELAColumn() {
       return (
         <div className="column ela-background">
           {this.renderPercentileTable('STAR Reading', 'most_recent_star_reading_percentile')}
@@ -152,7 +144,7 @@
       );
     },
 
-    renderMathColumn: function() {
+    renderMathColumn() {
       return (
         <div className="column math-background">
           {this.renderPercentileTable('STAR Math', 'most_recent_star_math_percentile')}
@@ -162,9 +154,9 @@
       );
     },
 
-    renderPercentileTable: function(title, key, props) {
+    renderPercentileTable(title, key, props) {
       return this.renderTable(merge(props || {}, {
-        title: title,
+        title,
         items: [this.createItem('None', Filters.Null(key))].concat([
           this.createItem('< 25th', Filters.Range(key, [0, 25])),
           this.createItem('25th - 50th', Filters.Range(key, [25, 50])),
@@ -174,9 +166,9 @@
       }));
     },
 
-    renderMCASTable: function(title, key, props) {
+    renderMCASTable(title, key, props) {
       return this.renderTable(merge(props || {}, {
-        title: title,
+        title,
         items: [this.createItem('None', Filters.Null(key))].concat([
           this.createItem('Warning', Filters.Range(key, [200, 220])),
           this.createItem('Needs Improvement', Filters.Range(key, [220, 240])),
@@ -186,10 +178,11 @@
       }));
     },
 
-    renderAttendanceColumn: function() {
+    renderAttendanceColumn() {
       return (
         <div
-          className="column attendance-column attendance-background pad-column-right">
+          className="column attendance-column attendance-background pad-column-right"
+        >
           {this.renderDisciplineTable()}
           {this.renderAttendanceTable('Absences', 'absences_count')}
           {this.renderAttendanceTable('Tardies', 'tardies_count')}
@@ -197,7 +190,7 @@
       );
     },
 
-    renderDisciplineTable: function() {
+    renderDisciplineTable() {
       const key = 'discipline_incidents_count';
       return this.renderTable({
         title: 'Discipline incidents',
@@ -211,9 +204,9 @@
       });
     },
 
-    renderAttendanceTable: function(title, key) {
+    renderAttendanceTable(title, key) {
       return this.renderTable({
-        title: title,
+        title,
         items: [
           this.createItem('0 days', Filters.Equal(key, 0)),
           this.createItem('< 1 week', Filters.Range(key, [1, 5])),
@@ -224,7 +217,7 @@
       });
     },
 
-    renderInterventionsColumn: function() {
+    renderInterventionsColumn() {
       return (
         <div className="column interventions-column">
           {this.renderTable({
@@ -250,13 +243,13 @@
       );
     },
 
-    renderGradeTable: function() {
+    renderGradeTable() {
       const key = 'grade';
       const uniqueValues = _.compact(_.unique(_.pluck(this.props.allStudents, key)));
-      const items = uniqueValues.map(function(value) {
+      const items = uniqueValues.map(function (value) {
         return this.createItem(value, Filters.Equal(key, value));
       }, this);
-      const sortedItems = _.sortBy(items, function(item) {
+      const sortedItems = _.sortBy(items, (item) => {
         if (item.caption === 'PK') return -20;
         if (item.caption === 'KF') return -10;
         return parseFloat(item.caption);
@@ -269,7 +262,7 @@
       });
     },
 
-    renderGradeColumn: function() {
+    renderGradeColumn() {
       return (
         <div className="column grades-column pad-column-right">
           {this.renderGradeTable()}
@@ -279,9 +272,9 @@
       );
     },
 
-    renderRiskLevel: function() {
+    renderRiskLevel() {
       const key = 'risk_level';
-      const items = [0, 1, 2, 3].map(function(value) {
+      const items = [0, 1, 2, 3].map(function (value) {
         return this.createItem(value, Filters.Equal(key, value));
       }, this);
 
@@ -289,18 +282,16 @@
 
       return this.renderTable({
         title: 'Risk level',
-        items: items
+        items
       });
     },
 
-    renderYearsEnrolled: function() {
-      const uniqueValues = _.compact(_.unique(this.props.allStudents.map(function(student) {
-        return Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
-      })));
-      const items = uniqueValues.map(function(value) {
+    renderYearsEnrolled() {
+      const uniqueValues = _.compact(_.unique(this.props.allStudents.map(student => Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365)))));
+      const items = uniqueValues.map(function (value) {
         return this.createItem(value, Filters.YearsEnrolled(value));
       }, this);
-      const sortedItems = _.sortBy(items, function(item) { return parseFloat(item.caption); });
+      const sortedItems = _.sortBy(items, item => parseFloat(item.caption));
 
       return this.renderTable({
         title: 'Years enrolled',
@@ -309,24 +300,24 @@
       });
     },
 
-    renderSimpleTable: function(title, key, props) {
+    renderSimpleTable(title, key, props) {
       const uniqueValues = _.unique(_.pluck(props.students || this.props.allStudents, key));
       const items = this.createItemsFromValues(key, uniqueValues);
       return this.renderTable(merge(props || {}, {
-        title: title,
-        items: items
+        title,
+        items
       }));
     },
 
-    renderTable: function(props) {
+    renderTable(props) {
       return (
         <CollapsableTable
           {...merge(props, {
             filters: this.props.filters,
             onFilterToggled: this.props.onFilterToggled
-          })} />
+          })}
+        />
       );
     }
   });
-
-})();
+}());

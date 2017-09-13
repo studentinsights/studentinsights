@@ -1,7 +1,7 @@
 const ReactDOM = window.ReactDOM;
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
-$(function() {
+$(() => {
   // only run if the correct page
   if (!($('body').hasClass('service_uploads') && $('body').hasClass('index'))) return;
 

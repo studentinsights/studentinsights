@@ -1,12 +1,12 @@
 import SpecSugar from '../support/spec_sugar.jsx';
 
-describe('ProfileBarCharts', function() {
+describe('ProfileBarCharts', () => {
   const ProfileBarChart = window.shared.ProfileBarChart;
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
-  
+
   const helpers = {
-    renderInto: function(el, props) {
+    renderInto(el, props) {
       const mergedProps = merge({
         events: [],
         id: 'foo-id',
@@ -18,14 +18,13 @@ describe('ProfileBarCharts', function() {
     }
   };
 
-  SpecSugar.withTestEl('integration tests', function() {
-    it('is wrapped in a div with the given id', function() {
+  SpecSugar.withTestEl('integration tests', () => {
+    it('is wrapped in a div with the given id', function () {
       const el = this.testEl;
-      helpers.renderInto(el, {id: 'foo'});
+      helpers.renderInto(el, { id: 'foo' });
 
       const div = $(el).children().first();
-      expect(div.attr('id')).toEqual("foo");
+      expect(div.attr('id')).toEqual('foo');
     });
-
   });
 });

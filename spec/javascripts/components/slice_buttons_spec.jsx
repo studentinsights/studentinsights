@@ -1,13 +1,13 @@
 import SpecSugar from '../support/spec_sugar.jsx';
 
 
-describe('SliceButtons', function() {
+describe('SliceButtons', () => {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const SliceButtons = window.shared.SliceButtons;
 
   const helpers = {
-    renderInto: function(el, props) {
+    renderInto(el, props) {
       const mergedProps = merge({
         students: [],
         filters: [],
@@ -18,8 +18,8 @@ describe('SliceButtons', function() {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
-    it('renders everything on the happy path', function() {
+  SpecSugar.withTestEl('high-level integration tests', () => {
+    it('renders everything on the happy path', function () {
       const el = this.testEl;
       helpers.renderInto(el);
 
