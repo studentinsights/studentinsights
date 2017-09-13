@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts; exit 0",
-    "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts"
+    "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts",
+    "lint-fix-feature-side-only": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts; exit 0"
   },
   "dependencies": {
     "babel-eslint": "^6.0.4",
