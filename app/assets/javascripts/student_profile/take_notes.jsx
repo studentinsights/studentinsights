@@ -21,7 +21,7 @@ const styles = {
   textarea: {
     fontSize: 14,
     border: '1px solid #eee',
-    width: '100%' // overriding strange global CSS, should cleanup
+    width: '100%' //overriding strange global CSS, should cleanup
   },
   input: {
     fontSize: 14,
@@ -62,7 +62,7 @@ export default React.createClass({
     requestState: React.PropTypes.string // or null
   },
 
-  getInitialState() {
+  getInitialState: function() {
     return {
       eventNoteTypeId: null,
       text: '',
@@ -71,57 +71,61 @@ export default React.createClass({
   },
 
   // Focus on note-taking text area when it first appears.
-  componentDidMount(prevProps, prevState) {
+  componentDidMount: function(prevProps, prevState) {
     this.textareaRef.focus();
   },
 
-  wrapUrlInObject(urlString) {
+  wrapUrlInObject: function(urlString) {
     return { url: urlString };
   },
 
-  stringNotEmpty(urlString) {
+  stringNotEmpty: function (urlString) {
     return urlString.length !== 0;
   },
 
-  eventNoteUrlsForSave() {
+  eventNoteUrlsForSave: function () {
     const urlsToSave = this.state.attachmentUrls.map(this.wrapUrlInObject);
     return { eventNoteAttachments: urlsToSave };
   },
 
-  disabledSaveButton() {
+  disabledSaveButton: function () {
     return (
       this.state.eventNoteTypeId === null || !this.isValidAttachmentUrls()
     );
   },
 
-  isValidAttachmentUrls() {
-    return _.all(this.state.attachmentUrls, url => (url.slice(0, 7) === 'http://' ||
+  isValidAttachmentUrls: function () {
+    return _.all(this.state.attachmentUrls, function (url) {
+      return (url.slice(0, 7) === 'http://'  ||
               url.slice(0, 8) === 'https://' ||
-              url.length === 0));
+              url.length      === 0);
+    });
   },
 
-  onChangeText(event) {
+  onChangeText: function(event) {
     this.setState({ text: event.target.value });
   },
 
-  onChangeAttachmentUrl(changedIndex, event) {
+  onChangeAttachmentUrl: function(changedIndex, event) {
     const newValue = event.target.value;
     const updatedAttachmentUrls = (this.state.attachmentUrls.length === changedIndex)
       ? this.state.attachmentUrls.concat(newValue)
-      : this.state.attachmentUrls.map((attachmentUrl, index) => (changedIndex === index) ? newValue : attachmentUrl);
+      : this.state.attachmentUrls.map(function(attachmentUrl, index) {
+        return (changedIndex === index) ? newValue : attachmentUrl;
+      });
     const filteredAttachmentUrls = updatedAttachmentUrls.filter(this.stringNotEmpty);
     this.setState({ attachmentUrls: filteredAttachmentUrls });
   },
 
-  onClickNoteType(noteTypeId, event) {
+  onClickNoteType: function(noteTypeId, event) {
     this.setState({ eventNoteTypeId: noteTypeId });
   },
 
-  onClickCancel(event) {
+  onClickCancel: function(event) {
     this.props.onCancel();
   },
 
-  onClickSave(event) {
+  onClickSave: function(event) {
     const params = merge(
       _.pick(this.state, 'eventNoteTypeId', 'text'),
       this.eventNoteUrlsForSave()
@@ -130,7 +134,7 @@ export default React.createClass({
     this.props.onSave(params);
   },
 
-  render() {
+  render: function() {
     return (
       <div className="TakeNotes" style={styles.dialog}>
         {this.renderNoteHeader({
@@ -140,10 +144,9 @@ export default React.createClass({
         <textarea
           rows={10}
           style={styles.textarea}
-          ref={function (ref) { this.textareaRef = ref; }.bind(this)}
+          ref={function(ref) { this.textareaRef = ref; }.bind(this)}
           value={this.state.text}
-          onChange={this.onChangeText}
-        />
+          onChange={this.onChangeText} />
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           What are these notes from?
         </div>
@@ -171,15 +174,13 @@ export default React.createClass({
           }}
           disabled={this.disabledSaveButton()}
           className="btn save"
-          onClick={this.onClickSave}
-        >
+          onClick={this.onClickSave}>
           Save notes
         </button>
         <button
           className="btn cancel"
           style={styles.cancelTakeNotesButton}
-          onClick={this.onClickCancel}
-        >
+          onClick={this.onClickCancel}>
           Cancel
         </button>
         {(this.props.requestState === 'pending') ? <span>
@@ -192,7 +193,7 @@ export default React.createClass({
     );
   },
 
-  renderNoteHeader(header) {
+  renderNoteHeader: function(header) {
     return (
       <div>
         <span style={styles.date}>
@@ -207,7 +208,7 @@ export default React.createClass({
   },
 
   // TODO(kr) extract button UI
-  renderNoteButton(eventNoteTypeId) {
+  renderNoteButton: function(eventNoteTypeId) {
     const eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
     return (
       <button
@@ -220,14 +221,13 @@ export default React.createClass({
           border: (this.state.eventNoteTypeId === eventNoteTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
-        })}
-      >
+        })}>
         {eventNoteType.name}
       </button>
     );
   },
 
-  renderAttachmentLinkArea() {
+  renderAttachmentLinkArea: function () {
     const isValidUrls = this.isValidAttachmentUrls();
     const urls = (isValidUrls)
       ? this.state.attachmentUrls.concat('')
@@ -242,15 +242,14 @@ export default React.createClass({
           style={{
             fontStyle: 'italic',
             marginTop: '10px 0'
-          }}
-        >
+          }}>
           Please use the format https://www.example.com.
         </div>
       </div>
     );
   },
 
-  renderAttachmentLinkInput(value, index) {
+  renderAttachmentLinkInput: function (value, index) {
     return (
       <div key={index}>
         <input
@@ -262,8 +261,7 @@ export default React.createClass({
             fontSize: 14,
             padding: 5,
             width: '100%'
-          }}
-        />
+          }} />
       </div>
     );
   }

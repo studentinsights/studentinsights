@@ -1,20 +1,20 @@
-describe('Graph Helpers', () => {
+describe('Graph Helpers', function() {
   const GraphHelpers = window.shared.GraphHelpers;
 
   const helpers = {
-    namedEvents() {
+    namedEvents: function() {
       return {
-        A: { occurred_at: '2015-03-13T15:13:28.176Z' },
-        B: { occurred_at: '2015-03-16T04:18:00.271Z' },
-        C: { occurred_at: '2014-10-28T16:04:54.366Z' },
-        D: { occurred_at: '2014-02-22T16:43:11.113Z' }
+        A: {occurred_at: '2015-03-13T15:13:28.176Z'},
+        B: {occurred_at: '2015-03-16T04:18:00.271Z'},
+        C: {occurred_at: '2014-10-28T16:04:54.366Z'},
+        D: {occurred_at: '2014-02-22T16:43:11.113Z'}
       };
     }
   };
 
-  describe('#monthKeys', () => {
-    it('works looking back four years', () => {
-      const nowMomentUTC = moment.utc('20170211', 'YYYYMMDD');
+  describe('#monthKeys', function() {
+    it('works looking back four years', function(){
+      const nowMomentUTC = moment.utc("20170211", "YYYYMMDD");
       const monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 48);
       expect(monthKeys.length).toEqual(48 + 1);
       expect(monthKeys[0]).toEqual('20130201');
@@ -22,8 +22,8 @@ describe('Graph Helpers', () => {
     });
   });
 
-  describe('#eventsToMonthBuckets', () => {
-    it('works on happy path', () => {
+  describe('#eventsToMonthBuckets', function() {
+    it('works on happy path', function(){
       const nowMomentUTC = moment.utc('2015-03-30');
       const namedEvents = helpers.namedEvents();
       const monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 12);
@@ -38,13 +38,13 @@ describe('Graph Helpers', () => {
     });
   });
 
-  describe('#yearCategories', () => {
-    it('works on simple case', () => {
+  describe('#yearCategories', function() {
+    it('works on simple case', function(){
       const categories = GraphHelpers.yearCategories(['20141101', '20141201', '20150101', '20150201']);
-      expect(categories).toEqual({ 2: '2015' });
+      expect(categories).toEqual({ 2: '2015'});
     });
 
-    it('works with default props', () => {
+    it('works with default props', function(){
       const nowMomentUTC = moment.utc('2017-02-02T13:23:15+00:00');
       const monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 48);
       const categories = GraphHelpers.yearCategories(monthKeys);

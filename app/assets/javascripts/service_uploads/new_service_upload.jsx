@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
   const Datepicker = window.shared.Datepicker;
   const ServiceTypeDropdown = window.shared.ServiceTypeDropdown;
@@ -28,48 +28,51 @@
       serviceTypeNames: React.PropTypes.array.isRequired,
     },
 
-    selectCsvButtonText() {
+    selectCsvButtonText: function () {
       if (this.props.formData.file_name) {
         return 'File Selected';
+      } else {
+        return 'Select CSV to Upload';
       }
-      return 'Select CSV to Upload';
     },
 
-    uploadButtonColor() {
+    uploadButtonColor: function () {
       if (this.disableUploadButton()) {
         return '#ccc';
       } else if (this.props.serverSideErrors.length > 0) {
         return 'red';
       } else if (this.props.incorrectLasids.length > 0) {
         return 'orange';
+      } else {
+        return undefined;
       }
-      return undefined;
     },
 
-    uploadButtonText() {
+    uploadButtonText: function () {
       if (this.props.uploadingInProgress) {
         return 'Uploading...';
       } else if (this.props.serverSideErrors.length > 0) {
         return 'Error Uploading';
       } else if (this.props.incorrectLasids.length > 0) {
         return 'Confirm Upload Despite LASID Mismatches?';
+      } else {
+        return 'Confirm Upload';
       }
-      return 'Confirm Upload';
     },
 
-    disableUploadButton() {
+    disableUploadButton: function () {
       return (this.props.missingRequiredFields || this.hasClientSideErrors());
     },
 
-    hasClientSideErrors() {
+    hasClientSideErrors: function () {
       return (this.clientSideErrors().length > 0);
     },
 
-    hasServerSideErrors() {
+    hasServerSideErrors: function () {
       return (this.props.serverSideErrors.length > 0);
     },
 
-    clientSideErrors() {
+    clientSideErrors: function () {
       const errors = [];
       const formData = this.props.formData;
 
@@ -95,13 +98,12 @@
       return errors;
     },
 
-    render() {
+    render: function () {
       return (
         <div
           style={{
             marginLeft: 80,
-          }}
-        >
+          }}>
           <h1>
             Upload new services file
           </h1>
@@ -123,16 +125,14 @@
           <ServiceTypeDropdown
             onUserTypingServiceType={this.props.onUserTypingServiceType}
             onUserSelectServiceType={this.props.onUserSelectServiceType}
-            value={this.props.formData.service_type_name || ''}
-          />
+            value={this.props.formData.service_type_name || ''} />
           <input
             type="file"
             id="fileUpload"
             onChange={this.props.onSelectFile}
             style={{
               display: 'none'
-            }}
-          />
+            }} />
           <label
             style={{
               width: 300,
@@ -143,8 +143,7 @@
               textAlign: 'center',
               cursor: 'pointer'
             }}
-            htmlFor="fileUpload"
-          >
+            htmlFor="fileUpload">
             <span
               className="btn"
               style={{
@@ -152,8 +151,7 @@
                 width: 210,
                 textAlign: 'center',
                 margin: 'auto'
-              }}
-            >
+              }}>
               {this.selectCsvButtonText()}
             </span>
             <br />
@@ -174,8 +172,7 @@
                 fontSize: 18,
                 background: this.uploadButtonColor(),
                 textAlign: 'center'
-              }}
-            >
+              }}>
               {this.uploadButtonText()}
             </button>
           </div>
@@ -183,7 +180,7 @@
       );
     },
 
-    renderFileName() {
+    renderFileName: function () {
       if (!this.props.formData.file_name) return null;
 
       return (
@@ -195,7 +192,7 @@
       );
     },
 
-    renderErrors() {
+    renderErrors: function () {
       if (this.props.missingRequiredFields) return null;
 
       if (!this.hasClientSideErrors() && !this.hasServerSideErrors()) return null;
@@ -212,50 +209,53 @@
             textAlign: 'left',
             cursor: 'pointer',
             color: 'red',
-          }}
-        >
+          }}>
           {this.renderClientSideErrors()}
           {this.renderServerSideErrors()}
         </div>
       );
     },
 
-    renderClientSideErrors() {
+    renderClientSideErrors: function () {
       if (this.props.missingRequiredFields) return null;   // Only show errors when all fields are full
 
       return (
         <div>
-          {this.clientSideErrors().map(error => (
-            <div>
-              {error}
-            </div>
-            ))}
+          {this.clientSideErrors().map(function (error) {
+            return (
+              <div>
+                {error}
+              </div>
+            );
+          })}
         </div>
       );
     },
 
-    renderServerSideErrors() {
+    renderServerSideErrors: function () {
       if (!this.props.serverSideErrors.length === 0) return null;
 
       return (
         <div>
-          {this.props.serverSideErrors.map(error => (
-            <div>
-              {error}
-            </div>
-            ))}
+          {this.props.serverSideErrors.map(function (error) {
+            return (
+              <div>
+                {error}
+              </div>
+            );
+          })}
         </div>
       );
     },
 
-    renderConfimationButtonHelptext() {
+    renderConfimationButtonHelptext: function () {
       if (this.props.missingRequiredFields === false) return 'Ready to upload!';
 
       const formFieldsToNames = {
-        file_name: 'file name',
-        student_lasids: 'student LASIDs from the CSV',
-        date_started: 'start date',
-        service_type_id: 'service type',
+        'file_name': 'file name',
+        'student_lasids': 'student LASIDs from the CSV',
+        'date_started': 'start date',
+        'service_type_id': 'service type',
       };
 
       const formFields = Object.keys(formFieldsToNames);
@@ -264,16 +264,16 @@
 
       const missingFormFieldNames = [];
 
-      formFields.map((formField) => {
+      formFields.map(function (formField) {
         if (formData[formField] === undefined) {
           missingFormFieldNames.push(formFieldsToNames[formField]);
         }
       });
 
-      return `Oooh, we are missing ${missingFormFieldNames.join(' ')}`;
+      return 'Oooh, we are missing ' + missingFormFieldNames.join(' ');
     },
 
-    renderCSVValidationMessages() {
+    renderCSVValidationMessages: function () {
       if (this.props.missingLasidHeader) {
         return (
           <div style={{ color: 'red' }}>
@@ -293,11 +293,13 @@
             <br />
             <br />
             <ul>
-              {this.props.incorrectLasids.map(lasid => (
-                <li>
-                  {lasid}
-                </li>
-                ))}
+              {this.props.incorrectLasids.map(function(lasid) {
+                return (
+                  <li>
+                    {lasid}
+                  </li>
+                );
+              }.bind(this))}
             </ul>
           </div>
         );
@@ -308,15 +310,16 @@
             All LASIDs match!
           </div>
         );
-      }
-      return (
-        <div>
+      } else {
+        return (
+          <div>
             The first CSV column should be the LASID one.
           </div>
-      );
+        );
+      }
     },
 
-    renderDatepicker(onChangeFn, value) {
+    renderDatepicker: function (onChangeFn, value) {
       return (
         <Datepicker
           onChange={onChangeFn}
@@ -330,11 +333,11 @@
             showOn: 'both',
             dateFormat: 'mm/dd/yy',
             minDate: undefined
-          }}
-        />
+          }} />
       );
     },
 
   });
-}());
+
+})();
 

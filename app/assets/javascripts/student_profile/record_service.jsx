@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
@@ -59,37 +59,37 @@
       currentEducator: React.PropTypes.object.isRequired
     },
 
-    getInitialState() {
+    getInitialState: function() {
       return {
         serviceTypeId: null,
-        providedByEducatorName: '',
+        providedByEducatorName: "",
         momentStarted: moment.utc() // TODO should thread through
       };
     },
 
-    onDateChanged(dateText) {
+    onDateChanged: function(dateText) {
       const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
       const updatedMoment = (textMoment.isValid()) ? textMoment : null;
       this.setState({ momentStarted: updatedMoment });
     },
 
-    onProvidedByEducatorTyping(event) {
+    onProvidedByEducatorTyping: function(event) {
       this.setState({ providedByEducatorName: event.target.value });
     },
 
-    onProvidedByEducatorDropdownSelect(string) {
+    onProvidedByEducatorDropdownSelect: function(string) {
       this.setState({ providedByEducatorName: string });
     },
 
-    onServiceClicked(serviceTypeId, event) {
-      this.setState({ serviceTypeId });
+    onServiceClicked: function(serviceTypeId, event) {
+      this.setState({ serviceTypeId: serviceTypeId });
     },
 
-    onClickCancel(event) {
+    onClickCancel: function(event) {
       this.props.onCancel();
     },
 
-    onClickSave(event) {
+    onClickSave: function(event) {
       // Get the value of the autocomplete input
       this.props.onSave({
         serviceTypeId: this.state.serviceTypeId,
@@ -99,7 +99,7 @@
       });
     },
 
-    render() {
+    render: function() {
       return (
         <div className="RecordService" style={styles.dialog}>
           {this.renderWhichService()}
@@ -109,7 +109,7 @@
       );
     },
 
-    renderWhichService() {
+    renderWhichService: function() {
       return (
         <div>
           <div style={{ marginBottom: 5, display: 'inline' }}>
@@ -131,7 +131,7 @@
       );
     },
 
-    renderServiceButton(serviceTypeId, options) {
+    renderServiceButton: function(serviceTypeId, options) {
       const serviceText = this.props.serviceTypesIndex[serviceTypeId].name;
       const color = serviceColor(serviceTypeId);
 
@@ -146,29 +146,27 @@
             border: (this.state.serviceTypeId === serviceTypeId)
               ? '4px solid rgba(49, 119, 201, 0.75)'
               : '4px solid white'
-          })}
-        >
+          })}>
           {serviceText}
         </button>
       );
     },
 
-    renderEducatorSelect() {
+    renderEducatorSelect: function() {
       return (
         <ProvidedByEducatorDropdown
           onUserTyping={this.onProvidedByEducatorTyping}
           onUserDropdownSelect={this.onProvidedByEducatorDropdownSelect}
-          studentId={this.props.studentId}
-        />
+          studentId={this.props.studentId} />
       );
     },
 
-    renderWhoAndWhen() {
+    renderWhoAndWhen: function() {
       return (
         <div>
           <div style={{ marginTop: 20 }}>
             <div>
-              {`Who is working with ${this.props.studentFirstName}?`}
+              {'Who is working with ' + this.props.studentFirstName + '?'}
             </div>
             <div>
               {this.renderEducatorSelect()}
@@ -185,13 +183,12 @@
               showOn: 'both',
               dateFormat: 'mm/dd/yy',
               minDate: undefined
-            }}
-          />
+            }} />
         </div>
       );
     },
 
-    renderButtons() {
+    renderButtons: function() {
       const isFormComplete = (this.state.serviceTypeId && this.state.momentStarted);
       return (
         <div style={{ marginTop: 15 }}>
@@ -202,15 +199,13 @@
             }}
             disabled={!isFormComplete}
             className="btn save"
-            onClick={this.onClickSave}
-          >
+            onClick={this.onClickSave}>
             Record service
           </button>
           <button
             className="btn cancel"
             style={styles.cancelRecordServiceButton}
-            onClick={this.onClickCancel}
-          >
+            onClick={this.onClickCancel}>
             Cancel
           </button>
           {(this.props.requestState === 'pending') ? <span>
@@ -220,4 +215,4 @@
       );
     }
   });
-}());
+})();

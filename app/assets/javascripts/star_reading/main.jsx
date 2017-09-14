@@ -1,6 +1,7 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
-$(() => {
+$(function() {
+
   if ($('body').hasClass('schools') && $('body').hasClass('star_reading')) {
     const StarChartsPage = window.shared.StarChartsPage;
     const Filters = window.shared.Filters;
@@ -15,7 +16,6 @@ $(() => {
       serviceTypesIndex={serializedData.constantIndexes.service_types_index}
       eventNoteTypesIndex={serializedData.constantIndexes.event_note_types_index}
       initialFilters={Filters.parseFiltersHash(window.location.hash)}
-      history={window.history}
-    />, document.getElementById('main'));
+      history={window.history} />, document.getElementById('main'));
   }
 });
