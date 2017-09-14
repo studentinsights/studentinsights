@@ -11,7 +11,7 @@ export default React.createClass({
     rows: React.PropTypes.array.isRequired
   },
 
-  getInitialState () {
+  getInitialState() {
     const initialColumns = this.getInitialColumnsDisplayed();
 
     return {
@@ -23,7 +23,7 @@ export default React.createClass({
     };
   },
 
-  orderedStudents () {
+  orderedStudents() {
     const sortedStudents = this.sortedStudents();
 
     if (!this.state.sortDesc) return sortedStudents.reverse();
@@ -31,47 +31,47 @@ export default React.createClass({
     return sortedStudents;
   },
 
-  sortedStudents () {
+  sortedStudents() {
     const students = this.activeMergedStudentRows();
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
     let customEnum;
 
-    switch(sortType) {
-    case 'string':
-      return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
-    case 'number':
-      return students.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
-    case 'date':
-      return students.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
-    case 'grade':
-      customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
-    case 'sped_level_of_need':
-      customEnum = ['—', 'Low < 2', 'Low >= 2', 'Moderate', 'High'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
-    case 'limited_english_proficiency':
-      customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
-    case 'program_assigned':
-      customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
-    case 'active_services':
-      return students.sort((a, b) => SortHelpers.sortByActiveServices(a, b));
-    default:
-      return students;
+    switch (sortType) {
+      case 'string':
+        return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
+      case 'number':
+        return students.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
+      case 'date':
+        return students.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
+      case 'grade':
+        customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
+        return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      case 'sped_level_of_need':
+        customEnum = ['—', 'Low < 2', 'Low >= 2', 'Moderate', 'High'];
+        return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      case 'limited_english_proficiency':
+        customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
+        return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      case 'program_assigned':
+        customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
+        return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      case 'active_services':
+        return students.sort((a, b) => SortHelpers.sortByActiveServices(a, b));
+      default:
+        return students;
     }
   },
 
-  openColumnPicker () {
+  openColumnPicker() {
     this.setState({ showColumnPicker: true });
   },
 
-  closeColumnPicker () {
+  closeColumnPicker() {
     this.setState({ showColumnPicker: false });
   },
 
-  toggleColumn (columnKey) {
+  toggleColumn(columnKey) {
     const columnsDisplayed = _.clone(this.state.columnsDisplayed);
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
@@ -83,67 +83,67 @@ export default React.createClass({
       columnsDisplayed.push(columnKey);
     }
 
-    Cookies.set("columnsDisplayed", columnsDisplayed);
+    Cookies.set('columnsDisplayed', columnsDisplayed);
 
-    this.setState({ columnsDisplayed: columnsDisplayed });
+    this.setState({ columnsDisplayed });
   },
 
-  columnKeysToNames () {
+  columnKeysToNames() {
     return {
-      'risk': 'Risk',
-      'program': 'Program',
-      'sped': 'SPED & Disability',
-      'language': 'Language',
+      risk: 'Risk',
+      program: 'Program',
+      sped: 'SPED & Disability',
+      language: 'Language',
       'free-reduced': 'Free/Reduced Lunch',
-      'star': 'STAR',
-      'mcas': 'MCAS',
+      star: 'STAR',
+      mcas: 'MCAS',
     };
   },
 
-  columnKeys () {
+  columnKeys() {
     return Object.keys(this.columnKeysToNames());
   },
 
-  columnNames () {
+  columnNames() {
     return Object.values(this.columnKeysToNames());
   },
 
-  getInitialColumnsDisplayed () {
+  getInitialColumnsDisplayed() {
     return (
-      Cookies.getJSON("columnsDisplayed") || this.columnKeys()
+      Cookies.getJSON('columnsDisplayed') || this.columnKeys()
     );
   },
 
-  activeStudentRowFilter (row) {
+  activeStudentRowFilter(row) {
     return row.enrollment_status === 'Active';
   },
 
-  activeStudentRows () {
+  activeStudentRows() {
     return this.props.rows.filter(this.activeStudentRowFilter);
   },
 
-  mergeInStudentRiskLevel (row) {
-    let risk = { risk: row['student_risk_level']['level'] };
-    let sped_level = { sped_level: row['sped_data']['sped_level'] };
+  mergeInStudentRiskLevel(row) {
+    const risk = { risk: row.student_risk_level.level };
+    const sped_level = { sped_level: row.sped_data.sped_level };
 
     return { ...row, ...risk, ...sped_level };
   },
 
-  activeMergedStudentRows () {
+  activeMergedStudentRows() {
     return this.activeStudentRows().map(this.mergeInStudentRiskLevel);
   },
 
-  warningBubbleClassName (row) {
-    const riskLevel = row['student_risk_level']['level'] || 'na';
+  warningBubbleClassName(row) {
+    const riskLevel = row.student_risk_level.level || 'na';
 
     return `warning-bubble risk-${riskLevel} tooltip`;
   },
 
-  visitStudentProfile (id) {
+  visitStudentProfile(id) {
     window.location.href = `/students/${id}`;
   },
 
-  showStar () {
+  showStar() {
     const columnsDisplayed = this.state.columnsDisplayed;
     const starDisplayed = _.indexOf(columnsDisplayed, 'star') > -1;
 
@@ -152,7 +152,7 @@ export default React.createClass({
     return false;
   },
 
-  showMcas () {
+  showMcas() {
     const columnsDisplayed = this.state.columnsDisplayed;
     const mcasDisplayed = _.indexOf(columnsDisplayed, 'mcas') > -1;
 
@@ -161,15 +161,15 @@ export default React.createClass({
     return false;
   },
 
-  onClickHeader (sortBy, sortType) {
+  onClickHeader(sortBy, sortType) {
     if (sortBy === this.state.sortBy) {
       this.setState({ sortDesc: !this.state.sortDesc });
     } else {
-      this.setState({ sortBy: sortBy, sortType: sortType });
+      this.setState({ sortBy, sortType });
     }
   },
 
-  render () {
+  render() {
     return (
       <div>
         {this.renderColumnPickerArea()}
@@ -181,137 +181,159 @@ export default React.createClass({
     );
   },
 
-  renderStarHeaders () {
+  renderStarHeaders() {
     return (
     [
       <td colSpan="1" key="star_math_header">
-          <p className="smalltype">
+        <p className="smalltype">
             STAR: Math
           </p>
-        </td>,
+      </td>,
       <td colSpan="1" key="star_reading_header">
-          <p className="smalltype">
+        <p className="smalltype">
             STAR: Reading
           </p>
-        </td>
+      </td>
     ]
     );
   },
 
-  renderStarSubHeaders () {
+  renderStarSubHeaders() {
     return (
     [
-      <th className="sortable_header" key="star_math_sub_header"
-          onClick={this.onClickHeader.bind(null, 'most_recent_star_math_percentile', 'number')}>
-          <span className="table-header">Percentile</span>
-        </th>,
-      <th className="sortable_header" key="star_reading_sub_header"
-          onClick={this.onClickHeader.bind(null, 'most_recent_star_reading_percentile', 'number')}>
-          <span className="table-header">Percentile</span>
-        </th>
+      <th
+        className="sortable_header"
+        key="star_math_sub_header"
+        onClick={this.onClickHeader.bind(null, 'most_recent_star_math_percentile', 'number')}
+      >
+        <span className="table-header">Percentile</span>
+      </th>,
+      <th
+        className="sortable_header"
+        key="star_reading_sub_header"
+        onClick={this.onClickHeader.bind(null, 'most_recent_star_reading_percentile', 'number')}
+      >
+        <span className="table-header">Percentile</span>
+      </th>
     ]
     );
   },
 
-  renderMcasHeaders () {
+  renderMcasHeaders() {
     return (
     [
       <td colSpan="2" key="mcas_math_header">
-          <p className="smalltype">
+        <p className="smalltype">
             MCAS: Math
           </p>
-        </td>,
+      </td>,
       <td colSpan="2" key="mcas_ela_header">
-          <p className="smalltype">
+        <p className="smalltype">
             MCAS: ELA
           </p>
-        </td>
+      </td>
     ]
     );
   },
 
-  renderMcasSubHeaders () {
+  renderMcasSubHeaders() {
     return (
     [
-      <th className="sortable_header" key="mcas_math_sub_header_perf"
-          onClick={this.onClickHeader.bind(null, 'most_recent_mcas_math_performance', 'string')}>
-          <span className="table-header">Performance</span>
-        </th>,
-      <th className="sortable_header" key="mcas_math_sub_header_score"
-          onClick={this.onClickHeader.bind(null, 'most_recent_mcas_math_scaled', 'number')}>
-          <span className="table-header">Score</span>
-        </th>,
-      <th className="sortable_header" key="mcas_ela_sub_header_perf"
-          onClick={this.onClickHeader.bind(null, 'most_recent_mcas_ela_performance', 'string')}>
-          <span className="table-header">Performance</span>
-        </th>,
-      <th className="sortable_header" key="mcas_ela_sub_header_score"
-          onClick={this.onClickHeader.bind(null, 'most_recent_mcas_ela_scaled', 'number')}>
-          <span className="table-header">Score</span>
-        </th>
+      <th
+        className="sortable_header"
+        key="mcas_math_sub_header_perf"
+        onClick={this.onClickHeader.bind(null, 'most_recent_mcas_math_performance', 'string')}
+      >
+        <span className="table-header">Performance</span>
+      </th>,
+      <th
+        className="sortable_header"
+        key="mcas_math_sub_header_score"
+        onClick={this.onClickHeader.bind(null, 'most_recent_mcas_math_scaled', 'number')}
+      >
+        <span className="table-header">Score</span>
+      </th>,
+      <th
+        className="sortable_header"
+        key="mcas_ela_sub_header_perf"
+        onClick={this.onClickHeader.bind(null, 'most_recent_mcas_ela_performance', 'string')}
+      >
+        <span className="table-header">Performance</span>
+      </th>,
+      <th
+        className="sortable_header"
+        key="mcas_ela_sub_header_score"
+        onClick={this.onClickHeader.bind(null, 'most_recent_mcas_ela_scaled', 'number')}
+      >
+        <span className="table-header">Score</span>
+      </th>
     ]
     );
   },
 
-  renderStarData (row) {
+  renderStarData(row) {
     if (!this.showStar()) return null;
 
     return (
     [
       <td key="star_math_percentile_rank">
-          {row['most_recent_star_math_percentile'] || '—'}
-        </td>,
+        {row.most_recent_star_math_percentile || '—'}
+      </td>,
       <td key="star_reading_percentile_rank">
-          {row['most_recent_star_reading_percentile'] || '—'}
-        </td>
+        {row.most_recent_star_reading_percentile || '—'}
+      </td>
     ]
     );
   },
 
-  renderMcasData (row) {
+  renderMcasData(row) {
     if (!this.showMcas()) return null;
 
     return (
     [
       <td key="mcas_math_performance_level">
-          {row['most_recent_mcas_math_performance'] || '—'}
-        </td>,
+        {row.most_recent_mcas_math_performance || '—'}
+      </td>,
       <td key="mcas_math_scaled">
-          {row['most_recent_mcas_math_scaled'] || '—'}
-        </td>,
+        {row.most_recent_mcas_math_scaled || '—'}
+      </td>,
       <td key="mcas_ela performance_level">
-          {row['most_recent_mcas_ela_performance'] || '—'}
-        </td>,
+        {row.most_recent_mcas_ela_performance || '—'}
+      </td>,
       <td key="mcas_ela_scaled">
-          {row['most_recent_mcas_ela_scaled'] || '—'}
-        </td>
+        {row.most_recent_mcas_ela_scaled || '—'}
+      </td>
     ]
     );
   },
 
-  renderSubHeader (columnKey, label, sortBy, sortType) {
+  renderSubHeader(columnKey, label, sortBy, sortType) {
     const columnsDisplayed = this.state.columnsDisplayed;
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
     if (columnKeyIndex === -1) return null;
 
     return (
-      <th className="sortable_header"
-          onClick={this.onClickHeader.bind(null, sortBy, sortType)}>
+      <th
+        className="sortable_header"
+        onClick={this.onClickHeader.bind(null, sortBy, sortType)}
+      >
         <span className="table-header">{label}</span>
       </th>
     );
   },
 
-  renderSuperHeader (columnKey, columnSpan, label) {
+  renderSuperHeader(columnKey, columnSpan, label) {
     const columnsDisplayed = this.state.columnsDisplayed;
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
     if (columnKeyIndex === -1) return null;
 
-    if (!label) return (
-      <td colSpan={columnSpan}></td>
-    );
+    if (!label) {
+      return (
+        <td colSpan={columnSpan} />
+      );
+    }
 
     return (
       <td colSpan={columnSpan}>
@@ -322,10 +344,12 @@ export default React.createClass({
     );
   },
 
-  renderNameSubheader () {
+  renderNameSubheader() {
     return (
-      <th className="name sortable_header"
-          onClick={this.onClickHeader.bind(null, 'first_name', 'string')}>
+      <th
+        className="name sortable_header"
+        onClick={this.onClickHeader.bind(null, 'first_name', 'string')}
+      >
         <span className="table-header">
           Name
         </span>
@@ -333,7 +357,7 @@ export default React.createClass({
     );
   },
 
-  renderSubHeaders () {
+  renderSubHeaders() {
     return (
       <tr className="column-names">
         {/* COLUMN HEADERS */}
@@ -368,12 +392,12 @@ export default React.createClass({
     );
   },
 
-  renderHeaders () {
+  renderHeaders() {
     return (
       <thead>
         <tr className="column-groups">
           {/*  TOP-LEVEL COLUMN GROUPS */}
-          <td colSpan="1"></td>
+          <td colSpan="1" />
           {this.renderSuperHeader('risk', '1')}
           {this.renderSuperHeader('program', '1')}
           {this.renderSuperHeader('sped', '3', 'SPED & Disability')}
@@ -387,7 +411,7 @@ export default React.createClass({
     );
   },
 
-  renderDataCell (columnKey, data) {
+  renderDataCell(columnKey, data) {
     const columnsDisplayed = this.state.columnsDisplayed;
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
@@ -399,28 +423,26 @@ export default React.createClass({
   },
 
   renderRiskLevelExplanation(row) {
-    const explanationData = row['student_risk_level']['explanation'];
+    const explanationData = row.student_risk_level.explanation;
     const intro = explanationData.intro;
     const reasons = explanationData.reasons;
 
     return (
       <div>
         <span>{intro}</span>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <ul>
-          {reasons.map((reason, index) => {
-            return <li key={index}>{reason}</li>;
-          })}
+          {reasons.map((reason, index) => <li key={index}>{reason}</li>)}
         </ul>
       </div>
     );
   },
 
-  renderWarningBubble (row) {
+  renderWarningBubble(row) {
     return (
       <div className={this.warningBubbleClassName(row)}>
-        {row['student_risk_level']['level'] || 'N/A'}
+        {row.student_risk_level.level || 'N/A'}
         <span className="tooltiptext">
           {this.renderRiskLevelExplanation(row)}
         </span>
@@ -428,65 +450,67 @@ export default React.createClass({
     );
   },
 
-  renderDataWithSpedTooltip (row) {
+  renderDataWithSpedTooltip(row) {
     return (
-      <div className={row['sped_data']['sped_bubble_class']}>
-        {row['sped_data']['sped_level']}
+      <div className={row.sped_data.sped_bubble_class}>
+        {row.sped_data.sped_level}
         <span className="tooltiptext">
-          {row['sped_data']['sped_tooltip_message']}
+          {row.sped_data.sped_tooltip_message}
         </span>
       </div>
     );
   },
 
-  renderRow (row, index) {
-    const fullName = `${row['first_name']} ${row['last_name']}`;
-    const id = row["id"];
+  renderRow(row, index) {
+    const fullName = `${row.first_name} ${row.last_name}`;
+    const id = row.id;
     const style = (index % 2 === 0)
                     ? { backgroundColor: '#FFFFFF' }
                     : { backgroundColor: '#F7F7F7' };
 
     return (
-      <tr className="student-row"
-          onClick={this.visitStudentProfile.bind(null, id)}
-          key={id}
-          style={style}>
+      <tr
+        className="student-row"
+        onClick={this.visitStudentProfile.bind(null, id)}
+        key={id}
+        style={style}
+      >
         <td className="name">{fullName}</td>
         {this.renderDataCell('risk', this.renderWarningBubble(row))}
-        {this.renderDataCell('program', row['program_assigned'])}
-        {this.renderDataCell('sped', row['disability'])}
+        {this.renderDataCell('program', row.program_assigned)}
+        {this.renderDataCell('sped', row.disability)}
         {this.renderDataCell('sped', this.renderDataWithSpedTooltip(row))}
-        {this.renderDataCell('sped', row['plan_504'])}
-        {this.renderDataCell('language', row['limited_english_proficiency'])}
-        {this.renderDataCell('language', row['home_language'])}
-        {this.renderDataCell('free-reduced', row['free_reduced_lunch'])}
+        {this.renderDataCell('sped', row.plan_504)}
+        {this.renderDataCell('language', row.limited_english_proficiency)}
+        {this.renderDataCell('language', row.home_language)}
+        {this.renderDataCell('free-reduced', row.free_reduced_lunch)}
         {this.renderStarData(row)}
         {this.renderMcasData(row)}
       </tr>
     );
   },
 
-  renderRows () {
+  renderRows() {
     if (!this.props.rows) return null;
 
     const rows = this.orderedStudents();
 
     return (
       <tbody>
-        {rows.map((row, index) => { return this.renderRow(row, index); }, this)}
+        {rows.map((row, index) => this.renderRow(row, index), this)}
       </tbody>
     );
   },
 
-  renderMenu () {
+  renderMenu() {
     return (
       <svg width="24px" height="6px" viewBox="0 0 24 6" version="1.1" >
         <g id="Roster" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" >
           <g id="Roster---home---add-1" transform="translate(-930.000000, -416.000000)" fill="#555555">
             <g id="menu" transform="translate(930.000000, 416.000000)">
-              <circle id="Oval-137" cx="3" cy="3" r="3"></circle>
-              <path d="M12,6 C13.6568542,6 15,4.65685425 15,3 C15,1.34314575 13.6568542,0 12,0 C10.3431458,0 9,1.34314575 9,3 C9,4.65685425 10.3431458,6 12,6 Z" id="Oval-138"></path>
-              <circle id="Oval-139" cx="21" cy="3" r="3"></circle>
+              <circle id="Oval-137" cx="3" cy="3" r="3" />
+              <path d="M12,6 C13.6568542,6 15,4.65685425 15,3 C15,1.34314575 13.6568542,0 12,0 C10.3431458,0 9,1.34314575 9,3 C9,4.65685425 10.3431458,6 12,6 Z" id="Oval-138" />
+              <circle id="Oval-139" cx="21" cy="3" r="3" />
             </g>
           </g>
         </g>
@@ -494,7 +518,7 @@ export default React.createClass({
     );
   },
 
-  renderColumnPickerArea () {
+  renderColumnPickerArea() {
     return (
       <div>
         <div onClick={this.openColumnPicker} id="column-picker-toggle">
@@ -505,7 +529,7 @@ export default React.createClass({
     );
   },
 
-  renderColumnSelect (columnKey) {
+  renderColumnSelect(columnKey) {
     const columnKeysToNames = this.columnKeysToNames();
     const columnName = columnKeysToNames[columnKey];
 
@@ -514,28 +538,30 @@ export default React.createClass({
     const columnsDisplayed = this.state.columnsDisplayed;
     const isColumnDisplayed = (_.indexOf(columnsDisplayed, columnKey) > -1);
 
-    if (isColumnDisplayed) return (
-      <div key={columnKey}>
-        <input type="checkbox" defaultChecked onClick={onToggleColumn}/>
-        <label>{columnName}</label>
-      </div>
-    );
+    if (isColumnDisplayed) {
+      return (
+        <div key={columnKey}>
+          <input type="checkbox" defaultChecked onClick={onToggleColumn} />
+          <label>{columnName}</label>
+        </div>
+      );
+    }
 
     return (
       <div key={columnKey}>
-        <input type="checkbox" onClick={onToggleColumn}/>
+        <input type="checkbox" onClick={onToggleColumn} />
         <label>{columnName}</label>
       </div>
     );
   },
 
-  renderColumnSelectors () {
+  renderColumnSelectors() {
     const columnKeys = this.columnKeys();
 
-    return columnKeys.map((key) => { return this.renderColumnSelect(key); });
+    return columnKeys.map(key => this.renderColumnSelect(key));
   },
 
-  renderColumnPickerMenu () {
+  renderColumnPickerMenu() {
     if (this.state.showColumnPicker === false) return null;
 
     return (

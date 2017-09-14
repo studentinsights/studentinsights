@@ -1,6 +1,6 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
-$(function() {
+$(() => {
   if ($('body').hasClass('sections') && $('body').hasClass('show')) {
     const SectionPage = window.shared.SectionPage;
 
@@ -8,10 +8,11 @@ $(function() {
     MixpanelUtils.registerUser(serializedData.currentEducator);
     MixpanelUtils.track('PAGE_VISIT', { page_key: 'SECTION' });
 
-    window.ReactDOM.render(<SectionPage 
-          students={serializedData.students}
-          section={serializedData.section}
-          educators={serializedData.educators}
-          sections={serializedData.sections}/>, document.getElementById('main'));
+    window.ReactDOM.render(<SectionPage
+      students={serializedData.students}
+      section={serializedData.section}
+      educators={serializedData.educators}
+      sections={serializedData.sections}
+    />, document.getElementById('main'));
   }
 });

@@ -1,7 +1,8 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+
 const ReactDOM = window.ReactDOM;
 
-$(function() {
+$(() => {
   // only run if the correct page
   if (!($('body').hasClass('students') && $('body').hasClass('show'))) return;
 
@@ -15,8 +16,9 @@ $(function() {
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'STUDENT_PROFILE' });
 
   ReactDOM.render(<PageContainer
-    nowMomentFn={function() { return moment.utc(); }}
+    nowMomentFn={function () { return moment.utc(); }}
     serializedData={serializedData}
     queryParams={parseQueryString(window.location.search)}
-    history={window.history} />, document.getElementById('main'));
+    history={window.history}
+  />, document.getElementById('main'));
 });

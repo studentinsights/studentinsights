@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
 
   const NoteCard = window.shared.NoteCard;
@@ -35,23 +35,23 @@
       onEventNoteAttachmentDeleted: React.PropTypes.func
     },
 
-    render: function() {
+    render() {
       const mergedNotes = FeedHelpers.mergedNotes(this.props.feed);
       return (
         <div className="NotesList">
           {(mergedNotes.length === 0) ? <div style={styles.noItems}>
             No notes
-          </div> : mergedNotes.map(function(mergedNote) {
+          </div> : mergedNotes.map(function (mergedNote) {
             switch (mergedNote.type) {
-            case 'event_notes': return this.renderEventNote(mergedNote);
-            case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
+              case 'event_notes': return this.renderEventNote(mergedNote);
+              case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
             }
           }, this)}
         </div>
       );
     },
 
-    renderEventNoteTypeBadge: function(eventNoteTypeId) {
+    renderEventNoteTypeBadge(eventNoteTypeId) {
       const eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
       if (eventNoteType === undefined) return null;
       return (
@@ -61,7 +61,7 @@
       );
     },
 
-    renderEventNote: function(eventNote) {
+    renderEventNote(eventNote) {
       return (
         <NoteCard
           key={['event_note', eventNote.id].join()}
@@ -75,26 +75,28 @@
           attachments={eventNote.attachments}
           educatorsIndex={this.props.educatorsIndex}
           onSave={this.props.onSaveNote}
-          onEventNoteAttachmentDeleted={this.props.onEventNoteAttachmentDeleted} />
+          onEventNoteAttachmentDeleted={this.props.onEventNoteAttachmentDeleted}
+        />
       );
     },
 
     // TODO(kr) support custom intervention type
     // This assumes that the `end_date` field is not accurate enough to be worth splitting
     // this out into two note entries.
-    renderDeprecatedIntervention: function(deprecatedIntervention) {
+    renderDeprecatedIntervention(deprecatedIntervention) {
       return (
         <NoteCard
           key={['deprecated_intervention', deprecatedIntervention.id].join()}
           noteMoment={moment.utc(deprecatedIntervention.start_date_timestamp)}
-          badge={React.createElement("span", { style: styles.badge }, 'Old intervention')}
+          badge={React.createElement('span', { style: styles.badge }, 'Old intervention')}
           educatorId={deprecatedIntervention.educator_id}
           text={_.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n')}
           educatorsIndex={this.props.educatorsIndex}
           // deprecated interventions have no attachments
-          attachments={[]} />
+          attachments={[]}
+        />
       );
     },
 
   });
-})();
+}());

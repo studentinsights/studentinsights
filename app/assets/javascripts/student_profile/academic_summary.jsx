@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
   const HelpBubble = window.shared.HelpBubble;
 
@@ -43,12 +43,12 @@
       value: React.PropTypes.number // value or null
     },
 
-    render: function() {
+    render() {
       return (
         <div className="AcademicSummary">
           <div style={styles.textContainer}>
             <span style={styles.caption}>
-              {this.props.caption + ':'}
+              {`${this.props.caption}:`}
             </span>
             <span style={styles.value}>
               {(this.props.value === undefined) ? 'none' : this.props.value}
@@ -70,7 +70,7 @@
       value: React.PropTypes.string // or null
     },
 
-    getDibelsHelpContent: function(){
+    getDibelsHelpContent() {
       return (
         <div>
           <p>
@@ -516,12 +516,12 @@
       );
     },
 
-    render: function() {
+    render() {
       return (
         <div className="AcademicSummary">
           <div style={styles.textContainer}>
             <span style={styles.caption}>
-              {this.props.caption + ':'}
+              {`${this.props.caption}:`}
             </span>
             <br />
             <br />
@@ -531,11 +531,11 @@
             <HelpBubble
               title="What do DIBELS levels mean?"
               teaserText="(what is this?)"
-              content={this.getDibelsHelpContent()} />
+              content={this.getDibelsHelpContent()}
+            />
           </div>
         </div>
       );
     }
   });
-
-})();
+}());

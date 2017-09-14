@@ -1,21 +1,20 @@
 import MixpanelUtils from './helpers/mixpanel_utils.jsx';
 
-$(function() {
-
-  function setupSearchBarAutocomplete (names) {
-    $(".student-searchbar").autocomplete({
+$(() => {
+  function setupSearchBarAutocomplete(names) {
+    $('.student-searchbar').autocomplete({
       source: names,
-      select: function(e, ui) {
+      select(e, ui) {
         MixpanelUtils.track('SEARCHBAR_SELECTED_STUDENT', {});
-        window.location.pathname = '/students/' + ui.item.id;
+        window.location.pathname = `/students/${ui.item.id}`;
       },
     });
   }
 
-  function downloadStudentNames () {
+  function downloadStudentNames() {
     $.get({
       url: '/students/names',
-      success: function (data) {
+      success(data) {
         setupSearchBarAutocomplete(data);
 
         if (window.sessionStorage) {
@@ -40,5 +39,4 @@ $(function() {
     return downloadStudentNames();  // Student names haven't cached yet,
                                     // so let's download and cache them
   }
-
 });
