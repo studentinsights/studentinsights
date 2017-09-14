@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
@@ -52,7 +52,7 @@
       onClickDiscontinueService: React.PropTypes.func.isRequired
     },
 
-    getInitialState: function() {
+    getInitialState() {
       return {
         hoveringDiscontinueServiceId: null,
         hoveringCancelServiceId: null,
@@ -60,12 +60,12 @@
       };
     },
 
-    wasDiscontinued: function(service) {
+    wasDiscontinued(service) {
       return (service.discontinued_by_educator_id !== null);
     },
 
     // Active services before inactive, then sorted by time
-    sortedMergedServices: function(servicesFeed) {
+    sortedMergedServices(servicesFeed) {
       return _.flatten([
         _.sortBy(servicesFeed.active, 'date_started').reverse(),
         _.sortBy(servicesFeed.discontinued, 'date_started').reverse()
@@ -73,7 +73,7 @@
     },
 
     // Confirmation step
-    onClickDiscontinueService: function(serviceId) {
+    onClickDiscontinueService(serviceId) {
       if (this.state.discontinuingServiceId !== serviceId) {
         this.setState(merge(this.getInitialState(), {
           discontinuingServiceId: serviceId,
@@ -85,31 +85,31 @@
       this.setState(this.getInitialState());
     },
 
-    onClickCancelDiscontinue: function(serviceId) {
+    onClickCancelDiscontinue(serviceId) {
       this.setState(this.getInitialState());
     },
 
-    onMouseEnterDiscontinue: function(serviceId) {
+    onMouseEnterDiscontinue(serviceId) {
       this.setState({ hoveringDiscontinueServiceId: serviceId });
     },
 
-    onMouseLeaveDiscontinue: function() {
+    onMouseLeaveDiscontinue() {
       this.setState({ hoveringDiscontinueServiceId: null });
     },
 
-    onMouseEnterCancel: function(serviceId) {
+    onMouseEnterCancel(serviceId) {
       this.setState({ hoveringCancelServiceId: serviceId });
     },
 
-    onMouseLeaveCancel: function() {
+    onMouseLeaveCancel() {
       this.setState({ hoveringCancelServiceId: null });
     },
 
-    render: function() {
+    render() {
       const elements = (this.props.servicesFeed.active.length === 0 && this.props.servicesFeed.discontinued.length === 0)
-        ? <div style={styles.noItems}>
+        ? (<div style={styles.noItems}>
         No services
-      </div>
+      </div>)
         : this.sortedMergedServices(this.props.servicesFeed).map(this.renderService);
       return (
         <div className="ServicesList">
@@ -118,7 +118,7 @@
       );
     },
 
-    renderService: function(service) {
+    renderService(service) {
       const wasDiscontinued = this.wasDiscontinued(service);
       const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
       const providedByEducatorName = service.provided_by_educator_name;
@@ -129,7 +129,8 @@
           style={merge(styles.service, {
             background: serviceColor(service.service_type_id),
             opacity: (wasDiscontinued) ? 0.8 : 1
-          })}>
+          })}
+        >
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 'bold' }}>
@@ -150,16 +151,18 @@
       );
     },
 
-    renderDateStarted: function (service) {
+    renderDateStarted(service) {
       const momentStarted = moment.utc(service.date_started);
       const startedToday = moment().utc().subtract(1, 'day') < momentStarted;
 
       // For services added today, return "Started today" instead of the date:
-      if (startedToday) return (
-        <div>
+      if (startedToday) {
+        return (
+          <div>
           Started today
         </div>
-      );
+        );
+      }
 
       // For services started earlier than today, show the date started:
       return (
@@ -170,7 +173,7 @@
       );
     },
 
-    renderTimeSinceStarted: function (service) {
+    renderTimeSinceStarted(service) {
       const wasDiscontinued = this.wasDiscontinued(service);
       const momentStarted = moment.utc(service.date_started);
 
@@ -181,32 +184,31 @@
             {moment.utc(service.discontinued_recorded_at).from(moment.utc(service.date_started), true)}
           </div>
         );
-      } else {
-        const startedToday = moment().utc().subtract(1, 'day') < momentStarted;
+      }
+      const startedToday = moment().utc().subtract(1, 'day') < momentStarted;
 
         // Don't show how long service has been going if it was added today
-        if (startedToday) return null;
+      if (startedToday) return null;
 
         // Show how long the service has been going
+      return (
+        <div>
+          {moment.utc(service.date_started).fromNow(true)}
+        </div>
+      );
+    },
+
+    renderEducatorName(educatorName) {
+      if (educatorName !== '' && educatorName !== null) {
         return (
           <div>
-            {moment.utc(service.date_started).fromNow(true)}
+            {`With ${educatorName}`}
           </div>
         );
       }
     },
 
-    renderEducatorName: function (educatorName) {
-      if (educatorName !== "" && educatorName !== null) {
-        return (
-          <div>
-            {'With ' + educatorName}
-          </div>
-        );
-      }
-    },
-
-    renderDiscontinuedInformation: function(service) {
+    renderDiscontinuedInformation(service) {
       const discontinuedAt = moment.utc(service.discontinued_recorded_at);
       const now = moment();
 
@@ -231,7 +233,7 @@
     },
 
     // Toggles when in confirmation state
-    renderDiscontinueButton: function(service) {
+    renderDiscontinueButton(service) {
       const isConfirming = (this.state.discontinuingServiceId === service.id);
       const isHovering = (this.state.hoveringDiscontinueServiceId === service.id);
       const isPending = (this.props.discontinueServiceRequests[service.id] === 'pending');
@@ -243,14 +245,15 @@
         styles.discontinueConfirm
         : (isHovering) ? {} : styles.discontinue;
 
-      const discontinueButton = <button
+      const discontinueButton = (<button
         className="btn"
         onMouseEnter={this.onMouseEnterDiscontinue.bind(this, service.id)}
         onMouseLeave={this.onMouseLeaveDiscontinue}
         style={style}
-        onClick={this.onClickDiscontinueService.bind(this, service.id)}>
+        onClick={this.onClickDiscontinueService.bind(this, service.id)}
+      >
         {buttonText}
-      </button>;
+      </button>);
 
       const cancelButton = (isConfirming) ? this.renderCancelDiscontinueButton(service) : null;
       return (
@@ -261,7 +264,7 @@
       );
     },
 
-    renderCancelDiscontinueButton: function(service) {
+    renderCancelDiscontinueButton(service) {
       const isHovering = (this.state.hoveringCancelServiceId === service.id);
       const style = (isHovering) ? {} : styles.cancel;
 
@@ -271,10 +274,11 @@
           onMouseEnter={this.onMouseEnterCancel.bind(this, service.id)}
           onMouseLeave={this.onMouseLeaveCancel}
           style={merge(style, { marginLeft: 5 })}
-          onClick={this.onClickCancelDiscontinue.bind(this, service.id)}>
+          onClick={this.onClickCancelDiscontinue.bind(this, service.id)}
+        >
           Cancel
         </button>
       );
     }
   });
-})();
+}());

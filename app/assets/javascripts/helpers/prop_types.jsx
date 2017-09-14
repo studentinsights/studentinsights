@@ -1,4 +1,4 @@
-(function() {
+(function () {
   window.shared || (window.shared = {});
 
   window.shared.PropTypes = {
@@ -35,4 +35,4 @@
       replaceState: React.PropTypes.func.isRequired
     })
   };
-})();
+}());

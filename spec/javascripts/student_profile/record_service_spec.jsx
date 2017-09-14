@@ -6,19 +6,19 @@ import {
 import SpecSugar from '../support/spec_sugar.jsx';
 
 
-describe('RecordService', function() {
+describe('RecordService', () => {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const RecordService = window.shared.RecordService;
-  
+
   const helpers = {
-    renderInto: function(el, props) {
+    renderInto(el, props) {
       const mergedProps = merge(props || {}, {
         studentFirstName: 'Tamyra',
         serviceTypesIndex: studentProfile.serviceTypesIndex,
         educatorsIndex: studentProfile.educatorsIndex,
-        nowMoment: nowMoment,
-        currentEducator: currentEducator,
+        nowMoment,
+        currentEducator,
         onSave: jasmine.createSpy('onSave'),
         onCancel: jasmine.createSpy('onCancel'),
         requestState: null,
@@ -27,19 +27,17 @@ describe('RecordService', function() {
       ReactDOM.render(<RecordService {...mergedProps} />, el);
     },
 
-    serviceTypes: function(el) {
-      return $(el).find('.btn.service-type').toArray().map(function(el) {
-        return $.trim(el.innerText);
-      });
+    serviceTypes(el) {
+      return $(el).find('.btn.service-type').toArray().map(el => $.trim(el.innerText));
     },
 
-    findSaveButton: function(el) {
+    findSaveButton(el) {
       return $(el).find('.btn.save');
     }
   };
 
-  SpecSugar.withTestEl('integration tests', function() {
-    it('renders dialog for recording services', function() {
+  SpecSugar.withTestEl('integration tests', () => {
+    it('renders dialog for recording services', function () {
       const el = this.testEl;
       helpers.renderInto(el);
 

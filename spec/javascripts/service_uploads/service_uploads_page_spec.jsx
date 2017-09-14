@@ -1,17 +1,17 @@
 import SpecSugar from '../support/spec_sugar.jsx';
 
-describe('ServiceUploadsPage', function() {
+describe('ServiceUploadsPage', () => {
   const ReactDOM = window.ReactDOM;
   const ServiceUploadsPage = window.shared.ServiceUploadsPage;
 
   const helpers = {
-    renderInto: function(el, props) {
-      return ReactDOM.render(<ServiceUploadsPage {...props} />, el); //eslint-disable-line react/no-render-return-value
+    renderInto(el, props) {
+      return ReactDOM.render(<ServiceUploadsPage {...props} />, el); // eslint-disable-line react/no-render-return-value
     }
   };
 
-  SpecSugar.withTestEl('integration tests', function() {
-    it('renders the page with no service uploads', function() {
+  SpecSugar.withTestEl('integration tests', () => {
+    it('renders the page with no service uploads', function () {
       const el = this.testEl;
       const props = {
         serializedData: {
@@ -26,7 +26,7 @@ describe('ServiceUploadsPage', function() {
       expect(el).toContainText('Confirm Upload');
     });
 
-    it('renders the page with existing service upload', function() {
+    it('renders the page with existing service upload', function () {
       const el = this.testEl;
       const props = {
         serializedData: {
@@ -37,8 +37,8 @@ describe('ServiceUploadsPage', function() {
               id: 1,
               services: [
                 {
-                  student: {first_name: 'Steve', last_name: 'V.'},
-                  service_type: { name: 'Extra Tutoring'}
+                  student: { first_name: 'Steve', last_name: 'V.' },
+                  service_type: { name: 'Extra Tutoring' }
                 }
               ],
             }
@@ -53,7 +53,7 @@ describe('ServiceUploadsPage', function() {
       expect(el).toContainText('Extra Tutoring');  // Renders the service type name
     });
 
-    it('tolerates cancelling file upload', function() {
+    it('tolerates cancelling file upload', function () {
       const el = this.testEl;
       const instance = helpers.renderInto(el, {
         serializedData: {
@@ -66,9 +66,6 @@ describe('ServiceUploadsPage', function() {
       React.addons.TestUtils.Simulate.change(fileInputEl);
       expect(instance.state.formData.file_name).toEqual(undefined);
     });
-
   });
-
 });
-
 

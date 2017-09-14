@@ -1,5 +1,4 @@
-(function() {
-
+(function () {
   window.shared || (window.shared = {});
   const React = window.React;
   const merge = window.shared.ReactHelpers.merge;
@@ -18,7 +17,7 @@
       limit: React.PropTypes.number
     },
 
-    getDefaultProps: function() {
+    getDefaultProps() {
       return {
         minHeight: 132,
         limit: 5,
@@ -26,21 +25,21 @@
       };
     },
 
-    getInitialState: function() {
+    getInitialState() {
       return {
         isExpanded: false
       };
     },
 
-    onCollapseClicked: function(e) {
+    onCollapseClicked(e) {
       this.setState({ isExpanded: false });
     },
 
-    onExpandClicked: function(e) {
+    onExpandClicked(e) {
       this.setState({ isExpanded: true });
     },
 
-    render: function() {
+    render() {
       const truncatedItems = (this.state.isExpanded)
         ? this.props.items
         : this.props.items.slice(0, this.props.limit);
@@ -50,12 +49,13 @@
             {...merge(this.props, {
               items: truncatedItems,
               children: this.renderCollapseOrExpand()
-            })} />
+            })}
+          />
         </div>
       );
     },
 
-    renderCollapseOrExpand: function() {
+    renderCollapseOrExpand() {
       if (this.props.items.length <= this.props.limit) return;
       return (
         <a
@@ -65,11 +65,11 @@
             paddingTop: 5,
             display: 'block'
           }}
-          onClick={(this.state.isExpanded) ? this.onCollapseClicked : this.onExpandClicked}>
+          onClick={(this.state.isExpanded) ? this.onCollapseClicked : this.onExpandClicked}
+        >
           {(this.state.isExpanded) ? '- Hide details' : '+ Show all'}
         </a>
       );
-
     }
   });
-})();
+}());

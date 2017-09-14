@@ -1,4 +1,4 @@
-$(function() {
+$(() => {
   // only run if the correct page
   if (!($('body').hasClass('students') && $('body').hasClass('restricted_notes'))) return;
 
