@@ -8,10 +8,10 @@
   window.shared.GraphHelpers = {
     // Returns a list of monthKeys that are within the time window for this chart.
     monthKeys(nowMomentUTC, monthsBack) {
-      var lastMonthMomentUTC = nowMomentUTC.clone().date(1);
+      const lastMonthMomentUTC = nowMomentUTC.clone().date(1);
       return _.range(monthsBack, -1, -1).map((monthsBack) => {
-        var monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
-        var monthKey = monthMomentUTC.format('YYYYMMDD');
+        const monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
+        const monthKey = monthMomentUTC.format('YYYYMMDD');
         return monthKey;
       }, this);
     },
@@ -26,7 +26,7 @@
     // Given a list of monthKeys, map over that to return a list of all events that fall within
     // that month.
     eventsToMonthBuckets(monthKeys, events) {
-      var eventsByMonth = _.groupBy(events, this.defaultMonthKey);
+      const eventsByMonth = _.groupBy(events, this.defaultMonthKey);
       return monthKeys.map(monthKey => eventsByMonth[monthKey] || []);
     },
 
@@ -36,11 +36,11 @@
     //
     // Example output: {3: '2014', 15: '2015'}
     yearCategories(monthKeys) {
-      var categories = {};
+      const categories = {};
 
       monthKeys.forEach(function (monthKey, monthKeyIndex) {
-        var monthMomentUTC = moment.utc(monthKey);
-        var isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
+        const monthMomentUTC = moment.utc(monthKey);
+        const isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
         if (isFirstMonthOfYear) {
           categories[monthKeyIndex] = this.yearAxisCaption(monthKey);
         }
@@ -58,7 +58,7 @@
     },
 
     dateTitle(endDate, monthsBack) {
-      var startDate = endDate.clone().subtract(monthsBack, 'months');
+      const startDate = endDate.clone().subtract(monthsBack, 'months');
       return `(${startDate.format('MM/YYYY')} to ${endDate.format('MM/YYYY')})`;
     }
   };

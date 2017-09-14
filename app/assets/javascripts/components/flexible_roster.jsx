@@ -91,7 +91,7 @@ export default React.createClass({
       // if the current item doesn't equal the next
       // push the super header with a length of currentCount
       // and reset currentCount for a new column group
-      if (itemGroup != nextItemGroup) {
+      if (itemGroup !== nextItemGroup) {
         superHeaders.push({ label: itemGroup, span: currentCount });
         currentCount = 0;
       }

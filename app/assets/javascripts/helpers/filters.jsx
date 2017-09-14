@@ -18,7 +18,7 @@
       return {
         identifier: ['equal', key, value].join(':'),
         filterFn(student) {
-          return (student[key] == value);
+          return (student[key] === value);
         },
         key
       };

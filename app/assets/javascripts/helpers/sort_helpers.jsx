@@ -1,4 +1,4 @@
-import isInteger from 'lodash/isInteger';
+import isInteger from 'lodash';
 
 export default {
 
