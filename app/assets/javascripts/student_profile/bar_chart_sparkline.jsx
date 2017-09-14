@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
 
   const QuadConverter = window.shared.QuadConverter;
@@ -18,7 +18,7 @@
       thresholdValue: React.PropTypes.number.isRequired,
     },
 
-    render() {
+    render: function() {
       const color = '#666';
 
       const x = d3.time.scale()
@@ -40,34 +40,34 @@
       );
     },
 
-    renderBars(quads, color, x, y) {
-      return quads.map(quad => (
-        <rect
+    renderBars: function(quads, color, x, y){
+      return quads.map(function(quad){
+        return (
+          <rect
             // TODO: Unique enough? Will it cause namespace conflicts?
-          key={quad.toString()}
-          x={x(QuadConverter.toDate(quad))}
-          y={y(quad[3])}
-          height={y.range()[0] - y(quad[3])}
+            key={quad.toString()}
+            x={x(QuadConverter.toDate(quad))}
+            y={y(quad[3])}
+            height={y.range()[0] - y(quad[3])}
             // Arbitrary width for now, seems to work fine.
-          width={5}
-          fill={color}
-        />
-        ));
+            width={5}
+            fill={color} />
+        );
+      });
     },
 
-    renderXAxis(color, x, y) {
+    renderXAxis: function(color, x, y){
       return (
         <line
           x1={x.range()[0]}
           x2={x.range()[1]}
           y1={y.range()[0]}
           y2={y.range()[0]}
-          stroke={color}
-        />
+          stroke={color} />
       );
     },
 
-    renderThresholdLine(value, color, x, y) {
+    renderThresholdLine: function(value, color, x, y){
       return (
         <line
           x1={x.range()[0]}
@@ -75,15 +75,14 @@
           y1={y(value)}
           y2={y(value)}
           stroke={color}
-          strokeDasharray={5}
-        />
+          strokeDasharray={5} />
       );
     },
 
     // TODO(kr) check start of school year
-    renderYearStarts(x, y) {
+    renderYearStarts: function(x, y) {
       const years = _.range(this.props.dateRange[0].getFullYear(), this.props.dateRange[1].getFullYear());
-      return years.map((year) => {
+      return years.map(function(year) {
         const yearStartDate = moment.utc([year, 8, 15].join('-'), 'YYYY-M-D').toDate();
         return (
           <line
@@ -92,10 +91,9 @@
             x2={x(yearStartDate)}
             y1={y.range()[0]}
             y2={y.range()[1]}
-            stroke="#ccc"
-          />
+            stroke="#ccc" />
         );
       });
     }
   });
-}());
+})();

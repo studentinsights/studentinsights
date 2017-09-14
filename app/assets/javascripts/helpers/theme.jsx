@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
   // colors, styles
   window.shared.colors = {
@@ -31,4 +31,4 @@
     },
 
   };
-}());
+})();

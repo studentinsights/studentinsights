@@ -1,14 +1,14 @@
-import { studentProfile } from './fixtures.jsx';
+import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 
 
-describe('RestrictedNotesPageContainer', () => {
+describe('RestrictedNotesPageContainer', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const RestrictedNotesPageContainer = window.shared.RestrictedNotesPageContainer;
 
   const helpers = {
-    renderInto(el, props) {
+    renderInto: function(el, props) {
       const mergedProps = merge(props || {}, {
         nowMomentFn: moment.utc,
         serializedData: studentProfile
@@ -16,7 +16,7 @@ describe('RestrictedNotesPageContainer', () => {
       ReactDOM.render(<RestrictedNotesPageContainer {...mergedProps} />, el);
     },
 
-    createMockApi() {
+    createMockApi: function(){
       const mockApi = jasmine.createSpyObj('api', ['saveNotes']);
       mockApi.saveNotes.and.returnValue(
         $.Deferred().resolve({
@@ -33,23 +33,23 @@ describe('RestrictedNotesPageContainer', () => {
       return mockApi;
     },
 
-    takeNotesAndSave(el, uiParams) {
+    takeNotesAndSave: function(el, uiParams) {
       $(el).find('.btn.take-notes').click();
       SpecSugar.changeTextValue($(el).find('textarea'), uiParams.text);
-      $(el).find(`.btn.note-type:contains(${uiParams.eventNoteTypeText})`).click();
+      $(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').click();
       $(el).find('.btn.save').click();
     },
   };
 
-  SpecSugar.withTestEl('high-level integration tests', () => {
-    it('saves notes as restricted', function () {
+  SpecSugar.withTestEl('high-level integration tests', function() {
+    it('saves notes as restricted', function() {
       const el = this.testEl;
       const mockApi = helpers.createMockApi();
-      helpers.renderInto(el, { api: mockApi });
+      helpers.renderInto(el, {api: mockApi});
 
       helpers.takeNotesAndSave(el, {
-        text: 'hi',
-        eventNoteTypeText: 'MTSS Meeting'
+        text: "hi",
+        eventNoteTypeText: "MTSS Meeting"
       });
 
       // 23 is the student id, and MTSS Meeting has id 301.

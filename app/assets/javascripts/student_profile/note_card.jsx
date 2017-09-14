@@ -1,6 +1,6 @@
 import Educator from './educator.jsx';
 
-(function () {
+(function() {
   window.shared || (window.shared = {});
 
   const EditableTextComponent = window.shared.EditableTextComponent;
@@ -50,18 +50,18 @@ import Educator from './educator.jsx';
       numberOfRevisions: React.PropTypes.number
     },
 
-    getDefaultProps() {
+    getDefaultProps: function() {
       return {
         numberOfRevisions: 0
       };
     },
 
     // No feedback, fire and forget
-    onDeleteAttachmentClicked(eventNoteAttachmentId) {
+    onDeleteAttachmentClicked: function(eventNoteAttachmentId) {
       this.props.onEventNoteAttachmentDeleted(eventNoteAttachmentId);
     },
 
-    onBlurText(textValue) {
+    onBlurText: function(textValue) {
       if (!this.props.onSave) return;
 
       this.props.onSave({
@@ -71,7 +71,7 @@ import Educator from './educator.jsx';
       });
     },
 
-    render() {
+    render: function() {
       return (
         <div className="NoteCard" style={styles.note}>
           <div>
@@ -89,21 +89,20 @@ import Educator from './educator.jsx';
       );
     },
 
-    renderSaveableTextArea() {
+    renderSaveableTextArea: function() {
       return (
         <div>
           <EditableTextComponent
             style={styles.noteText}
             className="note-text"
             text={this.props.text}
-            onBlurText={this.onBlurText}
-          />
+            onBlurText={this.onBlurText} />
           {this.renderNumberOfRevisions()}
         </div>
       );
     },
 
-    renderNumberOfRevisions() {
+    renderNumberOfRevisions: function () {
       const numberOfRevisions = this.props.numberOfRevisions;
       if (numberOfRevisions === 0) return null;
 
@@ -113,18 +112,17 @@ import Educator from './educator.jsx';
             color: '#aaa',
             fontSize: 13,
             marginTop: 13
-          }}
-        >
+          }}>
           {(numberOfRevisions === 1)
               ? 'Revised 1 time'
-              : `Revised ${numberOfRevisions} times`}
+              : 'Revised ' + numberOfRevisions + ' times'}
         </div>
       );
     },
 
     // If an onSave callback is provided, the text is editable.
     // If not (eg., for older interventions),
-    renderStaticTextArea() {
+    renderStaticTextArea: function () {
       return (
         <div style={styles.noteText} className="note-text">
           {this.props.text}
@@ -132,10 +130,10 @@ import Educator from './educator.jsx';
       );
     },
 
-    renderAttachmentUrls() {
+    renderAttachmentUrls: function() {
       const attachments = this.props.attachments;
 
-      return attachments.map(function (attachment) {
+      return attachments.map(function(attachment) {
         return (
           <div key={attachment.id}>
             <p>
@@ -147,8 +145,7 @@ import Educator from './educator.jsx';
                 style={{
                   display: 'inline-block',
                   marginTop: 20
-                }}
-              >
+                }}>
                 {attachment.url}
               </a>
               {this.renderRemoveAttachmentLink(attachment)}
@@ -159,7 +156,7 @@ import Educator from './educator.jsx';
     },
 
     // Can only remove attachments if callback is provided
-    renderRemoveAttachmentLink(attachment) {
+    renderRemoveAttachmentLink: function(attachment) {
       if (!this.props.onEventNoteAttachmentDeleted) return null;
 
       return (
@@ -168,11 +165,10 @@ import Educator from './educator.jsx';
           style={{
             display: 'inline-block',
             marginLeft: 10
-          }}
-        >
+          }}>
           (remove)
         </a>
       );
     }
   });
-}());
+})();

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
 
   window.shared.ProfileDetailsStyle = {
@@ -75,19 +75,19 @@
       padding: 8
     },
     type_to_color: {
-      Absence: '#e8fce8',
-      Tardy: '#e8fce8',
-      Incident: '#e8fce8',
-      Note: '#e8fce8',
-      Service: '#e8fce8',
+      "Absence": '#e8fce8',
+      "Tardy": '#e8fce8',
+      "Incident": '#e8fce8',
+      "Note": '#e8fce8',
+      "Service": '#e8fce8',
 
-      'MCAS-ELA': '#ffe7d6',
-      'STAR-Reading': '#ffe7d6',
+      "MCAS-ELA": '#ffe7d6',
+      "STAR-Reading": '#ffe7d6',
 
-      'MCAS-Math': '#e8e9fc',
-      'STAR-Math': '#e8e9fc',
+      "MCAS-Math": '#e8e9fc',
+      "STAR-Math": '#e8e9fc',
 
-      DIBELS: '#e8fce8'
+      "DIBELS": '#e8fce8'
     },
     column: {
       flexGrow: '1',
@@ -124,4 +124,4 @@
       width: '50%'
     },
   };
-}());
+})();

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   // adapted from https://github.com/sindresorhus/query-string/blob/master/index.js#L8
   window.shared || (window.shared = {});
   window.shared.parseQueryString = function (str) {
@@ -12,7 +12,7 @@
       return {};
     }
 
-    return str.split('&').reduce((ret, param) => {
+    return str.split('&').reduce(function (ret, param) {
       const parts = param.replace(/\+/g, ' ').split('=');
       // Firefox (pre 40) decodes `%3D` to `=`
       // https://github.com/sindresorhus/query-string/pull/37
@@ -36,4 +36,4 @@
       return ret;
     }, {});
   };
-}());
+})();

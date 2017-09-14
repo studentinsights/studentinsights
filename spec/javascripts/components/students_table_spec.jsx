@@ -1,25 +1,26 @@
 import SpecSugar from '../support/spec_sugar.jsx';
 import StudentsTable from '../../../app/assets/javascripts/components/students_table.jsx';
 
-describe('StudentsTable', () => {
+describe('StudentsTable', function() {
   const ReactDOM = window.ReactDOM;
 
   const helpers = {
-    renderInto(el, props) {
+    renderInto: function(el, props) {
       ReactDOM.render(<StudentsTable {...props} />, el);
     }
   };
 
-  SpecSugar.withTestEl('high-level integration test', () => {
-    it('renders the right date', function () {
+  SpecSugar.withTestEl('high-level integration test', function() {
+    it('renders the right date', function() {
+
       const props = {
         students: [
           { event_notes:
           [
-            { recorded_at: '2010-11-30T00:00:00.000Z',
-              event_note_type_id: 301 },
-            { recorded_at: '2010-11-28T00:00:00.000Z',
-              event_note_type_id: 300 }
+            { "recorded_at": "2010-11-30T00:00:00.000Z",
+              "event_note_type_id": 301 },
+            { "recorded_at": "2010-11-28T00:00:00.000Z",
+              "event_note_type_id": 300 }
           ],
             active_services: [],
             id: '1'
@@ -34,4 +35,5 @@ describe('StudentsTable', () => {
       expect(el).not.toContainText('11/30/10');
     });
   });
+
 });

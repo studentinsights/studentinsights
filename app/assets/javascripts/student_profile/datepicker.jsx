@@ -1,10 +1,10 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
   // This must be read lazily, since these options require the DOM
   // to be ready and some specific HTML to be on the page.
-  const datepickerOptionsFn = function () { return window.datepicker_options || {}; };
+  const datepickerOptionsFn = function() { return window.datepicker_options || {}; };
 
   const styles = {
     datepicker: {},
@@ -27,13 +27,13 @@
       datepickerOptions: React.PropTypes.object
     },
 
-    getDefaultProps() {
+    getDefaultProps: function() {
       return {
-        styles
+        styles: styles
       };
     },
 
-    componentDidMount(props, state) {
+    componentDidMount: function(props, state) {
       const datepickerOptions = merge(datepickerOptionsFn(), this.props.datepickerOptions);
       const el = this.el;
       $(el).find('.datepicker').datepicker(merge(datepickerOptions, {
@@ -43,29 +43,27 @@
 
     // Datepicker suppresses DOM change events,
     // see http://api.jqueryui.com/datepicker/
-    onDateSelected(dateText) {
+    onDateSelected: function(dateText) {
       this.props.onChange(dateText);
     },
 
-    onDateChanged(e) {
+    onDateChanged: function(e) {
       this.props.onChange(e.target.value);
     },
 
-    render() {
+    render: function() {
       return (
         <div
           ref={el => this.el = el}
           className="Datepicker"
-          style={this.props.styles.datepicker}
-        >
+          style={this.props.styles.datepicker}>
           <input
             className="datepicker"
             style={this.props.styles.input}
             onChange={this.onDateChanged}
-            value={this.props.value}
-          />
+            value={this.props.value} />
         </div>
       );
     }
   });
-}());
+})();

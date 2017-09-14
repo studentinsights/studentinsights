@@ -1,6 +1,6 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
-(function () {
+(function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
@@ -27,7 +27,7 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
       api: PropTypes.api
     },
 
-    getInitialState() {
+    getInitialState: function() {
       const serializedData = this.props.serializedData;
       const queryParams = this.props.queryParams;
 
@@ -69,11 +69,11 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
       };
     },
 
-    componentWillMount(props, state) {
+    componentWillMount: function(props, state) {
       this.api = this.props.api || new Api();
     },
 
-    componentDidUpdate(props, state) {
+    componentDidUpdate: function(props, state) {
       const path = Routes.studentProfile(this.state.student.id, {
         column: this.state.selectedColumnKey
       });
@@ -82,7 +82,7 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
     // Returns an updated state, adding serviceId and requestState, or removing
     // the `serviceId` from the map if `requestState` is null.
-    mergedDiscontinueService(state, serviceId, requestState) {
+    mergedDiscontinueService: function(state, serviceId, requestState) {
       const updatedDiscontinueService = (requestState === null)
         ? _.omit(state.requests.discontinueService, serviceId)
         : merge(state.requests.discontinueService, fromPair(serviceId, requestState));
@@ -94,12 +94,12 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
       });
     },
 
-    dateRange() {
+    dateRange: function() {
       const nowMoment = this.props.nowMomentFn();
       return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
     },
 
-    onColumnClicked(columnKey) {
+    onColumnClicked: function(columnKey) {
       MixpanelUtils.track('STUDENT_PROFILE_CLICKED_COLUMN', {
         page_key: 'STUDENT_PROFILE',
         column_key: columnKey
@@ -107,23 +107,25 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
       this.setState({ selectedColumnKey: columnKey });
     },
 
-    onClickSaveNotes(eventNoteParams) {
+    onClickSaveNotes: function(eventNoteParams) {
       this.setState({ requests: merge(this.state.requests, { saveNote: 'pending' }) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
     },
 
-    onSaveNotesDone(response) {
+    onSaveNotesDone: function(response) {
       let updatedEventNotes;
       let foundEventNote = false;
 
-      updatedEventNotes = this.state.feed.event_notes.map((eventNote) => {
+      updatedEventNotes = this.state.feed.event_notes.map(function(eventNote) {
         if (eventNote.id === response.id) {
           foundEventNote = true;
           return merge(eventNote, response);
         }
-        return eventNote;
+        else {
+          return eventNote;
+        }
       });
 
       if (!foundEventNote) {
@@ -137,19 +139,25 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
       });
     },
 
-    onSaveNotesFail(request, status, message) {
+    onSaveNotesFail: function(request, status, message) {
       this.setState({ requests: merge(this.state.requests, { saveNote: 'error' }) });
     },
 
-    onDeleteEventNoteAttachment(eventNoteAttachmentId) {
+    onDeleteEventNoteAttachment: function(eventNoteAttachmentId) {
       // optimistically update the UI
       // essentially, find the eventNote that has eventNoteAttachmentId in attachments
       // remove it
-      const eventNoteToUpdate = _.find(this.state.feed.event_notes, eventNote => _.findWhere(eventNote.attachments, { id: eventNoteAttachmentId }));
-      const updatedAttachments = eventNoteToUpdate.attachments.filter(attachment => attachment.id !== eventNoteAttachmentId);
-      const updatedEventNotes = this.state.feed.event_notes.map(eventNote => (eventNote.id !== eventNoteToUpdate.id)
+      const eventNoteToUpdate = _.find(this.state.feed.event_notes, function(eventNote) {
+        return _.findWhere(eventNote.attachments, { id: eventNoteAttachmentId });
+      });
+      const updatedAttachments = eventNoteToUpdate.attachments.filter(function(attachment) {
+        return attachment.id !== eventNoteAttachmentId;
+      });
+      const updatedEventNotes = this.state.feed.event_notes.map(function(eventNote) {
+        return (eventNote.id !== eventNoteToUpdate.id)
           ? eventNote
-          : merge(eventNote, { attachments: updatedAttachments }));
+          : merge(eventNote, { attachments: updatedAttachments });
+      });
       this.setState({
         feed: merge(this.state.feed, { event_notes: updatedEventNotes })
       });
@@ -158,7 +166,7 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
       this.api.deleteEventNoteAttachment(eventNoteAttachmentId);
     },
 
-    onClickSaveService(serviceParams) {
+    onClickSaveService: function(serviceParams) {
       // Very quick name validation, just check for a comma between two words
       if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
         this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
@@ -170,7 +178,7 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
       }
     },
 
-    onSaveServiceDone(response) {
+    onSaveServiceDone: function(response) {
       const updatedActiveServices = this.state.feed.services.active.concat([response]);
       const updatedFeed = merge(this.state.feed, {
         services: merge(this.state.feed.services, {
@@ -184,33 +192,35 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
       });
     },
 
-    onSaveServiceFail(request, status, message) {
+    onSaveServiceFail: function(request, status, message) {
       this.setState({ requests: merge(this.state.requests, { saveService: 'error' }) });
     },
 
-    onClickDiscontinueService(serviceId) {
+    onClickDiscontinueService: function(serviceId) {
       this.setState(this.mergedDiscontinueService(this.state, serviceId, 'pending'));
       this.api.discontinueService(serviceId)
         .done(this.onDiscontinueServiceDone.bind(this, serviceId))
         .fail(this.onDiscontinueServiceFail.bind(this, serviceId));
     },
 
-    onDiscontinueServiceDone(serviceId, response) {
+    onDiscontinueServiceDone: function(serviceId, response) {
       const updatedStateOfRequests = this.mergedDiscontinueService(this.state, serviceId, null);
       const updatedFeed = merge(this.state.feed, {
         services: merge(this.state.feed.services, {
           discontinued: this.state.feed.services.discontinued.concat([response]),
-          active: this.state.feed.services.active.filter(service => service.id !== serviceId),
+          active: this.state.feed.services.active.filter(function(service) {
+            return service.id !== serviceId;
+          }),
         })
       });
       this.setState(merge(updatedStateOfRequests, { feed: updatedFeed }));
     },
 
-    onDiscontinueServiceFail(serviceId, request, status, message) {
+    onDiscontinueServiceFail: function(serviceId, request, status, message) {
       this.setState(this.mergedDiscontinueService(this.state, serviceId, 'error'));
     },
 
-    render() {
+    render: function() {
       return (
         <div className="PageContainer">
           <StudentProfilePage
@@ -237,11 +247,10 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
                 onClickSaveService: this.onClickSaveService,
                 onClickDiscontinueService: this.onClickDiscontinueService
               }
-            })}
-          />
+            })} />
         </div>
       );
     }
 
   });
-}());
+})();
