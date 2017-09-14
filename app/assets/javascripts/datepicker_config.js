@@ -1,4 +1,4 @@
-$(() => {
+$(function() {
   if ($('body').hasClass('students') ||
       $('body').hasClass('homerooms') ||
       $('body').hasClass('service_uploads')) {
@@ -14,4 +14,3 @@ $(() => {
     $('.datepicker').datepicker(window.datepicker_options);
   }
 });
-
