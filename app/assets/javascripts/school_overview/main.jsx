@@ -1,7 +1,7 @@
 //= require ./school_overview_page
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
-$(() => {
+$(function() {
   if ($('body').hasClass('schools') && $('body').hasClass('show')) {
     const SchoolOverviewPage = window.shared.SchoolOverviewPage;
     const Filters = window.shared.Filters;
@@ -14,7 +14,6 @@ $(() => {
       allStudents={serializedData.students}
       serviceTypesIndex={serializedData.constantIndexes.service_types_index}
       eventNoteTypesIndex={serializedData.constantIndexes.event_note_types_index}
-      initialFilters={Filters.parseFiltersHash(window.location.hash)}
-    />, document.getElementById('main'));
+      initialFilters={Filters.parseFiltersHash(window.location.hash)} />, document.getElementById('main'));
   }
 });

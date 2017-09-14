@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
 
   // This component wraps Highcharts so that you can provide Highcharts
@@ -6,19 +6,19 @@
   window.shared.HighchartsWrapper = React.createClass({
     displayName: 'HighchartsWrapper',
 
-    componentDidMount(props, state) {
+    componentDidMount: function(props, state) {
       $(this._chartEl).highcharts(this.props);
     },
 
-    componentWillUnmount(props, state) {
+    componentWillUnmount: function(props, state) {
       delete this._chartEl;
     },
 
-    onRefForChart(el) {
+    onRefForChart: function(el) {
       this._chartEl = el;
     },
 
-    render() {
+    render: function() {
       return (
         <div className="HighchartsWrapper">
           <div ref={this.onRefForChart} />
@@ -27,4 +27,4 @@
     },
 
   });
-}());
+})();

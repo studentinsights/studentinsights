@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
 
@@ -145,24 +145,24 @@
       actions: PropTypes.actions
     },
 
-    dateRange() {
+    dateRange: function() {
       const nowMoment = this.props.nowMomentFn();
       return [nowMoment.clone().subtract(2, 'year').toDate(), nowMoment.toDate()];
     },
 
-    selectedColumnStyles(columnKey) {
+    selectedColumnStyles: function(columnKey) {
       return (columnKey === this.props.selectedColumnKey) ? styles.selectedColumn : {};
     },
 
-    selectedTabStyles(columnKey) {
+    selectedTabStyles: function(columnKey) {
       return (columnKey === this.props.selectedColumnKey) ? styles.selectedTab : {};
     },
 
-    onColumnClicked(columnKey) {
+    onColumnClicked: function(columnKey) {
       this.props.actions.onColumnClicked(columnKey);
     },
 
-    render() {
+    render: function() {
       return (
         <div className="StudentProfilePage">
           <StudentProfileHeader student={this.props.student} />
@@ -180,7 +180,7 @@
       );
     },
 
-    renderNotesHelpContent() {
+    renderNotesHelpContent: function(){
       return (
         <div>
           <p>
@@ -193,14 +193,14 @@
             </b>
             Anyone who works with or involved with the student,         including classroom/ELL/SPED teachers, principals/assistant principals, counselors, and attendance officers.
           </p>
-          <br />
+          <br/>
           <p>
             <b>
               {'What can/should I put in a note? '}
             </b>
             The true test is to think about whether the information will help your         team down the road in supporting this student, either in the coming weeks, or a few years from now. Examples include:
           </p>
-          <br />
+          <br/>
           <ul>
             <li>
               "Oscar just showed a 20 point increase in ORF. It seems like the take home readings are working (parents are very supportive) and we will continue it."
@@ -237,9 +237,9 @@
       );
     },
 
-    renderSectionDetails() {
+    renderSectionDetails: function() {
       switch (this.props.selectedColumnKey) {
-        case 'profile': return (
+      case 'profile': return (
           <ProfileDetails
             student={this.props.student}
             feed={this.props.feed}
@@ -248,26 +248,24 @@
             chartData={this.props.chartData}
             iepDocuments={this.props.iepDocuments}
             attendanceData={this.props.attendanceData}
-            serviceTypesIndex={this.props.serviceTypesIndex}
-          />
-        );
-        case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
-        case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
-        case 'attendance':
-          var attendanceData = this.props.attendanceData;
-          return (
+            serviceTypesIndex={this.props.serviceTypesIndex} />
+      );
+      case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
+      case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
+      case 'attendance':
+        var attendanceData = this.props.attendanceData;
+        return (
             <AttendanceDetails
               disciplineIncidents={attendanceData.discipline_incidents}
               absences={attendanceData.absences}
               tardies={attendanceData.tardies}
               student={this.props.student}
               feed={this.props.feed}
-              serviceTypesIndex={this.props.serviceTypesIndex}
-            />
-          );
-        case 'interventions':
-          return (
-            <div className="InterventionsDetails" style={{ display: 'flex' }}>
+              serviceTypesIndex={this.props.serviceTypesIndex} />
+        );
+      case 'interventions':
+        return (
+            <div className="InterventionsDetails" style={{display: 'flex'}}>
               <NotesDetails
                 student={this.props.student}
                 eventNoteTypesIndex={this.props.eventNoteTypesIndex}
@@ -279,8 +277,7 @@
                 showingRestrictedNotes={false}
                 helpContent={this.renderNotesHelpContent()}
                 helpTitle="What is a Note?"
-                title="Notes"
-              />
+                title="Notes" />
               <ServicesDetails
                 student={this.props.student}
                 serviceTypesIndex={this.props.serviceTypesIndex}
@@ -288,60 +285,55 @@
                 currentEducator={this.props.currentEducator}
                 feed={this.props.feed}
                 actions={this.props.actions}
-                requests={this.props.requests}
-              />
+                requests={this.props.requests} />
             </div>
-          );
+        );
       }
       return null;
     },
 
-    renderProfileColumn() {
+    renderProfileColumn: function() {
       const student = this.props.student;
       const columnKey = 'profile';
       const demographicsElements = [
-        `Disability: ${student.sped_level_of_need || 'None'}`,
-        `Low income: ${student.free_reduced_lunch}`,
-        `Language: ${student.limited_english_proficiency}`
+        'Disability: ' + (student.sped_level_of_need || 'None'),
+        'Low income: ' + student.free_reduced_lunch,
+        'Language: ' + student.limited_english_proficiency
       ];
 
       if (this.props.access) {
-        demographicsElements.push(`ACCESS Composite score: ${this.props.access.composite}`);
+        demographicsElements.push('ACCESS Composite score: ' + this.props.access.composite);
       }
 
       return (
         <div
           style={styles.columnContainer}
-          onClick={this.onColumnClicked.bind(this, columnKey)}
-        >
+          onClick={this.onColumnClicked.bind(this, columnKey)}>
           <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
             Overview
           </div>
           <div
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn)}
-          >
+            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn)}>
             <SummaryList title="Demographics" elements={demographicsElements} />
           </div>
         </div>
       );
     },
 
-    renderInterventionsColumn() {
+    renderInterventionsColumn: function() {
       const student = this.props.student;
       const columnKey = 'interventions';
 
       return (
         <div
           style={styles.columnContainer}
-          onClick={this.onColumnClicked.bind(this, columnKey)}
-        >
+          onClick={this.onColumnClicked.bind(this, columnKey)}>
           <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
             Interventions
           </div>
           <div
             className="interventions-column"
-            style={merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey))}
-          >
+            style={merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey))}>
             {this.renderPaddedElements(styles.summaryWrapper, [
               this.renderPlacement(student),
               this.renderServices(student),
@@ -353,26 +345,26 @@
       );
     },
 
-    renderPlacement(student) {
+    renderPlacement: function(student) {
       const placement = (student.sped_placement !== null)
-        ? `${student.program_assigned}, ${student.sped_placement}`
+        ? student.program_assigned + ', ' + student.sped_placement
         : student.program_assigned;
 
       const homeroom_name = student.homeroom_name;
 
       const homeroom = (homeroom_name)
-        ? `Homeroom ${homeroom_name}`
+        ? 'Homeroom ' + homeroom_name
         : 'No homeroom';
 
       return (
         <SummaryList
           title="Placement"
-          elements={[placement, homeroom]}
+          elements={[ placement, homeroom ]}
         />
       );
     },
 
-    renderServices(student) {
+    renderServices: function(student) {
       const activeServices = this.props.feed.services.active;
       if (activeServices.length === 0) {
         return <SummaryList title="Services" elements={['No services']} />;
@@ -380,7 +372,7 @@
 
       const limit = 3;
       const sortedServices = _.sortBy(activeServices, 'date_started').reverse();
-      var elements = sortedServices.slice(0, limit).map(function (service) {
+      var elements = sortedServices.slice(0, limit).map(function(service) {
         const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
         return (
           <span key={service.id}>
@@ -390,21 +382,19 @@
           </span>
         );
       }, this);
-      if (sortedServices.length > limit) {
-        elements.push(<div>
-          {`+ ${sortedServices.length - limit} more`}
-        </div>);
-      }
+      if (sortedServices.length > limit) elements.push(<div>
+        {'+ ' + (sortedServices.length - limit) + ' more'}
+      </div>);
 
       return <SummaryList title="Services" elements={elements} />;
     },
 
-    renderStaff(student) {
+    renderStaff: function(student) {
       const activeServices = this.props.feed.services.active;
       const educatorNamesFromServices = _.pluck(activeServices, 'provided_by_educator_name');
       const uniqueNames = _.unique(educatorNamesFromServices);
-      const nonEmptyNames = _.filter(uniqueNames, id => id !== '' && id !== null);
-      const educatorNames = _.isEmpty(nonEmptyNames) ? ['No staff'] : nonEmptyNames;
+      const nonEmptyNames = _.filter(uniqueNames, function(id) { return id !== "" && id !== null; });
+      const educatorNames = _.isEmpty( nonEmptyNames ) ? ["No staff"] : nonEmptyNames;
 
       const limit = 3;
 
@@ -412,7 +402,7 @@
 
       if (educatorNames.length > limit) {
         elements.push(<span>
-          {`+ ${educatorNames.length - limit} more`}
+          {'+ ' + (educatorNames.length - limit) + ' more'}
         </span>);
       } else if (educatorNames.length === 0) {
         elements.push(['None']);
@@ -421,7 +411,7 @@
       return <SummaryList title="Staff providing services" elements={educatorNames} />;
     },
 
-    renderSped(student) {
+    renderSped: function(student) {
       return (
         <div>
           <span style={styles.spedTitle}>
@@ -436,17 +426,17 @@
       );
     },
 
-    renderSpedLevelText(student) {
+    renderSpedLevelText: function(student) {
       switch (student.sped_level_of_need) {
-        case 'Low < 2': return 'less than 2 hours / week';
-        case 'Low >= 2': return '2-5 hours / week';
-        case 'Moderate': return '6-14 hours / week';
-        case 'High': return '15+ hours / week';
-        default: return 'None';
+      case "Low < 2": return "less than 2 hours / week";
+      case "Low >= 2": return "2-5 hours / week";
+      case "Moderate": return "6-14 hours / week";
+      case "High": return "15+ hours / week";
+      default: return "None";
       }
     },
 
-    renderELAColumn() {
+    renderELAColumn: function() {
       const student = this.props.student;
       const chartData = this.props.chartData;
       const columnKey = 'ela';
@@ -454,15 +444,13 @@
       return (
         <div
           style={styles.columnContainer}
-          onClick={this.onColumnClicked.bind(this, columnKey)}
-        >
+          onClick={this.onColumnClicked.bind(this, columnKey)}>
           <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
             Reading
           </div>
           <div
             className="ela-background"
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}
-          >
+            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
             {this.renderWrappedSummary({
               caption: 'STAR Reading',
               value: student.most_recent_star_reading_percentile,
@@ -482,7 +470,7 @@
       );
     },
 
-    renderMcasElaSgpOrDibels() {
+    renderMcasElaSgpOrDibels: function () {
       const student = this.props.student;
       const chartData = this.props.chartData;
       const grade = student.grade;
@@ -498,15 +486,16 @@
             <SummaryWithoutSparkline caption="DIBELS" value={latestDibels} />
           </div>
         );
+      } else {
+        return this.renderWrappedSummary({
+          caption: 'MCAS ELA SGP',
+          value: student.most_recent_mcas_ela_growth,
+          sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
+        });
       }
-      return this.renderWrappedSummary({
-        caption: 'MCAS ELA SGP',
-        value: student.most_recent_mcas_ela_growth,
-        sparkline: this.renderSparkline(chartData.mcas_series_ela_growth || [])
-      });
     },
 
-    renderMathColumn() {
+    renderMathColumn: function() {
       const student = this.props.student;
       const chartData = this.props.chartData;
       const columnKey = 'math';
@@ -514,15 +503,13 @@
       return (
         <div
           style={styles.columnContainer}
-          onClick={this.onColumnClicked.bind(this, columnKey)}
-        >
+          onClick={this.onColumnClicked.bind(this, columnKey)}>
           <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
             Math
           </div>
           <div
             className="math-background"
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}
-          >
+            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
             {this.renderWrappedSummary({
               caption: 'STAR Math',
               value: student.most_recent_star_math_percentile,
@@ -546,7 +533,7 @@
       );
     },
 
-    renderAttendanceColumn() {
+    renderAttendanceColumn: function() {
       const student = this.props.student;
       const attendanceData = this.props.attendanceData;
       const columnKey = 'attendance';
@@ -554,15 +541,13 @@
       return (
         <div
           style={styles.columnContainer}
-          onClick={this.onColumnClicked.bind(this, columnKey)}
-        >
+          onClick={this.onColumnClicked.bind(this, columnKey)}>
           <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
             Attendance and Behavior
           </div>
           <div
             className="attendance-background"
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}
-          >
+            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
             {this.renderAttendanceEventsSummary(
               student.discipline_incidents_count,
               attendanceData.discipline_incidents,
@@ -592,44 +577,42 @@
       );
     },
 
-    renderAttendanceEventsSummary(count, events, flexibleRangeFn, props) {
+    renderAttendanceEventsSummary: function(count, events, flexibleRangeFn, props) {
       const cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(events);
       const valueRange = flexibleRangeFn(cumulativeQuads);
       const value = count;
 
       return this.renderWrappedSummary(merge({
         title: props.title,
-        value,
+        value: value,
         sparkline: <BarChartSparkline
           {...merge({
             height: styles.sparklineHeight,
             width: styles.sparklineWidth,
-            valueRange,
+            valueRange: valueRange,
             quads: cumulativeQuads,
             dateRange: this.dateRange(),
-          }, props)}
-        />,
+          }, props)} />,
       }, props));
     },
 
     // quads format is: [[year, month (Ruby), day, value]]
-    renderSparkline(quads, props) {
+    renderSparkline: function(quads, props) {
       return (
         <Sparkline
           {...merge({
             height: styles.sparklineHeight,
             width: styles.sparklineWidth,
-            quads,
+            quads: quads,
             dateRange: this.dateRange(),
             valueRange: [0, 100],
             thresholdValue: 50
-          }, props || {})}
-        />
+          }, props || {})} />
       );
     },
 
     // render with style wrapper
-    renderWrappedSummary(props) {
+    renderWrappedSummary: function(props) {
       return (
         <div style={styles.summaryWrapper}>
           <AcademicSummary {...props} />
@@ -637,25 +620,27 @@
       );
     },
 
-    renderPaddedElements(style, elements) {
+    renderPaddedElements: function(style, elements) {
       return (
         <div>
-          {elements.map((element, index) => (
-            <div key={index} style={style}>
-              {element}
-            </div>
-            ))}
+          {elements.map(function(element, index) {
+            return (
+              <div key={index} style={style}>
+                {element}
+              </div>
+            );
+          })}
         </div>
       );
     },
 
-    renderTitle(text) {
+    renderTitle: function(text) {
       return (
-        <div style={{ fontWeight: 'bold' }}>
+        <div style={{fontWeight: "bold"}}>
           {text}
         </div>
       );
     }
 
   });
-}());
+})();

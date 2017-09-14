@@ -2,7 +2,7 @@ import isInteger from 'lodash/isInteger';
 
 export default {
 
-  sortByString(a, b, sortBy) {
+  sortByString: function (a, b, sortBy) {
     const stringA = a[sortBy];
     const stringB = b[sortBy];
 
@@ -17,7 +17,7 @@ export default {
     return 0;
   },
 
-  sortByNumber(a, b, sortBy) {
+  sortByNumber: function (a, b, sortBy) {
     const numA = parseInt(a[sortBy]);
     const numB = parseInt(b[sortBy]);
 
@@ -29,7 +29,7 @@ export default {
     return 0;
   },
 
-  sortByCustomEnum(a, b, sortBy, customEnum) {
+  sortByCustomEnum: function (a, b, sortBy, customEnum) {
     const indexA = customEnum.indexOf(a[sortBy]);
     const indexB = customEnum.indexOf(b[sortBy]);
 
@@ -38,7 +38,7 @@ export default {
     return 0;
   },
 
-  sortByDate(a, b, sortBy) {
+  sortByDate: function (a, b, sortBy) {
     const dateA = moment(a[sortBy], 'MM/D/YY');
     const dateB = moment(b[sortBy], 'MM/D/YY');
 
@@ -50,7 +50,7 @@ export default {
     return 0;
   },
 
-  sortByActiveServices(a, b) {
+  sortByActiveServices: function (a, b) {
     const numA = a.active_services.length;
     const numB = b.active_services.length;
 

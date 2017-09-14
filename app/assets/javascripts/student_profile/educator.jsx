@@ -13,17 +13,17 @@ export default React.createClass({
   },
 
   // Turns SIS format (Watson, Joe) -> Joe Watson
-  educatorName(educator) {
-    if (educator.full_name === null) return `${educator.email.split('@')[0]}@`;
+  educatorName: function(educator) {
+    if (educator.full_name === null) return educator.email.split('@')[0] + '@';
     const parts = educator.full_name.split(', ');
-    return `${parts[1]} ${parts[0]}`;
+    return parts[1] + ' ' + parts[0];
   },
 
-  render() {
+  render: function() {
     const educator = this.props.educator;
     const educatorName = this.educatorName(educator);
     return (
-      <a className="Educator" href={`mailto:${educator.email}`}>
+      <a className="Educator" href={'mailto:' + educator.email}>
         {educatorName}
       </a>
     );

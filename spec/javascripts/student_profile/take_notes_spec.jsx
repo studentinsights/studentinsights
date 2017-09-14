@@ -7,15 +7,15 @@ import SpecSugar from '../support/spec_sugar.jsx';
 import TakeNotes from '../../../app/assets/javascripts/student_profile/take_notes.jsx';
 
 
-describe('TakeNotes', () => {
+describe('TakeNotes', function() {
   const merge = window.shared.ReactHelpers.merge;
 
   const helpers = {
-    renderInto(el, props) {
+    renderInto: function(el, props) {
       const mergedProps = merge(props || {}, {
-        nowMoment,
+        nowMoment: nowMoment,
         eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
-        currentEducator,
+        currentEducator: currentEducator,
         onSave: jasmine.createSpy('onSave'),
         onCancel: jasmine.createSpy('onCancel'),
         requestState: null
@@ -24,8 +24,8 @@ describe('TakeNotes', () => {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', () => {
-    it('renders note-taking area', function () {
+  SpecSugar.withTestEl('high-level integration tests', function() {
+    it('renders note-taking area', function() {
       const el = this.testEl;
       helpers.renderInto(el);
 

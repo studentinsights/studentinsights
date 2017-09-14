@@ -1,13 +1,13 @@
-import { studentProfile, feedForTestingNotes } from './fixtures.jsx';
+import {studentProfile, feedForTestingNotes} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 
-describe('NotesList', () => {
+describe('NotesList', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const NotesList = window.shared.NotesList;
 
   const helpers = {
-    renderInto(el, props) {
+    renderInto: function(el, props) {
       const mergedProps = merge(props || {}, {
         feed: feedForTestingNotes,
         educatorsIndex: studentProfile.educatorsIndex,
@@ -18,13 +18,15 @@ describe('NotesList', () => {
       ReactDOM.render(<NotesList {...mergedProps} />, el);
     },
 
-    noteTimestamps(el) {
-      return $(el).find('.NoteCard .date').toArray().map(dateEl => moment.parseZone($(dateEl).text(), 'MMM DD, YYYY').toDate().getTime());
+    noteTimestamps: function(el) {
+      return $(el).find('.NoteCard .date').toArray().map(function(dateEl) {
+        return moment.parseZone($(dateEl).text(), 'MMM DD, YYYY').toDate().getTime();
+      });
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', () => {
-    it('renders everything on the happy path', function () {
+  SpecSugar.withTestEl('high-level integration tests', function() {
+    it('renders everything on the happy path', function() {
       const el = this.testEl;
       helpers.renderInto(el);
 
@@ -39,9 +41,9 @@ describe('NotesList', () => {
       expect(el).not.toContainText('SST Meeting');
 
       // Notes attachments expectations
-      expect(el).toContainText('link: https://www.example.com/morestudentwork');
-      expect(el).toContainText('link: https://www.example.com/studentwork');
-      expect(el).toContainText('(remove)');
+      expect(el).toContainText("link: https://www.example.com/morestudentwork");
+      expect(el).toContainText("link: https://www.example.com/studentwork");
+      expect(el).toContainText("(remove)");
     });
   });
 });

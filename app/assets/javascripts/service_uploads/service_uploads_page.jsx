@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
   const ServiceUploadDetail = window.shared.ServiceUploadDetail;
@@ -10,7 +10,7 @@
       serializedData: React.PropTypes.object.isRequired,
     },
 
-    getInitialState() {
+    getInitialState: function () {
       return {
         serviceUploads: this.props.serializedData.serviceUploads, // Existing service uploads
         formData: {},                                             // New service upload form data
@@ -27,7 +27,7 @@
       };
     },
 
-    isMissingRequiredFields() {
+    isMissingRequiredFields: function () {
       const formData = this.state.formData;
 
       if (!formData.file_name) return true;
@@ -38,7 +38,7 @@
       return false;
     },
 
-    upload() {
+    upload: function () {
       this.setState({
         serverSideErrors: [],
         uploadingInProgress: true,
@@ -74,7 +74,7 @@
       });
     },
 
-    validateLASIDs(student_lasids) {
+    validateLASIDs: function (student_lasids) {
       return $.ajax({
         url: '/students/lasids.json',
         method: 'GET',
@@ -84,7 +84,7 @@
               studentLasidsReceivedFromBackend: true,
               incorrectLasids: _.difference(student_lasids, data),
               formData: merge(this.state.formData, {
-                student_lasids }
+                student_lasids: student_lasids }
               ),
             });
           } else {
@@ -96,53 +96,55 @@
       });
     },
 
-    onClickDeleteServiceUpload(id) {
+    onClickDeleteServiceUpload: function (id) {
       return $.ajax({
-        url: `/service_uploads/${id}.json`,
+        url: '/service_uploads/' + id + '.json',
         method: 'DELETE',
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
         success: function (data) {
           if (data.success) {
             this.setState({
-              serviceUploads: this.state.serviceUploads.filter(upload => upload.id !== parseInt(data.id))
+              serviceUploads: this.state.serviceUploads.filter(function (upload) {
+                return upload.id !== parseInt(data.id);
+              })
             });
           }
         }.bind(this)
       });
     },
 
-    onSelectStartDate(event) {
+    onSelectStartDate: function (event) {
       this.setState({
         formData: merge(this.state.formData, { date_started: event })
       });
     },
 
-    onSelectEndDate(event) {
+    onSelectEndDate: function (event) {
       this.setState({
         formData: merge(this.state.formData, { date_ended: event })
       });
     },
 
-    onUserTypingServiceType(event) {
+    onUserTypingServiceType: function(event) {
       this.setState({
         formData: merge(this.state.formData, { service_type_name: event.target.value })
       });
     },
 
-    onUserSelectServiceType(string) {
+    onUserSelectServiceType: function(string) {
       this.setState({
         formData: merge(this.state.formData, { service_type_name: string })
       });
     },
 
-    onClickUploadButton() {
+    onClickUploadButton: function () {
       if (this.isMissingRequiredFields()) return;
 
       this.upload();
     },
 
-    onSelectFile(event) {
+    onSelectFile: function (event) {
       const file = event.target.files[0];
       if (!file || !file.name) return;
 
@@ -153,23 +155,23 @@
       reader.readAsText(file);
     },
 
-    onFileReaderLoaded(reader, e) {
+    onFileReaderLoaded: function (reader, e) {
       const text = reader.result;
-      const rows = text.split('\n');
-      const headerRow = rows.shift().split(',');
+      const rows = text.split("\n");
+      const headerRow = rows.shift().split(",");
 
       if (headerRow[0].trim() !== 'LASID') {
         this.setState({ missingLasidHeader: true });
         return;
       }
 
-      const student_lasids = rows.map(row => row.split(',')[0].trim())
-                               .filter(lasid => lasid !== '');
+      const student_lasids = rows.map(function(row) { return row.split(",")[0].trim(); })
+                               .filter(function (lasid) { return lasid !== ''; });
 
       this.validateLASIDs(student_lasids);
     },
 
-    render() {
+    render: function() {
       return (
         <div>
           <div
@@ -178,23 +180,21 @@
               float: 'left',
               padding: 20,
               marginTop: 20,
-            }}
-          >
+            }}>
             {this.renderNewServiceUploadForm()}
           </div>
           <div
             style={{
               width: '50%',
               float: 'left'
-            }}
-          >
+            }}>
             {this.renderServiceDetails()}
           </div>
         </div>
       );
     },
 
-    renderNewServiceUploadForm() {
+    renderNewServiceUploadForm: function () {
       return (
         <NewServiceUpload
           // Actions
@@ -214,22 +214,21 @@
           formData={this.state.formData}
           serverSideErrors={this.state.serverSideErrors}
           uploadingInProgress={this.state.uploadingInProgress}
-          serviceTypeNames={this.props.serializedData.serviceTypeNames}
-        />
+          serviceTypeNames={this.props.serializedData.serviceTypeNames} />
       );
     },
 
-    renderServiceDetails() {
+    renderServiceDetails: function () {
       return this.state.serviceUploads.map(function (serviceUpload) {
         return (
           <ServiceUploadDetail
             data={serviceUpload}
             onClickDeleteServiceUpload={this.onClickDeleteServiceUpload}
-            key={String(serviceUpload.id)}
-          />
+            key={String(serviceUpload.id)} />
         );
       }, this);
     },
 
   });
-}());
+
+})();

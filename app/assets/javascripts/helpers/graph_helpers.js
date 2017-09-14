@@ -1,4 +1,4 @@
-(function () {
+(function() {
   window.shared || (window.shared = {});
 
   /*
@@ -7,9 +7,9 @@
   */
   window.shared.GraphHelpers = {
     // Returns a list of monthKeys that are within the time window for this chart.
-    monthKeys(nowMomentUTC, monthsBack) {
+    monthKeys: function(nowMomentUTC, monthsBack) {
       var lastMonthMomentUTC = nowMomentUTC.clone().date(1);
-      return _.range(monthsBack, -1, -1).map((monthsBack) => {
+      return _.range(monthsBack, -1, -1).map(function(monthsBack) {
         var monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
         var monthKey = monthMomentUTC.format('YYYYMMDD');
         return monthKey;
@@ -19,15 +19,17 @@
     // A function that grabs a monthKey from an event that is passed in.  Should return
     // a string in the format YYYYMMDD for the first day of the month.
     // Used for grouping events on the chart.
-    defaultMonthKey(event) {
+    defaultMonthKey: function(event) {
       return moment.utc(event.occurred_at).date(1).format('YYYYMMDD');
     },
 
     // Given a list of monthKeys, map over that to return a list of all events that fall within
     // that month.
-    eventsToMonthBuckets(monthKeys, events) {
+    eventsToMonthBuckets: function(monthKeys, events){
       var eventsByMonth = _.groupBy(events, this.defaultMonthKey);
-      return monthKeys.map(monthKey => eventsByMonth[monthKey] || []);
+      return monthKeys.map(function(monthKey) {
+        return eventsByMonth[monthKey] || [];
+      });
     },
 
 
@@ -35,10 +37,10 @@
     // to the list of monthKeys.  Returns a map of (index into monthKeys array) -> (caption text)
     //
     // Example output: {3: '2014', 15: '2015'}
-    yearCategories(monthKeys) {
+    yearCategories: function(monthKeys) {
       var categories = {};
 
-      monthKeys.forEach(function (monthKey, monthKeyIndex) {
+      monthKeys.forEach(function(monthKey, monthKeyIndex) {
         var monthMomentUTC = moment.utc(monthKey);
         var isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
         if (isFirstMonthOfYear) {
@@ -49,17 +51,18 @@
       return categories;
     },
 
-    yearAxisCaption(monthKey) {
+    yearAxisCaption: function(monthKey) {
       return moment.utc(monthKey).format('YYYY');
     },
 
-    monthAxisCaption(monthKey) {
+    monthAxisCaption: function(monthKey) {
       return moment.utc(monthKey).format('MMM');
     },
 
-    dateTitle(endDate, monthsBack) {
-      var startDate = endDate.clone().subtract(monthsBack, 'months');
-      return `(${startDate.format('MM/YYYY')} to ${endDate.format('MM/YYYY')})`;
+    dateTitle: function(endDate, monthsBack) {
+      var startDate = endDate.clone().subtract(monthsBack,'months');
+      return "(" + startDate.format("MM/YYYY") + " to " + endDate.format("MM/YYYY") + ")";
     }
   };
-}());
+
+})();
