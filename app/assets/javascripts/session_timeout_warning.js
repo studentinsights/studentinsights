@@ -1,4 +1,4 @@
-$(() => {
+$(function() {
   var Env = window.shared.Env;
 
   var SessionTimeoutWarning = function () {};
@@ -16,7 +16,7 @@ $(() => {
     warning.count();
   }
 
-  $('#renew-sesion-link').click(() => {
+  $('#renew-sesion-link').click(function() {
     $.ajax({
       url: '/educators/reset',
       success() {
