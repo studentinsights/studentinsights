@@ -4,7 +4,8 @@ RSpec.describe StudentSectionGradesImporter do
   describe '#import_row' do
     let(:log) { LogHelper::Redirect.instance.file }
     let!(:school) { FactoryGirl.create(:shs) }
-    let!(:section) { FactoryGirl.create(:section) }
+    let!(:course) { FactoryGirl.create(:course, school:school)}
+    let!(:section) { FactoryGirl.create(:section, course:course) }
     let!(:student) { FactoryGirl.create(:student) }
     let!(:ssa) do
       FactoryGirl.create(:student_section_assignment,

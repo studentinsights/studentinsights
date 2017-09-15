@@ -2,7 +2,7 @@ class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :p
   def initialize(*)
     super
     self.student_lasid_map = Student.all.pluck(:local_id,:id).to_h
-    self.section_number_map = Section.all.pluck(:section_number, :id).to_h
+    self.section_number_map = ActiveRecord::Base.connection.execute("select CONCAT(sections.section_number, '|', sections.term_local_id, '|', schools.local_id, '|', courses.course_number), sections.id  from sections inner join courses on courses.id = sections.course_id inner join schools on schools.id = courses.school_id").values.to_h
   end
 
   attr_accessor :student_lasid_map

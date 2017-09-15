@@ -29,7 +29,8 @@ class StudentSectionGradeRow < Struct.new(:row, :student_lasid_map, :section_num
   end
 
   def section_id
-    return section_number_map[row[:section_number]] if row[:section_number]
+    concat_value = "#{row[:section_number]}|#{row[:term_local_id]}|#{row[:school_local_id]}|#{row[:course_number]}"
+    return section_number_map[concat_value]
   end
 
   def grade
