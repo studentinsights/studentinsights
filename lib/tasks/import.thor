@@ -8,6 +8,7 @@ require_relative '../../app/importers/file_importers/educators_importer'
 require_relative '../../app/importers/file_importers/attendance_importer'
 require_relative '../../app/importers/file_importers/courses_sections_importer'
 require_relative '../../app/importers/file_importers/student_section_assignments_importer'
+require_relative '../../app/importers/file_importers/student_section_grades_importer'
 require_relative '../../app/importers/file_importers/educator_section_assignments_importer'
 
 class Import

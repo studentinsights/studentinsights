@@ -1,5 +1,4 @@
 class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
-
   def remote_file_name
     'student_section_assignment_export.txt'
   end
@@ -14,6 +13,7 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
 
   def delete_rows
     StudentSectionAssignment.delete_all
+    ActiveRecord::Base.connection.reset_pk_sequence!('student_section_assignments')
   end
 
   def import_row(row)
@@ -24,5 +24,4 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
       log.write("Student Section Assignment Import invalid row: #{row}")
     end
   end
-
 end
