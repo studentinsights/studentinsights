@@ -18,7 +18,8 @@ class StudentSectionGradeRow < Struct.new(:row, :student_lasid_map, :section_num
       student_section_assignment = StudentSectionAssignment.find_or_initialize_by(student_id: student_id,
                                                                                   section_id: section_id)
       student_section_assignment.assign_attributes(
-        grade: grade
+        grade_numeric: grade_numeric,
+        grade_letter: grade_letter
       )
       student_section_assignment
     end
@@ -33,9 +34,13 @@ class StudentSectionGradeRow < Struct.new(:row, :student_lasid_map, :section_num
     return section_number_map[concat_value]
   end
 
-  def grade
-    return Integer(row[:grade])
+  def grade_numeric
+    return Float(row[:grade].split[0])
   rescue
     nil
+  end
+
+  def grade_letter
+    return row[:grade].split[1] if row[:grade].split.length > 1
   end
 end

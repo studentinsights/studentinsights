@@ -20,7 +20,7 @@ RSpec.describe StudentSectionGradesImporter do
           school_local_id: 'SHS',
           course_number: section.course_number,
           term_local_id: 'FY',
-          grade: '85' }
+          grade: '85.0 B+' }
       end
 
       before do
@@ -29,7 +29,8 @@ RSpec.describe StudentSectionGradesImporter do
 
       it 'creates adds grade to student section assignment' do
         ssa.reload
-        expect(ssa.grade).to eq(85)
+        expect(ssa.grade_numeric).to eq(85)
+        expect(ssa.grade_letter).to eq("B+")
       end
     end
 
@@ -49,7 +50,8 @@ RSpec.describe StudentSectionGradesImporter do
 
       it 'adds grade to student section assignment' do
         ssa.reload
-        expect(ssa.grade).to eq(nil)
+        expect(ssa.grade_numeric).to eq(nil)
+        expect(ssa.grade_letter).to eq(nil)
       end
     end
 
@@ -69,7 +71,8 @@ RSpec.describe StudentSectionGradesImporter do
 
       it 'does not add grade to student section assignment' do
         ssa.reload
-        expect(ssa.grade).to eq(nil)
+        expect(ssa.grade_numeric).to eq(nil)
+        expect(ssa.grade_letter).to eq(nil)
       end
     end
 

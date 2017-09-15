@@ -11,7 +11,7 @@ RSpec.describe StudentSectionGradeRow do
                            section: section)
       end
       let(:student_lasid_map) { Hash[student.local_id, student.id] }
-      let(:section_number_map) { Hash[section.section_number, section.id]}
+      let(:section_number_map) { Hash["#{section.section_number}|#{section.term_local_id}|SHS|#{section.course_number}", section.id]}
       let(:student_section_grade_row) { described_class.new(row,student_lasid_map,section_number_map) }
       let(:student_section_assignment) { student_section_grade_row.build }
       let(:row) do
@@ -20,11 +20,12 @@ RSpec.describe StudentSectionGradeRow do
           school_local_id: 'SHS',
           course_number: section.course_number,
           term_local_id: 'FY',
-          grade: 85 }
+          grade: "85.0 B+" }
       end
 
       it 'assigns info correctly' do
-        expect(student_section_assignment.grade).to eq 85
+        expect(student_section_assignment.grade_numeric).to eq 85
+        expect(student_section_assignment.grade_letter).to eq "B+"
       end
     end
   end
