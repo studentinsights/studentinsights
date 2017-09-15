@@ -95,4 +95,6 @@ Rails.application.configure do
   }
 
   ActionMailer::Base.delivery_method = :smtp
+
+  # a test to see if mention bot notices!
 end
