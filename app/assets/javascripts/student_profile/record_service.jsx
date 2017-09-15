@@ -26,6 +26,10 @@
       padding: 5,
       width: '50%'
     },
+    invalidDate: {
+      color: 'red',
+      padding: 5
+    },
     serviceButton: {
       background: '#eee', // override CSS
       color: 'black'
@@ -60,17 +64,21 @@
     },
 
     getInitialState: function() {
+      const {nowMoment} = this.props;
       return {
         serviceTypeId: null,
         providedByEducatorName: "",
-        momentStarted: moment.utc() // TODO should thread through
+        dateStartedText: nowMoment.format('MM/DD/YYYY')
       };
     },
 
-    onDateChanged: function(dateText) {
-      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
-      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
-      this.setState({ momentStarted: updatedMoment });
+    dateStartedMoment: function() {
+      const {dateStartedText} = this.state;
+      return moment.utc(dateStartedText, 'MM/DD/YYYY', true); // strict parsing
+    },
+
+    onDateTextChanged: function(dateStartedText) {
+      this.setState({dateStartedText});
     },
 
     onProvidedByEducatorTyping: function(event) {
@@ -90,12 +98,16 @@
     },
 
     onClickSave: function(event) {
+      const {serviceTypeId, providedByEducatorName} = this.state;
+      const {currentEducator} = this.props;
+      const reformattedDateText = this.dateStartedMoment().format('YYYY-MM-DD');
+
       // Get the value of the autocomplete input
       this.props.onSave({
-        serviceTypeId: this.state.serviceTypeId,
-        providedByEducatorName: this.state.providedByEducatorName,
-        dateStartedText: this.state.momentStarted.format('YYYY-MM-DD'),
-        recordedByEducatorId: this.props.currentEducator.id
+        serviceTypeId,
+        providedByEducatorName,
+        dateStartedText: reformattedDateText,
+        recordedByEducatorId: currentEducator.id
       });
     },
 
@@ -162,6 +174,8 @@
     },
 
     renderWhoAndWhen: function() {
+      const isValidDate = this.dateStartedMoment().isValid();
+
       return (
         <div>
           <div style={{ marginTop: 20 }}>
@@ -176,20 +190,28 @@
             When did they start?
           </div>
           <Datepicker
-            styles={{ input: styles.datepickerInput }}
-            value={this.state.momentStarted.format('MM/DD/YYYY')}
-            onChange={this.onDateChanged}
+            styles={{
+              datepicker: styles.datepicker,
+              input: styles.datepickerInput
+            }}
+            value={this.state.dateStartedText}
+            onChange={this.onDateTextChanged}
             datepickerOptions={{
               showOn: 'both',
               dateFormat: 'mm/dd/yy',
               minDate: undefined
             }} />
+            <div style={{height: '2em'}}>
+              {!isValidDate && <div style={styles.invalidDate}>Choose a valid date</div>}
+            </div>
         </div>
       );
     },
 
     renderButtons: function() {
-      const isFormComplete = (this.state.serviceTypeId && this.state.momentStarted);
+      const {serviceTypeId} = this.state;
+      const isFormComplete = (serviceTypeId && this.dateStartedMoment().isValid());
+
       return (
         <div style={{ marginTop: 15 }}>
           <button
