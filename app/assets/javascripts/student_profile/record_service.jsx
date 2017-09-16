@@ -209,8 +209,8 @@
     },
 
     renderButtons: function() {
-      const {serviceTypeId} = this.state;
-      const isFormComplete = (serviceTypeId && this.dateStartedMoment().isValid());
+      const {serviceTypeId, providedByEducatorName} = this.state;
+      const isFormComplete = (serviceTypeId && providedByEducatorName !== '' && this.dateStartedMoment().isValid());
 
       return (
         <div style={{ marginTop: 15 }}>

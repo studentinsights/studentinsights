@@ -49,6 +49,11 @@ describe('RecordService', function() {
     simulateDateChange: function(el, text) {
       const inputEl = helpers.findDateInput(el).get(0);
       return Simulate.change(inputEl, {target: {value: text}});
+    },
+
+    simulateEducatorChange: function(el, text) {
+      const inputEl = $(el).find('.ProvidedByEducatorDropdown').get(0);
+      Simulate.change(inputEl, {target: {value: text}});
     }
   };
 
@@ -92,10 +97,20 @@ describe('RecordService', function() {
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
-    it('allow saving when service and valid date set (teacher optional)', function() {
+    it('does not allow without educator', function() {
       const el = this.testEl;
       helpers.renderInto(el);
       $(el).find('.btn:first').click();
+      helpers.simulateEducatorChange(el, '');
+      helpers.simulateDateChange(el, '12/19/2018');
+      expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
+    });
+
+    it('requires service, educator and valid date set in order to save', function() {
+      const el = this.testEl;
+      helpers.renderInto(el);
+      $(el).find('.btn:first').click();
+      helpers.simulateEducatorChange(el, 'kevin');
       helpers.simulateDateChange(el, '12/19/2018');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(true);
     });
