@@ -18,6 +18,11 @@ When talking about or suggesting product and design improvements, it's helpful t
 
 See [this issue](https://github.com/studentinsights/studentinsights/issues/307#issuecomment-210643323) for a great example of this.
 
+## Get input from other folks
+If you're making a large change, talk to other folks first to get feedback.  Or if you're making a change to a tricky part of the codebase, ask someone for help with that too!
+
+There's a `studentinsights-bot` account connected to a `student-insights-mention-bot` app that will chime in if you're making changes to things like `production.rb` as well.  If you have other ideas here, check out the [mention-bot](https://github.com/facebook/mention-bot) docs and edit the `.mention-bot` file in this repo.
+
 ## Have an Issue With Us?  Good! 
 One of the most valuable ways anybody can contribute to this project is by identifying bugs and other issues to look at.  It is easy to create an issue ticket on GitHub with the [click of a button](https://github.com/studentinsights/studentinsights/issues/new). Before you submit a new issue, please take a look at the other issues (both [open](https://github.com/studentinsights/studentinsights/issues?q=is%3Aopen+is%3Aissue) and [closed](https://github.com/studentinsights/studentinsights/issues?q=is%3Aissue+is%3Aclosed) and the [README](README.md) file to check if it is already be addressed.  
 
