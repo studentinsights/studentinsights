@@ -43,6 +43,7 @@ class StudentsController < ApplicationController
         absences: student.absences.order(occurred_at: :desc)
       }
     }
+    render 'shared/serialized_data'
   end
 
   def restricted_notes
@@ -56,6 +57,7 @@ class StudentsController < ApplicationController
       event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
     }
+    render 'shared/serialized_data'
   end
 
   def student_report

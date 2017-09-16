@@ -98,6 +98,7 @@ class ServiceUploadsController < ApplicationController
       ),
       service_type_names: ServiceType.pluck(:name)
     }
+    render 'shared/serialized_data'
   end
 
   def destroy

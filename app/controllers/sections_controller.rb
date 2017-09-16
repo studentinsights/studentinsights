@@ -20,6 +20,7 @@ class SectionsController < ApplicationController
       sections: current_educator.allowed_sections,
       current_educator: current_educator,
     }
+    render 'shared/serialized_data'
   end
 
   private
