@@ -7,4 +7,9 @@ class ImportJob
   def max_attempts
     1
   end
+
+  def max_run_time
+    6.hours
+  end
+
 end
