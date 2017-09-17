@@ -4,13 +4,13 @@
   </head>
   <body>
     <h1><%= @error_message %></h1>
-    <p>
+    <pre>
       <%= @error_backtrace %>
-    </p>
+    </pre>
     <% if @extra_info %>
-      <p>
-        <%= @extra_info %>
-      </p>
+      <pre>
+        <%= JSON.pretty_generate(@extra_info) %>
+      </pre>
     <% end %>
   </body>
 </html>
