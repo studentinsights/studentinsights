@@ -4,8 +4,8 @@ class CsvTransformer
 
   attr_accessor :pre_cleanup_csv_size
 
-  def initialize(headers=true)
-    @headers=headers
+  def initialize(options={})
+    @headers=options.key?(:headers) ? options[:headers] : true
   end
 
   def transform(file)
