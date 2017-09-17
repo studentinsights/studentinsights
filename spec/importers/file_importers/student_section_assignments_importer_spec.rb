@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe StudentSectionAssignmentsImporter do
-  describe '#import_row' do
-    let(:log) { LogHelper::Redirect.instance.file }
-    let!(:school) { FactoryGirl.create(:shs) }
-    let!(:section) { FactoryGirl.create(:section) }
-    let!(:student) { FactoryGirl.create(:student) }
+  let(:log) { LogHelper::Redirect.instance.file }
+  let!(:school) { FactoryGirl.create(:shs) }
+  let!(:section) { FactoryGirl.create(:section) }
+  let!(:student) { FactoryGirl.create(:student) }
 
+  describe '#import_row' do
     context 'happy path' do
       let(:row) { { local_id:student.local_id,
                     course_number:section.course.course_number,
@@ -102,13 +102,23 @@ RSpec.describe StudentSectionAssignmentsImporter do
 
   describe '#delete_rows' do
     context 'happy path' do
+      let(:row) { {
+        local_id:student.local_id,
+        course_number:section.course.course_number,
+        school_local_id: 'SHS',
+        section_number:section.section_number,
+        term_local_id:'FY'
+      } }
+
       before do
         FactoryGirl.create_list(:student_section_assignment, 20)
-        described_class.new.delete_rows
       end
 
       it 'deletes all student section assignments' do
-        expect(StudentSectionAssignment.count).to eq(0)
+        importer = described_class.new
+        importer.import_row(row)
+        importer.delete_old_rows
+        expect(StudentSectionAssignment.count).to eq(1)
       end
     end
   end
