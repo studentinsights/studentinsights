@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20170928210614) do
     t.datetime "time_ended"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "importer_timing_json"
   end
 
   create_table "intervention_types", id: :serial, force: :cascade do |t|
