@@ -13,7 +13,6 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
 
   def delete_rows
     StudentSectionAssignment.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!('student_section_assignments')
   end
 
   def import_row(row)

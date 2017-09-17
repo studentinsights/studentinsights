@@ -110,11 +110,6 @@ RSpec.describe StudentSectionAssignmentsImporter do
       it 'deletes all student section assignments' do
         expect(StudentSectionAssignment.count).to eq(0)
       end
-
-      it 'resets the id sequence' do
-        ssa = FactoryGirl.create(:student_section_assignment)
-        expect(ssa.id).to eq(1)
-      end
     end
   end
 end
