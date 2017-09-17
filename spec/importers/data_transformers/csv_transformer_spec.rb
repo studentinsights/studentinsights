@@ -20,7 +20,7 @@ RSpec.describe CsvTransformer do
         let!(:file) { File.open("#{Rails.root}/spec/fixtures/fake_no_headers.csv") }
         let(:headers) {["section_number","student_local_id","school_local_id","course_number","term_local_id","grade"]}
         let(:headers_symbols) {[:section_number,:student_local_id,:school_local_id,:course_number,:term_local_id,:grade]}
-        let(:transformer) { CsvTransformer.new(headers) }
+        let(:transformer) { CsvTransformer.new(headers:headers) }
         let(:output) { transformer.transform(file) }
         it 'returns a CSV' do
           expect(output).to be_a_kind_of CSV::Table

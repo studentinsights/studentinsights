@@ -13,7 +13,7 @@ class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :p
   end
 
   def data_transformer
-    CsvTransformer.new(%w[section_number student_local_id school_local_id course_number term_local_id grade])
+    CsvTransformer.new(headers:%w[section_number student_local_id school_local_id course_number term_local_id grade])
   end
 
   def filter
