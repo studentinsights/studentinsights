@@ -5,7 +5,7 @@
   "alwaysNotifyForPaths": [
     {
       "name": "alexsoble",
-      "files": ["config/**/*.rb", "Procfile"],
+      "files": ["config/**/*.rb", "Procfile", ".eslintrc"],
       "skipTeamPrs": false
     }
   ],
@@ -16,7 +16,7 @@
   "userBlacklistForPR": [],
   "requiredOrgs": [],
   "actions": ["opened"],
-  "branches": [], 
+  "branches": [],
   "skipAlreadyAssignedPR": false,
   "skipAlreadyMentionedPR": false,
   "assignToReviewer": false,
