@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170905171916) do
+ActiveRecord::Schema.define(version: 20170911140446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,9 +305,11 @@ ActiveRecord::Schema.define(version: 20170905171916) do
     t.integer "limited_english_proficiency_risk_level"
   end
 
-  create_table "student_section_assignments", id: false, force: :cascade do |t|
+  create_table "student_section_assignments", force: :cascade do |t|
     t.integer "section_id"
     t.integer "student_id"
+    t.decimal "grade_numeric"
+    t.string "grade_letter"
     t.index ["section_id"], name: "index_student_section_assignments_on_section_id"
     t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
   end
