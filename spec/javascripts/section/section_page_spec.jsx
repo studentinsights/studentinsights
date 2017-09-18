@@ -76,7 +76,7 @@ describe('SectionPage', function() {
       expect(dataElements.length).toEqual(2);
 
       const firstDataRows = dataElements.eq(0).find('td');
-      expect(firstDataRows[0].innerHTML).toEqual('<a href="/students/2">Donald Duck</a>');
+      expect(firstDataRows[0].innerHTML).toEqual('<a href="/students/2">Duck, Donald</a>');
     });
   });
 });

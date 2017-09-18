@@ -2,10 +2,7 @@ import isInteger from 'lodash/isInteger';
 
 export default {
 
-  sortByString: function (a, b, sortBy) {
-    const stringA = a[sortBy];
-    const stringB = b[sortBy];
-
+  baseSortByString: function (stringA, stringB) {
     if (!stringA && !stringB) return 0;
 
     if (!stringA) return -1;
@@ -15,6 +12,13 @@ export default {
     if (stringA.toUpperCase() > stringB.toUpperCase()) return 1;
 
     return 0;
+  },
+
+  sortByString: function (a, b, sortBy) {
+    const stringA = a[sortBy];
+    const stringB = b[sortBy];
+
+    return this.baseSortByString(stringA, stringB);
   },
 
   sortByNumber: function (a, b, sortBy) {

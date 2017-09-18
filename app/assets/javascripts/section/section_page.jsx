@@ -19,11 +19,18 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
     styleStudentName: function(student, column) {
       return (
         <a href={Routes.studentProfile(student.id)}>
-          {student.first_name + ' ' + student.last_name}
+          {student.last_name + ', ' + student.first_name}
         </a>
       );
     },
     
+    nameSorter: function(a, b, sortBy) {
+      const stringA = a['last_name'] + a['first_name'];
+      const stringB = b['last_name'] + b['first_name'];
+    
+      return SortHelpers.baseSortByString(stringA, stringB);
+    },
+      
     programSorter: function(a, b, sortBy) {
       return SortHelpers.sortByCustomEnum(a,b,sortBy,['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed']);
     },
@@ -38,7 +45,7 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
 
     render: function() {
       const columns = [
-        {label: 'Name', key: 'first_name', cell:this.styleStudentName},
+        {label: 'Name', key: 'first_name', cell:this.styleStudentName, sortFunc: this.nameSorter},
         {label: 'Program Assigned', key: 'program_assigned', sortFunc: this.programSorter},
         
         // SPED & Disability
