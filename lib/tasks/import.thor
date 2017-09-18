@@ -103,7 +103,6 @@ class Import
         end
       rescue => error
         extra_info =  {
-          timing_log: timing_log,
           import_record: record.as_json
         }
         ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
