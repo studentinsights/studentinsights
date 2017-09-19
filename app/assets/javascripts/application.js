@@ -11,11 +11,7 @@
 // about supported directives.
 //
 
-// rollbar reports errors in production, so load it first
-// but first it needs our application's Env config to know which environment
-// we're in
 //= require env
-//= require rollbar
 
 // third-party:
 //= require function-bind-polyfill
