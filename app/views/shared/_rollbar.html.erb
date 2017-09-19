@@ -19,11 +19,12 @@
     return false;
   }
 
-  // Add in Rails environment to payload if we're reporting and it exists.
+  // Add in Rails env info to payload if we're reporting and it exists.
   function transform(payload) {
     var env = readEnv();
     if (env) {
       payload.environment = env.railsEnvironment;
+      payload.deploymentKey = env.deploymentKey;
     }
   }
 
