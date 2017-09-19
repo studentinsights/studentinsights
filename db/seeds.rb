@@ -139,8 +139,25 @@ sections.each do |section|
   puts "Creating students for section #{section.section_number}..."
   school = section.course.school
   15.times do
+    grade_letter = ['A','B','C','D','F'].sample
+    case grade_letter
+    when "A"
+      grade_numeric = rand(90..100)
+    when "B"
+      grade_numeric = rand(80..89)
+    when "C"
+      grade_numeric = rand(70..79)
+    when "D"
+      grade_numeric = rand(60..69)
+    when "F"
+      grade_numeric = rand(50..59)
+
+    end
     fake_student = FakeStudent.new(school, shs_homeroom)
-    StudentSectionAssignment.create(student: fake_student.student, section: section)
+    StudentSectionAssignment.create(student: fake_student.student, 
+                                    section: section, 
+                                    grade_numeric: grade_numeric, 
+                                    grade_letter: grade_letter)
   end
 end
 
