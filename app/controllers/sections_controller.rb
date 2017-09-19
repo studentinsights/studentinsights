@@ -42,7 +42,7 @@ class SectionsController < ApplicationController
   end
 
   def serialize_students(students)
-    students.as_json(methods: [:most_recent_school_year_discipline_incidents_count, :most_recent_school_year_absences_count, :most_recent_school_year_tardies_count])
+    students.select('students.*, student_section_assignments.grade_numeric').as_json(methods: [:most_recent_school_year_discipline_incidents_count, :most_recent_school_year_absences_count, :most_recent_school_year_tardies_count])
   end
 
   def serialize_section(section)

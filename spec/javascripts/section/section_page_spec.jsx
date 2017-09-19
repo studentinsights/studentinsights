@@ -24,7 +24,8 @@ describe('SectionPage', function() {
       { id: 2, section_number: 'Art-2'},
       { id: 3, section_number: 'Art-3'}
     ],
-    section: { id: 1, section_number: 'Art-1', course_number: 'Art', course_description: 'Awesome Art Class', term_local_id: '9', schedule: '3(M-R)', room_number: '304' }
+    section: { id: 1, section_number: 'Art-1', course_number: 'Art', course_description: 'Awesome Art Class', term_local_id: '9', schedule: '3(M-R)', room_number: '304' },
+    currentEducator: { districtwide_access: false }
   };
 
   SpecSugar.withTestEl('', function() {

@@ -12,6 +12,7 @@ $(function() {
           students={serializedData.students}
           section={serializedData.section}
           educators={serializedData.educators}
-          sections={serializedData.sections}/>, document.getElementById('main'));
+          sections={serializedData.sections}
+          currentEducator={serializedData.currentEducator}/>, document.getElementById('main'));
   }
 });
