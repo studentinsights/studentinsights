@@ -108,7 +108,27 @@ RSpec.describe AttendanceImporter do
           }.to change { Absence.count }.by 4
         end
       end
+    end
 
+    context 'old attendance events' do
+      context 'one row for one student on one date' do
+        let!(:student) { FactoryGirl.create(:student, local_id: '1') }
+        let(:date) { '2005-09-16' }
+
+        context 'row with absence' do
+          let(:row) {
+            { event_date: date, local_id: '1', absence: '1', tardy: '0' }
+          }
+
+          it 'does not create an absence' do
+            expect {
+              described_class.new.import_row(row)
+            }.to change {
+              Absence.count
+            }.by 0
+          end
+        end
+      end
     end
   end
 end
