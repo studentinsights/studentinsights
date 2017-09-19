@@ -32,6 +32,7 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [3. Start Rails](#3-start-rails)
   - [4. Run the tests](#4-run-the-tests)
   - [5. Write code!](#5-write-code)
+  - [6. Use the product locally!](#6-use-product)
 - [Browser/OS Targeting](#browseros-targeting)
 - [Deployment](#deployment)
   - [Deploying new code to Insights](#deploying-new-code-to-insights)
@@ -167,6 +168,15 @@ It also uses React for much the user interface code.  If you'd like to get up to
 There are also a few places where we use [Flux](https://facebook.github.io/flux/docs/overview.html) patterns.
 
 If you use **Sublime Text Editor**, we include the `studentinsights.sublime-project` file to standardize minor things like tabs vs. spaces, indentation, and generally make it easier to work with our folder structure. Go to `Project --> Open Project` and select that file to load it. Sublime remembers which project you were last in, so you only need to do this once. ([Here](http://www.joshuawinn.com/understanding-projects-in-sublime-text-saving-switching-etc/)'s some background info on how projects work in Sublime).
+
+## 6. Use the product locally
+Users use IE11, so if you're trying to manually test locally or the production site, you should too!  If you have a Mac or Linux box, you can use free VMs designed for just this purpose and run them on VirtualBox: https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/.
+
+Useful tidbits:
+- These virtual machines expire after 90 days, so take a snapshot right away and rollback when it expires
+- Enable "Shared Clipboard" in the Devices menu
+- Disable the "Host Capture" key
+- Point to http://10.0.2.2:3000/ to access the host instance of Student Insights
 
 # Browser/OS Targeting
 
