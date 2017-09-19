@@ -2,7 +2,6 @@ class SomervilleX2Importers
 
   def initialize(options = {})
     @school_scope = options["school"]
-    @first_time = options["first_time"]
     @x2_file_importers = options["x2_file_importers"]
     @progress_bar = options["progress_bar"]
     @log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
