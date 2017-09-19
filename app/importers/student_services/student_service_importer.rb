@@ -29,17 +29,13 @@ class StudentServiceImporter
   end
 
   def files_in_remote_server
-    sftp.dir.entries("services_upload").select do |entry|
+    @sftp_client.dir_entries("services_upload").select do |entry|
       (entry.name != '.') && (entry.name != '..')
     end
   end
 
   def files_names_already_uploaded
     ServiceUpload.pluck(:file_name)
-  end
-
-  def sftp
-    @sftp_session ||= sftp_client.sftp_session
   end
 
   def sftp_client
