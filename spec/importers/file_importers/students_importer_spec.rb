@@ -22,12 +22,18 @@ RSpec.describe StudentsImporter do
 
       context 'no existing students in database' do
 
-        it 'imports students' do
-          expect { import }.to change { Student.count }.by 4
+        it 'creates Student and StudentRiskLevel records' do
+          expect { import }.to change { [Student.count, StudentRiskLevel.count] }.by([4, 4])
+        end
+
+        it 'does not import students with far future registration dates' do
+          import
+          expect(Student.count).to eq 4
+          expect(Student.where(state_id: '1000000003').size).to eq 0
         end
 
         it 'imports student data correctly' do
-          import
+          expect { import }.to change { [Student.count, StudentRiskLevel.count] }.by([4, 4])
 
           first_student = Student.find_by_state_id('1000000000')
           expect(first_student.reload.school).to eq healey
@@ -40,11 +46,13 @@ RSpec.describe StudentsImporter do
           expect(first_student.race).to eq 'Black'
           expect(first_student.hispanic_latino).to eq false
           expect(first_student.gender).to eq 'F'
+          expect(first_student.student_risk_level).to_not eq nil
 
           second_student = Student.find_by_state_id('1000000002')
           expect(second_student.race).to eq 'White'
           expect(second_student.hispanic_latino).to eq true
           expect(second_student.gender).to eq 'F'
+          expect(second_student.student_risk_level).to_not eq nil
         end
 
       end
