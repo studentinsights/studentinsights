@@ -11,7 +11,7 @@ driver = Selenium::WebDriver.for(:remote,
   :url => "http://alexsoble:#{ENV['BROWSERSTACK_ACCESS_KEY']}@hub-cloud.browserstack.com/wd/hub",
   :desired_capabilities => caps)
 
-driver.navigate.to "localhost:3000/"
+driver.navigate.to "localhost:3128/"
 
 puts driver.title
 
