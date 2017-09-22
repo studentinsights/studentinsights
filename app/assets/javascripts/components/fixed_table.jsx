@@ -1,8 +1,9 @@
+import _ from 'lodash';
+
 (function() {
 
   window.shared || (window.shared = {});
   const React = window.React;
-  const _ = window._;
   const colors = window.shared.colors;
   const styles = window.shared.styles;
 
