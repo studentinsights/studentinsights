@@ -60,7 +60,7 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
         {label: 'Home Language', group: 'Language', key: 'home_language'},
 
         {label: 'Free / Reduced Lunch', key: 'free_reduced_lunch'},
-        {label: 'Grade', key: 'grade_numeric'},
+        {label: 'Grade', key: 'grade_numeric', sortFunc: SortHelpers.sortByNumber},
         {label: 'Absences', key: 'most_recent_school_year_absences_count', sortFunc: SortHelpers.sortByNumber},
         {label: 'Tardies', key: 'most_recent_school_year_tardies_count', sortFunc: SortHelpers.sortByNumber},
         {label: 'Discipline Incidents', key: 'most_recent_school_year_discipline_incidents_count', sortFunc: SortHelpers.sortByNumber},
