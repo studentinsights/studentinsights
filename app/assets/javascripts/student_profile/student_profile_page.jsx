@@ -393,7 +393,7 @@ import _ from 'lodash';
 
     renderStaff: function(student) {
       const activeServices = this.props.feed.services.active;
-      const educatorNamesFromServices = _.pluck(activeServices, 'provided_by_educator_name');
+      const educatorNamesFromServices = _.map(activeServices, 'provided_by_educator_name');
       const uniqueNames = _.unique(educatorNamesFromServices);
       const nonEmptyNames = _.filter(uniqueNames, function(id) { return id !== "" && id !== null; });
       const educatorNames = _.isEmpty( nonEmptyNames ) ? ["No staff"] : nonEmptyNames;

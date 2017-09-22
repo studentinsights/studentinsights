@@ -36,7 +36,7 @@ import _ from 'lodash';
     renderTableFor: function(title, items, options) {
       options || (options = {});
       const className = options.className || '';
-      const selectedFilterIdentifiers = _.pluck(this.props.filters, 'identifier');
+      const selectedFilterIdentifiers = _.map(this.props.filters, 'identifier');
       return (
         <div
           className={'FixedTable panel ' + className}

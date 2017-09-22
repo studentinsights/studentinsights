@@ -130,7 +130,7 @@ $(function() {
 
     allTimeRange: function(student) {
       // largest variance all-time
-      const scores = _.pluck(this.filteredResults(student), 'percentile_rank');
+      const scores = _.map(this.filteredResults(student), 'percentile_rank');
       return _.last(scores) - _.first(scores);
     },
 
@@ -146,7 +146,7 @@ $(function() {
     },
 
     sortedScores: function(assessments) {
-      return _.compact(_.pluck(assessments, 'percentile_rank')).sort(d3.ascending);
+      return _.compact(_.map(assessments, 'percentile_rank')).sort(d3.ascending);
     },
 
     clamp: function(domain, value) {
@@ -162,7 +162,7 @@ $(function() {
       const hover = {
         name: student.first_name + ' ' + student.last_name,
         student_id: student.id,
-        scores: _.compact(_.pluck(student.star_results, 'percentile_rank')).join(', ')
+        scores: _.compact(_.map(student.star_results, 'percentile_rank')).join(', ')
       };
       this.setState({
         hoverStudentIds: [student.id],
@@ -331,7 +331,7 @@ $(function() {
     // and who had the greatest change since their last assessment
     renderRecentStarChanges: function(options) {
       const students = this.studentsWithRecentAssessments();
-      const assessments = _.flatten(_.pluck(students, 'star_results'));
+      const assessments = _.flatten(_.map(students, 'star_results'));
       return this.renderLineChartWithTable('Student progress, since last assessment', 'Change in percentile rank', students, assessments, options);
     },
 
@@ -405,7 +405,7 @@ $(function() {
       const height = options.height;
 
       const students = this.studentsWithRecentAssessments();
-      const assessments = _.flatten(_.pluck(students, 'star_results'));
+      const assessments = _.flatten(_.map(students, 'star_results'));
 
       const dateRange = d3.extent(assessments, function(d) { return new Date(d.date_taken); });
       const x = d3.scale.linear().domain([-50, 50]).range([0, width]);
@@ -707,7 +707,7 @@ $(function() {
         return this.clamp(bucketDomain, Math.floor(result.delta / bucketSize) * bucketSize);
       }, this));
       const maxCount = d3.max(buckets, function(bucket) { return bucket[1].length; });
-      const median = d3.median(_.pluck(studentsWithDeltas, 'delta')) || 0;
+      const median = d3.median(_.map(studentsWithDeltas, 'delta')) || 0;
 
       const x = d3.time.scale().domain(bucketDomain).range([0, width]);
       const barHeight = d3.scale.linear().domain([0, maxCount]).range([0, height]);
@@ -715,7 +715,7 @@ $(function() {
       const color = d3.scale.linear().domain([-2, 0, 2]).range(['red','white','blue']);
       const ticks = _.range(bucketDomain[0] + bucketSize, bucketDomain[1] + bucketSize, bucketSize * 2);
 
-      const assessments = _.flatten(_.pluck(studentsWithDeltas, 'star_results'));
+      const assessments = _.flatten(_.map(studentsWithDeltas, 'star_results'));
       const dateRange = d3.extent(assessments, function(result) { return new Date(result.date_taken); });
 
       return (

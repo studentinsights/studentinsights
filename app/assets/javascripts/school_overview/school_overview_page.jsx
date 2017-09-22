@@ -206,7 +206,7 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
           <div className="list" style={{ padding: 20 }}>
             <StudentsTable
               // hack for tablesorter
-              key={_.pluck(this.state.filters, 'identifier').join(',')}
+              key={_.map(this.state.filters, 'identifier').join(',')}
               students={this.getFilteredStudents()} />
           </div>
         </div>

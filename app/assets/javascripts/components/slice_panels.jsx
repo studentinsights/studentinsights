@@ -44,7 +44,7 @@ import _ from 'lodash';
 
     serviceItems: function() {
       const students = this.props.allStudents;
-      const activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));
+      const activeServices = _.compact(_.flatten(_.map(students, 'active_services')));
       const activeServiceTypeIds = activeServices.map(service => parseInt(service.service_type_id, 10));
       const allServiceTypeIds = _.pull(_.unique(activeServiceTypeIds), 508); // Deprecated Math intervention service type
 
@@ -61,7 +61,7 @@ import _ from 'lodash';
 
     summerItems: function () {
       const students = this.props.allStudents;
-      const summerServices = _.compact(_.flatten(_.pluck(students, 'summer_services')));
+      const summerServices = _.compact(_.flatten(_.map(students, 'summer_services')));
       const allSummerServiceTypeIds = _.unique(summerServices.map(function(service) {
         return parseInt(service.service_type_id, 10);
       }));
@@ -77,7 +77,7 @@ import _ from 'lodash';
     // TODO(kr) add other note types
     mergedNoteItems: function() {
       const students = this.props.allStudents;
-      const allEventNotes = _.compact(_.flatten(_.pluck(students, 'event_notes')));
+      const allEventNotes = _.compact(_.flatten(_.map(students, 'event_notes')));
       const allEventNoteTypesIds = _.unique(allEventNotes.map(function(eventNote) {
         return parseInt(eventNote.event_note_type_id, 10);
       }));
@@ -254,7 +254,7 @@ import _ from 'lodash';
 
     renderGradeTable: function() {
       const key = 'grade';
-      const uniqueValues = _.compact(_.unique(_.pluck(this.props.allStudents, key)));
+      const uniqueValues = _.compact(_.unique(_.map(this.props.allStudents, key)));
       const items = uniqueValues.map(function(value) {
         return this.createItem(value, Filters.Equal(key, value));
       }, this);
@@ -312,7 +312,7 @@ import _ from 'lodash';
     },
 
     renderSimpleTable: function(title, key, props) {
-      const uniqueValues = _.unique(_.pluck(props.students || this.props.allStudents, key));
+      const uniqueValues = _.unique(_.map(props.students || this.props.allStudents, key));
       const items = this.createItemsFromValues(key, uniqueValues);
       return this.renderTable(merge(props || {}, {
         title: title,
