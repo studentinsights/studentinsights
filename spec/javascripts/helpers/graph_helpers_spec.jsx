@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 describe('Graph Helpers', function() {
   const GraphHelpers = window.shared.GraphHelpers;
 

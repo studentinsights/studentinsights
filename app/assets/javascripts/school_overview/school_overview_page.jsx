@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import StudentsTable from '../components/students_table.jsx';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 

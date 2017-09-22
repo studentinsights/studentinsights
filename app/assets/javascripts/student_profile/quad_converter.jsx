@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 (function() {
   window.shared || (window.shared = {});
 

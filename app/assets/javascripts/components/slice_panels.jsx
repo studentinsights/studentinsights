@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 (function() {
   window.shared || (window.shared = {});
 
@@ -39,7 +41,7 @@
         return -1 * students.filter(item.filter.filterFn).length;
       });
     },
-    
+
     serviceItems: function() {
       const students = this.props.allStudents;
       const activeServices = _.compact(_.flatten(_.pluck(students, 'active_services')));

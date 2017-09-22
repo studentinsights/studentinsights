@@ -1,9 +1,11 @@
+import _ from 'lodash';
+
 (function() {
   window.shared || (window.shared = {});
   var GraphHelpers = window.shared.GraphHelpers;
 
   function generateGraph(containerSelector, yAxisLabel, xAxisSettings, title, dataSeries){
-    
+
     var stacking ="";
 
     if(dataSeries.length > 1) {
@@ -22,7 +24,7 @@
         enabled: false
       },
       plotOptions: {
-        // This sets charts to render immediately, so we can 
+        // This sets charts to render immediately, so we can
         // synchronously set window.status and pass control back
         // to wkhtmltopdf to render the PDF.
         series: { animation: false },
@@ -78,14 +80,14 @@
       var filterToDate = moment.utc(filterDateRange.filter_to_date, "YYYY-MM-DD");
 
       var monthsBack = filterToDate.diff(filterFromDate, 'months') <= 23 ? filterToDate.diff(filterFromDate, 'months') : 23;
-      
+
       var allMonthKeys = GraphHelpers.monthKeys(filterToDate, monthsBack);
       var allYearCategories = GraphHelpers.yearCategories(allMonthKeys);
 
       var tardyMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.tardies);
       var absenceMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.absences);
       var disciplineMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.discipline_incidents);
-      
+
 
       var xAxisSettings = [
         {
@@ -124,7 +126,7 @@
         }
       ];
 
-      
+
       if(_.flatten(absenceMonthBuckets).length + _.flatten(tardyMonthBuckets).length > 0) {
         generateGraph("#attendance-container", "Number of Absences / Tardies", xAxisSettings, "Absences & Tardies " + GraphHelpers.dateTitle(filterToDate, monthsBack), attendanceDataSeries);
       }

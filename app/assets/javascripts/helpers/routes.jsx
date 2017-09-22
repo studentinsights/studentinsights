@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 (function() {
   // Routing functions
   window.shared || (window.shared = {});

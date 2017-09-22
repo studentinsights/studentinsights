@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 
 const Cookies = window.Cookies;
