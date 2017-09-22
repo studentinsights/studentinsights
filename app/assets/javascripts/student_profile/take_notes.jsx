@@ -156,12 +156,12 @@ export default React.createClass({
             {this.renderNoteButton(301)}
           </div>
           <div style={{ flex: 1 }}>
-            {this.renderNoteButton(302)}
             {this.renderNoteButton(305)}
+            {this.renderNoteButton(306)}
           </div>
           <div style={{ flex: 1 }}>
+            {this.renderNoteButton(302)}
             {this.renderNoteButton(304)}
-            {this.renderNoteButton(306)}
           </div>
         </div>
         <div style={{ marginBottom: 5, marginTop: 20 }}>
