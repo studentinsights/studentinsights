@@ -13,9 +13,7 @@ class AttendanceImporter < Struct.new :school_scope, :client, :log, :progress_ba
   end
 
   def import_row(row)
-    occurred_at = DateTime.parse(row[:event_date])
-
-    return if Time.current - 90.days > occurred_at
+    return if Time.current - 90.days > row[:event_date]
 
     AttendanceRow.build(row).save!
   end
