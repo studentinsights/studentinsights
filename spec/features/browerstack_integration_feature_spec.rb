@@ -12,4 +12,8 @@ driver = Selenium::WebDriver.for(:remote,
   :desired_capabilities => caps)
 
 driver.navigate.to "localhost:3000/"
+
+puts driver.title
+
 element = driver.find_element(:name, 'educator[email]')
+
