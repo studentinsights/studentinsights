@@ -161,6 +161,7 @@ export default React.createClass({
           </div>
           <div style={{ flex: 1 }}>
             {this.renderNoteButton(304)}
+            {this.renderNoteButton(306)}
           </div>
         </div>
         <div style={{ marginBottom: 5, marginTop: 20 }}>
