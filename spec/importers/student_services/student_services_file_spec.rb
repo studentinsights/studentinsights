@@ -8,7 +8,7 @@ RSpec.describe StudentServicesFile do
     let(:remote_file_name) { 'student_services.csv' }
     let(:sftp_client) { SftpClient.for_x2 }
     let(:fixture_file) { File.new(fixture_file_path) }
-    
+
     it 'returns file when SftpClient is mocked' do
       allow(sftp_client).to receive(:download_file).with('services_upload/student_services.csv').and_return fixture_file
       student_services_file = StudentServicesFile.new(remote_file_name, sftp_client, STDOUT)
