@@ -105,7 +105,7 @@ class StudentServicesFile < Struct.new :file_name, :sftp_client, :log
   end
 
   def file
-    @uploaded_file ||= sftp_client.read_file("services_upload/#{file_name}")
+    @uploaded_file ||= sftp_client.download_file("services_upload/#{file_name}")
   end
 
 end
