@@ -230,6 +230,14 @@ The project is configured to use LDAP as its authentication strategy in producti
 
 One way to accomplish this is to set a `QUOTAGUARDSTATIC_MASK` environment variable that routes only outbound traffic to certain IP subnets using the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
 
+# Ops
+Here are some notes on maintaining, troubleshooting and performance.
+
+## Response latency
+Look in the Heroku metrics panel.  If you need to understand further, use Scout.
+
+## Postgres
+You can use [heroku-pg-extras](https://github.com/heroku/heroku-pg-extras) to get helpful diagnostic information about slow queries, index usage, and table scans.
 
 # Other Tools
 
