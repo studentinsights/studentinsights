@@ -29,7 +29,7 @@ class StudentServiceImporter
   end
 
   def files_in_remote_server
-    @sftp_client.dir_entries("services_upload").select do |entry|
+    sftp_client.dir_entries("services_upload").select do |entry|
       (entry.name != '.') && (entry.name != '..')
     end
   end
