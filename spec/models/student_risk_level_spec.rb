@@ -2,6 +2,16 @@ require 'rails_helper'
 
 RSpec.describe StudentRiskLevel, type: :model do
 
+  # describe 'validates uniqueness of student' do
+  #   context 'when student already has risk level' do
+  #       let(:student) { FactoryGirl.create(:student) }
+  #       let(:student_risk_level) { StudentRiskLevel.create!(student: student) }
+  #       it 'raises when creating new risk level' do
+  #         expect { student.create_student_risk_level! }.to raise_error
+  #       end
+  #     end
+  # end
+
   describe '#update_risk_level!' do
     context 'when no school' do
       let(:student) { FactoryGirl.create(:student, school: nil) }

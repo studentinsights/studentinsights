@@ -163,7 +163,7 @@ end
   FakeStudent.new(healey, nil)
 end
 
-Student.update_risk_levels
+Student.update_risk_levels!
 Student.update_recent_student_assessments
 
 IepDocument.create!(
