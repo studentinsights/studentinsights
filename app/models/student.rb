@@ -202,7 +202,8 @@ class Student < ActiveRecord::Base
     if student_risk_level.present?
       student_risk_level.update_risk_level!
     else
-      create_student_risk_level!
+      self.student_risk_level = StudentRiskLevel.new(student_id: id)
+      self.student_risk_level.save!
     end
 
     # Cache risk level to the student table
