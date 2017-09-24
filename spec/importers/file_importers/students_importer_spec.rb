@@ -57,14 +57,25 @@ RSpec.describe StudentsImporter do
 
       end
 
-      context 'with an existing student in the database' do
+      context 'when an existing student in the database' do
         before do
           student = Student.new(local_id: '100', school: healey, grade: '7')
           student.save!
           student.create_student_risk_level!
         end
-        it 'does not create records for updates' do
+        it 'does not create new records for existing students' do
           expect([Student.count, StudentRiskLevel.count]).to eq([1, 1])
+          import
+          expect([Student.count, StudentRiskLevel.count]).to eq([4, 4])
+        end
+      end
+
+      context 'when students already imported' do
+        before do
+          import
+        end
+        it 'does not create new records for existing students' do
+          expect([Student.count, StudentRiskLevel.count]).to eq([4, 4])
           import
           expect([Student.count, StudentRiskLevel.count]).to eq([4, 4])
         end
