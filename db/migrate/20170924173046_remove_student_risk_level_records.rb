@@ -9,9 +9,9 @@ class RemoveStudentRiskLevelRecords < ActiveRecord::Migration[5.1]
     puts "Found: #{bad_student_risk_level_ids.size} other StudentRiskLevel records"
 
     puts "Checking some conditions..."
-    if good_student_risk_level_ids.size <= 0
+    if Rails.env.production? && good_student_risk_level_ids.size <= 0
       raise "no good records"
-    elsif bad_student_risk_level_ids.size >= StudentRiskLevel.all.size
+    elsif StudentRiskLevel.all.size != 0 && bad_student_risk_level_ids.size >= StudentRiskLevel.all.size
       raise "more bad records than expected"
     elsif bad_student_risk_level_ids.size + good_student_risk_level_ids.size != StudentRiskLevel.all.size
       raise "bad and good records don't equal total"
