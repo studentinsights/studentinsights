@@ -262,7 +262,8 @@ import _ from 'lodash';
 
       const buttonText = (isPending)
         ? 'Updating...'
-        : (isConfirming) ? 'Confirm' : 'Discontinue';
+        : (isConfirming) ? 'Confirm' : 'Discontinue Early';
+
       const style = (isConfirming || isPending) ?
         styles.discontinueConfirm
         : (isHovering) ? {} : styles.discontinue;
