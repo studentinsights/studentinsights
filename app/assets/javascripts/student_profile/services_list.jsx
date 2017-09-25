@@ -179,7 +179,7 @@ import _ from 'lodash';
       const endedToday = moment().utc().subtract(1, 'day');
 
       // For services ended today, return "Ended today" instead of the date:
-      if (endedToday) return (
+      if (endedToday == momentEnded ) return (
         <div>
           Ended today
         </div>
