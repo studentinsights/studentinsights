@@ -187,7 +187,6 @@
 
     renderWhoAndWhen: function() {
       const isValidDate = this.dateStartedMoment().isValid();
-      const isValidEndDate = this.dateEndedMoment().isValid();
 
       return (
         <div>
@@ -230,7 +229,7 @@
               minDate: undefined
             }} />
             <div style={{height: '2em'}}>
-              {!isValidDate || isValidEndDate && <div style={styles.invalidDate}>Choose a valid date</div>}
+              {!isValidDate && <div style={styles.invalidDate}>Choose a valid date</div>}
             </div>
         </div>
       );
