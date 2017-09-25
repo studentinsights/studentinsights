@@ -8,6 +8,9 @@ class PagesController < ApplicationController
   def no_homeroom
   end
 
+  def no_section
+  end
+
   def lets_encrypt_endpoint
     render text: ENV['LETS_ENCRYPT_STRING']
   end

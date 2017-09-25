@@ -24,7 +24,6 @@
 
 <div id="homeroom-table"></div>
 
-<%= tag("div", id: "chart-data", data: @risk_levels) %>
-<%= tag("div", id: "homeroom-data", data: { homeroom: @homeroom}) %>
-<%= tag("div", id: "current-educator-data", data: { current_educator: current_educator}) %>
-<%= tag("div", id: "serialized-data", data: @serialized_data) %>
+<%= json_div(id: "homeroom-data", data: { homeroom: @homeroom}) %>
+<%= json_div(id: "current-educator-data", data: { current_educator: current_educator}) %>
+<%= json_div(id: "serialized-data", data: @serialized_data) %>

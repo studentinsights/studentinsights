@@ -11,6 +11,7 @@ RSpec.describe IepDocumentsController, type: :controller do
 
     class FakeAwsResponse
       def body; self end
+
       def read; 'eee' end
     end
 

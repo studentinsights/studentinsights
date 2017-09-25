@@ -208,7 +208,7 @@ ul, li {
 <br style="clear: left;" /><br/>
 <% end %>
 
-<%= tag("div", id: "serialized-data", data: @serialized_data) %>
+<%= json_div(id: "serialized-data", data: @serialized_data) %>
 
 <div class="scripts">
   <%= wicked_pdf_javascript_include_tag 'application' %>

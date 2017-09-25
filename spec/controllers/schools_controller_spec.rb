@@ -141,7 +141,6 @@ describe SchoolsController, :type => :controller do
       end
     end
 
-
   end
 
   describe '#csv' do

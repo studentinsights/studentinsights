@@ -17,7 +17,7 @@ class IntegrityCheck
   end
 
   def models_to_check
-    [StudentAssessment, Assessment, Educator, Student, StudentSchoolYear]
+    [StudentAssessment, Assessment, Educator, Student]
   end
 
   def has_valid_data?

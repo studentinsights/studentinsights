@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import SpecSugar from '../support/spec_sugar.jsx';
 
 describe('ProfileDetails', function() {

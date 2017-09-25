@@ -7,7 +7,7 @@ class FileImport < Struct.new :file_importer
     log_start_of_import
     delete_data if deletion_models.include?(file_importer.class)
     fetch_data
-    import_data 
+    import_data
   end
 
   private
@@ -33,10 +33,10 @@ class FileImport < Struct.new :file_importer
   end
 
   def deletion_models
-    [StudentSectionAssignmentsImporter, 
+    [StudentSectionAssignmentsImporter,
     EducatorSectionAssignmentsImporter]
   end
-  
+
   def fetch_data
     transformer = data_transformer
     @data = transformer.transform(file)

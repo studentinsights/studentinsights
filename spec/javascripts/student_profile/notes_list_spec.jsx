@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {studentProfile, feedForTestingNotes} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 

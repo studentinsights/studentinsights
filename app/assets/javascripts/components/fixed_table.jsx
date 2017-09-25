@@ -1,8 +1,9 @@
+import _ from 'lodash';
+
 (function() {
 
   window.shared || (window.shared = {});
   const React = window.React;
-  const _ = window._;
   const colors = window.shared.colors;
   const styles = window.shared.styles;
 
@@ -35,7 +36,7 @@
     renderTableFor: function(title, items, options) {
       options || (options = {});
       const className = options.className || '';
-      const selectedFilterIdentifiers = _.pluck(this.props.filters, 'identifier');
+      const selectedFilterIdentifiers = _.map(this.props.filters, 'identifier');
       return (
         <div
           className={'FixedTable panel ' + className}

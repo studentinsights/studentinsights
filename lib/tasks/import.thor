@@ -8,6 +8,7 @@ require_relative '../../app/importers/file_importers/educators_importer'
 require_relative '../../app/importers/file_importers/attendance_importer'
 require_relative '../../app/importers/file_importers/courses_sections_importer'
 require_relative '../../app/importers/file_importers/student_section_assignments_importer'
+require_relative '../../app/importers/file_importers/student_section_grades_importer'
 require_relative '../../app/importers/file_importers/educator_section_assignments_importer'
 
 class Import
@@ -88,12 +89,24 @@ class Import
     end
 
     def connect_transform_import
+      timing_log = []
+
       begin
-        importers.flat_map { |i| i.new(options).file_importers }.each do |file_importer|
+        file_importers = importers.flat_map { |i| i.new(options).file_importers }
+
+        file_importers.each do |file_importer|
+          timing_data = { importer: file_importer.to_s, start_time: Time.current }
+
           FileImport.new(file_importer).import
+
+          timing_data[:end_time] = Time.current
+          timing_log << timing_data
         end
       rescue => error
-        ErrorMailer.error_report(error).deliver_now if Rails.env.production?
+        extra_info =  {
+          import_record: record.as_json
+        }
+        ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
         raise error
       end
     end

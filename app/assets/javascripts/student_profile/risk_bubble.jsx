@@ -28,15 +28,15 @@
     displayName: 'RiskBubble',
 
     propTypes: {
-      riskLevel: React.PropTypes.number.isRequired
+      riskLevel: React.PropTypes.number
     },
 
     bubbleColor: function() {
-      if (this.props.riskLevel === null) return '#555555';
       if (this.props.riskLevel === 0) return '#bbd86b';
       if (this.props.riskLevel === 1) return '#62c186';
       if (this.props.riskLevel === 2) return '#ffcb08';
       if (this.props.riskLevel === 3) return '#f15a3d';
+      return '#555555';
     },
 
     render: function() {

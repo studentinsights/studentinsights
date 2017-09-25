@@ -2,6 +2,15 @@ require 'rails_helper'
 
 RSpec.describe StudentRiskLevel, type: :model do
 
+  describe '#update_risk_level!' do
+    context 'when no school' do
+      let(:student) { FactoryGirl.create(:student, school: nil) }
+      it 'does not raise' do
+        expect { student_risk_level.update_risk_level! }.to_not raise_error
+      end
+    end
+  end
+
   describe '#risk_level' do
 
     context 'missing MCAS and STAR results' do

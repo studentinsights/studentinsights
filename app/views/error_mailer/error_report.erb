@@ -4,8 +4,13 @@
   </head>
   <body>
     <h1><%= @error_message %></h1>
-    <p>
-      <%= @error_backtrace %>
-    </p>
+    <pre>
+      <%= @error_backtrace.join("\n\t") %>
+    </pre>
+    <% if @extra_info %>
+      <pre>
+        <%= JSON.pretty_generate(@extra_info) %>
+      </pre>
+    <% end %>
   </body>
 </html>

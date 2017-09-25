@@ -1,0 +1,30 @@
+{
+  "maxReviewers": 5,
+  "numFilesToCheck": 10,
+  "message": "@pullRequester, this looks like it might be worth double-checking! @reviewers might be able to help.",
+  "alwaysNotifyForPaths": [
+    {
+      "name": "alexsoble",
+      "files": ["config/**/*.rb", "Procfile", ".eslintrc"],
+      "skipTeamPrs": false
+    }
+  ],
+  "fallbackNotifyForPaths": [],
+  "findPotentialReviewers": false,
+  "fileBlacklist": ["*.md"],
+  "userBlacklist": [],
+  "userBlacklistForPR": [],
+  "requiredOrgs": [],
+  "actions": ["opened"],
+  "branches": [],
+  "skipAlreadyAssignedPR": false,
+  "skipAlreadyMentionedPR": false,
+  "assignToReviewer": false,
+  "createReviewRequest": false,
+  "createComment": true,
+  "skipTitle": "",
+  "withLabel": "",
+  "delayed": false,
+  "delayedUntil": "3d",
+  "skipCollaboratorPR": false
+}

@@ -13,6 +13,11 @@ module Admin
       super
     end
 
+    def update
+      super
+      requested_resource.save_student_searchbar_json
+    end
+
     def resource_params
       params["educator"]["grade_level_access"] = params["educator"]["grade_level_access"].try(:keys) || []
 

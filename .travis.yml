@@ -44,10 +44,7 @@ script:
   - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test
   - bundle exec rspec spec
   - bundle exec teaspoon
-  # - ruby scripts/browserstack_tests/browserstack_frontend_test1.rb
-
-  # For AWS deploy, add step here:
-  # - aws/rails/build_from_travis.sh
+  - rubocop
 
 env:
   global:

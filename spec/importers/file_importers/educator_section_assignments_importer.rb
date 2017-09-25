@@ -9,10 +9,10 @@ RSpec.describe EducatorSectionAssignmentsImporter do
     let!(:educator) { FactoryGirl.create(:educator) }
 
     context 'happy path' do
-      let(:row) { { local_id:educator.local_id, 
-                    course_number:section.course.course_number, 
+      let(:row) { { local_id:educator.local_id,
+                    course_number:section.course.course_number,
                     school_local_id: 'SHS',
-                    section_number:section.section_number, 
+                    section_number:section.section_number,
                     term_local_id:'FY'
                 } }
 
@@ -31,9 +31,9 @@ RSpec.describe EducatorSectionAssignmentsImporter do
       end
 
     context 'educator lasid is missing' do
-      let(:row) { { course_number:section.course.course_number, 
+      let(:row) { { course_number:section.course.course_number,
                     school_local_id: 'SHS',
-                    section_number:section.section_number, 
+                    section_number:section.section_number,
                     term_local_id:'FY'
                 } }
 
@@ -50,8 +50,8 @@ RSpec.describe EducatorSectionAssignmentsImporter do
 
       context 'section is missing' do
         let(:row) { { local_id:educator.local_id,
-                    course_number:section.course.course_number, 
-                    school_local_id: 'SHS', 
+                    course_number:section.course.course_number,
+                    school_local_id: 'SHS',
                     term_local_id:'FY'
                 } }
 
@@ -68,9 +68,9 @@ RSpec.describe EducatorSectionAssignmentsImporter do
 
       context 'educator does not exist' do
         let(:row) { { local_id: 'NO EXIST',
-                    course_number:section.course.course_number, 
-                    school_local_id: 'SHS', 
-                    section_number:section.section_number, 
+                    course_number:section.course.course_number,
+                    school_local_id: 'SHS',
+                    section_number:section.section_number,
                     term_local_id:'FY'
                 } }
 
@@ -87,9 +87,9 @@ RSpec.describe EducatorSectionAssignmentsImporter do
 
       context 'section does not exist' do
         let(:row) { { local_id: educator.local_id,
-                    course_number:section.course.course_number, 
-                    school_local_id: 'SHS', 
-                    section_number:'NO EXIST', 
+                    course_number:section.course.course_number,
+                    school_local_id: 'SHS',
+                    section_number:'NO EXIST',
                     term_local_id:'FY'
                 } }
 
@@ -105,9 +105,8 @@ RSpec.describe EducatorSectionAssignmentsImporter do
       end
     end
 
-
     describe '#delete_rows' do
-    
+
       context 'happy path' do
 
         before do

@@ -148,6 +148,20 @@ describe StudentsController, :type => :controller do
           end
         end
 
+        context 'educator has section access' do
+          let!(:educator) { FactoryGirl.create(:educator, school: school)}
+          let!(:course) { FactoryGirl.create(:course, school: school)}
+          let!(:section) { FactoryGirl.create(:section) }
+          let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: section) }
+          let!(:section_student) { FactoryGirl.create(:student, school: school) }
+          let!(:ssa) { FactoryGirl.create(:student_section_assignment, student: section_student, section: section) }
+
+          it 'is successful' do
+            make_request({ student_id: section_student.id, format: :html })
+            expect(response).to be_success
+          end
+        end
+
         context 'educator does not have schoolwide, grade level, or homeroom access' do
           let(:educator) { FactoryGirl.create(:educator, school: school) }
 
@@ -171,14 +185,16 @@ describe StudentsController, :type => :controller do
           let(:educator) { FactoryGirl.create(:educator,
                                               grade_level_access: ['1'],
                                               restricted_to_sped_students: true,
-                                              school: school ) }
+                                              school: school )
+          }
 
           context 'student in SPED' do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
                                                program_assigned: 'Sp Ed',
-                                               school: school) }
+                                               school: school)
+            }
 
             it 'is successful' do
               make_request({ student_id: student.id, format: :html })
@@ -190,7 +206,8 @@ describe StudentsController, :type => :controller do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
-                                               program_assigned: 'Reg Ed') }
+                                               program_assigned: 'Reg Ed')
+            }
 
             it 'fails' do
               make_request({ student_id: student.id, format: :html })
@@ -204,14 +221,16 @@ describe StudentsController, :type => :controller do
           let(:educator) { FactoryGirl.create(:educator,
                                               grade_level_access: ['1'],
                                               restricted_to_english_language_learners: true,
-                                              school: school ) }
+                                              school: school )
+          }
 
           context 'limited English proficiency' do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
                                                limited_english_proficiency: 'FLEP',
-                                               school: school) }
+                                               school: school)
+            }
 
             it 'is successful' do
               make_request({ student_id: student.id, format: :html })
@@ -223,7 +242,8 @@ describe StudentsController, :type => :controller do
             let(:student) { FactoryGirl.create(:student,
                                                :with_risk_level,
                                                grade: '1',
-                                               limited_english_proficiency: 'Fluent') }
+                                               limited_english_proficiency: 'Fluent')
+            }
 
             it 'fails' do
               make_request({ student_id: student.id, format: :html })
@@ -333,23 +353,48 @@ describe StudentsController, :type => :controller do
       get :names, params: { format: :json }
     end
 
-    context 'admin educator logged in' do
+    context 'admin educator logged in, no cached student names' do
       let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
       before { sign_in(educator) }
       let!(:juan) {
-        FactoryGirl.create(:student, first_name: 'Juan', last_name: 'P', school: school, grade: '5')
+        FactoryGirl.create(
+          :student, first_name: 'Juan', last_name: 'P', school: school, grade: '5'
+        )
       }
 
       let!(:jacob) {
         FactoryGirl.create(:student, first_name: 'Jacob', grade: '5')
       }
 
-      it 'returns an array of student labels and ids that match the educator\'s students' do
+      it 'returns an array of student labels and ids that match educator\'s students' do
         make_request
         expect(response).to be_success
-        expect(JSON.parse(response.body)).to eq [{ "label" => "Juan P - HEA - 5", "id" => juan.id }]
+        expect(JSON.parse(response.body)).to eq [
+          { "label" => "Juan P - HEA - 5", "id" => juan.id }
+        ]
       end
     end
+
+    context 'admin educator logged in, cached student names' do
+      let!(:educator) {
+        FactoryGirl.create(
+          :educator, :admin,
+          school: school,
+          student_searchbar_json: "[{\"label\":\"Juan P - HEA - 5\",\"id\":\"700\"}]"
+        )
+      }
+      before { sign_in(educator) }
+
+      it 'returns an array of student labels and ids that match cached students' do
+        make_request
+        expect(response).to be_success
+        expect(JSON.parse(response.body)).to eq [
+          { "label" => "Juan P - HEA - 5", "id" => "700" }
+        ]
+      end
+
+    end
+
     context 'educator without authorization to students' do
       let!(:educator) { FactoryGirl.create(:educator) }
       before { sign_in(educator) }
@@ -361,6 +406,7 @@ describe StudentsController, :type => :controller do
         expect(JSON.parse(response.body)).to eq []
       end
     end
+
     context 'educator not logged in' do
       it 'is not successful' do
         make_request

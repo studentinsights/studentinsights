@@ -87,6 +87,18 @@ RSpec.describe Educator do
         end
       end
 
+      context 'educator has student in a section' do
+        let!(:educator) { FactoryGirl.create(:educator, school: healey) }
+        let!(:course) { FactoryGirl.create(:course) }
+        let!(:section) { FactoryGirl.create(:section, course: course) }
+        let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: section) }
+        let!(:ssa) { FactoryGirl.create(:student_section_assignment, student: student, section: section) }
+
+        it 'is authorized' do
+          expect(authorized?).to be true
+        end
+      end
+
     end
 
     context 'student belongs to different school' do
@@ -234,6 +246,112 @@ RSpec.describe Educator do
       it 'returns all homerooms\', ordered alphabetically by name' do
         expect(educator.allowed_homerooms_by_name).to eq [homeroom_103, homeroom_102, homeroom_101]
       end
+    end
+  end
+
+  describe '#save_student_searchbar_json' do
+    context 'educator has permissions for a few students' do
+      let(:school) { FactoryGirl.create(:school, local_id: 'Big River High') }
+      let!(:betsy) { FactoryGirl.create(:student, first_name: 'Betsy', last_name: 'Ramirez', school: school, grade: '3') }
+      let!(:bettina) { FactoryGirl.create(:student, first_name: 'Bettina', last_name: 'Abbas', school: school, grade: '3') }
+      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+
+      it 'saves the correct JSON' do
+        educator.save_student_searchbar_json
+        expect(educator.student_searchbar_json).to eq(
+          "[{\"label\":\"Betsy Ramirez - Big River High - 3\",\"id\":#{betsy.id}},{\"label\":\"Bettina Abbas - Big River High - 3\",\"id\":#{bettina.id}}]"
+        )
+      end
+    end
+    context 'educator has permissions for no students' do
+      let(:educator) { FactoryGirl.create(:educator) }
+
+      it 'saves the correct JSON' do
+        educator.save_student_searchbar_json
+        expect(educator.student_searchbar_json).to eq("[]")
+      end
+    end
+  end
+  describe '#allowed_sections' do
+    let!(:school) { FactoryGirl.create(:healey) }
+    let!(:other_school) { FactoryGirl.create(:brown) }
+    let!(:in_school_course) { FactoryGirl.create(:course, school: school) }
+    let!(:in_school_section) { FactoryGirl.create(:section, course: in_school_course) }
+    let!(:out_of_school_course) { FactoryGirl.create(:course, school: other_school)}
+    let!(:out_of_school_section) { FactoryGirl.create(:section, course: out_of_school_course) }
+
+    context 'schoolwide_access' do
+      let(:schoolwide_educator) { FactoryGirl.create(:educator, school: school, schoolwide_access: true)}
+      it 'returns all sections in the school' do
+        expect(schoolwide_educator.allowed_sections.sort).to eq [
+          in_school_section
+        ].sort
+      end
+    end
+
+    context 'districtwide_access' do
+      let(:districtwide_educator) { FactoryGirl.create(:educator, school: school, districtwide_access: true)}
+      it 'returns all sections in the district' do
+        expect(districtwide_educator.allowed_sections.sort).to eq [
+          in_school_section, out_of_school_section
+        ].sort
+      end
+    end
+
+    context 'regular teacher' do
+      let(:educator) { FactoryGirl.create(:educator, school: school) }
+      let!(:other_in_school_section) { FactoryGirl.create(:section, course: in_school_course) }
+      let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: in_school_section) }
+      let!(:other_esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: other_in_school_section) }
+      it 'returns all sections assigned to the educator' do
+        expect(educator.allowed_sections.sort).to eq [
+          in_school_section, other_in_school_section
+        ].sort
+      end
+    end
+  end
+
+  describe '#is_authorized_for_section' do
+    let!(:school) { FactoryGirl.create(:healey) }
+    let!(:other_school) { FactoryGirl.create(:brown) }
+    let!(:in_school_course) { FactoryGirl.create(:course, school: school) }
+    let!(:in_school_section) { FactoryGirl.create(:section, course: in_school_course) }
+    let!(:out_of_school_course) { FactoryGirl.create(:course, school: other_school)}
+    let!(:out_of_school_section) { FactoryGirl.create(:section, course: out_of_school_course) }
+
+    context 'schoolwide_access' do
+      let(:schoolwide_educator) { FactoryGirl.create(:educator, school: school, schoolwide_access: true)}
+
+      it 'has access to a section in their school' do
+        expect(schoolwide_educator.is_authorized_for_section(in_school_section)).to be true
+      end
+
+      it 'does not have access to a section outside their school' do
+        expect(schoolwide_educator.is_authorized_for_section(out_of_school_section)).to be false
+      end
+    end
+
+    context 'districtwide_access' do
+      let(:districtwide_educator) { FactoryGirl.create(:educator, school: school, districtwide_access: true)}
+
+      it 'has access to a section outside their school' do
+        expect(districtwide_educator.is_authorized_for_section(out_of_school_section)).to be true
+      end
+    end
+
+    context 'regular teacher' do
+      let(:educator) { FactoryGirl.create(:educator, school: school) }
+      let!(:other_in_school_section) { FactoryGirl.create(:section, course: in_school_course) }
+      let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: in_school_section) }
+
+      it 'has access to a section assigned to that educator' do
+        expect(educator.is_authorized_for_section(in_school_section)).to be true
+      end
+
+      it 'does not have access to a section not assigned to that educator' do
+        expect(educator.is_authorized_for_section(other_in_school_section)).to be false
+      end
+
     end
   end
 

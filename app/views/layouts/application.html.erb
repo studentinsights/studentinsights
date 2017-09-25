@@ -3,6 +3,7 @@
   <head>
     <title>Student Insights</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <%= render('shared/rollbar') %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
@@ -57,11 +58,11 @@
       </div>
     </div>
     <%= yield %>
-    <%= tag("div", id: "calendar-icon-path", data: { path: asset_path('calendar-icon.svg') }) %>
+    <%= json_div(id: "calendar-icon-path", data: { path: asset_path('calendar-icon.svg') }) %>
     <%= # Gives the front-end clues about what UI elements to render or not.
         # All functionality meant for admins only should be restricted on the server side.
         # This tag is a helper for the UI, not a security feature.
 
-        tag("div", id: "educator-is-admin") if current_educator.try(:admin) %>
+        json_div(id: "educator-is-admin") if current_educator.try(:admin) %>
   </body>
 </html>

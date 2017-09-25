@@ -4,7 +4,6 @@
     "es6": true
   },
   "globals": {
-    "_": true,
     "moment": true,
     "$": true,
     "React": true,

@@ -29,32 +29,9 @@ There's no automatic deployment set up, so your code will not go into production
 
 ### Commands
 
-If your code doesn't include a migration, to deploy to Heroku
-you can just run:
-
 ```
-git push heroku master
+./scripts/deploy/deploy.sh {{HEROKU-APP-FOR-SOMERVILLE-PROD-SITE}} {{HEROKU-APP-FOR-DEMO-SITE}}
 ```
-
-If your code includes a migration, to deploy, run:
-
-```
-git push heroku master && heroku run rake db:migrate
-```
-
-If you have multiple heroku apps in your folder (i.e. demo and production), you will have to tell Heroku which one you want to migrate:
-
-```
-git push heroku master && heroku run rake db:migrate --app NAME_OF_HEROKU_APP
-```
-
-A good idea is to run the migration against the demo site as well so that it doesn't fall behind:
-
-```
-git push heroku master && heroku run rake db:migrate --app somerville-teacher-tool-demo
-```
-
-Note (Alex): At some point we should set up an automatic migrate-after-deploy process for Heroku.
 
 ### After deploying
 

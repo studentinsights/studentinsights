@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 (function() {
   // Routing functions
   window.shared || (window.shared = {});
@@ -13,6 +15,9 @@
     },
     school: function(id) {
       return '/schools/' + id;
+    },
+    section: function(id) {
+      return '/sections/' + id;
     }
   };
 })();

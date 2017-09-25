@@ -19,6 +19,7 @@ FactoryGirl.define do
     state_id 33
     slug 'shs'
     local_id "SHS"
+    school_type "HS"
   end
 
   trait :with_educator do

@@ -11,11 +11,7 @@
 // about supported directives.
 //
 
-// rollbar reports errors in production, so load it first
-// but first it needs our application's Env config to know which environment
-// we're in
 //= require env
-//= require rollbar
 
 // third-party:
 //= require function-bind-polyfill
@@ -25,7 +21,6 @@
 //= require highcharts
 //= require js.cookie
 //= require classList
-//= require lodash.3.10.1.min
 //= require d3.v3.min.js
 //= require moment.js
 //= require sanitize

@@ -1,9 +1,8 @@
+import _ from 'lodash';
+
 export default {
 
-  sortByString: function (a, b, sortBy) {
-    const stringA = a[sortBy];
-    const stringB = b[sortBy];
-
+  baseSortByString: function (stringA, stringB) {
     if (!stringA && !stringB) return 0;
 
     if (!stringA) return -1;
@@ -15,14 +14,21 @@ export default {
     return 0;
   },
 
+  sortByString: function (a, b, sortBy) {
+    const stringA = a[sortBy];
+    const stringB = b[sortBy];
+
+    return this.baseSortByString(stringA, stringB);
+  },
+
   sortByNumber: function (a, b, sortBy) {
     const numA = parseInt(a[sortBy]);
     const numB = parseInt(b[sortBy]);
 
-    if (!Number.isInteger(numA) && !Number.isInteger(numB)) return 0;
+    if (!_.isNumber(numA) && !_.isNumber(numB)) return 0;
 
-    if (!Number.isInteger(numA) || numA < numB) return 1;
-    if (!Number.isInteger(numB) || numA > numB) return -1;
+    if (!_.isNumber(numA) || numA < numB) return 1;
+    if (!_.isNumber(numB) || numA > numB) return -1;
 
     return 0;
   },

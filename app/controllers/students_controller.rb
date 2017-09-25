@@ -43,6 +43,7 @@ class StudentsController < ApplicationController
         absences: student.absences.order(occurred_at: :desc)
       }
     }
+    render 'shared/serialized_data'
   end
 
   def restricted_notes
@@ -56,6 +57,7 @@ class StudentsController < ApplicationController
       event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
     }
+    render 'shared/serialized_data'
   end
 
   def student_report
@@ -117,8 +119,13 @@ class StudentsController < ApplicationController
 
   # Used by the search bar to query for student names
   def names
-    students_for_searchbar = SearchbarHelper.names_for(current_educator)
-    render json: students_for_searchbar
+    cached_json_for_searchbar = current_educator.student_searchbar_json
+
+    if cached_json_for_searchbar
+      render json: cached_json_for_searchbar
+    else
+      render json: SearchbarHelper.names_for(current_educator)
+    end
   end
 
   # Used by the service upload page to validate student local ids
@@ -215,7 +222,6 @@ class StudentsController < ApplicationController
         when "DIBELS" then student_assessment.performance_level
         else student_assessment.scale_score
       end
-
 
       hash[test_name].push([student_assessment.date_taken,result])
     end.sort.to_h
