@@ -20,6 +20,7 @@
     "browserify": "^13.0.1",
     "browserify-incremental": "^3.1.1",
     "eslint": "^3.3.1",
-    "eslint-plugin-react": "^6.1.2"
+    "eslint-plugin-react": "^6.1.2",
+    "lodash": "3.10.1"
   }
 }

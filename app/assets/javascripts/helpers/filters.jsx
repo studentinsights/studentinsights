@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 (function() {
   // Define filter operations
   window.shared || (window.shared = {});

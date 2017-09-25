@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 describe('ProfileBarCharts', function() {
   const ProfileChart = window.shared.ProfileChart;
 

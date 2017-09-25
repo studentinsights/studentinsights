@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
 (function() {

@@ -1,4 +1,4 @@
-import isInteger from 'lodash/isInteger';
+import _ from 'lodash';
 
 export default {
 
@@ -25,10 +25,10 @@ export default {
     const numA = parseInt(a[sortBy]);
     const numB = parseInt(b[sortBy]);
 
-    if (!isInteger(numA) && !isInteger(numB)) return 0;
+    if (!_.isNumber(numA) && !_.isNumber(numB)) return 0;
 
-    if (!isInteger(numA) || numA < numB) return 1;
-    if (!isInteger(numB) || numA > numB) return -1;
+    if (!_.isNumber(numA) || numA < numB) return 1;
+    if (!_.isNumber(numB) || numA > numB) return -1;
 
     return 0;
   },
