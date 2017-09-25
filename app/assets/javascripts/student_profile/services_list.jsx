@@ -156,10 +156,10 @@ import _ from 'lodash';
 
     renderDateStarted: function (service) {
       const momentStarted = moment.utc(service.date_started);
-      const startedToday = moment().utc().subtract(1, 'day') < momentStarted;
+      const startedToday = moment().utc().subtract(1, 'day');
 
       // For services added today, return "Started today" instead of the date:
-      if (startedToday) return (
+      if (startedToday == momentStarted ) return (
         <div>
           Started today
         </div>
@@ -177,9 +177,12 @@ import _ from 'lodash';
     renderDateEnded: function (service) {
       const momentEnded = moment.utc(service.date_ended);
       const endedToday = moment().utc().subtract(1, 'day');
+      console.log(momentEnded);
+      console.log("linebreak");
+      console.log(endedToday);
 
       // For services ended today, return "Ended today" instead of the date:
-      if (endedToday == momentEnded ) return (
+      if (momentEnded < endedToday ) return (
         <div>
           Ended today
         </div>
