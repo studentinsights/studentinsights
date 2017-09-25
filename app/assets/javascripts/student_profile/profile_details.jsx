@@ -1,3 +1,4 @@
+import FlexibleRoster from '../components/flexible_roster.jsx';
 import _ from 'lodash';
 
 (function() {
@@ -6,6 +7,7 @@ import _ from 'lodash';
   const QuadConverter = window.shared.QuadConverter;
   const styles = window.shared.ProfileDetailsStyle;
   const Datepicker = window.shared.Datepicker;
+  const Routes = window.shared.Routes;
   const filterFromDate = QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1);
   const filterToDate = moment();
 
@@ -20,7 +22,8 @@ import _ from 'lodash';
       chartData: React.PropTypes.object,
       iepDocuments: React.PropTypes.array,
       attendanceData: React.PropTypes.object,
-      serviceTypesIndex: React.PropTypes.object
+      serviceTypesIndex: React.PropTypes.object,
+      currentEducator: React.PropTypes.object,
     },
 
     getInitialState: function() {
@@ -164,6 +167,38 @@ import _ from 'lodash';
       return _.sortBy(events, 'date').reverse();
     },
 
+    styleEducators: function(section, column) {
+      const educatorNames = section.educators.map(educator => {
+        return educator['full_name'];
+      },this);
+    
+      return (
+        <p>{educatorNames.join(' / ')}</p>
+      );
+    },
+
+    styleSectionNumberLink(section) {
+      return (
+        <a href={Routes.section(section.id)}>
+          {section.section_number}
+        </a>
+      );
+    },
+
+    styleSectionNumberNoLink(section) {
+      return (
+        <p>{section.section_number}</p>
+      );
+    },
+
+    styleSectionNumber: function(section, column) {
+      const educatorHasAccessToSection = _.includes(this.props.currentEducator.allowed_sections_index, section.id);
+      
+      return educatorHasAccessToSection ? 
+             this.styleSectionNumberLink(section) :
+             this.styleSectionNumberNoLink(section);
+    },
+
     onFilterFromDateChanged: function(dateText) {
       const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
       const updatedMoment = (textMoment.isValid()) ? textMoment : null;
@@ -185,6 +220,9 @@ import _ from 'lodash';
     render: function(){
       return (
         <div>
+          <div style={{clear: 'both'}}>
+            {this.renderSectionDetails()}
+          </div>
           <div style={{display: 'flex'}}>
             {this.renderAccessDetails()}
             {this.renderStudentReportFilters()}
@@ -194,6 +232,31 @@ import _ from 'lodash';
             {this.renderFullCaseHistory()}
           </div>
         </div>
+      );
+    },
+
+    renderSectionDetails: function() {
+      const columns = [
+        {label: 'Section Number', key: 'section_number', cell:this.styleSectionNumber},
+        {label: 'Course Description', key: 'course_description'},
+        {label: 'Grade', key: 'grade_numeric'},
+        {label: 'Schedule', key: 'schedule'},
+        {label: 'Educators', key: 'educators', cell:this.styleEducators},
+        {label: 'Room', key: 'room_number'},
+        {label: 'Term', key: 'term_local_id'}
+      ];
+      
+      return (
+        <div id="sections-roster" className="roster" style={styles.roundedBox}>
+          <h4 style={styles.sectionsRosterTitle}>
+            Sections
+          </h4>
+          <FlexibleRoster
+            rows={this.props.student.sections}
+            columns={columns}
+            initialSortIndex={0}/>
+        </div>
+        
       );
     },
 

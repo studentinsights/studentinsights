@@ -250,7 +250,8 @@ import _ from 'lodash';
             chartData={this.props.chartData}
             iepDocuments={this.props.iepDocuments}
             attendanceData={this.props.attendanceData}
-            serviceTypesIndex={this.props.serviceTypesIndex} />
+            serviceTypesIndex={this.props.serviceTypesIndex} 
+            currentEducator={this.props.currentEducator}/>
       );
       case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
       case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
@@ -296,16 +297,15 @@ import _ from 'lodash';
 
     renderProfileColumn: function() {
       const student = this.props.student;
+      const access = this.props.access;
       const columnKey = 'profile';
-      const demographicsElements = [
-        'Disability: ' + (student.sped_level_of_need || 'None'),
-        'Low income: ' + student.free_reduced_lunch,
-        'Language: ' + student.limited_english_proficiency
-      ];
 
-      if (this.props.access) {
-        demographicsElements.push('ACCESS Composite score: ' + this.props.access.composite);
+      const profileElements = [this.renderDemographics(student, access)];
+      
+      if(student.school_type == 'HS') {
+        profileElements.push(this.renderSections(student));
       }
+      
 
       return (
         <div
@@ -316,7 +316,7 @@ import _ from 'lodash';
           </div>
           <div
             style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn)}>
-            <SummaryList title="Demographics" elements={demographicsElements} />
+            {this.renderPaddedElements(styles.summaryWrapper, profileElements)}
           </div>
         </div>
       );
@@ -347,6 +347,33 @@ import _ from 'lodash';
       );
     },
 
+    renderDemographics: function(student, access) {
+      const demographicsElements = [
+        'Disability: ' + (student.sped_level_of_need || 'None'),
+        'Low income: ' + student.free_reduced_lunch,
+        'Language: ' + student.limited_english_proficiency
+      ];
+
+      if (access) {
+        demographicsElements.push('ACCESS Composite score: ' + access.composite);
+      }
+
+      return (
+        <SummaryList title="Demographics" elements={demographicsElements} />
+      );
+
+
+    },
+
+    renderSections: function(student) {
+      const sectionCount = student.sections.length;
+      const sectionText = sectionCount == 1 ? `${sectionCount} section` : `${sectionCount} sections`;
+    
+      return (
+        <SummaryList title="Sections" elements={[sectionText]} />  
+      );
+    },
+    
     renderPlacement: function(student) {
       const placement = (student.sped_placement !== null)
         ? student.program_assigned + ', ' + student.sped_placement
