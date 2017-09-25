@@ -69,6 +69,7 @@
         serviceTypeId: null,
         providedByEducatorName: "",
         dateStartedText: nowMoment.format('MM/DD/YYYY')
+        momentEnded: moment.utc()
       };
     },
 
@@ -79,6 +80,12 @@
 
     onDateTextChanged: function(dateStartedText) {
       this.setState({dateStartedText});
+    },
+
+    onEndDateChanged: function(dateText) {
+      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
+      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      this.setState({ momentEnded: updatedMoment });
     },
 
     onProvidedByEducatorTyping: function(event) {
@@ -107,6 +114,7 @@
         serviceTypeId,
         providedByEducatorName,
         dateStartedText: reformattedDateText,
+        dateEndedText: this.state.momentEnded.format('YYYY-MM-DD'),
         recordedByEducatorId: currentEducator.id
       });
     },
@@ -196,6 +204,18 @@
             }}
             value={this.state.dateStartedText}
             onChange={this.onDateTextChanged}
+            datepickerOptions={{
+              showOn: 'both',
+              dateFormat: 'mm/dd/yy',
+              minDate: undefined
+            }} />
+          <div style={{ marginTop: 20 }}>
+            When did/will they end?
+          </div>
+          <Datepicker
+            styles={{ input: styles.datepickerInput }}
+            value={this.state.momentEnded.format('MM/DD/YYYY')}
+            onChange={this.onEndDateChanged}
             datepickerOptions={{
               showOn: 'both',
               dateFormat: 'mm/dd/yy',
