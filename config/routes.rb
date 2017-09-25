@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   resources :sections, only: [:index, :show]
   resources :import_records, only: [:index]
   resources :iep_documents, only: [:show]
+  resources :school_administrator_dashboard, only: [:show]
 
   resources :schools, only: [:show] do
     get :star_reading, on: :member
