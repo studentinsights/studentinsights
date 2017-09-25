@@ -176,6 +176,14 @@ import _ from 'lodash';
 
     renderDateEnded: function (service) {
       const momentEnded = moment.utc(service.date_ended);
+      const endedToday = moment().utc().subtract(1, 'day');
+
+      // For services ended today, return "Ended today" instead of the date:
+      if (endedToday) return (
+        <div>
+          Ended today
+        </div>
+      );
 
       // For services that will end in the future, show the future ended date:
       return (
