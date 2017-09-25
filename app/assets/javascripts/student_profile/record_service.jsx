@@ -230,7 +230,7 @@
               minDate: undefined
             }} />
             <div style={{height: '2em'}}>
-              {!isValidDate && <div style={styles.invalidDate}>Choose a valid date</div>}
+              {!isValidDate || isValidEndDate && <div style={styles.invalidDate}>Choose a valid date</div>}
             </div>
         </div>
       );
