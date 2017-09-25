@@ -140,6 +140,8 @@ import _ from 'lodash';
               {this.renderEducatorName(providedByEducatorName)}
               {// When did the service start?
               this.renderDateStarted(service)}
+              {// When will the service end?
+              this.renderDateEnded(service)}
               {// How long has it been going?
               this.renderTimeSinceStarted(service)}
             </div>
@@ -168,6 +170,18 @@ import _ from 'lodash';
         <div>
           {'Started '}
           {momentStarted.format('MMMM D, YYYY')}
+        </div>
+      );
+    },
+
+    renderDateEnded: function (service) {
+      const momentEnded = moment.utc(service.date_ended);
+
+      // For services that will end in the future, show the future ended date:
+      return (
+        <div>
+          {'Scheduled to End '}
+          {momentEnded.format('MMMM D, YYYY')}
         </div>
       );
     },

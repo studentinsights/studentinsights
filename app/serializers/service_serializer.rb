@@ -7,6 +7,7 @@ class ServiceSerializer < Struct.new :service
       :provided_by_educator_name,
       :service_type_id,
       :date_started,
+      :date_ended,
       :recorded_by_educator_id,
       :recorded_at
     ]).merge({

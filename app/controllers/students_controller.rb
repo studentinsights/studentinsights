@@ -91,8 +91,10 @@ class StudentsController < ApplicationController
       :student_id,
       :service_type_id,
       :date_started,
-      :provided_by_educator_name
+      :provided_by_educator_name,
+      :date_ended
     ])
+
     date_ended = params.require(:service).permit(*[:date_ended])
 
     service = Service.new(clean_params.merge({
