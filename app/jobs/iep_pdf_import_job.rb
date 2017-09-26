@@ -7,42 +7,56 @@ class IepPdfImportJob
     @time_now = options[:time_now] || Time.now
   end
 
-  REMOTE_FILENAME = 'student-documents_old.zip'
-
   # This imports all the IEP PDFs from a zip that
   # contains several older documents (ie., for a first-time import).
-  #
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-    date_zip_folder = make_top_level_folder
+    remote_filenames = ['student-documents_old.zip']
 
-    zip_file = download(REMOTE_FILENAME)
-    log "got a zip: #{zip_file.path}"
-
-    date_zip_filenames = unzip_to_folder(zip_file, date_zip_folder)
-    log "unzipped #{date_zip_filenames.size} date zips!"
-
-    date_zip_filenames.each do |date_zip_filename|
-      folder = make_folder_for_unzipped_file(date_zip_filename)
-
-      date_zip = File.open(date_zip_filename)
-      pdf_filenames = unzip_to_folder(date_zip, folder)
-
-      pdf_filenames.each do |path|
-        parse_file_name_and_store_file(path, date_zip_filename)
-      end
-
-      date_zip.close
-    end
-
-    delete_folder_for_zipped_files
+    import_ieps!(remote_filenames)
   end
 
   def nightly_import!
-    # TODO
+    remote_filenames = [
+      'student-documents-1.zip',
+      'student-documents-2.zip',
+      'student-documents-3.zip',
+      'student-documents-4.zip',
+      'student-documents-5.zip',
+      'student-documents-6.zip',
+    ]
+
+    import_ieps!(remote_filenames)
   end
 
   private
+
+    def import_ieps!(remote_filenames)
+      date_zip_folder = make_top_level_folder
+
+      remote_filenames.each do |filename|
+        zip_file = download(filename)
+        log "got a zip: #{zip_file.path}"
+
+        date_zip_filenames = unzip_to_folder(zip_file, date_zip_folder)
+        log "unzipped #{date_zip_filenames.size} date zips!"
+
+        date_zip_filenames.each do |date_zip_filename|
+          folder = make_folder_for_unzipped_file(date_zip_filename)
+
+          date_zip = File.open(date_zip_filename)
+          pdf_filenames = unzip_to_folder(date_zip, folder)
+
+          pdf_filenames.each do |path|
+            parse_file_name_and_store_file(path, date_zip_filename)
+          end
+        end
+
+        date_zip.close
+      end
+
+      delete_folder_for_zipped_files
+    end
 
     def logger
       @iep_import_logger ||= Logger.new(STDOUT)
