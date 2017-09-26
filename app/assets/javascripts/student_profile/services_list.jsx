@@ -140,8 +140,6 @@ import _ from 'lodash';
               {this.renderEducatorName(providedByEducatorName)}
               {// When did the service start?
               this.renderDateStarted(service)}
-              {// When will the service end?
-              this.renderEstimatedEndDate(service)}
               {// How long has it been going?
               this.renderTimeSinceStarted(service)}
             </div>
@@ -156,40 +154,20 @@ import _ from 'lodash';
 
     renderDateStarted: function (service) {
       const momentStarted = moment.utc(service.date_started);
-      // const startedToday = moment().utc().subtract(1, 'day');
+      const startedToday = moment().utc().subtract(1, 'day') < momentStarted;
 
       // For services added today, return "Started today" instead of the date:
-      // if (momentStarted > startedToday ) return (
-      //   <div>
-      //     Started today
-      //   </div>
-      // );
+      if (startedToday) return (
+        <div>
+          Started today
+        </div>
+      );
 
       // For services started earlier than today, show the date started:
       return (
         <div>
           {'Started '}
           {momentStarted.format('MMMM D, YYYY')}
-        </div>
-      );
-    },
-
-    renderEstimatedEndDate: function (service) {
-      const momentEnded = moment.utc(service.estimated_end_date);
-      // const endedToday = moment().utc().subtract(1, 'day');
-
-      // For services ended today, return "Ended today" instead of the date:
-      // if (momentEnded < endedToday ) return (
-      //   <div>
-      //     Ended today
-      //   </div>
-      // );
-
-      // For services that will end in the future, show the future ended date:
-      return (
-        <div>
-          {'Scheduled to End '}
-          {momentEnded.format('MMMM D, YYYY')}
         </div>
       );
     },
@@ -262,8 +240,7 @@ import _ from 'lodash';
 
       const buttonText = (isPending)
         ? 'Updating...'
-        : (isConfirming) ? 'Confirm' : 'Discontinue Early';
-
+        : (isConfirming) ? 'Confirm' : 'Discontinue';
       const style = (isConfirming || isPending) ?
         styles.discontinueConfirm
         : (isHovering) ? {} : styles.discontinue;
