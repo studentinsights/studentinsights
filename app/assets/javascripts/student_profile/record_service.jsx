@@ -69,7 +69,7 @@
         serviceTypeId: null,
         providedByEducatorName: "",
         dateStartedText: nowMoment.format('MM/DD/YYYY'),
-        dateEndedText: nowMoment.format('MM/DD/YYYY')
+        estimatedEndDateText: nowMoment.format('MM/DD/YYYY')
       };
     },
 
@@ -78,17 +78,17 @@
       return moment.utc(dateStartedText, 'MM/DD/YYYY', true); // strict parsing
     },
 
-    dateEndedMoment: function() {
-      const {dateEndedText} = this.state;
-      return moment.utc(dateEndedText, 'MM/DD/YYYY', true); // strict parsing
+    estimatedenddateMoment: function() {
+      const {estimatedEndDateText} = this.state;
+      return moment.utc(estimatedEndDateText, 'MM/DD/YYYY', true); // strict parsing
     },
 
     onDateTextChanged: function(dateStartedText) {
       this.setState({dateStartedText});
     },
 
-    onEndDateTextChanged: function(dateEndedText) {
-      this.setState({dateEndedText});
+    onEstimatedEndDateTextChanged: function(estimatedEndDateText) {
+      this.setState({estimatedEndDateText});
     },
 
     onProvidedByEducatorTyping: function(event) {
@@ -111,14 +111,14 @@
       const {serviceTypeId, providedByEducatorName} = this.state;
       const {currentEducator} = this.props;
       const reformattedDateText = this.dateStartedMoment().format('YYYY-MM-DD');
-      const reformattedEndDateText = this.dateEndedMoment().format('YYYY-MM-DD');
+      const estimatedenddateMoment = this.estimatedenddateMoment().format('YYYY-MM-DD');
 
       // Get the value of the autocomplete input
       this.props.onSave({
         serviceTypeId,
         providedByEducatorName,
         dateStartedText: reformattedDateText,
-        dateEndedText: reformattedEndDateText,
+        estimatedEndDateText: estimatedenddateMoment,
         recordedByEducatorId: currentEducator.id
       });
     },
@@ -221,8 +221,8 @@
               datepicker: styles.datepicker,
               input: styles.datepickerInput
             }}
-            value={this.state.dateEndedText}
-            onChange={this.onEndDateTextChanged}
+            value={this.state.estimatedEndDateText}
+            onChange={this.onEstimatedEndDateTextChanged}
             datepickerOptions={{
               showOn: 'both',
               dateFormat: 'mm/dd/yy',

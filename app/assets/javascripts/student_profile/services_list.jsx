@@ -141,7 +141,7 @@ import _ from 'lodash';
               {// When did the service start?
               this.renderDateStarted(service)}
               {// When will the service end?
-              this.renderDateEnded(service)}
+              this.renderEstimatedEndDate(service)}
               {// How long has it been going?
               this.renderTimeSinceStarted(service)}
             </div>
@@ -174,8 +174,8 @@ import _ from 'lodash';
       );
     },
 
-    renderDateEnded: function (service) {
-      const momentEnded = moment.utc(service.date_ended);
+    renderEstimatedEndDate: function (service) {
+      const momentEnded = moment.utc(service.estimated_end_date);
       // const endedToday = moment().utc().subtract(1, 'day');
 
       // For services ended today, return "Ended today" instead of the date:
