@@ -87,7 +87,7 @@ class IepPdfImportJob
       local_file = Tempfile.new('iep_pdf_zip')
       client = SftpClient.for_x2
       log "have a client!"
-      client.sftp_session.download!(remote_filename, local_file.path)
+      client.download_file(remote_filename)
       log "downloaded a file!"
 
       return local_file
