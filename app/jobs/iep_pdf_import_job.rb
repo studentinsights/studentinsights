@@ -32,25 +32,23 @@ class IepPdfImportJob
   private
 
     def import_ieps!(remote_filenames)
+      FileUtils.mkdir_p("tmp/data_download/unzipped_ieps")
+
       remote_filenames.each do |filename|
         zip_file = download(filename)
         log "got a zip: #{zip_file}"
 
-        date_zip_filenames = unzip_to_folder(zip_file, "tmp/data_download/unzipped_ieps/#{filename}")
-        log "unzipped #{date_zip_filenames.size} date zips!"
-
-        date_zip_filenames.each do |date_zip_filename|
-          folder = make_folder_for_unzipped_file(date_zip_filename)
-
-          date_zip = File.open(date_zip_filename)
-          pdf_filenames = unzip_to_folder(date_zip, folder)
-
-          pdf_filenames.each do |path|
-            parse_file_name_and_store_file(path, date_zip_filename)
+        Zip::File.open(zip_file) do |zip_file|
+          zip_file.each do |entry|
+            entry.extract("tmp/data_download/unzipped_ieps/#{entry.name}")
           end
+
+          log "unzipped #{zip_file.size} date zips!"
         end
 
-        date_zip.close
+        #  pdf_filenames.each do |path|
+        #    parse_file_name_and_store_file(path, date_zip_filename)
+        #  end
       end
 
       delete_folder_for_zipped_files
@@ -88,25 +86,6 @@ class IepPdfImportJob
       log "downloaded a file!"
 
       return File.open("tmp/data_download/#{remote_filename}")
-    end
-
-    def unzip_to_folder(zip_file, target_folder)
-      output_filenames = []
-      Zip::File.open(zip_file) do |files_in_zip|
-        files_in_zip.each do |file_in_zip|
-          output_filename = File.join(target_folder, file_in_zip.name)
-          files_in_zip.extract(file_in_zip, output_filename)
-          output_filenames << output_filename
-        end
-      end
-      output_filenames
-    end
-
-    def make_folder_for_unzipped_file(date_zip_filename)
-      folder = File.join(date_zip_filename + '.unzipped')
-      FileUtils.mkdir_p(folder)
-
-      return folder
     end
 
     def delete_folder_for_zipped_files
