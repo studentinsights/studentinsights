@@ -39,18 +39,20 @@ class IepPdfImportJob
       remote_filenames.each do |filename|
         zip_file = download(filename)
         log "got a zip: #{zip_file}"
+        unzipped_count = 0
 
         begin
           Zip::File.open(zip_file) do |zip_file|
             zip_file.each do |entry|
               entry.extract("tmp/data_download/unzipped_ieps/#{entry.name}")
+              unzipped_count += 1
             end
           end
         rescue => e
           log e.message
         end
 
-        log "unzipped #{zip_file.size} date zips!"
+        log "unzipped #{unzipped_count} date zips!"
 
         #  pdf_filenames.each do |path|
         #    parse_file_name_and_store_file(path, date_zip_filename)
