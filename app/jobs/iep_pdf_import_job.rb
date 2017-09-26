@@ -82,8 +82,20 @@ class IepPdfImportJob
     def download(remote_filename)
       client = SftpClient.for_x2
       log "have a client!"
-      client.download_file(remote_filename)
-      log "downloaded a file!"
+
+      begin
+        client.download_file(remote_filename)
+        log "downloaded a file!"
+      rescue RuntimeError => error
+        message = error.message
+
+        if message.include?('no such file')
+          log error.message
+          log 'No file found but no worries, just means no educators added IEPs into the EasyIEP system that particular day.'
+        else
+          raise error
+        end
+      end
 
       return File.open("tmp/data_download/#{remote_filename}")
     end
