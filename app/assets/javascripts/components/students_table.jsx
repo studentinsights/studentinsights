@@ -14,7 +14,7 @@ export default React.createClass({
 
   getInitialState () {
     return {
-      sortBy: 'first_name',
+      sortBy: 'last_name',
       sortType: 'string',
       sortDesc: true
     };
