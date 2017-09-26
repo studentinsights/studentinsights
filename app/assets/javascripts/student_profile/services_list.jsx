@@ -156,7 +156,7 @@ import _ from 'lodash';
 
     renderDateStarted: function (service) {
       const momentStarted = moment.utc(service.date_started);
-      const startedToday = moment().utc().subtract(1, 'day');
+      // const startedToday = moment().utc().subtract(1, 'day');
 
       // For services added today, return "Started today" instead of the date:
       // if (momentStarted > startedToday ) return (
