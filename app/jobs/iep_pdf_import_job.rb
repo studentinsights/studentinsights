@@ -32,26 +32,32 @@ class IepPdfImportJob
   private
 
     def import_ieps!(remote_filenames)
+      clean_up
+
       FileUtils.mkdir_p("tmp/data_download/unzipped_ieps")
 
       remote_filenames.each do |filename|
         zip_file = download(filename)
         log "got a zip: #{zip_file}"
 
-        Zip::File.open(zip_file) do |zip_file|
-          zip_file.each do |entry|
-            entry.extract("tmp/data_download/unzipped_ieps/#{entry.name}")
+        begin
+          Zip::File.open(zip_file) do |zip_file|
+            zip_file.each do |entry|
+              entry.extract("tmp/data_download/unzipped_ieps/#{entry.name}")
+            end
           end
-
-          log "unzipped #{zip_file.size} date zips!"
+        rescue => e
+          log e.message
         end
+
+        log "unzipped #{zip_file.size} date zips!"
 
         #  pdf_filenames.each do |path|
         #    parse_file_name_and_store_file(path, date_zip_filename)
         #  end
       end
 
-      delete_folder_for_zipped_files
+      clean_up
     end
 
     def logger
@@ -100,10 +106,9 @@ class IepPdfImportJob
       return File.open("tmp/data_download/#{remote_filename}")
     end
 
-    def delete_folder_for_zipped_files
-      date_zip_folder = Rails.root.join('tmp/iep_pdfs')
-
-      FileUtils.rm_rf(date_zip_folder)
+    def clean_up
+      FileUtils.rm_rf(Rails.root.join('tmp/data_download/unzipped_ieps'))
+      FileUtils.rm_rf(Rails.root.join('tmp/data_download/student-documents*'))
     end
 
 end
