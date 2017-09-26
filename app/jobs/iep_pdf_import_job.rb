@@ -32,13 +32,11 @@ class IepPdfImportJob
   private
 
     def import_ieps!(remote_filenames)
-      date_zip_folder = make_top_level_folder
-
       remote_filenames.each do |filename|
         zip_file = download(filename)
-        log "got a zip: #{zip_file.path}"
+        log "got a zip: #{zip_file}"
 
-        date_zip_filenames = unzip_to_folder(zip_file, date_zip_folder)
+        date_zip_filenames = unzip_to_folder(zip_file, "tmp/data_download/unzipped_ieps/#{filename}")
         log "unzipped #{date_zip_filenames.size} date zips!"
 
         date_zip_filenames.each do |date_zip_filename|
@@ -84,13 +82,12 @@ class IepPdfImportJob
     end
 
     def download(remote_filename)
-      local_file = Tempfile.new('iep_pdf_zip')
       client = SftpClient.for_x2
       log "have a client!"
       client.download_file(remote_filename)
       log "downloaded a file!"
 
-      return local_file
+      return File.open("tmp/data_download/#{remote_filename}")
     end
 
     def unzip_to_folder(zip_file, target_folder)
@@ -103,13 +100,6 @@ class IepPdfImportJob
         end
       end
       output_filenames
-    end
-
-    def make_top_level_folder
-      date_zip_folder = Rails.root.join('tmp/iep_pdfs/date_zips')
-      FileUtils.mkdir_p(date_zip_folder)
-
-      return date_zip_folder
     end
 
     def make_folder_for_unzipped_file(date_zip_filename)
