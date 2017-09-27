@@ -140,6 +140,7 @@ import _ from 'lodash';
               {this.renderEducatorName(providedByEducatorName)}
               {// When did the service start?
               this.renderDateStarted(service)}
+
               {// When will the service end?
               this.renderEstimatedEndDate(service)}
               {// How long has it been going?
@@ -185,13 +186,16 @@ import _ from 'lodash';
       //   </div>
       // );
 
-      // For services that will end in the future, show the future ended date:
-      return (
-        <div>
-          {'Scheduled to End '}
-          {momentEnded.format('MMMM D, YYYY')}
-        </div>
-      );
+      // If estimated end date exist then show ui:
+      if (momentEnded.isValid()) {
+        return (
+          <div>
+            {'Scheduled to End '}
+            {momentEnded.format('MMMM D, YYYY')}
+          </div>
+        );
+      }
+
     },
 
     renderTimeSinceStarted: function (service) {
