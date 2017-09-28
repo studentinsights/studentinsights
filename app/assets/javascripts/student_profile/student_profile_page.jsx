@@ -141,6 +141,7 @@ import _ from 'lodash';
 
       access: React.PropTypes.object,
       iepDocuments: React.PropTypes.array,
+      sections: React.PropTypes.array,
 
       // flux-y bits
       requests: PropTypes.requests,
@@ -249,6 +250,7 @@ import _ from 'lodash';
             dibels={this.props.dibels}
             chartData={this.props.chartData}
             iepDocuments={this.props.iepDocuments}
+            sections={this.props.sections}
             attendanceData={this.props.attendanceData}
             serviceTypesIndex={this.props.serviceTypesIndex} 
             currentEducator={this.props.currentEducator}/>
@@ -298,12 +300,13 @@ import _ from 'lodash';
     renderProfileColumn: function() {
       const student = this.props.student;
       const access = this.props.access;
+      const sections = this.props.sections;
       const columnKey = 'profile';
 
       const profileElements = [this.renderDemographics(student, access)];
       
       if(student.school_type == 'HS') {
-        profileElements.push(this.renderSections(student));
+        profileElements.push(this.renderSections(sections));
       }
       
 
@@ -365,8 +368,8 @@ import _ from 'lodash';
 
     },
 
-    renderSections: function(student) {
-      const sectionCount = student.sections.length;
+    renderSections: function(sections) {
+      const sectionCount = sections.length;
       const sectionText = sectionCount == 1 ? `${sectionCount} section` : `${sectionCount} sections`;
     
       return (

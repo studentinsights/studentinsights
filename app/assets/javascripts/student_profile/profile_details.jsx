@@ -21,6 +21,7 @@ import _ from 'lodash';
       dibels: React.PropTypes.array,
       chartData: React.PropTypes.object,
       iepDocuments: React.PropTypes.array,
+      sections: React.PropTypes.array,
       attendanceData: React.PropTypes.object,
       serviceTypesIndex: React.PropTypes.object,
       currentEducator: React.PropTypes.object,
@@ -236,6 +237,14 @@ import _ from 'lodash';
     },
 
     renderSectionDetails: function() {
+      const sections = this.props.sections;
+      
+      // If there are no sections, don't generate the section
+      if (!sections || sections.length == 0) return null;
+
+      // If this student is not a high school student, don't generate the section
+      if (this.props.student.school_type != 'HS') return null;
+      
       const columns = [
         {label: 'Section Number', key: 'section_number', cell:this.styleSectionNumber},
         {label: 'Course Description', key: 'course_description'},
@@ -252,7 +261,7 @@ import _ from 'lodash';
             Sections
           </h4>
           <FlexibleRoster
-            rows={this.props.student.sections}
+            rows={sections}
             columns={columns}
             initialSortIndex={0}/>
         </div>
