@@ -49,6 +49,8 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
         access: serializedData.access,
         dibels: serializedData.dibels,
         iepDocuments: serializedData.iepDocuments,
+        sections: serializedData.sections,
+        currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
 
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
@@ -238,6 +240,8 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
               'attendanceData',
               'selectedColumnKey',
               'iepDocuments',
+              'sections',
+              'currentEducatorAllowedSections',
               'requests'
             ), {
               nowMomentFn: this.props.nowMomentFn,

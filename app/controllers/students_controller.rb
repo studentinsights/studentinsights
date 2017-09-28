@@ -37,6 +37,8 @@ class StudentsController < ApplicationController
       educators_index: Educator.to_index,
       access: student.latest_access_results,
       iep_documents: student.iep_documents,
+      sections: serialize_student_sections_for_profile(student),
+      current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
       attendance_data: {
         discipline_incidents: student.discipline_incidents.order(occurred_at: :desc),
         tardies: student.tardies.order(occurred_at: :desc),
@@ -132,10 +134,15 @@ class StudentsController < ApplicationController
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,
       school_name: student.try(:school).try(:name),
+      school_type: student.try(:school).try(:school_type),
       homeroom_name: student.try(:homeroom).try(:name),
       discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
-      restricted_notes_count: student.event_notes.where(is_restricted: true).count
+      restricted_notes_count: student.event_notes.where(is_restricted: true).count,
     }).stringify_keys
+  end
+
+  def serialize_student_sections_for_profile(student)
+    student.sections_with_grades.as_json({:include => { :educators => {:only => :full_name}}, :methods => :course_description})
   end
 
   # The feed of mutable data that changes most frequently and is owned by Student Insights.

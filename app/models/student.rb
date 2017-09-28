@@ -17,6 +17,8 @@ class Student < ActiveRecord::Base
   has_many :absences, dependent: :destroy
   has_many :discipline_incidents, dependent: :destroy
   has_many :iep_documents, dependent: :destroy
+  has_many :student_section_assignments
+  has_many :sections, through: :student_section_assignments
 
   has_one :student_risk_level, dependent: :destroy
 
@@ -259,6 +261,11 @@ class Student < ActiveRecord::Base
     else
       "warning-bubble sped-risk-bubble tooltip"
     end
+  end
+
+  # Sections
+  def sections_with_grades
+    sections.select("sections.*, student_section_assignments.grade_numeric")
   end
 
   private

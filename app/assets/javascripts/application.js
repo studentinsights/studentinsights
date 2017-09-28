@@ -76,6 +76,7 @@
   //= require ./student_profile/profile_chart
   //= require ./student_profile/profile_bar_chart
   //= require ./student_profile/student_profile_header
+  //= require ./student_profile/student_sections_roster
   //= require ./student_profile/pdf/student_profile_pdf
 // details:
   //= require ./student_profile/services_details

@@ -5,6 +5,7 @@ import _ from 'lodash';
   const merge = window.shared.ReactHelpers.merge;
   const QuadConverter = window.shared.QuadConverter;
   const styles = window.shared.ProfileDetailsStyle;
+  const StudentSectionsRoster = window.shared.StudentSectionsRoster;
   const Datepicker = window.shared.Datepicker;
   const filterFromDate = QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1);
   const filterToDate = moment();
@@ -19,8 +20,11 @@ import _ from 'lodash';
       dibels: React.PropTypes.array,
       chartData: React.PropTypes.object,
       iepDocuments: React.PropTypes.array,
+      sections: React.PropTypes.array,
+      currentEducatorAllowedSections: React.PropTypes.array,
       attendanceData: React.PropTypes.object,
-      serviceTypesIndex: React.PropTypes.object
+      serviceTypesIndex: React.PropTypes.object,
+      currentEducator: React.PropTypes.object,
     },
 
     getInitialState: function() {
@@ -185,6 +189,9 @@ import _ from 'lodash';
     render: function(){
       return (
         <div>
+          <div style={{clear: 'both'}}>
+            {this.renderSectionDetails()}
+          </div>
           <div style={{display: 'flex'}}>
             {this.renderAccessDetails()}
             {this.renderStudentReportFilters()}
@@ -194,6 +201,29 @@ import _ from 'lodash';
             {this.renderFullCaseHistory()}
           </div>
         </div>
+      );
+    },
+
+    renderSectionDetails: function() {
+      const sections = this.props.sections;
+      
+      // If there are no sections, don't generate the student sections roster
+      if (!sections || sections.length == 0) return null;
+
+      // If this student is not a high school student, don't generate the student sections roster
+      if (this.props.student.school_type != 'HS') return null;
+      
+      return (
+        <div id="sections-roster" className="roster" style={styles.roundedBox}>
+          <h4 style={styles.sectionsRosterTitle}>
+            Sections
+          </h4>
+          <StudentSectionsRoster
+            sections={this.props.sections}
+            linkableSections={this.props.currentEducatorAllowedSections}
+            />
+        </div>
+        
       );
     },
 
