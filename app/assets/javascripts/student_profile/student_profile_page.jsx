@@ -355,7 +355,6 @@ import _ from 'lodash';
     renderDemographics: function(student, access) {
       const demographicsElements = [
         'Disability: ' + (student.sped_level_of_need || 'None'),
-        'Low income: ' + student.free_reduced_lunch,
         'Language: ' + student.limited_english_proficiency
       ];
 
