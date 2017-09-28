@@ -309,8 +309,7 @@ describe StudentsController, :type => :controller do
             'recorded_at',
             'date_started',
             'discontinued_by_educator_id',
-            'discontinued_recorded_at',
-            'estimated_end_date'
+            'discontinued_recorded_at'
           )
         end
       end

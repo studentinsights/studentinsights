@@ -48,7 +48,6 @@
         service: {
           service_type_id: serviceParams.serviceTypeId,
           date_started: serviceParams.dateStartedText,
-          estimated_end_date: serviceParams.estimatedEndDateText,
           provided_by_educator_name: serviceParams.providedByEducatorName,
           student_id: studentId
         }

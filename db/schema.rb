@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926172942) do
+ActiveRecord::Schema.define(version: 20170922151811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20170926172942) do
     t.datetime "time_ended"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "importer_timing_json"
   end
 
   create_table "intervention_types", id: :serial, force: :cascade do |t|
@@ -276,7 +277,6 @@ ActiveRecord::Schema.define(version: 20170926172942) do
     t.datetime "updated_at"
     t.string "provided_by_educator_name"
     t.integer "service_upload_id"
-    t.datetime "estimated_end_date"
   end
 
   create_table "student_assessments", id: :serial, force: :cascade do |t|
