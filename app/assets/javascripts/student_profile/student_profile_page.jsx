@@ -142,6 +142,7 @@ import _ from 'lodash';
       access: React.PropTypes.object,
       iepDocuments: React.PropTypes.array,
       sections: React.PropTypes.array,
+      currentEducatorAllowedSections: React.PropTypes.array,
 
       // flux-y bits
       requests: PropTypes.requests,
@@ -251,6 +252,7 @@ import _ from 'lodash';
             chartData={this.props.chartData}
             iepDocuments={this.props.iepDocuments}
             sections={this.props.sections}
+            currentEducatorAllowedSections={this.props.currentEducatorAllowedSections}
             attendanceData={this.props.attendanceData}
             serviceTypesIndex={this.props.serviceTypesIndex} 
             currentEducator={this.props.currentEducator}/>

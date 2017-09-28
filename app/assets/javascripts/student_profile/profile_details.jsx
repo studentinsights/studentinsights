@@ -1,4 +1,5 @@
 import FlexibleRoster from '../components/flexible_roster.jsx';
+import SortHelpers from '../helpers/sort_helpers.jsx';
 import _ from 'lodash';
 
 (function() {
@@ -22,6 +23,7 @@ import _ from 'lodash';
       chartData: React.PropTypes.object,
       iepDocuments: React.PropTypes.array,
       sections: React.PropTypes.array,
+      currentEducatorAllowedSections: React.PropTypes.array,
       attendanceData: React.PropTypes.object,
       serviceTypesIndex: React.PropTypes.object,
       currentEducator: React.PropTypes.object,
@@ -193,7 +195,7 @@ import _ from 'lodash';
     },
 
     styleSectionNumber: function(section, column) {
-      const educatorHasAccessToSection = _.includes(this.props.currentEducator.allowed_sections_index, section.id);
+      const educatorHasAccessToSection = _.includes(this.props.currentEducatorAllowedSections, section.id);
       
       return educatorHasAccessToSection ? 
              this.styleSectionNumberLink(section) :
@@ -248,7 +250,7 @@ import _ from 'lodash';
       const columns = [
         {label: 'Section Number', key: 'section_number', cell:this.styleSectionNumber},
         {label: 'Course Description', key: 'course_description'},
-        {label: 'Grade', key: 'grade_numeric'},
+        {label: 'Grade', key: 'grade_numeric', sortFunc: SortHelpers.sortByNumber},
         {label: 'Schedule', key: 'schedule'},
         {label: 'Educators', key: 'educators', cell:this.styleEducators},
         {label: 'Room', key: 'room_number'},

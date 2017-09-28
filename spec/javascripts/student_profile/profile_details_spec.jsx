@@ -176,9 +176,7 @@ describe('ProfileDetails', function() {
     it('renders the correct roster headers', function() {
       const el = this.testEl;
       const props = {
-        currentEducator: {
-          allowed_sections_index: [1,2,3,4]
-        }
+        currentEducatorAllowedSections: [1,2,3,4]
       };
   
       helpers.renderHSInto(el, props);
@@ -192,9 +190,7 @@ describe('ProfileDetails', function() {
     it('renders the correct roster data', function() {
       const el = this.testEl;
       const props = {
-        currentEducator: {
-          allowed_sections_index: [1,2,3,4]
-        }
+        currentEducatorAllowedSections: [1,2,3,4]
       };
   
       helpers.renderHSInto(el, props);
@@ -211,9 +207,7 @@ describe('ProfileDetails', function() {
     it('renders section number based on educator access', function() {
       const el = this.testEl;
       const props = {
-        currentEducator: {
-          allowed_sections_index: [2,3,4]
-        }
+        currentEducatorAllowedSections: [2,3,4]
       };
   
       helpers.renderHSInto(el, props);
