@@ -64,6 +64,8 @@ class FakeStudent
       race: ['Black', 'White', 'Asian'].sample,
       hispanic_latino: [true, false].sample,
       gender: ['M', 'F'].sample,
+      primary_phone: '999-999-9999 C-Mom',
+      primary_email: 'student@example.com',
     }
   end
 
