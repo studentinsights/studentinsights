@@ -263,6 +263,11 @@ class Student < ActiveRecord::Base
     end
   end
 
+  # Sections
+  def sections_with_grades
+    sections.select("sections.*, student_section_assignments.grade_numeric")
+  end
+
   private
 
     def this_year

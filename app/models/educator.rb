@@ -151,10 +151,6 @@ class Educator < ActiveRecord::Base
     end
   end
 
-  def allowed_sections_index
-    allowed_sections.map { |section| section.id }
-  end
-
   def allowed_homerooms_by_name
     allowed_homerooms.order(:name)
   end
