@@ -14,7 +14,7 @@ export default React.createClass({
 
   getInitialState () {
     return {
-      sortBy: 'first_name',
+      sortBy: 'last_name',
       sortType: 'string',
       sortDesc: true
     };
@@ -104,7 +104,7 @@ export default React.createClass({
         <table className='students-table' style={{ width: '100%' }}>
           <thead>
             <tr>
-              {this.renderHeader('Name', 'first_name', 'string')}
+              {this.renderHeader('Name', 'last_name', 'string')}
               {this.renderHeader('Last SST', 'dateOfLastSST', 'date')}
               {this.renderHeader('Grade', 'grade', 'grade')}
               {this.renderHeader('Disability', 'sped_level_of_need', 'sped_level_of_need')}
@@ -128,7 +128,7 @@ export default React.createClass({
                 <tr key={student.id}>
                   <td>
                     <a href={Routes.studentProfile(student.id)}>
-                      {student.first_name + ' ' + student.last_name}
+                      {student.last_name}, {student.first_name}
                     </a>
                   </td>
                   <td>{student.dateOfLastSST}</td>
