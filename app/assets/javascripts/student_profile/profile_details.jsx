@@ -1,5 +1,3 @@
-import FlexibleRoster from '../components/flexible_roster.jsx';
-import SortHelpers from '../helpers/sort_helpers.jsx';
 import _ from 'lodash';
 
 (function() {
@@ -7,8 +5,8 @@ import _ from 'lodash';
   const merge = window.shared.ReactHelpers.merge;
   const QuadConverter = window.shared.QuadConverter;
   const styles = window.shared.ProfileDetailsStyle;
+  const StudentSectionsRoster = window.shared.StudentSectionsRoster;
   const Datepicker = window.shared.Datepicker;
-  const Routes = window.shared.Routes;
   const filterFromDate = QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1);
   const filterToDate = moment();
 
@@ -170,38 +168,6 @@ import _ from 'lodash';
       return _.sortBy(events, 'date').reverse();
     },
 
-    styleEducators: function(section, column) {
-      const educatorNames = section.educators.map(educator => {
-        return educator['full_name'];
-      },this);
-    
-      return (
-        <p>{educatorNames.join(' / ')}</p>
-      );
-    },
-
-    styleSectionNumberLink(section) {
-      return (
-        <a href={Routes.section(section.id)}>
-          {section.section_number}
-        </a>
-      );
-    },
-
-    styleSectionNumberNoLink(section) {
-      return (
-        <p>{section.section_number}</p>
-      );
-    },
-
-    styleSectionNumber: function(section, column) {
-      const educatorHasAccessToSection = _.includes(this.props.currentEducatorAllowedSections, section.id);
-      
-      return educatorHasAccessToSection ? 
-             this.styleSectionNumberLink(section) :
-             this.styleSectionNumberNoLink(section);
-    },
-
     onFilterFromDateChanged: function(dateText) {
       const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
       const updatedMoment = (textMoment.isValid()) ? textMoment : null;
@@ -241,31 +207,21 @@ import _ from 'lodash';
     renderSectionDetails: function() {
       const sections = this.props.sections;
       
-      // If there are no sections, don't generate the section
+      // If there are no sections, don't generate the student sections roster
       if (!sections || sections.length == 0) return null;
 
-      // If this student is not a high school student, don't generate the section
+      // If this student is not a high school student, don't generate the student sections roster
       if (this.props.student.school_type != 'HS') return null;
-      
-      const columns = [
-        {label: 'Section Number', key: 'section_number', cell:this.styleSectionNumber},
-        {label: 'Course Description', key: 'course_description'},
-        {label: 'Grade', key: 'grade_numeric', sortFunc: SortHelpers.sortByNumber},
-        {label: 'Schedule', key: 'schedule'},
-        {label: 'Educators', key: 'educators', cell:this.styleEducators},
-        {label: 'Room', key: 'room_number'},
-        {label: 'Term', key: 'term_local_id'}
-      ];
       
       return (
         <div id="sections-roster" className="roster" style={styles.roundedBox}>
           <h4 style={styles.sectionsRosterTitle}>
             Sections
           </h4>
-          <FlexibleRoster
-            rows={sections}
-            columns={columns}
-            initialSortIndex={0}/>
+          <StudentSectionsRoster
+            sections={this.props.sections}
+            linkableSections={this.props.currentEducatorAllowedSections}
+            />
         </div>
         
       );
