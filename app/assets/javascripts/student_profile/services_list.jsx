@@ -165,26 +165,25 @@ import _ from 'lodash';
         </div>
       );
 
+      // For services started earlier than today, show the date started:
+      return (
+        <div>
+          {'Started '}
+          {momentStarted.format('MMMM D, YYYY')}
+        </div>
+      );
+    },
+
     renderEstimatedEndDate: function (service) {
       const momentEnded = moment.utc(service.estimated_end_date);
-      // const endedToday = moment().utc().subtract(1, 'day');
-
-      // For services ended today, return "Ended today" instead of the date:
-      // if (momentEnded < endedToday ) return (
-      //   <div>
-      //     Ended today
-      //   </div>
-      // );
 
       // If estimated end date exist then show ui:
-      if (momentEnded.isValid()) {
-        return (
-          <div>
-            {'Scheduled to End '}
-            {momentEnded.format('MMMM D, YYYY')}
-          </div>
-        );
-      }
+      if (momentEnded.isValid()) return (
+        <div>
+          {'Scheduled to End '}
+          {momentEnded.format('MMMM D, YYYY')}
+        </div>
+      );
     },
 
     renderTimeSinceStarted: function (service) {
