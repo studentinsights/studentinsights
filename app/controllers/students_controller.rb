@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
-      current_educator: current_educator.to_json(:methods => :allowed_sections_index),
+      current_educator: current_educator,
       student: serialize_student_for_profile(student),          # Risk level, school homeroom, most recent school year attendance/discipline counts
       feed: student_feed(student, restricted_notes: false),     # Notes, services
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
@@ -37,6 +37,9 @@ class StudentsController < ApplicationController
       educators_index: Educator.to_index,
       access: student.latest_access_results,
       iep_documents: student.iep_documents,
+      sections: student.sections.select('sections.*, student_section_assignments.grade_numeric')
+                                .as_json({:include => { :educators => {:only => :full_name}}, :methods => :course_description}),
+      current_educator_allowed_sections: current_educator.allowed_sections_index,
       attendance_data: {
         discipline_incidents: student.discipline_incidents.order(occurred_at: :desc),
         tardies: student.tardies.order(occurred_at: :desc),
@@ -136,8 +139,7 @@ class StudentsController < ApplicationController
       homeroom_name: student.try(:homeroom).try(:name),
       discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
       restricted_notes_count: student.event_notes.where(is_restricted: true).count,
-      sections: student.sections.select('sections.*, student_section_assignments.grade_numeric').as_json(:include =>  :educators, :methods => :course_description)
-      }).stringify_keys
+    }).stringify_keys
   end
 
   # The feed of mutable data that changes most frequently and is owned by Student Insights.
