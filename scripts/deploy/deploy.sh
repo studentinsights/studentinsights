@@ -2,11 +2,11 @@ SOMERVILLE_PROD_HEROKU_APP_NAME=$1
 DEMO_HEROKU_APP_NAME=$2
 
 if [ -z "$SOMERVILLE_PROD_HEROKU_APP_NAME" ]; then
-  echo "🚨  🚨  🚨  Please supply a Somerville production Heorku app name."; exit 0;
+  echo "🚨  🚨  🚨  Please supply a Somerville production Heroku app name."; exit 0;
 fi
 
 if [ -z "$DEMO_HEROKU_APP_NAME" ]; then
-  echo "🚨  🚨  🚨  Please supply a demo Heorku app name."; exit 0;
+  echo "🚨  🚨  🚨  Please supply a demo Heroku app name."; exit 0;
 fi
 
 # Deploy to Somerville production app and migrate

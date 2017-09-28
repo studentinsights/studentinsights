@@ -11,7 +11,7 @@ describe('RecordService', function() {
   const ReactDOM = window.ReactDOM;
   const RecordService = window.shared.RecordService;
   const {Simulate} = React.addons.TestUtils;
-  
+
   const helpers = {
     renderInto: function(el, props) {
       const mergedProps = merge(props || {}, {
@@ -76,7 +76,8 @@ describe('RecordService', function() {
       expect(el).toContainText('Who is working with Tamyra?');
       // TODO (as): test staff dropdown autocomplete async
       expect(el).toContainText('When did they start?');
-      expect(helpers.findDateInput(el).length).toEqual(1);
+      expect(el).toContainText('When did/will they end');
+      expect(helpers.findDateInput(el).length).toEqual(2);
       expect(el).not.toContainText('Invalid date');
       expect(helpers.findSaveButton(el).length).toEqual(1);
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);

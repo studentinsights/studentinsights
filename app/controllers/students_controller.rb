@@ -91,8 +91,12 @@ class StudentsController < ApplicationController
       :student_id,
       :service_type_id,
       :date_started,
-      :provided_by_educator_name
+      :provided_by_educator_name,
+      :estimated_end_date
     ])
+
+    estimated_end_date = params.require(:service).permit(*[:estimated_end_date])
+
     service = Service.new(clean_params.merge({
       recorded_by_educator_id: current_educator.id,
       recorded_at: Time.now
@@ -101,6 +105,14 @@ class StudentsController < ApplicationController
     serializer = ServiceSerializer.new(service)
 
     if service.save
+      if estimated_end_date["estimated_end_date"].present? && estimated_end_date["estimated_end_date"].to_time < Time.now
+        discontinued_service = DiscontinuedService.new({
+          service_id: service.id,
+          recorded_by_educator_id: current_educator.id,
+          discontinued_at: estimated_end_date["estimated_end_date"].to_time
+        })
+        discontinued_service.save
+      end
       render json: serializer.serialize_service
     else
       render json: { errors: service.errors.full_messages }, status: 422

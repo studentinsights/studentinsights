@@ -156,14 +156,14 @@ import _ from 'lodash';
 
     renderDateStarted: function (service) {
       const momentStarted = moment.utc(service.date_started);
-      const startedToday = moment().utc().subtract(1, 'day') < momentStarted;
+      // const startedToday = moment().utc().subtract(1, 'day');
 
       // For services added today, return "Started today" instead of the date:
-      if (startedToday) return (
-        <div>
-          Started today
-        </div>
-      );
+      // if (momentStarted > startedToday ) return (
+      //   <div>
+      //     Started today
+      //   </div>
+      // );
 
       // For services started earlier than today, show the date started:
       return (
@@ -254,7 +254,8 @@ import _ from 'lodash';
 
       const buttonText = (isPending)
         ? 'Updating...'
-        : (isConfirming) ? 'Confirm' : 'Discontinue';
+        : (isConfirming) ? 'Confirm' : 'Discontinue Early';
+
       const style = (isConfirming || isPending) ?
         styles.discontinueConfirm
         : (isHovering) ? {} : styles.discontinue;
