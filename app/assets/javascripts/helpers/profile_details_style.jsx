@@ -25,7 +25,7 @@
       marginTop: 10,
       marginBottom: 10,
       width: '100%',
-      borderRadius: '5px 5px 5px 5px',
+      borderRadius: 5,
     },
     header: {
       display: 'flex',
