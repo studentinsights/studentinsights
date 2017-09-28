@@ -20,10 +20,14 @@ import FlexibleRoster from '../components/flexible_roster.jsx';
       linkableSections: React.PropTypes.array     // Array of section ids to render as links
     },
 
+    formatEducatorNames: function(educators) {
+      const educatorNames = _.map(educators, 'full_name');
+      return educatorNames.join(' / ');
+    },
+
     styleEducators: function(section, column) {
-      const educatorNames = _.map(section.educators, 'full_name');
       return (
-        <p>{educatorNames.join(' / ')}</p>
+        <p>{this.formatEducatorNames(section.educators)}</p>
       );
     },
 
@@ -49,6 +53,12 @@ import FlexibleRoster from '../components/flexible_roster.jsx';
              this.styleSectionNumberNoLink(section);
     },
 
+    sortEducatorNames: function(a, b, sortBy) {
+      const educatorNamesA = this.formatEducatorNames(a.educators);
+      const educatorNamesB = this.formatEducatorNames(b.educators);
+      return SortHelpers.baseSortByString(educatorNamesA, educatorNamesB);
+    },
+
     render: function() {
       const sections = this.props.sections;
       
@@ -57,7 +67,7 @@ import FlexibleRoster from '../components/flexible_roster.jsx';
         {label: 'Course Description', key: 'course_description'},
         {label: 'Grade', key: 'grade_numeric', sortFunc: SortHelpers.sortByNumber},
         {label: 'Schedule', key: 'schedule'},
-        {label: 'Educators', key: 'educators', cell:this.styleEducators},
+        {label: 'Educators', key: 'educators', cell:this.styleEducators, sortFunc: this.sortEducatorNames},
         {label: 'Room', key: 'room_number'},
         {label: 'Term', key: 'term_local_id'}
       ];
