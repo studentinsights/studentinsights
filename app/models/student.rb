@@ -19,7 +19,7 @@ class Student < ActiveRecord::Base
   has_many :iep_documents, dependent: :destroy
   has_many :student_section_assignments
   has_many :sections, through: :student_section_assignments
-  
+
   has_one :student_risk_level, dependent: :destroy
 
   validates_presence_of :local_id
