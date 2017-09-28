@@ -30,3 +30,7 @@ echo;
 echo "⚙  ⚙  ⚙  Running Service Rake Task for Demo App.";
 rake services:add_estimated_end_date_to_existing_services --app "$DEMO_HEROKU_APP_NAME"
 echo;
+
+echo "⚙  ⚙  ⚙  Running Service Rake Task for Prod App.";
+rake services:add_estimated_end_date_to_existing_services --app "$SOMERVILLE_PROD_HEROKU_APP_NAME"
+echo;
