@@ -276,7 +276,6 @@ ActiveRecord::Schema.define(version: 20170928210614) do
     t.datetime "updated_at"
     t.string "provided_by_educator_name"
     t.integer "service_upload_id"
-    t.datetime "date_ended"
     t.datetime "estimated_end_date"
   end
 

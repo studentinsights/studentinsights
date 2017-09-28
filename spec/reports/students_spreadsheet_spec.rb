@@ -59,6 +59,8 @@ RSpec.describe StudentsSpreadsheet do
            "absences_count",
            "tardies_count",
            "homeroom_name",
+           "primary_email",
+           "primary_phone",
            "Attendance Officer (active_service_date_started)",
            "Attendance Contract (active_service_date_started)",
            "Behavior Contract (active_service_date_started)",
