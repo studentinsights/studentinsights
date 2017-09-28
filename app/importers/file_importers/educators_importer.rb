@@ -21,6 +21,7 @@ class EducatorsImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
     if educator.present?
       educator.save!
+      educator.save_student_searchbar_json
 
       homeroom = Homeroom.find_by_name(row[:homeroom]) if row[:homeroom]
       homeroom.update(educator: educator) if homeroom.present?
