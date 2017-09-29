@@ -21,7 +21,7 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
     return if student.registration_date_in_future
 
     student.save!
-    student.create_student_risk_level!
+    student.update_risk_level!
 
     if row[:homeroom].present?
       assign_student_to_homeroom(student, row[:homeroom])
