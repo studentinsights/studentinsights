@@ -41,9 +41,14 @@ describe('SortHelpers', function() {
     const preSortData = [
       {testElement: 5},
       {testElement: 4},
+      {testElement: null},
       {testElement: 5},
       {testElement: 1},
-      {testElement: 0}
+      {testElement: null},
+      {testElement: 0},
+      {testElement: 5},
+      {testElement: 1},
+      {testElement: null}
     ];
     
     it('correctly sorts', function() {
@@ -52,9 +57,14 @@ describe('SortHelpers', function() {
       let targetData = [
         {testElement: 5},
         {testElement: 5},
+        {testElement: 5},
         {testElement: 4},
         {testElement: 1},
-        {testElement: 0}
+        {testElement: 1},
+        {testElement: 0},
+        {testElement: null},
+        {testElement: null},
+        {testElement: null},
       ];
       
       sortData.sort((a, b) => SortHelpers.sortByNumber(a, b, 'testElement'));

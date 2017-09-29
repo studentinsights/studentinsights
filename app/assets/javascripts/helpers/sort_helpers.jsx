@@ -22,15 +22,14 @@ export default {
   },
 
   sortByNumber: function (a, b, sortBy) {
-    const numA = parseInt(a[sortBy]);
-    const numB = parseInt(b[sortBy]);
+    // Parsing all numbers by floats to retain the decimal in sorting
+    const numA = parseFloat(a[sortBy]);
+    const numB = parseFloat(b[sortBy]);
 
-    if (!_.isNumber(numA) && !_.isNumber(numB)) return 0;
-
-    if (!_.isNumber(numA) || numA < numB) return 1;
-    if (!_.isNumber(numB) || numA > numB) return -1;
-
-    return 0;
+    if(numA === numB) return 0;
+    if(_.isNaN(numA)) return 1;
+    if(_.isNaN(numB)) return -1;
+    return numA > numB ? -1 : 1;
   },
 
   sortByCustomEnum: function (a, b, sortBy, customEnum) {
