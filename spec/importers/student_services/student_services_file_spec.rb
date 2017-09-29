@@ -2,10 +2,23 @@ require 'rails_helper'
 
 RSpec.describe StudentServicesFile do
 
+  let (:fixture_file_path) { "#{Rails.root}/spec/fixtures/fake_student_services_file.csv" }
+
+  describe '#file' do
+    let(:remote_file_name) { 'student_services.csv' }
+    let(:sftp_client) { SftpClient.for_x2 }
+    let(:fixture_file) { File.new(fixture_file_path) }
+
+    it 'returns file when SftpClient is mocked' do
+      allow(sftp_client).to receive(:download_file).with('services_upload/student_services.csv').and_return fixture_file
+      student_services_file = StudentServicesFile.new(remote_file_name, sftp_client, STDOUT)
+      expect(student_services_file.file).to eq fixture_file
+    end
+  end
+
   describe '#import' do
     # Read in fixtures
-    let(:file_path) { "#{Rails.root}/spec/fixtures/fake_student_services_file.csv" }
-    let(:file) { File.new(file_path) }
+    let(:file) { File.new(fixture_file_path) }
 
     # Create student & educator & service_type objects to match the fixtures
     let!(:student_101) { FactoryGirl.create(:student, local_id: '101') }
