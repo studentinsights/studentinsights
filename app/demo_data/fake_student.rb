@@ -13,6 +13,7 @@ class FakeStudent
     add_student_assessments_from_star
     add_student_assessments_from_access
     add_student_to_homeroom
+    add_ieps
   end
 
   def student
@@ -248,4 +249,16 @@ class FakeStudent
     service_counts.times { Service.new(generator.next).save! }
     nil
   end
+
+  def add_ieps
+    15.in(100) do
+      IepDocument.create(
+        file_name: 'Fake IEP',
+        file_date: DateTime.current,
+        student: @student
+      )
+    end
+    nil
+  end
+
 end

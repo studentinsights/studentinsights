@@ -16,7 +16,7 @@ class Student < ActiveRecord::Base
   has_many :tardies, dependent: :destroy
   has_many :absences, dependent: :destroy
   has_many :discipline_incidents, dependent: :destroy
-  has_many :iep_documents, dependent: :destroy
+  has_one :iep_document, dependent: :destroy
   has_many :student_section_assignments
   has_many :sections, through: :student_section_assignments
 
