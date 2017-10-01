@@ -54,8 +54,14 @@ class Import
     no_commands do
       def report
         models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section, StudentSectionAssignment, EducatorSectionAssignment ]
+
         log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
-        @report ||= ImportTaskReport.new(models, log)
+
+        @report ||= ImportTaskReport.new(
+          models_for_report: models,
+          record: record,
+          log: log,
+        )
       end
 
       def record
@@ -101,6 +107,9 @@ class Import
 
           timing_data[:end_time] = Time.current
           timing_log << timing_data
+          record.importer_timing_json = timing_log.to_json
+
+          record.save!
         end
       rescue => error
         extra_info =  {
