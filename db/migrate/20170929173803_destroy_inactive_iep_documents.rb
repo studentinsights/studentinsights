@@ -23,6 +23,24 @@ class DestroyInactiveIepDocuments < ActiveRecord::Migration[5.1]
 
     puts "Destroying #{documents.length} inactive documents..."
 
-    documents.destroy_all
+    documents.each do |document|
+      destroy_document(document)
+    end
   end
+
+  def destroy_document(document)
+    response = client.delete_object(
+      bucket: ENV['AWS_S3_IEP_BUCKET'],
+      key: document.file_name
+    )
+
+    puts "Response from AWS: #{response}"
+
+    document.destroy
+  end
+
+  def client
+    @client ||= Aws::S3::Client.new
+  end
+
 end
