@@ -7,6 +7,10 @@ class DestroyInactiveIepDocuments < ActiveRecord::Migration[5.1]
     Student.find_each do |student|
       destroy_inactive_iep_documents_for(student)
     end
+
+    Student.find_each do |student|
+      check_for_extra_iep_documents(student)
+    end
   end
 
   def destroy_inactive_iep_documents_for(student)
@@ -26,6 +30,14 @@ class DestroyInactiveIepDocuments < ActiveRecord::Migration[5.1]
     documents.each do |document|
       destroy_document(document)
     end
+  end
+
+  def check_for_extra_iep_documents(student)
+    documents = IepDocument.where(student_id: student.id)
+                           .order(created_at: :desc)
+                           .to_a
+
+    raise "Too many documents!" if documents.size > 1
   end
 
   def destroy_document(document)
