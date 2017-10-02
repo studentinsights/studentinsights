@@ -2,9 +2,10 @@ class ImportTaskReport
 
   attr_accessor :models_for_report
 
-  def initialize(models_for_report, log)
-    @log = log
+  def initialize(models_for_report:, record:, log:)
     @models_for_report = models_for_report
+    @record = record
+    @log = log
     @initial_counts_hash = compute_initial_counts
   end
 
@@ -44,6 +45,8 @@ class ImportTaskReport
     newline; puts end_of_task_report
     newline; newline; puts "=== BY SCHOOL ==="
     puts by_school_report
+    newline; newline; puts "=== IMPORT TIMING ==="
+    puts @record.importer_timing_json
     newline; AssessmentsReport.new(@log).print_report
   end
 
