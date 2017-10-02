@@ -5,9 +5,9 @@ class FileImport < Struct.new :file_importer
 
   def import
     log_start_of_import
-    delete_data if deletion_models.include?(file_importer.class)
     fetch_data
     import_data
+    delete_data if deletion_models.include?(file_importer.class)
   end
 
   private
