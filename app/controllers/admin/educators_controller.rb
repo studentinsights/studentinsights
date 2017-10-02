@@ -15,7 +15,7 @@ module Admin
 
     def update
       super
-      PrecomputeSearchbarJson.for(requested_resource)
+      PrecomputeSearchbarJson.new.for(requested_resource)
     end
 
     def resource_params
