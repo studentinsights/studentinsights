@@ -8,6 +8,10 @@ class PrecomputeSearchbarJson
     educators_who_log_in.find_each { |educator| save_student_searchbar_json(educator) }
   end
 
+  def self.for(educator)
+    new.save_student_searchbar_json(educator)
+  end
+
   def educators_who_log_in
     Educator.where("sign_in_count > ?", 0)
   end
