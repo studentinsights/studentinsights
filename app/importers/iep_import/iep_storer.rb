@@ -45,10 +45,16 @@ class IepStorer
   def store_object_in_database
     @logger.info("storing iep for student to db.")
 
-    IepDocument.create!(
-      file_name: @file_name,
-      student: @student
-    )
+    document = IepDocument.find_by(student: @student)
+
+    if document.present?
+      IepDocument.update!(file_name: @file_name)
+    else
+      IepDocument.create!(
+        file_name: @file_name,
+        student: @student
+      )
+    end
   end
 
 end
