@@ -48,7 +48,7 @@ class IepStorer
     document = IepDocument.find_by(student: @student)
 
     if document.present?
-      IepDocument.update!(file_name: @file_name)
+      IepDocument.update(file_name: @file_name)
     else
       IepDocument.create!(
         file_name: @file_name,

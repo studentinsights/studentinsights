@@ -28,7 +28,7 @@ RSpec.describe IepStorer, type: :model do
   }
 
   context 'local id matches to student' do
-    before {
+    let!(:student) {
       Student.create!(
         local_id: 'abc_student_local_id', grade: 'KF'
       )
@@ -42,20 +42,17 @@ RSpec.describe IepStorer, type: :model do
 
     context 'other document exists for that student' do
       let!(:other_iep) {
-        IepStorer.new(
-          file_name: 'Old Old IEP Document',
-          path_to_file: '/path/to/file',
-          local_id: 'abc_student_local_id',
-          client: FakeAwsClient,
-          logger: QuietLogger
-        )
+        IepDocument.create!(student: student, file_name: 'xyz')
       }
 
       it 'stores an object to the db' do
-        expect { subject.store }.to change(IepDocument, :count).by 1
+        expect { subject.store }.to change(IepDocument, :count).by 0
       end
+
       it 'updates the filename' do
-        expect { subject.store }.to change(IepDocument, :count).by 1
+        subject.store
+        student.reload
+        expect(student.iep_document.file_name).to eq 'IEP Document'
       end
     end
   end
