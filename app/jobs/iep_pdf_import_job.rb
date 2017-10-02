@@ -18,12 +18,12 @@ class IepPdfImportJob
 
   def nightly_import!
     remote_filenames = [
-      'student-documents-1.zip',
-      'student-documents-2.zip',
-      'student-documents-3.zip',
-      'student-documents-4.zip',
-      'student-documents-5.zip',
       'student-documents-6.zip',
+      'student-documents-5.zip',
+      'student-documents-4.zip',
+      'student-documents-3.zip',
+      'student-documents-2.zip',
+      'student-documents-1.zip',
     ]
 
     import_ieps!(remote_filenames)
