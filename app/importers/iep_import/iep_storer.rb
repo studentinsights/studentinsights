@@ -1,13 +1,11 @@
 class IepStorer
   def initialize(file_name:,
                  path_to_file:,
-                 file_date:,
                  local_id:,
                  client:,
                  logger:)
     @file_name = file_name
     @path_to_file = path_to_file
-    @file_date = file_date
     @local_id = local_id
     @client = client
     @logger = logger
@@ -48,7 +46,6 @@ class IepStorer
     @logger.info("storing iep for student to db.")
 
     IepDocument.create!(
-      file_date: @file_date,
       file_name: @file_name,
       student: @student
     )

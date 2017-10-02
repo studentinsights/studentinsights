@@ -59,7 +59,6 @@ class IepPdfImportJob
       IepStorer.new(
         path_to_file: path_to_file,
         file_name: file_info.file_name,
-        file_date: file_info.file_date,
         local_id: file_info.local_id,
         client: s3,
         logger: logger

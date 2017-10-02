@@ -21,7 +21,6 @@ RSpec.describe IepStorer, type: :model do
     IepStorer.new(
       file_name: 'IEP Document',
       path_to_file: '/path/to/file',
-      file_date: DateTime.current,
       local_id: 'abc_student_local_id',
       client: FakeAwsClient,
       logger: QuietLogger

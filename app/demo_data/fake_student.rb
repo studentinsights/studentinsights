@@ -254,7 +254,6 @@ class FakeStudent
     15.in(100) do
       IepDocument.create(
         file_name: 'Fake IEP',
-        file_date: DateTime.current,
         student: @student
       )
     end
