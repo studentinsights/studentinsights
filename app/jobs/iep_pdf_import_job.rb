@@ -95,7 +95,6 @@ class IepPdfImportJob
 
     def download(remote_filename)
       client = SftpClient.for_x2
-      log "have a client!"
 
       begin
         client.download_file(remote_filename)
