@@ -1,6 +1,4 @@
 class SchoolAdministratorDashboardController < ApplicationController
-
-
   include StudentsQueryHelper
 
   before_action :set_school
@@ -8,13 +6,11 @@ class SchoolAdministratorDashboardController < ApplicationController
   def show
     active_students = students_for_dashboard(@school)
 
+    dashboard_students = active_students.map { |student| individual_student_dashboard_data(student) }
 
-    student_hashes = active_students.map {|student| student_hash_for_slicing(student)}
+    puts dashboard_students
 
-    @serialized_data = {
-      students: student_hashes,
-      current_educator: current_educator
-    }
+    @serialized_data = dashboard_students
     render 'shared/serialized_data'
   end
 
@@ -27,11 +23,24 @@ class SchoolAdministratorDashboardController < ApplicationController
     redirect_to root_url if @school.nil?
   end
 
+  def list_student_absences(student)
+    student.absences.map {|absence| absence.occurred_at}
+  end
+
+  def individual_student_dashboard_data(student)
+    HashWithIndifferentAccess.new({
+      first_name: student.first_name,
+      last_name: student.last_name,
+      homeroom: student.homeroom_id,
+      absences: list_student_absences(student)
+      }
+    )
+  end
+
   def students_for_dashboard(school)
     school.students.active
   end
 
+
+
 end
-
-
-
