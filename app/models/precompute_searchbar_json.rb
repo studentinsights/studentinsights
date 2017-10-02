@@ -1,4 +1,4 @@
-class PrecomputeSearchbarJson
+module PrecomputeSearchbarJson
 
   def self.for_all_educators
     Educator.find_each { |educator| save_student_searchbar_json(educator) }
