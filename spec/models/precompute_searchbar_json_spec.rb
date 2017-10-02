@@ -36,7 +36,8 @@ RSpec.describe PrecomputeSearchbarJson do
       let!(:another_educator) { FactoryGirl.create(:educator, districtwide_access: true) }
 
       it 'only calculates districtwide JSON once' do
-
+        expect(SearchbarHelper).to receive(:names_for_all_students).once
+        PrecomputeSearchbarJson.new.for_all_educators
       end
 
     end
