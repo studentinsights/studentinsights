@@ -1,4 +1,4 @@
-class IepFileNameParser < Struct.new :path, :zip_filename
+class IepFileNameParser < Struct.new :path
 
   def local_id
     pdf_basename.split('_')[0]

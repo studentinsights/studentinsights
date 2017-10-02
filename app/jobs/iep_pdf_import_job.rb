@@ -54,9 +54,11 @@ class IepPdfImportJob
 
         log "unzipped #{unzipped_count} date zips!"
 
-        #  pdf_filenames.each do |path|
-        #    parse_file_name_and_store_file(path, date_zip_filename)
-        #  end
+        pdf_filenames = Dir["tmp/data_download/unzipped_ieps/*"]
+
+        pdf_filenames.each do |path|
+          parse_file_name_and_store_file(path)
+        end
       end
 
       clean_up
@@ -70,8 +72,9 @@ class IepPdfImportJob
       logger.info(msg)
     end
 
-    def parse_file_name_and_store_file(path_to_file, date_zip_filename)
-      file_info = IepFileNameParser.new(path_to_file, date_zip_filename)
+    def parse_file_name_and_store_file(path_to_file)
+      file_info = IepFileNameParser.new(path_to_file)
+
       file_info.check_iep_at_a_glance
 
       IepStorer.new(
