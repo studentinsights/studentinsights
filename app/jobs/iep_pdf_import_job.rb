@@ -40,11 +40,12 @@ class IepPdfImportJob
         zip_file = download(filename)
         log "got a zip: #{zip_file}"
         unzipped_count = 0
+        FileUtils.mkdir_p("tmp/data_download/unzipped_ieps/#{filename}")
 
         begin
           Zip::File.open(zip_file) do |zip_file|
             zip_file.each do |entry|
-              entry.extract("tmp/data_download/unzipped_ieps/#{entry.name}")
+              entry.extract("tmp/data_download/unzipped_ieps/#{filename}/#{entry.name}")
               unzipped_count += 1
             end
           end
@@ -54,7 +55,9 @@ class IepPdfImportJob
 
         log "unzipped #{unzipped_count} date zips!"
 
-        pdf_filenames = Dir["tmp/data_download/unzipped_ieps/*"]
+        log "parsing unzipped pdfs from #{filename}...!"
+
+        pdf_filenames = Dir["tmp/data_download/unzipped_ieps/#{filename}/*"]
 
         pdf_filenames.each do |path|
           parse_file_name_and_store_file(path)
