@@ -1,11 +1,11 @@
 module PrecomputeSearchbarJson
 
   def self.for_all_educators
-    Educator.find_each { |educator| save_student_searchbar_json(educator) }
+    Educator.find_each { |educator| self.for(educator) }
   end
 
   def self.for_educators_who_log_in
-    educators_who_log_in.find_each { |educator| save_student_searchbar_json(educator) }
+    educators_who_log_in.find_each { |educator| self.for(educator) }
   end
 
   def self.for(educator)
