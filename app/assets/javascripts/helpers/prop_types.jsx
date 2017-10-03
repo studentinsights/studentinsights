@@ -85,6 +85,33 @@
       })
     }),
 
+    event_note_types_index: React.PropTypes.shape({
+      300: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      301: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      302: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      304: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      305: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      306: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      })
+    }),
+
     history: React.PropTypes.shape({
       pushState: React.PropTypes.func.isRequired,
       replaceState: React.PropTypes.func.isRequired
