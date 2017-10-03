@@ -8,7 +8,9 @@ class SchoolAdministratorDashboardController < ApplicationController
 
     dashboard_students = active_students.map { |student| individual_student_dashboard_data(student) }
 
-    @serialized_data = dashboard_students.to_json
+    @serialized_data = {
+      absences: dashboard_students.to_json
+    }
     render 'shared/serialized_data'
   end
 
