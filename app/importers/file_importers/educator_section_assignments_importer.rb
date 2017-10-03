@@ -1,4 +1,8 @@
 class EducatorSectionAssignmentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
+  def initialize(*)
+    super
+    @imported_assignments = []
+  end
 
   def remote_file_name
     'educator_section_assignment_export.txt'
@@ -13,7 +17,8 @@ class EducatorSectionAssignmentsImporter < Struct.new :school_scope, :client, :l
   end
 
   def delete_rows
-    EducatorSectionAssignment.delete_all
+    #Delete all stale rows no longer included in the import
+    EducatorSectionAssignment.where.not(id: @imported_assignments).delete_all
   end
 
   def import_row(row)
@@ -21,6 +26,7 @@ class EducatorSectionAssignmentsImporter < Struct.new :school_scope, :client, :l
 
     if educator_section_assignment
       educator_section_assignment.save!
+      @imported_assignments.push(educator_section_assignment.id)
     else
       log.write("Educator Section Assignment Import invalid row: #{row}")
     end
