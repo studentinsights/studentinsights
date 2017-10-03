@@ -174,21 +174,6 @@ class Educator < ActiveRecord::Base
     }
   end
 
-  def self.save_student_searchbar_json
-    find_each { |educator| educator.save_student_searchbar_json }
-  end
-
-  def self.save_student_searchbar_json_for_folks_who_log_in
-    educators_who_log_in = Educator.where("sign_in_count > ?", 0)
-
-    educators_who_log_in.find_each { |e| e.save_student_searchbar_json }
-  end
-
-  def save_student_searchbar_json
-    self.student_searchbar_json = SearchbarHelper.names_for(self).to_json
-    save!
-  end
-
   private
 
   def has_access_to_no_students?

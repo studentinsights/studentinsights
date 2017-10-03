@@ -167,3 +167,4 @@ Student.update_risk_levels!
 Student.update_recent_student_assessments
 
 PrecomputeStudentHashesJob.new(STDOUT).precompute_all!(Time.now)
+PrecomputeSearchbarJson.new.for_all_educators

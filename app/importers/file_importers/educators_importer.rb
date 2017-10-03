@@ -18,10 +18,11 @@ class EducatorsImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def import_row(row)
     educator = EducatorRow.new(row, school_ids_dictionary).build
+    searchbar = PrecomputeSearchbarJson.new
 
     if educator.present?
       educator.save!
-      educator.save_student_searchbar_json
+      searchbar.for(educator)
 
       homeroom = Homeroom.find_by_name(row[:homeroom]) if row[:homeroom]
       homeroom.update(educator: educator) if homeroom.present?

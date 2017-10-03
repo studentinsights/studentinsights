@@ -15,7 +15,7 @@ module Admin
 
     def update
       super
-      requested_resource.save_student_searchbar_json
+      PrecomputeSearchbarJson.new.for(requested_resource)
     end
 
     def resource_params
