@@ -30,6 +30,61 @@
       })
     }),
 
+    service_types_index: React.PropTypes.shape({
+      502: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      503: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      504: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      505: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      506: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      507: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      508: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      511: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      513: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      514: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      509: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      510: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      }),
+      512: React.PropTypes.shape({
+        id: React.PropTypes.number,
+        name:React.PropTypes.string.isRequired
+      })
+    }),
+
     history: React.PropTypes.shape({
       pushState: React.PropTypes.func.isRequired,
       replaceState: React.PropTypes.func.isRequired
