@@ -7,42 +7,65 @@ class IepPdfImportJob
     @time_now = options[:time_now] || Time.now
   end
 
-  REMOTE_FILENAME = 'student-documents_old.zip'
-
   # This imports all the IEP PDFs from a zip that
   # contains several older documents (ie., for a first-time import).
-  #
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-    date_zip_folder = make_top_level_folder
+    remote_filenames = ['student-documents_old.zip']
 
-    zip_file = download(REMOTE_FILENAME)
-    log "got a zip: #{zip_file.path}"
-
-    date_zip_filenames = unzip_to_folder(zip_file, date_zip_folder)
-    log "unzipped #{date_zip_filenames.size} date zips!"
-
-    date_zip_filenames.each do |date_zip_filename|
-      folder = make_folder_for_unzipped_file(date_zip_filename)
-
-      date_zip = File.open(date_zip_filename)
-      pdf_filenames = unzip_to_folder(date_zip, folder)
-
-      pdf_filenames.each do |path|
-        parse_file_name_and_store_file(path, date_zip_filename)
-      end
-
-      date_zip.close
-    end
-
-    delete_folder_for_zipped_files
+    import_ieps!(remote_filenames)
   end
 
   def nightly_import!
-    # TODO
+    remote_filenames = [
+      'student-documents-6.zip',
+      'student-documents-5.zip',
+      'student-documents-4.zip',
+      'student-documents-3.zip',
+      'student-documents-2.zip',
+      'student-documents-1.zip',
+    ]
+
+    import_ieps!(remote_filenames)
   end
 
   private
+
+    def import_ieps!(remote_filenames)
+      clean_up
+
+      FileUtils.mkdir_p("tmp/data_download/unzipped_ieps")
+
+      remote_filenames.each do |filename|
+        zip_file = download(filename)
+        log "got a zip: #{zip_file}"
+        unzipped_count = 0
+        FileUtils.mkdir_p("tmp/data_download/unzipped_ieps/#{filename}")
+
+        begin
+          Zip::File.open(zip_file) do |zip_file|
+            zip_file.each do |entry|
+              entry.extract("tmp/data_download/unzipped_ieps/#{filename}/#{entry.name}")
+              unzipped_count += 1
+            end
+          end
+        rescue => e
+          log e.message
+        end
+
+        log "unzipped #{unzipped_count} date zips!"
+
+        log "parsing unzipped pdfs from #{filename}...!"
+
+        pdf_filenames = Dir["tmp/data_download/unzipped_ieps/#{filename}/*"]
+
+        pdf_filenames.each do |path|
+          parse_file_name_and_store_file(path)
+        end
+      end
+
+      clean_up
+    end
 
     def logger
       @iep_import_logger ||= Logger.new(STDOUT)
@@ -52,8 +75,9 @@ class IepPdfImportJob
       logger.info(msg)
     end
 
-    def parse_file_name_and_store_file(path_to_file, date_zip_filename)
-      file_info = IepFileNameParser.new(path_to_file, date_zip_filename)
+    def parse_file_name_and_store_file(path_to_file)
+      file_info = IepFileNameParser.new(path_to_file)
+
       file_info.check_iep_at_a_glance
 
       IepStorer.new(
@@ -70,45 +94,35 @@ class IepPdfImportJob
     end
 
     def download(remote_filename)
-      local_file = Tempfile.new('iep_pdf_zip')
       client = SftpClient.for_x2
-      log "have a client!"
-      client.sftp_session.download!(remote_filename, local_file.path)
-      log "downloaded a file!"
 
-      return local_file
-    end
+      begin
+        client.download_file(remote_filename)
+        log "downloaded a file!"
+      rescue RuntimeError => error
+        message = error.message
 
-    def unzip_to_folder(zip_file, target_folder)
-      output_filenames = []
-      Zip::File.open(zip_file) do |files_in_zip|
-        files_in_zip.each do |file_in_zip|
-          output_filename = File.join(target_folder, file_in_zip.name)
-          files_in_zip.extract(file_in_zip, output_filename)
-          output_filenames << output_filename
+        if message.include?('no such file')
+          log error.message
+          log 'No file found but no worries, just means no educators added IEPs into the EasyIEP system that particular day.'
+        else
+          raise error
         end
       end
-      output_filenames
+
+      return File.open("tmp/data_download/#{remote_filename}")
     end
 
-    def make_top_level_folder
-      date_zip_folder = Rails.root.join('tmp/iep_pdfs/date_zips')
-      FileUtils.mkdir_p(date_zip_folder)
-
-      return date_zip_folder
-    end
-
-    def make_folder_for_unzipped_file(date_zip_filename)
-      folder = File.join(date_zip_filename + '.unzipped')
-      FileUtils.mkdir_p(folder)
-
-      return folder
-    end
-
-    def delete_folder_for_zipped_files
-      date_zip_folder = Rails.root.join('tmp/iep_pdfs')
-
-      FileUtils.rm_rf(date_zip_folder)
+    def clean_up
+      FileUtils.rm_rf(Rails.root.join('tmp/data_download/unzipped_ieps'))
+      FileUtils.rm_rf([
+        Rails.root.join('tmp/data_download/student-documents-6.zip'),
+        Rails.root.join('tmp/data_download/student-documents-5.zip'),
+        Rails.root.join('tmp/data_download/student-documents-4.zip'),
+        Rails.root.join('tmp/data_download/student-documents-3.zip'),
+        Rails.root.join('tmp/data_download/student-documents-2.zip'),
+        Rails.root.join('tmp/data_download/student-documents-1.zip'),
+      ])
     end
 
 end
