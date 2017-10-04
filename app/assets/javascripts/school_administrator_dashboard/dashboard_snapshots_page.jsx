@@ -12,7 +12,7 @@ export default React.createClass({
     return (
       <div className="DashboardSnapshotsPage">
         <SchoolAbsenceDashboard
-          absenceData={this.props.attendanceData}/>
+          attendanceData={this.props.attendanceData}/>
       </div>);
   }
 });

@@ -24,7 +24,7 @@ class SchoolAdministratorDashboardController < ApplicationController
   end
 
   def list_student_absences(student)
-    student.absences.map {|absence| absence.occurred_at}
+    student.absences.map {|absence| absence.order(occurred_at: :desc)}
   end
 
   def individual_student_dashboard_data(student)
@@ -32,7 +32,7 @@ class SchoolAdministratorDashboardController < ApplicationController
       first_name: student.first_name,
       last_name: student.last_name,
       homeroom: student.homeroom_id,
-      absences: list_student_absences(student)
+      absences: student.absences.order(occurred_at: :desc)
       }
     )
   end

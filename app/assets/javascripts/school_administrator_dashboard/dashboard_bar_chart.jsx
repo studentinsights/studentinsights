@@ -1,7 +1,7 @@
 import _ from 'lodash';
+import HighchartsWrapper from './highcharts_wrapper.jsx';
 
 window.shared || (window.shared = {});
-const HighchartsWrapper = window.shared.HighchartsWrapper;
 const GraphHelpers = window.shared.GraphHelpers;
 
 const styles = {
@@ -42,11 +42,12 @@ function defaultMonthKeyFn(event) {
 
 // Component for all charts in the profile page.
 export default React.createClass({
-  displayName: 'ProfileChart',
+  displayName: 'DashboardBarChart',
 
   propTypes: {
     id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
     events: React.PropTypes.array.isRequired, // array of JSON event objects.
+    totalStudents: React.PropTypes.number.isRequired, //Active students in the school
     monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
     tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
     titleText: React.PropTypes.string.isRequired,
@@ -99,6 +100,12 @@ export default React.createClass({
     });
   },
 
+  getAttendancePercentage: function(monthBuckets, students){
+    return monthBuckets.map(function(month) {
+      return (students - month.length)/students*100;
+    });
+  },
+
   // Compute the month range that's relevant for the current date and months back we're showing
   // on the chart.  Then map each month onto captions, and bucket the list of events into
   // each month.
@@ -106,6 +113,7 @@ export default React.createClass({
     const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
     const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
     const yearCategories = GraphHelpers.yearCategories(monthKeys);
+    console.log(this.getAttendancePercentage(monthBuckets, this.props.totalStudents));
 
     return (
       <div id={this.props.id} style={styles.container}>
@@ -115,7 +123,7 @@ export default React.createClass({
           credits={false}
           xAxis={[
             {
-              categories: monthKeys.map(GraphHelpers.monthAxisCaption),
+              categories: monthKeys.map(GraphHelpers.monthAxisCaption), //YYYY-MM groups
               plotLines: this.makePlotlines(monthKeys)
             },
             {
@@ -129,8 +137,8 @@ export default React.createClass({
           title={{text: ''}}
           yAxis={{
             min: 0,
-            max: 20,
-            allowDecimals: false,
+            max: 100,
+            allowDecimals: true,
             title: {text: this.props.titleText}
           }}
           tooltip={{
@@ -140,7 +148,8 @@ export default React.createClass({
           series={[
             {
               showInLegend: false,
-              data: _.map(monthBuckets, 'length')
+              data: this.getAttendancePercentage(monthBuckets, this.props.totalStudents)
+              //_.map(monthBuckets, this.getAttendancePercentage(this.props.totalStudents, 'length')) //total occuring in each month
             }
           ]} />
       </div>
