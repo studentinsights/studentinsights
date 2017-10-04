@@ -11,7 +11,7 @@ class HomeroomsController < ApplicationController
     @rows = eager_students().map {|student| fat_student_hash(student) }
 
     # Dropdown for homeroom navigation
-    @homerooms_by_name = current_educator.allowed_homerooms_by_name
+    @homerooms_by_name = current_educator.allowed_homerooms.order(:name)
 
     # For JSX Table:
     @serialized_data = {
