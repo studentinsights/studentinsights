@@ -40,6 +40,9 @@ class Educator < ActiveRecord::Base
     end
   end
 
+  # TODO(kr) add more database-level checks on consistency across authorization bits
+
+  # TODO(kr) why are there two flags here?
   def admin_gets_access_to_all_students
     errors.add(:admin, "needs access to all students") if admin? && !has_access_to_all_students?
   end
@@ -66,55 +69,55 @@ class Educator < ActiveRecord::Base
     errors.add(:grade_level_access, "cannot be nil") if grade_level_access.nil?
   end
 
-  # This method is the source of truth for whether an educator is authorized to view information about a particular
-  # student.
-  def is_authorized_for_student(student)
-    return true if self.districtwide_access?
+  # # This method is the source of truth for whether an educator is authorized to view information about a particular
+  # # student.
+  # def is_authorized_for_student(student)
+  #   return true if self.districtwide_access?
 
-    return false if self.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
-    return false if self.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
-    return false if self.school_id.present? && self.school_id != student.school_id
+  #   return false if self.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
+  #   return false if self.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
+  #   return false if self.school_id.present? && self.school_id != student.school_id
 
-    return true if self.schoolwide_access? || self.admin? # Schoolwide admin
-    return true if self.has_access_to_grade_levels? && student.grade.in?(self.grade_level_access) # Grade level access
-    return true if student.in?(self.students) # Homeroom level access
-    return true if student.in?(self.section_students) # Section level access
-    false
-  end
+  #   return true if self.schoolwide_access? || self.admin? # Schoolwide admin
+  #   return true if self.has_access_to_grade_levels? && student.grade.in?(self.grade_level_access) # Grade level access
+  #   return true if student.in?(self.students) # Homeroom level access
+  #   return true if student.in?(self.section_students) # Section level access
+  #   false
+  # end
 
-  def is_authorized_for_school(currentSchool)
-    self.districtwide_access? ||
-    (self.schoolwide_access? && self.school == currentSchool) ||
-    (self.has_access_to_grade_levels? && self.school == currentSchool)
-  end
+  # def is_authorized_for_school(currentSchool)
+  #   self.districtwide_access? ||
+  #   (self.schoolwide_access? && self.school == currentSchool) ||
+  #   (self.has_access_to_grade_levels? && self.school == currentSchool)
+  # end
 
-  def is_authorized_for_section(section)
-    return true if self.districtwide_access?
+  # def is_authorized_for_section(section)
+  #   return true if self.districtwide_access?
 
-    return false if self.school.present? && self.school != section.course.school
+  #   return false if self.school.present? && self.school != section.course.school
 
-    return true if self.schoolwide_access? || self.admin?
-    return true if section.in?(self.sections)
-    false
-  end
+  #   return true if self.schoolwide_access? || self.admin?
+  #   return true if section.in?(self.sections)
+  #   false
+  # end
 
-  def students_for_school_overview(*additional_includes)
-    return [] unless school.present?
+  # def students_for_school_overview(*additional_includes)
+  #   return [] unless school.present?
 
-    if schoolwide_access?
-      school.students
-            .active
-            .includes(additional_includes || [])
-    elsif has_access_to_grade_levels?
-      school.students
-            .active
-            .where(grade: self.grade_level_access)
-            .includes(additional_includes || [])
-    else
-      logger.warn("Fell through to empty array in #students_for_school_overview for educator_id: #{self.id}")
-      []
-    end
-  end
+  #   if schoolwide_access?
+  #     school.students
+  #           .active
+  #           .includes(additional_includes || [])
+  #   elsif has_access_to_grade_levels?
+  #     school.students
+  #           .active
+  #           .where(grade: self.grade_level_access)
+  #           .includes(additional_includes || [])
+  #   else
+  #     logger.warn("Fell through to empty array in #students_for_school_overview for educator_id: #{self.id}")
+  #     []
+  #   end
+  # end
 
   def default_homeroom
     raise Exceptions::NoHomerooms if Homeroom.count == 0    # <= We can't show any homerooms if there are none
@@ -128,26 +131,27 @@ class Educator < ActiveRecord::Base
     raise Exceptions::NoAssignedSections                    # <= Logged-in educator has no assigned section
   end
 
+  # TODO(kr) is this just sanitizing the field or is this authorization?
   def has_access_to_grade_levels?
     grade_level_access.present? && grade_level_access.size > 0
   end
 
-  def allowed_homerooms
-    # Educator can visit roster view for these homerooms
-    return [] if school.nil?
+  # def allowed_homerooms
+  #   # Educator can visit roster view for these homerooms
+  #   return [] if school.nil?
 
-    if districtwide_access?
-      Homeroom.all
-    elsif schoolwide_access?
-      school.homerooms.all
-    elsif homeroom
-      school.homerooms.where(grade: homeroom.grade)
-    elsif grade_level_access.present?
-      school.homerooms.where(grade: grade_level_access)
-    else
-      []
-    end
-  end
+  #   if districtwide_access?
+  #     Homeroom.all
+  #   elsif schoolwide_access?
+  #     school.homerooms.all
+  #   elsif homeroom
+  #     school.homerooms.where(grade: homeroom.grade)
+  #   elsif grade_level_access.present?
+  #     school.homerooms.where(grade: grade_level_access)
+  #   else
+  #     []
+  #   end
+  # end
 
   def allowed_sections
     if districtwide_access?
