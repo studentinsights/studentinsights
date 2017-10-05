@@ -16,7 +16,6 @@ class SchoolAdministratorDashboardController < ApplicationController
 
   private
 
-
   def set_school
     @school = School.find_by_slug(params[:id]) || School.find_by_id(params[:id])
 
@@ -40,7 +39,5 @@ class SchoolAdministratorDashboardController < ApplicationController
   def students_for_dashboard(school)
     school.students.active
   end
-
-
 
 end

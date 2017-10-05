@@ -31,7 +31,6 @@ export default React.createClass({
   //Next function should return number of absences in each month.
 
   render: function() {
-    console.log(this.props.attendanceData.absences.length);
     return (
       <div className="DashboardSnapshotsPage">
         <DashboardBarChart
@@ -39,7 +38,7 @@ export default React.createClass({
           events = {this.schoolAbsences()}
           totalStudents = {this.props.attendanceData.absences.length}
           monthsBack = {12}
-          titleText = {'Absences'}/>
+          titleText = {'Attendance (Percent)'}/>
       </div>);
   }
 

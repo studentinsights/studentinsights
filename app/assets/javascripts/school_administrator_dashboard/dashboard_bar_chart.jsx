@@ -113,7 +113,6 @@ export default React.createClass({
     const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
     const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
     const yearCategories = GraphHelpers.yearCategories(monthKeys);
-    console.log(this.getAttendancePercentage(monthBuckets, this.props.totalStudents));
 
     return (
       <div id={this.props.id} style={styles.container}>
@@ -136,7 +135,7 @@ export default React.createClass({
           ]}
           title={{text: ''}}
           yAxis={{
-            min: 0,
+            min: 75,
             max: 100,
             allowDecimals: true,
             title: {text: this.props.titleText}
