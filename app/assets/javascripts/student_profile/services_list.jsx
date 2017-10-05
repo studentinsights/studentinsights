@@ -85,7 +85,6 @@ import _ from 'lodash';
 
       this.props.onClickDiscontinueService(serviceId);
       this.setState(this.getInitialState());
-      window.location.reload();
     },
 
     onClickCancelDiscontinue: function(serviceId) {
