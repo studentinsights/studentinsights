@@ -95,7 +95,6 @@ export default React.createClass({
       'program': 'Program',
       'sped': 'SPED & Disability',
       'language': 'Language',
-      'free-reduced': 'Free/Reduced Lunch',
       'star': 'STAR',
       'mcas': 'MCAS',
     };
@@ -360,9 +359,6 @@ export default React.createClass({
         {this.renderSubHeader(
           'language', 'Home Language', 'home_language', 'string'
         )}
-        {this.renderSubHeader(
-          'free-reduced', 'Free/Reduced Lunch', 'free_reduced_lunch', 'string'
-        )}
         {(this.showStar()) ? this.renderStarSubHeaders() : null}
         {(this.showMcas()) ? this.renderMcasSubHeaders() : null}
       </tr>
@@ -460,7 +456,6 @@ export default React.createClass({
         {this.renderDataCell('sped', row['plan_504'])}
         {this.renderDataCell('language', row['limited_english_proficiency'])}
         {this.renderDataCell('language', row['home_language'])}
-        {this.renderDataCell('free-reduced', row['free_reduced_lunch'])}
         {this.renderStarData(row)}
         {this.renderMcasData(row)}
       </tr>

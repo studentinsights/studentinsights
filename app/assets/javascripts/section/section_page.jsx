@@ -59,7 +59,6 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
         {label: 'Fluency', group: 'Language', key: 'limited_english_proficiency', sortFunc: this.languageProficiencySorter},
         {label: 'Home Language', group: 'Language', key: 'home_language'},
 
-        {label: 'Free / Reduced Lunch', key: 'free_reduced_lunch'},
         {label: 'Grade', key: 'grade_numeric', sortFunc: SortHelpers.sortByNumber},
         {label: 'Absences', key: 'most_recent_school_year_absences_count', sortFunc: SortHelpers.sortByNumber},
         {label: 'Tardies', key: 'most_recent_school_year_tardies_count', sortFunc: SortHelpers.sortByNumber},

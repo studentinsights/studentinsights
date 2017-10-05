@@ -13,6 +13,7 @@ class FakeStudent
     add_student_assessments_from_star
     add_student_assessments_from_access
     add_student_to_homeroom
+    add_ieps
   end
 
   def student
@@ -64,6 +65,8 @@ class FakeStudent
       race: ['Black', 'White', 'Asian'].sample,
       hispanic_latino: [true, false].sample,
       gender: ['M', 'F'].sample,
+      primary_phone: '999-999-9999 C-Mom',
+      primary_email: 'student@example.com',
     }
   end
 
@@ -246,4 +249,15 @@ class FakeStudent
     service_counts.times { Service.new(generator.next).save! }
     nil
   end
+
+  def add_ieps
+    15.in(100) do
+      IepDocument.create(
+        file_name: 'Fake IEP',
+        student: @student
+      )
+    end
+    nil
+  end
+
 end

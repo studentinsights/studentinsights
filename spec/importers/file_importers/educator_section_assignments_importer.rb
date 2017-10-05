@@ -106,16 +106,31 @@ RSpec.describe EducatorSectionAssignmentsImporter do
     end
 
     describe '#delete_rows' do
+      let(:log) { LogHelper::Redirect.instance.file }
+      let!(:school) { FactoryGirl.create(:shs) }
+      let!(:section) { FactoryGirl.create(:section) }
+      let!(:educator) { FactoryGirl.create(:educator) }
+      let(:row) { {
+        local_id:educator.local_id,
+        course_number:section.course.course_number,
+        school_local_id: section.course.school.local_id,
+        section_number:section.section_number,
+        term_local_id:section.term_local_id
+      } }
 
       context 'happy path' do
 
         before do
           FactoryGirl.create_list(:educator_section_assignment,20)
-          described_class.new.delete_rows
+          FactoryGirl.create(:educator_section_assignment, educator_id: educator.id, section_id: section.id)
+
+          esa_importer = described_class.new
+          esa_importer.import_row(row)
+          esa_importer.delete_rows
         end
 
-        it 'deletes all student section assignments' do
-          expect(EducatorSectionAssignment.count).to eq(0)
+        it 'deletes all student section assignments except the recently imported one' do
+          expect(EducatorSectionAssignment.count).to eq(1)
         end
       end
     end

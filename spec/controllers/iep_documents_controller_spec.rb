@@ -27,7 +27,6 @@ RSpec.describe IepDocumentsController, type: :controller do
 
     subject {
       IepDocument.create(
-        file_date: DateTime.current,
         file_name: 'IEP Document',
         student: student,
       )

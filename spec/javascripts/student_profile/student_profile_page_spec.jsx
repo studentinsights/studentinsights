@@ -7,7 +7,7 @@ describe('StudentProfilePage integration test', function() {
   const PageContainer = window.shared.PageContainer;
 
   const helpers = {
-    renderStudentProfilePage: function(el, grade, dibels, absencesCount) {
+    renderStudentProfilePage: function(el, grade, dibels, absencesCount, sectionsCount, schoolType) {
       const serializedData = _.cloneDeep(studentProfile);
       if (grade !== undefined) {
         serializedData["student"]["grade"] = grade;
@@ -19,6 +19,17 @@ describe('StudentProfilePage integration test', function() {
 
       if (absencesCount !== undefined) {
         serializedData["student"]["absences_count"] = absencesCount;
+      }
+
+      if (sectionsCount !== undefined) {
+        const sections = _.times(sectionsCount, function(n) {
+          return {id: n+1};
+        });
+        serializedData["sections"] = sections;
+      }
+
+      if (schoolType !== undefined) {
+        serializedData["student"]["school_type"] = schoolType;
       }
 
 
@@ -95,8 +106,27 @@ describe('StudentProfilePage integration test', function() {
         });
       });
 
+      describe('student with sections', function() {
+        it('does not have sections count', function() {
+          const el = this.testEl;
+          helpers.renderStudentProfilePage(el, '5', [], 0, 3, 'ES');
+          expect(el).not.toContainText('Sections');
+        });
+      });
     });
 
-  });
+    describe('student in high school', function() {
+      it('renders student with 1 section', function() {
+        const el = this.testEl;
+        helpers.renderStudentProfilePage(el, '10', [], 0, 1, 'HS');
+        expect(el).toContainText('1 section');
+      });
 
+      it('renders student with 5 sections', function() {
+        const el = this.testEl;
+        helpers.renderStudentProfilePage(el, '10', [], 0, 5, 'HS');
+        expect(el).toContainText('5 sections');
+      });
+    });
+  });
 });

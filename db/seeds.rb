@@ -163,13 +163,7 @@ end
   FakeStudent.new(healey, nil)
 end
 
-Student.update_risk_levels
+Student.update_risk_levels!
 Student.update_recent_student_assessments
-
-IepDocument.create!(
-  file_name: 'fake-iep-document.pdf',
-  file_date: DateTime.current,
-  student: Student.first
-)
 
 PrecomputeStudentHashesJob.new(STDOUT).precompute_all!(Time.now)

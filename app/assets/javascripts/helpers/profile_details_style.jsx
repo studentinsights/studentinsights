@@ -19,6 +19,14 @@
       marginBottom: 10,
       width: '100%',
     },
+    roundedBox: {
+      border: '1px solid #ccc',
+      padding: 15,
+      marginTop: 10,
+      marginBottom: 10,
+      width: '100%',
+      borderRadius: 5,
+    },
     header: {
       display: 'flex',
       flexFlow: 'row',
@@ -59,6 +67,11 @@
       marginBottom: 20
     },
     fullCaseHistoryTitle: {
+      color: 'black',
+      display: 'inline-block',
+      flex: 'auto',
+    },
+    sectionsRosterTitle: {
       color: 'black',
       display: 'inline-block',
       flex: 'auto',

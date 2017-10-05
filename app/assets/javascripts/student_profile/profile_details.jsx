@@ -5,6 +5,7 @@ import _ from 'lodash';
   const merge = window.shared.ReactHelpers.merge;
   const QuadConverter = window.shared.QuadConverter;
   const styles = window.shared.ProfileDetailsStyle;
+  const StudentSectionsRoster = window.shared.StudentSectionsRoster;
   const Datepicker = window.shared.Datepicker;
   const filterFromDate = QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1);
   const filterToDate = moment();
@@ -18,9 +19,12 @@ import _ from 'lodash';
       access: React.PropTypes.object,
       dibels: React.PropTypes.array,
       chartData: React.PropTypes.object,
-      iepDocuments: React.PropTypes.array,
+      iepDocument: React.PropTypes.object,
+      sections: React.PropTypes.array,
+      currentEducatorAllowedSections: React.PropTypes.array,
       attendanceData: React.PropTypes.object,
-      serviceTypesIndex: React.PropTypes.object
+      serviceTypesIndex: React.PropTypes.object,
+      currentEducator: React.PropTypes.object,
     },
 
     getInitialState: function() {
@@ -185,6 +189,9 @@ import _ from 'lodash';
     render: function(){
       return (
         <div>
+          <div style={{clear: 'both'}}>
+            {this.renderSectionDetails()}
+          </div>
           <div style={{display: 'flex'}}>
             {this.renderAccessDetails()}
             {this.renderStudentReportFilters()}
@@ -194,6 +201,29 @@ import _ from 'lodash';
             {this.renderFullCaseHistory()}
           </div>
         </div>
+      );
+    },
+
+    renderSectionDetails: function() {
+      const sections = this.props.sections;
+
+      // If there are no sections, don't generate the student sections roster
+      if (!sections || sections.length == 0) return null;
+
+      // If this student is not a high school student, don't generate the student sections roster
+      if (this.props.student.school_type != 'HS') return null;
+
+      return (
+        <div id="sections-roster" className="roster" style={styles.roundedBox}>
+          <h4 style={styles.sectionsRosterTitle}>
+            Sections
+          </h4>
+          <StudentSectionsRoster
+            sections={this.props.sections}
+            linkableSections={this.props.currentEducatorAllowedSections}
+            />
+        </div>
+
       );
     },
 
@@ -251,38 +281,20 @@ import _ from 'lodash';
       );
     },
 
-    renderIepDownloadLinks: function () {
-      const iepDocuments = this.props.iepDocuments;
+    renderIepDocuments: function () {
+      const iepDocument = this.props.iepDocument;
+      if (!iepDocument) return null;
 
-      return iepDocuments.map(this.renderIepDownloadLink, this);
-    },
-
-    renderIepDownloadLink: function (iepDocument) {
       const url = `/iep_documents/${iepDocument.id}`;
 
       return (
-        <p style={{fontSize: 15}} key={iepDocument.id}>
-          <a href={url}>
-            Download {iepDocument.file_name}.
-          </a>
-        </p>
-      );
-    },
-
-    renderIepDocuments: function () {
-      const iepDocuments = this.props.iepDocuments;
-      const numberOfDocuments = iepDocuments.length;
-
-      if (numberOfDocuments === 0) return null;
-
-      return (
         <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
-          <h4 style={styles.title}>IEPs</h4>
-          <p style={{fontSize: 15}}>
-            This student has {numberOfDocuments} IEP documents.
+          <h4 style={styles.title}>Active IEP:</h4>
+          <p style={{fontSize: 15}} key={iepDocument.id}>
+            <a href={url}>
+              Download {iepDocument.file_name}.
+            </a>
           </p>
-          <br/>
-          {this.renderIepDownloadLinks()}
         </div>
       );
     },

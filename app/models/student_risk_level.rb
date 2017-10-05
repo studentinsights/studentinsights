@@ -1,5 +1,6 @@
 class StudentRiskLevel < ActiveRecord::Base
   belongs_to :student
+  validates :student, presence: true, uniqueness: true
   delegate :student_assessments, :limited_english_proficiency, to: :student
   after_create :update_risk_level!
 

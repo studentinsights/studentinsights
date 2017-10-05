@@ -5,7 +5,7 @@ class Service < ActiveRecord::Base
   belongs_to :service_upload          # For bulk-uploaded services
   has_many :discontinued_services
 
-  validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id, :recorded_at, :date_started
+  validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id, :recorded_at, :date_started#, :estimated_end_date
 
   def discontinued?
     (discontinued_services.size > 0) && !has_scheduled_end_date?  # If the end date is in the future

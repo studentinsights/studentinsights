@@ -1,13 +1,11 @@
 class IepStorer
   def initialize(file_name:,
                  path_to_file:,
-                 file_date:,
                  local_id:,
                  client:,
                  logger:)
     @file_name = file_name
     @path_to_file = path_to_file
-    @file_date = file_date
     @local_id = local_id
     @client = client
     @logger = logger
@@ -27,7 +25,7 @@ class IepStorer
     # Client is supplied with the proper creds via
     # ENV['AWS_ACCESS_KEY_ID'] and ENV['AWS_SECRET_ACCESS_KEY']
 
-    @logger.info("storing iep for student to s3...")
+    @logger.info("storing iep for student ##{@student.id} to s3...")
 
     response = @client.put_object(
       bucket: ENV['AWS_S3_IEP_BUCKET'],
@@ -45,13 +43,19 @@ class IepStorer
   end
 
   def store_object_in_database
-    @logger.info("storing iep for student to db.")
 
-    IepDocument.create!(
-      file_date: @file_date,
-      file_name: @file_name,
-      student: @student
-    )
+    document = IepDocument.find_by(student: @student)
+
+    if document.present?
+      @logger.info("updating iep record for student ##{@student.id}...")
+      IepDocument.update(file_name: @file_name)
+    else
+      @logger.info("creating iep record for student ##{@student.id}...")
+      IepDocument.create!(
+        file_name: @file_name,
+        student: @student
+      )
+    end
   end
 
 end

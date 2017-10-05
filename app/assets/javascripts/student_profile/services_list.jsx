@@ -140,6 +140,8 @@ import _ from 'lodash';
               {this.renderEducatorName(providedByEducatorName)}
               {// When did the service start?
               this.renderDateStarted(service)}
+              {// When will the service end?
+              this.renderEstimatedEndDate(service)}
               {// How long has it been going?
               this.renderTimeSinceStarted(service)}
             </div>
@@ -154,20 +156,32 @@ import _ from 'lodash';
 
     renderDateStarted: function (service) {
       const momentStarted = moment.utc(service.date_started);
-      const startedToday = moment().utc().subtract(1, 'day') < momentStarted;
+      // const startedToday = moment().utc().subtract(1, 'day');
 
       // For services added today, return "Started today" instead of the date:
-      if (startedToday) return (
-        <div>
-          Started today
-        </div>
-      );
+      // if (momentStarted > startedToday ) return (
+      //   <div>
+      //     Started today
+      //   </div>
+      // );
 
       // For services started earlier than today, show the date started:
       return (
         <div>
           {'Started '}
           {momentStarted.format('MMMM D, YYYY')}
+        </div>
+      );
+    },
+
+    renderEstimatedEndDate: function (service) {
+      const momentEnded = moment.utc(service.estimated_end_date);
+
+      // If estimated end date exist then show ui:
+      if (momentEnded.isValid()) return (
+        <div>
+          {'Scheduled to End '}
+          {momentEnded.format('MMMM D, YYYY')}
         </div>
       );
     },
@@ -240,7 +254,8 @@ import _ from 'lodash';
 
       const buttonText = (isPending)
         ? 'Updating...'
-        : (isConfirming) ? 'Confirm' : 'Discontinue';
+        : (isConfirming) ? 'Confirm' : 'Discontinue Early';
+
       const style = (isConfirming || isPending) ?
         styles.discontinueConfirm
         : (isHovering) ? {} : styles.discontinue;
