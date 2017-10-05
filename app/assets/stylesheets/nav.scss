@@ -20,6 +20,8 @@
     display: inline-block;
     width: 210px;
     height: 60px;
+    position: relative;
+    top: 10px;
     background: url(asset-path("student-insights-logo-small.png")) no-repeat;
   }
 
@@ -114,6 +116,19 @@
     .sign-in-text {
       width: 20em;
       border: 3px inset #4a90e2
+    }
+  }
+
+  .big_warning {
+    padding: 20px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 30px;
+
+    a {
+      font-size: 30px;
     }
   }
 }

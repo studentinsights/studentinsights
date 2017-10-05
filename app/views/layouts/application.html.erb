@@ -11,10 +11,12 @@
   </head>
   <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">
     <div class="nav">
-      <div class="big_warning" style="padding: 20px; background-color: red; color: white; text-align: center; margin-bottom: 10px; font-size: 30px;">
-        <div>This is the demo site! It's filled with fake data.</div>
-        <div>The real site is <a style="font-size: 30px;">somerville.studentinsights.org</a>.</div>
-      </div>
+      <% if ENV['SHOW_DEMO_SITE_WARNING'] === true %>
+        <div class="big_warning">
+          <div>This is the demo site! It's filled with fake data.</div>
+          <div>The real site is <a>somerville.studentinsights.org</a>.</div>
+        </div>
+      <% end %>
       <div id="renew-session">
         Please click <a href="#" id="renew-sesion-link">this link</a> or your session will timeout due to inactivity.
       </div>
