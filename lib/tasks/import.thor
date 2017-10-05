@@ -101,7 +101,7 @@ class Import
         file_importers = importers.flat_map { |i| i.new(options).file_importers }
 
         file_importers.each do |file_importer|
-          timing_data = { importer: file_importer.to_s, start_time: Time.current }
+          timing_data = { importer: file_importer.class.name, start_time: Time.current }
 
           FileImport.new(file_importer).import
 
