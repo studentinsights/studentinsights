@@ -108,7 +108,6 @@ class StudentsController < ApplicationController
 
     if service.save
       if estimated_end_date.present? && estimated_end_date.to_time < Time.now
-        #binding.pry
         discontinued_service = DiscontinuedService.new({
           service_id: service.id,
           recorded_by_educator_id: current_educator.id,
