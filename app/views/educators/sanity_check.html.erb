@@ -1,0 +1,14 @@
+<table style="margin: 40px auto; border-collapse: collapse;">
+  <tbody>
+    <% @models.each do |record_type| %>
+      <tr>
+        <td style="font-size: 16px; border: 1px solid #ccc; padding: 4px;">
+          <%= record_type.to_s.pluralize %>
+        </td>
+        <td style="font-size: 16px; border: 1px solid #ccc; padding: 4px;">
+          <%= number_with_delimiter(record_type.count) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

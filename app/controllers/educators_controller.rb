@@ -1,7 +1,10 @@
 class EducatorsController < ApplicationController
   # Authentication by default inherited from ApplicationController.
 
-  before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage] # Extra authentication layer
+  # Extra authentication layer:
+  before_action :authenticate_districtwide_access!, only: [
+    :districtwide_admin_homepage, :sanity_check
+  ]
 
   def homepage
     redirect_to homepage_path_for_role(current_educator)
@@ -9,6 +12,31 @@ class EducatorsController < ApplicationController
 
   def districtwide_admin_homepage
     @schools = School.where(school_type: ['ES', 'ESMS', 'HS'])
+  end
+
+  def sanity_check
+    @models = [
+      Absence,
+      Course,
+      DisciplineIncident,
+      DiscontinuedService,
+      EducatorSectionAssignment,
+      Educator,
+      EventNoteAttachment,
+      EventNoteRevision,
+      EventNote,
+      Homeroom,
+      IepDocument,
+      Intervention,
+      School,
+      Section,
+      Service,
+      StudentAssessment,
+      StudentRiskLevel,
+      StudentSectionAssignment,
+      Student,
+      Tardy
+    ].freeze
   end
 
   def names_for_dropdown
