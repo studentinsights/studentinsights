@@ -20,8 +20,8 @@ SELECT
   'school_local_id',
   'gender',
   'race',
-  'hispanic_latino'
-  'primary_phone'
+  'hispanic_latino',
+  'primary_phone',
   'primary_email'
 UNION ALL
 SELECT
@@ -45,8 +45,8 @@ SELECT
   SKL_SCHOOL_ID,
   PSN_GENDER_CODE,
   PSN_RACE_VIEW,
-  PSN_HISPANIC_LATINO_IND
-  PSN_PHONE_01
+  PSN_HISPANIC_LATINO_IND,
+  PSN_PHONE_01,
   PSN_EMAIL_01
 FROM student
 INNER JOIN school
