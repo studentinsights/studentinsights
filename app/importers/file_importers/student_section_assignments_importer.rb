@@ -13,6 +13,8 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
       import_row(row) if filter.include?(row)
       ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
     end
+
+    delete_rows
   end
 
   def remote_file_name
