@@ -102,7 +102,11 @@ class Import
       file_importers.each do |file_importer|
         timing_data = { importer: file_importer.class.name, start_time: Time.current }
 
-        FileImport.new(file_importer).import
+        begin
+          FileImport.new(file_importer).import
+        rescue => error
+          ErrorMailer.error_report(error, nil).deliver_now if Rails.env.production?
+        end
 
         timing_data[:end_time] = Time.current
         timing_log << timing_data

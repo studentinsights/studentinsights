@@ -4,14 +4,10 @@ class FileImport < Struct.new :file_importer
     :import_row, :filter, :progress_bar, :delete_rows, to: :file_importer
 
   def import
-    begin
-      log_start_of_import
-      fetch_data
-      import_data
-      delete_data if deletion_models.include?(file_importer.class)
-    rescue =>
-      ErrorMailer.error_report(error, nil).deliver_now if Rails.env.production?
-    end
+    log_start_of_import
+    fetch_data
+    import_data
+    delete_data if deletion_models.include?(file_importer.class)
   end
 
   private
