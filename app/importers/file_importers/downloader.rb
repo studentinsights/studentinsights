@@ -10,10 +10,10 @@ class Downloader
   def get_data
     file = download_file
 
-    data = transformer.transform(file)
+    data = @transformer.transform(file)
 
     CleanupReport.new(
-      log, remote_file_name, transformer.pre_cleanup_csv_size, data.size
+      @log, @remote_file_name, @transformer.pre_cleanup_csv_size, data.size
     ).print
 
     return data
