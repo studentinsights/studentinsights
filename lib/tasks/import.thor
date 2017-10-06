@@ -103,7 +103,7 @@ class Import
         timing_data = { importer: file_importer.class.name, start_time: Time.current }
 
         begin
-          FileImport.new(file_importer).import
+          file_importer.import
         rescue => error
           puts "🚨  🚨  🚨  🚨  🚨  Error! #{error}" unless Rails.env.test?
 
