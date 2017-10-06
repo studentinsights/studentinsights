@@ -32,15 +32,20 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [3. Start Rails](#3-start-rails)
   - [4. Run the tests](#4-run-the-tests)
   - [5. Write code!](#5-write-code)
-  - [6. Use the product locally!](#6-use-product)
+  - [6. Use the product locally](#6-use-the-product-locally)
 - [Browser/OS Targeting](#browseros-targeting)
 - [Deployment](#deployment)
   - [Deploying new code to Insights](#deploying-new-code-to-insights)
   - [Setting up Insights for a new district](#setting-up-insights-for-a-new-district)
     - [New district script](#new-district-script)
+    - [Data differences between districts](#data-differences-between-districts)
+    - [Feature differences between districts](#feature-differences-between-districts)
     - [Importing real data](#importing-real-data)
     - [LDAP](#ldap)
     - [Heroku notes](#heroku-notes)
+- [Ops](#ops)
+  - [Response latency](#response-latency)
+  - [Postgres](#postgres)
 - [Other Tools](#other-tools)
   - [Mixpanel](#mixpanel)
 - [More information](#more-information)
@@ -207,6 +212,22 @@ $ scripts/deploy/new_district.sh "My New District Name"
 ```
 
 This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
+
+### Data differences between districts
+
+District | Data Source | Data Import Notes
+--- | --- | ---
+Somerville | Aspen SIS | Somerville IT runs the SQL scripts in the x2_export folder every night to create CSVs that we import to Insights.
+Somerville | STAR (assessment vendor) | STAR IT team runs a job when Somerville STAR assessment results come in that dumps fresh CSV data to an SFTP site.
+Somerville | EasyIEP | EasyIEP runs "change export" of IEP PDFs that have changed and send them to Somerville each night. (TODO ARS: Clarify this process with John.)
+Fall River | Aspen (Hosted) | Fall River IT is working on their own version of the SQL scripts in the x2_export folder; they can't use SQL scripts directly because they have a different version of Aspen X2.
+
+### Feature differences between districts
+
+District | Feature Area | Feature Notes
+--- | --- | ---
+Somerville | School Overview Page | Somerville High School Housemasters are requesting a feature that will let them sort students by House. [(More info on houses here.)](http://www.somerville.k12.ma.us/schools/somerville-high-school/daily-life)
+
 
 ### Importing real data
 
