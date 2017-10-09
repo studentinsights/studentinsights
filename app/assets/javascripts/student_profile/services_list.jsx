@@ -252,9 +252,19 @@ import _ from 'lodash';
       const isHovering = (this.state.hoveringDiscontinueServiceId === service.id);
       const isPending = (this.props.discontinueServiceRequests[service.id] === 'pending');
 
-      const buttonText = (isPending)
-        ? 'Updating...'
-        : (isConfirming) ? 'Confirm' : 'Discontinue Early';
+      var Text = 'Confirm';
+
+      if (isPending) {
+        Text = 'Updating';
+      } else if (isConfirming) {
+        Text = 'Confirm'; }
+        else {
+        Text = 'Discontinue Early';
+      }
+
+      const buttonText = Text;
+
+      console.log(buttonText);
 
       const style = (isConfirming || isPending) ?
         styles.discontinueConfirm
