@@ -257,7 +257,10 @@ import _ from 'lodash';
       if (isPending) {
         Text = 'Updating';
       } else if (isConfirming) {
-        Text = 'Confirm'; }
+        Text = 'Confirm';
+      } else if (service.estimated_end_date == null) {
+        Text = 'Discontinue';
+      }
         else {
         Text = 'Discontinue Early';
       }
