@@ -264,8 +264,6 @@ import _ from 'lodash';
 
       const buttonText = Text;
 
-      console.log(buttonText);
-
       const style = (isConfirming || isPending) ?
         styles.discontinueConfirm
         : (isHovering) ? {} : styles.discontinue;
