@@ -113,17 +113,4 @@ RSpec.describe Import do
     end
   end
 
-  describe '#connect_transform_import' do
-    let(:fake_file_importer) { double }
-    let(:fake_importer) { double(file_importers: [fake_file_importer]) }
-    let(:fake_importer_class) { double(new: fake_importer) }
-
-    before do
-      allow(task).to receive(:importers).and_return([fake_importer_class])
-    end
-
-    it 'calls #connect_transform_import on configured importers' do
-      task.connect_transform_import
-    end
-  end
 end
