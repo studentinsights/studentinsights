@@ -255,7 +255,7 @@ import _ from 'lodash';
       var Text = 'Confirm';
 
       if (isPending) {
-        Text = 'Updating';
+        Text = 'Updating...';
       } else if (isConfirming) {
         Text = 'Confirm';
       } else if (service.estimated_end_date == null) {
