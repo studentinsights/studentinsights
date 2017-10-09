@@ -46,8 +46,8 @@ export default React.createClass({
 
   propTypes: {
     id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
-    events: React.PropTypes.array.isRequired, // array of JSON event objects.
-    totalStudents: React.PropTypes.number.isRequired, //Active students in the school
+    categories: React.PropTypes.array.isRequired, //Buckets used for X Axis
+    seriesData: React.PropTypes.array.isRequired, // array of JSON event objects.
     monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
     tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
     titleText: React.PropTypes.string.isRequired,
@@ -100,9 +100,11 @@ export default React.createClass({
     });
   },
 
-  getAttendancePercentage: function(monthBuckets, students){
-    return monthBuckets.map(function(month) {
-      return (students - month.length)/students*100;
+  //Takes groupings of students (eg. month or homeroom) and a total number of students
+  //and returns
+  getAttendancePercentage: function(buckets, students){
+    return buckets.map(function(bucket) {
+      return (students - bucket.length)/students*100;
     });
   },
 
@@ -122,8 +124,8 @@ export default React.createClass({
           credits={false}
           xAxis={[
             {
-              categories: monthKeys.map(GraphHelpers.monthAxisCaption), //YYYY-MM groups
-              plotLines: this.makePlotlines(monthKeys)
+              categories: this.props.categories //monthKeys.map(GraphHelpers.monthAxisCaption), //YYYY-MM groups
+              //plotLines: this.makePlotlines(monthKeys)
             },
             {
               offset: 35,
@@ -135,7 +137,7 @@ export default React.createClass({
           ]}
           title={{text: ''}}
           yAxis={{
-            min: 75,
+            min: 76,
             max: 100,
             allowDecimals: true,
             title: {text: this.props.titleText}
@@ -147,8 +149,7 @@ export default React.createClass({
           series={[
             {
               showInLegend: false,
-              data: this.getAttendancePercentage(monthBuckets, this.props.totalStudents)
-              //_.map(monthBuckets, this.getAttendancePercentage(this.props.totalStudents, 'length')) //total occuring in each month
+              data: this.props.seriesData //this.getAttendancePercentage(monthBuckets, this.props.totalStudents)
             }
           ]} />
       </div>
