@@ -251,7 +251,6 @@ import _ from 'lodash';
       const isConfirming = (this.state.discontinuingServiceId === service.id);
       const isHovering = (this.state.hoveringDiscontinueServiceId === service.id);
       const isPending = (this.props.discontinueServiceRequests[service.id] === 'pending');
-
       var Text = 'Confirm';
 
       if (isPending) {
@@ -260,13 +259,11 @@ import _ from 'lodash';
         Text = 'Confirm';
       } else if (service.estimated_end_date == null) {
         Text = 'Discontinue';
-      }
-        else {
+      } else {
         Text = 'Discontinue Early';
       }
 
       const buttonText = Text;
-
       const style = (isConfirming || isPending) ?
         styles.discontinueConfirm
         : (isHovering) ? {} : styles.discontinue;
