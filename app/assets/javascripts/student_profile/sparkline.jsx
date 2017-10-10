@@ -14,7 +14,9 @@ import _ from 'lodash';
     propTypes: {
       height: React.PropTypes.number.isRequired,
       width: React.PropTypes.number.isRequired,
-      quads: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)).isRequired,
+      quads: React.PropTypes.arrayOf(React.PropTypes.arrayOf(
+        React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ])
+      )).isRequired,
       dateRange: React.PropTypes.array.isRequired,
       valueRange: React.PropTypes.array.isRequired,
       thresholdValue: React.PropTypes.number.isRequired,
