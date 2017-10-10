@@ -4,7 +4,7 @@ class X2AssessmentImporter < Struct.new :school_scope, :client, :log, :progress_
   WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/).freeze
 
   def import
-    @data = Downloader.new(
+    @data = CsvDownloader.new(
       log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 

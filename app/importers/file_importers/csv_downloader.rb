@@ -1,4 +1,4 @@
-class Downloader
+class CsvDownloader
 
   def initialize(log:, client:, remote_file_name:, transformer:)
     @log = log

@@ -5,7 +5,7 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
   end
 
   def import
-    @data = Downloader.new(
+    @data = CsvDownloader.new(
       log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
