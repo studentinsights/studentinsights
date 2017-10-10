@@ -97,31 +97,31 @@ class Import
     def connect_transform_import
       timing_log = []
 
-      begin
-        file_importers = importers.flat_map { |i| i.new(options).file_importers }
+      file_importers = importers.flat_map { |i| i.new(options).file_importers }
 
-        file_importers.each do |file_importer|
-          timing_data = { importer: file_importer.to_s, start_time: Time.current }
+      file_importers.each do |file_importer|
+        timing_data = { importer: file_importer.class.name, start_time: Time.current }
 
-          FileImport.new(file_importer).import
+        begin
+          file_importer.import
+        rescue => error
+          puts "🚨  🚨  🚨  🚨  🚨  Error! #{error}" unless Rails.env.test?
 
-          timing_data[:end_time] = Time.current
-          timing_log << timing_data
-          record.importer_timing_json = timing_log.to_json
-
-          record.save!
+          extra_info =  { "importer" => file_importer.class.name }
+          ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
         end
-      rescue => error
-        extra_info =  {
-          import_record: record.as_json
-        }
-        ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
-        raise error
+
+        timing_data[:end_time] = Time.current
+        timing_log << timing_data
+        record.importer_timing_json = timing_log.to_json
+
+        record.save!
       end
     end
 
     def run_update_tasks
       begin
+        Educator.save_student_searchbar_json
         Student.update_risk_levels!
         Student.update_recent_student_assessments
         Homeroom.destroy_empty_homerooms
