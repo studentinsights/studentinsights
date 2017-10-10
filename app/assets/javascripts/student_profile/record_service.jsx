@@ -211,7 +211,8 @@
             datepickerOptions={{
               showOn: 'both',
               dateFormat: 'mm/dd/yy',
-              minDate: undefined
+              minDate: undefined,
+              maxDate: new Date
             }} />
           <div style={{ marginTop: 20 }}>
             When did/will they end?
