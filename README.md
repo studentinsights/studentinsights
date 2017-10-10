@@ -217,9 +217,9 @@ This sets up a new Heroku app instance with the Student Insights code and copies
 
 District | Data Source | Data Import Notes
 --- | --- | ---
-Somerville | Aspen SIS | Somerville IT runs the SQL scripts in the x2_export folder every night to create CSVs that we import to Insights.
-Somerville | STAR (assessment vendor) | STAR IT team runs a job when Somerville STAR assessment results come in that dumps fresh CSV data to an SFTP site.
-Somerville | EasyIEP | EasyIEP runs "change export" of IEP PDFs that have changed and send them to Somerville each night. (TODO ARS: Clarify this process with John.)
+Somerville | Aspen SIS | Somerville IT runs the SQL scripts in the x2_export folder every night to create CSVs and dump them to an SFTP site. We import the CSVs to Insights nightly.
+Somerville | STAR (assessment vendor) | STAR IT team runs a job when Somerville STAR assessment results come in that dumps fresh CSV data to an SFTP site. We import the CSVs to Insights nightly.
+Somerville | EasyIEP | EasyIEP runs "change export" of IEP PDFs that have changed and sends them to an SFTP nightly. Somerville IT runs a job to copy those files into Aspen and another job to copy those files to an Insights SFTP site. We import the PDFs to Insights nightly.
 Fall River | Aspen (Hosted) | Fall River IT is working on their own version of the SQL scripts in the x2_export folder; they can't use SQL scripts directly because they have a different version of Aspen X2.
 
 ### Feature differences between districts
