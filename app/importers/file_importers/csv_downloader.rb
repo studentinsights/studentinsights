@@ -1,3 +1,5 @@
+# This is a service object that works with importer classes. It factors out
+# shared logic that downloads CSVs and cleans them up before import.
 class CsvDownloader
 
   def initialize(log:, client:, remote_file_name:, transformer:)
