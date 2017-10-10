@@ -19,6 +19,8 @@ class Downloader
     return data
   end
 
+  private
+
   def download_file
     @log.write("\nDownloading #{@remote_file_name}...")
 
