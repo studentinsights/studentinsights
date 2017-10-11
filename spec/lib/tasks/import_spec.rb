@@ -54,17 +54,39 @@ RSpec.describe Import do
   describe '#importers' do
     context 'when provided with the default sources' do
       it 'returns X2 and STAR importers' do
-        expect(task.importers(['x2', 'star'])).to eq([SomervilleX2Importers, SomervilleStarImporters])
+        expect(task.file_import_classes(['x2', 'star'])).to eq([
+          StudentsImporter,
+          X2AssessmentImporter,
+          BehaviorImporter,
+          EducatorsImporter,
+          AttendanceImporter,
+          CoursesSectionsImporter,
+          StudentSectionAssignmentsImporter,
+          StudentSectionGradesImporter,
+          EducatorSectionAssignmentsImporter,
+          StarReadingImporter::RecentImporter,
+          StarMathImporter::RecentImporter
+        ])
       end
     end
-    context 'when provided with a duplicated source' do
-      it 'returns just one reference to the requested importer' do
-        expect(task.importers(['x2', 'x2'])).to eq([SomervilleX2Importers])
+    context 'when provided x2 twice' do
+      it 'returns x2 importers, no star importers' do
+        expect(task.file_import_classes(['x2', 'x2'])).to eq([
+          StudentsImporter,
+          X2AssessmentImporter,
+          BehaviorImporter,
+          EducatorsImporter,
+          AttendanceImporter,
+          CoursesSectionsImporter,
+          StudentSectionAssignmentsImporter,
+          StudentSectionGradesImporter,
+          EducatorSectionAssignmentsImporter
+        ])
       end
     end
     context 'when provided with invalid sources' do
       it 'returns an empty array' do
-        expect(task.importers(['x3'])).to eq([])
+        expect(task.file_import_classes(['x3'])).to eq([])
       end
     end
   end
