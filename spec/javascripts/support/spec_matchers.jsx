@@ -10,7 +10,7 @@
             if (text && $.isFunction(text.test)) {
               return { pass: text.test(trimmedText) };
             } else {
-              return { pass: trimmedText.indexOf(text) != -1 };
+              return { pass: trimmedText.indexOf(text) !== -1 };
             }
           }
         };

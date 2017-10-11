@@ -20,7 +20,7 @@ import _ from 'lodash';
       return {
         identifier: ['equal', key, value].join(':'),
         filterFn: function(student) {
-          return (student[key] == value);
+          return (student[key] === value);
         },
         key: key
       };

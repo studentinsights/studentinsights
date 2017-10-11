@@ -25,7 +25,7 @@ export default React.createClass({
 
     return sortedRows;
   },
-  
+
   sortedRows () {
     const rows = this.props.rows;
     const columns = this.props.columns;
@@ -38,7 +38,7 @@ export default React.createClass({
     else {
       return rows.sort((a, b) => SortHelpers.sortByString(a, b, key));
     }
-    
+
   },
 
   headerClassName (sortByIndex) {
@@ -59,7 +59,7 @@ export default React.createClass({
       this.setState({ sortByIndex: sortByIndex});
     }
   },
-  
+
   render () {
     return (
       <div className='FlexibleRoster'>
@@ -90,11 +90,11 @@ export default React.createClass({
       // count of items with the same group
       // increment in the beginning since colSpan starts at 1
       currentCount++;
-      
+
       // if the current item doesn't equal the next
       // push the super header with a length of currentCount
       // and reset currentCount for a new column group
-      if(itemGroup != nextItemGroup) {
+      if(itemGroup !== nextItemGroup) {
         superHeaders.push({label: itemGroup, span: currentCount});
         currentCount = 0;
       }
@@ -104,7 +104,7 @@ export default React.createClass({
       <tr className='column-groups'>
         {superHeaders.map((superHeader, index) => {
           return (
-            <th key={index} className={superHeader.label == null ? '' : 'column-group'} colSpan={superHeader.span}>
+            <th key={index} className={superHeader.label === null ? '' : 'column-group'} colSpan={superHeader.span}>
               {superHeader.label}
             </th>
           );
@@ -131,7 +131,7 @@ export default React.createClass({
   renderBodyValue(item, column) {
     if ('cell' in column) {
       return column.cell(item,column);
-    } 
+    }
     else {
       return item[column.key];
     }
@@ -144,7 +144,7 @@ export default React.createClass({
           const style = (index % 2 === 0)
                     ? { backgroundColor: '#FFFFFF' }
                     : { backgroundColor: '#F7F7F7' };
-          
+
           return (
             <tr key={row.id} style={style}>
               {this.props.columns.map(column => {

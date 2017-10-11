@@ -71,7 +71,7 @@ import _ from 'lodash';
       return function() {
         const graphPointIndex = this.series.data.indexOf(this.point);
         const events = monthBuckets[graphPointIndex];
-        if (events.length == 0) return false;
+        if (events.length === 0) return false;
 
         let htmlstring = "";
         _.each(events, function(e){

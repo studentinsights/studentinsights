@@ -12,7 +12,7 @@ $(function() {
   };
 
   if ($('body').hasClass('educator-signed-in')) {
-    var warning = new SessionTimeoutWarning;
+    const warning = new SessionTimeoutWarning;
     warning.count();
   }
 

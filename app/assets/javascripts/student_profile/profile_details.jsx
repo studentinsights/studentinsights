@@ -208,10 +208,10 @@ import _ from 'lodash';
       const sections = this.props.sections;
 
       // If there are no sections, don't generate the student sections roster
-      if (!sections || sections.length == 0) return null;
+      if (!sections || sections.length === 0) return null;
 
       // If this student is not a high school student, don't generate the student sections roster
-      if (this.props.student.school_type != 'HS') return null;
+      if (this.props.student.school_type !== 'HS') return null;
 
       return (
         <div id="sections-roster" className="roster" style={styles.roundedBox}>

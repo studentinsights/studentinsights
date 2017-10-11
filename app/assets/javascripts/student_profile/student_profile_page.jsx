@@ -260,7 +260,7 @@ import _ from 'lodash';
       case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
       case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
       case 'attendance':
-        var attendanceData = this.props.attendanceData;
+        const attendanceData = this.props.attendanceData;
         return (
             <AttendanceDetails
               disciplineIncidents={attendanceData.discipline_incidents}
@@ -307,7 +307,7 @@ import _ from 'lodash';
 
       const profileElements = [this.renderDemographics(student, access)];
 
-      if(student.school_type == 'HS') {
+      if(student.school_type === 'HS') {
         profileElements.push(this.renderSections(sections));
       }
 
@@ -371,7 +371,7 @@ import _ from 'lodash';
 
     renderSections: function(sections) {
       const sectionCount = sections.length;
-      const sectionText = sectionCount == 1 ? `${sectionCount} section` : `${sectionCount} sections`;
+      const sectionText = sectionCount === 1 ? `${sectionCount} section` : `${sectionCount} sections`;
 
       return (
         <SummaryList title="Sections" elements={[sectionText]} />
