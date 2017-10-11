@@ -251,19 +251,19 @@ import _ from 'lodash';
       const isConfirming = (this.state.discontinuingServiceId === service.id);
       const isHovering = (this.state.hoveringDiscontinueServiceId === service.id);
       const isPending = (this.props.discontinueServiceRequests[service.id] === 'pending');
-      var Text = 'Confirm';
+      let text = 'Confirm';
 
       if (isPending) {
-        Text = 'Updating...';
+        text = 'Updating...';
       } else if (isConfirming) {
-        Text = 'Confirm';
+        text = 'Confirm';
       } else if (service.estimated_end_date == null) {
-        Text = 'Discontinue';
+        text = 'Discontinue';
       } else {
-        Text = 'Discontinue Early';
+        text = 'Discontinue Early';
       }
 
-      const buttonText = Text;
+      const buttonText = text;
       const style = (isConfirming || isPending) ?
         styles.discontinueConfirm
         : (isHovering) ? {} : styles.discontinue;
