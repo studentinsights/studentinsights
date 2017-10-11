@@ -22,7 +22,7 @@ RSpec.describe Import do
       expect(commands[6]).to eq nil
     end
 
-    let(:file_importers) { commands[4] }
+    let(:file_import_classes) { commands[4] }
     let(:log_destination) { LogHelper::Redirect.instance.file }
     let(:expected_file_importer_arguments) {
       [
@@ -33,8 +33,8 @@ RSpec.describe Import do
       ]
     }
 
-    let(:expected_file_importer_classes) {
-      [
+    it 'returns the correct importers' do
+      expect(file_import_classes).to eq([
         StudentsImporter,
         X2AssessmentImporter,
         BehaviorImporter,
@@ -46,15 +46,7 @@ RSpec.describe Import do
         EducatorSectionAssignmentsImporter,
         StarReadingImporter::RecentImporter,
         StarMathImporter::RecentImporter,
-      ]
-    }
-
-    let(:expected_file_importers) {
-      expected_file_importer_classes.map { |c| c.new(*expected_file_importer_arguments) }
-    }
-
-    it 'returns the correct importers' do
-      expect(file_importers).to eq expected_file_importers
+      ])
     end
 
   end
