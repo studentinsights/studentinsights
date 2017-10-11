@@ -10,10 +10,10 @@ import _ from 'lodash';
   window.shared.GraphHelpers = {
     // Returns a list of monthKeys that are within the time window for this chart.
     monthKeys: function(nowMomentUTC, monthsBack) {
-      var lastMonthMomentUTC = nowMomentUTC.clone().date(1);
+      let lastMonthMomentUTC = nowMomentUTC.clone().date(1);
       return _.range(monthsBack, -1, -1).map(function(monthsBack) {
-        var monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
-        var monthKey = monthMomentUTC.format('YYYYMMDD');
+        let monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
+        let monthKey = monthMomentUTC.format('YYYYMMDD');
         return monthKey;
       }, this);
     },
@@ -28,7 +28,7 @@ import _ from 'lodash';
     // Given a list of monthKeys, map over that to return a list of all events that fall within
     // that month.
     eventsToMonthBuckets: function(monthKeys, events){
-      var eventsByMonth = _.groupBy(events, this.defaultMonthKey);
+      let eventsByMonth = _.groupBy(events, this.defaultMonthKey);
       return monthKeys.map(function(monthKey) {
         return eventsByMonth[monthKey] || [];
       });
@@ -40,11 +40,11 @@ import _ from 'lodash';
     //
     // Example output: {3: '2014', 15: '2015'}
     yearCategories: function(monthKeys) {
-      var categories = {};
+      let categories = {};
 
       monthKeys.forEach(function(monthKey, monthKeyIndex) {
-        var monthMomentUTC = moment.utc(monthKey);
-        var isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
+        let monthMomentUTC = moment.utc(monthKey);
+        let isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
         if (isFirstMonthOfYear) {
           categories[monthKeyIndex] = this.yearAxisCaption(monthKey);
         }
@@ -62,7 +62,7 @@ import _ from 'lodash';
     },
 
     dateTitle: function(endDate, monthsBack) {
-      var startDate = endDate.clone().subtract(monthsBack,'months');
+      let startDate = endDate.clone().subtract(monthsBack,'months');
       return "(" + startDate.format("MM/YYYY") + " to " + endDate.format("MM/YYYY") + ")";
     }
   };
