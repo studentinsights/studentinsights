@@ -252,7 +252,6 @@ import _ from 'lodash';
       const isHovering = (this.state.hoveringDiscontinueServiceId === service.id);
       const isPending = (this.props.discontinueServiceRequests[service.id] === 'pending');
       var Text = 'Confirm';
-      console.log(service.estimated_end_date);
 
       if (isPending) {
         Text = 'Updating...';
