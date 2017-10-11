@@ -127,14 +127,18 @@ class Import
     end
 
     def connect_transform_import
+      log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
+      school = options["school"]
+      progress_bar = options["progress_bar"]
+
       timing_log = []
 
       file_import_classes.each do |file_import_class|
         file_importer = file_import_class.new(
-          options["school"],
+          school,
           file_import_class_to_client(file_import_class),
-          options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT,
-          options["progress_bar"]
+          log,
+          progress_bar
         )
 
         timing_data = { importer: file_importer.class.name, start_time: Time.current }
