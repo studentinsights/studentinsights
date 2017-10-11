@@ -257,7 +257,7 @@ import _ from 'lodash';
         text = 'Updating...';
       } else if (isConfirming) {
         text = 'Confirm';
-      } else if (service.estimated_end_date == null) {
+      } else if (service.estimated_end_date === null) {
         text = 'Discontinue';
       } else {
         text = 'Discontinue Early';
