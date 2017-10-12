@@ -2,6 +2,7 @@
   window.shared || (window.shared = {});
   const Routes = window.shared.Routes;
   const RiskBubble = window.shared.RiskBubble;
+  const ContactBubble = window.shared.HelpBubble;
 
   const styles = {
     titleContainer: {
@@ -55,7 +56,8 @@
                 {'Grade ' + student.grade}
               </span>
               {this.renderDateOfBirth()}
-              {this.renderStudentAddress()}
+              {this.renderBulletSpacer()}
+              {this.renderContactIcon()}
             </div>
           </div>
           <div
@@ -131,6 +133,24 @@
             {studentaddress}
           </span>
         </span>
+      );
+    },
+
+    renderContactIcon: function () {
+      return (
+        <ContactBubble
+          title="Contact Information"
+          teaserText=<span className="address-book-icon"></span>
+          content={this.renderContactInformation()} />
+      );
+    },
+
+    renderContactInformation: function(){
+      const student = this.props.student;
+      return (
+        <div>
+
+        </div>
       );
     },
   });
