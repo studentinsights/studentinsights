@@ -12,6 +12,7 @@ $(function() {
 
     window.ReactDOM.render(<SchoolOverviewPage
       allStudents={serializedData.students}
+      school={serializedData.school}
       serviceTypesIndex={serializedData.constantIndexes.service_types_index}
       eventNoteTypesIndex={serializedData.constantIndexes.event_note_types_index}
       initialFilters={Filters.parseFiltersHash(window.location.hash)} />, document.getElementById('main'));

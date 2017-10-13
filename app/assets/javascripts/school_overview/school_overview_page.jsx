@@ -12,6 +12,7 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
     displayName: 'SchoolOverviewPage',
 
     propTypes: {
+      school: React.PropTypes.object.isRequired,
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
@@ -190,6 +191,7 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
             <SlicePanels
               allStudents={this.props.allStudents}
               students={this.getFilteredStudents()}
+              school={this.props.school}
               serviceTypesIndex={this.props.serviceTypesIndex}
               eventNoteTypesIndex={this.props.eventNoteTypesIndex}
               filters={this.state.filters}
@@ -207,7 +209,8 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
             <StudentsTable
               // hack for tablesorter
               key={_.map(this.state.filters, 'identifier').join(',')}
-              students={this.getFilteredStudents()} />
+              students={this.getFilteredStudents()} 
+              school={this.props.school} />
           </div>
         </div>
       );
