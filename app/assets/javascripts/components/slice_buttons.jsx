@@ -23,7 +23,7 @@
 
     // Key code 27 is the ESC key
     onKeyDown: function(e) {
-      if (e.keyCode == 27) this.props.clearFilters();
+      if (e.keyCode === 27) this.props.clearFilters();
     },
 
     // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx

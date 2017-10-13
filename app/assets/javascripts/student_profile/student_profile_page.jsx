@@ -260,12 +260,11 @@ import _ from 'lodash';
       case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
       case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
       case 'attendance':
-        var attendanceData = this.props.attendanceData;
         return (
             <AttendanceDetails
-              disciplineIncidents={attendanceData.discipline_incidents}
-              absences={attendanceData.absences}
-              tardies={attendanceData.tardies}
+              disciplineIncidents={this.props.attendanceData.discipline_incidents}
+              absences={this.props.attendanceData.absences}
+              tardies={this.props.attendanceData.tardies}
               student={this.props.student}
               feed={this.props.feed}
               serviceTypesIndex={this.props.serviceTypesIndex} />
@@ -307,7 +306,7 @@ import _ from 'lodash';
 
       const profileElements = [this.renderDemographics(student, access)];
 
-      if(student.school_type == 'HS') {
+      if(student.school_type === 'HS') {
         profileElements.push(this.renderSections(sections));
       }
 
@@ -371,7 +370,7 @@ import _ from 'lodash';
 
     renderSections: function(sections) {
       const sectionCount = sections.length;
-      const sectionText = sectionCount == 1 ? `${sectionCount} section` : `${sectionCount} sections`;
+      const sectionText = sectionCount === 1 ? `${sectionCount} section` : `${sectionCount} sections`;
 
       return (
         <SummaryList title="Sections" elements={[sectionText]} />
@@ -405,7 +404,7 @@ import _ from 'lodash';
 
       const limit = 3;
       const sortedServices = _.sortBy(activeServices, 'date_started').reverse();
-      var elements = sortedServices.slice(0, limit).map(function(service) {
+      let elements = sortedServices.slice(0, limit).map(function(service) {
         const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
         return (
           <span key={service.id}>

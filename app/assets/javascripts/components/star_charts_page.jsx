@@ -117,13 +117,13 @@ $(function() {
       return _.flatten(students.map(function(student) {
         const studentFields = _.omit(student, 'star_results');
         return student.star_results.filter(function(result) {
-          return result.percentile_rank != null;
+          return result.percentile_rank !== null;
         }).map(function(result) { return merge(result, { student: studentFields }); });
       }));
     },
 
     resultsDelta: function(student) {
-      const results = student.star_results.filter(function(result) { return result.percentile_rank != null; });
+      const results = student.star_results.filter(function(result) { return result.percentile_rank !== null; });
       if (results.length < 2) return 0;
       return _.last(results).percentile_rank - _.first(results).percentile_rank;
     },
@@ -135,7 +135,7 @@ $(function() {
     },
 
     filteredResults: function(student) {
-      return student.star_results.filter(function(result) { return result.percentile_rank != null; });
+      return student.star_results.filter(function(result) { return result.percentile_rank !== null; });
     },
 
     quarterDate: function(date) {
@@ -364,7 +364,7 @@ $(function() {
               <svg width={width} height={height}>
                 <rect x={0} y={0} width={width} height={height} stroke="#eee" fill="none" />
                 {students.map(function(student) {
-                  const results = student.star_results.filter(function(result) { return result.percentile_rank != null; });
+                  const results = student.star_results.filter(function(result) { return result.percentile_rank !== null; });
                   return (
                     <g key={student.id}>
                       <path
