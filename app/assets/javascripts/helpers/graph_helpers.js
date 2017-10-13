@@ -43,8 +43,8 @@ import _ from 'lodash';
       let categories = {};
 
       monthKeys.forEach(function(monthKey, monthKeyIndex) {
-        let monthMomentUTC = moment.utc(monthKey);
-        let isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
+        const monthMomentUTC = moment.utc(monthKey);
+        const isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
         if (isFirstMonthOfYear) {
           categories[monthKeyIndex] = this.yearAxisCaption(monthKey);
         }
