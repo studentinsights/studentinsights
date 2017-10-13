@@ -62,7 +62,7 @@ class Import
       desc: "Fill up an empty database"
     class_option :source,
       type: :array,
-      default: FILE_IMPORTER_OPTIONS.keys,
+      default: FILE_IMPORTER_OPTIONS.keys,  # This runs all X2 and STAR importers
       desc: "Import data from the specified source: #{FILE_IMPORTER_OPTIONS.keys}"
     class_option :test_mode,
       type: :boolean,
