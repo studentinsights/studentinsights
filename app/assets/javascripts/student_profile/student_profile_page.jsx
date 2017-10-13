@@ -405,7 +405,7 @@ import _ from 'lodash';
 
       const limit = 3;
       const sortedServices = _.sortBy(activeServices, 'date_started').reverse();
-      var elements = sortedServices.slice(0, limit).map(function(service) {
+      let elements = sortedServices.slice(0, limit).map(function(service) {
         const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
         return (
           <span key={service.id}>

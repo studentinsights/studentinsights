@@ -1,7 +1,7 @@
 $(function() {
-  var Env = window.shared.Env;
+  const Env = window.shared.Env;
 
-  var SessionTimeoutWarning = function () {};
+  const SessionTimeoutWarning = function () {};
 
   SessionTimeoutWarning.prototype.count = function () {
     window.setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
