@@ -12,17 +12,17 @@ $(function() {
   };
 
   if ($('body').hasClass('educator-signed-in')) {
-    var warning = new SessionTimeoutWarning;
+    const warning = new SessionTimeoutWarning;
     warning.count();
-  }
 
-  $("#renew-sesion-link").click(function () {
-    $.ajax({
-      url: '/educators/reset',
-      success: function () {
-        $('#renew-session').slideUp();
-        warning.count();   // Resent timeout count
-      }
+    $("#renew-sesion-link").click(function () {
+      $.ajax({
+        url: '/educators/reset',
+        success: function () {
+          $('#renew-session').slideUp();
+          warning.count();   // Resent timeout count
+        }
+      });
     });
-  });
+  }
 });

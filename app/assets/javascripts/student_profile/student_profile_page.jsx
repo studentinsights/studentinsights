@@ -260,12 +260,11 @@ import _ from 'lodash';
       case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
       case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
       case 'attendance':
-        var attendanceData = this.props.attendanceData;
         return (
             <AttendanceDetails
-              disciplineIncidents={attendanceData.discipline_incidents}
-              absences={attendanceData.absences}
-              tardies={attendanceData.tardies}
+              disciplineIncidents={this.props.attendanceData.discipline_incidents}
+              absences={this.props.attendanceData.absences}
+              tardies={this.props.attendanceData.tardies}
               student={this.props.student}
               feed={this.props.feed}
               serviceTypesIndex={this.props.serviceTypesIndex} />
