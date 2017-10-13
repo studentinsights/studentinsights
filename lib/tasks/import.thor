@@ -121,7 +121,6 @@ class Import
 
     def run_update_tasks
       begin
-        Educator.save_student_searchbar_json
         Student.update_risk_levels!
         Student.update_recent_student_assessments
         Homeroom.destroy_empty_homerooms
