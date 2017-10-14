@@ -62,6 +62,8 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       race: row[:race],
       hispanic_latino: row[:hispanic_latino],
       gender: row[:gender],
+      primary_phone: row[:primary_phone],
+      primary_email: row[:primary_email],
       house: row[:house],
       counselor: counselor
     }

@@ -22,7 +22,7 @@ RSpec.describe Import do
       expect(commands[6]).to eq nil
     end
 
-    let(:file_importers) { commands[4] }
+    let(:file_import_classes) { commands[4] }
     let(:log_destination) { LogHelper::Redirect.instance.file }
     let(:expected_file_importer_arguments) {
       [
@@ -33,8 +33,8 @@ RSpec.describe Import do
       ]
     }
 
-    let(:expected_file_importer_classes) {
-      [
+    it 'returns the correct importers' do
+      expect(file_import_classes).to eq([
         StudentsImporter,
         X2AssessmentImporter,
         BehaviorImporter,
@@ -46,15 +46,7 @@ RSpec.describe Import do
         EducatorSectionAssignmentsImporter,
         StarReadingImporter::RecentImporter,
         StarMathImporter::RecentImporter,
-      ]
-    }
-
-    let(:expected_file_importers) {
-      expected_file_importer_classes.map { |c| c.new(*expected_file_importer_arguments) }
-    }
-
-    it 'returns the correct importers' do
-      expect(file_importers).to eq expected_file_importers
+      ])
     end
 
   end
@@ -62,17 +54,39 @@ RSpec.describe Import do
   describe '#importers' do
     context 'when provided with the default sources' do
       it 'returns X2 and STAR importers' do
-        expect(task.importers(['x2', 'star'])).to eq([SomervilleX2Importers, SomervilleStarImporters])
+        expect(task.file_import_classes(['x2', 'star'])).to eq([
+          StudentsImporter,
+          X2AssessmentImporter,
+          BehaviorImporter,
+          EducatorsImporter,
+          AttendanceImporter,
+          CoursesSectionsImporter,
+          StudentSectionAssignmentsImporter,
+          StudentSectionGradesImporter,
+          EducatorSectionAssignmentsImporter,
+          StarReadingImporter::RecentImporter,
+          StarMathImporter::RecentImporter
+        ])
       end
     end
-    context 'when provided with a duplicated source' do
-      it 'returns just one reference to the requested importer' do
-        expect(task.importers(['x2', 'x2'])).to eq([SomervilleX2Importers])
+    context 'when provided x2 twice' do
+      it 'returns x2 importers, no star importers' do
+        expect(task.file_import_classes(['x2', 'x2'])).to eq([
+          StudentsImporter,
+          X2AssessmentImporter,
+          BehaviorImporter,
+          EducatorsImporter,
+          AttendanceImporter,
+          CoursesSectionsImporter,
+          StudentSectionAssignmentsImporter,
+          StudentSectionGradesImporter,
+          EducatorSectionAssignmentsImporter
+        ])
       end
     end
     context 'when provided with invalid sources' do
       it 'returns an empty array' do
-        expect(task.importers(['x3'])).to eq([])
+        expect(task.file_import_classes(['x3'])).to eq([])
       end
     end
   end
