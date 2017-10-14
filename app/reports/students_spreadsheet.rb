@@ -24,7 +24,7 @@ class StudentsSpreadsheet
   # have them.  In other words, this method is responsible for returning
   # the same shape for all students it is provided.
   def flat_row_hash(student, all_service_types, school)
-    if school.school_type === "HS" then
+    if school.school_type == "HS" then
       student_fields = student.as_json.except(*[
         'created_at',
         'updated_at',
