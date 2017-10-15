@@ -52,8 +52,9 @@ export default React.createClass({
     //Simplify homeroom data into map of homerooms to total homeroom absences along with homeroom size
     Object.keys(homeRoomGroups).forEach( (key) => {
       const size = homeRoomGroups[key].length;
-      if (key == "null") key = "No Homeroom";
-      homeroomAbsences[key] = {
+      var key2 = key;
+      if (key == "null") key2 = "No Homeroom";
+      homeroomAbsences[key2] = {
         //Group events into day buckets
         absences: this.eventsGroupedByDay(_.flattenDeep(_.map(homeRoomGroups[key], function(student) {
           return student.absences;
