@@ -59,7 +59,7 @@ import _ from 'lodash';
     },
 
     eventsToDayBuckets: function(events) {
-      var eventsByDay = _.groupBy(events, this.eventToDays);
+      var eventsByDay = _.groupBy(events);
       return eventsByDay;
     },
 
