@@ -52,6 +52,20 @@ class Import
       'star_reading' => StarReadingImporter::RecentImporter,
     }
 
+    ORDER = {
+      EducatorsImporter => 0,
+      CoursesSectionsImporter => 1,
+      EducatorSectionAssignmentsImporter => 2,
+      StudentsImporter => 3,
+      StudentSectionAssignmentsImporter => 4,
+      X2AssessmentImporter => 5,
+      BehaviorImporter => 5,
+      AttendanceImporter => 5,
+      StudentSectionGradesImporter => 5,
+      StarMathImporter::RecentImporter => 5,
+      StarReadingImporter::RecentImporter => 5,
+    }
+
     class_option :school,
       type: :array,
       default: ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS'],
@@ -99,9 +113,14 @@ class Import
       end
 
       def file_import_classes(sources = options["source"])
-        sources.map { |s| FILE_IMPORTER_OPTIONS.fetch(s, nil) }.flatten
-                                                               .compact
-                                                               .uniq
+        import_classes = sources.map { |s| FILE_IMPORTER_OPTIONS.fetch(s, nil) }
+                                .flatten
+                                .compact
+                                .uniq
+
+        import_classes.sort_by do |import_class|
+          ORDER[import_class]
+        end
       end
 
       def school_local_ids(schools = options["school"])
