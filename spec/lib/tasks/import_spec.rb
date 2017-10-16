@@ -35,17 +35,17 @@ RSpec.describe Import do
 
     it 'returns the correct importers' do
       expect(file_import_classes).to eq([
-        StudentsImporter,
-        X2AssessmentImporter,
-        BehaviorImporter,
         EducatorsImporter,
-        AttendanceImporter,
         CoursesSectionsImporter,
-        StudentSectionAssignmentsImporter,
-        StudentSectionGradesImporter,
         EducatorSectionAssignmentsImporter,
-        StarReadingImporter::RecentImporter,
+        StudentsImporter,
+        StudentSectionAssignmentsImporter,
+        AttendanceImporter,
+        BehaviorImporter,
+        StudentSectionGradesImporter,
         StarMathImporter::RecentImporter,
+        StarReadingImporter::RecentImporter,
+        X2AssessmentImporter,
       ])
     end
 
@@ -55,32 +55,40 @@ RSpec.describe Import do
     context 'when provided with the default sources' do
       it 'returns X2 and STAR importers' do
         expect(task.file_import_classes(['x2', 'star'])).to eq([
-          StudentsImporter,
-          X2AssessmentImporter,
-          BehaviorImporter,
           EducatorsImporter,
-          AttendanceImporter,
           CoursesSectionsImporter,
-          StudentSectionAssignmentsImporter,
-          StudentSectionGradesImporter,
           EducatorSectionAssignmentsImporter,
+          StudentsImporter,
+          StudentSectionAssignmentsImporter,
+          AttendanceImporter,
+          BehaviorImporter,
+          StudentSectionGradesImporter,
+          StarMathImporter::RecentImporter,
           StarReadingImporter::RecentImporter,
-          StarMathImporter::RecentImporter
+          X2AssessmentImporter,
         ])
       end
     end
     context 'when provided x2 twice' do
       it 'returns x2 importers, no star importers' do
         expect(task.file_import_classes(['x2', 'x2'])).to eq([
-          StudentsImporter,
-          X2AssessmentImporter,
-          BehaviorImporter,
           EducatorsImporter,
-          AttendanceImporter,
           CoursesSectionsImporter,
+          EducatorSectionAssignmentsImporter,
+          StudentsImporter,
           StudentSectionAssignmentsImporter,
+          AttendanceImporter,
+          BehaviorImporter,
           StudentSectionGradesImporter,
-          EducatorSectionAssignmentsImporter
+          X2AssessmentImporter,
+        ])
+      end
+    end
+    context 'when provided star' do
+      it 'returns star importers' do
+        expect(task.file_import_classes(['star'])).to eq([
+          StarMathImporter::RecentImporter,
+          StarReadingImporter::RecentImporter,
         ])
       end
     end
