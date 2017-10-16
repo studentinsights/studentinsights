@@ -33,6 +33,14 @@ class FakeStudent
     return 3
   end
 
+  def house
+    return HOUSE_NAMES.sample if @school.school_type == "HS"
+  end
+
+  def counselor
+    return COUNSELOR_VALUES.sample if @school.school_type == "HS"
+  end
+
   def data
     base_data.merge(plan_504)
              .merge(program_assigned_and_sped_disability)
@@ -46,6 +54,14 @@ class FakeStudent
 
   DISNEY_LAST_NAMES = [
     "Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"
+  ]
+
+  HOUSE_NAMES = [
+    "Beacon", "Elm", "Highland", "Broadway"
+  ]
+
+  COUNSELOR_VALUES = [
+    "WOODY", "BUZZ", "BO"
   ]
 
   FIVE_YEARS_OF_SECONDS = 157766400
@@ -67,6 +83,8 @@ class FakeStudent
       gender: ['M', 'F'].sample,
       primary_phone: '999-999-9999 C-Mom',
       primary_email: 'student@example.com',
+      house: house,
+      counselor: counselor
     }
   end
 

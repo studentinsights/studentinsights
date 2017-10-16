@@ -64,6 +64,8 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       gender: row[:gender],
       primary_phone: row[:primary_phone],
       primary_email: row[:primary_email],
+      house: row[:house],
+      counselor: counselor
     }
   end
 
@@ -85,6 +87,10 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
 
     return row[:grade] if row[:grade].to_i == 0
     row[:grade].to_i.to_s
+  end
+
+  def counselor
+    return row[:counselor].split(",")[0] if row[:counselor]
   end
 
 end

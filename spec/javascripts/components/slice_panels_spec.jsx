@@ -14,6 +14,9 @@ describe('SlicePanels', function() {
         filters: [],
         serviceTypesIndex,
         eventNoteTypesIndex,
+        school: {
+          school_type: 'ES'
+        },
         students: [],
         allStudents: [],
         onFilterToggled: jasmine.createSpy('onFilterToggled')
@@ -55,6 +58,29 @@ describe('SlicePanels', function() {
       expect(helpers.columnTitlesMatrix(el)).toEqual([
         [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
         [ 'Grade', 'Years enrolled', 'Risk level' ],
+        [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
+        [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
+        [ 'Discipline incidents', 'Absences', 'Tardies' ],
+        [ 'Services', 'Summer', 'Notes', 'Program', 'Homeroom' ]
+      ]);
+    });
+
+    it('renders everything on the happy path for high school', function() {
+      const el = this.testEl;
+      helpers.renderInto(
+        el,
+        {
+          school: {
+            school_type: 'HS'
+          }
+        }
+      );
+
+      expect($(el).find('.SlicePanels').length).toEqual(1);
+      expect($(el).find('.column').length).toEqual(6);
+      expect(helpers.columnTitlesMatrix(el)).toEqual([
+        [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
+        [ 'Grade', 'House', 'Counselor', 'Years enrolled', 'Risk level' ],
         [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
         [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
         [ 'Discipline incidents', 'Absences', 'Tardies' ],

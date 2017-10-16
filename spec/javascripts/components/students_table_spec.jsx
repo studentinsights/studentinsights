@@ -25,7 +25,8 @@ describe('StudentsTable', function() {
             active_services: [],
             id: '1'
           }
-        ]
+        ],
+        school: { }
       };
 
       const el = this.testEl;

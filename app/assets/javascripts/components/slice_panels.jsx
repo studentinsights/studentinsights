@@ -15,6 +15,7 @@ import _ from 'lodash';
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+      school: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
@@ -272,9 +273,13 @@ import _ from 'lodash';
     },
 
     renderGradeColumn: function() {
+      const isHighSchool = 'HS'===this.props.school.school_type;
+
       return (
         <div className="column grades-column pad-column-right">
           {this.renderGradeTable()}
+          {isHighSchool && this.renderSimpleTable('House', 'house', {})}
+          {isHighSchool && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
           {this.renderYearsEnrolled()}
           {this.renderRiskLevel()}
         </div>
