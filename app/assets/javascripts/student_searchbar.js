@@ -33,7 +33,7 @@ $(function() {
       throw 'no session storage';   // Let rollbar know we're not caching
     }
 
-    var namesCache = window.sessionStorage.student_names_cache;
+    const namesCache = window.sessionStorage.student_names_cache;
 
     if (namesCache) return setupSearchBarAutocomplete(JSON.parse(namesCache));
 
