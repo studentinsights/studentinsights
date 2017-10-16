@@ -85,6 +85,20 @@ export default React.createClass({
     return schoolAttendance;
   },
 
+  //Returns average monthly attendance givenn set of daily averages. To be used after applying date filters.
+  monthlyAttendanceBySchool: function () {
+    const schoolAttendance = this.attendanceBySchool();
+    let monthlyAttendance = {};
+    Object.keys(schoolAttendance).forEach((day) => {
+      if (monthlyAttendance[moment(day).date(1).format("YYYY-MM-DD")] === undefined) {
+        monthlyAttendance[moment(day).date(1).format("YYYY-MM-DD")] = [schoolAttendance[day]];
+      } else {
+        monthlyAttendance[moment(day).date(1).format("YYYY-MM-DD")].push(...schoolAttendance[day]);
+      }
+    });
+    return monthlyAttendance;
+  },
+
   averageDailyAttendance: function(dailyAbsences, size) {
     let averageDailyAttendance = {};
     //mapping each homeroom to an array of day buckets containing all absences for each day w/in the homeroom
@@ -133,9 +147,6 @@ export default React.createClass({
     return _.map(buckets, function(bucket) {
       return (students - bucket.length)/students*100;
     });
-    // return buckets.map(function(bucket) {
-    //   return (students - bucket.length)/students*100;
-    // });
   },
 
   getFirstDateIndex: function(dates, start_date) {
@@ -165,47 +176,35 @@ export default React.createClass({
   },
 
   renderMonthlyAbsenceChart: function() {
-    const schoolEvents = this.attendanceBySchool();
-    const students = this.totalStudents();
-    //Indexes used for filtering events
-    var start_index = this.getFirstDateIndex(schoolEvents, this.state.start_date); //use state.start_time
-    var end_index = this.getLastDateIndex(schoolEvents, this.state.end_date);
+    const schoolEvents = this.monthlyAttendanceBySchool();
+    let schoolSeries = _.map(schoolEvents, (month) => {
+      return _.sum(month)/month.length;
+    });
 
-    var slicedEvents = _.slice(schoolEvents, start_index, end_index);
-    //Get daily attendances
-    //Left off here. Need to monthbucket these events before we calculate percentage
-    // var slicedEventsByMonth = GraphHelpers.eventsToMonthBuckets(this.createMonthKeys(slicedEvents), slicedEvents);
-    // var slicedDailyEventsByMonth = _.map(slicedEventsByMonth, this.eventsToDayBuckets);
-    // var schoolAttendance = _.map(GraphHelpers.eventsToDayBuckets(slicedEventsByMonth), function(month) {
-    //   return month.map(function(month) {
-    //     return (students - month.length)/students*100;
-    //   });
-    // });
-    // var monthlyAttendance = GraphHelpers.eventsToMonthBuckets(schoolAttendance, this.createMonthKeys());
     return (
       <DashboardBarChart
         id = {'string'}
         categories = {this.createMonthKeys().map(GraphHelpers.monthAxisCaption)}
-        seriesData = {"series"}
-        totalStudents = {this.totalStudents()} //redundant, remove
+        seriesData = {schoolSeries}
         monthsBack = {12}
         titleText = {'Attendance (Percent)'}/>
     );
   },
 
   renderHomeroomAbsenceChart: function() {
-     //Needed to get the filterable array of homeroom absences
     const homerooms = this.attendanceByHomeroom();
-    const homeroomAttendance = _.map(homeroomDayAvgs, function(day) {
-      return _.sum(day)/day.length;
+    //Insert filtering here
+    var homeroomSeries = _.map(homerooms, (homeroom) => {
+      var percentages = _.map(homeroom.absences);
+      return _.sum(percentages)/percentages.length;
     });
+
     return (
       <DashboardBarChart
         style = {styles.chartBox}
         id = {'string'}
-        categories = {Object.keys(homeroomAttendance)}
-        seriesData = {homeroomAttendance}
-        totalStudents = {this.totalStudents()}
+        categories = {Object.keys(homerooms)}
+        seriesData = {homeroomSeries}
         monthsBack = {12}
         titleText = {'Attendance (Percent)'}/>
     );
@@ -217,15 +216,4 @@ export default React.createClass({
       </div>
     );
   }
-
-//Perhaps better:
-//Get all students
-//Group by homeroom absencesByHomeroom
-//Map absences/size to homeroom absencesByHomeroom
-//group homeroom absences by date absencesByHomeroom
-//get mean for each day absencesByHomeroom
-//Combine above to get school absences absencesBySchool
-//filter based on date dateRangeFilter
-//get mean of months/homerooms and render
-
 });
