@@ -177,15 +177,22 @@ export default React.createClass({
 
   renderMonthlyAbsenceChart: function() {
     const schoolEvents = this.monthlyAttendanceBySchool();
-    let schoolSeries = _.map(schoolEvents, (month) => {
-      return _.sum(month)/month.length;
+    const eventMonths = Object.keys(schoolEvents).sort();
+    //Apply filter to object keys
+    let filteredDates = _.slice(eventMonths,
+                                this.getFirstDateIndex(eventMonths,this.state.start_date),
+                                this.getLastDateIndex(eventMonths,this.state.end_date)
+                                );
+    let filteredAttendanceSeries = filteredDates.map( (month) => {
+      return _.sum(schoolEvents[month])/schoolEvents[month].length;
     });
-
+    const categories = filteredDates.map((month) => moment.utc(month).format("YYYY-MM"));
+    // const yearCategories = GraphHelpers.yearCategories(categories);
     return (
       <DashboardBarChart
         id = {'string'}
-        categories = {this.createMonthKeys().map(GraphHelpers.monthAxisCaption)}
-        seriesData = {schoolSeries}
+        categories = {categories}
+        seriesData = {filteredAttendanceSeries}
         monthsBack = {12}
         titleText = {'Attendance (Percent)'}/>
     );
