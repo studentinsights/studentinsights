@@ -58,12 +58,12 @@ class Import
       EducatorSectionAssignmentsImporter => 2,
       StudentsImporter => 3,
       StudentSectionAssignmentsImporter => 4,
-      X2AssessmentImporter => 5,
       BehaviorImporter => 5,
       AttendanceImporter => 5,
       StudentSectionGradesImporter => 5,
-      StarMathImporter::RecentImporter => 5,
-      StarReadingImporter::RecentImporter => 5,
+      X2AssessmentImporter => 6,
+      StarMathImporter::RecentImporter => 6,
+      StarReadingImporter::RecentImporter => 6,
     }
 
     class_option :school,
@@ -119,7 +119,7 @@ class Import
                                 .uniq
 
         import_classes.sort_by do |import_class|
-          ORDER[import_class]
+          [ORDER[import_class], import_class.to_s]
         end
       end
 
