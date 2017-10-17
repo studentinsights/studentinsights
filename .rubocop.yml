@@ -60,3 +60,6 @@ Lint/Loop:
 
 Lint/UnreachableCode:
   Enabled: true
+
+Style/CaseEquality:
+  Enabled: true
