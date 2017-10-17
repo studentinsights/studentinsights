@@ -22,7 +22,6 @@ RSpec.describe Import do
       expect(commands[6]).to eq nil
     end
 
-    let(:file_import_classes) { commands[4] }
     let(:log_destination) { LogHelper::Redirect.instance.file }
     let(:expected_file_importer_arguments) {
       [
