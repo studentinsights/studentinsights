@@ -1,4 +1,4 @@
-import DashboardSnapshotsPage from  './dashboard_snapshots_page.jsx';
+import DashboardPageContainer from  './dashboard_page_container.jsx';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
 $(function() {
@@ -7,7 +7,7 @@ $(function() {
     const serializedData = $('#serialized-data').data();
     MixpanelUtils.registerUser(serializedData.currentEducator);
     MixpanelUtils.track('PAGE_VISIT', { page_key: 'SCHOOL_OVERVIEW_DASHBOARD' });
-    window.ReactDOM.render(<DashboardSnapshotsPage
+    window.ReactDOM.render(<DashboardPageContainer
       attendanceData={serializedData} />, document.getElementById('main'));
   }
 });

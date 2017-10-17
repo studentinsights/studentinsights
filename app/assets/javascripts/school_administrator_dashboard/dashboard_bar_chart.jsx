@@ -124,11 +124,11 @@ export default React.createClass({
           credits={false}
           xAxis={[
             {
-              categories: this.props.categories //monthKeys.map(GraphHelpers.monthAxisCaption), //YYYY-MM groups
+              categories: this.props.categories
               //plotLines: this.makePlotlines(monthKeys)
             },
             {
-              offset: 35,
+              offset: 50,
               linkedTo: 0,
               categories: yearCategories,
               tickPositions: Object.keys(yearCategories).map(Number),
