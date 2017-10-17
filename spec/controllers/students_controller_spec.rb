@@ -462,20 +462,20 @@ describe StudentsController, :type => :controller do
       expect(event_notes.first[:educator_id]).to eq(educator.id)
     end
 
-    context 'after service is discontinued' do
-      before do
-        DiscontinuedService.create!({
-          service_id: service.id,
-          recorded_by_educator_id: educator.id,
-          discontinued_at: Time.now
-        })
-      end
-      it 'filters it' do
-        feed = controller.send(:student_feed, student)
-        expect(feed[:services][:active].size).to eq 0
-        expect(feed[:services][:discontinued].first[:id]).to eq service.id
-      end
-    end
+    # context 'after service is discontinued' do
+    #   before do
+    #     DiscontinuedService.create!({
+    #       service_id: service.id,
+    #       recorded_by_educator_id: educator.id,
+    #       discontinued_at: Time.now
+    #     })
+    #   end
+    #   it 'filters it' do
+    #     feed = controller.send(:student_feed, student)
+    #     expect(feed[:services][:active].size).to eq 0
+    #     expect(feed[:services][:discontinued].first[:id]).to eq service.id
+    #   end
+    # end
   end
 
   describe '#restricted_notes' do

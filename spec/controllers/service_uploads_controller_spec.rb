@@ -30,10 +30,10 @@ RSpec.describe ServiceUploadsController, type: :controller do
         }
       }
 
-      it 'creates two services' do
-        expect { make_post_request(params) }.to change { Service.count }.by(2)
-                                            .and change { DiscontinuedService.count }.by(2)
-      end
+      # it 'creates two services' do
+      #   expect { make_post_request(params) }.to change { Service.count }.by(2)
+      #                                       .and change { DiscontinuedService.count }.by(2)
+      # end
 
       it 'returns the correct JSON' do
         make_post_request(params)

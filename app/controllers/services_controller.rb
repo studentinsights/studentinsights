@@ -10,18 +10,15 @@ class ServicesController < ApplicationController
 
   def destroy
     service_id = params[:id]
-    discontinued_service = DiscontinuedService.new({
-      service_id: service_id,
-      recorded_by_educator_id: current_educator.id,
-      discontinued_at: Time.now
-    })
+    service = Service.find(service_id)
+    service.update_attributes(discontinued_at: Time.now)
 
-    serializer = ServiceSerializer.new(Service.find(service_id))
+    serializer = ServiceSerializer.new(service)
 
-    if discontinued_service.save
+    if service.update_attributes(discontinued_at: Time.now)
       render json: serializer.serialize_service
     else
-      render json: { errors: discontinued_service.errors.full_messages }, status: 422
+      render json: { errors: service.errors.full_messages }, status: 422
     end
   end
 end
