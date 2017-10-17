@@ -52,7 +52,7 @@ class Import
       'star_reading' => StarReadingImporter::RecentImporter,
     }
 
-    ORDER = {
+    PRIORITY = {
       EducatorsImporter => 0,
       CoursesSectionsImporter => 1,
       EducatorSectionAssignmentsImporter => 2,
@@ -119,7 +119,7 @@ class Import
                                 .uniq
 
         import_classes.sort_by do |import_class|
-          [ORDER[import_class], import_class.to_s]
+          [PRIORITY[import_class], import_class.to_s]
         end
       end
 
