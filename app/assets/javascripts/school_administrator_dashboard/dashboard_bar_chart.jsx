@@ -67,20 +67,20 @@ export default React.createClass({
 
   // This returns a function, since HighCharts passes in the current element
   // as `this` instead of a parameter.
-  createUnsafeTooltipFormatter: function(monthBuckets, props){
-    return function() {
-      const graphPointIndex = this.series.data.indexOf(this.point);
-      const events = monthBuckets[graphPointIndex];
-      if (events.length == 0) return false;
+  // createUnsafeTooltipFormatter: function(monthBuckets, props){
+  //   return function() {
+  //     const graphPointIndex = this.series.data.indexOf(this.point);
+  //     // const events = monthBuckets[graphPointIndex];
+  //     if (events.length == 0) return false;
 
-      let htmlstring = "";
-      _.each(events, function(e){
-        htmlstring += _.template(props.tooltipTemplateString)({e: e});
-        htmlstring += "<br>";
-      });
-      return htmlstring;
-    };
-  },
+  //     let htmlstring = "";
+  //     _.each(events, function(e){
+  //       htmlstring += _.template(props.tooltipTemplateString)({e: e});
+  //       htmlstring += "<br>";
+  //     });
+  //     return htmlstring;
+  //   };
+  // },
 
   makePlotlines: function (monthKeys) {
     return this.props.phaselines.map(function(phaseline) {
@@ -142,10 +142,10 @@ export default React.createClass({
             allowDecimals: true,
             title: {text: this.props.titleText}
           }}
-          tooltip={{
-            formatter: this.createUnsafeTooltipFormatter(monthBuckets, this.props),
-            useHTML: true
-          }}
+          // tooltip={{
+          //   formatter: this.createUnsafeTooltipFormatter(monthBuckets, this.props),
+          //   useHTML: true
+          // }}
           series={[
             {
               showInLegend: false,

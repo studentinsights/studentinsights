@@ -53,16 +53,6 @@ import _ from 'lodash';
       return categories;
     },
 
-    eventToDays: function(event) {
-      //converts events to days for grouping
-      return moment.utc(event.occurred_at).format('YYYYMMDD');
-    },
-
-    eventsToDayBuckets: function(events) {
-      var eventsByDay = _.groupBy(events);
-      return eventsByDay;
-    },
-
     yearAxisCaption: function(monthKey) {
       return moment.utc(monthKey).format('YYYY');
     },

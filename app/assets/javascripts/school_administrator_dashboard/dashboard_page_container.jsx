@@ -16,7 +16,7 @@ export default React.createClass({
     //Simplify homeroom data into map of homerooms to total homeroom absences along with homeroom size
     Object.keys(homeRoomGroups).forEach( (key) => {
       const size = homeRoomGroups[key].length;
-      var key2 = key;
+      let key2 = key;
       if (key == "null") key2 = "No Homeroom";
       homeroomAbsences[key2] = {
         //Group events into day buckets

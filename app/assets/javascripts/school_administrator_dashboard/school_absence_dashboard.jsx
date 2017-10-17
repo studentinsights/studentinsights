@@ -46,16 +46,16 @@ export default React.createClass({
   },
 
   getFirstDateIndex: function(dates, start_date) {
-    var result = start_date;
-    for (var i = 0, max = dates.length; i < max; i++) {
+    let result = start_date;
+    for (let i = 0, max = dates.length; i < max; i++) {
       if (dates[i] >= start_date) return i-1; //TODO see if performance is improved if this just takes an array of timestamps
     }
     return result;
   },
 
   getLastDateIndex: function(dates, end_date) {
-    var result = end_date;
-    for (var i = dates.length; i--;) {
+    let result = end_date;
+    for (let i = dates.length; i--;) {
       if (dates[i] <= end_date) return i+1; //TODO see if performance is improved if this just takes an array of timestamps
     }
     return result;
@@ -98,8 +98,8 @@ export default React.createClass({
   renderHomeroomAbsenceChart: function() {
     const homeRoomAttendance = this.props.homeRoomAttendance;
     //Insert filtering here
-    var homeroomSeries = _.map(homeRoomAttendance, (homeroom) => {
-      var percentages = _.map(homeroom.absences);
+    let homeroomSeries = _.map(homeRoomAttendance, (homeroom) => {
+      let percentages = _.map(homeroom.absences);
       return _.sum(percentages)/percentages.length;
     });
 
