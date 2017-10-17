@@ -181,6 +181,23 @@ ActiveRecord::Schema.define(version: 20171019183422) do
     t.index ["student_id"], name: "index_iep_documents_on_student_id"
   end
 
+  create_table "import_record_details", force: :cascade do |t|
+    t.integer "import_record_id"
+    t.string "importer"
+    t.datetime "time_started"
+    t.datetime "time_ended"
+    t.string "status"
+    t.string "error_message"
+    t.integer "rows_processed"
+    t.integer "rows_excluded"
+    t.integer "rows_created"
+    t.integer "rows_updated"
+    t.integer "rows_deleted"
+    t.integer "rows_rejected"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "import_records", id: :serial, force: :cascade do |t|
     t.datetime "time_started"
     t.datetime "time_ended"
