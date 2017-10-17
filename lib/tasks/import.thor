@@ -121,7 +121,7 @@ class Import
 
       def sorted_file_import_classes(import_classes = file_import_classes)
         import_classes.sort_by do |import_class|
-          [PRIORITY[import_class], import_class.to_s]
+          [PRIORITY.fetch(import_class, 100), import_class.to_s]
         end
       end
 
