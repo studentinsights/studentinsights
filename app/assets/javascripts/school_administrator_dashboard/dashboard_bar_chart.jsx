@@ -113,7 +113,7 @@ export default React.createClass({
   // each month.
   render: function() {
     const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
-    const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
+    //const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
     const yearCategories = GraphHelpers.yearCategories(monthKeys);
 
     return (
