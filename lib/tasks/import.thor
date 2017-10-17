@@ -117,7 +117,9 @@ class Import
                                 .flatten
                                 .compact
                                 .uniq
+      end
 
+      def sorted_file_import_classes(import_classes = file_import_classes)
         import_classes.sort_by do |import_class|
           [PRIORITY[import_class], import_class.to_s]
         end
@@ -152,7 +154,7 @@ class Import
 
       timing_log = []
 
-      file_import_classes.each do |file_import_class|
+      sorted_file_import_classes.each do |file_import_class|
         file_importer = file_import_class.new(
           school,
           file_import_class_to_client(file_import_class),
