@@ -1,4 +1,5 @@
 import _ from 'lodash';
+// import InputRange from 'react-input-range';
 import DashboardBarChart from './dashboard_bar_chart.jsx';
 
 window.shared || (window.shared = {});
@@ -40,25 +41,36 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      start_date: "2015-01-01",
+      start_date: "2016-08-01",
       end_date: moment.utc().format("YYYY-MM-DD")
     };
   },
 
   getFirstDateIndex: function(dates, start_date) {
-    let result = start_date;
     for (let i = 0, max = dates.length; i < max; i++) {
-      if (dates[i] >= start_date) return i-1; //TODO see if performance is improved if this just takes an array of timestamps
+      if (dates[i] >= start_date) return i;
     }
-    return result;
+    return dates.length;
   },
 
   getLastDateIndex: function(dates, end_date) {
-    let result = end_date;
+    let result = dates.length;
+    if (dates[dates.length] >= end_date) return result;
     for (let i = dates.length; i--;) {
-      if (dates[i] <= end_date) return i+1; //TODO see if performance is improved if this just takes an array of timestamps
+      if (dates[i] <= end_date) return i+1;
     }
-    return result;
+  },
+
+  filterDates: function(dates, start_date, end_date) {
+    // console.log(dates);
+    console.log(this.getFirstDateIndex(dates, start_date));
+    console.log(this.getFirstDateIndex(dates, end_date));
+    _.slice(dates, this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date))
+    return _.slice(dates, this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date));
+  },
+
+  filterHomeroomDates: function() {
+
   },
 
   render: function() {
@@ -72,15 +84,9 @@ export default React.createClass({
   },
 
   renderMonthlyAbsenceChart: function() {
-    const schoolAttendance = this.props.schoolAttendance;
-    const schoolAttendanceMonths = this.props.schoolAttendanceMonths;
-    //Apply filter to object keys
-    let filteredDates = _.slice(schoolAttendanceMonths,
-                                this.getFirstDateIndex(schoolAttendanceMonths,this.state.start_date),
-                                this.getLastDateIndex(schoolAttendanceMonths,this.state.end_date)
-                                );
+    let filteredDates = this.filterDates(this.props.schoolAttendanceMonths, this.state.start_date, this.state.end_date);
     let filteredAttendanceSeries = filteredDates.map( (month) => {
-      return _.sum(schoolAttendance[month])/schoolAttendance[month].length;
+      return _.sum(this.props.schoolAttendance[month])/this.props.schoolAttendance[month].length;
     });
     const categories = filteredDates.map((month) => moment.utc(month).format("YYYY-MM"));
     // const yearCategories = GraphHelpers.yearCategories(categories);
@@ -97,10 +103,13 @@ export default React.createClass({
 
   renderHomeroomAbsenceChart: function() {
     const homeRoomAttendance = this.props.homeRoomAttendance;
-    //Insert filtering here
-    let homeroomSeries = _.map(homeRoomAttendance, (homeroom) => {
-      let percentages = _.map(homeroom.absences);
-      return _.sum(percentages)/percentages.length;
+    let percentages = _.map(homeRoomAttendance, (homeroom) => {
+      return this.filterDates(Object.keys(homeroom.absences), this.state.start_date, this.state.end_date).map((date) => {
+        return homeroom.absences[date];
+      });
+    });
+    let homeroomSeries = percentages.map((homeroom) => {
+      return _.sum(homeroom)/homeroom.length;
     });
 
     return (
@@ -113,6 +122,16 @@ export default React.createClass({
         titleText = {'Attendance (Percent)'}/>
     );
   },
+
+  // renderDateRangeSlider: function() {
+  //   return (
+  //     <InputRange
+  //       maxValue={moment.utc().format("YYYY-MM-DD")}
+  //       minValue={"2016-08-01"}
+  //       value={2}
+  //       onChange={value => this.setState({ start_time })} />
+  //   );
+  // },
 
   renderCharts: function() {
     return (
