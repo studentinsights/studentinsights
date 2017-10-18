@@ -9,7 +9,8 @@ class Service < ActiveRecord::Base
   validate :must_be_discontinued_after_service_start_date
 
   def discontinued?
-    (count(:discontinued_at)  > 0) && !has_scheduled_end_date?  # If the end date is in the future                                                      # the service isn't discontinued yet.
+    discontinued_at != nil && !has_scheduled_end_date? # If the end date is in the future
+                                                           # the service isn't discontinued yet.
   end
 
   def end_date
@@ -20,7 +21,7 @@ class Service < ActiveRecord::Base
     #
     # This attribute name isn't accurate
     # anymore, we should change it to "date_ended"
-    order(discontinued_at: :desc).first.try(:discontinued_at)
+    try(:discontinued_at)
   end
 
   def has_scheduled_end_date?
