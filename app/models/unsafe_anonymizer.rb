@@ -27,7 +27,9 @@ require 'csv'
 #   anon = UnsafeAnonymizer.new
 #   students = Student.all.map {|student| anon.student(student) };nil
 #   schools = School.all.map {|school| anon.school(school) };nil
+#   absences = Absence.all.map {|absence| anon.absence(absence) };nil
 #   service_types = anon.all_service_types;nil
+#
 #
 #   # only particular services
 #   relevant_service_type_ids = [509, 510, 511, 512, 513]
@@ -45,6 +47,7 @@ require 'csv'
 #   puts anon.to_csv(services)
 #   puts anon.to_csv(service_types)
 #   puts anon.to_csv(student_assessments)
+#   puts anon.to_csv(absences)
 #
 class UnsafeAnonymizer
   def student(student)
@@ -77,6 +80,14 @@ class UnsafeAnonymizer
     hashed_keys = [:id, :homeroom_id]
 
     serialize(student, whitelisted_keys, hashed_keys)
+  end
+
+  def absence(absence)
+    whitelisted_keys = [:occurred_at]
+
+    hashed_keys = [:student_id]
+
+    serialize(absence, whitelisted_keys, hashed_keys)
   end
 
   def school(school)
