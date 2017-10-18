@@ -9,7 +9,7 @@ namespace :services do
         if service.discontinued_services.exists?
           service.discontinued_at = service.discontinued_services.first.discontinued_at
           service.save
-          print "saving service"
+          puts "saving service"
         end
       end
     end

@@ -28,26 +28,26 @@ RSpec.describe Service do
     service
   }
 
-  # describe '.active' do
-  #   it 'collects the correct services' do
-  #     active_ids = Service.active.map(&:id).sort
-  #     expect(active_ids).to eq [70001, 70002, 70005, 70006]
-  #   end
-  # end
+  describe '.active' do
+    it 'collects the correct services' do
+      active_ids = Service.active.map(&:id).sort
+      expect(active_ids).to eq [70001, 70002, 70005, 70006]
+    end
+  end
 
-  # describe '.never_discontinued' do
-  #   it 'collects the correct services' do
-  #     never_discontinued_ids = Service.never_discontinued.pluck(:id).sort
-  #     expect(never_discontinued_ids).to eq [70001, 70002]
-  #   end
-  # end
+  describe '.never_discontinued' do
+    it 'collects the correct services' do
+      never_discontinued_ids = Service.never_discontinued.pluck(:id).sort
+      expect(never_discontinued_ids).to eq [70001, 70002]
+    end
+  end
 
-  # describe '.future_discontinue' do
-  #   it 'collects the correct services' do
-  #     future_discontinued_ids = Service.future_discontinue.pluck(:id).sort
-  #     expect(future_discontinued_ids).to eq [70005, 70006]
-  #   end
-  # end
+  describe '.future_discontinue' do
+    it 'collects the correct services' do
+      future_discontinued_ids = Service.future_discontinue.pluck(:id).sort
+      expect(future_discontinued_ids).to eq [70005, 70006]
+    end
+  end
 
   describe '.discontinued' do
     it 'collects the correct services' do
