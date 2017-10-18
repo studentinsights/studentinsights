@@ -17,7 +17,7 @@ class ServiceSerializer < Struct.new :service
   end
 
   def discontinued
-    @last_discontinue ||= service.discontinued_services.order(:discontinued_at).last
+    @last_discontinue ||= service
   end
 
   def self.service_types_index
