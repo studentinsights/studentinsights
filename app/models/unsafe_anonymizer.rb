@@ -71,6 +71,14 @@ class UnsafeAnonymizer
     serialize(student, whitelisted_keys, hashed_keys)
   end
 
+  def student_for_absence_dashboard(student)
+    whitelisted_keys = []
+
+    hashed_keys = [:id, :homeroom_id]
+
+    serialize(student, whitelisted_keys, hashed_keys)
+  end
+
   def school(school)
     serialize(school, [:slug], [:id])
   end
