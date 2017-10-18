@@ -155,11 +155,13 @@ class Import
       timing_log = []
 
       sorted_file_import_classes.each do |file_import_class|
+        import_record_detail = ImportRecordDetail.create(importer: file_import_class.name)
         file_importer = file_import_class.new(
           school,
           file_import_class_to_client(file_import_class),
           log,
-          progress_bar
+          progress_bar,
+          import_record_detail,
         )
 
         timing_data = { importer: file_importer.class.name, start_time: Time.current }
@@ -170,6 +172,7 @@ class Import
           puts "🚨  🚨  🚨  🚨  🚨  Error! #{error}" unless Rails.env.test?
 
           extra_info =  { "importer" => file_importer.class.name }
+          import_record_detail.fail(error)
           ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
         end
 
