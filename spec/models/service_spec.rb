@@ -5,8 +5,8 @@ RSpec.describe Service do
   let!(:educator) { FactoryGirl.create(:educator) }
   let(:service) { FactoryGirl.create(:service) }
 
-  let!(:active_service) { FactoryGirl.create(:service, id: 70001) }
-  let!(:another_active_service) { FactoryGirl.create(:service, id: 70002) }
+  let!(:active_service) { FactoryGirl.create(:service, id: 70001, discontinued_at: nil) }
+  let!(:another_active_service) { FactoryGirl.create(:service, id: 70002, discontinued_at: nil) }
 
   let!(:discontinued_now) {
     service = FactoryGirl.create(:service, id: 70003, recorded_by_educator: educator, discontinued_at: Time.now)

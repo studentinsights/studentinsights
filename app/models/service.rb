@@ -6,6 +6,7 @@ class Service < ActiveRecord::Base
   has_many :discontinued_services
 
   validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id, :recorded_at, :date_started
+  validate :must_be_discontinued_after_service_start_date
 
   def discontinued?
     (count(:discontinued_at)  > 0) && !has_scheduled_end_date?  # If the end date is in the future                                                      # the service isn't discontinued yet.
@@ -24,6 +25,14 @@ class Service < ActiveRecord::Base
 
   def has_scheduled_end_date?
     return end_date > DateTime.current
+  end
+
+  def must_be_discontinued_after_service_start_date
+    unless discontinued_at.nil?
+      if date_started > discontinued_at
+        errors.add(:discontinued_at, "must be after service start date")
+      end
+    end
   end
 
   def active?
