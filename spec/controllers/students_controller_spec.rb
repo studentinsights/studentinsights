@@ -450,7 +450,7 @@ describe StudentsController, :type => :controller do
       feed = controller.send(:student_feed, student)
       expect(feed.keys).to eq([:event_notes, :services, :deprecated])
       expect(feed[:services].keys).to eq [:active, :discontinued]
-      expect(feed[:services][:active].first[:id]).to eq service.id
+      expect(feed[:services][:discontinued].first[:id]).to eq service.id
     end
 
     it 'returns event notes' do
@@ -462,20 +462,20 @@ describe StudentsController, :type => :controller do
       expect(event_notes.first[:educator_id]).to eq(educator.id)
     end
 
-    # context 'after service is discontinued' do
-    #   before do
-    #     DiscontinuedService.create!({
-    #       service_id: service.id,
-    #       recorded_by_educator_id: educator.id,
-    #       discontinued_at: Time.now
-    #     })
-    #   end
-    #   it 'filters it' do
-    #     feed = controller.send(:student_feed, student)
-    #     expect(feed[:services][:active].size).to eq 0
-    #     expect(feed[:services][:discontinued].first[:id]).to eq service.id
-    #   end
-    # end
+    context 'after service is discontinued' do
+      before do
+        DiscontinuedService.create!({
+          service_id: service.id,
+          recorded_by_educator_id: educator.id,
+          discontinued_at: Time.now
+        })
+      end
+      it 'filters it' do
+        feed = controller.send(:student_feed, student)
+        expect(feed[:services][:active].size).to eq 0
+        expect(feed[:services][:discontinued].first[:id]).to eq service.id
+      end
+    end
   end
 
   describe '#restricted_notes' do
@@ -599,7 +599,7 @@ describe StudentsController, :type => :controller do
         end
 
         it 'assigns the student\'s services correctly with full history' do
-          old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student, discontinued_at: Date.new(2012, 05, 21))
+          old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student, discontinued_at: '2012-05-21')
           recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student, discontinued_at: nil)
           expect(assigns(:services)).not_to include(old_service)
           expect(assigns(:services)).to include(recent_service)

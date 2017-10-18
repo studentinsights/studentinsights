@@ -9,7 +9,7 @@ class Service < ActiveRecord::Base
   validate :must_be_discontinued_after_service_start_date
 
   def discontinued?
-    discontinued_at != nil && !has_scheduled_end_date? # If the end date is in the future
+    discontinued_at.nil? && !has_scheduled_end_date? # If the end date is in the future
                                                            # the service isn't discontinued yet.
   end
 

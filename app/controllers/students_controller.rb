@@ -198,7 +198,8 @@ class StudentsController < ApplicationController
     @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_date..@filter_to_date)
 
     # Load services for the student for the filtered dates
-    @services = @student.services.includes(:discontinued_services).where("date_started <= ? AND (discontinued_services.discontinued_at >= ? OR discontinued_services.discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_services.discontinued_at').references(:discontinued_services)
+    # @services = @student.services.includes(:discontinued_services).where("date_started <= ? AND (discontinued_services.discontinued_at >= ? OR discontinued_services.discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_services.discontinued_at').references(:discontinued_services)
+    @services = @student.services.where("date_started <= ? AND (discontinued_at >= ? OR discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_at')
 
     # Load student school years for the filtered dates
     @student_school_years = @student.events_by_student_school_years(@filter_from_date, @filter_to_date)
