@@ -1,19 +1,10 @@
-class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class StudentSectionAssignmentsImporter < BaseCsvImporter
   def initialize(*)
     super
     @imported_assignments = []
   end
 
-  def import
-    @data = CsvDownloader.new(
-      log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
-    ).get_data
-
-    @data.each.each_with_index do |row, index|
-      import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
-    end
-
+  def after_import
     delete_rows
   end
 
@@ -21,26 +12,22 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
     'student_section_assignment_export.txt'
   end
 
-  def data_transformer
-    CsvTransformer.new
-  end
-
-  def filter
-    SchoolFilter.new(school_scope)
-  end
-
   def delete_rows
     #Delete all stale rows no longer included in the import
-    StudentSectionAssignment.where.not(id: @imported_assignments).delete_all
+    rows_to_delete = StudentSectionAssignment.where.not(id: @imported_assignments)
+    rows_to_delete.delete_all
+    log_deleted(rows_to_delete.count)
   end
 
   def import_row(row)
+    log_processed
     student_section_assignment = StudentSectionAssignmentRow.new(row).build
     if student_section_assignment
+      log_action(import_record_detail)
       student_section_assignment.save!
       @imported_assignments.push(student_section_assignment.id)
     else
-      log.write("Student Section Assignment Import invalid row: #{row}")
+      log_rejected("Student Section Assignment Import invalid row: #{row}")
     end
   end
 end
