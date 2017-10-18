@@ -62,9 +62,6 @@ export default React.createClass({
   },
 
   filterDates: function(dates, start_date, end_date) {
-    // console.log(dates);
-    console.log(this.getFirstDateIndex(dates, start_date));
-    console.log(this.getFirstDateIndex(dates, end_date));
     _.slice(dates, this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date))
     return _.slice(dates, this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date));
   },

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+//import _ from 'lodash';
 import HighchartsWrapper from './highcharts_wrapper.jsx';
 
 window.shared || (window.shared = {});
