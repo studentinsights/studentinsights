@@ -1,5 +1,5 @@
 import _ from 'lodash';
-// import InputRange from 'react-input-range';
+import InputRange from 'react-input-range';
 import DashboardBarChart from './dashboard_bar_chart.jsx';
 
 window.shared || (window.shared = {});
@@ -62,7 +62,6 @@ export default React.createClass({
   },
 
   filterDates: function(dates, start_date, end_date) {
-    _.slice(dates, this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date))
     return _.slice(dates, this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date));
   },
 
