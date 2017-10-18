@@ -52,6 +52,20 @@ class Import
       'star_reading' => StarReadingImporter::RecentImporter,
     }
 
+    PRIORITY = {
+      EducatorsImporter => 0,
+      CoursesSectionsImporter => 1,
+      EducatorSectionAssignmentsImporter => 2,
+      StudentsImporter => 3,
+      StudentSectionAssignmentsImporter => 4,
+      BehaviorImporter => 5,
+      AttendanceImporter => 5,
+      StudentSectionGradesImporter => 5,
+      X2AssessmentImporter => 6,
+      StarMathImporter::RecentImporter => 6,
+      StarReadingImporter::RecentImporter => 6,
+    }
+
     class_option :school,
       type: :array,
       default: ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS'],
@@ -99,9 +113,16 @@ class Import
       end
 
       def file_import_classes(sources = options["source"])
-        sources.map { |s| FILE_IMPORTER_OPTIONS.fetch(s, nil) }.flatten
-                                                               .compact
-                                                               .uniq
+        import_classes = sources.map { |s| FILE_IMPORTER_OPTIONS.fetch(s, nil) }
+                                .flatten
+                                .compact
+                                .uniq
+      end
+
+      def sorted_file_import_classes(import_classes = file_import_classes)
+        import_classes.sort_by do |import_class|
+          [PRIORITY.fetch(import_class, 100), import_class.to_s]
+        end
       end
 
       def school_local_ids(schools = options["school"])
@@ -133,7 +154,7 @@ class Import
 
       timing_log = []
 
-      file_import_classes.each do |file_import_class|
+      sorted_file_import_classes.each do |file_import_class|
         file_importer = file_import_class.new(
           school,
           file_import_class_to_client(file_import_class),
