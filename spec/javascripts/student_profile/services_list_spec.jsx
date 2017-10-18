@@ -83,20 +83,20 @@ describe('ServicesList', function() {
       expect($(el).find('.btn').text()).toEqual('Updating...');
     });
 
-    // it('renders discontinued services correctly', function() {
-    //   const el = this.testEl;
-    //   const discontinuedService = merge(helpers.fixtureService(), {
-    //     discontinued_by_educator_id: 1,
-    //     discontinued_recorded_at: "2016-04-05T01:43:15.256Z"
-    //   });
-    //   helpers.renderInto(el, {
-    //     servicesFeed: {
-    //       active: [],
-    //       discontinued: [discontinuedService]
-    //     }
-    //   });
-    //   expect(el).toContainText('Ended');
-    //   expect(el).toContainText('April 5, 2016');
-    // });
+    it('renders discontinued services correctly', function() {
+      const el = this.testEl;
+      const discontinuedService = merge(helpers.fixtureService(), {
+        discontinued_by_educator_id: 1,
+        discontinued_recorded_at: "2016-04-05T01:43:15.256Z"
+      });
+      helpers.renderInto(el, {
+        servicesFeed: {
+          active: [],
+          discontinued: [discontinuedService]
+        }
+      });
+      expect(el).toContainText('Ended');
+      expect(el).toContainText('April 5, 2016');
+    });
   });
 });
