@@ -29,6 +29,7 @@ require 'csv'
 #   schools = School.all.map {|school| anon.school(school) };nil
 #   absences = Absence.all.map {|absence| anon.absence(absence) };nil
 #   service_types = anon.all_service_types;nil
+#   student_for_absence_dashboard = Student.all.map {|student| anon.student_for_absence_dashboard(student) };nil
 #
 #
 #   # only particular services
@@ -48,6 +49,7 @@ require 'csv'
 #   puts anon.to_csv(service_types)
 #   puts anon.to_csv(student_assessments)
 #   puts anon.to_csv(absences)
+#   puts anon.to_csv(student_for_absence_dashboard)
 #
 class UnsafeAnonymizer
   def student(student)
