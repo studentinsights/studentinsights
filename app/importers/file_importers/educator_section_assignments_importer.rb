@@ -14,14 +14,16 @@ class EducatorSectionAssignmentsImporter < BaseCsvImporter
 
   def delete_rows
     #Delete all stale rows no longer included in the import
-    EducatorSectionAssignment.where.not(id: @imported_assignments).delete_all
+    rows_to_delete = EducatorSectionAssignment.where.not(id: @imported_assignments)
+    rows_to_delete.delete_all
+    import_record_detail.log_deleted(rows_to_delete.count)
   end
 
   def import_row(row)
     educator_section_assignment = EducatorSectionAssignmentRow.new(row).build
 
     if educator_section_assignment
-      log_action(educator_section_assignment)
+      import_record_detail.log_action(educator_section_assignment)
       educator_section_assignment.save!
       @imported_assignments.push(educator_section_assignment.id)
     else

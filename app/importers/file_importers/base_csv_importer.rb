@@ -1,7 +1,4 @@
 class BaseCsvImporter < Struct.new :school_scope, :client, :log, :progress_bar, :import_record_detail
-  delegate :log_processed, :log_excluded, :log_created, :log_updated, :log_deleted, :log_rejected,
-  :log_action, to: :import_record_detail
-
   def import
     import_record_detail.start
     before_import
@@ -34,5 +31,6 @@ class BaseCsvImporter < Struct.new :school_scope, :client, :log, :progress_bar, 
   # Hooks to allow individual file importers to add processing
   # before and after the import
   def before_import; end
+
   def after_import; end
 end

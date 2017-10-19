@@ -19,6 +19,7 @@ RSpec.describe CoursesSectionsImporter do
 
         before do
           importer = described_class.new(nil, nil, log, nil, import_record_detail)
+          import_record_detail.log_processed
           importer.import_row(row)
         end
 
@@ -61,6 +62,7 @@ RSpec.describe CoursesSectionsImporter do
 
           before do
             importer = described_class.new(nil, nil, log, nil, import_record_detail)
+            import_record_detail.log_processed
             importer.import_row(row)
           end
 
@@ -102,6 +104,7 @@ RSpec.describe CoursesSectionsImporter do
 
         before do
           importer = described_class.new(nil, nil, log, nil, import_record_detail)
+          import_record_detail.log_processed
           importer.import_row(row)
         end
 

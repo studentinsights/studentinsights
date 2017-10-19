@@ -8,18 +8,17 @@ class CoursesSectionsImporter < BaseCsvImporter
   end
 
   def import_row(row)
-    log_processed
     course = CourseRow.new(row, school_ids_dictionary).build
     if course.school.present?
       if course.save
         section = SectionRow.new(row, school_ids_dictionary, course.id).build
-        log_action(section)
+        import_record_detail.log_action(section)
         section.save
       else
-        log_rejected("Course import invalid row: #{row}")
+        import_record_detail.log_rejected("Course import invalid row: #{row}")
       end
     else
-      log_rejected("Course import invalid row missing school_local_id: #{row}")
+      import_record_detail.log_rejected("Course import invalid row missing school_local_id: #{row}")
     end
   end
 end

@@ -19,16 +19,15 @@ class StudentSectionGradesImporter < BaseCsvImporter
   end
 
   def import_row(row)
-    log_processed
     student_id = @student_lasid_map[row[:student_local_id]] if row[:student_local_id]
     section_id = @section_number_map["#{row[:section_number]}|#{row[:term_local_id]}|#{row[:school_local_id]}|#{row[:course_number]}"]
 
     student_section_assignment = StudentSectionGradeRow.new(row, student_id, section_id).build
     if student_section_assignment
-      log_action(student_section_assignment)
+      import_record_detail.log_action(student_section_assignment)
       student_section_assignment.save
     else
-      log_rejected("Student Section Grade Import invalid row: #{row}")
+      import_record_detail.log_rejected("Student Section Grade Import invalid row: #{row}")
     end
   end
 end
