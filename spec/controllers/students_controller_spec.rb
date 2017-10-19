@@ -463,13 +463,6 @@ describe StudentsController, :type => :controller do
     end
 
     context 'after service is discontinued' do
-      before do
-        DiscontinuedService.create!({
-          service_id: service.id,
-          recorded_by_educator_id: educator.id,
-          discontinued_at: Time.now
-        })
-      end
       it 'filters it' do
         feed = controller.send(:student_feed, student)
         expect(feed[:services][:active].size).to eq 0
