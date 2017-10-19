@@ -89,16 +89,16 @@ class Student < ActiveRecord::Base
 
   ## STUDENT ASSESSMENT RESULTS ##
 
-  def latest_result_by_family_and_subject(family_name, subject_name)
+  def latest_result_by_family_and_subject(family, subject)
     self.student_assessments
-        .by_family_and_subject(family_name, subject_name)
+        .by_family_and_subject(family: family, subject: subject)
         .order_by_date_taken_asc
         .last
   end
 
-  def ordered_results_by_family_and_subject(family_name, subject_name)
+  def ordered_results(family:, subject:, flavor: 'Regular')
     self.student_assessments
-        .by_family_and_subject(family_name, subject_name)
+        .by_family_and_subject(family: family, subject: subject, flavor: flavor)
         .order_by_date_taken_asc
   end
 
@@ -109,19 +109,27 @@ class Student < ActiveRecord::Base
   end
 
   def mcas_mathematics_results
-    ordered_results_by_family_and_subject("MCAS", "Mathematics")
+    ordered_results(family: "MCAS", subject: "Mathematics")
   end
 
   def mcas_ela_results
-    ordered_results_by_family_and_subject("MCAS", "ELA")
+    ordered_results(family: "MCAS", subject: "ELA")
+  end
+
+  def next_gen_mcas_mathematics_results
+    ordered_results(family: "MCAS", subject: "Mathematics", flavor: "Next Generation MCAS")
+  end
+
+  def next_gen_mcas_ela_results
+    ordered_results(family: "MCAS", subject: "ELA", flavor: "Next Generation MCAS")
   end
 
   def star_reading_results
-    ordered_results_by_family_and_subject("STAR", "Reading")
+    ordered_results(family: "STAR", subject: "Reading")
   end
 
   def star_math_results
-    ordered_results_by_family_and_subject("STAR", "Mathematics")
+    ordered_results(family: "STAR", subject: "Mathematics")
   end
 
   def dibels

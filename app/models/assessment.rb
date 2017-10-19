@@ -4,6 +4,7 @@ class Assessment < ActiveRecord::Base
   validate :has_valid_subject
 
   VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
+  VALID_MCAS_FLAVORS = [ 'Next Generation MCAS', 'Regular' ].freeze
   VALID_STAR_SUBJECTS = [ 'Mathematics', 'Reading' ].freeze
   VALID_ACCESS_SUBJECTS = [
     "Composite", "Comprehension", "Literacy", "Oral",
@@ -28,6 +29,8 @@ class Assessment < ActiveRecord::Base
     Assessment.create!([
       { family: "MCAS", subject: "Mathematics" },
       { family: "MCAS", subject: "ELA" },
+      { family: "MCAS", subject: "Mathematics", flavor: "Next Generation MCAS" },
+      { family: "MCAS", subject: "ELA", flavor: "Next Generation MCAS" },
       { family: "STAR", subject: "Mathematics" },
       { family: "STAR", subject: "Reading" },
       { family: "ACCESS", subject: "Composite" },
