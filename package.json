@@ -24,6 +24,8 @@
     "fixed-data-table": "^0.6.4",
     "lodash": "3.10.1",
     "rc-slider": "^8.3.2",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
     "react-input-range": "^1.2.1"
   }
 }

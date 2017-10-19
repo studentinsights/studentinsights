@@ -1,6 +1,6 @@
 import _ from 'lodash';
 // import Slider from 'rc-slider';
-// import InputRange from 'react-input-range';
+// // import InputRange from 'react-input-range';
 // import {Table, Column, Cell} from 'fixed-data-table';
 import DashboardBarChart from './dashboard_bar_chart.jsx';
 
@@ -159,6 +159,7 @@ export default React.createClass({
   //       </Table>
   //   );
   // },
+
   // renderDateRangeSlider: function() {
   //   return (
   //     <InputRange

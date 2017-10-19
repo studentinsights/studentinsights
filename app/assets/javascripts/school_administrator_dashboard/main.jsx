@@ -1,6 +1,5 @@
 import PageContainer from  './page_container.jsx';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-const ReactDOM = window.ReactDOM;
 
 $(function() {
   if ($('body').hasClass('school_administrator_dashboard') && $('body').hasClass('show')) {
