@@ -36,11 +36,11 @@ class ImportRecordDetail < ActiveRecord::Base
 
   belongs_to :import_record
 
-  after_initialize :init
+  after_create :init_defaults
 
   attr_accessor :logger
 
-  def init
+  def init_defaults
     update_attributes(
       :status => "Pending",
       :rows_processed => 0,
