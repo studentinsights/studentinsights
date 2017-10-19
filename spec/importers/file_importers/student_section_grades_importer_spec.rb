@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe StudentSectionGradesImporter do
   describe '#import_row' do
     let(:log) { LogHelper::Redirect.instance.file }
+    let(:ird) { ImportRecordDetail.new }
+    let(:importer) { described_class.new(nil, nil, nil, nil, ird)}
     let!(:school) { FactoryGirl.create(:shs) }
     let!(:course) { FactoryGirl.create(:course, school:school)}
     let!(:section) { FactoryGirl.create(:section, course:course) }
@@ -24,7 +26,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        described_class.new.import_row(row)
+        importer.import_row(row)
       end
 
       it 'creates adds grade to student section assignment' do
@@ -45,7 +47,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        described_class.new.import_row(row)
+        importer.import_row(row)
       end
 
       it 'adds grade to student section assignment' do
@@ -66,7 +68,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        described_class.new.import_row(row)
+        importer.import_row(row)
       end
 
       it 'does not add grade to student section assignment' do
@@ -85,7 +87,6 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
         importer.import_row(row)
       end
 
@@ -103,7 +104,6 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
         importer.import_row(row)
       end
 
@@ -122,7 +122,6 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
         importer.import_row(row)
       end
 
@@ -141,7 +140,6 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
         importer.import_row(row)
       end
 

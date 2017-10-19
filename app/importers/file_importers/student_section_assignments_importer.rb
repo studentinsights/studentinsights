@@ -20,7 +20,6 @@ class StudentSectionAssignmentsImporter < BaseCsvImporter
   end
 
   def import_row(row)
-    log_processed
     student_section_assignment = StudentSectionAssignmentRow.new(row).build
     if student_section_assignment
       log_action(import_record_detail)
