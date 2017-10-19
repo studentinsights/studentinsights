@@ -80,9 +80,40 @@
         <div className="ELADetails">
           {this.renderNavBar()}
           {this.renderStarReading()}
+          {this.renderMCASELANextGenScores()}
           {this.renderMCASELAScores()}
           {this.renderMCASELAGrowth()}
         </div>
+      );
+    },
+
+    renderMCASNextGenLink() {
+      const data = this.props.chartData.next_gen_mcas_ela_scaled;
+
+      if (!data || data.length === 0) return null;
+      return (
+        <span>
+          <a style={styles.navBar} href="#NextGenScores">
+            MCAS Next Gen ELA Scores Chart
+          </a>
+          {' | '}
+        </span>
+      );
+
+    },
+
+    renderMCASLink() {
+      const data = this.props.chartData.mcas_series_ela_scaled;
+
+      if (!data || data.length === 0) return null;
+
+      return (
+        <span>
+          <a style={styles.navBar} href="#Scores">
+            MCAS ELA Scores Chart
+          </a>
+          {' | '}
+        </span>
       );
     },
 
@@ -93,10 +124,8 @@
             STAR Reading Chart
           </a>
           {' | '}
-          <a style={styles.navBar} href="#Scores">
-            MCAS ELA Scores Chart
-          </a>
-          {' | '}
+          {this.renderMCASNextGenLink()}
+          {this.renderMCASLink()}
           <a style={styles.navBar} href="#SGPs">
             MCAS ELA SGPs Chart
           </a>
@@ -138,14 +167,44 @@
       );
     },
 
+    renderMCASELANextGenScores() {
+      const data = this.props.chartData.next_gen_mcas_ela_scaled;
+
+      if (!data || data.length === 0) return null;
+
+      return (
+        <div id="NextGenScores" style={styles.container}>
+          {this.renderHeader('MCAS Next Gen ELA Scores, last 4 years')}
+          <ProfileChart
+            quadSeries={[{
+              name: 'Scaled score',
+              data: data
+            }]}
+            titleText=""
+            student={this.props.student}
+            yAxis={merge(ProfileChartSettings.default_mcas_score_yaxis,{
+              min: 400,
+              max: 600,
+              plotLines: ProfileChartSettings.mcas_next_gen_level_bands,
+              title: { text: 'Scaled score' }
+            })} />
+
+        </div>
+      );
+    },
+
     renderMCASELAScores () {
+      const data = this.props.chartData.mcas_series_ela_scaled;
+
+      if (!data || data.length === 0) return null;
+
       return (
         <div id="Scores" style={styles.container}>
           {this.renderHeader('MCAS ELA Scores, last 4 years')}
           <ProfileChart
             quadSeries={[{
               name: 'Scaled score',
-              data: this.props.chartData.mcas_series_ela_scaled
+              data: data
             }]}
             titleText=""
             student={this.props.student}
