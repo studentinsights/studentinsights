@@ -1,5 +1,7 @@
 import _ from 'lodash';
-import InputRange from 'react-input-range';
+// import Slider from 'rc-slider';
+// import InputRange from 'react-input-range';
+import {Table, Column, Cell} from 'fixed-data-table';
 import DashboardBarChart from './dashboard_bar_chart.jsx';
 
 window.shared || (window.shared = {});
@@ -36,7 +38,7 @@ export default React.createClass({
     schoolAttendance: React.PropTypes.object.isRequired,
     schoolAttendanceMonths: React.PropTypes.array.isRequired,
     homeRoomAttendance: React.PropTypes.object.isRequired,
-    homeRoomAttendanceMonths: React.PropTypes.array.isRequired
+    students: React.PropTypes.object.isRequired
   },
 
   getInitialState: function() {
@@ -65,8 +67,11 @@ export default React.createClass({
     return _.slice(dates, this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date));
   },
 
-  filterHomeroomDates: function() {
-
+  studentAbsenceCount: function(absences, start_date, end_date) {
+    return absences.map((event) => {
+      let occurance = moment.utc(event.occurred_at);
+      if (occurance >= start_date && occurance <= end_date) return event;
+    }).length;
   },
 
   render: function() {
@@ -74,6 +79,7 @@ export default React.createClass({
       <div className="DashboardSnapshotsPage" style={styles.chartContainer}>
       {this.renderMonthlyAbsenceChart()}
       {this.renderHomeroomAbsenceChart()}
+      {this.renderStudentAbsenceTable()}
       {this.renderCharts()}
       </div>
     );
@@ -119,6 +125,41 @@ export default React.createClass({
     );
   },
 
+  renderStudentAbsenceTable: function () {
+    const students = this.props.students;
+    let tableRows = _.map(students.absences, (student) => {
+      return [student.first_name, student.last_name, this.studentAbsenceCount(student.absences)];
+    });
+
+    return (
+      <Table
+        rowHeight={50}
+        rowsCount={tableRows.length}
+        width={5000}
+        height={5000}
+        headerHeight={50}>
+        <Column
+          header={<Cell>Col 1</Cell>}
+          cell={<Cell>Column 1 static content</Cell>}
+          width={2000}
+        />
+        <Column
+          header={<Cell>Col 2</Cell>}
+          cell={<Cell>Column 2 static content</Cell>}
+          width={1000}
+        />
+        <Column
+          header={<Cell>Col 3</Cell>}
+          cell={({rowIndex, ...props}) => (
+            <Cell {...props}>
+              Data for column 3: {tableRows[rowIndex][2]}
+            </Cell>
+          )}
+          width={2000}
+          />
+        </Table>
+    );
+  },
   // renderDateRangeSlider: function() {
   //   return (
   //     <InputRange

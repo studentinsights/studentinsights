@@ -5,8 +5,14 @@ export default React.createClass({
   displayName: 'DashboardPageContainer',
 
   propTypes: {
-    attendanceData: React.PropTypes.object.isRequired
+    attendanceData: React.PropTypes.object.isRequired  //should rename more generically
   },
+
+  //necessary?
+  // studentAbsences: function () {
+  //   const students = this.props.attendanceData;
+
+  // },
 
   //returns map of homerooms to absence events
   absencesByHomeroom: function() {
@@ -103,9 +109,6 @@ export default React.createClass({
     const schoolAttendance = this.monthlyAttendanceBySchool();
     const schoolAttendanceMonths = Object.keys(schoolAttendance).sort();
     const homeRoomAttendance = this.attendanceByHomeroom();
-    const homeRoomAttendanceMonths = _.map(homeRoomAttendance, (homeroom) => {
-      return Object.keys(homeroom.absences).sort();
-    });
 
     return (
       <div className="DashboardSnapshotsPage">
@@ -113,7 +116,7 @@ export default React.createClass({
           schoolAttendance = {schoolAttendance}
           schoolAttendanceMonths = {schoolAttendanceMonths}
           homeRoomAttendance = {homeRoomAttendance}
-          homeRoomAttendanceMonths = {homeRoomAttendanceMonths}/>
+          students = {this.props.attendanceData}/>
       </div>);
   }
 });
