@@ -1,4 +1,39 @@
 class ImportRecordDetail < ActiveRecord::Base
+  # Model to record the detail of a run of a specific FileImport
+  # (e.g. CoursesSectionsImporter).
+  #
+  # Captures the following info about the run of the importer:
+  #   - :import_record_id   (id of the related import_record)
+  #   - :importer           (class name of the file_importer for this record)
+  #   - :time_started       (time the import started)
+  #   - :time_ended         (time the importer ended,
+  #                          should be set with most failures as well)
+  #   - :status             (current status of the importer: pending, started, failed,
+  #                         completed. this is updated int the database when the status changes)
+  #   - :error_message      (if a failure was detected,
+  #                          this should contain the error message)
+  #   - :rows_processed     (#of rows that import_row was called on.)
+  #   - :rows_excluded      (#of rows excluded by the school fiter primarily)
+  #                         (the sum of rows_processed and rows_excluded should
+  #                         equal the number of lines in the CSV file)
+  #   - :rows_created       (#of processed rows resulting in a new record in the database)
+  #   - :rows_updated       (#of processed rows resulting in an updated record in the database)
+  #   - :rows_deleted       (#of rows deleted from the database.
+  #                         Currently used by StudentSectionAssignments and
+  #                         EducatorSectionAssignments for stale assignments)
+  #   - :rows_rejected      (#of processed rows that are rejected. For example, an
+  #                         EducatorSectionAssignment where the Educator or Section doesn't exist in the database)
+  #
+  # There are four states:
+  #   - Pending: persisted to db on creation (sets row_counts to 0)
+  #   - Started: persisted to db on calling start (updates :time_started)
+  #   - Completed: persisted to db on calling complete
+  #               (updates :time_ended and all row counts)
+  #   - Failed: persisted to db on calling fail
+  #              (updates :time_ended, row counts, and :error_message)
+  #
+  #
+
   belongs_to :import_record
 
   after_initialize :init
