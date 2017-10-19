@@ -89,9 +89,9 @@ class Student < ActiveRecord::Base
 
   ## STUDENT ASSESSMENT RESULTS ##
 
-  def latest_result_by_family_and_subject(family_name, subject_name)
+  def latest_result_by_family_and_subject(family, subject)
     self.student_assessments
-        .by_family_and_subject(family_name, subject_name)
+        .by_family_and_subject(family: family, subject: subject)
         .order_by_date_taken_asc
         .last
   end
