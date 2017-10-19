@@ -51,8 +51,10 @@ class StudentAssessment < ActiveRecord::Base
     joins(:assessment).where(assessments: {family: family_name})
   end
 
-  def self.by_family_and_subject(family_name, subject_name)
-    joins(:assessment).where(assessments: {family: family_name, subject: subject_name})
+  def self.by_family_and_subject(family:, subject:, flavor: 'Regular')
+    joins(:assessment).where(assessments: {
+      family: family, subject: subject, flavor: flavor
+    })
   end
 
   def self.find_by_student(student)
