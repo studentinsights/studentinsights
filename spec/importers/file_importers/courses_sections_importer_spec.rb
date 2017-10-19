@@ -35,15 +35,15 @@ RSpec.describe CoursesSectionsImporter do
         end
 
         it 'logs one row processed, one row created' do
-          expected_statuses = [
+          expected_statuses = {
             "processed": 1,
             "excluded": 0,
             "created": 1,
             "updated": 0,
             "deleted": 0,
             "rejected": 0
-          ]
-          expect(import_record_detail.rows_summary).to match_array(expected_statuses)
+          }
+          expect(import_record_detail.rows_summary).to eq(expected_statuses)
         end
       end
 
@@ -78,15 +78,15 @@ RSpec.describe CoursesSectionsImporter do
           end
 
           it 'logs one row processed, one row updated' do
-            expected_statuses = [
+            expected_statuses = {
               "processed": 1,
               "excluded": 0,
               "created": 0,
               "updated": 1,
               "deleted": 0,
               "rejected": 0
-            ]
-            expect(import_record_detail.rows_summary).to match_array(expected_statuses)
+            }
+            expect(import_record_detail.rows_summary).to eq(expected_statuses)
           end
         end
 
@@ -114,15 +114,15 @@ RSpec.describe CoursesSectionsImporter do
         end
 
         it 'logs one row processed, one row created' do
-          expected_statuses = [
+          expected_statuses = {
             "processed": 1,
             "excluded": 0,
             "created": 0,
             "updated": 0,
             "deleted": 0,
             "rejected": 1
-          ]
-          expect(import_record_detail.rows_summary).to match_array(expected_statuses)
+          }
+          expect(import_record_detail.rows_summary).to eq(expected_statuses)
         end
       end
     end

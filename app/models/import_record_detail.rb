@@ -77,13 +77,13 @@ class ImportRecordDetail < ActiveRecord::Base
   end
 
   def rows_summary
-    [
+    {
       "processed": rows_processed,
       "excluded": rows_excluded,
       "created": rows_created,
       "updated": rows_updated,
       "deleted": rows_deleted,
       "rejected": rows_rejected
-    ]
+    }
   end
 end
