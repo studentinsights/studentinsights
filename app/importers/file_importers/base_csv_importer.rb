@@ -4,7 +4,7 @@ class BaseCsvImporter < Struct.new :school_scope, :client, :log, :progress_bar, 
 
   def import
     import_record_detail.start
-    before_import if self.respond_to?(:before_import)
+    before_import
 
     @data = CsvDownloader.new(
       log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
@@ -19,7 +19,7 @@ class BaseCsvImporter < Struct.new :school_scope, :client, :log, :progress_bar, 
       end
       ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
     end
-    after_import if self.respond_to?(:after_import)
+    after_import
     import_record_detail.complete
   end
 
@@ -30,4 +30,9 @@ class BaseCsvImporter < Struct.new :school_scope, :client, :log, :progress_bar, 
   def filter
     SchoolFilter.new(school_scope)
   end
+
+  # Hooks to allow individual file importers to add processing
+  # before and after the import
+  def before_import; end
+  def after_import; end
 end
