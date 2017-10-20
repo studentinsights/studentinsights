@@ -80,8 +80,8 @@
         <div className="ELADetails">
           {this.renderNavBar()}
           {this.renderStarReading()}
-          {this.renderMCASELANextGenScores()}
           {this.renderMCASELAScores()}
+          {this.renderMCASELANextGenScores()}
           {this.renderMCASELAGrowth()}
         </div>
       );

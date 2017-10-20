@@ -80,8 +80,8 @@
         <div className="MathDetails">
           {this.renderNavBar()}
           {this.renderStarMath()}
-          {this.renderMCASMathNextGenScores()}
           {this.renderMCASMathScores()}
+          {this.renderMCASMathNextGenScores()}
           {this.renderMCASMathGrowth()}
         </div>
       );
