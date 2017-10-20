@@ -10,6 +10,10 @@ export default React.createClass({
     $(this._chartEl).highcharts(this.props);
   },
 
+  componentWillReceiveProps(props, state) {
+    $(this._chartEl).highcharts(this.props);
+  },
+
   componentWillUnmount: function(props, state) {
     delete this._chartEl;
   },

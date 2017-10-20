@@ -1,5 +1,6 @@
 //import _ from 'lodash';
 import HighchartsWrapper from './highcharts_wrapper.jsx';
+// import ReactHighCharts from 'react-highcharts';
 
 window.shared || (window.shared = {});
 const GraphHelpers = window.shared.GraphHelpers;
@@ -65,52 +66,6 @@ export default React.createClass({
     };
   },
 
-  // This returns a function, since HighCharts passes in the current element
-  // as `this` instead of a parameter.
-  // createUnsafeTooltipFormatter: function(monthBuckets, props){
-  //   return function() {
-  //     const graphPointIndex = this.series.data.indexOf(this.point);
-  //     // const events = monthBuckets[graphPointIndex];
-  //     if (events.length == 0) return false;
-
-  //     let htmlstring = "";
-  //     _.each(events, function(e){
-  //       htmlstring += _.template(props.tooltipTemplateString)({e: e});
-  //       htmlstring += "<br>";
-  //     });
-  //     return htmlstring;
-  //   };
-  // },
-
-  makePlotlines: function (monthKeys) {
-    return this.props.phaselines.map(function(phaseline) {
-      const phaselineMonthKey = phaseline.momentUTC.clone().date(1).format('YYYYMMDD');
-      const monthIndex = monthKeys.indexOf(phaselineMonthKey);
-
-      return {
-        color: '#ccc',
-        value: monthIndex,
-        width: 2,
-        zIndex: 10,
-        label: {
-          text: phaseline.text,
-          align: 'left',
-        }
-      };
-    });
-  },
-
-  //Takes groupings of students (eg. month or homeroom) and a total number of students
-  //and returns
-  getAttendancePercentage: function(buckets, students){
-    return buckets.map(function(bucket) {
-      return (students - bucket.length)/students*100;
-    });
-  },
-
-  // Compute the month range that's relevant for the current date and months back we're showing
-  // on the chart.  Then map each month onto captions, and bucket the list of events into
-  // each month.
   render: function() {
     const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
     //const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
@@ -125,7 +80,6 @@ export default React.createClass({
           xAxis={[
             {
               categories: this.props.categories
-              //plotLines: this.makePlotlines(monthKeys)
             },
             {
               offset: 50,
@@ -137,24 +91,85 @@ export default React.createClass({
           ]}
           title={{text: ''}}
           yAxis={{
-            min: 76,
+            min: 80,
             max: 100,
             allowDecimals: true,
             title: {text: this.props.titleText}
           }}
-          // tooltip={{
-          //   formatter: this.createUnsafeTooltipFormatter(monthBuckets, this.props),
-          //   useHTML: true
-          // }}
           series={[
             {
               showInLegend: false,
-              data: this.props.seriesData //this.getAttendancePercentage(monthBuckets, this.props.totalStudents)
+              data: this.props.seriesData
             }
           ]} />
       </div>
     );
   },
+
+  // getInitialState: function() {
+  //   console.log(ReactHighcharts);
+  //   const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
+  //   //const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
+  //   const yearCategories = GraphHelpers.yearCategories(monthKeys);
+  //   return ({
+  //     config: {
+  //       chart: {type: 'column'},
+  //       title: {text: ''},
+  //       xAxis: [
+  //         {
+  //           categories: this.props.categories
+  //         },
+  //         {
+  //           offset: 50,
+  //           linkedTo: 0,
+  //           categories: yearCategories,
+  //           tickPositions: Object.keys(yearCategories).map(Number),
+  //           tickmarkPlacement: "on"
+  //         }
+  //       ],
+  //       yAxis: {
+  //         min: 76,
+  //         max: 100,
+  //         allowDecimals: true,
+  //         title: {text: this.props.titleText}
+  //       },
+  //       series: {
+  //         showInLegend: false,
+  //         data: this.props.seriesData
+  //       }
+  //     }
+  //   });
+  // },
+
+  // componentDidMount: function() {
+  //   const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
+  //   //const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
+  //   const yearCategories = GraphHelpers.yearCategories(monthKeys);
+  //   this.setState({
+  //     config: {
+  //       xAxis: [
+  //         {
+  //           categories: this.props.categories
+  //         },
+  //         {
+  //           offset: 50,
+  //           linkedTo: 0,
+  //           categories: yearCategories,
+  //           tickPositions: Object.keys(yearCategories).map(Number),
+  //           tickmarkPlacement: "on"
+  //         }
+  //       ],
+  //       series: {
+  //         showInLegend: false,
+  //         data: this.props.seriesData
+  //       }
+  //     }
+  //   });
+  // },
+
+  // render: function() {
+  //   return <ReactHighcharts config={this.state.config} ref="chart"></ReactHighcharts>;
+  // },
 
 
   renderHeader: function() {

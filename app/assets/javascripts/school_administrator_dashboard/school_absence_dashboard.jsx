@@ -1,8 +1,8 @@
 import _ from 'lodash';
-// import Slider from 'rc-slider';
-// // import InputRange from 'react-input-range';
-// import {Table, Column, Cell} from 'fixed-data-table';
+import StudentsTable from './students_table.jsx';
 import DashboardBarChart from './dashboard_bar_chart.jsx';
+import DateSlider from './date_slider.jsx';
+
 
 window.shared || (window.shared = {});
 
@@ -16,15 +16,22 @@ const styles = {
     backgroundColor: '#f2f2f2'
   },
   chartContainer: {
+    float: 'left',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',
-    marginLeft: '50px',
+    marginLeft: '30px',
     marginRight: 'auto',
-    width: '65%',
+    width: '60%'
   },
   studentListContainer: {
-
+    padding: '30px',
+    float: 'left',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
   dateRangeContainer: {
 
@@ -69,17 +76,24 @@ export default React.createClass({
 
   studentAbsenceCount: function(absences, start_date, end_date) {
     return absences.map((event) => {
-      let occurance = moment.utc(event.occurred_at);
+      let occurance = moment.utc(event.occurred_at).format("YYYY-MM-DD");
       if (occurance >= start_date && occurance <= end_date) return event;
     }).length;
   },
 
   render: function() {
     return (
-      <div className="DashboardSnapshotsPage" style={styles.chartContainer}>
-      {this.renderMonthlyAbsenceChart()}
-      {this.renderHomeroomAbsenceChart()}
-      {this.renderCharts()}
+      <div className="DashboardSnapshotsPage">
+        <div>
+          {this.renderDateRangeSlider()}
+        </div>
+        <div style={styles.chartContainer}>
+          {this.renderMonthlyAbsenceChart()}
+          {this.renderHomeroomAbsenceChart()}
+        </div>
+        <div>
+          {this.renderStudentAbsenceTable()}
+        </div>
       </div>
     );
   },
@@ -93,12 +107,14 @@ export default React.createClass({
     // const yearCategories = GraphHelpers.yearCategories(categories);
 
     return (
-      <DashboardBarChart
-        id = {'string'}
-        categories = {categories}
-        seriesData = {filteredAttendanceSeries}
-        monthsBack = {categories.length}
-        titleText = {'Attendance (Percent)'}/>
+      <div>
+        <DashboardBarChart
+          id = {'string'}
+          categories = {categories}
+          seriesData = {filteredAttendanceSeries}
+          monthsBack = {categories.length}
+          titleText = {'Attendance (Percent)'}/>
+      </div>
     );
   },
 
@@ -114,61 +130,45 @@ export default React.createClass({
     });
 
     return (
-      <DashboardBarChart
-        style = {styles.chartBox}
-        id = {'string'}
-        categories = {Object.keys(homeRoomAttendance)}
-        seriesData = {homeroomSeries}
-        monthsBack = {12}
-        titleText = {'Attendance (Percent)'}/>
+      <div>
+        <DashboardBarChart
+          style = {styles.chartBox}
+          id = {'string'}
+          categories = {Object.keys(homeRoomAttendance)}
+          seriesData = {homeroomSeries}
+          monthsBack = {12}
+          titleText = {'Attendance (Percent)'}/>
+        </div>
     );
   },
 
-  // renderStudentAbsenceTable: function () {
-  //   const students = this.props.students;
-  //   let tableRows = _.map(students.absences, (student) => {
-  //     return [student.first_name, student.last_name, this.studentAbsenceCount(student.absences)];
-  //   });
+  renderStudentAbsenceTable: function () {
+    let students =[];
+    _.each(this.props.students.absences, (student) => {
+      students.push({
+        first_name: student.first_name,
+        last_name: student.last_name,
+        absences: this.studentAbsenceCount(student.absences, this.state.start_date, this.state.end_date)
+      });
+    });
 
-  //   return (
-  //     <Table
-  //       rowHeight={50}
-  //       rowsCount={tableRows.length}
-  //       width={5000}
-  //       height={5000}
-  //       headerHeight={50}>
-  //       <Column
-  //         header={<Cell>Col 1</Cell>}
-  //         cell={<Cell>Column 1 static content</Cell>}
-  //         width={2000}
-  //       />
-  //       <Column
-  //         header={<Cell>Col 2</Cell>}
-  //         cell={<Cell>Column 2 static content</Cell>}
-  //         width={1000}
-  //       />
-  //       <Column
-  //         header={<Cell>Col 3</Cell>}
-  //         cell={({rowIndex, ...props}) => (
-  //           <Cell {...props}>
-  //             Data for column 3: {tableRows[rowIndex][2]}
-  //           </Cell>
-  //         )}
-  //         width={2000}
-  //         />
-  //       </Table>
-  //   );
-  // },
+    return (
+      <div style={styles.studentListContainer}>
+        <StudentsTable
+          rows = {students}/>
+      </div>
+    );
+  },
 
-  // renderDateRangeSlider: function() {
-  //   return (
-  //     <InputRange
-  //       maxValue={moment.utc().format("YYYY-MM-DD")}
-  //       minValue={"2016-08-01"}
-  //       value={2}
-  //       onChange={value => this.setState({ start_time })} />
-  //   );
-  // },
+  renderDateRangeSlider: function() {
+    return (
+      <DateSlider
+        setDate={(range) => this.setState({
+          start_date: moment.unix(range[0]).format("YYYY-MM-DD"),
+          end_date: moment.unix(range[1]).format("YYYY-MM-DD")
+        })}/>
+    );
+  },
 
   renderCharts: function() {
     return (
