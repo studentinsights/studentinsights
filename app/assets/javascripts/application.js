@@ -46,7 +46,7 @@
 //= require ./helpers/graph_helpers
 //= require_tree ./helpers
 
-// shared react compoents:
+// shared react components:
 //= require ./components/fixed_table
 //= require ./components/collapsable_table
 //= require_tree ./components
@@ -54,6 +54,7 @@
 // student profile page:
 // pure ui components:
   //= require ./student_profile/help_bubble
+  //= require ./student_profile/modal_small_icon
   //= require ./student_profile/quad_converter
   //= require ./student_profile/risk_bubble
   //= require ./student_profile/service_color
