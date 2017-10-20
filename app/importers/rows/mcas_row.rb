@@ -43,8 +43,16 @@ class McasRow < Struct.new :row
     end
   end
 
+  def family
+    if row[:assessment_scale_score] && row[:assessment_scale_score] > 399
+      'Next Gen MCAS'
+    else
+      'MCAS'
+    end
+  end
+
   def assessment
-    Assessment.find_or_create_by!(subject: subject, family: 'MCAS')
+    Assessment.find_or_create_by!(subject: subject, family: family)
   end
 
 end
