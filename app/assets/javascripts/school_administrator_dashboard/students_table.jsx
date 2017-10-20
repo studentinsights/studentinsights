@@ -9,7 +9,6 @@ export default React.createClass({
   },
 
   render: function() {
-    console.log(this.props.rows);
     return(
       <div className= 'StudentsList'>
         <table className='students-list' style={{width: '100%'}}>

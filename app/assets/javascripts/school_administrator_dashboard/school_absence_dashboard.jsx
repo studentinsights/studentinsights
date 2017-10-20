@@ -30,7 +30,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'stretch',
-    marginLeft: 'auto',
+    marginLeft: '50px',
     marginRight: 'auto'
   },
   dateRangeContainer: {
