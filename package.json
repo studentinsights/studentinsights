@@ -19,14 +19,12 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "browserify-incremental": "^3.1.1",
-    "cssify": "^1.0.3",
     "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.2",
     "lodash": "3.10.1",
     "rc-slider": "^8.3.2",
     "react": "15.4.2",
     "react-dom": "15.4.2",
-    "react-input-range": "^1.2.1",
-    "react-table": "^6.6.0"
+    "react-input-range": "^1.2.1"
   }
 }

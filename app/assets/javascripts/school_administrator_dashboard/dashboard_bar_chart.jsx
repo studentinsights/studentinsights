@@ -1,6 +1,5 @@
 //import _ from 'lodash';
 import HighchartsWrapper from './highcharts_wrapper.jsx';
-// import ReactHighCharts from 'react-highcharts';
 
 window.shared || (window.shared = {});
 const GraphHelpers = window.shared.GraphHelpers;
