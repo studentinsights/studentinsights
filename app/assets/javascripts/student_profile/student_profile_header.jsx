@@ -2,7 +2,7 @@
   window.shared || (window.shared = {});
   const Routes = window.shared.Routes;
   const RiskBubble = window.shared.RiskBubble;
-  const ContactBubble = window.shared.HelpBubble;
+  const ContactModal = window.shared.ModalSmall;
 
   const styles = {
     titleContainer: {
@@ -22,6 +22,11 @@
     subtitleItem: {
       fontSize: 22,
       padding: 5
+    },
+    contactItem: {
+      fontSize: 14,
+      padding: 5,
+      display: 'flex'
     }
   };
 
@@ -138,9 +143,9 @@
 
     renderContactIcon: function () {
       return (
-        <ContactBubble
+        <ContactModal
           title="Contact Information"
-          teaserText=<span className="address-book-icon"></span>
+          icon=<span className="address-book-icon"></span>
           content={this.renderContactInformation()} />
       );
     },
@@ -148,9 +153,20 @@
     renderContactInformation: function(){
       const student = this.props.student;
       return (
-        <div>
-
-        </div>
+        <span>
+          {this.renderBulletSpacer()}
+          <span style={styles.subtitleItem}>
+            {student.student_address}
+          </span>
+          {this.renderBulletSpacer()}
+          <span style={styles.subtitleItem}>
+            {student.primary_phone}
+          </span>
+          {this.renderBulletSpacer()}
+          <span style={styles.subtitleItem}>
+            {student.primary_email}
+          </span>
+        </span>
       );
     },
   });
