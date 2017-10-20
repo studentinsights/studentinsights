@@ -93,6 +93,29 @@ import _ from 'lodash';
       return [this.createItem('None', Filters.EventNoteType(null))].concat(sortedItems);
     },
 
+    MCASFilterItems(key) {
+      const nullItem = [this.createItem('None', Filters.Null(key))];
+      const nextGenMCASFilters = [
+        this.createItem('Not Meeting Expectations', Filters.Range(key, [400, 450])),
+        this.createItem('Partially Meeting', Filters.Range(key, [450, 500])),
+        this.createItem('Meeting Expectations', Filters.Range(key, [500, 550])),
+        this.createItem('Exceeding Expectations', Filters.Range(key, [260, 281]))
+      ];
+      const oldMCASFilters = [
+        this.createItem('Warning', Filters.Range(key, [200, 220])),
+        this.createItem('Needs Improvement', Filters.Range(key, [220, 240])),
+        this.createItem('Proficient', Filters.Range(key, [240, 260])),
+        this.createItem('Advanced', Filters.Range(key, [260, 281])),
+      ];
+
+      const mcasScaledScores = _.compact(_.map(this.props.allStudents, key));
+      const meanScaledScore = _.sum(mcasScaledScores) / mcasScaledScores.length;
+
+      if (meanScaledScore > 280) return nullItem.concat(nextGenMCASFilters, oldMCASFilters);
+
+      return nullItem.concat(oldMCASFilters, nextGenMCASFilters);
+    },
+
     render: function() {
       return (
         <div
@@ -178,14 +201,12 @@ import _ from 'lodash';
     },
 
     renderMCASTable: function(title, key, props) {
+      const filterItems = this.MCASFilterItems(key);
+
       return this.renderTable(merge(props || {}, {
         title: title,
-        items: [this.createItem('None', Filters.Null(key))].concat([
-          this.createItem('Warning', Filters.Range(key, [200, 220])),
-          this.createItem('Needs Improvement', Filters.Range(key, [220, 240])),
-          this.createItem('Proficient', Filters.Range(key, [240, 260])),
-          this.createItem('Advanced', Filters.Range(key, [260, 281]))
-        ])
+        items: filterItems,
+        limit: 5
       }));
     },
 
