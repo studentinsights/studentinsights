@@ -144,8 +144,8 @@
     renderContactIcon: function () {
       return (
         <ContactModal
-          title="Contact Information"
-          icon=<span className="address-book-icon"></span>
+          title='Contact Information'
+          icon=<span className='address-book-icon'></span>
           content={this.renderContactInformation()} />
       );
     },
@@ -154,17 +154,14 @@
       const student = this.props.student;
       return (
         <span>
-          {this.renderBulletSpacer()}
-          <span style={styles.subtitleItem}>
+          <span style={styles.contactItem}>
             {student.student_address}
           </span>
-          {this.renderBulletSpacer()}
-          <span style={styles.subtitleItem}>
+          <span style={styles.contactItem}>
             {student.primary_phone}
           </span>
-          {this.renderBulletSpacer()}
-          <span style={styles.subtitleItem}>
-            {student.primary_email}
+          <span style={styles.contactItem}>
+            <a href={'mailto:'+ student.primary_email}>{student.primary_email}</a>
           </span>
         </span>
       );

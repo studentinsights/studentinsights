@@ -3,9 +3,12 @@
   const ReactModal = window.ReactModal;
   const styles = {
     content: {
-      maxHeight: 300,
-      maxWidth: 300,
-      position: 'relative'
+      maxHeight: '55%',
+      maxWidth: '35%',
+      position: 'absolute',
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '2%'
     }
   }
 
