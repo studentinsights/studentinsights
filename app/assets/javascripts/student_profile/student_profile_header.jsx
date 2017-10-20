@@ -126,21 +126,6 @@
       );
     },
 
-    renderStudentAddress: function () {
-      const student = this.props.student;
-      const studentaddress = student.student_address;
-      if (!studentaddress) return null;
-
-      return (
-        <span>
-          {this.renderBulletSpacer()}
-          <span style={styles.subtitleItem}>
-            {studentaddress}
-          </span>
-        </span>
-      );
-    },
-
     renderContactIcon: function () {
       return (
         <ContactModal
