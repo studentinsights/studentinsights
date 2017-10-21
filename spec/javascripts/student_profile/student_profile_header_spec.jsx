@@ -23,30 +23,30 @@ describe('StudentProfileHeader', function() {
 
   };
 
-  SpecSugar.withTestEl('active enrolled student', function() {
+  SpecSugar.withTestEl('active enrolled student', function(container) {
     it('renders note-taking area with homeroom', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderActiveStudent(el);
       const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
                                                                                            // so we don't have to calculate this
 
-      expect(el).toContainText('Daisy Poppins');
-      expect(el).toContainText('Arthur D Healey');
-      expect(el).toContainText('5/23/2008');
-      expect(el).toContainText('(' + yearsOld + ' years old)');
-      expect(el).toContainText('1 Memorial Dr, Cambridge, MA 02142');
-      expect($(el).find('a.homeroom-link')).toContainText('102');
+      expect(el.innerHTML).toContain('Daisy Poppins');
+      expect(el.innerHTML).toContain('Arthur D Healey');
+      expect(el.innerHTML).toContain('5/23/2008');
+      expect(el.innerHTML).toContain('(' + yearsOld + ' years old)');
+      expect(el.innerHTML).toContain('1 Memorial Dr, Cambridge, MA 02142');
+      expect($(el).find('a.homeroom-link').text()).toContain('102');
     });
   });
 
-  SpecSugar.withTestEl('non-active Transferred student', function() {
+  SpecSugar.withTestEl('non-active Transferred student', function(container) {
     it('renders note-taking area with Transferred status', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderTransferredStudent(el);
 
-      expect(el).toContainText('Daisy Poppins');
-      expect(el).toContainText('Arthur D Healey');
-      expect(el).toContainText('Transferred');
+      expect(el.innerHTML).toContain('Daisy Poppins');
+      expect(el.innerHTML).toContain('Arthur D Healey');
+      expect(el.innerHTML).toContain('Transferred');
     });
   });
 

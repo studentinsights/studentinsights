@@ -10,7 +10,7 @@ describe('RecordService', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const RecordService = window.shared.RecordService;
-  const {Simulate} = React.addons.TestUtils;
+  const ReactTestUtils = window.ReactTestUtils;
 
   const helpers = {
     renderInto: function(el, props) {
@@ -30,7 +30,7 @@ describe('RecordService', function() {
 
     serviceTypes: function(el) {
       return $(el).find('.btn.service-type').toArray().map(function(el) {
-        return $.trim(el.innerText);
+        return $.trim(el.innerHTML);
       });
     },
 
@@ -39,7 +39,7 @@ describe('RecordService', function() {
     },
 
     findDateInput: function(el) {
-      return $(el).find('.Datepicker .datepicker.hasDatepicker');
+      return $(el).find('.datepicker');
     },
 
     isSaveButtonEnabled: function(el) {
@@ -48,21 +48,21 @@ describe('RecordService', function() {
 
     simulateDateChange: function(el, text) {
       const inputEl = helpers.findDateInput(el).get(0);
-      return Simulate.change(inputEl, {target: {value: text}});
+      return ReactTestUtils.Simulate.change(inputEl, {target: {value: text}});
     },
 
     simulateEducatorChange: function(el, text) {
       const inputEl = $(el).find('.ProvidedByEducatorDropdown').get(0);
-      Simulate.change(inputEl, {target: {value: text}});
+      ReactTestUtils.Simulate.change(inputEl, {target: {value: text}});
     }
   };
 
-  SpecSugar.withTestEl('integration tests', function() {
+  SpecSugar.withTestEl('integration tests', function(container) {
     it('renders dialog for recording services', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
 
-      expect(el).toContainText('Which service?');
+      expect($(el).text()).toContain('Which service?');
       expect(helpers.serviceTypes(el)).toEqual([
         'Attendance Contract',
         'Attendance Officer',
@@ -73,33 +73,33 @@ describe('RecordService', function() {
       ]);
 
 
-      expect(el).toContainText('Who is working with Tamyra?');
+      expect($(el).text()).toContain('Who is working with Tamyra?');
       // TODO (as): test staff dropdown autocomplete async
-      expect(el).toContainText('When did they start?');
-      expect(el).toContainText('When did/will they end');
+      expect($(el).text()).toContain('When did they start?');
+      expect($(el).text()).toContain('When did/will they end');
       expect(helpers.findDateInput(el).length).toEqual(2);
-      expect(el).not.toContainText('Invalid date');
+      expect($(el).text()).not.toContain('Invalid date');
       expect(helpers.findSaveButton(el).length).toEqual(1);
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
       expect($(el).find('.btn.cancel').length).toEqual(1);
     });
 
     it('shows warning on invalid date', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
       helpers.simulateDateChange(el, 'fds 1/2/2/22 not a valid date');
-      expect(el).toContainText('Choose a valid date');
+      expect($(el).text()).toContain('Choose a valid date');
     });
 
     it('does not allow save on invalid date', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
       helpers.simulateDateChange(el, '1/2/2/22 not a valid date');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
     it('does not allow without educator', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
       $(el).find('.btn:first').click();
       helpers.simulateEducatorChange(el, '');
@@ -108,7 +108,7 @@ describe('RecordService', function() {
     });
 
     it('requires service, educator and valid date set in order to save', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
       $(el).find('.btn:first').click();
       helpers.simulateEducatorChange(el, 'kevin');

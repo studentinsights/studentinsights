@@ -5,8 +5,6 @@ import moment from 'moment';
 window.moment = moment;
 import d3 from 'd3';
 window.d3 = d3;
-import Highcharts from 'highcharts';
-window.Highcharts = Highcharts;
 
 
 // shared across application:

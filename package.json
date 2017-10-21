@@ -11,13 +11,15 @@
     "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts ui",
     "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
-    "start": "concurrently \"bundle exec rails s\" \"yarn run dev\""
+    "start": "concurrently \"bundle exec rails s\" \"yarn run dev\"",
+    "jest": "jest --config jest.json --watch",
+    "test": "yarn run lint-cli && yarn run jest"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "d3": "3.5.12",
-    "highcharts": "4.11.1",
+    "highcharts": "^6.0.2",
     "jquery": "^3.2.1",
     "lodash": "3.10.1",
     "moment": "2.11.1",
@@ -27,6 +29,7 @@
     "react-modal": "^3.0.4"
   },
   "devDependencies": {
+    "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-app": "^3.0.3",
@@ -35,6 +38,7 @@
     "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.2",
     "lodash": "3.10.1",
+    "jest": "^21.2.1",
     "react-test-renderer": "^16.0.0",
     "script-loader": "^0.7.2",
     "webpack": "^3.8.1",

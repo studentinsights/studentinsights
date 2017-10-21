@@ -49,32 +49,32 @@ describe('ServicesList', function() {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('high-level integration tests', function(container) {
     it('renders message when no services', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, { servicesFeed: helpers.emptyServicesFeed() });
-      expect(el).toContainText('No services');
+      expect($(el).text()).toContain('No services');
     });
 
     it('renders everything on the happy path', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
-      expect(el).toContainText('Reading intervention');
-      expect(el).toContainText('With');
-      expect(el).toContainText('Started April 3, 2016');
-      expect(el).toContainText('Discontinue');
+      expect($(el).text()).toContain('Reading intervention');
+      expect($(el).text()).toContain('With');
+      expect($(el).text()).toContain('Started April 3, 2016');
+      expect($(el).text()).toContain('Discontinue');
     });
 
     it('asks for confirmation before discontinuing', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
       $(el).find('.btn').click();
-      expect(el).toContainText('Confirm');
-      expect(el).toContainText('Cancel');
+      expect($(el).text()).toContain('Confirm');
+      expect($(el).text()).toContain('Cancel');
     });
 
     it('shows a message when request in progress', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       const service = helpers.fixtureService();
       helpers.renderInto(el, {
         servicesFeed: helpers.oneActiveServiceFeed(),
@@ -84,7 +84,7 @@ describe('ServicesList', function() {
     });
 
     it('renders discontinued services correctly', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       const discontinuedService = merge(helpers.fixtureService(), {
         discontinued_by_educator_id: 1,
         discontinued_recorded_at: "2016-04-05T01:43:15.256Z"
@@ -95,8 +95,8 @@ describe('ServicesList', function() {
           discontinued: [discontinuedService]
         }
       });
-      expect(el).toContainText('Ended');
-      expect(el).toContainText('April 5, 2016');
+      expect($(el).text()).toContain('Ended');
+      expect($(el).text()).toContain('April 5, 2016');
     });
   });
 });

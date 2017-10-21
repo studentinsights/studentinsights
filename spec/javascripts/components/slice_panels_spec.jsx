@@ -48,9 +48,9 @@ describe('SlicePanels', function() {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('high-level integration tests', function(container) {
     it('renders everything on the happy path', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
 
       expect($(el).find('.SlicePanels').length).toEqual(1);
@@ -66,7 +66,7 @@ describe('SlicePanels', function() {
     });
 
     it('renders everything on the happy path for high school', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(
         el,
         {
@@ -89,7 +89,7 @@ describe('SlicePanels', function() {
     });
 
     it('renders attributes for slicing based on student data', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, {
         students: FixtureStudents,
         allStudents: FixtureStudents

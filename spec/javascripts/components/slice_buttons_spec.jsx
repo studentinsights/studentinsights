@@ -18,12 +18,12 @@ describe('SliceButtons', function() {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('high-level integration tests', function(container) {
     it('renders everything on the happy path', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
 
-      expect(el).toContainText('Share');
+      expect(el.innerHTML).toContain('Share');
     });
   });
 });

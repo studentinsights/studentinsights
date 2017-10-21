@@ -1,3 +1,5 @@
+import Highcharts from 'highcharts';
+
 (function() {
   window.shared || (window.shared = {});
 
@@ -7,7 +9,7 @@
     displayName: 'HighchartsWrapper',
 
     componentDidMount: function(props, state) {
-      $(this._chartEl).highcharts(this.props);
+      new Highcharts.Chart(this._chartEl, this.props);
     },
 
     componentWillUnmount: function(props, state) {
