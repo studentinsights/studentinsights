@@ -8,7 +8,6 @@ gem 'puma'
 
 gem 'activerecord-import'
 gem 'aws-sdk', '~> 2'
-gem 'browserify-rails'
 gem 'devise', '~> 4.3.0'
 gem 'devise_ldap_authenticatable'
 gem 'activemodel-serializers-xml'
@@ -20,7 +19,6 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'net-sftp'
 gem 'net-ssh'
 gem 'probability'
-gem 'rails-sanitize-js'
 gem 'react-rails' # Provides React, handles swapping between dev/production builds.  See config/initializers/assets.rb
 gem 'rubocop', require: false
 gem 'memory_profiler'
