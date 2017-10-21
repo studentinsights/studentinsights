@@ -38,8 +38,8 @@ export default {
   // For mocking history API
   history: function() {
     return {
-      replaceState: jasmine.createSpy('replaceState'),
-      pushState: jasmine.createSpy('pushState')
+      replaceState: jest.fn(),
+      pushState: jest.fn()
     };
   }
 };

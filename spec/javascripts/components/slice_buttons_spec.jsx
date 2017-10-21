@@ -12,7 +12,7 @@ describe('SliceButtons', function() {
         students: [],
         filters: [],
         filtersHash: '',
-        clearFilters: jasmine.createSpy('clearFilters')
+        clearFilters: jest.fn()
       }, props || {});
       ReactDOM.render(<SliceButtons {...mergedProps} />, el);
     }

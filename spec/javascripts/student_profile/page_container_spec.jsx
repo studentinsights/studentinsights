@@ -18,20 +18,20 @@ describe('PageContainer', function() {
 
     createSpyActions: function() {
       return {
-        onColumnClicked: jasmine.createSpy('onColumnClicked'),
-        onClickSaveNotes: jasmine.createSpy('onClickSaveNotes'),
-        onClickSaveService: jasmine.createSpy('onClickSaveService'),
-        onClickDiscontinueService: jasmine.createSpy('onClickDiscontinueService'),
-        onDeleteEventNoteAttachment: jasmine.createSpy('onDeleteEventNoteAttachment')
+        onColumnClicked: jest.fn(),
+        onClickSaveNotes: jest.fn(),
+        onClickSaveService: jest.fn(),
+        onClickDiscontinueService: jest.fn(),
+        onDeleteEventNoteAttachment: jest.fn()
       };
     },
 
     createSpyApi: function() {
       return {
-        saveNotes: jasmine.createSpy('saveNotes'),
-        deleteEventNoteAttachment: jasmine.createSpy('deleteEventNoteAttachment'),
-        saveService: jasmine.createSpy('saveService'),
-        discontinueService: jasmine.createSpy('discontinueService')
+        saveNotes: jest.fn(),
+        deleteEventNoteAttachment: jest.fn(),
+        saveService: jest.fn(),
+        discontinueService: jest.fn()
       };
     },
 
@@ -143,7 +143,7 @@ describe('PageContainer', function() {
       const component = helpers.renderInto(el, {});
 
       // Simulate that the server call is still pending
-      component.props.api.saveService.and.returnValue($.Deferred());
+      component.props.api.saveService.mockReturnValue($.Deferred());
       component.onClickSaveService({
         providedByEducatorName: 'badinput'
       });

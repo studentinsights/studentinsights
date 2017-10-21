@@ -20,8 +20,8 @@ describe('RecordService', function() {
         educatorsIndex: studentProfile.educatorsIndex,
         nowMoment: nowMoment,
         currentEducator: currentEducator,
-        onSave: jasmine.createSpy('onSave'),
-        onCancel: jasmine.createSpy('onCancel'),
+        onSave: jest.fn(),
+        onCancel: jest.fn(),
         requestState: null,
         studentId: 1
       });

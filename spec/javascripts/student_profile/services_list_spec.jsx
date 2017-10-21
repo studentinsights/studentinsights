@@ -43,7 +43,7 @@ describe('ServicesList', function() {
         educatorsIndex: studentProfile.educatorsIndex,
         serviceTypesIndex: studentProfile.serviceTypesIndex,
         discontinueServiceRequests: {},
-        onClickDiscontinueService: jasmine.createSpy('onClickDiscontinueService')
+        onClickDiscontinueService: jest.fn()
       }, props || {});
       ReactDOM.render(<ServicesList {...mergedProps} />, el);
     }

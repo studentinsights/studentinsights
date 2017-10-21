@@ -2,6 +2,7 @@ import _ from 'lodash';
 import {studentProfile, feedForTestingNotes} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 
+
 describe('NotesList', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
@@ -13,8 +14,8 @@ describe('NotesList', function() {
         feed: feedForTestingNotes,
         educatorsIndex: studentProfile.educatorsIndex,
         eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
-        onSaveNote: jasmine.createSpy('onSaveNote'),
-        onEventNoteAttachmentDeleted: jasmine.createSpy('onEventNoteAttachmentDeleted')
+        onSaveNote: jest.fn(),
+        onEventNoteAttachmentDeleted: jest.fn()
       });
       ReactDOM.render(<NotesList {...mergedProps} />, el);
     },

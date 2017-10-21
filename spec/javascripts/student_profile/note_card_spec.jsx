@@ -17,7 +17,7 @@ describe('NoteCard', function() {
         badge: <span>
           {''}
         </span>,
-        onSave: jasmine.createSpy('onSave'),
+        onSave: jest.fn(),
         eventNoteId: 1,
         eventNoteTypeId: 1,
         educatorsIndex: studentProfile.educatorsIndex,

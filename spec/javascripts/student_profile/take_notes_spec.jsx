@@ -16,8 +16,8 @@ describe('TakeNotes', function() {
         nowMoment: nowMoment,
         eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
         currentEducator: currentEducator,
-        onSave: jasmine.createSpy('onSave'),
-        onCancel: jasmine.createSpy('onCancel'),
+        onSave: jest.fn(),
+        onCancel: jest.fn(),
         requestState: null
       });
       window.ReactDOM.render(<TakeNotes {...mergedProps} />, el);

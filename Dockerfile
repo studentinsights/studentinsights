@@ -11,12 +11,6 @@ RUN apt-get update && apt-get install -y postgresql-client --no-install-recommen
 
 RUN apt-get update && apt-get install -y wkhtmltopdf --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-# phantomjs in /root/.phantomjs is a dependency for teaspoon tests
-RUN wget -qO- https://studentinsights-public.s3.amazonaws.com/phantomjs-2.1.1-linux-x86_64.tar.bz2 | tar xvj && \
-  mkdir -p /root/.phantomjs/2.1.1/x86_64-linux/bin/ && \
-  mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /root/.phantomjs/2.1.1/x86_64-linux/bin && \
-  rm -rf phantomjs-2.1.1-linux-x86_64/
-
 # copy just the Gemfile/Gemfile.lock first, so that with regular code changes
 # this layer doesn't get invalidated and docker can use a cached image that
 # has already run bundle install

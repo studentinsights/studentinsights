@@ -19,7 +19,7 @@ describe('SlicePanels', function() {
         },
         students: [],
         allStudents: [],
-        onFilterToggled: jasmine.createSpy('onFilterToggled')
+        onFilterToggled: jest.fn()
       }, props || {});
       ReactDOM.render(<SlicePanels {...mergedProps} />, el);
     },
