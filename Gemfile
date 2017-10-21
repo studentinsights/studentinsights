@@ -53,16 +53,13 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'launchy'
-  gem 'phantomjs'
   gem 'pry' # Set a breakpoint in your ruby code by adding `binding.pry`
   gem 'rack-test'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'simplecov'
-  gem 'teaspoon-jasmine'
   gem 'timecop'
   gem 'rails-controller-testing'
-  gem 'coffee-rails'
   gem 'bourbon', '~> 4.3.2'
 end
 

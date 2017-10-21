@@ -12,8 +12,8 @@
     "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
     "start": "concurrently \"bundle exec rails s\" \"yarn run dev\"",
-    "jest": "jest --config jest.json --watch",
-    "test": "yarn run lint-cli && yarn run jest"
+    "test": "jest --config jest.json --watch",
+    "test-cli": "yarn run lint-cli && jest --config jest.json"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
