@@ -1,20 +1,14 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "globals": {
     "moment": true,
     "$": true,
     "React": true,
-    "describe": true,
-    "beforeEach": true,
-    "afterEach": true,
-    "jasmine": true,
-    "expect": true,
-    "it": true,
-    "d3": true,
-    "Highcharts": true
+    "d3": true
   },
   "parserOptions": {
     "ecmaVersion": 6,

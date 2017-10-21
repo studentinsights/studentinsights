@@ -13,7 +13,7 @@
 
 //= require env
 
-// third-party:
+// third-party (remove these from eslintrc as we go)
 //= require function-bind-polyfill
 //= require jquery
 //= require jquery_ujs

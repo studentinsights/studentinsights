@@ -1,6 +1,6 @@
 // legacy, what's left to modulify!
 
-// vendor
+// vendor (remove these from eslintrc as we go)
 import moment from 'moment';
 window.moment = moment;
 import d3 from 'd3';

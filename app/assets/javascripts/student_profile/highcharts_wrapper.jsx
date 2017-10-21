@@ -1,4 +1,4 @@
-import Highcharts from 'highcharts';
+import 'highcharts';
 
 (function() {
   window.shared || (window.shared = {});
@@ -9,7 +9,7 @@ import Highcharts from 'highcharts';
     displayName: 'HighchartsWrapper',
 
     componentDidMount: function(props, state) {
-      new Highcharts.Chart(this._chartEl, this.props);
+      $(this._chartEl).highcharts(this.props);
     },
 
     componentWillUnmount: function(props, state) {

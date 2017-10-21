@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Highcharts from 'highcharts';
 
 (function() {
   window.shared || (window.shared = {});
