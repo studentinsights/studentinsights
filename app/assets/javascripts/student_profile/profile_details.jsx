@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import moment from 'moment';
+import StudentSectionsRoster from './student_sections_roster.jsx';
 
 (function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
   const QuadConverter = window.shared.QuadConverter;
   const styles = window.shared.ProfileDetailsStyle;
-  const StudentSectionsRoster = window.shared.StudentSectionsRoster;
   const Datepicker = window.shared.Datepicker;
   const filterFromDate = QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1);
   const filterToDate = moment();

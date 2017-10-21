@@ -1,22 +1,15 @@
 import SortHelpers from '../helpers/sort_helpers.jsx';
 
-window.shared || (window.shared = {});
-
-export default React.createClass({
-  displayName: 'FlexibleRoster',
-
-  propTypes: {
-    rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    initialSortIndex: React.PropTypes.number
-  },
-
-  getInitialState () {
-    return {
-      sortByIndex: this.props.initialSortIndex,
+// This is a sorted table, pass in a list of objects as `rows`,
+// and then `columns` to describe how to sort and label columns.
+class FlexibleRoster extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sortByIndex: this.props.initialSortIndex || 0,
       sortDesc: true
     };
-  },
+  }
 
   orderedRows () {
     const sortedRows = this.sortedRows();
@@ -24,7 +17,7 @@ export default React.createClass({
     if (!this.state.sortDesc) return sortedRows.reverse();
 
     return sortedRows;
-  },
+  }
   
   sortedRows () {
     const rows = this.props.rows;
@@ -39,7 +32,7 @@ export default React.createClass({
       return rows.sort((a, b) => SortHelpers.sortByString(a, b, key));
     }
     
-  },
+  }
 
   headerClassName (sortByIndex) {
     // Using tablesort classes here for the cute CSS carets,
@@ -50,7 +43,7 @@ export default React.createClass({
     if (this.state.sortDesc) return 'sort-header sort-down';
 
     return 'sort-header sort-up';
-  },
+  }
 
   onClickHeader(sortByIndex) {
     if (sortByIndex === this.state.sortByIndex) {
@@ -58,7 +51,7 @@ export default React.createClass({
     } else {
       this.setState({ sortByIndex: sortByIndex});
     }
-  },
+  }
   
   render () {
     return (
@@ -72,7 +65,7 @@ export default React.createClass({
         </table>
       </div>
     );
-  },
+  }
 
   renderSuperHeaders() {
     const columns = this.props.columns;
@@ -108,17 +101,17 @@ export default React.createClass({
               {superHeader.label}
             </th>
           );
-        },this)}
+        }, this)}
       </tr>
     );
-  },
+  }
 
   renderHeaders() {
     return (
       <tr id='roster-header'>
         {this.props.columns.map((column, index) => {
           return (
-            <th key={column.key} onClick={this.onClickHeader.bind(null, index)}
+            <th key={column.key} onClick={this.onClickHeader.bind(this, index)}
                 className={this.headerClassName(index)}>
               {column.label}
             </th>
@@ -126,7 +119,7 @@ export default React.createClass({
         }, this)}
       </tr>
     );
-  },
+  }
 
   renderBodyValue(item, column) {
     if ('cell' in column) {
@@ -135,21 +128,22 @@ export default React.createClass({
     else {
       return item[column.key];
     }
-  },
+  }
 
   renderBody() {
     return (
       <tbody id='roster-data'>
         {this.orderedRows().map((row, index) => {
+          const key = this.props.keyFn(row);
           const style = (index % 2 === 0)
                     ? { backgroundColor: '#FFFFFF' }
                     : { backgroundColor: '#F7F7F7' };
           
           return (
-            <tr key={row.id} style={style}>
+            <tr key={key} style={style}>
               {this.props.columns.map(column => {
                 return (
-                  <td key={row.id + column.key}>
+                  <td key={key + column.key}>
                     {this.renderBodyValue(row, column)}
                   </td>
                 );
@@ -160,4 +154,15 @@ export default React.createClass({
       </tbody>
     );
   }
-});
+}
+FlexibleRoster.propTypes = {
+  rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  initialSortIndex: React.PropTypes.number,
+  keyFn: React.PropTypes.func
+};
+FlexibleRoster.defaultProps = {
+  keyFn: row => row.id
+};
+
+export default FlexibleRoster;
