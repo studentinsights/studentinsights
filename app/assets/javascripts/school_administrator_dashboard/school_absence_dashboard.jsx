@@ -57,16 +57,16 @@ export default React.createClass({
 
   getFirstDateIndex: function(dates, start_date) {
     for (let i = 0, max = dates.length; i < max; i++) {
-      if (dates[i] >= start_date) return i;
+      if (moment.utc(dates[i]).isSameOrAfter(start_date)) return i;
     }
     return dates.length;
   },
 
   getLastDateIndex: function(dates, end_date) {
     let result = dates.length;
-    if (dates[dates.length] >= end_date) return result;
+    if (moment.utc(dates[dates.length]).isSameOrBefore(end_date)) return result;
     for (let i = dates.length; i--;) {
-      if (dates[i] <= end_date) return i+1;
+      if (moment.utc(dates[i]).isSameOrBefore(end_date)) return i+1;
     }
   },
 
@@ -74,25 +74,9 @@ export default React.createClass({
     return _.slice(dates, this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date));
   },
 
-  // studentAbsenceCount: function(absences, start_date, end_date) {
-  //   console.log(absences.map((event) => {
-  //     console.log(event);
-  //     let occurance = moment.utc(event.occurred_at).format("YYYY-MM-DD");
-  //     if (occurance >= start_date && occurance <= end_date) return event;
-  //   }));
-  //   return absences.map((event) => {
-  //     let occurance = moment.utc(event.occurred_at).format("YYYY-MM-DD");
-  //     console.log(occurance);
-  //     console.log(start_date);
-  //     console.log(end_date);
-  //     console.log(occurance >= start_date);
-  //     if (occurance >= start_date && occurance <= end_date) return event;
-  //   }).length;
-  // },
-
   studentAbsenceCount: function(absences, start_date, end_date) {
     return absences.filter((event) => {
-      return moment.utc(event.occurred_at).isBetween(start_date, end_date);
+      return moment.utc(event.occurred_at).isBetween(start_date, end_date, null, '[]');
     }).length;
   },
 
