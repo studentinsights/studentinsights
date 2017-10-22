@@ -1,3 +1,3 @@
 // This is a configuration file for Jest
-import './sprockets-shims.js';
+import '../sprocketsShims.js';
 import '../legacy.js';

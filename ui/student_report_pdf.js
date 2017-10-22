@@ -1,5 +1,5 @@
 import 'es5-shim'; // This has to be first, wkhtmltopdf uses QtWebKit
-import './config/sprockets-shims.js';
+import './sprocketsShims.js';
 import './legacy.js';
 
 $(document).ready(() => {

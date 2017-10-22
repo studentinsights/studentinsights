@@ -56,4 +56,6 @@ Rails.application.routes.draw do
       get :csv
     end
   end
+
+  get 'district/notes_heatmap' => 'district#notes_heatmap'
 end

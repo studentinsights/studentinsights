@@ -28,9 +28,12 @@
     "object-assign": "^4.1.1",
     "promise-polyfill": "^6.0.2",
     "rc-slider": "^8.3.2",
+    "query-string": "^5.0.0",
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "react-modal": "^3.0.4",
+    "react-router": "^4.2.0",
+    "react-select": "^1.0.0-rc.10",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
