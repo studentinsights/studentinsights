@@ -46,5 +46,4 @@ class SchoolAdministratorDashboardController < ApplicationController
     end
   end
 
-
 end
