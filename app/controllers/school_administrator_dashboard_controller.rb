@@ -1,7 +1,7 @@
 class SchoolAdministratorDashboardController < ApplicationController
   include StudentsQueryHelper
 
-  before_action :set_school
+  before_action :set_school, :authorize_for_school
 
   def show
     active_students = students_for_dashboard(@school)
@@ -39,5 +39,12 @@ class SchoolAdministratorDashboardController < ApplicationController
   def students_for_dashboard(school)
     school.students.active
   end
+
+  def authorize_for_school
+    unless current_educator.is_authorized_for_school(@school)
+      redirect_to(homepage_path_for_current_educator)
+    end
+  end
+
 
 end

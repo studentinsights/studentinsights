@@ -22,7 +22,7 @@ export default React.createClass({
           max={endRange}
           defaultValue={[startRange, endRange]}
           tipFormatter={(value) => moment.unix(value).format("YYYY-MM-DD")}
-          onChange={this.props.setDate}/>
+          onAfterChange={this.props.setDate}/>
       </div>
     );
   }
