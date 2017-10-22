@@ -74,10 +74,25 @@ export default React.createClass({
     return _.slice(dates, this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date));
   },
 
+  // studentAbsenceCount: function(absences, start_date, end_date) {
+  //   console.log(absences.map((event) => {
+  //     console.log(event);
+  //     let occurance = moment.utc(event.occurred_at).format("YYYY-MM-DD");
+  //     if (occurance >= start_date && occurance <= end_date) return event;
+  //   }));
+  //   return absences.map((event) => {
+  //     let occurance = moment.utc(event.occurred_at).format("YYYY-MM-DD");
+  //     console.log(occurance);
+  //     console.log(start_date);
+  //     console.log(end_date);
+  //     console.log(occurance >= start_date);
+  //     if (occurance >= start_date && occurance <= end_date) return event;
+  //   }).length;
+  // },
+
   studentAbsenceCount: function(absences, start_date, end_date) {
-    return absences.map((event) => {
-      let occurance = moment.utc(event.occurred_at).format("YYYY-MM-DD");
-      if (occurance >= start_date && occurance <= end_date) return event;
+    return absences.filter((event) => {
+      return moment.utc(event.occurred_at).isBetween(start_date, end_date);
     }).length;
   },
 
