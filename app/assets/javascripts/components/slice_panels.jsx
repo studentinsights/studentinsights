@@ -108,10 +108,10 @@ import _ from 'lodash';
         this.createItem('Advanced', Filters.Range(key, [260, 281])),
       ];
 
-      const mcasScaledScores = _.compact(_.map(this.props.students, key));
-      const meanScaledScore = _.sum(mcasScaledScores) / mcasScaledScores.length;
+      const sortedScores = _.map(this.props.students, key).sort();
+      const medianScore = sortedScores[Math.floor(sortedScores.length / 2)];
 
-      if (meanScaledScore > 280) return nullItem.concat(nextGenMCASFilters, oldMCASFilters);
+      if (medianScore > 280) return nullItem.concat(nextGenMCASFilters, oldMCASFilters);
 
       return nullItem.concat(oldMCASFilters, nextGenMCASFilters);
     },
