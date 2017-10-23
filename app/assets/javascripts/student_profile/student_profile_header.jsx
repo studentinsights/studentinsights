@@ -24,8 +24,8 @@
       padding: 5
     },
     contactItem: {
-      fontSize: 14,
-      padding: 5,
+      fontSize: 15,
+      padding: 6,
       display: 'flex'
     }
   };

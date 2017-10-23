@@ -9,9 +9,6 @@
       bottom: '25%',
       left: '33%',
       right: '33%',
-      position: 'absolute',
-      display: 'flex',
-      flexDirection: 'column',
       padding: '2%'
     }
   }
