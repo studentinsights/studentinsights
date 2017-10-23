@@ -130,6 +130,8 @@ export const studentProfile = {
     "home_language": "English",
     "school_id": 1,
     "student_address": "1 Memorial Dr, Cambridge, MA 02142",
+    "primary_phone": "999-999-9999 C-Mom",
+    "primary_email": "parent@example.com",
     "registration_date": null,
     "local_id": "000816",
     "program_assigned": "Reg Ed",
