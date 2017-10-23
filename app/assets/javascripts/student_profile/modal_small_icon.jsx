@@ -3,8 +3,6 @@
   const ReactModal = window.ReactModal;
   const styles = {
     content: {
-      maxHeight: '45%',
-      maxWidth: '34%',
       top: '10%',
       bottom: '25%',
       left: '33%',
