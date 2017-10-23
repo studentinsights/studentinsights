@@ -9,37 +9,40 @@ import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_adm
 
 // Placeholder routing (not fully client-side, just on page load).
 // Clicking links still reloads the whole page from the server.
-export default function route() {
-  const el = document.getElementById('main');
+export default function handleLegacyRoutes(el) {
   if ($('body').hasClass('students') && $('body').hasClass('show')) {
     renderStudentMain(el);
+    return true;
   }
 
   if ($('body').hasClass('schools') && $('body').hasClass('show')) {
-    renderSchoolOverviewMain(el);
-  }
-
-  if ($('body').hasClass('schools') && $('body').hasClass('overview')) {
-    renderSchoolOverviewMain(el, { json: true }); 
+    renderSchoolOverviewMain(el); 
+    return true;
   }
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
     homeroomMain(); // different HTML
+    return true;
   }
 
   if ($('body').hasClass('students') && $('body').hasClass('restricted_notes')) {
     renderRestrictedNotesMain(el);
+    return true;
   }
 
   if ($('body').hasClass('sections') && $('body').hasClass('show')) {
     renderSectionMain(el);
+    return true;
   }
 
   if ($('body').hasClass('service_uploads') && $('body').hasClass('index')) {
     renderServiceUploadsMain(el);
+    return true;
   }
 
   if ($('body').hasClass('schools') && $('body').hasClass('school_administrator_dashboard')) {
     renderSchoolAdminDashboardMain(el);
   }
+
+  return false;
 }

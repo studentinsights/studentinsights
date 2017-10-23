@@ -6,7 +6,8 @@ import readSerializedData from './util/readSerializedData.js';
 // This defines the routes that the JS app knows how to render.
 // [{key, route}]
 const miniRoutes = [
-  { key: 'notes_heatmap', route: { path: '/district/notes_heatmap', exact: true, strict: true } }
+  { key: 'notes_heatmap', route: { path: '/district/notes_heatmap', exact: true, strict: true } },
+  { key: 'restricted_notes_heatmap', route: { path: '/district/restricted_notes_heatmap', exact: true, strict: true } }
 ];
 
 
@@ -21,7 +22,8 @@ class App extends React.Component {
   }
 
   renderRoute(routeKey, branch) {
-    if (routeKey === 'notes_heatmap') return this.renderProgress(branch);
+    if (routeKey === 'notes_heatmap') return this.renderNotesHeatmap(branch);
+    if (routeKey === 'restricted_notes_heatmap') return this.renderNotesHeatmap(branch);
     return this.renderNotFound();
   }
 
@@ -30,7 +32,7 @@ class App extends React.Component {
     return null;
   }
 
-  renderProgress(branch) {
+  renderNotesHeatmap(branch) {
     const {notes} = readSerializedData();
     return <NotesHeatmapPage  heatmapNotes={notes} />;
   }
