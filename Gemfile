@@ -19,7 +19,6 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'net-sftp'
 gem 'net-ssh'
 gem 'probability'
-gem 'react-rails' # Provides React, handles swapping between dev/production builds.  See config/initializers/assets.rb
 gem 'rubocop', require: false
 gem 'memory_profiler'
 gem 'oj'

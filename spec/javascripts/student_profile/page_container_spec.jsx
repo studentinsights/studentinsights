@@ -1,11 +1,11 @@
 import {nowMoment, studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
+import ReactTestUtils from 'react-addons-test-utils';
 
 describe('PageContainer', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const PageContainer = window.shared.PageContainer;
-  const ReactTestUtils = window.ReactTestUtils;
 
   const helpers = {
     findColumns: function(el) {

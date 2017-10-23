@@ -4,13 +4,13 @@ import {
   currentEducator
 } from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
+import ReactTestUtils from 'react-addons-test-utils';
 
 
 describe('RecordService', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const RecordService = window.shared.RecordService;
-  const ReactTestUtils = window.ReactTestUtils;
 
   const helpers = {
     renderInto: function(el, props) {

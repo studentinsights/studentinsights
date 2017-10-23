@@ -5,9 +5,10 @@
     "jest": true
   },
   "globals": {
-    "moment": true,
     "$": true,
+    "moment": true,
     "React": true,
+    "ReactDOM": true,
     "d3": true
   },
   "parserOptions": {

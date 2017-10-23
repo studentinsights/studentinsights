@@ -12,23 +12,6 @@
 //
 
 //= require env
-
-// third-party (remove these from eslintrc as we go)
-//= require function-bind-polyfill
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require js.cookie
-//= require classList
-
-// provided by react-rails gem, configured in config/initializers/assets.rb
-//= require react
-
-//= require ./react-compatibility.js
-
-// react libs
-//= require react-classnames
-//= require react-input-autosize
-//= require react-select
-//= require react-modal
-

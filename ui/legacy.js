@@ -1,17 +1,7 @@
 // legacy, what's left to modulify!
 
-// vendor (remove these from eslintrc as we go)
-import moment from 'moment';
-window.moment = moment;
-import d3 from 'd3';
-window.d3 = d3;
-
-
-// shared across application:
-import '../app/assets/javascripts/datepicker_config.js';
-import '../app/assets/javascripts/session_timeout_warning.js';
-import '../app/assets/javascripts/student_searchbar.js';
-
+// vendor (remove globals)
+import './vendor';
 
 // HELPERS
 import '../app/assets/javascripts/helpers/react_helpers.jsx';
@@ -80,7 +70,6 @@ import '../app/assets/javascripts/student_profile/math_details.jsx';
 import '../app/assets/javascripts/student_profile/student_profile_page.jsx';
   // (unordered)
 import '../app/assets/javascripts/student_profile/api.jsx';
-import '../app/assets/javascripts/student_profile/main.jsx';
 import '../app/assets/javascripts/student_profile/page_container.jsx';
 import '../app/assets/javascripts/student_profile/parse_query_string.jsx';
 
@@ -93,21 +82,15 @@ import '../app/assets/javascripts/service_uploads/service_type_dropdown.jsx';
 
 
 // school overview:
-import '../app/assets/javascripts/school_overview/main.jsx';
 import '../app/assets/javascripts/school_overview/school_overview_page.jsx';
 
 
 // all the rest, unordered
 import '../app/assets/javascripts/homeroom_table/homeroom_table.jsx';
-import '../app/assets/javascripts/homeroom_table/main.jsx';
-import '../app/assets/javascripts/restricted_notes/main.jsx';
 import '../app/assets/javascripts/restricted_notes/restricted_notes_page_container.jsx';
-import '../app/assets/javascripts/section/main.jsx';
 import '../app/assets/javascripts/section/section_header.jsx';
 import '../app/assets/javascripts/section/section_page.jsx';
-import '../app/assets/javascripts/service_uploads/main.jsx';
 import '../app/assets/javascripts/service_uploads/new_service_upload.jsx';
 import '../app/assets/javascripts/service_uploads/service_upload_detail.jsx';
 import '../app/assets/javascripts/service_uploads/service_uploads_page.jsx';
-import '../app/assets/javascripts/star_math/main.jsx';
-import '../app/assets/javascripts/star_reading/main.jsx';
+

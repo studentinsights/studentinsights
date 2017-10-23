@@ -1,13 +1,13 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import moment from 'moment';
+import ReactTestUtils from 'react-addons-test-utils';
 
 
 describe('NoteCard', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const NoteCard = window.shared.NoteCard;
-  const ReactTestUtils = window.ReactTestUtils;
 
   const helpers = {
     renderInto: function(el, props) {
