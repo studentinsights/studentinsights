@@ -150,6 +150,8 @@ class FakeStudent
     [
       FakeMcasMathResultGenerator.new(student),
       FakeMcasElaResultGenerator.new(student),
+      FakeNextGenMcasMathResultGenerator.new(student),
+      FakeNextGenMcasElaResultGenerator.new(student),
       FakeDibelsResultGenerator.new(student),
       FakeAccessResultGenerator.new(student)
     ]
