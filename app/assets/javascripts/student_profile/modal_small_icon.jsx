@@ -3,8 +3,12 @@
   const ReactModal = window.ReactModal;
   const styles = {
     content: {
-      maxHeight: '55%',
-      maxWidth: '35%',
+      maxHeight: '45%',
+      maxWidth: '34%',
+      top: '10%',
+      bottom: '25%',
+      left: '33%',
+      right: '33%',
       position: 'absolute',
       display: 'flex',
       flexDirection: 'column',
@@ -14,10 +18,9 @@
 
   window.shared.ModalSmall = React.createClass({
     propTypes: {
-      title: React.PropTypes.string.isRequired, // e.g. 'What is a Note?'
+      title: React.PropTypes.string.isRequired,
       content: React.PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.
-      icon: React.PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.
-      teaserText: React.PropTypes.string // text displayed before the user clicks, e.g. 'Find out more.'
+      icon: React.PropTypes.object.isRequired, // React DOM object which will be clicked to open the modal.
     },
 
     getInitialState: function(){
