@@ -51,6 +51,7 @@
       chartData: React.PropTypes.shape({
         star_series_reading_percentile: React.PropTypes.array.isRequired,
         mcas_series_ela_scaled: React.PropTypes.array.isRequired,
+        next_gen_mcas_ela_scaled: React.PropTypes.array.isRequired,
         mcas_series_ela_growth: React.PropTypes.array.isRequired
       }).isRequired,
       student: React.PropTypes.object.isRequired
