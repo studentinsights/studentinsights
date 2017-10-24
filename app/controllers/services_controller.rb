@@ -11,7 +11,7 @@ class ServicesController < ApplicationController
   def destroy
     service_id = params[:id]
     service = Service.find(service_id)
-    service.update_attributes(discontinued_at: Time.now)
+    service.update_attributes(:discontinued_at => Time.now, :discontinued_by_educator_id => current_educator)
 
     serializer = ServiceSerializer.new(service)
 
