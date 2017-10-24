@@ -9,7 +9,7 @@
       right: '33%',
       padding: '2%'
     }
-  }
+  };
 
   window.shared.ModalSmall = React.createClass({
     propTypes: {
@@ -59,7 +59,7 @@
           style={styles}
         >
           {
-          <div className="modal">
+          <div className="contact-info-modal">
             <div
               style={{borderBottom: '1px solid #333', paddingBottom: 10, marginBottom: 20}}>
               <h1 style={{display: 'inline-block'}}>
@@ -74,15 +74,6 @@
             </div>
             <div>
               {this.props.content}
-            </div>
-            {// Fills the empty space
-            <div style={{flex: 1, minHeight: 20}}>
-              {""}
-            </div>}
-            <div>
-              <a href="#" onClick={this.closeModal} style={{cursor: 'pointer'}}>
-                (close)
-              </a>
             </div>
           </div>}
         </ReactModal>
