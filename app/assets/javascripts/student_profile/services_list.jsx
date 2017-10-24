@@ -63,7 +63,7 @@ import _ from 'lodash';
     },
 
     wasDiscontinued: function(service) {
-      return (service.discontinued_recorded_at !== null);
+      return (service.discontinued_by_educator_id !== null);
     },
 
     // Active services before inactive, then sorted by time

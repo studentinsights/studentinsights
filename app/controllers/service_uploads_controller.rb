@@ -45,7 +45,7 @@ class ServiceUploadsController < ApplicationController
 
         return unless date_ended
 
-        service.update_attributes(:discontinued_at => date_ended)
+        service.update_attributes(:discontinued_at => :date_ended, :discontinued_by_educator_id => current_educator)
 
         unless service.update_attributes(:discontinued_at => date_ended)
           errors << "Could not save service end date. (Must end after service start date.)"

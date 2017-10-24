@@ -8,6 +8,7 @@ namespace :services do
       services.each do |service|
         if service.discontinued_services.exists?
           service.discontinued_at = service.discontinued_services.first.discontinued_at
+          service.discontinued_by_educator_id = service.discontinued_services.first.recorded_by_educator_id
           service.save
           puts "saving service"
         end

@@ -108,7 +108,7 @@ class StudentsController < ApplicationController
 
     if service.save
       if estimated_end_date.present? && estimated_end_date.to_time < Time.now
-        service.update_attributes(discontinued_at: estimated_end_date.to_time)
+        service.update_attributes(:discontinued_at => estimated_end_date.to_time, :discontinued_by_educator_id => current_educator)
       end
       render json: serializer.serialize_service
     else
