@@ -242,6 +242,7 @@ import _ from 'lodash';
           </div>
         );
       }
+
       return this.renderDiscontinueButton(service);
     },
 
