@@ -4,7 +4,7 @@
   const styles = {
     content: {
       top: '10%',
-      bottom: '25%',
+      bottom: '45%',
       left: '33%',
       right: '33%',
       padding: '2%'
