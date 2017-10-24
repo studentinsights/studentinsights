@@ -6,7 +6,7 @@ const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = merge(common, {
   devtool: 'source-map',
@@ -27,7 +27,10 @@ module.exports = merge(common, {
       }
     }),
     new webpack.HashedModuleIdsPlugin(),
-    new ManifestPlugin({fileName: 'manifest.json' })
+    new ManifestPlugin({fileName: 'manifest.json' }),
+    new CompressionPlugin({
+      asset: '[path].gz[query]'
+    })
   ]
 });
 /* eslint-disable no-undef */
