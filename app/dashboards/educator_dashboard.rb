@@ -8,7 +8,7 @@ class EducatorDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    school: SchoolNameField.with_options(searchable: false),
+    school_id: SchoolNameField.with_options(searchable: false),
     homeroom: HomeroomNameField.with_options(searchable: false),
     students: Field::HasMany.with_options(searchable: false),
     interventions: Field::HasMany.with_options(searchable: false),
@@ -46,7 +46,7 @@ class EducatorDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :full_name,
-    :school,
+    :school_id,
     :homeroom,
     :schoolwide_access,
     :can_view_restricted_notes,
@@ -55,7 +55,7 @@ class EducatorDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :school,
+    :school_id,
     :homeroom,
     :email,
     :sign_in_count,
