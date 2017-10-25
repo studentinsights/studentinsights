@@ -42,28 +42,10 @@
       </div>
       <div style="float: left; width: 312px;">
         <ul>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <li><span style="font-weight:bold;"><%= format_date(service.date_started) %> -
-            <% if service.discontinued_at != nil%>
-              <%= "#{format_date(service.try(:recorded_at))}" %>
-            <% else %>
-              Present
-            <% end %>
-          </span></li>
-          <li><span style="font-style:italic;"><%= service.try(:service_type).try(:name) %></span></li>
-          <li><%= service.provided_by_educator_name %></li>
-=======
-=======
->>>>>>> 3b3ac593e089514364809e5959f3dc6d0a439fe4
           <li>Language: <%= @student.home_language %></li>
           <li>Disability: <%= @student.disability || "None"%></li>
           <li>504 plan: <%= @student.plan_504 %></li>
           <li>English Proficiency: <%= @student.limited_english_proficiency %></li>
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> 3b3ac593e089514364809e5959f3dc6d0a439fe4
         </ul>
       </div>
     </div>
