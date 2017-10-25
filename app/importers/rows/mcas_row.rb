@@ -21,7 +21,7 @@ class McasRow < Struct.new :row
     )
 
     student_assessment.assign_attributes(
-      scale_score: row[:assessment_scale_score],
+      scale_score: scale_score,
       performance_level: row[:assessment_performance_level],
       growth_percentile: row[:assessment_growth]
     )
@@ -35,6 +35,10 @@ class McasRow < Struct.new :row
     Student.find_by_local_id!(row[:local_id])
   end
 
+  def scale_score
+    (row[:assessment_scale_score]).to_i
+  end
+
   def subject
     if "English Language Arts".in?(row[:assessment_name])
       'ELA'
@@ -43,8 +47,16 @@ class McasRow < Struct.new :row
     end
   end
 
+  def family
+    if scale_score.present? && scale_score > 399
+      'Next Gen MCAS'
+    else
+      'MCAS'
+    end
+  end
+
   def assessment
-    Assessment.find_or_create_by!(subject: subject, family: 'MCAS')
+    Assessment.find_or_create_by!(subject: subject, family: family)
   end
 
 end
