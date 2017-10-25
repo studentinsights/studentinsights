@@ -23,10 +23,8 @@ import _ from 'lodash';
     secHead: {
       display: 'flex',
       justifyContent: 'space-between',
-      position: 'absolute',
-      top: 30,
-      left: 30,
-      right: 30
+      position: 'relative',
+      bottom: 10
     },
     navTop: {
       textAlign: 'right',
