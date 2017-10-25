@@ -51,6 +51,7 @@
       chartData: React.PropTypes.shape({
         star_series_math_percentile: React.PropTypes.array.isRequired,
         mcas_series_math_scaled: React.PropTypes.array.isRequired,
+        next_gen_mcas_mathematics_scaled: React.PropTypes.array.isRequired,
         mcas_series_math_growth: React.PropTypes.array.isRequired
       }).isRequired,
       student: React.PropTypes.object.isRequired
@@ -80,9 +81,40 @@
         <div className="MathDetails">
           {this.renderNavBar()}
           {this.renderStarMath()}
-          {this.renderMCASMathScore()}
+          {this.renderMCASMathScores()}
+          {this.renderMCASMathNextGenScores()}
           {this.renderMCASMathGrowth()}
         </div>
+      );
+    },
+
+    renderMCASNextGenLink() {
+      const data = this.props.chartData.next_gen_mcas_mathematics_scaled;
+
+      if (!data || data.length === 0) return null;
+
+      return (
+        <span>
+          <a style={styles.navBar} href="#MCASMathNextGen">
+            MCAS Next Gen Math Chart
+          </a>
+          {' | '}
+        </span>
+      );
+    },
+
+    renderMCASLink() {
+      const data = this.props.chartData.mcas_series_math_scaled;
+
+      if (!data || data.length === 0) return null;
+
+      return (
+        <span>
+          <a style={styles.navBar} href="#MCASMath">
+            MCAS Math Chart
+          </a>
+          {' | '}
+        </span>
       );
     },
 
@@ -93,10 +125,8 @@
             STAR Math Chart
           </a>
           {' | '}
-          <a style={styles.navBar} href="#MCASMath">
-            MCAS Math Chart
-          </a>
-          {' | '}
+          {this.renderMCASNextGenLink()}
+          {this.renderMCASLink()}
           <a style={styles.navBar} href="#MCASMathGrowth">
             MCAS Math SGPs
           </a>
@@ -138,14 +168,43 @@
       );
     },
 
-    renderMCASMathScore () {
+    renderMCASMathNextGenScores () {
+      const data = this.props.chartData.next_gen_mcas_mathematics_scaled;
+
+      if (!data || data.length === 0) return null;
+
+      return (
+        <div id="MCASMathNextGen" style={styles.container}>
+          {this.renderHeader('MCAS Next Gen Math Scores')}
+          <ProfileChart
+            quadSeries={[{
+              name: 'Scaled score',
+              data: data
+            }]}
+            titleText='"Next Generation" MCAS Math Scores'
+            student={this.props.student}
+            yAxis={merge(ProfileChartSettings.default_mcas_score_yaxis,{
+              min: 400,
+              max: 600,
+              plotLines: ProfileChartSettings.mcas_next_gen_level_bands,
+              title: { text: 'Scaled score' }
+            })} />
+        </div>
+      );
+    },
+
+    renderMCASMathScores () {
+      const data = this.props.chartData.mcas_series_math_scaled;
+
+      if (!data || data.length === 0) return null;
+
       return (
         <div id="MCASMath" style={styles.container}>
           {this.renderHeader('MCAS Math Scores, last 4 years')}
           <ProfileChart
             quadSeries={[{
               name: 'Scaled score',
-              data: this.props.chartData.mcas_series_math_scaled
+              data: data
             }]}
             titleText="MCAS Math Scores, last 4 years"
             student={this.props.student}
