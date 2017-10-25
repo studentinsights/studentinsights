@@ -25,6 +25,7 @@
     "js-cookie": "^2.1.4",
     "lodash": "3.10.1",
     "moment": "2.11.1",
+    "object-assign": "^4.1.1",
     "react": "15.4.2",
     "react-addons-test-utils": "15.4.2",
     "react-dom": "15.4.2",
