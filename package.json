@@ -27,7 +27,6 @@
     "moment": "2.11.1",
     "object-assign": "^4.1.1",
     "react": "15.4.2",
-    "react-addons-test-utils": "15.4.2",
     "react-dom": "15.4.2",
     "react-modal": "^3.0.4"
   },
@@ -42,7 +41,7 @@
     "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.2",
     "jest": "^21.2.1",
-    "lodash": "3.10.1",
+    "react-addons-test-utils": "15.4.2",
     "react-test-renderer": "^16.0.0",
     "script-loader": "^0.7.2",
     "webpack": "^3.8.1",
