@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024171844) do
+ActiveRecord::Schema.define(version: 20171025143618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,14 +64,6 @@ ActiveRecord::Schema.define(version: 20171024171844) do
     t.boolean "has_exact_time"
     t.integer "student_id"
     t.index ["student_id"], name: "index_discipline_incidents_on_student_id"
-  end
-
-  create_table "discontinued_services", id: :serial, force: :cascade do |t|
-    t.integer "service_id"
-    t.integer "recorded_by_educator_id"
-    t.datetime "discontinued_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "educator_section_assignments", force: :cascade do |t|
