@@ -28,7 +28,8 @@ class School < ActiveRecord::Base
       { state_id: 120, local_id: "WHCS", name: "Winter Hill Community", school_type: "ESMS" },
       { state_id: 410, local_id: "NW", name: "Next Wave Junior High", school_type: "MS" },
       { state_id: 505, local_id: "SHS", name: "Somerville High", school_type: "HS" },
-      { state_id: 510, local_id: "FC", name: "Full Circle High School", school_type: "HS" }
+      { state_id: 510, local_id: "FC", name: "Full Circle High School", school_type: "HS" },
+      { local_id: "CAP", name: "Capuano Early Childhood Center" }
     ])
   end
 
