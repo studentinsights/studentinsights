@@ -11,13 +11,9 @@ class ServiceSerializer < Struct.new :service
       :recorded_by_educator_id,
       :recorded_at
     ]).merge({
-      discontinued_by_educator_id: discontinued.try(:discontinued_by_educator_id),
-      discontinued_recorded_at: discontinued.try(:discontinued_at)
+      discontinued_by_educator_id: service.try(:discontinued_by_educator_id),
+      discontinued_recorded_at: service.try(:discontinued_at)
     })
-  end
-
-  def discontinued
-    @last_discontinue ||= service
   end
 
   def self.service_types_index
