@@ -1,220 +1,221 @@
-<style>
+<!DOCTYPE html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      * {
+        font-family: 'Open Sans', sans-serif !important;
+      }
 
-* {
-  font-family: 'Open Sans', sans-serif !important;
-}
+      .data-table  {border-collapse:collapse;border-spacing:0;border-color:#aaa;}
+      .data-table tr:nth-child(even) {background-color:white;vertical-align:top}
+      .data-table tr:nth-child(odd) {background-color:lightgray;vertical-align:top}
+      .data-table td{font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;word-break:normal;border-color:#aaa;color:#333;border-top-width:1px;border-bottom-width:1px;vertical-align:top;}
+      .data-table th{font-size:14px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:0px;word-break:normal;border-color:#aaa;color:#fff;background-color:#333;border-top-width:1px;border-bottom-width:1px;}
 
-.data-table  {border-collapse:collapse;border-spacing:0;border-color:#aaa;}
-.data-table tr:nth-child(even) {background-color:white;vertical-align:top}
-.data-table tr:nth-child(odd) {background-color:lightgray;vertical-align:top}
-.data-table td{font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;word-break:normal;border-color:#aaa;color:#333;border-top-width:1px;border-bottom-width:1px;vertical-align:top;}
-.data-table th{font-size:14px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:0px;word-break:normal;border-color:#aaa;color:#fff;background-color:#333;border-top-width:1px;border-bottom-width:1px;}
+      ul, li {
+        font-size: 14px;
+        margin: 0 0 0 0;
+        -webkit-padding-start: 0;
+        padding: 0px;
+        list-style-type: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="width: 768px;">
 
-ul, li {
-  font-size: 14px;
-  margin: 0 0 0 0;
-  -webkit-padding-start: 0;
-  padding: 0px;
-  list-style-type: none;
-}
+    <!-- Demographic Information -->
+    <div style="float: left; width: 512px;">
+      <div>
+        <span style="font-size:24px; font-weight:bold;"><%= "#{@student.first_name} #{@student.last_name}"%></span><br />
+        Report dates: <span><%="#{format_date(@filter_from_date)} to #{format_date(@filter_to_date)}"%></span>
+        <p />
+      </div>
+      <div style="float: left; width: 200px;">
+        <ul>
+          <li>DOB: <%= format_date(@student.date_of_birth) %></li>
+          <li><%= "Grade #{@student.grade}" %></li>
+          <li><%= @student.try(:school).try(:name) %></li>
+          <li><%= @student.try(:homeroom).try(:name) %></li>
+          <li><%= @student.program_assigned %></li>
+        </ul>
+      </div>
+      <div style="float: left; width: 312px;">
+        <ul>
+          <li>Language: <%= @student.home_language %></li>
+          <li>Disability: <%= @student.disability || "None"%></li>
+          <li>504 plan: <%= @student.plan_504 %></li>
+          <li>English Proficiency: <%= @student.limited_english_proficiency %></li>
+        </ul>
+      </div>
+    </div>
+    <!-- future photo div -->
+    <div style="float: left; width: 256px;"></div>
+    <br style="clear: left;" /><br/><br/>
 
-</style>
+
+    <!-- Notes -->
+    <% if @sections.include?("notes") %>
+    <div>
+    <% right = false %>
+    <h4>Notes:</h4>
+      <% if @event_notes.any? %>
+        <% @event_notes.each do |event_note| %>
+          <div style="float: left; width:370px; padding:5px">
+            <ul>
+              <li><span style="font-weight:bold;"><%= format_date(event_note.recorded_at) %></span></li>
+              <li><span style="font-style:italic;"><%= event_note.try(:event_note_type).try(:name) %></span></li>
+              <li><%= event_note.text %></li>
+            </ul>
+          </div>
+          <% if right %>
+            <br style="clear: left;" /><br/>
+          <% end %>
+            <% right = !right %>
+        <% end %>
+      <% else %>
+        <span style="font-style:italic;">No Notes</span>
+      <% end %>
+    </div>
+    <br style="clear: left;" /><br/>
+    <% end %>
+
+    <!-- Services -->
+    <% if @sections.include?("services") %>
+    <% right = false %>
+    <div>
+    <h4>Services:</h4>
+      <% if @services.any? %>
+        <% @services.each do |service| %>
+          <div style="float: left; width:370px; padding:5px">
+            <ul>
+              <li><span style="font-weight:bold;"><%= format_date(service.date_started) %> -
+                <% if service.discontinued_services.count > 0%>
+                  <%= "#{format_date(service.discontinued_services.last.try(:recorded_at))}" %>
+                <% else %>
+                  Present
+                <% end %>
+              </span></li>
+              <li><span style="font-style:italic;"><%= service.try(:service_type).try(:name) %></span></li>
+              <li><%= service.provided_by_educator_name %></li>
+            </ul>
+          </div>
+          <% if right %>
+            <br style="clear: left;" /><br/>
+          <% end %>
+            <% right = !right %>
+        <% end %>
+      <% else %>
+        <span style="font-style:italic;">No Services</span>
+      <% end %>
+
+    </div>
+    <br style="clear: left;" /><br/>
+    <% end %>
 
 
-<div style="width: 768px;">
-
-<!-- Demographic Information -->
-<div style="float: left; width: 512px;">
-  <div>
-    <span style="font-size:24px; font-weight:bold;"><%= "#{@student.first_name} #{@student.last_name}"%></span><br>
-    Report dates: <span><%="#{format_date(@filter_from_date)} to #{format_date(@filter_to_date)}"%></span>
+    <% if @sections.include?("attendance") %>
     <p>
-  </div>
-  <div style="float: left; width: 200px;">
-    <ul>
-      <li>DOB: <%= format_date(@student.date_of_birth) %></li>
-      <li><%= "Grade #{@student.grade}" %></li>
-      <li><%= @student.try(:school).try(:name) %></li>
-      <li><%= @student.try(:homeroom).try(:name) %></li>
-      <li><%= @student.program_assigned %></li>
-    </ul>
-  </div>
-  <div style="float: left; width: 312px;">
-    <ul>
-      <li>Language: <%= @student.home_language %></li>
-      <li>Disability: <%= @student.disability || "None"%></li>
-      <li>504 plan: <%= @student.plan_504 %></li>
-      <li>English Proficiency: <%= @student.limited_english_proficiency %></li>
-    </ul>
-  </div>
-</div>
-<!-- future photo div -->
-<div style="float: left; width: 256px;"></div>
-<br style="clear: left;" /><br/><br/>
-
-
-<!-- Notes -->
-<% if @sections.include?("notes") %>
-<div>
-<% right = false %>
-<h4>Notes:</h4>
-  <% if @event_notes.any? %>
-    <% @event_notes.each do |event_note| %>
-      <div style="float: left; width:370px; padding:5px">
-        <ul>
-          <li><span style="font-weight:bold;"><%= format_date(event_note.recorded_at) %></span></li>
-          <li><span style="font-style:italic;"><%= event_note.try(:event_note_type).try(:name) %></span></li>
-          <li><%= event_note.text %></li>
-        </ul>
-      </div>
-      <% if right %>
-        <br style="clear: left;" /><br/>
-      <% end %>
-        <% right = !right %>
+      <h4>Attendance record:</h4>
+      <table class="data-table" width="768 px">
+        <tr>
+          <th></th>
+          <th>Absences</th>
+          <th>Tardies</th>
+        </tr>
+        <% @student_school_years.each do |year| %>
+          <tr>
+            <td><%= year.name %></td>
+            <td>
+              <ul>
+              <% year.filtered_absences(@filter_from_date, @filter_to_date).each do |absence| %>
+                <li><%= format_date(absence.occurred_at) %></li>
+              <% end %>
+              </ul>
+            </td>
+            <td>
+              <ul>
+              <% year.filtered_tardies(@filter_from_date, @filter_to_date).each do |tardy| %>
+                <li><%= format_date(tardy.occurred_at) %></li>
+              <% end %>
+              </ul>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </p>
+    <p>
+      <div id="attendance-container"></div>
+    </p>
     <% end %>
-  <% else %>
-    <span style="font-style:italic;">No Notes</span>
-  <% end %>
-</div>
-<br style="clear: left;" /><br/>
-<% end %>
 
-<!-- Services -->
-<% if @sections.include?("services") %>
-<% right = false %>
-<div>
-<h4>Services:</h4>
-  <% if @services.any? %>
-    <% @services.each do |service| %>
-      <div style="float: left; width:370px; padding:5px">
-        <ul>
-          <li><span style="font-weight:bold;"><%= format_date(service.date_started) %> -
-            <% if service.discontinued_services.count > 0%>
-              <%= "#{format_date(service.discontinued_services.last.try(:recorded_at))}" %>
-            <% else %>
-              Present
-            <% end %>
-          </span></li>
-          <li><span style="font-style:italic;"><%= service.try(:service_type).try(:name) %></span></li>
-          <li><%= service.provided_by_educator_name %></li>
-        </ul>
-      </div>
-      <% if right %>
-        <br style="clear: left;" /><br/>
-      <% end %>
-        <% right = !right %>
-    <% end %>
-  <% else %>
-    <span style="font-style:italic;">No Services</span>
-  <% end %>
-
-</div>
-<br style="clear: left;" /><br/>
-<% end %>
-
-
-<% if @sections.include?("attendance") %>
-<p>
-  <h4>Attendance record:</h4>
-  <table class="data-table" width="768 px">
-    <tr>
-      <th></th>
-      <th>Absences</th>
-      <th>Tardies</th>
-    </tr>
-    <% @student_school_years.each do |year| %>
-      <tr>
-        <td><%= year.name %></td>
-        <td>
-          <ul>
-          <% year.filtered_absences(@filter_from_date, @filter_to_date).each do |absence| %>
-            <li><%= format_date(absence.occurred_at) %></li>
+    <!-- Discipline Incidents -->
+    <% if @sections.include?("discipline_incidents") %>
+    <% right = false %>
+    <div>
+    <h4>Discipline Incidents:</h4>
+      <% if @discipline_incidents.any? %>
+        <% @discipline_incidents.each do |incident| %>
+          <div style="float: left; width:370px; padding:5px">
+            <ul>
+              <li><span style="font-weight:bold;"><%= "#{format_date(incident.occurred_at)} - #{incident.incident_location} - Code: #{incident.incident_code}"%></span></li>
+              <li><span><%= incident.incident_description %></span></li>
+            </ul>
+          </div>
+          <% if right %>
+            <br style="clear: left;" /><br/>
           <% end %>
-          </ul>
-        </td>
-        <td>
-          <ul>
-          <% year.filtered_tardies(@filter_from_date, @filter_to_date).each do |tardy| %>
-            <li><%= format_date(tardy.occurred_at) %></li>
-          <% end %>
-          </ul>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-</p>
-<p>
-  <div id="attendance-container"></div>
-</p>
-<% end %>
-
-<!-- Discipline Incidents -->
-<% if @sections.include?("discipline_incidents") %>
-<% right = false %>
-<div>
-<h4>Discipline Incidents:</h4>
-  <% if @discipline_incidents.any? %>
-    <% @discipline_incidents.each do |incident| %>
-      <div style="float: left; width:370px; padding:5px">
-        <ul>
-          <li><span style="font-weight:bold;"><%= "#{format_date(incident.occurred_at)} - #{incident.incident_location} - Code: #{incident.incident_code}"%></span></li>
-          <li><span><%= incident.incident_description %></span></li>
-        </ul>
-      </div>
-      <% if right %>
-        <br style="clear: left;" /><br/>
+          <% right = !right %>
+        <% end %>
+      <% else %>
+        <span style="font-style:italic;">No Discipline Incidents</span>
       <% end %>
-      <% right = !right %>
+    </div>
+    <br style="clear: left;" /><br/>
+    <p>
+      <div id="discipline-incident-container"></div>
+    </p>
     <% end %>
-  <% else %>
-    <span style="font-style:italic;">No Discipline Incidents</span>
-  <% end %>
-</div>
-<br style="clear: left;" /><br/>
-<p>
-  <div id="discipline-incident-container"></div>
-</p>
-<% end %>
 
-<!-- Academic Assessments -->
-<% if @sections.include?("assessments") %>
-<% right = false %>
-<div>
-<h4>Academic Assesments:</h4>
-  <% if @student_assessments.any? %>
-    <% @student_assessments.each do |test_name, test_scores| %>
-      <div style="float: left; width:370px; padding:5px">
-        <ul>
-          <li><span style="font-weight:bold;"><%= test_name %></span></li>
-          <% if test_scores.any? %>
-            <% test_scores.each do |score| %>
-              <li><%= "#{format_date(score[0])} - #{score[1]}" %></li>
-            <% end %>
-          <% else %>
-            <li>No Scores</li>
+    <!-- Academic Assessments -->
+    <% if @sections.include?("assessments") %>
+    <% right = false %>
+    <div>
+    <h4>Academic Assesments:</h4>
+      <% if @student_assessments.any? %>
+        <% @student_assessments.each do |test_name, test_scores| %>
+          <div style="float: left; width:370px; padding:5px">
+            <ul>
+              <li><span style="font-weight:bold;"><%= test_name %></span></li>
+              <% if test_scores.any? %>
+                <% test_scores.each do |score| %>
+                  <li><%= "#{format_date(score[0])} - #{score[1]}" %></li>
+                <% end %>
+              <% else %>
+                <li>No Scores</li>
+              <% end %>
+            </ul>
+          </div>
+          <% if right %>
+            <br style="clear: left;" /><br/>
           <% end %>
-        </ul>
-      </div>
-      <% if right %>
-        <br style="clear: left;" /><br/>
+          <% right = !right %>
+        <% end %>
+      <% else %>
+        <span style="font-style:italic;">No Academic Assessments</span>
       <% end %>
-      <% right = !right %>
+    </div>
+    <br style="clear: left;" /><br/>
     <% end %>
-  <% else %>
-    <span style="font-style:italic;">No Academic Assessments</span>
-  <% end %>
-</div>
-<br style="clear: left;" /><br/>
-<% end %>
 
-<%= json_div(id: "serialized-data", data: @serialized_data) %>
-
-<div class="scripts">
-  <%= wicked_pdf_javascript_include_tag 'application' %>
-  <%= wicked_pdf_javascript_include_tag 'helpers/graph_helpers' %>
-  <%= wicked_pdf_javascript_include_tag 'student_profile/pdf/student_profile_pdf' %>
-  <script>
-    $(window.shared.StudentProfilePdf.load);
-  </script>
-</div>
-
+    <%= json_div(id: "serialized-data", data: @serialized_data) %>
+    <div class="scripts">
+      <%= wicked_pdf_javascript_include_tag 'application' %>
+      <%= wicked_pdf_javascript_include_tag 'helpers/graph_helpers' %>
+      <%= wicked_pdf_javascript_include_tag 'student_profile/pdf/student_profile_pdf' %>
+      <script>
+        $(window.shared.StudentProfilePdf.load);
+      </script>
+    </div>
+  </body>
+</html>
