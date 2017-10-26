@@ -39,7 +39,7 @@
 
     render: function(){
       return (
-        <div style={{display: 'inline', marginLeft: 10}}>
+        <div style={{display: 'inline', marginLeft: 10}} className='click-event-modal'>
           <a href="#" onClick={this.openModal} style={{fontSize: 12, outline: 'none'}}>
             {this.props.icon}
           </a>

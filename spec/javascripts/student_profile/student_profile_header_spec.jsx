@@ -35,7 +35,7 @@ describe('StudentProfileHeader', function() {
       expect(el).toContainText('5/23/2008');
       expect(el).toContainText('(' + yearsOld + ' years old)');
       expect($(el).find('a.homeroom-link')).toContainText('102');
-      $(el).find('.address-book-icon').click();
+      $(el).find('.click-event-modal').click();
       expect($(el).find('.modal').html()).toContainText('1 Memorial Dr, Cambridge, MA 02142');
       expect($(el).find('.modal').html()).toContainText('999-999-9999 C-Mom');
       expect($(el).find('.modal').html()).toContainText('parent@example.com');
