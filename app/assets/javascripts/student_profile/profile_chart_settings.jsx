@@ -174,6 +174,52 @@
     }
   }];
 
+  ProfileChartSettings.mcas_next_gen_level_bands = [{
+    color: '#E7EBED',
+    from: 400,
+    to: 450,
+    label: {
+      text: 'Not Meeting Expectations',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }, {
+    color: '#F6F7F8',
+    from: 450,
+    to: 500,
+    label: {
+      text: 'Partially Meeting',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }, {
+    color: '#E7EBED',
+    from: 500,
+    to: 550,
+    label: {
+      text: 'Meeting Expectations',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }, {
+    color: '#F6F7F8',
+    from: 550,
+    to: 600,
+    label: {
+      text: 'Exceeding Expectations',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }];
+
   ProfileChartSettings.default_mcas_score_yaxis = {
     allowDecimals: false,
     title: {

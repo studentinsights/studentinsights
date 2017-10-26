@@ -222,6 +222,7 @@ class StudentsController < ApplicationController
 
       result = case test.family
         when "MCAS" then student_assessment.scale_score
+        when "Next Gen MCAS" then student_assessment.scale_score
         when "STAR" then student_assessment.percentile_rank
         when "DIBELS" then student_assessment.performance_level
         else student_assessment.scale_score
