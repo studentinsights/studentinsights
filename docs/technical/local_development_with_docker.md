@@ -2,6 +2,7 @@
 
 You can run the project locally, on Windows, Linux or OS X, in Docker containers using docker-compose.
 
+## Docker background
 ### What does that mean?
 
 Docker is virtualization software (it's a way for your computer to run other computers). Using Docker, you can define a whole computer in a text file, using a special syntax. That's called a Dockerfile -- if you're curious, [here's](/Dockerfile) the one for this project.
@@ -18,6 +19,7 @@ If you haven't had that experience, you'll have to take my word for it. Download
 
 If you already have a dev environment running to your satisfaction on your machine, there's no need to switch to Docker. If you're experienced at cloning Rails projects and getting them running the old-fashioned way, you can go either way. Docker is fun, but we just want to get a dev environment running; do whatever works for you.
 
+## Docker setup
 ### Okay, how do I start using it?
 
 Before you do any of this, clone the project from github by starting up Terminal and running `git clone https://github.com/studentinsights/studentinsights.git`. This will create a folder named `studentinsights` in the current directory.
@@ -56,13 +58,14 @@ The docker daemon needs root permissions, so by default you'll have to use **sud
 
 `$ sudo usermod -aG docker yourname`
 
+## Student Insights setup
 ### Okay, now what?
 
   - Navigate to where you cloned the project (so you should be at the root of the project, in the folder named "studentinsights").
   - Run the project using **docker-compose**:
     - Rebuild all container images: `docker-compose build` (slow the first time)
     - Start bash in a temporary Rails container to create the database and seed it:
-       - Start a new Rails container from your laptop: `docker-compose run rails bash`. This will give you a new command line, something like "root@8595f0db21aa:/mnt/somerville-teacher-tool". That means you're inside the container.
+       - Start a new Rails container from your laptop: `docker-compose run studentinsights bash`. This will give you a new command line, something like "root@8595f0db21aa:/mnt/somerville-teacher-tool". That means you're inside the container.
        - Set up the database and seed it with demo data: `RAILS_ENV=development bundle exec rake db:setup db:seed`
        - Get back to your terminal (and discard the container): `exit` or Control+D.
     - Start all the services: `docker-compose up`. (This will occupy your terminal. To stop it and bring the server down, press Control+C).
@@ -71,7 +74,7 @@ The docker daemon needs root permissions, so by default you'll have to use **sud
 Okay, now make sure you can get at what you just did. Bookmark "http://docker:3000" and put VirtualBox in your Dock so you can access it later.
 
 ### Getting inside your Docker container:
-We just created a temporary rails container to access the database with, but you can also get inside a running container. Run `docker ps` to see all the running containers you have. An ID will be displayed next to the container's name. Run `docker exec -it <ID> bash` to get inside your container. From here you can run rake tasks or whatever else you need.
+We just created a temporary studentinsights container to access the database with, but you can also get inside a running container. Run `docker ps` to see all the running containers you have. An ID will be displayed next to the container's name. Run `docker exec -it <ID> bash` to get inside your container. From here you can run rake tasks or whatever else you need.
 
 (This means: run command **bash**, in **i**nteractive mode, attached to (this) **t**erminal, inside container **<ID>**.
 
@@ -79,7 +82,7 @@ We just created a temporary rails container to access the database with, but you
 You can get a **psql** shell (which lets you run SQL against the database) by running
 
 ```
-docker exec -it studentinsights_rails_1 rails dbconsole
+docker exec -it studentinsights_rails_1 studentinsights dbconsole
 ```
 
 This is executing, in the Rails container, the `dbconsole` Rails command which figures out the username, password etc. for `psql`. It will connect you to the `student_insights_development` database, which contains educators, students, etc.
@@ -102,13 +105,19 @@ This is executing, in the Rails container, the `dbconsole` Rails command which f
 ### Running RSpec tests:
 ```
   # Start a new Rails container from your laptop
-  $ docker-compose run rails bash
+  $ docker-compose run studentinsights bash
 
   # Seed the test database
   $ RAILS_ENV=test bundle exec rake db:setup
 
   # Run whatever tests you like
   $ RAILS_ENV=test bundle exec rspec
+```
+
+### Running Jest tests:
+```
+  # Start a new Rails container from your laptop
+  $ docker-compose run studentinsights yarn test
 ```
 
 ### Feedback:

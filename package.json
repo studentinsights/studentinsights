@@ -11,7 +11,7 @@
     "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts ui",
     "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
-    "start": "concurrently \"bundle exec rails s\" \"yarn run dev\"",
+    "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn run dev\"",
     "test": "jest --config jest.json --watch",
     "test-cli": "yarn run lint-cli && jest --config jest.json"
   },

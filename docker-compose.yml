@@ -1,5 +1,5 @@
 # This is based off https://docs.docker.com/compose/rails/
-rails:
+studentinsights:
   build: .
   volumes:
     - .:/mnt/somerville-teacher-tool
@@ -8,9 +8,13 @@ rails:
     DATABASE_URL: postgresql://postgres@postgres # overrides hostname and username
   ports:
     - "3000:3000"
+    - "4000:4000"
   links:
     - postgres
-  command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  # This runs two separate processes concurrently, dying when either dies.
+  # This is how we run things locally, so just replicating within the container
+  # so our configuration is the same, rather than splitting separate containers.
+  command: yarn start 
 
 postgres:
   image: postgres
@@ -18,10 +22,3 @@ postgres:
     - "5432:5432"
   volumes:
     - /var/lib/postgresql/data
-
-tools:
-  image: node:6.4.0
-  volumes:
-    - .:/mnt/somerville-teacher-tool
-  working_dir: /mnt/somerville-teacher-tool/scripts/tools
-  command: npm run lint-quiet
