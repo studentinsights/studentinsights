@@ -11,6 +11,9 @@ query ($schoolId: Int) {
       hispanicLatino
       race
       freeReducedLunch
+      disciplineIncidentsCount
+      absencesCount
+      tardiesCount
       spedLevelOfNeed
       freeReducedLunch
       eventNotesCount
