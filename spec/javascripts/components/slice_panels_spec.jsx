@@ -71,7 +71,8 @@ describe('SlicePanels', function() {
         el,
         {
           school: {
-            school_type: 'HS'
+            school_type: 'HS',
+            local_id: 'SHS',
           }
         }
       );
