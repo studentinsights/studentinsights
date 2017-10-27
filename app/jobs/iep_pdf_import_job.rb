@@ -3,7 +3,16 @@ require 'tempfile'
 require 'fileutils'
 
 class IepPdfImportJob
+
+  REQUIRED_KEYS = [
+    'AWS_ACCESS_KEY_ID',
+    'AWS_SECRET_ACCESS_KEY',
+    'AWS_S3_IEP_BUCKET',
+  ]
+
   def initialize(options = {})
+    raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
+
     @time_now = options[:time_now] || Time.now
   end
 
