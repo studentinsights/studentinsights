@@ -14,9 +14,11 @@ RSpec.describe StudentProfileChart do
     let(:student) { FactoryGirl.create(:student) }
     it 'has the expected keys' do
       chart_data = StudentProfileChart.new(student).chart_data
-      expect(chart_data.keys).to eq([
+      expect(chart_data.keys).to match_array([
         :star_series_math_percentile,
         :star_series_reading_percentile,
+        :next_gen_mcas_mathematics_scaled,
+        :next_gen_mcas_ela_scaled,
         :mcas_series_math_scaled,
         :mcas_series_ela_scaled,
         :mcas_series_math_growth,

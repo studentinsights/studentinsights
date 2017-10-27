@@ -23,13 +23,12 @@ describe('StudentProfileHeader', function() {
 
   };
 
-  SpecSugar.withTestEl('active enrolled student', function() {
+  SpecSugar.withTestEl('active enrolled student', function(container) {
     it('renders note-taking area with homeroom', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderActiveStudent(el);
       const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
-                                                                                           // so we don't have to calculate this
-
+                                                                                     // so we don't have to calculate this
       expect(el).toContainText('Daisy Poppins');
       expect(el).toContainText('Arthur D Healey');
       expect(el).toContainText('5/23/2008');
@@ -42,14 +41,14 @@ describe('StudentProfileHeader', function() {
     });
   });
 
-  SpecSugar.withTestEl('non-active Transferred student', function() {
+  SpecSugar.withTestEl('non-active Transferred student', function(container) {
     it('renders note-taking area with Transferred status', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderTransferredStudent(el);
 
-      expect(el).toContainText('Daisy Poppins');
-      expect(el).toContainText('Arthur D Healey');
-      expect(el).toContainText('Transferred');
+      expect(el.innerHTML).toContain('Daisy Poppins');
+      expect(el.innerHTML).toContain('Arthur D Healey');
+      expect(el.innerHTML).toContain('Transferred');
     });
   });
 

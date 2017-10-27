@@ -1,3 +1,5 @@
+import Highcharts from 'highcharts';
+
 (function(root) {
 
   const ProfileChartSettings = {};
@@ -77,9 +79,9 @@
     },
     tooltip: {
       formatter: function () {
-        var date = Highcharts.dateFormat('%A, %b %e, %Y', new Date(this.x));
-        var percentileRank = this.y;
-        var gradeLevelEquivalent = this.points[0].point.gradeLevelEquivalent;
+        const date = Highcharts.dateFormat('%A, %b %e, %Y', new Date(this.x));
+        const percentileRank = this.y;
+        const gradeLevelEquivalent = this.points[0].point.gradeLevelEquivalent;
 
         if ( gradeLevelEquivalent === undefined ) {
           return date + '<br>Percentile Rank:<b> ' + percentileRank;
@@ -167,6 +169,52 @@
     to: 280,
     label: {
       text: 'Advanced',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }];
+
+  ProfileChartSettings.mcas_next_gen_level_bands = [{
+    color: '#E7EBED',
+    from: 400,
+    to: 450,
+    label: {
+      text: 'Not Meeting Expectations',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }, {
+    color: '#F6F7F8',
+    from: 450,
+    to: 500,
+    label: {
+      text: 'Partially Meeting',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }, {
+    color: '#E7EBED',
+    from: 500,
+    to: 550,
+    label: {
+      text: 'Meeting Expectations',
+      align: 'left',
+      style: {
+        color: '#999999'
+      }
+    }
+  }, {
+    color: '#F6F7F8',
+    from: 550,
+    to: 600,
+    label: {
+      text: 'Exceeding Expectations',
       align: 'left',
       style: {
         color: '#999999'

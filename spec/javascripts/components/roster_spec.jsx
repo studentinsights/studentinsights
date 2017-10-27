@@ -25,9 +25,9 @@ describe('Roster', function() {
     initialSortIndex: 0
   };
 
-  SpecSugar.withTestEl('high-level integration test', function() {
+  SpecSugar.withTestEl('high-level integration test', function(container) {
     it('renders the correct headers', function() {
-      const el = this.testEl;
+      const el = container.testEl;
 
       helpers.renderInto(el, props);
       const headers = $(el).find('#roster-header th');
@@ -37,7 +37,7 @@ describe('Roster', function() {
     });
 
     it('renders the correct data', function() {
-      const el = this.testEl;
+      const el = container.testEl;
 
       helpers.renderInto(el, props);
       const dataElements = $(el).find('#roster-data tr');

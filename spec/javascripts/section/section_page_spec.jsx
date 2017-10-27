@@ -28,9 +28,9 @@ describe('SectionPage', function() {
     currentEducator: { districtwide_access: false }
   };
 
-  SpecSugar.withTestEl('', function() {
+  SpecSugar.withTestEl('', function(container) {
     it('renders the correct section select', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, props);
 
       const sectionSelect = $(el).find('#section-select option');
@@ -45,7 +45,7 @@ describe('SectionPage', function() {
     });
 
     it('renders the correct section header', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, props);
 
       const headerInfo = $(el).find('#section-header-info');
@@ -59,7 +59,7 @@ describe('SectionPage', function() {
     });
 
     it('renders the correct roster headers', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, props);
       
       const headers = $(el).find('#roster-header th');
@@ -69,7 +69,7 @@ describe('SectionPage', function() {
     });
 
     it('renders the correct roster data', function() {
-      const el = this.testEl;
+      const el = container.testEl;
 
       helpers.renderInto(el, props);
       const dataElements = $(el).find('#roster-data tr');

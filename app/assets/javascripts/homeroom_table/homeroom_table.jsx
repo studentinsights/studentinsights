@@ -1,7 +1,8 @@
+import React from 'react';
 import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
+import Cookies from 'js-cookie';
 
-const Cookies = window.Cookies;
 
 export default React.createClass({
   displayName: 'HomeroomTable',

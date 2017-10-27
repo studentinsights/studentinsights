@@ -11,7 +11,6 @@ AllCops:
     - 'sketch/**/*'
     - 'vendor/**/*'
     - 'x2_export/**/*'
-    - spec/teaspoon_env.rb
 
 Layout/TrailingWhitespace:
   Enabled: true
@@ -59,4 +58,7 @@ Lint/Loop:
   Enabled: true
 
 Lint/UnreachableCode:
+  Enabled: true
+
+Style/CaseEquality:
   Enabled: true

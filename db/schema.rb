@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002212324) do
+ActiveRecord::Schema.define(version: 20171020155409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,18 +21,6 @@ ActiveRecord::Schema.define(version: 20171002212324) do
     t.datetime "updated_at", null: false
     t.integer "student_id"
     t.index ["student_id"], name: "index_absences_on_student_id"
-  end
-
-  create_table "assessment_families", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "assessment_subjects", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "assessments", id: :serial, force: :cascade do |t|
@@ -351,6 +339,8 @@ ActiveRecord::Schema.define(version: 20171002212324) do
     t.string "gender"
     t.string "primary_phone"
     t.string "primary_email"
+    t.text "house"
+    t.text "counselor"
     t.index ["homeroom_id"], name: "index_students_on_homeroom_id"
     t.index ["local_id"], name: "index_students_on_local_id"
     t.index ["school_id"], name: "index_students_on_school_id"

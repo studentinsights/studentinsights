@@ -1,5 +1,6 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
+import createSpyObj from '../support/createSpyObj.js';
 
 
 describe('RestrictedNotesPageContainer', function() {
@@ -17,8 +18,8 @@ describe('RestrictedNotesPageContainer', function() {
     },
 
     createMockApi: function(){
-      const mockApi = jasmine.createSpyObj('api', ['saveNotes']);
-      mockApi.saveNotes.and.returnValue(
+      const mockApi = createSpyObj('api', ['saveNotes']);
+      mockApi.saveNotes.mockImplementation(() =>
         $.Deferred().resolve({
           id: 9999,
           text: 'hi',
@@ -41,9 +42,9 @@ describe('RestrictedNotesPageContainer', function() {
     },
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('high-level integration tests', function(container) {
     it('saves notes as restricted', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       const mockApi = helpers.createMockApi();
       helpers.renderInto(el, {api: mockApi});
 

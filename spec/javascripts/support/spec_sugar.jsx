@@ -1,17 +1,20 @@
 /* Sugar for common test setup and interactions */  
+import ReactTestUtils from 'react-addons-test-utils';
+
 export default {
   withTestEl: function(description, testsFn) {
+    const container = {};
     return describe(description, function() {
       beforeEach(function() {
-        this.testEl = $('<div id="test-el" />').get(0);
-        $('body').append(this.testEl);
+        container.testEl = $('<div id="test-el" />').get(0);
+        $('body').append(container.testEl);
       });
 
       afterEach(function() {
-        $(this.testEl).remove();
+        $(container.testEl).remove();
       });
 
-      testsFn.call(this);
+      testsFn.call(null, container);
     });
   },
 
@@ -19,15 +22,15 @@ export default {
   // change event.
   changeTextValue: function($el, value) {
     $el.val(value);
-    React.addons.TestUtils.Simulate.change($el.get(0));
+    ReactTestUtils.Simulate.change($el.get(0));
     return undefined;
   },
 
   // Simulates opening the react-select dropdown and clicking the item
   // with `optionText`.
   changeReactSelect: function($selectEl, optionText) {
-    React.addons.TestUtils.Simulate.mouseDown($selectEl.find('.Select-arrow-zone').get(0));
-    React.addons.TestUtils.Simulate.focus($selectEl.find('input:last').get(0));
+    ReactTestUtils.Simulate.mouseDown($selectEl.find('.Select-arrow-zone').get(0));
+    ReactTestUtils.Simulate.focus($selectEl.find('input:last').get(0));
     $selectEl.find('.Select-option:contains(' + optionText + ')').click();
     return undefined;
   },
@@ -35,8 +38,8 @@ export default {
   // For mocking history API
   history: function() {
     return {
-      replaceState: jasmine.createSpy('replaceState'),
-      pushState: jasmine.createSpy('pushState')
+      replaceState: jest.fn(),
+      pushState: jest.fn()
     };
   }
 };

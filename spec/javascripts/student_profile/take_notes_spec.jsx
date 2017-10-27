@@ -16,21 +16,21 @@ describe('TakeNotes', function() {
         nowMoment: nowMoment,
         eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
         currentEducator: currentEducator,
-        onSave: jasmine.createSpy('onSave'),
-        onCancel: jasmine.createSpy('onCancel'),
+        onSave: jest.fn(),
+        onCancel: jest.fn(),
         requestState: null
       });
       window.ReactDOM.render(<TakeNotes {...mergedProps} />, el);
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('high-level integration tests', function(container) {
     it('renders note-taking area', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
 
-      expect(el).toContainText('February 11, 2016');
-      expect(el).toContainText('demo@example.com');
+      expect(el.innerHTML).toContain('February 11, 2016');
+      expect(el.innerHTML).toContain('demo@example.com');
       expect($(el).find('textarea').length).toEqual(1);
       expect($(el).find('.btn.note-type').length).toEqual(6);
       expect($(el).find('.btn.save').length).toEqual(1);
