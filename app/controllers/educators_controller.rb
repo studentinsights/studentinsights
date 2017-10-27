@@ -3,6 +3,29 @@ class EducatorsController < ApplicationController
 
   before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage] # Extra authentication layer
 
+
+
+
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+# danger
+  def me
+    render json: Educator.first
+  end
+
+  def students
+    render json: { students: Student.all.first(3) }
+  end
+
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+# danger# danger# danger# danger# danger# danger# danger# danger# danger
+
   def homepage
     redirect_to homepage_path_for_role(current_educator)
   end

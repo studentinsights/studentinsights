@@ -1,0 +1,114 @@
+# see http://facebook.github.io/relay/graphql/objectidentification.htm
+# and http://facebook.github.io/relay/graphql/connections.htm
+
+
+# An object with a globally unique `ID`.
+# interface Node {
+#  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+#  nodeId: ID!
+# }
+
+
+scalar Datetime
+
+type Query {
+  me: Educator
+}
+
+type Educator {
+  nodeId: ID!
+  id: Int!
+  email: String!
+  encryptedPassword: String!
+  resetPasswordToken: String
+  resetPasswordSentAt: Datetime
+  rememberCreatedAt: Datetime
+  signInCount: Int!
+  currentSignInAt: Datetime
+  lastSignInAt: Datetime
+  currentSignInIp: String
+  lastSignInIp: String
+  createdAt: Datetime
+  updatedAt: Datetime
+  admin: Boolean
+  phone: String
+  fullName: String
+  stateId: String
+  localId: String
+  staffType: String
+  schoolId: Int
+  schoolwideAccess: Boolean!
+  gradeLevelAccess: [String]
+  restrictedToSpedStudents: Boolean!
+  restrictedToEnglishLanguageLearners: Boolean!
+  canViewRestrictedNotes: Boolean!
+  districtwideAccess: Boolean!
+  canSetDistrictwideAccess: Boolean!
+  studentSearchbarJson: String
+  favoriteStudent: Student
+  students: StudentsConnection
+}
+
+type StudentsConnection {
+  pageInfo: PageInfo!
+  totalCount: Int
+  edges: [StudentsEdge]
+  nodes: [Student!]
+}
+
+type StudentsEdge {
+  cursor: Cursor
+  node: Student!
+}
+
+type Student {
+  id: Int!
+  grade: String
+  hispanicLatino: Boolean
+  race: String
+  freeReducedLunch: String
+  createdAt: Datetime
+  updatedAt: Datetime
+  homeroomId: Int
+  firstName: String
+  lastName: String
+  stateId: String
+  homeLanguage: String
+  schoolId: Int
+  studentAddress: String
+  registrationDate: Datetime
+  localId: String
+  programAssigned: String
+  spedPlacement: String
+  disability: String
+  spedLevelOfNeed: String
+  plan504: String
+  limitedEnglishProficiency: String
+  mostRecentMcasMathGrowth: Int
+  mostRecentMcasElaGrowth: Int
+  mostRecentMcasMathPerformance: String
+  mostRecentMcasElaPerformance: String
+  mostRecentMcasMathScaled: Int
+  mostRecentMcasElaScaled: Int
+  mostRecentStarReadingPercentile: Int
+  mostRecentStarMathPercentile: Int
+  enrollmentStatus: String
+  dateOfBirth: Datetime
+  riskLevel: Int
+  gender: String
+  primaryPhone: String
+  primaryEmail: String
+  house: String
+  counselor: String
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: Cursor
+  endCursor: Cursor
+}
+
+type Cursor {
+  value: Int
+}

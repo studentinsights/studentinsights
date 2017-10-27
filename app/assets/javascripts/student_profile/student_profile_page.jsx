@@ -149,6 +149,26 @@ import _ from 'lodash';
       actions: PropTypes.actions
     },
 
+    componentDidMount() {
+      fetch('http://localhost:3000/me', {});
+
+
+      const query = `{
+        me {
+          fullName,
+          schoolId
+        }
+      }`;
+      fetch('http://localhost:5000/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({query})
+      });
+    },
+
     dateRange: function() {
       const nowMoment = this.props.nowMomentFn();
       return [nowMoment.clone().subtract(2, 'year').toDate(), nowMoment.toDate()];

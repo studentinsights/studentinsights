@@ -11,9 +11,10 @@
     "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts ui",
     "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
-    "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn run dev\"",
+    "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn run dev\" \"yarn run graphql\"",
     "test": "jest --config jest.json --watch",
-    "test-cli": "yarn run lint-cli && jest --config jest.json"
+    "test-cli": "yarn run lint-cli && jest --config jest.json",
+    "graphql": "cd graphql && yarn start"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -42,6 +43,7 @@
     "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.2",
     "jest": "^21.2.1",
+    "postgraphql": "^3.5.0",
     "react-addons-test-utils": "15.4.2",
     "react-test-renderer": "^16.0.0",
     "script-loader": "^0.7.2",

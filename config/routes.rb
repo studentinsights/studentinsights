@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
+  get '/me'=> 'educators#me'
+  get '/me/students'=> 'educators#students'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'

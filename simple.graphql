@@ -1,0 +1,205 @@
+type Educator implements Node {
+  nodeId: ID!
+  id: Int!
+  email: String!
+  encryptedPassword: String!
+  resetPasswordToken: String
+  resetPasswordSentAt: Datetime
+  rememberCreatedAt: Datetime
+  signInCount: Int!
+  currentSignInAt: Datetime
+  lastSignInAt: Datetime
+  currentSignInIp: String
+  lastSignInIp: String
+  createdAt: Datetime
+  updatedAt: Datetime
+  admin: Boolean
+  phone: String
+  fullName: String
+  stateId: String
+  localId: String
+  staffType: String
+  schoolId: Int
+  schoolwideAccess: Boolean!
+  gradeLevelAccess: [String]
+  restrictedToSpedStudents: Boolean!
+  restrictedToEnglishLanguageLearners: Boolean!
+  canViewRestrictedNotes: Boolean!
+  districtwideAccess: Boolean!
+  canSetDistrictwideAccess: Boolean!
+  studentSearchbarJson: String
+
+# A condition to be used against `Educator` object types. All fields are tested
+# for equality and combined with a logical ‘and.’
+input EducatorCondition {
+  # Checks for equality with the object’s `id` field.
+  id: Int
+
+  # Checks for equality with the object’s `email` field.
+  email: String
+
+  # Checks for equality with the object’s `encryptedPassword` field.
+  encryptedPassword: String
+
+  # Checks for equality with the object’s `resetPasswordToken` field.
+  resetPasswordToken: String
+
+  # Checks for equality with the object’s `resetPasswordSentAt` field.
+  resetPasswordSentAt: Datetime
+
+  # Checks for equality with the object’s `rememberCreatedAt` field.
+  rememberCreatedAt: Datetime
+
+  # Checks for equality with the object’s `signInCount` field.
+  signInCount: Int
+
+  # Checks for equality with the object’s `currentSignInAt` field.
+  currentSignInAt: Datetime
+
+  # Checks for equality with the object’s `lastSignInAt` field.
+  lastSignInAt: Datetime
+
+  # Checks for equality with the object’s `currentSignInIp` field.
+  currentSignInIp: String
+
+  # Checks for equality with the object’s `lastSignInIp` field.
+  lastSignInIp: String
+
+  # Checks for equality with the object’s `createdAt` field.
+  createdAt: Datetime
+
+  # Checks for equality with the object’s `updatedAt` field.
+  updatedAt: Datetime
+
+  # Checks for equality with the object’s `admin` field.
+  admin: Boolean
+
+  # Checks for equality with the object’s `phone` field.
+  phone: String
+
+  # Checks for equality with the object’s `fullName` field.
+  fullName: String
+
+  # Checks for equality with the object’s `stateId` field.
+  stateId: String
+
+  # Checks for equality with the object’s `localId` field.
+  localId: String
+
+  # Checks for equality with the object’s `staffType` field.
+  staffType: String
+
+  # Checks for equality with the object’s `schoolId` field.
+  schoolId: Int
+
+  # Checks for equality with the object’s `schoolwideAccess` field.
+  schoolwideAccess: Boolean
+
+  # Checks for equality with the object’s `gradeLevelAccess` field.
+  gradeLevelAccess: [String]
+
+  # Checks for equality with the object’s `restrictedToSpedStudents` field.
+  restrictedToSpedStudents: Boolean
+
+  # Checks for equality with the object’s `restrictedToEnglishLanguageLearners` field.
+  restrictedToEnglishLanguageLearners: Boolean
+
+  # Checks for equality with the object’s `canViewRestrictedNotes` field.
+  canViewRestrictedNotes: Boolean
+
+  # Checks for equality with the object’s `districtwideAccess` field.
+  districtwideAccess: Boolean
+
+  # Checks for equality with the object’s `canSetDistrictwideAccess` field.
+  canSetDistrictwideAccess: Boolean
+
+  # Checks for equality with the object’s `studentSearchbarJson` field.
+  studentSearchbarJson: String
+}
+
+# A connection to a list of `Educator` values.
+type EducatorsConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # The count of *all* `Educator` you could get from the connection.
+  totalCount: Int
+
+  # A list of edges which contains the `Educator` and cursor to aid in pagination.
+  edges: [EducatorsEdge]
+
+  # A list of `Educator` objects.
+  nodes: [Educator!]
+}
+
+# A `Educator` edge in the connection.
+type EducatorsEdge {
+  # A cursor for use in pagination.
+  cursor: Cursor
+
+  # The `Educator` at the end of the edge.
+  node: Educator!
+}
+
+# Methods to use when ordering `Educator`.
+enum EducatorsOrderBy {
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  NATURAL
+  ID_ASC
+  ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  ENCRYPTED_PASSWORD_ASC
+  ENCRYPTED_PASSWORD_DESC
+  RESET_PASSWORD_TOKEN_ASC
+  RESET_PASSWORD_TOKEN_DESC
+  RESET_PASSWORD_SENT_AT_ASC
+  RESET_PASSWORD_SENT_AT_DESC
+  REMEMBER_CREATED_AT_ASC
+  REMEMBER_CREATED_AT_DESC
+  SIGN_IN_COUNT_ASC
+  SIGN_IN_COUNT_DESC
+  CURRENT_SIGN_IN_AT_ASC
+  CURRENT_SIGN_IN_AT_DESC
+  LAST_SIGN_IN_AT_ASC
+  LAST_SIGN_IN_AT_DESC
+  CURRENT_SIGN_IN_IP_ASC
+  CURRENT_SIGN_IN_IP_DESC
+  LAST_SIGN_IN_IP_ASC
+  LAST_SIGN_IN_IP_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  ADMIN_ASC
+  ADMIN_DESC
+  PHONE_ASC
+  PHONE_DESC
+  FULL_NAME_ASC
+  FULL_NAME_DESC
+  STATE_ID_ASC
+  STATE_ID_DESC
+  LOCAL_ID_ASC
+  LOCAL_ID_DESC
+  STAFF_TYPE_ASC
+  STAFF_TYPE_DESC
+  SCHOOL_ID_ASC
+  SCHOOL_ID_DESC
+  SCHOOLWIDE_ACCESS_ASC
+  SCHOOLWIDE_ACCESS_DESC
+  GRADE_LEVEL_ACCESS_ASC
+  GRADE_LEVEL_ACCESS_DESC
+  RESTRICTED_TO_SPED_STUDENTS_ASC
+  RESTRICTED_TO_SPED_STUDENTS_DESC
+  RESTRICTED_TO_ENGLISH_LANGUAGE_LEARNERS_ASC
+  RESTRICTED_TO_ENGLISH_LANGUAGE_LEARNERS_DESC
+  CAN_VIEW_RESTRICTED_NOTES_ASC
+  CAN_VIEW_RESTRICTED_NOTES_DESC
+  DISTRICTWIDE_ACCESS_ASC
+  DISTRICTWIDE_ACCESS_DESC
+  CAN_SET_DISTRICTWIDE_ACCESS_ASC
+  CAN_SET_DISTRICTWIDE_ACCESS_DESC
+  STUDENT_SEARCHBAR_JSON_ASC
+  STUDENT_SEARCHBAR_JSON_DESC
+}
