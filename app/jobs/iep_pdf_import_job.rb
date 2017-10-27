@@ -125,12 +125,13 @@ class IepPdfImportJob
     def clean_up
       FileUtils.rm_rf(Rails.root.join('tmp/data_download/unzipped_ieps'))
       FileUtils.rm_rf([
-        Rails.root.join('tmp/data_download/student-documents-6.zip'),
-        Rails.root.join('tmp/data_download/student-documents-5.zip'),
-        Rails.root.join('tmp/data_download/student-documents-4.zip'),
-        Rails.root.join('tmp/data_download/student-documents-3.zip'),
-        Rails.root.join('tmp/data_download/student-documents-2.zip'),
-        Rails.root.join('tmp/data_download/student-documents-1.zip'),
+        Rails.root.join("tmp/data_download/#{ENV['BULK_IEP_IMPORT_TARGET']}"),
+        Rails.root.join("tmp/data_download/student-documents-6.zip"),
+        Rails.root.join("tmp/data_download/student-documents-5.zip"),
+        Rails.root.join("tmp/data_download/student-documents-4.zip"),
+        Rails.root.join("tmp/data_download/student-documents-3.zip"),
+        Rails.root.join("tmp/data_download/student-documents-2.zip"),
+        Rails.root.join("tmp/data_download/student-documents-1.zip"),
       ])
     end
 
