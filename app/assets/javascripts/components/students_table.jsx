@@ -101,8 +101,6 @@ export default React.createClass({
   },
 
   render () {
-    const isHighSchool = 'HS'===this.props.school.school_type;
-
     return (
       <div className='StudentsTable'>
         <table className='students-table' style={{ width: '100%' }}>
