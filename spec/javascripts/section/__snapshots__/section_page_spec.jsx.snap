@@ -1,0 +1,340 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SectionPage renders correctly 1`] = `
+<div
+  className="section"
+>
+  <div
+    className="header"
+  >
+    <div
+      className="SectionHeader"
+    >
+      <div
+        id="section-header-info"
+      >
+        <h1>
+          Art-1
+        </h1>
+        <p
+          id="course-info"
+        >
+          Awesome Art Class
+           
+          (Art)
+        </p>
+        <p
+          id="section-detail"
+        >
+          Room 
+          304
+           
+          <span>
+            •
+          </span>
+           Schedule: 
+          3(M-R)
+           
+          <span>
+            •
+          </span>
+           Term: 
+          9
+        </p>
+      </div>
+      <div>
+        <p>
+          Section: 
+          <span>
+            <select
+              id="section-select"
+              onChange={[Function]}
+              value={1}
+            >
+              <option
+                value={1}
+              >
+                Art-1
+              </option>
+              <option
+                value={2}
+              >
+                Art-2
+              </option>
+              <option
+                value={3}
+              >
+                Art-3
+              </option>
+            </select>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
+    className="roster"
+  >
+    <div
+      className="FlexibleRoster"
+    >
+      <table
+        className="roster-table"
+        id="roster-table"
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+      >
+        <thead>
+          <tr
+            className="column-groups"
+          >
+            <th
+              className=""
+              colSpan={2}
+            />
+            <th
+              className="column-group"
+              colSpan={2}
+            >
+              SPED & Disability
+            </th>
+            <th
+              className="column-group"
+              colSpan={2}
+            >
+              Language
+            </th>
+            <th
+              className=""
+              colSpan={4}
+            />
+            <th
+              className="column-group"
+              colSpan={1}
+            >
+              STAR: Math
+            </th>
+            <th
+              className="column-group"
+              colSpan={1}
+            >
+              STAR: Reading
+            </th>
+            <th
+              className="column-group"
+              colSpan={2}
+            >
+              MCAS: Math
+            </th>
+            <th
+              className="column-group"
+              colSpan={2}
+            >
+              MCAS: ELA
+            </th>
+          </tr>
+          <tr
+            id="roster-header"
+          >
+            <th
+              className="sort-header sort-down"
+              onClick={[Function]}
+            >
+              Name
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Program Assigned
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Disability
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              504 Plan
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Fluency
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Home Language
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Grade
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Absences
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Tardies
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Discipline Incidents
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Percentile
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Percentile
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Performance
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Score
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Performance
+            </th>
+            <th
+              className="sort-header"
+              onClick={[Function]}
+            >
+              Score
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          id="roster-data"
+        >
+          <tr
+            style={
+              Object {
+                "backgroundColor": "#FFFFFF",
+              }
+            }
+          >
+            <td>
+              <a
+                href="/students/2"
+              >
+                Duck, Donald
+              </a>
+            </td>
+            <td>
+              Special Ed
+            </td>
+            <td>
+              Motor
+            </td>
+            <td>
+              504 Plan
+            </td>
+            <td>
+              ELL
+            </td>
+            <td>
+              English
+            </td>
+            <td />
+            <td>
+              1
+            </td>
+            <td>
+              0
+            </td>
+            <td>
+              0
+            </td>
+            <td />
+            <td />
+            <td />
+            <td />
+            <td />
+            <td />
+          </tr>
+          <tr
+            style={
+              Object {
+                "backgroundColor": "#F7F7F7",
+              }
+            }
+          >
+            <td>
+              <a
+                href="/students/1"
+              >
+                Mouse, Minnie
+              </a>
+            </td>
+            <td>
+              Regular Ed
+            </td>
+            <td>
+              
+            </td>
+            <td>
+              
+            </td>
+            <td>
+              FLEP
+            </td>
+            <td>
+              Spanish
+            </td>
+            <td />
+            <td>
+              3
+            </td>
+            <td>
+              5
+            </td>
+            <td>
+              0
+            </td>
+            <td />
+            <td />
+            <td />
+            <td />
+            <td />
+            <td />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;

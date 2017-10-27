@@ -1,4 +1,5 @@
 import SpecSugar from '../support/spec_sugar.jsx';
+import renderer from 'react-test-renderer';
 
 describe('SectionPage', function() {
   const ReactDOM = window.ReactDOM;
@@ -79,5 +80,29 @@ describe('SectionPage', function() {
       const firstDataRows = dataElements.eq(0).find('td');
       expect(firstDataRows[0].innerHTML).toEqual('<a href="/students/2">Duck, Donald</a>');
     });
+  });
+
+  it('renders correctly', () => {
+    const props = {
+      students: [
+        { id: 1, first_name: 'Minnie', last_name: 'Mouse', program_assigned: 'Regular Ed', disability:'', plan_504: '', limited_english_proficiency: 'FLEP', home_language: 'Spanish', free_reduced_lunch: 'Free Lunch', most_recent_school_year_absences_count: 3, most_recent_school_year_tardies_count: 5, most_recent_school_year_discipline_incidents_count: 0},
+        { id: 2, first_name: 'Donald', last_name: 'Duck', program_assigned: 'Special Ed', disability:'Motor', plan_504: '504 Plan', limited_english_proficiency: 'ELL', home_language: 'English', free_reduced_lunch: 'Reduced Lunch', most_recent_school_year_absences_count: 1, most_recent_school_year_tardies_count: 0, most_recent_school_year_discipline_incidents_count: 0},
+      ],
+      educators: [
+        { }
+      ],
+      sections: [
+        { id: 1, section_number: 'Art-1'},
+        { id: 2, section_number: 'Art-2'},
+        { id: 3, section_number: 'Art-3'}
+      ],
+      section: { id: 1, section_number: 'Art-1', course_number: 'Art', course_description: 'Awesome Art Class', term_local_id: '9', schedule: '3(M-R)', room_number: '304' },
+      currentEducator: { districtwide_access: false }
+    };
+    
+    const tree = renderer.create(
+      <SectionPage {...props} />
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });
