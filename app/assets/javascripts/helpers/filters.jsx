@@ -75,9 +75,9 @@ import _ from 'lodash';
       return {
         identifier: ['event_note_type', eventNoteTypeId].join(':'),
         filterFn: function(student) {
-          if (eventNoteTypeId === null) return (student.event_notes.length === 0);
-          return student.event_notes.filter(function(eventNote) {
-            return (eventNote.event_note_type_id === eventNoteTypeId);
+          if (eventNoteTypeId === null) return (student.eventNotes.length === 0);
+          return student.eventNotes.filter(function(eventNote) {
+            return (eventNote.eventNoteTypeId === eventNoteTypeId);
           }).length > 0;
         },
         key: 'event_note_type'

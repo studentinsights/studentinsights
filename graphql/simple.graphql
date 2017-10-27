@@ -12,7 +12,21 @@
 scalar Datetime
 
 type Query {
-  me: Educator
+  currentEducator: Educator
+  serviceTypes: [ConstantPair]
+  eventNoteTypes: [ConstantPair]
+  school(id: Int): School
+}
+
+type ConstantPair {
+  id: ID!
+  name: String
+}
+  
+type School {
+  id: Int!
+  name: String!
+  students: [Student]
 }
 
 type Educator {
@@ -100,6 +114,19 @@ type Student {
   primaryEmail: String
   house: String
   counselor: String
+
+
+  # joins
+  disciplineIncidentsCount: Int
+  tardiesCount: Int
+  absencesCount: Int
+
+  eventNotesCount: Int
+  eventNotes: [EventNote]
+
+  servicesCount: Int
+  services: [Service]
+  activeServices: [Service] # change this to variable
 }
 
 type PageInfo {
@@ -111,4 +138,31 @@ type PageInfo {
 
 type Cursor {
   value: Int
+}
+
+type EventNote {
+  id: Int!
+  studentId: Int
+  educatorId: Int
+  eventNoteTypeId: Int
+  text: String
+  recordedAt: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+  isRestricted: Boolean
+}
+
+type Service {
+  nodeId: ID!
+  id: Int!
+  studentId: Int
+  recordedByEducatorId: Int
+  serviceTypeId: Int
+  recordedAt: Datetime
+  dateStarted: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
+  providedByEducatorName: String
+  serviceUploadId: Int
+  estimatedEndDate: Datetime
 }

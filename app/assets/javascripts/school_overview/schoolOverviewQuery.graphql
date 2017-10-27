@@ -1,0 +1,35 @@
+query ($schoolId: Int) {
+  currentEducator {
+    id
+    fullName
+  }
+  school(id: $schoolId) {
+    students {
+      firstName
+      lastName
+      id
+      hispanicLatino
+      race
+      freeReducedLunch
+      spedLevelOfNeed
+      freeReducedLunch
+      eventNotesCount
+      services {
+        id
+        serviceTypeId
+      }
+      eventNotes {
+        id
+        eventNoteTypeId
+      }
+    }
+  }
+  serviceTypes {
+    id
+    name
+  }
+  eventNoteTypes {
+    id
+    name
+  }
+}

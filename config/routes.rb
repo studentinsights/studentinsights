@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get '/api/me' => 'api#me'
+  get '/api/students/:id' => 'api#student'
+  get '/api/educators/:id' => 'api#educator'
+  get '/api/schools/:id' => 'api#school'
+  get '/api/event_note/:id' => 'api#event_note'
+  get '/api/service/:id' => 'api#service'
+  get '/api/service_types' => 'api#service_types'
+  get '/api/event_note_types' => 'api#event_note_types'
+
+  get '/me/students'=> 'educators#students'
   namespace :admin do
     resources :educators
     root to: "educators#index"
@@ -9,8 +19,6 @@ Rails.application.routes.draw do
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
-  get '/me'=> 'educators#me'
-  get '/me/students'=> 'educators#students'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'

@@ -22,9 +22,9 @@ export default React.createClass({
   },
 
   mergeInDateOfLastSST (student) {
-    const eventNotes = student.event_notes;
+    const eventNotes = student.eventNotes;
     const sstNotes = eventNotes.filter((note) => {
-      return note.event_note_type_id === 300; });
+      return note.eventNoteTypeId === 300; });
 
     if (sstNotes.length === 0) return merge(student, { dateOfLastSST: null });
 
@@ -59,7 +59,7 @@ export default React.createClass({
       return students.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
     case 'date':
       return students.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
-    case 'free_reduced_lunch':
+    case 'freeReducedLunch':
       return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
     case 'grade':
       customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
@@ -67,7 +67,7 @@ export default React.createClass({
     case 'sped_level_of_need':
       customEnum = ['—', 'Low < 2', 'Low >= 2', 'Moderate', 'High'];
       return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
-    case 'limited_english_proficiency':
+    case 'limitedEnglishProficiency':
       customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
       return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
     case 'program_assigned':
@@ -107,19 +107,19 @@ export default React.createClass({
         <table className='students-table' style={{ width: '100%' }}>
           <thead>
             <tr>
-              {this.renderHeader('Name', 'last_name', 'string')}
+              {this.renderHeader('Name', 'lastName', 'string')}
               {this.renderHeader('Last SST', 'dateOfLastSST', 'date')}
               {this.renderHeader('Grade', 'grade', 'grade')}
-              {this.renderHeader('Disability', 'sped_level_of_need', 'sped_level_of_need')}
-              {this.renderHeader('Low Income', 'free_reduced_lunch', 'free_reduced_lunch')}
-              {this.renderHeader('LEP', 'limited_english_proficiency', 'limited_english_proficiency')}
+              {this.renderHeader('Disability', 'spedLevelOfNeed', 'spedLevelOfNeed')}
+              {this.renderHeader('Low Income', 'freeReducedLunch', 'freeReducedLunch')}
+              {this.renderHeader('LEP', 'limitedEnglishProficiency', 'limitedEnglishProficiency')}
               {this.renderHeader('STAR Reading', 'most_recent_star_reading_percentile', 'number')}
               {this.renderHeader('MCAS ELA', 'most_recent_mcas_ela_scaled', 'number')}
               {this.renderHeader('STAR Math', 'most_recent_star_math_percentile', 'number')}
               {this.renderHeader('MCAS Math', 'most_recent_mcas_math_scaled', 'number')}
-              {this.renderHeader('Discipline Incidents', 'discipline_incidents_count', 'number')}
-              {this.renderHeader('Absences', 'absences_count', 'number')}
-              {this.renderHeader('Tardies', 'tardies_count', 'number')}
+              {this.renderHeader('Discipline Incidents', 'disciplineIncidentCount', 'number')}
+              {this.renderHeader('Absences', 'absencesCount', 'number')}
+              {this.renderHeader('Tardies', 'tardiesCount', 'number')}
               {this.renderHeader('Services', 'active_services', 'active_services')}
               {this.renderHeader('Program', 'program_assigned', 'program_assigned')}
               {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
@@ -133,22 +133,22 @@ export default React.createClass({
                 <tr key={student.id}>
                   <td>
                     <a href={Routes.studentProfile(student.id)}>
-                      {student.last_name}, {student.first_name}
+                      {student.lastName}, {student.firstName}
                     </a>
                   </td>
                   <td>{student.dateOfLastSST}</td>
                   <td>{student.grade}</td>
-                  <td>{this.renderUnless('None', student.sped_level_of_need)}</td>
-                  <td style={{width: '2.5em'}}>{this.renderUnless('Not Eligible', student.free_reduced_lunch)}</td>
-                  <td style={{width: '2.5em'}}>{this.renderUnless('Fluent', student.limited_english_proficiency)}</td>
+                  <td>{this.renderUnless('None', student.spedLevelOfNeed)}</td>
+                  <td style={{width: '2.5em'}}>{this.renderUnless('Not Eligible', student.freeReducedLunch)}</td>
+                  <td style={{width: '2.5em'}}>{this.renderUnless('Fluent', student.limitedEnglishProficiency)}</td>
                   {this.renderNumberCell(student.most_recent_star_reading_percentile)}
                   {this.renderNumberCell(student.most_recent_mcas_ela_scaled)}
                   {this.renderNumberCell(student.most_recent_star_math_percentile)}
                   {this.renderNumberCell(student.most_recent_mcas_math_scaled)}
-                  {this.renderNumberCell(this.renderCount(student.discipline_incidents_count))}
-                  {this.renderNumberCell(this.renderCount(student.absences_count))}
-                  {this.renderNumberCell(this.renderCount(student.tardies_count))}
-                  {this.renderNumberCell(this.renderCount(student.active_services.length))}
+                  {this.renderNumberCell(this.renderCount(student.disciplineIncidentsCount))}
+                  {this.renderNumberCell(this.renderCount(student.absencesCount))}
+                  {this.renderNumberCell(this.renderCount(student.tardiesCount))}
+                  {this.renderNumberCell(this.renderCount(student.services.length))}
                   <td>
                     {this.renderUnless('Reg Ed', student.program_assigned)}
                   </td>

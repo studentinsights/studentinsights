@@ -140,17 +140,17 @@ import _ from 'lodash';
       return (
         <div className="column">
           {this.renderDisabilityTable()}
-          {this.renderSimpleTable('Low Income', 'free_reduced_lunch', { limit: 4 })}
-          {this.renderSimpleTable('LEP', 'limited_english_proficiency', { limit: 3 })}
+          {this.renderSimpleTable('Low Income', 'freeReducedLunch', { limit: 4 })}
+          {this.renderSimpleTable('LEP', 'limitedEnglishProficiency', { limit: 3 })}
           {this.renderSimpleTable('Race', 'race', {})}
           <FixedTable
             onFilterToggled={this.props.onFilterToggled}
             filters={this.props.filters}
             title="Hispanic/Latino"
             items={[
-              this.createItem('Yes', Filters.Equal('hispanic_latino', true)),
-              this.createItem('No', Filters.Equal('hispanic_latino', false)),
-              this.createItem('None', Filters.Equal('hispanic_latino', null)),
+              this.createItem('Yes', Filters.Equal('hispanicLatino', true)),
+              this.createItem('No', Filters.Equal('hispanicLatino', false)),
+              this.createItem('None', Filters.Equal('hispanicLatino', null)),
             ]} />
           {this.renderSimpleTable('Gender', 'gender', {})}
         </div>
@@ -158,7 +158,7 @@ import _ from 'lodash';
     },
 
     renderDisabilityTable: function() {
-      const key = 'sped_level_of_need';
+      const key = 'spedLevelOfNeed';
       const items = ['Low < 2', 'Low >= 2', 'Moderate', 'High'].map(function(value) {
         return this.createItem(value, Filters.Equal(key, value));
       }, this);
