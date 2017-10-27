@@ -10,8 +10,9 @@ function shouldDisplay(element, schoolContext) {
       return "HS" === schoolContext.school_type;
     }
     return false;
+  default:
+    return false;
   }
-  return false;
 }
   
 export { shouldDisplay }; 
