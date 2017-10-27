@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 
 (function() {
   window.shared || (window.shared = {});
-  
+
   const styles = {
     content: {
       top: '10%',
@@ -53,7 +53,7 @@ import ReactModal from 'react-modal';
     },
 
     renderModal: function(){
-      // There are three ways to close a modal dialog: click on one of the close buttons,
+      // There are three ways to close a modal dialog: click the close button on top right,
       // click outside the bounds, or press Escape.
       return (
         <ReactModal

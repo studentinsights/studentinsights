@@ -37,11 +37,13 @@ describe('StudentProfileHeader', function() {
       expect($(el).find('a.homeroom-link').text()).toContain('102');
 
       const modalIconEl = $(el).find('.click-event-modal').get(0);
-      ReactTestUtils.Simulate.click(modalIconEl);
-      const modalText = $(document).find('.contact-info-modal').html();
-      expect(modalText).toContain('1 Memorial Dr, Cambridge, MA 02142');
-      expect(modalText).toContain('999-999-9999 C-Mom');
-      expect(modalText).toContain('parent@example.com');
+
+      ReactTestUtils.Simulate.click(modalIconEl, function () {
+        const modalText = $(document).find('.contact-info-modal').html();
+        expect(modalText).toContain('1 Memorial Dr, Cambridge, MA 02142');
+        expect(modalText).toContain('999-999-9999 C-Mom');
+        expect(modalText).toContain('parent@example.com');
+      });
     });
   });
 
