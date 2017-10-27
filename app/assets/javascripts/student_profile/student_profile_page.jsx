@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import './student_profile_page.scss';
+
 
 (function() {
   window.shared || (window.shared = {});

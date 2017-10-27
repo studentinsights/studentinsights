@@ -1,5 +1,5 @@
+import './section_header.scss';
 window.shared || (window.shared = {});
-
 const Routes = window.shared.Routes;
 
 export default React.createClass({

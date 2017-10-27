@@ -20,10 +20,10 @@
       <% if ENV['STATUS_MESSAGE'] %>
         <div class="status_message"><%= ENV['STATUS_MESSAGE'] %></div>
       <% end %>
-      <div id="renew-session">
+      <div id="renew-session" style="display: none;">
         Please click <a href="#" id="renew-sesion-link">this link</a> or your session will timeout due to inactivity.
       </div>
-      <div class="navwrap">
+      <div class="navwrap" style="display: none;">
         <a class="logo-container" href="/">
           <div class="logo">
             <div class="title" alt="Student Insights"></div>
@@ -74,5 +74,6 @@
 
         json_div(id: "educator-is-admin") if current_educator.try(:admin) %>
     <%= javascript_include_tag webpack_bundle('bundle.js') %>
+    <%= javascript_include_tag webpack_bundle('styles.js') %>
   </body>
 </html>

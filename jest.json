@@ -6,5 +6,9 @@
   ],
   "setupFiles": [
     "./ui/config/setupTests.js"
-  ]
+  ],
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.s?css$": "./ui/config/cssTransform.js"
+  }
 }

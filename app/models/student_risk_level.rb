@@ -76,10 +76,6 @@ class StudentRiskLevel < ActiveRecord::Base
     level.nil? ? "N/A" : level.to_s
   end
 
-  def css_class_name
-    "risk-" + level_as_string.downcase.gsub("/", "")
-  end
-
   # Data for Risk Level explanation:
 
   def risk_factors_to_levels

@@ -3,6 +3,7 @@ import sessionTimeoutWarning from '../app/assets/javascripts/session_timeout_war
 import studentSearchbar from '../app/assets/javascripts/student_searchbar.js';
 import route from './route';
 
+
 // First, run side effects to inject code into window.shared
 import './legacy.js';
 

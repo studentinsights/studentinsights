@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import './slice_panels.scss';
 
 (function() {
   window.shared || (window.shared = {});

@@ -1,4 +1,5 @@
 import ReactModal from 'react-modal';
+import './help_bubble.scss';
 
 (function() {
   window.shared || (window.shared = {});

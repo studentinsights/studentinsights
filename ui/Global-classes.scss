@@ -1,0 +1,205 @@
+@import '../app/assets/stylesheets/variables';
+
+.hidden, .hide {
+  display: none;
+}
+
+.info-area {
+  position: relative;
+  width: 80%;
+  padding: 30px;
+  margin: auto auto;
+  background-color: $white;
+  border-radius: 9px;
+  border: solid 1px $light-line;
+  margin-bottom: 50px;
+  overflow: auto;
+  padding: 0 0 30px 0;
+  margin-top: 0;
+  clear: both;
+}
+
+.schools .info-area {
+  margin-top: 55px;
+}
+
+.index .info-area {
+  margin-top: 0;
+}
+
+.sped-risk-bubble {
+  background-color: #773c96;
+
+  &:hover {
+    background-color: darken(#773c96, 10%);
+  }
+}
+
+.sessions {
+  .info-area {
+    margin-top: 40px;
+  }
+}
+
+.about {
+  .info-area {
+    margin-top: 40px;
+  }
+}
+
+#log-in {
+  margin: auto auto;
+  width: 134px;
+
+  h2 {
+    margin-bottom: 20px;
+    border-bottom: 1px solid $light-line;
+  }
+}
+
+.warning-bubble {
+  width: 30px;
+  height: 30px;
+  color: $white;
+  border-radius: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  margin: auto auto;
+}
+
+.smalltype {
+  font-size: 13px;
+  font-weight: 300;
+  color: $light-gray;
+}
+
+
+/* THEME COLORS */
+.math-background {
+  background-color: $math;
+}
+
+.ela-background {
+  background-color: $ela;
+}
+
+.attendance-background {
+  background-color: $attendance;
+}
+
+.modal-help {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  * {
+    font-size: 14px;
+    color: #555555;
+  }
+  h1 {
+    font-size: 24px;
+  }
+}
+
+
+
+/* TABLE */
+.sort-down, .sort-up {
+  font-weight: 700;
+  color: $dark-gray;
+}
+
+.table-header {
+  th & {
+    text-align: center;
+  }
+}
+
+.column-groups {
+  text-align: center;
+
+  td p {
+    height: 25px;
+    border-bottom: 1px solid $light-line;
+    padding: 0;
+    margin-bottom: -10px;
+  }
+
+  td:last-of-type {
+    padding-right: 0;
+    border: none !important;
+  }
+}
+
+.column-names td {
+  border-bottom: 1px solid $dark-line;
+  padding-left: 10px;
+}
+
+.column-names {
+  th {
+   border-bottom: 1px solid $dark-line;
+  }
+}
+
+
+/* These styles based on tooltipster.scss */
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 240px;
+  text-align: left;
+  border-radius: 3px;
+  white-space: pre-line;
+  background: #fff;
+  box-shadow: 0px 0px 14px rgba(0,0,0,0.3);
+  color: #2c2c2c;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 20px;
+  overflow: visible;
+
+  /* Position of the tooltip */
+  position: absolute;
+  z-index: 999999;
+  bottom: 120%;
+  left: 50%; 
+  margin-left: -120px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+/* used in both rails and JS */
+.btn {
+  margin: auto;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  color: $white;
+  font-size: 14px;
+  background: $blue;
+  padding: 8px 25px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($blue, 10%);
+    text-decoration: none;
+  }
+
+  &.btn-warning {
+    background-color: $warning-red;
+
+    &:hover {
+      background-color: darken($warning-red, 10%);
+    }
+  }
+}

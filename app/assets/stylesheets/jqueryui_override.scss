@@ -1,6 +1,6 @@
 /* Override JQuery dialog defaults */
 /* Keep everything within the scope it's in here. TODO: Flesh warning out.*/
-/* TODO: Move to shared.*/
+@import 'variables';
 
 .ui-widget-header {
 	border: none !important;

@@ -1,5 +1,30 @@
+@import '../app/assets/stylesheets/variables';
+
 /* TYPE STYLES */
 /* These are global styles included on every page. Be careful because changes here will affect everything. */
+* {
+  font-family: 'Open Sans', sans-serif !important;
+  margin: 0px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 1024px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  color: $gray
+}
+
+textarea {
+  width: 96%;
+  margin: auto auto;
+  padding: 10px;
+}
 
 p, label {
   font-size: 14px;
@@ -65,27 +90,21 @@ a:hover, a:active {
   color: $link-hover;
 }
 
-.smalltype {
-  font-size: 13px;
-  font-weight: 300;
-  color: $light-gray;
+
+table {
+  overflow-x: scroll;
 }
 
-.bigtype {
-  font-size: 16px;
-}
-
-.risktype {
+th {
+  font-weight: normal;
+  text-align: center;
   font-size: 14px;
-  font-weight: 700;
+  white-space: nowrap;
+}
+
+tr, td {
+  font-weight: normal;
+  font-size: 14px;
   color: $gray;
-}
-
-.italic {
-  font-style: italic;
-}
-
-.warning-text {
-  font-weight: 700;
-  color: $warning-red;
+  white-space: nowrap;
 }

@@ -1,4 +1,5 @@
 import SortHelpers from '../helpers/sort_helpers.jsx';
+import './flexible_roster.scss';
 
 // This is a sorted table, pass in a list of objects as `rows`,
 // and then `columns` to describe how to sort and label columns.

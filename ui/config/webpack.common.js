@@ -2,6 +2,7 @@
 module.exports = { 
   entry: {
     bundle: ['./ui/polyfills.js', './ui/index.js'], // force polyfills to be first
+    styles: './ui/index.scss',
     student_report_pdf: './ui/student_report_pdf.js'
   },
   module: {
@@ -20,6 +21,24 @@ module.exports = {
           // directory for faster rebuilds.
           cacheDirectory: true,
         },
+      },
+      // SASS
+      {
+        test: /\.s?css$/,
+        use: [{
+          loader: "style-loader" // creates style nodes from JS strings
+        }, {
+          loader: "css-loader" // translates CSS into CommonJS
+        }, {
+          loader: "sass-loader" // compiles Sass to CSS
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            config: {
+              path: './ui/config/postcss.config.js'
+            }
+          }
+        }]
       }
     ]
   }

@@ -87,24 +87,6 @@ RSpec.describe StudentRiskLevel, type: :model do
 
   end
 
-  describe '#css_class_name' do
-
-    context 'no assessment results, not limited English' do
-      let(:student) { FactoryGirl.create(:student) }
-      it 'returns "N/A"' do
-        expect(student_risk_level.css_class_name).to eq "risk-na"
-      end
-    end
-
-    context 'Limited English Proficiency' do
-      let(:student) { FactoryGirl.create(:limited_english_student) }
-      it 'returns "3"' do
-        expect(student_risk_level.css_class_name).to eq "risk-3"
-      end
-    end
-
-  end
-
   describe '#explanation' do
 
     context 'missing MCAS and STAR results' do

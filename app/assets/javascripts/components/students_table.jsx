@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
+import './students_table.scss';
+
 
 window.shared || (window.shared = {});
 const Routes = window.shared.Routes;

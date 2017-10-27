@@ -10,6 +10,10 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require style
  *= require jquery-ui
+ *= require jqueryui_override
+ *= require districtwide_admin_homepage
+ *= require nav
+ *= require no_homeroom
+ *= require about
  */

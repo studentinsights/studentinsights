@@ -19,7 +19,7 @@ import '../app/assets/javascripts/helpers/sort_helpers.jsx';
 import '../app/assets/javascripts/helpers/theme.jsx';
 
 
-// shared react compoents:
+// shared react components:
 import '../app/assets/javascripts/components/fixed_table.jsx';
 import '../app/assets/javascripts/components/collapsable_table.jsx';
 // (unordered)
@@ -28,11 +28,11 @@ import '../app/assets/javascripts/components/slice_buttons.jsx';
 import '../app/assets/javascripts/components/slice_panels.jsx';
 import '../app/assets/javascripts/components/star_charts_page.jsx';
 import '../app/assets/javascripts/components/students_table.jsx';
+import '../app/assets/javascripts/components/help_bubble.jsx';
 
 
 // student profile page:
   // pure ui components:
-import '../app/assets/javascripts/student_profile/help_bubble.jsx';
 import '../app/assets/javascripts/student_profile/quad_converter.jsx';
 import '../app/assets/javascripts/student_profile/risk_bubble.jsx';
 import '../app/assets/javascripts/student_profile/service_color.jsx';

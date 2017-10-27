@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 import Cookies from 'js-cookie';
+import './homeroom_table.scss';
 
 
 export default React.createClass({
