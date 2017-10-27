@@ -1,6 +1,9 @@
+import ReactModal from 'react-modal';
+
+
 (function() {
   window.shared || (window.shared = {});
-  const ReactModal = window.ReactModal;
+  
   const styles = {
     content: {
       top: '10%',
