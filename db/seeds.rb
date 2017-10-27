@@ -11,10 +11,11 @@ end
 require "#{Rails.root}/db/seeds/database_constants"
 
 puts "Creating demo schools, homerooms, interventions..."
-# raise "empty yer db" if School.count > 0 ||
-#                         Student.count > 0 ||
-#                         InterventionType.count > 0 ||
-#                         Assessment.count > 0
+
+raise "empty yer db" if School.count > 0 ||
+                        Student.count > 0 ||
+                        EventNote.count > 0 ||
+                        Service.count > 0
 
 # The local demo data setup uses the Somerville database constants
 # (eg., the set of `ServiceType`s) for generating local demo data and
@@ -149,11 +150,11 @@ sections.each do |section|
         grade_numeric = rand(50..59)
     end
 
-      fake_student = FakeStudent.new(school, shs_homeroom)
-      StudentSectionAssignment.create(student: fake_student.student,
-                                      section: section,
-                                      grade_numeric: grade_numeric,
-                                      grade_letter: grade_letter)
+    fake_student = FakeStudent.new(school, shs_homeroom)
+    StudentSectionAssignment.create(student: fake_student.student,
+                                    section: section,
+                                    grade_numeric: grade_numeric,
+                                    grade_letter: grade_letter)
   end
 end
 
