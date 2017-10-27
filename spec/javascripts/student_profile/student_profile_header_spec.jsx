@@ -30,11 +30,11 @@ describe('StudentProfileHeader', function() {
       helpers.renderActiveStudent(el);
       const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
                                                                                      // so we don't have to calculate this
-      expect($(el).text()).toContain('Daisy Poppins');
-      expect($(el).text()).toContain('Arthur D Healey');
-      expect($(el).text()).toContain('5/23/2008');
-      expect($(el).text()).toContain('(' + yearsOld + ' years old)');
-      expect($(el).find('a.homeroom-link').text()).toContain('102');
+      expect(el.innerHTML).toContain('Daisy Poppins');
+      expect(el.innerHTML).toContain('Arthur D Healey');
+      expect(el.innerHTML).toContain('5/23/2008');
+      expect(el.innerHTML).toContain('(' + yearsOld + ' years old)');
+      expect(el.innerHTML).toContain('1 Memorial Dr, Cambridge, MA 02142');
 
       const modalIconEl = $(el).find('.click-event-modal').get(0);
 
