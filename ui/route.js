@@ -6,6 +6,7 @@ import renderSectionMain from '../app/assets/javascripts/section/main.jsx';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main.jsx';
 import renderStarMathMain from '../app/assets/javascripts/star_math/main.jsx';
 import renderStarReadingMain from '../app/assets/javascripts/star_reading/main.jsx';
+import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main.jsx';
 
 
 // Placeholder routing (not fully client-side, just on page load).
@@ -42,5 +43,9 @@ export default function route() {
 
   if ($('body').hasClass('schools') && $('body').hasClass('star_reading')) {
     renderStarReadingMain(el);
+  }
+
+  if ($('body').hasClass('school_administrator_dashboard') && $('body').hasClass('show')) {
+    renderSchoolAdminDashboardMain(el);
   }
 }

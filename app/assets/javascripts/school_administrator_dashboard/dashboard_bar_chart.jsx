@@ -1,8 +1,7 @@
 //import _ from 'lodash';
-import HighchartsWrapper from './highcharts_wrapper.jsx';
+import React from 'react';
+import moment from 'moment';
 
-window.shared || (window.shared = {});
-const GraphHelpers = window.shared.GraphHelpers;
 
 const styles = {
   title: {
@@ -66,6 +65,8 @@ export default React.createClass({
   },
 
   render: function() {
+    const {GraphHelpers} = window.shared;
+    const {HighchartsWrapper} = window.shared;
     const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
     //const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
     const yearCategories = GraphHelpers.yearCategories(monthKeys);

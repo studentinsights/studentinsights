@@ -1,5 +1,5 @@
+import React from 'react';
 
-window.shared || (window.shared = {});
 
 export default React.createClass({
   displayName: 'StudentsTable',
