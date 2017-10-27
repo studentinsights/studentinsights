@@ -11,46 +11,17 @@ branches:
   only:
     - master
 
-# For AWS deploy, install the AWS CLI, so we can push asset artifacts up to S3 when merging to master.
-# before_install:
-#   - pip install --user awscli
-#   - export PATH=$PATH:$HOME/.local/bin
+cache: yarn
 
 before_install:
   - export TZ=America/New_York
-  - echo psql --version
-  - gem install -v 1.10.6 bundler --no-rdoc --no-ri
-
-  # workarounds for phantomjs 1, see: https://github.com/travis-ci/travis-ci/issues/3225#issuecomment-177592725
-  - mkdir travis-phantomjs
-  - wget https://studentinsights-public.s3.amazonaws.com/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
-  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis-phantomjs
-  - export PATH=$PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH
-
-  # install newer version of node
-  - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
-  - npm install
-  - node --version
-  - npm --version
-  - npm install
 
 install:
- - bundle _1.10.6_ install --retry=3
+  - bundle install --retry=3
+  - yarn install
 
 script:
-  - npm run lint-cli
+  - yarn test-cli
+  - rubocop
   - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test
   - bundle exec rspec spec
-  - bundle exec teaspoon
-  - rubocop
-
-env:
-  global:
-    # For AWS deploy, add in credentials for uploading to S3 and pushing to Docker Hub here:
-    - secure: CVsj/OoauR/2rTan1fAriyW/b92DahJsQ3zh7MAHAeQZ3atRQq4cYxd6fRSO4zoAOeTTTHp4hQ3YX+Uo765bNXsUJLKiKT8Wnin+eOG8nMGxzmKM6oxuWIt552pbwvhuX3+GS8QDT1sbHAdedlDng/97BhXeZTuzgVXN6Zigdo8=
-    - secure: jSWLU8N9ui5BZ7PmWmY08BrrOx1BN1IEdYhrTnv5RDWMbUyGTu62hyXOseKMy1b+URaWSiklkxLBK0uVm1oSYf/MYiDhNwFTqPn8eH7AK7MJcxSOaJ4ce0eCEeTy56Wnbljjt0jYeGMFS05uBGhUT82vYvXq4l4h7pCORJWXaPA=
-
-notifications:
-  webhooks: http://project-monitor.codeforamerica.org/projects/somerville-teacher-tool/status

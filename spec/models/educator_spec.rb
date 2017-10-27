@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Educator do
 
+  describe '#as_json' do
+    it 'does not include student_searchbar_json' do
+      educator = FactoryGirl.build(:educator)
+      expect(educator.as_json.has_key?('student_searchbar_json')).to be false
+    end
+  end
   describe '#has_school_unless_districtwide' do
     context 'no school assigned' do
       context 'has districtwide_access' do

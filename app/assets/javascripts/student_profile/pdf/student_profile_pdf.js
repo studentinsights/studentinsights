@@ -1,16 +1,15 @@
 import _ from 'lodash';
+import Highcharts from 'highcharts';
 
 (function() {
   window.shared || (window.shared = {});
-  var GraphHelpers = window.shared.GraphHelpers;
+  const GraphHelpers = window.shared.GraphHelpers;
 
   function generateGraph(containerSelector, yAxisLabel, xAxisSettings, title, dataSeries){
 
-    var stacking ="";
-
-    if(dataSeries.length > 1) {
-      stacking = "normal";
-    }
+    const stacking = (dataSeries.length > 1)
+      ? "normal"
+      : "";
 
     $(containerSelector).highcharts({
       chart: {
@@ -34,7 +33,7 @@ import _ from 'lodash';
             enabled: true,
             color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
             formatter: function(){
-              var val = this.y;
+              const val = this.y;
               if (val < 1) {
                 return '';
               }
@@ -55,7 +54,7 @@ import _ from 'lodash';
             color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
           },
           formatter: function(){
-            var val = this.total;
+            const val = this.total;
             if (val < 1) {
               return '';
             }
@@ -73,23 +72,23 @@ import _ from 'lodash';
   window.shared.StudentProfilePdf = {
     load: function() {
 
-      var attendanceData = $('#serialized-data').data('attendance-data');
-      var filterDateRange = $('#serialized-data').data('graph-date-range');
+      const attendanceData = $('#serialized-data').data('attendance-data');
+      const filterDateRange = $('#serialized-data').data('graph-date-range');
 
-      var filterFromDate = moment.utc(filterDateRange.filter_from_date, "YYYY-MM-DD");
-      var filterToDate = moment.utc(filterDateRange.filter_to_date, "YYYY-MM-DD");
+      const filterFromDate = moment.utc(filterDateRange.filter_from_date, "YYYY-MM-DD");
+      const filterToDate = moment.utc(filterDateRange.filter_to_date, "YYYY-MM-DD");
 
-      var monthsBack = filterToDate.diff(filterFromDate, 'months') <= 23 ? filterToDate.diff(filterFromDate, 'months') : 23;
+      const monthsBack = filterToDate.diff(filterFromDate, 'months') <= 23 ? filterToDate.diff(filterFromDate, 'months') : 23;
 
-      var allMonthKeys = GraphHelpers.monthKeys(filterToDate, monthsBack);
-      var allYearCategories = GraphHelpers.yearCategories(allMonthKeys);
+      const allMonthKeys = GraphHelpers.monthKeys(filterToDate, monthsBack);
+      const allYearCategories = GraphHelpers.yearCategories(allMonthKeys);
 
-      var tardyMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.tardies);
-      var absenceMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.absences);
-      var disciplineMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.discipline_incidents);
+      const tardyMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.tardies);
+      const absenceMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.absences);
+      const disciplineMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.discipline_incidents);
 
 
-      var xAxisSettings = [
+      const xAxisSettings = [
         {
           categories: allMonthKeys.map(GraphHelpers.monthAxisCaption)
         },
@@ -102,7 +101,7 @@ import _ from 'lodash';
         }
       ];
 
-      var attendanceDataSeries = [
+      const attendanceDataSeries = [
         {
           name: "Tardies",
           showInLegend: true,
@@ -117,7 +116,7 @@ import _ from 'lodash';
         }
       ];
 
-      var disciplineDataSeries = [
+      const disciplineDataSeries = [
         {
           name: "Discipline Incidents",
           showInLegend: true,

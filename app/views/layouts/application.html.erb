@@ -11,6 +11,15 @@
   </head>
   <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">
     <div class="nav">
+      <% if ENV['DEPLOYMENT_KEY'] == 'demo' %>
+        <div class="big_warning">
+          <div>This is the demo site! It's filled with fake data.</div>
+          <div>The real site is <a href="https://somerville.studentinsights.org/">somerville.studentinsights.org</a>.</div>
+        </div>
+      <% end %>
+      <% if ENV['STATUS_MESSAGE'] %>
+        <div class="status_message"><%= ENV['STATUS_MESSAGE'] %></div>
+      <% end %>
       <div id="renew-session">
         Please click <a href="#" id="renew-sesion-link">this link</a> or your session will timeout due to inactivity.
       </div>
@@ -64,5 +73,6 @@
         # This tag is a helper for the UI, not a security feature.
 
         json_div(id: "educator-is-admin") if current_educator.try(:admin) %>
+    <%= javascript_include_tag webpack_bundle('bundle.js') %>
   </body>
 </html>

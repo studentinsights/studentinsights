@@ -15,6 +15,7 @@ import _ from 'lodash';
       filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
       allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+      school: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       onFilterToggled: React.PropTypes.func.isRequired
@@ -90,6 +91,29 @@ import _ from 'lodash';
       });
 
       return [this.createItem('None', Filters.EventNoteType(null))].concat(sortedItems);
+    },
+
+    MCASFilterItems(key) {
+      const nullItem = [this.createItem('None', Filters.Null(key))];
+      const nextGenMCASFilters = [
+        this.createItem('Not Meeting Expectations', Filters.Range(key, [400, 450])),
+        this.createItem('Partially Meeting', Filters.Range(key, [450, 500])),
+        this.createItem('Meeting Expectations', Filters.Range(key, [500, 550])),
+        this.createItem('Exceeding Expectations', Filters.Range(key, [260, 281]))
+      ];
+      const oldMCASFilters = [
+        this.createItem('Warning', Filters.Range(key, [200, 220])),
+        this.createItem('Needs Improvement', Filters.Range(key, [220, 240])),
+        this.createItem('Proficient', Filters.Range(key, [240, 260])),
+        this.createItem('Advanced', Filters.Range(key, [260, 281])),
+      ];
+
+      const sortedScores = _.map(this.props.students, key).sort();
+      const medianScore = sortedScores[Math.floor(sortedScores.length / 2)];
+
+      if (medianScore > 280) return nullItem.concat(nextGenMCASFilters, oldMCASFilters);
+
+      return nullItem.concat(oldMCASFilters, nextGenMCASFilters);
     },
 
     render: function() {
@@ -177,14 +201,12 @@ import _ from 'lodash';
     },
 
     renderMCASTable: function(title, key, props) {
+      const filterItems = this.MCASFilterItems(key);
+
       return this.renderTable(merge(props || {}, {
         title: title,
-        items: [this.createItem('None', Filters.Null(key))].concat([
-          this.createItem('Warning', Filters.Range(key, [200, 220])),
-          this.createItem('Needs Improvement', Filters.Range(key, [220, 240])),
-          this.createItem('Proficient', Filters.Range(key, [240, 260])),
-          this.createItem('Advanced', Filters.Range(key, [260, 281]))
-        ])
+        items: filterItems,
+        limit: 5
       }));
     },
 
@@ -272,9 +294,13 @@ import _ from 'lodash';
     },
 
     renderGradeColumn: function() {
+      const isHighSchool = 'HS'===this.props.school.school_type;
+
       return (
         <div className="column grades-column pad-column-right">
           {this.renderGradeTable()}
+          {isHighSchool && this.renderSimpleTable('House', 'house', {})}
+          {isHighSchool && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
           {this.renderYearsEnrolled()}
           {this.renderRiskLevel()}
         </div>

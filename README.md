@@ -32,15 +32,20 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [3. Start Rails](#3-start-rails)
   - [4. Run the tests](#4-run-the-tests)
   - [5. Write code!](#5-write-code)
-  - [6. Use the product locally!](#6-use-product)
+  - [6. Use the product locally](#6-use-the-product-locally)
 - [Browser/OS Targeting](#browseros-targeting)
 - [Deployment](#deployment)
   - [Deploying new code to Insights](#deploying-new-code-to-insights)
   - [Setting up Insights for a new district](#setting-up-insights-for-a-new-district)
     - [New district script](#new-district-script)
+    - [Data differences between districts](#data-differences-between-districts)
+    - [Feature differences between districts](#feature-differences-between-districts)
     - [Importing real data](#importing-real-data)
     - [LDAP](#ldap)
     - [Heroku notes](#heroku-notes)
+- [Ops](#ops)
+  - [Response latency](#response-latency)
+  - [Postgres](#postgres)
 - [Other Tools](#other-tools)
   - [Mixpanel](#mixpanel)
 - [More information](#more-information)
@@ -114,10 +119,17 @@ This is a Ruby on Rails app that uses a PostgreSQL database, and relies on React
 
 ## 1. Install dependencies
 
-Choose your favorite local development approach:
+You'll need Ruby, Postgres and yarn.  Choose your favorite local development approach:
 
 * [Local development with Docker](docs/technical/local_development_with_docker.md)
 * [Local installation on OSX or Linux](docs/technical/local_installation_notes.md)
+
+Then you can install Ruby and JavaScript dependencies with:
+
+```
+$ bundle install
+$ yarn install
+```
 
 ## 2. Create database tables and seed them with demo data
 
@@ -127,47 +139,44 @@ bundle exec rake db:create db:migrate db:seed
 
 This will create demo students with fake student information. The demo educator username is `demo@example.com` and the demo password is `demo-password`.
 
-## 3. Start Rails
-Once you've created the data, start a local server by running `rails s` from the root of your project. When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.
+## 3. Start the app
+Once you've created the data, start the app by running `yarn start` from the root of your project.  This runs two processes in parallel: the Rails server and a Webpack process that watches and rebuilds JavaScript files.  When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.  You can stop both processes with `command+c` like normal, and look at `package.json` if you want to run them in individual terminals.
 
 ## 4. Run the tests
-This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs). Run the test suite:
+This app uses [Rspec](https://www.relishapp.com/rspec/rspec-rails/v/3-2/docs) for Ruby tests and [Jest](https://facebook.github.io/jest/) for JavaScript tests.
+
+For Ruby code, to lint and run the tests do:
 
 ```
 rspec
 ```
 
-It uses [Jasmine](http://jasmine.github.io/) for JavaScript tests, run through the [Teaspoon](https://github.com/modeset/teaspoon) gem.  You can run them in the browser at `http://localhost:3000/teaspoon/default`.
-
-You can also run them from the command line:
+For Jest, run the tests continually in watch mode with:
 
 ```
-teaspoon
+yarn test
 ```
 
-[eslint](http://eslint.org/) is setup, but not in the build yet since it would take some cleanup.  See https://github.com/studentinsights/studentinsights/pull/637 for more information, and try this out with either:
+
+There's also [rubocop](https://github.com/bbatsov/rubocop) and [eslint](http://eslint.org/) for linting.  Run them at the command line like this:
 
 ```
-docker-compose build tools
-docker-compose run tools
+rubocop
+yarn lint
 ```
 
-or
-
-```
-cd scripts/tools
-npm install
-npm run lint-quiet
-```
+If you miss something, tests will run on any pull request you submit, and after merging to master as well.
 
 ## 5. Write code!
-This project is a Rails app and has a typical Rails project structure.  If you'd like to get up to speed on Rails, we recommend checking out their [great documentation](http://guides.rubyonrails.org/).
+This project is a Rails app and has a typical Rails project structure.  If you'd like to get up to speed on Rails, we recommend checking out their [great documentation](http://guides.rubyonrails.org/).  The only difference is that JavaScript code is not managed by the Rails asset pipeline, and is built separately by Webpack.
 
 It also uses React for much the user interface code.  If you'd like to get up to speed on React, we recommend their great documentation, and the [Tutorial](https://facebook.github.io/react/docs/tutorial.html) and [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html) pages in particular.
 
-There are also a few places where we use [Flux](https://facebook.github.io/flux/docs/overview.html) patterns.
+JavaScript code is written in ES6 syntax and JSX.  The build process uses the the [react-app](https://www.npmjs.com/package/babel-preset-react-app) Babel preset (the same as [create-react-app](https://github.com/facebookincubator/create-react-app)).
 
 If you use **Sublime Text Editor**, we include the `studentinsights.sublime-project` file to standardize minor things like tabs vs. spaces, indentation, and generally make it easier to work with our folder structure. Go to `Project --> Open Project` and select that file to load it. Sublime remembers which project you were last in, so you only need to do this once. ([Here](http://www.joshuawinn.com/understanding-projects-in-sublime-text-saving-switching-etc/)'s some background info on how projects work in Sublime).
+
+We also recommend [Sublime Package Control](https://packagecontrol.io/) and these packages [Babel](https://packagecontrol.io/packages/Babel), [Sublime Linter](http://www.sublimelinter.com/en/latest/) and [SublimeLinter-contrib-eslint](https://github.com/roadhump/SublimeLinter-eslint).  These will give you nice syntax highlighting and show you linter errors right in Sublime!
 
 ## 6. Use the product locally
 Users use IE11, so if you're trying to manually test locally or the production site, you should too!  If you have a Mac or Linux box, you can use free VMs designed for just this purpose and run them on VirtualBox: https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/.
@@ -207,6 +216,22 @@ $ scripts/deploy/new_district.sh "My New District Name"
 ```
 
 This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
+
+### Data differences between districts
+
+District | Data Source | Data Import Notes
+--- | --- | ---
+Somerville | Aspen SIS | Somerville IT runs the SQL scripts in the x2_export folder every night to create CSVs and dump them to an SFTP site. We import the CSVs to Insights nightly.
+Somerville | STAR (assessment vendor) | STAR IT team runs a job when Somerville STAR assessment results come in that dumps fresh CSV data to an SFTP site. We import the CSVs to Insights nightly.
+Somerville | EasyIEP | EasyIEP runs "change export" of IEP PDFs that have changed and sends them to an SFTP nightly. Somerville IT runs a job to copy those files into Aspen and another job to copy those files to an Insights SFTP site. We import the PDFs to Insights nightly.
+Fall River | Aspen (Hosted) | Fall River IT is working on their own version of the SQL scripts in the x2_export folder; they can't use SQL scripts directly because they have a different version of Aspen X2.
+
+### Feature differences between districts
+
+District | Feature Area | Feature Notes
+--- | --- | ---
+Somerville | School Overview Page | Somerville High School Housemasters are requesting a feature that will let them sort students by House. [(More info on houses here.)](http://www.somerville.k12.ma.us/schools/somerville-high-school/daily-life)
+
 
 ### Importing real data
 
