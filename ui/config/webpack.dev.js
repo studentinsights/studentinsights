@@ -15,7 +15,7 @@ module.exports = merge(common, {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['../../public/dev'], { verbose: false })
+    new CleanWebpackPlugin(['../../public/dev'], { verbose: false, allowExternal: true })
   ]
 });
 /* eslint-disable no-undef */

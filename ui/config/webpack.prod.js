@@ -19,7 +19,7 @@ module.exports = merge(common, {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['../../public/build']),
+    new CleanWebpackPlugin(['../../public/build'], { allowExternal: true }),
     new UglifyJSPlugin({sourceMap: true}),
     new webpack.DefinePlugin({
       'process.env': {
