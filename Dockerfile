@@ -2,9 +2,12 @@
 # The Ruby version used here needs to match the Ruby version in the Gemfile.
 FROM ruby:2.3.0
 
+# node
 # see update.sh for why all "apt-get install"s have to stay as one long line
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
-RUN apt-get update && apt-get install -y nodejs --no-install-recommends
+RUN apt-get update -qq \
+  && apt-get install -y build-essential libpq-dev curl \
+  && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+  && apt-get install -y nodejs --no-install-recommends
 
 # see http://guides.rubyonrails.org/command_line.html#rails-dbconsole
 RUN apt-get update && apt-get install -y postgresql-client --no-install-recommends
@@ -24,12 +27,11 @@ RUN apt-get update && apt-get install -y yarn
 RUN mkdir /mnt/somerville-teacher-tool
 COPY Gemfile /mnt/somerville-teacher-tool/Gemfile
 COPY Gemfile.lock /mnt/somerville-teacher-tool/Gemfile.lock
-COPY Gemfile.lock /mnt/somerville-teacher-tool/package.json
-COPY Gemfile.lock /mnt/somerville-teacher-tool/yarn.lock
+COPY package.json /mnt/somerville-teacher-tool/package.json
+COPY yarn.lock /mnt/somerville-teacher-tool/yarn.lock
 VOLUME /mnt/somerville-teacher-tool
 WORKDIR /mnt/somerville-teacher-tool
 RUN bundle install
-RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN yarn install
 
 COPY . /mnt/somerville-teacher-tool

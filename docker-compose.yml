@@ -2,7 +2,7 @@
 studentinsights:
   build: .
   volumes:
-    - .:/mnt/somerville-teacher-tool
+    - .:/mnt/somerville-teacher-tool:cached # see https://docs.docker.com/docker-for-mac/osxfs-caching/#default
   working_dir: /mnt/somerville-teacher-tool
   environment:
     DATABASE_URL: postgresql://postgres@postgres # overrides hostname and username
