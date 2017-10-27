@@ -22,7 +22,9 @@ SELECT
   'race',
   'hispanic_latino',
   'primary_phone',
-  'primary_email'
+  'primary_email',
+  'house',
+  'counselor'
 UNION ALL
 SELECT
   STD_ID_STATE,
@@ -47,7 +49,9 @@ SELECT
   PSN_RACE_VIEW,
   PSN_HISPANIC_LATINO_IND,
   PSN_PHONE_01,
-  PSN_EMAIL_01
+  PSN_EMAIL_01,
+  STD_FIELDB_008, -- House - SHS
+  STD_FIELDB_027 -- Counselor - SHS
 FROM student
 INNER JOIN school
   ON student.STD_SKL_OID=school.SKL_OID

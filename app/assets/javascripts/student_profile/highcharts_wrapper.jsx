@@ -1,3 +1,5 @@
+import 'highcharts';
+
 (function() {
   window.shared || (window.shared = {});
 

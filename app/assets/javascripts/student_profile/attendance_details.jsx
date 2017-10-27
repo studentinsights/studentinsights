@@ -51,11 +51,8 @@
     secHead: {
       display: 'flex',
       justifyContent: 'space-between',
-      borderBottom: '1px solid #333',
-      position: 'absolute',
-      top: 30,
-      left: 30,
-      right: 30
+      position: 'relative',
+      bottom: 10
     },
     navBar: {
       fontSize: 18

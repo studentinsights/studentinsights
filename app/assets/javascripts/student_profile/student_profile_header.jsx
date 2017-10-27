@@ -130,7 +130,7 @@
       return (
         <ContactModal
           title='Contact Information'
-          icon=<span className='address-book-icon'></span>
+          icon={<span className='address-book-icon'></span>}
           content={this.renderContactInformation()} />
       );
     },

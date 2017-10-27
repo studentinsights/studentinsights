@@ -47,12 +47,18 @@ RSpec.describe StudentsImporter do
           expect(first_student.hispanic_latino).to eq false
           expect(first_student.gender).to eq 'F'
           expect(first_student.student_risk_level).to_not eq nil
+          expect(first_student.house).to eq ''
+          expect(first_student.counselor).to eq nil
 
           second_student = Student.find_by_state_id('1000000002')
           expect(second_student.race).to eq 'White'
           expect(second_student.hispanic_latino).to eq true
           expect(second_student.gender).to eq 'F'
           expect(second_student.student_risk_level).to_not eq nil
+
+          shs_student = Student.find_by_state_id('1000000001')
+          expect(shs_student.house).to eq 'Elm'
+          expect(shs_student.counselor).to eq 'LABERGE'
         end
 
       end

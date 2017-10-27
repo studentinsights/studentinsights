@@ -1,11 +1,13 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
+import moment from 'moment';
+import ReactTestUtils from 'react-addons-test-utils';
+
 
 describe('NoteCard', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const NoteCard = window.shared.NoteCard;
-  const moment = window.moment;
 
   const helpers = {
     renderInto: function(el, props) {
@@ -15,7 +17,7 @@ describe('NoteCard', function() {
         badge: <span>
           {''}
         </span>,
-        onSave: jasmine.createSpy('onSave'),
+        onSave: jest.fn(),
         eventNoteId: 1,
         eventNoteTypeId: 1,
         educatorsIndex: studentProfile.educatorsIndex,
@@ -28,8 +30,8 @@ describe('NoteCard', function() {
     editNoteAndSave: function(el, uiParams) {
       const $text = $(el).find('.note-text');
       $text.html(uiParams.html);
-      React.addons.TestUtils.Simulate.input($text.get(0));
-      React.addons.TestUtils.Simulate.blur($text.get(0));
+      ReactTestUtils.Simulate.input($text.get(0));
+      ReactTestUtils.Simulate.blur($text.get(0));
       return $text.html();
     },
 
@@ -38,9 +40,9 @@ describe('NoteCard', function() {
     }
   };
 
-  SpecSugar.withTestEl('render', function() {
+  SpecSugar.withTestEl('render', function(container) {
     it('renders simple text', function() {
-      const el = this.testEl;
+      const el = container.testEl;
 
       helpers.renderInto(el, {
         text: 'hello'
@@ -50,18 +52,18 @@ describe('NoteCard', function() {
     });
 
     it('renders number of revisions', function() {
-      const el = this.testEl;
+      const el = container.testEl;
 
       helpers.renderInto(el, {
         text: 'hello',
         numberOfRevisions: 1
       });
 
-      expect(el).toContainText('Revised 1 time');
+      expect($(el).text()).toContain('Revised 1 time');
     });
 
     it('escapes HTML-meaningful characters in text', function() {
-      const el = this.testEl;
+      const el = container.testEl;
 
       helpers.renderInto(el, {
         text: 'hello <script src="xss.js"></script>world'
@@ -71,7 +73,7 @@ describe('NoteCard', function() {
     });
 
     it('renders newlines as <br> tags', function() {
-      const el = this.testEl;
+      const el = container.testEl;
 
       helpers.renderInto(el, {
         text: 'hello\nworld'
@@ -81,9 +83,9 @@ describe('NoteCard', function() {
     });
   });
 
-  SpecSugar.withTestEl('integration tests', function() {
+  SpecSugar.withTestEl('integration tests', function(container) {
     it('replaces HTML with newlines in saved text', function() {
-      const el = this.testEl;
+      const el = container.testEl;
 
       const component = helpers.renderInto(el, {
         text: 'hello world'
@@ -101,7 +103,7 @@ describe('NoteCard', function() {
     });
 
     it('sanitizes undesirable HTML', function() {
-      const el = this.testEl;
+      const el = container.testEl;
 
       const component = helpers.renderInto(el, {
         text: 'hello\nworld'

@@ -16,6 +16,7 @@ class SchoolsController < ApplicationController
 
     @serialized_data = {
       students: merged_student_hashes,
+      school: @school,
       current_educator: current_educator,
       constant_indexes: constant_indexes
     }
@@ -34,7 +35,7 @@ class SchoolsController < ApplicationController
 
   def csv
     authorized_students = @school.students.active
-    csv_string = StudentsSpreadsheet.new.csv_string(authorized_students)
+    csv_string = StudentsSpreadsheet.new.csv_string(authorized_students, @school)
     filename = "#{@school.name} - Exported #{Time.now.strftime("%Y-%m-%d")}.csv"
     send_data(csv_string, {
       type: Mime[:csv],

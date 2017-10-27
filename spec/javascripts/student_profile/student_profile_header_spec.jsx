@@ -1,5 +1,6 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
+import ReactTestUtils from 'react-addons-test-utils';
 
 
 describe('StudentProfileHeader', function() {
@@ -23,33 +24,35 @@ describe('StudentProfileHeader', function() {
 
   };
 
-  SpecSugar.withTestEl('active enrolled student', function() {
+  SpecSugar.withTestEl('active enrolled student', function(container) {
     it('renders note-taking area with homeroom', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderActiveStudent(el);
       const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
-                                                                                           // so we don't have to calculate this
+                                                                                     // so we don't have to calculate this
+      expect($(el).text()).toContain('Daisy Poppins');
+      expect($(el).text()).toContain('Arthur D Healey');
+      expect($(el).text()).toContain('5/23/2008');
+      expect($(el).text()).toContain('(' + yearsOld + ' years old)');
+      expect($(el).find('a.homeroom-link').text()).toContain('102');
 
-      expect(el).toContainText('Daisy Poppins');
-      expect(el).toContainText('Arthur D Healey');
-      expect(el).toContainText('5/23/2008');
-      expect(el).toContainText('(' + yearsOld + ' years old)');
-      expect($(el).find('a.homeroom-link')).toContainText('102');
-      $(el).find('.click-event-modal').click();
-      expect($(el).find('.modal').html()).toContainText('1 Memorial Dr, Cambridge, MA 02142');
-      expect($(el).find('.modal').html()).toContainText('999-999-9999 C-Mom');
-      expect($(el).find('.modal').html()).toContainText('parent@example.com');
+      const modalIconEl = $(el).find('.click-event-modal').get(0);
+      ReactTestUtils.Simulate.click(modalIconEl);
+      const modalText = $(document).find('.contact-info-modal').html();
+      expect(modalText).toContain('1 Memorial Dr, Cambridge, MA 02142');
+      expect(modalText).toContain('999-999-9999 C-Mom');
+      expect(modalText).toContain('parent@example.com');
     });
   });
 
-  SpecSugar.withTestEl('non-active Transferred student', function() {
+  SpecSugar.withTestEl('non-active Transferred student', function(container) {
     it('renders note-taking area with Transferred status', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderTransferredStudent(el);
 
-      expect(el).toContainText('Daisy Poppins');
-      expect(el).toContainText('Arthur D Healey');
-      expect(el).toContainText('Transferred');
+      expect(el.innerHTML).toContain('Daisy Poppins');
+      expect(el.innerHTML).toContain('Arthur D Healey');
+      expect(el.innerHTML).toContain('Transferred');
     });
   });
 
