@@ -11,7 +11,7 @@ class IepPdfImportJob
   # contains several older documents (ie., for a first-time import).
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-    remote_filenames = ['student-documents_old.zip']
+    remote_filenames = [ENV['BULK_IEP_IMPORT_TARGET']]
 
     import_ieps!(remote_filenames)
   end
