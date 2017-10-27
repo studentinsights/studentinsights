@@ -207,15 +207,10 @@
     </div>
     <br style="clear: left;" /><br/>
     <% end %>
-
+  
     <%= json_div(id: "serialized-data", data: @serialized_data) %>
     <div class="scripts">
-      <%= wicked_pdf_javascript_include_tag 'application' %>
-      <%= wicked_pdf_javascript_include_tag 'helpers/graph_helpers' %>
-      <%= wicked_pdf_javascript_include_tag 'student_profile/pdf/student_profile_pdf' %>
-      <script>
-        $(window.shared.StudentProfilePdf.load);
-      </script>
+      <%= wicked_pdf_javascript_include_tag webpack_bundle('student_report_pdf.js') %>
     </div>
   </body>
 </html>

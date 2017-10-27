@@ -1,11 +1,8 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-const ReactDOM = window.ReactDOM;
 
-$(function() {
-  // only run if the correct page
-  if (!($('body').hasClass('students') && $('body').hasClass('show'))) return;
-
+export default function renderStudentMain(el) {
   // imports
+  const ReactDOM = window.ReactDOM;
   const PageContainer = window.shared.PageContainer;
   const parseQueryString = window.shared.parseQueryString;
 
@@ -18,5 +15,5 @@ $(function() {
     nowMomentFn={function() { return moment.utc(); }}
     serializedData={serializedData}
     queryParams={parseQueryString(window.location.search)}
-    history={window.history} />, document.getElementById('main'));
-});
+    history={window.history} />, el);
+}

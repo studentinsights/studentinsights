@@ -39,7 +39,7 @@ import _ from 'lodash';
     flexibleQuadRange: function(cumulativeQuads, valueRange) {
       const max = _.max([
         valueRange[1],
-        d3.max(cumulativeQuads, QuadConverter.toValue)
+        _.max([cumulativeQuads, QuadConverter.toValue])
       ]);
       return [valueRange[0], max];
     }

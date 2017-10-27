@@ -27,3 +27,6 @@ config/local_env.yml
 # Editor configuration
 studentinsights.sublime-workspace
 .dir-locals.el
+
+public/build
+public/dev

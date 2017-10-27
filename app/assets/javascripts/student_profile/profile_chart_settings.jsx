@@ -1,3 +1,5 @@
+import Highcharts from 'highcharts';
+
 (function(root) {
 
   const ProfileChartSettings = {};
