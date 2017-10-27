@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
+import { shouldDisplay } from '../helpers/customization_helpers.js';
 
 window.shared || (window.shared = {});
 const Routes = window.shared.Routes;
@@ -123,8 +124,8 @@ export default React.createClass({
               {this.renderHeader('Services', 'active_services', 'active_services')}
               {this.renderHeader('Program', 'program_assigned', 'program_assigned')}
               {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
-              {isHighSchool && this.renderHeader('House', 'house', 'string')}
-              {isHighSchool && this.renderHeader('Counselor', 'counselor', 'string')}
+              {shouldDisplay('house',this.props.school) && this.renderHeader('House', 'house', 'string')}
+              {shouldDisplay('counselor',this.props.school) && this.renderHeader('Counselor', 'counselor', 'string')}
             </tr>
           </thead>
           <tbody>
@@ -157,8 +158,8 @@ export default React.createClass({
                       {student.homeroom_name}
                     </a>
                   </td>
-                  {isHighSchool && (<td>{student.house}</td>)}
-                  {isHighSchool && (<td>{student.counselor}</td>)}
+                  {shouldDisplay('house',this.props.school) && (<td>{student.house}</td>)}
+                  {shouldDisplay('counselor',this.props.school) && (<td>{student.counselor}</td>)}
                 </tr>
               );
             }, this)}
