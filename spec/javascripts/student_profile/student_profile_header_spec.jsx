@@ -35,6 +35,7 @@ describe('StudentProfileHeader', function() {
       expect(el.innerHTML).toContain('5/23/2008');
       expect(el.innerHTML).toContain('(' + yearsOld + ' years old)');
       expect(el.innerHTML).toContain('1 Memorial Dr, Cambridge, MA 02142');
+      expect($(el).find('a.homeroom-link').text()).toContain('102');
 
       const modalIconEl = $(el).find('.click-event-modal').get(0);
 
