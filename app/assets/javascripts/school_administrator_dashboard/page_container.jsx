@@ -111,13 +111,11 @@ export default React.createClass({
     const homeRoomAttendance = this.attendanceByHomeroom();
 
     return (
-      <div className="DashboardSnapshotsPage">
         <SchoolAbsenceDashboard
           schoolAttendance = {schoolAttendance}
           schoolAttendanceMonths = {schoolAttendanceMonths}
           homeRoomAttendance = {homeRoomAttendance}
-          students = {this.props.attendanceData}/>
-      </div>);
+          students = {this.props.attendanceData}/>);
   }
 });
 

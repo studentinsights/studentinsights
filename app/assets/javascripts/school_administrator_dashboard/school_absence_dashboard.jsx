@@ -12,7 +12,6 @@ const styles = {
     padding:15,
     marginTop: 10,
     marginBottom: 10,
-    width: '100%',
     backgroundColor: '#f2f2f2'
   },
   chartContainer: {
@@ -21,8 +20,7 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'stretch',
     marginLeft: '30px',
-    marginRight: 'auto',
-    width: '60%'
+    marginRight: 'auto'
   },
   studentListContainer: {
     padding: '30px',
@@ -82,15 +80,13 @@ export default React.createClass({
 
   render: function() {
     return (
-      <div className="DashboardSnapshotsPage">
-        <div>
-          {this.renderDateRangeSlider()}
-        </div>
-        <div style={styles.chartContainer}>
+      <div className="DashboardGrid">
+        <div className="DashboardChartsColumn">
           {this.renderMonthlyAbsenceChart()}
           {this.renderHomeroomAbsenceChart()}
         </div>
-        <div>
+        <div className="DashboardRosterColumn">
+          {this.renderDateRangeSlider()}
           {this.renderStudentAbsenceTable()}
         </div>
       </div>
@@ -106,14 +102,12 @@ export default React.createClass({
     // const yearCategories = GraphHelpers.yearCategories(categories);
 
     return (
-      <div>
         <DashboardBarChart
           id = {'string'}
           categories = {categories}
           seriesData = {filteredAttendanceSeries}
           monthsBack = {categories.length}
           titleText = {'Attendance (Percent)'}/>
-      </div>
     );
   },
 
@@ -129,7 +123,6 @@ export default React.createClass({
     });
 
     return (
-      <div>
         <DashboardBarChart
           style = {styles.chartBox}
           id = {'string'}
@@ -137,7 +130,6 @@ export default React.createClass({
           seriesData = {homeroomSeries}
           monthsBack = {12}
           titleText = {'Attendance (Percent)'}/>
-        </div>
     );
   },
 
@@ -152,10 +144,8 @@ export default React.createClass({
     });
 
     return (
-      <div style={styles.studentListContainer}>
         <StudentsTable
           rows = {students}/>
-      </div>
     );
   },
 
@@ -166,13 +156,6 @@ export default React.createClass({
           start_date: moment.unix(range[0]).format("YYYY-MM-DD"),
           end_date: moment.unix(range[1]).format("YYYY-MM-DD")
         })}/>
-    );
-  },
-
-  renderCharts: function() {
-    return (
-      <div style={styles.box}>
-      </div>
     );
   }
 });

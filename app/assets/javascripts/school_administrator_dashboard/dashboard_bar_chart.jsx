@@ -11,7 +11,6 @@ const styles = {
     fontSize: 24
   },
   container: {
-    width: '100%',
     marginTop: 50,
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -71,8 +70,7 @@ export default React.createClass({
     const yearCategories = GraphHelpers.yearCategories(monthKeys);
 
     return (
-      <div id={this.props.id} style={styles.container}>
-        {this.renderHeader()}
+      <div id={this.props.id} >
         <HighchartsWrapper
           chart={{type: 'column'}}
           credits={false}
@@ -103,7 +101,7 @@ export default React.createClass({
           ]} />
       </div>
     );
-  },
+  }
 
   // getInitialState: function() {
   //   console.log(ReactHighcharts);
@@ -171,22 +169,22 @@ export default React.createClass({
   // },
 
 
-  renderHeader: function() {
-    const nYearsBack = Math.ceil(this.props.monthsBack / 12);
-    const title = this.props.titleText + ', last ' + nYearsBack + ' years';
+  // renderHeader: function() {
+  //   const nYearsBack = Math.ceil(this.props.monthsBack / 12);
+  //   const title = this.props.titleText + ', last ' + nYearsBack + ' years';
 
-    return (
-      <div style={styles.secHead}>
-        <h4 style={styles.title}>
-          {title}
-        </h4>
-        <span style={styles.navTop}>
-          <a href="#">
-            Back to top
-          </a>
-        </span>
-      </div>
-    );
-  }
+  //   return (
+  //     <div style={styles.secHead}>
+  //       <h4 style={styles.title}>
+  //         {title}
+  //       </h4>
+  //       <span style={styles.navTop}>
+  //         <a href="#">
+  //           Back to top
+  //         </a>
+  //       </span>
+  //     </div>
+  //   );
+  // }
 
 });
