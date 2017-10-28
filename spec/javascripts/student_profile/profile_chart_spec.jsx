@@ -3,6 +3,11 @@ import _ from 'lodash';
 describe('ProfileBarCharts', function() {
   const ProfileChart = window.shared.ProfileChart;
 
+  describe('#timeProps', () => {
+    const {timestampRange} = ProfileChart.prototype.timeProps.call({ props: {} });
+    expect(timestampRange.min).toBeLessThan(timestampRange.max);
+  });
+  
   describe('#getSchoolYearStartPositions', function(){
     it('works when current grade is 5', function(){
       expect(
