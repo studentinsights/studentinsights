@@ -3,8 +3,6 @@
 
   // React helper fns
   window.shared.ReactHelpers = {
-    dom: React.DOM,
-    createEl: React.createElement.bind(React),
     merge: function() {
       // Combines several objects into one.
       // Does not mutate its arguments.

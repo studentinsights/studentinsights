@@ -12,18 +12,18 @@ describe('SliceButtons', function() {
         students: [],
         filters: [],
         filtersHash: '',
-        clearFilters: jasmine.createSpy('clearFilters')
+        clearFilters: jest.fn()
       }, props || {});
       ReactDOM.render(<SliceButtons {...mergedProps} />, el);
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('high-level integration tests', function(container) {
     it('renders everything on the happy path', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
 
-      expect(el).toContainText('Share');
+      expect(el.innerHTML).toContain('Share');
     });
   });
 });

@@ -116,6 +116,14 @@ class Student < ActiveRecord::Base
     ordered_results_by_family_and_subject("MCAS", "ELA")
   end
 
+  def next_gen_mcas_mathematics_results
+    ordered_results_by_family_and_subject("Next Gen MCAS", "ELA")
+  end
+
+  def next_gen_mcas_ela_results
+    ordered_results_by_family_and_subject("Next Gen MCAS", "ELA")
+  end
+
   def star_reading_results
     ordered_results_by_family_and_subject("STAR", "Reading")
   end
@@ -140,11 +148,11 @@ class Student < ActiveRecord::Base
   end
 
   def latest_mcas_mathematics
-    latest_result_by_family_and_subject("MCAS", "Mathematics") || MissingStudentAssessment.new
+    latest_result_by_family_and_subject(["Next Gen MCAS", "MCAS"], "Mathematics") || MissingStudentAssessment.new
   end
 
   def latest_mcas_ela
-    latest_result_by_family_and_subject("MCAS", "ELA") || MissingStudentAssessment.new
+    latest_result_by_family_and_subject(["Next Gen MCAS", "MCAS"], "ELA") || MissingStudentAssessment.new
   end
 
   def latest_star_mathematics

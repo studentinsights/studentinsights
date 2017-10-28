@@ -1,3 +1,5 @@
+import React from 'react';
+
 (function() {
   window.shared || (window.shared = {});
 

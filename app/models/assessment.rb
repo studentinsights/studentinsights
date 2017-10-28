@@ -28,6 +28,8 @@ class Assessment < ActiveRecord::Base
     Assessment.create!([
       { family: "MCAS", subject: "Mathematics" },
       { family: "MCAS", subject: "ELA" },
+      { family: "Next Gen MCAS", subject: "Mathematics" },
+      { family: "Next Gen MCAS", subject: "ELA" },
       { family: "STAR", subject: "Mathematics" },
       { family: "STAR", subject: "Reading" },
       { family: "ACCESS", subject: "Composite" },

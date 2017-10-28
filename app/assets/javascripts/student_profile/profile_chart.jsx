@@ -29,19 +29,19 @@ import _ from 'lodash';
       })
     },
 
-    getDefaultProps: function() {
-      const now = moment.utc().toDate();
+    timeProps: function() {
+      const nowMoment = moment.utc();
       // The intent of fixing this date range is that when staff are looking at profile of different students,
       // the scales are consistent (and not changing between 3 mos and 6 years depending on the student's record,
       // since that's easy to miss and misinterpret.
       const intervalBack = [4, 'years'];
 
       return {
-        now: now,
+        nowMoment,
         intervalBack: intervalBack,
-        timestampRange: {
-          min: moment(now).subtract(4, 'years').toDate().getTime(),
-          max: now.getTime(),
+        timestampRange: this.props.timestampRange || {
+          min: nowMoment.subtract(4, 'years').toDate().getTime(),
+          max: nowMoment.toDate().getTime(),
         }
       };
     },
@@ -93,16 +93,17 @@ import _ from 'lodash';
     },
 
     baseOptionsForStar: function () {
+      const {nowMoment, timestampRange} = this.timeProps();
       const positionsForYearStarts = this.getSchoolYearStartPositions(
-        48, moment.utc(), parseInt(this.props.student.grade)
+        48, nowMoment, parseInt(this.props.student.grade)
       );
 
       return merge(ProfileChartSettings.star_chart_base_options, {
         xAxis: [
           merge(ProfileChartSettings.x_axis_datetime, {
             plotLines: this.x_axis_bands,
-            min: this.props.timestampRange.min,
-            max: this.props.timestampRange.max
+            min: timestampRange.min,
+            max: timestampRange.max
           }),
           {
             type: "datetime",
@@ -116,16 +117,17 @@ import _ from 'lodash';
     },
 
     baseOptionsForNonKF: function () {
+      const {nowMoment, timestampRange} = this.timeProps();
       const positionsForYearStarts = this.getSchoolYearStartPositions(
-        48, moment.utc(), parseInt(this.props.student.grade)
+        48, nowMoment, parseInt(this.props.student.grade)
       );
 
       return merge(ProfileChartSettings.base_options, {
         xAxis: [
           merge(ProfileChartSettings.x_axis_datetime, {
             plotLines: this.x_axis_bands,
-            min: this.props.timestampRange.min,
-            max: this.props.timestampRange.max
+            min: timestampRange.min,
+            max: timestampRange.max
           }),
           {
             type: "datetime",

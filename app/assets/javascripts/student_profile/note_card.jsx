@@ -1,10 +1,11 @@
 import Educator from './educator.jsx';
+import moment from 'moment';
+
 
 (function() {
   window.shared || (window.shared = {});
 
   const EditableTextComponent = window.shared.EditableTextComponent;
-  const moment = window.moment;
 
   const styles = {
     note: {

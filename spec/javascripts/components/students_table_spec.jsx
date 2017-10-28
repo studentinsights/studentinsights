@@ -10,7 +10,7 @@ describe('StudentsTable', function() {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration test', function() {
+  SpecSugar.withTestEl('high-level integration test', function(container) {
     it('renders the right date', function() {
 
       const props = {
@@ -25,14 +25,15 @@ describe('StudentsTable', function() {
             active_services: [],
             id: '1'
           }
-        ]
+        ],
+        school: { }
       };
 
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, props);
 
-      expect(el).toContainText('11/28/10');
-      expect(el).not.toContainText('11/30/10');
+      expect(el.innerHTML).toContain('11/28/10');
+      expect(el.innerHTML).not.toContain('11/30/10');
     });
   });
 

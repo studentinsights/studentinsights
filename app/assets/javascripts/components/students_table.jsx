@@ -9,7 +9,8 @@ export default React.createClass({
   displayName: 'StudentsTable',
 
   propTypes: {
-    students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    school: React.PropTypes.object.isRequired
   },
 
   getInitialState () {
@@ -99,6 +100,8 @@ export default React.createClass({
   },
 
   render () {
+    const isHighSchool = 'HS'===this.props.school.school_type;
+
     return (
       <div className='StudentsTable'>
         <table className='students-table' style={{ width: '100%' }}>
@@ -120,6 +123,8 @@ export default React.createClass({
               {this.renderHeader('Services', 'active_services', 'active_services')}
               {this.renderHeader('Program', 'program_assigned', 'program_assigned')}
               {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
+              {isHighSchool && this.renderHeader('House', 'house', 'string')}
+              {isHighSchool && this.renderHeader('Counselor', 'counselor', 'string')}
             </tr>
           </thead>
           <tbody>
@@ -152,6 +157,8 @@ export default React.createClass({
                       {student.homeroom_name}
                     </a>
                   </td>
+                  {isHighSchool && (<td>{student.house}</td>)}
+                  {isHighSchool && (<td>{student.counselor}</td>)}
                 </tr>
               );
             }, this)}
