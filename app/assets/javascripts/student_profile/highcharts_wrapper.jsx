@@ -12,6 +12,10 @@ import 'highcharts';
       $(this._chartEl).highcharts(this.props);
     },
 
+    componentWillReceiveProps: function(props, state) {
+      $(this._chartEl).highcharts(this.props);
+    },
+
     componentWillUnmount: function(props, state) {
       delete this._chartEl;
     },
