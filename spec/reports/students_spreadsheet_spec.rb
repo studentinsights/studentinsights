@@ -16,14 +16,14 @@ RSpec.describe StudentsSpreadsheet do
 
     describe '#csv_string' do
       it 'generates a CSV with the expected number of lines' do
-        csv_string = StudentsSpreadsheet.new.csv_string(school.students)
+        csv_string = StudentsSpreadsheet.new.csv_string(school.students, school)
         expect(csv_string.split("\n").size).to eq(1 + school.students.size)
       end
     end
 
     describe '#flat_row_hash' do
       it 'creates expected fields' do
-        flat_row_hash = StudentsSpreadsheet.new.send(:flat_row_hash, school.students.first, ServiceType.all)
+        flat_row_hash = StudentsSpreadsheet.new.send(:flat_row_hash, school.students.first, ServiceType.all, school)
         expect(flat_row_hash.keys).to match_array([
            "id",
            "grade",

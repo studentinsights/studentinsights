@@ -20,7 +20,11 @@ SELECT
   'school_local_id',
   'gender',
   'race',
-  'hispanic_latino'
+  'hispanic_latino',
+  'primary_phone',
+  'primary_email',
+  'house',
+  'counselor'
 UNION ALL
 SELECT
   STD_ID_STATE,
@@ -43,13 +47,16 @@ SELECT
   SKL_SCHOOL_ID,
   PSN_GENDER_CODE,
   PSN_RACE_VIEW,
-  PSN_HISPANIC_LATINO_IND
+  PSN_HISPANIC_LATINO_IND,
+  PSN_PHONE_01,
+  PSN_EMAIL_01,
+  STD_FIELDB_008, -- House - SHS
+  STD_FIELDB_027 -- Counselor - SHS
 FROM student
 INNER JOIN school
   ON student.STD_SKL_OID=school.SKL_OID
 INNER JOIN person
   ON student.STD_PSN_OID = person.PSN_OID
-AND STD_ID_STATE IS NOT NULL
 AND STD_OID IS NOT NULL
   INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/students_export.txt"
   FIELDS TERMINATED BY ','

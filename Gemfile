@@ -8,7 +8,6 @@ gem 'puma'
 
 gem 'activerecord-import'
 gem 'aws-sdk', '~> 2'
-gem 'browserify-rails'
 gem 'devise', '~> 4.3.0'
 gem 'devise_ldap_authenticatable'
 gem 'activemodel-serializers-xml'
@@ -20,8 +19,6 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'net-sftp'
 gem 'net-ssh'
 gem 'probability'
-gem 'rails-sanitize-js'
-gem 'react-rails' # Provides React, handles swapping between dev/production builds.  See config/initializers/assets.rb
 gem 'rubocop', require: false
 gem 'memory_profiler'
 gem 'oj'
@@ -55,16 +52,13 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'launchy'
-  gem 'phantomjs'
   gem 'pry' # Set a breakpoint in your ruby code by adding `binding.pry`
   gem 'rack-test'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'simplecov'
-  gem 'teaspoon-jasmine'
   gem 'timecop'
   gem 'rails-controller-testing'
-  gem 'coffee-rails'
   gem 'bourbon', '~> 4.3.2'
 end
 

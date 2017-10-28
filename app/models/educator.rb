@@ -26,6 +26,14 @@ class Educator < ActiveRecord::Base
 
   VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ].freeze
 
+  # override
+  # The `student_searchbar_json` field can be really heavy (~500kb), and
+  # there's no circumstances where we want to include it when serializing
+  # an educator model.  So override `as_json to omit it by default.
+  def as_json(options = {})
+    super(options.merge({ except: [:student_searchbar_json] }))
+  end
+
   def has_school_unless_districtwide
     if school.blank?
       errors.add(:school_id, "must be assigned a school") unless districtwide_access?

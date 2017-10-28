@@ -1,9 +1,8 @@
 import _ from 'lodash';
+import Sanitize from '../helpers/Sanitize.js';
 
 (function() {
   window.shared || (window.shared = {});
-  const Sanitize = window.Sanitize;
-
   const sanitize = new Sanitize({
     elements: ['br', 'div', 'p']
   });

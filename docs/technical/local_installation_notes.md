@@ -1,5 +1,11 @@
 # Local installation notes
 
+## Yarn installation
+Check out https://yarnpkg.com/en/docs/install or if you have Homebrew setup run:
+```
+brew install yarn
+```
+
 ## Ruby installation
 The project runs on a specific version of Ruby, specified in [.ruby-version](/.ruby-version).  You can check your Ruby version by running:
 

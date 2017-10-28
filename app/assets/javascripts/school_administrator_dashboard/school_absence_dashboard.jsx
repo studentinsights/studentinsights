@@ -1,3 +1,4 @@
+import React from 'react';
 import _ from 'lodash';
 import StudentsTable from './students_table.jsx';
 import DashboardBarChart from './dashboard_bar_chart.jsx';

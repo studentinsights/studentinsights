@@ -1,3 +1,4 @@
+import React from 'react';
 import _ from 'lodash';
 import SchoolAbsenceDashboard from './school_absence_dashboard.jsx';
 

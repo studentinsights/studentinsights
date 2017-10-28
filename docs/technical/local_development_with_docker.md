@@ -2,6 +2,7 @@
 
 You can run the project locally, on Windows, Linux or OS X, in Docker containers using docker-compose.
 
+## Docker background
 ### What does that mean?
 
 Docker is virtualization software (it's a way for your computer to run other computers). Using Docker, you can define a whole computer in a text file, using a special syntax. That's called a Dockerfile -- if you're curious, [here's](/Dockerfile) the one for this project.
@@ -18,6 +19,7 @@ If you haven't had that experience, you'll have to take my word for it. Download
 
 If you already have a dev environment running to your satisfaction on your machine, there's no need to switch to Docker. If you're experienced at cloning Rails projects and getting them running the old-fashioned way, you can go either way. Docker is fun, but we just want to get a dev environment running; do whatever works for you.
 
+## Docker setup
 ### Okay, how do I start using it?
 
 Before you do any of this, clone the project from github by starting up Terminal and running `git clone https://github.com/studentinsights/studentinsights.git`. This will create a folder named `studentinsights` in the current directory.
@@ -56,13 +58,14 @@ The docker daemon needs root permissions, so by default you'll have to use **sud
 
 `$ sudo usermod -aG docker yourname`
 
+## Student Insights setup
 ### Okay, now what?
 
   - Navigate to where you cloned the project (so you should be at the root of the project, in the folder named "studentinsights").
   - Run the project using **docker-compose**:
-    - Rebuild all container images: `docker-compose build` (slow the first time)
+    - Rebuild all container images: `docker-compose build` (this will take minutes the first time)
     - Start bash in a temporary Rails container to create the database and seed it:
-       - Start a new Rails container from your laptop: `docker-compose run rails bash`. This will give you a new command line, something like "root@8595f0db21aa:/mnt/somerville-teacher-tool". That means you're inside the container.
+       - Start a new Rails container from your laptop: `docker-compose run studentinsights bash`. This will give you a new command line, something like "root@8595f0db21aa:/mnt/somerville-teacher-tool". That means you're inside the container.
        - Set up the database and seed it with demo data: `RAILS_ENV=development bundle exec rake db:setup db:seed`
        - Get back to your terminal (and discard the container): `exit` or Control+D.
     - Start all the services: `docker-compose up`. (This will occupy your terminal. To stop it and bring the server down, press Control+C).
@@ -71,20 +74,30 @@ The docker daemon needs root permissions, so by default you'll have to use **sud
 Okay, now make sure you can get at what you just did. Bookmark "http://docker:3000" and put VirtualBox in your Dock so you can access it later.
 
 ### Getting inside your Docker container:
-We just created a temporary rails container to access the database with, but you can also get inside a running container. Run `docker ps` to see all the running containers you have. An ID will be displayed next to the container's name. Run `docker exec -it <ID> bash` to get inside your container. From here you can run rake tasks or whatever else you need.
+We just created a temporary studentinsights container to access the database with, but you can also get inside a running container. Run `docker ps` to see all the running containers you have. An ID will be displayed next to the container's name. Run `docker exec -it <ID> bash` to get inside your container. From here you can run rake tasks or whatever else you need.
 
 (This means: run command **bash**, in **i**nteractive mode, attached to (this) **t**erminal, inside container **<ID>**.
 
-### Get inside the database:
+### Run a Rails console
 You can get a **psql** shell (which lets you run SQL against the database) by running
 
 ```
-docker exec -it studentinsights_rails_1 rails dbconsole
+docker exec -it studentinsights_studentinsights_1 bundle exec rails c
 ```
 
-This is executing, in the Rails container, the `dbconsole` Rails command which figures out the username, password etc. for `psql`. It will connect you to the `student_insights_development` database, which contains educators, students, etc.
+### Run Jest tests
+You can get a **psql** shell (which lets you run SQL against the database) by running
+
+```
+docker-compose run studentinsights yarn test
+```
+
+
+This is executing, in the Rails container, the `bundle exec rails c` command which gives you a Rails console, where you can run Ruby code, query models, etc.
 
 ### Troubleshooting:
+**Can't connect to Postgres:** The Postgres container image sets the username as `postgres`, and our `docker-compose.yaml` calls that container "postgres".  So you may need to modify the Rails `database.yml` to match.
+
 **Changes to the Gemfile:** The Gemfile lists all of the Ruby dependencies for the project. When it changes, you need to run `docker-compose build` again to install the new dependencies. If you're experiencing problems after pulling from master, it might be because the Gemfile changed.
 
 **docker-compose up not working:** Try restarting the Linux machine by typing `docker-machine restart`. If that is taking forever, check VirtualBox to see if the machine is running. If it's not, shift-click on the "Start" arrow.
@@ -93,7 +106,7 @@ This is executing, in the Rails container, the `dbconsole` Rails command which f
 
 **A server is already running. Check /mnt/somerville-teacher-tool/tmp/pids/server.pid.**: Sometimes **docker-compose** doesn't clean up after itself when it shuts down. There's a file at "tmp/pids/server.pid" -- delete it (from within the studentinsights folder, you can run `rm tmp/pids/server.pid`) and try again.
 
-**Loading pages is really slow!**: This is an unfortunate side effect of Docker -- going through the layer of virtualization to get CSS and image files is slow. Note that this is only a problem for us, not for users. You can try [https://github.com/adlogix/docker-machine-nfs](https://github.com/adlogix/docker-machine-nfs) to use NFS for sharing files between the host machine and the VirtualBoxVM. It may solve the problem, but I haven't been able to get it to work. ([Kevin looked into this](https://github.com/codeforamerica/somerville-teacher-tool/pull/336#issuecomment-158441877)). If it does work for you, let me know at really.eli@gmail.com or on Slack.
+**Loading pages is really slow!**: This is an unfortunate side effect of Docker -- going through the layer of virtualization to get CSS and image files is slow. Note that this is only a problem for us, not for users. You can try [https://github.com/adlogix/docker-machine-nfs](https://github.com/adlogix/docker-machine-nfs) to use NFS for sharing files between the host machine and the VirtualBoxVM. It may solve the problem, but I haven't been able to get it to work. ([Kevin looked into this](https://github.com/codeforamerica/somerville-teacher-tool/pull/336#issuecomment-158441877)).
 
 **ERROR: Service failed to build: failed to register layer: ...**: Docker on your VirtualBox machine is in a bad state for some reason. Run `docker-machine rm default` and `docker-machine create --driver virtualbox default` to set up a new one.
 
@@ -102,13 +115,18 @@ This is executing, in the Rails container, the `dbconsole` Rails command which f
 ### Running RSpec tests:
 ```
   # Start a new Rails container from your laptop
-  $ docker-compose run rails bash
+  $ docker-compose run studentinsights bash
 
   # Seed the test database
   $ RAILS_ENV=test bundle exec rake db:setup
 
   # Run whatever tests you like
   $ RAILS_ENV=test bundle exec rspec
+```
+
+### Running Jest tests:
+```
+  $ docker-compose run studentinsights yarn test
 ```
 
 ### Feedback:

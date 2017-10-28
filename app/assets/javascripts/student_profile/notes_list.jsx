@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 
 (function() {
   window.shared || (window.shared = {});
@@ -6,7 +7,6 @@ import _ from 'lodash';
   const NoteCard = window.shared.NoteCard;
   const PropTypes = window.shared.PropTypes;
   const FeedHelpers = window.shared.FeedHelpers;
-  const moment = window.moment;
 
   const styles = {
     noItems: {
@@ -88,7 +88,7 @@ import _ from 'lodash';
       return (
         <NoteCard
           key={['deprecated_intervention', deprecatedIntervention.id].join()}
-          noteMoment={moment.utc(deprecatedIntervention.start_date_timestamp)}
+          noteMoment={moment.utc(deprecatedIntervention.start_date_timestamp, 'MMMM-YY-DD')}
           badge={React.createElement("span", { style: styles.badge }, 'Old intervention')}
           educatorId={deprecatedIntervention.educator_id}
           text={_.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n')}

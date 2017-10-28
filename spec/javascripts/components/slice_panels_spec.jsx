@@ -14,9 +14,12 @@ describe('SlicePanels', function() {
         filters: [],
         serviceTypesIndex,
         eventNoteTypesIndex,
+        school: {
+          school_type: 'ES'
+        },
         students: [],
         allStudents: [],
-        onFilterToggled: jasmine.createSpy('onFilterToggled')
+        onFilterToggled: jest.fn()
       }, props || {});
       ReactDOM.render(<SlicePanels {...mergedProps} />, el);
     },
@@ -45,9 +48,9 @@ describe('SlicePanels', function() {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('high-level integration tests', function(container) {
     it('renders everything on the happy path', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
 
       expect($(el).find('.SlicePanels').length).toEqual(1);
@@ -62,8 +65,31 @@ describe('SlicePanels', function() {
       ]);
     });
 
+    it('renders everything on the happy path for high school', function() {
+      const el = container.testEl;
+      helpers.renderInto(
+        el,
+        {
+          school: {
+            school_type: 'HS'
+          }
+        }
+      );
+
+      expect($(el).find('.SlicePanels').length).toEqual(1);
+      expect($(el).find('.column').length).toEqual(6);
+      expect(helpers.columnTitlesMatrix(el)).toEqual([
+        [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
+        [ 'Grade', 'House', 'Counselor', 'Years enrolled', 'Risk level' ],
+        [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
+        [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
+        [ 'Discipline incidents', 'Absences', 'Tardies' ],
+        [ 'Services', 'Summer', 'Notes', 'Program', 'Homeroom' ]
+      ]);
+    });
+
     it('renders attributes for slicing based on student data', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, {
         students: FixtureStudents,
         allStudents: FixtureStudents

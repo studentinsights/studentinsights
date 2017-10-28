@@ -97,7 +97,7 @@ class StudentsController < ApplicationController
       :estimated_end_date
     ])
 
-    estimated_end_date = params.require(:service).permit(*[:estimated_end_date])
+    estimated_end_date = clean_params["estimated_end_date"]
 
     service = Service.new(clean_params.merge({
       recorded_by_educator_id: current_educator.id,
@@ -107,11 +107,11 @@ class StudentsController < ApplicationController
     serializer = ServiceSerializer.new(service)
 
     if service.save
-      if estimated_end_date["estimated_end_date"].present? && estimated_end_date["estimated_end_date"].to_time < Time.now
+      if estimated_end_date.present? && estimated_end_date.to_time < Time.now
         discontinued_service = DiscontinuedService.new({
           service_id: service.id,
           recorded_by_educator_id: current_educator.id,
-          discontinued_at: estimated_end_date["estimated_end_date"].to_time
+          discontinued_at: estimated_end_date.to_time
         })
         discontinued_service.save
       end
@@ -227,6 +227,7 @@ class StudentsController < ApplicationController
 
       result = case test.family
         when "MCAS" then student_assessment.scale_score
+        when "Next Gen MCAS" then student_assessment.scale_score
         when "STAR" then student_assessment.percentile_rank
         when "DIBELS" then student_assessment.performance_level
         else student_assessment.scale_score
