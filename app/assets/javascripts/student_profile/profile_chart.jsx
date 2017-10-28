@@ -40,7 +40,7 @@ import _ from 'lodash';
         nowMoment,
         intervalBack: intervalBack,
         timestampRange: this.props.timestampRange || {
-          min: nowMoment.subtract(4, 'years').toDate().getTime(),
+          min: nowMoment.clone().subtract(4, 'years').toDate().getTime(),
           max: nowMoment.toDate().getTime(),
         }
       };
