@@ -12,8 +12,8 @@ import 'highcharts';
       $(this._chartEl).highcharts(this.props);
     },
 
-    componentWillReceiveProps: function(props, state) {
-      $(this._chartEl).highcharts(this.props);
+    componentWillReceiveProps: function(newProps) {
+      $(this._chartEl).highcharts(newProps);
     },
 
     componentWillUnmount: function(props, state) {
