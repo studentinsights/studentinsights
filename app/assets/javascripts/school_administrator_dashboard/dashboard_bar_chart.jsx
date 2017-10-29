@@ -11,7 +11,7 @@ const styles = {
   },
   container: {
     marginTop: 50,
-    marginLeft: 'auto',
+    marginLeft: 20,
     marginRight: 'auto',
     border: '1px solid #ccc',
     padding: '30px 30px 30px 30px',
@@ -71,7 +71,8 @@ export default React.createClass({
     const yearCategories = GraphHelpers.yearCategories(monthKeys);
 
     return (
-      <div id={this.props.id} >
+      <div id={this.props.id} style={styles.container}>
+        {this.renderHeader()}
         <HighchartsWrapper
           chart={{type: 'column'}}
           credits={false}
@@ -102,90 +103,24 @@ export default React.createClass({
           ]} />
       </div>
     );
+  },
+
+  renderHeader: function() {
+    const nYearsBack = Math.ceil(this.props.monthsBack / 12);
+    const title = this.props.titleText + ', last ' + nYearsBack + ' years';
+
+    return (
+      <div style={styles.secHead}>
+        <h4 style={styles.title}>
+          {title}
+        </h4>
+        <span style={styles.navTop}>
+          <a href="#">
+            Back to top
+          </a>
+        </span>
+      </div>
+    );
   }
-
-  // getInitialState: function() {
-  //   console.log(ReactHighcharts);
-  //   const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
-  //   //const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
-  //   const yearCategories = GraphHelpers.yearCategories(monthKeys);
-  //   return ({
-  //     config: {
-  //       chart: {type: 'column'},
-  //       title: {text: ''},
-  //       xAxis: [
-  //         {
-  //           categories: this.props.categories
-  //         },
-  //         {
-  //           offset: 50,
-  //           linkedTo: 0,
-  //           categories: yearCategories,
-  //           tickPositions: Object.keys(yearCategories).map(Number),
-  //           tickmarkPlacement: "on"
-  //         }
-  //       ],
-  //       yAxis: {
-  //         min: 76,
-  //         max: 100,
-  //         allowDecimals: true,
-  //         title: {text: this.props.titleText}
-  //       },
-  //       series: {
-  //         showInLegend: false,
-  //         data: this.props.seriesData
-  //       }
-  //     }
-  //   });
-  // },
-
-  // componentDidMount: function() {
-  //   const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
-  //   //const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
-  //   const yearCategories = GraphHelpers.yearCategories(monthKeys);
-  //   this.setState({
-  //     config: {
-  //       xAxis: [
-  //         {
-  //           categories: this.props.categories
-  //         },
-  //         {
-  //           offset: 50,
-  //           linkedTo: 0,
-  //           categories: yearCategories,
-  //           tickPositions: Object.keys(yearCategories).map(Number),
-  //           tickmarkPlacement: "on"
-  //         }
-  //       ],
-  //       series: {
-  //         showInLegend: false,
-  //         data: this.props.seriesData
-  //       }
-  //     }
-  //   });
-  // },
-
-  // render: function() {
-  //   return <ReactHighcharts config={this.state.config} ref="chart"></ReactHighcharts>;
-  // },
-
-
-  // renderHeader: function() {
-  //   const nYearsBack = Math.ceil(this.props.monthsBack / 12);
-  //   const title = this.props.titleText + ', last ' + nYearsBack + ' years';
-
-  //   return (
-  //     <div style={styles.secHead}>
-  //       <h4 style={styles.title}>
-  //         {title}
-  //       </h4>
-  //       <span style={styles.navTop}>
-  //         <a href="#">
-  //           Back to top
-  //         </a>
-  //       </span>
-  //     </div>
-  //   );
-  // }
 
 });

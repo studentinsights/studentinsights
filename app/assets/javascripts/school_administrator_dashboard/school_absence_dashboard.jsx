@@ -81,16 +81,16 @@ export default React.createClass({
 
   render: function() {
     return (
-      <div className="DashboardGrid">
-        <div className="DashboardChartsColumn">
-          {this.renderMonthlyAbsenceChart()}
-          {this.renderHomeroomAbsenceChart()}
+        <div>
+          <div className="DashboardChartsColumn">
+            {this.renderMonthlyAbsenceChart()}
+            {this.renderHomeroomAbsenceChart()}
+          </div>
+          <div className="DashboardRosterColumn">
+            {this.renderDateRangeSlider()}
+            {this.renderStudentAbsenceTable()}
+          </div>
         </div>
-        <div className="DashboardRosterColumn">
-          {this.renderDateRangeSlider()}
-          {this.renderStudentAbsenceTable()}
-        </div>
-      </div>
     );
   },
 
