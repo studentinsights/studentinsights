@@ -4,6 +4,10 @@ class SchoolsController < ApplicationController
   before_action :set_school, :authorize_for_school
 
   def show
+    render 'shared/spa'
+  end
+
+  def overview
     authorized_students = authorized_students_for_overview(@school)
 
     student_hashes = log_timing('schools#show student_hashes') do
@@ -14,13 +18,12 @@ class SchoolsController < ApplicationController
       merge_mutable_fields_for_slicing(student_hashes)
     end
 
-    @serialized_data = {
+    render json: {
       students: merged_student_hashes,
       school: @school,
       current_educator: current_educator,
       constant_indexes: constant_indexes
     }
-    render 'shared/serialized_data'
   end
 
   def star_math

@@ -49,8 +49,11 @@ Rails.application.routes.draw do
   resources :iep_documents, only: [:show]
 
   resources :schools, only: [:show] do
-    get :star_reading, on: :member
-    get :star_math, on: :member
-    get :csv, on: :member
+    member do
+      get :overview
+      get :star_reading
+      get :star_math
+      get :csv
+    end
   end
 end

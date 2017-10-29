@@ -26,9 +26,11 @@
     "lodash": "3.10.1",
     "moment": "2.11.1",
     "object-assign": "^4.1.1",
+    "query-string": "^5.0.1",
     "react": "15.4.2",
     "react-dom": "15.4.2",
-    "react-modal": "^3.0.4"
+    "react-modal": "^3.0.4",
+    "react-router": "^4.2.0"
   },
   "devDependencies": {
     "babel-jest": "^21.2.0",

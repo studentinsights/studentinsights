@@ -1,6 +1,6 @@
 import React from 'react';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-import JsonLoader from '../../../../ui/util/JsonLoader';
+import MixpanelUtils from '../../app/assets/javascripts/helpers/mixpanel_utils.jsx';
+import JsonLoader from '../util/JsonLoader';
 
 class SchoolOverviewMain extends React.Component {
   constructor(props) {
