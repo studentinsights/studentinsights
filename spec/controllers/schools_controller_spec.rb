@@ -5,7 +5,7 @@ describe SchoolsController, :type => :controller do
   describe '#show' do
     before { School.seed_somerville_schools }
     let!(:districtwide_educator) { FactoryGirl.create(:educator, districtwide_access: true) }
-    
+
     def show_request(school_id)
       request.env['HTTPS'] = 'on'
       get :show, params: { id: school_id }
