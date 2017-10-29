@@ -29,6 +29,8 @@ module SomervilleTeacherTool
         "#{config.root}/lib"
       ]
 
+      config.middleware.use Rack::Deflater
+
       config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
       class_paths.each do |class_path|
         config.autoload_paths << class_path

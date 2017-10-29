@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
     member do
+      get :profile
       get :student_report
       get :restricted_notes
       post :service
@@ -49,7 +50,10 @@ Rails.application.routes.draw do
   resources :iep_documents, only: [:show]
 
   resources :schools, only: [:show] do
-    get :csv, on: :member
-    get :school_administrator_dashboard, on: :member
+    member do
+      get :overview
+      get :school_administrator_dashboard
+      get :csv
+    end
   end
 end

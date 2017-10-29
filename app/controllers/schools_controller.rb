@@ -4,23 +4,12 @@ class SchoolsController < ApplicationController
   before_action :set_school, :authorize_for_school
 
   def show
-    authorized_students = authorized_students_for_overview(@school)
-
-    student_hashes = log_timing('schools#show student_hashes') do
-      load_precomputed_student_hashes(Time.now, authorized_students.map(&:id))
-    end
-
-    merged_student_hashes = log_timing('schools#show merge_mutable_fields_for_slicing') do
-      merge_mutable_fields_for_slicing(student_hashes)
-    end
-
-    @serialized_data = {
-      students: merged_student_hashes,
-      school: @school,
-      current_educator: current_educator,
-      constant_indexes: constant_indexes
-    }
+    @serialized_data = { school_slug: @school.slug }
     render 'shared/serialized_data'
+  end
+
+  def overview
+    render json: overview_json(@school)
   end
 
   def csv
@@ -47,6 +36,24 @@ class SchoolsController < ApplicationController
   end
 
   private
+  def overview_json(school)
+    authorized_students = authorized_students_for_overview(school)
+
+    student_hashes = log_timing('schools#show student_hashes') do
+      load_precomputed_student_hashes(Time.now, authorized_students.map(&:id))
+    end
+
+    merged_student_hashes = log_timing('schools#show merge_mutable_fields_for_slicing') do
+      merge_mutable_fields_for_slicing(student_hashes)
+    end
+
+    {
+      students: merged_student_hashes,
+      school: school,
+      current_educator: current_educator,
+      constant_indexes: constant_indexes
+    }
+  end
 
   # This should always find a record, but if it doesn't we fall back to the
   # raw query.
