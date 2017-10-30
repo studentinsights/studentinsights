@@ -29,7 +29,15 @@ module SomervilleTeacherTool
         "#{config.root}/lib"
       ]
 
-      config.middleware.use Rack::Deflater
+      # The intention here is that we compress server responses
+      # (eg, HTML and JSON) but not doubly-gzip static assets which
+      # are already compressed on disk.
+      config.middleware.use Rack::Deflater, include: [
+        'text/html',
+        'text/csv',
+        'application/json',
+        'application/pdf'
+      ]
 
       config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
       class_paths.each do |class_path|

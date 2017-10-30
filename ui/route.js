@@ -20,6 +20,10 @@ export default function route() {
     renderSchoolOverviewMain(el); 
   }
 
+  if ($('body').hasClass('schools') && $('body').hasClass('overview')) {
+    renderSchoolOverviewMain(el, { json: true }); 
+  }
+
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
     homeroomMain(); // different HTML
   }

@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   resources :schools, only: [:show] do
     member do
       get :overview
+      get :overview_json
       get :star_reading
       get :star_math
       get :csv

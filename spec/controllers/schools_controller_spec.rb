@@ -1,19 +1,20 @@
 require 'rails_helper'
 
 describe SchoolsController, :type => :controller do
+  def extract_serialized_student_ids(controller)
+    serialized_data = controller.instance_variable_get(:@serialized_data)
+    serialized_data[:students].map {|student_hash| student_hash['id'] }
+  end
 
-  describe '#show' do
+  before { request.env['HTTPS'] = 'on' }
+
+  describe '#overview' do
     before { School.seed_somerville_schools }
     let!(:districtwide_educator) { FactoryGirl.create(:educator, districtwide_access: true) }
 
-    def show_request(school_id)
-      request.env['HTTPS'] = 'on'
-      get :show, params: { id: school_id }
-    end
-
     it 'sets school slug' do
       sign_in(districtwide_educator)
-      show_request('hea')
+      get :overview, params: { id: 'hea' }
 
       expect(response).to be_success
       serialized_data = controller.instance_variable_get(:@serialized_data)
@@ -21,17 +22,26 @@ describe SchoolsController, :type => :controller do
     end
   end
 
-  describe '#overview' do
-    def make_request(school_id)
-      request.env['HTTPS'] = 'on'
-      get :overview, params: { id: school_id }
-    end
+  describe '#overview_json' do
+    before { School.seed_somerville_schools }
+    let!(:districtwide_educator) { FactoryGirl.create(:educator, districtwide_access: true) }
 
-    def extract_serialized_student_ids(response)
-      serialized_data = JSON.parse(response.body)
-      serialized_data['students'].map {|student_hash| student_hash['id'] }
-    end
+    it 'is successful' do
+      sign_in(districtwide_educator)
+      get :overview_json, params: { id: 'hea' }
 
+      expect(response).to be_success
+      json = JSON.parse(response.body)
+      expect(json.keys).to eq [
+        "students",
+        "school",
+        "current_educator",
+        "constant_indexes"
+      ]
+    end
+  end
+
+  describe '#show' do
     context 'districtwide access' do
       before { School.seed_somerville_schools }
       before { FactoryGirl.create(:homeroom) }
@@ -39,11 +49,11 @@ describe SchoolsController, :type => :controller do
 
       it 'can access any school in the district' do
         sign_in(educator)
-        make_request('hea')
+        get :show, params: { id: 'hea' }
         expect(response).to be_success
-        make_request('brn')
+        get :show, params: { id: 'brn' }
         expect(response).to be_success
-        make_request('kdy')
+        get :show, params: { id: 'kdy' }
         expect(response).to be_success
       end
 
@@ -57,7 +67,7 @@ describe SchoolsController, :type => :controller do
 
       it 'succeeds when students in the school have event notes and services' do
         sign_in(educator)
-        make_request('hea')
+        get :show, params: { id: 'hea' }
         expect(response).to be_success
       end
 
@@ -73,11 +83,11 @@ describe SchoolsController, :type => :controller do
 
       it 'can only access assigned school' do
         sign_in(educator)
-        make_request('hea')
+        get :show, params: { id: 'hea' }
         expect(response).to be_success
-        make_request('brn')
+        get :show, params: { id: 'brn' }
         expect(response).not_to be_success
-        make_request('kdy')
+        get :show, params: { id: 'kdy' }
         expect(response).not_to be_success
       end
 
@@ -90,7 +100,7 @@ describe SchoolsController, :type => :controller do
 
       it 'redirects to homeroom page' do
         sign_in(educator)
-        make_request('hea')
+        get :show, params: { id: 'hea' }
 
         expect(response).to redirect_to(homeroom_path(homeroom))
       end
@@ -109,10 +119,10 @@ describe SchoolsController, :type => :controller do
 
       it 'is successful and assigns the correct students' do
         sign_in(educator)
-        make_request('hea')
+        get :show, params: { id: 'hea' }
 
         expect(response).to be_success
-        student_ids = extract_serialized_student_ids(response)
+        student_ids = extract_serialized_student_ids(controller)
         expect(student_ids).to include include_me.id
         expect(student_ids).to include include_me_too.id
         expect(student_ids).not_to include include_me_not
@@ -133,10 +143,10 @@ describe SchoolsController, :type => :controller do
 
       it 'is successful and assigns the correct students' do
         sign_in(educator)
-        make_request('hea')
+        get :show, params: { id: 'hea' }
 
         expect(response).to be_success
-        student_ids = extract_serialized_student_ids(response)
+        student_ids = extract_serialized_student_ids(controller)
         expect(student_ids).to include include_me.id
         expect(student_ids).to include include_me_too.id
         expect(student_ids).not_to include include_me_not
@@ -153,7 +163,7 @@ describe SchoolsController, :type => :controller do
       let(:serialized_data) { assigns(:serialized_data) }
 
       it 'is successful and assigns the correct students' do
-        make_request('hea')
+        get :show, params: { id: 'hea' }
 
         expect(response).to redirect_to(new_educator_session_path)
       end
@@ -162,11 +172,6 @@ describe SchoolsController, :type => :controller do
   end
 
   describe '#csv' do
-    def make_request(school_id)
-      request.env['HTTPS'] = 'on'
-      get :csv, params: { id: school_id }
-    end
-
     context 'with school-wide access' do
       before { School.seed_somerville_schools }
       before { FactoryGirl.create(:homeroom) }
@@ -175,7 +180,7 @@ describe SchoolsController, :type => :controller do
 
       it 'succeeds without throwing' do
         sign_in(educator)
-        make_request('hea')
+        get :csv, params: { id: 'hea' }
         expect(response).to be_success
       end
     end
