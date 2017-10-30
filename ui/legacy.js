@@ -26,7 +26,6 @@ import '../app/assets/javascripts/components/collapsable_table.jsx';
 import '../app/assets/javascripts/components/flexible_roster.jsx';
 import '../app/assets/javascripts/components/slice_buttons.jsx';
 import '../app/assets/javascripts/components/slice_panels.jsx';
-import '../app/assets/javascripts/components/star_charts_page.jsx';
 import '../app/assets/javascripts/components/students_table.jsx';
 
 
