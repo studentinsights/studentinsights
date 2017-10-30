@@ -1,4 +1,4 @@
-import FlexibleRoster from '../components/flexible_roster.jsx';
+import FlexibleRoster from '../components/FlexibleRoster';
 import SectionHeader from './section_header.jsx';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 

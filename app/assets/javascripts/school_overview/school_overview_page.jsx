@@ -1,13 +1,12 @@
 import _ from 'lodash';
-import StudentsTable from '../components/students_table.jsx';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import StudentsTable from '../components/StudentsTable';
+import SlicePanels from '../components/SlicePanels';
+import SliceButtons from '../components/SliceButtons';
+import {styles} from '../helpers/Theme';
 
-(function(root) {
-  window.shared || (window.shared = {});
-  const SlicePanels = window.shared.SlicePanels;
-  const SliceButtons = window.shared.SliceButtons;
-  const styles = window.shared.styles;
 
+(function() {
   window.shared.SchoolOverviewPage = React.createClass({
     displayName: 'SchoolOverviewPage',
 

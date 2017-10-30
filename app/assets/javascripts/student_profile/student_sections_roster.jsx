@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
-import FlexibleRoster from '../components/flexible_roster.jsx';
+import FlexibleRoster from '../components/FlexibleRoster';
 
 
 (function() {

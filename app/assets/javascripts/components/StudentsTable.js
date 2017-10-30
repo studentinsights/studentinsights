@@ -1,53 +1,48 @@
+import React from 'react';
 import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 import { shouldDisplay } from '../helpers/customization_helpers.js';
+import * as Routes from '../helpers/Routes';
 
-window.shared || (window.shared = {});
-const Routes = window.shared.Routes;
-const merge = window.shared.ReactHelpers.merge;
 
-export default React.createClass({
-  displayName: 'StudentsTable',
-
-  propTypes: {
-    students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    school: React.PropTypes.object.isRequired
-  },
-
-  getInitialState () {
-    return {
+// Renders a table of students.
+class StudentsTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       sortBy: 'last_name',
       sortType: 'string',
       sortDesc: true
     };
-  },
+    this.onClickHeader = this.onClickHeader.bind(this);
+  }
 
-  mergeInDateOfLastSST (student) {
+  mergeInDateOfLastSST(student) {
     const eventNotes = student.event_notes;
     const sstNotes = eventNotes.filter((note) => {
       return note.event_note_type_id === 300; });
 
-    if (sstNotes.length === 0) return merge(student, { dateOfLastSST: null });
+    if (sstNotes.length === 0) return {...student, dateOfLastSST: null };
 
     const sstNoteDates = sstNotes.map(note => moment.utc(note.recorded_at)).sort();
     const latestSstDate = _.last(sstNoteDates).format('M/D/YY');
 
-    return merge(student, { dateOfLastSST: latestSstDate });
-  },
+    return {...student, dateOfLastSST: latestSstDate };
+  }
 
-  studentsWithDateOfLastSST () {
+  studentsWithDateOfLastSST() {
     return this.props.students.map(student => this.mergeInDateOfLastSST(student));
-  },
+  }
 
-  orderedStudents () {
+  orderedStudents() {
     const sortedStudents = this.sortedStudents();
 
     if (!this.state.sortDesc) return sortedStudents.reverse();
 
     return sortedStudents;
-  },
+  }
 
-  sortedStudents () {
+  sortedStudents() {
     const students = this.studentsWithDateOfLastSST();
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
@@ -79,9 +74,9 @@ export default React.createClass({
     default:
       return students;
     }
-  },
+  }
 
-  headerClassName (sortBy) {
+  headerClassName(sortBy) {
     // Using tablesort classes here for the cute CSS carets,
     // not for the acutal table sorting JS (that logic is handled by this class).
 
@@ -90,17 +85,17 @@ export default React.createClass({
     if (this.state.sortDesc) return 'sort-header sort-down';
 
     return 'sort-header sort-up';
-  },
+  }
 
-  onClickHeader (sortBy, sortType) {
+  onClickHeader(sortBy, sortType) {
     if (sortBy === this.state.sortBy) {
       this.setState({ sortDesc: !this.state.sortDesc });
     } else {
       this.setState({ sortBy: sortBy, sortType: sortType });
     }
-  },
+  }
 
-  render () {
+  render() {
     return (
       <div className='StudentsTable'>
         <table className='students-table' style={{ width: '100%' }}>
@@ -165,30 +160,30 @@ export default React.createClass({
         </table>
       </div>
     );
-  },
+  }
 
-  renderNumberCell (children) {
+  renderNumberCell(children) {
     return (
       <td style={{textAlign: 'right', width: '5em', paddingRight: '3em'}}>
         {children}
       </td>
     );
-  },
+  }
 
-  renderUnless (ignoredValue, value) {
+  renderUnless(ignoredValue, value) {
     const valueText = (value === null || value === undefined) ? 'None' : value;
     return (
       <span style={{opacity: (valueText === ignoredValue) ? 0.1 : 1 }}>
         {valueText}
       </span>
     );
-  },
+  }
 
-  renderCount (count) {
+  renderCount(count) {
     return (count === 0) ? null : count;
-  },
+  }
 
-  renderHeader (caption, sortBy, sortType) {
+  renderHeader(caption, sortBy, sortType) {
     const pieces = caption.split(' ');
 
     return (
@@ -200,4 +195,10 @@ export default React.createClass({
       </th>
     );
   }
-});
+}
+StudentsTable.propTypes = {
+  students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  school: React.PropTypes.object.isRequired
+};
+
+export default StudentsTable;
