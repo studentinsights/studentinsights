@@ -4,12 +4,17 @@ class SchoolsController < ApplicationController
   before_action :set_school, :authorize_for_school
 
   def show
-    @serialized_data = { school_slug: @school.slug }
+    @serialized_data = json_for_overview(@school)
     render 'shared/serialized_data'
   end
 
   def overview
-    render json: overview_json(@school)
+    @serialized_data = { school_slug: @school.slug }
+    render 'shared/serialized_data'
+  end
+
+  def overview_json
+    render json: json_for_overview(@school)
   end
 
   def csv
@@ -36,7 +41,7 @@ class SchoolsController < ApplicationController
   end
 
   private
-  def overview_json(school)
+  def json_for_overview(school)
     authorized_students = authorized_students_for_overview(school)
 
     student_hashes = log_timing('schools#show student_hashes') do

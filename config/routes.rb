@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     member do
       get :overview
       get :school_administrator_dashboard
+      get :overview_json
       get :csv
     end
   end
