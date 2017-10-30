@@ -1,5 +1,6 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
+import ReactTestUtils from 'react-addons-test-utils';
 
 
 describe('StudentProfileHeader', function() {
@@ -28,14 +29,21 @@ describe('StudentProfileHeader', function() {
       const el = container.testEl;
       helpers.renderActiveStudent(el);
       const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
-                                                                                           // so we don't have to calculate this
-
+                                                                                     // so we don't have to calculate this
       expect(el.innerHTML).toContain('Daisy Poppins');
       expect(el.innerHTML).toContain('Arthur D Healey');
       expect(el.innerHTML).toContain('5/23/2008');
       expect(el.innerHTML).toContain('(' + yearsOld + ' years old)');
-      expect(el.innerHTML).toContain('1 Memorial Dr, Cambridge, MA 02142');
       expect($(el).find('a.homeroom-link').text()).toContain('102');
+
+      const modalIconEl = $(el).find('.click-event-modal').get(0);
+
+      ReactTestUtils.Simulate.click(modalIconEl, function () {
+        const modalText = $(document).find('.contact-info-modal').html();
+        expect(modalText).toContain('1 Memorial Dr, Cambridge, MA 02142');
+        expect(modalText).toContain('999-999-9999 C-Mom');
+        expect(modalText).toContain('parent@example.com');
+      });
     });
   });
 

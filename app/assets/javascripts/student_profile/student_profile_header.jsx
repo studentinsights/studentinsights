@@ -2,6 +2,7 @@
   window.shared || (window.shared = {});
   const Routes = window.shared.Routes;
   const RiskBubble = window.shared.RiskBubble;
+  const ContactModal = window.shared.ModalSmall;
 
   const styles = {
     titleContainer: {
@@ -21,6 +22,11 @@
     subtitleItem: {
       fontSize: 22,
       padding: 5
+    },
+    contactItem: {
+      fontSize: 15,
+      padding: 6,
+      display: 'flex'
     }
   };
 
@@ -55,7 +61,8 @@
                 {'Grade ' + student.grade}
               </span>
               {this.renderDateOfBirth()}
-              {this.renderStudentAddress()}
+              {this.renderBulletSpacer()}
+              {this.renderContactIcon()}
             </div>
           </div>
           <div
@@ -119,16 +126,27 @@
       );
     },
 
-    renderStudentAddress: function () {
-      const student = this.props.student;
-      const studentaddress = student.student_address;
-      if (!studentaddress) return null;
+    renderContactIcon: function () {
+      return (
+        <ContactModal
+          title='Contact Information'
+          icon={<span className='address-book-icon'></span>}
+          content={this.renderContactInformation()} />
+      );
+    },
 
+    renderContactInformation: function(){
+      const student = this.props.student;
       return (
         <span>
-          {this.renderBulletSpacer()}
-          <span style={styles.subtitleItem}>
-            {studentaddress}
+          <span style={styles.contactItem}>
+            {student.student_address}
+          </span>
+          <span style={styles.contactItem}>
+            {student.primary_phone}
+          </span>
+          <span style={styles.contactItem}>
+            <a href={'mailto:'+ student.primary_email}>{student.primary_email}</a>
           </span>
         </span>
       );
