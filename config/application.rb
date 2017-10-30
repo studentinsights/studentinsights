@@ -33,7 +33,7 @@ module SomervilleTeacherTool
       # (eg, HTML and JSON) but not doubly-gzip static assets which
       # are already compressed on disk.
       config.middleware.use Rack::Deflater, include: [
-        'text/html',
+        #'text/html', This doesn't seem to reduce byte site, see https://github.com/studentinsights/studentinsights/issues/1196#issuecomment-340269968
         'text/csv',
         'application/json',
         'application/pdf'
