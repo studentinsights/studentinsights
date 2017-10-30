@@ -6,6 +6,15 @@ class Student < ActiveRecord::Base
   # Contrast with student_row.rb, which represents a row imported from X2,
   # (not necessarily in the database yet).
 
+  # The default_scope restrict developers from directly querying
+  # through the model class, and forces them to go through
+  # the `Authorized` class.
+  # For test code, or for the authorization code itself, we can 
+  # drop down to plain ActiveRecord queries by using the `DANGEROUS`
+  # scope.
+  default_scope { where(id: -1) } # query through authorized instead
+  scope :DANGEROUS, -> { unscope(where: :id) } # raw query for authorization code, tests
+  
   belongs_to :homeroom, counter_cache: true
   belongs_to :school
   has_many :student_assessments, dependent: :destroy

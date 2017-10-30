@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_domain!
   before_action :authenticate_educator!  # Devise method, applies to all controllers.
                                          # In this app 'users' are 'educators'.
+  before_action :inject_authorized!
 
   # Return the homepage path, depending on the educator's role
   def homepage_path_for_role(educator)
@@ -48,6 +49,11 @@ class ApplicationController < ActionController::Base
     no_sections_path
   end
 
+  # Used to make all database queries
+  def authorized
+    @authorized
+  end
+
   # Sugar for filters checking authorization
   def redirect_unauthorized!
     redirect_to not_authorized_path
@@ -55,14 +61,6 @@ class ApplicationController < ActionController::Base
 
   def render_unauthorized_json!
     render json: { error: 'unauthorized' }, status: 403
-  end
-
-  # For redirecting requests directly from the Heroku domain to the canonical domain name
-  def redirect_domain!
-    canonical_domain = EnvironmentVariable.value('CANONICAL_DOMAIN')
-    return if canonical_domain == nil
-    return if request.host == canonical_domain
-    redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently
   end
 
   # Used to wrap a block with timing measurements and logging, returning the value of the
@@ -78,5 +76,18 @@ class ApplicationController < ActionController::Base
     logger.info "log_timing:end [#{message}] #{timing_ms.round}ms"
 
     return_value
+  end
+
+  private
+  # For redirecting requests directly from the Heroku domain to the canonical domain name
+  def redirect_domain!
+    canonical_domain = EnvironmentVariable.value('CANONICAL_DOMAIN')
+    return if canonical_domain == nil
+    return if request.host == canonical_domain
+    redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently
+  end
+
+  def inject_authorized!
+    @authorized = Authorized.new(current_educator)
   end
 end
