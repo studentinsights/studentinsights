@@ -9,7 +9,7 @@ class Service < ActiveRecord::Base
   validate :must_be_discontinued_after_service_start_date
 
   def discontinued?
-    discontinued_at.present? && (discontinued_at > DateTime.current)
+    discontinued_at.present? && (DateTime.current > discontinued_at)
   end
 
   def active?
