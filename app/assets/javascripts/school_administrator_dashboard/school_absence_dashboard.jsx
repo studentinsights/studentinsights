@@ -95,12 +95,13 @@ export default React.createClass({
   },
 
   renderMonthlyAbsenceChart: function() {
+    const {GraphHelpers} = window.shared;
     let filteredDates = this.filterDates(this.props.schoolAttendanceMonths, this.state.start_date, this.state.end_date);
     let filteredAttendanceSeries = filteredDates.map( (month) => {
       return _.sum(this.props.schoolAttendance[month])/this.props.schoolAttendance[month].length;
     });
     const categories = filteredDates.map((month) => moment.utc(month).format("YYYY-MM"));
-    // const yearCategories = GraphHelpers.yearCategories(categories);
+    const yearCategories = GraphHelpers.yearCategories(categories);
 
     return (
         <DashboardBarChart
@@ -108,7 +109,15 @@ export default React.createClass({
           categories = {categories}
           seriesData = {filteredAttendanceSeries}
           monthsBack = {categories.length}
-          titleText = {'Attendance (Percent)'}/>
+          titleText = {'Average Attendance By Month'}
+          measureText = {'Attendance (Percent)'}
+          categoryGroups = {{
+              offset: 50,
+              linkedTo: 0,
+              categories: yearCategories,
+              tickPositions: Object.keys(yearCategories).map(Number),
+              tickmarkPlacement: "on"
+            }}/>
     );
   },
 
@@ -130,7 +139,8 @@ export default React.createClass({
           categories = {Object.keys(homeRoomAttendance)}
           seriesData = {homeroomSeries}
           monthsBack = {12}
-          titleText = {'Attendance (Percent)'}/>
+          titleText = {'Average Attendance By Homeroom'}
+          measureText = {'Attendance (Percent)'}/>
     );
   },
 

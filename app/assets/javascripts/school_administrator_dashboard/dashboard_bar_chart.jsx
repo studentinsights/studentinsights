@@ -49,6 +49,8 @@ export default React.createClass({
     monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
     tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
     titleText: React.PropTypes.string.isRequired,
+    measureText: React.PropTypes.string.isRequired,
+    categoryGroups: React.PropTypes.object,
     nowMomentUTC: React.PropTypes.instanceOf(moment),
     monthKeyFn: React.PropTypes.func,
     phaselines: React.PropTypes.array
@@ -59,41 +61,29 @@ export default React.createClass({
       tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
       phaselines: [],
       nowMomentUTC: moment.utc(),
-      monthKeyFn: defaultMonthKeyFn
+      monthKeyFn: defaultMonthKeyFn,
+      categoryGroups: {}
     };
   },
 
   render: function() {
-    const {GraphHelpers} = window.shared;
     const {HighchartsWrapper} = window.shared;
-    const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
-    //const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
-    const yearCategories = GraphHelpers.yearCategories(monthKeys);
-
     return (
       <div id={this.props.id} style={styles.container}>
-        {this.renderHeader()}
         <HighchartsWrapper
           chart={{type: 'column'}}
           credits={false}
           xAxis={[
             {
               categories: this.props.categories
-            },
-            {
-              offset: 50,
-              linkedTo: 0,
-              categories: yearCategories,
-              tickPositions: Object.keys(yearCategories).map(Number),
-              tickmarkPlacement: "on"
-            }
+            }, this.props.categoryGroups
           ]}
-          title={{text: ''}}
+          title={{text: this.props.titleText}}
           yAxis={{
             min: 80,
             max: 100,
             allowDecimals: true,
-            title: {text: this.props.titleText}
+            title: {text: this.props.measureText}
           }}
           series={[
             {
@@ -101,24 +91,6 @@ export default React.createClass({
               data: this.props.seriesData
             }
           ]} />
-      </div>
-    );
-  },
-
-  renderHeader: function() {
-    const nYearsBack = Math.ceil(this.props.monthsBack / 12);
-    const title = this.props.titleText + ', last ' + nYearsBack + ' years';
-
-    return (
-      <div style={styles.secHead}>
-        <h4 style={styles.title}>
-          {title}
-        </h4>
-        <span style={styles.navTop}>
-          <a href="#">
-            Back to top
-          </a>
-        </span>
       </div>
     );
   }

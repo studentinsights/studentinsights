@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'rc-slider';
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
-const style = {float: 'right', width: 400, margin: 50};
+const style = {width: 'auto', margin: 20};
 
 export default React.createClass({
   displayName: 'DateSlider',
