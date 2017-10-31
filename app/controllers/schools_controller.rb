@@ -118,6 +118,7 @@ class SchoolsController < ApplicationController
     redirect_to root_url if @school.nil?
   end
 
+  # TODO(kr)
   def authorized_students_for_overview(school)
     if current_educator.districtwide_access?
       school.students.active

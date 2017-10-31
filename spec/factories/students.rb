@@ -7,8 +7,6 @@ FactoryGirl.define do
     initialize_with { Student.unscoped.new }
     local_id { generate(:student_local_id) }
     grade { generate(:valid_grade_level) }
-    first_name { Faker::Name.first_name }
-    last_name { Faker::Name.last_name }
     association :homeroom
     association :school
     enrollment_status "Active"

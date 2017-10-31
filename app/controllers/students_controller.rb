@@ -12,8 +12,8 @@ class StudentsController < ApplicationController
   before_action :authorize_for_districtwide_access_admin, only: [:lasids]
 
   def authorize!
-    student = Student.find(params[:id])
-    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
+    student = authorized.find_student(params[:id])
+    raise Exceptions::EducatorNotAuthorized if student.nil?
   end
 
   def authorize_for_districtwide_access_admin
@@ -23,7 +23,7 @@ class StudentsController < ApplicationController
   end
 
   def show
-    student = Student.find(params[:id])
+    student = authorized.find_student(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
@@ -51,7 +51,7 @@ class StudentsController < ApplicationController
   def restricted_notes
     raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
 
-    student = Student.find(params[:id])
+    student = authorized.find_student(params[:id])
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
@@ -135,7 +135,7 @@ class StudentsController < ApplicationController
   # Used by the service upload page to validate student local ids
   # LASID => "locally assigned ID"
   def lasids
-    render json: Student.pluck(:local_id)
+    render json: authorized.students.map(&:local_id)
   end
 
   private
@@ -192,7 +192,7 @@ class StudentsController < ApplicationController
   end
 
   def set_up_student_report_data
-    @student = Student.find(params[:id])
+    @student = authorized.find_student(params[:id])
     @current_educator = current_educator
     @sections = (params[:sections] || "").split(",")
 

@@ -69,8 +69,8 @@ class Educator < ActiveRecord::Base
     errors.add(:grade_level_access, "cannot be nil") if grade_level_access.nil?
   end
 
-  def is_authorized_for_student(educator, student)
-    Authorized.new(educator).is_authorized_for_student?(student)
+  def is_authorized_for_student(student)
+    Authorized.new(self).is_authorized_for_student?(student)
   end
 
   def is_authorized_for_school(currentSchool)
@@ -91,18 +91,38 @@ class Educator < ActiveRecord::Base
 
   def students_for_school_overview(*additional_includes)
     return [] unless school.present?
+    Authorized.new(self).students.select {|student| student.school_id == school.id }
+    # return [] unless school.present?
 
-    if schoolwide_access?
-      school.students
-            .active
-            .includes(additional_includes || [])
-    elsif has_access_to_grade_levels?
-      school.students
-            .active
-            .where(grade: self.grade_level_access)
-            .includes(additional_includes || [])
+    # if schoolwide_access?
+    #   school.students
+    #         .active
+    #         .includes(additional_includes || [])
+    # elsif has_access_to_grade_levels?
+    #   school.students
+    #         .active
+    #         .where(grade: self.grade_level_access)
+    #         .includes(additional_includes || [])
+    # else
+    #   logger.warn("Fell through to empty array in #students_for_school_overview for educator_id: #{self.id}")
+    #   []
+    # end
+  end
+
+  # TODO(kr)
+  def allowed_homerooms
+    # Educator can visit roster view for these homerooms
+    return [] if school.nil?
+
+    if districtwide_access?
+      Homeroom.all
+    elsif schoolwide_access?
+      school.homerooms.all
+    elsif homeroom
+      school.homerooms.where(grade: homeroom.grade)
+    elsif grade_level_access.present?
+      school.homerooms.where(grade: grade_level_access)
     else
-      logger.warn("Fell through to empty array in #students_for_school_overview for educator_id: #{self.id}")
       []
     end
   end

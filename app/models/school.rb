@@ -5,10 +5,6 @@ class School < ActiveRecord::Base
   has_many :educators
   has_many :homerooms
 
-  def self.with_students
-    School.all.select { |s| s.students.count > 0 }
-  end
-
   def educators_without_test_account
     educators.where.not(local_id: 'LDAP')
   end
