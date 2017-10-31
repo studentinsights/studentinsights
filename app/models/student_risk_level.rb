@@ -6,6 +6,11 @@ class StudentRiskLevel < ActiveRecord::Base
 
   # Use most recent assessments to calculate risk
   def mcas_math
+    # First look for the newer MCAS assessment
+    next_gen = student.latest_result_by_family_and_subject("Next Gen MCAS", "Mathematics")
+    return next_gen if next_gen
+
+    # If there are none, look for the original MCAS
     student.latest_result_by_family_and_subject("MCAS", "Mathematics") || MissingStudentAssessment.new
   end
 
@@ -14,6 +19,11 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def mcas_ela
+    # First look for the newer MCAS assessment
+    next_gen = student.latest_result_by_family_and_subject("Next Gen MCAS", "ELA")
+    return next_gen if next_gen
+
+    # If there are none, look for the original MCAS
     student.latest_result_by_family_and_subject("MCAS", "ELA") || MissingStudentAssessment.new
   end
 
@@ -128,16 +138,16 @@ class StudentRiskLevel < ActiveRecord::Base
         3 => " is limited English proficient"
       },
       mcas_math_risk_level: {
-        3 => "'s MCAS Math performance level is Warning",
-        2 => "'s MCAS Math performance level is Needs Improvement",
-        1 => "'s MCAS Math performance level is Proficient",
-        0 => "'s MCAS Math performance level is Advanced"
+        3 => "'s MCAS Math performance level is Warning / Not Meeting Expectations",
+        2 => "'s MCAS Math performance level is Needs Improvement / Partially Meeting",
+        1 => "'s MCAS Math performance level is Proficient / Meeting Expectations",
+        0 => "'s MCAS Math performance level is Advanced / Exceeding Expectations"
       },
       mcas_ela_risk_level: {
-        3 => "'s MCAS English Language Arts performance level is Warning",
-        2 => "'s MCAS English Language Arts performance level is Needs Improvement",
-        1 => "'s MCAS English Language Arts performance level is Proficient",
-        0 => "'s MCAS English Language Arts performance level is Advanced"
+        3 => "'s MCAS English Language Arts performance level is Warning / Not Meeting Expectations",
+        2 => "'s MCAS English Language Arts performance level is Needs Improvement / Partially Meeting",
+        1 => "'s MCAS English Language Arts performance level is Proficient / Meeting Expectations",
+        0 => "'s MCAS English Language Arts performance level is Advanced / Exceeding Expectations"
       },
       star_reading_risk_level: {
         3 => "'s STAR Reading performance is in the warning range (below 10)",

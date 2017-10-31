@@ -61,14 +61,9 @@ class StudentAssessment < ActiveRecord::Base
 
   def risk_level
     return nil unless assessment.present? && family.present?
-    case family
-    when "MCAS"
-      McasRiskLevel.new(self).risk_level
-    when "STAR"
-      StarRiskLevel.new(self).risk_level
-    else
-      nil
-    end
+
+    assessment.to_risk_level(self)
+
   end
 
 end
