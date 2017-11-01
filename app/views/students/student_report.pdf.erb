@@ -90,8 +90,8 @@
           <div style="float: left; width:370px; padding:5px">
             <ul>
               <li><span style="font-weight:bold;"><%= format_date(service.date_started) %> -
-                <% if service.discontinued_services.count > 0%>
-                  <%= "#{format_date(service.discontinued_services.last.try(:recorded_at))}" %>
+                <% if service.discontinued_at.present?%>
+                  <%= "#{format_date(service.try(:recorded_at))}" %>
                 <% else %>
                   Present
                 <% end %>
