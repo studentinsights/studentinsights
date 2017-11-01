@@ -78,7 +78,8 @@ export default React.createClass({
     let averageDailyAttendance = {};
     //mapping each homeroom to an array of day buckets containing all absences for each day w/in the homeroom
     Object.keys(dailyAbsences).forEach((day) => {
-      averageDailyAttendance[day] = (size - dailyAbsences[day].length)/size*100;
+      const rawAvg = (size - dailyAbsences[day].length)/size*100;
+      averageDailyAttendance[day] = Math.round(rawAvg*10)/10;
     });
     return averageDailyAttendance;
   },
@@ -114,7 +115,6 @@ export default React.createClass({
     const schoolAttendance = this.monthlyAttendanceBySchool();
     const schoolAttendanceMonths = Object.keys(schoolAttendance).sort();
     const homeRoomAttendance = this.attendanceByHomeroom();
-
     return (
         <SchoolAbsenceDashboard
           schoolAttendance = {schoolAttendance}

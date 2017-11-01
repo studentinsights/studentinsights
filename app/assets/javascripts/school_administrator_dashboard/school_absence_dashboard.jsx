@@ -99,7 +99,8 @@ export default React.createClass({
       });
     });
     let homeroomSeries = percentages.map((homeroom) => {
-      return _.sum(homeroom)/homeroom.length;
+      const rawAvg = _.sum(homeroom)/homeroom.length;
+      return Math.round(rawAvg*10)/10;
     });
 
     return (

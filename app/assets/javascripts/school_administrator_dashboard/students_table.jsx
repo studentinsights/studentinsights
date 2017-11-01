@@ -63,7 +63,7 @@ export default React.createClass({
   render: function() {
     return(
       <div className= 'StudentsList'>
-        <table className='students-list' style={{width: '80%', border: '1px solid #ccc'}}>
+        <table className='students-list' style={{margin: 'auto', width: '80%', border: '1px solid #ccc'}}>
           <thead>
             <tr>
               {this.renderHeader('Last Name', 'last_name', 'string')}

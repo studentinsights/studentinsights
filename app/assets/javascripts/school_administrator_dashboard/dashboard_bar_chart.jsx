@@ -45,22 +45,13 @@ export default React.createClass({
     id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
     categories: React.PropTypes.array.isRequired, //Buckets used for X Axis
     seriesData: React.PropTypes.array.isRequired, // array of JSON event objects.
-    monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
-    tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
     titleText: React.PropTypes.string.isRequired,
     measureText: React.PropTypes.string.isRequired,
-    categoryGroups: React.PropTypes.object,
-    nowMomentUTC: React.PropTypes.instanceOf(moment),
-    monthKeyFn: React.PropTypes.func,
-    phaselines: React.PropTypes.array
+    categoryGroups: React.PropTypes.object
   },
 
   getDefaultProps: function(){
     return {
-      tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
-      phaselines: [],
-      nowMomentUTC: moment.utc(),
-      monthKeyFn: defaultMonthKeyFn,
       categoryGroups: {}
     };
   },
@@ -84,6 +75,9 @@ export default React.createClass({
             allowDecimals: true,
             title: {text: this.props.measureText}
           }}
+          tooltip={{
+            pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
+            valueSuffix: '%'}}
           series={[
             {
               showInLegend: false,
