@@ -112,12 +112,12 @@ export default React.createClass({
           titleText = {'Average Attendance By Month'}
           measureText = {'Attendance (Percent)'}
           categoryGroups = {{
-              offset: 50,
-              linkedTo: 0,
-              categories: yearCategories,
-              tickPositions: Object.keys(yearCategories).map(Number),
-              tickmarkPlacement: "on"
-            }}/>
+            offset: 50,
+            linkedTo: 0,
+            categories: yearCategories,
+            tickPositions: Object.keys(yearCategories).map(Number),
+            tickmarkPlacement: "on"
+          }}/>
     );
   },
 
