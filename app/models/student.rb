@@ -117,7 +117,7 @@ class Student < ActiveRecord::Base
   end
 
   def next_gen_mcas_mathematics_results
-    ordered_results_by_family_and_subject("Next Gen MCAS", "ELA")
+    ordered_results_by_family_and_subject("Next Gen MCAS", "Mathematics")
   end
 
   def next_gen_mcas_ela_results

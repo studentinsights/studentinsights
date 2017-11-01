@@ -2,10 +2,11 @@ module Admin
   class EducatorsController < Admin::ApplicationController
     # To customize the behavior of this controller,
     # simply overwrite any of the RESTful actions.
+    before_action :default_params
 
-    def index
-      @_order = Administrate::Order.new(:full_name)
-      super
+    def default_params
+      params[:order] ||= "full_name"
+      params[:direction] ||= "desc"
     end
 
     def edit

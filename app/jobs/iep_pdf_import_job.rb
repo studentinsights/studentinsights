@@ -3,7 +3,16 @@ require 'tempfile'
 require 'fileutils'
 
 class IepPdfImportJob
+
+  REQUIRED_KEYS = [
+    'AWS_ACCESS_KEY_ID',
+    'AWS_SECRET_ACCESS_KEY',
+    'AWS_S3_IEP_BUCKET',
+  ]
+
   def initialize(options = {})
+    raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
+
     @time_now = options[:time_now] || Time.now
   end
 
@@ -11,7 +20,7 @@ class IepPdfImportJob
   # contains several older documents (ie., for a first-time import).
   # It will fail on any errors, log to the console and won't retry.
   def bulk_import!
-    remote_filenames = ['student-documents_old.zip']
+    remote_filenames = [ENV['BULK_IEP_IMPORT_TARGET']]
 
     import_ieps!(remote_filenames)
   end
@@ -90,7 +99,7 @@ class IepPdfImportJob
     end
 
     def s3
-      @client ||= Aws::S3::Client.new
+      @client ||= Aws::S3::Client.new(region: 'us-west-2')
     end
 
     def download(remote_filename)
@@ -116,12 +125,13 @@ class IepPdfImportJob
     def clean_up
       FileUtils.rm_rf(Rails.root.join('tmp/data_download/unzipped_ieps'))
       FileUtils.rm_rf([
-        Rails.root.join('tmp/data_download/student-documents-6.zip'),
-        Rails.root.join('tmp/data_download/student-documents-5.zip'),
-        Rails.root.join('tmp/data_download/student-documents-4.zip'),
-        Rails.root.join('tmp/data_download/student-documents-3.zip'),
-        Rails.root.join('tmp/data_download/student-documents-2.zip'),
-        Rails.root.join('tmp/data_download/student-documents-1.zip'),
+        Rails.root.join("tmp/data_download/#{ENV['BULK_IEP_IMPORT_TARGET']}"),
+        Rails.root.join("tmp/data_download/student-documents-6.zip"),
+        Rails.root.join("tmp/data_download/student-documents-5.zip"),
+        Rails.root.join("tmp/data_download/student-documents-4.zip"),
+        Rails.root.join("tmp/data_download/student-documents-3.zip"),
+        Rails.root.join("tmp/data_download/student-documents-2.zip"),
+        Rails.root.join("tmp/data_download/student-documents-1.zip"),
       ])
     end
 

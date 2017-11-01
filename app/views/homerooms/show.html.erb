@@ -1,11 +1,5 @@
 <div class="topline-info">
   <h1>Room <%= @homeroom.name %></h1>
-  <% if current_educator.admin? && @school_id.present? %>
-    <div class="homeroom-links">
-      <%= link_to 'STAR Reading', star_reading_school_path(@school_id, anchor: @star_homeroom_anchor) %>
-      <%= link_to 'STAR Math', star_math_school_path(@school_id, anchor: @star_homeroom_anchor) %>
-    </div>
-  <% end %>
 </div>
 
 <div id="roster-controls">

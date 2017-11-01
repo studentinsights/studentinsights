@@ -16,7 +16,9 @@ RSpec.describe Import do
     it 'invokes all the commands and returns the correct kind of values' do
       expect(commands[1]).to be_a ImportRecord
       expect(commands[2]).to eq nil
-      expect(commands[3]).to eq ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS']
+      expect(commands[3]).to eq [
+        "HEA", "WSNS", "ESCS", "BRN", "KDY", "AFAS", "WHCS", "SHS", "FC", "CAP"
+      ]
       expect(commands[4]).to be_a Array
       expect(commands[5]).to eq []
       expect(commands[6]).to eq nil
@@ -25,7 +27,7 @@ RSpec.describe Import do
     let(:log_destination) { LogHelper::Redirect.instance.file }
     let(:expected_file_importer_arguments) {
       [
-        ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS'],
+        ["HEA", "WSNS", "ESCS", "BRN", "KDY", "AFAS", "WHCS", "SHS", "FC", "CAP"],
         sftp_client_double,
         log_destination,
         false

@@ -15,6 +15,10 @@ class Import
   class Start < Thor::Group
     desc "Import data into your Student Insights instance"
 
+    DEFAULT_SCHOOLS = [
+      'HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS', 'FC', 'CAP'
+    ]
+
     SCHOOL_SHORTCODE_EXPANSIONS = {
       "ELEM" => %w[BRN HEA KDY AFAS ESCS WSNS WHCS]
     }
@@ -68,7 +72,7 @@ class Import
 
     class_option :school,
       type: :array,
-      default: ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS'],
+      default: DEFAULT_SCHOOLS,
       aliases: "-s",
       desc: "Scope by school local IDs; use ELEM to import all elementary schools"
     class_option :first_time,
