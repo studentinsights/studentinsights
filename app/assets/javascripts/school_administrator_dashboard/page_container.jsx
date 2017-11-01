@@ -9,12 +9,6 @@ export default React.createClass({
     attendanceData: React.PropTypes.object.isRequired  //should rename more generically
   },
 
-  //necessary?
-  // studentAbsences: function () {
-  //   const students = this.props.attendanceData;
-
-  // },
-
   //returns map of homerooms to absence events
   absencesByHomeroom: function() {
     //Group data by homeroom

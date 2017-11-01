@@ -11,17 +11,40 @@ export default React.createClass({
     setDate: React.PropTypes.func.isRequired
   },
 
+  getInitialState: function() {
+    return {
+      // beginningDate: parseInt(moment.utc("2016-08-01").format("X")),
+      // endingDate: parseInt(moment.utc().format("X")),
+      value: [parseInt(moment.utc("2016-08-01").format("X")), parseInt(moment.utc().format("X"))]
+    };
+  },
+
+  onBeginningDateInput: function(date) {
+    this.setState({ value: [parseInt(moment.utc(date.target.value).format("X")), this.state.value[1]] });
+  },
+
+  onEndingDateInput: function(date) {
+    this.setState({ value: [this.state.value[0], parseInt(moment.utc(date.target.value).format("X"))] });
+  },
+
+  onSliderChange: function(value) {
+    this.setState({value});
+  },
+
   render: function() {
     const startRange = parseInt(moment.utc("2016-08-01").format("X"));
     const endRange = parseInt(moment.utc().format("X"));
     return (
       <div style={style}>
-      <p>Date Range</p>
+        <input type="date" value={moment.unix(this.state.value[0]).format("YYYY-MM-DD")} onChange={this.onBeginningDateInput} />
+        <input type="date" value={moment.unix(this.state.value[1]).format("YYYY-MM-DD")} onChange={this.onEndingDateInput} />
         <Range
           allowCross={false}
-          min={startRange}
-          max={endRange}
-          defaultValue={[startRange, endRange]}
+          min = {startRange}
+          max = {endRange}
+          defaultValue = {[startRange, endRange]}
+          value = {this.state.value}
+          onChange = {this.onSliderChange}
           tipFormatter={(value) => moment.unix(value).format("YYYY-MM-DD")}
           onAfterChange={this.props.setDate}/>
       </div>
