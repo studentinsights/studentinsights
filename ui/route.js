@@ -4,8 +4,6 @@ import homeroomMain from '../app/assets/javascripts/homeroom_table/main.jsx';
 import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main.jsx';
 import renderSectionMain from '../app/assets/javascripts/section/main.jsx';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main.jsx';
-import renderStarMathMain from '../app/assets/javascripts/star_math/main.jsx';
-import renderStarReadingMain from '../app/assets/javascripts/star_reading/main.jsx';
 import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main.jsx';
 
 
@@ -35,14 +33,6 @@ export default function route() {
 
   if ($('body').hasClass('service_uploads') && $('body').hasClass('index')) {
     renderServiceUploadsMain(el);
-  }
-
-  if ($('body').hasClass('schools') && $('body').hasClass('star_math')) {
-    renderStarMathMain(el);
-  }
-
-  if ($('body').hasClass('schools') && $('body').hasClass('star_reading')) {
-    renderStarReadingMain(el);
   }
 
   if ($('body').hasClass('schools') && $('body').hasClass('school_administrator_dashboard')) {
