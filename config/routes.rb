@@ -34,7 +34,6 @@ Rails.application.routes.draw do
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
     member do
-      get :profile
       get :student_report
       get :restricted_notes
       post :service
