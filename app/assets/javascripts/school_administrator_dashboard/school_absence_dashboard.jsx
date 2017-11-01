@@ -7,36 +7,6 @@ import DateSlider from './date_slider.jsx';
 
 window.shared || (window.shared = {});
 
-const styles = {
-  chartBox: {
-    border: '1px solid #ccc',
-    padding:15,
-    marginTop: 10,
-    marginBottom: 10,
-    backgroundColor: '#f2f2f2'
-  },
-  chartContainer: {
-    float: 'left',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    marginLeft: '30px',
-    marginRight: 'auto'
-  },
-  studentListContainer: {
-    padding: '30px',
-    float: 'left',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    marginLeft: '100px',
-    marginRight: 'auto'
-  },
-  dateRangeContainer: {
-
-  }
-};
-
 export default React.createClass({
   displayName: 'SchoolAbsenceDashboard',
 
@@ -134,7 +104,6 @@ export default React.createClass({
 
     return (
         <DashboardBarChart
-          style = {styles.chartBox}
           id = {'string'}
           categories = {Object.keys(homeRoomAttendance)}
           seriesData = {homeroomSeries}

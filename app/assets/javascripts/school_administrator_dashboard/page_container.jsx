@@ -32,8 +32,13 @@ export default React.createClass({
 
   //Returns a list of homerooms along with dates and attendance percentage for each
   attendanceByHomeroom: function () {
-    let homeroomDays = this.absencesByHomeroom();
+    const homeroomDays = this.absencesByHomeroom();
+    const schoolDays = this.schoolDays();
     Object.keys(homeroomDays).forEach((homeroom) => {
+      schoolDays.forEach((day) => {
+        //fills in full attendance days
+        if (homeroomDays[homeroom].absences[day] === undefined) homeroomDays[homeroom].absences[day] = [];
+      });
       homeroomDays[homeroom].absences = this.averageDailyAttendance(homeroomDays[homeroom].absences, homeroomDays[homeroom].size);
     });
     return homeroomDays;
@@ -50,15 +55,20 @@ export default React.createClass({
     return schoolAttendance;
   },
 
-  //Returns average monthly attendance givenn set of daily averages. To be used after applying date filters.
+  schoolDays: function () {
+    return Object.keys(this.attendanceBySchool());
+  },
+
+  //Returns average monthly attendance given a set of daily averages.
   monthlyAttendanceBySchool: function () {
     const schoolAttendance = this.attendanceBySchool();
     let monthlyAttendance = {};
     Object.keys(schoolAttendance).forEach((day) => {
-      if (monthlyAttendance[moment(day).date(1).format("YYYY-MM-DD")] === undefined) {
-        monthlyAttendance[moment(day).date(1).format("YYYY-MM-DD")] = [schoolAttendance[day]];
+      let date = moment(day).date(1).format("YYYY-MM-DD");
+      if (monthlyAttendance[date] === undefined) {
+        monthlyAttendance[date] = [schoolAttendance[day]];
       } else {
-        monthlyAttendance[moment(day).date(1).format("YYYY-MM-DD")].push(...schoolAttendance[day]);
+        monthlyAttendance[date].push(...schoolAttendance[day]);
       }
     });
     return monthlyAttendance;

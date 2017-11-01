@@ -36,7 +36,7 @@ export default React.createClass({
     const endRange = parseInt(moment.utc().format("X"));
     return (
       <div style={style}>
-        <input type="date" value={moment.unix(this.state.value[0]).format("YYYY-MM-DD")} onChange={this.onBeginningDateInput} />
+        <input style={{marginBottom: '5px'}} type="date" value={moment.unix(this.state.value[0]).format("YYYY-MM-DD")} onChange={this.onBeginningDateInput} />
         <input type="date" value={moment.unix(this.state.value[1]).format("YYYY-MM-DD")} onChange={this.onEndingDateInput} />
         <Range
           allowCross={false}
