@@ -45,7 +45,7 @@ export default React.createClass({
           defaultValue = {[startRange, endRange]}
           value = {this.state.value}
           onChange = {this.onSliderChange}
-          tipFormatter={(value) => moment.unix(value).format("YYYY-MM-DD")}
+          tipFormatter={(value) => moment.unix(value).format("MM-DD-YYYY")}
           onAfterChange={this.props.setDate}/>
       </div>
     );
