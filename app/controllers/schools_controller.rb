@@ -23,16 +23,6 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
-  def star_math
-    serialized_data_for_star {|student| student.star_math_results }
-    render 'shared/serialized_data'
-  end
-
-  def star_reading
-    serialized_data_for_star {|student| student.star_reading_results }
-    render 'shared/serialized_data'
-  end
-
   def csv
     authorized_students = @school.students.active
     csv_string = StudentsSpreadsheet.new.csv_string(authorized_students, @school)
@@ -71,25 +61,6 @@ class SchoolsController < ApplicationController
 
   def parse_hashes_from_doc(doc)
     JSON.parse(doc.json).deep_symbolize_keys![:student_hashes]
-  end
-
-  def serialized_data_for_star
-    authorized_students = current_educator.students_for_school_overview(:student_assessments)
-
-    # TODO(kr) Read from cache, since this only updates daily
-    student_hashes = authorized_students.map do |student|
-      student_hash = student_hash_for_slicing(student)
-      student_hash.merge(star_results: yield(student))
-    end
-
-    # Read data stored StudentInsights each time, with no caching
-    merged_student_hashes = merge_mutable_fields_for_slicing(student_hashes)
-
-    @serialized_data = {
-      students_with_star_results: merged_student_hashes,
-      current_educator: current_educator,
-      constant_indexes: constant_indexes
-    }
   end
 
   # Serialize what are essentially constants stored in the database down
