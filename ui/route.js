@@ -18,7 +18,7 @@ export default function route() {
   }
 
   if ($('body').hasClass('schools') && $('body').hasClass('show')) {
-    renderSchoolOverviewMain(el); 
+    renderSchoolOverviewMain(el);
   }
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
@@ -45,7 +45,7 @@ export default function route() {
     renderStarReadingMain(el);
   }
 
-  if ($('body').hasClass('school_administrator_dashboard') && $('body').hasClass('show')) {
+  if ($('body').hasClass('schools') && $('body').hasClass('school_administrator_dashboard')) {
     renderSchoolAdminDashboardMain(el);
   }
 }
