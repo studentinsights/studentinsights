@@ -30,14 +30,7 @@ const styles = {
   }
 };
 
-// A function that grabs a monthKey from an event that is passed in.  Should return
-// a string in the format YYYYMMDD for the first day of the month.
-// Used for grouping events on the chart.
-function defaultMonthKeyFn(event) {
-  return moment.utc(event.occurred_at).date(1).format('YYYYMMDD');
-}
-
-// Component for all charts in the profile page.
+// Component for all charts in the dashboard page.
 export default React.createClass({
   displayName: 'DashboardBarChart',
 
