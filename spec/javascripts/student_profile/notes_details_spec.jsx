@@ -1,6 +1,7 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 
+
 describe('NotesDetails', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
@@ -35,38 +36,38 @@ describe('NotesDetails', function() {
     }
   };
 
-  SpecSugar.withTestEl('high-level integration tests', function() {
+  SpecSugar.withTestEl('high-level integration tests', function(container) {
     describe('educator can view restricted notes', function() {
       it('renders restricted notes button with zero notes', function() {
-        const el = this.testEl;
+        const el = container.testEl;
         helpers.renderInto(el, {
           currentEducator: { can_view_restricted_notes: true },
           student: { restricted_notes_count: 0 },
         });
 
-        expect(el).toContainText('Restricted Notes (0)');
+        expect(el.innerHTML).toContain('Restricted Notes (0)');
       });
 
       it('renders restricted notes button with 7 notes', function() {
-        const el = this.testEl;
+        const el = container.testEl;
         helpers.renderInto(el, {
           currentEducator: { can_view_restricted_notes: true },
           student: { restricted_notes_count: 7 },
         });
 
-        expect(el).toContainText('Restricted Notes (7)');
+        expect(el.innerHTML).toContain('Restricted Notes (7)');
       });
     });
 
     describe('educator can not view restricted notes', function() {
       it('does not render restricted notes button', function() {
-        const el = this.testEl;
+        const el = container.testEl;
         helpers.renderInto(el, {
           currentEducator: { can_view_restricted_notes: false },
           student: { restricted_notes_count: 0 },
         });
 
-        expect(el).not.toContainText('Restricted Notes (0)');
+        expect(el.innerHTML).not.toContain('Restricted Notes (0)');
       });
     });
   });

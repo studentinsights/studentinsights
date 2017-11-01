@@ -1,5 +1,6 @@
 import {nowMoment, studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
+import ReactTestUtils from 'react-addons-test-utils';
 
 describe('PageContainer', function() {
   const merge = window.shared.ReactHelpers.merge;
@@ -17,20 +18,20 @@ describe('PageContainer', function() {
 
     createSpyActions: function() {
       return {
-        onColumnClicked: jasmine.createSpy('onColumnClicked'),
-        onClickSaveNotes: jasmine.createSpy('onClickSaveNotes'),
-        onClickSaveService: jasmine.createSpy('onClickSaveService'),
-        onClickDiscontinueService: jasmine.createSpy('onClickDiscontinueService'),
-        onDeleteEventNoteAttachment: jasmine.createSpy('onDeleteEventNoteAttachment')
+        onColumnClicked: jest.fn(),
+        onClickSaveNotes: jest.fn(),
+        onClickSaveService: jest.fn(),
+        onClickDiscontinueService: jest.fn(),
+        onDeleteEventNoteAttachment: jest.fn()
       };
     },
 
     createSpyApi: function() {
       return {
-        saveNotes: jasmine.createSpy('saveNotes'),
-        deleteEventNoteAttachment: jasmine.createSpy('deleteEventNoteAttachment'),
-        saveService: jasmine.createSpy('saveService'),
-        discontinueService: jasmine.createSpy('discontinueService')
+        saveNotes: jest.fn(),
+        deleteEventNoteAttachment: jest.fn(),
+        saveService: jest.fn(),
+        discontinueService: jest.fn()
       };
     },
 
@@ -57,8 +58,8 @@ describe('PageContainer', function() {
       const $noteCard = $(el).find('.NotesList .NoteCard').first();
       const $text = $noteCard.find('.note-text');
       $text.html(uiParams.text);
-      React.addons.TestUtils.Simulate.input($text.get(0));
-      React.addons.TestUtils.Simulate.blur($text.get(0));
+      ReactTestUtils.Simulate.input($text.get(0));
+      ReactTestUtils.Simulate.blur($text.get(0));
     },
 
     recordServiceAndSave: function(el, uiParams) {
@@ -70,44 +71,44 @@ describe('PageContainer', function() {
     }
   };
 
-  SpecSugar.withTestEl('integration tests', function() {
+  SpecSugar.withTestEl('integration tests', function(container) {
     it('renders everything on the happy path', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
 
-      expect(el).toContainText('Daisy Poppins');
+      expect($(el).text()).toContain('Daisy Poppins');
       expect(helpers.findColumns(el).length).toEqual(5);
       expect($(el).find('.Sparkline').length).toEqual(9);
       expect($(el).find('.InterventionsDetails').length).toEqual(1);
 
       const interventionLists = helpers.interventionSummaryLists(el);
       expect(interventionLists.length).toEqual(3);
-      expect(interventionLists[0]).toContainText('Reg Ed');
-      expect(interventionLists[0]).toContainText('Homeroom 102');
-      expect(interventionLists[1]).toContainText('Counseling, outside');
-      expect(interventionLists[1]).toContainText('Attendance Contract');
+      expect(interventionLists[0].innerHTML).toContain('Reg Ed');
+      expect(interventionLists[0].innerHTML).toContain('Homeroom 102');
+      expect(interventionLists[1].innerHTML).toContain('Counseling, outside');
+      expect(interventionLists[1].innerHTML).toContain('Attendance Contract');
     });
 
     it('opens dialog when clicking Take Notes button', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
 
       $(el).find('.btn.take-notes').click();
-      expect(el).toContainText('What are these notes from?');
-      expect(el).toContainText('Save notes');
+      expect($(el).text()).toContain('What are these notes from?');
+      expect($(el).text()).toContain('Save notes');
     });
 
     it('opens dialog when clicking Record Service button', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el);
 
       $(el).find('.btn.record-service').click();
-      expect(el).toContainText('Who is working with Daisy?');
-      expect(el).toContainText('Record service');
+      expect($(el).text()).toContain('Who is working with Daisy?');
+      expect($(el).text()).toContain('Record service');
     });
 
     it('can save notes for SST meetings, mocking the action handlers', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       const component = helpers.renderInto(el);
       helpers.takeNotesAndSave(el, {
         eventNoteTypeText: 'SST Meeting',
@@ -122,7 +123,7 @@ describe('PageContainer', function() {
     });
 
     it('can edit notes for SST meetings, mocking the action handlers', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       const component = helpers.renderInto(el);
 
       helpers.editNoteAndSave(el, {
@@ -138,32 +139,32 @@ describe('PageContainer', function() {
     });
 
     it('verifies that the educator name is in the correct format', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       const component = helpers.renderInto(el, {});
 
       // Simulate that the server call is still pending
-      component.props.api.saveService.and.returnValue($.Deferred());
+      component.props.api.saveService.mockReturnValue($.Deferred());
       component.onClickSaveService({
         providedByEducatorName: 'badinput'
       });
-      expect(el).toContainText('Please use the form Last Name, First Name');
+      expect($(el).text()).toContain('Please use the form Last Name, First Name');
 
       component.onClickSaveService({
         providedByEducatorName: 'Teacher, Test'
       });
-      expect(el).toContainText('Saving...');
+      expect($(el).text()).toContain('Saving...');
 
       // Name can also be blank
       component.onClickSaveService({
         providedByEducatorName: ''
       });
-      expect(el).toContainText('Saving...');
+      expect($(el).text()).toContain('Saving...');
     });
 
     // TODO(kr) the spec helper here was reaching into the react-select internals,
     // which changed in 1.0.0, this needs to be updated.
     // it('can save an Attendance Contract service, mocking the action handlers', function() {
-    //   var el = this.testEl;
+    //   var el = container.testEl;
     //   var component = helpers.renderInto(el);
     //   helpers.recordServiceAndSave(el, {
     //     serviceText: 'Attendance Contract',
@@ -180,7 +181,7 @@ describe('PageContainer', function() {
     // });
 
     it('#mergedDiscontinueService', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       const instance = helpers.renderInto(el);
       const updatedState = instance.mergedDiscontinueService(instance.state, 312, 'foo');
       expect(Object.keys(updatedState)).toEqual(Object.keys(instance.state));

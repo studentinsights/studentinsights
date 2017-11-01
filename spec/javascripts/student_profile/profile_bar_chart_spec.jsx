@@ -18,9 +18,9 @@ describe('ProfileBarCharts', function() {
     }
   };
 
-  SpecSugar.withTestEl('integration tests', function() {
+  SpecSugar.withTestEl('integration tests', function(container) {
     it('is wrapped in a div with the given id', function() {
-      const el = this.testEl;
+      const el = container.testEl;
       helpers.renderInto(el, {id: 'foo'});
 
       const div = $(el).children().first();

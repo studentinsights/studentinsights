@@ -13,10 +13,6 @@ class HomeroomsController < ApplicationController
     # Dropdown for homeroom navigation
     @homerooms_by_name = current_educator.allowed_homerooms_by_name
 
-    # For links to STAR pages
-    @school_id = @homeroom.students.active.map(&:school_id).uniq.first
-    @star_homeroom_anchor = "equal:homeroom_name:#{@homeroom.name}"
-
     # For JSX Table:
     @serialized_data = {
       show_star: @homeroom.show_star?,

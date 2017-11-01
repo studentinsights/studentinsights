@@ -11,10 +11,11 @@ end
 require "#{Rails.root}/db/seeds/database_constants"
 
 puts "Creating demo schools, homerooms, interventions..."
+
 raise "empty yer db" if School.count > 0 ||
                         Student.count > 0 ||
-                        InterventionType.count > 0 ||
-                        Assessment.count > 0
+                        EventNote.count > 0 ||
+                        Service.count > 0
 
 # The local demo data setup uses the Somerville database constants
 # (eg., the set of `ServiceType`s) for generating local demo data and
@@ -82,8 +83,6 @@ Educator.create!([{
 puts 'Creating homerooms..'
 
 homerooms = [
-  Homeroom.create(name: "HEA 300", grade: "3", school: healey),
-  Homeroom.create(name: "HEA 400", grade: "4", school: healey),
   Homeroom.create(name: "HEA 500", grade: "5", school: healey),
   Homeroom.create(name: "WSNS 500", grade: "5", school: wsns),
 ]
@@ -126,7 +125,7 @@ end
 homerooms.each do |homeroom|
   puts "Creating students for homeroom #{homeroom.name}..."
   school = homeroom.school
-  15.times do
+  10.times do
     FakeStudent.new(school, homeroom)
   end
 end
@@ -136,7 +135,7 @@ shs_homeroom = Homeroom.create(name: "SHS ALL", grade: "10", school: shs)
 sections.each do |section|
   puts "Creating students for section #{section.section_number}..."
   school = section.course.school
-  15.times do
+  10.times do
     grade_letter = ['A','B','C','D','F'].sample
     case grade_letter
       when "A"
@@ -151,15 +150,15 @@ sections.each do |section|
         grade_numeric = rand(50..59)
     end
 
-      fake_student = FakeStudent.new(school, shs_homeroom)
-      StudentSectionAssignment.create(student: fake_student.student,
-                                      section: section,
-                                      grade_numeric: grade_numeric,
-                                      grade_letter: grade_letter)
+    fake_student = FakeStudent.new(school, shs_homeroom)
+    StudentSectionAssignment.create(student: fake_student.student,
+                                    section: section,
+                                    grade_numeric: grade_numeric,
+                                    grade_letter: grade_letter)
   end
 end
 
-15.times do
+10.times do
   FakeStudent.new(healey, nil)
 end
 

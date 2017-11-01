@@ -43,46 +43,46 @@ describe('StudentProfilePage integration test', function() {
     }
   };
 
-  SpecSugar.withTestEl('renders attendance event summaries correctly', function() {
+  SpecSugar.withTestEl('renders attendance event summaries correctly', function(container) {
 
     describe('student with no absences this school year', function () {
       it('displays zero absences', function () {
-        const el = this.testEl;
+        const el = container.testEl;
         helpers.renderStudentProfilePage(el, null, [], 0);
-        expect(el).toContainText('Absences this school year:0');
+        expect($(el).text()).toContain('Absences this school year:0');
       });
     });
 
     describe('student with 15 absences this school year', function () {
       it('displays 15 absences', function () {
-        const el = this.testEl;
+        const el = container.testEl;
         helpers.renderStudentProfilePage(el);
-        expect(el).toContainText('Absences this school year:15');
+        expect($(el).text()).toContain('Absences this school year:15');
       });
     });
 
   });
 
-  SpecSugar.withTestEl('renders MCAS/DIBELS correctly according to grade level', function() {
+  SpecSugar.withTestEl('renders MCAS/DIBELS correctly according to grade level', function(container) {
 
     describe('student in grade 3', function() {
 
       describe('student with DIBELS result', function() {
         it('renders the latest DIBELS', function () {
-          const el = this.testEl;
+          const el = container.testEl;
           helpers.renderStudentProfilePage(el, '3', [{ 'performance_level': 'INTENSIVE '}]);
-          expect(el).not.toContainText('MCAS ELA SGP');
-          expect(el).toContainText('DIBELS');
-          expect(el).toContainText('INTENSIVE');
+          expect($(el).text()).not.toContain('MCAS ELA SGP');
+          expect($(el).text()).toContain('DIBELS');
+          expect($(el).text()).toContain('INTENSIVE');
         });
 
       });
 
       describe('student without DIBELS result', function() {
         it('renders MCAS ELA SGP', function () {
-          const el = this.testEl;
+          const el = container.testEl;
           helpers.renderStudentProfilePage(el, '3', []);
-          expect(el).toContainText('MCAS ELA SGP');
+          expect($(el).text()).toContain('MCAS ELA SGP');
         });
       });
 
@@ -92,40 +92,40 @@ describe('StudentProfilePage integration test', function() {
 
       describe('student with DIBELS result', function() {
         it('renders MCAS ELA SGP', function () {
-          const el = this.testEl;
+          const el = container.testEl;
           helpers.renderStudentProfilePage(el, '5', [{ 'performance_level': 'INTENSIVE '}]);
-          expect(el).toContainText('MCAS ELA SGP');
+          expect($(el).text()).toContain('MCAS ELA SGP');
         });
       });
 
       describe('student without DIBELS result', function() {
         it('renders MCAS ELA SGP', function () {
-          const el = this.testEl;
+          const el = container.testEl;
           helpers.renderStudentProfilePage(el, '5', []);
-          expect(el).toContainText('MCAS ELA SGP');
+          expect($(el).text()).toContain('MCAS ELA SGP');
         });
       });
 
       describe('student with sections', function() {
         it('does not have sections count', function() {
-          const el = this.testEl;
+          const el = container.testEl;
           helpers.renderStudentProfilePage(el, '5', [], 0, 3, 'ES');
-          expect(el).not.toContainText('Sections');
+          expect($(el).text()).not.toContain('Sections');
         });
       });
     });
 
     describe('student in high school', function() {
       it('renders student with 1 section', function() {
-        const el = this.testEl;
+        const el = container.testEl;
         helpers.renderStudentProfilePage(el, '10', [], 0, 1, 'HS');
-        expect(el).toContainText('1 section');
+        expect($(el).text()).toContain('1 section');
       });
 
       it('renders student with 5 sections', function() {
-        const el = this.testEl;
+        const el = container.testEl;
         helpers.renderStudentProfilePage(el, '10', [], 0, 5, 'HS');
-        expect(el).toContainText('5 sections');
+        expect($(el).text()).toContain('5 sections');
       });
     });
   });

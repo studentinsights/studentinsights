@@ -7,20 +7,45 @@
   },
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts; exit 0",
-    "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts"
+    "lint": "eslint --fix --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts ui; exit 0",
+    "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts ui",
+    "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
+    "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
+    "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn run dev\"",
+    "test": "jest --config jest.json --watch",
+    "test-cli": "yarn run lint-cli && jest --config jest.json"
   },
   "dependencies": {
-    "babel-eslint": "^6.0.4",
-    "babel-plugin-react-transform": "^2.0.2",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-2": "^6.5.0",
-    "babelify": "^7.3.0",
-    "browserify": "^13.0.1",
-    "browserify-incremental": "^3.1.1",
+    "babel-core": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "d3": "3.5.12",
+    "es5-shim": "^4.5.9",
+    "highcharts": "^6.0.2",
+    "jquery": "^3.2.1",
+    "js-cookie": "^2.1.4",
+    "lodash": "3.10.1",
+    "moment": "2.11.1",
+    "object-assign": "^4.1.1",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "react-modal": "^3.0.4"
+  },
+  "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-app": "^3.0.3",
+    "clean-webpack-plugin": "^0.1.17",
+    "compression-webpack-plugin": "^1.0.1",
+    "concurrently": "^3.5.0",
     "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.2",
-    "lodash": "3.10.1"
+    "jest": "^21.2.1",
+    "react-addons-test-utils": "15.4.2",
+    "react-test-renderer": "^16.0.0",
+    "script-loader": "^0.7.2",
+    "webpack": "^3.8.1",
+    "webpack-manifest-plugin": "^1.3.2",
+    "webpack-merge": "^4.1.0"
   }
 }

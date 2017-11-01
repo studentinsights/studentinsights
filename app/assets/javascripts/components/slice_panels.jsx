@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { shouldDisplay } from '../helpers/customization_helpers.js';
 
 (function() {
   window.shared || (window.shared = {});
@@ -294,13 +295,11 @@ import _ from 'lodash';
     },
 
     renderGradeColumn: function() {
-      const isHighSchool = 'HS'===this.props.school.school_type;
-
       return (
         <div className="column grades-column pad-column-right">
           {this.renderGradeTable()}
-          {isHighSchool && this.renderSimpleTable('House', 'house', {})}
-          {isHighSchool && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
+          {shouldDisplay('house',this.props.school) && this.renderSimpleTable('House', 'house', {})}
+          {shouldDisplay('counselor',this.props.school) && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
           {this.renderYearsEnrolled()}
           {this.renderRiskLevel()}
         </div>

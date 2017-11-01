@@ -1,20 +1,15 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "globals": {
-    "moment": true,
     "$": true,
+    "moment": true,
     "React": true,
-    "describe": true,
-    "beforeEach": true,
-    "afterEach": true,
-    "jasmine": true,
-    "expect": true,
-    "it": true,
-    "d3": true,
-    "Highcharts": true
+    "ReactDOM": true,
+    "d3": true
   },
   "parserOptions": {
     "ecmaVersion": 6,
@@ -29,11 +24,6 @@
     "plugin:react/recommended"
   ],
   "rules": {
-    "no-restricted-properties": [2, {
-      "object": "Object",
-      "property": "assign",
-      "message": "Not supported by IE 11, try _.clone."
-    }],
     "no-var": 2,
     "indent": ["error", 2],
     "semi": ["error", "always"],

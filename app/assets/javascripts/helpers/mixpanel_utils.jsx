@@ -1,3 +1,4 @@
+window.shared || (window.shared = {});
 const Env = window.shared.Env;
 
 export default {
