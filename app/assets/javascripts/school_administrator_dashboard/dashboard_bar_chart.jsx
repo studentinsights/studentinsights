@@ -1,6 +1,4 @@
 import React from 'react';
-import moment from 'moment';
-
 
 const styles = {
   title: {
@@ -9,7 +7,7 @@ const styles = {
     fontSize: 24
   },
   container: {
-    marginTop: 50,
+    marginTop: 20,
     marginLeft: 20,
     marginRight: 'auto',
     border: '1px solid #ccc',
