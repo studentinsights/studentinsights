@@ -13,18 +13,18 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      // beginningDate: parseInt(moment.utc("2016-08-01").format("X")),
-      // endingDate: parseInt(moment.utc().format("X")),
-      value: [parseInt(moment.utc("2016-08-01").format("X")), parseInt(moment.utc().format("X"))]
+      value: [parseInt(moment("2016-08-01").format("X")), parseInt(moment().format("X"))]
     };
   },
 
   onBeginningDateInput: function(date) {
-    this.setState({ value: [parseInt(moment.utc(date.target.value).format("X")), this.state.value[1]] });
+    const newValue = [parseInt(moment(date.target.value).format("X")), this.state.value[1]];
+    this.setState({ value: newValue }, this.props.setDate(newValue));
   },
 
   onEndingDateInput: function(date) {
-    this.setState({ value: [this.state.value[0], parseInt(moment.utc(date.target.value).format("X"))] });
+    const newValue = [this.state.value[0], parseInt(moment(date.target.value).format("X"))];
+    this.setState({ value: newValue }, this.props.setDate(newValue));
   },
 
   onSliderChange: function(value) {
@@ -32,8 +32,8 @@ export default React.createClass({
   },
 
   render: function() {
-    const startRange = parseInt(moment.utc("2016-08-01").format("X"));
-    const endRange = parseInt(moment.utc().format("X"));
+    const startRange = parseInt(moment("2016-08-01").format("X"));
+    const endRange = parseInt(moment().format("X"));
     return (
       <div style={style}>
         <input style={{marginBottom: '5px'}} type="date" value={moment.unix(this.state.value[0]).format("YYYY-MM-DD")} onChange={this.onBeginningDateInput} />
