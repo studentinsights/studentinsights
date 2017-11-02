@@ -94,7 +94,7 @@ export default React.createClass({
   renderHomeroomAbsenceChart: function() {
     const homeRoomAttendance = this.props.homeRoomAttendance;
     let percentages = _.map(homeRoomAttendance, (homeroom) => {
-      return this.filterDates(Object.keys(homeroom.absences), this.state.start_date, this.state.end_date).map((date) => {
+      return this.filterDates(Object.keys(homeroom.absences).sort(), this.state.start_date, this.state.end_date).map((date) => {
         return homeroom.absences[date];
       });
     });
