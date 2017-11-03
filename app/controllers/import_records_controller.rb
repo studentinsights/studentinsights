@@ -10,7 +10,11 @@ class ImportRecordsController < ApplicationController
   end
 
   def index
-    @import_records = ImportRecord.order(created_at: :desc).take(25)
+    @serialized_data = {
+      import_records: ImportRecord.order(created_at: :desc).includes(:import_record_details).take(25).to_json(:include => :import_record_details),
+      current_educator: current_educator
+    }
+    render 'shared/serialized_data'
   end
 
 end

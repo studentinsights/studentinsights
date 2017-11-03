@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe StudentSectionAssignmentsImporter do
   describe '#import_row' do
     let(:log) { LogHelper::Redirect.instance.file }
+    let(:ird) { ImportRecordDetail.new }
+    let(:importer) { described_class.new(nil, nil, nil, nil, ird) }
     let!(:school) { FactoryGirl.create(:shs) }
     let!(:section) { FactoryGirl.create(:section) }
     let!(:student) { FactoryGirl.create(:student) }
@@ -16,7 +18,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          importer.import_row(row)
         end
 
         it 'creates a student section assignment' do
@@ -37,7 +39,6 @@ RSpec.describe StudentSectionAssignmentsImporter do
               } }
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
         importer.import_row(row)
       end
 
@@ -54,7 +55,6 @@ RSpec.describe StudentSectionAssignmentsImporter do
               } }
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
         importer.import_row(row)
       end
 
@@ -72,7 +72,6 @@ RSpec.describe StudentSectionAssignmentsImporter do
               } }
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
         importer.import_row(row)
       end
 
@@ -90,7 +89,6 @@ RSpec.describe StudentSectionAssignmentsImporter do
               } }
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
         importer.import_row(row)
       end
 
@@ -102,6 +100,8 @@ RSpec.describe StudentSectionAssignmentsImporter do
 
   describe '#delete_rows' do
     let(:log) { LogHelper::Redirect.instance.file }
+    let(:ird) { ImportRecordDetail.new }
+    let(:importer) { described_class.new(nil, nil, nil, nil, ird) }
     let!(:school) { FactoryGirl.create(:shs) }
     let!(:section) { FactoryGirl.create(:section) }
     let!(:student) { FactoryGirl.create(:student) }
@@ -117,9 +117,8 @@ RSpec.describe StudentSectionAssignmentsImporter do
         FactoryGirl.create_list(:student_section_assignment, 20)
         FactoryGirl.create(:student_section_assignment, student_id: student.id, section_id: section.id)
 
-        ssa_importer = described_class.new
-        ssa_importer.import_row(row)
-        ssa_importer.delete_rows
+        importer.import_row(row)
+        importer.delete_rows
       end
 
       it 'deletes all student section assignments except the recently imported one' do

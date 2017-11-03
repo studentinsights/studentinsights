@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AttendanceImporter do
 
-  let(:importer) { Importer.new(current_file_importer: described_class.new) }
+  let(:importer) { described_class.new }
 
   describe '#import_row' do
 

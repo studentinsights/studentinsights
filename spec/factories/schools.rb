@@ -1,6 +1,7 @@
 FactoryGirl.define do
 
   factory :school do
+    local_id "TST"
   end
 
   factory :healey, class: School do

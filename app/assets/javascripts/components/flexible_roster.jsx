@@ -8,13 +8,15 @@ export default React.createClass({
   propTypes: {
     rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    initialSortIndex: React.PropTypes.number
+    initialSortIndex: React.PropTypes.number,
+    options: React.PropTypes.object,
   },
 
   getInitialState () {
     return {
       sortByIndex: this.props.initialSortIndex,
-      sortDesc: true
+      sortDesc: true,
+      options: this.props.options || {sortable: true},
     };
   },
 
@@ -28,6 +30,10 @@ export default React.createClass({
   
   sortedRows () {
     const rows = this.props.rows;
+
+    // If sortable is set to false, just return the rows
+    if(!this.state.options.sortable) return rows;
+
     const columns = this.props.columns;
     const sortByIndex = this.state.sortByIndex;
     const key = columns[sortByIndex].key;
@@ -45,6 +51,9 @@ export default React.createClass({
     // Using tablesort classes here for the cute CSS carets,
     // not for the acutal table sorting JS (that logic is handled by this class).
 
+    // If sortable is set to false, just return an empty string
+    if (!this.state.options.sortable) return '';
+
     if (sortByIndex !== this.state.sortByIndex) return 'sort-header';
 
     if (this.state.sortDesc) return 'sort-header sort-down';
@@ -53,6 +62,9 @@ export default React.createClass({
   },
 
   onClickHeader(sortByIndex) {
+    // If sortable is set to false, just return from the click
+    if (!this.state.options.sortable) return;
+    
     if (sortByIndex === this.state.sortByIndex) {
       this.setState({ sortDesc: !this.state.sortDesc });
     } else {
@@ -119,7 +131,7 @@ export default React.createClass({
         {this.props.columns.map((column, index) => {
           return (
             <th key={column.key} onClick={this.onClickHeader.bind(null, index)}
-                className={this.headerClassName(index)}>
+              className={this.headerClassName(index)}>
               {column.label}
             </th>
           );
@@ -142,8 +154,8 @@ export default React.createClass({
       <tbody id='roster-data'>
         {this.orderedRows().map((row, index) => {
           const style = (index % 2 === 0)
-                    ? { backgroundColor: '#FFFFFF' }
-                    : { backgroundColor: '#F7F7F7' };
+            ? { backgroundColor: '#FFFFFF' }
+            : { backgroundColor: '#F7F7F7' };
           
           return (
             <tr key={row.id} style={style}>
