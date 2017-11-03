@@ -143,36 +143,6 @@ describe SchoolsController, :type => :controller do
 
   end
 
-  describe '#dashboard' do
-    def make_request(school_id)
-      request.env['HTTPS'] = 'on'
-      get :school_administrator_dashboard, params: { id: school_id }
-    end
-
-    context 'educator is admin' do
-      let!(:school) { FactoryGirl.create(:healey) }
-      let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-
-      it 'is able to access the school dashboard' do
-        sign_in(educator)
-        make_request('hea')
-        expect(response).to be_success
-      end
-    end
-
-    context 'educator is not an admin' do
-      let!(:school) { FactoryGirl.create(:healey) }
-      let!(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
-
-      it 'redirects to homeroom page' do
-        sign_in(educator)
-        make_request('hea')
-
-        expect(response).to redirect_to(not_authorized_url)
-      end
-    end
-  end
-
   describe '#csv' do
     def make_request(school_id)
       request.env['HTTPS'] = 'on'
