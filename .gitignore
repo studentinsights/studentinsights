@@ -10,7 +10,8 @@ dump.rdb
 
 # Node.js
 node_modules
-npm-debug.log
+yarn-debug.log*
+yarn-error.log*
 
 # This holds configuration for testing production import scripts locally, so it shouldn't be checked into
 # source control.
