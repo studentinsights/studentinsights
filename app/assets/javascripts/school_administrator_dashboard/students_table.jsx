@@ -17,7 +17,7 @@ export default React.createClass({
     };
   },
 
-  //These classes taken directly from school overview students table. TODO, separate into helpers
+  //These methods taken directly from school overview students table. TODO, separate into helpers
   headerClassName (sortBy) {
     // Using tablesort classes here for the cute CSS carets,
     // not for the acutal table sorting JS (that logic is handled by this class).
@@ -60,10 +60,18 @@ export default React.createClass({
     }
   },
 
+  totalAbsences () {
+    let total = 0;
+    this.props.rows.forEach((student) => {
+      total += student.absences;
+    });
+    return total;
+  },
+
   render: function() {
     return(
       <div className= 'StudentsList'>
-        <table className='students-list' style={{margin: 'auto', width: '80%', border: '1px solid #ccc'}}>
+        <table className='students-list'>
           <thead>
             <tr>
               {this.renderHeader('Last Name', 'last_name', 'string')}
@@ -71,6 +79,12 @@ export default React.createClass({
               {this.renderHeader('Absences', 'absences', 'number')}
             </tr>
           </thead>
+          <tfoot>
+            <tr>
+              <td width="66.66%">{'Total: '}</td>
+              <td width="33.33%">{this.totalAbsences()}</td>
+            </tr>
+          </tfoot>
           <tbody>
             {this.orderedRows().map(student => {
               return (
