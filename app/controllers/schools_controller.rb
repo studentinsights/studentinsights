@@ -33,7 +33,11 @@ class SchoolsController < ApplicationController
     })
   end
 
-    def school_administrator_dashboard
+  def school_administrator_dashboard
+    unless current_educator.admin == true
+      redirect_to not_authorized_path and return #TodDo: determine whether there's a more appropriate action here
+    end
+
     active_students = students_for_dashboard(@school)
 
     dashboard_students = active_students.map { |student| individual_student_dashboard_data(student) }
@@ -92,6 +96,10 @@ class SchoolsController < ApplicationController
       grade_message = " Showing students in grades #{current_educator.grade_level_access.to_sentence}."
       flash[:notice] << grade_message if flash[:notice]
     end
+  end
+
+  def authorize_for_dashboard
+
   end
 
   def set_school
