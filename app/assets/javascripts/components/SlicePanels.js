@@ -4,6 +4,7 @@ import CollapsableTable from './CollapsableTable';
 import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
+import {shouldDisplay} from '../helpers/customization_helpers.js';
 
 // For showing a set of panels that let users see an overview
 // of distributions, and click to filter a set of data in different
@@ -284,13 +285,11 @@ class SlicePanels extends React.Component {
   }
 
   renderGradeColumn() {
-    const isHighSchool = 'HS'===this.props.school.school_type;
-
     return (
       <div className="column grades-column pad-column-right">
         {this.renderGradeTable()}
-        {isHighSchool && this.renderSimpleTable('House', 'house', {})}
-        {isHighSchool && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
+        {shouldDisplay('house',this.props.school) && this.renderSimpleTable('House', 'house', {})}
+        {shouldDisplay('counselor',this.props.school) && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
         {this.renderYearsEnrolled()}
         {this.renderRiskLevel()}
       </div>

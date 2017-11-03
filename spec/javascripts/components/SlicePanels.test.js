@@ -69,7 +69,8 @@ SpecSugar.withTestEl('high-level integration tests', (container) => {
       el,
       {
         school: {
-          school_type: 'HS'
+          school_type: 'HS',
+          local_id: 'SHS'
         }
       }
     );
