@@ -1,0 +1,61 @@
+.DashboardGrid {
+  width: auto;
+  padding: 20px 0 20px 20px;
+}
+
+.DashboardChartsColumn {
+  display: inline-block;
+  vertical-align: top;
+  width: 66.66%;
+  padding-right: 20px;
+}
+
+.DashboardRosterColumn {
+  display: inline-block;
+  vertical-align: top;
+  width: 33.33%;
+  padding-right: 20px;
+}
+
+.StudentsList {
+  height : 410px;
+  overflow:hidden;
+}
+
+table.students-list {
+  margin: auto;
+  border: 1px solid #ccc;
+  width: 80%;
+
+  thead, tbody, tr, td, th { box-sizing: border-box;display: block; }
+
+  thead th, tfoot td {
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+  }
+
+  tfoot {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+  }
+
+  tfoot td {
+    float: left;
+  }
+
+  tbody {
+    height: 335px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+
+  tbody td, thead th {
+    width: 33.3%;
+    float: left;
+  }
+}
+
+

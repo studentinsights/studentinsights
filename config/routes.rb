@@ -50,5 +50,6 @@ Rails.application.routes.draw do
 
   resources :schools, only: [:show] do
     get :csv, on: :member
+    get :school_administrator_dashboard, on: :member
   end
 end
