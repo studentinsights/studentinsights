@@ -33,21 +33,6 @@ class SchoolsController < ApplicationController
     })
   end
 
-  def school_administrator_dashboard
-    unless current_educator.admin == true
-      redirect_to not_authorized_path and return #TodDo: determine whether there's a more appropriate action here
-    end
-
-    active_students = students_for_dashboard(@school)
-
-    dashboard_students = active_students.map { |student| individual_student_dashboard_data(student) }
-
-    @serialized_data = {
-      absences: dashboard_students.to_json
-    }
-    render 'shared/serialized_data'
-  end
-
   private
 
   # This should always find a record, but if it doesn't we fall back to the
@@ -111,24 +96,4 @@ class SchoolsController < ApplicationController
       current_educator.students_for_school_overview
     end
   end
-
-  # Methods for Dashboard
-  def list_student_absences(student)
-    student.absences.map {|absence| absence.order(occurred_at: :desc)}
-  end
-
-  def individual_student_dashboard_data(student)
-    HashWithIndifferentAccess.new({
-      first_name: student.first_name,
-      last_name: student.last_name,
-      homeroom: student.try(:homeroom).try(:name),
-      absences: student.absences.order(occurred_at: :desc)
-      }
-    )
-  end
-
-  def students_for_dashboard(school)
-    school.students.active
-  end
-
 end
