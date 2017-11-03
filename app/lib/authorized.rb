@@ -29,6 +29,15 @@ class Authorized
     @educator = educator
   end
 
+  # Usage:
+  #
+  #  student = guard { Student.find(params[:id]) }
+  #  students = guard { Homeroom.find(params[:id].students) }
+  def guard(&block)
+    @dispatcher.guard(&block)
+  end
+
+
   # This is the central place everything goes through
   def students(scope = Student.DANGEROUS.all)
     scope.select { |student| is_authorized_for_student?(student) }
@@ -57,5 +66,42 @@ class Authorized
     return true if student.in?(@educator.students.DANGEROUS) # Homeroom level access
     return true if student.in?(@educator.section_students.DANGEROUS) # Section level access
     false
+  end
+
+  class Dispatcher
+    def initialize(authorized
+      @authorized = authorized
+    end
+
+    def guard(&block)
+      return_value = block.call
+
+      # can't duck type since other things are mappable
+      # avoid eager evaluation for relations
+      if return_value.class === ActiveRecord::Relation
+        guard_array(return_value)
+      elsif return_value.class === Array
+        guard_relation(return_value)
+      else
+        guard_model(return_value)
+      end
+    end
+
+
+    def guard_relation(relation)
+      guard_array(relation)
+    end
+
+    def guard_array(relation)
+      relation.map {|model| guard_model(model }.compact
+    end
+
+    def guard_model(model)
+      if model.class == Student
+        authorized.is_authorized_for_student?(student)
+      else
+        nil
+      end
+    end
   end
 end
