@@ -52,20 +52,20 @@ export default React.createClass({
     return sortedRows;
   },
 
-  onClickHeader (sortBy, sortType) {
-    if (sortBy === this.state.sortBy) {
-      this.setState({ sortDesc: !this.state.sortDesc });
-    } else {
-      this.setState({ sortBy: sortBy, sortType: sortType });
-    }
-  },
-
   totalAbsences () {
     let total = 0;
     this.props.rows.forEach((student) => {
       total += student.absences;
     });
     return total;
+  },
+
+  onClickHeader (sortBy, sortType) {
+    if (sortBy === this.state.sortBy) {
+      this.setState({ sortDesc: !this.state.sortDesc });
+    } else {
+      this.setState({ sortBy: sortBy, sortType: sortType });
+    }
   },
 
   render: function() {
