@@ -13,10 +13,10 @@ class AuthorizedOnly
     # Can't duck type here, since other things like hashes
     # are iterable or mappable in ways we don't want to
     # support.
-    if return_value.class < ActiveRecord::Relation # subclass?
-      filter_array(return_value.to_a)
-    elsif return_value.class == Array # subclass?
+    if return_value.class < ActiveRecord::Relation # if subclass
       filter_relation(return_value)
+    elsif return_value.class == Array
+      filter_array(return_value)
     else
       filter_model(return_value)
     end
@@ -28,7 +28,7 @@ class AuthorizedOnly
   # authorization can be applied with simple `where`
   # clauses and not by filtering based on a Ruby method.
   def filter_relation(relation)
-    filter_array(relation)
+    filter_array(relation.to_a)
   end
 
   def filter_array(array)

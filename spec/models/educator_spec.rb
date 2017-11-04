@@ -241,20 +241,6 @@ RSpec.describe Educator do
 
   end
 
-  describe '#allowed_homerooms_by_name' do
-    context 'admin' do
-      let(:school) { FactoryGirl.create(:healey) }
-      let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, school: school) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom, name: 'Muskrats', school: school) }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom, name: 'Hawks', school: school) }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, name: 'Badgers', school: school) }
-
-      it 'returns all homerooms\', ordered alphabetically by name' do
-        expect(educator.allowed_homerooms_by_name).to eq [homeroom_103, homeroom_102, homeroom_101]
-      end
-    end
-  end
-
   describe '#save_student_searchbar_json' do
     context 'educator has permissions for a few students' do
       let(:school) { FactoryGirl.create(:school, local_id: 'Big River High') }

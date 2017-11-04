@@ -37,7 +37,7 @@ end
 
 RSpec.describe Authorizer do
   before { School.seed_somerville_schools }
-  
+
   # districtwide
   let!(:districtwide_admin) do
     FactoryGirl.create(:educator, districtwide_access: true)
