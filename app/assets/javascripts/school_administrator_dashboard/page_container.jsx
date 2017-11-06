@@ -72,7 +72,6 @@ export default React.createClass({
         monthlyAttendance[date]= monthlyAttendance[date].concat(schoolAttendance[day]); //if there is data, append this day's absences to what exists already
       }
     });
-    console.log(monthlyAttendance);
     return monthlyAttendance;
   },
 
@@ -92,7 +91,6 @@ export default React.createClass({
       if (list1[key] === undefined) list1[key] = list2[key];
       else list1[key] = list1[key].concat(list2[key]);
     });
-    console.log(list1);
     return list1;
   },
 
@@ -119,7 +117,6 @@ export default React.createClass({
     const schoolAttendance = this.monthlyAttendanceBySchool();
     const schoolAttendanceMonths = Object.keys(schoolAttendance).sort();
     const homeRoomAttendance = this.attendanceByHomeroom();
-    console.log(schoolAttendance);
     return (
         <SchoolAbsenceDashboard
           schoolAttendance = {schoolAttendance}
