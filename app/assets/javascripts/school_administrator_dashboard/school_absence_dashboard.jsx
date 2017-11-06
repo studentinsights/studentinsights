@@ -68,7 +68,8 @@ export default React.createClass({
     const {GraphHelpers} = window.shared;
     let filteredDates = this.filterDates(this.props.schoolAttendanceMonths, this.state.start_date, this.state.end_date);
     let filteredAttendanceSeries = filteredDates.map( (month) => {
-      return _.sum(this.props.schoolAttendance[month])/this.props.schoolAttendance[month].length;
+      const rawAvg = _.sum(this.props.schoolAttendance[month])/this.props.schoolAttendance[month].length;
+      return Math.round(rawAvg*10)/10;
     });
     const categories = filteredDates.map((month) => moment.utc(month).format("YYYY-MM"));
     const yearCategories = GraphHelpers.yearCategories(categories);
