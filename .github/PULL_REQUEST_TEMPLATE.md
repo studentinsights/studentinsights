@@ -1,6 +1,8 @@
-# Who is this pull request for?
+# Who is this PR for?
 
-# What does this pull request do?
+# What problem does it fix?
+
+# What does this PR do?
 
 # Screenshot (if adding a client-side feature)
 
