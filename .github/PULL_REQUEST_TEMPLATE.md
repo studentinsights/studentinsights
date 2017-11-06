@@ -1,6 +1,6 @@
 # Who is this PR for?
 
-# What problem does it fix?
+# What problem does this PR fix?
 
 # What does this PR do?
 
@@ -8,4 +8,4 @@
 
 # Checklist
 
-+ [ ] *If the PR adds Javascript:* Tested latest version in an Internet Explorer virtual machine?
++ [ ] Tested latest version in an Internet Explorer virtual machine? *(If the PR adds Javascript.)*
