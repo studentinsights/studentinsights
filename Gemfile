@@ -19,6 +19,7 @@ gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'net-sftp'
 gem 'net-ssh'
 gem 'probability'
+gem 'rollbar'
 gem 'rubocop', require: false
 gem 'memory_profiler'
 gem 'oj'
