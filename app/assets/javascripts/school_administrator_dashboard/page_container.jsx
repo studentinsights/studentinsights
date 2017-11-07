@@ -64,11 +64,12 @@ export default React.createClass({
     const schoolAttendance = this.attendanceBySchool();
     let monthlyAttendance = {};
     Object.keys(schoolAttendance).forEach((day) => {
+      //'date' here is the first day of the month in which 'day' occurs
       let date = moment(day).date(1).format("YYYY-MM-DD");
-      if (monthlyAttendance[date] === undefined) {
+      if (monthlyAttendance[date] === undefined) { //if there's no data for this month yet
         monthlyAttendance[date] = [schoolAttendance[day]];
       } else {
-        monthlyAttendance[date].push(...schoolAttendance[day]);
+        monthlyAttendance[date]= monthlyAttendance[date].concat(schoolAttendance[day]); //if there is data, append this day's absences to what exists already
       }
     });
     return monthlyAttendance;
@@ -84,10 +85,11 @@ export default React.createClass({
     return averageDailyAttendance;
   },
 
+  //merges two lists of dates by appending absence data to existing dates
   mergeDateLists: function(list1, list2) {
     Object.keys(list2).map((key) => {
       if (list1[key] === undefined) list1[key] = list2[key];
-      else list1[key].push(...list2[key]);
+      else list1[key] = list1[key].concat(list2[key]);
     });
     return list1;
   },
@@ -123,4 +125,3 @@ export default React.createClass({
           students = {this.props.attendanceData}/>);
   }
 });
-
