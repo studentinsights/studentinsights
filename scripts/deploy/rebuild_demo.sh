@@ -12,7 +12,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # Deploy to Somerville production app and migrate
   echo "⚙  💻  ⚙  rake db:schema:load..."
-  heroku run DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rake db:schema:load --app $DEMO_HEROKU_APP_NAME
+  heroku run DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rake db:migrate --app $DEMO_HEROKU_APP_NAME
 
   echo "⚙  💻  ⚙  rake db:seed..."
   heroku run rake db:seed --app $DEMO_HEROKU_APP_NAME
@@ -20,6 +20,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # Deploy to demo app and migrate
   echo "Done.  Rebuilt ⬢ $DEMO_HEROKU_APP_NAME database."
-else 
+else
   echo "Aborted."
 fi
