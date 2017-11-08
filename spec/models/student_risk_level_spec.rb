@@ -139,7 +139,7 @@ RSpec.describe StudentRiskLevel, type: :model do
           it 'has a correct explanation' do
             expect(student_risk_level.explanation).to eq({
               intro: "This student is at Risk 3 because:",
-              reasons: ["This student's MCAS Math performance level is Warning / Not Meeting Expectations."]
+              reasons: ["This student's MCAS Math performance level is Warning or Not Meeting Expectations."]
             })
           end
         end
@@ -150,8 +150,10 @@ RSpec.describe StudentRiskLevel, type: :model do
       context 'has Next Gen MCAS math and MCAS math' do
         context 'has a W value for MCAS math and an EE for Next Gen MCAS Math' do
           let(:student) { FactoryGirl.create(:student) }
-          let(:next_gen_mcas_math_ee) {FactoryGirl.create(:next_gen_mcas_math_exceeds_expectations_assessment, student: student)}
-          let(:mcas_math_w) {FactoryGirl.create(:mcas_math_warning_assessment, student: student)}
+          let(:earlier_date) { DateTime.new(2016, 5, 10) }
+          let(:later_date) { DateTime.new(2017, 4, 28) }
+          let(:next_gen_mcas_math_ee) {FactoryGirl.create(:next_gen_mcas_math_exceeds_expectations_assessment, student: student, date_taken: later_date)}
+          let(:mcas_math_w) {FactoryGirl.create(:mcas_math_warning_assessment, student: student, date_taken: earlier_date)}
           let!(:student_risk_level) { StudentRiskLevel.create!(student: student) }
           it 'has a correct explanation' do
             expect(student_risk_level.explanation).to eq({
