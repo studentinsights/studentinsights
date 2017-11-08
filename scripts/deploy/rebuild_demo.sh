@@ -8,7 +8,7 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   # Reset database through Heroku Postgres CLI
   echo "⚙  💻  ⚙  heroku pg:reset..."
-  heroku pg:reset DATABASE_URL -a somerville-teacher-tool-demo --confirm somerville-teacher-tool-demo
+  heroku pg:reset DATABASE_URL -a $DEMO_HEROKU_APP_NAME --confirm $DEMO_HEROKU_APP_NAME
 
   # Deploy to Somerville production app and migrate
   echo "⚙  💻  ⚙  rake db:schema:load..."
