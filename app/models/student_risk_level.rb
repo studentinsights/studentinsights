@@ -6,12 +6,8 @@ class StudentRiskLevel < ActiveRecord::Base
 
   # Use most recent assessments to calculate risk
   def mcas_math
-    # First look for the newer MCAS assessment
-    next_gen = student.latest_result_by_family_and_subject("Next Gen MCAS", "Mathematics")
-    return next_gen if next_gen
-
-    # If there are none, look for the original MCAS
-    student.latest_result_by_family_and_subject("MCAS", "Mathematics") || MissingStudentAssessment.new
+    # Look for the most recent of Next Gen or Legacy MCAS
+    next_gen = student.latest_result_by_family_and_subject(["Next Gen MCAS","MCAS"], "Mathematics") || MissingStudentAssessment.new
   end
 
   def star_math
@@ -19,12 +15,8 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def mcas_ela
-    # First look for the newer MCAS assessment
-    next_gen = student.latest_result_by_family_and_subject("Next Gen MCAS", "ELA")
-    return next_gen if next_gen
-
-    # If there are none, look for the original MCAS
-    student.latest_result_by_family_and_subject("MCAS", "ELA") || MissingStudentAssessment.new
+    # Look for the most recent of Next Gen or Legacy MCAS
+    next_gen = student.latest_result_by_family_and_subject(["Next Gen MCAS","MCAS"], "ELA") || MissingStudentAssessment.new
   end
 
   def star_reading
