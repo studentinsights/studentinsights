@@ -1,8 +1,9 @@
 DEMO_HEROKU_APP_NAME=somerville-teacher-tool-demo
 
 # Deploy to demo app and migrate
-echo "🚨 ☠️ 🚨 DANGER: About to destroy and rebuild the ⬢ $DEMO_HEROKU_APP_NAME database."
-read -p "  This will cause downtime.  Continue? [y/N] " -n 1 -r
+echo "🚨  🚨  🚨  DANGER: About to destroy and rebuild the ⬢ $DEMO_HEROKU_APP_NAME database."
+echo
+read -p "🚨  🚨  🚨  This will cause downtime on $DEMO_HEROKU_APP_NAME. Continue? [y/N] " -n 1 -r
 echo
 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
