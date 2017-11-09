@@ -126,5 +126,21 @@ RSpec.describe StudentSectionAssignmentsImporter do
         expect(StudentSectionAssignment.count).to eq(1)
       end
     end
+
+    context 'delete only stale assignments from schools being imported' do
+      before do
+        FactoryGirl.create_list(:student_section_assignment, 20)
+        FactoryGirl.create(:student_section_assignment, student_id: student.id, section_id: section.id)
+
+        ssa_importer = described_class.new
+        ssa_importer.school_scope = ['SHS']
+        ssa_importer.import_row(row)
+        ssa_importer.delete_rows
+      end
+
+      it 'deletes all student section assignments for that school except the recently imported one' do
+        expect(StudentSectionAssignment.count).to eq(21)
+      end
+    end
   end
 end
