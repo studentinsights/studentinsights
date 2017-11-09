@@ -49,7 +49,11 @@ Rails.application.routes.draw do
   resources :iep_documents, only: [:show]
 
   resources :schools, only: [:show] do
-    get :csv, on: :member
-    get :school_administrator_dashboard, on: :member
+    member do
+      get :overview
+      get :school_administrator_dashboard
+      get :overview_json
+      get :csv
+    end
   end
 end

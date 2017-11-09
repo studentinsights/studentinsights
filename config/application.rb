@@ -29,6 +29,18 @@ module SomervilleTeacherTool
         "#{config.root}/lib"
       ]
 
+      # The intention here is that we compress server responses
+      # (eg, HTML and JSON) but not doubly-gzip static assets which
+      # are already compressed on disk.
+      #
+      # However, when the middleware runs for mime types other than
+      # application/json, it runs through the deflate code path but
+      # doesn't seem to actually reduce the byte site.
+      # See https://github.com/studentinsights/studentinsights/issues/1196#issuecomment-340269968
+      config.middleware.use Rack::Deflater, include: [
+        'application/json'
+      ]
+
       config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
       class_paths.each do |class_path|
         config.autoload_paths << class_path
