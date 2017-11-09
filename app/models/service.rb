@@ -5,30 +5,23 @@ class Service < ActiveRecord::Base
   belongs_to :service_upload          # For bulk-uploaded services
   has_many :discontinued_services
 
-  validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id, :recorded_at, :date_started#, :estimated_end_date
+  validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id, :recorded_at, :date_started
+  validate :must_be_discontinued_after_service_start_date
 
   def discontinued?
-    (discontinued_services.size > 0) && !has_scheduled_end_date?  # If the end date is in the future
-                                                                  # the service isn't discontinued yet.
-  end
-
-  def end_date
-    # Some services are scheduled to be discontinued in the future. When staff
-    # enter new student services in the UI, they can't select a future end date yet.
-    # But bulk-uploaded services can have a future end date. If a service has an
-    # end date in the future, we don't want it to show up as "discontinued."
-    #
-    # This attribute name isn't accurate
-    # anymore, we should change it to "date_ended"
-    discontinued_services.order(discontinued_at: :desc).first.try(:discontinued_at)
-  end
-
-  def has_scheduled_end_date?
-    return end_date > DateTime.current
+    discontinued_at.present? && (DateTime.current > discontinued_at)
   end
 
   def active?
     !discontinued?
+  end
+
+  def must_be_discontinued_after_service_start_date
+    unless discontinued_at.nil?
+      if date_started > discontinued_at
+        errors.add(:discontinued_at, "must be after service start date")
+      end
+    end
   end
 
   def self.active
@@ -36,17 +29,15 @@ class Service < ActiveRecord::Base
   end
 
   def self.never_discontinued
-    includes(:discontinued_services).where(:discontinued_services => { :id => nil })
+    where(discontinued_at: nil)
   end
 
   def self.future_discontinue
-    includes(:discontinued_services).where('discontinued_services.discontinued_at > ?', DateTime.current)
-                                    .references(:discontinued_services)
+    where('discontinued_at > ?', DateTime.current)
   end
 
   def self.discontinued
-    includes(:discontinued_services).where('discontinued_services.discontinued_at < ?', DateTime.current)
-                                    .references(:discontinued_services)
+    where('discontinued_at < ?', DateTime.current)
   end
 
   def self.provider_names

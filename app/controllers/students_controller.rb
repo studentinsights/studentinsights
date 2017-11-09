@@ -108,12 +108,7 @@ class StudentsController < ApplicationController
 
     if service.save
       if estimated_end_date.present? && estimated_end_date.to_time < Time.now
-        discontinued_service = DiscontinuedService.new({
-          service_id: service.id,
-          recorded_by_educator_id: current_educator.id,
-          discontinued_at: estimated_end_date.to_time
-        })
-        discontinued_service.save
+        service.update_attributes(:discontinued_at => estimated_end_date.to_time, :discontinued_by_educator_id => current_educator.id)
       end
       render json: serializer.serialize_service
     else
@@ -203,7 +198,7 @@ class StudentsController < ApplicationController
     @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_date..@filter_to_date)
 
     # Load services for the student for the filtered dates
-    @services = @student.services.includes(:discontinued_services).where("date_started <= ? AND (discontinued_services.discontinued_at >= ? OR discontinued_services.discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_services.discontinued_at').references(:discontinued_services)
+    @services = @student.services.where("date_started <= ? AND (discontinued_at >= ? OR discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_at')
 
     # Load student school years for the filtered dates
     @student_school_years = @student.events_by_student_school_years(@filter_from_date, @filter_to_date)

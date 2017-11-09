@@ -103,7 +103,8 @@ class UnsafeAnonymizer
       student_id: sha(service.student_id),
       service_type_id: sha(service.service_type_id),
       date_started: service.date_started,
-      end_date: service.end_date
+      discontinued_at: service.discontinued_at,
+      discontinued_by_educator_id: service.discontinued_by_educator_id,
     }
   end
 

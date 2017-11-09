@@ -89,13 +89,16 @@
         <% @services.each do |service| %>
           <div style="float: left; width:370px; padding:5px">
             <ul>
-              <li><span style="font-weight:bold;"><%= format_date(service.date_started) %> -
-                <% if service.discontinued_services.count > 0%>
-                  <%= "#{format_date(service.discontinued_services.last.try(:recorded_at))}" %>
-                <% else %>
-                  Present
-                <% end %>
-              </span></li>
+              <li>
+                <span style="font-weight:bold;">
+                  <%= format_date(service.date_started) %> -
+                  <% if service.discontinued_at.present? %>
+                    <%= "#{format_date(service.try(:discontinued_at))}" %>
+                  <% else %>
+                    Present
+                  <% end %>
+                </span>
+              </li>
               <li><span style="font-style:italic;"><%= service.try(:service_type).try(:name) %></span></li>
               <li><%= service.provided_by_educator_name %></li>
             </ul>
@@ -207,7 +210,7 @@
     </div>
     <br style="clear: left;" /><br/>
     <% end %>
-  
+
     <%= json_div(id: "serialized-data", data: @serialized_data) %>
     <div class="scripts">
       <%= wicked_pdf_javascript_include_tag webpack_bundle('student_report_pdf.js') %>
