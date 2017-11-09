@@ -1,4 +1,4 @@
-// These are polyfills for ES5/ES6 features that aren't supported in 
+// These are polyfills for ES5/ES6 features that aren't supported in
 // IE11.  If we want to use other things like fetch, Map/Set or Array methods,
 // add them in here.
 //
@@ -6,3 +6,11 @@
 // but from our Babel transpilation process.
 import assign from 'object-assign';
 Object.assign = assign;
+
+import Promise from 'promise-polyfill';
+
+if (!window.Promise) {
+  window.Promise = Promise;
+}
+
+import 'whatwg-fetch';
