@@ -6,11 +6,9 @@ namespace :services do
 
     ActiveRecord::Base.transaction do
       services.each do |service|
-        if service.discontinued_services.exists?
-          service.estimated_end_date = service.discontinued_services.first.discontinued_at
-          service.save
-          print "saving service"
-        end
+        service.estimated_end_date = service.discontinued_at
+        service.save
+        puts "saving service"
       end
     end
 
