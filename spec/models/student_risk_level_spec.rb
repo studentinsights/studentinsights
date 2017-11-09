@@ -152,13 +152,13 @@ RSpec.describe StudentRiskLevel, type: :model do
           let(:student) { FactoryGirl.create(:student) }
           let(:earlier_date) { DateTime.new(2016, 5, 10) }
           let(:later_date) { DateTime.new(2017, 4, 28) }
-          let(:next_gen_mcas_math_ee) {FactoryGirl.create(:next_gen_mcas_math_exceeds_expectations_assessment, student: student, date_taken: later_date)}
-          let(:mcas_math_w) {FactoryGirl.create(:mcas_math_warning_assessment, student: student, date_taken: earlier_date)}
+          let!(:next_gen_mcas_math_ee) {FactoryGirl.create(:next_gen_mcas_math_exceeds_expectations_assessment, student: student, date_taken: later_date)}
+          let!(:mcas_math_w) {FactoryGirl.create(:mcas_math_warning_assessment, student: student, date_taken: earlier_date)}
           let!(:student_risk_level) { StudentRiskLevel.create!(student: student) }
           it 'has a correct explanation' do
             expect(student_risk_level.explanation).to eq({
-              intro: "This student is at Risk N/A because:",
-              reasons: ["There is not enough information to tell."]
+              intro: "This student is at Risk 0 because:",
+              reasons: ["This student's MCAS Math performance level is Advanced or Exceeding Expectations."]
             })
           end
         end
