@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SectionHeader renders correctly 1`] = `
+<div
+  className="SectionHeader"
+>
+  <div
+    id="section-header-info"
+  >
+    <h1>
+      Art-1
+    </h1>
+    <p
+      id="course-info"
+    >
+      Awesome Art Class
+       
+      (Art)
+    </p>
+    <p
+      id="section-detail"
+    >
+      Room 
+      304
+       
+      <span>
+        •
+      </span>
+       Schedule: 
+      3(M-R)
+       
+      <span>
+        •
+      </span>
+       Term: 
+      9
+    </p>
+  </div>
+  <div>
+    <p>
+      Section: 
+      <span>
+        <select
+          id="section-select"
+          onChange={[Function]}
+          value={1}
+        >
+          <option
+            value={1}
+          >
+            Art-1
+          </option>
+          <option
+            value={2}
+          >
+            Art-2
+          </option>
+          <option
+            value={3}
+          >
+            Art-3
+          </option>
+        </select>
+      </span>
+    </p>
+  </div>
+</div>
+`;

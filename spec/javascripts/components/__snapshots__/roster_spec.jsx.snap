@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Roster renders correctly 1`] = `
+<div
+  className="FlexibleRoster"
+>
+  <table
+    className="roster-table"
+    id="roster-table"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <thead>
+      <tr
+        className="column-groups"
+      />
+      <tr
+        id="roster-header"
+      >
+        <th
+          className="sort-header sort-down"
+          onClick={[Function]}
+        >
+          Test Label 1
+        </th>
+        <th
+          className="sort-header"
+          onClick={[Function]}
+        >
+          Test Label 2
+        </th>
+        <th
+          className="sort-header"
+          onClick={[Function]}
+        >
+          Test Label 3
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      id="roster-data"
+    >
+      <tr
+        style={
+          Object {
+            "backgroundColor": "#FFFFFF",
+          }
+        }
+      >
+        <td>
+          Data 1-1
+        </td>
+        <td>
+          Data 1-2
+        </td>
+        <td>
+          Data 1-3
+        </td>
+      </tr>
+      <tr
+        style={
+          Object {
+            "backgroundColor": "#F7F7F7",
+          }
+        }
+      >
+        <td>
+          Data 2-1
+        </td>
+        <td>
+          Data 2-2
+        </td>
+        <td>
+          Data 2-3
+        </td>
+      </tr>
+      <tr
+        style={
+          Object {
+            "backgroundColor": "#FFFFFF",
+          }
+        }
+      >
+        <td>
+          Data 3-1
+        </td>
+        <td>
+          Data 3-2
+        </td>
+        <td>
+          Data 3-3
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
