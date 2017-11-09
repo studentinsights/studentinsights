@@ -21,6 +21,12 @@ FactoryGirl.define do
           scale_score 280
         end
       end
+      factory :next_gen_mcas_math_assessment do
+        association :assessment, subject: "Mathematics", family: "Next Gen MCAS"
+        factory :next_gen_mcas_math_exceeds_expectations_assessment do
+          performance_level "EE"
+        end
+      end
       factory :mcas_ela_assessment do
         association :assessment, subject: "ELA", family: "MCAS"
         factory :mcas_ela_student_assessment_score_250 do
