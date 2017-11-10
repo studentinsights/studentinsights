@@ -94,8 +94,11 @@ export default React.createClass({
 
   renderHomeroomAbsenceChart: function() {
     const homeRoomAttendance = this.props.homeRoomAttendance;
+    //todo: either the index or the filtered date list should be accessed as state since it should be the same for all renders
+    const index0 = this.getFirstDateIndex(homeRoomAttendance, this.state.start_date);
+    const index1 = this.getFirstDateIndex(homeRoomAttendance, this.state.start_date);
     let percentages = _.map(homeRoomAttendance, (homeroom) => {
-      return this.filterDates(Object.keys(homeroom.absences).sort(), this.state.start_date, this.state.end_date).map((date) => {
+      return Object.keys(homeroom.absences).sort().slice(index0, index1).map((date) => {
         return homeroom.absences[date];
       });
     });
