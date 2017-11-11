@@ -29,7 +29,9 @@ class AuthorizedDispatcher
   # clauses and not by filtering based on a Ruby method.
   def filter_relation(relation)
     # This checks that the relation has all fields required for authorization,
-    # and adds them in if not.
+    # and adds them in if not.  The developer was probably trying to optimize the
+    # query, and we can adjust it a bit to get what we need for authorization.
+    # So we do that and continue.
     if relation.klass == Student.class
       relation_with_required_fields = relation.select(*Authorizer.student_fields_for_authorization)
       filter_array(relation_with_required_fields.to_a)
@@ -45,6 +47,8 @@ class AuthorizedDispatcher
   def filter_model(model)
     if model.class == Student
       check_value(model, @authorizer.is_authorized_for_student?(model))
+    elsif model.class == EventNote
+      check_value(model, @authorizer.is_authorized_for_note?(model))
     else
       unchecked_value(model)
     end

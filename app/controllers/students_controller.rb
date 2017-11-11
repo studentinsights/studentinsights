@@ -18,15 +18,20 @@ class StudentsController < ApplicationController
   end
 
   def show
+    puts '#show'
     student = authorized_or_raise! { Student.find(params[:id]) }
+    puts "  student: #{student}"
     sections = authorized { student.sections_with_grades }
+    puts "  sections: #{sections}"
     event_notes = authorized { student.event_notes.without_restricted }
-    restricted_notes = authorized { student.event_notes.restricted }
+    puts "  event_notes: #{event_notes}"
+    restricted_notes_count = authorized { student.event_notes.restricted }.size
+    puts "  restricted_notes: #{restricted_notes}"
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
       current_educator: current_educator,
-      student: serialize_student_for_profile(student, restricted_notes), # Risk level, school homeroom, most recent school year attendance/discipline counts
+      student: serialize_student_for_profile(student, restricted_notes_count), # Risk level, school homeroom, most recent school year attendance/discipline counts
       feed: student_feed(student, event_notes),                     # Notes, services
       chart_data: chart_data,                                            # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
@@ -53,7 +58,7 @@ class StudentsController < ApplicationController
     restricted_notes = authorized { student.event_notes.restricted }
     @serialized_data = {
       current_educator: current_educator,
-      student: serialize_student_for_profile(student, restricted_notes),
+      student: serialize_student_for_profile(student, restricted_notes.size),
       feed: student_feed(student, restricted_notes),
       event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
@@ -136,7 +141,7 @@ class StudentsController < ApplicationController
 
   private
 
-  def serialize_student_for_profile(student, restricted_notes)
+  def serialize_student_for_profile(student, restricted_notes_count)
     student.as_json.merge({
       student_risk_level: student.student_risk_level.as_json,
       absences_count: student.most_recent_school_year_absences_count,
@@ -145,7 +150,7 @@ class StudentsController < ApplicationController
       school_type: student.try(:school).try(:school_type),
       homeroom_name: student.try(:homeroom).try(:name),
       discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
-      restricted_notes_count: restricted_notes.count,
+      restricted_notes_count: restricted_notes_count,
     }).stringify_keys
   end
 

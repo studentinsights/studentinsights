@@ -89,6 +89,12 @@ class Authorizer
     false
   end
 
+  def is_authorized_for_note?(event_note)
+    return false unless is_authorized_for_student?(event_note.student)
+    return false if event_note.is_restricted && !@educator.can_view_restricted_notes
+    true
+  end
+
   # TODO(kr) remove implementation
   def students_for_school_overview
     return [] unless @educator.school.present?
