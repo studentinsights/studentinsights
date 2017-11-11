@@ -38,7 +38,10 @@ class SchoolsController < ApplicationController
       redirect_to not_authorized_path and return #TodDo: determine whether there's a more appropriate action here
     end
 
-    dashboard_students = students_for_dashboard(@school).includes(:absences, :homeroom).map { |student| individual_student_dashboard_data(student) }
+    dashboard_students = students_for_dashboard(@school).includes(:homeroom, :absences)
+                                                        .where('absences.occurred_at > ?', '2016-08-01')
+                                                        .references(:absences)
+                                                        .map { |student| individual_student_dashboard_data(student) }
 
     @serialized_data = {
       absences: dashboard_students.to_json
