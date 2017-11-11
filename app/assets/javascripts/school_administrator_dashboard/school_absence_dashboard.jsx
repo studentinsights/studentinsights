@@ -19,7 +19,7 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      start_date: "2016-08-01",
+      start_date: "2017-08-30",
       end_date: moment.utc().format("YYYY-MM-DD")
     };
   },
