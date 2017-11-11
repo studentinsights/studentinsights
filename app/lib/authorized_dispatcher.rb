@@ -1,6 +1,6 @@
 # Dispatches different questions about authorization
 # to specific methods for specific models.
-class AuthorizedOnly
+class AuthorizedDispatcher
   def initialize(authorizer)
     @authorizer = authorizer
   end
@@ -28,7 +28,14 @@ class AuthorizedOnly
   # authorization can be applied with simple `where`
   # clauses and not by filtering based on a Ruby method.
   def filter_relation(relation)
-    filter_array(relation.to_a)
+    # This is coupled to the implementation of
+    # Authorizer#is_authorized_for_student.
+    if relation.klass == Student.class
+      relation_with_required_fields = relation.select(*Authorizer.student_fields_for_authorization)
+      filter_array(relation_with_required_fields.to_a)
+    else
+      filter_array(relation.to_a)
+    end
   end
 
   def filter_array(array)
@@ -52,7 +59,7 @@ class AuthorizedOnly
   # If it does return, it should return the "null" value for something
   # the educator doesn't have access to.
   def unchecked_value(model)
-    message = "AuthorizedOnly#unchecked_value for class: #{model.class.to_s}"
+    message = "Authorized#unchecked_value for class: #{model.class.to_s}"
     raise Exceptions::EducatorNotAuthorized.new(message)
   end
 end

@@ -25,7 +25,7 @@ class Educator < ActiveRecord::Base
            :validate_grade_level_access_is_not_nil
 
   # TODO(kr) this probably needs to be updated, there are a few copies of this
-  VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ].freeze
+  VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ].freeze
 
   # override
   # The `student_searchbar_json` field can be really heavy (~500kb), and

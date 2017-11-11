@@ -49,8 +49,17 @@ class ApplicationController < ActionController::Base
   end
 
   # Wrap all database queries with this to enforce authorization
-  def authorized_only(&block)
-    authorizer.authorized_only(block)
+  def authorized(&block)
+    authorizer.authorized(block)
+  end
+
+  # Enforce authorization and raise if no authorized models
+  def authorized_or_raise!(&block)
+    return_value = authorizer.authorized(block)
+    if return_value.nil? || return_value.length == 0
+      raise Exceptions::EducatorNotAuthorized
+    end
+    return_value
   end
 
   # Sugar for filters checking authorization

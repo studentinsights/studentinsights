@@ -9,21 +9,21 @@ class StudentsController < ApplicationController
                                                 # They then get further authorization filtering using
                                                 # The custom authorization methods below.
 
-  before_action :authorize_for_districtwide_access_admin, only: [:lasids]
+  # before_action :authorize_for_districtwide_access_admin, only: [:lasids]
 
-  def authorize!
-    student = Student.find(params[:id])
-    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
-  end
+  # def authorize!
+  #   student = Student.find(params[:id])
+  #   raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
+  # end
 
-  def authorize_for_districtwide_access_admin
-    unless current_educator.admin? && current_educator.districtwide_access?
-      render json: { error: "You don't have the correct authorization." }
-    end
-  end
+  # def authorize_for_districtwide_access_admin
+  #   unless current_educator.admin? && current_educator.districtwide_access?
+  #     render json: { error: "You don't have the correct authorization." }
+  #   end
+  # end
 
   def show
-    student = Student.find(params[:id])
+    student = authorized_or_raise! { Student.find(params[:id]) }
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
@@ -51,7 +51,7 @@ class StudentsController < ApplicationController
   def restricted_notes
     raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
 
-    student = Student.find(params[:id])
+    student = authorized_or_raise! { Student.find(params[:id]) }
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
@@ -97,6 +97,7 @@ class StudentsController < ApplicationController
       :estimated_end_date
     ])
 
+    authorized_or_raise! { Student.find(clean_params[:student_id]) }
     estimated_end_date = clean_params["estimated_end_date"]
 
     service = Service.new(clean_params.merge({
@@ -130,7 +131,8 @@ class StudentsController < ApplicationController
   # Used by the service upload page to validate student local ids
   # LASID => "locally assigned ID"
   def lasids
-    render json: Student.pluck(:local_id)
+    students = authorized { Student.select(:local_id).all }
+    render json: students.map(&:local_id)
   end
 
   private
