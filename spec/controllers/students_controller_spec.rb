@@ -279,10 +279,11 @@ describe StudentsController, :type => :controller do
       }
     end
 
-    context 'admin educator logged in' do
-      let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-      let!(:provided_by_educator) { FactoryGirl.create(:educator, school: school) }
+    context 'teacher logged in' do
       let!(:student) { FactoryGirl.create(:student, school: school) }
+      let!(:homeroom) { student.homeroom }
+      let!(:educator) { FactoryGirl.create(:educator, school: school, homeroom: homeroom) }
+      let!(:provided_by_educator) { FactoryGirl.create(:educator, school: school) }
 
       before do
         sign_in(educator)
@@ -337,14 +338,41 @@ describe StudentsController, :type => :controller do
         end
       end
 
+      context 'when unauthorized student_id' do
+        it 'returns unauthorized' do
+          unauthorized_student = FactoryGirl.create(:student)
+          make_post_request(unauthorized_student, {
+            student_id: unauthorized_student.id,
+            text: 'foo'
+          })
+          expect(response.status).to eq 403
+        end
+      end
+
+      context 'when malformed params' do
+        it 'returns 400' do
+          make_post_request(student, {})
+          expect(response.status).to eq 400
+        end
+      end
+
+      context 'when missing student_id' do
+        it 'returns 404' do
+          make_post_request(student, { text: 'foo' })
+          expect(response.status).to eq 404
+        end
+      end
+
       context 'when missing params' do
         it 'fails with error messages' do
-          make_post_request(student, { text: 'foo' })
+          make_post_request(student, {
+            student_id: student.id,
+            text: 'foo'
+          })
           expect(response.status).to eq 422
           response_body = JSON.parse(response.body)
           expect(response_body).to eq({
             "errors" => [
-              "Student can't be blank",
               "Service type can't be blank",
               "Date started can't be blank"
             ]
@@ -520,27 +548,43 @@ describe StudentsController, :type => :controller do
     end
 
     before do
+      School.seed_somerville_schools
       FactoryGirl.create(:student, local_id: '111')
       FactoryGirl.create(:student, local_id: '222')
     end
 
     let(:parsed_response) { JSON.parse(response.body) }
+    let!(:healey) { School.find_by_local_id('HEA') }
+    let!(:healey_kindergarten_homeroom) { FactoryGirl.create(:homeroom, school: healey) }
+    let!(:healey_kindergarten_student) do
+      FactoryGirl.create(:student, {
+        local_id: '333',
+        school: healey,
+        homeroom: healey_kindergarten_homeroom,
+        grade: 'KF'
+      })
+    end
+    let!(:healey_teacher) do
+      FactoryGirl.create(:educator, {
+        school: healey,
+        homeroom: healey_kindergarten_homeroom
+      })
+    end
 
     context 'admin with districtwide access' do
       let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
       it 'returns an array of student lasids' do
         sign_in(educator)
         make_request
-        expect(parsed_response).to eq ["111", "222"]
+        expect(parsed_response).to eq ['111', '222', '333']
       end
     end
 
-    context 'non-admin' do
-      let(:educator) { FactoryGirl.create(:educator) }
+    context 'healey_teacher' do
       it 'does not return any lasids' do
-        sign_in(educator)
+        sign_in(healey_teacher)
         make_request
-        expect(parsed_response).to eq({ "error"=>"You don't have the correct authorization." })
+        expect(parsed_response).to eq([])
       end
     end
 

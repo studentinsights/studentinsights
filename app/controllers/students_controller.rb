@@ -1,13 +1,27 @@
 class StudentsController < ApplicationController
   include ApplicationHelper
 
-  rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
+  rescue_from Exceptions::EducatorNotAuthorized do
+    if request.format.json?
+      render_unauthorized_json! 
+    else
+      redirect_unauthorized!
+    end
+  end
 
-  before_action :authorize!, except: [          # The :names and lasids actions are subject to
-    :names, :lasids                             # educator authentication via :authenticate_educator!
-  ]                                             # inherited from ApplicationController.
-                                                # They then get further authorization filtering using
-                                                # The custom authorization methods below.
+  rescue_from ActionController::ParameterMissing do
+    render json: {}, status: 400
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do 
+    render json: {}, status: 404
+  end
+  
+  # before_action :authorize!, except: [          # The :names and lasids actions are subject to
+  #   :names, :lasids                             # educator authentication via :authenticate_educator!
+  # ]                                             # inherited from ApplicationController.
+  #                                               # They then get further authorization filtering using
+  #                                               # The custom authorization methods below.
 
   # before_action :authorize_for_districtwide_access_admin, only: [:lasids]
 
@@ -131,7 +145,7 @@ class StudentsController < ApplicationController
   # Used by the service upload page to validate student local ids
   # LASID => "locally assigned ID"
   def lasids
-    students = authorized { Student.select(:local_id).all }
+    students = authorized { Student.select(:local_id, :school_id).all }
     render json: students.map(&:local_id)
   end
 
