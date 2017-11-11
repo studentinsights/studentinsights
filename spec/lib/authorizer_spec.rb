@@ -165,6 +165,28 @@ RSpec.describe Authorizer do
       end
     end
 
+    describe 'EventNote' do
+      it 'works for EventNote.all' do
+        healey_public_note = FactoryGirl.create(:event_note, student: healey_kindergarten_student)
+        healey_restricted_note = FactoryGirl.create(:event_note, student: healey_kindergarten_student, is_restricted: true)
+        shs_public_note = FactoryGirl.create(:event_note, student: shs_student)
+        shs_restricted_note = FactoryGirl.create(:event_note, student: shs_student, is_restricted: true)
+
+        expect(authorized(districtwide_admin) { EventNote.all }).to eq [
+          healey_public_note,
+          healey_restricted_note,
+          shs_public_note,
+          shs_restricted_note
+        ]
+        expect(authorized(healey_teacher) { EventNote.all }).to eq [
+          healey_public_note
+        ]
+        expect(authorized(shs_teacher) { EventNote.all }).to eq [
+          shs_public_note
+        ]
+      end
+    end
+
     describe 'other models' do
       it 'raises on calls with unchecked models' do
         expect { authorized(districtwide_admin) { Educator.all } }.to raise_error(Exceptions::EducatorNotAuthorized)

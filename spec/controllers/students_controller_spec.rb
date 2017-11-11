@@ -456,7 +456,8 @@ describe StudentsController, :type => :controller do
   describe '#serialize_student_for_profile' do
     it 'returns a hash with the additional keys that UI code expects' do
       student = FactoryGirl.create(:student)
-      serialized_student = controller.send(:serialize_student_for_profile, student)
+      restricted_notes = student.event_notes.where(is_restricted: true)
+      serialized_student = controller.send(:serialize_student_for_profile, student, restricted_notes)
       expect(serialized_student.keys).to include(*[
         'student_risk_level',
         'absences_count',
@@ -475,14 +476,14 @@ describe StudentsController, :type => :controller do
     let!(:event_note) { create_event_note(student, educator) }
 
     it 'returns services' do
-      feed = controller.send(:student_feed, student)
+      feed = controller.send(:student_feed, student, student.event_notes)
       expect(feed.keys).to eq([:event_notes, :services, :deprecated])
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:discontinued].first[:id]).to eq service.id
     end
 
     it 'returns event notes' do
-      feed = controller.send(:student_feed, student)
+      feed = controller.send(:student_feed, student, student.event_notes)
       event_notes = feed[:event_notes]
 
       expect(event_notes.size).to eq 1
@@ -492,7 +493,7 @@ describe StudentsController, :type => :controller do
 
     context 'after service is discontinued' do
       it 'filters it' do
-        feed = controller.send(:student_feed, student)
+        feed = controller.send(:student_feed, student, student.event_notes)
         expect(feed[:services][:active].size).to eq 0
         expect(feed[:services][:discontinued].first[:id]).to eq service.id
       end

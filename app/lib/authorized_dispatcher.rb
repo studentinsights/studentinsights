@@ -28,8 +28,8 @@ class AuthorizedDispatcher
   # authorization can be applied with simple `where`
   # clauses and not by filtering based on a Ruby method.
   def filter_relation(relation)
-    # This is coupled to the implementation of
-    # Authorizer#is_authorized_for_student.
+    # This checks that the relation has all fields required for authorization,
+    # and adds them in if not.
     if relation.klass == Student.class
       relation_with_required_fields = relation.select(*Authorizer.student_fields_for_authorization)
       filter_array(relation_with_required_fields.to_a)
