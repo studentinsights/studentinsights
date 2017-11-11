@@ -5,30 +5,6 @@ def authorized(educator, &block)
   Authorizer.new(educator).authorized(&block)
 end
 
-# Take `as` and `bs`, and cross them all through the given block.
-# Return a list of results, with triples `[a, b, value]`
-# Useful for testing combinations of educators with different permissions,
-# and models with different properties.
-def test_grid(as, bs, &block)
-  triples = []
-  as.each do |a|
-    bs.each do |b|
-      value = block.call(a, b)
-      triples << [a, b, value]
-    end
-  end
-  triples
-end
-
-# Test that each line in a grid matches.
-# Do this individually for each line to get better
-# failure messages.
-def expect_grid_equals(actual, expected)
-  actual.each_with_index do |triple, index|
-    expect(actual[index]).to eq expected[index]
-  end
-end
-
 
 RSpec.describe Authorizer do
   let!(:pals) { TestPals.create! }
@@ -172,25 +148,22 @@ RSpec.describe Authorizer do
       end
 
       it 'limits access for model' do
-        educators = [pals.uri, pals.healey_teacher, pals.shs_teacher]
-        notes = [healey_public_note, healey_restricted_note, shs_public_note, shs_restricted_note]
-        grid = test_grid(educators, notes) do |educator, note|
+        def is_authorized(educator, note)
           authorized(educator) { note } == note # check that they can access it
         end
-        expect_grid_equals grid, [
-          [pals.uri, healey_public_note, true],
-          [pals.uri, healey_restricted_note, true],
-          [pals.uri, shs_public_note, true],
-          [pals.uri, shs_restricted_note, true],
-          [pals.healey_teacher, healey_public_note, true],
-          [pals.healey_teacher, healey_restricted_note, false],
-          [pals.healey_teacher, shs_public_note, false],
-          [pals.healey_teacher, shs_restricted_note, false],
-          [pals.shs_teacher, healey_public_note, false],
-          [pals.shs_teacher, healey_restricted_note, false],
-          [pals.shs_teacher, shs_public_note, true],
-          [pals.shs_teacher, shs_restricted_note, false]
-        ]
+
+        expect(is_authorized(pals.uri, healey_public_note)).to eq true
+        expect(is_authorized(pals.uri, healey_restricted_note)).to eq true
+        expect(is_authorized(pals.uri, shs_public_note)).to eq true
+        expect(is_authorized(pals.uri, shs_restricted_note)).to eq true
+        expect(is_authorized(pals.healey_teacher, healey_public_note)).to eq true
+        expect(is_authorized(pals.healey_teacher, healey_restricted_note)).to eq false
+        expect(is_authorized(pals.healey_teacher, shs_public_note)).to eq false
+        expect(is_authorized(pals.healey_teacher, shs_restricted_note)).to eq false
+        expect(is_authorized(pals.shs_teacher, healey_public_note)).to eq false
+        expect(is_authorized(pals.shs_teacher, healey_restricted_note)).to eq false
+        expect(is_authorized(pals.shs_teacher, shs_public_note)).to eq true
+        expect(is_authorized(pals.shs_teacher, shs_restricted_note)).to eq false
       end
     end
 
