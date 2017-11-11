@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-# This is just sugar
+# This is just sugar, mirroring how this is used in controller code
 def authorized(educator, &block)
   Authorizer.new(educator).authorized(&block)
 end
@@ -11,9 +11,11 @@ RSpec.describe Authorizer do
 
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 11
-    expect(Homeroom.all.size).to eq 2
+    expect(Homeroom.all.size).to eq 3
     expect(Student.all.size).to eq 2
-    expect(Educator.all.size).to eq 6
+    expect(Educator.all.size).to eq 7
+    expect(Course.all.size).to eq 1
+    expect(Section.all.size).to eq 2
   end
 
   describe '.student_fields_for_authorization' do
@@ -31,10 +33,10 @@ RSpec.describe Authorizer do
       students = Student.select(*Authorizer.student_fields_for_authorization).all
       expect(authorized(pals.uri) { students }).to eq [
         pals.healey_kindergarten_student,
-        pals.shs_student
+        pals.shs_freshman_mari
       ]
       expect(authorized(pals.healey_teacher) { students }).to eq [pals.healey_kindergarten_student]
-      expect(authorized(pals.shs_teacher) { students }).to eq [pals.shs_student]
+      expect(authorized(pals.shs_bill_nye) { students }).to eq [pals.shs_freshman_mari]
     end
 
     it 'does not work when fields are missing' do
@@ -54,7 +56,7 @@ RSpec.describe Authorizer do
           authorized(pals.healey_teacher) { students }
           authorized(pals.healey_ell_teacher) { students }
           authorized(pals.healey_sped_teacher) { students }
-          authorized(pals.shs_teacher) { students }
+          authorized(pals.shs_bill_nye) { students }
           authorized(pals.shs_ninth_grade_counselor) { students }
         end.to raise_error(ActiveModel::MissingAttributeError)
       end
@@ -66,50 +68,53 @@ RSpec.describe Authorizer do
       it 'limits access with Student.all' do
         expect(authorized(pals.uri) { Student.all }).to eq [
           pals.healey_kindergarten_student,
-          pals.shs_student
+          pals.shs_freshman_mari
         ]
         expect(authorized(pals.healey_teacher) { Student.all }).to eq [
           pals.healey_kindergarten_student
         ]
-        expect(authorized(pals.shs_teacher) { Student.all }).to eq [
-          pals.shs_student
+        expect(authorized(pals.shs_jodi) { Student.all }).to eq [
+          pals.shs_freshman_mari
+        ]
+        expect(authorized(pals.shs_bill_nye) { Student.all }).to eq [
+          pals.shs_freshman_mari
         ]
       end
 
       it 'limits access for Student.find' do
-        expect(authorized(pals.healey_teacher) { Student.find(pals.shs_student.id) }).to eq nil
+        expect(authorized(pals.healey_teacher) { Student.find(pals.shs_freshman_mari.id) }).to eq nil
       end
 
       it 'limits access for arrays' do
-        expect(authorized(pals.healey_teacher) { [pals.shs_student, pals.healey_kindergarten_student] }).to eq [pals.healey_kindergarten_student]
+        expect(authorized(pals.healey_teacher) { [pals.shs_freshman_mari, pals.healey_kindergarten_student] }).to eq [pals.healey_kindergarten_student]
       end
 
       it 'raises if given a Student model with `#select` filtering out fields needed for authorization' do
-        thin_student = Student.select(:id, :local_id).find(pals.shs_student.id)
+        thin_student = Student.select(:id, :local_id).find(pals.shs_freshman_mari.id)
         expect(authorized(pals.uri) { thin_student }.attributes).to eq({
-          'id' => pals.shs_student.id,
-          'local_id' => pals.shs_student.local_id 
+          'id' => pals.shs_freshman_mari.id,
+          'local_id' => pals.shs_freshman_mari.local_id 
         })
         expect { authorized(pals.healey_teacher) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
-        expect { authorized(pals.shs_teacher) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
+        expect { authorized(pals.shs_bill_nye) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
       end
 
       it 'if `select` was used on an ActiveRecord::Relation for students, fields needed for authorization are added in' do
-        thin_student = Student.select(:id, :local_id).find(pals.shs_student.id)
+        thin_student = Student.select(:id, :local_id).find(pals.shs_freshman_mari.id)
         expect(authorized(pals.uri) { thin_student }.attributes).to eq({
-          'id' => pals.shs_student.id,
-          'local_id' => pals.shs_student.local_id 
+          'id' => pals.shs_freshman_mari.id,
+          'local_id' => pals.shs_freshman_mari.local_id 
         })
         expect { authorized(pals.healey_teacher) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
-        expect { authorized(pals.shs_teacher) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
+        expect { authorized(pals.shs_bill_nye) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
       end
     end
 
     describe 'EventNote' do
       let!(:healey_public_note) { FactoryGirl.create(:event_note, student: pals.healey_kindergarten_student) }
       let!(:healey_restricted_note) { FactoryGirl.create(:event_note, student: pals.healey_kindergarten_student, is_restricted: true) }
-      let!(:shs_public_note) { FactoryGirl.create(:event_note, student: pals.shs_student) }
-      let!(:shs_restricted_note) { FactoryGirl.create(:event_note, student: pals.shs_student, is_restricted: true) }
+      let!(:shs_public_note) { FactoryGirl.create(:event_note, student: pals.shs_freshman_mari) }
+      let!(:shs_restricted_note) { FactoryGirl.create(:event_note, student: pals.shs_freshman_mari, is_restricted: true) }
 
       it 'limits access for relation' do
         expect(authorized(pals.uri) { EventNote.all }).to eq [
@@ -121,7 +126,7 @@ RSpec.describe Authorizer do
         expect(authorized(pals.healey_teacher) { EventNote.all }).to eq [
           healey_public_note
         ]
-        expect(authorized(pals.shs_teacher) { EventNote.all }).to eq [
+        expect(authorized(pals.shs_bill_nye) { EventNote.all }).to eq [
           shs_public_note
         ]
       end
@@ -142,7 +147,7 @@ RSpec.describe Authorizer do
         expect(authorized(pals.healey_teacher) { all_notes }).to eq [
           healey_public_note
         ]
-        expect(authorized(pals.shs_teacher) { all_notes }).to eq [
+        expect(authorized(pals.shs_bill_nye) { all_notes }).to eq [
           shs_public_note
         ]
       end
@@ -160,10 +165,10 @@ RSpec.describe Authorizer do
         expect(is_authorized(pals.healey_teacher, healey_restricted_note)).to eq false
         expect(is_authorized(pals.healey_teacher, shs_public_note)).to eq false
         expect(is_authorized(pals.healey_teacher, shs_restricted_note)).to eq false
-        expect(is_authorized(pals.shs_teacher, healey_public_note)).to eq false
-        expect(is_authorized(pals.shs_teacher, healey_restricted_note)).to eq false
-        expect(is_authorized(pals.shs_teacher, shs_public_note)).to eq true
-        expect(is_authorized(pals.shs_teacher, shs_restricted_note)).to eq false
+        expect(is_authorized(pals.shs_bill_nye, healey_public_note)).to eq false
+        expect(is_authorized(pals.shs_bill_nye, healey_restricted_note)).to eq false
+        expect(is_authorized(pals.shs_bill_nye, shs_public_note)).to eq true
+        expect(is_authorized(pals.shs_bill_nye, shs_restricted_note)).to eq false
       end
     end
 
@@ -176,10 +181,10 @@ RSpec.describe Authorizer do
 
   describe '#is_authorized_for_student?' do
     it 'raises if `#select` was used on the `student` argument, and fields needed for authorization are missing' do
-      thin_student = Student.select(:id, :local_id).find(pals.shs_student.id)
+      thin_student = Student.select(:id, :local_id).find(pals.shs_freshman_mari.id)
       expect(Authorizer.new(pals.uri).is_authorized_for_student?(thin_student)).to eq true
       expect { Authorizer.new(pals.healey_teacher).is_authorized_for_student?(thin_student) }.to raise_error(ActiveModel::MissingAttributeError)
-      expect { Authorizer.new(pals.shs_teacher).is_authorized_for_student?(thin_student) }.to raise_error(ActiveModel::MissingAttributeError)
+      expect { Authorizer.new(pals.shs_bill_nye).is_authorized_for_student?(thin_student) }.to raise_error(ActiveModel::MissingAttributeError)
     end
   end
 end

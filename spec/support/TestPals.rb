@@ -13,16 +13,20 @@ class TestPals
 
   attr_reader :uri
   attr_reader :healey
-  attr_reader :healey_kindergarten_homeroom
   attr_reader :healey_kindergarten_student
   attr_reader :healey_teacher
   attr_reader :healey_ell_teacher
   attr_reader :healey_sped_teacher
+  attr_reader :healey_kindergarten_homeroom
   attr_reader :shs
-  attr_reader :shs_homeroom
-  attr_reader :shs_student
-  attr_reader :shs_teacher
+  attr_reader :shs_freshman_mari
+  attr_reader :shs_jodi
+  attr_reader :shs_bill_nye
   attr_reader :shs_ninth_grade_counselor
+  attr_reader :shs_jodi_homeroom
+  attr_reader :shs_biology_course
+  attr_reader :shs_tuesday_biology_section
+  attr_reader :shs_thursday_biology_section
 
   def create!
     School.seed_somerville_schools
@@ -64,21 +68,41 @@ class TestPals
 
     # high school
     @shs = School.find_by_local_id('SHS')
-    @shs_homeroom = FactoryGirl.create(:homeroom, school: @shs)
-    @shs_student = FactoryGirl.create(:student, {
-      school: @shs,
-      homeroom: @shs_homeroom,
-      grade: '9'
-    })
-    @shs_teacher = FactoryGirl.create(:educator, {
-      school: @shs,
-      homeroom: @shs_homeroom
-    })
     @shs_ninth_grade_counselor = FactoryGirl.create(:educator, {
       school: @shs,
       grade_level_access: ['9']
     })
 
+    # Jodi has a homeroom period at the high school.
+    @shs_jodi_homeroom = FactoryGirl.create(:homeroom, school: @shs)
+    @shs_jodi = FactoryGirl.create(:educator, {
+      email: 'jodi@studentinsights.org',
+      school: @shs,
+      homeroom: @shs_jodi_homeroom
+    })
+
+    # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
+    # on Tuesday and Thursday and has a homeroom period.
+    @shs_bill_nye_homeroom = FactoryGirl.create(:homeroom, school: @shs)
+    @shs_bill_nye = FactoryGirl.create(:educator, {
+      email: 'billnye@studentinsights.org',
+      school: @shs,
+      homeroom: @shs_bill_nye_homeroom
+    })
+    @shs_biology_course = FactoryGirl.create(:course, school: @shs)
+    @shs_tuesday_biology_section = FactoryGirl.create(:section, course: @shs_biology_course)
+    @shs_thursday_biology_section = FactoryGirl.create(:section, course: @shs_biology_course)
+    FactoryGirl.create(:educator_section_assignment, educator: @shs_bill_nye, section: @shs_tuesday_biology_section)
+    FactoryGirl.create(:educator_section_assignment, educator: @shs_bill_nye, section: @shs_thursday_biology_section)
+
+    # Mari is a freshman at the high school, enrolled in biology and in Jodi's homeroom.
+    @shs_freshman_mari = FactoryGirl.create(:student, {
+      school: @shs,
+      homeroom: @shs_jodi_homeroom,
+      grade: '9'
+    })
+    FactoryGirl.create(:student_section_assignment, student: @shs_freshman_mari, section: @shs_tuesday_biology_section)
+    
     self
   end
 end

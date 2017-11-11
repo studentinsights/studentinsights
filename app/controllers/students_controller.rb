@@ -2,6 +2,7 @@ class StudentsController < ApplicationController
   include ApplicationHelper
 
   rescue_from Exceptions::EducatorNotAuthorized do
+    puts "RAISED!"
     if request.format.json?
       render_unauthorized_json! 
     else
@@ -26,7 +27,7 @@ class StudentsController < ApplicationController
     event_notes = authorized { student.event_notes.without_restricted }
     puts "  event_notes: #{event_notes}"
     restricted_notes_count = authorized { student.event_notes.restricted }.size
-    puts "  restricted_notes: #{restricted_notes}"
+    puts "  restricted_notes_count: #{restricted_notes_count}"
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
