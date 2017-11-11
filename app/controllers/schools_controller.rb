@@ -39,7 +39,7 @@ class SchoolsController < ApplicationController
     end
 
     dashboard_students = students_for_dashboard(@school).includes(:homeroom, :absences)
-                                                        .where('absences.occurred_at > ?', '2016-08-01')
+                                                        .where('absences.occurred_at >= ?', '2017-08-30')
                                                         .references(:absences)
                                                         .map { |student| individual_student_dashboard_data(student) }
 
