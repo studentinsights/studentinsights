@@ -59,22 +59,6 @@ export default React.createClass({
     return Object.keys(this.attendanceBySchool());
   },
 
-  //Returns average monthly attendance given a set of daily averages.
-  monthlyAttendanceBySchool: function () {
-    const schoolAttendance = this.attendanceBySchool();
-    let monthlyAttendance = {};
-    Object.keys(schoolAttendance).forEach((day) => {
-      //'date' here is the first day of the month in which 'day' occurs
-      let date = moment(day).date(1).format("YYYY-MM-DD");
-      if (monthlyAttendance[date] === undefined) { //if there's no data for this month yet
-        monthlyAttendance[date] = [schoolAttendance[day]];
-      } else {
-        monthlyAttendance[date]= monthlyAttendance[date].concat(schoolAttendance[day]); //if there is data, append this day's absences to what exists already
-      }
-    });
-    return monthlyAttendance;
-  },
-
   averageDailyAttendance: function(dailyAbsences, size) {
     let averageDailyAttendance = {};
     //mapping each homeroom to an array of day buckets containing all absences for each day w/in the homeroom
@@ -114,14 +98,11 @@ export default React.createClass({
   },
 
   render: function() {
-    const schoolAttendance = this.monthlyAttendanceBySchool();
-    const schoolAttendanceMonths = Object.keys(schoolAttendance).sort();
-    const homeRoomAttendance = this.attendanceByHomeroom();
     return (
         <SchoolAbsenceDashboard
-          schoolAttendance = {schoolAttendance}
-          schoolAttendanceMonths = {schoolAttendanceMonths}
-          homeRoomAttendance = {homeRoomAttendance}
-          students = {this.props.attendanceData}/>);
+          schoolAttendance = {this.attendanceBySchool()}
+          homeRoomAttendance = {this.attendanceByHomeroom()}
+          students = {this.props.attendanceData}
+          dateRange = {Object.keys(this.attendanceBySchool()).sort()}/>);
   }
 });
