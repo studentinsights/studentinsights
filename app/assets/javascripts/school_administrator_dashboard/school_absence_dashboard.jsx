@@ -19,8 +19,6 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      start_date: "2017-08-30",
-      end_date: moment.utc().format("YYYY-MM-DD"),
       display_dates: this.props.dateRange
     };
   },
@@ -85,7 +83,7 @@ export default React.createClass({
 
   renderMonthlyAbsenceChart: function() {
     const monthlyAttendance = this.monthlySchoolAttendance(this.props.schoolAttendance);
-    let filteredAttendanceSeries = Object.keys(monthlyAttendance).map( (month) => {
+    const filteredAttendanceSeries = Object.keys(monthlyAttendance).map( (month) => {
       const rawAvg = _.sum(monthlyAttendance[month])/monthlyAttendance[month].length;
       return Math.round(rawAvg*10)/10;
     });
