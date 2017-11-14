@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { shouldDisplay } from '../helpers/customization_helpers.js';
+import Filters from '../helpers/filters.jsx';
 
 (function() {
   window.shared || (window.shared = {});
@@ -7,7 +8,6 @@ import { shouldDisplay } from '../helpers/customization_helpers.js';
   const FixedTable = window.shared.FixedTable;
   const CollapsableTable = window.shared.CollapsableTable;
   const styles = window.shared.styles;
-  const Filters = window.shared.Filters;
   const merge = window.shared.ReactHelpers.merge;
 
   window.shared.SlicePanels = React.createClass({
