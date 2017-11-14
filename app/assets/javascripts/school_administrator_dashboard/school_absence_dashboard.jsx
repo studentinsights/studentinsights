@@ -12,7 +12,6 @@ export default React.createClass({
 
   propTypes: {
     schoolAttendance: React.PropTypes.object.isRequired,
-    schoolAttendanceMonths: React.PropTypes.array.isRequired,
     homeRoomAttendance: React.PropTypes.object.isRequired,
     students: React.PropTypes.object.isRequired,
     dateRange: React.PropTypes.array.isRequired
