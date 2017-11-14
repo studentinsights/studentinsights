@@ -116,12 +116,12 @@ export default React.createClass({
   render: function() {
     const schoolAttendance = this.monthlyAttendanceBySchool();
     const schoolAttendanceMonths = Object.keys(schoolAttendance).sort();
-    const homeRoomAttendance = this.attendanceByHomeroom();
     return (
         <SchoolAbsenceDashboard
-          schoolAttendance = {schoolAttendance}
+          schoolAttendance = {this.attendanceBySchool()}
           schoolAttendanceMonths = {schoolAttendanceMonths}
-          homeRoomAttendance = {homeRoomAttendance}
-          students = {this.props.attendanceData}/>);
+          homeRoomAttendance = {this.attendanceByHomeroom()}
+          students = {this.props.attendanceData}
+          dateRange = {Object.keys(this.attendanceBySchool()).sort()}/>);
   }
 });
