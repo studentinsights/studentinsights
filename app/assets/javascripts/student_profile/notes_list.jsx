@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import moment from 'moment';
 import PropTypes from '../helpers/prop_types.jsx';
+import * as FeedHelpers from '../helpers/feed_helpers.jsx';
 
 (function() {
   window.shared || (window.shared = {});
 
   const NoteCard = window.shared.NoteCard;
-  const FeedHelpers = window.shared.FeedHelpers;
 
   const styles = {
     noItems: {
