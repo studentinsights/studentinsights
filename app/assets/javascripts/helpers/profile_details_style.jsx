@@ -134,7 +134,7 @@ const ProfileDetailsStyle = {
     fontSize: 14,
     padding: 5,
     width: '50%'
-  },
+  }
 };
 
 export default ProfileDetailsStyle;
