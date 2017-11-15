@@ -16,7 +16,7 @@ class Import
     desc "Import data into your Student Insights instance"
 
     DEFAULT_SCHOOLS = [
-      'HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS', 'FC', 'CAP'
+      'HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS', 'FC', 'CAP', 'PIC'
     ]
 
     SCHOOL_SHORTCODE_EXPANSIONS = {
