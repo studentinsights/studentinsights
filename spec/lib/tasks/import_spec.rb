@@ -17,7 +17,8 @@ RSpec.describe Import do
       expect(commands[1]).to be_a ImportRecord
       expect(commands[2]).to eq nil
       expect(commands[3]).to eq [
-        "HEA", "WSNS", "ESCS", "BRN", "KDY", "AFAS", "WHCS", "SHS", "FC", "CAP"
+        "HEA", "WSNS", "ESCS", "BRN", "KDY",
+        "AFAS", "WHCS", "SHS", "FC", "CAP", "PIC"
       ]
       expect(commands[4]).to be_a Array
       expect(commands[5]).to eq []
