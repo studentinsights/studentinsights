@@ -1,32 +1,28 @@
+import React from 'react';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 
-window.shared || (window.shared = {});
 
-export default React.createClass({
-  displayName: 'FlexibleRoster',
-
-  propTypes: {
-    rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    initialSortIndex: React.PropTypes.number
-  },
-
-  getInitialState () {
-    return {
+// This is a sorted table, pass in a list of objects as `rows`,
+// and then `columns` to describe how to sort and label columns.
+class FlexibleRoster extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       sortByIndex: this.props.initialSortIndex,
       sortDesc: true
     };
-  },
+    this.onClickHeader = this.onClickHeader.bind(this);
+  }
 
-  orderedRows () {
+  orderedRows() {
     const sortedRows = this.sortedRows();
 
     if (!this.state.sortDesc) return sortedRows.reverse();
 
     return sortedRows;
-  },
+  }
   
-  sortedRows () {
+  sortedRows() {
     const rows = this.props.rows;
     const columns = this.props.columns;
     const sortByIndex = this.state.sortByIndex;
@@ -37,9 +33,8 @@ export default React.createClass({
     }
     else {
       return rows.sort((a, b) => SortHelpers.sortByString(a, b, key));
-    }
-    
-  },
+    }  
+  }
 
   headerClassName (sortByIndex) {
     // Using tablesort classes here for the cute CSS carets,
@@ -50,7 +45,7 @@ export default React.createClass({
     if (this.state.sortDesc) return 'sort-header sort-down';
 
     return 'sort-header sort-up';
-  },
+  }
 
   onClickHeader(sortByIndex) {
     if (sortByIndex === this.state.sortByIndex) {
@@ -58,9 +53,9 @@ export default React.createClass({
     } else {
       this.setState({ sortByIndex: sortByIndex});
     }
-  },
+  }
   
-  render () {
+  render() {
     return (
       <div className='FlexibleRoster'>
         <table id='roster-table' className='roster-table' style={{ width: '100%' }}>
@@ -72,7 +67,7 @@ export default React.createClass({
         </table>
       </div>
     );
-  },
+  }
 
   renderSuperHeaders() {
     const columns = this.props.columns;
@@ -108,10 +103,10 @@ export default React.createClass({
               {superHeader.label}
             </th>
           );
-        },this)}
+        }, this)}
       </tr>
     );
-  },
+  }
 
   renderHeaders() {
     return (
@@ -126,7 +121,7 @@ export default React.createClass({
         }, this)}
       </tr>
     );
-  },
+  }
 
   renderBodyValue(item, column) {
     if ('cell' in column) {
@@ -135,7 +130,7 @@ export default React.createClass({
     else {
       return item[column.key];
     }
-  },
+  }
 
   renderBody() {
     return (
@@ -160,4 +155,12 @@ export default React.createClass({
       </tbody>
     );
   }
-});
+}
+
+FlexibleRoster.propTypes = {
+  rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  initialSortIndex: React.PropTypes.number
+};
+
+export default FlexibleRoster;
