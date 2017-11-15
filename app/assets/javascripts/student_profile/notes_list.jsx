@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import moment from 'moment';
+import PropTypes from '../helpers/prop_types.jsx';
 
 (function() {
   window.shared || (window.shared = {});
 
   const NoteCard = window.shared.NoteCard;
-  const PropTypes = window.shared.PropTypes;
   const FeedHelpers = window.shared.FeedHelpers;
 
   const styles = {

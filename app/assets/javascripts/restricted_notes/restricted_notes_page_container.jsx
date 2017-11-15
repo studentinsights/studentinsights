@@ -1,10 +1,9 @@
 import _ from 'lodash';
+import PropTypes from '../helpers/prop_types.jsx';
 
 (function() {
   window.shared || (window.shared = {});
   const merge = window.shared.ReactHelpers.merge;
-
-  const PropTypes = window.shared.PropTypes;
   const NotesDetails = window.shared.NotesDetails;
   const Api = window.shared.Api;
 

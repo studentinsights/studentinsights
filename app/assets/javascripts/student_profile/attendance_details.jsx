@@ -1,8 +1,9 @@
+import PropTypes from '../helpers/prop_types.jsx';
+
 (function() {
   window.shared || (window.shared = {});
 
   const ProfileBarChart = window.shared.ProfileBarChart;
-  const PropTypes = window.shared.PropTypes;
 
   const styles = {
     box: {

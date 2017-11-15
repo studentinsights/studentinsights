@@ -1,10 +1,9 @@
 import TakeNotes from './take_notes.jsx';
+import PropTypes from '../helpers/prop_types.jsx';
 
 (function() {
   window.shared || (window.shared = {});
 
-  const PropTypes = window.shared.PropTypes;
-  
   const NotesList = window.shared.NotesList;
   const HelpBubble = window.shared.HelpBubble;
 

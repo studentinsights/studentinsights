@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import PropTypes from '../helpers/prop_types.jsx';
 
 (function() {
   window.shared || (window.shared = {});
@@ -7,7 +8,6 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
   const Routes = window.shared.Routes;
   const StudentProfilePage = window.shared.StudentProfilePage;
-  const PropTypes = window.shared.PropTypes;
   const Api = window.shared.Api;
   const fromPair = window.shared.fromPair;
 
