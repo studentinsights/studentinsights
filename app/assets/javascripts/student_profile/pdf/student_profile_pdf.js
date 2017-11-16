@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import Highcharts from 'highcharts';
+import * as GraphHelpers from '../../helpers/graph_helpers';
 
 (function() {
   window.shared || (window.shared = {});
-  const GraphHelpers = window.shared.GraphHelpers;
 
   function generateGraph(containerSelector, yAxisLabel, xAxisSettings, title, dataSeries){
 
