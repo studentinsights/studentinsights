@@ -6,6 +6,7 @@ import {fromPair} from '../helpers/from_pair.jsx';
 
 (function() {
   window.shared || (window.shared = {});
+  const merge = window.shared.ReactHelpers.merge;
 
   const Routes = window.shared.Routes;
   const StudentProfilePage = window.shared.StudentProfilePage;
