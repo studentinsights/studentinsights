@@ -1,4 +1,4 @@
-window.shared || (window.shared = {});
+
 
 const ProfileDetailsStyle = {
   feedCard: {

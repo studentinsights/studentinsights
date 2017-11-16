@@ -1,5 +1,4 @@
 import React from 'react';
-window.shared || (window.shared = {});
 
 const PropTypes = {
   // UI actions, stepping stone to Flux
