@@ -1,16 +1,15 @@
 import _ from 'lodash';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
+/* import * as ReactHelpers from '../helpers/react_helpers.jsx'; */
+import {fromPair} from '../helpers/from_pair.jsx';
 
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
   const Routes = window.shared.Routes;
   const StudentProfilePage = window.shared.StudentProfilePage;
   const Api = window.shared.Api;
-  const fromPair = window.shared.fromPair;
-
   /*
   Holds page state, makes API calls to manipulate it.
   */

@@ -1,12 +1,12 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
+import {fromPair} from '../../../app/assets/javascripts/helpers/from_pair.jsx';
 
 
 describe('ServicesList', function() {
   const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const ServicesList = window.shared.ServicesList;
-  const fromPair = window.shared.fromPair;
 
   const helpers = {
     emptyServicesFeed: function() {
