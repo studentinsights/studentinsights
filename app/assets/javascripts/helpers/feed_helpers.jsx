@@ -1,5 +1,4 @@
 import _ from 'lodash';
-window.shared || (window.shared = {});
 const merge = window.shared.ReactHelpers.merge;
 
 export function mergedNotes(feed) {

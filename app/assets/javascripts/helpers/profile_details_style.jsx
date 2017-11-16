@@ -1,5 +1,3 @@
-
-
 const ProfileDetailsStyle = {
   feedCard: {
     marginBottom: 10,
