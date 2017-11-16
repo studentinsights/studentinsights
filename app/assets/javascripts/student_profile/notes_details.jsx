@@ -4,7 +4,7 @@ import TakeNotes from './take_notes.jsx';
   window.shared || (window.shared = {});
 
   const PropTypes = window.shared.PropTypes;
-  
+
   const NotesList = window.shared.NotesList;
   const HelpBubble = window.shared.HelpBubble;
 
@@ -66,11 +66,13 @@ import TakeNotes from './take_notes.jsx';
     },
 
     render: function() {
+      const { student, title } = this.props;
+
       return (
         <div className="NotesDetails" style={styles.notesContainer}>
           <div style={{borderBottom: '1px solid #333', padding: 10}}>
             <h4 style={{display: 'inline', color: 'black'}}>
-              {this.props.title}
+              {title} for {student.first_name} {student.last_name}
             </h4>
             <HelpBubble
               title={this.props.helpTitle}
