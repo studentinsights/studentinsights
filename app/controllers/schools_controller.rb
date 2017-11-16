@@ -144,13 +144,3 @@ class SchoolsController < ApplicationController
   end
 
 end
-nces
-      }
-    )
-  end
-
-  def students_for_dashboard(school)
-    school.students.active
-  end
-
-end
