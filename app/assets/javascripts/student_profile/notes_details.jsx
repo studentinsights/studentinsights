@@ -3,7 +3,6 @@ import PropTypes from '../helpers/prop_types.jsx';
 
 (function() {
   window.shared || (window.shared = {});
-
   const NotesList = window.shared.NotesList;
   const HelpBubble = window.shared.HelpBubble;
 
@@ -65,11 +64,13 @@ import PropTypes from '../helpers/prop_types.jsx';
     },
 
     render: function() {
+      const { student, title } = this.props;
+
       return (
         <div className="NotesDetails" style={styles.notesContainer}>
           <div style={{borderBottom: '1px solid #333', padding: 10}}>
             <h4 style={{display: 'inline', color: 'black'}}>
-              {this.props.title}
+              {title} for {student.first_name} {student.last_name}
             </h4>
             <HelpBubble
               title={this.props.helpTitle}

@@ -1,33 +1,10 @@
 // legacy, what's left to modulify!
 
-// vendor (remove globals)
-import './vendor';
+// vendor (remove globals in eslintrc as these are removed)
+import './legacyVendor';
 
-// HELPERS
-import '../app/assets/javascripts/helpers/react_helpers.jsx';
-import '../app/assets/javascripts/helpers/graph_helpers.js';
-import '../app/assets/javascripts/helpers/feed_helpers.jsx';
-// (unordered)
-import '../app/assets/javascripts/helpers/filters.jsx';
-import '../app/assets/javascripts/helpers/from_pair.jsx';
-import '../app/assets/javascripts/helpers/graph_helpers.js';
-import '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
-import '../app/assets/javascripts/helpers/profile_details_style.jsx';
-import '../app/assets/javascripts/helpers/prop_types.jsx';
-import '../app/assets/javascripts/helpers/routes.jsx';
-import '../app/assets/javascripts/helpers/sort_helpers.jsx';
-import '../app/assets/javascripts/helpers/theme.jsx';
-
-
-// shared react compoents:
-import '../app/assets/javascripts/components/fixed_table.jsx';
-import '../app/assets/javascripts/components/collapsable_table.jsx';
-// (unordered)
-import '../app/assets/javascripts/components/flexible_roster.jsx';
-import '../app/assets/javascripts/components/slice_buttons.jsx';
-import '../app/assets/javascripts/components/slice_panels.jsx';
-import '../app/assets/javascripts/components/students_table.jsx';
-
+// app helpers, last to be removed
+import './legacyHelpers';
 
 // student profile page:
   // pure ui components:

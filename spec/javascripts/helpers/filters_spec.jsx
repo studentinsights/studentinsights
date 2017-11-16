@@ -1,6 +1,6 @@
-describe('Filters', function() {
-  const Filters = window.shared.Filters;
+import * as Filters from '../../../app/assets/javascripts/helpers/Filters';
 
+describe('Filters', function() {
   const helpers = {
     students: function() {
       return [
