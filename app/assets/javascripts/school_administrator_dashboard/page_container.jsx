@@ -12,16 +12,16 @@ export default React.createClass({
     dashboardStudents: React.PropTypes.array.isRequired  //should rename more generically
   },
 
-  homeRoomAverageDailyAttendance: function() {
+  homeroomAverageDailyAttendance: function() {
     const studentRecords = this.props.dashboardStudents;
     const studentsByHomeroom = this.groupByHomeroom(studentRecords);
     const eventsByHomeroom = this.homeroomAbsenceEventsByDay(studentsByHomeroom);
-    let homeRoomAverageDailyAttendance = {};
+    let homeroomAverageDailyAttendance = {};
     Object.keys(eventsByHomeroom).forEach((homeroom) => {
       const homeroomSize = studentsByHomeroom[homeroom].length;
-      homeRoomAverageDailyAttendance[homeroom] = DashboardHelpers.averageDailyAttendance(eventsByHomeroom[homeroom], homeroomSize);
+      homeroomAverageDailyAttendance[homeroom] = DashboardHelpers.averageDailyAttendance(eventsByHomeroom[homeroom], homeroomSize);
     });
-    return homeRoomAverageDailyAttendance;
+    return homeroomAverageDailyAttendance;
   },
 
   homeroomAbsenceEventsByDay: function(studentsGroupedByHomeroom) {
@@ -59,9 +59,9 @@ export default React.createClass({
   render: function() {
     return (
         <SchoolAbsenceDashboard
-          schoolAttendance = {this.props.schoolAverageDailyAttendance}
-          homeRoomAttendance = {this.homeRoomAverageDailyAttendance()}
-          students = {this.props.dashboardStudents}
+          schoolAverageDailyAttendance = {this.props.schoolAverageDailyAttendance}
+          homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance()}
+          dashboardStudents = {this.props.dashboardStudents}
           dateRange = {Object.keys(this.props.schoolAverageDailyAttendance).sort()}/>);
   }
 });
