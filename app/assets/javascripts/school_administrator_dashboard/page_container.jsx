@@ -1,19 +1,15 @@
 import React from 'react';
 import _ from 'lodash';
 
+import DashboardHelpers from './dashboard_helpers.jsx';
 import SchoolAbsenceDashboard from './school_absence_dashboard.jsx';
 
 export default React.createClass({
   displayName: 'DashboardPageContainer',
 
   propTypes: {
+    schoolAverageDailyAttendance: React.PropTypes.object.isRequired,
     dashboardStudents: React.PropTypes.array.isRequired  //should rename more generically
-  },
-
-  //Might be more efficient to have this passed as a prop before calculating homeroom attendance b/c it's called twice for schoolDays
-  schoolAverageDailyAttendance: function() {
-    const studentRecords = this.props.dashboardStudents;
-    return this.averageDailyAttendance(this.absenceEventsByDay(studentRecords), this.totalStudents());
   },
 
   homeRoomAverageDailyAttendance: function() {
@@ -23,7 +19,7 @@ export default React.createClass({
     let homeRoomAverageDailyAttendance = {};
     Object.keys(eventsByHomeroom).forEach((homeroom) => {
       const homeroomSize = studentsByHomeroom[homeroom].length;
-      homeRoomAverageDailyAttendance[homeroom] = this.averageDailyAttendance(eventsByHomeroom[homeroom], homeroomSize);
+      homeRoomAverageDailyAttendance[homeroom] = DashboardHelpers.averageDailyAttendance(eventsByHomeroom[homeroom], homeroomSize);
     });
     return homeRoomAverageDailyAttendance;
   },
@@ -31,7 +27,7 @@ export default React.createClass({
   homeroomAbsenceEventsByDay: function(studentsGroupedByHomeroom) {
     let homeroomAbsenceEventsByDay = {};
     Object.keys(studentsGroupedByHomeroom).forEach((homeroom) => {
-      const daysWithAbsences = this.absenceEventsByDay(studentsGroupedByHomeroom[homeroom]);
+      const daysWithAbsences = DashboardHelpers.absenceEventsByDay(studentsGroupedByHomeroom[homeroom]);
       homeroomAbsenceEventsByDay[homeroom] = this.addPerfectAttendanceDays(daysWithAbsences);
     });
     return homeroomAbsenceEventsByDay;
@@ -54,46 +50,18 @@ export default React.createClass({
     return eventsGroupedByDay;
   },
 
-  absenceEventsByDay: function(studentRecordsArray) {
-    const absenceEvents = _.flattenDeep(studentRecordsArray.map((student) => {
-      return student.absences;
-    }));
-    return this.eventsGroupedByDay(absenceEvents);
-  },
-
   //There's no application awareness of valid school days, but there are almost never schoolwide perfect attendance days
   //We use days the school has recorded at least one absence as a proxy for school days
   schoolDays: function () {
-    return Object.keys(this.schoolAverageDailyAttendance());
-  },
-
-  averageDailyAttendance: function(absenceEventsByDay, size) {
-    let averageDailyAttendance = {};
-    Object.keys(absenceEventsByDay).forEach((day) => {
-      const rawAvg = (size - absenceEventsByDay[day].length)/size*100;
-      averageDailyAttendance[day] = Math.round(rawAvg*10)/10;
-    });
-    return averageDailyAttendance;
-  },
-
-  //takes array of events and groups by day on which they occurred
-  eventsGroupedByDay: function(events) {
-    return _.groupBy(events, (event) => {
-      return moment.utc(event.occurred_at).format("YYYY-MM-DD");
-    });
-  },
-
-  totalStudents: function() {
-    return this.props.dashboardStudents.length;
+    return Object.keys(this.props.schoolAverageDailyAttendance);
   },
 
   render: function() {
-    const schoolAverageDailyAttendance = this.schoolAverageDailyAttendance();
     return (
         <SchoolAbsenceDashboard
-          schoolAttendance = {schoolAverageDailyAttendance}
+          schoolAttendance = {this.props.schoolAverageDailyAttendance}
           homeRoomAttendance = {this.homeRoomAverageDailyAttendance()}
           students = {this.props.dashboardStudents}
-          dateRange = {Object.keys(schoolAverageDailyAttendance).sort()}/>);
+          dateRange = {Object.keys(this.props.schoolAverageDailyAttendance).sort()}/>);
   }
 });

@@ -12,7 +12,7 @@ export default React.createClass({
   propTypes: {
     schoolAttendance: React.PropTypes.object.isRequired,
     homeRoomAttendance: React.PropTypes.object.isRequired,
-    students: React.PropTypes.object.isRequired,
+    students: React.PropTypes.array.isRequired,
     dateRange: React.PropTypes.array.isRequired
   },
 
