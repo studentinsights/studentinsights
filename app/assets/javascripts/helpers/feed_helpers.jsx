@@ -1,6 +1,11 @@
 import _ from 'lodash';
 import {merge} from '../helpers/react_helpers.jsx';
+/*
+Functions for transforming the feed data structure that holds
+all notes and services for a student.
+*/
 
+// Merges data from event_notes and deprecated tables (notes, interventions).
 export function mergedNotes(feed) {
   const deprecatedInterventions = feed.deprecated.interventions.map(function(intervention) {
     return merge(intervention, {

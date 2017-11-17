@@ -4,6 +4,8 @@ import _ from 'lodash';
 Functions for transforming the feed data structure that holds
 all notes and services for a student.
 */
+
+// Returns a list of monthKeys that are within the time window for this chart.
 export function monthKeys(nowMomentUTC, monthsBack) {
   const lastMonthMomentUTC = nowMomentUTC.clone().date(1);
   return _.range(monthsBack, -1, -1).map(function(monthsBack) {
