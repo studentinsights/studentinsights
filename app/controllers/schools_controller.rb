@@ -35,9 +35,7 @@ class SchoolsController < ApplicationController
     dashboard_students = students_for_dashboard(@school).includes(:homeroom, :dashboard_absences, :dashboard_tardies)
                                                         .map { |student| individual_student_dashboard_data(student) }
 
-    @serialized_data = {
-      absences: dashboard_students.to_json
-    }
+    @serialized_data = {students: dashboard_students.to_json}
     render 'shared/serialized_data'
   end
 

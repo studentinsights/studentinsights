@@ -1,11 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
+
 import StudentsTable from './students_table.jsx';
 import DashboardBarChart from './dashboard_bar_chart.jsx';
 import DateSlider from './date_slider.jsx';
 
-
-window.shared || (window.shared = {});
 
 export default React.createClass({
   displayName: 'SchoolAbsenceDashboard',
@@ -104,7 +103,7 @@ export default React.createClass({
     const homeRoomAttendance = this.props.homeRoomAttendance;
     const filteredHomeRoomAttendance = _.map(homeRoomAttendance, (homeroom) => {
       return this.state.display_dates.map((date) => {
-        return homeroom.absences[date];
+        return homeroom[date];
       });
     });
     const homeroomSeries = filteredHomeRoomAttendance.map((homeroom) => {
@@ -125,7 +124,7 @@ export default React.createClass({
 
   renderStudentAbsenceTable: function () {
     let students =[];
-    _.each(this.props.students.absences, (student) => {
+    this.props.students.forEach((student) => {
       students.push({
         first_name: student.first_name,
         last_name: student.last_name,
