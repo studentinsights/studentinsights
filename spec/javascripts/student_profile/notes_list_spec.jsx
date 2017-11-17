@@ -1,10 +1,9 @@
 import _ from 'lodash';
 import {studentProfile, feedForTestingNotes} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
-
+import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('NotesList', function() {
-  const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const NotesList = window.shared.NotesList;
 

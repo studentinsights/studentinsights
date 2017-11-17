@@ -1,5 +1,5 @@
 import _ from 'lodash';
-const merge = window.shared.ReactHelpers.merge;
+import {merge} from '../helpers/react_helpers.jsx';
 
 export function mergedNotes(feed) {
   const deprecatedInterventions = feed.deprecated.interventions.map(function(intervention) {

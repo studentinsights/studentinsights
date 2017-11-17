@@ -1,6 +1,7 @@
+import {merge} from '../helpers/react_helpers.jsx';
+
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
   window.shared.ServiceUploadDetail = React.createClass({
 

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import SpecSugar from '../support/spec_sugar.jsx';
+import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('ProfileDetails', function() {
-  const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const ProfileDetails = window.shared.ProfileDetails;
 
@@ -170,7 +170,7 @@ describe('ProfileDetails', function() {
 
     });
   });
-  
+
   SpecSugar.withTestEl('Sections', function(container) {
 
     it('renders the correct roster headers', function() {
@@ -178,7 +178,7 @@ describe('ProfileDetails', function() {
       const props = {
         currentEducatorAllowedSections: [1,2,3,4]
       };
-  
+
       helpers.renderHSInto(el, props);
 
       const headers = $(el).find('#roster-header th');
@@ -192,7 +192,7 @@ describe('ProfileDetails', function() {
       const props = {
         currentEducatorAllowedSections: [1,2,3,4]
       };
-  
+
       helpers.renderHSInto(el, props);
 
       const dataElements = $(el).find('#roster-data tr');
@@ -209,7 +209,7 @@ describe('ProfileDetails', function() {
       const props = {
         currentEducatorAllowedSections: [2,3,4]
       };
-  
+
       helpers.renderHSInto(el, props);
 
       const dataElements = $(el).find('#roster-data tr');

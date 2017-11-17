@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import moment from 'moment';
 import ProfileDetailsStyle from '../helpers/profile_details_style.jsx';
+import {merge} from '../helpers/react_helpers.jsx';
 
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
   const QuadConverter = window.shared.QuadConverter;
   const styles = ProfileDetailsStyle;
   const StudentSectionsRoster = window.shared.StudentSectionsRoster;
