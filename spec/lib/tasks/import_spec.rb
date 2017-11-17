@@ -16,9 +16,9 @@ RSpec.describe Import do
     it 'invokes all the commands and returns the correct kind of values' do
       expect(commands[1]).to be_a ImportRecord
       expect(commands[2]).to eq nil
-      expect(commands[3]).to eq [
+      expect(commands[3]).to match_array [
         "HEA", "WSNS", "ESCS", "BRN", "KDY",
-        "AFAS", "WHCS", "SHS", "FC", "CAP", "PIC"
+        "AFAS", "WHCS", "SHS", "FC", "CAP", "PIC", "SPED"
       ]
       expect(commands[4]).to be_a Array
       expect(commands[5]).to eq []
