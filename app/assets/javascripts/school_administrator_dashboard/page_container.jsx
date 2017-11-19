@@ -14,7 +14,7 @@ export default React.createClass({
 
   homeroomAverageDailyAttendance: function() {
     const studentRecords = this.props.dashboardStudents;
-    const studentsByHomeroom = this.groupByHomeroom(studentRecords);
+    const studentsByHomeroom = DashboardHelpers.groupByHomeroom(studentRecords);
     const eventsByHomeroom = this.homeroomAbsenceEventsByDay(studentsByHomeroom);
     let homeroomAverageDailyAttendance = {};
     Object.keys(eventsByHomeroom).forEach((homeroom) => {
@@ -31,15 +31,6 @@ export default React.createClass({
       homeroomAbsenceEventsByDay[homeroom] = this.addPerfectAttendanceDays(daysWithAbsences);
     });
     return homeroomAbsenceEventsByDay;
-  },
-
-  groupByHomeroom: function(studentRecords) {
-    const studentsByHomeroom = _.groupBy(studentRecords, 'homeroom');
-    if (studentsByHomeroom[null]) {
-      studentsByHomeroom["No Homeroom"] = studentsByHomeroom[null];
-      delete studentsByHomeroom[null];
-    }
-    return studentsByHomeroom;
   },
 
   //Because homerooms often have no absences, merge their daily events with the list of school days

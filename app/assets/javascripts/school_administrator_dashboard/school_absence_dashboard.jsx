@@ -23,14 +23,6 @@ export default React.createClass({
     };
   },
 
-  studentAbsenceCount: function(absences) {
-    return absences.filter((event) => {
-      const start_date = this.state.display_dates[0];
-      const end_date = this.state.display_dates[this.state.display_dates.length-1];
-      return moment.utc(event.occurred_at).isBetween(start_date, end_date, null, '[]');
-    }).length;
-  },
-
   //Monthly attendance for the school must be calculated after the range filter is applied
   monthlySchoolAttendance: function(schoolAverageDailyAttendance) {
     let monthlySchoolAttendance = {};
@@ -49,6 +41,22 @@ export default React.createClass({
       return this.state.display_dates.map((date) => {
         return homeroom[date];
       });
+    });
+  },
+
+  studentAbsenceCount: function(absences) {
+    return absences.filter((event) => {
+      const start_date = this.state.display_dates[0];
+      const end_date = this.state.display_dates[this.state.display_dates.length-1];
+      return moment.utc(event.occurred_at).isBetween(start_date, end_date, null, '[]');
+    }).length;
+  },
+
+  setDate: function(range) {
+    this.setState({
+      display_dates: DashboardHelpers.filterDates(this.props.dateRange,
+                                                  moment.unix(range[0]).format("YYYY-MM-DD"),
+                                                  moment.unix(range[1]).format("YYYY-MM-DD"))
     });
   },
 
@@ -115,10 +123,7 @@ export default React.createClass({
       });
     });
 
-    return (
-        <StudentsTable
-          rows = {students}/>
-    );
+    return (<StudentsTable rows = {students}/>);
   },
 
   renderDateRangeSlider: function() {
@@ -128,11 +133,7 @@ export default React.createClass({
       <DateSlider
         rangeStart = {parseInt(moment(firstDate).format("X"))}
         rangeEnd = {parseInt(moment(lastDate).format("X"))}
-        setDate={(range) => this.setState({
-          display_dates: DashboardHelpers.filterDates(this.props.dateRange,
-                                      moment.unix(range[0]).format("YYYY-MM-DD"),
-                                      moment.unix(range[1]).format("YYYY-MM-DD"))
-        })}/>
+        setDate={this.setDate}/>
     );
   }
 });

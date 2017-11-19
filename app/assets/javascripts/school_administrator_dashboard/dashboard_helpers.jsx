@@ -4,6 +4,15 @@ import _ from 'lodash';
 
 export default {
 
+  groupByHomeroom: function(studentRecords) {
+    const studentsByHomeroom = _.groupBy(studentRecords, 'homeroom');
+    if (studentsByHomeroom[null]) {
+      studentsByHomeroom["No Homeroom"] = studentsByHomeroom[null];
+      delete studentsByHomeroom[null];
+    }
+    return studentsByHomeroom;
+  },
+
   absenceEventsByDay: function(studentRecordsArray) {
     const absenceEvents = _.flattenDeep(studentRecordsArray.map((student) => {
       return student.absences;
