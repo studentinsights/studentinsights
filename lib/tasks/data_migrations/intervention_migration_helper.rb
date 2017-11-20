@@ -42,7 +42,7 @@ class InterventionMigrationHelper < Struct.new :intervention, :educator_id
     return if service_type_id.nil?
 
     Service.create(
-      student: intervention.student,
+      student_id: intervention.student_id,
       recorded_by_educator_id: educator_id,
       service_type_id: service_type_id,
       recorded_at: intervention.created_at,
@@ -51,10 +51,10 @@ class InterventionMigrationHelper < Struct.new :intervention, :educator_id
   end
 
   def create_event_note
-    text = "#{intervention.comment} - Goal: #{intervention.goal}"
+    text = "#{intervention.comment}\n\nGoal: #{intervention.goal}"
 
     EventNote.create(
-      student: intervention.student,
+      student_id: intervention.student_id,
       educator_id: educator_id,
       event_note_type_id: 304,
       text: text,
