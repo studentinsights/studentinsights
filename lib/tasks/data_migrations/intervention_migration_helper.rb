@@ -1,4 +1,4 @@
-class InterventionMigrationHelper < Struct.new :intervention
+class InterventionMigrationHelper < Struct.new :intervention, :educator_id
 
   INTERVENTION_TYPES_TO_SERVICE_TYPES = {
     20 => 511,
@@ -29,12 +29,9 @@ class InterventionMigrationHelper < Struct.new :intervention
     46 => nil,
   }
 
-  def jill
-    @jill ||= Educator.find_by_id!(ENV['JILL_ID'])
-  end
-
   def migrate
-    create_service && create_event_note
+    create_service
+    create_event_note
   end
 
   def create_service
@@ -46,11 +43,10 @@ class InterventionMigrationHelper < Struct.new :intervention
 
     Service.create(
       student: intervention.student,
-      recorded_by_educator: jill,
+      recorded_by_educator_id: educator_id,
       service_type_id: service_type_id,
       recorded_at: intervention.created_at,
       date_started: intervention.start_date,
-      provided_by_educator_name: intervention.educator.full_name,
     )
   end
 
@@ -59,7 +55,7 @@ class InterventionMigrationHelper < Struct.new :intervention
 
     EventNote.create(
       student: intervention.student,
-      educator: jill,
+      educator_id: educator_id,
       event_note_type_id: 304,
       text: text,
       recorded_at: intervention.created_at,
