@@ -31,6 +31,7 @@ class School < ActiveRecord::Base
       { state_id: 510, local_id: "FC", name: "Full Circle High School", school_type: "HS" },
       { local_id: "CAP", name: "Capuano Early Childhood Center" },
       { local_id: "PIC", name: "Parent Information Center" },
+      { local_id: "SPED", name: "Special Education" },
     ])
   end
 
