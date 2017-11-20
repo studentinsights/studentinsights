@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
-/* import * as ReactHelpers from '../helpers/react_helpers.jsx'; */
+import * as ReactHelpers from '../helpers/react_helpers.jsx';
 import {fromPair} from '../helpers/from_pair.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 
