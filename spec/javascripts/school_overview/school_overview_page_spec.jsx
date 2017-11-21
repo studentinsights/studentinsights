@@ -1,9 +1,9 @@
 import * as Filters from '../../../app/assets/javascripts/helpers/Filters';
+import SchoolOverviewPage from '../../../app/assets/javascripts/school_overview/SchoolOverviewPage.js';
 
 
 describe('SchoolOverviewPage', () => {
-  const SchoolOverviewPage = window.shared.SchoolOverviewPage;
-    
+
   // FILTERING FUNCTIONS //
 
   describe('#filterWithOr', () => {
@@ -19,7 +19,7 @@ describe('SchoolOverviewPage', () => {
     const MariFilter = Filters.Equal('name', 'Mari');
     const MarkFilter = Filters.Equal('name', 'Mark');
     const Classroom101Filter = Filters.Equal('classroom', '101');
-    
+
     describe('with filters that overlap', () => {
       it('reduces each array to the set students that match either filter with no duplicates', () => {
         const filters  = [[MariFilter, Classroom101Filter], [MarkFilter]];
