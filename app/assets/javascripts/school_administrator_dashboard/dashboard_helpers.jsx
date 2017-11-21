@@ -13,13 +13,6 @@ export default {
     return studentsByHomeroom;
   },
 
-  absenceEventsByDay: function(studentRecordsArray) {
-    const absenceEvents = _.flattenDeep(studentRecordsArray.map((student) => {
-      return student.absences;
-    }));
-    return this.eventsGroupedByDay(absenceEvents);
-  },
-
   averageDailyAttendance: function(absenceEventsByDay, size) {
     let averageDailyAttendance = {};
     Object.keys(absenceEventsByDay).forEach((day) => {
@@ -27,6 +20,13 @@ export default {
       averageDailyAttendance[day] = Math.round(rawAvg*10)/10;
     });
     return averageDailyAttendance;
+  },
+
+  absenceEventsByDay: function(studentRecordsArray) {
+    const absenceEvents = _.flattenDeep(studentRecordsArray.map((student) => {
+      return student.absences;
+    }));
+    return this.eventsGroupedByDay(absenceEvents);
   },
 
   eventsGroupedByDay: function(events) {

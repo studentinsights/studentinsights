@@ -129,8 +129,13 @@ export default React.createClass({
         absences: this.studentAbsenceCount(student.absences)
       });
     });
+    console.log(this.state.selectedHomeroom);
 
-    return (<StudentsTable rows = {rows}/>);
+    return (
+      <StudentsTable
+        rows = {rows}
+        selectedHomeroom = {this.state.selectedHomeroom}/>
+    );
   },
 
   renderDateRangeSlider: function() {
