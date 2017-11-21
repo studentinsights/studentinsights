@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 import DashboardHelpers from './dashboard_helpers.jsx';
 import SchoolAbsenceDashboard from './school_absence_dashboard.jsx';
