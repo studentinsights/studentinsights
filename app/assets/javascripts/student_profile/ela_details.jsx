@@ -1,6 +1,6 @@
+import {merge} from '../helpers/react_helpers.jsx';
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
   const ProfileChart = window.shared.ProfileChart;
   const ProfileChartSettings = window.ProfileChartSettings;

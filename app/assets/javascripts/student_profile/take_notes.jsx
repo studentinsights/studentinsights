@@ -1,7 +1,7 @@
 import _ from 'lodash';
+import {merge} from '../helpers/react_helpers.jsx';
 
 window.shared || (window.shared = {});
-const merge = window.shared.ReactHelpers.merge;
 
 const styles = {
   dialog: {

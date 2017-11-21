@@ -1,10 +1,9 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import createSpyObj from '../support/createSpyObj.js';
-
+import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('RestrictedNotesPageContainer', function() {
-  const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const RestrictedNotesPageContainer = window.shared.RestrictedNotesPageContainer;
 

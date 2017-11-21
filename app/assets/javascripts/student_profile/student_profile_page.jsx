@@ -1,10 +1,10 @@
 import _ from 'lodash';
+import PropTypes from '../helpers/prop_types.jsx';
+import {merge} from '../helpers/react_helpers.jsx';
 
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
-  const PropTypes = window.shared.PropTypes;
   const BarChartSparkline = window.shared.BarChartSparkline;
   const Sparkline = window.shared.Sparkline;
   const AcademicSummary = window.shared.AcademicSummary;

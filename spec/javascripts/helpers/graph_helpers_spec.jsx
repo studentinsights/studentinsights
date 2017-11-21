@@ -1,7 +1,7 @@
 import _ from 'lodash';
+import * as GraphHelpers from '../../../app/assets/javascripts/helpers/graph_helpers';
 
 describe('Graph Helpers', function() {
-  const GraphHelpers = window.shared.GraphHelpers;
 
   const helpers = {
     namedEvents: function() {

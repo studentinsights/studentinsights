@@ -1,6 +1,6 @@
+import {merge} from '../helpers/react_helpers.jsx';
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
   // This must be read lazily, since these options require the DOM
   // to be ready and some specific HTML to be on the page.

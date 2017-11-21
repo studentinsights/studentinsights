@@ -2,10 +2,9 @@ import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import moment from 'moment';
 import ReactTestUtils from 'react-addons-test-utils';
-
+import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('NoteCard', function() {
-  const merge = window.shared.ReactHelpers.merge;
   const ReactDOM = window.ReactDOM;
   const NoteCard = window.shared.NoteCard;
 

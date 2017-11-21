@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import moment from 'moment';
+import {merge} from '../helpers/react_helpers.jsx';
 
 
 (function() {
   window.shared || (window.shared = {});
-  const merge = window.shared.ReactHelpers.merge;
 
   const serviceColor = window.shared.serviceColor;
 

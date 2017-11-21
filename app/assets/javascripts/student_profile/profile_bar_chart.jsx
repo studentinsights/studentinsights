@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import moment from 'moment';
+import * as GraphHelpers from '../helpers/graph_helpers';
 
 (function() {
   window.shared || (window.shared = {});
   const HighchartsWrapper = window.shared.HighchartsWrapper;
-  const GraphHelpers = window.shared.GraphHelpers;
 
   const styles = {
     title: {
