@@ -19,7 +19,8 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      display_dates: this.props.dateRange
+      displayDates: this.props.dateRange,
+      selectedHomeroom: null
     };
   },
 
@@ -27,7 +28,7 @@ export default React.createClass({
   monthlySchoolAttendance: function(schoolAverageDailyAttendance) {
     let monthlySchoolAttendance = {};
     //Use the filtered daterange to find the days to include
-    this.state.display_dates.forEach((day) => {
+    this.state.displayDates.forEach((day) => {
       let date = moment(day).date(1).format("YYYY-MM-DD"); //first day of the month in which 'day' occurs
       (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
       monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
@@ -38,7 +39,7 @@ export default React.createClass({
 
   filteredHomeRoomAttendance: function(dailyHomeroomAttendance) {
     return _.map(dailyHomeroomAttendance, (homeroom) => {
-      return this.state.display_dates.map((date) => {
+      return this.state.displayDates.map((date) => {
         return homeroom[date];
       });
     });
@@ -46,18 +47,22 @@ export default React.createClass({
 
   studentAbsenceCount: function(absences) {
     return absences.filter((event) => {
-      const start_date = this.state.display_dates[0];
-      const end_date = this.state.display_dates[this.state.display_dates.length-1];
+      const start_date = this.state.displayDates[0];
+      const end_date = this.state.displayDates[this.state.displayDates.length-1];
       return moment.utc(event.occurred_at).isBetween(start_date, end_date, null, '[]');
     }).length;
   },
 
   setDate: function(range) {
     this.setState({
-      display_dates: DashboardHelpers.filterDates(this.props.dateRange,
+      displayDates: DashboardHelpers.filterDates(this.props.dateRange,
                                                   moment.unix(range[0]).format("YYYY-MM-DD"),
                                                   moment.unix(range[1]).format("YYYY-MM-DD"))
     });
+  },
+
+  setStudentList: function(highchartsEvent) {
+    this.setState({selectedHomeroom: highchartsEvent.point.category});
   },
 
   render: function() {
@@ -101,7 +106,6 @@ export default React.createClass({
       const rawAvg = _.sum(homeroom)/homeroom.length;
       return Math.round(rawAvg*10)/10;
     });
-
     return (
         <DashboardBarChart
           id = {'string'}
@@ -109,21 +113,24 @@ export default React.createClass({
           seriesData = {homeroomSeries}
           monthsBack = {12}
           titleText = {'Average Attendance By Homeroom'}
-          measureText = {'Attendance (Percent)'}/>
+          measureText = {'Attendance (Percent)'}
+          onColumnClick = {this.setStudentList}/>
     );
   },
 
   renderStudentAbsenceTable: function () {
-    let students =[];
-    this.props.dashboardStudents.forEach((student) => {
-      students.push({
+    let rows =[];
+    const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
+    const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
+    students.forEach((student) => {
+      rows.push({
         first_name: student.first_name,
         last_name: student.last_name,
         absences: this.studentAbsenceCount(student.absences)
       });
     });
 
-    return (<StudentsTable rows = {students}/>);
+    return (<StudentsTable rows = {rows}/>);
   },
 
   renderDateRangeSlider: function() {
