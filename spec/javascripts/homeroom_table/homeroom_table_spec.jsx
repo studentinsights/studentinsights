@@ -1,5 +1,5 @@
 import SpecSugar from '../support/spec_sugar.jsx';
-import HomeroomTable from '../../../app/assets/javascripts/homeroom_table/homeroom_table.jsx';
+import HomeroomTable from '../../../app/assets/javascripts/homeroom_table/HomeroomTable.js';
 import students from '../fixtures/homeroom_students.jsx';
 
 describe('HomeroomTable', function() {

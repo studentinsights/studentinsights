@@ -63,7 +63,7 @@ import '../app/assets/javascripts/school_overview/school_overview_page.jsx';
 
 
 // all the rest, unordered
-import '../app/assets/javascripts/homeroom_table/homeroom_table.jsx';
+import '../app/assets/javascripts/homeroom_table/HomeroomTable.js';
 import '../app/assets/javascripts/restricted_notes/restricted_notes_page_container.jsx';
 import '../app/assets/javascripts/section/section_header.jsx';
 import '../app/assets/javascripts/section/section_page.jsx';
