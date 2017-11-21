@@ -4,26 +4,19 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
 import Cookies from 'js-cookie';
 
 
-export default React.createClass({
-  displayName: 'HomeroomTable',
+class HomeroomTable extends React.Component {
 
-  propTypes: {
-    showStar: React.PropTypes.bool.isRequired,
-    showMcas: React.PropTypes.bool.isRequired,
-    rows: React.PropTypes.array.isRequired
-  },
-
-  getInitialState () {
+  constructor(props) {
+    super(props);
     const initialColumns = this.getInitialColumnsDisplayed();
-
-    return {
+    this.state = {
       columnsDisplayed: initialColumns,
       showColumnPicker: false,
       sortBy: 'first_name',
       sortType: 'string',
       sortDesc: true
     };
-  },
+  }
 
   orderedStudents () {
     const sortedStudents = this.sortedStudents();
@@ -31,7 +24,7 @@ export default React.createClass({
     if (!this.state.sortDesc) return sortedStudents.reverse();
 
     return sortedStudents;
-  },
+  }
 
   sortedStudents () {
     const students = this.activeMergedStudentRows();
@@ -63,15 +56,15 @@ export default React.createClass({
     default:
       return students;
     }
-  },
+  }
 
   openColumnPicker () {
     this.setState({ showColumnPicker: true });
-  },
+  }
 
   closeColumnPicker () {
     this.setState({ showColumnPicker: false });
-  },
+  }
 
   toggleColumn (columnKey) {
     const columnsDisplayed = _.clone(this.state.columnsDisplayed);
@@ -88,7 +81,7 @@ export default React.createClass({
     Cookies.set("columnsDisplayed", columnsDisplayed);
 
     this.setState({ columnsDisplayed: columnsDisplayed });
-  },
+  }
 
   columnKeysToNames () {
     return {
@@ -99,50 +92,50 @@ export default React.createClass({
       'star': 'STAR',
       'mcas': 'MCAS',
     };
-  },
+  }
 
   columnKeys () {
     return Object.keys(this.columnKeysToNames());
-  },
+  }
 
   columnNames () {
     return Object.values(this.columnKeysToNames());
-  },
+  }
 
   getInitialColumnsDisplayed () {
     return (
       Cookies.getJSON("columnsDisplayed") || this.columnKeys()
     );
-  },
+  }
 
   activeStudentRowFilter (row) {
     return row.enrollment_status === 'Active';
-  },
+  }
 
   activeStudentRows () {
     return this.props.rows.filter(this.activeStudentRowFilter);
-  },
+  }
 
   mergeInStudentRiskLevel (row) {
     let risk = { risk: row['student_risk_level']['level'] };
     let sped_level = { sped_level: row['sped_data']['sped_level'] };
 
     return { ...row, ...risk, ...sped_level };
-  },
+  }
 
   activeMergedStudentRows () {
     return this.activeStudentRows().map(this.mergeInStudentRiskLevel);
-  },
+  }
 
   warningBubbleClassName (row) {
     const riskLevel = row['student_risk_level']['level'] || 'na';
 
     return `warning-bubble risk-${riskLevel} tooltip`;
-  },
+  }
 
   visitStudentProfile (id) {
     window.location.href = `/students/${id}`;
-  },
+  }
 
   showStar () {
     const columnsDisplayed = this.state.columnsDisplayed;
@@ -151,7 +144,7 @@ export default React.createClass({
     if (this.props.showStar === true && starDisplayed === true) return true;
 
     return false;
-  },
+  }
 
   showMcas () {
     const columnsDisplayed = this.state.columnsDisplayed;
@@ -160,7 +153,7 @@ export default React.createClass({
     if (this.props.showMcas === true && mcasDisplayed === true) return true;
 
     return false;
-  },
+  }
 
   onClickHeader (sortBy, sortType) {
     if (sortBy === this.state.sortBy) {
@@ -168,7 +161,7 @@ export default React.createClass({
     } else {
       this.setState({ sortBy: sortBy, sortType: sortType });
     }
-  },
+  }
 
   render () {
     return (
@@ -180,7 +173,7 @@ export default React.createClass({
         </table>
       </div>
     );
-  },
+  }
 
   renderStarHeaders () {
     return (
@@ -197,7 +190,7 @@ export default React.createClass({
         </td>
     ]
     );
-  },
+  }
 
   renderStarSubHeaders () {
     return (
@@ -212,7 +205,7 @@ export default React.createClass({
         </th>
     ]
     );
-  },
+  }
 
   renderMcasHeaders () {
     return (
@@ -229,7 +222,7 @@ export default React.createClass({
         </td>
     ]
     );
-  },
+  }
 
   renderMcasSubHeaders () {
     return (
@@ -252,7 +245,7 @@ export default React.createClass({
         </th>
     ]
     );
-  },
+  }
 
   renderStarData (row) {
     if (!this.showStar()) return null;
@@ -267,7 +260,7 @@ export default React.createClass({
         </td>
     ]
     );
-  },
+  }
 
   renderMcasData (row) {
     if (!this.showMcas()) return null;
@@ -288,7 +281,7 @@ export default React.createClass({
         </td>
     ]
     );
-  },
+  }
 
   renderSubHeader (columnKey, label, sortBy, sortType) {
     const columnsDisplayed = this.state.columnsDisplayed;
@@ -302,7 +295,7 @@ export default React.createClass({
         <span className="table-header">{label}</span>
       </th>
     );
-  },
+  }
 
   renderSuperHeader (columnKey, columnSpan, label) {
     const columnsDisplayed = this.state.columnsDisplayed;
@@ -321,7 +314,7 @@ export default React.createClass({
         </p>
       </td>
     );
-  },
+  }
 
   renderNameSubheader () {
     return (
@@ -332,7 +325,7 @@ export default React.createClass({
         </span>
       </th>
     );
-  },
+  }
 
   renderSubHeaders () {
     return (
@@ -364,7 +357,7 @@ export default React.createClass({
         {(this.showMcas()) ? this.renderMcasSubHeaders() : null}
       </tr>
     );
-  },
+  }
 
   renderHeaders () {
     return (
@@ -383,7 +376,7 @@ export default React.createClass({
         {this.renderSubHeaders()}
       </thead>
     );
-  },
+  }
 
   renderDataCell (columnKey, data) {
     const columnsDisplayed = this.state.columnsDisplayed;
@@ -394,7 +387,7 @@ export default React.createClass({
     return (
       <td>{data || '—'}</td>
     );
-  },
+  }
 
   renderRiskLevelExplanation(row) {
     const explanationData = row['student_risk_level']['explanation'];
@@ -413,7 +406,7 @@ export default React.createClass({
         </ul>
       </div>
     );
-  },
+  }
 
   renderWarningBubble (row) {
     return (
@@ -424,7 +417,7 @@ export default React.createClass({
         </span>
       </div>
     );
-  },
+  }
 
   renderDataWithSpedTooltip (row) {
     return (
@@ -435,7 +428,7 @@ export default React.createClass({
         </span>
       </div>
     );
-  },
+  }
 
   renderRow (row, index) {
     const fullName = `${row['first_name']} ${row['last_name']}`;
@@ -461,7 +454,7 @@ export default React.createClass({
         {this.renderMcasData(row)}
       </tr>
     );
-  },
+  }
 
   renderRows () {
     if (!this.props.rows) return null;
@@ -473,7 +466,7 @@ export default React.createClass({
         {rows.map((row, index) => { return this.renderRow(row, index); }, this)}
       </tbody>
     );
-  },
+  }
 
   renderMenu () {
     return (
@@ -489,7 +482,7 @@ export default React.createClass({
         </g>
       </svg>
     );
-  },
+  }
 
   renderColumnPickerArea () {
     return (
@@ -500,7 +493,7 @@ export default React.createClass({
         {this.renderColumnPickerMenu()}
       </div>
     );
-  },
+  }
 
   renderColumnSelect (columnKey) {
     const columnKeysToNames = this.columnKeysToNames();
@@ -524,13 +517,13 @@ export default React.createClass({
         <label>{columnName}</label>
       </div>
     );
-  },
+  }
 
   renderColumnSelectors () {
     const columnKeys = this.columnKeys();
 
     return columnKeys.map((key) => { return this.renderColumnSelect(key); });
-  },
+  }
 
   renderColumnPickerMenu () {
     if (this.state.showColumnPicker === false) return null;
@@ -551,5 +544,12 @@ export default React.createClass({
       </div>
     );
   }
+}
 
-});
+HomeroomTable.propTypes = {
+  showStar: React.PropTypes.bool.isRequired,
+  showMcas: React.PropTypes.bool.isRequired,
+  rows: React.PropTypes.array.isRequired
+};
+
+export default HomeroomTable;
