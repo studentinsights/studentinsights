@@ -65,6 +65,10 @@ export default React.createClass({
     this.setState({selectedHomeroom: highchartsEvent.point.category});
   },
 
+  resetStudentList: function() {
+    this.setState({selectedHomeroom: null});
+  },
+
   render: function() {
     return (
         <div>
@@ -95,7 +99,9 @@ export default React.createClass({
           seriesData = {filteredAttendanceSeries}
           monthsBack = {categories.length}
           titleText = {'Average Attendance By Month'}
-          measureText = {'Attendance (Percent)'}/>
+          measureText = {'Attendance (Percent)'}
+          onColumnClick = {this.resetStudentList}
+          onBackgroundClick = {this.resetStudentList}/>
     );
   },
 
@@ -114,7 +120,8 @@ export default React.createClass({
           monthsBack = {12}
           titleText = {'Average Attendance By Homeroom'}
           measureText = {'Attendance (Percent)'}
-          onColumnClick = {this.setStudentList}/>
+          onColumnClick = {this.setStudentList}
+          onBackgroundClick = {this.resetStudentList}/>
     );
   },
 
@@ -129,7 +136,6 @@ export default React.createClass({
         absences: this.studentAbsenceCount(student.absences)
       });
     });
-    console.log(this.state.selectedHomeroom);
 
     return (
       <StudentsTable

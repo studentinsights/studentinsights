@@ -40,7 +40,8 @@ export default React.createClass({
     titleText: React.PropTypes.string.isRequired,
     measureText: React.PropTypes.string.isRequired,
     categoryGroups: React.PropTypes.object,
-    onColumnClick: React.PropTypes.func
+    onColumnClick: React.PropTypes.func,
+    onBackgroundClick: React.PropTypes.func
   },
 
   getDefaultProps: function(){
@@ -58,7 +59,12 @@ export default React.createClass({
     return (
       <div id={this.props.id} style={styles.container}>
         <HighchartsWrapper
-          chart={{type: 'column'}}
+          chart={{
+            type: 'column',
+            events: {
+              click: this.props.onBackgroundClick
+            }
+          }}
           credits={false}
           xAxis={[
             {
