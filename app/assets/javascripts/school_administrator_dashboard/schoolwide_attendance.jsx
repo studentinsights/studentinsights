@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DashboardHelpers from './dashboard_helpers.jsx';
-import PageContainer from './page_container.jsx';
+import HomeroomAttendance from './homeroom_attendance.jsx';
 
 export default React.createClass({
   displayName: 'SchoolwideAttendance',
@@ -21,7 +21,7 @@ export default React.createClass({
 
   render: function() {
     return (
-        <PageContainer
+        <HomeroomAttendance
           schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
           dashboardStudents = {this.props.dashboardStudents}/>);
   }
