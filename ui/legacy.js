@@ -59,13 +59,13 @@ import '../app/assets/javascripts/service_uploads/service_type_dropdown.jsx';
 
 
 // school overview:
-import '../app/assets/javascripts/school_overview/SchoolOverviewPage.js';
+import '../app/assets/javascripts/school_overview/school_overview_page.jsx';
 
 
 // all the rest, unordered
 import '../app/assets/javascripts/homeroom_table/HomeroomTable.js';
 import '../app/assets/javascripts/restricted_notes/restricted_notes_page_container.jsx';
-import '../app/assets/javascripts/section/section_header.jsx';
+import '../app/assets/javascripts/section/SectionHeader.js';
 import '../app/assets/javascripts/section/section_page.jsx';
 import '../app/assets/javascripts/service_uploads/new_service_upload.jsx';
 import '../app/assets/javascripts/service_uploads/service_upload_detail.jsx';
