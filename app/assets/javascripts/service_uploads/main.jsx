@@ -1,5 +1,5 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-import ServiceUploadsPage from './ServiceUploadsPage'
+import ServiceUploadsPage from './ServiceUploadsPage';
 
 export default function renderServiceUploadsMain(el) {
   const ReactDOM = window.ReactDOM;

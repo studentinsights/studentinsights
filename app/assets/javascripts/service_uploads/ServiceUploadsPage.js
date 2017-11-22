@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import {merge} from '../helpers/react_helpers.jsx';
 import NewServiceUpload from './NewServiceUpload.js';
-import ServiceUploadDetail from './ServiceUploadDetail'
+import ServiceUploadDetail from './ServiceUploadDetail';
 
 class ServiceUploadsPage extends React.Component {
 
