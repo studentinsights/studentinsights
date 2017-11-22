@@ -1,4 +1,4 @@
-
+import React from 'react';
 class ServiceTypeDropdown extends React.Component {
 
   componentDidMount() {

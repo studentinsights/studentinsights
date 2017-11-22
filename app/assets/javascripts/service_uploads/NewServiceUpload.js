@@ -1,5 +1,6 @@
-const Datepicker = window.shared.Datepicker;
+import React from 'react';
 import ServiceTypeDropdown from './ServiceTypeDropdown';
+const Datepicker = window.shared.Datepicker;
 
 class NewServiceUpload extends React.Component {
 

@@ -68,6 +68,6 @@ import '../app/assets/javascripts/restricted_notes/restricted_notes_page_contain
 import '../app/assets/javascripts/section/SectionHeader.js';
 import '../app/assets/javascripts/section/SectionPage.js';
 import '../app/assets/javascripts/service_uploads/NewServiceUpload.js';
-import '../app/assets/javascripts/service_uploads/service_upload_detail.jsx';
-import '../app/assets/javascripts/service_uploads/service_uploads_page.jsx';
+import '../app/assets/javascripts/service_uploads/ServiceUploadDetail.js';
+import '../app/assets/javascripts/service_uploads/ServiceUploadsPage.js';
 
