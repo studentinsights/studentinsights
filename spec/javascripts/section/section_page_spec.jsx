@@ -1,10 +1,10 @@
 import SpecSugar from '../support/spec_sugar.jsx';
+import SectionPage from '../../../app/assets/javascripts/section/SectionPage'
 
 describe('SectionPage', function() {
   const ReactDOM = window.ReactDOM;
-  const SectionPage = window.shared.SectionPage;
 
-  
+
   const helpers = {
     renderInto: function(el, props) {
       ReactDOM.render(<SectionPage {...props} />, el);
@@ -34,7 +34,7 @@ describe('SectionPage', function() {
       helpers.renderInto(el, props);
 
       const sectionSelect = $(el).find('#section-select option');
-      
+
       expect(sectionSelect[0].innerHTML).toEqual('Art-1');
       expect(sectionSelect[0].selected).toEqual(true);
       expect(sectionSelect[0].value).toEqual('1');
@@ -52,7 +52,7 @@ describe('SectionPage', function() {
       const sectionName = headerInfo.find('h1').text();
       const courseInfo = headerInfo.find('#course-info').text();
       const sectionDetail = headerInfo.find('#section-detail').text();
-     
+
       expect(sectionName).toEqual('Art-1');
       expect(courseInfo).toEqual('Awesome Art Class (Art)');
       expect(sectionDetail).toEqual('Room 304 • Schedule: 3(M-R) • Term: 9');
@@ -61,7 +61,7 @@ describe('SectionPage', function() {
     it('renders the correct roster headers', function() {
       const el = container.testEl;
       helpers.renderInto(el, props);
-      
+
       const headers = $(el).find('#roster-header th');
 
       expect(headers.length).toEqual(16);
