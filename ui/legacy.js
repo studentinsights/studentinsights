@@ -59,7 +59,7 @@ import '../app/assets/javascripts/service_uploads/service_type_dropdown.jsx';
 
 
 // school overview:
-import '../app/assets/javascripts/school_overview/school_overview_page.jsx';
+import '../app/assets/javascripts/school_overview/SchoolOverviewPage.js';
 
 
 // all the rest, unordered
