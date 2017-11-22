@@ -1,5 +1,5 @@
 import SpecSugar from '../support/spec_sugar.jsx';
-import SectionPage from '../../../app/assets/javascripts/section/SectionPage'
+import SectionPage from '../../../app/assets/javascripts/section/SectionPage';
 
 describe('SectionPage', function() {
   const ReactDOM = window.ReactDOM;
