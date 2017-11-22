@@ -3,6 +3,7 @@ import SchoolOverviewPage from '../../../app/assets/javascripts/school_overview/
 
 
 describe('SchoolOverviewPage', () => {
+  const SchoolOverviewPage = window.shared.SchoolOverviewPage;
 
   // FILTERING FUNCTIONS //
 

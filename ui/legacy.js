@@ -55,7 +55,7 @@ import '../app/assets/javascripts/restricted_notes/restricted_notes_page_contain
 
 
 // bulk services:
-import '../app/assets/javascripts/service_uploads/service_type_dropdown.jsx';
+import '../app/assets/javascripts/service_uploads/ServiceTypeDropdown.js';
 
 
 // school overview:
