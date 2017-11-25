@@ -1,7 +1,7 @@
 import * as Filters from '../../../app/assets/javascripts/helpers/Filters';
+import SchoolOverviewPage from '../../../app/assets/javascripts/school_overview/SchoolOverviewPage.js'
 
 describe('SchoolOverviewPage', () => {
-  const SchoolOverviewPage = window.shared.SchoolOverviewPage;
 
   // FILTERING FUNCTIONS //
 
