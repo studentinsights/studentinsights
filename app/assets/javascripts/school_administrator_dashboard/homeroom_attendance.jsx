@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import DashboardHelpers from './dashboard_helpers.jsx';
 import AbsenceDashboardDateController from './absence_dashboard_date_controller.jsx';

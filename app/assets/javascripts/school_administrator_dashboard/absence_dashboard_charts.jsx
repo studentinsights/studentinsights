@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import DashboardHelpers from './dashboard_helpers.jsx';
 import StudentsTable from './students_table.jsx';

@@ -91,6 +91,7 @@ export default React.createClass({
       const rawAvg = _.sum(homeroom)/homeroom.length;
       return Math.round(rawAvg*10)/10;
     });
+    console.log(homeroomSeries);
 
     return (
         <AbsenceDashboardCharts
