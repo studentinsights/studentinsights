@@ -50,6 +50,9 @@ export default React.createClass({
     };
   },
 
+  //Because the highcharts wrapper redraws the charts whether or not the props
+  //have changed, this is necessary to prevent rerendering the charts when the
+  //user only wanted to select a homeroom.
   shouldComponentUpdate: function(nextProps) {
     return !_.isEqual(this.props, nextProps);
   },
