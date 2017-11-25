@@ -2,12 +2,13 @@ import React from 'react';
 import _ from 'lodash';
 
 import DashboardHelpers from './dashboard_helpers.jsx';
-import AbsenceDashboardCharts from './absence_dashboard_charts.jsx';
+import StudentsTable from './students_table.jsx';
+import DashboardBarChart from './dashboard_bar_chart.jsx';
 import DateSlider from './date_slider.jsx';
 
 
 export default React.createClass({
-  displayName: 'AbsenceDashboardDateController',
+  displayName: 'SchoolAbsenceDashboard',
 
   propTypes: {
     schoolAverageDailyAttendance: React.PropTypes.object.isRequired,
@@ -18,22 +19,16 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      filteredDateRange: this.props.dateRange
+      displayDates: this.props.dateRange,
+      selectedHomeroom: null
     };
-  },
-
-  filteredMonthlySchoolAttendance: function(monthlySchoolAttendance) {
-    return Object.keys(monthlySchoolAttendance).map( (month) => {
-      const rawAvg = _.sum(monthlySchoolAttendance[month])/monthlySchoolAttendance[month].length;
-      return Math.round(rawAvg*10)/10;
-    });
   },
 
   //Monthly attendance for the school must be calculated after the range filter is applied
   monthlySchoolAttendance: function(schoolAverageDailyAttendance) {
     let monthlySchoolAttendance = {};
     //Use the filtered daterange to find the days to include
-    this.state.filteredDateRange.forEach((day) => {
+    this.state.displayDates.forEach((day) => {
       let date = moment(day).date(1).format("YYYY-MM-DD"); //first day of the month in which 'day' occurs
       (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
       monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
@@ -44,7 +39,7 @@ export default React.createClass({
 
   filteredHomeRoomAttendance: function(dailyHomeroomAttendance) {
     return _.map(dailyHomeroomAttendance, (homeroom) => {
-      return this.state.filteredDateRange.map((date) => {
+      return this.state.displayDates.map((date) => {
         return homeroom[date];
       });
     });
@@ -52,8 +47,8 @@ export default React.createClass({
 
   studentAbsenceCount: function(absences) {
     return absences.filter((event) => {
-      const start_date = this.state.filteredDateRange[0];
-      const end_date = this.state.filteredDateRange[this.state.filteredDateRange.length-1];
+      const start_date = this.state.displayDates[0];
+      const end_date = this.state.displayDates[this.state.displayDates.length-1];
       return moment.utc(event.occurred_at).isBetween(start_date, end_date, null, '[]');
     }).length;
   },
@@ -76,31 +71,76 @@ export default React.createClass({
 
   render: function() {
     return (
-          <div className="AbsenceDashboard">
-            {this.renderAbsenceDashboardCharts()}
-            {this.renderDateRangeSlider()}
+        <div>
+          <div className="DashboardChartsColumn">
+            {this.renderMonthlyAbsenceChart()}
+            {this.renderHomeroomAbsenceChart()}
           </div>
+          <div className="DashboardRosterColumn">
+            {this.renderDateRangeSlider()}
+            {this.renderStudentAbsenceTable()}
+          </div>
+        </div>
     );
   },
 
-  renderAbsenceDashboardCharts: function() {
+  renderMonthlyAbsenceChart: function() {
     const monthlyAttendance = this.monthlySchoolAttendance(this.props.schoolAverageDailyAttendance);
-    const filteredSchoolAttendanceSeries = this.filteredMonthlySchoolAttendance(monthlyAttendance);
-    const filteredHomeRoomAttendance = this.filteredHomeRoomAttendance(this.props.homeroomAverageDailyAttendance);
+    const filteredAttendanceSeries = Object.keys(monthlyAttendance).map( (month) => {
+      const rawAvg = _.sum(monthlyAttendance[month])/monthlyAttendance[month].length;
+      return Math.round(rawAvg*10)/10;
+    });
+    const categories = Object.keys(monthlyAttendance);
+
+    return (
+        <DashboardBarChart
+          id = {'string'}
+          categories = {categories}
+          seriesData = {filteredAttendanceSeries}
+          monthsBack = {categories.length}
+          titleText = {'Average Attendance By Month'}
+          measureText = {'Attendance (Percent)'}
+          onColumnClick = {this.resetStudentList}
+          onBackgroundClick = {this.resetStudentList}/>
+    );
+  },
+
+  renderHomeroomAbsenceChart: function() {
+    const homeroomAverageDailyAttendance = this.props.homeroomAverageDailyAttendance;
+    const filteredHomeRoomAttendance = this.filteredHomeRoomAttendance(homeroomAverageDailyAttendance);
     const homeroomSeries = filteredHomeRoomAttendance.map((homeroom) => {
       const rawAvg = _.sum(homeroom)/homeroom.length;
       return Math.round(rawAvg*10)/10;
     });
-    console.log(homeroomSeries);
+    return (
+        <DashboardBarChart
+          id = {'string'}
+          categories = {Object.keys(homeroomAverageDailyAttendance)}
+          seriesData = {homeroomSeries}
+          monthsBack = {12}
+          titleText = {'Average Attendance By Homeroom'}
+          measureText = {'Attendance (Percent)'}
+          onColumnClick = {this.setStudentList}
+          onBackgroundClick = {this.resetStudentList}/>
+    );
+  },
+
+  renderStudentAbsenceTable: function () {
+    let rows =[];
+    const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
+    const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
+    students.forEach((student) => {
+      rows.push({
+        first_name: student.first_name,
+        last_name: student.last_name,
+        absences: this.studentAbsenceCount(student.absences)
+      });
+    });
 
     return (
-        <AbsenceDashboardCharts
-          filteredSchoolAttendanceSeries = {filteredSchoolAttendanceSeries}
-          schoolAttendanceMonths = {Object.keys(monthlyAttendance)}
-          filteredHomeRoomAttendanceSeries = {homeroomSeries}
-          homerooms = {Object.keys(this.props.homeroomAverageDailyAttendance)}
-          dashboardStudents = {this.props.dashboardStudents}
-          dateRange = {this.state.filteredDateRange}/>
+      <StudentsTable
+        rows = {rows}
+        selectedHomeroom = {this.state.selectedHomeroom}/>
     );
   },
 

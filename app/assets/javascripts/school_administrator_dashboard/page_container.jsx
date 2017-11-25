@@ -1,10 +1,10 @@
 import React from 'react';
 
 import DashboardHelpers from './dashboard_helpers.jsx';
-import AbsenceDashboardDateController from './absence_dashboard_date_controller.jsx';
+import SchoolAbsenceDashboard from './school_absence_dashboard.jsx';
 
 export default React.createClass({
-  displayName: 'HomeroomAttendance',
+  displayName: 'DashboardPageContainer',
 
   propTypes: {
     schoolAverageDailyAttendance: React.PropTypes.object.isRequired,
@@ -48,7 +48,7 @@ export default React.createClass({
 
   render: function() {
     return (
-        <AbsenceDashboardDateController
+        <SchoolAbsenceDashboard
           schoolAverageDailyAttendance = {this.props.schoolAverageDailyAttendance}
           homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance()}
           dashboardStudents = {this.props.dashboardStudents}
