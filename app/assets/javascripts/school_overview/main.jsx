@@ -1,5 +1,5 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-import SchoolOverviewPage from './SchoolOverviewPage.js'
+import SchoolOverviewPage from './SchoolOverviewPage.js';
 import {parseFiltersHash} from '../helpers/Filters';
 
 // Load data from inline on the page or with another request
