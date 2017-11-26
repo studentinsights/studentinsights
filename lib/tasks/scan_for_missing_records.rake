@@ -8,9 +8,9 @@ namespace :missing_foreign_key_relations do
                 missing << course.school_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
-        
+
         puts "Missing School IDs on Educator"
         missing = []
         Educator.find_each do |educator|
@@ -18,9 +18,9 @@ namespace :missing_foreign_key_relations do
                 missing << educator.school_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
-        
+
         puts "Missing EventNote IDs on EventNoteAttachment"
         missing = []
         EventNoteAttachment.find_each do |attachment|
@@ -28,7 +28,7 @@ namespace :missing_foreign_key_relations do
                 missing << attachment.event_note_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing EventNote IDs on EventNoteRevision"
@@ -38,7 +38,7 @@ namespace :missing_foreign_key_relations do
                 missing << revision.event_note_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing Educator IDs on EventNote"
@@ -48,7 +48,7 @@ namespace :missing_foreign_key_relations do
                 missing << note.educator_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing EventNoteType IDs on EventNote"
@@ -58,7 +58,7 @@ namespace :missing_foreign_key_relations do
                 missing << note.event_note_type_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing Student IDs on EventNote"
@@ -68,7 +68,7 @@ namespace :missing_foreign_key_relations do
                 missing << note.student_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing Educator IDs on Homeroom"
@@ -78,7 +78,7 @@ namespace :missing_foreign_key_relations do
                 missing << homeroom.educator_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing School IDs on Homeroom"
@@ -88,7 +88,7 @@ namespace :missing_foreign_key_relations do
                 missing << homeroom.school_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing Student IDs on IepDocument"
@@ -98,7 +98,7 @@ namespace :missing_foreign_key_relations do
                 missing << document.student_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing Educator IDs on Intervention"
@@ -108,7 +108,7 @@ namespace :missing_foreign_key_relations do
                 missing << intervention.educator_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing InterventionType IDs on Intervention"
@@ -118,7 +118,7 @@ namespace :missing_foreign_key_relations do
                 missing << intervention.intervention_type_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
         puts "Missing Student IDs on Intervention"
@@ -128,7 +128,7 @@ namespace :missing_foreign_key_relations do
                 missing << intervention.student_id
             end
         end
-        puts "#{ missing.length } records missing an object. Missing IDs: #{ missing.uniq }"
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
     end
 end
