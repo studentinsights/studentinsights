@@ -130,6 +130,7 @@ class SchoolsController < ApplicationController
     HashWithIndifferentAccess.new({
       first_name: student.first_name,
       last_name: student.last_name,
+      id: student.id,
       homeroom: student.try(:homeroom).try(:name),
       absences: student.dashboard_absences,
       tardies: student.dashboard_tardies

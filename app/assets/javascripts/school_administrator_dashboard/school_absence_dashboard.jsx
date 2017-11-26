@@ -14,6 +14,7 @@ export default React.createClass({
     schoolAverageDailyAttendance: React.PropTypes.object.isRequired,
     homeroomAverageDailyAttendance: React.PropTypes.object.isRequired,
     dashboardStudents: React.PropTypes.array.isRequired,
+    schoolAbsenceEvents: React.PropTypes.object.isRequired,
     dateRange: React.PropTypes.array.isRequired
   },
 
@@ -45,13 +46,24 @@ export default React.createClass({
     });
   },
 
-  studentAbsenceCount: function(absences) {
-    return absences.filter((event) => {
-      const start_date = this.state.displayDates[0];
-      const end_date = this.state.displayDates[this.state.displayDates.length-1];
-      return moment.utc(event.occurred_at).isBetween(start_date, end_date, null, '[]');
-    }).length;
+  studentAbsenceCounts: function(absencesArray) {
+    let studentAbsenceCounts = {};
+    this.state.displayDates.forEach((day) => {
+      _.each(this.props.schoolAbsenceEvents[day], (absence) => {
+        studentAbsenceCounts[absence.student_id] = studentAbsenceCounts[absence.student_id] || 1;
+        studentAbsenceCounts[absence.student_id]++;
+      });
+    });
+    return studentAbsenceCounts;
   },
+
+  // studentAbsenceCount: function(absences) {
+  //   return absences.filter((event) => {
+  //     const start_date = this.state.displayDates[0];
+  //     const end_date = this.state.displayDates[this.state.displayDates.length-1];
+  //     return moment.utc(event.occurred_at).isBetween(start_date, end_date, null, '[]');
+  //   }).length;
+  // },
 
   setDate: function(range) {
     this.setState({
@@ -126,14 +138,15 @@ export default React.createClass({
   },
 
   renderStudentAbsenceTable: function () {
-    let rows =[];
+    const studentAbsenceCounts = this.studentAbsenceCounts();
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
     const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
+    let rows =[];
     students.forEach((student) => {
       rows.push({
         first_name: student.first_name,
         last_name: student.last_name,
-        absences: this.studentAbsenceCount(student.absences)
+        absences: studentAbsenceCounts[student.id] || 0
       });
     });
 
