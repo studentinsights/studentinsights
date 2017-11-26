@@ -4,9 +4,9 @@ import StudentsTable from '../components/StudentsTable';
 import SlicePanels from '../components/SlicePanels';
 import SliceButtons from '../components/SliceButtons';
 import {styles} from '../helpers/Theme';
+import React from 'react';
 
 class SchoolOverviewPage extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,7 @@ class SchoolOverviewPage extends React.Component {
     return filter.key;
   }
 
-  activeFiltersByCategory () {
+  activeFiltersByCategory() {
     // Group by active filters by category.
     // Returns an array of arrays; each inner array is a group of filters with the same category.
 
@@ -140,11 +140,11 @@ class SchoolOverviewPage extends React.Component {
     return this.filterWithAnd.call(this, studentsOrFiltered);
   }
 
-  clearFilters () {
+  clearFilters() {
     this.setState({ filters: [] });
   }
 
-  filtersHash () {
+  filtersHash() {
     return '#' + this.state.filters.map(function(filter) {
       return encodeURIComponent(filter.identifier);
     }).join('&');
