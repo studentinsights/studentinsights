@@ -130,5 +130,115 @@ namespace :missing_foreign_key_relations do
         end
         puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
+
+        puts "Missing Course IDs on Section"
+        missing = []
+        Section.find_each do |section|
+            if !section.course
+                missing << section.course_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing Educator IDs on ServiceUpload"
+        missing = []
+        ServiceUpload.find_each do |upload|
+            if !upload.uploaded_by_educator
+                missing << upload.uploaded_by_educator_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing Educator IDs on Service"
+        missing = []
+        Service.find_each do |service|
+            if !service.recorded_by_educator
+                missing << service.recorded_by_educator_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing ServiceType IDs on Service"
+        missing = []
+        Service.find_each do |service|
+            if !service.service_type
+                missing << service.service_type_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing ServiceUploads IDs on Service"
+        missing = []
+        Service.find_each do |service|
+            if !service.service_upload
+                missing << service.service_upload_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing Student IDs on Service"
+        missing = []
+        Service.find_each do |service|
+            if !service.student
+                missing << service.student_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing Assessment IDs on StudentAssessment"
+        missing = []
+        StudentAssessment.find_each do |student_assesment|
+            if !student_assesment.assessment
+                missing << student_assesment.assessment_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing Student IDs on StudentAssessment"
+        missing = []
+        StudentAssessment.find_each do |student_assesment|
+            if !student_assesment.student
+                missing << student_assesment.student_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing Student IDs on StudentRiskLevel"
+        missing = []
+        StudentRiskLevel.find_each do |risk_level|
+            if !risk_level.student
+                missing << risk_level.student_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing Homeroom IDs on Student"
+        missing = []
+        Student.find_each do |student|
+            if !student.homeroom
+                missing << student.homeroom_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
+
+        puts "Missing School IDs on Student"
+        missing = []
+        Student.find_each do |student|
+            if !student.school
+                missing << student.school_id
+            end
+        end
+        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
+        puts ""
     end
 end
