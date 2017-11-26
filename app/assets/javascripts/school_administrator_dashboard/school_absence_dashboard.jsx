@@ -57,14 +57,6 @@ export default React.createClass({
     return studentAbsenceCounts;
   },
 
-  // studentAbsenceCount: function(absences) {
-  //   return absences.filter((event) => {
-  //     const start_date = this.state.displayDates[0];
-  //     const end_date = this.state.displayDates[this.state.displayDates.length-1];
-  //     return moment.utc(event.occurred_at).isBetween(start_date, end_date, null, '[]');
-  //   }).length;
-  // },
-
   setDate: function(range) {
     this.setState({
       displayDates: DashboardHelpers.filterDates(this.props.dateRange,
