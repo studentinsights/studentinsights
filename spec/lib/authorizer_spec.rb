@@ -5,7 +5,6 @@ def authorized(educator, &block)
   Authorizer.new(educator).authorized(&block)
 end
 
-
 RSpec.describe Authorizer do
   let!(:pals) { TestPals.create! }
 
@@ -93,7 +92,7 @@ RSpec.describe Authorizer do
         thin_student = Student.select(:id, :local_id).find(pals.shs_freshman_mari.id)
         expect(authorized(pals.uri) { thin_student }.attributes).to eq({
           'id' => pals.shs_freshman_mari.id,
-          'local_id' => pals.shs_freshman_mari.local_id 
+          'local_id' => pals.shs_freshman_mari.local_id
         })
         expect { authorized(pals.healey_teacher) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
         expect { authorized(pals.shs_bill_nye) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
@@ -103,7 +102,7 @@ RSpec.describe Authorizer do
         thin_student = Student.select(:id, :local_id).find(pals.shs_freshman_mari.id)
         expect(authorized(pals.uri) { thin_student }.attributes).to eq({
           'id' => pals.shs_freshman_mari.id,
-          'local_id' => pals.shs_freshman_mari.local_id 
+          'local_id' => pals.shs_freshman_mari.local_id
         })
         expect { authorized(pals.healey_teacher) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
         expect { authorized(pals.shs_bill_nye) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
