@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 const styles = {
   title: {
@@ -38,7 +39,9 @@ export default React.createClass({
     seriesData: React.PropTypes.array.isRequired, // array of JSON event objects.
     titleText: React.PropTypes.string.isRequired,
     measureText: React.PropTypes.string.isRequired,
-    categoryGroups: React.PropTypes.object
+    categoryGroups: React.PropTypes.object,
+    onColumnClick: React.PropTypes.func,
+    onBackgroundClick: React.PropTypes.func
   },
 
   getDefaultProps: function(){
@@ -47,18 +50,38 @@ export default React.createClass({
     };
   },
 
+  //Because the highcharts wrapper redraws the charts whether or not the props
+  //have changed, this is necessary to prevent rerendering the charts when the
+  //user only wanted to select a homeroom.
+  shouldComponentUpdate: function(nextProps) {
+    return !_.isEqual(this.props, nextProps);
+  },
+
   render: function() {
     const {HighchartsWrapper} = window.shared;
     return (
       <div id={this.props.id} style={styles.container}>
         <HighchartsWrapper
-          chart={{type: 'column'}}
+          chart={{
+            type: 'column',
+            events: {
+              click: this.props.onBackgroundClick
+            }
+          }}
           credits={false}
           xAxis={[
             {
               categories: this.props.categories
             }, this.props.categoryGroups
           ]}
+          plotOptions={{
+            series: {
+              cursor: 'pointer',
+              events: {
+                click: this.props.onColumnClick
+              }
+            }
+          }}
           title={{text: this.props.titleText}}
           yAxis={{
             min: 80,
