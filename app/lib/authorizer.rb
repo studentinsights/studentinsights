@@ -19,8 +19,11 @@
 # Instead of:
 #   Homeroom.find(id).students # no authorization check
 #   Section.find(id).students # no authorization check
-#   current_educator.homeroom.students # doesn't work for all roles
-#   current_educator.school.students # doesn't work for all roles
+#   current_educator.homeroom.students # doesn't work for all roles because
+#     some roles don't have homeroom associations (e.g. if they're school-wide)
+#   current_educator.school.students # doesn't work for all roles because
+#     some roles don't have school associations (e.g. if they're district-wide)
+
 #
 class Authorizer
   # These fields are required on the `Student` model for
