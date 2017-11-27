@@ -102,7 +102,7 @@ class TestPals
       grade: '9'
     })
     FactoryGirl.create(:student_section_assignment, student: @shs_freshman_mari, section: @shs_tuesday_biology_section)
-    
+
     self
   end
 end
