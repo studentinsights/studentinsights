@@ -29,7 +29,7 @@ class Educator < ActiveRecord::Base
   # override
   # The `student_searchbar_json` field can be really heavy (~500kb), and
   # there's no circumstances where we want to include it when serializing
-  # an educator model.  So override `as_json to omit it by default.
+  # an educator model.  So override `as_json` to omit it by default.
   def as_json(options = {})
     super(options.merge({ except: [:student_searchbar_json] }))
   end
