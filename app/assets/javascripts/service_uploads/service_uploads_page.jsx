@@ -45,6 +45,8 @@ import {merge} from '../helpers/react_helpers.jsx';
     },
 
     upload: function () {
+      const { serializedData } = this.props;
+
       this.setState({
         serverSideErrors: [],
         uploadingInProgress: true,
