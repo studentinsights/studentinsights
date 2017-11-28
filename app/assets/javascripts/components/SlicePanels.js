@@ -4,7 +4,7 @@ import CollapsableTable from './CollapsableTable';
 import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
-import {shouldDisplay} from '../helpers/customization_helpers.js';
+import {shouldDisplay} from '../helpers/CustomizationHelpers';
 
 // For showing a set of panels that let users see an overview
 // of distributions, and click to filter a set of data in different

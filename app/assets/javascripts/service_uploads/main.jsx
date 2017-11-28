@@ -1,4 +1,4 @@
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 import ServiceUploadsPage from './ServiceUploadsPage';
 
 export default function renderServiceUploadsMain(el) {

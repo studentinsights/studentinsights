@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import SpecSugar from '../support/spec_sugar.jsx';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
+import {merge} from '../../../app/assets/javascripts/helpers/ReactHelpers';
 
 describe('ProfileDetails', function() {
   const ReactDOM = window.ReactDOM;

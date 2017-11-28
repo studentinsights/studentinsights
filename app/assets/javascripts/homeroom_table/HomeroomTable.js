@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import SortHelpers from '../helpers/SortHelpers';
 import Cookies from 'js-cookie';
 
 

@@ -1,4 +1,4 @@
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/ReactHelpers';
 (function() {
   window.shared || (window.shared = {});
 

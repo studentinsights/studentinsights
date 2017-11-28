@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/ReactHelpers';
 import NewServiceUpload from './NewServiceUpload.js';
 import ServiceUploadDetail from './ServiceUploadDetail';
 

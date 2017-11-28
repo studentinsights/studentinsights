@@ -1,14 +1,14 @@
 // HELPERS
-import '../app/assets/javascripts/helpers/react_helpers.jsx';
-import '../app/assets/javascripts/helpers/graph_helpers.js';
-import '../app/assets/javascripts/helpers/feed_helpers.jsx';
+import '../app/assets/javascripts/helpers/ReactHelpers';
+import '../app/assets/javascripts/helpers/GraphHelpers';
+import '../app/assets/javascripts/helpers/FeedHelpers';
 // (unordered)
 import '../app/assets/javascripts/helpers/FromPair';
-import '../app/assets/javascripts/helpers/graph_helpers.js';
-import '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
-import '../app/assets/javascripts/helpers/profile_details_style.jsx';
-import '../app/assets/javascripts/helpers/prop_types.jsx';
-import '../app/assets/javascripts/helpers/sort_helpers.jsx';
+import '../app/assets/javascripts/helpers/GraphHelpers';
+import '../app/assets/javascripts/helpers/MixpanelUtils';
+import '../app/assets/javascripts/helpers/ProfileDetailsStyle';
+import '../app/assets/javascripts/helpers/PropTypes';
+import '../app/assets/javascripts/helpers/SortHelpers';
 import * as Routes from '../app/assets/javascripts/helpers/Routes';
 import {colors, styles} from '../app/assets/javascripts/helpers/Theme';
 

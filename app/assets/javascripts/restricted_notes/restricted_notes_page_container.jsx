@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import PropTypes from '../helpers/prop_types.jsx';
-import {merge} from '../helpers/react_helpers.jsx';
+import PropTypes from '../helpers/PropTypes';
+import {merge} from '../helpers/ReactHelpers';
 
 (function() {
   window.shared || (window.shared = {});

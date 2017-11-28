@@ -1,4 +1,4 @@
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 
 export default function renderStudentMain(el) {
   // imports

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/ReactHelpers';
 
 
 (function() {

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 import StudentsTable from '../components/StudentsTable';
 import SlicePanels from '../components/SlicePanels';
 import SliceButtons from '../components/SliceButtons';

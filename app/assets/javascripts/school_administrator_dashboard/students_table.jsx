@@ -1,5 +1,5 @@
 import React from 'react';
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import SortHelpers from '../helpers/SortHelpers';
 
 
 export default React.createClass({

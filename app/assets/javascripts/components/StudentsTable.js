@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import SortHelpers from '../helpers/sort_helpers.jsx';
-import { shouldDisplay } from '../helpers/customization_helpers.js';
+import SortHelpers from '../helpers/SortHelpers';
+import { shouldDisplay } from '../helpers/CustomizationHelpers';
 import * as Routes from '../helpers/Routes';
 
 

@@ -1,5 +1,5 @@
 import PageContainer from  './page_container.jsx';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 
 export default function renderSchoolAdminDashboardMain(el) {
   const serializedData = $('#serialized-data').data();

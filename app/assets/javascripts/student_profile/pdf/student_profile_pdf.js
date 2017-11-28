@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Highcharts from 'highcharts';
-import * as GraphHelpers from '../../helpers/graph_helpers';
+import * as GraphHelpers from '../../helpers/GraphHelpers';
 
 (function() {
   window.shared || (window.shared = {});

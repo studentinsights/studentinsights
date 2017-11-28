@@ -1,5 +1,5 @@
 import TakeNotes from './take_notes.jsx';
-import PropTypes from '../helpers/prop_types.jsx';
+import PropTypes from '../helpers/PropTypes';
 
 (function() {
   window.shared || (window.shared = {});

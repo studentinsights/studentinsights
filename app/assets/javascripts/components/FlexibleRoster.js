@@ -1,5 +1,5 @@
 import React from 'react';
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import SortHelpers from '../helpers/SortHelpers';
 
 
 // This is a sorted table, pass in a list of objects as `rows`,
@@ -21,7 +21,7 @@ class FlexibleRoster extends React.Component {
 
     return sortedRows;
   }
-  
+
   sortedRows() {
     const rows = this.props.rows;
     const columns = this.props.columns;
@@ -33,7 +33,7 @@ class FlexibleRoster extends React.Component {
     }
     else {
       return rows.sort((a, b) => SortHelpers.sortByString(a, b, key));
-    }  
+    }
   }
 
   headerClassName (sortByIndex) {
@@ -54,7 +54,7 @@ class FlexibleRoster extends React.Component {
       this.setState({ sortByIndex: sortByIndex});
     }
   }
-  
+
   render() {
     return (
       <div className='FlexibleRoster'>
@@ -85,7 +85,7 @@ class FlexibleRoster extends React.Component {
       // count of items with the same group
       // increment in the beginning since colSpan starts at 1
       currentCount++;
-      
+
       // if the current item doesn't equal the next
       // push the super header with a length of currentCount
       // and reset currentCount for a new column group
@@ -126,7 +126,7 @@ class FlexibleRoster extends React.Component {
   renderBodyValue(item, column) {
     if ('cell' in column) {
       return column.cell(item,column);
-    } 
+    }
     else {
       return item[column.key];
     }
@@ -139,7 +139,7 @@ class FlexibleRoster extends React.Component {
           const style = (index % 2 === 0)
                     ? { backgroundColor: '#FFFFFF' }
                     : { backgroundColor: '#F7F7F7' };
-          
+
           return (
             <tr key={row.id} style={style}>
               {this.props.columns.map(column => {

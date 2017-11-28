@@ -5,7 +5,7 @@ import {
 } from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import TakeNotes from '../../../app/assets/javascripts/student_profile/take_notes.jsx';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
+import {merge} from '../../../app/assets/javascripts/helpers/ReactHelpers';
 
 describe('TakeNotes', function() {
 
