@@ -27,6 +27,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
           recorded_at: '01/19/2017',
           date_started: '01/01/2017',
           date_ended: '03/03/2017',
+          uploaded_by_educator_id: 999
         }
       }
 
@@ -36,8 +37,11 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
       it 'returns the correct JSON' do
         make_post_request(params)
-        expect(response_json['service_upload']['file_name']).to eq('unique_file_name.csv')
-        expect(response_json['service_upload']['services'].count).to eq 2
+        service_upload = response_json['service_upload']
+
+        expect(service_upload['file_name']).to eq('unique_file_name.csv')
+        expect(service_upload['services'].count).to eq 2
+        expect(service_upload['uploaded_by_educator_id']).to eq 999
       end
     end
 

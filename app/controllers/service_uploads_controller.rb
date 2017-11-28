@@ -10,7 +10,10 @@ class ServiceUploadsController < ApplicationController
   end
 
   def create
-    service_upload = ServiceUpload.new(file_name: params['file_name'])
+    service_upload = ServiceUpload.new(
+      file_name: params['file_name'],
+      uploaded_by_educator_id: params['uploaded_by_educator_id']
+    )
 
     if service_upload.invalid?
       return render json: {
@@ -52,7 +55,7 @@ class ServiceUploadsController < ApplicationController
     end
 
     render json: { service_upload: service_upload.as_json(
-      only: [:created_at, :file_name, :id],
+      only: [:created_at, :file_name, :id, :uploaded_by_educator_id],
       include: {
         services: {
           only: [],

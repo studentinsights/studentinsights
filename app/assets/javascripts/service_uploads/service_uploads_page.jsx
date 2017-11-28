@@ -13,9 +13,15 @@ import {merge} from '../helpers/react_helpers.jsx';
     },
 
     getInitialState: function () {
+      const { serializedData } = this.props;
+
       return {
-        serviceUploads: this.props.serializedData.serviceUploads, // Existing service uploads
-        formData: {},                                             // New service upload form data
+        serviceUploads: serializedData.serviceUploads, // Past uploads
+
+        // Data that goes to the Rails controller
+        formData: {
+          uploaded_by_educator_id: serializedData.currentEducator.id
+        },
 
         // Student LASID validation
         studentLasidsReceivedFromBackend: false,
