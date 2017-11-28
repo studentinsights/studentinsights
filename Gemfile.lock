@@ -71,8 +71,6 @@ GEM
       aws-sdk-core (= 2.10.21)
     aws-sigv4 (1.0.1)
     bcrypt (3.1.11)
-    benchmark-memory (0.1.2)
-      memory_profiler (~> 0.9)
     better_errors (2.3.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -156,7 +154,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
-    memory_profiler (0.9.8)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -326,7 +323,6 @@ DEPENDENCIES
   activerecord-import
   administrate (~> 0.8.1)
   aws-sdk (~> 2)
-  benchmark-memory
   better_errors
   bourbon (~> 4.3.2)
   capybara
@@ -341,7 +337,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails (~> 5.0.3)
   launchy
-  memory_profiler
   net-sftp
   net-ssh
   oj
