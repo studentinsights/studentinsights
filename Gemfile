@@ -44,7 +44,6 @@ gem 'scout_apm'
 
 group :production do
   gem 'rails_12factor'
-  gem 'skylight'
 end
 
 group :development, :test do
