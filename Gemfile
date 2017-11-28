@@ -21,10 +21,8 @@ gem 'net-ssh'
 gem 'probability'
 gem 'rollbar'
 gem 'rubocop', require: false
-gem 'memory_profiler'
 gem 'oj'
 gem 'oj_mimic_json'
-gem 'benchmark-memory'
 gem 'rubystats'
 gem 'sass-rails', '~> 5.0'
 gem 'sprockets'
@@ -44,7 +42,6 @@ gem 'scout_apm'
 
 group :production do
   gem 'rails_12factor'
-  gem 'skylight'
 end
 
 group :development, :test do

@@ -6,14 +6,16 @@ export default React.createClass({
   displayName: 'StudentsTable',
 
   propTypes: {
-    rows: React.PropTypes.array.isRequired
+    rows: React.PropTypes.array.isRequired,
+    selectedHomeroom: React.PropTypes.string
   },
 
   getInitialState () {
     return {
       sortBy: 'absences',
       sortType: 'number',
-      sortDesc: true
+      sortDesc: true,
+      slectedHomeroom: null
     };
   },
 
@@ -72,6 +74,7 @@ export default React.createClass({
     return(
       <div className= 'StudentsList'>
         <table className='students-list'>
+          <caption>{this.renderCaption()}</caption>
           <thead>
             <tr>
               {this.renderHeader('Last Name', 'last_name', 'string')}
@@ -108,6 +111,10 @@ export default React.createClass({
         {caption}
       </th>
     );
+  },
+
+  renderCaption () {
+    return this.props.selectedHomeroom ? this.props.selectedHomeroom : "All Students";
   }
 
 });

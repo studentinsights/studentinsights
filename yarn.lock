@@ -3086,9 +3086,9 @@ minimist@^1.1.1, minimist@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
-moment@2.11.1:
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.11.1.tgz#bf4026413640d1b802467cf353607f8464d6af47"
+moment@2.11.2:
+  version "2.11.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.11.2.tgz#87968e5f95ac038c2e42ac959c75819cd3f52901"
 
 ms@2.0.0:
   version "2.0.0"
