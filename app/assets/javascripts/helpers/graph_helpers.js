@@ -42,7 +42,7 @@ export function yearCategories(monthKeys) {
     const monthMomentUTC = moment.utc(monthKey);
     const isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
     if (isFirstMonthOfYear) {
-      categories[monthKeyIndex] = this.yearAxisCaption(monthKey);
+      categories[monthKeyIndex] = yearAxisCaption(monthKey);
     }
   }, this);
 
