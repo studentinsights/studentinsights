@@ -4,7 +4,7 @@ namespace :data_migration do
     puts "Updating service upload records..."; puts;
 
     ActiveRecord::Base.transaction do
-      ServiceUpload.each do |service_upload|
+      ServiceUpload.all.each do |service_upload|
         service_upload.uploaded_by_educator_id = ENV.fetch('URI_ID')
         service_upload.save!
 
