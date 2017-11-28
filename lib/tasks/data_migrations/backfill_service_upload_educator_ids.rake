@@ -1,6 +1,8 @@
 namespace :data_migration do
   desc "Backfill all service upload IDs"
   task backfill_service_upload_ids: :environment do
+    raise "Need an Uri ID!" unless ENV['URI_ID']
+
     puts "Updating service upload records..."; puts;
 
     ActiveRecord::Base.transaction do
