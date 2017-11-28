@@ -19,9 +19,7 @@ import {merge} from '../helpers/react_helpers.jsx';
         serviceUploads: serializedData.serviceUploads, // Past uploads
 
         // Data that goes to the Rails controller
-        formData: {
-          uploaded_by_educator_id: serializedData.currentEducator.id
-        },
+        formData: {},
 
         // Student LASID validation
         studentLasidsReceivedFromBackend: false,
@@ -52,12 +50,18 @@ import {merge} from '../helpers/react_helpers.jsx';
         uploadingInProgress: true,
       });  // Clear out any errors
 
+      const formData = merge(this.state.formData, {
+        uploaded_by_educator_id: serializedData.currentEducator.id
+      });
+
+      const jsonFormData = JSON.stringify(formData);
+
       $.ajax({
         url: '/service_uploads.json',
         method: 'POST',
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
-        data: JSON.stringify(this.state.formData),
+        data: jsonFormData,
         success: function (data) {
           if (data.service_upload) {
             this.setState({
