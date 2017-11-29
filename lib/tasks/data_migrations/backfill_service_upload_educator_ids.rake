@@ -7,10 +7,14 @@ namespace :data_migration do
 
     ActiveRecord::Base.transaction do
       ServiceUpload.all.each do |service_upload|
-        service_upload.uploaded_by_educator_id = ENV.fetch('URI_ID')
-        service_upload.save!
+        if service_upload.uploaded_by_educator_id.nil?
+          service_upload.uploaded_by_educator_id = ENV.fetch('URI_ID')
+          service_upload.save!
 
-        print "."
+          print "*"
+        else
+          print "."
+        end
       end
     end
 
