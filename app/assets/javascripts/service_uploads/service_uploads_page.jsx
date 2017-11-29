@@ -13,10 +13,8 @@ import {merge} from '../helpers/react_helpers.jsx';
     },
 
     getInitialState: function () {
-      const { serializedData } = this.props;
-
       return {
-        serviceUploads: serializedData.serviceUploads, // Past uploads
+        serviceUploads: this.props.serializedData.serviceUploads, // Past uploads
 
         // Data that goes to the Rails controller
         formData: {},
@@ -45,25 +43,17 @@ import {merge} from '../helpers/react_helpers.jsx';
     },
 
     upload: function () {
-      const { serializedData } = this.props;
-
       this.setState({
         serverSideErrors: [],
         uploadingInProgress: true,
       });  // Clear out any errors
-
-      const formData = merge(this.state.formData, {
-        uploaded_by_educator_id: serializedData.currentEducator.id
-      });
-
-      const jsonFormData = JSON.stringify(formData);
 
       $.ajax({
         url: '/service_uploads.json',
         method: 'POST',
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
-        data: jsonFormData,
+        data: JSON.stringify(formData),
         success: function (data) {
           if (data.service_upload) {
             this.setState({
