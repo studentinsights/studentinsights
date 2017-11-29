@@ -27,7 +27,6 @@ RSpec.describe ServiceUploadsController, type: :controller do
           recorded_at: '01/19/2017',
           date_started: '01/01/2017',
           date_ended: '03/03/2017',
-          uploaded_by_educator_id: 999
         }
       }
 
@@ -41,7 +40,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
         expect(service_upload['file_name']).to eq('unique_file_name.csv')
         expect(service_upload['services'].count).to eq 2
-        expect(service_upload['uploaded_by_educator_id']).to eq 999
+        expect(service_upload['uploaded_by_educator_id']).to eq(educator.id)
       end
     end
 
