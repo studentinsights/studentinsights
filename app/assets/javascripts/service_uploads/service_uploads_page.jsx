@@ -53,7 +53,7 @@ import {merge} from '../helpers/react_helpers.jsx';
         method: 'POST',
         contentType: 'application/json; charset=UTF-8',
         dataType: 'json',
-        data: JSON.stringify(formData),
+        data: JSON.stringify(this.state.formData),
         success: function (data) {
           if (data.service_upload) {
             this.setState({
