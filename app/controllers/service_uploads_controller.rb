@@ -12,7 +12,7 @@ class ServiceUploadsController < ApplicationController
   def create
     service_upload = ServiceUpload.new(
       file_name: params['file_name'],
-      uploaded_by_educator_id: params['uploaded_by_educator_id']
+      uploaded_by_educator_id: current_educator.id
     )
 
     if service_upload.invalid?
