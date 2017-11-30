@@ -25,7 +25,7 @@ export function defaultMonthKey(event) {
 // Given a list of monthKeys, map over that to return a list of all events that fall within
 // that month.
 export function eventsToMonthBuckets(monthKeys, events) {
-  const eventsByMonth = _.groupBy(events, this.defaultMonthKey);
+  const eventsByMonth = _.groupBy(events, defaultMonthKey);
   return monthKeys.map(function(monthKey) {
     return eventsByMonth[monthKey] || [];
   });
