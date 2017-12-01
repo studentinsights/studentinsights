@@ -136,6 +136,7 @@ export default React.createClass({
     let rows =[];
     students.forEach((student) => {
       rows.push({
+        id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
         absences: studentAbsenceCounts[student.id] || 0
