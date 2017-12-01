@@ -3,7 +3,6 @@ FactoryGirl.define do
   factory :school do
     sequence(:state_id) {|n| n }
     sequence(:slug) {|n| "slug#{n}" }
-    sequence(:local_id) {|n| "LOCAL_ID_#{n}" }
   end
 
   factory :healey, class: School do
