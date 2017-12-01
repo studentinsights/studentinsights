@@ -96,7 +96,7 @@ export default React.createClass({
           <tbody>
             {this.orderedRows().map(student => {
               return (
-                <tr>
+                <tr key={student.id}>
                   <td width="66.66%">
                     <a href={Routes.studentProfile(student.id)}>
                       {student.last_name}, {student.first_name}
