@@ -112,16 +112,6 @@ export default React.createClass({
     );
   },
 
-  renderHeader (caption, sortBy, sortType, colSpan) {
-    return (
-      <th colSpan={colSpan}
-          onClick={this.onClickHeader.bind(null, sortBy, sortType)}
-          className={this.headerClassName(sortBy)}>
-        {caption}
-      </th>
-    );
-  },
-
   renderCaption () {
     return this.props.selectedHomeroom ? this.props.selectedHomeroom : "All Students";
   }
