@@ -13,11 +13,12 @@
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
     "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn run dev\"",
     "test": "jest --config jest.json --watch",
-    "test-cli": "yarn run lint-cli && jest --config jest.json"
+    "test-cli": "yarn run lint-cli && jest --config jest.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-runtime": "^6.26.0",
+    "coveralls": "^3.0.0",
     "d3": "3.5.12",
     "es5-shim": "^4.5.9",
     "highcharts": "^6.0.2",
