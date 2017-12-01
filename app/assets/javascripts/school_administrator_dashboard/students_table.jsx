@@ -1,5 +1,7 @@
 import React from 'react';
+
 import SortHelpers from '../helpers/sort_helpers.jsx';
+import * as Routes from '../helpers/Routes';
 
 
 export default React.createClass({
@@ -77,9 +79,12 @@ export default React.createClass({
           <caption>{this.renderCaption()}</caption>
           <thead>
             <tr>
-              {this.renderHeader('Last Name', 'last_name', 'string')}
-              {this.renderHeader('First Name', 'first_name', 'string')}
-              {this.renderHeader('Absences', 'absences', 'number')}
+              <th width="66.66%"
+                  onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
+                  className={this.headerClassName('last_name')}>Name</th>
+              <th width="33.33"
+                  onClick={this.onClickHeader.bind(null, 'absences', 'number')}
+                  className={this.headerClassName('absences')}>Absences</th>
             </tr>
           </thead>
           <tfoot>
@@ -92,9 +97,12 @@ export default React.createClass({
             {this.orderedRows().map(student => {
               return (
                 <tr>
-                  <td>{student.last_name}</td>
-                  <td>{student.first_name}</td>
-                  <td>{student.absences}</td>
+                  <td width="66.66%">
+                    <a href={Routes.studentProfile(student.id)}>
+                      {student.last_name}, {student.first_name}
+                    </a>
+                  </td>
+                  <td width="33.33%">{student.absences}</td>
                 </tr>
               );
             })}
@@ -104,9 +112,10 @@ export default React.createClass({
     );
   },
 
-  renderHeader (caption, sortBy, sortType) {
+  renderHeader (caption, sortBy, sortType, colSpan) {
     return (
-      <th onClick={this.onClickHeader.bind(null, sortBy, sortType)}
+      <th colSpan={colSpan}
+          onClick={this.onClickHeader.bind(null, sortBy, sortType)}
           className={this.headerClassName(sortBy)}>
         {caption}
       </th>
