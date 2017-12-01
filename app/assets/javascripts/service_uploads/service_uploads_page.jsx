@@ -14,10 +14,8 @@ import {merge} from '../helpers/react_helpers.jsx';
 
     getInitialState: function () {
       return {
-        serviceUploads: this.props.serializedData.serviceUploads, // Past uploads
-
-        // Data that goes to the Rails controller
-        formData: {},
+        serviceUploads: this.props.serializedData.serviceUploads, // Existing service uploads
+        formData: {},                                             // New service upload form data
 
         // Student LASID validation
         studentLasidsReceivedFromBackend: false,

@@ -55,7 +55,7 @@ class ServiceUploadsController < ApplicationController
     end
 
     render json: { service_upload: service_upload.as_json(
-      only: [:created_at, :file_name, :id, :uploaded_by_educator_id],
+      only: [:created_at, :file_name, :id],
       include: {
         services: {
           only: [],
