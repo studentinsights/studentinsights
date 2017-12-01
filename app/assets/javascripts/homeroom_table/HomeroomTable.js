@@ -18,7 +18,7 @@ class HomeroomTable extends React.Component {
     };
   }
 
-  orderedStudents () {
+  orderedStudents() {
     const sortedStudents = this.sortedStudents();
 
     if (!this.state.sortDesc) return sortedStudents.reverse();
@@ -26,7 +26,7 @@ class HomeroomTable extends React.Component {
     return sortedStudents;
   }
 
-  sortedStudents () {
+  sortedStudents() {
     const students = this.activeMergedStudentRows();
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
@@ -58,15 +58,15 @@ class HomeroomTable extends React.Component {
     }
   }
 
-  openColumnPicker () {
+  openColumnPicker() {
     this.setState({ showColumnPicker: true });
   }
 
-  closeColumnPicker () {
+  closeColumnPicker() {
     this.setState({ showColumnPicker: false });
   }
 
-  toggleColumn (columnKey) {
+  toggleColumn(columnKey) {
     const columnsDisplayed = _.clone(this.state.columnsDisplayed);
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
@@ -83,7 +83,7 @@ class HomeroomTable extends React.Component {
     this.setState({ columnsDisplayed: columnsDisplayed });
   }
 
-  columnKeysToNames () {
+  columnKeysToNames() {
     return {
       'risk': 'Risk',
       'program': 'Program',
@@ -94,50 +94,50 @@ class HomeroomTable extends React.Component {
     };
   }
 
-  columnKeys () {
+  columnKeys() {
     return Object.keys(this.columnKeysToNames());
   }
 
-  columnNames () {
+  columnNames() {
     return Object.values(this.columnKeysToNames());
   }
 
-  getInitialColumnsDisplayed () {
+  getInitialColumnsDisplayed() {
     return (
       Cookies.getJSON("columnsDisplayed") || this.columnKeys()
     );
   }
 
-  activeStudentRowFilter (row) {
+  activeStudentRowFilter(row) {
     return row.enrollment_status === 'Active';
   }
 
-  activeStudentRows () {
+  activeStudentRows() {
     return this.props.rows.filter(this.activeStudentRowFilter);
   }
 
-  mergeInStudentRiskLevel (row) {
+  mergeInStudentRiskLevel(row) {
     let risk = { risk: row['student_risk_level']['level'] };
     let sped_level = { sped_level: row['sped_data']['sped_level'] };
 
     return { ...row, ...risk, ...sped_level };
   }
 
-  activeMergedStudentRows () {
+  activeMergedStudentRows() {
     return this.activeStudentRows().map(this.mergeInStudentRiskLevel);
   }
 
-  warningBubbleClassName (row) {
+  warningBubbleClassName(row) {
     const riskLevel = row['student_risk_level']['level'] || 'na';
 
     return `warning-bubble risk-${riskLevel} tooltip`;
   }
 
-  visitStudentProfile (id) {
+  visitStudentProfile(id) {
     window.location.href = `/students/${id}`;
   }
 
-  showStar () {
+  showStar() {
     const columnsDisplayed = this.state.columnsDisplayed;
     const starDisplayed = _.indexOf(columnsDisplayed, 'star') > -1;
 
@@ -146,7 +146,7 @@ class HomeroomTable extends React.Component {
     return false;
   }
 
-  showMcas () {
+  showMcas() {
     const columnsDisplayed = this.state.columnsDisplayed;
     const mcasDisplayed = _.indexOf(columnsDisplayed, 'mcas') > -1;
 
@@ -155,7 +155,7 @@ class HomeroomTable extends React.Component {
     return false;
   }
 
-  onClickHeader (sortBy, sortType) {
+  onClickHeader(sortBy, sortType) {
     if (sortBy === this.state.sortBy) {
       this.setState({ sortDesc: !this.state.sortDesc });
     } else {
@@ -163,7 +163,7 @@ class HomeroomTable extends React.Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <div>
         {this.renderColumnPickerArea()}
@@ -175,7 +175,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderStarHeaders () {
+  renderStarHeaders() {
     return (
     [
       <td colSpan="1" key="star_math_header">
@@ -192,7 +192,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderStarSubHeaders () {
+  renderStarSubHeaders() {
     return (
     [
       <th className="sortable_header" key="star_math_sub_header"
@@ -207,7 +207,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderMcasHeaders () {
+  renderMcasHeaders() {
     return (
     [
       <td colSpan="2" key="mcas_math_header">
@@ -224,7 +224,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderMcasSubHeaders () {
+  renderMcasSubHeaders() {
     return (
     [
       <th className="sortable_header" key="mcas_math_sub_header_perf"
@@ -247,7 +247,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderStarData (row) {
+  renderStarData(row) {
     if (!this.showStar()) return null;
 
     return (
@@ -262,7 +262,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderMcasData (row) {
+  renderMcasData(row) {
     if (!this.showMcas()) return null;
 
     return (
@@ -283,7 +283,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderSubHeader (columnKey, label, sortBy, sortType) {
+  renderSubHeader(columnKey, label, sortBy, sortType) {
     const columnsDisplayed = this.state.columnsDisplayed;
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
@@ -297,7 +297,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderSuperHeader (columnKey, columnSpan, label) {
+  renderSuperHeader(columnKey, columnSpan, label) {
     const columnsDisplayed = this.state.columnsDisplayed;
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
@@ -316,7 +316,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderNameSubheader () {
+  renderNameSubheader() {
     return (
       <th className="name sortable_header"
           onClick={this.onClickHeader.bind(null, 'first_name', 'string')}>
@@ -327,7 +327,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderSubHeaders () {
+  renderSubHeaders() {
     return (
       <tr className="column-names">
         {/* COLUMN HEADERS */}
@@ -359,7 +359,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderHeaders () {
+  renderHeaders() {
     return (
       <thead>
         <tr className="column-groups">
@@ -378,7 +378,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderDataCell (columnKey, data) {
+  renderDataCell(columnKey, data) {
     const columnsDisplayed = this.state.columnsDisplayed;
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
@@ -408,7 +408,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderWarningBubble (row) {
+  renderWarningBubble(row) {
     return (
       <div className={this.warningBubbleClassName(row)}>
         {row['student_risk_level']['level'] || 'N/A'}
@@ -419,7 +419,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderDataWithSpedTooltip (row) {
+  renderDataWithSpedTooltip(row) {
     return (
       <div className={row['sped_data']['sped_bubble_class']}>
         {row['sped_data']['sped_level']}
@@ -430,7 +430,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderRow (row, index) {
+  renderRow(row, index) {
     const fullName = `${row['first_name']} ${row['last_name']}`;
     const id = row["id"];
     const style = (index % 2 === 0)
@@ -456,7 +456,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderRows () {
+  renderRows() {
     if (!this.props.rows) return null;
 
     const rows = this.orderedStudents();
@@ -468,7 +468,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderMenu () {
+  renderMenu() {
     return (
       <svg width="24px" height="6px" viewBox="0 0 24 6" version="1.1" >
         <g id="Roster" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" >
@@ -484,7 +484,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderColumnPickerArea () {
+  renderColumnPickerArea() {
     return (
       <div>
         <div onClick={this.openColumnPicker} id="column-picker-toggle">
@@ -495,7 +495,7 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderColumnSelect (columnKey) {
+  renderColumnSelect(columnKey) {
     const columnKeysToNames = this.columnKeysToNames();
     const columnName = columnKeysToNames[columnKey];
 
@@ -519,13 +519,13 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderColumnSelectors () {
+  renderColumnSelectors() {
     const columnKeys = this.columnKeys();
 
     return columnKeys.map((key) => { return this.renderColumnSelect(key); });
   }
 
-  renderColumnPickerMenu () {
+  renderColumnPickerMenu() {
     if (this.state.showColumnPicker === false) return null;
 
     return (
