@@ -13,7 +13,7 @@
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
     "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn run dev\"",
     "test": "jest --config jest.json --watch",
-    "test-cli": "yarn run lint-cli && jest --config jest.json"
+    "test-cli": "yarn run lint-cli && jest --config jest.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "babel-core": "^6.26.0",

@@ -6,5 +6,10 @@
   ],
   "setupFiles": [
     "./ui/config/setupTests.js"
+  ],
+  "collectCoverageFrom": [
+    "**/__tests__/**/*.js?(x)",
+    "**/?(*.)(spec|test).js?(x)",
+    "**/*_spec.js?(x)"
   ]
 }
