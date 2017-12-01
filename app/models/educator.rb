@@ -112,7 +112,7 @@ class Educator < ActiveRecord::Base
             .includes(additional_includes || [])
     else
       logger.warn("Fell through to empty array in #students_for_school_overview for educator_id: #{self.id}")
-      []
+      # []
     end
   end
 
