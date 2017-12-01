@@ -119,12 +119,9 @@ This is a Ruby on Rails app that uses a PostgreSQL database, and relies on React
 
 ## 1. Install dependencies
 
-You'll need Ruby, Postgres and yarn.  Choose your favorite local development approach:
+You'll need Ruby, Postgres and yarn. See our [local installation on OSX or Linux](docs/technical/local_installation_notes.md) guide.
 
-* [Local development with Docker](docs/technical/local_development_with_docker.md)
-* [Local installation on OSX or Linux](docs/technical/local_installation_notes.md)
-
-Then you can install Ruby and JavaScript dependencies with:
+One you have those set up, you can install the Ruby and JavaScript dependencies with:
 
 ```
 $ bundle install
