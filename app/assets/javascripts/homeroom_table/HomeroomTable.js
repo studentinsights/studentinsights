@@ -19,6 +19,7 @@ class HomeroomTable extends React.Component {
     this.onClickHeader = this.onClickHeader.bind(this);
     this.openColumnPicker = this.openColumnPicker.bind(this);
     this.closeColumnPicker = this.closeColumnPicker.bind(this);
+    this.toggleColumn = this.toggleColumn.bind(this);
   }
 
   orderedStudents() {
