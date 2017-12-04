@@ -3,7 +3,6 @@ import React from 'react';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 import * as Routes from '../helpers/Routes';
 
-
 export default React.createClass({
   displayName: 'StudentsTable',
 

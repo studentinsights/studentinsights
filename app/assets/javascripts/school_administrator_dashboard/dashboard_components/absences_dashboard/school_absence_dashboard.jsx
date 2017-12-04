@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 
-import DashboardHelpers from './dashboard_helpers.jsx';
-import StudentsTable from './students_table.jsx';
-import DashboardBarChart from './dashboard_bar_chart.jsx';
-import DateSlider from './date_slider.jsx';
+import DashboardHelpers from '../dashboard_helpers.jsx';
+import StudentsTable from '../students_table.jsx';
+import DashboardBarChart from '../dashboard_bar_chart.jsx';
+import DateSlider from '../date_slider.jsx';
 
 
 export default React.createClass({
