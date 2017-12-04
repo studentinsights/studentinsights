@@ -17,6 +17,8 @@ class HomeroomTable extends React.Component {
       sortDesc: true
     };
     this.onClickHeader = this.onClickHeader.bind(this);
+    this.openColumnPicker = this.openColumnPicker.bind(this);
+    this.closeColumnPicker = this.closeColumnPicker.bind(this);
   }
 
   orderedStudents() {
