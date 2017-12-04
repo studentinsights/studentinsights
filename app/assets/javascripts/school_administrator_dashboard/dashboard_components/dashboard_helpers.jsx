@@ -29,6 +29,13 @@ export default {
     return this.eventsGroupedByDay(absenceEvents);
   },
 
+  tardyEventsByDay: function(studentRecordsArray) {
+    const absenceEvents = _.flattenDeep(studentRecordsArray.map((student) => {
+      return student.tardies;
+    }));
+    return this.eventsGroupedByDay(absenceEvents);
+  },
+
   eventsGroupedByDay: function(events) {
     return _.groupBy(events, (event) => {
       return moment.utc(event.occurred_at).format("YYYY-MM-DD");
