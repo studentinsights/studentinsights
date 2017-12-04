@@ -16,6 +16,7 @@ class HomeroomTable extends React.Component {
       sortType: 'string',
       sortDesc: true
     };
+    this.onClickHeader = this.onClickHeader.bind(this);
   }
 
   orderedStudents() {
