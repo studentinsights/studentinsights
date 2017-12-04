@@ -39,6 +39,7 @@ export default React.createClass({
     seriesData: React.PropTypes.array.isRequired, // array of JSON event objects.
     titleText: React.PropTypes.string.isRequired,
     measureText: React.PropTypes.string.isRequired,
+    tooltip: React.PropTypes.object.isRequired,
     categoryGroups: React.PropTypes.object,
     onColumnClick: React.PropTypes.func,
     onBackgroundClick: React.PropTypes.func
@@ -84,14 +85,10 @@ export default React.createClass({
           }}
           title={{text: this.props.titleText}}
           yAxis={{
-            min: 80,
-            max: 100,
             allowDecimals: true,
             title: {text: this.props.measureText}
           }}
-          tooltip={{
-            pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
-            valueSuffix: '%'}}
+          tooltip={this.props.tooltip}
           series={[
             {
               showInLegend: false,

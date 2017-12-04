@@ -30,7 +30,7 @@ export default React.createClass({
     let monthlySchoolAttendance = {};
     //Use the filtered daterange to find the days to include
     this.state.displayDates.forEach((day) => {
-      let date = moment(day).date(1).format("YYYY-MM-DD"); //first day of the month in which 'day' occurs
+      let date = moment(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
       (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
       monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
       monthlySchoolAttendance[date] = monthlySchoolAttendance[date].concat(schoolAverageDailyAttendance[day]);
@@ -104,6 +104,9 @@ export default React.createClass({
           monthsBack = {categories.length}
           titleText = {'Average Attendance By Month'}
           measureText = {'Attendance (Percent)'}
+          tooltip = {{
+            pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
+            valueSuffix: '%'}}
           onColumnClick = {this.resetStudentList}
           onBackgroundClick = {this.resetStudentList}/>
     );
@@ -124,6 +127,9 @@ export default React.createClass({
           monthsBack = {12}
           titleText = {'Average Attendance By Homeroom'}
           measureText = {'Attendance (Percent)'}
+          tooltip = {{
+            pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
+            valueSuffix: '%'}}
           onColumnClick = {this.setStudentList}
           onBackgroundClick = {this.resetStudentList}/>
     );
@@ -139,7 +145,7 @@ export default React.createClass({
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
-        absences: studentAbsenceCounts[student.id] || 0
+        events: studentAbsenceCounts[student.id] || 0
       });
     });
 

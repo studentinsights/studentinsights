@@ -3,6 +3,7 @@ import {Switch, Route} from 'react-router-dom';
 
 import DashboardOverview from './dashboard_overview.jsx';
 import SchoolwideAbsences from './absences_dashboard/schoolwide_absences.jsx';
+import SchoolwideTardies from './tardies_dashboard/schoolwide_tardies.jsx';
 
 export default React.createClass({
   displayName: 'SchoolAdministratorDashboards',
