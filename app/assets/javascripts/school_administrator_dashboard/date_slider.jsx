@@ -3,7 +3,6 @@ import Slider from 'rc-slider';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
-const style = {width: 'auto', margin: 20};
 
 export default React.createClass({
   displayName: 'DateSlider',
