@@ -27,7 +27,7 @@ RSpec.describe InterventionMigrationHelper, type: :model do
       expect(service.student_id).to eq(intervention.student_id)
       expect(service.recorded_by_educator_id).to eq(7)
       expect(service.service_type_id).to eq(502)
-      expect(service.recorded_at).to eq(intervention.created_at)
+      expect(service.recorded_at.to_i).to eq(intervention.created_at.to_i)
       expect(service.date_started).to eq(intervention.start_date)
     end
 
@@ -38,7 +38,7 @@ RSpec.describe InterventionMigrationHelper, type: :model do
       expect(event_note.student_id).to eq(intervention.student_id)
       expect(event_note.educator_id).to eq(7)
       expect(event_note.event_note_type_id).to eq(304)
-      expect(event_note.recorded_at).to eq(intervention.created_at)
+      expect(event_note.recorded_at.to_i).to eq(intervention.created_at.to_i)
       expect(event_note.text).to eq("Student's mom said she liked the idea, excellent!\n\nGoal: Improve attendance.")
       expect(event_note.is_restricted).to eq(true)
     end
