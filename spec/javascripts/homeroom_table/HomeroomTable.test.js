@@ -2,12 +2,14 @@ import SpecSugar from '../support/spec_sugar.jsx';
 import HomeroomTable from '../../../app/assets/javascripts/homeroom_table/HomeroomTable.js';
 import students from '../fixtures/homeroom_students.jsx';
 import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-addons-test-utils';
 
 const helpers = {
   renderInto: function(el, props) {
     ReactDOM.render(<HomeroomTable {...props} />, el);
   }
 };
+
 
 SpecSugar.withTestEl('high-level integration test', (container) => {
   it('renders the table', () => {
@@ -23,5 +25,20 @@ SpecSugar.withTestEl('high-level integration test', (container) => {
 
     expect(el.innerHTML).toContain('Minnie Poppins');
     expect($(el).find('tr').length).toEqual(15);
+  });
+
+  it('opens column picker when clicking on column picker toggle ', () => {
+
+    const props = {
+      showStar: false,
+      showMcas: false,
+      rows: students
+    };
+
+    const el = container.testEl;
+    helpers.renderInto(el, props);
+
+    $(el).find('#column-picker-toggle').click();
+    expect($(el).find('#column-picker').length).toEqual(1);
   });
 });
