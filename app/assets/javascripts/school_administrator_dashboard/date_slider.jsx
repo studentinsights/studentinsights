@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'rc-slider';
+
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 const style = {width: 'auto', margin: 20};
@@ -20,12 +21,12 @@ export default React.createClass({
   },
 
   onBeginningDateInput: function(date) {
-    const newValue = [parseInt(moment(date.target.value).format("X")), this.state.value[1]];
+    const newValue = [parseInt(moment(date).format("X")), this.state.value[1]];
     this.setState({ value: newValue }, this.props.setDate(newValue));
   },
 
   onEndingDateInput: function(date) {
-    const newValue = [this.state.value[0], parseInt(moment(date.target.value).format("X"))];
+    const newValue = [this.state.value[0], parseInt(moment(date).format("X"))];
     this.setState({ value: newValue }, this.props.setDate(newValue));
   },
 
@@ -34,11 +35,49 @@ export default React.createClass({
   },
 
   render: function() {
+    const Datepicker = window.shared.Datepicker;
+
     return (
-      <div style={style}>
-        <input style={{marginBottom: '5px'}} type="date" value={moment.unix(this.state.value[0]).format("YYYY-MM-DD")} onChange={this.onBeginningDateInput} />
-        <input type="date" value={moment.unix(this.state.value[1]).format("YYYY-MM-DD")} onChange={this.onEndingDateInput} />
-        <Range
+      <div>
+          <div className='DashboardDatePicker'>
+            <label>From date:</label>
+            <Datepicker
+              styles={{
+                datepicker: {
+                  padding: 5
+                },
+                input: {
+                  fontSize: 12
+                }
+              }}
+              value={moment.unix(this.state.value[0]).format("YYYY-MM-DD")}
+              onChange={this.onBeginningDateInput}
+              datepickerOptions={{
+                showOn: 'both',
+                dateFormat: 'yy-mm-dd',
+                minDate: undefined
+              }} />
+          </div>
+          <div >
+            <label>To date:</label>
+            <Datepicker
+              styles={{
+                datepicker: {
+                  padding: 5
+                },
+                input: {
+                  fontSize: 12
+                }
+              }}
+              value={moment.unix(this.state.value[1]).format("YYYY-MM-DD")}
+              onChange={this.onEndingDateInput}
+              datepickerOptions={{
+                showOn: 'both',
+                dateFormat: 'yy-mm-dd',
+                minDate: undefined
+              }} />
+          </div>
+       <Range
           allowCross={false}
           min = {this.props.rangeStart}
           max = {this.props.rangeEnd}
