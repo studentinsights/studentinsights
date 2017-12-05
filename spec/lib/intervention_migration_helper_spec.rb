@@ -38,6 +38,7 @@ RSpec.describe InterventionMigrationHelper, type: :model do
       expect(event_note.student_id).to eq(intervention.student_id)
       expect(event_note.educator_id).to eq(7)
       expect(event_note.event_note_type_id).to eq(304)
+      expect(event_note.recorded_at).to eq(intervention.created_at)
       expect(event_note.text).to eq("Student's mom said she liked the idea, excellent!\n\nGoal: Improve attendance.")
       expect(event_note.is_restricted).to eq(true)
     end
