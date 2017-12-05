@@ -137,7 +137,7 @@ import {merge} from '../helpers/react_helpers.jsx';
       return (
         <div>
           <div style={{ marginBottom: 5, display: 'inline' }}>
-            Which service?
+            Which service? <span style={{color: 'red', fontWeight: 'bold'}}>*</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <div style={styles.buttonWidth}>
@@ -199,7 +199,7 @@ import {merge} from '../helpers/react_helpers.jsx';
             </div>
           </div>
           <div style={{ marginTop: 20 }}>
-            When did they start?
+            When did they start? <span style={{color: 'red', fontWeight: 'bold'}}>*</span>
           </div>
           <Datepicker
             styles={{
@@ -258,9 +258,14 @@ import {merge} from '../helpers/react_helpers.jsx';
             onClick={this.onClickCancel}>
             Cancel
           </button>
-          {(this.props.requestState === 'pending') ? <span>
-            Saving...
-          </span> : this.props.requestState}
+          <span>
+            {(this.props.requestState === 'pending') ? <span>
+              Saving...
+            </span> : this.props.requestState}
+          </span>
+          <div style={{color: 'red', marginTop: 15}}>
+            <span style={{fontWeight: 'bold'}}>*</span> = required field
+          </div>
         </div>
       );
     }
