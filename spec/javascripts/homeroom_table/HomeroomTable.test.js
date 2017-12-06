@@ -52,7 +52,6 @@ SpecSugar.withTestEl('high-level integration test', (container) => {
     helpers.renderInto(el, props);
 
     $(el).find('#column-picker-toggle').click();
-
     const checkbox = $(el).find('input[type=checkbox]').get(0);
     checkbox.click();
     expect(checkbox.checked).toEqual(false);
