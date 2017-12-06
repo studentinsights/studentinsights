@@ -3,12 +3,13 @@ import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 import Cookies from 'js-cookie';
 
-
 class HomeroomTable extends React.Component {
 
   constructor(props) {
     super(props);
+
     const initialColumns = this.getInitialColumnsDisplayed();
+
     this.state = {
       columnsDisplayed: initialColumns,
       showColumnPicker: false,
@@ -16,6 +17,7 @@ class HomeroomTable extends React.Component {
       sortType: 'string',
       sortDesc: true
     };
+
     this.onClickHeader = this.onClickHeader.bind(this);
     this.openColumnPicker = this.openColumnPicker.bind(this);
     this.closeColumnPicker = this.closeColumnPicker.bind(this);
