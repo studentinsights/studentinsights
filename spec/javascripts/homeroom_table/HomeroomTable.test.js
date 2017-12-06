@@ -53,6 +53,7 @@ SpecSugar.withTestEl('high-level integration test', (container) => {
 
     $(el).find('#column-picker-toggle').click();
     const checkbox = $(el).find('input[type=checkbox]').get(0);
+    expect($(el).find('span.table-header').length).toEqual(8);
     checkbox.click();
     expect(checkbox.checked).toEqual(false);
     expect($(el).find('span.table-header').length).toEqual(7);
