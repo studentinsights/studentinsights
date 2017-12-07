@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-import PropTypes from '../helpers/prop_types.jsx';
-import {fromPair} from '../helpers/from_pair.jsx';
-import {merge} from '../helpers/react_helpers.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
+import PropTypes from '../helpers/PropTypes';
+import {fromPair} from '../helpers/FromPair';
+import {merge} from '../helpers/ReactHelpers';
 
 (function() {
   window.shared || (window.shared = {});

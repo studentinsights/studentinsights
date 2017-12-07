@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
-import PropTypes from '../helpers/prop_types.jsx';
-import * as FeedHelpers from '../helpers/feed_helpers.jsx';
+import PropTypes from '../helpers/PropTypes';
+import * as FeedHelpers from '../helpers/FeedHelpers';
 
 (function() {
   window.shared || (window.shared = {});

@@ -1,4 +1,4 @@
-import SortHelpers from '../../../app/assets/javascripts/helpers/sort_helpers.jsx';
+import SortHelpers from '../../../app/assets/javascripts/helpers/SortHelpers';
 
 describe('SortHelpers', function() {
   describe('#sortByCustomEnum', function() {
@@ -10,10 +10,10 @@ describe('SortHelpers', function() {
       {testElement: 'One'},
       {testElement: null}
     ];
-    
+
     it('correctly sorts', function() {
       let sortData = preSortData.slice();
-      
+
       let targetData = [
         {testElement: null},
         {testElement: 'One'},
@@ -21,9 +21,9 @@ describe('SortHelpers', function() {
         {testElement: 'Five'},
         {testElement: 'Five'}
       ];
-      
+
       sortData.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, 'testElement', customEnum));
-      
+
       let match = true;
 
       for(let i=0; i<preSortData.length; i++){
@@ -33,7 +33,7 @@ describe('SortHelpers', function() {
       }
 
       expect(match).toBe(true);
-      
+
     });
   });
 
@@ -50,10 +50,10 @@ describe('SortHelpers', function() {
       {testElement: 1},
       {testElement: null}
     ];
-    
+
     it('correctly sorts', function() {
       let sortData = preSortData.slice();
-      
+
       let targetData = [
         {testElement: 5},
         {testElement: 5},
@@ -66,9 +66,9 @@ describe('SortHelpers', function() {
         {testElement: null},
         {testElement: null},
       ];
-      
+
       sortData.sort((a, b) => SortHelpers.sortByNumber(a, b, 'testElement'));
-      
+
       let match = true;
 
       for(let i=0; i<preSortData.length; i++){
@@ -78,7 +78,7 @@ describe('SortHelpers', function() {
       }
 
       expect(match).toBe(true);
-      
+
     });
   });
 

@@ -1,6 +1,5 @@
 import React from 'react';
-
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import SortHelpers from '../helpers/SortHelpers';
 import * as Routes from '../helpers/Routes';
 
 

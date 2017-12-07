@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import SortHelpers from '../helpers/SortHelpers';
 import FlexibleRoster from '../components/FlexibleRoster';
 
 
@@ -11,7 +11,7 @@ import FlexibleRoster from '../components/FlexibleRoster';
   /*
   Renders the table of sections.
   */
-  
+
   window.shared.StudentSectionsRoster = React.createClass({
     displayName: 'StudentSectionsRoster',
 
@@ -47,8 +47,8 @@ import FlexibleRoster from '../components/FlexibleRoster';
 
     styleSectionNumber: function(section, column) {
       const linkableSection = _.includes(this.props.linkableSections, section.id);
-      
-      return linkableSection ? 
+
+      return linkableSection ?
              this.styleSectionNumberLink(section) :
              this.styleSectionNumberNoLink(section);
     },
@@ -61,7 +61,7 @@ import FlexibleRoster from '../components/FlexibleRoster';
 
     render: function() {
       const sections = this.props.sections;
-      
+
       const columns = [
         {label: 'Section Number', key: 'section_number', cell:this.styleSectionNumber},
         {label: 'Course Description', key: 'course_description'},
@@ -71,7 +71,7 @@ import FlexibleRoster from '../components/FlexibleRoster';
         {label: 'Room', key: 'room_number'},
         {label: 'Term', key: 'term_local_id'}
       ];
-      
+
       return (
         <FlexibleRoster
           rows={sections}

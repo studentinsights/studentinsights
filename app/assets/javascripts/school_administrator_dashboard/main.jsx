@@ -1,5 +1,5 @@
 import SchoolwideAbsences from  './schoolwide_absences.jsx';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 
 export default function renderSchoolAdminDashboardMain(el) {
   const serializedData = $('#serialized-data').data();

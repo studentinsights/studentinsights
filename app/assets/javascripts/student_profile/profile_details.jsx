@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
-import ProfileDetailsStyle from '../helpers/profile_details_style.jsx';
-import {merge} from '../helpers/react_helpers.jsx';
+import ProfileDetailsStyle from '../helpers/ProfileDetailsStyle';
+import {merge} from '../helpers/ReactHelpers';
 
 (function() {
   window.shared || (window.shared = {});
