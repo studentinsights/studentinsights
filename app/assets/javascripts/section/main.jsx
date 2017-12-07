@@ -1,5 +1,5 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-import SectionPage from './SectionPage'
+import SectionPage from './SectionPage';
 
 export default function renderSectionMain(el) {
 
