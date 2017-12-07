@@ -1,4 +1,5 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import SchoolOverviewPage from './SchoolOverviewPage.js';
 import {parseFiltersHash} from '../helpers/Filters';
 
 // Load data from inline on the page or with another request
@@ -21,7 +22,6 @@ export default function renderSchoolOverviewMain(el, options = {}) {
 }
 
 function render(el, json) {
-  const SchoolOverviewPage = window.shared.SchoolOverviewPage;
   MixpanelUtils.registerUser(json.current_educator);
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'SCHOOL_OVERVIEW_DASHBOARD' });
   window.ReactDOM.render(<SchoolOverviewPage
