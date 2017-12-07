@@ -222,5 +222,3 @@ SchoolOverviewPage.propTypes = {
 };
 
 export default SchoolOverviewPage;
-
-
