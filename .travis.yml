@@ -24,5 +24,6 @@ script:
   - yarn test-cli
   - rubocop
   - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test
+  - bundle exec rake immigrant:check_keys
   - bundle exec rspec spec
   - ./scripts/ci/detect_package_lock.sh

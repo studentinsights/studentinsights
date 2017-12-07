@@ -40,7 +40,7 @@ table.students-list {
     border-bottom: 1px solid #ccc;
   }
 
-  tfoot td {
+  tbody td, thead th, tfoot td {
     float: left;
   }
 
@@ -50,11 +50,6 @@ table.students-list {
     overflow-x: hidden;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-  }
-
-  tbody td, thead th {
-    width: 33.3%;
-    float: left;
   }
 }
 
