@@ -1,19 +1,11 @@
-window.shared || (window.shared = {});
-
+import React from 'react';
 const Routes = window.shared.Routes;
 
-export default React.createClass({
-  displayName: 'SectionHeader',
-
-  propTypes: {
-    section: React.PropTypes.object.isRequired,
-    sections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-  },
+class SectionHeader extends React.Component {
 
   handleChangeSection(event) {
     window.location.href = Routes.section(event.target.value);
-  },
+  }
 
   render () {
     const section = this.props.section;
@@ -28,8 +20,8 @@ export default React.createClass({
         <div><p>Section: {this.renderSectionSelector()}</p></div>
       </div>
     );
-  },
-  
+  }
+
   renderSectionSelector() {
     return (
       <span>
@@ -44,13 +36,21 @@ export default React.createClass({
         </select>
       </span>
     );
-  },
-  
-  renderBulletSpacer: function() {
+  }
+
+  renderBulletSpacer() {
     return (
       <span>
         •
       </span>
     );
-  },
-});
+  }
+}
+
+SectionHeader.proptypes = {
+  section: React.PropTypes.object.isRequired,
+  sections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+};
+
+export default SectionHeader;
