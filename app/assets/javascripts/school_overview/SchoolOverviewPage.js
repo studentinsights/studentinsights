@@ -16,6 +16,7 @@ class SchoolOverviewPage extends React.Component {
     };
 
     this.onFilterToggled = this.onFilterToggled.bind(this);
+    this.clearFilters = this.clearFilters.bind(this);
   }
 
   // sink-only
