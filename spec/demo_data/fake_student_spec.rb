@@ -26,10 +26,6 @@ RSpec.describe FakeStudent do
     expect(student.race).not_to be_nil
   end
 
-  it 'adds student assessments' do
-    expect(student.student_assessments).not_to be_empty
-  end
-
   context 'd is 1 always' do
     let(:d) { {1 => 1.0} }
     it 'samples from a distribution correctly' do
