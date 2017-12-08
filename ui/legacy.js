@@ -51,7 +51,7 @@ import '../app/assets/javascripts/student_profile/page_container.jsx';
 import '../app/assets/javascripts/student_profile/parse_query_string.jsx';
 
   // restricted notes
-import '../app/assets/javascripts/restricted_notes/restricted_notes_page_container.jsx';
+import '../app/assets/javascripts/restricted_notes/RestrictedNotesPageContainer.js';
 
 
 // bulk services:
@@ -64,7 +64,7 @@ import '../app/assets/javascripts/school_overview/SchoolOverviewPage.js';
 
 // all the rest, unordered
 import '../app/assets/javascripts/homeroom_table/HomeroomTable.js';
-import '../app/assets/javascripts/restricted_notes/restricted_notes_page_container.jsx';
+import '../app/assets/javascripts/restricted_notes/RestrictedNotesPageContainer.js';
 import '../app/assets/javascripts/section/section_header.jsx';
 import '../app/assets/javascripts/section/section_page.jsx';
 import '../app/assets/javascripts/service_uploads/new_service_upload.jsx';
