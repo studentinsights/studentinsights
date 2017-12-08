@@ -49,7 +49,7 @@ import {merge} from '../helpers/react_helpers.jsx';
 
     propTypes: {
       chartData: React.PropTypes.shape({
-        star_series_reading_percentile: React.PropTypes.array,
+        star_series_reading_percentile: React.PropTypes.array.isRequired,
         mcas_series_ela_scaled: React.PropTypes.array,
         next_gen_mcas_ela_scaled: React.PropTypes.array,
         mcas_series_ela_growth: React.PropTypes.array
