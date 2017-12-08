@@ -52,7 +52,7 @@ import {merge} from '../helpers/react_helpers.jsx';
         star_series_reading_percentile: React.PropTypes.array.isRequired,
         mcas_series_ela_scaled: React.PropTypes.array,
         next_gen_mcas_ela_scaled: React.PropTypes.array,
-        mcas_series_ela_growth: React.PropTypes.array
+        mcas_series_ela_growth: React.PropTypes.array.isRequired
       }).isRequired,
       student: React.PropTypes.object.isRequired
     },
