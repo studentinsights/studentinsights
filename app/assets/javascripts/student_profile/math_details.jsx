@@ -50,8 +50,8 @@ import {merge} from '../helpers/react_helpers.jsx';
     propTypes: {
       chartData: React.PropTypes.shape({
         star_series_math_percentile: React.PropTypes.array.isRequired,
-        mcas_series_math_scaled: React.PropTypes.array.isRequired,
-        next_gen_mcas_mathematics_scaled: React.PropTypes.array.isRequired,
+        mcas_series_math_scaled: React.PropTypes.array,
+        next_gen_mcas_mathematics_scaled: React.PropTypes.array,
         mcas_series_math_growth: React.PropTypes.array.isRequired
       }).isRequired,
       student: React.PropTypes.object.isRequired
