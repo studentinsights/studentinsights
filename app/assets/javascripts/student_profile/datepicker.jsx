@@ -44,7 +44,6 @@ import {merge} from '../helpers/react_helpers.jsx';
     //This allows us to set the min and max dates dynamically to prevent selecting
     //start dates later than end dates and vice versa
     componentWillReceiveProps: function(newProps) {
-      const datepickerOptions = merge(datepickerOptionsFn(), newProps.datepickerOptions);
       const el = this.el;
       $(el).find('.datepicker').datepicker("option", newProps.datepickerOptions);
     },
