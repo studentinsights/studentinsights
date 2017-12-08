@@ -31,9 +31,10 @@ RSpec.describe PrecomputeStudentHashesJob do
       end
     end
 
-    context 'educator without students' do
+    context 'educators without students' do
       let!(:school) { FactoryGirl.create(:healey) }
       let!(:educator) { FactoryGirl.create(:educator, school: school, schoolwide_access: true) }
+      let!(:educator_not_schoolwide) { FactoryGirl.create(:educator, school: school) }
 
       before { PrecomputeStudentHashesJob.new(log).precompute_all!(Time.now) }
 
