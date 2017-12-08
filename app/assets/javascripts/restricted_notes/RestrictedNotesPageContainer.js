@@ -124,7 +124,7 @@ class RestrictedNotesPageContainer extends React.Component {
   }
 }
 
-RestrictedNotesPageContainer.proptypes = {
+RestrictedNotesPageContainer.propTypes = {
   nowMomentFn: React.PropTypes.func.isRequired,
   serializedData: React.PropTypes.object.isRequired,
 

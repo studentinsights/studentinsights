@@ -1,4 +1,4 @@
-import RestrictedNotesPageContainer from './RestrictedNotesPageContainer'
+import RestrictedNotesPageContainer from './RestrictedNotesPageContainer';
 
 export default function restrictedNotesMain(el) {
   // entry point, reading static bootstrapped data from the page
