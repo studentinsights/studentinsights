@@ -46,10 +46,7 @@ import {merge} from '../helpers/react_helpers.jsx';
     componentWillReceiveProps: function(newProps) {
       const datepickerOptions = merge(datepickerOptionsFn(), newProps.datepickerOptions);
       const el = this.el;
-      $(el).find('.datepicker').datepicker("destroy");
-      $(el).find('.datepicker').datepicker(merge(datepickerOptions, {
-        onSelect: this.onDateSelected
-      }));
+      $(el).find('.datepicker').datepicker("option", newProps.datepickerOptions);
     },
 
     // Datepicker suppresses DOM change events,
