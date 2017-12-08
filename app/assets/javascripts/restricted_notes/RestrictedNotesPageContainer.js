@@ -3,9 +3,6 @@ import PropTypes from '../helpers/prop_types.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 import React from 'react';
 
-const NotesDetails = window.shared.NotesDetails;
-const Api = window.shared.Api;
-
 /*
 Holds page state, makes API calls to manipulate it.
 */
@@ -40,10 +37,12 @@ class RestrictedNotesPageContainer extends React.Component {
       }
     };
 
-    this.componentWillMount = this.componentWillMount.bind(this);
+    this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
+    this.onSaveNotesDone = this.onSaveNotesDone.bind(this);
   }
 
   componentWillMount(props, state) {
+    const Api = window.shared.Api;
     this.api = this.props.api || new Api();
   }
 
@@ -74,6 +73,7 @@ class RestrictedNotesPageContainer extends React.Component {
   }
 
   render() {
+    const NotesDetails = window.shared.NotesDetails;
     return (
       <div className="RestrictedNotesPageContainer">
         <div className="RestrictedNotesDetails" style={{display: 'flex'}}>
@@ -127,16 +127,14 @@ class RestrictedNotesPageContainer extends React.Component {
 RestrictedNotesPageContainer.proptypes = {
   nowMomentFn: React.PropTypes.func.isRequired,
   serializedData: React.PropTypes.object.isRequired,
-  api: PropTypes.api,
 
-  // for testing
   actions: React.PropTypes.shape({
     onClickSaveNotes: React.PropTypes.func
-  })
+  }),
+  api: PropTypes.api
 };
 
 export default RestrictedNotesPageContainer;
-
 
 
 
