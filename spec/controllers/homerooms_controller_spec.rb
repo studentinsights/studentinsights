@@ -184,7 +184,7 @@ describe HomeroomsController, :type => :controller do
         let!(:homeroom) { FactoryGirl.create(:homeroom) }
         it 'redirects to no-homeroom error page' do
           make_request(homeroom.slug)
-          expect(response).to redirect_to(no_homeroom_url)
+          expect(response).to redirect_to(no_default_page_url)
         end
       end
     end

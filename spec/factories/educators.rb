@@ -4,7 +4,7 @@ FactoryGirl.define do
   sequence(:staff_local_id) { |n| "000#{n}" }
 
   factory :educator do
-    password "PairShareCompare"
+    password 'demo-password' # All the same for local development and the demo site
     email { FactoryGirl.generate(:email) }
     local_id { FactoryGirl.generate(:staff_local_id) }
     association :school

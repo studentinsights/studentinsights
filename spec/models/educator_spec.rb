@@ -157,15 +157,6 @@ RSpec.describe Educator do
   end
 
   describe '#default_homeroom' do
-
-    context 'no homerooms' do
-      let(:educator) { FactoryGirl.create(:educator) }
-
-      it 'raises an error' do
-        expect { educator.default_homeroom }.to raise_error Exceptions::NoHomerooms
-      end
-    end
-
     context 'educator assigned a homeroom' do
       let(:educator) { FactoryGirl.create(:educator) }
       let!(:homeroom) { FactoryGirl.create(:homeroom, educator: educator) }

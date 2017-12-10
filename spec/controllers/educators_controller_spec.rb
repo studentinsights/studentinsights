@@ -15,7 +15,7 @@ describe EducatorsController, :type => :controller do
         let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
         it 'redirects to default homeroom' do
           make_request
-          expect(response).to redirect_to(homeroom_url(educator.homeroom))
+          expect(response).to redirect_to(homeroom_path(educator.homeroom))
         end
       end
 
@@ -24,7 +24,7 @@ describe EducatorsController, :type => :controller do
         let!(:homeroom) { FactoryGirl.create(:homeroom) }   # Not associated with educator
         it 'redirects to no homeroom assigned page' do
           make_request
-          expect(response).to redirect_to(no_homeroom_url)
+          expect(response).to redirect_to(no_default_page_path)
         end
       end
     end
