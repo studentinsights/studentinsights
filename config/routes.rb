@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :educators
     root to: "educators#index"
+    get 'district/notes_heatmap' => 'district#notes_heatmap'
+    get 'district/restricted_notes_heatmap' => 'district#restricted_notes_heatmap'
   end
 
   devise_for :educators
@@ -56,7 +58,4 @@ Rails.application.routes.draw do
       get :csv
     end
   end
-
-  get 'district/notes_heatmap' => 'district#notes_heatmap'
-  get 'district/restricted_notes_heatmap' => 'district#restricted_notes_heatmap'
 end
