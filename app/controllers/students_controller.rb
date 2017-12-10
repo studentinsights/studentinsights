@@ -1,43 +1,47 @@
 class StudentsController < ApplicationController
   include ApplicationHelper
 
-  rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
-
-  before_action :authorize!, except: [          # The :names and lasids actions are subject to
-    :names, :lasids                             # educator authentication via :authenticate_educator!
-  ]                                             # inherited from ApplicationController.
-                                                # They then get further authorization filtering using
-                                                # The custom authorization methods below.
-
-  before_action :authorize_for_districtwide_access_admin, only: [:lasids]
-
-  def authorize!
-    student = Student.find(params[:id])
-    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
-  end
-
-  def authorize_for_districtwide_access_admin
-    unless current_educator.admin? && current_educator.districtwide_access?
-      render json: { error: "You don't have the correct authorization." }
+  rescue_from Exceptions::EducatorNotAuthorized do
+    puts "RAISED!"
+    if request.format.json?
+      render_unauthorized_json! 
+    else
+      redirect_unauthorized!
     end
   end
 
+  rescue_from ActionController::ParameterMissing do
+    render json: {}, status: 400
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do 
+    render json: {}, status: 404
+  end
+
   def show
-    student = Student.find(params[:id])
+    puts '#show'
+    student = authorized_or_raise! { Student.find(params[:id]) }
+    puts "  student: #{student}"
+    sections = authorized { student.sections_with_grades }
+    puts "  sections: #{sections}"
+    event_notes = authorized { student.event_notes.without_restricted }
+    puts "  event_notes: #{event_notes}"
+    restricted_notes_count = authorized { student.event_notes.restricted }.size
+    puts "  restricted_notes_count: #{restricted_notes_count}"
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
       current_educator: current_educator,
-      student: serialize_student_for_profile(student),          # Risk level, school homeroom, most recent school year attendance/discipline counts
-      feed: student_feed(student, restricted_notes: false),     # Notes, services
-      chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
+      student: serialize_student_for_profile(student, restricted_notes_count), # Risk level, school homeroom, most recent school year attendance/discipline counts
+      feed: student_feed(student, event_notes),                     # Notes, services
+      chart_data: chart_data,                                            # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
       service_types_index: ServiceSerializer.service_types_index,
       event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
       iep_document: student.iep_document,
-      sections: serialize_student_sections_for_profile(student),
+      sections: serialize_sections_for_profile(sections),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
       attendance_data: {
         discipline_incidents: student.discipline_incidents.order(occurred_at: :desc),
@@ -51,11 +55,12 @@ class StudentsController < ApplicationController
   def restricted_notes
     raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
 
-    student = Student.find(params[:id])
+    student = authorized_or_raise! { Student.find(params[:id]) }
+    restricted_notes = authorized { student.event_notes.restricted }
     @serialized_data = {
       current_educator: current_educator,
-      student: serialize_student_for_profile(student),
-      feed: student_feed(student, restricted_notes: true),
+      student: serialize_student_for_profile(student, restricted_notes.size),
+      feed: student_feed(student, restricted_notes),
       event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
     }
@@ -97,6 +102,7 @@ class StudentsController < ApplicationController
       :estimated_end_date
     ])
 
+    authorized_or_raise! { Student.find(clean_params[:student_id]) }
     estimated_end_date = clean_params["estimated_end_date"]
 
     service = Service.new(clean_params.merge({
@@ -130,12 +136,13 @@ class StudentsController < ApplicationController
   # Used by the service upload page to validate student local ids
   # LASID => "locally assigned ID"
   def lasids
-    render json: Student.pluck(:local_id)
+    students = authorized { Student.select(:local_id, :school_id).all }
+    render json: students.map(&:local_id)
   end
 
   private
 
-  def serialize_student_for_profile(student)
+  def serialize_student_for_profile(student, restricted_notes_count)
     student.as_json.merge({
       student_risk_level: student.student_risk_level.as_json,
       absences_count: student.most_recent_school_year_absences_count,
@@ -144,21 +151,18 @@ class StudentsController < ApplicationController
       school_type: student.try(:school).try(:school_type),
       homeroom_name: student.try(:homeroom).try(:name),
       discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
-      restricted_notes_count: student.event_notes.where(is_restricted: true).count,
+      restricted_notes_count: restricted_notes_count,
     }).stringify_keys
   end
 
-  def serialize_student_sections_for_profile(student)
-    student.sections_with_grades.as_json({:include => { :educators => {:only => :full_name}}, :methods => :course_description})
+  def serialize_sections_for_profile(sections)
+    sections.as_json({:include => { :educators => {:only => :full_name}}, :methods => :course_description})
   end
 
   # The feed of mutable data that changes most frequently and is owned by Student Insights.
-  # restricted_notes: If false display non-restricted notes, if true display only restricted notes.
-  def student_feed(student, restricted_notes: false)
+  def student_feed(student, event_notes)
     {
-      event_notes: student.event_notes
-        .select {|note| note.is_restricted == restricted_notes}
-        .map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
+      event_notes: event_notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }
@@ -169,33 +173,15 @@ class StudentsController < ApplicationController
     }
   end
 
-  def school_year_id_range(from_date, to_date)
-    # Find the years represented by the dates
-
-    #start with to_date and work backward each year until < from_date
-    current_date = to_date
-    school_year_ids = []
-
-    while current_date > from_date do
-      school_year_ids.push(DateToSchoolYear.new(current_date).convert.id)
-
-      current_date = current_date - 1.year
-    end
-
-    return school_year_ids
-
-  end
-
   def set_up_student_report_data
-    @student = Student.find(params[:id])
-    @current_educator = current_educator
-    @sections = (params[:sections] || "").split(",")
-
+    @sections = (params[:sections] || "").split(",") # sections of the report
     @filter_from_date = params[:from_date] ? Date.strptime(params[:from_date],  "%m/%d/%Y") : Date.today()
     @filter_to_date = params[:from_date] ? Date.strptime(params[:to_date],  "%m/%d/%Y") : Date.today()
 
-    # Load event notes that are NOT restricted for the student for the filtered dates
-    @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_date..@filter_to_date)
+    # Load event notes for the student for the filtered dates
+    @current_educator = current_educator
+    @student = authorized_or_raise! { Student.find(params[:id]) }
+    @event_notes = authorized { @student.event_notes.without_restricted.where(recorded_at: @filter_from_date..@filter_to_date) }
 
     # Load services for the student for the filtered dates
     @services = @student.services.where("date_started <= ? AND (discontinued_at >= ? OR discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_at')
