@@ -89,7 +89,7 @@ class Api extends React.Component {
       method: 'DELETE'
     });
   }
-};
+}
 
 export default Api;
 
