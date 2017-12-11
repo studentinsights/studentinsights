@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from '../helpers/prop_types.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 import React from 'react';
+import Api from '../student_profile/api.js'
 
 /*
 Holds page state, makes API calls to manipulate it.
@@ -42,7 +43,6 @@ class RestrictedNotesPageContainer extends React.Component {
   }
 
   componentWillMount(props, state) {
-    const Api = window.shared.Api;
     this.api = this.props.api || new Api();
   }
 

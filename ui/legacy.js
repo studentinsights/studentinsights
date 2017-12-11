@@ -46,7 +46,7 @@ import '../app/assets/javascripts/student_profile/math_details.jsx';
   // page:
 import '../app/assets/javascripts/student_profile/student_profile_page.jsx';
   // (unordered)
-import '../app/assets/javascripts/student_profile/api.jsx';
+import '../app/assets/javascripts/student_profile/api.js';
 import '../app/assets/javascripts/student_profile/page_container.jsx';
 import '../app/assets/javascripts/student_profile/parse_query_string.jsx';
 
