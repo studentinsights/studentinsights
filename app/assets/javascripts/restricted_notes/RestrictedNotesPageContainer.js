@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from '../helpers/prop_types.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 import React from 'react';
+import NotesDetails  from '../student_profile/notes_details.js';
 import Api from '../student_profile/api.js';
 
 /*
@@ -73,7 +74,6 @@ class RestrictedNotesPageContainer extends React.Component {
   }
 
   render() {
-    const NotesDetails = window.shared.NotesDetails;
     return (
       <div className="RestrictedNotesPageContainer">
         <div className="RestrictedNotesDetails" style={{display: 'flex'}}>
