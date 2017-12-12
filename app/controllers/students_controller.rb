@@ -127,7 +127,7 @@ class StudentsController < ApplicationController
     if cached_json_for_searchbar
       render json: cached_json_for_searchbar
     else
-      render json: SearchbarHelper.names_for(current_educator)
+      render json: Searchbar.names_for(current_educator)
     end
   end
 
