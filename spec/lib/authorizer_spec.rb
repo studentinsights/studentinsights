@@ -108,7 +108,6 @@ RSpec.describe Authorizer do
         expect(authorized(pals.shs_bill_nye) { Student.all }).to eq [
           pals.shs_freshman_mari
         ]
-        expect(authorized(pals.healey_ell_teacher) { Student.all }).to eq []
       end
 
       it 'limits access for Student.find' do

@@ -26,9 +26,11 @@ Rails.application.routes.draw do
     get ENV['LETS_ENCRYPT_ENDPOINT'] => 'pages#lets_encrypt_endpoint'
   end
 
-  get '/students/names' => 'students#names'
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
+    collection do
+      get :names
+    end
     member do
       get :student_report
       get :restricted_notes

@@ -18,6 +18,7 @@ class TestPals
 
   # students
   attr_reader :healey_kindergarten_student
+  attr_reader :healey_meredith_student
   attr_reader :shs_freshman_mari
 
   # educators
@@ -133,7 +134,19 @@ class TestPals
       homeroom: @healey_kindergarten_homeroom,
       grade: 'KF',
       local_id: '111111111'
-    )
+    })
+    @healey_meredith_student = FactoryGirl.create(:student, {
+      first_name: 'Meredith',
+      last_name: 'Solo',
+      school: @healey,
+      homeroom: @healey_fifth_homeroom,
+      grade: '5',
+      program_assigned: 'Sp Ed',
+      sped_level_of_need: 'Moderate',
+      sped_placement: 'Full Inclusion',
+      iep_document: IepDocument.create({ file_name: 'meredith_iep_document' })
+    })
+
 
     # West is a K8 school
     @west = School.find_by_local_id!('WSNS')
