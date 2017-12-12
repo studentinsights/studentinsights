@@ -38,13 +38,13 @@ RSpec.describe Authorizer do
       expect(authorized(pals.shs_bill_nye) { students }).to eq [pals.shs_freshman_mari]
     end
 
-    it 'does not work when fields are missing' do
+    it 'does not work when fields are missing on concrete models' do
       test_fields = Authorizer.student_fields_for_authorization - [:id]
 
       # Test each of the required fields individually
       test_fields.each do |missing_field|
         some_fields = test_fields - [missing_field]
-        students = Student.select(*some_fields).all
+        students = Student.select(*some_fields).all.to_a
 
         # Different educator permissions check different field.
         # When this particular required field is missing, the check for
