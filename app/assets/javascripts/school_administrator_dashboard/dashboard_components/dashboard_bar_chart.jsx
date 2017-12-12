@@ -35,7 +35,7 @@ export default React.createClass({
 
   propTypes: {
     id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
-    categories: React.PropTypes.array.isRequired, //Buckets used for X Axis
+    categories: React.PropTypes.object.isRequired,  //Buckets used for X Axis
     seriesData: React.PropTypes.array.isRequired, // array of JSON event objects.
     titleText: React.PropTypes.string.isRequired,
     measureText: React.PropTypes.string.isRequired,
@@ -70,11 +70,7 @@ export default React.createClass({
             }
           }}
           credits={false}
-          xAxis={[
-            {
-              categories: this.props.categories
-            }, this.props.categoryGroups
-          ]}
+          xAxis={[this.props.categories]}
           plotOptions={{
             series: {
               cursor: 'pointer',

@@ -1,10 +1,8 @@
 import React from 'react';
-import _ from 'lodash';
 
 import DashboardHelpers from '../dashboard_helpers.jsx';
 import StudentsTable from '../students_table.jsx';
 import DashboardBarChart from '../dashboard_bar_chart.jsx';
-import DateSlider from '../date_slider.jsx';
 
 
 export default React.createClass({
@@ -20,6 +18,20 @@ export default React.createClass({
     return {
       selectedHomeroom: null
     };
+  },
+
+  createMonthCategories: function(eventsByDay) {
+    let monthCategories = {};
+    let lastStoredMonth;
+
+    Object.keys(eventsByDay).sort().forEach((day, dayIndex) => {
+      const month = moment(day).date(1).format("MMM 'YY");
+      if (lastStoredMonth != month) {
+        monthCategories[dayIndex] = month;
+        lastStoredMonth = month;
+      }
+    });
+    return monthCategories;
   },
 
   setStudentList: function(highchartsEvent) {
@@ -48,13 +60,19 @@ export default React.createClass({
     const seriesData = Object.keys(this.props.schoolTardyEvents).sort().map((date) => {
       return this.props.schoolTardyEvents[date].length;
     });
+    const monthCategories = this.createMonthCategories(this.props.schoolTardyEvents);
 
     return (
         <DashboardBarChart
           id = {'string'}
-          categories = {Object.keys(this.props.schoolTardyEvents).sort()}
+          categories = {{
+            offset: 0,
+            linkedTo: 0,
+            categories: monthCategories,
+            tickPositions: Object.keys(monthCategories).map(Number),
+            tickmarkPlacement: "on"
+          }}
           seriesData = {seriesData}
-          monthsBack = {12}
           titleText = {'Schoolwide Tardies'}
           measureText = {'Number of Tardies'}
           tooltip = {{
@@ -72,9 +90,8 @@ export default React.createClass({
     return (
         <DashboardBarChart
           id = {'string'}
-          categories = {homerooms}
+          categories = {{categories: homerooms}}
           seriesData = {homeroomSeries}
-          monthsBack = {12}
           titleText = {'Tardies By Homeroom'}
           measureText = {'Number of Tardies'}
           tooltip = {{
