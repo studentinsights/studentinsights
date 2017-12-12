@@ -165,23 +165,6 @@ class StudentsController < ApplicationController
     }
   end
 
-  def school_year_id_range(from_date, to_date)
-    # Find the years represented by the dates
-
-    #start with to_date and work backward each year until < from_date
-    current_date = to_date
-    school_year_ids = []
-
-    while current_date > from_date do
-      school_year_ids.push(DateToSchoolYear.new(current_date).convert.id)
-
-      current_date = current_date - 1.year
-    end
-
-    return school_year_ids
-
-  end
-
   def set_up_student_report_data
     @student = Student.find(params[:id])
     @current_educator = current_educator
