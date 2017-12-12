@@ -444,27 +444,27 @@ describe StudentsController, :type => :controller do
     let(:student) { FactoryGirl.create(:student) }
     let(:educator) { FactoryGirl.create(:educator, :admin) }
     let!(:service) { create_service(student, educator) }
-    let!(:event_note) { create_event_note(student, educator) }
+    let!(:event_notes) { [create_event_note(student, educator)] }
 
     it 'returns services' do
-      feed = controller.send(:student_feed, student)
+      feed = controller.send(:student_feed, student, event_notes)
       expect(feed.keys).to eq([:event_notes, :services, :deprecated])
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:discontinued].first[:id]).to eq service.id
     end
 
     it 'returns event notes' do
-      feed = controller.send(:student_feed, student)
-      event_notes = feed[:event_notes]
+      feed = controller.send(:student_feed, student, event_notes)
+      actual_event_notes = feed[:event_notes]
 
-      expect(event_notes.size).to eq 1
-      expect(event_notes.first[:student_id]).to eq(student.id)
-      expect(event_notes.first[:educator_id]).to eq(educator.id)
+      expect(actual_event_notes.size).to eq 1
+      expect(actual_event_notes.first[:student_id]).to eq(student.id)
+      expect(actual_event_notes.first[:educator_id]).to eq(educator.id)
     end
 
     context 'after service is discontinued' do
       it 'filters it' do
-        feed = controller.send(:student_feed, student)
+        feed = controller.send(:student_feed, student, event_notes)
         expect(feed[:services][:active].size).to eq 0
         expect(feed[:services][:discontinued].first[:id]).to eq service.id
       end
