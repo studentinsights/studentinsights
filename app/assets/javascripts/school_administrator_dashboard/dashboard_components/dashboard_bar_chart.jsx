@@ -55,7 +55,7 @@ export default React.createClass({
   //have changed, this is necessary to prevent rerendering the charts when the
   //user only wanted to select a homeroom.
   shouldComponentUpdate: function(nextProps) {
-    return !_.isEqual(this.props, nextProps);
+    return !_.isEqual(this.props.seriesData, nextProps.seriesData);
   },
 
   render: function() {
