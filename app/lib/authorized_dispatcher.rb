@@ -32,7 +32,7 @@ class AuthorizedDispatcher
     # and adds them in if not.  The developer was probably trying to optimize the
     # query, and we can adjust it a bit to get what we need for authorization.
     # So we do that and continue.
-    if relation.klass == Student.class
+    if relation.klass == Student
       relation_with_required_fields = relation.select(*Authorizer.student_fields_for_authorization)
       filter_array(relation_with_required_fields.to_a)
     else
