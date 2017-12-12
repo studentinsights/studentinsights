@@ -277,7 +277,7 @@ describe StudentsController, :type => :controller do
         service: service_params
       }
     end
-    
+
     # Returns a list of all students that the educator
     # can post a service for and get a 200 back.
     def can_post_service_for(educator, students)

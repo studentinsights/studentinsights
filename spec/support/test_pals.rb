@@ -148,7 +148,6 @@ class TestPals
       iep_document: IepDocument.create({ file_name: 'meredith_iep_document' })
     })
 
-
     # West is a K8 school
     @west = School.find_by_local_id!('WSNS')
     @west_fifth_homeroom = Homeroom.create!(

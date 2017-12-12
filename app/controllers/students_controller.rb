@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
 
     @serialized_data = {
       current_educator: current_educator,
-      student: serialize_student_for_profile(student, restricted_notes_count),       
+      student: serialize_student_for_profile(student, restricted_notes_count),
       feed: student_feed(student, event_notes),  # Notes, services
       chart_data: StudentProfileChart.new(student).chart_data,  # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
@@ -156,7 +156,7 @@ class StudentsController < ApplicationController
     @current_educator = current_educator
     @student = authorized_or_raise! { Student.find(params[:id]) }
     @event_notes = authorized { @student.event_notes.without_restricted.where(recorded_at: @filter_from_date..@filter_to_date) }
-  
+
     # Load services for the student for the filtered dates
     @services = @student.services.where("date_started <= ? AND (discontinued_at >= ? OR discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_at')
 

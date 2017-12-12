@@ -207,7 +207,6 @@ RSpec.describe Authorizer do
       end
     end
 
-
     describe 'Section' do
       it 'limits access for relation' do
         sections = Section.all
