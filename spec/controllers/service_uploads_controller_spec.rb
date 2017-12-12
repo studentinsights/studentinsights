@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ServiceUploadsController, type: :controller do
+  let!(:pals) { TestPals.create! }
 
   describe '#create' do
     let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
@@ -152,7 +153,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
         let(:educator) { FactoryGirl.create(:educator) }
         it 'cannot access the page; gets redirected' do
           make_request
-          expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })
+          expect(response).to redirect_to(not_authorized_path)
         end
       end
     end
@@ -163,7 +164,6 @@ RSpec.describe ServiceUploadsController, type: :controller do
         expect(response).to redirect_to(new_educator_session_url)
       end
     end
-
   end
 
   describe '#past' do

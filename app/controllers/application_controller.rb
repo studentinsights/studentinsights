@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
     render text: exception, status: 500
   end
 
+  rescue_from Exceptions::EducatorNotAuthorized do
+    if request.format.json?
+      render_unauthorized_json! 
+    else
+      redirect_unauthorized!
+    end
+  end
+  
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception

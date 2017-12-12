@@ -1,14 +1,6 @@
 class StudentsController < ApplicationController
   include ApplicationHelper
 
-  rescue_from Exceptions::EducatorNotAuthorized do
-    if request.format.json?
-      render_unauthorized_json! 
-    else
-      redirect_unauthorized!
-    end
-  end
-
   # The :names and lasids actions are subject to
   # educator authentication via :authenticate_educator!
   # inherited from ApplicationController.
@@ -16,12 +8,9 @@ class StudentsController < ApplicationController
   # The custom authorization methods below.
   before_action :authorize!, except: [          
     :names,
-    :lasids,
     :show,
     :restricted_notes
-  ]                                             
-
-  before_action :authorize_for_districtwide_access_admin, only: [:lasids]
+  ]
 
   def authorize!
     student = Student.find(params[:id])
@@ -140,13 +129,6 @@ class StudentsController < ApplicationController
     else
       render json: SearchbarHelper.names_for(current_educator)
     end
-  end
-
-  # Used by the service upload page to validate student local ids
-  # LASID => "locally assigned ID"
-  def lasids
-    students = authorized { Student.select(:local_id, :school_id).all }
-    render json: students.map(&:local_id)
   end
 
   private
