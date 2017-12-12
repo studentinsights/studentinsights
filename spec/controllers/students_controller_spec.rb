@@ -16,6 +16,7 @@ def create_event_note(student, educator)
 end
 
 describe StudentsController, :type => :controller do
+  let!(:pals) { TestPals.create! }
 
   describe '#show' do
     let!(:school) { FactoryGirl.create(:school) }
@@ -278,6 +279,43 @@ describe StudentsController, :type => :controller do
         service: service_params
       }
     end
+    
+    def updates_allowed_for(educator, students)
+      allowed_students = []
+      students.each do |student|
+        sign_in(educator)
+        make_post_request(student, {
+          student_id: student.id,
+          service_type_id: 503,
+          date_started: '2016-02-22',
+          provided_by_educator_id: educator.id
+        })
+        sign_out(educator)
+        if response.status == 200
+          allowed_students << student
+        end
+      end
+      allowed_students
+    end
+
+    it 'enforces authorization rules' do
+      students = [
+        pals.healey_kindergarten_student,
+        pals.shs_freshman_mari
+      ]
+      expect(updates_allowed_for(pals.uri, students)).to eq students
+      expect(updates_allowed_for(pals.healey_vivian_teacher, students)).to eq [pals.healey_kindergarten_student]
+      expect(updates_allowed_for(pals.healey_ell_teacher, students)).to eq []
+      expect(updates_allowed_for(pals.healey_sped_teacher, students)).to eq []
+      expect(updates_allowed_for(pals.healey_laura_principal, students)).to eq [pals.healey_kindergarten_student]
+      expect(updates_allowed_for(pals.healey_sarah_teacher, students)).to eq []
+      expect(updates_allowed_for(pals.west_marcus_teacher, students)).to eq []
+      expect(updates_allowed_for(pals.shs_jodi, students)).to eq [pals.shs_freshman_mari]
+      expect(updates_allowed_for(pals.shs_bill_nye, students)).to eq [pals.shs_freshman_mari]
+      expect(updates_allowed_for(pals.shs_ninth_grade_counselor, students)).to eq [pals.shs_freshman_mari]
+      expect(updates_allowed_for(pals.shs_hugo_art_teacher, students)).to eq []
+      expect(updates_allowed_for(pals.shs_fatima_science_teacher, students)).to eq []
+    end
 
     context 'admin educator logged in' do
       let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
@@ -339,12 +377,11 @@ describe StudentsController, :type => :controller do
 
       context 'when missing params' do
         it 'fails with error messages' do
-          make_post_request(student, { text: 'foo' })
+          make_post_request(student, { text: 'foo', student_id: student.id })
           expect(response.status).to eq 422
           response_body = JSON.parse(response.body)
           expect(response_body).to eq({
             "errors" => [
-              "Student can't be blank",
               "Service type can't be blank",
               "Date started can't be blank"
             ]

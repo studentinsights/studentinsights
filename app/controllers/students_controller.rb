@@ -1,7 +1,13 @@
 class StudentsController < ApplicationController
   include ApplicationHelper
 
-  rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
+  rescue_from Exceptions::EducatorNotAuthorized do
+    if request.format.json?
+      render_unauthorized_json! 
+    else
+      redirect_unauthorized!
+    end
+  end
 
   # The :names and lasids actions are subject to
   # educator authentication via :authenticate_educator!
@@ -105,9 +111,9 @@ class StudentsController < ApplicationController
       :provided_by_educator_name,
       :estimated_end_date
     ])
+    authorized_or_raise! { Student.find(clean_params[:student_id]) }
 
     estimated_end_date = clean_params["estimated_end_date"]
-
     service = Service.new(clean_params.merge({
       recorded_by_educator_id: current_educator.id,
       recorded_at: Time.now
@@ -139,7 +145,8 @@ class StudentsController < ApplicationController
   # Used by the service upload page to validate student local ids
   # LASID => "locally assigned ID"
   def lasids
-    render json: Student.pluck(:local_id)
+    students = authorized { Student.select(:local_id, :school_id).all }
+    render json: students.map(&:local_id)
   end
 
   private
