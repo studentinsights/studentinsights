@@ -99,13 +99,7 @@ RSpec.describe Authorizer do
       end
 
       it 'if `select` was used on an ActiveRecord::Relation for students, fields needed for authorization are added in' do
-        thin_student = Student.select(:id, :local_id).find(pals.shs_freshman_mari.id)
-        expect(authorized(pals.uri) { thin_student }.attributes).to eq({
-          'id' => pals.shs_freshman_mari.id,
-          'local_id' => pals.shs_freshman_mari.local_id
-        })
-        expect { authorized(pals.healey_teacher) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
-        expect { authorized(pals.shs_bill_nye) { thin_student } }.to raise_error(ActiveModel::MissingAttributeError)
+        skip
       end
     end
 
