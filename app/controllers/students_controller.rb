@@ -3,11 +3,17 @@ class StudentsController < ApplicationController
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
 
-  before_action :authorize!, except: [          # The :names and lasids actions are subject to
-    :names, :lasids                             # educator authentication via :authenticate_educator!
-  ]                                             # inherited from ApplicationController.
-                                                # They then get further authorization filtering using
-                                                # The custom authorization methods below.
+  # The :names and lasids actions are subject to
+  # educator authentication via :authenticate_educator!
+  # inherited from ApplicationController.
+  # They then get further authorization filtering using
+  # The custom authorization methods below.
+  before_action :authorize!, except: [          
+    :names,
+    :lasids,
+    :show,
+    :restricted_notes
+  ]                                             
 
   before_action :authorize_for_districtwide_access_admin, only: [:lasids]
 
@@ -23,14 +29,17 @@ class StudentsController < ApplicationController
   end
 
   def show
-    student = Student.find(params[:id])
+    student = authorized_or_raise! { Student.find(params[:id]) }
+    sections = authorized { student.sections_with_grades }
+    event_notes = authorized { student.event_notes.without_restricted }
+    restricted_notes_count = authorized { student.event_notes.restricted }.size
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
       current_educator: current_educator,
-      student: serialize_student_for_profile(student),          # Risk level, school homeroom, most recent school year attendance/discipline counts
-      feed: student_feed(student, restricted_notes: false),     # Notes, services
-      chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
+      student: serialize_student_for_profile(student, restricted_notes_count),       
+      feed: student_feed(student, event_notes),  # Notes, services
+      chart_data: chart_data,  # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
       service_types_index: ServiceSerializer.service_types_index,
       event_note_types_index: EventNoteSerializer.event_note_types_index,
@@ -50,12 +59,14 @@ class StudentsController < ApplicationController
 
   def restricted_notes
     raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes
+    student = authorized_or_raise! { Student.find(params[:id]) }
+    restricted_notes = authorized_or_raise! { student.event_notes.restricted }
 
     student = Student.find(params[:id])
     @serialized_data = {
       current_educator: current_educator,
-      student: serialize_student_for_profile(student),
-      feed: student_feed(student, restricted_notes: true),
+      student: serialize_student_for_profile(student, restricted_notes.size),
+      feed: student_feed(student, restricted_notes),
       event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
     }
@@ -135,7 +146,8 @@ class StudentsController < ApplicationController
 
   private
 
-  def serialize_student_for_profile(student)
+  # Risk level, school homeroom, most recent school year attendance/discipline counts
+  def serialize_student_for_profile(student, restricted_notes_count)
     student.as_json.merge({
       student_risk_level: student.student_risk_level.as_json,
       absences_count: student.most_recent_school_year_absences_count,
@@ -144,7 +156,7 @@ class StudentsController < ApplicationController
       school_type: student.try(:school).try(:school_type),
       homeroom_name: student.try(:homeroom).try(:name),
       discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
-      restricted_notes_count: student.event_notes.where(is_restricted: true).count,
+      restricted_notes_count: restricted_notes_count
     }).stringify_keys
   end
 
@@ -153,12 +165,9 @@ class StudentsController < ApplicationController
   end
 
   # The feed of mutable data that changes most frequently and is owned by Student Insights.
-  # restricted_notes: If false display non-restricted notes, if true display only restricted notes.
-  def student_feed(student, restricted_notes: false)
+  def student_feed(student, event_notes)
     {
-      event_notes: student.event_notes
-        .select {|note| note.is_restricted == restricted_notes}
-        .map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
+      event_notes: event_notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }
