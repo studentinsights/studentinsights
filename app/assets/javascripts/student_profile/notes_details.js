@@ -2,9 +2,6 @@ import TakeNotes from './take_notes.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
 import React from 'react';
 
-const NotesList = window.shared.NotesList;
-const HelpBubble = window.shared.HelpBubble;
-
 const styles = {
   notesContainer: {
     flex: 1,
@@ -30,23 +27,28 @@ class NotesDetails extends React.Component {
     this.state = {
       isTakingNotes: false
     };
+
+    this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
+    this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
   }
 
-  onClickTakeNotes(event){
+  onClickTakeNotes(event) {
     this.setState({ isTakingNotes: true });
   }
 
-  onCancelNotes(event){
+  onCancelNotes(event) {
     this.setState({ isTakingNotes: false });
   }
 
-  onClickSaveNotes(eventNoteParams, event){
+  onClickSaveNotes(eventNoteParams, event) {
     this.props.actions.onClickSaveNotes(eventNoteParams);
     this.setState({ isTakingNotes: false });
   }
 
-  render(){
+  render() {
     const { student, title } = this.props;
+    const HelpBubble = window.shared.HelpBubble;
+    const NotesList = window.shared.NotesList;
 
     return (
       <div className="NotesDetails" style={styles.notesContainer}>
@@ -71,7 +73,7 @@ class NotesDetails extends React.Component {
     );
   }
 
-  renderTakeNotesSection(){
+  renderTakeNotesSection() {
     if (this.state.isTakingNotes || this.props.requests.saveNote !== null) {
       return (
         <TakeNotes
@@ -97,7 +99,7 @@ class NotesDetails extends React.Component {
     );
   }
 
-  renderRestrictedNotesButtonIfAppropriate(){
+  renderRestrictedNotesButtonIfAppropriate() {
     if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
       return (
         <a
