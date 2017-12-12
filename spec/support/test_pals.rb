@@ -8,6 +8,7 @@ class TestPals
   def self.create!
     pals = TestPals.new
     pals.create!
+    pals.index!
     pals
   end
 
@@ -278,6 +279,12 @@ class TestPals
       student: @shs_freshman_mari, section: @shs_tuesday_biology_section
     )
 
+    self
+  end
+
+  def index!
+    Student.update_risk_levels!
+    Student.update_recent_student_assessments
     self
   end
 

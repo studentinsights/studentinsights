@@ -16,7 +16,7 @@ RSpec.describe Authorizer do
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
     expect(Homeroom.all.size).to eq 6
-    expect(Student.all.size).to eq 2
+    expect(Student.all.size).to eq 3
     expect(Educator.all.size).to eq 12
     expect(Course.all.size).to eq 3
     expect(Section.all.size).to eq 6
@@ -37,6 +37,7 @@ RSpec.describe Authorizer do
       students = Student.select(*Authorizer.student_fields_for_authorization).all
       expect(authorized(pals.uri) { students }).to eq [
         pals.healey_kindergarten_student,
+        pals.healey_meredith_student,
         pals.shs_freshman_mari
       ]
       expect(authorized(pals.healey_vivian_teacher) { students }).to eq [pals.healey_kindergarten_student]
@@ -97,10 +98,15 @@ RSpec.describe Authorizer do
       it 'limits access with Student.all' do
         expect(authorized(pals.uri) { Student.all }).to eq [
           pals.healey_kindergarten_student,
+          pals.healey_meredith_student,
           pals.shs_freshman_mari
         ]
-        expect(authorized(pals.healey_vivian_teacher) { Student.all }).to eq [
-          pals.healey_kindergarten_student
+        expect(authorized(pals.healey_laura_principal) { Student.all }).to eq [
+          pals.healey_kindergarten_student,
+          pals.healey_meredith_student
+        ]
+        expect(authorized(pals.healey_sarah_teacher) { Student.all }).to eq [
+          pals.healey_meredith_student
         ]
         expect(authorized(pals.shs_jodi) { Student.all }).to eq [
           pals.shs_freshman_mari

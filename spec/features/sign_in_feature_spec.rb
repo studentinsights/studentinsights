@@ -11,9 +11,10 @@ describe 'educator sign in', type: :feature do
       expect(page).to have_content 'Signed in successfully.'
     end
 
-    it { expect_successful_sign_in_for(pals.healey_sarah_teacher) }
     it { expect_successful_sign_in_for(pals.uri) }
-    it { expect_successful_sign_in_for(pals.west_marcus_teacher) }
+    it { expect_successful_sign_in_for(pals.healey_laura_principal) }
+    it { expect_successful_sign_in_for(pals.healey_sarah_teacher) }
+    it { expect_successful_sign_in_for(pals.shs_hugo_art_teacher) }
 
     context 'without default page' do
       let(:educator) { pals.shs_jodi }
