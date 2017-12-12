@@ -9,4 +9,7 @@ class EventNote < ActiveRecord::Base
 
   validates :educator_id, :student_id, :event_note_type_id, :recorded_at, presence: true
   validates :is_restricted, inclusion: { in: [true, false] }
+
+  scope :restricted, -> { where(is_restricted: true) } # no authorization check
+  scope :without_restricted, -> { where(is_restricted: false) }
 end
