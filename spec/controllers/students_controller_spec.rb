@@ -428,12 +428,15 @@ describe StudentsController, :type => :controller do
   describe '#serialize_student_for_profile' do
     it 'returns a hash with the additional keys that UI code expects' do
       student = FactoryGirl.create(:student)
-      serialized_student = controller.send(:serialize_student_for_profile, student)
+      restricted_notes_count = 2
+      serialized_student = controller.send(:serialize_student_for_profile, student, restricted_notes_count)
       expect(serialized_student.keys).to include(*[
         'student_risk_level',
         'absences_count',
         'tardies_count',
         'school_name',
+        'school_type',
+        'restricted_notes_count',
         'homeroom_name',
         'discipline_incidents_count'
       ])
