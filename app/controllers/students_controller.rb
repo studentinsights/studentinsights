@@ -33,13 +33,12 @@ class StudentsController < ApplicationController
     sections = authorized { student.sections_with_grades }
     event_notes = authorized { student.event_notes.without_restricted }
     restricted_notes_count = authorized { student.event_notes.restricted }.size
-    chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
       current_educator: current_educator,
       student: serialize_student_for_profile(student, restricted_notes_count),       
       feed: student_feed(student, event_notes),  # Notes, services
-      chart_data: chart_data,  # STAR, MCAS, discipline, attendance charts
+      chart_data: StudentProfileChart.new(student).chart_data,  # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
       service_types_index: ServiceSerializer.service_types_index,
       event_note_types_index: EventNoteSerializer.event_note_types_index,
