@@ -21,10 +21,6 @@ class Import
       'SHS',
     ]
 
-    SCHOOL_SHORTCODE_EXPANSIONS = {
-      "ELEM" => %w[BRN HEA KDY AFAS ESCS WSNS WHCS]
-    }
-
     X2_IMPORTERS = [
       StudentsImporter,
       X2AssessmentImporter,
@@ -76,7 +72,7 @@ class Import
       type: :array,
       default: DEFAULT_SCHOOLS,
       aliases: "-s",
-      desc: "Scope by school local IDs; use ELEM to import all elementary schools"
+      desc: "Scope by school local IDs"
     class_option :first_time,
       type: :boolean,
       desc: "Fill up an empty database"
@@ -130,10 +126,6 @@ class Import
           [PRIORITY.fetch(import_class, 100), import_class.to_s]
         end
       end
-
-      def school_local_ids(schools = options["school"])
-        schools.flat_map { |s| SCHOOL_SHORTCODE_EXPANSIONS.fetch(s, s) }.uniq
-      end
     end
 
     def load_rails
@@ -150,7 +142,7 @@ class Import
 
     def validate_schools
       School.seed_somerville_schools if School.count == 0
-      school_local_ids.each { |id| School.find_by!(local_id: id) }
+      options["school"].each { |id| School.find_by!(local_id: id) }
     end
 
     def connect_transform_import

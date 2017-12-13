@@ -138,33 +138,4 @@ RSpec.describe Import do
     end
   end
 
-  describe '#schools' do
-    context 'when passed a valid school local ID' do
-      it 'returns the school local ID' do
-        expect(task.school_local_ids(['HEA'])).to eq ["HEA"]
-      end
-    end
-    context 'when passed the ELEM shorthand id' do
-      it 'returns all elementary school IDs' do
-        expect(task.school_local_ids(['ELEM'])).to eq %w[
-          BRN HEA KDY AFAS ESCS WSNS WHCS
-        ]
-      end
-    end
-    context 'when passed the ELEM shorthand and a valid school local id in the ELEM list' do
-      it 'returns all elementary school IDs' do
-        expect(task.school_local_ids(['ELEM', 'HEA'])).to eq %w[
-          BRN HEA KDY AFAS ESCS WSNS WHCS
-        ]
-      end
-    end
-    context 'when passed the ELEM shorthand and another valid school local id' do
-      it 'returns all elementary school IDs and the other id' do
-        expect(task.school_local_ids(['ELEM', 'SHS'])).to eq %w[
-          BRN HEA KDY AFAS ESCS WSNS WHCS SHS
-        ]
-      end
-    end
-  end
-
 end
