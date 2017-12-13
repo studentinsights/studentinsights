@@ -3,11 +3,10 @@ import SectionHeader from './SectionHeader.js';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 import React from 'react';
 
-const Routes = window.shared.Routes;
-
 class SectionPage extends React.Component {
 
   styleStudentName(student, column) {
+    const Routes = window.shared.Routes;
     return (
       <a href={Routes.studentProfile(student.id)}>
         {student.last_name + ', ' + student.first_name}
