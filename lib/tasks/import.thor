@@ -122,10 +122,6 @@ class Import
       end
     end
 
-    def validate_schools
-      options["school"].each { |id| School.find_by!(local_id: id) }
-    end
-
     def print_initial_report
       report.print_initial_report
     end

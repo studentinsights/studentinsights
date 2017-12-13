@@ -17,11 +17,13 @@ class ImportTask
   end
 
   def connect_transform_import
+    validate_school_options
+
     timing_log = []
 
     @file_import_classes.each do |file_import_class|
       file_importer = file_import_class.new(
-        school,
+        school_ids,
         file_import_class_to_client(file_import_class),
         log,
         @progress_bar
@@ -68,10 +70,14 @@ class ImportTask
     @progress_bar
   end
 
-  def school
+  def validate_school_options
+    school_ids.each { |id| School.find_by!(local_id: id) }
+  end
+
+  def school_ids
     return @school if @school.present?
 
-    case district
+    case @district
     when 'Somerville'
       [
         'HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'FC', 'CAP', 'PIC',
