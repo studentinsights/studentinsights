@@ -15,12 +15,6 @@ class Import
   class Start < Thor::Group
     desc "Import data into your Student Insights instance"
 
-    DEFAULT_SCHOOLS = [
-      'HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS',
-      'FC', 'CAP', 'PIC', 'SPED',
-      'SHS',
-    ]
-
     X2_IMPORTERS = [
       StudentsImporter,
       X2AssessmentImporter,
@@ -68,14 +62,13 @@ class Import
       StarReadingImporter::RecentImporter => 6,
     }
 
+    class_option :district,
+      type: :string,
+      desc: "School district you're importing for"
     class_option :school,
       type: :array,
-      default: DEFAULT_SCHOOLS,
       aliases: "-s",
       desc: "Scope by school local IDs"
-    class_option :first_time,
-      type: :boolean,
-      desc: "Fill up an empty database"
     class_option :source,
       type: :array,
       default: FILE_IMPORTER_OPTIONS.keys,  # This runs all X2 and STAR importers
@@ -106,14 +99,6 @@ class Import
         @record ||= ImportRecord.create(time_started: DateTime.current)
       end
 
-      def file_import_class_to_client(import_class)
-        return SftpClient.for_x2 if import_class.in?(X2_IMPORTERS)
-
-        return SftpClient.for_star if import_class.in?(STAR_IMPORTERS)
-
-        return nil
-      end
-
       def file_import_classes(sources = options["source"])
         import_classes = sources.map { |s| FILE_IMPORTER_OPTIONS.fetch(s, nil) }
                                 .flatten
@@ -126,57 +111,52 @@ class Import
           [PRIORITY.fetch(import_class, 100), import_class.to_s]
         end
       end
+
+    end
+
+    def validate_district_option
+      district = options["district"]
+
+      if !(district == "Somerville" || district == "New Bedford")
+        raise "Unknown district!"
+      end
     end
 
     def load_rails
       require File.expand_path("../../../config/environment.rb", __FILE__) unless options["test_mode"]
     end
 
-    def set_up_initial_record
-      record
+    def seed_schools_if_needed
+      if School.count == 0
+        case options["district"]
+        when "Somerville"
+          School.seed_somerville_schools
+        when "New Bedford"
+          School.seed_new_bedford_schools
+        end
+      end
+    end
+
+    def validate_schools
+      options["school"].each { |id| School.find_by!(local_id: id) }
     end
 
     def print_initial_report
       report.print_initial_report
     end
 
-    def validate_schools
-      School.seed_somerville_schools if School.count == 0
-      options["school"].each { |id| School.find_by!(local_id: id) }
-    end
-
     def connect_transform_import
-      log = options["test_mode"] ? LogHelper::Redirect.instance.file : STDOUT
-      school = options["school"]
-      progress_bar = options["progress_bar"]
+      task = ImportTask.new(
+        district: options["district"],
+        school: options["school"],
+        source: options["source"],
+        test_mode: options["test_mode"],
+        progress_bar: options["progress_bar"],
+        record: record,
+        file_import_classes: sorted_file_import_classes
+      )
 
-      timing_log = []
-
-      sorted_file_import_classes.each do |file_import_class|
-        file_importer = file_import_class.new(
-          school,
-          file_import_class_to_client(file_import_class),
-          log,
-          progress_bar
-        )
-
-        timing_data = { importer: file_importer.class.name, start_time: Time.current }
-
-        begin
-          file_importer.import
-        rescue => error
-          puts "🚨  🚨  🚨  🚨  🚨  Error! #{error}" unless Rails.env.test?
-
-          extra_info =  { "importer" => file_importer.class.name }
-          ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
-        end
-
-        timing_data[:end_time] = Time.current
-        timing_log << timing_data
-        record.importer_timing_json = timing_log.to_json
-
-        record.save!
-      end
+      task.connect_transform_import
     end
 
     def run_update_tasks
@@ -192,11 +172,6 @@ class Import
 
     def print_final_report
       report.print_final_report
-    end
-
-    def record_end_time
-      record.time_ended = DateTime.current
-      record.save
     end
   end
 end
