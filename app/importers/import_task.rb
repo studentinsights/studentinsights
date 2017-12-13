@@ -1,22 +1,5 @@
 class ImportTask
 
-  X2_IMPORTERS = [
-    StudentsImporter,
-    X2AssessmentImporter,
-    BehaviorImporter,
-    EducatorsImporter,
-    AttendanceImporter,
-    CoursesSectionsImporter,
-    StudentSectionAssignmentsImporter,
-    StudentSectionGradesImporter,
-    EducatorSectionAssignmentsImporter,
-  ]
-
-  STAR_IMPORTERS = [
-    StarReadingImporter::RecentImporter,
-    StarMathImporter::RecentImporter,
-  ]
-
   def initialize(district:,
                  school:,
                  source:,
@@ -58,7 +41,7 @@ class ImportTask
       timing_data[:end_time] = Time.current
       timing_log << timing_data
 
-      @record.attributes(
+      @record.update(
         importer_timing_json: timing_log.to_json,
         time_ended: DateTime.current,
       )
@@ -70,9 +53,9 @@ class ImportTask
   private
 
   def file_import_class_to_client(import_class)
-    return SftpClient.for_x2 if import_class.in?(X2_IMPORTERS)
+    return SftpClient.for_x2 if import_class.in?(X2Importers.list)
 
-    return SftpClient.for_star if import_class.in?(STAR_IMPORTERS)
+    return SftpClient.for_star if import_class.in?(StarImporters.list)
 
     return nil
   end

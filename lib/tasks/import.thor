@@ -10,31 +10,16 @@ require_relative '../../app/importers/file_importers/student_section_grades_impo
 require_relative '../../app/importers/file_importers/educator_section_assignments_importer'
 require_relative '../../app/importers/file_importers/star_reading_importer'
 require_relative '../../app/importers/file_importers/star_math_importer'
+require_relative '../../app/importers/constants/x2_importers'
+require_relative '../../app/importers/constants/star_importers'
 
 class Import
   class Start < Thor::Group
     desc "Import data into your Student Insights instance"
 
-    X2_IMPORTERS = [
-      StudentsImporter,
-      X2AssessmentImporter,
-      BehaviorImporter,
-      EducatorsImporter,
-      AttendanceImporter,
-      CoursesSectionsImporter,
-      StudentSectionAssignmentsImporter,
-      StudentSectionGradesImporter,
-      EducatorSectionAssignmentsImporter,
-    ]
-
-    STAR_IMPORTERS = [
-      StarReadingImporter::RecentImporter,
-      StarMathImporter::RecentImporter,
-    ]
-
     FILE_IMPORTER_OPTIONS = {
-      'x2' => X2_IMPORTERS,
-      'star' => STAR_IMPORTERS,
+      'x2' => X2Importers.list,
+      'star' => StarImporters.list,
       'students' => StudentsImporter,
       'assessments' => X2AssessmentImporter,
       'behavior' => BehaviorImporter,
