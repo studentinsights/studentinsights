@@ -12,7 +12,7 @@ class StarMathImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def remote_file_name
-    "SomervillePublicSchools\ -\ Generic\ SM\ Pipeline\ Extract\ -\ Active.csv"
+    ENV.fetch('FILENAME_FOR_STAR_MATH_IMPORT')
   end
 
   def data_transformer
