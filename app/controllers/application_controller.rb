@@ -48,6 +48,20 @@ class ApplicationController < ActionController::Base
     no_sections_path
   end
 
+  # Wrap all database queries with this to enforce authorization
+  def authorized(&block)
+    authorizer.authorized(&block)
+  end
+
+  # Enforce authorization and raise if no authorized models
+  def authorized_or_raise!(&block)
+    return_value = authorizer.authorized(&block)
+    if return_value == nil || return_value == []
+      raise Exceptions::EducatorNotAuthorized
+    end
+    return_value
+  end
+
   # Sugar for filters checking authorization
   def redirect_unauthorized!
     redirect_to not_authorized_path
@@ -78,5 +92,10 @@ class ApplicationController < ActionController::Base
     logger.info "log_timing:end [#{message}] #{timing_ms.round}ms"
 
     return_value
+  end
+
+  private
+  def authorizer
+    @authorizer ||= Authorizer.new(current_educator)
   end
 end
