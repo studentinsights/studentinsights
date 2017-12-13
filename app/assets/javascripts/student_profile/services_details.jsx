@@ -1,11 +1,11 @@
 import PropTypes from '../helpers/prop_types.jsx';
+import HelpBubble from './help_bubble.js';
 
 (function() {
   window.shared || (window.shared = {});
 
   const ServicesList = window.shared.ServicesList;
   const RecordService = window.shared.RecordService;
-  const HelpBubble = window.shared.HelpBubble;
 
   const styles = {
     servicesContainer: {

@@ -8,7 +8,7 @@ import './legacyHelpers';
 
 // student profile page:
   // pure ui components:
-import '../app/assets/javascripts/student_profile/help_bubble.jsx';
+import '../app/assets/javascripts/student_profile/help_bubble.js';
 import '../app/assets/javascripts/student_profile/quad_converter.jsx';
 import '../app/assets/javascripts/student_profile/risk_bubble.jsx';
 import '../app/assets/javascripts/student_profile/service_color.jsx';

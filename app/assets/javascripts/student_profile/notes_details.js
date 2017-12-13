@@ -1,6 +1,7 @@
 import TakeNotes from './take_notes.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
 import React from 'react';
+import HelpBubble from './help_bubble.js';
 
 const styles = {
   notesContainer: {
@@ -47,7 +48,6 @@ class NotesDetails extends React.Component {
 
   render() {
     const { student, title } = this.props;
-    const HelpBubble = window.shared.HelpBubble;
     const NotesList = window.shared.NotesList;
 
     return (
