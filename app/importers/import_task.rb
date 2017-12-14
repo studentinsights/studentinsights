@@ -18,22 +18,23 @@ class ImportTask
                  school:,
                  source:,
                  test_mode:,
-                 progress_bar:,
-                 record:)
+                 progress_bar:)
     @district = district
     @school = school
     @source = source
     @test_mode = test_mode
     @progress_bar = progress_bar
-    @record = record
   end
 
   def connect_transform_import
     validate_district_option
     seed_schools_if_needed
     validate_school_options
+    set_up_record
+    set_up_report
     import_all_the_data
     run_update_tasks
+    print_final_report
   end
 
   def validate_district_option
@@ -83,6 +84,29 @@ class ImportTask
            .flatten
            .compact
            .uniq
+  end
+
+  def set_up_record
+    @record ||= ImportRecord.create(time_started: DateTime.current)
+  end
+
+
+  def set_up_report
+    models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section, StudentSectionAssignment, EducatorSectionAssignment ]
+
+    log = @test_mode ? LogHelper::Redirect.instance.file : STDOUT
+
+    @report = ImportTaskReport.new(
+      models_for_report: models,
+      record: @record,
+      log: log,
+    )
+
+    @report.print_initial_report
+  end
+
+  def print_final_report
+    @report.print_final_report
   end
 
   def sorted_file_import_classes(import_classes = file_import_classes)
