@@ -45,14 +45,6 @@ class Import
       end
     end
 
-    def validate_district_option
-      district = options["district"]
-
-      if !(district == "Somerville" || district == "New Bedford")
-        raise "Unknown district!"
-      end
-    end
-
     def load_rails
       require File.expand_path("../../../config/environment.rb", __FILE__) unless options["test_mode"]
     end

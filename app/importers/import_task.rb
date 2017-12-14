@@ -29,10 +29,17 @@ class ImportTask
   end
 
   def connect_transform_import
+    validate_district_option
     seed_schools_if_needed
     validate_school_options
     import_all_the_data
     run_update_tasks
+  end
+
+  def validate_district_option
+    if !(@district == "Somerville" || @district == "New Bedford")
+      raise "Unknown district!"
+    end
   end
 
   def import_all_the_data
