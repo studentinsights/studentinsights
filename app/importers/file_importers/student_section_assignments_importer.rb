@@ -18,7 +18,9 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
   end
 
   def remote_file_name
-    DistrictConfig::FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT
+    DistrictConfig.remote_filenames.fetch(
+      'FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT'
+    )
   end
 
   def data_transformer

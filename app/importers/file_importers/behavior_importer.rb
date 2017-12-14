@@ -12,7 +12,7 @@ class BehaviorImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def remote_file_name
-    DistrictConfig::FILENAME_FOR_BEHAVIOR_IMPORT
+    DistrictConfig.remote_filenames.fetch('FILENAME_FOR_BEHAVIOR_IMPORT')
   end
 
   def data_transformer
