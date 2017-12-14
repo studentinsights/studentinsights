@@ -19,7 +19,11 @@ class ImportTask
   def connect_transform_import
     seed_schools_if_needed
     validate_school_options
+    import_all_the_data
+    run_update_tasks
+  end
 
+  def import_all_the_data
     timing_log = []
 
     @file_import_classes.each do |file_import_class|
@@ -52,8 +56,6 @@ class ImportTask
       @record.save!
     end
   end
-
-  private
 
   def file_import_class_to_client(import_class)
     return SftpClient.for_x2 if import_class.in?(X2Importers.list)
@@ -125,6 +127,17 @@ class ImportTask
       ]
     else
       raise 'Unfamiliar district!'
+    end
+  end
+
+  def run_update_tasks
+    begin
+      Student.update_risk_levels!
+      Student.update_recent_student_assessments
+      Homeroom.destroy_empty_homerooms
+    rescue => error
+      ErrorMailer.error_report(error).deliver_now if Rails.env.production?
+      raise error
     end
   end
 

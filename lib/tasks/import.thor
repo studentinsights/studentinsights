@@ -129,17 +129,6 @@ class Import
       task.connect_transform_import
     end
 
-    def run_update_tasks
-      begin
-        Student.update_risk_levels!
-        Student.update_recent_student_assessments
-        Homeroom.destroy_empty_homerooms
-      rescue => error
-        ErrorMailer.error_report(error).deliver_now if Rails.env.production?
-        raise error
-      end
-    end
-
     def print_final_report
       report.print_final_report
     end
