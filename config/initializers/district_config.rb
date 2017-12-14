@@ -18,7 +18,26 @@ class DistrictConfig
     # data, and so these variables don't need to be set.
   end
 
-  # Filenames for nightly remote data import
+  ### CONFIGURING FILE NAMES FOR REMOTE DATA IMPORT ###
+
+  # To set up a Student Insights Heroku instance to read data from a remote SFTP
+  # location, set ENV variables in Heroku with the remote filenames for these
+  # 11 files:
+
+  # * FILENAME_FOR_STUDENTS_IMPORT
+  # * FILENAME_FOR_EDUCATORS_IMPORT
+  # * FILENAME_FOR_BEHAVIOR_IMPORT
+  # * FILENAME_FOR_ASSESSMENT_IMPORT
+  # * FILENAME_FOR_ATTENDANCE_IMPORT
+  # * FILENAME_FOR_STAR_READING_IMPORT
+  # * FILENAME_FOR_STAR_MATH_IMPORT
+  # * FILENAME_FOR_STUDENT_AVERAGES_IMPORT
+  # * FILENAME_FOR_COURSE_SECTION_IMPORT
+  # * FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT
+  # * FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT
+
+  # You can set these using `heroku config:set {KEY}={value}` on the command line,
+  # or from the Heroku UI.
 
   FILENAME_FOR_STUDENTS_IMPORT = fetch_import_filename(
     'FILENAME_FOR_STUDENTS_IMPORT'
