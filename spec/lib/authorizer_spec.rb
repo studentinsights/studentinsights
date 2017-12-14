@@ -138,6 +138,7 @@ RSpec.describe Authorizer do
         thin_relation = Student.select(:id, :local_id).all
         expect((authorized(pals.uri) { thin_relation }).map(&:id)).to eq([
           pals.healey_kindergarten_student.id,
+          pals.healey_meredith_student.id,
           pals.shs_freshman_mari.id
         ])
         expect((authorized(pals.healey_vivian_teacher) { thin_relation }).map(&:id)).to eq([
