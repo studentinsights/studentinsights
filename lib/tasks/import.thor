@@ -111,17 +111,6 @@ class Import
       require File.expand_path("../../../config/environment.rb", __FILE__) unless options["test_mode"]
     end
 
-    def seed_schools_if_needed
-      if School.count == 0
-        case options["district"]
-        when "Somerville"
-          School.seed_somerville_schools
-        when "New Bedford"
-          School.seed_new_bedford_schools
-        end
-      end
-    end
-
     def print_initial_report
       report.print_initial_report
     end

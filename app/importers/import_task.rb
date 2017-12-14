@@ -17,6 +17,7 @@ class ImportTask
   end
 
   def connect_transform_import
+    seed_schools_if_needed
     validate_school_options
 
     timing_log = []
@@ -72,6 +73,17 @@ class ImportTask
 
   def validate_school_options
     school_ids.each { |id| School.find_by!(local_id: id) }
+  end
+
+  def seed_schools_if_needed
+    if School.count == 0
+      case options["district"]
+      when "Somerville"
+        School.seed_somerville_schools
+      when "New Bedford"
+        School.seed_new_bedford_schools
+      end
+    end
   end
 
   def school_ids
