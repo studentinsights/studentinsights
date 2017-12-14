@@ -37,8 +37,10 @@ class ImportTask
     print_final_report
   end
 
+  private
+
   def validate_district_option
-    if !(@district == "Somerville" || @district == "New Bedford")
+    if !(@district == "somerville" || @district == "new-bedford")
       raise "Unknown district!"
     end
   end
@@ -138,9 +140,9 @@ class ImportTask
   def seed_schools_if_needed
     if School.count == 0
       case options["district"]
-      when "Somerville"
+      when "somerville"
         School.seed_somerville_schools
-      when "New Bedford"
+      when "new-bedford"
         School.seed_new_bedford_schools
       end
     end
@@ -150,12 +152,12 @@ class ImportTask
     return @school if @school.present?
 
     case @district
-    when 'Somerville'
+    when 'somerville'
       [
         'HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'FC', 'CAP', 'PIC',
         'SPED', 'SHS',
       ]
-    when 'New Bedford'
+    when 'new-bedford'
       [
         "010",
         "015",

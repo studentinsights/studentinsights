@@ -9,15 +9,14 @@ class Import
 
     class_option :district,
       type: :string,
-      desc: "School district you're importing for"
+      desc: "One of: [somerville, new-bedford]"
     class_option :school,
       type: :array,
-      aliases: "-s",
-      desc: "Scope by school local IDs"
+      desc: "Scope by school"
     class_option :source,
       type: :array,
-      default: FileImporterOptions.keys,  # This runs all X2 and STAR importers
-      desc: "Import data from the specified source: #{FileImporterOptions.keys}"
+      default: ['x2', 'star'],  # This runs all X2 and STAR importers
+      desc: "Import data from one of #{FileImporterOptions.keys}"
     class_option :test_mode,
       type: :boolean,
       default: false,
@@ -25,7 +24,7 @@ class Import
     class_option :progress_bar,
       type: :boolean,
       default: false,
-      desc: "Show a progress bar for CSV reading (useful in development)"
+      desc: "Show progress bar"
 
     def load_rails
       unless options["test_mode"]
