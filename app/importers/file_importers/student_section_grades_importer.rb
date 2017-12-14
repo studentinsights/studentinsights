@@ -22,7 +22,7 @@ class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :p
   end
 
   def remote_file_name
-    ENV.fetch('FILENAME_FOR_STUDENT_AVERAGES_IMPORT')
+    DistrictConfig::FILENAME_FOR_STUDENT_AVERAGES_IMPORT
   end
 
   def data_transformer

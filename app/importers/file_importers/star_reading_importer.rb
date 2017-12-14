@@ -12,7 +12,7 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
   end
 
   def remote_file_name
-    ENV.fetch('FILENAME_FOR_STAR_READING_IMPORT')
+    DistrictConfig::FILENAME_FOR_STAR_READING_IMPORT
   end
 
   def data_transformer
