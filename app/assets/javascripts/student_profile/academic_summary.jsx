@@ -1,6 +1,7 @@
+import HelpBubble from './help_bubble.js';
+
 (function() {
   window.shared || (window.shared = {});
-  const HelpBubble = window.shared.HelpBubble;
 
   const styles = {
     caption: {
