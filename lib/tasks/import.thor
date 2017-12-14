@@ -1,15 +1,4 @@
 require 'thor'
-require_relative '../../app/importers/file_importers/students_importer'
-require_relative '../../app/importers/file_importers/x2_assessment_importer'
-require_relative '../../app/importers/file_importers/behavior_importer'
-require_relative '../../app/importers/file_importers/educators_importer'
-require_relative '../../app/importers/file_importers/attendance_importer'
-require_relative '../../app/importers/file_importers/courses_sections_importer'
-require_relative '../../app/importers/file_importers/student_section_assignments_importer'
-require_relative '../../app/importers/file_importers/student_section_grades_importer'
-require_relative '../../app/importers/file_importers/educator_section_assignments_importer'
-require_relative '../../app/importers/file_importers/star_reading_importer'
-require_relative '../../app/importers/file_importers/star_math_importer'
 require_relative '../../app/importers/constants/x2_importers'
 require_relative '../../app/importers/constants/star_importers'
 require_relative '../../app/importers/constants/file_importer_options'
@@ -27,8 +16,8 @@ class Import
       desc: "Scope by school local IDs"
     class_option :source,
       type: :array,
-      default: FileImporterOptions.options.keys,  # This runs all X2 and STAR importers
-      desc: "Import data from the specified source: #{FileImporterOptions.options.keys}"
+      default: FileImporterOptions.keys,  # This runs all X2 and STAR importers
+      desc: "Import data from the specified source: #{FileImporterOptions.keys}"
     class_option :test_mode,
       type: :boolean,
       default: false,

@@ -1,5 +1,23 @@
 class FileImporterOptions
 
+  def self.keys
+    [
+      'x2',
+      'star',
+      'students',
+      'assessments',
+      'behavior',
+      'educators',
+      'attendance',
+      'courses_sections',
+      'student_section_assignments',
+      'student_section_grades',
+      'educator_section_assignments',
+      'star_math',
+      'star_reading',
+    ]
+  end
+
   def self.options
     {
       'x2' => X2Importers.list,
