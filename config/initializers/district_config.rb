@@ -8,11 +8,11 @@ class DistrictConfig
     raise "Unset configuration: #{missing_name}" if Rails.env.production?
 
     # In `Rails.env.development`, we don't need to set all these variables
-    # because most developers won't need to use them.
+    # because they're only needed in a few very specific use cases.
 
     # The two main developer use cases that would need these variables set are:
       # (1) test the production nightly import process
-      # (2) import production data to test on locally.
+      # (2) import production data to test on locally
 
     # In `Rails.env.test`, we use fixture .txt files and mocks to simulate imported
     # data, and so these variables don't need to be set.
