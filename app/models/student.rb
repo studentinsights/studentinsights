@@ -32,7 +32,7 @@ class Student < ActiveRecord::Base
   validate :registration_date_cannot_be_in_future
 
   VALID_GRADES = [
-    'PK', 'KF', 'SP', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
+    'PPK', 'PK', 'KF', 'SP', 'TK', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'
   ].freeze
 
   def valid_grade
