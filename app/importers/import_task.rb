@@ -39,102 +39,12 @@ class ImportTask
 
   private
 
+  ## VALIDATE DEVELOPER INPUT ##
+
   def validate_district_option
     if !(@district == "somerville" || @district == "new-bedford")
       raise "Unknown district!"
     end
-  end
-
-  def import_all_the_data
-    timing_log = []
-
-    sorted_import_classes = sorted_file_import_classes(file_import_classes)
-
-    sorted_import_classes.each do |file_import_class|
-      file_importer = file_import_class.new(
-        school_ids,
-        file_import_class_to_client(file_import_class),
-        log,
-        @progress_bar
-      )
-
-      timing_data = { importer: file_importer.class.name, start_time: Time.current }
-
-      begin
-        file_importer.import
-      rescue => error
-        puts "🚨  🚨  🚨  🚨  🚨  Error! #{error}" unless Rails.env.test?
-
-        extra_info =  { "importer" => file_importer.class.name }
-        ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
-      end
-
-      timing_data[:end_time] = Time.current
-      timing_log << timing_data
-
-      @record.update(
-        importer_timing_json: timing_log.to_json,
-        time_ended: DateTime.current,
-      )
-
-      @record.save!
-    end
-  end
-
-  def file_import_classes
-    @source.map { |s| FileImporterOptions.options.fetch(s, nil) }
-           .flatten
-           .compact
-           .uniq
-  end
-
-  def set_up_record
-    @record ||= ImportRecord.create(time_started: DateTime.current)
-  end
-
-
-  def set_up_report
-    models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section, StudentSectionAssignment, EducatorSectionAssignment ]
-
-    log = @test_mode ? LogHelper::Redirect.instance.file : STDOUT
-
-    @report = ImportTaskReport.new(
-      models_for_report: models,
-      record: @record,
-      log: log,
-    )
-
-    @report.print_initial_report
-  end
-
-  def print_final_report
-    @report.print_final_report
-  end
-
-  def sorted_file_import_classes(import_classes = file_import_classes)
-    import_classes.sort_by do |import_class|
-      [PRIORITY.fetch(import_class, 100), import_class.to_s]
-    end
-  end
-
-  def file_import_class_to_client(import_class)
-    return SftpClient.for_x2 if import_class.in?(X2Importers.list)
-
-    return SftpClient.for_star if import_class.in?(StarImporters.list)
-
-    return nil
-  end
-
-  def log
-    @test_mode ? LogHelper::Redirect.instance.file : STDOUT
-  end
-
-  def progress_bar
-    @progress_bar
-  end
-
-  def validate_school_options
-    school_ids.each { |id| School.find_by!(local_id: id) }
   end
 
   def seed_schools_if_needed
@@ -146,6 +56,10 @@ class ImportTask
         School.seed_new_bedford_schools
       end
     end
+  end
+
+  def validate_school_options
+    school_ids.each { |id| School.find_by!(local_id: id) }
   end
 
   def school_ids
@@ -190,6 +104,91 @@ class ImportTask
     end
   end
 
+  ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
+
+  def log
+    @test_mode ? LogHelper::Redirect.instance.file : STDOUT
+  end
+
+  def set_up_record
+    @record ||= ImportRecord.create(time_started: DateTime.current)
+  end
+
+  def set_up_report
+    models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section, StudentSectionAssignment, EducatorSectionAssignment ]
+
+    log = @test_mode ? LogHelper::Redirect.instance.file : STDOUT
+
+    @report = ImportTaskReport.new(
+      models_for_report: models,
+      record: @record,
+      log: log,
+    )
+
+    @report.print_initial_report
+  end
+
+  ## IMPORT ALL THE DATA ##
+
+  def sorted_file_import_classes(import_classes = file_import_classes)
+    import_classes.sort_by do |import_class|
+      [PRIORITY.fetch(import_class, 100), import_class.to_s]
+    end
+  end
+
+  def file_import_class_to_client(import_class)
+    return SftpClient.for_x2 if import_class.in?(X2Importers.list)
+
+    return SftpClient.for_star if import_class.in?(StarImporters.list)
+
+    return nil
+  end
+
+  def file_import_classes
+    @source.map { |s| FileImporterOptions.options.fetch(s, nil) }
+           .flatten
+           .compact
+           .uniq
+  end
+
+  def import_all_the_data
+    timing_log = []
+
+    sorted_import_classes = sorted_file_import_classes(file_import_classes)
+
+    sorted_import_classes.each do |file_import_class|
+      file_importer = file_import_class.new(
+        school_ids,
+        file_import_class_to_client(file_import_class),
+        log,
+        @progress_bar
+      )
+
+      timing_data = { importer: file_importer.class.name, start_time: Time.current }
+
+      begin
+        file_importer.import
+      rescue => error
+        puts "🚨  🚨  🚨  🚨  🚨  Error! #{error}" unless Rails.env.test?
+
+        extra_info =  { "importer" => file_importer.class.name }
+        ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
+      end
+
+      timing_data[:end_time] = Time.current
+      timing_log << timing_data
+
+      @record.update(
+        importer_timing_json: timing_log.to_json,
+        time_ended: DateTime.current,
+      )
+
+      @record.save!
+    end
+  end
+
+  ## RUN TASKS THAT CACHE DATA ##
+
   def run_update_tasks
     begin
       Student.update_risk_levels!
@@ -199,6 +198,12 @@ class ImportTask
       ErrorMailer.error_report(error).deliver_now if Rails.env.production?
       raise error
     end
+  end
+
+  ## PRINT FINAL REPORT ##
+
+  def print_final_report
+    @report.print_final_report
   end
 
 end
