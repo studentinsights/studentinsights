@@ -1,5 +1,19 @@
 class ImportTask
 
+  PRIORITY = {
+    EducatorsImporter => 0,
+    CoursesSectionsImporter => 1,
+    EducatorSectionAssignmentsImporter => 2,
+    StudentsImporter => 3,
+    StudentSectionAssignmentsImporter => 4,
+    BehaviorImporter => 5,
+    AttendanceImporter => 5,
+    StudentSectionGradesImporter => 5,
+    X2AssessmentImporter => 6,
+    StarMathImporter::RecentImporter => 6,
+    StarReadingImporter::RecentImporter => 6,
+  }
+
   def initialize(district:,
                  school:,
                  source:,
@@ -26,7 +40,7 @@ class ImportTask
   def import_all_the_data
     timing_log = []
 
-    @file_import_classes.each do |file_import_class|
+    sorted_file_import_classes.each do |file_import_class|
       file_importer = file_import_class.new(
         school_ids,
         file_import_class_to_client(file_import_class),
@@ -54,6 +68,19 @@ class ImportTask
       )
 
       @record.save!
+    end
+  end
+
+  def file_import_classes
+    @source.map { |s| FileImporterOptions.options.fetch(s, nil) }
+           .flatten
+           .compact
+           .uniq
+end
+
+  def sorted_file_import_classes(import_classes = file_import_classes)
+    import_classes.sort_by do |import_class|
+      [PRIORITY.fetch(import_class, 100), import_class.to_s]
     end
   end
 

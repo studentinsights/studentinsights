@@ -10,42 +10,11 @@ require_relative '../../app/importers/file_importers/student_section_grades_impo
 require_relative '../../app/importers/file_importers/educator_section_assignments_importer'
 require_relative '../../app/importers/file_importers/star_reading_importer'
 require_relative '../../app/importers/file_importers/star_math_importer'
-require_relative '../../app/importers/constants/x2_importers'
-require_relative '../../app/importers/constants/star_importers'
+require_relative '../../app/importers/constants/file_importer_options'
 
 class Import
   class Start < Thor::Group
     desc "Import data into your Student Insights instance"
-
-    FILE_IMPORTER_OPTIONS = {
-      'x2' => X2Importers.list,
-      'star' => StarImporters.list,
-      'students' => StudentsImporter,
-      'assessments' => X2AssessmentImporter,
-      'behavior' => BehaviorImporter,
-      'educators' => EducatorsImporter,
-      'attendance' => AttendanceImporter,
-      'courses_sections' => CoursesSectionsImporter,
-      'student_section_assignments' => StudentSectionAssignmentsImporter,
-      'student_section_grades' => StudentSectionGradesImporter,
-      'educator_section_assignments' => EducatorSectionAssignmentsImporter,
-      'star_math' => StarMathImporter::RecentImporter,
-      'star_reading' => StarReadingImporter::RecentImporter,
-    }
-
-    PRIORITY = {
-      EducatorsImporter => 0,
-      CoursesSectionsImporter => 1,
-      EducatorSectionAssignmentsImporter => 2,
-      StudentsImporter => 3,
-      StudentSectionAssignmentsImporter => 4,
-      BehaviorImporter => 5,
-      AttendanceImporter => 5,
-      StudentSectionGradesImporter => 5,
-      X2AssessmentImporter => 6,
-      StarMathImporter::RecentImporter => 6,
-      StarReadingImporter::RecentImporter => 6,
-    }
 
     class_option :district,
       type: :string,
@@ -56,8 +25,8 @@ class Import
       desc: "Scope by school local IDs"
     class_option :source,
       type: :array,
-      default: FILE_IMPORTER_OPTIONS.keys,  # This runs all X2 and STAR importers
-      desc: "Import data from the specified source: #{FILE_IMPORTER_OPTIONS.keys}"
+      default: FileImporterOptions.options.keys,  # This runs all X2 and STAR importers
+      desc: "Import data from the specified source: #{FileImporterOptions.options.keys}"
     class_option :test_mode,
       type: :boolean,
       default: false,
@@ -83,20 +52,6 @@ class Import
       def record
         @record ||= ImportRecord.create(time_started: DateTime.current)
       end
-
-      def file_import_classes(sources = options["source"])
-        import_classes = sources.map { |s| FILE_IMPORTER_OPTIONS.fetch(s, nil) }
-                                .flatten
-                                .compact
-                                .uniq
-      end
-
-      def sorted_file_import_classes(import_classes = file_import_classes)
-        import_classes.sort_by do |import_class|
-          [PRIORITY.fetch(import_class, 100), import_class.to_s]
-        end
-      end
-
     end
 
     def validate_district_option
