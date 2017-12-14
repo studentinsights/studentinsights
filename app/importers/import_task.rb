@@ -19,14 +19,12 @@ class ImportTask
                  source:,
                  test_mode:,
                  progress_bar:,
-                 file_import_classes:,
                  record:)
     @district = district
     @school = school
     @source = source
     @test_mode = test_mode
     @progress_bar = progress_bar
-    @file_import_classes = file_import_classes
     @record = record
   end
 
@@ -40,7 +38,9 @@ class ImportTask
   def import_all_the_data
     timing_log = []
 
-    sorted_file_import_classes.each do |file_import_class|
+    sorted_import_classes = sorted_file_import_classes(file_import_classes)
+
+    sorted_import_classes.each do |file_import_class|
       file_importer = file_import_class.new(
         school_ids,
         file_import_class_to_client(file_import_class),
@@ -76,7 +76,7 @@ class ImportTask
            .flatten
            .compact
            .uniq
-end
+  end
 
   def sorted_file_import_classes(import_classes = file_import_classes)
     import_classes.sort_by do |import_class|

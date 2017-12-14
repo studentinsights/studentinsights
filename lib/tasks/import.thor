@@ -10,6 +10,8 @@ require_relative '../../app/importers/file_importers/student_section_grades_impo
 require_relative '../../app/importers/file_importers/educator_section_assignments_importer'
 require_relative '../../app/importers/file_importers/star_reading_importer'
 require_relative '../../app/importers/file_importers/star_math_importer'
+require_relative '../../app/importers/constants/x2_importers'
+require_relative '../../app/importers/constants/star_importers'
 require_relative '../../app/importers/constants/file_importer_options'
 
 class Import
@@ -78,7 +80,6 @@ class Import
         test_mode: options["test_mode"],
         progress_bar: options["progress_bar"],
         record: record,
-        file_import_classes: sorted_file_import_classes
       )
 
       task.connect_transform_import
