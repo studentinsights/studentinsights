@@ -10,19 +10,18 @@ class DistrictConfig
     # In `Rails.env.development`, we don't need to set all these variables
     # because they're only needed in a few very specific use cases.
 
-    # The two main developer use cases that would need these variables set are:
-      # (1) test the production nightly import process
-      # (2) import production data to test on locally
+    # The two developer use cases that would need these variables are:
+      # (1) test production data import process
+      # (2) import production data to local environment to test something locally
 
     # In `Rails.env.test`, we use fixture .txt files and mocks to simulate imported
-    # data, and so these variables don't need to be set.
+    # data, so these variables don't need to be set.
   end
 
   ### CONFIGURING FILE NAMES FOR REMOTE DATA IMPORT ###
 
   # To set up a Student Insights Heroku instance to read data from a remote SFTP
-  # location, set ENV variables in Heroku with the remote filenames for these
-  # 11 files:
+  # location, set ENV variables in Heroku with these 11 remote filenames:
 
   # * FILENAME_FOR_STUDENTS_IMPORT
   # * FILENAME_FOR_EDUCATORS_IMPORT
