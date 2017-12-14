@@ -33,15 +33,7 @@ class Import
     end
 
     def connect_transform_import
-      task = ImportTask.new(
-        district: options["district"],
-        school: options["school"],
-        source: options["source"],
-        test_mode: options["test_mode"],
-        progress_bar: options["progress_bar"],
-      )
-
-      task.connect_transform_import
+      ImportTask.new(options: options).connect_transform_import
     end
   end
 end

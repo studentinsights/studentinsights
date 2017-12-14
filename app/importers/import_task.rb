@@ -14,16 +14,21 @@ class ImportTask
     StarReadingImporter::RecentImporter => 6,
   }
 
-  def initialize(district:,
-                 school:,
-                 source:,
-                 test_mode:,
-                 progress_bar:)
-    @district = district
-    @school = school
-    @source = source
-    @test_mode = test_mode
-    @progress_bar = progress_bar
+  def initialize(options:)
+    # options["district"] should be either "somerville" or "new-bedford"
+    @district = options.fetch("district")
+
+    # options["school"] is an optional filter; imports all schools if nil
+    @school = options.fetch("school", nil)
+
+    # options["source"] describes which external data sources to import from
+    @source = options.fetch("source", ["x2", "star"])
+
+    # options["test_mode"] is for the test suite and supresses log output
+    @test_mode = options.fetch("test_mode", false)
+
+    # options["progress_bar"] shows a command line progress bar
+    @progress_bar = options.fetch("progress_bar", false)
   end
 
   def connect_transform_import
