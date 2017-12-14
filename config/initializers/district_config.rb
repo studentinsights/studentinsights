@@ -10,7 +10,7 @@ class DistrictConfig
     # In `Rails.env.development`, we don't need to set all these variables
     # because they're only needed in a few very specific use cases.
 
-    # The two developer use cases that would need these variables are:
+    # The two development use cases that would need these variables are:
       # (1) test production data import process
       # (2) import production data to local environment to test something locally
 
