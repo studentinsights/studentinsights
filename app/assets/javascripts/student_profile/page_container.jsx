@@ -3,7 +3,7 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
 import {fromPair} from '../helpers/from_pair.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
-import Api from '../student_profile/api.js';
+import Api from '../student_profile/Api.js';
 
 (function() {
   window.shared || (window.shared = {});
