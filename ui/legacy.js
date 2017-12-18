@@ -54,7 +54,6 @@ import '../app/assets/javascripts/student_profile/parse_query_string.jsx';
 import '../app/assets/javascripts/service_uploads/service_type_dropdown.jsx';
 
 // all the rest, unordered
-import '../app/assets/javascripts/homeroom_table/HomeroomTable.js';
 import '../app/assets/javascripts/section/section_header.jsx';
 import '../app/assets/javascripts/section/section_page.jsx';
 import '../app/assets/javascripts/service_uploads/new_service_upload.jsx';
