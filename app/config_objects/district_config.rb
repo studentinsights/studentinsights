@@ -4,25 +4,11 @@ class DistrictConfig
 
   ### CONFIGURING FILE NAMES FOR REMOTE DATA IMPORT ###
 
-  # To set up a Student Insights Heroku instance to read data from a remote SFTP
-  # location, set ENV variables in Heroku with these 11 remote filenames:
+  # To configure a Student Insights instance to read data from remote SFTP,
+  # set filenames for the 11 expected remote files in district-config.yml.
+  # These are the keys we expect under `remote_filenames`:
 
-  # * FILENAME_FOR_STUDENTS_IMPORT
-  # * FILENAME_FOR_EDUCATORS_IMPORT
-  # * FILENAME_FOR_BEHAVIOR_IMPORT
-  # * FILENAME_FOR_ASSESSMENT_IMPORT
-  # * FILENAME_FOR_ATTENDANCE_IMPORT
-  # * FILENAME_FOR_STAR_READING_IMPORT
-  # * FILENAME_FOR_STAR_MATH_IMPORT
-  # * FILENAME_FOR_STUDENT_AVERAGES_IMPORT
-  # * FILENAME_FOR_COURSE_SECTION_IMPORT
-  # * FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT
-  # * FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT
-
-  # You can set these using `heroku config:set {KEY}={value}` on the command line,
-  # or from the Heroku UI.
-
-  def self.expected_env_keys
+  def self.expected_remote_filename_keys
     [
       'FILENAME_FOR_STUDENTS_IMPORT',
       'FILENAME_FOR_EDUCATORS_IMPORT',
@@ -38,20 +24,20 @@ class DistrictConfig
     ]
   end
 
-  def self.get_remote_filenames_from_env(env = ENV)
+  def self.get_remote_filenames_from_config(config_source)
     @@remote_filenames = {}
 
-    self.expected_env_keys.each do |env_key|
-      filename = self.fetch_import_filename(env, env_key)
+    self.expected_remote_filename_keys.each do |config_key|
+      filename = self.fetch_import_filename(config_source, config_key)
 
-      @@remote_filenames[env_key] = filename
+      @@remote_filenames[config_key] = filename
     end
 
     @@remote_filenames.freeze
   end
 
-  def self.fetch_import_filename(env, var_name)
-    env.fetch(var_name) { |name| self.handle_unset_import_filename(name) }
+  def self.fetch_import_filename(config_source, var_name)
+    config_source.fetch(var_name) { |name| self.handle_unset_import_filename(name) }
   end
 
   def self.handle_unset_import_filename(missing_name)

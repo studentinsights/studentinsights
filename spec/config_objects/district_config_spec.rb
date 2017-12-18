@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe DistrictConfig do
 
-  describe '.get_remote_filenames_from_env' do
+  describe '.get_remote_filenames_from_config' do
 
-    context 'remote file name variables set in ENV' do
+    context 'remote file name variables set' do
 
-      it 'stores the file names from env in class attribute hash' do
-        env = {
+      it 'stores the file names from config in class attribute hash' do
+        config = {
           'FILENAME_FOR_STUDENTS_IMPORT' => 'best-remote-filename-ever'
         }
 
-        DistrictConfig.get_remote_filenames_from_env(env)
+        DistrictConfig.get_remote_filenames_from_config(config)
 
         expect(DistrictConfig.remote_filenames).to eq({
           "FILENAME_FOR_ASSESSMENT_IMPORT" => nil,
@@ -30,12 +30,12 @@ RSpec.describe DistrictConfig do
 
     end
 
-    context 'remote file name variables not set in ENV (i.e. test or development)' do
+    context 'remote file name variables not set (i.e. test or development)' do
 
       it 'stores a hash with empty values' do
-        env = {}
+        config = {}
 
-        DistrictConfig.get_remote_filenames_from_env(env)
+        DistrictConfig.get_remote_filenames_from_config(config)
 
         expect(DistrictConfig.remote_filenames).to eq({
           "FILENAME_FOR_ASSESSMENT_IMPORT" => nil,
