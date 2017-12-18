@@ -1,4 +1,4 @@
-import HelpBubble from './help_bubble.js';
+import HelpBubble from './HelpBubble.js';
 
 (function() {
   window.shared || (window.shared = {});
