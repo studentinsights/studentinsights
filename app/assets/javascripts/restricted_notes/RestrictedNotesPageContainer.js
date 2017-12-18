@@ -2,7 +2,7 @@ import _ from 'lodash';
 import PropTypes from '../helpers/prop_types.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 import React from 'react';
-import NotesDetails  from '../student_profile/notes_details.js';
+import NotesDetails from '../student_profile/NotesDetails.js';
 import Api from '../student_profile/Api.js';
 
 /*
