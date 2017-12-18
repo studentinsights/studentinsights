@@ -50,10 +50,6 @@ import '../app/assets/javascripts/student_profile/api.js';
 import '../app/assets/javascripts/student_profile/page_container.jsx';
 import '../app/assets/javascripts/student_profile/parse_query_string.jsx';
 
-  // restricted notes
-import '../app/assets/javascripts/restricted_notes/RestrictedNotesPageContainer.js';
-
-
 // bulk services:
 import '../app/assets/javascripts/service_uploads/service_type_dropdown.jsx';
 
