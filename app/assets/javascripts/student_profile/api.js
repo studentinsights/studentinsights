@@ -92,5 +92,3 @@ class Api extends React.Component {
 }
 
 export default Api;
-
-
