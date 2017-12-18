@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import {merge} from '../helpers/react_helpers.jsx';
+import React from 'react';
 
 window.shared || (window.shared = {});
 

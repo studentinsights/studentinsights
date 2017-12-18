@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import PropTypes from '../helpers/prop_types.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
+import NotesDetails from '../student_profile/NotesDetails.js';
 
 (function() {
   window.shared || (window.shared = {});
@@ -19,7 +20,6 @@ import {merge} from '../helpers/react_helpers.jsx';
   const MathDetails = window.shared.MathDetails;
   const AttendanceDetails = window.shared.AttendanceDetails;
   const ServicesDetails = window.shared.ServicesDetails;
-  const NotesDetails = window.shared.NotesDetails;
 
 
   // define page component

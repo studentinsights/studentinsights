@@ -8,7 +8,6 @@ import './legacyHelpers';
 
 // student profile page:
   // pure ui components:
-import '../app/assets/javascripts/student_profile/help_bubble.jsx';
 import '../app/assets/javascripts/student_profile/quad_converter.jsx';
 import '../app/assets/javascripts/student_profile/risk_bubble.jsx';
 import '../app/assets/javascripts/student_profile/service_color.jsx';
@@ -37,7 +36,6 @@ import '../app/assets/javascripts/student_profile/pdf/student_profile_pdf.js';
 
   // details:
 import '../app/assets/javascripts/student_profile/services_details.jsx';
-import '../app/assets/javascripts/student_profile/notes_details.jsx';
 import '../app/assets/javascripts/student_profile/profile_details.jsx';
 import '../app/assets/javascripts/student_profile/attendance_details.jsx';
 import '../app/assets/javascripts/student_profile/ela_details.jsx';
@@ -46,25 +44,13 @@ import '../app/assets/javascripts/student_profile/math_details.jsx';
   // page:
 import '../app/assets/javascripts/student_profile/student_profile_page.jsx';
   // (unordered)
-import '../app/assets/javascripts/student_profile/api.jsx';
 import '../app/assets/javascripts/student_profile/page_container.jsx';
 import '../app/assets/javascripts/student_profile/parse_query_string.jsx';
-
-  // restricted notes
-import '../app/assets/javascripts/restricted_notes/restricted_notes_page_container.jsx';
-
 
 // bulk services:
 import '../app/assets/javascripts/service_uploads/service_type_dropdown.jsx';
 
-
-// school overview:
-import '../app/assets/javascripts/school_overview/SchoolOverviewPage.js';
-
-
 // all the rest, unordered
-import '../app/assets/javascripts/homeroom_table/HomeroomTable.js';
-import '../app/assets/javascripts/restricted_notes/restricted_notes_page_container.jsx';
 import '../app/assets/javascripts/section/section_header.jsx';
 import '../app/assets/javascripts/section/section_page.jsx';
 import '../app/assets/javascripts/service_uploads/new_service_upload.jsx';
