@@ -1,7 +1,7 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
-import NotesDetails from '../../../app/assets/javascripts/student_profile/notes_details.js';
+import NotesDetails from '../../../app/assets/javascripts/student_profile/NotesDetails.js';
 
 describe('NotesDetails', function() {
   const ReactDOM = window.ReactDOM;
