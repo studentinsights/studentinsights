@@ -73,7 +73,6 @@ class SectionPage extends React.Component {
         <div className="header">
           <SectionHeader
             section={this.props.section}
-            educators={this.props.educators}
             sections={this.props.sections}/>
         </div>
         <div className="roster">

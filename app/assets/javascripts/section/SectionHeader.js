@@ -50,7 +50,6 @@ class SectionHeader extends React.Component {
 SectionHeader.propTypes = {
   section: React.PropTypes.object.isRequired,
   sections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
 };
 
 export default SectionHeader;
