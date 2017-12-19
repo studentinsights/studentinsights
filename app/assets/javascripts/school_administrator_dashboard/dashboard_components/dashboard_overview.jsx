@@ -7,7 +7,6 @@ export default React.createClass({
   displayName: 'DashboardOverview',
 
   render: function() {
-    console.log("I got to the overview");
     return(
       <div className="School Overview">
         <ul>
