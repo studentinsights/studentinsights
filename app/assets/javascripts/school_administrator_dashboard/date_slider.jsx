@@ -71,7 +71,8 @@ export default React.createClass({
                 dateFormat: 'yy-mm-dd',
                 minDate: moment.unix(this.state.value[0]).format("YYYY-MM-DD"),
                 maxDate: moment.unix(this.props.rangeEnd).format("YYYY-MM-DD")
-              }} />
+              }}
+              dynamicUpdate={true} />
           </div>
         </div>
         <Range
