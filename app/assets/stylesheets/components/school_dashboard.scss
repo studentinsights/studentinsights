@@ -17,6 +17,28 @@
   padding-right: 20px;
 }
 
+.DashboardDatePicker {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.ui-datepicker,
+.ui-datepicker-header,
+.ui-datepicker-calendar {
+  width: 200px;
+}
+
+.ui-datepicker-prev {
+  float: left;
+}
+
+.ui-datepicker-next {
+  float: right;
+}
+
 .StudentsList {
   height : 450px;
   overflow:hidden;

@@ -24,12 +24,14 @@ import {merge} from '../helpers/react_helpers.jsx';
         datepicker: React.PropTypes.object,
         input: React.PropTypes.object
       }),
-      datepickerOptions: React.PropTypes.object
+      datepickerOptions: React.PropTypes.object,
+      dynamicUpdate: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
       return {
-        styles: styles
+        styles: styles,
+        dynamicUpdate: false
       };
     },
 
@@ -39,6 +41,15 @@ import {merge} from '../helpers/react_helpers.jsx';
       $(el).find('.datepicker').datepicker(merge(datepickerOptions, {
         onSelect: this.onDateSelected
       }));
+    },
+
+    //This allows us to set the min and max dates dynamically to prevent selecting
+    //start dates later than end dates and vice versa
+    componentWillReceiveProps: function(newProps) {
+      if (!this.props.dynamicUpdate) return;
+
+      const el = this.el;
+      $(el).find('.datepicker').datepicker("option", newProps.datepickerOptions);
     },
 
     // Datepicker suppresses DOM change events,
