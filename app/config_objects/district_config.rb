@@ -12,7 +12,7 @@ class DistrictConfig
 
   # The file name should reference an ENV['DISTRICT_KEY'] value, like this:
   #
-  # => `config/district_#{ENV['DISTRICT_KEY']}.yml`
+  # => "config/district_#{ENV['DISTRICT_KEY']}.yml"
 
   def self.set_remote_filenames
     remote_filenames = self.remote_filenames_from_yml
