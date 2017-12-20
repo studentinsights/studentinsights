@@ -1,7 +1,8 @@
+import RiskBubble from '../student_profile/RiskBubble.js';
+
 (function() {
   window.shared || (window.shared = {});
   const Routes = window.shared.Routes;
-  const RiskBubble = window.shared.RiskBubble;
   const ContactModal = window.shared.ModalSmall;
 
   const styles = {
