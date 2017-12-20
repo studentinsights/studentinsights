@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import {merge} from '../helpers/react_helpers.jsx';
+import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
 
 (function() {
   window.shared || (window.shared = {});
   const QuadConverter = window.shared.QuadConverter;
 
   const ProfileChartSettings = window.ProfileChartSettings;
-  const HighchartsWrapper = window.shared.HighchartsWrapper;
 
   // Component for all charts in the profile page.
   window.shared.ProfileChart = React.createClass({
