@@ -18,7 +18,6 @@ import '../app/assets/javascripts/student_profile/datepicker.jsx';
 import '../app/assets/javascripts/student_profile/highcharts_wrapper.jsx';
 import '../app/assets/javascripts/student_profile/bar_chart_sparkline.jsx';
 import '../app/assets/javascripts/student_profile/sparkline.jsx';
-import '../app/assets/javascripts/student_profile/scales.jsx';
 import '../app/assets/javascripts/student_profile/academic_summary.jsx';
 import '../app/assets/javascripts/student_profile/take_notes.jsx';
 import '../app/assets/javascripts/student_profile/editable_text_component.jsx';

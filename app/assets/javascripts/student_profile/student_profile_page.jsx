@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from '../helpers/prop_types.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 import NotesDetails from '../student_profile/NotesDetails.js';
+import Scales from '../student_profile/Scales.js';
 
 (function() {
   window.shared || (window.shared = {});
@@ -12,7 +13,6 @@ import NotesDetails from '../student_profile/NotesDetails.js';
   const SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
   const SummaryList = window.shared.SummaryList;
   const QuadConverter = window.shared.QuadConverter;
-  const Scales = window.shared.Scales;
 
   const StudentProfileHeader = window.shared.StudentProfileHeader;
   const ProfileDetails = window.shared.ProfileDetails;
