@@ -1,9 +1,9 @@
 import RiskBubble from '../student_profile/RiskBubble.js';
+import ModalSmall from '../student_profile/ModalSmall.js';
 
 (function() {
   window.shared || (window.shared = {});
   const Routes = window.shared.Routes;
-  const ContactModal = window.shared.ModalSmall;
 
   const styles = {
     titleContainer: {
@@ -129,7 +129,7 @@ import RiskBubble from '../student_profile/RiskBubble.js';
 
     renderContactIcon: function () {
       return (
-        <ContactModal
+        <ModalSmall
           title='Contact Information'
           icon={<span className='address-book-icon'></span>}
           content={this.renderContactInformation()} />

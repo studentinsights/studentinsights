@@ -27,7 +27,6 @@ import '../app/assets/javascripts/student_profile/record_service.jsx';
 import '../app/assets/javascripts/student_profile/summary_list.jsx';
 import '../app/assets/javascripts/student_profile/profile_chart.jsx';
 import '../app/assets/javascripts/student_profile/profile_bar_chart.jsx';
-import '../app/assets/javascripts/student_profile/modal_small_icon.jsx';
 import '../app/assets/javascripts/student_profile/student_profile_header.jsx';
 import '../app/assets/javascripts/student_profile/student_sections_roster.jsx';
 import '../app/assets/javascripts/student_profile/pdf/student_profile_pdf.js';
