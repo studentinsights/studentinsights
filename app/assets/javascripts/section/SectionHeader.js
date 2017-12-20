@@ -1,5 +1,5 @@
 import React from 'react';
-const Routes = window.shared.Routes;
+import * as Routes from '../helpers/Routes';
 
 class SectionHeader extends React.Component {
 
