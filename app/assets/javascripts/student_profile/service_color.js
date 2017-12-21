@@ -17,4 +17,4 @@ export default function serviceColor(serviceTypeId) {
   };
 
   return map[serviceTypeId] || null;
-};
+}
