@@ -20,7 +20,6 @@ import '../app/assets/javascripts/student_profile/note_card.jsx';
 import '../app/assets/javascripts/student_profile/notes_list.jsx';
 import '../app/assets/javascripts/student_profile/services_list.jsx';
 import '../app/assets/javascripts/student_profile/record_service.jsx';
-import '../app/assets/javascripts/student_profile/summary_list.jsx';
 import '../app/assets/javascripts/student_profile/profile_chart.jsx';
 import '../app/assets/javascripts/student_profile/profile_bar_chart.jsx';
 import '../app/assets/javascripts/student_profile/student_profile_header.jsx';
