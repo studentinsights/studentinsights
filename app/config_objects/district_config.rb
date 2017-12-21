@@ -1,50 +1,39 @@
 class DistrictConfig
 
-  cattr_accessor :remote_filenames
-
-  ### CONFIGURING FILE NAMES FOR REMOTE DATA IMPORT ###
-
-  # To configure a Student Insights instance to read data from remote SFTP,
-  # we need to know what filenames to look for.
-
-  # Set filenames for the expected remote files in a .yml file under /config.
-  # See config/district_somerville.yml as an example.
-
-  # The file name should reference an ENV['DISTRICT_KEY'] value, like this:
-  #
-  # => "config/district_#{ENV['DISTRICT_KEY']}.yml"
-
-  def self.set_remote_filenames
-    remote_filenames = self.remote_filenames_from_yml
-
-    # In `Rails.env.development`, we don't need to set all these filename variables
-    # because they're only needed in a few very specific use cases.
-
-    # The two development use cases that would need these filenames are:
-      # (1) test production data import process
-      # (2) import production data to local environment to test something locally
-
-    # In `Rails.env.test`, we use fixture .txt files and mocks to simulate imported
-    # data, so these variables don't need to be set.
+  def remote_filenames
+    remote_filenames = load_remote_filenames_from_yml
 
     if Rails.env.production?
-      self.validate_remote_filenames(remote_filenames)
+      validate_remote_filenames(remote_filenames)
     end
 
-    self.remote_filenames = remote_filenames_from_yml
+    return remote_filenames
   end
 
-  def self.district_key
+  private
+
+  def district_key
     ENV.fetch('DISTRICT_KEY')
   end
 
-  def self.remote_filenames_from_yml
-    YAML.load(File.open("config/district_#{self.district_key}.yml"))
+  def district_key_to_config_file
+    {
+      'somerville' => 'config/district_somerville.yml',
+      'new_bedford' => 'config/district_new_bedford.yml',
+    }
+  end
+
+  def config_file_path
+    district_key_to_config_file.fetch(district_key)
+  end
+
+  def load_remote_filenames_from_yml
+    YAML.load(File.open(config_file_path))
         .fetch("config")
         .fetch("remote_filenames")
   end
 
-  def self.expected_keys
+  def expected_keys
     [
       'FILENAME_FOR_STUDENTS_IMPORT',
       'FILENAME_FOR_EDUCATORS_IMPORT',
@@ -60,8 +49,8 @@ class DistrictConfig
     ]
   end
 
-  def self.validate_remote_filenames(remote_filenames)
-    if remote_filenames.keys.sort != self.expected_keys.sort
+  def validate_remote_filenames(remote_filenames)
+    if remote_filenames.keys.sort != expected_keys.sort
       raise "Unexpected keys!"
     end
   end
