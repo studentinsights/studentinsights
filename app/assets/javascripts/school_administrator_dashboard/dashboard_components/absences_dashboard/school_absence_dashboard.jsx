@@ -99,9 +99,10 @@ export default React.createClass({
     return (
         <DashboardBarChart
           id = {'string'}
-          categories = {categories}
+          categories = {{categories: categories}}
           seriesData = {filteredAttendanceSeries}
-          monthsBack = {categories.length}
+          yAxisMin = {80}
+          yAxisMax = {100}
           titleText = {'Average Attendance By Month'}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
@@ -122,9 +123,10 @@ export default React.createClass({
     return (
         <DashboardBarChart
           id = {'string'}
-          categories = {Object.keys(homeroomAverageDailyAttendance)}
+          categories = {{categories: Object.keys(homeroomAverageDailyAttendance)}}
           seriesData = {homeroomSeries}
-          monthsBack = {12}
+          yAxisMin = {80}
+          yAxisMax = {100}
           titleText = {'Average Attendance By Homeroom'}
           measureText = {'Attendance (Percent)'}
           tooltip = {{

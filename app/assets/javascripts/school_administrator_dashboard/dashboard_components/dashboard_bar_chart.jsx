@@ -37,18 +37,13 @@ export default React.createClass({
     id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
     categories: React.PropTypes.object.isRequired,  //Buckets used for X Axis
     seriesData: React.PropTypes.array.isRequired, // array of JSON event objects.
+    yAxisMin: React.PropTypes.number,
+    yAxisMax: React.PropTypes.number,
     titleText: React.PropTypes.string.isRequired,
     measureText: React.PropTypes.string.isRequired,
     tooltip: React.PropTypes.object.isRequired,
-    categoryGroups: React.PropTypes.object,
     onColumnClick: React.PropTypes.func,
     onBackgroundClick: React.PropTypes.func
-  },
-
-  getDefaultProps: function(){
-    return {
-      categoryGroups: {}
-    };
   },
 
   //Because the highcharts wrapper redraws the charts whether or not the props
@@ -81,6 +76,8 @@ export default React.createClass({
           }}
           title={{text: this.props.titleText}}
           yAxis={{
+            min: this.props.yAxisMin,
+            max: this.props.yAxisMax,
             allowDecimals: true,
             title: {text: this.props.measureText}
           }}
