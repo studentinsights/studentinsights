@@ -1,9 +1,9 @@
 import RiskBubble from '../student_profile/RiskBubble.js';
 import ModalSmall from '../student_profile/ModalSmall.js';
+import * as Routes from '../helpers/Routes';
 
 (function() {
   window.shared || (window.shared = {});
-  const Routes = window.shared.Routes;
 
   const styles = {
     titleContainer: {
