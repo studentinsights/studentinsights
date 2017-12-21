@@ -13,7 +13,7 @@ export default React.createClass({
 
   getInitialState () {
     return {
-      sortBy: 'absences',
+      sortBy: 'events',
       sortType: 'number',
       sortDesc: true,
       slectedHomeroom: null
@@ -55,10 +55,10 @@ export default React.createClass({
     return sortedRows;
   },
 
-  totalAbsences () {
+  totalEvents () {
     let total = 0;
     this.props.rows.forEach((student) => {
-      total += student.absences;
+      total += student.events;
     });
     return total;
   },
@@ -82,14 +82,14 @@ export default React.createClass({
                   onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
                   className={this.headerClassName('last_name')}>Name</th>
               <th width="33.33"
-                  onClick={this.onClickHeader.bind(null, 'absences', 'number')}
-                  className={this.headerClassName('absences')}>Absences</th>
+                  onClick={this.onClickHeader.bind(null, 'events', 'number')}
+                  className={this.headerClassName('events')}>Incidents</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
               <td width="66.66%">{'Total: '}</td>
-              <td width="33.33%">{this.totalAbsences()}</td>
+              <td width="33.33%">{this.totalEvents()}</td>
             </tr>
           </tfoot>
           <tbody>
@@ -101,7 +101,7 @@ export default React.createClass({
                       {student.last_name}, {student.first_name}
                     </a>
                   </td>
-                  <td width="33.33%">{student.absences}</td>
+                  <td width="33.33%">{student.events}</td>
                 </tr>
               );
             })}
