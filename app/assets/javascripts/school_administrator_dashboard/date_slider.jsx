@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'rc-slider';
+import Datepicker from '../student_profile/Datepicker.js';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -34,8 +35,6 @@ export default React.createClass({
   },
 
   render: function() {
-    const Datepicker = window.shared.Datepicker;
-
     return (
       <div>
         <div className='DashboardDatePicker'>

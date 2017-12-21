@@ -1,9 +1,9 @@
+import Datepicker from '../student_profile/Datepicker.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import serviceColor from '../student_profile/service_color.js';
 
 (function() {
   window.shared || (window.shared = {});
-  const Datepicker = window.shared.Datepicker;
   const ProvidedByEducatorDropdown = window.shared.ProvidedByEducatorDropdown;
 
   const styles = {
