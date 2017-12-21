@@ -1,6 +1,5 @@
-import Educator from './educator.jsx';
+import Educator from '../student_profile/Educator.js';
 import moment from 'moment';
-
 
 (function() {
   window.shared || (window.shared = {});

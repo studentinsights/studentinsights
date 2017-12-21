@@ -12,7 +12,6 @@ import '../app/assets/javascripts/student_profile/quad_converter.jsx';
 import '../app/assets/javascripts/student_profile/service_color.jsx';
 import '../app/assets/javascripts/student_profile/provided_by_educator_dropdown.jsx';
 import '../app/assets/javascripts/student_profile/profile_chart_settings.jsx';
-import '../app/assets/javascripts/student_profile/educator.jsx';
 import '../app/assets/javascripts/student_profile/datepicker.jsx';
 import '../app/assets/javascripts/student_profile/highcharts_wrapper.jsx';
 import '../app/assets/javascripts/student_profile/bar_chart_sparkline.jsx';
