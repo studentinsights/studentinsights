@@ -12,7 +12,7 @@ class StarMathImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def remote_file_name
-    DistrictConfig.remote_filenames.fetch('FILENAME_FOR_STAR_MATH_IMPORT')
+    DistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STAR_MATH_IMPORT')
   end
 
   def data_transformer

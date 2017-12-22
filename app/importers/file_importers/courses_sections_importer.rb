@@ -12,7 +12,7 @@ class CoursesSectionsImporter < Struct.new :school_scope, :client, :log, :progre
   end
 
   def remote_file_name
-    DistrictConfig.remote_filenames.fetch('FILENAME_FOR_COURSE_SECTION_IMPORT')
+    DistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_COURSE_SECTION_IMPORT')
   end
 
   def data_transformer

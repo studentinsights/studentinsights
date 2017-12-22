@@ -15,7 +15,7 @@ class X2AssessmentImporter < Struct.new :school_scope, :client, :log, :progress_
   end
 
   def remote_file_name
-    DistrictConfig.remote_filenames.fetch('FILENAME_FOR_ASSESSMENT_IMPORT')
+    DistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_ASSESSMENT_IMPORT')
   end
 
   def data_transformer
