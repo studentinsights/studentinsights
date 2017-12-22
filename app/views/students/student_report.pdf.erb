@@ -66,8 +66,8 @@
         <ul>
           <li>DOB: <%= format_date(@student.date_of_birth) %></li>
           <li><%= "Grade #{@student.grade}" %></li>
-          <li><%= @student.try(:school).try(:name) %></li>
-          <li><%= @student.try(:homeroom).try(:name) %></li>
+          <li><%= @student.school.name || "N/A" %></li>
+          <li><%= @student.homeroom.name || "N/A" %></li>
           <li><%= @student.program_assigned %></li>
         </ul>
       </div>
@@ -95,7 +95,7 @@
           <div style="float: left; width:370px; padding:5px">
             <ul>
               <li><span style="font-weight:bold;"><%= format_date(event_note.recorded_at) %></span></li>
-              <li><span style="font-style:italic;"><%= event_note.try(:event_note_type).try(:name) %></span></li>
+              <li><span style="font-style:italic;"><%= event_note.event_note_type.name || "N/A" %></span></li>
               <li><%= event_note.text %></li>
             </ul>
           </div>
@@ -124,13 +124,13 @@
                 <span style="font-weight:bold;">
                   <%= format_date(service.date_started) %> -
                   <% if service.discontinued_at.present? %>
-                    <%= "#{format_date(service.try(:discontinued_at))}" %>
+                    <%= "#{format_date(service.discontinued_at)}" %>
                   <% else %>
                     Present
                   <% end %>
                 </span>
               </li>
-              <li><span style="font-style:italic;"><%= service.try(:service_type).try(:name) %></span></li>
+              <li><span style="font-style:italic;"><%= service.service_type.name || "N/A" %></span></li>
               <li><%= service.provided_by_educator_name %></li>
             </ul>
           </div>
