@@ -1,1 +1,0 @@
-DistrictConfig.set_remote_filenames
