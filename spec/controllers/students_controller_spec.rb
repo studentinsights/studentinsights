@@ -604,6 +604,11 @@ describe StudentsController, :type => :controller do
           expect(assigns(:event_notes)).to include(note)
           expect(assigns(:event_notes)).not_to include(restricted_note)
         end
+
+        it 'assigns the student\'s assesments correctly' do
+          assesment = FactoryGirl.create(:student_assessment, student: student, date_taken: '2016-08-16')
+          expect(assigns(:student_assessments)).to include(assesment)
+        end
       end
     end
   end
