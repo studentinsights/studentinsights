@@ -70,43 +70,11 @@ class ImportTask
   def school_ids
     return @school if @school.present?
 
-    case @district
-    when 'somerville'
-      [
-        'HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'FC', 'CAP', 'PIC',
-        'SPED', 'SHS',
-      ]
-    when 'new-bedford'
-      [
-        "010",
-        "015",
-        "020",
-        "045",
-        "040",
-        "050",
-        "063",
-        "070",
-        "075",
-        "078",
-        "095",
-        "105",
-        "115",
-        "105",
-        "124",
-        "125",
-        "130",
-        "135",
-        "140",
-        "405",
-        "410",
-        "415",
-        "505",
-        "510",
-        "515",
-      ]
-    else
-      raise 'Unfamiliar district!'
-    end
+    district_config = LoadDistrictConfig.new(@district).load
+
+    schools = district_config.fetch("schools")
+
+    schools.map { |school| school["local_id"] }
   end
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
