@@ -64,6 +64,12 @@ class ImportTask
   end
 
   def validate_school_options
+    # If the developer is passing in a list of school IDs to filter by,
+    # we check that the IDs are valid and the schools exist in the database.
+
+    # If there's no filtering by school, we take all the school IDs listed in
+    # the district config file and make sure those schools are in the database.
+
     school_ids.each { |id| School.find_by!(local_id: id) }
   end
 
