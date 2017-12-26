@@ -102,8 +102,8 @@ class ImportTask
 
   ## IMPORT ALL THE DATA ##
 
-  def sorted_file_import_classes(import_classes = file_import_classes)
-    import_classes.sort_by do |import_class|
+  def sorted_file_import_classes
+    file_import_classes.sort_by do |import_class|
       [PRIORITY.fetch(import_class, 100), import_class.to_s]
     end
   end
@@ -126,9 +126,7 @@ class ImportTask
   def import_all_the_data
     timing_log = []
 
-    sorted_import_classes = sorted_file_import_classes(file_import_classes)
-
-    sorted_import_classes.each do |file_import_class|
+    sorted_file_import_classes.each do |file_import_class|
       file_importer = file_import_class.new(
         school_ids,
         file_import_class_to_client(file_import_class),
