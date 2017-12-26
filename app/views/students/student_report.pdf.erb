@@ -66,7 +66,7 @@
         <ul>
           <li>DOB: <%= format_date(@student.date_of_birth) %></li>
           <li><%= "Grade #{@student.grade}" %></li>
-          <li><%= @student.school.name || "N/A" %></li>
+          <li><%= @student.school.try(:name) || "No School Assigned" %></li>
           <li><%= @student.homeroom.name || "N/A" %></li>
           <li><%= @student.program_assigned %></li>
         </ul>
@@ -95,7 +95,7 @@
           <div style="float: left; width:370px; padding:5px">
             <ul>
               <li><span style="font-weight:bold;"><%= format_date(event_note.recorded_at) %></span></li>
-              <li><span style="font-style:italic;"><%= event_note.event_note_type.name || "N/A" %></span></li>
+              <li><span style="font-style:italic;"><%= event_note.event_note_type.name %></span></li>
               <li><%= event_note.text %></li>
             </ul>
           </div>
@@ -130,7 +130,7 @@
                   <% end %>
                 </span>
               </li>
-              <li><span style="font-style:italic;"><%= service.service_type.name || "N/A" %></span></li>
+              <li><span style="font-style:italic;"><%= service.service_type.name %></span></li>
               <li><%= service.provided_by_educator_name %></li>
             </ul>
           </div>
