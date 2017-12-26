@@ -12,7 +12,7 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def remote_file_name
-    'students_export.txt'
+    DistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STUDENTS_IMPORT')
   end
 
   def data_transformer

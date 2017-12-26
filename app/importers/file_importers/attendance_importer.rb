@@ -12,7 +12,7 @@ class AttendanceImporter < Struct.new :school_scope, :client, :log, :progress_ba
   end
 
   def remote_file_name
-    'attendance_export.txt'
+    DistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_ATTENDANCE_IMPORT')
   end
 
   def data_transformer
