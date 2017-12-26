@@ -141,7 +141,7 @@ class ImportTask
       begin
         file_importer.import
       rescue => error
-        puts "🚨  🚨  🚨  🚨  🚨  Error! #{error}" unless Rails.env.test?
+        log.write("🚨  🚨  🚨  🚨  🚨  Error! #{error}")
 
         extra_info =  { "importer" => file_importer.class.name }
         ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
