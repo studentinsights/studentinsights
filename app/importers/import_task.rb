@@ -47,9 +47,9 @@ class ImportTask
   ## VALIDATE DEVELOPER INPUT ##
 
   def validate_district_option
-    if !(@district == "somerville" || @district == "new-bedford")
-      raise "Unknown district!"
-    end
+    # The LoadDistrictConfig class uses `fetch`, which will validate the
+    # district option for us
+    LoadDistrictConfig.new(@district).load
   end
 
   def seed_schools_if_needed
