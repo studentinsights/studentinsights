@@ -1,37 +1,19 @@
+# This class exposes an API for district config that runs validation or other
+# logic on the parsed YAML config.
+
 class DistrictConfig
 
   def remote_filenames
-    remote_filenames = load_remote_filenames_from_yml
+    yml_config = LoadDistrictConfig.new.load
 
-    if Rails.env.production?
-      validate_remote_filenames(remote_filenames)
-    end
+    remote_filenames = yml_config.fetch("remote_filenames")
+
+    validate_remote_filenames(remote_filenames) if Rails.env.production?
 
     return remote_filenames
   end
 
   private
-
-  def district_key
-    ENV.fetch('DISTRICT_KEY')
-  end
-
-  def district_key_to_config_file
-    {
-      'somerville' => 'config/district_somerville.yml',
-      'new_bedford' => 'config/district_new_bedford.yml',
-    }
-  end
-
-  def config_file_path
-    district_key_to_config_file.fetch(district_key)
-  end
-
-  def load_remote_filenames_from_yml
-    YAML.load(File.open(config_file_path))
-        .fetch("config")
-        .fetch("remote_filenames")
-  end
 
   def expected_keys
     [
