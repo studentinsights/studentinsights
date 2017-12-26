@@ -1,3 +1,6 @@
+# This class exposes an API for district config that runs validation or other
+# logic on the parsed YAML config.
+
 class DistrictConfig
 
   def remote_filenames
@@ -5,9 +8,7 @@ class DistrictConfig
 
     remote_filenames = yml_config.fetch("remote_filenames")
 
-    if Rails.env.production?
-      validate_remote_filenames(remote_filenames)
-    end
+    validate_remote_filenames(remote_filenames) if Rails.env.production?
 
     return remote_filenames
   end
