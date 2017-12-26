@@ -1,19 +1,5 @@
 class ImportTask
 
-  PRIORITY = {
-    EducatorsImporter => 0,
-    CoursesSectionsImporter => 1,
-    EducatorSectionAssignmentsImporter => 2,
-    StudentsImporter => 3,
-    StudentSectionAssignmentsImporter => 4,
-    BehaviorImporter => 5,
-    AttendanceImporter => 5,
-    StudentSectionGradesImporter => 5,
-    X2AssessmentImporter => 6,
-    StarMathImporter::RecentImporter => 6,
-    StarReadingImporter::RecentImporter => 6,
-  }
-
   def initialize(options:)
     # options["district"] should be either "somerville" or "new-bedford"
     @district = options.fetch("district")
@@ -102,11 +88,6 @@ class ImportTask
 
   ## IMPORT ALL THE DATA ##
 
-  def sorted_file_import_classes
-    file_import_classes.sort_by do |import_class|
-      [PRIORITY.fetch(import_class, 100), import_class.to_s]
-    end
-  end
 
   def file_import_class_to_client(import_class)
     return SftpClient.for_x2 if import_class.in?(X2Importers.list)
@@ -116,17 +97,11 @@ class ImportTask
     return nil
   end
 
-  def file_import_classes
-    @source.map { |s| FileImporterOptions.options.fetch(s, nil) }
-           .flatten
-           .compact
-           .uniq
-  end
-
   def import_all_the_data
+    file_import_classes = UnwrapFileImporterOptions.new(@source).sort_file_import_classes
     timing_log = []
 
-    sorted_file_import_classes.each do |file_import_class|
+    file_import_classes.each do |file_import_class|
       file_importer = file_import_class.new(
         school_ids,
         file_import_class_to_client(file_import_class),
