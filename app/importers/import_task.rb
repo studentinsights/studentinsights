@@ -53,14 +53,7 @@ class ImportTask
   end
 
   def seed_schools_if_needed
-    if School.count == 0
-      case options["district"]
-      when "somerville"
-        School.seed_somerville_schools
-      when "new-bedford"
-        School.seed_new_bedford_schools
-      end
-    end
+    School.seed_schools_for_district(@district) if School.count == 0
   end
 
   def validate_school_options
