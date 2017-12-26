@@ -5,6 +5,7 @@ RSpec.describe ImportTask do
   let(:minimum_valid_options) {
     {
       'district' => 'somerville',
+      'test_mode' => true
     }
   }
 
@@ -19,6 +20,14 @@ RSpec.describe ImportTask do
       it 'does not raise an error; supplies the correct defaults' do
         expect { ImportTask.new(options: {}) }.to raise_error KeyError
       end
+    end
+  end
+
+  describe '#connect_transform_import' do
+    let(:task) { ImportTask.new(options: minimum_valid_options) }
+
+    it 'doesn\'t blow up (smoke test)' do
+      task.connect_transform_import
     end
   end
 
