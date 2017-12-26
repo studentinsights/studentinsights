@@ -28,9 +28,7 @@ class DistrictConfig
   end
 
   def load_remote_filenames_from_yml
-    YAML.load(File.open(config_file_path))
-        .fetch("config")
-        .fetch("remote_filenames")
+    YAML.load(File.open(config_file_path)).fetch("remote_filenames")
   end
 
   def expected_keys

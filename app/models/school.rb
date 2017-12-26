@@ -18,9 +18,7 @@ class School < ActiveRecord::Base
   end
 
   def self.fetch_school_data_for_district(district_key)
-    YAML.load(File.open("config/district_#{district_key}.yml"))
-        .fetch("config")
-        .fetch("schools")
+    YAML.load(File.open("config/district_#{district_key}.yml")).fetch("schools")
   end
 
   def self.seed_somerville_schools
