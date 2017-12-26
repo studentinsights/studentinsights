@@ -17,16 +17,20 @@ class School < ActiveRecord::Base
     educators_without_test_account.pluck(:full_name)
   end
 
-  def self.fetch_school_data_for_district(district_key)
-    YAML.load(File.open("config/district_#{district_key}.yml")).fetch("schools")
-  end
-
-  def self.seed_somerville_schools
-    district_key = ENV.fetch('DISTRICT_KEY')
-
+  def self.seed_schools_for_district(district_key = ENV['DISTRICT_KEY'])
     schools = School.fetch_school_data_for_district(district_key)
 
     School.create!(schools)
+  end
+
+  def self.fetch_school_data_for_district(district_key)
+    yml_config = LoadDistrictConfig.new(district_key).load
+
+    return yml_config.fetch("schools")
+  end
+
+  def self.seed_somerville_schools
+    School.seed_schools_for_district('somerville')
   end
 
 end
