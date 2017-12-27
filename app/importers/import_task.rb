@@ -1,9 +1,6 @@
 class ImportTask
 
   def initialize(options:)
-    # options["district"] should be either "somerville" or "new-bedford"
-    @district = options.fetch("district")
-
     # options["school"] is an optional filter; imports all schools if nil
     @school = options.fetch("school", nil)
 
@@ -35,11 +32,11 @@ class ImportTask
   def validate_district_option
     # The LoadDistrictConfig class uses `fetch`, which will validate the
     # district option for us
-    LoadDistrictConfig.new(@district).load
+    LoadDistrictConfig.new.load
   end
 
   def seed_schools_if_needed
-    School.seed_schools_for_district(@district) if School.count == 0
+    School.seed_schools_for_district if School.count == 0
   end
 
   def validate_school_options
@@ -55,7 +52,7 @@ class ImportTask
   def school_ids
     return @school if @school.present?
 
-    district_config = LoadDistrictConfig.new(@district).load
+    district_config = LoadDistrictConfig.new.load
 
     schools = district_config.fetch("schools")
 

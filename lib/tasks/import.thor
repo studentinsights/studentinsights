@@ -7,9 +7,6 @@ class Import
   class Start < Thor::Group
     desc "Import data into your Student Insights instance"
 
-    class_option :district,
-      type: :string,
-      desc: "One of: [somerville, new-bedford]"
     class_option :school,
       type: :array,
       desc: "Scope by school"
