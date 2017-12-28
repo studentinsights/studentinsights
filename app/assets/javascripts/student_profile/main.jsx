@@ -1,10 +1,10 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import parseQueryString from '../student_profile/parse_query_string.js';
 
 export default function renderStudentMain(el) {
   // imports
   const ReactDOM = window.ReactDOM;
   const PageContainer = window.shared.PageContainer;
-  const parseQueryString = window.shared.parseQueryString;
 
   // entry point, reading static bootstrapped data from the page
   const serializedData = $('#serialized-data').data();
