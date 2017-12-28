@@ -85,7 +85,6 @@ class ImportTask
 
   ## IMPORT ALL THE DATA ##
 
-
   def file_import_class_to_client(import_class)
     return SftpClient.for_x2 if import_class.in?(X2Importers.list)
 

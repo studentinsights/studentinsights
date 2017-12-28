@@ -66,12 +66,14 @@ RSpec.describe UnwrapFileImporterOptions do
     end
 
     context 'when provided unprioritized importers' do
-      let(:source) {[
-        'students',
-        'student_section_assignments',
-        'educators',
-        'courses_sections',
-      ]}
+      let(:source) {
+        [
+          'students',
+          'student_section_assignments',
+          'educators',
+          'courses_sections',
+        ]
+      }
 
       let(:unwrapper) { described_class.new(source) }
 
