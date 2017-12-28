@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import PropTypes from '../helpers/prop_types.jsx';
+import MathDetails from '../student_profile/MathDetails.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import NotesDetails from '../student_profile/NotesDetails.js';
 import React from 'react';
@@ -19,9 +20,7 @@ import AttendanceDetails from '../student_profile/AttendanceDetails.js';
   const StudentProfileHeader = window.shared.StudentProfileHeader;
   const ProfileDetails = window.shared.ProfileDetails;
   const ELADetails = window.shared.ELADetails;
-  const MathDetails = window.shared.MathDetails;
   const ServicesDetails = window.shared.ServicesDetails;
-
 
   // define page component
   const styles = {
