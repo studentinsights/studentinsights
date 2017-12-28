@@ -39,9 +39,6 @@ import '../app/assets/javascripts/student_profile/student_profile_page.jsx';
 import '../app/assets/javascripts/student_profile/page_container.jsx';
 import '../app/assets/javascripts/student_profile/parse_query_string.jsx';
 
-// bulk services:
-import '../app/assets/javascripts/service_uploads/service_type_dropdown.jsx';
-
 // all the rest, unordered
 import '../app/assets/javascripts/service_uploads/new_service_upload.jsx';
 import '../app/assets/javascripts/service_uploads/service_upload_detail.jsx';
