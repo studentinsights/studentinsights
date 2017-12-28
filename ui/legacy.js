@@ -29,7 +29,6 @@ import '../app/assets/javascripts/student_profile/pdf/student_profile_pdf.js';
   // details:
 import '../app/assets/javascripts/student_profile/services_details.jsx';
 import '../app/assets/javascripts/student_profile/profile_details.jsx';
-import '../app/assets/javascripts/student_profile/ela_details.jsx';
 
   // page:
 import '../app/assets/javascripts/student_profile/student_profile_page.jsx';

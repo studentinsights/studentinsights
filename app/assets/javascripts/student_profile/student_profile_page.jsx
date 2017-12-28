@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import PropTypes from '../helpers/prop_types.jsx';
 import MathDetails from '../student_profile/MathDetails.js';
+import ElaDetails from '../student_profile/ElaDetails.js';
+import PropTypes from '../helpers/prop_types.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 import NotesDetails from '../student_profile/NotesDetails.js';
 import React from 'react';
@@ -19,7 +20,6 @@ import AttendanceDetails from '../student_profile/AttendanceDetails.js';
 
   const StudentProfileHeader = window.shared.StudentProfileHeader;
   const ProfileDetails = window.shared.ProfileDetails;
-  const ELADetails = window.shared.ELADetails;
   const ServicesDetails = window.shared.ServicesDetails;
 
   // define page component
@@ -257,7 +257,7 @@ import AttendanceDetails from '../student_profile/AttendanceDetails.js';
             serviceTypesIndex={this.props.serviceTypesIndex}
             currentEducator={this.props.currentEducator}/>
       );
-      case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
+      case 'ela': return <ElaDetails chartData={this.props.chartData} student={this.props.student} />;
       case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
       case 'attendance':
         return (
