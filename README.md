@@ -43,6 +43,9 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
         - [Self-Hosted Aspen](#self-hosted-aspen)
         - [Hosted Aspen](#hosted-aspen)
       - [Getting data into Insights](#getting-data-into-insights)
+        - [`ENV['DISTRICT_KEY']`](#envdistrict_key)
+        - [YAML Config File](#yaml-config-file)
+        - [Running the import job](#running-the-import-job)
     - [LDAP](#ldap)
     - [Heroku notes](#heroku-notes)
     - [Data differences between districts](#data-differences-between-districts)
@@ -252,6 +255,14 @@ Once your district has got data out of its SIS, the next step is to bring the da
 
 Each district names its export files according to their own naming convention. We need to tell Insights what remote filenames to look for on the SFTP site. We also need to tell Insights what schools exist in those districts.
 
+There are two parts to the configuration: an `ENV['DISTRICT_KEY']` and a YAML config file.
+
+##### `ENV['DISTRICT_KEY']`
+
+This is the canonical key for the district. Use a slug-style string, like `"somerville"` or `"new_bedford"`.
+
+##### YAML Config File
+
 Configure that data by creating a new district configuration file under `/config`. You can use one of these files as examples:
 
 ```
@@ -260,6 +271,8 @@ Configure that data by creating a new district configuration file under `/config
 ```
 
 Once you have your own YAML configuration file set up, tell the `DistrictConfig` object where to look for it. Update the `district_key_to_config_file` method in `app/config_objects/district_config.rb`.
+
+##### Running the import job
 
 Once you have the config set up, run an import job:
 
