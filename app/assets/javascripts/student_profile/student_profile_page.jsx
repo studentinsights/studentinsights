@@ -5,6 +5,7 @@ import NotesDetails from '../student_profile/NotesDetails.js';
 import React from 'react';
 import Scales from '../student_profile/Scales.js';
 import SummaryList from '../student_profile/SummaryList.js';
+import AttendanceDetails from '../student_profile/AttendanceDetails.js';
 
 (function() {
   window.shared || (window.shared = {});
@@ -19,7 +20,6 @@ import SummaryList from '../student_profile/SummaryList.js';
   const ProfileDetails = window.shared.ProfileDetails;
   const ELADetails = window.shared.ELADetails;
   const MathDetails = window.shared.MathDetails;
-  const AttendanceDetails = window.shared.AttendanceDetails;
   const ServicesDetails = window.shared.ServicesDetails;
 
 
