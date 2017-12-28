@@ -8,6 +8,10 @@ RSpec.describe ImportTask do
     it 'doesn\'t blow up (smoke test)' do
       task.connect_transform_import
     end
+
+    it 'creates an import record' do
+      expect { task.connect_transform_import }.to change { ImportRecord.count }.by 1
+    end
   end
 
 end
