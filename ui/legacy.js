@@ -37,7 +37,6 @@ import '../app/assets/javascripts/student_profile/math_details.jsx';
 import '../app/assets/javascripts/student_profile/student_profile_page.jsx';
   // (unordered)
 import '../app/assets/javascripts/student_profile/page_container.jsx';
-import '../app/assets/javascripts/student_profile/parse_query_string.jsx';
 
 // bulk services:
 import '../app/assets/javascripts/service_uploads/service_type_dropdown.jsx';
