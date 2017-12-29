@@ -261,6 +261,10 @@ There are two parts to the configuration: an `ENV['DISTRICT_KEY']` and a YAML co
 
 This is the canonical key for the district. Use a slug-style string, like `"somerville"` or `"new_bedford"`.
 
+Locally, change this key by editing the `development.rb` or `test.rb` config files. Currently it defaults to `"somerville"` in both of these environments, since the codebase was built for Somerville and some code (i.e. test code) assumes Somerville as the district.
+
+In a production Heroku instance, set this key by either running `heroku config:set DISTRICT_KEY={{key_goes_here}}`, or through the Heroku UI.
+
 ##### YAML Config File
 
 Configure that data by creating a new district configuration file under `/config`. You can use one of these files as examples:
