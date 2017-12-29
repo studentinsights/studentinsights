@@ -1,3 +1,4 @@
+
 # Student Insights
 
 [![Build Status](https://travis-ci.org/studentinsights/studentinsights.svg?branch=master)](https://travis-ci.org/studentinsights/studentinsights)
@@ -43,6 +44,10 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
         - [Self-Hosted Aspen](#self-hosted-aspen)
         - [Hosted Aspen](#hosted-aspen)
       - [Getting data into Insights](#getting-data-into-insights)
+        - [Setting `ENV['DISTRICT_KEY']`](#setting-envdistrict_key)
+        - [Setting other ENV variables](#setting-other-env-variables)
+        - [Creating a YAML config file](#creating-a-yaml-config-file)
+        - [Running the import job](#running-the-import-job)
     - [LDAP](#ldap)
     - [Heroku notes](#heroku-notes)
     - [Data differences between districts](#data-differences-between-districts)
@@ -252,6 +257,40 @@ Once your district has got data out of its SIS, the next step is to bring the da
 
 Each district names its export files according to their own naming convention. We need to tell Insights what remote filenames to look for on the SFTP site. We also need to tell Insights what schools exist in those districts.
 
+There are three parts to the configuration: an `ENV['DISTRICT_KEY']`, other ENV variables, and a YAML config file.
+
+##### Setting `ENV['DISTRICT_KEY']`
+
+This is the canonical key for the district. Use a slug-style string, like `"somerville"` or `"new_bedford"`.
+
+Locally, change this key by editing the `development.rb` or `test.rb` config files. Currently it defaults to `"somerville"` in both of these environments, since the codebase was built for Somerville and some code (i.e. test code) assumes Somerville as the district.
+
+In a production Heroku instance, set this key by either running `heroku config:set DISTRICT_KEY={{key_goes_here}}`, or through the Heroku UI.
+
+##### Setting other ENV variables
+
+In addition to the DISTRICT_KEY, there are a few other variables you'll need to set in ENV. These are credentials for the nightly import process. They are stored in ENV because they are sensitive and need to be kept secret.
+
+These variables are:
+
++ `SIS_SFTP_HOST`,
++ `SIS_SFTP_USER`,
++ `SIS_SFTP_KEY` or `STAR_SFTP_PASSWORD`
+
+Key-based authentication is preferred, but sometimes we need to use password-based if key-based auth is a major obstacle for a school district or a vendor.
+
+In production, set variables through the command line or the Heroku UI just like with `ENV['DISTRICT_KEY']`. If you need to work with real SIS access locally, create a temporary local env file:
+
+```
+touch config/local_env.yml
+```
+
+The values in this file are read in as ENV by the `development.rb` file. This file is `.gitignore`d because we need to keep sensitive values out of git source control and out of GitHub.
+
+##### Creating a YAML config file
+
+The third step to configuring a new district is to create a public YAML file with non-sensitive configuration information, like which schools are in the district.
+
 Configure that data by creating a new district configuration file under `/config`. You can use one of these files as examples:
 
 ```
@@ -260,6 +299,8 @@ Configure that data by creating a new district configuration file under `/config
 ```
 
 Once you have your own YAML configuration file set up, tell the `DistrictConfig` object where to look for it. Update the `district_key_to_config_file` method in `app/config_objects/district_config.rb`.
+
+##### Running the import job
 
 Once you have the config set up, run an import job:
 
