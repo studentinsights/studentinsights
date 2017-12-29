@@ -39,9 +39,15 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   # This returns an object that will reveal secure data if printed
   def sftp_session
     raise "SFTP information missing" unless sftp_info_present?
+
     if @sftp_session.nil?
-      @sftp_session = Net::SFTP.start(host, user, auth_mechanism)
+      proxy = Net::SSH::Proxy::HTTP.new(
+        'quotaguard_proxy_host', ENV.fetch('QUOTAGUARDSTATIC_URL')
+      )
+
+      @sftp_session = Net::SFTP.start(host, user, auth_mechanism, proxy: proxy)
     end
+
     @sftp_session
   end
 
