@@ -605,6 +605,17 @@ describe StudentsController, :type => :controller do
           expect(assigns(:event_notes)).not_to include(restricted_note)
         end
 
+        it 'assigns the student\'s school years correctly' do
+          incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
+          absence = FactoryGirl.create(:absence, student: student, occurred_at: '2015-08-16')
+          tardy = FactoryGirl.create(:tardy, student: student, occurred_at: '2015-08-17')
+          make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
+
+          expect(assigns(:student_school_years)[0].discipline_incidents).to include(incident)
+          expect(assigns(:student_school_years)[0].absences).to include(absence)
+          expect(assigns(:student_school_years)[0].tardies).to include(tardy)
+        end
+
         it 'assigns the student\'s discipline incidents correctly' do
           incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
           old_incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-14')
