@@ -1,11 +1,5 @@
 module ApplicationHelper
 
-  def format_date(date)
-    return "" unless date.respond_to?(:strftime)
-
-    date.strftime("%m/%d/%Y")
-  end
-
   def todays_date
     Time.now.in_time_zone('Eastern Time (US & Canada)').to_date
   end
