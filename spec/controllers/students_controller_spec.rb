@@ -605,17 +605,28 @@ describe StudentsController, :type => :controller do
           expect(assigns(:event_notes)).not_to include(restricted_note)
         end
 
+        it 'assigns the student\'s discipline incidents correctly' do
+          incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
+          old_incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-14')
+          make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
+
+          expect(assigns(:discipline_incidents)).to include(incident)
+          expect(assigns(:discipline_incidents)).not_to include(old_incident)
+        end
+
         it 'assigns the student\'s assesments correctly' do
           assessment = FactoryGirl.create(:assessment, :access)
           student_assessment = FactoryGirl.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
           assessment = FactoryGirl.create(:assessment, :math)
-          student_assessment = FactoryGirl.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2016-08-16')
+          student_assessment = FactoryGirl.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2017-02-16')
           make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
 
           expect(assigns(:student_assessments)).to include("ACCESS Composite")
           expect(assigns(:student_assessments)["ACCESS Composite"]).to be_kind_of(Array)
+          expect(assigns(:student_assessments)["ACCESS Composite"]).to eq([["2016-08-16 00:00:00 UTC", nil]])
           expect(assigns(:student_assessments)).to include(" Mathematics")
           expect(assigns(:student_assessments)[" Mathematics"]).to be_kind_of(Array)
+          expect(assigns(:student_assessments)[" Mathematics"]).to eq([["2017-02-16 00:00:00 UTC", nil]])
         end
       end
     end
