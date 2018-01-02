@@ -10,6 +10,9 @@ remote_filenames:
 
   # istudentschedule.csv -- looks like this is based off of student_schedule_export.sql,
   #   but that isn't a data source we're using
+
+target_directory: new_bedford
+
 schools:
   -
     name: Charles S. Ashley
