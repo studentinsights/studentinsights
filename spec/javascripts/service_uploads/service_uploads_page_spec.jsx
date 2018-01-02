@@ -26,7 +26,7 @@ describe('ServiceUploadsPage', function() {
           resolve({
             ok: true,
             json: function() {
-              return []
+              return [];
             }
           });
         });
@@ -52,7 +52,7 @@ describe('ServiceUploadsPage', function() {
           resolve({
             ok: true,
             json: function() {
-              return []
+              return [];
             }
           });
         });
