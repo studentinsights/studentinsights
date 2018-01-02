@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
+
 const styles = {
   title: {
     color: 'black',
@@ -58,7 +60,6 @@ export default React.createClass({
   },
 
   render: function() {
-    const {HighchartsWrapper} = window.shared;
     return (
       <div id={this.props.id} style={styles.container}>
         <HighchartsWrapper
