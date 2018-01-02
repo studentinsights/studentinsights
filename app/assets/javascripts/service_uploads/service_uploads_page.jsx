@@ -14,8 +14,8 @@ import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
 
     getInitialState: function () {
       return {
-        serviceUploads: this.props.serializedData.serviceUploads, // Existing service uploads
-        formData: {},                                             // New service upload form data
+        serviceUploads: null,
+        formData: {},
 
         // Student LASID validation
         studentLasidsReceivedFromBackend: false,
@@ -99,7 +99,13 @@ import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
     },
 
     componentDidMount: function () {
-
+      fetch('/service_uploads/past', { credentials: 'include' })
+        .then(response => response.json())
+        .then(json => {
+          this.setState({
+            serviceUploads: json
+          });
+        });
     },
 
     onClickDeleteServiceUpload: function (id) {
@@ -229,7 +235,7 @@ import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
 
       return (
         <PastServiceUploads
-          serviceUploads={null}
+          serviceUploads={serviceUploads}
           onClickDeleteServiceUpload={this.onClickDeleteServiceUpload}
         />
       );

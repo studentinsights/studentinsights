@@ -42,7 +42,11 @@ Rails.application.routes.draw do
   resources :services, only: [:destroy]
   resources :service_types, only: [:index]
   resources :event_note_attachments, only: [:destroy]
-  resources :service_uploads, only: [:create, :index, :destroy]
+  resources :service_uploads, only: [:create, :index, :destroy] do
+    collection do
+      get :past
+    end
+  end
   resources :homerooms, only: [:show]
   resources :sections, only: [:index, :show]
   resources :import_records, only: [:index]

@@ -77,8 +77,8 @@ class ServiceUploadsController < ApplicationController
     render 'shared/serialized_data'
   end
 
-  def past_service_uploads
-    render json: ServiceUpload.order(created_at: :desc).as_json(
+  def past
+    return render json: ServiceUpload.order(created_at: :desc).as_json(
       only: [:created_at, :file_name, :id],
       include: {
         services: {
