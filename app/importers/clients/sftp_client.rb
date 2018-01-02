@@ -41,14 +41,30 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
     raise "SFTP information missing" unless sftp_info_present?
 
     if @sftp_session.nil?
-      proxy = Net::SSH::Proxy::HTTP.new(
-        'quotaguard_proxy_host', ENV.fetch('QUOTAGUARDSTATIC_URL')
-      )
-
-      @sftp_session = Net::SFTP.start(host, user, auth_mechanism, proxy: proxy)
+      start_sftp_session
     end
 
     @sftp_session
+  end
+
+  def start_sftp_session
+    if ENV.fetch('QUOTAGUARDSTATIC_URL', false)
+      start_sftp_session_with_proxy
+    else
+      start_sftp_session_no_proxy
+    end
+  end
+
+  def start_sftp_session_with_proxy
+    proxy = Net::SSH::Proxy::HTTP.new(
+      'quotaguard_proxy_host', ENV.fetch('QUOTAGUARDSTATIC_URL')
+    )
+
+    @sftp_session = Net::SFTP.start(host, user, auth_mechanism, proxy: proxy)
+  end
+
+  def start_sftp_session_no_proxy
+    @sftp_session = Net::SFTP.start(host, user, auth_mechanism)
   end
 
   def sftp_info_present?
