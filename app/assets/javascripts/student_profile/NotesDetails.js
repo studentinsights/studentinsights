@@ -31,6 +31,7 @@ class NotesDetails extends React.Component {
 
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
     this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
+    this.onCancelNotes = this.onCancelNotes.bind(this);
   }
 
   onClickTakeNotes(event) {
