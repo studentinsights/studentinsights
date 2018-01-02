@@ -229,7 +229,7 @@ import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
 
       return (
         <PastServiceUploads
-          serviceUploads={serviceUploads}
+          serviceUploads={null}
           onClickDeleteServiceUpload={this.onClickDeleteServiceUpload}
         />
       );
