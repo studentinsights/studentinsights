@@ -26,7 +26,8 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
 
     local_filename = File.join('tmp/data_download/', remote_file_name)
     local_file = File.open(local_filename, 'w')
-    sftp_session.download!(remote_file_name, local_file.path)
+
+    sftp_session.download!(target_file(remote_file_name), local_file.path)
 
     local_file
   end
@@ -36,6 +37,20 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   end
 
   private
+
+  def target_file(remote_file_name)
+    if target_directory.present?
+      "../#{target_directory}/#{remote_file_name}"
+    else
+      remote_file_name
+    end
+  end
+
+  # This is the folder on the remote SFTP site where the data files live
+  def target_directory
+    LoadDistrictConfig.new.load.fetch("target_directory", nil)
+  end
+
   # This returns an object that will reveal secure data if printed
   def sftp_session
     raise "SFTP information missing" unless sftp_info_present?
