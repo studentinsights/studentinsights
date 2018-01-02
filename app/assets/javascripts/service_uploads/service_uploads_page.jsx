@@ -29,6 +29,16 @@ import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
       };
     },
 
+    componentDidMount: function () {
+      fetch('/service_uploads/past', { credentials: 'include' })
+        .then(response => response.json())
+        .then(json => {
+          this.setState({
+            serviceUploads: json
+          });
+        });
+    },
+
     isMissingRequiredFields: function () {
       const formData = this.state.formData;
 
@@ -96,16 +106,6 @@ import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
           }
         }.bind(this)
       });
-    },
-
-    componentDidMount: function () {
-      fetch('/service_uploads/past', { credentials: 'include' })
-        .then(response => response.json())
-        .then(json => {
-          this.setState({
-            serviceUploads: json
-          });
-        });
     },
 
     onClickDeleteServiceUpload: function (id) {
