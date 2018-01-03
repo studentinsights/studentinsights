@@ -1,4 +1,5 @@
 class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :progress_bar
+
   def initialize(*)
     super
     @student_lasid_map = Student.pluck(:local_id,:id).to_h
@@ -11,6 +12,8 @@ class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :p
   end
 
   def import
+    return unless remote_file_name
+
     @data = CsvDownloader.new(
       log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
@@ -22,7 +25,7 @@ class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :p
   end
 
   def remote_file_name
-    DistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STUDENT_AVERAGES_IMPORT')
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STUDENT_AVERAGES_IMPORT', nil)
   end
 
   def data_transformer
