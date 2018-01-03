@@ -12,14 +12,25 @@ describe('ServiceUploadsPage', function() {
   };
 
   SpecSugar.withTestEl('integration tests', function(container) {
-    it('renders the page with no service uploads', function() {
+    it('renders the page', function() {
       const el = container.testEl;
       const props = {
         serializedData: {
-          serviceUploads: [],
           serviceTypeNames: ['Extra Tutoring', 'After-School Art Class'],
         }
       };
+
+      // Mock fetch('/service_uploads/past'):
+      global.fetch = jest.fn().mockImplementation(() => {
+        return new Promise((resolve, reject) => {
+          resolve({
+            ok: true,
+            json: function() {
+              return [];
+            }
+          });
+        });
+      });
 
       helpers.renderInto(el, props);
 
@@ -27,40 +38,24 @@ describe('ServiceUploadsPage', function() {
       expect($(el).text()).toContain('Confirm Upload');
     });
 
-    it('renders the page with existing service upload', function() {
-      const el = container.testEl;
-      const props = {
-        serializedData: {
-          serviceUploads: [
-            {
-              created_at: '2017-01-19 18:21:22',
-              file_name: 'bulk_upload.csv',
-              id: 1,
-              services: [
-                {
-                  student: {first_name: 'Steve', last_name: 'V.'},
-                  service_type: { name: 'Extra Tutoring'}
-                }
-              ],
-            }
-          ],
-          serviceTypeNames: ['Extra Tutoring', 'After-School Art Class'],
-        }
-      };
-
-      helpers.renderInto(el, props);
-
-      expect($(el).text()).toContain('bulk_upload.csv'); // Renders the file name
-      expect($(el).text()).toContain('Extra Tutoring');  // Renders the service type name
-    });
-
     it('tolerates cancelling file upload', function() {
       const el = container.testEl;
       const instance = helpers.renderInto(el, {
         serializedData: {
-          serviceUploads: [],
           serviceTypeNames: ['Extra Tutoring', 'After-School Art Class'],
         }
+      });
+
+      // Mock fetch('/service_uploads/past'):
+      global.fetch = jest.fn().mockImplementation(() => {
+        return new Promise((resolve, reject) => {
+          resolve({
+            ok: true,
+            json: function() {
+              return [];
+            }
+          });
+        });
       });
 
       const fileInputEl = $(el).find('input[type=file]').get(0);
