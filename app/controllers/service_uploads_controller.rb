@@ -78,22 +78,7 @@ class ServiceUploadsController < ApplicationController
   end
 
   def past
-    return render json: ServiceUpload.order(created_at: :desc).as_json(
-      only: [:created_at, :file_name, :id],
-      include: {
-        services: {
-          only: [],
-          include: {
-            student: {
-              only: [:first_name, :last_name, :id]
-            },
-            service_type: {
-              only: [:name]
-            }
-          }
-        }
-      }
-    )
+    render json: past_service_upload_json and return
   end
 
   def destroy
@@ -109,6 +94,26 @@ class ServiceUploadsController < ApplicationController
   end
 
   private
+
+    def past_service_upload_json
+      ServiceUpload.includes(services: [:student, :service_type])
+                   .order(created_at: :desc)
+                   .as_json(only: [:created_at, :file_name, :id],
+                     include: {
+                       services: {
+                         only: [],
+                         include: {
+                           student: {
+                             only: [:first_name, :last_name, :id]
+                           },
+                           service_type: {
+                             only: [:name]
+                           }
+                         }
+                       }
+                     }
+                   )
+    end
 
     def recorded_at
       DateTime.current
