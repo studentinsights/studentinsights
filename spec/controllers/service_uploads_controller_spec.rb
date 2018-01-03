@@ -166,4 +166,55 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
   end
 
+  describe '#past' do
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :past
+    end
+
+    context 'educator signed in' do
+
+      before { sign_in(educator) }
+
+      context 'educator w districtwide access' do
+        let(:educator) {
+          FactoryGirl.create(:educator, districtwide_access: true, admin: true)
+        }
+
+        let!(:service_upload) {
+          ServiceUpload.create!(file_name: 'helpful-service.txt')
+        }
+
+        let(:response_body) { JSON.parse(response.body) }
+
+        it 'sends down service upload data as JSON' do
+          make_request
+          expect(response_body.class).to eq Array
+          expect(response_body.size).to eq 1
+          expect(response_body[0]['file_name']).to eq 'helpful-service.txt'
+        end
+      end
+
+      context 'educator w/o districtwide access' do
+        let(:educator) { FactoryGirl.create(:educator) }
+        let!(:service_upload) {
+          ServiceUpload.create!(file_name: 'helpful-service.txt')
+        }
+
+        it 'sends down JSON error' do
+          make_request
+          expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })
+        end
+      end
+    end
+
+    context 'not signed in' do
+      it 'redirects' do
+        make_request
+        expect(response).to redirect_to(new_educator_session_url)
+      end
+    end
+
+  end
+
 end
