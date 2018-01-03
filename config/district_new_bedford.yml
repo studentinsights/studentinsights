@@ -1,9 +1,9 @@
 remote_filenames:
-  FILENAME_FOR_STUDENTS_IMPORT: istudent.csv
-  FILENAME_FOR_EDUCATORS_IMPORT: istaff.csv
-  FILENAME_FOR_BEHAVIOR_IMPORT: iconduct.csv
-  FILENAME_FOR_ASSESSMENT_IMPORT: iassessments.csv
-  FILENAME_FOR_ATTENDANCE_IMPORT: iattendance.csv
+  FILENAME_FOR_STUDENTS_IMPORT: ../newbedford/istudent.csv
+  FILENAME_FOR_EDUCATORS_IMPORT: ../newbedford/istaff.csv
+  FILENAME_FOR_BEHAVIOR_IMPORT: ../newbedford/iconduct.csv
+  FILENAME_FOR_ASSESSMENT_IMPORT: ../newbedford/iassessments.csv
+  FILENAME_FOR_ATTENDANCE_IMPORT: ../newbedford/iattendance.csv
 
   # iperson.csv -- looks like this is based off of persons_export.sql, but
   #   we're not importing a persons
