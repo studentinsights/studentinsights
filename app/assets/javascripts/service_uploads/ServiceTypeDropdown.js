@@ -2,6 +2,12 @@ import React from 'react';
 
 class ServiceTypeDropdown extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.toggleOpenMenu = this.toggleOpenMenu.bind(this);
+  }
+
   componentDidMount() {
     const self = this;
 
