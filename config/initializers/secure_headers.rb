@@ -1,0 +1,1 @@
+SecureHeaders::Configuration.default
