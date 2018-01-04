@@ -6,6 +6,7 @@ SecureHeaders::Configuration.default do |config|
   # Turn off Content Security Policy (CSP) rules for development and test envs
   if Rails.env.test? || Rails.env.development?
     config.csp = SecureHeaders::OPT_OUT
+    config.cookies = SecureHeaders::OPT_OUT
   end
 
 end
