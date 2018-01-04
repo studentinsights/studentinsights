@@ -628,7 +628,7 @@ describe StudentsController, :type => :controller do
         it 'assigns the student\'s assesments correctly' do
           assessment = FactoryGirl.create(:assessment, :access)
           student_assessment = FactoryGirl.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
-          assessment = FactoryGirl.create(:assessment, :star)
+          assessment = FactoryGirl.create(:assessment, :math, :star)
           student_assessment = FactoryGirl.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2017-02-16')
           make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
 
