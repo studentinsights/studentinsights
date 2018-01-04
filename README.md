@@ -1,3 +1,4 @@
+
 # Student Insights
 
 [![Build Status](https://travis-ci.org/studentinsights/studentinsights.svg?branch=master)](https://travis-ci.org/studentinsights/studentinsights)
@@ -29,7 +30,7 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
 - [Development Environment](#development-environment)
   - [1. Install dependencies](#1-install-dependencies)
   - [2. Create database tables and seed them with demo data](#2-create-database-tables-and-seed-them-with-demo-data)
-  - [3. Start Rails](#3-start-rails)
+  - [3. Start the app](#3-start-the-app)
   - [4. Run the tests](#4-run-the-tests)
   - [5. Write code!](#5-write-code)
   - [6. Use the product locally](#6-use-the-product-locally)
@@ -37,12 +38,20 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
 - [Deployment](#deployment)
   - [Deploying new code to Insights](#deploying-new-code-to-insights)
   - [Setting up Insights for a new district](#setting-up-insights-for-a-new-district)
-    - [New district script](#new-district-script)
-    - [Data differences between districts](#data-differences-between-districts)
-    - [Feature differences between districts](#feature-differences-between-districts)
-    - [Importing real data](#importing-real-data)
+    - [New Heroku instance](#new-heroku-instance)
+    - [Importing data](#importing-data)
+      - [Getting data out of the SIS](#getting-data-out-of-the-sis)
+        - [Self-Hosted Aspen](#self-hosted-aspen)
+        - [Hosted Aspen](#hosted-aspen)
+      - [Getting data into Insights](#getting-data-into-insights)
+        - [Setting `ENV['DISTRICT_KEY']`](#setting-envdistrict_key)
+        - [Setting other ENV variables](#setting-other-env-variables)
+        - [Creating a YAML config file](#creating-a-yaml-config-file)
+        - [Running the import job](#running-the-import-job)
     - [LDAP](#ldap)
     - [Heroku notes](#heroku-notes)
+    - [Data differences between districts](#data-differences-between-districts)
+    - [Feature differences between districts](#feature-differences-between-districts)
 - [Ops](#ops)
   - [Response latency](#response-latency)
   - [Postgres](#postgres)
@@ -202,11 +211,11 @@ See our guide:
 
 ## Setting up Insights for a new district
 
-### New district script
+### New Heroku instance
 
 Insights uses a separate-instance strategy for new districts (one database and one Heroku app per district).
 
-Set up a new district:
+Set up a new district with this script:
 
 ```
 $ scripts/deploy/new_district.sh "My New District Name"
@@ -214,33 +223,94 @@ $ scripts/deploy/new_district.sh "My New District Name"
 
 This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
 
-### Data differences between districts
+### Importing data
 
-District | Data Source | Data Import Notes
---- | --- | ---
-Somerville | Aspen SIS | Somerville IT runs the SQL scripts in the x2_export folder every night to create CSVs and dump them to an SFTP site. We import the CSVs to Insights nightly.
-Somerville | STAR (assessment vendor) | STAR IT team runs a job when Somerville STAR assessment results come in that dumps fresh CSV data to an SFTP site. We import the CSVs to Insights nightly.
-Somerville | EasyIEP | EasyIEP runs "change export" of IEP PDFs that have changed and sends them to an SFTP nightly. Somerville IT runs a job to copy those files into Aspen and another job to copy those files to an Insights SFTP site. We import the PDFs to Insights nightly.
-Fall River | Aspen (Hosted) | Fall River IT is working on their own version of the SQL scripts in the x2_export folder; they can't use SQL scripts directly because they have a different version of Aspen X2.
+There are two parts to importing data into a Student Insights instance: getting data out of the school SIS, and getting data into Student Insights.
 
-### Feature differences between districts
+#### Getting data out of the SIS
 
-District | Feature Area | Feature Notes
---- | --- | ---
-Somerville | School Overview Page | Somerville High School Housemasters are requesting a feature that will let them sort students by House. [(More info on houses here.)](http://www.somerville.k12.ma.us/schools/somerville-high-school/daily-life)
+![](docs/readme_images/sis-to-sftp.jpg)
 
+This is going to vary widely from district to district. Districts use different Student Information Systems (SISes), and there's no common path for getting data out of SISes into a standardized form.
 
-### Importing real data
+As a project, Student Insights has the most experience extracting data from Aspen/X2 SISes.
 
-If you're working with a real school district, you'll need flat files of the data you want to import.
+##### Self-Hosted Aspen
 
-Run an import task:
+Somerville Public Schools hosts its own instance of the Aspen/X2 SIS.
+
+It runs the SQL scripts in the `/x2_export` directory nightly to extract data from its SIS.
+
+If your district self-hosts Aspen/X2, the scripts in `/x2_export` are the best place to start.
+
+##### Hosted Aspen
+
+New Bedford Public Schools also uses Aspen/X2, but their instance is hosted by the company that creates Aspen/X2.
+
+We are currently working on this integration and will share more instructions and code as we learn!
+
+#### Getting data into Insights
+
+![](docs/readme_images/sftp-to-insights.jpg)
+
+Once your district has got data out of its SIS, the next step is to bring the data into Insights.
+
+Each district names its export files according to their own naming convention. We need to tell Insights what remote filenames to look for on the SFTP site. We also need to tell Insights what schools exist in those districts.
+
+There are three parts to the configuration: an `ENV['DISTRICT_KEY']`, other ENV variables, and a YAML config file.
+
+##### Setting `ENV['DISTRICT_KEY']`
+
+This is the canonical key for the district. Use a slug-style string, like `"somerville"` or `"new_bedford"`.
+
+Locally, change this key by editing the `development.rb` or `test.rb` config files. Currently it defaults to `"somerville"` in both of these environments, since the codebase was built for Somerville and some code (i.e. test code) assumes Somerville as the district.
+
+In a production Heroku instance, set this key by either running `heroku config:set DISTRICT_KEY={{key_goes_here}}`, or through the Heroku UI.
+
+##### Setting other ENV variables
+
+In addition to the DISTRICT_KEY, there are a few other variables you'll need to set in ENV. These are credentials for the nightly import process. They are stored in ENV because they are sensitive and need to be kept secret.
+
+These variables are:
+
++ `SIS_SFTP_HOST`,
++ `SIS_SFTP_USER`,
++ `SIS_SFTP_KEY` or `STAR_SFTP_PASSWORD`
+
+Key-based authentication is preferred, but sometimes we need to use password-based if key-based auth is a major obstacle for a school district or a vendor.
+
+In production, set variables through the command line or the Heroku UI just like with `ENV['DISTRICT_KEY']`. If you need to work with real SIS access locally, create a temporary local env file:
+
+```
+touch config/local_env.yml
+```
+
+The values in this file are read in as ENV by the `development.rb` file. This file is `.gitignore`d because we need to keep sensitive values out of git source control and out of GitHub.
+
+##### Creating a YAML config file
+
+The third step to configuring a new district is to create a public YAML file with non-sensitive configuration information, like which schools are in the district.
+
+Configure that data by creating a new district configuration file under `/config`. You can use one of these files as examples:
+
+```
+* /config/district_somerville.yml
+* /config/district_new_bedford.yml
+```
+
+Once you have your own YAML configuration file set up, tell the `DistrictConfig` object where to look for it. Update the `district_key_to_config_file` method in `app/config_objects/district_config.rb`.
+
+##### Running the import job
+
+Once you have the config set up, run an import job:
 
 ```
 thor import:start
 ```
 
-So far, Student Insights can import CSV and JSON and can fetch data from AWS and SFTP. To import a new flat file type, write a new data transformer: `app/importers/data_transformers`. To import from a new storage location, write a new client: `app/importers/clients`.
+This job has fairly verbose logging output that you can use to debug and tweak the import process for your own district.
+
+If you see 🚨 🚨 🚨, that means that one of the remote files failed to import. The job will complete no matter how many file imports fail. That way it can show you aggregate information about the job.
 
 ### LDAP
 
@@ -251,6 +321,20 @@ The project is configured to use LDAP as its authentication strategy in producti
 [Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with Somerville's LDAP server behind a firewall. This requires additional configuration to prevent Quotaguard Static from interfering with the connection between application and database.
 
 One way to accomplish this is to set a `QUOTAGUARDSTATIC_MASK` environment variable that routes only outbound traffic to certain IP subnets using the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
+
+### Data differences between districts
+
+District | Data Source | Data Import Notes
+--- | --- | ---
+Somerville | Aspen SIS | Somerville IT runs the SQL scripts in the x2_export folder every night to create CSVs and dump them to an SFTP site. We import the CSVs to Insights nightly.
+Somerville | STAR (assessment vendor) | STAR IT team runs a job when Somerville STAR assessment results come in that dumps fresh CSV data to an SFTP site. We import the CSVs to Insights nightly.
+Somerville | EasyIEP | EasyIEP runs "change export" of IEP PDFs that have changed and sends them to an SFTP nightly. Somerville IT runs a job to copy those files into Aspen and another job to copy those files to an Insights SFTP site. We import the PDFs to Insights nightly.
+
+### Feature differences between districts
+
+District | Feature Area | Feature Notes
+--- | --- | ---
+Somerville | School Overview Page | Somerville High School Housemasters are requesting a feature that will let them sort students by House. [(More info on houses here.)](http://www.somerville.k12.ma.us/schools/somerville-high-school/daily-life)
 
 # Ops
 Here are some notes on maintaining, troubleshooting and performance.

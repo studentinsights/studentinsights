@@ -1,9 +1,4 @@
-import React from 'react';
-
-class Api extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+class Api {
 
   saveNotes(studentId, eventNoteParams) {
     if (eventNoteParams.id) {

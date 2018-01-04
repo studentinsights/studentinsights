@@ -1,14 +1,14 @@
 import _ from 'lodash';
+import Datepicker from '../student_profile/Datepicker.js';
+import {merge} from '../helpers/react_helpers.jsx';
 import moment from 'moment';
 import ProfileDetailsStyle from '../helpers/profile_details_style.jsx';
-import {merge} from '../helpers/react_helpers.jsx';
 
 (function() {
   window.shared || (window.shared = {});
   const QuadConverter = window.shared.QuadConverter;
   const styles = ProfileDetailsStyle;
   const StudentSectionsRoster = window.shared.StudentSectionsRoster;
-  const Datepicker = window.shared.Datepicker;
   const filterFromDate = QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1);
   const filterToDate = moment();
 

@@ -1,5 +1,8 @@
 Rails.application.configure do
+  ENV['DISTRICT_KEY'] = 'somerville'
+
   ENV['DISTRICT_NAME'] = 'Your Local(Host) District'
+
   ENV['AWS_REGION'] = 'us-west-2'
 
   # The test environment is used exclusively to run your application's
