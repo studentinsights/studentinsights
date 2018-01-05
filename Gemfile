@@ -18,6 +18,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'net-sftp'
 gem 'net-ssh'
+gem 'nokogiri', '~> 1.8.1' # forcing patching version on transitive dependency
 gem 'probability'
 gem 'rollbar'
 gem 'rubocop', require: false
