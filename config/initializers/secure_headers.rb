@@ -10,8 +10,10 @@ SecureHeaders::Configuration.default do |config|
     script_src: %w(https:),          # This is the same as Configuration.default.
                                      # SecureHeaders requires a non-nil script_src csp.
 
-    object_src: %w('self')           # This is more lenient than Configuration.default.
+    object_src: %w('self'),          # This is more lenient than Configuration.default.
                                      # This enables viewing the Student Report PDF.
+
+    plugin_types: %w(application/pdf)
   }
 
   # Turn off Content Security Policy (CSP) rules for development and test envs
