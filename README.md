@@ -188,7 +188,8 @@ We also recommend [Sublime Package Control](https://packagecontrol.io/) and thes
 Users use IE11, so if you're trying to manually test locally or the production site, you should too!  If you have a Mac or Linux box, you can use free VMs designed for just this purpose and run them on VirtualBox: https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/.
 
 Useful tidbits:
-- These virtual machines expire after 90 days, so take a snapshot right away and rollback when it expires
+- Visit get.adobe.com/reader in the VM to install a PDF reader
+- These virtual machines expire after 90 days, so take a snapshot right away and rollback when it expires (make sure to log out of Insights before taking a Snapshot, and that no student report PDFs are lying around in the VM's downloads)
 - Enable "Shared Clipboard" in the Devices menu
 - Disable the "Host Capture" key
 - Point to http://10.0.2.2:3000/ to access the host instance of Student Insights
