@@ -48,7 +48,7 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   end
 
   def start_sftp_session
-    if ENV.fetch('QUOTAGUARDSTATIC_URL', false)
+    if ENV.fetch('USE_QUOTAGUARD', false)
       start_sftp_session_with_proxy
     else
       start_sftp_session_no_proxy
