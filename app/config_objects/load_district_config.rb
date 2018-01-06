@@ -1,13 +1,18 @@
 # This class is responsible for pulling YAML district config out of the
 # filesystem and parsing it into a Ruby hash.
 
-# This class can be used directly when raw config values are acceptable.
-# When validation or server-side logic is needed, use DistrictConfig class.
-
 class LoadDistrictConfig
 
   def initialize(district_key = ENV['DISTRICT_KEY'])
     @district_key = district_key
+  end
+
+  def remote_filenames
+    load.fetch("remote_filenames")
+  end
+
+  def schools
+    load.fetch("schools")
   end
 
   def load
