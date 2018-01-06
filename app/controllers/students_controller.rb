@@ -191,8 +191,8 @@ class StudentsController < ApplicationController
     @current_educator = current_educator
     @sections = (params[:sections] || "").split(",")
 
-    @filter_from_date = params[:from_date] ? Date.strptime(params[:from_date],  "%m/%d/%Y") : Date.today()
-    @filter_to_date = params[:from_date] ? Date.strptime(params[:to_date],  "%m/%d/%Y") : Date.today()
+    @filter_from_date = params[:from_date] ? Date.strptime(params[:from_date],  "%m/%d/%Y") : Date.today
+    @filter_to_date = params[:from_date] ? Date.strptime(params[:to_date],  "%m/%d/%Y") : Date.today
 
     # Load event notes that are NOT restricted for the student for the filtered dates
     @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_date..@filter_to_date)
