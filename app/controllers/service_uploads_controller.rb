@@ -72,25 +72,13 @@ class ServiceUploadsController < ApplicationController
   def index
     @serialized_data = {
       current_educator: current_educator,
-      service_uploads: ServiceUpload.order(created_at: :desc).as_json(
-        only: [:created_at, :file_name, :id],
-        include: {
-          services: {
-            only: [],
-            include: {
-              student: {
-                only: [:first_name, :last_name, :id]
-              },
-              service_type: {
-                only: [:name]
-              }
-            }
-          }
-        }
-      ),
       service_type_names: ServiceType.pluck(:name)
     }
     render 'shared/serialized_data'
+  end
+
+  def past
+    render json: past_service_upload_json and return
   end
 
   def destroy
@@ -106,6 +94,26 @@ class ServiceUploadsController < ApplicationController
   end
 
   private
+
+    def past_service_upload_json
+      ServiceUpload.includes(services: [:student, :service_type])
+                   .order(created_at: :desc)
+                   .as_json(only: [:created_at, :file_name, :id],
+                     include: {
+                       services: {
+                         only: [],
+                         include: {
+                           student: {
+                             only: [:first_name, :last_name, :id]
+                           },
+                           service_type: {
+                             only: [:name]
+                           }
+                         }
+                       }
+                     }
+                   )
+    end
 
     def recorded_at
       DateTime.current

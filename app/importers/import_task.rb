@@ -52,11 +52,7 @@ class ImportTask
   def school_ids
     return @school if @school.present?
 
-    district_config = LoadDistrictConfig.new.load
-
-    schools = district_config.fetch("schools")
-
-    schools.map { |school| school["local_id"] }
+    LoadDistrictConfig.new.schools.map { |school| school["local_id"] }
   end
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##

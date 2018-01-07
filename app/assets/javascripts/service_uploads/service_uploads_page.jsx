@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import {merge} from '../helpers/react_helpers.jsx';
+import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
 
 (function() {
   window.shared || (window.shared = {});
-  const ServiceUploadDetail = window.shared.ServiceUploadDetail;
   const NewServiceUpload = window.shared.NewServiceUpload;
 
   window.shared.ServiceUploadsPage = React.createClass({
@@ -14,8 +14,8 @@ import {merge} from '../helpers/react_helpers.jsx';
 
     getInitialState: function () {
       return {
-        serviceUploads: this.props.serializedData.serviceUploads, // Existing service uploads
-        formData: {},                                             // New service upload form data
+        serviceUploads: null,
+        formData: {},
 
         // Student LASID validation
         studentLasidsReceivedFromBackend: false,
@@ -27,6 +27,16 @@ import {merge} from '../helpers/react_helpers.jsx';
         serverSideErrors: [],
         uploadingInProgress: false,
       };
+    },
+
+    componentDidMount: function () {
+      fetch('/service_uploads/past', { credentials: 'include' })
+        .then(response => response.json())
+        .then(json => {
+          this.setState({
+            serviceUploads: json
+          });
+        });
     },
 
     isMissingRequiredFields: function () {
@@ -221,14 +231,14 @@ import {merge} from '../helpers/react_helpers.jsx';
     },
 
     renderServiceDetails: function () {
-      return this.state.serviceUploads.map(function (serviceUpload) {
-        return (
-          <ServiceUploadDetail
-            data={serviceUpload}
-            onClickDeleteServiceUpload={this.onClickDeleteServiceUpload}
-            key={String(serviceUpload.id)} />
-        );
-      }, this);
+      const { serviceUploads } = this.state;
+
+      return (
+        <PastServiceUploads
+          serviceUploads={serviceUploads}
+          onClickDeleteServiceUpload={this.onClickDeleteServiceUpload}
+        />
+      );
     },
 
   });

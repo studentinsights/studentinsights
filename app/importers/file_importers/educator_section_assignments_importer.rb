@@ -6,6 +6,8 @@ class EducatorSectionAssignmentsImporter < Struct.new :school_scope, :client, :l
   end
 
   def import
+    return unless remote_file_name
+
     @data = CsvDownloader.new(
       log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
@@ -19,8 +21,8 @@ class EducatorSectionAssignmentsImporter < Struct.new :school_scope, :client, :l
   end
 
   def remote_file_name
-    DistrictConfig.new.remote_filenames.fetch(
-      'FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT'
+    LoadDistrictConfig.new.remote_filenames.fetch(
+      'FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT', nil
     )
   end
 
