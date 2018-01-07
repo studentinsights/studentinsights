@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from 'rc-slider';
-import Datepicker from '../student_profile/Datepicker.js';
+import Datepicker from '../../student_profile/Datepicker.js';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
