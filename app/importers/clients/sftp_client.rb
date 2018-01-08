@@ -58,11 +58,11 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   end
 
   def start_sftp_session_with_proxy
-    proxy = Net::SSH::Proxy::HTTP.new(
-      'quotaguard_proxy_host', ENV.fetch('QUOTAGUARDSTATIC_URL')
-    )
+    quotaguard = URI(ENV.fetch("QUOTAGUARDSTATIC_URL"))
 
-    @sftp_session = Net::SFTP.start(host, user, auth_mechanism({proxy: proxy}))
+    proxy = Net::SSH::Proxy::HTTP.new(quotaguard.host, quotaguard.port)
+
+    @sftp_session = Net::SFTP.start(host, user, auth_mechanism({ proxy: proxy }))
   end
 
   def start_sftp_session_no_proxy
