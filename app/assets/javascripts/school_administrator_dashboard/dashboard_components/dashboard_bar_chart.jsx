@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
+import HighchartsWrapper from '../../student_profile/HighchartsWrapper.js';
 
 const styles = {
   title: {
@@ -37,26 +37,22 @@ export default React.createClass({
 
   propTypes: {
     id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
-    categories: React.PropTypes.array.isRequired, //Buckets used for X Axis
+    categories: React.PropTypes.object.isRequired,  //Buckets used for X Axis
     seriesData: React.PropTypes.array.isRequired, // array of JSON event objects.
+    yAxisMin: React.PropTypes.number,
+    yAxisMax: React.PropTypes.number,
     titleText: React.PropTypes.string.isRequired,
     measureText: React.PropTypes.string.isRequired,
-    categoryGroups: React.PropTypes.object,
+    tooltip: React.PropTypes.object.isRequired,
     onColumnClick: React.PropTypes.func,
     onBackgroundClick: React.PropTypes.func
-  },
-
-  getDefaultProps: function(){
-    return {
-      categoryGroups: {}
-    };
   },
 
   //Because the highcharts wrapper redraws the charts whether or not the props
   //have changed, this is necessary to prevent rerendering the charts when the
   //user only wanted to select a homeroom.
   shouldComponentUpdate: function(nextProps) {
-    return !_.isEqual(this.props, nextProps);
+    return !_.isEqual(this.props.seriesData, nextProps.seriesData);
   },
 
   render: function() {
@@ -70,11 +66,7 @@ export default React.createClass({
             }
           }}
           credits={false}
-          xAxis={[
-            {
-              categories: this.props.categories
-            }, this.props.categoryGroups
-          ]}
+          xAxis={[this.props.categories]}
           plotOptions={{
             series: {
               cursor: 'pointer',
@@ -85,14 +77,12 @@ export default React.createClass({
           }}
           title={{text: this.props.titleText}}
           yAxis={{
-            min: 80,
-            max: 100,
+            min: this.props.yAxisMin,
+            max: this.props.yAxisMax,
             allowDecimals: true,
             title: {text: this.props.measureText}
           }}
-          tooltip={{
-            pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
-            valueSuffix: '%'}}
+          tooltip={this.props.tooltip}
           series={[
             {
               showInLegend: false,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DashboardHelpers from './dashboard_helpers.jsx';
+import DashboardHelpers from '../dashboard_helpers.jsx';
 import SchoolAbsenceDashboard from './school_absence_dashboard.jsx';
 
 export default React.createClass({

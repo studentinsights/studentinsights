@@ -1,13 +1,13 @@
 import React from 'react';
 
-import DashboardHelpers from './dashboard_helpers.jsx';
+import DashboardHelpers from '../dashboard_helpers.jsx';
 import SchoolwideAttendance from './schoolwide_attendance.jsx';
 
 export default React.createClass({
   displayName: 'SchoolwideAbsences',
 
   propTypes: {
-    dashboardStudents: React.PropTypes.array.isRequired  //should rename more generically
+    dashboardStudents: React.PropTypes.array.isRequired
   },
 
   schoolAbsenceEvents: function() {

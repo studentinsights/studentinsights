@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 
-import DashboardHelpers from './dashboard_helpers.jsx';
-import StudentsTable from './students_table.jsx';
-import DashboardBarChart from './dashboard_bar_chart.jsx';
-import DateSlider from './date_slider.jsx';
+import DashboardHelpers from '../dashboard_helpers.jsx';
+import StudentsTable from '../students_table.jsx';
+import DashboardBarChart from '../dashboard_bar_chart.jsx';
+import DateSlider from '../date_slider.jsx';
 
 
 export default React.createClass({
@@ -30,7 +30,7 @@ export default React.createClass({
     let monthlySchoolAttendance = {};
     //Use the filtered daterange to find the days to include
     this.state.displayDates.forEach((day) => {
-      let date = moment(day).date(1).format("YYYY-MM-DD"); //first day of the month in which 'day' occurs
+      let date = moment(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
       (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
       monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
       monthlySchoolAttendance[date] = monthlySchoolAttendance[date].concat(schoolAverageDailyAttendance[day]);
@@ -99,11 +99,15 @@ export default React.createClass({
     return (
         <DashboardBarChart
           id = {'string'}
-          categories = {categories}
+          categories = {{categories: categories}}
           seriesData = {filteredAttendanceSeries}
-          monthsBack = {categories.length}
+          yAxisMin = {80}
+          yAxisMax = {100}
           titleText = {'Average Attendance By Month'}
           measureText = {'Attendance (Percent)'}
+          tooltip = {{
+            pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
+            valueSuffix: '%'}}
           onColumnClick = {this.resetStudentList}
           onBackgroundClick = {this.resetStudentList}/>
     );
@@ -119,11 +123,15 @@ export default React.createClass({
     return (
         <DashboardBarChart
           id = {'string'}
-          categories = {Object.keys(homeroomAverageDailyAttendance)}
+          categories = {{categories: Object.keys(homeroomAverageDailyAttendance)}}
           seriesData = {homeroomSeries}
-          monthsBack = {12}
+          yAxisMin = {80}
+          yAxisMax = {100}
           titleText = {'Average Attendance By Homeroom'}
           measureText = {'Attendance (Percent)'}
+          tooltip = {{
+            pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
+            valueSuffix: '%'}}
           onColumnClick = {this.setStudentList}
           onBackgroundClick = {this.resetStudentList}/>
     );
@@ -139,7 +147,7 @@ export default React.createClass({
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
-        absences: studentAbsenceCounts[student.id] || 0
+        events: studentAbsenceCounts[student.id] || 0
       });
     });
 
