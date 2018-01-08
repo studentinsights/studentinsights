@@ -1,3 +1,5 @@
+require 'net/ssh/proxy/http'
+
 # These are keys into ENV
 class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password, :env_key_data
 
