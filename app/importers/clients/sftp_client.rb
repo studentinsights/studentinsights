@@ -62,7 +62,7 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
       'quotaguard_proxy_host', ENV.fetch('QUOTAGUARDSTATIC_URL')
     )
 
-    @sftp_session = Net::SFTP.start(host, user, auth_mechanism, proxy: proxy)
+    @sftp_session = Net::SFTP.start(host, user, auth_mechanism({proxy: proxy}))
   end
 
   def start_sftp_session_no_proxy
@@ -74,9 +74,16 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   end
 
   # secrets
-  def auth_mechanism
+  def auth_mechanism(extra_info = {})
+    base_auth_mechanism.merge(extra_info)
+  end
+
+  def base_auth_mechanism
     return { password: password } if password.present?
-    { key_data: key_data } if key_data.present?
+
+    return { key_data: key_data } if key_data.present?
+
+    raise "Need either a password or a key!"
   end
 
   # avoid storing sensitive data from ENV as an instance variable, read it on-demand
