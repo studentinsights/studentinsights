@@ -59,7 +59,7 @@ class TestPals
 
     # Uri works in the central office, and is the admin for the entire
     # project at the district.
-    @uri = Educator.create(
+    @uri = Educator.create!(
       email: 'uri@demo.studentinsights.org',
       full_name: 'Disney, Uri',
       can_set_districtwide_access: true,
@@ -74,37 +74,37 @@ class TestPals
     )
 
     # Healey is a K8 school.
-    @healey = School.find_by_local_id('HEA')
-    @healey_kindergarten_homeroom = Homeroom.create(
+    @healey = School.find_by_local_id!('HEA')
+    @healey_kindergarten_homeroom = Homeroom.create!(
       name: 'HEA 003',
       grade: 'KF',
       school: @healey
     )
-    @healey_fifth_homeroom = Homeroom.create(
+    @healey_fifth_homeroom = Homeroom.create!(
       name: 'HEA 500',
       grade: '5',
       school: @healey,
     )
 
-    @healey_vivian_teacher = Educator.create(
+    @healey_vivian_teacher = Educator.create!(
       email: 'vivian@demo.studentinsights.org',
       full_name: 'Teacher, Vivian',
       school: @healey,
       homeroom: @healey_kindergarten_homeroom
     )
-    @healey_ell_teacher = Educator.create(
+    @healey_ell_teacher = Educator.create!(
       email: 'alonso@demo.studentinsights.org',
       full_name: 'Teacher, Alonso',
       restricted_to_english_language_learners: true,
       school: @healey
     )
-    @healey_sped_teacher = Educator.create(
+    @healey_sped_teacher = Educator.create!(
       email: 'silva@demo.studentinsights.org',
       full_name: 'Teacher, Silva',
       restricted_to_sped_students: true,
       school: @healey
     )
-    @healey_laura_principal = Educator.create(
+    @healey_laura_principal = Educator.create!(
       email: 'laura@demo.studentinsights.org',
       full_name: 'Principal, Laura',
       school: @healey,
@@ -113,14 +113,14 @@ class TestPals
       can_view_restricted_notes: true,
       local_id: '350'
     )
-    @healey_sarah_teacher = Educator.create(
+    @healey_sarah_teacher = Educator.create!(
       email: "sarah@demo.studentinsights.org",
       full_name: 'Teacher, Sarah',
       homeroom: @healey_fifth_homeroom,
       school: @healey,
       local_id: '450'
     )
-    @healey_kindergarten_student = Student.create(
+    @healey_kindergarten_student = Student.create!(
       first_name: 'Garfield',
       last_name: 'Skywalker',
       school: @healey,
@@ -129,13 +129,13 @@ class TestPals
     )
 
     # West is a K8 school
-    @west = School.find_by_local_id('WSNS')
-    @west_fifth_homeroom = Homeroom.create(
+    @west = School.find_by_local_id!('WSNS')
+    @west_fifth_homeroom = Homeroom.create!(
       name: 'WSNS 501',
       grade: '5',
       school: @west
     )
-    @west_marcus_teacher = Educator.create(
+    @west_marcus_teacher = Educator.create!(
       email: "marcus@demo.studentinsights.org",
       full_name: 'Teacher, Marcus',
       local_id: '550',
@@ -144,22 +144,22 @@ class TestPals
     )
 
     # high school
-    @shs = School.find_by_local_id('SHS')
-    @shs_ninth_grade_counselor = Educator.create(
+    @shs = School.find_by_local_id!('SHS')
+    @shs_ninth_grade_counselor = Educator.create!(
       email: 'sofia@demo.studentinsights.org',
       full_name: 'Counselor, Sofia',
       school: @shs,
       grade_level_access: ['9']
     )
-    @shs_sophomore_homeroom = Homeroom.create(name: "SHS ALL", grade: "10", school: @shs)
+    @shs_sophomore_homeroom = Homeroom.create!(name: "SHS ALL", grade: "10", school: @shs)
 
     # Jodi has a homeroom period at the high school.
-    @shs_jodi_homeroom = Homeroom.create(
+    @shs_jodi_homeroom = Homeroom.create!(
       name: 'SHS 942',
       grade: '9',
       school: @shs
     )
-    @shs_jodi = Educator.create(
+    @shs_jodi = Educator.create!(
       email: 'jodi@demo.studentinsights.org',
       full_name: 'Teacher, Jodi',
       school: @shs,
@@ -168,58 +168,82 @@ class TestPals
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
     # on Tuesday and Thursday and has a homeroom period.
-    @shs_bill_nye_homeroom = Homeroom.create(
+    @shs_bill_nye_homeroom = Homeroom.create!(
       name: 'SHS 917',
       grade: '9',
       school: @shs
     )
-    @shs_bill_nye = Educator.create(
+    @shs_bill_nye = Educator.create!(
       email: 'bill@demo.studentinsights.org',
       full_name: 'Teacher, Bill',
       school: @shs,
       homeroom: @shs_bill_nye_homeroom
     )
-    @shs_biology_course = Course.create(school: @shs)
+    @shs_biology_course = Course.create!(school: @shs)
     create_section_assignment(@shs_bill_nye, [
-      @shs_tuesday_biology_section = Section.create(course: @shs_biology_course),
-      @shs_thursday_biology_section = Section.create(course: @shs_biology_course)
+      @shs_tuesday_biology_section = Section.create!(course: @shs_biology_course),
+      @shs_thursday_biology_section = Section.create!(course: @shs_biology_course)
     ])
 
     # Hugo teachers two sections of ceramics at the high school.
-    @shs_hugo_art_teacher = Educator.create(
+    @shs_hugo_art_teacher = Educator.create!(
       email: "hugo@demo.studentinsights.org",
       full_name: 'Teacher, Hugo',
       local_id: '650',
       school: @shs
     )
-    @shs_ceramics_course = Course.create(course_number: "ART-302", course_description: "Ceramic Art 3", school: @shs)
+    @shs_ceramics_course = Course.create!(course_number: "ART-302", course_description: "Ceramic Art 3", school: @shs)
     create_section_assignment(@shs_hugo_art_teacher, [
-      @shs_second_period_ceramics = Section.create(section_number: "ART-302A", term_local_id: "FY", schedule: "2(M,R)", room_number: "201", course: @shs_ceramics_course),
-      @shs_fourth_period_ceramics = Section.create(section_number: "ART-302B", term_local_id: "FY", schedule: "4(M,R)", room_number: "234", course: @shs_ceramics_course)
+      @shs_second_period_ceramics = Section.create!(
+        section_number: "ART-302A",
+        term_local_id: "FY",
+        schedule: "2(M,R)",
+        room_number: "201",
+        course: @shs_ceramics_course
+      ),
+      @shs_fourth_period_ceramics = Section.create!(
+        section_number: "ART-302B",
+        term_local_id: "FY",
+        schedule: "4(M,R)",
+        room_number: "234",
+        course: @shs_ceramics_course
+      )
     ])
 
     # Fatima teaches two sections of physics at the high school.
-    @shs_fatima_science_teacher = Educator.create(
+    @shs_fatima_science_teacher = Educator.create!(
       email: "fatima@demo.studentinsights.org",
       full_name: 'Teacher, Fatima',
       local_id: '750',
       school: @shs
     )
-    @shs_physics_course = Course.create(course_number: "SCI-201", course_description: "Physics 2", school: @shs)
+    @shs_physics_course = Course.create!(course_number: "SCI-201", course_description: "Physics 2", school: @shs)
     create_section_assignment(@shs_fatima_science_teacher, [
-      @shs_third_period_physics = Section.create(section_number: "SCI-201A", term_local_id: "S1", schedule: "3(M,W,F)", room_number: "306W", course: @shs_physics_course),
-      @shs_fifth_period_physics = Section.create(section_number: "SCI-201B", term_local_id: "S1", schedule: "5(M,W,F)", room_number: "306W", course: @shs_physics_course)
+      @shs_third_period_physics = Section.create!(
+        section_number: "SCI-201A",
+        term_local_id: "S1",
+        schedule: "3(M,W,F)",
+        room_number: "306W",
+        course: @shs_physics_course
+      ),
+      @shs_fifth_period_physics = Section.create!(
+        section_number: "SCI-201B",
+        term_local_id: "S1",
+        schedule: "5(M,W,F)",
+        room_number: "306W",
+        course: @shs_physics_course
+      )
     ])
 
     # Mari is a freshman at the high school, enrolled in biology and in Jodi's homeroom.
-    @shs_freshman_mari = Student.create(
+    @shs_freshman_mari = Student.create!(
       first_name: 'Mari',
       last_name: 'Kenobi',
       school: @shs,
       homeroom: @shs_jodi_homeroom,
       grade: '9'
     )
-    StudentSectionAssignment.create(
+    StudentSectionAssignment.create!(
       student: @shs_freshman_mari, section: @shs_tuesday_biology_section
     )
 
@@ -229,7 +253,7 @@ class TestPals
   private
   def create_section_assignment(educator, sections)
     sections.each do |section|
-      EducatorSectionAssignment.create(educator: educator, section: section)
+      EducatorSectionAssignment.create!(educator: educator, section: section)
     end
   end
 end
