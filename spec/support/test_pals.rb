@@ -125,7 +125,8 @@ class TestPals
       last_name: 'Skywalker',
       school: @healey,
       homeroom: @healey_kindergarten_homeroom,
-      grade: 'KF'
+      grade: 'KF',
+      local_id: '111111111'
     )
 
     # West is a K8 school
@@ -241,7 +242,8 @@ class TestPals
       last_name: 'Kenobi',
       school: @shs,
       homeroom: @shs_jodi_homeroom,
-      grade: '9'
+      grade: '9',
+      local_id: '2222222222'
     )
     StudentSectionAssignment.create!(
       student: @shs_freshman_mari, section: @shs_tuesday_biology_section
