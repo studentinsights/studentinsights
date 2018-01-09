@@ -13,9 +13,12 @@ node_modules
 yarn-debug.log*
 yarn-error.log*
 
-# This holds configuration for testing production import scripts locally, so it shouldn't be checked into
-# source control.
+# This holds configuration for testing production import scripts locally,
+# so it shouldn't be checked into source control.
 config/local_env.yml
+
+# This is for use with `heroku local`.
+.env
 
 ## Environment normalisation:
 /.bundle

@@ -1,3 +1,5 @@
+require 'net/ssh/proxy/http'
+
 # These are keys into ENV
 class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password, :env_key_data
 
@@ -39,10 +41,35 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   # This returns an object that will reveal secure data if printed
   def sftp_session
     raise "SFTP information missing" unless sftp_info_present?
+
     if @sftp_session.nil?
-      @sftp_session = Net::SFTP.start(host, user, auth_mechanism)
+      start_sftp_session
     end
+
     @sftp_session
+  end
+
+  def start_sftp_session
+    if ENV.fetch('USE_QUOTAGUARD', false)
+      start_sftp_session_with_proxy
+    else
+      start_sftp_session_no_proxy
+    end
+  end
+
+  def start_sftp_session_with_proxy
+    quotaguard = URI(ENV.fetch("QUOTAGUARDSTATIC_URL"))
+
+    proxy = Net::SSH::Proxy::HTTP.new(
+      quotaguard.host, quotaguard.port,
+      user: quotaguard.user, password: quotaguard.password
+    )
+
+    @sftp_session = Net::SFTP.start(host, user, auth_mechanism({ proxy: proxy }))
+  end
+
+  def start_sftp_session_no_proxy
+    @sftp_session = Net::SFTP.start(host, user, auth_mechanism)
   end
 
   def sftp_info_present?
@@ -50,9 +77,16 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   end
 
   # secrets
-  def auth_mechanism
+  def auth_mechanism(extra_info = {})
+    base_auth_mechanism.merge(extra_info)
+  end
+
+  def base_auth_mechanism
     return { password: password } if password.present?
-    { key_data: key_data } if key_data.present?
+
+    return { key_data: key_data } if key_data.present?
+
+    raise "Need either a password or a key!"
   end
 
   # avoid storing sensitive data from ENV as an instance variable, read it on-demand
