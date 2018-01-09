@@ -1,4 +1,3 @@
-
 # Student Insights
 
 [![Build Status](https://travis-ci.org/studentinsights/studentinsights.svg?branch=master)](https://travis-ci.org/studentinsights/studentinsights)
@@ -45,6 +44,7 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [Deploying new code to Insights](#deploying-new-code-to-insights)
   - [Setting up Insights for a new district](#setting-up-insights-for-a-new-district)
     - [New Heroku instance](#new-heroku-instance)
+    - [New SFTP Site](#new-sftp-site)
     - [Importing data](#importing-data)
       - [Getting data out of the SIS](#getting-data-out-of-the-sis)
         - [Self-Hosted Aspen](#self-hosted-aspen)
@@ -229,6 +229,15 @@ $ scripts/deploy/new_district.sh "My New District Name"
 ```
 
 This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
+
+### New SFTP Site
+
+In addition to a Heroku instance, you'll need an SFTP site to hold data as it flows between the district IT systems and Student Insights.
+
+We're documenting a few ways to set up and secure the SFTP site:
+
++ New District SFTP Setup With Private Key (Strongly Preferred!)
++ [New District SFTP Setup With Password](docs/technical/new_district_sftp_with_password.md)
 
 ### Importing data
 
