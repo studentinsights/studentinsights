@@ -1,8 +1,6 @@
-# New District SFTP Setup
+# New District SFTP Setup with Password
 
-A new district wants to use Student Insights! This is a good thing.
-
-One of the steps to get there is setting up an SFTP server where their data will sync with their Insights instance every night.
+To set up an Insights instance, we need an SFTP server where data will sync nightly.
 
 A private key connection is preferable, but some hosted Aspen/X2 instances are preconfigured to work with a username/password. We can work with that.
 
