@@ -62,6 +62,7 @@ class TestPals
     @uri = Educator.create!(
       email: 'uri@demo.studentinsights.org',
       full_name: 'Disney, Uri',
+      password: 'demo-password',
       can_set_districtwide_access: true,
       districtwide_access: true,
       admin: true,
@@ -89,24 +90,28 @@ class TestPals
     @healey_vivian_teacher = Educator.create!(
       email: 'vivian@demo.studentinsights.org',
       full_name: 'Teacher, Vivian',
+      password: 'demo-password',
       school: @healey,
       homeroom: @healey_kindergarten_homeroom
     )
     @healey_ell_teacher = Educator.create!(
       email: 'alonso@demo.studentinsights.org',
       full_name: 'Teacher, Alonso',
+      password: 'demo-password',
       restricted_to_english_language_learners: true,
       school: @healey
     )
     @healey_sped_teacher = Educator.create!(
       email: 'silva@demo.studentinsights.org',
       full_name: 'Teacher, Silva',
+      password: 'demo-password',
       restricted_to_sped_students: true,
       school: @healey
     )
     @healey_laura_principal = Educator.create!(
       email: 'laura@demo.studentinsights.org',
       full_name: 'Principal, Laura',
+      password: 'demo-password',
       school: @healey,
       admin: true,
       schoolwide_access: true,
@@ -116,6 +121,7 @@ class TestPals
     @healey_sarah_teacher = Educator.create!(
       email: "sarah@demo.studentinsights.org",
       full_name: 'Teacher, Sarah',
+      password: 'demo-password',
       homeroom: @healey_fifth_homeroom,
       school: @healey,
       local_id: '450'
@@ -139,6 +145,7 @@ class TestPals
     @west_marcus_teacher = Educator.create!(
       email: "marcus@demo.studentinsights.org",
       full_name: 'Teacher, Marcus',
+      password: 'demo-password',
       local_id: '550',
       homeroom: @west_fifth_homeroom,
       school: @west
@@ -149,6 +156,7 @@ class TestPals
     @shs_ninth_grade_counselor = Educator.create!(
       email: 'sofia@demo.studentinsights.org',
       full_name: 'Counselor, Sofia',
+      password: 'demo-password',
       school: @shs,
       grade_level_access: ['9']
     )
@@ -163,6 +171,7 @@ class TestPals
     @shs_jodi = Educator.create!(
       email: 'jodi@demo.studentinsights.org',
       full_name: 'Teacher, Jodi',
+      password: 'demo-password',
       school: @shs,
       homeroom: @shs_jodi_homeroom
     )
@@ -177,6 +186,7 @@ class TestPals
     @shs_bill_nye = Educator.create!(
       email: 'bill@demo.studentinsights.org',
       full_name: 'Teacher, Bill',
+      password: 'demo-password',
       school: @shs,
       homeroom: @shs_bill_nye_homeroom
     )
@@ -194,6 +204,7 @@ class TestPals
     @shs_hugo_art_teacher = Educator.create!(
       email: "hugo@demo.studentinsights.org",
       full_name: 'Teacher, Hugo',
+      password: 'demo-password',
       local_id: '650',
       school: @shs
     )
@@ -219,6 +230,7 @@ class TestPals
     @shs_fatima_science_teacher = Educator.create!(
       email: "fatima@demo.studentinsights.org",
       full_name: 'Teacher, Fatima',
+      password: 'demo-password',
       local_id: '750',
       school: @shs
     )
