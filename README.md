@@ -6,9 +6,15 @@
 
 Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings focused on the most at-risk students.
 
-Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
-  - username: `demo@example.com`
-  - password: `demo-password`
+Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/) with different roles:
+
+  - District admin: `uri@demo.studentinsights.org`
+  - K8 principal: `laura@demo.studentinsights.org`
+  - Kindergarten teacher: `vivian@demo.studentinsights.org`
+  - HS physics teacher: `hugo@demo.studentinsights.org`
+  - 9th grade counselor: `sofia@demo.studentinsights.org`
+
+All accounts use the password: `demo-password`.
 
 Our presentation at [Code for Boston demo night](docs/readme_images/Student%20Insights%20-%20Demo%20Night%20slides.pdf) in May 2016 also has a good product overview.
 
@@ -143,7 +149,7 @@ $ yarn install
 bundle exec rake db:create db:migrate db:seed
 ```
 
-This will create demo students with fake student information. The demo educator username is `demo@example.com` and the demo password is `demo-password`.
+This will create demo students with fake student information.  See the demo site above for the set of educators you can use (or look at `test_pals.rb`).
 
 ## 3. Start the app
 Once you've created the data, start the app by running `yarn start` from the root of your project.  This runs two processes in parallel: the Rails server and a Webpack process that watches and rebuilds JavaScript files.  When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.  You can stop both processes with `command+c` like normal, and look at `package.json` if you want to run them in individual terminals.
