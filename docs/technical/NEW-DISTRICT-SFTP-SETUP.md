@@ -1,8 +1,6 @@
 # New District SFTP Setup with Password
 
-To set up an Insights instance, we need an SFTP server where data will sync nightly.
-
-A private key connection is preferable, but some hosted Aspen/X2 instances are preconfigured to work with a username/password. We can work with that.
+To set up an Insights instance, we need an SFTP server where data will sync nightly. The best option is to used private keys to secure the SFTP server, but some hosted Aspen/X2 instances are preconfigured to work with a username/password. We can work with that. Ideally password authentication is a temporary step and the site transitions over to public key auth before it reaches full deployment to a school or district.
 
 # Steps
 
