@@ -182,8 +182,12 @@ class TestPals
     )
     @shs_biology_course = Course.create!(school: @shs, course_number: 'BIO-700')
     create_section_assignment(@shs_bill_nye, [
-      @shs_tuesday_biology_section = Section.create!(course: @shs_biology_course),
-      @shs_thursday_biology_section = Section.create!(course: @shs_biology_course)
+      @shs_tuesday_biology_section = Section.create!(
+        course: @shs_biology_course, section_number: 'SHS-BIO-TUES'
+      ),
+      @shs_thursday_biology_section = Section.create!(
+        course: @shs_biology_course, section_number: 'SHS-BIO-THUR'
+      )
     ])
 
     # Hugo teachers two sections of ceramics at the high school.
