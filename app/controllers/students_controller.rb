@@ -11,10 +11,6 @@ class StudentsController < ApplicationController
 
   before_action :authorize_for_districtwide_access_admin, only: [:lasids]
 
-  def string_format_date(date)
-    date.strftime("%m/%d/%Y")
-  end
-
   def authorize!
     student = Student.find(params[:id])
     raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
@@ -80,7 +76,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       format.pdf do
-        footer = "Somerville Public Schools Student Report -- Generated #{string_format_date(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
+        footer = "Somerville Public Schools Student Report -- Generated #{format_date_for_student_report(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
         render(wait_for_js.merge({
           pdf: 'student_report',
           title: 'Student Report',

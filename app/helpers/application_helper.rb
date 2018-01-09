@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def format_date_for_student_report(date)
+    date.strftime("%m/%d/%Y")
+  end
+
   def todays_date
     Time.now.in_time_zone('Eastern Time (US & Canada)').to_date
   end
