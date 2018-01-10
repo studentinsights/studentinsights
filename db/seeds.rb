@@ -58,17 +58,17 @@ ServiceUpload.create!([
 puts 'Creating more students for each homeroom...'
 Homeroom.all.each do |homeroom|
   puts "  Creating for homeroom: #{homeroom.name}..."
-  10.times { FakeStudent.new(homeroom.school, homeroom) }
+  9.times { FakeStudent.new(homeroom.school, homeroom) }
 end
 
 puts 'Creating additional students for the Healey with no homeroom...'
-10.times { FakeStudent.new(pals.healey, nil) }
+9.times { FakeStudent.new(pals.healey, nil) }
 
 puts 'Creating more sophomore students...'
 Section.all.each do |section|
   puts "  Creating students for section #{section.section_number}..."
   school = section.course.school
-  10.times do
+  9.times do
     grade_letter = ['A','B','C','D','F'].sample
     grade_numeric = sample_numeric_grade_from_letter(grade_letter)
     fake_student = FakeStudent.new(school, pals.shs_sophomore_homeroom)
