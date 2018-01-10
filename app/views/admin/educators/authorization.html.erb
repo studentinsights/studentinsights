@@ -30,7 +30,7 @@
           <td><%= educator.admin %></td>
           <td><%= educator.can_view_restricted_notes %></td>
           <td><%= educator.districtwide_access %></td>
-          <td><%= educator.school.name %></td>
+          <td><%= educator.school.try(:name) || "N/A" %></td>
       <% end %>
     </tbody>
   </table>
