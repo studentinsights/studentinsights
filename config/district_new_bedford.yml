@@ -1,15 +1,8 @@
 remote_filenames:
   FILENAME_FOR_STUDENTS_IMPORT: ../newbedford/istudent.csv
-  # FILENAME_FOR_EDUCATORS_IMPORT: ../newbedford/istaff.csv
   FILENAME_FOR_BEHAVIOR_IMPORT: ../newbedford/iconduct.csv
   FILENAME_FOR_ASSESSMENT_IMPORT: ../newbedford/iassessments.csv
   FILENAME_FOR_ATTENDANCE_IMPORT: ../newbedford/iattendance.csv
-
-  # iperson.csv -- looks like this is based off of persons_export.sql, but
-  #   we're not importing a persons
-
-  # istudentschedule.csv -- looks like this is based off of student_schedule_export.sql,
-  #   but that isn't a data source we're using
 schools:
   -
     name: Charles S. Ashley
