@@ -28,10 +28,7 @@ export default function generateReportGraph(containerSelector, yAxisLabel, xAxis
           enabled: true,
           color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
           formatter: function(){
-            const val = this.y;
-            if (val < 1) {
-              return '';
-            }
+            const val = this.y < 1 ? '' : this.y;
             return val;
           },
         }
@@ -49,10 +46,7 @@ export default function generateReportGraph(containerSelector, yAxisLabel, xAxis
           color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
         },
         formatter: function(){
-          const val = this.total;
-          if (val < 1) {
-            return '';
-          }
+          const val = this.y < 1 ? '' : this.y;
           return val;
         },
       },
