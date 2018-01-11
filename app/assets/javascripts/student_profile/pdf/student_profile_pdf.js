@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import * as GraphHelpers from '../../helpers/graph_helpers';
-import generateGraph from './GenerateGraph';
+import generateReportGraph from './GenerateReportGraph';
 
 (function() {
   window.shared || (window.shared = {});
@@ -63,11 +63,11 @@ import generateGraph from './GenerateGraph';
 
 
       if(_.flatten(absenceMonthBuckets).length + _.flatten(tardyMonthBuckets).length > 0) {
-        generateGraph("#attendance-container", "Number of Absences / Tardies", xAxisSettings, "Absences & Tardies " + GraphHelpers.dateTitle(filterToDate, monthsBack), attendanceDataSeries);
+        generateReportGraph("#attendance-container", "Number of Absences / Tardies", xAxisSettings, "Absences & Tardies " + GraphHelpers.dateTitle(filterToDate, monthsBack), attendanceDataSeries);
       }
 
       if(_.flatten(disciplineMonthBuckets).length > 0) {
-        generateGraph("#discipline-incident-container", "Number of Discipline Incidents", xAxisSettings, "Discipline Incidents " + GraphHelpers.dateTitle(filterToDate, monthsBack), disciplineDataSeries);
+        generateReportGraph("#discipline-incident-container", "Number of Discipline Incidents", xAxisSettings, "Discipline Incidents " + GraphHelpers.dateTitle(filterToDate, monthsBack), disciplineDataSeries);
       }
 
 

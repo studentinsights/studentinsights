@@ -1,7 +1,7 @@
-import generateGraph from '../../../app/assets/javascripts/student_profile/pdf/GenerateGraph';
+import generateReportGraph from '../../../app/assets/javascripts/student_profile/pdf/GenerateReportGraph';
 
-describe('generateGraph', () => {
+describe('generateReportGraph', () => {
   it('generates graph without crashing', () => {
-    const result = generateGraph("#graph", "Attendence Details", {}, "Graph", []);
+    generateReportGraph("#graph", "Attendence Details", {}, "Graph", []);
   });
 });

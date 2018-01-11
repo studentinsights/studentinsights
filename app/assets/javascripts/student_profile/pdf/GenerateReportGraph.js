@@ -1,7 +1,6 @@
-import _ from 'lodash';
 import Highcharts from 'highcharts';
 
-export default function generateGraph(containerSelector, yAxisLabel, xAxisSettings, title, dataSeries){
+export default function generateReportGraph(containerSelector, yAxisLabel, xAxisSettings, title, dataSeries){
 
   const stacking = (dataSeries.length > 1)
     ? "normal"
