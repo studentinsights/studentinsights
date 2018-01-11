@@ -144,9 +144,6 @@ class Authorizer
 
   # TODO(kr) remove implementation
   def homerooms
-    # Educator can visit roster view for these homerooms
-    return [] if @educator.school.nil?
-
     if @educator.districtwide_access?
       Homeroom.all
     elsif @educator.schoolwide_access?
