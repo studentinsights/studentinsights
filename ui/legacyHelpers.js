@@ -17,5 +17,5 @@ import {colors, styles} from '../app/assets/javascripts/helpers/Theme';
 window.shared || (window.shared = {});
 window.shared.Routes = Routes;
 window.shared.colors = colors;
-window.shared.styles =styles;
+window.shared.styles = styles;
 
