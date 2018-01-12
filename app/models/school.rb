@@ -24,7 +24,7 @@ class School < ActiveRecord::Base
   end
 
   def self.fetch_school_data_for_district(district_key)
-    yml_config = LoadDistrictConfig.new(district_key).load
+    yml_config = LoadDistrictConfig.new(district_key).load_yml
 
     return yml_config.fetch("schools")
   end

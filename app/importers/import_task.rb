@@ -32,7 +32,7 @@ class ImportTask
   def validate_district_option
     # The LoadDistrictConfig class uses `fetch`, which will validate the
     # district option for us
-    LoadDistrictConfig.new.load
+    LoadDistrictConfig.new.load_yml
   end
 
   def seed_schools_if_needed
