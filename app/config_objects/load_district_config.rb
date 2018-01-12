@@ -8,14 +8,18 @@ class LoadDistrictConfig
   end
 
   def remote_filenames
-    load.fetch("remote_filenames")
+    load_yml.fetch("remote_filenames")
   end
 
   def schools
-    load.fetch("schools")
+    load_yml.fetch("schools")
   end
 
-  def load
+  def canonical_domain
+    ENV.fetch('CANONICAL_DOMAIN')
+  end
+
+  def load_yml
     YAML.load(File.open(config_file_path))
   end
 

@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   # For redirecting requests directly from the Heroku domain to the canonical domain name
   def redirect_domain!
-    canonical_domain = EnvironmentVariable.value('CANONICAL_DOMAIN')
+    canonical_domain = LoadDistrictConfig.new.canonical_domain
     return if canonical_domain == nil
     return if request.host == canonical_domain
     redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently
