@@ -80,11 +80,13 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-
-
   # ---- Student Insights additions ----
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: "https://#{ENV.fetch('CANONICAL_DOMAIN')}/" }
+
+  config.action_mailer.default_url_options = {
+    host: "https://#{LoadDistrictConfig.new.canonical_domain}/"
+  }
+
   ActionMailer::Base.smtp_settings = {
     :port           => ENV['MAILGUN_SMTP_PORT'],
     :address        => ENV['MAILGUN_SMTP_SERVER'],
