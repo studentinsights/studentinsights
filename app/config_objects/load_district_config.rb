@@ -16,7 +16,7 @@ class LoadDistrictConfig
   end
 
   def canonical_domain
-    ENV.fetch('CANONICAL_DOMAIN')
+    ENV.fetch('CANONICAL_DOMAIN', nil)
   end
 
   def load_yml
