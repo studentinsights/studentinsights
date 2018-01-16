@@ -76,7 +76,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       format.pdf do
-        footer = "Somerville Public Schools Student Report -- Generated #{format_date(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
+        footer = "Somerville Public Schools Student Report -- Generated #{format_date_for_student_report(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
         render(wait_for_js.merge({
           pdf: 'student_report',
           title: 'Student Report',
