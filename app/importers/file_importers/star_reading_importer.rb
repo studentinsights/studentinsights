@@ -10,9 +10,11 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
     Zip::File.open(downloaded_zip) do |zipfile|
       log.write("\nImporting #{remote_file_name}...")
 
-      data = zipfile.read(remote_file_name).encode('UTF-8', 'binary', {
+      data_string = zipfile.read(remote_file_name).encode('UTF-8', 'binary', {
         invalid: :replace, undef: :replace, replace: ''
       })
+
+      data = CsvTransformer.new.transform(data_string)
 
       data.each.each_with_index do |row, index|
         import_row(row) if filter.include?(row)
