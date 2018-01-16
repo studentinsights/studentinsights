@@ -3,14 +3,22 @@ class StarMathImporter < Struct.new :school_scope, :client, :log, :progress_bar
   def import
     return unless remote_file_name
 
-    @data = CsvDownloader.new(
-      log: log, remote_file_name: zip_file_name, client: client, transformer: data_transformer
-    ).get_data
+    log.write("\nDownloading ZIP file #{zip_file_name}...")
 
-    @data.each.each_with_index do |row, index|
-      import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
+    downloaded_zip = client.download_file(zip_file_name)
+
+    Zip::File.open(downloaded_zip) do |zipfile|
+      zipfile.each do |file|
+        puts "file"
+        puts file
+      end
     end
+
+
+    # @data.each.each_with_index do |row, index|
+    #   import_row(row) if filter.include?(row)
+    #   ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
+    # end
   end
 
   def zip_file_name
