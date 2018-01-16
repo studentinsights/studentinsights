@@ -21,6 +21,7 @@ remote_filenames:
     SomervillePublicSchools\ -\ Generic\ SR\ Pipeline\ Extract\ -\ Active.csv
   FILENAME_FOR_STAR_MATH_IMPORT: >-
     SomervillePublicSchools\ -\ Generic\ SM\ Pipeline\ Extract\ -\ Active.csv
+  FILENAME_FOR_STAR_ZIP_FILE: Somerville Public Schools.zip
 schools:
   -
     local_id: BRN
