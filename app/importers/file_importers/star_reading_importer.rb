@@ -8,19 +8,15 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
     downloaded_zip = client.download_file(zip_file_name)
 
     Zip::File.open(downloaded_zip) do |zipfile|
-      zipfile.each do |file|
-        if file.name == remote_file_name
-          log.write("\nImporting #{remote_file_name}...")
+      log.write("\nImporting #{remote_file_name}...")
 
-          data = File.read(file).encode('UTF-8', 'binary', {
-            invalid: :replace, undef: :replace, replace: ''
-          })
+      data = zipfile.read(remote_file_name).encode('UTF-8', 'binary', {
+        invalid: :replace, undef: :replace, replace: ''
+      })
 
-          data.each.each_with_index do |row, index|
-            import_row(row) if filter.include?(row)
-            ProgressBar.new(log, remote_file_name, data.size, index + 1).print if progress_bar
-          end
-        end
+      data.each.each_with_index do |row, index|
+        import_row(row) if filter.include?(row)
+        ProgressBar.new(log, remote_file_name, data.size, index + 1).print if progress_bar
       end
     end
   end
