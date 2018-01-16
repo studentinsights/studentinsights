@@ -1,7 +1,7 @@
 class StarMathImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def import
-    return unless remote_file_name
+    return unless zip_file_name.present? && remote_file_name.present?
 
     log.write("\nDownloading ZIP file #{zip_file_name}...")
 
@@ -9,16 +9,20 @@ class StarMathImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
     Zip::File.open(downloaded_zip) do |zipfile|
       zipfile.each do |file|
-        puts "file"
-        puts file
+        if file.name == remote_file_name
+          log.write("\nImporting #{remote_file_name}...")
+
+          data = File.read(file).encode('UTF-8', 'binary', {
+            invalid: :replace, undef: :replace, replace: ''
+          })
+
+          data.each.each_with_index do |row, index|
+            import_row(row) if filter.include?(row)
+            ProgressBar.new(log, remote_file_name, data.size, index + 1).print if progress_bar
+          end
+        end
       end
     end
-
-
-    # @data.each.each_with_index do |row, index|
-    #   import_row(row) if filter.include?(row)
-    #   ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
-    # end
   end
 
   def zip_file_name

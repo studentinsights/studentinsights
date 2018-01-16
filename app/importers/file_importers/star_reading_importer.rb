@@ -1,15 +1,27 @@
 class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def import
-    return unless remote_file_name
+    return unless zip_file_name.present? && remote_file_name.present?
 
-    @data = CsvDownloader.new(
-      log: log, remote_file_name: zip_file_name, client: client, transformer: data_transformer
-    ).get_data
+    log.write("\nDownloading ZIP file #{zip_file_name}...")
 
-    @data.each.each_with_index do |row, index|
-      import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
+    downloaded_zip = client.download_file(zip_file_name)
+
+    Zip::File.open(downloaded_zip) do |zipfile|
+      zipfile.each do |file|
+        if file.name == remote_file_name
+          log.write("\nImporting #{remote_file_name}...")
+
+          data = File.read(file).encode('UTF-8', 'binary', {
+            invalid: :replace, undef: :replace, replace: ''
+          })
+
+          data.each.each_with_index do |row, index|
+            import_row(row) if filter.include?(row)
+            ProgressBar.new(log, remote_file_name, data.size, index + 1).print if progress_bar
+          end
+        end
+      end
     end
   end
 
