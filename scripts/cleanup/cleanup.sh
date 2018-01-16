@@ -1,4 +1,4 @@
-if [ -f tmp ]; then
+if [ -d tmp ]; then
   echo "Deleting /tmp folder..."
   rm -rf tmp
   echo
@@ -7,7 +7,7 @@ else
   echo
 fi
 
-if [ -f data ]; then
+if [ -d data ]; then
   echo "Deleting /data folder..."
   rm -rf data
   echo
