@@ -59,20 +59,4 @@ class StarMathImporter < Struct.new :school_scope, :client, :log, :progress_bar
     })
   end
 
-  class HistoricalImporter < StarMathImporter
-    # STAR sends historical data in a separate file
-
-    def remote_file_name
-      'SM_Historical.csv'
-    end
-  end
-
-  class RecentImporter < StarMathImporter
-    # STAR sends recent data in a separate file
-
-    def remote_file_name
-      "SomervillePublicSchools\ -\ Generic\ SM\ Extract.csv"
-    end
-  end
-
 end

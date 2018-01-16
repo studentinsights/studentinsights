@@ -60,20 +60,4 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
     })
   end
 
-  class HistoricalImporter < StarReadingImporter
-    # STAR sends historical data in a separate file
-
-    def remote_file_name
-      'SR_Historical.csv'
-    end
-  end
-
-  class RecentImporter < StarReadingImporter
-    # STAR sends recent data in a separate file
-
-    def remote_file_name
-      "SomervillePublicSchools\ -\ Generic\ SR\ Extract.csv"
-    end
-  end
-
 end
