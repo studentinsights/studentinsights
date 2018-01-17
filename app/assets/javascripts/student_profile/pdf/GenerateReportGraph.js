@@ -46,7 +46,7 @@ export default function generateReportGraph(containerSelector, yAxisLabel, xAxis
           color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
         },
         formatter: function(){
-          const val = this.y < 1 ? '' : this.y;
+          const val = this.y < 1 ? '' : this.total;
           return val;
         },
       },
