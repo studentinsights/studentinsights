@@ -21,6 +21,7 @@ gem 'net-ssh'
 gem 'nokogiri', '~> 1.8.1' # forcing patching version on transitive dependency
 gem 'probability'
 gem 'rollbar'
+gem 'rails-erd', require: false, group: :development
 gem 'rubocop', require: false
 gem 'oj'
 gem 'oj_mimic_json'
