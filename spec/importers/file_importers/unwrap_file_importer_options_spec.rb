@@ -18,8 +18,8 @@ RSpec.describe UnwrapFileImporterOptions do
           AttendanceImporter,
           BehaviorImporter,
           StudentSectionGradesImporter,
-          StarMathImporter::RecentImporter,
-          StarReadingImporter::RecentImporter,
+          StarMathImporter,
+          StarReadingImporter,
           X2AssessmentImporter,
         ])
       end
@@ -50,8 +50,8 @@ RSpec.describe UnwrapFileImporterOptions do
 
       it 'returns star importers' do
         expect(unwrapper.sort_file_import_classes).to match_array([
-          StarMathImporter::RecentImporter,
-          StarReadingImporter::RecentImporter,
+          StarMathImporter,
+          StarReadingImporter,
         ])
       end
     end

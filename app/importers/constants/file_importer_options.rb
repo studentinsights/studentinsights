@@ -31,8 +31,8 @@ class FileImporterOptions
       'student_section_assignments' => StudentSectionAssignmentsImporter,
       'student_section_grades' => StudentSectionGradesImporter,
       'educator_section_assignments' => EducatorSectionAssignmentsImporter,
-      'star_math' => StarMathImporter::RecentImporter,
-      'star_reading' => StarReadingImporter::RecentImporter,
+      'star_math' => StarMathImporter,
+      'star_reading' => StarReadingImporter,
     }
   end
 

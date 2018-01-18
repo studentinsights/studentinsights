@@ -1,8 +1,11 @@
 remote_filenames:
-  FILENAME_FOR_STUDENTS_IMPORT: ../newbedford/istudent.csv
-  FILENAME_FOR_BEHAVIOR_IMPORT: ../newbedford/iconduct.csv
-  FILENAME_FOR_ASSESSMENT_IMPORT: ../newbedford/iassessments.csv
-  FILENAME_FOR_ATTENDANCE_IMPORT: ../newbedford/iattendance.csv
+  FILENAME_FOR_STUDENTS_IMPORT:       ../newbedford/istudent.csv
+  FILENAME_FOR_BEHAVIOR_IMPORT:       ../newbedford/iconduct.csv
+  FILENAME_FOR_ASSESSMENT_IMPORT:     ../newbedford/iassessments.csv
+  FILENAME_FOR_ATTENDANCE_IMPORT:     ../newbedford/iattendance.csv
+  FILENAME_FOR_STAR_READING_IMPORT:   SR.csv
+  FILENAME_FOR_STAR_MATH_IMPORT:      SM.csv
+  FILENAME_FOR_STAR_ZIP_FILE:         New Bedford Public Schools.zip
 schools:
   -
     name: Charles S. Ashley
