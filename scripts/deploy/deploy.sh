@@ -1,5 +1,7 @@
 # Pass in the name of all the git remotes to deploy to as arguments
 
+# Example: ./scripts/deploy/deploy.sh somerville new-bedford heroku-demo
+
 for remote in "$@"
 do
     echo "🚢  🚢  🚢  Deploying code to $remote.";
