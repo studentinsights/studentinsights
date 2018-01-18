@@ -14,7 +14,7 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
         invalid: :replace, undef: :replace, replace: ''
       })
 
-      data = CsvTransformer.new.transform(data_string)
+      data = data_transformer.transform(data_string)
 
       data.each.each_with_index do |row, index|
         import_row(row) if filter.include?(row)
