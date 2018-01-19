@@ -1,6 +1,6 @@
 "local_id","incident_code","event_date","incident_time","incident_location","incident_description","school_local_id"
 "10","Hitting","2015-10-01","13:00:00","Classroom","Hit another student.","SHS"
-"11","Lorem ipsuming","2015-10-01","13:00:00","Classroom","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","SHS"
+"11","Lorem ipsuming","2015-10-01","13:00:00","Classroom","... yelling \"NO\" to the teacher ...","SHS"
 "12","Unauthorized pencil sharpening","2015-10-02","13:00:00","Classroom","pencil that didn’t need to be","SHS"
 "13","Bullying","2015-10-03",\N,"Classroom","Bullied another student.","SHS"
 "14","Bullying",\N,\N,"Classroom","Bullied another student.","SHS"
