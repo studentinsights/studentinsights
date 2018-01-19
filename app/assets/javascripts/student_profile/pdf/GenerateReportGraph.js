@@ -28,6 +28,8 @@ export default function generateReportGraph(containerSelector, yAxisLabel, xAxis
           enabled: true,
           color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
           formatter: function(){
+            // Sets the number of each type of incident occurences per day
+            // If no occurences, displays nothing
             const val = this.y < 1 ? '' : this.y;
             return val;
           },
@@ -46,7 +48,9 @@ export default function generateReportGraph(containerSelector, yAxisLabel, xAxis
           color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
         },
         formatter: function(){
-          const val = this.y < 1 ? '' : this.total;
+          // Sets the total number of occurences per day
+          // If no occurences, displays nothing
+          const val = this.total < 1 ? '' : this.total;
           return val;
         },
       },
