@@ -8,14 +8,15 @@ RSpec.describe CsvTransformer do
         # Return a File.read string just like the CsvDownloader class does:
         let!(:file) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
 
-        let(:headers_symbols) {[:local_id,:school_local_id,:assessment_date,:assessment_scale_score,:assessment_performance_level,:assessment_growth,:assessment_name,:assessment_subject,:assessment_test]}
         let(:transformer) { CsvTransformer.new }
         let(:output) { transformer.transform(file) }
         it 'returns a CSV' do
           expect(output).to be_a_kind_of CSV::Table
         end
         it 'has the correct headers' do
-          expect(output.headers).to match_array(headers_symbols)
+          expect(output.headers).to match_array([
+            :event_date, :incident_code, :incident_description, :incident_location, :incident_time, :local_id, :school_local_id
+          ])
         end
       end
       context 'headers not in csv' do
