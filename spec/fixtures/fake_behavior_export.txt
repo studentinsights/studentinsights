@@ -1,6 +1,5 @@
 "local_id","incident_code","event_date","incident_time","incident_location","incident_description","school_local_id"
 "10","Hitting","2015-10-01","13:00:00","Classroom","Hit another student.","SHS"
 "11","Lorem ipsuming","2015-10-01","13:00:00","Classroom","... yelling \"NO\" to the teacher ...","SHS"
-"12","Unauthorized pencil sharpening","2015-10-02","13:00:00","Classroom","pencil that didn’t need to be","SHS"
 "13","Bullying","2015-10-03",\N,"Classroom","Bullied another student.","SHS"
 "14","Bullying",\N,\N,"Classroom","Bullied another student.","SHS"
