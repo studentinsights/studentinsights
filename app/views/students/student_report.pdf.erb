@@ -59,12 +59,12 @@
     <div style="float: left; width: 512px;">
       <div>
         <span style="font-size:24px; font-weight:bold;"><%= "#{@student.first_name} #{@student.last_name}"%></span><br />
-        Report dates: <span><%="#{format_date(@filter_from_date)} to #{format_date(@filter_to_date)}"%></span>
+        Report dates: <span><%="#{format_date_for_student_report(@filter_from_date)} to #{format_date_for_student_report(@filter_to_date)}"%></span>
         <p />
       </div>
       <div style="float: left; width: 200px;">
         <ul>
-          <li>DOB: <%= format_date(@student.date_of_birth) %></li>
+          <li>DOB: <%= format_date_for_student_report(@student.date_of_birth) %></li>
           <li><%= "Grade #{@student.grade}" %></li>
           <li><%= @student.school.try(:name) || "No School Assigned" %></li>
           <li><%= @student.homeroom.try(:name) || "No Homeroom Assigned" %></li>
@@ -94,7 +94,7 @@
         <% @event_notes.each do |event_note| %>
           <div style="float: left; width:370px; padding:5px">
             <ul>
-              <li><span style="font-weight:bold;"><%= format_date(event_note.recorded_at) %></span></li>
+              <li><span style="font-weight:bold;"><%= format_date_for_student_report(event_note.recorded_at) %></span></li>
               <li><span style="font-style:italic;"><%= event_note.event_note_type.name %></span></li>
               <li><%= event_note.text %></li>
             </ul>
@@ -122,9 +122,9 @@
             <ul>
               <li>
                 <span style="font-weight:bold;">
-                  <%= format_date(service.date_started) %> -
+                  <%= format_date_for_student_report(service.date_started) %> -
                   <% if service.discontinued_at.present? %>
-                    <%= "#{format_date(service.discontinued_at)}" %>
+                    <%= "#{format_date_for_student_report(service.discontinued_at)}" %>
                   <% else %>
                     Present
                   <% end %>
@@ -163,14 +163,14 @@
             <td>
               <ul>
               <% year.filtered_absences(@filter_from_date, @filter_to_date).each do |absence| %>
-                <li><%= format_date(absence.occurred_at) %></li>
+                <li><%= format_date_for_student_report(absence.occurred_at) %></li>
               <% end %>
               </ul>
             </td>
             <td>
               <ul>
               <% year.filtered_tardies(@filter_from_date, @filter_to_date).each do |tardy| %>
-                <li><%= format_date(tardy.occurred_at) %></li>
+                <li><%= format_date_for_student_report(tardy.occurred_at) %></li>
               <% end %>
               </ul>
             </td>
@@ -192,7 +192,7 @@
         <% @discipline_incidents.each do |incident| %>
           <div style="float: left; width:370px; padding:5px">
             <ul>
-              <li><span style="font-weight:bold;"><%= "#{format_date(incident.occurred_at)} - #{incident.incident_location} - Code: #{incident.incident_code}"%></span></li>
+              <li><span style="font-weight:bold;"><%= "#{format_date_for_student_report(incident.occurred_at)} - #{incident.incident_location} - Code: #{incident.incident_code}"%></span></li>
               <li><span><%= incident.incident_description %></span></li>
             </ul>
           </div>
@@ -223,7 +223,7 @@
               <li><span style="font-weight:bold;"><%= test_name %></span></li>
               <% if test_scores.any? %>
                 <% test_scores.each do |score| %>
-                  <li><%= "#{format_date(score[0])} - #{score[1]}" %></li>
+                  <li><%= "#{format_date_for_student_report(score[0])} - #{score[1]}" %></li>
                 <% end %>
               <% else %>
                 <li>No Scores</li>

@@ -98,7 +98,7 @@ class SchoolsController < ApplicationController
 
   def authorize_for_school
     unless current_educator.is_authorized_for_school(@school)
-      redirect_to(homepage_path_for_current_educator)
+      redirect_to homepage_path_for_role(current_educator)
     end
 
     if current_educator.has_access_to_grade_levels?

@@ -1,8 +1,6 @@
 module ApplicationHelper
 
-  def format_date(date)
-    return "" unless date.respond_to?(:strftime)
-
+  def format_date_for_student_report(date)
     date.strftime("%m/%d/%Y")
   end
 

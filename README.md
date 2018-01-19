@@ -1,4 +1,3 @@
-
 # Student Insights
 
 [![Build Status](https://travis-ci.org/studentinsights/studentinsights.svg?branch=master)](https://travis-ci.org/studentinsights/studentinsights)
@@ -6,9 +5,15 @@
 
 Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings focused on the most at-risk students.
 
-Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/):
-  - username: `demo@example.com`
-  - password: `demo-password`
+Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/) with different roles:
+
+  - District admin: `uri@demo.studentinsights.org`
+  - K8 principal: `laura@demo.studentinsights.org`
+  - Kindergarten teacher: `vivian@demo.studentinsights.org`
+  - HS physics teacher: `hugo@demo.studentinsights.org`
+  - 9th grade counselor: `sofia@demo.studentinsights.org`
+
+All accounts use the password: `demo-password`.
 
 Our presentation at [Code for Boston demo night](docs/readme_images/Student%20Insights%20-%20Demo%20Night%20slides.pdf) in May 2016 also has a good product overview.
 
@@ -39,6 +44,7 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
   - [Deploying new code to Insights](#deploying-new-code-to-insights)
   - [Setting up Insights for a new district](#setting-up-insights-for-a-new-district)
     - [New Heroku instance](#new-heroku-instance)
+    - [New SFTP Site](#new-sftp-site)
     - [Importing data](#importing-data)
       - [Getting data out of the SIS](#getting-data-out-of-the-sis)
         - [Self-Hosted Aspen](#self-hosted-aspen)
@@ -143,7 +149,7 @@ $ yarn install
 bundle exec rake db:create db:migrate db:seed
 ```
 
-This will create demo students with fake student information. The demo educator username is `demo@example.com` and the demo password is `demo-password`.
+This will create demo students with fake student information.  See the demo site above for the set of educators you can use (or look at `test_pals.rb`).
 
 ## 3. Start the app
 Once you've created the data, start the app by running `yarn start` from the root of your project.  This runs two processes in parallel: the Rails server and a Webpack process that watches and rebuilds JavaScript files.  When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.  You can stop both processes with `command+c` like normal, and look at `package.json` if you want to run them in individual terminals.
@@ -223,6 +229,15 @@ $ scripts/deploy/new_district.sh "My New District Name"
 ```
 
 This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
+
+### New SFTP Site
+
+In addition to a Heroku instance, you'll need an SFTP site to hold data as it flows between the district IT systems and Student Insights.
+
+We're documenting a few ways to set up and secure the SFTP site:
+
++ New District SFTP Setup With Private Key (Strongly Preferred!)
++ [New District SFTP Setup With Password](docs/technical/new_district_sftp_with_password.md)
 
 ### Importing data
 

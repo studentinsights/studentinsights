@@ -2,8 +2,8 @@ class StarImporters
 
   def self.list
     [
-      StarReadingImporter::RecentImporter,
-      StarMathImporter::RecentImporter,
+      StarReadingImporter,
+      StarMathImporter,
     ]
   end
 

@@ -17,35 +17,7 @@ class ApplicationController < ActionController::Base
 
   # Return the homepage path, depending on the educator's role
   def homepage_path_for_role(educator)
-    if educator.districtwide_access?
-      educators_districtwide_url
-    elsif educator.schoolwide_access? || educator.has_access_to_grade_levels?
-      school_url(educator.school)
-    elsif educator.school.school_type == 'HS'
-      default_section_path(educator)
-    else
-      default_homeroom_path(educator)
-    end
-  end
-
-  def homepage_path_for_current_educator
-    homepage_path_for_role(current_educator)
-  end
-
-  def default_homeroom_path(educator)
-    homeroom_path(educator.default_homeroom)
-  rescue Exceptions::NoAssignedHomeroom   # Thrown by educator without default homeroom
-    no_homeroom_path
-  rescue Exceptions::NoHomerooms
-    no_homerooms_path
-  end
-
-  def default_section_path(educator)
-    section_path(educator.default_section)
-  rescue Exceptions::NoAssignedSections   # Thrown by educator without any sections
-    no_section_path
-  rescue Exceptions::NoSections
-    no_sections_path
+    PathsForEducator.new(educator).homepage_path
   end
 
   # Wrap all database queries with this to enforce authorization
@@ -73,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   # For redirecting requests directly from the Heroku domain to the canonical domain name
   def redirect_domain!
-    canonical_domain = EnvironmentVariable.value('CANONICAL_DOMAIN')
+    canonical_domain = LoadDistrictConfig.new.canonical_domain
     return if canonical_domain == nil
     return if request.host == canonical_domain
     redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently

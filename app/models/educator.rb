@@ -60,15 +60,13 @@ class Educator < ActiveRecord::Base
   end
 
   def default_homeroom
-    raise Exceptions::NoHomerooms if Homeroom.count == 0    # <= We can't show any homerooms if there are none
-    return homeroom if homeroom.present?                    # <= Logged-in educator has an assigned homeroom
-    raise Exceptions::NoAssignedHomeroom                    # <= Logged-in educator has no assigned homeroom
+    return homeroom if homeroom.present?
+    raise Exceptions::NoAssignedHomeroom
   end
 
   def default_section
-    raise Exceptions::NoSections if Section.count == 0    # <= We can't show any sectionss if there are none
-    return sections[0] if sections.present?                      # <= Logged-in educator has at least one assigned section
-    raise Exceptions::NoAssignedSections                    # <= Logged-in educator has no assigned section
+    return sections[0] if sections.present?
+    raise Exceptions::NoAssignedSections
   end
 
   def has_access_to_grade_levels?

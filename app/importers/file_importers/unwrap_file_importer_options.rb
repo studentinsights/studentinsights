@@ -10,8 +10,8 @@ class UnwrapFileImporterOptions
     AttendanceImporter => 5,
     StudentSectionGradesImporter => 5,
     X2AssessmentImporter => 6,
-    StarMathImporter::RecentImporter => 6,
-    StarReadingImporter::RecentImporter => 6,
+    StarMathImporter => 6,
+    StarReadingImporter => 6,
   }
 
   def initialize(source)

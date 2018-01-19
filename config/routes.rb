@@ -2,8 +2,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :educators
+    get '/authorization' => 'educators#authorization'
     root to: "educators#index"
   end
+  
 
   devise_for :educators
   authenticated :educator do
@@ -17,12 +19,7 @@ Rails.application.routes.draw do
     root to: "devise/sessions#new"
   end
 
-  get 'no_homeroom' => 'pages#no_homeroom'
-  get 'no_homerooms' => 'pages#no_homerooms'
-
-  get 'no_section' => 'pages#no_section'
-  get 'no_sections' => 'pages#no_sections'
-
+  get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
 
   if ENV['LETS_ENCRYPT_ENDPOINT']

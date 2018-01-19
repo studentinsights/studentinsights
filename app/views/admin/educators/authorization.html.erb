@@ -1,0 +1,67 @@
+<%= render 'permissions_links' %>
+
+<h2>Sensitive access</h2>
+<div style="padding: 20px">
+  <div>
+    <div>Can set access: <%= @can_set_educators.size %></div>
+    <div>Admin: <%= @admin_educators.size %></div>
+    <div>Restricted notes: <%= @restricted_notes_educators.size %></div>
+    <div>Districtwide: <%= @districtwide_educators.size %></div>
+  </div>
+  <table style="margin-top: 40px; text-align: left;">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Can set access</th>
+        <th>Admin</th>
+        <th>Restricted notes</th>
+        <th>Districtwide</th>
+        <th>School</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% educators = (@can_set_educators + @admin_educators + @districtwide_educators).uniq %>
+      <% educators.map do |educator| %>
+        <tr>
+          <td><%= educator.email %></td>
+          <td><%= educator.full_name %></td>
+          <td><%= educator.can_set_districtwide_access %></td>
+          <td><%= educator.admin %></td>
+          <td><%= educator.can_view_restricted_notes %></td>
+          <td><%= educator.districtwide_access %></td>
+          <td><%= educator.school.try(:name) || "N/A" %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<h2>Educator homepages</h2>
+<div style="padding: 20px">
+  <pre><%=
+    hash = Hash.new(0);
+    homepage_types = @all_educators.map {|e| Authorizer.new(e).homepage_type }
+    homepage_types.each {|value| hash[value] += 1};
+    JSON.pretty_generate(hash)
+  %>
+  </pre>
+
+  <table style="margin-top: 40px; text-align: left;">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Name</th>
+          <th>Homepage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @all_educators.map do |educator| %>
+          <% path = PathsForEducator.new(educator).homepage_path %>
+          <tr>
+            <td><%= educator.email %></td>
+            <td><%= educator.full_name %></td>
+            <td><%= link_to path, path %></td>
+        <% end %>
+      </tbody>
+    </table>
+</div>

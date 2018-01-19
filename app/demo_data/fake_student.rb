@@ -160,7 +160,7 @@ class FakeStudent
   def add_student_assessments_from_x2
     create_x2_assessment_generators(@student).each do |assessment_generator|
       unless @newstudent
-        5.times do
+        4.times do
           StudentAssessment.new(assessment_generator.next).save
         end
       end
@@ -171,7 +171,7 @@ class FakeStudent
     unless @newstudent
       star_period_days = 90
       # Define semi-realistic date ranges for STAR assessments
-      start_date = DateTime.new(2010, 9, 1)
+      start_date = DateTime.new(2014, 9, 1)
       now = DateTime.now
       assessment_count = (now - start_date).to_i / star_period_days
       options = {

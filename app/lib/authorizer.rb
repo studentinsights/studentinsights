@@ -27,7 +27,7 @@
 #
 class Authorizer
   # These fields are required on the `Student` model for
-  # authorization checks
+  # authorization checks.
   def self.student_fields_for_authorization
     [
       :id,
@@ -35,6 +35,20 @@ class Authorizer
       :limited_english_proficiency,
       :school_id,
       :grade
+    ]
+  end
+
+  # These fields are required on the `Educator` model for
+  # authorization checks.
+  def self.educator_fields_for_authorization
+    [
+      :schoolwide_access,
+      :grade_level_access,
+      :restricted_to_sped_students,
+      :restricted_to_english_language_learners,
+      :districtwide_access,
+      :school_id,
+      :admin
     ]
   end
 
@@ -69,7 +83,8 @@ class Authorizer
       # to optimize a query.  The authorization layer could only recover by making more
       # queries, so instead we raise and force the developer to figure out how to resolve.
       #
-      # See `Authorizer.student_fields_for_authorization`
+      # See `Authorizer.student_fields_for_authorization` and `Authorizer.educator_field_for_authorization`
+      # to see what fields are required on each model.
       raise err
     end
     false
@@ -98,6 +113,20 @@ class Authorizer
     true
   end
 
+  # There are five types of entry experiences, depending on levels
+  # of access.
+  def homepage_type
+    begin
+      return :districtwide if @educator.districtwide_access?
+      return :school if @educator.schoolwide_access? || @educator.has_access_to_grade_levels?
+      return :section if @educator.school.school_type == 'HS' && @educator.default_section
+      return :homeroom if @educator.school.school_type != 'HS' && @educator.default_homeroom
+      return :nothing
+    rescue Exceptions::NoAssignedHomeroom, Exceptions::NoAssignedSections => err
+      :nothing
+    end
+  end
+
   # TODO(kr) remove implementation
   def students_for_school_overview
     return [] unless @educator.school.present?
@@ -115,9 +144,6 @@ class Authorizer
 
   # TODO(kr) remove implementation
   def homerooms
-    # Educator can visit roster view for these homerooms
-    return [] if @educator.school.nil?
-
     if @educator.districtwide_access?
       Homeroom.all
     elsif @educator.schoolwide_access?
