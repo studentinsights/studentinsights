@@ -9,11 +9,7 @@ gem 'puma'
 gem 'activerecord-import'
 gem 'aws-sdk', '~> 2'
 gem 'devise', '~> 4.3.0'
-
-# This is forked, waiting on https://github.com/cschiewek/devise_ldap_authenticatable/issues/242 to be merged, at
-# which point we can switch back to the gem upstream.
-gem 'devise_ldap_authenticatable', git: 'https://github.com/studentinsights/devise_ldap_authenticatable'
-
+gem 'devise_ldap_authenticatable'
 gem 'activemodel-serializers-xml'
 gem 'administrate', '~> 0.8.1'
 gem 'friendly_id', '~> 5.1.0'
