@@ -1,4 +1,5 @@
 import {merge} from '../helpers/react_helpers.jsx';
+import {toMoment} from '../helpers/toMoment.js';
 
 (function() {
   window.shared || (window.shared = {});
@@ -36,7 +37,7 @@ import {merge} from '../helpers/react_helpers.jsx';
 
     render: function () {
       const data = this.props.data;
-
+      const createdAtMoment = toMoment(data.created_at.slice(0, 10)); // from rails timestamp
       return (
         <div key={String(data.id)} style={this.dataCellStyle()}>
           <div style={{ marginBottom: 18 }}>
@@ -44,7 +45,7 @@ import {merge} from '../helpers/react_helpers.jsx';
               {data.file_name}
             </span>
             <span style={{ fontSize: 13, color: '#999', marginLeft: 15 }}>
-              {'Uploaded ' + moment.utc((data.created_at).slice(0, 10)).format('M/D/YYYY')}
+              {'Uploaded ' + createdAtMoment.format('M/D/YYYY')}
             </span>
           </div>
           {this.renderServiceTypeName()}
