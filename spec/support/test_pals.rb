@@ -145,7 +145,8 @@ class TestPals
       program_assigned: 'Sp Ed',
       sped_level_of_need: 'Moderate',
       sped_placement: 'Full Inclusion',
-      iep_document: IepDocument.create({ file_name: 'meredith_iep_document' })
+      iep_document: IepDocument.create({ file_name: 'meredith_iep_document' }),
+      local_id: '222'
     )
 
     # West is a K8 school
