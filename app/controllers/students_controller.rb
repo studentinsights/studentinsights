@@ -2,14 +2,7 @@ class StudentsController < ApplicationController
   include ApplicationHelper
 
   rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
-
-  before_action :authorize!, except: [          # The :names and lasids actions are subject to
-    :names, :lasids                             # educator authentication via :authenticate_educator!
-  ]                                             # inherited from ApplicationController.
-                                                # They then get further authorization filtering using
-                                                # The custom authorization methods below.
-
-  before_action :authorize_for_districtwide_access_admin, only: [:lasids]
+  before_action :authorize!, except: [:names]
 
   def authorize!
     student = Student.find(params[:id])
@@ -116,21 +109,16 @@ class StudentsController < ApplicationController
     end
   end
 
-  # Used by the search bar to query for student names
+  # Used by the search bar to query for student names.
+  # Returns all names the educator is authorized for.
   def names
     cached_json_for_searchbar = current_educator.student_searchbar_json
 
     if cached_json_for_searchbar
       render json: cached_json_for_searchbar
     else
-      render json: SearchbarHelper.names_for(current_educator)
+      render json: Searchbar.names_for(current_educator)
     end
-  end
-
-  # Used by the service upload page to validate student local ids
-  # LASID => "locally assigned ID"
-  def lasids
-    render json: Student.pluck(:local_id)
   end
 
   private
@@ -167,23 +155,6 @@ class StudentsController < ApplicationController
         interventions: student.interventions.map { |intervention| DeprecatedInterventionSerializer.new(intervention).serialize_intervention }
       }
     }
-  end
-
-  def school_year_id_range(from_date, to_date)
-    # Find the years represented by the dates
-
-    #start with to_date and work backward each year until < from_date
-    current_date = to_date
-    school_year_ids = []
-
-    while current_date > from_date do
-      school_year_ids.push(DateToSchoolYear.new(current_date).convert.id)
-
-      current_date = current_date - 1.year
-    end
-
-    return school_year_ids
-
   end
 
   def set_up_student_report_data

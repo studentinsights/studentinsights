@@ -26,10 +26,11 @@ Rails.application.routes.draw do
     get ENV['LETS_ENCRYPT_ENDPOINT'] => 'pages#lets_encrypt_endpoint'
   end
 
-  get '/students/names' => 'students#names'
-  get '/students/lasids' => 'students#lasids'
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
+    collection do
+      get :names
+    end
     member do
       get :student_report
       get :restricted_notes
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
   resources :service_uploads, only: [:create, :index, :destroy] do
     collection do
       get :past
+      get :lasids
     end
   end
   resources :homerooms, only: [:show]

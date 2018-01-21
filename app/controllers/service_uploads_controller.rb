@@ -1,12 +1,6 @@
 class ServiceUploadsController < ApplicationController
-  # Authentication by default inherited from ApplicationController.
-
-  before_action :authorize_for_districtwide_access_admin # Extra authentication layer
-
-  def authorize_for_districtwide_access_admin
-    unless current_educator.admin? && current_educator.districtwide_access?
-      render json: { error: "You don't have the correct authorization." }
-    end
+  before_action do
+    raise Exceptions::EducatorNotAuthorized unless authorizer.can_upload_bulk_services?(current_educator)
   end
 
   def create
@@ -91,6 +85,12 @@ class ServiceUploadsController < ApplicationController
         id: id
       }
     end
+  end
+
+  # LASID => "locally assigned ID"
+  def lasids
+    students = authorized { Student.select(:local_id, :school_id).all }
+    render json: students.map(&:local_id)
   end
 
   private

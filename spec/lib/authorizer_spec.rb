@@ -5,13 +5,18 @@ def authorized(educator, &block)
   Authorizer.new(educator).authorized(&block)
 end
 
+# Test sugar for checking that the educator is authorized for the given model
+def is_authorized(educator, model)
+  authorized(educator) { model } == model # check that they can access it
+end
+
 RSpec.describe Authorizer do
   let!(:pals) { TestPals.create! }
 
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
     expect(Homeroom.all.size).to eq 6
-    expect(Student.all.size).to eq 2
+    expect(Student.all.size).to eq 3
     expect(Educator.all.size).to eq 12
     expect(Course.all.size).to eq 3
     expect(Section.all.size).to eq 6
@@ -32,6 +37,7 @@ RSpec.describe Authorizer do
       students = Student.select(*Authorizer.student_fields_for_authorization).all
       expect(authorized(pals.uri) { students }).to eq [
         pals.healey_kindergarten_student,
+        pals.healey_meredith_student,
         pals.shs_freshman_mari
       ]
       expect(authorized(pals.healey_vivian_teacher) { students }).to eq [pals.healey_kindergarten_student]
@@ -92,10 +98,15 @@ RSpec.describe Authorizer do
       it 'limits access with Student.all' do
         expect(authorized(pals.uri) { Student.all }).to eq [
           pals.healey_kindergarten_student,
+          pals.healey_meredith_student,
           pals.shs_freshman_mari
         ]
-        expect(authorized(pals.healey_vivian_teacher) { Student.all }).to eq [
-          pals.healey_kindergarten_student
+        expect(authorized(pals.healey_laura_principal) { Student.all }).to eq [
+          pals.healey_kindergarten_student,
+          pals.healey_meredith_student
+        ]
+        expect(authorized(pals.healey_sarah_teacher) { Student.all }).to eq [
+          pals.healey_meredith_student
         ]
         expect(authorized(pals.shs_jodi) { Student.all }).to eq [
           pals.shs_freshman_mari
@@ -127,6 +138,7 @@ RSpec.describe Authorizer do
         thin_relation = Student.select(:id, :local_id).all
         expect((authorized(pals.uri) { thin_relation }).map(&:id)).to eq([
           pals.healey_kindergarten_student.id,
+          pals.healey_meredith_student.id,
           pals.shs_freshman_mari.id
         ])
         expect((authorized(pals.healey_vivian_teacher) { thin_relation }).map(&:id)).to eq([
@@ -181,10 +193,6 @@ RSpec.describe Authorizer do
       end
 
       it 'limits access for model' do
-        def is_authorized(educator, note)
-          authorized(educator) { note } == note # check that they can access it
-        end
-
         expect(is_authorized(pals.uri, healey_public_note)).to eq true
         expect(is_authorized(pals.uri, healey_restricted_note)).to eq true
         expect(is_authorized(pals.uri, shs_public_note)).to eq true

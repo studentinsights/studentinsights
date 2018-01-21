@@ -113,6 +113,10 @@ class Authorizer
     true
   end
 
+  def can_upload_bulk_services?(educator)
+    educator.admin? && educator.districtwide_access?
+  end
+
   # There are five types of entry experiences, depending on levels
   # of access.
   def homepage_type
