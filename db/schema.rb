@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126024254) do
+ActiveRecord::Schema.define(version: 20180122001804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,13 @@ ActiveRecord::Schema.define(version: 20171126024254) do
     t.integer "number_of_hours"
     t.text "goal"
     t.string "custom_intervention_name"
+  end
+
+  create_table "monitoring_logs", force: :cascade do |t|
+    t.string "name"
+    t.string "key"
+    t.jsonb "json"
+    t.datetime "created_at", null: false
   end
 
   create_table "precomputed_query_docs", id: :serial, force: :cascade do |t|
