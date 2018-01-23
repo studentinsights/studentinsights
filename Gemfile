@@ -38,6 +38,7 @@ gem 'selenium-webdriver'
 gem 'delayed_job_active_record'
 gem 'scout_apm'
 gem 'immigrant'
+gem 'hippie_csv'
 
 #code for browserstack api usage and storing the png to slack:
 #gem 'slack-ruby-client'
