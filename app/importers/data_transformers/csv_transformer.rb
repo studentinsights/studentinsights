@@ -9,8 +9,6 @@ class CsvTransformer
   end
 
   def transform(file)
-    cleaned_file = file.gsub("\\\"", "")
-
     csv = CSV.parse(cleaned_file, headers: @headers,
                                   header_converters: :symbol,
                                   converters: lambda { |h| nil_converter(h) })
