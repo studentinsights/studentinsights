@@ -45,7 +45,6 @@ def parse_csv(filename)
   [rows, bad_lines]
 end
 
-
 namespace :logs do
   desc 'Convert logs to JSON'
   task analyze: :environment do
@@ -56,7 +55,7 @@ namespace :logs do
 
     # compute metrics
     records = []
-    file_group.each do |key, values| 
+    file_group.each do |key, values|
       stats = DescriptiveStatistics::Stats.new(values.map {|row| row[3].to_i })
       records << [
         values.size,
