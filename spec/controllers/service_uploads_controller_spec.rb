@@ -36,11 +36,8 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
       it 'returns the correct JSON' do
         make_post_request(params)
-        service_upload = response_json['service_upload']
-
-        expect(service_upload['file_name']).to eq('unique_file_name.csv')
-        expect(service_upload['services'].count).to eq 2
-        expect(service_upload['uploaded_by_educator_id']).to eq(educator.id)
+        expect(response_json['service_upload']['file_name']).to eq('unique_file_name.csv')
+        expect(response_json['service_upload']['services'].count).to eq 2
       end
     end
 
