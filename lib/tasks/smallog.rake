@@ -1,5 +1,5 @@
 # group a path into a string key (eg, representing an endpoint)
-def action(path, options = {})
+def endpoint_key(path, options = {})
   if path.start_with?('/assets')
     '[assets]'
   elsif path.start_with?('/build')
@@ -25,30 +25,34 @@ def percentage_status_code(rows, number)
   (percentage * 100).round.to_s + '%'
 end
 
+# load log and parse raw log files for the values we care about
+def parse_csv(filename)
+  filename = ARGV[1]
+  rows = []
+  bad_lines = []
+  File.readlines(filename).each do |line|
+    regex = /.*(\d\d\d\d-\d\d-\d\d)T(\d\d:\d\d:\d\d).*method=(\w*)\spath="(.*)"\shost=.*service=(\d*)ms status=(\d\d\d) bytes=(\d*) protocol=.*/
+    matches = regex.match(line)
+    if matches.nil?
+      # debug unparseable lines puts line
+      bad_lines << line
+    else
+      row = [matches[1], matches[3], matches[4], matches[5], matches[6], matches[7], matches[2]]
+      rows << row
+    end
+  end
+
+  [rows, bad_lines]
+end
+
 
 namespace :logs do
   desc 'Convert logs to JSON'
   task analyze: :environment do
-    # load log and parse raw log files for the values we care about
-    filename = ARGV[1]
-    rows = []
-    bad_lines = []
-    File.readlines(filename).each do |line|
-      regex = /.*(\d\d\d\d-\d\d-\d\d)T.*method=(\w*)\spath="(.*)"\shost=.*service=(\d*)ms status=(\d\d\d).* protocol=.*/
-      matches = regex.match(line)
-      if matches.nil?
-        # debug unparseable lines puts line
-        bad_lines << line
-      else
-        row = [matches[1], matches[2], matches[3], matches[4], matches[5]]
-        rows << row
-      end
-    end
+    rows, bad_lines = parse_csv(ARGV[1])
 
     # group by endpoint
-    file_group = rows.group_by do |row|
-      path = action(row[2], method: row[1])
-    end
+    file_group = rows.group_by {|row| endpoint_key(row[2], method: row[1]) }
 
     # compute metrics
     records = []
@@ -81,5 +85,16 @@ namespace :logs do
     puts
     puts "Includes #{rows.size} log lines over #{(dates.last - dates.first).to_i} days (from #{dates.first} to #{dates.last})."
     puts "Skipped #{bad_lines.size} log lines that could not be parsed."
+  end
+end
+
+namespace :logs do
+  desc 'Parse logs and print as TSV'
+  task tsv: :environment do
+    rows, bad_lines = parse_csv(ARGV[1])
+    rows.each do |row|
+      cells = row + [endpoint_key(row[2], method: row[1])]
+      puts cells.join("\t")
+    end
   end
 end
