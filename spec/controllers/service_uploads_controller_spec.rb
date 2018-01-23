@@ -39,6 +39,11 @@ RSpec.describe ServiceUploadsController, type: :controller do
         expect(response_json['service_upload']['file_name']).to eq('unique_file_name.csv')
         expect(response_json['service_upload']['services'].count).to eq 2
       end
+
+      it 'sets the correct uploaded_by_educator_id' do
+        make_post_request(params)
+        expect(ServiceUpload.last.uploaded_by_educator_id).to eq educator.id
+      end
     end
 
     context 'end date before start date (invalid!)' do
