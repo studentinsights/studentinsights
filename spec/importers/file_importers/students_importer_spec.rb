@@ -5,7 +5,8 @@ RSpec.describe StudentsImporter do
   describe '#import_row' do
 
     context 'good data' do
-      let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
+      # Return a File.read string just like the CsvDownloader class does:
+      let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 

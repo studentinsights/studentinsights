@@ -128,6 +128,8 @@ GEM
       execjs (~> 2.0)
       sprockets (>= 2.0.0)
       tilt (>= 1.2)
+    hippie_csv (0.1.0)
+      rchardet
     i18n (0.8.6)
     immigrant (0.3.6)
       activerecord (>= 3.0)
@@ -236,6 +238,7 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rchardet (1.7.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -346,6 +349,7 @@ DEPENDENCIES
   faker
   friendly_id (~> 5.1.0)
   handlebars_assets
+  hippie_csv
   immigrant
   jquery-rails
   jquery-ui-rails (~> 5.0.3)

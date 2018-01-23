@@ -5,13 +5,11 @@ class CsvTransformer
   attr_accessor :pre_cleanup_csv_size
 
   def initialize(options={})
-    @headers=options.key?(:headers) ? options[:headers] : true
+    @headers = options.key?(:headers) ? options[:headers] : true
   end
 
   def transform(file)
-    csv = CSV.parse(file, headers: @headers,
-                          header_converters: :symbol,
-                          converters: lambda { |h| nil_converter(h) })
+    csv = HippieCSV.parse(file, headers: @headers)
 
     @pre_cleanup_csv_size = csv.size
 
