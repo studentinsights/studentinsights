@@ -59,5 +59,10 @@ export default function legacyRouteHandler(el) {
     return true;
   }
 
+  if ($('body').hasClass('service_types') && $('body').hasClass('is_service_working')) {
+    renderIsServiceWorking(el);
+    return true;
+  }
+
   return false;
 }
