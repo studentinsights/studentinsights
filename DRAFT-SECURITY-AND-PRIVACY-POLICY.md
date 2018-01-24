@@ -31,7 +31,11 @@ Our goal is to earn and keep the trust of students, parents, and staff by treati
 For developers working with student data files:
 
 + Aim to never store data locally on the laptop.
-+ If you need to store data locally for a temporary period, `rm` the file before you end the work session.
++ Run the cleanup script whenever you finish a work session that uses production data:
+
+```
+./scripts/cleanup/cleanup.sh
+```
 
 Follow [these physical security guidelines from Thoughtbot](https://github.com/thoughtbot/guides/tree/master/security#physical-security):
 
