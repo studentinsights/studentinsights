@@ -7,7 +7,7 @@ export default function renderIsServiceWorking() {
 
   ReactDOM.render(
     <IsServiceWorking
-      serializedData={serializedData.showStar}
+      chartData={serializedData.chartData}
     />,
     document.getElementById('main')
   );
