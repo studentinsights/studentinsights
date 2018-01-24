@@ -78,7 +78,7 @@ Rails.application.routes.draw do
     end
   end
   resources :services, only: [:destroy]
-  resources :service_types, only: [:index]
+  resources :service_types, only: [:index, :is_service_working]
   resources :event_note_attachments, only: [:destroy]
   resources :service_uploads, only: [:create, :index, :destroy] do
     collection do
