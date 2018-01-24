@@ -19,7 +19,7 @@ class ServiceTypesController < ApplicationController
     attendance_officer = ServiceType.find(502)
     student_ids = attendance_officer.services.map(&:student_ids)
 
-    student_names_and_chart_data = student_ids.map |id|
+    @serialized_data = student_ids.map |id|
       student = Student.find(id)
 
       {
@@ -27,6 +27,8 @@ class ServiceTypesController < ApplicationController
         chart_data: StudentProfileChart.new(student).chart_data
       }
     end
+
+    render 'shared/serialized_data'
   end
 
 end
