@@ -6,7 +6,8 @@ import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_note
 import renderSectionMain from '../app/assets/javascripts/section/main';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main';
 import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main';
-
+import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main.jsx';
+import renderIsServiceWorking from '../app/assets/javascripts/service_types/main.jsx';
 
 // Placeholder routing (not fully client-side, just on page load).
 // Clicking links still reloads the whole page from the server.
