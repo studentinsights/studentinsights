@@ -246,7 +246,7 @@ class FakeStudent
   def add_deprecated_interventions
     15.in(100) do
       generator = FakeInterventionGenerator.new(@student)
-      intervention_count = Rubystats::NormalDistribution.new(3, 6).rng.round
+      intervention_count = [3, 6].sample
       intervention_count.times do
         intervention = Intervention.new(generator.next)
         intervention.save!
