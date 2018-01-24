@@ -24,7 +24,7 @@ class ServiceTypesController < ApplicationController
 
       {
         name: "#{student.first_name} #{student.last_name}",
-        chart_data: StudentProfileChart.new(student).chart_data
+        absences: student.absences.order(occurred_at: :desc)
       }
     end
 
