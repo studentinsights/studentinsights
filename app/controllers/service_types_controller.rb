@@ -17,9 +17,9 @@ class ServiceTypesController < ApplicationController
 
   def is_service_working
     attendance_officer = ServiceType.find(502)
-    student_ids = attendance_officer.services.map(&:student_ids)
+    student_ids = attendance_officer.services.map(&:student_id)
 
-    @serialized_data = student_ids.map |id|
+    @serialized_data = student_ids.map do |id|
       student = Student.find(id)
 
       {
