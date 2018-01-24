@@ -61,7 +61,7 @@ For developers:
 
 + Insights uses SSL by default and enforces SSL at the application level (currently enforced by `ApplicationController#force_ssl`). Do not relax SSL requirements for Insights.
 + When changing parts of the codebase that handle authentication or authorization, always ensure thorough test coverage and request a code review from another developer on the team.
-+ Keep gems, JS libraries, and other dependencies up-to-date. **TODO:** Use [Gemnasium](https://gemnasium.com/).
++ Keep gems, JS libraries, and other dependencies up-to-date.
 
 ## Third-party security
 
