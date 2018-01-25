@@ -22,7 +22,6 @@ gem 'nokogiri', '~> 1.8.1' # forcing patching version on transitive dependency
 gem 'probability'
 gem 'rollbar'
 gem 'rails-erd', require: false, group: :development
-gem 'rubocop', require: false
 gem 'oj'
 gem 'oj_mimic_json'
 gem 'rubystats'
@@ -65,6 +64,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rubocop', require: false
   gem 'better_errors'
   gem 'pivotal_git_scripts'
   gem 'spring'
