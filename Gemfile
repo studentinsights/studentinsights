@@ -21,7 +21,6 @@ gem 'rollbar'
 gem 'rails-erd', require: false, group: :development
 gem 'oj'
 gem 'oj_mimic_json'
-gem 'rubystats'
 gem 'sass-rails', '~> 5.0'
 gem 'secure_headers'
 gem 'sprockets'

@@ -256,7 +256,6 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-graphviz (1.2.3)
     ruby-progressbar (1.8.1)
-    rubystats (0.2.6)
     rubyzip (1.2.1)
     sass (3.5.1)
       sass-listen (~> 4.0.0)
@@ -351,7 +350,6 @@ DEPENDENCIES
   rollbar
   rspec-rails
   rubocop
-  rubystats
   sass-rails (~> 5.0)
   scout_apm
   secure_headers
