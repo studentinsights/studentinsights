@@ -6,7 +6,6 @@ gem 'rails', '~> 5.1.1'
 gem 'pg'
 gem 'puma'
 
-gem 'activerecord-import'
 gem 'aws-sdk', '~> 2'
 gem 'devise', '~> 4.3.0'
 gem 'devise_ldap_authenticatable'
