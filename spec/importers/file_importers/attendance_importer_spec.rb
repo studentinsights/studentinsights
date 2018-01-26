@@ -2,22 +2,16 @@ require 'rails_helper'
 
 RSpec.describe AttendanceImporter do
 
-  let(:importer) { Importer.new(current_file_importer: described_class.new) }
-
   describe '#import_row' do
 
     context 'recent attendance events' do
-      before do
-        Timecop.freeze('2005-09-16')
-      end
-
-      after do
-        Timecop.return
-      end
+      before { Timecop.freeze('2005-09-16') }
+      after { Timecop.return }
 
       context 'one row for one student on one date' do
         let!(:student) { FactoryGirl.create(:student, local_id: '1') }
         let(:date) { '2005-09-16' }
+        let(:attendance_importer) { described_class.new }
 
         context 'row with absence' do
           let(:row) {
@@ -25,31 +19,43 @@ RSpec.describe AttendanceImporter do
           }
 
           it 'creates an absence' do
+            attendance_importer.instance_variable_set(:@success_count, 0)
+            attendance_importer.instance_variable_set(:@error_list, [])
+
             expect {
-              described_class.new.import_row(row)
+              attendance_importer.import_row(row)
             }.to change {
               Absence.count
             }.by 1
           end
 
           it 'creates only 1 absence if run twice' do
+            attendance_importer.instance_variable_set(:@success_count, 0)
+            attendance_importer.instance_variable_set(:@error_list, [])
+
             expect {
-              described_class.new.import_row(row)
-              described_class.new.import_row(row)
+              attendance_importer.import_row(row)
+              attendance_importer.import_row(row)
             }.to change { Absence.count }.by 1
           end
 
           it 'increments student absences by 1' do
+            attendance_importer.instance_variable_set(:@success_count, 0)
+            attendance_importer.instance_variable_set(:@error_list, [])
+
             expect {
-              described_class.new.import_row(row)
+              attendance_importer.import_row(row)
             }.to change {
               student.reload.absences.size
             }.by 1
           end
 
           it 'does not increment student tardies' do
+            attendance_importer.instance_variable_set(:@success_count, 0)
+            attendance_importer.instance_variable_set(:@error_list, [])
+
             expect {
-              described_class.new.import_row(row)
+              attendance_importer.import_row(row)
             }.to change {
               student.tardies.size
             }.by 0
@@ -66,10 +72,15 @@ RSpec.describe AttendanceImporter do
         let(:row_for_edwin) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
         let(:row_for_kristen) { { event_date: date, local_id: '2', absence: '1', tardy: '0' } }
 
+        let(:attendance_importer) { described_class.new }
+
         it 'creates an absence for each student' do
+          attendance_importer.instance_variable_set(:@success_count, 0)
+          attendance_importer.instance_variable_set(:@error_list, [])
+
           expect {
-            described_class.new.import_row(row_for_edwin)
-            described_class.new.import_row(row_for_kristen)
+            attendance_importer.import_row(row_for_edwin)
+            attendance_importer.import_row(row_for_kristen)
           }.to change { Absence.count }.by 2
         end
       end
@@ -81,10 +92,15 @@ RSpec.describe AttendanceImporter do
         let(:first_row) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
         let(:second_row) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
 
+        let(:attendance_importer) { described_class.new }
+
         it 'creates an absence' do
+          attendance_importer.instance_variable_set(:@success_count, 0)
+          attendance_importer.instance_variable_set(:@error_list, [])
+
           expect {
-            described_class.new.import_row(first_row)
-            described_class.new.import_row(second_row)
+            attendance_importer.import_row(first_row)
+            attendance_importer.import_row(second_row)
           }.to change { Absence.count }.by 1
         end
       end
@@ -98,13 +114,17 @@ RSpec.describe AttendanceImporter do
         let(:third_row) { { event_date: '2005-09-18', local_id: '1', absence: '1', tardy: '0' } }
         let(:fourth_row) { { event_date: '2005-09-19', local_id: '1', absence: '1', tardy: '0' } }
 
+        let(:attendance_importer) { described_class.new }
+
         it 'creates multiple absences' do
-          importer = described_class.new
+          attendance_importer.instance_variable_set(:@success_count, 0)
+          attendance_importer.instance_variable_set(:@error_list, [])
+
           expect {
-            importer.import_row(first_row)
-            importer.import_row(second_row)
-            importer.import_row(third_row)
-            importer.import_row(fourth_row)
+            attendance_importer.import_row(first_row)
+            attendance_importer.import_row(second_row)
+            attendance_importer.import_row(third_row)
+            attendance_importer.import_row(fourth_row)
           }.to change { Absence.count }.by 4
         end
       end
@@ -114,6 +134,7 @@ RSpec.describe AttendanceImporter do
       context 'one row for one student on one date' do
         let!(:student) { FactoryGirl.create(:student, local_id: '1') }
         let(:date) { '2005-09-16' }
+        let(:attendance_importer) { described_class.new }
 
         context 'row with absence' do
           let(:row) {
@@ -121,8 +142,11 @@ RSpec.describe AttendanceImporter do
           }
 
           it 'does not create an absence' do
+            attendance_importer.instance_variable_set(:@success_count, 0)
+            attendance_importer.instance_variable_set(:@error_list, [])
+
             expect {
-              described_class.new.import_row(row)
+              attendance_importer.import_row(row)
             }.to change {
               Absence.count
             }.by 0
@@ -131,4 +155,5 @@ RSpec.describe AttendanceImporter do
       end
     end
   end
+
 end

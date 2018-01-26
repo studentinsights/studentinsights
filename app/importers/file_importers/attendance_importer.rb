@@ -7,9 +7,21 @@ class AttendanceImporter < Struct.new :school_scope, :client, :log, :progress_ba
       log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
+    @success_count = 0
+    @error_list = []
+
     @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
+
+      if progress_bar
+        log.write("\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped")
+      end
+    end
+
+    if progress_bar
+      @error_summary = @error_list.inject(Hash.new(0)) { |h, e| h[e] += 1 ; h }
+      log.write("\n\nInvalid attendance rows summary: ")
+      log.write(@error_summary)
     end
   end
 
@@ -26,8 +38,14 @@ class AttendanceImporter < Struct.new :school_scope, :client, :log, :progress_ba
   end
 
   def import_row(row)
-    return if Time.current - 90.days > row[:event_date]
+    attendance_event = AttendanceRow.build(row)
 
-    AttendanceRow.build(row).save!
+    if attendance_event.valid?
+      attendance_event.save!
+      @success_count += 1
+    else
+      @error_list << attendance_event.errors.messages
+    end
   end
+
 end
