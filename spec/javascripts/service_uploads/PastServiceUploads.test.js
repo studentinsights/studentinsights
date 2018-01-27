@@ -22,7 +22,7 @@ describe('with valid past service upload data', function () {
         serviceUploads={[
           {
             file_name: 'test_file.csv',
-            created_at: 'Tue, 02 Jan 2018 15:48:53 UTC +00:00', // Rails created_at
+            created_at: '2018-01-03T14:38:38.505Z', // Rails created_at
             services: [],
           }
         ]}
