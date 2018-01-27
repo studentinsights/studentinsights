@@ -58,7 +58,7 @@ export default React.createClass({
 
   renderMonthlyTardiesChart: function() {
     const seriesData = Object.keys(this.props.schoolTardyEvents).sort().map((date) => {
-      return this.props.schoolTardyEvents[date].length;
+      return [moment(date).format('ddd MM/DD'), this.props.schoolTardyEvents[date].length];
     });
     const monthCategories = this.createMonthCategories(this.props.schoolTardyEvents);
 
