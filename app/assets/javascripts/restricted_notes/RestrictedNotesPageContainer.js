@@ -41,6 +41,7 @@ class RestrictedNotesPageContainer extends React.Component {
 
     this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
     this.onSaveNotesDone = this.onSaveNotesDone.bind(this);
+    this.onSaveNotesFail = this.onSaveNotesFail.bind(this);
   }
 
   componentWillMount(props, state) {
