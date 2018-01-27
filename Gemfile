@@ -56,6 +56,7 @@ group :development, :test do
   gem 'timecop'
   gem 'rails-controller-testing'
   gem 'bourbon', '~> 4.3.2'
+  gem 'descriptive-statistics'
 end
 
 group :development do

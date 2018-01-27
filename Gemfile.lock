@@ -92,6 +92,7 @@ GEM
     delayed_job_active_record (4.1.2)
       activerecord (>= 3.0, < 5.2)
       delayed_job (>= 3.0, < 5)
+    descriptive-statistics (2.2.0)
     devise (4.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -323,6 +324,7 @@ DEPENDENCIES
   capybara
   database_cleaner
   delayed_job_active_record
+  descriptive-statistics
   devise (~> 4.3.0)
   devise_ldap_authenticatable
   factory_girl_rails
@@ -368,4 +370,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
