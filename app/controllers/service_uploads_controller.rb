@@ -10,7 +10,10 @@ class ServiceUploadsController < ApplicationController
   end
 
   def create
-    service_upload = ServiceUpload.new(file_name: params['file_name'])
+    service_upload = ServiceUpload.new(
+      file_name: params['file_name'],
+      uploaded_by_educator_id: current_educator.id
+    )
 
     if service_upload.invalid?
       return render json: {
