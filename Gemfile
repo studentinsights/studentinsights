@@ -6,14 +6,11 @@ gem 'rails', '~> 5.1.1'
 gem 'pg'
 gem 'puma'
 
-gem 'activerecord-import'
 gem 'aws-sdk', '~> 2'
 gem 'devise', '~> 4.3.0'
 gem 'devise_ldap_authenticatable'
-gem 'activemodel-serializers-xml'
 gem 'administrate', '~> 0.8.1'
 gem 'friendly_id', '~> 5.1.0'
-gem 'handlebars_assets'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 5.0.3'
 gem 'net-sftp'
@@ -22,15 +19,12 @@ gem 'nokogiri', '~> 1.8.1' # forcing patching version on transitive dependency
 gem 'probability'
 gem 'rollbar'
 gem 'rails-erd', require: false, group: :development
-gem 'rubocop', require: false
 gem 'oj'
 gem 'oj_mimic_json'
-gem 'rubystats'
 gem 'sass-rails', '~> 5.0'
 gem 'secure_headers'
 gem 'sprockets'
 gem 'thor'
-gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
@@ -62,9 +56,11 @@ group :development, :test do
   gem 'timecop'
   gem 'rails-controller-testing'
   gem 'bourbon', '~> 4.3.2'
+  gem 'descriptive-statistics'
 end
 
 group :development do
+  gem 'rubocop', require: false
   gem 'better_errors'
   gem 'pivotal_git_scripts'
   gem 'spring'

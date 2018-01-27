@@ -1,28 +1,13 @@
-SOMERVILLE_PROD_HEROKU_APP_NAME=$1
-DEMO_HEROKU_APP_NAME=$2
+# Pass in the name of all the git remotes to deploy to as arguments
 
-if [ -z "$SOMERVILLE_PROD_HEROKU_APP_NAME" ]; then
-  echo "🚨  🚨  🚨  Please supply a Somerville production Heroku app name."; exit 0;
-fi
+# Example: ./scripts/deploy/deploy.sh somerville new-bedford heroku-demo
 
-if [ -z "$DEMO_HEROKU_APP_NAME" ]; then
-  echo "🚨  🚨  🚨  Please supply a demo Heroku app name."; exit 0;
-fi
-
-# Deploy to Somerville production app and migrate
-echo "🚢  🚢  🚢  Deploying code to the Somerville production app.";
-git push heroku master
-echo;
-
-echo "⚙  ⚙  ⚙  Migrating the database.";
-heroku run rake db:migrate --app "$SOMERVILLE_PROD_HEROKU_APP_NAME"
-echo;
-
-# Deploy to demo app and migrate
-echo "🚢  🚢  🚢  Deploying code to the demo Heroku app.";
-git push heroku-demo master
-echo;
-
-echo "⚙  ⚙  ⚙  Migrating the database.";
-heroku run rake db:migrate --app "$DEMO_HEROKU_APP_NAME"
-echo;
+for remote in "$@"
+do
+    echo "🚢  🚢  🚢  Deploying code to $remote.";
+    git push $remote master
+    echo;
+    echo "⚙  ⚙  ⚙  Migrating the database for $remote.";
+    heroku run rake db:migrate --remote $remote
+    echo;
+done

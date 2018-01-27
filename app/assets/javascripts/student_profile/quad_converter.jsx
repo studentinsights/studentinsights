@@ -61,6 +61,13 @@ import moment from 'moment';
       return QuadConverter.toMoment([year, 8, 15]);
     },
 
+    lastDayOfSchool: function(year){
+      // year: An integer year.
+      // returns: A moment object representing roughly the last day of that school year (which will
+      // be in the following calendar year).
+      return QuadConverter.toMoment([year + 1, 6, 30]);
+    },
+
     toSchoolYear: function(date) {
       // date: A JS date object or Moment object.
       // returns: Integer representing what the calendar year was in the fall of date's school year.
