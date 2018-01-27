@@ -6,6 +6,7 @@ import serviceColor from '../student_profile/service_color.js';
 (function() {
   window.shared || (window.shared = {});
   const ProvidedByEducatorDropdown = window.shared.ProvidedByEducatorDropdown;
+  const QuadConverter = window.shared.QuadConverter;
 
   const styles = {
     dialog: {
@@ -65,12 +66,19 @@ import serviceColor from '../student_profile/service_color.js';
 
     getInitialState: function() {
       const {nowMoment} = this.props;
+      
       return {
         serviceTypeId: null,
         providedByEducatorName: ''  ,
         dateStartedText: nowMoment.format('MM/DD/YYYY'),
-        estimatedEndDateText: ''
+        estimatedEndDateText: this.defaultEstimatedEndDate(nowMoment).format('MM/DD/YYYY')
       };
+    },
+
+    // The default is to assume the service will last until the end of the school year.
+    defaultEstimatedEndDate(nowMoment) {
+      const schoolYear = QuadConverter.toSchoolYear(nowMoment);
+      return QuadConverter.lastDayOfSchool(schoolYear);
     },
 
     // Normalize input date text into format Rails expects, tolerating empty string as null.

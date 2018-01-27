@@ -103,7 +103,7 @@ describe('RecordService', function() {
       expect($(el).text()).toContain('When did/will they end');
       expect($(el).text()).not.toContain('Invalid date');
       expect(helpers.findStartDateInput(el).value).toContain('02/11/2016');
-      expect(helpers.findEndDateInput(el).value).toEqual('');
+      expect(helpers.findEndDateInput(el).value).toEqual('06/30/2016');
       expect(helpers.findSaveButton(el).length).toEqual(1);
       expect($(el).find('.btn.cancel').length).toEqual(1);
 
