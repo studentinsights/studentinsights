@@ -71,16 +71,6 @@ namespace :missing_foreign_key_relations do
         puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
-        puts "Missing Educator IDs on Homeroom"
-        missing = []
-        Homeroom.find_each do |homeroom|
-            if !homeroom.educator
-                missing << homeroom.educator_id
-            end
-        end
-        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
-        puts ""
-
         puts "Missing School IDs on Homeroom"
         missing = []
         Homeroom.find_each do |homeroom|
@@ -171,16 +161,6 @@ namespace :missing_foreign_key_relations do
         puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
         puts ""
 
-        puts "Missing ServiceUploads IDs on Service"
-        missing = []
-        Service.find_each do |service|
-            if !service.service_upload
-                missing << service.service_upload_id
-            end
-        end
-        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
-        puts ""
-
         puts "Missing Student IDs on Service"
         missing = []
         Service.find_each do |service|
@@ -216,16 +196,6 @@ namespace :missing_foreign_key_relations do
         StudentRiskLevel.find_each do |risk_level|
             if !risk_level.student
                 missing << risk_level.student_id
-            end
-        end
-        puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
-        puts ""
-
-        puts "Missing Homeroom IDs on Student"
-        missing = []
-        Student.find_each do |student|
-            if !student.homeroom
-                missing << student.homeroom_id
             end
         end
         puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
