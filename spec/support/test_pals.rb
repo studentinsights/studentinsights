@@ -60,6 +60,7 @@ class TestPals
     # Uri works in the central office, and is the admin for the entire
     # project at the district.
     @uri = Educator.create!(
+      id: 1,
       email: 'uri@demo.studentinsights.org',
       full_name: 'Disney, Uri',
       password: 'demo-password',
