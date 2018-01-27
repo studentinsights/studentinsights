@@ -36,6 +36,13 @@ describe('QuadConverter', function() {
     });
   });
 
+  describe('#lastDayOfSchool', function() {
+    it('works', function() {
+      expect(QuadConverter.lastDayOfSchool(2016).isSame(moment.utc("2017-06-30"))).toEqual(true);
+      expect(QuadConverter.lastDayOfSchool(2013).isSame(moment.utc("2014-06-30"))).toEqual(true);
+    });
+  });
+
   describe('#schoolYearStartDates', function(){
     it('works', function() {
       // TODO: Write a Jasmine custom matcher for this?

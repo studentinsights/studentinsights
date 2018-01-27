@@ -1,10 +1,12 @@
 import Datepicker from '../student_profile/Datepicker.js';
+import {toMoment} from '../helpers/toMoment.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import serviceColor from '../student_profile/service_color.js';
 
 (function() {
   window.shared || (window.shared = {});
   const ProvidedByEducatorDropdown = window.shared.ProvidedByEducatorDropdown;
+  const QuadConverter = window.shared.QuadConverter;
 
   const styles = {
     dialog: {
@@ -64,22 +66,43 @@ import serviceColor from '../student_profile/service_color.js';
 
     getInitialState: function() {
       const {nowMoment} = this.props;
+      
       return {
         serviceTypeId: null,
-        providedByEducatorName: "",
+        providedByEducatorName: ''  ,
         dateStartedText: nowMoment.format('MM/DD/YYYY'),
-        estimatedEndDateText: nowMoment.format('MM/DD/YYYY')
+        estimatedEndDateText: this.defaultEstimatedEndDate(nowMoment).format('MM/DD/YYYY')
       };
     },
 
-    dateStartedMoment: function() {
-      const {dateStartedText} = this.state;
-      return moment.utc(dateStartedText, 'MM/DD/YYYY', true); // strict parsing
+    // The default is to assume the service will last until the end of the school year.
+    defaultEstimatedEndDate(nowMoment) {
+      const schoolYear = QuadConverter.toSchoolYear(nowMoment);
+      return QuadConverter.lastDayOfSchool(schoolYear);
     },
 
-    estimatedenddateMoment: function() {
-      const {estimatedEndDateText} = this.state;
-      return moment.utc(estimatedEndDateText, 'MM/DD/YYYY', true); // strict parsing
+    // Normalize input date text into format Rails expects, tolerating empty string as null.
+    // If the date is not valid, an error will be raised.
+    formatDateTextForRails(dateText) {
+      if (dateText === '') return null;
+      const moment = toMoment(dateText);
+      if (!moment.isValid()) throw new Error('invalid date: ' + dateText);
+      return moment.format('YYYY-MM-DD');
+    },
+
+    isFormComplete() {
+      const {serviceTypeId, providedByEducatorName} = this.state;
+      if (serviceTypeId === null) return false;
+      if (providedByEducatorName === '') return false;
+      return true;
+    },
+
+    // Both dates need to be valid, but an empty end date is allowed.
+    areDatesValid() {
+      const {dateStartedText, estimatedEndDateText} = this.state;
+      if (!toMoment(dateStartedText).isValid()) return false;
+      if (estimatedEndDateText !== '' && !toMoment(estimatedEndDateText).isValid()) return false;
+      return true;
     },
 
     onDateTextChanged: function(dateStartedText) {
@@ -107,17 +130,18 @@ import serviceColor from '../student_profile/service_color.js';
     },
 
     onClickSave: function(event) {
-      const {serviceTypeId, providedByEducatorName} = this.state;
       const {currentEducator} = this.props;
-      const reformattedDateText = this.dateStartedMoment().format('YYYY-MM-DD');
-      const estimatedenddateMoment = this.estimatedenddateMoment().format('YYYY-MM-DD');
+      const {serviceTypeId, providedByEducatorName, dateStartedText, estimatedEndDateText} = this.state;
+      if (!this.isFormComplete()) {
+        console.error('onClickSave when form is not complete, aborting save...'); // eslint-disable-line no-console
+        return;
+      }
 
-      // Get the value of the autocomplete input
       this.props.onSave({
         serviceTypeId,
         providedByEducatorName,
-        dateStartedText: reformattedDateText,
-        estimatedEndDateText: estimatedenddateMoment,
+        dateStartedText: this.formatDateTextForRails(dateStartedText),
+        estimatedEndDateText: this.formatDateTextForRails(estimatedEndDateText),
         recordedByEducatorId: currentEducator.id
       });
     },
@@ -185,8 +209,6 @@ import serviceColor from '../student_profile/service_color.js';
     },
 
     renderWhoAndWhen: function() {
-      const isValidDate = this.dateStartedMoment().isValid();
-
       return (
         <div>
           <div style={{ marginTop: 20 }}>
@@ -229,15 +251,14 @@ import serviceColor from '../student_profile/service_color.js';
               minDate: undefined
             }} />
             <div style={{height: '2em'}}>
-              {!isValidDate && <div style={styles.invalidDate}>Choose a valid date</div>}
+              {!this.areDatesValid() && <div className="RecordService-warning" style={styles.invalidDate}>Choose a valid date (end date is optional)</div>}
             </div>
         </div>
       );
     },
 
     renderButtons: function() {
-      const {serviceTypeId, providedByEducatorName} = this.state;
-      const isFormComplete = (serviceTypeId && providedByEducatorName !== '' && this.dateStartedMoment().isValid());
+      const isFormComplete = this.isFormComplete();
 
       return (
         <div style={{ marginTop: 15 }}>
