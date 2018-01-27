@@ -30,8 +30,8 @@ namespace :chores do
     Delayed::Job.enqueue ImportJob.new
   end
 
-  desc 'Kick off console output for fun'
-  task console_output_in_background: :environment do
-    Delayed::Job.enqueue ConsoleJob.new
+  desc 'Run data import synchronously'
+  task import_data_sync: :environment do
+    ImportJob.new.perform
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe X2AssessmentImporter do
       before { Assessment.destroy_all }
       after { Assessment.seed_somerville_assessments }
 
-      let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
+      let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 
