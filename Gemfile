@@ -57,6 +57,8 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'bourbon', '~> 4.3.2'
   gem 'descriptive-statistics'
+  gem 'memory_profiler'
+  gem 'get_process_mem'
 end
 
 group :development do

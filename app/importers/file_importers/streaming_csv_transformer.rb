@@ -4,6 +4,8 @@ require 'csv'
 #   the Transformer interface {transform, pre_cleanup_csv_size}
 #   our ad-hoc CSV data interface {each_with_index, size}
 class StreamingCsvTransformer
+  NIL_CODE = '\N'
+
   def initialize(options = {})
     @headers = options.key?(:headers) ? options[:headers] : true
     @total_rows_count = nil
@@ -63,6 +65,6 @@ class StreamingCsvTransformer
 
   private
   def nil_converter(value)
-    value == '\N' ? nil : value
+    value == NIL_CODE ? nil : value
   end
 end

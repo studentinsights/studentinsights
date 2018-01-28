@@ -1,14 +1,19 @@
+
 class CsvRowCleaner < Struct.new :row
+  DATE_HEADERS = [:event_date, :date_taken, :assessment_date]
+  BOOLEAN_VALUES = [true, false, '1', '0', 1, 0, 'true', 'false']
+  BOOLEAN_HEADER_NAMES = [:absence, :tardy, :has_exact_time]
 
   def dirty_data?
     !clean_date? || !clean_booleans?
   end
 
   def transform_row
-    row[date_header] = parsed_date if has_dates?
+    row[date_header] = parsed_date unless date_header.nil?
     row
   end
 
+  private
   def clean_date?
     return true if date_header.blank?       # <= No dates here, so no more checks to do
     return false if date_from_row.blank?    # <= Column that should be a date is blank
@@ -18,24 +23,19 @@ class CsvRowCleaner < Struct.new :row
   end
 
   def clean_booleans?
-    return true if boolean_headers.blank?
-    boolean_headers.all? do |header|
-      row[header].in? [true, false, '1', '0', 1, 0, 'true', 'false']
+    headers.each do |header|
+      next unless header.in? BOOLEAN_HEADER_NAMES
+      return false unless row[header].in? BOOLEAN_VALUES
     end
+    true
   end
-
-  private
 
   def headers
-    row.headers
-  end
-
-  def date_headers
-    [:event_date, :date_taken, :assessment_date]
+    @headers ||= row.headers
   end
 
   def date_header
-    headers.detect { |header| header.in? date_headers }
+    @date_header ||= headers.detect { |header| header.in? DATE_HEADERS }
   end
 
   def date_from_row
@@ -43,26 +43,15 @@ class CsvRowCleaner < Struct.new :row
   end
 
   def parsed_date
-    return date_from_row if date_from_row.is_a?(DateTime)
-    Date.parse(date_from_row)
-  rescue ArgumentError
-    false
+    @parsed_date ||= begin
+      return date_from_row if date_from_row.is_a?(DateTime)
+      Date.strptime(date_from_row, '%Y-%m-%d')
+    rescue ArgumentError
+      false
+    end
   end
 
   def date_out_of_range
     (parsed_date < (Date.today - 50.years)) || (Date.today < parsed_date)
   end
-
-  def has_dates?
-    headers.any? { |header| header.in? date_headers }
-  end
-
-  def boolean_header_names
-    [:absence, :tardy, :has_exact_time]
-  end
-
-  def boolean_headers
-    headers.select { |header| header.in? boolean_header_names }
-  end
-
 end

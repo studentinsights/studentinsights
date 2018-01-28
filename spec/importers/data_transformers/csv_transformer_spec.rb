@@ -22,7 +22,7 @@ RSpec.describe CsvTransformer do
       it '#each_with_index' do
         rows = []
         output.each_with_index {|row, index| rows << row }
-        
+
         expect(rows.size).to eq(4)
         expect(rows.first.to_hash).to eq({
           local_id: '10',
