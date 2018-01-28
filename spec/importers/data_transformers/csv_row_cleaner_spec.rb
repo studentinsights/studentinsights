@@ -34,7 +34,7 @@ RSpec.describe CsvRowCleaner do
         context 'date is not in the future or the far past' do
           let(:row) { CSV::Row.new([:event_date, :pizza_slices_count], ['2015-10-11', '3']) }
           it 'returns true' do
-            expect(row_cleaner.clean_date?).to eq true
+            expect(row_cleaner.send(:clean_date?)).to eq true
           end
         end
 
@@ -43,7 +43,7 @@ RSpec.describe CsvRowCleaner do
             CSV::Row.new([:event_date, :pizza_slices_count], ['2215-10-11', '3'])
           }
           it 'returns true' do
-            expect(row_cleaner.clean_date?).to eq false
+            expect(row_cleaner.send(:clean_date?)).to eq false
           end
 
         end
@@ -53,7 +53,7 @@ RSpec.describe CsvRowCleaner do
             CSV::Row.new([:event_date, :pizza_slices_count], ['1015-10-11', '3'])
           }
           it 'returns true' do
-            expect(row_cleaner.clean_date?).to eq false
+            expect(row_cleaner.send(:clean_date?)).to eq false
           end
         end
 
@@ -63,7 +63,7 @@ RSpec.describe CsvRowCleaner do
         let(:row) { CSV::Row.new([:event_date, :pizza_slices_count], ['** loud noise **', '3']) }
 
         it 'returns false' do
-          expect(row_cleaner.clean_date?).to eq false
+          expect(row_cleaner.send(:clean_date?)).to eq false
         end
       end
 
@@ -71,7 +71,7 @@ RSpec.describe CsvRowCleaner do
         let(:row) { CSV::Row.new([:event_date, :pizza_slices_count], ['2015-13-11', '3']) }
 
         it 'returns false' do
-          expect(row_cleaner.clean_date?).to eq false
+          expect(row_cleaner.send(:clean_date?)).to eq false
         end
       end
     end
@@ -80,7 +80,7 @@ RSpec.describe CsvRowCleaner do
       let(:row) { CSV::Row.new([:pizza_type, :pizza_slices_count], ['tofu', '3']) }
 
       it 'returns false' do
-        expect(row_cleaner.clean_date?).to eq true
+        expect(row_cleaner.send(:clean_date?)).to eq true
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.describe CsvRowCleaner do
       context 'is parsable' do
         let(:row) { CSV::Row.new([:event_name, :has_exact_time], ['Pizza Party No. 2', '0']) }
         it 'returns true' do
-          expect(row_cleaner.clean_booleans?).to eq true
+          expect(row_cleaner.send(:clean_booleans?)).to eq true
 
         end
       end
@@ -101,7 +101,7 @@ RSpec.describe CsvRowCleaner do
       context 'not parsable' do
         let(:row) { CSV::Row.new([:event_name, :has_exact_time], ['Pizza Party No. 2', ':-/']) }
         it 'returns false' do
-          expect(row_cleaner.clean_booleans?).to eq false
+          expect(row_cleaner.send(:clean_booleans?)).to eq false
         end
       end
 
@@ -111,7 +111,7 @@ RSpec.describe CsvRowCleaner do
       let(:row) { CSV::Row.new([:event_date, :pizza_slices_count], ['2015-13-11', '3']) }
 
       it 'returns true' do
-        expect(row_cleaner.clean_booleans?).to eq true
+        expect(row_cleaner.send(:clean_booleans?)).to eq true
       end
     end
 

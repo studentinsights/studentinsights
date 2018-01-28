@@ -7,7 +7,7 @@ RSpec.describe StreamingCsvTransformer do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
       let(:transformer) { StreamingCsvTransformer.new }
       let(:output) { transformer.transform(csv_string) }
-      
+
       it '#size and #pre_cleanup_csv_size (before iteration)' do
         expect(transformer.pre_cleanup_csv_size).to eq nil
         expect(output.size).to eq nil
@@ -28,7 +28,7 @@ RSpec.describe StreamingCsvTransformer do
       it '#each_with_index' do
         rows = []
         output.each_with_index {|row, index| rows << row }
-        
+
         expect(rows.size).to eq(4)
         expect(rows.first.to_hash).to eq({
           local_id: '10',
