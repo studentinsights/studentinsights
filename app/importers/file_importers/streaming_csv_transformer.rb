@@ -13,6 +13,8 @@ class StreamingCsvTransformer
   # Performs whole-file transformations first
   # Enforce UTF8 encoding and
   # Replace \" within fields to just ", to satisfy the strict Ruby CSV parser
+  # This method returns itself, satisfying the {each_with_index, size} inteface for
+  # iterating over CSV rows.
   def transform(csv_string)
     @csv_string = csv_string.encode('UTF-8', 'binary', {
       invalid: :replace,
