@@ -8,15 +8,15 @@ RSpec.describe StreamingCsvTransformer do
       let(:transformer) { StreamingCsvTransformer.new }
       let(:output) { transformer.transform(csv_string) }
       
-      it '#size and #pre_cleanup_csv_size (before)' do
+      it '#size and #pre_cleanup_csv_size (before iteration)' do
         expect(transformer.pre_cleanup_csv_size).to eq nil
         expect(output.size).to eq nil
       end
 
-      it '#size and #pre_cleanup_csv_size (after)' do
+      it '#size and #pre_cleanup_csv_size (after iteration) filter out row with bad date' do
         output.each_with_index {|row, index| nil }
-        expect(transformer.pre_cleanup_csv_size).to eq 4
-        expect(output.size).to eq 3
+        expect(transformer.pre_cleanup_csv_size).to eq 5
+        expect(output.size).to eq 4
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe StreamingCsvTransformer do
         rows = []
         output.each_with_index {|row, index| rows << row }
         
-        expect(rows.size).to eq(3)
+        expect(rows.size).to eq(4)
         expect(rows.first.to_hash).to eq({
           local_id: '10',
           incident_code: 'Hitting',
