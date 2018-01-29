@@ -20,7 +20,14 @@ namespace :heroku_platform_api do
 
       dynos.each do |dyno|
         if dyno.fetch("type") == "web"
-          heroku.dyno.restart(ENV.fetch('HEROKU_APP_NAME'), dyno.fetch('name'))
+          puts "Found web dyno!"; puts
+
+          name = dyno.fetch('name')
+          puts "Restaring dyno #{name}..."
+          heroku.dyno.restart(ENV.fetch('HEROKU_APP_NAME'), name)
+
+          puts "Sleeping for 60 seconds so we get a rolling restart ..."
+          sleep 60
         end
       end
     end
