@@ -34,6 +34,7 @@ gem 'scout_apm'
 gem 'immigrant'
 gem 'memory_profiler'     # Used in rake task so needs to be included in production
 gem 'get_process_mem'
+gem 'platform-api'
 
 #code for browserstack api usage and storing the png to slack:
 #gem 'slack-ruby-client'
