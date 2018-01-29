@@ -8,12 +8,11 @@ class CsvTransformer
     @headers=options.key?(:headers) ? options[:headers] : true
   end
 
-  def transform(file)
-    cleaned_file = file.gsub("\\\"", "")
-
-    csv = CSV.parse(cleaned_file, headers: @headers,
-                                  header_converters: :symbol,
-                                  converters: lambda { |h| nil_converter(h) })
+  def transform(csv_string)
+    csv = CSV.parse(csv_string, headers: @headers,
+                                header_converters: :symbol,
+                                converters: lambda { |h| nil_converter(h) },
+                                liberal_parsing: true)
 
     @pre_cleanup_csv_size = csv.size
 
