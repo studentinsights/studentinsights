@@ -36,11 +36,6 @@ gem 'memory_profiler'     # Used in rake task so needs to be included in product
 gem 'get_process_mem'
 gem 'platform-api'
 
-#code for browserstack api usage and storing the png to slack:
-#gem 'slack-ruby-client'
-#gem 'dotenv'
-#gem 'picky'
-
 group :production do
   gem 'rails_12factor'
 end
