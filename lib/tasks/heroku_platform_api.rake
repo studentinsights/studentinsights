@@ -15,6 +15,7 @@ namespace :heroku_platform_api do
     now_hour = Time.now.in_time_zone('Eastern Time (US & Canada)').hour
 
     if target_hour == now_hour
+      puts "It feels like a good time to restart our web dynos!"
       heroku = PlatformAPI.connect_oauth(ENV.fetch('HEROKU_OAUTH_TOKEN'))
       dynos = heroku.dyno.list(ENV.fetch('HEROKU_APP_NAME'))
 
@@ -23,13 +24,15 @@ namespace :heroku_platform_api do
           puts "Found web dyno!"; puts
 
           name = dyno.fetch('name')
-          puts "Restaring dyno #{name}..."
+          puts "Restaring dyno #{name}..."; puts
           heroku.dyno.restart(ENV.fetch('HEROKU_APP_NAME'), name)
 
-          puts "Sleeping for 60 seconds so we get a rolling restart ..."
+          puts "Sleeping for 60 seconds so we get a rolling restart ..."; puts
           sleep 60
         end
       end
+    else
+      puts "It doesn't feel like a good time to restart our web dynos right now."
     end
   end
 end
