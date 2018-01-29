@@ -6,7 +6,7 @@ class Homeroom < ActiveRecord::Base
   validates :school, presence: true
   has_many :students, after_add: :update_grade
   has_many :student_risk_levels, through: :students
-  belongs_to :educator
+  belongs_to :educator, optional: true
   belongs_to :school
 
   def update_grade(student)

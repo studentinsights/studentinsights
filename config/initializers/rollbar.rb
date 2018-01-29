@@ -4,7 +4,7 @@ Rollbar.configure do |config|
 
   config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
 
-  if Rails.env.test? || Rails.env.development? || (ENV["SHOULD_REPORT_ERRORS"] == false)
+  if Rails.env.test? || Rails.env.development? || !EnvironmentVariable.is_true('SHOULD_REPORT_ERRORS')
     config.enabled = false
   end
 
