@@ -16,8 +16,8 @@ namespace :heroku_platform_api do
 
     if target_hour == now_hour
       puts "It feels like a good time to restart our web dynos!"
-      heroku = PlatformAPI.connect_oauth(ENV.fetch('HEROKU_OAUTH_TOKEN'))
-      dynos = heroku.dyno.list(ENV.fetch('HEROKU_APP_NAME'))
+      heroku = PlatformAPI.connect_oauth(ENV.fetch('_HEROKU_OAUTH_TOKEN'))
+      dynos = heroku.dyno.list(ENV.fetch('_HEROKU_APP_NAME'))
 
       dynos.each do |dyno|
         if dyno.fetch("type") == "web"
@@ -25,7 +25,7 @@ namespace :heroku_platform_api do
 
           name = dyno.fetch('name')
           puts "Restaring dyno #{name}..."; puts
-          heroku.dyno.restart(ENV.fetch('HEROKU_APP_NAME'), name)
+          heroku.dyno.restart(ENV.fetch('_HEROKU_APP_NAME'), name)
 
           puts "Sleeping for 60 seconds so we get a rolling restart ..."; puts
           sleep 60
