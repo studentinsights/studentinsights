@@ -33,6 +33,8 @@ gem 'delayed_job_active_record'
 gem 'scout_apm'
 gem 'immigrant'
 gem 'platform-api'
+gem 'memory_profiler'     # Used in rake task so needs to be included in production
+gem 'get_process_mem'
 
 #code for browserstack api usage and storing the png to slack:
 #gem 'slack-ruby-client'
@@ -58,8 +60,6 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'bourbon', '~> 4.3.2'
   gem 'descriptive-statistics'
-  gem 'memory_profiler'
-  gem 'get_process_mem'
 end
 
 group :development do
