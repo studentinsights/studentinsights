@@ -20,7 +20,7 @@ def print_memory_usage
   puts "Memory: #{((memory_after - memory_before) / 1024.0).round(2)} MB"
 end
 
-# this gives detailed information, but incurs signficant overhead
+# this gives detailed information, but incurs significant overhead
 def profile_memory
   report = MemoryProfiler.report do
     yield
