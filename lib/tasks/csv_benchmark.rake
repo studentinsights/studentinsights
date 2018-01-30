@@ -9,8 +9,9 @@ def profile_with_get_process_mem
   after_bytes = GetProcessMem.new.bytes
   puts "after: #{(after_bytes/1024/1024).to_i}MB"
   puts "delta: #{((after_bytes.to_i - before_bytes.to_i)/1024/1024).to_i}MB"
-end# Grabbed from https://dalibornasevic.com/posts/68-processing-large-csv-files-with-ruby
+end
 
+# Grabbed from https://dalibornasevic.com/posts/68-processing-large-csv-files-with-ruby
 def print_memory_usage
   memory_before = `ps -o rss= -p #{Process.pid}`.to_i
   yield
