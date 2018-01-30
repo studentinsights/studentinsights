@@ -51,9 +51,9 @@ namespace :benchmark do
 
         # process each row but don't actually import it
         processed_rows_count = 0
-        importer = AttendanceImporter.new([], nil, nil, nil)
         data.each_with_index do |row, index|
           processed_rows_count = processed_rows_count + 1
+          STDOUT.write "\r processed_rows_count: #{processed_rows_count}"
           # noop
         end
         puts "#{processed_rows_count} processed_rows_count"
