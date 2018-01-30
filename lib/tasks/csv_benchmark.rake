@@ -25,6 +25,7 @@ def profile_memory
   report = MemoryProfiler.report do
     yield
   end
+  puts "Printing memory report ..."
   report.pretty_print
 end
 
@@ -33,7 +34,7 @@ def print_time_spent
     yield
   end
 
-  puts "Time: #{time.round(2)}sec"
+  puts; puts "Time: #{time.round(2)}sec"
 end
 
 namespace :benchmark do
@@ -56,7 +57,6 @@ namespace :benchmark do
           STDOUT.write "\r processed_rows_count: #{processed_rows_count}"
           # noop
         end
-        puts "#{processed_rows_count} processed_rows_count"
       end
     end
   end
