@@ -73,6 +73,8 @@ export default React.createClass({
       return [moment(date).format('ddd MM/DD'), this.props.schoolTardyEvents[date].length];
     });
     const monthCategories = this.createMonthCategories(this.props.schoolTardyEvents);
+    let tickPositions = Object.keys(monthCategories).map(Number);
+    tickPositions.splice(0, 1);
 
     return (
         <DashboardBarChart
@@ -81,7 +83,7 @@ export default React.createClass({
             offset: 0,
             linkedTo: 0,
             categories: monthCategories,
-            tickPositions: Object.keys(monthCategories).map(Number),
+            tickPositions: tickPositions,
             tickmarkPlacement: "on"
           }}
           seriesData = {seriesData}
