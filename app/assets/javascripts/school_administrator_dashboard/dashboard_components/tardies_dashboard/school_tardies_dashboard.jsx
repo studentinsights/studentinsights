@@ -34,6 +34,17 @@ export default React.createClass({
     return monthCategories;
   },
 
+  getDatesForPastThreeMonths: function() {
+    const today = moment().format('YYYY-MM-DD');
+    let datesForPastThreeMonths = [];
+    let date = moment().subtract(3, 'months').format('YYYY-MM-DD');
+    while (moment(date).isBefore(moment(today))) {
+      datesForPastThreeMonths.push(date);
+      date = moment(date).add(1, 'day').format('YYYY-MM-DD');
+    }
+    return datesForPastThreeMonths;
+  },
+
   setStudentList: function(highchartsEvent) {
     this.setState({selectedHomeroom: highchartsEvent.point.category});
   },
@@ -57,7 +68,8 @@ export default React.createClass({
   },
 
   renderMonthlyTardiesChart: function() {
-    const seriesData = Object.keys(this.props.schoolTardyEvents).sort().map((date) => {
+    const seriesData = this.getDatesForPastThreeMonths().map((date) => {
+      if (this.props.schoolTardyEvents[date] === undefined) this.props.schoolTardyEvents[date] = [];
       return [moment(date).format('ddd MM/DD'), this.props.schoolTardyEvents[date].length];
     });
     const monthCategories = this.createMonthCategories(this.props.schoolTardyEvents);
