@@ -1,4 +1,3 @@
-
 class CsvRowCleaner < Struct.new :row
   DATE_HEADERS = [:event_date, :date_taken, :assessment_date]
   BOOLEAN_VALUES = [true, false, '1', '0', 1, 0, 'true', 'false']
