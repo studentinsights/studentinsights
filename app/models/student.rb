@@ -6,7 +6,7 @@ class Student < ActiveRecord::Base
   # Contrast with student_row.rb, which represents a row imported from X2,
   # (not necessarily in the database yet).
 
-  belongs_to :homeroom, counter_cache: true
+  belongs_to :homeroom, optional: true, counter_cache: true
   belongs_to :school
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
