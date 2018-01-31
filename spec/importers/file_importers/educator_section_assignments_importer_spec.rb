@@ -2,11 +2,9 @@ require 'rails_helper'
 
 RSpec.describe EducatorSectionAssignmentsImporter do
 
-  let(:log) { LogHelper::Redirect.instance.file }
-
   let(:educator_section_assignments_importer) {
     described_class.new(options: {
-      school_scope: nil, log: log
+      school_scope: nil, log: LogHelper::Redirect.instance.file
     })
   }
 
