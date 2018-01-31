@@ -14,7 +14,6 @@ class BehaviorImporter
 
     @data.each.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
     end
   end
 
