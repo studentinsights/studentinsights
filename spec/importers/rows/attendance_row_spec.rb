@@ -20,7 +20,7 @@ RSpec.describe AttendanceRow do
   describe '#build' do
     context 'when the row is an absence' do
       it 'saves an absence' do
-        expect { row.build.save! }.to change(Absence, :count).by(1)
+        expect { row.build.save }.to change(Absence, :count).by(1)
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe AttendanceRow do
       let(:tardy) { '1' }
 
       it 'saves a tardy' do
-        expect { row.build.save! }.to change(Tardy, :count).by(1)
+        expect { row.build.save }.to change(Tardy, :count).by(1)
       end
     end
 
@@ -37,11 +37,11 @@ RSpec.describe AttendanceRow do
       let(:absence) { '0' }
 
       it 'does not save an absence' do
-        expect { row.build.save! }.not_to change(Absence, :count)
+        expect { row.build.save }.not_to change(Absence, :count)
       end
 
       it 'does not save a tardy' do
-        expect { row.build.save! }.not_to change(Tardy, :count)
+        expect { row.build.save }.not_to change(Tardy, :count)
       end
     end
   end
