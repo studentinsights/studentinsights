@@ -22,6 +22,10 @@ class Import
       type: :boolean,
       default: false,
       desc: "Show progress bar"
+    class_option :only_recent_attendance,
+      type: :boolean,
+      default: false,
+      desc: "Only import attendance rows from the past 90 days for faster attendance import"
 
     def load_rails
       unless options["test_mode"]
