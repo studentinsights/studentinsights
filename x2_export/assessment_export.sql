@@ -7,9 +7,9 @@ SELECT
   'assessment_scale_score',
   'assessment_performance_level',
   'assessment_growth',
-  'assessment_name',
-  'assessment_subject',
-  'assessment_test'
+  'assessment_name',      -- Full, unedited assessment name. Example: "MCAS 2013 English Language Arts"
+  'assessment_subject',   -- Assessment subject. Examples: "English Language Arts", "Mathematics"
+  'assessment_test'       -- Assessment family. Examples: "MCAS", "MAP", "DIBELS"
 UNION ALL
 SELECT DISTINCT
   STD_ID_STATE,
