@@ -43,7 +43,7 @@ class EducatorSectionAssignmentsImporter
     #For the schools imported during this run of the importer
     EducatorSectionAssignment.joins(:section => {:course => :school})
                              .where.not(id: @imported_assignments)
-                             .where(:schools => {:local_id => school_scope}).delete_all
+                             .where(:schools => {:local_id => @school_scope}).delete_all
   end
 
   def import_row(row)
@@ -53,7 +53,7 @@ class EducatorSectionAssignmentsImporter
       educator_section_assignment.save!
       @imported_assignments.push(educator_section_assignment.id)
     else
-      log.write("Educator Section Assignment Import invalid row: #{row}")
+      @log.write("Educator Section Assignment Import invalid row: #{row}")
     end
   end
 
