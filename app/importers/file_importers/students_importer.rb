@@ -1,4 +1,4 @@
-class StudentsImporter < Struct.new
+class StudentsImporter
 
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
