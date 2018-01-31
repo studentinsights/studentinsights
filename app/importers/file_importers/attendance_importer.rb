@@ -34,8 +34,16 @@ class AttendanceImporter
     SchoolFilter.new(@school_scope)
   end
 
+  def recent_event?(row)
+    row[:event_date] > Time.current - 90.days
+  end
+
+  def old_event?(row)
+    !recent_event?(row)
+  end
+
   def import_row(row)
-    return if Time.current - 90.days > row[:event_date]
+    return if (@only_recent_attendance && old_event?(row))
 
     AttendanceRow.build(row).save!
   end
