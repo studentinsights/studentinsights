@@ -2,8 +2,8 @@ class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :p
 
 
   def initialize(options:)
-    @school_scope = options.fetch("school_scope")
-    @log = options.fetch("log")
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
     @student_lasid_map = Student.pluck(:local_id,:id).to_h
     @section_number_map = Section.joins(course: :school)
                                  .select("sections.id", "sections.section_number", "sections.term_local_id", "schools.local_id as school_local_id", "courses.course_number as section_course_number")

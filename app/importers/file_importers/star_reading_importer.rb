@@ -1,9 +1,8 @@
 class StarReadingImporter
 
   def initialize(options:)
-    @school_scope = options.fetch("school_scope")
-    @log = options.fetch("log")
-    @progress_bar = options.fetch("progress_bar")
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
   end
 
   def import

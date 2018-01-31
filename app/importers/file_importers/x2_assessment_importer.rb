@@ -1,8 +1,8 @@
 class X2AssessmentImporter
 
   def initialize(options:)
-    @school_scope = options.fetch("school_scope")
-    @log = options.fetch("log")
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
   end
 
   WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/).freeze

@@ -1,9 +1,9 @@
 class AttendanceImporter
 
   def initialize(options:)
-    @school_scope = options.fetch("school_scope")
-    @log = options.fetch("log")
-    @only_recent_attendance = options.fetch("only_recent_attendance")
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
+    @only_recent_attendance = options.fetch(:only_recent_attendance)
   end
 
   def import

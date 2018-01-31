@@ -1,8 +1,8 @@
 class BehaviorImporter
 
   def initialize(options:)
-    @school_scope = options.fetch("school_scope")
-    @log = options.fetch("log")
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
   end
 
   def import

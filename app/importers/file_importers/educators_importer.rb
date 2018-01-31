@@ -1,4 +1,9 @@
-class EducatorsImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class EducatorsImporter
+
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
+  end
 
   def import
     return unless remote_file_name
