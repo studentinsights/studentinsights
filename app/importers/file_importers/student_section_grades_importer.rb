@@ -1,27 +1,30 @@
 class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
-  def initialize(*)
-    super
-    @student_lasid_map = Student.pluck(:local_id,:id).to_h
 
+  def initialize(options:)
+    @school_scope = options.fetch("school_scope")
+    @log = options.fetch("log")
+    @student_lasid_map = Student.pluck(:local_id,:id).to_h
     @section_number_map = Section.joins(course: :school)
                                  .select("sections.id", "sections.section_number", "sections.term_local_id", "schools.local_id as school_local_id", "courses.course_number as section_course_number")
                                  .map { |item| [item.section_number + "|" + item.term_local_id + "|" + item.school_local_id + "|"  + item.section_course_number, item.id] }
                                  .to_h
-
   end
 
   def import
     return unless remote_file_name
 
     @data = CsvDownloader.new(
-      log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
+      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
     @data.each.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
     end
+  end
+
+  def client
+    SftpClient.for_x2
   end
 
   def remote_file_name
@@ -33,7 +36,7 @@ class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :p
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(@school_scope)
   end
 
   def import_row(row)

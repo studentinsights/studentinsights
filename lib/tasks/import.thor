@@ -18,10 +18,6 @@ class Import
       type: :boolean,
       default: false,
       desc: "Redirect log output away from STDOUT; do not load Rails during import"
-    class_option :progress_bar,
-      type: :boolean,
-      default: false,
-      desc: "Show progress bar"
     class_option :only_recent_attendance,
       type: :boolean,
       default: false,
