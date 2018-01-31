@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe StarMathImporter do
 
+  let(:star_math_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: nil
+    })
+  }
+
   describe '#import_row' do
 
     context 'math file' do
@@ -9,8 +15,7 @@ RSpec.describe StarMathImporter do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_star_math.csv") }
       let(:transformer) { StarMathCsvTransformer.new }
       let(:csv) { transformer.transform(file) }
-      let(:math_importer) { described_class.new }
-      let(:import) { csv.each { |row| math_importer.import_row(row) } }
+      let(:import) { csv.each { |row| star_math_importer.import_row(row) } }
 
       context 'with good data' do
 
@@ -53,7 +58,6 @@ RSpec.describe StarMathImporter do
         let(:file) { File.open("#{Rails.root}/spec/fixtures/bad_star_reading_data.csv") }
         let(:transformer) { StarMathCsvTransformer.new }
         let(:csv) { transformer.transform(file) }
-        let(:math_importer) { StarMathImporter.new }
         it 'raises an error' do
           expect { import }.to raise_error NoMethodError
         end
