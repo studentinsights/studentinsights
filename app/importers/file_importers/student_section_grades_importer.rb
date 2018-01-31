@@ -1,5 +1,4 @@
-class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :progress_bar
-
+class StudentSectionGradesImporter
 
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
@@ -47,7 +46,7 @@ class StudentSectionGradesImporter < Struct.new :school_scope, :client, :log, :p
     if student_section_assignment
       student_section_assignment.save!
     else
-      log.write("Student Section Grade Import invalid row: #{row}")
+      @log.write("Student Section Grade Import invalid row: #{row}")
     end
   end
 end
