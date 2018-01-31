@@ -19,11 +19,9 @@ class ServiceTypesController < ApplicationController
     attendance_officer = ServiceType.find(502)
     student_ids = attendance_officer.services.map(&:student_id)
 
-    chart_data = student_ids.map do |id|
-      student = Student.find(id)
-
+    chart_data = Student.where(id: student_ids).map do |student|
       {
-        name: "#{student.first_name} #{student.last_name}",
+        student: student,
         absences: student.absences.order(occurred_at: :desc)
       }
     end
