@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe EducatorsImporter do
 
+  let(:educators_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: nil
+    })
+  }
+
   describe '#import_row' do
     let!(:school) { FactoryGirl.create(:healey) }
 
@@ -18,7 +24,7 @@ RSpec.describe EducatorsImporter do
             }
 
             before do
-              described_class.new.import_row(row)
+              educators_importer.import_row(row)
             end
 
             it 'creates an educator' do
@@ -50,10 +56,10 @@ RSpec.describe EducatorsImporter do
                 }
               }
               it 'creates an educator' do
-                expect { described_class.new.import_row(row) }.to change(Educator, :count).by 1
+                expect { educators_importer.import_row(row) }.to change(Educator, :count).by 1
               end
               it 'sets the attributes correctly' do
-                described_class.new.import_row(row)
+                educators_importer.import_row(row)
                 educator = Educator.last
                 expect(educator.full_name).to eq("Young, Jenny")
                 expect(educator.state_id).to eq("500")
@@ -76,8 +82,8 @@ RSpec.describe EducatorsImporter do
                 }
                 it 'creates multiple educators' do
                   expect {
-                    described_class.new.import_row(row)
-                    described_class.new.import_row(another_row)
+                    educators_importer.import_row(row)
+                    educators_importer.import_row(another_row)
                   }.to change(Educator, :count).by 2
                 end
               end
@@ -95,7 +101,7 @@ RSpec.describe EducatorsImporter do
               }
 
               it 'assigns the educator to the correct school' do
-                described_class.new.import_row(row)
+                educators_importer.import_row(row)
                 educator = Educator.last
                 expect(educator.school).to eq(school)
               end
@@ -116,7 +122,7 @@ RSpec.describe EducatorsImporter do
           }
 
           it 'sets the administrator attributes correctly' do
-            described_class.new.import_row(row)
+            educators_importer.import_row(row)
             educator = Educator.last
             expect(educator.admin).to eq(true)
             expect(educator.can_view_restricted_notes).to eq true
@@ -136,10 +142,10 @@ RSpec.describe EducatorsImporter do
         }
 
         it 'does not create an educator' do
-          expect { described_class.new.import_row(row) }.to change(Educator, :count).by 0
+          expect { educators_importer.import_row(row) }.to change(Educator, :count).by 0
         end
         it 'updates the educator attributes' do
-          described_class.new.import_row(row)
+          educators_importer.import_row(row)
           educator = Educator.last
           expect(educator.full_name).to eq("Young, Jenny")
           expect(educator.state_id).to eq("500")
@@ -164,11 +170,11 @@ RSpec.describe EducatorsImporter do
         }
 
         it 'does not create a new educator' do
-          expect { described_class.new.import_row(row) }.to change(Educator, :count).by 0
+          expect { educators_importer.import_row(row) }.to change(Educator, :count).by 0
         end
 
         it 'does not revoke the schoolwide access, restricted notes access' do
-          described_class.new.import_row(row)
+          educators_importer.import_row(row)
           educator = Educator.last
           expect(educator.schoolwide_access).to eq(true)
           expect(educator.can_view_restricted_notes).to eq(true)
@@ -184,7 +190,7 @@ RSpec.describe EducatorsImporter do
         }
 
         it 'does not create an educator' do
-          expect { described_class.new.import_row(row) }.to change(Educator, :count).by 0
+          expect { educators_importer.import_row(row) }.to change(Educator, :count).by 0
         end
       end
     end
@@ -203,14 +209,14 @@ RSpec.describe EducatorsImporter do
       context 'name of homeroom that exists' do
         let!(:homeroom) { FactoryGirl.create(:homeroom, :named_hea_100) }
         it 'assigns the homeroom to the educator' do
-          described_class.new.import_row(row)
+          educators_importer.import_row(row)
           expect(Educator.last.homeroom).to eq homeroom
         end
       end
 
       context 'name of homeroom that does not exist' do
         it 'raises an error' do
-          expect { described_class.new.import_row(row) }.to_not raise_error
+          expect { educators_importer.import_row(row) }.to_not raise_error
         end
       end
     end
