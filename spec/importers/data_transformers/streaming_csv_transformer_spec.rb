@@ -1,14 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe CsvTransformer do
+RSpec.describe StreamingCsvTransformer do
 
   describe '#transform' do
     context 'tracks total and processed rows' do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
-      let(:transformer) { CsvTransformer.new }
+      let(:transformer) { StreamingCsvTransformer.new }
+      let(:output) { transformer.transform(csv_string) }
 
-      it '#size and #pre_cleanup_csv_size filter out row with bad date' do
-        output = transformer.transform(csv_string)
+      it '#size and #pre_cleanup_csv_size (before iteration)' do
+        expect(transformer.pre_cleanup_csv_size).to eq nil
+        expect(output.size).to eq nil
+      end
+
+      it '#size and #pre_cleanup_csv_size (after iteration) filter out row with bad date' do
+        output.each_with_index {|row, index| nil }
         expect(transformer.pre_cleanup_csv_size).to eq 4
         expect(output.size).to eq 3
       end
@@ -16,7 +22,7 @@ RSpec.describe CsvTransformer do
 
     context 'headers in csv' do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
-      let(:transformer) { CsvTransformer.new }
+      let(:transformer) { StreamingCsvTransformer.new }
       let(:output) { transformer.transform(csv_string) }
 
       it '#each_with_index' do
@@ -42,11 +48,11 @@ RSpec.describe CsvTransformer do
     context 'headers not in csv' do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_no_headers.csv") }
       let(:headers) {["section_number","student_local_id","school_local_id","course_number","term_local_id","grade"]}
-      let(:transformer) { CsvTransformer.new(headers: headers) }
+      let(:transformer) { StreamingCsvTransformer.new(headers: headers) }
       let(:output) { transformer.transform(csv_string) }
 
       it '#size' do
-        expect(output.size).to eq 6
+        expect(output.size).to eq nil
       end
 
       it '#each_with_index' do
