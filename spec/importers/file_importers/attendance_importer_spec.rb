@@ -115,24 +115,44 @@ RSpec.describe AttendanceImporter do
     end
 
     context 'old attendance events' do
-      context 'one row for one student on one date' do
-        let!(:student) { FactoryGirl.create(:student, local_id: '1') }
-        let(:date) { '2005-09-16' }
+      let!(:student) { FactoryGirl.create(:student, local_id: '1') }
+      let(:date) { '2005-09-16' }
+      let(:row) {
+        { event_date: date, local_id: '1', absence: '1', tardy: '0' }
+      }
 
-        context 'row with absence' do
-          let(:row) {
-            { event_date: date, local_id: '1', absence: '1', tardy: '0' }
-          }
+      context '--only_recent_attendance flag on' do
+        let(:attendance_importer) {
+          described_class.new(options: {
+            school_scope: nil, log: nil, only_recent_attendance: true
+          })
+        }
 
-          it 'does not create an absence' do
-            expect {
-              attendance_importer.import_row(row)
-            }.to change {
-              Absence.count
-            }.by 0
-          end
+        it 'does not create an absence' do
+          expect {
+            attendance_importer.import_row(row)
+          }.to change {
+            Absence.count
+          }.by 0
         end
       end
+
+      context '--only_recent_attendance flag off' do
+        let(:attendance_importer) {
+          described_class.new(options: {
+            school_scope: nil, log: nil, only_recent_attendance: false
+          })
+        }
+
+        it 'creates an absence' do
+          expect {
+            attendance_importer.import_row(row)
+          }.to change {
+            Absence.count
+          }.by 1
+        end
+      end
+
     end
   end
 end
