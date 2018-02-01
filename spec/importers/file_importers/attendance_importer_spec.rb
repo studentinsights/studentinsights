@@ -2,22 +2,23 @@ require 'rails_helper'
 
 RSpec.describe AttendanceImporter do
 
-  let(:attendance_importer) {
-    described_class.new(options: {
+  let(:base_attendance_importer) {
+    importer = described_class.new(options: {
       school_scope: nil, log: nil, only_recent_attendance: false
     })
+  }
+
+  let(:attendance_importer) {
+    base_attendance_importer.instance_variable_set(:@success_count, 0)
+    base_attendance_importer.instance_variable_set(:@error_list, [])
+    base_attendance_importer
   }
 
   describe '#import_row' do
 
     context 'recent attendance events' do
-      before do
-        Timecop.freeze('2005-09-16')
-      end
-
-      after do
-        Timecop.return
-      end
+      before { Timecop.freeze('2005-09-16') }
+      after { Timecop.return }
 
       context 'one row for one student on one date' do
         let!(:student) { FactoryGirl.create(:student, local_id: '1') }
@@ -29,6 +30,7 @@ RSpec.describe AttendanceImporter do
           }
 
           it 'creates an absence' do
+
             expect {
               attendance_importer.import_row(row)
             }.to change {
@@ -102,13 +104,13 @@ RSpec.describe AttendanceImporter do
         let(:third_row) { { event_date: '2005-09-18', local_id: '1', absence: '1', tardy: '0' } }
         let(:fourth_row) { { event_date: '2005-09-19', local_id: '1', absence: '1', tardy: '0' } }
 
+
         it 'creates multiple absences' do
-          importer = attendance_importer
           expect {
-            importer.import_row(first_row)
-            importer.import_row(second_row)
-            importer.import_row(third_row)
-            importer.import_row(fourth_row)
+            attendance_importer.import_row(first_row)
+            attendance_importer.import_row(second_row)
+            attendance_importer.import_row(third_row)
+            attendance_importer.import_row(fourth_row)
           }.to change { Absence.count }.by 4
         end
       end
@@ -138,7 +140,7 @@ RSpec.describe AttendanceImporter do
       end
 
       context '--only_recent_attendance flag off' do
-        let(:attendance_importer) {
+        let(:base_attendance_importer) {
           described_class.new(options: {
             school_scope: nil, log: nil, only_recent_attendance: false
           })
@@ -155,4 +157,5 @@ RSpec.describe AttendanceImporter do
 
     end
   end
+
 end
