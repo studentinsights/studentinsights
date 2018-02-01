@@ -18,14 +18,14 @@ class AttendanceImporter
 
     @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      log.write(
+      @log.write(
         "\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped"
       )
     end
 
     @error_summary = @error_list.inject(Hash.new(0)) { |h, e| h[e] += 1 ; h }
-    log.write("\n\nInvalid attendance rows summary: ")
-    log.write(@error_summary)
+    @log.write("\n\nInvalid attendance rows summary: ")
+    @log.write(@error_summary)
   end
 
   def remote_file_name
