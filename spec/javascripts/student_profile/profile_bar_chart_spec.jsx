@@ -1,8 +1,8 @@
 import SpecSugar from '../support/spec_sugar.jsx';
 import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
+import ProfileBarChart from '../../../app/assets/javascripts/student_profile/ProfileBarChart.js';
 
 describe('ProfileBarCharts', function() {
-  const ProfileBarChart = window.shared.ProfileBarChart;
   const ReactDOM = window.ReactDOM;
 
   const helpers = {
