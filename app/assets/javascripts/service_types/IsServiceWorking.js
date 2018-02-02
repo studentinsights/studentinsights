@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import ProfileBarChart from '../student_profile/ProfileBarChart.js';
 
@@ -11,12 +12,23 @@ class IsServiceWorking extends React.Component {
     );
   }
 
+  renderServicePhaselines(services) {
+    return services.map(function (service) {
+      return { momentUTC: moment.utc(service.date_started), text: 'Started' };
+    }, this);
+  }
+
   renderStudents() {
     const {serializedData} = this.props;
     const chartData = serializedData.chartData;
+    const sortedData = _.sortBy(chartData, (datum) => {
+      return datum.services[0].date_started;
+    }).reverse();
 
-    return chartData.map((datum) => {
+    return sortedData.map((datum) => {
       const student = datum.student;
+      const services = datum.services;
+      const servicePhaselines = this.renderServicePhaselines(services);
 
       return (
         <div key={student.id} style={{marginBottom: 20}}>
@@ -24,10 +36,11 @@ class IsServiceWorking extends React.Component {
           <ProfileBarChart
             events={this.props.absences}
             titleText="Absences"
-            monthsBack={8} />
+            monthsBack={8}
+            phaselines={servicePhaselines} />
         </div>
       );
-    });
+    }, this);
 
   }
 
