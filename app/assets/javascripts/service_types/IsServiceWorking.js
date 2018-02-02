@@ -1,7 +1,5 @@
 import React from 'react';
-
-window.shared || (window.shared = {});
-const ProfileBarChart = window.shared.ProfileBarChart;
+import ProfileBarChart from '../student_profile/ProfileBarChart.js';
 
 class IsServiceWorking extends React.Component {
 
@@ -21,8 +19,12 @@ class IsServiceWorking extends React.Component {
       const student = datum.student;
 
       return (
-        <div key={student.id}>
-          {student.first_name} {student.last_name}
+        <div key={student.id} style={{marginBottom: 20}}>
+          <h3>{student.first_name} {student.last_name}</h3>
+          <ProfileBarChart
+            events={this.props.absences}
+            titleText="Absences"
+            monthsBack={48} />
         </div>
       );
     });
