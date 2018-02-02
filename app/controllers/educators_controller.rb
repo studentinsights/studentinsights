@@ -22,6 +22,23 @@ class EducatorsController < ApplicationController
     render json: filtered_names(params[:term], school)
   end
 
+  def notes_feed
+    time_interval = Date.today - 2400
+    notes = EventNote.where(educator_id: 1).where("recorded_at >= ?", time_interval).order("recorded_at DESC")
+    @serialized_data = {
+      # students: section_students,
+      notes: notes,
+      current_educator: current_educator,
+    }
+    puts "************************"
+    puts @serialized_data
+    notes.each do |note|
+      puts note.text
+    end
+    puts "************************"
+    render 'shared/serialized_data'
+  end
+
   def reset_session_clock
     # Send arbitrary request to reset Devise Timeoutable
     respond_to do |format|

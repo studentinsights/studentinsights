@@ -44,7 +44,6 @@ Rails.application.routes.draw do
       get :past
     end
   end
-  resources :notes_feed, only: [:show]
   resources :homerooms, only: [:show]
   resources :sections, only: [:index, :show]
   resources :import_records, only: [:index]
@@ -56,6 +55,12 @@ Rails.application.routes.draw do
       get :school_administrator_dashboard
       get :overview_json
       get :csv
+    end
+  end
+
+  resources :educators, only: [:show] do
+    member do
+      get :notes_feed
     end
   end
 end
