@@ -1,6 +1,39 @@
 require 'digest'
 
 module StudentsQueryHelper
+  INCLUDE_FOR_STUDENTS = [
+    :id,
+    :grade,
+    :hispanic_latino,
+    :race,
+    :free_reduced_lunch,
+    :homeroom_id,
+    :first_name,
+    :last_name,
+    :home_language,
+    :registration_date,
+    :program_assigned,
+    :sped_placement,
+    :disability,
+    :sped_level_of_need,
+    :plan_504,
+    :limited_english_proficiency,
+    :most_recent_mcas_math_growth,
+    :most_recent_mcas_ela_growth,
+    :most_recent_mcas_math_performance,
+    :most_recent_mcas_ela_performance,
+    :most_recent_mcas_math_scaled,
+    :most_recent_mcas_ela_scaled,
+    :most_recent_star_reading_percentile,
+    :most_recent_star_math_percentile,
+    :enrollment_status,
+    :date_of_birth,
+    :risk_level,
+    :gender,
+    :house,
+    :counselor,
+  ]
+
   INCLUDE_FOR_EVENT_NOTES = [
     :id,
     :student_id,
@@ -14,12 +47,16 @@ module StudentsQueryHelper
   # filtering and slicing in the UI).
   # This may be slow if you're doing it for many students without eager includes.
   def student_hash_for_slicing(student)
-    HashWithIndifferentAccess.new(student.as_json.merge({
-      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
-      absences_count: student.most_recent_school_year_absences_count,
-      tardies_count: student.most_recent_school_year_tardies_count,
-      homeroom_name: student.try(:homeroom).try(:name)
-    }))
+    student_fields = Student.where(id: student.id).select(INCLUDE_FOR_STUDENTS)
+
+    HashWithIndifferentAccess.new(
+      student_fields.first.as_json.merge({
+        discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
+        absences_count: student.most_recent_school_year_absences_count,
+        tardies_count: student.most_recent_school_year_tardies_count,
+        homeroom_name: student.try(:homeroom).try(:name)
+      })
+    )
   end
 
   # Queries for Services and EventNotes for each student, and merges the results
