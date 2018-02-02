@@ -24,7 +24,7 @@ class IsServiceWorking extends React.Component {
           <ProfileBarChart
             events={this.props.absences}
             titleText="Absences"
-            monthsBack={48} />
+            monthsBack={8} />
         </div>
       );
     });
