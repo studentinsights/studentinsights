@@ -22,6 +22,7 @@ class ServiceTypesController < ApplicationController
     chart_data = Student.where(id: student_ids).map do |student|
       {
         student: student,
+        services: student.services,
         absences: student.absences.order(occurred_at: :desc)
       }
     end
