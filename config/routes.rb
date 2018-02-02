@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       get :past
     end
   end
+  resources :notes_feed, only: [:show]
   resources :homerooms, only: [:show]
   resources :sections, only: [:index, :show]
   resources :import_records, only: [:index]
