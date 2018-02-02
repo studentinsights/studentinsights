@@ -59,6 +59,18 @@
               } %>
             </li>
           </ul>
+          <h3 style="margin-top:20px;" class="column-title">
+            Dashboards
+          </h3>
+          <ul>
+          <% @schools.each do |school| %>
+            <li>
+              <%= link_to school.name, school_administrator_dashboard_school_path(school), {
+                class: 'prominent-link'
+              } %>
+            </li>
+          <% end %>
+        </ul>
         </div>
       </div>
     <% end %>
