@@ -17,7 +17,9 @@ class ServiceTypesController < ApplicationController
 
   def is_service_working
     attendance_officer = ServiceType.find(502)
-    student_ids = attendance_officer.services.map(&:student_id)
+    student_ids = attendance_officer.services.where(
+      'date_started > ?', Time.current - 1.year
+    ).map(&:student_id)
 
     chart_data = Student.where(id: student_ids).map do |student|
       {
