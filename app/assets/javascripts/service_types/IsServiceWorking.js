@@ -34,8 +34,13 @@ class IsServiceWorking extends React.Component {
         <div key={student.id} style={{marginBottom: 20}}>
           <h3>{student.first_name} {student.last_name}</h3>
           <ProfileBarChart
-            events={this.props.absences}
+            events={datum.absences}
             titleText="Absences"
+            monthsBack={8}
+            phaselines={servicePhaselines} />
+          <ProfileBarChart
+            events={datum.tardies}
+            titleText="Tardies"
             monthsBack={8}
             phaselines={servicePhaselines} />
         </div>

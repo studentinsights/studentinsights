@@ -25,7 +25,8 @@ class ServiceTypesController < ApplicationController
       {
         student: student,
         services: student.services.where(service_type_id: 502),
-        absences: student.absences.order(occurred_at: :desc)
+        absences: student.absences.order(occurred_at: :desc),
+        tardies: student.tardies.order(occurred_at: :desc)
       }
     end
 
