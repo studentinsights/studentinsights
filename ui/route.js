@@ -1,6 +1,7 @@
 import renderStudentMain from '../app/assets/javascripts/student_profile/main.jsx';
 import renderSchoolOverviewMain from '../app/assets/javascripts/school_overview/main.jsx';
 import homeroomMain from '../app/assets/javascripts/homeroom_table/main.jsx';
+import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main.jsx';
 import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main.jsx';
 import renderSectionMain from '../app/assets/javascripts/section/main.jsx';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main.jsx';
@@ -41,5 +42,9 @@ export default function route() {
 
   if ($('body').hasClass('schools') && $('body').hasClass('school_administrator_dashboard')) {
     renderSchoolAdminDashboardMain(el);
+  }
+
+  if ($('body').hasClass('schools') && $('body').hasClass('notes_feed')) {
+    renderNotesFeedMain(el); // TODO: should class be something else?
   }
 }
