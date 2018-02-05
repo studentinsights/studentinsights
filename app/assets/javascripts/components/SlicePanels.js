@@ -97,7 +97,7 @@ class SlicePanels extends React.Component {
       this.createItem('Advanced', Filters.Range(key, [260, 281])),
     ];
 
-    const sortedScores = _.map(this.props.students, key).sort();
+    const sortedScores = _.compact(_.map(this.props.students, key)).sort();
     const medianScore = sortedScores[Math.floor(sortedScores.length / 2)];
 
     if (medianScore > 280) return nullItem.concat(nextGenMCASFilters, oldMCASFilters);
