@@ -7,9 +7,6 @@ class ImportTask
     # options["source"] describes which external data sources to import from
     @source = options.fetch("source", ["x2", "star"])
 
-    # options["test_mode"] is for the test suite and supresses log output
-    @test_mode = options.fetch("test_mode", false)
-
     # options["only_recent_attendance"]
     @only_recent_attendance = options.fetch("only_recent_attendance", false)
   end
@@ -58,7 +55,7 @@ class ImportTask
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
 
   def log
-    @test_mode ? LogHelper::Redirect.instance.file : STDOUT
+    Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
   end
 
   def set_up_record
@@ -68,7 +65,7 @@ class ImportTask
   def set_up_report
     models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section, StudentSectionAssignment, EducatorSectionAssignment ]
 
-    log = @test_mode ? LogHelper::Redirect.instance.file : STDOUT
+    log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
 
     @report = ImportTaskReport.new(
       models_for_report: models,
