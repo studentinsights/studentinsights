@@ -7,7 +7,6 @@ RSpec.describe X2AssessmentImporter do
       before { Assessment.destroy_all }
       after { Assessment.seed_somerville_assessments }
 
-      # Return a File.read string just like the CsvDownloader class does:
       let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }

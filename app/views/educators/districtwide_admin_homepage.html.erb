@@ -18,11 +18,11 @@
         </h3>
         <ul>
           <% @schools.each do |school| %>
-            <li>
-              <%= link_to school.name, school_path(school), {
-                class: 'prominent-link'
-              } %>
-            </li>
+              <li class="school-name">
+                <%= school.name %><br/>
+                <%= link_to 'Overview', school_path(school) %> |
+                <%= link_to 'Dashboard', school_administrator_dashboard_school_path(school) %>
+              </li>
           <% end %>
         </ul>
       </div>

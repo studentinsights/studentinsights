@@ -1,6 +1,4 @@
-window.shared || (window.shared = {});
-const ProfileBarChart = window.shared.ProfileBarChart;
-
+import ProfileBarChart from './ProfileBarChart.js';
 import PropTypes from '../helpers/prop_types.jsx';
 
 const styles = {

@@ -7,7 +7,7 @@ class AttendanceImporter < Struct.new :school_scope, :client, :log, :progress_ba
       log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
-    @data.each.each_with_index do |row, index|
+    @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
       ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
     end
@@ -18,7 +18,7 @@ class AttendanceImporter < Struct.new :school_scope, :client, :log, :progress_ba
   end
 
   def data_transformer
-    CsvTransformer.new
+    StreamingCsvTransformer.new
   end
 
   def filter
