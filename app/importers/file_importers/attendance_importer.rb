@@ -23,8 +23,10 @@ class AttendanceImporter
       )
     end
 
-    @error_summary = @error_list.inject(Hash.new(0)) { |h, e| h[e] += 1 ; h }
-    @log.write("\n\nInvalid attendance rows summary: ")
+    @error_summary = @error_list.each_with_object(Hash.new(0)) do |error, memo|
+      memo[error] += 1
+    end
+    @log.write("\n\nInvalid behavior rows summary: ")
     @log.write(@error_summary)
   end
 
