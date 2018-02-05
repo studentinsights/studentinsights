@@ -24,6 +24,32 @@ class AnalyzeAssessmentsTable < Struct.new(:path)
     @parsed_csv ||= CSV.parse(contents, csv_options)
   end
 
+  def assessment_subject
+    data[:assessment_subject]
+  end
+
+  def assessment_subject_summary
+    assessment_subject.each_with_object(Hash.new(0)) { |subj, memo| memo[subj] += 1 }
+  end
+
+  def assessment_test
+    data[:assessment_test]
+  end
+
+  def assessment_test_summary
+    assessment_test.each_with_object(Hash.new(0)) { |test, memo| memo[test] += 1 }
+  end
+
+  def assessment_test_subject_crosstabs
+    data.each_with_object(Hash.new(0)) do |row, memo|
+      crosstab = [
+        row.fetch(:assessment_test, 'NIL'), row.fetch(:assessment_subject, 'NIL')
+      ].join('+')
+
+      memo[crosstab] += 1
+    end
+  end
+
   def nil_converter(value)
     value unless value == '\N'
   end
