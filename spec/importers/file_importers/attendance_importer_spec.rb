@@ -104,7 +104,6 @@ RSpec.describe AttendanceImporter do
         let(:third_row) { { event_date: '2005-09-18', local_id: '1', absence: '1', tardy: '0' } }
         let(:fourth_row) { { event_date: '2005-09-19', local_id: '1', absence: '1', tardy: '0' } }
 
-
         it 'creates multiple absences' do
           expect {
             attendance_importer.import_row(first_row)
