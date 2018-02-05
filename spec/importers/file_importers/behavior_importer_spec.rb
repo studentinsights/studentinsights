@@ -1,10 +1,16 @@
-
 require 'rails_helper'
 
 RSpec.describe BehaviorImporter do
 
+  let(:behavior_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: nil
+    })
+  }
+
   describe '#import_row' do
-    let(:importer) { described_class.new }
+
+    let(:importer) { behavior_importer }
     before { importer.import_row(row) }
     let(:incidents) { student.discipline_incidents }
     let(:incident) { incidents.last }

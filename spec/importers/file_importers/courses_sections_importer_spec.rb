@@ -2,8 +2,15 @@ require 'rails_helper'
 
 RSpec.describe CoursesSectionsImporter do
 
+  let(:log) { LogHelper::Redirect.instance.file }
+
+  let(:courses_sections_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: log
+    })
+  }
+
   describe '#import_row' do
-    let(:log) { LogHelper::Redirect.instance.file }
     let!(:school) { FactoryGirl.create(:shs) }
 
     context 'happy path' do
@@ -17,7 +24,7 @@ RSpec.describe CoursesSectionsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          courses_sections_importer.import_row(row)
         end
 
         it 'creates a course' do
@@ -43,8 +50,7 @@ RSpec.describe CoursesSectionsImporter do
                 } }
 
         before do
-          importer = described_class.new(nil, nil, log, nil)
-          importer.import_row(row)
+          courses_sections_importer.import_row(row)
         end
 
         it 'does not create a course' do

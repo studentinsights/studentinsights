@@ -1,14 +1,19 @@
-class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class StarReadingImporter
+
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
+  end
 
   def import
     return unless zip_file_name.present? && remote_file_name.present?
 
-    log.write("\nDownloading ZIP file #{zip_file_name}...")
+    @log.write("\nDownloading ZIP file #{zip_file_name}...")
 
     downloaded_zip = client.download_file(zip_file_name)
 
     Zip::File.open(downloaded_zip) do |zipfile|
-      log.write("\nImporting #{remote_file_name}...")
+      @log.write("\nImporting #{remote_file_name}...")
 
       data_string = zipfile.read(remote_file_name).encode('UTF-8', 'binary', {
         invalid: :replace, undef: :replace, replace: ''
@@ -18,9 +23,12 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
 
       data.each.each_with_index do |row, index|
         import_row(row) if filter.include?(row)
-        ProgressBar.new(log, remote_file_name, data.size, index + 1).print if progress_bar
       end
     end
+  end
+
+  def client
+    SftpClient.for_star
   end
 
   def zip_file_name
@@ -36,7 +44,7 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(@school_scope)
   end
 
   def star_reading_assessment

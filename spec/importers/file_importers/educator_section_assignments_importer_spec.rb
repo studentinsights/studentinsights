@@ -2,8 +2,13 @@ require 'rails_helper'
 
 RSpec.describe EducatorSectionAssignmentsImporter do
 
+  let(:educator_section_assignments_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: LogHelper::Redirect.instance.file
+    })
+  }
+
   describe '#import_row' do
-    let(:log) { LogHelper::Redirect.instance.file }
     let!(:school) { FactoryGirl.create(:shs) }
     let!(:section) { FactoryGirl.create(:section) }
     let!(:educator) { FactoryGirl.create(:educator) }
@@ -17,7 +22,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          educator_section_assignments_importer.import_row(row)
         end
 
         it 'creates an educator section assignment' do
@@ -38,8 +43,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
                 } }
 
         before do
-          importer = described_class.new(nil, nil, log, nil)
-          importer.import_row(row)
+          educator_section_assignments_importer.import_row(row)
         end
 
         it 'does not create an educator section assignment' do
@@ -56,8 +60,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
                 } }
 
         before do
-          importer = described_class.new(nil, nil, log, nil)
-          importer.import_row(row)
+          educator_section_assignments_importer.import_row(row)
         end
 
         it 'does not create an educator section assignment' do
@@ -75,8 +78,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
                 } }
 
         before do
-          importer = described_class.new(nil, nil, log, nil)
-          importer.import_row(row)
+          educator_section_assignments_importer.import_row(row)
         end
 
         it 'does not create an educator section assignment' do
@@ -94,8 +96,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
                 } }
 
         before do
-          importer = described_class.new(nil, nil, log, nil)
-          importer.import_row(row)
+          educator_section_assignments_importer.import_row(row)
         end
 
         it 'does not create an educator section assignment' do
@@ -124,9 +125,8 @@ RSpec.describe EducatorSectionAssignmentsImporter do
           FactoryGirl.create_list(:educator_section_assignment,20)
           FactoryGirl.create(:educator_section_assignment, educator_id: educator.id, section_id: section.id)
 
-          esa_importer = described_class.new
-          esa_importer.import_row(row)
-          esa_importer.delete_rows
+          educator_section_assignments_importer.import_row(row)
+          educator_section_assignments_importer.delete_rows
         end
 
         it 'deletes all student section assignments except the recently imported one' do
@@ -135,14 +135,18 @@ RSpec.describe EducatorSectionAssignmentsImporter do
       end
 
       context 'delete only stale assignments from schools being imported' do
+        let(:educator_section_assignments_importer) {
+          described_class.new(options: {
+            school_scope: ['SHS'], log: log
+          })
+        }
+
         before do
           FactoryGirl.create_list(:educator_section_assignment,20)
           FactoryGirl.create(:educator_section_assignment, educator_id: educator.id, section_id: section.id)
 
-          esa_importer = described_class.new
-          esa_importer.school_scope = ['SHS']
-          esa_importer.import_row(row)
-          esa_importer.delete_rows
+          educator_section_assignments_importer.import_row(row)
+          educator_section_assignments_importer.delete_rows
         end
 
         it 'deletes all student section assignments for this school except the recently imported one' do

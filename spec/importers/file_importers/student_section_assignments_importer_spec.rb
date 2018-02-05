@@ -1,8 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe StudentSectionAssignmentsImporter do
+
+  let(:student_section_assignments_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: LogHelper::Redirect.instance.file
+    })
+  }
+
   describe '#import_row' do
-    let(:log) { LogHelper::Redirect.instance.file }
     let!(:school) { FactoryGirl.create(:shs) }
     let!(:section) { FactoryGirl.create(:section) }
     let!(:student) { FactoryGirl.create(:student) }
@@ -16,7 +22,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
                 } }
 
         before do
-          described_class.new.import_row(row)
+          student_section_assignments_importer.import_row(row)
         end
 
         it 'creates a student section assignment' do
@@ -37,8 +43,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
               } }
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
-        importer.import_row(row)
+        student_section_assignments_importer.import_row(row)
       end
 
       it 'does not create a student section assignment' do
@@ -54,8 +59,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
               } }
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
-        importer.import_row(row)
+        student_section_assignments_importer.import_row(row)
       end
 
       it 'does not create a student section assignment' do
@@ -72,8 +76,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
               } }
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
-        importer.import_row(row)
+        student_section_assignments_importer.import_row(row)
       end
 
       it 'does not create a student section assignment' do
@@ -90,8 +93,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
               } }
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
-        importer.import_row(row)
+        student_section_assignments_importer.import_row(row)
       end
 
       it 'does not create a student section assignment' do
@@ -117,9 +119,8 @@ RSpec.describe StudentSectionAssignmentsImporter do
         FactoryGirl.create_list(:student_section_assignment, 20)
         FactoryGirl.create(:student_section_assignment, student_id: student.id, section_id: section.id)
 
-        ssa_importer = described_class.new
-        ssa_importer.import_row(row)
-        ssa_importer.delete_rows
+        student_section_assignments_importer.import_row(row)
+        student_section_assignments_importer.delete_rows
       end
 
       it 'deletes all student section assignments except the recently imported one' do
@@ -128,14 +129,18 @@ RSpec.describe StudentSectionAssignmentsImporter do
     end
 
     context 'delete only stale assignments from schools being imported' do
+      let(:student_section_assignments_importer) {
+        described_class.new(options: {
+          school_scope: ['SHS'], log: LogHelper::Redirect.instance.file
+        })
+      }
+
       before do
         FactoryGirl.create_list(:student_section_assignment, 20)
         FactoryGirl.create(:student_section_assignment, student_id: student.id, section_id: section.id)
 
-        ssa_importer = described_class.new
-        ssa_importer.school_scope = ['SHS']
-        ssa_importer.import_row(row)
-        ssa_importer.delete_rows
+        student_section_assignments_importer.import_row(row)
+        student_section_assignments_importer.delete_rows
       end
 
       it 'deletes all student section assignments for that school except the recently imported one' do
