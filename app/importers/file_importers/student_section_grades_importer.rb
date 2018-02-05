@@ -1,5 +1,24 @@
 class StudentSectionGradesImporter
 
+  # Most of our file importer classes match to a SQL file in the /x2_export folder.
+  # Somerville IT uses the SQL to export data  nightly, and Rails imports nightly.
+
+  # The StudentSectionGradesImporter is a bit different. It has no matching SQL export
+  # file, because its CSV gets delivered by Aspen nightly, using a custom routine
+  # they created on their back end.
+
+  # The CSV output of the custom Aspen routine doesn't include headers, so we
+  # specify them explicitly here:
+
+  CSV_HEADERS = [
+    'section_number',
+    'student_local_id',
+    'school_local_id',
+    'course_number',
+    'term_local_id',
+    'grade',
+  ]
+
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
@@ -31,7 +50,7 @@ class StudentSectionGradesImporter
   end
 
   def data_transformer
-    CsvTransformer.new(headers:%w[section_number student_local_id school_local_id course_number term_local_id grade])
+    CsvTransformer.new(headers: CSV_HEADERS)
   end
 
   def filter
