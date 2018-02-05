@@ -102,6 +102,7 @@ class ImportTask
         file_importer.import
       rescue => error
         log.write("🚨  🚨  🚨  🚨  🚨  Error! #{error}")
+        log.write(error.backtrace)
 
         extra_info =  { "importer" => file_importer.class.name }
         ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?

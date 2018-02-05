@@ -2,10 +2,16 @@ require 'rails_helper'
 
 RSpec.describe BehaviorImporter do
 
-  let(:behavior_importer) {
+  let(:base_behavior_importer) {
     described_class.new(options: {
-      school_scope: nil, log: nil
+      school_scope: nil, log: nil, only_recent_attendance: false
     })
+  }
+
+  let(:behavior_importer) {
+    base_behavior_importer.instance_variable_set(:@success_count, 0)
+    base_behavior_importer.instance_variable_set(:@error_list, [])
+    base_behavior_importer
   }
 
   describe '#import_row' do
