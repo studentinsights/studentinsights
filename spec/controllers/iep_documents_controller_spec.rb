@@ -1,18 +1,19 @@
 require 'rails_helper'
 
+class FakeAwsResponse
+  def body; self end
+
+  def read; 'eee' end
+end
+
 RSpec.describe IepDocumentsController, type: :controller do
+  let!(:pals) { TestPals.create! }
 
   describe '#show' do
 
     def make_request(id)
       request.env['HTTPS'] = 'on'
       get :show, params: { id: id }
-    end
-
-    class FakeAwsResponse
-      def body; self end
-
-      def read; 'eee' end
     end
 
     before do
@@ -23,34 +24,17 @@ RSpec.describe IepDocumentsController, type: :controller do
       ).and_return FakeAwsResponse.new
     end
 
-    let(:student) { FactoryGirl.create(:student) }
-
-    subject {
-      IepDocument.create(
-        file_name: 'IEP Document',
-        student: student,
-      )
-    }
-
-    context 'educator has permissions for associated student' do
-      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
-      before { sign_in(educator) }
-
-      it 'renders a pdf' do
-        make_request(subject.id)
-        expect(response).to be_success
-      end
+    def iep_pdf_response(educator, student)
+      sign_in(educator)
+      make_request(student.iep_document.id)
+      sign_out(educator)
+      response
     end
 
-    context 'educator does not have permissions for associated student' do
-      let(:educator) { FactoryGirl.create(:educator) }
-      before { sign_in(educator) }
-
-      it 'does not render' do
-        expect { make_request(subject.id) }.to raise_error Exceptions::EducatorNotAuthorized
-      end
+    it 'enforces authorization' do
+      student = pals.healey_meredith_student
+      expect(iep_pdf_response(pals.uri, student)).to be_success
+      expect(iep_pdf_response(pals.healey_vivian_teacher, student)).to be_success
     end
-
   end
-
 end

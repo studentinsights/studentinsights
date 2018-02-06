@@ -16,6 +16,7 @@ def create_event_note(student, educator)
 end
 
 describe StudentsController, :type => :controller do
+  let!(:pals) { TestPals.create! }
 
   describe '#show' do
     let!(:school) { FactoryGirl.create(:school) }
@@ -268,8 +269,6 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#service' do
-    let!(:school) { FactoryGirl.create(:school) }
-
     def make_post_request(student, service_params = {})
       request.env['HTTPS'] = 'on'
       post :service, params: {
@@ -279,7 +278,51 @@ describe StudentsController, :type => :controller do
       }
     end
 
+    # Returns a list of all students that the educator
+    # can post a service for and get a 200 back.
+    def can_post_service_for(educator, students)
+      allowed_students = []
+
+      sign_in(educator)
+      students.each do |student|
+        make_post_request(student, {
+          student_id: student.id,
+          service_type_id: 503,
+          date_started: '2016-02-22',
+          provided_by_educator_id: educator.id
+        })
+        allowed_students << student if response.status == 200
+      end
+      sign_out(educator)
+
+      allowed_students
+    end
+
+    context 'enforces authorization rules' do
+      let(:students) do
+        [
+          pals.healey_kindergarten_student,
+          pals.healey_meredith_student,
+          pals.shs_freshman_mari
+        ]
+      end
+
+      it { expect(can_post_service_for(pals.uri, students)).to eq students }
+      it { expect(can_post_service_for(pals.healey_vivian_teacher, students)).to eq [pals.healey_kindergarten_student] }
+      it { expect(can_post_service_for(pals.healey_ell_teacher, students)).to eq [] }
+      it { expect(can_post_service_for(pals.healey_sped_teacher, students)).to eq [] }
+      it { expect(can_post_service_for(pals.healey_laura_principal, students)).to eq [pals.healey_kindergarten_student, pals.healey_meredith_student] }
+      it { expect(can_post_service_for(pals.healey_sarah_teacher, students)).to eq [pals.healey_meredith_student] }
+      it { expect(can_post_service_for(pals.west_marcus_teacher, students)).to eq [] }
+      it { expect(can_post_service_for(pals.shs_jodi, students)).to eq [pals.shs_freshman_mari] }
+      it { expect(can_post_service_for(pals.shs_bill_nye, students)).to eq [pals.shs_freshman_mari] }
+      it { expect(can_post_service_for(pals.shs_ninth_grade_counselor, students)).to eq [pals.shs_freshman_mari] }
+      it { expect(can_post_service_for(pals.shs_hugo_art_teacher, students)).to eq [] }
+      it { expect(can_post_service_for(pals.shs_fatima_science_teacher, students)).to eq [] }
+    end
+
     context 'admin educator logged in' do
+      let!(:school) { FactoryGirl.create(:school) }
       let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
       let!(:provided_by_educator) { FactoryGirl.create(:educator, school: school) }
       let!(:student) { FactoryGirl.create(:student, school: school) }
@@ -339,12 +382,11 @@ describe StudentsController, :type => :controller do
 
       context 'when missing params' do
         it 'fails with error messages' do
-          make_post_request(student, { text: 'foo' })
+          make_post_request(student, { text: 'foo', student_id: student.id })
           expect(response.status).to eq 422
           response_body = JSON.parse(response.body)
           expect(response_body).to eq({
             "errors" => [
-              "Student can't be blank",
               "Service type can't be blank",
               "Date started can't be blank"
             ]
@@ -428,12 +470,15 @@ describe StudentsController, :type => :controller do
   describe '#serialize_student_for_profile' do
     it 'returns a hash with the additional keys that UI code expects' do
       student = FactoryGirl.create(:student)
-      serialized_student = controller.send(:serialize_student_for_profile, student)
+      restricted_notes_count = 2
+      serialized_student = controller.send(:serialize_student_for_profile, student, restricted_notes_count)
       expect(serialized_student.keys).to include(*[
         'student_risk_level',
         'absences_count',
         'tardies_count',
         'school_name',
+        'school_type',
+        'restricted_notes_count',
         'homeroom_name',
         'discipline_incidents_count'
       ])
@@ -444,27 +489,27 @@ describe StudentsController, :type => :controller do
     let(:student) { FactoryGirl.create(:student) }
     let(:educator) { FactoryGirl.create(:educator, :admin) }
     let!(:service) { create_service(student, educator) }
-    let!(:event_note) { create_event_note(student, educator) }
+    let!(:event_notes) { [create_event_note(student, educator)] }
 
     it 'returns services' do
-      feed = controller.send(:student_feed, student)
+      feed = controller.send(:student_feed, student, event_notes)
       expect(feed.keys).to eq([:event_notes, :services, :deprecated])
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:discontinued].first[:id]).to eq service.id
     end
 
     it 'returns event notes' do
-      feed = controller.send(:student_feed, student)
-      event_notes = feed[:event_notes]
+      feed = controller.send(:student_feed, student, event_notes)
+      actual_event_notes = feed[:event_notes]
 
-      expect(event_notes.size).to eq 1
-      expect(event_notes.first[:student_id]).to eq(student.id)
-      expect(event_notes.first[:educator_id]).to eq(educator.id)
+      expect(actual_event_notes.size).to eq 1
+      expect(actual_event_notes.first[:student_id]).to eq(student.id)
+      expect(actual_event_notes.first[:educator_id]).to eq(educator.id)
     end
 
     context 'after service is discontinued' do
       it 'filters it' do
-        feed = controller.send(:student_feed, student)
+        feed = controller.send(:student_feed, student, event_notes)
         expect(feed[:services][:active].size).to eq 0
         expect(feed[:services][:discontinued].first[:id]).to eq service.id
       end
@@ -513,87 +558,49 @@ describe StudentsController, :type => :controller do
     end
   end
 
-  describe '#lasids' do
-    def make_request
-      request.env['HTTPS'] = 'on'
-      get :lasids, params: { format: :json }
-    end
-
-    before do
-      FactoryGirl.create(:student, local_id: '111')
-      FactoryGirl.create(:student, local_id: '222')
-    end
-
-    let(:parsed_response) { JSON.parse(response.body) }
-
-    context 'admin with districtwide access' do
-      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
-      it 'returns an array of student lasids' do
-        sign_in(educator)
-        make_request
-        expect(parsed_response).to eq ["111", "222"]
-      end
-    end
-
-    context 'non-admin' do
-      let(:educator) { FactoryGirl.create(:educator) }
-      it 'does not return any lasids' do
-        sign_in(educator)
-        make_request
-        expect(parsed_response).to eq({ "error"=>"You don't have the correct authorization." })
-      end
-    end
-
-    context 'no educator logged in' do
-      it 'returns an error' do
-        make_request
-        expect(parsed_response).to eq({ "error"=>"You need to sign in before continuing." })
-      end
-    end
-  end
-
   describe '#student_report' do
     let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
     let(:school) { FactoryGirl.create(:school) }
     let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
 
-    def make_request(options = { student_id: nil, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017'})
+    def make_request(student_id, options = {})
       request.env['HTTPS'] = 'on'
       get :student_report, params: {
-        id: options[:student_id],
-        format: options[:format],
-        from_date: options[:from_date],
-        to_date: options[:to_date],
-        disable_js: true
-      }
+        id: student_id,
+        disable_js: true,
+        format: :pdf,
+        from_date: '08/15/2015',
+        to_date: '03/16/2017'
+      }.merge(options)
     end
 
     context 'when educator is not logged in' do
       it 'does not render a student report' do
-        make_request({ student_id: student.id, format: :pdf })
+        make_request(student.id)
         expect(response.status).to eq 401
       end
     end
 
     context 'when educator is logged in' do
-      before do
-        sign_in(educator)
-        make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
-      end
-
       context 'educator has schoolwide access' do
 
         it 'is successful' do
+          sign_in(educator)
+          make_request(student.id)
           expect(response).to be_success
         end
 
         it 'assigns the student correctly' do
+          sign_in(educator)
+          make_request(student.id)
           expect(assigns(:student)).to eq student
         end
 
         it 'assigns the student\'s services correctly with full history' do
           old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student, discontinued_at: '2012-05-21')
           recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student, discontinued_at: nil)
+          sign_in(educator)
+          make_request(student.id)
           expect(assigns(:services)).not_to include(old_service)
           expect(assigns(:services)).to include(recent_service)
         end
@@ -601,6 +608,8 @@ describe StudentsController, :type => :controller do
         it 'assigns the student\'s notes correctly excluding restricted notes' do
           restricted_note = FactoryGirl.create(:event_note, :restricted, student: student, educator: educator)
           note = FactoryGirl.create(:event_note, student: student, educator: educator)
+          sign_in(educator)
+          make_request(student.id)
           expect(assigns(:event_notes)).to include(note)
           expect(assigns(:event_notes)).not_to include(restricted_note)
         end

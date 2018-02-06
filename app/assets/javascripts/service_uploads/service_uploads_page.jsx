@@ -88,7 +88,7 @@ import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
 
     validateLASIDs: function (student_lasids) {
       return $.ajax({
-        url: '/students/lasids.json',
+        url: '/service_uploads/lasids.json',
         method: 'GET',
         success: function (data) {
           if (Array.isArray(data)) {

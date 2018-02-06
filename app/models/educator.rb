@@ -100,7 +100,7 @@ class Educator < ActiveRecord::Base
   end
 
   def save_student_searchbar_json
-    self.student_searchbar_json = SearchbarHelper.names_for(self).to_json
+    self.student_searchbar_json = Searchbar.names_for(self).to_json
     save!
   end
 

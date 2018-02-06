@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ServiceUploadsController, type: :controller do
+  let!(:pals) { TestPals.create! }
 
   describe '#create' do
     let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
@@ -157,7 +158,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
         let(:educator) { FactoryGirl.create(:educator) }
         it 'cannot access the page; gets redirected' do
           make_request
-          expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })
+          expect(response).to redirect_to(not_authorized_path)
         end
       end
     end
@@ -168,7 +169,6 @@ RSpec.describe ServiceUploadsController, type: :controller do
         expect(response).to redirect_to(new_educator_session_url)
       end
     end
-
   end
 
   describe '#past' do
@@ -218,8 +218,27 @@ RSpec.describe ServiceUploadsController, type: :controller do
         make_request
         expect(response).to redirect_to(new_educator_session_url)
       end
+
+      it 'enforces authorization' do
+        students = [
+          pals.healey_kindergarten_student,
+          pals.healey_meredith_student,
+          pals.shs_freshman_mari
+        ]
+        expect(lasids(pals.uri)).to eq students.map(&:local_id)
+        expect(lasids(pals.healey_vivian_teacher)).to eq []
+        expect(lasids(pals.healey_ell_teacher)).to eq []
+        expect(lasids(pals.healey_sped_teacher)).to eq []
+        expect(lasids(pals.healey_laura_principal)).to eq []
+        expect(lasids(pals.healey_sarah_teacher)).to eq []
+        expect(lasids(pals.west_marcus_teacher)).to eq []
+        expect(lasids(pals.shs_jodi)).to eq []
+        expect(lasids(pals.shs_bill_nye)).to eq []
+        expect(lasids(pals.shs_ninth_grade_counselor)).to eq []
+        expect(lasids(pals.shs_hugo_art_teacher)).to eq []
+        expect(lasids(pals.shs_fatima_science_teacher)).to eq []
+      end
     end
 
   end
-
 end

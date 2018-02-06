@@ -8,6 +8,7 @@ class TestPals
   def self.create!
     pals = TestPals.new
     pals.create!
+    pals.index!
     pals
   end
 
@@ -18,6 +19,7 @@ class TestPals
 
   # students
   attr_reader :healey_kindergarten_student
+  attr_reader :healey_meredith_student
   attr_reader :shs_freshman_mari
 
   # educators
@@ -135,6 +137,18 @@ class TestPals
       homeroom: @healey_kindergarten_homeroom,
       grade: 'KF',
       local_id: '111111111'
+    )
+    @healey_meredith_student = Student.create!(
+      first_name: 'Meredith',
+      last_name: 'Solo',
+      school: @healey,
+      homeroom: @healey_fifth_homeroom,
+      grade: '5',
+      program_assigned: 'Sp Ed',
+      sped_level_of_need: 'Moderate',
+      sped_placement: 'Full Inclusion',
+      iep_document: IepDocument.create({ file_name: 'meredith_iep_document' }),
+      local_id: '222'
     )
 
     # West is a K8 school
@@ -267,6 +281,12 @@ class TestPals
       student: @shs_freshman_mari, section: @shs_tuesday_biology_section
     )
 
+    self
+  end
+
+  def index!
+    Student.update_risk_levels!
+    Student.update_recent_student_assessments
     self
   end
 
