@@ -23,12 +23,13 @@ export default React.createClass({
   createMonthCategories: function(eventsByDay) {
     let monthCategories = {};
     let lastStoredMonth;
+    const startMonth = moment().subtract(3, 'months');
 
     Object.keys(eventsByDay).sort().forEach((day, dayIndex) => {
-      const month = moment(day).date(1).format("MMM 'YY");
-      if (lastStoredMonth != month) {
-        monthCategories[dayIndex] = month;
-        lastStoredMonth = month;
+      const month = moment(day);
+      if (lastStoredMonth != month.date(1).format("MMM 'YY") && month.isSameOrAfter(startMonth, 'month')) {
+        lastStoredMonth = month.date(1).format("MMM 'YY");
+        monthCategories[dayIndex] = lastStoredMonth;
       }
     });
     return monthCategories;
@@ -87,7 +88,7 @@ export default React.createClass({
             tickmarkPlacement: "on"
           }}
           seriesData = {seriesData}
-          titleText = {'Schoolwide Tardies'}
+          titleText = {'Schoolwide Tardies (Last three months)'}
           measureText = {'Number of Tardies'}
           tooltip = {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
@@ -106,7 +107,7 @@ export default React.createClass({
           id = {'string'}
           categories = {{categories: homerooms}}
           seriesData = {homeroomSeries}
-          titleText = {'Tardies By Homeroom'}
+          titleText = {'Tardies By Homeroom (School Year)'}
           measureText = {'Number of Tardies'}
           tooltip = {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
