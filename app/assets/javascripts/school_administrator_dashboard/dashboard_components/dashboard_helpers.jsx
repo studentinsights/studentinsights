@@ -42,6 +42,10 @@ export default {
     });
   },
 
+  schoolYearStart: function() {
+    return moment().month() < 8 ? moment().subtract(1, 'year').year() + "-08-10" : moment().year() + "-08-10";
+  },
+
   //slightly faster than Array.filter for getting a new date range
   filterDates: function(dates, start_date, end_date) {
     return dates.sort().slice(this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date));

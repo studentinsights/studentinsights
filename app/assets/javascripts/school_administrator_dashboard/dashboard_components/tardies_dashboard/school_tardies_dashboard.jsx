@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import DashboardHelpers from '../dashboard_helpers.jsx';
 import StudentsTable from '../students_table.jsx';
@@ -44,6 +45,22 @@ export default React.createClass({
       date = moment(date).add(1, 'day').format('YYYY-MM-DD');
     }
     return datesForPastThreeMonths;
+  },
+
+  studentTardyCounts: function(tardiesArray) {
+    let studentTardyCounts = {};
+    const daysWithTardies = Object.keys(this.props.schoolTardyEvents);
+    const startDate = DashboardHelpers.schoolYearStart();
+    const endDate = moment().format("YYYY-MM-DD");
+    const schoolYearTardies = DashboardHelpers.filterDates(daysWithTardies.sort(), startDate, endDate);
+
+    schoolYearTardies.forEach((day) => {
+      _.each(this.props.schoolTardyEvents[day], (tardy) => {
+        studentTardyCounts[tardy.student_id] = studentTardyCounts[tardy.student_id] || 0;
+        studentTardyCounts[tardy.student_id]++;
+      });
+    });
+    return studentTardyCounts;
   },
 
   setStudentList: function(highchartsEvent) {
@@ -117,6 +134,7 @@ export default React.createClass({
   },
 
   renderStudentTardiesTable: function () {
+    const studentTardyCounts = this.studentTardyCounts();
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
     const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
     let rows =[];
@@ -125,7 +143,7 @@ export default React.createClass({
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
-        events: student.tardies.length || 0
+        events: studentTardyCounts[student.id] || 0
       });
     });
 
