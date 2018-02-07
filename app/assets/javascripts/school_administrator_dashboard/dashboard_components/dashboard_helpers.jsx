@@ -43,7 +43,8 @@ export default {
   },
 
   schoolYearStart: function() {
-    return moment().month() < 8 ? moment().subtract(1, 'year').year() + "-08-10" : moment().year() + "-08-10";
+    const today = moment();
+    return today.month() < 8 ? today.subtract(1, 'year').year() + "-08-10" : today.year() + "-08-10";
   },
 
   //slightly faster than Array.filter for getting a new date range
