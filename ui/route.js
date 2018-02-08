@@ -44,7 +44,7 @@ export default function route() {
     renderSchoolAdminDashboardMain(el);
   }
 
-  if ($('body').hasClass('schools') && $('body').hasClass('notes_feed')) {
+  if ($('body').hasClass('educators') && $('body').hasClass('notes_feed')) {
     renderNotesFeedMain(el); // TODO: should class be something else?
   }
 }
