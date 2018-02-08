@@ -24,19 +24,16 @@ class EducatorsController < ApplicationController
 
   def notes_feed
     time_interval = Date.today - 2400
-    notes = EventNote.where(educator_id: 1).where("recorded_at >= ?", time_interval).order("recorded_at DESC")
-    @serialized_data = {
-      # students: section_students,
-      notes: notes,
+    notes = EventNote.where(educator_id: current_educator.id).where("recorded_at >= ?", time_interval).order("recorded_at DESC")
+    student_ids = notes.map {|note| note.student_id}
+    student_ids.uniq!
+    students = Student.find(student_ids)
+    serialized_data = {
       current_educator: current_educator,
+      notes: notes,
+      students: students,
     }
-    puts "************************"
-    puts @serialized_data
-    notes.each do |note|
-      puts note.text
-    end
-    puts "************************"
-    render 'shared/serialized_data'
+    render json: serialized_data
   end
 
   def reset_session_clock
