@@ -28,12 +28,12 @@ class EducatorsController < ApplicationController
     student_ids = notes.map {|note| note.student_id}
     student_ids.uniq!
     students = Student.find(student_ids)
-    serialized_data = {
+    @serialized_data = {
       current_educator: current_educator,
       notes: notes,
       students: students,
     }
-    render json: serialized_data
+    render 'shared/serialized_data'
   end
 
   def reset_session_clock
