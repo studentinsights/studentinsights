@@ -6,11 +6,11 @@ export const testEvents = {
     student_id: 1,
   },
   twoMonthsAgo: {
-    occurred_at: moment().subtract(1, 'months').format("YYYY-MM-DD HH:mm:sss Z"),
+    occurred_at: moment().subtract(2, 'months').format("YYYY-MM-DD HH:mm:sss Z"),
     student_id: 1,
   },
   threeMonthsAgo: {
-    occurred_at: moment().subtract(1, 'months').format("YYYY-MM-DD HH:mm:sss Z"),
+    occurred_at: moment().subtract(3, 'months').format("YYYY-MM-DD HH:mm:sss Z"),
     student_id: 1,
   },
   oneYearAgo: {
