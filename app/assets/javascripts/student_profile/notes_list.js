@@ -91,7 +91,7 @@ NotesList.propTypes = {
   feed: PropTypes.feed.isRequired,
   educatorsIndex: React.PropTypes.object.isRequired,
   eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  onSaveNote: React.PropTypes.func.isRequired,
+  onSaveNote: React.PropTypes.func,
   onEventNoteAttachmentDeleted: React.PropTypes.func
 };
 
