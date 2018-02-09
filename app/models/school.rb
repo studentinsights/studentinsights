@@ -1,6 +1,7 @@
 class School < ActiveRecord::Base
   extend FriendlyId
   friendly_id :local_id, use: :slugged
+  validates :local_id, presence: true, uniqueness: true
   has_many :students
   has_many :educators
   has_many :homerooms

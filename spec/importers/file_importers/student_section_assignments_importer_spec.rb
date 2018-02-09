@@ -115,6 +115,12 @@ RSpec.describe StudentSectionAssignmentsImporter do
     } }
 
     context 'happy path' do
+      let(:student_section_assignments_importer) {
+        described_class.new(options: {
+          school_scope: School.pluck(:local_id), log: LogHelper::Redirect.instance.file
+        })
+      }
+
       before do
         FactoryGirl.create_list(:student_section_assignment, 20)
         FactoryGirl.create(:student_section_assignment, student_id: student.id, section_id: section.id)

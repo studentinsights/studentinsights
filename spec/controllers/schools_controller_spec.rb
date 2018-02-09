@@ -205,7 +205,7 @@ describe SchoolsController, :type => :controller do
     context 'with school-wide access' do
       before { School.seed_somerville_schools }
       before { FactoryGirl.create(:homeroom) }
-      let!(:school) { FactoryGirl.create(:healey) }
+      let!(:school) { School.find_by_local_id('HEA') }
       let!(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
 
       it 'succeeds without throwing' do
