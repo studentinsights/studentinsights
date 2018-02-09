@@ -39,11 +39,12 @@ class StudentSectionAssignmentsImporter
   end
 
   def delete_rows
-    # Delete all stale rows no longer included in the import
-    # For the schools imported during this run of the importer
+    #Delete all stale rows no longer included in the import
+    #For the schools imported during this run of the importer
     StudentSectionAssignment.joins(:section => {:course => :school})
                             .where.not(id: @imported_assignments)
                             .where(:schools => {:local_id => @school_scope}).delete_all
+
   end
 
   def import_row(row)
