@@ -1,7 +1,7 @@
 import ReactDom from 'react-dom';
 import SchoolTardiesDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/school_tardies_dashboard.jsx';
 
-describe('data', () => {
+describe('with no data', () => {
   it('renders successfully', () => {
     const div = document.createElement('div');
 
