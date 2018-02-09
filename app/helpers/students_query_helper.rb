@@ -1,37 +1,11 @@
 require 'digest'
 
 module StudentsQueryHelper
-  INCLUDE_FOR_STUDENTS = [
-    :id,
-    :grade,
-    :hispanic_latino,
-    :race,
-    :free_reduced_lunch,
-    :homeroom_id,
-    :first_name,
-    :last_name,
-    :home_language,
-    :registration_date,
-    :program_assigned,
-    :sped_placement,
-    :disability,
-    :sped_level_of_need,
-    :plan_504,
-    :limited_english_proficiency,
-    :most_recent_mcas_math_growth,
-    :most_recent_mcas_ela_growth,
-    :most_recent_mcas_math_performance,
-    :most_recent_mcas_ela_performance,
-    :most_recent_mcas_math_scaled,
-    :most_recent_mcas_ela_scaled,
-    :most_recent_star_reading_percentile,
-    :most_recent_star_math_percentile,
+  INCLUDE_FOR_STUDENTS = Student.column_names.map(&:to_sym) - [
     :enrollment_status,
-    :date_of_birth,
-    :risk_level,
-    :gender,
-    :house,
-    :counselor,
+    :primary_phone,
+    :primary_email,
+    :student_address
   ]
 
   INCLUDE_FOR_EVENT_NOTES = [
