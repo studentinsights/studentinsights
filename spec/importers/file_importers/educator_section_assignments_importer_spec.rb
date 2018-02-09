@@ -159,4 +159,3 @@ RSpec.describe EducatorSectionAssignmentsImporter do
     end
   end
 end
-
