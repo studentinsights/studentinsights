@@ -13,7 +13,6 @@ export default React.createClass({
   },
 
   render: function() {
-    console.log(this.props.serializedData);
     return(
       <Switch>
         <Route exact path="/" render={ () => <DashboardOverview />} />
