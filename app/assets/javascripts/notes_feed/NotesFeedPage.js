@@ -1,5 +1,3 @@
-import _ from 'lodash';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import React from 'react';
 
 class NotesFeedPage extends React.Component {

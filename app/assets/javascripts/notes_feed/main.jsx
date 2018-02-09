@@ -15,7 +15,7 @@ export default function renderNotesFeedMain(el, options = {}) {
       notes: serializedData.notes,
       students: serializedData.students,
     });
-  };
+  }
 }
   
 function render(el, json) {
