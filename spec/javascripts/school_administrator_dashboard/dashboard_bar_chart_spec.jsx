@@ -17,7 +17,7 @@ describe('DashboardBarChart', () => {
     expect(shouldUpdate).toBe(true);
   });
 
-  it('should not update when the series data changes', () => {
+  it('should not update when the series data does not change', () => {
     const shouldUpdate = chart.instance().shouldComponentUpdate({seriesData: []});
     expect(shouldUpdate).toBe(false);
   });
