@@ -8,20 +8,22 @@ export default function renderNotesFeedMain(el, options = {}) {
     .then(json => render(el, json));
   } else {
     const serializedData = $('#serialized-data').data();
-    const {students, notes} = serializedData; // undo outer camelcase
     render(el, {
-      students,
-      notes,
       current_educator: serializedData.currentEducator,
+      educatorsIndex: serializedData.educatorsIndex,
+      eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
+      notes: serializedData.notes,
+      students: serializedData.students,
     });
   };
 }
   
 function render(el, json) {
-  // MixpanelUtils.registerUser(json.current_educator);
-  // MixpanelUtils.track('PAGE_VISIT', { page_key: 'SCHOOL_OVERVIEW_DASHBOARD' });
-  console.log(json);
+  MixpanelUtils.registerUser(json.current_educator);
+  MixpanelUtils.track('PAGE_VISIT', { page_key: 'NOTES_FEED' });
   window.ReactDOM.render(<NotesFeedPage
-    students={json.students}
-    notes={json.notes} />, el);
+    educatorsIndex={json.educatorsIndex}
+    eventNotes={json.notes}
+    eventNoteTypesIndex={json.eventNoteTypesIndex}
+    students={json.students} />, el);
 }
