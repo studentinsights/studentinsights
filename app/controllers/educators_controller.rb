@@ -29,8 +29,10 @@ class EducatorsController < ApplicationController
     student_ids.uniq!
     students = Student.find(student_ids)
     @serialized_data = {
+      educators_index: Educator.to_index,
+      event_note_types_index: EventNoteSerializer.event_note_types_index,
       current_educator: current_educator,
-      notes: notes,
+      notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
       students: students,
     }
     render 'shared/serialized_data'
