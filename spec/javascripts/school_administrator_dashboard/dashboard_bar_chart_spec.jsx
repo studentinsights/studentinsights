@@ -8,6 +8,7 @@ describe('DashboardBarChart', () => {
   const chart = shallow(<DashboardBarChart
                         id="1" categories={{}} seriesData={[]} titleText="Title" measureText="Measure" tooltip={{}}
                         />);
+
   it('should render a highcharts wrapper', () => {
     expect(chart.find(HighchartsWrapper).length).toEqual(1);
   });
