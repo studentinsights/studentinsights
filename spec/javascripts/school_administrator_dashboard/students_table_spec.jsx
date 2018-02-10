@@ -20,12 +20,12 @@ describe('Dashboard Students Table', () => {
   });
 
   it('orders students by name when Name is clicked', () => {
-    table.instance().onClickHeader('last_name', 'string');
+    table.find('.sort-header').first().simulate('click');
     expect(table.state().sortBy).toEqual("last_name");
   });
 
   it('orders students by events when Incidents is clicked', () => {
-    table.instance().onClickHeader('events', 'number');
+    table.find('.sort-header').last().simulate('click');
     expect(table.state().sortBy).toEqual("events");
   });
 });
