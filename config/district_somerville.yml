@@ -65,21 +65,27 @@ service_types:
   -
     name: Attendance Officer
     id: 502
+    educator_recordable: true
   -
     name: Attendance Contract
     id: 503
+    educator_recordable: true
   -
     name: Behavior Contract
     id: 504
+    educator_recordable: true
   -
     name: Counseling, in-house
     id: 505
+    educator_recordable: true
   -
     name: Counseling, outside
     id: 506
+    educator_recordable: true
   -
     name: Reading intervention
     id: 507
+    educator_recordable: true
   -
     name: Math intervention
     id: 508
@@ -104,4 +110,3 @@ service_types:
   -
     name: X-Block
     id: 514
-
