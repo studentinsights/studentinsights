@@ -2,6 +2,7 @@ import Datepicker from '../student_profile/Datepicker.js';
 import {toMoment} from '../helpers/toMoment.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import serviceColor from '../student_profile/service_color.js';
+import _ from 'lodash';
 
 (function() {
   window.shared || (window.shared = {});
@@ -66,7 +67,7 @@ import serviceColor from '../student_profile/service_color.js';
 
     getInitialState: function() {
       const {nowMoment} = this.props;
-      
+
       return {
         serviceTypeId: null,
         providedByEducatorName: ''  ,
@@ -157,25 +158,38 @@ import serviceColor from '../student_profile/service_color.js';
     },
 
     renderWhichService: function() {
+      const {serviceTypesIndex} = this.props;
+      const serviceTypeIds = _.map(Object.values(serviceTypesIndex), 'id');
+      const chunks = Object.values(_.groupBy(serviceTypeIds, (id) => {
+        return serviceColor(id);
+      }));
+
       return (
         <div>
           <div style={{ marginBottom: 5, display: 'inline' }}>
             Which service?
           </div>
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-            <div style={styles.buttonWidth}>
-              {this.renderServiceButton(503)}
-              {this.renderServiceButton(502)}
-              {this.renderServiceButton(504)}
-            </div>
-            <div style={styles.buttonWidth}>
-              {this.renderServiceButton(505)}
-              {this.renderServiceButton(506)}
-              {this.renderServiceButton(507)}
-            </div>
+            {chunks.map((ids, index) => {
+              return this.renderServiceTypeChunk(ids, index);
+            }, this)}
           </div>
         </div>
       );
+    },
+
+    renderServiceTypeChunk: function(serviceTypeIds, index) {
+      return (
+        <div style={styles.buttonWidth} key={index}>
+          {this.renderServiceTypeButtons(serviceTypeIds)}
+        </div>
+      );
+    },
+
+    renderServiceTypeButtons: function(serviceTypeIds) {
+      return serviceTypeIds.map((id) => {
+        return this.renderServiceButton(id);
+      }, this);
     },
 
     renderServiceButton: function(serviceTypeId, options) {
@@ -184,6 +198,7 @@ import serviceColor from '../student_profile/service_color.js';
 
       return (
         <button
+          key={serviceTypeId}
           className="btn service-type"
           onClick={this.onServiceClicked.bind(this, serviceTypeId)}
           tabIndex={-1}
