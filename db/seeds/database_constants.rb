@@ -10,7 +10,6 @@ class DatabaseConstants
     InterventionType.seed_somerville_intervention_types
     EventNoteType.seed_somerville_event_note_types
     ServiceType.seed_service_types
-    ServiceType.add_summer_program_status_to_service_types
     nil
   end
 end
