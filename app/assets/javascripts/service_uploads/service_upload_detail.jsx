@@ -37,7 +37,10 @@ import moment from 'moment';
 
     render: function () {
       const data = this.props.data;
-      const createdAtMoment = moment.utc(data.created_at.slice(0, 10)); // from rails timestamp
+
+      // Parse moment from Rails timestamp.
+      // #created_at looks like "2018-02-12T22:17:30.338Z"
+      const createdAtMoment = moment.utc(data.created_at.slice(0, 10));
 
       return (
         <div key={String(data.id)} style={this.dataCellStyle()}>
