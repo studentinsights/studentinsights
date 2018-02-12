@@ -88,14 +88,14 @@ describe('RecordService', function() {
 
       expect($(el).text()).toContain('Which service?');
       expect(helpers.serviceTypes(el)).toEqual([
-        'Attendance Contract',
         'Attendance Officer',
+        'Attendance Contract',
         'Behavior Contract',
         'Counseling, in-house',
         'Counseling, outside',
-        'Reading intervention'
+        'Reading intervention',
+        'Math intervention',
       ]);
-
 
       expect($(el).text()).toContain('Who is working with Tamyra?');
       // TODO (as): test staff dropdown autocomplete async
