@@ -159,7 +159,7 @@ import _ from 'lodash';
 
     renderWhichService: function() {
       const {serviceTypesIndex} = this.props;
-      const serviceTypeIds = _.map(Object.values(serviceTypesIndex), 'id');
+      const serviceTypeIds = _.map(_.values(serviceTypesIndex), 'id');
       const chunks = _.values(_.groupBy(serviceTypeIds, (id) => {
         return serviceColor(id);
       }));
