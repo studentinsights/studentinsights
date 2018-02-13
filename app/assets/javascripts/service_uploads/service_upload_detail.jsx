@@ -37,8 +37,7 @@ import {toMomentFromRailsDate} from '../helpers/toMomentFromRailsDate.js';
 
     render: function () {
       const {data} = this.props;
-      const createdAt = data.created_at;
-      const createdAtMoment = toMomentFromRailsDate(createdAt);
+      const createdAtMoment = toMomentFromRailsDate(data.created_at);
 
       return (
         <div key={String(data.id)} style={this.dataCellStyle()}>
