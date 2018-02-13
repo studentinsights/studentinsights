@@ -35,6 +35,5 @@ import '../app/assets/javascripts/student_profile/student_profile_page.jsx';
 import '../app/assets/javascripts/student_profile/page_container.jsx';
 
 // all the rest, unordered
-import '../app/assets/javascripts/service_uploads/new_service_upload.jsx';
 import '../app/assets/javascripts/service_uploads/service_uploads_page.jsx';
 
