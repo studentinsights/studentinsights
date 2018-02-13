@@ -13,7 +13,6 @@ export default function renderNotesFeedMain(el, options = {}) {
       educatorsIndex: serializedData.educatorsIndex,
       eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
       notes: serializedData.notes,
-      students: serializedData.students,
     });
   }
 }
@@ -24,6 +23,5 @@ function render(el, json) {
   window.ReactDOM.render(<NotesFeedPage
     educatorsIndex={json.educatorsIndex}
     eventNotes={json.notes}
-    eventNoteTypesIndex={json.eventNoteTypesIndex}
-    students={json.students} />, el);
+    eventNoteTypesIndex={json.eventNoteTypesIndex} />, el);
 }
