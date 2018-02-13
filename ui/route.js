@@ -45,6 +45,6 @@ export default function route() {
   }
 
   if ($('body').hasClass('educators') && $('body').hasClass('notes_feed')) {
-    renderNotesFeedMain(el); // TODO: should class be something else?
+    renderNotesFeedMain(el);
   }
 }
