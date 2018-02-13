@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :school do
-    sequence(:state_id) {|n| n }
+    sequence(:local_id) {|n| n }
     sequence(:slug) {|n| "slug#{n}" }
   end
 

@@ -24,14 +24,4 @@ namespace :chores do
   task update_searchbar_data_for_educators_who_log_in: :environment do
     Educator.save_student_searchbar_json_for_folks_who_log_in
   end
-
-  desc 'Kick off background worker for data import'
-  task import_data_in_background: :environment do
-    Delayed::Job.enqueue ImportJob.new
-  end
-
-  desc 'Kick off console output for fun'
-  task console_output_in_background: :environment do
-    Delayed::Job.enqueue ConsoleJob.new
-  end
 end

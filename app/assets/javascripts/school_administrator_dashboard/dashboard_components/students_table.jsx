@@ -8,7 +8,8 @@ export default React.createClass({
 
   propTypes: {
     rows: React.PropTypes.array.isRequired,
-    selectedHomeroom: React.PropTypes.string
+    selectedHomeroom: React.PropTypes.string,
+    schoolYearFlag: React.PropTypes.bool
   },
 
   getInitialState () {
@@ -16,7 +17,8 @@ export default React.createClass({
       sortBy: 'events',
       sortType: 'number',
       sortDesc: true,
-      slectedHomeroom: null
+      slectedHomeroom: null,
+      schoolYearFlag: false
     };
   },
 
@@ -112,7 +114,8 @@ export default React.createClass({
   },
 
   renderCaption () {
-    return this.props.selectedHomeroom ? this.props.selectedHomeroom : "All Students";
+    const schoolYearCaption = this.props.schoolYearFlag? " (School Year)" : "";
+    return this.props.selectedHomeroom ? this.props.selectedHomeroom + schoolYearCaption : "All Students" + schoolYearCaption;
   }
 
 });

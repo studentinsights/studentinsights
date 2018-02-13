@@ -1,5 +1,5 @@
 import {merge} from '../helpers/react_helpers.jsx';
-import {toMoment} from '../helpers/toMoment.js';
+import {toMomentFromRailsDate} from '../helpers/toMomentFromRailsDate.js';
 
 (function() {
   window.shared || (window.shared = {});
@@ -36,8 +36,9 @@ import {toMoment} from '../helpers/toMoment.js';
     },
 
     render: function () {
-      const data = this.props.data;
-      const createdAtMoment = toMoment(data.created_at.slice(0, 10)); // from rails timestamp
+      const {data} = this.props;
+      const createdAtMoment = toMomentFromRailsDate(data.created_at);
+
       return (
         <div key={String(data.id)} style={this.dataCellStyle()}>
           <div style={{ marginBottom: 18 }}>
