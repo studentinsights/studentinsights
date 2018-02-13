@@ -150,7 +150,8 @@ export default React.createClass({
     return (
       <StudentsTable
         rows = {rows}
-        selectedHomeroom = {this.state.selectedHomeroom}/>
+        selectedHomeroom = {this.state.selectedHomeroom}
+        schoolYearFlag ={true}/>
     );
   }
 });
