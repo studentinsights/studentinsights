@@ -39,7 +39,15 @@ import moment from 'moment';
       const data = this.props.data;
 
       // Parse moment from Rails timestamp.
-      // #created_at looks like "2018-02-12T22:17:30.338Z"
+      // In the Rails database, created_at dates look like this:
+      //
+      // => "Tue, 13 Feb 2018 15:55:56 UTC +00:00"
+      //
+      // When these dates get rendered as JSON, they get to the client side
+      // looking like this:
+      //
+      // => "2018-02-13T22:17:30.338Z"
+
       const createdAtMoment = moment.utc(data.created_at.slice(0, 10));
 
       return (
