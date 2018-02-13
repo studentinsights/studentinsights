@@ -68,6 +68,7 @@ import * as FeedHelpers from '../helpers/feed_helpers.jsx';
         <NoteCard
           key={['event_note', eventNote.id].join()}
           eventNoteId={eventNote.id}
+          student={eventNote.student}          
           eventNoteTypeId={eventNote.event_note_type_id}
           noteMoment={moment.utc(eventNote.recorded_at)}
           badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
