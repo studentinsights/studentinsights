@@ -20,6 +20,10 @@ export const testEvents = {
   oneYearAgo: {
     occurred_at: moment().subtract(1, 'year').format("YYYY-MM-DD HH:mm:sss Z"),
     student_id: 1,
+  },
+  thisMonth: {
+    occurred_at: moment().format("YYYY-MM-DD HH:mm:sss Z"),
+    student_id: 1
   }
 };
 
@@ -60,7 +64,7 @@ export const Students = [
     homeroom: 'Test 2',
     id: 4,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.oneYearAgo],
-    tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.oneYearAgo],
+    tardies: [testEvents.thisMonth],
     events: 3
   },
   {
@@ -69,9 +73,10 @@ export const Students = [
     homeroom: 'Test 2',
     id: 5,
     absences: [testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
-    tardies: [testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
+    tardies: [testEvents.oneYearAgo],
     events: 2
   },
+
   {
     first_name: 'Pulcinella',
     last_name: 'Vecchi',

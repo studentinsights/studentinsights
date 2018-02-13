@@ -25,7 +25,7 @@ describe('DashboardHelpers', () => {
   describe('tardyEventsByDay', () => {
     it('returns a hash with distinct days as keys', () =>{
       const events = DashboardHelpers.tardyEventsByDay(Data.Students);
-      expect(Object.keys(events).length).toEqual(4);
+      expect(Object.keys(events).length).toEqual(5);
     });
   });
 

@@ -27,9 +27,4 @@ describe('SchoolTardiesDashboard', () => {
     expect(seriesData[0][0]).toEqual(moment(Data.testEvents.threeMonthsAgo.occurred_at).format('ddd MM/DD'));
   });
 
-  it('displays events within the last school year for the homeroom chart', () => {
-    const seriesData = dash.find('DashboardBarChart').last().props().seriesData;
-    console.log(seriesData);
-    expect(seriesData[0][0]).toEqual(moment(Data.testEvents.threeMonthsAgo.occurred_at).format('ddd MM/DD'));
-  });
 });
