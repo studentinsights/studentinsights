@@ -11,7 +11,7 @@ import moment from 'moment';
       border: '1px solid #eee',
       padding: 15,
       marginTop: 10,
-      marginBottom: 10
+      marginBottom: 10,
     },
     date: {
       display: 'inline-block',
@@ -29,6 +29,15 @@ import moment from 'moment';
       fontFamily: "'Open Sans', sans-serif",
       fontSize: 14,
       whiteSpace: 'pre-wrap'
+    },
+    student: {
+      border: '1px solid #eee',
+      padding: 15,
+      marginTop: 10,
+      marginBottom: 10,
+    },
+    wrapper: {
+      display: 'flex'
     }
   };
 
@@ -37,17 +46,18 @@ import moment from 'moment';
     displayName: 'NoteCard',
 
     propTypes: {
-      noteMoment: React.PropTypes.instanceOf(moment).isRequired,
-      educatorId: React.PropTypes.number.isRequired,
+      attachments: React.PropTypes.array.isRequired,
       badge: React.PropTypes.element.isRequired,
-      text: React.PropTypes.string.isRequired,
+      educatorId: React.PropTypes.number.isRequired,
+      educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteId: React.PropTypes.number,
       eventNoteTypeId: React.PropTypes.number,
-      educatorsIndex: React.PropTypes.object.isRequired,
-      attachments: React.PropTypes.array.isRequired,
-      onSave: React.PropTypes.func,
+      noteMoment: React.PropTypes.instanceOf(moment).isRequired,
+      numberOfRevisions: React.PropTypes.number,
       onEventNoteAttachmentDeleted: React.PropTypes.func,
-      numberOfRevisions: React.PropTypes.number
+      onSave: React.PropTypes.func,
+      student: React.PropTypes.object,
+      text: React.PropTypes.string.isRequired
     },
 
     getDefaultProps: function() {
@@ -73,19 +83,22 @@ import moment from 'moment';
 
     render: function() {
       return (
-        <div className="NoteCard" style={styles.note}>
-          <div>
-            <span className="date" style={styles.date}>
-              {this.props.noteMoment.format('MMMM D, YYYY')}
-            </span>
-            {this.props.badge}
-            <span style={styles.educator}>
-              <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
-            </span>
+        <div className="wrapper">
+          {this.renderStudentCard()}
+          <div className="NoteCard" style={styles.note}>
+            <div>
+              <span className="date" style={styles.date}>
+                {this.props.noteMoment.format('MMMM D, YYYY')}
+              </span>
+              {this.props.badge}
+              <span style={styles.educator}>
+                <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
+              </span>
+            </div>
+            {(this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea()}
+            {this.renderAttachmentUrls()}
           </div>
-          {(this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea()}
-          {this.renderAttachmentUrls()}
-        </div>
+        </div>        
       );
     },
 
@@ -169,6 +182,21 @@ import moment from 'moment';
           (remove)
         </a>
       );
+    },
+
+    renderStudentCard: function() {
+      const student = this.props.student;
+      console.log(student);
+      if (student) {
+        return (
+          <div className="StudentCard" style={styles.student}>
+            {student.first_name}
+            {student.last_name}
+            {student.school}
+            {student.homeroom}
+          </div>
+        );
+      }
     }
   });
 })();
