@@ -172,7 +172,6 @@ ServiceUploadDetail.propTypes = {
     created_at: React.PropTypes.string.isRequired,
     services: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
         service_type: React.PropTypes.shape({
           name: React.PropTypes.string.isRequired,
         }).isRequired,
