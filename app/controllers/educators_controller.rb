@@ -24,16 +24,15 @@ class EducatorsController < ApplicationController
 
   def notes_feed
     time_interval = Date.today - 2400
-    notes = EventNote.where(educator_id: current_educator.id).where("recorded_at >= ?", time_interval).order("recorded_at DESC")
-    student_ids = notes.map {|note| note.student_id}
-    student_ids.uniq!
-    students = Student.find(student_ids)
+    notes = EventNote.includes(:student)
+            .where(educator_id: current_educator.id)
+            .where("recorded_at >= ?", time_interval)
+            .order("recorded_at DESC")
     @serialized_data = {
       educators_index: Educator.to_index,
       event_note_types_index: EventNoteSerializer.event_note_types_index,
       current_educator: current_educator,
-      notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
-      students: students,
+      notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note_with_student },
     }
     render 'shared/serialized_data'
   end

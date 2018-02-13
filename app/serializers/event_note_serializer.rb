@@ -1,5 +1,17 @@
 class EventNoteSerializer < Struct.new :event_note
 
+  def serialize_event_note_with_student
+    student = {
+      first_name: event_note.student.first_name,
+      last_name: event_note.student.last_name,
+      school: event_note.student.school.try(:name) || "",
+      homeroom: event_note.student.homeroom.try(:name) || ""
+    }
+    serialize_event_note.merge({
+      student: student
+    })
+  end
+
   def serialize_event_note
     attachments = event_note.event_note_attachments.map do |event_note_attachment|
       event_note_attachment.as_json.symbolize_keys.slice(:id, :url)
