@@ -1,7 +1,5 @@
-window.shared || (window.shared = {});
-const ServiceUploadDetail = window.shared.ServiceUploadDetail;
-
 import React from 'react';
+import ServiceUploadDetail from './ServiceUploadDetail.js';
 
 class PastServiceUploads extends React.Component {
 
