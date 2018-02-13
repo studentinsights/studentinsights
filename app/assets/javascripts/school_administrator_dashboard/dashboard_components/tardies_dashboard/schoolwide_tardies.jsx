@@ -20,10 +20,15 @@ export default React.createClass({
     let homeroomTardyEvents = {};
     const studentRecords = this.props.dashboardStudents;
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(studentRecords);
+    const schoolYearStart = DashboardHelpers.schoolYearStart();
     Object.keys(studentsByHomeroom).forEach((homeroom) => {
       homeroomTardyEvents[homeroom] = 0;
       _.each(studentsByHomeroom[homeroom], (student) => {
-        homeroomTardyEvents[homeroom] += student.tardies.length;
+        student.tardies.forEach((tardy) => {
+          if (moment(tardy.occurred_at).isSameOrAfter(schoolYearStart)) {
+            homeroomTardyEvents[homeroom]++;
+          }
+        });
       });
     });
     return homeroomTardyEvents;
