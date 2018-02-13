@@ -1,5 +1,5 @@
 import {merge} from '../helpers/react_helpers.jsx';
-import moment from 'moment';
+import {toMomentFromRailsDate} from '../helpers/toMomentFromRailsDate.js';
 
 (function() {
   window.shared || (window.shared = {});
@@ -36,19 +36,9 @@ import moment from 'moment';
     },
 
     render: function () {
-      const data = this.props.data;
-
-      // Parse moment from Rails timestamp.
-      // In the Rails database, created_at dates look like this:
-      //
-      // => "Tue, 13 Feb 2018 15:55:56 UTC +00:00"
-      //
-      // When these dates get rendered as JSON, they get to the client side
-      // looking like this:
-      //
-      // => "2018-02-13T22:17:30.338Z"
-
-      const createdAtMoment = moment.utc(data.created_at.slice(0, 10));
+      const {data} = this.props;
+      const createdAt = data.created_at;
+      const createdAtMoment = toMomentFromRailsDate(createdAt);
 
       return (
         <div key={String(data.id)} style={this.dataCellStyle()}>
