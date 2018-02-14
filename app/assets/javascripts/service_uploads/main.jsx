@@ -1,8 +1,8 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import ServiceUploadsPage from './ServiceUploadsPage.js';
 
 export default function renderServiceUploadsMain(el) {
   const ReactDOM = window.ReactDOM;
-  const ServiceUploadsPage = window.shared.ServiceUploadsPage;
 
   const serializedData = $('#serialized-data').data();
   MixpanelUtils.registerUser(serializedData.currentEducator);

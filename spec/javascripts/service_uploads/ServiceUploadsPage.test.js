@@ -1,9 +1,9 @@
 import SpecSugar from '../support/spec_sugar.jsx';
 import ReactTestUtils from 'react-addons-test-utils';
+import ServiceUploadsPage from '../../../app/assets/javascripts/service_uploads/ServiceUploadsPage.js';
 
 describe('ServiceUploadsPage', function() {
   const ReactDOM = window.ReactDOM;
-  const ServiceUploadsPage = window.shared.ServiceUploadsPage;
 
   const helpers = {
     renderInto: function(el, props) {
