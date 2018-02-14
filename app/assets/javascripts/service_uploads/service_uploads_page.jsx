@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import {merge} from '../helpers/react_helpers.jsx';
 import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
+import NewServiceUpload from '../service_uploads/NewServiceUpload.js';
 
 (function() {
   window.shared || (window.shared = {});
-  const NewServiceUpload = window.shared.NewServiceUpload;
 
   window.shared.ServiceUploadsPage = React.createClass({
 
