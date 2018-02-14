@@ -186,6 +186,23 @@ import * as Routes from '../helpers/Routes';
       );
     },
 
+    renderHomeroom: function(student) {
+      if (student.homeroom_id) {
+        return (
+          <p><a
+            className="homeroom-link"
+            href={Routes.homeroom(student.homeroom_id)}>
+            {'Homeroom ' + student.homeroom_name}
+          </a></p>
+        );
+      }
+      else {
+        return (
+          <p>No Homeroom</p>
+        )
+      }
+    },
+
     renderStudentCard: function() {
       const student = this.props.student;
       if (student) {
@@ -194,16 +211,10 @@ import * as Routes from '../helpers/Routes';
             <p style={{fontSize: '18px', fontWeight: 'bold', color: '#3177c9'}}>{student.last_name}, {student.first_name}</p>
             <p><a
               className="school-link"
-              href={Routes.school(student.school_id)}
-              style={styles.subtitleItem}>
+              href={Routes.school(student.school_id)}>
               {student.school_name}
             </a></p>
-            <p><a
-              className="homeroom-link"
-              href={Routes.homeroom(student.homeroom_id)}
-              style={styles.subtitleItem}>
-              {'Homeroom ' + student.homeroom_name}
-            </a></p>
+            {this.renderHomeroom(student)}
           </div>
         );
       }
