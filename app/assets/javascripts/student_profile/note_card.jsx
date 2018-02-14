@@ -1,5 +1,6 @@
 import Educator from '../student_profile/Educator.js';
 import moment from 'moment';
+import * as Routes from '../helpers/Routes';
 
 (function() {
   window.shared || (window.shared = {});
@@ -11,7 +12,7 @@ import moment from 'moment';
       border: '1px solid #eee',
       padding: 15,
       marginTop: 10,
-      marginBottom: 10,
+      marginBottom: 10
     },
     date: {
       display: 'inline-block',
@@ -35,6 +36,7 @@ import moment from 'moment';
       padding: 15,
       marginTop: 10,
       marginBottom: 10,
+      maxWidth: '20%'
     },
     wrapper: {
       display: 'flex'
@@ -83,7 +85,7 @@ import moment from 'moment';
 
     render: function() {
       return (
-        <div className="wrapper">
+        <div className="wrapper" style={styles.wrapper}>
           {this.renderStudentCard()}
           <div className="NoteCard" style={styles.note}>
             <div>
@@ -186,14 +188,22 @@ import moment from 'moment';
 
     renderStudentCard: function() {
       const student = this.props.student;
-      console.log(student);
       if (student) {
         return (
           <div className="StudentCard" style={styles.student}>
-            {student.first_name}
-            {student.last_name}
-            {student.school}
-            {student.homeroom}
+            <p style={{fontSize: '18px', fontWeight: 'bold', color: '#3177c9'}}>{student.last_name}, {student.first_name}</p>
+            <p><a
+              className="school-link"
+              href={Routes.school(student.school_id)}
+              style={styles.subtitleItem}>
+              {student.school_name}
+            </a></p>
+            <p><a
+              className="homeroom-link"
+              href={Routes.homeroom(student.homeroom_id)}
+              style={styles.subtitleItem}>
+              {'Homeroom ' + student.homeroom_name}
+            </a></p>
           </div>
         );
       }
