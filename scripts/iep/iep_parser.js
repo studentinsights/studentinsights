@@ -2,20 +2,22 @@ const textract = require('textract');
 
 
 function matchAll(string, pattern, fn) {
-  var matches = [];
-  var match;
+  const matches = [];
+  var match; // eslint-disable-line no-var
   while ((match = pattern.exec(string)) != null) {
     matches.push(fn(match));
   }
   return matches;
 }
 
-// It's hard to split on the service/personnel, so we originally whitelisted the endings to the services.
-// For separate services, this became problematic so we switched to personnel.
+// It's hard to split on the service/personnel.  The approach here is to whitelist the endings to the services.
+// Alternately, we could whitelist on the personnel.  A starting point list for that is:
+// (Occupational Therapist|Speech/Language Pathologist|Teacher of the Visually Impaired|Teacher of Visually Impaired|Nurses|Physical Therapist)
+//
 // It's also hard to split on the frequency and cycle, so we just grab from the number to the dates.
 function parseServiceGrid(section) {
-  //(Occupational Therapist|Speech/Language Pathologist|Teacher of the Visually Impaired|Teacher of Visually Impaired|Nurses|Physical Therapist)
-  return matchAll(section, /\s+([\d,\s]*)\s+(.+?\s(Consult|Service|Pull Out|Program|Occupational Therapy|Vision|Speech\/Language)) (.+?) (\d.+?) (\d{1,2}\/\d{1,2}\/\d{4}) (\d{1,2}\/\d{1,2}\/\d{4})/g, match => {
+  
+  return matchAll(section, /\s*([\d,\s]*)\s+(.+?\s(Consult|Service|Pull Out|Program|Occupational Therapy|Vision|Speech\/Language)) (.+?) (\d.+?) (\d{1,2}\/\d{1,2}\/\d{4}) (\d{1,2}\/\d{1,2}\/\d{4})/g, match => {
     return {
       service: match[2],
       personnel: match[4],
@@ -43,12 +45,18 @@ function parseIepText(text) {
   const disability = /Primary Disability:\s(.+?)\sCase Manager:/.exec(text)[1];
 
   // concerns, strengths, evals
-  const strengths = /Student Strengths\s(.+?)\sKey Evaluation Results Summary/.exec(text)[1];
-  const concerns = /Parent and\/or Student Concerns\s(.+?)\sStudent Strengths/.exec(text)[1];
+  const framingSection = /Concerns, Strengths, and Key Evaluation Results Summary(.+?)Goals/.exec(text)[1];
+  const strengths = /Student Strengths\s(.+?)\sKey Evaluation Results Summary/.exec(framingSection)[1];
+  const concerns = /Parent and\/or Student Concerns\s(.+?)\sStudent Strengths/.exec(framingSection)[1];
+  const evals = /Key Evaluation Results Summary\s(.+?)\s*$/.exec(framingSection)[1];
 
+  // TODO: accommodations and modifications
+  
   // goals
+  // TODO sections like goals can be missing altogether, which mucks up the parsing for
+  // related sections that use that text as markers
   const goalsSection = /Goals (.+?) General Curriculum Area/.exec(text)[1];
-  const goals = matchAll(goalsSection, /Goal# (\d+) Specific Focus: (.+?)\sGoal:\s(.+?)\sObjectives:\s(.+?)\sGoal/g, match => {
+  const goals = matchAll(goalsSection, /Goal# (\d+) Specific Focus: (.+?)\sGoal:\s(.+?)\sObjectives:\s(.+?)\s/g, match => {
     return {
       number: match[1],
       specificFocus: match[2],
@@ -74,12 +82,13 @@ function parseIepText(text) {
       disability,
       school
     },
-    strengths,
     concerns,
+    strengths,
+    evals,
     goals,
     serviceGrid: {
-      inclusion: parseServiceGrid(inclusionSection),
       consult: parseServiceGrid(consultSection),
+      inclusion: parseServiceGrid(inclusionSection),
       separate: parseServiceGrid(separateSection)
     }
   };
