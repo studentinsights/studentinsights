@@ -54,6 +54,7 @@
     "react-virtualized": "^9.18.5",
     "rollbar-browser": "^1.9.5",
     "uuid": "^3.2.1",
+    "textract": "^2.2.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
