@@ -200,7 +200,7 @@ import * as Routes from '../helpers/Routes';
       else {
         return (
           <p>No Homeroom</p>
-        )
+        );
       }
     },
 
@@ -217,7 +217,7 @@ import * as Routes from '../helpers/Routes';
       else {
         return (
           <p>No School</p>
-        )
+        );
       }
     },
 
