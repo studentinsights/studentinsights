@@ -215,4 +215,21 @@ describe EducatorsController, :type => :controller do
     end
 
   end
+
+  describe '#notes_feed' do
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :notes_feed
+    end
+
+    context 'educator with homeroom' do
+      let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+
+      it 'is able to access the notes feed page' do
+        sign_in(educator)
+        make_request
+        expect(response).to be_success
+      end
+    end
+  end
 end
