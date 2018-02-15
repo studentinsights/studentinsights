@@ -204,17 +204,30 @@ import * as Routes from '../helpers/Routes';
       }
     },
 
+    renderSchool: function(student) {
+      if (student.school_id) {
+        return (
+          <p><a
+            className="school-link"
+            href={Routes.school(student.school_id)}>
+            {student.school_name}
+          </a></p>
+        );
+      }
+      else {
+        return (
+          <p>No School</p>
+        )
+      }
+    },
+
     renderStudentCard: function() {
       const student = this.props.student;
       if (student) {
         return (
           <div className="StudentCard" style={styles.student}>
-            <p style={{fontSize: '18px', fontWeight: 'bold', color: '#3177c9'}}>{student.last_name}, {student.first_name}</p>
-            <p><a
-              className="school-link"
-              href={Routes.school(student.school_id)}>
-              {student.school_name}
-            </a></p>
+            <p style={{fontSize: '18px', fontWeight: 'bold', color: '#3177c9', marginBottom: '5%'}}>{student.last_name}, {student.first_name}</p>
+            {this.renderSchool(student)}
             {this.renderHomeroom(student)}
           </div>
         );
