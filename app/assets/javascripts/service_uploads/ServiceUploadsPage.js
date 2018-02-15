@@ -103,14 +103,10 @@ class ServiceUploadsPage extends React.Component {
       this.setState({
         studentLasidsReceivedFromBackend: true,
         incorrectLasids: _.difference(lasidsInFile, allStudentLasids),
-        formData: merge(this.state.formData, {
-          student_lasids: lasidsInFile }
-        ),
+        formData: merge(this.state.formData, { student_lasids: lasidsInFile })
       });
     } else {
-      this.setState({
-        lasidAuthorizationError: true
-      });
+      this.setState({ lasidAuthorizationError: true });
     }
   }
 
@@ -125,7 +121,7 @@ class ServiceUploadsPage extends React.Component {
   onDeleteUpload(data) {
     if (data.success) {
       this.setState({
-        serviceUploads: this.state.serviceUploads.filter(function (upload) {
+        serviceUploads: this.state.serviceUploads.filter((upload) => {
           return upload.id !== parseInt(data.id);
         })
       });
@@ -193,8 +189,8 @@ class ServiceUploadsPage extends React.Component {
       return;
     }
 
-    const student_lasids = rows.map(function(row) { return row.split(",")[0].trim(); })
-                             .filter(function (lasid) { return lasid !== ''; });
+    const student_lasids = rows.map((row) => { return row.split(",")[0].trim(); })
+                             .filter((lasid) => { return lasid !== ''; });
 
     this.validateLASIDs(student_lasids);
   }
