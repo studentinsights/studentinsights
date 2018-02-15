@@ -60,6 +60,30 @@ class ServiceUploadsPage extends React.Component {
     return false;
   }
 
+  upload() {
+    this.setState({
+      serverSideErrors: [],
+      uploadingInProgress: true,
+    });  // Clear out any errors
+
+    $.ajax({
+      url: '/service_uploads.json',
+      method: 'POST',
+      contentType: 'application/json; charset=UTF-8',
+      dataType: 'json',
+      data: JSON.stringify(this.state.formData),
+      success: this.onUpload
+    });
+  }
+
+  validateLASIDs(student_lasids) {
+    return $.ajax({
+      url: '/students/lasids.json',
+      method: 'GET',
+      success: this.onValidateLASIDs.bind(null, student_lasids)
+    });
+  }
+
   onUpload(data) {
     if (data.service_upload) {
       this.setState({
@@ -82,22 +106,6 @@ class ServiceUploadsPage extends React.Component {
     }
   }
 
-  upload() {
-    this.setState({
-      serverSideErrors: [],
-      uploadingInProgress: true,
-    });  // Clear out any errors
-
-    $.ajax({
-      url: '/service_uploads.json',
-      method: 'POST',
-      contentType: 'application/json; charset=UTF-8',
-      dataType: 'json',
-      data: JSON.stringify(this.state.formData),
-      success: this.onUpload
-    });
-  }
-
   onValidateLASIDs(lasidsInFile, allStudentLasids) {
     if (Array.isArray(allStudentLasids)) {
       this.setState({
@@ -108,14 +116,6 @@ class ServiceUploadsPage extends React.Component {
     } else {
       this.setState({ lasidAuthorizationError: true });
     }
-  }
-
-  validateLASIDs(student_lasids) {
-    return $.ajax({
-      url: '/students/lasids.json',
-      method: 'GET',
-      success: this.onValidateLASIDs.bind(null, student_lasids)
-    });
   }
 
   onDeleteUpload(data) {
