@@ -12,7 +12,8 @@ import * as Routes from '../helpers/Routes';
       border: '1px solid #eee',
       padding: 15,
       marginTop: 10,
-      marginBottom: 10
+      marginBottom: 10,
+      width: '100%'
     },
     date: {
       display: 'inline-block',
@@ -36,7 +37,7 @@ import * as Routes from '../helpers/Routes';
       padding: 15,
       marginTop: 10,
       marginBottom: 10,
-      maxWidth: '20%'
+      width: '25%'
     },
     wrapper: {
       display: 'flex'
