@@ -51,7 +51,7 @@ export const Students = [
   },
   {
     first_name: 'Arlecchino',
-    last_name: 'Zanni',
+    last_name: 'ZZanni',
     homeroom: 'Test 1',
     id: 3,
     absences: [],
@@ -69,7 +69,7 @@ export const Students = [
   },
   {
     first_name: 'Scaramuccia',
-    last_name: 'Vecchi',
+    last_name: 'Avecchi',
     homeroom: 'Test 2',
     id: 5,
     absences: [testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],

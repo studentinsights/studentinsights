@@ -22,13 +22,13 @@ describe('Dashboard Students Table', () => {
   it('orders students by name when Name is clicked', () => {
     table.find('.sort-header').first().simulate('click');
     expect(table.state().sortBy).toEqual("last_name");
-    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('Vecchi, Scaramuccia')
+    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('Avecchi, Scaramuccia')
   });
 
   it('reorders in reverse alphabetical order', () => {
     table.find('.sort-header').first().simulate('click');
     expect(table.state().sortBy).toEqual("last_name");
-    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('Zanni, Arlecchino')
+    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('ZZanni, Arlecchino')
   });
 
   it('orders students by events when Incidents is clicked', () => {
