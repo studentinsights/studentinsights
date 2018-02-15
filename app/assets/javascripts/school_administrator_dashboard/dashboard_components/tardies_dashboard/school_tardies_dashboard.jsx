@@ -119,6 +119,7 @@ export default React.createClass({
     const homeroomSeries = homerooms.map((homeroom) => {
       return this.props.homeroomTardyEvents[homeroom];
     });
+
     return (
         <DashboardBarChart
           id = {'string'}
