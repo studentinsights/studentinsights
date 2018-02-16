@@ -1,6 +1,6 @@
 class EducatorsController < ApplicationController
   # Authentication by default inherited from ApplicationController.
-  TIME_INTERVAL = Date.today - 2400 # TODO: change to 30 before merging
+  NOTES_FEED_TIME_INTERVAL = Date.today - 2400 # TODO: change to 30 before merging
 
   before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage] # Extra authentication layer
 
@@ -26,7 +26,7 @@ class EducatorsController < ApplicationController
   def notes_feed
     notes = EventNote.includes(:student)
             .where(educator_id: current_educator.id)
-            .where("recorded_at >= ?", TIME_INTERVAL)
+            .where("recorded_at >= ?", NOTES_FEED_TIME_INTERVAL)
             .order("recorded_at DESC")
     @serialized_data = {
       educators_index: Educator.to_index,
