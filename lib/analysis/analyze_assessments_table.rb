@@ -61,4 +61,12 @@ class AnalyzeAssessmentsTable < Struct.new(:path)
         .sort
   end
 
+  def new_bedford_pilot_school_mcas_dates
+    data.select { |row| row[:assessment_test] == 'MCAS' }
+        .select { |row| row[:school_local_id] == '123' || row[:school_local_id] == '115' }
+        .map { |row| row[:assessment_date] }
+        .uniq
+        .sort
+  end
+
 end
