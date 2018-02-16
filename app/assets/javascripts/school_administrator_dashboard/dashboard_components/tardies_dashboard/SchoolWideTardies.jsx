@@ -1,8 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
-import DashboardHelpers from '../dashboard_helpers.jsx';
-import SchoolTardiesDashboard from './school_tardies_dashboard.jsx';
+import DashboardHelpers from '../DashboardHelpers.js';
+import SchoolTardiesDashboard from './SchoolTardiesDashboard.jsx';
 
 export default React.createClass({
   displayName: 'SchoolwideTardies',

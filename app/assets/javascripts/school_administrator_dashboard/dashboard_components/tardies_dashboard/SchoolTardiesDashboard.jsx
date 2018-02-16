@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 
-import DashboardHelpers from '../dashboard_helpers.jsx';
-import StudentsTable from '../students_table.jsx';
-import DashboardBarChart from '../dashboard_bar_chart.jsx';
+import DashboardHelpers from '../DashboardHelpers.js';
+import StudentsTable from '../StudentsTable.jsx';
+import DashboardBarChart from '../DashboardBarChart.jsx';
 
 
 export default React.createClass({

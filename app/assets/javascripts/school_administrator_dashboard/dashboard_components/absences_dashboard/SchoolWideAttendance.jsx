@@ -1,7 +1,7 @@
 import React from 'react';
 
-import DashboardHelpers from '../dashboard_helpers.jsx';
-import SchoolAbsenceDashboard from './school_absence_dashboard.jsx';
+import DashboardHelpers from '../DashboardHelpers.js';
+import SchoolAbsenceDashboard from './SchoolAbsenceDashboard.jsx';
 
 export default React.createClass({
   displayName: 'SchoolwideAttendance',
