@@ -68,8 +68,8 @@ SpecSugar.withTestEl('high-level integration tests', (container) => {
        student registration dates`, () => {
     const el = container.testEl;
     const studentsWithRegistration = FixtureStudents.map((student) => {
-      return _.merge(student, {registration_date: '2018-02-13T22:17:30.338Z'})
-    })
+      return _.merge(student, {registration_date: '2018-02-13T22:17:30.338Z'});
+    });
 
     helpers.renderInto(el, {
       students: studentsWithRegistration,
