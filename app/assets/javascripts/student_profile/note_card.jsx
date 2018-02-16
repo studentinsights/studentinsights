@@ -187,19 +187,26 @@ import * as Routes from '../helpers/Routes';
       );
     },
 
-    renderHomeroom: function(student) {
-      if (student.homeroom_id) {
-        return (
-          <p><a
-            className="homeroom-link"
-            href={Routes.homeroom(student.homeroom_id)}>
-            {'Homeroom ' + student.homeroom_name}
-          </a></p>
-        );
+    renderHomeroomOrGrade: function(student) {
+      if (student.grade < 9) {
+        if (student.homeroom_id) {
+          return (
+            <p><a
+              className="homeroom-link"
+              href={Routes.homeroom(student.homeroom_id)}>
+              {'Homeroom ' + student.homeroom_name}
+            </a></p>
+          );
+        }
+        else {
+          return (
+            <p>No Homeroom</p>
+          );
+        }
       }
       else {
         return (
-          <p>No Homeroom</p>
+          <p>{student.grade}th Grade</p>
         );
       }
     },
@@ -228,7 +235,7 @@ import * as Routes from '../helpers/Routes';
           <div className="StudentCard" style={styles.student}>
             <p style={{fontSize: '18px', fontWeight: 'bold', color: '#3177c9', marginBottom: '5%'}}>{student.last_name}, {student.first_name}</p>
             {this.renderSchool(student)}
-            {this.renderHomeroom(student)}
+            {this.renderHomeroomOrGrade(student)}
           </div>
         );
       }

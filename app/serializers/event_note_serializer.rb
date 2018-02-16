@@ -4,10 +4,11 @@ class EventNoteSerializer < Struct.new :event_note
     student = {
       first_name: event_note.student.first_name,
       last_name: event_note.student.last_name,
-      school_name: event_note.student.school.try(:name) || "",
       school_id: event_note.student.school_id,
+      school_name: event_note.student.school.try(:name) || "",
+      homeroom_id: event_note.student.homeroom_id,
       homeroom_name: event_note.student.homeroom.try(:name) || "",
-      homeroom_id: event_note.student.homeroom_id
+      grade: event_note.student.grade.to_i
     }
     serialize_event_note.merge({
       student: student
