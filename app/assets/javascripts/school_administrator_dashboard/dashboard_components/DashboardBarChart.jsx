@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import HighchartsWrapper from '../../student_profile/HighchartsWrapper.js';
@@ -32,30 +33,16 @@ const styles = {
 };
 
 // Component for all charts in the dashboard page.
-export default React.createClass({
-  displayName: 'DashboardBarChart',
-
-  propTypes: {
-    id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
-    categories: React.PropTypes.object.isRequired,  //Buckets used for X Axis
-    seriesData: React.PropTypes.array.isRequired, // array of JSON event objects.
-    yAxisMin: React.PropTypes.number,
-    yAxisMax: React.PropTypes.number,
-    titleText: React.PropTypes.string.isRequired,
-    measureText: React.PropTypes.string.isRequired,
-    tooltip: React.PropTypes.object.isRequired,
-    onColumnClick: React.PropTypes.func,
-    onBackgroundClick: React.PropTypes.func
-  },
+class DashboardBarChart extends React.Component{
 
   //Because the highcharts wrapper redraws the charts whether or not the props
   //have changed, this is necessary to prevent rerendering the charts when the
   //user only wanted to select a homeroom.
-  shouldComponentUpdate: function(nextProps) {
+  shouldComponentUpdate(nextProps) {
     return !_.isEqual(this.props.seriesData, nextProps.seriesData);
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div id={this.props.id} style={styles.container}>
         <HighchartsWrapper
@@ -92,5 +79,19 @@ export default React.createClass({
       </div>
     );
   }
+}
 
-});
+DashboardBarChart.propTypes = {
+  id: PropTypes.string.isRequired, // short string identifier for links to jump to
+  categories: PropTypes.object.isRequired,  //Buckets used for X Axis
+  seriesData: PropTypes.array.isRequired, // array of JSON event objects.
+  yAxisMin: PropTypes.number,
+  yAxisMax: PropTypes.number,
+  titleText: PropTypes.string.isRequired,
+  measureText: PropTypes.string.isRequired,
+  tooltip: PropTypes.object.isRequired,
+  onColumnClick: PropTypes.func,
+  onBackgroundClick: PropTypes.func
+};
+
+export default DashboardBarChart;

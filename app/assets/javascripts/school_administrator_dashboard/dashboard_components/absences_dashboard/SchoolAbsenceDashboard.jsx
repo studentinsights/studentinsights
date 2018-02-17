@@ -16,7 +16,6 @@ class SchoolAbsenceDashboard extends React.Component {
       displayDates: this.props.dateRange,
       selectedHomeroom: null
     };
-
     this.setDate = (range) => {
       this.setState({
         displayDates: DashboardHelpers.filterDates(this.props.dateRange,
@@ -24,11 +23,9 @@ class SchoolAbsenceDashboard extends React.Component {
                                                     moment.unix(range[1]).format("YYYY-MM-DD"))
       });
     };
-
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
     };
-
     this.resetStudentList = () => {
       this.setState({selectedHomeroom: null});
     };
