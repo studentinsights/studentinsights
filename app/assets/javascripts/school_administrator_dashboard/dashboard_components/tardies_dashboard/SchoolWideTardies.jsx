@@ -1,22 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import DashboardHelpers from '../DashboardHelpers.js';
 import SchoolTardiesDashboard from './SchoolTardiesDashboard.jsx';
 
-export default React.createClass({
-  displayName: 'SchoolwideTardies',
+class SchoolwideTardies extends React.Component {
 
-  propTypes: {
-    dashboardStudents: React.PropTypes.array.isRequired
-  },
-
-  schoolTardyEvents: function() {
+  schoolTardyEvents() {
     const studentRecords = this.props.dashboardStudents;
     return DashboardHelpers.tardyEventsByDay(studentRecords);
-  },
+  }
 
-  homeroomTardyEvents: function() {
+  homeroomTardyEvents() {
     let homeroomTardyEvents = {};
     const studentRecords = this.props.dashboardStudents;
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(studentRecords);
@@ -32,13 +28,19 @@ export default React.createClass({
       });
     });
     return homeroomTardyEvents;
-  },
+  }
 
-  render: function() {
+  render() {
     return (
         <SchoolTardiesDashboard
           schoolTardyEvents = {this.schoolTardyEvents()}
           homeroomTardyEvents = {this.homeroomTardyEvents()}
           dashboardStudents = {this.props.dashboardStudents}/>);
   }
-});
+}
+
+SchoolwideTardies.propTypes = {
+  dashboardStudents: PropTypes.array.isRequired
+};
+
+export default SchoolwideTardies;

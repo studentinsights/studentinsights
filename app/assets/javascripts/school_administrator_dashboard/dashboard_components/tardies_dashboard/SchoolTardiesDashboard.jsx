@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import DashboardHelpers from '../DashboardHelpers.js';
@@ -6,22 +7,20 @@ import StudentsTable from '../StudentsTable.jsx';
 import DashboardBarChart from '../DashboardBarChart.jsx';
 
 
-export default React.createClass({
-  displayName: 'SchoolTardiesDashboard',
+class SchoolTardiesDashboard extends React.Component {
 
-  propTypes: {
-    schoolTardyEvents: React.PropTypes.object.isRequired,
-    homeroomTardyEvents: React.PropTypes.object.isRequired,
-    dashboardStudents: React.PropTypes.array.isRequired
-  },
-
-  getInitialState: function() {
-    return {
-      selectedHomeroom: null
+  constructor(props) {
+    super(props);
+    this.state = {selectedHomeroom: null};
+    this.setStudentList = (highchartsEvent) => {
+      this.setState({selectedHomeroom: highchartsEvent.point.category});
     };
-  },
+    this.resetStudentList = () => {
+      this.setState({selectedHomeroom: null});
+    };
+  }
 
-  createMonthCategories: function(eventsByDay) {
+  createMonthCategories(eventsByDay) {
     let monthCategories = {};
     let lastStoredMonth;
     const startMonth = moment().subtract(3, 'months');
@@ -34,9 +33,9 @@ export default React.createClass({
       }
     });
     return monthCategories;
-  },
+  }
 
-  getDatesForPastThreeMonths: function() {
+  getDatesForPastThreeMonths() {
     const today = moment().format('YYYY-MM-DD');
     let datesForPastThreeMonths = [];
     let date = moment().subtract(3, 'months').format('YYYY-MM-DD');
@@ -45,9 +44,9 @@ export default React.createClass({
       date = moment(date).add(1, 'day').format('YYYY-MM-DD');
     }
     return datesForPastThreeMonths;
-  },
+  }
 
-  studentTardyCounts: function(tardiesArray) {
+  studentTardyCounts(tardiesArray) {
     let studentTardyCounts = {};
     const daysWithTardies = Object.keys(this.props.schoolTardyEvents);
     const startDate = DashboardHelpers.schoolYearStart();
@@ -61,17 +60,9 @@ export default React.createClass({
       });
     });
     return studentTardyCounts;
-  },
+  }
 
-  setStudentList: function(highchartsEvent) {
-    this.setState({selectedHomeroom: highchartsEvent.point.category});
-  },
-
-  resetStudentList: function() {
-    this.setState({selectedHomeroom: null});
-  },
-
-  render: function() {
+  render() {
     return (
         <div>
           <div className="DashboardChartsColumn">
@@ -83,9 +74,9 @@ export default React.createClass({
           </div>
         </div>
     );
-  },
+  }
 
-  renderMonthlyTardiesChart: function() {
+  renderMonthlyTardiesChart() {
     const seriesData = this.getDatesForPastThreeMonths().map((date) => {
       if (this.props.schoolTardyEvents[date] === undefined) this.props.schoolTardyEvents[date] = [];
       return [moment(date).format('ddd MM/DD'), this.props.schoolTardyEvents[date].length];
@@ -112,9 +103,9 @@ export default React.createClass({
           onColumnClick = {this.resetStudentList}
           onBackgroundClick = {this.resetStudentList}/>
     );
-  },
+  }
 
-  renderHomeroomTardiesChart: function() {
+  renderHomeroomTardiesChart() {
     const homerooms = Object.keys(this.props.homeroomTardyEvents);
     const homeroomSeries = homerooms.map((homeroom) => {
       return this.props.homeroomTardyEvents[homeroom];
@@ -132,9 +123,9 @@ export default React.createClass({
           onColumnClick = {this.setStudentList}
           onBackgroundClick = {this.resetStudentList}/>
     );
-  },
+  }
 
-  renderStudentTardiesTable: function () {
+  renderStudentTardiesTable() {
     const studentTardyCounts = this.studentTardyCounts();
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
     const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
@@ -155,4 +146,12 @@ export default React.createClass({
         schoolYearFlag ={true}/>
     );
   }
-});
+}
+
+SchoolTardiesDashboard.propTypes = {
+  schoolTardyEvents: PropTypes.object.isRequired,
+  homeroomTardyEvents: PropTypes.object.isRequired,
+  dashboardStudents: PropTypes.array.isRequired
+};
+
+export default SchoolTardiesDashboard;
