@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import DashboardHelpers from '../DashboardHelpers.js';
@@ -7,26 +8,18 @@ import DashboardBarChart from '../DashboardBarChart.jsx';
 import DateSlider from '../DateSlider.jsx';
 
 
-export default React.createClass({
-  displayName: 'SchoolAbsenceDashboard',
+class SchoolAbsenceDashboard extends React.Component {
 
-  propTypes: {
-    schoolAverageDailyAttendance: React.PropTypes.object.isRequired,
-    homeroomAverageDailyAttendance: React.PropTypes.object.isRequired,
-    dashboardStudents: React.PropTypes.array.isRequired,
-    schoolAbsenceEvents: React.PropTypes.object.isRequired,
-    dateRange: React.PropTypes.array.isRequired
-  },
-
-  getInitialState: function() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       displayDates: this.props.dateRange,
       selectedHomeroom: null
     };
-  },
+  }
 
   //Monthly attendance for the school must be calculated after the range filter is applied
-  monthlySchoolAttendance: function(schoolAverageDailyAttendance) {
+  monthlySchoolAttendance(schoolAverageDailyAttendance) {
     let monthlySchoolAttendance = {};
     //Use the filtered daterange to find the days to include
     this.state.displayDates.forEach((day) => {
@@ -36,17 +29,17 @@ export default React.createClass({
       monthlySchoolAttendance[date] = monthlySchoolAttendance[date].concat(schoolAverageDailyAttendance[day]);
     });
     return monthlySchoolAttendance;
-  },
+  }
 
-  filteredHomeRoomAttendance: function(dailyHomeroomAttendance) {
+  filteredHomeRoomAttendance(dailyHomeroomAttendance) {
     return _.map(dailyHomeroomAttendance, (homeroom) => {
       return this.state.displayDates.map((date) => {
         return homeroom[date];
       });
     });
-  },
+  }
 
-  studentAbsenceCounts: function(absencesArray) {
+  studentAbsenceCounts(absencesArray) {
     let studentAbsenceCounts = {};
     this.state.displayDates.forEach((day) => {
       _.each(this.props.schoolAbsenceEvents[day], (absence) => {
@@ -55,25 +48,25 @@ export default React.createClass({
       });
     });
     return studentAbsenceCounts;
-  },
+  }
 
-  setDate: function(range) {
+  setDate = (range) => {
     this.setState({
       displayDates: DashboardHelpers.filterDates(this.props.dateRange,
                                                   moment.unix(range[0]).format("YYYY-MM-DD"),
                                                   moment.unix(range[1]).format("YYYY-MM-DD"))
     });
-  },
+  }
 
-  setStudentList: function(highchartsEvent) {
+  setStudentList(highchartsEvent) {
     this.setState({selectedHomeroom: highchartsEvent.point.category});
-  },
+  }
 
-  resetStudentList: function() {
+  resetStudentList = () => {
     this.setState({selectedHomeroom: null});
-  },
+  }
 
-  render: function() {
+  render() {
     return (
         <div>
           <div className="DashboardChartsColumn">
@@ -86,9 +79,9 @@ export default React.createClass({
           </div>
         </div>
     );
-  },
+  }
 
-  renderMonthlyAbsenceChart: function() {
+  renderMonthlyAbsenceChart() {
     const monthlyAttendance = this.monthlySchoolAttendance(this.props.schoolAverageDailyAttendance);
     const filteredAttendanceSeries = Object.keys(monthlyAttendance).map( (month) => {
       const rawAvg = _.sum(monthlyAttendance[month])/monthlyAttendance[month].length;
@@ -111,9 +104,9 @@ export default React.createClass({
           onColumnClick = {this.resetStudentList}
           onBackgroundClick = {this.resetStudentList}/>
     );
-  },
+  }
 
-  renderHomeroomAbsenceChart: function() {
+  renderHomeroomAbsenceChart() {
     const homeroomAverageDailyAttendance = this.props.homeroomAverageDailyAttendance;
     const filteredHomeRoomAttendance = this.filteredHomeRoomAttendance(homeroomAverageDailyAttendance);
     const homeroomSeries = filteredHomeRoomAttendance.map((homeroom) => {
@@ -135,9 +128,9 @@ export default React.createClass({
           onColumnClick = {this.setStudentList}
           onBackgroundClick = {this.resetStudentList}/>
     );
-  },
+  }
 
-  renderStudentAbsenceTable: function () {
+  renderStudentAbsenceTable() {
     const studentAbsenceCounts = this.studentAbsenceCounts();
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
     const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
@@ -156,9 +149,9 @@ export default React.createClass({
         rows = {rows}
         selectedHomeroom = {this.state.selectedHomeroom}/>
     );
-  },
+  }
 
-  renderDateRangeSlider: function() {
+  renderDateRangeSlider() {
     const firstDate = this.props.dateRange[0];
     const lastDate = this.props.dateRange[this.props.dateRange.length - 1];
     return (
@@ -168,4 +161,14 @@ export default React.createClass({
         setDate={this.setDate}/>
     );
   }
-});
+}
+
+SchoolAbsenceDashboard.PropTypes = {
+  schoolAverageDailyAttendance: React.PropTypes.object.isRequired,
+  homeroomAverageDailyAttendance: React.PropTypes.object.isRequired,
+  dashboardStudents: React.PropTypes.array.isRequired,
+  schoolAbsenceEvents: React.PropTypes.object.isRequired,
+  dateRange: React.PropTypes.array.isRequired
+};
+
+export default SchoolAbsenceDashboard;
