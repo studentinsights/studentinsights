@@ -16,6 +16,22 @@ class SchoolAbsenceDashboard extends React.Component {
       displayDates: this.props.dateRange,
       selectedHomeroom: null
     };
+
+    this.setDate = (range) => {
+      this.setState({
+        displayDates: DashboardHelpers.filterDates(this.props.dateRange,
+                                                    moment.unix(range[0]).format("YYYY-MM-DD"),
+                                                    moment.unix(range[1]).format("YYYY-MM-DD"))
+      });
+    };
+
+    this.setStudentList = (highchartsEvent) => {
+      this.setState({selectedHomeroom: highchartsEvent.point.category});
+    };
+
+    this.resetStudentList = () => {
+      this.setState({selectedHomeroom: null});
+    };
   }
 
   //Monthly attendance for the school must be calculated after the range filter is applied
@@ -48,22 +64,6 @@ class SchoolAbsenceDashboard extends React.Component {
       });
     });
     return studentAbsenceCounts;
-  }
-
-  setDate = (range) => {
-    this.setState({
-      displayDates: DashboardHelpers.filterDates(this.props.dateRange,
-                                                  moment.unix(range[0]).format("YYYY-MM-DD"),
-                                                  moment.unix(range[1]).format("YYYY-MM-DD"))
-    });
-  }
-
-  setStudentList(highchartsEvent) {
-    this.setState({selectedHomeroom: highchartsEvent.point.category});
-  }
-
-  resetStudentList = () => {
-    this.setState({selectedHomeroom: null});
   }
 
   render() {
@@ -163,12 +163,12 @@ class SchoolAbsenceDashboard extends React.Component {
   }
 }
 
-SchoolAbsenceDashboard.PropTypes = {
-  schoolAverageDailyAttendance: React.PropTypes.object.isRequired,
-  homeroomAverageDailyAttendance: React.PropTypes.object.isRequired,
-  dashboardStudents: React.PropTypes.array.isRequired,
-  schoolAbsenceEvents: React.PropTypes.object.isRequired,
-  dateRange: React.PropTypes.array.isRequired
+SchoolAbsenceDashboard.propTypes = {
+  schoolAverageDailyAttendance: PropTypes.object.isRequired,
+  homeroomAverageDailyAttendance: PropTypes.object.isRequired,
+  dashboardStudents: PropTypes.array.isRequired,
+  schoolAbsenceEvents: PropTypes.object.isRequired,
+  dateRange: PropTypes.array.isRequired
 };
 
 export default SchoolAbsenceDashboard;
