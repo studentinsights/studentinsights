@@ -1,25 +1,26 @@
-
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import DashboardHelpers from '../DashboardHelpers.js';
 import SchoolwideAttendance from './SchoolwideAttendance.jsx';
 
-export default React.createClass({
-  displayName: 'SchoolwideAbsences',
+class SchoolwideAbsences extends React.Component {
 
-  propTypes: {
-    dashboardStudents: React.PropTypes.array.isRequired
-  },
-
-  schoolAbsenceEvents: function() {
+  schoolAbsenceEvents() {
     const studentRecords = this.props.dashboardStudents;
     return DashboardHelpers.absenceEventsByDay(studentRecords);
-  },
+  }
 
-  render: function() {
+  render() {
     return (
         <SchoolwideAttendance
           schoolAbsenceEvents = {this.schoolAbsenceEvents()}
           dashboardStudents = {this.props.dashboardStudents}/>);
   }
-});
+}
+
+SchoolwideAbsences.propTypes = {
+  dashboardStudents: PropTypes.array.isRequired
+};
+
+export default SchoolwideAbsences;
