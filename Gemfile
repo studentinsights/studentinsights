@@ -35,10 +35,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
-group :production do
-  gem 'rails_12factor'
-end
-
 group :development, :test do
   gem 'bourbon', '~> 4.3.2'
   gem 'capybara'
