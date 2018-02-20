@@ -1,20 +1,14 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import NotesFeedPage from './NotesFeedPage.js';
 
-export default function renderNotesFeedMain(el, options = {}) {
-  if (options.json) {
-    fetch(`/educators/notes_feed`, { credentials: 'include' })
-    .then(response => response.json())
-    .then(json => render(el, json));
-  } else {
-    const serializedData = $('#serialized-data').data();
-    render(el, {
-      current_educator: serializedData.currentEducator,
-      educatorsIndex: serializedData.educatorsIndex,
-      eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
-      notes: serializedData.notes,
-    });
-  }
+export default function renderNotesFeedMain(el) {
+  const serializedData = $('#serialized-data').data();
+  render(el, {
+    current_educator: serializedData.currentEducator,
+    educatorsIndex: serializedData.educatorsIndex,
+    eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
+    notes: serializedData.notes,
+  });
 }
   
 function render(el, json) {
