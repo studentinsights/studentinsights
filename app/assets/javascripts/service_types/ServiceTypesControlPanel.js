@@ -32,7 +32,7 @@ class ServiceTypesControlPanel extends React.Component {
     return (
       <div>
         <div style={{marginTop: 20}}>
-          Name
+          Service Type Name
         </div>
         <input style={{fontSize: 18}} />
         <div style={{marginTop: 20}}>
@@ -74,7 +74,9 @@ class ServiceTypesControlPanel extends React.Component {
         <div style={panelOuterStyles}>
           <div style={panelInnerStyles}>
             <h1>Service Types</h1>
-            {this.renderServiceTypes()}
+            <div style={{marginTop: 20}}>
+              {this.renderServiceTypes()}
+            </div>
           </div>
         </div>
       </div>
