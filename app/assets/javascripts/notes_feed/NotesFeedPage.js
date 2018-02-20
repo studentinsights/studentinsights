@@ -1,5 +1,23 @@
 import React from 'react';
 
+const styles = {
+  feed: {
+    margin: 'auto 10%'
+  },
+  header: {
+    margin: "2.5% 5%"
+  },
+  subTitle: {
+    fontSize: "18px",
+    marginTop: "5px"
+  },
+  title: {
+    fontSize: "28px",
+    fontWeight: "bold",
+    color: "#155094"
+  },
+};
+
 class NotesFeedPage extends React.Component {
 
   constructor(props) {
@@ -21,13 +39,13 @@ class NotesFeedPage extends React.Component {
 
     return (
       <div className="wrapper">
-        <div className="notes-feed-header" style={{ margin: "2.5% 5%"}}>
-          <div className="page-title" style={{ fontSize: "28px", fontWeight: "bold", color: "#155094"}}>
+        <div className="header" style={styles.header}>
+          <div className="title" style={styles.title}>
             My Notes
           </div>
-          <p style={{ fontSize: "18px", marginTop: "5px"}}> Notes you created in the past 30 days. </p>
+          <p style={styles.subTitle}> Notes you created in the past 30 days. </p>
         </div>
-        <div className="notes-feed" style={{ margin: 'auto 10%'}}>
+        <div className="feed" style={styles.feed}>
           <div className="notes-list">
             <NotesList
               educatorsIndex={this.props.educatorsIndex}

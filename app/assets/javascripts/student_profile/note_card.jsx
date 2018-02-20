@@ -32,12 +32,18 @@ import * as Routes from '../helpers/Routes';
       fontSize: 14,
       whiteSpace: 'pre-wrap'
     },
-    student: {
+    studentCard: {
       border: '1px solid #eee',
       padding: 15,
       marginTop: 10,
       marginBottom: 10,
       width: '25%'
+    },
+    studentName: {
+      fontSize: '18px',
+      fontWeight: 'bold',
+      color: '#3177c9',
+      marginBottom: '5%'
     },
     wrapper: {
       display: 'flex'
@@ -232,8 +238,8 @@ import * as Routes from '../helpers/Routes';
       const student = this.props.student;
       if (student) {
         return (
-          <div className="StudentCard" style={styles.student}>
-            <p style={{fontSize: '18px', fontWeight: 'bold', color: '#3177c9', marginBottom: '5%'}}>{student.last_name}, {student.first_name}</p>
+          <div className="studentCard" style={styles.studentCard}>
+            <p style={styles.studentName}>{student.last_name}, {student.first_name}</p>
             {this.renderSchool(student)}
             {this.renderHomeroomOrGrade(student)}
           </div>
