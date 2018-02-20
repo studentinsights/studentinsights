@@ -18,7 +18,7 @@ class Service < ActiveRecord::Base
   end
 
   def no_overlap
-    errors.add(:student) && return if student.nil?
+    errors.add(:student, "does not exist") && return if student.nil?
 
     same_service_type = student.services.where(service_type_id: service_type_id)
 

@@ -345,6 +345,7 @@ describe StudentsController, :type => :controller do
           expect(response_body).to eq({
             "errors" => [
               "Student can't be blank",
+              "Student does not exist",
               "Service type can't be blank",
               "Date started can't be blank"
             ]
