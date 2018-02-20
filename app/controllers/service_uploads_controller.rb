@@ -36,8 +36,10 @@ class ServiceUploadsController < ApplicationController
 
     invalid_services = services_to_save.any? { |service| service.invalid? }
 
-    service_errors = services_to_save.map do |service_to_save|
-      service_to_save.errors.messages
+    service_errors = services_to_save.map do |service|
+      messages = service.errors.messages
+      student = service.student
+      "#{student.first_name} #{student.last_name}: #{messages.values.join(', ')}"
     end.compact
 
     render_errors_as_json(service_errors) and return if invalid_services
