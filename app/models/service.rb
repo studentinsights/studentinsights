@@ -21,7 +21,7 @@ class Service < ActiveRecord::Base
     same_service_type = student.services.where(service_type_id: service_type_id)
 
     if same_service_type.detect { |service| service.active? }
-      errors.add(:student, "already has an active service")
+      errors.add(:student_id, "already has an active service")
     end
   end
 

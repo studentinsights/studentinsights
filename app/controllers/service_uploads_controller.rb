@@ -15,44 +15,32 @@ class ServiceUploadsController < ApplicationController
       uploaded_by_educator_id: current_educator.id
     )
 
-    if service_upload.invalid?
-      return render json: {
-        errors: ['Service upload invalid. Maybe the file name is missing or not unique?']
-      }
-    end
+    render_errors_as_json(service_upload.errors) and return if service_upload.invalid?
 
     service_upload.save!
 
-    service_type = ServiceType.find_by_name(params['service_type_name'])
+    service_type_id = ServiceType.find_by_name(params['service_type_name']).id
 
-    if service_type.nil?
-      return render json: {
-        errors: ['Service Type not found...']
-      }
+    services_to_save = params['student_lasids'].map do |student_lasid|
+      Service.new(
+        student: Student.find_by_local_id(student_lasid),
+        service_upload: service_upload,
+        recorded_by_educator: current_educator,
+        service_type_id: service_type_id,
+        recorded_at: recorded_at,
+        date_started: date_started,
+        discontinued_at: date_ended,
+        discontinued_by_educator_id: date_ended ? current_educator.id : nil
+      )
     end
 
-    errors = []
+    invalid_services = services_to_save.any? { |service| service.invalid? }
 
-    params['student_lasids'].map do |student_lasid|
-      student = Student.find_by_local_id(student_lasid)
+    service_errors = services_to_save.map do |service_to_save|
+      service_to_save.errors.messages
+    end.compact
 
-      if student.present?
-        service = Service.create!(
-          student: student,
-          service_upload: service_upload,
-          recorded_by_educator: current_educator,
-          service_type: service_type,
-          recorded_at: recorded_at,
-          date_started: date_started
-        )
-
-        return unless date_ended
-
-        unless service.update_attributes(:discontinued_at => date_ended, :discontinued_by_educator_id => current_educator.id)
-          errors << "Could not save service end date. (Must end after service start date.)"
-        end
-      end
-    end
+    render_errors_as_json(service_errors) and return if invalid_services
 
     render json: { service_upload: service_upload.as_json(
       only: [:created_at, :file_name, :id],
@@ -69,7 +57,7 @@ class ServiceUploadsController < ApplicationController
           }
         }
       }
-    )}.merge({ errors: errors })
+    )} and return
   end
 
   def index
@@ -97,6 +85,10 @@ class ServiceUploadsController < ApplicationController
   end
 
   private
+
+    def render_errors_as_json(errors)
+      render json: { errors: errors }
+    end
 
     def past_service_upload_json
       ServiceUpload.includes(services: [:student, :service_type])
