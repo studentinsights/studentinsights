@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get '/authorization' => 'educators#authorization'
     root to: "educators#index"
   end
-  
+
 
   devise_for :educators
   authenticated :educator do
@@ -37,7 +37,11 @@ Rails.application.routes.draw do
     end
   end
   resources :services, only: [:destroy]
-  resources :service_types, only: [:index]
+  resources :service_types, only: [:index] do
+    collection do
+      get :control_panel
+    end
+  end
   resources :event_note_attachments, only: [:destroy]
   resources :service_uploads, only: [:create, :index, :destroy] do
     collection do
