@@ -10,21 +10,11 @@ class ServiceUploadsController < ApplicationController
   end
 
   def create
-    service_upload = ServiceUpload.new(
-      file_name: params['file_name'],
-      uploaded_by_educator_id: current_educator.id
-    )
-
-    render_errors_as_json(service_upload.errors) and return if service_upload.invalid?
-
-    service_upload.save!
-
     service_type_id = ServiceType.find_by_name(params['service_type_name']).id
 
     services_to_save = params['student_lasids'].map do |student_lasid|
       Service.new(
         student: Student.find_by_local_id(student_lasid),
-        service_upload: service_upload,
         recorded_by_educator: current_educator,
         service_type_id: service_type_id,
         recorded_at: recorded_at,
@@ -34,32 +24,15 @@ class ServiceUploadsController < ApplicationController
       )
     end
 
-    invalid_services = services_to_save.any? { |service| service.invalid? }
+    service_upload = ServiceUpload.new(
+      file_name: params['file_name'],
+      uploaded_by_educator_id: current_educator.id,
+      services: services_to_save
+    )
 
-    service_errors = services_to_save.map do |service|
-      messages = service.errors.messages
-      student = service.student
-      "#{student.first_name} #{student.last_name}: #{messages.values.join(', ')}"
-    end.compact
+    render_successful_upload_json(service_upload) and return if service_upload.valid?
 
-    render_errors_as_json(service_errors) and return if invalid_services
-
-    render json: { service_upload: service_upload.as_json(
-      only: [:created_at, :file_name, :id],
-      include: {
-        services: {
-          only: [],
-          include: {
-            student: {
-              only: [:first_name, :last_name, :id]
-            },
-            service_type: {
-              only: [:name]
-            }
-          }
-        }
-      }
-    )} and return
+    render_failed_upload_json(service_upload) and return if service_upload.invalid?
   end
 
   def index
@@ -88,7 +61,36 @@ class ServiceUploadsController < ApplicationController
 
   private
 
-    def render_errors_as_json(errors)
+    def render_successful_upload_json(service_upload)
+      render json: { service_upload: service_upload.as_json(
+        only: [:created_at, :file_name, :id],
+        include: {
+          services: {
+            only: [],
+            include: {
+              student: {
+                only: [:first_name, :last_name, :id]
+              },
+              service_type: {
+                only: [:name]
+              }
+            }
+          }
+        }
+      )}
+    end
+
+    def render_failed_upload_json(service_upload)
+      service_errors = service_upload.services.map do |service|
+        messages = service.errors.messages
+        student = service.student
+        "#{student.first_name} #{student.last_name}: #{messages.values.join(', ')}"
+      end.compact
+
+      upload_errors = "Upload: #{service_upload.errors.messages.values.join(', ')}\n"
+
+      errors = [upload_errors].concat(service_errors).compact
+
       render json: { errors: errors }
     end
 
