@@ -4,7 +4,7 @@ class Service < ActiveRecord::Base
   belongs_to :service_type
   belongs_to :service_upload, optional: true # For bulk-uploaded services only
 
-  validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id,
+  validates_presence_of :recorded_by_educator_id, :student, :service_type_id,
     :recorded_at, :date_started
   validate :must_be_discontinued_after_service_start_date
   validate :no_overlap
@@ -18,6 +18,8 @@ class Service < ActiveRecord::Base
   end
 
   def no_overlap
+    errors.add(:student) && return if student.nil?
+
     same_service_type = student.services.where(service_type_id: service_type_id)
 
     if same_service_type.detect { |service| service.active? }

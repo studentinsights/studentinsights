@@ -4,6 +4,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
   describe '#create' do
     let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
+
     before do
       FactoryGirl.create(:student, local_id: '111', first_name: 'Edson', last_name: 'Min')
       FactoryGirl.create(:student, local_id: '222', first_name: 'Allison', last_name: 'Keegan')
@@ -65,9 +66,8 @@ RSpec.describe ServiceUploadsController, type: :controller do
         make_post_request(params)
         expect(response_json).to eq({
           "errors" => [
-            "Upload: is invalid",
-            "Edson Min: must be after service start date",
-            "Allison Keegan: must be after service start date"
+            "Edson Min: discontinued_at must be after service start date",
+            "Allison Keegan: discontinued_at must be after service start date"
           ]
         })
       end
@@ -77,15 +77,19 @@ RSpec.describe ServiceUploadsController, type: :controller do
       let!(:existing_service_upload) { ServiceUpload.create(file_name: 'unique_file_name.csv') }
       let(:params) {
         {
-          file_name: 'unique_file_name.csv'
+          service_type_name: 'Attendance Officer',
+          file_name: 'unique_file_name.csv',
+          student_lasids: ['111', '222'],
+          date_started: '01/01/2017',
+          date_ended: '03/03/2017',
         }
       }
 
       it 'returns the correct JSON' do
         make_post_request(params)
-        expect(response_json).to eq(
-          {"errors"=>["Service upload invalid. Maybe the file name is missing or not unique?"]}
-        )
+        expect(response_json).to eq({
+          "errors" => ["Upload: file_name has already been taken"]
+        })
       end
     end
 
@@ -94,14 +98,20 @@ RSpec.describe ServiceUploadsController, type: :controller do
         {
           file_name: 'file_name.csv',
           service_type_name: 'Extra Defense Against The Dark Arts Tutoring',
+          student_lasids: ['111', '222'],
+          date_started: '01/01/2017',
+          date_ended: '03/03/2017',
         }
       }
 
       it 'returns the correct JSON' do
         make_post_request(params)
-        expect(response_json).to eq(
-          {"errors"=>["Service Type not found..."]}
-        )
+        expect(response_json).to eq({
+          "errors"=>[
+            "Edson Min: service_type_id can't be blank",
+            "Allison Keegan: service_type_id can't be blank"
+          ]
+        })
       end
     end
 
@@ -110,17 +120,16 @@ RSpec.describe ServiceUploadsController, type: :controller do
         {
           file_name: 'unique_file_name.csv',
           service_type_name: 'Attendance Officer',
-          student_lasids: ['111', '222'],
+          student_lasids: ['777'],
           recorded_at: '01/19/2017',
           date_started: '01/01/2017',
           date_ended: '03/03/2017',
         }
       }
 
-      it 'returns the correct JSON: '\
-         '(no error b/c this means Uri confirmed the LASID mismatch was OK)' do
+      it 'returns the correct JSON' do
         make_post_request(params)
-        expect(response_json['errors']).to eq []
+        expect(response_json['errors']).to eq(["student can't be blank is invalid"])
       end
     end
 

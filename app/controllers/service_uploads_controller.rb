@@ -10,7 +10,7 @@ class ServiceUploadsController < ApplicationController
   end
 
   def create
-    service_type_id = ServiceType.find_by_name(params['service_type_name']).id
+    service_type_id = ServiceType.find_by_name(params['service_type_name']).try(:id)
 
     services = params['student_lasids'].map do |student_lasid|
       Service.new(
@@ -82,16 +82,28 @@ class ServiceUploadsController < ApplicationController
       )}
     end
 
+    def errors_to_string(errors)
+      errors.messages.to_a.each { |pair| "#{pair[0]}: #{pair[1]}" }.join(' ')
+    end
+
+    def service_to_pretty_error_string(service)
+      return unless service.errors.present?
+
+      student = service.student
+
+      return errors_to_string(service.errors) if student.nil?
+
+      "#{student.first_name} #{student.last_name}: #{errors_to_string(service.errors)}"
+    end
+
     def render_failed_upload_json(service_upload)
       service_errors = service_upload.services.map do |service|
-        messages = service.errors.messages
-        student = service.student
-        "#{student.first_name} #{student.last_name}: #{messages.values.join(', ')}"
+        service_to_pretty_error_string(service)
       end.compact
 
-      upload_errors = "Upload: #{service_upload.errors.messages.values.join(', ')}"
+      upload_errors = "Upload: #{errors_to_string(service_upload.errors)}"
 
-      errors = [upload_errors].concat(service_errors).compact
+      errors = service_errors.present? ? service_errors : [upload_errors]
 
       render json: { errors: errors }
     end
