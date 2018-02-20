@@ -4,8 +4,10 @@ class Service < ActiveRecord::Base
   belongs_to :service_type
   belongs_to :service_upload, optional: true # For bulk-uploaded services only
 
-  validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id, :recorded_at, :date_started
+  validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id,
+    :recorded_at, :date_started
   validate :must_be_discontinued_after_service_start_date
+  validate :no_overlap
 
   def discontinued?
     discontinued_at.present? && (DateTime.current > discontinued_at)
@@ -13,6 +15,14 @@ class Service < ActiveRecord::Base
 
   def active?
     !discontinued?
+  end
+
+  def no_overlap
+    same_service_type = student.services.where(service_type_id: service_type_id)
+
+    if same_service_type.detect { |service| service.active? }
+      errors.add(:student, "already has an active service")
+    end
   end
 
   def must_be_discontinued_after_service_start_date
