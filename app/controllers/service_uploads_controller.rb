@@ -12,7 +12,7 @@ class ServiceUploadsController < ApplicationController
   def create
     service_type_id = ServiceType.find_by_name(params['service_type_name']).id
 
-    services_to_save = params['student_lasids'].map do |student_lasid|
+    services = params['student_lasids'].map do |student_lasid|
       Service.new(
         student: Student.find_by_local_id(student_lasid),
         recorded_by_educator: current_educator,
@@ -27,7 +27,7 @@ class ServiceUploadsController < ApplicationController
     service_upload = ServiceUpload.new(
       file_name: params['file_name'],
       uploaded_by_educator_id: current_educator.id,
-      services: services_to_save
+      services: services
     )
 
     render_successful_upload_json(service_upload) and return if service_upload.valid?
