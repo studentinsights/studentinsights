@@ -30,9 +30,11 @@ class ServiceUploadsController < ApplicationController
       services: services
     )
 
-    render_successful_upload_json(service_upload) and return if service_upload.valid?
-
-    render_failed_upload_json(service_upload) and return if service_upload.invalid?
+    if service_upload.valid?
+      service_upload.save! && render_successful_upload_json(service_upload)
+    else
+      render_failed_upload_json(service_upload)
+    end
   end
 
   def index
