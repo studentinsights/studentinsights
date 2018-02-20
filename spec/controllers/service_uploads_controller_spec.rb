@@ -4,7 +4,11 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
   describe '#create' do
     let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
-    before { sign_in(educator) }
+    before do
+      FactoryGirl.create(:student, local_id: '111', first_name: 'Edson', last_name: 'Min')
+      FactoryGirl.create(:student, local_id: '222', first_name: 'Allison', last_name: 'Keegan')
+      sign_in(educator)
+    end
 
     def make_post_request(params)
       request.env['HTTPS'] = 'on'
@@ -14,11 +18,6 @@ RSpec.describe ServiceUploadsController, type: :controller do
     let(:response_json) { JSON.parse(response.body) }
 
     context 'valid data' do
-      before do
-        FactoryGirl.create(:student, local_id: '111')
-        FactoryGirl.create(:student, local_id: '222')
-      end
-
       let(:params) {
         {
           file_name: 'unique_file_name.csv',
@@ -47,11 +46,6 @@ RSpec.describe ServiceUploadsController, type: :controller do
     end
 
     context 'end date before start date (invalid!)' do
-      before do
-        FactoryGirl.create(:student, local_id: '111')
-        FactoryGirl.create(:student, local_id: '222')
-      end
-
       let(:params) {
         {
           file_name: 'unique_file_name.csv',
@@ -63,22 +57,19 @@ RSpec.describe ServiceUploadsController, type: :controller do
         }
       }
 
-      it 'creates two services' do
-        expect {
-          make_post_request(params)
-        }.to change {
-          Service.count
-        }.by 2
+      it 'creates zero services' do
+        expect { make_post_request(params) }.to change { Service.count }.by 0
       end
 
-      it 'returns the correct JSON' do
+      it 'returns error JSON with student names and correct error messages' do
         make_post_request(params)
-        expect(response_json['service_upload']['file_name']).to eq('unique_file_name.csv')
-        expect(response_json['service_upload']['services'].count).to eq 2
-        expect(response_json['errors']).to eq [
-          'Could not save service end date. (Must end after service start date.)',
-          'Could not save service end date. (Must end after service start date.)',
-        ]
+        expect(response_json).to eq({
+          "errors" => [
+            "Upload: is invalid",
+            "Edson Min: must be after service start date",
+            "Allison Keegan: must be after service start date"
+          ]
+        })
       end
     end
 

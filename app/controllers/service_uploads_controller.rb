@@ -89,7 +89,7 @@ class ServiceUploadsController < ApplicationController
         "#{student.first_name} #{student.last_name}: #{messages.values.join(', ')}"
       end.compact
 
-      upload_errors = "Upload: #{service_upload.errors.messages.values.join(', ')}\n"
+      upload_errors = "Upload: #{service_upload.errors.messages.values.join(', ')}"
 
       errors = [upload_errors].concat(service_errors).compact
 
