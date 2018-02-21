@@ -1,20 +1,27 @@
 import React from 'react';
 
 const styles = {
+  button: {
+    marginTop: '10px',
+    display: 'inline'
+  },
   feed: {
     margin: 'auto 10%'
   },
+  footer: {
+    margin: '5% 41%'
+  },
   header: {
-    margin: "2.5% 5%"
+    margin: '2.5% 5%'
   },
   subTitle: {
-    fontSize: "18px",
-    marginTop: "5px"
+    fontSize: '18px',
+    marginTop: '5px'
   },
   title: {
-    fontSize: "28px",
-    fontWeight: "bold",
-    color: "#155094"
+    fontSize: '28px',
+    fontWeight: 'bold',
+    color: '#155094'
   },
 };
 
@@ -52,6 +59,9 @@ class NotesFeedPage extends React.Component {
               eventNoteTypesIndex={this.props.eventNoteTypesIndex}
               feed={feed} />
           </div>
+        </div>
+        <div className="footer" style={styles.footer}>
+          <button className="btn load-more-notes" style={styles.button}>Load next 30 days</button>
         </div>
       </div>
     );
