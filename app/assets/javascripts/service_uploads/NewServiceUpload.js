@@ -197,12 +197,8 @@ class NewServiceUpload extends React.Component {
 
     return (
       <div>
-        {this.clientSideErrors().map(function (error) {
-          return (
-            <div>
-              {error}
-            </div>
-          );
+        {this.clientSideErrors().map((error, index) => {
+          return (<div key={`${error}${index}`}>{error}</div>);
         })}
       </div>
     );
@@ -213,12 +209,8 @@ class NewServiceUpload extends React.Component {
 
     return (
       <div>
-        {this.props.serverSideErrors.map(function (error) {
-          return (
-            <div>
-              {error}
-            </div>
-          );
+        {this.props.serverSideErrors.map((error, index) => {
+          return (<div key={`${error}${index}`}>{error}</div>);
         })}
       </div>
     );
