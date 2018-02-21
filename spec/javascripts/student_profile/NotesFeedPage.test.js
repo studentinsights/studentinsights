@@ -8,7 +8,7 @@ SpecSugar.withTestEl('high-level integration tests', function(container) {
       window.ReactDOM.render(<NotesFeedPage
         educatorsIndex={{}}
         eventNotes={[]}
-        eventNoteTypesIndex={{}} />, el)
+        eventNoteTypesIndex={{}} />, el);
     });
   });
 });
