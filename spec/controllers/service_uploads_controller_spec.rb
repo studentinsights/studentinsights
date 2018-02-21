@@ -129,7 +129,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
       it 'returns the correct JSON' do
         make_post_request(params)
-        expect(response_json['errors']).to eq(["student can't be blank does not exist"])
+        expect(response_json['errors']).to eq(["student can't be blank"])
       end
     end
 
