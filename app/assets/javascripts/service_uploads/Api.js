@@ -14,9 +14,9 @@ class Api {
     return fetch(url, { credentials: 'include' })
              .then(response => response.json())
              .then(allLasids => {
-                return Array.isArray(allLasids)
+               return Array.isArray(allLasids)
                          ? onSucceed(uploadLasids, allLasids)
-                         : onError()
+                         : onError();
              });
   }
 }
