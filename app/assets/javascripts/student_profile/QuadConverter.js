@@ -19,13 +19,13 @@ class QuadConverter {
     return quad[3];
   }
 
-  static toPair(quad){
+  static toPair(quad) {
     return [QuadConverter.toMoment(quad).valueOf(), QuadConverter.toValue(quad)];
   }
 
   // The "Star Object" adds an additional data point (4-indexed) to a quad.
   // This allows the rendering of gradeLevelEquivalent data in highcharts tooltip
-  static toStarObject(quad){
+  static toStarObject(quad) {
     return {
       x: QuadConverter.toMoment(quad).valueOf(),
       y: QuadConverter.toValue(quad),
@@ -33,32 +33,32 @@ class QuadConverter {
     };
   }
 
-  static toGradeLevelEquivalent(quad){
+  static toGradeLevelEquivalent(quad) {
     return quad[4];
   }
 
   // These functions are provided for constructing quads.
-  static fromMoment(momentObj, value){
+  static fromMoment(momentObj, value) {
     const year = momentObj.year();
     const month = momentObj.month() + 1;
     const date = momentObj.date();
     return [year, month, date, value];
   }
 
-  static schoolYearStartDates(dateRange){
+  static schoolYearStartDates(dateRange) {
     // dateRange: A 2-element array of Moment objects.
     // returns: An array of Moment objects representing the start dates of each school year in the calendar year range.
     return QuadConverter._allSchoolYearStarts(dateRange)
           .map(QuadConverter.firstDayOfSchool);
   }
 
-  static firstDayOfSchool(year){
+  static firstDayOfSchool(year) {
     // year: An integer year.
     // returns: A moment object representing the first day of the school year that year starts.
     return QuadConverter.toMoment([year, 8, 15]);
   }
 
-  static lastDayOfSchool(year){
+  static lastDayOfSchool(year) {
     // year: An integer year.
     // returns: A moment object representing roughly the last day of that school year (which will
     // be in the following calendar year).
@@ -87,7 +87,7 @@ class QuadConverter {
     // result is an array of quads, one quad per month.
     let result = [];
 
-    _.each(groupedByMonth, function(value, key){
+    _.each(groupedByMonth, function(value, key) {
       result.push(QuadConverter.fromMoment(moment.utc(key), value.length));
     });
 
