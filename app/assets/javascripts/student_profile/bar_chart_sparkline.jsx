@@ -1,10 +1,7 @@
 import _ from 'lodash';
+import QuadConverter from './QuadConverter.js';
 
 (function() {
-  window.shared || (window.shared = {});
-
-  const QuadConverter = window.shared.QuadConverter;
-
   /*
   Project quads outside of the date range, since interpolation will connect with previous data points.
   */

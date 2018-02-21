@@ -2,11 +2,11 @@ import Datepicker from '../student_profile/Datepicker.js';
 import {toMoment} from '../helpers/toMoment.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import serviceColor from '../student_profile/service_color.js';
+import QuadConverter from '../student_profile/QuadConverter.js';
 
 (function() {
   window.shared || (window.shared = {});
   const ProvidedByEducatorDropdown = window.shared.ProvidedByEducatorDropdown;
-  const QuadConverter = window.shared.QuadConverter;
 
   const styles = {
     dialog: {
@@ -66,7 +66,7 @@ import serviceColor from '../student_profile/service_color.js';
 
     getInitialState: function() {
       const {nowMoment} = this.props;
-      
+
       return {
         serviceTypeId: null,
         providedByEducatorName: ''  ,

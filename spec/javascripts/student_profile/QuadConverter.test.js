@@ -1,5 +1,6 @@
+import QuadConverter from '../../../app/assets/javascripts/student_profile/QuadConverter.js';
+
 describe('QuadConverter', function() {
-  const QuadConverter = window.shared.QuadConverter;
 
   describe('#toDate', function() {
     it('works', function() {
