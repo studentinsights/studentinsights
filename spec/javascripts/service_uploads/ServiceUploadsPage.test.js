@@ -2,7 +2,7 @@ import SpecSugar from '../support/spec_sugar.jsx';
 import ReactTestUtils from 'react-addons-test-utils';
 import ServiceUploadsPage from '../../../app/assets/javascripts/service_uploads/ServiceUploadsPage.js';
 
-describe('ServiceUploadsPage', function() {
+describe('ServiceUploadsPage', () => {
   const ReactDOM = window.ReactDOM;
 
   const helpers = {
@@ -11,7 +11,7 @@ describe('ServiceUploadsPage', function() {
     }
   };
 
-  SpecSugar.withTestEl('integration tests', function(container) {
+  SpecSugar.withTestEl('integration tests', (container) => {
     it('renders the page', function() {
       const el = container.testEl;
       const props = {
@@ -38,7 +38,7 @@ describe('ServiceUploadsPage', function() {
       expect($(el).text()).toContain('Confirm Upload');
     });
 
-    it('tolerates cancelling file upload', function() {
+    it('tolerates cancelling file upload', () => {
       const el = container.testEl;
       const instance = helpers.renderInto(el, {
         serializedData: {
@@ -64,7 +64,6 @@ describe('ServiceUploadsPage', function() {
     });
 
   });
-
 });
 
 
