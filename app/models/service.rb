@@ -35,6 +35,14 @@ class Service < ActiveRecord::Base
     end
   end
 
+  def to_pretty_error_string
+    return unless errors.present?
+
+    return error_messages_to_string(errors) if student.nil?
+
+    return "#{student.first_name} #{student.last_name}: #{error_messages_to_string(errors)}"
+  end
+
   def self.active
     future_discontinue + never_discontinued
   end

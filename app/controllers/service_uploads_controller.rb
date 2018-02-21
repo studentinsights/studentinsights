@@ -1,4 +1,5 @@
 class ServiceUploadsController < ApplicationController
+  include ApplicationHelper
   # Authentication by default inherited from ApplicationController.
 
   before_action :authorize_for_districtwide_access_admin # Extra authentication layer
@@ -82,30 +83,14 @@ class ServiceUploadsController < ApplicationController
       )}
     end
 
-    def errors_to_string(errors)
-      errors.messages.to_a.each { |pair| "#{pair[0]}: #{pair[1]}" }.join(' ')
-    end
-
-    def service_to_pretty_error_string(service)
-      return unless service.errors.present?
-
-      student = service.student
-
-      return errors_to_string(service.errors) if student.nil?
-
-      "#{student.first_name} #{student.last_name}: #{errors_to_string(service.errors)}"
-    end
-
     def render_failed_upload_json(service_upload)
       service_errors = service_upload.services.map do |service|
-        service_to_pretty_error_string(service)
+        service.to_pretty_error_string
       end.compact
 
-      upload_errors = "Upload: #{errors_to_string(service_upload.errors)}"
+      upload_errors = ["Upload: #{error_messages_to_string(service_upload.errors)}"]
 
-      errors = service_errors.present? ? service_errors : [upload_errors]
-
-      render json: { errors: errors }
+      render json: { errors: service_errors.present? ? service_errors : upload_errors }
     end
 
     def past_service_upload_json

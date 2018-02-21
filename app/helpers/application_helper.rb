@@ -4,6 +4,10 @@ module ApplicationHelper
     date.strftime("%m/%d/%Y")
   end
 
+  def error_messages_to_string(errors)
+    errors.messages.to_a.each { |pair| "#{pair[0]}: #{pair[1]}" }.join(' ')
+  end
+
   def todays_date
     Time.now.in_time_zone('Eastern Time (US & Canada)').to_date
   end
