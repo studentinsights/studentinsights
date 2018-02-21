@@ -3,6 +3,7 @@ import _ from 'lodash';
 import {merge} from '../helpers/react_helpers.jsx';
 import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
 import NewServiceUpload from '../service_uploads/NewServiceUpload.js';
+import Api from './Api.js';
 
 class ServiceUploadsPage extends React.Component {
 
@@ -24,6 +25,7 @@ class ServiceUploadsPage extends React.Component {
       uploadingInProgress: false,
     };
 
+    this.onGetPastServiceUploads = this.onGetPastServiceUploads.bind(this);
     this.onFileReaderLoaded = this.onFileReaderLoaded.bind(this);
     this.onSelectStartDate = this.onSelectStartDate.bind(this);
     this.onSelectEndDate = this.onSelectEndDate.bind(this);
@@ -33,20 +35,20 @@ class ServiceUploadsPage extends React.Component {
     this.onSelectFile = this.onSelectFile.bind(this);
     this.upload = this.upload.bind(this);
     this.onUpload = this.onUpload.bind(this);
-    this.validateLASIDs = this.validateLASIDs.bind(this);
-    this.onValidateLASIDs = this.onValidateLASIDs.bind(this);
-    this.onDeleteUpload = this.onDeleteUpload.bind(this);
+    this.onValidateLasidAuthSuccess = this.onValidateLasidAuthSuccess.bind(this);
+    this.onValidateLasidAuthError = this.onValidateLasidAuthError.bind(this);
     this.onClickDeleteServiceUpload = this.onClickDeleteServiceUpload.bind(this);
+    this.onDeleteUpload = this.onDeleteUpload.bind(this);
+  }
+
+  componentWillMount(props, state) {
+    this.api = new Api();
   }
 
   componentDidMount() {
-    fetch('/service_uploads/past', { credentials: 'include' })
-      .then(response => response.json())
-      .then(json => {
-        this.setState({
-          serviceUploads: json
-        });
-      });
+    const onSucceed = this.onGetPastServiceUploads;
+
+    this.api.getPastServiceUploads(onSucceed);
   }
 
   isMissingRequiredFields() {
@@ -76,12 +78,8 @@ class ServiceUploadsPage extends React.Component {
     });
   }
 
-  validateLASIDs(student_lasids) {
-    return $.ajax({
-      url: '/students/lasids.json',
-      method: 'GET',
-      success: this.onValidateLASIDs.bind(null, student_lasids)
-    });
+  onGetPastServiceUploads(json) {
+    this.setState({ serviceUploads: json });
   }
 
   onUpload(data) {
@@ -106,16 +104,16 @@ class ServiceUploadsPage extends React.Component {
     }
   }
 
-  onValidateLASIDs(lasidsInFile, allStudentLasids) {
-    if (Array.isArray(allStudentLasids)) {
-      this.setState({
-        studentLasidsReceivedFromBackend: true,
-        incorrectLasids: _.difference(lasidsInFile, allStudentLasids),
-        formData: merge(this.state.formData, { student_lasids: lasidsInFile })
-      });
-    } else {
-      this.setState({ lasidAuthorizationError: true });
-    }
+  onValidateLasidAuthSuccess(uploadLasids, allLasids) {
+    this.setState({
+      studentLasidsReceivedFromBackend: true,
+      incorrectLasids: _.difference(uploadLasids, allLasids),
+      formData: merge(this.state.formData, { student_lasids: uploadLasids })
+    });
+  }
+
+  onValidateLasidAuthError() {
+    this.setState({ lasidAuthorizationError: true });
   }
 
   onDeleteUpload(data) {
@@ -191,8 +189,10 @@ class ServiceUploadsPage extends React.Component {
 
     const student_lasids = rows.map((row) => { return row.split(",")[0].trim(); })
                              .filter((lasid) => { return lasid !== ''; });
+    const onSuccess = this.onValidateLasidAuthSuccess;
+    const onError = this.onValidateLasidAuthError;
 
-    this.validateLASIDs(student_lasids);
+    this.api.validateLasidsInUploadFile(student_lasids, onSuccess, onError);
   }
 
   render() {
