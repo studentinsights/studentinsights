@@ -50,7 +50,7 @@ export default React.createClass({
     let studentAbsenceCounts = {};
     this.state.displayDates.forEach((day) => {
       _.each(this.props.schoolAbsenceEvents[day], (absence) => {
-        studentAbsenceCounts[absence.student_id] = studentAbsenceCounts[absence.student_id] || 1;
+        studentAbsenceCounts[absence.student_id] = studentAbsenceCounts[absence.student_id] || 0;
         studentAbsenceCounts[absence.student_id]++;
       });
     });

@@ -7,11 +7,8 @@ class ImportTask
     # options["source"] describes which external data sources to import from
     @source = options.fetch("source", ["x2", "star"])
 
-    # options["test_mode"] is for the test suite and supresses log output
-    @test_mode = options.fetch("test_mode", false)
-
-    # options["progress_bar"] shows a command line progress bar
-    @progress_bar = options.fetch("progress_bar", false)
+    # options["only_recent_attendance"]
+    @only_recent_attendance = options.fetch("only_recent_attendance", false)
   end
 
   def connect_transform_import
@@ -58,7 +55,7 @@ class ImportTask
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
 
   def log
-    @test_mode ? LogHelper::Redirect.instance.file : STDOUT
+    Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
   end
 
   def set_up_record
@@ -68,7 +65,7 @@ class ImportTask
   def set_up_report
     models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section, StudentSectionAssignment, EducatorSectionAssignment ]
 
-    log = @test_mode ? LogHelper::Redirect.instance.file : STDOUT
+    log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
 
     @report = ImportTaskReport.new(
       models_for_report: models,
@@ -81,12 +78,12 @@ class ImportTask
 
   ## IMPORT ALL THE DATA ##
 
-  def file_import_class_to_client(import_class)
-    return SftpClient.for_x2 if import_class.in?(X2Importers.list)
-
-    return SftpClient.for_star if import_class.in?(StarImporters.list)
-
-    return nil
+  def options_for_file_importers
+    {
+      school_scope: school_ids,
+      log: log,
+      only_recent_attendance: @only_recent_attendance
+    }
   end
 
   def import_all_the_data
@@ -94,12 +91,7 @@ class ImportTask
     timing_log = []
 
     file_import_classes.each do |file_import_class|
-      file_importer = file_import_class.new(
-        school_ids,
-        file_import_class_to_client(file_import_class),
-        log,
-        @progress_bar
-      )
+      file_importer = file_import_class.new(options: options_for_file_importers)
 
       timing_data = { importer: file_importer.class.name, start_time: Time.current }
 
@@ -107,6 +99,7 @@ class ImportTask
         file_importer.import
       rescue => error
         log.write("🚨  🚨  🚨  🚨  🚨  Error! #{error}")
+        log.write(error.backtrace)
 
         extra_info =  { "importer" => file_importer.class.name }
         ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?

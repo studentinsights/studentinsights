@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import DashboardHelpers from '../dashboard_helpers.jsx';
 import StudentsTable from '../students_table.jsx';
@@ -23,12 +24,13 @@ export default React.createClass({
   createMonthCategories: function(eventsByDay) {
     let monthCategories = {};
     let lastStoredMonth;
+    const startMonth = moment().subtract(3, 'months');
 
     Object.keys(eventsByDay).sort().forEach((day, dayIndex) => {
-      const month = moment(day).date(1).format("MMM 'YY");
-      if (lastStoredMonth != month) {
-        monthCategories[dayIndex] = month;
-        lastStoredMonth = month;
+      const month = moment(day);
+      if (lastStoredMonth != month.date(1).format("MMM 'YY") && month.isSameOrAfter(startMonth, 'month')) {
+        lastStoredMonth = month.date(1).format("MMM 'YY");
+        monthCategories[dayIndex] = lastStoredMonth;
       }
     });
     return monthCategories;
@@ -43,6 +45,22 @@ export default React.createClass({
       date = moment(date).add(1, 'day').format('YYYY-MM-DD');
     }
     return datesForPastThreeMonths;
+  },
+
+  studentTardyCounts: function(tardiesArray) {
+    let studentTardyCounts = {};
+    const daysWithTardies = Object.keys(this.props.schoolTardyEvents);
+    const startDate = DashboardHelpers.schoolYearStart();
+    const endDate = moment().format("YYYY-MM-DD");
+    const schoolYearTardies = DashboardHelpers.filterDates(daysWithTardies.sort(), startDate, endDate);
+
+    schoolYearTardies.forEach((day) => {
+      _.each(this.props.schoolTardyEvents[day], (tardy) => {
+        studentTardyCounts[tardy.student_id] = studentTardyCounts[tardy.student_id] || 0;
+        studentTardyCounts[tardy.student_id]++;
+      });
+    });
+    return studentTardyCounts;
   },
 
   setStudentList: function(highchartsEvent) {
@@ -87,7 +105,7 @@ export default React.createClass({
             tickmarkPlacement: "on"
           }}
           seriesData = {seriesData}
-          titleText = {'Schoolwide Tardies'}
+          titleText = {'Schoolwide Tardies (Last three months)'}
           measureText = {'Number of Tardies'}
           tooltip = {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
@@ -101,12 +119,13 @@ export default React.createClass({
     const homeroomSeries = homerooms.map((homeroom) => {
       return this.props.homeroomTardyEvents[homeroom];
     });
+
     return (
         <DashboardBarChart
           id = {'string'}
           categories = {{categories: homerooms}}
           seriesData = {homeroomSeries}
-          titleText = {'Tardies By Homeroom'}
+          titleText = {'Tardies By Homeroom (School Year)'}
           measureText = {'Number of Tardies'}
           tooltip = {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
@@ -116,6 +135,7 @@ export default React.createClass({
   },
 
   renderStudentTardiesTable: function () {
+    const studentTardyCounts = this.studentTardyCounts();
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
     const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
     let rows =[];
@@ -124,14 +144,15 @@ export default React.createClass({
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
-        events: student.tardies.length || 0
+        events: studentTardyCounts[student.id] || 0
       });
     });
 
     return (
       <StudentsTable
         rows = {rows}
-        selectedHomeroom = {this.state.selectedHomeroom}/>
+        selectedHomeroom = {this.state.selectedHomeroom}
+        schoolYearFlag ={true}/>
     );
   }
 });

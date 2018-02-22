@@ -11,8 +11,9 @@ class BehaviorRow < Struct.new(:row)
   end
 
   def build
-    discipline_incident = student.discipline_incidents.find_or_initialize_by(
+    discipline_incident = DisciplineIncident.find_or_initialize_by(
       occurred_at: occurred_at,
+      student_id: student.try(:id),
       incident_code: row[:incident_code]
     )
 
@@ -42,6 +43,6 @@ class BehaviorRow < Struct.new(:row)
   end
 
   def student
-    Student.find_by_local_id!(row[:local_id])
+    Student.find_by_local_id(row[:local_id])
   end
 end

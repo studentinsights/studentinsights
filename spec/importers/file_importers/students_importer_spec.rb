@@ -2,20 +2,18 @@ require 'rails_helper'
 
 RSpec.describe StudentsImporter do
 
-  describe '#import_row' do
+  let(:students_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: nil
+    })
+  }
 
+  describe '#import_row' do
     context 'good data' do
       let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
-
-      let(:importer) { described_class.new }          # We don't pass in args
-
-      let(:import) {
-        csv.each { |row| importer.import_row(row) }   # No school filter here because
-      }                                               # we are calling 'import' directly
-                                                      # on each row
-
+      let(:import) { csv.each { |row| students_importer.import_row(row) } }
       let!(:high_school) { School.create(local_id: 'SHS') }
       let!(:healey) { School.create(local_id: 'HEA') }
       let!(:brown) { School.create(local_id: 'BRN') }
@@ -112,7 +110,7 @@ RSpec.describe StudentsImporter do
       let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '1', homeroom: '101' } }
       it 'raises an error' do
         expect{
-          described_class.new.import_row(row)
+          students_importer.import_row(row)
         }.to raise_error(
           ActiveRecord::RecordInvalid
         )
@@ -129,7 +127,7 @@ RSpec.describe StudentsImporter do
       let!(:new_homeroom) { FactoryGirl.create(:homeroom, school: school) }
 
       it 'assigns the student to the homeroom' do
-        described_class.new.assign_student_to_homeroom(student, new_homeroom.name)
+        students_importer.assign_student_to_homeroom(student, new_homeroom.name)
         expect(student.reload.homeroom).to eq(new_homeroom)
       end
     end
@@ -139,11 +137,11 @@ RSpec.describe StudentsImporter do
       let!(:new_homeroom_name) { '152I' }
       it 'creates a new homeroom' do
         expect {
-          described_class.new.assign_student_to_homeroom(student, new_homeroom_name)
+          students_importer.assign_student_to_homeroom(student, new_homeroom_name)
         }.to change(Homeroom, :count).by(1)
       end
       it 'assigns the student to the homeroom' do
-        described_class.new.assign_student_to_homeroom(student, new_homeroom_name)
+        students_importer.assign_student_to_homeroom(student, new_homeroom_name)
         new_homeroom = Homeroom.find_by_name(new_homeroom_name)
         expect(student.homeroom_id).to eq(new_homeroom.id)
       end
@@ -155,7 +153,7 @@ RSpec.describe StudentsImporter do
 
       it 'does not create a new homeroom' do
         expect {
-          described_class.new.assign_student_to_homeroom(student, new_homeroom_name)
+          students_importer.assign_student_to_homeroom(student, new_homeroom_name)
         }.to change(Homeroom, :count).by(0)
       end
 

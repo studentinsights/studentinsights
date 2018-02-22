@@ -173,10 +173,6 @@ class SchoolOverviewPage extends React.Component {
   onResetClicked(e) {
     this.clearFilters();
   }
-  // key code 27 is the ESC key
-  //onKeyDown: function(e) {
-  //  if (e.keyCode === 27) this.clearFilters();
-  //},
 
   render() {
     this.setFilteredStudents(this.filteredStudents());

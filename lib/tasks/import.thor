@@ -1,7 +1,5 @@
 require 'thor'
-require_relative '../../app/importers/constants/x2_importers'
-require_relative '../../app/importers/constants/star_importers'
-require_relative '../../app/importers/constants/file_importer_options'
+require File.expand_path("../../../config/environment.rb", __FILE__)
 
 class Import
   class Start < Thor::Group
@@ -14,23 +12,21 @@ class Import
       type: :array,
       default: ['x2', 'star'],  # This runs all X2 and STAR importers
       desc: "Import data from one of #{FileImporterOptions.keys}"
-    class_option :test_mode,
+    class_option :only_recent_attendance,
       type: :boolean,
       default: false,
-      desc: "Redirect log output away from STDOUT; do not load Rails during import"
-    class_option :progress_bar,
+      desc: "Only import attendance rows from the past 90 days for faster attendance import"
+    class_option :background,
       type: :boolean,
-      default: false,
-      desc: "Show progress bar"
+      default: true,
+      desc: "Import data in a background job"
 
-    def load_rails
-      unless options["test_mode"]
-        require File.expand_path("../../../config/environment.rb", __FILE__)
+    def import
+      if options.fetch(:background)
+        Delayed::Job.enqueue ImportJob.new(options: options)
+      else
+        ImportTask.new(options: options).connect_transform_import
       end
-    end
-
-    def connect_transform_import
-      ImportTask.new(options: options).connect_transform_import
     end
   end
 end
