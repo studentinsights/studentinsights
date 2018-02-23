@@ -1,0 +1,59 @@
+import React from 'react';
+import Api from './Api.js';
+import NotesFeedPage from './NotesFeedPage.js';
+
+class PageContainer extends React.Component {
+
+  constructor(props) {
+
+    super(props);
+
+    this.state = {
+      educatorsIndex: this.props.educatorsIndex,
+      eventNotes: this.props.eventNotes,
+      eventNoteTypesIndex: this.props.eventNoteTypesIndex,
+      daysBackMultiplier: 1,
+    };
+
+    this.getEventNotes = this.getEventNotes.bind(this);
+    this.incrementDaysBack = this.incrementDaysBack.bind(this);
+  }
+
+  componentWillMount(props, state) {
+    this.api = new Api(); 
+  }
+  
+  componentDidMount() {
+    const onSucceed = this.getEventNotes;
+    const incrementMultiplier = this.incrementDaysBack;
+  
+    this.api.getEventNotesData(onSucceed, incrementMultiplier);
+  }
+
+  getEventNotes(json) {
+    this.setState({ eventNotes: json });
+  }
+
+  incrementDaysBack() {
+    let previousMultiplier = this.state.daysBackMultiplier;
+    this.setState({ daysBackMultiplier: previousMultiplier += 1 });
+  }
+
+  render() {
+    return(
+      <NotesFeedPage
+        educatorsIndex={this.state.educatorsIndex}
+        eventNotes={this.state.eventNotes}
+        eventNoteTypesIndex={this.state.eventNoteTypesIndex} />
+    );
+  }
+
+}
+
+PageContainer.propTypes = {
+  educatorsIndex: React.PropTypes.object.isRequired,
+  eventNotes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  eventNoteTypesIndex: React.PropTypes.object.isRequired,
+};
+
+export default PageContainer;
