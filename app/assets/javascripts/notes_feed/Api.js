@@ -6,7 +6,7 @@ class Api {
 
     return fetch(url, { credentials: 'include' })
       .then(response => response.json())
-      .then(json => getEventNotes(json))
+      .then(json => { return getEventNotes(json); })
       .then(json => incrementDaysBack());
   }
 }

@@ -25,7 +25,9 @@ class PageContainer extends React.Component {
   }
 
   getEventNotes(json) {
-    this.setState({ eventNotes: json });
+    this.setState({ educatorsIndex: json.educators_index });
+    this.setState({ eventNotes: json.notes });
+    this.setState({ eventNoteTypesIndex: json.event_note_types_index });
   }
 
   incrementDaysBack() {
