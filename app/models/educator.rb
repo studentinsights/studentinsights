@@ -14,6 +14,7 @@ class Educator < ActiveRecord::Base
   has_many    :sections, through: :educator_section_assignments
   has_many    :section_students, source: :students, through: :sections
   has_many    :interventions
+  has_many    :event_notes
 
   validates :email, presence: true, uniqueness: true
 
