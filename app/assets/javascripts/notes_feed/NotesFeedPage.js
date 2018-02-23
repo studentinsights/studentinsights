@@ -61,7 +61,12 @@ class NotesFeedPage extends React.Component {
           </div>
         </div>
         <div className="footer" style={styles.footer}>
-          <button className="btn load-more-notes" style={styles.button}>Load next 30 days</button>
+          <button
+            className="btn load-more-notes"
+            style={styles.button}
+            onClick={this.props.onClickLoadMoreNotes}>
+            Load next 30 days
+          </button>
         </div>
       </div>
     );
@@ -72,6 +77,7 @@ NotesFeedPage.propTypes = {
   educatorsIndex: React.PropTypes.object.isRequired,
   eventNotes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   eventNoteTypesIndex: React.PropTypes.object.isRequired,
+  onClickLoadMoreNotes: React.PropTypes.func.isRequired
 };
 
 export default NotesFeedPage;

@@ -17,17 +17,11 @@ class PageContainer extends React.Component {
 
     this.getEventNotes = this.getEventNotes.bind(this);
     this.incrementDaysBack = this.incrementDaysBack.bind(this);
+    this.onClickLoadMoreNotes = this.onClickLoadMoreNotes.bind(this);
   }
 
   componentWillMount(props, state) {
     this.api = new Api(); 
-  }
-  
-  componentDidMount() {
-    const onSucceed = this.getEventNotes;
-    const incrementMultiplier = this.incrementDaysBack;
-  
-    this.api.getEventNotesData(onSucceed, incrementMultiplier);
   }
 
   getEventNotes(json) {
@@ -39,12 +33,20 @@ class PageContainer extends React.Component {
     this.setState({ daysBackMultiplier: previousMultiplier += 1 });
   }
 
+  onClickLoadMoreNotes() {
+    const onSucceed = this.getEventNotes;
+    const incrementMultiplier = this.incrementDaysBack;
+  
+    this.api.getEventNotesData(this.state.daysBackMultiplier, onSucceed, incrementMultiplier);
+  }
+
   render() {
     return(
       <NotesFeedPage
         educatorsIndex={this.state.educatorsIndex}
         eventNotes={this.state.eventNotes}
-        eventNoteTypesIndex={this.state.eventNoteTypesIndex} />
+        eventNoteTypesIndex={this.state.eventNoteTypesIndex}
+        onClickLoadMoreNotes={this.onClickLoadMoreNotes} />
     );
   }
 

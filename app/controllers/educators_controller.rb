@@ -24,7 +24,8 @@ class EducatorsController < ApplicationController
   end
 
   def notes_feed_json
-    serialized_data = notes_feed_data(params["days_back"].to_i)
+    time_interval = Date.today - params["days_back"].to_i
+    serialized_data = notes_feed_data(time_interval)
     render json: serialized_data
   end
 
