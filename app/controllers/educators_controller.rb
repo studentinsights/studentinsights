@@ -1,6 +1,6 @@
 class EducatorsController < ApplicationController
   # Authentication by default inherited from ApplicationController.
-  NOTES_FEED_TIME_INTERVAL = Date.today - 2400 # TODO: change to 30 before merging
+  NOTES_FEED_TIME_INTERVAL = Date.today - 30
 
   before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage] # Extra authentication layer
 
