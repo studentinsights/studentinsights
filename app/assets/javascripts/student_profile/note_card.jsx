@@ -239,7 +239,9 @@ import * as Routes from '../helpers/Routes';
       if (student) {
         return (
           <div className="studentCard" style={styles.studentCard}>
-            <p style={styles.studentName}>{student.last_name}, {student.first_name}</p>
+            <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
+              {student.last_name}, {student.first_name}
+            </a></p>
             {this.renderSchool(student)}
             {this.renderHomeroomOrGrade(student)}
           </div>
