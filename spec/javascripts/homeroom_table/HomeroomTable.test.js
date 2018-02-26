@@ -21,8 +21,9 @@ SpecSugar.withTestEl('high-level integration test', (container) => {
     const el = container.testEl;
     helpers.renderInto(el, props);
 
-    expect(el.innerHTML).toContain('Minnie Poppins');
-    expect($(el).find('tr').length).toEqual(15);
+    expect(el.innerHTML).toContain('Aladdin Kenobi');
+    expect(el.innerHTML).toContain('Snow Kenobi');
+    expect($(el).find('tbody > tr').length).toEqual(6);
   });
 
   it('opens column picker when clicking on column picker toggle ', () => {

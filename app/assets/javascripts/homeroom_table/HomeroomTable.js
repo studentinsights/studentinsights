@@ -33,7 +33,7 @@ class HomeroomTable extends React.Component {
   }
 
   sortedStudents() {
-    const students = this.activeMergedStudentRows();
+    const students = this.mergedStudentRows();
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
     let customEnum;
@@ -114,14 +114,6 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  activeStudentRowFilter(row) {
-    return row.enrollment_status === 'Active';
-  }
-
-  activeStudentRows() {
-    return this.props.rows.filter(this.activeStudentRowFilter);
-  }
-
   mergeInStudentRiskLevel(row) {
     let risk = { risk: row['student_risk_level']['level'] };
     let sped_level = { sped_level: row['sped_data']['sped_level'] };
@@ -129,8 +121,8 @@ class HomeroomTable extends React.Component {
     return { ...row, ...risk, ...sped_level };
   }
 
-  activeMergedStudentRows() {
-    return this.activeStudentRows().map(this.mergeInStudentRiskLevel);
+  mergedStudentRows() {
+    return this.props.rows.map(this.mergeInStudentRiskLevel);
   }
 
   warningBubbleClassName(row) {
