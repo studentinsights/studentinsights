@@ -134,7 +134,8 @@ class TestPals
       school: @healey,
       homeroom: @healey_kindergarten_homeroom,
       grade: 'KF',
-      local_id: '111111111'
+      local_id: '111111111',
+      enrollment_status: 'Active'
     )
 
     # West is a K8 school
@@ -261,12 +262,14 @@ class TestPals
       school: @shs,
       homeroom: @shs_jodi_homeroom,
       grade: '9',
-      local_id: '2222222222'
+      local_id: '2222222222',
+      enrollment_status: 'Active'
     )
     StudentSectionAssignment.create!(
       student: @shs_freshman_mari, section: @shs_tuesday_biology_section
     )
 
+    reindex!
     self
   end
 
@@ -275,5 +278,11 @@ class TestPals
     sections.each do |section|
       EducatorSectionAssignment.create!(educator: educator, section: section)
     end
+  end
+
+  def reindex!
+    Student.update_risk_levels!
+    Student.update_recent_student_assessments
+    Homeroom.destroy_empty_homerooms
   end
 end

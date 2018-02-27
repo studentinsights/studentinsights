@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe SectionsController, :type => :controller do
-  let!(:school) { FactoryGirl.create(:shs) }
+  let!(:pals) { TestPals.create! }
+  let!(:school) { School.find_by_local_id('SHS') }
   let!(:course) { FactoryGirl.create(:course, school: school) }
   let!(:first_section) { FactoryGirl.create(:section, course: course) }
   let!(:second_section) { FactoryGirl.create(:section, course: course) }
@@ -27,6 +28,24 @@ describe SectionsController, :type => :controller do
       serialized_data[instance].map {|data_hash| data_hash['id'] }
     end
 
+    context 'happy path' do
+      let!(:educator) { pals.shs_bill_nye }
+      let!(:section) { pals.shs_tuesday_biology_section }
+      before { sign_in(educator) }
+      
+      it 'returns the right shape of data' do
+        make_request(section.id)
+        expect(assigns(:serialized_data)[:sections].size).to eq 2
+        expect(assigns(:serialized_data)[:students].size).to eq 1
+        expect(assigns(:serialized_data)[:students].first.keys).to include(
+          'event_notes',
+          'most_recent_school_year_absences_count',
+          'most_recent_school_year_tardies_count',
+          'most_recent_school_year_discipline_incidents_count'
+        )
+      end
+
+    end
     context 'educator with section logged in' do
       let!(:educator) { FactoryGirl.create(:educator, school: school) }
       let!(:first_esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: first_section)}

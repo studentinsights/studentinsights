@@ -18,15 +18,15 @@ class HomeroomsController < ApplicationController
       school: @homeroom.school,
       show_star: @homeroom.show_star?,
       show_mcas: @homeroom.show_mcas?,
-      rows: @rows
+      rows: @rows.as_json
     }
   end
 
   private
 
   def initial_columns
-    return ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
-    return ['name', 'risk', 'sped', 'interventions']
+    return ['name', 'supports', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
+    return ['name', 'supports', 'risk', 'sped', 'interventions']
   end
 
   def eager_students(*additional_includes)
