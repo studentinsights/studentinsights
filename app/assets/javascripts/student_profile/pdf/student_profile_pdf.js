@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import * as GraphHelpers from '../../helpers/graph_helpers';
+import * as GraphHelpers from '../../helpers/GraphHelpers';
 import generateReportGraph from './GenerateReportGraph';
 
 (function() {
