@@ -1,8 +1,11 @@
-import FlexibleRoster from '../components/FlexibleRoster';
-import SectionHeader from './SectionHeader.js';
-import SortHelpers from '../helpers/sort_helpers.jsx';
 import React from 'react';
+import FlexibleRoster from '../components/FlexibleRoster';
+import SectionHeader from './SectionHeader';
+import SortHelpers from '../helpers/sort_helpers.jsx';
+import {latestNoteDateText} from '../helpers/latestNoteDateText';
 
+
+// Show a section roster for a high school course.
 class SectionPage extends React.Component {
 
   styleStudentName(student, column) {
@@ -33,13 +36,35 @@ class SectionPage extends React.Component {
     return SortHelpers.sortByCustomEnum(a,b,sortBy,['A','P','NI','W','F']);
   }
 
+  studentsWithComputedFields(students) {
+    return students.map(student => {
+      const latestSstDateText = latestNoteDateText(300, student.event_notes);
+      const latestNgeDateText = latestNoteDateText(305, student.event_notes);
+      const latest10geDateText = latestNoteDateText(306, student.event_notes);
+      return {
+        ...student,
+        latestSstDateText,
+        latestNgeDateText,
+        latest10geDateText
+      };
+    });
+  }
+
   render() {
+    const {section, sections, students} = this.props;
+    const studentsWithComputedFields = this.studentsWithComputedFields(students);
+
     // Grades are being rolled out ONLY to educators with districtwide access
     // for data validation purposes
     const columns = [
       {label: 'Name', key: 'first_name', cell:this.styleStudentName, sortFunc: this.nameSorter},
-      {label: 'Program Assigned', key: 'program_assigned', sortFunc: this.programSorter},
 
+      // Supports
+      {label: 'Last SST', group: 'Supports', key: 'latestSstDateText', sortFunc: SortHelpers.sortByDate},
+      {label: 'Last NGE', group: 'Supports', key: 'latestNgeDateText', sortFunc: SortHelpers.sortByDate},
+      {label: 'Last 10GE', group: 'Supports', key: 'latest10GeDateText', sortFunc: SortHelpers.sortByDate},
+
+      {label: 'Program Assigned', key: 'program_assigned', sortFunc: this.programSorter},
       // SPED & Disability
       {label: 'Disability', group: 'SPED & Disability', key: 'disability'},
       {label: '504 Plan', group: 'SPED & Disability', key: 'plan_504'},
@@ -72,12 +97,12 @@ class SectionPage extends React.Component {
       <div className="section">
         <div className="header">
           <SectionHeader
-            section={this.props.section}
-            sections={this.props.sections}/>
+            section={section}
+            sections={sections}/>
         </div>
         <div className="roster">
           <FlexibleRoster
-            rows={this.props.students}
+            rows={studentsWithComputedFields}
             columns={columns}
             initialSortIndex={0}/>
         </div>

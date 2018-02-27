@@ -1,17 +1,8 @@
 import React from 'react';
-import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
-import { shouldDisplay } from '../helpers/customization_helpers.js';
+import {shouldDisplay} from '../helpers/customization_helpers.js';
+import {latestNoteDateText} from '../helpers/latestNoteDateText';
 import * as Routes from '../helpers/Routes';
-
-// Find the latest event note of a particular type, and return a string
-// of that date.
-function latestNoteDateText(eventNoteTypeId, eventNotes) {
-  const sortedEventNotes = _.sortBy(eventNotes, note => new Date(note.recorded_at));
-  const latestNoteOfType = _.findLast(sortedEventNotes, { event_note_type_id: eventNoteTypeId });
-  if (latestNoteOfType === undefined) return null;
-  return moment.utc(latestNoteOfType.recorded_at).format('M/D/YY');
-}
 
 
 // Renders a table of students.
@@ -31,11 +22,13 @@ class StudentsTable extends React.Component {
       const latestSstDateText = latestNoteDateText(300, student.event_notes);
       const latestMtssDateText = latestNoteDateText(301, student.event_notes);
       const latestNgeDateText = latestNoteDateText(305, student.event_notes);
+      const latest10geDateText = latestNoteDateText(306, student.event_notes);
       return {
         ...student,
         latestSstDateText,
         latestMtssDateText,
-        latestNgeDateText
+        latestNgeDateText,
+        latest10geDateText
       };
     });
   }
@@ -110,8 +103,9 @@ class StudentsTable extends React.Component {
             <tr>
               {this.renderHeader('Name', 'last_name', 'string')}
               {this.renderHeader('Last SST', 'latestSstDateText', 'date')}
-              {this.renderHeader('Last MTSS', 'latestMtssDateText', 'date')}
+              {school.school_type === 'ESMS' && this.renderHeader('Last MTSS', 'latestMtssDateText', 'date')}
               {school.school_type === 'HS' && this.renderHeader('Last NGE', 'latestNgeDateText', 'date')}
+              {school.school_type === 'HS' && this.renderHeader('Last 10GE', 'latest10geDateText', 'date')}
               {this.renderHeader('Grade', 'grade', 'grade')}
               {shouldDisplay('house', school) && this.renderHeader('House', 'house', 'string')}
               {shouldDisplay('counselor', school) && this.renderHeader('Counselor', 'counselor', 'string')}
@@ -140,8 +134,9 @@ class StudentsTable extends React.Component {
                     </a>
                   </td>
                   <td>{student.latestSstDateText}</td>
-                  <td>{student.latestMtssDateText}</td>
+                  {school.school_type === 'ESMS' && <td>{student.latestMtssDateText}</td>}
                   {school.school_type === 'HS' && <td>{student.latestNgeDateText}</td>}
+                  {school.school_type === 'HS' && <td>{student.latest10geDateText}</td>}
                   <td>{student.grade}</td>
                   {shouldDisplay('house', school) && (<td>{student.house}</td>)}
                   {shouldDisplay('counselor', school) && (<td>{student.counselor}</td>)}

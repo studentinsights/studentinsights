@@ -64,8 +64,8 @@ SpecSugar.withTestEl('high-level integration test', function(container) {
     expect(helpers.tableHeaderTexts(el)).toEqual([
       "Name",
       "LastSST",
-      "LastMTSS",
       "LastNGE", // also has NGE
+      "Last10GE", // also has 10GE
       "Grade",
       "House",
       "Counselor",
