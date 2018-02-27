@@ -5,7 +5,7 @@ import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_note
 import renderSectionMain from '../app/assets/javascripts/section/main.jsx';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main.jsx';
 import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main.jsx';
-
+import renderServiceTypesControlPanel from '../app/assets/javascripts/service_types/main.jsx';
 
 // Placeholder routing (not fully client-side, just on page load).
 // Clicking links still reloads the whole page from the server.
@@ -20,7 +20,7 @@ export default function route() {
   }
 
   if ($('body').hasClass('schools') && $('body').hasClass('overview')) {
-    renderSchoolOverviewMain(el, { json: true }); 
+    renderSchoolOverviewMain(el, { json: true });
   }
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
@@ -41,5 +41,9 @@ export default function route() {
 
   if ($('body').hasClass('schools') && $('body').hasClass('school_administrator_dashboard')) {
     renderSchoolAdminDashboardMain(el);
+  }
+
+  if ($('body').hasClass('service_types') && $('body').hasClass('control_panel')) {
+    renderServiceTypesControlPanel(el);
   }
 }
