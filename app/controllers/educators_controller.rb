@@ -1,5 +1,6 @@
 class EducatorsController < ApplicationController
   # Authentication by default inherited from ApplicationController.
+  NOTES_FEED_TIME_INTERVAL = Date.today - 30
 
   before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage] # Extra authentication layer
 
@@ -20,6 +21,30 @@ class EducatorsController < ApplicationController
     end
 
     render json: filtered_names(params[:term], school)
+  end
+
+  def notes_feed_json
+    time_interval = Date.today - params["days_back"].to_i
+    serialized_data = notes_feed_data(time_interval)
+    render json: serialized_data
+  end
+
+  def notes_feed
+    @serialized_data = notes_feed_data(NOTES_FEED_TIME_INTERVAL)
+    render 'shared/serialized_data'
+  end
+
+  def notes_feed_data(days_back)
+    notes = EventNote.includes(:student)
+            .where(educator_id: current_educator.id)
+            .where("recorded_at >= ?", days_back)
+            .order("recorded_at DESC")
+    {
+      educators_index: Educator.to_index,
+      event_note_types_index: EventNoteSerializer.event_note_types_index,
+      current_educator: current_educator,
+      notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note_with_student },
+    }
   end
 
   def reset_session_clock

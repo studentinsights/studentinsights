@@ -1,5 +1,6 @@
 import Educator from '../student_profile/Educator.js';
 import moment from 'moment';
+import * as Routes from '../helpers/Routes';
 
 (function() {
   window.shared || (window.shared = {});
@@ -11,7 +12,8 @@ import moment from 'moment';
       border: '1px solid #eee',
       padding: 15,
       marginTop: 10,
-      marginBottom: 10
+      marginBottom: 10,
+      width: '100%'
     },
     date: {
       display: 'inline-block',
@@ -29,6 +31,22 @@ import moment from 'moment';
       fontFamily: "'Open Sans', sans-serif",
       fontSize: 14,
       whiteSpace: 'pre-wrap'
+    },
+    studentCard: {
+      border: '1px solid #eee',
+      padding: 15,
+      marginTop: 10,
+      marginBottom: 10,
+      width: '25%'
+    },
+    studentName: {
+      fontSize: '18px',
+      fontWeight: 'bold',
+      color: '#3177c9',
+      marginBottom: '5%'
+    },
+    wrapper: {
+      display: 'flex'
     }
   };
 
@@ -37,17 +55,18 @@ import moment from 'moment';
     displayName: 'NoteCard',
 
     propTypes: {
-      noteMoment: React.PropTypes.instanceOf(moment).isRequired,
-      educatorId: React.PropTypes.number.isRequired,
+      attachments: React.PropTypes.array.isRequired,
       badge: React.PropTypes.element.isRequired,
-      text: React.PropTypes.string.isRequired,
+      educatorId: React.PropTypes.number.isRequired,
+      educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteId: React.PropTypes.number,
       eventNoteTypeId: React.PropTypes.number,
-      educatorsIndex: React.PropTypes.object.isRequired,
-      attachments: React.PropTypes.array.isRequired,
-      onSave: React.PropTypes.func,
+      noteMoment: React.PropTypes.instanceOf(moment).isRequired,
+      numberOfRevisions: React.PropTypes.number,
       onEventNoteAttachmentDeleted: React.PropTypes.func,
-      numberOfRevisions: React.PropTypes.number
+      onSave: React.PropTypes.func,
+      student: React.PropTypes.object,
+      text: React.PropTypes.string.isRequired
     },
 
     getDefaultProps: function() {
@@ -73,19 +92,22 @@ import moment from 'moment';
 
     render: function() {
       return (
-        <div className="NoteCard" style={styles.note}>
-          <div>
-            <span className="date" style={styles.date}>
-              {this.props.noteMoment.format('MMMM D, YYYY')}
-            </span>
-            {this.props.badge}
-            <span style={styles.educator}>
-              <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
-            </span>
+        <div className="wrapper" style={styles.wrapper}>
+          {this.renderStudentCard()}
+          <div className="NoteCard" style={styles.note}>
+            <div>
+              <span className="date" style={styles.date}>
+                {this.props.noteMoment.format('MMMM D, YYYY')}
+              </span>
+              {this.props.badge}
+              <span style={styles.educator}>
+                <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
+              </span>
+            </div>
+            {(this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea()}
+            {this.renderAttachmentUrls()}
           </div>
-          {(this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea()}
-          {this.renderAttachmentUrls()}
-        </div>
+        </div>        
       );
     },
 
@@ -169,6 +191,62 @@ import moment from 'moment';
           (remove)
         </a>
       );
+    },
+
+    renderHomeroomOrGrade: function(student) {
+      if (student.grade < 9) {
+        if (student.homeroom_id) {
+          return (
+            <p><a
+              className="homeroom-link"
+              href={Routes.homeroom(student.homeroom_id)}>
+              {'Homeroom ' + student.homeroom_name}
+            </a></p>
+          );
+        }
+        else {
+          return (
+            <p>No Homeroom</p>
+          );
+        }
+      }
+      else {
+        return (
+          <p>{student.grade}th Grade</p>
+        );
+      }
+    },
+
+    renderSchool: function(student) {
+      if (student.school_id) {
+        return (
+          <p><a
+            className="school-link"
+            href={Routes.school(student.school_id)}>
+            {student.school_name}
+          </a></p>
+        );
+      }
+      else {
+        return (
+          <p>No School</p>
+        );
+      }
+    },
+
+    renderStudentCard: function() {
+      const student = this.props.student;
+      if (student) {
+        return (
+          <div className="studentCard" style={styles.studentCard}>
+            <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
+              {student.last_name}, {student.first_name}
+            </a></p>
+            {this.renderSchool(student)}
+            {this.renderHomeroomOrGrade(student)}
+          </div>
+        );
+      }
     }
   });
 })();

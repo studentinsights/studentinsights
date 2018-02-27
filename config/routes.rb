@@ -11,9 +11,11 @@ Rails.application.routes.draw do
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
+  get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
+  get '/educators/notes_feed'=> 'educators#notes_feed'
+  get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
-  get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
 
   devise_scope :educator do
     root to: "devise/sessions#new"
