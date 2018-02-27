@@ -138,7 +138,7 @@ class HomeroomTable extends React.Component {
   }
 
   mergedStudentRows() {
-    return this.activeStudentRows()
+    return this.props.rows
       .map(this.mergeInStudentRiskLevel)
       .map(this.mergeInLatestMeetings);
   }
