@@ -4,34 +4,40 @@ import SortHelpers from '../helpers/sort_helpers.jsx';
 import { shouldDisplay } from '../helpers/customization_helpers.js';
 import * as Routes from '../helpers/Routes';
 
+// Find the latest event note of a particular type, and return a string
+// of that date.
+function latestNoteDateText(eventNoteTypeId, eventNotes) {
+  const sortedEventNotes = _.sortBy(eventNotes, note => new Date(note.recorded_at));
+  const latestNoteOfType = _.findLast(sortedEventNotes, { event_note_type_id: eventNoteTypeId });
+  if (latestNoteOfType === undefined) return null;
+  return moment.utc(latestNoteOfType.recorded_at).format('M/D/YY');
+}
+
 
 // Renders a table of students.
 class StudentsTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortBy: 'last_name',
+      sortBy: 'latest_name',
       sortType: 'string',
       sortDesc: true
     };
     this.onClickHeader = this.onClickHeader.bind(this);
   }
 
-  mergeInDateOfLastSST(student) {
-    const eventNotes = student.event_notes;
-    const sstNotes = eventNotes.filter((note) => {
-      return note.event_note_type_id === 300; });
-
-    if (sstNotes.length === 0) return {...student, dateOfLastSST: null };
-
-    const sstNoteDates = sstNotes.map(note => moment.utc(note.recorded_at)).sort();
-    const latestSstDate = _.last(sstNoteDates).format('M/D/YY');
-
-    return {...student, dateOfLastSST: latestSstDate };
-  }
-
-  studentsWithDateOfLastSST() {
-    return this.props.students.map(student => this.mergeInDateOfLastSST(student));
+  studentsWithComputedFields() {
+    return this.props.students.map(student => {
+      const latestSstDateText = latestNoteDateText(300, student.event_notes);
+      const latestMtssDateText = latestNoteDateText(301, student.event_notes);
+      const latestNgeDateText = latestNoteDateText(305, student.event_notes);
+      return {
+        ...student,
+        latestSstDateText,
+        latestMtssDateText,
+        latestNgeDateText
+      };
+    });
   }
 
   orderedStudents() {
@@ -43,7 +49,7 @@ class StudentsTable extends React.Component {
   }
 
   sortedStudents() {
-    const students = this.studentsWithDateOfLastSST();
+    const students = this.studentsWithComputedFields();
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
     let customEnum;
@@ -102,7 +108,9 @@ class StudentsTable extends React.Component {
           <thead>
             <tr>
               {this.renderHeader('Name', 'last_name', 'string')}
-              {this.renderHeader('Last SST', 'dateOfLastSST', 'date')}
+              {this.renderHeader('Last SST', 'latestSstDateText', 'date')}
+              {this.renderHeader('Last MTSS', 'latestMtssDateText', 'date')}
+              {this.renderHeader('Last NGE', 'latestNgeDateText', 'date')}
               {this.renderHeader('Grade', 'grade', 'grade')}
               {this.renderHeader('Disability', 'sped_level_of_need', 'sped_level_of_need')}
               {this.renderHeader('Low Income', 'free_reduced_lunch', 'free_reduced_lunch')}
@@ -130,7 +138,9 @@ class StudentsTable extends React.Component {
                       {student.last_name}, {student.first_name}
                     </a>
                   </td>
-                  <td>{student.dateOfLastSST}</td>
+                  <td>{student.latestSstDateText}</td>
+                  <td>{student.latestMtssDateText}</td>
+                  <td>{student.latestNgeDateText}</td>
                   <td>{student.grade}</td>
                   <td>{this.renderUnless('None', student.sped_level_of_need)}</td>
                   <td style={{width: '2.5em'}}>{this.renderUnless('Not Eligible', student.free_reduced_lunch)}</td>
