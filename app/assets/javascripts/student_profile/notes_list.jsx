@@ -33,7 +33,7 @@ import * as FeedHelpers from '../helpers/feed_helpers.jsx';
       feed: PropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
-      onSaveNote: React.PropTypes.func.isRequired,
+      onSaveNote: React.PropTypes.func,
       onEventNoteAttachmentDeleted: React.PropTypes.func
     },
 
@@ -68,6 +68,7 @@ import * as FeedHelpers from '../helpers/feed_helpers.jsx';
         <NoteCard
           key={['event_note', eventNote.id].join()}
           eventNoteId={eventNote.id}
+          student={eventNote.student}          
           eventNoteTypeId={eventNote.event_note_type_id}
           noteMoment={moment.utc(eventNote.recorded_at)}
           badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}

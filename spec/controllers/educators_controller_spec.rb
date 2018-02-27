@@ -215,4 +215,43 @@ describe EducatorsController, :type => :controller do
     end
 
   end
+
+  describe '#notes_feed' do
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :notes_feed_json
+    end
+
+    context 'educator with homeroom' do
+      let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+      let!(:event_note) { FactoryGirl.create(:event_note, { educator: educator, recorded_at: Date.today }) }
+
+      it 'is able to access the notes feed page' do
+        sign_in(educator)
+        make_request
+        expect(response).to be_success
+        body = JSON.parse!(response.body)
+        expect(body).to have_key("educators_index")
+        expect(body).to have_key("event_note_types_index")
+        expect(body).to have_key("current_educator")
+        expect(body).to have_key("notes")
+        expect(body["notes"].length).to be(1)
+        event_note = body["notes"][0]
+        expect(event_note).to have_key("id")
+        expect(event_note).to have_key("student_id")
+        expect(event_note).to have_key("educator_id")
+        expect(event_note).to have_key("event_note_type_id")
+        expect(event_note).to have_key("recorded_at")
+        expect(event_note).to have_key("student")
+        expect(event_note["student"]).to have_key("id")
+        expect(event_note["student"]).to have_key("first_name")
+        expect(event_note["student"]).to have_key("last_name")
+        expect(event_note["student"]).to have_key("school_id")
+        expect(event_note["student"]).to have_key("school_name")
+        expect(event_note["student"]).to have_key("homeroom_id")
+        expect(event_note["student"]).to have_key("homeroom_name")
+        expect(event_note["student"]).to have_key("grade")
+      end
+    end
+  end
 end
