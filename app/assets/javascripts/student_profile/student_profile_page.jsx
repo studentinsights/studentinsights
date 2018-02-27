@@ -8,6 +8,7 @@ import React from 'react';
 import Scales from '../student_profile/Scales.js';
 import SummaryList from '../student_profile/SummaryList.js';
 import AttendanceDetails from '../student_profile/AttendanceDetails.js';
+import QuadConverter from '../student_profile/QuadConverter.js';
 
 (function() {
   window.shared || (window.shared = {});
@@ -16,7 +17,6 @@ import AttendanceDetails from '../student_profile/AttendanceDetails.js';
   const Sparkline = window.shared.Sparkline;
   const AcademicSummary = window.shared.AcademicSummary;
   const SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
-  const QuadConverter = window.shared.QuadConverter;
 
   const StudentProfileHeader = window.shared.StudentProfileHeader;
   const ProfileDetails = window.shared.ProfileDetails;

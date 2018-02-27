@@ -3,10 +3,10 @@ import Datepicker from '../student_profile/Datepicker.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import moment from 'moment';
 import ProfileDetailsStyle from '../helpers/profile_details_style.jsx';
+import QuadConverter from './QuadConverter.js';
 
 (function() {
   window.shared || (window.shared = {});
-  const QuadConverter = window.shared.QuadConverter;
   const styles = ProfileDetailsStyle;
   const StudentSectionsRoster = window.shared.StudentSectionsRoster;
 

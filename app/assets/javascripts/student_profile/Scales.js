@@ -1,7 +1,5 @@
 import _ from 'lodash';
-
-window.shared || (window.shared = {});
-const QuadConverter = window.shared.QuadConverter;
+import QuadConverter from './QuadConverter.js';
 
 const Scales = {
   mcas: {
