@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-def make_request(id = nil)
-  request.env['HTTPS'] = 'on'
-  get :show, params: { id: id }
-end
-
-def extract_serialized_ids(controller, instance)
-  serialized_data = controller.instance_variable_get(:@serialized_data)
-  serialized_data[instance].map {|data_hash| data_hash['id'] }
-end
-
 
 describe SectionsController, :type => :controller do
+  def make_request(id = nil)
+    request.env['HTTPS'] = 'on'
+    get :show, params: { id: id }
+  end
+
+  def extract_serialized_ids(controller, instance)
+    serialized_data = controller.instance_variable_get(:@serialized_data)
+    serialized_data[instance].map {|data_hash| data_hash['id'] }
+  end
+  
   context 'with test pals setup' do
     let!(:pals) { TestPals.create! }
     context 'happy path' do
