@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
+  get '/educators/homes/teacher' => 'educators#homes_teacher'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
   get '/educators/notes_feed'=> 'educators#notes_feed'
   get '/educators/notes_feed_json'=> 'educators#notes_feed_json'

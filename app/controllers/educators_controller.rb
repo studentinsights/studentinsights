@@ -8,6 +8,18 @@ class EducatorsController < ApplicationController
     redirect_to homepage_path_for_role(current_educator)
   end
 
+  def homes_teacher
+    notes = EventNote.all
+    @serialized_data = 
+    {
+      educators_index: Educator.to_index,
+      event_note_types_index: EventNoteSerializer.event_note_types_index,
+      current_educator: current_educator,
+      notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note_with_student }
+    }
+    render 'shared/serialized_data'
+  end
+
   def districtwide_admin_homepage
     @schools = School.all
   end

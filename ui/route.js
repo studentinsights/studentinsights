@@ -6,6 +6,7 @@ import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_note
 import renderSectionMain from '../app/assets/javascripts/section/main.jsx';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main.jsx';
 import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main';
+import renderHomesMain from '../app/assets/javascripts/homes/main.jsx';
 
 
 // Placeholder routing (not fully client-side, just on page load).
@@ -46,5 +47,9 @@ export default function route() {
 
   if ($('body').hasClass('educators') && $('body').hasClass('notes_feed')) {
     renderNotesFeedMain(el);
+  }
+
+  if ($('body').hasClass('educators') && $('body').hasClass('homes_teacher')) {
+    renderHomesMain(el);
   }
 }
