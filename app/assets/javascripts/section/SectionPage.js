@@ -65,6 +65,7 @@ class SectionPage extends React.Component {
       {label: 'Last 10GE', group: 'Supports', key: 'latest10GeDateText', sortFunc: SortHelpers.sortByDate},
 
       {label: 'Program Assigned', key: 'program_assigned', sortFunc: this.programSorter},
+      
       // SPED & Disability
       {label: 'Disability', group: 'SPED & Disability', key: 'disability'},
       {label: '504 Plan', group: 'SPED & Disability', key: 'plan_504'},
