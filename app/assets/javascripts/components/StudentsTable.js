@@ -19,7 +19,7 @@ class StudentsTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortBy: 'latest_name',
+      sortBy: 'last_name',
       sortType: 'string',
       sortDesc: true
     };
@@ -102,6 +102,7 @@ class StudentsTable extends React.Component {
   }
 
   render() {
+    const {school} = this.props;
     return (
       <div className='StudentsTable'>
         <table className='students-table' style={{ width: '100%' }}>
@@ -110,8 +111,11 @@ class StudentsTable extends React.Component {
               {this.renderHeader('Name', 'last_name', 'string')}
               {this.renderHeader('Last SST', 'latestSstDateText', 'date')}
               {this.renderHeader('Last MTSS', 'latestMtssDateText', 'date')}
-              {this.renderHeader('Last NGE', 'latestNgeDateText', 'date')}
+              {school.school_type === 'HS' && this.renderHeader('Last NGE', 'latestNgeDateText', 'date')}
               {this.renderHeader('Grade', 'grade', 'grade')}
+              {shouldDisplay('house', school) && this.renderHeader('House', 'house', 'string')}
+              {shouldDisplay('counselor', school) && this.renderHeader('Counselor', 'counselor', 'string')}
+              {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
               {this.renderHeader('Disability', 'sped_level_of_need', 'sped_level_of_need')}
               {this.renderHeader('Low Income', 'free_reduced_lunch', 'free_reduced_lunch')}
               {this.renderHeader('LEP', 'limited_english_proficiency', 'limited_english_proficiency')}
@@ -124,9 +128,6 @@ class StudentsTable extends React.Component {
               {this.renderHeader('Tardies', 'tardies_count', 'number')}
               {this.renderHeader('Services', 'active_services', 'active_services')}
               {this.renderHeader('Program', 'program_assigned', 'program_assigned')}
-              {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
-              {shouldDisplay('house',this.props.school) && this.renderHeader('House', 'house', 'string')}
-              {shouldDisplay('counselor',this.props.school) && this.renderHeader('Counselor', 'counselor', 'string')}
             </tr>
           </thead>
           <tbody>
@@ -140,8 +141,13 @@ class StudentsTable extends React.Component {
                   </td>
                   <td>{student.latestSstDateText}</td>
                   <td>{student.latestMtssDateText}</td>
-                  <td>{student.latestNgeDateText}</td>
+                  {school.school_type === 'HS' && <td>{student.latestNgeDateText}</td>}
                   <td>{student.grade}</td>
+                  {shouldDisplay('house', school) && (<td>{student.house}</td>)}
+                  {shouldDisplay('counselor', school) && (<td>{student.counselor}</td>)}
+                  <td>
+                    <a href={Routes.homeroom(student.homeroom_id)}>{student.homeroom_name}</a>
+                  </td>
                   <td>{this.renderUnless('None', student.sped_level_of_need)}</td>
                   <td style={{width: '2.5em'}}>{this.renderUnless('Not Eligible', student.free_reduced_lunch)}</td>
                   <td style={{width: '2.5em'}}>{this.renderUnless('Fluent', student.limited_english_proficiency)}</td>
@@ -156,13 +162,6 @@ class StudentsTable extends React.Component {
                   <td>
                     {this.renderUnless('Reg Ed', student.program_assigned)}
                   </td>
-                  <td>
-                    <a href={Routes.homeroom(student.homeroom_id)}>
-                      {student.homeroom_name}
-                    </a>
-                  </td>
-                  {shouldDisplay('house',this.props.school) && (<td>{student.house}</td>)}
-                  {shouldDisplay('counselor',this.props.school) && (<td>{student.counselor}</td>)}
                 </tr>
               );
             }, this)}
@@ -199,16 +198,18 @@ class StudentsTable extends React.Component {
     return (
       <th onClick={this.onClickHeader.bind(null, sortBy, sortType)}
           className={this.headerClassName(sortBy)}>
-        {pieces[0]}
-        <br/>
-        {pieces[1]}
+        <div>{pieces[0]}</div>
+        <div>{pieces[1]}</div>
       </th>
     );
   }
 }
 StudentsTable.propTypes = {
   students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  school: React.PropTypes.object.isRequired
+  school: React.PropTypes.shape({
+    local_id: React.PropTypes.string.isRequired,
+    school_type: React.PropTypes.string.isRequired
+  })
 };
 
 export default StudentsTable;
