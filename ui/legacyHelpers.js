@@ -1,8 +1,6 @@
 // HELPERS
 import '../app/assets/javascripts/helpers/react_helpers.jsx';
-import '../app/assets/javascripts/helpers/graph_helpers.js';
 // (unordered)
-import '../app/assets/javascripts/helpers/graph_helpers.js';
 import '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
 import '../app/assets/javascripts/helpers/profile_details_style.jsx';
 import '../app/assets/javascripts/helpers/prop_types.jsx';

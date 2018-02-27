@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import * as GraphHelpers from '../../../app/assets/javascripts/helpers/graph_helpers';
+import * as GraphHelpers from '../../../app/assets/javascripts/helpers/GraphHelpers';
 
 describe('Graph Helpers', function() {
 
