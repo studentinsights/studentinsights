@@ -40,7 +40,8 @@ class ResearchMattersExporter
     %w[
       educator_id
       email
-      full_name
+      first_name
+      last_name
       school_id
     ].join(',')
   end
@@ -69,12 +70,17 @@ class ResearchMattersExporter
 
   def teacher_rows
     @educators.map do |educator|
+      full_name = educator.full_name
+      last_name = full_name.split(", ")[0]
+      first_name = full_name.split(", ")[1]
+
       [
         educator.id,
         educator.email,
-        educator.full_name,
+        first_name,
+        last_name,
         'HEA'
-      ]
+      ].join(',')
     end
   end
 
