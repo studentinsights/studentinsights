@@ -2,7 +2,6 @@ require 'digest'
 
 module StudentsQueryHelper
   INCLUDE_FOR_STUDENTS = Student.column_names.map(&:to_sym) - [
-    :enrollment_status,
     :primary_phone,
     :primary_email,
     :student_address
