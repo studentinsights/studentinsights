@@ -14,11 +14,11 @@ class ResearchMattersExporter
   end
 
   def student_file
-    [student_file_headers, student_rows]
+    [student_file_headers, student_rows].flatten
   end
 
   def teacher_file
-    [teacher_file_headers, teacher_rows]
+    [teacher_file_headers, teacher_rows].flatten
   end
 
   private
