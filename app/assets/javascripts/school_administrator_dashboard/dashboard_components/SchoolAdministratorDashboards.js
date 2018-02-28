@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route} from 'react-router-dom';
 
-import DashboardOverview from './DashboardOverview.js';
-import SchoolwideAbsences from './absences_dashboard/SchoolwideAbsences.js';
-import SchoolwideTardies from './tardies_dashboard/SchoolwideTardies.js';
+import DashboardOverview from './DashboardOverview';
+import SchoolwideAbsences from './absences_dashboard/SchoolwideAbsences';
+import SchoolwideTardies from './tardies_dashboard/SchoolwideTardies';
 
 export default function SchoolAdministratorDashboards ( {serializedData} ) {
   const {students} = serializedData;

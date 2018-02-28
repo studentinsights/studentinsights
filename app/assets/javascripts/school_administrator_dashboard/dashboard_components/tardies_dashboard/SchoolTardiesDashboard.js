@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import DashboardHelpers from '../DashboardHelpers.js';
-import StudentsTable from '../StudentsTable.js';
-import DashboardBarChart from '../DashboardBarChart.js';
+import DashboardHelpers from '../DashboardHelpers';
+import StudentsTable from '../StudentsTable';
+import DashboardBarChart from '../DashboardBarChart';
 
 
 class SchoolTardiesDashboard extends React.Component {

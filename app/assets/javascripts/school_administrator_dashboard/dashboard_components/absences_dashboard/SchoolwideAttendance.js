@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DashboardHelpers from '../DashboardHelpers.js';
-import SchoolAbsenceDashboard from './SchoolAbsenceDashboard.js';
+import DashboardHelpers from '../DashboardHelpers';
+import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
 
 class SchoolwideAttendance extends React.Component {
 

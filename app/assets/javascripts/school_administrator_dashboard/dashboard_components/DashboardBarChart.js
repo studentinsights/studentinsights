@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import HighchartsWrapper from '../../student_profile/HighchartsWrapper.js';
+import HighchartsWrapper from '../../student_profile/HighchartsWrapper';
 
 const styles = {
   title: {

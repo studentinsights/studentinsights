@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import DashboardHelpers from '../DashboardHelpers.js';
-import StudentsTable from '../StudentsTable.js';
-import DashboardBarChart from '../DashboardBarChart.js';
-import DateSlider from '../DateSlider.js';
+import DashboardHelpers from '../DashboardHelpers';
+import StudentsTable from '../StudentsTable';
+import DashboardBarChart from '../DashboardBarChart';
+import DateSlider from '../DateSlider';
 
 
 class SchoolAbsenceDashboard extends React.Component {

@@ -4,7 +4,7 @@ import homeroomMain from '../app/assets/javascripts/homeroom_table/main.jsx';
 import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main.jsx';
 import renderSectionMain from '../app/assets/javascripts/section/main.jsx';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main.jsx';
-import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main.js';
+import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main';
 
 
 // Placeholder routing (not fully client-side, just on page load).
