@@ -56,6 +56,7 @@ PageContainer.propTypes = {
   educatorsIndex: React.PropTypes.object.isRequired,
   eventNotes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   eventNoteTypesIndex: React.PropTypes.object.isRequired,
+  onClickLoadMoreNotes: React.PropTypes.func.isRequired
 };
 
 export default PageContainer;

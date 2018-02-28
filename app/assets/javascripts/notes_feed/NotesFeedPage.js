@@ -66,7 +66,7 @@ class NotesFeedPage extends React.Component {
             className="btn load-more-notes"
             style={styles.button}
             onClick={this.props.onClickLoadMoreNotes}>
-            Load next 30 notes
+            Load 30 More Notes
           </button>
         </div>
       </div>
