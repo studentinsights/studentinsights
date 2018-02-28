@@ -50,6 +50,7 @@ class NotesFeedPage extends React.Component {
           <div className="title" style={styles.title}>
             My Notes
           </div>
+          {/* TODO: change text to reflect what is actually being displayed */}
           <p style={styles.subTitle}> Notes you created in the past 30 days. </p>
         </div>
         <div className="feed" style={styles.feed}>
@@ -65,7 +66,7 @@ class NotesFeedPage extends React.Component {
             className="btn load-more-notes"
             style={styles.button}
             onClick={this.props.onClickLoadMoreNotes}>
-            Load next 30 days
+            Load next 30 notes
           </button>
         </div>
       </div>
