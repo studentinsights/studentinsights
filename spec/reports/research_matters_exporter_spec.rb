@@ -37,6 +37,27 @@ RSpec.describe ResearchMattersExporter do
       end
     end
 
+    context 'notes outside the focal period' do
+      let!(:event_note) {
+        FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 22), event_note_type_id: 300)
+      }
+      let!(:another_event_note) {
+        FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 20), event_note_type_id: 300)
+      }
+      let!(:outside_event_note) {
+        FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2016, 12, 20), event_note_type_id: 300)
+      }
+
+      it 'outputs the right file, does not count the notes outside the focal period' do
+        exporter = ResearchMattersExporter.new
+
+        expect(exporter.student_file).to eq([
+          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total",
+          "#{student.id},HEA,0,0,0,2,0,2"
+        ])
+      end
+    end
+
     context 'notes and revision during the focal period' do
       let!(:event_note) {
         FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 18), event_note_type_id: 300)
