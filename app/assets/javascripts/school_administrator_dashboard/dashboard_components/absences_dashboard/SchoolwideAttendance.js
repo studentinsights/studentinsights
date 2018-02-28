@@ -1,21 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import DashboardHelpers from '../dashboard_helpers.jsx';
-import SchoolAbsenceDashboard from './school_absence_dashboard.jsx';
+import DashboardHelpers from '../DashboardHelpers';
+import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
 
-export default React.createClass({
-  displayName: 'SchoolwideAttendance',
+class SchoolwideAttendance extends React.Component {
 
-  propTypes: {
-    schoolAbsenceEvents: React.PropTypes.object.isRequired,
-    dashboardStudents: React.PropTypes.array.isRequired
-  },
-
-  schoolAverageDailyAttendance: function() {
+  schoolAverageDailyAttendance() {
     return DashboardHelpers.averageDailyAttendance(this.props.schoolAbsenceEvents, this.props.dashboardStudents.length);
-  },
+  }
 
-  homeroomAverageDailyAttendance: function() {
+  homeroomAverageDailyAttendance() {
     const studentRecords = this.props.dashboardStudents;
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(studentRecords);
     const eventsByHomeroom = this.homeroomAbsenceEventsByDay(studentsByHomeroom);
@@ -25,32 +20,32 @@ export default React.createClass({
       homeroomAverageDailyAttendance[homeroom] = DashboardHelpers.averageDailyAttendance(eventsByHomeroom[homeroom], homeroomSize);
     });
     return homeroomAverageDailyAttendance;
-  },
+  }
 
-  homeroomAbsenceEventsByDay: function(studentsGroupedByHomeroom) {
+  homeroomAbsenceEventsByDay(studentsGroupedByHomeroom) {
     let homeroomAbsenceEventsByDay = {};
     Object.keys(studentsGroupedByHomeroom).forEach((homeroom) => {
       const daysWithAbsences = DashboardHelpers.absenceEventsByDay(studentsGroupedByHomeroom[homeroom]);
       homeroomAbsenceEventsByDay[homeroom] = this.addPerfectAttendanceDays(daysWithAbsences);
     });
     return homeroomAbsenceEventsByDay;
-  },
+  }
 
   //Because homerooms often have no absences, merge their daily events with the list of school days
-  addPerfectAttendanceDays: function(eventsGroupedByDay) {
+  addPerfectAttendanceDays(eventsGroupedByDay) {
     this.schoolDays().forEach((day) => {
       if (!eventsGroupedByDay[day]) eventsGroupedByDay[day] = [];
     });
     return eventsGroupedByDay;
-  },
+  }
 
   //There's no application awareness of valid school days, but there are almost never schoolwide perfect attendance days
   //We use days the school has recorded at least one absence as a proxy for school days
-  schoolDays: function () {
+  schoolDays() {
     return Object.keys(this.props.schoolAbsenceEvents);
-  },
+  }
 
-  render: function() {
+  render() {
     return (
         <SchoolAbsenceDashboard
           schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
@@ -59,4 +54,11 @@ export default React.createClass({
           dashboardStudents = {this.props.dashboardStudents}
           dateRange = {Object.keys(this.schoolAverageDailyAttendance()).sort()}/>);
   }
-});
+}
+
+SchoolwideAttendance.propTypes = {
+  schoolAbsenceEvents: PropTypes.object.isRequired,
+  dashboardStudents: PropTypes.array.isRequired
+};
+
+export default SchoolwideAttendance;

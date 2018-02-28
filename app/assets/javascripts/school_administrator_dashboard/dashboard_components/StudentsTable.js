@@ -1,29 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SortHelpers from '../../helpers/sort_helpers.jsx';
 import * as Routes from '../../helpers/Routes';
 
-export default React.createClass({
-  displayName: 'StudentsTable',
+class StudentsTable extends React.Component {
 
-  propTypes: {
-    rows: React.PropTypes.array.isRequired,
-    selectedHomeroom: React.PropTypes.string,
-    schoolYearFlag: React.PropTypes.bool
-  },
-
-  getInitialState () {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       sortBy: 'events',
       sortType: 'number',
       sortDesc: true,
       slectedHomeroom: null,
       schoolYearFlag: false
     };
-  },
+    this.onClickHeader = this.onClickHeader.bind(this);
+  }
 
   //These methods taken directly from school overview students table. TODO, separate into helpers
-  headerClassName (sortBy) {
+  headerClassName(sortBy) {
     // Using tablesort classes here for the cute CSS carets,
     // not for the acutal table sorting JS (that logic is handled by this class).
 
@@ -32,9 +28,9 @@ export default React.createClass({
     if (this.state.sortDesc) return 'sort-header sort-down';
 
     return 'sort-header sort-up';
-  },
+  }
 
-  sortedRows () {
+  sortedRows() {
     const rows = this.props.rows;
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
@@ -47,33 +43,33 @@ export default React.createClass({
     default:
       return rows;
     }
-  },
+  }
 
-  orderedRows () {
+  orderedRows() {
     const sortedRows = this.sortedRows();
 
     if (!this.state.sortDesc) return sortedRows.reverse();
 
     return sortedRows;
-  },
+  }
 
-  totalEvents () {
+  totalEvents() {
     let total = 0;
     this.props.rows.forEach((student) => {
       total += student.events;
     });
     return total;
-  },
+  }
 
-  onClickHeader (sortBy, sortType) {
+  onClickHeader(sortBy, sortType) {
     if (sortBy === this.state.sortBy) {
       this.setState({ sortDesc: !this.state.sortDesc });
     } else {
       this.setState({ sortBy: sortBy, sortType: sortType });
     }
-  },
+  }
 
-  render: function() {
+  render() {
     return(
       <div className= 'StudentsList'>
         <table className='students-list'>
@@ -111,11 +107,18 @@ export default React.createClass({
         </table>
       </div>
     );
-  },
+  }
 
-  renderCaption () {
+  renderCaption() {
     const schoolYearCaption = this.props.schoolYearFlag? " (School Year)" : "";
     return this.props.selectedHomeroom ? this.props.selectedHomeroom + schoolYearCaption : "All Students" + schoolYearCaption;
   }
+}
 
-});
+StudentsTable.propTypes = {
+  rows: PropTypes.array.isRequired,
+  selectedHomeroom: PropTypes.string,
+  schoolYearFlag: PropTypes.bool
+};
+
+export default StudentsTable;
