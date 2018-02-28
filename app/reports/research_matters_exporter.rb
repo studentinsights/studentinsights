@@ -7,6 +7,7 @@ class ResearchMattersExporter
   def initialize
     @school = School.find_by_local_id('HEA')
     @students = @school.students.includes(STUDENT_INCLUDES)
+    @educators = @school.educators
 
     @focal_time_period_start = DateTime.new(2017, 8, 28)
     @focal_time_period_end = DateTime.new(2017, 12, 24)
@@ -16,8 +17,8 @@ class ResearchMattersExporter
     [student_file_headers, student_rows]
   end
 
-  def export_teacher_file
-
+  def teacher_file
+    [teacher_file_headers, teacher_rows]
   end
 
   private
@@ -35,6 +36,15 @@ class ResearchMattersExporter
     ].join(',')
   end
 
+  def teacher_file_headers
+    %w[
+      educator_id
+      email
+      full_name
+      school_id
+    ].join(',')
+  end
+
   def student_rows
     @students.map do |student|
       absence_indicator = student_to_indicator(student.id, Absence, 12)
@@ -45,7 +55,7 @@ class ResearchMattersExporter
       notes_total = notes_added + notes_revised
 
       [
-        student.local_id,
+        student.id,
         'HEA',
         absence_indicator,
         discipline_indicator,
@@ -54,6 +64,17 @@ class ResearchMattersExporter
         notes_revised,
         notes_total,
       ].join(',')
+    end
+  end
+
+  def teacher_rows
+    @educators.map do |educator|
+      [
+        educator.id,
+        educator.email,
+        educator.full_name,
+        'HEA'
+      ]
     end
   end
 
