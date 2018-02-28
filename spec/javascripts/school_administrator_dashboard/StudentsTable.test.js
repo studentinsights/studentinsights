@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import StudentsTable from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/StudentsTable.jsx';
+import StudentsTable from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/StudentsTable.js';
 import * as Data from './DashboardTestData.js';
 
 describe('Dashboard Students Table', () => {

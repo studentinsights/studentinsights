@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DashboardBarChart from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardBarChart.jsx';
+import DashboardBarChart from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardBarChart.js';
 
 
 import HighchartsWrapper from '../../../app/assets/javascripts/student_profile/HighchartsWrapper';
