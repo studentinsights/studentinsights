@@ -12,7 +12,7 @@ class PageContainer extends React.Component {
       educatorsIndex: this.props.educatorsIndex,
       eventNotes: this.props.eventNotes,
       eventNoteTypesIndex: this.props.eventNoteTypesIndex,
-      batchSizeMultiplier: 1,
+      batchSizeMultiplier: 2,
     };
 
     this.getEventNotes = this.getEventNotes.bind(this);
