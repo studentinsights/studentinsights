@@ -14,7 +14,7 @@ describe HomeroomsController, :type => :controller do
       let!(:educator) { pals.healey_vivian_teacher }
       let!(:homeroom) { pals.healey_kindergarten_homeroom }
       before { sign_in(educator) }
-      
+
       it 'returns the right shape of data' do
         make_request(educator.homeroom.slug)
         expect(assigns(:rows).length).to eq 1

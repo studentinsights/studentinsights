@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 describe SectionsController, :type => :controller do
   def make_request(id = nil)
     request.env['HTTPS'] = 'on'
@@ -11,14 +10,14 @@ describe SectionsController, :type => :controller do
     serialized_data = controller.instance_variable_get(:@serialized_data)
     serialized_data[instance].map {|data_hash| data_hash['id'] }
   end
-  
+
   context 'with test pals setup' do
     let!(:pals) { TestPals.create! }
     context 'happy path' do
       let!(:educator) { pals.shs_bill_nye }
       let!(:section) { pals.shs_tuesday_biology_section }
       before { sign_in(educator) }
-      
+
       it 'returns the right shape of data' do
         make_request(section.id)
         expect(assigns(:serialized_data)[:sections].size).to eq 2
