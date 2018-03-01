@@ -11,45 +11,59 @@ import renderHomesMain from '../app/assets/javascripts/homes/main.jsx';
 
 // Placeholder routing (not fully client-side, just on page load).
 // Clicking links still reloads the whole page from the server.
-export default function route() {
-  const el = document.getElementById('main');
+//
+// Returns true if it could handle a route, false if not (for newer code
+// using a client-side router).
+export default function legacyRouteHandler(el) {
   if ($('body').hasClass('students') && $('body').hasClass('show')) {
     renderStudentMain(el);
+    return true;
   }
 
   if ($('body').hasClass('schools') && $('body').hasClass('show')) {
     renderSchoolOverviewMain(el);
+    return true;
   }
 
   if ($('body').hasClass('schools') && $('body').hasClass('overview')) {
     renderSchoolOverviewMain(el, { json: true });
+    return true;
   }
 
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
     homeroomMain(); // different HTML
+    return true;
   }
 
   if ($('body').hasClass('students') && $('body').hasClass('restricted_notes')) {
     renderRestrictedNotesMain(el);
+    return true;
   }
 
   if ($('body').hasClass('sections') && $('body').hasClass('show')) {
     renderSectionMain(el);
+    return true;
   }
 
   if ($('body').hasClass('service_uploads') && $('body').hasClass('index')) {
     renderServiceUploadsMain(el);
+    return true;
   }
 
   if ($('body').hasClass('schools') && $('body').hasClass('school_administrator_dashboard')) {
     renderSchoolAdminDashboardMain(el);
+    return true;
   }
 
   if ($('body').hasClass('educators') && $('body').hasClass('notes_feed')) {
     renderNotesFeedMain(el);
+    return true;
   }
 
   if ($('body').hasClass('educators') && $('body').hasClass('homes_teacher')) {
     renderHomesMain(el);
+    return true;
   }
+
+  return false;
 }

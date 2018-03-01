@@ -1,7 +1,11 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import datepickerConfig from '../app/assets/javascripts/datepicker_config.js';
 import sessionTimeoutWarning from '../app/assets/javascripts/session_timeout_warning.js';
 import studentSearchbar from '../app/assets/javascripts/student_searchbar.js';
-import route from './route';
+import legacyRouteHandler from './legacyRouteHandler';
+import App from './App';
+
 
 // First, run side effects to inject code into window.shared
 import './legacy.js';
@@ -25,4 +29,6 @@ if ($('.student-searchbar').length > 0) {
 }
 
 // Routing
-route();
+const mainEl = document.getElementById('main');
+const didRoute = legacyRouteHandler(mainEl);
+if (!didRoute) ReactDOM.render(<App />, mainEl);
