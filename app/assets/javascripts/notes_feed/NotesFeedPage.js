@@ -51,7 +51,7 @@ class NotesFeedPage extends React.Component {
             My Notes
           </div>
           {/* TODO: change text to reflect what is actually being displayed */}
-          <p style={styles.subTitle}> Notes you created in the past 30 days. </p>
+          <p style={styles.subTitle}> Past {this.props.eventNotes.length} notes.</p>
         </div>
         <div className="feed" style={styles.feed}>
           <div className="notes-list">
