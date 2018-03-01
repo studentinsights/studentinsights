@@ -50,7 +50,6 @@ class NotesFeedPage extends React.Component {
           <div className="title" style={styles.title}>
             My Notes
           </div>
-          {/* TODO: change text to reflect what is actually being displayed */}
           <p style={styles.subTitle}> Past {this.props.eventNotes.length} notes.</p>
         </div>
         <div className="feed" style={styles.feed}>
