@@ -50,6 +50,14 @@ class IncidentCard extends React.Component {
     );
   }
 }
+IncidentCard.propTypes = {
+  incident: React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    incident_code: React.PropTypes.string.isRequired,
+    incident_location: React.PropTypes.string.isRequired,
+    incident_description: React.PropTypes.string.isRequired
+  })
+};
 
 const styles = {
   box: {

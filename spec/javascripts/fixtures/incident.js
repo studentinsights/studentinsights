@@ -1,0 +1,1 @@
+export default {"id":36,"incident_code":"C","created_at":"2018-03-01T21:31:56.677Z","updated_at":"2018-03-01T21:31:56.677Z","incident_location":"Lunchroom","incident_description":"Lacus posuere non, nec a. Maecenas egestas class. Diam augue, vel nam.","occurred_at":"2014-01-18T06:26:34.277Z","has_exact_time":null,"student_id":61};

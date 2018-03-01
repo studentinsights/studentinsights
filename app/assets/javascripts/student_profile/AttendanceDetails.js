@@ -140,7 +140,7 @@ class AttendanceDetails extends React.Component {
     return (
       <div style={{paddingTop: 60}}>
         {this.props.disciplineIncidents.map(incident => {
-          return <IncidentCard incident={incident} />;
+          return <IncidentCard key={incident.id} incident={incident} />;
         })}
       </div>
     );
