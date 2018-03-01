@@ -280,9 +280,10 @@ class TestPals
     end
   end
 
+  # Normally these records are created in the import process, which
+  # computes some indexes after importing.  So we do the same here.
   def reindex!
     Student.update_risk_levels!
     Student.update_recent_student_assessments
-    Homeroom.destroy_empty_homerooms
   end
 end
