@@ -14,7 +14,7 @@ RSpec.describe ResearchMattersExporter do
 
         expect(exporter.student_file).to eq([
           "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
-          "#{student.id},HEA,0,0,0,0,0,0"
+          "#{student.id},HEA,0,0,0,0,0,0,#{educator.id},1"
         ])
       end
     end
@@ -32,7 +32,7 @@ RSpec.describe ResearchMattersExporter do
 
         expect(exporter.student_file).to eq([
           "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
-          "#{student.id},HEA,0,0,0,2,0,2"
+          "#{student.id},HEA,0,0,0,2,0,2,#{educator.id},1"
         ])
       end
     end
@@ -53,7 +53,7 @@ RSpec.describe ResearchMattersExporter do
 
         expect(exporter.student_file).to eq([
           "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
-          "#{student.id},HEA,0,0,0,2,0,2"
+          "#{student.id},HEA,0,0,0,2,0,2,#{educator.id},1"
         ])
       end
     end
@@ -74,7 +74,7 @@ RSpec.describe ResearchMattersExporter do
 
         expect(exporter.student_file).to eq([
           "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
-          "#{student.id},HEA,0,0,0,2,1,3"
+          "#{student.id},HEA,0,0,0,2,1,3,#{educator.id},1"
         ])
       end
     end
