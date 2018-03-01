@@ -44,7 +44,7 @@ describe('NotesDetails', function() {
           student: { restricted_notes_count: 0 },
         });
 
-        expect(el.innerHTML).toContain('Restricted Notes (0)');
+        expect(el.innerHTML).toContain('Restricted (0)');
       });
 
       it('renders restricted notes button with 7 notes', function() {
@@ -54,7 +54,7 @@ describe('NotesDetails', function() {
           student: { restricted_notes_count: 7 },
         });
 
-        expect(el.innerHTML).toContain('Restricted Notes (7)');
+        expect(el.innerHTML).toContain('Restricted (7)');
       });
     });
 
@@ -66,7 +66,7 @@ describe('NotesDetails', function() {
           student: { restricted_notes_count: 0 },
         });
 
-        expect(el.innerHTML).not.toContain('Restricted Notes (0)');
+        expect(el.innerHTML).not.toContain('Restricted (0)');
       });
     });
   });
