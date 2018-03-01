@@ -2,14 +2,16 @@ import React from 'react';
 import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 import Cookies from 'js-cookie';
+import {latestNoteDateText} from '../helpers/latestNoteDateText';
 
+
+// Shows a homeroom roster, for K8 and HS homerooms.
 class HomeroomTable extends React.Component {
 
   constructor(props) {
     super(props);
 
     const initialColumns = this.getInitialColumnsDisplayed();
-
     this.state = {
       columnsDisplayed: initialColumns,
       showColumnPicker: false,
@@ -92,6 +94,7 @@ class HomeroomTable extends React.Component {
   columnKeysToNames() {
     return {
       'risk': 'Risk',
+      'supports': 'Supports',
       'program': 'Program',
       'sped': 'SPED & Disability',
       'language': 'Language',
@@ -120,9 +123,24 @@ class HomeroomTable extends React.Component {
 
     return { ...row, ...risk, ...sped_level };
   }
+  mergeInLatestMeetings(row) {
+    const latestSstDateText = latestNoteDateText(300, row.event_notes);
+    const latestMtssDateText = latestNoteDateText(301, row.event_notes);
+    const latestNgeDateText = latestNoteDateText(305, row.event_notes);
+    const latest10geDateText = latestNoteDateText(306, row.event_notes);
+    return {
+      ...row,
+      latestSstDateText,
+      latestMtssDateText,
+      latestNgeDateText,
+      latest10geDateText
+    };
+  }
 
   mergedStudentRows() {
-    return this.props.rows.map(this.mergeInStudentRiskLevel);
+    return this.props.rows
+      .map(this.mergeInStudentRiskLevel)
+      .map(this.mergeInLatestMeetings);
   }
 
   warningBubbleClassName(row) {
@@ -151,6 +169,11 @@ class HomeroomTable extends React.Component {
     if (this.props.showMcas === true && mcasDisplayed === true) return true;
 
     return false;
+  }
+
+  isHighSchool() {
+    const {school} = this.props;
+    return (school.school_type === 'HS');
   }
 
   onClickHeader(sortBy, sortType) {
@@ -333,6 +356,10 @@ class HomeroomTable extends React.Component {
         {this.renderSubHeader(
           'risk', 'Risk', 'risk', 'number'
         )}
+        {this.renderSubHeader('supports', 'Last SST', 'latestSstDateText', 'date')}
+        {!this.isHighSchool() && this.renderSubHeader('supports', 'Last MTSS', 'latestMtssDateText', 'date')}
+        {this.isHighSchool() && this.renderSubHeader('supports', 'Last NGE', 'latestNgeDateText', 'date')}
+        {this.isHighSchool() && this.renderSubHeader('supports', 'Last 10GE', 'latest10geDateText', 'date')}
         {this.renderSubHeader(
           'program', 'Program Assigned', 'program_assigned', 'program_assigned'
         )}
@@ -358,12 +385,14 @@ class HomeroomTable extends React.Component {
   }
 
   renderHeaders() {
+    const supportColumnCount = this.isHighSchool() ? 3 : 2;
     return (
       <thead>
         <tr className="column-groups">
           {/*  TOP-LEVEL COLUMN GROUPS */}
           <td colSpan="1"></td>
           {this.renderSuperHeader('risk', '1')}
+          {this.renderSuperHeader('supports', supportColumnCount, 'Supports')}
           {this.renderSuperHeader('program', '1')}
           {this.renderSuperHeader('sped', '3', 'SPED & Disability')}
           {this.renderSuperHeader('language', '2', 'Language')}
@@ -442,6 +471,10 @@ class HomeroomTable extends React.Component {
           style={style}>
         <td className="name">{fullName}</td>
         {this.renderDataCell('risk', this.renderWarningBubble(row))}
+        {this.renderDataCell('supports', row['latestSstDateText'])}
+        {!this.isHighSchool() && this.renderDataCell('supports', row['latestMtssDateText'])}
+        {this.isHighSchool() && this.renderDataCell('supports', row['latestNgeDateText'])}
+        {this.isHighSchool() && this.renderDataCell('supports', row['latest10geDateText'])}
         {this.renderDataCell('program', row['program_assigned'])}
         {this.renderDataCell('sped', row['disability'])}
         {this.renderDataCell('sped', this.renderDataWithSpedTooltip(row))}
@@ -547,7 +580,10 @@ class HomeroomTable extends React.Component {
 HomeroomTable.propTypes = {
   showStar: React.PropTypes.bool.isRequired,
   showMcas: React.PropTypes.bool.isRequired,
-  rows: React.PropTypes.array.isRequired
+  rows: React.PropTypes.array.isRequired,
+  school: React.PropTypes.shape({
+    school_type: React.PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default HomeroomTable;

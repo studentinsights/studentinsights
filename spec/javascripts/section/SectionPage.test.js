@@ -61,7 +61,7 @@ SpecSugar.withTestEl('', function(container) {
 
     const headers = $(el).find('#roster-header th');
 
-    expect(headers.length).toEqual(16);
+    expect(headers.length).toEqual(19);
     expect(headers[0].innerHTML).toEqual('Name');
   });
 
