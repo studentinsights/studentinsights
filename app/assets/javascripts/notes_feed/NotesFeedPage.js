@@ -60,6 +60,14 @@ class NotesFeedPage extends React.Component {
               feed={feed} />
           </div>
         </div>
+          {this.renderFooter()}
+      </div>
+    );
+  }
+
+  renderFooter() {
+    if (this.props.eventNotes.length != this.props.totalNotesCount) {
+      return (
         <div className="footer" style={styles.footer}>
           <button
             className="btn load-more-notes"
@@ -68,16 +76,25 @@ class NotesFeedPage extends React.Component {
             Load 30 More Notes
           </button>
         </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <div className="footer" style={styles.footer}>
+          <p>You have no more notes to display.</p>
+        </div>
+      );
+    }
   }
 }
+
 
 NotesFeedPage.propTypes = {
   educatorsIndex: React.PropTypes.object.isRequired,
   eventNotes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  onClickLoadMoreNotes: React.PropTypes.func.isRequired
+  onClickLoadMoreNotes: React.PropTypes.func.isRequired,
+  totalNotesCount: React.PropTypes.number.isRequired
 };
 
 export default NotesFeedPage;

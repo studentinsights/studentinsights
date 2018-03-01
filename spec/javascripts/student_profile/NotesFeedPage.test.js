@@ -9,7 +9,8 @@ SpecSugar.withTestEl('high-level integration tests', function(container) {
         educatorsIndex={{}}
         eventNotes={[]}
         eventNoteTypesIndex={{}}
-        onClickLoadMoreNotes={jest.fn()} />, el);
+        onClickLoadMoreNotes={jest.fn()}
+        totalNotesCount={0} />, el);
     });
   });
 });

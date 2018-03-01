@@ -46,7 +46,8 @@ class PageContainer extends React.Component {
         educatorsIndex={this.state.educatorsIndex}
         eventNotes={this.state.eventNotes}
         eventNoteTypesIndex={this.state.eventNoteTypesIndex}
-        onClickLoadMoreNotes={this.onClickLoadMoreNotes} />
+        onClickLoadMoreNotes={this.onClickLoadMoreNotes}
+        totalNotesCount={this.props.totalNotesCount} />
     );
   }
 
@@ -56,7 +57,7 @@ PageContainer.propTypes = {
   educatorsIndex: React.PropTypes.object.isRequired,
   eventNotes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  onClickLoadMoreNotes: React.PropTypes.func.isRequired
+  totalNotesCount: React.PropTypes.number.isRequired
 };
 
 export default PageContainer;
