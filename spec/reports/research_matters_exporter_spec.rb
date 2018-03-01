@@ -4,7 +4,7 @@ RSpec.describe ResearchMattersExporter do
   before { School.seed_somerville_schools }
   let!(:school) { School.find_by_name('Arthur D Healey') }
   let!(:educator) { FactoryGirl.create(:educator, :admin, school: school, full_name: 'Khamar, Matsay', email: 'matsay@demo.studentinsights.org') }
-  let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school) }
+  let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school, educator: educator) }
   let!(:student) { FactoryGirl.create(:student, homeroom: homeroom, school: school) }
 
   describe '#student_file' do
@@ -13,7 +13,7 @@ RSpec.describe ResearchMattersExporter do
         exporter = ResearchMattersExporter.new
 
         expect(exporter.student_file).to eq([
-          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total",
+          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
           "#{student.id},HEA,0,0,0,0,0,0"
         ])
       end
@@ -31,7 +31,7 @@ RSpec.describe ResearchMattersExporter do
         exporter = ResearchMattersExporter.new
 
         expect(exporter.student_file).to eq([
-          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total",
+          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
           "#{student.id},HEA,0,0,0,2,0,2"
         ])
       end
@@ -52,7 +52,7 @@ RSpec.describe ResearchMattersExporter do
         exporter = ResearchMattersExporter.new
 
         expect(exporter.student_file).to eq([
-          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total",
+          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
           "#{student.id},HEA,0,0,0,2,0,2"
         ])
       end
@@ -73,7 +73,7 @@ RSpec.describe ResearchMattersExporter do
         exporter = ResearchMattersExporter.new
 
         expect(exporter.student_file).to eq([
-          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total",
+          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
           "#{student.id},HEA,0,0,0,2,1,3"
         ])
       end
