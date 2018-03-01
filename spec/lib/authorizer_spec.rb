@@ -10,22 +10,7 @@ RSpec.describe Authorizer do
 
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
-
-    # TODO(kr) I don't understand why this assertion is failing...
-    # it looks like Homeroom.all isn't returning all the records that it
-    # should for some reason I don't understand.
-    puts pals.healey_kindergarten_homeroom.as_json
-    puts pals.healey_fifth_homeroom.as_json
-    puts pals.west_fifth_homeroom.as_json
-    puts pals.shs_sophomore_homeroom.as_json
-    puts pals.shs_jodi_homeroom.as_json
-    puts pals.healey_fifth_homeroom.persisted?
-    puts pals.west_fifth_homeroom.persisted?
-    puts Homeroom.all.map(&:name)
-    puts Homeroom.all.as_json
     expect(Homeroom.all.size).to eq 6
-    # end TODO
-
     expect(Student.all.size).to eq 2
     expect(Educator.all.size).to eq 12
     expect(Course.all.size).to eq 3
