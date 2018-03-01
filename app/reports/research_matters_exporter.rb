@@ -33,6 +33,8 @@ class ResearchMattersExporter
       notes_added
       notes_revised
       notes_total
+      educator_id
+      educator_count
     ].join(',')
   end
 
@@ -54,6 +56,8 @@ class ResearchMattersExporter
       notes_added = student_to_notes_added(student.id)
       notes_revised = student_to_notes_revised(student.id)
       notes_total = notes_added + notes_revised
+      educator_id = student.homeroom.try(:educator_id)
+      educator_count = educator_id.present? ? 1 : 0
 
       [
         student.id,
@@ -64,6 +68,8 @@ class ResearchMattersExporter
         notes_added,
         notes_revised,
         notes_total,
+        educator_id,
+        educator_count
       ].join(',')
     end
   end
