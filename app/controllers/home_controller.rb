@@ -11,6 +11,8 @@ class HomeController < ApplicationController
   end
 
   def home_notes_json
-    notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note_with_student }
+    render json: {
+      notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note_with_student }
+    }
   end
 end

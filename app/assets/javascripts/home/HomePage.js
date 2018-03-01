@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MixpanelUtils from './helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
-class Home extends React.Component {
+class HomePage extends React.Component {
   componentDidMount() {
     const serializedData = $('#serialized-data').data();
     this.setState({serializedData});
@@ -13,7 +13,7 @@ class Home extends React.Component {
   render() {
     const NoteCardTwo = window.shared.NoteCardTwo;
     return (
-      <div>
+      <div className="HomePage">
         <div>hi</div>
         <div>{this.props.notes.length}</div>
         {this.props.notes.map(note =>
@@ -24,7 +24,7 @@ class Home extends React.Component {
   }
 }
 
-Home.propTypes = {
+HomePage.propTypes = {
   notes: PropTypes.array.isRequired
 };
-export default Home;
+export default HomePage;
