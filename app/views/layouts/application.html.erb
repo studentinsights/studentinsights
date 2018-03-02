@@ -39,6 +39,10 @@
               <%= link_to 'School Overview', school_path(current_educator.school) %>
               &nbsp; &nbsp; &nbsp;
             <% end %>
+            <% if current_educator.admin? %>
+              <%= link_to 'Administrator Dashboard', school_administrator_dashboard_school_path(current_educator.school) %>
+              &nbsp; &nbsp; &nbsp;
+            <% end %>
             <p class="search-label">Search for student:</p>
             <input class="student-searchbar" />
             &nbsp; &nbsp; &nbsp;
