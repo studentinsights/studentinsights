@@ -1,6 +1,6 @@
 import { HashRouter } from 'react-router-dom';
 
-import SchoolAdministratorDashboards from  './dashboard_components/SchoolAdministratorDashboards.jsx';
+import SchoolAdministratorDashboards from  './dashboard_components/SchoolAdministratorDashboards';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
 export default function renderSchoolAdminDashboardMain(el) {

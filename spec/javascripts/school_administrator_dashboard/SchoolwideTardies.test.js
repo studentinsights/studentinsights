@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import SchoolwideTardies from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/schoolwide_tardies.jsx';
+import SchoolwideTardies from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/SchoolwideTardies.js';
 import * as Data from './DashboardTestData.js';
 
 describe('SchoolwideTardies', () => {

@@ -1,4 +1,4 @@
-import DashboardHelpers from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/dashboard_helpers.jsx';
+import DashboardHelpers from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardHelpers.js';
 
 import * as Data from './DashboardTestData.js';
 

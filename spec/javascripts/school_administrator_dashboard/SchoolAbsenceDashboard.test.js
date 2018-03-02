@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import SchoolAbsenceDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/school_absence_dashboard.jsx';
+import SchoolAbsenceDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolAbsenceDashboard.js';
 import * as Data from './DashboardTestData.js';
 
 describe('SchoolAbsenceDashboard', () => {

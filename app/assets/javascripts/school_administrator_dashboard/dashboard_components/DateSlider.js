@@ -1,40 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
-import Datepicker from '../../student_profile/Datepicker.js';
+import Datepicker from '../../student_profile/Datepicker';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
-export default React.createClass({
-  displayName: 'DateSlider',
+class DateSlider extends React.Component {
 
-  propTypes: {
-    setDate: React.PropTypes.func.isRequired,
-    rangeStart: React.PropTypes.number.isRequired,
-    rangeEnd: React.PropTypes.number.isRequired
-  },
-
-  getInitialState: function() {
-    return {
-      value: [this.props.rangeStart, this.props.rangeEnd]
+  constructor(props) {
+    super(props);
+    this.state = {value: [this.props.rangeStart, this.props.rangeEnd]};
+    this.onBeginningDateInput = (date) => {
+      const newValue = [parseInt(moment(date).format("X")), this.state.value[1]];
+      this.setState({ value: newValue }, this.props.setDate(newValue));
     };
-  },
+    this.onEndingDateInput = (date) => {
+      const newValue = [this.state.value[0], parseInt(moment(date).format("X"))];
+      this.setState({ value: newValue }, this.props.setDate(newValue));
+    };
+    this.onSliderChange = (value) => {
+      this.setState({value});
+    };
+  }
 
-  onBeginningDateInput: function(date) {
-    const newValue = [parseInt(moment(date).format("X")), this.state.value[1]];
-    this.setState({ value: newValue }, this.props.setDate(newValue));
-  },
-
-  onEndingDateInput: function(date) {
-    const newValue = [this.state.value[0], parseInt(moment(date).format("X"))];
-    this.setState({ value: newValue }, this.props.setDate(newValue));
-  },
-
-  onSliderChange: function(value) {
-    this.setState({value});
-  },
-
-  render: function() {
+  render() {
     return (
       <div>
         <div className='DashboardDatePicker'>
@@ -86,5 +76,12 @@ export default React.createClass({
         </div>
     );
   }
+}
 
-});
+DateSlider.propTypes = {
+  setDate: PropTypes.func.isRequired,
+  rangeStart: PropTypes.number.isRequired,
+  rangeEnd: PropTypes.number.isRequired
+};
+
+export default DateSlider;
