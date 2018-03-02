@@ -1,31 +1,8 @@
-import ProfileBarChart from './ProfileBarChart.js';
+import ProfileBarChart from './ProfileBarChart';
+import IncidentCard from '../components/IncidentCard';
 import PropTypes from '../helpers/prop_types.jsx';
 
 const styles = {
-  box: {
-    border: '1px solid #ccc',
-    padding:15,
-    marginTop: 10,
-    marginBottom: 10,
-    width: '100%',
-    backgroundColor: '#f2f2f2'
-  },
-  item: {
-    paddingBottom: 10,
-    width: 160
-  },
-  itemHead: {
-    fontWeight: 'bold',
-  },
-  header: {
-    display: 'flex',
-    flexFlow: 'row',
-    justifyContent: 'space-between'
-  },
-  desc: {
-    fontWeight: 'bold',
-    paddingTop: 30
-  },
   title: {
     color: 'black',
     paddingBottom: 20,
@@ -39,11 +16,6 @@ const styles = {
     border: '1px solid #ccc',
     padding: '30px 30px 30px 30px',
     position: 'relative'
-  },
-  centerItem: {
-    paddingBottom: 10,
-    textAlign: 'center',
-    width: 75
   },
   secHead: {
     display: 'flex',
@@ -59,6 +31,7 @@ const styles = {
     verticalAlign: 'text-top'
   }
 };
+
 
 class AttendanceDetails extends React.Component {
 
@@ -166,46 +139,8 @@ class AttendanceDetails extends React.Component {
   renderIncidents() {
     return (
       <div style={{paddingTop: 60}}>
-        {this.props.disciplineIncidents.map(function(incident) {
-          return (
-            <div style={styles.box} key={incident.id}>
-              <div style={styles.header}>
-                <div style={styles.item}>
-                  <span style={styles.itemHead}>
-                    {'Date: '}
-                  </span>
-                  <span>
-                    {moment.utc(incident.occurred_at).format('MMM D, YYYY')}
-                  </span>
-                </div>
-                <div style={styles.centerItem}>
-                  <span style={styles.itemHead}>
-                    {'Code: '}
-                  </span>
-                  <span>
-                    {incident.incident_code}
-                  </span>
-                </div>
-                <div style={styles.item}>
-                  <span style={styles.itemHead}>
-                    {'Location: '}
-                  </span>
-                  <span>
-                    {incident.incident_location}
-                  </span>
-                </div>
-              </div>
-              <div>
-                <span style={styles.desc}>
-                  {'Description: '}
-                </span>
-              </div>
-              <div>
-                {incident.incident_description}
-              </div>
-            </div>
-          );
-
+        {this.props.disciplineIncidents.map(incident => {
+          return <IncidentCard key={incident.id} incident={incident} />;
         })}
       </div>
     );
