@@ -81,13 +81,30 @@ RSpec.describe ResearchMattersExporter do
   end
 
   describe '#teacher_file' do
-    it 'outputs the right file' do
-      exporter = ResearchMattersExporter.new
+    context 'teacher name present' do
+      it 'outputs the right file' do
+        exporter = ResearchMattersExporter.new
 
-      expect(exporter.teacher_file).to eq([
-        "educator_id,email,first_name,last_name,school_id",
-        "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA"
-      ])
+        expect(exporter.teacher_file).to eq([
+          "educator_id,email,first_name,last_name,school_id",
+          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA"
+        ])
+      end
+    end
+
+    context 'teacher name missing' do
+      let!(:another_educator) {
+        FactoryGirl.create(:educator,
+          :admin, school: school, email: 'noname@demo.studentinsights.org')
+      }
+      it 'outputs the right file' do
+        exporter = ResearchMattersExporter.new
+
+        expect(exporter.teacher_file).to eq([
+          "educator_id,email,first_name,last_name,school_id",
+          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA"
+        ])
+      end
     end
   end
 end
