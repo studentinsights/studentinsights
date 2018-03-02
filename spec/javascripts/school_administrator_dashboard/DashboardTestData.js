@@ -38,7 +38,8 @@ export const Students = [
     id: 1,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
-    events: 3
+    events: 3,
+    last_sst_date_text: moment.utc(testEvents.threeMonthsAgo.occurred_at).format('M/D/YY')
   },
   {
     first_name: 'Pierrette',
