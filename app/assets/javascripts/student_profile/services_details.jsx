@@ -1,5 +1,6 @@
 import PropTypes from '../helpers/prop_types.jsx';
 import HelpBubble from './HelpBubble.js';
+import SectionHeading from '../components/SectionHeading';
 
 (function() {
   window.shared || (window.shared = {});
@@ -58,15 +59,13 @@ import HelpBubble from './HelpBubble.js';
     render: function() {
       return (
         <div className="ServicesDetails" style={styles.servicesContainer}>
-          <div style={{borderBottom: '1px solid #333', padding: 10}}>
-            <h4 style={{display: 'inline', color: 'black'}}>
-              Services
-            </h4>
+          <SectionHeading>
+            <span>Services</span>
             <HelpBubble
               title="What is a Service?"
               teaserText="(what is this?)"
               content={this.renderServicesHelpContent()} />
-          </div>
+          </SectionHeading>
           <div style={styles.addServiceContainer}>
             {this.renderRecordServiceSection()}
           </div>
