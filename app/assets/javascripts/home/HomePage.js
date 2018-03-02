@@ -21,7 +21,7 @@ class HomePage extends React.Component {
             <HomeFeed />
           </div>
           <div  style={styles.column}>
-            <SectionHeading>Have you seen...</SectionHeading>
+            <SectionHeading>Have you noticed...</SectionHeading>
             <HomeInsights />
           </div>
         </div>
