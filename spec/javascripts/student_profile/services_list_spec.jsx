@@ -1,6 +1,5 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
-import {fromPair} from '../../../app/assets/javascripts/helpers/from_pair.jsx';
 import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('ServicesList', function() {
@@ -77,7 +76,9 @@ describe('ServicesList', function() {
       const service = helpers.fixtureService();
       helpers.renderInto(el, {
         servicesFeed: helpers.oneActiveServiceFeed(),
-        discontinueServiceRequests: fromPair(service.id, 'pending')
+        discontinueServiceRequests: {
+          [service.id]: 'pending'
+        }
       });
       expect($(el).find('.btn').text()).toEqual('Updating...');
     });
