@@ -77,8 +77,8 @@ class ResearchMattersExporter
   def teacher_rows
     @educators.map do |educator|
       full_name = educator.full_name
-      last_name = full_name.split(", ")[0]
-      first_name = full_name.split(", ")[1]
+      last_name = full_name.present? ? full_name.split(", ")[0] : nil
+      first_name = full_name.present? ? full_name.split(", ")[1] : nil
 
       [
         educator.id,
