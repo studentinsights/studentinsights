@@ -6,12 +6,11 @@ RSpec.describe ResearchMattersExporter do
   let!(:educator) { FactoryGirl.create(:educator, :admin, school: school, full_name: 'Khamar, Matsay', email: 'matsay@demo.studentinsights.org') }
   let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school, educator: educator) }
   let!(:student) { FactoryGirl.create(:student, homeroom: homeroom, school: school) }
+  let(:exporter) { described_class.new('MIXPANEL_KEY') }
 
   describe '#student_file' do
     context 'no notes' do
       it 'outputs the right file' do
-        exporter = ResearchMattersExporter.new
-
         expect(exporter.student_file).to eq([
           "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
           "#{student.id},HEA,0,0,0,0,0,0,#{educator.id},1"
@@ -28,8 +27,6 @@ RSpec.describe ResearchMattersExporter do
       }
 
       it 'outputs the right file' do
-        exporter = ResearchMattersExporter.new
-
         expect(exporter.student_file).to eq([
           "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
           "#{student.id},HEA,0,0,0,2,0,2,#{educator.id},1"
@@ -49,8 +46,6 @@ RSpec.describe ResearchMattersExporter do
       }
 
       it 'outputs the right file, does not count the notes outside the focal period' do
-        exporter = ResearchMattersExporter.new
-
         expect(exporter.student_file).to eq([
           "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
           "#{student.id},HEA,0,0,0,2,0,2,#{educator.id},1"
@@ -70,8 +65,6 @@ RSpec.describe ResearchMattersExporter do
       }
 
       it 'outputs the right file' do
-        exporter = ResearchMattersExporter.new
-
         expect(exporter.student_file).to eq([
           "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
           "#{student.id},HEA,0,0,0,2,1,3,#{educator.id},1"
@@ -83,8 +76,6 @@ RSpec.describe ResearchMattersExporter do
   describe '#teacher_file' do
     context 'teacher name present' do
       it 'outputs the right file' do
-        exporter = ResearchMattersExporter.new
-
         expect(exporter.teacher_file).to eq([
           "educator_id,email,first_name,last_name,school_id",
           "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA"
@@ -98,8 +89,6 @@ RSpec.describe ResearchMattersExporter do
           :admin, school: school, email: 'noname@demo.studentinsights.org')
       }
       it 'outputs the right file' do
-        exporter = ResearchMattersExporter.new
-
         expect(exporter.teacher_file).to eq([
           "educator_id,email,first_name,last_name,school_id",
           "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA",

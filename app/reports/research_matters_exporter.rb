@@ -4,13 +4,17 @@ class ResearchMattersExporter
 
   STUDENT_INCLUDES = %w[school absences discipline_incidents event_notes]
 
-  def initialize
+  def initialize(mixpanel_api_secret = ENV.fetch('MIXPANEL_API_SECRET'))
+    @mixpanel_api_secret = mixpanel_api_secret
     @school = School.find_by_local_id('HEA')
     @students = @school.students.includes(STUDENT_INCLUDES)
     @educators = @school.educators
 
     @focal_time_period_start = DateTime.new(2017, 8, 28)
     @focal_time_period_end = DateTime.new(2017, 12, 24)
+
+    puts "Fetching data from Mixpanel..." unless Rails.env.test?
+    @pageview_counts = pageview_counts
   end
 
   def student_file
@@ -122,6 +126,21 @@ class ResearchMattersExporter
     return '1' if absence_indicator == '1' || discipline_indicator == '1'
 
     return '0'
+  end
+
+  def date_to_string(date)
+    "#{date.month}-#{date.day}-#{date.year}"
+  end
+
+  def pageview_counts
+    cmd = ([
+      "curl https://mixpanel.com/api/2.0/segmentation",
+      "-s",
+      "-u #{@mixpanel_api_secret}: ",
+      "-d from_date='#{date_to_string(@focal_time_period_start)}' -d to_date='#{date_to_string(@focal_time_period_end)}' "
+    ].join(' '))
+
+    `#{cmd}`
   end
 
 end
