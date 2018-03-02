@@ -48,9 +48,7 @@
 table.students-list {
   margin: auto;
   border: 1px solid #ccc;
-  width: 80%;
-
-  thead, tbody, tr, td, th { box-sizing: border-box; display: block; }
+  width: 100%;
 
   thead th, tfoot td {
     height: 30px;
@@ -64,7 +62,6 @@ table.students-list {
   }
 
   tbody td, thead th, tfoot td {
-    float: left;
   }
 
   tbody {
