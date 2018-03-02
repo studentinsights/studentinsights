@@ -9,42 +9,40 @@ class IncidentCard extends React.Component {
   render() {
     const {incident} = this.props;
     return (
-      <div style={{paddingTop: 60}}>
-        <div style={styles.box} key={incident.id}>
-          <div style={styles.header}>
-            <div style={styles.item}>
-              <span style={styles.itemHead}>
-                {'Date: '}
-              </span>
-              <span>
-                {moment.utc(incident.occurred_at).format('MMM D, YYYY')}
-              </span>
-            </div>
-            <div style={styles.centerItem}>
-              <span style={styles.itemHead}>
-                {'Code: '}
-              </span>
-              <span>
-                {incident.incident_code}
-              </span>
-            </div>
-            <div style={styles.item}>
-              <span style={styles.itemHead}>
-                {'Location: '}
-              </span>
-              <span>
-                {incident.incident_location}
-              </span>
-            </div>
-          </div>
-          <div>
-            <span style={styles.desc}>
-              {'Description: '}
+      <div style={styles.box} key={incident.id}>
+        <div style={styles.header}>
+          <div style={styles.item}>
+            <span style={styles.itemHead}>
+              {'Date: '}
+            </span>
+            <span>
+              {moment.utc(incident.occurred_at).format('MMM D, YYYY')}
             </span>
           </div>
-          <div>
-            {incident.incident_description}
+          <div style={styles.centerItem}>
+            <span style={styles.itemHead}>
+              {'Code: '}
+            </span>
+            <span>
+              {incident.incident_code}
+            </span>
           </div>
+          <div style={styles.item}>
+            <span style={styles.itemHead}>
+              {'Location: '}
+            </span>
+            <span>
+              {incident.incident_location}
+            </span>
+          </div>
+        </div>
+        <div>
+          <span style={styles.desc}>
+            {'Description: '}
+          </span>
+        </div>
+        <div>
+          {incident.incident_description}
         </div>
       </div>
     );
