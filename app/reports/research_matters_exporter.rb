@@ -134,7 +134,7 @@ class ResearchMattersExporter
 
   def pageview_counts
     cmd = ([
-      "curl https://mixpanel.com/api/2.0/segmentation",
+      "curl https://data.mixpanel.com/api/2.0/export",
       "-s",
       "-u #{@mixpanel_api_secret}: ",
       "-d from_date='#{date_to_string(@focal_time_period_start)}' -d to_date='#{date_to_string(@focal_time_period_end)}' "
