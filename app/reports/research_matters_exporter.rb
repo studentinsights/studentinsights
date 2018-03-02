@@ -140,7 +140,9 @@ class ResearchMattersExporter
       "-d from_date='#{date_to_query_string(@focal_time_period_start)}' -d to_date='#{date_to_query_string(@focal_time_period_end)}' "
     ].join(' '))
 
-    `#{cmd}`
+    output = `#{cmd}`
+
+    JSON.parse(output)
   end
 
 end
