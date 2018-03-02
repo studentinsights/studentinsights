@@ -50,7 +50,7 @@ class NotesFeedPage extends React.Component {
           <div className="title" style={styles.title}>
             My Notes
           </div>
-          <p style={styles.subTitle}> Notes you created in the past 30 days. </p>
+          <p style={styles.subTitle}> Past {this.props.eventNotes.length} notes.</p>
         </div>
         <div className="feed" style={styles.feed}>
           <div className="notes-list">
@@ -60,24 +60,41 @@ class NotesFeedPage extends React.Component {
               feed={feed} />
           </div>
         </div>
+          {this.renderFooter()}
+      </div>
+    );
+  }
+
+  renderFooter() {
+    if (this.props.eventNotes.length != this.props.totalNotesCount) {
+      return (
         <div className="footer" style={styles.footer}>
           <button
             className="btn load-more-notes"
             style={styles.button}
             onClick={this.props.onClickLoadMoreNotes}>
-            Load next 30 days
+            Load 30 More Notes
           </button>
         </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return (
+        <div className="footer" style={styles.footer}>
+          <p>You have no more notes to display.</p>
+        </div>
+      );
+    }
   }
 }
+
 
 NotesFeedPage.propTypes = {
   educatorsIndex: React.PropTypes.object.isRequired,
   eventNotes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  onClickLoadMoreNotes: React.PropTypes.func.isRequired
+  onClickLoadMoreNotes: React.PropTypes.func.isRequired,
+  totalNotesCount: React.PropTypes.number.isRequired
 };
 
 export default NotesFeedPage;

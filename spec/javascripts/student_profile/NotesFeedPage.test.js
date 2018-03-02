@@ -10,7 +10,7 @@ SpecSugar.withTestEl('high-level integration tests', function(container) {
         eventNotes={[]}
         eventNoteTypesIndex={{}}
         onClickLoadMoreNotes={jest.fn()}
-      />, el);
+        totalNotesCount={0} />, el);
     });
   });
 });

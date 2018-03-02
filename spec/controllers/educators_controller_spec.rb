@@ -219,7 +219,7 @@ describe EducatorsController, :type => :controller do
   describe '#notes_feed' do
     def make_request
       request.env['HTTPS'] = 'on'
-      get :notes_feed_json
+      get :notes_feed_json, params: { "batch_size": "60" }
     end
 
     context 'educator with homeroom' do
