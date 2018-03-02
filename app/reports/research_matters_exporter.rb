@@ -128,8 +128,8 @@ class ResearchMattersExporter
     return '0'
   end
 
-  def date_to_string(date)
-    "#{date.month}-#{date.day}-#{date.year}"
+  def date_to_query_string(date)
+    date.strftime("%Y-%m-%d")
   end
 
   def pageview_counts
@@ -137,7 +137,7 @@ class ResearchMattersExporter
       "curl https://data.mixpanel.com/api/2.0/export",
       "-s",
       "-u #{@mixpanel_api_secret}: ",
-      "-d from_date='#{date_to_string(@focal_time_period_start)}' -d to_date='#{date_to_string(@focal_time_period_end)}' "
+      "-d from_date='#{date_to_query_string(@focal_time_period_start)}' -d to_date='#{date_to_query_string(@focal_time_period_end)}' "
     ].join(' '))
 
     `#{cmd}`
