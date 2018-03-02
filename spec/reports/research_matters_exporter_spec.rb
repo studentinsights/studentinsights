@@ -102,7 +102,8 @@ RSpec.describe ResearchMattersExporter do
 
         expect(exporter.teacher_file).to eq([
           "educator_id,email,first_name,last_name,school_id",
-          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA"
+          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA",
+          "#{another_educator.id},noname@demo.studentinsights.org,,,HEA",
         ])
       end
     end
