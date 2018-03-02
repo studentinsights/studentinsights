@@ -32,7 +32,7 @@ class SchoolsController < ApplicationController
       redirect_to not_authorized_path and return #TodDo: determine whether there's a more appropriate action here
     end
 
-    dashboard_students = students_for_dashboard(@school).includes(:homeroom, :dashboard_absences, :dashboard_tardies)
+    dashboard_students = students_for_dashboard(@school).includes(:homeroom, :dashboard_absences, :event_notes, :dashboard_tardies)
                                                         .map { |student| individual_student_dashboard_data(student) }
 
     @serialized_data = {students: dashboard_students.to_json}
@@ -133,9 +133,9 @@ class SchoolsController < ApplicationController
       id: student.id,
       homeroom: student.try(:homeroom).try(:name),
       absences: student.dashboard_absences,
-      tardies: student.dashboard_tardies
-      }
-    )
+      tardies: student.dashboard_tardies,
+      event_notes: student.event_notes
+    })
   end
 
   def students_for_dashboard(school)

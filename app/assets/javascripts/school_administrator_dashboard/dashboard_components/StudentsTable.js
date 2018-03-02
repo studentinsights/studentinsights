@@ -40,6 +40,8 @@ class StudentsTable extends React.Component {
       return rows.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
     case 'number':
       return rows.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
+    case 'date':
+      return rows.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
     default:
       return rows;
     }
@@ -76,30 +78,35 @@ class StudentsTable extends React.Component {
           <caption>{this.renderCaption()}</caption>
           <thead>
             <tr>
-              <th width="66.66%"
+              <th
                   onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
                   className={this.headerClassName('last_name')}>Name</th>
-              <th width="33.33"
+              <th
                   onClick={this.onClickHeader.bind(null, 'events', 'number')}
                   className={this.headerClassName('events')}>Incidents</th>
+              <th
+                  onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
+                  className={this.headerClassName('last_sst_date_text')}>Last SST</th>
             </tr>
           </thead>
           <tfoot>
             <tr>
-              <td width="66.66%">{'Total: '}</td>
-              <td width="33.33%">{this.totalEvents()}</td>
+              <td>{'Total: '}</td>
+              <td>{this.totalEvents()}</td>
+              <td></td>
             </tr>
           </tfoot>
           <tbody>
             {this.orderedRows().map(student => {
               return (
                 <tr key={student.id}>
-                  <td width="66.66%">
+                  <td>
                     <a href={Routes.studentProfile(student.id)}>
-                      {student.last_name}, {student.first_name}
+                      {student.first_name} {student.last_name}
                     </a>
                   </td>
-                  <td width="33.33%">{student.events}</td>
+                  <td>{student.events}</td>
+                  <td>{student.last_sst_date_text}</td>
                 </tr>
               );
             })}

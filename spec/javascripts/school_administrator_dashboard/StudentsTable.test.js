@@ -11,6 +11,20 @@ describe('Dashboard Students Table', () => {
     expect(table.find("div").hasClass("StudentsList")).toEqual(true);
   });
 
+  it('renders headers for name, incident count and last SST', () => {
+    const headerTexts = table.find('thead th').map(node => node.text());
+    expect(headerTexts).toEqual(['Name', 'Incidents', 'Last SST']);
+  });
+
+  it('renders the first row', () => {
+    const cellTexts = table.find('tbody tr').first().find('td').map(node => node.text());
+    expect(cellTexts).toEqual([
+      "Pierrot Zanni",
+      "3",
+      moment.utc().subtract(3, 'months').format('M/D/YY'),
+    ]);
+  });
+
   it('tallies the total events', () => {
     expect(table.instance().totalEvents()).toEqual(12);
   });
@@ -22,18 +36,23 @@ describe('Dashboard Students Table', () => {
   it('orders students by name when Name is clicked', () => {
     table.find('.sort-header').first().simulate('click');
     expect(table.state().sortBy).toEqual("last_name");
-    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('Avecchi, Scaramuccia');
+    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('Scaramuccia Avecchi');
   });
 
   it('reorders in reverse alphabetical order', () => {
     table.find('.sort-header').first().simulate('click');
     expect(table.state().sortBy).toEqual("last_name");
-    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('ZZanni, Arlecchino');
+    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('Arlecchino ZZanni');
   });
 
   it('orders students by events when Incidents is clicked', () => {
-    table.find('.sort-header').last().simulate('click');
-    table.find('.sort-header').last().simulate('click');
+    table.find('.sort-header').at(1).simulate('click');
     expect(table.state().sortBy).toEqual("events");
   });
+
+  it('orders students by events when Incidents is clicked', () => {
+    table.find('.sort-header').at(2).simulate('click');
+    expect(table.state().sortBy).toEqual("last_sst_date_text");
+  });
+
 });
