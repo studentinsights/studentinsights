@@ -41,8 +41,6 @@
 
 .StudentsList {
   margin-top: 200px;
-  height: 450px;
-  overflow:hidden;
 }
 
 table.students-list {
@@ -65,9 +63,6 @@ table.students-list {
   }
 
   tbody {
-    height: 335px;
-    overflow-y: auto;
-    overflow-x: hidden;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
   }
