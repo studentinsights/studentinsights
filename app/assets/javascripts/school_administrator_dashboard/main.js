@@ -7,6 +7,7 @@ export default function renderSchoolAdminDashboardMain(el) {
   const serializedData = $('#serialized-data').data();
   MixpanelUtils.registerUser(serializedData.currentEducator);
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'SCHOOL_DASHBOARD' });
+  console.log(serializedData);
   window.ReactDOM.render(
     <HashRouter>
       <SchoolAdministratorDashboards

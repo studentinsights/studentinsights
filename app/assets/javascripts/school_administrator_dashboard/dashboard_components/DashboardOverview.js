@@ -9,6 +9,7 @@ export default function DashboardOverview () {
       <ul>
         <li><Link to='/absences_dashboard'>Absences Dashboard</Link></li>
         <li><Link to='/tardies_dashboard'>Tardies Dashboard</Link></li>
+        <li><Link to='/discipline_dashboard'>Discipline Dashboard</Link></li>
       </ul>
     </div>);
 }
