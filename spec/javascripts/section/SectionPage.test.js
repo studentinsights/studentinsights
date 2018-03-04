@@ -10,8 +10,8 @@ const helpers = {
 
 const props = {
   students: [
-    { id: 1, first_name: 'Minnie', last_name: 'Mouse', program_assigned: 'Regular Ed', disability:'', plan_504: '', limited_english_proficiency: 'FLEP', home_language: 'Spanish', free_reduced_lunch: 'Free Lunch', most_recent_school_year_absences_count: 3, most_recent_school_year_tardies_count: 5, most_recent_school_year_discipline_incidents_count: 0},
-    { id: 2, first_name: 'Donald', last_name: 'Duck', program_assigned: 'Special Ed', disability:'Motor', plan_504: '504 Plan', limited_english_proficiency: 'ELL', home_language: 'English', free_reduced_lunch: 'Reduced Lunch', most_recent_school_year_absences_count: 1, most_recent_school_year_tardies_count: 0, most_recent_school_year_discipline_incidents_count: 0},
+    { id: 1, first_name: 'Minnie', last_name: 'Mouse', program_assigned: 'Regular Ed', disability:'', plan_504: '', limited_english_proficiency: 'FLEP', home_language: 'Spanish', free_reduced_lunch: 'Free Lunch', most_recent_school_year_absences_count: 3, most_recent_school_year_tardies_count: 5, most_recent_school_year_discipline_incidents_count: 0, event_notes: []},
+    { id: 2, first_name: 'Donald', last_name: 'Duck', program_assigned: 'Special Ed', disability:'Motor', plan_504: '504 Plan', limited_english_proficiency: 'ELL', home_language: 'English', free_reduced_lunch: 'Reduced Lunch', most_recent_school_year_absences_count: 1, most_recent_school_year_tardies_count: 0, most_recent_school_year_discipline_incidents_count: 0, event_notes: []},
   ],
   educators: [
     { }
@@ -59,21 +59,39 @@ SpecSugar.withTestEl('', function(container) {
     const el = container.testEl;
     helpers.renderInto(el, props);
 
-    const headers = $(el).find('#roster-header th');
+    const headers = $(el).find('#roster-header th').toArray().map(el => $(el).text());
 
-    expect(headers.length).toEqual(16);
-    expect(headers[0].innerHTML).toEqual('Name');
+    expect(headers.length).toEqual(19);
+    expect(headers).toEqual([
+      'Name',
+      'Last SST',
+      'Last NGE',
+      'Last 10GE',
+      'Program Assigned',
+      'Disability',
+      '504 Plan',
+      'Fluency',
+      'Home Language',
+      'Grade',
+      'Absences',
+      'Tardies',
+      'Discipline Incidents',
+      'Percentile',
+      'Percentile',
+      'Performance',
+      'Score',
+      'Performance',
+      'Score'
+    ]);
   });
 
   it('renders the correct roster data', function() {
     const el = container.testEl;
-
     helpers.renderInto(el, props);
-    const dataElements = $(el).find('#roster-data tr');
-
-    expect(dataElements.length).toEqual(2);
-
-    const firstDataRows = dataElements.eq(0).find('td');
-    expect(firstDataRows[0].innerHTML).toEqual('<a href="/students/2">Duck, Donald</a>');
+    
+    const $rowEls = $(el).find('#roster-data tr');
+    expect($rowEls.length).toEqual(2);
+    const firstRowCells = $($rowEls.get(0)).find('td').toArray().map(el => $(el).html());
+    expect(firstRowCells[0]).toEqual('<a href="/students/2">Duck, Donald</a>');
   });
 });

@@ -2,6 +2,8 @@ import TakeNotes from './take_notes.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
 import React from 'react';
 import HelpBubble from './HelpBubble.js';
+import SectionHeading from '../components/SectionHeading';
+
 
 const styles = {
   notesContainer: {
@@ -53,16 +55,14 @@ class NotesDetails extends React.Component {
 
     return (
       <div className="NotesDetails" style={styles.notesContainer}>
-        <div style={{borderBottom: '1px solid #333', padding: 10}}>
-          <h4 style={{display: 'inline', color: 'black'}}>
-            {title} for {student.first_name} {student.last_name}
-          </h4>
+        <SectionHeading>
+          <span>{title} for {student.first_name}</span>
           <HelpBubble
             title={this.props.helpTitle}
             teaserText="(what is this?)"
             content={this.props.helpContent} />
           {this.renderRestrictedNotesButtonIfAppropriate()}
-        </div>
+        </SectionHeading>
         {this.renderTakeNotesSection()}
         <NotesList
           feed={this.props.feed}
@@ -107,7 +107,7 @@ class NotesDetails extends React.Component {
           className="btn btn-warning"
           style={styles.restrictedNotesButton}
           href={'/students/' + this.props.student.id + '/restricted_notes'}>
-          {'Restricted Notes (' + this.props.student.restricted_notes_count + ')'}
+          {'Restricted (' + this.props.student.restricted_notes_count + ')'}
         </a>
       );
     } else {

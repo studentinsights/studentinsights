@@ -9,6 +9,63 @@ describe HomeroomsController, :type => :controller do
       get :show, params: { id: slug }
     end
 
+    context 'happy path' do
+      let!(:pals) { TestPals.create! }
+      let!(:educator) { pals.healey_vivian_teacher }
+      let!(:homeroom) { pals.healey_kindergarten_homeroom }
+      before { sign_in(educator) }
+
+      it 'returns the right shape of data' do
+        make_request(educator.homeroom.slug)
+        expect(assigns(:rows).length).to eq 1
+        expect(assigns(:rows).first.keys).to eq([
+          "id",
+          "grade",
+          "hispanic_latino",
+          "race",
+          "free_reduced_lunch",
+          "created_at",
+          "updated_at",
+          "homeroom_id",
+          "first_name",
+          "last_name",
+          "state_id",
+          "home_language",
+          "school_id",
+          "registration_date",
+          "local_id",
+          "program_assigned",
+          "sped_placement",
+          "disability",
+          "sped_level_of_need",
+          "plan_504",
+          "limited_english_proficiency",
+          "most_recent_mcas_math_growth",
+          "most_recent_mcas_ela_growth",
+          "most_recent_mcas_math_performance",
+          "most_recent_mcas_ela_performance",
+          "most_recent_mcas_math_scaled",
+          "most_recent_mcas_ela_scaled",
+          "most_recent_star_reading_percentile",
+          "most_recent_star_math_percentile",
+          "enrollment_status",
+          "date_of_birth",
+          "risk_level",
+          "gender",
+          "house",
+          "counselor",
+          "discipline_incidents_count",
+          "absences_count",
+          "tardies_count",
+          "homeroom_name",
+          "event_notes",
+          "interventions",
+          "sped_data",
+          "student_risk_level"
+        ])
+      end
+    end
+
     context 'educator with homeroom logged in' do
       let!(:educator) { FactoryGirl.create(:educator, school: school) }
       let!(:homeroom) { FactoryGirl.create(:homeroom, educator: educator, grade: "5", school: school) }

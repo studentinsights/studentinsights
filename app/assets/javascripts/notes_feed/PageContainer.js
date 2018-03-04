@@ -12,7 +12,7 @@ class PageContainer extends React.Component {
       educatorsIndex: this.props.educatorsIndex,
       eventNotes: this.props.eventNotes,
       eventNoteTypesIndex: this.props.eventNoteTypesIndex,
-      daysBackMultiplier: 1,
+      batchSizeMultiplier: 2,
     };
 
     this.getEventNotes = this.getEventNotes.bind(this);
@@ -29,15 +29,15 @@ class PageContainer extends React.Component {
   }
 
   incrementMultiplier() {
-    let previousMultiplier = this.state.daysBackMultiplier;
-    this.setState({ daysBackMultiplier: previousMultiplier + 1 });
+    let previousMultiplier = this.state.batchSizeMultiplier;
+    this.setState({ batchSizeMultiplier: previousMultiplier + 1 });
   }
 
   onClickLoadMoreNotes() {
     const onSucceed = this.getEventNotes;
     const incrementMultiplier = this.incrementMultiplier;
   
-    this.api.getEventNotesData(this.state.daysBackMultiplier, onSucceed, incrementMultiplier);
+    this.api.getEventNotesData(this.state.batchSizeMultiplier, onSucceed, incrementMultiplier);
   }
 
   render() {
@@ -46,7 +46,8 @@ class PageContainer extends React.Component {
         educatorsIndex={this.state.educatorsIndex}
         eventNotes={this.state.eventNotes}
         eventNoteTypesIndex={this.state.eventNoteTypesIndex}
-        onClickLoadMoreNotes={this.onClickLoadMoreNotes} />
+        onClickLoadMoreNotes={this.onClickLoadMoreNotes}
+        totalNotesCount={this.props.totalNotesCount} />
     );
   }
 
@@ -56,6 +57,7 @@ PageContainer.propTypes = {
   educatorsIndex: React.PropTypes.object.isRequired,
   eventNotes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   eventNoteTypesIndex: React.PropTypes.object.isRequired,
+  totalNotesCount: React.PropTypes.number.isRequired
 };
 
 export default PageContainer;
