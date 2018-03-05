@@ -1,5 +1,10 @@
 require 'csv'
 
+# Get flat CSVs to ship to Research Matters:
+#
+# puts ResearchMattersExporter.new.student_file
+# puts ResearchMattersExporter.new.teacher_file
+
 class ResearchMattersExporter
 
   STUDENT_INCLUDES = %w[school absences discipline_incidents event_notes]
@@ -52,7 +57,6 @@ class ResearchMattersExporter
 
   def student_rows
     pageview_counts
-
     @students.map do |student|
       absence_indicator = student_to_indicator(student.id, Absence, 12)
       discipline_indicator = student_to_indicator(student.id, DisciplineIncident, 5)
