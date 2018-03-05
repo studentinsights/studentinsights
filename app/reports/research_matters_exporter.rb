@@ -4,8 +4,7 @@ class ResearchMattersExporter
 
   STUDENT_INCLUDES = %w[school absences discipline_incidents event_notes]
 
-  def initialize(mixpanel_api_secret = ENV.fetch('MIXPANEL_API_SECRET'))
-    @mixpanel_api_secret = mixpanel_api_secret
+  def initialize(mixpanel_downloader = RawMixpanelDataDownloader.new)
     @school = School.find_by_local_id('HEA')
     @students = @school.students.includes(STUDENT_INCLUDES)
     @educators = @school.educators
@@ -13,8 +12,7 @@ class ResearchMattersExporter
     @focal_time_period_start = DateTime.new(2017, 8, 28)
     @focal_time_period_end = DateTime.new(2017, 12, 24)
 
-    puts "Fetching data from Mixpanel..." unless Rails.env.test?
-    @pageview_counts = pageview_counts
+    @mixpanel_downloader = mixpanel_downloader
   end
 
   def student_file
@@ -53,6 +51,8 @@ class ResearchMattersExporter
   end
 
   def student_rows
+    pageview_counts
+
     @students.map do |student|
       absence_indicator = student_to_indicator(student.id, Absence, 12)
       discipline_indicator = student_to_indicator(student.id, DisciplineIncident, 5)
@@ -133,16 +133,7 @@ class ResearchMattersExporter
   end
 
   def pageview_counts
-    cmd = ([
-      "curl https://data.mixpanel.com/api/2.0/export",
-      "-s",
-      "-u #{@mixpanel_api_secret}: ",
-      "-d from_date='#{date_to_query_string(@focal_time_period_start)}' -d to_date='#{date_to_query_string(@focal_time_period_end)}' "
-    ].join(' '))
-
-    output = `#{cmd}`
-
-    JSON.parse(output)
+    @pageview_counts ||= @mixpanel_downloader.pageview_counts
   end
 
 end

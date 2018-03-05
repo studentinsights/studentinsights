@@ -6,7 +6,13 @@ RSpec.describe ResearchMattersExporter do
   let!(:educator) { FactoryGirl.create(:educator, :admin, school: school, full_name: 'Khamar, Matsay', email: 'matsay@demo.studentinsights.org') }
   let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school, educator: educator) }
   let!(:student) { FactoryGirl.create(:student, homeroom: homeroom, school: school) }
-  let(:exporter) { described_class.new('MIXPANEL_KEY') }
+
+  class FakeMixpanelDownloader
+    def pageview_counts
+    end
+  end
+
+  let(:exporter) { described_class.new(FakeMixpanelDownloader.new) }
 
   describe '#student_file' do
     context 'no notes' do
