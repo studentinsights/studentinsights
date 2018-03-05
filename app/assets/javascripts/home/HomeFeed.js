@@ -1,92 +1,85 @@
 import React from 'react';
+import _ from 'lodash';
+import GenericLoader from '../components/GenericLoader';
+import EventNoteCard from './EventNoteCard';
 import Card from '../components/Card';
-import Educator from '../components/Educator';
-import Homeroom from '../components/Homeroom';
-import HouseBadge from '../components/HouseBadge';
-import NoteBadge from '../components/NoteBadge';
 import {toMomentFromTime} from '../helpers/toMoment';
-import {gradeText} from '../helpers/gradeText';
-import {eventNoteTypeText} from '../components/eventNoteType';
 
 
 class HomeFeed extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      eventNotes: null
-    };
-    this.onData = this.onData.bind(this);
-    this.onError = this.onError.bind(this);
+    this.fetchNotesAndBirthdays = this.fetchNotesAndBirthdays.bind(this);
+    this.renderFeed = this.renderFeed.bind(this);
   }
 
-  componentDidMount() {
-    fetch('/home/notes_json', { credentials: 'include' })
+  fetchNotesAndBirthdays() {
+    return Promise.all([
+      this.fetchNotes(),
+      this.fetchStudentBirthdays()
+    ]);
+  }
+
+  fetchNotes() {
+    return fetch('/home/notes_json', { credentials: 'include' })
       .then(response => response.json())
-      .then(this.onData)
-      .catch(this.onError);
+      .then(json => json.event_notes);
   }
 
-  onData(json) {
-    this.setState({ eventNotes: json.event_notes });
-  }
-
-  onError(err) {
-    console.error(err); // eslint-disable-line no-console
+  fetchStudentBirthdays() {
+    return fetch('/home/birthdays_json', { credentials: 'include' })
+      .then(response => response.json())
+      .then(json => json.students); 
   }
 
   render() {
     return (
       <div className="HomeFeed" style={styles.root}>
-        {this.renderEventNotes()}
+        <GenericLoader
+          style={styles.card}
+          promiseFn={this.fetchNotesAndBirthdays}
+          render={this.renderFeed} />
       </div>
     );
   }
 
-  renderEventNotes() {
-    const {eventNotes} = this.state;
-    if (eventNotes === null) return <div style={styles.card}>Loading...</div>;
+  renderFeed(promises) {
+    const [eventNotes, students] = promises;
+    const combined = _.flatten([
+      eventNotes.map(json => {
+        return {
+          time: json.updated_at,
+          json,
+          type: 'event_note'
+        };
+      }),
+      students.map(json => {
+        return {
+          time: moment.utc(json.date_of_birth).year(moment.utc().year()).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+          json,
+          type: 'birthday'
+        };
+      })
+    ]);
+    const sorted = _.sortBy(combined, c => new Date(c.time) * -1);
 
-    return (
-      <div>
-        {eventNotes.map(eventNote => {
-          return (
-            <Card key={eventNote.id} style={styles.card}>
-              <div style={styles.header}>
-                <div>
-                  <div>
-                    <a style={styles.person} href={`/students/${eventNote.student.id}`}>{eventNote.student.first_name} {eventNote.student.last_name}</a>
-                  </div>
-                  <div>{gradeText(eventNote.student.grade)}</div>
-                  <div>
-                    <Homeroom
-                      id={eventNote.student.homeroom.id}
-                      name={eventNote.student.homeroom.name}
-                      educator={eventNote.student.homeroom.educator} />
-                  </div>
-                </div>
-                <div style={styles.by}>
-                  <div>
-                    <span>by </span>
-                    <Educator
-                      style={styles.person}
-                      educator={eventNote.educator} />
-                  </div>
-                  <div>in {eventNoteTypeText(eventNote.event_note_type_id)}</div>
-                  <div>{toMomentFromTime(eventNote.updated_at).fromNow()}</div>
-                </div>
-              </div>
-              <div style={styles.body}>
-                <div>{eventNote.text}</div>
-              </div>
-              <div style={styles.footer}>
-                {eventNote.student.house && <HouseBadge style={styles.footerBadge} house={eventNote.student.house} />}
-                <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNote.event_note_type_id} />
-              </div>
-            </Card>
-          );
-        })}
-      </div>
-    );
+    return sorted.map(({json, time, type}) => {
+      if (type === 'event_note') {
+        return <EventNoteCard
+          key={json.id}
+          style={styles.card}
+          eventNote={json} />;
+      } else if (type === 'birthday') {
+        const student = json;
+        return (
+          <Card key={student.id} style={styles.card}>
+            🎉<a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
+            <span>'s birthday is on </span>
+            <span>{toMomentFromTime(student.date_of_birth).format('dddd M/D/YY')}!</span>
+          </Card>
+        );
+      }
+    });
   }
 }
 
@@ -94,33 +87,10 @@ const styles = {
   root: {
     fontSize: 14
   },
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  body: {
-    marginBottom: 20,
-    marginTop: 20
-  },
-  by: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end'
-  },
-  footer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: 5
-  },
-  footerBadge: {
-    marginLeft: 5
-  },
   person: {
     fontWeight: 'bold'
   },
   card: {
-    margin: 10,
     marginTop: 20
   }
 };

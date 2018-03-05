@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/home' => 'ui#ui'
   get '/home/notes_json' => 'home#notes_json'
   get '/home/assignments_json' => 'home#assignments_json'
+  get '/home/birthdays_json' => 'home#birthdays_json'
 
   devise_scope :educator do
     root to: "devise/sessions#new"

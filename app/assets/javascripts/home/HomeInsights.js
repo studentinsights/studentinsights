@@ -1,6 +1,8 @@
 import React from 'react';
 import Card from '../components/Card';
 import Educator from '../components/Educator';
+import GenericLoader from '../components/GenericLoader';
+import {toMomentFromTime} from '../helpers/toMoment';
 
 
 // On the home page, show users the answers to their most important questions.
@@ -9,97 +11,95 @@ class HomeInsights extends React.Component {
     super(props);
     this.state = {
       assignments: null,
-      assignmentLimit: 3
+      assignmentLimit: 4
     };
-    this.onData = this.onData.bind(this);
-    this.onError = this.onError.bind(this);
     this.onMoreAssignments = this.onMoreAssignments.bind(this);
+    this.renderAssignments = this.renderAssignments.bind(this);
   }
 
-  componentDidMount() {
-    fetch('/home/assignments_json', { credentials: 'include' })
+  fetchAssignments() {
+    return fetch('/home/assignments_json', { credentials: 'include' })
       .then(response => response.json())
-      .then(this.onData)
-      .catch(this.onError);
+      .then(json => json.assignments);
   }
 
-  onData(json) {
-    this.setState({ assignments: json.assignments });
-  }
-
-  onError(err) {
-    console.error(err); // eslint-disable-line no-console
-  }
-
-  onMoreAssignments() {
+  onMoreAssignments(e) {
+    e.preventDefault();
     const {assignmentLimit} = this.state;
-    this.setState({ assignmentLimit: assignmentLimit + 3 });
+    this.setState({ assignmentLimit: assignmentLimit + 4 });
   }
 
   render() {
     return (
       <div className="HomeInsights" style={styles.root}>
-        {this.renderInsights()}
-      </div>
-    );
-  }
-
-  renderInsights() {
-    const {assignments} = this.state;
-    if (assignments === null) return <div style={styles.card}>Loading...</div>;
-
-    return (
-      <div>
-        {this.renderAssignments(assignments)}
-        <Card style={styles.card}><div style={styles.placeholderCard}>...</div></Card>
-        <Card style={styles.card}><div style={styles.placeholderCard}>...</div></Card>
+        <GenericLoader
+          style={styles.card}
+          promiseFn={this.fetchAssignments}
+          render={this.renderAssignments} />
+        <Card style={styles.card}>
+          <div style={styles.placeholderCard}>
+            <div>What else would help you be a better teacher?</div>
+            <div>Come talk with us about what we should build together!</div>
+          </div>
+        </Card>
       </div>
     );
   }
 
   renderAssignments(assignments) {
     const {assignmentLimit} = this.state;
-
+    const truncatedAssignments = assignments.slice(0, assignmentLimit);
     return (
-      <div style={styles.card}>
-        <div style={{backgroundColor: '#eee', padding: 10, color: 'black', border: '1px solid #ccc', borderBottom: 'none'}}>Unsupported students</div>
-        <Card>
-          <div>There are <b>{assignments.length}</b> students failing more than one course, but haven't been mentioned in NGE or 10GE for the last month.</div>
-          {assignments.slice(0, assignmentLimit).map(assignment => {
-            const {student, section} = assignment;
-            return (
-              <div key={assignment.id} style={{padding: 10}}>
-                <div>
-                  <div><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></div>
-                  <span> has a {assignment.grade_numeric} in <a href={`/sections/${section.id}`}>{section.section_number}</a></span>
-                  <span> with {section.educators.map(educator => 
-                    <Educator key={educator.id} style={styles.person} educator={educator} />
-                  )}</span>
+      <div>
+        <div style={styles.cardTitle}>Unsupported students</div>
+        <Card style={{border: 'none'}}>
+          <div>There are <b>{assignments.length} students</b> you work with who are failing a course but haven't been mentioned in NGE or 10GE for the last month.</div>
+          <div style={{paddingTop: 10, paddingBottom: 10}}>
+            {truncatedAssignments.map(assignment => {
+              const {student, section} = assignment;
+              return (
+                <div key={assignment.id} style={{paddingLeft: 10}}>
+                  <div>
+                    <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
+                    <span> has a {parseInt(assignment.grade_numeric, 10)} in <a href={`/sections/${section.id}`}>{section.section_number}</a></span>
+                    <span> with {section.educators.map(educator => 
+                      <Educator key={educator.id} style={styles.person} educator={educator} />
+                    )}</span>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-          <div><a href="#" onClick={this.onMoreAssignments}>See more</a></div>
+              );
+            })}
+          </div>
+          {truncatedAssignments.length !== assignments.length &&
+            <div><a href="#" onClick={this.onMoreAssignments}>See more</a></div>
+          }
         </Card>
       </div>
     );
   }
 }
 
-// TODO(kr) duplicate
+// TODO(kr) duplicate, better way to factor card / cardtitle
 const styles = {
   root: {
     fontSize: 14
   },
   card: {
     margin: 10,
-    marginTop: 20
+    marginTop: 20,
+    border: '1px solid #ccc',
+    borderRadius: 3
+  },
+  cardTitle: {
+    backgroundColor: '#eee',
+    padding: 10,
+    color: 'black',
+    borderBottom: '1px solid #ccc'
   },
   person: {
     fontWeight: 'bold'
   },
   placeholderCard: {
-    height: 200
   }
 };
 

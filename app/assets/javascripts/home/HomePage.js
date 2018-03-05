@@ -5,9 +5,9 @@ import HomeFeed from './HomeFeed';
 import HomeInsights from './HomeInsights';
 
 /*
-This is placeholder for now, but will become the home page
-for all user roles, focused on "What is happening with my students?"
-and "What should we be focusing on?"
+This is the home page for all user roles, focused on
+"What is happening with my students?" and helping focus attention on 
+"How can we adapt?"
 */
 class HomePage extends React.Component {
   componentDidMount() {
@@ -26,7 +26,7 @@ class HomePage extends React.Component {
             <HomeFeed />
           </div>
           <div  style={styles.column}>
-            <SectionHeading>Have you noticed...</SectionHeading>
+            <SectionHeading>How can we adapt?</SectionHeading>
             <HomeInsights />
           </div>
         </div>

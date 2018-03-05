@@ -11,6 +11,7 @@ class HomeController < ApplicationController
     failing_assignments = StudentSectionAssignment
       .where('grade_numeric < ?', 65)
       .where(student_id: students.map(&:id))
+      .order(grade_numeric: :asc)
 
     assignments_json = failing_assignments.map do |assignment|
       assignment.as_json({
@@ -20,7 +21,7 @@ class HomeController < ApplicationController
             :only => [:id, :email, :first_name, :last_name, :grade, :house]
           },
           :section => {
-            :only => [:section_number, :schedule, :room_number],
+            :only => [:id, :section_number, :schedule, :room_number],
             :include => {
               :educators => {:only => [:id, :full_name, :email]}
             }
@@ -31,6 +32,24 @@ class HomeController < ApplicationController
 
     render json: {
       assignments: assignments_json
+    }
+  end
+  
+  # TODO(kr) Authorized behaves in unexpected ways here with `select`
+  def birthdays_json
+    time_now = Time.now
+    students = authorized do
+      Student.select(:id, :primary_email, :first_name, :last_name, :date_of_birth).all
+        .where('extract(doy from date_of_birth) > ?', time_now.yday - 7)
+        .where('extract(doy from date_of_birth) < ?', time_now.yday + 7)
+    end
+    students_json = students.map do |student|
+      student.as_json({
+        :only => [:id, :email, :first_name, :last_name, :date_of_birth]
+      })
+    end
+    render json: {
+      students: students_json
     }
   end
 
