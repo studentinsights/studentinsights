@@ -6,10 +6,31 @@ class HomeController < ApplicationController
     render 'shared/serialized_data'
   end
 
-  def home_notes_json
-    notes = EventNote.all
+  def notes_json
+    limit = 20
+    event_notes = authorized { EventNote.all.order(updated_at: :desc) }
+    recent_event_notes = event_notes.first(limit)
+    event_notes_json = recent_event_notes.map do |event_note|
+      event_note.as_json({
+        :only => [:id, :updated_at, :event_note_type_id, :text],
+        :include => {
+          :educator => {:only => [:id, :full_name, :email]},
+          :student => {
+            :only => [:id, :email, :first_name, :last_name, :grade, :house],
+            :include => {
+              :homeroom => {
+                :only => [:id, :name],
+                :include => {
+                  :educator => {:only => [:id, :full_name, :email]}
+                }
+              }
+            }
+          }
+        }
+      })
+    end
     render json: {
-      notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note_with_student }
+      event_notes: event_notes_json
     }
   end
 end

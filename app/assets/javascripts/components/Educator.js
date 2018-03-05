@@ -13,11 +13,14 @@ class Educator extends React.Component {
   }
 
   render() {
-    const educator = this.props.educator;
+    const {educator, style} = this.props;
     const educatorName = this.educatorName(educator);
 
     return (
-      <a className="Educator" href={'mailto:' + educator.email}>
+      <a
+        className="Educator"
+        style={style}
+        href={'mailto:' + educator.email}>
         {educatorName}
       </a>
     );
@@ -29,7 +32,8 @@ Educator.propTypes = {
   educator: React.PropTypes.shape({
     full_name: React.PropTypes.string, // or null
     email: React.PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  style: React.PropTypes.object
 };
 
 export default Educator;
