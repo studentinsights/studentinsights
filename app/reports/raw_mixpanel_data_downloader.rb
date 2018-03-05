@@ -8,7 +8,7 @@ class RawMixpanelDataDownloader
     @focal_time_period_end = DateTime.new(2017, 12, 24)
   end
 
-  def pageview_counts
+  def event_data
     puts "Fetching data from Mixpanel..." unless Rails.env.test?
 
     cmd = ([

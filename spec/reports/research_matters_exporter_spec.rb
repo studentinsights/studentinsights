@@ -8,7 +8,20 @@ RSpec.describe ResearchMattersExporter do
   let!(:student) { FactoryGirl.create(:student, homeroom: homeroom, school: school) }
 
   class FakeMixpanelDownloader
-    def pageview_counts
+    def event_data
+      [{
+        "event"=>"PAGE_VISIT",
+        "properties"=>{
+          "time"=>1503905237,
+          "$current_url"=>"https://somerville-teacher-tool-demo.herokuapp.com/students/1",
+          "deployment_key"=>"production",
+          "educator_id"=>1,
+          "educator_is_admin"=>false,
+          "educator_school_id"=>1,
+          "isDemoSite"=>false,
+          "page_key"=>"STUDENT_PROFILE"
+        }
+      }]
     end
   end
 

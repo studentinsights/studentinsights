@@ -28,8 +28,6 @@ class ResearchMattersExporter
     [teacher_file_headers, teacher_rows].flatten
   end
 
-  private
-
   def student_file_headers
     %w[
       student_id
@@ -56,7 +54,6 @@ class ResearchMattersExporter
   end
 
   def student_rows
-    pageview_counts
     @students.map do |student|
       absence_indicator = student_to_indicator(student.id, Absence, 12)
       discipline_indicator = student_to_indicator(student.id, DisciplineIncident, 5)
@@ -132,8 +129,51 @@ class ResearchMattersExporter
     return '0'
   end
 
-  def pageview_counts
-    @pageview_counts ||= @mixpanel_downloader.pageview_counts
+  def student_profile_page_views
+    @student_profile_page_views = student_profile_events.select do |event|
+      event['event'] == 'PAGE_VISIT'
+    end
+
+    puts "Got #{@student_profile_page_views.size} student profile page views."
+
+    @student_profile_page_views
+
+    nil
+  end
+
+  def student_profile_events
+    @student_profile_events = filtered_event_data.select do |event|
+      event['properties']['page_key'] == 'STUDENT_PROFILE'
+    end
+
+    puts "Got #{@student_profile_events.size} student profile events."
+
+    @student_profile_events
+  end
+
+  def filtered_event_data
+    @filtered_event_data = event_data.select do |event|
+      filter_out_test_accounts(event)
+    end
+
+    puts "Got #{@filtered_event_data.size} events after filtering out test educators and Uri."
+
+    @filtered_event_data
+  end
+
+  def event_data
+    @event_data ||= @mixpanel_downloader.event_data
+    puts "Got #{@event_data.size} raw events."
+    @event_data
+  end
+
+  def filter_out_test_accounts(event)
+    educator_id = event['properties']['educator_id']
+
+    return false if educator_id == ENV.fetch('TEST_USER_ID_ONE').to_i
+    return false if educator_id == ENV.fetch('TEST_USER_ID_TWO').to_i
+    return false if educator_id == ENV.fetch('URI_ID').to_i
+    return true
   end
 
 end
