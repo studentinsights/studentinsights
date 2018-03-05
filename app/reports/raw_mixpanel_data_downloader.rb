@@ -1,7 +1,11 @@
+require 'json'
+
 class RawMixpanelDataDownloader
 
   def initialize(mixpanel_api_secret = ENV.fetch('MIXPANEL_API_SECRET'))
     @mixpanel_api_secret = mixpanel_api_secret
+    @focal_time_period_start = DateTime.new(2017, 8, 28)
+    @focal_time_period_end = DateTime.new(2017, 12, 24)
   end
 
   def pageview_counts
@@ -14,9 +18,11 @@ class RawMixpanelDataDownloader
       "-d from_date='#{date_to_query_string(@focal_time_period_start)}' -d to_date='#{date_to_query_string(@focal_time_period_end)}' "
     ].join(' '))
 
-    output = `#{cmd}`
+    raw_output = `#{cmd}`
 
-    JSON.parse(output)
+    parsed_output = raw_output.split("\n").map { |json_line| JSON.parse(json_line) }
+
+    return parsed_output
   end
 
   private
