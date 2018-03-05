@@ -128,10 +128,6 @@ class ResearchMattersExporter
     return '0'
   end
 
-  def date_to_query_string(date)
-    date.strftime("%Y-%m-%d")
-  end
-
   def pageview_counts
     @pageview_counts ||= @mixpanel_downloader.pageview_counts
   end

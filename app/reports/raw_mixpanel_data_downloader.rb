@@ -19,5 +19,10 @@ class RawMixpanelDataDownloader
     JSON.parse(output)
   end
 
+  private
+
+    def date_to_query_string(date)
+      date.strftime("%Y-%m-%d")
+    end
 
 end
