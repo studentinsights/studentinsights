@@ -1,8 +1,8 @@
 class Api {
 
   getEventNotesData(multiplier, getEventNotes, incrementMultiplier) {
-    const daysBack = 30 * multiplier;    
-    const url = '/educators/notes_feed_json?days_back=' + daysBack;
+    const batchSize = 30 * multiplier;    
+    const url = '/educators/notes_feed_json?batch_size=' + batchSize;
 
     return fetch(url, { credentials: 'include' })
       .then(response => response.json())

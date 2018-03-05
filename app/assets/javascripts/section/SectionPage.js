@@ -62,7 +62,7 @@ class SectionPage extends React.Component {
       // Supports
       {label: 'Last SST', group: 'Supports', key: 'latestSstDateText', sortFunc: SortHelpers.sortByDate},
       {label: 'Last NGE', group: 'Supports', key: 'latestNgeDateText', sortFunc: SortHelpers.sortByDate},
-      {label: 'Last 10GE', group: 'Supports', key: 'latest10GeDateText', sortFunc: SortHelpers.sortByDate},
+      {label: 'Last 10GE', group: 'Supports', key: 'latest10geDateText', sortFunc: SortHelpers.sortByDate},
 
       {label: 'Program Assigned', key: 'program_assigned', sortFunc: this.programSorter},
       

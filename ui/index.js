@@ -29,6 +29,12 @@ if ($('.student-searchbar').length > 0) {
 }
 
 // Routing
+// Some pages are server-rendered and have a different structure
+// other than #main so we ignore those.  Other pages add in class names
+// to the body tag that `legacyRouteHandler` works with.  Newer pages
+// should handle routing with react-router inside the `App` component.
 const mainEl = document.getElementById('main');
-const didRoute = legacyRouteHandler(mainEl);
-if (!didRoute) ReactDOM.render(<App />, mainEl);
+if (mainEl) {
+  const didRoute = legacyRouteHandler(mainEl);
+  if (!didRoute) ReactDOM.render(<App />, mainEl);
+}

@@ -4,6 +4,11 @@ import SectionHeading from '../components/SectionHeading';
 import HomeFeed from './HomeFeed';
 import HomeInsights from './HomeInsights';
 
+/*
+This is placeholder for now, but will become the home page
+for all user roles, focused on "What is happening with my students?"
+and "What should we be focusing on?"
+*/
 class HomePage extends React.Component {
   componentDidMount() {
     const serializedData = $('#serialized-data').data();
@@ -30,6 +35,7 @@ class HomePage extends React.Component {
   }
 }
 
+
 const styles = {
   columnsContainer: {
     display: 'flex'
@@ -39,4 +45,5 @@ const styles = {
     margin: 10
   }
 };
+
 export default HomePage;
