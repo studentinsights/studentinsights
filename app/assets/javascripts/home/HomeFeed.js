@@ -85,7 +85,9 @@ class HomeFeed extends React.Component {
 
 const styles = {
   root: {
-    fontSize: 14
+    fontSize: 14,
+    padding: 10,
+    paddingTop: 0
   },
   person: {
     fontWeight: 'bold'

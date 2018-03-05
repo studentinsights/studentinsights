@@ -14,7 +14,8 @@ Card.propTypes = {
 const styles = {
   card: {
     padding: 10,
-    border: '1px solid #ccc'
+    border: '1px solid #ccc',
+    borderRadius: 3
   }
 };
 
