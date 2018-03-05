@@ -2,7 +2,6 @@ import React from 'react';
 import Card from '../components/Card';
 import Educator from '../components/Educator';
 import GenericLoader from '../components/GenericLoader';
-import {toMomentFromTime} from '../helpers/toMoment';
 
 
 // On the home page, show users the answers to their most important questions.
@@ -53,7 +52,7 @@ class HomeInsights extends React.Component {
       <div>
         <div style={styles.cardTitle}>Unsupported students</div>
         <Card style={{border: 'none'}}>
-          <div>There are <b>{assignments.length} students</b> you work with who are failing a course but haven't been mentioned in NGE or 10GE for the last month.</div>
+          <div>There are <b>{assignments.length} students</b> you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
           <div style={{paddingTop: 10, paddingBottom: 10}}>
             {truncatedAssignments.map(assignment => {
               const {student, section} = assignment;

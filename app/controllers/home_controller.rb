@@ -6,14 +6,31 @@ class HomeController < ApplicationController
     render 'shared/serialized_data'
   end
 
+  # This is high-school only
   def assignments_json
+    time_now = Time.now
+    grade_threshold = 69
+    time_threshold = 30.days
+
+    # assignments with a section where student is struggling
     students = authorized { Student.all }
     failing_assignments = StudentSectionAssignment
-      .where('grade_numeric < ?', 65)
+      .includes(:student)
+      .where('grade_numeric < ?', grade_threshold)
       .where(student_id: students.map(&:id))
       .order(grade_numeric: :asc)
 
-    assignments_json = failing_assignments.map do |assignment|
+    # remove those with student notes for NGE or 10GE
+    unsupported_failing_assignments = failing_assignments.select do |assignment|
+      assignment.student.event_notes
+        .where(is_restricted: false)
+        .where('updated_at > ?', time_now - time_threshold)
+        .where(event_note_type_id: [305, 306])
+        .count == 0
+    end
+
+    # ser
+    assignments_json = unsupported_failing_assignments.map do |assignment|
       assignment.as_json({
         :only => [:id, :grade_letter, :grade_numeric],
         :include => {
