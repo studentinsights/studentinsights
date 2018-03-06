@@ -4,6 +4,12 @@ import PromiseLoader from './PromiseLoader';
 
 // Executes a promise, shows generic loading and error
 // messages, and calls `render` with the resolved value of the promise.
+//
+// Example usage:
+//
+// <GenericLoader
+//    promiseFn={fetch('/foos').then(response => response.json())}
+//    render={foos => this.renderFoos(foo)} />
 class GenericLoader extends React.Component {
   constructor(props) {
     super(props);
