@@ -21,7 +21,7 @@ describe('Dashboard Students Table', () => {
     expect(cellTexts).toEqual([
       "Pierrot Zanni",
       "3",
-      moment().subtract(3, 'months').format('M/D/YY'),
+      moment.utc().subtract(3, 'months').format('M/D/YY'),
     ]);
   });
 
