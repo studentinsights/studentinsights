@@ -2,8 +2,7 @@ import React from 'react';
 import qs from 'query-string';
 import GenericLoader from '../components/GenericLoader';
 import EventNoteCard from './EventNoteCard';
-import Card from '../components/Card';
-import {toMomentFromTime} from '../helpers/toMoment';
+import BirthdayCard from './BirthdayCard';
 
 
 /*
@@ -37,12 +36,24 @@ class HomeFeed extends React.Component {
   }
 
   renderFeed(feedCards) {
-    return feedCards.map(feedCard => {
-      const {type, json} = feedCard;
-      if (type === 'event_note_card') return this.renderEventNoteCard(json);
-      if (type === 'birthday_card') return this.renderBirthdayCard(json);
-      console.log('Unexpected card type: ', type); // eslint-disable-line no-console
-    });
+    return <HomeFeedPure feedCards={feedCards} />;
+  }
+}
+
+// Pure UI component for rendering home feed
+export class HomeFeedPure extends React.Component {
+  render() {
+    const {feedCards} = this.props;
+    return (
+      <div className="HomeFeedPure">
+        {feedCards.map(feedCard => {
+          const {type, json} = feedCard;
+          if (type === 'event_note_card') return this.renderEventNoteCard(json);
+          if (type === 'birthday_card') return this.renderBirthdayCard(json);
+          console.warn('Unexpected card type: ', type); // eslint-disable-line no-console
+        })}
+      </div>
+    );
   }
 
   renderEventNoteCard(json) {
@@ -53,18 +64,20 @@ class HomeFeed extends React.Component {
   }
 
   renderBirthdayCard(json) {
-    const student = json;
-    const thisYearBirthdateMoment = toMomentFromTime(json.date_of_birth).year(moment.utc().year());
-    const isWas = (thisYearBirthdateMoment.isBefore(moment.utc())) ? 'was' : 'is';
-    return (
-      <Card key={student.id} style={styles.card}>
-        🎉<a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
-        <span>'s birthday {isWas} on </span>
-        <span>{toMomentFromTime(student.date_of_birth).format('dddd M/D')}!</span>
-      </Card>
-    );
+    return <BirthdayCard
+      key={`birthday:${json.id}`}
+      style={styles.card}
+      studentBirthdayCard={json} />;
   }
 }
+HomeFeedPure.propTypes = {
+  feedCards: React.PropTypes.arrayOf(React.PropTypes.shape({
+    type: React.PropTypes.string.isRequired,
+    timestamp: React.PropTypes.string.isRequired,
+    json: React.PropTypes.object.isRequired
+  })).isRequired
+};
+
 
 const styles = {
   root: {

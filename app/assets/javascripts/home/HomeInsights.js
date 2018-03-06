@@ -8,11 +8,6 @@ import GenericLoader from '../components/GenericLoader';
 class HomeInsights extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      assignments: null,
-      assignmentLimit: 4
-    };
-    this.onMoreAssignments = this.onMoreAssignments.bind(this);
     this.renderAssignments = this.renderAssignments.bind(this);
   }
 
@@ -22,12 +17,6 @@ class HomeInsights extends React.Component {
       .then(json => json.assignments);
   }
 
-  onMoreAssignments(e) {
-    e.preventDefault();
-    const {assignmentLimit} = this.state;
-    this.setState({ assignmentLimit: assignmentLimit + 4 });
-  }
-
   render() {
     return (
       <div className="HomeInsights" style={styles.root}>
@@ -35,21 +24,50 @@ class HomeInsights extends React.Component {
           style={styles.card}
           promiseFn={this.fetchAssignments}
           render={this.renderAssignments} />
-        <Card style={styles.card}>
-          <div style={styles.placeholderCard}>
-            <div>What else would help you be a better teacher?</div>
-            <div>Come talk with us about what we should build together!</div>
-          </div>
-        </Card>
+        {this.renderPlaceholder()}
       </div>
     );
   }
 
   renderAssignments(assignments) {
+    return <UnsupportedStudentsPure assignments={assignments} />;
+  }
+
+  renderPlaceholder() {
+    return (
+      <Card style={styles.card}>
+        <div style={styles.placeholderCard}>
+          <div>What else would help you be a better teacher?</div>
+          <div>Come talk with us about what we should build together!</div>
+        </div>
+      </Card>
+    );
+  }
+}
+
+
+// Pure UI component to render unsupported students
+export class UnsupportedStudentsPure extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      assignmentLimit: 4
+    };
+    this.onMoreAssignments = this.onMoreAssignments.bind(this);
+  }
+
+  onMoreAssignments(e) {
+    e.preventDefault();
+    const {assignmentLimit} = this.state;
+    this.setState({ assignmentLimit: assignmentLimit + 4 });
+  }
+
+  render() {
+    const {assignments} = this.props;
     const {assignmentLimit} = this.state;
     const truncatedAssignments = assignments.slice(0, assignmentLimit);
     return (
-      <div>
+      <div className="UnsupportedStudentsPure">
         <div style={styles.cardTitle}>Unsupported students</div>
         <Card style={{border: 'none'}}>
           <div>There are <b>{assignments.length} students</b> you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
@@ -77,8 +95,23 @@ class HomeInsights extends React.Component {
     );
   }
 }
+UnsupportedStudentsPure.propTypes = {
+  assignments: React.PropTypes.arrayOf(React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    student: React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      first_name: React.PropTypes.string.isRequired,
+      last_name: React.PropTypes.string.isRequired
+    }).isRequired,
+    section: React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      section_number: React.PropTypes.string.isRequired,
+      educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    }).isRequired
+  })).isRequired
+};
 
-// TODO(kr) duplicate, better way to factor card / cardtitle
+
 const styles = {
   root: {
     fontSize: 14

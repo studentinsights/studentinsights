@@ -13,7 +13,7 @@ import {eventNoteTypeText} from '../components/eventNoteType';
 class EventNoteCard extends React.Component {
   render() {
     const {eventNoteCardJson, style} = this.props;
-    const {student} = eventNoteCardJson;
+    const {student, educator} = eventNoteCardJson;
     const {homeroom} = student;
 
     return (
@@ -38,10 +38,10 @@ class EventNoteCard extends React.Component {
               <span>by </span>
               <Educator
                 style={styles.person}
-                educator={eventNoteCardJson.educator} />
+                educator={educator} />
             </div>
             <div>in {eventNoteTypeText(eventNoteCardJson.event_note_type_id)}</div>
-            <div>{toMomentFromTime(eventNoteCardJson.updated_at).fromNow()} on {toMomentFromTime(eventNoteCardJson.updated_at).format('M/D')}</div>
+            <div>{toMomentFromTime(eventNoteCardJson.recorded_at).fromNow()} on {toMomentFromTime(eventNoteCardJson.recorded_at).format('M/D')}</div>
           </div>
         </div>
         <div style={styles.body}>
@@ -57,7 +57,24 @@ class EventNoteCard extends React.Component {
 }
 
 EventNoteCard.propTypes = {
-  eventNoteCardJson: React.PropTypes.object.isRequired,
+  eventNoteCardJson: React.PropTypes.shape({
+    recorded_at: React.PropTypes.string.isRequired,
+    event_note_type_id: React.PropTypes.number.isRequired,
+    text: React.PropTypes.string.isRequired,
+    educator: React.PropTypes.object.isRequired,
+    student: React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      first_name: React.PropTypes.string.isRequired,
+      last_name: React.PropTypes.string.isRequired,
+      grade: React.PropTypes.string.isRequired,
+      house: React.PropTypes.string,
+      homeroom: React.PropTypes.shape({
+        id: React.PropTypes.number.isRequired,
+        name: React.PropTypes.string.isRequired,
+        educator: React.PropTypes.object
+      })
+    })
+  }).isRequired,
   style: React.PropTypes.object
 };
 

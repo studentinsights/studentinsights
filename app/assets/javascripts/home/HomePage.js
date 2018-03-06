@@ -1,5 +1,4 @@
 import React from 'react';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import SectionHeading from '../components/SectionHeading';
 import HomeFeed from './HomeFeed';
 import HomeInsights from './HomeInsights';

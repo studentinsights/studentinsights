@@ -19,7 +19,7 @@ class Educator extends React.Component {
     return (
       <a
         className="Educator"
-        style={style}
+        style={style || {}}
         href={'mailto:' + educator.email}>
         {educatorName}
       </a>
