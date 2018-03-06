@@ -29,21 +29,31 @@ RSpec.describe Feed do
   end
 
   describe '#event_note_cards' do
-    it 'works' do
-      EventNote.create!(
+    it 'works correctly' do
+      event_note = EventNote.create!(
         student: pals.shs_freshman_mari,
         educator: pals.uri,
         event_note_type: EventNoteType.find(305),
         text: 'blah',
-        recorded_at: time_now
+        recorded_at: time_now - 7.days
       )
       feed = Feed.new(pals.shs_jodi)
       cards = feed.event_note_cards(time_now, 4)
-      expect(cards).to eq ['f']
+      expect(cards.size).to eq 1
+      expect(cards.first.type).to eq(:event_note_card)
+      expect(cards.first.timestamp).to eq(time_now - 7.days)
+      expect(cards.first.json['id']).to eq(event_note.id)
     end
   end
 
   describe '#birthday_cards' do
-    pending
+    it 'works correctly' do
+      feed = Feed.new(pals.shs_jodi)
+      cards = feed.birthday_cards(time_now, 4)
+      expect(cards.size).to eq 1
+      expect(cards.first.type).to eq(:birthday_card)
+      expect(cards.first.timestamp.to_date).to eq(Date.parse('2018-03-07'))
+      expect(cards.first.json['id']).to eq(pals.shs_freshman_mari.id)
+    end
   end
 end

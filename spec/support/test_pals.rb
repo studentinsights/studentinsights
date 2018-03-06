@@ -262,6 +262,7 @@ class TestPals
       school: @shs,
       homeroom: @shs_jodi_homeroom,
       grade: '9',
+      date_of_birth: '2004-03-07',
       local_id: '2222222222',
       enrollment_status: 'Active'
     )

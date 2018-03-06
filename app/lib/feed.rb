@@ -6,13 +6,11 @@ class Feed
 
   # Return a list of `FeedCard`s for the feed based on event notes.
   def event_note_cards(from_time, limit)
-    puts "\n\n >>> EventNote.all.size: #{EventNote.all.size}"
     event_notes = @authorizer.authorized do
       EventNote.all
         .where('recorded_at < ?', from_time)
         .order(recorded_at: :desc)
     end
-    puts "\n\n >>> event_notes.size: #{event_notes.size}"
     # truncation has to come after authorization
     recent_event_notes = event_notes.first(limit)
     recent_event_notes.map {|event_note| event_note_card(event_note) }
@@ -22,7 +20,7 @@ class Feed
   # TODO(kr) Authorized behaves in unexpected ways here with `select`
   def birthday_cards(time_now, limit)
     students = @authorizer.authorized do
-      Student.select(:id, :primary_email, :first_name, :last_name, :date_of_birth).all
+      Student.select(:id, :primary_email, :first_name, :last_name, :date_of_birth)
         .where('extract(doy from date_of_birth) > ?', time_now.yday - 7)
         .where('extract(doy from date_of_birth) < ?', time_now.yday + 7)
     end
@@ -63,6 +61,6 @@ class Feed
       :only => [:id, :email, :first_name, :last_name, :date_of_birth]
     })
     timestamp = student.date_of_birth.change(year: time_now.year)
-    FeedCard.new(:birthday, timestamp, json)
+    FeedCard.new(:birthday_card, timestamp, json)
   end
 end
