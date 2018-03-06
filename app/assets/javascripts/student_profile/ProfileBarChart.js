@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import * as GraphHelpers from '../helpers/graph_helpers';
+import * as GraphHelpers from '../helpers/GraphHelpers';
 import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
 
 const styles = {

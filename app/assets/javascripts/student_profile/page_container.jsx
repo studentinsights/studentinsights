@@ -1,9 +1,15 @@
 import _ from 'lodash';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
-import {fromPair} from '../helpers/from_pair.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 import Api from './Api.js';
+
+// in place of updating lodash to v4
+function fromPair(key, value) {
+  const obj = {};
+  obj[key] = value;
+  return obj;
+}
 
 (function() {
   window.shared || (window.shared = {});
