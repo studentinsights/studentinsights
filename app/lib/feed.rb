@@ -17,12 +17,13 @@ class Feed
   end
 
   # This looks both ahead and behind for birthdays.
-  # TODO(kr) Authorized behaves in unexpected ways here with `select`
-  def birthday_cards(time_now, limit)
+  def birthday_cards(time_now, limit, options = {})
+    days_back = options[:days_back] || 7
+    days_ahead = options[:days_ahead] || 7
     students = @authorizer.authorized do
       Student.select(:id, :primary_email, :first_name, :last_name, :date_of_birth)
-        .where('extract(doy from date_of_birth) > ?', time_now.yday - 7)
-        .where('extract(doy from date_of_birth) < ?', time_now.yday + 7)
+        .where('extract(doy from date_of_birth) > ?', time_now.yday - days_back)
+        .where('extract(doy from date_of_birth) < ?', time_now.yday + days_ahead)
     end
     students.map { |student| birthday_card(student, time_now) }
   end

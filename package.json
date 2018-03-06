@@ -27,6 +27,7 @@
     "moment": "2.11.2",
     "object-assign": "^4.1.1",
     "promise-polyfill": "^6.0.2",
+    "query-string": "^5.1.0",
     "rc-slider": "^8.3.2",
     "react": "15.4.2",
     "react-dom": "15.4.2",

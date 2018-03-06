@@ -4,6 +4,8 @@ class HomeController < ApplicationController
   def feed_json
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
+    puts "time_now: #{time_now}"
+    puts "limit: #{limit}"
 
     # query for different kinds of feed cards, then merge and sort and truncate.
     # this means we'll always overquery, since we don't know how many
@@ -12,12 +14,18 @@ class HomeController < ApplicationController
     # need to push this out to the client to do that.
     feed = Feed.new(current_educator)
     event_note_cards = feed.event_note_cards(time_now, limit)
-    birthday_cards = feed.birthday_cards(time_now, limit)
+    birthday_cards = feed.birthday_cards(time_now, limit, {
+      days_back: 3,
+      days_ahead: 3
+    })
     feed_cards = feed.merge_sort_and_limit_cards([
       event_note_cards,
       birthday_cards
     ], limit)
 
+    puts "event_note_cards: #{event_note_cards}"
+    puts "birthday_cards: #{birthday_cards}"
+    puts "feed_cards: #{feed_cards}"
     render json: {
       feed_cards: feed_cards
     }

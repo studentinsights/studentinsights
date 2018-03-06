@@ -1,35 +1,28 @@
 import React from 'react';
-import _ from 'lodash';
+import qs from 'query-string';
 import GenericLoader from '../components/GenericLoader';
 import EventNoteCard from './EventNoteCard';
 import Card from '../components/Card';
 import {toMomentFromTime} from '../helpers/toMoment';
 
 
+/*
+This component fetches data and renders it, showing the user
+the feed of what's happening with their students.
+*/
 class HomeFeed extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchNotesAndBirthdays = this.fetchNotesAndBirthdays.bind(this);
+    this.fetchFeed = this.fetchFeed.bind(this);
     this.renderFeed = this.renderFeed.bind(this);
   }
 
-  fetchNotesAndBirthdays() {
-    return Promise.all([
-      this.fetchNotes(),
-      this.fetchStudentBirthdays()
-    ]);
-  }
-
-  fetchNotes() {
-    return fetch('/home/notes_json', { credentials: 'include' })
+  fetchFeed() {
+    const limit = 20;
+    const url = '/home/feed_json?' + qs.stringify({limit});
+    return fetch(url, { credentials: 'include' })
       .then(response => response.json())
-      .then(json => json.event_notes);
-  }
-
-  fetchStudentBirthdays() {
-    return fetch('/home/birthdays_json', { credentials: 'include' })
-      .then(response => response.json())
-      .then(json => json.students); 
+      .then(json => json.feed_cards);
   }
 
   render() {
@@ -37,49 +30,39 @@ class HomeFeed extends React.Component {
       <div className="HomeFeed" style={styles.root}>
         <GenericLoader
           style={styles.card}
-          promiseFn={this.fetchNotesAndBirthdays}
+          promiseFn={this.fetchFeed}
           render={this.renderFeed} />
       </div>
     );
   }
 
-  renderFeed(promises) {
-    const [eventNotes, students] = promises;
-    const combined = _.flatten([
-      eventNotes.map(json => {
-        return {
-          time: json.recorded_at,
-          json,
-          type: 'event_note'
-        };
-      }),
-      students.map(json => {
-        return {
-          time: moment.utc(json.date_of_birth).year(moment.utc().year()).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
-          json,
-          type: 'birthday'
-        };
-      })
-    ]);
-    const sorted = _.sortBy(combined, c => new Date(c.time) * -1);
-
-    return sorted.map(({json, time, type}) => {
-      if (type === 'event_note') {
-        return <EventNoteCard
-          key={json.id}
-          style={styles.card}
-          eventNote={json} />;
-      } else if (type === 'birthday') {
-        const student = json;
-        return (
-          <Card key={student.id} style={styles.card}>
-            🎉<a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
-            <span>'s birthday is on </span>
-            <span>{toMomentFromTime(student.date_of_birth).format('dddd M/D/YY')}!</span>
-          </Card>
-        );
-      }
+  renderFeed(feedCards) {
+    return feedCards.map(feedCard => {
+      const {type, json} = feedCard;
+      if (type === 'event_note_card') return this.renderEventNoteCard(json);
+      if (type === 'birthday_card') return this.renderBirthdayCard(json);
+      console.log('Unexpected card type: ', type); // eslint-disable-line no-console
     });
+  }
+
+  renderEventNoteCard(json) {
+    return <EventNoteCard
+      key={json.id}
+      style={styles.card}
+      eventNoteCardJson={json} />;
+  }
+
+  renderBirthdayCard(json) {
+    const student = json;
+    const thisYearBirthdateMoment = toMomentFromTime(json.date_of_birth).year(moment.utc().year());
+    const isWas = (thisYearBirthdateMoment.isBefore(moment.utc())) ? 'was' : 'is';
+    return (
+      <Card key={student.id} style={styles.card}>
+        🎉<a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
+        <span>'s birthday {isWas} on </span>
+        <span>{toMomentFromTime(student.date_of_birth).format('dddd M/D')}!</span>
+      </Card>
+    );
   }
 }
 

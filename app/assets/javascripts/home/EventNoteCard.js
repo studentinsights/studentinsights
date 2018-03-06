@@ -12,16 +12,15 @@ import {eventNoteTypeText} from '../components/eventNoteType';
 // Render a card in the feed for an EventNote
 class EventNoteCard extends React.Component {
   render() {
-    const {eventNote, style} = this.props;
-    const {student} = eventNote;
+    const {eventNoteCardJson, style} = this.props;
+    const {student} = eventNoteCardJson;
     const {homeroom} = student;
 
     return (
       <Card className="EventNoteCard" style={style}>
         <div style={styles.header}>
           <div style={styles.studentHeader}>
-            <img style={{height: 64, width: 64, backgroundColor: '#eee'}} src="/student-placeholder.png" width={64} height={64} />
-            <div style={{paddingLeft: 10}}>
+            <div>
               <div>
                 <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
               </div>
@@ -39,18 +38,18 @@ class EventNoteCard extends React.Component {
               <span>by </span>
               <Educator
                 style={styles.person}
-                educator={eventNote.educator} />
+                educator={eventNoteCardJson.educator} />
             </div>
-            <div>in {eventNoteTypeText(eventNote.event_note_type_id)}</div>
-            <div>{toMomentFromTime(eventNote.updated_at).fromNow()} on {toMomentFromTime(eventNote.updated_at).format('M/D')}</div>
+            <div>in {eventNoteTypeText(eventNoteCardJson.event_note_type_id)}</div>
+            <div>{toMomentFromTime(eventNoteCardJson.updated_at).fromNow()} on {toMomentFromTime(eventNoteCardJson.updated_at).format('M/D')}</div>
           </div>
         </div>
         <div style={styles.body}>
-          <div>{eventNote.text}</div>
+          <div>{eventNoteCardJson.text}</div>
         </div>
         <div style={styles.footer}>
           {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
-          <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNote.event_note_type_id} />
+          <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNoteCardJson.event_note_type_id} />
         </div>
       </Card>
     );
@@ -58,7 +57,7 @@ class EventNoteCard extends React.Component {
 }
 
 EventNoteCard.propTypes = {
-  eventNote: React.PropTypes.object.isRequired,
+  eventNoteCardJson: React.PropTypes.object.isRequired,
   style: React.PropTypes.object
 };
 
