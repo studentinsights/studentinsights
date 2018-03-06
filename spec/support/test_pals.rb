@@ -266,7 +266,9 @@ class TestPals
       enrollment_status: 'Active'
     )
     StudentSectionAssignment.create!(
-      student: @shs_freshman_mari, section: @shs_tuesday_biology_section
+      student: @shs_freshman_mari,
+      section: @shs_tuesday_biology_section,
+      grade_numeric: 67
     )
 
     reindex!

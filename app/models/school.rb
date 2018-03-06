@@ -2,6 +2,7 @@ class School < ActiveRecord::Base
   extend FriendlyId
   friendly_id :local_id, use: :slugged
   validates :local_id, presence: true, uniqueness: true
+  validate :validate_school_type
   has_many :students
   has_many :educators
   has_many :homerooms
@@ -34,4 +35,15 @@ class School < ActiveRecord::Base
     School.seed_schools_for_district('somerville')
   end
 
+  def is_high_school?
+    school_type == 'HS'
+  end
+
+  private
+  def validate_school_type
+    whitelist = ['ES', 'MS', 'ESMS', 'HS', nil]
+    if !whitelist.include?(school_type)
+      errors.add(:school_type, 'invalid school_type; use nil for unknown values or add to validation whitelist')
+    end
+  end
 end

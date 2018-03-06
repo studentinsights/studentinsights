@@ -17,7 +17,7 @@ class HomeInsights extends React.Component {
   }
 
   fetchAssignments() {
-    return fetch('/home/assignments_json', { credentials: 'include' })
+    return fetch('/home/unsupported_low_grades_json', { credentials: 'include' })
       .then(response => response.json())
       .then(json => json.assignments);
   }

@@ -6,45 +6,24 @@ class HomeController < ApplicationController
     render 'shared/serialized_data'
   end
 
-  # This is high-school only
-  def assignments_json
+  def unsupported_low_grades_json
     time_now = Time.now
-    grade_threshold = 69
-    time_threshold = 30.days
 
-    # assignments with a section where student is struggling
-    students = authorized { Student.all }
-    failing_assignments = StudentSectionAssignment
-      .includes(:student)
-      .where('grade_numeric < ?', grade_threshold)
-      .where(student_id: students.map(&:id))
-      .order(grade_numeric: :asc)
+    # Section assignments where a student is struggling.
+    # This is high-school only, so don't look at other students even if authorized.
+    students = authorized { School.select(&:is_high_school?).flat_map(&:students) }
+    low_assignments = assignments_below_threshold(students.map(&:id), grade_threshold: 69)
 
-    # remove those with student notes for NGE or 10GE
-    unsupported_failing_assignments = failing_assignments.select do |assignment|
-      assignment.student.event_notes
-        .where(is_restricted: false)
-        .where('updated_at > ?', time_now - time_threshold)
-        .where(event_note_type_id: [305, 306])
-        .count == 0
+    # Remove assignments if NGE or 10GE team has commented on 
+    # that student recently.
+    time_threshold = time_now - 30.days
+    unsupported_low_assignments = low_assignments.select do |assignment|
+      !has_experience_team_commented?(assignment, time_threshold: time_threshold)
     end
 
-    # ser
-    assignments_json = unsupported_failing_assignments.map do |assignment|
-      assignment.as_json({
-        :only => [:id, :grade_letter, :grade_numeric],
-        :include => {
-          :student => {
-            :only => [:id, :email, :first_name, :last_name, :grade, :house]
-          },
-          :section => {
-            :only => [:id, :section_number, :schedule, :room_number],
-            :include => {
-              :educators => {:only => [:id, :full_name, :email]}
-            }
-          }
-        }
-      })
+    # Send down all data for UI
+    assignments_json = unsupported_low_assignments.map do |assignment|
+      serialize_assignment(assignment)
     end
 
     render json: {
@@ -96,5 +75,41 @@ class HomeController < ApplicationController
     render json: {
       event_notes: event_notes_json
     }
+  end
+
+  private
+  def assignments_below_threshold(student_ids, options = {})
+    grade_threshold = options[:grade_threshold] || 69
+    StudentSectionAssignment
+      .includes(:student)
+      .where('grade_numeric < ?', grade_threshold)
+      .where(student_id: student_ids)
+      .order(grade_numeric: :asc)
+  end
+
+  def serialize_assignment(assignment)
+    assignment.as_json({
+      :only => [:id, :grade_letter, :grade_numeric],
+      :include => {
+        :student => {
+          :only => [:id, :email, :first_name, :last_name, :grade, :house]
+        },
+        :section => {
+          :only => [:id, :section_number, :schedule, :room_number],
+          :include => {
+            :educators => {:only => [:id, :full_name, :email]}
+          }
+        }
+      }
+    })
+  end
+
+  def has_experience_team_commented?(assignment, options = {})
+    raise 'missing param' unless options[:time_threshold]
+    assignment.student.event_notes
+      .where(is_restricted: false)
+      .where('recorded_at > ?', options[:time_threshold])
+      .where(event_note_type_id: [305, 306])
+      .count > 0
   end
 end
