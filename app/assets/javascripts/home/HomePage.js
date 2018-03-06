@@ -10,13 +10,6 @@ This is the home page for all user roles, focused on
 "How can we adapt?"
 */
 class HomePage extends React.Component {
-  componentDidMount() {
-    const serializedData = $('#serialized-data').data();
-    this.setState({serializedData});
-    MixpanelUtils.registerUser(serializedData.currentEducator);
-    MixpanelUtils.track('PAGE_VISIT', { page_key: 'STUDENT_PROFILE' });
-  }
-
   render() {
     return (
       <div className="HomePage">

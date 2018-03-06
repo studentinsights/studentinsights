@@ -4,14 +4,13 @@ class HomeController < ApplicationController
   def feed_json
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
-    puts "time_now: #{time_now}"
-    puts "limit: #{limit}"
 
-    # query for different kinds of feed cards, then merge and sort and truncate.
-    # this means we'll always overquery, since we don't know how many
+    # Query for different kinds of feed cards, then merge and sort and truncate.
+    # This means we'll always slightly overquery, since we don't know how many
     # different bits of information there are across data sources until
-    # we query and combine them. ideally we'd query in parallel but would
-    # need to push this out to the client to do that.
+    # we query and combine them. Ideally we'd query in parallel but we'd
+    # need to push this out to the client to do that (and still would have to
+    # delay rendering until both came back and were merged anyway).
     feed = Feed.new(current_educator)
     event_note_cards = feed.event_note_cards(time_now, limit)
     birthday_cards = feed.birthday_cards(time_now, limit, {
@@ -23,9 +22,6 @@ class HomeController < ApplicationController
       birthday_cards
     ], limit)
 
-    puts "event_note_cards: #{event_note_cards}"
-    puts "birthday_cards: #{birthday_cards}"
-    puts "feed_cards: #{feed_cards}"
     render json: {
       feed_cards: feed_cards
     }
