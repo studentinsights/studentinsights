@@ -1,0 +1,49 @@
+require 'spec_helper'
+
+def test_card(date_text)
+  timestamp = Time.parse(date_text)
+  FeedCard.new(:event_note, timestamp, {foo: 'bar'})
+end
+
+def seed_event_notes(pals)
+  
+end
+
+RSpec.describe Feed do
+  let!(:pals) { TestPals.create! }
+  let!(:time_now) { Time.zone.local(2018, 3, 5, 8, 45) }
+
+  describe '#merge_sort_and_limit_cards' do
+    it 'works correctly' do
+      card_sets = [
+        [test_card('3/5'), test_card('3/7'), test_card('3/9')],
+        [test_card('3/4'), test_card('3/5'), test_card('3/8')],
+        [test_card('3/1'), test_card('3/2'), test_card('3/6')]
+      ]
+      feed = Feed.new(pals.shs_jodi)
+      expect(feed.merge_sort_and_limit_cards(card_sets, 2).as_json).to eq [
+        {"type"=>"event_note", "timestamp"=>'2018-03-09T00:00:00.000-05:00', "json"=>{"foo"=>"bar"}},
+        {"type"=>"event_note", "timestamp"=>'2018-03-08T00:00:00.000-05:00', "json"=>{"foo"=>"bar"}}
+      ]
+    end
+  end
+
+  describe '#event_note_cards' do
+    it 'works' do
+      EventNote.create!(
+        student: pals.shs_freshman_mari,
+        educator: pals.uri,
+        event_note_type: EventNoteType.find(305),
+        text: 'blah',
+        recorded_at: time_now
+      )
+      feed = Feed.new(pals.shs_jodi)
+      cards = feed.event_note_cards(time_now, 4)
+      expect(cards).to eq ['f']
+    end
+  end
+
+  describe '#birthday_cards' do
+    pending
+  end
+end

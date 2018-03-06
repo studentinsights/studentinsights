@@ -48,7 +48,7 @@ class HomeFeed extends React.Component {
     const combined = _.flatten([
       eventNotes.map(json => {
         return {
-          time: json.updated_at,
+          time: json.recorded_at,
           json,
           type: 'event_note'
         };

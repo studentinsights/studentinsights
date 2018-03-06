@@ -268,7 +268,8 @@ class TestPals
     StudentSectionAssignment.create!(
       student: @shs_freshman_mari,
       section: @shs_tuesday_biology_section,
-      grade_numeric: 67
+      grade_numeric: 67,
+      grade_letter: 'D'
     )
 
     reindex!
