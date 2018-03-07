@@ -131,7 +131,7 @@ class SchoolsController < ApplicationController
       first_name: student.first_name,
       last_name: student.last_name,
       id: student.id,
-      homeroom: student.try(:homeroom).try(:educator).try(:full_name),
+      homeroom_label: student.try(:homeroom).try(:educator).try(:full_name),
       absences: student.dashboard_absences,
       tardies: student.dashboard_tardies,
       event_notes: student.event_notes
