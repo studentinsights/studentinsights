@@ -31,8 +31,8 @@ RSpec.describe ResearchMattersExporter do
     context 'no notes' do
       it 'outputs the right file' do
         expect(exporter.student_file).to eq([
-          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
-          "#{student.id},HEA,0,0,0,0,0,0,#{educator.id},1"
+          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count,pageview_count",
+          "#{student.id},HEA,0,0,0,0,0,0,#{educator.id},1,0"
         ])
       end
     end
@@ -47,8 +47,8 @@ RSpec.describe ResearchMattersExporter do
 
       it 'outputs the right file' do
         expect(exporter.student_file).to eq([
-          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
-          "#{student.id},HEA,0,0,0,2,0,2,#{educator.id},1"
+          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count,pageview_count",
+          "#{student.id},HEA,0,0,0,2,0,2,#{educator.id},1,0"
         ])
       end
     end
@@ -66,8 +66,8 @@ RSpec.describe ResearchMattersExporter do
 
       it 'outputs the right file, does not count the notes outside the focal period' do
         expect(exporter.student_file).to eq([
-          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
-          "#{student.id},HEA,0,0,0,2,0,2,#{educator.id},1"
+          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count,pageview_count",
+          "#{student.id},HEA,0,0,0,2,0,2,#{educator.id},1,0"
         ])
       end
     end
@@ -85,8 +85,8 @@ RSpec.describe ResearchMattersExporter do
 
       it 'outputs the right file' do
         expect(exporter.student_file).to eq([
-          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count",
-          "#{student.id},HEA,0,0,0,2,1,3,#{educator.id},1"
+          "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count,pageview_count",
+          "#{student.id},HEA,0,0,0,2,1,3,#{educator.id},1,0"
         ])
       end
     end

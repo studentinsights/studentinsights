@@ -40,9 +40,9 @@ class ResearchMattersExporter
       notes_added
       notes_revised
       notes_total
-      pageview_count
       educator_id
       educator_count
+      pageview_count
     ].join(',')
   end
 
@@ -78,9 +78,9 @@ class ResearchMattersExporter
         notes_added,
         notes_revised,
         notes_total,
-        ids_to_pageview_count[student.id.to_s],
         educator_id,
-        educator_count
+        educator_count,
+        ids_to_pageview_count[student.id.to_s],
       ].join(',')
     end
   end
