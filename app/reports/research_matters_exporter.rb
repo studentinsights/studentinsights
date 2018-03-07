@@ -78,7 +78,7 @@ class ResearchMattersExporter
         notes_added,
         notes_revised,
         notes_total,
-        ids_to_pageview_count(student.id.to_s),
+        ids_to_pageview_count[student.id.to_s],
         educator_id,
         educator_count
       ].join(',')
