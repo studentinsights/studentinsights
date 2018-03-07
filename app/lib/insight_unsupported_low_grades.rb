@@ -5,7 +5,7 @@ class InsightUnsupportedLowGrades
   end
 
   # High-school only.  Returns assignments with low grades where
-  # the student hasn't been commented on in NGE or 10GE yet. 
+  # the student hasn't been commented on in NGE or 10GE yet.
   def assignments(time_now, time_threshold, grade_threshold)
     # This is high-school only, so don't look at other students even if authorized.
     students = @authorizer.authorized do
@@ -13,7 +13,7 @@ class InsightUnsupportedLowGrades
     end
     low_assignments = assignments_below_threshold(students.map(&:id), grade_threshold)
 
-    # Remove assignments if NGE or 10GE team has commented on 
+    # Remove assignments if NGE or 10GE team has commented on
     # that student recently.
     low_assignments.select do |assignment|
       !has_experience_team_commented?(assignment, time_threshold)

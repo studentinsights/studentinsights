@@ -17,7 +17,7 @@ RSpec.describe InsightUnsupportedLowGrades do
   describe '#has_experience_team_commented?' do
     let!(:time_threshold) { time_now - 30.days }
     let!(:nge_event_note_type) { EventNoteType.find(305) }
-    let!(:tenge_event_note_type) { EventNoteType.find(305) }  
+    let!(:tenge_event_note_type) { EventNoteType.find(305) }
 
     it 'with no comment' do
       assignment = pals.shs_freshman_mari.student_section_assignments.first

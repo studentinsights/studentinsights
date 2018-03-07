@@ -6,7 +6,7 @@ def test_card(date_text)
 end
 
 def seed_event_notes(pals)
-  
+
 end
 
 RSpec.describe Feed do
