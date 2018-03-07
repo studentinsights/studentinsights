@@ -152,7 +152,13 @@ class ResearchMattersExporter
   end
 
   def filtered_event_data
-    @filtered_event_data = event_data.select do |event|
+    deployment_filtered_event_data = event_data.select do |event|
+      event['properties']['deployment_key'] == "production"
+    end
+
+    puts "Got #{deployment_filtered_event_data.size} events after filtering out demo site."
+
+    @filtered_event_data = deployment_filtered_event_data.select do |event|
       filter_out_test_accounts(event)
     end
 
