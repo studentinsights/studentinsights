@@ -8,12 +8,16 @@ RSpec.describe ResearchMattersExporter do
   let!(:student) { FactoryGirl.create(:student, homeroom: homeroom, school: school) }
 
   class FakeMixpanelDownloader
+    def initialize(student_id)
+      @student_id = student_id
+    end
+
     def event_data
       [{
         "event"=>"PAGE_VISIT",
         "properties"=>{
           "time"=>1503905237,
-          "$current_url"=>"https://somerville-teacher-tool-demo.herokuapp.com/students/1",
+          "$current_url"=>"https://somerville-teacher-tool-demo.herokuapp.com/students/#{@student_id}",
           "deployment_key"=>"production",
           "educator_id"=>1,
           "educator_is_admin"=>false,
@@ -25,7 +29,12 @@ RSpec.describe ResearchMattersExporter do
     end
   end
 
-  let(:exporter) { described_class.new(FakeMixpanelDownloader.new) }
+  let(:exporter) {
+    described_class.new(options: {
+      mixpanel_downloader: FakeMixpanelDownloader.new('junk_id'),
+      canonical_domain: 'somerville-teacher-tool-demo.herokuapp.com'
+    })
+  }
 
   describe '#student_file' do
     context 'no notes' do

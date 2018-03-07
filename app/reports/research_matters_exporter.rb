@@ -9,7 +9,10 @@ class ResearchMattersExporter
 
   STUDENT_INCLUDES = %w[school absences discipline_incidents event_notes]
 
-  def initialize(mixpanel_downloader = RawMixpanelDataDownloader.new)
+  def initialize(options: {
+                  mixpanel_downloader: RawMixpanelDataDownloader.new,
+                  canonical_domain: ENV['CANONICAL_DOMAIN']
+                })
     @school = School.find_by_local_id('HEA')
     @students = @school.students.includes(STUDENT_INCLUDES)
     @educators = @school.educators
@@ -17,7 +20,8 @@ class ResearchMattersExporter
     @focal_time_period_start = DateTime.new(2017, 8, 28)
     @focal_time_period_end = DateTime.new(2017, 12, 24)
 
-    @mixpanel_downloader = mixpanel_downloader
+    @mixpanel_downloader = options[:mixpanel_downloader]
+    @canonical_domain = options[:canonical_domain]
   end
 
   def student_file
@@ -144,9 +148,8 @@ class ResearchMattersExporter
 
     viewed_students = @student_profile_page_views.map do |pageview_record|
       url = pageview_record['properties']['$current_url']
-      canonical_domain = ENV['CANONICAL_DOMAIN']
 
-      url.gsub!("https://#{canonical_domain}/students/", "")
+      url.gsub!("https://#{@canonical_domain}/students/", "")
       id = url.split("?")[0]
               .split("#")[0]
       id
