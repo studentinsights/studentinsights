@@ -28,6 +28,8 @@ class ResearchMattersExporter
     [teacher_file_headers, teacher_rows].flatten
   end
 
+  private
+
   def student_file_headers
     %w[
       student_id
