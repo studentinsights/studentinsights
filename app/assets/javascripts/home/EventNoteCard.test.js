@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import EventNoteCard from './EventNoteCard';
+import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+
 
 function testProps(props = {}) {
   return {
@@ -38,13 +40,13 @@ function testProps(props = {}) {
 it('renders without crashing', () => {
   const props = testProps();
   const el = document.createElement('div');
-  ReactDOM.render(<EventNoteCard {...props} />, el);
+  ReactDOM.render(withDefaultNowContext(<EventNoteCard {...props} />), el);
 });
 
 it('matches snapshot', () => {
   const props = testProps();
   const tree = renderer
-    .create(<EventNoteCard {...props} />)
+    .create(withDefaultNowContext(<EventNoteCard {...props} />))
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

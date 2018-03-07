@@ -12,6 +12,16 @@ import HomePage from '../app/assets/javascripts/home/HomePage';
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
 class App extends React.Component {
+  // This is mostly for testing, and provides a fn to read the time
+  // in any deeply nested component.
+  // Note that `context` should be avoided in general, and that the API
+  // is changing in upcoming React releases: https://reactjs.org/docs/context.html
+  getChildContext() {
+    return {
+      nowFn() { return moment.utc(); }
+    };
+  }
+
   // Read which educator Rails wrote inline in the HTML page, 
   // and report routing activity for analytics (eg, MixPanel)
   // TODO(kr) could do this as a higher-order component
@@ -47,5 +57,8 @@ class App extends React.Component {
     return null;
   }
 }
+App.childContextTypes = {
+  nowFn: React.PropTypes.func
+};
 
 export default App;

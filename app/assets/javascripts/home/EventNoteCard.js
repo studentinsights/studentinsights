@@ -12,6 +12,8 @@ import {eventNoteTypeText} from '../components/eventNoteType';
 // Render a card in the feed for an EventNote
 class EventNoteCard extends React.Component {
   render() {
+    const {nowFn} = this.context;
+    const now = nowFn();
     const {eventNoteCardJson, style} = this.props;
     const {student, educator} = eventNoteCardJson;
     const {homeroom} = student;
@@ -41,7 +43,7 @@ class EventNoteCard extends React.Component {
                 educator={educator} />
             </div>
             <div>in {eventNoteTypeText(eventNoteCardJson.event_note_type_id)}</div>
-            <div>{toMomentFromTime(eventNoteCardJson.recorded_at).fromNow()} on {toMomentFromTime(eventNoteCardJson.recorded_at).format('M/D')}</div>
+            <div>{toMomentFromTime(eventNoteCardJson.recorded_at).from(now)} on {toMomentFromTime(eventNoteCardJson.recorded_at).format('M/D')}</div>
           </div>
         </div>
         <div style={styles.body}>
@@ -55,7 +57,9 @@ class EventNoteCard extends React.Component {
     );
   }
 }
-
+EventNoteCard.contextTypes = {
+  nowFn: React.PropTypes.func.isRequired
+};
 EventNoteCard.propTypes = {
   eventNoteCardJson: React.PropTypes.shape({
     recorded_at: React.PropTypes.string.isRequired,
