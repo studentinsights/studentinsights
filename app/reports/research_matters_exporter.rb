@@ -136,7 +136,19 @@ class ResearchMattersExporter
 
     puts "Got #{@student_profile_page_views.size} student profile page views."
 
-    @student_profile_page_views
+    viewed_students = @student_profile_page_views.map do |pageview_record|
+      url = pageview_record['properties']['$current_url']
+      url.gsub!("https://#{ENV.fetch('CANONICAL_DOMAIN')}/students/", "")
+      id = url.split("?")[0]
+              .split("#")[0]
+      id
+    end
+
+    ids_to_view_count = viewed_students.each_with_object(Hash.new(0)) do |id, memo|
+      memo[id] += 1
+    end
+
+    puts ids_to_view_count.sort_by { |id, view_count| view_count }.to_h
 
     nil
   end
