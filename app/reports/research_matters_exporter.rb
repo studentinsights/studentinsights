@@ -140,11 +140,13 @@ class ResearchMattersExporter
       event['event'] == 'PAGE_VISIT'
     end
 
-    puts "Got #{@student_profile_page_views.size} student profile page views."
+    log "Got #{@student_profile_page_views.size} student profile page views."
 
     viewed_students = @student_profile_page_views.map do |pageview_record|
       url = pageview_record['properties']['$current_url']
-      url.gsub!("https://#{ENV.fetch('CANONICAL_DOMAIN')}/students/", "")
+      canonical_domain = ENV['CANONICAL_DOMAIN']
+
+      url.gsub!("https://#{canonical_domain}/students/", "")
       id = url.split("?")[0]
               .split("#")[0]
       id
@@ -162,7 +164,7 @@ class ResearchMattersExporter
       event['properties']['page_key'] == 'STUDENT_PROFILE'
     end
 
-    puts "Got #{@student_profile_events.size} student profile events."
+    log "Got #{@student_profile_events.size} student profile events."
 
     @student_profile_events
   end
@@ -172,30 +174,34 @@ class ResearchMattersExporter
       event['properties']['deployment_key'] == "production"
     end
 
-    puts "Got #{deployment_filtered_event_data.size} events after filtering out demo site."
+    log "Got #{deployment_filtered_event_data.size} events after filtering out demo site."
 
     @filtered_event_data = deployment_filtered_event_data.select do |event|
       filter_out_test_accounts(event)
     end
 
-    puts "Got #{@filtered_event_data.size} events after filtering out test educators and Uri."
+    log "Got #{@filtered_event_data.size} events after filtering out test educators and Uri."
 
     @filtered_event_data
   end
 
   def event_data
     @event_data ||= @mixpanel_downloader.event_data
-    puts "Got #{@event_data.size} raw events."
+    log "Got #{@event_data.size} raw events."
     @event_data
   end
 
   def filter_out_test_accounts(event)
     educator_id = event['properties']['educator_id']
 
-    return false if educator_id == ENV.fetch('TEST_USER_ID_ONE').to_i
-    return false if educator_id == ENV.fetch('TEST_USER_ID_TWO').to_i
-    return false if educator_id == ENV.fetch('URI_ID').to_i
+    return false if educator_id == ENV['TEST_USER_ID_ONE'].to_i
+    return false if educator_id == ENV['TEST_USER_ID_TWO'].to_i
+    return false if educator_id == ENV['URI_ID'].to_i
     return true
+  end
+
+  def log(message)
+    puts message unless Rails.env.test?
   end
 
 end
