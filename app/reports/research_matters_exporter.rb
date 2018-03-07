@@ -38,6 +38,7 @@ class ResearchMattersExporter
       notes_added
       notes_revised
       notes_total
+      pageview_count
       educator_id
       educator_count
     ].join(',')
@@ -54,6 +55,8 @@ class ResearchMattersExporter
   end
 
   def student_rows
+    ids_to_pageview_count = student_ids_to_pageview_count
+
     @students.map do |student|
       absence_indicator = student_to_indicator(student.id, Absence, 12)
       discipline_indicator = student_to_indicator(student.id, DisciplineIncident, 5)
@@ -73,6 +76,7 @@ class ResearchMattersExporter
         notes_added,
         notes_revised,
         notes_total,
+        ids_to_pageview_count(student.id.to_s),
         educator_id,
         educator_count
       ].join(',')
@@ -129,7 +133,7 @@ class ResearchMattersExporter
     return '0'
   end
 
-  def student_profile_page_views
+  def student_ids_to_pageview_count
     @student_profile_page_views = student_profile_events.select do |event|
       event['event'] == 'PAGE_VISIT'
     end
@@ -148,9 +152,7 @@ class ResearchMattersExporter
       memo[id] += 1
     end
 
-    puts ids_to_view_count.sort_by { |id, view_count| view_count }.to_h
-
-    nil
+    return ids_to_view_count
   end
 
   def student_profile_events
