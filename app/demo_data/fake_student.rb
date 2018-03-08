@@ -64,8 +64,6 @@ class FakeStudent
     "WOODY", "BUZZ", "BO"
   ]
 
-  FIVE_YEARS_OF_SECONDS = 157766400
-
   def base_data
     {
       school: @school,
@@ -208,7 +206,7 @@ class FakeStudent
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
       # Randomly determine when it occurred.
-      occurred_at = Time.at(DateTime.now.to_i - (rand * FIVE_YEARS_OF_SECONDS))
+      occurred_at = DemoDataUtil.random_time
 
       attendance_event = [Absence.new, Tardy.new].sample
       attendance_event.occurred_at = occurred_at
@@ -229,17 +227,8 @@ class FakeStudent
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      # Randomly determine when it occurred.
-      occurred_at = Time.at(DateTime.now.to_i - (rand * FIVE_YEARS_OF_SECONDS))
-
-      discipline_incident = DisciplineIncident.new(
-        FakeDisciplineIncident.data.merge({
-          occurred_at: occurred_at,
-          student: student
-        })
-      )
-
-      discipline_incident.save
+      discipline_incident = FactoryGirl.create(:discipline_incident, student: student)
+      discipline_incident.save!
     end
   end
 
