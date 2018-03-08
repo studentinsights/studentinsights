@@ -26,7 +26,7 @@ SpecSugar.withTestEl('integration tests', container => {
     expect(el.innerHTML).toContain("How can we adapt?");
 
     setTimeout(() => {
-      expect(el.innerHTML).toContain("Unsupported students");
+      expect(el.innerHTML).toContain('Students to check on');
       expect($(el).find('.EventNoteCard').length).toEqual(19);
       expect($(el).find('.BirthdayCard').length).toEqual(1);
       done();

@@ -14,7 +14,7 @@ exports[`pure component matches snapshot 1`] = `
       }
     }
   >
-    Unsupported students
+    Students to check on
   </div>
   <div
     className="Card "

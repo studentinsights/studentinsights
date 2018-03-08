@@ -23,7 +23,7 @@ SpecSugar.withTestEl('integration tests', container => {
     ReactDOM.render(<HomeInsights />, el);
     
     setTimeout(() => {
-      expect(el.innerHTML).toContain('Unsupported students');
+      expect(el.innerHTML).toContain('Students to check on');
       done();
     }, 0);
   });
