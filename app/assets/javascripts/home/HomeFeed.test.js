@@ -26,8 +26,8 @@ SpecSugar.withTestEl('integration tests', container => {
     ReactDOM.render(withDefaultNowContext(<HomeFeed />), el);
     
     setTimeout(() => {
-      // expect($(el).find('.EventNoteCard').length).toEqual(19);
-      // expect($(el).find('.BirthdayCard').length).toEqual(1);
+      expect($(el).find('.EventNoteCard').length).toEqual(19);
+      expect($(el).find('.BirthdayCard').length).toEqual(1);
       done();
     }, 0);
   });
