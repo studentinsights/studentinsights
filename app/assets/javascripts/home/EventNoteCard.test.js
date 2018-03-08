@@ -50,3 +50,10 @@ it('matches snapshot', () => {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+it('renders when student has no homeroom', () => {
+  const props = testProps();
+  delete props.eventNoteCardJson.student.homeroom;
+  const el = document.createElement('div');
+  ReactDOM.render(withDefaultNowContext(<EventNoteCard {...props} />), el);
+});

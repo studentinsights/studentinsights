@@ -28,10 +28,10 @@ class EventNoteCard extends React.Component {
               </div>
               <div>{gradeText(student.grade)}</div>
               <div>
-                <Homeroom
+                {homeroom && <Homeroom
                   id={homeroom.id}
                   name={homeroom.name}
-                  educator={homeroom.educator} />
+                  educator={homeroom.educator} />}
               </div>
             </div>
           </div>
