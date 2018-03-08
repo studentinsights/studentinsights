@@ -34,7 +34,7 @@ export const Students = [
   {
     first_name: 'Pierrot',
     last_name: 'Zanni',
-    homeroom: 'Test 1',
+    homeroom_label: 'Test 1',
     id: 1,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
@@ -44,7 +44,7 @@ export const Students = [
   {
     first_name: 'Pierrette',
     last_name: 'Zanni',
-    homeroom: 'Test 1',
+    homeroom_label: 'Test 1',
     id: 2,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
@@ -53,7 +53,7 @@ export const Students = [
   {
     first_name: 'Arlecchino',
     last_name: 'ZZanni',
-    homeroom: 'Test 1',
+    homeroom_label: 'Test 1',
     id: 3,
     absences: [],
     tardies: [],
@@ -62,7 +62,7 @@ export const Students = [
   {
     first_name: 'Colombina',
     last_name: 'Zanni',
-    homeroom: 'Test 2',
+    homeroom_label: 'Test 2',
     id: 4,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.oneYearAgo],
     tardies: [testEvents.thisMonth],
@@ -71,7 +71,7 @@ export const Students = [
   {
     first_name: 'Scaramuccia',
     last_name: 'Avecchi',
-    homeroom: 'Test 2',
+    homeroom_label: 'Test 2',
     id: 5,
     absences: [testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneYearAgo],
@@ -81,7 +81,7 @@ export const Students = [
   {
     first_name: 'Pulcinella',
     last_name: 'Vecchi',
-    homeroom: null,
+    homeroom_label: null,
     id: 6,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
