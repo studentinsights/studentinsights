@@ -14,8 +14,9 @@ class HomeController < ApplicationController
     feed = Feed.new(current_educator)
     event_note_cards = feed.event_note_cards(time_now, limit)
     birthday_cards = feed.birthday_cards(time_now, limit, {
+      limit: 3,
       days_back: 3,
-      days_ahead: 3
+      days_ahead: 0
     })
     feed_cards = feed.merge_sort_and_limit_cards([
       event_note_cards,

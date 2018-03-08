@@ -19,13 +19,18 @@ class Feed
   end
 
   # This looks both ahead and behind for birthdays.
+  # If there are many, don't return any so as not to
+  # overwhelm (eg, for dept. heads).
   def birthday_cards(time_now, limit, options = {})
+    limit = options[:limit] || 3
     days_back = options[:days_back] || 7
     days_ahead = options[:days_ahead] || 7
     students = @authorizer.authorized do
       Student.select(:id, :primary_email, :first_name, :last_name, :date_of_birth)
         .where('extract(doy from date_of_birth) > ?', time_now.yday - days_back)
-        .where('extract(doy from date_of_birth) < ?', time_now.yday + days_ahead)
+        .where('extract(doy from date_of_birth) <= ?', time_now.yday + days_ahead)
+        .order('extract(doy from date_of_birth) DESC')
+        .limit(limit)
     end
     students.map { |student| birthday_card(student, time_now) }
   end
