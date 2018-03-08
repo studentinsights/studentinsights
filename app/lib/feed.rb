@@ -8,6 +8,7 @@ class Feed
   def event_note_cards(from_time, limit)
     event_notes = @authorizer.authorized do
       EventNote
+        .includes(:student)
         .where(is_restricted: false)
         .where('recorded_at < ?', from_time)
         .order(recorded_at: :desc)
