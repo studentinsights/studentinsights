@@ -7,7 +7,8 @@ class Feed
   # Return a list of `FeedCard`s for the feed based on event notes.
   def event_note_cards(from_time, limit)
     event_notes = @authorizer.authorized do
-      EventNote.all
+      EventNote
+        .where(is_restricted: false)
         .where('recorded_at < ?', from_time)
         .order(recorded_at: :desc)
     end

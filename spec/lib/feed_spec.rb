@@ -44,6 +44,20 @@ RSpec.describe Feed do
       expect(cards.first.timestamp).to eq(time_now - 7.days)
       expect(cards.first.json['id']).to eq(event_note.id)
     end
+
+    it 'never shows restricted notes, even if access' do
+      event_note = EventNote.create!(
+        is_restricted: true,
+        student: pals.shs_freshman_mari,
+        educator: pals.uri,
+        event_note_type: EventNoteType.find(305),
+        text: 'blah',
+        recorded_at: time_now - 7.days
+      )
+      feed = Feed.new(pals.uri)
+      cards = feed.event_note_cards(time_now, 4)
+      expect(cards.size).to eq 0
+    end
   end
 
   describe '#birthday_cards' do
