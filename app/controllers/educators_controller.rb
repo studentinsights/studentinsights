@@ -10,7 +10,7 @@ class EducatorsController < ApplicationController
 
   def show
     educator = Educator.find(params[:id])
-    educator.as_json({
+    render json: educator.as_json({
       :only => [:id, :email, :full_name, :staff_type],
       :include => {
         :school => { :only => [:id, :name] },

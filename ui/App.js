@@ -38,7 +38,7 @@ class App extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/educators/:id" render={this.renderEducatorPage.bind(this)}/>
+        <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
@@ -51,8 +51,9 @@ class App extends React.Component {
   }
 
   renderEducatorPage(routeProps) {
+    const educatorId = routeProps.match.params.id;
     this.trackVisit(routeProps, 'EDUCATOR_PAGE');
-    return <EducatorPage />;
+    return <EducatorPage educatorId={educatorId} />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the 

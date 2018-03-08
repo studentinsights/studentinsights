@@ -6,9 +6,7 @@ Rails.application.routes.draw do
     root to: "educators#index"
   end
   
-  namespace :api do
-    get '/educators/:id' => 'educators#show'
-  end
+  get '/api/educators/:id' => 'educators#show'
 
   devise_for :educators
   authenticated :educator do

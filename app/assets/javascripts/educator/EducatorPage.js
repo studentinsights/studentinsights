@@ -13,7 +13,8 @@ class EducatorPage extends React.Component {
   }
 
   fetchEducator() {
-    const url = `/educators/${educatorId}.json`;
+    const {educatorId} = this.props;
+    const url = `/api/educators/${educatorId}`;
     return fetch(url, { credentials: 'include' })
       .then(response => response.json());
   }
@@ -36,5 +37,8 @@ class EducatorPage extends React.Component {
     );
   }
 }
+EducatorPage.propTypes = {
+  educatorId: React.PropTypes.string.isRequired
+};
 
 export default EducatorPage;
