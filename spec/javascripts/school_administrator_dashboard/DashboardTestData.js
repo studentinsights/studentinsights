@@ -2,27 +2,27 @@
 //stubbed events for dashboard specs
 export const testEvents = {
   oneMonthAgo: {
-    occurred_at: moment().subtract(1, 'months').format("YYYY-MM-DD HH:mm:sss Z"),
+    occurred_at: moment().subtract(1, 'months').format(),
     student_id: 1,
   },
   twoMonthsAgo: {
-    occurred_at: moment().subtract(2, 'months').format("YYYY-MM-DD HH:mm:sss Z"),
+    occurred_at: moment().subtract(2, 'months').format(),
     student_id: 1,
   },
   threeMonthsAgo: {
-    occurred_at: moment().subtract(3, 'months').format("YYYY-MM-DD HH:mm:sss Z"),
+    occurred_at: moment().subtract(3, 'months').format(),
     student_id: 1,
   },
   fourMonthsAgo: {
-    occurred_at: moment().subtract(4, 'months').format("YYYY-MM-DD HH:mm:sss Z"),
+    occurred_at: moment().subtract(4, 'months').format(),
     student_id: 1,
   },
   oneYearAgo: {
-    occurred_at: moment().subtract(1, 'year').format("YYYY-MM-DD HH:mm:sss Z"),
+    occurred_at: moment().subtract(1, 'year').format(),
     student_id: 1,
   },
   thisMonth: {
-    occurred_at: moment().format("YYYY-MM-DD HH:mm:sss Z"),
+    occurred_at: moment().format(),
     student_id: 1
   }
 };
