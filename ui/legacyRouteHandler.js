@@ -59,5 +59,10 @@ export default function legacyRouteHandler(el) {
     return true;
   }
 
+  if ($('body').hasClass('educators') && $('body').hasClass('districtwide_admin_homepage')) {
+    // This is all server-side, but prevent other JS routing
+    return true;
+  }
+
   return false;
 }

@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
 import HomePage from '../app/assets/javascripts/home/HomePage';
-
+import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 
 
 // This is the top-level component, only handling routing.
@@ -38,7 +38,8 @@ class App extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/home" render={() => this.renderHomePage()}/>
+        <Route exact path="/educators/:id" render={this.renderEducatorPage.bind(this)}/>
+        <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );
@@ -49,10 +50,15 @@ class App extends React.Component {
     return <HomePage />;
   }
 
+  renderEducatorPage(routeProps) {
+    this.trackVisit(routeProps, 'EDUCATOR_PAGE');
+    return <EducatorPage />;
+  }
+
   // Ignore this, since we're hybrid client/server and perhaps the 
   // server has rendered something and the client-side app just doesn't
   // know about it.
-  renderNotFound(p) {
+  renderNotFound() {
     console.warn('App: 404'); // eslint-disable-line no-console
     return null;
   }

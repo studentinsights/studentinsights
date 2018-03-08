@@ -8,6 +8,18 @@ class EducatorsController < ApplicationController
     redirect_to homepage_path_for_role(current_educator)
   end
 
+  def show
+    educator = Educator.find(params[:id])
+    educator.as_json({
+      :only => [:id, :email, :full_name, :staff_type],
+      :include => {
+        :school => { :only => [:id, :name] },
+        :sections => { :only => [:id, :section_number] },
+        :homeroom => { :only => [:id, :name] }
+      }
+    })
+  end
+
   def districtwide_admin_homepage
     @schools = School.all
   end
@@ -23,18 +35,18 @@ class EducatorsController < ApplicationController
     render json: filtered_names(params[:term], school)
   end
 
-  def notes_feed_json
+  def my_notes_feed_json
     batch_size = params["batch_size"].to_i
     serialized_data = notes_feed_data(batch_size)
     render json: serialized_data
   end
 
-  def notes_feed
+  def my_notes_feed
     @serialized_data = notes_feed_data(DEFAULT_BATCH_SIZE)
     render 'shared/serialized_data'
   end
 
-  def notes_feed_data(batch_size)
+  def my_notes_feed_data(batch_size)
     total_notes_for_educator = EventNote.where(educator_id: current_educator.id).count
     notes = EventNote.includes(:student)
             .where(educator_id: current_educator.id)
