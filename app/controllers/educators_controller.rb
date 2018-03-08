@@ -35,18 +35,18 @@ class EducatorsController < ApplicationController
     render json: filtered_names(params[:term], school)
   end
 
-  def my_notes_feed_json
+  def notes_feed_json
     batch_size = params["batch_size"].to_i
     serialized_data = notes_feed_data(batch_size)
     render json: serialized_data
   end
 
-  def my_notes_feed
+  def notes_feed
     @serialized_data = notes_feed_data(DEFAULT_BATCH_SIZE)
     render 'shared/serialized_data'
   end
 
-  def my_notes_feed_data(batch_size)
+  def notes_feed_data(batch_size)
     total_notes_for_educator = EventNote.where(educator_id: current_educator.id).count
     notes = EventNote.includes(:student)
             .where(educator_id: current_educator.id)

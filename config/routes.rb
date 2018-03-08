@@ -6,21 +6,21 @@ Rails.application.routes.draw do
     root to: "educators#index"
   end
   
-  namespace :api, constraints: { format: 'json' } do
+  namespace :api do
     get '/educators/:id' => 'educators#show'
-    get '/educators/notes_feed_json'=> 'my_notes#notes_feed_json'
   end
 
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
-  get '/home' => 'ui#ui'
-  get '/home/notes_feed'=> 'my_notes#notes_feed'
-  get '/home/districtwide' => 'educators#districtwide_admin_homepage'
-  get '/educators/:id' => 'ui#ui'
+  get '/educators/view/:id' => 'ui#ui'
+  get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
+  get '/educators/notes_feed'=> 'educators#notes_feed'
+  get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
+  get '/home' => 'ui#ui'
   get '/home/feed_json' => 'home#feed_json'
   get '/home/unsupported_low_grades_json' => 'home#unsupported_low_grades_json'
 
