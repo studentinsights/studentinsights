@@ -7,6 +7,9 @@ RSpec.describe BehaviorRow do
   let(:data) do
     {
       local_id: student.local_id,
+      incident_code: 'Bullying',
+      incident_location: 'Classroom',
+      incident_description: 'foo description',
       event_date: DateTime.parse('1981-12-30'),
     }
   end
