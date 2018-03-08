@@ -26,7 +26,7 @@ RSpec.describe BehaviorImporter do
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Hitting",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
@@ -39,7 +39,7 @@ RSpec.describe BehaviorImporter do
         expect(incidents.size).to eq 1
       end
       it 'assigns the incident code correctly' do
-        expect(incident.incident_code).to eq 'Hitting'
+        expect(incident.incident_code).to eq 'Bullying'
       end
       it 'sets has exact time to true' do
         expect(incident.has_exact_time).to eq true
@@ -56,7 +56,7 @@ RSpec.describe BehaviorImporter do
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Hitting",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
@@ -67,7 +67,7 @@ RSpec.describe BehaviorImporter do
       let(:row_two) {
         {
           local_id: student.local_id,
-          incident_code: "Hitting",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 2),
           incident_location: "Classroom",
           incident_description: "Hit another student again.",
@@ -92,7 +92,7 @@ RSpec.describe BehaviorImporter do
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Lorem ipsuming",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
@@ -134,7 +134,7 @@ RSpec.describe BehaviorImporter do
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Unauthorized pencil sharpening",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 2),
           incident_time: "13:00:00",
           incident_location: "Classroom",

@@ -5,6 +5,7 @@ RSpec.describe DisciplineIncident do
 
   subject(:incident) {
     DisciplineIncident.create!(
+      incident_code: 'Bullying',
       occurred_at: Time.now,
       student: student
     )
