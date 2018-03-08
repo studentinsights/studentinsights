@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
+  get '/home' => 'ui#ui'
 
   devise_scope :educator do
     root to: "devise/sessions#new"
