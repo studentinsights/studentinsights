@@ -163,8 +163,8 @@ RSpec.describe ResearchMattersExporter do
     context 'teacher name present' do
       it 'outputs the right file' do
         expect(exporter.teacher_file).to eq([
-          "educator_id,email,first_name,last_name,school_id",
-          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA"
+          "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total",
+          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0"
         ])
       end
     end
@@ -176,9 +176,9 @@ RSpec.describe ResearchMattersExporter do
       }
       it 'outputs the right file' do
         expect(exporter.teacher_file).to eq([
-          "educator_id,email,first_name,last_name,school_id",
-          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA",
-          "#{another_educator.id},noname@demo.studentinsights.org,,,HEA",
+          "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total",
+          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0",
+          "#{another_educator.id},noname@demo.studentinsights.org,,,HEA,0,0,0",
         ])
       end
     end
