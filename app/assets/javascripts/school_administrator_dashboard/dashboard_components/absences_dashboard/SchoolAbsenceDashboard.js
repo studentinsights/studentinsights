@@ -151,7 +151,7 @@ class SchoolAbsenceDashboard extends React.Component {
   }
 
   renderDateRangeSlider() {
-    const firstDate = this.props.dateRange[0];
+    const firstDate = DashboardHelpers.schoolYearStart();
     const lastDate = this.props.dateRange[this.props.dateRange.length - 1];
     return (
       <DateSlider
