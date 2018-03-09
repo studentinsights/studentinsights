@@ -23,7 +23,7 @@ it('renders without crashing', () => {
   expect($(el).find('a').attr('href')).toEqual('/students/4');
 });
 
-it('renders copy for birthday today', () => {
+it('renders `is` for birthday today', () => {
   const studentBirthdayCard = {
     id: 4,
     first_name: 'Luke',
@@ -32,10 +32,9 @@ it('renders copy for birthday today', () => {
   };
   const el = document.createElement('div');
   ReactDOM.render(
-    withNowContext('2004-03-05T09:23:14.000Z', 
+    withNowContext('2012-03-05T09:23:14.000Z', 
       <BirthdayCard studentBirthdayCard={studentBirthdayCard} />
     )
   , el);
   expect($(el).text()).toContain("🎉Luke Kenobi's birthday is on Monday 3/5!");
-  expect($(el).find('a').attr('href')).toEqual('/students/4');
 });

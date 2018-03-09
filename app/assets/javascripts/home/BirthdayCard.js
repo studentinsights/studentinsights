@@ -6,10 +6,10 @@ import {toMomentFromTime} from '../helpers/toMoment';
 // Render a card in the feed for an EventNote
 class BirthdayCard extends React.Component {
   render() {
-    const {nowFn} = this.context;
+    const now = this.context.nowFn();
     const {studentBirthdayCard, style = {}} = this.props;
-    const thisYearBirthdateMoment = toMomentFromTime(studentBirthdayCard.date_of_birth).year(moment.utc().year());
-    const isWas = (thisYearBirthdateMoment.isSameOrAfter(nowFn())) ? 'is' : 'was';
+    const thisYearBirthdateMoment = toMomentFromTime(studentBirthdayCard.date_of_birth).year(now.year());
+    const isWas = (thisYearBirthdateMoment.isBefore(now.clone().startOf('day'))) ? 'was' : 'is';
     return (
       <Card key={studentBirthdayCard.id} className="BirthdayCard" style={style}>
         🎉<a style={styles.person} href={`/students/${studentBirthdayCard.id}`}>{studentBirthdayCard.first_name} {studentBirthdayCard.last_name}</a>

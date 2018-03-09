@@ -28,8 +28,11 @@ NowContainer.propTypes = {
 
 // Helper to freeze the clock during tests
 export function withNowContext(timeString, children) {
-  const frozenNow = toMomentFromTime(timeString);
-  return <NowContainer nowFn={() => frozenNow}>{children}</NowContainer>;
+  return (
+    <NowContainer nowFn={() => toMomentFromTime(timeString)}>
+      {children}
+    </NowContainer>
+  );
 }
 
 // Keep generic "now" value during most tests
