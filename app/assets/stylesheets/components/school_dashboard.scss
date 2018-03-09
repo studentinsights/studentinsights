@@ -1,20 +1,32 @@
-.DashboardGrid {
-  width: auto;
-  padding: 20px 0 20px 20px;
+
+.DashboardContainer {
+  display: flex;
+  height: 85vh;
 }
 
 .DashboardChartsColumn {
-  display: inline-block;
-  vertical-align: top;
-  width: 66.66%;
-  padding-right: 20px;
+  flex: 2 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px 0px 20px
 }
 
 .DashboardRosterColumn {
-  display: inline-block;
+  flex: 1;
   vertical-align: top;
-  width: 33.33%;
   padding-right: 20px;
+}
+
+.DashboardChart {
+  flex: 1;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px 10px 10px 10px;
+  border: 1px solid #ccc;
+
+  div {
+    height: 100%;
+  }
 }
 
 .DashboardDatePicker {
@@ -23,12 +35,6 @@
   justify-content: space-between;
   margin-top: 7px;
   margin-bottom: 7px;
-}
-
-.ui-datepicker,
-.ui-datepicker-header,
-.ui-datepicker-calendar {
-  width: 200px;
 }
 
 .ui-datepicker-prev {
@@ -40,7 +46,7 @@
 }
 
 .StudentsList {
-  margin-top: 200px;
+  margin-top: 20px;
 }
 
 table.students-list {
