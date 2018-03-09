@@ -70,14 +70,14 @@ export class UnsupportedStudentsPure extends React.Component {
   }
 
   render() {
-    const {assignments} = this.props;
+    const {assignments, totalCount} = this.props;
     const {assignmentLimit} = this.state;
     const truncatedAssignments = assignments.slice(0, assignmentLimit);
     return (
       <div className="UnsupportedStudentsPure">
         <div style={styles.cardTitle}>Students to check on</div>
         <Card style={{border: 'none'}}>
-          <div>There are <b>{assignments.length} students</b> you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
+          <div>There are <b>{totalCount} students</b> you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
           <div style={{paddingTop: 10, paddingBottom: 10}}>
             {truncatedAssignments.map(assignment => {
               const {student, section} = assignment;
