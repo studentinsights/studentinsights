@@ -94,7 +94,7 @@ RSpec.describe ResearchMattersExporter do
           FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 20), event_note_type_id: 300)
         }
         let!(:event_note_revision) {
-          FactoryGirl.create(:event_note_revision, event_note: event_note, student_id: student.id, created_at: DateTime.new(2017, 12, 21), event_note_type_id: 300)
+          FactoryGirl.create(:event_note_revision, event_note: event_note, student_id: student.id, created_at: DateTime.new(2017, 12, 21), event_note_type_id: 300, educator: educator)
         }
 
         it 'outputs the right file' do
@@ -161,11 +161,26 @@ RSpec.describe ResearchMattersExporter do
     let(:event_data) { [] }
 
     context 'teacher name present' do
-      it 'outputs the right file' do
-        expect(exporter.teacher_file).to eq([
-          "educator_id,email,first_name,last_name,school_id",
-          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA"
-        ])
+      context 'no teacher event notes' do
+        it 'outputs the right file' do
+          expect(exporter.teacher_file).to eq([
+            "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total",
+            "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0"
+          ])
+        end
+      end
+
+      context 'teacher has event notes' do
+        let!(:educator_event_note) {
+          FactoryGirl.create(:event_note, educator: educator)
+        }
+
+        it 'outputs the right file' do
+          expect(exporter.teacher_file).to eq([
+            "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total",
+            "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,1,0,1"
+          ])
+        end
       end
     end
 
@@ -176,9 +191,9 @@ RSpec.describe ResearchMattersExporter do
       }
       it 'outputs the right file' do
         expect(exporter.teacher_file).to eq([
-          "educator_id,email,first_name,last_name,school_id",
-          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA",
-          "#{another_educator.id},noname@demo.studentinsights.org,,,HEA",
+          "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total",
+          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0",
+          "#{another_educator.id},noname@demo.studentinsights.org,,,HEA,0,0,0",
         ])
       end
     end
