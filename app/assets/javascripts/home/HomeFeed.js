@@ -13,32 +13,50 @@ class HomeFeed extends React.Component {
   constructor(props) {
     super(props);
     this.fetchFeed = this.fetchFeed.bind(this);
+    this.onMore = this.onMore.bind(this);
     this.renderFeed = this.renderFeed.bind(this);
   }
 
-  fetchFeed() {
+  fetchFeed(now) {
     const limit = 20;
-    const url = '/home/feed_json?' + qs.stringify({limit});
+    const url = '/home/feed_json?' + qs.stringify({
+      limit,
+      time_now: now
+    });
     return fetch(url, { credentials: 'include' })
       .then(response => response.json())
       .then(json => json.feed_cards);
   }
 
+  onMore() {
+  }
+
   render() {
+    const {nowFn} = this.context;
+    const now = nowFn();
+
     return (
       <div className="HomeFeed" style={styles.root}>
         <GenericLoader
           style={styles.card}
-          promiseFn={this.fetchFeed}
+          promiseFn={this.fetchFeed.bind(this, now)}
           render={this.renderFeed} />
       </div>
     );
   }
 
   renderFeed(feedCards) {
-    return <HomeFeedPure feedCards={feedCards} />;
+    return (
+      <div>
+        <HomeFeedPure feedCards={feedCards} />
+        <a style={styles.card} href="#more" onClick={this.onMore}>See more</a>
+      </div>
+    );
   }
 }
+HomeFeed.contextTypes = {
+  nowFn: React.PropTypes.func.isRequired
+};
 
 // Pure UI component for rendering home feed
 export class HomeFeedPure extends React.Component {
