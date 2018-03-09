@@ -40,3 +40,16 @@ it('pure component matches snapshot', () => {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+
+it('handles when limit reached', () => {
+  const props = {
+    limit: 3,
+    totalCount: 129,
+    assignments: unsupportedLowGradesJson.assignments.slice(0, 3)
+  };
+  const tree = renderer
+    .create(<UnsupportedStudentsPure {...props} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
