@@ -57,6 +57,9 @@ class ResearchMattersExporter
       first_name
       last_name
       school_id
+      notes_added
+      notes_revised
+      notes_total
     ].join(',')
   end
 
@@ -94,13 +97,19 @@ class ResearchMattersExporter
       full_name = educator.full_name
       last_name = full_name.present? ? full_name.split(", ")[0] : nil
       first_name = full_name.present? ? full_name.split(", ")[1] : nil
+      notes_added = educator.event_notes.count
+      notes_revised = educator.event_note_revisions.count
+      notes_total = notes_added + notes_revised
 
       [
         educator.id,
         educator.email,
         first_name,
         last_name,
-        'HEA'
+        'HEA',
+        notes_added,
+        notes_revised,
+        notes_total,
       ].join(',')
     end
   end
