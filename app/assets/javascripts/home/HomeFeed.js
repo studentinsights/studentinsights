@@ -1,9 +1,10 @@
 import React from 'react';
 import qs from 'query-string';
+import _ from 'lodash';
 import GenericLoader from '../components/GenericLoader';
 import EventNoteCard from './EventNoteCard';
 import BirthdayCard from './BirthdayCard';
-
+import {toMomentFromTime} from '../helpers/toMoment';
 
 /*
 This component fetches data and renders it, showing the user
@@ -12,35 +13,67 @@ the feed of what's happening with their students.
 class HomeFeed extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      hasLoaded: false,
+      error: null,
+      cards: []
+    };
     this.fetchFeed = this.fetchFeed.bind(this);
+    this.onResolved = this.onResolved.bind(this);
+    this.onRejected = this.onRejected.bind(this);
     this.onMore = this.onMore.bind(this);
     this.renderFeed = this.renderFeed.bind(this);
   }
 
-  fetchFeed(now) {
+  componentDidMount() {
+    const {nowFn} = this.context;
+    this.fetchFeed(nowFn().unix());
+  }
+
+  fetchFeed(nowTimestamp) {
+    console.log(nowTimestamp);
     const limit = 20;
     const url = '/home/feed_json?' + qs.stringify({
       limit,
-      time_now: now
+      time_now: nowTimestamp
     });
     return fetch(url, { credentials: 'include' })
       .then(response => response.json())
-      .then(json => json.feed_cards);
+      .then(json => json.feed_cards)
+      .then(this.onResolved)
+      .catch(this.onRejected);
   }
 
-  onMore() {
+  onResolved(newCards) {
+    const previousCards = (this.state.cards || []);
+    debugger
+    const cards = _.sortBy(previousCards.concat(newCards), card => toMomentFromTime(card.timestamp).unix()).reverse();
+    this.setState({
+      cards,
+      hasLoaded: true, 
+      error: null
+    });
+  }
+
+  onRejected(error) {
+    this.setState({error});
+  }
+
+  onMore(event) {
+    const {cards} = this.state;
+    event.preventDefault();
+    const timestamp = toMomentFromTime(_.last(cards).timestamp).unix();
+    this.fetchFeed(timestamp);
   }
 
   render() {
-    const {nowFn} = this.context;
-    const now = nowFn();
+    const {hasLoaded, cards, error} = this.state;
 
     return (
       <div className="HomeFeed" style={styles.root}>
-        <GenericLoader
-          style={styles.card}
-          promiseFn={this.fetchFeed.bind(this, now)}
-          render={this.renderFeed} />
+        {!hasLoaded && <div style={{padding: 10, ...styles.card}}>Loading...</div>}
+        {cards && cards.length > 0 && <div style={styles.card}>{this.renderFeed(cards)}</div>}
+        {error !== null && <div style={{padding: 10, ...styles.card}}>There was an error loading this data.</div>}
       </div>
     );
   }
@@ -49,7 +82,10 @@ class HomeFeed extends React.Component {
     return (
       <div>
         <HomeFeedPure feedCards={feedCards} />
-        <a style={styles.card} href="#more" onClick={this.onMore}>See more</a>
+        <a
+          style={{display: 'block', ...styles.card}}
+          href="#more"
+          onClick={this.onMore}>See more</a>
       </div>
     );
   }

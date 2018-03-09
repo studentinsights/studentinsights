@@ -6,6 +6,11 @@ class Feed
 
   # Return a list of `FeedCard`s for the feed based on event notes.
   def event_note_cards(from_time, limit)
+    puts
+    puts
+    puts "from_time: #{from_time}"
+    puts
+    puts
     event_notes = @authorizer.authorized do
       EventNote
         .includes(:student)
