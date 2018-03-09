@@ -9,7 +9,7 @@ import unsupportedLowGradesJson from '../../../../spec/javascripts/fixtures/home
 
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/home/unsupported_low_grades_json', unsupportedLowGradesJson);
+  fetchMock.get('/home/unsupported_low_grades_json?limit=100', unsupportedLowGradesJson);
 });
 
 it('renders without crashing', () => {
@@ -30,8 +30,13 @@ SpecSugar.withTestEl('integration tests', container => {
 });
 
 it('pure component matches snapshot', () => {
+  const props = {
+    limit: unsupportedLowGradesJson.limit,
+    totalCount: unsupportedLowGradesJson.total_count,
+    assignments: unsupportedLowGradesJson.assignments
+  };
   const tree = renderer
-    .create(<UnsupportedStudentsPure assignments={unsupportedLowGradesJson.assignments} />)
+    .create(<UnsupportedStudentsPure {...props} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

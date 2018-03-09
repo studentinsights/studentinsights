@@ -68,9 +68,14 @@ describe HomeController, :type => :controller do
   describe '#unsupported_low_grades_json' do
     it 'works end-to-end' do
       sign_in(pals.shs_jodi)
-      get :unsupported_low_grades_json, params: { time_now: time_now.to_i.to_s }
+      get :unsupported_low_grades_json, params: {
+        limit: 100,
+        time_now: time_now.to_i.to_s
+      }
       expect(response.code).to eq '200'
       expect(JSON.parse(response.body)).to eq({
+        "limit"=>100,
+        "total_count"=>1,
         "assignments"=>[{
           "id"=>pals.shs_freshman_mari.student_section_assignments.first.id,
           "grade_numeric"=>"67.0",
