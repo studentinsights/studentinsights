@@ -1,16 +1,27 @@
 require 'csv'
 
+# Get flat CSVs to ship to Research Matters:
+#
+# puts ResearchMattersExporter.new.student_file
+# puts ResearchMattersExporter.new.teacher_file
+
 class ResearchMattersExporter
 
   STUDENT_INCLUDES = %w[school absences discipline_incidents event_notes]
 
-  def initialize
+  def initialize(options: {
+                  mixpanel_downloader: RawMixpanelDataDownloader.new,
+                  canonical_domain: ENV['CANONICAL_DOMAIN']
+                })
     @school = School.find_by_local_id('HEA')
     @students = @school.students.includes(STUDENT_INCLUDES)
     @educators = @school.educators
 
     @focal_time_period_start = DateTime.new(2017, 8, 28)
     @focal_time_period_end = DateTime.new(2017, 12, 24)
+
+    @mixpanel_downloader = options[:mixpanel_downloader]
+    @canonical_domain = options[:canonical_domain]
   end
 
   def student_file
@@ -35,6 +46,7 @@ class ResearchMattersExporter
       notes_total
       educator_id
       educator_count
+      pageview_count
     ].join(',')
   end
 
@@ -49,6 +61,8 @@ class ResearchMattersExporter
   end
 
   def student_rows
+    ids_to_pageview_count = student_ids_to_pageview_count
+
     @students.map do |student|
       absence_indicator = student_to_indicator(student.id, Absence, 12)
       discipline_indicator = student_to_indicator(student.id, DisciplineIncident, 5)
@@ -69,7 +83,8 @@ class ResearchMattersExporter
         notes_revised,
         notes_total,
         educator_id,
-        educator_count
+        educator_count,
+        ids_to_pageview_count[student.id.to_s],
       ].join(',')
     end
   end
@@ -122,6 +137,74 @@ class ResearchMattersExporter
     return '1' if absence_indicator == '1' || discipline_indicator == '1'
 
     return '0'
+  end
+
+  def student_ids_to_pageview_count
+    @student_profile_page_views = student_profile_events.select do |event|
+      event['event'] == 'PAGE_VISIT'
+    end
+
+    log "Got #{@student_profile_page_views.size} student profile page views."
+
+    viewed_students = @student_profile_page_views.map do |pageview_record|
+      url = pageview_record['properties']['$current_url']
+
+      url.gsub!("https://#{@canonical_domain}/students/", "")
+      id = url.split("?")[0]
+              .split("#")[0]
+      id
+    end
+
+    ids_to_view_count = viewed_students.each_with_object(Hash.new(0)) do |id, memo|
+      memo[id] += 1
+    end
+
+    return ids_to_view_count
+  end
+
+  def student_profile_events
+    @student_profile_events = filtered_event_data.select do |event|
+      event['properties']['page_key'] == 'STUDENT_PROFILE'
+    end
+
+    log "Got #{@student_profile_events.size} student profile events."
+
+    @student_profile_events
+  end
+
+  def filtered_event_data
+    deployment_filtered_event_data = event_data.select do |event|
+      event['properties']['deployment_key'] == "production"
+    end
+
+    log "Got #{deployment_filtered_event_data.size} events after filtering out demo site."
+
+    @filtered_event_data = deployment_filtered_event_data.select do |event|
+      filter_out_test_accounts(event)
+    end
+
+    log "Got #{@filtered_event_data.size} events after filtering out test educators and Uri."
+
+    @filtered_event_data
+  end
+
+  def event_data
+    @event_data ||= @mixpanel_downloader.event_data
+    log "Got #{@event_data.size} raw events."
+    @event_data
+  end
+
+  def filter_out_test_accounts(event)
+    educator_id = event['properties']['educator_id']
+
+    return false if educator_id == ENV['TEST_USER_ID_ONE'].to_i
+    return false if educator_id == ENV['TEST_USER_ID_TWO'].to_i
+    return false if educator_id == ENV['URI_ID'].to_i
+    return true
+  end
+
+  def log(message)
+    puts message unless Rails.env.test?
   end
 
 end
