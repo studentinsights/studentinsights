@@ -31,6 +31,6 @@ export default function homeroomMain() {
       rows={serializedData.rows}
       school={serializedData.school}
     />,
-    document.getElementById('homeroom-table')
+    document.getElementById('main')
   );
 }
