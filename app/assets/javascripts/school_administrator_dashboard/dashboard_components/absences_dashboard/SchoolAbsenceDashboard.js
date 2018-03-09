@@ -14,9 +14,7 @@ class SchoolAbsenceDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayDates: DashboardHelpers.filterDates(this.props.dateRange,
-                                                 DashboardHelpers.schoolYearStart(),
-                                                 moment().format("YYYY-MM-DD")),
+      displayDates: this.props.dateRange,
       selectedHomeroom: null
     };
     this.setDate = (range) => {
