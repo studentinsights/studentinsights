@@ -12,7 +12,7 @@ import homeFeedJson from '../../../../spec/javascripts/fixtures/home_feed_json';
 
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/home/feed_json?limit=20', homeFeedJson);
+  fetchMock.get('/home/feed_json?limit=20&time_now=1520938986', homeFeedJson);
 });
 
 it('renders without crashing', () => {

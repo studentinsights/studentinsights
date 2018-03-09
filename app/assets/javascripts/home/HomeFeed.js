@@ -31,7 +31,6 @@ class HomeFeed extends React.Component {
   }
 
   fetchFeed(nowTimestamp) {
-    console.log(nowTimestamp);
     const limit = 20;
     const url = '/home/feed_json?' + qs.stringify({
       limit,
@@ -46,7 +45,6 @@ class HomeFeed extends React.Component {
 
   onResolved(newCards) {
     const previousCards = (this.state.cards || []);
-    debugger
     const cards = _.sortBy(previousCards.concat(newCards), card => toMomentFromTime(card.timestamp).unix()).reverse();
     this.setState({
       cards,

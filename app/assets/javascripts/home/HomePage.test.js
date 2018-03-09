@@ -9,7 +9,7 @@ import unsupportedLowGradesJson from '../../../../spec/javascripts/fixtures/home
 
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/home/feed_json?limit=20', homeFeedJson);
+  fetchMock.get('/home/feed_json?limit=20&time_now=1520938986', homeFeedJson);
   fetchMock.get('/home/unsupported_low_grades_json?limit=100', unsupportedLowGradesJson);
 });
 
