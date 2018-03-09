@@ -29,7 +29,7 @@ exports[`handles when limit reached 1`] = `
     <div>
       There are 
       <b>
-        29
+        129
          students
       </b>
        you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.
@@ -189,7 +189,7 @@ exports[`handles when limit reached 1`] = `
     </div>
     <div>
       There are 
-      29
+      129
        students total.  Start with checking in on these first 
       3
        students.
@@ -227,7 +227,7 @@ exports[`pure component matches snapshot 1`] = `
     <div>
       There are 
       <b>
-        14
+        129
          students
       </b>
        you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.
