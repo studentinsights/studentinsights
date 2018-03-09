@@ -36,7 +36,7 @@ class InsightUnsupportedLowGrades
       .includes(:student)
       .where(student: student_ids)
       .where('grade_numeric < ?', grade_threshold)
-      .order(grade_numeric: :asc)
+      .order(grade_numeric: :desc)
   end
 
   # Students who've commented recently
