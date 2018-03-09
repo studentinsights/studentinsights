@@ -14,19 +14,18 @@ RSpec.describe InsightUnsupportedLowGrades do
     end
   end
 
-  describe '#has_experience_team_commented?' do
+  describe '#recently_commented_student_ids' do
     let!(:time_threshold) { time_now - 30.days }
     let!(:nge_event_note_type) { EventNoteType.find(305) }
     let!(:tenge_event_note_type) { EventNoteType.find(305) }
+    let!(:student_ids) { [pals.shs_freshman_mari] }
+    let!(:assignment) { pals.shs_freshman_mari.student_section_assignments.first }
 
     it 'with no comment' do
-      assignment = pals.shs_freshman_mari.student_section_assignments.first
-      has_commented = insight.send(:has_experience_team_commented?, assignment, time_threshold)
-      expect(has_commented).to eq false
+      expect(insight.send(:recently_commented_student_ids, student_ids, time_threshold)).to eq []
     end
 
     it 'with NGE comment' do
-      assignment = pals.shs_freshman_mari.student_section_assignments.first
       EventNote.create!(
         student: pals.shs_freshman_mari,
         educator: pals.uri,
@@ -34,12 +33,12 @@ RSpec.describe InsightUnsupportedLowGrades do
         text: 'blah',
         recorded_at: time_now
       )
-      has_commented = insight.send(:has_experience_team_commented?, assignment, time_threshold)
-      expect(has_commented).to eq true
+      expect(insight.send(:recently_commented_student_ids, student_ids, time_threshold)).to eq [
+        pals.shs_freshman_mari.id
+      ]
     end
 
     it 'with 10GE comment' do
-      assignment = pals.shs_freshman_mari.student_section_assignments.first
       EventNote.create!(
         student: pals.shs_freshman_mari,
         educator: pals.uri,
@@ -47,12 +46,12 @@ RSpec.describe InsightUnsupportedLowGrades do
         text: 'blah',
         recorded_at: time_now
       )
-      has_commented = insight.send(:has_experience_team_commented?, assignment, time_threshold)
-      expect(has_commented).to eq true
+      expect(insight.send(:recently_commented_student_ids, student_ids, time_threshold)).to eq [
+        pals.shs_freshman_mari.id
+      ]
     end
 
     it 'respects time_threshold' do
-      assignment = pals.shs_freshman_mari.student_section_assignments.first
       EventNote.create!(
         student: pals.shs_freshman_mari,
         educator: pals.uri,
@@ -60,8 +59,7 @@ RSpec.describe InsightUnsupportedLowGrades do
         text: 'blah',
         recorded_at: time_now - 40.days
       )
-      has_commented = insight.send(:has_experience_team_commented?, assignment, time_threshold)
-      expect(has_commented).to eq false
+      expect(insight.send(:recently_commented_student_ids, student_ids, time_threshold)).to eq []
     end
   end
 

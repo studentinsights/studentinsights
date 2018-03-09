@@ -33,14 +33,17 @@ class HomeController < ApplicationController
   # Response should include everything UI needs.
   def unsupported_low_grades_json
     time_now = time_now_or_param(params[:time_now])
+    limit = params[:limit].to_i
     time_threshold = time_now - 30.days
     grade_threshold = 69
 
     insight = InsightUnsupportedLowGrades.new(current_educator)
     assignments = insight.assignments(time_now, time_threshold, grade_threshold)
-    assignments_json = insight.as_json(assignments)
+    truncated_assignments_json = insight.as_json(assignments.first(limit))
     render json: {
-      assignments: assignments_json
+      limit: limit,
+      total_count: assignments.size,
+      assignments: truncated_assignments_json
     }
   end
 
