@@ -14,8 +14,9 @@ class HomeController < ApplicationController
     feed = Feed.new(current_educator)
     event_note_cards = feed.event_note_cards(time_now, limit)
     birthday_cards = feed.birthday_cards(time_now, limit, {
+      limit: 3,
       days_back: 3,
-      days_ahead: 3
+      days_ahead: 0
     })
     feed_cards = feed.merge_sort_and_limit_cards([
       event_note_cards,
@@ -32,14 +33,17 @@ class HomeController < ApplicationController
   # Response should include everything UI needs.
   def unsupported_low_grades_json
     time_now = time_now_or_param(params[:time_now])
+    limit = params[:limit].to_i
     time_threshold = time_now - 30.days
     grade_threshold = 69
 
     insight = InsightUnsupportedLowGrades.new(current_educator)
     assignments = insight.assignments(time_now, time_threshold, grade_threshold)
-    assignments_json = insight.as_json(assignments)
+    truncated_assignments_json = insight.as_json(assignments.first(limit))
     render json: {
-      assignments: assignments_json
+      limit: limit,
+      total_count: assignments.size,
+      assignments: truncated_assignments_json
     }
   end
 

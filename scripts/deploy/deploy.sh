@@ -6,7 +6,7 @@ for remote in "$@"
 do
     echo "🚢  🚢  🚢  Deploying code to $remote.";
     git fetch origin
-    git push $remote origin/master
+    git push $remote origin/master master
     echo;
     echo "⚙  ⚙  ⚙  Migrating the database for $remote.";
     heroku run rake db:migrate --remote $remote

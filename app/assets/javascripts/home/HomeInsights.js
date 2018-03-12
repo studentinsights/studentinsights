@@ -1,4 +1,5 @@
 import React from 'react';
+import qs from 'query-string';
 import Card from '../components/Card';
 import Educator from '../components/Educator';
 import GenericLoader from '../components/GenericLoader';
@@ -12,9 +13,10 @@ class HomeInsights extends React.Component {
   }
 
   fetchAssignments() {
-    return fetch('/home/unsupported_low_grades_json', { credentials: 'include' })
-      .then(response => response.json())
-      .then(json => json.assignments);
+    const limit = 100; // limit the data returned, not the query itself
+    const url = `/home/unsupported_low_grades_json?${qs.stringify({limit})}`;
+    return fetch(url, { credentials: 'include' })
+      .then(response => response.json());
   }
 
   render() {
@@ -29,8 +31,13 @@ class HomeInsights extends React.Component {
     );
   }
 
-  renderAssignments(assignments) {
-    return <UnsupportedStudentsPure assignments={assignments} />;
+  renderAssignments(json) {
+    const props = {
+      limit: json.limit,
+      totalCount: json.total_count,
+      assignments: json.assignments
+    };
+    return <UnsupportedStudentsPure {...props} />;
   }
 
   renderPlaceholder() {
@@ -63,14 +70,14 @@ export class UnsupportedStudentsPure extends React.Component {
   }
 
   render() {
-    const {assignments} = this.props;
+    const {assignments, totalCount} = this.props;
     const {assignmentLimit} = this.state;
     const truncatedAssignments = assignments.slice(0, assignmentLimit);
     return (
       <div className="UnsupportedStudentsPure">
         <div style={styles.cardTitle}>Students to check on</div>
         <Card style={{border: 'none'}}>
-          <div>There are <b>{assignments.length} students</b> you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
+          <div>There are <b>{totalCount} students</b> you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
           <div style={{paddingTop: 10, paddingBottom: 10}}>
             {truncatedAssignments.map(assignment => {
               const {student, section} = assignment;
@@ -87,15 +94,30 @@ export class UnsupportedStudentsPure extends React.Component {
               );
             })}
           </div>
-          {truncatedAssignments.length !== assignments.length &&
-            <div><a href="#" onClick={this.onMoreAssignments}>See more</a></div>
-          }
+          {this.renderMore(truncatedAssignments)}
         </Card>
       </div>
     );
   }
+
+  renderMore(truncatedAssignments) {
+    const {totalCount, limit, assignments} = this.props;
+
+    if (truncatedAssignments.length !== assignments.length) {
+      return <div><a href="#" onClick={this.onMoreAssignments}>See more</a></div>;
+    }
+
+    if (assignments.length < totalCount) {
+      return <div>There are {totalCount} students total.  Start with checking in on these first {limit} students.</div>;
+    }
+
+    return null;
+  }
 }
+
 UnsupportedStudentsPure.propTypes = {
+  totalCount: React.PropTypes.number.isRequired,
+  limit: React.PropTypes.number.isRequired,
   assignments: React.PropTypes.arrayOf(React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,
     student: React.PropTypes.shape({
