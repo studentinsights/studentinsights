@@ -15,7 +15,7 @@ class HomePage extends React.Component {
       <div className="HomePage">
         <div style={styles.columnsContainer}>
           <div style={styles.column}>
-            <SectionHeading>What's happening?</SectionHeading>
+            <SectionHeading>{`What's happening?`}</SectionHeading>
             <HomeFeed educatorId={educatorId} />
           </div>
           <div  style={styles.column}>

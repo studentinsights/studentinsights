@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
     render text: exception, status: 500
   end
   rescue_from Exceptions::EducatorNotAuthorized do
+    puts '----'
     if request.format.json?
       render_unauthorized_json!
     else

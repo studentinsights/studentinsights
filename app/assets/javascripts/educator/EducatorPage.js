@@ -44,7 +44,7 @@ class EducatorPage extends React.Component {
       <div style={styles.rendered}>
         <SectionHeading>Educator info</SectionHeading>
         <div style={styles.columnsContainer}>
-          <div style={{flex: 1, padding: 10, fontSize: 14}}>
+          <div style={styles.educatorInfoColumn}>
             <div>Name: <Educator educator={educator} /></div>
             <div>Homeroom: {educator.homeroom
               ? <Homeroom {...educator.homeroom} />
@@ -63,7 +63,7 @@ class EducatorPage extends React.Component {
                 )}</ul>}
             </div>
           </div>
-          <pre style={{flex: 1, ...styles.raw}}>
+          <pre style={styles.rawColumn}>
             {JSON.stringify(raw, null, 2)}
           </pre>
         </div>
@@ -85,7 +85,13 @@ const styles = {
   columnsContainer: {
     display: 'flex'
   },
-  raw: {
+  educatorInfoColumn: {
+    flex: 1,
+    padding: 10,
+    fontSize: 14
+  },
+  rawColumn: {
+    flex: 1,
     fontFamily: 'monospace',
     fontSize: 10,
     padding: 10
