@@ -23,7 +23,7 @@ class DestroyInactiveIepDocuments < ActiveRecord::Migration[5.1]
 
     puts; puts "Found #{documents.length} IEP documents..."
 
-    active_document = documents.shift
+    documents.shift
 
     puts "Destroying #{documents.length} inactive documents..."
 

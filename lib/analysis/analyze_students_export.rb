@@ -42,12 +42,10 @@ class AnalyzeStudentsExport < Struct.new :path
     begin
       return puts "#{local_id} (#{grade}): no registration date" unless registration_date
 
-      parsed_date = DateTime.parse(registration_date)
-
       return puts "#{local_id} (#{grade}): FUTURE DATE #{row[:registration_date]}" if registration_date > DateTime.current
 
       return puts "#{local_id} (#{grade}): #{row[:registration_date]}"
-    rescue ArgumentError => e
+    rescue ArgumentError => _
       puts "#{local_id} (#{grade}): ArgumentError"
     end
   end

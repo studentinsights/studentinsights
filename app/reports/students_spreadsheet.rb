@@ -53,9 +53,8 @@ class StudentsSpreadsheet
     }
 
     # unroll all service types
-    student_service_type_ids = student.services.active.map(&:service_type_id)
     service_fields = all_service_types.reduce({}) do |hash, service_type|
-      service = student.services.active.find {|service| service.service_type_id == service_type.id }
+      service = student.services.active.find {|s| s.service_type_id == service_type.id }
       value = if service.nil? then '' else service.date_started.strftime("%Y-%m-%d") end
       hash["#{service_type.name} (active_service_date_started)"] = value
       hash
@@ -65,9 +64,8 @@ class StudentsSpreadsheet
     # This will include the presence of restricted notes, but only the date and
     # no content.
     all_event_note_types = EventNoteType.all
-    event_note_type_ids = student.event_notes.map(&:event_note_type_id)
     event_note_fields = all_event_note_types.reduce({}) do |hash, event_note_type|
-      event_note = student.event_notes.find {|event_note| event_note.event_note_type_id == event_note_type.id }
+      event_note = student.event_notes.find {|e| e.event_note_type_id == event_note_type.id }
       value = if event_note.nil? then '' else event_note.recorded_at.strftime("%Y-%m-%d") end
       hash["#{event_note_type.name} (last_event_note_recorded_at)"] = value
       hash

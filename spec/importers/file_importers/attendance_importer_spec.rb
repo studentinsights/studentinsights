@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe AttendanceImporter do
 
   let(:base_attendance_importer) {
-    importer = described_class.new(options: {
+    described_class.new(options: {
       school_scope: nil, log: nil, only_recent_attendance: false
     })
   }

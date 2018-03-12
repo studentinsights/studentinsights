@@ -7,7 +7,7 @@ class JsonTransformer
       cleaner = JsonObjectCleaner.new(object)
       (cleaner.clean_date? && cleaner.clean_booleans?)
     end
-    transformed = cleaned.each do |object|
+    cleaned.each do |object|
       cleaner = JsonObjectCleaner.new(object)
       cleaner.transform_object
     end

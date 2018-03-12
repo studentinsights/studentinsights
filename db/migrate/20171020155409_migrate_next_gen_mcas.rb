@@ -4,9 +4,9 @@ class MigrateNextGenMcas < ActiveRecord::Migration[5.1]
 
     puts "⚙  ⚙  ⚙  Making new assessment models for Next Gen..."; puts;
 
-    next_gen_mcas_math = Assessment.create!(family: 'Next Gen MCAS', subject: 'Mathematics')
+    Assessment.create!(family: 'Next Gen MCAS', subject: 'Mathematics')
 
-    next_gen_mcas_ela = Assessment.create!(family: 'Next Gen MCAS', subject: 'ELA')
+    Assessment.create!(family: 'Next Gen MCAS', subject: 'ELA')
 
     return if StudentAssessment.count == 0  # Nothing to migrate here!
 
