@@ -66,7 +66,7 @@ RSpec.describe Feed do
       cards = feed.birthday_cards(time_now, 4)
       expect(cards.size).to eq 1
       expect(cards.first.type).to eq(:birthday_card)
-      expect(cards.first.timestamp.to_date).to eq(Date.parse('2018-03-07'))
+      expect(cards.first.timestamp.to_date).to eq(Date.parse('2018-03-12'))
       expect(cards.first.json['id']).to eq(pals.shs_freshman_mari.id)
     end
   end
