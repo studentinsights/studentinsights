@@ -1,10 +1,14 @@
 import React from 'react';
 import qs from 'query-string';
 import _ from 'lodash';
-import GenericLoader from '../components/GenericLoader';
 import EventNoteCard from './EventNoteCard';
 import BirthdayCard from './BirthdayCard';
 import {toMomentFromTime} from '../helpers/toMoment';
+
+
+export function mergeCards(previousCards, newCards) {
+  return _.sortBy(previousCards.concat(newCards), card => -1 * toMomentFromTime(card.timestamp).unix());
+}
 
 /*
 This component fetches data and renders it, showing the user
@@ -14,7 +18,7 @@ class HomeFeed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasLoaded: false,
+      hasLoadedAnyData: false,
       error: null,
       cards: []
     };
@@ -31,7 +35,7 @@ class HomeFeed extends React.Component {
   }
 
   fetchFeed(nowTimestamp) {
-    const limit = 20;
+    const {limit} = this.props;
     const url = '/home/feed_json?' + qs.stringify({
       limit,
       time_now: nowTimestamp
@@ -45,10 +49,10 @@ class HomeFeed extends React.Component {
 
   onResolved(newCards) {
     const previousCards = (this.state.cards || []);
-    const cards = _.sortBy(previousCards.concat(newCards), card => toMomentFromTime(card.timestamp).unix()).reverse();
+    const cards = mergeCards(previousCards, newCards);
     this.setState({
       cards,
-      hasLoaded: true, 
+      hasLoadedAnyData: true, 
       error: null
     });
   }
@@ -65,11 +69,11 @@ class HomeFeed extends React.Component {
   }
 
   render() {
-    const {hasLoaded, cards, error} = this.state;
+    const {hasLoadedAnyData, cards, error} = this.state;
 
     return (
       <div className="HomeFeed" style={styles.root}>
-        {!hasLoaded && <div style={{padding: 10, ...styles.card}}>Loading...</div>}
+        {!hasLoadedAnyData && <div style={{padding: 10, ...styles.card}}>Loading...</div>}
         {cards && cards.length > 0 && <div style={styles.card}>{this.renderFeed(cards)}</div>}
         {error !== null && <div style={{padding: 10, ...styles.card}}>There was an error loading this data.</div>}
       </div>
@@ -80,16 +84,29 @@ class HomeFeed extends React.Component {
     return (
       <div>
         <HomeFeedPure feedCards={feedCards} />
-        <a
-          style={{display: 'block', ...styles.card}}
-          href="#more"
-          onClick={this.onMore}>See more</a>
+        {this.renderSeeMore(feedCards)}
       </div>
     );
+  }
+
+  renderSeeMore(feedCards) {
+    const {limit} = this.props;
+    if (feedCards.length < limit) return null;
+    return <a
+      className="HomeFeed-load-more"
+      style={{display: 'block', ...styles.card}}
+      href="#more"
+      onClick={this.onMore}>See more</a>;
   }
 }
 HomeFeed.contextTypes = {
   nowFn: React.PropTypes.func.isRequired
+};
+HomeFeed.propTypes = {
+  limit: React.PropTypes.number
+};
+HomeFeed.defaultProps = {
+  limit: 20
 };
 
 // Pure UI component for rendering home feed
