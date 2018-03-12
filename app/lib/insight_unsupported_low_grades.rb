@@ -7,10 +7,9 @@ class InsightUnsupportedLowGrades
   # High-school only.  Returns assignments with low grades where
   # the student hasn't been commented on in NGE or 10GE yet.
   def assignments(time_now, time_threshold, grade_threshold)
-    # This is high-school only, so don't look at other students even if authorized.
-    students = @authorizer.authorized do
-      School.select(&:is_high_school?).flat_map(&:students)
-    end
+    # This is high-school only, only look at students the educator
+    # has in their own sections.
+    students = @authorizer.authorized { @educator.section_students }
     student_ids = students.map(&:id)
 
     # Query for low grades and uncommented students, then join both
@@ -58,6 +57,7 @@ class InsightUnsupportedLowGrades
         },
         :section => {
           :only => [:id, :section_number, :schedule, :room_number],
+          :methods => [:course_description],
           :include => {
             :educators => {:only => [:id, :full_name, :email]}
           }
