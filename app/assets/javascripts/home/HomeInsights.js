@@ -85,7 +85,7 @@ export class UnsupportedStudentsPure extends React.Component {
                 <div key={assignment.id} style={{paddingLeft: 10}}>
                   <div>
                     <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
-                    <span> has a {parseInt(assignment.grade_numeric, 10)} in {section.course_description} (<a href={`/sections/${section.id}`}>{section.section_number}</a>)</span>
+                    <span> has a {assignment.grade_letter} in {section.course_description} (<a href={`/sections/${section.id}`}>{section.section_number}</a>)</span>
                   </div>
                 </div>
               );

@@ -16,8 +16,7 @@ export default {
       "section": {
         "id": 1,
         "section_number": "SHS-BIO-TUES",
-        "schedule": null,
-        "room_number": null,
+        "course_description": "BIOTECHNOLOGY 2",
         "educators": [
           {
             "id": 10,
@@ -41,8 +40,7 @@ export default {
       "section": {
         "id": 6,
         "section_number": "SCI-201B",
-        "schedule": "5(M,W,F)",
-        "room_number": "306W",
+        "course_description": "PHYSICS AP",
         "educators": [
           {
             "id": 12,
@@ -66,8 +64,7 @@ export default {
       "section": {
         "id": 1,
         "section_number": "SHS-BIO-TUES",
-        "schedule": null,
-        "room_number": null,
+        "course_description": "BIOTECHNOLOGY 2",
         "educators": [
           {
             "id": 10,
@@ -116,8 +113,7 @@ export default {
       "section": {
         "id": 6,
         "section_number": "SCI-201B",
-        "schedule": "5(M,W,F)",
-        "room_number": "306W",
+        "course_description": "PHYSICS AP",
         "educators": [
           {
             "id": 12,
@@ -141,8 +137,7 @@ export default {
       "section": {
         "id": 2,
         "section_number": "SHS-BIO-THUR",
-        "schedule": null,
-        "room_number": null,
+        "course_description": "BIOLOGY CP",
         "educators": [
           {
             "id": 10,
@@ -166,8 +161,7 @@ export default {
       "section": {
         "id": 6,
         "section_number": "SCI-201B",
-        "schedule": "5(M,W,F)",
-        "room_number": "306W",
+        "course_description": "PHYSICS AP",
         "educators": [
           {
             "id": 12,
@@ -191,8 +185,7 @@ export default {
       "section": {
         "id": 5,
         "section_number": "SCI-201A",
-        "schedule": "3(M,W,F)",
-        "room_number": "306W",
+        "course_number": "PHYSICS AP",
         "educators": [
           {
             "id": 12,
@@ -216,8 +209,7 @@ export default {
       "section": {
         "id": 2,
         "section_number": "SHS-BIO-THUR",
-        "schedule": null,
-        "room_number": null,
+        "course_description": "BIOLOGY CP",
         "educators": [
           {
             "id": 10,
@@ -241,8 +233,7 @@ export default {
       "section": {
         "id": 2,
         "section_number": "SHS-BIO-THUR",
-        "schedule": null,
-        "room_number": null,
+        "course_description": "BIOLOGY CP",
         "educators": [
           {
             "id": 10,
@@ -291,8 +282,7 @@ export default {
       "section": {
         "id": 5,
         "section_number": "SCI-201A",
-        "schedule": "3(M,W,F)",
-        "room_number": "306W",
+        "course_number": "PHYSICS AP",
         "educators": [
           {
             "id": 12,
@@ -316,8 +306,7 @@ export default {
       "section": {
         "id": 6,
         "section_number": "SCI-201B",
-        "schedule": "5(M,W,F)",
-        "room_number": "306W",
+        "course_description": "PHYSICS AP",
         "educators": [
           {
             "id": 12,
@@ -341,8 +330,7 @@ export default {
       "section": {
         "id": 2,
         "section_number": "SHS-BIO-THUR",
-        "schedule": null,
-        "room_number": null,
+        "course_description": "BIOLOGY CP",
         "educators": [
           {
             "id": 10,

@@ -66,27 +66,16 @@ exports[`handles when limit reached 1`] = `
           </span>
           <span>
              has a 
-            50
+            F
              in 
+            BIOTECHNOLOGY 2
+             (
             <a
               href="/sections/1"
             >
               SHS-BIO-TUES
             </a>
-          </span>
-          <span>
-             with 
-            <a
-              className="Educator"
-              href="mailto:bill@demo.studentinsights.org"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Bill Teacher
-            </a>
+            )
           </span>
         </div>
       </div>
@@ -114,27 +103,16 @@ exports[`handles when limit reached 1`] = `
           </span>
           <span>
              has a 
-            50
+            F
              in 
+            PHYSICS AP
+             (
             <a
               href="/sections/6"
             >
               SCI-201B
             </a>
-          </span>
-          <span>
-             with 
-            <a
-              className="Educator"
-              href="mailto:fatima@demo.studentinsights.org"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Fatima Teacher
-            </a>
+            )
           </span>
         </div>
       </div>
@@ -162,27 +140,16 @@ exports[`handles when limit reached 1`] = `
           </span>
           <span>
              has a 
-            52
+            F
              in 
+            BIOTECHNOLOGY 2
+             (
             <a
               href="/sections/1"
             >
               SHS-BIO-TUES
             </a>
-          </span>
-          <span>
-             with 
-            <a
-              className="Educator"
-              href="mailto:bill@demo.studentinsights.org"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Bill Teacher
-            </a>
+            )
           </span>
         </div>
       </div>
@@ -264,27 +231,16 @@ exports[`pure component matches snapshot 1`] = `
           </span>
           <span>
              has a 
-            50
+            F
              in 
+            BIOTECHNOLOGY 2
+             (
             <a
               href="/sections/1"
             >
               SHS-BIO-TUES
             </a>
-          </span>
-          <span>
-             with 
-            <a
-              className="Educator"
-              href="mailto:bill@demo.studentinsights.org"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Bill Teacher
-            </a>
+            )
           </span>
         </div>
       </div>
@@ -312,27 +268,16 @@ exports[`pure component matches snapshot 1`] = `
           </span>
           <span>
              has a 
-            50
+            F
              in 
+            PHYSICS AP
+             (
             <a
               href="/sections/6"
             >
               SCI-201B
             </a>
-          </span>
-          <span>
-             with 
-            <a
-              className="Educator"
-              href="mailto:fatima@demo.studentinsights.org"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Fatima Teacher
-            </a>
+            )
           </span>
         </div>
       </div>
@@ -360,27 +305,16 @@ exports[`pure component matches snapshot 1`] = `
           </span>
           <span>
              has a 
-            52
+            F
              in 
+            BIOTECHNOLOGY 2
+             (
             <a
               href="/sections/1"
             >
               SHS-BIO-TUES
             </a>
-          </span>
-          <span>
-             with 
-            <a
-              className="Educator"
-              href="mailto:bill@demo.studentinsights.org"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Bill Teacher
-            </a>
+            )
           </span>
         </div>
       </div>
@@ -408,27 +342,15 @@ exports[`pure component matches snapshot 1`] = `
           </span>
           <span>
              has a 
-            55
+            F
              in 
+             (
             <a
               href="/sections/3"
             >
               ART-302A
             </a>
-          </span>
-          <span>
-             with 
-            <a
-              className="Educator"
-              href="mailto:hugo@demo.studentinsights.org"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Hugo Teacher
-            </a>
+            )
           </span>
         </div>
       </div>
