@@ -22,17 +22,12 @@ class App extends React.Component {
     };
   }
 
-  serializedData() {
-    return $('#serialized-data').data() || {};
-  }
-
   // Read which educator Rails wrote inline in the HTML page, 
   // and report routing activity for analytics (eg, MixPanel)
   // TODO(kr) could do this as a higher-order component
   // to remove having to do this manually for each route.
   trackVisit(routeProps, pageKey) {
-    const serializedData = this.serializedData();
-    const {currentEducator} = serializedData;
+    const {currentEducator} = this.props;
     MixpanelUtils.registerUser(currentEducator);
     MixpanelUtils.track('PAGE_VISIT', { page_key: pageKey });
   }
@@ -50,13 +45,13 @@ class App extends React.Component {
   }
 
   renderHomePage(routeProps) {
-    const {currentEducator} = this.serializedData();
+    const {currentEducator} = this.props;
     this.trackVisit(routeProps, 'HOME_PAGE');
     return <HomePage educatorId={currentEducator.id} />;
   }
 
   renderEducatorPage(routeProps) {
-    const educatorId = routeProps.match.params.id;
+    const educatorId = parseInt(routeProps.match.params.id, 10);
     this.trackVisit(routeProps, 'EDUCATOR_PAGE');
     return <EducatorPage educatorId={educatorId} />;
   }
@@ -71,6 +66,13 @@ class App extends React.Component {
 }
 App.childContextTypes = {
   nowFn: React.PropTypes.func
+};
+App.propTypes = {
+  currentEducator: React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    school_id: React.PropTypes.number.isRequired,
+    admin: React.PropTypes.bool.isRequired
+  }).isRequired
 };
 
 export default App;

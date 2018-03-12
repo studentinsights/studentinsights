@@ -64,11 +64,11 @@ describe HomeController, :type => :controller do
       })
     end
 
-    it 'allow doppleganging'
+    it 'allow doppleganging' do
       pending
     end
 
-    it 'guards against doppleganging'
+    it 'guards against doppleganging' do
       pending
     end
   end
@@ -110,11 +110,11 @@ describe HomeController, :type => :controller do
       })
     end
     
-    it 'allow doppleganging'
+    it 'allow doppleganging' do
       pending
     end
 
-    it 'guards against doppleganging'
+    it 'guards against doppleganging' do
       pending
     end
   end

@@ -54,11 +54,12 @@ class EducatorPage extends React.Component {
             <div>Sections: {educator.sections.length === 0
               ? 'None'
               : <ul>{educator.sections.map(section =>
-                  <li><Section
-                    key={section.id}
-                    id={section.id}
-                    sectionNumber={section.section_number}
-                    courseDescription={section.course_description} /></li>
+                  <li key={section.id}>
+                    <Section
+                      id={section.id}
+                      sectionNumber={section.section_number}
+                      courseDescription={section.course_description} />
+                    </li>
                 )}</ul>}
             </div>
           </div>
@@ -66,14 +67,14 @@ class EducatorPage extends React.Component {
             {JSON.stringify(raw, null, 2)}
           </pre>
         </div>
-        <SectionHeading>Home feed</SectionHeading>
+        <SectionHeading>Home page</SectionHeading>
         <HomePage educatorId={educator.id} />
       </div>
     );
   }
 }
 EducatorPage.propTypes = {
-  educatorId: React.PropTypes.string.isRequired
+  educatorId: React.PropTypes.number.isRequired
 };
 
 

@@ -8,34 +8,44 @@ import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowCon
 import homeFeedJson from '../../../../spec/javascripts/fixtures/home_feed_json';
 
 
+function testProps() {
+  return {
+    educatorId: 9999
+  };
+}
 
+describe('HomeFeed', () => {
+  beforeEach(() => {
+    fetchMock.restore();
+    fetchMock.get('/home/feed_json?educator_id=9999&limit=20', homeFeedJson);
+  });
 
-beforeEach(() => {
-  fetchMock.restore();
-  fetchMock.get('/home/feed_json?limit=20', homeFeedJson);
-});
+  it('renders without crashing', () => {
+    const props = testProps();
+    const el = document.createElement('div');
+    ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
+  });
 
-it('renders without crashing', () => {
-  const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<HomeFeed />), el);
-});
-
-SpecSugar.withTestEl('integration tests', container => {
-  it('renders everything after fetch', done => {
-    const el = container.testEl;
-    ReactDOM.render(withDefaultNowContext(<HomeFeed />), el);
-    
-    setTimeout(() => {
-      expect($(el).find('.EventNoteCard').length).toEqual(19);
-      expect($(el).find('.BirthdayCard').length).toEqual(1);
-      done();
-    }, 0);
+  SpecSugar.withTestEl('integration tests', container => {
+    it('renders everything after fetch', done => {
+      const props = testProps();
+      const el = container.testEl;
+      ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
+      
+      setTimeout(() => {
+        expect($(el).find('.EventNoteCard').length).toEqual(19);
+        expect($(el).find('.BirthdayCard').length).toEqual(1);
+        done();
+      }, 0);
+    });
   });
 });
 
-it('pure component matches snapshot', () => {
-  const tree = renderer
-    .create(withDefaultNowContext(<HomeFeedPure feedCards={homeFeedJson.feed_cards} />))
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+describe('HomeFeedPure', () => {
+  it('pure component matches snapshot', () => {
+    const tree = renderer
+      .create(withDefaultNowContext(<HomeFeedPure feedCards={homeFeedJson.feed_cards} />))
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

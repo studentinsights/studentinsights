@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`handles when limit reached 1`] = `
+exports[`UnsupportedStudentsPure handles when limit reached 1`] = `
 <div
   className="UnsupportedStudentsPure"
 >
@@ -198,7 +198,7 @@ exports[`handles when limit reached 1`] = `
 </div>
 `;
 
-exports[`pure component matches snapshot 1`] = `
+exports[`UnsupportedStudentsPure pure component matches snapshot 1`] = `
 <div
   className="UnsupportedStudentsPure"
 >
