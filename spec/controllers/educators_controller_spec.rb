@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe EducatorsController, :type => :controller do
   describe '#homepage' do
     let!(:pals) { TestPals.create! }

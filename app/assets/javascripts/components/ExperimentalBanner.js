@@ -15,5 +15,5 @@ const styles = {
     color: 'white',
     fontWeight: 'bold',
     padding: 20
-   }
+  }
 };
