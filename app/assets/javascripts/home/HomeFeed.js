@@ -3,7 +3,7 @@ import qs from 'query-string';
 import GenericLoader from '../components/GenericLoader';
 import EventNoteCard from './EventNoteCard';
 import BirthdayCard from './BirthdayCard';
-
+import {apiFetchJson} from '../helpers/apiFetchJson';
 
 /*
 This component fetches data and renders it, showing the user
@@ -19,9 +19,7 @@ class HomeFeed extends React.Component {
   fetchFeed() {
     const limit = 20;
     const url = '/home/feed_json?' + qs.stringify({limit});
-    return fetch(url, { credentials: 'include' })
-      .then(response => response.json())
-      .then(json => json.feed_cards);
+    return apiFetchJson(url).then(json => json.feed_cards);
   }
 
   render() {

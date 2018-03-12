@@ -1,6 +1,6 @@
 import React from 'react';
 import GenericLoader from '../components/GenericLoader';
-
+import {apiFetchJson} from '../helpers/apiFetchJson';
 
 /*
 Showing info about an educator.
@@ -15,8 +15,7 @@ class EducatorPage extends React.Component {
   fetchEducator() {
     const {educatorId} = this.props;
     const url = `/api/educators/${educatorId}`;
-    return fetch(url, { credentials: 'include' })
-      .then(response => response.json());
+    return apiFetchJson(url);
   }
 
   render() {
