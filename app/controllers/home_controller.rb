@@ -61,7 +61,7 @@ class HomeController < ApplicationController
   # Allow districtwide admin to dopplegang as another user
   def current_educator_or_doppleganger(params_educator_id)
     if current_educator.districtwide_access && params_educator_id.present?
-      educator = Educator.find(params_educator_id)
+      Educator.find(params_educator_id)
     else
       current_educator
     end
