@@ -1,5 +1,30 @@
 require 'rails_helper'
 
+def create_event_note(time_now, options = {})
+  EventNote.create!(options.merge({
+    educator: pals.uri,
+    text: 'blah',
+    recorded_at: time_now - 7.days
+  }))
+end
+
+def get_feed(as_educator, for_educator, time_now)
+  sign_in(as_educator)
+  get :feed_json, params: {
+    time_now: time_now.to_i.to_s,
+    educator_id: for_educator.id,
+    limit: 4
+  }
+  expect(response.status).to eq 200
+  JSON.parse(response.body)
+end
+
+def feed_student_ids(json)
+  json['feed_cards'].map do |card|
+    card['json']['student']['id']
+  end
+end
+
 describe HomeController, :type => :controller do
   before { request.env['HTTPS'] = 'on' }
   let!(:pals) { TestPals.create! }
@@ -7,20 +32,14 @@ describe HomeController, :type => :controller do
 
   describe '#feed_json' do
     it 'works end-to-end for birthday and event_note' do
-      event_note = EventNote.create!(
-        student: pals.shs_freshman_mari,
-        educator: pals.uri,
-        event_note_type: EventNoteType.find(305),
-        text: 'blah',
-        recorded_at: time_now - 7.days
-      )
+      event_note = create_nge_note(pals.shs_freshman_mari, time_now)
       sign_in(pals.shs_jodi)
       get :feed_json, params: {
         time_now: time_now.to_i.to_s,
         limit: 4
       }
       json = JSON.parse(response.body)
-      expect(response.code).to eq '200'
+      expect(response.status).to eq 200
       expect(json['feed_cards'].length).to eq 2
       expect(json).to eq({
         "feed_cards"=>[{
@@ -66,12 +85,45 @@ describe HomeController, :type => :controller do
       })
     end
 
-    it 'allow doppleganging' do
-      pending
-    end
+    describe 'doppleganging' do
+      before
+        create_event_note(time_now, {
+          student: pals.shs_freshman_mari,
+          event_note_type: EventNoteType.find(305)
+        })
+        create_event_note(time_now, {
+          student: pals.healey_kindergarten_student,
+          event_note_type: EventNoteType.find(300)
+        })
+      end
 
-    it 'guards against doppleganging' do
-      pending
+      it 'allows uri as jodi' do
+        json = get_feed(pals.uri, pals.shs_jodi, time_now)
+        expect(feed_student_ids(json)).to eq [
+          pals.shs_freshman_mari.id
+        ]
+      end
+
+      it 'allows uri as vivian' do
+        json = get_feed(pals.uri, pals.healey_vivian_teacher, time_now)
+        expect(feed_student_ids(json)).to eq [
+          pals.healey_kindergarten_student
+        ]
+      end
+
+      it 'guards against jodi doppleganging as vivian' do
+        json = get_feed(pals.shs_jodi, pals.uri, time_now)
+        expect(feed_student_ids(json)).to eq [
+          pals.shs_freshman_mari.id
+        ]
+      end
+
+      it 'guards against vivian doppleganging as uri' do
+        json = get_feed(pals.healey_vivian_teacher, pals.uri, time_now)
+        expect(feed_student_ids(json)).to eq [
+          pals.healey_kindergarten_student
+        ]
+      end
     end
   end
 
@@ -82,7 +134,7 @@ describe HomeController, :type => :controller do
         limit: 100,
         time_now: time_now.to_i.to_s
       }
-      expect(response.code).to eq '200'
+      expect(response.status).to eq 200
       expect(JSON.parse(response.body)).to eq({
         "limit"=>100,
         "total_count"=>1,
