@@ -51,8 +51,11 @@ class HomeController < ApplicationController
 
   # Use time from value or fall back to Time.now
   def time_now_or_param(params_time_now)
-    Time.at(params_time_now.to_i) unless params_time_now.nil?
-    Time.now
+    if params_time_now.present?
+      Time.at(params_time_now.to_i)
+    else
+      Time.now
+    end
   end
 
   # Allow districtwide admin to dopplegang as another user

@@ -15,7 +15,7 @@ function testProps() {
 
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/home/feed_json?educator_id=9999&limit=20', homeFeedJson);
+  fetchMock.get('/home/feed_json?educator_id=9999&limit=20&time_now=1520938986', homeFeedJson);
   fetchMock.get('/home/unsupported_low_grades_json?educator_id=9999&limit=100', unsupportedLowGradesJson);
 });
 
