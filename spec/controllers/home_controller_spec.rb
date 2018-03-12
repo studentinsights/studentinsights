@@ -3,7 +3,7 @@ require 'rails_helper'
 describe HomeController, :type => :controller do
   before { request.env['HTTPS'] = 'on' }
   let!(:pals) { TestPals.create! }
-  let!(:time_now) { Time.zone.local(2018, 3, 5, 8, 45) }
+  let!(:time_now) { pals.time_now }
 
   describe '#feed_json' do
     it 'works end-to-end for birthday and event_note' do
@@ -19,25 +19,27 @@ describe HomeController, :type => :controller do
         time_now: time_now.to_i.to_s,
         limit: 4
       }
+      json = JSON.parse(response.body)
       expect(response.code).to eq '200'
-      expect(JSON.parse(response.body)).to eq({
+      expect(json['feed_cards'].length).to eq 2
+      expect(json).to eq({
         "feed_cards"=>[{
           "type"=>"birthday_card",
-          "timestamp"=>"2018-03-07T00:00:00.000Z",
+          "timestamp"=>"2018-03-12T00:00:00.000Z",
           "json"=>{
             "id"=>pals.shs_freshman_mari.id,
             "first_name"=>"Mari",
             "last_name"=>"Kenobi",
-            "date_of_birth"=>"2004-03-07T00:00:00.000Z"
+            "date_of_birth"=>"2004-03-12T00:00:00.000Z"
           }
         }, {
           "type"=>"event_note_card",
-          "timestamp"=>"2018-02-26T08:45:00.000Z",
+          "timestamp"=>"2018-03-06T11:03:00.000Z",
           "json"=>{
             "id"=>event_note.id,
             "event_note_type_id"=>305,
             "text"=>"blah",
-            "recorded_at"=>"2018-02-26T08:45:00.000Z",
+            "recorded_at"=>"2018-03-06T11:03:00.000Z",
             "educator"=>{
               "id"=>pals.uri.id,
               "email"=>"uri@demo.studentinsights.org",
