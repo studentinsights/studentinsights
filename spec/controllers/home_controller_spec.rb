@@ -19,10 +19,20 @@ def get_feed(as_educator, for_educator, time_now)
   JSON.parse(response.body)
 end
 
+# Returns the set of student ids, used
+# to check authorization
 def feed_student_ids(json)
-  json['feed_cards'].map do |card|
-    card['json']['student']['id']
+  student_ids = json['feed_cards'].map do |card|
+    if card['type'] == 'birthday_card'
+      card['json']['id']
+    elsif card['type'] == 'event_note_card'
+      card['json']['student']['id']
+    else
+      nil
+    end
   end
+
+  student_ids.compact.uniq
 end
 
 describe HomeController, :type => :controller do
@@ -32,7 +42,10 @@ describe HomeController, :type => :controller do
 
   describe '#feed_json' do
     it 'works end-to-end for birthday and event_note' do
-      event_note = create_nge_note(pals.shs_freshman_mari, time_now)
+      event_note = create_event_note(time_now, {
+        student: pals.shs_freshman_mari,
+        event_note_type: EventNoteType.find(305)
+      })
       sign_in(pals.shs_jodi)
       get :feed_json, params: {
         time_now: time_now.to_i.to_s,
@@ -86,7 +99,7 @@ describe HomeController, :type => :controller do
     end
 
     describe 'doppleganging' do
-      before
+      before do
         create_event_note(time_now, {
           student: pals.shs_freshman_mari,
           event_note_type: EventNoteType.find(305)
@@ -107,7 +120,7 @@ describe HomeController, :type => :controller do
       it 'allows uri as vivian' do
         json = get_feed(pals.uri, pals.healey_vivian_teacher, time_now)
         expect(feed_student_ids(json)).to eq [
-          pals.healey_kindergarten_student
+          pals.healey_kindergarten_student.id
         ]
       end
 
@@ -121,7 +134,7 @@ describe HomeController, :type => :controller do
       it 'guards against vivian doppleganging as uri' do
         json = get_feed(pals.healey_vivian_teacher, pals.uri, time_now)
         expect(feed_student_ids(json)).to eq [
-          pals.healey_kindergarten_student
+          pals.healey_kindergarten_student.id
         ]
       end
     end
@@ -163,7 +176,7 @@ describe HomeController, :type => :controller do
         }]
       })
     end
-    
+
     it 'allow doppleganging' do
       pending
     end
