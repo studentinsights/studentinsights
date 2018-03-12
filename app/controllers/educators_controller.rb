@@ -8,14 +8,30 @@ class EducatorsController < ApplicationController
     redirect_to homepage_path_for_role(current_educator)
   end
 
+  # This is internal-only for now.
   def show
     raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
     educator = Educator.find(params[:id])
     render json: educator.as_json({
-      :only => [:id, :email, :full_name, :staff_type],
+      :only => [
+        :id,
+        :email,
+        :full_name,
+        :staff_type,
+        :restricted_to_sped_students,
+        :restricted_to_english_language_learners,
+        :can_view_restricted_notes,
+        :schoolwide_access,
+        :districtwide_access,
+        :grade_level_access,
+        :admin
+      ],
       :include => {
         :school => { :only => [:id, :name] },
-        :sections => { :only => [:id, :section_number] },
+        :sections => {
+          :only => [:id, :section_number],
+          :methods => [:course_description]
+        },
         :homeroom => { :only => [:id, :name] }
       }
     })

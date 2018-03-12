@@ -10,23 +10,26 @@ This is the home page for all user roles, focused on
 */
 class HomePage extends React.Component {
   render() {
+    const {educatorId} = this.props;
     return (
       <div className="HomePage">
         <div style={styles.columnsContainer}>
           <div style={styles.column}>
             <SectionHeading>What's happening?</SectionHeading>
-            <HomeFeed />
+            <HomeFeed educatorId={educatorId} />
           </div>
           <div  style={styles.column}>
             <SectionHeading>How can we adapt?</SectionHeading>
-            <HomeInsights />
+            <HomeInsights educatorId={educatorId} />
           </div>
         </div>
       </div>
     );
   }
 }
-
+HomePage.propTypes = {
+  educatorId: React.PropTypes.number.isRequired
+};
 
 const styles = {
   columnsContainer: {

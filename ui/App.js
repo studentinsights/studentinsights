@@ -22,12 +22,16 @@ class App extends React.Component {
     };
   }
 
+  serializedData() {
+    return $('#serialized-data').data() || {};
+  }
+
   // Read which educator Rails wrote inline in the HTML page, 
   // and report routing activity for analytics (eg, MixPanel)
   // TODO(kr) could do this as a higher-order component
   // to remove having to do this manually for each route.
   trackVisit(routeProps, pageKey) {
-    const serializedData = $('#serialized-data').data() || {};
+    const serializedData = this.serializedData();
     const {currentEducator} = serializedData;
     MixpanelUtils.registerUser(currentEducator);
     MixpanelUtils.track('PAGE_VISIT', { page_key: pageKey });
@@ -46,8 +50,9 @@ class App extends React.Component {
   }
 
   renderHomePage(routeProps) {
+    const {currentEducator} = this.serializedData();
     this.trackVisit(routeProps, 'HOME_PAGE');
-    return <HomePage />;
+    return <HomePage educatorId={currentEducator.id} />;
   }
 
   renderEducatorPage(routeProps) {

@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   # The feed of everything going on with all students the educator has access
   # to view.
   def feed_json
+    educator = current_educator_or_doppleganger(params[:educator_id])
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
 
@@ -11,7 +12,7 @@ class HomeController < ApplicationController
     # we query and combine them. Ideally we'd query in parallel but we'd
     # need to push this out to the client to do that (and still would have to
     # delay rendering until both came back and were merged anyway).
-    feed = Feed.new(current_educator)
+    feed = Feed.new(educator)
     event_note_cards = feed.event_note_cards(time_now, limit)
     birthday_cards = feed.birthday_cards(time_now, limit, {
       limit: 3,
@@ -32,12 +33,13 @@ class HomeController < ApplicationController
   # the student hasn't been commented on in NGE or 10GE yet.  High-school only.
   # Response should include everything UI needs.
   def unsupported_low_grades_json
+    educator = current_educator_or_doppleganger(params[:educator_id])
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
     time_threshold = time_now - 30.days
     grade_threshold = 69
 
-    insight = InsightUnsupportedLowGrades.new(current_educator)
+    insight = InsightUnsupportedLowGrades.new(educator)
     assignments = insight.assignments(time_now, time_threshold, grade_threshold)
     truncated_assignments_json = insight.as_json(assignments.first(limit))
     render json: {
@@ -51,5 +53,14 @@ class HomeController < ApplicationController
   def time_now_or_param(params_time_now)
     Time.at(params_time_now.to_i) unless params_time_now.nil?
     Time.now
+  end
+
+  # Allow districtwide admin to dopplegang as another user
+  def current_educator_or_doppleganger(params_educator_id)
+    if current_educator.districtwide_access && params_educator_id.present?
+      educator = Educator.find(params_educator_id)
+    else
+      current_educator
+    end
   end
 end

@@ -17,8 +17,10 @@ class HomeFeed extends React.Component {
   }
 
   fetchFeed() {
+    const {educatorId} = this.props;
     const limit = 20;
-    const url = '/home/feed_json?' + qs.stringify({limit});
+    const params = educatorId ? {limit, educator_id: educatorId} : {limit};
+    const url = '/home/feed_json?' + qs.stringify(params);
     return apiFetchJson(url).then(json => json.feed_cards);
   }
 
@@ -37,6 +39,9 @@ class HomeFeed extends React.Component {
     return <HomeFeedPure feedCards={feedCards} />;
   }
 }
+HomeFeed.propTypes = {
+  educatorId: React.PropTypes.number.isRequired
+};
 
 // Pure UI component for rendering home feed
 export class HomeFeedPure extends React.Component {

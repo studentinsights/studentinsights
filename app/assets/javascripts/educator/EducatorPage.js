@@ -1,6 +1,15 @@
 import React from 'react';
+import _ from 'lodash';
 import GenericLoader from '../components/GenericLoader';
+import Educator from '../components/Educator';
+import Homeroom from '../components/Homeroom';
+import School from '../components/School';
+import Section from '../components/Section';
+import SectionHeading from '../components/SectionHeading';
+import ExperimentalBanner from '../components/ExperimentalBanner';
 import {apiFetchJson} from '../helpers/apiFetchJson';
+import HomePage from '../home/HomePage';
+
 
 /*
 Showing info about an educator.
@@ -21,6 +30,7 @@ class EducatorPage extends React.Component {
   render() {
     return (
       <div className="EducatorPage">
+        <ExperimentalBanner />
         <GenericLoader
           promiseFn={this.fetchEducator}
           render={this.renderEducator} />
@@ -29,9 +39,35 @@ class EducatorPage extends React.Component {
   }
 
   renderEducator(educator) {
+    const raw = _.omit(educator, 'sections', 'school', 'homeroom');
     return (
-      <div>
-        <pre>{JSON.stringify(educator, null, 2)}</pre>
+      <div style={styles.rendered}>
+        <SectionHeading>Educator info</SectionHeading>
+        <div style={styles.columnsContainer}>
+          <div style={{flex: 1, padding: 10, fontSize: 14}}>
+            <div>Name: <Educator educator={educator} /></div>
+            <div>Homeroom: {educator.homeroom
+              ? <Homeroom {...educator.homeroom} />
+              : 'None'}
+            </div>
+            <div>School: <School {...educator.school} /></div>
+            <div>Sections: {educator.sections.length === 0
+              ? 'None'
+              : <ul>{educator.sections.map(section =>
+                  <li><Section
+                    key={section.id}
+                    id={section.id}
+                    sectionNumber={section.section_number}
+                    courseDescription={section.course_description} /></li>
+                )}</ul>}
+            </div>
+          </div>
+          <pre style={{flex: 1, ...styles.raw}}>
+            {JSON.stringify(raw, null, 2)}
+          </pre>
+        </div>
+        <SectionHeading>Home feed</SectionHeading>
+        <HomePage educatorId={educator.id} />
       </div>
     );
   }
@@ -39,5 +75,21 @@ class EducatorPage extends React.Component {
 EducatorPage.propTypes = {
   educatorId: React.PropTypes.string.isRequired
 };
+
+
+const styles = {
+  rendered: {
+    padding: 10
+  },
+  columnsContainer: {
+    display: 'flex'
+  },
+  raw: {
+    fontFamily: 'monospace',
+    fontSize: 10,
+    padding: 10
+  }
+};
+
 
 export default EducatorPage;

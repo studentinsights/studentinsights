@@ -10,12 +10,14 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 class HomeInsights extends React.Component {
   constructor(props) {
     super(props);
+    this.fetchAssignments = this.fetchAssignments.bind(this);
     this.renderAssignments = this.renderAssignments.bind(this);
   }
 
   fetchAssignments() {
-    const limit = 100; // limit the data returned, not the query itself
-    const url = `/home/unsupported_low_grades_json?${qs.stringify({limit})}`;
+    const {educatorId, limit} = this.props;
+    const params = educatorId ? {limit, educator_id: educatorId} : {limit};
+    const url = `/home/unsupported_low_grades_json?${qs.stringify(params)}`;
     return apiFetchJson(url);
   }
 
@@ -51,6 +53,13 @@ class HomeInsights extends React.Component {
     );
   }
 }
+HomeInsights.propTypes = {
+  educatorId: React.PropTypes.number.isRequired,
+  limit: React.PropTypes.number // limit the data returned, not the query itself
+};
+HomeInsights.defaultProps = {
+  limit: 100
+};
 
 
 // Pure UI component to render unsupported students

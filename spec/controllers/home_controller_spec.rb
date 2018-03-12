@@ -63,6 +63,14 @@ describe HomeController, :type => :controller do
         }]
       })
     end
+
+    it 'allow doppleganging'
+      pending
+    end
+
+    it 'guards against doppleganging'
+      pending
+    end
   end
 
   describe '#unsupported_low_grades_json' do
@@ -100,6 +108,14 @@ describe HomeController, :type => :controller do
           }
         }]
       })
+    end
+    
+    it 'allow doppleganging'
+      pending
+    end
+
+    it 'guards against doppleganging'
+      pending
     end
   end
 end
