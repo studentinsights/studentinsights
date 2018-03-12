@@ -1,8 +1,6 @@
 class StudentsController < ApplicationController
   include ApplicationHelper
 
-  rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
-
   before_action :authorize!, except: [          # The :names and lasids actions are subject to
     :names, :lasids                             # educator authentication via :authenticate_educator!
   ]                                             # inherited from ApplicationController.

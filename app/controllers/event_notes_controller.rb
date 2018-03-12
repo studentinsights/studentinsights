@@ -1,7 +1,4 @@
 class EventNotesController < ApplicationController
-
-  rescue_from Exceptions::EducatorNotAuthorized, with: :render_unauthorized_json!
-
   before_action :authorize!
 
   def authorize!

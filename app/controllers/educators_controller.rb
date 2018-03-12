@@ -9,6 +9,7 @@ class EducatorsController < ApplicationController
   end
 
   def show
+    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
     educator = Educator.find(params[:id])
     render json: educator.as_json({
       :only => [:id, :email, :full_name, :staff_type],
