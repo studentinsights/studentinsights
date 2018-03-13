@@ -1,7 +1,12 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {BrowserRouter} from 'react-router-dom';
 import datepickerConfig from '../app/assets/javascripts/datepicker_config.js';
 import sessionTimeoutWarning from '../app/assets/javascripts/session_timeout_warning.js';
 import studentSearchbar from '../app/assets/javascripts/student_searchbar.js';
-import route from './route';
+import legacyRouteHandler from './legacyRouteHandler';
+import App from './App';
+
 
 // First, run side effects to inject code into window.shared
 import './legacy.js';
@@ -25,4 +30,15 @@ if ($('.student-searchbar').length > 0) {
 }
 
 // Routing
-route();
+// Some pages are server-rendered and have a different structure
+// other than #main so we ignore those.  Other pages add in class names
+// to the body tag that `legacyRouteHandler` works with.  Newer pages
+// should handle routing with react-router inside the `App` component.
+// The <BrowserRouter> component is here since that prevents testing <App />.
+const mainEl = document.getElementById('main');
+if (mainEl) {
+  const didRoute = legacyRouteHandler(mainEl);
+  if (!didRoute) {
+    ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, mainEl);
+  }
+}

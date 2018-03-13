@@ -1,4 +1,4 @@
-import Educator from '../student_profile/Educator.js';
+import Educator from '../components/Educator';
 import moment from 'moment';
 import * as Routes from '../helpers/Routes';
 

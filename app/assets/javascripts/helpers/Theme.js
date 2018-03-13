@@ -3,6 +3,7 @@ export const colors = {
   selection: 'rgb(255, 204, 138)'
 };
 
+
 export const styles = {
   fontSize: 12,
 
