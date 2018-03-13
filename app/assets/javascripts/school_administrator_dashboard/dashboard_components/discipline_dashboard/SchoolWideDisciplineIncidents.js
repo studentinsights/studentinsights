@@ -3,26 +3,30 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import SchoolDisciplineDashboard from './SchoolDisciplineDashboard';
+import DashboardHelpers from '../DashboardHelpers';
 
 class SchoolWideDisciplineIncidents extends React.Component {
 
   schoolDisciplineEvents() {
     //structures the discipline incident data for easy grouping
     const students = this.props.dashboardStudents;
+    const startDate = DashboardHelpers.schoolYearStart();
     let schoolDisciplineEvents = [];
     students.forEach((student) => {
       student.discipline_incidents.forEach((incident) => {
-        schoolDisciplineEvents.push({
-          student_id: incident.student_id,
-          location: incident.incident_location,
-          time: incident.has_exact_time,
-          classroom: null,
-          student_grade: student.grade,
-          day: moment(incident.occurred_at).format("DDD"),
-          offense: incident.incident_code,
-          student_race: student.race,
-          occurred_at: incident.occurred_at
-        });
+        if (moment(incident.occurred_at).isSameOrAfter(moment(startDate))) {
+          schoolDisciplineEvents.push({
+            student_id: incident.student_id,
+            location: incident.incident_location,
+            time: incident.has_exact_time,
+            classroom: null,
+            student_grade: student.grade,
+            day: moment(incident.occurred_at).format("DDD"),
+            offense: incident.incident_code,
+            student_race: student.race,
+            occurred_at: incident.occurred_at
+          });
+        }
       });
     });
 

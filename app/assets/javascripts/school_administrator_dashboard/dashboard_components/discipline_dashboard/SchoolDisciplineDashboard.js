@@ -12,7 +12,7 @@ class SchoolDisciplineDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: '2012-08-10', //DashboardHelpers.schoolYearStart(),
+      startDate: DashboardHelpers.schoolYearStart(),
       selectedType: null
     };
     this.setDate = (range) => {
@@ -35,10 +35,19 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   render() {
-    return(this.renderDisciplineChart(this.props.disciplineIncidentsByLocation));
+    return(
+      <div className="DashboardContainer">
+        <div className="DashboardChartsColumn">
+         {this.renderDisciplineChart(this.props.disciplineIncidentsByLocation, "Incidents by Location")}
+        </div>
+        <div className="DashboardRosterColumn">
+            {this.renderDateRangeSlider()}
+        </div>
+      </div>
+    );
   }
 
-  renderDisciplineChart(group) { //turn this into independant function
+  renderDisciplineChart(group, title) { //turn this into independant function
     let seriesData = [];
     let categories = Object.keys(group);
     categories.forEach((type) => {
@@ -51,7 +60,7 @@ class SchoolDisciplineDashboard extends React.Component {
           id = {'string'}
           categories = {{categories: categories}}
           seriesData = {seriesData}
-          titleText = {group}
+          titleText = {title}
           measureText = {'Number of Incidents'}
           tooltip = {{
             pointFormat: 'Total incidents: <b>{point.y}</b>'}}
