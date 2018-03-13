@@ -64,7 +64,7 @@ class SchoolTardiesDashboard extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className="DashboardContainer">
           <div className="DashboardChartsColumn">
             {this.renderMonthlyTardiesChart()}
             {this.renderHomeroomTardiesChart()}
