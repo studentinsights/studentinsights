@@ -10,6 +10,12 @@ import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowCon
 import homeFeedJson from '../../../../spec/javascripts/fixtures/home_feed_json';
 
 
+function testProps() {
+  return {
+    educatorId: 9999
+  };
+}
+
 // This is a note recorded a day before the last note in the 
 // `homeFeedJson` fixture.
 function moreCardsJson() {
@@ -54,23 +60,24 @@ function expectRenderedFeed(el, options = {}) {
   expect($(el).find('.HomeFeed-load-more').length).toEqual(options.seeMoreLinks);
 }
 
-
 describe('HomeFeed', () => {
   beforeEach(() => {
     fetchMock.restore();
-    fetchMock.get('/home/feed_json?limit=20&time_now=1520938986', homeFeedJson);
-    fetchMock.get('/home/feed_json?limit=20&time_now=1315440000', moreCardsJson());
+    fetchMock.get('/home/feed_json?educator_id=9999&limit=20&time_now=1520938986', homeFeedJson);
+    fetchMock.get('/home/feed_json?educator_id=9999&limit=20&time_now=1315440000', moreCardsJson());
   });
 
   it('renders without crashing', () => {
+    const props = testProps();
     const el = document.createElement('div');
-    ReactDOM.render(withDefaultNowContext(<HomeFeed />), el);
+    ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
   });
 
   SpecSugar.withTestEl('integration tests', container => {
     it('renders everything after fetch', done => {
+      const props = testProps();
       const el = container.testEl;
-      ReactDOM.render(withDefaultNowContext(<HomeFeed />), el);
+      ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
       
       setTimeout(() => {
         expectRenderedFeed(el, {
@@ -83,8 +90,9 @@ describe('HomeFeed', () => {
     });
 
     it('can load more data and render it', done => {
+      const props = testProps();
       const el = container.testEl;
-      ReactDOM.render(withDefaultNowContext(<HomeFeed />), el);
+      ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
       
       setTimeout(() => {
         expectRenderedFeed(el, {
@@ -105,7 +113,6 @@ describe('HomeFeed', () => {
     });
   });
 });
-
 
 describe('HomeFeedPure', () => {
   it('pure component matches snapshot', () => {

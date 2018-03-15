@@ -6,11 +6,13 @@ Rails.application.routes.draw do
     root to: "educators#index"
   end
   
+  get '/api/educators/:id' => 'educators#show'
 
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
+  get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
   get '/educators/notes_feed'=> 'educators#notes_feed'
   get '/educators/notes_feed_json'=> 'educators#notes_feed_json'

@@ -3,6 +3,7 @@ import qs from 'query-string';
 import _ from 'lodash';
 import EventNoteCard from './EventNoteCard';
 import BirthdayCard from './BirthdayCard';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 import {toMomentFromTime} from '../helpers/toMoment';
 
 
@@ -35,13 +36,14 @@ class HomeFeed extends React.Component {
   }
 
   fetchFeed(nowTimestamp) {
-    const {limit} = this.props;
-    const url = '/home/feed_json?' + qs.stringify({
+    const {limit, educatorId} = this.props;
+    const params = {
       limit,
-      time_now: nowTimestamp
-    });
-    return fetch(url, { credentials: 'include' })
-      .then(response => response.json())
+      time_now: nowTimestamp,
+      educator_id: educatorId
+    };
+    const url = '/home/feed_json?' + qs.stringify(params);
+    return apiFetchJson(url)
       .then(json => json.feed_cards)
       .then(this.onResolved)
       .catch(this.onRejected);
@@ -103,11 +105,13 @@ HomeFeed.contextTypes = {
   nowFn: React.PropTypes.func.isRequired
 };
 HomeFeed.propTypes = {
+  educatorId: React.PropTypes.number.isRequired,
   limit: React.PropTypes.number
 };
 HomeFeed.defaultProps = {
   limit: 20
 };
+
 
 // Pure UI component for rendering home feed
 export class HomeFeedPure extends React.Component {

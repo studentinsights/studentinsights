@@ -1,14 +1,15 @@
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import SchoolOverviewPage from './SchoolOverviewPage.js';
 import {parseFiltersHash} from '../helpers/Filters';
+import {apiFetchJson} from '../helpers/apiFetchJson';
+
 
 // Load data from inline on the page or with another request
 export default function renderSchoolOverviewMain(el, options = {}) {
   if (options.json) {
     const {schoolSlug} = $('#serialized-data').data();
-    fetch(`/schools/${schoolSlug}/overview_json`, { credentials: 'include' })
-      .then(r => r.json())
-      .then(json => render(el, json));
+    const url = `/schools/${schoolSlug}/overview_json`;
+    apiFetchJson(url).then(json => render(el, json));
   } else {
     const serializedData = $('#serialized-data').data();
     const {students, school} = serializedData; // undo outer camelcase

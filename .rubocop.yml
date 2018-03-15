@@ -6,6 +6,7 @@ AllCops:
     - 'db/**/*'
     - 'docs/**/*'
     - 'log/**/*'
+    - 'node_modules/**/*'
     - 'public/**/*'
     - 'scripts/**/*'
     - 'sketch/**/*'

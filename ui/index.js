@@ -39,6 +39,8 @@ const mainEl = document.getElementById('main');
 if (mainEl) {
   const didRoute = legacyRouteHandler(mainEl);
   if (!didRoute) {
-    ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, mainEl);
+    const serializedData = $('#serialized-data').data() || {};
+    const {currentEducator} = serializedData;
+    ReactDOM.render(<BrowserRouter><App currentEducator={currentEducator} /></BrowserRouter>, mainEl);
   }
 }

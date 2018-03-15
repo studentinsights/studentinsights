@@ -177,6 +177,8 @@ rubocop
 yarn lint
 ```
 
+Or add them into Sublime with [SublimeLinter-eslint](https://github.com/SublimeLinter/SublimeLinter-eslint) and [SublimeLinter-rubocop](https://github.com/SublimeLinter/SublimeLinter-rubocop).
+
 If you miss something, tests will run on any pull request you submit, and after merging to master as well.
 
 ## 5. Write code!

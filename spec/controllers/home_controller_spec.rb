@@ -6,21 +6,26 @@ describe HomeController, :type => :controller do
   let!(:time_now) { pals.time_now }
 
   describe '#feed_json' do
-    it 'works end-to-end for birthday and event_note' do
-      event_note = EventNote.create!(
-        student: pals.shs_freshman_mari,
+    def create_event_note(time_now, options = {})
+      EventNote.create!(options.merge({
         educator: pals.uri,
-        event_note_type: EventNoteType.find(305),
         text: 'blah',
         recorded_at: time_now - 7.days
-      )
+      }))
+    end
+
+    it 'works end-to-end for birthday and event_note' do
+      event_note = create_event_note(time_now, {
+        student: pals.shs_freshman_mari,
+        event_note_type: EventNoteType.find(305)
+      })
       sign_in(pals.shs_jodi)
       get :feed_json, params: {
         time_now: time_now.to_i.to_s,
         limit: 4
       }
       json = JSON.parse(response.body)
-      expect(response.code).to eq '200'
+      expect(response.status).to eq 200
       expect(json['feed_cards'].length).to eq 2
       expect(json).to eq({
         "feed_cards"=>[{
@@ -65,6 +70,74 @@ describe HomeController, :type => :controller do
         }]
       })
     end
+
+    describe 'doppleganging' do
+      def get_feed(as_educator, for_educator, time_now)
+        sign_in(as_educator)
+        get :feed_json, params: {
+          time_now: time_now.to_i.to_s,
+          educator_id: for_educator.id,
+          limit: 4
+        }
+        expect(response.status).to eq 200
+        JSON.parse(response.body)
+      end
+
+      # Returns the set of student ids, used
+      # to check authorization
+      def feed_student_ids(json)
+        student_ids = json['feed_cards'].map do |card|
+          if card['type'] == 'birthday_card'
+            card['json']['id']
+          elsif card['type'] == 'event_note_card'
+            card['json']['student']['id']
+          else
+            nil
+          end
+        end
+
+        student_ids.compact.uniq
+      end
+
+      before do
+        create_event_note(time_now, {
+          student: pals.shs_freshman_mari,
+          event_note_type: EventNoteType.find(305)
+        })
+        create_event_note(time_now, {
+          student: pals.healey_kindergarten_student,
+          event_note_type: EventNoteType.find(300)
+        })
+      end
+
+      it 'allows uri as jodi' do
+        json = get_feed(pals.uri, pals.shs_jodi, time_now)
+        expect(feed_student_ids(json)).to eq [
+          pals.shs_freshman_mari.id
+        ]
+      end
+
+      it 'allows uri as vivian' do
+        json = get_feed(pals.uri, pals.healey_vivian_teacher, time_now)
+        expect(feed_student_ids(json)).to eq [
+          pals.healey_kindergarten_student.id
+        ]
+      end
+
+      it 'guards against jodi doppleganging as vivian' do
+        json = get_feed(pals.shs_jodi, pals.uri, time_now)
+        expect(feed_student_ids(json)).to eq [
+          pals.shs_freshman_mari.id
+        ]
+      end
+
+      it 'guards against vivian doppleganging as uri' do
+        json = get_feed(pals.healey_vivian_teacher, pals.uri, time_now)
+        expect(feed_student_ids(json)).to eq [
+          pals.healey_kindergarten_student.id
+        ]
+      end
+    end
   end
 
   describe '#unsupported_low_grades_json' do
@@ -74,7 +147,7 @@ describe HomeController, :type => :controller do
         limit: 100,
         time_now: time_now.to_i.to_s
       }
-      expect(response.code).to eq '200'
+      expect(response.status).to eq 200
       expect(JSON.parse(response.body)).to eq({
         "limit"=>100,
         "total_count"=>1,
@@ -102,6 +175,49 @@ describe HomeController, :type => :controller do
           }
         }]
       })
+    end
+
+    describe 'doppleganging' do
+      def get_unsupported(as_educator, for_educator, time_now)
+        sign_in(as_educator)
+        get :unsupported_low_grades_json, params: {
+          time_now: time_now.to_i.to_s,
+          educator_id: for_educator.id,
+          limit: 100
+        }
+        expect(response.status).to eq 200
+        JSON.parse(response.body)
+      end
+
+      def unsupported_student_ids(json)
+        json['assignments'].map do |assignment|
+          assignment['student']['id']
+        end
+      end
+
+      it 'allows uri as jodi' do
+        json = get_unsupported(pals.uri, pals.shs_jodi, time_now)
+        expect(unsupported_student_ids(json)).to eq [
+          pals.shs_freshman_mari.id
+        ]
+      end
+
+      it 'allows uri as vivian' do
+        json = get_unsupported(pals.uri, pals.healey_vivian_teacher, time_now)
+        expect(unsupported_student_ids(json)).to eq []
+      end
+
+      it 'guards against jodi doppleganging as vivian' do
+        json = get_unsupported(pals.shs_jodi, pals.uri, time_now)
+        expect(unsupported_student_ids(json)).to eq [
+          pals.shs_freshman_mari.id
+        ]
+      end
+
+      it 'guards against vivian doppleganging as uri' do
+        json = get_unsupported(pals.healey_vivian_teacher, pals.uri, time_now)
+        expect(unsupported_student_ids(json)).to eq []
+      end
     end
   end
 end
