@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UnsupportedStudentsPure handles when limit reached 1`] = `
+exports[`CheckStudentWithLowGradesView handles when limit reached 1`] = `
 <div
-  className="UnsupportedStudentsPure"
+  className="CheckStudentWithLowGrades"
 >
   <div
     style={
@@ -14,7 +14,7 @@ exports[`UnsupportedStudentsPure handles when limit reached 1`] = `
       }
     }
   >
-    Students to check on
+    NGE and 10GE students to check in on
   </div>
   <div
     className="Card "
@@ -32,7 +32,7 @@ exports[`UnsupportedStudentsPure handles when limit reached 1`] = `
         129
          students
       </b>
-       you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.
+       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.
     </div>
     <div
       style={
@@ -45,113 +45,164 @@ exports[`UnsupportedStudentsPure handles when limit reached 1`] = `
       <div
         style={
           Object {
+            "overflow": "hidden",
             "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
           }
         }
       >
-        <div>
+        <span>
+          <a
+            href="/students/66"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Chip
+             
+            Duck
+          </a>
+        </span>
+        <span>
           <span>
-            <a
-              href="/students/67"
+            <span
               style={
                 Object {
-                  "fontWeight": "bold",
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
                 }
               }
             >
-              Pocahontas
+              has a
                
-              Skywalker
-            </a>
-          </span>
-          <span>
-             has a 
-            F
-             in 
-            BIOTECHNOLOGY 2
-             (
+              D
+               in
+            </span>
             <a
+              className="Section"
               href="/sections/1"
+              style={Object {}}
             >
+              BIOLOGY 1 HONORS
+               (
               SHS-BIO-TUES
+              )
             </a>
-            )
           </span>
-        </div>
+        </span>
       </div>
       <div
         style={
           Object {
+            "overflow": "hidden",
             "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
           }
         }
       >
-        <div>
+        <span>
+          <a
+            href="/students/2"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Mari
+             
+            Kenobi
+          </a>
+        </span>
+        <span>
           <span>
-            <a
-              href="/students/115"
+            <span
               style={
                 Object {
-                  "fontWeight": "bold",
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
                 }
               }
             >
-              Minnie
+              has a
                
-              Pan
-            </a>
-          </span>
-          <span>
-             has a 
-            F
-             in 
-            PHYSICS AP
-             (
+              D
+               in
+            </span>
             <a
-              href="/sections/6"
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
             >
-              SCI-201B
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
             </a>
-            )
           </span>
-        </div>
+        </span>
       </div>
       <div
         style={
           Object {
+            "overflow": "hidden",
             "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
           }
         }
       >
-        <div>
+        <span>
+          <a
+            href="/students/69"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Aladdin
+             
+            Poppins
+          </a>
+        </span>
+        <span>
           <span>
-            <a
-              href="/students/73"
+            <span
               style={
                 Object {
-                  "fontWeight": "bold",
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
                 }
               }
             >
-              Pocahontas
+              has a
                
-              Kenobi
-            </a>
-          </span>
-          <span>
-             has a 
-            F
-             in 
-            BIOTECHNOLOGY 2
-             (
+              D
+               in
+            </span>
             <a
+              className="Section"
               href="/sections/1"
+              style={Object {}}
             >
+              BIOLOGY 1 HONORS
+               (
               SHS-BIO-TUES
+              )
             </a>
-            )
           </span>
-        </div>
+        </span>
       </div>
     </div>
     <div>
@@ -165,9 +216,9 @@ exports[`UnsupportedStudentsPure handles when limit reached 1`] = `
 </div>
 `;
 
-exports[`UnsupportedStudentsPure pure component matches snapshot 1`] = `
+exports[`CheckStudentWithLowGradesView pure component matches snapshot 1`] = `
 <div
-  className="UnsupportedStudentsPure"
+  className="CheckStudentWithLowGrades"
 >
   <div
     style={
@@ -179,7 +230,7 @@ exports[`UnsupportedStudentsPure pure component matches snapshot 1`] = `
       }
     }
   >
-    Students to check on
+    NGE and 10GE students to check in on
   </div>
   <div
     className="Card "
@@ -194,10 +245,10 @@ exports[`UnsupportedStudentsPure pure component matches snapshot 1`] = `
     <div>
       There are 
       <b>
-        129
+        7
          students
       </b>
-       you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.
+       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.
     </div>
     <div
       style={
@@ -210,149 +261,218 @@ exports[`UnsupportedStudentsPure pure component matches snapshot 1`] = `
       <div
         style={
           Object {
+            "overflow": "hidden",
             "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
           }
         }
       >
-        <div>
+        <span>
+          <a
+            href="/students/66"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Chip
+             
+            Duck
+          </a>
+        </span>
+        <span>
           <span>
-            <a
-              href="/students/67"
+            <span
               style={
                 Object {
-                  "fontWeight": "bold",
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
                 }
               }
             >
-              Pocahontas
+              has a
                
-              Skywalker
-            </a>
-          </span>
-          <span>
-             has a 
-            F
-             in 
-            BIOTECHNOLOGY 2
-             (
+              D
+               in
+            </span>
             <a
+              className="Section"
               href="/sections/1"
+              style={Object {}}
             >
+              BIOLOGY 1 HONORS
+               (
               SHS-BIO-TUES
+              )
             </a>
-            )
           </span>
-        </div>
+        </span>
       </div>
       <div
         style={
           Object {
+            "overflow": "hidden",
             "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
           }
         }
       >
-        <div>
+        <span>
+          <a
+            href="/students/2"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Mari
+             
+            Kenobi
+          </a>
+        </span>
+        <span>
           <span>
-            <a
-              href="/students/115"
+            <span
               style={
                 Object {
-                  "fontWeight": "bold",
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
                 }
               }
             >
-              Minnie
+              has a
                
-              Pan
-            </a>
-          </span>
-          <span>
-             has a 
-            F
-             in 
-            PHYSICS AP
-             (
+              D
+               in
+            </span>
             <a
-              href="/sections/6"
-            >
-              SCI-201B
-            </a>
-            )
-          </span>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "paddingLeft": 10,
-          }
-        }
-      >
-        <div>
-          <span>
-            <a
-              href="/students/73"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Pocahontas
-               
-              Kenobi
-            </a>
-          </span>
-          <span>
-             has a 
-            F
-             in 
-            BIOTECHNOLOGY 2
-             (
-            <a
+              className="Section"
               href="/sections/1"
+              style={Object {}}
             >
+              BIOLOGY 1 HONORS
+               (
               SHS-BIO-TUES
+              )
             </a>
-            )
           </span>
-        </div>
+        </span>
       </div>
       <div
         style={
           Object {
+            "overflow": "hidden",
             "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
           }
         }
       >
-        <div>
+        <span>
+          <a
+            href="/students/69"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Aladdin
+             
+            Poppins
+          </a>
+        </span>
+        <span>
           <span>
-            <a
-              href="/students/87"
+            <span
               style={
                 Object {
-                  "fontWeight": "bold",
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
                 }
               }
             >
-              Pocahontas
+              has a
                
-              Kenobi
-            </a>
-          </span>
-          <span>
-             has a 
-            F
-             in 
-             (
+              D
+               in
+            </span>
             <a
-              href="/sections/3"
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
             >
-              ART-302A
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
             </a>
-            )
           </span>
-        </div>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/67"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Aladdin
+             
+            Kenobi
+          </a>
+        </span>
+        <span>
+          <span>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              has a
+               
+              D
+               in
+            </span>
+            <a
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
+            >
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
+            </a>
+          </span>
+        </span>
       </div>
     </div>
     <div>

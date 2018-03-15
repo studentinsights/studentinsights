@@ -26,9 +26,13 @@ class InsightStudentsWithLowGrades
   private
   def assignments(time_now, time_threshold, grade_threshold)
     # This is high-school only, only look at students the educator
-    # has in their own sections.
+    # has in their own sections.  And only look at students in the
+    # experience team program.
     students = @authorizer.authorized { @educator.section_students }
-    student_ids = students.map(&:id)
+    nge_or_10ge_students = students.select do |student|
+      included_in_experience_team?(student)
+    end
+    student_ids = nge_or_10ge_students.map(&:id)
 
     # Query for low grades and uncommented students, then join both
     # This query structure came to be after some optimizations to reduce
@@ -79,5 +83,15 @@ class InsightStudentsWithLowGrades
         }
       }
     })
+  end
+
+  # This is an imprecise heuristic in general but works here.
+  # In reality, it's more nuanced than this in reality; the NGE and
+  # 10GE teams are defined by the teachers who are in it, not the
+  # students.  The more precise way to answer this is to look at that
+  # list of teachers, and then the list of students who are in their
+  # sections and also in NGE and 10GE.
+  def included_in_experience_team?(student)
+    student.grade
   end
 end

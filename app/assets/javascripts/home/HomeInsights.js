@@ -39,7 +39,7 @@ class HomeInsights extends React.Component {
       totalCount: json.total_count,
       studentsWithLowGrades: json.students_with_low_grades
     };
-    return <CheckStudentWithLowGradesPure {...props} />;
+    return <CheckStudentWithLowGradesView {...props} />;
   }
 
   renderPlaceholder() {
@@ -66,7 +66,7 @@ HomeInsights.defaultProps = {
 // which of their students have low grades but haven't been
 // discussed in NGE or 10GE.  The intention is that this list of
 // students to check in on is immediately actionable.
-export class CheckStudentWithLowGradesPure extends React.Component {
+export class CheckStudentWithLowGradesView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,10 +86,10 @@ export class CheckStudentWithLowGradesPure extends React.Component {
     const {uiLimit} = this.state;
     const truncatedStudentsWithLowGrades = studentsWithLowGrades.slice(0, uiLimit);
     return (
-      <div className="UnsupportedStudentsPure">
-        <div style={styles.cardTitle}>Check in on your NGE and 10GE students</div>
+      <div className="CheckStudentWithLowGrades">
+        <div style={styles.cardTitle}>NGE and 10GE students to check in on</div>
         <Card style={{border: 'none'}}>
-          <div>There are <b>{totalCount} students</b> in your classes who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
+          <div>There are <b>{totalCount} students</b> in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.</div>
           <div style={{paddingTop: 10, paddingBottom: 10}}>
             {truncatedStudentsWithLowGrades.map(studentWithLowGrades => {
               const {student, assignments} = studentWithLowGrades;
@@ -142,7 +142,7 @@ export class CheckStudentWithLowGradesPure extends React.Component {
   }
 }
 
-CheckStudentWithLowGradesPure.propTypes = {
+CheckStudentWithLowGradesView.propTypes = {
   limit: React.PropTypes.number.isRequired,
   totalCount: React.PropTypes.number.isRequired,
   studentsWithLowGrades: React.PropTypes.arrayOf(React.PropTypes.shape({

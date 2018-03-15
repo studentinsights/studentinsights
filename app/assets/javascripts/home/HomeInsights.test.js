@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import fetchMock from 'fetch-mock/es5/client';
-import HomeInsights, {UnsupportedStudentsPure} from './HomeInsights';
+import HomeInsights, {CheckStudentWithLowGradesView} from './HomeInsights';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
-import unsupportedLowGradesJson from '../../../../spec/javascripts/fixtures/home_unsupported_low_grades_json';
+import studentsWithLowGradesJson from '../../../../spec/javascripts/fixtures/home_students_with_low_grades_json';
 
 function testProps() {
   return {
@@ -15,7 +15,7 @@ function testProps() {
 describe('HomeInsights', () => {
   beforeEach(() => {
     fetchMock.restore();
-    fetchMock.get('/home/unsupported_low_grades_json?educator_id=9999&limit=100', unsupportedLowGradesJson);
+    fetchMock.get('/home/students_with_low_grades_json?educator_id=9999&limit=100', studentsWithLowGradesJson);
   });
 
   it('renders without crashing', () => {
@@ -31,22 +31,22 @@ describe('HomeInsights', () => {
       ReactDOM.render(<HomeInsights {...props} />, el);
       
       setTimeout(() => {
-        expect(el.innerHTML).toContain('Students to check on');
+        expect($(el).text()).toContain('There are 7 students in your classes');
         done();
       }, 0);
     });
   });
 });
 
-describe('UnsupportedStudentsPure', () => {
+describe('CheckStudentWithLowGradesView', () => {
   it('pure component matches snapshot', () => {
     const props = {
-      limit: unsupportedLowGradesJson.limit,
-      totalCount: unsupportedLowGradesJson.total_count,
-      assignments: unsupportedLowGradesJson.assignments
+      limit: studentsWithLowGradesJson.limit,
+      totalCount: studentsWithLowGradesJson.total_count,
+      studentsWithLowGrades: studentsWithLowGradesJson.students_with_low_grades
     };
     const tree = renderer
-      .create(<UnsupportedStudentsPure {...props} />)
+      .create(<CheckStudentWithLowGradesView {...props} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -56,10 +56,10 @@ describe('UnsupportedStudentsPure', () => {
     const props = {
       limit: 3,
       totalCount: 129,
-      assignments: unsupportedLowGradesJson.assignments.slice(0, 3)
+      studentsWithLowGrades: studentsWithLowGradesJson.students_with_low_grades.slice(0, 3)
     };
     const tree = renderer
-      .create(<UnsupportedStudentsPure {...props} />)
+      .create(<CheckStudentWithLowGradesView {...props} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
