@@ -6,6 +6,7 @@ import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_note
 import renderSectionMain from '../app/assets/javascripts/section/main.jsx';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main.jsx';
 import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main';
+import studentSearchbar from '../app/assets/javascripts/student_searchbar.js';
 
 
 // Placeholder routing (not fully client-side, just on page load).
@@ -13,49 +14,54 @@ import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_adm
 //
 // Returns true if it could handle a route, false if not (for newer code
 // using a client-side router).
-export default function legacyRouteHandler(el) {
-  if ($('body').hasClass('students') && $('body').hasClass('show')) {
-    renderStudentMain(el);
-    return true;
-  }
-
-  if ($('body').hasClass('schools') && $('body').hasClass('show')) {
-    renderSchoolOverviewMain(el);
-    return true;
-  }
-
-  if ($('body').hasClass('schools') && $('body').hasClass('overview')) {
-    renderSchoolOverviewMain(el, { json: true });
-    return true;
-  }
-
+export default function legacyRouteHandler(mainEl) {
   if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
     homeroomMain(); // different HTML
     return true;
   }
 
+  if ($('body').hasClass('educators') && $('body').hasClass('districtwide_admin_homepage')) {
+    studentSearchbar(); // different HTML
+    return true;
+  }
+
+  if ($('body').hasClass('students') && $('body').hasClass('show')) {
+    renderStudentMain(mainEl);
+    return true;
+  }
+
+  if ($('body').hasClass('schools') && $('body').hasClass('show')) {
+    renderSchoolOverviewMain(mainEl);
+    return true;
+  }
+
+  if ($('body').hasClass('schools') && $('body').hasClass('overview')) {
+    renderSchoolOverviewMain(mainEl, { json: true });
+    return true;
+  }
+
   if ($('body').hasClass('students') && $('body').hasClass('restricted_notes')) {
-    renderRestrictedNotesMain(el);
+    renderRestrictedNotesMain(mainEl);
     return true;
   }
 
   if ($('body').hasClass('sections') && $('body').hasClass('show')) {
-    renderSectionMain(el);
+    renderSectionMain(mainEl);
     return true;
   }
 
   if ($('body').hasClass('service_uploads') && $('body').hasClass('index')) {
-    renderServiceUploadsMain(el);
+    renderServiceUploadsMain(mainEl);
     return true;
   }
 
   if ($('body').hasClass('schools') && $('body').hasClass('school_administrator_dashboard')) {
-    renderSchoolAdminDashboardMain(el);
+    renderSchoolAdminDashboardMain(mainEl);
     return true;
   }
 
   if ($('body').hasClass('educators') && $('body').hasClass('notes_feed')) {
-    renderNotesFeedMain(el);
+    renderNotesFeedMain(mainEl);
     return true;
   }
 

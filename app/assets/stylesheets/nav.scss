@@ -1,69 +1,17 @@
 /* NAV */
-/* Move to shared. */
+/* SIGN IN FLOW & MESSAGES */
 
 .nav {
   border-bottom: 1px solid $light-line;
   background-color: $white;
 
-  .nav-options {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-
-    > * {
-      padding-left: 5px;
-      padding-right: 5px;
-    }
-  }
-
-  .logo {
+  .navbar-logo {
     display: inline-block;
     width: 210px;
     height: 60px;
     position: relative;
     top: 10px;
     background: url(asset-path("student-insights-logo-small.png")) no-repeat;
-  }
-
-  @media screen and (max-width: $phase2) {
-    padding-bottom: 10px;
-  }
-
-  .search-label {
-    display: inline-block;
-  }
-
-  #student-searchbar {
-    margin: 0 30px 10px 0;
-  }
-
-  .navwrap {
-    margin: 0 20px;
-    position: relative;
-    bottom: 1px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-
-    nav {
-      float: right;
-
-      a {
-        padding-right: 10px;
-        &:hover {
-          text-decoration: underline;
-        }
-
-        @media screen and (max-width: $phase2) {
-          padding-right: 20px;
-          padding-left: 0;
-        }
-      }
-
-      @media screen and (max-width: $phase2) {
-        padding-bottom: 20px;
-      }
-    }
   }
 
   #renew-session {
@@ -85,8 +33,6 @@
     padding: 10px;
   }
 
-  /* SIGN IN FLOW & MESSAGES */
-
   .notice {
     color: $warning-green;
     font-weight: 700;
@@ -95,6 +41,13 @@
   .alert {
     color: $warning-red;
     font-weight: 700;
+  }
+
+  .sign-in-navbar {
+    margin: 0 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
   }
 
   .sign-in-container {

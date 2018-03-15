@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import datepickerConfig from '../app/assets/javascripts/datepicker_config.js';
 import sessionTimeoutWarning from '../app/assets/javascripts/session_timeout_warning.js';
-import studentSearchbar from '../app/assets/javascripts/student_searchbar.js';
 import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
+import Navbar from '../app/assets/javascripts/components/Navbar';
 
 
 // First, run side effects to inject code into window.shared
@@ -24,10 +24,6 @@ if ($('body').hasClass('educator-signed-in')) {
   sessionTimeoutWarning(window.shared.Env);
 }
 
-// Student searchbar
-if ($('.student-searchbar').length > 0) {
-  studentSearchbar();
-}
 
 // Routing
 // Some pages are server-rendered and have a different structure
@@ -35,10 +31,9 @@ if ($('.student-searchbar').length > 0) {
 // to the body tag that `legacyRouteHandler` works with.  Newer pages
 // should handle routing with react-router inside the `App` component.
 // The <BrowserRouter> component is here since that prevents testing <App />.
+ReactDOM.render(<Navbar />, document.getElementById('navbar'));
 const mainEl = document.getElementById('main');
-if (mainEl) {
-  const didRoute = legacyRouteHandler(mainEl);
-  if (!didRoute) {
-    ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, mainEl);
-  }
+const didRoute = legacyRouteHandler(mainEl);
+if (!didRoute) {
+  ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, mainEl);
 }
