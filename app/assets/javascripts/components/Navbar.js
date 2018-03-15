@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Routes from '../helpers/Routes';
 import studentSearchbar from '../student_searchbar';
+import RailsLinkMethod from './RailsLinkMethod';
 
 
 // Pure UI frame
@@ -8,7 +9,7 @@ export function NavbarFrame({children}) {
   return (
     <div className="NavbarFrame" style={styles.navbarFrame}>
       <a href="/">
-        <div className="navbar-logo">
+        <div className="nav-logo">
           <div className="title" alt="Student Insights"></div>
         </div>
       </a>
@@ -23,7 +24,8 @@ NavbarFrame.propTypes = {
 
 
 /*
-UI component for navigating across all pages.
+UI component for navigating across all pages.  Includes links,
+search bar and sign out link.
 */
 class Navbar extends React.Component {
   componentDidMount() {
@@ -35,17 +37,18 @@ class Navbar extends React.Component {
   }
 
   renderLinks() {
-    const districtwideAccess = false;
-    const schoolwideAccess = false;
-    const gradeLevelAccess = false;
-    const districtwideAdminUrl = '/foo';
-    const schoolId = null;
+    const {
+      districtwideAccess,
+      schoolwideAccess,
+      gradeLevelAccess,
+      schoolId
+    } = this.props;
 
     return (
       <div style={styles.links}>
         {districtwideAccess &&
-          <a style={styles.link} href={districtwideAdminUrl}>Admin</a>}
-        {schoolwideAccess || gradeLevelAccess &&
+          <a style={styles.link} href={Routes.districtwideAdmin()}>Admin</a>}
+        {schoolwideAccess || gradeLevelAccess.length > 0 &&
           <a style={styles.link} href={Routes.school(schoolId)}>Roster</a>}
         {schoolwideAccess && !districtwideAccess &&
           <span>
@@ -71,18 +74,32 @@ class Navbar extends React.Component {
 
   // This relies on the Rails `jquery_ujs` code to read the `data-method` attribute
   // and do the right thing to submit this link.
+  // See https://github.com/rails/jquery-ujs/blob/master/src/rails.js#L212 for source.
   renderSignOutLink() {
-    return <a rel="nofollow" data-method="delete" href="/educators/sign_out">Sign Out</a>;
+    return (
+      <RailsLinkMethod method="delete" href="/educators/sign_out">
+        Sign Out
+      </RailsLinkMethod>
+    );
   }
 }
-
+Navbar.propTypes = {
+  districtwideAccess: React.PropTypes.bool.isRequired,
+  schoolwideAccess: React.PropTypes.bool.isRequired,
+  gradeLevelAccess: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  schoolId: React.PropTypes.number.isRequired
+};
 
 const styles = {
   navbarFrame: {
-    margin: '0 20px',
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 20,
+    borderBottom: '1px solid #ccc',
+    backgroundColor: 'white'
   },
   links: {
     flex: 1,
@@ -93,13 +110,6 @@ const styles = {
   link: {
     paddingLeft: 10,
     paddingRight: 10
-  },
-  logo: {
-    display: 'inline-block',
-    width: 210,
-    height: 60,
-    position: 'relative',
-    top: 10
   },
   searchBar: {
     marginLeft: 20,

@@ -26,12 +26,18 @@
       </div>
       <% if educator_signed_in? %>
         <div id="navbar">
-          <div style="position: relative; left: 10px; top: 10px; font-size: 14px; color: #333;">Loading...</div>
+          <div style="padding: 10px; font-size: 14px; color: #333;">Loading...</div>
+          <%= json_div(id: "navbar-data", data: {
+            districtwide_access: current_educator.districtwide_access,
+            schoolwide_access: current_educator.schoolwide_access,
+            grade_level_access: current_educator.grade_level_access,
+            school_id: current_educator.school_id
+          }) %>
         </div>
       <% else %>
-        <div class="navbar-sign-in">
+        <div class="sign-in-navbar">
           <a class="logo-container" href="/">
-            <div class="logo">
+            <div class="nav-logo">
               <div class="title" alt="Student Insights"></div>
             </div>
           </a>
@@ -52,10 +58,6 @@
           </div>
         </div>
       <% end %>
-      <div class="flash">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-      </div>
     </div>
     <%= yield %>
     <%= json_div(id: "calendar-icon-path", data: { path: asset_path('calendar-icon.svg') }) %>

@@ -31,9 +31,16 @@ if ($('body').hasClass('educator-signed-in')) {
 // to the body tag that `legacyRouteHandler` works with.  Newer pages
 // should handle routing with react-router inside the `App` component.
 // The <BrowserRouter> component is here since that prevents testing <App />.
-ReactDOM.render(<Navbar />, document.getElementById('navbar'));
+const navbarEl = document.getElementById('navbar');
+if (navbarEl) {
+  const props = $('#navbar-data').data();
+  ReactDOM.render(<Navbar {...props}/>, navbarEl);
+}
+
 const mainEl = document.getElementById('main');
-const didRoute = legacyRouteHandler(mainEl);
-if (!didRoute) {
-  ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, mainEl);
+if (mainEl) {
+  const didRoute = legacyRouteHandler(mainEl);
+  if (!didRoute) {
+    ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, mainEl);
+  }
 }

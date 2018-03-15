@@ -19,3 +19,15 @@ export function school(id) {
 export function section(id) {
   return '/sections/' + id;
 }
+
+export function districtwideAdmin() {
+  return '/educators/districtwide';
+}
+
+export function absencesDashboard(schoolId) {
+  return `/schools/${schoolId}/school_administrator_dashboard#/absences_dashboard`;
+}
+
+export function tardiesDashboard(schoolId) {
+  return `/schools/${schoolId}/school_administrator_dashboard#/tardies_dashboard`;
+}

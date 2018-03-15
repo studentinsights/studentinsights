@@ -1,3 +1,6 @@
+<% if @import_records.size == 0 %>
+  <div style="margin: 10px">No import records.</div>
+<% end %>
 <% @import_records.each do |record| %>
   <div style="border: 1px solid #eee; padding: 15px; margin: 15px;">
     <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; font-size: 18px;">

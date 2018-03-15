@@ -1,11 +1,7 @@
-/* NAV */
-/* SIGN IN FLOW & MESSAGES */
+/* TOP FRAME AND ALERT MESSAGES */
 
 .nav {
-  border-bottom: 1px solid $light-line;
-  background-color: $white;
-
-  .navbar-logo {
+  .nav-logo {
     display: inline-block;
     width: 210px;
     height: 60px;
@@ -26,49 +22,6 @@
       color: white;
       text-decoration: underline;
       font-size: 16px;
-    }
-  }
-
-  .flash {
-    padding: 10px;
-  }
-
-  .notice {
-    color: $warning-green;
-    font-weight: 700;
-  }
-
-  .alert {
-    color: $warning-red;
-    font-weight: 700;
-  }
-
-  .sign-in-navbar {
-    margin: 0 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-  }
-
-  .sign-in-container {
-    flex: 1;
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: flex-end;
-    height: 35px;
-    padding-top: 15px;
-    margin-right: 20px;
-
-    .sign-in-item {
-      display: inline-block;
-      bottom: 10px;
-    }
-
-    .sign-in-text {
-      width: 20em;
-      border: 3px inset #4a90e2
     }
   }
 
