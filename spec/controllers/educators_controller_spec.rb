@@ -2,6 +2,47 @@ require 'rails_helper'
 
 describe EducatorsController, :type => :controller do
   describe '#homepage' do
+    let!(:pals) { TestPals.create! }
+
+    def make_request_for_uri(educator)
+      sign_in(educator)
+      request.env['HTTPS'] = 'on'
+      request.env['HTTP_ACCEPT'] = 'application/json'
+      get :show, params: { id: pals.uri.id }
+      response
+    end
+
+    it 'works for districtwide admin' do
+      response = make_request_for_uri(pals.uri)
+      json = JSON.parse(response.body)
+      expect(json).to eq({
+        "id"=>999999,
+        "email"=>"uri@demo.studentinsights.org",
+        "admin"=>true,
+        "full_name"=>"Disney, Uri",
+        "staff_type"=>nil,
+        "schoolwide_access"=>true,
+        "grade_level_access"=>[],
+        "restricted_to_sped_students"=>false,
+        "restricted_to_english_language_learners"=>false,
+        "can_view_restricted_notes"=>true,
+        "districtwide_access"=>true,
+        "school"=>{
+          "id"=>pals.healey.id,
+          "name"=>"Arthur D Healey"
+        },
+        "sections"=>[]
+      })
+    end
+
+    it 'prevents access for all other users' do
+      expect(make_request_for_uri(pals.shs_jodi).status).to eq 403
+      expect(make_request_for_uri(pals.healey_vivian_teacher).status).to eq 403
+      expect(make_request_for_uri(pals.healey_laura_principal).status).to eq 403
+    end
+  end
+
+  describe '#homepage' do
     def make_request
       request.env['HTTPS'] = 'on'
       get :homepage

@@ -1,5 +1,4 @@
 class ServicesController < ApplicationController
-  rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
   before_action :authorize!
 
   def authorize!

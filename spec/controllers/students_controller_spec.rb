@@ -1,21 +1,20 @@
 require 'rails_helper'
 
-def create_service(student, educator)
-  FactoryGirl.create(:service, {
-    student: student,
-    recorded_by_educator: educator,
-    provided_by_educator_name: 'Muraki, Mari'
-  })
-end
-
-def create_event_note(student, educator)
-  FactoryGirl.create(:event_note, {
-    student: student,
-    educator: educator,
-  })
-end
-
 describe StudentsController, :type => :controller do
+  def create_service(student, educator)
+    FactoryGirl.create(:service, {
+      student: student,
+      recorded_by_educator: educator,
+      provided_by_educator_name: 'Muraki, Mari'
+    })
+  end
+
+  def create_event_note(student, educator)
+    FactoryGirl.create(:event_note, {
+      student: student,
+      educator: educator,
+    })
+  end
 
   describe '#show' do
     let!(:school) { FactoryGirl.create(:school) }

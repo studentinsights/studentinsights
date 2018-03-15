@@ -46,8 +46,9 @@ RSpec.describe IepDocumentsController, type: :controller do
       let(:educator) { FactoryGirl.create(:educator) }
       before { sign_in(educator) }
 
-      it 'does not render' do
-        expect { make_request(subject.id) }.to raise_error Exceptions::EducatorNotAuthorized
+      it 'redirects' do
+        make_request(subject.id)
+        expect(response).to redirect_to('/not_authorized')
       end
     end
 

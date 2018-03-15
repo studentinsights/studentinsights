@@ -25,7 +25,7 @@
       <% educators.map do |educator| %>
         <tr>
           <td><%= educator.email %></td>
-          <td><%= educator.full_name %></td>
+          <td><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
           <td><%= educator.can_set_districtwide_access %></td>
           <td><%= educator.admin %></td>
           <td><%= educator.can_view_restricted_notes %></td>
@@ -59,7 +59,7 @@
           <% path = PathsForEducator.new(educator).homepage_path %>
           <tr>
             <td><%= educator.email %></td>
-            <td><%= educator.full_name %></td>
+            <td><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
             <td><%= link_to path, path %></td>
         <% end %>
       </tbody>

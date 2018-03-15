@@ -3,20 +3,22 @@ import qs from 'query-string';
 import Card from '../components/Card';
 import Educator from '../components/Educator';
 import GenericLoader from '../components/GenericLoader';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 
 
 // On the home page, show users the answers to their most important questions.
 class HomeInsights extends React.Component {
   constructor(props) {
     super(props);
+    this.fetchAssignments = this.fetchAssignments.bind(this);
     this.renderAssignments = this.renderAssignments.bind(this);
   }
 
   fetchAssignments() {
-    const limit = 100; // limit the data returned, not the query itself
-    const url = `/home/unsupported_low_grades_json?${qs.stringify({limit})}`;
-    return fetch(url, { credentials: 'include' })
-      .then(response => response.json());
+    const {educatorId, limit} = this.props;
+    const params = educatorId ? {limit, educator_id: educatorId} : {limit};
+    const url = `/home/unsupported_low_grades_json?${qs.stringify(params)}`;
+    return apiFetchJson(url);
   }
 
   render() {
@@ -51,6 +53,13 @@ class HomeInsights extends React.Component {
     );
   }
 }
+HomeInsights.propTypes = {
+  educatorId: React.PropTypes.number.isRequired,
+  limit: React.PropTypes.number // limit the data returned, not the query itself
+};
+HomeInsights.defaultProps = {
+  limit: 100
+};
 
 
 // Pure UI component to render unsupported students
