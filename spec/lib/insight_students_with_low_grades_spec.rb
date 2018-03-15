@@ -4,12 +4,12 @@ RSpec.describe InsightStudentsWithLowGrades do
   let!(:pals) { TestPals.create! }
   let!(:time_now) { Time.zone.local(2018, 3, 5, 8, 45) }
 
-  describe '#students_as_json' do
+  describe '#students_with_low_grades_json' do
     it 'finds no one for Jodi' do
       time_threshold = time_now - 30.days
       grade_threshold = 69
       insight = InsightStudentsWithLowGrades.new(pals.shs_jodi)
-      students_with_low_grades = insight.students_as_json(time_now, time_threshold, grade_threshold)
+      students_with_low_grades = insight.students_with_low_grades_json(time_now, time_threshold, grade_threshold)
       expect(students_with_low_grades).to eq []
     end
 
@@ -17,7 +17,7 @@ RSpec.describe InsightStudentsWithLowGrades do
       time_threshold = time_now - 30.days
       grade_threshold = 69
       insight = InsightStudentsWithLowGrades.new(pals.shs_bill_nye)
-      students_with_low_grades = insight.students_as_json(time_now, time_threshold, grade_threshold)
+      students_with_low_grades = insight.students_with_low_grades_json(time_now, time_threshold, grade_threshold)
       expect(students_with_low_grades).to eq [{
         "student"=>{
           "id"=>pals.shs_freshman_mari.id,
@@ -31,7 +31,7 @@ RSpec.describe InsightStudentsWithLowGrades do
           "grade_numeric"=>'67.0',
           "grade_letter"=>"D",
           "section"=>{
-            "id"=>pals.shs_freshman_mari.student_section_assignments.first.section.id,
+            "id"=>pals.shs_tuesday_biology_section.id,
             "section_number"=>"SHS-BIO-TUES",
             "course_description"=>nil,
             "educators"=>[{

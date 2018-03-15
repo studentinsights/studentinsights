@@ -140,10 +140,10 @@ describe HomeController, :type => :controller do
     end
   end
 
-  describe '#unsupported_low_grades_json' do
+  describe '#students_with_low_grades_json' do
     it 'works end-to-end' do
-      sign_in(pals.shs_jodi)
-      get :unsupported_low_grades_json, params: {
+      sign_in(pals.shs_bill_nye)
+      get :students_with_low_grades_json, params: {
         limit: 100,
         time_now: time_now.to_i.to_s
       }
@@ -151,36 +151,37 @@ describe HomeController, :type => :controller do
       expect(JSON.parse(response.body)).to eq({
         "limit"=>100,
         "total_count"=>1,
-        "assignments"=>[{
-          "id"=>pals.shs_freshman_mari.student_section_assignments.first.id,
-          "grade_numeric"=>"67.0",
-          "grade_letter"=>'D',
+        "students_with_low_grades" => [{
           "student"=>{
-            "id"=> pals.shs_freshman_mari.id,
-            "grade"=> "9",
+            "id"=>pals.shs_freshman_mari.id,
+            "grade"=>"9",
             "first_name"=>"Mari",
             "last_name"=>"Kenobi",
             "house"=>nil
           },
-          "section"=>{
-            "id"=>pals.shs_tuesday_biology_section.id,
-            "section_number"=>"SHS-BIO-TUES",
-            "schedule"=>nil,
-            "room_number"=>nil,
-            "educators"=>[{
-              "id"=>pals.shs_bill_nye.id,
-              "email"=>"bill@demo.studentinsights.org",
-              "full_name"=>"Teacher, Bill"
-            }]
-          }
+          "assignments"=>[{
+            "id"=>pals.shs_freshman_mari.student_section_assignments.first.id,
+            "grade_numeric"=>"67.0",
+            "grade_letter"=>"D",
+            "section"=>{
+              "id"=>pals.shs_tuesday_biology_section.id,
+              "section_number"=>"SHS-BIO-TUES",
+              "course_description"=>nil,
+              "educators"=>[{
+                "id"=>pals.shs_bill_nye.id,
+                "email"=>"bill@demo.studentinsights.org",
+                "full_name"=>"Teacher, Bill"
+              }]
+            }
+          }]
         }]
       })
     end
 
     describe 'doppleganging' do
-      def get_unsupported(as_educator, for_educator, time_now)
+      def get_students_with_low_grades(as_educator, for_educator, time_now)
         sign_in(as_educator)
-        get :unsupported_low_grades_json, params: {
+        get :students_with_low_grades_json, params: {
           time_now: time_now.to_i.to_s,
           educator_id: for_educator.id,
           limit: 100
@@ -189,34 +190,34 @@ describe HomeController, :type => :controller do
         JSON.parse(response.body)
       end
 
-      def unsupported_student_ids(json)
-        json['assignments'].map do |assignment|
+      def low_grade_student_ids(json)
+        json['students_with_low_grades'].map do |assignment|
           assignment['student']['id']
         end
       end
 
-      it 'allows uri as jodi' do
-        json = get_unsupported(pals.uri, pals.shs_jodi, time_now)
-        expect(unsupported_student_ids(json)).to eq [
+      it 'allows Uri as Bill' do
+        json = get_students_with_low_grades(pals.uri, pals.shs_bill_nye, time_now)
+        expect(low_grade_student_ids(json)).to eq [
           pals.shs_freshman_mari.id
         ]
       end
 
-      it 'allows uri as vivian' do
-        json = get_unsupported(pals.uri, pals.healey_vivian_teacher, time_now)
-        expect(unsupported_student_ids(json)).to eq []
+      it 'allows Uri as Vivian' do
+        json = get_students_with_low_grades(pals.uri, pals.healey_vivian_teacher, time_now)
+        expect(low_grade_student_ids(json)).to eq []
       end
 
-      it 'guards against jodi doppleganging as vivian' do
-        json = get_unsupported(pals.shs_jodi, pals.uri, time_now)
-        expect(unsupported_student_ids(json)).to eq [
+      it 'guards against Bill doppleganging as Vivian' do
+        json = get_students_with_low_grades(pals.shs_bill_nye, pals.uri, time_now)
+        expect(low_grade_student_ids(json)).to eq [
           pals.shs_freshman_mari.id
         ]
       end
 
-      it 'guards against vivian doppleganging as uri' do
-        json = get_unsupported(pals.healey_vivian_teacher, pals.uri, time_now)
-        expect(unsupported_student_ids(json)).to eq []
+      it 'guards against Vivian doppleganging as Uri' do
+        json = get_students_with_low_grades(pals.healey_vivian_teacher, pals.uri, time_now)
+        expect(low_grade_student_ids(json)).to eq []
       end
     end
   end

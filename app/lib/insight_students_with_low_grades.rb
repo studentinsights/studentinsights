@@ -11,7 +11,7 @@ class InsightStudentsWithLowGrades
   #
   # This method returns hashes that are the shape of what is needed
   # in the product.
-  def students_as_json(time_now, time_threshold, grade_threshold)
+  def students_with_low_grades_json(time_now, time_threshold, grade_threshold)
     all_assignments = assignments(time_now, time_threshold, grade_threshold)
     by_student = all_assignments.group_by(&:student)
     json = by_student.map do |student, assignments|
