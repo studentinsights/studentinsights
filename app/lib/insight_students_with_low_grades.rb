@@ -1,4 +1,6 @@
 class InsightStudentsWithLowGrades
+  EXPERIENCE_TEAM_GRADES = ['9', '10']
+
   def initialize(educator)
     @educator = educator
     @authorizer = Authorizer.new(@educator)
@@ -92,6 +94,6 @@ class InsightStudentsWithLowGrades
   # list of teachers, and then the list of students who are in their
   # sections and also in NGE and 10GE.
   def included_in_experience_team?(student)
-    student.grade
+    EXPERIENCE_TEAM_GRADES.include?(student.grade)
   end
 end

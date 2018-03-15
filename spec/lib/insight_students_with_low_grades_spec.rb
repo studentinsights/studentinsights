@@ -115,4 +115,12 @@ RSpec.describe InsightStudentsWithLowGrades do
       expect(json['section']['educators'].first.keys).to eq(['id', 'email', 'full_name'])
     end
   end
+
+  describe '#included_in_experience_team?' do
+    let!(:insight) { InsightStudentsWithLowGrades.new(pals.shs_bill_nye) }
+    it 'filters out students by grade' do
+      expect(insight.send(:included_in_experience_team?, pals.shs_freshman_mari)).to eq true
+      expect(insight.send(:included_in_experience_team?, pals.healey_kindergarten_student)).to eq false
+    end
+  end
 end
