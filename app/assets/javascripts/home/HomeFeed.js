@@ -109,7 +109,7 @@ HomeFeed.propTypes = {
   limit: React.PropTypes.number
 };
 HomeFeed.defaultProps = {
-  limit: 20
+  limit: 10
 };
 
 
