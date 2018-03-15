@@ -10,14 +10,14 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 class HomeInsights extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchAssignments = this.fetchAssignments.bind(this);
+    this.fetchStudentsWithLowGrades = this.fetchStudentsWithLowGrades.bind(this);
     this.renderAssignments = this.renderAssignments.bind(this);
   }
 
-  fetchAssignments() {
+  fetchStudentsWithLowGrades() {
     const {educatorId, limit} = this.props;
     const params = educatorId ? {limit, educator_id: educatorId} : {limit};
-    const url = `/home/unsupported_low_grades_json?${qs.stringify(params)}`;
+    const url = `/home/students_with_low_grades_json?${qs.stringify(params)}`;
     return apiFetchJson(url);
   }
 
@@ -26,20 +26,20 @@ class HomeInsights extends React.Component {
       <div className="HomeInsights" style={styles.root}>
         <GenericLoader
           style={styles.card}
-          promiseFn={this.fetchAssignments}
-          render={this.renderAssignments} />
+          promiseFn={this.fetchStudentsWithLowGrades}
+          render={this.renderStudentsWithLowGrades} />
         {this.renderPlaceholder()}
       </div>
     );
   }
 
-  renderAssignments(json) {
+  renderStudentsWithLowGrades(json) {
     const props = {
       limit: json.limit,
       totalCount: json.total_count,
-      assignments: json.assignments
+      studentsWithLowGrades: json.students_with_low_grades
     };
-    return <UnsupportedStudentsPure {...props} />;
+    return <CheckStudentWithLowGradesPure {...props} />;
   }
 
   renderPlaceholder() {
@@ -62,8 +62,11 @@ HomeInsights.defaultProps = {
 };
 
 
-// Pure UI component to render unsupported students
-export class UnsupportedStudentsPure extends React.Component {
+// Pure UI component, for showing a high school teacher
+// which of their students have low grades but haven't been
+// discussed in NGE or 10GE.  The intention is that this list of
+// students to check in on is immediately actionable.
+export class CheckStudentWithLowGradesPure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,7 +82,7 @@ export class UnsupportedStudentsPure extends React.Component {
   }
 
   render() {
-    const {assignments, totalCount} = this.props;
+    const {studentsWithLowGrades, totalCount} = this.props;
     const {assignmentLimit} = this.state;
     const truncatedAssignments = assignments.slice(0, assignmentLimit);
     return (
@@ -121,21 +124,27 @@ export class UnsupportedStudentsPure extends React.Component {
   }
 }
 
-UnsupportedStudentsPure.propTypes = {
-  totalCount: React.PropTypes.number.isRequired,
+CheckStudentWithLowGradesPure.propTypes = {
   limit: React.PropTypes.number.isRequired,
-  assignments: React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
+  totalCount: React.PropTypes.number.isRequired,
+  studentsWithLowGrades: React.PropTypes.arrayOf(React.PropTypes.shape({
     student: React.PropTypes.shape({
       id: React.PropTypes.number.isRequired,
       first_name: React.PropTypes.string.isRequired,
-      last_name: React.PropTypes.string.isRequired
+      last_name: React.PropTypes.string.isRequired,
+      grade: React.PropTypes.string.isRequired,
+      house: React.PropTypes.string.isRequired
     }).isRequired,
-    section: React.PropTypes.shape({
+    assignments: React.PropTypes.arrayOf(React.PropTypes.shape({
       id: React.PropTypes.number.isRequired,
-      section_number: React.PropTypes.string.isRequired,
-      educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-    }).isRequired
+      grade_letter: React.PropTypes.string.isRequired,
+      grade_numeric: React.PropTypes.number.isRequired,
+      section: React.PropTypes.shape({
+        id: React.PropTypes.number.isRequired,
+        section_number: React.PropTypes.string.isRequired,
+        educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+      }).isRequired
+    }))
   })).isRequired
 };
 

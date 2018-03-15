@@ -1,22 +1,29 @@
-class InsightUnsupportedLowGrades
+class InsightStudentsWithLowGrades
   def initialize(educator)
     @educator = educator
     @authorizer = Authorizer.new(@educator)
   end
 
-  def serialize_students(time_now, time_threshold, grade_threshold)
-    assignments = assignments(time_now, time_threshold, grade_threshold)
-    by_student = assignments.group_by(&:student_id)
-    by_student.map do |student, assignments|
+  # High-school only.  Returns a list of students in the educator's
+  # sections that have low grades, but haven't been commented on in
+  # NGE or 10GE yet.  The intention is that this information is immediately
+  # actionable for high school teachers.
+  #
+  # This method returns hashes that are the shape of what is needed
+  # in the product.
+  def students_as_json(time_now, time_threshold, grade_threshold)
+    all_assignments = assignments(time_now, time_threshold, grade_threshold)
+    by_student = all_assignments.group_by(&:student)
+    json = by_student.map do |student, assignments|
       {
         student: student.as_json(:only => [:id, :email, :first_name, :last_name, :grade, :house]),
         assignments: assignments.map {|assignment| serialize_assignment(assignment) }
       }
     end
+    json.as_json
   end
 
-  # High-school only.  Returns assignments with low grades where
-  # the student hasn't been commented on in NGE or 10GE yet.
+  private
   def assignments(time_now, time_threshold, grade_threshold)
     # This is high-school only, only look at students the educator
     # has in their own sections.
@@ -26,8 +33,7 @@ class InsightUnsupportedLowGrades
     # Query for low grades and uncommented students, then join both
     # This query structure came to be after some optimizations to reduce
     # latency for HS dept. heads who have access to many students.
-    section_ids = @educator.sections.map(&:id)
-    low_assignments = assignments_below_threshold(section_ids, grade_threshold)
+    low_assignments = assignments_below_threshold(grade_threshold)
     commented_student_ids = recently_commented_student_ids(student_ids, time_threshold)
     low_assignments.select do |assignment|
       !commented_student_ids.include?(assignment.student_id)
@@ -39,10 +45,10 @@ class InsightUnsupportedLowGrades
     assignments.map {|assignment| serialize_assignment(assignment) }
   end
 
-  private
   # Section assignments where a student is struggling.
   # Does not respect authorization.
-  def assignments_below_threshold(section_ids, grade_threshold)
+  def assignments_below_threshold(grade_threshold)
+    section_ids = @educator.sections.map(&:id)
     StudentSectionAssignment
       .includes(:student)
       .where(section: section_ids)
