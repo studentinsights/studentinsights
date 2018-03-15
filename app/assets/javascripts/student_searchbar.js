@@ -1,5 +1,6 @@
 import MixpanelUtils from './helpers/mixpanel_utils.jsx';
 
+const STUDENT_NAMES_CACHE_KEY = 'student_names_cache';
 
 function setupSearchBarAutocomplete (names) {
   $(".student-searchbar").autocomplete({
@@ -18,7 +19,7 @@ function downloadStudentNames () {
       setupSearchBarAutocomplete(data);
 
       if (window.sessionStorage) {
-        window.sessionStorage.student_names_cache = JSON.stringify(data);
+        window.sessionStorage.setItem(STUDENT_NAMES_CACHE_KEY, JSON.stringify(data));
       } else {
         throw 'no session storage';
       }
@@ -32,7 +33,7 @@ export default function studentSearchbar() {
     throw 'no session storage';   // Let rollbar know we're not caching
   }
 
-  const namesCache = window.sessionStorage.student_names_cache;
+  const namesCache = window.sessionStorage.getItem(STUDENT_NAMES_CACHE_KEY);
 
   if (namesCache) return setupSearchBarAutocomplete(JSON.parse(namesCache));
 

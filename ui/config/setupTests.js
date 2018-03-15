@@ -2,6 +2,9 @@
 import './sprockets-shims.js';
 import '../legacy.js';
 
+// Mocking sessionStorage
+import 'jest-localstorage-mock';
+
 // Enzyme support
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15.4';
@@ -13,3 +16,4 @@ global.fetch = require('jest-fetch-mock'); // eslint-disable-line no-undef
 // Make console.warn and error fail tests
 console.error = jest.fn(error => { throw new Error(error); }); //eslint-disable-line no-console
 console.warn = jest.fn(warn => { throw new Error(warn); }); //eslint-disable-line no-console
+

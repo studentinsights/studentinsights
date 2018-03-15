@@ -23,6 +23,7 @@
     "fetch-mock": "^6.0.1",
     "highcharts": "^6.0.2",
     "jest-fetch-mock": "^1.4.2",
+    "jest-localstorage-mock": "^2.2.0",
     "jquery": "^3.2.1",
     "js-cookie": "^2.1.4",
     "lodash": "3.10.1",

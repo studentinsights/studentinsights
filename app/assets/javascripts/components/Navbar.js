@@ -2,6 +2,7 @@ import React from 'react';
 import * as Routes from '../helpers/Routes';
 import studentSearchbar from '../student_searchbar';
 import RailsLinkMethod from './RailsLinkMethod';
+import SharedPropTypes from '../helpers/prop_types';
 
 
 // Pure UI frame
@@ -87,7 +88,7 @@ Navbar.propTypes = {
   districtwideAccess: React.PropTypes.bool.isRequired,
   schoolwideAccess: React.PropTypes.bool.isRequired,
   gradeLevelAccess: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  schoolId: React.PropTypes.number.isRequired
+  schoolId: SharedPropTypes.nullableWithKey(React.PropTypes.number)
 };
 
 const styles = {

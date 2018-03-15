@@ -24,6 +24,13 @@ if ($('body').hasClass('educator-signed-in')) {
   sessionTimeoutWarning(window.shared.Env);
 }
 
+// The data and outer frame for the navbar is still rendered on
+// the server, but the substance of the UI is rendered in JS here.
+const navbarEl = document.getElementById('navbar');
+if (navbarEl) {
+  const props = $('#navbar-data').data();
+  ReactDOM.render(<Navbar {...props}/>, navbarEl);
+}
 
 // Routing
 // Some pages are server-rendered and have a different structure
@@ -31,12 +38,6 @@ if ($('body').hasClass('educator-signed-in')) {
 // to the body tag that `legacyRouteHandler` works with.  Newer pages
 // should handle routing with react-router inside the `App` component.
 // The <BrowserRouter> component is here since that prevents testing <App />.
-const navbarEl = document.getElementById('navbar');
-if (navbarEl) {
-  const props = $('#navbar-data').data();
-  ReactDOM.render(<Navbar {...props}/>, navbarEl);
-}
-
 const mainEl = document.getElementById('main');
 if (mainEl) {
   const didRoute = legacyRouteHandler(mainEl);
