@@ -39,7 +39,7 @@ class InsightStudentsWithLowGrades
     # Query for low grades and uncommented students, then join both
     # This query structure came to be after some optimizations to reduce
     # latency for HS dept. heads who have access to many students.
-    low_assignments = assignments_below_threshold(grade_threshold)
+    low_assignments = assignments_below_threshold(student_ids, grade_threshold)
     commented_student_ids = recently_commented_student_ids(student_ids, time_threshold)
     low_assignments.select do |assignment|
       !commented_student_ids.include?(assignment.student_id)
@@ -53,11 +53,12 @@ class InsightStudentsWithLowGrades
 
   # Section assignments where a student is struggling.
   # Does not respect authorization.
-  def assignments_below_threshold(grade_threshold)
-    section_ids = @educator.sections.map(&:id)
+  def assignments_below_threshold(student_ids, grade_threshold)
+    educator_section_ids = @educator.sections.map(&:id)
     StudentSectionAssignment
       .includes(:student)
-      .where(section: section_ids)
+      .where(section: educator_section_ids)
+      .where(student_id: student_ids)
       .where('grade_numeric < ?', grade_threshold)
       .order(grade_numeric: :desc)
   end
