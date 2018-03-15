@@ -2,10 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import StudentsTable from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/StudentsTable.js';
-import * as Data from './DashboardTestData.js';
+import {createStudents} from './DashboardTestData.js';
 
 describe('Dashboard Students Table', () => {
-  const table = shallow(<StudentsTable rows={Data.Students}/>);
+  const nowMoment = moment.utc();
+  const table = shallow(<StudentsTable rows={createStudents(nowMoment)}/>);
 
   it('renders the students list', () => {
     expect(table.find("div").hasClass("StudentsList")).toEqual(true);
@@ -21,7 +22,7 @@ describe('Dashboard Students Table', () => {
     expect(cellTexts).toEqual([
       "Pierrot Zanni",
       "3",
-      moment.utc().subtract(3, 'months').format('M/D/YY'),
+      nowMoment.clone().subtract(3, 'months').format('M/D/YY'),
     ]);
   });
 
