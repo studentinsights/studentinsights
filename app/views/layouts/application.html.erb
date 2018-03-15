@@ -39,10 +39,10 @@
               <%= link_to 'Roster', school_path(current_educator.school) %>
               &nbsp;
             <% end %>
-            <% if current_educator.schoolwide_access? && !current_educator.districtwide_access? %>
-              <%= link_to "Absences", school_administrator_dashboard_school_path + '#/absences_dashboard' %>
+            <% if current_educator.school.present? && current_educator.schoolwide_access? && !current_educator.districtwide_access? %>
+              <%= link_to "Absences", school_administrator_dashboard_school_path(current_educator.school) + '#/absences_dashboard' %>
               &nbsp;
-              <%= link_to "Tardies", school_administrator_dashboard_school_path + '#/tardies_dashboard' %>
+              <%= link_to "Tardies", school_administrator_dashboard_school_path(current_educator.school) + '#/tardies_dashboard' %>
               &nbsp;
               &nbsp; &nbsp; &nbsp;
             <% end %>
