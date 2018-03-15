@@ -11,12 +11,15 @@ class InsightUnsupportedLowGrades
     students = @authorizer.authorized do
       School.select(&:is_high_school?).flat_map(&:students)
     end
-    low_assignments = assignments_below_threshold(students.map(&:id), grade_threshold)
+    student_ids = students.map(&:id)
 
-    # Remove assignments if NGE or 10GE team has commented on
-    # that student recently.
+    # Query for low grades and uncommented students, then join both
+    # This query structure came to be after some optimizations to reduce
+    # latency for HS dept. heads who have access to many students.
+    low_assignments = assignments_below_threshold(student_ids, grade_threshold)
+    commented_student_ids = recently_commented_student_ids(student_ids, time_threshold)
     low_assignments.select do |assignment|
-      !has_experience_team_commented?(assignment, time_threshold)
+      !commented_student_ids.include?(assignment.student_id)
     end
   end
 
@@ -27,20 +30,23 @@ class InsightUnsupportedLowGrades
 
   private
   # Section assignments where a student is struggling.
+  # Does not respect authorization.
   def assignments_below_threshold(student_ids, grade_threshold)
     StudentSectionAssignment
       .includes(:student)
+      .where(student: student_ids)
       .where('grade_numeric < ?', grade_threshold)
-      .where(student_id: student_ids)
-      .order(grade_numeric: :asc)
+      .order(grade_numeric: :desc)
   end
 
-  def has_experience_team_commented?(assignment, time_threshold)
-    assignment.student.event_notes
+  # Students who've commented recently
+  def recently_commented_student_ids(student_ids, time_threshold)
+    recent_notes = EventNote
       .where(is_restricted: false)
+      .where(student_id: student_ids)
       .where('recorded_at > ?', time_threshold)
       .where(event_note_type_id: [305, 306])
-      .count > 0
+    recent_notes.map(&:student_id).uniq
   end
 
   def serialize_assignment(assignment)

@@ -1,9 +1,14 @@
 import React from 'react';
 import qs from 'query-string';
-import GenericLoader from '../components/GenericLoader';
+import _ from 'lodash';
 import EventNoteCard from './EventNoteCard';
 import BirthdayCard from './BirthdayCard';
+import {toMomentFromTime} from '../helpers/toMoment';
 
+
+export function mergeCards(previousCards, newCards) {
+  return _.sortBy(previousCards.concat(newCards), card => -1 * toMomentFromTime(card.timestamp).unix());
+}
 
 /*
 This component fetches data and renders it, showing the user
@@ -12,33 +17,97 @@ the feed of what's happening with their students.
 class HomeFeed extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      hasLoadedAnyData: false,
+      error: null,
+      cards: []
+    };
     this.fetchFeed = this.fetchFeed.bind(this);
+    this.onResolved = this.onResolved.bind(this);
+    this.onRejected = this.onRejected.bind(this);
+    this.onMore = this.onMore.bind(this);
     this.renderFeed = this.renderFeed.bind(this);
   }
 
-  fetchFeed() {
-    const limit = 20;
-    const url = '/home/feed_json?' + qs.stringify({limit});
+  componentDidMount() {
+    const {nowFn} = this.context;
+    this.fetchFeed(nowFn().unix());
+  }
+
+  fetchFeed(nowTimestamp) {
+    const {limit} = this.props;
+    const url = '/home/feed_json?' + qs.stringify({
+      limit,
+      time_now: nowTimestamp
+    });
     return fetch(url, { credentials: 'include' })
       .then(response => response.json())
-      .then(json => json.feed_cards);
+      .then(json => json.feed_cards)
+      .then(this.onResolved)
+      .catch(this.onRejected);
+  }
+
+  onResolved(newCards) {
+    const previousCards = (this.state.cards || []);
+    const cards = mergeCards(previousCards, newCards);
+    this.setState({
+      cards,
+      hasLoadedAnyData: true, 
+      error: null
+    });
+  }
+
+  onRejected(error) {
+    this.setState({error});
+  }
+
+  onMore(event) {
+    const {cards} = this.state;
+    event.preventDefault();
+    const timestamp = toMomentFromTime(_.last(cards).timestamp).unix();
+    this.fetchFeed(timestamp);
   }
 
   render() {
+    const {hasLoadedAnyData, cards, error} = this.state;
+
     return (
       <div className="HomeFeed" style={styles.root}>
-        <GenericLoader
-          style={styles.card}
-          promiseFn={this.fetchFeed}
-          render={this.renderFeed} />
+        {!hasLoadedAnyData && <div style={{padding: 10, ...styles.card}}>Loading...</div>}
+        {cards && cards.length > 0 && <div style={styles.card}>{this.renderFeed(cards)}</div>}
+        {error !== null && <div style={{padding: 10, ...styles.card}}>There was an error loading this data.</div>}
       </div>
     );
   }
 
   renderFeed(feedCards) {
-    return <HomeFeedPure feedCards={feedCards} />;
+    return (
+      <div>
+        <HomeFeedPure feedCards={feedCards} />
+        {this.renderSeeMore(feedCards)}
+      </div>
+    );
+  }
+
+  renderSeeMore(feedCards) {
+    const {limit} = this.props;
+    if (feedCards.length < limit) return null;
+    return <a
+      className="HomeFeed-load-more"
+      style={{display: 'block', ...styles.card}}
+      href="#more"
+      onClick={this.onMore}>See more</a>;
   }
 }
+HomeFeed.contextTypes = {
+  nowFn: React.PropTypes.func.isRequired
+};
+HomeFeed.propTypes = {
+  limit: React.PropTypes.number
+};
+HomeFeed.defaultProps = {
+  limit: 20
+};
 
 // Pure UI component for rendering home feed
 export class HomeFeedPure extends React.Component {

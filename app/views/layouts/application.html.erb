@@ -33,7 +33,7 @@
         <% if educator_signed_in? %>
           <div class="nav-options">
             <% if current_educator.districtwide_access? %>
-              <%= link_to 'Admin Homepage', educators_districtwide_url %>
+              <%= link_to 'Admin', educators_districtwide_url %>
               &nbsp; &nbsp; &nbsp;
             <% elsif current_educator.schoolwide_access? || current_educator.has_access_to_grade_levels? %>
               <%= link_to 'School Overview', school_path(current_educator.school) %>

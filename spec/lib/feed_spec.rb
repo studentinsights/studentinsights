@@ -11,7 +11,7 @@ end
 
 RSpec.describe Feed do
   let!(:pals) { TestPals.create! }
-  let!(:time_now) { Time.zone.local(2018, 3, 5, 8, 45) }
+  let!(:time_now) { pals.time_now }
 
   describe '#merge_sort_and_limit_cards' do
     it 'works correctly' do
@@ -66,7 +66,7 @@ RSpec.describe Feed do
       cards = feed.birthday_cards(time_now, 4)
       expect(cards.size).to eq 1
       expect(cards.first.type).to eq(:birthday_card)
-      expect(cards.first.timestamp.to_date).to eq(Date.parse('2018-03-07'))
+      expect(cards.first.timestamp.to_date).to eq(Date.parse('2018-03-12'))
       expect(cards.first.json['id']).to eq(pals.shs_freshman_mari.id)
     end
   end
