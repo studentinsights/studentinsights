@@ -49,7 +49,8 @@ RSpec.describe InsightStudentsWithLowGrades do
     let!(:insight) { InsightStudentsWithLowGrades.new(pals.shs_bill_nye) }
     it "finds Mari in Bill's Biology class" do
       grade_threshold = 69
-      assignments = insight.send(:assignments_below_threshold, grade_threshold)
+      student_ids = Student.all.map(&:id)
+      assignments = insight.send(:assignments_below_threshold, student_ids, grade_threshold)
       expect(assignments.size).to eq 1
       expect(assignments.all? {|a| a.grade_numeric < grade_threshold }).to eq true
     end
