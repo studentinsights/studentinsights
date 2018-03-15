@@ -32,7 +32,21 @@ const PropTypes = {
   history: React.PropTypes.shape({
     pushState: React.PropTypes.func.isRequired,
     replaceState: React.PropTypes.func.isRequired
-  })
+  }),
+
+  // Return a propType for us in `PropTypes.shape`
+  // that requires a key to be passed, but allows
+  // null values (which `.isRequired` doesn't allow).
+  nullableWithKey(propType) {
+    return (props, propName, componentName) => {
+      if (!props.hasOwnProperty(propName)) {
+        return new Error(
+          'Missing prop `' + propName + '` in ' +
+          ' `' + componentName + '`. Nulls are allowed, but must be passed explicitly.'
+        );
+      }
+    };
+  }
 };
 
 export default PropTypes;

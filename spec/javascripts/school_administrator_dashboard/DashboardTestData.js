@@ -48,7 +48,8 @@ export const Students = [
     id: 2,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
-    events: 2
+    events: 2,
+    last_sst_date_text: null
   },
   {
     first_name: 'Arlecchino',
@@ -57,7 +58,8 @@ export const Students = [
     id: 3,
     absences: [],
     tardies: [],
-    events: 0
+    events: 0,
+    last_sst_date_text: null
   },
   {
     first_name: 'Colombina',
@@ -66,7 +68,8 @@ export const Students = [
     id: 4,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.oneYearAgo],
     tardies: [testEvents.thisMonth],
-    events: 3
+    events: 3,
+    last_sst_date_text: null
   },
   {
     first_name: 'Scaramuccia',
@@ -75,7 +78,8 @@ export const Students = [
     id: 5,
     absences: [testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneYearAgo],
-    events: 2
+    events: 2,
+    last_sst_date_text: null
   },
 
   {
@@ -85,7 +89,8 @@ export const Students = [
     id: 6,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
-    events: 2
+    events: 2,
+    last_sst_date_text: null
   }
 ];
 
