@@ -2,27 +2,27 @@
 //stubbed events for dashboard specs
 export const testEvents = {
   oneMonthAgo: {
-    occurred_at: moment().subtract(1, 'months').format(),
+    occurred_at: moment.utc().subtract(1, 'months').format(),
     student_id: 1,
   },
   twoMonthsAgo: {
-    occurred_at: moment().subtract(2, 'months').format(),
+    occurred_at: moment.utc().subtract(2, 'months').format(),
     student_id: 1,
   },
   threeMonthsAgo: {
-    occurred_at: moment().subtract(3, 'months').format(),
+    occurred_at: moment.utc().subtract(3, 'months').format(),
     student_id: 1,
   },
   fourMonthsAgo: {
-    occurred_at: moment().subtract(4, 'months').format(),
+    occurred_at: moment.utc().subtract(4, 'months').format(),
     student_id: 1,
   },
   oneYearAgo: {
-    occurred_at: moment().subtract(1, 'year').format(),
+    occurred_at: moment.utc().subtract(1, 'year').format(),
     student_id: 1,
   },
   thisMonth: {
-    occurred_at: moment().format(),
+    occurred_at: moment.utc().format(),
     student_id: 1
   }
 };
@@ -96,10 +96,10 @@ export const Students = [
 
 
 export function schoolTardyEvents () {
-  const oneMonthAgo = moment().subtract(1, 'months').format('YYYY-MM-DD');
-  const threeMonthsAgo = moment().subtract(3, 'months').format('YYYY-MM-DD');
-  const fourMonthsAgo = moment().subtract(4, 'months').format('YYYY-MM-DD');
-  const oneYearAgo = moment().subtract(1, 'year').format('YYYY-MM-DD');
+  const oneMonthAgo = moment.utc().subtract(1, 'months').format('YYYY-MM-DD');
+  const threeMonthsAgo = moment.utc().subtract(3, 'months').format('YYYY-MM-DD');
+  const fourMonthsAgo = moment.utc().subtract(4, 'months').format('YYYY-MM-DD');
+  const oneYearAgo = moment.utc().subtract(1, 'year').format('YYYY-MM-DD');
   let schoolTardyEvents = {};
 
   schoolTardyEvents[oneMonthAgo] = [testEvents.oneMonthAgo];
