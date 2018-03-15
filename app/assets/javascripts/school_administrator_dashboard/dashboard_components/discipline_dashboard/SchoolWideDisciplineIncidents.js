@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import SchoolDisciplineDashboard from './SchoolDisciplineDashboard';
 import DashboardHelpers from '../DashboardHelpers';
+import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 
 class SchoolWideDisciplineIncidents extends React.Component {
 
@@ -24,7 +25,8 @@ class SchoolWideDisciplineIncidents extends React.Component {
             day: moment(incident.occurred_at).format("DDD"),
             offense: incident.incident_code,
             student_race: student.race,
-            occurred_at: incident.occurred_at
+            occurred_at: incident.occurred_at,
+            last_sst_date_text: latestNoteDateText(300, student.event_notes)
           });
         }
       });
@@ -37,6 +39,8 @@ class SchoolWideDisciplineIncidents extends React.Component {
     const schoolDisciplineEvents = this.schoolDisciplineEvents();
     return (
       <SchoolDisciplineDashboard
+        dashboardStudents={this.props.dashboardStudents}
+        totalDisciplineIncidents={schoolDisciplineEvents}
         disciplineIncidentsByLocation={_.groupBy(schoolDisciplineEvents, 'location')}
         disciplineIncidentsByTime={_.groupBy(schoolDisciplineEvents, 'time')}
         disciplineIncidentsByClassroomn={_.groupBy(schoolDisciplineEvents, 'classroom')}
