@@ -22,8 +22,7 @@ class SchoolDisciplineDashboard extends React.Component {
       });
     };
     this.setStudentList = (highchartsEvent) => {
-      console.log(highchartsEvent);
-      this.setState({selectedType: highchartsEvent.point.id, selectedCategory: highchartsEvent.point.category});
+      this.setState({selectedType: highchartsEvent.point.series.name, selectedCategory: highchartsEvent.point.category});
     };
     this.resetStudentList = () => {
       this.setState({selectedCategory: null});
@@ -38,8 +37,8 @@ class SchoolDisciplineDashboard extends React.Component {
 
   studentDisciplineIncidentCounts(incidentType, incidentCategory) {
     let studentDisciplineIncidentCounts = {};
-    const incidents = incidentCategory ? this.filterIncidentDates(incidentType[incidentCategory]) : this.props.totalDisciplineIncidents;
-    incidents.forEach((incident) => {
+    const incidents = incidentCategory ? this.props[incidentType][incidentCategory] : this.props.totalDisciplineIncidents;
+    this.filterIncidentDates(incidents).forEach((incident) => {
       studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
       studentDisciplineIncidentCounts[incident.student_id]++;
     })
@@ -60,7 +59,7 @@ class SchoolDisciplineDashboard extends React.Component {
     );
   }
 
-  renderDisciplineChart(group, title) { //turn this into independant function
+  renderDisciplineChart(group, title) {
     let seriesData = [];
     const incidentGroup = this.props[group];
     let categories = Object.keys(incidentGroup);
@@ -69,14 +68,12 @@ class SchoolDisciplineDashboard extends React.Component {
       seriesData.push([type, incidents.length]);
     });
 
-    console.log(this.props);
-    console.log(this.state.selectedCategory);
-
     return (
         <DashboardBarChart
           id = {group}
           categories = {{categories: categories}}
           seriesData = {seriesData}
+          seriesName = {group}
           titleText = {title}
           measureText = {'Number of Incidents'}
           tooltip = {{
@@ -86,7 +83,7 @@ class SchoolDisciplineDashboard extends React.Component {
     );
   }
 
-  renderDateRangeSlider() { //maybe its own function too
+  renderDateRangeSlider() {
     const firstDate = DashboardHelpers.schoolYearStart();
     const lastDate = moment();
     return (
@@ -98,13 +95,6 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderStudentDisciplineTable() {
-    //Here's how to do this:
-    //Send specific, identifiable id for each incident chart
-    //callback returns both that id and the selected category
-    //id is used to pick the grouping (type) from props (possibly as new state)
-    //category is used to select the subgroup (category) with that Type
-    //
-    console.log(this.state);
     const students = this.props.dashboardStudents;
     const type = this.state.selectedType || null;
     const category = this.state.selectedCategory || null;
@@ -123,7 +113,7 @@ class SchoolDisciplineDashboard extends React.Component {
     return (
       <StudentsTable
         rows = {rows}
-        selectedCategory = {this.state.selectedType}/>
+        selectedCategory = {this.state.selectedCategory}/>
     );
   }
 }
