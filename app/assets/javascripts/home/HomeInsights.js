@@ -11,7 +11,7 @@ class HomeInsights extends React.Component {
   constructor(props) {
     super(props);
     this.fetchStudentsWithLowGrades = this.fetchStudentsWithLowGrades.bind(this);
-    this.renderAssignments = this.renderAssignments.bind(this);
+    this.renderStudentsWithLowGrades = this.renderStudentsWithLowGrades.bind(this);
   }
 
   fetchStudentsWithLowGrades() {
@@ -70,53 +70,62 @@ export class CheckStudentWithLowGradesPure extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      assignmentLimit: 4
+      uiLimit: 4
     };
-    this.onMoreAssignments = this.onMoreAssignments.bind(this);
+    this.onMoreStudents = this.onMoreStudents.bind(this);
   }
 
-  onMoreAssignments(e) {
+  onMoreStudents(e) {
     e.preventDefault();
-    const {assignmentLimit} = this.state;
-    this.setState({ assignmentLimit: assignmentLimit + 4 });
+    const {uiLimit} = this.state;
+    this.setState({ uiLimit: uiLimit + 4 });
   }
 
   render() {
     const {studentsWithLowGrades, totalCount} = this.props;
-    const {assignmentLimit} = this.state;
-    const truncatedAssignments = assignments.slice(0, assignmentLimit);
+    const {uiLimit} = this.state;
+    const truncatedStudentsWithLowGrades = studentsWithLowGrades.slice(0, uiLimit);
     return (
       <div className="UnsupportedStudentsPure">
         <div style={styles.cardTitle}>Students to check on</div>
         <Card style={{border: 'none'}}>
           <div>There are <b>{totalCount} students</b> you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
           <div style={{paddingTop: 10, paddingBottom: 10}}>
-            {truncatedAssignments.map(assignment => {
-              const {student, section} = assignment;
+            {truncatedStudentsWithLowGrades.map(studentWithLowGrades => {
+              const {student, assignments} = studentWithLowGrades;
               return (
-                <div key={assignment.id} style={{paddingLeft: 10}}>
+                <div key={student.id} style={{paddingLeft: 10}}>
                   <div>
                     <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
-                    <span> has a {assignment.grade_letter} in {section.course_description} (<a href={`/sections/${section.id}`}>{section.section_number}</a>)</span>
+                    {this.renderCourseGrades(assignments)}
                   </div>
                 </div>
               );
             })}
           </div>
-          {this.renderMore(truncatedAssignments)}
+          {this.renderMore(truncatedStudentsWithLowGrades)}
         </Card>
       </div>
     );
   }
 
-  renderMore(truncatedAssignments) {
-    const {totalCount, limit, assignments} = this.props;
+  renderCourseGrades(assignments) {
+    return (
+      <span>{assignments.map(assignment => {
+        const {section} = assignment;
+        return <span key={assignment.id}> has a {assignment.grade_letter} in {section.course_description} (<a href={`/sections/${section.id}`}>{section.section_number}</a>)</span>;
+      })}</span>
+    );
+  }
 
-    if (truncatedAssignments.length !== assignments.length) {
-      return <div><a href="#" onClick={this.onMoreAssignments}>See more</a></div>;
+  renderMore(truncatedStudentsWithLowGrades) {
+    const {totalCount, limit, studentsWithLowGrades} = this.props;
+
+    if (truncatedStudentsWithLowGrades.length !== studentsWithLowGrades.length) {
+      return <div><a href="#" onClick={this.onMoreStudents}>See more</a></div>;
     }
 
-    if (assignments.length < totalCount) {
+    if (studentsWithLowGrades.length < totalCount) {
       return <div>There are {totalCount} students total.  Start with checking in on these first {limit} students.</div>;
     }
 
@@ -133,12 +142,12 @@ CheckStudentWithLowGradesPure.propTypes = {
       first_name: React.PropTypes.string.isRequired,
       last_name: React.PropTypes.string.isRequired,
       grade: React.PropTypes.string.isRequired,
-      house: React.PropTypes.string.isRequired
+      house: React.PropTypes.string
     }).isRequired,
     assignments: React.PropTypes.arrayOf(React.PropTypes.shape({
       id: React.PropTypes.number.isRequired,
       grade_letter: React.PropTypes.string.isRequired,
-      grade_numeric: React.PropTypes.number.isRequired,
+      grade_numeric: React.PropTypes.string.isRequired,
       section: React.PropTypes.shape({
         id: React.PropTypes.number.isRequired,
         section_number: React.PropTypes.string.isRequired,
