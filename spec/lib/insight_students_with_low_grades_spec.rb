@@ -24,7 +24,7 @@ RSpec.describe InsightStudentsWithLowGrades do
           "first_name"=>'Mari',
           "last_name"=>'Kenobi',
           "grade"=>'9',
-          "house"=>nil
+          "house"=>'Beacon'
         },
         "assignments"=>[{
           "id"=>pals.shs_freshman_mari.student_section_assignments.first.id,
@@ -33,7 +33,7 @@ RSpec.describe InsightStudentsWithLowGrades do
           "section"=>{
             "id"=>pals.shs_tuesday_biology_section.id,
             "section_number"=>"SHS-BIO-TUES",
-            "course_description"=>nil,
+            "course_description"=>'BIOLOGY 1 HONORS',
             "educators"=>[{
               "id"=>pals.shs_bill_nye.id,
               "email"=>"bill@demo.studentinsights.org",

@@ -18,7 +18,7 @@ class HomePage extends React.Component {
             <SectionHeading>{`What's happening?`}</SectionHeading>
             <HomeFeed educatorId={educatorId} />
           </div>
-          <div  style={styles.column}>
+          <div style={styles.column}>
             <SectionHeading>How can we adapt?</SectionHeading>
             <HomeInsights educatorId={educatorId} />
           </div>
@@ -37,6 +37,7 @@ const styles = {
   },
   column: {
     flex: 1,
+    width: 0,
     margin: 10
   }
 };

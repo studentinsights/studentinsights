@@ -1,7 +1,7 @@
 import React from 'react';
 import qs from 'query-string';
 import Card from '../components/Card';
-import Educator from '../components/Educator';
+import Section from '../components/Section';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 
@@ -87,18 +87,16 @@ export class CheckStudentWithLowGradesPure extends React.Component {
     const truncatedStudentsWithLowGrades = studentsWithLowGrades.slice(0, uiLimit);
     return (
       <div className="UnsupportedStudentsPure">
-        <div style={styles.cardTitle}>Students to check on</div>
+        <div style={styles.cardTitle}>Check in on your NGE and 10GE students</div>
         <Card style={{border: 'none'}}>
-          <div>There are <b>{totalCount} students</b> you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
+          <div>There are <b>{totalCount} students</b> in your classes who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
           <div style={{paddingTop: 10, paddingBottom: 10}}>
             {truncatedStudentsWithLowGrades.map(studentWithLowGrades => {
               const {student, assignments} = studentWithLowGrades;
               return (
-                <div key={student.id} style={{paddingLeft: 10}}>
-                  <div>
-                    <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
-                    {this.renderCourseGrades(assignments)}
-                  </div>
+                <div key={student.id} style={styles.line}>
+                  <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
+                  {this.renderCourseGrades(assignments)}
                 </div>
               );
             })}
@@ -113,7 +111,18 @@ export class CheckStudentWithLowGradesPure extends React.Component {
     return (
       <span>{assignments.map(assignment => {
         const {section} = assignment;
-        return <span key={assignment.id}> has a {assignment.grade_letter} in {section.course_description} (<a href={`/sections/${section.id}`}>{section.section_number}</a>)</span>;
+        const hasAnText = (assignment.grade_letter === 'F')
+          ? 'has an'
+          : 'has a';
+        return (
+          <span key={assignment.id}>
+            <span style={styles.middleText}>{hasAnText} {assignment.grade_letter} in</span>
+            <Section
+              id={section.id}
+              courseDescription={section.course_description}
+              sectionNumber={section.section_number} />
+          </span>
+        );
       })}</span>
     );
   }
@@ -178,6 +187,18 @@ const styles = {
     fontWeight: 'bold'
   },
   placeholderCard: {
+  },
+  line: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
+  },
+  middleText: {
+    display: 'inline-block',
+    paddingLeft: 5,
+    paddingRight: 5
   }
 };
 

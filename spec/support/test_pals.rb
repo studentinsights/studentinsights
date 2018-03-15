@@ -273,6 +273,7 @@ class TestPals
       last_name: 'Kenobi',
       school: @shs,
       homeroom: @shs_jodi_homeroom,
+      house: 'Beacon',
       grade: '9',
       date_of_birth: '2004-03-12',
       local_id: '2222222222',
