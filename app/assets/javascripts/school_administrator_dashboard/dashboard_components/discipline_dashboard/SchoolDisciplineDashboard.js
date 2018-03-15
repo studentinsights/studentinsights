@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
@@ -41,7 +40,7 @@ class SchoolDisciplineDashboard extends React.Component {
     this.filterIncidentDates(incidents).forEach((incident) => {
       studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
       studentDisciplineIncidentCounts[incident.student_id]++;
-    })
+    });
     return studentDisciplineIncidentCounts;
   }
 
@@ -50,6 +49,8 @@ class SchoolDisciplineDashboard extends React.Component {
       <div className="DashboardContainer">
         <div className="DashboardChartsColumn">
          {this.renderDisciplineChart("disciplineIncidentsByLocation", "Incidents by Location")}
+         {this.renderDisciplineChart("disciplineIncidentsByTime", "Incidents by Time")}
+         {this.renderDisciplineChart("disciplineIncidentsByGrade", "Incidents by Grade")}
         </div>
         <div className="DashboardRosterColumn">
           {this.renderDateRangeSlider()}
@@ -96,8 +97,6 @@ class SchoolDisciplineDashboard extends React.Component {
 
   renderStudentDisciplineTable() {
     const students = this.props.dashboardStudents;
-    const type = this.state.selectedType || null;
-    const category = this.state.selectedCategory || null;
     const studentDisciplineIncidentCounts = this.studentDisciplineIncidentCounts(this.state.selectedType, this.state.selectedCategory);
     let rows =[];
     students.forEach((student) => {
