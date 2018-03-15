@@ -1,7 +1,7 @@
 import React from 'react';
 import qs from 'query-string';
 import Card from '../components/Card';
-import Educator from '../components/Educator';
+import Section from '../components/Section';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 
@@ -10,14 +10,14 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 class HomeInsights extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchAssignments = this.fetchAssignments.bind(this);
-    this.renderAssignments = this.renderAssignments.bind(this);
+    this.fetchStudentsWithLowGrades = this.fetchStudentsWithLowGrades.bind(this);
+    this.renderStudentsWithLowGrades = this.renderStudentsWithLowGrades.bind(this);
   }
 
-  fetchAssignments() {
+  fetchStudentsWithLowGrades() {
     const {educatorId, limit} = this.props;
     const params = educatorId ? {limit, educator_id: educatorId} : {limit};
-    const url = `/home/unsupported_low_grades_json?${qs.stringify(params)}`;
+    const url = `/home/students_with_low_grades_json?${qs.stringify(params)}`;
     return apiFetchJson(url);
   }
 
@@ -26,20 +26,20 @@ class HomeInsights extends React.Component {
       <div className="HomeInsights" style={styles.root}>
         <GenericLoader
           style={styles.card}
-          promiseFn={this.fetchAssignments}
-          render={this.renderAssignments} />
+          promiseFn={this.fetchStudentsWithLowGrades}
+          render={this.renderStudentsWithLowGrades} />
         {this.renderPlaceholder()}
       </div>
     );
   }
 
-  renderAssignments(json) {
+  renderStudentsWithLowGrades(json) {
     const props = {
       limit: json.limit,
       totalCount: json.total_count,
-      assignments: json.assignments
+      studentsWithLowGrades: json.students_with_low_grades
     };
-    return <UnsupportedStudentsPure {...props} />;
+    return <CheckStudentWithLowGradesView {...props} />;
   }
 
   renderPlaceholder() {
@@ -62,61 +62,79 @@ HomeInsights.defaultProps = {
 };
 
 
-// Pure UI component to render unsupported students
-export class UnsupportedStudentsPure extends React.Component {
+// Pure UI component, for showing a high school teacher
+// which of their students have low grades but haven't been
+// discussed in NGE or 10GE.  The intention is that this list of
+// students to check in on is immediately actionable.
+export class CheckStudentWithLowGradesView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      assignmentLimit: 4
+      uiLimit: 4
     };
-    this.onMoreAssignments = this.onMoreAssignments.bind(this);
+    this.onMoreStudents = this.onMoreStudents.bind(this);
   }
 
-  onMoreAssignments(e) {
+  onMoreStudents(e) {
     e.preventDefault();
-    const {assignmentLimit} = this.state;
-    this.setState({ assignmentLimit: assignmentLimit + 4 });
+    const {uiLimit} = this.state;
+    this.setState({ uiLimit: uiLimit + 4 });
   }
 
   render() {
-    const {assignments, totalCount} = this.props;
-    const {assignmentLimit} = this.state;
-    const truncatedAssignments = assignments.slice(0, assignmentLimit);
+    const {studentsWithLowGrades, totalCount} = this.props;
+    const {uiLimit} = this.state;
+    const truncatedStudentsWithLowGrades = studentsWithLowGrades.slice(0, uiLimit);
     return (
-      <div className="UnsupportedStudentsPure">
-        <div style={styles.cardTitle}>Students to check on</div>
+      <div className="CheckStudentWithLowGrades">
+        <div style={styles.cardTitle}>NGE and 10GE students to check in on</div>
         <Card style={{border: 'none'}}>
-          <div>There are <b>{totalCount} students</b> you work with who have a D or an F right now but haven't been mentioned in NGE or 10GE for the last month.</div>
+          <div>There are <b>{totalCount} students</b> in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.</div>
           <div style={{paddingTop: 10, paddingBottom: 10}}>
-            {truncatedAssignments.map(assignment => {
-              const {student, section} = assignment;
+            {truncatedStudentsWithLowGrades.map(studentWithLowGrades => {
+              const {student, assignments} = studentWithLowGrades;
               return (
-                <div key={assignment.id} style={{paddingLeft: 10}}>
-                  <div>
-                    <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
-                    <span> has a {parseInt(assignment.grade_numeric, 10)} in <a href={`/sections/${section.id}`}>{section.section_number}</a></span>
-                    <span> with {section.educators.map(educator => 
-                      <Educator key={educator.id} style={styles.person} educator={educator} />
-                    )}</span>
-                  </div>
+                <div key={student.id} style={styles.line}>
+                  <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
+                  {this.renderCourseGrades(assignments)}
                 </div>
               );
             })}
           </div>
-          {this.renderMore(truncatedAssignments)}
+          {this.renderMore(truncatedStudentsWithLowGrades)}
         </Card>
       </div>
     );
   }
 
-  renderMore(truncatedAssignments) {
-    const {totalCount, limit, assignments} = this.props;
+  renderCourseGrades(assignments) {
+    return (
+      <span>{assignments.map(assignment => {
+        const {section} = assignment;
+        const hasAnText = (assignment.grade_letter === 'F')
+          ? 'has an'
+          : 'has a';
+        return (
+          <span key={assignment.id}>
+            <span style={styles.middleText}>{hasAnText} {assignment.grade_letter} in</span>
+            <Section
+              id={section.id}
+              courseDescription={section.course_description}
+              sectionNumber={section.section_number} />
+          </span>
+        );
+      })}</span>
+    );
+  }
 
-    if (truncatedAssignments.length !== assignments.length) {
-      return <div><a href="#" onClick={this.onMoreAssignments}>See more</a></div>;
+  renderMore(truncatedStudentsWithLowGrades) {
+    const {totalCount, limit, studentsWithLowGrades} = this.props;
+
+    if (truncatedStudentsWithLowGrades.length !== studentsWithLowGrades.length) {
+      return <div><a href="#" onClick={this.onMoreStudents}>See more</a></div>;
     }
 
-    if (assignments.length < totalCount) {
+    if (studentsWithLowGrades.length < totalCount) {
       return <div>There are {totalCount} students total.  Start with checking in on these first {limit} students.</div>;
     }
 
@@ -124,21 +142,27 @@ export class UnsupportedStudentsPure extends React.Component {
   }
 }
 
-UnsupportedStudentsPure.propTypes = {
-  totalCount: React.PropTypes.number.isRequired,
+CheckStudentWithLowGradesView.propTypes = {
   limit: React.PropTypes.number.isRequired,
-  assignments: React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
+  totalCount: React.PropTypes.number.isRequired,
+  studentsWithLowGrades: React.PropTypes.arrayOf(React.PropTypes.shape({
     student: React.PropTypes.shape({
       id: React.PropTypes.number.isRequired,
       first_name: React.PropTypes.string.isRequired,
-      last_name: React.PropTypes.string.isRequired
+      last_name: React.PropTypes.string.isRequired,
+      grade: React.PropTypes.string.isRequired,
+      house: React.PropTypes.string
     }).isRequired,
-    section: React.PropTypes.shape({
+    assignments: React.PropTypes.arrayOf(React.PropTypes.shape({
       id: React.PropTypes.number.isRequired,
-      section_number: React.PropTypes.string.isRequired,
-      educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-    }).isRequired
+      grade_letter: React.PropTypes.string.isRequired,
+      grade_numeric: React.PropTypes.string.isRequired,
+      section: React.PropTypes.shape({
+        id: React.PropTypes.number.isRequired,
+        section_number: React.PropTypes.string.isRequired,
+        educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+      }).isRequired
+    }))
   })).isRequired
 };
 
@@ -163,6 +187,18 @@ const styles = {
     fontWeight: 'bold'
   },
   placeholderCard: {
+  },
+  line: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
+  },
+  middleText: {
+    display: 'inline-block',
+    paddingLeft: 5,
+    paddingRight: 5
   }
 };
 
