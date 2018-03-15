@@ -24,56 +24,7 @@
       <div id="renew-session">
         Please click <a href="#" id="renew-sesion-link">this link</a> or your session will timeout due to inactivity.
       </div>
-      <div class="navwrap">
-        <a class="logo-container" href="/">
-          <div class="logo">
-            <div class="title" alt="Student Insights"></div>
-          </div>
-        </a>
-        <% if educator_signed_in? %>
-          <div class="nav-options">
-            <% if current_educator.districtwide_access? %>
-              <%= link_to 'Admin', educators_districtwide_url %>
-              &nbsp; &nbsp; &nbsp;
-            <% elsif current_educator.schoolwide_access? || current_educator.has_access_to_grade_levels? %>
-              <%= link_to 'Roster', school_path(current_educator.school) %>
-              &nbsp;
-            <% end %>
-            <% if current_educator.schoolwide_access? && !current_educator.districtwide_access? %>
-              <%= link_to "Absences", school_administrator_dashboard_school_path + '#/absences_dashboard' %>
-              &nbsp;
-              <%= link_to "Tardies", school_administrator_dashboard_school_path + '#/tardies_dashboard' %>
-              &nbsp;
-              &nbsp; &nbsp; &nbsp;
-            <% end %>
-            <%= link_to "My notes", educators_notes_feed_path %>
-            &nbsp;
-            <%= link_to "Home", home_path %>
-            &nbsp;
-            &nbsp; &nbsp;
-            <p class="search-label">Search for student:</p>
-            <input class="student-searchbar" />
-            &nbsp; &nbsp; &nbsp;
-            <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
-          </div>
-        <% else %>
-          <div class="sign-in-container">
-            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-              <div class="sign-in-item">
-                <%= f.label :email %>
-                <%= f.email_field :email, class: 'sign-in-text', autofocus: true %>
-              </div>
-              <div class="sign-in-item">
-                <%= f.label :password %>
-                <%= f.password_field :password, class: 'sign-in-text', autocomplete: "off" %>
-              </div>
-              <div class="sign-in-item">
-                <%= f.submit "Log in", class: "btn btn-primary" %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+      <div id="navbar" />
       <div class="flash">
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>

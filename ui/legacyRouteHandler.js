@@ -6,6 +6,7 @@ import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_note
 import renderSectionMain from '../app/assets/javascripts/section/main.jsx';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main.jsx';
 import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main';
+import studentSearchbar from '../app/assets/javascripts/student_searchbar.js';
 
 
 // Placeholder routing (not fully client-side, just on page load).
@@ -56,6 +57,11 @@ export default function legacyRouteHandler(el) {
 
   if ($('body').hasClass('educators') && $('body').hasClass('notes_feed')) {
     renderNotesFeedMain(el);
+    return true;
+  }
+
+  if ($('body').hasClass('educators') && $('body').hasClass('districtwide_admin_homepage')) {
+    studentSearchbar(); // different HTML
     return true;
   }
 

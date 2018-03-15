@@ -1,67 +1,66 @@
-<div id="page-wrapper">
-  <h2 id="searchbar-title">
-    <%= image_tag 'search-icon.svg',
-      width: 45, height: 45, id: 'searchbar-icon' %>
-    Student Search
-  </h2>
+<h2 id="searchbar-title">
+  <%= image_tag 'search-icon.svg',
+    width: 45, height: 45, id: 'searchbar-icon' %>
+  Student Search
+</h2>
 
-  <input id="big-searchbar" class="student-searchbar" />
+<input id="big-searchbar" class="student-searchbar" />
 
-  <div id="lower-area-wrapper">
+<div id="lower-area-wrapper">
 
-    <div class="lower-area-column <% unless current_educator.admin? %>only-column<% end %>">
-      <%= image_tag 'school-icon.svg',
-        width: 70, height: 70, id: 'school-icon' %>
+  <div class="lower-area-column <% unless current_educator.admin? %>only-column<% end %>">
+    <%= image_tag 'school-icon.svg',
+      width: 70, height: 70, id: 'school-icon' %>
+    <div class="column-content">
+      <h3 class="column-title">
+        School Data Overview
+      </h3>
+      <ul>
+        <% @schools.each do |school| %>
+            <li class="school-name">
+              <%= school.name %><br/>
+              <%= link_to 'Overview', school_path(school) %> |
+              <%= link_to 'Dashboard', school_administrator_dashboard_school_path(school) %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <% if current_educator.admin? %>
+    <div class="lower-area-column">
+      <%= image_tag 'pliers-icon.svg',
+        width: 70, height: 70, id: 'pliers-icon' %>
       <div class="column-content">
         <h3 class="column-title">
-          School Data Overview
+          Administration
         </h3>
         <ul>
-          <% @schools.each do |school| %>
-              <li class="school-name">
-                <%= school.name %><br/>
-                <%= link_to 'Overview', school_path(school) %> |
-                <%= link_to 'Dashboard', school_administrator_dashboard_school_path(school) %>
-              </li>
-          <% end %>
+          <li>
+            <%= link_to 'Educator permissions overview', admin_authorization_url, {
+              class: 'prominent-link'
+            } %>
+          </li>
+          <li>
+            <%= link_to 'Adjust educator permissions', admin_root_url, {
+              class: 'prominent-link'
+            } %>
+          </li>
+          <li>
+            <%= link_to 'Upload student services file', service_uploads_url, {
+              class: 'prominent-link'
+            } %>
+          </li>
+          <li>
+            <%= link_to 'View import records',
+              import_records_url, {
+              class: 'prominent-link'
+            } %>
+          </li>
         </ul>
       </div>
     </div>
-
-    <% if current_educator.admin? %>
-      <div class="lower-area-column">
-        <%= image_tag 'pliers-icon.svg',
-          width: 70, height: 70, id: 'pliers-icon' %>
-        <div class="column-content">
-          <h3 class="column-title">
-            Administration
-          </h3>
-          <ul>
-            <li>
-              <%= link_to 'Educator permissions overview', admin_authorization_url, {
-                class: 'prominent-link'
-              } %>
-            </li>
-            <li>
-              <%= link_to 'Adjust educator permissions', admin_root_url, {
-                class: 'prominent-link'
-              } %>
-            </li>
-            <li>
-              <%= link_to 'Upload student services file', service_uploads_url, {
-                class: 'prominent-link'
-              } %>
-            </li>
-            <li>
-              <%= link_to 'View import records',
-                import_records_url, {
-                class: 'prominent-link'
-              } %>
-            </li>
-          </ul>
-        </div>
-      </div>
-    <% end %>
-
-  </div>
+  <% end %>
 </div>
+
+<div id="main"></div>
