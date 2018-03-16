@@ -14,19 +14,25 @@ describe HomeController, :type => :controller do
       }))
     end
 
-    it 'works end-to-end for birthday and event_note' do
+    it 'works end-to-end for event_note, incident and birthday' do
       event_note = create_event_note(time_now, {
         student: pals.shs_freshman_mari,
         event_note_type: EventNoteType.find(305)
       })
+      incident = DisciplineIncident.create!({
+        incident_code: 'Bullying',
+        occurred_at: time_now - 4.days,
+        student: pals.shs_freshman_mari
+      })
       sign_in(pals.shs_jodi)
       get :feed_json, params: {
         time_now: time_now.to_i.to_s,
-        limit: 4
+        limit: 4,
+        include_incident_cards: true
       }
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json['feed_cards'].length).to eq 2
+      expect(json['feed_cards'].length).to eq 3
       expect(json).to eq({
         "feed_cards"=>[{
           "type"=>"birthday_card",
@@ -36,6 +42,33 @@ describe HomeController, :type => :controller do
             "first_name"=>"Mari",
             "last_name"=>"Kenobi",
             "date_of_birth"=>"2004-03-12T00:00:00.000Z"
+          }
+        }, {
+          "type"=>"incident_card",
+          "timestamp"=>"2018-03-09T11:03:00.000Z",
+          "json"=>{
+            "id"=>incident.id,
+            "incident_code"=>"Bullying",
+            "incident_location"=>nil,
+            "incident_description"=>nil,
+            "occurred_at"=>"2018-03-09T11:03:00.000Z",
+            "has_exact_time"=>nil,
+            "student"=>{
+              "id"=>pals.shs_freshman_mari.id,
+              "grade"=>"9",
+              "first_name"=>"Mari",
+              "last_name"=>"Kenobi",
+              "house"=>"Beacon",
+              "homeroom"=>{
+                "id"=>pals.shs_jodi_homeroom.id,
+                "name"=>"SHS 942",
+                "educator"=>{
+                  "id"=>pals.shs_jodi.id,
+                  "email"=>"jodi@demo.studentinsights.org",
+                  "full_name"=>"Teacher, Jodi"
+                }
+              }
+            }
           }
         }, {
           "type"=>"event_note_card",

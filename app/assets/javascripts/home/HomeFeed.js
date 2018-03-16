@@ -3,6 +3,7 @@ import qs from 'query-string';
 import _ from 'lodash';
 import EventNoteCard from './EventNoteCard';
 import BirthdayCard from './BirthdayCard';
+import IncidentCard from './IncidentCard';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {toMomentFromTime} from '../helpers/toMoment';
 
@@ -123,6 +124,7 @@ export class HomeFeedPure extends React.Component {
           const {type, json} = feedCard;
           if (type === 'event_note_card') return this.renderEventNoteCard(json);
           if (type === 'birthday_card') return this.renderBirthdayCard(json);
+          if (type === 'incident_card') return this.renderIncidenCard(json);
           console.warn('Unexpected card type: ', type); // eslint-disable-line no-console
         })}
       </div>
@@ -142,6 +144,13 @@ export class HomeFeedPure extends React.Component {
       style={styles.card}
       studentBirthdayCard={json} />;
   }
+
+  renderIncidenCard(json) {
+    return <IncidentCard
+      key={json.id}
+      style={styles.card}
+      incidentCard={json} />;
+  }    
 }
 HomeFeedPure.propTypes = {
   feedCards: React.PropTypes.arrayOf(React.PropTypes.shape({

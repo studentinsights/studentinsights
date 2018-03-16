@@ -19,9 +19,15 @@ class HomeController < ApplicationController
       days_back: 3,
       days_ahead: 0
     })
+    incident_cards = if params[:include_incident_cards] || PerDistrict.new.include_incident_cards?
+      feed.incident_cards(time_now, limit)
+    else
+      []
+    end
     feed_cards = feed.merge_sort_and_limit_cards([
       event_note_cards,
-      birthday_cards
+      birthday_cards,
+      incident_cards
     ], limit)
 
     render json: {
