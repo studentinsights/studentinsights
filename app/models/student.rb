@@ -28,16 +28,20 @@ class Student < ActiveRecord::Base
 
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
-  validate :valid_grade
+  validate :validate_grade
   validate :registration_date_cannot_be_in_future
+  validate :validate_free_reduced_lunch
 
   VALID_GRADES = [
     'PPK', 'PK', 'KF', 'SP', 'TK', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'
   ].freeze
 
-  def valid_grade
-    errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
-  end
+  VALID_FREE_REDUCED_LUNCH_VALUES = [
+    "Free Lunch",
+    "Not Eligible",
+    "Reduced Lunch",
+    nil
+  ]
 
   def registration_date_in_future
     return false if registration_date.nil?
@@ -283,21 +287,27 @@ class Student < ActiveRecord::Base
   end
 
   private
+  def this_year
+    DateTime.now.year
+  end
 
-    def this_year
-      DateTime.now.year
+  def august_of_this_year
+    DateTime.new(this_year, 8, 1)
+  end
+
+  def start_of_this_school_year
+    if august_of_this_year > DateTime.now
+      DateTime.new(this_year - 1, 8, 1)
+    else
+      august_of_this_year
     end
+  end
 
-    def august_of_this_year
-      DateTime.new(this_year, 8, 1)
-    end
+  def validate_free_reduced_lunch
+    errors.add(:free_reduced_lunch, "unexpected value: #{free_reduced_lunch}") unless free_reduced_lunch.in?(VALID_FREE_REDUCED_LUNCH_VALUES)
+  end
 
-    def start_of_this_school_year
-      if august_of_this_year > DateTime.now
-        DateTime.new(this_year - 1, 8, 1)
-      else
-        august_of_this_year
-      end
-    end
-
+  def validate_grade
+    errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
+  end
 end
