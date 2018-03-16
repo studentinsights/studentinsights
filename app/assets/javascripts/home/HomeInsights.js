@@ -85,24 +85,38 @@ export class CheckStudentWithLowGradesView extends React.Component {
     const {studentsWithLowGrades, totalCount} = this.props;
     const {uiLimit} = this.state;
     const truncatedStudentsWithLowGrades = studentsWithLowGrades.slice(0, uiLimit);
+
     return (
       <div className="CheckStudentWithLowGrades">
         <div style={styles.cardTitle}>NGE and 10GE students to check in on</div>
         <Card style={{border: 'none'}}>
-          <div>There are <b>{totalCount} students</b> in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.</div>
-          <div style={{paddingTop: 10, paddingBottom: 10}}>
-            {truncatedStudentsWithLowGrades.map(studentWithLowGrades => {
-              const {student, assignments} = studentWithLowGrades;
-              return (
-                <div key={student.id} style={styles.line}>
-                  <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
-                  {this.renderCourseGrades(assignments)}
-                </div>
-              );
-            })}
-          </div>
+           <div>There {this.renderAreHowManyStudents(totalCount)} in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.</div>
+          {this.renderList(truncatedStudentsWithLowGrades)}
           {this.renderMore(truncatedStudentsWithLowGrades)}
         </Card>
+      </div>
+    );
+  }
+
+  renderAreHowManyStudents(totalCount) {
+    if (totalCount === 0) return <span>are <b>no students</b></span>;
+    if (totalCount === 1) return <span>is <b>one student</b></span>;
+    return <span>are <b>{totalCount} students</b></span>;
+  }
+
+  renderList(truncatedStudentsWithLowGrades) {
+    if (truncatedStudentsWithLowGrades.length === 0) return null;
+    return (
+      <div style={{paddingTop: 10, paddingBottom: 10}}>
+        {truncatedStudentsWithLowGrades.map(studentWithLowGrades => {
+          const {student, assignments} = studentWithLowGrades;
+          return (
+            <div key={student.id} style={styles.line}>
+              <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
+              {this.renderCourseGrades(assignments)}
+            </div>
+          );
+        })}
       </div>
     );
   }

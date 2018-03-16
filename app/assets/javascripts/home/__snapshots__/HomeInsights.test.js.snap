@@ -27,11 +27,14 @@ exports[`CheckStudentWithLowGradesView handles when limit reached 1`] = `
     }
   >
     <div>
-      There are 
-      <b>
-        129
-         students
-      </b>
+      There 
+      <span>
+        are 
+        <b>
+          129
+           students
+        </b>
+      </span>
        in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.
     </div>
     <div
@@ -243,11 +246,14 @@ exports[`CheckStudentWithLowGradesView pure component matches snapshot 1`] = `
     }
   >
     <div>
-      There are 
-      <b>
-        7
-         students
-      </b>
+      There 
+      <span>
+        are 
+        <b>
+          7
+           students
+        </b>
+      </span>
        in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.
     </div>
     <div
