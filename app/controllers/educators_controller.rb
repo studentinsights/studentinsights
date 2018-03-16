@@ -38,7 +38,7 @@ class EducatorsController < ApplicationController
   end
 
   def districtwide_admin_homepage
-    @schools = School.all
+    @schools = PerDistrict.new.ordered_schools_for_admin_page
   end
 
   def names_for_dropdown
