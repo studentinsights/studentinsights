@@ -273,6 +273,8 @@ class SlicePanels extends React.Component {
       return this.createItem(value, Filters.Equal(key, value));
     }, this);
     const sortedItems = _.sortBy(items, function(item) {
+      if (item.caption === 'TK') return -40;
+      if (item.caption === 'PPK') return -30;
       if (item.caption === 'PK') return -20;
       if (item.caption === 'KF') return -10;
       return parseFloat(item.caption);
