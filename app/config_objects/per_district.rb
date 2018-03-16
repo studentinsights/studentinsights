@@ -17,6 +17,10 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
+  def include_incident_cards?
+    EnvironmentVariable.is_true('FEED_INCLUDE_INCIDENT_CARDS') || false
+  end
+
   # The schools shown on the admin page are in different orders,
   # with pilot schools in New Bedford shown first.
   def ordered_schools_for_admin_page

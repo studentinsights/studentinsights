@@ -2,7 +2,7 @@
 
 exports[`matches snapshot 1`] = `
 <div
-  className="EventNoteCard"
+  className="IncidentCard"
 >
   <div
     className="Card FeedCardFrame"
@@ -35,20 +35,20 @@ exports[`matches snapshot 1`] = `
         <div>
           <div>
             <a
-              href="/students/55"
+              href="/students/100"
               style={
                 Object {
                   "fontWeight": "bold",
                 }
               }
             >
-              Mari
+              Mowgli
                
-              Skywalker
+              Pan
             </a>
           </div>
           <div>
-            9th grade
+            10th grade
           </div>
           <div>
             <span
@@ -56,23 +56,10 @@ exports[`matches snapshot 1`] = `
               style={Object {}}
             >
               <a
-                href="/homerooms/13"
+                href="/homerooms/4"
               >
-                SHS-052
+                SHS ALL
               </a>
-              <span>
-                <span>
-                   
-                </span>
-                 with 
-                <a
-                  className="Educator"
-                  href="mailto:lt@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Lois Teacher
-                </a>
-              </span>
             </span>
           </div>
         </div>
@@ -86,35 +73,18 @@ exports[`matches snapshot 1`] = `
           }
         }
       >
-        <div>
-          <div>
-            <span>
-              by 
-            </span>
-            <a
-              className="Educator"
-              href="mailto:kt@demo.studentinsights.org"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Kevin Teacher
-            </a>
-          </div>
-        </div>
+        <div />
         <div>
           <div>
             in 
-            9th Grade Experience
+            Locker room/gym
           </div>
         </div>
         <div>
           <div>
-            14 years ago
+            13 days ago
              on 
-            3/5
+            2/28
           </div>
         </div>
       </div>
@@ -128,7 +98,10 @@ exports[`matches snapshot 1`] = `
       }
     >
       <div>
-        hello!
+        Earlier today something happened with the student that was concerning and we did this to de-escalate and support them in the moment, and then took these steps to understand the underlying challenges they're facing, and adapt how we're working with them moving forward.
+         (code: 
+        OT
+        )
       </div>
     </div>
     <div
@@ -159,7 +132,7 @@ exports[`matches snapshot 1`] = `
           className="Badge"
           style={
             Object {
-              "backgroundColor": "#139DEA",
+              "backgroundColor": "rgb(255, 140, 0)",
               "color": "white",
               "marginLeft": 5,
               "opacity": 0.5,
@@ -167,7 +140,7 @@ exports[`matches snapshot 1`] = `
             }
           }
         >
-          9th Grade Experience
+          Incident
         </span>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Badge from './Badge';
 import {
   eventNoteTypeText,
   eventNoteTypeColor
@@ -9,25 +10,12 @@ import {
 // event note type.
 function NoteBadge({eventNoteTypeId, style}) {
   const text = eventNoteTypeText(eventNoteTypeId);
-  const color = eventNoteTypeColor(eventNoteTypeId);
-  const mergedStyle = {
-    ...styles.noteBadge,
-    backgroundColor: color,
-    color: 'white',
-    opacity: 0.5,
-    ...style
-  };
-  return <span className="NoteBadge" style={mergedStyle}>{text}</span>;
+  const backgroundColor = eventNoteTypeColor(eventNoteTypeId);
+  return Badge({text, backgroundColor, style});
 }
 NoteBadge.propTypes = {
   eventNoteTypeId: React.PropTypes.number.isRequired,
   style: React.PropTypes.object
-};
-
-const styles = {
-  noteBadge: {
-    padding: 5
-  }
 };
 
 export default NoteBadge;

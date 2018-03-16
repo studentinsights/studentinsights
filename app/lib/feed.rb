@@ -35,6 +35,17 @@ class Feed
     students.map { |student| birthday_card(student, time_now) }
   end
 
+  # Returns recent discipline incidents.
+  def incident_cards(time_now, limit)
+    students = @authorizer.authorized { Student.all }
+    incidents = DisciplineIncident
+      .where(student_id: students.map(&:id))
+      .where('occurred_at < ?', time_now)
+      .order(occurred_at: :desc)
+      .limit(limit)
+    incidents.map {|incident| incident_card(incident) }
+  end
+
   # Merge cards of different types together, sorted by most recent timestamp
   # first, and then truncate them to `limit`.
   def merge_sort_and_limit_cards(card_sets, limit)
@@ -70,5 +81,25 @@ class Feed
     })
     timestamp = student.date_of_birth.change(year: time_now.year)
     FeedCard.new(:birthday_card, timestamp, json)
+  end
+
+  def incident_card(incident)
+    json = incident.as_json({
+      :only => [:id, :incident_code, :incident_location, :incident_description, :occurred_at, :has_exact_time],
+      :include => {
+        :student => {
+          :only => [:id, :email, :first_name, :last_name, :grade, :house],
+          :include => {
+            :homeroom => {
+              :only => [:id, :name],
+              :include => {
+                :educator => {:only => [:id, :full_name, :email]}
+              }
+            }
+          }
+        }
+      }
+    })
+    FeedCard.new(:incident_card, incident.occurred_at, json)
   end
 end
