@@ -34,14 +34,16 @@ gem 'thor'
 gem 'uglifier', '>= 1.3.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-gem 'factory_girl_rails' # used to seed demo data in production
+
+# used to seed demo data in production
+gem 'factory_girl_rails'
+gem 'faker'
 
 group :development, :test do
   gem 'bourbon', '~> 4.3.2'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'descriptive-statistics'
-  gem 'faker'
   gem 'launchy'
   gem 'pry' # Set a breakpoint in your ruby code by adding `binding.pry`
   gem 'rack-test'
