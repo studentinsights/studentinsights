@@ -5,6 +5,8 @@ import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
 import {shouldDisplay} from '../helpers/customization_helpers.js';
+import {renderSlicePanelsDisabilityTable} from '../helpers/districts';
+
 
 // For showing a set of panels that let users see an overview
 // of distributions, and click to filter a set of data in different
@@ -146,14 +148,13 @@ class SlicePanels extends React.Component {
     );
   }
 
+  // This is different based on the values in the data storage system within
+  // the district.
   renderDisabilityTable() {
-    const key = 'sped_level_of_need';
-    const items = ['Low < 2', 'Low >= 2', 'Moderate', 'High'].map(function(value) {
-      return this.createItem(value, Filters.Equal(key, value));
-    }, this);
-    return this.renderTable({
-      title: 'Disability',
-      items: [this.createItem('None', Filters.Null(key))].concat(items)
+    const {districtKey} = this.props;
+    return renderSlicePanelsDisabilityTable(districtKey, {
+      createItemFn: this.createItem.bind(this),
+      renderTableFn: this.renderTable.bind(this)
     });
   }
 
@@ -346,6 +347,7 @@ class SlicePanels extends React.Component {
   }
 }
 SlicePanels.propTypes = {
+  districtKey: React.PropTypes.string.isRequired,
   filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
