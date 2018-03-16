@@ -2,6 +2,7 @@ import React from 'react';
 
 
 /*
+DEPRECATED
 Shows a "card" of an incident that happened with a student.
 Note that this might contain sensitive data.
 */

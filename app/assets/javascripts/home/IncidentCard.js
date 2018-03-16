@@ -1,9 +1,6 @@
 import React from 'react';
-import Card from '../components/Card';
 import {toMomentFromTime} from '../helpers/toMoment';
 import FeedCardFrame from './FeedCardFrame';
-import {gradeText} from '../helpers/gradeText';
-import Homeroom from '../components/Homeroom';
 import HouseBadge from '../components/HouseBadge';
 import Badge from '../components/Badge';
 
