@@ -129,11 +129,13 @@ class SchoolsController < ApplicationController
   end
 
   def individual_student_dashboard_data(student)
+    # This is a temporary workaround for New Bedford
+    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
     HashWithIndifferentAccess.new({
       first_name: student.first_name,
       last_name: student.last_name,
       id: student.id,
-      homeroom_label: student.try(:homeroom).try(:educator).try(:full_name),
+      homeroom_label: homeroom_label,
       absences: student.dashboard_absences,
       tardies: student.dashboard_tardies,
       event_notes: student.event_notes
