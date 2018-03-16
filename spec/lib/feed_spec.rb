@@ -73,7 +73,7 @@ RSpec.describe Feed do
 
   describe '#incident_cards' do
     it 'works correctly' do
-      DisciplineIncident.create!({
+      incident = DisciplineIncident.create!({
         incident_code: 'Bullying',
         occurred_at: time_now - 4.days,
         student: pals.shs_freshman_mari
@@ -84,7 +84,7 @@ RSpec.describe Feed do
       expect(cards.first.type).to eq :incident_card
       expect(cards.first.timestamp.to_date).to eq(Date.parse('2018-03-09'))
       expect(cards.first.json.as_json).to eq({
-        "id" => 1,
+        "id" => incident.id,
         "incident_code" => "Bullying",
         "incident_description" => nil,
         "incident_location" => nil,
