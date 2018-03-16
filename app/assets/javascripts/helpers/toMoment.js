@@ -32,5 +32,5 @@ const allowedTimeFormats = [
 ];
 
 export function toMomentFromTime(dateText) {
-  return moment.utc(dateText, allowedTimeFormats, true); // this does 'strict parsing' on multiple formats
+  return moment(dateText, allowedTimeFormats, true); // this does 'strict parsing' on multiple formats
 }
