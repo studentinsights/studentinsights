@@ -34,7 +34,7 @@ describe('SchoolTardiesDashboard', () => {
 
   it('displays only the past 3 months of total school data', () => {
     const seriesData = dash.find('DashboardBarChart').first().props().seriesData;
-    expect(seriesData[0][0]).toEqual(moment(testEvents.threeMonthsAgo.occurred_at).format('ddd MM/DD'));
+    expect(seriesData[0][0]).toEqual(moment.utc(testEvents.threeMonthsAgo.occurred_at).format('ddd MM/DD'));
   });
 
 });
