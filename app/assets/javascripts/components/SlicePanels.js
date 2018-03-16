@@ -312,12 +312,19 @@ class SlicePanels extends React.Component {
   }
 
   renderYearsEnrolled() {
-    const uniqueValues = _.compact(_.unique(this.props.allStudents.map(function(student) {
-      return Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
-    })));
+    const {allStudents} = this.props;
+    const registrationDates = _.compact(allStudents.map(s => s.registration_date));
+
+    if (registrationDates.length === 0) return null;
+
+    const uniqueValues =_.unique(registrationDates.map((regDate) => {
+      return Math.floor((new Date() - new Date(regDate)) / (1000 * 60 * 60 * 24 * 365));
+    }));
+
     const items = uniqueValues.map(function(value) {
       return this.createItem(value, Filters.YearsEnrolled(value));
     }, this);
+
     const sortedItems = _.sortBy(items, function(item) { return parseFloat(item.caption); });
 
     return this.renderTable({

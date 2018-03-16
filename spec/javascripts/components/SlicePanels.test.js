@@ -1,9 +1,9 @@
+import _ from 'lodash';
 import ReactDOM from 'react-dom';
 import SpecSugar from '../support/spec_sugar.jsx';
 import {serviceTypesIndex, eventNoteTypesIndex} from '../fixtures/database_constants.jsx';
 import FixtureStudents from '../fixtures/students.jsx';
 import SlicePanels from '../../../app/assets/javascripts/components/SlicePanels';
-
 
 const helpers = {
   renderInto(el, props = {}) {
@@ -54,9 +54,34 @@ const helpers = {
 };
 
 SpecSugar.withTestEl('high-level integration tests', (container) => {
-  it('renders everything on the happy path', () => {
+  it(`renders everything on the happy path for elementary school with
+      no student registration dates`, () => {
     const el = container.testEl;
     helpers.renderInto(el);
+
+    expect($(el).find('.SlicePanels').length).toEqual(1);
+    expect($(el).find('.column').length).toEqual(6);
+    expect(helpers.columnTitlesMatrix(el)).toEqual([
+      [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
+      [ 'Grade', 'Risk level' ],
+      [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
+      [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
+      [ 'Discipline incidents', 'Absences', 'Tardies' ],
+      [ 'Services', 'Summer', 'Notes', 'Program', 'Homeroom' ]
+    ]);
+  });
+
+  it(`renders everything on the happy path for elementary school with
+       student registration dates`, () => {
+    const el = container.testEl;
+    const studentsWithRegistration = FixtureStudents.map((student) => {
+      return _.merge(student, {registration_date: '2018-02-13T22:17:30.338Z'});
+    });
+
+    helpers.renderInto(el, {
+      students: studentsWithRegistration,
+      allStudents: studentsWithRegistration
+    });
 
     expect($(el).find('.SlicePanels').length).toEqual(1);
     expect($(el).find('.column').length).toEqual(6);
@@ -86,7 +111,7 @@ SpecSugar.withTestEl('high-level integration tests', (container) => {
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
       [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
-      [ 'Grade', 'House', 'Counselor', 'Years enrolled', 'Risk level' ],
+      [ 'Grade', 'House', 'Counselor', 'Risk level' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
