@@ -12,6 +12,11 @@ class PerDistrict
     raise "PerDistrict#initialize couldn't find a value for district_key" if @district_key.nil?
   end
 
+  # User-facing text
+  def district_name
+    ENV['DISTRICT_NAME']
+  end
+
   # The schools shown on the admin page are in different orders,
   # with pilot schools in New Bedford shown first.
   def ordered_schools_for_admin_page
