@@ -8,6 +8,7 @@ import SlicePanels from '../../../app/assets/javascripts/components/SlicePanels'
 const helpers = {
   renderInto(el, props = {}) {
     const mergedProps = {
+      districtKey: 'somerville',
       filters: [],
       serviceTypesIndex,
       eventNoteTypesIndex,
@@ -43,6 +44,12 @@ const helpers = {
         return $(tableEl).find('tbody tr').length;
       });
     });
+  },
+
+  // Returns an array of text values the users can filter by for student
+  // Disability
+  disabilityFilters(el) {
+    return $(el).find('table:first td.caption-cell').toArray().map(el => $(el).text());
   }
 };
 
@@ -127,5 +134,39 @@ SpecSugar.withTestEl('high-level integration tests', (container) => {
       [ 5, 5, 5 ],
       [ 4, 1, 4, 2, 1 ]
     ]);
+  });
+
+  describe('disability values vary by district', () => {
+    it('renders values with None for Somerville', () => {
+      const el = container.testEl;
+      helpers.renderInto(el, {
+        districtKey: 'somerville',
+        students: FixtureStudents,
+        allStudents: FixtureStudents
+      });
+      expect(helpers.disabilityFilters(el)).toEqual([
+        "None",
+        "Low < 2",
+        "Low >= 2",
+        "Moderate",
+        "High"
+      ]);
+    });
+
+    it('renders explicit values only for New Bedford', () => {
+      const el = container.testEl;
+      helpers.renderInto(el, {
+        districtKey: 'new_bedford',
+        students: FixtureStudents,
+        allStudents: FixtureStudents
+      });
+      expect(helpers.disabilityFilters(el)).toEqual([
+        "Does Not Apply",
+        "Low-Less Than 2hrs/week",
+        "Low-2+ hrs/week",
+        "Moderate",
+        "High"
+      ]);
+    });
   });
 });

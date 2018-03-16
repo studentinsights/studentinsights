@@ -181,6 +181,7 @@ class SchoolOverviewPage extends React.Component {
       <div className="school-overview" style={{ fontSize: styles.fontSize }}>
         <div className="header" style={styles.header}>
           <SlicePanels
+            districtKey={this.props.districtKey}
             allStudents={this.props.allStudents}
             students={this.getFilteredStudents()}
             school={this.props.school}
@@ -210,6 +211,7 @@ class SchoolOverviewPage extends React.Component {
 }
 
 SchoolOverviewPage.propTypes = {
+  districtKey: React.PropTypes.string.isRequired,
   school: React.PropTypes.object.isRequired,
   allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   serviceTypesIndex: React.PropTypes.object.isRequired,
