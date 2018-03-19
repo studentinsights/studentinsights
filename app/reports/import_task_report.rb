@@ -35,7 +35,7 @@ class ImportTaskReport
     log("=== IMPORT TIMING ===")
     log(@record.importer_timing_json)
     log("\n")
-    
+
     AssessmentsReport.new(@log).print_report
   end
 

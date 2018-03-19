@@ -36,7 +36,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   private
 
   def email
-    row[:login_name] + '@k12.somerville.ma.us'
+    PerDistrict.new.from_import_login_name_to_email(row[:login_name])
   end
 
   def is_admin?
