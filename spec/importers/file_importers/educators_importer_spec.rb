@@ -5,9 +5,10 @@ RSpec.describe EducatorsImporter do
   before { @district_key = ENV['DISTRICT_KEY'] }
   after { ENV['DISTRICT_KEY'] = @district_key }
 
+  let(:log) { LogHelper::Redirect.instance.file }
   let(:educators_importer) {
     described_class.new(options: {
-      school_scope: nil, log: nil
+      school_scope: nil, log: log
     })
   }
 
