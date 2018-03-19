@@ -1,6 +1,6 @@
 remote_filenames:
-  FILENAME_FOR_STUDENTS_IMPORT:                     students_export.txt
   FILENAME_FOR_EDUCATORS_IMPORT:                    educators_export.txt
+  FILENAME_FOR_STUDENTS_IMPORT:                     students_export.txt
   FILENAME_FOR_BEHAVIOR_IMPORT:                     behavior_export.txt
   FILENAME_FOR_ASSESSMENT_IMPORT:                   assessment_export.txt
   FILENAME_FOR_ATTENDANCE_IMPORT:                   attendance_export.txt

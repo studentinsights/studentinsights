@@ -1,4 +1,5 @@
 remote_filenames:
+  FILENAME_FOR_EDUCATORS_IMPORT:      ../newbedford/istaff.csv
   FILENAME_FOR_STUDENTS_IMPORT:       ../newbedford/istudent.csv
   FILENAME_FOR_BEHAVIOR_IMPORT:       ../newbedford/iconduct.csv
   FILENAME_FOR_ASSESSMENT_IMPORT:     ../newbedford/iassessments.csv
