@@ -6,9 +6,11 @@
 class PerDistrict
   NEW_BEDFORD = 'new_bedford'
   SOMERVILLE = 'somerville'
+  VALID_DISTRICT_KEYS = [NEW_BEDFORD, SOMERVILLE]
 
   def initialize(options = {})
-    @district_key = options[:district_key] || ENV['DISTRICT_KEY'] || raise_not_handled
+    @district_key = options[:district_key] || ENV['DISTRICT_KEY'] || nil
+    raise_not_handled! unless VALID_DISTRICT_KEYS.include?(@district_key)
   end
 
   # User-facing text
@@ -41,11 +43,11 @@ class PerDistrict
     elsif @district_key == NEW_BEDFORD
       login_name + '@newbedford.org'
     else
-      raise_not_handled
+      raise_not_handled!
     end
   end
 
-  def raise_not_handled
-    raise DistrictKeyNotHandledError("PerDistrict couldn't figure out what to do for district_key: #{@district_key}")
+  def raise_not_handled!
+    raise Exceptions::DistrictKeyNotHandledError
   end
 end
