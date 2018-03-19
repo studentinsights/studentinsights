@@ -6,7 +6,13 @@
 class PerDistrict
   NEW_BEDFORD = 'new_bedford'
   SOMERVILLE = 'somerville'
-  VALID_DISTRICT_KEYS = [NEW_BEDFORD, SOMERVILLE]
+  DEMO = 'demo'
+
+  VALID_DISTRICT_KEYS = [
+    NEW_BEDFORD,
+    SOMERVILLE,
+    DEMO
+  ]
 
   def initialize(options = {})
     @district_key = options[:district_key] || ENV['DISTRICT_KEY'] || nil
@@ -42,6 +48,8 @@ class PerDistrict
       login_name + '@k12.somerville.ma.us'
     elsif @district_key == NEW_BEDFORD
       login_name + '@newbedford.org'
+    elsif @district_key == DEMO
+      raise "PerDistrict#from_import_login_name_to_email not supported for district_key: {DEMO}"
     else
       raise_not_handled!
     end

@@ -28,7 +28,6 @@ class SchoolsController < ApplicationController
   end
 
   def school_administrator_dashboard
-    puts '#school_administrator_dashboard'
     dashboard_students = students_for_dashboard(@school)
       .includes([homeroom: :educator], :dashboard_absences, :event_notes, :dashboard_tardies)
     dashboard_students_json = dashboard_students.map do |student|
