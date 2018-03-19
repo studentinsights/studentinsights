@@ -6,6 +6,7 @@ import {
 import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
+import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
 
 
 // This is the top-level component, only handling routing.
@@ -39,6 +40,7 @@ class App extends React.Component {
       <Switch>
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
+        <Route exact path="/tiering/:school_id" render={this.renderTieringPage.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );
@@ -54,6 +56,12 @@ class App extends React.Component {
     const educatorId = parseInt(routeProps.match.params.id, 10);
     this.trackVisit(routeProps, 'EDUCATOR_PAGE');
     return <EducatorPage educatorId={educatorId} />;
+  }
+
+  renderTieringPage(routeProps) {
+    const schoolId = routeProps.match.params.school_id;
+    this.trackVisit(routeProps, 'TIERING_PAGE');
+    return <TieringPage schoolId={schoolId} />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the 
