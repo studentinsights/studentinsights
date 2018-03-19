@@ -6,10 +6,11 @@
 class PerDistrict
   NEW_BEDFORD = 'new_bedford'
   SOMERVILLE = 'somerville'
+  VALID_DISTRICT_KEYS = [NEW_BEDFORD, SOMERVILLE]
 
   def initialize(options = {})
-    @district_key = options[:district_key] || ENV['DISTRICT_KEY']
-    raise "PerDistrict#initialize couldn't find a value for district_key" if @district_key.nil?
+    @district_key = options[:district_key] || ENV['DISTRICT_KEY'] || nil
+    raise_not_handled! unless VALID_DISTRICT_KEYS.include?(@district_key)
   end
 
   # User-facing text
@@ -29,5 +30,24 @@ class PerDistrict
     else
       School.all
     end
+  end
+
+  # In the import process, we typically only get usernames
+  # as the `login_name`, but we want our user account system
+  # and our communication with district authentication systems
+  # to always be in terms of full email addresses with domain
+  # names.
+  def from_import_login_name_to_email(login_name)
+    if @district_key == SOMERVILLE
+      login_name + '@k12.somerville.ma.us'
+    elsif @district_key == NEW_BEDFORD
+      login_name + '@newbedford.org'
+    else
+      raise_not_handled!
+    end
+  end
+
+  def raise_not_handled!
+    raise Exceptions::DistrictKeyNotHandledError
   end
 end

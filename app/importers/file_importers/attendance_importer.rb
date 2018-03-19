@@ -26,7 +26,7 @@ class AttendanceImporter
     @error_summary = @error_list.each_with_object(Hash.new(0)) do |error, memo|
       memo[error] += 1
     end
-    @log.write("\n\nInvalid behavior rows summary: ")
+    @log.write("\n\nAttendanceImporter: Invalid rows summary: ")
     @log.write(@error_summary)
   end
 
