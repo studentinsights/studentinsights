@@ -14,18 +14,23 @@ class ImportTask
   end
 
   def connect_transform_import
-    # validate
+    log('Starting validation...')
     validate_district_option
     seed_schools_if_needed
     validate_school_options
-    @record = create_import_record
+    log('Done validation.')
 
-    # Run with before/after reports
+    log('Starting importing work...')
+    @record = create_import_record
     @report = create_report
     @report.print_initial_counts_report
     import_all_the_data
+    log('Done importing work.')
+
+    log('Starting update tasks and final report...')
     run_update_tasks
     @report.print_final_counts_report
+    log('Done.')
   end
 
   private

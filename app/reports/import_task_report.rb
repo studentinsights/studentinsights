@@ -23,20 +23,26 @@ class ImportTaskReport
   def print_final_counts_report
     log("\n")
     log("\n")
+
     log("=== FINAL DATABASE COUNTS ===")
-    log("\n")
     log(end_of_task_report)
     log("\n")
     log("\n")
+
     log("=== BY SCHOOL ===")
     log(by_school_report)
     log("\n")
     log("\n")
+
     log("=== IMPORT TIMING ===")
     log(@record.importer_timing_json)
     log("\n")
+    log("\n")
 
+    log("=== ASSESSMENTS REPORT ===")
     AssessmentsReport.new(@log).print_report
+    log("\n")
+    log("\n")
   end
 
   private
