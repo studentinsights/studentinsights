@@ -9,17 +9,23 @@ class ImportTask
 
     # options["only_recent_attendance"]
     @only_recent_attendance = options.fetch("only_recent_attendance", false)
+
+    @log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
   end
 
   def connect_transform_import
+    # validate
     validate_district_option
     seed_schools_if_needed
     validate_school_options
-    set_up_record
-    set_up_report
+    @record = create_import_record
+
+    # Run with before/after reports
+    @report = create_report
+    @report.print_initial_counts_report
     import_all_the_data
     run_update_tasks
-    print_final_report
+    @report.print_final_counts_report
   end
 
   private
@@ -54,26 +60,29 @@ class ImportTask
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
 
-  def log
-    Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
+  def create_import_record
+    ImportRecord.create(time_started: DateTime.current)
   end
 
-  def set_up_record
-    @record ||= ImportRecord.create(time_started: DateTime.current)
-  end
-
-  def set_up_report
-    models = [ Student, StudentAssessment, DisciplineIncident, Absence, Tardy, Educator, School, Course, Section, StudentSectionAssignment, EducatorSectionAssignment ]
-
-    log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
-
-    @report = ImportTaskReport.new(
+  def create_report
+    models = [
+      Student,
+      StudentAssessment,
+      DisciplineIncident,
+      Absence,
+      Tardy,
+      Educator,
+      School,
+      Course,
+      Section,
+      StudentSectionAssignment,
+      EducatorSectionAssignment
+    ]
+    ImportTaskReport.new(
       models_for_report: models,
       record: @record,
-      log: log,
+      log: @log,
     )
-
-    @report.print_initial_report
   end
 
   ## IMPORT ALL THE DATA ##
@@ -81,13 +90,16 @@ class ImportTask
   def options_for_file_importers
     {
       school_scope: school_ids,
-      log: log,
+      log: @log,
       only_recent_attendance: @only_recent_attendance
     }
   end
 
+  # This is the main method doing all the work
   def import_all_the_data
+    log('Starting #import_all_the_data...')
     file_import_classes = UnwrapFileImporterOptions.new(@source).sort_file_import_classes
+    log("file_import_classes = [\n  #{file_import_classes.join("\n  ")}\n]")
     timing_log = []
 
     file_import_classes.each do |file_import_class|
@@ -96,10 +108,12 @@ class ImportTask
       timing_data = { importer: file_importer.class.name, start_time: Time.current }
 
       begin
+        log("Starting file_importer#import for #{file_importer}...")
         file_importer.import
+        log("Done file_importer#import for #{file_importer}.")
       rescue => error
-        log.write("🚨  🚨  🚨  🚨  🚨  Error! #{error}")
-        log.write(error.backtrace)
+        log("🚨  🚨  🚨  🚨  🚨  Error! #{error}")
+        log(error.backtrace)
 
         extra_info =  { "importer" => file_importer.class.name }
         ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
@@ -115,6 +129,7 @@ class ImportTask
 
       @record.save!
     end
+    log('Done #import_all_the_data...')
   end
 
   ## RUN TASKS THAT CACHE DATA ##
@@ -130,10 +145,7 @@ class ImportTask
     end
   end
 
-  ## PRINT FINAL REPORT ##
-
-  def print_final_report
-    @report.print_final_report
+  def log(msg)
+    @log.write "💾 ImportTask 💾: #{msg}"
   end
-
 end

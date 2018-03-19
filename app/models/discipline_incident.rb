@@ -1,9 +1,8 @@
 class DisciplineIncident < ActiveRecord::Base
   belongs_to :student
   validates_presence_of :student, :occurred_at
-  validate :validate_incident_code
 
-  def self.valid_incident_codes
+  def self.example_incident_codes
     [
       "?",
       "AS",
@@ -104,12 +103,5 @@ class DisciplineIncident < ActiveRecord::Base
       "Weapons Possession",
       "XT"
     ]
-  end
-
-  private
-  def validate_incident_code
-    if !self.class.valid_incident_codes.include?(incident_code)
-      errors.add(:incident_code, "invalid incident_code: #{incident_code}")
-    end
   end
 end
