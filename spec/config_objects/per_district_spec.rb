@@ -1,4 +1,8 @@
 RSpec.describe PerDistrict do
+  # Preserve global app config
+  before { @district_key = ENV['DISTRICT_KEY'] }
+  after { ENV['DISTRICT_KEY'] = @district_key }
+
   def for_somerville
     ENV['DISTRICT_KEY'] = PerDistrict::SOMERVILLE
     PerDistrict.new
