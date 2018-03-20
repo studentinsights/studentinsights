@@ -6,15 +6,25 @@ class Feed
 
   # Return a list of `FeedCard`s for the feed based on event notes.
   def event_note_cards(from_time, limit)
-    event_notes = @authorizer.authorized do
-      EventNote
+    # This is a performance optimization - we check the authorization
+    # of one at a time, so that we can exit early
+    recent_event_notes = unsafe_authorization! do
+      unsafe_event_notes = EventNote
         .includes(:student)
         .where(is_restricted: false)
         .where('recorded_at < ?', from_time)
         .order(recorded_at: :desc)
+
+      authorized_event_notes = []
+      unsafe_event_notes.each do |unsafe_event_note|
+        if @authorizer.is_authorized_for_note?(unsafe_event_note)
+          authorized_event_notes << unsafe_event_note
+        end
+        break if authorized_event_notes.size >= limit
+      end
+      authorized_event_notes
     end
-    # truncation has to come after authorization
-    recent_event_notes = event_notes.first(limit)
+
     recent_event_notes.map {|event_note| event_note_card(event_note) }
   end
 
@@ -35,6 +45,17 @@ class Feed
     students.map { |student| birthday_card(student, time_now) }
   end
 
+  # Returns recent discipline incidents.
+  def incident_cards(time_now, limit)
+    students = @authorizer.authorized { Student.all }
+    incidents = DisciplineIncident
+      .where(student_id: students.map(&:id))
+      .where('occurred_at < ?', time_now)
+      .order(occurred_at: :desc)
+      .limit(limit)
+    incidents.map {|incident| incident_card(incident) }
+  end
+
   # Merge cards of different types together, sorted by most recent timestamp
   # first, and then truncate them to `limit`.
   def merge_sort_and_limit_cards(card_sets, limit)
@@ -42,6 +63,11 @@ class Feed
   end
 
   private
+  # This is just to tag a block as unsafe in terms of authorization
+  def unsafe_authorization!
+    yield
+  end
+
   # Create json for exactly what UI needs and return as `FeedCard`
   def event_note_card(event_note)
     json = event_note.as_json({
@@ -70,5 +96,25 @@ class Feed
     })
     timestamp = student.date_of_birth.change(year: time_now.year)
     FeedCard.new(:birthday_card, timestamp, json)
+  end
+
+  def incident_card(incident)
+    json = incident.as_json({
+      :only => [:id, :incident_code, :incident_location, :incident_description, :occurred_at, :has_exact_time],
+      :include => {
+        :student => {
+          :only => [:id, :email, :first_name, :last_name, :grade, :house],
+          :include => {
+            :homeroom => {
+              :only => [:id, :name],
+              :include => {
+                :educator => {:only => [:id, :full_name, :email]}
+              }
+            }
+          }
+        }
+      }
+    })
+    FeedCard.new(:incident_card, incident.occurred_at, json)
   end
 end

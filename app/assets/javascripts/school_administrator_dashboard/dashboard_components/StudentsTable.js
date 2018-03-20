@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import SortHelpers from '../../helpers/sort_helpers.jsx';
 import * as Routes from '../../helpers/Routes';
+import SharedPropTypes from '../../helpers/prop_types.jsx';
+
 
 class StudentsTable extends React.Component {
 
@@ -123,8 +125,14 @@ class StudentsTable extends React.Component {
 }
 
 StudentsTable.propTypes = {
-  rows: PropTypes.array.isRequired,
-  selectedCategory: PropTypes.string,
+  rows: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    events: PropTypes.number.isRequired,
+    last_sst_date_text: SharedPropTypes.nullableWithKey(PropTypes.string)
+  })).isRequired,
+  selectedHomeroom: PropTypes.string,
   schoolYearFlag: PropTypes.bool
 };
 

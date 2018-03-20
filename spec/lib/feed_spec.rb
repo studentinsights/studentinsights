@@ -70,4 +70,43 @@ RSpec.describe Feed do
       expect(cards.first.json['id']).to eq(pals.shs_freshman_mari.id)
     end
   end
+
+  describe '#incident_cards' do
+    it 'works correctly' do
+      incident = DisciplineIncident.create!({
+        incident_code: 'Bullying',
+        occurred_at: time_now - 4.days,
+        student: pals.shs_freshman_mari
+      })
+      feed = Feed.new(pals.shs_jodi)
+      cards = feed.incident_cards(time_now, 3)
+      expect(cards.length).to eq 1
+      expect(cards.first.type).to eq :incident_card
+      expect(cards.first.timestamp.to_date).to eq(Date.parse('2018-03-09'))
+      expect(cards.first.json.as_json).to eq({
+        "id" => incident.id,
+        "incident_code" => "Bullying",
+        "incident_description" => nil,
+        "incident_location" => nil,
+        "occurred_at" => '2018-03-09T11:03:00.000Z',
+        "has_exact_time" => nil,
+        "student" => {
+          "id"=>pals.shs_freshman_mari.id,
+          "grade"=>"9",
+          "first_name"=>"Mari",
+          "last_name"=>"Kenobi",
+          "house"=>"Beacon",
+          "homeroom"=>{
+            "id"=>pals.shs_jodi_homeroom.id,
+            "name"=>"SHS 942",
+            "educator"=>{
+              "id"=>pals.shs_jodi.id,
+              "email"=>"jodi@demo.studentinsights.org",
+              "full_name"=>"Teacher, Jodi"
+            }
+          }
+        }
+      })
+    end
+  end
 end

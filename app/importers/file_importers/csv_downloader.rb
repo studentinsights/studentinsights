@@ -22,10 +22,14 @@ class CsvDownloader
   end
 
   def download_file
-    @log.write("\nDownloading #{@remote_file_name}...")
+    log("\nDownloading #{@remote_file_name}...")
 
     downloaded_file = @client.download_file(@remote_file_name)
     File.read(downloaded_file)
   end
 
+  private
+  def log(msg)
+    @log.write "CsvDownloader: #{msg}"
+  end
 end

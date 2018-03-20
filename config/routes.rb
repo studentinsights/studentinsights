@@ -6,11 +6,13 @@ Rails.application.routes.draw do
     root to: "educators#index"
   end
   
+  get '/api/educators/:id' => 'educators#show'
 
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
+  get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
   get '/educators/notes_feed'=> 'educators#notes_feed'
   get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
@@ -18,7 +20,7 @@ Rails.application.routes.draw do
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
   get '/home' => 'ui#ui'
   get '/home/feed_json' => 'home#feed_json'
-  get '/home/unsupported_low_grades_json' => 'home#unsupported_low_grades_json'
+  get '/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
 
   devise_scope :educator do
     root to: "devise/sessions#new"

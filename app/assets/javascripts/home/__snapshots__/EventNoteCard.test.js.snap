@@ -2,22 +2,15 @@
 
 exports[`matches snapshot 1`] = `
 <div
-  className="Card EventNoteCard"
-  style={
-    Object {
-      "border": "1px solid #ccc",
-      "borderRadius": 3,
-      "padding": 10,
-    }
-  }
+  className="EventNoteCard"
 >
   <div
+    className="Card FeedCardFrame"
     style={
       Object {
-        "alignItems": "center",
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "space-between",
+        "border": "1px solid #ccc",
+        "borderRadius": 3,
+        "padding": 10,
       }
     }
   >
@@ -26,139 +19,158 @@ exports[`matches snapshot 1`] = `
         Object {
           "alignItems": "center",
           "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
         }
       }
     >
-      <div>
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+          }
+        }
+      >
         <div>
-          <a
-            href="/students/55"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            Mari
-             
-            Skywalker
-          </a>
-        </div>
-        <div>
-          9th grade
-        </div>
-        <div>
-          <span
-            className="Homeroom"
-            style={Object {}}
-          >
+          <div>
             <a
-              href="/homerooms/13"
+              href="/students/55"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
-              SHS-052
+              Mari
+               
+              Skywalker
             </a>
-            <span>
-              <span>
-                 
-              </span>
-               with 
+          </div>
+          <div>
+            9th grade
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
               <a
-                className="Educator"
-                href="mailto:lt@demo.studentinsights.org"
-                style={Object {}}
+                href="/homerooms/13"
               >
-                Lois Teacher
+                SHS-052
               </a>
+              <span>
+                <span>
+                   
+                </span>
+                 with 
+                <a
+                  className="Educator"
+                  href="mailto:lt@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Lois Teacher
+                </a>
+              </span>
             </span>
-          </span>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "flexDirection": "column",
+          }
+        }
+      >
+        <div>
+          <div>
+            <span>
+              by 
+            </span>
+            <a
+              className="Educator"
+              href="mailto:kt@demo.studentinsights.org"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Kevin Teacher
+            </a>
+          </div>
+        </div>
+        <div>
+          <div>
+            in 
+            9th Grade Experience
+          </div>
+        </div>
+        <div>
+          <div>
+            14 years ago
+             on 
+            3/5
+          </div>
         </div>
       </div>
     </div>
     <div
       style={
         Object {
-          "alignItems": "flex-end",
-          "display": "flex",
-          "flexDirection": "column",
+          "marginBottom": 20,
+          "marginTop": 20,
         }
       }
     >
       <div>
-        <span>
-          by 
-        </span>
-        <a
-          className="Educator"
-          href="mailto:kt@demo.studentinsights.org"
+        hello!
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "flex-end",
+          "marginBottom": 5,
+        }
+      }
+    >
+      <div>
+        <span
+          className="HouseBadge"
           style={
             Object {
-              "fontWeight": "bold",
+              "backgroundColor": "#333",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
             }
           }
         >
-          Kevin Teacher
-        </a>
-      </div>
-      <div>
-        in 
-        9th Grade Experience
-      </div>
-      <div>
-        14 years ago
-         on 
-        3/5
+          Beacon house
+        </span>
+        <span
+          className="Badge"
+          style={
+            Object {
+              "backgroundColor": "#139DEA",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
+            }
+          }
+        >
+          9th Grade Experience
+        </span>
       </div>
     </div>
-  </div>
-  <div
-    style={
-      Object {
-        "marginBottom": 20,
-        "marginTop": 20,
-      }
-    }
-  >
-    <div>
-      hello!
-    </div>
-  </div>
-  <div
-    style={
-      Object {
-        "display": "flex",
-        "justifyContent": "flex-end",
-        "marginBottom": 5,
-      }
-    }
-  >
-    <span
-      className="HouseBadge"
-      style={
-        Object {
-          "backgroundColor": "#333",
-          "color": "white",
-          "marginLeft": 5,
-          "opacity": 0.5,
-          "padding": 5,
-        }
-      }
-    >
-      Beacon house
-    </span>
-    <span
-      className="NoteBadge"
-      style={
-        Object {
-          "backgroundColor": "#139DEA",
-          "color": "white",
-          "marginLeft": 5,
-          "opacity": 0.5,
-          "padding": 5,
-        }
-      }
-    >
-      9th Grade Experience
-    </span>
   </div>
 </div>
 `;

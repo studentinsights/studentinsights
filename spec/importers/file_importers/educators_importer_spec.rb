@@ -1,10 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe EducatorsImporter do
+  # Preserve global app config
+  before { @district_key = ENV['DISTRICT_KEY'] }
+  after { ENV['DISTRICT_KEY'] = @district_key }
 
+  let(:log) { LogHelper::Redirect.instance.file }
   let(:educators_importer) {
     described_class.new(options: {
-      school_scope: nil, log: nil
+      school_scope: nil, log: log
     })
   }
 
@@ -58,6 +62,7 @@ RSpec.describe EducatorsImporter do
               it 'creates an educator' do
                 expect { educators_importer.import_row(row) }.to change(Educator, :count).by 1
               end
+
               it 'sets the attributes correctly' do
                 educators_importer.import_row(row)
                 educator = Educator.last
@@ -66,6 +71,13 @@ RSpec.describe EducatorsImporter do
                 expect(educator.admin).to eq(false)
                 expect(educator.schoolwide_access).to eq(false)
                 expect(educator.email).to eq("jyoung@k12.somerville.ma.us")
+              end
+
+              it 'sets the attributes correctly, PerDistrict' do
+                ENV['DISTRICT_KEY'] = PerDistrict::NEW_BEDFORD
+                educators_importer.import_row(row)
+                educator = Educator.last
+                expect(educator.email).to eq('jyoung@newbedford.org')
               end
 
               context 'multiple educators' do

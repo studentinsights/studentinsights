@@ -5,6 +5,7 @@ import _ from 'lodash';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
+import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 
 
 class SchoolTardiesDashboard extends React.Component {
@@ -135,6 +136,7 @@ class SchoolTardiesDashboard extends React.Component {
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
+        last_sst_date_text: latestNoteDateText(300, student.event_notes),
         events: studentTardyCounts[student.id] || 0
       });
     });

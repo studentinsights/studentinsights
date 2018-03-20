@@ -101,7 +101,6 @@ describe SchoolsController, :type => :controller do
       it 'redirects to homeroom page' do
         sign_in(educator)
         get :show, params: { id: 'hea' }
-
         expect(response).to redirect_to(homeroom_path(homeroom))
       end
     end
@@ -177,26 +176,49 @@ describe SchoolsController, :type => :controller do
       get :school_administrator_dashboard, params: { id: school_id }
     end
 
-    context 'educator is admin' do
-      let!(:school) { FactoryGirl.create(:healey) }
-      let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+    context 'districtwide access' do
+      before { School.seed_somerville_schools }
+      let!(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: false, school: nil) }
 
-      it 'is able to access the school dashboard' do
+      it 'can access any school in the district' do
         sign_in(educator)
         make_request('hea')
+        expect(response).to be_success
+        make_request('brn')
+        expect(response).to be_success
+        make_request('kdy')
         expect(response).to be_success
       end
     end
 
-    context 'educator is not an admin' do
+    context 'schoolwide access but no districtwide access' do
+      before { School.seed_somerville_schools }
+      before { FactoryGirl.create(:homeroom) }
+      let(:hea) { School.find_by_local_id 'HEA' }
+      let!(:educator) {
+        FactoryGirl.create(:educator, schoolwide_access: true, school: hea)
+      }
+
+      it 'can only access assigned school' do
+        sign_in(educator)
+        make_request('hea')
+        expect(response).to be_success
+        make_request('brn')
+        expect(response).not_to be_success
+        make_request('kdy')
+        expect(response).not_to be_success
+      end
+    end
+
+    context 'educator has only homeroom access' do
       let!(:school) { FactoryGirl.create(:healey) }
-      let!(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+      let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+      let!(:homeroom) { educator.homeroom }
 
       it 'redirects to homeroom page' do
         sign_in(educator)
         make_request('hea')
-
-        expect(response).to redirect_to(not_authorized_url)
+        expect(response).to redirect_to(homeroom_path(homeroom))
       end
     end
   end
