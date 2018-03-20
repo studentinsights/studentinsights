@@ -2,11 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import SchoolDisciplineDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/discipline_dashboard/SchoolDisciplineDashboard';
-import * as Data from './DashboardTestData.js';
+import { createStudents } from './DashboardTestData.js';
 
 describe('SchoolDisciplineDashboard', () => {
   const dash = shallow(<SchoolDisciplineDashboard
-                        dashboardStudents={Data.Students}
+                        dashboardStudents={createStudents(moment.utc())}
                         totalDisciplineIncidents={[]}
                         disciplineIncidentsByLocation={{}}
                         disciplineIncidentsByTime={{}}
