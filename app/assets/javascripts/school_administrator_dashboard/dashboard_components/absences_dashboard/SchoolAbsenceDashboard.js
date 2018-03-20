@@ -37,7 +37,7 @@ class SchoolAbsenceDashboard extends React.Component {
     let monthlySchoolAttendance = {};
     //Use the filtered daterange to find the days to include
     this.state.displayDates.forEach((day) => {
-      let date = moment(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
+      let date = moment.utc(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
       (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
       monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
       monthlySchoolAttendance[date] = monthlySchoolAttendance[date].concat(schoolAverageDailyAttendance[day]);
@@ -155,8 +155,8 @@ class SchoolAbsenceDashboard extends React.Component {
     const lastDate = this.props.dateRange[this.props.dateRange.length - 1];
     return (
       <DateSlider
-        rangeStart = {parseInt(moment(firstDate).format("X"))}
-        rangeEnd = {parseInt(moment(lastDate).format("X"))}
+        rangeStart = {parseInt(moment.utc(firstDate).format("X"))}
+        rangeEnd = {parseInt(moment.utc(lastDate).format("X"))}
         setDate={this.setDate}/>
     );
   }
