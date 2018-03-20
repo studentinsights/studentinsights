@@ -1,6 +1,6 @@
 import HelpBubble from './HelpBubble.js';
 
-const { styles } = {
+const  styles = {
   caption: {
     marginRight: 5
   },
@@ -66,7 +66,7 @@ AcademicSummary.propTypes = {
 class SummaryWithoutSparkline  extends React.Component {
 
   constructor(props) {
-    super(props); 
+    super(props);
   }
 
   getDibelsHelpContent(){
