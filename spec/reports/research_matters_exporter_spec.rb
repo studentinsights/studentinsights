@@ -158,7 +158,21 @@ RSpec.describe ResearchMattersExporter do
   end
 
   describe '#teacher_file' do
-    let(:event_data) { [] }
+    let(:event_data) {
+      [{
+        "event"=>"PAGE_VISIT",
+        "properties"=>{
+          "time"=>1503905237,
+          "$current_url"=>"https://somerville-teacher-tool-demo.herokuapp.com/students/#{student.id}",
+          "deployment_key"=>"production",
+          "educator_id"=>1,
+          "educator_is_admin"=>false,
+          "educator_school_id"=>1,
+          "isDemoSite"=>false,
+          "page_key"=>"STUDENT_PROFILE"
+        }
+      }]
+    }
 
     context 'teacher name present' do
       context 'no teacher event notes' do
