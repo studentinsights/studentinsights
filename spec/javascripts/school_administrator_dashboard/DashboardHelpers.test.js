@@ -50,7 +50,7 @@ describe('DashboardHelpers', () => {
       const events = DashboardHelpers.absenceEventsByDay(students);
       const averageDailyAttendance = DashboardHelpers.averageDailyAttendance(events, students.length);
       const range = Object.keys(averageDailyAttendance);
-      const result = DashboardHelpers.filterDates(range, moment().subtract(4, 'months'), moment());
+      const result = DashboardHelpers.filterDates(range, moment.utc().subtract(4, 'months'), moment.utc());
       expect(result.length).toEqual(3);
     });
   });
