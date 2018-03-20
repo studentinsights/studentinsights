@@ -45,7 +45,6 @@ class DashboardBarChart extends React.Component{
           series={[
             {
               showInLegend: false,
-              name: this.props.seriesName,
               data: this.props.seriesData
             }
           ]} />
@@ -58,7 +57,6 @@ DashboardBarChart.propTypes = {
   id: PropTypes.string.isRequired, // short string identifier for links to jump to
   categories: PropTypes.object.isRequired,  //Buckets used for X Axis
   seriesData: PropTypes.array.isRequired, // array of JSON event objects.
-  seriesName: PropTypes.string, //to identify chart to callback
   yAxisMin: PropTypes.number,
   yAxisMax: PropTypes.number,
   titleText: PropTypes.string.isRequired,

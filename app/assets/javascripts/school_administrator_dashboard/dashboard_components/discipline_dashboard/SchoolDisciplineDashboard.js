@@ -30,7 +30,7 @@ class SchoolDisciplineDashboard extends React.Component {
       this.setState({selectedCategory: null});
     };
     this.selectChart = (event) => {
-      this.setState({selectedChart: this.updateChartSelection(event.target.value)});
+      this.setState({selectedChart: this.updateChartSelection(event.target.value), selectedCategory: null});
     };
   }
 
@@ -42,8 +42,7 @@ class SchoolDisciplineDashboard extends React.Component {
 
   studentDisciplineIncidentCounts(incidentCategory) {
     let studentDisciplineIncidentCounts = {};
-    // const incidents = this.state.selectedChart.data[incidentCategory];
-    const incidents = this.state.incidentCategory ? this.state.selectedChart[incidentCategory] : this.props.totalDisciplineIncidents;
+    const incidents = incidentCategory ? this.state.selectedChart.data[incidentCategory] : this.props.totalDisciplineIncidents;
     this.filterIncidentDates(incidents).forEach((incident) => {
       studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
       studentDisciplineIncidentCounts[incident.student_id]++;
@@ -102,7 +101,6 @@ class SchoolDisciplineDashboard extends React.Component {
           <option value="grade">Grade</option>
           <option value="day">Day</option>
           <option value="offense">Offense</option>
-          <option value="race">Race</option>
           </select>
          {this.renderDisciplineChart(this.state.selectedChart)}
 
@@ -129,7 +127,6 @@ class SchoolDisciplineDashboard extends React.Component {
           id = "Discipline"
           categories = {{categories: categories}}
           seriesData = {seriesData}
-          seriesName = {"Name"}
           titleText = {this.state.selectedChart.title}
           measureText = {this.state.selectedChart.title}
           tooltip = {{

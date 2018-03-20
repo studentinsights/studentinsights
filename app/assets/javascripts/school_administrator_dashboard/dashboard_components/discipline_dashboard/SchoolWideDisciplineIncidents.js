@@ -19,7 +19,7 @@ class SchoolWideDisciplineIncidents extends React.Component {
           schoolDisciplineEvents.push({
             student_id: incident.student_id,
             location: incident.incident_location,
-            time: incident.has_exact_time,
+            time: incident.has_exact_time ? moment(incident.occurred_at).format("h A") : "Not Logged",
             classroom: student.homeroom_label,
             student_grade: student.grade,
             day: moment(incident.occurred_at).format("ddd"),
