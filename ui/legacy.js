@@ -13,7 +13,6 @@ import '../app/assets/javascripts/student_profile/provided_by_educator_dropdown.
 import '../app/assets/javascripts/student_profile/profile_chart_settings.jsx';
 import '../app/assets/javascripts/student_profile/bar_chart_sparkline.jsx';
 import '../app/assets/javascripts/student_profile/sparkline.jsx';
-import '../app/assets/javascripts/student_profile/academic_summary.jsx';
 import '../app/assets/javascripts/student_profile/take_notes.jsx';
 import '../app/assets/javascripts/student_profile/editable_text_component.jsx';
 import '../app/assets/javascripts/student_profile/note_card.jsx';

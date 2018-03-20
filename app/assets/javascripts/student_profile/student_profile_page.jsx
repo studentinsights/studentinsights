@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { AcademicSummary, SummaryWithoutSparkline } from '../student_profile/AcademicSummary.js';
 import MathDetails from '../student_profile/MathDetails.js';
 import ElaDetails from '../student_profile/ElaDetails.js';
 import PropTypes from '../helpers/prop_types.jsx';
@@ -14,8 +15,6 @@ import AttendanceDetails from '../student_profile/AttendanceDetails.js';
 
   const BarChartSparkline = window.shared.BarChartSparkline;
   const Sparkline = window.shared.Sparkline;
-  const AcademicSummary = window.shared.AcademicSummary;
-  const SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
   const QuadConverter = window.shared.QuadConverter;
 
   const StudentProfileHeader = window.shared.StudentProfileHeader;
