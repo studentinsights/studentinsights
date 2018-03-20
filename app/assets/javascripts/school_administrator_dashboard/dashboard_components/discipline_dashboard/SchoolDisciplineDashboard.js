@@ -115,7 +115,7 @@ class SchoolDisciplineDashboard extends React.Component {
 
   renderDisciplineChart(group) {
     let seriesData = [];
-    const incidentGroup = this.state.selectedChart.data
+    const incidentGroup = this.state.selectedChart.data;
     let categories = Object.keys(incidentGroup);
     categories.forEach((type) => {
       const incidents = this.filterIncidentDates(incidentGroup[type]);
