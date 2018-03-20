@@ -132,7 +132,7 @@ StudentsTable.propTypes = {
     events: PropTypes.number.isRequired,
     last_sst_date_text: SharedPropTypes.nullableWithKey(PropTypes.string)
   })).isRequired,
-  selectedHomeroom: PropTypes.string,
+  selectedCategory: PropTypes.string,
   schoolYearFlag: PropTypes.bool
 };
 

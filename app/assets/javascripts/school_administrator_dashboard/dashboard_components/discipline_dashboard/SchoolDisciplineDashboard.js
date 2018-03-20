@@ -52,41 +52,41 @@ class SchoolDisciplineDashboard extends React.Component {
 
   updateChartSelection(selectedChart) {
     switch(selectedChart) {
-      case 'location':
-        return {
-          type: selectedChart,
-          data: this.props.disciplineIncidentsByLocation,
-          title: "Incidents by Location"};
-      case 'time':
-        return {
-          type: selectedChart,
-          data: this.props.disciplineIncidentsByTime,
-          title: "Incidents by Time"};
-      case 'classroom':
-        return {
-          type: selectedChart,
-          data: this.props.disciplineIncidentsByClassroomn,
-          title: "Incidents by Classroom"};
-      case 'grade':
-        return {
-          type: selectedChart,
-          data: this.props.disciplineIncidentsByGrade,
-          title: "Incidents by Grade"};
-      case 'day':
-        return {
-          type: selectedChart,
-          data: this.props.disciplineIncidentsByDay,
-          title: "Incidents by Day"};
-      case 'offense':
-        return {
-          type: selectedChart,
-          data: this.props.disciplineIncidentsByOffense,
-          title: "Incidents by Offense"};
-      case 'race':
-        return {
-          type: selectedChart,
-          data: this.props.disciplineIncidentsByRace,
-          title: "Incidents by Race"};
+    case 'location':
+      return {
+        type: selectedChart,
+        data: this.props.disciplineIncidentsByLocation,
+        title: "Incidents by Location"};
+    case 'time':
+      return {
+        type: selectedChart,
+        data: this.props.disciplineIncidentsByTime,
+        title: "Incidents by Time"};
+    case 'classroom':
+      return {
+        type: selectedChart,
+        data: this.props.disciplineIncidentsByClassroomn,
+        title: "Incidents by Classroom"};
+    case 'grade':
+      return {
+        type: selectedChart,
+        data: this.props.disciplineIncidentsByGrade,
+        title: "Incidents by Grade"};
+    case 'day':
+      return {
+        type: selectedChart,
+        data: this.props.disciplineIncidentsByDay,
+        title: "Incidents by Day"};
+    case 'offense':
+      return {
+        type: selectedChart,
+        data: this.props.disciplineIncidentsByOffense,
+        title: "Incidents by Offense"};
+    case 'race':
+      return {
+        type: selectedChart,
+        data: this.props.disciplineIncidentsByRace,
+        title: "Incidents by Race"};
     }
   }
 
