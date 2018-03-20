@@ -20,8 +20,8 @@ class SchoolAbsenceDashboard extends React.Component {
     this.setDate = (range) => {
       this.setState({
         displayDates: DashboardHelpers.filterDates(this.props.dateRange,
-                                                    moment.unix(range[0]).format("YYYY-MM-DD"),
-                                                    moment.unix(range[1]).format("YYYY-MM-DD"))
+                                                    moment.unix(range[0]).utc().format("YYYY-MM-DD"),
+                                                    moment.unix(range[1]).utc().format("YYYY-MM-DD"))
       });
     };
     this.setStudentList = (highchartsEvent) => {
