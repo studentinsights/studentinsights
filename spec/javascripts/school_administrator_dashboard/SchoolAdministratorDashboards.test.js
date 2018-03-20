@@ -7,6 +7,6 @@ import * as Data from './DashboardTestData.js';
 describe('SchoolAdministratorDashboards', () => {
   const links = shallow(<SchoolAdministratorDashboards serializedData={{students: Data.Students}} />);
   it('renders three routes', () => {
-    expect(links.find('Route').length).toEqual(3);
+    expect(links.find('Route').length).toEqual(4);
   });
 });
