@@ -1,13 +1,16 @@
 import React from 'react';
 import _ from 'lodash';
-import Select from 'react-select'
-import Card from '../components/Card';
+import Select from 'react-select';
+import {Table, Column, AutoSizer} from 'react-virtualized';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css'
 
-// import 'css-loader?react-select/dist/react-select.css';
+
+
 
 function firstMatch(assignments, patterns) {
   return _.first(assignments.filter(assignment => {
@@ -88,9 +91,8 @@ class TieringPage extends React.Component {
     return (
       <div className="TieringPage">
         <ExperimentalBanner />
-        <div style={styles.card}>
+        <div style={styles.section}>
           <SectionHeading>Tiering: v1 prototype</SectionHeading>
-          <p>Tiering is computed over the last 45 days, looking at academic grades, absences and discipline incidents (NOTE: not actions yet).</p>
         </div>
         <GenericLoader
           promiseFn={this.fetchTiering}
@@ -112,18 +114,47 @@ class TieringView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      grade: 'All'
+      grade: 'All',
+      house: 'All',
+      tier: 'All',
+      trigger: 'All'
     };
+
+    this.onGradeChanged = this.onGradeChanged.bind(this);
+    this.onHouseChanged = this.onHouseChanged.bind(this);
+    this.onTierChanged = this.onTierChanged.bind(this);
+    this.onTriggerChanged = this.onTriggerChanged.bind(this);
+  }
+
+  onGradeChanged(grade) {
+    this.setState({grade});
+  }
+
+  onHouseChanged(house) {
+    this.setState({house});
+  }
+
+  onTierChanged(tier) {
+    this.setState({tier});
+  }
+
+  onTriggerChanged(trigger) {
+    this.setState({trigger});
   }
 
   render() {
     const {studentsWithTiering} = this.props;
-    const {grade} = this.state;
-    const students = (grade === 'All')
-      ? studentsWithTiering
-      : studentsWithTiering.filter(s => s.grade === grade);
+    const {grade, house, tier, trigger} = this.state;
+    const students = studentsWithTiering.filter(s => {
+      if (grade !== 'All' && s.grade !== grade) return false;
+      if (house !== 'All' && s.house !== house) return false;
+      if (tier !== 'All' && s.tier.level !== parseInt(tier, 0)) return false;
+      if (trigger !== 'All' && s.tier.triggers.indexOf(trigger) === -1) return false;
+      return true;
+    });
+
     return (
-      <div style={styles.card}>
+      <div style={styles.root}>
         {this.renderSelection(students)}
         {this.renderSummary(students)}
         {this.renderTable(students)}
@@ -132,20 +163,54 @@ class TieringView extends React.Component {
   }
 
   renderSelection(studentsWithTiering) {
-    const {grade} = this.state;
+    const {grade, house, tier, trigger} = this.state;
     const possibleGrades = ['All', '9', '10', '11', '12'];
+    const possibleHouses = ['All', 'Beacon'];
+    const possibleTiers = ['All', '0', '1', '2', '3', '4'];
+    const possibleTriggers = ['All', 'academic', 'absence', 'discipline'];
     return (
-      <div>
+      <div style={styles.selectionBar}>
         <Select
-          style={{width: '8em', marginLeft: 20}}
+          style={styles.select}
           simpleValue
           clearable={false}
           searchable={false}
           value={grade}
           onChange={this.onGradeChanged}
           options={possibleGrades.map(value => {
-            return { value: `${value}`, label: `Year: ${value}` };
+            return { value: `${value}`, label: `Grade: ${value}` };
           })} />
+        <Select
+          style={styles.select}
+          simpleValue
+          clearable={false}
+          searchable={false}
+          value={house}
+          onChange={this.onHouseChanged}
+          options={possibleHouses.map(value => {
+            return { value: `${value}`, label: `House: ${value}` };
+          })} />
+        <Select
+          style={styles.select}
+          simpleValue
+          clearable={false}
+          searchable={false}
+          value={tier}
+          onChange={this.onTierChanged}
+          options={possibleTiers.map(value => {
+            return { value: `${value}`, label: `Tier: ${value}` };
+          })} />
+        <Select
+          style={styles.select}
+          simpleValue
+          clearable={false}
+          searchable={false}
+          value={trigger}
+          onChange={this.onTriggerChanged}
+          options={possibleTriggers.map(value => {
+            return { value: `${value}`, label: `Trigger: ${value}` };
+          })} />
+        <span style={styles.tieringInfo}>Tiering is computed over the last 45 days</span>
       </div>
     );
   }
@@ -198,10 +263,123 @@ class TieringView extends React.Component {
   }
 
   renderTable(studentsWithTiering) {
-    // TODO(kr) hacked sorting
-    const sortedStudentsWithTiering = _.sortBy(studentsWithTiering, s => {
-      return s.tier.level * -1 * 10 + s.tier.triggers.length * -1;
-    });
+    const sortedStudentsWithTiering = _.sortByOrder(studentsWithTiering, [
+      (s => s.tier.level * -1),
+      (s => s.tier.triggers.length * -1),
+      (s => s.last_name),
+      (s => s.first_name)
+    ]);
+
+    const gradeCellWidth = 50;
+    const cellWidth = 80;
+    return <AutoSizer disableHeight>
+      {({width}) => (
+        <Table
+          headerHeight={60}
+          height={300}
+          rowCount={sortedStudentsWithTiering.length}
+          rowGetter={({index}) => sortedStudentsWithTiering[index]}
+          rowHeight={60}
+          width={width}
+        >
+          <Column
+            dataKey="student"
+            label="student"
+            width={200}
+            flexGrow={1}
+            cellRenderer={this.renderStudent} />
+          <Column
+            dataKey="level"
+            label="level"
+            width={gradeCellWidth}
+            cellRenderer={this.renderLevel} />
+          <Column
+            dataKey="academic"
+            label="academic"
+            width={cellWidth}
+            cellRenderer={this.renderTriggerIf.bind(this, 'academic')} />
+          <Column
+            dataKey="absence"
+            label="absence"
+            width={cellWidth}
+            cellRenderer={this.renderTriggerIf.bind(this, 'absence')} />
+          <Column
+            dataKey="discipline"
+            label="discipline"
+            width={cellWidth}
+            cellRenderer={this.renderTriggerIf.bind(this, 'discipline')} />
+          <Column
+            dataKey="ela"
+            label="ela"
+            width={gradeCellWidth}
+            cellRenderer={this.renderGradeFor.bind(this, ELA)} />
+          <Column
+            dataKey="history"
+            label="history"
+            width={gradeCellWidth}
+            cellRenderer={this.renderGradeFor.bind(this, HISTORY)} />
+          <Column
+            dataKey="math"
+            label="math"
+            width={gradeCellWidth}
+            cellRenderer={this.renderGradeFor.bind(this, MATH)} />
+          <Column
+            dataKey="science"
+            label="science"
+            width={gradeCellWidth}
+            cellRenderer={this.renderGradeFor.bind(this, SCIENCE)} />
+          <Column
+            dataKey="recovery"
+            label={<span>Credit<br/>Recovery</span>}
+            width={cellWidth}
+            cellRenderer={this.renderIf.bind(this, CREDIT_RECOVERY, 'recovery')} />
+          <Column
+            dataKey="redirect"
+            label="Redirect"
+            width={cellWidth}
+            cellRenderer={this.renderIf.bind(this, REDIRECT, 'redirect')} />
+          <Column
+            dataKey="support"
+            label={<span>Academic<br/>Support</span>}
+            width={cellWidth}
+            cellRenderer={this.renderIf.bind(this, ACADEMIC_SUPPORT, 'support')} />
+        </Table>
+      )}
+    </AutoSizer>;
+  }
+
+  renderStudent({rowData}) {
+    const student = rowData;
+    return <a style={styles.person} target="_blank" href={`https://somerville.studentinsights.org/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
+  }
+
+  renderLevel({rowData}) {
+    return rowData.tier.level;
+  }
+
+  renderGradeFor(patterns, {rowData}) {
+    const student = rowData;
+    const assignment = firstMatch(student.student_section_assignments, patterns);
+    return (assignment)
+      ? this.renderGrade(assignment.grade_letter)
+      : null;
+  }
+
+  renderIf(patterns, el, {rowData}) {
+    const student = rowData;
+    const assignment = firstMatch(student.student_section_assignments, patterns);
+    return (assignment)
+      ? el
+      : null;
+  }
+
+  renderTriggerIf(trigger, {rowData}) {
+    return (rowData.tier.triggers.indexOf(trigger) !== -1)
+      ? trigger
+      : null;
+  }
+
+  renderOldTable(sortedStudentsWithTiering) {
     return (
       <table style={styles.table}>
         <thead>
@@ -285,11 +463,14 @@ TieringView.propTypes = {
 
 
 const styles = {
-  person: {
-    fontWeight: 'bold'
+  root: {
+    fontSize: 14
   },
-  card: {
-    padding: 10,
+  person: {
+    fontWeight: 'bold',
+    fontSize: 14
+  },
+  section: {
     margin: 10
   },
   columnsContainer: {
@@ -305,6 +486,20 @@ const styles = {
   cell: {
     textAlign: 'left',
     verticalAlign: 'top'
+  },
+  selectionBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  select: {
+    width: '10em',
+    marginLeft: 20
+  },
+  tieringInfo: {
+    marginLeft: 20,
+    fontSize: 12,
+    color: '#666'
   }
 };
 
