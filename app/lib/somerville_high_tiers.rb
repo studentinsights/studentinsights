@@ -3,9 +3,43 @@
 # educators catch and verify that students are getting
 # the level of support and service they need.
 class SomervilleHighTiers
-  FAILING_GRADE = 65
+  # FAILING_GRADE = 65
 
-  class Tier < Struct.new(:level, :triggers, :data)
+  # class Tier < Struct.new(:level, :triggers, :data)
+  # end
+
+  def self.students_with_tiering_json(educator, school_ids, time_now)
+    authorizer = Authorizer.new(educator)
+    students = authorizer.authorized do
+      Student
+        .where(school_id: school_ids)
+        .includes(student_section_assignments: [section: :course])
+    end
+
+    students.map do |student|
+      tier_json = SomervilleHighTiers.new.tier(student, time_now: time_now).as_json
+      student_json = student.as_json({
+        only: [:id, :first_name, :last_name, :grade],
+        include: {
+          # homeroom: {
+          #   only: [:id, :name]
+          # },
+          student_section_assignments: {
+            :only => [:id, :grade_letter, :grade_numeric],
+            :include => {
+              :section => {
+                :only => [:id, :section_number],
+                :methods => [:course_description]
+                # :include => {
+                #   :educators => {:only => [:id, :full_name, :email]}
+                # }
+              }
+            }
+          }
+        }
+      })
+      student_json.merge(tier_json)
+    end
   end
 
   def tier(student, options = {})
