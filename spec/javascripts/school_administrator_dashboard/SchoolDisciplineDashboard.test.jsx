@@ -16,7 +16,7 @@ import * as Data from './DashboardTestData.js';
                         disciplineIncidentsByRace={{}}/>);
 
   it('renders at least one bar chart', () => {
-    expect(dash.find('DashboardBarChart').length > 1).toEqual(true);
+    expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
   });
 
   it('renders a student list', () => {
