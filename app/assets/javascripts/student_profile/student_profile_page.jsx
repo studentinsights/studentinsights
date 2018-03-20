@@ -1,15 +1,16 @@
 import _ from 'lodash';
+import React from 'react';
+
+import AttendanceDetails from '../student_profile/AttendanceDetails.js';
 import AcademicSummary from '../student_profile/AcademicSummary.js';
-import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline.js';
-import MathDetails from '../student_profile/MathDetails.js';
 import ElaDetails from '../student_profile/ElaDetails.js';
-import PropTypes from '../helpers/prop_types.jsx';
+import MathDetails from '../student_profile/MathDetails.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import NotesDetails from '../student_profile/NotesDetails.js';
-import React from 'react';
+import PropTypes from '../helpers/prop_types.jsx';
 import Scales from '../student_profile/Scales.js';
 import SummaryList from '../student_profile/SummaryList.js';
-import AttendanceDetails from '../student_profile/AttendanceDetails.js';
+import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline.js';
 
 (function() {
   window.shared || (window.shared = {});
