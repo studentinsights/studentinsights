@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import { AcademicSummary, SummaryWithoutSparkline } from '../student_profile/AcademicSummary.js';
+import AcademicSummary from '../student_profile/AcademicSummary.js';
+import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline.js';
 import MathDetails from '../student_profile/MathDetails.js';
 import ElaDetails from '../student_profile/ElaDetails.js';
 import PropTypes from '../helpers/prop_types.jsx';
