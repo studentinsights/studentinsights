@@ -174,7 +174,9 @@ RSpec.describe ResearchMattersExporter do
 
         context 'teacher has event notes' do
           let!(:educator_event_note) {
-            FactoryGirl.create(:event_note, educator: educator)
+            FactoryGirl.create(
+              :event_note, educator: educator, recorded_at: DateTime.new(2017, 12, 23)
+            )
           }
 
           it 'outputs the right file' do
