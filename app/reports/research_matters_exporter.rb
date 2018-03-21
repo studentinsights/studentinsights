@@ -113,7 +113,7 @@ class ResearchMattersExporter
         notes_added,
         notes_revised,
         notes_total,
-        ids_to_pageview_count[educator.id.to_s]
+        ids_to_pageview_count[educator.id]
       ].join(',')
     end
   end
@@ -219,7 +219,8 @@ class ResearchMattersExporter
 
   def event_data
     @event_data ||= @mixpanel_downloader.event_data
-    puts; log "Got #{@event_data.size} raw events."
+    log ""
+    log "Got #{@event_data.size} raw events."
     @event_data
   end
 
