@@ -60,6 +60,7 @@ class ResearchMattersExporter
       notes_added
       notes_revised
       notes_total
+      pageview_count
     ].join(',')
   end
 
@@ -93,6 +94,8 @@ class ResearchMattersExporter
   end
 
   def teacher_rows
+    ids_to_pageview_count = educator_ids_to_pageview_count
+
     @educators.map do |educator|
       full_name = educator.full_name
       last_name = full_name.present? ? full_name.split(", ")[0] : nil
@@ -110,6 +113,7 @@ class ResearchMattersExporter
         notes_added,
         notes_revised,
         notes_total,
+        ids_to_pageview_count[educator.id.to_s]
       ].join(',')
     end
   end
@@ -149,13 +153,7 @@ class ResearchMattersExporter
   end
 
   def student_ids_to_pageview_count
-    @student_profile_page_views = student_profile_events.select do |event|
-      event['event'] == 'PAGE_VISIT'
-    end
-
-    log "Got #{@student_profile_page_views.size} student profile page views."
-
-    viewed_students = @student_profile_page_views.map do |pageview_record|
+    viewed_students = student_profile_pageviews.map do |pageview_record|
       url = pageview_record['properties']['$current_url']
 
       url.gsub!("https://#{@canonical_domain}/students/", "")
@@ -169,6 +167,28 @@ class ResearchMattersExporter
     end
 
     return ids_to_view_count
+  end
+
+  def educator_ids_to_pageview_count
+    educator_ids = student_profile_pageviews.map do |pageview_record|
+      pageview_record['properties']['educator_id']
+    end
+
+    ids_to_view_count = educator_ids.each_with_object(Hash.new(0)) do |id, memo|
+      memo[id] += 1
+    end
+
+    return ids_to_view_count
+  end
+
+  def student_profile_pageviews
+    @student_profile_page_views ||= student_profile_events.select do |event|
+      event['event'] == 'PAGE_VISIT'
+    end
+
+    log "Got #{@student_profile_page_views.size} student profile page views."
+
+    @student_profile_page_views
   end
 
   def student_profile_events
@@ -199,7 +219,7 @@ class ResearchMattersExporter
 
   def event_data
     @event_data ||= @mixpanel_downloader.event_data
-    log "Got #{@event_data.size} raw events."
+    puts; log "Got #{@event_data.size} raw events."
     @event_data
   end
 
