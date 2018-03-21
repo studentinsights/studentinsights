@@ -100,8 +100,8 @@ class ResearchMattersExporter
       full_name = educator.full_name
       last_name = full_name.present? ? full_name.split(", ")[0] : nil
       first_name = full_name.present? ? full_name.split(", ")[1] : nil
-      notes_added = educator.event_notes.count
-      notes_revised = educator.event_note_revisions.count
+      notes_added = educator_to_notes_added(educator.id)
+      notes_revised = educator_to_notes_revised(educator.id)
       notes_total = notes_added + notes_revised
 
       [
@@ -142,6 +142,18 @@ class ResearchMattersExporter
 
   def student_to_notes_revised(student_id)
     EventNoteRevision.where(student_id: student_id, event_note_type_id: 300)
+             .select { |event| filter_event_occurred_at(event, 'created_at') }
+             .count
+  end
+
+  def educator_to_notes_added(educator_id)
+    EventNote.where(educator_id: educator_id, event_note_type_id: 300)
+             .select { |event| filter_event_occurred_at(event, 'recorded_at') }
+             .count
+  end
+
+  def educator_to_notes_revised(educator_id)
+    EventNoteRevision.where(educator_id: educator_id, event_note_type_id: 300)
              .select { |event| filter_event_occurred_at(event, 'created_at') }
              .count
   end
