@@ -219,7 +219,7 @@ class ResearchMattersExporter
 
   def event_data
     @event_data ||= @mixpanel_downloader.event_data
-    log "Got #{@event_data.size} raw events."
+    puts; log "Got #{@event_data.size} raw events."
     @event_data
   end
 

@@ -21,18 +21,15 @@ class RawMixpanelDataDownloader
 
     raw_output = `#{cmd}`
 
-    parsed_output = raw_output.split("\n").map do |json_line|
+    raw_output.split("\n").map do |json_line|
       parsed_line = JSON.parse(json_line)
 
-      unless Rails.env.test?
-        @output_rows_parsed += 1
-        print "\r#{@output_rows_parsed} rows of JSON parsed..."
-      end
+      @output_rows_parsed += 1
+
+      print "\r#{@output_rows_parsed} rows of JSON parsed..." unless Rails.env.test?
 
       parsed_line
-    end; puts
-
-    return parsed_output
+    end
   end
 
   private
