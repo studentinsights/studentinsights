@@ -6,6 +6,7 @@ class RawMixpanelDataDownloader
     @mixpanel_api_secret = mixpanel_api_secret
     @focal_time_period_start = DateTime.new(2017, 8, 28)
     @focal_time_period_end = DateTime.new(2017, 12, 24)
+    @output_rows_parsed = 0
   end
 
   def event_data
@@ -20,7 +21,16 @@ class RawMixpanelDataDownloader
 
     raw_output = `#{cmd}`
 
-    parsed_output = raw_output.split("\n").map { |json_line| JSON.parse(json_line) }
+    parsed_output = raw_output.split("\n").map do |json_line|
+      parsed_line = JSON.parse(json_line)
+
+      unless Rails.env.test?
+        @output_rows_parsed += 1
+        print "\r#{@output_rows_parsed} rows of JSON parsed..."
+      end
+
+      parsed_line
+    end; puts
 
     return parsed_output
   end
