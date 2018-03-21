@@ -172,7 +172,7 @@ RSpec.describe ResearchMattersExporter do
           end
         end
 
-        context 'teacher has event notes' do
+        context 'teacher has event notes in focal period' do
           let!(:educator_event_note) {
             FactoryGirl.create(
               :event_note, educator: educator, recorded_at: DateTime.new(2017, 12, 23)
@@ -183,6 +183,21 @@ RSpec.describe ResearchMattersExporter do
             expect(exporter.teacher_file).to eq([
               "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,pageview_count",
               "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,1,0,1,0"
+            ])
+          end
+        end
+
+        context 'teacher has event notes out of focal period' do
+          let!(:educator_event_note) {
+            FactoryGirl.create(
+              :event_note, educator: educator, recorded_at: DateTime.new(2015, 12, 23)
+            )
+          }
+
+          it 'outputs the right file' do
+            expect(exporter.teacher_file).to eq([
+              "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,pageview_count",
+              "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0,0"
             ])
           end
         end
