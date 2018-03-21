@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import BarChartSparkline from '../student_profile/BarChartSparkline.js';
 import MathDetails from '../student_profile/MathDetails.js';
 import ElaDetails from '../student_profile/ElaDetails.js';
 import PropTypes from '../helpers/prop_types.jsx';
@@ -12,7 +13,6 @@ import AttendanceDetails from '../student_profile/AttendanceDetails.js';
 (function() {
   window.shared || (window.shared = {});
 
-  const BarChartSparkline = window.shared.BarChartSparkline;
   const Sparkline = window.shared.Sparkline;
   const AcademicSummary = window.shared.AcademicSummary;
   const SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
