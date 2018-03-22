@@ -259,4 +259,3 @@ RSpec.describe ResearchMattersExporter do
     end
   end
 end
-
