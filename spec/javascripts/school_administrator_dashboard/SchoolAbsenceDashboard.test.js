@@ -45,7 +45,7 @@ describe('SchoolAbsenceDashboard', () => {
   });
 
   it('filters dates outside the range for the school', () => {
-    dash.instance().setDate([moment('2001-01-02').format('X'), moment('2001-01-04').format('X')]);
+    dash.instance().setDate([moment.utc('2001-01-02').format('X'), moment.utc('2001-01-04').format('X')]);
     dash.update();
     expect(dash.find('DashboardBarChart').first().props().seriesData).toEqual([87.5]);
   });

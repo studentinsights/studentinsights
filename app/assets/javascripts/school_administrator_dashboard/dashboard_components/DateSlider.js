@@ -12,11 +12,11 @@ class DateSlider extends React.Component {
     super(props);
     this.state = {value: [this.props.rangeStart, this.props.rangeEnd]};
     this.onBeginningDateInput = (date) => {
-      const newValue = [parseInt(moment(date).format("X")), this.state.value[1]];
+      const newValue = [parseInt(moment.utc(date).format("X")), this.state.value[1]];
       this.setState({ value: newValue }, this.props.setDate(newValue));
     };
     this.onEndingDateInput = (date) => {
-      const newValue = [this.state.value[0], parseInt(moment(date).format("X"))];
+      const newValue = [this.state.value[0], parseInt(moment.utc(date).format("X"))];
       this.setState({ value: newValue }, this.props.setDate(newValue));
     };
     this.onSliderChange = (value) => {
