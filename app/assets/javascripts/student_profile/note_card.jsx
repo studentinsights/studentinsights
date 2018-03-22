@@ -1,5 +1,6 @@
 import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
+import EditableNoteText from '../components/EditableNoteText';
 import moment from 'moment';
 import * as Routes from '../helpers/Routes';
 
@@ -83,10 +84,6 @@ import * as Routes from '../helpers/Routes';
     },
 
     render: function() {
-      // If an onSave callback is provided, the text is editable.
-      // If not (eg., for older interventions),
-      const isEditable = this.props.onSave !== undefined;
-
       return (
         <div className="wrapper" style={styles.wrapper}>
           {this.renderStudentCard()}
@@ -100,32 +97,28 @@ import * as Routes from '../helpers/Routes';
                 <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
               </span>
             </div>
-            <NoteText
-              text={this.props.text}
-              isEditable={isEditable}
-              onBlurText={isEditable ? this.onBlurText : undefined} />
+            {this.renderText()}
             {this.renderAttachmentUrls()}
           </div>
         </div>        
       );
     },
 
-    renderNumberOfRevisions: function () {
-      const numberOfRevisions = this.props.numberOfRevisions;
-      if (numberOfRevisions === 0) return null;
-
-      return (
-        <div
-          style={{
-            color: '#aaa',
-            fontSize: 13,
-            marginTop: 13
-          }}>
-          {(numberOfRevisions === 1)
-              ? 'Revised 1 time'
-              : 'Revised ' + numberOfRevisions + ' times'}
-        </div>
-      );
+    // If an onSave callback is provided, the text is editable.
+    // This is for older interventions that are read-only 
+    // because of changes to the server data model.
+    renderText() {
+      const {onSave, text, numberOfRevisions}= this.props;
+      if (onSave) {
+        return (
+          <EditableNoteText
+            text={text}
+            numberOfRevisions={numberOfRevisions}
+            onBlurText={this.onBlurText} />
+        );
+      }
+      
+      return <NoteText text={text} />;        
     },
 
     renderAttachmentUrls: function() {
