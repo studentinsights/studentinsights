@@ -1,11 +1,10 @@
 import Educator from '../components/Educator';
+import NoteText from '../components/NoteText';
 import moment from 'moment';
 import * as Routes from '../helpers/Routes';
 
 (function() {
   window.shared || (window.shared = {});
-
-  const EditableTextComponent = window.shared.EditableTextComponent;
 
   const styles = {
     note: {
@@ -24,13 +23,6 @@ import * as Routes from '../helpers/Routes';
     educator: {
       paddingLeft: 5,
       display: 'inline-block'
-    },
-    noteText: {
-      marginTop: 5,
-      padding: 0,
-      fontFamily: "'Open Sans', sans-serif",
-      fontSize: 14,
-      whiteSpace: 'pre-wrap'
     },
     studentCard: {
       border: '1px solid #eee',
@@ -91,6 +83,10 @@ import * as Routes from '../helpers/Routes';
     },
 
     render: function() {
+      // If an onSave callback is provided, the text is editable.
+      // If not (eg., for older interventions),
+      const isEditable = this.props.onSave !== undefined;
+
       return (
         <div className="wrapper" style={styles.wrapper}>
           {this.renderStudentCard()}
@@ -104,23 +100,13 @@ import * as Routes from '../helpers/Routes';
                 <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
               </span>
             </div>
-            {(this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea()}
+            <NoteText
+              text={this.props.text}
+              isEditable={isEditable}
+              onBlurText={isEditable ? this.onBlurText : undefined} />
             {this.renderAttachmentUrls()}
           </div>
         </div>        
-      );
-    },
-
-    renderSaveableTextArea: function() {
-      return (
-        <div>
-          <EditableTextComponent
-            style={styles.noteText}
-            className="note-text"
-            text={this.props.text}
-            onBlurText={this.onBlurText} />
-          {this.renderNumberOfRevisions()}
-        </div>
       );
     },
 
@@ -138,16 +124,6 @@ import * as Routes from '../helpers/Routes';
           {(numberOfRevisions === 1)
               ? 'Revised 1 time'
               : 'Revised ' + numberOfRevisions + ' times'}
-        </div>
-      );
-    },
-
-    // If an onSave callback is provided, the text is editable.
-    // If not (eg., for older interventions),
-    renderStaticTextArea: function () {
-      return (
-        <div style={styles.noteText} className="note-text">
-          {this.props.text}
         </div>
       );
     },

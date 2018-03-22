@@ -1,0 +1,7 @@
+.NoteText {
+  border: 1px solid transparent;
+}
+
+.NoteText-with-hover:hover {
+  border-color: #e5e5e5;
+}

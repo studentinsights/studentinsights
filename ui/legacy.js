@@ -15,7 +15,6 @@ import '../app/assets/javascripts/student_profile/bar_chart_sparkline.jsx';
 import '../app/assets/javascripts/student_profile/sparkline.jsx';
 import '../app/assets/javascripts/student_profile/academic_summary.jsx';
 import '../app/assets/javascripts/student_profile/take_notes.jsx';
-import '../app/assets/javascripts/student_profile/editable_text_component.jsx';
 import '../app/assets/javascripts/student_profile/note_card.jsx';
 import '../app/assets/javascripts/student_profile/notes_list.jsx';
 import '../app/assets/javascripts/student_profile/services_list.jsx';
