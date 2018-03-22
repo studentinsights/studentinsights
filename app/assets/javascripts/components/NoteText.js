@@ -2,13 +2,12 @@ import React from 'react';
 
 
 export const exportedNoteText = {
-  noteText: {
-    marginTop: 5,
-    padding: 0,
-    fontFamily: "'Open Sans', sans-serif",
-    fontSize: 14,
-    whiteSpace: 'pre-wrap'
-  }
+  marginTop: 5,
+  padding: 0,
+  fontFamily: "'Open Sans', sans-serif",
+  fontSize: 14,
+  whiteSpace: 'pre-wrap',
+  border: '1px solid transparent' // for sizing when we add a border on hover when editable
 };
 
 

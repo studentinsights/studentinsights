@@ -35,7 +35,7 @@ function EditableNoteText(props) {
     <div className="EditableNoteText">
       <EditableTextComponent
         style={{...exportedNoteText, style}}
-        className="EditableNoteText-with-hover"
+        className="EditableTextComponent EditableNoteText-with-hover"
         text={text}
         onBlurText={onBlurText} />
       {renderNumberOfRevisions(numberOfRevisions)}
@@ -45,7 +45,7 @@ function EditableNoteText(props) {
 
 EditableNoteText.propTypes = {
   text: React.PropTypes.string.isRequired,
-  numberOfRevisions: React.PropTypes.num.isRequired,
+  numberOfRevisions: React.PropTypes.number.isRequired,
   onBlurText: React.PropTypes.func.isRequired,
   style: React.PropTypes.object
 };
