@@ -1,6 +1,7 @@
 import React from 'react';
 import FeedCardFrame from './FeedCardFrame';
 import Educator from '../components/Educator';
+import NoteText from '../components/NoteText';
 import HouseBadge from '../components/HouseBadge';
 import NoteBadge from '../components/NoteBadge';
 import {toMomentFromTime} from '../helpers/toMoment';
@@ -35,7 +36,7 @@ class EventNoteCard extends React.Component {
             <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNoteCardJson.event_note_type_id} />
           </div>}
         >
-          <div>{eventNoteCardJson.text}</div>
+          <NoteText text={eventNoteCardJson.text} />
         </FeedCardFrame>
       </div>
     );

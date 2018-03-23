@@ -60,6 +60,7 @@ class ResearchMattersExporter
       notes_added
       notes_revised
       notes_total
+      pageview_count
     ].join(',')
   end
 
@@ -93,12 +94,14 @@ class ResearchMattersExporter
   end
 
   def teacher_rows
+    ids_to_pageview_count = educator_ids_to_pageview_count
+
     @educators.map do |educator|
       full_name = educator.full_name
       last_name = full_name.present? ? full_name.split(", ")[0] : nil
       first_name = full_name.present? ? full_name.split(", ")[1] : nil
-      notes_added = educator.event_notes.count
-      notes_revised = educator.event_note_revisions.count
+      notes_added = educator_to_notes_added(educator.id)
+      notes_revised = educator_to_notes_revised(educator.id)
       notes_total = notes_added + notes_revised
 
       [
@@ -110,6 +113,7 @@ class ResearchMattersExporter
         notes_added,
         notes_revised,
         notes_total,
+        ids_to_pageview_count[educator.id]
       ].join(',')
     end
   end
@@ -142,6 +146,18 @@ class ResearchMattersExporter
              .count
   end
 
+  def educator_to_notes_added(educator_id)
+    EventNote.where(educator_id: educator_id, event_note_type_id: 300)
+             .select { |event| filter_event_occurred_at(event, 'recorded_at') }
+             .count
+  end
+
+  def educator_to_notes_revised(educator_id)
+    EventNoteRevision.where(educator_id: educator_id, event_note_type_id: 300)
+             .select { |event| filter_event_occurred_at(event, 'created_at') }
+             .count
+  end
+
   def student_to_sst_indicator(absence_indicator, discipline_indicator)
     return '1' if absence_indicator == '1' || discipline_indicator == '1'
 
@@ -149,13 +165,7 @@ class ResearchMattersExporter
   end
 
   def student_ids_to_pageview_count
-    @student_profile_page_views = student_profile_events.select do |event|
-      event['event'] == 'PAGE_VISIT'
-    end
-
-    log "Got #{@student_profile_page_views.size} student profile page views."
-
-    viewed_students = @student_profile_page_views.map do |pageview_record|
+    viewed_students = student_profile_pageviews.map do |pageview_record|
       url = pageview_record['properties']['$current_url']
 
       url.gsub!("https://#{@canonical_domain}/students/", "")
@@ -169,6 +179,28 @@ class ResearchMattersExporter
     end
 
     return ids_to_view_count
+  end
+
+  def educator_ids_to_pageview_count
+    educator_ids = student_profile_pageviews.map do |pageview_record|
+      pageview_record['properties']['educator_id']
+    end
+
+    ids_to_view_count = educator_ids.each_with_object(Hash.new(0)) do |id, memo|
+      memo[id] += 1
+    end
+
+    return ids_to_view_count
+  end
+
+  def student_profile_pageviews
+    @student_profile_page_views ||= student_profile_events.select do |event|
+      event['event'] == 'PAGE_VISIT'
+    end
+
+    log "Got #{@student_profile_page_views.size} student profile page views."
+
+    @student_profile_page_views
   end
 
   def student_profile_events
@@ -199,6 +231,7 @@ class ResearchMattersExporter
 
   def event_data
     @event_data ||= @mixpanel_downloader.event_data
+    log ""
     log "Got #{@event_data.size} raw events."
     @event_data
   end

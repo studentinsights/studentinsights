@@ -27,7 +27,7 @@ describe('NoteCard', function() {
     },
 
     editNoteAndSave: function(el, uiParams) {
-      const $text = $(el).find('.note-text');
+      const $text = $(el).find('.EditableTextComponent');
       $text.html(uiParams.html);
       ReactTestUtils.Simulate.input($text.get(0));
       ReactTestUtils.Simulate.blur($text.get(0));
@@ -35,7 +35,7 @@ describe('NoteCard', function() {
     },
 
     getNoteHTML: function(el) {
-      return $(el).find('.note-text').html();
+      return $(el).find('.EditableTextComponent').html();
     }
   };
 

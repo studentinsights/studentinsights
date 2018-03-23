@@ -56,7 +56,7 @@ describe('PageContainer', function() {
 
     editNoteAndSave: function(el, uiParams) {
       const $noteCard = $(el).find('.NotesList .NoteCard').first();
-      const $text = $noteCard.find('.note-text');
+      const $text = $noteCard.find('.EditableTextComponent');
       $text.html(uiParams.text);
       ReactTestUtils.Simulate.input($text.get(0));
       ReactTestUtils.Simulate.blur($text.get(0));

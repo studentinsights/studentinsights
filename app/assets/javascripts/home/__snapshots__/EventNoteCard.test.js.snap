@@ -127,7 +127,19 @@ exports[`matches snapshot 1`] = `
         }
       }
     >
-      <div>
+      <div
+        style={
+          Object {
+            "border": "1px solid transparent",
+            "fontFamily": "'Open Sans', sans-serif",
+            "fontSize": 14,
+            "marginTop": 5,
+            "padding": 0,
+            "style": undefined,
+            "whiteSpace": "pre-wrap",
+          }
+        }
+      >
         hello!
       </div>
     </div>

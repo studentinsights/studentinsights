@@ -165,7 +165,19 @@ exports[`HomeFeedPure pure component matches snapshot 1`] = `
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           hello there!
 
 Philis is meeting with parent next week and will present an attendance contract.
@@ -313,7 +325,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Donald twice this week.  Philis following up with outside providers as well.
         </div>
       </div>
@@ -473,7 +497,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Rapunzel twice this week.  Philis following up with outside providers as well.
         </div>
       </div>
@@ -646,7 +682,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Lila will look into a referral to a big sister program.
         </div>
       </div>
@@ -792,7 +840,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
         </div>
       </div>
@@ -952,7 +1012,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Philis is meeting with parent next week and will present an attendance contract.
         </div>
       </div>
@@ -1125,7 +1197,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Daisy twice this week.  Philis following up with outside providers as well.
         </div>
       </div>
@@ -1298,7 +1382,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Rapunzel twice this week.  Philis following up with outside providers as well.
         </div>
       </div>
@@ -1457,7 +1553,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Meetings with staff about lack of academic progress.
         </div>
       </div>
@@ -1603,7 +1711,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
         </div>
       </div>
@@ -1776,7 +1896,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Lila will look into a referral to a big sister program.
         </div>
       </div>
@@ -1949,7 +2081,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
         </div>
       </div>
@@ -2122,7 +2266,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Elsa twice this week.  Philis following up with outside providers as well.
         </div>
       </div>
@@ -2268,7 +2424,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Engagement issues in ELA, sometimes shutting down altogether and refusing to engage in academic work.  Other times this is more disruptive, lashing out and yelling at other students and interfering with their learning.
         </div>
       </div>
@@ -2428,7 +2596,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Meetings with staff about lack of academic progress.
         </div>
       </div>
@@ -2588,7 +2768,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
         </div>
       </div>
@@ -2748,7 +2940,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Meetings with staff about lack of academic progress.
         </div>
       </div>
@@ -2921,7 +3125,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Philis is meeting with parent next week and will present an attendance contract.
         </div>
       </div>
@@ -3067,7 +3283,19 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
           Meetings with staff about lack of academic progress.
         </div>
       </div>

@@ -43,7 +43,7 @@ export default {
   },
 
   schoolYearStart: function() {
-    const today = moment();
+    const today = moment.utc();
     return today.month() < 8 ? today.subtract(1, 'year').year() + "-08-15" : today.year() + "-08-15";
   },
 
