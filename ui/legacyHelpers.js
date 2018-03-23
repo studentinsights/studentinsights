@@ -4,7 +4,6 @@ import '../app/assets/javascripts/helpers/react_helpers.jsx';
 import '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
 import '../app/assets/javascripts/helpers/profile_details_style.jsx';
 import '../app/assets/javascripts/helpers/prop_types.jsx';
-import '../app/assets/javascripts/helpers/sort_helpers.jsx';
 
 // Export these so legacy components can use this, and
 // new components can pull in components
