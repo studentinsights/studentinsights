@@ -1,8 +1,9 @@
-window.shared || (window.shared = {});
-const ProfileChart = window.shared.ProfileChart;
-const ProfileChartSettings = window.ProfileChartSettings;
-
+import ProfileChart from '../student_profile/ProfileChart';
 import {merge} from '../helpers/react_helpers.jsx';
+
+
+window.shared || (window.shared = {});
+const ProfileChartSettings = window.shared.ProfileChartSettings;
 
 const styles = {
   title: {
