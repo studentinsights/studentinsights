@@ -201,6 +201,24 @@ RSpec.describe ResearchMattersExporter do
             ])
           end
         end
+
+        context 'teacher has focal student' do
+          before do
+            8.times do |n|
+              FactoryGirl.create(:discipline_incident,
+                student: student,
+                occurred_at: DateTime.new(2017, 12, 22 - n)
+              )
+            end
+          end
+
+          it 'outputs the right file' do
+            expect(exporter.teacher_file).to eq([
+              "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,total_student_count,focal_student_count,pageview_count",
+              "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0,1,1,0"
+            ])
+          end
+        end
       end
 
       context 'teacher has 2 mixpanel pageviews' do
