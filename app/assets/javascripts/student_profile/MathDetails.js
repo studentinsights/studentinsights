@@ -1,9 +1,10 @@
 import ProfileChart from '../student_profile/ProfileChart.js';
+import {merge} from '../helpers/react_helpers.jsx';
 
 window.shared || (window.shared = {});
-const ProfileChartSettings = window.ProfileChartSettings;
+const ProfileChartSettings = window.shared.ProfileChartSettings;
 
-import {merge} from '../helpers/react_helpers.jsx';
+
 
 const styles = {
   title: {

@@ -4,8 +4,7 @@ import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
 
 window.shared || (window.shared = {});
 const QuadConverter = window.shared.QuadConverter;
-
-const ProfileChartSettings = window.ProfileChartSettings;
+const ProfileChartSettings = window.shared.ProfileChartSettings;
 
 // Component for all charts in the profile page.
 class ProfileChart extends React.Component {
