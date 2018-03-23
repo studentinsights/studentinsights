@@ -9,7 +9,6 @@ describe 'educator sign in', type: :feature do
     }
 
     it 'signs in' do
-      mock_ldap_authorization
       educator_sign_in(admin_educator)
       visit admin_root_url
       expect(page).to have_content 'Educator, Example'
