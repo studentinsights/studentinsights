@@ -1,6 +1,6 @@
-describe('Routes', function() {
-  const Routes = window.shared.Routes;
+import * as Routes from '../helpers/Routes';
 
+describe('Routes', function() {
   describe('#studentProfile', function() {
     it('returns URLs with encoded query string', function() {
       expect(Routes.studentProfile(3)).toEqual('/students/3');

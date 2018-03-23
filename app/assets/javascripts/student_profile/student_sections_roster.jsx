@@ -1,12 +1,11 @@
 import _ from 'lodash';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 import FlexibleRoster from '../components/FlexibleRoster';
+import * as Routes from '../helpers/Routes';
 
 
 (function() {
   window.shared || (window.shared = {});
-
-  const Routes = window.shared.Routes;
 
   /*
   Renders the table of sections.

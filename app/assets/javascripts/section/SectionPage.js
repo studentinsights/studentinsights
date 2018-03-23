@@ -3,13 +3,13 @@ import FlexibleRoster from '../components/FlexibleRoster';
 import SectionHeader from './SectionHeader';
 import SortHelpers from '../helpers/sort_helpers.jsx';
 import {latestNoteDateText} from '../helpers/latestNoteDateText';
+import * as Routes from '../helpers/Routes';
 
 
 // Show a section roster for a high school course.
 class SectionPage extends React.Component {
 
   styleStudentName(student, column) {
-    const Routes = window.shared.Routes;
     return (
       <a href={Routes.studentProfile(student.id)}>
         {student.last_name + ', ' + student.first_name}
