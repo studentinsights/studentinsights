@@ -1,5 +1,6 @@
+import ProfileChart from '../student_profile/ProfileChart.js';
+
 window.shared || (window.shared = {});
-const ProfileChart = window.shared.ProfileChart;
 const ProfileChartSettings = window.ProfileChartSettings;
 
 import {merge} from '../helpers/react_helpers.jsx';
