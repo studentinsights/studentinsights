@@ -60,6 +60,8 @@ class ResearchMattersExporter
       notes_added
       notes_revised
       notes_total
+      total_student_count
+      focal_student_count
       pageview_count
     ].join(',')
   end
@@ -70,7 +72,7 @@ class ResearchMattersExporter
     @students.map do |student|
       absence_indicator = student_to_indicator(student.id, Absence, 12)
       discipline_indicator = student_to_indicator(student.id, DisciplineIncident, 5)
-      sst_indicator = student_to_sst_indicator(absence_indicator, discipline_indicator)
+      sst_indicator = combine_indicators(absence_indicator, discipline_indicator)
       notes_added = student_to_notes_added(student.id)
       notes_revised = student_to_notes_revised(student.id)
       notes_total = notes_added + notes_revised
@@ -103,6 +105,8 @@ class ResearchMattersExporter
       notes_added = educator_to_notes_added(educator.id)
       notes_revised = educator_to_notes_revised(educator.id)
       notes_total = notes_added + notes_revised
+      total_student_count = educator_to_total_student_count(educator)
+      focal_student_count = educator_to_focal_sstudent_count(educator)
 
       [
         educator.id,
@@ -113,6 +117,8 @@ class ResearchMattersExporter
         notes_added,
         notes_revised,
         notes_total,
+        total_student_count,
+        focal_student_count,
         ids_to_pageview_count[educator.id]
       ].join(',')
     end
@@ -131,7 +137,7 @@ class ResearchMattersExporter
                        .select { |event| filter_event_occurred_at(event, 'occurred_at') }
                        .count
 
-    (count >= limit) ? '1' : 0
+    (count >= limit) ? '1' : '0'
   end
 
   def student_to_notes_added(student_id)
@@ -158,7 +164,28 @@ class ResearchMattersExporter
              .count
   end
 
-  def student_to_sst_indicator(absence_indicator, discipline_indicator)
+  def educator_to_total_student_count(educator)
+    return 0 if educator.homeroom.nil?
+
+    return educator.homeroom.students.count
+  end
+
+  def educator_to_focal_sstudent_count(educator)
+    return 0 if educator.homeroom.nil?
+
+    return educator.homeroom.students.select { |student| is_sst(student) }.count
+  end
+
+  def is_sst(student)
+    absence_indicator = student_to_indicator(student.id, Absence, 12)
+    discipline_indicator = student_to_indicator(student.id, DisciplineIncident, 5)
+
+    return true if absence_indicator == '1' || discipline_indicator == '1'
+
+    return false
+  end
+
+  def combine_indicators(absence_indicator, discipline_indicator)
     return '1' if absence_indicator == '1' || discipline_indicator == '1'
 
     return '0'
