@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Datepicker from '../student_profile/Datepicker.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import moment from 'moment';
-import ProfileDetailsStyle from '../helpers/profile_details_style.jsx';
+import ProfileDetailsStyle from './ProfileDetailsStyle';
 
 (function() {
   window.shared || (window.shared = {});
