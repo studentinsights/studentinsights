@@ -47,7 +47,7 @@ class PerDistrict
     if @district_key == SOMERVILLE
       login_name + '@k12.somerville.ma.us'
     elsif @district_key == NEW_BEDFORD
-      login_name + '@newbedford.org'
+      login_name + '@newbedfordschools.org'
     elsif @district_key == DEMO
       raise "PerDistrict#from_import_login_name_to_email not supported for district_key: {DEMO}"
     else

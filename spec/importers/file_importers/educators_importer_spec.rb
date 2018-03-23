@@ -77,7 +77,7 @@ RSpec.describe EducatorsImporter do
                 ENV['DISTRICT_KEY'] = PerDistrict::NEW_BEDFORD
                 educators_importer.import_row(row)
                 educator = Educator.last
-                expect(educator.email).to eq('jyoung@newbedford.org')
+                expect(educator.email).to eq('jyoung@newbedfordschools.org')
               end
 
               context 'multiple educators' do

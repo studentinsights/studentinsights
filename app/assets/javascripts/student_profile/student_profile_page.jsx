@@ -1,21 +1,21 @@
-import _ from 'lodash';
-import MathDetails from '../student_profile/MathDetails.js';
-import ElaDetails from '../student_profile/ElaDetails.js';
-import PropTypes from '../helpers/prop_types.jsx';
-import {merge} from '../helpers/react_helpers.jsx';
-import NotesDetails from '../student_profile/NotesDetails.js';
 import React from 'react';
-import Scales from '../student_profile/Scales.js';
-import SummaryList from '../student_profile/SummaryList.js';
-import AttendanceDetails from '../student_profile/AttendanceDetails.js';
+import _ from 'lodash';
+import BarChartSparkline from '../student_profile/BarChartSparkline';
+import AttendanceDetails from '../student_profile/AttendanceDetails';
+import AcademicSummary from '../student_profile/AcademicSummary';
+import ElaDetails from '../student_profile/ElaDetails';
+import MathDetails from '../student_profile/MathDetails';
+import {merge} from '../helpers/react_helpers.jsx';
+import NotesDetails from '../student_profile/NotesDetails';
+import PropTypes from '../helpers/prop_types.jsx';
+import Scales from '../student_profile/Scales';
+import SummaryList from '../student_profile/SummaryList';
+import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline';
 
 (function() {
   window.shared || (window.shared = {});
 
-  const BarChartSparkline = window.shared.BarChartSparkline;
   const Sparkline = window.shared.Sparkline;
-  const AcademicSummary = window.shared.AcademicSummary;
-  const SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
   const QuadConverter = window.shared.QuadConverter;
 
   const StudentProfileHeader = window.shared.StudentProfileHeader;

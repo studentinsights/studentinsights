@@ -63,12 +63,12 @@ describe('StudentProfilePage integration test', function() {
 
   });
 
-  SpecSugar.withTestEl('renders MCAS/DIBELS correctly according to grade level', function(container) {
+  SpecSugar.withTestEl('renders MCAS/DIBELS correctly according to grade level', (container) => {
 
-    describe('student in grade 3', function() {
+    describe('student in grade 3', () => {
 
-      describe('student with DIBELS result', function() {
-        it('renders the latest DIBELS', function () {
+      describe('student with DIBELS result', () => {
+        it('renders the latest DIBELS', () => {
           const el = container.testEl;
           helpers.renderStudentProfilePage(el, '3', [{ 'performance_level': 'INTENSIVE '}]);
           expect($(el).text()).not.toContain('MCAS ELA SGP');

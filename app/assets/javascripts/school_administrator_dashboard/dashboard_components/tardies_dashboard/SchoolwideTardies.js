@@ -21,7 +21,7 @@ class SchoolwideTardies extends React.Component {
       homeroomTardyEvents[homeroom] = 0;
       _.each(studentsByHomeroom[homeroom], (student) => {
         student.tardies.forEach((tardy) => {
-          if (moment(tardy.occurred_at).isSameOrAfter(schoolYearStart)) {
+          if (moment.utc(tardy.occurred_at).isSameOrAfter(schoolYearStart)) {
             homeroomTardyEvents[homeroom]++;
           }
         });
