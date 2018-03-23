@@ -1,4 +1,4 @@
-import * as Routes from '../helpers/Routes';
+import * as Routes from '../../../app/assets/javascripts/helpers/Routes';
 
 describe('Routes', function() {
   describe('#studentProfile', function() {
