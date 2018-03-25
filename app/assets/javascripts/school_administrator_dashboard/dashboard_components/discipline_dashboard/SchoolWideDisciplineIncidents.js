@@ -15,14 +15,14 @@ class SchoolWideDisciplineIncidents extends React.Component {
     let schoolDisciplineEvents = [];
     students.forEach((student) => {
       student.discipline_incidents.forEach((incident) => {
-        if (moment(incident.occurred_at).isSameOrAfter(moment(startDate))) {
+        if (moment.utc(incident.occurred_at).isSameOrAfter(moment.utc(startDate))) {
           schoolDisciplineEvents.push({
             student_id: incident.student_id,
             location: incident.incident_location,
-            time: incident.has_exact_time ? moment(incident.occurred_at).format("h A") : "Not Logged",
+            time: incident.has_exact_time ? moment.utc(incident.occurred_at).format("h A") : "Not Logged",
             classroom: student.homeroom_label,
             student_grade: student.grade,
-            day: moment(incident.occurred_at).format("ddd"),
+            day: moment.utc(incident.occurred_at).format("ddd"),
             offense: incident.incident_code,
             student_race: student.race,
             occurred_at: incident.occurred_at,

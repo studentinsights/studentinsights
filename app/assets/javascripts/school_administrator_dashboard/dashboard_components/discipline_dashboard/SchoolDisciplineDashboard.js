@@ -39,7 +39,7 @@ class SchoolDisciplineDashboard extends React.Component {
 
   filterIncidentDates(incidents) {
     return incidents.filter((incident) => {
-      return moment(incident.occurred_at).isSameOrAfter(moment(this.state.startDate));
+      return moment.utc(incident.occurred_at).isSameOrAfter(moment.utc(this.state.startDate));
     });
   }
 
@@ -110,11 +110,11 @@ class SchoolDisciplineDashboard extends React.Component {
 
   renderDateRangeSlider() {
     const firstDate = DashboardHelpers.schoolYearStart();
-    const lastDate = moment();
+    const lastDate = moment.utc();
     return (
       <DateSlider
-        rangeStart = {parseInt(moment(firstDate).format("X"))}
-        rangeEnd = {parseInt(moment(lastDate).format("X"))}
+        rangeStart = {parseInt(moment.utc(firstDate).format("X"))}
+        rangeEnd = {parseInt(moment.utc(lastDate).format("X"))}
         setDate={this.setDate}/>
     );
   }
