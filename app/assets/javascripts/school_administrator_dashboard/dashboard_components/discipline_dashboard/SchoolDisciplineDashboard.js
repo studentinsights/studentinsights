@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
@@ -12,26 +13,28 @@ class SchoolDisciplineDashboard extends React.Component {
     super(props);
     this.state = {
       startDate: DashboardHelpers.schoolYearStart(),
-      selectedChart: {
-        type: "location",
-        data: this.props.disciplineIncidentsByLocation,
-        title: "Incidents by Location"},
+      selectedChart: 'location',
       selectedCategory: null
     };
-    this.setDate = (range) => {
-      this.setState({
-        startDate: moment.unix(range[0]).format("YYYY-MM-DD")
-      });
-    };
-    this.setStudentList = (highchartsEvent) => {
-      this.setState({selectedCategory: highchartsEvent.point.category});
-    };
-    this.resetStudentList = () => {
-      this.setState({selectedCategory: null});
-    };
-    this.selectChart = (event) => {
-      this.setState({selectedChart: this.updateChartSelection(event.target.value), selectedCategory: null});
-    };
+    this.setDate = this.setDate.bind(this);
+    this.setStudentList = this.setStudentList.bind(this);
+    this.resetStudentList = this.resetStudentList.bind(this);
+    this.selectChart = this.selectChart.bind(this);
+  }
+
+  setDate(range) {
+    this.setState({
+      startDate: moment.unix(range[0]).format("YYYY-MM-DD")
+    });
+  }
+  setStudentList(highchartsEvent) {
+    this.setState({selectedCategory: highchartsEvent.point.category});
+  }
+  resetStudentList() {
+    this.setState({selectedCategory: null});
+  }
+  selectChart(event) {
+    this.setState({selectedChart: event.target.value, selectedCategory: null});
   }
 
   filterIncidentDates(incidents) {
@@ -42,7 +45,8 @@ class SchoolDisciplineDashboard extends React.Component {
 
   studentDisciplineIncidentCounts(incidentCategory) {
     let studentDisciplineIncidentCounts = {};
-    const incidents = incidentCategory ? this.state.selectedChart.data[incidentCategory] : this.props.totalDisciplineIncidents;
+    const selectedChart = this.getChartData(this.state.selectedChart);
+    const incidents = incidentCategory ? selectedChart.data[incidentCategory] : this.props.totalDisciplineIncidents;
     this.filterIncidentDates(incidents).forEach((incident) => {
       studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
       studentDisciplineIncidentCounts[incident.student_id]++;
@@ -50,51 +54,19 @@ class SchoolDisciplineDashboard extends React.Component {
     return studentDisciplineIncidentCounts;
   }
 
-  updateChartSelection(selectedChart) {
-    switch(selectedChart) {
-    case 'location':
-      return {
-        type: selectedChart,
-        data: this.props.disciplineIncidentsByLocation,
-        title: "Incidents by Location"};
-    case 'time':
-      return {
-        type: selectedChart,
-        data: this.props.disciplineIncidentsByTime,
-        title: "Incidents by Time"};
-    case 'classroom':
-      return {
-        type: selectedChart,
-        data: this.props.disciplineIncidentsByClassroomn,
-        title: "Incidents by Classroom"};
-    case 'grade':
-      return {
-        type: selectedChart,
-        data: this.props.disciplineIncidentsByGrade,
-        title: "Incidents by Grade"};
-    case 'day':
-      return {
-        type: selectedChart,
-        data: this.props.disciplineIncidentsByDay,
-        title: "Incidents by Day"};
-    case 'offense':
-      return {
-        type: selectedChart,
-        data: this.props.disciplineIncidentsByOffense,
-        title: "Incidents by Offense"};
-    case 'race':
-      return {
-        type: selectedChart,
-        data: this.props.disciplineIncidentsByRace,
-        title: "Incidents by Race"};
-    }
+  getChartData(selectedChart) {
+    return {
+      type: selectedChart,
+      data: _.groupBy(this.props.totalDisciplineIncidents, selectedChart),
+      title: "Incidents by " + selectedChart};
   }
 
   render() {
+    const selectedChart = this.getChartData(this.state.selectedChart);
     return(
       <div className="DashboardContainer">
         <div className="DashboardChartsColumn">
-        <select value={this.state.selectedChart.type} onChange={this.selectChart}>
+        <select value={selectedChart.type} onChange={this.selectChart}>
           <option value="location">Location</option>
           <option value="time">Time</option>
           <option value="classroom">Classroom</option>
@@ -102,7 +74,7 @@ class SchoolDisciplineDashboard extends React.Component {
           <option value="day">Day</option>
           <option value="offense">Offense</option>
           </select>
-         {this.renderDisciplineChart(this.state.selectedChart)}
+         {this.renderDisciplineChart(selectedChart)}
 
         </div>
         <div className="DashboardRosterColumn">
@@ -115,10 +87,10 @@ class SchoolDisciplineDashboard extends React.Component {
 
   renderDisciplineChart(group) {
     let seriesData = [];
-    const incidentGroup = this.state.selectedChart.data;
-    let categories = Object.keys(incidentGroup);
+    const selectedChart = this.getChartData(this.state.selectedChart);
+    const categories = Object.keys(selectedChart.data);
     categories.forEach((type) => {
-      const incidents = this.filterIncidentDates(incidentGroup[type]);
+      const incidents = this.filterIncidentDates(selectedChart.data[type]);
       seriesData.push([type, incidents.length]);
     });
 
@@ -127,8 +99,8 @@ class SchoolDisciplineDashboard extends React.Component {
           id = "Discipline"
           categories = {{categories: categories}}
           seriesData = {seriesData}
-          titleText = {this.state.selectedChart.title}
-          measureText = {this.state.selectedChart.title}
+          titleText = {selectedChart.title}
+          measureText = {'Number of Incidents'}
           tooltip = {{
             pointFormat: 'Total incidents: <b>{point.y}</b>'}}
           onColumnClick = {this.setStudentList}
@@ -171,14 +143,7 @@ class SchoolDisciplineDashboard extends React.Component {
 
 SchoolDisciplineDashboard.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
-  totalDisciplineIncidents: PropTypes.array.isRequired,
-  disciplineIncidentsByLocation: PropTypes.object.isRequired,
-  disciplineIncidentsByTime: PropTypes.object.isRequired,
-  disciplineIncidentsByClassroomn: PropTypes.object.isRequired,
-  disciplineIncidentsByGrade: PropTypes.object.isRequired,
-  disciplineIncidentsByDay: PropTypes.object.isRequired,
-  disciplineIncidentsByOffense: PropTypes.object.isRequired,
-  disciplineIncidentsByRace: PropTypes.object.isRequired
+  totalDisciplineIncidents: PropTypes.array.isRequired
 };
 
 export default SchoolDisciplineDashboard;

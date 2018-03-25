@@ -40,15 +40,7 @@ class SchoolWideDisciplineIncidents extends React.Component {
     return (
       <SchoolDisciplineDashboard
         dashboardStudents={this.props.dashboardStudents}
-        totalDisciplineIncidents={schoolDisciplineEvents}
-        disciplineIncidentsByLocation={_.groupBy(schoolDisciplineEvents, 'location')}
-        disciplineIncidentsByTime={_.groupBy(schoolDisciplineEvents, 'time')}
-        disciplineIncidentsByClassroomn={_.groupBy(schoolDisciplineEvents, 'classroom')}
-        disciplineIncidentsByGrade={_.groupBy(schoolDisciplineEvents, 'student_grade')}
-        disciplineIncidentsByDay={_.groupBy(schoolDisciplineEvents, 'day')}
-        disciplineIncidentsByOffense={_.groupBy(schoolDisciplineEvents, 'offense')}
-        disciplineIncidentsByRace={_.groupBy(schoolDisciplineEvents, 'student_race')}
-      />
+        totalDisciplineIncidents={schoolDisciplineEvents}/>
     );
   }
 }
