@@ -152,9 +152,12 @@ function fromPair(key, value) {
       }
 
       const updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
+
       this.setState({
         feed: updatedFeed,
-        requests: merge(this.state.requests, { saveNote: null })
+        requests: merge(this.state.requests, { saveNote: null }),
+        noteInProgressText: '',
+        noteInProgressType: null,
       });
     },
 

@@ -121,10 +121,12 @@ export default React.createClass({
   },
 
   onClickSave: function(event) {
-    const params = merge(
-      _.pick(this.state, 'eventNoteTypeId', 'text'),
-      this.eventNoteUrlsForSave()
-    );
+    const {noteInProgressText, noteInProgressType} = this.props;
+
+    const params = merge({
+      eventNoteTypeId: noteInProgressType,
+      text: noteInProgressText,
+    }, this.eventNoteUrlsForSave());
 
     this.props.onSave(params);
   },
