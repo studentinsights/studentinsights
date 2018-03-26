@@ -119,6 +119,8 @@ describe('PageContainer', function() {
         text: 'hello!'
       });
 
+      expect(component.props.actions.onChangeNoteInProgressText).toHaveBeenCalled();
+
       expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
         eventNoteTypeId: 300,
         text: 'hello!',
