@@ -36,7 +36,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
           }
         }
       >
-        Localhost High
+        Somerville High
       </a>
     </h4>
   </div>
@@ -105,9 +105,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             }
           }
         >
-          Student
-          <br />
-          grade range
+          Grade levels
         </th>
         <th
           style={
@@ -121,9 +119,21 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             }
           }
         >
-          Student
-          <br />
-          age range
+          Ages
+        </th>
+        <th
+          style={
+            Object {
+              "backgroundColor": "#ccc",
+              "border": "1px solid #eee",
+              "fontWeight": "bold",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          Schools
         </th>
       </tr>
     </thead>
@@ -219,6 +229,28 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
           13
            - 
           14
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/9"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            Somerville High
+          </a>
         </td>
       </tr>
       <tr>
@@ -317,6 +349,28 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
            - 
           14
         </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/9"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            Somerville High
+          </a>
+        </td>
       </tr>
       <tr>
         <td
@@ -409,6 +463,28 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
           13
            - 
           14
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/9"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            Somerville High
+          </a>
         </td>
       </tr>
     </tbody>

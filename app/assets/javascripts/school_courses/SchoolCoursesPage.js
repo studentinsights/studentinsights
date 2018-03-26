@@ -63,17 +63,20 @@ export class SchoolCoursesPagePure extends React.Component {
               <th style={{...styles.cell, ...styles.headerCell}}>Course</th>
               <th style={{...styles.cell, ...styles.headerCell}}>Sections</th>
               <th style={{...styles.cell, ...styles.headerCell}}>Total students</th>
-              <th style={{...styles.cell, ...styles.headerCell}}>Student<br />grade range</th>
-              <th style={{...styles.cell, ...styles.headerCell}}>Student<br />age range</th>
+              <th style={{...styles.cell, ...styles.headerCell}}>Grade levels</th>
+              <th style={{...styles.cell, ...styles.headerCell}}>Ages</th>
+              <th style={{...styles.cell, ...styles.headerCell}}>Schools</th>
             </tr>
           </thead>
           <tbody>{sortedCourses.map(course => {
+            const rightAlignStyle = {...styles.cell, textAlign: 'right'};
             const students = _.flatten(course.sections.map(s => s.students));
             const grades = _.sortBy(_.uniq(students.map(s => parseInt(s.grade, 10))));
             const ages =  _.sortBy(_.uniq(students.map(s => toMomentFromTime(s.date_of_birth).unix())).map(unix => {
               const birthdate = moment.unix(unix).utc();
               return now.clone().diff(birthdate, 'year');
             }));
+            const schools = _.sortBy(_.uniq(_.flatten(students.map(s => s.school)), 'id'), 'name');
             return (
               <tr key={course.id}>
                 <td style={styles.cell}>{course.course_number} {course.course_description}</td>
@@ -86,11 +89,18 @@ export class SchoolCoursesPagePure extends React.Component {
                     sectionNumber={section.section_number}
                     courseDescription={course.course_description} />
                 )}</td>
-                <td style={{...styles.cell, textAlign: 'right'}}>{students.length}</td>
-                <td style={{...styles.cell, textAlign: 'right'}}>{grades.length > 1
+                <td style={rightAlignStyle}>{students.length}</td>
+                <td style={rightAlignStyle}>{grades.length > 1
                     ? <span>{_.first(grades)} - {_.last(grades)}</span>
                     : grades[0]}</td>
-                <td style={{...styles.cell, textAlign: 'right'}}>{_.first(ages)} - {_.last(ages)}</td>
+                <td style={rightAlignStyle}>{_.first(ages)} - {_.last(ages)}</td>
+                <td style={styles.cell}>{schools.map(school =>
+                  <School
+                    key={school.id}
+                    id={school.id}
+                    name={school.name}
+                    style={{display: 'block'}} />
+                )}</td>
               </tr>
             );
           })}</tbody>
@@ -113,7 +123,11 @@ SchoolCoursesPagePure.propTypes = {
       students: React.PropTypes.arrayOf(React.PropTypes.shape({
         id: React.PropTypes.number.isRequired,
         grade: React.PropTypes.string.isRequired,
-        date_of_birth: React.PropTypes.string.isRequired
+        date_of_birth: React.PropTypes.string.isRequired,
+        school: React.PropTypes.shape({
+          id: React.PropTypes.number.isRequired,
+          name: React.PropTypes.string.isRequired
+        }).isRequired
       })).isRequired
     })).isRequired
   })).isRequired,

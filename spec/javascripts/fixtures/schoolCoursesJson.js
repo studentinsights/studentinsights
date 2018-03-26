@@ -15,52 +15,92 @@ export default {
             {
               "id": 2,
               "grade": "9",
-              "date_of_birth": "2004-03-12T00:00:00.000Z"
+              "date_of_birth": "2004-03-12T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 66,
               "grade": "10",
-              "date_of_birth": "2003-09-02T00:00:00.000Z"
+              "date_of_birth": "2003-09-02T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 67,
               "grade": "10",
-              "date_of_birth": "2003-12-01T00:00:00.000Z"
+              "date_of_birth": "2003-12-01T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 68,
               "grade": "10",
-              "date_of_birth": "2004-04-18T00:00:00.000Z"
+              "date_of_birth": "2004-04-18T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 69,
               "grade": "10",
-              "date_of_birth": "2003-12-22T00:00:00.000Z"
+              "date_of_birth": "2003-12-22T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 70,
               "grade": "10",
-              "date_of_birth": "2004-05-10T00:00:00.000Z"
+              "date_of_birth": "2004-05-10T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 71,
               "grade": "10",
-              "date_of_birth": "2003-11-01T00:00:00.000Z"
+              "date_of_birth": "2003-11-01T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 72,
               "grade": "10",
-              "date_of_birth": "2004-02-03T00:00:00.000Z"
+              "date_of_birth": "2004-02-03T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 73,
               "grade": "10",
-              "date_of_birth": "2003-10-27T00:00:00.000Z"
+              "date_of_birth": "2003-10-27T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 74,
               "grade": "10",
-              "date_of_birth": "2004-02-04T00:00:00.000Z"
+              "date_of_birth": "2004-02-04T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             }
           ]
         },
@@ -74,47 +114,83 @@ export default {
             {
               "id": 75,
               "grade": "10",
-              "date_of_birth": "2004-06-17T00:00:00.000Z"
+              "date_of_birth": "2004-06-17T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 76,
               "grade": "10",
-              "date_of_birth": "2003-09-26T00:00:00.000Z"
+              "date_of_birth": "2003-09-26T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 77,
               "grade": "10",
-              "date_of_birth": "2004-07-18T00:00:00.000Z"
+              "date_of_birth": "2004-07-18T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 78,
               "grade": "10",
-              "date_of_birth": "2003-09-30T00:00:00.000Z"
+              "date_of_birth": "2003-09-30T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 79,
               "grade": "10",
-              "date_of_birth": "2004-02-05T00:00:00.000Z"
+              "date_of_birth": "2004-02-05T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 80,
               "grade": "10",
-              "date_of_birth": "2004-05-07T00:00:00.000Z"
+              "date_of_birth": "2004-05-07T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 81,
               "grade": "10",
-              "date_of_birth": "2003-11-15T00:00:00.000Z"
+              "date_of_birth": "2003-11-15T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 82,
               "grade": "10",
-              "date_of_birth": "2004-05-08T00:00:00.000Z"
+              "date_of_birth": "2004-05-08T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 83,
               "grade": "10",
-              "date_of_birth": "2004-05-08T00:00:00.000Z"
+              "date_of_birth": "2004-05-08T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             }
           ]
         }
@@ -135,47 +211,83 @@ export default {
             {
               "id": 84,
               "grade": "10",
-              "date_of_birth": "2004-02-21T00:00:00.000Z"
+              "date_of_birth": "2004-02-21T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 85,
               "grade": "10",
-              "date_of_birth": "2003-10-08T00:00:00.000Z"
+              "date_of_birth": "2003-10-08T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 86,
               "grade": "10",
-              "date_of_birth": "2003-12-15T00:00:00.000Z"
+              "date_of_birth": "2003-12-15T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 87,
               "grade": "10",
-              "date_of_birth": "2004-07-22T00:00:00.000Z"
+              "date_of_birth": "2004-07-22T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 88,
               "grade": "10",
-              "date_of_birth": "2004-04-09T00:00:00.000Z"
+              "date_of_birth": "2004-04-09T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 89,
               "grade": "10",
-              "date_of_birth": "2003-11-09T00:00:00.000Z"
+              "date_of_birth": "2003-11-09T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 90,
               "grade": "10",
-              "date_of_birth": "2004-05-20T00:00:00.000Z"
+              "date_of_birth": "2004-05-20T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 91,
               "grade": "10",
-              "date_of_birth": "2003-11-01T00:00:00.000Z"
+              "date_of_birth": "2003-11-01T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 92,
               "grade": "10",
-              "date_of_birth": "2004-06-18T00:00:00.000Z"
+              "date_of_birth": "2004-06-18T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             }
           ]
         },
@@ -189,47 +301,83 @@ export default {
             {
               "id": 93,
               "grade": "10",
-              "date_of_birth": "2003-11-26T00:00:00.000Z"
+              "date_of_birth": "2003-11-26T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 94,
               "grade": "10",
-              "date_of_birth": "2004-04-03T00:00:00.000Z"
+              "date_of_birth": "2004-04-03T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 95,
               "grade": "10",
-              "date_of_birth": "2004-01-30T00:00:00.000Z"
+              "date_of_birth": "2004-01-30T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 96,
               "grade": "10",
-              "date_of_birth": "2003-12-12T00:00:00.000Z"
+              "date_of_birth": "2003-12-12T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 97,
               "grade": "10",
-              "date_of_birth": "2004-04-09T00:00:00.000Z"
+              "date_of_birth": "2004-04-09T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 98,
               "grade": "10",
-              "date_of_birth": "2004-07-24T00:00:00.000Z"
+              "date_of_birth": "2004-07-24T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 99,
               "grade": "10",
-              "date_of_birth": "2004-02-13T00:00:00.000Z"
+              "date_of_birth": "2004-02-13T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 100,
               "grade": "10",
-              "date_of_birth": "2003-09-11T00:00:00.000Z"
+              "date_of_birth": "2003-09-11T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 101,
               "grade": "10",
-              "date_of_birth": "2004-04-11T00:00:00.000Z"
+              "date_of_birth": "2004-04-11T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             }
           ]
         }
@@ -250,47 +398,83 @@ export default {
             {
               "id": 102,
               "grade": "10",
-              "date_of_birth": "2003-12-01T00:00:00.000Z"
+              "date_of_birth": "2003-12-01T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 103,
               "grade": "10",
-              "date_of_birth": "2003-11-13T00:00:00.000Z"
+              "date_of_birth": "2003-11-13T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 104,
               "grade": "10",
-              "date_of_birth": "2003-10-03T00:00:00.000Z"
+              "date_of_birth": "2003-10-03T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 105,
               "grade": "10",
-              "date_of_birth": "2004-04-06T00:00:00.000Z"
+              "date_of_birth": "2004-04-06T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 106,
               "grade": "10",
-              "date_of_birth": "2003-11-11T00:00:00.000Z"
+              "date_of_birth": "2003-11-11T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 107,
               "grade": "10",
-              "date_of_birth": "2004-01-17T00:00:00.000Z"
+              "date_of_birth": "2004-01-17T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 108,
               "grade": "10",
-              "date_of_birth": "2003-09-27T00:00:00.000Z"
+              "date_of_birth": "2003-09-27T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 109,
               "grade": "10",
-              "date_of_birth": "2003-11-01T00:00:00.000Z"
+              "date_of_birth": "2003-11-01T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 110,
               "grade": "10",
-              "date_of_birth": "2004-07-08T00:00:00.000Z"
+              "date_of_birth": "2004-07-08T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             }
           ]
         },
@@ -304,47 +488,83 @@ export default {
             {
               "id": 111,
               "grade": "10",
-              "date_of_birth": "2003-11-21T00:00:00.000Z"
+              "date_of_birth": "2003-11-21T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 112,
               "grade": "10",
-              "date_of_birth": "2004-04-29T00:00:00.000Z"
+              "date_of_birth": "2004-04-29T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 113,
               "grade": "10",
-              "date_of_birth": "2004-05-10T00:00:00.000Z"
+              "date_of_birth": "2004-05-10T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 114,
               "grade": "10",
-              "date_of_birth": "2004-02-19T00:00:00.000Z"
+              "date_of_birth": "2004-02-19T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 115,
               "grade": "10",
-              "date_of_birth": "2003-10-13T00:00:00.000Z"
+              "date_of_birth": "2003-10-13T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 116,
               "grade": "10",
-              "date_of_birth": "2004-03-17T00:00:00.000Z"
+              "date_of_birth": "2004-03-17T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 117,
               "grade": "10",
-              "date_of_birth": "2004-05-05T00:00:00.000Z"
+              "date_of_birth": "2004-05-05T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 118,
               "grade": "10",
-              "date_of_birth": "2004-06-21T00:00:00.000Z"
+              "date_of_birth": "2004-06-21T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             },
             {
               "id": 119,
               "grade": "10",
-              "date_of_birth": "2004-06-06T00:00:00.000Z"
+              "date_of_birth": "2004-06-06T00:00:00.000Z",
+              "school": {
+                "id": 9,
+                "name": "Somerville High"
+              }
             }
           ]
         }
@@ -353,6 +573,6 @@ export default {
   ],
   "school": {
     "id": 9,
-    "name": "Localhost High"
+    "name": "Somerville High"
   }
 };

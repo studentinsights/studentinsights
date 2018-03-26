@@ -55,7 +55,12 @@ class SchoolsController < ApplicationController
           :only => [:id, :section_number, :term_local_id, :schedule, :room_number],
           :include => {
             :students => {
-              :only => [:id, :grade, :date_of_birth]
+              :only => [:id, :grade, :date_of_birth],
+              :include => {
+                :school => {
+                  :only => [:id, :name]
+                }
+              }
             }
           }
         }
