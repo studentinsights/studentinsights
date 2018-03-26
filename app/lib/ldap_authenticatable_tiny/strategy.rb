@@ -20,7 +20,7 @@ module Devise
           return fail(:invalid) unless is_authorized_by_ldap?(email, password)
           success!(educator)
         rescue => error
-          logger "LdapAuthenticatableTiny, error: #{error}"
+          logger.error "LdapAuthenticatableTiny, error: #{error}"
           fail(:error)
         end
         nil
