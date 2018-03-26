@@ -136,6 +136,7 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
       }),
+      noteInProgressText: React.PropTypes.string.isRequired,
 
       access: React.PropTypes.object,
       iepDocument: React.PropTypes.object,
@@ -281,7 +282,8 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
                 showingRestrictedNotes={false}
                 helpContent={this.renderNotesHelpContent()}
                 helpTitle="What is a Note?"
-                title="Notes" />
+                title="Notes"
+                noteInProgressText={this.props.noteInProgressText} />
               <ServicesDetails
                 student={this.props.student}
                 serviceTypesIndex={this.props.serviceTypesIndex}

@@ -75,7 +75,11 @@ class NotesDetails extends React.Component {
   }
 
   renderTakeNotesSection() {
-    if (this.state.isTakingNotes || this.props.requests.saveNote !== null) {
+    const showTakeNotes = this.state.isTakingNotes ||
+                          this.props.requests.saveNote !== null ||
+                          this.props.noteInProgressText.length > 0;
+
+    if (showTakeNotes) {
       return (
         <TakeNotes
           // TODO(kr) thread through
@@ -84,7 +88,9 @@ class NotesDetails extends React.Component {
           currentEducator={this.props.currentEducator}
           onSave={this.onClickSaveNotes}
           onCancel={this.onCancelNotes}
-          requestState={this.props.requests.saveNote} />
+          requestState={this.props.requests.saveNote}
+          noteInProgressText={this.props.noteInProgressText}
+          onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText} />
       );
     }
 
@@ -128,6 +134,7 @@ NotesDetails.propTypes = {
   }),
   feed: PropTypes.feed.isRequired,
   requests: React.PropTypes.object.isRequired,
+  noteInProgressText: React.PropTypes.string.isRequired,
 
   showingRestrictedNotes: React.PropTypes.bool.isRequired,
   title: React.PropTypes.string.isRequired,

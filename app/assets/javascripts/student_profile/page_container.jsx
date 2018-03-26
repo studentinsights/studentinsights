@@ -55,6 +55,7 @@ function fromPair(key, value) {
         iepDocument: serializedData.iepDocument,
         sections: serializedData.sections,
         currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
+        noteInProgressText: '',
 
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
@@ -112,6 +113,10 @@ function fromPair(key, value) {
         column_key: columnKey
       });
       this.setState({ selectedColumnKey: columnKey });
+    },
+
+    onChangeNoteInProgressText: function(event) {
+      this.setState({ noteInProgressText: event.target.value });
     },
 
     onClickSaveNotes: function(eventNoteParams) {
@@ -246,7 +251,8 @@ function fromPair(key, value) {
               'iepDocument',
               'sections',
               'currentEducatorAllowedSections',
-              'requests'
+              'requests',
+              'noteInProgressText'
             ), {
               nowMomentFn: this.props.nowMomentFn,
               actions: this.props.actions || {
@@ -254,7 +260,8 @@ function fromPair(key, value) {
                 onClickSaveNotes: this.onClickSaveNotes,
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
-                onClickDiscontinueService: this.onClickDiscontinueService
+                onClickDiscontinueService: this.onClickDiscontinueService,
+                onChangeNoteInProgressText: this.onChangeNoteInProgressText
               }
             })} />
         </div>

@@ -6,7 +6,8 @@ const PropTypes = {
     onColumnClicked: React.PropTypes.func.isRequired,
     onClickSaveNotes: React.PropTypes.func.isRequired,
     onClickSaveService: React.PropTypes.func.isRequired,
-    onClickDiscontinueService: React.PropTypes.func.isRequired
+    onClickDiscontinueService: React.PropTypes.func.isRequired,
+    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
   }),
   requests: React.PropTypes.shape({
     saveNote: React.PropTypes.string,

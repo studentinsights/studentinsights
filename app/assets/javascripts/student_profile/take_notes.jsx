@@ -62,13 +62,14 @@ export default React.createClass({
     onSave: React.PropTypes.func.isRequired,
     onCancel: React.PropTypes.func.isRequired,
     currentEducator: React.PropTypes.object.isRequired,
-    requestState: React.PropTypes.string // or null
+    requestState: React.PropTypes.string, // or null
+    noteInProgressText: React.PropTypes.string.isRequired,
+    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
     return {
       eventNoteTypeId: null,
-      text: '',
       attachmentUrls: []
     };
   },
@@ -105,10 +106,6 @@ export default React.createClass({
     });
   },
 
-  onChangeText: function(event) {
-    this.setState({ text: event.target.value });
-  },
-
   onChangeAttachmentUrl: function(changedIndex, event) {
     const newValue = event.target.value;
     const updatedAttachmentUrls = (this.state.attachmentUrls.length === changedIndex)
@@ -138,6 +135,8 @@ export default React.createClass({
   },
 
   render: function() {
+    const {noteInProgressText} = this.props;
+
     return (
       <div className="TakeNotes" style={styles.dialog}>
         {this.renderNoteHeader({
@@ -148,8 +147,8 @@ export default React.createClass({
           rows={10}
           style={styles.textarea}
           ref={function(ref) { this.textareaRef = ref; }.bind(this)}
-          value={this.state.text}
-          onChange={this.onChangeText} />
+          value={noteInProgressText}
+          onChange={this.props.onChangeNoteInProgressText} />
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           What are these notes from?
         </div>
