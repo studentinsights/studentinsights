@@ -261,13 +261,9 @@ class NewServiceUpload extends React.Component {
           <br />
           <br />
           <ul>
-            {this.props.incorrectLasids.map(function(lasid) {
-              return (
-                <li>
-                  {lasid}
-                </li>
-              );
-            }.bind(this))}
+            {this.props.incorrectLasids.map((lasid, index) => {
+              return (<li key={index}>{lasid}</li>);
+            })}
           </ul>
         </div>
       );

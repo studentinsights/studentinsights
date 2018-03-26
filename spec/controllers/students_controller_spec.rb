@@ -302,9 +302,9 @@ describe StudentsController, :type => :controller do
         end
 
         it 'responds with JSON' do
-          make_post_request(student, post_params)
+          make_post_request(student, post_params.merge({service_type_id: 504}))
           expect(response.status).to eq 200
-          make_post_request(student, post_params)
+          make_post_request(student, post_params.merge({service_type_id: 505}))
           expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
           expect(JSON.parse(response.body).keys).to contain_exactly(
             'id',
