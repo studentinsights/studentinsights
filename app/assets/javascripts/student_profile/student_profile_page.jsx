@@ -11,13 +11,11 @@ import PropTypes from '../helpers/prop_types.jsx';
 import Scales from '../student_profile/Scales';
 import SummaryList from '../student_profile/SummaryList';
 import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline';
+import {cumulativeByMonthFromEvents} from './QuadConverter';
 
 (function() {
   window.shared || (window.shared = {});
-
   const Sparkline = window.shared.Sparkline;
-  const QuadConverter = window.shared.QuadConverter;
-
   const StudentProfileHeader = window.shared.StudentProfileHeader;
   const ProfileDetails = window.shared.ProfileDetails;
   const ServicesDetails = window.shared.ServicesDetails;
@@ -608,7 +606,7 @@ import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline'
     },
 
     renderAttendanceEventsSummary: function(count, events, flexibleRangeFn, props) {
-      const cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(events);
+      const cumulativeQuads = cumulativeByMonthFromEvents(events);
       const valueRange = flexibleRangeFn(cumulativeQuads);
       const value = count;
 

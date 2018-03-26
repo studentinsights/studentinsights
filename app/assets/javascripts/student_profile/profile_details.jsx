@@ -3,10 +3,16 @@ import Datepicker from '../student_profile/Datepicker.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import moment from 'moment';
 import ProfileDetailsStyle from './ProfileDetailsStyle';
+import {
+  firstDayOfSchool,
+  toSchoolYear,
+  toMoment,
+  toValue,
+  toDate
+} from './QuadConverter';
 
 (function() {
   window.shared || (window.shared = {});
-  const QuadConverter = window.shared.QuadConverter;
   const styles = ProfileDetailsStyle;
   const StudentSectionsRoster = window.shared.StudentSectionsRoster;
 
@@ -29,7 +35,7 @@ import ProfileDetailsStyle from './ProfileDetailsStyle';
 
     getInitialState: function() {
       return {
-        filterFromDate: QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1),
+        filterFromDate: firstDayOfSchool(toSchoolYear(moment())-1),
         filterToDate: moment()
       };
     },
@@ -83,36 +89,36 @@ import ProfileDetailsStyle from './ProfileDetailsStyle';
         // var score = quad[3];
         events.push({
           type: 'MCAS-ELA',
-          id: QuadConverter.toMoment(quad).format("MM-DD"),
-          message: name + ' scored a ' + QuadConverter.toValue(quad) +' on the ELA section of the MCAS.',
-          date: QuadConverter.toDate(quad)
+          id: toMoment(quad).format("MM-DD"),
+          message: name + ' scored a ' + toValue(quad) +' on the ELA section of the MCAS.',
+          date: toDate(quad)
         });
       });
       _.each(this.props.chartData.mcas_series_math_scaled, function(quad){
         // var score = quad[3];
         events.push({
           type: 'MCAS-Math',
-          id: QuadConverter.toMoment(quad).format("MM-DD"),
-          message: name + ' scored a ' + QuadConverter.toValue(quad) +' on the Math section of the MCAS.',
-          date: QuadConverter.toDate(quad)
+          id: toMoment(quad).format("MM-DD"),
+          message: name + ' scored a ' + toValue(quad) +' on the Math section of the MCAS.',
+          date: toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_reading_percentile, function(quad){
         // var score = quad[3];
         events.push({
           type: 'STAR-Reading',
-          id: QuadConverter.toMoment(quad).format("MM-DD"),
-          message: name + ' scored in the ' + QuadConverter.toValue(quad) +'th percentile on the Reading section of STAR.',
-          date: QuadConverter.toDate(quad)
+          id: toMoment(quad).format("MM-DD"),
+          message: name + ' scored in the ' + toValue(quad) +'th percentile on the Reading section of STAR.',
+          date: toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_math_percentile, function(quad){
         // var score = quad[3];
         events.push({
           type: 'STAR-Math',
-          id: QuadConverter.toMoment(quad).format("MM-DD"),
-          message: name + ' scored in the ' + QuadConverter.toValue(quad) +'th percentile on the Math section of STAR.',
-          date: QuadConverter.toDate(quad)
+          id: toMoment(quad).format("MM-DD"),
+          message: name + ' scored in the ' + toValue(quad) +'th percentile on the Math section of STAR.',
+          date: toDate(quad)
         });
       });
       _.each(this.props.feed.deprecated.interventions, function(obj){
@@ -371,7 +377,7 @@ import ProfileDetailsStyle from './ProfileDetailsStyle';
 
     renderFullCaseHistory: function(){
       const bySchoolYearDescending = _.toArray(
-        _.groupBy(this.getEvents(), function(event){ return QuadConverter.toSchoolYear(event.date); })
+        _.groupBy(this.getEvents(), function(event){ return toSchoolYear(event.date); })
       ).reverse();
 
       return (
@@ -388,7 +394,7 @@ import ProfileDetailsStyle from './ProfileDetailsStyle';
 
     renderCardsForYear: function(eventsForYear){
       // Grab what school year we're in from any object in the list.
-      const year = QuadConverter.toSchoolYear(eventsForYear[0].date);
+      const year = toSchoolYear(eventsForYear[0].date);
       // Computes '2016 - 2017 School Year' for input 2016, etc.
       const schoolYearString = year.toString() + ' - ' + (year+1).toString() + ' School Year';
 

@@ -1,9 +1,13 @@
 import _ from 'lodash';
 import {merge} from '../helpers/react_helpers.jsx';
 import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
+import {
+  schoolYearStartDates,
+  toPair,
+  toStarObject
+} from './QuadConverter';
 
-window.shared || (window.shared = {});
-const QuadConverter = window.shared.QuadConverter;
+
 const ProfileChartSettings = window.shared.ProfileChartSettings;
 
 // Component for all charts in the profile page.
@@ -37,7 +41,7 @@ class ProfileChart extends React.Component {
     // integer (timestamp) --> string (school year starting at that position).
 
     const range = [now.clone().subtract(n, 'months'), now];
-    const startDates = QuadConverter.schoolYearStartDates(range);
+    const startDates = schoolYearStartDates(range);
     const create_label = function(current, grade){
       // Assumes that the student progressed grades in the usual fashion;
       // wasn't held back or skipped forward.
@@ -147,7 +151,7 @@ class ProfileChart extends React.Component {
           series: this.props.quadSeries.map(function(obj){
             return {
               name: obj.name,
-              data: obj.data ? _.map(obj.data, QuadConverter.toPair): []
+              data: obj.data ? _.map(obj.data, toPair): []
             };
           }),
           yAxis: this.props.yAxis
@@ -162,7 +166,7 @@ class ProfileChart extends React.Component {
           series: this.props.quadSeries.map(function(obj){
             return {
               name: obj.name,
-              data: obj.data  ? _.map(obj.data, QuadConverter.toStarObject): []
+              data: obj.data  ? _.map(obj.data, toStarObject): []
             };
           }),
           yAxis: this.props.yAxis
