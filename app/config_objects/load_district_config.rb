@@ -1,6 +1,7 @@
 # This class is responsible for pulling YAML district config out of the
 # filesystem and parsing it into a Ruby hash.
 
+# Deprecated, see PerDistrict
 class LoadDistrictConfig
 
   def initialize(district_key = ENV['DISTRICT_KEY'])

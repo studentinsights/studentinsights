@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import SortHelpers from '../../helpers/sort_helpers.jsx';
+import {
+  sortByString,
+  sortByNumber,
+  sortByDate
+} from '../../helpers/SortHelpers';
 import * as Routes from '../../helpers/Routes';
+import SharedPropTypes from '../../helpers/prop_types.jsx';
+
 
 class StudentsTable extends React.Component {
 
@@ -37,11 +42,11 @@ class StudentsTable extends React.Component {
 
     switch(sortType) {
     case 'string':
-      return rows.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
+      return rows.sort((a, b) => sortByString(a, b, sortBy));
     case 'number':
-      return rows.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
+      return rows.sort((a, b) => sortByNumber(a, b, sortBy));
     case 'date':
-      return rows.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
+      return rows.sort((a, b) => sortByDate(a, b, sortBy));
     default:
       return rows;
     }
@@ -123,7 +128,13 @@ class StudentsTable extends React.Component {
 }
 
 StudentsTable.propTypes = {
-  rows: PropTypes.array.isRequired,
+  rows: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    events: PropTypes.number.isRequired,
+    last_sst_date_text: SharedPropTypes.nullableWithKey(PropTypes.string)
+  })).isRequired,
   selectedHomeroom: PropTypes.string,
   schoolYearFlag: PropTypes.bool
 };

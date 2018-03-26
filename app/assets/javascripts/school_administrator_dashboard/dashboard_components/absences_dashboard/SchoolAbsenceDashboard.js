@@ -20,8 +20,8 @@ class SchoolAbsenceDashboard extends React.Component {
     this.setDate = (range) => {
       this.setState({
         displayDates: DashboardHelpers.filterDates(this.props.dateRange,
-                                                    moment.unix(range[0]).format("YYYY-MM-DD"),
-                                                    moment.unix(range[1]).format("YYYY-MM-DD"))
+                                                    moment.unix(range[0]).utc().format("YYYY-MM-DD"),
+                                                    moment.unix(range[1]).utc().format("YYYY-MM-DD"))
       });
     };
     this.setStudentList = (highchartsEvent) => {
@@ -37,7 +37,7 @@ class SchoolAbsenceDashboard extends React.Component {
     let monthlySchoolAttendance = {};
     //Use the filtered daterange to find the days to include
     this.state.displayDates.forEach((day) => {
-      let date = moment(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
+      let date = moment.utc(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
       (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
       monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
       monthlySchoolAttendance[date] = monthlySchoolAttendance[date].concat(schoolAverageDailyAttendance[day]);
@@ -66,7 +66,7 @@ class SchoolAbsenceDashboard extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className="DashboardContainer">
           <div className="DashboardChartsColumn">
             {this.renderMonthlyAbsenceChart()}
             {this.renderHomeroomAbsenceChart()}
@@ -151,12 +151,12 @@ class SchoolAbsenceDashboard extends React.Component {
   }
 
   renderDateRangeSlider() {
-    const firstDate = this.props.dateRange[0];
+    const firstDate = DashboardHelpers.schoolYearStart();
     const lastDate = this.props.dateRange[this.props.dateRange.length - 1];
     return (
       <DateSlider
-        rangeStart = {parseInt(moment(firstDate).format("X"))}
-        rangeEnd = {parseInt(moment(lastDate).format("X"))}
+        rangeStart = {parseInt(moment.utc(firstDate).format("X"))}
+        rangeEnd = {parseInt(moment.utc(lastDate).format("X"))}
         setDate={this.setDate}/>
     );
   }

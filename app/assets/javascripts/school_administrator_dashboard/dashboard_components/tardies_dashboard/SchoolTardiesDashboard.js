@@ -5,6 +5,7 @@ import _ from 'lodash';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
+import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 
 
 class SchoolTardiesDashboard extends React.Component {
@@ -23,10 +24,10 @@ class SchoolTardiesDashboard extends React.Component {
   createMonthCategories(eventsByDay) {
     let monthCategories = {};
     let lastStoredMonth;
-    const startMonth = moment().subtract(3, 'months');
+    const startMonth = moment.utc().subtract(3, 'months');
 
     Object.keys(eventsByDay).sort().forEach((day, dayIndex) => {
-      const month = moment(day);
+      const month = moment.utc(day);
       if (lastStoredMonth != month.date(1).format("MMM 'YY") && month.isSameOrAfter(startMonth, 'month')) {
         lastStoredMonth = month.date(1).format("MMM 'YY");
         monthCategories[dayIndex] = lastStoredMonth;
@@ -36,12 +37,12 @@ class SchoolTardiesDashboard extends React.Component {
   }
 
   getDatesForPastThreeMonths() {
-    const today = moment().format('YYYY-MM-DD');
+    const today = moment.utc().format('YYYY-MM-DD');
     let datesForPastThreeMonths = [];
-    let date = moment().subtract(3, 'months').format('YYYY-MM-DD');
-    while (moment(date).isBefore(moment(today))) {
+    let date = moment.utc().subtract(3, 'months').format('YYYY-MM-DD');
+    while (moment.utc(date).isBefore(moment.utc(today))) {
       datesForPastThreeMonths.push(date);
-      date = moment(date).add(1, 'day').format('YYYY-MM-DD');
+      date = moment.utc(date).add(1, 'day').format('YYYY-MM-DD');
     }
     return datesForPastThreeMonths;
   }
@@ -50,7 +51,7 @@ class SchoolTardiesDashboard extends React.Component {
     let studentTardyCounts = {};
     const daysWithTardies = Object.keys(this.props.schoolTardyEvents);
     const startDate = DashboardHelpers.schoolYearStart();
-    const endDate = moment().format("YYYY-MM-DD");
+    const endDate = moment.utc().format("YYYY-MM-DD");
     const schoolYearTardies = DashboardHelpers.filterDates(daysWithTardies.sort(), startDate, endDate);
 
     schoolYearTardies.forEach((day) => {
@@ -64,7 +65,7 @@ class SchoolTardiesDashboard extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className="DashboardContainer">
           <div className="DashboardChartsColumn">
             {this.renderMonthlyTardiesChart()}
             {this.renderHomeroomTardiesChart()}
@@ -79,7 +80,7 @@ class SchoolTardiesDashboard extends React.Component {
   renderMonthlyTardiesChart() {
     const seriesData = this.getDatesForPastThreeMonths().map((date) => {
       if (this.props.schoolTardyEvents[date] === undefined) this.props.schoolTardyEvents[date] = [];
-      return [moment(date).format('ddd MM/DD'), this.props.schoolTardyEvents[date].length];
+      return [moment.utc(date).format('ddd MM/DD'), this.props.schoolTardyEvents[date].length];
     });
     const monthCategories = this.createMonthCategories(this.props.schoolTardyEvents);
     let tickPositions = Object.keys(monthCategories).map(Number);
@@ -135,6 +136,7 @@ class SchoolTardiesDashboard extends React.Component {
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
+        last_sst_date_text: latestNoteDateText(300, student.event_notes),
         events: studentTardyCounts[student.id] || 0
       });
     });

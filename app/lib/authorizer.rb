@@ -65,7 +65,15 @@ class Authorizer
 
   # This method is the source of truth for whether an educator is authorized to view information about a particular
   # student.
-  def is_authorized_for_student?(student)
+  #
+  # There are several performance optimizations applied here (see git history
+  # for more), since this method is heavily used and latency regressions impact
+  # almost every page.  The latency of this method is also quite different for
+  # different users, because of the different layers of checks.  Users with
+  # districtwide or schoolwide access may have lower latency (and are therefore bad
+  # test cases) since we don't need to care about the details when checking their
+  # access.
+  def is_authorized_for_student?(student, options = {})
     begin
       return true if @educator.districtwide_access?
 
@@ -75,8 +83,17 @@ class Authorizer
 
       return true if @educator.schoolwide_access? || @educator.admin? # Schoolwide admin
       return true if @educator.has_access_to_grade_levels? && student.grade.in?(@educator.grade_level_access) # Grade level access
-      return true if student.in?(@educator.students) # Homeroom level access
-      return true if student.in?(@educator.section_students) # Section level access
+
+      # The next two checks call `#to_a` as a performance optimization.
+      # In loops with `authorized { Student.all }`, without forcing this
+      # to an eagerly evaluated array, repeated calls will keep making the
+      # same queries.  This seems unexpected to me, but adding `to_a` at
+      # the end results in Rails caching these queries across the repeated
+      # calls in the loop.  So we can do that here, and let callers who
+      # are calling this in a loop get the optimization without having to
+      # optimize themselves.
+      return true if student.in?(@educator.students.to_a) # Homeroom level access
+      return true if student.in?(@educator.section_students.to_a) # Section level access
     rescue ActiveModel::MissingAttributeError => err
       # We can't do authorization checks on models with `#select` that are missing
       # fields.  If this happens, it's probably because the developer is trying to

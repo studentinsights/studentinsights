@@ -1,8 +1,7 @@
 import _ from 'lodash';
+import ProfileChart from '../../../app/assets/javascripts/student_profile/ProfileChart.js';
 
 describe('ProfileBarCharts', function() {
-  const ProfileChart = window.shared.ProfileChart;
-
   describe('#timeProps', () => {
     const {timestampRange} = ProfileChart.prototype.timeProps.call({ props: {} });
     expect(timestampRange.min).toBeLessThan(timestampRange.max);

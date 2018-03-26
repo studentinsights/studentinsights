@@ -39,23 +39,16 @@ exports[`HomeFeedPure pure component matches snapshot 1`] = `
     </span>
   </div>
   <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
+    className="EventNoteCard"
   >
     <div
+      className="Card FeedCardFrame"
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
         }
       }
     >
@@ -64,443 +57,171 @@ exports[`HomeFeedPure pure component matches snapshot 1`] = `
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
           <div>
-            <a
-              href="/students/18"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Winnie
-               
-              Disney
-            </a>
-          </div>
-          <div>
-            Kindergarten
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
+            <div>
               <a
-                href="/homerooms/1"
+                href="/students/18"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
               >
-                HEA 003
+                Winnie
+                 
+                Disney
               </a>
-              <span>
-                <span>
-                   
-                </span>
-                 with 
+            </div>
+            <div>
+              Kindergarten
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
                 <a
-                  className="Educator"
-                  href="mailto:vivian@demo.studentinsights.org"
-                  style={Object {}}
+                  href="/homerooms/1"
                 >
-                  Vivian Teacher
+                  HEA 003
                 </a>
+                <span>
+                  <span>
+                     
+                  </span>
+                   with 
+                  <a
+                    className="Educator"
+                    href="mailto:vivian@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Vivian Teacher
+                  </a>
+                </span>
               </span>
-            </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              MTSS Meeting
+            </div>
+          </div>
+          <div>
+            <div>
+              12 days ago
+               on 
+              3/1
+            </div>
           </div>
         </div>
       </div>
       <div
         style={
           Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
+            "marginBottom": 20,
+            "marginTop": 20,
           }
         }
       >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
             }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          MTSS Meeting
-        </div>
-        <div>
-          12 days ago
-           on 
-          3/1
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        hello there!
+          }
+        >
+          hello there!
 
 Philis is meeting with parent next week and will present an attendance contract.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#EB4B26",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        MTSS Meeting
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
-          <div>
-            <a
-              href="/students/103"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Donald
-               
-              Duck
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
         </div>
       </div>
       <div
         style={
           Object {
-            "alignItems": "flex-end",
             "display": "flex",
-            "flexDirection": "column",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
           }
         }
       >
         <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
+          <span
+            className="Badge"
             style={
               Object {
-                "fontWeight": "bold",
+                "backgroundColor": "#EB4B26",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
               }
             }
           >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          9th Grade Experience
-        </div>
-        <div>
-          6 years ago
-           on 
-          12/2
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Donald twice this week.  Philis following up with outside providers as well.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Broadway house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#139DEA",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        9th Grade Experience
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
-          <div>
-            <a
-              href="/students/72"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Rapunzel
-               
-              White
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
+            MTSS Meeting
           </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          Parent conversation
-        </div>
-        <div>
-          6 years ago
-           on 
-          11/5
         </div>
       </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Rapunzel twice this week.  Philis following up with outside providers as well.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Highland house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#CDD71A",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Parent conversation
-      </span>
     </div>
   </div>
   <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
+    className="EventNoteCard"
   >
     <div
+      className="Card FeedCardFrame"
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
         }
       }
     >
@@ -509,602 +230,342 @@ Philis is meeting with parent next week and will present an attendance contract.
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
           <div>
-            <a
-              href="/students/18"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Winnie
-               
-              Disney
-            </a>
-          </div>
-          <div>
-            Kindergarten
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
+            <div>
               <a
-                href="/homerooms/1"
+                href="/students/103"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
               >
-                HEA 003
+                Donald
+                 
+                Duck
               </a>
-              <span>
-                <span>
-                   
-                </span>
-                 with 
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
                 <a
-                  className="Educator"
-                  href="mailto:vivian@demo.studentinsights.org"
-                  style={Object {}}
+                  href="/homerooms/4"
                 >
-                  Vivian Teacher
+                  SHS ALL
                 </a>
               </span>
-            </span>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
             }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          Something else
-        </div>
-        <div>
-          6 years ago
-           on 
-          10/28
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Lila will look into a referral to a big sister program.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#666",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
           }
-        }
-      >
-        Something else
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
+        >
           <div>
-            <a
-              href="/students/38"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Winnie
-               
-              Disney
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          10th Grade Experience
-        </div>
-        <div>
-          6 years ago
-           on 
-          10/25
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Highland house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#333333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        10th Grade Experience
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
-          <div>
-            <a
-              href="/students/69"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Rapunzel
-               
-              Skywalker
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          SST Meeting
-        </div>
-        <div>
-          6 years ago
-           on 
-          10/24
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Philis is meeting with parent next week and will present an attendance contract.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Highland house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#31AB39",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        SST Meeting
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
-          <div>
-            <a
-              href="/students/51"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Daisy
-               
-              Poppins
-            </a>
-          </div>
-          <div>
-            9th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/5"
-              >
-                SHS 942
-              </a>
+            <div>
               <span>
-                <span>
-                   
-                </span>
-                 with 
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              9th Grade Experience
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              12/2
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Donald twice this week.  Philis following up with outside providers as well.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="HouseBadge"
+            style={
+              Object {
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Broadway house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#139DEA",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            9th Grade Experience
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/72"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Rapunzel
+                 
+                White
+              </a>
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
                 <a
-                  className="Educator"
-                  href="mailto:jodi@demo.studentinsights.org"
-                  style={Object {}}
+                  href="/homerooms/4"
                 >
-                  Jodi Teacher
+                  SHS ALL
                 </a>
               </span>
-            </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              Parent conversation
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              11/5
+            </div>
           </div>
         </div>
       </div>
       <div
         style={
           Object {
-            "alignItems": "flex-end",
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Rapunzel twice this week.  Philis following up with outside providers as well.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
             "display": "flex",
-            "flexDirection": "column",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
           }
         }
       >
         <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
+          <span
+            className="HouseBadge"
             style={
               Object {
-                "fontWeight": "bold",
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
               }
             }
           >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          SST Meeting
-        </div>
-        <div>
-          6 years ago
-           on 
-          10/16
+            Highland house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#CDD71A",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Parent conversation
+          </span>
         </div>
       </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Daisy twice this week.  Philis following up with outside providers as well.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Highland house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#31AB39",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        SST Meeting
-      </span>
     </div>
   </div>
   <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
+    className="EventNoteCard"
   >
     <div
+      className="Card FeedCardFrame"
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
         }
       }
     >
@@ -1113,145 +574,341 @@ Philis is meeting with parent next week and will present an attendance contract.
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/18"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Winnie
+                 
+                Disney
+              </a>
+            </div>
+            <div>
+              Kindergarten
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/1"
+                >
+                  HEA 003
+                </a>
+                <span>
+                  <span>
+                     
+                  </span>
+                   with 
+                  <a
+                    className="Educator"
+                    href="mailto:vivian@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Vivian Teacher
+                  </a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              Something else
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              10/28
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Lila will look into a referral to a big sister program.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
           }
         }
       >
         <div>
-          <div>
-            <a
-              href="/students/13"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#666",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
               }
-            >
-              Rapunzel
-               
-              Poppins
-            </a>
-          </div>
+            }
+          >
+            Something else
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
           <div>
-            Kindergarten
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
+            <div>
               <a
-                href="/homerooms/1"
+                href="/students/38"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
               >
-                HEA 003
+                Winnie
+                 
+                Disney
               </a>
-              <span>
-                <span>
-                   
-                </span>
-                 with 
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
                 <a
-                  className="Educator"
-                  href="mailto:vivian@demo.studentinsights.org"
-                  style={Object {}}
+                  href="/homerooms/4"
                 >
-                  Vivian Teacher
+                  SHS ALL
                 </a>
               </span>
-            </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              10th Grade Experience
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              10/25
+            </div>
           </div>
         </div>
       </div>
       <div
         style={
           Object {
-            "alignItems": "flex-end",
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
             "display": "flex",
-            "flexDirection": "column",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
           }
         }
       >
         <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
+          <span
+            className="HouseBadge"
             style={
               Object {
-                "fontWeight": "bold",
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
               }
             }
           >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          Something else
-        </div>
-        <div>
-          6 years ago
-           on 
-          10/16
+            Highland house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#333333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            10th Grade Experience
+          </span>
         </div>
       </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Rapunzel twice this week.  Philis following up with outside providers as well.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#666",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Something else
-      </span>
     </div>
   </div>
   <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
+    className="EventNoteCard"
   >
     <div
+      className="Card FeedCardFrame"
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
         }
       }
     >
@@ -1260,454 +917,869 @@ Philis is meeting with parent next week and will present an attendance contract.
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
           <div>
-            <a
-              href="/students/6"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Snow
-               
-              Kenobi
-            </a>
-          </div>
-          <div>
-            5th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
+            <div>
               <a
-                href="/homerooms/2"
+                href="/students/69"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
               >
-                HEA 500
+                Rapunzel
+                 
+                Skywalker
               </a>
-              <span>
-                <span>
-                   
-                </span>
-                 with 
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
                 <a
-                  className="Educator"
-                  href="mailto:sarah@demo.studentinsights.org"
-                  style={Object {}}
+                  href="/homerooms/4"
                 >
-                  Sarah Teacher
+                  SHS ALL
                 </a>
               </span>
-            </span>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
             }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          9th Grade Experience
-        </div>
-        <div>
-          6 years ago
-           on 
-          10/4
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Meetings with staff about lack of academic progress.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#139DEA",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
           }
-        }
-      >
-        9th Grade Experience
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
+        >
           <div>
-            <a
-              href="/students/103"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Donald
-               
-              Duck
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          9th Grade Experience
-        </div>
-        <div>
-          6 years ago
-           on 
-          10/4
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Broadway house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#139DEA",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        9th Grade Experience
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
-          <div>
-            <a
-              href="/students/56"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Rapunzel
-               
-              Skywalker
-            </a>
-          </div>
-          <div>
-            9th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/5"
-              >
-                SHS 942
-              </a>
+            <div>
               <span>
-                <span>
-                   
-                </span>
-                 with 
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              SST Meeting
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              10/24
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Philis is meeting with parent next week and will present an attendance contract.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="HouseBadge"
+            style={
+              Object {
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Highland house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#31AB39",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            SST Meeting
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/51"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Daisy
+                 
+                Poppins
+              </a>
+            </div>
+            <div>
+              9th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
                 <a
-                  className="Educator"
-                  href="mailto:jodi@demo.studentinsights.org"
-                  style={Object {}}
+                  href="/homerooms/5"
                 >
-                  Jodi Teacher
+                  SHS 942
+                </a>
+                <span>
+                  <span>
+                     
+                  </span>
+                   with 
+                  <a
+                    className="Educator"
+                    href="mailto:jodi@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Jodi Teacher
+                  </a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              SST Meeting
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              10/16
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Daisy twice this week.  Philis following up with outside providers as well.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="HouseBadge"
+            style={
+              Object {
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Highland house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#31AB39",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            SST Meeting
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/13"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Rapunzel
+                 
+                Poppins
+              </a>
+            </div>
+            <div>
+              Kindergarten
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/1"
+                >
+                  HEA 003
+                </a>
+                <span>
+                  <span>
+                     
+                  </span>
+                   with 
+                  <a
+                    className="Educator"
+                    href="mailto:vivian@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Vivian Teacher
+                  </a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              Something else
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              10/16
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Rapunzel twice this week.  Philis following up with outside providers as well.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#666",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Something else
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/6"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Snow
+                 
+                Kenobi
+              </a>
+            </div>
+            <div>
+              5th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/2"
+                >
+                  HEA 500
+                </a>
+                <span>
+                  <span>
+                     
+                  </span>
+                   with 
+                  <a
+                    className="Educator"
+                    href="mailto:sarah@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Sarah Teacher
+                  </a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              9th Grade Experience
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              10/4
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Meetings with staff about lack of academic progress.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#139DEA",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            9th Grade Experience
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/103"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Donald
+                 
+                Duck
+              </a>
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/4"
+                >
+                  SHS ALL
                 </a>
               </span>
-            </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              9th Grade Experience
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              10/4
+            </div>
           </div>
         </div>
       </div>
       <div
         style={
           Object {
-            "alignItems": "flex-end",
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
             "display": "flex",
-            "flexDirection": "column",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
           }
         }
       >
         <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
+          <span
+            className="HouseBadge"
             style={
               Object {
-                "fontWeight": "bold",
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
               }
             }
           >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          Parent conversation
-        </div>
-        <div>
-          6 years ago
-           on 
-          10/3
+            Broadway house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#139DEA",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            9th Grade Experience
+          </span>
         </div>
       </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Lila will look into a referral to a big sister program.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Beacon house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#CDD71A",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Parent conversation
-      </span>
     </div>
   </div>
   <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
+    className="EventNoteCard"
   >
     <div
+      className="Card FeedCardFrame"
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
         }
       }
     >
@@ -1716,159 +1788,711 @@ Philis is meeting with parent next week and will present an attendance contract.
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/56"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Rapunzel
+                 
+                Skywalker
+              </a>
+            </div>
+            <div>
+              9th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/5"
+                >
+                  SHS 942
+                </a>
+                <span>
+                  <span>
+                     
+                  </span>
+                   with 
+                  <a
+                    className="Educator"
+                    href="mailto:jodi@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Jodi Teacher
+                  </a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              Parent conversation
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              10/3
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Lila will look into a referral to a big sister program.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
           }
         }
       >
         <div>
-          <div>
-            <a
-              href="/students/53"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
+          <span
+            className="HouseBadge"
+            style={
+              Object {
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
               }
-            >
-              Olaf
-               
-              Mouse
-            </a>
-          </div>
+            }
+          >
+            Beacon house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#CDD71A",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Parent conversation
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
           <div>
-            9th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
+            <div>
               <a
-                href="/homerooms/5"
+                href="/students/53"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
               >
-                SHS 942
+                Olaf
+                 
+                Mouse
               </a>
-              <span>
-                <span>
-                   
-                </span>
-                 with 
+            </div>
+            <div>
+              9th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
                 <a
-                  className="Educator"
-                  href="mailto:jodi@demo.studentinsights.org"
-                  style={Object {}}
+                  href="/homerooms/5"
                 >
-                  Jodi Teacher
+                  SHS 942
+                </a>
+                <span>
+                  <span>
+                     
+                  </span>
+                   with 
+                  <a
+                    className="Educator"
+                    href="mailto:jodi@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Jodi Teacher
+                  </a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              Parent conversation
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              9/30
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="HouseBadge"
+            style={
+              Object {
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Elm house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#CDD71A",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Parent conversation
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/21"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Elsa
+                 
+                Kenobi
+              </a>
+            </div>
+            <div>
+              5th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/3"
+                >
+                  WSNS 501
+                </a>
+                <span>
+                  <span>
+                     
+                  </span>
+                   with 
+                  <a
+                    className="Educator"
+                    href="mailto:marcus@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Marcus Teacher
+                  </a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              10th Grade Experience
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              9/23
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Elsa twice this week.  Philis following up with outside providers as well.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#333333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            10th Grade Experience
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/72"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Rapunzel
+                 
+                White
+              </a>
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/4"
+                >
+                  SHS ALL
                 </a>
               </span>
-            </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              Something else
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              9/22
+            </div>
           </div>
         </div>
       </div>
       <div
         style={
           Object {
-            "alignItems": "flex-end",
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Engagement issues in ELA, sometimes shutting down altogether and refusing to engage in academic work.  Other times this is more disruptive, lashing out and yelling at other students and interfering with their learning.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
             "display": "flex",
-            "flexDirection": "column",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
           }
         }
       >
         <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
+          <span
+            className="HouseBadge"
             style={
               Object {
-                "fontWeight": "bold",
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
               }
             }
           >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          Parent conversation
-        </div>
-        <div>
-          6 years ago
-           on 
-          9/30
+            Highland house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#666",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Something else
+          </span>
         </div>
       </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Elm house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#CDD71A",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Parent conversation
-      </span>
     </div>
   </div>
   <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
+    className="EventNoteCard"
   >
     <div
+      className="Card FeedCardFrame"
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
         }
       }
     >
@@ -1877,884 +2501,342 @@ Philis is meeting with parent next week and will present an attendance contract.
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
           <div>
-            <a
-              href="/students/21"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Elsa
-               
-              Kenobi
-            </a>
-          </div>
-          <div>
-            5th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
+            <div>
               <a
-                href="/homerooms/3"
+                href="/students/114"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
               >
-                WSNS 501
+                Rapunzel
+                 
+                Pan
               </a>
-              <span>
-                <span>
-                   
-                </span>
-                 with 
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
                 <a
-                  className="Educator"
-                  href="mailto:marcus@demo.studentinsights.org"
-                  style={Object {}}
+                  href="/homerooms/4"
                 >
-                  Marcus Teacher
+                  SHS ALL
                 </a>
               </span>
-            </span>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
             }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          10th Grade Experience
-        </div>
-        <div>
-          6 years ago
-           on 
-          9/23
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Not engaged in academic work and misbehaving in class.  There have been meetings between the teacher and support staff, and Sam has talked with Elsa twice this week.  Philis following up with outside providers as well.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#333333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
           }
-        }
-      >
-        10th Grade Experience
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
+        >
           <div>
-            <a
-              href="/students/72"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Rapunzel
-               
-              White
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          Something else
-        </div>
-        <div>
-          6 years ago
-           on 
-          9/22
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Engagement issues in ELA, sometimes shutting down altogether and refusing to engage in academic work.  Other times this is more disruptive, lashing out and yelling at other students and interfering with their learning.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Highland house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#666",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Something else
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
-          <div>
-            <a
-              href="/students/114"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Rapunzel
-               
-              Pan
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          MTSS Meeting
-        </div>
-        <div>
-          6 years ago
-           on 
-          9/22
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Meetings with staff about lack of academic progress.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Highland house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#EB4B26",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        MTSS Meeting
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
-          <div>
-            <a
-              href="/students/109"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Donald
-               
-              Pan
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          Parent conversation
-        </div>
-        <div>
-          6 years ago
-           on 
-          9/17
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Beacon house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#CDD71A",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Parent conversation
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
-          <div>
-            <a
-              href="/students/99"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Aladdin
-               
-              White
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "alignItems": "flex-end",
-            "display": "flex",
-            "flexDirection": "column",
-          }
-        }
-      >
-        <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          MTSS Meeting
-        </div>
-        <div>
-          7 years ago
-           on 
-          9/11
-        </div>
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Meetings with staff about lack of academic progress.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="HouseBadge"
-        style={
-          Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Highland house
-      </span>
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#EB4B26",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        MTSS Meeting
-      </span>
-    </div>
-  </div>
-  <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
-  >
-    <div
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <div>
-          <div>
-            <a
-              href="/students/18"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Winnie
-               
-              Disney
-            </a>
-          </div>
-          <div>
-            Kindergarten
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/1"
-              >
-                HEA 003
-              </a>
+            <div>
               <span>
-                <span>
-                   
-                </span>
-                 with 
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              MTSS Meeting
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              9/22
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Meetings with staff about lack of academic progress.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="HouseBadge"
+            style={
+              Object {
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Highland house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#EB4B26",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            MTSS Meeting
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
+    <div
+      className="Card FeedCardFrame"
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/109"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Donald
+                 
+                Pan
+              </a>
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
                 <a
-                  className="Educator"
-                  href="mailto:vivian@demo.studentinsights.org"
-                  style={Object {}}
+                  href="/homerooms/4"
                 >
-                  Vivian Teacher
+                  SHS ALL
                 </a>
               </span>
-            </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              Parent conversation
+            </div>
+          </div>
+          <div>
+            <div>
+              6 years ago
+               on 
+              9/17
+            </div>
           </div>
         </div>
       </div>
       <div
         style={
           Object {
-            "alignItems": "flex-end",
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
             "display": "flex",
-            "flexDirection": "column",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
           }
         }
       >
         <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
+          <span
+            className="HouseBadge"
             style={
               Object {
-                "fontWeight": "bold",
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
               }
             }
           >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          Parent conversation
-        </div>
-        <div>
-          7 years ago
-           on 
-          9/9
+            Beacon house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#CDD71A",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Parent conversation
+          </span>
         </div>
       </div>
-    </div>
-    <div
-      style={
-        Object {
-          "marginBottom": 20,
-          "marginTop": 20,
-        }
-      }
-    >
-      <div>
-        Philis is meeting with parent next week and will present an attendance contract.
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
-        }
-      }
-    >
-      <span
-        className="NoteBadge"
-        style={
-          Object {
-            "backgroundColor": "#CDD71A",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
-          }
-        }
-      >
-        Parent conversation
-      </span>
     </div>
   </div>
   <div
-    className="Card EventNoteCard"
-    style={
-      Object {
-        "border": "1px solid #ccc",
-        "borderRadius": 3,
-        "marginTop": 20,
-        "padding": 10,
-      }
-    }
+    className="EventNoteCard"
   >
     <div
+      className="Card FeedCardFrame"
       style={
         Object {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
         }
       }
     >
@@ -2763,126 +2845,500 @@ Philis is meeting with parent next week and will present an attendance contract.
           Object {
             "alignItems": "center",
             "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
           }
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
           <div>
-            <a
-              href="/students/70"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              Mowgli
-               
-              Pan
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
+            <div>
               <a
-                href="/homerooms/4"
+                href="/students/99"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
               >
-                SHS ALL
+                Aladdin
+                 
+                White
               </a>
-            </span>
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/4"
+                >
+                  SHS ALL
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              MTSS Meeting
+            </div>
+          </div>
+          <div>
+            <div>
+              7 years ago
+               on 
+              9/11
+            </div>
           </div>
         </div>
       </div>
       <div
         style={
           Object {
-            "alignItems": "flex-end",
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Meetings with staff about lack of academic progress.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
             "display": "flex",
-            "flexDirection": "column",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
           }
         }
       >
         <div>
-          <span>
-            by 
-          </span>
-          <a
-            className="Educator"
-            href="mailto:uri@demo.studentinsights.org"
+          <span
+            className="HouseBadge"
             style={
               Object {
-                "fontWeight": "bold",
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
               }
             }
           >
-            Uri Disney
-          </a>
-        </div>
-        <div>
-          in 
-          9th Grade Experience
-        </div>
-        <div>
-          7 years ago
-           on 
-          9/8
+            Highland house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#EB4B26",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            MTSS Meeting
+          </span>
         </div>
       </div>
     </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
     <div
+      className="Card FeedCardFrame"
       style={
         Object {
-          "marginBottom": 20,
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
           "marginTop": 20,
+          "padding": 10,
         }
       }
     >
-      <div>
-        Meetings with staff about lack of academic progress.
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/18"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Winnie
+                 
+                Disney
+              </a>
+            </div>
+            <div>
+              Kindergarten
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/1"
+                >
+                  HEA 003
+                </a>
+                <span>
+                  <span>
+                     
+                  </span>
+                   with 
+                  <a
+                    className="Educator"
+                    href="mailto:vivian@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Vivian Teacher
+                  </a>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              Parent conversation
+            </div>
+          </div>
+          <div>
+            <div>
+              7 years ago
+               on 
+              9/9
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+            "marginTop": 20,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Philis is meeting with parent next week and will present an attendance contract.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#CDD71A",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Parent conversation
+          </span>
+        </div>
       </div>
     </div>
+  </div>
+  <div
+    className="EventNoteCard"
+  >
     <div
+      className="Card FeedCardFrame"
       style={
         Object {
-          "display": "flex",
-          "justifyContent": "flex-end",
-          "marginBottom": 5,
+          "border": "1px solid #ccc",
+          "borderRadius": 3,
+          "marginTop": 20,
+          "padding": 10,
         }
       }
     >
-      <span
-        className="HouseBadge"
+      <div
         style={
           Object {
-            "backgroundColor": "#333",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
           }
         }
       >
-        Beacon house
-      </span>
-      <span
-        className="NoteBadge"
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <div>
+            <div>
+              <a
+                href="/students/70"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Mowgli
+                 
+                Pan
+              </a>
+            </div>
+            <div>
+              10th grade
+            </div>
+            <div>
+              <span
+                className="Homeroom"
+                style={Object {}}
+              >
+                <a
+                  href="/homerooms/4"
+                >
+                  SHS ALL
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div>
+            <div>
+              <span>
+                by 
+              </span>
+              <a
+                className="Educator"
+                href="mailto:uri@demo.studentinsights.org"
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Uri Disney
+              </a>
+            </div>
+          </div>
+          <div>
+            <div>
+              in 
+              9th Grade Experience
+            </div>
+          </div>
+          <div>
+            <div>
+              7 years ago
+               on 
+              9/8
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
         style={
           Object {
-            "backgroundColor": "#139DEA",
-            "color": "white",
-            "marginLeft": 5,
-            "opacity": 0.5,
-            "padding": 5,
+            "marginBottom": 20,
+            "marginTop": 20,
           }
         }
       >
-        9th Grade Experience
-      </span>
+        <div
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "fontFamily": "'Open Sans', sans-serif",
+              "fontSize": 14,
+              "marginTop": 5,
+              "padding": 0,
+              "style": undefined,
+              "whiteSpace": "pre-wrap",
+            }
+          }
+        >
+          Meetings with staff about lack of academic progress.
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "flex-end",
+            "marginBottom": 5,
+          }
+        }
+      >
+        <div>
+          <span
+            className="HouseBadge"
+            style={
+              Object {
+                "backgroundColor": "#333",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            Beacon house
+          </span>
+          <span
+            className="Badge"
+            style={
+              Object {
+                "backgroundColor": "#139DEA",
+                "color": "white",
+                "marginLeft": 5,
+                "opacity": 0.5,
+                "padding": 5,
+              }
+            }
+          >
+            9th Grade Experience
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

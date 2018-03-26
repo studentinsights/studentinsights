@@ -1,37 +1,39 @@
 
 //stubbed events for dashboard specs
-export const testEvents = {
-  oneMonthAgo: {
-    occurred_at: moment().subtract(1, 'months').format(),
-    student_id: 1,
-  },
-  twoMonthsAgo: {
-    occurred_at: moment().subtract(2, 'months').format(),
-    student_id: 1,
-  },
-  threeMonthsAgo: {
-    occurred_at: moment().subtract(3, 'months').format(),
-    student_id: 1,
-  },
-  fourMonthsAgo: {
-    occurred_at: moment().subtract(4, 'months').format(),
-    student_id: 1,
-  },
-  oneYearAgo: {
-    occurred_at: moment().subtract(1, 'year').format(),
-    student_id: 1,
-  },
-  thisMonth: {
-    occurred_at: moment().format(),
-    student_id: 1
-  }
-};
+export function createTestEvents(nowMoment) {
+  return {
+    oneMonthAgo: {
+      occurred_at: nowMoment.clone().subtract(1, 'months').format(),
+      student_id: 1,
+    },
+    twoMonthsAgo: {
+      occurred_at: nowMoment.clone().subtract(2, 'months').format(),
+      student_id: 1,
+    },
+    threeMonthsAgo: {
+      occurred_at: nowMoment.clone().subtract(3, 'months').format(),
+      student_id: 1,
+    },
+    fourMonthsAgo: {
+      occurred_at: nowMoment.clone().subtract(4, 'months').format(),
+      student_id: 1,
+    },
+    oneYearAgo: {
+      occurred_at: nowMoment.clone().subtract(1, 'year').format(),
+      student_id: 1,
+    },
+    thisMonth: {
+      occurred_at: nowMoment.clone().format(),
+      student_id: 1
+    }
+  };
+}
 
 
 //stubbed students for dashboard specs
-
-export const Students = [
-  {
+export function createStudents(nowMoment) {
+  const testEvents = createTestEvents(nowMoment);
+  return [{
     first_name: 'Pierrot',
     last_name: 'Zanni',
     homeroom_label: 'Test 1',
@@ -48,7 +50,8 @@ export const Students = [
     id: 2,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
-    events: 2
+    events: 2,
+    last_sst_date_text: null
   },
   {
     first_name: 'Arlecchino',
@@ -57,7 +60,8 @@ export const Students = [
     id: 3,
     absences: [],
     tardies: [],
-    events: 0
+    events: 0,
+    last_sst_date_text: null
   },
   {
     first_name: 'Colombina',
@@ -66,7 +70,8 @@ export const Students = [
     id: 4,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.oneYearAgo],
     tardies: [testEvents.thisMonth],
-    events: 3
+    events: 3,
+    last_sst_date_text: null
   },
   {
     first_name: 'Scaramuccia',
@@ -75,7 +80,8 @@ export const Students = [
     id: 5,
     absences: [testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneYearAgo],
-    events: 2
+    events: 2,
+    last_sst_date_text: null
   },
 
   {
@@ -85,16 +91,19 @@ export const Students = [
     id: 6,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
-    events: 2
-  }
-];
+    events: 2,
+    last_sst_date_text: null
+  }];
+}
 
 
-export function schoolTardyEvents () {
-  const oneMonthAgo = moment().subtract(1, 'months').format('YYYY-MM-DD');
-  const threeMonthsAgo = moment().subtract(3, 'months').format('YYYY-MM-DD');
-  const fourMonthsAgo = moment().subtract(4, 'months').format('YYYY-MM-DD');
-  const oneYearAgo = moment().subtract(1, 'year').format('YYYY-MM-DD');
+export function createSchoolTardyEvents(nowMoment) {
+  const testEvents = createTestEvents(nowMoment);
+  
+  const oneMonthAgo = nowMoment.clone().subtract(1, 'months').format('YYYY-MM-DD');
+  const threeMonthsAgo = nowMoment.clone().subtract(3, 'months').format('YYYY-MM-DD');
+  const fourMonthsAgo = nowMoment.clone().subtract(4, 'months').format('YYYY-MM-DD');
+  const oneYearAgo = nowMoment.clone().subtract(1, 'year').format('YYYY-MM-DD');
   let schoolTardyEvents = {};
 
   schoolTardyEvents[oneMonthAgo] = [testEvents.oneMonthAgo];

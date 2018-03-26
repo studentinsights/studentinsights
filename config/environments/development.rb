@@ -7,7 +7,7 @@ Rails.application.configure do
 
   ENV['DISTRICT_KEY'] = 'somerville'
 
-  ENV['DISTRICT_NAME'] = 'Your Local(Host) District'
+  ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
 
   config.cache_classes = false
 

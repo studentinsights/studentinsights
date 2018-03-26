@@ -3,6 +3,8 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 import Api from './Api.js';
+import * as Routes from '../helpers/Routes';
+
 
 // in place of updating lodash to v4
 function fromPair(key, value) {
@@ -12,8 +14,6 @@ function fromPair(key, value) {
 }
 
 (function() {
-  window.shared || (window.shared = {});
-  const Routes = window.shared.Routes;
   const StudentProfilePage = window.shared.StudentProfilePage;
   /*
   Holds page state, makes API calls to manipulate it.

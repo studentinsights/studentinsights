@@ -3,6 +3,8 @@ import qs from 'query-string';
 import _ from 'lodash';
 import EventNoteCard from './EventNoteCard';
 import BirthdayCard from './BirthdayCard';
+import IncidentCard from './IncidentCard';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 import {toMomentFromTime} from '../helpers/toMoment';
 
 
@@ -35,13 +37,14 @@ class HomeFeed extends React.Component {
   }
 
   fetchFeed(nowTimestamp) {
-    const {limit} = this.props;
-    const url = '/home/feed_json?' + qs.stringify({
+    const {limit, educatorId} = this.props;
+    const params = {
       limit,
-      time_now: nowTimestamp
-    });
-    return fetch(url, { credentials: 'include' })
-      .then(response => response.json())
+      time_now: nowTimestamp,
+      educator_id: educatorId
+    };
+    const url = '/home/feed_json?' + qs.stringify(params);
+    return apiFetchJson(url)
       .then(json => json.feed_cards)
       .then(this.onResolved)
       .catch(this.onRejected);
@@ -103,11 +106,13 @@ HomeFeed.contextTypes = {
   nowFn: React.PropTypes.func.isRequired
 };
 HomeFeed.propTypes = {
+  educatorId: React.PropTypes.number.isRequired,
   limit: React.PropTypes.number
 };
 HomeFeed.defaultProps = {
-  limit: 20
+  limit: 10
 };
+
 
 // Pure UI component for rendering home feed
 export class HomeFeedPure extends React.Component {
@@ -119,6 +124,7 @@ export class HomeFeedPure extends React.Component {
           const {type, json} = feedCard;
           if (type === 'event_note_card') return this.renderEventNoteCard(json);
           if (type === 'birthday_card') return this.renderBirthdayCard(json);
+          if (type === 'incident_card') return this.renderIncidenCard(json);
           console.warn('Unexpected card type: ', type); // eslint-disable-line no-console
         })}
       </div>
@@ -138,6 +144,13 @@ export class HomeFeedPure extends React.Component {
       style={styles.card}
       studentBirthdayCard={json} />;
   }
+
+  renderIncidenCard(json) {
+    return <IncidentCard
+      key={json.id}
+      style={styles.card}
+      incidentCard={json} />;
+  }    
 }
 HomeFeedPure.propTypes = {
   feedCards: React.PropTypes.arrayOf(React.PropTypes.shape({
