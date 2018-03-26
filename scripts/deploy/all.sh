@@ -4,7 +4,6 @@ git fetch origin
 
 echo "🚢  Deploying...";
 yarn run concurrently \
-  --kill-others \
   --names "demo,somerville,new-bedford" \
   -c "yellow.bold,blue.bold,magenta.bold" \
   'scripts/deploy/deploy.sh demo' \
