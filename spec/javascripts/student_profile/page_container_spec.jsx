@@ -22,7 +22,9 @@ describe('PageContainer', function() {
         onClickSaveNotes: jest.fn(),
         onClickSaveService: jest.fn(),
         onClickDiscontinueService: jest.fn(),
-        onDeleteEventNoteAttachment: jest.fn()
+        onDeleteEventNoteAttachment: jest.fn(),
+        onChangeNoteInProgressText: jest.fn(),
+        onClickNoteType: jest.fn()
       };
     },
 
@@ -42,7 +44,9 @@ describe('PageContainer', function() {
         queryParams: {},
         history: SpecSugar.history(),
         actions: helpers.createSpyActions(),
-        api: helpers.createSpyApi()
+        api: helpers.createSpyApi(),
+        noteInProgressText: '',
+        noteInProgressType: null,
       });
       return ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
     },
