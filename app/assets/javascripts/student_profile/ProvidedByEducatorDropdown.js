@@ -8,11 +8,17 @@ import React from 'react';
 // and includes previously entered names.  It also uses jQuery autocomplete,
 // and pollutes the body tag.
 class ProvidedByEducatorDropdown extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onToggleOpenMenu = this.onToggleOpenMenu.bind(this);
+    this.onCloseMenu = this.onCloseMenu.bind(this);
+  }
+
   componentDidMount() {
     const self = this;
 
     // TODO: We should write a spec for this!
-    $(this.refs.ProvidedByEducatorDropdown).autocomplete({
+    $(this.el).autocomplete({
       source: '/educators/services_dropdown/' + this.props.studentId,
       delay: 0,
       minLength: 0,
@@ -38,24 +44,24 @@ class ProvidedByEducatorDropdown extends React.Component {
       },
 
       open() {
-        $('body').bind('click.closeProvidedByEducatorDropdownMenu', self.closeMenu);
+        $('body').bind('click.closeProvidedByEducatorDropdownMenu', self.onCloseMenu);
       },
       close() {
-        $('body').unbind('click.closeProvidedByEducatorDropdownMenu', self.closeMenu);
+        $('body').unbind('click.closeProvidedByEducatorDropdownMenu', self.onCloseMenu);
       }
     });
   }
 
   componentWillUnmount() {
-    $(this.refs.ProvidedByEducatorDropdown).autocomplete('destroy');
+    $(this.el).autocomplete('destroy');
   }
 
-  toggleOpenMenu () {
-    $(this.refs.ProvidedByEducatorDropdown).autocomplete("search", "");
+  onToggleOpenMenu () {
+    $(this.el).autocomplete("search", "");
   }
 
-  closeMenu () {
-    $(this.refs.ProvidedByEducatorDropdown).autocomplete('close');
+  onCloseMenu () {
+    $(this.el).autocomplete('close');
   }
 
   render () {
@@ -70,7 +76,7 @@ class ProvidedByEducatorDropdown extends React.Component {
   renderInput () {
     return (
       <input
-        ref={el => this.ProvidedByEducatorDropdown = el}
+        ref={el => this.el = el}
         className="ProvidedByEducatorDropdown"
         onChange={this.props.onUserTyping}
         placeholder="Last Name, First Name..."
@@ -86,7 +92,7 @@ class ProvidedByEducatorDropdown extends React.Component {
   renderDropdownToggle () {
     return (
       <a
-        onClick={this.toggleOpenMenu}
+        onClick={this.onToggleOpenMenu}
         style={{
           position: 'relative',
           right: 20,

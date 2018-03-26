@@ -7,7 +7,6 @@ import './legacyVendor';
 import './legacyHelpers';
 
 // student profile page:
-import '../app/assets/javascripts/student_profile/provided_by_educator_dropdown.jsx';
 import '../app/assets/javascripts/student_profile/profile_chart_settings.jsx';
 import '../app/assets/javascripts/student_profile/sparkline.jsx';
 import '../app/assets/javascripts/student_profile/take_notes.jsx';
