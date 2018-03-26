@@ -46,7 +46,7 @@ RSpec.describe Feed do
     end
 
     it 'never shows restricted notes, even if access' do
-      event_note = EventNote.create!(
+      EventNote.create!(
         is_restricted: true,
         student: pals.shs_freshman_mari,
         educator: pals.uri,

@@ -170,16 +170,21 @@ yarn test
 ```
 
 
-There's also [rubocop](https://github.com/bbatsov/rubocop) and [eslint](http://eslint.org/) for linting.  Run them at the command line like this:
+There's also tasks for linting that use Ruby, [rubocop](https://github.com/bbatsov/rubocop) and [eslint](http://eslint.org/).  Run them at the command line like this:
 
 ```
 rubocop
+bundle exec rake lint
 yarn lint
 ```
 
-Or add them into Sublime with [SublimeLinter-eslint](https://github.com/SublimeLinter/SublimeLinter-eslint) and [SublimeLinter-rubocop](https://github.com/SublimeLinter/SublimeLinter-rubocop).
+Or add them into Sublime with:
+- [SublimeLinter-eslint](https://github.com/SublimeLinter/SublimeLinter-eslint)
+- [SublimeLinter-rubocop](https://github.com/SublimeLinter/SublimeLinter-rubocop)
+- [SublimeLinter-ruby](https://github.com/SublimeLinter/SublimeLinter-ruby)
 
 If you miss something, tests will run on any pull request you submit, and after merging to master as well.
+
 
 ## 5. Write code!
 This project is a Rails app and has a typical Rails project structure.  If you'd like to get up to speed on Rails, we recommend checking out their [great documentation](http://guides.rubyonrails.org/).  The only difference is that JavaScript code is not managed by the Rails asset pipeline, and is built separately by Webpack.

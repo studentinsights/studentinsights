@@ -52,8 +52,8 @@ class IepPdfImportJob
         FileUtils.mkdir_p("tmp/data_download/unzipped_ieps/#{filename}")
 
         begin
-          Zip::File.open(zip_file) do |zip_file|
-            zip_file.each do |entry|
+          Zip::File.open(opened_zip_file) do |opened_zip_file|
+            opened_zip_file.each do |entry|
               entry.extract("tmp/data_download/unzipped_ieps/#{filename}/#{entry.name}")
               unzipped_count += 1
             end

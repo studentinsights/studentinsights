@@ -20,7 +20,7 @@ RSpec.describe Homeroom do
     context 'one homeroom with no students' do
       let!(:homeroom) { FactoryGirl.create(:homeroom) }
       it 'deletes the homeroom' do
-        expect { Homeroom.destroy_empty_homerooms }.to change(Homeroom, :count).by -1
+        expect { Homeroom.destroy_empty_homerooms }.to change(Homeroom, :count).by(-1)
       end
     end
     context 'zero homerooms with no student' do
