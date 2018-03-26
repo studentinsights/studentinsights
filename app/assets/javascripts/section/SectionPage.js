@@ -1,15 +1,20 @@
 import React from 'react';
 import FlexibleRoster from '../components/FlexibleRoster';
 import SectionHeader from './SectionHeader';
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import {
+  baseSortByString,
+  sortByCustomEnum,
+  sortByDate,
+  sortByNumber
+} from '../helpers/SortHelpers';
 import {latestNoteDateText} from '../helpers/latestNoteDateText';
+import * as Routes from '../helpers/Routes';
 
 
 // Show a section roster for a high school course.
 class SectionPage extends React.Component {
 
   styleStudentName(student, column) {
-    const Routes = window.shared.Routes;
     return (
       <a href={Routes.studentProfile(student.id)}>
         {student.last_name + ', ' + student.first_name}
@@ -21,19 +26,19 @@ class SectionPage extends React.Component {
     const stringA = a['last_name'] + a['first_name'];
     const stringB = b['last_name'] + b['first_name'];
 
-    return SortHelpers.baseSortByString(stringA, stringB);
+    return baseSortByString(stringA, stringB);
   }
 
   programSorter(a, b, sortBy) {
-    return SortHelpers.sortByCustomEnum(a,b,sortBy,['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed']);
+    return sortByCustomEnum(a,b,sortBy,['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed']);
   }
 
   languageProficiencySorter(a, b, sortBy) {
-    return SortHelpers.sortByCustomEnum(a,b,sortBy,['FLEP-Transitioning', 'FLEP', 'Fluent']);
+    return sortByCustomEnum(a,b,sortBy,['FLEP-Transitioning', 'FLEP', 'Fluent']);
   }
 
   mcasPerformanceSorter(a, b, sortBy) {
-    return SortHelpers.sortByCustomEnum(a,b,sortBy,['A','P','NI','W','F']);
+    return sortByCustomEnum(a,b,sortBy,['A','P','NI','W','F']);
   }
 
   studentsWithComputedFields(students) {
@@ -60,9 +65,9 @@ class SectionPage extends React.Component {
       {label: 'Name', key: 'first_name', cell:this.styleStudentName, sortFunc: this.nameSorter},
 
       // Supports
-      {label: 'Last SST', group: 'Supports', key: 'latestSstDateText', sortFunc: SortHelpers.sortByDate},
-      {label: 'Last NGE', group: 'Supports', key: 'latestNgeDateText', sortFunc: SortHelpers.sortByDate},
-      {label: 'Last 10GE', group: 'Supports', key: 'latest10geDateText', sortFunc: SortHelpers.sortByDate},
+      {label: 'Last SST', group: 'Supports', key: 'latestSstDateText', sortFunc: sortByDate},
+      {label: 'Last NGE', group: 'Supports', key: 'latestNgeDateText', sortFunc: sortByDate},
+      {label: 'Last 10GE', group: 'Supports', key: 'latest10geDateText', sortFunc: sortByDate},
 
       {label: 'Program Assigned', key: 'program_assigned', sortFunc: this.programSorter},
       
@@ -74,24 +79,24 @@ class SectionPage extends React.Component {
       {label: 'Fluency', group: 'Language', key: 'limited_english_proficiency', sortFunc: this.languageProficiencySorter},
       {label: 'Home Language', group: 'Language', key: 'home_language'},
 
-      {label: 'Grade', key: 'grade_numeric', sortFunc: SortHelpers.sortByNumber},
-      {label: 'Absences', key: 'most_recent_school_year_absences_count', sortFunc: SortHelpers.sortByNumber},
-      {label: 'Tardies', key: 'most_recent_school_year_tardies_count', sortFunc: SortHelpers.sortByNumber},
-      {label: 'Discipline Incidents', key: 'most_recent_school_year_discipline_incidents_count', sortFunc: SortHelpers.sortByNumber},
+      {label: 'Grade', key: 'grade_numeric', sortFunc: sortByNumber},
+      {label: 'Absences', key: 'most_recent_school_year_absences_count', sortFunc: sortByNumber},
+      {label: 'Tardies', key: 'most_recent_school_year_tardies_count', sortFunc: sortByNumber},
+      {label: 'Discipline Incidents', key: 'most_recent_school_year_discipline_incidents_count', sortFunc: sortByNumber},
 
       // STAR: Math
-      {label: 'Percentile', group: 'STAR: Math', key:'most_recent_star_math_percentile', sortFunc: SortHelpers.sortByNumber},
+      {label: 'Percentile', group: 'STAR: Math', key:'most_recent_star_math_percentile', sortFunc: sortByNumber},
 
       // STAR: Reading
-      {label: 'Percentile', group: 'STAR: Reading', key:'most_recent_star_reading_percentile', sortFunc: SortHelpers.sortByNumber},
+      {label: 'Percentile', group: 'STAR: Reading', key:'most_recent_star_reading_percentile', sortFunc: sortByNumber},
 
       // MCAS: Math
       {label: 'Performance', group: 'MCAS: Math', key:'most_recent_mcas_math_performance', sortFunc: this.mcasPerformanceSorter},
-      {label: 'Score', group: 'MCAS: Math', key:'most_recent_mcas_math_scaled', sortFunc: SortHelpers.sortByNumber},
+      {label: 'Score', group: 'MCAS: Math', key:'most_recent_mcas_math_scaled', sortFunc: sortByNumber},
 
       // MCAS: ELA
       {label: 'Performance', group: 'MCAS: ELA', key:'most_recent_mcas_ela_performance', sortFunc: this.mcasPerformanceSorter},
-      {label: 'Score', group: 'MCAS: ELA', key:'most_recent_mcas_ela_scaled', sortFunc: SortHelpers.sortByNumber}
+      {label: 'Score', group: 'MCAS: ELA', key:'most_recent_mcas_ela_scaled', sortFunc: sortByNumber}
     ];
 
     return (

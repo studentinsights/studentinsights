@@ -1,7 +1,7 @@
 import Datepicker from '../student_profile/Datepicker.js';
 import {toMoment} from '../helpers/toMoment.js';
 import {merge} from '../helpers/react_helpers.jsx';
-import serviceColor from '../student_profile/service_color.js';
+import serviceColor from '../helpers/serviceColor';
 
 (function() {
   window.shared || (window.shared = {});
