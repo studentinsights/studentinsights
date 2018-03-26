@@ -1,3 +1,9 @@
+// Call this to get page load data using the Performance Timing API.
+// It expects to be called in the page load cycle, and then calls back
+// with data on page load.
+//
+// usage:
+// measurePageLoad(info => console.log(JSON.stringify(info, null, 2)));
 export default function measurePageLoad(callback) {
   window.onload = () => {
     setTimeout(() => {
@@ -8,7 +14,6 @@ export default function measurePageLoad(callback) {
 
       const info = {pageLoadTime, networkTime, renderTime};
       callback(info);
-      window.info = info;
     }, 0);
   };
 }

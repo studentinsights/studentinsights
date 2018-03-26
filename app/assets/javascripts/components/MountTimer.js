@@ -2,7 +2,9 @@ import React from 'react';
 
 
 // A higher-order component for measuring the mount timing of this
-// component tree.
+// component tree.  This measures the aggregate timing for 
+// the tree.  Look at https://reactjs.org/docs/perf.html if you want
+// more profiling data.
 class MountTimer extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,6 @@ class MountTimer extends React.Component {
     this.didMount = performance.now();
     const diff = Math.round(this.didMount - this.willMount);
 
-    console.log('didMount:', performance.now());
     if (onTiming) {
       onTiming(diff);
     } else {
