@@ -69,7 +69,7 @@ export class SchoolCoursesPagePure extends React.Component {
           </thead>
           <tbody>{sortedCourses.map(course => {
             const students = _.flatten(course.sections.map(s => s.students));
-            const grades = _.sortBy(_.uniq(students.map(s => parseInt(s.grade, 10)))).reverse();
+            const grades = _.sortBy(_.uniq(students.map(s => parseInt(s.grade, 10))));
             const ages =  _.sortBy(_.uniq(students.map(s => toMomentFromTime(s.date_of_birth).unix())).map(unix => {
               const birthdate = moment.unix(unix).utc();
               return now.clone().diff(birthdate, 'year');
@@ -103,10 +103,10 @@ SchoolCoursesPagePure.contextTypes = {
   nowFn: React.PropTypes.func.isRequired
 };
 SchoolCoursesPagePure.propTypes = {
-  courses: React.PropTypes.shape({
+  courses: React.PropTypes.arrayOf(React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,
-    course_number: React.PropTypes.number.isRequired,
-    course_description: React.PropTypes.number.isRequired,
+    course_number: React.PropTypes.string.isRequired,
+    course_description: React.PropTypes.string.isRequired,
     sections: React.PropTypes.arrayOf(React.PropTypes.shape({
       id: React.PropTypes.number.isRequired,
       section_number: React.PropTypes.string.isRequired,
@@ -116,11 +116,11 @@ SchoolCoursesPagePure.propTypes = {
         date_of_birth: React.PropTypes.string.isRequired
       })).isRequired
     })).isRequired
-  }),
+  })).isRequired,
   school: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,
     name: React.PropTypes.string.isRequired
-  })
+  }).isRequired
 };
 
 

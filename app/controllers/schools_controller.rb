@@ -48,9 +48,7 @@ class SchoolsController < ApplicationController
       .where(school_id: @school.id)
       .includes(sections: :students)
 
-    # TODO(kr)  authorization bug here by naively following the associations -
-    # at the K8 level, courses can mix students across schools, so another layer
-    # of filtering is required that this as_json approach doesn't support
+    # TODO(kr) authorization complexity here
     courses_json = courses.as_json({
       :only => [:id, :course_number, :course_description],
       :include => {

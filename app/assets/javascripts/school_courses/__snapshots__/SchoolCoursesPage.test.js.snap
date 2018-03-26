@@ -204,7 +204,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             }
           }
         >
-          -10
+          10
         </td>
         <td
           style={
@@ -298,9 +298,9 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
           }
         >
           <span>
-            -10
+            9
              - 
-            -9
+            10
           </span>
         </td>
         <td
@@ -394,7 +394,7 @@ exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
             }
           }
         >
-          -10
+          10
         </td>
         <td
           style={

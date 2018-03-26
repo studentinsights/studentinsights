@@ -237,4 +237,31 @@ describe SchoolsController, :type => :controller do
       end
     end
   end
+
+  describe '#courses_json' do
+    let!(:pals) { TestPals.create! }
+    def make_request(school_id)
+      request.env['HTTPS'] = 'on'
+      get :courses_json, params: { format: :json, id: school_id }
+    end
+
+    it 'guards authorization for schoolwide admin' do
+      sign_in(pals.healey_laura_principal)
+      make_request('hea')
+      expect(response.status).to eq 3212
+    end
+
+    it 'is successful' do
+      sign_in(pals.healey_laura_principal)
+      make_request('hea')
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json.keys).to eq [
+        :id,
+        :course_number,
+        :course_description,
+        :sections
+      ]
+    end
+  end
 end
