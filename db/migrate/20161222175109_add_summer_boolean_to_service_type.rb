@@ -15,7 +15,7 @@ class AddSummerBooleanToServiceType < ActiveRecord::Migration[4.2]
 
     if !(ServiceType.find_by_id(510).nil?)
       spell_summer_school = ServiceType.find_by_id(510)
-      summer_school.update!({ summer_program: true })
+      spell_summer_school.update!({ summer_program: true })
     end
   end
 end
