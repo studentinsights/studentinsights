@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   
   get '/api/educators/:id' => 'educators#show'
+  get '/api/schools/:id/courses' => 'schools#courses_json'
 
   devise_for :educators
   authenticated :educator do
@@ -62,6 +63,7 @@ Rails.application.routes.draw do
       get :school_administrator_dashboard
       get :overview_json
       get :csv
+      get 'courses' => 'ui#ui'
     end
   end
 end
