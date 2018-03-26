@@ -16,6 +16,10 @@ class LoadDistrictConfig
     load_yml.fetch("schools")
   end
 
+  def service_types
+    load_yml.fetch("service_types")
+  end
+
   def canonical_domain
     ENV.fetch('CANONICAL_DOMAIN', nil)
   end

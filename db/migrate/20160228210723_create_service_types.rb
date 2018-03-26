@@ -5,7 +5,5 @@ class CreateServiceTypes < ActiveRecord::Migration[4.2]
 
       t.timestamps
     end
-
-    ServiceType.seed_somerville_service_types
   end
 end

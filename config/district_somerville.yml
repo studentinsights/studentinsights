@@ -61,3 +61,52 @@ schools:
   -
     local_id: SPED
     name: Special Education
+service_types:
+  -
+    name: Attendance Officer
+    id: 502
+    educator_recordable: true
+  -
+    name: Attendance Contract
+    id: 503
+    educator_recordable: true
+  -
+    name: Behavior Contract
+    id: 504
+    educator_recordable: true
+  -
+    name: Counseling, in-house
+    id: 505
+    educator_recordable: true
+  -
+    name: Counseling, outside
+    id: 506
+    educator_recordable: true
+  -
+    name: Reading intervention
+    id: 507
+    educator_recordable: true
+  -
+    name: Math intervention
+    id: 508
+  -
+    name: SomerSession
+    id: 509
+    summer_program: true
+  -
+    name: Summer Program for English Language Learners
+    id: 510
+    summer_program: true
+  -
+    name: Afterschool Tutoring
+    id: 511
+  -
+    name: Freedom School
+    id: 512
+    summer_program: true
+  -
+    name: Community Schools
+    id: 513
+  -
+    name: X-Block
+    id: 514

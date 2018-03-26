@@ -83,3 +83,32 @@ schools:
   -
     name: Whaling City Jr./Sr. High
     local_id: '515'
+service_types:
+  -
+    name: Behavior Plan
+    id: 1
+  -
+    name: Safety Plan
+    id: 2
+  -
+    name: Counseling – Individual
+    id: 3
+  -
+    name: Group Counseling
+    id: 4
+  -
+    name: Social Skills Group
+    id: 5
+  -
+    name: Afterschool Teacher Help
+    id: 6
+  -
+    name: Reading Interventionist
+    id: 7
+  -
+    name: Lexia Core 5
+    id: 8
+  -
+    name: MySidewalks Intervention
+    id: 9
+
