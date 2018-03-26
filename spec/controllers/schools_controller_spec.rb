@@ -245,23 +245,20 @@ describe SchoolsController, :type => :controller do
       get :courses_json, params: { format: :json, id: school_id }
     end
 
-    it 'guards authorization for schoolwide admin' do
+    it 'guards authorization unless districtwide' do
       sign_in(pals.healey_laura_principal)
       make_request('hea')
-      expect(response.status).to eq 3212
+      expect(response.status).to eq 403
     end
 
-    it 'is successful' do
-      sign_in(pals.healey_laura_principal)
-      make_request('hea')
+    it 'is successful and returns the right shape' do
+      sign_in(pals.uri)
+      make_request('shs')
       expect(response.status).to eq 200
       json = JSON.parse(response.body)
-      expect(json.keys).to eq [
-        :id,
-        :course_number,
-        :course_description,
-        :sections
-      ]
+      expect(json.keys).to eq(['courses', 'school'])
+      expect(json['courses'].size).to eq(3)
+      expect(json['courses'].first.keys).to eq(['id', 'course_number', 'course_description', 'sections'])
     end
   end
 end

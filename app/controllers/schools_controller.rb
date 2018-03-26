@@ -41,14 +41,13 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
-  # internal-only for now, because of the authorization complexity
+  # This endpoint is internal-only for now, because of the authorization complexity.
   def courses_json
     raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
     courses = Course.all
       .where(school_id: @school.id)
       .includes(sections: :students)
 
-    # TODO(kr) authorization complexity here
     courses_json = courses.as_json({
       :only => [:id, :course_number, :course_description],
       :include => {
