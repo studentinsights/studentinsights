@@ -30,7 +30,7 @@ module Devise
       # Create a Net::LDAP instance, `bind` to it and close.
       # Return true or false if they're authorized.
       def is_authorized_by_ldap?(login, password)
-        options = create_ldap_options_for(login, password)
+        options = ldap_options_for(login, password)
         ldap = Net::LDAP.new(options)
         is_authorized = ldap.bind
 
@@ -47,7 +47,7 @@ module Devise
       def ldap_options_for(email, password)
         host = ENV['DISTRICT_LDAP_HOST']
         port = ENV['DISTRICT_LDAP_PORT']
-        encryption_method = JSON.parse(ENV['DISTRICT_LDAP_ENCRYPTION_METHOD']).to_sym
+        encryption_method = ENV['DISTRICT_LDAP_ENCRYPTION_METHOD'].to_sym
         encryption_tls_options = JSON.parse(ENV['DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON']).deep_symbolize_keys
 
         {
