@@ -131,7 +131,9 @@ NotesDetails.propTypes = {
   actions: React.PropTypes.shape({
     onClickSaveNotes: React.PropTypes.func.isRequired,
     onEventNoteAttachmentDeleted: React.PropTypes.func,
-    onDeleteEventNoteAttachment: React.PropTypes.func
+    onDeleteEventNoteAttachment: React.PropTypes.func,
+    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
+    onClickNoteType: React.PropTypes.func.isRequired
   }),
   feed: PropTypes.feed.isRequired,
   requests: React.PropTypes.object.isRequired,

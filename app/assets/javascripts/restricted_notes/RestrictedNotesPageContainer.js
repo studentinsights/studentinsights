@@ -107,7 +107,7 @@ class RestrictedNotesPageContainer extends React.Component {
               'student',
               'requests',
               'noteInProgressText',
-              'noteInProgressType',
+              'noteInProgressType'
             ), {
               nowMomentFn: this.props.nowMomentFn,
               actions: this.props.actions || {
