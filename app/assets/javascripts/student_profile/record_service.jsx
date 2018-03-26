@@ -1,12 +1,15 @@
-import Datepicker from '../student_profile/Datepicker.js';
+import Datepicker from './Datepicker.js';
+import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown.js';
 import {toMoment} from '../helpers/toMoment.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import serviceColor from '../helpers/serviceColor';
+import {
+  toSchoolYear,
+  lastDayOfSchool
+} from './QuadConverter';
 
 (function() {
   window.shared || (window.shared = {});
-  const ProvidedByEducatorDropdown = window.shared.ProvidedByEducatorDropdown;
-  const QuadConverter = window.shared.QuadConverter;
 
   const styles = {
     dialog: {
@@ -77,8 +80,8 @@ import serviceColor from '../helpers/serviceColor';
 
     // The default is to assume the service will last until the end of the school year.
     defaultEstimatedEndDate(nowMoment) {
-      const schoolYear = QuadConverter.toSchoolYear(nowMoment);
-      return QuadConverter.lastDayOfSchool(schoolYear);
+      const schoolYear = toSchoolYear(nowMoment);
+      return lastDayOfSchool(schoolYear);
     },
 
     // Normalize input date text into format Rails expects, tolerating empty string as null.
