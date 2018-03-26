@@ -48,7 +48,7 @@ class SchoolwideAttendance extends React.Component {
   schoolYearDateRange() {
     //change this to change the maximum date range available for the dashboard
     const fullYearDateRange = Object.keys(this.schoolAverageDailyAttendance()).sort();
-    const today = moment();
+    const today = moment.utc();
     return DashboardHelpers.filterDates(fullYearDateRange, DashboardHelpers.schoolYearStart(), today);
   }
 

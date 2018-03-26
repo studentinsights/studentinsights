@@ -6,15 +6,13 @@ class Feed
 
   # Return a list of `FeedCard`s for the feed based on event notes.
   def event_note_cards(from_time, limit)
-    event_notes = @authorizer.authorized do
-      EventNote
-        .includes(:student)
-        .where(is_restricted: false)
-        .where('recorded_at < ?', from_time)
-        .order(recorded_at: :desc)
-    end
-    # truncation has to come after authorization
-    recent_event_notes = event_notes.first(limit)
+    recent_event_notes = EventNote
+      .where(student_id: authorized_students.map(&:id))
+      .where(is_restricted: false)
+      .where('recorded_at < ?', from_time)
+      .order(recorded_at: :desc)
+      .limit(limit)
+      .includes(student: :homeroom)
     recent_event_notes.map {|event_note| event_note_card(event_note) }
   end
 
@@ -25,24 +23,23 @@ class Feed
     limit = options[:limit] || 3
     days_back = options[:days_back] || 7
     days_ahead = options[:days_ahead] || 7
-    students = @authorizer.authorized do
-      Student.select(:id, :primary_email, :first_name, :last_name, :date_of_birth)
-        .where('extract(doy from date_of_birth) > ?', time_now.yday - days_back)
-        .where('extract(doy from date_of_birth) <= ?', time_now.yday + days_ahead)
-        .order('extract(doy from date_of_birth) DESC')
-        .limit(limit)
-    end
+    students = Student
+      .where(id: authorized_students.map(&:id))
+      .where('extract(doy from date_of_birth) > ?', time_now.yday - days_back)
+      .where('extract(doy from date_of_birth) <= ?', time_now.yday + days_ahead)
+      .order('extract(doy from date_of_birth) DESC')
+      .limit(limit)
     students.map { |student| birthday_card(student, time_now) }
   end
 
   # Returns recent discipline incidents.
   def incident_cards(time_now, limit)
-    students = @authorizer.authorized { Student.all }
     incidents = DisciplineIncident
-      .where(student_id: students.map(&:id))
+      .where(student_id: authorized_students.map(&:id))
       .where('occurred_at < ?', time_now)
       .order(occurred_at: :desc)
       .limit(limit)
+      .includes(student: :homeroom)
     incidents.map {|incident| incident_card(incident) }
   end
 
@@ -53,6 +50,11 @@ class Feed
   end
 
   private
+  # Performance optimization to cache across methods
+  def authorized_students
+    @authorized_students ||= @authorizer.authorized { Student.all }
+  end
+
   # Create json for exactly what UI needs and return as `FeedCard`
   def event_note_card(event_note)
     json = event_note.as_json({

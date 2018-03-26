@@ -8,12 +8,12 @@ class StarMathImporter
   def import
     return unless zip_file_name.present? && remote_file_name.present?
 
-    @log.write("\nDownloading ZIP file #{zip_file_name}...")
+    log("\nDownloading ZIP file #{zip_file_name}...")
 
     downloaded_zip = client.download_file(zip_file_name)
 
     Zip::File.open(downloaded_zip) do |zipfile|
-      @log.write("\nImporting #{remote_file_name}...")
+      log("\nImporting #{remote_file_name}...")
 
       data_string = zipfile.read(remote_file_name).encode('UTF-8', 'binary', {
         invalid: :replace, undef: :replace, replace: ''
@@ -69,4 +69,7 @@ class StarMathImporter
     })
   end
 
+  def log(msg)
+    @log.write "StarMathImporter: #{msg}"
+  end
 end

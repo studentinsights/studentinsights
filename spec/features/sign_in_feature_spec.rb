@@ -6,7 +6,6 @@ describe 'educator sign in', type: :feature do
 
   context 'teacher signs in' do
     def expect_successful_sign_in_for(educator)
-      # mock_ldap_authorization
       educator_sign_in(educator)
       expect(page).to have_content 'Signed in successfully.'
     end
@@ -18,7 +17,6 @@ describe 'educator sign in', type: :feature do
     context 'without default page' do
       let(:educator) { pals.shs_jodi }
       it 'redirects to no default page' do
-        # mock_ldap_authorization
         educator_sign_in(educator)
         expect(page).to have_content 'problem with your account'
       end
@@ -27,7 +25,6 @@ describe 'educator sign in', type: :feature do
 
   context 'person without LDAP authorization attempts to sign in' do
     it 'cannot access students page' do
-      # mock_ldap_rejection
       sign_in_attempt('educatorname', 'password')
       expect(page).to have_content 'Invalid Email or password.'
     end
