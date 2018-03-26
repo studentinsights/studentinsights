@@ -65,7 +65,6 @@ class SchoolCoursesPage extends React.Component {
             }));
             return (
               <tr key={course.id}>
-                <td style={styles.cell}>{students.length}</td>
                 <td style={styles.cell}>{course.course_number} {course.course_description}</td>
                 <td style={styles.cell}>{_.sortBy(course.sections, s => s.section_number).map(section =>
                   <Section
@@ -76,7 +75,7 @@ class SchoolCoursesPage extends React.Component {
                     sectionNumber={section.section_number}
                     courseDescription={course.course_description} />
                 )}</td>
-                
+                <td style={styles.cell}>{students.length}</td>
                 <td style={styles.cell}>{grades.length > 1
                     ? <span>{_.first(grades)} - {_.last(grades)}</span>
                     : grades[0]}</td>

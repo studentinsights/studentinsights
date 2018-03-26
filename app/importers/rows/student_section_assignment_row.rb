@@ -26,14 +26,21 @@ class StudentSectionAssignmentRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def section
+    course = lookup_course
     return Section.find_by_section_number(row[:section_number]) if row[:section_number]
   end
 
-  def course
-    Course.find_or_initialize_by(course_number: row[:course_number], school_id: school_rails_id)
-  end
+  def lookup_course
+    school_rails_id = school_ids_dictionary[row[:school_local_id]]
+    return nil unless school_rails_id.present?
+    courses = Course.where({
+      course_number: row[:course_number],
+      school_id: school_rails_id
+    })
+    if courses.size > 1
+      nil
+    else
 
-  def school_rails_id
-    school_ids_dictionary[school_local_id] if school_local_id.present?
+    end
   end
 end
