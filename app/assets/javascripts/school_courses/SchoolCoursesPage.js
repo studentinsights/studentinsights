@@ -37,6 +37,17 @@ class SchoolCoursesPage extends React.Component {
 
   renderCourses(json) {
     const {courses, school} = json;
+    return <SchoolCoursesPagePure courses={courses} school={school} />;
+  }
+}
+SchoolCoursesPage.propTypes = {
+  schoolId: React.PropTypes.string.isRequired
+};
+
+
+export class SchoolCoursesPagePure extends React.Component {
+  render() {
+    const {courses, school} = this.props;
     const {nowFn} = this.context;
     const now = nowFn();
 
@@ -49,16 +60,16 @@ class SchoolCoursesPage extends React.Component {
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={styles.cell}>Course</th>
-              <th style={styles.cell}>Sections</th>
-              <th style={styles.cell}>Total students</th>
-              <th style={styles.cell}>Student<br />grade range</th>
-              <th style={styles.cell}>Student<br />age range</th>
+              <th style={{...styles.cell, ...styles.headerCell}}>Course</th>
+              <th style={{...styles.cell, ...styles.headerCell}}>Sections</th>
+              <th style={{...styles.cell, ...styles.headerCell}}>Total students</th>
+              <th style={{...styles.cell, ...styles.headerCell}}>Student<br />grade range</th>
+              <th style={{...styles.cell, ...styles.headerCell}}>Student<br />age range</th>
             </tr>
           </thead>
           <tbody>{sortedCourses.map(course => {
             const students = _.flatten(course.sections.map(s => s.students));
-            const grades = _.sortBy(_.uniq(students.map(s => s.grade)));
+            const grades = _.sortBy(_.uniq(students.map(s => parseInt(s.grade, 10)))).reverse();
             const ages =  _.sortBy(_.uniq(students.map(s => toMomentFromTime(s.date_of_birth).unix())).map(unix => {
               const birthdate = moment.unix(unix).utc();
               return now.clone().diff(birthdate, 'year');
@@ -75,11 +86,11 @@ class SchoolCoursesPage extends React.Component {
                     sectionNumber={section.section_number}
                     courseDescription={course.course_description} />
                 )}</td>
-                <td style={styles.cell}>{students.length}</td>
-                <td style={styles.cell}>{grades.length > 1
+                <td style={{...styles.cell, textAlign: 'right'}}>{students.length}</td>
+                <td style={{...styles.cell, textAlign: 'right'}}>{grades.length > 1
                     ? <span>{_.first(grades)} - {_.last(grades)}</span>
                     : grades[0]}</td>
-                <td style={styles.cell}>{_.first(ages)} - {_.last(ages)}</td>
+                <td style={{...styles.cell, textAlign: 'right'}}>{_.first(ages)} - {_.last(ages)}</td>
               </tr>
             );
           })}</tbody>
@@ -88,11 +99,28 @@ class SchoolCoursesPage extends React.Component {
     );
   }
 }
-SchoolCoursesPage.contextTypes = {
+SchoolCoursesPagePure.contextTypes = {
   nowFn: React.PropTypes.func.isRequired
 };
-SchoolCoursesPage.propTypes = {
-  schoolId: React.PropTypes.string.isRequired
+SchoolCoursesPagePure.propTypes = {
+  courses: React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    course_number: React.PropTypes.number.isRequired,
+    course_description: React.PropTypes.number.isRequired,
+    sections: React.PropTypes.arrayOf(React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      section_number: React.PropTypes.string.isRequired,
+      students: React.PropTypes.arrayOf(React.PropTypes.shape({
+        id: React.PropTypes.number.isRequired,
+        grade: React.PropTypes.string.isRequired,
+        date_of_birth: React.PropTypes.string.isRequired
+      })).isRequired
+    })).isRequired
+  }),
+  school: React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    name: React.PropTypes.string.isRequired
+  })
 };
 
 
@@ -101,12 +129,19 @@ const styles = {
     padding: 10
   },
   table: {
-    margin: 10
+    margin: 10,
+    borderCollapse: 'collapse',
+    border: '1px solid #eee'
   },
   cell: {
     textAlign: 'left',
     verticalAlign: 'top',
-    padding: 5
+    padding: 10,
+    border: '1px solid #eee'
+  },
+  headerCell: {
+    fontWeight: 'bold',
+    backgroundColor: '#ccc'
   },
   raw: {
     fontFamily: 'monospace',

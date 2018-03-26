@@ -4,6 +4,7 @@ import App from './App';
 import {MemoryRouter} from 'react-router-dom';
 import {createSerializedDataEducator} from '../spec/javascripts/fixtures/serializedDataEducator';
 
+
 function renderRoute(path) {
   const currentEducator = createSerializedDataEducator();
   const el = document.createElement('div');
@@ -12,6 +13,12 @@ function renderRoute(path) {
       <App currentEducator={currentEducator} />
     </MemoryRouter>, el);
 }
+
+
+
+jest.mock('../app/assets/javascripts/home/HomePage');
+jest.mock('../app/assets/javascripts/educator/EducatorPage');
+jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
 
 
 it('renders HomePage without crashing', () => {
