@@ -55,10 +55,10 @@ function fromPair(key, value) {
         iepDocument: serializedData.iepDocument,
         sections: serializedData.sections,
         currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
-        noteInProgressText: '',
-        noteInProgressType: null,
 
         // ui
+        noteInProgressText: '',
+        noteInProgressType: null,
         selectedColumnKey: queryParams.column || 'interventions',
 
         // This map holds the state of network requests for various actions.  This allows UI components to branch on this

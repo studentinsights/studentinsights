@@ -18,13 +18,19 @@ class RestrictedNotesPageContainer extends React.Component {
     this.state = {
       // context
       currentEducator: serializedData.currentEducator,
+
       // constants
       educatorsIndex: serializedData.educatorsIndex,
       eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
+
       // data
       feed: serializedData.feed,
       student: serializedData.student,
+
       // ui
+      noteInProgressText: '',
+      noteInProgressType: null,
+
       // This map holds the state of network requests for various actions.  This allows UI components to branch on this
       // and show waiting messages or error messages.
       // The state of a network request is described with null (no requests in-flight),
@@ -85,7 +91,9 @@ class RestrictedNotesPageContainer extends React.Component {
               'eventNoteTypesIndex',
               'feed',
               'student',
-              'requests'
+              'requests',
+              'noteInProgressText',
+              'noteInProgressType',
             ), {
               nowMomentFn: this.props.nowMomentFn,
               actions: this.props.actions || {
