@@ -20,7 +20,6 @@ class StudentSectionAssignmentsImporter
     delete_rows
   end
 
-  private
   def client
     SftpClient.for_x2
   end
@@ -48,12 +47,8 @@ class StudentSectionAssignmentsImporter
 
   end
 
-  def school_ids_dictionary
-    @dictionary ||= School.all.map { |school| [school.local_id, school.id] }.to_h
-  end
-
   def import_row(row)
-    student_section_assignment = StudentSectionAssignmentRow.new(row, school_ids_dictionary).build
+    student_section_assignment = StudentSectionAssignmentRow.new(row).build
     if student_section_assignment
       student_section_assignment.save!
       @imported_assignments.push(student_section_assignment.id)
