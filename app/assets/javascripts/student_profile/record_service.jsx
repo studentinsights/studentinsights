@@ -1,4 +1,5 @@
-import Datepicker from '../student_profile/Datepicker.js';
+import Datepicker from './Datepicker.js';
+import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown.js';
 import {toMoment} from '../helpers/toMoment.js';
 import {merge} from '../helpers/react_helpers.jsx';
 import serviceColor from '../helpers/serviceColor';
@@ -9,7 +10,6 @@ import {
 
 (function() {
   window.shared || (window.shared = {});
-  const ProvidedByEducatorDropdown = window.shared.ProvidedByEducatorDropdown;
 
   const styles = {
     dialog: {
