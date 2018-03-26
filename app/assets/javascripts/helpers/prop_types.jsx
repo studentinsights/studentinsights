@@ -8,6 +8,7 @@ const PropTypes = {
     onClickSaveService: React.PropTypes.func.isRequired,
     onClickDiscontinueService: React.PropTypes.func.isRequired,
     onChangeNoteInProgressText: React.PropTypes.func.isRequired,
+    onClickNoteType: React.PropTypes.func.isRequired
   }),
   requests: React.PropTypes.shape({
     saveNote: React.PropTypes.string,

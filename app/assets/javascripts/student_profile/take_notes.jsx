@@ -64,14 +64,13 @@ export default React.createClass({
     currentEducator: React.PropTypes.object.isRequired,
     requestState: React.PropTypes.string, // or null
     noteInProgressText: React.PropTypes.string.isRequired,
+    noteInProgressType: React.PropTypes.number,
+    onClickNoteType: React.PropTypes.func.isRequired,
     onChangeNoteInProgressText: React.PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
-    return {
-      eventNoteTypeId: null,
-      attachmentUrls: []
-    };
+    return { attachmentUrls: [] };
   },
 
   // Focus on note-taking text area when it first appears.
@@ -93,9 +92,9 @@ export default React.createClass({
   },
 
   disabledSaveButton: function () {
-    return (
-      this.state.eventNoteTypeId === null || !this.isValidAttachmentUrls()
-    );
+    const {noteInProgressType} = this.props;
+
+    return (noteInProgressType === null || !this.isValidAttachmentUrls());
   },
 
   isValidAttachmentUrls: function () {
@@ -115,10 +114,6 @@ export default React.createClass({
       });
     const filteredAttachmentUrls = updatedAttachmentUrls.filter(this.stringNotEmpty);
     this.setState({ attachmentUrls: filteredAttachmentUrls });
-  },
-
-  onClickNoteType: function(noteTypeId, event) {
-    this.setState({ eventNoteTypeId: noteTypeId });
   },
 
   onClickCancel: function(event) {
@@ -210,16 +205,24 @@ export default React.createClass({
 
   // TODO(kr) extract button UI
   renderNoteButton: function(eventNoteTypeId) {
-    const eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
+    const {
+      onClickNoteType,
+      eventNoteTypesIndex,
+      noteInProgressType
+    } = this.props;
+
+    const eventNoteType = eventNoteTypesIndex[eventNoteTypeId];
+
     return (
       <button
         className="btn note-type"
-        onClick={this.onClickNoteType.bind(this, eventNoteTypeId)}
+        onClick={onClickNoteType}
         tabIndex={-1}
+        name={eventNoteTypeId}
         style={merge(styles.serviceButton, {
           background: '#eee',
           outline: 0,
-          border: (this.state.eventNoteTypeId === eventNoteTypeId)
+          border: (noteInProgressType === eventNoteTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
         })}>

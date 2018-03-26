@@ -56,6 +56,7 @@ function fromPair(key, value) {
         sections: serializedData.sections,
         currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
         noteInProgressText: '',
+        noteInProgressType: null,
 
         // ui
         selectedColumnKey: queryParams.column || 'interventions',
@@ -113,6 +114,12 @@ function fromPair(key, value) {
         column_key: columnKey
       });
       this.setState({ selectedColumnKey: columnKey });
+    },
+
+    onClickNoteType: function(event) {
+      const noteInProgressType = parseInt(event.target.name);
+
+      this.setState({ noteInProgressType });
     },
 
     onChangeNoteInProgressText: function(event) {
@@ -252,7 +259,8 @@ function fromPair(key, value) {
               'sections',
               'currentEducatorAllowedSections',
               'requests',
-              'noteInProgressText'
+              'noteInProgressText',
+              'noteInProgressType'
             ), {
               nowMomentFn: this.props.nowMomentFn,
               actions: this.props.actions || {
@@ -261,7 +269,8 @@ function fromPair(key, value) {
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
                 onClickDiscontinueService: this.onClickDiscontinueService,
-                onChangeNoteInProgressText: this.onChangeNoteInProgressText
+                onChangeNoteInProgressText: this.onChangeNoteInProgressText,
+                onClickNoteType: this.onClickNoteType
               }
             })} />
         </div>

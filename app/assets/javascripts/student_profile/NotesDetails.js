@@ -4,7 +4,6 @@ import React from 'react';
 import HelpBubble from './HelpBubble.js';
 import SectionHeading from '../components/SectionHeading';
 
-
 const styles = {
   notesContainer: {
     flex: 1,
@@ -90,6 +89,8 @@ class NotesDetails extends React.Component {
           onCancel={this.onCancelNotes}
           requestState={this.props.requests.saveNote}
           noteInProgressText={this.props.noteInProgressText}
+          noteInProgressType={this.props.noteInProgressType}
+          onClickNoteType={this.props.actions.onClickNoteType}
           onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText} />
       );
     }
@@ -135,6 +136,7 @@ NotesDetails.propTypes = {
   feed: PropTypes.feed.isRequired,
   requests: React.PropTypes.object.isRequired,
   noteInProgressText: React.PropTypes.string.isRequired,
+  noteInProgressType: React.PropTypes.number,
 
   showingRestrictedNotes: React.PropTypes.bool.isRequired,
   title: React.PropTypes.string.isRequired,
