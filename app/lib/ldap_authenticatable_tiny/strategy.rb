@@ -10,18 +10,18 @@ module Devise
       #
       # Also check out Devise's Authenticable Model and Warden's base Strategy to
       # see what's going on here.
-      # https://github.com/hassox/warden/blob/master/lib/warden/strategies/base.rb
+      # https://github.com/wardencommunity/warden/blob/master/lib/warden/strategies/base.rb#L8
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
       def authenticate!
         email = authentication_hash[:email]
         begin
           educator = Educator.find_by_email(email)
-          return fail(:not_found_in_database) unless educator.present?
-          return fail(:invalid) unless is_authorized_by_ldap?(email, password)
-          success!(educator)
+          fail!(:not_found_in_database) and return unless educator.present?
+          fail!(:invalid) and return unless is_authorized_by_ldap?(email, password)
+          success!(educator) and return
         rescue => error
           logger.error "LdapAuthenticatableTiny, error: #{error}"
-          fail(:error)
+          fail!(:error) and return
         end
         nil
       end
@@ -46,9 +46,8 @@ module Devise
       # that can bind to `(email,password)`
       def ldap_options_for(email, password)
         host = ENV['DISTRICT_LDAP_HOST']
-        port = ENV['DISTRICT_LDAP_PORT']
-        encryption_method = ENV['DISTRICT_LDAP_ENCRYPTION_METHOD'].to_sym
-        encryption_tls_options = JSON.parse(ENV['DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON']).deep_symbolize_keys
+        port = ENV['DISTRICT_LDAP_PORT'].to_i
+        encryption_tls_options = JSON.parse(ENV['DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON'] || '{}').deep_symbolize_keys
 
         {
           host: host,
@@ -59,7 +58,7 @@ module Devise
             :password => password,
           },
           encryption: {
-            method: encryption_method,
+            method: :simple_tls,
             tls_options: encryption_tls_options
           }
         }
