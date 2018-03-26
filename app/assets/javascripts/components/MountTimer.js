@@ -1,0 +1,40 @@
+import React from 'react';
+
+
+// A higher-order component for measuring the mount timing of this
+// component tree.
+class MountTimer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.willMount = null;
+    this.didMount = null;
+  }
+
+  componentWillMount() {
+    this.willMount = performance.now();
+  }
+
+  componentDidMount() {
+    const {onTiming} = this.props;
+    this.didMount = performance.now();
+    const diff = Math.round(this.didMount - this.willMount);
+
+    console.log('didMount:', performance.now());
+    if (onTiming) {
+      onTiming(diff);
+    } else {
+      console.log('MountTimer: ', diff);  // eslint-disable-line no-console
+    }
+  }
+
+  render() {
+    const {children} = this.props;
+    return children;
+  }
+}
+MountTimer.propTypes = {
+  children: React.PropTypes.node.isRequired,
+  onTiming: React.PropTypes.func
+};
+
+export default MountTimer;
