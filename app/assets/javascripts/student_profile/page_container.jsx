@@ -59,6 +59,7 @@ function fromPair(key, value) {
         // ui
         noteInProgressText: '',
         noteInProgressType: null,
+        noteInProgressAttachmentUrls: [],
         selectedColumnKey: queryParams.column || 'interventions',
 
         // This map holds the state of network requests for various actions.  This allows UI components to branch on this
@@ -124,6 +125,24 @@ function fromPair(key, value) {
 
     onChangeNoteInProgressText: function(event) {
       this.setState({ noteInProgressText: event.target.value });
+    },
+
+    onChangeAttachmentUrl: function(event) {
+      const newValue = event.target.value;
+      const changedIndex = parseInt(event.target.name);
+      const {noteInProgressAttachmentUrls} = this.state;
+
+      const updatedAttachmentUrls = (noteInProgressAttachmentUrls.length === changedIndex)
+        ? noteInProgressAttachmentUrls.concat(newValue)
+        : noteInProgressAttachmentUrls.map((attachmentUrl, index) => {
+          return (changedIndex === index) ? newValue : attachmentUrl;
+        });
+
+      const filteredAttachments = updatedAttachmentUrls.filter((urlString) => {
+        return urlString.length !== 0;
+      });
+
+      this.setState({ noteInProgressAttachmentUrls: filteredAttachments });
     },
 
     onClickSaveNotes: function(eventNoteParams) {
@@ -263,7 +282,8 @@ function fromPair(key, value) {
               'currentEducatorAllowedSections',
               'requests',
               'noteInProgressText',
-              'noteInProgressType'
+              'noteInProgressType',
+              'noteInProgressAttachmentUrls'
             ), {
               nowMomentFn: this.props.nowMomentFn,
               actions: {
@@ -274,6 +294,7 @@ function fromPair(key, value) {
                 onClickDiscontinueService: this.onClickDiscontinueService,
                 onChangeNoteInProgressText: this.onChangeNoteInProgressText,
                 onClickNoteType: this.onClickNoteType,
+                onChangeAttachmentUrl: this.onChangeAttachmentUrl,
                 ...this.props.actions,
               }
             })} />

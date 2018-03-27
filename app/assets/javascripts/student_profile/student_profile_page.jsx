@@ -138,7 +138,9 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
       }),
       noteInProgressText: React.PropTypes.string.isRequired,
       noteInProgressType: React.PropTypes.number,
-
+      noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
+        React.PropTypes.string
+      ).isRequired,
       access: React.PropTypes.object,
       iepDocument: React.PropTypes.object,
       sections: React.PropTypes.array,
@@ -285,7 +287,8 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
                 helpTitle="What is a Note?"
                 title="Notes"
                 noteInProgressText={this.props.noteInProgressText}
-                noteInProgressType={this.props.noteInProgressType} />
+                noteInProgressType={this.props.noteInProgressType}
+                noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls }/>
               <ServicesDetails
                 student={this.props.student}
                 serviceTypesIndex={this.props.serviceTypesIndex}

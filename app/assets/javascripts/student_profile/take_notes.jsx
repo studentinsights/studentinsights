@@ -63,14 +63,16 @@ export default React.createClass({
     onCancel: React.PropTypes.func.isRequired,
     currentEducator: React.PropTypes.object.isRequired,
     requestState: React.PropTypes.string, // or null
+
     noteInProgressText: React.PropTypes.string.isRequired,
     noteInProgressType: React.PropTypes.number,
+    noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
+      React.PropTypes.string
+    ).isRequired,
+
     onClickNoteType: React.PropTypes.func.isRequired,
     onChangeNoteInProgressText: React.PropTypes.func.isRequired,
-  },
-
-  getInitialState: function() {
-    return { attachmentUrls: [] };
+    onChangeAttachmentUrl: React.PropTypes.func.isRequired,
   },
 
   // Focus on note-taking text area when it first appears.
@@ -82,12 +84,11 @@ export default React.createClass({
     return { url: urlString };
   },
 
-  stringNotEmpty: function (urlString) {
-    return urlString.length !== 0;
-  },
-
   eventNoteUrlsForSave: function () {
-    const urlsToSave = this.state.attachmentUrls.map(this.wrapUrlInObject);
+    const {noteInProgressAttachmentUrls} = this.props;
+
+    const urlsToSave = noteInProgressAttachmentUrls.map(this.wrapUrlInObject);
+
     return { eventNoteAttachments: urlsToSave };
   },
 
@@ -98,22 +99,13 @@ export default React.createClass({
   },
 
   isValidAttachmentUrls: function () {
-    return _.all(this.state.attachmentUrls, function (url) {
+    const {noteInProgressAttachmentUrls} = this.props;
+
+    return _.all(noteInProgressAttachmentUrls, function (url) {
       return (url.slice(0, 7) === 'http://'  ||
               url.slice(0, 8) === 'https://' ||
               url.length      === 0);
     });
-  },
-
-  onChangeAttachmentUrl: function(changedIndex, event) {
-    const newValue = event.target.value;
-    const updatedAttachmentUrls = (this.state.attachmentUrls.length === changedIndex)
-      ? this.state.attachmentUrls.concat(newValue)
-      : this.state.attachmentUrls.map(function(attachmentUrl, index) {
-        return (changedIndex === index) ? newValue : attachmentUrl;
-      });
-    const filteredAttachmentUrls = updatedAttachmentUrls.filter(this.stringNotEmpty);
-    this.setState({ attachmentUrls: filteredAttachmentUrls });
   },
 
   onClickCancel: function(event) {
@@ -234,14 +226,16 @@ export default React.createClass({
   },
 
   renderAttachmentLinkArea: function () {
+    const {noteInProgressAttachmentUrls} = this.props;
     const isValidUrls = this.isValidAttachmentUrls();
+
     const urls = (isValidUrls)
-      ? this.state.attachmentUrls.concat('')
-      : this.state.attachmentUrls;
+      ? noteInProgressAttachmentUrls.concat('')
+      : noteInProgressAttachmentUrls;
 
     return (
       <div>
-        {urls.map(function (url, index) {
+        {urls.map((url, index) => {
           return this.renderAttachmentLinkInput(url, index);
         }, this)}
         <div
@@ -256,11 +250,14 @@ export default React.createClass({
   },
 
   renderAttachmentLinkInput: function (value, index) {
+    const {onChangeAttachmentUrl} = this.props;
+
     return (
       <div key={index}>
         <input
           value={value}
-          onChange={this.onChangeAttachmentUrl.bind(this, index)}
+          name={index}
+          onChange={onChangeAttachmentUrl}
           placeholder="Please use the format https://www.example.com."
           style={{
             marginBottom: '20px',
