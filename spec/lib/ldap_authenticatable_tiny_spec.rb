@@ -57,6 +57,18 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       expect(strategy.user).to eq nil
     end
 
+    it 'calls success! even when cases are different' do
+      strategy = test_strategy
+      allow(strategy).to receive(:authentication_hash) { { email: 'URI@demo.studentinsights.org' } }
+      allow(strategy).to receive(:password) { 'supersecure' }
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('URI@demo.studentinsights.org', 'supersecure').and_return true
+      strategy.authenticate!
+
+      expect(strategy.result).to eq :success
+      expect(strategy.message).to eq nil
+      expect(strategy.user).to eq pals.uri
+    end
+
     it 'calls success! when valid Educator and is_authorized_by_ldap?' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
