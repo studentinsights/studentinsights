@@ -57,6 +57,8 @@ function fromPair(key, value) {
         currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
 
         // ui
+        noteInProgressText: '',
+        noteInProgressType: null,
         selectedColumnKey: queryParams.column || 'interventions',
 
         // This map holds the state of network requests for various actions.  This allows UI components to branch on this
@@ -114,6 +116,16 @@ function fromPair(key, value) {
       this.setState({ selectedColumnKey: columnKey });
     },
 
+    onClickNoteType: function(event) {
+      const noteInProgressType = parseInt(event.target.name);
+
+      this.setState({ noteInProgressType });
+    },
+
+    onChangeNoteInProgressText: function(event) {
+      this.setState({ noteInProgressText: event.target.value });
+    },
+
     onClickSaveNotes: function(eventNoteParams) {
       this.setState({ requests: merge(this.state.requests, { saveNote: 'pending' }) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
@@ -140,9 +152,12 @@ function fromPair(key, value) {
       }
 
       const updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
+
       this.setState({
         feed: updatedFeed,
-        requests: merge(this.state.requests, { saveNote: null })
+        requests: merge(this.state.requests, { saveNote: null }),
+        noteInProgressText: '',
+        noteInProgressType: null,
       });
     },
 
@@ -246,15 +261,20 @@ function fromPair(key, value) {
               'iepDocument',
               'sections',
               'currentEducatorAllowedSections',
-              'requests'
+              'requests',
+              'noteInProgressText',
+              'noteInProgressType'
             ), {
               nowMomentFn: this.props.nowMomentFn,
-              actions: this.props.actions || {
+              actions: {
                 onColumnClicked: this.onColumnClicked,
                 onClickSaveNotes: this.onClickSaveNotes,
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
-                onClickDiscontinueService: this.onClickDiscontinueService
+                onClickDiscontinueService: this.onClickDiscontinueService,
+                onChangeNoteInProgressText: this.onChangeNoteInProgressText,
+                onClickNoteType: this.onClickNoteType,
+                ...this.props.actions,
               }
             })} />
         </div>
