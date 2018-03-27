@@ -8,37 +8,38 @@ class SomervilleHighTiers
   # class Tier < Struct.new(:level, :triggers, :data)
   # end
 
-  def self.students_with_tiering_json(educator, school_ids, time_now)
-    authorizer = Authorizer.new(educator)
-    students = authorizer.authorized do
-      Student
+  def initialize(educator)
+    @educator = educator
+    @authorizer = Authorizer.new(@educator)
+  end
+
+  def students_with_tiering_json(school_ids, time_now)
+    students = @authorizer.authorized do
+      Student.all
         .where(school_id: school_ids)
         .includes(student_section_assignments: [section: :course])
+        .includes(:event_notes)
+        .to_a # TODO(kr) authorizer select behavior is unexpected here, and silently leads to no first_name, last_name, etc.
     end
 
     students.map do |student|
-      tier_json = SomervilleHighTiers.new.tier(student, time_now: time_now).as_json
+      tier_json = tier(student, time_now: time_now).as_json
+      notes_json = last_notes_json(student)
       student_json = student.as_json({
-        only: [:id, :first_name, :last_name, :grade],
+        only: [:id, :first_name, :last_name, :grade, :house, :sped_placement],
         include: {
-          # homeroom: {
-          #   only: [:id, :name]
-          # },
           student_section_assignments: {
             :only => [:id, :grade_letter, :grade_numeric],
             :include => {
               :section => {
                 :only => [:id, :section_number],
                 :methods => [:course_description]
-                # :include => {
-                #   :educators => {:only => [:id, :full_name, :email]}
-                # }
               }
             }
           }
         }
       })
-      student_json.merge(tier_json)
+      student_json.merge(tier: tier_json).merge(notes: notes_json)
     end
   end
 
@@ -89,6 +90,43 @@ class SomervilleHighTiers
   end
 
   private
+  # TODO(kr) this could also be "days since last note"
+  # so that the alerting makes sense and that there's a natural
+  # "reminder" and less to parse information-wise
+  def last_notes_json(student)
+    last_sst_note = @authorizer.authorized do
+      student.event_notes
+        .where(event_note_type_id: [300])
+        .where(is_restricted: false)
+        .order(recorded_at: :asc)
+        .last(1)
+    end.first
+    last_experience_note = @authorizer.authorized do
+      student.event_notes
+        .where(event_note_type_id: [305, 306])
+        .where(is_restricted: false)
+        .order(recorded_at: :asc)
+        .last(1)
+    end.first
+    last_other_note = @authorizer.authorized do
+      student.event_notes
+        .where.not(event_note_type_id: [300, 305, 306])
+        .where(is_restricted: false)
+        .order(recorded_at: :asc)
+        .last(1)
+    end.first
+
+    {
+      last_sst_note: serialize_note(last_sst_note || {}),
+      last_experience_note: serialize_note(last_experience_note || {}),
+      last_other_note: serialize_note(last_other_note || {})
+    }
+  end
+
+  def serialize_note(note)
+    note.as_json(only: [:id, :event_note_type_id, :recorded_at])
+  end
+
   def course_failures(student, options = {})
     assignments = student.student_section_assignments.select do |assignment|
       grade_numeric = assignment.grade_numeric

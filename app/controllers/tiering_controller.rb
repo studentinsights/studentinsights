@@ -4,8 +4,9 @@ class TieringController < ApplicationController
     school_id = params[:school_id]
 
     # TODO(kr) rework
-    students_with_tiering_json = SomervilleHighTiers.students_with_tiering_json(current_educator, [school_id], time_now)
-    students_with_tiering_json = JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER-students-proto.json'))
+    tiers = SomervilleHighTiers.new(current_educator)
+    students_with_tiering_json = tiers.students_with_tiering_json([school_id], time_now)
+    students_with_tiering_json = JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER/DANGER-tiers-proto2.json'))
     render json: {
       students_with_tiering: students_with_tiering_json
     }

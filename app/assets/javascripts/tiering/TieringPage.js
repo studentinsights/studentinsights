@@ -7,71 +7,22 @@ import ExperimentalBanner from '../components/ExperimentalBanner';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import 'react-select/dist/react-select.css';
-import 'react-virtualized/styles.css'
+import 'react-virtualized/styles.css';
+import {toMomentFromTime} from '../helpers/toMoment';
+import {
+  labelAssignment,
+  firstMatch,
+  ELA,
+  MATH,
+  HISTORY,
+  SCIENCE,
+  CREDIT_RECOVERY,
+  ACADEMIC_SUPPORT,
+  REDIRECT
+} from './Courses';
 
 
 
-
-function firstMatch(assignments, patterns) {
-  return _.first(assignments.filter(assignment => {
-    const text = assignment.section.course_description;
-    return _.any(patterns, pattern => text.indexOf(pattern) !== -1);
-  }));
-}
-
-const ELA = [
-  'ENGLISH',
-  'ESL'
-];
-
-const HISTORY = [
-  'HISTORY'
-];
-
-const MATH = [
-  'GEOMETRY',
-  'ALGEBRA',
-  'MATH'
-];
-
-const SCIENCE = [
-  'BIOLOGY',
-  'PHYSICS',
-  'CHEMISTRY',
-];
-
-const LANGUAGE = [
-  'LANGUAGE'
-];
-
-const HEALTH = [
-  'HEALTH',
-  'FITNESS EDUCATION',
-  'TEAM ACTIVITIES PE'
-];
-
-const REDIRECT = [
-  'REDIRECT'
-];
-
-const ACADEMIC_SUPPORT = [
-  'ACADEMIC SUPPORT'
-];
-
-const CREDIT_RECOVERY = [
-  'CREDIT RECOVERY'
-];
-
-
-// 'ELECTRICAL'
-// 'PIANO'
-// 'ART'
-// 'TEAM ACTIVITIES PE'
-// 'BIOTECHNOLOGY'
-// 'GEOMETRY'
-// 'INTERNSHIP'
-// 'BAND'
-// 'COMPUTER ART'
 
 // TODO(kr)
 class TieringPage extends React.Component {
@@ -174,7 +125,7 @@ class TieringView extends React.Component {
     return (
       <div style={styles.root}>
         {this.renderSelection(students)}
-        {/*this.renderSummary(students) */}
+        {/*this.renderSummary(students)*/}
         {this.renderTable(students)}
       </div>
     );
@@ -183,7 +134,7 @@ class TieringView extends React.Component {
   renderSelection(studentsWithTiering) {
     const {grade, house, tier, trigger, search} = this.state;
     const possibleGrades = ['All', '9', '10', '11', '12'];
-    const possibleHouses = ['All', 'Beacon'];
+    const possibleHouses = ['All', 'Beacon', 'Broadway', 'Elm', 'Highland'];
     const possibleTiers = ['All', '0', '1', '2', '3', '4'];
     const possibleTriggers = ['All', 'academic', 'absence', 'discipline'];
     return (
@@ -256,8 +207,31 @@ class TieringView extends React.Component {
           {this.renderServiceCount(studentsWithTiering, 'Academic support', ACADEMIC_SUPPORT)}
           {this.renderServiceCount(studentsWithTiering, 'Redirect', REDIRECT)}
         </div>
+        <div>
+          {this.renderUnlabeledCourses(studentsWithTiering)}
+        </div>
       </div>
     );
+  }
+
+  renderUnlabeledCourses(studentsWithTiering) {
+    const assignments = _.flatten(studentsWithTiering.map(s => s.student_section_assignments));
+    const labeledAssignments = assignments.map(assignment => {
+      return {
+        ...assignment,
+        label: labelAssignment(assignment)
+      };
+    });
+
+    const missing = _.uniq(labeledAssignments
+      .filter(a => a.label === 'unknown')
+      .map(a => a.section.course_description))
+      .slice(0, 10);
+
+    return <div>
+      <pre>{JSON.stringify(_.countBy(labeledAssignments, 'label'), null, 2)}</pre>
+      <pre>{JSON.stringify(missing, null, 2)}</pre>
+    </div>;
   }
 
   renderTierCount(studentsWithTiering, n) {
@@ -351,6 +325,11 @@ class TieringView extends React.Component {
                 width={gradeCellWidth}
                 cellRenderer={this.renderGradeFor.bind(this, SCIENCE)} />
               <Column
+                dataKey="sped"
+                label={<span>Special<br />education</span>}
+                width={cellWidth}
+                cellRenderer={this.renderPlacement} />
+              <Column
                 dataKey="recovery"
                 label={<span>Credit<br/>Recovery</span>}
                 width={cellWidth}
@@ -369,12 +348,12 @@ class TieringView extends React.Component {
                 dataKey="sst"
                 label="SST"
                 width={cellWidth}
-                cellRenderer={this.renderNotes.bind(this, [300])} />
+                cellRenderer={this.renderNotes.bind(this, 'last_sst_note')} />
               <Column
                 dataKey="nge"
                 label="NGE/10GE"
                 width={cellWidth}
-                cellRenderer={this.renderNotes.bind(this, [305, 306])} />
+                cellRenderer={this.renderNotes.bind(this, 'last_experience_note')} />
             </Table>
           )}
         </AutoSizer>
@@ -431,6 +410,13 @@ class TieringView extends React.Component {
       : null;
   }
 
+  renderPlacement({rowData}) {
+    const placement = rowData.sped_placement;
+    return (placement && placement !== 'None')
+      ? <span style={styles.support}>{placement}</span>
+      : null;
+  }
+
   renderGrade(gradeLetter) {
     if (!gradeLetter) return null;
 
@@ -446,10 +432,13 @@ class TieringView extends React.Component {
     return <span style={styles.grade}>{gradeLetter}</span>;
   }
 
-  renderNotes(eventTypeIds, {rowData}) {
-    return (Math.random() < 0.30)
-      ? <span style={styles.support}>12/19/17</span>
-      : null;
+  renderNotes(key, {rowData}) {
+    const eventNote = rowData.notes[key];
+    if (eventNote === undefined) return null;
+    if (eventNote.recorded_at === undefined) return null;
+
+    const noteMoment = toMomentFromTime(eventNote.recorded_at);
+    return <span style={styles.support}>{noteMoment.format('M/D/YY')}</span>;
   }
 }
 
