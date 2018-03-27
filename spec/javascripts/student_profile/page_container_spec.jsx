@@ -18,13 +18,12 @@ describe('PageContainer', function() {
 
     createSpyActions: function() {
       return {
+        // Just mock the functions that make server calls
         onColumnClicked: jest.fn(),
         onClickSaveNotes: jest.fn(),
         onClickSaveService: jest.fn(),
         onClickDiscontinueService: jest.fn(),
-        onDeleteEventNoteAttachment: jest.fn(),
-        onChangeNoteInProgressText: jest.fn(),
-        onClickNoteType: jest.fn()
+        onDeleteEventNoteAttachment: jest.fn()
       };
     },
 
@@ -118,8 +117,6 @@ describe('PageContainer', function() {
         eventNoteTypeText: 'SST Meeting',
         text: 'hello!'
       });
-
-      expect(component.props.actions.onChangeNoteInProgressText).toHaveBeenCalled();
 
       expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
         eventNoteTypeId: 300,

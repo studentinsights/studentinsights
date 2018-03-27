@@ -3,12 +3,12 @@ import React from 'react';
 const PropTypes = {
   // UI actions, stepping stone to Flux
   actions: React.PropTypes.shape({
-    onColumnClicked: React.PropTypes.func.isRequired,
-    onClickSaveNotes: React.PropTypes.func.isRequired,
-    onClickSaveService: React.PropTypes.func.isRequired,
-    onClickDiscontinueService: React.PropTypes.func.isRequired,
-    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
-    onClickNoteType: React.PropTypes.func.isRequired
+    onColumnClicked: React.PropTypes.func,
+    onClickSaveNotes: React.PropTypes.func,
+    onClickSaveService: React.PropTypes.func,
+    onClickDiscontinueService: React.PropTypes.func,
+    onChangeNoteInProgressText: React.PropTypes.func,
+    onClickNoteType: React.PropTypes.func
   }),
   requests: React.PropTypes.shape({
     saveNote: React.PropTypes.string,

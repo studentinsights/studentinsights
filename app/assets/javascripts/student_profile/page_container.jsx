@@ -266,14 +266,15 @@ function fromPair(key, value) {
               'noteInProgressType'
             ), {
               nowMomentFn: this.props.nowMomentFn,
-              actions: this.props.actions || {
+              actions: {
                 onColumnClicked: this.onColumnClicked,
                 onClickSaveNotes: this.onClickSaveNotes,
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
                 onClickDiscontinueService: this.onClickDiscontinueService,
                 onChangeNoteInProgressText: this.onChangeNoteInProgressText,
-                onClickNoteType: this.onClickNoteType
+                onClickNoteType: this.onClickNoteType,
+                ...this.props.actions,
               }
             })} />
         </div>
