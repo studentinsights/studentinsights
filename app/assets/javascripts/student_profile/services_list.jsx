@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import {merge} from '../helpers/react_helpers.jsx';
-import serviceColor from '../student_profile/service_color.js';
+import serviceColor from '../helpers/serviceColor';
 
 (function() {
   window.shared || (window.shared = {});

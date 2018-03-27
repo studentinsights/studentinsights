@@ -1,6 +1,8 @@
 import React from 'react';
 import {merge} from '../helpers/react_helpers.jsx';
 import {toMomentFromRailsDate} from '../helpers/toMomentFromRailsDate.js';
+import * as Theme from '../helpers/Theme';
+
 
 class ServiceUploadDetail extends React.Component {
 
@@ -66,7 +68,7 @@ class ServiceUploadDetail extends React.Component {
     return (
       <span>
         {this.renderInfoSeparator()}
-        <a style={window.shared.styles.link} onClick={this.toggleShowStudents}>
+        <a style={Theme.styles.link} onClick={this.toggleShowStudents}>
           {this.state.showStudentLinks ? 'Hide students' : 'Show students'}
         </a>
       </span>
@@ -113,7 +115,7 @@ class ServiceUploadDetail extends React.Component {
         <span>
           {this.renderInfoSeparator()}
           <a
-            style={merge(window.shared.styles.link, {
+            style={merge(Theme.styles.link, {
               color: 'red', fontSize: 15
             })}
             onClick={this.toggleDeletionConfirmation}>
@@ -139,7 +141,7 @@ class ServiceUploadDetail extends React.Component {
             marginLeft: 15
           }}>
           <li>
-            <a href={'/students/' + student.id} style={window.shared.styles.link}>
+            <a href={'/students/' + student.id} style={Theme.styles.link}>
               {[student.first_name, student.last_name].join(' ')}
             </a>
           </li>

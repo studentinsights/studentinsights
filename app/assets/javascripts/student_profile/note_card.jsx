@@ -1,11 +1,11 @@
 import Educator from '../components/Educator';
+import NoteText from '../components/NoteText';
+import EditableNoteText from '../components/EditableNoteText';
 import moment from 'moment';
 import * as Routes from '../helpers/Routes';
 
 (function() {
   window.shared || (window.shared = {});
-
-  const EditableTextComponent = window.shared.EditableTextComponent;
 
   const styles = {
     note: {
@@ -24,13 +24,6 @@ import * as Routes from '../helpers/Routes';
     educator: {
       paddingLeft: 5,
       display: 'inline-block'
-    },
-    noteText: {
-      marginTop: 5,
-      padding: 0,
-      fontFamily: "'Open Sans', sans-serif",
-      fontSize: 14,
-      whiteSpace: 'pre-wrap'
     },
     studentCard: {
       border: '1px solid #eee',
@@ -104,52 +97,28 @@ import * as Routes from '../helpers/Routes';
                 <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
               </span>
             </div>
-            {(this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea()}
+            {this.renderText()}
             {this.renderAttachmentUrls()}
           </div>
         </div>        
       );
     },
 
-    renderSaveableTextArea: function() {
-      return (
-        <div>
-          <EditableTextComponent
-            style={styles.noteText}
-            className="note-text"
-            text={this.props.text}
-            onBlurText={this.onBlurText} />
-          {this.renderNumberOfRevisions()}
-        </div>
-      );
-    },
-
-    renderNumberOfRevisions: function () {
-      const numberOfRevisions = this.props.numberOfRevisions;
-      if (numberOfRevisions === 0) return null;
-
-      return (
-        <div
-          style={{
-            color: '#aaa',
-            fontSize: 13,
-            marginTop: 13
-          }}>
-          {(numberOfRevisions === 1)
-              ? 'Revised 1 time'
-              : 'Revised ' + numberOfRevisions + ' times'}
-        </div>
-      );
-    },
-
     // If an onSave callback is provided, the text is editable.
-    // If not (eg., for older interventions),
-    renderStaticTextArea: function () {
-      return (
-        <div style={styles.noteText} className="note-text">
-          {this.props.text}
-        </div>
-      );
+    // This is for older interventions that are read-only 
+    // because of changes to the server data model.
+    renderText() {
+      const {onSave, text, numberOfRevisions}= this.props;
+      if (onSave) {
+        return (
+          <EditableNoteText
+            text={text}
+            numberOfRevisions={numberOfRevisions}
+            onBlurText={this.onBlurText} />
+        );
+      }
+      
+      return <NoteText text={text} />;        
     },
 
     renderAttachmentUrls: function() {
