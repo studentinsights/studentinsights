@@ -8,14 +8,16 @@ require 'csv'
 class ResearchMattersExporter
 
   STUDENT_INCLUDES = %w[school absences discipline_incidents event_notes]
+  SCHOOL_LOCAL_IDS = %w[BRN HEA KDY AFAS ESCS WSNS WHCS]
 
   def initialize(options: {
                   mixpanel_downloader: RawMixpanelDataDownloader.new,
                   canonical_domain: ENV['CANONICAL_DOMAIN']
                 })
-    @school = School.find_by_local_id('HEA')
-    @students = @school.students.includes(STUDENT_INCLUDES)
-    @educators = @school.educators
+
+    @school_ids = School.where(local_id: SCHOOL_LOCAL_IDS).pluck(:id)
+    @students = Student.where(school_id: @school_ids).includes(STUDENT_INCLUDES)
+    @educators = Educator.where(school_id: @school_ids)
 
     @focal_time_period_start = DateTime.new(2017, 8, 28)
     @focal_time_period_end = DateTime.new(2017, 12, 24)
