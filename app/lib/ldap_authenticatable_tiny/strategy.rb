@@ -15,7 +15,7 @@ module Devise
       def authenticate!
         email = authentication_hash[:email]
         begin
-          educator = Educator.find_by_email(email)
+          educator = Educator.find_by_email(email.downcase)
           fail!(:not_found_in_database) and return unless educator.present?
           fail!(:invalid) and return unless is_authorized_by_ldap?(email, password)
           success!(educator) and return
