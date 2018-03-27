@@ -25,8 +25,7 @@ class SectionsController < ApplicationController
 
   private
   def authorize_and_assign_section
-    # Extra layer while transitioning K8 to use sections
-    if !current_educator.districtwide_access && !current_educator.school.is_high_school?
+    if !can_view_section_page? # Extra layer while transitioning K8 to use sections
       return redirect_to homepage_path_for_role(current_educator)
     end
 
@@ -38,6 +37,10 @@ class SectionsController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound     # Params don't match an actual section
     redirect_to homepage_path_for_role(current_educator)
+  end
+
+  def can_view_section_page?
+    current_educator.districtwide_access || current_educator.school.is_high_school?
   end
 
   def authenticate_districtwide_access!
