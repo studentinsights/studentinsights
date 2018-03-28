@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import SchoolwideTardies from './SchoolwideTardies';
 import {apiFetchJson} from '../../../helpers/apiFetchJson';
-import measurePageLoad from '../../../helpers/measurePageLoad';
 
 class TardiesDataLoader extends React.Component {
   //This class just grabs tardy data from the server endpoint before loading the rest of the tardies dashboard
