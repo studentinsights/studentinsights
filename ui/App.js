@@ -7,6 +7,7 @@ import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx'
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
+import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';>>>>>>> origin/master
 
 
 // This is the top-level component, only handling routing.
@@ -38,6 +39,7 @@ class App extends React.Component {
   render() {
     return (
       <Switch>
+        <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route exact path="/tiering/:school_id" render={this.renderTieringPage.bind(this)}/>
@@ -50,6 +52,12 @@ class App extends React.Component {
     const {currentEducator} = this.props;
     this.trackVisit(routeProps, 'HOME_PAGE');
     return <HomePage educatorId={currentEducator.id} />;
+  }
+
+  renderSchoolCoursesPage(routeProps) {
+    const schoolId = routeProps.match.params.id;
+    this.trackVisit(routeProps, 'SCHOOL_COURSES_PAGE');
+    return <SchoolCoursesPage schoolId={schoolId} />;
   }
 
   renderEducatorPage(routeProps) {
