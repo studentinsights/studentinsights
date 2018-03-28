@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DashboardHelpers from '../DashboardHelpers';
-import SchoolwideAttendance from './SchoolwideAttendance';
+import SchoolwideTardies from './SchoolwideTardies';
 import {apiFetchJson} from '../../../helpers/apiFetchJson';
 
-class SchoolwideAbsences extends React.Component {
+class TardiesDataLoader extends React.Component {
+  //This class just grabs tardy data from the server endpoint before loading the rest of the tardies dashboard
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ class SchoolwideAbsences extends React.Component {
   componentWillMount() {
     //if the parent component already has the dashboard data, we don't need to duplicate it
     if(this.props.dashboardStudents.length) return;
-    const url = `/schools/${this.props.schoolId}/absence_dashboard_data`;
+    const url = `/schools/${this.props.schoolId}/tardies_dashboard_data`;
     this.setState({isLoading: true});
 
     apiFetchJson(url)
@@ -32,15 +32,13 @@ class SchoolwideAbsences extends React.Component {
     }
 
     return (
-        <SchoolwideAttendance
-          schoolAbsenceEvents = {DashboardHelpers.absenceEventsByDay(dashboardStudents)}
-          dashboardStudents = {dashboardStudents}/>);
+        <SchoolwideTardies dashboardStudents={dashboardStudents}/>);
   }
 }
 
-SchoolwideAbsences.propTypes = {
+TardiesDataLoader.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
   schoolId: PropTypes.number
 };
 
-export default SchoolwideAbsences;
+export default TardiesDataLoader;

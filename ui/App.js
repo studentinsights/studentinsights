@@ -7,6 +7,7 @@ import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx'
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import SchoolWideAbsences from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolWideAbsences';
+import TardiesDataLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/TardiesDataLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 
 
@@ -43,6 +44,7 @@ class App extends React.Component {
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route exact path="/schools/:school_id/absences" render={this.renderAbsenceDashboard.bind(this)}/>
+        <Route exact path="/schools/:school_id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );
@@ -68,6 +70,10 @@ class App extends React.Component {
 
   renderAbsenceDashboard() {
     return <SchoolWideAbsences dashboardStudents={[]} schoolId={this.props.currentEducator.school_id} />;
+  }
+
+  renderTardiesDashboard() {
+    return <TardiesDataLoader dashboardStudents={[]} schoolId={this.props.currentEducator.school_id} />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the

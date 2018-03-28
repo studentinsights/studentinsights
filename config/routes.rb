@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   resources :iep_documents, only: [:show]
 
   get '/schools/:school_id/absences' => 'ui#ui'
+  get '/schools/:school_id/tardies' => 'ui#ui'
   resources :schools, only: [:show] do
     member do
       get :overview
@@ -65,6 +66,7 @@ Rails.application.routes.draw do
       get :overview_json
       get :csv
       get :absence_dashboard_data
+      get :tardies_dashboard_data
       get 'courses' => 'ui#ui'
     end
   end
