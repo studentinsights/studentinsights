@@ -20,7 +20,6 @@ class SchoolwideAbsences extends React.Component {
     this.setState({isLoading: true});
 
     apiFetchJson(url)
-      .then(response => { return response; })
       .then(response => { this.setState({dashboardStudents: response, isLoading: false}); });
   }
 
