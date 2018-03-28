@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get '/authorization' => 'educators#authorization'
     root to: "educators#index"
   end
-  
+
   get '/api/educators/:id' => 'educators#show'
 
   devise_for :educators
@@ -56,12 +56,14 @@ Rails.application.routes.draw do
   resources :import_records, only: [:index]
   resources :iep_documents, only: [:show]
 
+  get '/schools/:school_id/absences' => 'ui#ui'
   resources :schools, only: [:show] do
     member do
       get :overview
       get :school_administrator_dashboard
       get :overview_json
       get :csv
+      get :absence_dashboard_data
     end
   end
 end
