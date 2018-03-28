@@ -67,7 +67,7 @@
               section: 30,
               homeroom: 40
             }[Authorizer.new(educator).homepage_type]
-            [educator.school.try(:name), type_sort_key]
+            [educator.school.try(:name) || 'None', type_sort_key]
           end
           sorted_educators = @all_educators.sort_by {|e| sort_key(e) }
         %>
