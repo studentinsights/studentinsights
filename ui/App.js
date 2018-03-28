@@ -9,6 +9,7 @@ import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import SchoolWideAbsences from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolWideAbsences';
 import TardiesDataLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/TardiesDataLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
+import MountTimer from '../app/assets/javascripts/components/MountTimer';
 
 
 // This is the top-level component, only handling routing.
@@ -39,14 +40,16 @@ class App extends React.Component {
   // side.
   render() {
     return (
-      <Switch>
-        <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
-        <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
-        <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
-        <Route exact path="/schools/:school_id/absences" render={this.renderAbsenceDashboard.bind(this)}/>
-        <Route exact path="/schools/:school_id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
-        <Route render={() => this.renderNotFound()} />
-      </Switch>
+      <MountTimer>
+        <Switch>
+          <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
+          <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
+          <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
+          <Route exact path="/schools/:school_id/absences" render={this.renderAbsenceDashboard.bind(this)}/>
+          <Route exact path="/schools/:school_id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
+          <Route render={() => this.renderNotFound()} />
+        </Switch>
+      </MountTimer>
     );
   }
 

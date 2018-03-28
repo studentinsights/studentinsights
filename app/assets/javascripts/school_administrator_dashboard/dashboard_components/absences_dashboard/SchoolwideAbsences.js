@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import DashboardHelpers from '../DashboardHelpers';
 import SchoolwideAttendance from './SchoolwideAttendance';
 import {apiFetchJson} from '../../../helpers/apiFetchJson';
+import measurePageLoad from '../../../helpers/measurePageLoad';
 
 class SchoolwideAbsences extends React.Component {
   constructor(props) {
@@ -42,5 +43,8 @@ SchoolwideAbsences.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
   schoolId: PropTypes.number
 };
+
+measurePageLoad(info => console.log(JSON.stringify(info, null, 2))); // eslint-disable-line no-console
+
 
 export default SchoolwideAbsences;
