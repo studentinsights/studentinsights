@@ -49,8 +49,8 @@
   <table style="margin-top: 40px; text-align: left; border-collapse: collapse;">
       <thead>
         <tr style="vertical-align: top;">
-          <th style="padding: 5px; background: #ccc;">Logins<br/>(all time)</th>
           <th style="padding: 5px; background: #ccc;">Last login<br/>(days ago)</th>
+          <th style="padding: 5px; background: #ccc;">Logins<br/>(all time)</th>
           <th style="padding: 5px; background: #ccc;">Email</th>
           <th style="padding: 5px; background: #ccc;">Name</th>
           <th style="padding: 5px; background: #ccc;">School</th>
@@ -78,12 +78,28 @@
             else
               ((Time.now - educator.last_sign_in_at) / 1.day).round
             end
+            color = if days_since_last_sign_in == 0
+              'white'
+            elsif days_since_last_sign_in < 7
+              '#006d2c'
+            elsif days_since_last_sign_in < 30
+              '#31a354'
+            elsif days_since_last_sign_in < 90
+              '#a1d99b'
+            elsif days_since_last_sign_in < 365
+              '#c7e9c0'
+            else
+              '#f7fcf5'
+            end
             path = PathsForEducator.new(educator).homepage_path 
           %>
           <tr>
+            <td style="padding: 5px;">
+              <span style="display: inline-block; width: 2em; text-align: right; color: white; padding: 5px; background: <%= color %>;">
+                <%= days_since_last_sign_in %>
+              </span>
+            </td>
             <td style="padding: 5px;"><%= educator.sign_in_count %></td>
-            <td style="padding: 5px;"><%= days_since_last_sign_in %></td>
-            
             <td style="padding: 5px;"><%= educator.email %></td>
             <td style="padding: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
             <td style="padding: 5px;"><%= educator.school.try(:name) %></td>
