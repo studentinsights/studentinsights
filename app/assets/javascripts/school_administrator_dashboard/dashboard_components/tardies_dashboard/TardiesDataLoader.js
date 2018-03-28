@@ -16,9 +16,7 @@ class TardiesDataLoader extends React.Component {
   }
 
   componentWillMount() {
-    //if the parent component already has the dashboard data, we don't need to duplicate it
-    if(this.props.dashboardStudents.length) return;
-    const url = `/schools/${this.props.schoolId}/tardies_dashboard_data`;
+    const url = `/api/schools/${this.props.schoolId}/tardies_dashboard_data`;
     this.setState({isLoading: true});
 
     apiFetchJson(url)
@@ -40,9 +38,7 @@ class TardiesDataLoader extends React.Component {
 
 TardiesDataLoader.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
-  schoolId: PropTypes.number
+  schoolId: PropTypes.string
 };
-
-measurePageLoad(info => console.log(JSON.stringify(info, null, 2))); // eslint-disable-line no-console
 
 export default TardiesDataLoader;

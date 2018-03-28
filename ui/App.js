@@ -10,6 +10,7 @@ import SchoolWideAbsences from '../app/assets/javascripts/school_administrator_d
 import TardiesDataLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/TardiesDataLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
+import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 
 
 // This is the top-level component, only handling routing.
@@ -24,6 +25,10 @@ class App extends React.Component {
     return {
       nowFn() { return moment.utc(); }
     };
+  }
+
+  componentDidMount() {
+    measurePageLoad(info => console.log(JSON.stringify(info, null, 2))); // eslint-disable-line no-console
   }
 
   // Read which educator Rails wrote inline in the HTML page,
@@ -45,8 +50,8 @@ class App extends React.Component {
           <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
           <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
           <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
-          <Route exact path="/schools/:school_id/absences" render={this.renderAbsenceDashboard.bind(this)}/>
-          <Route exact path="/schools/:school_id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
+          <Route exact path="/schools/:id/absences" render={this.renderAbsenceDashboard.bind(this)}/>
+          <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
       </MountTimer>
@@ -71,12 +76,12 @@ class App extends React.Component {
     return <EducatorPage educatorId={educatorId} />;
   }
 
-  renderAbsenceDashboard() {
-    return <SchoolWideAbsences dashboardStudents={[]} schoolId={this.props.currentEducator.school_id} />;
+  renderAbsenceDashboard(routeProps) {
+    return <SchoolWideAbsences schoolId={routeProps.match.params.id} />;
   }
 
-  renderTardiesDashboard() {
-    return <TardiesDataLoader dashboardStudents={[]} schoolId={this.props.currentEducator.school_id} />;
+  renderTardiesDashboard(routeProps) {
+    return <TardiesDataLoader schoolId={routeProps.match.params.id} />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the

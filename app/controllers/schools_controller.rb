@@ -164,7 +164,6 @@ class SchoolsController < ApplicationController
 
   def set_school
     @school = School.find_by_slug(params[:id]) || School.find_by_id(params[:id])
-    puts @school
     redirect_to root_url if @school.nil?
   end
 

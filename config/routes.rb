@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get '/api/educators/:id' => 'educators#show'
   get '/api/schools/:id/courses' => 'schools#courses_json'
+  get 'api/schools/:id/absence_dashboard_data' => 'schools#absence_dashboard_data'
+  get 'api/schools/:id/tardies_dashboard_data' => 'schools#tardies_dashboard_data'
 
   devise_for :educators
   authenticated :educator do
@@ -57,16 +59,14 @@ Rails.application.routes.draw do
   resources :import_records, only: [:index]
   resources :iep_documents, only: [:show]
 
-  get '/schools/:school_id/absences' => 'ui#ui'
-  get '/schools/:school_id/tardies' => 'ui#ui'
   resources :schools, only: [:show] do
     member do
       get :overview
       get :school_administrator_dashboard
       get :overview_json
       get :csv
-      get :absence_dashboard_data
-      get :tardies_dashboard_data
+      get 'absences' => 'ui#ui'
+      get 'tardies' => 'ui#ui'
       get 'courses' => 'ui#ui'
     end
   end
