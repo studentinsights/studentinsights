@@ -19,6 +19,8 @@ function renderRoute(path) {
 jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
+jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolWideAbsences');
+jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/TardiesDataLoader');
 
 
 it('renders HomePage without crashing', () => {
@@ -33,8 +35,16 @@ it('render SchoolCoursesPage without crashing', () => {
   renderRoute('/schools/hea/courses');
 });
 
+it('renders SchoolWideAbsences without crashing', () => {
+  renderRoute('/schools/hea/absences');
+});
+
+it('render TardiesDataLoader without crashing', () => {
+  renderRoute('/schools/hea/tardies');
+});
+
 describe('unknown route', () => {
-  // This has to temporarily remove the Jest setup code 
+  // This has to temporarily remove the Jest setup code
   // that fails the test when console.warn is triggered.
   var consoleWarn = null; // eslint-disable-line no-var
   beforeEach(() => {
@@ -45,7 +55,7 @@ describe('unknown route', () => {
   afterEach(() => {
     console.warn = consoleWarn; // eslint-disable-line no-console
   });
-  
+
   it('calls console.warn', () => {
     renderRoute('/fdsjfkdsjkflsdjfs');
     expect(console.warn).toHaveBeenCalled(); // eslint-disable-line no-console
