@@ -11,13 +11,11 @@ import PropTypes from '../helpers/prop_types.jsx';
 import Scales from '../student_profile/Scales';
 import SummaryList from '../student_profile/SummaryList';
 import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline';
+import {cumulativeByMonthFromEvents} from './QuadConverter';
 
 (function() {
   window.shared || (window.shared = {});
-
   const Sparkline = window.shared.Sparkline;
-  const QuadConverter = window.shared.QuadConverter;
-
   const StudentProfileHeader = window.shared.StudentProfileHeader;
   const ProfileDetails = window.shared.ProfileDetails;
   const ServicesDetails = window.shared.ServicesDetails;
@@ -138,6 +136,8 @@ import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline'
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
       }),
+      noteInProgressText: React.PropTypes.string.isRequired,
+      noteInProgressType: React.PropTypes.number,
 
       access: React.PropTypes.object,
       iepDocument: React.PropTypes.object,
@@ -283,7 +283,9 @@ import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline'
                 showingRestrictedNotes={false}
                 helpContent={this.renderNotesHelpContent()}
                 helpTitle="What is a Note?"
-                title="Notes" />
+                title="Notes"
+                noteInProgressText={this.props.noteInProgressText}
+                noteInProgressType={this.props.noteInProgressType} />
               <ServicesDetails
                 student={this.props.student}
                 serviceTypesIndex={this.props.serviceTypesIndex}
@@ -608,7 +610,7 @@ import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline'
     },
 
     renderAttendanceEventsSummary: function(count, events, flexibleRangeFn, props) {
-      const cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(events);
+      const cumulativeQuads = cumulativeByMonthFromEvents(events);
       const valueRange = flexibleRangeFn(cumulativeQuads);
       const value = count;
 

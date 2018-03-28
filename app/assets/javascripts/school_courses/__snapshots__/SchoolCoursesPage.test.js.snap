@@ -1,0 +1,493 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchoolCoursesPagePure pure component matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "padding": 10,
+    }
+  }
+>
+  <div
+    className="SectionHeading"
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "padding": 10,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "black",
+          "display": "inline",
+        }
+      }
+    >
+      Courses at 
+      <a
+        className="School"
+        href="/schools/9"
+        style={
+          Object {
+            "fontSize": 24,
+            "fontWeight": 300,
+          }
+        }
+      >
+        Somerville High
+      </a>
+    </h4>
+  </div>
+  <table
+    style={
+      Object {
+        "border": "1px solid #eee",
+        "borderCollapse": "collapse",
+        "margin": 10,
+      }
+    }
+  >
+    <thead>
+      <tr>
+        <th
+          style={
+            Object {
+              "backgroundColor": "#ccc",
+              "border": "1px solid #eee",
+              "fontWeight": "bold",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          Course
+        </th>
+        <th
+          style={
+            Object {
+              "backgroundColor": "#ccc",
+              "border": "1px solid #eee",
+              "fontWeight": "bold",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          Sections
+        </th>
+        <th
+          style={
+            Object {
+              "backgroundColor": "#ccc",
+              "border": "1px solid #eee",
+              "fontWeight": "bold",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          Total students
+        </th>
+        <th
+          style={
+            Object {
+              "backgroundColor": "#ccc",
+              "border": "1px solid #eee",
+              "fontWeight": "bold",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          Grade levels
+        </th>
+        <th
+          style={
+            Object {
+              "backgroundColor": "#ccc",
+              "border": "1px solid #eee",
+              "fontWeight": "bold",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          Ages
+        </th>
+        <th
+          style={
+            Object {
+              "backgroundColor": "#ccc",
+              "border": "1px solid #eee",
+              "fontWeight": "bold",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          Schools
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          ART-302
+           
+          ART MAJOR FOUNDATIONS
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <a
+            className="Section"
+            href="/sections/3"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            ART MAJOR FOUNDATIONS
+             (
+            ART-302A
+            )
+          </a>
+          <a
+            className="Section"
+            href="/sections/4"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            ART MAJOR FOUNDATIONS
+             (
+            ART-302B
+            )
+          </a>
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "right",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          18
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "right",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          10
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "right",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          13
+           - 
+          14
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/9"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            Somerville High
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          BIO-700
+           
+          BIOLOGY 1 HONORS
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <a
+            className="Section"
+            href="/sections/2"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            BIOLOGY 1 HONORS
+             (
+            SHS-BIO-THUR
+            )
+          </a>
+          <a
+            className="Section"
+            href="/sections/1"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            BIOLOGY 1 HONORS
+             (
+            SHS-BIO-TUES
+            )
+          </a>
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "right",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          19
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "right",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <span>
+            9
+             - 
+            10
+          </span>
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "right",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          13
+           - 
+          14
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/9"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            Somerville High
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          SCI-201
+           
+          PHYSICS 1
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <a
+            className="Section"
+            href="/sections/5"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            PHYSICS 1
+             (
+            SCI-201A
+            )
+          </a>
+          <a
+            className="Section"
+            href="/sections/6"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            PHYSICS 1
+             (
+            SCI-201B
+            )
+          </a>
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "right",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          18
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "right",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          10
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "right",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          13
+           - 
+          14
+        </td>
+        <td
+          style={
+            Object {
+              "border": "1px solid #eee",
+              "padding": 10,
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/9"
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            Somerville High
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

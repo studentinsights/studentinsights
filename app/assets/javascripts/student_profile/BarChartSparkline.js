@@ -1,17 +1,10 @@
 import _ from 'lodash';
+import {toDate} from './QuadConverter';
 
-window.shared || (window.shared = {});
-
-const QuadConverter = window.shared.QuadConverter;
-
+/*
+Project quads outside of the date range, since interpolation will connect with previous data points.
+*/
 class BarChartSparkline extends React.Component {
-  /*
-  Project quads outside of the date range, since interpolation will connect with previous data points.
-  */
-  constructor(props) {
-    super(props); 
-  }
-
   render() {
     const color = '#666';
 
@@ -40,7 +33,7 @@ class BarChartSparkline extends React.Component {
         <rect
           // TODO: Unique enough? Will it cause namespace conflicts?
           key={quad.toString()}
-          x={x(QuadConverter.toDate(quad))}
+          x={x(toDate(quad))}
           y={y(quad[3])}
           height={y.range()[0] - y(quad[3])}
           // Arbitrary width for now, seems to work fine.

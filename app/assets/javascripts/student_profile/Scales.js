@@ -1,7 +1,6 @@
 import _ from 'lodash';
+import {toValue} from './QuadConverter';
 
-window.shared || (window.shared = {});
-const QuadConverter = window.shared.QuadConverter;
 
 const Scales = {
   mcas: {
@@ -38,7 +37,7 @@ const Scales = {
   flexibleQuadRange: function(cumulativeQuads, valueRange) {
     const max = _.max([
       valueRange[1],
-      _.max([cumulativeQuads, QuadConverter.toValue])
+      _.max([cumulativeQuads, toValue])
     ]);
     return [valueRange[0], max];
   }

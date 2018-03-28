@@ -1,5 +1,5 @@
 import React from 'react';
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import {sortByString} from '../helpers/SortHelpers';
 
 
 // This is a sorted table, pass in a list of objects as `rows`,
@@ -32,7 +32,7 @@ class FlexibleRoster extends React.Component {
       return rows.sort((a,b) => columns[sortByIndex].sortFunc(a,b,key));
     }
     else {
-      return rows.sort((a, b) => SortHelpers.sortByString(a, b, key));
+      return rows.sort((a, b) => sortByString(a, b, key));
     }  
   }
 
