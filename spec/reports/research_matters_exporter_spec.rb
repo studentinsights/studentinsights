@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe ResearchMattersExporter do
   before { School.seed_somerville_schools }
   let!(:school) { School.find_by_name('Arthur D Healey') }
+  let!(:kennedy_school) { School.find_by_name('John F Kennedy') }
   let!(:educator) { FactoryGirl.create(:educator, :admin, school: school, full_name: 'Khamar, Matsay', email: 'matsay@demo.studentinsights.org') }
   let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school, educator: educator) }
   let!(:student) { FactoryGirl.create(:student, homeroom: homeroom, school: school) }
@@ -47,6 +48,20 @@ RSpec.describe ResearchMattersExporter do
           expect(exporter.student_file).to eq([
             "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count,pageview_count",
             "#{student.id},HEA,0,0,0,0,0,0,#{educator.id},1,0"
+          ])
+        end
+      end
+
+      context 'two students' do
+        let!(:another_student) {
+          FactoryGirl.create(:student, school: kennedy_school)
+        }
+
+        it 'outputs the right file' do
+          expect(exporter.student_file).to eq([
+            "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count,pageview_count",
+            "#{student.id},HEA,0,0,0,0,0,0,#{educator.id},1,0",
+            "#{another_student.id},KDY,0,0,0,0,0,0,,0,0"
           ])
         end
       end
