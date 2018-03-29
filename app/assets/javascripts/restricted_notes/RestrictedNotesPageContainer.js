@@ -77,6 +77,7 @@ class RestrictedNotesPageContainer extends React.Component {
       requests: merge(this.state.requests, { saveNote: null }),
       noteInProgressText: '',
       noteInProgressType: null,
+      noteInProgressAttachmentUrls: []
     });
   }
 

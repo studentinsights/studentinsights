@@ -177,6 +177,7 @@ function fromPair(key, value) {
         requests: merge(this.state.requests, { saveNote: null }),
         noteInProgressText: '',
         noteInProgressType: null,
+        noteInProgressAttachmentUrls: []
       });
     },
 
