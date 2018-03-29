@@ -83,7 +83,7 @@ class ResearchMattersExporter
 
       [
         student.id,
-        'HEA',
+        student.school.try(:local_id),
         absence_indicator,
         discipline_indicator,
         sst_indicator,
@@ -115,7 +115,7 @@ class ResearchMattersExporter
         educator.email,
         first_name,
         last_name,
-        'HEA',
+        educator.school.try(:local_id),
         notes_added,
         notes_revised,
         notes_total,
