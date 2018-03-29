@@ -15,6 +15,7 @@ import './legacy.js';
 if ($('body').hasClass('students')  ||
     $('body').hasClass('homerooms') ||
     $('body').hasClass('service_uploads') ||
+    $('body').hasClass('ui') ||
     $('body').hasClass('school_administrator_dashboard')) {
   datepickerConfig();
 }
