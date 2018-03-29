@@ -3,9 +3,6 @@ language: ruby
 rvm:
   - ruby-2.3.0
 
-env:
-  - TRAVIS_NODE_VERSION="8.11.0"
-
 sudo: required
 
 services:
@@ -21,6 +18,9 @@ before_install:
   - export TZ=America/New_York
 
 install:
+  - . $HOME/.nvm/nvm.sh
+  - nvm install 8.11.0
+  - nvm use 8.11.0
   - bundle install --retry=3
   - yarn install
 
