@@ -3,12 +3,12 @@ require 'csv'
 class StudentsSpreadsheet
   # Creates a string of a flat CSV representing fields of
   # all students provided.
-  def csv_string(students)
+  def csv_string(students, school)
     return '' if students.size == 0
 
     all_service_types = ServiceType.all
     row_hashes = students.map do |student|
-      flat_row_hash(student, all_service_types)
+      flat_row_hash(student, all_service_types, school)
     end
 
     header_row = row_hashes.first.keys # all rows should have the same shape
@@ -23,20 +23,32 @@ class StudentsSpreadsheet
   # the hash should included keys for all fields, even if the student doesn't
   # have them.  In other words, this method is responsible for returning
   # the same shape for all students it is provided.
-  def flat_row_hash(student, all_service_types)
-    student_fields = student.as_json.except(*[
-      'created_at',
-      'updated_at',
-      'student_address',
-      'hispanic_latino',
-      'race'
-    ])
+  def flat_row_hash(student, all_service_types, school)
+    if school.school_type == "HS" then
+      student_fields = student.as_json.except(*[
+        'created_at',
+        'updated_at',
+        'student_address',
+        'hispanic_latino',
+        'race'
+      ])
+    else
+      student_fields = student.as_json.except(*[
+        'created_at',
+        'updated_at',
+        'student_address',
+        'hispanic_latino',
+        'race',
+        'counselor',
+        'house'
+      ])
+    end
 
     additional_student_fields = {
       student_risk_level: student.student_risk_level.level,
-      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
-      absences_count: student.most_recent_school_year.absences.count,
-      tardies_count: student.most_recent_school_year.tardies.count,
+      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
+      absences_count: student.most_recent_school_year_absences_count,
+      tardies_count: student.most_recent_school_year_tardies_count,
       homeroom_name: student.try(:homeroom).try(:name)
     }
 

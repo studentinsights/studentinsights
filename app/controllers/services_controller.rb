@@ -1,7 +1,4 @@
 class ServicesController < ApplicationController
-  include SerializeDataHelper
-  
-  rescue_from Exceptions::EducatorNotAuthorized, with: :redirect_unauthorized!
   before_action :authorize!
 
   def authorize!
@@ -12,15 +9,13 @@ class ServicesController < ApplicationController
 
   def destroy
     service_id = params[:id]
-    discontinued_service = DiscontinuedService.new({
-      service_id: service_id,
-      recorded_by_educator_id: current_educator.id,
-      recorded_at: Time.now
-    })
-    if discontinued_service.save
-      render json: serialize_service(Service.find(service_id))
+    service = Service.find(service_id)
+    serializer = ServiceSerializer.new(service)
+
+    if service.update_attributes(:discontinued_at => Time.now, :discontinued_by_educator_id => current_educator.id)
+      render json: serializer.serialize_service
     else
-      render json: { errors: discontinued_service.errors.full_messages }, status: 422
+      render json: { errors: service.errors.full_messages }, status: 422
     end
   end
 end

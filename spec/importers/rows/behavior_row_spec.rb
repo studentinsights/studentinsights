@@ -7,6 +7,9 @@ RSpec.describe BehaviorRow do
   let(:data) do
     {
       local_id: student.local_id,
+      incident_code: 'Bullying',
+      incident_location: 'Classroom',
+      incident_description: 'foo description',
       event_date: DateTime.parse('1981-12-30'),
     }
   end
@@ -16,11 +19,6 @@ RSpec.describe BehaviorRow do
   describe '#build' do
     it 'records a discipline incident' do
       expect { row.build.save! }.to change(DisciplineIncident, :count).by(1)
-    end
-
-    it 'creates the appropriate school year' do
-      expect { row.build }.to change(SchoolYear, :count).by(1)
-      expect(SchoolYear.last.name).to eq('1981-1982')
     end
   end
 end

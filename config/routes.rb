@@ -2,23 +2,32 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :educators
+    get '/authorization' => 'educators#authorization'
     root to: "educators#index"
   end
+  
+  get '/api/educators/:id' => 'educators#show'
+  get '/api/schools/:id/courses' => 'schools#courses_json'
 
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
-  get '/educators/reset'=> 'educators#reset_session_clock'
-  get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
-  get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
-
   devise_scope :educator do
     root to: "devise/sessions#new"
   end
 
-  get 'no_homeroom' => 'pages#no_homeroom'
-  get 'no_homerooms' => 'pages#no_homerooms'
+  get '/educators/view/:id' => 'ui#ui'
+  get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
+  get '/educators/notes_feed'=> 'educators#notes_feed'
+  get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
+  get '/educators/reset'=> 'educators#reset_session_clock'
+  get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
+  get '/home' => 'ui#ui'
+  get '/home/feed_json' => 'home#feed_json'
+  get '/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
+
+  get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
 
   if ENV['LETS_ENCRYPT_ENDPOINT']
@@ -38,15 +47,23 @@ Rails.application.routes.draw do
   resources :services, only: [:destroy]
   resources :service_types, only: [:index]
   resources :event_note_attachments, only: [:destroy]
-  resources :service_uploads, only: [:create, :index, :destroy]
+  resources :service_uploads, only: [:create, :index, :destroy] do
+    collection do
+      get :past
+    end
+  end
   resources :homerooms, only: [:show]
+  resources :sections, only: [:index, :show]
+  resources :import_records, only: [:index]
+  resources :iep_documents, only: [:show]
 
   resources :schools, only: [:show] do
-    get :star_reading, on: :member
-    get :star_math, on: :member
-    get :csv, on: :member
-    get :show_fast, on: :member
-    get :get_precomputed_hashes_for_school, on: :member
-    get :get_mutable_fields_for_school, on: :member
+    member do
+      get :overview
+      get :school_administrator_dashboard
+      get :overview_json
+      get :csv
+      get 'courses' => 'ui#ui'
+    end
   end
 end

@@ -10,7 +10,10 @@ class ServiceUploadsController < ApplicationController
   end
 
   def create
-    service_upload = ServiceUpload.new(file_name: params['file_name'])
+    service_upload = ServiceUpload.new(
+      file_name: params['file_name'],
+      uploaded_by_educator_id: current_educator.id
+    )
 
     if service_upload.invalid?
       return render json: {
@@ -45,15 +48,7 @@ class ServiceUploadsController < ApplicationController
 
         return unless date_ended
 
-        discontinued_service = DiscontinuedService.new(
-          service: service,
-          recorded_at: date_ended,
-          recorded_by_educator: current_educator,
-        )
-
-        if discontinued_service.valid?
-          discontinued_service.save
-        else
+        unless service.update_attributes(:discontinued_at => date_ended, :discontinued_by_educator_id => current_educator.id)
           errors << "Could not save service end date. (Must end after service start date.)"
         end
       end
@@ -80,24 +75,13 @@ class ServiceUploadsController < ApplicationController
   def index
     @serialized_data = {
       current_educator: current_educator,
-      service_uploads: ServiceUpload.order(created_at: :desc).as_json(
-        only: [:created_at, :file_name, :id],
-        include: {
-          services: {
-            only: [],
-            include: {
-              student: {
-                only: [:first_name, :last_name, :id]
-              },
-              service_type: {
-                only: [:name]
-              }
-            }
-          }
-        }
-      ),
       service_type_names: ServiceType.pluck(:name)
     }
+    render 'shared/serialized_data'
+  end
+
+  def past
+    render json: past_service_upload_json and return
   end
 
   def destroy
@@ -113,6 +97,26 @@ class ServiceUploadsController < ApplicationController
   end
 
   private
+
+    def past_service_upload_json
+      ServiceUpload.includes(services: [:student, :service_type])
+                   .order(created_at: :desc)
+                   .as_json(only: [:created_at, :file_name, :id],
+                     include: {
+                       services: {
+                         only: [],
+                         include: {
+                           student: {
+                             only: [:first_name, :last_name, :id]
+                           },
+                           service_type: {
+                             only: [:name]
+                           }
+                         }
+                       }
+                     }
+                   )
+    end
 
     def recorded_at
       DateTime.current

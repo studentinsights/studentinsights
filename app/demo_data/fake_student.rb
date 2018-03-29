@@ -12,7 +12,8 @@ class FakeStudent
     add_student_assessments_from_x2
     add_student_assessments_from_star
     add_student_assessments_from_access
-    @homeroom.students << @student
+    add_student_to_homeroom
+    add_ieps
   end
 
   def student
@@ -20,6 +21,25 @@ class FakeStudent
   end
 
   private
+
+  def add_student_to_homeroom
+    if @homeroom
+      @homeroom.students << @student
+    end
+  end
+
+  def grade
+    return @homeroom.grade if @homeroom
+    return 3
+  end
+
+  def house
+    return HOUSE_NAMES.sample if @school.school_type == "HS"
+  end
+
+  def counselor
+    return COUNSELOR_VALUES.sample if @school.school_type == "HS"
+  end
 
   def data
     base_data.merge(plan_504)
@@ -36,34 +56,50 @@ class FakeStudent
     "Disney", "Duck", "Kenobi", "Mouse", "Pan", "Poppins", "Skywalker", "White"
   ]
 
+  HOUSE_NAMES = [
+    "Beacon", "Elm", "Highland", "Broadway"
+  ]
+
+  COUNSELOR_VALUES = [
+    "WOODY", "BUZZ", "BO"
+  ]
+
   def base_data
     {
       school: @school,
       date_of_birth: fake_date_of_birth,
       enrollment_status: enrollment_status,
-      grade: @homeroom.grade,
+      grade: grade,
       first_name: DISNEY_FIRST_NAMES.sample,
       last_name: DISNEY_LAST_NAMES.sample,
       local_id: unique_local_id,
       limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "FLEP"].sample,
-      free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample,
+      free_reduced_lunch: ["Free Lunch", "Not Eligible", "Reduced Lunch", nil].sample,
       home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample,
       race: ['Black', 'White', 'Asian'].sample,
       hispanic_latino: [true, false].sample,
       gender: ['M', 'F'].sample,
+      primary_phone: '999-999-9999 C-Mom',
+      primary_email: 'student@example.com',
+      house: house,
+      counselor: counselor
     }
+  end
+
+  def start_of_this_school_year
+    DateTime.new(DateTime.now.year, 9, 1)
+  end
+
+  def kindergarten_year
+    start_of_this_school_year - grade.to_i.years
   end
 
   def fake_date_of_birth
     kindergarten_year - 5.years + rand(0..365).days
   end
 
-  def kindergarten_year
-    start_of_this_school_year - @homeroom.grade.to_i.years
-  end
-
-  def start_of_this_school_year
-    DateTime.new(DateTime.now.year, 9, 1)
+  def random_local_id
+    "000#{rand(1000)}"
   end
 
   def unique_local_id
@@ -77,10 +113,6 @@ class FakeStudent
 
   def enrollment_status
     7.in(8) ? 'Active' : 'Transferred'
-  end
-
-  def random_local_id
-    "000#{rand(1000)}"
   end
 
   def plan_504
@@ -116,6 +148,8 @@ class FakeStudent
     [
       FakeMcasMathResultGenerator.new(student),
       FakeMcasElaResultGenerator.new(student),
+      FakeNextGenMcasMathResultGenerator.new(student),
+      FakeNextGenMcasElaResultGenerator.new(student),
       FakeDibelsResultGenerator.new(student),
       FakeAccessResultGenerator.new(student)
     ]
@@ -124,7 +158,7 @@ class FakeStudent
   def add_student_assessments_from_x2
     create_x2_assessment_generators(@student).each do |assessment_generator|
       unless @newstudent
-        5.times do
+        4.times do
           StudentAssessment.new(assessment_generator.next).save
         end
       end
@@ -135,7 +169,7 @@ class FakeStudent
     unless @newstudent
       star_period_days = 90
       # Define semi-realistic date ranges for STAR assessments
-      start_date = DateTime.new(2010, 9, 1)
+      start_date = DateTime.new(2014, 9, 1)
       now = DateTime.now
       assessment_count = (now - start_date).to_i / star_period_days
       options = {
@@ -171,19 +205,12 @@ class FakeStudent
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      # Randomly determine the school year it occurred.
-      year = [0, 1, 2, 3, 4, 5].sample
-      date_begin = Time.local(2010 + year, 8, 1)
-      date_end = Time.local(2011 + year, 7, 31)
+      # Randomly determine when it occurred.
+      occurred_at = DemoDataUtil.random_time
 
       attendance_event = [Absence.new, Tardy.new].sample
-      attendance_event.student_school_year = @student.student_school_years.first
-
-      # Make sure event isn't listed as having happened in the future.
-      occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
-      if occurred_at < Time.new then
-        attendance_event.occurred_at = occurred_at
-      end
+      attendance_event.occurred_at = occurred_at
+      attendance_event.student = student
 
       attendance_event.save
     end
@@ -200,47 +227,46 @@ class FakeStudent
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      # Randomly determine the school year it occurred.
-      n = [0, 1, 2, 3, 4, 5].sample
-      date_begin = Time.local(2010 + n, 8, 1)
-      date_end = Time.local(2011 + n, 7, 31)
-
-      discipline_incident = DisciplineIncident.new(FakeDisciplineIncident.data)
-      discipline_incident.student_school_year = @student.student_school_years.first
-
-      # Make sure event isn't listed as having happened in the future.
-      occurred_at = Time.at(date_begin + rand * (date_end.to_f - date_begin.to_f))
-      if occurred_at < Time.new then
-        discipline_incident.occurred_at = occurred_at
-      end
-
-      discipline_incident.save
+      discipline_incident = FactoryGirl.create(:discipline_incident, student: student)
+      discipline_incident.save!
     end
   end
 
   def add_deprecated_interventions
     15.in(100) do
       generator = FakeInterventionGenerator.new(@student)
-      intervention_count = Rubystats::NormalDistribution.new(3, 6).rng.round
+      intervention_count = rand > 0.5 ? 0 : (1..6).to_a.sample
       intervention_count.times do
         intervention = Intervention.new(generator.next)
-        intervention.save!
         intervention.save!
       end
     end
     nil
   end
 
+  #These are saving for some students only.
   def add_event_notes
     generator = FakeEventNoteGenerator.new(@student)
     rand(0..9).times { EventNote.new(generator.next).save! }
     nil
   end
 
+  #These are saving for some students only.
   def add_services
     generator = FakeServiceGenerator.new(@student)
     service_counts = 20.in(100) ? rand(1..5) : 0
     service_counts.times { Service.new(generator.next).save! }
     nil
   end
+
+  def add_ieps
+    15.in(100) do
+      IepDocument.create(
+        file_name: 'Fake IEP',
+        student: @student
+      )
+    end
+    nil
+  end
+
 end

@@ -48,7 +48,6 @@ class MixpanelReport
       output
     end
 
-
     @buffer.join("\n")
   end
 
@@ -83,7 +82,7 @@ class MixpanelReport
 
   private
   def schools_for_report
-    local_ids = ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS']
+    local_ids = ['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS']
     local_ids.map do |local_id|
       school = School.find_by_local_id(local_id)
       { name: school.name, id: school.id }
@@ -168,7 +167,7 @@ class MixpanelReport
   # Filter out developer users
   def where_no_developers
     [[:educator_id, '!=', 12],
-     [:educator_id, '!=', 509]]
+     [:educator_id, '!=', 1054]]
   end
 
   def where_string(where_clauses)
@@ -194,8 +193,6 @@ class MixpanelReport
     output = `#{cmd}`
     JSON.parse(output)
   end
-
-
 
   # Example:
   # ---------------------------------------------------

@@ -10,22 +10,21 @@ RSpec.describe StudentsSpreadsheet do
       # the test data is not deterministic (setting a seed in srand only worked on
       # a single-file test run), so we only test for the output shape
       3.times { FakeStudent.new(school, homeroom) }
-      Student.update_risk_levels
-      Student.update_student_school_years
+      Student.update_risk_levels!
       Student.update_recent_student_assessments
     end
 
     describe '#csv_string' do
       it 'generates a CSV with the expected number of lines' do
-        csv_string = StudentsSpreadsheet.new.csv_string(school.students)
+        csv_string = StudentsSpreadsheet.new.csv_string(school.students, school)
         expect(csv_string.split("\n").size).to eq(1 + school.students.size)
       end
     end
 
     describe '#flat_row_hash' do
       it 'creates expected fields' do
-        flat_row_hash = StudentsSpreadsheet.new.send(:flat_row_hash, school.students.first, ServiceType.all)
-        expect(flat_row_hash.keys.sort).to eq([
+        flat_row_hash = StudentsSpreadsheet.new.send(:flat_row_hash, school.students.first, ServiceType.all, school)
+        expect(flat_row_hash.keys).to match_array([
            "id",
            "grade",
            "free_reduced_lunch",
@@ -60,6 +59,8 @@ RSpec.describe StudentsSpreadsheet do
            "absences_count",
            "tardies_count",
            "homeroom_name",
+           "primary_email",
+           "primary_phone",
            "Attendance Officer (active_service_date_started)",
            "Attendance Contract (active_service_date_started)",
            "Behavior Contract (active_service_date_started)",
@@ -74,9 +75,11 @@ RSpec.describe StudentsSpreadsheet do
            "Freedom School (active_service_date_started)",
            "SST Meeting (last_event_note_recorded_at)",
            "MTSS Meeting (last_event_note_recorded_at)",
+           "9th Grade Experience (last_event_note_recorded_at)",
            "Parent conversation (last_event_note_recorded_at)",
            "Something else (last_event_note_recorded_at)",
            "X-Block (active_service_date_started)",
+           "10th Grade Experience (last_event_note_recorded_at)",
          ].sort
         )
       end

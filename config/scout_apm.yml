@@ -1,0 +1,2 @@
+common: &defaults
+  log_level: warn

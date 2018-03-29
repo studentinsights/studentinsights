@@ -1,20 +1,24 @@
+import _ from 'lodash';
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import PropTypes from '../helpers/prop_types.jsx';
+import {merge} from '../helpers/react_helpers.jsx';
+import Api from './Api.js';
+import * as Routes from '../helpers/Routes';
+
+
+// in place of updating lodash to v4
+function fromPair(key, value) {
+  const obj = {};
+  obj[key] = value;
+  return obj;
+}
+
 (function() {
-  window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
-  const merge = window.shared.ReactHelpers.merge;
-
-  const MixpanelUtils = window.shared.MixpanelUtils;
-  const Routes = window.shared.Routes;
   const StudentProfilePage = window.shared.StudentProfilePage;
-  const PropTypes = window.shared.PropTypes;
-  const Api = window.shared.Api;
-  const fromPair = window.shared.fromPair;
-
   /*
   Holds page state, makes API calls to manipulate it.
   */
-  const PageContainer = window.shared.PageContainer = React.createClass({
+  window.shared.PageContainer = React.createClass({
     displayName: 'PageContainer',
 
     propTypes: {
@@ -22,14 +26,10 @@
       serializedData: React.PropTypes.object.isRequired,
       queryParams: React.PropTypes.object.isRequired,
       history: PropTypes.history.isRequired,
-      
+
       // for testing
       actions: PropTypes.actions,
       api: PropTypes.api
-    },
-
-    componentWillMount: function(props, state) {
-      this.api = this.props.api || new Api();
     },
 
     getInitialState: function() {
@@ -52,8 +52,13 @@
         attendanceData: serializedData.attendanceData,
         access: serializedData.access,
         dibels: serializedData.dibels,
+        iepDocument: serializedData.iepDocument,
+        sections: serializedData.sections,
+        currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
 
         // ui
+        noteInProgressText: '',
+        noteInProgressType: null,
         selectedColumnKey: queryParams.column || 'interventions',
 
         // This map holds the state of network requests for various actions.  This allows UI components to branch on this
@@ -73,11 +78,34 @@
       };
     },
 
+    componentWillMount: function(props, state) {
+      this.api = this.props.api || new Api();
+    },
+
     componentDidUpdate: function(props, state) {
       const path = Routes.studentProfile(this.state.student.id, {
         column: this.state.selectedColumnKey
       });
       this.props.history.replaceState({}, null, path);
+    },
+
+    // Returns an updated state, adding serviceId and requestState, or removing
+    // the `serviceId` from the map if `requestState` is null.
+    mergedDiscontinueService: function(state, serviceId, requestState) {
+      const updatedDiscontinueService = (requestState === null)
+        ? _.omit(state.requests.discontinueService, serviceId)
+        : merge(state.requests.discontinueService, fromPair(serviceId, requestState));
+
+      return merge(state, {
+        requests: merge(state.requests, {
+          discontinueService: updatedDiscontinueService
+        })
+      });
+    },
+
+    dateRange: function() {
+      const nowMoment = this.props.nowMomentFn();
+      return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
     },
 
     onColumnClicked: function(columnKey) {
@@ -86,6 +114,16 @@
         column_key: columnKey
       });
       this.setState({ selectedColumnKey: columnKey });
+    },
+
+    onClickNoteType: function(event) {
+      const noteInProgressType = parseInt(event.target.name);
+
+      this.setState({ noteInProgressType });
+    },
+
+    onChangeNoteInProgressText: function(event) {
+      this.setState({ noteInProgressText: event.target.value });
     },
 
     onClickSaveNotes: function(eventNoteParams) {
@@ -114,16 +152,18 @@
       }
 
       const updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
+
       this.setState({
         feed: updatedFeed,
-        requests: merge(this.state.requests, { saveNote: null })
+        requests: merge(this.state.requests, { saveNote: null }),
+        noteInProgressText: '',
+        noteInProgressType: null,
       });
     },
 
     onSaveNotesFail: function(request, status, message) {
       this.setState({ requests: merge(this.state.requests, { saveNote: 'error' }) });
     },
-
 
     onDeleteEventNoteAttachment: function(eventNoteAttachmentId) {
       // optimistically update the UI
@@ -202,25 +242,6 @@
       this.setState(this.mergedDiscontinueService(this.state, serviceId, 'error'));
     },
 
-    // Returns an updated state, adding serviceId and requestState, or removing
-    // the `serviceId` from the map if `requestState` is null.
-    mergedDiscontinueService: function(state, serviceId, requestState) {
-      const updatedDiscontinueService = (requestState === null)
-        ? _.omit(state.requests.discontinueService, serviceId)
-        : merge(state.requests.discontinueService, fromPair(serviceId, requestState));
-
-      return merge(state, {
-        requests: merge(state.requests, {
-          discontinueService: updatedDiscontinueService
-        })
-      });
-    },
-
-    dateRange: function() {
-      const nowMoment = this.props.nowMomentFn();
-      return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
-    },
-
     render: function() {
       return (
         <div className="PageContainer">
@@ -237,19 +258,28 @@
               'dibels',
               'attendanceData',
               'selectedColumnKey',
-              'requests'
+              'iepDocument',
+              'sections',
+              'currentEducatorAllowedSections',
+              'requests',
+              'noteInProgressText',
+              'noteInProgressType'
             ), {
               nowMomentFn: this.props.nowMomentFn,
-              actions: this.props.actions || {
+              actions: {
                 onColumnClicked: this.onColumnClicked,
                 onClickSaveNotes: this.onClickSaveNotes,
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
-                onClickDiscontinueService: this.onClickDiscontinueService
+                onClickDiscontinueService: this.onClickDiscontinueService,
+                onChangeNoteInProgressText: this.onChangeNoteInProgressText,
+                onClickNoteType: this.onClickNoteType,
+                ...this.props.actions,
               }
             })} />
         </div>
       );
     }
+
   });
 })();

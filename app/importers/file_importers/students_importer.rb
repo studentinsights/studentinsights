@@ -1,7 +1,28 @@
-class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class StudentsImporter
+
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
+  end
+
+  def import
+    return unless remote_file_name
+
+    @data = CsvDownloader.new(
+      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
+    ).get_data
+
+    @data.each.each_with_index do |row, index|
+      import_row(row) if filter.include?(row)
+    end
+  end
+
+  def client
+    SftpClient.for_x2
+  end
 
   def remote_file_name
-    'students_export.txt'
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STUDENTS_IMPORT', nil)
   end
 
   def data_transformer
@@ -9,7 +30,7 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def filter
-    SchoolFilter.new(['HEA', 'WSNS', 'ESCS', 'BRN', 'KDY', 'AFAS', 'WHCS', 'SHS'])
+    SchoolFilter.new(@school_scope)
   end
 
   def school_ids_dictionary
@@ -18,35 +39,24 @@ class StudentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def import_row(row)
     student = StudentRow.new(row, school_ids_dictionary).build
+    return if student.registration_date_in_future
 
-    if student.grade.in? ['9', '10', '11', '12', 'SP']
-      handle_high_school_student(student)
-    else
-      handle_elementary_student(student, row)
-    end
-  end
+    student.save!
+    student.update_risk_level!
 
-  def handle_high_school_student(student)
-    return if student.new_record?  # We don't want to import HS students into the db
-                                   # since this app isn't being used at the high school
-
-    student.enrollment_status = 'High School'
-    student.grade = 'HS'
-    student.school = nil
-    student.save
-  end
-
-  def handle_elementary_student(student, row)
-    if student.save
+    if row[:homeroom].present?
       assign_student_to_homeroom(student, row[:homeroom])
-      student.create_student_risk_level!
     end
   end
 
   def assign_student_to_homeroom(student, homeroom_name)
     return unless student.active?
-    name = homeroom_name || (student.school.local_id + ' HOMEROOM')
-    homeroom = Homeroom.where(name: name, school: student.school).first_or_create!
+
+    homeroom = Homeroom.where({
+      name: homeroom_name,
+      school: student.school
+    }).first_or_create!
+
     homeroom.students << student
   end
 

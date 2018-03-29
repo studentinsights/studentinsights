@@ -1,9 +1,14 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+  # Local env variables for dev
+  env_file = File.join(Rails.root, 'config', 'local_env.yml')
+  YAML.load(File.open(env_file)).each do |key, value|
+    ENV[key.to_s] = value
+  end if File.exists?(env_file)
 
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
+  ENV['DISTRICT_KEY'] = 'somerville'
+
+  ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
+
   config.cache_classes = false
 
   # Do not eager load code on boot.
@@ -61,10 +66,4 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :file
   config.action_mailer.file_settings = { :location => Rails.root.join('tmp/mail') }
   config.action_mailer.raise_delivery_errors = true
-
-  # Local env variables for dev
-  env_file = File.join(Rails.root, 'config', 'local_env.yml')
-  YAML.load(File.open(env_file)).each do |key, value|
-    ENV[key.to_s] = value
-  end if File.exists?(env_file)
 end

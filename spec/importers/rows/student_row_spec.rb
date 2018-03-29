@@ -41,6 +41,21 @@ RSpec.describe StudentRow do
       end
     end
 
+    context 'counselor field' do
+      let(:row) { { counselor: 'LASTNAME, I x-0000', full_name: 'Martinez, Juan' } }
+
+      it 'correctly sets the counselor name to lastname portion' do
+        expect(student.counselor).to eq 'LASTNAME'
+      end
+    end
+
+    context 'counselor field no comma' do
+      let(:row) { { counselor: 'LASTNAME', full_name: 'Gutierrez, Gustavo'} }
+
+      it 'correctly sets the counselor name to lastname portion' do
+        expect(student.counselor).to eq 'LASTNAME'
+      end
+    end
   end
 
 end

@@ -1,13 +1,12 @@
+import PropTypes from '../helpers/prop_types.jsx';
+import HelpBubble from './HelpBubble.js';
+import SectionHeading from '../components/SectionHeading';
+
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
-  const merge = window.shared.ReactHelpers.merge;
 
-  const PropTypes = window.shared.PropTypes;
   const ServicesList = window.shared.ServicesList;
   const RecordService = window.shared.RecordService;
-  const HelpBubble = window.shared.HelpBubble;
 
   const styles = {
     servicesContainer: {
@@ -23,14 +22,15 @@
   they are receiving, and allowing users to enter new information about
   these as well.
   */
-  const ServicesDetails = window.shared.ServicesDetails = React.createClass({
+  window.shared.ServicesDetails = React.createClass({
     propTypes: {
       student: React.PropTypes.object.isRequired,
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
       actions: PropTypes.actions.isRequired,
-      feed: PropTypes.feed.isRequired
+      feed: PropTypes.feed.isRequired,
+      requests: PropTypes.requests.isRequired
     },
 
     getInitialState: function() {
@@ -56,7 +56,30 @@
       this.props.actions.onClickDiscontinueService(serviceId);
     },
 
-    getServicesHelpContent: function(){
+    render: function() {
+      return (
+        <div className="ServicesDetails" style={styles.servicesContainer}>
+          <SectionHeading>
+            <span>Services</span>
+            <HelpBubble
+              title="What is a Service?"
+              teaserText="(what is this?)"
+              content={this.renderServicesHelpContent()} />
+          </SectionHeading>
+          <div style={styles.addServiceContainer}>
+            {this.renderRecordServiceSection()}
+          </div>
+          <ServicesList
+            servicesFeed={this.props.feed.services}
+            educatorsIndex={this.props.educatorsIndex}
+            serviceTypesIndex={this.props.serviceTypesIndex}
+            onClickDiscontinueService={this.onClickDiscontinueService}
+            discontinueServiceRequests={this.props.requests.discontinueService} />
+        </div>
+      );
+    },
+
+    renderServicesHelpContent: function(){
       return (
         <div>
           <p>
@@ -108,31 +131,6 @@
           <p>
             If your data fits into one of these categories, it's a Service. Otherwise, it's a Note.
           </p>
-        </div>
-      );
-    },
-
-    render: function() {
-      return (
-        <div className="ServicesDetails" style={styles.servicesContainer}>
-          <div style={{borderBottom: '1px solid #333', padding: 10}}>
-            <h4 style={{display: 'inline', color: 'black'}}>
-              Services
-            </h4>
-            <HelpBubble
-              title="What is a Service?"
-              teaserText="(what is this?)"
-              content={this.getServicesHelpContent()} />
-          </div>
-          <div style={styles.addServiceContainer}>
-            {this.renderRecordServiceSection()}
-          </div>
-          <ServicesList
-            servicesFeed={this.props.feed.services}
-            educatorsIndex={this.props.educatorsIndex}
-            serviceTypesIndex={this.props.serviceTypesIndex}
-            onClickDiscontinueService={this.onClickDiscontinueService}
-            discontinueServiceRequests={this.props.requests.discontinueService} />
         </div>
       );
     },

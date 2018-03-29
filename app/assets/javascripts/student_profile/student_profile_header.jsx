@@ -1,10 +1,9 @@
+import RiskBubble from '../student_profile/RiskBubble.js';
+import ModalSmall from '../student_profile/ModalSmall.js';
+import * as Routes from '../helpers/Routes';
+
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
-  const merge = window.shared.ReactHelpers.merge;
-  const Routes = window.shared.Routes;
-  const RiskBubble = window.shared.RiskBubble;
 
   const styles = {
     titleContainer: {
@@ -24,6 +23,11 @@
     subtitleItem: {
       fontSize: 22,
       padding: 5
+    },
+    contactItem: {
+      fontSize: 15,
+      padding: 6,
+      display: 'flex'
     }
   };
 
@@ -31,7 +35,7 @@
   This pure UI component renders top-line information like the student's name, school and
   classroom.
   */
-  const StudentProfileHeader = window.shared.StudentProfileHeader = React.createClass({
+  window.shared.StudentProfileHeader = React.createClass({
     displayName: 'StudentProfileHeader',
 
     propTypes: {
@@ -47,17 +51,19 @@
               {student.first_name + ' ' + student.last_name}
             </a>
             <div style={{ display: 'inline-block' }}>
-              {this.bulletSpacer()}
+              {this.renderBulletSpacer()}
               <a href={Routes.school(student.school_id)} style={styles.subtitleItem}>
                 {student.school_name}
               </a>
-              {this.bulletSpacer()}
-              {this.homeroomOrEnrollmentStatus()}
-              {this.bulletSpacer()}
+              {this.renderBulletSpacer()}
+              {this.renderHomeroomOrEnrollmentStatus()}
+              {this.renderBulletSpacer()}
               <span style={styles.subtitleItem}>
                 {'Grade ' + student.grade}
               </span>
-              {this.dateOfBirth()}
+              {this.renderDateOfBirth()}
+              {this.renderBulletSpacer()}
+              {this.renderContactIcon()}
             </div>
           </div>
           <div
@@ -72,7 +78,7 @@
       );
     },
 
-    bulletSpacer: function() {
+    renderBulletSpacer: function() {
       return (
         <span style={styles.subtitleItem}>
           •
@@ -80,10 +86,10 @@
       );
     },
 
-    homeroomOrEnrollmentStatus: function() {
+    renderHomeroomOrEnrollmentStatus: function() {
       const student =  this.props.student;
       if (student.enrollment_status === 'Active') {
-        return (
+        if (student.homeroom_name) return (
           <a
             className="homeroom-link"
             href={Routes.homeroom(student.homeroom_id)}
@@ -91,6 +97,8 @@
             {'Homeroom ' + student.homeroom_name}
           </a>
         );
+
+        return (<span style={styles.subtitleItem}>No homeroom</span>);
       } else {
         return (
           <span style={styles.subtitleItem}>
@@ -100,7 +108,7 @@
       }
     },
 
-    dateOfBirth: function () {
+    renderDateOfBirth: function () {
       const student =  this.props.student;
       const dateOfBirth = student.date_of_birth;
       if (!dateOfBirth) return null;
@@ -110,7 +118,7 @@
 
       return (
         <span>
-          {this.bulletSpacer()}
+          {this.renderBulletSpacer()}
           <span style={styles.subtitleItem}>
             {momentDOB.format('M/D/YYYY')}
             {ageInWords}
@@ -119,5 +127,30 @@
       );
     },
 
+    renderContactIcon: function () {
+      return (
+        <ModalSmall
+          title='Contact Information'
+          icon={<span className='address-book-icon'></span>}
+          content={this.renderContactInformation()} />
+      );
+    },
+
+    renderContactInformation: function(){
+      const student = this.props.student;
+      return (
+        <span>
+          <span style={styles.contactItem}>
+            {student.student_address}
+          </span>
+          <span style={styles.contactItem}>
+            {student.primary_phone}
+          </span>
+          <span style={styles.contactItem}>
+            <a href={'mailto:'+ student.primary_email}>{student.primary_email}</a>
+          </span>
+        </span>
+      );
+    },
   });
 })();

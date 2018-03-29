@@ -1,12 +1,10 @@
-$(function() {
-  // only run if the correct page
-  if (!($('body').hasClass('students') && $('body').hasClass('show'))) return;
+import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import parseQueryString from '../student_profile/parse_query_string.js';
 
+export default function renderStudentMain(el) {
   // imports
-  const createEl = window.shared.ReactHelpers.createEl;
+  const ReactDOM = window.ReactDOM;
   const PageContainer = window.shared.PageContainer;
-  const parseQueryString = window.shared.parseQueryString;
-  const MixpanelUtils = window.shared.MixpanelUtils;
 
   // entry point, reading static bootstrapped data from the page
   const serializedData = $('#serialized-data').data();
@@ -17,5 +15,5 @@ $(function() {
     nowMomentFn={function() { return moment.utc(); }}
     serializedData={serializedData}
     queryParams={parseQueryString(window.location.search)}
-    history={window.history} />, document.getElementById('main'));
-});
+    history={window.history} />, el);
+}

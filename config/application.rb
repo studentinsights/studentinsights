@@ -17,18 +17,30 @@ module SomervilleTeacherTool
       class_paths = [
         "#{config.root}/app/models",
         "#{config.root}/app/jobs",
+        "#{config.root}/app/serializers",
         "#{config.root}/app/importers/clients",
         "#{config.root}/app/importers/data_transformers",
         "#{config.root}/app/importers/file_importers",
         "#{config.root}/app/importers/filters",
         "#{config.root}/app/importers/rows",
         "#{config.root}/app/importers/sources",
+        "#{config.root}/app/importers/constants",
+        "#{config.root}/app/importers/iep_import",
         "#{config.root}/app/importers/student_services",
         "#{config.root}/lib"
       ]
 
-      config.browserify_rails.commandline_options = "-t [babelify]"
-      config.browserify_rails.paths << -> (p) { p.start_with?(Rails.root.join("spec/javascripts").to_s) }
+      # The intention here is that we compress server responses
+      # (eg, HTML and JSON) but not doubly-gzip static assets which
+      # are already compressed on disk.
+      #
+      # However, when the middleware runs for mime types other than
+      # application/json, it runs through the deflate code path but
+      # doesn't seem to actually reduce the byte site.
+      # See https://github.com/studentinsights/studentinsights/issues/1196#issuecomment-340269968
+      config.middleware.use Rack::Deflater, include: [
+        'application/json'
+      ]
 
       config.eager_load_paths = (config.eager_load_paths + class_paths).uniq
       class_paths.each do |class_path|

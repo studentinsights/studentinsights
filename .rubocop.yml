@@ -1,0 +1,65 @@
+AllCops:
+  DisabledByDefault: true
+  Exclude:
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'docs/**/*'
+    - 'log/**/*'
+    - 'node_modules/**/*'
+    - 'public/**/*'
+    - 'scripts/**/*'
+    - 'sketch/**/*'
+    - 'vendor/**/*'
+    - 'x2_export/**/*'
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
+Layout/TrailingBlankLines:
+  Enabled: true
+
+Layout/BlockEndNewline:
+  Enabled: true
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
+
+Layout/EmptyLines:
+  Enabled: true
+
+Layout/Tab:
+  Enabled: true
+
+Layout/SpaceInsideStringInterpolation:
+  Enabled: true
+
+Lint/AssignmentInCondition:
+  Enabled: true
+
+Lint/ConditionPosition:
+  Enabled: true
+
+Lint/Debugger:
+  Enabled: true
+
+Lint/DeprecatedClassMethods:
+  Enabled: true
+
+Lint/DuplicateMethods:
+  Enabled: true
+
+Lint/HandleExceptions:
+  Enabled: true
+
+Lint/InheritException:
+  Enabled: true
+
+Lint/Loop:
+  Enabled: true
+
+Lint/UnreachableCode:
+  Enabled: true
+
+Style/CaseEquality:
+  Enabled: true

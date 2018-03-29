@@ -1,108 +1,80 @@
 RSpec.describe SftpClient do
-  let(:client) { SftpClient.new(*credentials) }
+  def mock_env_for_x2
+    allow(ENV).to receive(:[]).with('SIS_SFTP_HOST').and_return "sis.x2.com"
+    allow(ENV).to receive(:[]).with('SIS_SFTP_USER').and_return "sis-user"
+    allow(ENV).to receive(:[]).with('SIS_SFTP_KEY').and_return "sis-key"
+  end
+
+  def mock_env_for_star
+    allow(ENV).to receive(:[]).with('STAR_SFTP_HOST').and_return "ftp.star.com"
+    allow(ENV).to receive(:[]).with('STAR_SFTP_USER').and_return "sftp-user"
+    allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
+  end
 
   describe '.for_x2' do
-    let(:settings) do
-      {
-        'SIS_SFTP_HOST' => 'totes valid host',
-        'SIS_SFTP_USER' => 'totes valid user',
-        'SIS_SFTP_KEY' => 'totes valid key',
-      }
-    end
-
+    before { mock_env_for_x2 }
     it 'configures the sftp client for X2' do
-      expect(SftpClient.for_x2(settings).host).to eq('totes valid host')
-      expect(SftpClient.for_x2(settings).user).to eq('totes valid user')
-      expect(SftpClient.for_x2(settings).key_data).to eq('totes valid key')
+      sftp_client = SftpClient.for_x2
+      expect(sftp_client.send(:host)).to eq('sis.x2.com')
+      expect(sftp_client.send(:user)).to eq('sis-user')
+      expect(sftp_client.send(:key_data)).to eq('sis-key')
     end
   end
 
   describe '.for_star' do
-    let(:settings) do
-      {
-        'STAR_SFTP_HOST' => "sftp-site@site.com",
-        'STAR_SFTP_USER' => "sftp-user",
-        'STAR_SFTP_PASSWORD' => "sftp-password",
-      }
-    end
-
-    it 'configures the sftp client for star' do
-      expect(SftpClient.for_star(settings).host).to eq("sftp-site@site.com")
-      expect(SftpClient.for_star(settings).user).to eq("sftp-user")
-      expect(SftpClient.for_star(settings).password).to eq("sftp-password")
+    before { mock_env_for_star }
+    it 'configures the sftp client for STAR' do
+      sftp_client = SftpClient.for_star
+      expect(sftp_client.send(:host)).to eq('ftp.star.com')
+      expect(sftp_client.send(:user)).to eq('sftp-user')
+      expect(sftp_client.send(:password)).to eq('sftp-password')
     end
   end
 
   describe '#sftp_session' do
-
-    context 'using a password' do
-      let(:credentials) {
-        [
-          ENV['STAR_SFTP_USER'],
-          ENV['STAR_SFTP_HOST'],
-          ENV['STAR_SFTP_PASSWORD'],
-          nil
-        ]
-      }
-
-      context 'with credentials' do
-        before do
-          allow(ENV).to receive(:[]).with('STAR_SFTP_HOST').and_return "sftp-site@site.com"
-          allow(ENV).to receive(:[]).with('STAR_SFTP_USER').and_return "sftp-user"
-          allow(ENV).to receive(:[]).with('STAR_SFTP_PASSWORD').and_return "sftp-password"
-          allow(Net::SFTP).to receive_messages(start: 'connection established')
-        end
-
-        it 'establishes a connection' do
-          expect(client.sftp_session).to eq 'connection established'
-        end
-
-        it 'sends the correct data to Net::SFTP' do
-          expect(Net::SFTP).to receive(:start).with(
-            "sftp-site@site.com", "sftp-user", { :password=>"sftp-password" }
-          )
-
-          client.sftp_session
-        end
+    context 'when using a password for STAR' do
+      before do
+        mock_env_for_star
+        allow(Net::SFTP).to receive_messages(start: 'sftp_client')
       end
 
-      context 'without credentials' do
-        it 'raises an error' do
-          expect { client.sftp_session }.to raise_error "SFTP information missing"
-        end
+      it 'sends the correct data to Net::SFTP' do
+        expect(Net::SFTP).to receive(:start).with(
+          "ftp.star.com", "sftp-user", { :password=>"sftp-password" }
+        )
+        expect(SftpClient.for_star.send(:sftp_session)).to eq 'sftp_client'
       end
     end
 
-    context 'using a key' do
-      let(:credentials) {
-        [
-          ENV['SIS_SFTP_USER'],
-          ENV['SIS_SFTP_HOST'],
-          nil,
-          ENV['SIS_SFTP_KEY']
-        ]
-      }
+    context 'when using a key for X2' do
+      before do
+        mock_env_for_x2
+        allow(Net::SFTP).to receive_messages(start: 'sftp_client')
+      end
 
-      context 'with credentials' do
-        before do
-          allow(ENV).to receive(:[]).with('SIS_SFTP_USER').and_return "sftp-site@site.com"
-          allow(ENV).to receive(:[]).with('SIS_SFTP_HOST').and_return "sftp-user"
-          allow(ENV).to receive(:[]).with('SIS_SFTP_KEY').and_return "sftp-key"
-          allow(Net::SFTP).to receive_messages(start: 'connection established')
-        end
-
-        it 'establishes a connection' do
-          expect(client.sftp_session).to eq 'connection established'
-        end
-
-        it 'sends the correct data to Net::SFTP' do
-          expect(Net::SFTP).to receive(:start).with(
-            "sftp-user", "sftp-site@site.com", { :key_data=>"sftp-key" }
-          )
-
-          client.sftp_session
-        end
+      it 'sends the correct data to Net::SFTP' do
+        expect(Net::SFTP).to receive(:start).with(
+          "sis.x2.com", "sis-user", { :key_data=>"sis-key" }
+        )
+        expect(SftpClient.for_x2.send(:sftp_session)).to eq 'sftp_client'
       end
     end
+
+    context 'when called twice' do
+      before do
+        mock_env_for_star
+        allow(Net::SFTP).to receive_messages(start: 'sftp_client')
+      end
+
+      it 're-uses the Net::SFTP connection' do
+        client = SftpClient.for_star
+        expect(Net::SFTP).to receive(:start).with(
+          "ftp.star.com", "sftp-user", { :password=>"sftp-password" }
+        ).once
+        client.send(:sftp_session)
+        client.send(:sftp_session)
+      end
+    end
+
   end
 end

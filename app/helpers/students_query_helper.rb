@@ -1,14 +1,35 @@
+require 'digest'
+
 module StudentsQueryHelper
+  INCLUDE_FOR_STUDENTS = Student.column_names.map(&:to_sym) - [
+    :primary_phone,
+    :primary_email,
+    :student_address
+  ]
+
+  INCLUDE_FOR_EVENT_NOTES = [
+    :id,
+    :student_id,
+    :educator_id,
+    :event_note_type_id,
+    :recorded_at,
+    :is_restricted,
+  ]
+
   # Used to serializes a Student into a hash with other fields joined in (that are used to perform
   # filtering and slicing in the UI).
   # This may be slow if you're doing it for many students without eager includes.
   def student_hash_for_slicing(student)
-    HashWithIndifferentAccess.new(student.as_json.merge({
-      discipline_incidents_count: student.most_recent_school_year.discipline_incidents.count,
-      absences_count: student.most_recent_school_year.absences.count,
-      tardies_count: student.most_recent_school_year.tardies.count,
-      homeroom_name: student.try(:homeroom).try(:name)
-    }))
+    student_fields = Student.where(id: student.id).select(INCLUDE_FOR_STUDENTS)
+
+    HashWithIndifferentAccess.new(
+      student_fields.first.as_json.merge({
+        discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
+        absences_count: student.most_recent_school_year_absences_count,
+        tardies_count: student.most_recent_school_year_tardies_count,
+        homeroom_name: student.try(:homeroom).try(:name)
+      })
+    )
   end
 
   # Queries for Services and EventNotes for each student, and merges the results
@@ -25,10 +46,10 @@ module StudentsQueryHelper
         interventions: mutable_fields[:all_interventions].select {|intervention| intervention.student_id == student_hash[:id] }
       }
       student_hash.merge({
-        event_notes: for_student[:event_notes].map {|x| serialize_event_note_without_attachments(x) },
-        active_services: for_student[:active_services].map {|x| serialize_service(x) },
-        summer_services: for_student[:summer_services].map {|x| serialize_service(x) },
-        interventions: for_student[:interventions].map {|x| serialize_intervention(x) },
+        event_notes: for_student[:event_notes].map {|x| EventNoteSerializer.new(x).serialize_for_school_overview },
+        active_services: for_student[:active_services].map {|x| ServiceSerializer.new(x).serialize_service },
+        summer_services: for_student[:summer_services].map {|x| ServiceSerializer.new(x).serialize_service },
+        interventions: for_student[:interventions].map {|x| DeprecatedInterventionSerializer.new(x).serialize_intervention },
       })
     end
   end
@@ -36,7 +57,7 @@ module StudentsQueryHelper
   def mutable_fields_for_slicing(student_ids)
     summer_service_type_ids = ServiceType.where(summer_program: true).pluck(:id)
     {
-      all_event_notes: EventNote.where(student_id: student_ids),
+      all_event_notes: EventNote.where(student_id: student_ids).select(INCLUDE_FOR_EVENT_NOTES),
       all_active_services: Service.where(student_id: student_ids).active,
       all_interventions: Intervention.where(student_id: student_ids),
       all_summer_services: Service.where(student_id: student_ids)
@@ -45,10 +66,4 @@ module StudentsQueryHelper
     }
   end
 
-  # Used to compute key for reading and writing precomputed student_hashes documents
-  def precomputed_student_hashes_key(time_now, authorized_student_ids)
-    timestamp = time_now.beginning_of_day.to_i
-    authorized_students_key = authorized_student_ids.sort.join(',')
-    ['precomputed_student_hashes', timestamp, authorized_students_key].join('_')
-  end
 end

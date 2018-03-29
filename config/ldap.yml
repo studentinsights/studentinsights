@@ -22,9 +22,9 @@ authorizations: &AUTHORIZATIONS
 ## Environment
 
 production:
-  host: <%= ENV['SOMERVILLE_LDAP_HOST'] %>
-  port: <%= ENV['SOMERVILLE_LDAP_PORT'] %>
+  host: <%= ENV['DISTRICT_LDAP_HOST'] %>
+  port: <%= ENV['DISTRICT_LDAP_PORT'] %>
   attribute: mail
-  base: <%= ENV['SOMERVILLE_LDAP_BASE'] %>
+  base: <%= ENV['DISTRICT_LDAP_BASE'] %>
   ssl: true
   <<: *AUTHORIZATIONS

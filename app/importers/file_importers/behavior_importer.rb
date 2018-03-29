@@ -1,7 +1,40 @@
-class BehaviorImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class BehaviorImporter
+
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
+  end
+
+  def import
+    return unless remote_file_name
+
+    @data = CsvDownloader.new(
+      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
+    ).get_data
+
+    @success_count = 0
+    @error_list = []
+
+    @data.each.each_with_index do |row, index|
+      import_row(row) if filter.include?(row)
+      @log.write(
+        "\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped"
+      )
+    end
+
+    @error_summary = @error_list.each_with_object(Hash.new(0)) do |error, memo|
+      memo[error] += 1
+    end
+    @log.write("\n\nBehaviorImporter: Invalid rows summary: ")
+    @log.write(@error_summary)
+  end
+
+  def client
+    SftpClient.for_x2
+  end
 
   def remote_file_name
-    'behavior_export.txt'
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_BEHAVIOR_IMPORT', nil)
   end
 
   def data_transformer
@@ -9,10 +42,17 @@ class BehaviorImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(@school_scope)
   end
 
   def import_row(row)
-    BehaviorRow.build(row).save!
+    behavior_event = BehaviorRow.build(row)
+
+    if behavior_event.valid?
+      behavior_event.save!
+      @success_count += 1
+    else
+      @error_list << behavior_event.errors.messages
+    end
   end
 end

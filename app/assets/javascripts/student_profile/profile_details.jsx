@@ -1,15 +1,22 @@
+import _ from 'lodash';
+import Datepicker from '../student_profile/Datepicker.js';
+import {merge} from '../helpers/react_helpers.jsx';
+import moment from 'moment';
+import ProfileDetailsStyle from './ProfileDetailsStyle';
+import {
+  firstDayOfSchool,
+  toSchoolYear,
+  toMoment,
+  toValue,
+  toDate
+} from './QuadConverter';
+
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
-  const merge = window.shared.ReactHelpers.merge;
-  const FeedHelpers = window.shared.FeedHelpers;
-  const QuadConverter = window.shared.QuadConverter;
-  const styles = window.shared.ProfileDetailsStyle;
-  const Datepicker = window.shared.Datepicker;
-  const filterFromDate = QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1);
-  const filterToDate = moment();
-  const ProfileDetails = window.shared.ProfileDetails = React.createClass({
+  const styles = ProfileDetailsStyle;
+  const StudentSectionsRoster = window.shared.StudentSectionsRoster;
+
+  window.shared.ProfileDetails = React.createClass({
     displayName: 'ProfileDetails',
 
     propTypes: {
@@ -18,15 +25,35 @@
       access: React.PropTypes.object,
       dibels: React.PropTypes.array,
       chartData: React.PropTypes.object,
+      iepDocument: React.PropTypes.object,
+      sections: React.PropTypes.array,
+      currentEducatorAllowedSections: React.PropTypes.array,
       attendanceData: React.PropTypes.object,
-      serviceTypesIndex: React.PropTypes.object
+      serviceTypesIndex: React.PropTypes.object,
+      currentEducator: React.PropTypes.object,
     },
 
     getInitialState: function() {
       return {
-        filterFromDate: QuadConverter.firstDayOfSchool(QuadConverter.toSchoolYear(moment())-1),
+        filterFromDate: firstDayOfSchool(toSchoolYear(moment())-1),
         filterToDate: moment()
       };
+    },
+
+    displayEventDate: function(event_date){
+      // Use UTC to avoid timezone-related display errors. (See GitHub issue #622.)
+      // Timezone is irrelevant for this UI. We are not displaying times, only dates.
+
+      return moment(event_date).utc().format("MMMM Do, YYYY:");
+    },
+
+    getMessageForServiceType: function(service_type_id){
+      // Given a service_type_id, returns a message suitable for human consumption describing the service.
+      const lookup = this.props.serviceTypesIndex;
+
+      return (lookup.hasOwnProperty(service_type_id))
+        ? lookup[service_type_id].name
+        : "Description not found for code: " + service_type_id;
     },
 
     getEvents: function(){
@@ -62,36 +89,36 @@
         // var score = quad[3];
         events.push({
           type: 'MCAS-ELA',
-          id: QuadConverter.toMoment(quad).format("MM-DD"),
-          message: name + ' scored a ' + QuadConverter.toValue(quad) +' on the ELA section of the MCAS.',
-          date: QuadConverter.toDate(quad)
+          id: toMoment(quad).format("MM-DD"),
+          message: name + ' scored a ' + toValue(quad) +' on the ELA section of the MCAS.',
+          date: toDate(quad)
         });
       });
       _.each(this.props.chartData.mcas_series_math_scaled, function(quad){
         // var score = quad[3];
         events.push({
           type: 'MCAS-Math',
-          id: QuadConverter.toMoment(quad).format("MM-DD"),
-          message: name + ' scored a ' + QuadConverter.toValue(quad) +' on the Math section of the MCAS.',
-          date: QuadConverter.toDate(quad)
+          id: toMoment(quad).format("MM-DD"),
+          message: name + ' scored a ' + toValue(quad) +' on the Math section of the MCAS.',
+          date: toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_reading_percentile, function(quad){
         // var score = quad[3];
         events.push({
           type: 'STAR-Reading',
-          id: QuadConverter.toMoment(quad).format("MM-DD"),
-          message: name + ' scored in the ' + QuadConverter.toValue(quad) +'th percentile on the Reading section of STAR.',
-          date: QuadConverter.toDate(quad)
+          id: toMoment(quad).format("MM-DD"),
+          message: name + ' scored in the ' + toValue(quad) +'th percentile on the Reading section of STAR.',
+          date: toDate(quad)
         });
       });
       _.each(this.props.chartData.star_series_math_percentile, function(quad){
         // var score = quad[3];
         events.push({
           type: 'STAR-Math',
-          id: QuadConverter.toMoment(quad).format("MM-DD"),
-          message: name + ' scored in the ' + QuadConverter.toValue(quad) +'th percentile on the Math section of STAR.',
-          date: QuadConverter.toDate(quad)
+          id: toMoment(quad).format("MM-DD"),
+          message: name + ' scored in the ' + toValue(quad) +'th percentile on the Math section of STAR.',
+          date: toDate(quad)
         });
       });
       _.each(this.props.feed.deprecated.interventions, function(obj){
@@ -135,7 +162,7 @@
         if (obj.performance_level === null) return;
 
         const cleanedDate = obj.date_taken.split('T')[0];
-        const parsedDate = moment(cleanedDate).toDate();
+        const parsedDate = moment.utc(cleanedDate, 'YYYY-MM-DD').toDate();
 
         events.push({
           type: 'DIBELS',
@@ -147,27 +174,82 @@
       return _.sortBy(events, 'date').reverse();
     },
 
-    onClickGenerateStudentReport: function(event) {
+    filterFromDateForQuery: function() {
+      const {filterFromDate} = this.state;
+
+      return filterFromDate.format('MM/DD/YYYY');
+    },
+
+    filterToDateForQuery: function() {
+      const {filterToDate} = this.state;
+
+      return filterToDate.format('MM/DD/YYYY');
+    },
+
+    studentReportURL: function() {
+      const id = this.props.student.id;
+      const filterFromDateForQuery = this.filterFromDateForQuery();
+      const filterToDateForQuery = this.filterToDateForQuery();
       const sections = $('#section:checked').map(function() {return this.value;}).get().join(',');
-      window.location = this.props.student.id + '/student_report.pdf?sections=' + sections + '&from_date=' + filterFromDate.format('MM/DD/YYYY') + '&to_date=' + filterToDate.format('MM/DD/YYYY');
+
+      return `${id}/student_report.pdf?sections=${sections}&from_date=${filterFromDateForQuery}&to_date=${filterToDateForQuery}`;
+    },
+
+    onFilterFromDateChanged: function(dateText) {
+      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
+      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      this.setState({ filterFromDate: updatedMoment });
+    },
+
+    onFilterToDateChanged: function(dateText) {
+      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
+      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
+      this.setState({ filterToDate: updatedMoment });
+    },
+
+    onClickGenerateStudentReport: function(event) {
+      window.location = this.studentReportURL();
       return null;
     },
 
     render: function(){
       return (
         <div>
-          <div>
-            <div style={{float: 'left', display: 'flex', width: '50%'}}>
-              {this.renderAccessDetails()}
-            </div>
-            <div style={{display: 'flex', width: '50%'}}>
-              {this.renderStudentReportFilters()}
-            </div>
+          <div style={{clear: 'both'}}>
+            {this.renderSectionDetails()}
+          </div>
+          <div style={{display: 'flex'}}>
+            {this.renderAccessDetails()}
+            {this.renderStudentReportFilters()}
+            {this.renderIepDocuments()}
           </div>
           <div style={{clear: 'both'}}>
             {this.renderFullCaseHistory()}
           </div>
         </div>
+      );
+    },
+
+    renderSectionDetails: function() {
+      const sections = this.props.sections;
+
+      // If there are no sections, don't generate the student sections roster
+      if (!sections || sections.length == 0) return null;
+
+      // If this student is not a high school student, don't generate the student sections roster
+      if (this.props.student.school_type != 'HS') return null;
+
+      return (
+        <div id="sections-roster" className="roster" style={styles.roundedBox}>
+          <h4 style={styles.sectionsRosterTitle}>
+            Sections
+          </h4>
+          <StudentSectionsRoster
+            sections={this.props.sections}
+            linkableSections={this.props.currentEducatorAllowedSections}
+            />
+        </div>
+
       );
     },
 
@@ -189,7 +271,7 @@
       });
 
       return (
-        <div style={styles.column}>
+        <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
           <h4 style={styles.title}>
             ACCESS
           </h4>
@@ -216,18 +298,6 @@
       );
     },
 
-    onFilterFromDateChanged: function(dateText) {
-      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
-      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
-      this.filterFromDate = updatedMoment;
-    },
-
-    onFilterToDateChanged: function(dateText) {
-      const textMoment = moment.utc(dateText, 'MM/DD/YYYY');
-      const updatedMoment = (textMoment.isValid()) ? textMoment : null;
-      this.filterToDate = updatedMoment;
-    },
-
     renderStudentReportSectionOption: function(optionValue, optionName) {
       return (
         <div style={styles.option3Column}>
@@ -237,9 +307,27 @@
       );
     },
 
+    renderIepDocuments: function () {
+      const iepDocument = this.props.iepDocument;
+      if (!iepDocument) return null;
+
+      const url = `/iep_documents/${iepDocument.id}`;
+
+      return (
+        <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
+          <h4 style={styles.title}>Active IEP:</h4>
+          <p style={{fontSize: 15}} key={iepDocument.id}>
+            <a href={url}>
+              Download {iepDocument.file_name}.
+            </a>
+          </p>
+        </div>
+      );
+    },
+
     renderStudentReportFilters: function () {
       return (
-        <div style={styles.column}>
+        <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
           <h4 style={styles.title}>Student Report</h4>
           <span style={styles.tableHeader}>Select sections to include in report:</span>
           <div>
@@ -255,7 +343,7 @@
               <label>From date:</label>
               <Datepicker
                 styles={{ input: styles.datepickerInput }}
-                value={filterFromDate.format('MM/DD/YYYY')}
+                value={this.state.filterFromDate.format('MM/DD/YYYY')}
                 onChange={this.onFilterFromDateChanged}
                 datepickerOptions={{
                   showOn: 'both',
@@ -267,7 +355,7 @@
               <label>To date:</label>
               <Datepicker
                 styles={{ input: styles.datepickerInput }}
-                value={filterToDate.format('MM/DD/YYYY')}
+                value={this.state.filterToDate.format('MM/DD/YYYY')}
                 onChange={this.onFilterToDateChanged}
                 datepickerOptions={{
                   showOn: 'both',
@@ -288,9 +376,8 @@
     },
 
     renderFullCaseHistory: function(){
-      const self = this;
       const bySchoolYearDescending = _.toArray(
-        _.groupBy(this.getEvents(), function(event){ return QuadConverter.toSchoolYear(event.date); })
+        _.groupBy(this.getEvents(), function(event){ return toSchoolYear(event.date); })
       ).reverse();
 
       return (
@@ -307,7 +394,7 @@
 
     renderCardsForYear: function(eventsForYear){
       // Grab what school year we're in from any object in the list.
-      const year = QuadConverter.toSchoolYear(eventsForYear[0].date);
+      const year = toSchoolYear(eventsForYear[0].date);
       // Computes '2016 - 2017 School Year' for input 2016, etc.
       const schoolYearString = year.toString() + ' - ' + (year+1).toString() + ' School Year';
 
@@ -325,17 +412,22 @@
     renderCard: function(event){
       const key = [event.type, event.id].join("-");
 
+      let containingDivStyle;
+      let headerDivStyle;
+      let paddingStyle;
+      let text;
+
       if (event.type === 'Absence' || event.type === 'Tardy'){
         // These event types are less important, so make them smaller and no description text.
-        var containingDivStyle = styles.feedCard;
-        var headerDivStyle = merge(styles.feedCardHeader, {fontSize: 14});
-        var paddingStyle = {paddingLeft: 10};
-        var text = '';
+        containingDivStyle = styles.feedCard;
+        headerDivStyle = merge(styles.feedCardHeader, {fontSize: 14});
+        paddingStyle = {paddingLeft: 10};
+        text = '';
       } else {
-        var containingDivStyle = merge(styles.feedCard, {border: '1px solid #eee'});
-        var headerDivStyle = styles.feedCardHeader;
-        var paddingStyle = {padding: 10};
-        var text = event.message;
+        containingDivStyle = merge(styles.feedCard, {border: '1px solid #eee'});
+        headerDivStyle = styles.feedCardHeader;
+        paddingStyle = {padding: 10};
+        text = event.message;
       }
 
       const dateStyle = {display: 'inline-block', width: 180};
@@ -357,25 +449,6 @@
           </div>
         </div>
       );
-    },
-
-    displayEventDate: function(event_date){
-      // Use UTC to avoid timezone-related display errors. (See GitHub issue #622.)
-      // Timezone is irrelevant for this UI. We are not displaying times, only dates.
-
-      return moment(event_date).utc().format("MMMM Do, YYYY:");
-    },
-
-    getMessageForServiceType: function(service_type_id){
-      // Given a service_type_id, returns a message suitable for human consumption describing the service.
-      const lookup = this.props.serviceTypesIndex;
-      if (lookup.hasOwnProperty(service_type_id)){
-        var text = lookup[service_type_id].name;
-      } else {
-        var text = "Description not found for code: " + service_type_id;
-      }
-
-      return text;
     }
 
   });

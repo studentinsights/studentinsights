@@ -1,10 +1,6 @@
 class StudentAssessment < ActiveRecord::Base
   belongs_to :assessment
   belongs_to :student
-  belongs_to :school_year
-  belongs_to :student_school_year
-  before_save :assign_to_school_year
-  after_create :assign_to_student_school_year
   delegate :family, :subject, to: :assessment
   delegate :grade, to: :student
   validates_presence_of :date_taken, :student, :assessment
@@ -43,17 +39,6 @@ class StudentAssessment < ActiveRecord::Base
     growth_percentile.nil?
   end
 
-  def assign_to_school_year
-    self.school_year = DateToSchoolYear.new(date_taken).convert
-  end
-
-  def assign_to_student_school_year
-    self.student_school_year = StudentSchoolYear.where({
-      student_id: student.id, school_year_id: school_year.id
-    }).first_or_create!
-    save
-  end
-
   def self.order_by_date_taken_desc
     order(date_taken: :desc)
   end
@@ -76,14 +61,9 @@ class StudentAssessment < ActiveRecord::Base
 
   def risk_level
     return nil unless assessment.present? && family.present?
-    case family
-    when "MCAS"
-      McasRiskLevel.new(self).risk_level
-    when "STAR"
-      StarRiskLevel.new(self).risk_level
-    else
-      nil
-    end
+
+    assessment.to_risk_level(self)
+
   end
 
 end

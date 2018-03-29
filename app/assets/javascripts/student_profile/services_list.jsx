@@ -1,12 +1,10 @@
+import _ from 'lodash';
+import moment from 'moment';
+import {merge} from '../helpers/react_helpers.jsx';
+import serviceColor from '../helpers/serviceColor';
+
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
-  const merge = window.shared.ReactHelpers.merge;
-
-  const Educator = window.shared.Educator;
-  const serviceColor = window.shared.serviceColor;
-  const moment = window.moment;
 
   const styles = {
     noItems: {
@@ -44,7 +42,7 @@
   /*
   Renders the list of services.
   */
-  const ServicesList = window.shared.ServicesList = React.createClass({
+  window.shared.ServicesList = React.createClass({
     displayName: 'ServicesList',
 
     propTypes: {
@@ -63,29 +61,33 @@
       };
     },
 
-    resetDiscontinueState: function() {
-      return {
-        discontinuingServiceId: null,
-        hoveringCancelServiceId: null,
-        hoveringDiscontinueServiceId: null
-      };
+    wasDiscontinued: function(service) {
+      return (service.discontinued_by_educator_id !== null);
+    },
+
+    // Active services before inactive, then sorted by time
+    sortedMergedServices: function(servicesFeed) {
+      return _.flatten([
+        _.sortBy(servicesFeed.active, 'date_started').reverse(),
+        _.sortBy(servicesFeed.discontinued, 'date_started').reverse()
+      ]);
     },
 
     // Confirmation step
     onClickDiscontinueService: function(serviceId) {
       if (this.state.discontinuingServiceId !== serviceId) {
-        this.setState(merge(this.resetDiscontinueState(), {
+        this.setState(merge(this.getInitialState(), {
           discontinuingServiceId: serviceId,
         }));
         return;
       }
 
       this.props.onClickDiscontinueService(serviceId);
-      this.setState(this.resetDiscontinueState());
+      this.setState(this.getInitialState());
     },
 
     onClickCancelDiscontinue: function(serviceId) {
-      this.setState(this.resetDiscontinueState());
+      this.setState(this.getInitialState());
     },
 
     onMouseEnterDiscontinue: function(serviceId) {
@@ -104,18 +106,6 @@
       this.setState({ hoveringCancelServiceId: null });
     },
 
-    wasDiscontinued: function(service) {
-      return (service.discontinued_by_educator_id !== null);
-    },
-
-    // Active services before inactive, then sorted by time
-    sortedMergedServices: function(servicesFeed) {
-      return _.flatten([
-        _.sortBy(servicesFeed.active, 'date_started').reverse(),
-        _.sortBy(servicesFeed.discontinued, 'date_started').reverse()
-      ]);
-    },
-
     render: function() {
       const elements = (this.props.servicesFeed.active.length === 0 && this.props.servicesFeed.discontinued.length === 0)
         ? <div style={styles.noItems}>
@@ -132,7 +122,6 @@
     renderService: function(service) {
       const wasDiscontinued = this.wasDiscontinued(service);
       const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
-      const momentStarted = moment.utc(service.date_started);
       const providedByEducatorName = service.provided_by_educator_name;
 
       return (
@@ -150,6 +139,8 @@
               {this.renderEducatorName(providedByEducatorName)}
               {// When did the service start?
               this.renderDateStarted(service)}
+              {// When will the service end?
+              this.renderEstimatedEndDate(service)}
               {// How long has it been going?
               this.renderTimeSinceStarted(service)}
             </div>
@@ -164,20 +155,32 @@
 
     renderDateStarted: function (service) {
       const momentStarted = moment.utc(service.date_started);
-      const startedToday = moment().utc().subtract(1, 'day') < momentStarted;
+      // const startedToday = moment().utc().subtract(1, 'day');
 
       // For services added today, return "Started today" instead of the date:
-      if (startedToday) return (
-        <div>
-          Started today
-        </div>
-      );
+      // if (momentStarted > startedToday ) return (
+      //   <div>
+      //     Started today
+      //   </div>
+      // );
 
       // For services started earlier than today, show the date started:
       return (
         <div>
           {'Started '}
           {momentStarted.format('MMMM D, YYYY')}
+        </div>
+      );
+    },
+
+    renderEstimatedEndDate: function (service) {
+      const momentEnded = moment.utc(service.estimated_end_date);
+
+      // If estimated end date exist then show ui:
+      if (momentEnded.isValid()) return (
+        <div>
+          {'Scheduled to End '}
+          {momentEnded.format('MMMM D, YYYY')}
         </div>
       );
     },
@@ -222,11 +225,9 @@
       const discontinuedAt = moment.utc(service.discontinued_recorded_at);
       const now = moment();
 
-      if (discontinuedAt > now) {
-        var description = 'Ending';
-      } else {
-        var description = 'Ended';
-      }
+      const description = (discontinuedAt > now)
+        ? 'Ending'
+        : 'Ended';
 
       if (this.wasDiscontinued(service)) {
         return (
@@ -249,10 +250,19 @@
       const isConfirming = (this.state.discontinuingServiceId === service.id);
       const isHovering = (this.state.hoveringDiscontinueServiceId === service.id);
       const isPending = (this.props.discontinueServiceRequests[service.id] === 'pending');
+      let text = 'Confirm';
 
-      const buttonText = (isPending)
-        ? 'Updating...'
-        : (isConfirming) ? 'Confirm' : 'Discontinue';
+      if (isPending) {
+        text = 'Updating...';
+      } else if (isConfirming) {
+        text = 'Confirm';
+      } else if (service.estimated_end_date === null) {
+        text = 'Discontinue';
+      } else {
+        text = 'Discontinue Early';
+      }
+
+      const buttonText = text;
       const style = (isConfirming || isPending) ?
         styles.discontinueConfirm
         : (isHovering) ? {} : styles.discontinue;

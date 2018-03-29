@@ -2,6 +2,47 @@ require 'rails_helper'
 
 describe EducatorsController, :type => :controller do
   describe '#homepage' do
+    let!(:pals) { TestPals.create! }
+
+    def make_request_for_uri(educator)
+      sign_in(educator)
+      request.env['HTTPS'] = 'on'
+      request.env['HTTP_ACCEPT'] = 'application/json'
+      get :show, params: { id: pals.uri.id }
+      response
+    end
+
+    it 'works for districtwide admin' do
+      response = make_request_for_uri(pals.uri)
+      json = JSON.parse(response.body)
+      expect(json).to eq({
+        "id"=>999999,
+        "email"=>"uri@demo.studentinsights.org",
+        "admin"=>true,
+        "full_name"=>"Disney, Uri",
+        "staff_type"=>nil,
+        "schoolwide_access"=>true,
+        "grade_level_access"=>[],
+        "restricted_to_sped_students"=>false,
+        "restricted_to_english_language_learners"=>false,
+        "can_view_restricted_notes"=>true,
+        "districtwide_access"=>true,
+        "school"=>{
+          "id"=>pals.healey.id,
+          "name"=>"Arthur D Healey"
+        },
+        "sections"=>[]
+      })
+    end
+
+    it 'prevents access for all other users' do
+      expect(make_request_for_uri(pals.shs_jodi).status).to eq 403
+      expect(make_request_for_uri(pals.healey_vivian_teacher).status).to eq 403
+      expect(make_request_for_uri(pals.healey_laura_principal).status).to eq 403
+    end
+  end
+
+  describe '#homepage' do
     def make_request
       request.env['HTTPS'] = 'on'
       get :homepage
@@ -15,7 +56,7 @@ describe EducatorsController, :type => :controller do
         let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
         it 'redirects to default homeroom' do
           make_request
-          expect(response).to redirect_to(homeroom_url(educator.homeroom))
+          expect(response).to redirect_to(homeroom_path(educator.homeroom))
         end
       end
 
@@ -24,7 +65,7 @@ describe EducatorsController, :type => :controller do
         let!(:homeroom) { FactoryGirl.create(:homeroom) }   # Not associated with educator
         it 'redirects to no homeroom assigned page' do
           make_request
-          expect(response).to redirect_to(no_homeroom_url)
+          expect(response).to redirect_to(no_default_page_path)
         end
       end
     end
@@ -214,5 +255,44 @@ describe EducatorsController, :type => :controller do
       end
     end
 
+  end
+
+  describe '#notes_feed' do
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :notes_feed_json, params: { "batch_size": "60" }
+    end
+
+    context 'educator with homeroom' do
+      let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+      let!(:event_note) { FactoryGirl.create(:event_note, { educator: educator, recorded_at: Date.today }) }
+
+      it 'is able to access the notes feed page' do
+        sign_in(educator)
+        make_request
+        expect(response).to be_success
+        body = JSON.parse!(response.body)
+        expect(body).to have_key("educators_index")
+        expect(body).to have_key("event_note_types_index")
+        expect(body).to have_key("current_educator")
+        expect(body).to have_key("notes")
+        expect(body["notes"].length).to be(1)
+        event_note = body["notes"][0]
+        expect(event_note).to have_key("id")
+        expect(event_note).to have_key("student_id")
+        expect(event_note).to have_key("educator_id")
+        expect(event_note).to have_key("event_note_type_id")
+        expect(event_note).to have_key("recorded_at")
+        expect(event_note).to have_key("student")
+        expect(event_note["student"]).to have_key("id")
+        expect(event_note["student"]).to have_key("first_name")
+        expect(event_note["student"]).to have_key("last_name")
+        expect(event_note["student"]).to have_key("school_id")
+        expect(event_note["student"]).to have_key("school_name")
+        expect(event_note["student"]).to have_key("homeroom_id")
+        expect(event_note["student"]).to have_key("homeroom_name")
+        expect(event_note["student"]).to have_key("grade")
+      end
+    end
   end
 end

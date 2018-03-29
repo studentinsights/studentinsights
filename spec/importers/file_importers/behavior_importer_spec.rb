@@ -1,12 +1,24 @@
-
 require 'rails_helper'
 
 RSpec.describe BehaviorImporter do
 
+  let(:base_behavior_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: nil, only_recent_attendance: false
+    })
+  }
+
+  let(:behavior_importer) {
+    base_behavior_importer.instance_variable_set(:@success_count, 0)
+    base_behavior_importer.instance_variable_set(:@error_list, [])
+    base_behavior_importer
+  }
+
   describe '#import_row' do
-    let(:importer) { described_class.new }
+
+    let(:importer) { behavior_importer }
     before { importer.import_row(row) }
-    let(:incidents) { student.reload.most_recent_school_year.discipline_incidents }
+    let(:incidents) { student.discipline_incidents }
     let(:incident) { incidents.last }
 
     context 'typical row' do
@@ -14,7 +26,7 @@ RSpec.describe BehaviorImporter do
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Hitting",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
@@ -27,7 +39,7 @@ RSpec.describe BehaviorImporter do
         expect(incidents.size).to eq 1
       end
       it 'assigns the incident code correctly' do
-        expect(incident.incident_code).to eq 'Hitting'
+        expect(incident.incident_code).to eq 'Bullying'
       end
       it 'sets has exact time to true' do
         expect(incident.has_exact_time).to eq true
@@ -44,7 +56,7 @@ RSpec.describe BehaviorImporter do
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Hitting",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
@@ -55,7 +67,7 @@ RSpec.describe BehaviorImporter do
       let(:row_two) {
         {
           local_id: student.local_id,
-          incident_code: "Hitting",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 2),
           incident_location: "Classroom",
           incident_description: "Hit another student again.",
@@ -80,7 +92,7 @@ RSpec.describe BehaviorImporter do
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Lorem ipsuming",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
@@ -122,7 +134,7 @@ RSpec.describe BehaviorImporter do
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Unauthorized pencil sharpening",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 2),
           incident_time: "13:00:00",
           incident_location: "Classroom",

@@ -4,7 +4,7 @@ require 'csv'
 class PowerBIExporter
   def init(options = {})
     @time_now = options[:now] || Time.now
-    @cutoff_date = @time_now - 3.years    
+    @cutoff_date = @time_now - 3.years
   end
 
   def students
@@ -24,11 +24,11 @@ class PowerBIExporter
   end
 
   def absences
-    hashes_to_csv_string absences_or_tardies(:absences)
+    hashes_to_csv_string Absence.all.map(&:as_json)
   end
 
   def tardies
-    hashes_to_csv_string absences_or_tardies(:tardies)
+    hashes_to_csv_string Tardy.all.map(&:as_json)
   end
 
   private
@@ -38,16 +38,4 @@ class PowerBIExporter
     ([header_row] + body_rows).map {|row| row.to_csv }.join('')
   end
 
-  # Returns a list of hashes of Tardies or Absences for CSV export.
-  # It does some joins so `student_id` is directly available on the exported CSV,
-  # rather than having to go through student_school_year.
-  def absences_or_tardies(method_symbol)
-    school_year_ids = SchoolYear.in_between_dates(@cutoff_date, @time_now).map(&:id)
-    student_school_years = StudentSchoolYear.all.includes(method_symbol).select do |student_school_year|
-      school_year_ids.include?(student_school_year.school_year_id)
-    end
-    student_school_years.flat_map(&method_symbol).map do |record|
-      record.as_json.merge(student_id: record.student_school_year.student_id)
-    end
-  end
 end

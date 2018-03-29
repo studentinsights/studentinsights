@@ -1,25 +1,31 @@
 require 'rails_helper'
 
-def create_service(student, educator)
-  FactoryGirl.create(:service, {
-    student: student,
-    recorded_by_educator: educator,
-    provided_by_educator_name: 'Muraki, Mari'
-  })
-end
-
 describe StudentsController, :type => :controller do
+  def create_service(student, educator)
+    FactoryGirl.create(:service, {
+      student: student,
+      recorded_by_educator: educator,
+      provided_by_educator_name: 'Muraki, Mari'
+    })
+  end
+
+  def create_event_note(student, educator)
+    FactoryGirl.create(:event_note, {
+      student: student,
+      educator: educator,
+    })
+  end
 
   describe '#show' do
     let!(:school) { FactoryGirl.create(:school) }
     let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+    let(:other_educator) { FactoryGirl.create(:educator, full_name: "Teacher, Louis") }
     let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
+    let(:course) { FactoryGirl.create(:course, school: school) }
+    let(:section) { FactoryGirl.create(:section, course: course) }
+    let!(:ssa) { FactoryGirl.create(:student_section_assignment, student: student, section: section) }
+    let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: other_educator, section: section)}
     let(:homeroom) { student.homeroom }
-    let!(:student_school_year) {
-      student.student_school_years.first || StudentSchoolYear.create!(
-        student: student, school_year: SchoolYear.first_or_create!
-      )
-    }
 
     def make_request(options = { student_id: nil, format: :html })
       request.env['HTTPS'] = 'on'
@@ -61,7 +67,6 @@ describe StudentsController, :type => :controller do
             deprecated: {interventions: []}
           })
 
-
           expect(serialized_data[:service_types_index]).to eq({
             502 => {:id=>502, :name=>"Attendance Officer"},
             503 => {:id=>503, :name=>"Attendance Contract"},
@@ -78,20 +83,32 @@ describe StudentsController, :type => :controller do
             514 => {:id=>514, :name=>"X-Block"},
           })
 
-          expect(serialized_data[:event_note_types_index]).to eq({
-            300 => {:id=>300, :name=>"SST Meeting"},
-            301 => {:id=>301, :name=>"MTSS Meeting"},
-            302 => {:id=>302, :name=>"Parent conversation"},
-            304 => {:id=>304, :name=>"Something else"},
-          })
+          expect(serialized_data[:event_note_types_index].keys).to match_array([
+            300, 301, 302, 304, 305, 306
+          ])
 
-          expect(serialized_data[:educators_index]).to eq({
+          expect(serialized_data[:event_note_types_index].values).to match_array([
+            {:id=>300, :name=>"SST Meeting"},
+            {:id=>301, :name=>"MTSS Meeting"},
+            {:id=>302, :name=>"Parent conversation"},
+            {:id=>304, :name=>"Something else"},
+            {:id=>305, :name=>"9th Grade Experience"},
+            {:id=>306, :name=>"10th Grade Experience"},
+          ])
+
+          expect(serialized_data[:educators_index]).to include({
             educator.id => {:id=>educator.id, :email=>educator.email, :full_name=>nil}
           })
 
           expect(serialized_data[:attendance_data].keys).to eq [
             :discipline_incidents, :tardies, :absences
           ]
+
+          expect(serialized_data[:sections].length).to equal(1)
+          expect(serialized_data[:sections][0]["id"]).to eq(section.id)
+          expect(serialized_data[:sections][0]["grade_numeric"]).to eq(ssa.grade_numeric)
+          expect(serialized_data[:sections][0]["educators"][0]["full_name"]).to eq(other_educator.full_name)
+          expect(serialized_data[:current_educator_allowed_sections]).to include(section.id)
         end
 
         context 'student has multiple discipline incidents' do
@@ -104,7 +121,7 @@ describe StudentsController, :type => :controller do
           let!(:more_recent_incident) {
             FactoryGirl.create(
               :discipline_incident,
-              student_school_year: student.student_school_years.first,
+              student: student,
               occurred_at: Time.now - 1.day
             )
           }
@@ -112,7 +129,7 @@ describe StudentsController, :type => :controller do
           let!(:less_recent_incident) {
             FactoryGirl.create(
               :discipline_incident,
-              student_school_year: most_recent_school_year,
+              student: student,
               occurred_at: Time.now - 2.days
             )
           }
@@ -122,9 +139,74 @@ describe StudentsController, :type => :controller do
             expect(discipline_incidents).to eq [more_recent_incident, less_recent_incident]
           end
         end
+      end
 
-        context 'educator has grade level access' do
-          let(:educator) { FactoryGirl.create(:educator, grade_level_access: [student.grade], school: school )}
+      context 'educator has grade level access' do
+        let(:educator) { FactoryGirl.create(:educator, grade_level_access: [student.grade], school: school )}
+
+        it 'is successful' do
+          make_request({ student_id: student.id, format: :html })
+          expect(response).to be_success
+        end
+      end
+
+      context 'educator has homeroom access' do
+        let(:educator) { FactoryGirl.create(:educator, school: school) }
+        before { homeroom.update(educator: educator) }
+
+        it 'is successful' do
+          make_request({ student_id: student.id, format: :html })
+          expect(response).to be_success
+        end
+      end
+
+      context 'educator has section access' do
+        let!(:educator) { FactoryGirl.create(:educator, school: school)}
+        let!(:course) { FactoryGirl.create(:course, school: school)}
+        let!(:section) { FactoryGirl.create(:section) }
+        let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: section) }
+        let!(:section_student) { FactoryGirl.create(:student, school: school) }
+        let!(:ssa) { FactoryGirl.create(:student_section_assignment, student: section_student, section: section) }
+
+        it 'is successful' do
+          make_request({ student_id: section_student.id, format: :html })
+          expect(response).to be_success
+        end
+      end
+
+      context 'educator does not have schoolwide, grade level, or homeroom access' do
+        let(:educator) { FactoryGirl.create(:educator, school: school) }
+
+        it 'fails' do
+          make_request({ student_id: student.id, format: :html })
+          expect(response).to redirect_to(not_authorized_path)
+        end
+      end
+
+      context 'educator has some grade level access but for the wrong grade' do
+        let(:student) { FactoryGirl.create(:student, :with_risk_level, grade: '1', school: school) }
+        let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['KF'], school: school) }
+
+        it 'fails' do
+          make_request({ student_id: student.id, format: :html })
+          expect(response).to redirect_to(not_authorized_path)
+        end
+      end
+
+      context 'educator access restricted to SPED students' do
+        let(:educator) { FactoryGirl.create(:educator,
+                                            grade_level_access: ['1'],
+                                            restricted_to_sped_students: true,
+                                            school: school )
+        }
+
+        context 'student in SPED' do
+          let(:student) { FactoryGirl.create(:student,
+                                              :with_risk_level,
+                                              grade: '1',
+                                              program_assigned: 'Sp Ed',
+                                              school: school)
+          }
 
           it 'is successful' do
             make_request({ student_id: student.id, format: :html })
@@ -132,105 +214,56 @@ describe StudentsController, :type => :controller do
           end
         end
 
-        context 'educator has homeroom access' do
-          let(:educator) { FactoryGirl.create(:educator, school: school) }
-          before { homeroom.update(educator: educator) }
-
-          it 'is successful' do
-            make_request({ student_id: student.id, format: :html })
-            expect(response).to be_success
-          end
-        end
-
-        context 'educator does not have schoolwide, grade level, or homeroom access' do
-          let(:educator) { FactoryGirl.create(:educator, school: school) }
+        context 'student in Reg Ed' do
+          let(:student) { FactoryGirl.create(:student,
+                                              :with_risk_level,
+                                              grade: '1',
+                                              program_assigned: 'Reg Ed')
+          }
 
           it 'fails' do
             make_request({ student_id: student.id, format: :html })
             expect(response).to redirect_to(not_authorized_path)
           end
-        end
-
-        context 'educator has some grade level access but for the wrong grade' do
-          let(:student) { FactoryGirl.create(:student, :with_risk_level, grade: '1', school: school) }
-          let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['KF'], school: school) }
-
-          it 'fails' do
-            make_request({ student_id: student.id, format: :html })
-            expect(response).to redirect_to(not_authorized_path)
-          end
-        end
-
-        context 'educator access restricted to SPED students' do
-          let(:educator) { FactoryGirl.create(:educator,
-                                              grade_level_access: ['1'],
-                                              restricted_to_sped_students: true,
-                                              school: school ) }
-
-          context 'student in SPED' do
-            let(:student) { FactoryGirl.create(:student,
-                                               :with_risk_level,
-                                               grade: '1',
-                                               program_assigned: 'Sp Ed',
-                                               school: school) }
-
-            it 'is successful' do
-              make_request({ student_id: student.id, format: :html })
-              expect(response).to be_success
-            end
-          end
-
-          context 'student in Reg Ed' do
-            let(:student) { FactoryGirl.create(:student,
-                                               :with_risk_level,
-                                               grade: '1',
-                                               program_assigned: 'Reg Ed') }
-
-            it 'fails' do
-              make_request({ student_id: student.id, format: :html })
-              expect(response).to redirect_to(not_authorized_path)
-            end
-          end
-
-        end
-
-        context 'educator access restricted to ELL students' do
-          let(:educator) { FactoryGirl.create(:educator,
-                                              grade_level_access: ['1'],
-                                              restricted_to_english_language_learners: true,
-                                              school: school ) }
-
-          context 'limited English proficiency' do
-            let(:student) { FactoryGirl.create(:student,
-                                               :with_risk_level,
-                                               grade: '1',
-                                               limited_english_proficiency: 'FLEP',
-                                               school: school) }
-
-            it 'is successful' do
-              make_request({ student_id: student.id, format: :html })
-              expect(response).to be_success
-            end
-          end
-
-          context 'fluent in English' do
-            let(:student) { FactoryGirl.create(:student,
-                                               :with_risk_level,
-                                               grade: '1',
-                                               limited_english_proficiency: 'Fluent') }
-
-            it 'fails' do
-              make_request({ student_id: student.id, format: :html })
-              expect(response).to redirect_to(not_authorized_path)
-            end
-          end
-
         end
 
       end
 
-    end
+      context 'educator access restricted to ELL students' do
+        let(:educator) { FactoryGirl.create(:educator,
+                                            grade_level_access: ['1'],
+                                            restricted_to_english_language_learners: true,
+                                            school: school )
+        }
 
+        context 'limited English proficiency' do
+          let(:student) { FactoryGirl.create(:student,
+                                              :with_risk_level,
+                                              grade: '1',
+                                              limited_english_proficiency: 'FLEP',
+                                              school: school)
+          }
+
+          it 'is successful' do
+            make_request({ student_id: student.id, format: :html })
+            expect(response).to be_success
+          end
+        end
+
+        context 'fluent in English' do
+          let(:student) { FactoryGirl.create(:student,
+                                              :with_risk_level,
+                                              grade: '1',
+                                              limited_english_proficiency: 'Fluent')
+          }
+
+          it 'fails' do
+            make_request({ student_id: student.id, format: :html })
+            expect(response).to redirect_to(not_authorized_path)
+          end
+        end
+      end
+    end
   end
 
   describe '#service' do
@@ -282,7 +315,8 @@ describe StudentsController, :type => :controller do
             'recorded_at',
             'date_started',
             'discontinued_by_educator_id',
-            'discontinued_recorded_at'
+            'discontinued_recorded_at',
+            'estimated_end_date'
           )
         end
       end
@@ -327,23 +361,48 @@ describe StudentsController, :type => :controller do
       get :names, params: { format: :json }
     end
 
-    context 'admin educator logged in' do
+    context 'admin educator logged in, no cached student names' do
       let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
       before { sign_in(educator) }
       let!(:juan) {
-        FactoryGirl.create(:student, first_name: 'Juan', last_name: 'P', school: school, grade: '5')
+        FactoryGirl.create(
+          :student, first_name: 'Juan', last_name: 'P', school: school, grade: '5'
+        )
       }
 
       let!(:jacob) {
         FactoryGirl.create(:student, first_name: 'Jacob', grade: '5')
       }
 
-      it 'returns an array of student labels and ids that match the educator\'s students' do
+      it 'returns an array of student labels and ids that match educator\'s students' do
         make_request
         expect(response).to be_success
-        expect(JSON.parse(response.body)).to eq [{ "label" => "Juan P - HEA - 5", "id" => juan.id }]
+        expect(JSON.parse(response.body)).to eq [
+          { "label" => "Juan P - HEA - 5", "id" => juan.id }
+        ]
       end
     end
+
+    context 'admin educator logged in, cached student names' do
+      let!(:educator) {
+        FactoryGirl.create(
+          :educator, :admin,
+          school: school,
+          student_searchbar_json: "[{\"label\":\"Juan P - HEA - 5\",\"id\":\"700\"}]"
+        )
+      }
+      before { sign_in(educator) }
+
+      it 'returns an array of student labels and ids that match cached students' do
+        make_request
+        expect(response).to be_success
+        expect(JSON.parse(response.body)).to eq [
+          { "label" => "Juan P - HEA - 5", "id" => "700" }
+        ]
+      end
+
+    end
+
     context 'educator without authorization to students' do
       let!(:educator) { FactoryGirl.create(:educator) }
       before { sign_in(educator) }
@@ -355,6 +414,7 @@ describe StudentsController, :type => :controller do
         expect(JSON.parse(response.body)).to eq []
       end
     end
+
     context 'educator not logged in' do
       it 'is not successful' do
         make_request
@@ -383,22 +443,25 @@ describe StudentsController, :type => :controller do
     let(:student) { FactoryGirl.create(:student) }
     let(:educator) { FactoryGirl.create(:educator, :admin) }
     let!(:service) { create_service(student, educator) }
+    let!(:event_note) { create_event_note(student, educator) }
 
     it 'returns services' do
       feed = controller.send(:student_feed, student)
       expect(feed.keys).to eq([:event_notes, :services, :deprecated])
       expect(feed[:services].keys).to eq [:active, :discontinued]
-      expect(feed[:services][:active].first[:id]).to eq service.id
+      expect(feed[:services][:discontinued].first[:id]).to eq service.id
+    end
+
+    it 'returns event notes' do
+      feed = controller.send(:student_feed, student)
+      event_notes = feed[:event_notes]
+
+      expect(event_notes.size).to eq 1
+      expect(event_notes.first[:student_id]).to eq(student.id)
+      expect(event_notes.first[:educator_id]).to eq(educator.id)
     end
 
     context 'after service is discontinued' do
-      before do
-        DiscontinuedService.create!({
-          service_id: service.id,
-          recorded_by_educator_id: educator.id,
-          recorded_at: Time.now
-        })
-      end
       it 'filters it' do
         feed = controller.send(:student_feed, student)
         expect(feed[:services][:active].size).to eq 0
@@ -528,9 +591,8 @@ describe StudentsController, :type => :controller do
         end
 
         it 'assigns the student\'s services correctly with full history' do
-          old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student)
-          FactoryGirl.create(:discontinued_service, service: old_service, recorded_at: '2012-05-21')
-          recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student)
+          old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student, discontinued_at: '2012-05-21')
+          recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student, discontinued_at: nil)
           expect(assigns(:services)).not_to include(old_service)
           expect(assigns(:services)).to include(recent_service)
         end
@@ -542,22 +604,39 @@ describe StudentsController, :type => :controller do
           expect(assigns(:event_notes)).not_to include(restricted_note)
         end
 
-        it 'assigns the student\'s attendance data correctly filtered history' do
+        it 'assigns the student\'s school years correctly' do
+          incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
+          absence = FactoryGirl.create(:absence, student: student, occurred_at: '2015-08-16')
+          tardy = FactoryGirl.create(:tardy, student: student, occurred_at: '2015-08-17')
+          make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
 
-          # Get the school years
-          old_school_year = DateToSchoolYear.new(Date.new(2013, 9, 1)).convert
-          current_school_year = DateToSchoolYear.new(Date.today).convert
+          expect(assigns(:student_school_years)[0].discipline_incidents).to include(incident)
+          expect(assigns(:student_school_years)[0].absences).to include(absence)
+          expect(assigns(:student_school_years)[0].tardies).to include(tardy)
+        end
 
-          # Find or create the student school years
-          old_student_school_year = student.student_school_years.find_or_create_by(school_year: old_school_year)
-          current_student_school_year = student.student_school_years.find_or_create_by(school_year: current_school_year)
+        it 'assigns the student\'s discipline incidents correctly' do
+          incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
+          old_incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-14')
+          make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
 
-          # Add an absence in the current school year
-          current_absence = FactoryGirl.create(:absence, student_school_year: current_student_school_year)
+          expect(assigns(:discipline_incidents)).to include(incident)
+          expect(assigns(:discipline_incidents)).not_to include(old_incident)
+        end
 
-          expect(assigns(:student_school_years)).not_to include(old_student_school_year)
-          expect(assigns(:student_school_years)).to include(current_student_school_year)
-          expect(assigns(:student_school_years).find_by_id(current_student_school_year.id).absences).to include(current_absence)
+        it 'assigns the student\'s assesments correctly' do
+          assessment = FactoryGirl.create(:assessment, :access)
+          student_assessment = FactoryGirl.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
+          assessment = FactoryGirl.create(:assessment, :math, :star)
+          student_assessment = FactoryGirl.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2017-02-16')
+          make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
+
+          expect(assigns(:student_assessments)).to include("ACCESS Composite")
+          expect(assigns(:student_assessments)["ACCESS Composite"]).to be_kind_of(Array)
+          expect(assigns(:student_assessments)["ACCESS Composite"]).to eq([["2016-08-16 00:00:00 UTC", nil]])
+          expect(assigns(:student_assessments)).to include("STAR Mathematics Percentile")
+          expect(assigns(:student_assessments)["STAR Mathematics Percentile"]).to be_kind_of(Array)
+          expect(assigns(:student_assessments)["STAR Mathematics Percentile"]).to eq([["2017-02-16 00:00:00 UTC", nil]])
         end
       end
     end

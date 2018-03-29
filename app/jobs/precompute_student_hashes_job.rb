@@ -43,11 +43,30 @@ class PrecomputeStudentHashesJob < Struct.new :log
     precomputed_time = Time.at(date_timestamp)
     authorized_students = Student.find(authorized_student_ids)
     student_hashes = authorized_students.map {|student| student_hash_for_slicing(student) }
-    key = precomputed_student_hashes_key(precomputed_time, authorized_student_ids)
 
-    # This is a non-atomic upsert
+    key = PrecomputedQueryDoc.precomputed_student_hashes_key(precomputed_time, authorized_student_ids)
+    write_doc_or_log(key, { student_hashes: student_hashes })
+    nil
+  end
+
+  # This is a non-atomic upsert
+  # This catches errors, emails, logs and returns nil
+  def write_doc_or_log(key, json_hash)
     pre_existing_doc = PrecomputedQueryDoc.find_by_key(key)
     pre_existing_doc.destroy! if pre_existing_doc.present?
-    PrecomputedQueryDoc.create!(key: key, json: { student_hashes: student_hashes }.to_json )
+    authorized_students_digest = key.split(':').last
+
+    begin
+      PrecomputedQueryDoc.create!(
+        key: key,
+        json: json_hash.to_json,
+        authorized_students_digest: authorized_students_digest
+      )
+    rescue => error
+      ErrorMailer.error_report(error).deliver_now if Rails.env.production?
+      log.puts "write_doc_or_log failed for key: #{key}"
+      log.puts err.inspect
+      nil
+    end
   end
 end

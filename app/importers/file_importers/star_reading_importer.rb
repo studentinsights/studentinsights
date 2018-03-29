@@ -1,7 +1,42 @@
-class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class StarReadingImporter
+
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
+  end
+
+  def import
+    return unless zip_file_name.present? && remote_file_name.present?
+
+    @log.write("\nDownloading ZIP file #{zip_file_name}...")
+
+    downloaded_zip = client.download_file(zip_file_name)
+
+    Zip::File.open(downloaded_zip) do |zipfile|
+      @log.write("\nImporting #{remote_file_name}...")
+
+      data_string = zipfile.read(remote_file_name).encode('UTF-8', 'binary', {
+        invalid: :replace, undef: :replace, replace: ''
+      })
+
+      data = data_transformer.transform(data_string)
+
+      data.each.each_with_index do |row, index|
+        import_row(row) if filter.include?(row)
+      end
+    end
+  end
+
+  def client
+    SftpClient.for_star
+  end
+
+  def zip_file_name
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STAR_ZIP_FILE')
+  end
 
   def remote_file_name
-    "SomervillePublicSchools\ -\ Generic\ SR\ Pipeline\ Extract\ -\ Active.csv"
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STAR_READING_IMPORT', nil)
   end
 
   def data_transformer
@@ -9,7 +44,7 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(@school_scope)
   end
 
   def star_reading_assessment
@@ -33,22 +68,6 @@ class StarReadingImporter < Struct.new :school_scope, :client, :log, :progress_b
       instructional_reading_level: row[:instructional_reading_level],
       grade_equivalent: row[:grade_equivalent]
     })
-  end
-
-  class HistoricalImporter < StarReadingImporter
-    # STAR sends historical data in a separate file
-
-    def remote_file_name
-      'SR_Historical.csv'
-    end
-  end
-
-  class RecentImporter < StarReadingImporter
-    # STAR sends recent data in a separate file
-
-    def remote_file_name
-      "SomervillePublicSchools\ -\ Generic\ SR\ Extract.csv"
-    end
   end
 
 end

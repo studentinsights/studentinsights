@@ -1,207 +1,24 @@
-  <div id="roster-controls">
-    <div id="roster-nav-options">
-      <p>Homeroom:</p>
-      <select id="homeroom-select">
-        <% @homerooms_by_name.each do |r| %>
-          <option <% if r == @homeroom %>selected<% end %> value="<%= r.slug %>">
-            <%= r.name %>
-          </option>
-        <% end %>
-      </select>
-    </div>
-    <div id="student-searchbar-wrapper" class="dropdown">
-    </div>
-  </div>
-  <div class="info-area">
+<div class="topline-info">
+  <h1>Room <%= @homeroom.name %></h1>
+</div>
 
-    <div class="underline topline-info">
-      <h1 id="student-name">Room <%= @homeroom.name %></h1>
-      <div id="roster-tooltip" class="tooltip-trigger">
-        <p>Help</p>
-        <span id="roster-help-icon">?</span>
-      </div>
-      <% if current_educator.admin? %>
-        <div class="homeroom-links">
-          <%= link_to 'STAR Reading', star_reading_school_path(@school_id, anchor: @star_homeroom_anchor) %>
-          <%= link_to 'STAR Math', star_math_school_path(@school_id, anchor: @star_homeroom_anchor) %>
-        </div>
+<div id="roster-controls">
+  <div>
+    <p>Homeroom:</p>
+    <select id="homeroom-select">
+      <% @homerooms_by_name.each do |r| %>
+        <option <% if r == @homeroom %>selected<% end %> value="<%= r.slug %>">
+          <%= r.name %>
+        </option>
       <% end %>
-    </div>
-
-    <div id="roster-table-wrapper">
-
-      <div id="column-picker-toggle">
-        <img src="<%= asset_path('menu.svg') %>"/>
-      </div>
-      <div id="column-picker">
-        <p>Select columns</p>
-        <form id="column-listing">
-          <div id="column-template">
-            <input type="checkbox" name="" value="">
-            <label></label>
-          </div>
-        </form>
-      </div>
-
-      <table id="roster-table" border="0" cellspacing="0" cellpadding="10" class="sort-default">
-        <thead>
-          <tr class="column-groups">
-            <!-- TOP-LEVEL COLUMN GROUPS -->
-            <td colspan="1" class="name block"></td>
-            <td colspan="1" class="risk"></td>
-            <td colspan="1" class="program"></td>
-            <td colspan="3" class="sped"><p class="smalltype">SPED & Disability</p></td>
-            <td colspan="2" class="language"><p class="smalltype">Language</p></td>
-            <td colspan="1" class="free-reduced"></td>
-            <% if @homeroom.show_star? %>
-              <td colspan="1" class="star_math"><p class="smalltype">STAR: Math</p></td>
-              <td colspan="1" class="star_reading"><p class="smalltype">STAR: Reading</p></td>
-            <% end %>
-            <% if @homeroom.show_mcas? %>
-              <td colspan="2" class="mcas_math"><p class="smalltype">MCAS: Math</p></td>
-              <td colspan="2" class="mcas_ela"><p class="smalltype">MCAS: ELA</p></td>
-            <% end %>
-          </tr>
-          <tr class="column-names">
-            <!-- COLUMN HEADERS -->
-            <th class="name">
-              <span id="first-column-header" class="table-header">Name</span>
-            </th>
-            <th class="risk sort-default" data-sort-method="reverse_number">
-              <span class="table-header">Risk</span>
-            </th>
-            <%#
-            # The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses.
-            # You can see the method at: app/assets/javascripts/roster/sorts/prog_assign_sort.js
-            %>
-            <th class="program" data-sort-method="prog_assign_sort">
-              <span class="table-header">Program Assigned</span>
-            </th>
-            <th class="sped" data-sort-method="disability">
-              <span class="table-header">Disability</span>
-            </th>
-            <%#
-            # The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses.
-            # See the method at: app/assets/javascripts/roster/sorts/level_of_need_sort.js
-            %>
-            <th class="sped" data-sort-method="need_sort">
-              <span class="table-header">Level of Need</span>
-            </th>
-            <th class="sped">
-              <span class="table-header">504 Plan</span>
-            </th>
-            <%#
-            # The data-sort-method attribute forces Tablesort to use a specific sorting method, instead of the default sort it uses.
-            # You can see the method at: app/assets/javascripts/roster/sorts/fluency_sort.js
-            %>
-            <th class="language" data-sort-method="fluency_sort">
-              <span class="table-header">Fluency</span>
-            </th>
-            <th class="language">
-              <span class="table-header">Home Language</span>
-            </th>
-            <th class="free-reduced">
-              <span class="table-header">Free/Reduced Lunch</span>
-            </th>
-            <% if @homeroom.show_star? %>
-              <th class="star_math" data-sort-method="number">
-                <span class="table-header">Percentile</span>
-              </th>
-              <th class="star_reading" data-sort-method="number">
-                <span class="table-header">Percentile</span>
-              </th>
-            <% end %>
-            <% if @homeroom.show_mcas? %>
-              <th class="mcas_math" data-sort-method="mcas_sort">
-                <span class="table-header">Performance</span>
-              </th>
-              <th class="mcas_math" data-sort-method="number">
-                <span class="table-header">Score</span>
-              </th>
-              <th class="mcas_ela" data-sort-method="mcas_sort">
-                <span class="table-header">Performance</span>
-              </th>
-              <th class="mcas_ela" data-sort-method="number">
-                <span class="table-header">Score</span>
-              </th>
-            <% end %>
-          </tr>
-       </thead>
-        <% if @rows.present? %>
-          <!-- ROWS -->
-          <% @rows.select{|row| row[:enrollment_status] == "Active"}.each do |row| %>
-
-            <tr class="student-row" href="<%= student_url(row["id"]) %>">
-              <td class="name">
-                <%= "#{row['first_name']} #{row['last_name']}" %>
-              </td>
-
-
-              <td class="risk" data-student-id="<%= row['id'] %> ">
-                <div class="warning-bubble risk-<%= row[:student_risk_level]['level'] || 'na' %> tooltip">
-                  <%= row[:student_risk_level]['level'] || 'N/A' %>
-                  <span class="tooltiptext"><%= row[:student_risk_level]['explanation'].html_safe %></span>
-                </div>
-              </td>
-
-              <td class="program">
-                <%= row['program_assigned'] %>
-              </td>
-              <td class="sped">
-                <%= row['disability'] %>
-              </td>
-              <td class="sped">
-                <div class="<%= row[:sped_data]['sped_bubble_class'] %>">
-                  <%= row[:sped_data]['sped_level'] %>
-                  <span class="tooltiptext"><%= row[:sped_data]['sped_tooltip_message'] %></span>
-                </div>
-              </td>
-
-              <td class="sped">
-                <%= row['plan_504'] %>
-              </td>
-              <td class="language">
-                <%= row['limited_english_proficiency'] %>
-              </td>
-              <td class="language">
-                <%= row['home_language'] %>
-              </td>
-              <td class="free-reduced">
-                <%= row['free_reduced_lunch'] %>
-              </td>
-
-              <% if @homeroom.show_star? %>
-                <td class="star_math percentile_rank">
-                  <%= row['most_recent_star_math_percentile'] %>
-                </td>
-                <td class="star_reading percentile_rank">
-                  <%= row['most_recent_star_reading_percentile'] %>
-                </td>
-              <% end %>
-
-               <% if @homeroom.show_mcas? %>
-                <td class="mcas_math performance_level">
-                  <%= row['most_recent_mcas_math_performance'] %>
-                </td>
-                <td class="mcas_math">
-                  <%= row['most_recent_mcas_math_scaled'] %>
-                </td>
-                <td class="mcas_ela performance_level">
-                  <%= row['most_recent_mcas_ela_performance'] %>
-                </td>
-                <td class="mcas_ela">
-                  <%= row['most_recent_mcas_ela_scaled'] %>
-                </td>
-              <% end %>
-
-            </tr>
-
-          <% end %>
-        <% end %>
-      </table>
-    </div>
+    </select>
   </div>
+  <div id="student-searchbar-wrapper" class="dropdown"></div>
+</div>
 
-  <%= tag("div", id: "chart-data", data: @risk_levels) %>
-  <%= tag("div", id: "homeroom-data", data: { homeroom: @homeroom}) %>
-  <%= tag("div", id: "current-educator-data", data: { current_educator: current_educator}) %>
+
+<div id="main"></div>
+
+<%= json_div(id: "homeroom-data", data: { homeroom: @homeroom}) %>
+<%= json_div(id: "current-educator-data", data: { current_educator: current_educator}) %>
+<%= json_div(id: "serialized-data", data: @serialized_data) %>

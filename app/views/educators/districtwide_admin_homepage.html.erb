@@ -17,12 +17,12 @@
           School Data Overview
         </h3>
         <ul>
-          <% @elementary_schools.each do |school| %>
-            <li>
-              <%= link_to school.name, school_path(school), {
-                class: 'prominent-link'
-              } %>
-            </li>
+          <% @schools.each do |school| %>
+              <li class="school-name">
+                <%= school.name %><br/>
+                <%= link_to 'Overview', school_path(school) %> |
+                <%= link_to 'Dashboard', school_administrator_dashboard_school_path(school) %>
+              </li>
           <% end %>
         </ul>
       </div>
@@ -38,12 +38,23 @@
           </h3>
           <ul>
             <li>
+              <%= link_to 'Educator permissions overview', admin_authorization_url, {
+                class: 'prominent-link'
+              } %>
+            </li>
+            <li>
               <%= link_to 'Adjust educator permissions', admin_root_url, {
                 class: 'prominent-link'
               } %>
             </li>
             <li>
               <%= link_to 'Upload student services file', service_uploads_url, {
+                class: 'prominent-link'
+              } %>
+            </li>
+            <li>
+              <%= link_to 'View import records',
+                import_records_url, {
                 class: 'prominent-link'
               } %>
             </li>

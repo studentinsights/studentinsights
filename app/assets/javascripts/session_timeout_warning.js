@@ -1,26 +1,16 @@
-(function(root) {
-  var Env = window.shared.Env;
-
-  var SessionTimeoutWarning = function () {};
+export default function sessionTimeoutWarning(Env) {
+  const SessionTimeoutWarning = function () {};
 
   SessionTimeoutWarning.prototype.count = function () {
-    root.setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
+    window.setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
   };
 
   SessionTimeoutWarning.prototype.show = function () {
     $('#renew-session').slideDown();
   };
 
-  root.SessionTimeoutWarning = SessionTimeoutWarning;
-
-})(window);
-
-$(function() {
-
-  if ($('body').hasClass('educator-signed-in')) {
-    var warning = new SessionTimeoutWarning;
-    warning.count();
-  }
+  const warning = new SessionTimeoutWarning;
+  warning.count();
 
   $("#renew-sesion-link").click(function () {
     $.ajax({
@@ -31,4 +21,4 @@ $(function() {
       }
     });
   });
-});
+}

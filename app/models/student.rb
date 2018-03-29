@@ -6,32 +6,54 @@ class Student < ActiveRecord::Base
   # Contrast with student_row.rb, which represents a row imported from X2,
   # (not necessarily in the database yet).
 
-  belongs_to :homeroom, counter_cache: true
+  belongs_to :homeroom, optional: true, counter_cache: true
   belongs_to :school
-  has_many :student_school_years, dependent: :destroy
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
   has_many :event_notes, dependent: :destroy
   has_many :services, dependent: :destroy
+  has_many :tardies, dependent: :destroy
+  has_many :dashboard_tardies, -> { where('occurred_at >= ?', 1.year.ago) },
+    class_name: "Tardy"
+  has_many :absences, dependent: :destroy
+  has_many :dashboard_absences, -> { where('occurred_at >= ?', 1.year.ago) },
+    class_name: "Absence"
+  has_many :discipline_incidents, dependent: :destroy
+  has_one :iep_document, dependent: :destroy
+  has_many :student_section_assignments
+  has_many :sections, through: :student_section_assignments
+
   has_one :student_risk_level, dependent: :destroy
 
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
-  validate :valid_grade
+  validate :validate_grade
   validate :registration_date_cannot_be_in_future
+  validate :validate_free_reduced_lunch
 
-  after_create :update_student_school_years
+  VALID_GRADES = [
+    'PPK', 'PK', 'KF', 'SP', 'TK', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'
+  ].freeze
 
-  VALID_GRADES = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8', 'HS'].freeze
+  VALID_FREE_REDUCED_LUNCH_VALUES = [
+    "Free Lunch",
+    "Not Eligible",
+    "Reduced Lunch",
+    nil
+  ]
 
-  def valid_grade
-    errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
+  def registration_date_in_future
+    return false if registration_date.nil?
+
+    return false if DateTime.now > registration_date
+
+    return true
   end
 
   def registration_date_cannot_be_in_future
-    if registration_date && (registration_date > DateTime.now)
-      errors.add(:registration_date, "cannot be in future")
+    if registration_date_in_future
+      errors.add(:registration_date, "cannot be in future for student local id ##{local_id}")
     end
   end
 
@@ -45,6 +67,32 @@ class Student < ActiveRecord::Base
 
   def active?
     enrollment_status == 'Active'
+  end
+
+  ## ABSENCES / TARDIES ##
+
+  def most_recent_school_year_discipline_incidents_count
+    discipline_incidents.where(
+      'occurred_at > ?', start_of_this_school_year
+    ).count
+  end
+
+  def most_recent_school_year_absences_count
+    absences.where(
+      'occurred_at > ?', start_of_this_school_year
+    ).count
+  end
+
+  def most_recent_school_year_tardies_count
+    tardies.where(
+      'occurred_at > ?', start_of_this_school_year
+    ).count
+  end
+
+  def events_by_student_school_years(filter_to_date, filter_from_date)
+    sorter = StudentSchoolYearSorter.new(student: self)
+
+    sorter.sort_and_filter(filter_to_date, filter_from_date)
   end
 
   ## STUDENT ASSESSMENT RESULTS ##
@@ -76,6 +124,14 @@ class Student < ActiveRecord::Base
     ordered_results_by_family_and_subject("MCAS", "ELA")
   end
 
+  def next_gen_mcas_mathematics_results
+    ordered_results_by_family_and_subject("Next Gen MCAS", "Mathematics")
+  end
+
+  def next_gen_mcas_ela_results
+    ordered_results_by_family_and_subject("Next Gen MCAS", "ELA")
+  end
+
   def star_reading_results
     ordered_results_by_family_and_subject("STAR", "Reading")
   end
@@ -100,11 +156,11 @@ class Student < ActiveRecord::Base
   end
 
   def latest_mcas_mathematics
-    latest_result_by_family_and_subject("MCAS", "Mathematics") || MissingStudentAssessment.new
+    latest_result_by_family_and_subject(["Next Gen MCAS", "MCAS"], "Mathematics") || MissingStudentAssessment.new
   end
 
   def latest_mcas_ela
-    latest_result_by_family_and_subject("MCAS", "ELA") || MissingStudentAssessment.new
+    latest_result_by_family_and_subject(["Next Gen MCAS", "MCAS"], "ELA") || MissingStudentAssessment.new
   end
 
   def latest_star_mathematics
@@ -150,85 +206,29 @@ class Student < ActiveRecord::Base
     where(most_recent_mcas_ela_performance: 'W')
   end
 
-  ## SCHOOL YEARS ##
-
-  def earliest_school_year
-    return DateToSchoolYear.new(registration_date).convert if registration_date.present?
-
-    # If we don't have a registration date on file from X2, our next best option
-    # is to guess that the student started Somerville Public Schools in K.
-
-    # As of May 2105, about 9% of current students are missing a registration date
-    # value in X2, mostly students in the high school.
-
-    # As of February 2016, all students in X2 are associated with a grade level.
-
-    # We'll also need to handle non-numerical grade levels: KF, PK, SP
-
-    return DateToSchoolYear.new(Time.new - grade.to_i.years).convert
-  end
-
-  def current_school_year
-    DateToSchoolYear.new(Time.new).convert
-  end
-
-  def find_student_school_years
-    SchoolYear.in_between(earliest_school_year, current_school_year)
-  end
-
-  def most_recent_school_year
-    # Default_scope on student school years
-    # sorts by recency, with most recent first.
-    student_school_years.first
-  end
-
-  def update_student_school_years
-    find_student_school_years.each do |s|
-      StudentSchoolYear.where(student_id: self.id, school_year_id: s.id).first_or_create!
-    end
-  end
-
-  def self.update_student_school_years
-    # This method is meant to be called as a scheduled task.
-    # Less expensive than calculating student school years on the fly.
-    find_each { |s| s.update_student_school_years }
-  end
-
-  def assign_events_to_student_school_years
-    # In case you have events that weren't assigned to student
-    # school years. (This code is kind of like a migration.)
-    [student_assessments, interventions].each do |events|
-      events.map do |event|
-        event.assign_to_student_school_year
-      end
-    end
-  end
-
-  def self.assign_events_to_student_school_years
-    find_each { |s| s.assign_events_to_student_school_years }
-  end
-
   ## RISK LEVELS ##
 
-  def self.update_risk_levels
+  def self.update_risk_levels!
     # This method is meant to be called daily to
     # check for updates to all student's risk levels
     # and save the results to the db (too expensive
     # to calculate on the fly with each page load).
-    find_each { |s| s.update_risk_level }
+    find_each { |s| s.update_risk_level! }
   end
 
-  def update_risk_level
+  # Update or create, and cache
+  def update_risk_level!
     if student_risk_level.present?
       student_risk_level.update_risk_level!
     else
-      create_student_risk_level!
+      self.student_risk_level = StudentRiskLevel.new(student_id: id)
+      self.student_risk_level.save!
     end
 
     # Cache risk level to the student table
     if self.risk_level != student_risk_level.level
       self.risk_level = student_risk_level.level
-      self.save
+      self.save!
     end
   end
 
@@ -237,7 +237,7 @@ class Student < ActiveRecord::Base
   def sped_data
     {
       sped_level: sped_level,
-      sped_tooltip_message: sped_tooltip_message, 
+      sped_tooltip_message: sped_tooltip_message,
       sped_bubble_class: sped_bubble_class
     }
   end
@@ -253,7 +253,7 @@ class Student < ActiveRecord::Base
     when "High"
       "4"
     else
-      "---"
+      "—"
     end
   end
 
@@ -269,16 +269,45 @@ class Student < ActiveRecord::Base
       "#{self.first_name} receives 15+ hours of special education services per week."
     else
       nil
-    end  
+    end
   end
 
   def sped_bubble_class
     case sped_level
-    when "---"
+    when "—"
       "sped"
     else
       "warning-bubble sped-risk-bubble tooltip"
     end
   end
 
+  # Sections
+  def sections_with_grades
+    sections.select("sections.*, student_section_assignments.grade_numeric")
+  end
+
+  private
+  def this_year
+    DateTime.now.year
+  end
+
+  def august_of_this_year
+    DateTime.new(this_year, 8, 1)
+  end
+
+  def start_of_this_school_year
+    if august_of_this_year > DateTime.now
+      DateTime.new(this_year - 1, 8, 1)
+    else
+      august_of_this_year
+    end
+  end
+
+  def validate_free_reduced_lunch
+    errors.add(:free_reduced_lunch, "unexpected value: #{free_reduced_lunch}") unless free_reduced_lunch.in?(VALID_FREE_REDUCED_LUNCH_VALUES)
+  end
+
+  def validate_grade
+    errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
+  end
 end

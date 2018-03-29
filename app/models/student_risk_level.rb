@@ -1,11 +1,13 @@
 class StudentRiskLevel < ActiveRecord::Base
   belongs_to :student
+  validates :student, presence: true, uniqueness: true
   delegate :student_assessments, :limited_english_proficiency, to: :student
   after_create :update_risk_level!
 
   # Use most recent assessments to calculate risk
   def mcas_math
-    student.latest_result_by_family_and_subject("MCAS", "Mathematics") || MissingStudentAssessment.new
+    # Look for the most recent of Next Gen or Legacy MCAS
+    next_gen = student.latest_result_by_family_and_subject(["Next Gen MCAS","MCAS"], "Mathematics") || MissingStudentAssessment.new
   end
 
   def star_math
@@ -13,7 +15,8 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def mcas_ela
-    student.latest_result_by_family_and_subject("MCAS", "ELA") || MissingStudentAssessment.new
+    # Look for the most recent of Next Gen or Legacy MCAS
+    next_gen = student.latest_result_by_family_and_subject(["Next Gen MCAS","MCAS"], "ELA") || MissingStudentAssessment.new
   end
 
   def star_reading
@@ -55,7 +58,10 @@ class StudentRiskLevel < ActiveRecord::Base
   def calculate_level
     # As defined by Somerville Public Schools
 
-    if mcas_or_star_at_level(3) || limited_english_proficiency_risk_level == 3
+    if student.school.try(:school_type) == "HS"
+      #High School risk levels have not been defined
+      level = nil
+    elsif mcas_or_star_at_level(3) || limited_english_proficiency_risk_level == 3
       level = 3
     elsif mcas_or_star_at_level(2)
       level = 2
@@ -68,4 +74,88 @@ class StudentRiskLevel < ActiveRecord::Base
     end
   end
 
+  def level_as_string
+    level.nil? ? "N/A" : level.to_s
+  end
+
+  def css_class_name
+    "risk-" + level_as_string.downcase.gsub("/", "")
+  end
+
+  # Data for Risk Level explanation:
+
+  def risk_factors_to_levels
+    {
+      mcas_math_risk_level: mcas_math_risk_level,
+      star_math_risk_level: star_math_risk_level,
+      mcas_ela_risk_level: mcas_ela_risk_level,
+      star_reading_risk_level: star_reading_risk_level,
+      limited_english_proficiency_risk_level: limited_english_proficiency_risk_level
+    }
+  end
+
+  def relevant_risk_factors
+    risk_factors_to_levels.delete_if do |key, value|
+      value != level
+    end
+  end
+
+  def explanation
+    { intro: explanation_intro_html, reasons: explanations_array }
+  end
+
+  def explanation_intro_html
+    "#{name} is at Risk #{level_as_string} because:"
+  end
+
+  def name
+    student.first_name || "This student"
+  end
+
+  def explanations_array
+    return ["There is not enough information to tell."] if level == nil
+
+    relevant_risk_factors.to_a.map do |key_value_pair|
+      factor_name = key_value_pair[0]
+      factor_value = key_value_pair[1]
+      explanation = risk_factor_names_to_explanations[factor_name][factor_value]
+
+      "#{name}#{explanation}."
+    end
+  end
+
+  def risk_factor_names_to_explanations
+    {
+      limited_english_proficiency_risk_level: {
+        3 => " is limited English proficient"
+      },
+      mcas_math_risk_level: {
+        3 => "'s MCAS Math performance level is Warning or Not Meeting Expectations",
+        2 => "'s MCAS Math performance level is Needs Improvement or Partially Meeting",
+        1 => "'s MCAS Math performance level is Proficient or Meeting Expectations",
+        0 => "'s MCAS Math performance level is Advanced or Exceeding Expectations"
+      },
+      mcas_ela_risk_level: {
+        3 => "'s MCAS English Language Arts performance level is Warning or Not Meeting Expectations",
+        2 => "'s MCAS English Language Arts performance level is Needs Improvement or Partially Meeting",
+        1 => "'s MCAS English Language Arts performance level is Proficient or Meeting Expectations",
+        0 => "'s MCAS English Language Arts performance level is Advanced or Exceeding Expectations"
+      },
+      star_reading_risk_level: {
+        3 => "'s STAR Reading performance is in the warning range (below 10)",
+        2 => "'s STAR Reading performance is in the 10-30 range",
+        1 => "'s STAR Reading performance is above 30",
+        0 => "'s STAR Reading performance is above 85"
+      }, star_math_risk_level: {
+        3 => "'s STAR Math performance is in the warning range (below 10)",
+        2 => "'s STAR Math performance is in the 10-30 range",
+        1 => "'s STAR Math performance is above 30",
+        0 => "'s STAR Math performance is above 85"
+      }
+    }
+  end
+
+  def as_json_with_explanation
+    as_json.merge(explanation: explanation)
+  end
 end

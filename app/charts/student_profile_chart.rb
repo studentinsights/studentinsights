@@ -17,7 +17,11 @@ class StudentProfileChart < Struct.new :student
   def percentile_ranks_to_highcharts(student_assessments)
     return if student_assessments.blank?
     student_assessments.map do |s|
-      [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank, s.grade_equivalent.to_f]
+      if s.grade_equivalent == nil
+        [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank]
+      else
+        [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank, s.grade_equivalent]
+      end
     end
   end
 
@@ -43,6 +47,8 @@ class StudentProfileChart < Struct.new :student
     {
       star_series_math_percentile: percentile_ranks_to_highcharts(data[:star_math_results]),
       star_series_reading_percentile: percentile_ranks_to_highcharts(data[:star_reading_results]),
+      next_gen_mcas_mathematics_scaled: scale_scores_to_highcharts(data[:next_gen_mcas_mathematics_results]),
+      next_gen_mcas_ela_scaled: scale_scores_to_highcharts(data[:next_gen_mcas_ela_results]),
       mcas_series_math_scaled: scale_scores_to_highcharts(data[:mcas_mathematics_results]),
       mcas_series_ela_scaled: scale_scores_to_highcharts(data[:mcas_ela_results]),
       mcas_series_math_growth: growth_percentiles_to_highcharts(data[:mcas_mathematics_results]),
@@ -59,10 +65,8 @@ class StudentProfileChart < Struct.new :student
       star_reading_results: student.star_reading_results,
       mcas_mathematics_results: student.mcas_mathematics_results,
       mcas_ela_results: student.mcas_ela_results,
-      absences_count_by_school_year: student.student_school_years.map {|year| year.absences.length },
-      tardies_count_by_school_year: student.student_school_years.map {|year| year.tardies.length },
-      discipline_incidents_by_school_year: student.student_school_years.map {|year| year.discipline_incidents.length },
-      school_year_names: student.student_school_years.pluck(:name),
+      next_gen_mcas_mathematics_results: student.next_gen_mcas_mathematics_results,
+      next_gen_mcas_ela_results: student.next_gen_mcas_ela_results,
       interventions: student.interventions
     }
   end

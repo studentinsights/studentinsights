@@ -1,5 +1,9 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+  ENV['DISTRICT_KEY'] = 'somerville'
+
+  ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
+
+  ENV['AWS_REGION'] = 'us-west-2'
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that

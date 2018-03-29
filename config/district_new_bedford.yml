@@ -1,0 +1,85 @@
+remote_filenames:
+  FILENAME_FOR_EDUCATORS_IMPORT:      ../newbedford/istaff.csv
+  FILENAME_FOR_STUDENTS_IMPORT:       ../newbedford/istudent.csv
+  FILENAME_FOR_BEHAVIOR_IMPORT:       ../newbedford/iconduct.csv
+  FILENAME_FOR_ASSESSMENT_IMPORT:     ../newbedford/iassessments.csv
+  FILENAME_FOR_ATTENDANCE_IMPORT:     ../newbedford/iattendance.csv
+  FILENAME_FOR_STAR_READING_IMPORT:   SR.csv
+  FILENAME_FOR_STAR_MATH_IMPORT:      SM.csv
+  FILENAME_FOR_STAR_ZIP_FILE:         New Bedford Public Schools.zip
+schools:
+  -
+    name: Charles S. Ashley
+    local_id: '010'
+  -
+    name: Elizabeth Carter Brooks
+    local_id: '015'
+  -
+    name: Elwyn G. Campbell
+    local_id: '020'
+  -
+    name: Sgt. William Carney Memorial Academy
+    local_id: '045'
+  -
+    name: James B. Congdon
+    local_id: '040'
+  -
+    name: John B. DeValles
+    local_id: '050'
+  -
+    name: Alfred J. Gomes
+    local_id: '063'
+  -
+    name: Irwin M. Jacobs
+    local_id: '070'
+  -
+    name: Ellen R. Hathaway
+    local_id: '075'
+  -
+    name: Hayden-McFadden
+    local_id: '078'
+  -
+    name: Abraham Lincoln
+    local_id: '095'
+  -
+    name: Carlos Pacheco
+    local_id: '105'
+  -
+    name: John A. Parker
+    local_id: '115'
+  -
+    name: Casimir Pulaski
+    local_id: '123'
+  -
+    name: Renaissance
+    local_id: '124'
+  -
+    name: Thomas R. Rodman
+    local_id: '125'
+  -
+    name: Jireh Swift
+    local_id: '130'
+  -
+    name: William H. Taylor
+    local_id: '135'
+  -
+    name: Betsey B. Winslow
+    local_id: '140'
+  -
+    name: Keith Middle
+    local_id: '405'
+  -
+    name: Normandin Middle
+    local_id: '410'
+  -
+    name: Roosevelt Middle
+    local_id: '415'
+  -
+    name: New Bedford High
+    local_id: '505'
+  -
+    name: Trinity Day Academy
+    local_id: '510'
+  -
+    name: Whaling City Jr./Sr. High
+    local_id: '515'

@@ -18,8 +18,12 @@ RSpec.describe FakeStudent do
     expect(student.home_language).not_to be_nil
   end
 
-  it 'adds student assessments' do
-    expect(student.student_assessments).not_to be_empty
+  it "sets student enrollment status to be either 'Active' or 'Transferred'" do
+    expect(student.enrollment_status).to eq('Active').or(eq('Transferred'))
+  end
+
+  it "sets student race attributes" do
+    expect(student.race).not_to be_nil
   end
 
   context 'd is 1 always' do

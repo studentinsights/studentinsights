@@ -1,30 +1,39 @@
+import _ from 'lodash';
+import {toDate} from './QuadConverter';
+
 (function() {
-  window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
-  const merge = window.shared.ReactHelpers.merge;
-
-  const QuadConverter = window.shared.QuadConverter;
-
   /*
   Project quads outside of the date range, since interpolation will connect with previous data points.
   */
-  const Sparkline = window.shared.Sparkline = React.createClass({
+  window.shared.Sparkline = React.createClass({
     displayName: 'Sparkline',
 
     propTypes: {
       height: React.PropTypes.number.isRequired,
       width: React.PropTypes.number.isRequired,
-      quads: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)).isRequired,
+      quads: React.PropTypes.arrayOf(React.PropTypes.arrayOf(
+        React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.number ])
+      )).isRequired,
       dateRange: React.PropTypes.array.isRequired,
       valueRange: React.PropTypes.array.isRequired,
       thresholdValue: React.PropTypes.number.isRequired,
+      shouldDrawCircles: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
       return {
         shouldDrawCircles: true
       };
+    },
+
+    computeDelta(quads) {
+      const filteredQuadValues = _.compact(quads.map(function(quad) {
+        const date = toDate(quad);
+        if (date > this.props.dateRange[0] && date < this.props.dateRange[1]) return null;
+        return quad[3];
+      }, this));
+      if (filteredQuadValues.length < 2) return 0;
+      return _.last(filteredQuadValues) - _.first(filteredQuadValues);
     },
 
     render: function() {
@@ -42,11 +51,11 @@
         .domain(this.props.valueRange)
         .range([this.props.height - padding, padding]);
       const lineGenerator = d3.svg.line()
-        .x(function(d) { return x(QuadConverter.toDate(d)); }.bind(this))
+        .x(function(d) { return x(toDate(d)); }.bind(this))
         .y(function(d) { return y(d[3]); })
         .interpolate('linear');
 
-      const lineColor = color(this.delta(this.props.quads));
+      const lineColor = color(this.computeDelta(this.props.quads));
       return (
         <div className="Sparkline" style={{ overflow: 'hidden' }}>
           <svg height={this.props.height} width={this.props.width}>
@@ -93,16 +102,6 @@
             stroke="#ccc" />
         );
       });
-    },
-
-    delta: function(quads) {
-      const filteredQuadValues = _.compact(quads.map(function(quad) {
-        const date = QuadConverter.toDate(quad);
-        if (date > this.props.dateRange[0] && date < this.props.dateRange[1]) return null;
-        return quad[3];
-      }, this));
-      if (filteredQuadValues.length < 2) return 0;
-      return _.last(filteredQuadValues) - _.first(filteredQuadValues);
-    },
+    }
   });
 })();

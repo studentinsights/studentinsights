@@ -1,89 +1,30 @@
+import _ from 'lodash';
+import * as GraphHelpers from '../../helpers/GraphHelpers';
+import generateReportGraph from './GenerateReportGraph';
+
 (function() {
   window.shared || (window.shared = {});
-  var GraphHelpers = window.shared.GraphHelpers;
-
-  function generateGraph(containerSelector, yAxisLabel, xAxisSettings, title, dataSeries){
-    
-    var stacking ="";
-
-    if(dataSeries.length > 1) {
-      stacking = "normal";
-    }
-
-    $(containerSelector).highcharts({
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: title
-      },
-      credits: false,
-      exporting: {
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          stacking: stacking,
-          dataLabels: {
-            enabled: true,
-            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-            formatter: function(){
-              var val = this.y;
-              if (val < 1) {
-                return '';
-              }
-              return val;
-            },
-          }
-        }
-      },
-      xAxis: xAxisSettings,
-      yAxis: {
-        title: {
-          text: yAxisLabel
-        },
-        stackLabels: {
-          enabled: true,
-          style: {
-            fontWeight: 'bold',
-            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-          },
-          formatter: function(){
-            var val = this.total;
-            if (val < 1) {
-              return '';
-            }
-            return val;
-          },
-        },
-        min: 0,
-        max: 20,
-      },
-      series: dataSeries
-    });
-
-  }
 
   window.shared.StudentProfilePdf = {
     load: function() {
 
-      var attendanceData = $('#serialized-data').data('attendance-data');
-      var filterDateRange = $('#serialized-data').data('graph-date-range');
+      const attendanceData = $('#serialized-data').data('attendance-data');
+      const filterDateRange = $('#serialized-data').data('graph-date-range');
 
-      var filterFromDate = moment.utc(filterDateRange.filter_from_date, "YYYY-MM-DD");
-      var filterToDate = moment.utc(filterDateRange.filter_to_date, "YYYY-MM-DD");
+      const filterFromDate = moment.utc(filterDateRange.filter_from_date, "YYYY-MM-DD");
+      const filterToDate = moment.utc(filterDateRange.filter_to_date, "YYYY-MM-DD");
 
-      var monthsBack = filterToDate.diff(filterFromDate, 'months') <= 23 ? filterToDate.diff(filterFromDate, 'months') : 23;
-      
-      var allMonthKeys = GraphHelpers.monthKeys(filterToDate, monthsBack);
-      var allYearCategories = GraphHelpers.yearCategories(allMonthKeys);
+      const monthsBack = filterToDate.diff(filterFromDate, 'months') <= 23 ? filterToDate.diff(filterFromDate, 'months') : 23;
 
-      var tardyMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.tardies);
-      var absenceMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.absences);
-      var disciplineMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.discipline_incidents);
-      
+      const allMonthKeys = GraphHelpers.monthKeys(filterToDate, monthsBack);
+      const allYearCategories = GraphHelpers.yearCategories(allMonthKeys);
 
-      var xAxisSettings = [
+      const tardyMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.tardies);
+      const absenceMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.absences);
+      const disciplineMonthBuckets = GraphHelpers.eventsToMonthBuckets(allMonthKeys, attendanceData.discipline_incidents);
+
+
+      const xAxisSettings = [
         {
           categories: allMonthKeys.map(GraphHelpers.monthAxisCaption)
         },
@@ -96,7 +37,7 @@
         }
       ];
 
-      var attendanceDataSeries = [
+      const attendanceDataSeries = [
         {
           name: "Tardies",
           showInLegend: true,
@@ -111,7 +52,7 @@
         }
       ];
 
-      var disciplineDataSeries = [
+      const disciplineDataSeries = [
         {
           name: "Discipline Incidents",
           showInLegend: true,
@@ -120,13 +61,13 @@
         }
       ];
 
-      
+
       if(_.flatten(absenceMonthBuckets).length + _.flatten(tardyMonthBuckets).length > 0) {
-        generateGraph("#attendance-container", "Number of Absences / Tardies", xAxisSettings, "Absences & Tardies " + GraphHelpers.dateTitle(filterToDate, monthsBack), attendanceDataSeries);
+        generateReportGraph("#attendance-container", "Number of Absences / Tardies", xAxisSettings, "Absences & Tardies " + GraphHelpers.dateTitle(filterToDate, monthsBack), attendanceDataSeries);
       }
 
       if(_.flatten(disciplineMonthBuckets).length > 0) {
-        generateGraph("#discipline-incident-container", "Number of Discipline Incidents", xAxisSettings, "Discipline Incidents " + GraphHelpers.dateTitle(filterToDate, monthsBack), disciplineDataSeries);
+        generateReportGraph("#discipline-incident-container", "Number of Discipline Incidents", xAxisSettings, "Discipline Incidents " + GraphHelpers.dateTitle(filterToDate, monthsBack), disciplineDataSeries);
       }
 
 

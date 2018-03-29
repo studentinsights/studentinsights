@@ -1,5 +1,6 @@
+import React from 'react';
 import Bar from '../components/bar.jsx';
-const Colors = window.shared.colors;
+import {colors} from '../helpers/Theme';
 
 
 // Translate null values
@@ -172,7 +173,7 @@ export default React.createClass({
                   margin: 3,
                   width: '5em',
                   border: '1px solid #ccc',
-                  backgroundColor: (grade === gradeFilter) ? Colors.selection : '#eee'
+                  backgroundColor: (grade === gradeFilter) ? colors.selection : '#eee'
                 }}
                 key={grade}
                 onClick={this.onGradeClicked.bind(this, grade)}>{grade}</button>;

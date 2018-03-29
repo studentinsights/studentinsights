@@ -1,8 +1,4 @@
 class EventNotesController < ApplicationController
-  include SerializeDataHelper
-
-  rescue_from Exceptions::EducatorNotAuthorized, with: :render_unauthorized_json!
-
   before_action :authorize!
 
   def authorize!
@@ -17,8 +13,10 @@ class EventNotesController < ApplicationController
       recorded_at: Time.now
     }))
 
+    serializer = EventNoteSerializer.new(event_note)
+
     if event_note.save
-      render json: serialize_event_note(event_note)
+      render json: serializer.serialize_event_note
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
     end
@@ -28,6 +26,8 @@ class EventNotesController < ApplicationController
     event_note_id = params[:id]
 
     event_note = EventNote.find(event_note_id)
+
+    serializer = EventNoteSerializer.new(event_note)
 
     # Save the state of the existing event note.
     previous_event_note_revision = EventNoteRevision.where(
@@ -56,7 +56,7 @@ class EventNotesController < ApplicationController
     end
 
     if event_note.update!(event_note_params)
-      render json: serialize_event_note(event_note)
+      render json: serializer.serialize_event_note
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
     end

@@ -2,32 +2,36 @@ require 'rails_helper'
 
 RSpec.describe StudentsImporter do
 
-  describe '#import_row' do
+  let(:students_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: nil
+    })
+  }
 
+  describe '#import_row' do
     context 'good data' do
-      let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
+      let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
-
-      let(:importer) { described_class.new }          # We don't pass in args
-
-      let(:import) {
-        csv.each { |row| importer.import_row(row) }   # No school filter here because
-      }                                               # we are calling 'import' directly
-                                                      # on each row
-
+      let(:import) { csv.each { |row| students_importer.import_row(row) } }
       let!(:high_school) { School.create(local_id: 'SHS') }
       let!(:healey) { School.create(local_id: 'HEA') }
       let!(:brown) { School.create(local_id: 'BRN') }
 
       context 'no existing students in database' do
 
-        it 'imports students' do
-          expect { import }.to change { Student.count }.by 2
+        it 'creates Student and StudentRiskLevel records' do
+          expect { import }.to change { [Student.count, StudentRiskLevel.count] }.by([4, 4])
+        end
+
+        it 'does not import students with far future registration dates' do
+          import
+          expect(Student.count).to eq 4
+          expect(Student.where(state_id: '1000000003').size).to eq 0
         end
 
         it 'imports student data correctly' do
-          import
+          expect { import }.to change { [Student.count, StudentRiskLevel.count] }.by([4, 4])
 
           first_student = Student.find_by_state_id('1000000000')
           expect(first_student.reload.school).to eq healey
@@ -40,13 +44,45 @@ RSpec.describe StudentsImporter do
           expect(first_student.race).to eq 'Black'
           expect(first_student.hispanic_latino).to eq false
           expect(first_student.gender).to eq 'F'
+          expect(first_student.student_risk_level).to_not eq nil
+          expect(first_student.house).to eq ''
+          expect(first_student.counselor).to eq nil
 
           second_student = Student.find_by_state_id('1000000002')
           expect(second_student.race).to eq 'White'
           expect(second_student.hispanic_latino).to eq true
           expect(second_student.gender).to eq 'F'
+          expect(second_student.student_risk_level).to_not eq nil
+
+          shs_student = Student.find_by_state_id('1000000001')
+          expect(shs_student.house).to eq 'Elm'
+          expect(shs_student.counselor).to eq 'LABERGE'
         end
 
+      end
+
+      context 'when an existing student in the database' do
+        before do
+          student = Student.new(local_id: '100', school: healey, grade: '7')
+          student.save!
+          student.create_student_risk_level!
+        end
+        it 'does not create new records for existing students' do
+          expect([Student.count, StudentRiskLevel.count]).to eq([1, 1])
+          import
+          expect([Student.count, StudentRiskLevel.count]).to eq([4, 4])
+        end
+      end
+
+      context 'when students already imported' do
+        before do
+          import
+        end
+        it 'does not create new records for existing students' do
+          expect([Student.count, StudentRiskLevel.count]).to eq([4, 4])
+          import
+          expect([Student.count, StudentRiskLevel.count]).to eq([4, 4])
+        end
       end
 
       context 'student in database who has since graduated on to high school' do
@@ -55,15 +91,15 @@ RSpec.describe StudentsImporter do
         }
 
         it 'imports students' do
-          expect { import }.to change { Student.count }.by 2
+          expect { import }.to change { Student.count }.by 3
         end
 
         it 'updates the student\'s data correctly' do
           import
 
-          expect(graduating_student.reload.school).to eq nil
-          expect(graduating_student.grade).to eq 'HS'
-          expect(graduating_student.enrollment_status).to eq 'High School'
+          expect(graduating_student.reload.school).to eq high_school
+          expect(graduating_student.grade).to eq '10'
+          expect(graduating_student.enrollment_status).to eq 'Active'
         end
 
       end
@@ -71,13 +107,13 @@ RSpec.describe StudentsImporter do
     end
 
     context 'bad data' do
-      context 'missing state id' do
-        let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '1', homeroom: '101' } }
-        it 'raises an error' do
-          expect{ described_class.new.import_row(row) }.not_to raise_error
-
-          # TODO -- expect it to notify us or print something out ...
-        end
+      let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '1', homeroom: '101' } }
+      it 'raises an error' do
+        expect{
+          students_importer.import_row(row)
+        }.to raise_error(
+          ActiveRecord::RecordInvalid
+        )
       end
     end
 
@@ -91,7 +127,7 @@ RSpec.describe StudentsImporter do
       let!(:new_homeroom) { FactoryGirl.create(:homeroom, school: school) }
 
       it 'assigns the student to the homeroom' do
-        described_class.new.assign_student_to_homeroom(student, new_homeroom.name)
+        students_importer.assign_student_to_homeroom(student, new_homeroom.name)
         expect(student.reload.homeroom).to eq(new_homeroom)
       end
     end
@@ -101,11 +137,11 @@ RSpec.describe StudentsImporter do
       let!(:new_homeroom_name) { '152I' }
       it 'creates a new homeroom' do
         expect {
-          described_class.new.assign_student_to_homeroom(student, new_homeroom_name)
+          students_importer.assign_student_to_homeroom(student, new_homeroom_name)
         }.to change(Homeroom, :count).by(1)
       end
       it 'assigns the student to the homeroom' do
-        described_class.new.assign_student_to_homeroom(student, new_homeroom_name)
+        students_importer.assign_student_to_homeroom(student, new_homeroom_name)
         new_homeroom = Homeroom.find_by_name(new_homeroom_name)
         expect(student.homeroom_id).to eq(new_homeroom.id)
       end
@@ -117,7 +153,7 @@ RSpec.describe StudentsImporter do
 
       it 'does not create a new homeroom' do
         expect {
-          described_class.new.assign_student_to_homeroom(student, new_homeroom_name)
+          students_importer.assign_student_to_homeroom(student, new_homeroom_name)
         }.to change(Homeroom, :count).by(0)
       end
 

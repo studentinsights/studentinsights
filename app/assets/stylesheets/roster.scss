@@ -1,174 +1,59 @@
-/* ROSTER */
-/* TODO: Scopeify this. */
+/* HOMEROOM ROSTER */
 
-.topline-info {
-  padding: 20px 40px;
-}
+.homerooms.show {
 
-#roster-table {
-  overflow: visible;
-  width: 100%;
-  margin-right: -100px;
-  min-height: 360px;
-  display: block;
-
-  .column-names {
-    th:first-child {
-      padding-left: 20px;
-    }
-
-    th:nth-child(2) {
-      padding-left: 15em;
-    }
-  }
-
-  .name {
-    width: 15em;
-    text-align: left;
-    position: absolute;
-    background-color: white;
-  }
-
-  .block {
-    height: 50px;
-  }
-
-  tbody {
-    tr:hover {
-      cursor: pointer;
-      background-color: $table-row-hover;
-      border-radius: 10px;
-    }
-
-    tr:hover .name {
-      cursor: pointer;
-      background-color: $table-row-hover;
-      border-radius: 10px;
-    }
-
-    td {
-      padding: 10px;
-      text-align: center;
-    }
-
-    td:hover {
-      z-index: 10;
-    }
-
-    td:first-child {
-      padding-top: 15px;
-    }
-
-    td:nth-child(2) {
-      padding-left: 15em;
-    }
-
-    a:link, a:visited {
-      color: $gray;
-    }
-
-    a:hover, a:active {
-      color: $gray;
-    }
-  }
-
-}
-
-#roster-table-wrapper {
-  padding: 30px;
-}
-
-.highcharts-container {
- overflow: visible !important;
- margin-top: 60px !important;
-}
-
-#column-picker-toggle {
-  cursor: pointer;
-  float: right;
-}
-
-#column-picker {
-  display: none;
-  position: absolute;
-  right: 25px;
-  top: 130px;
-  background-color: white;
-  z-index: 100;
-  border: 2px solid $backgroud;
-  border-radius: 4px;
-  padding: 20px;
-  text-align: left;
-
-  p {
-    border-bottom: 1px solid $dark-line;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
-
-  label {
-    padding-left: 3px;
-    display: inline-block;
-  }
-
-  #column-template {
-    padding-bottom: 5px;
-  }
-}
-
-#dialog-form {
-  input, textarea, select {
-    margin-bottom: 16px;
-  }
-}
-
-#roster-tooltip {
-  float: right;
-  text-align: center;
-  position: relative;
-  bottom: 25px;
-
-  #roster-help-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
-    background-color: $dark-line;
-    padding-top: 4px;
-    padding-bottom: 6px;
-    text-align: center;
-    position: relative;
-    bottom: 4px;
-    margin-left: 5px;
-    display: inline-block;
-    color: #fff;
-    font-size: 16px;
+  #roster-controls, .topline-info {
+    padding: 30px 20px 20px 30px;
     float: left;
   }
-}
 
-#roster-nav-options {
-  top: 25px;
-  position: relative;
-  float: left;
-
-  p {
-    display: inline-block;
-    font-weight: normal;
-    color: $light-gray;
-    margin-right: 5px;
-    margin-top: 3px;
-    margin-left: 15px;
+  #roster-table {
+    th.sortable_header {
+      cursor: pointer;
+    }
   }
-}
 
-#roster-controls {
-  width: 80%;
-  margin: auto auto;
-  height: 80px;
-
-  @media screen and (max-width: $phase1) {
-    height: 100px;
+  #column-picker-toggle {
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    top: 130px;
   }
-  padding-bottom: 15px;
-  clear: both;
+
+  #column-picker {
+    position: absolute;
+    right: 25px;
+    top: 160px;
+    background-color: white;
+    z-index: 100;
+    border: 2px solid $backgroud;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: left;
+
+    p {
+      border-bottom: 1px solid $dark-line;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .close {
+      float: right;
+      color: blue;
+      font-weight: lighter;
+      font-size: 12px;
+      position: relative;
+      top: 2px;
+      cursor: pointer;
+    }
+
+    label {
+      padding-left: 3px;
+      display: inline-block;
+    }
+
+    #column-template {
+      padding-bottom: 5px;
+    }
+  }
 }

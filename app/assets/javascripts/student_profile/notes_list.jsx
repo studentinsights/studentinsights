@@ -1,12 +1,12 @@
+import _ from 'lodash';
+import moment from 'moment';
+import PropTypes from '../helpers/prop_types.jsx';
+import * as FeedHelpers from '../helpers/FeedHelpers';
+
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
 
   const NoteCard = window.shared.NoteCard;
-  const PropTypes = window.shared.PropTypes;
-  const FeedHelpers = window.shared.FeedHelpers;
-  const moment = window.moment;
 
   const styles = {
     noItems: {
@@ -26,14 +26,14 @@
   /*
   Renders the list of notes.
   */
-  const NotesList = window.shared.NotesList = React.createClass({
+  window.shared.NotesList = React.createClass({
     displayName: 'NotesList',
 
     propTypes: {
       feed: PropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
-      onSaveNote: React.PropTypes.func.isRequired,
+      onSaveNote: React.PropTypes.func,
       onEventNoteAttachmentDeleted: React.PropTypes.func
     },
 
@@ -68,6 +68,7 @@
         <NoteCard
           key={['event_note', eventNote.id].join()}
           eventNoteId={eventNote.id}
+          student={eventNote.student}          
           eventNoteTypeId={eventNote.event_note_type_id}
           noteMoment={moment.utc(eventNote.recorded_at)}
           badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
@@ -88,7 +89,7 @@
       return (
         <NoteCard
           key={['deprecated_intervention', deprecatedIntervention.id].join()}
-          noteMoment={moment.utc(deprecatedIntervention.start_date_timestamp)}
+          noteMoment={moment.utc(deprecatedIntervention.start_date_timestamp, 'MMMM-YY-DD')}
           badge={React.createElement("span", { style: styles.badge }, 'Old intervention')}
           educatorId={deprecatedIntervention.educator_id}
           text={_.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n')}

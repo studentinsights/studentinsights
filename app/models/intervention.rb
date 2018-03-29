@@ -2,10 +2,6 @@ class Intervention < ActiveRecord::Base
   belongs_to :student
   belongs_to :educator
   belongs_to :intervention_type
-  belongs_to :school_year
-  belongs_to :student_school_year
-  before_save :assign_to_school_year
-  after_create :assign_to_student_school_year
   validates :student, :intervention_type, :start_date, presence: true
   validate :end_date_cannot_come_before_start_date
 
@@ -21,19 +17,6 @@ class Intervention < ActiveRecord::Base
         errors.add(:end_date, "can't be before start date")
       end
     end
-  end
-
-  ## SCHOOL YEARS ##
-
-  def assign_to_school_year
-    self.school_year = DateToSchoolYear.new(start_date).convert
-  end
-
-  def assign_to_student_school_year
-    self.student_school_year = StudentSchoolYear.where({
-      student_id: student.id, school_year_id: school_year.id
-    }).first_or_create!
-    save
   end
 
   ## CHARTS ##

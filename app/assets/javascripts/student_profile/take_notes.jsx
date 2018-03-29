@@ -1,5 +1,8 @@
+import _ from 'lodash';
+import {merge} from '../helpers/react_helpers.jsx';
+import React from 'react';
+
 window.shared || (window.shared = {});
-const merge = window.shared.ReactHelpers.merge;
 
 const styles = {
   dialog: {
@@ -38,8 +41,9 @@ const styles = {
     background: '#eee', // override CSS
     color: 'black',
     // shrinking:
-    width: '12em',
+    minWidth: '14em',
     fontSize: 12,
+    marginRight: '1em',
     padding: 8
   }
 };
@@ -58,15 +62,15 @@ export default React.createClass({
     onSave: React.PropTypes.func.isRequired,
     onCancel: React.PropTypes.func.isRequired,
     currentEducator: React.PropTypes.object.isRequired,
-    requestState: React.PropTypes.string // or null
+    requestState: React.PropTypes.string, // or null
+    noteInProgressText: React.PropTypes.string.isRequired,
+    noteInProgressType: React.PropTypes.number,
+    onClickNoteType: React.PropTypes.func.isRequired,
+    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
-    return {
-      eventNoteTypeId: null,
-      text: '',
-      attachmentUrls: []
-    };
+    return { attachmentUrls: [] };
   },
 
   // Focus on note-taking text area when it first appears.
@@ -88,9 +92,9 @@ export default React.createClass({
   },
 
   disabledSaveButton: function () {
-    return (
-      this.state.eventNoteTypeId === null || !this.isValidAttachmentUrls()
-    );
+    const {noteInProgressType} = this.props;
+
+    return (noteInProgressType === null || !this.isValidAttachmentUrls());
   },
 
   isValidAttachmentUrls: function () {
@@ -99,10 +103,6 @@ export default React.createClass({
               url.slice(0, 8) === 'https://' ||
               url.length      === 0);
     });
-  },
-
-  onChangeText: function(event) {
-    this.setState({ text: event.target.value });
   },
 
   onChangeAttachmentUrl: function(changedIndex, event) {
@@ -116,24 +116,24 @@ export default React.createClass({
     this.setState({ attachmentUrls: filteredAttachmentUrls });
   },
 
-  onClickNoteType: function(noteTypeId, event) {
-    this.setState({ eventNoteTypeId: noteTypeId });
-  },
-
   onClickCancel: function(event) {
     this.props.onCancel();
   },
 
   onClickSave: function(event) {
-    const params = merge(
-      _.pick(this.state, 'eventNoteTypeId', 'text'),
-      this.eventNoteUrlsForSave()
-    );
+    const {noteInProgressText, noteInProgressType} = this.props;
+
+    const params = merge({
+      eventNoteTypeId: noteInProgressType,
+      text: noteInProgressText,
+    }, this.eventNoteUrlsForSave());
 
     this.props.onSave(params);
   },
 
   render: function() {
+    const {noteInProgressText} = this.props;
+
     return (
       <div className="TakeNotes" style={styles.dialog}>
         {this.renderNoteHeader({
@@ -144,8 +144,8 @@ export default React.createClass({
           rows={10}
           style={styles.textarea}
           ref={function(ref) { this.textareaRef = ref; }.bind(this)}
-          value={this.state.text}
-          onChange={this.onChangeText} />
+          value={noteInProgressText}
+          onChange={this.props.onChangeNoteInProgressText} />
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           What are these notes from?
         </div>
@@ -153,11 +153,11 @@ export default React.createClass({
           <div style={{ flex: 1 }}>
             {this.renderNoteButton(300)}
             {this.renderNoteButton(301)}
+            {this.renderNoteButton(305)}
           </div>
           <div style={{ flex: 1 }}>
+            {this.renderNoteButton(306)}
             {this.renderNoteButton(302)}
-          </div>
-          <div style={{ flex: 'auto' }}>
             {this.renderNoteButton(304)}
           </div>
         </div>
@@ -207,16 +207,24 @@ export default React.createClass({
 
   // TODO(kr) extract button UI
   renderNoteButton: function(eventNoteTypeId) {
-    const eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
+    const {
+      onClickNoteType,
+      eventNoteTypesIndex,
+      noteInProgressType
+    } = this.props;
+
+    const eventNoteType = eventNoteTypesIndex[eventNoteTypeId];
+
     return (
       <button
         className="btn note-type"
-        onClick={this.onClickNoteType.bind(this, eventNoteTypeId)}
+        onClick={onClickNoteType}
         tabIndex={-1}
+        name={eventNoteTypeId}
         style={merge(styles.serviceButton, {
           background: '#eee',
           outline: 0,
-          border: (this.state.eventNoteTypeId === eventNoteTypeId)
+          border: (noteInProgressType === eventNoteTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
         })}>

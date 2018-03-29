@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="EventNoteCard"
+>
+  <div
+    className="Card FeedCardFrame"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+          }
+        }
+      >
+        <div>
+          <div>
+            <a
+              href="/students/55"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Mari
+               
+              Skywalker
+            </a>
+          </div>
+          <div>
+            9th grade
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
+              <a
+                href="/homerooms/13"
+              >
+                SHS-052
+              </a>
+              <span>
+                <span>
+                   
+                </span>
+                 with 
+                <a
+                  className="Educator"
+                  href="mailto:lt@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Lois Teacher
+                </a>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "flexDirection": "column",
+          }
+        }
+      >
+        <div>
+          <div>
+            <span>
+              by 
+            </span>
+            <a
+              className="Educator"
+              href="mailto:kt@demo.studentinsights.org"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Kevin Teacher
+            </a>
+          </div>
+        </div>
+        <div>
+          <div>
+            in 
+            9th Grade Experience
+          </div>
+        </div>
+        <div>
+          <div>
+            14 years ago
+             on 
+            3/5
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginTop": 20,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "border": "1px solid transparent",
+            "fontFamily": "'Open Sans', sans-serif",
+            "fontSize": 14,
+            "marginTop": 5,
+            "padding": 0,
+            "style": undefined,
+            "whiteSpace": "pre-wrap",
+          }
+        }
+      >
+        hello!
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "flex-end",
+          "marginBottom": 5,
+        }
+      }
+    >
+      <div>
+        <span
+          className="HouseBadge"
+          style={
+            Object {
+              "backgroundColor": "#333",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
+            }
+          }
+        >
+          Beacon house
+        </span>
+        <span
+          className="Badge"
+          style={
+            Object {
+              "backgroundColor": "#139DEA",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
+            }
+          }
+        >
+          9th Grade Experience
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

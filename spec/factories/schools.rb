@@ -1,6 +1,8 @@
 FactoryGirl.define do
 
   factory :school do
+    sequence(:local_id) {|n| n }
+    sequence(:slug) {|n| "slug#{n}" }
   end
 
   factory :healey, class: School do
@@ -13,6 +15,13 @@ FactoryGirl.define do
     state_id 75
     slug 'brn'
     local_id "BRN"
+  end
+
+  factory :shs, class: School do
+    state_id 33
+    slug 'shs'
+    local_id "SHS"
+    school_type "HS"
   end
 
   trait :with_educator do

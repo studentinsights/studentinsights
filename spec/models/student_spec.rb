@@ -10,15 +10,89 @@ RSpec.describe Student do
       end
     end
     context 'future registration date' do
-      let(:student) { FactoryGirl.build(:student, registration_date: Time.now + 1.year) }
+      let(:student) {
+        FactoryGirl.build(
+          :student,
+          registration_date: Time.now + 1.year,
+          local_id: '2000',
+          grade: '1'
+        )
+      }
       it 'is invalid' do
         expect(student).to be_invalid
+        expect(student.errors.messages).to eq({
+          registration_date: ["cannot be in future for student local id #2000"]
+        })
       end
     end
     context 'past registration date' do
       let(:student) { FactoryGirl.build(:student, :registered_last_year) }
       it 'is valid' do
         expect(student).to be_valid
+      end
+    end
+  end
+
+  describe '#most_recent_school_year_absences_count' do
+    let(:student) { FactoryGirl.create(:student) }
+
+    context 'no absences ever' do
+
+      it 'returns zero' do
+        expect(student.most_recent_school_year_absences_count).to eq(0)
+      end
+    end
+
+    context 'no absences this school year, one last year' do
+      let!(:absence) {
+        FactoryGirl.create(:absence,
+          student: student,
+          occurred_at: DateTime.new(2016, 9, 1)
+        )
+      }
+
+      it 'returns zero' do
+        Timecop.freeze(DateTime.new(2017, 9, 1)) do
+          expect(student.most_recent_school_year_absences_count).to eq(0)
+        end
+      end
+    end
+
+    context 'two absences this school year (first half of year)' do
+      before do
+        FactoryGirl.create(:absence,
+          student: student,
+          occurred_at: DateTime.new(2017, 9, 1)
+        )
+        FactoryGirl.create(:absence,
+          student: student,
+          occurred_at: DateTime.new(2017, 9, 2)
+        )
+      end
+
+      it 'returns two' do
+        Timecop.freeze(DateTime.new(2018, 6, 1)) do
+          expect(student.most_recent_school_year_absences_count).to eq(2)
+        end
+      end
+    end
+
+    context 'two absences this school year (second half of year)' do
+      before do
+        FactoryGirl.create(:absence,
+          student: student,
+          occurred_at: DateTime.new(2018, 5, 1)
+        )
+        FactoryGirl.create(:absence,
+          student: student,
+          occurred_at: DateTime.new(2018, 5, 2)
+        )
+      end
+
+      it 'returns two' do
+        Timecop.freeze(DateTime.new(2018, 6, 1)) do
+          expect(student.most_recent_school_year_absences_count).to eq(2)
+        end
       end
     end
   end
@@ -131,69 +205,6 @@ RSpec.describe Student do
     end
   end
 
-  describe '#find_student_school_years' do
-    context 'school years in the 2010s' do
-      let!(:sy_2014_2015) { FactoryGirl.create(:sy_2014_2015) }
-      let!(:sy_2013_2014) { FactoryGirl.create(:sy_2013_2014) }
-      let!(:sy_2012_2013) { FactoryGirl.create(:sy_2012_2013) }
-
-      context 'student has registration date' do
-        let!(:student) { FactoryGirl.create(:student_who_registered_in_2013_2014) }
-        it 'calculates student school years based on registration date' do
-          Timecop.freeze(Time.new(2015, 5, 24)) do
-            expect(student.find_student_school_years).to eq([sy_2014_2015, sy_2013_2014])
-          end
-        end
-      end
-
-      context 'student has numerical grade level (1 through 12)' do
-        context 'student is in 2nd grade' do
-          let(:student) { FactoryGirl.create(:second_grade_student) }
-          it 'assumes student has been attending SPS since K' do
-            Timecop.freeze(Time.new(2015, 5, 24)) do
-              expect(student.find_student_school_years).to eq([sy_2014_2015, sy_2013_2014, sy_2012_2013])
-            end
-          end
-        end
-      end
-
-      context 'student has non-numerical grade level' do
-        context 'student grade level is PK' do
-          let(:student) { FactoryGirl.create(:pre_k_student) }
-          it 'assumes student is in 1st year of SPS' do
-            Timecop.freeze(Time.new(2015, 5, 24)) do
-              expect(student.find_student_school_years).to eq([sy_2014_2015])
-            end
-          end
-        end
-      end
-
-    end
-  end
-
-  describe '#update_student_school_years' do
-    context 'when student has been in school for two years' do
-      let!(:student) { FactoryGirl.build(:student_who_registered_in_2013_2014) }
-      it 'creates two new student school years' do
-        Timecop.freeze(Time.new(2015, 5, 24)) do
-          expect {
-            student.save
-          }.to change {
-            StudentSchoolYear.count
-          }.by 2
-        end
-      end
-      it 'assigns the student school year attributes' do
-        Timecop.freeze(Time.new(2015, 5, 24)) do
-          student.save
-          expect(StudentSchoolYear.last.student).to eq(student)
-          expect(StudentSchoolYear.last.school_year.name).to eq '2013-2014'
-          expect(StudentSchoolYear.first.school_year.name).to eq '2014-2015'
-        end
-      end
-    end
-  end
-
   describe '#update_recent_student_assessments' do
     context 'has student assessments' do
       let(:student) { FactoryGirl.create(:student_with_mcas_math_advanced_and_star_math_warning_assessments) }
@@ -205,15 +216,28 @@ RSpec.describe Student do
     end
   end
 
-  describe '#update_risk_level' do
+  describe '#update_risk_level!' do
+    context 'when risk level record already exists' do
+      let(:student) { FactoryGirl.create(:student) }
+      let(:student_risk_level) { StudentRiskLevel.create!(student: student) }
+      before do
+        student.student_risk_level = student_risk_level
+        student.save!
+      end
+      it 'updates existing record and does not create a new one' do
+        expect { student.update_risk_level! }.to change(StudentRiskLevel, :count).by 0
+        expect(student.student_risk_level).to eq student_risk_level
+      end
+    end
+
     context 'no pre-existing risk level' do
       context 'non-ELL student with no test results' do
         let(:student) { FactoryGirl.create(:student) }
         it 'creates a risk level' do
-          expect { student.update_risk_level }.to change(StudentRiskLevel, :count).by 1
+          expect { student.update_risk_level! }.to change(StudentRiskLevel, :count).by 1
         end
         it 'assigns correct level' do
-          student.update_risk_level
+          student.update_risk_level!
           student_risk_level = student.student_risk_level
           expect(student_risk_level.level).to eq nil
           expect(student.risk_level).to eq nil
@@ -222,10 +246,10 @@ RSpec.describe Student do
       context 'ELL student with no test results' do
         let(:student) { FactoryGirl.build(:limited_english_student) }
         it 'creates a risk level' do
-          expect { student.update_risk_level }.to change(StudentRiskLevel, :count).by 1
+          expect { student.update_risk_level! }.to change(StudentRiskLevel, :count).by 1
         end
         it 'assigns correct level' do
-          student.update_risk_level
+          student.update_risk_level!
           student_risk_level = student.student_risk_level
           expect(student_risk_level.level).to eq 3
           expect(student.risk_level).to eq 3

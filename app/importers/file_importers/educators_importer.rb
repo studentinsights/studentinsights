@@ -1,7 +1,28 @@
-class EducatorsImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class EducatorsImporter
+
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
+  end
+
+  def import
+    return unless remote_file_name
+
+    @data = CsvDownloader.new(
+      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
+    ).get_data
+
+    @data.each.each_with_index do |row, index|
+      import_row(row) if filter.include?(row)
+    end
+  end
+
+  def client
+    SftpClient.for_x2
+  end
 
   def remote_file_name
-    'educators_export.txt'
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_EDUCATORS_IMPORT', nil)
   end
 
   def data_transformer
@@ -9,7 +30,7 @@ class EducatorsImporter < Struct.new :school_scope, :client, :log, :progress_bar
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(@school_scope)
   end
 
   def school_ids_dictionary
@@ -18,10 +39,15 @@ class EducatorsImporter < Struct.new :school_scope, :client, :log, :progress_bar
 
   def import_row(row)
     educator = EducatorRow.new(row, school_ids_dictionary).build
-    educator.save! if educator.present?
 
-    homeroom = Homeroom.find_by_name(row[:homeroom]) if row[:homeroom].present?
-    homeroom.update(educator: educator) if (homeroom.present? && educator.present?)
+    if educator.present?
+      educator.save!
+
+      homeroom = Homeroom.find_by_name(row[:homeroom]) if row[:homeroom]
+      homeroom.update(educator: educator) if homeroom.present?
+    else
+      @log.write("EducatorsImporter: nil EducatorRow, skipping row: #{row}")
+    end
   end
 
 end

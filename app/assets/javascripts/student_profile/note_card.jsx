@@ -1,19 +1,19 @@
-import Educator from './educator.jsx';
+import Educator from '../components/Educator';
+import NoteText from '../components/NoteText';
+import EditableNoteText from '../components/EditableNoteText';
+import moment from 'moment';
+import * as Routes from '../helpers/Routes';
 
 (function() {
   window.shared || (window.shared = {});
-  const dom = window.shared.ReactHelpers.dom;
-  const createEl = window.shared.ReactHelpers.createEl;
-
-  const EditableTextComponent = window.shared.EditableTextComponent;
-  const moment = window.moment;
 
   const styles = {
     note: {
       border: '1px solid #eee',
       padding: 15,
       marginTop: 10,
-      marginBottom: 10
+      marginBottom: 10,
+      width: '100%'
     },
     date: {
       display: 'inline-block',
@@ -25,12 +25,21 @@ import Educator from './educator.jsx';
       paddingLeft: 5,
       display: 'inline-block'
     },
-    noteText: {
-      marginTop: 5,
-      padding: 0,
-      fontFamily: "'Open Sans', sans-serif",
-      fontSize: 14,
-      whiteSpace: 'pre-wrap'
+    studentCard: {
+      border: '1px solid #eee',
+      padding: 15,
+      marginTop: 10,
+      marginBottom: 10,
+      width: '25%'
+    },
+    studentName: {
+      fontSize: '18px',
+      fontWeight: 'bold',
+      color: '#3177c9',
+      marginBottom: '5%'
+    },
+    wrapper: {
+      display: 'flex'
     }
   };
 
@@ -39,17 +48,18 @@ import Educator from './educator.jsx';
     displayName: 'NoteCard',
 
     propTypes: {
-      noteMoment: React.PropTypes.instanceOf(moment).isRequired,
-      educatorId: React.PropTypes.number.isRequired,
+      attachments: React.PropTypes.array.isRequired,
       badge: React.PropTypes.element.isRequired,
-      text: React.PropTypes.string.isRequired,
+      educatorId: React.PropTypes.number.isRequired,
+      educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteId: React.PropTypes.number,
       eventNoteTypeId: React.PropTypes.number,
-      educatorsIndex: React.PropTypes.object.isRequired,
-      attachments: React.PropTypes.array.isRequired,
-      onSave: React.PropTypes.func,
+      noteMoment: React.PropTypes.instanceOf(moment).isRequired,
+      numberOfRevisions: React.PropTypes.number,
       onEventNoteAttachmentDeleted: React.PropTypes.func,
-      numberOfRevisions: React.PropTypes.number
+      onSave: React.PropTypes.func,
+      student: React.PropTypes.object,
+      text: React.PropTypes.string.isRequired
     },
 
     getDefaultProps: function() {
@@ -75,61 +85,40 @@ import Educator from './educator.jsx';
 
     render: function() {
       return (
-        <div className="NoteCard" style={styles.note}>
-          <div>
-            <span className="date" style={styles.date}>
-              {this.props.noteMoment.format('MMMM D, YYYY')}
-            </span>
-            {this.props.badge}
-            <span style={styles.educator}>
-              <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
-            </span>
+        <div className="wrapper" style={styles.wrapper}>
+          {this.renderStudentCard()}
+          <div className="NoteCard" style={styles.note}>
+            <div>
+              <span className="date" style={styles.date}>
+                {this.props.noteMoment.format('MMMM D, YYYY')}
+              </span>
+              {this.props.badge}
+              <span style={styles.educator}>
+                <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
+              </span>
+            </div>
+            {this.renderText()}
+            {this.renderAttachmentUrls()}
           </div>
-          {(this.props.onSave) ? this.renderSaveableTextArea() : this.renderStaticTextArea()}
-          {this.renderAttachmentUrls()}
-        </div>
-      );
-    },
-
-    renderSaveableTextArea: function() {
-      return (
-        <div>
-          <EditableTextComponent
-            style={styles.noteText}
-            className="note-text"
-            text={this.props.text}
-            onBlurText={this.onBlurText} />
-          {this.renderNumberOfRevisions()}
-        </div>
-      );
-    },
-
-    renderNumberOfRevisions: function () {
-      const numberOfRevisions = this.props.numberOfRevisions;
-      if (numberOfRevisions === 0) return null;
-
-      return (
-        <div
-          style={{
-            color: '#aaa',
-            fontSize: 13,
-            marginTop: 13
-          }}>
-          {(numberOfRevisions === 1)
-              ? 'Revised 1 time'
-              : 'Revised ' + numberOfRevisions + ' times'}
-        </div>
+        </div>        
       );
     },
 
     // If an onSave callback is provided, the text is editable.
-    // If not (eg., for older interventions),
-    renderStaticTextArea: function () {
-      return (
-        <div style={styles.noteText} className="note-text">
-          {this.props.text}
-        </div>
-      );
+    // This is for older interventions that are read-only 
+    // because of changes to the server data model.
+    renderText() {
+      const {onSave, text, numberOfRevisions}= this.props;
+      if (onSave) {
+        return (
+          <EditableNoteText
+            text={text}
+            numberOfRevisions={numberOfRevisions}
+            onBlurText={this.onBlurText} />
+        );
+      }
+      
+      return <NoteText text={text} />;        
     },
 
     renderAttachmentUrls: function() {
@@ -171,6 +160,62 @@ import Educator from './educator.jsx';
           (remove)
         </a>
       );
+    },
+
+    renderHomeroomOrGrade: function(student) {
+      if (student.grade < 9) {
+        if (student.homeroom_id) {
+          return (
+            <p><a
+              className="homeroom-link"
+              href={Routes.homeroom(student.homeroom_id)}>
+              {'Homeroom ' + student.homeroom_name}
+            </a></p>
+          );
+        }
+        else {
+          return (
+            <p>No Homeroom</p>
+          );
+        }
+      }
+      else {
+        return (
+          <p>{student.grade}th Grade</p>
+        );
+      }
+    },
+
+    renderSchool: function(student) {
+      if (student.school_id) {
+        return (
+          <p><a
+            className="school-link"
+            href={Routes.school(student.school_id)}>
+            {student.school_name}
+          </a></p>
+        );
+      }
+      else {
+        return (
+          <p>No School</p>
+        );
+      }
+    },
+
+    renderStudentCard: function() {
+      const student = this.props.student;
+      if (student) {
+        return (
+          <div className="studentCard" style={styles.studentCard}>
+            <p><a style={styles.studentName} href={Routes.studentProfile(student.id)}>
+              {student.last_name}, {student.first_name}
+            </a></p>
+            {this.renderSchool(student)}
+            {this.renderHomeroomOrGrade(student)}
+          </div>
+        );
+      }
     }
   });
 })();

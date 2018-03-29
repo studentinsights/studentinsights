@@ -1,39 +1,85 @@
-class SftpClient < Struct.new :user, :host, :password, :key_data
+# These are keys into ENV
+class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password, :env_key_data
 
-  def self.for_x2(settings_hash = ENV)
+  def self.for_x2(override_env = nil)
     new(
-      settings_hash.fetch('SIS_SFTP_USER'),
-      settings_hash.fetch('SIS_SFTP_HOST'),
+      override_env,
+      'SIS_SFTP_HOST',
+      'SIS_SFTP_USER',
       nil,
-      settings_hash.fetch('SIS_SFTP_KEY')
+      'SIS_SFTP_KEY'
     )
   end
 
-  def self.for_star(settings_hash = ENV)
+  def self.for_star(override_env = nil)
     new(
-      settings_hash.fetch('STAR_SFTP_USER'),
-      settings_hash.fetch('STAR_SFTP_HOST'),
-      settings_hash.fetch('STAR_SFTP_PASSWORD'),
+      override_env,
+      'STAR_SFTP_HOST',
+      'STAR_SFTP_USER',
+      'STAR_SFTP_PASSWORD',
       nil
     )
   end
 
-  def read_file(remote_file_name)
-    sftp_session.download!(remote_file_name).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+  def download_file(remote_file_name)
+    Dir.mkdir('tmp') unless Dir.exist?('tmp')
+    Dir.mkdir('tmp/data_download/') unless Dir.exist?('tmp/data_download/')
+
+    local_filename = File.join('tmp/data_download/', remote_file_name.split("/").last)
+    local_file = File.open(local_filename, 'w')
+    sftp_session.download!(remote_file_name, local_file.path)
+
+    local_file
   end
 
+  def dir_entries(*args)
+    sftp_session.dir.entries(*args)
+  end
+
+  private
+  # This returns an object that will reveal secure data if printed
   def sftp_session
     raise "SFTP information missing" unless sftp_info_present?
-    Net::SFTP.start(host, user, auth_mechanism)
+    if @sftp_session.nil?
+      @sftp_session = Net::SFTP.start(host, user, auth_mechanism)
+    end
+    @sftp_session
   end
 
   def sftp_info_present?
     user.present? && host.present? && (password.present? || key_data.present?)
   end
 
+  # secrets
   def auth_mechanism
     return { password: password } if password.present?
     { key_data: key_data } if key_data.present?
   end
 
+  # avoid storing sensitive data from ENV as an instance variable, read it on-demand
+  def env(key)
+    if key.nil?
+      nil
+    elsif override_env.present?
+      override_env[key]
+    else
+      ENV[key]
+    end
+  end
+
+  def user
+    env(env_user)
+  end
+
+  def host
+    env(env_host)
+  end
+
+  def password
+    env(env_password)
+  end
+
+  def key_data
+    env(env_key_data)
+  end
 end

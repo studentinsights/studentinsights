@@ -3,6 +3,8 @@
   <head>
     <title>Student Insights</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link rel="apple-touch-icon" href="/icon.png"/>
+    <%= render('shared/rollbar') %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
@@ -10,6 +12,15 @@
   </head>
   <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">
     <div class="nav">
+      <% if ENV['DEPLOYMENT_KEY'] == 'demo' %>
+        <div class="big_warning">
+          <div>This is the demo site! It's filled with fake data.</div>
+          <div>The real site is <a href="https://somerville.studentinsights.org/">somerville.studentinsights.org</a>.</div>
+        </div>
+      <% end %>
+      <% if ENV['STATUS_MESSAGE'] %>
+        <div class="status_message"><%= ENV['STATUS_MESSAGE'] %></div>
+      <% end %>
       <div id="renew-session">
         Please click <a href="#" id="renew-sesion-link">this link</a> or your session will timeout due to inactivity.
       </div>
@@ -22,12 +33,24 @@
         <% if educator_signed_in? %>
           <div class="nav-options">
             <% if current_educator.districtwide_access? %>
-              <%= link_to 'Admin Homepage', educators_districtwide_url %>
+              <%= link_to 'Admin', educators_districtwide_url %>
               &nbsp; &nbsp; &nbsp;
             <% elsif current_educator.schoolwide_access? || current_educator.has_access_to_grade_levels? %>
-              <%= link_to 'School Overview', school_path(current_educator.school) %>
+              <%= link_to 'Roster', school_path(current_educator.school) %>
+              &nbsp;
+            <% end %>
+            <% if current_educator.school.present? && current_educator.schoolwide_access? && !current_educator.districtwide_access? %>
+              <%= link_to "Absences", school_administrator_dashboard_school_path(current_educator.school) + '#/absences_dashboard' %>
+              &nbsp;
+              <%= link_to "Tardies", school_administrator_dashboard_school_path(current_educator.school) + '#/tardies_dashboard' %>
+              &nbsp;
               &nbsp; &nbsp; &nbsp;
             <% end %>
+            <%= link_to "My notes", educators_notes_feed_path %>
+            &nbsp;
+            <%= link_to "Home", home_path %>
+            &nbsp;
+            &nbsp; &nbsp;
             <p class="search-label">Search for student:</p>
             <input class="student-searchbar" />
             &nbsp; &nbsp; &nbsp;
@@ -57,11 +80,12 @@
       </div>
     </div>
     <%= yield %>
-    <%= tag("div", id: "calendar-icon-path", data: { path: asset_path('calendar-icon.svg') }) %>
+    <%= json_div(id: "calendar-icon-path", data: { path: asset_path('calendar-icon.svg') }) %>
     <%= # Gives the front-end clues about what UI elements to render or not.
         # All functionality meant for admins only should be restricted on the server side.
         # This tag is a helper for the UI, not a security feature.
 
-        tag("div", id: "educator-is-admin") if current_educator.try(:admin) %>
+        json_div(id: "educator-is-admin") if current_educator.try(:admin) %>
+    <%= javascript_include_tag webpack_bundle('bundle.js') %>
   </body>
 </html>

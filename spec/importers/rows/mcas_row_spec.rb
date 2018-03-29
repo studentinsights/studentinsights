@@ -82,8 +82,31 @@ RSpec.describe McasRow do
       it 'creates a new Assessment as a side-effect' do
         expect(Assessment.count).to eq 1
         expect(Assessment.last.subject).to eq 'ELA'
-
       end
     end
+
+    context 'Next Gen MCAS' do
+      let(:row) {
+        {
+          assessment_test: 'MCAS',
+          assessment_subject: 'Arts',
+          assessment_name: 'MCAS 2016 English Language Arts',
+          local_id: student.local_id,
+          assessment_date: Date.today,
+          assessment_scale_score: "550.0"
+        }
+      }
+
+      before { McasRow.build(row).save! }
+
+      let(:student_assessment) { StudentAssessment.last }
+
+      let(:assessment_family) { student_assessment.assessment.family }
+
+      it 'assigns the correct "Next Gen" assessment family' do
+        expect(assessment_family).to eq 'Next Gen MCAS'
+      end
+    end
+
   end
 end

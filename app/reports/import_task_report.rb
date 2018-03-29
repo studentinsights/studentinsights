@@ -2,35 +2,50 @@ class ImportTaskReport
 
   attr_accessor :models_for_report
 
-  def initialize(models_for_report, log)
-    @log = log
+  def initialize(models_for_report:, record:, log:)
     @models_for_report = models_for_report
+    @record = record
+    @log = log
     @initial_counts_hash = compute_initial_counts
   end
 
-  def newline
-    @log.write("\n")
-  end
-
-  def puts(text)
-    @log.puts(text)
-  end
-
-  ## INITIAL REPORT ##
-
-  def print_initial_report
-    newline; puts "=== STARTING IMPORT TASK... ==="
-    newline; puts "=== INITIAL DATABASE COUNTS ==="
-    newline; puts initial_counts_report
-    return
-  end
-
-  def initial_counts_report
-    models_for_report.map do |klass|
+  def print_initial_counts_report
+    initial_counts = models_for_report.map do |klass|
       count_report_for_class(klass, klass.count)
     end
+
+    log("\n")
+    log("=== INITIAL DATABASE COUNTS ===")
+    log("\n")
+    log(initial_counts)
   end
 
+  def print_final_counts_report
+    log("\n")
+    log("\n")
+
+    log("=== FINAL DATABASE COUNTS ===")
+    log(end_of_task_report)
+    log("\n")
+    log("\n")
+
+    log("=== BY SCHOOL ===")
+    log(by_school_report)
+    log("\n")
+    log("\n")
+
+    log("=== IMPORT TIMING ===")
+    log(@record.importer_timing_json)
+    log("\n")
+    log("\n")
+
+    log("=== ASSESSMENTS REPORT ===")
+    AssessmentsReport.new(@log).print_report
+    log("\n")
+    log("\n")
+  end
+
+  private
   def compute_initial_counts
     models_for_report.map do |klass|
       [ klass.to_s, klass.count ]
@@ -38,14 +53,6 @@ class ImportTaskReport
   end
 
   ## END OF TASK REPORTS ##
-
-  def print_final_report
-    newline; newline; puts "=== FINAL DATABASE COUNTS ==="
-    newline; puts end_of_task_report
-    newline; newline; puts "=== BY SCHOOL ==="
-    puts by_school_report
-    newline; AssessmentsReport.new(@log).print_report
-  end
 
   def end_of_task_report
     models_for_report.map do |klass|
@@ -72,14 +79,12 @@ class ImportTaskReport
     end
   end
 
-  private
-
   def count_report_for_class(klass, count)
     "* #{humanize_class_name(klass).capitalize}: #{humanize_count(count)} "
   end
 
   def diff_report_for_class(klass_diff)
-    "(#{klass_diff >= 0 ? '+' : '-' }#{humanize_count(klass_diff)})"
+    "(#{klass_diff >= 0 ? '+' : '-'}#{humanize_count(klass_diff)})"
   end
 
   def humanize_class_name(klass)
@@ -90,4 +95,7 @@ class ImportTaskReport
     ActionController::Base.helpers.number_with_delimiter(count, delimiter: ',')
   end
 
+  def log(msg)
+    @log.write "ImportTaskReport: #{msg}"
+  end
 end

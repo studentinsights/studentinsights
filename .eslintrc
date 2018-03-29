@@ -1,18 +1,24 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "globals": {
-    "_": true,
-    "moment": true,
     "$": true,
+    "moment": true,
     "React": true,
-    "ReactDOM": true
+    "ReactDOM": true,
+    "d3": true,
+    "spyOn": true,
+    "global": true
   },
   "parserOptions": {
     "ecmaVersion": 6,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
   },
   "plugins": ["react"],
   "extends": [
@@ -20,6 +26,7 @@
     "plugin:react/recommended"
   ],
   "rules": {
+    "no-var": 2,
     "indent": ["error", 2],
     "semi": ["error", "always"],
     "comma-dangle": ["error", "only-multiline"],

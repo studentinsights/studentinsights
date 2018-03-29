@@ -1,4 +1,4 @@
 class DisciplineIncident < ActiveRecord::Base
-  belongs_to :student_school_year
-  validates_presence_of :student_school_year, :occurred_at
+  belongs_to :student
+  validates_presence_of :student, :occurred_at
 end

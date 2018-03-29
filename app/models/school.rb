@@ -1,6 +1,8 @@
 class School < ActiveRecord::Base
   extend FriendlyId
   friendly_id :local_id, use: :slugged
+  validates :local_id, presence: true, uniqueness: true
+  validate :validate_school_type
   has_many :students
   has_many :educators
   has_many :homerooms
@@ -17,19 +19,31 @@ class School < ActiveRecord::Base
     educators_without_test_account.pluck(:full_name)
   end
 
-  def self.seed_somerville_schools
-    School.create([
-      { state_id: 15, local_id: "BRN", name: "Benjamin G Brown", school_type: "ES" },
-      { state_id: 75, local_id: "HEA", name: "Arthur D Healey", school_type: "ESMS" },
-      { state_id: 83, local_id: "KDY", name: "John F Kennedy", school_type: "ESMS" },
-      { state_id: 87, local_id: "AFAS", name: "Albert F. Argenziano School", school_type: "ESMS" },
-      { state_id: 111, local_id: "ESCS", name: "E Somerville Community", school_type: "ESMS" },
-      { state_id: 115, local_id: "WSNS", name: "West Somerville Neighborhood", school_type: "ESMS" },
-      { state_id: 120, local_id: "WHCS", name: "Winter Hill Community", school_type: "ESMS" },
-      { state_id: 410, local_id: "NW", name: "Next Wave Junior High", school_type: "MS" },
-      { state_id: 505, local_id: "SHS", name: "Somerville High", school_type: "HS" },
-      { state_id: 510, local_id: "FC", name: "Full Circle High School", school_type: "HS" }
-    ])
+  def self.seed_schools_for_district(district_key = ENV['DISTRICT_KEY'])
+    schools = School.fetch_school_data_for_district(district_key)
+
+    School.create!(schools)
   end
 
+  def self.fetch_school_data_for_district(district_key)
+    yml_config = LoadDistrictConfig.new(district_key).load_yml
+
+    return yml_config.fetch("schools")
+  end
+
+  def self.seed_somerville_schools
+    School.seed_schools_for_district('somerville')
+  end
+
+  def is_high_school?
+    school_type == 'HS'
+  end
+
+  private
+  def validate_school_type
+    whitelist = ['ES', 'MS', 'ESMS', 'HS', nil]
+    if !whitelist.include?(school_type)
+      errors.add(:school_type, 'invalid school_type; use nil for unknown values or add to validation whitelist')
+    end
+  end
 end

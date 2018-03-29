@@ -81,20 +81,6 @@ RSpec.describe StudentAssessment, type: :model do
     end
   end
 
-  describe '#assign_to_school_year' do
-    context 'has date taken' do
-      let(:student_assessment) { FactoryGirl.create(:student_assessment) }
-      it 'assigns the school year correctly' do
-        expect(student_assessment.school_year).to eq(SchoolYear.find_by_name("2014-2015"))
-      end
-    end
-    context 'does not have date taken' do
-      let(:student_assessment) { FactoryGirl.build(:student_assessment, date_taken: nil) }
-      it 'is invalid' do
-        expect(student_assessment).not_to be_valid
-      end
-    end
-  end
   describe '#risk_level' do
     context 'does not belong to an assessment family' do
       let(:student_assessment) { FactoryGirl.create(:student_assessment) }

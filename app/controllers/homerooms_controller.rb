@@ -10,31 +10,31 @@ class HomeroomsController < ApplicationController
 
     @rows = eager_students().map {|student| fat_student_hash(student) }
 
-    # Risk level chart
-    @risk_levels = @homeroom.student_risk_levels.group(:level).count
-    @risk_levels['null'] = if @risk_levels.has_key? nil then @risk_levels[nil] else 0 end
-
     # Dropdown for homeroom navigation
-    @homerooms_by_name = current_educator.allowed_homerooms_by_name
+    @homerooms_by_name = current_educator.allowed_homerooms.order(:name)
 
-    # For links to STAR pages
-    @school_id = @homeroom.students.active.map(&:school_id).uniq.first
-    @star_homeroom_anchor = "equal:homeroom_name:#{@homeroom.name}"
+    # For JSX Table:
+    @serialized_data = {
+      school: @homeroom.school,
+      show_star: @homeroom.show_star?,
+      show_mcas: @homeroom.show_mcas?,
+      rows: @rows.as_json
+    }
   end
 
   private
 
   def initial_columns
-    return ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
-    return ['name', 'risk', 'sped', 'interventions']
+    return ['name', 'supports', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
+    return ['name', 'supports', 'risk', 'sped', 'interventions']
   end
 
   def eager_students(*additional_includes)
     @homeroom.students.active.includes([
+      :event_notes,
       :interventions,
       :student_risk_level,
       :homeroom,
-      :student_school_years
     ] + additional_includes)
   end
 
@@ -43,9 +43,10 @@ class HomeroomsController < ApplicationController
   # This may be slow if you're doing it for many students without eager includes.
   def fat_student_hash(student)
     HashWithIndifferentAccess.new(student_hash_for_slicing(student).merge({
+      event_notes: student.event_notes,
       interventions: student.interventions,
       sped_data: student.sped_data,
-      student_risk_level: student.student_risk_level.decorate.as_json_with_explanation
+      student_risk_level: student.student_risk_level.as_json_with_explanation
     }))
   end
 
