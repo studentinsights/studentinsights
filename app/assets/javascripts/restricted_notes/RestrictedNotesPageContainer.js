@@ -30,6 +30,7 @@ class RestrictedNotesPageContainer extends React.Component {
       // ui
       noteInProgressText: '',
       noteInProgressType: null,
+      noteInProgressAttachmentUrls: [],
 
       // This map holds the state of network requests for various actions.  This allows UI components to branch on this
       // and show waiting messages or error messages.
