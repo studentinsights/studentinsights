@@ -8,7 +8,8 @@ const PropTypes = {
     onClickSaveService: React.PropTypes.func,
     onClickDiscontinueService: React.PropTypes.func,
     onChangeNoteInProgressText: React.PropTypes.func,
-    onClickNoteType: React.PropTypes.func
+    onClickNoteType: React.PropTypes.func,
+    onChangeAttachmentUrl: React.PropTypes.func,
   }),
   requests: React.PropTypes.shape({
     saveNote: React.PropTypes.string,

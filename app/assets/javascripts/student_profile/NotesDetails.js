@@ -76,7 +76,8 @@ class NotesDetails extends React.Component {
   renderTakeNotesSection() {
     const showTakeNotes = this.state.isTakingNotes ||
                           this.props.requests.saveNote !== null ||
-                          this.props.noteInProgressText.length > 0;
+                          this.props.noteInProgressText.length > 0 ||
+                          this.props.noteInProgressAttachmentUrls.length > 0;
 
     if (showTakeNotes) {
       return (
@@ -90,8 +91,10 @@ class NotesDetails extends React.Component {
           requestState={this.props.requests.saveNote}
           noteInProgressText={this.props.noteInProgressText}
           noteInProgressType={this.props.noteInProgressType}
+          noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
           onClickNoteType={this.props.actions.onClickNoteType}
-          onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText} />
+          onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
+          onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl} />
       );
     }
 
@@ -133,12 +136,17 @@ NotesDetails.propTypes = {
     onEventNoteAttachmentDeleted: React.PropTypes.func,
     onDeleteEventNoteAttachment: React.PropTypes.func,
     onChangeNoteInProgressText: React.PropTypes.func.isRequired,
-    onClickNoteType: React.PropTypes.func.isRequired
+    onClickNoteType: React.PropTypes.func.isRequired,
+    onChangeAttachmentUrl: React.PropTypes.func.isRequired,
   }),
   feed: PropTypes.feed.isRequired,
   requests: React.PropTypes.object.isRequired,
+
   noteInProgressText: React.PropTypes.string.isRequired,
   noteInProgressType: React.PropTypes.number,
+  noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
+    React.PropTypes.string
+  ).isRequired,
 
   showingRestrictedNotes: React.PropTypes.bool.isRequired,
   title: React.PropTypes.string.isRequired,
