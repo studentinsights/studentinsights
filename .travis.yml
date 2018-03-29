@@ -3,8 +3,8 @@ language: ruby
 rvm:
   - ruby-2.3.0
 
-node_js:
-  - '8.11.0'
+env:
+  - TRAVIS_NODE_VERSION="8.11.0"
 
 sudo: required
 
