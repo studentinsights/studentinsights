@@ -19,7 +19,7 @@ function renderRoute(path) {
 jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
-jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolWideAbsences');
+jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolwideAbsences');
 jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/TardiesDataLoader');
 
 
@@ -35,7 +35,7 @@ it('render SchoolCoursesPage without crashing', () => {
   renderRoute('/schools/hea/courses');
 });
 
-it('renders SchoolWideAbsences without crashing', () => {
+it('renders SchoolwideAbsences without crashing', () => {
   renderRoute('/schools/hea/absences');
 });
 

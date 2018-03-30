@@ -6,7 +6,7 @@ import {
 import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
-import SchoolWideAbsences from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolWideAbsences';
+import SchoolwideAbsences from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolwideAbsences';
 import TardiesDataLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/TardiesDataLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
@@ -77,7 +77,7 @@ class App extends React.Component {
   }
 
   renderAbsenceDashboard(routeProps) {
-    return <SchoolWideAbsences schoolId={routeProps.match.params.id} />;
+    return <SchoolwideAbsences schoolId={routeProps.match.params.id} />;
   }
 
   renderTardiesDashboard(routeProps) {
