@@ -28,7 +28,11 @@ class StudentSectionAssignmentRow < Struct.new(:row, :school_ids_dictionary)
   def course
     return unless row[:course_number]
 
-    Course.find_by_course_number(row[:course_number])
+    school_local_id = row[:school_local_id]
+    school_id = school_ids_dictionary[school_local_id]
+
+
+    Course.find_by(course_number: row[:course_number], school_id: school_id)
   end
 
   def section
