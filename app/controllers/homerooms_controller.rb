@@ -46,7 +46,7 @@ class HomeroomsController < ApplicationController
       event_notes: student.event_notes,
       interventions: student.interventions,
       sped_data: student.sped_data,
-      student_risk_level: student.student_risk_level.as_json_with_explanation
+      student_risk_level: student.student_risk_level.try(:as_json_with_explanation)
     }))
   end
 

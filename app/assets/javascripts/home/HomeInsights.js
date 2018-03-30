@@ -7,9 +7,10 @@ import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
 // important questions.
 class HomeInsights extends React.Component {
   render() {
+    const {educatorId} = this.props;
     return (
       <div className="HomeInsights" style={styles.root}>
-        <CheckStudentsWithLowGrades />
+        <CheckStudentsWithLowGrades educatorId={educatorId} />
         {this.renderPlaceholder()}
       </div>
     );

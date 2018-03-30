@@ -139,7 +139,7 @@ class Authorizer
       return :section if @educator.school.school_type == 'HS' && @educator.default_section
       return :homeroom if @educator.school.school_type != 'HS' && @educator.default_homeroom
       return :nothing
-    rescue Exceptions::NoAssignedHomeroom, Exceptions::NoAssignedSections => err
+    rescue Exceptions::NoAssignedHomeroom, Exceptions::NoAssignedSections => _
       :nothing
     end
   end
