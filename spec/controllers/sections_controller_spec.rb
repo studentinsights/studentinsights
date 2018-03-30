@@ -32,17 +32,45 @@ describe SectionsController, :type => :controller do
     end
   end
 
+  context 'with misassigned sections' do
+    let!(:pals) { TestPals.create! }
+    let!(:high_school) { pals.shs }
+    let!(:high_school_educator) { FactoryGirl.create(:educator, school: high_school) }
+    let!(:k8_school) { pals.healey }
+    let!(:course) { FactoryGirl.create(:course, school: high_school) }
+    let!(:first_section) { FactoryGirl.create(:section, course: course) }
+    let!(:first_student) { FactoryGirl.create(:student, :registered_last_year, grade: '3', school: k8_school) }
+    let!(:ssa1) { FactoryGirl.create(:student_section_assignment, student: first_student, section: first_section)}
+    let!(:first_esa) { FactoryGirl.create(:educator_section_assignment, educator: high_school_educator, section: first_section)}
+
+    describe '#show' do
+      it 'does student-level authorization, beyond just section relation' do
+        sign_in(high_school_educator)
+        make_request(first_section.id)
+        expect(response.status).to eq 200
+        expect(extract_serialized_ids(controller, :students)).to eq []
+        expect(extract_serialized_ids(controller, :sections)).to eq [first_section.id]
+      end
+
+      it 'does not allow educators not at a HS' do
+        sign_in(pals.healey_laura_principal)
+        make_request(first_section.id)
+        expect(response.status).to eq 302
+      end
+    end
+  end
+
   context 'with controller-specific test setup' do
     let!(:school) { FactoryGirl.create(:shs) }
     let!(:course) { FactoryGirl.create(:course, school: school) }
     let!(:first_section) { FactoryGirl.create(:section, course: course) }
     let!(:second_section) { FactoryGirl.create(:section, course: course) }
     let!(:third_section) { FactoryGirl.create(:section, course: course) }
-    let!(:first_student) { FactoryGirl.create(:student, :registered_last_year) }
+    let!(:first_student) { FactoryGirl.create(:student, :registered_last_year, grade: '9', school: school) }
     let!(:ssa1) { FactoryGirl.create(:student_section_assignment, student: first_student, section: first_section)}
-    let!(:second_student) { FactoryGirl.create(:student, :registered_last_year) }
+    let!(:second_student) { FactoryGirl.create(:student, :registered_last_year, grade: '10', school: school) }
     let!(:ssa2) { FactoryGirl.create(:student_section_assignment, student: second_student, section: first_section)}
-    let!(:third_student) { FactoryGirl.create(:student, :registered_last_year) }
+    let!(:third_student) { FactoryGirl.create(:student, :registered_last_year, grade: '9', school: school) }
     let!(:ssa3) { FactoryGirl.create(:student_section_assignment, student: third_student, section: first_section)}
     let(:other_school) { FactoryGirl.create(:school) }
     let(:other_school_course) { FactoryGirl.create(:course, school: other_school) }

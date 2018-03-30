@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import SortHelpers from '../../helpers/sort_helpers.jsx';
+import {
+  sortByString,
+  sortByNumber,
+  sortByDate
+} from '../../helpers/SortHelpers';
 import * as Routes from '../../helpers/Routes';
 import SharedPropTypes from '../../helpers/prop_types.jsx';
 
@@ -39,11 +42,11 @@ class StudentsTable extends React.Component {
 
     switch(sortType) {
     case 'string':
-      return rows.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
+      return rows.sort((a, b) => sortByString(a, b, sortBy));
     case 'number':
-      return rows.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
+      return rows.sort((a, b) => sortByNumber(a, b, sortBy));
     case 'date':
-      return rows.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
+      return rows.sort((a, b) => sortByDate(a, b, sortBy));
     default:
       return rows;
     }

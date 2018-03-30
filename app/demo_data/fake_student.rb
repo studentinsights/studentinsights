@@ -74,7 +74,7 @@ class FakeStudent
       last_name: DISNEY_LAST_NAMES.sample,
       local_id: unique_local_id,
       limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "FLEP"].sample,
-      free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample,
+      free_reduced_lunch: ["Free Lunch", "Not Eligible", "Reduced Lunch", nil].sample,
       home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample,
       race: ['Black', 'White', 'Asian'].sample,
       hispanic_latino: [true, false].sample,

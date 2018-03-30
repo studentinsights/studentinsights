@@ -18,6 +18,7 @@ describe('PageContainer', function() {
 
     createSpyActions: function() {
       return {
+        // Just mock the functions that make server calls
         onColumnClicked: jest.fn(),
         onClickSaveNotes: jest.fn(),
         onClickSaveService: jest.fn(),
@@ -42,7 +43,9 @@ describe('PageContainer', function() {
         queryParams: {},
         history: SpecSugar.history(),
         actions: helpers.createSpyActions(),
-        api: helpers.createSpyApi()
+        api: helpers.createSpyApi(),
+        noteInProgressText: '',
+        noteInProgressType: null,
       });
       return ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
     },

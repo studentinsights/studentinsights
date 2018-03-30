@@ -7,11 +7,16 @@ Rails.application.routes.draw do
   end
   
   get '/api/educators/:id' => 'educators#show'
+  get '/api/schools/:id/courses' => 'schools#courses_json'
 
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
+  devise_scope :educator do
+    root to: "devise/sessions#new"
+  end
+
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
   get '/educators/notes_feed'=> 'educators#notes_feed'
@@ -21,10 +26,6 @@ Rails.application.routes.draw do
   get '/home' => 'ui#ui'
   get '/home/feed_json' => 'home#feed_json'
   get '/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
-
-  devise_scope :educator do
-    root to: "devise/sessions#new"
-  end
 
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
@@ -62,6 +63,7 @@ Rails.application.routes.draw do
       get :school_administrator_dashboard
       get :overview_json
       get :csv
+      get 'courses' => 'ui#ui'
     end
   end
 end
