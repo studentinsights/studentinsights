@@ -1,0 +1,494 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckStudentWithLowGradesView handles when limit reached 1`] = `
+<div
+  className="CheckStudentWithLowGrades"
+>
+  <div
+    style={
+      Object {
+        "backgroundColor": "#eee",
+        "borderBottom": "1px solid #ccc",
+        "color": "black",
+        "padding": 10,
+      }
+    }
+  >
+    NGE and 10GE students to check in on
+  </div>
+  <div
+    className="Card "
+    style={
+      Object {
+        "border": "none",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div>
+      There 
+      <span>
+        are 
+        <b>
+          129
+           students
+        </b>
+      </span>
+       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.
+    </div>
+    <div
+      style={
+        Object {
+          "paddingBottom": 10,
+          "paddingTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/66"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Chip
+             
+            Duck
+          </a>
+        </span>
+        <span>
+          <span>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              has a
+               
+              D
+               in
+            </span>
+            <a
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
+            >
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
+            </a>
+          </span>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/2"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Mari
+             
+            Kenobi
+          </a>
+        </span>
+        <span>
+          <span>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              has a
+               
+              D
+               in
+            </span>
+            <a
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
+            >
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
+            </a>
+          </span>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/69"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Aladdin
+             
+            Poppins
+          </a>
+        </span>
+        <span>
+          <span>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              has a
+               
+              D
+               in
+            </span>
+            <a
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
+            >
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
+            </a>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div>
+      There are 
+      129
+       students total.  Start with checking in on these first 
+      3
+       students.
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CheckStudentWithLowGradesView pure component matches snapshot 1`] = `
+<div
+  className="CheckStudentWithLowGrades"
+>
+  <div
+    style={
+      Object {
+        "backgroundColor": "#eee",
+        "borderBottom": "1px solid #ccc",
+        "color": "black",
+        "padding": 10,
+      }
+    }
+  >
+    NGE and 10GE students to check in on
+  </div>
+  <div
+    className="Card "
+    style={
+      Object {
+        "border": "none",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div>
+      There 
+      <span>
+        are 
+        <b>
+          7
+           students
+        </b>
+      </span>
+       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.
+    </div>
+    <div
+      style={
+        Object {
+          "paddingBottom": 10,
+          "paddingTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/66"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Chip
+             
+            Duck
+          </a>
+        </span>
+        <span>
+          <span>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              has a
+               
+              D
+               in
+            </span>
+            <a
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
+            >
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
+            </a>
+          </span>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/2"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Mari
+             
+            Kenobi
+          </a>
+        </span>
+        <span>
+          <span>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              has a
+               
+              D
+               in
+            </span>
+            <a
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
+            >
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
+            </a>
+          </span>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/69"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Aladdin
+             
+            Poppins
+          </a>
+        </span>
+        <span>
+          <span>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              has a
+               
+              D
+               in
+            </span>
+            <a
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
+            >
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
+            </a>
+          </span>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/67"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Aladdin
+             
+            Kenobi
+          </a>
+        </span>
+        <span>
+          <span>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "paddingLeft": 5,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              has a
+               
+              D
+               in
+            </span>
+            <a
+              className="Section"
+              href="/sections/1"
+              style={Object {}}
+            >
+              BIOLOGY 1 HONORS
+               (
+              SHS-BIO-TUES
+              )
+            </a>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div>
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        See more
+      </a>
+    </div>
+  </div>
+</div>
+`;

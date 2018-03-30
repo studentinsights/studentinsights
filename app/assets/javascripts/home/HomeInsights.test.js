@@ -1,16 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import renderer from 'react-test-renderer';
-import fetchMock from 'fetch-mock/es5/client';
-import HomeInsights, {CheckStudentWithLowGradesView} from './HomeInsights';
+import HomeInsights from './HomeInsights';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
-import studentsWithLowGradesJson from '../../../../spec/javascripts/fixtures/home_students_with_low_grades_json';
 
-function renderIntoEl(element) {
-  const el = document.createElement('div');
-  ReactDOM.render(element, el);
-  return el;
-}
 
 function testProps() {
   return {
@@ -18,20 +10,8 @@ function testProps() {
   };
 }
 
-function pureTestPropsForN(n) {
-  return {
-    limit: 10,
-    totalCount: n,
-    studentsWithLowGrades: studentsWithLowGradesJson.students_with_low_grades.slice(0, n)
-  };
-}
-
+jest.mock('./CheckStudentsWithLowGrades');
 describe('HomeInsights', () => {
-  beforeEach(() => {
-    fetchMock.restore();
-    fetchMock.get('/home/students_with_low_grades_json?educator_id=9999&limit=100', studentsWithLowGradesJson);
-  });
-
   it('renders without crashing', () => {
     const props = testProps();
     const el = document.createElement('div');
@@ -49,38 +29,5 @@ describe('HomeInsights', () => {
         done();
       }, 0);
     });
-  });
-});
-
-describe('CheckStudentWithLowGradesView', () => {
-  it('renders zero, singular and plural states', () => {
-    expect($(renderIntoEl(<CheckStudentWithLowGradesView {...pureTestPropsForN(0)} />)).text()).toContain('There are no students');
-    expect($(renderIntoEl(<CheckStudentWithLowGradesView {...pureTestPropsForN(1)} />)).text()).toContain('There is one student');
-    expect($(renderIntoEl(<CheckStudentWithLowGradesView {...pureTestPropsForN(4)} />)).text()).toContain('There are 4 students');
-  });
-
-  it('pure component matches snapshot', () => {
-    const props = {
-      limit: studentsWithLowGradesJson.limit,
-      totalCount: studentsWithLowGradesJson.total_count,
-      studentsWithLowGrades: studentsWithLowGradesJson.students_with_low_grades
-    };
-    const tree = renderer
-      .create(<CheckStudentWithLowGradesView {...props} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-
-  it('handles when limit reached', () => {
-    const props = {
-      limit: 3,
-      totalCount: 129,
-      studentsWithLowGrades: studentsWithLowGradesJson.students_with_low_grades.slice(0, 3)
-    };
-    const tree = renderer
-      .create(<CheckStudentWithLowGradesView {...props} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
   });
 });
