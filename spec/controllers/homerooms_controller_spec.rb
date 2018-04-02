@@ -58,7 +58,7 @@ describe HomeroomsController, :type => :controller do
           "absences_count",
           "tardies_count",
           "homeroom_name",
-          "event_notes",
+          "event_notes_without_restricted",
           "interventions",
           "sped_data",
           "student_risk_level"
