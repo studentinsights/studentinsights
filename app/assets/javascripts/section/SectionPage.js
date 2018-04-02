@@ -43,9 +43,9 @@ class SectionPage extends React.Component {
 
   studentsWithComputedFields(students) {
     return students.map(student => {
-      const latestSstDateText = latestNoteDateText(300, student.event_notes);
-      const latestNgeDateText = latestNoteDateText(305, student.event_notes);
-      const latest10geDateText = latestNoteDateText(306, student.event_notes);
+      const latestSstDateText = latestNoteDateText(300, student.event_notes_without_restricted);
+      const latestNgeDateText = latestNoteDateText(305, student.event_notes_without_restricted);
+      const latest10geDateText = latestNoteDateText(306, student.event_notes_without_restricted);
       return {
         ...student,
         latestSstDateText,
@@ -118,7 +118,9 @@ class SectionPage extends React.Component {
 }
 
 SectionPage.propTypes = {
-  students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  students: React.PropTypes.arrayOf(React.PropTypes.shape({
+    event_notes_without_restricted: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  })).isRequired,
   educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   sections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   section: React.PropTypes.object.isRequired,
