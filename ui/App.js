@@ -7,7 +7,7 @@ import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx'
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
-import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';>>>>>>> origin/master
+import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 
 
 // This is the top-level component, only handling routing.
