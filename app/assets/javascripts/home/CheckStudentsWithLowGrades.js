@@ -78,7 +78,7 @@ export class CheckStudentsWithLowGradesView extends React.Component {
       <div className="CheckStudentsWithLowGrades">
         <div style={styles.cardTitle}>NGE and 10GE students to check in on</div>
         <Card style={{border: 'none'}}>
-           <div>There {this.renderAreHowManyStudents(totalCount)} in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.</div>
+           <div>There {this.renderAreHowManyStudents(totalCount)} in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last 45 days.</div>
           {this.renderList(truncatedStudentsWithLowGrades)}
           {this.renderMore(truncatedStudentsWithLowGrades)}
         </Card>

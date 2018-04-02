@@ -42,7 +42,7 @@ class HomeController < ApplicationController
     educator = current_educator_or_doppleganger(params[:educator_id])
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
-    time_threshold = time_now - 30.days
+    time_threshold = time_now - 45.days
     grade_threshold = 69
 
     insight = InsightStudentsWithLowGrades.new(educator)
@@ -51,6 +51,22 @@ class HomeController < ApplicationController
       limit: limit,
       total_count: students_with_low_grades_json.size,
       students_with_low_grades: students_with_low_grades_json.first(limit)
+    }
+  end
+
+  def students_with_high_absences_json
+    educator = current_educator_or_doppleganger(params[:educator_id])
+    time_now = time_now_or_param(params[:time_now])
+    limit = params[:limit].to_i
+    time_threshold = time_now - 45.days
+    absences_threshold = 4
+
+    insight = InsightStudentsWithHighAbsences.new(educator)
+    students_with_high_absences_json = insight.students_with_high_absences_json(time_now, time_threshold, absences_threshold)
+    render json: {
+      limit: limit,
+      total_count: students_with_high_absences_json.size,
+      students_with_high_absences: students_with_high_absences_json.first(limit)
     }
   end
 
