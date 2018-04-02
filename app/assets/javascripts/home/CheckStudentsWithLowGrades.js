@@ -17,7 +17,7 @@ class CheckStudentsWithLowGrades extends React.Component {
   fetchStudentsWithLowGrades() {
     const {educatorId, limit} = this.props;
     const params = educatorId ? {limit, educator_id: educatorId} : {limit};
-    const url = `/home/students_with_low_grades_json?${qs.stringify(params)}`;
+    const url = `/api/home/students_with_low_grades_json?${qs.stringify(params)}`;
     return apiFetchJson(url);
   }
 

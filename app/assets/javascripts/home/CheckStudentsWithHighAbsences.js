@@ -17,7 +17,7 @@ class CheckStudentsWithHighAbsences extends React.Component {
   fetchStudents() {
     const {educatorId, limit} = this.props;
     const params = educatorId ? {limit, educator_id: educatorId} : {limit};
-    const url = `/home/students_with_high_absences?${qs.stringify(params)}`;
+    const url = `/api/home/students_with_high_absences_json?${qs.stringify(params)}`;
     return apiFetchJson(url);
   }
 
@@ -76,9 +76,9 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
 
     return (
       <div className="CheckStudentsWithHighAbsences">
-        <div style={styles.cardTitle}>Students to check in on about attendance</div>
+        <div style={styles.cardTitle}>Students to check in on about missing school</div>
         <Card style={{border: 'none'}}>
-           <div>There {this.renderAreHowManyStudents(totalCount)} in your classes who have more than 4 absences over the last 45 days, but haven't been mentioned yet in SST.</div>
+           <div>There {this.renderAreHowManyStudents(totalCount)} who have have missed more than 4 days of school in the last 45 days, but haven't been mentioned yet in SST.</div>
           {this.renderList(truncatedStudentsWithHighAbsences)}
           {this.renderMore(truncatedStudentsWithHighAbsences)}
         </Card>
