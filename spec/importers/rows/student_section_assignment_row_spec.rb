@@ -15,10 +15,14 @@ RSpec.describe StudentSectionAssignmentRow do
     context 'happy path' do
       let!(:student) { FactoryGirl.create(:high_school_student) }
       let!(:course) {
-        FactoryGirl.create(:course, course_number: 'F100', school: healey_school)
+        FactoryGirl.create(
+          :course, course_number: 'F100', school: healey_school
+        )
       }
       let!(:section) {
-        FactoryGirl.create(:section, course: course, section_number: 'MUSIC-005')
+        FactoryGirl.create(
+          :section, course: course, section_number: 'MUSIC-005', term_local_id: 'FY'
+        )
       }
 
       let(:row) {
@@ -26,7 +30,8 @@ RSpec.describe StudentSectionAssignmentRow do
           local_id: student.local_id,
           section_number: 'MUSIC-005',
           course_number: 'F100',
-          school_local_id: 'HEA'
+          school_local_id: 'HEA',
+          term_local_id: 'FY'
         }
       }
 
@@ -41,7 +46,9 @@ RSpec.describe StudentSectionAssignmentRow do
         FactoryGirl.create(:course, course_number: 'F100', school: brown_school)
       }
       let!(:another_section) {
-        FactoryGirl.create(:section, course: another_course, section_number: 'MUSIC-005')
+        FactoryGirl.create(
+          :section, course: another_course, section_number: 'MUSIC-005', term_local_id: 'FY'
+        )
       }
 
       let!(:student) { FactoryGirl.create(:high_school_student) }
@@ -49,7 +56,9 @@ RSpec.describe StudentSectionAssignmentRow do
         FactoryGirl.create(:course, course_number: 'F100', school: healey_school)
       }
       let!(:section) {
-        FactoryGirl.create(:section, course: course, section_number: 'MUSIC-005')
+        FactoryGirl.create(
+          :section, course: course, section_number: 'MUSIC-005', term_local_id: 'FY'
+        )
       }
 
       let(:row) {
@@ -57,7 +66,8 @@ RSpec.describe StudentSectionAssignmentRow do
           local_id: student.local_id,
           section_number: 'MUSIC-005',
           course_number: 'F100',
-          school_local_id: 'HEA'
+          school_local_id: 'HEA',
+          term_local_id: 'FY'
         }
       }
 
