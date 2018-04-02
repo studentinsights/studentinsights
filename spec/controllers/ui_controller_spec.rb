@@ -7,7 +7,7 @@ describe UiController, :type => :controller do
     request.env['HTTPS'] = 'on'
     get :ui
   end
-  
+
   describe '#ui' do
     it 'renders minimal json shape inline' do
       sign_in(pals.uri)
