@@ -31,7 +31,6 @@ class StudentSectionAssignmentRow < Struct.new(:row, :school_ids_dictionary)
     school_local_id = row[:school_local_id]
     school_id = school_ids_dictionary[school_local_id]
 
-
     Course.find_by(course_number: row[:course_number], school_id: school_id)
   end
 
