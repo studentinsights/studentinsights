@@ -10,7 +10,7 @@ class SectionsController < ApplicationController
 
   def show
     students = authorized { @current_section.students } # extra layer while transitioning K8 to use sections
-    students_json = serialize_students(students.map(&:id))
+    students_json = serialize_students(students.map(&:id), @current_section)
     section = serialize_section(@current_section)
 
     @serialized_data = {
@@ -49,12 +49,23 @@ class SectionsController < ApplicationController
     end
   end
 
-  def serialize_students(student_ids)
-    Student.all
-      .joins(:student_section_assignments)
+  # Include grade for section as well
+  def serialize_students(student_ids, section)
+    students = Student
       .where(id: student_ids)
-      .select('students.*, student_section_assignments.grade_numeric')
-      .as_json(methods: [:event_notes, :most_recent_school_year_discipline_incidents_count, :most_recent_school_year_absences_count, :most_recent_school_year_tardies_count])
+      .includes(:student_section_assignments)
+
+    students.map do |student|
+      grade_numeric = student.student_section_assignments.find_by_section_id(section.id).grade_numeric
+      student.as_json(methods: [
+        :event_notes,
+        :most_recent_school_year_discipline_incidents_count,
+        :most_recent_school_year_absences_count,
+        :most_recent_school_year_tardies_count
+      ]).merge({
+        grade_numeric: grade_numeric
+      })
+    end
   end
 
   def serialize_section(section)
