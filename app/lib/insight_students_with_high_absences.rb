@@ -14,7 +14,7 @@ class InsightStudentsWithHighAbsences
   #
   # This method returns hashes that are the shape of what is needed
   # in the product.
-  def students_with_absences(time_now, time_threshold, absences_threshold)
+  def students_with_high_absences_json(time_now, time_threshold, absences_threshold)
     # Include all authorized students
     students = @authorizer.authorized { Student.all }
     student_ids = students.map(&:id)
@@ -68,12 +68,12 @@ class InsightStudentsWithHighAbsences
     end
     sorted_pairs.map do |pair|
       student = pair[:student]
-      student_json = student.as_json({
-        :only => [:id, :email, :first_name, :last_name, :grade, :house, :home_language]
-      })
-      student_json.merge({
-        count: pair[:count]
-      })
+      {
+        count: pair[:count],
+        student: student.as_json({
+          :only => [:id, :email, :first_name, :last_name, :grade, :house, :home_language]
+        })
+      }
     end
   end
 end

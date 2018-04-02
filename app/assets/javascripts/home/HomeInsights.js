@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../components/Card';
 import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
+import CheckStudentsWithHighAbsences from './CheckStudentsWithHighAbsences';
 
 
 // On the home page, show users the answers to their most
@@ -11,6 +12,7 @@ class HomeInsights extends React.Component {
     return (
       <div className="HomeInsights" style={styles.root}>
         {inExperienceTeam && <CheckStudentsWithLowGrades educatorId={educatorId} />}
+        <CheckStudentsWithHighAbsences educatorId={educatorId} />
         {this.renderPlaceholder()}
       </div>
     );
