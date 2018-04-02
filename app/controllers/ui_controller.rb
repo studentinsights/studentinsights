@@ -6,7 +6,7 @@ class UiController < ApplicationController
   def ui
     in_experience_team = PerDistrict.new.in_shs_experience_team?(current_educator)
     current_educator_json = current_educator.as_json({
-      only: [:id, :email]
+      only: [:id, :admin, :school_id]
     }).merge({
       in_experience_team: in_experience_team
     })

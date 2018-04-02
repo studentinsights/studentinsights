@@ -27,4 +27,32 @@ RSpec.describe PerDistrict do
       expect { PerDistrict.new(district_key: 'wat').from_import_login_name_to_email('foo') }.to raise_error Exceptions::DistrictKeyNotHandledError
     end
   end
+
+  describe '#in_shs_experience_team?' do
+    it 'includes bill from TestPals' do
+      expect(for_somerville.in_shs_experience_team?(pals.shs_bill_nye)).to eq true
+    end
+
+    it 'works with minimal test case' do
+      educator = FactoryGirl.create!(:educator)
+      EducatorLabel.create!({
+        educator: educator,
+        label_key: 'shs_experience_team'
+      })
+      expect(for_somerville.in_shs_experience_team?(pals.educator)).to eq true
+    end
+
+    it 'ignores other labels' do
+      educator = FactoryGirl.create!(:educator)
+      EducatorLabel.create!({
+        educator: educator,
+        label_key: 'foo_experience_team_wrong_label'
+      })
+      expect(for_somerville.in_shs_experience_team?(pals.educator)).to eq false
+    end
+
+    it 'never works for New Bedford' do
+      expect(for_new_bedford.in_shs_experience_team?(pals.shs_bill_nye)).to eq false
+    end
+  end
 end
