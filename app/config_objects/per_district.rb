@@ -28,14 +28,6 @@ class PerDistrict
     EnvironmentVariable.is_true('FEED_INCLUDE_INCIDENT_CARDS') || false
   end
 
-  def valid_staff_roles
-    if @district_key == NEW_BEDFORD
-      [nil, "", "Teacher", "Administrator", "Secretary", "Support Staff", "Psychologist", "Substitute", "Nurse", "School Counselor", "Other"]
-    else # somerville
-      [nil, "", "Administrator", "Counselor", "Nurse", "Teacher", "Secretary"]
-    end
-  end
-
   # The schools shown on the admin page are in different orders,
   # with pilot schools in New Bedford shown first.
   def ordered_schools_for_admin_page
@@ -63,6 +55,13 @@ class PerDistrict
     end
   end
 
+  # Used for labelling particular SHS educators as belonging to
+  # the NGE and 10GE experience teams.
+  def in_shs_experience_team?(educator)
+    educator.educator_labels.where(label_key: 'shs_experience_team').length > 0
+  end
+
+  private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError
   end

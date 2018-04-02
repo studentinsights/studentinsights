@@ -4,16 +4,11 @@ class UiController < ApplicationController
   # send back the minimal data for client-side routing to then
   # run and take over rendering, fetching what data it needs, etc.
   def ui
+    in_experience_team = PerDistrict.new.in_shs_experience_team?(current_educator)
     current_educator_json = current_educator.as_json({
-      only: [:id, :email, :full_name, :staff_type, :admin],
-      include: {
-        school: {
-          only: [:id, :name, :school_type]
-        },
-        homeroom: {
-          only: [:id, :name, :grade]
-        }
-      }
+      only: [:id, :email]
+    }).merge({
+      in_experience_team: in_experience_team
     })
     @serialized_data = {
       current_educator: current_educator_json

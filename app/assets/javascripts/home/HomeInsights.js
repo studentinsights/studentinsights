@@ -7,10 +7,10 @@ import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
 // important questions.
 class HomeInsights extends React.Component {
   render() {
-    const {educatorId} = this.props;
+    const {educatorId, inExperienceTeam} = this.props;
     return (
       <div className="HomeInsights" style={styles.root}>
-        <CheckStudentsWithLowGrades educatorId={educatorId} />
+        {inExperienceTeam && <CheckStudentsWithLowGrades educatorId={educatorId} />}
         {this.renderPlaceholder()}
       </div>
     );
@@ -28,7 +28,8 @@ class HomeInsights extends React.Component {
   }
 }
 HomeInsights.propTypes = {
-  educatorId: React.PropTypes.number.isRequired
+  educatorId: React.PropTypes.number.isRequired,
+  inExperienceTeam: React.PropTypes.bool.isRequired
 };
 
 const styles = {

@@ -180,7 +180,7 @@ class TestPals
     )
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
-    # on Tuesday and Thursday and has a homeroom period.
+    # on Tuesday and Thursday and has a homeroom period.  And he's on the NGE team.
     @shs_bill_nye_homeroom = Homeroom.create!(
       name: 'SHS 917',
       grade: '9',
@@ -206,6 +206,10 @@ class TestPals
         course: @shs_biology_course, section_number: 'SHS-BIO-THUR'
       )
     ])
+    EducatorLabel.create!({
+      educator: @shs_bill_nye,
+      label_key: 'shs_experience_team'
+    })
 
     # Hugo teachers two sections of ceramics at the high school.
     @shs_hugo_art_teacher = Educator.create!(

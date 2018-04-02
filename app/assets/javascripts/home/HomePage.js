@@ -10,7 +10,7 @@ This is the home page for all user roles, focused on
 */
 class HomePage extends React.Component {
   render() {
-    const {educatorId} = this.props;
+    const {educatorId, inExperienceTeam} = this.props;
     return (
       <div className="HomePage">
         <div style={styles.columnsContainer}>
@@ -20,7 +20,7 @@ class HomePage extends React.Component {
           </div>
           <div style={styles.column}>
             <SectionHeading>How can we adapt?</SectionHeading>
-            <HomeInsights educatorId={educatorId} />
+            <HomeInsights educatorId={educatorId} inExperienceTeam={inExperienceTeam} />
           </div>
         </div>
       </div>
@@ -28,7 +28,8 @@ class HomePage extends React.Component {
   }
 }
 HomePage.propTypes = {
-  educatorId: React.PropTypes.number.isRequired
+  educatorId: React.PropTypes.number.isRequired,
+  inExperienceTeam: React.PropTypes.bool.isRequired
 };
 
 const styles = {
