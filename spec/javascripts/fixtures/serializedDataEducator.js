@@ -1,9 +1,10 @@
-// For testing, which only needs the id and the other fields
-// for reporting to Mixpanel
+// For testing, which mirrors the output of ui_controller#ui on the
+// server.
 export function createSerializedDataEducator() {
   return {
     id: 9999,
     admin: false,
-    school_id: 99
+    school_id: 99,
+    in_experience_team: false
   };
 }

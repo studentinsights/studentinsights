@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CheckStudentWithLowGradesView handles when limit reached 1`] = `
+exports[`CheckStudentsWithLowGradesView handles when limit reached 1`] = `
 <div
-  className="CheckStudentWithLowGrades"
+  className="CheckStudentsWithLowGrades"
 >
   <div
     style={
@@ -219,9 +219,9 @@ exports[`CheckStudentWithLowGradesView handles when limit reached 1`] = `
 </div>
 `;
 
-exports[`CheckStudentWithLowGradesView pure component matches snapshot 1`] = `
+exports[`CheckStudentsWithLowGradesView pure component matches snapshot 1`] = `
 <div
-  className="CheckStudentWithLowGrades"
+  className="CheckStudentsWithLowGrades"
 >
   <div
     style={
