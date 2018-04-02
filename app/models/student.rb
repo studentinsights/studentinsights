@@ -281,6 +281,10 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def event_notes_without_restricted
+    event_notes.where(is_restricted: false)
+  end
+
   # Sections
   def sections_with_grades
     sections.select("sections.*, student_section_assignments.grade_numeric")

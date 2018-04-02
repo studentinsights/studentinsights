@@ -29,6 +29,19 @@ describe SectionsController, :type => :controller do
           'most_recent_school_year_discipline_incidents_count'
         )
       end
+
+      it 'does not include restricted notes' do
+        EventNote.create!({
+          educator: pals.uri,
+          student: pals.shs_freshman_mari,
+          text: 'something sensitive',
+          is_restricted: true,
+          event_note_type_id: 300,
+          recorded_at: Time.now
+        })
+        make_request(section.id)
+        expect(assigns(:serialized_data)[:students].first['event_notes']).to eq []
+      end
     end
   end
 
