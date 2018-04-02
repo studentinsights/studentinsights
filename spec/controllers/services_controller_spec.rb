@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-def make_request(service_id)
-  request.env['HTTPS'] = 'on'
-  delete :destroy, params: { id: service_id }
-end
-
-def create_service(student, educator)
-  FactoryGirl.create(:service, {
-    student: student,
-    recorded_by_educator: educator,
-    provided_by_educator_name: 'Hadjihabib, Amir'
-  })
-end
-
 describe ServicesController, :type => :controller do
+  def make_request(service_id)
+    request.env['HTTPS'] = 'on'
+    delete :destroy, params: { id: service_id }
+  end
+
+  def create_service(student, educator)
+    FactoryGirl.create(:service, {
+      student: student,
+      recorded_by_educator: educator,
+      provided_by_educator_name: 'Hadjihabib, Amir'
+    })
+  end
+
   describe '#destroy when not signed in' do
     let(:student) { FactoryGirl.create(:student) }
     let(:homeroom) { student.homeroom }

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-def make_request
-  request.env['HTTPS'] = 'on'
-  get :ui
-end
-
 describe UiController, :type => :controller do
   let!(:pals) { TestPals.create! }
 
+  def make_request
+    request.env['HTTPS'] = 'on'
+    get :ui
+  end
+  
   describe '#ui' do
     it 'renders minimal json shape inline' do
       sign_in(pals.uri)
