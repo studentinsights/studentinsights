@@ -58,7 +58,7 @@ class SectionsController < ApplicationController
     students.map do |student|
       grade_numeric = student.student_section_assignments.find_by_section_id(section.id).grade_numeric
       student.as_json(methods: [
-        :event_notes,
+        :event_notes_without_restricted,
         :most_recent_school_year_discipline_incidents_count,
         :most_recent_school_year_absences_count,
         :most_recent_school_year_tardies_count
