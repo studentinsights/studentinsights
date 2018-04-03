@@ -44,7 +44,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
             }
           }
         >
-          ?
+          what does this mean?
         </span>
       </a>
     </div>
@@ -65,9 +65,20 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
         129
          students
       </b>
-       you work with you who are missing school but 
+       you work with you who's been missing school recently but 
       haven't
-       been mentioned in SST yet.
+       been mentioned in SST yet.  
+      <span
+        style={
+          Object {
+            "marginLeft": 5,
+          }
+        }
+      >
+        Since 
+        January 1st
+        :
+      </span>
     </div>
     <div
       style={
@@ -162,7 +173,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
             }
           }
         >
-          ?
+          what does this mean?
         </span>
       </a>
     </div>
@@ -182,7 +193,20 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
       <b>
         one student
       </b>
-       you work with you who is missing school but hasn't been mentioned in SST yet.
+       you work with you who's been missing school recently but 
+      hasn't
+       been mentioned in SST yet.  
+      <span
+        style={
+          Object {
+            "marginLeft": 5,
+          }
+        }
+      >
+        Since 
+        January 1st
+        :
+      </span>
     </div>
     <div
       style={

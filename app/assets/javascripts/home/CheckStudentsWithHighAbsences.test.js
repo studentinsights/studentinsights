@@ -5,10 +5,11 @@ import fetchMock from 'fetch-mock/es5/client';
 import CheckStudentsWithHighAbsences, {CheckStudentsWithHighAbsencesView} from './CheckStudentsWithHighAbsences';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import studentsWithHighAbsencesJson from '../../../../spec/javascripts/fixtures/home_students_with_high_absences_json';
+import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 
 function renderIntoEl(element) {
   const el = document.createElement('div');
-  ReactDOM.render(element, el);
+  ReactDOM.render(withDefaultNowContext(element), el);
   return el;
 }
 
@@ -34,15 +35,14 @@ describe('CheckStudentsWithHighAbsences', () => {
 
   it('renders without crashing', () => {
     const props = testProps();
-    const el = document.createElement('div');
-    ReactDOM.render(<CheckStudentsWithHighAbsences {...props} />, el);
+    renderIntoEl(<CheckStudentsWithHighAbsences {...props} />);
   });
 
   SpecSugar.withTestEl('integration tests', container => {
     it('renders everything after fetch', done => {
       const props = testProps();
       const el = container.testEl;
-      ReactDOM.render(<CheckStudentsWithHighAbsences {...props} />, el);
+      ReactDOM.render(withDefaultNowContext(<CheckStudentsWithHighAbsences {...props} />), el);
       
       setTimeout(() => {
         expect($(el).text()).toContain('There is one student');
@@ -66,7 +66,7 @@ describe('CheckStudentsWithHighAbsencesView', () => {
       studentsWithHighAbsences: studentsWithHighAbsencesJson.students_with_high_absences
     };
     const tree = renderer
-      .create(<CheckStudentsWithHighAbsencesView {...props} />)
+      .create(withDefaultNowContext(<CheckStudentsWithHighAbsencesView {...props} />))
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -79,7 +79,7 @@ describe('CheckStudentsWithHighAbsencesView', () => {
       studentsWithHighAbsences: studentsWithHighAbsencesJson.students_with_high_absences.slice(0, 3)
     };
     const tree = renderer
-      .create(<CheckStudentsWithHighAbsencesView {...props} />)
+      .create(withDefaultNowContext(<CheckStudentsWithHighAbsencesView {...props} />))
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
