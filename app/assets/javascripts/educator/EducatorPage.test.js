@@ -12,7 +12,7 @@ function testProps() {
   };
 }
 
-jest.mock('../home/HomePage');
+
 beforeEach(() => {
   fetchMock.restore();
   fetchMock.get('/api/educators/101', educatorsViewJson);

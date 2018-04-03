@@ -40,4 +40,8 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
   return renderTableFn({items, title: 'Disability'});
 }
 
-
+// Check educator labels to see if the educator belongs to
+// the NGE and 10GE experience teams.
+export function inExperienceTeam(educatorLabels) {
+  return (educatorLabels.indexOf('shs_experience_team') !== -1);
+}
