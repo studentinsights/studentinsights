@@ -2,7 +2,7 @@ import React from 'react';
 import * as Routes from '../helpers/Routes';
 import studentSearchbar from '../student_searchbar';
 import RailsLinkMethod from './RailsLinkMethod';
-import SharedPropTypes from '../helpers/prop_types';
+import SharedPropTypes from '../helpers/prop_types.jsx';
 
 
 // Pure UI frame
