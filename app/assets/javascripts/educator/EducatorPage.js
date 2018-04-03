@@ -70,7 +70,7 @@ class EducatorPage extends React.Component {
         <SectionHeading>Home page</SectionHeading>
         <HomePage
           educatorId={educator.id}
-          inExperienceTeam={educator.is_in_experience_team} />
+          educatorLabels={educator.labels} />
       </div>
     );
   }

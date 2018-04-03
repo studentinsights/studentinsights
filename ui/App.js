@@ -48,10 +48,11 @@ class App extends React.Component {
 
   renderHomePage(routeProps) {
     const {currentEducator} = this.props;
+    const {id, labels} = currentEducator;
     this.trackVisit(routeProps, 'HOME_PAGE');
     return <HomePage
-      educatorId={currentEducator.id}
-      inExperienceTeam={currentEducator.in_experience_team} />;
+      educatorId={id}
+      educatorLabels={labels} />;
   }
 
   renderSchoolCoursesPage(routeProps) {
@@ -82,7 +83,7 @@ App.propTypes = {
     id: React.PropTypes.number.isRequired,
     admin: React.PropTypes.bool.isRequired,
     school_id: React.PropTypes.number.isRequired,
-    in_experience_team: React.PropTypes.bool.isRequired
+    labels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
   }).isRequired
 };
 

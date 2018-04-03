@@ -41,7 +41,8 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
 }
 
 // Check educator labels to see if the educator belongs to
-// the NGE and 10GE experience teams.
+// the NGE and 10GE experience teams.  This label only applies to
+// Somerville.
 export function inExperienceTeam(educatorLabels) {
   return (educatorLabels.indexOf('shs_experience_team') !== -1);
 }

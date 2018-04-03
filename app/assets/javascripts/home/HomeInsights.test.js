@@ -8,7 +8,7 @@ import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
 function testProps(props = {}) {
   return {
     educatorId: 9999,
-    inExperienceTeam: false,
+    educatorLabels: [],
     ...props
   };
 }
@@ -25,8 +25,8 @@ it('shallow renders', () => {
   expect(wrapper.find(CheckStudentsWithLowGrades).length).toEqual(0);
 });
 
-it('shallow renders box when inExperienceTeam: true', () => {
-  const props = testProps({ inExperienceTeam: true });
+it('shallow renders NGE/10GE box when labels include experience team', () => {
+  const props = testProps({ educatorLabels: ['shs_experience_team'] });
   const wrapper = shallow(<HomeInsights {...props} />);
-  expect(wrapper.contains(<CheckStudentsWithLowGrades educatorId={props.educatorId} />)).toEqual(true);
+  expect(wrapper.contains(<CheckStudentsWithLowGrades educatorId={9999} />)).toEqual(true);
 });
