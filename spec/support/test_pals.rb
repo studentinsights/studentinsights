@@ -178,6 +178,10 @@ class TestPals
       school: @shs,
       homeroom: @shs_jodi_homeroom
     )
+    EducatorLabel.create!({
+      educator: @shs_jodi_homeroom,
+      label_key: 'shs_experience_team'
+    })
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
     # on Tuesday and Thursday and has a homeroom period.  And he's on the NGE team.

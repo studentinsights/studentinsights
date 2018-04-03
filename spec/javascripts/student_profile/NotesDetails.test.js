@@ -33,7 +33,7 @@ describe('NotesDetails', function() {
         requests: {},
         showingRestrictedNotes: false,
         title: '',
-        helpContent: {},
+        helpContent: '',
         helpTitle: '',
       });
 

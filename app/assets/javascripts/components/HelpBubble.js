@@ -80,8 +80,8 @@ class HelpBubble extends React.Component {
 
 HelpBubble.propTypes = {
   title: React.PropTypes.string.isRequired, // e.g. 'What is a Note?'
-  content: React.PropTypes.element.isRequired, // React DOM objects which will be displayed in the modal text box.
-  teaser: React.PropTypes.element.isRequired // text displayed before the user clicks, e.g. 'Find out more.'
+  content: React.PropTypes.node.isRequired, // React DOM objects which will be displayed in the modal text box.
+  teaser: React.PropTypes.node.isRequired // text displayed before the user clicks, e.g. 'Find out more.'
 };
 
 export default HelpBubble;

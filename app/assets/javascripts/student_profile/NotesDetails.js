@@ -150,7 +150,7 @@ NotesDetails.propTypes = {
 
   showingRestrictedNotes: React.PropTypes.bool.isRequired,
   title: React.PropTypes.string.isRequired,
-  helpContent: React.PropTypes.object.isRequired,
+  helpContent: React.PropTypes.node.isRequired,
   helpTitle: React.PropTypes.string.isRequired,
 };
 

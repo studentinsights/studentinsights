@@ -86,7 +86,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
             content={this.renderHelpContent()} />
         </div>
         <Card style={{border: 'none'}}>
-          <div>There {this.renderAreHowManyStudents(totalStudents)} you work with who are missing school but haven't been mentioned in SST yet.</div>
+          {this.renderCopy(totalStudents)}
           {this.renderList(truncatedStudentsWithHighAbsences)}
           {this.renderMore(truncatedStudentsWithHighAbsences)}
         </Card>
@@ -94,10 +94,13 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
     );
   }
 
-  renderAreHowManyStudents(totalStudents) {
-    if (totalStudents === 0) return <span>are <b>no students</b></span>;
-    if (totalStudents === 1) return <span>is <b>one student</b></span>;
-    return <span>are <b>{totalStudents} students</b></span>;
+  // Branching on singular and plural and zero.
+  renderCopy(totalStudents) {
+    if (totalStudents === 1) {
+      return <div>There is <b>one student</b> you work with you who is missing school but hasn't been mentioned in SST yet.</div>;
+    } else {
+      return <div>There are <b>{totalStudents === 0 ? 'no' : totalStudents} students</b> you work with you who are missing school but haven't been mentioned in SST yet.</div>;
+    }
   }
 
   renderList(truncatedStudentsWithHighAbsences) {
@@ -108,12 +111,13 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
           const {student, count} = studentsWithHighAbsences;
           return (
             <div key={student.id} style={styles.line}>
-              <a
-                style={styles.person}
-                href={`/students/${student.id}?column=attendance#absences`}>
-                  {student.first_name} {student.last_name}
-                </a>
-              has missed {count} days of school
+              <span>
+                <a
+                  style={styles.person}
+                  href={`/students/${student.id}?column=attendance#absences`}>
+                    {student.first_name} {student.last_name}
+                  </a> has missed {count} days of school
+              </span>
             </div>
           );
         })}
