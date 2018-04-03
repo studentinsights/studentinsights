@@ -19,8 +19,8 @@ before_install:
 
 install:
   - . $HOME/.nvm/nvm.sh
-  - nvm install 8.11.0
-  - nvm use 8.11.0
+  - nvm install --lts
+  - nvm use --lts
   - bundle install --retry=3
   - yarn install
 
