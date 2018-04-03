@@ -1,0 +1,38 @@
+<div class="nav-options">
+  <% # Show different links based on role and access %>
+  <% links = PathsForEducator.new(educator).navbar_links %>
+
+  <% if links.include?(:district) %>
+    <%= link_to 'District', educators_districtwide_url %>
+    &nbsp; &nbsp; &nbsp;
+  <% elsif links.include?(:school) %>
+    <%= link_to 'Roster', school_path(educator.school) %>
+    &nbsp;
+    <%= link_to "Absences", school_administrator_dashboard_school_path(educator.school) + '#/absences_dashboard' %>
+    &nbsp;
+    <%= link_to "Tardies", school_administrator_dashboard_school_path(educator.school) + '#/tardies_dashboard' %>
+    &nbsp;
+    &nbsp; &nbsp; &nbsp;
+  <% end %>
+
+  <% if links.include?(:sections) %>
+    <%= link_to 'Sections', section_path(educator.default_section) %>
+    &nbsp;
+  <% end %>
+
+  <% if links.include?(:homeroom) %>
+  <%= link_to 'Homeroom', homeroom_path(educator.default_homeroom) %>
+    &nbsp;
+  <% end %>
+
+  <% # Everyone has these %>
+  <%= link_to "My notes", educators_notes_feed_path %>
+  &nbsp;
+  <%= link_to "Home", home_path %>
+  &nbsp;
+  &nbsp; &nbsp;
+  <p class="search-label">Search for student:</p>
+  <input class="student-searchbar" />
+  &nbsp; &nbsp; &nbsp;
+  <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
+</div>

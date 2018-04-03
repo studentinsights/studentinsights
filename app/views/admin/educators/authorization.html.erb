@@ -40,7 +40,7 @@
 <div style="padding: 20px">
   <pre><%=
     hash = Hash.new(0);
-    homepage_types = @all_educators.map {|e| Authorizer.new(e).homepage_type }
+    homepage_types = @all_educators.map {|e| PathsForEducator.new(e).homepage_type }
     homepage_types.each {|value| hash[value] += 1};
     JSON.pretty_generate(hash)
   %>
@@ -54,6 +54,7 @@
           <th style="padding: 5px; background: #ccc;">Email</th>
           <th style="padding: 5px; background: #ccc;">Name</th>
           <th style="padding: 5px; background: #ccc;">School</th>
+          <th style="padding: 5px; background: #ccc;">Links</th>
           <th style="padding: 5px; background: #ccc;">Homepage</th>
         </tr>
       </thead>
@@ -66,7 +67,7 @@
               school: 20,
               section: 30,
               homeroom: 40
-            }[Authorizer.new(educator).homepage_type]
+            }[PathsForEducator.new(educator).homepage_type]
             [educator.school.try(:name) || 'None', type_sort_key]
           end
           sorted_educators = @all_educators.sort_by {|e| sort_key(e) }
@@ -103,6 +104,7 @@
             <td style="padding: 5px;"><%= educator.email %></td>
             <td style="padding: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
             <td style="padding: 5px;"><%= educator.school.try(:name) %></td>
+            <td><%= PathsForEducator.new(educator).navbar_links.to_a.join('<br />') %></td>
             <td style="padding: 5px;"><%= link_to path, path %></td>
         <% end %>
       </tbody>
