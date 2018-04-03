@@ -14,34 +14,19 @@ class StudentSectionAssignmentRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def build
-    return if course.nil? || student.nil? || section.nil?
-
-    StudentSectionAssignment.find_or_initialize_by(student: student, section: section)
+    if student and section
+      student_section_assignment = StudentSectionAssignment.find_or_initialize_by(student: student,
+                                                                                section: section)
+      return student_section_assignment
+    end
   end
 
   def student
-    return unless row[:local_id]
-
-    Student.find_by_local_id(row[:local_id])
-  end
-
-  def course
-    return unless row[:course_number]
-
-    school_local_id = row[:school_local_id]
-    school_id = school_ids_dictionary[school_local_id]
-
-    Course.find_by(course_number: row[:course_number], school_id: school_id)
+    return Student.find_by_local_id(row[:local_id]) if row[:local_id]
   end
 
   def section
-    return unless row[:section_number]
-
-    Section.find_by(
-      section_number: row[:section_number],
-      course: course,
-      term_local_id: row[:term_local_id]
-    )
+    return Section.find_by_section_number(row[:section_number]) if row[:section_number]
   end
 
 end

@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe StudentSectionAssignmentsImporter do
-  before { School.seed_somerville_schools }
-  let(:high_school) { School.find_by_local_id('SHS') }
 
   let(:student_section_assignments_importer) {
     described_class.new(options: {
@@ -11,20 +9,17 @@ RSpec.describe StudentSectionAssignmentsImporter do
   }
 
   describe '#import_row' do
-    let!(:course) { FactoryGirl.create(:course, school: high_school) }
-    let!(:section) { FactoryGirl.create(:section, course: course) }
+    let!(:school) { FactoryGirl.create(:shs) }
+    let!(:section) { FactoryGirl.create(:section) }
     let!(:student) { FactoryGirl.create(:student) }
 
     context 'happy path' do
-      let(:row) {
-        {
-          local_id: student.local_id,
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          section_number: section.section_number,
-          term_local_id: 'FY'
-        }
-      }
+      let(:row) { { local_id:student.local_id,
+                    course_number:section.course.course_number,
+                    school_local_id: 'SHS',
+                    section_number:section.section_number,
+                    term_local_id:'FY'
+                } }
 
         before do
           student_section_assignments_importer.import_row(row)
@@ -41,14 +36,11 @@ RSpec.describe StudentSectionAssignmentsImporter do
     end
 
     context 'student lasid is missing' do
-      let(:row) {
-        {
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          section_number: section.section_number,
-          term_local_id: 'FY'
-        }
-      }
+      let(:row) { { course_number:section.course.course_number,
+                  school_local_id: 'SHS',
+                  section_number:section.section_number,
+                  term_local_id:'FY'
+              } }
 
       before do
         student_section_assignments_importer.import_row(row)
@@ -60,14 +52,11 @@ RSpec.describe StudentSectionAssignmentsImporter do
     end
 
     context 'section is missing' do
-      let(:row) {
-        {
-          local_id: student.local_id,
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          term_local_id: 'FY'
-        }
-      }
+      let(:row) { { local_id:student.local_id,
+                  course_number:section.course.course_number,
+                  school_local_id: 'SHS',
+                  term_local_id:'FY'
+              } }
 
       before do
         student_section_assignments_importer.import_row(row)
@@ -79,15 +68,12 @@ RSpec.describe StudentSectionAssignmentsImporter do
     end
 
     context 'student does not exist' do
-      let(:row) {
-        {
-          local_id: 'NO EXIST',
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          section_number: section.section_number,
-          term_local_id: 'FY'
-        }
-      }
+      let(:row) { { local_id:'NO EXIST',
+                  course_number:section.course.course_number,
+                  school_local_id: 'SHS',
+                  section_number:section.section_number,
+                  term_local_id:'FY'
+              } }
 
       before do
         student_section_assignments_importer.import_row(row)
@@ -99,15 +85,12 @@ RSpec.describe StudentSectionAssignmentsImporter do
     end
 
     context 'section does not exist' do
-      let(:row) {
-        {
-          local_id: student.local_id,
-          course_number: section.course.course_number,
-          school_local_id: 'SHS',
-          section_number: 'NO EXIST',
-          term_local_id: 'FY'
-        }
-      }
+    let(:row) { { local_id:student.local_id,
+                  course_number:section.course.course_number,
+                  school_local_id: 'SHS',
+                  section_number:'NO EXIST',
+                  term_local_id:'FY'
+              } }
 
       before do
         student_section_assignments_importer.import_row(row)
@@ -121,17 +104,15 @@ RSpec.describe StudentSectionAssignmentsImporter do
 
   describe '#delete_rows' do
     let(:log) { LogHelper::Redirect.instance.file }
+    let!(:school) { FactoryGirl.create(:shs) }
     let!(:section) { FactoryGirl.create(:section) }
     let!(:student) { FactoryGirl.create(:student) }
-    let(:row) {
-      {
-        local_id: student.local_id,
-        course_number: section.course.course_number,
-        school_local_id: section.course.school.local_id,
-        section_number: section.section_number,
-        term_local_id: section.term_local_id
-      }
-    }
+    let(:row) { { local_id:student.local_id,
+      course_number:section.course.course_number,
+      school_local_id: section.course.school.local_id,
+      section_number:section.section_number,
+      term_local_id: section.term_local_id
+    } }
 
     context 'happy path' do
       let(:student_section_assignments_importer) {
