@@ -30,7 +30,7 @@ RSpec.describe Authorizer do
 
     it 'works for authorization' do
       students = Student.select(*Authorizer.student_fields_for_authorization).all
-      expect(authorized(pals.uri) { students }).to eq [
+      expect(authorized(pals.uri) { students }).to contain_exactly *[
         pals.healey_kindergarten_student,
         pals.shs_freshman_mari
       ]

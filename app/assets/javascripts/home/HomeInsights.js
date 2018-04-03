@@ -1,16 +1,20 @@
 import React from 'react';
 import Card from '../components/Card';
 import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
+import CheckStudentsWithHighAbsences from './CheckStudentsWithHighAbsences';
+import {inExperienceTeam} from '../helpers/PerDistrict';
 
 
 // On the home page, show users the answers to their most
-// important questions.
+// important questions.  Branches depending on role and labels.
 class HomeInsights extends React.Component {
   render() {
-    const {educatorId, inExperienceTeam} = this.props;
+    const {educatorId, educatorLabels} = this.props;
     return (
       <div className="HomeInsights" style={styles.root}>
-        {inExperienceTeam && <CheckStudentsWithLowGrades educatorId={educatorId} />}
+        {inExperienceTeam(educatorLabels) &&
+          <CheckStudentsWithLowGrades educatorId={educatorId} />}
+        <CheckStudentsWithHighAbsences educatorId={educatorId} />
         {this.renderPlaceholder()}
       </div>
     );
@@ -29,7 +33,7 @@ class HomeInsights extends React.Component {
 }
 HomeInsights.propTypes = {
   educatorId: React.PropTypes.number.isRequired,
-  inExperienceTeam: React.PropTypes.bool.isRequired
+  educatorLabels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 };
 
 const styles = {

@@ -19,3 +19,6 @@ global.fetch = require('jest-fetch-mock'); // eslint-disable-line no-undef
 // Make console.warn and error fail tests
 console.error = jest.fn(error => { throw new Error(error); }); //eslint-disable-line no-console
 console.warn = jest.fn(warn => { throw new Error(warn); }); //eslint-disable-line no-console
+
+// flag for GenericLoader
+global.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST = true;

@@ -5,7 +5,7 @@ import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
 import {shouldDisplay} from '../helpers/customization_helpers.js';
-import {renderSlicePanelsDisabilityTable} from '../helpers/districts';
+import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
 
 
 // For showing a set of panels that let users see an overview

@@ -13,7 +13,7 @@ function testProps() {
   };
 }
 
-jest.mock('../home/HomePage');
+
 beforeEach(() => {
   fetchMock.restore();
   fetchMock.get('/api/schools/42/courses', schoolCoursesJson);

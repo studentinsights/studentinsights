@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import HelpBubble from '../../../app/assets/javascripts/student_profile/HelpBubble';
+import HelpBubble from './HelpBubble';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -14,6 +14,6 @@ it('renders without crashing', () => {
     <HelpBubble
       title='What is a Note?'
       content={getSparklyBubbleContent()}
-      teaserText='Find out more.'
+      teaser='Find out more.'
     />, div);
 });

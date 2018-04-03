@@ -55,16 +55,6 @@ class PerDistrict
     end
   end
 
-  # Used for labelling particular SHS educators as belonging to
-  # the NGE and 10GE experience teams.
-  def in_shs_experience_team?(educator)
-    if @district_key == SOMERVILLE
-      educator.educator_labels.where(label_key: 'shs_experience_team').length > 0
-    else
-      false
-    end
-  end
-
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError
