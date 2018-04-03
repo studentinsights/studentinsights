@@ -1,7 +1,7 @@
 import TakeNotes from './take_notes.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
 import React from 'react';
-import HelpBubble from './HelpBubble.js';
+import HelpBubble from '../components/HelpBubble';
 import SectionHeading from '../components/SectionHeading';
 
 const styles = {
@@ -57,8 +57,8 @@ class NotesDetails extends React.Component {
         <SectionHeading>
           <span>{title} for {student.first_name}</span>
           <HelpBubble
+            teaser="(what is this?)"
             title={this.props.helpTitle}
-            teaserText="(what is this?)"
             content={this.props.helpContent} />
           {this.renderRestrictedNotesButtonIfAppropriate()}
         </SectionHeading>

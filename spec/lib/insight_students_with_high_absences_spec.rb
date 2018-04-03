@@ -5,21 +5,15 @@ RSpec.describe InsightStudentsWithHighAbsences do
   let!(:time_now) { Time.zone.local(2018, 3, 5, 8, 45) }
 
   describe '#students_with_high_absences_json' do
-    it 'finds no one for Jodi' do
+    it 'finds no one for Fatima' do
       time_threshold = time_now - 45.days
       absences_threshold = 4
-      insight = InsightStudentsWithHighAbsences.new(pals.shs_jodi)
+      insight = InsightStudentsWithHighAbsences.new(pals.shs_fatima_science_teacher)
       students_with_high_absences = insight.students_with_high_absences_json(time_now, time_threshold, absences_threshold)
       expect(students_with_high_absences).to eq []
     end
 
     it 'finds Mari for Bill when at threshold' do
-      4.times do |index|
-        Absence.create!({
-          occurred_at: time_now - index.days,
-          student: pals.shs_freshman_mari
-        })
-      end
       time_threshold = time_now - 45.days
       absences_threshold = 4
       insight = InsightStudentsWithHighAbsences.new(pals.shs_bill_nye)
@@ -38,6 +32,7 @@ RSpec.describe InsightStudentsWithHighAbsences do
     end
 
     it 'finds no one for Bill when under threshold' do
+      pals.shs_freshman_mari.absences.destroy_all
       3.times do |index|
         Absence.create!({
           occurred_at: time_now - index.days,

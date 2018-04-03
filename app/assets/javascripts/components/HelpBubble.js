@@ -33,7 +33,7 @@ class HelpBubble extends React.Component {
     return (
       <div style={{display: 'inline', marginLeft: 10}}>
         <a href="#" onClick={this.openModal} style={{fontSize: 12, outline: 'none'}}>
-          {this.props.teaserText}
+          {this.props.teaser}
         </a>
         {// The modal is not logically here, but even while not displayed it needs a location in the DOM.
         this.renderModal()}
@@ -80,8 +80,8 @@ class HelpBubble extends React.Component {
 
 HelpBubble.propTypes = {
   title: React.PropTypes.string.isRequired, // e.g. 'What is a Note?'
-  content: React.PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.
-  teaserText: React.PropTypes.string.isRequired // text displayed before the user clicks, e.g. 'Find out more.'
+  content: React.PropTypes.element.isRequired, // React DOM objects which will be displayed in the modal text box.
+  teaser: React.PropTypes.element.isRequired // text displayed before the user clicks, e.g. 'Find out more.'
 };
 
 export default HelpBubble;

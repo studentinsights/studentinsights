@@ -256,17 +256,7 @@ describe HomeController, :type => :controller do
   end
 
   describe '#students_with_high_absences_json' do
-    # with absences for Mari as the test case
-    before do
-      4.times do |index|
-        Absence.create!({
-          occurred_at: time_now - index.days,
-          student: pals.shs_freshman_mari
-        })
-      end
-    end
-
-    it 'works end-to-end' do
+    it 'works end-to-end, using absences for Mari as the test case' do
       sign_in(pals.shs_bill_nye)
       get :students_with_high_absences_json, params: {
         limit: 100,

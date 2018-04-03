@@ -1,6 +1,7 @@
 import React from 'react';
 import qs from 'query-string';
 import Card from '../components/Card';
+import HelpBubble from '../components/HelpBubble';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 
@@ -60,6 +61,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
     this.state = {
       uiLimit: 4
     };
+    this.renderHelpContent = this.renderHelpContent.bind(this);
     this.onMoreStudents = this.onMoreStudents.bind(this);
   }
 
@@ -76,9 +78,15 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
 
     return (
       <div className="CheckStudentsWithHighAbsences">
-        <div style={styles.cardTitle}>Students to check in on about missing school</div>
+        <div style={styles.cardTitle}>
+          Students missing school
+          <HelpBubble
+            teaser={<span style={styles.helpTeaser}>?</span>}
+            title="Students missing school"
+            content={this.renderHelpContent()} />
+        </div>
         <Card style={{border: 'none'}}>
-           <div>There {this.renderAreHowManyStudents(totalStudents)} who have have missed more than 4 days of school in the last 45 days, but haven't been mentioned yet in SST.</div>
+          <div>There {this.renderAreHowManyStudents(totalStudents)} you work with who are missing school but haven't been mentioned in SST yet.</div>
           {this.renderList(truncatedStudentsWithHighAbsences)}
           {this.renderMore(truncatedStudentsWithHighAbsences)}
         </Card>
@@ -100,7 +108,11 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
           const {student, count} = studentsWithHighAbsences;
           return (
             <div key={student.id} style={styles.line}>
-              <span><a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a></span>
+              <a
+                style={styles.person}
+                href={`/students/${student.id}?column=attendance#absences`}>
+                  {student.first_name} {student.last_name}
+                </a>
               has missed {count} days of school
             </div>
           );
@@ -121,6 +133,16 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
     }
 
     return null;
+  }
+
+  renderHelpContent() {
+    return (
+      <div>
+        <p style={styles.helpContent}>These are all the students that you have access to who have a high number of absences over the last 45 days, but haven't been mentioned yet in SST.</p>
+        <p style={styles.helpContent}>If you work directly with this student, you could talk with them or reach out to the family.  Or you could connect with a colleague providing support services (eg, attendance officers, counselors, redirect).  If the student in still missing school, attendance contracts might be a next step.</p>
+        <p style={styles.helpContent}>The threshold for being included in this list is to have 4 or more absences in the last 45 calendar days.</p>
+      </div>
+    );
   }
 }
 
@@ -150,11 +172,21 @@ const styles = {
     border: '1px solid #ccc',
     borderRadius: 3
   },
+  helpTeaser: {
+    display: 'inline-block',
+    paddingLeft: 5,
+    paddingRight: 5
+  },
+  helpContent: {
+    margin: 10
+  },
   cardTitle: {
     backgroundColor: '#eee',
     padding: 10,
     color: 'black',
-    borderBottom: '1px solid #ccc'
+    borderBottom: '1px solid #ccc',
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   person: {
     fontWeight: 'bold'
