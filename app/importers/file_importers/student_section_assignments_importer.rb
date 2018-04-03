@@ -38,10 +38,6 @@ class StudentSectionAssignmentsImporter
     SchoolFilter.new(@school_scope)
   end
 
-  def school_ids_dictionary
-    @dictionary ||= School.all.map { |school| [school.local_id, school.id] }.to_h
-  end
-
   def delete_rows
     #Delete all stale rows no longer included in the import
     #For the schools imported during this run of the importer
@@ -52,11 +48,10 @@ class StudentSectionAssignmentsImporter
   end
 
   def import_row(row)
-    assignment = StudentSectionAssignmentRow.new(row, school_ids_dictionary).build
-
-    if assignment
-      assignment.save!
-      @imported_assignments.push(assignment.id)
+    student_section_assignment = StudentSectionAssignmentRow.new(row).build
+    if student_section_assignment
+      student_section_assignment.save!
+      @imported_assignments.push(student_section_assignment.id)
     else
       @log.write("Student Section Assignment Import invalid row: #{row}")
     end
