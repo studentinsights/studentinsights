@@ -182,7 +182,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
       <b>
         one student
       </b>
-       you work with you who is missing school but hasn\\'t been mentioned in SST yet.
+       you work with you who is missing school but hasn't been mentioned in SST yet.
     </div>
     <div
       style={

@@ -94,7 +94,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
   // Branching on singular and plural and zero.
   renderCopy(totalStudents) {
     if (totalStudents === 1) {
-      return <div>There is <b>one student</b> you work with you who is missing school but hasn\'t been mentioned in SST yet.</div>;
+      return <div>There is <b>one student</b> you work with you who is missing school but hasn't been mentioned in SST yet.</div>;
     } else {
       return <div>There are <b>{totalStudents === 0 ? 'no' : totalStudents} students</b> you work with you who are missing school but {"haven't"} been mentioned in SST yet.</div>;
     }
