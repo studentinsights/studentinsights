@@ -6,8 +6,7 @@ import {
 import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
-import SchoolwideAbsences from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolwideAbsences';
-import TardiesDataLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/TardiesDataLoader';
+import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
@@ -50,7 +49,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
           <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
           <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
-          <Route exact path="/schools/:id/absences" render={this.renderAbsenceDashboard.bind(this)}/>
+          <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
@@ -76,12 +75,12 @@ class App extends React.Component {
     return <EducatorPage educatorId={educatorId} />;
   }
 
-  renderAbsenceDashboard(routeProps) {
-    return <SchoolwideAbsences schoolId={routeProps.match.params.id} />;
+  renderAbsencesDashboard(routeProps) {
+    return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'absences'} />;
   }
 
   renderTardiesDashboard(routeProps) {
-    return <TardiesDataLoader schoolId={routeProps.match.params.id} />;
+    return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'tardies'}/>;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the

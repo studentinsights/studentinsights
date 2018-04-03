@@ -8,8 +8,8 @@ Rails.application.routes.draw do
 
   get '/api/educators/:id' => 'educators#show'
   get '/api/schools/:id/courses' => 'schools#courses_json'
-  get 'api/schools/:id/absence_dashboard_data' => 'schools#absence_dashboard_data'
-  get 'api/schools/:id/tardies_dashboard_data' => 'schools#tardies_dashboard_data'
+  get 'api/schools/:id/absences/data' => 'schools#absence_dashboard_data'
+  get 'api/schools/:id/tardies/data' => 'schools#tardies_dashboard_data'
 
   devise_for :educators
   authenticated :educator do
