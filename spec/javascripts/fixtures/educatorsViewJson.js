@@ -10,7 +10,6 @@ export default {
   "restricted_to_english_language_learners": false,
   "can_view_restricted_notes": false,
   "districtwide_access": false,
-  "labels": [],
   "school": {
     "id": 9,
     "name": "Somerville High"
