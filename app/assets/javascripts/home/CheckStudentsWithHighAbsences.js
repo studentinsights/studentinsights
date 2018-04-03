@@ -6,8 +6,8 @@ import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 
 
-// On the home page, show users students with high absences
-// that haven't been talked about in SST recently.
+// Show teachers their students who have high absences
+// but haven't been talked about in SST recently.
 class CheckStudentsWithHighAbsences extends React.Component {
   constructor(props) {
     super(props);
@@ -51,10 +51,7 @@ CheckStudentsWithHighAbsences.defaultProps = {
 };
 
 
-// Pure UI component, for showing a high school teacher
-// which of their students have low grades but haven't been
-// discussed in NGE or 10GE.  The intention is that this list of
-// students to check in on is immediately actionable.
+// Pure UI component.
 export class CheckStudentsWithHighAbsencesView extends React.Component {
   constructor(props) {
     super(props);
@@ -97,9 +94,9 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
   // Branching on singular and plural and zero.
   renderCopy(totalStudents) {
     if (totalStudents === 1) {
-      return <div>There is <b>one student</b> you work with you who is missing school but hasn't been mentioned in SST yet.</div>;
+      return <div>There is <b>one student</b> you work with you who is missing school but hasn\'t been mentioned in SST yet.</div>;
     } else {
-      return <div>There are <b>{totalStudents === 0 ? 'no' : totalStudents} students</b> you work with you who are missing school but haven't been mentioned in SST yet.</div>;
+      return <div>There are <b>{totalStudents === 0 ? 'no' : totalStudents} students</b> you work with you who are missing school but haven\'t been mentioned in SST yet.</div>;
     }
   }
 
@@ -142,7 +139,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
   renderHelpContent() {
     return (
       <div>
-        <p style={styles.helpContent}>These are all the students that you have access to who have a high number of absences over the last 45 days, but haven't been mentioned yet in SST.</p>
+        <p style={styles.helpContent}>These are all the students that you have access to who have a high number of absences over the last 45 days, but haven\'t been mentioned yet in SST.</p>
         <p style={styles.helpContent}>If you work directly with this student, you could talk with them or reach out to the family.  Or you could connect with a colleague providing support services (eg, attendance officers, counselors, redirect).  If the student in still missing school, attendance contracts might be a next step.</p>
         <p style={styles.helpContent}>The threshold for being included in this list is to have 4 or more absences in the last 45 calendar days.</p>
       </div>
