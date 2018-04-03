@@ -62,6 +62,10 @@ class Educator < ActiveRecord::Base
     end
   end
 
+  def labels
+    educator_labels.map(&:label_key)
+  end
+
   def default_homeroom
     return homeroom if homeroom.present?
     raise Exceptions::NoAssignedHomeroom

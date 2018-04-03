@@ -10,6 +10,7 @@ export default {
   "restricted_to_english_language_learners": false,
   "can_view_restricted_notes": false,
   "districtwide_access": false,
+  "labels": [],
   "school": {
     "id": 9,
     "name": "Somerville High"
@@ -25,5 +26,6 @@ export default {
       "section_number": "ART-302B",
       "course_description": "Ceramic Art 3"
     }
-  ]
+  ],
+  "labels": []
 };

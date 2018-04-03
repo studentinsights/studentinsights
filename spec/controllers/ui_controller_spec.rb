@@ -18,12 +18,12 @@ describe UiController, :type => :controller do
           "id" => pals.uri.id,
           "admin" => true,
           "school_id" => pals.healey.id,
-          "in_experience_team" => false
+          "labels" => []
         }
       }.deep_stringify_keys)
     end
 
-    it 'correctly sets in_experience_team' do
+    it 'correctly sets labels' do
       sign_in(pals.shs_bill_nye)
       make_request
       expect(response.status).to eq 200
@@ -32,7 +32,7 @@ describe UiController, :type => :controller do
           "id" => pals.shs_bill_nye.id,
           "admin" => false,
           "school_id" => pals.shs.id,
-          "in_experience_team" => true
+          "labels" => ['shs_experience_team']
         }
       }.deep_stringify_keys)
     end
