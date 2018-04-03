@@ -11,9 +11,15 @@ describe('NotesDetails', function() {
       const mergedProps = merge(props || {}, {
         eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
         educatorsIndex: {},
+        noteInProgressText: '',
+        noteInProgressType: null,
+        noteInProgressAttachmentUrls: [],
         actions: {
           onClickSaveNotes: function () {},
-          onEventNoteAttachmentDeleted: function () {}
+          onEventNoteAttachmentDeleted: function () {},
+          onChangeNoteInProgressText: function () {},
+          onClickNoteType: function () {},
+          onChangeAttachmentUrl: function () {}
         },
         feed: {
           event_notes: [],

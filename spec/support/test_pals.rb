@@ -180,7 +180,7 @@ class TestPals
     )
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
-    # on Tuesday and Thursday and has a homeroom period.
+    # on Tuesday and Thursday and has a homeroom period.  And he's on the NGE team.
     @shs_bill_nye_homeroom = Homeroom.create!(
       name: 'SHS 917',
       grade: '9',
@@ -193,7 +193,11 @@ class TestPals
       school: @shs,
       homeroom: @shs_bill_nye_homeroom
     )
-    @shs_biology_course = Course.create!(school: @shs, course_number: 'BIO-700')
+    @shs_biology_course = Course.create!({
+      school: @shs,
+      course_number: 'BIO-700',
+      course_description: 'BIOLOGY 1 HONORS'
+    })
     create_section_assignment(@shs_bill_nye, [
       @shs_tuesday_biology_section = Section.create!(
         course: @shs_biology_course, section_number: 'SHS-BIO-TUES'
@@ -202,6 +206,10 @@ class TestPals
         course: @shs_biology_course, section_number: 'SHS-BIO-THUR'
       )
     ])
+    EducatorLabel.create!({
+      educator: @shs_bill_nye,
+      label_key: 'shs_experience_team'
+    })
 
     # Hugo teachers two sections of ceramics at the high school.
     @shs_hugo_art_teacher = Educator.create!(
@@ -211,7 +219,11 @@ class TestPals
       local_id: '650',
       school: @shs
     )
-    @shs_ceramics_course = Course.create!(course_number: "ART-302", course_description: "Ceramic Art 3", school: @shs)
+    @shs_ceramics_course = Course.create!({
+      school: @shs,
+      course_number: "ART-302",
+      course_description: "ART MAJOR FOUNDATIONS",
+    })
     create_section_assignment(@shs_hugo_art_teacher, [
       @shs_second_period_ceramics = Section.create!(
         section_number: "ART-302A",
@@ -237,7 +249,11 @@ class TestPals
       local_id: '750',
       school: @shs
     )
-    @shs_physics_course = Course.create!(course_number: "SCI-201", course_description: "Physics 2", school: @shs)
+    @shs_physics_course = Course.create!({
+      school: @shs,
+      course_number: "SCI-201",
+      course_description: "PHYSICS 1"
+    })
     create_section_assignment(@shs_fatima_science_teacher, [
       @shs_third_period_physics = Section.create!(
         section_number: "SCI-201A",
@@ -261,6 +277,7 @@ class TestPals
       last_name: 'Kenobi',
       school: @shs,
       homeroom: @shs_jodi_homeroom,
+      house: 'Beacon',
       grade: '9',
       date_of_birth: '2004-03-12',
       local_id: '2222222222',

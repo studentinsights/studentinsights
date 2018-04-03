@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe ResearchMattersExporter do
   before { School.seed_somerville_schools }
   let!(:school) { School.find_by_name('Arthur D Healey') }
+  let!(:kennedy_school) { School.find_by_name('John F Kennedy') }
   let!(:educator) { FactoryGirl.create(:educator, :admin, school: school, full_name: 'Khamar, Matsay', email: 'matsay@demo.studentinsights.org') }
   let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school, educator: educator) }
   let!(:student) { FactoryGirl.create(:student, homeroom: homeroom, school: school) }
@@ -33,7 +34,7 @@ RSpec.describe ResearchMattersExporter do
             "time"=>1503905237,
             "$current_url"=>"https://somerville-teacher-tool-demo.herokuapp.com/students/junk_id",
             "deployment_key"=>"production",
-            "educator_id"=>1,
+            "educator_id"=>89898989,
             "educator_is_admin"=>false,
             "educator_school_id"=>1,
             "isDemoSite"=>false,
@@ -47,6 +48,20 @@ RSpec.describe ResearchMattersExporter do
           expect(exporter.student_file).to eq([
             "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count,pageview_count",
             "#{student.id},HEA,0,0,0,0,0,0,#{educator.id},1,0"
+          ])
+        end
+      end
+
+      context 'two students' do
+        let!(:another_student) {
+          FactoryGirl.create(:student, school: kennedy_school)
+        }
+
+        it 'outputs the right file' do
+          expect(exporter.student_file).to eq([
+            "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count,pageview_count",
+            "#{student.id},HEA,0,0,0,0,0,0,#{educator.id},1,0",
+            "#{another_student.id},KDY,0,0,0,0,0,0,,0,0"
           ])
         end
       end
@@ -114,7 +129,7 @@ RSpec.describe ResearchMattersExporter do
             "time"=>1503905237,
             "$current_url"=>"https://somerville-teacher-tool-demo.herokuapp.com/students/#{student.id}",
             "deployment_key"=>"production",
-            "educator_id"=>1,
+            "educator_id"=>89898989,
             "educator_is_admin"=>false,
             "educator_school_id"=>1,
             "isDemoSite"=>false,
@@ -139,7 +154,7 @@ RSpec.describe ResearchMattersExporter do
             "time"=>1503905237,
             "$current_url"=>"https://somerville-teacher-tool-demo.herokuapp.com/students/#{student.id}",
             "deployment_key"=>"production",
-            "educator_id"=>1,
+            "educator_id"=>89898989,
             "educator_is_admin"=>false,
             "educator_school_id"=>1,
             "isDemoSite"=>false,
@@ -158,42 +173,120 @@ RSpec.describe ResearchMattersExporter do
   end
 
   describe '#teacher_file' do
-    let(:event_data) { [] }
-
     context 'teacher name present' do
-      context 'no teacher event notes' do
-        it 'outputs the right file' do
-          expect(exporter.teacher_file).to eq([
-            "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total",
-            "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0"
-          ])
+      let(:event_data) { [] }
+
+      context 'teacher has no mixpanel pageviews' do
+
+        context 'no teacher event notes' do
+          it 'outputs the right file' do
+            expect(exporter.teacher_file).to eq([
+              "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,total_student_count,focal_student_count,pageview_count",
+              "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0,1,0,0"
+            ])
+          end
+        end
+
+        context 'teacher has event notes in focal period' do
+          let!(:educator_event_note) {
+            FactoryGirl.create(
+              :event_note, educator: educator, recorded_at: DateTime.new(2017, 12, 23)
+            )
+          }
+
+          it 'outputs the right file' do
+            expect(exporter.teacher_file).to eq([
+              "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,total_student_count,focal_student_count,pageview_count",
+              "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,1,0,1,1,0,0"
+            ])
+          end
+        end
+
+        context 'teacher has event notes out of focal period' do
+          let!(:educator_event_note) {
+            FactoryGirl.create(
+              :event_note, educator: educator, recorded_at: DateTime.new(2015, 12, 23)
+            )
+          }
+
+          it 'outputs the right file' do
+            expect(exporter.teacher_file).to eq([
+              "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,total_student_count,focal_student_count,pageview_count",
+              "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0,1,0,0"
+            ])
+          end
+        end
+
+        context 'teacher has focal student' do
+          before do
+            8.times do |n|
+              FactoryGirl.create(:discipline_incident,
+                student: student,
+                occurred_at: DateTime.new(2017, 12, 22 - n)
+              )
+            end
+          end
+
+          it 'outputs the right file' do
+            expect(exporter.teacher_file).to eq([
+              "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,total_student_count,focal_student_count,pageview_count",
+              "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0,1,1,0"
+            ])
+          end
         end
       end
 
-      context 'teacher has event notes' do
-        let!(:educator_event_note) {
-          FactoryGirl.create(:event_note, educator: educator)
+      context 'teacher has 2 mixpanel pageviews' do
+        let(:event_data) {
+          [{
+            "event"=>"PAGE_VISIT",
+            "properties"=>{
+              "time"=>1503905237,
+              "$current_url"=>"https://somerville-teacher-tool-demo.herokuapp.com/students/#{student.id}",
+              "deployment_key"=>"production",
+              "educator_id"=>educator.id,
+              "educator_is_admin"=>false,
+              "educator_school_id"=>1,
+              "isDemoSite"=>false,
+              "page_key"=>"STUDENT_PROFILE"
+            }
+          },
+          {
+            "event"=>"PAGE_VISIT",
+            "properties"=>{
+              "time"=>1503905287,
+              "$current_url"=>"https://somerville-teacher-tool-demo.herokuapp.com/students/#{student.id}",
+              "deployment_key"=>"production",
+              "educator_id"=>educator.id,
+              "educator_is_admin"=>false,
+              "educator_school_id"=>1,
+              "isDemoSite"=>false,
+              "page_key"=>"STUDENT_PROFILE"
+            }
+          }]
         }
 
         it 'outputs the right file' do
           expect(exporter.teacher_file).to eq([
-            "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total",
-            "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,1,0,1"
+            "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,total_student_count,focal_student_count,pageview_count",
+            "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0,1,0,2"
           ])
         end
       end
     end
 
     context 'teacher name missing' do
+      let(:event_data) { [] }
       let!(:another_educator) {
         FactoryGirl.create(:educator,
           :admin, school: school, email: 'noname@demo.studentinsights.org')
       }
+
       it 'outputs the right file' do
         expect(exporter.teacher_file).to eq([
-          "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total",
-          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0",
-          "#{another_educator.id},noname@demo.studentinsights.org,,,HEA,0,0,0",
+          "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,total_student_count,focal_student_count,pageview_count",
+          "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0,1,0,0",
+          "#{another_educator.id},noname@demo.studentinsights.org,,,HEA,0,0,0,0,0,0",
         ])
       end
     end

@@ -4,34 +4,6 @@ import _ from 'lodash';
 
 import HighchartsWrapper from '../../student_profile/HighchartsWrapper';
 
-const styles = {
-  title: {
-    color: 'black',
-    paddingBottom: 20,
-    fontSize: 24
-  },
-  container: {
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 'auto',
-    border: '1px solid #ccc',
-    padding: '30px 30px 30px 30px',
-    position: 'relative'
-  },
-  secHead: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    position: 'absolute',
-    top: 30,
-    left: 30,
-    right: 30
-  },
-  navTop: {
-    textAlign: 'right',
-    verticalAlign: 'text-top'
-  }
-};
-
 // Component for all charts in the dashboard page.
 class DashboardBarChart extends React.Component{
 
@@ -44,7 +16,7 @@ class DashboardBarChart extends React.Component{
 
   render() {
     return (
-      <div id={this.props.id} style={styles.container}>
+      <div id={this.props.id} className='DashboardChart'>
         <HighchartsWrapper
           chart={{
             type: 'column',

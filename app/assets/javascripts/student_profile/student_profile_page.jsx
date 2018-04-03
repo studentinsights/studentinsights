@@ -1,23 +1,21 @@
-import _ from 'lodash';
-import MathDetails from '../student_profile/MathDetails.js';
-import ElaDetails from '../student_profile/ElaDetails.js';
-import PropTypes from '../helpers/prop_types.jsx';
-import {merge} from '../helpers/react_helpers.jsx';
-import NotesDetails from '../student_profile/NotesDetails.js';
 import React from 'react';
-import Scales from '../student_profile/Scales.js';
-import SummaryList from '../student_profile/SummaryList.js';
-import AttendanceDetails from '../student_profile/AttendanceDetails.js';
+import _ from 'lodash';
+import BarChartSparkline from '../student_profile/BarChartSparkline';
+import AttendanceDetails from '../student_profile/AttendanceDetails';
+import AcademicSummary from '../student_profile/AcademicSummary';
+import ElaDetails from '../student_profile/ElaDetails';
+import MathDetails from '../student_profile/MathDetails';
+import {merge} from '../helpers/react_helpers.jsx';
+import NotesDetails from '../student_profile/NotesDetails';
+import PropTypes from '../helpers/prop_types.jsx';
+import Scales from '../student_profile/Scales';
+import SummaryList from '../student_profile/SummaryList';
+import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline';
+import {cumulativeByMonthFromEvents} from './QuadConverter';
 
 (function() {
   window.shared || (window.shared = {});
-
-  const BarChartSparkline = window.shared.BarChartSparkline;
   const Sparkline = window.shared.Sparkline;
-  const AcademicSummary = window.shared.AcademicSummary;
-  const SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
-  const QuadConverter = window.shared.QuadConverter;
-
   const StudentProfileHeader = window.shared.StudentProfileHeader;
   const ProfileDetails = window.shared.ProfileDetails;
   const ServicesDetails = window.shared.ServicesDetails;
@@ -138,7 +136,11 @@ import AttendanceDetails from '../student_profile/AttendanceDetails.js';
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
       }),
-
+      noteInProgressText: React.PropTypes.string.isRequired,
+      noteInProgressType: React.PropTypes.number,
+      noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
+        React.PropTypes.string
+      ).isRequired,
       access: React.PropTypes.object,
       iepDocument: React.PropTypes.object,
       sections: React.PropTypes.array,
@@ -283,7 +285,10 @@ import AttendanceDetails from '../student_profile/AttendanceDetails.js';
                 showingRestrictedNotes={false}
                 helpContent={this.renderNotesHelpContent()}
                 helpTitle="What is a Note?"
-                title="Notes" />
+                title="Notes"
+                noteInProgressText={this.props.noteInProgressText}
+                noteInProgressType={this.props.noteInProgressType}
+                noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls }/>
               <ServicesDetails
                 student={this.props.student}
                 serviceTypesIndex={this.props.serviceTypesIndex}
@@ -608,7 +613,7 @@ import AttendanceDetails from '../student_profile/AttendanceDetails.js';
     },
 
     renderAttendanceEventsSummary: function(count, events, flexibleRangeFn, props) {
-      const cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(events);
+      const cumulativeQuads = cumulativeByMonthFromEvents(events);
       const valueRange = flexibleRangeFn(cumulativeQuads);
       const value = count;
 

@@ -2,7 +2,7 @@ class Educator < ActiveRecord::Base
   devise :rememberable, :trackable, :timeoutable
 
   if ::EnvironmentVariable.is_true('SHOULD_USE_LDAP')
-    devise :ldap_authenticatable
+    devise :ldap_authenticatable_tiny
   else
     devise :database_authenticatable
   end
@@ -16,6 +16,7 @@ class Educator < ActiveRecord::Base
   has_many    :interventions
   has_many    :event_notes
   has_many    :event_note_revisions
+  has_many    :educator_labels
 
   validates :email, presence: true, uniqueness: true
 

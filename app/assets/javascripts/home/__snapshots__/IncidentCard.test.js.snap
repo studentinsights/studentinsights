@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="IncidentCard"
+>
+  <div
+    className="Card FeedCardFrame"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+          }
+        }
+      >
+        <div>
+          <div>
+            <a
+              href="/students/100"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Mowgli
+               
+              Pan
+            </a>
+          </div>
+          <div>
+            10th grade
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
+              <a
+                href="/homerooms/4"
+              >
+                SHS ALL
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "flexDirection": "column",
+          }
+        }
+      >
+        <div />
+        <div>
+          <div>
+            in 
+            Locker room/gym
+          </div>
+        </div>
+        <div>
+          <div>
+            13 days ago
+             on 
+            2/28
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginTop": 20,
+        }
+      }
+    >
+      <div>
+        Earlier today something happened with the student that was concerning and we did this to de-escalate and support them in the moment, and then took these steps to understand the underlying challenges they're facing, and adapt how we're working with them moving forward.
+         (code: 
+        OT
+        )
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "flex-end",
+          "marginBottom": 5,
+        }
+      }
+    >
+      <div>
+        <span
+          className="HouseBadge"
+          style={
+            Object {
+              "backgroundColor": "#333",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
+            }
+          }
+        >
+          Beacon house
+        </span>
+        <span
+          className="Badge"
+          style={
+            Object {
+              "backgroundColor": "rgb(255, 140, 0)",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
+            }
+          }
+        >
+          Incident
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

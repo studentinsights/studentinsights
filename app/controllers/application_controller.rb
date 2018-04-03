@@ -1,9 +1,5 @@
 class ApplicationController < ActionController::Base
 
-  rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
-    render text: exception, status: 500
-  end
-
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -12,8 +8,15 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :redirect_domain!
-  before_action :authenticate_educator!  # Devise method, applies to all controllers.
-                                         # In this app 'users' are 'educators'.
+  before_action :authenticate_educator!  # Devise method, applies to all controllers (in this app 'users' are 'educators')
+
+  rescue_from Exceptions::EducatorNotAuthorized do
+    if request.format.json?
+      render_unauthorized_json!
+    else
+      redirect_unauthorized!
+    end
+  end
 
   # Return the homepage path, depending on the educator's role
   def homepage_path_for_role(educator)

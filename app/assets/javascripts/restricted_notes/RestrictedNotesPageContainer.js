@@ -18,13 +18,20 @@ class RestrictedNotesPageContainer extends React.Component {
     this.state = {
       // context
       currentEducator: serializedData.currentEducator,
+
       // constants
       educatorsIndex: serializedData.educatorsIndex,
       eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
+
       // data
       feed: serializedData.feed,
       student: serializedData.student,
+
       // ui
+      noteInProgressText: '',
+      noteInProgressType: null,
+      noteInProgressAttachmentUrls: [],
+
       // This map holds the state of network requests for various actions.  This allows UI components to branch on this
       // and show waiting messages or error messages.
       // The state of a network request is described with null (no requests in-flight),
@@ -42,6 +49,9 @@ class RestrictedNotesPageContainer extends React.Component {
     this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
     this.onSaveNotesDone = this.onSaveNotesDone.bind(this);
     this.onSaveNotesFail = this.onSaveNotesFail.bind(this);
+    this.onClickNoteType = this.onClickNoteType.bind(this);
+    this.onChangeNoteInProgressText = this.onChangeNoteInProgressText.bind(this);
+    this.onChangeAttachmentUrl = this.onChangeAttachmentUrl.bind(this);
   }
 
   componentWillMount(props, state) {
@@ -64,7 +74,10 @@ class RestrictedNotesPageContainer extends React.Component {
     const updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
     this.setState({
       feed: updatedFeed,
-      requests: merge(this.state.requests, { saveNote: null })
+      requests: merge(this.state.requests, { saveNote: null }),
+      noteInProgressText: '',
+      noteInProgressType: null,
+      noteInProgressAttachmentUrls: []
     });
   }
 
@@ -72,6 +85,34 @@ class RestrictedNotesPageContainer extends React.Component {
     this.setState({
       requests: merge(this.state.requests, { saveNote: 'error' })
     });
+  }
+
+  onClickNoteType(event) {
+    const noteInProgressType = parseInt(event.target.name);
+
+    this.setState({ noteInProgressType });
+  }
+
+  onChangeNoteInProgressText(event) {
+    this.setState({ noteInProgressText: event.target.value });
+  }
+
+  onChangeAttachmentUrl(event) {
+    const newValue = event.target.value;
+    const changedIndex = parseInt(event.target.name);
+    const {noteInProgressAttachmentUrls} = this.state;
+
+    const updatedAttachmentUrls = (noteInProgressAttachmentUrls.length === changedIndex)
+      ? noteInProgressAttachmentUrls.concat(newValue)
+      : noteInProgressAttachmentUrls.map((attachmentUrl, index) => {
+        return (changedIndex === index) ? newValue : attachmentUrl;
+      });
+
+    const filteredAttachments = updatedAttachmentUrls.filter((urlString) => {
+      return urlString.length !== 0;
+    });
+
+    this.setState({ noteInProgressAttachmentUrls: filteredAttachments });
   }
 
   render() {
@@ -85,11 +126,18 @@ class RestrictedNotesPageContainer extends React.Component {
               'eventNoteTypesIndex',
               'feed',
               'student',
-              'requests'
+              'requests',
+              'noteInProgressText',
+              'noteInProgressType',
+              'noteInProgressAttachmentUrls'
             ), {
               nowMomentFn: this.props.nowMomentFn,
-              actions: this.props.actions || {
+              actions: {
                 onClickSaveNotes: this.onClickSaveNotes,
+                onClickNoteType: this.onClickNoteType,
+                onChangeNoteInProgressText: this.onChangeNoteInProgressText,
+                onChangeAttachmentUrl: this.onChangeAttachmentUrl,
+                ...this.props.actions
               },
               showingRestrictedNotes: true,
               helpContent: this.renderNotesHelpContent(),

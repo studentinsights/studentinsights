@@ -1,12 +1,11 @@
 import _ from 'lodash';
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import {baseSortByString, sortByNumber} from '../helpers/SortHelpers';
 import FlexibleRoster from '../components/FlexibleRoster';
+import * as Routes from '../helpers/Routes';
 
 
 (function() {
   window.shared || (window.shared = {});
-
-  const Routes = window.shared.Routes;
 
   /*
   Renders the table of sections.
@@ -56,7 +55,7 @@ import FlexibleRoster from '../components/FlexibleRoster';
     sortEducatorNames: function(a, b, sortBy) {
       const educatorNamesA = this.formatEducatorNames(a.educators);
       const educatorNamesB = this.formatEducatorNames(b.educators);
-      return SortHelpers.baseSortByString(educatorNamesA, educatorNamesB);
+      return baseSortByString(educatorNamesA, educatorNamesB);
     },
 
     render: function() {
@@ -65,7 +64,7 @@ import FlexibleRoster from '../components/FlexibleRoster';
       const columns = [
         {label: 'Section Number', key: 'section_number', cell:this.styleSectionNumber},
         {label: 'Course Description', key: 'course_description'},
-        {label: 'Grade', key: 'grade_numeric', sortFunc: SortHelpers.sortByNumber},
+        {label: 'Grade', key: 'grade_numeric', sortFunc: sortByNumber},
         {label: 'Schedule', key: 'schedule'},
         {label: 'Educators', key: 'educators', cell:this.styleEducators, sortFunc: this.sortEducatorNames},
         {label: 'Room', key: 'room_number'},

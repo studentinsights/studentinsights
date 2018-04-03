@@ -1,55 +1,32 @@
 import React from 'react';
+import {shallow} from 'enzyme';
 import ReactDOM from 'react-dom';
-import renderer from 'react-test-renderer';
-import fetchMock from 'fetch-mock/es5/client';
-import HomeInsights, {UnsupportedStudentsPure} from './HomeInsights';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
-import unsupportedLowGradesJson from '../../../../spec/javascripts/fixtures/home_unsupported_low_grades_json';
+import HomeInsights from './HomeInsights';
+import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
 
 
-beforeEach(() => {
-  fetchMock.restore();
-  fetchMock.get('/home/unsupported_low_grades_json?limit=100', unsupportedLowGradesJson);
-});
+function testProps(props = {}) {
+  return {
+    educatorId: 9999,
+    inExperienceTeam: false,
+    ...props
+  };
+}
 
 it('renders without crashing', () => {
+  const props = testProps();
   const el = document.createElement('div');
-  ReactDOM.render(<HomeInsights />, el);
+  ReactDOM.render(<HomeInsights {...props} />, el);
 });
 
-SpecSugar.withTestEl('integration tests', container => {
-  it('renders everything after fetch', done => {
-    const el = container.testEl;
-    ReactDOM.render(<HomeInsights />, el);
-    
-    setTimeout(() => {
-      expect(el.innerHTML).toContain('Students to check on');
-      done();
-    }, 0);
-  });
+it('shallow renders', () => {
+  const props = testProps();
+  const wrapper = shallow(<HomeInsights {...props} />);
+  expect(wrapper.find(CheckStudentsWithLowGrades).length).toEqual(0);
 });
 
-it('pure component matches snapshot', () => {
-  const props = {
-    limit: unsupportedLowGradesJson.limit,
-    totalCount: unsupportedLowGradesJson.total_count,
-    assignments: unsupportedLowGradesJson.assignments
-  };
-  const tree = renderer
-    .create(<UnsupportedStudentsPure {...props} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-
-it('handles when limit reached', () => {
-  const props = {
-    limit: 3,
-    totalCount: 129,
-    assignments: unsupportedLowGradesJson.assignments.slice(0, 3)
-  };
-  const tree = renderer
-    .create(<UnsupportedStudentsPure {...props} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it('shallow renders box when inExperienceTeam: true', () => {
+  const props = testProps({ inExperienceTeam: true });
+  const wrapper = shallow(<HomeInsights {...props} />);
+  expect(wrapper.contains(<CheckStudentsWithLowGrades educatorId={props.educatorId} />)).toEqual(true);
 });

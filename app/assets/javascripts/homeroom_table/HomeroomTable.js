@@ -1,6 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import {
+  sortByString,
+  sortByNumber,
+  sortByDate,
+  sortByCustomEnum,
+  sortByActiveServices
+} from '../helpers/SortHelpers';
 import Cookies from 'js-cookie';
 import {latestNoteDateText} from '../helpers/latestNoteDateText';
 
@@ -42,25 +48,25 @@ class HomeroomTable extends React.Component {
 
     switch(sortType) {
     case 'string':
-      return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
+      return students.sort((a, b) => sortByString(a, b, sortBy));
     case 'number':
-      return students.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
+      return students.sort((a, b) => sortByNumber(a, b, sortBy));
     case 'date':
-      return students.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
+      return students.sort((a, b) => sortByDate(a, b, sortBy));
     case 'grade':
       customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'sped_level_of_need':
       customEnum = ['—', 'Low < 2', 'Low >= 2', 'Moderate', 'High'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'limited_english_proficiency':
       customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'program_assigned':
       customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'active_services':
-      return students.sort((a, b) => SortHelpers.sortByActiveServices(a, b));
+      return students.sort((a, b) => sortByActiveServices(a, b));
     default:
       return students;
     }
@@ -124,10 +130,10 @@ class HomeroomTable extends React.Component {
     return { ...row, ...risk, ...sped_level };
   }
   mergeInLatestMeetings(row) {
-    const latestSstDateText = latestNoteDateText(300, row.event_notes);
-    const latestMtssDateText = latestNoteDateText(301, row.event_notes);
-    const latestNgeDateText = latestNoteDateText(305, row.event_notes);
-    const latest10geDateText = latestNoteDateText(306, row.event_notes);
+    const latestSstDateText = latestNoteDateText(300, row.event_notes_without_restricted);
+    const latestMtssDateText = latestNoteDateText(301, row.event_notes_without_restricted);
+    const latestNgeDateText = latestNoteDateText(305, row.event_notes_without_restricted);
+    const latest10geDateText = latestNoteDateText(306, row.event_notes_without_restricted);
     return {
       ...row,
       latestSstDateText,
@@ -580,7 +586,9 @@ class HomeroomTable extends React.Component {
 HomeroomTable.propTypes = {
   showStar: React.PropTypes.bool.isRequired,
   showMcas: React.PropTypes.bool.isRequired,
-  rows: React.PropTypes.array.isRequired,
+  rows: React.PropTypes.arrayOf(React.PropTypes.shape({
+    event_notes_without_restricted: React.PropTypes.array.isRequired
+  })).isRequired,
   school: React.PropTypes.shape({
     school_type: React.PropTypes.string.isRequired
   }).isRequired

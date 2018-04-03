@@ -3,6 +3,8 @@ import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import PropTypes from '../helpers/prop_types.jsx';
 import {merge} from '../helpers/react_helpers.jsx';
 import Api from './Api.js';
+import * as Routes from '../helpers/Routes';
+
 
 // in place of updating lodash to v4
 function fromPair(key, value) {
@@ -12,8 +14,6 @@ function fromPair(key, value) {
 }
 
 (function() {
-  window.shared || (window.shared = {});
-  const Routes = window.shared.Routes;
   const StudentProfilePage = window.shared.StudentProfilePage;
   /*
   Holds page state, makes API calls to manipulate it.
@@ -57,6 +57,9 @@ function fromPair(key, value) {
         currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
 
         // ui
+        noteInProgressText: '',
+        noteInProgressType: null,
+        noteInProgressAttachmentUrls: [],
         selectedColumnKey: queryParams.column || 'interventions',
 
         // This map holds the state of network requests for various actions.  This allows UI components to branch on this
@@ -114,6 +117,34 @@ function fromPair(key, value) {
       this.setState({ selectedColumnKey: columnKey });
     },
 
+    onClickNoteType: function(event) {
+      const noteInProgressType = parseInt(event.target.name);
+
+      this.setState({ noteInProgressType });
+    },
+
+    onChangeNoteInProgressText: function(event) {
+      this.setState({ noteInProgressText: event.target.value });
+    },
+
+    onChangeAttachmentUrl: function(event) {
+      const newValue = event.target.value;
+      const changedIndex = parseInt(event.target.name);
+      const {noteInProgressAttachmentUrls} = this.state;
+
+      const updatedAttachmentUrls = (noteInProgressAttachmentUrls.length === changedIndex)
+        ? noteInProgressAttachmentUrls.concat(newValue)
+        : noteInProgressAttachmentUrls.map((attachmentUrl, index) => {
+          return (changedIndex === index) ? newValue : attachmentUrl;
+        });
+
+      const filteredAttachments = updatedAttachmentUrls.filter((urlString) => {
+        return urlString.length !== 0;
+      });
+
+      this.setState({ noteInProgressAttachmentUrls: filteredAttachments });
+    },
+
     onClickSaveNotes: function(eventNoteParams) {
       this.setState({ requests: merge(this.state.requests, { saveNote: 'pending' }) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
@@ -140,9 +171,13 @@ function fromPair(key, value) {
       }
 
       const updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
+
       this.setState({
         feed: updatedFeed,
-        requests: merge(this.state.requests, { saveNote: null })
+        requests: merge(this.state.requests, { saveNote: null }),
+        noteInProgressText: '',
+        noteInProgressType: null,
+        noteInProgressAttachmentUrls: []
       });
     },
 
@@ -246,15 +281,22 @@ function fromPair(key, value) {
               'iepDocument',
               'sections',
               'currentEducatorAllowedSections',
-              'requests'
+              'requests',
+              'noteInProgressText',
+              'noteInProgressType',
+              'noteInProgressAttachmentUrls'
             ), {
               nowMomentFn: this.props.nowMomentFn,
-              actions: this.props.actions || {
+              actions: {
                 onColumnClicked: this.onColumnClicked,
                 onClickSaveNotes: this.onClickSaveNotes,
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
-                onClickDiscontinueService: this.onClickDiscontinueService
+                onClickDiscontinueService: this.onClickDiscontinueService,
+                onChangeNoteInProgressText: this.onChangeNoteInProgressText,
+                onClickNoteType: this.onClickNoteType,
+                onChangeAttachmentUrl: this.onChangeAttachmentUrl,
+                ...this.props.actions,
               }
             })} />
         </div>

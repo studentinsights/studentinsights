@@ -45,6 +45,13 @@ class SchoolwideAttendance extends React.Component {
     return Object.keys(this.props.schoolAbsenceEvents);
   }
 
+  schoolYearDateRange() {
+    //change this to change the maximum date range available for the dashboard
+    const fullYearDateRange = Object.keys(this.schoolAverageDailyAttendance()).sort();
+    const today = moment.utc();
+    return DashboardHelpers.filterDates(fullYearDateRange, DashboardHelpers.schoolYearStart(), today);
+  }
+
   render() {
     return (
         <SchoolAbsenceDashboard
@@ -52,7 +59,7 @@ class SchoolwideAttendance extends React.Component {
           homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance()}
           schoolAbsenceEvents = {this.props.schoolAbsenceEvents}
           dashboardStudents = {this.props.dashboardStudents}
-          dateRange = {Object.keys(this.schoolAverageDailyAttendance()).sort()}/>);
+          dateRange = {this.schoolYearDateRange()}/>);
   }
 }
 

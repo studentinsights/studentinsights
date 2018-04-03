@@ -28,17 +28,49 @@ class SchoolsController < ApplicationController
   end
 
   def school_administrator_dashboard
-    unless current_educator.admin == true
-      redirect_to not_authorized_path and return #TodDo: determine whether there's a more appropriate action here
+    dashboard_students = students_for_dashboard(@school)
+      .includes([homeroom: :educator], :dashboard_absences, :event_notes, :dashboard_tardies)
+    dashboard_students_json = dashboard_students.map do |student|
+      individual_student_dashboard_data(student)
     end
 
-    dashboard_students = students_for_dashboard(@school).includes([homeroom: :educator], :dashboard_absences, :event_notes, :dashboard_tardies)
-                                                        .map { |student| individual_student_dashboard_data(student) }
-
     @serialized_data = {
-      students: dashboard_students.to_json,
-      current_educator: current_educator}
+      students: dashboard_students_json,
+      current_educator: current_educator
+    }
     render 'shared/serialized_data'
+  end
+
+  # This endpoint is internal-only for now, because of the authorization complexity.
+  def courses_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
+    courses = Course.all
+      .where(school_id: @school.id)
+      .includes(sections: :students)
+
+    courses_json = courses.as_json({
+      :only => [:id, :course_number, :course_description],
+      :include => {
+        :sections => {
+          :only => [:id, :section_number, :term_local_id, :schedule, :room_number],
+          :include => {
+            :students => {
+              :only => [:id, :grade, :date_of_birth],
+              :include => {
+                :school => {
+                  :only => [:id, :name]
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+
+    render json: {
+      courses: courses_json,
+      school: @school.as_json(only: [:id, :name])
+    }
   end
 
   private
@@ -99,14 +131,13 @@ class SchoolsController < ApplicationController
   end
 
   def authorize_for_school
-    unless current_educator.is_authorized_for_school(@school)
-      redirect_to homepage_path_for_role(current_educator)
+    unless authorizer.is_authorized_for_school?(@school)
+      return redirect_to homepage_path_for_role(current_educator)
     end
   end
 
   def set_school
     @school = School.find_by_slug(params[:id]) || School.find_by_id(params[:id])
-
     redirect_to root_url if @school.nil?
   end
 
@@ -124,11 +155,13 @@ class SchoolsController < ApplicationController
   end
 
   def individual_student_dashboard_data(student)
+    # This is a temporary workaround for New Bedford
+    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
     HashWithIndifferentAccess.new({
       first_name: student.first_name,
       last_name: student.last_name,
       id: student.id,
-      homeroom_label: student.try(:homeroom).try(:educator).try(:full_name),
+      homeroom_label: homeroom_label,
       absences: student.dashboard_absences,
       tardies: student.dashboard_tardies,
       event_notes: student.event_notes
@@ -138,5 +171,4 @@ class SchoolsController < ApplicationController
   def students_for_dashboard(school)
     school.students.active
   end
-
 end

@@ -2,13 +2,15 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import SchoolAbsenceDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolAbsenceDashboard.js';
-import * as Data from './DashboardTestData.js';
+import {createStudents, createTestEvents} from './DashboardTestData.js';
+
 
 describe('SchoolAbsenceDashboard', () => {
+  const nowMoment = moment.utc();
   const attendance = {'2001-01-01': 50, '2001-01-02': 25, '2001-01-03': 75, '2001-01-04': 100, '2001-02-01': 10};
   const homeroom = {'HR1': attendance, 'No Homeroom': {'2001-01-01': 50, '2001-01-02': 100, '2001-01-03': 100, '2001-01-04': 100, '2001-02-01': 50}};
-  const students = Data.Students;
-  const events = Data.testEvents;
+  const students = createStudents(nowMoment);
+  const events = createTestEvents(nowMoment);
   const dateRange = ['2001-01-01', '2001-01-02', '2001-01-03', '2001-01-04', '2001-02-01'];
   const dash = shallow(<SchoolAbsenceDashboard
                        schoolAverageDailyAttendance={attendance}
@@ -43,7 +45,7 @@ describe('SchoolAbsenceDashboard', () => {
   });
 
   it('filters dates outside the range for the school', () => {
-    dash.instance().setDate([moment('2001-01-02').format('X'), moment('2001-01-04').format('X')]);
+    dash.instance().setDate([moment.utc('2001-01-02').format('X'), moment.utc('2001-01-04').format('X')]);
     dash.update();
     expect(dash.find('DashboardBarChart').first().props().seriesData).toEqual([87.5]);
   });

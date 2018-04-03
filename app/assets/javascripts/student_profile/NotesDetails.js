@@ -4,7 +4,6 @@ import React from 'react';
 import HelpBubble from './HelpBubble.js';
 import SectionHeading from '../components/SectionHeading';
 
-
 const styles = {
   notesContainer: {
     flex: 1,
@@ -75,7 +74,12 @@ class NotesDetails extends React.Component {
   }
 
   renderTakeNotesSection() {
-    if (this.state.isTakingNotes || this.props.requests.saveNote !== null) {
+    const showTakeNotes = this.state.isTakingNotes ||
+                          this.props.requests.saveNote !== null ||
+                          this.props.noteInProgressText.length > 0 ||
+                          this.props.noteInProgressAttachmentUrls.length > 0;
+
+    if (showTakeNotes) {
       return (
         <TakeNotes
           // TODO(kr) thread through
@@ -84,7 +88,13 @@ class NotesDetails extends React.Component {
           currentEducator={this.props.currentEducator}
           onSave={this.onClickSaveNotes}
           onCancel={this.onCancelNotes}
-          requestState={this.props.requests.saveNote} />
+          requestState={this.props.requests.saveNote}
+          noteInProgressText={this.props.noteInProgressText}
+          noteInProgressType={this.props.noteInProgressType}
+          noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
+          onClickNoteType={this.props.actions.onClickNoteType}
+          onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
+          onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl} />
       );
     }
 
@@ -124,10 +134,19 @@ NotesDetails.propTypes = {
   actions: React.PropTypes.shape({
     onClickSaveNotes: React.PropTypes.func.isRequired,
     onEventNoteAttachmentDeleted: React.PropTypes.func,
-    onDeleteEventNoteAttachment: React.PropTypes.func
+    onDeleteEventNoteAttachment: React.PropTypes.func,
+    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
+    onClickNoteType: React.PropTypes.func.isRequired,
+    onChangeAttachmentUrl: React.PropTypes.func.isRequired,
   }),
   feed: PropTypes.feed.isRequired,
   requests: React.PropTypes.object.isRequired,
+
+  noteInProgressText: React.PropTypes.string.isRequired,
+  noteInProgressType: React.PropTypes.number,
+  noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
+    React.PropTypes.string
+  ).isRequired,
 
   showingRestrictedNotes: React.PropTypes.bool.isRequired,
   title: React.PropTypes.string.isRequired,
