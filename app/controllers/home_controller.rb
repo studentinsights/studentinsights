@@ -65,7 +65,7 @@ class HomeController < ApplicationController
     students_with_high_absences_json = insight.students_with_high_absences_json(time_now, time_threshold, absences_threshold)
     render json: {
       limit: limit,
-      total_count: students_with_high_absences_json.size,
+      total_students: students_with_high_absences_json.size,
       students_with_high_absences: students_with_high_absences_json.first(limit)
     }
   end

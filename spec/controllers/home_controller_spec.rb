@@ -254,4 +254,83 @@ describe HomeController, :type => :controller do
       end
     end
   end
+
+  describe '#students_with_high_absences_json' do
+    # with absences for Mari as the test case
+    before do
+      4.times do |index|
+        Absence.create!({
+          occurred_at: time_now - index.days,
+          student: pals.shs_freshman_mari
+        })
+      end
+    end
+
+    it 'works end-to-end' do
+      sign_in(pals.shs_bill_nye)
+      get :students_with_high_absences_json, params: {
+        limit: 100,
+        time_now: time_now.to_i.to_s
+      }
+      expect(response.status).to eq 200
+      expect(JSON.parse(response.body)).to eq({
+        "limit"=>100,
+        "total_students"=>1,
+        "students_with_high_absences"=>[{
+          "count" => 4,
+          "student" => {
+            "id"=> pals.shs_freshman_mari.id,
+            "grade"=>"9",
+            "first_name"=>"Mari",
+            "last_name"=>"Kenobi",
+            "home_language"=>nil,
+            "house"=>"Beacon"
+          }
+        }]
+      })
+    end
+
+    describe 'doppleganging' do
+      def get_students_with_high_absences(as_educator, for_educator, time_now)
+        sign_in(as_educator)
+        get :students_with_high_absences_json, params: {
+          time_now: time_now.to_i.to_s,
+          educator_id: for_educator.id,
+          limit: 100
+        }
+        expect(response.status).to eq 200
+        JSON.parse(response.body)
+      end
+
+      def high_absences_student_ids(json)
+        json['students_with_high_absences'].map do |row|
+          row['student']['id']
+        end
+      end
+
+      it 'allows Uri as Bill' do
+        json = get_students_with_high_absences(pals.uri, pals.shs_bill_nye, time_now)
+        expect(high_absences_student_ids(json)).to eq [
+          pals.shs_freshman_mari.id
+        ]
+      end
+
+      it 'allows Uri as Vivian' do
+        json = get_students_with_high_absences(pals.uri, pals.healey_vivian_teacher, time_now)
+        expect(high_absences_student_ids(json)).to eq []
+      end
+
+      it 'guards against Bill doppleganging as Vivian' do
+        json = get_students_with_high_absences(pals.shs_bill_nye, pals.uri, time_now)
+        expect(high_absences_student_ids(json)).to eq [
+          pals.shs_freshman_mari.id
+        ]
+      end
+
+      it 'guards against Vivian doppleganging as Uri' do
+        json = get_students_with_high_absences(pals.healey_vivian_teacher, pals.uri, time_now)
+        expect(high_absences_student_ids(json)).to eq []
+      end
+    end
+  end
 end

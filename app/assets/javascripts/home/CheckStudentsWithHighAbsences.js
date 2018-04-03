@@ -35,7 +35,7 @@ class CheckStudentsWithHighAbsences extends React.Component {
   renderStudents(json) {
     const props = {
       limit: json.limit,
-      totalCount: json.total_count,
+      totalStudents: json.total_students,
       studentsWithHighAbsences: json.students_with_high_absences
     };
     return <CheckStudentsWithHighAbsencesView {...props} />;
@@ -70,7 +70,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
   }
 
   render() {
-    const {studentsWithHighAbsences, totalCount} = this.props;
+    const {studentsWithHighAbsences, totalStudents} = this.props;
     const {uiLimit} = this.state;
     const truncatedStudentsWithHighAbsences = studentsWithHighAbsences.slice(0, uiLimit);
 
@@ -78,7 +78,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
       <div className="CheckStudentsWithHighAbsences">
         <div style={styles.cardTitle}>Students to check in on about missing school</div>
         <Card style={{border: 'none'}}>
-           <div>There {this.renderAreHowManyStudents(totalCount)} who have have missed more than 4 days of school in the last 45 days, but haven't been mentioned yet in SST.</div>
+           <div>There {this.renderAreHowManyStudents(totalStudents)} who have have missed more than 4 days of school in the last 45 days, but haven't been mentioned yet in SST.</div>
           {this.renderList(truncatedStudentsWithHighAbsences)}
           {this.renderMore(truncatedStudentsWithHighAbsences)}
         </Card>
@@ -86,10 +86,10 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
     );
   }
 
-  renderAreHowManyStudents(totalCount) {
-    if (totalCount === 0) return <span>are <b>no students</b></span>;
-    if (totalCount === 1) return <span>is <b>one student</b></span>;
-    return <span>are <b>{totalCount} students</b></span>;
+  renderAreHowManyStudents(totalStudents) {
+    if (totalStudents === 0) return <span>are <b>no students</b></span>;
+    if (totalStudents === 1) return <span>is <b>one student</b></span>;
+    return <span>are <b>{totalStudents} students</b></span>;
   }
 
   renderList(truncatedStudentsWithHighAbsences) {
@@ -110,14 +110,14 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
   }
 
   renderMore(truncatedStudentsWithHighAbsences) {
-    const {totalCount, limit, studentsWithHighAbsences} = this.props;
+    const {totalStudents, limit, studentsWithHighAbsences} = this.props;
 
     if (truncatedStudentsWithHighAbsences.length !== studentsWithHighAbsences.length) {
       return <div><a href="#" onClick={this.onMoreStudents}>See more</a></div>;
     }
 
-    if (studentsWithHighAbsences.length < totalCount) {
-      return <div>There are {totalCount} students total.  Start with checking in on these first {limit} students.</div>;
+    if (studentsWithHighAbsences.length < totalStudents) {
+      return <div>There are {totalStudents} students total.  Start with checking in on these first {limit} students.</div>;
     }
 
     return null;
@@ -126,7 +126,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
 
 CheckStudentsWithHighAbsencesView.propTypes = {
   limit: React.PropTypes.number.isRequired,
-  totalCount: React.PropTypes.number.isRequired,
+  totalStudents: React.PropTypes.number.isRequired,
   studentsWithHighAbsences: React.PropTypes.arrayOf(React.PropTypes.shape({
     count: React.PropTypes.number.isRequired,
     student: React.PropTypes.shape({

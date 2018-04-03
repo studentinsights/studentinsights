@@ -6,7 +6,7 @@ RSpec.describe InsightStudentsWithLowGrades do
 
   describe '#students_with_low_grades_json' do
     it 'finds no one for Jodi' do
-      time_threshold = time_now - 30.days
+      time_threshold = time_now - 45.days
       grade_threshold = 69
       insight = InsightStudentsWithLowGrades.new(pals.shs_jodi)
       students_with_low_grades = insight.students_with_low_grades_json(time_now, time_threshold, grade_threshold)
@@ -14,7 +14,7 @@ RSpec.describe InsightStudentsWithLowGrades do
     end
 
     it 'finds Mari for Bill' do
-      time_threshold = time_now - 30.days
+      time_threshold = time_now - 45.days
       grade_threshold = 69
       insight = InsightStudentsWithLowGrades.new(pals.shs_bill_nye)
       students_with_low_grades = insight.students_with_low_grades_json(time_now, time_threshold, grade_threshold)
@@ -58,7 +58,7 @@ RSpec.describe InsightStudentsWithLowGrades do
 
   describe '#recently_commented_student_ids' do
     let!(:insight) { InsightStudentsWithLowGrades.new(pals.shs_bill_nye) }
-    let!(:time_threshold) { time_now - 30.days }
+    let!(:time_threshold) { time_now - 45.days }
     let!(:nge_event_note_type) { EventNoteType.find(305) }
     let!(:tenge_event_note_type) { EventNoteType.find(305) }
     let!(:student_ids) { [pals.shs_freshman_mari] }
@@ -100,7 +100,7 @@ RSpec.describe InsightStudentsWithLowGrades do
         educator: pals.uri,
         event_note_type: tenge_event_note_type,
         text: 'blah',
-        recorded_at: time_now - 40.days
+        recorded_at: time_now - 50.days
       )
       expect(insight.send(:recently_commented_student_ids, student_ids, time_threshold)).to eq []
     end

@@ -12,6 +12,8 @@ class InsightStudentsWithHighAbsences
   # classroom teachers, the intended actions are to talk with
   # the student, parent, or refer for SST.
   #
+  # absences_threshold is "greater than or equal to"
+  #
   # This method returns hashes that are the shape of what is needed
   # in the product.
   def students_with_high_absences_json(time_now, time_threshold, absences_threshold)
@@ -46,7 +48,7 @@ class InsightStudentsWithHighAbsences
       { student: student, count: count }
     end
     pairs.select do |pair|
-      pair[:count] > absences_threshold
+      pair[:count] >= absences_threshold
     end
   end
 
