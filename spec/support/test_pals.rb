@@ -179,7 +179,7 @@ class TestPals
       homeroom: @shs_jodi_homeroom
     )
     EducatorLabel.create!({
-      educator: @shs_jodi_homeroom,
+      educator: @shs_jodi,
       label_key: 'shs_experience_team'
     })
 
