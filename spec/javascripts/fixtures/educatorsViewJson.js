@@ -25,5 +25,6 @@ export default {
       "section_number": "ART-302B",
       "course_description": "Ceramic Art 3"
     }
-  ]
+  ],
+  "labels": []
 };

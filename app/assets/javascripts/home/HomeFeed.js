@@ -43,7 +43,7 @@ class HomeFeed extends React.Component {
       time_now: nowTimestamp,
       educator_id: educatorId
     };
-    const url = '/home/feed_json?' + qs.stringify(params);
+    const url = '/api/home/feed_json?' + qs.stringify(params);
     return apiFetchJson(url)
       .then(json => json.feed_cards)
       .then(this.onResolved)
