@@ -130,20 +130,6 @@ class Authorizer
     true
   end
 
-  # There are five types of entry experiences, depending on levels
-  # of access.
-  def homepage_type
-    begin
-      return :districtwide if @educator.districtwide_access?
-      return :school if @educator.schoolwide_access? || @educator.has_access_to_grade_levels?
-      return :section if @educator.school.school_type == 'HS' && @educator.default_section
-      return :homeroom if @educator.school.school_type != 'HS' && @educator.default_homeroom
-      return :nothing
-    rescue Exceptions::NoAssignedHomeroom, Exceptions::NoAssignedSections => err
-      :nothing
-    end
-  end
-
   # TODO(kr) remove implementation
   def students_for_school_overview
     return [] unless @educator.school.present?
