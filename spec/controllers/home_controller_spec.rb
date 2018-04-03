@@ -273,7 +273,6 @@ describe HomeController, :type => :controller do
             "grade"=>"9",
             "first_name"=>"Mari",
             "last_name"=>"Kenobi",
-            "home_language"=>nil,
             "house"=>"Beacon"
           }
         }]

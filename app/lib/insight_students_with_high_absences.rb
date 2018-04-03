@@ -73,7 +73,7 @@ class InsightStudentsWithHighAbsences
       {
         count: pair[:count],
         student: student.as_json({
-          :only => [:id, :email, :first_name, :last_name, :grade, :house, :home_language]
+          :only => [:id, :email, :first_name, :last_name, :grade, :house]
         })
       }
     end

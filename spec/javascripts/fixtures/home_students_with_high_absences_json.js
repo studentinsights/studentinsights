@@ -9,7 +9,6 @@ export default {
         "grade": "9",
         "first_name": "Mari",
         "last_name": "Kenobi",
-        "home_language": null,
         "house": "Beacon"
       }
     }
