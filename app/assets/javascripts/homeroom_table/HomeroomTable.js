@@ -130,10 +130,10 @@ class HomeroomTable extends React.Component {
     return { ...row, ...risk, ...sped_level };
   }
   mergeInLatestMeetings(row) {
-    const latestSstDateText = latestNoteDateText(300, row.event_notes);
-    const latestMtssDateText = latestNoteDateText(301, row.event_notes);
-    const latestNgeDateText = latestNoteDateText(305, row.event_notes);
-    const latest10geDateText = latestNoteDateText(306, row.event_notes);
+    const latestSstDateText = latestNoteDateText(300, row.event_notes_without_restricted);
+    const latestMtssDateText = latestNoteDateText(301, row.event_notes_without_restricted);
+    const latestNgeDateText = latestNoteDateText(305, row.event_notes_without_restricted);
+    const latest10geDateText = latestNoteDateText(306, row.event_notes_without_restricted);
     return {
       ...row,
       latestSstDateText,
@@ -586,7 +586,9 @@ class HomeroomTable extends React.Component {
 HomeroomTable.propTypes = {
   showStar: React.PropTypes.bool.isRequired,
   showMcas: React.PropTypes.bool.isRequired,
-  rows: React.PropTypes.array.isRequired,
+  rows: React.PropTypes.arrayOf(React.PropTypes.shape({
+    event_notes_without_restricted: React.PropTypes.array.isRequired
+  })).isRequired,
   school: React.PropTypes.shape({
     school_type: React.PropTypes.string.isRequired
   }).isRequired

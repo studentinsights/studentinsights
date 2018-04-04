@@ -60,7 +60,9 @@ class App extends React.Component {
   renderHomePage(routeProps) {
     const {currentEducator} = this.props;
     this.trackVisit(routeProps, 'HOME_PAGE');
-    return <HomePage educatorId={currentEducator.id} />;
+    return <HomePage
+      educatorId={currentEducator.id}
+      inExperienceTeam={currentEducator.in_experience_team} />;
   }
 
   renderSchoolCoursesPage(routeProps) {
@@ -97,8 +99,9 @@ App.childContextTypes = {
 App.propTypes = {
   currentEducator: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,
+    admin: React.PropTypes.bool.isRequired,
     school_id: React.PropTypes.number.isRequired,
-    admin: React.PropTypes.bool.isRequired
+    in_experience_team: React.PropTypes.bool.isRequired
   }).isRequired
 };
 

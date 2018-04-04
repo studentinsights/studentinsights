@@ -8,7 +8,8 @@ import {testContext} from '../../../../spec/javascripts/support/NowContainer';
 
 function testProps() {
   return {
-    educatorId: 9999
+    educatorId: 9999,
+    inExperienceTeam: false
   };
 }
 
@@ -19,5 +20,5 @@ it('shallow renders without crashing', () => {
   expect(wrapper.find('.HomePage').length).toEqual(1);
   expect(wrapper.find(SectionHeading).length).toEqual(2);
   expect(wrapper.contains(<HomeFeed educatorId={props.educatorId} />)).toEqual(true);
-  expect(wrapper.contains(<HomeInsights educatorId={props.educatorId} />)).toEqual(true);
+  expect(wrapper.contains(<HomeInsights educatorId={props.educatorId} inExperienceTeam={props.inExperienceTeam} />)).toEqual(true);
 });
