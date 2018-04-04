@@ -21,6 +21,7 @@ class HomeFeed extends React.Component {
     super(props);
     this.state = {
       hasLoadedAnyData: false,
+      isFetching: false,
       error: null,
       cards: []
     };
@@ -37,6 +38,8 @@ class HomeFeed extends React.Component {
   }
 
   fetchFeed(nowTimestamp) {
+    this.setState({isFetching: true});
+
     const {limit, educatorId} = this.props;
     const params = {
       limit,
@@ -55,13 +58,17 @@ class HomeFeed extends React.Component {
     const cards = mergeCards(previousCards, newCards);
     this.setState({
       cards,
+      isFetching: false,
       hasLoadedAnyData: true, 
       error: null
     });
   }
 
   onRejected(error) {
-    this.setState({error});
+    this.setState({
+      isFetching: false,
+      error
+    });
   }
 
   onMore(event) {
@@ -94,7 +101,10 @@ class HomeFeed extends React.Component {
 
   renderSeeMore(feedCards) {
     const {limit} = this.props;
+    const {isFetching} = this.state;
+
     if (feedCards.length < limit) return null;
+    if (isFetching) return <span style={{display: 'block', ...styles.card}}>Loading more...</span>;
     return <a
       className="HomeFeed-load-more"
       style={{display: 'block', ...styles.card}}
