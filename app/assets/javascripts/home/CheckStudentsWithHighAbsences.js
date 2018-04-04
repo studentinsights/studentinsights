@@ -78,7 +78,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
         <div style={styles.cardTitle}>
           Students missing school
           <HelpBubble
-            teaser={<span style={styles.helpTeaser}>?</span>}
+            teaser={<span style={styles.helpTeaser}>what does this mean?</span>}
             title="Students missing school"
             content={this.renderHelpContent()} />
         </div>
@@ -93,10 +93,13 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
 
   // Branching on singular and plural and zero.
   renderCopy(totalStudents) {
+    const now = this.context.nowFn();
+    const dateText = now.clone().subtract(45, 'days').format('MMMM Qo');
+    const sinceEl = <span style={{marginLeft: 5}}>Since {dateText}:</span>;
     if (totalStudents === 1) {
-      return <div>There is <b>one student</b> you work with you who is missing school but hasn't been mentioned in SST yet.</div>;
+      return <div>There is <b>one student</b> you work with you who's been missing school recently but {"hasn't"} been mentioned in SST yet.  {sinceEl}</div>;
     } else {
-      return <div>There are <b>{totalStudents === 0 ? 'no' : totalStudents} students</b> you work with you who are missing school but {"haven't"} been mentioned in SST yet.</div>;
+      return <div>There are <b>{totalStudents === 0 ? 'no' : totalStudents} students</b> you work with you who's been missing school recently but {"haven't"} been mentioned in SST yet.  {sinceEl}</div>;
     }
   }
 
@@ -139,14 +142,15 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
   renderHelpContent() {
     return (
       <div>
-        <p style={styles.helpContent}>These are all the students that you have access to who have a high number of absences over the last 45 days, but {"haven't"} been mentioned yet in SST.</p>
-        <p style={styles.helpContent}>If you work directly with this student, you could talk with them or reach out to the family.  Or you could connect with a colleague providing support services (eg, attendance officers, counselors, redirect).  If the student in still missing school, attendance contracts might be a next step.</p>
-        <p style={styles.helpContent}>The threshold for being included in this list is to have 4 or more absences in the last 45 calendar days.</p>
+        <p style={styles.helpContent}>These are all the students that you have access to who have a high number of absences over the last 45 days, but {"haven't"} been mentioned yet in SST.  The threshold for being included in this list is to have 4 or more absences over the last 45 calendar days.</p>
+        <p style={styles.helpContent}>If you work directly with this student, you could talk with them or reach out to the family.  Or you could connect with a colleague providing support services (eg, attendance officers, counselors, redirect).  If the student in still missing school, attendance contracts might be a next step.</p>        
       </div>
     );
   }
 }
-
+CheckStudentsWithHighAbsencesView.contextTypes = {
+  nowFn: React.PropTypes.func.isRequired
+};
 CheckStudentsWithHighAbsencesView.propTypes = {
   limit: React.PropTypes.number.isRequired,
   totalStudents: React.PropTypes.number.isRequired,
