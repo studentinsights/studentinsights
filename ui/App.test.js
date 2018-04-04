@@ -61,14 +61,14 @@ it('render SchoolCoursesPage without crashing', () => {
 it('renders Absences Dashboard without crashing', () => {
   const wrapper = mount(renderPath('/schools/hea/absences'));
   expect(wrapper.contains(
-    <DashboardLoader schoolId="hea" />
+    <DashboardLoader schoolId="hea" dashboardTarget="absences"/>
   )).toEqual(true);
 });
 
 it('renders Tardies Dashboard without crashing', () => {
   const wrapper = mount(renderPath('/schools/hea/tardies'));
   expect(wrapper.contains(
-    <DashboardLoader schoolId="hea" />
+    <DashboardLoader schoolId="hea" dashboardTarget="tardies"/>
   )).toEqual(true);
 });
 
