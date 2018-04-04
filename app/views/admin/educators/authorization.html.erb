@@ -38,14 +38,6 @@
 
 <h2>Educator homepages</h2>
 <div style="padding: 20px">
-  <pre><%=
-    hash = Hash.new(0);
-    homepage_types = @all_educators.map {|e| PathsForEducator.new(e).homepage_type }
-    homepage_types.each {|value| hash[value] += 1};
-    JSON.pretty_generate(hash)
-  %>
-  </pre>
-
   <table style="margin-top: 40px; text-align: left; border-collapse: collapse;">
       <thead>
         <tr style="vertical-align: top;">
@@ -55,22 +47,13 @@
           <th style="padding: 5px; background: #ccc;">Name</th>
           <th style="padding: 5px; background: #ccc;">School</th>
           <th style="padding: 5px; background: #ccc;">Links</th>
-          <th style="padding: 5px; background: #ccc;">Homepage</th>
         </tr>
       </thead>
       <tbody>
         <%
-          def sort_key(educator)
-            type_sort_key = {
-              nothing: 0,
-              districtwide: 10,
-              school: 20,
-              section: 30,
-              homeroom: 40
-            }[PathsForEducator.new(educator).homepage_type]
-            [educator.school.try(:name) || 'None', type_sort_key]
+          sorted_educators = @all_educators.sort_by do |educator|
+            PathsForEducator.new(educator).navbar_links.keys
           end
-          sorted_educators = @all_educators.sort_by {|e| sort_key(e) }
         %>
         <% sorted_educators.map do |educator| %>
           <%
@@ -92,9 +75,8 @@
             else
               '#f7fcf5'
             end
-            path = PathsForEducator.new(educator).homepage_path 
           %>
-          <tr>
+          <tr style="vertical-align: top;">
             <td style="padding: 5px;">
               <span style="display: inline-block; width: 2em; text-align: right; color: white; padding: 5px; background: <%= color %>;">
                 <%= days_since_last_sign_in %>
@@ -104,8 +86,11 @@
             <td style="padding: 5px;"><%= educator.email %></td>
             <td style="padding: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
             <td style="padding: 5px;"><%= educator.school.try(:name) %></td>
-            <td><%= PathsForEducator.new(educator).navbar_links.to_a.join('<br />') %></td>
-            <td style="padding: 5px;"><%= link_to path, path %></td>
+            <td>
+              <% PathsForEducator.new(educator).navbar_links.map do |path, key| %>
+                <%= link_to path, key %>
+              <% end %>
+            </td>
         <% end %>
       </tbody>
     </table>

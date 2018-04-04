@@ -2,26 +2,31 @@
   <% # Show different links based on role and access %>
   <% links = PathsForEducator.new(educator).navbar_links %>
 
-  <% if links.include?(:district) %>
-    <%= link_to 'District', educators_districtwide_url %>
+  <% if links.has_key?(:district) %>
+    <%= link_to 'District', links[:district] %>
     &nbsp; &nbsp; &nbsp;
-  <% elsif links.include?(:school) %>
-    <%= link_to 'Roster', school_path(educator.school) %>
+  <% end %>
+
+  <% if links.has_key?(:school) %>
+    <%= link_to 'Roster', links[:school] %>
     &nbsp;
-    <%= link_to "Absences", school_administrator_dashboard_school_path(educator.school) + '#/absences_dashboard' %>
-    &nbsp;
-    <%= link_to "Tardies", school_administrator_dashboard_school_path(educator.school) + '#/tardies_dashboard' %>
+  <% end %>
+  <% if links.has_key?(:absences) %>
+    <%= link_to "Absences", links[:absences] %>
+  <% end %>
+  <% if links.has_key?(:tardies) %>
+    <%= link_to "Tardies", links[:tardies] %>
     &nbsp;
     &nbsp; &nbsp; &nbsp;
   <% end %>
 
-  <% if links.include?(:sections) %>
-    <%= link_to 'Sections', section_path(educator.default_section) %>
+  <% if links.has_key?(:section) %>
+    <%= link_to 'Sections', links[:section] %>
     &nbsp;
   <% end %>
 
-  <% if links.include?(:homeroom) %>
-  <%= link_to 'Homeroom', homeroom_path(educator.default_homeroom) %>
+  <% if links.has_key?(:homeroom) %>
+  <%= link_to 'Homeroom', links[:homeroom] %>
     &nbsp;
   <% end %>
 
