@@ -151,6 +151,6 @@ class ImportTask
   end
 
   def log(msg)
-    @log.write "💾 ImportTask 💾: #{msg}"
+    @log.write("\n\n💾  ImportTask: #{msg}")
   end
 end
