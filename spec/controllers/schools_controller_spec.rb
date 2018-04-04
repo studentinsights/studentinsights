@@ -98,10 +98,10 @@ describe SchoolsController, :type => :controller do
       let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
       let!(:homeroom) { educator.homeroom }
 
-      it 'redirects to homeroom page' do
+      it 'redirects' do
         sign_in(educator)
         get :show, params: { id: 'hea' }
-        expect(response).to redirect_to(homeroom_path(homeroom))
+        expect(response).to redirect_to(home_path)
       end
     end
 
@@ -215,10 +215,10 @@ describe SchoolsController, :type => :controller do
       let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
       let!(:homeroom) { educator.homeroom }
 
-      it 'redirects to homeroom page' do
+      it 'redirects' do
         sign_in(educator)
         make_request('hea')
-        expect(response).to redirect_to(homeroom_path(homeroom))
+        expect(response).to redirect_to(home_path)
       end
     end
   end

@@ -13,14 +13,6 @@ describe 'educator sign in', type: :feature do
     it { expect_successful_sign_in_for(pals.healey_sarah_teacher) }
     it { expect_successful_sign_in_for(pals.uri) }
     it { expect_successful_sign_in_for(pals.west_marcus_teacher) }
-
-    context 'without default page' do
-      let(:educator) { pals.shs_jodi }
-      it 'redirects to no default page' do
-        educator_sign_in(educator)
-        expect(page).to have_content 'problem with your account'
-      end
-    end
   end
 
   context 'person without LDAP authorization attempts to sign in' do

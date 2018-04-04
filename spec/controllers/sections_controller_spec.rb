@@ -104,9 +104,9 @@ describe SectionsController, :type => :controller do
             it 'does not raise an error' do
               expect { make_request('garbage section ids rule') }.not_to raise_error
             end
-            it 'redirects to educator\'s first section' do
+            it 'redirects' do
               make_request('garbage ids rule')
-              expect(response).to redirect_to(section_path(educator.sections[0]))
+              expect(response).to redirect_to(home_path)
             end
           end
 
