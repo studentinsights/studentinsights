@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def homepage_path_for_role(educator)
-    '/home'
+    home_path # /home
   end
 
   # Wrap all database queries with this to enforce authorization
