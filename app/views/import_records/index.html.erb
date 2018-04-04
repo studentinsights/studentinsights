@@ -1,15 +1,22 @@
 <% @import_records.each do |record| %>
   <div style="border: 1px solid #eee; padding: 15px; margin: 15px;">
     <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; font-size: 18px;">
-      <%= record.created_at.strftime("%m/%d/%Y") %>
+      Import Record #<%= record.id %>
     </div>
     <% if record.completed? %>
+      <div>Job completed in <%= distance_of_time_in_words(record.time_to_complete) %>.</div>
+      <div style="margin: 10px 0;">
+        <div>Started: <%= record.time_started_display %>.</div>
+        <div>Ended: <%= record.time_ended_display %>.</div>
+      </div>
+      <div style="margin: 10px 0;">Down-to-the-file details:</div>
       <div>
-        Completed in <%= distance_of_time_in_words(record.time_to_complete) %>.
+        <pre style="font-size: 15px; color: #3D3D3D"><%= JSON.pretty_generate(JSON.parse(record.importer_timing_json)) %></pre>
       </div>
     <% else %>
       <div>
-        Process did not complete.
+        <div>Job did not complete.</div>
+        <div style="margin: 10px 0;">Started: <%= record.time_started_display %>.</div>
       </div>
     <% end %>
   </div>
