@@ -1,14 +1,16 @@
 class ImportTask
 
   def initialize(options:)
+    @options = options
+
     # options["school"] is an optional filter; imports all schools if nil
-    @school = options.fetch("school", nil)
+    @school = @options.fetch("school", nil)
 
     # options["source"] describes which external data sources to import from
-    @source = options.fetch("source", ["x2", "star"])
+    @source = @options.fetch("source", ["x2", "star"])
 
     # options["only_recent_attendance"]
-    @only_recent_attendance = options.fetch("only_recent_attendance", false)
+    @only_recent_attendance = @options.fetch("only_recent_attendance", false)
 
     @log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
   end
@@ -66,7 +68,10 @@ class ImportTask
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
 
   def create_import_record
-    ImportRecord.create(time_started: DateTime.current)
+    ImportRecord.create(
+      task_options_json: @options.to_json,
+      time_started: DateTime.current,
+    )
   end
 
   def create_report
