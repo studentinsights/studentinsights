@@ -134,11 +134,6 @@ class SchoolsController < ApplicationController
     unless authorizer.is_authorized_for_school?(@school)
       return redirect_to homepage_path_for_role(current_educator)
     end
-
-    if current_educator.has_access_to_grade_levels?
-      grade_message = " Showing students in grades #{current_educator.grade_level_access.to_sentence}."
-      flash[:notice] << grade_message if flash[:notice]
-    end
   end
 
   def set_school
