@@ -39,6 +39,7 @@
 
   .navwrap {
     margin: 0 20px;
+    padding-bottom: 20px;
     position: relative;
     bottom: 1px;
     display: flex;
@@ -82,15 +83,12 @@
   }
 
   .flash {
-    padding: 10px;
+    position: absolute;
+    right: 40px;
+    top: 62px;
   }
 
   /* SIGN IN FLOW & MESSAGES */
-
-  .notice {
-    color: $warning-green;
-    font-weight: 700;
-  }
 
   .alert {
     color: $warning-red;

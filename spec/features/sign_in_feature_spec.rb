@@ -7,7 +7,7 @@ describe 'educator sign in', type: :feature do
   context 'teacher signs in' do
     def expect_successful_sign_in_for(educator)
       educator_sign_in(educator)
-      expect(page).to have_content 'Signed in successfully.'
+      expect(page).to have_content 'Search for student:'
     end
 
     it { expect_successful_sign_in_for(pals.healey_sarah_teacher) }
