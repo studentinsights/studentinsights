@@ -178,6 +178,10 @@ class TestPals
       school: @shs,
       homeroom: @shs_jodi_homeroom
     )
+    EducatorLabel.create!({
+      educator: @shs_jodi,
+      label_key: 'shs_experience_team'
+    })
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
     # on Tuesday and Thursday and has a homeroom period.  And he's on the NGE team.
@@ -289,6 +293,12 @@ class TestPals
       grade_numeric: 67,
       grade_letter: 'D'
     )
+    4.times.each do |index|
+      Absence.create!({
+        occurred_at: time_now - index.days,
+        student: @shs_freshman_mari
+      })
+    end
 
     reindex!
     self

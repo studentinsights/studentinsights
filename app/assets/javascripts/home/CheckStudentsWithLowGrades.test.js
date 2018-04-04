@@ -29,7 +29,7 @@ function pureTestPropsForN(n) {
 describe('CheckStudentsWithLowGrades', () => {
   beforeEach(() => {
     fetchMock.restore();
-    fetchMock.get('/home/students_with_low_grades_json?educator_id=9999&limit=100', studentsWithLowGradesJson);
+    fetchMock.get('/api/home/students_with_low_grades_json?educator_id=9999&limit=100', studentsWithLowGradesJson);
   });
 
   it('renders without crashing', () => {

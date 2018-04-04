@@ -30,8 +30,14 @@ class GenericLoader extends React.Component {
     const {render, style} = this.props;
 
     if (isPending) return <div style={{padding: 10, ...style}}>Loading...</div>;
+
+    // Throw and provide the original stack trace if a global flag is set for test mode.
     if (reject) {
-      console.error('GenericLoader rejected:', reject); // eslint-disable-line no-console
+      if (global.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST) { //eslint-disable-line no-undef
+        throw reject;
+      } else {
+        console.error('GenericLoader rejected:', reject); // eslint-disable-line no-console
+      }
       return <div style={{padding: 10, ...style}}>There was an error loading this data.</div>;
     }
     return <div style={style}>{render(resolve)}</div>;

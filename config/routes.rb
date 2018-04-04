@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get '/api/schools/:id/courses' => 'schools#courses_json'
   get 'api/schools/:id/absences/data' => 'schools#absence_dashboard_data'
   get 'api/schools/:id/tardies/data' => 'schools#tardies_dashboard_data'
+  get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
+  get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
+  get '/api/home/feed_json' => 'home#feed_json'
 
   devise_for :educators
   authenticated :educator do
@@ -26,8 +29,6 @@ Rails.application.routes.draw do
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
   get '/home' => 'ui#ui'
-  get '/home/feed_json' => 'home#feed_json'
-  get '/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
 
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'

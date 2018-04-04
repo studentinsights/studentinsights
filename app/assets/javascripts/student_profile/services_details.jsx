@@ -1,5 +1,5 @@
 import PropTypes from '../helpers/prop_types.jsx';
-import HelpBubble from './HelpBubble.js';
+import HelpBubble from '../components/HelpBubble';
 import SectionHeading from '../components/SectionHeading';
 
 (function() {
@@ -62,8 +62,8 @@ import SectionHeading from '../components/SectionHeading';
           <SectionHeading>
             <span>Services</span>
             <HelpBubble
+              teaser="(what is this?)"
               title="What is a Service?"
-              teaserText="(what is this?)"
               content={this.renderServicesHelpContent()} />
           </SectionHeading>
           <div style={styles.addServiceContainer}>

@@ -31,7 +31,8 @@ describe EducatorsController, :type => :controller do
           "id"=>pals.healey.id,
           "name"=>"Arthur D Healey"
         },
-        "sections"=>[]
+        "sections"=>[],
+        "labels"=>[]
       })
     end
 
