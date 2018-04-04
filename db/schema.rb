@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402153329) do
+ActiveRecord::Schema.define(version: 20180404152512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(version: 20180402153329) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "importer_timing_json"
+    t.text "task_options_json"
   end
 
   create_table "intervention_types", id: :serial, force: :cascade do |t|

@@ -9,6 +9,12 @@
         <div>Started: <%= record.time_started_display %>.</div>
         <div>Ended: <%= record.time_ended_display %>.</div>
       </div>
+      <% if record.task_options_json.present? %>
+        <div style="margin: 10px 0;">Options:</div>
+        <div>
+          <pre style="font-size: 15px; color: #3D3D3D"><%= JSON.pretty_generate(JSON.parse(record.task_options_json)) %></pre>
+        </div>
+      <% end %>
       <div style="margin: 10px 0;">Down-to-the-file details:</div>
       <div>
         <pre style="font-size: 15px; color: #3D3D3D"><%= JSON.pretty_generate(JSON.parse(record.importer_timing_json)) %></pre>
@@ -17,6 +23,12 @@
       <div>
         <div>Job did not complete.</div>
         <div style="margin: 10px 0;">Started: <%= record.time_started_display %>.</div>
+        <% if record.task_options_json.present? %>
+          <div style="margin: 10px 0;">Options:</div>
+          <div>
+            <pre style="font-size: 15px; color: #3D3D3D"><%= JSON.pretty_generate(JSON.parse(record.task_options_json)) %></pre>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
