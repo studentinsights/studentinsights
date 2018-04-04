@@ -101,7 +101,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
     } else if (totalStudents === 1) {
       return <div>There is <b>one student</b> missing school recently who {"hasn't"} been mentioned in SST yet.  {sinceEl}</div>;
     } else {
-      return <div>There are <b>totalStudents} students</b> missing school recently who {"haven't"} been mentioned in SST yet.  {sinceEl}</div>;
+      return <div>There are <b>{totalStudents} students</b> missing school recently who {"haven't"} been mentioned in SST yet.  {sinceEl}</div>;
     }
   }
 
