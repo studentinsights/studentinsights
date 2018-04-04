@@ -94,7 +94,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
   // Branching on singular and plural and zero.
   renderCopy(totalStudents) {
     const now = this.context.nowFn();
-    const dateText = now.clone().subtract(45, 'days').format('MMMM Qo');
+    const dateText = now.clone().subtract(45, 'days').format('MMMM Do');
     const sinceEl = <span>Since {dateText}:</span>;
     if (totalStudents === 0) {
       return <div>There are <b>no students</b> missing school recently who {"haven't"} been mentioned in SST yet.</div>;

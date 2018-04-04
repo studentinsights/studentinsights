@@ -70,7 +70,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
        been mentioned in SST yet.  
       <span>
         Since 
-        January 1st
+        January 27th
         :
       </span>
     </div>
@@ -192,7 +192,7 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
        been mentioned in SST yet.  
       <span>
         Since 
-        January 1st
+        January 27th
         :
       </span>
     </div>
