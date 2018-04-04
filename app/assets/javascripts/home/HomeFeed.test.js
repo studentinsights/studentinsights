@@ -101,6 +101,7 @@ describe('HomeFeed', () => {
           seeMoreLinks: 1
         });
         ReactTestUtils.Simulate.click($(el).find('.HomeFeed-load-more').get(0));
+        expect($(el).html()).toContain('Loading more...');
         setTimeout(() => {
           expectRenderedFeed(el, {
             eventNoteCards: 20,
