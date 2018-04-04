@@ -62,7 +62,8 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
     <div>
       There are 
       <b>
-        totalStudents} students
+        129
+         students
       </b>
        missing school recently who 
       haven't
