@@ -49,19 +49,21 @@ const percentageOf = function(students, key, value) {
     0
     : 100 * (countMap[value] || 0) / total;
 };
+
 const LETTERS = _.range(65, 65 + 26).map(c => String.fromCharCode(c));
+
 const codes = _.flatten(LETTERS.map((outer) => {
   return LETTERS.map((inner) => {
     return [outer, inner].join('');
   });
 }));
+
 const bucket = function(value, buckets) {
   return buckets[hashCode(value) % buckets.length];
 }
 const hashCode = function(s){
   return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
 }
-
 
 const styles = {
   bar: {
@@ -71,34 +73,23 @@ const styles = {
   }
 };
 
-export default React.createClass({
-  displayName: 'CohortBreakdown',
+export default class Breakdown extends React.Component {
 
-  propTypes: {
-    students: React.PropTypes.arrayOf(React.PropTypes.shape({
-      race: React.PropTypes.string,
-      disability: React.PropTypes.string,
-      limited_english_proficiency: React.PropTypes.string,
-      gender: React.PropTypes.string,
-      grade: React.PropTypes.string,
-      free_reduced_lunch: React.PropTypes.string,
-      hispanic_latino: React.PropTypes.bool,
-      homeroom_id: React.PropTypes.number,
-      homeroom_name: React.PropTypes.string
-    })).isRequired
-  },
+  constructor(props) {
+    super(props);
 
-  getInitialState: function() {
-    return {
+    this.state = {
       gradeFilter: _.first(orderedGrades)
     };
-  },
 
-  onGradeClicked: function(grade) {
+    this.onGradeClicked = this.onGradeClicked.bind(this);
+  }
+
+  onGradeClicked(grade) {
     this.setState({ gradeFilter: grade });
-  },
+  }
 
-  render: function() {
+  render() {
     // Clean and filter
     const {gradeFilter} = this.state;
     const rawStudents = this.props.students;
@@ -274,9 +265,24 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
-  renderTitle: function(title) {
+  renderTitle(title) {
     return <div style={{marginTop: 50}}><b>{title}</b></div>;
   }
-});
+
+}
+
+Breakdown.propTypes = {
+  students: React.PropTypes.arrayOf(React.PropTypes.shape({
+    race: React.PropTypes.string,
+    disability: React.PropTypes.string,
+    limited_english_proficiency: React.PropTypes.string,
+    gender: React.PropTypes.string,
+    grade: React.PropTypes.string,
+    free_reduced_lunch: React.PropTypes.string,
+    hispanic_latino: React.PropTypes.bool,
+    homeroom_id: React.PropTypes.number,
+    homeroom_name: React.PropTypes.string
+  })).isRequired
+};
