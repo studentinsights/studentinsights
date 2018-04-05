@@ -36,3 +36,6 @@ export default class SchoolEquityPrincipalPage extends React.Component {
 
 }
 
+SchoolEquityPrincipalPage.propTypes = {
+  schoolId: React.PropTypes.string.isRequired
+};

@@ -11,7 +11,7 @@ function cleanNulls(students) {
       race: (student.race) ? student.race : 'Unknown'
     };
   });
-};
+}
 
 const orderedGrades = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ];
 
@@ -29,7 +29,7 @@ const makeCountMap = function(students, key) {
     map[item[key]] = item.count;
     return map;
   }, {});
-}
+};
 
 // Returns [{key, count}], filling in zero values for `allValues`
 // if they're not present.
@@ -38,7 +38,7 @@ const completeCountBy = function(students, key, allValues) {
     const matches = _.where(students, { [key]: value });
     return { [key]: value, count: matches.length };
   });
-}
+};
 
 // Returns percent as integer 0-100
 const percentageOf = function(students, key, value) {
@@ -50,21 +50,6 @@ const percentageOf = function(students, key, value) {
     0
     : 100 * (countMap[value] || 0) / total;
 };
-
-const LETTERS = _.range(65, 65 + 26).map(c => String.fromCharCode(c));
-
-const codes = _.flatten(LETTERS.map((outer) => {
-  return LETTERS.map((inner) => {
-    return [outer, inner].join('');
-  });
-}));
-
-const bucket = function(value, buckets) {
-  return buckets[hashCode(value) % buckets.length];
-}
-const hashCode = function(s){
-  return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
-}
 
 const styles = {
   bar: {
@@ -192,7 +177,6 @@ export default class Breakdown extends React.Component {
                   homeroomId,
                   studentCount,
                   raceGroups,
-                  grades,
                   lunchPercent,
                   hispanicPercent,
                   disabilityPercent,
