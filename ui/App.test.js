@@ -4,6 +4,7 @@ import App from './App';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
+import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader';
 
 import {MemoryRouter} from 'react-router-dom';
 
@@ -16,6 +17,12 @@ function renderPath(path, options = {}) {
     </MemoryRouter>
   );
 }
+
+
+jest.mock('../app/assets/javascripts/home/HomePage');
+jest.mock('../app/assets/javascripts/educator/EducatorPage');
+jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
+jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader');
 
 // For testing, which mirrors the output of ui_controller#ui on the
 // server.
@@ -51,8 +58,22 @@ it('render SchoolCoursesPage without crashing', () => {
   )).toEqual(true);
 });
 
+it('renders Absences Dashboard without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/absences'));
+  expect(wrapper.contains(
+    <DashboardLoader schoolId="hea" dashboardTarget="absences"/>
+  )).toEqual(true);
+});
+
+it('renders Tardies Dashboard without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/tardies'));
+  expect(wrapper.contains(
+    <DashboardLoader schoolId="hea" dashboardTarget="tardies"/>
+  )).toEqual(true);
+});
+
 describe('unknown route', () => {
-  // This has to temporarily remove the Jest setup code 
+  // This has to temporarily remove the Jest setup code
   // that fails the test when console.warn is triggered.
   var consoleWarn = null; // eslint-disable-line no-var
   beforeEach(() => {
@@ -63,7 +84,7 @@ describe('unknown route', () => {
   afterEach(() => {
     console.warn = consoleWarn; // eslint-disable-line no-console
   });
-  
+
   it('calls console.warn', () => {
     mount(renderPath('/fdsjfkdsjkflsdjfs'));
     expect(console.warn).toHaveBeenCalled(); // eslint-disable-line no-console

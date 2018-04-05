@@ -41,6 +41,27 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
+  #Individual dashboard data endpoints will replace school_administrator_dashboard once they're stable
+  def absence_dashboard_data
+    student_absence_data = students_for_dashboard(@school)
+      .includes([homeroom: :educator], :dashboard_absences, :event_notes)
+    student_absence_data_json = student_absence_data.map do |student|
+      individual_student_absence_data(student)
+    end
+
+    render json: student_absence_data_json
+  end
+
+  def tardies_dashboard_data
+    student_tardies_data = students_for_dashboard(@school)
+      .includes([homeroom: :educator], :dashboard_tardies, :event_notes)
+    student_tardies_data_json = student_tardies_data.map do |student|
+      individual_student_tardies_data(student)
+    end
+
+    render json: student_tardies_data_json
+  end
+
   # This endpoint is internal-only for now, because of the authorization complexity.
   def courses_json
     raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
@@ -150,9 +171,6 @@ class SchoolsController < ApplicationController
   end
 
   # Methods for Dashboard
-  def list_student_absences(student)
-    student.absences.map {|absence| absence.order(occurred_at: :desc)}
-  end
 
   def individual_student_dashboard_data(student)
     # This is a temporary workaround for New Bedford
@@ -164,6 +182,32 @@ class SchoolsController < ApplicationController
       homeroom_label: homeroom_label,
       absences: student.dashboard_absences,
       tardies: student.dashboard_tardies,
+      event_notes: student.event_notes
+    })
+  end
+
+  def individual_student_absence_data(student)
+    # Gathers only the information needed for a specific dashboard view.
+    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
+    HashWithIndifferentAccess.new({
+      first_name: student.first_name,
+      last_name: student.last_name,
+      id: student.id,
+      homeroom_label: homeroom_label,
+      absences: student.absences,
+      event_notes: student.event_notes
+    })
+  end
+
+  def individual_student_tardies_data(student)
+    # Gathers only the information needed for a specific dashboard view.
+    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
+    HashWithIndifferentAccess.new({
+      first_name: student.first_name,
+      last_name: student.last_name,
+      id: student.id,
+      homeroom_label: homeroom_label,
+      tardies: student.tardies,
       event_notes: student.event_notes
     })
   end
