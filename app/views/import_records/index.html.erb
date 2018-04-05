@@ -1,9 +1,9 @@
 <div style="display: flex;">
-  <div style="flex: 1;">
-    <h4 style="border-bottom: 1px solid #333; margin: 20px 40px;">Import Records</h4>
+  <div style="flex: 1; margin: 20px 40px;">
+    <h4 style="border-bottom: 1px solid #333;">Import Records</h4>
     <% if @import_records.present? %>
       <% @import_records.each do |record| %>
-        <div style="border: 1px solid #eee; padding: 15px; margin: 15px;">
+        <div style="border: 1px solid #eee; padding: 15px; margin: 15px 0;">
           <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; font-size: 18px;">
             Import Record #<%= record.id %>
           </div>
@@ -38,14 +38,14 @@
         </div>
       <% end %>
     <% else %>
-      <div style="margin-left: 40px;">No import records.</div>
+      <div style="margin: 15px 0;">No import records.</div>
     <% end %>
   </div>
-  <div style="flex: 1;">
-    <h4 style="border-bottom: 1px solid #333; margin: 20px 40px 20px 0;">Queued Jobs</h4>
+  <div style="flex: 1; margin: 20px 40px;">
+    <h4 style="border-bottom: 1px solid #333;">Queued Jobs</h4>
     <% if @queued_jobs.present? %>
       <% @queued_jobs.each do |queued_job| %>
-        <div style="border: 1px solid #eee; padding: 15px; margin: 15px;">
+        <div style="border: 1px solid #eee; padding: 15px; margin: 15px 0;">
           <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; font-size: 18px;">
             Queued Job #<%= queued_job.id %>
           </div>
@@ -58,6 +58,6 @@
       <% end %>
     </div>
   <% else %>
-    <div>No jobs in the queue.</div>
+    <div style="margin: 15px 0;">No jobs in the queue.</div>
   <% end %>
 </div>
