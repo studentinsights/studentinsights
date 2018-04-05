@@ -69,6 +69,7 @@ Rails.application.routes.draw do
       get 'absences' => 'ui#ui'
       get 'tardies' => 'ui#ui'
       get 'courses' => 'ui#ui'
+      get 'equity/principal' => 'ui#ui'
     end
   end
 end

@@ -10,7 +10,7 @@ import DashboardLoader from '../app/assets/javascripts/school_administrator_dash
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
-
+import SchoolEquityPrincipalPage from '../app/assets/javascripts/equity/SchoolEquityPrincipalPage';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -52,6 +52,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
+          <Route exact path="/schools/:id/equity/principal" render={this.renderSchoolEquityPrincipalPage.bind(this)}/>
         </Switch>
       </MountTimer>
     );
@@ -64,6 +65,12 @@ class App extends React.Component {
     return <HomePage
       educatorId={id}
       educatorLabels={labels} />;
+  }
+
+  renderSchoolEquityPrincipalPage(routeProps) {
+    const schoolId = routeProps.match.params.id;
+    this.trackVisit(routeProps, 'SCHOOL_EQUITY_PRINCIPAL_PAGE');
+    return <SchoolEquityPrincipalPage schoolId={schoolId} />;
   }
 
   renderSchoolCoursesPage(routeProps) {
@@ -101,7 +108,7 @@ App.propTypes = {
   currentEducator: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,
     admin: React.PropTypes.bool.isRequired,
-    school_id: React.PropTypes.number.isRequired,
+    school_id: React.PropTypes.number,
     labels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
   }).isRequired
 };
