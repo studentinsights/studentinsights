@@ -42,6 +42,7 @@ if (mainEl) {
   if (!didRoute) {
     const serializedData = $('#serialized-data').data() || {};
     const {currentEducator} = serializedData;
-    ReactDOM.render(<BrowserRouter><App currentEducator={currentEducator} /></BrowserRouter>, mainEl);
+    ReactDOM.render(
+      <BrowserRouter><App currentEducator={currentEducator} /></BrowserRouter>, mainEl);
   }
 }
