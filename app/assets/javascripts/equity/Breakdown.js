@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import Bar from '../components/Bar';
 import {colors} from '../helpers/Theme';
 
