@@ -117,7 +117,7 @@ export default class Breakdown extends React.Component {
       const colorPercent = 100 * students.filter(s => s.hispanic_latino || s.race !== 'White').length / students.length;
       const overOneWeekAbsentPercent = percentageOverLimit(students, 'absences_count', 5);
       const overOneWeekTardyPercent = percentageOverLimit(students, 'tardies_count', 5);
-      const hasDisciplinePercent = percentageOverLimit(students, 'discipline_incidents_count', 0)
+      const hasDisciplinePercent = percentageOverLimit(students, 'discipline_incidents_count', 0);
 
       return {
         homeroomName,
