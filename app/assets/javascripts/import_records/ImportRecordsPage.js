@@ -2,6 +2,7 @@ import React from 'react';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import ImportRecordCard from './ImportRecordCard';
+import QueuedJobCard from './QueuedJobCard';
 
 export default class ImportRecordsPage extends React.Component {
 
@@ -25,11 +26,6 @@ export default class ImportRecordsPage extends React.Component {
       </div>
     );
   }
-
-  renderRecord(importRecord) {
-    return <ImportRecordCard {...importRecord} />
-  }
-
   renderImportRecords(importRecords) {
     const divStyle = {margin: '15px 0'};
 
@@ -48,6 +44,14 @@ export default class ImportRecordsPage extends React.Component {
     );
 
     return queuedJobs.map(this.renderQueuedJob, this);
+  }
+
+  renderRecord(importRecord) {
+    return <ImportRecordCard {...importRecord} />;
+  }
+
+  renderQueuedJob(queuedJob) {
+    return <QueuedJobCard {...queuedJob} />;
   }
 
   renderPage(json) {
