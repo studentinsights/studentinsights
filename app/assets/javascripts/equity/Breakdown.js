@@ -51,6 +51,18 @@ const percentageOf = function(students, key, value) {
     : 100 * (countMap[value] || 0) / total;
 };
 
+// Returns percent as integer 0-100
+const percentageOverLimit = function(students, key, limit) {
+  const total = students.length;
+  const numberOverLimit = students.filter((student) => {
+    return student[key] > limit;
+  }).length;
+
+  return (total === 0) ?
+    0
+    : 100 * numberOverLimit / total;
+};
+
 const styles = {
   bar: {
     color: 'black',
@@ -103,6 +115,9 @@ export default class Breakdown extends React.Component {
       const disabilityPercent = 100 - percentageOf(students, 'disability', null);
       const lepPercent = 100 - percentageOf(students, 'limited_english_proficiency', 'Fluent');
       const colorPercent = 100 * students.filter(s => s.hispanic_latino || s.race !== 'White').length / students.length;
+      const overOneWeekAbsentPercent = percentageOverLimit(students, 'absences_count', 5);
+      const overOneWeekTardyPercent = percentageOverLimit(students, 'tardies_count', 5);
+      const hasDisciplinePercent = percentageOverLimit(students, 'discipline_incidents_count', 0);
 
       return {
         homeroomName,
@@ -115,6 +130,9 @@ export default class Breakdown extends React.Component {
         lepPercent,
         hispanicPercent,
         colorPercent,
+        overOneWeekAbsentPercent,
+        overOneWeekTardyPercent,
+        hasDisciplinePercent,
         studentCount: students.length
       };
     });
@@ -160,12 +178,33 @@ export default class Breakdown extends React.Component {
           <table style={{width: '100%', margin: 5, marginTop: 10, borderCollapse: 'collapse'}}>
             <thead style={{borderBottom: '1px solid #999'}}>
               <tr>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Homeroom</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Size</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Disability</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Limited English</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Low income</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Racial composition</th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  Homeroom
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  Size
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  > 5 Absences
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  > 5 Tardies
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  > 0 Discipline
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  Disability
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  Limited English
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  Low income
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  Racial composition
+                </th>
                 <th title="Not white or Hispanic" style={{cursor: 'help', padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Students of color</th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Hispanic</th>
               </tr>
@@ -181,7 +220,10 @@ export default class Breakdown extends React.Component {
                   hispanicPercent,
                   disabilityPercent,
                   lepPercent,
-                  colorPercent
+                  colorPercent,
+                  overOneWeekAbsentPercent,
+                  overOneWeekTardyPercent,
+                  hasDisciplinePercent,
                 } = statsForHomeroom;
                 const total = _.map(raceGroups, 'count').reduce((sum, a) => {
                   return sum + a;
@@ -193,6 +235,19 @@ export default class Breakdown extends React.Component {
                       <a href={`/homerooms/${homeroomId}`}>{homeroomName}</a>
                     </td>
                     <td style={{width: '3em', padding: 5}}>{studentCount}</td>
+
+                    {/* Attendance / Discipline */}
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={overOneWeekAbsentPercent} styles={styles.bar} threshold={10} />
+                    </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={overOneWeekTardyPercent} styles={styles.bar} threshold={10} />
+                    </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={hasDisciplinePercent} styles={styles.bar} threshold={10} />
+                    </td>
+
+                    {/* Demographics */}
                     <td style={{height: '100%', width: 140, padding: 5}}>
                       <Bar percent={disabilityPercent} styles={styles.bar} threshold={10} />
                     </td>
@@ -202,6 +257,8 @@ export default class Breakdown extends React.Component {
                     <td style={{height: '100%', width: 140, padding: 5}}>
                       <Bar percent={lunchPercent} styles={styles.bar} threshold={10} />
                     </td>
+
+                    {/* Race */}
                     <td style={{padding: 5}}>
                       <div style={{flex: 1, width: 400, backgroundColor: 'white', height: '3em'}}>
                         {_.sortBy(raceGroups, 'race').map((group) => {
