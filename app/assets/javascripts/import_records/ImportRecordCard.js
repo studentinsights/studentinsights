@@ -42,14 +42,14 @@ export default class ImportRecordCard extends React.Component {
   renderCompleted() {
     return (
       <div>
-        {this.renderTiming()}
+        {this.renderTimingForCompleted()}
         {this.renderTaskOptionsSection()}
         {this.renderFileByFileSection()}
       </div>
     );
   }
 
-  renderTiming() {
+  renderTimingForCompleted() {
     const sectionStyle = {margin: '10px 0'};
 
     const {
@@ -60,9 +60,22 @@ export default class ImportRecordCard extends React.Component {
 
     return (
       <div style={sectionStyle}>
-        Job completed in {time_to_complete_in_words}.
+        <div>Job completed in {time_to_complete_in_words}.</div>
         <div>Started: {time_started_display}.</div>
         <div>Ended: {time_ended_display}.</div>
+      </div>
+    );
+  }
+
+  renderTimingForNotCompleted() {
+    const sectionStyle = {margin: '10px 0'};
+
+    const {time_started_display,} = this.props;
+
+    return (
+      <div style={sectionStyle}>
+        <div>Job is in progress or never completed.</div>
+        <div>Started: {time_started_display}.</div>
       </div>
     );
   }
@@ -148,8 +161,12 @@ export default class ImportRecordCard extends React.Component {
 
   renderNotCompleted() {
     return (
-      <div>Not Completed!</div>
+      <div>
+        {this.renderTimingForCompleted()}
+        {this.renderTaskOptionsSection()}
+      </div>
     );
   }
 
 }
+
