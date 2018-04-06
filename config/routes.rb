@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
   get '/api/home/feed_json' => 'home#feed_json'
   get '/api/district/enrollment_json' => 'district#enrollment_json'
+  get '/api/import_records' => 'import_records#import_records_json'
 
   devise_for :educators
   authenticated :educator do
@@ -58,8 +59,9 @@ Rails.application.routes.draw do
   end
   resources :homerooms, only: [:show]
   resources :sections, only: [:index, :show]
-  resources :import_records, only: [:index]
   resources :iep_documents, only: [:show]
+
+  get 'import_records' => 'ui#ui'
 
   resources :schools, only: [:show] do
     member do
