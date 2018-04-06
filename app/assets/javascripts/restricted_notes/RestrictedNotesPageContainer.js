@@ -30,6 +30,7 @@ class RestrictedNotesPageContainer extends React.Component {
       // ui
       noteInProgressText: '',
       noteInProgressType: null,
+      noteInProgressAttachmentUrls: [],
 
       // This map holds the state of network requests for various actions.  This allows UI components to branch on this
       // and show waiting messages or error messages.
@@ -50,6 +51,7 @@ class RestrictedNotesPageContainer extends React.Component {
     this.onSaveNotesFail = this.onSaveNotesFail.bind(this);
     this.onClickNoteType = this.onClickNoteType.bind(this);
     this.onChangeNoteInProgressText = this.onChangeNoteInProgressText.bind(this);
+    this.onChangeAttachmentUrl = this.onChangeAttachmentUrl.bind(this);
   }
 
   componentWillMount(props, state) {
@@ -75,6 +77,7 @@ class RestrictedNotesPageContainer extends React.Component {
       requests: merge(this.state.requests, { saveNote: null }),
       noteInProgressText: '',
       noteInProgressType: null,
+      noteInProgressAttachmentUrls: []
     });
   }
 
@@ -94,6 +97,24 @@ class RestrictedNotesPageContainer extends React.Component {
     this.setState({ noteInProgressText: event.target.value });
   }
 
+  onChangeAttachmentUrl(event) {
+    const newValue = event.target.value;
+    const changedIndex = parseInt(event.target.name);
+    const {noteInProgressAttachmentUrls} = this.state;
+
+    const updatedAttachmentUrls = (noteInProgressAttachmentUrls.length === changedIndex)
+      ? noteInProgressAttachmentUrls.concat(newValue)
+      : noteInProgressAttachmentUrls.map((attachmentUrl, index) => {
+        return (changedIndex === index) ? newValue : attachmentUrl;
+      });
+
+    const filteredAttachments = updatedAttachmentUrls.filter((urlString) => {
+      return urlString.length !== 0;
+    });
+
+    this.setState({ noteInProgressAttachmentUrls: filteredAttachments });
+  }
+
   render() {
     return (
       <div className="RestrictedNotesPageContainer">
@@ -107,13 +128,16 @@ class RestrictedNotesPageContainer extends React.Component {
               'student',
               'requests',
               'noteInProgressText',
-              'noteInProgressType'
+              'noteInProgressType',
+              'noteInProgressAttachmentUrls'
             ), {
               nowMomentFn: this.props.nowMomentFn,
-              actions: this.props.actions || {
+              actions: {
                 onClickSaveNotes: this.onClickSaveNotes,
                 onClickNoteType: this.onClickNoteType,
                 onChangeNoteInProgressText: this.onChangeNoteInProgressText,
+                onChangeAttachmentUrl: this.onChangeAttachmentUrl,
+                ...this.props.actions
               },
               showingRestrictedNotes: true,
               helpContent: this.renderNotesHelpContent(),

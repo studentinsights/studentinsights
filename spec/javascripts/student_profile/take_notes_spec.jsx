@@ -19,9 +19,11 @@ describe('TakeNotes', function() {
         onCancel: jest.fn(),
         onClickNoteType: jest.fn(),
         onChangeNoteInProgressText: jest.fn(),
+        onChangeAttachmentUrl: jest.fn(),
         requestState: null,
         noteInProgressText: '',
-        noteInProgressType: null
+        noteInProgressType: null,
+        noteInProgressAttachmentUrls: []
       });
       window.ReactDOM.render(<TakeNotes {...mergedProps} />, el);
     }

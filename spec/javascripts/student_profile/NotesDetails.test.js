@@ -13,11 +13,13 @@ describe('NotesDetails', function() {
         educatorsIndex: {},
         noteInProgressText: '',
         noteInProgressType: null,
+        noteInProgressAttachmentUrls: [],
         actions: {
           onClickSaveNotes: function () {},
           onEventNoteAttachmentDeleted: function () {},
           onChangeNoteInProgressText: function () {},
-          onClickNoteType: function () {}
+          onClickNoteType: function () {},
+          onChangeAttachmentUrl: function () {}
         },
         feed: {
           event_notes: [],
@@ -31,7 +33,7 @@ describe('NotesDetails', function() {
         requests: {},
         showingRestrictedNotes: false,
         title: '',
-        helpContent: {},
+        helpContent: '',
         helpTitle: '',
       });
 

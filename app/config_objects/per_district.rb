@@ -55,6 +55,7 @@ class PerDistrict
     end
   end
 
+  private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError
   end

@@ -15,6 +15,7 @@ import './legacy.js';
 if ($('body').hasClass('students')  ||
     $('body').hasClass('homerooms') ||
     $('body').hasClass('service_uploads') ||
+    $('body').hasClass('ui') ||
     $('body').hasClass('school_administrator_dashboard')) {
   datepickerConfig();
 }
@@ -41,6 +42,7 @@ if (mainEl) {
   if (!didRoute) {
     const serializedData = $('#serialized-data').data() || {};
     const {currentEducator} = serializedData;
-    ReactDOM.render(<BrowserRouter><App currentEducator={currentEducator} /></BrowserRouter>, mainEl);
+    ReactDOM.render(
+      <BrowserRouter><App currentEducator={currentEducator} /></BrowserRouter>, mainEl);
   }
 }

@@ -1,4 +1,4 @@
-import HelpBubble from './HelpBubble.js';
+import HelpBubble from '../components/HelpBubble';
 
 const  styles = {
   caption: {
@@ -493,8 +493,8 @@ class SummaryWithoutSparkline  extends React.Component {
             {(this.props.value === undefined) ? 'none' : this.props.value}
           </span>
           <HelpBubble
+            teaser="(what is this?)"
             title="What do DIBELS levels mean?"
-            teaserText="(what is this?)"
             content={this.getDibelsHelpContent()} />
         </div>
       </div>

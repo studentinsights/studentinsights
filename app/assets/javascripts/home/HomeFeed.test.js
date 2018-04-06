@@ -63,8 +63,8 @@ function expectRenderedFeed(el, options = {}) {
 describe('HomeFeed', () => {
   beforeEach(() => {
     fetchMock.restore();
-    fetchMock.get('/home/feed_json?educator_id=9999&limit=10&time_now=1520938986', homeFeedJson);
-    fetchMock.get('/home/feed_json?educator_id=9999&limit=10&time_now=1315440000', moreCardsJson());
+    fetchMock.get('/api/home/feed_json?educator_id=9999&limit=10&time_now=1520938986', homeFeedJson);
+    fetchMock.get('/api/home/feed_json?educator_id=9999&limit=10&time_now=1315440000', moreCardsJson());
   });
 
   it('renders without crashing', () => {
@@ -101,6 +101,7 @@ describe('HomeFeed', () => {
           seeMoreLinks: 1
         });
         ReactTestUtils.Simulate.click($(el).find('.HomeFeed-load-more').get(0));
+        expect($(el).html()).toContain('Loading more...');
         setTimeout(() => {
           expectRenderedFeed(el, {
             eventNoteCards: 20,

@@ -6,8 +6,11 @@ import {
 import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
+import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
-
+import MountTimer from '../app/assets/javascripts/components/MountTimer';
+import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
+import SchoolEquityPrincipalPage from '../app/assets/javascripts/equity/SchoolEquityPrincipalPage';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -23,7 +26,11 @@ class App extends React.Component {
     };
   }
 
-  // Read which educator Rails wrote inline in the HTML page, 
+  componentDidMount() {
+    measurePageLoad(info => console.log(JSON.stringify(info, null, 2))); // eslint-disable-line no-console
+  }
+
+  // Read which educator Rails wrote inline in the HTML page,
   // and report routing activity for analytics (eg, MixPanel)
   // TODO(kr) could do this as a higher-order component
   // to remove having to do this manually for each route.
@@ -37,19 +44,33 @@ class App extends React.Component {
   // side.
   render() {
     return (
-      <Switch>
-        <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
-        <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
-        <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
-        <Route render={() => this.renderNotFound()} />
-      </Switch>
+      <MountTimer>
+        <Switch>
+          <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
+          <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
+          <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
+          <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
+          <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
+          <Route exact path="/schools/:id/equity/principal" render={this.renderSchoolEquityPrincipalPage.bind(this)}/>
+          <Route render={() => this.renderNotFound()} />
+        </Switch>
+      </MountTimer>
     );
   }
 
   renderHomePage(routeProps) {
     const {currentEducator} = this.props;
+    const {id, labels} = currentEducator;
     this.trackVisit(routeProps, 'HOME_PAGE');
-    return <HomePage educatorId={currentEducator.id} />;
+    return <HomePage
+      educatorId={id}
+      educatorLabels={labels} />;
+  }
+
+  renderSchoolEquityPrincipalPage(routeProps) {
+    const schoolId = routeProps.match.params.id;
+    this.trackVisit(routeProps, 'SCHOOL_EQUITY_PRINCIPAL_PAGE');
+    return <SchoolEquityPrincipalPage schoolId={schoolId} />;
   }
 
   renderSchoolCoursesPage(routeProps) {
@@ -64,7 +85,15 @@ class App extends React.Component {
     return <EducatorPage educatorId={educatorId} />;
   }
 
-  // Ignore this, since we're hybrid client/server and perhaps the 
+  renderAbsencesDashboard(routeProps) {
+    return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'absences'} />;
+  }
+
+  renderTardiesDashboard(routeProps) {
+    return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'tardies'}/>;
+  }
+
+  // Ignore this, since we're hybrid client/server and perhaps the
   // server has rendered something and the client-side app just doesn't
   // know about it.
   renderNotFound() {
@@ -78,8 +107,9 @@ App.childContextTypes = {
 App.propTypes = {
   currentEducator: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,
-    school_id: React.PropTypes.number.isRequired,
-    admin: React.PropTypes.bool.isRequired
+    admin: React.PropTypes.bool.isRequired,
+    school_id: React.PropTypes.number,
+    labels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
   }).isRequired
 };
 

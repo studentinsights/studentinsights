@@ -11,6 +11,7 @@ class ImportRecordsController < ApplicationController
 
   def index
     @import_records = ImportRecord.order(created_at: :desc).take(25)
+    @queued_jobs = Delayed::Job.all
   end
 
 end

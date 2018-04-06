@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CheckStudentWithLowGradesView handles when limit reached 1`] = `
+exports[`CheckStudentsWithLowGradesView handles when limit reached 1`] = `
 <div
-  className="CheckStudentWithLowGrades"
+  className="CheckStudentsWithLowGrades"
 >
   <div
     style={
@@ -35,7 +35,7 @@ exports[`CheckStudentWithLowGradesView handles when limit reached 1`] = `
            students
         </b>
       </span>
-       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.
+       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last 45 days.
     </div>
     <div
       style={
@@ -219,9 +219,9 @@ exports[`CheckStudentWithLowGradesView handles when limit reached 1`] = `
 </div>
 `;
 
-exports[`CheckStudentWithLowGradesView pure component matches snapshot 1`] = `
+exports[`CheckStudentsWithLowGradesView pure component matches snapshot 1`] = `
 <div
-  className="CheckStudentWithLowGrades"
+  className="CheckStudentsWithLowGrades"
 >
   <div
     style={
@@ -254,7 +254,7 @@ exports[`CheckStudentWithLowGradesView pure component matches snapshot 1`] = `
            students
         </b>
       </span>
-       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last month.
+       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last 45 days.
     </div>
     <div
       style={

@@ -26,6 +26,7 @@ class EducatorsController < ApplicationController
         :grade_level_access,
         :admin
       ],
+      :methods => [:labels],
       :include => {
         :school => { :only => [:id, :name] },
         :sections => {

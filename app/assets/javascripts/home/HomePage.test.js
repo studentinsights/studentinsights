@@ -8,7 +8,8 @@ import {testContext} from '../../../../spec/javascripts/support/NowContainer';
 
 function testProps() {
   return {
-    educatorId: 9999
+    educatorId: 9999,
+    educatorLabels: ['foo']
   };
 }
 
@@ -18,6 +19,6 @@ it('shallow renders without crashing', () => {
   const wrapper = shallow(<HomePage {...props} />, {context});
   expect(wrapper.find('.HomePage').length).toEqual(1);
   expect(wrapper.find(SectionHeading).length).toEqual(2);
-  expect(wrapper.contains(<HomeFeed educatorId={props.educatorId} />)).toEqual(true);
-  expect(wrapper.contains(<HomeInsights educatorId={props.educatorId} />)).toEqual(true);
+  expect(wrapper.contains(<HomeFeed educatorId={9999} />)).toEqual(true);
+  expect(wrapper.contains(<HomeInsights educatorId={9999} educatorLabels={['foo']} />)).toEqual(true);
 });

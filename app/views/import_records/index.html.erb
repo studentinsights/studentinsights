@@ -1,16 +1,63 @@
-<% @import_records.each do |record| %>
-  <div style="border: 1px solid #eee; padding: 15px; margin: 15px;">
-    <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; font-size: 18px;">
-      <%= record.created_at.strftime("%m/%d/%Y") %>
-    </div>
-    <% if record.completed? %>
-      <div>
-        Completed in <%= distance_of_time_in_words(record.time_to_complete) %>.
-      </div>
+<div style="display: flex;">
+  <div style="flex: 1; margin: 20px 40px;">
+    <h4 style="border-bottom: 1px solid #333;">Import Records</h4>
+    <% if @import_records.present? %>
+      <% @import_records.each do |record| %>
+        <div style="border: 1px solid #eee; padding: 15px; margin: 15px 0;">
+          <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; font-size: 18px;">
+            Import Record #<%= record.id %>
+          </div>
+          <% if record.completed? %>
+            <div>Job completed in <%= distance_of_time_in_words(record.time_to_complete) %>.</div>
+            <div style="margin: 10px 0;">
+              <div>Started: <%= record.time_started_display %>.</div>
+              <div>Ended: <%= record.time_ended_display %>.</div>
+            </div>
+            <% if record.task_options_json.present? %>
+              <div style="margin: 10px 0;">Options:</div>
+              <div>
+                <pre style="font-size: 15px; color: #3D3D3D"><%= JSON.pretty_generate(JSON.parse(record.task_options_json)) %></pre>
+              </div>
+            <% end %>
+            <div style="margin: 10px 0;">Down-to-the-file details:</div>
+            <div>
+              <pre style="font-size: 15px; color: #3D3D3D"><%= JSON.pretty_generate(JSON.parse(record.importer_timing_json)) %></pre>
+            </div>
+          <% else %>
+            <div>
+              <div>Job did not complete.</div>
+              <div style="margin: 10px 0;">Started: <%= record.time_started_display %>.</div>
+              <% if record.task_options_json.present? %>
+                <div style="margin: 10px 0;">Options:</div>
+                <div>
+                  <pre style="font-size: 15px; color: #3D3D3D"><%= JSON.pretty_generate(JSON.parse(record.task_options_json)) %></pre>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% else %>
-      <div>
-        Process did not complete.
-      </div>
+      <div style="margin: 15px 0;">No import records.</div>
     <% end %>
   </div>
-<% end %>
+  <div style="flex: 1; margin: 20px 40px;">
+    <h4 style="border-bottom: 1px solid #333;">Queued Jobs</h4>
+    <% if @queued_jobs.present? %>
+      <% @queued_jobs.each do |queued_job| %>
+        <div style="border: 1px solid #eee; padding: 15px; margin: 15px 0;">
+          <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; font-size: 18px;">
+            Queued Job #<%= queued_job.id %>
+          </div>
+          <div>Attempts: <%= queued_job.attempts %></div>
+          <div>Run at: <%= queued_job.run_at %></div>
+          <div>Last error: <%= queued_job.last_error %></div>
+          <div>Locked at: <%= queued_job.locked_at %></div>
+          <div>Failed at: <%= queued_job.failed_at %></div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div style="margin: 15px 0;">No jobs in the queue.</div>
+  <% end %>
+</div>

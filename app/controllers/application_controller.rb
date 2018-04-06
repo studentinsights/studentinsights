@@ -18,9 +18,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Return the homepage path, depending on the educator's role
   def homepage_path_for_role(educator)
-    PathsForEducator.new(educator).homepage_path
+    home_path # /home
   end
 
   # Wrap all database queries with this to enforce authorization

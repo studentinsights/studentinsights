@@ -58,7 +58,7 @@ describe HomeroomsController, :type => :controller do
           "absences_count",
           "tardies_count",
           "homeroom_name",
-          "event_notes",
+          "event_notes_without_restricted",
           "interventions",
           "sped_data",
           "student_risk_level"
@@ -77,9 +77,9 @@ describe HomeroomsController, :type => :controller do
           it 'does not raise an error' do
             expect { make_request('garbage homeroom ids rule') }.not_to raise_error
           end
-          it 'redirects to educator\'s homeroom' do
+          it 'redirects' do
             make_request('garbage homeroom ids rule')
-            expect(response).to redirect_to(homeroom_path(educator.homeroom))
+            expect(response).to redirect_to(home_path)
           end
         end
 
@@ -156,7 +156,7 @@ describe HomeroomsController, :type => :controller do
             let(:yet_another_homeroom) { FactoryGirl.create(:homeroom, school: school) }
             it 'redirects to educator\'s homeroom' do
               make_request(yet_another_homeroom.slug)
-              expect(response).to redirect_to(homeroom_path(educator.homeroom))
+              expect(response).to redirect_to(home_path)
             end
           end
 
@@ -178,7 +178,7 @@ describe HomeroomsController, :type => :controller do
 
             it 'redirects' do
               make_request(homeroom.slug)
-              expect(response).to redirect_to(school_path(school))
+              expect(response).to redirect_to(home_path)
             end
           end
 
@@ -221,7 +221,7 @@ describe HomeroomsController, :type => :controller do
           before { FactoryGirl.create(:student, school: school) }
           it 'redirects to overview page' do
             make_request('garbage homeroom ids rule')
-            expect(response).to redirect_to(school_url(school))
+            expect(response).to redirect_to(home_path)
           end
         end
 
@@ -241,7 +241,7 @@ describe HomeroomsController, :type => :controller do
         let!(:homeroom) { FactoryGirl.create(:homeroom) }
         it 'redirects to no-homeroom error page' do
           make_request(homeroom.slug)
-          expect(response).to redirect_to(no_default_page_url)
+          expect(response).to redirect_to(home_path)
         end
       end
     end

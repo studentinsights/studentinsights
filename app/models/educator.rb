@@ -16,6 +16,7 @@ class Educator < ActiveRecord::Base
   has_many    :interventions
   has_many    :event_notes
   has_many    :event_note_revisions
+  has_many    :educator_labels
 
   validates :email, presence: true, uniqueness: true
 
@@ -59,6 +60,10 @@ class Educator < ActiveRecord::Base
     else
       students
     end
+  end
+
+  def labels
+    educator_labels.map(&:label_key)
   end
 
   def default_homeroom

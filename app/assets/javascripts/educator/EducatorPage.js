@@ -68,7 +68,9 @@ class EducatorPage extends React.Component {
           </pre>
         </div>
         <SectionHeading>Home page</SectionHeading>
-        <HomePage educatorId={educator.id} />
+        <HomePage
+          educatorId={educator.id}
+          educatorLabels={educator.labels} />
       </div>
     );
   }
