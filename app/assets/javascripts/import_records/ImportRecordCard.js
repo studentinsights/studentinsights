@@ -6,7 +6,7 @@ export default class ImportRecordCard extends React.Component {
     super(props);
 
     this.state = {
-      showOptions: true,
+      showOptions: false,
       showFileByFile: false,
       showLog: false,
     };
@@ -40,7 +40,18 @@ export default class ImportRecordCard extends React.Component {
   }
 
   renderCompleted() {
+    return (
+      <div>
+        {this.renderTiming()}
+        {this.renderTaskOptionsSection()}
+        {this.renderFileByFileSection()}
+      </div>
+    );
+  }
+
+  renderTiming() {
     const sectionStyle = {margin: '10px 0'};
+
     const {
       time_to_complete_in_words,
       time_started_display,
@@ -48,34 +59,31 @@ export default class ImportRecordCard extends React.Component {
     } = this.props;
 
     return (
-      <div>
-        <div>
-          Job completed in {time_to_complete_in_words}.
-        </div>
-        <div style={sectionStyle}>
-          <div>Started: {time_started_display}.</div>
-          <div>Ended: {time_ended_display}.</div>
-        </div>
-        {this.renderTaskOptionsSection()}
+      <div style={sectionStyle}>
+        Job completed in {time_to_complete_in_words}.
+        <div>Started: {time_started_display}.</div>
+        <div>Ended: {time_ended_display}.</div>
       </div>
     );
   }
 
-  renderToggleOptions() {
-    const {showOptions} = this.state;
-    const onClick = this.onToggleState('showOptions');
+  renderToggle(stateKey) {
+    const value = this.state[stateKey];
+    const onClick = this.onToggleState(stateKey);
 
     const linksStyle = {fontSize: 12, marginLeft: 12};
-    const onStyle = {fontWeight: 'bold', cursor: 'pointer', margin: '0 2px'};
-    const offStyle = {color: 'blue', cursor: 'pointer', margin: '0 2px'};
+    const onStyle = {cursor: 'pointer', margin: '0 2px'};
+    const offStyle = {
+      color: 'blue', cursor: 'pointer', margin: '0 2px', fontWeight: 'bold'
+    };
 
     return (
       <span style={linksStyle}>
-        [<span style={showOptions ? onStyle : offStyle}
-               onClick={showOptions ? null : onClick}>
+        [<span style={value ? onStyle : offStyle}
+               onClick={value ? null : onClick}>
           show
-        </span>|<span style={showOptions ? offStyle : onStyle}
-               onClick={showOptions ? onClick : null}>
+        </span>|<span style={value ? offStyle : onStyle}
+               onClick={value ? onClick : null}>
           hide
         </span>]
       </span>
@@ -104,9 +112,37 @@ export default class ImportRecordCard extends React.Component {
 
     return (
       <div style={spacingStyle}>
-        <div style={spacingStyle}>Options {this.renderToggleOptions()}</div>
+        <div style={spacingStyle}>Options {this.renderToggle('showOptions')}</div>
         {this.renderTaskOptions()}
       </div>
+    );
+  }
+
+  renderFileByFileSection() {
+    const {importer_timing_json} = this.props;
+    if (!importer_timing_json) return null;
+
+    const spacingStyle = {margin: '10px 0'};
+
+    return (
+      <div style={spacingStyle}>
+        <div style={spacingStyle}>File-By-File {this.renderToggle('showFileByFile')}</div>
+        {this.renderFileByFileTiming()}
+      </div>
+    );
+  }
+
+  renderFileByFileTiming() {
+    const {importer_timing_json} = this.props;
+    const {showFileByFile} = this.state;
+    if (!showFileByFile) return null;
+
+    const preStyle = {fontSize: 14, color: '#3d3d3d'};
+
+    return (
+      <pre style={preStyle}>
+        {JSON.stringify(JSON.parse(importer_timing_json), null, 2)}
+      </pre>
     );
   }
 
