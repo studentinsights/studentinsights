@@ -1,5 +1,4 @@
 class ImportTask
-
   def initialize(options:)
     @options = options
 
@@ -16,6 +15,9 @@ class ImportTask
   end
 
   def connect_transform_import
+    @record = create_import_record
+    @report = create_report
+
     log('Starting validation...')
     validate_district_option
     seed_schools_if_needed
@@ -23,8 +25,6 @@ class ImportTask
     log('Done validation.')
 
     log('Starting importing work...')
-    @record = create_import_record
-    @report = create_report
     @report.print_initial_counts_report
     import_all_the_data
     log('Done importing work.')
@@ -156,6 +156,8 @@ class ImportTask
   end
 
   def log(msg)
-    @log.write("\n\n💾  ImportTask: #{msg}")
+    full_msg = "\n\n💾  ImportTask: #{msg}"
+    @log.write full_msg
+    @record.log += full_msg
   end
 end
