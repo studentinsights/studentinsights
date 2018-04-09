@@ -1,16 +1,16 @@
-// This module expects window.mixpanel to be set, and window.share.Env to be set.
-// To use it, call `registerUser` first, then `track`.
+window.shared || (window.shared = {});
+const Env = window.shared.Env;
+
 export default {
 
   registerUser: function(currentEducator) {
-    const Mixpanel = window.mixpanel;
-    const Env = window.shared.Env;
-    const enabled = (Mixpanel && Env.shouldReportAnalytics);
-    if (!enabled) return console.log('Mixpanel disabled'); // eslint-disable-line no-console
+    const enabled = (window.mixpanel && Env.shouldReportAnalytics);
+
+    if (!enabled) return;
 
     try {
-      Mixpanel.identify(currentEducator.id);
-      Mixpanel.register({
+      window.mixpanel.identify(currentEducator.id);
+      window.mixpanel.register({
         'deployment_key': Env.deploymentKey,
         'educator_id': currentEducator.id,
         'educator_is_admin': currentEducator.admin,
@@ -23,13 +23,12 @@ export default {
   },
 
   track: function(key, attrs) {
-    const Mixpanel = window.mixpanel;
-    const Env = window.shared.Env;
-    const enabled = (Mixpanel && Env.shouldReportAnalytics);
-    if (!enabled) return console.log('Mixpanel disabled'); // eslint-disable-line no-console
+    const enabled = (window.mixpanel && Env.shouldReportAnalytics);
+
+    if (!enabled) return;
 
     try {
-      return Mixpanel.track(key, attrs);
+      return window.mixpanel.track(key, attrs);
     }
     catch (err) {
       console.error(err); // eslint-disable-line no-console
