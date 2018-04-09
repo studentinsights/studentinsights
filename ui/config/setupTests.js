@@ -22,3 +22,11 @@ console.warn = jest.fn(warn => { throw new Error(warn); }); //eslint-disable-lin
 
 // flag for GenericLoader
 global.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST = true;
+
+// Unhandled promise rejections should fail tests
+if (process.listeners('unhandledRejection').length === 0) { // eslint-disable-line no-undef
+  process.on('unhandledRejection', error => { // eslint-disable-line no-undef
+    console.log('unhandledRejection:', error.message); //eslint-disable-line no-console
+    throw error;
+  });
+}
