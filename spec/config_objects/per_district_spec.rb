@@ -20,6 +20,13 @@ RSpec.describe PerDistrict do
     end
   end
 
+  describe '#district_key' do
+    it 'works' do
+      expect(for_somerville.district_key).to eq 'somerville'
+      expect(for_new_bedford.district_key).to eq 'new_bedford'
+    end
+  end
+
   describe '#from_import_login_name_to_email' do
     it 'works' do
       expect(for_somerville.from_import_login_name_to_email('foo')).to eq('foo@k12.somerville.ma.us')
