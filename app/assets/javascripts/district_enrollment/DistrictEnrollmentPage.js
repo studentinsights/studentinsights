@@ -33,6 +33,8 @@ function computeStudentCountForSchool(school, enrollments) {
     .reduce((count, enrollment) => count + enrollment.enrollment, 0);
 }
 
+// Show overall patterns of enrollment by school and grade, useful for seeing
+// differences across schools or grades, or demographic bumps.
 export default class DistrictEnrollmentPage extends React.Component {
   constructor(props) {
     super(props);
@@ -60,6 +62,19 @@ export default class DistrictEnrollmentPage extends React.Component {
     const {enrollments} = json;
     const districtKey = json.district_key;
     const districtName = json.district_name;
+    
+    return (
+      <DistrictEnrollmentPageView
+        enrollments={enrollments}
+        districtKey={districtKey}
+        districtName={districtName} />
+    );
+  }
+}
+
+export class DistrictEnrollmentPageView extends React.Component {
+  render() {
+    const {enrollments, districtKey, districtName} = this.props;
 
     const grades = _.uniq(enrollments.map(enrollment => enrollment.grade)).sort(sortByGrade);
     const sortedSchools = _.uniq(enrollments.map(enrollment => enrollment.school), 'id').sort((a, b) => {
@@ -129,6 +144,7 @@ export default class DistrictEnrollmentPage extends React.Component {
     );
   }
 
+  // Render a horizontal bar.
   renderBar(studentCount, options = {}) {
     const scaleFactor = options.scaleFactor || 0.5;
     const percentage = (studentCount === 0)
@@ -145,3 +161,17 @@ export default class DistrictEnrollmentPage extends React.Component {
     return <div style={{...styles.bar, padding, width, color, backgroundColor}}>{text}</div>;
   }
 }
+DistrictEnrollmentPageView.propTypes = {
+  districtKey: React.PropTypes.string.isRequired,
+  districtName: React.PropTypes.string.isRequired,
+  enrollments: React.PropTypes.arrayOf(React.PropTypes.shape({
+    enrollment: React.PropTypes.number.isRequired,
+    grade: React.PropTypes.string.isRequired,
+    school: React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      slug: React.PropTypes.string.isRequired,
+      name: React.PropTypes.string.isRequired,
+      school_type: React.PropTypes.string.isRequired
+    }).isRequired,
+  })).isRequired
+};
