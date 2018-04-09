@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
   get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
   get '/api/home/feed_json' => 'home#feed_json'
+  get '/api/district/enrollment_json' => 'district#enrollment_json'
 
   devise_for :educators
   authenticated :educator do
@@ -70,6 +71,12 @@ Rails.application.routes.draw do
       get 'tardies' => 'ui#ui'
       get 'courses' => 'ui#ui'
       get 'equity/principal' => 'ui#ui'
+    end
+  end
+
+  resource :district, only: [] do
+    member do
+      get 'enrollment' => 'ui#ui'
     end
   end
 end
