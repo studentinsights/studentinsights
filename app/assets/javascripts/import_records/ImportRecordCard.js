@@ -28,7 +28,7 @@ export default class ImportRecordCard extends React.Component {
     const cardTitleStyle = {marginBottom: 15, borderBottom: '1px solid #eee', fontSize: 18};
 
     return (
-      <div style={divStyle} key={id}>
+      <div style={divStyle}>
         <div style={cardTitleStyle}>Import #{id}</div>
         <ImportRecordTimingSection {...this.props} />
         {this.renderTaskOptionsSection()}

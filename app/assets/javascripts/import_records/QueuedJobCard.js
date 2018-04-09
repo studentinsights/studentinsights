@@ -16,7 +16,7 @@ export default class QueuedJobCard extends React.Component {
     const cardTitleStyle = {marginBottom: 15, borderBottom: '1px solid #eee', fontSize: 18};
 
     return (
-      <div style={divStyle} key={id}>
+      <div style={divStyle}>
         <div style={cardTitleStyle}>Queued Job #{id}</div>
         <div>Run at: {run_at}</div>
         <div>Locked at: {locked_at}</div>

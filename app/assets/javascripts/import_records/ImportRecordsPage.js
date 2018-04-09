@@ -47,11 +47,11 @@ export default class ImportRecordsPage extends React.Component {
   }
 
   renderRecord(importRecord) {
-    return <ImportRecordCard {...importRecord} />;
+    return <ImportRecordCard {...importRecord} key={importRecord.id} />;
   }
 
   renderQueuedJob(queuedJob) {
-    return <QueuedJobCard {...queuedJob} />;
+    return <QueuedJobCard {...queuedJob} key={queuedJob.id} />;
   }
 
   renderPage(json) {
