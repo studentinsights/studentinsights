@@ -7,7 +7,7 @@ import ElaDetails from '../student_profile/ElaDetails';
 import MathDetails from '../student_profile/MathDetails';
 import {merge} from '../helpers/react_helpers.jsx';
 import NotesDetails from '../student_profile/NotesDetails';
-import PropTypes from '../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import Scales from '../student_profile/Scales';
 import SummaryList from '../student_profile/SummaryList';
 import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline';
@@ -147,8 +147,8 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
       currentEducatorAllowedSections: React.PropTypes.array,
 
       // flux-y bits
-      requests: PropTypes.requests,
-      actions: PropTypes.actions
+      requests: InsightsPropTypes.requests,
+      actions: InsightsPropTypes.actions
     },
 
     dateRange: function() {

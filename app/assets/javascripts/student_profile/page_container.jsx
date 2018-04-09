@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-import PropTypes from '../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/react_helpers.jsx';
 import Api from './Api.js';
 import * as Routes from '../helpers/Routes';
@@ -25,11 +25,11 @@ function fromPair(key, value) {
       nowMomentFn: React.PropTypes.func.isRequired,
       serializedData: React.PropTypes.object.isRequired,
       queryParams: React.PropTypes.object.isRequired,
-      history: PropTypes.history.isRequired,
+      history: InsightsPropTypes.history.isRequired,
 
       // for testing
-      actions: PropTypes.actions,
-      api: PropTypes.api
+      actions: InsightsPropTypes.actions,
+      api: InsightsPropTypes.api
     },
 
     getInitialState: function() {

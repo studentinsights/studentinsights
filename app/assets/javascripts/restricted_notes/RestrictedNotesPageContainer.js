@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import PropTypes from '../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/react_helpers.jsx';
 import React from 'react';
 import NotesDetails from '../student_profile/NotesDetails.js';
@@ -180,7 +180,7 @@ RestrictedNotesPageContainer.propTypes = {
   actions: React.PropTypes.shape({
     onClickSaveNotes: React.PropTypes.func
   }),
-  api: PropTypes.api
+  api: InsightsPropTypes.api
 };
 
 export default RestrictedNotesPageContainer;

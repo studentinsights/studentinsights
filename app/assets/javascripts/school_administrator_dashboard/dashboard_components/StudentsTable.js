@@ -6,7 +6,7 @@ import {
   sortByDate
 } from '../../helpers/SortHelpers';
 import * as Routes from '../../helpers/Routes';
-import SharedPropTypes from '../../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../../helpers/InsightsPropTypes';
 
 
 class StudentsTable extends React.Component {
@@ -133,7 +133,7 @@ StudentsTable.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     events: PropTypes.number.isRequired,
-    last_sst_date_text: SharedPropTypes.nullableWithKey(PropTypes.string)
+    last_sst_date_text: InsightsPropTypes.nullableWithKey(PropTypes.string)
   })).isRequired,
   selectedHomeroom: PropTypes.string,
   schoolYearFlag: PropTypes.bool

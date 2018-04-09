@@ -1,6 +1,6 @@
 import ProfileBarChart from './ProfileBarChart';
 import IncidentCard from '../components/IncidentCard';
-import PropTypes from '../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 
 const styles = {
   title: {
@@ -166,7 +166,7 @@ AttendanceDetails.propTypes = {
   tardies: React.PropTypes.array.isRequired,
   disciplineIncidents: React.PropTypes.array.isRequired,
   student: React.PropTypes.object.isRequired,
-  feed: PropTypes.feed.isRequired,
+  feed: InsightsPropTypes.feed.isRequired,
   serviceTypesIndex: React.PropTypes.object.isRequired
 };
 
