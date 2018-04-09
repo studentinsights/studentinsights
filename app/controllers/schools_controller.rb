@@ -232,6 +232,8 @@ class SchoolsController < ApplicationController
       last_name: student.last_name,
       id: student.id,
       homeroom_label: homeroom_label,
+      grade: student.grade,
+      race: student.race,
       discipline_incidents: student.discipline_incidents,
       event_notes: student.event_notes
     })

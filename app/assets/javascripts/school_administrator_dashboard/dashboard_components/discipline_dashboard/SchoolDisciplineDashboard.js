@@ -45,8 +45,8 @@ class SchoolDisciplineDashboard extends React.Component {
 
   studentDisciplineIncidentCounts(incidentCategory) {
     let studentDisciplineIncidentCounts = {};
-    const selectedChart = this.getChartData(this.state.selectedChart);
-    const incidents = incidentCategory ? selectedChart.data[incidentCategory] : this.props.totalDisciplineIncidents;
+    const selectedChartData = this.getChartData(this.state.selectedChart);
+    const incidents = incidentCategory ? selectedChartData.disciplineIncidents[incidentCategory] : this.props.schoolDisciplineEvents;
     this.filterIncidentDates(incidents).forEach((incident) => {
       studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
       studentDisciplineIncidentCounts[incident.student_id]++;
@@ -57,7 +57,7 @@ class SchoolDisciplineDashboard extends React.Component {
   getChartData(selectedChart) {
     return {
       type: selectedChart,
-      data: _.groupBy(this.props.totalDisciplineIncidents, selectedChart),
+      disciplineIncidents: _.groupBy(this.props.schoolDisciplineEvents, selectedChart),
       title: "Incidents by " + selectedChart};
   }
 
@@ -85,13 +85,11 @@ class SchoolDisciplineDashboard extends React.Component {
     );
   }
 
-  renderDisciplineChart(group) {
-    let seriesData = [];
-    const selectedChart = this.getChartData(this.state.selectedChart);
-    const categories = Object.keys(selectedChart.data);
-    categories.forEach((type) => {
-      const incidents = this.filterIncidentDates(selectedChart.data[type]);
-      seriesData.push([type, incidents.length]);
+  renderDisciplineChart(selectedChart) {
+    const categories = Object.keys(selectedChart.disciplineIncidents);
+    const seriesData = categories.map((type) => {
+      const incidents = this.filterIncidentDates(selectedChart.disciplineIncidents[type]);
+      return [type, incidents.length];
     });
 
     return (
@@ -143,12 +141,12 @@ class SchoolDisciplineDashboard extends React.Component {
 
 SchoolDisciplineDashboard.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
-  totalDisciplineIncidents: PropTypes.arrayOf(PropTypes.shape({
+  schoolDisciplineEvents: PropTypes.arrayOf(PropTypes.shape({
     student_id: PropTypes.number.isRequired, //ID of student involved in incident
     location: PropTypes.string, //Place where incident occurred
     time: PropTypes.string, //Time of day for incident - NULL if no specific time recorded
     classroom: PropTypes.string, //Name of student's homeroom teacher
-    student_grade: PropTypes.number, //Grade of student
+    student_grade: PropTypes.string, //Grade of student
     day: PropTypes.string, //Day of week on which incident occurred
     offense: PropTypes.string, //Specific type of incident
     student_race: PropTypes.string, //Race of student

@@ -19,8 +19,8 @@ class SchoolWideDisciplineIncidents extends React.Component {
             student_id: incident.student_id,
             location: incident.incident_location,
             time: incident.has_exact_time ? moment.utc(incident.occurred_at).format("h A") : "Not Logged",
-            classroom: student.homeroom_label,
-            student_grade: student.grade,
+            classroom: student.homeroom_label || "No Homeroom",
+            grade: student.grade,
             day: moment.utc(incident.occurred_at).format("ddd"),
             offense: incident.incident_code,
             student_race: student.race,
@@ -35,11 +35,10 @@ class SchoolWideDisciplineIncidents extends React.Component {
   }
 
   render() {
-    const schoolDisciplineEvents = this.schoolDisciplineEvents();
     return (
       <SchoolDisciplineDashboard
         dashboardStudents={this.props.dashboardStudents}
-        totalDisciplineIncidents={schoolDisciplineEvents}/>
+        schoolDisciplineEvents={this.schoolDisciplineEvents()}/>
     );
   }
 }
