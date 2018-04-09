@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import ImportRecordTimingSection from './ImportRecordTimingSection';
 import ImportRecordToggleableSection from './ImportRecordToggleableSection';
 
