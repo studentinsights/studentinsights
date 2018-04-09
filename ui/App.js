@@ -11,6 +11,8 @@ import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCo
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 import SchoolEquityPrincipalPage from '../app/assets/javascripts/equity/SchoolEquityPrincipalPage';
+import SchoolEquityTeachersPage from '../app/assets/javascripts/equity/SchoolEquityTeachersPage';
+
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -52,6 +54,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/equity/principal" render={this.renderSchoolEquityPrincipalPage.bind(this)}/>
+          <Route exact path="/schools/:id/equity/teachers/:grade" render={this.renderSchoolEquityTeachersPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
       </MountTimer>
@@ -71,6 +74,13 @@ class App extends React.Component {
     const schoolId = routeProps.match.params.id;
     this.trackVisit(routeProps, 'SCHOOL_EQUITY_PRINCIPAL_PAGE');
     return <SchoolEquityPrincipalPage schoolId={schoolId} />;
+  }
+
+  renderSchoolEquityTeachersPage(routeProps) {
+    const schoolId = routeProps.match.params.id;
+    const grade = routeProps.match.params.grade;
+    this.trackVisit(routeProps, 'SCHOOL_EQUITY_TEACHERS_PAGE');
+    return <SchoolEquityTeachersPage schoolId={schoolId} grade={grade} />;
   }
 
   renderSchoolCoursesPage(routeProps) {
