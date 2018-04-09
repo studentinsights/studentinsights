@@ -46,6 +46,7 @@ export default class ImportRecordCard extends React.Component {
         {this.renderTimingForCompleted()}
         {this.renderTaskOptionsSection()}
         {this.renderFileByFileSection()}
+        {this.renderLogSection()}
       </div>
     );
   }
@@ -85,21 +86,16 @@ export default class ImportRecordCard extends React.Component {
     const value = this.state[stateKey];
     const onClick = this.onToggleState(stateKey);
 
-    const linksStyle = {fontSize: 12, marginLeft: 12};
-    const onStyle = {cursor: 'pointer', margin: '0 2px'};
-    const offStyle = {
-      color: 'blue', cursor: 'pointer', margin: '0 2px', fontWeight: 'bold'
+    const linksStyle = {
+      fontSize: 12,
+      marginLeft: 12,
+      cursor: 'pointer',
+      color: 'blue',
     };
 
     return (
-      <span style={linksStyle}>
-        [<span style={value ? onStyle : offStyle}
-               onClick={value ? null : onClick}>
-          show
-        </span>|<span style={value ? offStyle : onStyle}
-               onClick={value ? onClick : null}>
-          hide
-        </span>]
+      <span style={linksStyle} onClick={onClick}>
+        [{value ? 'hide' : 'show'}]
       </span>
     );
   }
@@ -146,6 +142,32 @@ export default class ImportRecordCard extends React.Component {
     );
   }
 
+  renderLogSection() {
+    const {log} = this.props;
+    if (!log) return null;
+
+    const spacingStyle = {margin: '10px 0'};
+
+    return (
+      <div style={spacingStyle}>
+        <div style={spacingStyle}>Log {this.renderToggle('showLog')}</div>
+        {this.renderLog()}
+      </div>
+    );
+  }
+
+  renderLog() {
+    const {log} = this.props;
+    const {showLog} = this.state;
+    if (!showLog) return null;
+
+    const preStyle = {fontSize: 14, color: '#3d3d3d'};
+
+    return (
+      <pre style={preStyle}>{log}</pre>
+    );
+  }
+
   renderFileByFileTiming() {
     const {importer_timing_json} = this.props;
     const {showFileByFile} = this.state;
@@ -179,4 +201,5 @@ ImportRecordCard.propTypes = {
   time_ended_display: PropTypes.string,
   task_options_json: PropTypes.string,
   importer_timing_json: PropTypes.string,
+  log: PropTypes.string,
 };

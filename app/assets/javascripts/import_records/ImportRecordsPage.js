@@ -56,7 +56,7 @@ export default class ImportRecordsPage extends React.Component {
 
   renderPage(json) {
     const outerWrapperStyle = {display: 'flex'};
-    const columnStyle = {flex: 1, margin: '20px 40px'};
+    const columnStyle = {flex: 1, margin: '20px 40px', maxWidth: 600, overflowX: 'scroll'};
     const titleStyle = {borderBottom: '1px solid #333'};
 
     return (

@@ -31,6 +31,7 @@ class ImportRecordsController < ApplicationController
       time_ended_display: import_record.time_ended_display,
       importer_timing_json: import_record.importer_timing_json,
       task_options_json: import_record.task_options_json,
+      log: import_record.log,
     }
   end
 
