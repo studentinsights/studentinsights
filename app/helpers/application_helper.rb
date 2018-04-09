@@ -39,4 +39,11 @@ module ApplicationHelper
       "/dev/#{name}"
     end
   end
+
+  # This gets a token is Mixpanel reporting is enabled.
+  def mixpanel_token
+    return nil unless Rails.env.production?
+    return nil unless EnvironmentVariable.is_true('SHOULD_REPORT_ANALYTICS')
+    ENV['MIXPANEL_TOKEN']
+  end
 end

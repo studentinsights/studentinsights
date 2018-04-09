@@ -1,17 +1,15 @@
-window.shared || (window.shared = {});
-const Env = window.shared.Env;
-
+// This module expects window.mixpanel to be set, and window.share.Env to be set.
+// To use it, call `registerUser` first, then `track`.
 export default {
-
   registerUser: function(currentEducator) {
-    const enabled = (window.mixpanel && Env.shouldReportAnalytics);
+    const enabled = (window.mixpanel && window.shared.Env.shouldReportAnalytics);
 
     if (!enabled) return;
 
     try {
       window.mixpanel.identify(currentEducator.id);
       window.mixpanel.register({
-        'deployment_key': Env.deploymentKey,
+        'deployment_key': window.shared.Env.deploymentKey,
         'educator_id': currentEducator.id,
         'educator_is_admin': currentEducator.admin,
         'educator_school_id': currentEducator.school_id
@@ -23,7 +21,7 @@ export default {
   },
 
   track: function(key, attrs) {
-    const enabled = (window.mixpanel && Env.shouldReportAnalytics);
+    const enabled = (window.mixpanel && window.shared.Env.shouldReportAnalytics);
 
     if (!enabled) return;
 

@@ -3,9 +3,6 @@
 // vendor (remove globals in eslintrc as these are removed)
 import './legacyVendor';
 
-// app helpers, last to be removed
-import './legacyHelpers';
-
 // student profile page:
 import '../app/assets/javascripts/student_profile/profile_chart_settings.jsx';
 import '../app/assets/javascripts/student_profile/sparkline.jsx';
