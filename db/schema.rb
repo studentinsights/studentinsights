@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(version: 20180406202852) do
     t.datetime "updated_at", null: false
     t.text "importer_timing_json"
     t.text "task_options_json"
-    t.text "log"
+    t.text "log", default: ""
   end
 
   create_table "intervention_types", id: :serial, force: :cascade do |t|
