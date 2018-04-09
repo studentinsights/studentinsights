@@ -1,5 +1,5 @@
 import ProfileChart from '../student_profile/ProfileChart';
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/merge';
 
 
 window.shared || (window.shared = {});

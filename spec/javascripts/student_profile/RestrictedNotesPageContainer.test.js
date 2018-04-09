@@ -1,17 +1,17 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import createSpyObj from '../support/createSpyObj.js';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 import RestrictedNotesPageContainer from '../../../app/assets/javascripts/restricted_notes/RestrictedNotesPageContainer.js';
 
 const ReactDOM = window.ReactDOM;
 
 const helpers = {
   renderInto: function(el, props) {
-    const mergedProps = merge(props || {}, {
+    const mergedProps = {
       nowMomentFn: moment.utc,
-      serializedData: studentProfile
-    });
+      serializedData: studentProfile,
+      ...props
+    };
     ReactDOM.render(<RestrictedNotesPageContainer {...mergedProps} />, el);
   },
 

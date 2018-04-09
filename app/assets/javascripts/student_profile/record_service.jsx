@@ -1,7 +1,7 @@
 import Datepicker from './Datepicker.js';
 import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown.js';
 import {toMoment} from '../helpers/toMoment.js';
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
 import {
   toSchoolYear,

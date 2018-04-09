@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/merge';
 import Api from './Api.js';
 import * as Routes from '../helpers/Routes';
 

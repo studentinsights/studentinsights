@@ -5,7 +5,6 @@ import AttendanceDetails from '../student_profile/AttendanceDetails';
 import AcademicSummary from '../student_profile/AcademicSummary';
 import ElaDetails from '../student_profile/ElaDetails';
 import MathDetails from '../student_profile/MathDetails';
-import {merge} from '../helpers/react_helpers.jsx';
 import NotesDetails from '../student_profile/NotesDetails';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import Scales from '../student_profile/Scales';
@@ -320,11 +319,16 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Overview
           </div>
           <div
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn)}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...this.selectedColumnStyles(columnKey),
+              ...styles.profileColumn
+            }}>
             {this.renderPaddedElements(styles.summaryWrapper, profileElements)}
           </div>
         </div>
@@ -339,12 +343,17 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Interventions
           </div>
           <div
             className="interventions-column"
-            style={merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey))}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...styles.interventionsColumn,
+              ...this.selectedColumnStyles(columnKey)
+            }}>
             {this.renderPaddedElements(styles.summaryWrapper, [
               this.renderPlacement(student),
               this.renderServices(student),
@@ -480,12 +489,16 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Reading
           </div>
           <div
             className="ela-background"
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...this.selectedColumnStyles(columnKey)
+            }}>
             {this.renderWrappedSummary({
               caption: 'STAR Reading',
               value: student.most_recent_star_reading_percentile,
@@ -539,12 +552,16 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Math
           </div>
           <div
             className="math-background"
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...this.selectedColumnStyles(columnKey)
+            }}>
             {this.renderWrappedSummary({
               caption: 'STAR Math',
               value: student.most_recent_star_math_percentile,
@@ -577,12 +594,16 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Attendance and Behavior
           </div>
           <div
             className="attendance-background"
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...this.selectedColumnStyles(columnKey)
+            }}>
             {this.renderAttendanceEventsSummary(
               student.discipline_incidents_count,
               attendanceData.discipline_incidents,
@@ -617,32 +638,35 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
       const valueRange = flexibleRangeFn(cumulativeQuads);
       const value = count;
 
-      return this.renderWrappedSummary(merge({
+      return this.renderWrappedSummary({
         title: props.title,
         value: value,
         sparkline: <BarChartSparkline
-          {...merge({
+          {...{
             height: styles.sparklineHeight,
             width: styles.sparklineWidth,
             valueRange: valueRange,
             quads: cumulativeQuads,
             dateRange: this.dateRange(),
-          }, props)} />,
-      }, props));
+            ...props
+          }} />,
+        ...props
+      });
     },
 
     // quads format is: [[year, month (Ruby), day, value]]
     renderSparkline: function(quads, props) {
       return (
         <Sparkline
-          {...merge({
+          {...{
             height: styles.sparklineHeight,
             width: styles.sparklineWidth,
             quads: quads,
             dateRange: this.dateRange(),
             valueRange: [0, 100],
-            thresholdValue: 50
-          }, props || {})} />
+            thresholdValue: 50,
+            ...props
+          }} />
       );
     },
 

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Datepicker from '../student_profile/Datepicker.js';
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/merge';
 import moment from 'moment';
 import ProfileDetailsStyle from './ProfileDetailsStyle';
 import {

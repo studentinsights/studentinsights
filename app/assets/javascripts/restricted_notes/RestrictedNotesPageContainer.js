@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/merge';
 import React from 'react';
 import NotesDetails from '../student_profile/NotesDetails.js';
 import Api from '../student_profile/Api.js';

@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import {studentProfile, feedForTestingNotes} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('NotesList', function() {
   const ReactDOM = window.ReactDOM;
@@ -9,13 +8,14 @@ describe('NotesList', function() {
 
   const helpers = {
     renderInto: function(el, props) {
-      const mergedProps = merge(props || {}, {
+      const mergedProps = {
         feed: feedForTestingNotes,
         educatorsIndex: studentProfile.educatorsIndex,
         eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
         onSaveNote: jest.fn(),
-        onEventNoteAttachmentDeleted: jest.fn()
-      });
+        onEventNoteAttachmentDeleted: jest.fn(),
+        ...props
+      };
       ReactDOM.render(<NotesList {...mergedProps} />, el);
     },
 
