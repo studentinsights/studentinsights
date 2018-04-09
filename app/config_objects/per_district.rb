@@ -28,14 +28,6 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
-  # Default serialization
-  def as_json
-    {
-      district_key: district_key,
-      district_name: district_name
-    }
-  end
-
   def include_incident_cards?
     EnvironmentVariable.is_true('FEED_INCLUDE_INCIDENT_CARDS') || false
   end
