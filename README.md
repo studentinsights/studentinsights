@@ -202,6 +202,9 @@ Useful tidbits:
 - Disable the "Host Capture" key
 - Point to http://10.0.2.2:3000/ to access the host instance of Student Insights
 
+7. Use Storybook
+Running `yarn storybook` will start a storybook server on port 6006. You can use this to create "stories" iterate on UI features or components in particular states, separate from how they exist within the product.  To add new stories, write a new `.story.js` file and update `ui/config/.storybook/config.js`.
+
 # Browser/OS Targeting
 
 Category | Target | Comment
