@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SchoolwideAbsences from './absences_dashboard/SchoolwideAbsences';
 import SchoolwideTardies from './tardies_dashboard/SchoolwideTardies';
+import SchoolwideDisciplineIncidents from './discipline_dashboard/SchoolwideDisciplineIncidents';
 import GenericLoader from '../../components/GenericLoader';
 import {apiFetchJson} from '../../helpers/apiFetchJson';
 
@@ -34,6 +35,9 @@ class DashboardLoader extends React.Component {
         dashboardStudents = {json}/>);
     case 'tardies':
       return (<SchoolwideTardies
+        dashboardStudents = {json}/>);
+    case 'discipline':
+      return (<SchoolwideDisciplineIncidents
         dashboardStudents = {json}/>);
     default:
       return <div style={{padding: 10}}>There was an error loading this data.</div>;

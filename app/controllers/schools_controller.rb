@@ -34,9 +34,6 @@ class SchoolsController < ApplicationController
       individual_student_dashboard_data(student)
     end
 
-    dashboard_students = students_for_dashboard(@school).includes([homeroom: :educator], :dashboard_absences, :event_notes, :dashboard_tardies, :discipline_incidents)
-                                                        .map { |student| individual_student_dashboard_data(student) }
-
     @serialized_data = {
       students: dashboard_students_json,
       current_educator: current_educator
@@ -63,6 +60,16 @@ class SchoolsController < ApplicationController
     end
 
     render json: student_tardies_data_json
+  end
+
+  def discipline_dashboard_data
+    student_discipline_data = students_for_dashboard(@school)
+      .includes([homeroom: :educator], :discipline_incidents, :event_notes)
+    student_discipline_data_json = student_discipline_data.map do |student|
+      individual_student_discipline_data(student)
+    end
+
+    render json: student_discipline_data_json
   end
 
   # This endpoint is internal-only for now, because of the authorization complexity.
@@ -187,7 +194,6 @@ class SchoolsController < ApplicationController
       homeroom_label: homeroom_label,
       absences: student.dashboard_absences,
       tardies: student.dashboard_tardies,
-      discipline_incidents: student.discipline_incidents,
       event_notes: student.event_notes
     })
   end
@@ -214,6 +220,19 @@ class SchoolsController < ApplicationController
       id: student.id,
       homeroom_label: homeroom_label,
       tardies: student.tardies,
+      event_notes: student.event_notes
+    })
+  end
+
+  def individual_student_discipline_data(student)
+    # Gathers only the information needed for a specific dashboard view.
+    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
+    HashWithIndifferentAccess.new({
+      first_name: student.first_name,
+      last_name: student.last_name,
+      id: student.id,
+      homeroom_label: homeroom_label,
+      discipline_incidents: student.discipline_incidents,
       event_notes: student.event_notes
     })
   end
