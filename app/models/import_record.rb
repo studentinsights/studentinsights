@@ -5,6 +5,8 @@ class ImportRecord < ActiveRecord::Base
   end
 
   def time_to_complete
+    return 0 unless completed?
+
     time_ended - time_started
   end
 
@@ -13,6 +15,8 @@ class ImportRecord < ActiveRecord::Base
   end
 
   def time_ended_display
+    return nil unless completed?
+
     time_to_display(time_to_est(time_ended))
   end
 
