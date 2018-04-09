@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class ImportRecordCard extends React.Component {
 
@@ -15,7 +16,7 @@ export default class ImportRecordCard extends React.Component {
   onToggleState(stateKey) {
     return function () {
       this.setState({ [stateKey]: !this.state[stateKey] });
-    }.bind(this)
+    }.bind(this);
   }
 
   render() {
@@ -70,7 +71,7 @@ export default class ImportRecordCard extends React.Component {
   renderTimingForNotCompleted() {
     const sectionStyle = {margin: '10px 0'};
 
-    const {time_started_display,} = this.props;
+    const {time_started_display} = this.props;
 
     return (
       <div style={sectionStyle}>
@@ -170,3 +171,12 @@ export default class ImportRecordCard extends React.Component {
 
 }
 
+ImportRecordCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  completed: PropTypes.bool.isRequired,
+  time_to_complete_in_words: PropTypes.string,
+  time_started_display: PropTypes.string.isRequired,
+  time_ended_display: PropTypes.string,
+  task_options_json: PropTypes.string,
+  importer_timing_json: PropTypes.string,
+};

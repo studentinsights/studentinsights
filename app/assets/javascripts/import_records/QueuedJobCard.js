@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class QueuedJobCard extends React.Component {
 
@@ -27,3 +28,12 @@ export default class QueuedJobCard extends React.Component {
   }
 
 }
+
+QueuedJobCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  run_at: PropTypes.string,
+  locked_at: PropTypes.string,
+  failed_at: PropTypes.string,
+  attempts: PropTypes.number.isRequired,
+  last_error: PropTypes.string,
+};
