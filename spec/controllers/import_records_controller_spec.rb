@@ -12,43 +12,65 @@ RSpec.describe ImportRecordsController, type: :controller do
 
       before { sign_in(educator) }
 
-      context 'educator w districtwide access, no import records' do
-        let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
-        it 'can access the page' do
-          make_request
-          expect(response).to be_success
-          expect(JSON.parse(response.body)).to eq({
-            "import_records" => [],
-            "queued_jobs" => [],
-          })
-        end
-      end
-
-      context 'educator w districtwide access, no import records' do
-        let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
-        let!(:import_record) {
-          ImportRecord.create!(
-            time_started: Time.now - 4.hours,
-            time_ended: Time.now - 2.hours,
-            importer_timing_json: "Super useful JSON...",
-            task_options_json: "Super useful JSON...",
-            log: "Super useful text..."
-          )
+      context 'educator w districtwide access' do
+        let(:educator) {
+          FactoryGirl.create(:educator, districtwide_access: true, admin: true)
         }
 
-        it 'can access the page' do
-          make_request
-          expect(response).to be_success
-          expect(JSON.parse(response.body)["import_records"].size).to eq 1
-          expect(JSON.parse(response.body)["queued_jobs"].size).to eq 0
+        context 'no import records' do
+          it 'can access the page' do
+            make_request
+            expect(response).to be_success
+            expect(JSON.parse(response.body)).to eq({
+              "import_records" => [],
+              "queued_jobs" => [],
+            })
+          end
         end
-      end
 
-      context 'educator w/o districtwide access' do
-        let(:educator) { FactoryGirl.create(:educator) }
-        it 'cannot access the page; gets redirected' do
-          make_request
-          expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })
+        context 'completed import record' do
+          let!(:import_record) {
+            ImportRecord.create!(
+              time_started: Time.now - 4.hours,
+              time_ended: Time.now - 2.hours,
+              importer_timing_json: "Super useful JSON...",
+              task_options_json: "Super useful JSON...",
+              log: "Super useful text..."
+            )
+          }
+
+          it 'can access the page' do
+            make_request
+            expect(response).to be_success
+            expect(JSON.parse(response.body)["import_records"].size).to eq 1
+            expect(JSON.parse(response.body)["queued_jobs"].size).to eq 0
+          end
+        end
+
+        context 'import record that did not complete' do
+          let!(:import_record) {
+            ImportRecord.create!(
+              time_started: Time.now - 4.hours,
+              importer_timing_json: "Super useful JSON...",
+              task_options_json: "Super useful JSON...",
+              log: "Super useful text..."
+            )
+          }
+
+          it 'can access the page' do
+            make_request
+            expect(response).to be_success
+            expect(JSON.parse(response.body)["import_records"].size).to eq 1
+            expect(JSON.parse(response.body)["queued_jobs"].size).to eq 0
+          end
+        end
+
+        context 'educator w/o districtwide access' do
+          let(:educator) { FactoryGirl.create(:educator) }
+          it 'cannot access the page; gets redirected' do
+            make_request
+            expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })
+          end
         end
       end
     end
