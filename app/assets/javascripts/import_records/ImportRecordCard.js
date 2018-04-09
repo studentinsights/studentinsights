@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ImportRecordTimingSection from './ImportRecordTimingSection';
+import ImportRecordToggleableSection from './ImportRecordToggleableSection';
 
 export default class ImportRecordCard extends React.Component {
 
@@ -27,23 +29,7 @@ export default class ImportRecordCard extends React.Component {
     return (
       <div style={divStyle} key={id}>
         <div style={cardTitleStyle}>Import #{id}</div>
-        {this.renderCardContent()}
-      </div>
-    );
-  }
-
-  renderCardContent() {
-    const {completed} = this.props;
-
-    if (completed) return this.renderCompleted();
-
-    return this.renderNotCompleted();
-  }
-
-  renderCompleted() {
-    return (
-      <div>
-        {this.renderTimingForCompleted()}
+        <ImportRecordTimingSection {...this.props} />
         {this.renderTaskOptionsSection()}
         {this.renderFileByFileSection()}
         {this.renderLogSection()}
@@ -51,143 +37,48 @@ export default class ImportRecordCard extends React.Component {
     );
   }
 
-  renderTimingForCompleted() {
-    const sectionStyle = {margin: '10px 0'};
-
-    const {
-      time_to_complete_in_words,
-      time_started_display,
-      time_ended_display,
-    } = this.props;
-
-    return (
-      <div style={sectionStyle}>
-        <div>Job completed in {time_to_complete_in_words}.</div>
-        <div>Started: {time_started_display}.</div>
-        <div>Ended: {time_ended_display}.</div>
-      </div>
-    );
-  }
-
-  renderTimingForNotCompleted() {
-    const sectionStyle = {margin: '10px 0'};
-
-    const {time_started_display} = this.props;
-
-    return (
-      <div style={sectionStyle}>
-        <div>Job is in progress or never completed.</div>
-        <div>Started: {time_started_display}.</div>
-      </div>
-    );
-  }
-
-  renderToggle(stateKey) {
-    const value = this.state[stateKey];
-    const onClick = this.onToggleState(stateKey);
-
-    const linksStyle = {
-      fontSize: 12,
-      marginLeft: 12,
-      cursor: 'pointer',
-      color: 'blue',
-    };
-
-    return (
-      <span style={linksStyle} onClick={onClick}>
-        [{value ? 'hide' : 'show'}]
-      </span>
-    );
-  }
-
-  renderTaskOptions() {
-    const {task_options_json} = this.props;
-    const {showOptions} = this.state;
-    if (!showOptions) return null;
-
-    const preStyle = {fontSize: 14, color: '#3d3d3d'};
-
-    return (
-      <pre style={preStyle}>
-        {JSON.stringify(JSON.parse(task_options_json), null, 2)}
-      </pre>
-    );
-  }
-
   renderTaskOptionsSection() {
     const {task_options_json} = this.props;
-    if (!task_options_json) return null;
-
-    const spacingStyle = {margin: '10px 0'};
 
     return (
-      <div style={spacingStyle}>
-        <div style={spacingStyle}>Options {this.renderToggle('showOptions')}</div>
-        {this.renderTaskOptions()}
-      </div>
+      <ImportRecordToggleableSection
+        shouldShow={this.state.showOptions}
+        hasNoData={_.isNull(task_options_json)}
+        title='Options'
+        onClickToggle={this.onToggleState('showOptions')}
+      >
+        {JSON.stringify(JSON.parse(task_options_json), null, 2)}
+      </ImportRecordToggleableSection>
     );
   }
 
   renderFileByFileSection() {
     const {importer_timing_json} = this.props;
-    if (!importer_timing_json) return null;
-
-    const spacingStyle = {margin: '10px 0'};
 
     return (
-      <div style={spacingStyle}>
-        <div style={spacingStyle}>File-By-File {this.renderToggle('showFileByFile')}</div>
-        {this.renderFileByFileTiming()}
-      </div>
+      <ImportRecordToggleableSection
+        shouldShow={this.state.showFileByFile}
+        hasNoData={_.isNull(importer_timing_json)}
+        title='File-By-File'
+        onClickToggle={this.onToggleState('showFileByFile')}
+      >
+        {JSON.stringify(JSON.parse(importer_timing_json), null, 2)}
+      </ImportRecordToggleableSection>
     );
   }
 
   renderLogSection() {
     const {log} = this.props;
-    if (!log) return null;
-
-    const spacingStyle = {margin: '10px 0'};
 
     return (
-      <div style={spacingStyle}>
-        <div style={spacingStyle}>Log {this.renderToggle('showLog')}</div>
-        {this.renderLog()}
-      </div>
-    );
-  }
-
-  renderLog() {
-    const {log} = this.props;
-    const {showLog} = this.state;
-    if (!showLog) return null;
-
-    const preStyle = {fontSize: 14, color: '#3d3d3d'};
-
-    return (
-      <pre style={preStyle}>{log}</pre>
-    );
-  }
-
-  renderFileByFileTiming() {
-    const {importer_timing_json} = this.props;
-    const {showFileByFile} = this.state;
-    if (!showFileByFile) return null;
-
-    const preStyle = {fontSize: 14, color: '#3d3d3d'};
-
-    return (
-      <pre style={preStyle}>
-        {JSON.stringify(JSON.parse(importer_timing_json), null, 2)}
-      </pre>
-    );
-  }
-
-  renderNotCompleted() {
-    return (
-      <div>
-        {this.renderTimingForCompleted()}
-        {this.renderTaskOptionsSection()}
-      </div>
+      <ImportRecordToggleableSection
+        shouldShow={this.state.showLog}
+        hasNoData={_.isNull(log)}
+        title='Log'
+        onClickToggle={this.onToggleState('showLog')}
+      >
+        {log}
+      </ImportRecordToggleableSection>
     );
   }
 
