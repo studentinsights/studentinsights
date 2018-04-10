@@ -256,19 +256,8 @@ class ClassroomListCreatorView extends React.Component {
             {sortedStudents.map(student => {
               const slot = slots[student.id];
 
-              // const {spring} = popmotion;
-              // const props = {
-              //   draggable: true,
-              //   dragEnd: { transition: spring }
-              // };
-              // const Box = posed.div(props);
-              // return <Box>
-
-                  // onStart={this.handleStart}
-                  // onDrag={this.handleDrag}
-                  // onStop={this.handleStop}>
-
-
+              // TODO(kr) calling setState in onStop doesn't work with
+              // updated defaultPosition.  This means "action" links don't work.
               // <Draggable /> requires a <div /> to be the child.
               return (
                 <Draggable
@@ -284,25 +273,6 @@ class ClassroomListCreatorView extends React.Component {
                   </div>
                 </Draggable>
               );
-              // return (
-              //   <SwipeableViews
-              //     key={student.id}
-              //     enableMouseEvents={true}>
-              //     {this.renderFiller(0, {width})}
-              //     {this.renderFiller(1, {width})}
-              //     {this.renderFiller(2, {width})}
-              //     <StudentCard
-              //       student={student}
-              //       style={{
-              //         display: 'block',
-              //         fontSize: 12,
-              //         width
-              //       }} />
-              //     {this.renderFiller(4, {width})}
-              //     {this.renderFiller(5, {width})}
-              //     {this.renderFiller(6, {width})}
-              //   </SwipeableViews>
-              // );
             })}
           </div>
         </div>
