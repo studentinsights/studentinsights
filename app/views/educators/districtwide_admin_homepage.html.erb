@@ -20,15 +20,16 @@
           <% @schools.each do |school| %>
               <li class="school-name">
                 <%= school.name %><br/>
-                <%= link_to 'Overview', school_path(school) %> |
-                <%= link_to 'Dashboard', school_administrator_dashboard_school_path(school) %>
+                <%= link_to 'Roster', school_url(school) %>
+                | <%= link_to 'Absences', school_administrator_dashboard_school_url(school) + '#/absences_dashboard' %>
+                | <%= link_to 'Tardies', school_administrator_dashboard_school_url(school) + '#/tardies_dashboard' %>
               </li>
           <% end %>
         </ul>
       </div>
     </div>
 
-    <% if current_educator.admin? %>
+    <% if current_educator.can_set_districtwide_access? %>
       <div class="lower-area-column">
         <%= image_tag 'pliers-icon.svg',
           width: 70, height: 70, id: 'pliers-icon' %>
@@ -38,12 +39,17 @@
           </h3>
           <ul>
             <li>
-              <%= link_to 'Educator permissions overview', admin_authorization_url, {
+              <%= link_to 'Educator permissions: overview', admin_authorization_url, {
                 class: 'prominent-link'
               } %>
             </li>
             <li>
               <%= link_to 'Adjust educator permissions', admin_root_url, {
+                class: 'prominent-link'
+              } %>
+            </li>
+            <li>
+              <%= link_to 'Enrollment patterns', enrollment_district_url, {
                 class: 'prominent-link'
               } %>
             </li>
