@@ -53,14 +53,27 @@ const percentageOf = function(students, key, value) {
 
 // Returns percent as integer 0-100
 const percentageOverLimit = function(students, key, limit) {
-  const total = students.length;
-  const numberOverLimit = students.filter((student) => {
-    return student[key] > limit;
-  }).length;
+  const values = students.map(student => student[key]);
+  const total = values.length;
+  const nonNull = values.filter(value => value !== null);
+
+  const overLimitCount = nonNull.filter(value => value > limit).length;
 
   return (total === 0) ?
     0
-    : 100 * numberOverLimit / total;
+    : 100 * overLimitCount / total;
+};
+
+const percentageUnderLimit = function(students, key, limit) {
+  const values = students.map(student => student[key]);
+  const total = values.length;
+  const nonNull = values.filter(value => value !== null);
+
+  const underLimitCount = nonNull.filter(value => value < limit).length;
+
+  return (total === 0) ?
+    0
+    : 100 * underLimitCount / total;
 };
 
 const styles = {
@@ -97,7 +110,6 @@ export default class Breakdown extends React.Component {
       : cleanedStudents.filter(student => student.grade === gradeFilter);
     const allRaces = _.sortBy(_.uniq(_.map(cleanedStudents, 'race')));
 
-
     // Compute
     const studentsByHomeroom = _.map(_.groupBy(students, 'homeroom_name'), (students, homeroomName) => {
       return {
@@ -119,6 +131,18 @@ export default class Breakdown extends React.Component {
       const overOneWeekTardyPercent = percentageOverLimit(students, 'tardies_count', 5);
       const hasDisciplinePercent = percentageOverLimit(students, 'discipline_incidents_count', 0);
 
+      // Star Math
+      const lowestQuartileStarMath = percentageUnderLimit(
+        students, 'most_recent_star_math_percentile', 25);
+      const highestQuartileStarMath = percentageOverLimit(
+        students, 'most_recent_star_math_percentile', 75);
+
+      // Star Reading
+      const lowestQuartileStarReading = percentageUnderLimit(
+        students, 'most_recent_star_reading_percentile', 25);
+      const highestQuartileStarReading = percentageOverLimit(
+        students, 'most_recent_star_reading_percentile', 75);
+
       return {
         homeroomName,
         homeroomId,
@@ -133,6 +157,10 @@ export default class Breakdown extends React.Component {
         overOneWeekAbsentPercent,
         overOneWeekTardyPercent,
         hasDisciplinePercent,
+        lowestQuartileStarMath,
+        highestQuartileStarMath,
+        lowestQuartileStarReading,
+        highestQuartileStarReading,
         studentCount: students.length
       };
     });
@@ -202,11 +230,26 @@ export default class Breakdown extends React.Component {
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
                   Low income
                 </th>
+
+                <th title="Not white or Hispanic" style={{cursor: 'help', padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Students of color</th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Hispanic</th>
+
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
                   Racial composition
                 </th>
-                <th title="Not white or Hispanic" style={{cursor: 'help', padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Students of color</th>
-                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>Hispanic</th>
+
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  STAR Math<br/>Bottom Quartile
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  STAR Math<br/>Top Quartile
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  STAR Reading<br/>Bottom Quartile
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  STAR Reading<br/>Top Quartile
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -224,6 +267,10 @@ export default class Breakdown extends React.Component {
                   overOneWeekAbsentPercent,
                   overOneWeekTardyPercent,
                   hasDisciplinePercent,
+                  lowestQuartileStarMath,
+                  highestQuartileStarMath,
+                  lowestQuartileStarReading,
+                  highestQuartileStarReading,
                 } = statsForHomeroom;
                 const total = _.map(raceGroups, 'count').reduce((sum, a) => {
                   return sum + a;
@@ -257,6 +304,12 @@ export default class Breakdown extends React.Component {
                     <td style={{height: '100%', width: 140, padding: 5}}>
                       <Bar percent={lunchPercent} styles={styles.bar} threshold={10} />
                     </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={colorPercent} styles={styles.bar} threshold={10} />
+                    </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={hispanicPercent} styles={styles.bar} threshold={10} />
+                    </td>
 
                     {/* Race */}
                     <td style={{padding: 5}}>
@@ -279,11 +332,19 @@ export default class Breakdown extends React.Component {
                         })}
                       </div>
                     </td>
+
+                    {/* STAR */}
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={colorPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={lowestQuartileStarMath} styles={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={hispanicPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={highestQuartileStarMath} styles={styles.bar} threshold={10} />
+                    </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={lowestQuartileStarReading} styles={styles.bar} threshold={10} />
+                    </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      <Bar percent={highestQuartileStarReading} styles={styles.bar} threshold={10} />
                     </td>
                   </tr>
                 );
