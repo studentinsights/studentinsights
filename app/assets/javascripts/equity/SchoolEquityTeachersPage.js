@@ -13,21 +13,80 @@ function age(nowMoment, dateOfBirthText) {
   return nowMoment.clone().diff(birthMoment, 'year');
 }
 
-const width = 160;
+function randomValue() {
+  return Math.round(Math.random()*100);
+}
+
+const width = 165;
 const styles = {
+  root: {
+    overflowY: 'hidden',
+    overflowX: 'hidden',
+    height: 580, // TODO(kr)
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column'
+  },
+  loader: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column'
+  },
   content: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column'
+  },
+  sectionHeading: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    paddingTop: 0
+  },
+  classrooms: {
+    padding: 10
+  },
+  padded: {
     margin: 10
+  },
+  students: {
+    padding: 10,
+    paddingTop: 0,
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column'
+  },
+  links: {
+    fontSize: 12,
+    paddingLeft: 10
+  },
+  link: {
+    display: 'inline-block',
+    padding: 5,
+    fontSize: 12
+  },
+  studentsGrid: {
+    flex: 1,
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    border: '1px solid #ccc'
   },
   listsContainer: {
     display: 'flex'
   },
+  indicator: {
+    fontSize: 12
+  },
   column: {
-    width: width
+    width: width,
+    backgroundColor: '#eee',
+    border: '1px solid #ccc',
+    padding: 10
   },
   listStyle: {
     backgroundColor: '#eee',
     border: '1px solid #ccc',
-    height: 220,
+    height: 180,
     width: width
   },
   itemStyle: {
@@ -42,8 +101,13 @@ const styles = {
 export default class SchoolEquityTeachersPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      slots: props.students.reduce((map, student) => {
+        return {...map, [student.id]: Math.floor(Math.random()*rooms.length + 1)};
+      }, {})
+    };
     this.fetchStudents = this.fetchStudents.bind(this);
-    this.renderLists = this.renderLists.bind(this);
+    this.renderContent = this.renderContent.bind(this);
   }
 
   // TODO(KR) this wouldn't work for teacher authorization; this is just placeholder
@@ -56,44 +120,75 @@ export default class SchoolEquityTeachersPage extends React.Component {
 
   render() {
     return (
-      <div className="SchoolEquityTeachersPage">
+      <div className="SchoolEquityTeachersPage" style={styles.root}>
         <ExperimentalBanner />
         <GenericLoader
+          style={styles.loader}
           promiseFn={this.fetchStudents}
-          render={this.renderLists} />
+          render={this.renderContent} />
       </div>
     );
   }
 
-  renderLists(json) {
+  renderContent(json) {
     const {grade} = this.props;
     const {students, school} = json;
-    const rooms = ['Not yet placed', 'Room A', 'Room B', 'Room C', 'Room D', 'Room E'];
+    const {slots} = this.state;
+    const rooms = ['Room A', 'Room B', 'Room C', 'Room D', 'Room E'];
     return (
-      <div>
-        <SectionHeading>Classroom communities: {gradeText(grade)} at {school.name}</SectionHeading>
-        <div style={styles.content}>
-          <div style={styles.listsContainer}>
-            {rooms.map(room =>
-              <div key={room} style={styles.column}>
-                <h2 style={{padding: 5}}>{room}</h2>
-                <List
-                  students={[]}
-                  listStyle={styles.listStyle}
-                  itemStyle={styles.itemStyle} />
+      <div style={styles.content}>
+        <div style={styles.classrooms}>
+          <SectionHeading style={styles.sectionHeading}>Classroom communities: {gradeText(grade)} at {school.name}</SectionHeading>
+          <div style={styles.padded}>
+            <div style={styles.listsContainer}>
+              <div key="unplaced" style={styles.column}>
+                <h2>Not yet placed</h2>
               </div>
-            )}
+              {rooms.map(room =>
+                <div key={room} style={styles.column}>
+                  <h2>{room}</h2>
+                  <div style={styles.indicator}>Students: {12}</div>
+                  <div style={styles.indicator}>{'\u00A0'}</div>
+                  <div style={styles.indicator}>{this.renderValue('Low income', randomValue())}</div>
+                  <div style={styles.indicator}>{this.renderValue('ELL', randomValue())}</div>
+                  <div style={styles.indicator}>{this.renderValue('SPED', randomValue())}</div>
+                  <div style={styles.indicator}>{this.renderValue('<25th Math', randomValue())}</div>
+                  <div style={styles.indicator}>{this.renderValue('<25th ELA', randomValue())}</div>
+                </div>
+              )}
+            </div>
           </div>
-          <div style={{marginTop: 20}}>
-            <h2>Students to place: {students.length}</h2>
-            <a href="#" style={{display: 'inline-block', padding: 5}}>Sort by classroom</a>
-            <a href="#" style={{display: 'inline-block', padding: 5}}>Randomly place remaining students</a>
-            <a href="#" style={{display: 'inline-block', padding: 5}}>Reset to blank</a>
-            {students.map(s => <StudentCard key={s.id} style={{display: 'block', position: 'relative', left: width*Math.floor(Math.random()*rooms.length)}} student={s} />)}
+        </div>
+        <div style={styles.students}>
+          <SectionHeading style={styles.sectionHeading}>Students to place: {students.length}</SectionHeading>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div style={styles.links}>
+              Sort by:
+              <a href="#" style={styles.link}>not yet placed</a>
+              <a href="#" style={styles.link}>classroom</a>
+              <a href="#" style={styles.link}>alphabetical</a>
+            </div>
+            <div style={styles.links}>
+              Actions:
+              <a href="#" style={styles.link}>reset to blank</a>
+              <a href="#" style={styles.link}>randomly assign not yet placed</a>
+            </div>
+          </div>
+          <div style={styles.studentsGrid}>
+            {students.map(s => {
+              const left = width * slots[s.id];
+              return <StudentCard key={s.id} style={{display: 'block', position: 'relative', left}} student={s} />;
+            })}
           </div>
         </div>
       </div>
     );
+  }
+
+  renderValue(text, value) {
+    return (value > 80)
+      ? <span style={{color: '#3177c9'}}>{text}: {value}%</span>
+      : <span style={{color: '#ccc'}}>{text}: {value}%</span>;
   }
 }
 SchoolEquityTeachersPage.propTypes = {
