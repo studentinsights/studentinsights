@@ -11,6 +11,8 @@ import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCo
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 import SchoolEquityPrincipalPage from '../app/assets/javascripts/equity/SchoolEquityPrincipalPage';
+import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
+
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -53,6 +55,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
           <Route exact path="/schools/:id/equity/principal" render={this.renderSchoolEquityPrincipalPage.bind(this)}/>
+          <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
       </MountTimer>
@@ -96,6 +99,11 @@ class App extends React.Component {
 
   renderDisciplineDashboard(routeProps) {
     return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'discipline'}/>;
+  }
+
+  renderDistrictEnrollmentPage(routeProps) {
+    this.trackVisit(routeProps, 'DISTRICT_ENROLLMENT_PAGE');
+    return <DistrictEnrollmentPage />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the

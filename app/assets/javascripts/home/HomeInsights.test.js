@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 import ReactDOM from 'react-dom';
 import HomeInsights from './HomeInsights';
 import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
-
+import CheckStudentsWithHighAbsences from './CheckStudentsWithHighAbsences';
 
 function testProps(props = {}) {
   return {
@@ -12,6 +12,9 @@ function testProps(props = {}) {
     ...props
   };
 }
+
+jest.mock('./CheckStudentsWithLowGrades');
+jest.mock('./CheckStudentsWithHighAbsences');
 
 it('renders without crashing', () => {
   const props = testProps();
@@ -22,6 +25,7 @@ it('renders without crashing', () => {
 it('shallow renders', () => {
   const props = testProps();
   const wrapper = shallow(<HomeInsights {...props} />);
+  expect(wrapper.contains(<CheckStudentsWithHighAbsences educatorId={9999} />)).toEqual(true);
   expect(wrapper.find(CheckStudentsWithLowGrades).length).toEqual(0);
 });
 
