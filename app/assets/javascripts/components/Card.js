@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 // A visual UI element for a card of information, generically.
 // Does not have a defined or minimum height; style that in the child element.
 function Card({children, style, className}) {

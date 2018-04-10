@@ -6,6 +6,11 @@ Rails.application.routes.draw do
     root to: "educators#index"
   end
 
+  scope '/admin' do
+    get 'import_records' => 'ui#ui'
+    get '/api/import_records' => 'import_records#import_records_json'
+  end
+
   get '/api/educators/:id' => 'educators#show'
   get '/api/schools/:id/courses' => 'schools#courses_json'
   get 'api/schools/:id/absences/data' => 'schools#absence_dashboard_data'
@@ -58,7 +63,6 @@ Rails.application.routes.draw do
   end
   resources :homerooms, only: [:show]
   resources :sections, only: [:index, :show]
-  resources :import_records, only: [:index]
   resources :iep_documents, only: [:show]
 
   resources :schools, only: [:show] do
