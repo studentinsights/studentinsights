@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import ImportRecordTimingSection from './ImportRecordTimingSection';
 import ImportRecordToggleableSection from './ImportRecordToggleableSection';
+import Card from '../components/Card';
 
 export default class ImportRecordCard extends React.Component {
 
@@ -22,17 +23,15 @@ export default class ImportRecordCard extends React.Component {
 
   render() {
     const {id} = this.props;
-    const divStyle = {border: '1px solid #eee', padding: 15, margin: '15px 0'};
-    const cardTitleStyle = {marginBottom: 15, borderBottom: '1px solid #eee', fontSize: 18};
 
     return (
-      <div style={divStyle}>
-        <div style={cardTitleStyle}>Import #{id}</div>
+      <Card style={styles.cardStyle}>
+        <h4 style={styles.cardTitleStyle}>Import #{id}</h4>
         <ImportRecordTimingSection {...this.props} />
         {this.renderTaskOptionsSection()}
         {this.renderFileByFileSection()}
         {this.renderLogSection()}
-      </div>
+      </Card>
     );
   }
 
@@ -86,4 +85,15 @@ ImportRecordCard.propTypes = {
   task_options_json: PropTypes.string,
   importer_timing_json: PropTypes.string,
   log: PropTypes.string,
+};
+
+const styles = {
+  cardTitleStyle: {
+    marginBottom: 15,
+    borderBottom: '1px solid #eee',
+    fontSize: 18
+  },
+  cardStyle: {
+    margin: '20px 0'
+  }
 };
