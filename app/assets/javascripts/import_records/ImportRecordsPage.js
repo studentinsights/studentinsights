@@ -3,6 +3,7 @@ import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import ImportRecordCard from './ImportRecordCard';
 import QueuedJobCard from './QueuedJobCard';
+import SectionHeading from '../components/SectionHeading';
 
 export default class ImportRecordsPage extends React.Component {
 
@@ -57,16 +58,15 @@ export default class ImportRecordsPage extends React.Component {
   renderPage(json) {
     const outerWrapperStyle = {display: 'flex'};
     const columnStyle = {flex: 1, margin: '20px 40px', maxWidth: 600, overflowX: 'scroll'};
-    const titleStyle = {borderBottom: '1px solid #333'};
 
     return (
       <div style={outerWrapperStyle}>
         <div style={columnStyle}>
-          <h4 style={titleStyle}>Import Records</h4>
+          <SectionHeading>Import Records</SectionHeading>
           {this.renderImportRecords(json.import_records)}
         </div>
         <div style={columnStyle}>
-          <h4 style={titleStyle}>Queued Jobs</h4>
+          <SectionHeading>Queued Jobs</SectionHeading>
           {this.renderQueuedJobs(json.queued_jobs)}
         </div>
       </div>
