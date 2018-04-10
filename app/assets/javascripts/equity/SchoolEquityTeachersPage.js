@@ -16,9 +16,9 @@ export default class SchoolEquityTeachersPage extends React.Component {
     super(props);
 
     this.state = {
-      educatorIds: [],
+      educators: [],
       statementText: '',
-      phase: Phases.STARTING
+      phase: Phases.CREATING // TODO(kr)
     };
 
     this.onNextClicked = this.onNextClicked.bind(this);
@@ -44,11 +44,15 @@ export default class SchoolEquityTeachersPage extends React.Component {
       <div>
         <div>
           <SectionHeading>Who's here?</SectionHeading>
-          <textarea rows={6}></textarea>
+          <textarea rows={4}></textarea>
         </div>
         <div>
           <SectionHeading>What school and grade?</SectionHeading>
-          <textarea rows={6}></textarea>
+          <textarea rows={2}></textarea>
+        </div>
+        <div>
+          <SectionHeading>How many rooms?</SectionHeading>
+          <textarea rows={2}></textarea>
         </div>
         <div>
           <SectionHeading>What's your plan?</SectionHeading>

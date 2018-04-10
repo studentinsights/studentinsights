@@ -37,8 +37,10 @@
     "rc-slider": "^8.3.2",
     "react": "15.4.2",
     "react-dom": "15.4.2",
+    "react-draggable": "^3.0.5",
     "react-modal": "^3.0.4",
     "react-router-dom": "^4.2.2",
+    "react-swipeable-views": "^0.12.13",
     "react-test-renderer": "15.4.2",
     "whatwg-fetch": "^2.0.3"
   },
