@@ -7,7 +7,7 @@ import { createStudents } from './DashboardTestData.js';
 describe('SchoolDisciplineDashboard', () => {
   const dash = shallow(<SchoolDisciplineDashboard
                         dashboardStudents={createStudents(moment.utc())}
-                        schoolWideDisciplineIncidents={}>);
+                        schoolDisciplineEvents={[]}/>);
 
   it('renders at least one bar chart', () => {
     expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
