@@ -13,8 +13,6 @@ export default class QueuedJobCard extends React.Component {
       attempts,
       last_error,
     } = this.props;
-    const divStyle = {border: '1px solid #eee', padding: 15, margin: '15px 0'};
-    const cardTitleStyle = {marginBottom: 15, borderBottom: '1px solid #eee', fontSize: 18};
 
     return (
       <Card style={styles.cardStyle}>
