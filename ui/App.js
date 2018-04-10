@@ -48,7 +48,7 @@ class App extends React.Component {
     return (
       <MountTimer>
         <Switch>
-          <Route exact path="/import_records" render={this.renderImportRecordsPage.bind(this)}/>
+          <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
           <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
           <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
           <Route exact path="/home" render={this.renderHomePage.bind(this)}/>

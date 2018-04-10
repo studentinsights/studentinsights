@@ -15,7 +15,7 @@ export default class ImportRecordsPage extends React.Component {
   }
 
   fetchImportRecords() {
-    return apiFetchJson('/api/import_records');
+    return apiFetchJson('/admin/api/import_records');
   }
 
   render() {
