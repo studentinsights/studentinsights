@@ -23,7 +23,7 @@ class MountTimer extends React.Component {
 
     if (onTiming) {
       onTiming(diff);
-    } else {
+    } else if (process.env.NODE_ENV !== 'test') { // eslint-disable-line no-undef
       console.log('MountTimer: ', diff);  // eslint-disable-line no-console
     }
   }
