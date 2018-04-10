@@ -20,7 +20,7 @@ export default class ImportRecordToggleableSection extends React.Component {
   }
 
   renderContent() {
-    const {shouldShow, hasNoData, children} = this.props;
+    const {shouldShow, hasNoData, content} = this.props;
 
     if (hasNoData === true) return null;
     if (shouldShow === false) return null;
@@ -33,7 +33,7 @@ export default class ImportRecordToggleableSection extends React.Component {
     };
 
     return (
-      <pre style={preStyle}>{children}</pre>
+      <pre style={preStyle}>{content}</pre>
     );
   }
 
@@ -57,7 +57,7 @@ export default class ImportRecordToggleableSection extends React.Component {
 }
 
 ImportRecordToggleableSection.propTypes = {
-  children: PropTypes.node.isRequired,
+  content: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   onClickToggle: PropTypes.func.isRequired,
   shouldShow: PropTypes.bool.isRequired,
