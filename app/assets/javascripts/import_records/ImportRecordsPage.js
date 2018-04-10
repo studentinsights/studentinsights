@@ -28,20 +28,16 @@ export default class ImportRecordsPage extends React.Component {
     );
   }
   renderImportRecords(importRecords) {
-    const divStyle = {margin: '15px 0'};
-
     if (importRecords.length === 0) return (
-      <div style={divStyle}>No import records.</div>
+      <div style={styles.divStyle}>No import records.</div>
     );
 
     return importRecords.map(this.renderRecord, this);
   }
 
   renderQueuedJobs(queuedJobs) {
-    const divStyle = {margin: '15px 0'};
-
     if (queuedJobs.length === 0) return (
-      <div style={divStyle}>No jobs in the queue.</div>
+      <div style={styles.divStyle}>No jobs in the queue.</div>
     );
 
     return queuedJobs.map(this.renderQueuedJob, this);
@@ -56,16 +52,13 @@ export default class ImportRecordsPage extends React.Component {
   }
 
   renderPage(json) {
-    const outerWrapperStyle = {display: 'flex'};
-    const columnStyle = {flex: 1, margin: '20px 40px', maxWidth: 600, overflowX: 'scroll'};
-
     return (
-      <div style={outerWrapperStyle}>
-        <div style={columnStyle}>
+      <div style={styles.outerWrapperStyle}>
+        <div style={styles.columnStyle}>
           <SectionHeading>Import Records</SectionHeading>
           {this.renderImportRecords(json.import_records)}
         </div>
-        <div style={columnStyle}>
+        <div style={styles.columnStyle}>
           <SectionHeading>Queued Jobs</SectionHeading>
           {this.renderQueuedJobs(json.queued_jobs)}
         </div>
@@ -74,3 +67,18 @@ export default class ImportRecordsPage extends React.Component {
   }
 
 }
+
+const styles = {
+  divStyle: {
+    margin: '15px 0'
+  },
+  outerWrapperStyle: {
+    display: 'flex'
+  },
+  columnStyle: {
+    flex: 1,
+    margin: '20px 40px',
+    maxWidth: 600,
+    overflowX: 'scroll'
+  }
+};
