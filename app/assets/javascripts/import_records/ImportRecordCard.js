@@ -17,9 +17,7 @@ export default class ImportRecordCard extends React.Component {
   }
 
   onToggleState(stateKey) {
-    return function () {
-      this.setState({ [stateKey]: !this.state[stateKey] });
-    }.bind(this);
+    this.setState({ [stateKey]: !this.state[stateKey] });
   }
 
   render() {
@@ -43,10 +41,10 @@ export default class ImportRecordCard extends React.Component {
 
     return (
       <ImportRecordToggleableSection
+        title='Options'
         shouldShow={this.state.showOptions}
         hasNoData={_.isNull(task_options_json)}
-        title='Options'
-        onClickToggle={this.onToggleState('showOptions')}
+        onClickToggle={this.onToggleState.bind(this, 'showOptions')}
         content={JSON.stringify(JSON.parse(task_options_json), null, 2)} />
     );
   }
@@ -56,10 +54,10 @@ export default class ImportRecordCard extends React.Component {
 
     return (
       <ImportRecordToggleableSection
+        title='File-By-File'
         shouldShow={this.state.showFileByFile}
         hasNoData={_.isNull(importer_timing_json)}
-        title='File-By-File'
-        onClickToggle={this.onToggleState('showFileByFile')}
+        onClickToggle={this.onToggleState.bind(this, 'showFileByFile')}
         content={JSON.stringify(JSON.parse(importer_timing_json), null, 2)} />
     );
   }
@@ -72,7 +70,7 @@ export default class ImportRecordCard extends React.Component {
         shouldShow={this.state.showLog}
         hasNoData={_.isNull(log)}
         title='Log'
-        onClickToggle={this.onToggleState('showLog')}
+        onClickToggle={this.onToggleState.bind(this, 'showLog')}
         content={log} />
     );
   }
