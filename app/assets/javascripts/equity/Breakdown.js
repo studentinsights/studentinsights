@@ -3,6 +3,16 @@ import _ from 'lodash';
 import Bar from '../components/Bar';
 import {colors} from '../helpers/Theme';
 
+
+// Compute range, excluding null and undefined values.
+function range(students, accessor) {
+  const filtered = students.filter(s => accessor(s) !== null && accessor(s) !== undefined);
+  return [
+    accessor(_.min(filtered, accessor)),
+    accessor(_.max(filtered, accessor))
+  ];
+}
+
 // Translate null values
 function cleanNulls(students) {
   return students.map((student) => {
@@ -136,12 +146,14 @@ export default class Breakdown extends React.Component {
         students, 'most_recent_star_math_percentile', 25);
       const highestQuartileStarMath = percentageOverLimit(
         students, 'most_recent_star_math_percentile', 75);
+      const starMathPercentileRange = range(students, s => s.most_recent_star_math_percentile);
 
       // Star Reading
       const lowestQuartileStarReading = percentageUnderLimit(
         students, 'most_recent_star_reading_percentile', 25);
       const highestQuartileStarReading = percentageOverLimit(
         students, 'most_recent_star_reading_percentile', 75);
+      const starReadingPercentileRange = range(students, s => s.most_recent_star_reading_percentile);
 
       return {
         homeroomName,
@@ -161,6 +173,8 @@ export default class Breakdown extends React.Component {
         highestQuartileStarMath,
         lowestQuartileStarReading,
         highestQuartileStarReading,
+        starMathPercentileRange,
+        starReadingPercentileRange,
         studentCount: students.length
       };
     });
@@ -242,10 +256,16 @@ export default class Breakdown extends React.Component {
                   STAR Math<br/>Bottom Quartile
                 </th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  STAR Math<br/>Percentile range
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
                   STAR Math<br/>Top Quartile
                 </th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
                   STAR Reading<br/>Bottom Quartile
+                </th>
+                <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
+                  STAR Reading<br/>Percentile range
                 </th>
                 <th style={{padding: 5, textAlign: 'left', fontWeight: 'bold'}}>
                   STAR Reading<br/>Top Quartile
@@ -271,6 +291,8 @@ export default class Breakdown extends React.Component {
                   highestQuartileStarMath,
                   lowestQuartileStarReading,
                   highestQuartileStarReading,
+                  starMathPercentileRange,
+                  starReadingPercentileRange
                 } = statsForHomeroom;
                 const total = _.map(raceGroups, 'count').reduce((sum, a) => {
                   return sum + a;
@@ -338,10 +360,16 @@ export default class Breakdown extends React.Component {
                       <Bar percent={lowestQuartileStarMath} styles={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
+                      {this.renderPercentileRangeBar(starMathPercentileRange)}
+                    </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
                       <Bar percent={highestQuartileStarMath} styles={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
                       <Bar percent={lowestQuartileStarReading} styles={styles.bar} threshold={10} />
+                    </td>
+                    <td style={{height: '100%', width: 140, padding: 5}}>
+                      {this.renderPercentileRangeBar(starReadingPercentileRange)}
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
                       <Bar percent={highestQuartileStarReading} styles={styles.bar} threshold={10} />
@@ -366,6 +394,16 @@ export default class Breakdown extends React.Component {
             })}
           </div>
         </div>
+      </div>
+    );
+  }
+
+  renderPercentileRangeBar(range) {
+    return (
+      <div style={{position: 'relative', width: 100, backgroundColor: '#eee', height: 1}}>
+        <div style={{position: 'absolute', background: '#eee', left: range[0], width: range[1] - range[0], height: 6, top: -1}}>{'\u00A0'}</div>
+        <div style={{position: 'absolute', borderLeft: '1px solid #aaa', fontSize: 10, paddingLeft: 3, left: range[0], top: -5}}>{range[0]}</div>
+        <div style={{position: 'absolute', borderLeft: '1px solid #aaa', fontSize: 10, paddingLeft: 3, left: range[1], top: -5}}>{range[1]}</div>
       </div>
     );
   }
