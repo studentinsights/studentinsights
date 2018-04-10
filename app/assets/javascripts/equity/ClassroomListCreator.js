@@ -150,7 +150,7 @@ function initialSlots(students, rooms) {
   return students.reduce((map, student) => {
     return {
       ...map,
-      [student.id]: Math.floor(Math.random()*(rooms.length + 1))
+      [student.id]: Math.floor(Math.random()*rooms.length + 1)
     };
   }, {});
 }
@@ -307,17 +307,31 @@ class ClassroomListCreatorView extends React.Component {
     );
   }
 
+  // TODO(kr) PerDistrict
   renderLowIncome(studentsInRooms, slotForRoom) {
-    // const {students, rooms} = this.props;
-    return this.renderValue('Low income', randomValue());
+    const percentageInRooms = studentsInRooms.map(students => {
+      const count = students.filter(s => -1 !== ['Free Lunch', 'Reduced Lunch'].indexOf(s.free_reduced_lunch)).length;
+      return count === 0 ? 0 : Math.round(100 * count / students.length);
+    });
+    return this.renderOutlier('Low income', percentageInRooms, percentageInRooms[slotForRoom - 1]);
   }
 
-  renderELL(room) {
-    return this.renderValue('ELL', randomValue());
+  // TODO(kr) PerDistrict
+  renderELL(studentsInRooms, slotForRoom) {
+    const percentageInRooms = studentsInRooms.map(students => {
+      const count = students.filter(s => -1 !== ['Fluent'].indexOf(s.limited_english_proficiency)).length;
+      return count === 0 ? 0 : Math.round(100 * count / students.length);
+    });
+    return this.renderOutlier('Learning English', percentageInRooms, percentageInRooms[slotForRoom - 1]);
   }
 
-  renderSPED(room) {
-    return this.renderValue('SPED', randomValue());
+  // TODO(kr) PerDistrict
+  renderSPED(studentsInRooms, slotForRoom) {
+    const percentageInRooms = studentsInRooms.map(students => {
+      const count = students.filter(s => s.disability !== null).length;
+      return count === 0 ? 0 : Math.round(100 * count / students.length);
+    });
+    return this.renderOutlier('Disability', percentageInRooms, percentageInRooms[slotForRoom - 1]);
   }
 
   renderMath(room) {
@@ -328,6 +342,11 @@ class ClassroomListCreatorView extends React.Component {
     return this.renderValue('<25th Reading', randomValue());
   }
 
+  renderOutlier(text, byRooms, value) {
+    const diffByRooms = byRooms.map(byRoom => byRoom - value);
+    const maxDiff = _.max(diffByRooms, Math.abs);
+    return this.renderValue(maxDiff > 0.10 ? 'WARN' : text, value);
+  }
 
   renderFiller(key, style) {
     return <div style={style} key={key}>{key}</div>;
