@@ -23,6 +23,16 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
       Localhost Public Schools
     </h4>
   </div>
+  <div
+    style={
+      Object {
+        "fontSize": 12,
+        "margin": 10,
+      }
+    }
+  >
+    Different color bars are at different scales.
+  </div>
   <table
     style={
       Object {
@@ -649,7 +659,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
           <div
             style={
               Object {
-                "backgroundColor": "#ffe78e",
+                "backgroundColor": "rgb(255, 173, 142)",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
                 "height": "100%",
@@ -672,7 +682,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
           <div
             style={
               Object {
-                "backgroundColor": "#ffe78e",
+                "backgroundColor": "rgb(255, 173, 142)",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
                 "height": "100%",
@@ -695,7 +705,7 @@ exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
           <div
             style={
               Object {
-                "backgroundColor": "#ffe78e",
+                "backgroundColor": "rgb(255, 173, 142)",
                 "borderLeft": "1px solid #aaa",
                 "color": "black",
                 "height": "100%",

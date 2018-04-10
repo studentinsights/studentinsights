@@ -10,6 +10,10 @@ import {sortSchoolSlugsByGrade} from '../helpers/PerDistrict';
 
 
 const styles = {
+  caption: {
+    fontSize: 12,
+    margin: 10
+  },
   table: {
     borderCollapse: 'collapse',
     margin: 10,
@@ -87,6 +91,7 @@ export class DistrictEnrollmentPageView extends React.Component {
     return (
       <div>
         <SectionHeading>Enrollment in {districtName}</SectionHeading>
+        <div style={styles.caption}>Different color bars are at different scales.</div>
         <table style={styles.table}>
           <thead>
             <tr>
@@ -132,7 +137,7 @@ export class DistrictEnrollmentPageView extends React.Component {
                 const studentCountForSchool = computeStudentCountForSchool(school, enrollments);
                 return (
                   <td key={school.id} style={styles.cell}>
-                    {this.renderBar(studentCountForSchool, { scaleFactor: 0.05, backgroundColor: '#ffe78e' })}
+                    {this.renderBar(studentCountForSchool, { scaleFactor: 0.05, backgroundColor: 'rgb(255, 173, 142)' })}
                   </td>
                 );
               })}
@@ -170,8 +175,7 @@ DistrictEnrollmentPageView.propTypes = {
     school: React.PropTypes.shape({
       id: React.PropTypes.number.isRequired,
       slug: React.PropTypes.string.isRequired,
-      name: React.PropTypes.string.isRequired,
-      school_type: React.PropTypes.string.isRequired
+      name: React.PropTypes.string.isRequired
     }).isRequired,
   })).isRequired
 };
