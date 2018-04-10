@@ -345,7 +345,9 @@ class ClassroomListCreatorView extends React.Component {
   renderOutlier(text, byRooms, value) {
     const diffByRooms = byRooms.map(byRoom => byRoom - value);
     const maxDiff = _.max(diffByRooms, Math.abs);
-    return this.renderValue(maxDiff > 0.10 ? 'WARN' : text, value);
+    return (maxDiff > 0.10)
+        ? <span style={{color: '#3177c9'}}>{text}: {value}%</span>
+        : <span style={{color: '#ccc'}}>{text}: {value}%</span>;
   }
 
   renderFiller(key, style) {
