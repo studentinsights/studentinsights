@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Card from '../components/Card';
 
 export default class QueuedJobCard extends React.Component {
 
@@ -16,14 +17,14 @@ export default class QueuedJobCard extends React.Component {
     const cardTitleStyle = {marginBottom: 15, borderBottom: '1px solid #eee', fontSize: 18};
 
     return (
-      <div style={divStyle}>
-        <div style={cardTitleStyle}>Queued Job #{id}</div>
+      <Card style={styles.cardStyle}>
+        <h4 style={styles.cardTitleStyle}>Queued Job #{id}</h4>
         <div>Run at: {run_at}</div>
         <div>Locked at: {locked_at}</div>
         <div>Failed at: {failed_at}</div>
         <div>Attempts: {attempts}</div>
         <div>Last error: {last_error}</div>
-      </div>
+      </Card>
     );
   }
 
@@ -36,4 +37,16 @@ QueuedJobCard.propTypes = {
   failed_at: PropTypes.string,
   attempts: PropTypes.number.isRequired,
   last_error: PropTypes.string,
+};
+
+
+const styles = {
+  cardTitleStyle: {
+    marginBottom: 15,
+    borderBottom: '1px solid #eee',
+    fontSize: 18
+  },
+  cardStyle: {
+    margin: '20px 0'
+  }
 };
