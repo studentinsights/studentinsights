@@ -1,0 +1,734 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DistrictEnrollmentPageView pure component matches snapshot 1`] = `
+<div>
+  <div
+    className="SectionHeading"
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "padding": 10,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "black",
+          "display": "inline",
+        }
+      }
+    >
+      Enrollment in 
+      Localhost Public Schools
+    </h4>
+  </div>
+  <div
+    style={
+      Object {
+        "fontSize": 12,
+        "margin": 10,
+      }
+    }
+  >
+    Different color bars are at different scales.
+  </div>
+  <table
+    style={
+      Object {
+        "border": "1px solid #eee",
+        "borderCollapse": "collapse",
+        "margin": 10,
+        "tableLayout": "fixed",
+        "width": "90%",
+      }
+    }
+  >
+    <thead>
+      <tr>
+        <th
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+           
+        </th>
+        <th
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/6"
+            style={Object {}}
+          >
+            wsns
+          </a>
+        </th>
+        <th
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/2"
+            style={Object {}}
+          >
+            hea
+          </a>
+        </th>
+        <th
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <a
+            className="School"
+            href="/schools/9"
+            style={Object {}}
+          >
+            shs
+          </a>
+        </th>
+        <th
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          Totals
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          KF
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 0,
+                "width": "0%",
+              }
+            }
+          >
+             
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "5%",
+              }
+            }
+          >
+            10
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 0,
+                "width": "0%",
+              }
+            }
+          >
+             
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ffe78e",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "1%",
+              }
+            }
+          >
+            10
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          3
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 0,
+                "width": "0%",
+              }
+            }
+          >
+             
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "4.5%",
+              }
+            }
+          >
+            9
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 0,
+                "width": "0%",
+              }
+            }
+          >
+             
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ffe78e",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "0.9%",
+              }
+            }
+          >
+            9
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          5
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "4.5%",
+              }
+            }
+          >
+            9
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "4.5%",
+              }
+            }
+          >
+            9
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 0,
+                "width": "0%",
+              }
+            }
+          >
+             
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ffe78e",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "1.8%",
+              }
+            }
+          >
+            18
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          9
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 0,
+                "width": "0%",
+              }
+            }
+          >
+             
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 0,
+                "width": "0%",
+              }
+            }
+          >
+             
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "9.5%",
+              }
+            }
+          >
+            19
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ffe78e",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "1.9000000000000001%",
+              }
+            }
+          >
+            19
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          10
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 0,
+                "width": "0%",
+              }
+            }
+          >
+             
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 0,
+                "width": "0%",
+              }
+            }
+          >
+             
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "31.5%",
+              }
+            }
+          >
+            63
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#ffe78e",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "6.300000000000001%",
+              }
+            }
+          >
+            63
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          Totals
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "rgb(255, 173, 142)",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "0.45%",
+              }
+            }
+          >
+            9
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "rgb(255, 173, 142)",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "1.4000000000000001%",
+              }
+            }
+          >
+            28
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "rgb(255, 173, 142)",
+                "borderLeft": "1px solid #aaa",
+                "color": "black",
+                "height": "100%",
+                "padding": 3,
+                "width": "4.1000000000000005%",
+              }
+            }
+          >
+            82
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "padding": 5,
+              "textAlign": "left",
+            }
+          }
+        >
+          119
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

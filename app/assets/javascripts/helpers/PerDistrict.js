@@ -46,3 +46,28 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
 export function inExperienceTeam(educatorLabels) {
   return (educatorLabels.indexOf('shs_experience_team') !== -1);
 }
+
+
+const ORDERED_SOMERVILLE_SCHOOL_SLUGS_BY_GRADE = {
+  'pic': 10,
+  'cap': 100,
+  'brn': 200,
+  'hea': 300,
+  'kdy': 300,
+  'afas': 300,
+  'escs': 300,
+  'wsns': 300,
+  'whcs': 300,
+  'nw': 400,
+  'shs': 500,
+  'fc': 500,
+  'sped': 600
+};
+
+export function sortSchoolSlugsByGrade(districtKey, slugA, slugB) {
+  if (districtKey === 'somerville') {
+    return ORDERED_SOMERVILLE_SCHOOL_SLUGS_BY_GRADE[slugA] - ORDERED_SOMERVILLE_SCHOOL_SLUGS_BY_GRADE[slugB];
+  }
+
+  return slugA.localeCompare(slugB);
+}

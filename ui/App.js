@@ -12,7 +12,8 @@ import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 import SchoolEquityPrincipalPage from '../app/assets/javascripts/equity/SchoolEquityPrincipalPage';
 import SchoolEquityTeachersPage from '../app/assets/javascripts/equity/SchoolEquityTeachersPage';
-
+import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
+import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -48,6 +49,7 @@ class App extends React.Component {
     return (
       <MountTimer>
         <Switch>
+          <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
           <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
           <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
           <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
@@ -55,6 +57,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/equity/principal" render={this.renderSchoolEquityPrincipalPage.bind(this)}/>
           <Route exact path="/schools/:id/equity/teachers/:grade" render={this.renderSchoolEquityTeachersPage.bind(this)}/>
+          <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
       </MountTimer>
@@ -95,12 +98,22 @@ class App extends React.Component {
     return <EducatorPage educatorId={educatorId} />;
   }
 
+  renderImportRecordsPage(routeProps) {
+    this.trackVisit(routeProps, 'IMPORT_RECORDS_PAGE');
+    return <ImportRecordsPage />;
+  }
+
   renderAbsencesDashboard(routeProps) {
     return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'absences'} />;
   }
 
   renderTardiesDashboard(routeProps) {
     return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'tardies'}/>;
+  }
+
+  renderDistrictEnrollmentPage(routeProps) {
+    this.trackVisit(routeProps, 'DISTRICT_ENROLLMENT_PAGE');
+    return <DistrictEnrollmentPage />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the
@@ -111,9 +124,11 @@ class App extends React.Component {
     return null;
   }
 }
+
 App.childContextTypes = {
   nowFn: React.PropTypes.func
 };
+
 App.propTypes = {
   currentEducator: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,

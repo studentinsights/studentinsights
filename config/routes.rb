@@ -6,6 +6,11 @@ Rails.application.routes.draw do
     root to: "educators#index"
   end
 
+  scope '/admin' do
+    get 'import_records' => 'ui#ui'
+    get '/api/import_records' => 'import_records#import_records_json'
+  end
+
   get '/api/educators/:id' => 'educators#show'
   get '/api/schools/:id/courses' => 'schools#courses_json'
   get 'api/schools/:id/absences/data' => 'schools#absence_dashboard_data'
@@ -13,6 +18,7 @@ Rails.application.routes.draw do
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
   get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
   get '/api/home/feed_json' => 'home#feed_json'
+  get '/api/district/enrollment_json' => 'district#enrollment_json'
 
   devise_for :educators
   authenticated :educator do
@@ -57,7 +63,6 @@ Rails.application.routes.draw do
   end
   resources :homerooms, only: [:show]
   resources :sections, only: [:index, :show]
-  resources :import_records, only: [:index]
   resources :iep_documents, only: [:show]
 
   resources :schools, only: [:show] do
@@ -71,6 +76,12 @@ Rails.application.routes.draw do
       get 'courses' => 'ui#ui'
       get 'equity/principal' => 'ui#ui'
       get 'equity/teachers/:grade' => 'ui#ui'
+    end
+  end
+
+  resource :district, only: [] do
+    member do
+      get 'enrollment' => 'ui#ui'
     end
   end
 end

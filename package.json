@@ -32,6 +32,7 @@
     "lodash": "3.10.1",
     "moment": "2.19.3",
     "object-assign": "^4.1.1",
+    "percentile": "^1.2.0",
     "promise-polyfill": "^6.0.2",
     "query-string": "^5.1.0",
     "rc-slider": "^8.3.2",
