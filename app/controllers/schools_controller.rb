@@ -62,6 +62,16 @@ class SchoolsController < ApplicationController
     render json: student_tardies_data_json
   end
 
+  def discipline_dashboard_data
+    student_discipline_data = students_for_dashboard(@school)
+      .includes([homeroom: :educator], :discipline_incidents, :event_notes)
+    student_discipline_data_json = student_discipline_data.map do |student|
+      individual_student_discipline_data(student)
+    end
+
+    render json: student_discipline_data_json
+  end
+
   # This endpoint is internal-only for now, because of the authorization complexity.
   def courses_json
     raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
@@ -179,6 +189,8 @@ class SchoolsController < ApplicationController
       first_name: student.first_name,
       last_name: student.last_name,
       id: student.id,
+      grade: student.grade,
+      race: student.race,
       homeroom_label: homeroom_label,
       absences: student.dashboard_absences,
       tardies: student.dashboard_tardies,
@@ -208,6 +220,21 @@ class SchoolsController < ApplicationController
       id: student.id,
       homeroom_label: homeroom_label,
       tardies: student.tardies,
+      event_notes: student.event_notes
+    })
+  end
+
+  def individual_student_discipline_data(student)
+    # Gathers only the information needed for a specific dashboard view.
+    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
+    HashWithIndifferentAccess.new({
+      first_name: student.first_name,
+      last_name: student.last_name,
+      id: student.id,
+      homeroom_label: homeroom_label,
+      grade: student.grade,
+      race: student.race,
+      discipline_incidents: student.discipline_incidents,
       event_notes: student.event_notes
     })
   end

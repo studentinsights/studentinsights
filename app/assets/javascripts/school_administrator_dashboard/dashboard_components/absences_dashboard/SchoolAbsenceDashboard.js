@@ -53,7 +53,7 @@ class SchoolAbsenceDashboard extends React.Component {
     });
   }
 
-  studentAbsenceCounts(absencesArray) {
+  studentAbsenceCounts() {
     let studentAbsenceCounts = {};
     this.state.displayDates.forEach((day) => {
       _.each(this.props.schoolAbsenceEvents[day], (absence) => {
@@ -146,7 +146,7 @@ class SchoolAbsenceDashboard extends React.Component {
     return (
       <StudentsTable
         rows = {rows}
-        selectedHomeroom = {this.state.selectedHomeroom}/>
+        selectedCategory = {this.state.selectedHomeroom}/>
     );
   }
 

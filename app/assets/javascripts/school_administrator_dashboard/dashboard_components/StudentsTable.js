@@ -17,7 +17,7 @@ class StudentsTable extends React.Component {
       sortBy: 'events',
       sortType: 'number',
       sortDesc: true,
-      slectedHomeroom: null,
+      selectedCategory: null,
       schoolYearFlag: false
     };
     this.onClickHeader = this.onClickHeader.bind(this);
@@ -123,7 +123,7 @@ class StudentsTable extends React.Component {
 
   renderCaption() {
     const schoolYearCaption = this.props.schoolYearFlag? " (School Year)" : "";
-    return this.props.selectedHomeroom ? this.props.selectedHomeroom + schoolYearCaption : "All Students" + schoolYearCaption;
+    return this.props.selectedCategory ? this.props.selectedCategory + schoolYearCaption : "All Students" + schoolYearCaption;
   }
 }
 
@@ -135,7 +135,7 @@ StudentsTable.propTypes = {
     events: PropTypes.number.isRequired,
     last_sst_date_text: SharedPropTypes.nullableWithKey(PropTypes.string)
   })).isRequired,
-  selectedHomeroom: PropTypes.string,
+  selectedCategory: PropTypes.string,
   schoolYearFlag: PropTypes.bool
 };
 
