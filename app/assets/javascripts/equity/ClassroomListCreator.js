@@ -3,14 +3,11 @@ import _ from 'lodash';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import SectionHeading from '../components/SectionHeading';
+import Bar from '../components/Bar';
+import BoxAndWhisker from '../components/BoxAndWhisker';
 import StudentCard from './StudentCard';
 import {gradeText} from '../helpers/gradeText';
-import SwipeableViews from 'react-swipeable-views';
 import Draggable from 'react-draggable';
-
-function randomValue() {
-  return Math.round(Math.random()*100);
-}
 
 const width = 165;
 const styles = {
@@ -39,13 +36,17 @@ const styles = {
     paddingTop: 0
   },
   classrooms: {
-    padding: 10
+    padding: 10,
+    paddingBottom: 0
   },
-  padded: {
-    margin: 10
+  listsContainer: {
+    display: 'flex',
+    margin: 10,
+    marginBottom: 0,
+    borderBottom: '1px solid black'
   },
   students: {
-    padding: 10,
+    padding: 20,
     paddingTop: 0,
     display: 'flex',
     flex: 1,
@@ -69,9 +70,7 @@ const styles = {
     overflowY: 'scroll',
     overflowX: 'hidden',
     border: '1px solid #ccc'
-  },
-  listsContainer: {
-    display: 'flex'
+    /* backgroundColor: 'rgba(243, 136, 42, 0.18)' */
   },
   indicator: {
     fontSize: 12
@@ -80,6 +79,7 @@ const styles = {
     width: width,
     backgroundColor: '#eee',
     border: '1px solid #ccc',
+    borderBottom: 0,
     padding: 10
   },
   listStyle: {
@@ -211,6 +211,8 @@ class ClassroomListCreatorView extends React.Component {
   }
 
   onDragStop(student, e, data) {
+    e.preventDefault();
+
     const {x} = data;
     const {slots} = this.state;
     const slot = Math.floor(x / width);
@@ -229,17 +231,6 @@ class ClassroomListCreatorView extends React.Component {
       <div style={styles.content}>
         <div style={styles.classrooms}>
           <SectionHeading style={styles.sectionHeading}>Classroom community: {communityName}</SectionHeading>
-          <div style={styles.padded}>
-            <div style={styles.listsContainer}>
-              <div key="unplaced" style={styles.column}>
-                <h2>Not yet placed</h2>
-              </div>
-              {rooms.map((room, index) => this.renderRoom(room, index + 1))}
-            </div>
-          </div>
-        </div>
-        <div style={styles.students}>
-          <SectionHeading style={styles.sectionHeading}>Students to place: {students.length}</SectionHeading>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div style={styles.links}>
               Sort by:
@@ -252,6 +243,15 @@ class ClassroomListCreatorView extends React.Component {
               <a style={styles.link}>randomly assign not yet placed</a>
             </div>
           </div>
+          <div style={styles.listsContainer}>
+            <div key="unplaced" style={{...styles.column, borderRight: 0}}>
+              <h2>Not yet placed</h2>
+              <div style={styles.indicator}>Students left to place: {sortedStudents.length}</div>
+            </div>
+            {rooms.map((room, index) => this.renderRoom(room, index + 1))}
+          </div>
+        </div>
+        <div style={styles.students}>
           <div style={styles.studentsGrid}>
             {sortedStudents.map(student => {
               const slot = slots[student.id];
@@ -269,7 +269,7 @@ class ClassroomListCreatorView extends React.Component {
                   <div>
                    <StudentCard
                     student={student}
-                    style={{fontSize: 12, width}} />
+                    style={{width}} />
                   </div>
                 </Draggable>
               );
@@ -292,9 +292,11 @@ class ClassroomListCreatorView extends React.Component {
     const {rooms} = this.props;
     const studentsInRooms = rooms.map(this.studentsInRoom, this);
     const studentsInRoom = studentsInRooms[slotForRoom - 1];
-
+    const containerStyle = (slotForRoom === rooms.length)
+      ? styles.column
+      : {...styles.column, borderRight: 0};
     return (
-      <div key={room} style={styles.column}>
+      <div key={room} style={containerStyle}>
         <h2>{room}</h2>
         <div style={styles.indicator}>Students: {studentsInRoom.length}</div>
         <div style={styles.indicator}>{'\u00A0'}</div>
@@ -313,7 +315,13 @@ class ClassroomListCreatorView extends React.Component {
       const count = students.filter(s => -1 !== ['Free Lunch', 'Reduced Lunch'].indexOf(s.free_reduced_lunch)).length;
       return count === 0 ? 0 : Math.round(100 * count / students.length);
     });
-    return this.renderOutlier('Low income', percentageInRooms, percentageInRooms[slotForRoom - 1]);
+    const percent = percentageInRooms[slotForRoom - 1];
+    return (
+      <div>
+        <div>Language</div>
+        <Bar percent={percent} threshold={10} styles={{paddingLeft: 20, paddingRight: 20, background: '#ccc', border: '#999', height: 12, width: 100 }} />
+      </div>
+    );
   }
 
   // TODO(kr) PerDistrict
@@ -334,12 +342,25 @@ class ClassroomListCreatorView extends React.Component {
     return this.renderOutlier('Disability', percentageInRooms, percentageInRooms[slotForRoom - 1]);
   }
 
-  renderMath(room) {
-    return this.renderValue('<25th Math', randomValue());
+  renderMath(studentsInRooms, slotForRoom) {
+    return this.renderStar(studentsInRooms, slotForRoom, 'STAR Math', student => student.most_recent_star_math_percentile);
   }
 
-  renderReading(room) {
-    return this.renderValue('<25th Reading', randomValue());
+  renderReading(studentsInRooms, slotForRoom) {
+    return this.renderStar(studentsInRooms, slotForRoom, 'STAR Reading', student => student.most_recent_star_reading_percentile);
+  }
+
+  renderStar(studentsInRooms, slotForRoom, text, accessor) {
+    const valuesForRooms = studentsInRooms.map(students => {
+      return _.compact(students.map(accessor));
+    });
+    const values = valuesForRooms[slotForRoom - 1];
+    return (
+      <div>
+        <div>{text}</div>
+        <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />
+      </div>
+    );
   }
 
   renderOutlier(text, byRooms, value) {
