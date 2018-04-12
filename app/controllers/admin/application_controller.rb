@@ -9,7 +9,7 @@ module Admin
     before_action :authenticate_educator!, :authenticate_admin
 
     def authenticate_admin
-      redirect_to(new_educator_session_path) unless current_educator && current_educator.admin?
+      redirect_to(new_educator_session_path) unless current_educator && current_educator.can_set_districtwide_access?
     end
 
     # Override this value to specify the number of elements to display at a time
