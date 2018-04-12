@@ -1,16 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import Bar from '../components/Bar';
+import BoxAndWhisker from '../components/BoxAndWhisker';
 import {colors} from '../helpers/Theme';
 
-
 // Compute range, excluding null and undefined values.
-function range(students, accessor) {
+function filteredValues(students, accessor) {
   const filtered = students.filter(s => accessor(s) !== null && accessor(s) !== undefined);
-  return [
-    accessor(_.min(filtered, accessor)),
-    accessor(_.max(filtered, accessor))
-  ];
+  return filtered.map(accessor);
 }
 
 // Translate null values
@@ -146,14 +143,14 @@ export default class Breakdown extends React.Component {
         students, 'most_recent_star_math_percentile', 25);
       const highestQuartileStarMath = percentageOverLimit(
         students, 'most_recent_star_math_percentile', 75);
-      const starMathPercentileRange = range(students, s => s.most_recent_star_math_percentile);
+      const starMathPercentileRange = filteredValues(students, s => s.most_recent_star_math_percentile);
 
       // Star Reading
       const lowestQuartileStarReading = percentageUnderLimit(
         students, 'most_recent_star_reading_percentile', 25);
       const highestQuartileStarReading = percentageOverLimit(
         students, 'most_recent_star_reading_percentile', 75);
-      const starReadingPercentileRange = range(students, s => s.most_recent_star_reading_percentile);
+      const starReadingPercentileRange = filteredValues(students, s => s.most_recent_star_reading_percentile);
 
       return {
         homeroomName,
@@ -398,14 +395,8 @@ export default class Breakdown extends React.Component {
     );
   }
 
-  renderPercentileRangeBar(range) {
-    return (
-      <div style={{position: 'relative', width: 100, backgroundColor: '#eee', height: 1}}>
-        <div style={{position: 'absolute', background: '#eee', left: range[0], width: range[1] - range[0], height: 6, top: -1}}>{'\u00A0'}</div>
-        <div style={{position: 'absolute', borderLeft: '1px solid #aaa', fontSize: 10, paddingLeft: 3, left: range[0], top: -5}}>{range[0]}</div>
-        <div style={{position: 'absolute', borderLeft: '1px solid #aaa', fontSize: 10, paddingLeft: 3, left: range[1], top: -5}}>{range[1]}</div>
-      </div>
-    );
+  renderPercentileRangeBar(values) {
+    return <BoxAndWhisker values={values} />;
   }
 
   renderTitle(title) {
