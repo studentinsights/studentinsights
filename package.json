@@ -2,7 +2,7 @@
   "name": "studentinsights",
   "version": "0.1.0",
   "engines": {
-    "node": "8.11.0"
+    "node": "^8.11.1"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,8 @@
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
     "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn run dev\"",
     "test": "jest --config jest.json --watch",
-    "test-cli": "yarn run lint-cli && jest --config jest.json"
+    "test-cli": "yarn run lint-cli && jest --config jest.json",
+    "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -42,6 +43,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "@storybook/react": "^3.4.0",
     "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-preset-react": "^6.24.1",
