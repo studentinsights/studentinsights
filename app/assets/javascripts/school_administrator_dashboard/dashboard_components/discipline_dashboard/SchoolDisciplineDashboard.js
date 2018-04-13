@@ -75,6 +75,7 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   sortedTimes(chartKeys) {
+    //chartKeys will either contain a time like "4:00 pm", "10:00 am", or "Not Logged"
     return chartKeys.sort((a, b) => {
       if (a == "Not Logged") return -1;
       if (b == "Not Logged") return 1;
