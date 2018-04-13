@@ -227,7 +227,7 @@ class FakeStudent
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      discipline_incident = FactoryGirl.create(:discipline_incident, student: student)
+      discipline_incident = FactoryBot.create(:discipline_incident, student: student)
       discipline_incident.save!
     end
   end

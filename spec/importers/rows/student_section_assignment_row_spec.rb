@@ -13,14 +13,14 @@ RSpec.describe StudentSectionAssignmentRow do
     let(:brown_school) { School.find_by_local_id('BRN') }
 
     context 'happy path' do
-      let!(:student) { FactoryGirl.create(:high_school_student) }
+      let!(:student) { FactoryBot.create(:high_school_student) }
       let!(:course) {
-        FactoryGirl.create(
+        FactoryBot.create(
           :course, course_number: 'F100', school: healey_school
         )
       }
       let!(:section) {
-        FactoryGirl.create(
+        FactoryBot.create(
           :section, course: course, section_number: 'MUSIC-005', term_local_id: 'FY'
         )
       }
@@ -43,20 +43,20 @@ RSpec.describe StudentSectionAssignmentRow do
 
     context 'section with same section_number at different school' do
       let!(:another_course) {
-        FactoryGirl.create(:course, course_number: 'F100', school: brown_school)
+        FactoryBot.create(:course, course_number: 'F100', school: brown_school)
       }
       let!(:another_section) {
-        FactoryGirl.create(
+        FactoryBot.create(
           :section, course: another_course, section_number: 'MUSIC-005', term_local_id: 'FY'
         )
       }
 
-      let!(:student) { FactoryGirl.create(:high_school_student) }
+      let!(:student) { FactoryBot.create(:high_school_student) }
       let!(:course) {
-        FactoryGirl.create(:course, course_number: 'F100', school: healey_school)
+        FactoryBot.create(:course, course_number: 'F100', school: healey_school)
       }
       let!(:section) {
-        FactoryGirl.create(
+        FactoryBot.create(
           :section, course: course, section_number: 'MUSIC-005', term_local_id: 'FY'
         )
       }
@@ -78,8 +78,8 @@ RSpec.describe StudentSectionAssignmentRow do
     end
 
     context 'no course info or school_local_id' do
-      let!(:section) { FactoryGirl.create(:section) }
-      let!(:student) { FactoryGirl.create(:high_school_student) }
+      let!(:section) { FactoryBot.create(:section) }
+      let!(:student) { FactoryBot.create(:high_school_student) }
       let(:row) {
         {
           local_id: student.local_id,

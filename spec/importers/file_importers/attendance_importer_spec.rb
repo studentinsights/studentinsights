@@ -21,7 +21,7 @@ RSpec.describe AttendanceImporter do
       after { Timecop.return }
 
       context 'one row for one student on one date' do
-        let!(:student) { FactoryGirl.create(:student, local_id: '1') }
+        let!(:student) { FactoryBot.create(:student, local_id: '1') }
         let(:date) { '2005-09-16' }
 
         context 'row with absence' do
@@ -65,8 +65,8 @@ RSpec.describe AttendanceImporter do
 
       context 'multiple rows for different students on the same date' do
 
-        let!(:edwin) { FactoryGirl.create(:student, local_id: '1', first_name: 'Edwin') }
-        let!(:kristen) { FactoryGirl.create(:student, local_id: '2', first_name: 'Kristen') }
+        let!(:edwin) { FactoryBot.create(:student, local_id: '1', first_name: 'Edwin') }
+        let!(:kristen) { FactoryBot.create(:student, local_id: '2', first_name: 'Kristen') }
         let(:date) { '2005-09-16' }
 
         let(:row_for_edwin) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
@@ -81,7 +81,7 @@ RSpec.describe AttendanceImporter do
       end
 
       context 'multiple rows for same student on same date' do
-        let!(:student) { FactoryGirl.create(:student, local_id: '1') }
+        let!(:student) { FactoryBot.create(:student, local_id: '1') }
         let(:date) { '2005-09-16' }
 
         let(:first_row) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
@@ -96,7 +96,7 @@ RSpec.describe AttendanceImporter do
       end
 
       context 'multiple rows for same student on different dates' do
-        let!(:student) { FactoryGirl.create(:student, local_id: '1') }
+        let!(:student) { FactoryBot.create(:student, local_id: '1') }
         let(:date) { '2005-09-16' }
 
         let(:first_row) { { event_date: '2005-09-16', local_id: '1', absence: '1', tardy: '0' } }
@@ -116,7 +116,7 @@ RSpec.describe AttendanceImporter do
     end
 
     context 'old attendance events' do
-      let!(:student) { FactoryGirl.create(:student, local_id: '1') }
+      let!(:student) { FactoryBot.create(:student, local_id: '1') }
       let(:date) { '2005-09-16' }
       let(:row) {
         { event_date: date, local_id: '1', absence: '1', tardy: '0' }

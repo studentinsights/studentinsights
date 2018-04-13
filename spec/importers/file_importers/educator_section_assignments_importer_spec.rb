@@ -9,9 +9,9 @@ RSpec.describe EducatorSectionAssignmentsImporter do
   }
 
   describe '#import_row' do
-    let!(:school) { FactoryGirl.create(:shs) }
-    let!(:section) { FactoryGirl.create(:section) }
-    let!(:educator) { FactoryGirl.create(:educator) }
+    let!(:school) { FactoryBot.create(:shs) }
+    let!(:section) { FactoryBot.create(:section) }
+    let!(:educator) { FactoryBot.create(:educator) }
 
     context 'happy path' do
       let(:row) {
@@ -106,9 +106,9 @@ RSpec.describe EducatorSectionAssignmentsImporter do
 
     describe '#delete_rows' do
       let(:log) { LogHelper::Redirect.instance.file }
-      let!(:school) { FactoryGirl.create(:shs) }
-      let!(:section) { FactoryGirl.create(:section) }
-      let!(:educator) { FactoryGirl.create(:educator) }
+      let!(:school) { FactoryBot.create(:shs) }
+      let!(:section) { FactoryBot.create(:section) }
+      let!(:educator) { FactoryBot.create(:educator) }
       let(:row) { {
         local_id:educator.local_id,
         course_number:section.course.course_number,
@@ -125,8 +125,8 @@ RSpec.describe EducatorSectionAssignmentsImporter do
         }
 
         before do
-          FactoryGirl.create_list(:educator_section_assignment,20)
-          FactoryGirl.create(:educator_section_assignment, educator_id: educator.id, section_id: section.id)
+          FactoryBot.create_list(:educator_section_assignment,20)
+          FactoryBot.create(:educator_section_assignment, educator_id: educator.id, section_id: section.id)
 
           educator_section_assignments_importer.import_row(row)
           educator_section_assignments_importer.delete_rows
@@ -145,8 +145,8 @@ RSpec.describe EducatorSectionAssignmentsImporter do
         }
 
         before do
-          FactoryGirl.create_list(:educator_section_assignment,20)
-          FactoryGirl.create(:educator_section_assignment, educator_id: educator.id, section_id: section.id)
+          FactoryBot.create_list(:educator_section_assignment,20)
+          FactoryBot.create(:educator_section_assignment, educator_id: educator.id, section_id: section.id)
 
           educator_section_assignments_importer.import_row(row)
           educator_section_assignments_importer.delete_rows

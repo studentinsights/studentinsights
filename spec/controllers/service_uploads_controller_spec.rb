@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ServiceUploadsController, type: :controller do
 
   describe '#create' do
-    let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
+    let(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: true) }
     before { sign_in(educator) }
 
     def make_post_request(params)
@@ -15,8 +15,8 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
     context 'valid data' do
       before do
-        FactoryGirl.create(:student, local_id: '111')
-        FactoryGirl.create(:student, local_id: '222')
+        FactoryBot.create(:student, local_id: '111')
+        FactoryBot.create(:student, local_id: '222')
       end
 
       let(:params) {
@@ -48,8 +48,8 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
     context 'end date before start date (invalid!)' do
       before do
-        FactoryGirl.create(:student, local_id: '111')
-        FactoryGirl.create(:student, local_id: '222')
+        FactoryBot.create(:student, local_id: '111')
+        FactoryBot.create(:student, local_id: '222')
       end
 
       let(:params) {
@@ -146,7 +146,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
       before { sign_in(educator) }
 
       context 'educator w districtwide access' do
-        let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
+        let(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: true) }
         it 'can access the page' do
           make_request
           expect(response).to be_success
@@ -154,7 +154,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
       end
 
       context 'educator w/o districtwide access' do
-        let(:educator) { FactoryGirl.create(:educator) }
+        let(:educator) { FactoryBot.create(:educator) }
         it 'cannot access the page; gets redirected' do
           make_request
           expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })
@@ -183,7 +183,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
       context 'educator w districtwide access' do
         let(:educator) {
-          FactoryGirl.create(:educator, districtwide_access: true, admin: true)
+          FactoryBot.create(:educator, districtwide_access: true, admin: true)
         }
 
         let!(:service_upload) {
@@ -201,7 +201,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
       end
 
       context 'educator w/o districtwide access' do
-        let(:educator) { FactoryGirl.create(:educator) }
+        let(:educator) { FactoryBot.create(:educator) }
         let!(:service_upload) {
           ServiceUpload.create!(file_name: 'helpful-service.txt')
         }

@@ -1,7 +1,7 @@
 RSpec.describe StudentProfileChart do
 
   describe 'percentile_ranks_to_highcharts' do
-    let(:student_assessment) { FactoryGirl.create(:star_math_warning_assessment) }
+    let(:student_assessment) { FactoryBot.create(:star_math_warning_assessment) }
     let(:input) { [student_assessment] }
     let(:student_profile_chart) { StudentProfileChart.new }
     it 'converts the student assessment to highcharts format' do
@@ -11,7 +11,7 @@ RSpec.describe StudentProfileChart do
   end
 
   describe '#chart_data' do
-    let(:student) { FactoryGirl.create(:student) }
+    let(:student) { FactoryBot.create(:student) }
     it 'has the expected keys' do
       chart_data = StudentProfileChart.new(student).chart_data
       expect(chart_data.keys).to match_array([
