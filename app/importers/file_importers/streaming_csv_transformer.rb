@@ -40,12 +40,12 @@ class StreamingCsvTransformer
     @total_rows_count = 0
     @processed_rows_count = 0
 
-    CSV.parse(@csv_string, {
+    CSV.new(@csv_string, {
       headers: @headers,
       header_converters: :symbol,
       encoding: 'binary:UTF-8',
       converters: lambda { |h| nil_converter(h) }
-    }) do |row, index|
+    }).each.with_index do |row, index|
       @total_rows_count = @total_rows_count + 1
       cleaner = CsvRowCleaner.new(row)
       next if cleaner.dirty_data?

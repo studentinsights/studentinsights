@@ -118,9 +118,9 @@ class ImportTask
       timing_data = { importer: file_importer.class.name, start_time: Time.current }
 
       begin
-        log("Starting file_importer#import for #{file_importer}...")
+        log("Starting file_importer#import for #{file_importer.class}...")
         file_importer.import
-        log("Done file_importer#import for #{file_importer}.")
+        log("Done file_importer#import for #{file_importer.class}.")
       rescue => error
         log("🚨  🚨  🚨  🚨  🚨  Error! #{error}")
         log(error.backtrace)

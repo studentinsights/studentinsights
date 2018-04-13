@@ -15,13 +15,12 @@ class BehaviorImporter
     @success_count = 0
     @error_list = []
 
-    @data.each.each_with_index do |row, index|
+    @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      @log.write(
-        "\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped"
-      )
+      @log.write("processed #{index} rows.") if index % 10000 == 0
     end
 
+    @log.write("\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped\n")
     @error_summary = @error_list.each_with_object(Hash.new(0)) do |error, memo|
       memo[error] += 1
     end
