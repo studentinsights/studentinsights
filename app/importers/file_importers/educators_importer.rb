@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 class EducatorsImporter
 
   def initialize(options:)
@@ -46,7 +48,7 @@ class EducatorsImporter
       homeroom = Homeroom.find_by_name(row[:homeroom]) if row[:homeroom]
       homeroom.update(educator: educator) if homeroom.present?
     else
-      @log.write("EducatorsImporter: nil EducatorRow, skipping row: #{row}")
+      @log.puts("EducatorsImporter: nil EducatorRow, skipping row with hash: #{Digest::SHA1.hexdigest(row)}")
     end
   end
 

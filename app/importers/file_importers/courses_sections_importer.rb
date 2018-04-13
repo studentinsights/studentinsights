@@ -44,10 +44,10 @@ class CoursesSectionsImporter
         section = SectionRow.new(row, school_ids_dictionary, course.id).build
         section.save
       else
-        @log.write("Course import invalid row: #{row}")
+        @log.puts("Course import invalid row: #{row}")
       end
     else
-      @log.write("Course import invalid row missing school_local_id: #{row}")
+      @log.puts("Course import invalid row missing school_local_id: #{row}")
     end
   end
 

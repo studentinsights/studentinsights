@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 class StudentSectionAssignmentsImporter
 
   def initialize(options:)
@@ -58,7 +60,7 @@ class StudentSectionAssignmentsImporter
       assignment.save!
       @imported_assignments.push(assignment.id)
     else
-      @log.write("Student Section Assignment Import invalid row: #{row}")
+      @log.puts("Student Section Assignment Import invalid row: #{Digest::SHA1.hexdigest(row)}")
     end
   end
 end
