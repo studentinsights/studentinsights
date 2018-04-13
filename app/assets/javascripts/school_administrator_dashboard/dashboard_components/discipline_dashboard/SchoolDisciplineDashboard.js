@@ -63,9 +63,9 @@ class SchoolDisciplineDashboard extends React.Component {
 
   sortChartData(chart) {
     switch(chart.type) {
-      case 'time': return this.sortByTime(chart.disciplineIncidents);
-      case 'day': return this.sortByDay(chart.disciplineIncidents);
-      default: return chart.disciplineIncidents;
+    case 'time': return this.sortByTime(chart.disciplineIncidents);
+    case 'day': return this.sortByDay(chart.disciplineIncidents);
+    default: return chart.disciplineIncidents;
     }
   }
 
@@ -93,7 +93,7 @@ class SchoolDisciplineDashboard extends React.Component {
 
       if (a_AmPm === 'AM' && b_AmPm == 'PM') return -1;
 
-      if (a_AmPm === 'PM' && b_AmPm == 'AM') return 1
+      if (a_AmPm === 'PM' && b_AmPm == 'AM') return 1;
 
       return a_Hour - b_Hour;
     });
