@@ -14,7 +14,7 @@ RSpec.describe ImportRecordsController, type: :controller do
 
       context 'educator w districtwide access' do
         let(:educator) {
-          FactoryGirl.create(:educator, districtwide_access: true, admin: true)
+          FactoryBot.create(:educator, districtwide_access: true, admin: true)
         }
 
         context 'no import records' do
@@ -66,7 +66,7 @@ RSpec.describe ImportRecordsController, type: :controller do
         end
 
         context 'educator w/o districtwide access' do
-          let(:educator) { FactoryGirl.create(:educator) }
+          let(:educator) { FactoryBot.create(:educator) }
           it 'cannot access the page; gets redirected' do
             make_request
             expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })

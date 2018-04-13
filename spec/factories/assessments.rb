@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :assessment do
     trait :mcas do
       family "MCAS"

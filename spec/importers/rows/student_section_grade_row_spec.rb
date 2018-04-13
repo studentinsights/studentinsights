@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe StudentSectionGradeRow do
   describe '#build' do
     context 'happy path' do
-      let!(:section) { FactoryGirl.create(:section) }
-      let!(:student) { FactoryGirl.create(:high_school_student) }
+      let!(:section) { FactoryBot.create(:section) }
+      let!(:student) { FactoryBot.create(:high_school_student) }
       let!(:ssa) do
-        FactoryGirl.create(:student_section_assignment,
+        FactoryBot.create(:student_section_assignment,
                            student: student,
                            section: section)
       end

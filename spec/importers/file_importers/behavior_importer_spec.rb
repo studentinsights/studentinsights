@@ -22,7 +22,7 @@ RSpec.describe BehaviorImporter do
     let(:incident) { incidents.last }
 
     context 'typical row' do
-      let(:student) { FactoryGirl.create(:student, local_id: '10') }
+      let(:student) { FactoryBot.create(:student, local_id: '10') }
       let(:row) {
         {
           local_id: student.local_id,
@@ -50,7 +50,7 @@ RSpec.describe BehaviorImporter do
     end
 
     context 'multiple rows' do
-      let(:student) { FactoryGirl.create(:student, local_id: '10') }
+      let(:student) { FactoryBot.create(:student, local_id: '10') }
       before { importer.import_row(row_two) }
 
       let(:row) {
@@ -87,7 +87,7 @@ RSpec.describe BehaviorImporter do
     end
 
     context 'very long incident description' do
-      let!(:student) { FactoryGirl.create(:student, local_id: '11') }
+      let!(:student) { FactoryBot.create(:student, local_id: '11') }
       let(:big_block_of_text) { "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." }
       let(:row) {
         {
@@ -108,7 +108,7 @@ RSpec.describe BehaviorImporter do
     end
 
     context 'time missing' do
-      let!(:student) { FactoryGirl.create(:student, local_id: '13') }
+      let!(:student) { FactoryBot.create(:student, local_id: '13') }
       let(:row) {
         {
           local_id: student.local_id,
@@ -130,7 +130,7 @@ RSpec.describe BehaviorImporter do
     end
 
     context 'description text has non UTF-8 byte sequence' do
-      let!(:student) { FactoryGirl.create(:student, local_id: '12') }
+      let!(:student) { FactoryBot.create(:student, local_id: '12') }
       let(:row) {
         {
           local_id: student.local_id,

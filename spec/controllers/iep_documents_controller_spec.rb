@@ -23,7 +23,7 @@ RSpec.describe IepDocumentsController, type: :controller do
       ).and_return FakeAwsResponse.new
     end
 
-    let(:student) { FactoryGirl.create(:student) }
+    let(:student) { FactoryBot.create(:student) }
 
     subject {
       IepDocument.create(
@@ -33,7 +33,7 @@ RSpec.describe IepDocumentsController, type: :controller do
     }
 
     context 'educator has permissions for associated student' do
-      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+      let(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
       before { sign_in(educator) }
 
       it 'renders a pdf' do
@@ -43,7 +43,7 @@ RSpec.describe IepDocumentsController, type: :controller do
     end
 
     context 'educator does not have permissions for associated student' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { FactoryBot.create(:educator) }
       before { sign_in(educator) }
 
       it 'redirects' do

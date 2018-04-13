@@ -4,7 +4,7 @@ RSpec.describe McasRow do
 
   context 'with no Assessment records in the database' do
     before { Assessment.destroy_all }
-    let(:student) { FactoryGirl.create(:student) }
+    let(:student) { FactoryBot.create(:student) }
     after { Assessment.seed_somerville_assessments }
 
     context 'invalid subject (i.e. not used in Student Insights)' do

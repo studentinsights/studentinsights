@@ -139,10 +139,10 @@ RSpec.describe Authorizer do
     end
 
     describe 'EventNote' do
-      let!(:healey_public_note) { FactoryGirl.create(:event_note, student: pals.healey_kindergarten_student) }
-      let!(:healey_restricted_note) { FactoryGirl.create(:event_note, student: pals.healey_kindergarten_student, is_restricted: true) }
-      let!(:shs_public_note) { FactoryGirl.create(:event_note, student: pals.shs_freshman_mari) }
-      let!(:shs_restricted_note) { FactoryGirl.create(:event_note, student: pals.shs_freshman_mari, is_restricted: true) }
+      let!(:healey_public_note) { FactoryBot.create(:event_note, student: pals.healey_kindergarten_student) }
+      let!(:healey_restricted_note) { FactoryBot.create(:event_note, student: pals.healey_kindergarten_student, is_restricted: true) }
+      let!(:shs_public_note) { FactoryBot.create(:event_note, student: pals.shs_freshman_mari) }
+      let!(:shs_restricted_note) { FactoryBot.create(:event_note, student: pals.shs_freshman_mari, is_restricted: true) }
 
       it 'limits access for relation' do
         expect(authorized(pals.uri) { EventNote.all }).to eq [

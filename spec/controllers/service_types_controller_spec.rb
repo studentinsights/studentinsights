@@ -11,7 +11,7 @@ describe ServiceTypesController, :type => :controller do
     let(:parsed_response) { JSON.parse(response.body) }
 
     context 'educator logged in' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { FactoryBot.create(:educator) }
       it 'returns an array of student lasids' do
         sign_in(educator)
         make_request
