@@ -61,32 +61,27 @@ class SchoolDisciplineDashboard extends React.Component {
       title: "Incidents by " + selectedChart};
   }
 
-  sortChartData(chart) {
-    switch(chart.type) {
-    case 'time': return this.sortByTime(chart.disciplineIncidents);
-    case 'day': return this.sortByDay(chart.disciplineIncidents);
-    default: return chart.disciplineIncidents;
+  sortChartKeys(chartKeys) {
+    switch(this.state.selectedChart) {
+    case 'time': return this.sortedTimes(chartKeys);
+    case 'day': return this.sortedDays();
+    case 'grade': return this.sortedGrades(chartKeys);
+    default: return chartKeys;
     }
   }
 
-  sortByDay(incidentsGroupedByDay) {
-    const dayOrder = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    let sortedHash = {};
-    dayOrder.forEach((day) => {
-      if (incidentsGroupedByDay[day]) sortedHash[day] = incidentsGroupedByDay[day];
-    });
-    return sortedHash;
+  sortedDays() {
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
 
-  sortByTime(incidentsGroupedByTime) {
-    const sortedTimes = Object.keys(incidentsGroupedByTime).sort((a, b) => {
+  sortedTimes(chartKeys) {
+    return chartKeys.sort((a, b) => {
       return new Date('1970/01/01 ' + a) - new Date('1970/01/01 ' + b);
     });
-    let sortedHash = {};
-    sortedTimes.forEach((hour) => {
-      sortedHash[hour] = incidentsGroupedByTime[hour];
-    });
-    return sortedHash;
+  }
+
+  sortedGrades(chartKeys) {
+    return ['PK', 'KF', '1','2','3','4','5','6','7','8','9','10','11','12'].filter((grade) => chartKeys.includes(grade));
   }
 
   render() {
@@ -114,7 +109,7 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderDisciplineChart(selectedChart) {
-    const categories = Object.keys(this.sortChartData(selectedChart));
+    const categories = this.sortChartKeys(Object.keys(selectedChart.disciplineIncidents));
     const seriesData = categories.map((type) => {
       const incidents = this.filterIncidentDates(selectedChart.disciplineIncidents[type]);
       return [type, incidents.length];
