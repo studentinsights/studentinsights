@@ -143,7 +143,7 @@ FactoryBot.define do
     sequence(:incident_code) { example_incident_codes.sample }
     sequence(:incident_location) { example_incident_locations.sample }
     sequence(:incident_description) { example_incident_descriptions.sample }
-    has_exact_time { if Random::rand(1.0) > 0.91 then true else false end }
+    has_exact_time { if Random::rand(1.0) > 0.084 then true else false end }
     occurred_at do
       time = DemoDataUtil.random_time
       if has_exact_time then time else time.beginning_of_day end
