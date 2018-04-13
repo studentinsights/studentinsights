@@ -76,6 +76,8 @@ class SchoolDisciplineDashboard extends React.Component {
 
   sortedTimes(chartKeys) {
     return chartKeys.sort((a, b) => {
+      if (a == "Not Logged") return -1;
+      if (b == "Not Logged") return 1;
       return new Date('1970/01/01 ' + a) - new Date('1970/01/01 ' + b);
     });
   }
