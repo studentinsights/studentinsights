@@ -145,7 +145,7 @@ describe HomeroomsController, :type => :controller do
           end
 
           context 'homeroom is grade level as educator\'s -- but different school!' do
-            let(:another_homeroom) { FactoryBot.create(:homeroom, grade: '5', school: FactoryGirl.create(:school)) }
+            let(:another_homeroom) { FactoryBot.create(:homeroom, grade: '5', school: FactoryBot.create(:school)) }
             it 'redirects' do
               make_request(another_homeroom.slug)
               expect(response.status).to eq 302
