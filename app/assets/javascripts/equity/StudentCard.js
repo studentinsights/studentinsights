@@ -1,6 +1,7 @@
 import React from 'react';
 import Hover from '../components/Hover';
 import Card from '../components/Card';
+import HelpBubble from '../components/HelpBubble';
 import {studentAge} from '../helpers/studentAge';
 
 // Shows a student card in the `ClassroomListCreator` UI
@@ -12,12 +13,13 @@ export default class StudentCard extends React.Component {
 
   onMoreClick(e) {
     e.preventDefault();
-    alert('hi');
+    console.log('hi, card clicked');
   }
 
   render() {
     const now = this.context.nowFn();
-    const {student, style} = this.props;
+    const {student, width, style} = this.props;
+    const padding = 5;
     const containerStyle = {
       fontSize: 12,
       border: '1px solid #eee',
@@ -36,8 +38,13 @@ export default class StudentCard extends React.Component {
           <div
             onClick={this.onMoreClick}
             className="StudentCard"
-            style={{...containerStyle, ...style, ...hoverStyle}}>
-            <div style={{padding: 5}}>{student.first_name} {student.last_name}</div>
+            style={{...containerStyle, ...style, ...hoverStyle, width: width}}>            
+            {/* hacked */}
+            <HelpBubble
+              el={<div style={{padding}}>{student.first_name} {student.last_name}</div>}
+              title={`${student.first_name} ${student.last_name}`}
+              content={<div>yo</div>}
+            />
           </div>
         );
       }}</Hover>
@@ -46,6 +53,7 @@ export default class StudentCard extends React.Component {
 }
 StudentCard.propTypes= {
   student: React.PropTypes.object.isRequired,
+  width: React.PropTypes.number.isRequired,
   style: React.PropTypes.object
 };
 

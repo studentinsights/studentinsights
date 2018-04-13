@@ -68,7 +68,7 @@ export default class SchoolEquityTeachersPage extends React.Component {
     const {schoolId, grade} = this.props;
     const {educators} = this.state;
     return (
-      <ClassroomListCreatorFlipped
+      <ClassroomListCreator
         schoolId={schoolId}
         grade={grade}
         educators={educators} />

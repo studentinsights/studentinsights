@@ -9,7 +9,7 @@ import StudentCard from './StudentCard';
 import {gradeText} from '../helpers/gradeText';
 import Draggable from 'react-draggable';
 
-const width = 220;
+const width = 185;
 const styles = {
   root: {
     overflowY: 'hidden',
@@ -150,7 +150,7 @@ function initialSlots(students, rooms) {
   return students.reduce((map, student) => {
     return {
       ...map,
-      [student.id]: Math.floor(Math.random()*rooms.length + 1)
+      [student.id]: rooms.length
     };
   }, {});
 }
@@ -172,7 +172,7 @@ class ClassroomListCreatorView extends React.Component {
     const {students, rooms} = this.props;
     const {slots} = this.state;
     const roomIndex = rooms.indexOf(room);
-    const slotForRoom = roomIndex + 1;
+    const slotForRoom = roomIndex;
     return students.filter(student => slots[student.id] === slotForRoom);
   }
 
@@ -184,9 +184,7 @@ class ClassroomListCreatorView extends React.Component {
       if (sortKey === 'not-yet-placed') {
         return slots[student.id];
       } else if (sortKey === 'classroom') {
-        return (slots[student.id] === 0)
-          ? rooms.length + 1
-          : slots[student.id];
+        return slots[student.id];
       } else if (sortKey === 'alphabetical') {
         return student.last_name + ' ' + student.first_name;
       }
@@ -212,14 +210,18 @@ class ClassroomListCreatorView extends React.Component {
 
   onDragStop(student, e, data) {
     e.preventDefault();
+    e.stopPropagation();
 
     const {x} = data;
     const {slots} = this.state;
     const slot = Math.floor(x / width);
     this.setState({
-      ...slots,
-      [student.id]: slot
+      slots: {
+        ...slots,
+        [student.id]: slot
+      }
     });
+    this.forceUpdate(); // TODO(kr) hacking draggable
   }
 
   render() {
@@ -237,15 +239,15 @@ class ClassroomListCreatorView extends React.Component {
               {this.renderSortLink('classroom', 'classroom')}
               {this.renderSortLink('alphabetical', 'alphabetical')}
             </div>
-            <div style={styles.links}>
+            {/*<div style={styles.links}>
               Actions:
               <a onClick={this.onResetClicked} style={styles.link}>reset to blank</a>
               <a style={styles.link}>randomly assign not yet placed</a>
-            </div>
+            </div>*/}
           </div>
           <div style={styles.listsContainer}>
-            {rooms.map((room, index) => this.renderRoom(room, index + 1))}
-            <div key="unplaced" style={{...styles.column, borderRight: 0}}>
+            {rooms.map((room, index) => this.renderRoom(room, index))}
+            <div key="unplaced" style={{...styles.column, borderRight: 0, width: 'auto', flex: 1}}>
               <h2>Not yet placed</h2>
               <div style={styles.indicator}>Students left to place: {sortedStudents.length}</div>
             </div>
@@ -263,13 +265,13 @@ class ClassroomListCreatorView extends React.Component {
                 <Draggable
                   key={student.id}
                   axis="x"
-                  defaultPosition={{x: width * slot, y: 0}}
+                  position={{x: width * slot, y: 0}}
                   grid={[width, 0]}
                   onStop={this.onDragStop.bind(this, student)}>
                   <div>
                    <StudentCard
                     student={student}
-                    style={{width}} />
+                    width={width} />
                   </div>
                 </Draggable>
               );
@@ -303,7 +305,7 @@ class ClassroomListCreatorView extends React.Component {
   renderRoom(room, slotForRoom) {
     const {rooms} = this.props;
     const studentsInRooms = rooms.map(this.studentsInRoom, this);
-    const studentsInRoom = studentsInRooms[slotForRoom - 1];
+    const studentsInRoom = studentsInRooms[slotForRoom];
     const containerStyle = (slotForRoom === rooms.length)
       ? styles.column
       : {...styles.column, borderRight: 0};
@@ -327,13 +329,20 @@ class ClassroomListCreatorView extends React.Component {
       const count = students.filter(s => -1 !== ['Free Lunch', 'Reduced Lunch'].indexOf(s.free_reduced_lunch)).length;
       return count === 0 ? 0 : Math.round(100 * count / students.length);
     });
-    const percent = percentageInRooms[slotForRoom - 1];
-    return (
-      <div>
-        <div>Language</div>
-        <Bar percent={percent} threshold={10} styles={{paddingLeft: 20, paddingRight: 20, background: '#ccc', border: '#999', height: 12, width: 100 }} />
-      </div>
-    );
+    return this.renderOutlier('Language', percentageInRooms, percentageInRooms[slotForRoom]);
+
+    // with bar
+    // const percentageInRooms = studentsInRooms.map(students => {
+    //   const count = students.filter(s => -1 !== ['Free Lunch', 'Reduced Lunch'].indexOf(s.free_reduced_lunch)).length;
+    //   return count === 0 ? 0 : Math.round(100 * count / students.length);
+    // });
+    // const percent = percentageInRooms[slotForRoom];
+    // return (
+    //   <div>
+    //     <div>Language</div>
+    //     <Bar percent={percent} threshold={10} styles={{paddingLeft: 20, paddingRight: 20, background: '#ccc', border: '#999', height: 12, width: 100 }} />
+    //   </div>
+    // );
   }
 
   // TODO(kr) PerDistrict
@@ -342,7 +351,7 @@ class ClassroomListCreatorView extends React.Component {
       const count = students.filter(s => -1 !== ['Fluent'].indexOf(s.limited_english_proficiency)).length;
       return count === 0 ? 0 : Math.round(100 * count / students.length);
     });
-    return this.renderOutlier('Learning English', percentageInRooms, percentageInRooms[slotForRoom - 1]);
+    return this.renderOutlier('Learning English', percentageInRooms, percentageInRooms[slotForRoom]);
   }
 
   // TODO(kr) PerDistrict
@@ -351,7 +360,7 @@ class ClassroomListCreatorView extends React.Component {
       const count = students.filter(s => s.disability !== null).length;
       return count === 0 ? 0 : Math.round(100 * count / students.length);
     });
-    return this.renderOutlier('Disability', percentageInRooms, percentageInRooms[slotForRoom - 1]);
+    return this.renderOutlier('Disability', percentageInRooms, percentageInRooms[slotForRoom]);
   }
 
   renderMath(studentsInRooms, slotForRoom) {
@@ -366,11 +375,13 @@ class ClassroomListCreatorView extends React.Component {
     const valuesForRooms = studentsInRooms.map(students => {
       return _.compact(students.map(accessor));
     });
-    const values = valuesForRooms[slotForRoom - 1];
+    const values = valuesForRooms[slotForRoom];
     return (
       <div>
         <div>{text}</div>
-        <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />
+        {(values.length === 0)
+          ? <div style={{height: 30}}>{'\u00A0'}</div>
+          : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
       </div>
     );
   }
