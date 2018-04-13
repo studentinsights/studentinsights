@@ -18,7 +18,7 @@ class AttendanceImporter
 
     @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      @log.write("processed #{index} rows.") if index % 10000
+      @log.write("processed #{index} rows.") if index % 10000 == 0
     end
 
     @log.write("\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped\n")
