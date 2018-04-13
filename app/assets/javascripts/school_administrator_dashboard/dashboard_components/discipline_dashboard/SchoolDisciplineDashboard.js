@@ -6,6 +6,7 @@ import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DateSlider from '../DateSlider';
+import {sortByGrade} from '../../../helpers/SortHelpers';
 
 class SchoolDisciplineDashboard extends React.Component {
 
@@ -84,7 +85,7 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   sortedGrades(chartKeys) {
-    return ['PK', 'KF', '1','2','3','4','5','6','7','8','9','10','11','12'];
+    return chartKeys.sort((a,b) => sortByGrade(a,b));
 
   }
 
