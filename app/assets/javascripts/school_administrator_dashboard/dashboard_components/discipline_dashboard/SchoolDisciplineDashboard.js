@@ -64,14 +64,14 @@ class SchoolDisciplineDashboard extends React.Component {
   sortChartKeys(chartKeys) {
     switch(this.state.selectedChart) {
     case 'time': return this.sortedTimes(chartKeys);
-    case 'day': return this.sortedDays();
+    case 'day': return this.sortedDays(chartKeys);
     case 'grade': return this.sortedGrades(chartKeys);
     default: return chartKeys;
     }
   }
 
-  sortedDays() {
-    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  sortedDays(chartKeys) {
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].filter((day) => chartKeys.includes(day));
   }
 
   sortedTimes(chartKeys) {
