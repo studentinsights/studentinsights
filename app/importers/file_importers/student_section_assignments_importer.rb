@@ -58,7 +58,7 @@ class StudentSectionAssignmentsImporter
       assignment.save!
       @imported_assignments.push(assignment.id)
     else
-      @log.write("Student Section Assignment Import invalid row: #{row}")
+      @log.puts("Student Section Assignment Import invalid row")
     end
   end
 end

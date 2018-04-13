@@ -157,7 +157,7 @@ class ImportTask
 
   def log(msg)
     full_msg = "\n\n💾  ImportTask: #{msg}"
-    @log.write full_msg
+    @log.puts full_msg
     @record.log += full_msg
   end
 end
