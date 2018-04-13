@@ -71,7 +71,7 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   sortedDays(chartKeys) {
-    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].filter((day) => chartKeys.indexOf(day) >= 0);
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
 
   sortedTimes(chartKeys) {
@@ -83,7 +83,7 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   sortedGrades(chartKeys) {
-    return ['PK', 'KF', '1','2','3','4','5','6','7','8','9','10','11','12'].filter((grade) => chartKeys.indexOf(grade) >= 0);
+    return ['PK', 'KF', '1','2','3','4','5','6','7','8','9','10','11','12'];
 
   }
 
@@ -115,6 +115,7 @@ class SchoolDisciplineDashboard extends React.Component {
   renderDisciplineChart(selectedChart) {
     const categories = this.sortChartKeys(Object.keys(selectedChart.disciplineIncidents));
     const seriesData = categories.map((type) => {
+      if (!selectedChart.disciplineIncidents[type]) return [];
       const incidents = this.filterIncidentDates(selectedChart.disciplineIncidents[type]);
       return [type, incidents.length];
     });
