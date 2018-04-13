@@ -36,7 +36,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 # used to seed demo data in production
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'faker'
 
 group :development, :test do
