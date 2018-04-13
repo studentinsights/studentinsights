@@ -390,7 +390,7 @@ class ClassroomListCreatorView extends React.Component {
     const diffByRooms = byRooms.map(byRoom => byRoom - value);
     const maxDiff = _.max(diffByRooms, Math.abs);
     return (maxDiff > 0.10)
-        ? <span style={{color: '#3177c9'}}>{text}: {value}%</span>
+        ? <span style={{color: 'orange'}}>{text}: {value}%</span>
         : <span style={{color: '#ccc'}}>{text}: {value}%</span>;
   }
 

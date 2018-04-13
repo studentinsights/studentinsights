@@ -19,7 +19,7 @@ export default class SchoolEquityTeachersPage extends React.Component {
     this.state = {
       educators: [],
       statementText: '',
-      phase: Phases.CREATING // TODO(kr)
+      phase: Phases.STARTING // TODO(kr)
     };
 
     this.onNextClicked = this.onNextClicked.bind(this);
@@ -42,24 +42,27 @@ export default class SchoolEquityTeachersPage extends React.Component {
 
   renderStartingPhase() {
     return (
-      <div>
-        <div>
-          <SectionHeading>Who's here?</SectionHeading>
-          <textarea rows={4}></textarea>
+      <div style={{margin: 10}}>
+        <SectionHeading>Classroom communities</SectionHeading>
+        <div style={{padding: 10}}>
+          <div>
+            <h4>Who's here?</h4>
+            <textarea rows={3}></textarea>
+          </div>
+          <div>
+            <h4>What school and grade?</h4>
+            <textarea rows={1}></textarea>
+          </div>
+          <div>
+            <h4>How many rooms?</h4>
+            <textarea rows={1}></textarea>
+          </div>
+          <div>
+            <h4>What's your plan?</h4>
+            <textarea rows={6}></textarea>
+          </div>
+          <button className="btn" style={{float: 'right', marginRight: 40, marginTop: 10}} onClick={this.onNextClicked}>Next ></button>
         </div>
-        <div>
-          <SectionHeading>What school and grade?</SectionHeading>
-          <textarea rows={2}></textarea>
-        </div>
-        <div>
-          <SectionHeading>How many rooms?</SectionHeading>
-          <textarea rows={2}></textarea>
-        </div>
-        <div>
-          <SectionHeading>What's your plan?</SectionHeading>
-          <textarea rows={6}></textarea>
-        </div>
-        <button onClick={this.onNextClicked}>ok</button>
       </div>
     );
   }
