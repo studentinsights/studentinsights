@@ -9,95 +9,21 @@ import StudentCard from './StudentCard';
 import {gradeText} from '../helpers/gradeText';
 import Draggable from 'react-draggable';
 
-const width = 220;
 const styles = {
-  root: {
-    overflowY: 'hidden',
-    overflowX: 'hidden',
-    height: 580, // TODO(kr)
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column'
+  root: {},
+  classroomsGrid: {
+    flex: 3
   },
-  loader: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column'
+  unassignedList: {
+    flex: 1
   },
-  content: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column'
-  },
-  sectionHeading: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-    paddingTop: 0
-  },
-  classrooms: {
-    padding: 10,
-    paddingBottom: 0
-  },
-  listsContainer: {
-    display: 'flex',
-    margin: 10,
-    marginBottom: 0,
-    borderBottom: '1px solid black'
-  },
-  students: {
-    padding: 20,
-    paddingTop: 0,
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column'
-  },
-  links: {
-    fontSize: 12,
-    paddingLeft: 10
-  },
-  link: {
-    display: 'inline-block',
-    padding: 5,
-    fontSize: 12,
-    color: '#3177c9'
-  },
-  selectedLink: {
-    border: '1px solid #3177c9'
-  },
-  studentsGrid: {
-    flex: 1,
-    overflowY: 'scroll',
-    overflowX: 'hidden',
-    border: '1px solid #ccc'
-    /* backgroundColor: 'rgba(243, 136, 42, 0.18)' */
-  },
-  indicator: {
-    fontSize: 12
-  },
-  column: {
-    width: width,
-    backgroundColor: '#eee',
-    border: '1px solid #ccc',
-    borderBottom: 0,
-    padding: 10
-  },
-  listStyle: {
-    backgroundColor: '#eee',
-    border: '1px solid #ccc',
-    height: 180,
-    width: width
-  },
-  itemStyle: {
-    userSelect: 'none'
-  },
-  leftListStyle: {
-    width: width
+  columns: {
+    display: 'flex'
   }
 };
 
 // For grade-level teaching teams 
-export default class ClassroomListCreator extends React.Component {
+export default class ClassroomListCreatorFlipped extends React.Component {
   constructor(props) {
     super(props);
 
@@ -115,9 +41,8 @@ export default class ClassroomListCreator extends React.Component {
 
   render() {
     return (
-      <div className="ClassroomListCreator" style={styles.root}>
+      <div className="ClassroomListCreatorFlipped" style={styles.root}>
         <GenericLoader
-          style={styles.loader}
           promiseFn={this.fetchStudents}
           render={this.renderContent} />
       </div>
@@ -127,11 +52,17 @@ export default class ClassroomListCreator extends React.Component {
   renderContent(json) {
     const {grade, educators} = this.props;
     const {students, school} = json;
-    const rooms = ['Room A', 'Room B', 'Room C', 'Room D'];
+    const rooms = [
+      { id: 1, text: 'Room A' },
+      { id: 2, text: 'Room B' },
+      { id: 3, text: 'Room C' },
+      { id: 4, text: 'Room D' },
+      { id: 5, text: 'Room E' }
+    ];
     const communityName = `${gradeText(grade)} at ${school.name}`;
 
     return (
-      <ClassroomListCreatorView
+      <ClassroomListCreatorFlippedView
         communityName={communityName}
         students={students}
         rooms={rooms}
@@ -139,69 +70,66 @@ export default class ClassroomListCreator extends React.Component {
     );
   }
 }
-ClassroomListCreator.propTypes = {
+ClassroomListCreatorFlipped.propTypes = {
   schoolId: React.PropTypes.string.isRequired,
   grade: React.PropTypes.string.isRequired, 
   educators: React.PropTypes.array.isRequired
 };
 
 
-function initialSlots(students, rooms) {
+function initialSlots(students) {
   return students.reduce((map, student) => {
     return {
       ...map,
-      [student.id]: Math.floor(Math.random()*rooms.length + 1)
+      [student.id]: null
     };
   }, {});
 }
 
-class ClassroomListCreatorView extends React.Component {
+class ClassroomListCreatorFlippedView extends React.Component {
   constructor(props) {
     super(props);
 
     const {students, rooms} = props;
     this.state = {
       sortKey: 'not-yet-placed',
-      slots: initialSlots(students, rooms)
+      slots: initialSlots(students)
     };
 
     this.onResetClicked = this.onResetClicked.bind(this);
   }
 
-  studentsInRoom(room) {
-    const {students, rooms} = this.props;
-    const {slots} = this.state;
-    const roomIndex = rooms.indexOf(room);
-    const slotForRoom = roomIndex + 1;
-    return students.filter(student => slots[student.id] === slotForRoom);
-  }
+  // studentsInRoom(room) {
+  //   const {students, rooms} = this.props;
+  //   const {slots} = this.state;
+  //   const roomIndex = rooms.indexOf(room);
+  //   const slotForRoom = roomIndex + 1;
+  //   return students.filter(student => slots[student.id] === slotForRoom);
+  // }
 
   sortedStudents() {
-    const {students, rooms} = this.props;
-    const {slots, sortKey} = this.state;
+    const {students} = this.props;
+    return students;
+    // const {slots, sortKey} = this.state;
 
-    return _.sortBy(students, (student, index) => {
-      if (sortKey === 'not-yet-placed') {
-        return slots[student.id];
-      } else if (sortKey === 'classroom') {
-        return (slots[student.id] === 0)
-          ? rooms.length + 1
-          : slots[student.id];
-      } else if (sortKey === 'alphabetical') {
-        return student.last_name + ' ' + student.first_name;
-      }
-      return index;
-    });
+    // return _.sortBy(students, (student, index) => {
+    //   if (sortKey === 'not-yet-placed') {
+    //     return slots[student.id];
+    //   } else if (sortKey === 'classroom') {
+    //     return (slots[student.id] === 0)
+    //       ? rooms.length + 1
+    //       : slots[student.id];
+    //   } else if (sortKey === 'alphabetical') {
+    //     return student.last_name + ' ' + student.first_name;
+    //   }
+    //   return index;
+    // });
   }
 
-  onResetClicked() {
-    const {students, rooms} = this.props;
-    const slots = students.reduce((map, student) => {
-      return {
-        ...map,
-        [student.id]: rooms.length - 1
-      };
-    }, {});
+  onResetClicked(e) {
+    e.preventDefault();
+    const {students} = this.props;
+    const slots = initialSlots(students);
     this.setState({slots});
   }
 
@@ -210,17 +138,17 @@ class ClassroomListCreatorView extends React.Component {
     this.setState({sortKey});
   }
 
-  onDragStop(student, e, data) {
-    e.preventDefault();
+  // onDragStop(student, e, data) {
+  //   e.preventDefault();
 
-    const {x} = data;
-    const {slots} = this.state;
-    const slot = Math.floor(x / width);
-    this.setState({
-      ...slots,
-      [student.id]: slot
-    });
-  }
+  //   const {x} = data;
+  //   const {slots} = this.state;
+  //   const slot = Math.floor(x / width);
+  //   this.setState({
+  //     ...slots,
+  //     [student.id]: slot
+  //   });
+  // }
 
   render() {
     const {rooms, communityName, students} = this.props;
@@ -231,49 +159,49 @@ class ClassroomListCreatorView extends React.Component {
       <div style={styles.content}>
         <div style={styles.classrooms}>
           <SectionHeading style={styles.sectionHeading}>Classroom community: {communityName}</SectionHeading>
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <div style={styles.links}>
-              Sort by:
-              {this.renderSortLink('classroom', 'classroom')}
-              {this.renderSortLink('alphabetical', 'alphabetical')}
-            </div>
-            <div style={styles.links}>
-              Actions:
-              <a onClick={this.onResetClicked} style={styles.link}>reset to blank</a>
-              <a style={styles.link}>randomly assign not yet placed</a>
-            </div>
-          </div>
-          <div style={styles.listsContainer}>
-            {rooms.map((room, index) => this.renderRoom(room, index + 1))}
-            <div key="unplaced" style={{...styles.column, borderRight: 0}}>
-              <h2>Not yet placed</h2>
-              <div style={styles.indicator}>Students left to place: {sortedStudents.length}</div>
+          <div style={{margin: 20}}>
+            <div>heading...</div>
+            <div>
+              <div style={styles.links}>
+                Sort by:
+                {this.renderSortLink('classroom', 'classroom')}
+                {this.renderSortLink('alphabetical', 'alphabetical')}
+              </div>
+              <div style={styles.links}>
+                Actions:
+                <a onClick={this.onResetClicked} style={styles.link}>reset to blank</a>
+                <a style={styles.link}>randomly assign not yet placed</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div style={styles.students}>
-          <div style={styles.studentsGrid}>
-            {sortedStudents.map(student => {
-              const slot = slots[student.id];
-
-              // TODO(kr) calling setState in onStop doesn't work with
-              // updated defaultPosition.  This means "action" links don't work.
-              // <Draggable /> requires a <div /> to be the child.
-              return (
-                <Draggable
-                  key={student.id}
-                  axis="x"
-                  defaultPosition={{x: width * slot, y: 0}}
-                  grid={[width, 0]}
-                  onStop={this.onDragStop.bind(this, student)}>
-                  <div>
-                   <StudentCard
+          <div style={styles.columns}>
+            <div className="Flipped-unassigned" style={styles.unassignedList}>
+              <SectionHeading>Students to place</SectionHeading>
+              {students.map(student => {
+                return (
+                  <StudentCard
+                    key={student.id}
                     student={student}
-                    style={{width}} />
-                  </div>
-                </Draggable>
-              );
-            })}
+                    style={{display: 'block'}} />
+                );
+              })}
+            </div>
+            <div className="Flipped-classrooms-grid" style={styles.classroomsGrid}>
+              <SectionHeading>Classroom communities</SectionHeading>
+              <table>
+                <tbody>
+                  {rooms.map(room => {
+                    return (
+                      <tr style={styles.room}>
+                        <td>{room.name}</td>
+                        <td>...students...</td>
+                        <td>...stats...</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -393,7 +321,7 @@ class ClassroomListCreatorView extends React.Component {
       : <span style={{color: '#ccc'}}>{text}: {value}%</span>;
   }
 }
-ClassroomListCreatorView.propTypes = {
+ClassroomListCreatorFlippedView.propTypes = {
   communityName: React.PropTypes.string.isRequired,
   rooms: React.PropTypes.array.isRequired,
   students: React.PropTypes.array.isRequired

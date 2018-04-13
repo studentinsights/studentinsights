@@ -2,6 +2,7 @@ import React from 'react';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import ClassroomListCreator from './ClassroomListCreator';
+import ClassroomListCreatorFlipped from './ClassroomListCreatorFlipped';
 
 
 const Phases = {
@@ -67,7 +68,7 @@ export default class SchoolEquityTeachersPage extends React.Component {
     const {schoolId, grade} = this.props;
     const {educators} = this.state;
     return (
-      <ClassroomListCreator
+      <ClassroomListCreatorFlipped
         schoolId={schoolId}
         grade={grade}
         educators={educators} />
