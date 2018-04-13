@@ -1,5 +1,3 @@
-require 'digest/sha1'
-
 class StudentSectionGradesImporter
 
   # Most of our file importer classes match to a SQL file in the /x2_export folder.
@@ -67,7 +65,7 @@ class StudentSectionGradesImporter
     if student_section_assignment
       student_section_assignment.save!
     else
-      @log.puts("Student Section Grade Import invalid row: #{Digest::SHA1.hexdigest(row)}")
+      @log.puts("Student Section Grade Import invalid row")
     end
   end
 end
