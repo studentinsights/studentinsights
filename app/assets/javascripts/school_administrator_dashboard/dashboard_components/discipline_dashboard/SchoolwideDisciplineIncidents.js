@@ -17,7 +17,7 @@ class SchoolWideDisciplineIncidents extends React.Component {
         if (moment.utc(incident.occurred_at).isSameOrAfter(moment.utc(startDate))) {
           schoolDisciplineEvents.push({
             student_id: incident.student_id,
-            location: incident.incident_location,
+            location: incident.incident_location || "Not Recorded",
             time: incident.has_exact_time ? moment.utc(incident.occurred_at).format("h A") : "Not Logged",
             classroom: student.homeroom_label || "No Homeroom",
             grade: student.grade,
