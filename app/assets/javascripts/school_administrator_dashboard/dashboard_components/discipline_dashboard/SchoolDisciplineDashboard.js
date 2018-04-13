@@ -63,9 +63,9 @@ class SchoolDisciplineDashboard extends React.Component {
 
   sortChartData(chart) {
     switch(chart.type) {
-    case 'time': return this.sortByTime(chart.disciplineIncidents);
-    case 'day': return this.sortByDay(chart.disciplineIncidents);
-    default: return chart.disciplineIncidents;
+      case 'time': return this.sortByTime(chart.disciplineIncidents);
+      case 'day': return this.sortByDay(chart.disciplineIncidents);
+      default: return chart.disciplineIncidents;
     }
   }
 
@@ -80,8 +80,23 @@ class SchoolDisciplineDashboard extends React.Component {
 
   sortByTime(incidentsGroupedByTime) {
     const sortedTimes = Object.keys(incidentsGroupedByTime).sort((a, b) => {
-      return new Date('1970/01/01 ' + a) - new Date('1970/01/01 ' + b);
+      if (a === b) return 0;
+      if (a === 'Not Logged') return -1;
+      if (b === 'Not Logged') return 1;
+
+      // Times are coming in as '5 AM', '4 PM'
+      let a_Hour = parseInt(a.split(' ')[0]);
+      let a_AmPm = a.split(' ')[1];
+      let b_Hour = parseInt(b.split(' ')[0]);
+      let b_AmPm = b.split(' ')[1];
+
+      if (a_AmPm === 'AM' && b_AmPm == 'PM') return -1;
+
+      if (a_AmPm === 'PM' && b_AmPm == 'AM') return 1
+
+      return a_Hour - b_Hour;
     });
+
     let sortedHash = {};
     sortedTimes.forEach((hour) => {
       sortedHash[hour] = incidentsGroupedByTime[hour];
@@ -91,6 +106,7 @@ class SchoolDisciplineDashboard extends React.Component {
 
   render() {
     const selectedChart = this.getChartData(this.state.selectedChart);
+
     return(
       <div className="DashboardContainer">
         <div className="DashboardChartsColumn">
