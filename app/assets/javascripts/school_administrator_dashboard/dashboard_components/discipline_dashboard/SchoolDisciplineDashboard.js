@@ -80,11 +80,12 @@ class SchoolDisciplineDashboard extends React.Component {
 
   sortByTime(incidentsGroupedByTime) {
     const sortedTimes = Object.keys(incidentsGroupedByTime).sort((a, b) => {
+      // Times are coming in as '5 AM', '4 PM', or 'Not Logged'
+
       if (a === b) return 0;
       if (a === 'Not Logged') return -1;
       if (b === 'Not Logged') return 1;
 
-      // Times are coming in as '5 AM', '4 PM'
       let a_Hour = parseInt(a.split(' ')[0]);
       let a_AmPm = a.split(' ')[1];
       let b_Hour = parseInt(b.split(' ')[0]);
