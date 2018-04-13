@@ -11,9 +11,9 @@ RSpec.describe StudentSectionAssignmentsImporter do
   }
 
   describe '#import_row' do
-    let!(:course) { FactoryGirl.create(:course, school: high_school) }
-    let!(:section) { FactoryGirl.create(:section, course: course) }
-    let!(:student) { FactoryGirl.create(:student) }
+    let!(:course) { FactoryBot.create(:course, school: high_school) }
+    let!(:section) { FactoryBot.create(:section, course: course) }
+    let!(:student) { FactoryBot.create(:student) }
 
     context 'happy path' do
       let(:row) {
@@ -121,8 +121,8 @@ RSpec.describe StudentSectionAssignmentsImporter do
 
   describe '#delete_rows' do
     let(:log) { LogHelper::Redirect.instance.file }
-    let!(:section) { FactoryGirl.create(:section) }
-    let!(:student) { FactoryGirl.create(:student) }
+    let!(:section) { FactoryBot.create(:section) }
+    let!(:student) { FactoryBot.create(:student) }
     let(:row) {
       {
         local_id: student.local_id,
@@ -141,8 +141,8 @@ RSpec.describe StudentSectionAssignmentsImporter do
       }
 
       before do
-        FactoryGirl.create_list(:student_section_assignment, 20)
-        FactoryGirl.create(:student_section_assignment, student_id: student.id, section_id: section.id)
+        FactoryBot.create_list(:student_section_assignment, 20)
+        FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
 
         student_section_assignments_importer.import_row(row)
         student_section_assignments_importer.delete_rows
@@ -161,8 +161,8 @@ RSpec.describe StudentSectionAssignmentsImporter do
       }
 
       before do
-        FactoryGirl.create_list(:student_section_assignment, 20)
-        FactoryGirl.create(:student_section_assignment, student_id: student.id, section_id: section.id)
+        FactoryBot.create_list(:student_section_assignment, 20)
+        FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
 
         student_section_assignments_importer.import_row(row)
         student_section_assignments_importer.delete_rows

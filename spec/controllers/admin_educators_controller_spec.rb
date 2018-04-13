@@ -44,7 +44,7 @@ describe Admin::EducatorsController do
     end
 
     context 'educator data with grade level access data' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { FactoryBot.create(:educator) }
 
       let(:params) {
         {
@@ -71,7 +71,7 @@ describe Admin::EducatorsController do
     end
 
     context 'educator data no grade level access data' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { FactoryBot.create(:educator) }
 
       let(:params) {
         {

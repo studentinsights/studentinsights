@@ -137,7 +137,7 @@ def example_incident_descriptions
   ]
 end
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :discipline_incident do
     association :student
     sequence(:incident_code) { example_incident_codes.sample }

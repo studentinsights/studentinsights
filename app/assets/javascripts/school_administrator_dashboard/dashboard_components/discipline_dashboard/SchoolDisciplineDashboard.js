@@ -82,10 +82,12 @@ class SchoolDisciplineDashboard extends React.Component {
 
   sortedGrades(chartKeys) {
     return ['PK', 'KF', '1','2','3','4','5','6','7','8','9','10','11','12'].filter((grade) => chartKeys.indexOf(grade) >= 0);
+
   }
 
   render() {
     const selectedChart = this.getChartData(this.state.selectedChart);
+
     return(
       <div className="DashboardContainer">
         <div className="DashboardChartsColumn">

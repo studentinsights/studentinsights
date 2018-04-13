@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :student_assessment do
     date_taken DateTime.new(2015, 6, 19)

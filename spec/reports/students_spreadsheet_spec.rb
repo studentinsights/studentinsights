@@ -4,7 +4,7 @@ RSpec.describe StudentsSpreadsheet do
   context 'with generated students' do
     before { School.seed_somerville_schools }
     let!(:school) { School.find_by_name('Arthur D Healey') }
-    let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+    let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
     let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school) }
     before do
       # the test data is not deterministic (setting a seed in srand only worked on

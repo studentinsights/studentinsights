@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :school do
     sequence(:local_id) {|n| n }
@@ -26,7 +26,7 @@ FactoryGirl.define do
 
   trait :with_educator do
     after(:create) do |school|
-      school.educators << FactoryGirl.create(:educator, full_name: 'Stephenson, Neal')
+      school.educators << FactoryBot.create(:educator, full_name: 'Stephenson, Neal')
     end
   end
 

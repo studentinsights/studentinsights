@@ -8,10 +8,10 @@ RSpec.describe EventNoteAttachmentsController, type: :controller do
   end
 
   describe '#destroy' do
-    let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+    let(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
     before { sign_in(educator) }
 
-    let(:event_note) { FactoryGirl.create(:event_note) }
+    let(:event_note) { FactoryBot.create(:event_note) }
 
     let!(:event_note_attachment) {
       EventNoteAttachment.create(url: 'www.goodurl.com', event_note: event_note)
@@ -27,7 +27,7 @@ RSpec.describe EventNoteAttachmentsController, type: :controller do
     end
 
     context 'unauthroized educator' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { FactoryBot.create(:educator) }
 
       it 'fails authorization' do
         make_delete_request(event_note_attachment.id)

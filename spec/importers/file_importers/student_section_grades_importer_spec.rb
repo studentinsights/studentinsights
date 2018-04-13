@@ -10,12 +10,12 @@ RSpec.describe StudentSectionGradesImporter do
 
   describe '#import_row' do
     let(:log) { LogHelper::Redirect.instance.file }
-    let!(:school) { FactoryGirl.create(:shs) }
-    let!(:course) { FactoryGirl.create(:course, school:school)}
-    let!(:section) { FactoryGirl.create(:section, course:course) }
-    let!(:student) { FactoryGirl.create(:student) }
+    let!(:school) { FactoryBot.create(:shs) }
+    let!(:course) { FactoryBot.create(:course, school:school)}
+    let!(:section) { FactoryBot.create(:section, course:course) }
+    let!(:student) { FactoryBot.create(:student) }
     let!(:ssa) do
-      FactoryGirl.create(:student_section_assignment,
+      FactoryBot.create(:student_section_assignment,
                          student: student,
                          section: section)
     end

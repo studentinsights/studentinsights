@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StudentSchoolYearEvents, type: :model do
-  let(:student) { FactoryGirl.create(:student) }
+  let(:student) { FactoryBot.create(:student) }
 
   let(:events) {
     [
