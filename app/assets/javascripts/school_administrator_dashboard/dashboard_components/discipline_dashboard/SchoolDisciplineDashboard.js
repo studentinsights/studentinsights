@@ -6,6 +6,7 @@ import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DateSlider from '../DateSlider';
+import {sortByGrade} from '../../../helpers/SortHelpers';
 
 class SchoolDisciplineDashboard extends React.Component {
 
@@ -61,48 +62,31 @@ class SchoolDisciplineDashboard extends React.Component {
       title: "Incidents by " + selectedChart};
   }
 
-  sortChartData(chart) {
-    switch(chart.type) {
-    case 'time': return this.sortByTime(chart.disciplineIncidents);
-    case 'day': return this.sortByDay(chart.disciplineIncidents);
-    default: return chart.disciplineIncidents;
+  sortChartKeys(chartKeys) {
+    switch(this.state.selectedChart) {
+    case 'time': return this.sortedTimes(chartKeys);
+    case 'day': return this.sortedDays(chartKeys);
+    case 'grade': return this.sortedGrades(chartKeys);
+    default: return chartKeys;
     }
   }
 
-  sortByDay(incidentsGroupedByDay) {
-    const dayOrder = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    let sortedHash = {};
-    dayOrder.forEach((day) => {
-      if (incidentsGroupedByDay[day]) sortedHash[day] = incidentsGroupedByDay[day];
-    });
-    return sortedHash;
+  sortedDays(chartKeys) {
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
 
-  sortByTime(incidentsGroupedByTime) {
-    const sortedTimes = Object.keys(incidentsGroupedByTime).sort((a, b) => {
-      // Times are coming in as '5 AM', '4 PM', or 'Not Logged'
-
-      if (a === b) return 0;
-      if (a === 'Not Logged') return -1;
-      if (b === 'Not Logged') return 1;
-
-      let a_Hour = parseInt(a.split(' ')[0]);
-      let a_AmPm = a.split(' ')[1];
-      let b_Hour = parseInt(b.split(' ')[0]);
-      let b_AmPm = b.split(' ')[1];
-
-      if (a_AmPm === 'AM' && b_AmPm == 'PM') return -1;
-
-      if (a_AmPm === 'PM' && b_AmPm == 'AM') return 1;
-
-      return a_Hour - b_Hour;
+  sortedTimes(chartKeys) {
+    //chartKeys will either contain a time like "4:00 pm", "10:00 am", or "Not Logged"
+    return chartKeys.sort((a, b) => {
+      if (a == "Not Logged") return -1;
+      if (b == "Not Logged") return 1;
+      return new Date('1970/01/01 ' + a) - new Date('1970/01/01 ' + b);
     });
+  }
 
-    let sortedHash = {};
-    sortedTimes.forEach((hour) => {
-      sortedHash[hour] = incidentsGroupedByTime[hour];
-    });
-    return sortedHash;
+  sortedGrades(chartKeys) {
+    return chartKeys.sort((a,b) => sortByGrade(a,b));
+
   }
 
   render() {
@@ -131,8 +115,9 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderDisciplineChart(selectedChart) {
-    const categories = Object.keys(this.sortChartData(selectedChart));
+    const categories = this.sortChartKeys(Object.keys(selectedChart.disciplineIncidents));
     const seriesData = categories.map((type) => {
+      if (!selectedChart.disciplineIncidents[type]) return [];
       const incidents = this.filterIncidentDates(selectedChart.disciplineIncidents[type]);
       return [type, incidents.length];
     });
