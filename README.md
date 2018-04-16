@@ -151,6 +151,8 @@ bundle exec rake db:create db:migrate db:seed
 
 This will create demo students with fake student information.  See the demo site above for the set of educators you can use (or look at `test_pals.rb`).
 
+If you are willing to run a longer (~10 minute) task that will generate ~600 students to more closely approximate one of our pilot schools, set `ENV["MORE_DEMO_STUDENTS"] = 'true'` before running the seed task.
+
 ## 3. Start the app
 Once you've created the data, start the app by running `yarn start` from the root of your project.  This runs two processes in parallel: the Rails server and a Webpack process that watches and rebuilds JavaScript files.  When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.  You can stop both processes with `command+c` like normal, and look at `package.json` if you want to run them in individual terminals.
 
