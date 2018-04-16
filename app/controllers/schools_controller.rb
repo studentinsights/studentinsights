@@ -44,7 +44,9 @@ class SchoolsController < ApplicationController
   #Individual dashboard data endpoints will replace school_administrator_dashboard once they're stable
   def absence_dashboard_data
     student_absence_data = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_absences, :event_notes)
+      .includes([homeroom: :educator], :absences, :event_notes)
+      .where("absences.occurred_at >= ?", 1.year.ago).references(:absences)
+
     student_absence_data_json = student_absence_data.map do |student|
       individual_student_absence_data(student)
     end
@@ -54,7 +56,9 @@ class SchoolsController < ApplicationController
 
   def tardies_dashboard_data
     student_tardies_data = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_tardies, :event_notes)
+      .includes([homeroom: :educator], :tardies, :event_notes)
+      .where("tardies.occurred_at >= ?", 1.year.ago).references(:tardies)
+
     student_tardies_data_json = student_tardies_data.map do |student|
       individual_student_tardies_data(student)
     end
