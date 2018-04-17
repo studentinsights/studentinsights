@@ -6,7 +6,7 @@ import {createStudents} from './DashboardTestData.js';
 
 describe('Dashboard Students Table', () => {
   const nowMoment = moment.utc();
-  const table = shallow(<StudentsTable rows={createStudents(nowMoment)}/>);
+  const table = shallow(<StudentsTable rows={createStudents(nowMoment)} incidentType={"Test Incidents"} resetFn={(value) => null}/>);
 
   it('renders the students list', () => {
     expect(table.find("div").hasClass("StudentsList")).toEqual(true);
@@ -14,7 +14,7 @@ describe('Dashboard Students Table', () => {
 
   it('renders headers for name, incident count and last SST', () => {
     const headerTexts = table.find('thead th').map(node => node.text());
-    expect(headerTexts).toEqual(['Name', 'Incidents', 'Last SST']);
+    expect(headerTexts).toEqual(['Name', 'Test Incidents', 'Last SST']);
   });
 
   it('renders the first row', () => {
