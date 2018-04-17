@@ -15,8 +15,8 @@ RSpec.describe PathsForEducator do
     # healey
     expect(navbar_links(pals.healey_laura_principal)).to eq({
       school: '/schools/hea',
-      absences: '/schools/hea/school_administrator_dashboard#/absences_dashboard',
-      tardies: '/schools/hea/school_administrator_dashboard#/tardies_dashboard'
+      absences: '/schools/hea/absences',
+      tardies: '/schools/hea/tardies',
     })
     expect(navbar_links(pals.healey_ell_teacher)).to eq({})
     expect(navbar_links(pals.healey_sped_teacher)).to eq({})
