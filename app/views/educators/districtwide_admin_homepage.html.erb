@@ -21,8 +21,8 @@
               <li class="school-name">
                 <%= school.name %><br/>
                 <%= link_to 'Roster', school_url(school) %>
-                | <%= link_to 'Absences', school_administrator_dashboard_school_url(school) + '#/absences_dashboard' %>
-                | <%= link_to 'Tardies', school_administrator_dashboard_school_url(school) + '#/tardies_dashboard' %>
+                | <%= link_to 'Absences', absences_school_url(school) %>
+                | <%= link_to 'Tardies', tardies_school_url(school) %>
               </li>
           <% end %>
         </ul>
