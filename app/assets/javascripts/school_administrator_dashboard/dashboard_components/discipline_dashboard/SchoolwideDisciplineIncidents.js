@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import SchoolDisciplineDashboard from './SchoolDisciplineDashboard';
 import DashboardHelpers from '../DashboardHelpers';
-import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 
 class SchoolWideDisciplineIncidents extends React.Component {
 
@@ -24,8 +23,7 @@ class SchoolWideDisciplineIncidents extends React.Component {
             day: moment.utc(incident.occurred_at).format("ddd"),
             offense: incident.incident_code,
             student_race: student.race,
-            occurred_at: incident.occurred_at,
-            last_sst_date_text: latestNoteDateText(300, student.event_notes)
+            occurred_at: incident.occurred_at
           });
         }
       });

@@ -6,6 +6,7 @@ import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DateSlider from '../DateSlider';
+import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 import {sortByGrade} from '../../../helpers/SortHelpers';
 
 class SchoolDisciplineDashboard extends React.Component {
@@ -156,7 +157,7 @@ class SchoolDisciplineDashboard extends React.Component {
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
-        last_sst_date_text: student.last_sst_date_text,
+        last_sst_date_text: latestNoteDateText(300, student.event_notes),
         events: studentDisciplineIncidentCounts[student.id] || 0
       });
     });
