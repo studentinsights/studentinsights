@@ -206,7 +206,7 @@ class SchoolsController < ApplicationController
       last_name: student.last_name,
       id: student.id,
       homeroom_label: homeroom_label,
-      absences: student.absences,
+      absences: student.dashboard_absences,
       event_notes: student.event_notes
     })
   end
@@ -219,7 +219,7 @@ class SchoolsController < ApplicationController
       last_name: student.last_name,
       id: student.id,
       homeroom_label: homeroom_label,
-      tardies: student.tardies,
+      tardies: student.dashboard_tardies,
       event_notes: student.event_notes
     })
   end
