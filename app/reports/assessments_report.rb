@@ -1,7 +1,7 @@
 class AssessmentsReport < Struct.new :log
 
   def print_report
-    log.write(report)
+    log.puts(report)
   end
 
   private

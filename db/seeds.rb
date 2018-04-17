@@ -1,6 +1,8 @@
 require "#{Rails.root}/db/seeds/database_constants"
 require "#{Rails.root}/spec/support/test_pals"
+require "#{Rails.root}/app/lib/environment_variable"
 
+start_time = Time.now
 
 def sample_numeric_grade_from_letter(grade_letter)
   case grade_letter
@@ -17,8 +19,13 @@ def sample_numeric_grade_from_letter(grade_letter)
   end
 end
 
-
 puts 'Starting seeds.rb...'
+
+more_demo_students = EnvironmentVariable.is_true('MORE_DEMO_STUDENTS')
+
+homeroom_class_size = more_demo_students ? 18 : 9
+
+puts "Seeding more demo students: #{more_demo_students}."
 
 # This forces updating schema.rb before seeding.  This is necessary
 # to allow `bundle exec rake db:migrate db:seed`, which otherwise would
@@ -55,10 +62,24 @@ ServiceUpload.create!([
   { file_name: "SomerSession-2016.csv" },
 ])
 
+if more_demo_students
+  puts "Creating the rest of the homerooms for Healey..."
+
+  grade_levels = %w[1 2 3 4 6 7 8]
+
+  @healey = School.find_by_local_id!('HEA')
+
+  grade_levels.each do |grade|
+    4.times do |n|
+      Homeroom.create!(name: "HEA #{grade}0#{n}", grade: grade, school: @healey)
+    end
+  end
+end
+
 puts 'Creating more students for each homeroom...'
-Homeroom.all.each do |homeroom|
+Homeroom.order(:name).each do |homeroom|
   puts "  Creating for homeroom: #{homeroom.name}..."
-  9.times { FakeStudent.new(homeroom.school, homeroom) }
+  homeroom_class_size.times { FakeStudent.new(homeroom.school, homeroom) }
 end
 
 puts 'Creating additional students for the Healey with no homeroom...'
@@ -86,5 +107,12 @@ puts 'Updating indexes...'
 Student.update_risk_levels!
 Student.update_recent_student_assessments
 PrecomputeStudentHashesJob.new(STDOUT).precompute_all!(Time.now)
+
+puts "Total number of homerooms: #{Homeroom.count}."
+puts "Total number of students: #{Student.count}."
+
+time_to_run = Time.now - start_time
+
+puts "This task took #{time_to_run.round(0)} seconds."
 
 puts 'Done seeds.rb.'
