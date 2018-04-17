@@ -5,7 +5,6 @@ import _ from 'lodash';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DateSlider from '../DateSlider';
 import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 
 
