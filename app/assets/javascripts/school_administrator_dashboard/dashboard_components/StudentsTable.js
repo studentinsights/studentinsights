@@ -79,8 +79,12 @@ class StudentsTable extends React.Component {
   render() {
     return(
       <div className= 'StudentsList'>
+        {this.props.selectedCategory && <button onClick={this.props.resetFn}>All Students</button>}
         <table className='students-list'>
-          <caption>{this.renderCaption()}</caption>
+          {this.props.selectedCategory?
+            <caption style={{backgroundColor:'#FFA500'}}>{this.renderCaption()}</caption> :
+            <caption>{this.renderCaption()}</caption>
+          }
           <thead>
             <tr>
               <th
@@ -88,7 +92,7 @@ class StudentsTable extends React.Component {
                   className={this.headerClassName('last_name')}>Name</th>
               <th
                   onClick={this.onClickHeader.bind(null, 'events', 'number')}
-                  className={this.headerClassName('events')}>Incidents</th>
+                  className={this.headerClassName('events')}>{this.props.incidentType}</th>
               <th
                   onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
                   className={this.headerClassName('last_sst_date_text')}>Last SST</th>
@@ -136,6 +140,8 @@ StudentsTable.propTypes = {
     last_sst_date_text: SharedPropTypes.nullableWithKey(PropTypes.string)
   })).isRequired,
   selectedCategory: PropTypes.string,
+  incidentType: PropTypes.string.isRequired, //Specific incident type being displayed
+  resetFn: PropTypes.func.isRequired, //Function to reset student list to display all students
   schoolYearFlag: PropTypes.bool
 };
 
