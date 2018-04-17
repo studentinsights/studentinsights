@@ -170,10 +170,10 @@ describe SchoolsController, :type => :controller do
 
   end
 
-  describe '#dashboard' do
+  describe '#absence_dashboard_data' do
     def make_request(school_id)
       request.env['HTTPS'] = 'on'
-      get :school_administrator_dashboard, params: { id: school_id }
+      get :absence_dashboard_data, params: { id: school_id }
     end
 
     context 'districtwide access' do
