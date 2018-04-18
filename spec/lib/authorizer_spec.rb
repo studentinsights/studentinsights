@@ -90,17 +90,17 @@ RSpec.describe Authorizer do
   describe '#authorized' do
     describe 'Student' do
       it 'limits access with Student.all' do
-        expect(authorized(pals.uri) { Student.all }).to eq [
+        expect(authorized(pals.uri) { Student.all }).to match_array [
           pals.healey_kindergarten_student,
           pals.shs_freshman_mari
         ]
-        expect(authorized(pals.healey_vivian_teacher) { Student.all }).to eq [
+        expect(authorized(pals.healey_vivian_teacher) { Student.all }).to match_array [
           pals.healey_kindergarten_student
         ]
-        expect(authorized(pals.shs_jodi) { Student.all }).to eq [
+        expect(authorized(pals.shs_jodi) { Student.all }).to match_array [
           pals.shs_freshman_mari
         ]
-        expect(authorized(pals.shs_bill_nye) { Student.all }).to eq [
+        expect(authorized(pals.shs_bill_nye) { Student.all }).to match_array [
           pals.shs_freshman_mari
         ]
       end
