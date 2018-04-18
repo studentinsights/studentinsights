@@ -27,21 +27,6 @@ class SchoolsController < ApplicationController
     })
   end
 
-  def school_administrator_dashboard
-    dashboard_students = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_absences, :event_notes, :dashboard_tardies)
-    dashboard_students_json = dashboard_students.map do |student|
-      individual_student_dashboard_data(student)
-    end
-
-    @serialized_data = {
-      students: dashboard_students_json,
-      current_educator: current_educator
-    }
-    render 'shared/serialized_data'
-  end
-
-  #Individual dashboard data endpoints will replace school_administrator_dashboard once they're stable
   def absence_dashboard_data
     student_absence_data = students_for_dashboard(@school)
       .includes([homeroom: :educator], :dashboard_absences, :event_notes)
