@@ -165,7 +165,9 @@ class SchoolDisciplineDashboard extends React.Component {
     return (
       <StudentsTable
         rows = {rows}
-        selectedCategory = {this.state.selectedCategory}/>
+        selectedCategory = {this.state.selectedCategory}
+        incidentType={"Discipline Incidents"}
+        resetFn={this.resetStudentList}/>
     );
   }
 }

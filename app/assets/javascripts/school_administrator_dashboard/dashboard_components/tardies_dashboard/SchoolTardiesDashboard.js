@@ -144,8 +144,10 @@ class SchoolTardiesDashboard extends React.Component {
     return (
       <StudentsTable
         rows = {rows}
-        selectedHomeroom = {this.state.selectedHomeroom}
-        schoolYearFlag ={true}/>
+        selectedCategory = {this.state.selectedHomeroom}
+        schoolYearFlag ={true}
+        incidentType={"Tardies"}
+        resetFn={this.resetStudentList}/>
     );
   }
 }

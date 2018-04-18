@@ -146,7 +146,9 @@ class SchoolAbsenceDashboard extends React.Component {
     return (
       <StudentsTable
         rows = {rows}
-        selectedCategory = {this.state.selectedHomeroom}/>
+        selectedCategory = {this.state.selectedHomeroom}
+        incidentType={"Absences"}
+        resetFn={this.resetStudentList}/>
     );
   }
 
