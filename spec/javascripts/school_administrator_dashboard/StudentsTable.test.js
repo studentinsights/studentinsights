@@ -9,7 +9,7 @@ describe('Dashboard Students Table', () => {
   const table = shallow(<StudentsTable rows={createStudents(nowMoment)} incidentType={"Test Incidents"} resetFn={(value) => null}/>);
 
   it('renders the students list', () => {
-    expect(table.find("div").hasClass("StudentsList")).toEqual(true);
+    expect(table.find("div").first().hasClass("StudentsList")).toEqual(true);
   });
 
   it('renders headers for name, incident count and last SST', () => {
