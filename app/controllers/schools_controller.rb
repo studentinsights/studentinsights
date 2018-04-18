@@ -29,7 +29,7 @@ class SchoolsController < ApplicationController
 
   def absence_dashboard_data
     student_absence_data = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_absences, :event_notes)
+      .includes([homeroom: :educator], :dashboard_absences, :sst_notes)
     student_absence_data_json = student_absence_data.map do |student|
       individual_student_absence_data(student)
     end
@@ -39,7 +39,7 @@ class SchoolsController < ApplicationController
 
   def tardies_dashboard_data
     student_tardies_data = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_tardies, :event_notes)
+      .includes([homeroom: :educator], :dashboard_tardies, :sst_notes)
     student_tardies_data_json = student_tardies_data.map do |student|
       individual_student_tardies_data(student)
     end
@@ -174,7 +174,7 @@ class SchoolsController < ApplicationController
       id: student.id,
       homeroom_label: homeroom_label(student.homeroom),
       absences: student.dashboard_absences,
-      event_notes: student.event_notes
+      sst_notes: student.sst_notes,
     }
   end
 
@@ -185,8 +185,8 @@ class SchoolsController < ApplicationController
       id: student.id,
       homeroom_label: homeroom_label(student.homeroom),
       tardies: student.dashboard_tardies,
-      event_notes: student.event_notes
-    })
+      sst_notes: student.sst_notes,
+    }
   end
 
   def individual_student_discipline_data(student)
@@ -198,8 +198,8 @@ class SchoolsController < ApplicationController
       grade: student.grade,
       race: student.race,
       discipline_incidents: student.discipline_incidents,
-      event_notes: student.event_notes.where(event_note_type_id: 300)
-    })
+      sst_notes: student.sst_notes,
+    }
   end
 
   def students_for_dashboard(school)
