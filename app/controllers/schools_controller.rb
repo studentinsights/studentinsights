@@ -28,7 +28,7 @@ class SchoolsController < ApplicationController
   end
 
   def absence_dashboard_data
-    student_absence_data = students_for_dashboard(@school)
+    student_absence_data = active_students(@school)
       .includes([homeroom: :educator], :dashboard_absences, :sst_notes)
     student_absence_data_json = student_absence_data.map do |student|
       individual_student_absence_data(student)
@@ -38,7 +38,7 @@ class SchoolsController < ApplicationController
   end
 
   def tardies_dashboard_data
-    student_tardies_data = students_for_dashboard(@school)
+    student_tardies_data = active_students(@school)
       .includes([homeroom: :educator], :dashboard_tardies, :sst_notes)
     student_tardies_data_json = student_tardies_data.map do |student|
       individual_student_tardies_data(student)
@@ -48,7 +48,7 @@ class SchoolsController < ApplicationController
   end
 
   def discipline_dashboard_data
-    student_discipline_data = students_for_dashboard(@school)
+    student_discipline_data = active_students(@school)
       .includes([homeroom: :educator], :discipline_incidents, :event_notes)
     student_discipline_data_json = student_discipline_data.map do |student|
       individual_student_discipline_data(student)
@@ -202,7 +202,7 @@ class SchoolsController < ApplicationController
     }
   end
 
-  def students_for_dashboard(school)
+  def active_students(school)
     school.students.active
   end
 
