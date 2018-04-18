@@ -125,7 +125,7 @@ RSpec.describe Authorizer do
 
       it 'if `select` was used on an ActiveRecord::Relation for students, fields needed for authorization are added in' do
         thin_relation = Student.select(:id, :local_id).all
-        expect((authorized(pals.uri) { thin_relation }).map(&:id)).to eq([
+        expect((authorized(pals.uri) { thin_relation }).map(&:id)).to match_array([
           pals.healey_kindergarten_student.id,
           pals.shs_freshman_mari.id
         ])
