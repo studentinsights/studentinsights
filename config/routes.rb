@@ -69,7 +69,6 @@ Rails.application.routes.draw do
   resources :schools, only: [:show] do
     member do
       get :overview
-      get :school_administrator_dashboard
       get :overview_json
       get :csv
       get 'absences' => 'ui#ui'

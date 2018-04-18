@@ -7,6 +7,7 @@ import {
 } from '../../helpers/SortHelpers';
 import * as Routes from '../../helpers/Routes';
 import SharedPropTypes from '../../helpers/prop_types.jsx';
+import DashResetButton from './DashResetButton';
 
 
 class StudentsTable extends React.Component {
@@ -79,8 +80,11 @@ class StudentsTable extends React.Component {
   render() {
     return(
       <div className= 'StudentsList'>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          {this.renderCaption()}
+          <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
+        </div>
         <table className='students-list'>
-          <caption>{this.renderCaption()}</caption>
           <thead>
             <tr>
               <th
@@ -88,7 +92,7 @@ class StudentsTable extends React.Component {
                   className={this.headerClassName('last_name')}>Name</th>
               <th
                   onClick={this.onClickHeader.bind(null, 'events', 'number')}
-                  className={this.headerClassName('events')}>Incidents</th>
+                  className={this.headerClassName('events')}>{this.props.incidentType}</th>
               <th
                   onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
                   className={this.headerClassName('last_sst_date_text')}>Last SST</th>
@@ -136,6 +140,8 @@ StudentsTable.propTypes = {
     last_sst_date_text: SharedPropTypes.nullableWithKey(PropTypes.string)
   })).isRequired,
   selectedCategory: PropTypes.string,
+  incidentType: PropTypes.string.isRequired, //Specific incident type being displayed
+  resetFn: PropTypes.func.isRequired, //Function to reset student list to display all students
   schoolYearFlag: PropTypes.bool
 };
 
