@@ -7,6 +7,7 @@ import {
 } from '../../helpers/SortHelpers';
 import * as Routes from '../../helpers/Routes';
 import SharedPropTypes from '../../helpers/prop_types.jsx';
+import DashResetButton from './DashResetButton';
 
 
 class StudentsTable extends React.Component {
@@ -79,12 +80,11 @@ class StudentsTable extends React.Component {
   render() {
     return(
       <div className= 'StudentsList'>
-        {this.props.selectedCategory && <button onClick={this.props.resetFn}>All Students</button>}
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          {this.renderCaption()}
+          <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
+        </div>
         <table className='students-list'>
-          {this.props.selectedCategory?
-            <caption style={{backgroundColor:'#FFA500'}}>{this.renderCaption()}</caption> :
-            <caption>{this.renderCaption()}</caption>
-          }
           <thead>
             <tr>
               <th
