@@ -78,8 +78,8 @@ class StudentsTable extends React.Component {
   }
 
   render() {
-    return(
-      <div className= 'StudentsList'>
+    return (
+      <div className='StudentsList' style={style.root}>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
           {this.renderCaption()}
           <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
@@ -145,6 +145,9 @@ StudentsTable.propTypes = {
 };
 
 const style = {
+  root: {
+    marginTop: 20
+  },
   table: {
     width: 450,
     border: '1px solid #ccc',
@@ -161,13 +164,17 @@ const style = {
     display: 'block',
     width: 450,
     height: 480,
-    overflowY: 'scroll'
+    overflowY: 'scroll',
+    borderTop: '1px solid #ccc',
+    borderBottom: '1px solid #ccc',
   },
   td: {
     width: 150,
+    textAlign: 'left',
   },
   th: {
     width: 150,
+    textAlign: 'left',
   }
 };
 
