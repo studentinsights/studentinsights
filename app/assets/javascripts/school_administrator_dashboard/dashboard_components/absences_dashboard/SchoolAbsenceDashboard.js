@@ -6,6 +6,7 @@ import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
+import DashRangeButtons from '../DashRangeButtons';
 
 
 class SchoolAbsenceDashboard extends React.Component {
@@ -152,18 +153,10 @@ class SchoolAbsenceDashboard extends React.Component {
     const schoolYearStart = DashboardHelpers.schoolYearStart();
     return (
       <div className="DashboardRangeButtons">
-        <button
-          onClick={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today)})}>
-          School Year
-        </button>
-        <button
-          onClick={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today)})}>
-          90 Days
-        </button>
-        <button
-          onClick={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today)})}>
-          45 Days
-        </button>
+        <DashRangeButtons
+          schoolYearFilter={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today)})}
+          ninetyDayFilter={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today)})}
+          fortyFiveDayFilter={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today)})}/>
       </div>
     );
   }

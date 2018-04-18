@@ -37,10 +37,11 @@
   margin-bottom: 7px;
 }
 
-.DashboardRangeButtons {
+.DashRangeButtons {
   display: flex;
+  justify-content: space-between;
+  padding: 20px 40px 0px 40px;
   margin-top: 10px;
-  justify-content: space-evenly;
 }
 
 .ui-datepicker-prev {
