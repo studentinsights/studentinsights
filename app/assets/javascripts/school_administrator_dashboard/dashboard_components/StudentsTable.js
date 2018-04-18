@@ -84,42 +84,41 @@ class StudentsTable extends React.Component {
           {this.renderCaption()}
           <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
         </div>
-        <table className='students-list'>
-          <thead>
+        <table className='students-list' style={style.table}>
+          <thead style={style.thead}>
             <tr>
-              <th
+              <th style={style.th}
                   onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
                   className={this.headerClassName('last_name')}>Name</th>
-              <th
+              <th style={style.th}
                   onClick={this.onClickHeader.bind(null, 'events', 'number')}
                   className={this.headerClassName('events')}>{this.props.incidentType}</th>
-              <th
+              <th style={style.th}
                   onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
                   className={this.headerClassName('last_sst_date_text')}>Last SST</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <td>{'Total: '}</td>
-              <td>{this.totalEvents()}</td>
-              <td></td>
-            </tr>
-          </tfoot>
-          <tbody>
+          <tbody style={style.tbody}>
             {this.orderedRows().map(student => {
               return (
                 <tr key={student.id}>
-                  <td>
+                  <td style={style.td}>
                     <a href={Routes.studentProfile(student.id)}>
                       {student.first_name} {student.last_name}
                     </a>
                   </td>
-                  <td>{student.events}</td>
-                  <td>{student.last_sst_date_text}</td>
+                  <td style={style.td}>{student.events}</td>
+                  <td style={style.td}>{student.last_sst_date_text}</td>
                 </tr>
               );
             })}
           </tbody>
+          <tfoot style={style.tfoot}>
+            <tr>
+              <td style={style.td}>{'Total: '}</td>
+              <td style={style.td}>{this.totalEvents()}</td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     );
@@ -143,6 +142,33 @@ StudentsTable.propTypes = {
   incidentType: PropTypes.string.isRequired, //Specific incident type being displayed
   resetFn: PropTypes.func.isRequired, //Function to reset student list to display all students
   schoolYearFlag: PropTypes.bool
+};
+
+const style = {
+  table: {
+    width: 450,
+    border: '1px solid #ccc',
+  },
+  thead: {
+    display: 'block',
+    width: 450,
+  },
+  tfoot: {
+    display: 'block',
+    width: 450,
+  },
+  tbody: {
+    display: 'block',
+    width: 450,
+    height: 480,
+    overflowY: 'scroll'
+  },
+  td: {
+    width: 150,
+  },
+  th: {
+    width: 150,
+  }
 };
 
 export default StudentsTable;

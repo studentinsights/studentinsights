@@ -1,4 +1,3 @@
-
 .DashboardContainer {
   display: flex;
   height: 85vh;
@@ -50,22 +49,8 @@
 }
 
 table.students-list {
-  margin: auto;
-  border: 1px solid #ccc;
-  width: 100%;
-
   thead th, tfoot td {
-    height: 30px;
-    line-height: 30px;
     text-align: left;
-  }
-
-  tfoot {
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-  }
-
-  tbody td, thead th, tfoot td {
   }
 
   tbody {
@@ -73,5 +58,4 @@ table.students-list {
     border-bottom: 1px solid #ccc;
   }
 }
-
 
