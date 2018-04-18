@@ -14,8 +14,8 @@ Delayed::Worker.max_run_time = 24.hours
 #
 # If we didn't set `raise_signal_exception`, when the task was killed the job would stay locked and
 # when the worker dyno comes back up, it wouldn't be retried.  Hours laters (depending on the max_run_time),
-# Delayed::Job would release the job and it would be retried then.  If the job kept failing (eg, if it 
-# kept running out of memory), this would go on indefinitely for up to `max_attempts`, which with the 
+# Delayed::Job would release the job and it would be retried then.  If the job kept failing (eg, if it
+# kept running out of memory), this would go on indefinitely for up to `max_attempts`, which with the
 # default settings means it would keep retrying for ~20 days.
 #
 # More reading:
@@ -24,5 +24,3 @@ Delayed::Worker.max_run_time = 24.hours
 Delayed::Worker.raise_signal_exceptions = true
 Delayed::Worker.max_attempts = 2
 Delayed::Worker.destroy_failed_jobs = false
-
-
