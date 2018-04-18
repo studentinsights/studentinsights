@@ -138,7 +138,7 @@ class SchoolAbsenceDashboard extends React.Component {
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
-        last_sst_date_text: latestNoteDateText(300, student.event_notes),
+        last_sst_date_text: latestNoteDateText(300, student.sst_notes),
         events: studentAbsenceCounts[student.id] || 0
       });
     });

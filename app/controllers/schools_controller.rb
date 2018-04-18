@@ -28,8 +28,8 @@ class SchoolsController < ApplicationController
   end
 
   def absence_dashboard_data
-    student_absence_data = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_absences, :event_notes)
+    student_absence_data = active_students(@school)
+      .includes([homeroom: :educator], :dashboard_absences, :sst_notes)
     student_absence_data_json = student_absence_data.map do |student|
       individual_student_absence_data(student)
     end
@@ -38,8 +38,8 @@ class SchoolsController < ApplicationController
   end
 
   def tardies_dashboard_data
-    student_tardies_data = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_tardies, :event_notes)
+    student_tardies_data = active_students(@school)
+      .includes([homeroom: :educator], :dashboard_tardies, :sst_notes)
     student_tardies_data_json = student_tardies_data.map do |student|
       individual_student_tardies_data(student)
     end
@@ -48,7 +48,7 @@ class SchoolsController < ApplicationController
   end
 
   def discipline_dashboard_data
-    student_discipline_data = students_for_dashboard(@school)
+    student_discipline_data = active_students(@school)
       .includes([homeroom: :educator], :discipline_incidents, :event_notes)
     student_discipline_data_json = student_discipline_data.map do |student|
       individual_student_discipline_data(student)
@@ -165,66 +165,48 @@ class SchoolsController < ApplicationController
     end
   end
 
-  # Methods for Dashboard
-
-  def individual_student_dashboard_data(student)
-    # This is a temporary workaround for New Bedford
-    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
-    HashWithIndifferentAccess.new({
-      first_name: student.first_name,
-      last_name: student.last_name,
-      id: student.id,
-      grade: student.grade,
-      race: student.race,
-      homeroom_label: homeroom_label,
-      absences: student.dashboard_absences,
-      tardies: student.dashboard_tardies,
-      event_notes: student.event_notes
-    })
-  end
+  # Methods for Dashboards #
 
   def individual_student_absence_data(student)
-    # Gathers only the information needed for a specific dashboard view.
-    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
-    HashWithIndifferentAccess.new({
+    {
       first_name: student.first_name,
       last_name: student.last_name,
       id: student.id,
-      homeroom_label: homeroom_label,
+      homeroom_label: homeroom_label(student.homeroom),
       absences: student.dashboard_absences,
-      event_notes: student.event_notes
-    })
+      sst_notes: student.sst_notes,
+    }
   end
 
   def individual_student_tardies_data(student)
-    # Gathers only the information needed for a specific dashboard view.
-    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
-    HashWithIndifferentAccess.new({
+    {
       first_name: student.first_name,
       last_name: student.last_name,
       id: student.id,
-      homeroom_label: homeroom_label,
+      homeroom_label: homeroom_label(student.homeroom),
       tardies: student.dashboard_tardies,
-      event_notes: student.event_notes
-    })
+      sst_notes: student.sst_notes,
+    }
   end
 
   def individual_student_discipline_data(student)
-    # Gathers only the information needed for a specific dashboard view.
-    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
-    HashWithIndifferentAccess.new({
+    {
       first_name: student.first_name,
       last_name: student.last_name,
       id: student.id,
-      homeroom_label: homeroom_label,
+      homeroom_label: homeroom_label(student.homeroom),
       grade: student.grade,
       race: student.race,
       discipline_incidents: student.discipline_incidents,
-      event_notes: student.event_notes
-    })
+      sst_notes: student.sst_notes,
+    }
   end
 
-  def students_for_dashboard(school)
+  def active_students(school)
     school.students.active
+  end
+
+  def homeroom_label(homeroom)
+    homeroom.try(:educator).try(:full_name) || homeroom.try(:name) || "No Homeroom"
   end
 end

@@ -18,7 +18,7 @@ class SchoolWideDisciplineIncidents extends React.Component {
             student_id: incident.student_id,
             location: incident.incident_location || "Not Recorded",
             time: incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged",
-            classroom: student.homeroom_label || "No Homeroom",
+            classroom: student.homeroom_label,
             grade: student.grade,
             day: moment.utc(incident.occurred_at).format("ddd"),
             offense: incident.incident_code,
