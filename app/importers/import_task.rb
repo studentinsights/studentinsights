@@ -37,7 +37,9 @@ class ImportTask
     rescue SignalException => e
       log("Encountered a SignalException!: #{e}")
       log('Putting a new job into the queue...')
-      Delayed::Job.enqueue ImportJob.new(options: @options)
+      Delayed::Job.enqueue ImportJob.new(
+        options: @options.merge({ attempt: @options.attempt + 1 })
+      )
     end
   end
 
