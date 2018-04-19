@@ -173,5 +173,6 @@ class ImportTask
     full_msg = "\n\n💾  ImportTask: #{msg}"
     @log.puts full_msg
     @record.log += full_msg
+    @record.save
   end
 end
