@@ -10,7 +10,10 @@ class DashButton extends React.Component {
       <div className="DashButton">
         <a
           style={{
-            backgroundColor: this.props.isSelected? 'rgba(49, 119, 201, 0.75)' : ''
+            backgroundColor: this.props.isSelected? 'rgba(49, 119, 201, 0.75)' : '',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center'
           }}
           onClick={this.props.onClick}>
           {this.props.buttonText}
