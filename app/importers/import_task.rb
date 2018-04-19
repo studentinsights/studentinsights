@@ -44,6 +44,10 @@ class ImportTask
       else
         log('Already re-tried this once, not going to retry again...')
       end
+
+      log('Bye!')
+
+      exit
     end
   end
 
