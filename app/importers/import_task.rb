@@ -18,7 +18,6 @@ class ImportTask
     begin
       @record = create_import_record
       @report = create_report
-
       log('Starting validation...')
       validate_district_option
       seed_schools_if_needed
@@ -36,10 +35,15 @@ class ImportTask
       log('Done.')
     rescue SignalException => e
       log("Encountered a SignalException!: #{e}")
-      log('Putting a new job into the queue...')
-      Delayed::Job.enqueue ImportJob.new(
-        options: @options.merge({ attempt: @options.attempt + 1 })
-      )
+
+      if (@options.attempt == 0)
+        log('Putting a new job into the queue...')
+        Delayed::Job.enqueue ImportJob.new(
+          options: @options.merge({ attempt: @options.attempt + 1 })
+        )
+      else
+        log('Already re-tried this once, not going to retry again...')
+      end
     end
   end
 
@@ -162,6 +166,8 @@ class ImportTask
       raise error
     end
   end
+
+  ## LOGGING STUFF ##
 
   def log(msg)
     full_msg = "\n\n💾  ImportTask: #{msg}"
