@@ -15,24 +15,36 @@ class ImportTask
   end
 
   def connect_transform_import
-    @record = create_import_record
-    @report = create_report
+    begin
+      @record = create_import_record
+      @report = create_report
+      log('Starting validation...')
+      validate_district_option
+      seed_schools_if_needed
+      validate_school_options
+      log('Done validation.')
 
-    log('Starting validation...')
-    validate_district_option
-    seed_schools_if_needed
-    validate_school_options
-    log('Done validation.')
+      log('Starting importing work...')
+      @report.print_initial_counts_report
+      import_all_the_data
+      log('Done importing work.')
 
-    log('Starting importing work...')
-    @report.print_initial_counts_report
-    import_all_the_data
-    log('Done importing work.')
+      log('Starting update tasks and final report...')
+      run_update_tasks
+      @report.print_final_counts_report
+      log('Done.')
+    rescue SignalException => e
+      log("Encountered a SignalException!: #{e}")
 
-    log('Starting update tasks and final report...')
-    run_update_tasks
-    @report.print_final_counts_report
-    log('Done.')
+      if (@options.attempt == 0)
+        log('Putting a new job into the queue...')
+        Delayed::Job.enqueue ImportJob.new(
+          options: @options.merge({ attempt: @options.attempt + 1 })
+        )
+      else
+        log('Already re-tried this once, not going to retry again...')
+      end
+    end
   end
 
   private
@@ -154,6 +166,8 @@ class ImportTask
       raise error
     end
   end
+
+  ## LOGGING STUFF ##
 
   def log(msg)
     full_msg = "\n\n💾  ImportTask: #{msg}"
