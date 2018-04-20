@@ -24,14 +24,14 @@ class SchoolTardiesDashboard extends React.Component {
     };
   }
 
-  createMonthCategories(eventsByDay) {
+  createMonthCategories(seriesData) {
     let monthCategories = {};
     let lastStoredMonth;
-    const startMonth = moment.utc().subtract(3, 'months');
 
-    Object.keys(eventsByDay).sort().forEach((day, dayIndex) => {
-      const month = moment.utc(day);
-      if (lastStoredMonth != month.date(1).format("MMM 'YY") && month.isSameOrAfter(startMonth, 'month')) {
+    seriesData.forEach((day, dayIndex) => {
+      const month = moment(day[0], "ddd MM/DD/YYYY");
+
+      if (lastStoredMonth != month.date(1).format("MMM 'YY")) {
         lastStoredMonth = month.date(1).format("MMM 'YY");
         monthCategories[dayIndex] = lastStoredMonth;
       }
@@ -82,15 +82,13 @@ class SchoolTardiesDashboard extends React.Component {
 
   renderMonthlyTardiesChart() {
     const seriesData = this.getDatesSince(this.state.startDate).map((date) => {
-      const day = moment.utc(date).format('ddd MM/DD');
+      const day = moment.utc(date).format("ddd MM/DD/YYYY");
       const tardies = this.props.schoolTardyEvents[date] ? this.props.schoolTardyEvents[date].length : 0;
       return [day, tardies];
     });
-    const monthCategories = this.createMonthCategories(this.props.schoolTardyEvents);
+    const monthCategories = this.createMonthCategories(seriesData);
     let tickPositions = Object.keys(monthCategories).map(Number);
     tickPositions.splice(0, 1);
-
-    console.log(seriesData);
 
     return (
         <DashboardBarChart
@@ -117,8 +115,6 @@ class SchoolTardiesDashboard extends React.Component {
     const homeroomSeries = homerooms.map((homeroom) => {
       return this.props.homeroomTardyEvents[homeroom];
     });
-
-    console.log(homeroomSeries);
 
     return (
         <DashboardBarChart
