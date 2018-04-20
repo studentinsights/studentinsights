@@ -39,10 +39,11 @@
 .DashRangeButtons {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   padding: 20px 40px 0px 40px;
   margin-top: 10px;
   .DashButton {
-    width: 33%;
+    width: 25%;
   }
 }
 
