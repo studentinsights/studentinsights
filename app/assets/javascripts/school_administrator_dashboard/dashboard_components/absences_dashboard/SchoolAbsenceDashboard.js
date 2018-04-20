@@ -15,7 +15,8 @@ class SchoolAbsenceDashboard extends React.Component {
     super(props);
     this.state = {
       displayDates: this.props.dateRange,
-      selectedHomeroom: null
+      selectedHomeroom: null,
+      selectedRange: 'School Year'
     };
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
@@ -60,13 +61,13 @@ class SchoolAbsenceDashboard extends React.Component {
   render() {
     return (
         <div className="DashboardContainer">
-          <div className="DashboardChartsColumn">
-            {this.renderMonthlyAbsenceChart()}
-            {this.renderHomeroomAbsenceChart()}
-          </div>
           <div className="DashboardRosterColumn">
             {this.renderRangeSelector()}
             {this.renderStudentAbsenceTable()}
+          </div>
+          <div className="DashboardChartsColumn">
+            {this.renderMonthlyAbsenceChart()}
+            {this.renderHomeroomAbsenceChart()}
           </div>
         </div>
     );
@@ -87,7 +88,7 @@ class SchoolAbsenceDashboard extends React.Component {
           seriesData = {filteredAttendanceSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {'Average Attendance By Month'}
+          titleText = {`Average Attendance By Month (${this.state.selectedRange})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -111,7 +112,7 @@ class SchoolAbsenceDashboard extends React.Component {
           seriesData = {homeroomSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {'Average Attendance By Homeroom'}
+          titleText = {`Average Attendance By Homeroom (${this.state.selectedRange})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -154,9 +155,15 @@ class SchoolAbsenceDashboard extends React.Component {
     return (
       <div className="DashboardRangeButtons">
         <DashRangeButtons
-          schoolYearFilter={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today)})}
-          ninetyDayFilter={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today)})}
-          fortyFiveDayFilter={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today)})}/>
+          schoolYearFilter={() => this.setState({
+            displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
+            selectedRange: 'School Year'})}
+          ninetyDayFilter={() => this.setState({
+            displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
+            selectedRange: '90 Days'})}
+          fortyFiveDayFilter={() => this.setState({
+            displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
+            selectedRange: '45 Days'})}/>
       </div>
     );
   }
