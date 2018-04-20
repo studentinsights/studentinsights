@@ -7,7 +7,7 @@
   flex: 2 1;
   display: flex;
   flex-direction: column;
-  padding: 10px 20px 0px 20px
+  padding: 0 20px;
 }
 
 .DashboardRosterColumn {
@@ -21,7 +21,6 @@
   width: 100%;
   margin-top: 20px;
   padding: 10px 10px 10px 10px;
-  border: 1px solid #ccc;
 
   div {
     height: 100%;
@@ -36,12 +35,19 @@
   margin-bottom: 7px;
 }
 
+.DashRangeButtonWrapper {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 20px;
+  margin: 20px;
+}
+
 .DashRangeButtons {
-  display: flex;
   justify-content: space-between;
+  display: flex;
   align-items: flex-end;
-  padding: 20px 40px 0 0;
-  margin-top: 10px;
+  width: 500px;
+
   .DashButton {
     width: 25%;
   }
