@@ -52,9 +52,8 @@ class SchoolTardiesDashboard extends React.Component {
   studentTardyCounts(tardiesArray) {
     let studentTardyCounts = {};
     const daysWithTardies = Object.keys(this.props.schoolTardyEvents);
-    const startDate = DashboardHelpers.schoolYearStart();
-    const endDate = moment.utc().format("YYYY-MM-DD");
-    const schoolYearTardies = DashboardHelpers.filterDates(daysWithTardies.sort(), startDate, endDate);
+    const today = moment.utc().format("YYYY-MM-DD");
+    const schoolYearTardies = DashboardHelpers.filterDates(daysWithTardies.sort(), this.state.startDate, today);
 
     schoolYearTardies.forEach((day) => {
       _.each(this.props.schoolTardyEvents[day], (tardy) => {
@@ -63,6 +62,24 @@ class SchoolTardiesDashboard extends React.Component {
       });
     });
     return studentTardyCounts;
+  }
+
+  homeroomTardyEventsSince() {
+    let homeroomTardyEvents = {};
+    const studentRecords = this.props.dashboardStudents;
+    const studentsByHomeroom = DashboardHelpers.groupByHomeroom(studentRecords);
+    const startDate = this.state.startDate;
+    Object.keys(studentsByHomeroom).forEach((homeroom) => {
+      homeroomTardyEvents[homeroom] = 0;
+      _.each(studentsByHomeroom[homeroom], (student) => {
+        student.tardies.forEach((tardy) => {
+          if (moment.utc(tardy.occurred_at).isSameOrAfter(startDate)) {
+            homeroomTardyEvents[homeroom]++;
+          }
+        });
+      });
+    });
+    return homeroomTardyEvents;
   }
 
   render() {
@@ -111,9 +128,10 @@ class SchoolTardiesDashboard extends React.Component {
   }
 
   renderHomeroomTardiesChart() {
-    const homerooms = Object.keys(this.props.homeroomTardyEvents);
+    const homeroomTardyEvents = this.homeroomTardyEventsSince(this.state.startDate);
+    const homerooms = Object.keys(homeroomTardyEvents);
     const homeroomSeries = homerooms.map((homeroom) => {
-      return this.props.homeroomTardyEvents[homeroom];
+      return homeroomTardyEvents[homeroom];
     });
 
     return (
@@ -172,7 +190,6 @@ class SchoolTardiesDashboard extends React.Component {
 
 SchoolTardiesDashboard.propTypes = {
   schoolTardyEvents: PropTypes.object.isRequired,
-  homeroomTardyEvents: PropTypes.object.isRequired,
   dashboardStudents: PropTypes.array.isRequired
 };
 
