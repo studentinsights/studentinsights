@@ -5,8 +5,8 @@ import _ from 'lodash';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DateSlider from '../DateSlider';
 import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
+import DashRangeButtons from '../DashRangeButtons';
 
 
 class SchoolAbsenceDashboard extends React.Component {
@@ -16,13 +16,6 @@ class SchoolAbsenceDashboard extends React.Component {
     this.state = {
       displayDates: this.props.dateRange,
       selectedHomeroom: null
-    };
-    this.setDate = (range) => {
-      this.setState({
-        displayDates: DashboardHelpers.filterDates(this.props.dateRange,
-                                                    moment.unix(range[0]).utc().format("YYYY-MM-DD"),
-                                                    moment.unix(range[1]).utc().format("YYYY-MM-DD"))
-      });
     };
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
@@ -72,7 +65,7 @@ class SchoolAbsenceDashboard extends React.Component {
             {this.renderHomeroomAbsenceChart()}
           </div>
           <div className="DashboardRosterColumn">
-            {this.renderDateRangeSlider()}
+            {this.renderRangeSelector()}
             {this.renderStudentAbsenceTable()}
           </div>
         </div>
@@ -152,14 +145,19 @@ class SchoolAbsenceDashboard extends React.Component {
     );
   }
 
-  renderDateRangeSlider() {
-    const firstDate = DashboardHelpers.schoolYearStart();
-    const lastDate = this.props.dateRange[this.props.dateRange.length - 1];
+  renderRangeSelector() {
+    const {dateRange} = this.props;
+    const today = moment.utc().format("YYYY-MM-DD");
+    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
+    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
+    const schoolYearStart = DashboardHelpers.schoolYearStart();
     return (
-      <DateSlider
-        rangeStart = {parseInt(moment.utc(firstDate).format("X"))}
-        rangeEnd = {parseInt(moment.utc(lastDate).format("X"))}
-        setDate={this.setDate}/>
+      <div className="DashboardRangeButtons">
+        <DashRangeButtons
+          schoolYearFilter={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today)})}
+          ninetyDayFilter={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today)})}
+          fortyFiveDayFilter={() => this.setState({displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today)})}/>
+      </div>
     );
   }
 }

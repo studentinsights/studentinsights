@@ -2,7 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import SchoolAbsenceDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolAbsenceDashboard.js';
-import {createStudents, createTestEvents} from './DashboardTestData.js';
+import {
+  createTestEvents,
+  createStudents
+} from './DashboardTestData.js';
 
 
 describe('SchoolAbsenceDashboard', () => {
@@ -27,8 +30,8 @@ describe('SchoolAbsenceDashboard', () => {
     expect(dash.find('StudentsTable').length).toEqual(1);
   });
 
-  it('renders a date slider', () => {
-    expect(dash.find('DateSlider').length).toEqual(1);
+  it('renders range selection buttons', () => {
+    expect(dash.find('DashRangeButtons').length).toEqual(1);
   });
 
   it('groups the daily attendance within a month', () => {
@@ -45,13 +48,12 @@ describe('SchoolAbsenceDashboard', () => {
   });
 
   it('filters dates outside the range for the school', () => {
-    dash.instance().setDate([moment.utc('2001-01-02').format('X'), moment.utc('2001-01-04').format('X')]);
-    dash.update();
-    expect(dash.find('DashboardBarChart').first().props().seriesData).toEqual([87.5]);
+    dash.setState({displayDates:['2001-01-02', '2001-01-03', '2001-01-04']});
+    expect(dash.find('DashboardBarChart').first().props().seriesData).toEqual([66.7]);
   });
 
   it('filters dates outside the range for homerooms', () => {
-    expect(dash.find('DashboardBarChart').last().props().seriesData).toEqual([87.5,100]);
+    expect(dash.find('DashboardBarChart').last().props().seriesData).toEqual([66.7,100]);
   });
 
 });
