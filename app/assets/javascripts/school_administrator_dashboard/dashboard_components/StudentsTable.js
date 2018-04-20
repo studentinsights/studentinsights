@@ -80,11 +80,11 @@ class StudentsTable extends React.Component {
   render() {
     return (
       <div className='StudentsList' style={style.root}>
-        <div style={style.caption}>
-          {this.renderCaption()}
-          <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
-        </div>
         <table className='students-list' style={style.table}>
+          <div style={style.caption}>
+            {this.renderCaption()}
+            <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
+          </div>
           <thead style={style.thead}>
             <tr>
               <th style={style.th}
@@ -167,9 +167,6 @@ StudentsTable.propTypes = {
 const style = {
   root: {
     marginTop: 20,
-    border: '1px solid #ccc',
-    // borderRight: '1px solid #ccc',
-    // borderLeft: '1px solid #ccc',
   },
   caption: {
     display: 'flex',
@@ -178,6 +175,7 @@ const style = {
   },
   table: {
     width: 450,
+    border: '1px solid #ccc',
   },
   thead: {
     display: 'block',
