@@ -15,6 +15,7 @@ class SchoolTardiesDashboard extends React.Component {
     super(props);
     this.state = {
       startDate: DashboardHelpers.schoolYearStart(),
+      selectedRange: 'School Year',
       selectedHomeroom: null};
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
@@ -118,7 +119,7 @@ class SchoolTardiesDashboard extends React.Component {
             tickmarkPlacement: "on"
           }}
           seriesData = {seriesData}
-          titleText = {'Schoolwide Tardies (Last three months)'}
+          titleText = {`Schoolwide Tardies (${this.state.selectedRange})`}
           measureText = {'Number of Tardies'}
           tooltip = {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
@@ -139,7 +140,7 @@ class SchoolTardiesDashboard extends React.Component {
           id = {'string'}
           categories = {{categories: homerooms}}
           seriesData = {homeroomSeries}
-          titleText = {'Tardies By Homeroom (School Year)'}
+          titleText = {`Tardies by Homeroom (${this.state.selectedRange})`}
           measureText = {'Number of Tardies'}
           tooltip = {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
@@ -180,9 +181,9 @@ class SchoolTardiesDashboard extends React.Component {
     return (
       <div className="DashboardRangeButtons">
         <DashRangeButtons
-          schoolYearFilter={() => this.setState({startDate: schoolYearStart})}
-          ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo})}
-          fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo})}/>
+          schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
+          ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
+          fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
       </div>
     );
   }
