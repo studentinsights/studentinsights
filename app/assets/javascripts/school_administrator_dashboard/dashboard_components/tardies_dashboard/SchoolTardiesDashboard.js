@@ -66,12 +66,12 @@ class SchoolTardiesDashboard extends React.Component {
   render() {
     return (
         <div className="DashboardContainer">
+          <div className="DashboardRosterColumn">
+            {this.renderStudentTardiesTable()}
+          </div>
           <div className="DashboardChartsColumn">
             {this.renderMonthlyTardiesChart()}
             {this.renderHomeroomTardiesChart()}
-          </div>
-          <div className="DashboardRosterColumn">
-            {this.renderStudentTardiesTable()}
           </div>
         </div>
     );

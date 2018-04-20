@@ -61,13 +61,13 @@ class SchoolAbsenceDashboard extends React.Component {
   render() {
     return (
         <div className="DashboardContainer">
-          <div className="DashboardChartsColumn">
-            {this.renderMonthlyAbsenceChart()}
-            {this.renderHomeroomAbsenceChart()}
-          </div>
           <div className="DashboardRosterColumn">
             {this.renderRangeSelector()}
             {this.renderStudentAbsenceTable()}
+          </div>
+          <div className="DashboardChartsColumn">
+            {this.renderMonthlyAbsenceChart()}
+            {this.renderHomeroomAbsenceChart()}
           </div>
         </div>
     );
