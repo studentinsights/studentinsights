@@ -88,7 +88,7 @@ class SchoolAbsenceDashboard extends React.Component {
           seriesData = {filteredAttendanceSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {'Average Attendance By Month (' + this.state.selectedRange + ')'}
+          titleText = {`Average Attendance By Month (${this.state.selectedRange})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -112,7 +112,7 @@ class SchoolAbsenceDashboard extends React.Component {
           seriesData = {homeroomSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {'Average Attendance By Homeroom (' + this.state.selectedRange + ')'}
+          titleText = {`Average Attendance By Homeroom (${this.state.selectedRange})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
