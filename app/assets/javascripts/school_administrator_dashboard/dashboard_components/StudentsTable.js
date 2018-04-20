@@ -95,8 +95,8 @@ class StudentsTable extends React.Component {
               <th style={style.th}
                   onClick={this.onClickHeader.bind(null, 'events', 'number')}
                   className={this.headerClassName('events')}>
-                {this.props.incidentType}<br/>
-                <span style={{fontWeight: 'normal'}}>({this.props.incidentSubtitle})</span>
+                {this.props.incidentType}
+                {this.renderIncidentTypeSubtitle()}
               </th>
               <th style={style.th}
                   onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
@@ -137,6 +137,15 @@ class StudentsTable extends React.Component {
     return this.props.selectedCategory
       ? this.props.selectedCategory + schoolYearCaption
       : "All Students" + schoolYearCaption;
+  }
+
+  renderIncidentTypeSubtitle() {
+    const {incidentSubtitle} = this.props;
+    if (!incidentSubtitle) return;
+
+    return (
+      <span style={{fontWeight: 'normal'}}><br/>({this.props.incidentSubtitle})</span>
+    );
   }
 }
 
