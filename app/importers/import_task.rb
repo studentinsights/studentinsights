@@ -46,8 +46,6 @@ class ImportTask
       end
 
       log('Bye!')
-
-      exit
     end
   end
 
