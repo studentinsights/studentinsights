@@ -174,20 +174,20 @@ const style = {
     padding: 5,
   },
   table: {
-    width: 450,
+    width: '100%',
     border: '1px solid #ccc',
   },
   thead: {
     display: 'block',
-    width: 450,
+    width: '100%',
   },
   tfoot: {
     display: 'block',
-    width: 450,
+    width: '100%',
   },
   tbody: {
     display: 'block',
-    width: 450,
+    width: '100%',
     height: 480,
     overflowY: 'scroll',
     borderTop: '1px solid #ccc',
