@@ -16,7 +16,7 @@ class SchoolAbsenceDashboard extends React.Component {
     this.state = {
       displayDates: this.props.dateRange,
       selectedHomeroom: null,
-      selectedRange: 'School Year'
+      selectedRange: 'This School Year'
     };
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
@@ -60,9 +60,10 @@ class SchoolAbsenceDashboard extends React.Component {
 
   render() {
     return (
+      <div>
+        {this.renderRangeSelector()}
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
-            {this.renderRangeSelector()}
             {this.renderStudentAbsenceTable()}
           </div>
           <div className="DashboardChartsColumn">
@@ -70,6 +71,7 @@ class SchoolAbsenceDashboard extends React.Component {
             {this.renderHomeroomAbsenceChart()}
           </div>
         </div>
+      </div>
     );
   }
 
@@ -137,11 +139,14 @@ class SchoolAbsenceDashboard extends React.Component {
       });
     });
 
+    const {selectedRange} = this.state;
+
     return (
       <StudentsTable
-        rows = {rows}
-        selectedCategory = {this.state.selectedHomeroom}
-        incidentType={"Absences"}
+        rows={rows}
+        selectedCategory={this.state.selectedHomeroom}
+        incidentType='Absences'
+        incidentSubtitle={selectedRange}
         resetFn={this.resetStudentList}/>
     );
   }
@@ -157,13 +162,13 @@ class SchoolAbsenceDashboard extends React.Component {
         <DashRangeButtons
           schoolYearFilter={() => this.setState({
             displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
-            selectedRange: 'School Year'})}
+            selectedRange: 'This School Year'})}
           ninetyDayFilter={() => this.setState({
             displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
-            selectedRange: '90 Days'})}
+            selectedRange: 'Past 90 Days'})}
           fortyFiveDayFilter={() => this.setState({
             displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
-            selectedRange: '45 Days'})}/>
+            selectedRange: 'Past 45 Days'})}/>
       </div>
     );
   }

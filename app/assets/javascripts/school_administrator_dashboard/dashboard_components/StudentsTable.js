@@ -80,22 +80,29 @@ class StudentsTable extends React.Component {
   render() {
     return (
       <div className='StudentsList' style={style.root}>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          {this.renderCaption()}
-          <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
-        </div>
         <table className='students-list' style={style.table}>
+          <div style={style.caption}>
+            {this.renderCaption()}
+            <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
+          </div>
           <thead style={style.thead}>
             <tr>
               <th style={style.th}
                   onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
-                  className={this.headerClassName('last_name')}>Name</th>
+                  className={this.headerClassName('last_name')}>
+                Name
+              </th>
               <th style={style.th}
                   onClick={this.onClickHeader.bind(null, 'events', 'number')}
-                  className={this.headerClassName('events')}>{this.props.incidentType}</th>
+                  className={this.headerClassName('events')}>
+                {this.props.incidentType}
+                {this.renderIncidentTypeSubtitle()}
+              </th>
               <th style={style.th}
                   onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
-                  className={this.headerClassName('last_sst_date_text')}>Last SST</th>
+                  className={this.headerClassName('last_sst_date_text')}>
+                Last SST
+              </th>
             </tr>
           </thead>
           <tbody style={style.tbody}>
@@ -125,8 +132,20 @@ class StudentsTable extends React.Component {
   }
 
   renderCaption() {
-    const schoolYearCaption = this.props.schoolYearFlag? " (School Year)" : "";
-    return this.props.selectedCategory ? this.props.selectedCategory + schoolYearCaption : "All Students" + schoolYearCaption;
+    const schoolYearCaption = this.props.schoolYearFlag ? " (School Year)" : "";
+
+    return this.props.selectedCategory
+      ? this.props.selectedCategory + schoolYearCaption
+      : "All Students" + schoolYearCaption;
+  }
+
+  renderIncidentTypeSubtitle() {
+    const {incidentSubtitle} = this.props;
+    if (!incidentSubtitle) return;
+
+    return (
+      <span style={{fontWeight: 'normal'}}><br/>({this.props.incidentSubtitle})</span>
+    );
   }
 }
 
@@ -140,13 +159,19 @@ StudentsTable.propTypes = {
   })).isRequired,
   selectedCategory: PropTypes.string,
   incidentType: PropTypes.string.isRequired, //Specific incident type being displayed
+  incidentSubtitle: PropTypes.string,
   resetFn: PropTypes.func.isRequired, //Function to reset student list to display all students
   schoolYearFlag: PropTypes.bool
 };
 
 const style = {
   root: {
-    marginTop: 20
+    marginTop: 20,
+  },
+  caption: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: 5,
   },
   table: {
     width: 450,
@@ -175,6 +200,7 @@ const style = {
   th: {
     width: 150,
     textAlign: 'left',
+    verticalAlign: 'bottom'
   }
 };
 
