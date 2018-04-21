@@ -10,9 +10,4 @@ describe('SchoolwideTardies', () => {
   it('renders the school tardies dashboard', () => {
     expect(tardies.find('SchoolTardiesDashboard').length).toEqual(1);
   });
-
-  it('filters out tardies outside the school year', () => {
-    //Test 2 homeroom has one tardy event in the current month and one a year ago
-    expect(tardies.find('SchoolTardiesDashboard').props().homeroomTardyEvents['Test 2']).toEqual(1);
-  });
 });
