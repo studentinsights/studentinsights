@@ -85,9 +85,10 @@ class SchoolTardiesDashboard extends React.Component {
 
   render() {
     return (
+      <div>
+        {this.renderRangeSelector()}
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
-            {this.renderRangeSelector()}
             {this.renderStudentTardiesTable()}
           </div>
           <div className="DashboardChartsColumn">
@@ -95,6 +96,7 @@ class SchoolTardiesDashboard extends React.Component {
             {this.renderHomeroomTardiesChart()}
           </div>
         </div>
+      </div>
     );
   }
 
