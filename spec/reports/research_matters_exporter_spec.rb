@@ -4,9 +4,9 @@ RSpec.describe ResearchMattersExporter do
   before { School.seed_somerville_schools }
   let!(:school) { School.find_by_name('Arthur D Healey') }
   let!(:kennedy_school) { School.find_by_name('John F Kennedy') }
-  let!(:educator) { FactoryGirl.create(:educator, :admin, school: school, full_name: 'Khamar, Matsay', email: 'matsay@demo.studentinsights.org') }
+  let!(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: 'Khamar, Matsay', email: 'matsay@demo.studentinsights.org') }
   let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school, educator: educator) }
-  let!(:student) { FactoryGirl.create(:student, homeroom: homeroom, school: school) }
+  let!(:student) { FactoryBot.create(:student, homeroom: homeroom, school: school) }
 
   class FakeMixpanelDownloader
     def initialize(event_data)
@@ -54,7 +54,7 @@ RSpec.describe ResearchMattersExporter do
 
       context 'two students' do
         let!(:another_student) {
-          FactoryGirl.create(:student, school: kennedy_school)
+          FactoryBot.create(:student, school: kennedy_school)
         }
 
         it 'outputs the right file' do
@@ -68,10 +68,10 @@ RSpec.describe ResearchMattersExporter do
 
       context 'notes during the focal period' do
         let!(:event_note) {
-          FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 22), event_note_type_id: 300)
+          FactoryBot.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 22), event_note_type_id: 300)
         }
         let!(:another_event_note) {
-          FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 20), event_note_type_id: 300)
+          FactoryBot.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 20), event_note_type_id: 300)
         }
 
         it 'outputs the right file' do
@@ -84,13 +84,13 @@ RSpec.describe ResearchMattersExporter do
 
       context 'notes outside the focal period' do
         let!(:event_note) {
-          FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 22), event_note_type_id: 300)
+          FactoryBot.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 22), event_note_type_id: 300)
         }
         let!(:another_event_note) {
-          FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 20), event_note_type_id: 300)
+          FactoryBot.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 20), event_note_type_id: 300)
         }
         let!(:outside_event_note) {
-          FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2016, 12, 20), event_note_type_id: 300)
+          FactoryBot.create(:event_note, student: student, recorded_at: DateTime.new(2016, 12, 20), event_note_type_id: 300)
         }
 
         it 'outputs the right file, does not count the notes outside the focal period' do
@@ -103,13 +103,13 @@ RSpec.describe ResearchMattersExporter do
 
       context 'notes and revision during the focal period' do
         let!(:event_note) {
-          FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 18), event_note_type_id: 300)
+          FactoryBot.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 18), event_note_type_id: 300)
         }
         let!(:another_event_note) {
-          FactoryGirl.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 20), event_note_type_id: 300)
+          FactoryBot.create(:event_note, student: student, recorded_at: DateTime.new(2017, 12, 20), event_note_type_id: 300)
         }
         let!(:event_note_revision) {
-          FactoryGirl.create(:event_note_revision, event_note: event_note, student_id: student.id, created_at: DateTime.new(2017, 12, 21), event_note_type_id: 300, educator: educator)
+          FactoryBot.create(:event_note_revision, event_note: event_note, student_id: student.id, created_at: DateTime.new(2017, 12, 21), event_note_type_id: 300, educator: educator)
         }
 
         it 'outputs the right file' do
@@ -189,7 +189,7 @@ RSpec.describe ResearchMattersExporter do
 
         context 'teacher has event notes in focal period' do
           let!(:educator_event_note) {
-            FactoryGirl.create(
+            FactoryBot.create(
               :event_note, educator: educator, recorded_at: DateTime.new(2017, 12, 23)
             )
           }
@@ -204,7 +204,7 @@ RSpec.describe ResearchMattersExporter do
 
         context 'teacher has event notes out of focal period' do
           let!(:educator_event_note) {
-            FactoryGirl.create(
+            FactoryBot.create(
               :event_note, educator: educator, recorded_at: DateTime.new(2015, 12, 23)
             )
           }
@@ -220,7 +220,7 @@ RSpec.describe ResearchMattersExporter do
         context 'teacher has focal student' do
           before do
             8.times do |n|
-              FactoryGirl.create(:discipline_incident,
+              FactoryBot.create(:discipline_incident,
                 student: student,
                 occurred_at: DateTime.new(2017, 12, 22 - n)
               )
@@ -278,7 +278,7 @@ RSpec.describe ResearchMattersExporter do
     context 'teacher name missing' do
       let(:event_data) { [] }
       let!(:another_educator) {
-        FactoryGirl.create(:educator,
+        FactoryBot.create(:educator,
           :admin, school: school, email: 'noname@demo.studentinsights.org')
       }
 

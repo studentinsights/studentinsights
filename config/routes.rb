@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/api/schools/:id/courses' => 'schools#courses_json'
   get 'api/schools/:id/absences/data' => 'schools#absence_dashboard_data'
   get 'api/schools/:id/tardies/data' => 'schools#tardies_dashboard_data'
+  get 'api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
   get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
   get '/api/home/feed_json' => 'home#feed_json'
@@ -68,11 +69,11 @@ Rails.application.routes.draw do
   resources :schools, only: [:show] do
     member do
       get :overview
-      get :school_administrator_dashboard
       get :overview_json
       get :csv
       get 'absences' => 'ui#ui'
       get 'tardies' => 'ui#ui'
+      get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
       get 'equity/principal' => 'ui#ui'
       get 'equity/teachers/:grade' => 'ui#ui'

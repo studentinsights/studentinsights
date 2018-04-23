@@ -218,16 +218,16 @@ class FakeStudent
 
   def add_discipline_incidents
     d = {
-      0 => 0.83,
-      1 => 0.10,
-      2 => 0.03,
-      (3..5) => 0.03,
-      (6..15) => 0.01,
+      0 => 0.23,
+      1 => 0.30,
+      2 => 0.23,
+      (3..5) => 0.13,
+      (6..15) => 0.11,
     }
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      discipline_incident = FactoryGirl.create(:discipline_incident, student: student)
+      discipline_incident = FactoryBot.create(:discipline_incident, student: student)
       discipline_incident.save!
     end
   end

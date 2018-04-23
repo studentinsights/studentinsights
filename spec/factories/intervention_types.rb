@@ -1,3 +1,3 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :intervention_type
 end

@@ -15,24 +15,38 @@ class ImportTask
   end
 
   def connect_transform_import
-    @record = create_import_record
-    @report = create_report
+    begin
+      @record = create_import_record
+      @report = create_report
+      log('Starting validation...')
+      validate_district_option
+      seed_schools_if_needed
+      validate_school_options
+      log('Done validation.')
 
-    log('Starting validation...')
-    validate_district_option
-    seed_schools_if_needed
-    validate_school_options
-    log('Done validation.')
+      log('Starting importing work...')
+      @report.print_initial_counts_report
+      import_all_the_data
+      log('Done importing work.')
 
-    log('Starting importing work...')
-    @report.print_initial_counts_report
-    import_all_the_data
-    log('Done importing work.')
+      log('Starting update tasks and final report...')
+      run_update_tasks
+      @report.print_final_counts_report
+      log('Done.')
+    rescue SignalException => e
+      log("Encountered a SignalException!: #{e}")
 
-    log('Starting update tasks and final report...')
-    run_update_tasks
-    @report.print_final_counts_report
-    log('Done.')
+      if (@options.attempt == 0)
+        log('Putting a new job into the queue...')
+        Delayed::Job.enqueue ImportJob.new(
+          options: @options.merge({ attempt: @options.attempt + 1 })
+        )
+      else
+        log('Already re-tried this once, not going to retry again...')
+      end
+
+      log('Bye!')
+    end
   end
 
   private
@@ -118,9 +132,9 @@ class ImportTask
       timing_data = { importer: file_importer.class.name, start_time: Time.current }
 
       begin
-        log("Starting file_importer#import for #{file_importer}...")
+        log("Starting file_importer#import for #{file_importer.class}...")
         file_importer.import
-        log("Done file_importer#import for #{file_importer}.")
+        log("Done file_importer#import for #{file_importer.class}.")
       rescue => error
         log("🚨  🚨  🚨  🚨  🚨  Error! #{error}")
         log(error.backtrace)
@@ -155,9 +169,12 @@ class ImportTask
     end
   end
 
+  ## LOGGING STUFF ##
+
   def log(msg)
     full_msg = "\n\n💾  ImportTask: #{msg}"
-    @log.write full_msg
+    @log.puts full_msg
     @record.log += full_msg
+    @record.save
   end
 end

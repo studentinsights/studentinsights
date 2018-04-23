@@ -5,8 +5,8 @@ import _ from 'lodash';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DateSlider from '../DateSlider';
 import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
+import DashRangeButtons from '../DashRangeButtons';
 
 
 class SchoolAbsenceDashboard extends React.Component {
@@ -15,14 +15,8 @@ class SchoolAbsenceDashboard extends React.Component {
     super(props);
     this.state = {
       displayDates: this.props.dateRange,
-      selectedHomeroom: null
-    };
-    this.setDate = (range) => {
-      this.setState({
-        displayDates: DashboardHelpers.filterDates(this.props.dateRange,
-                                                    moment.unix(range[0]).utc().format("YYYY-MM-DD"),
-                                                    moment.unix(range[1]).utc().format("YYYY-MM-DD"))
-      });
+      selectedHomeroom: null,
+      selectedRange: 'This School Year'
     };
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
@@ -53,7 +47,7 @@ class SchoolAbsenceDashboard extends React.Component {
     });
   }
 
-  studentAbsenceCounts(absencesArray) {
+  studentAbsenceCounts() {
     let studentAbsenceCounts = {};
     this.state.displayDates.forEach((day) => {
       _.each(this.props.schoolAbsenceEvents[day], (absence) => {
@@ -66,16 +60,18 @@ class SchoolAbsenceDashboard extends React.Component {
 
   render() {
     return (
+      <div>
+        {this.renderRangeSelector()}
         <div className="DashboardContainer">
+          <div className="DashboardRosterColumn">
+            {this.renderStudentAbsenceTable()}
+          </div>
           <div className="DashboardChartsColumn">
             {this.renderMonthlyAbsenceChart()}
             {this.renderHomeroomAbsenceChart()}
           </div>
-          <div className="DashboardRosterColumn">
-            {this.renderDateRangeSlider()}
-            {this.renderStudentAbsenceTable()}
-          </div>
         </div>
+      </div>
     );
   }
 
@@ -94,7 +90,7 @@ class SchoolAbsenceDashboard extends React.Component {
           seriesData = {filteredAttendanceSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {'Average Attendance By Month'}
+          titleText = {`Average Attendance By Month (${this.state.selectedRange})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -118,7 +114,7 @@ class SchoolAbsenceDashboard extends React.Component {
           seriesData = {homeroomSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {'Average Attendance By Homeroom'}
+          titleText = {`Average Attendance By Homeroom (${this.state.selectedRange})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -138,26 +134,42 @@ class SchoolAbsenceDashboard extends React.Component {
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
-        last_sst_date_text: latestNoteDateText(300, student.event_notes),
+        last_sst_date_text: latestNoteDateText(300, student.sst_notes),
         events: studentAbsenceCounts[student.id] || 0
       });
     });
 
+    const {selectedRange} = this.state;
+
     return (
       <StudentsTable
-        rows = {rows}
-        selectedHomeroom = {this.state.selectedHomeroom}/>
+        rows={rows}
+        selectedCategory={this.state.selectedHomeroom}
+        incidentType='Absences'
+        incidentSubtitle={selectedRange}
+        resetFn={this.resetStudentList}/>
     );
   }
 
-  renderDateRangeSlider() {
-    const firstDate = DashboardHelpers.schoolYearStart();
-    const lastDate = this.props.dateRange[this.props.dateRange.length - 1];
+  renderRangeSelector() {
+    const {dateRange} = this.props;
+    const today = moment.utc().format("YYYY-MM-DD");
+    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
+    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
+    const schoolYearStart = DashboardHelpers.schoolYearStart();
     return (
-      <DateSlider
-        rangeStart = {parseInt(moment.utc(firstDate).format("X"))}
-        rangeEnd = {parseInt(moment.utc(lastDate).format("X"))}
-        setDate={this.setDate}/>
+      <div className="DashboardRangeButtons">
+        <DashRangeButtons
+          schoolYearFilter={() => this.setState({
+            displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
+            selectedRange: 'This School Year'})}
+          ninetyDayFilter={() => this.setState({
+            displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
+            selectedRange: 'Past 90 Days'})}
+          fortyFiveDayFilter={() => this.setState({
+            displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
+            selectedRange: 'Past 45 Days'})}/>
+      </div>
     );
   }
 }

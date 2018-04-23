@@ -5,12 +5,7 @@ import _ from 'lodash';
 export default {
 
   groupByHomeroom: function(studentRecords) {
-    const studentsByHomeroom = _.groupBy(studentRecords, 'homeroom_label');
-    if (studentsByHomeroom[null]) {
-      studentsByHomeroom["No Homeroom"] = studentsByHomeroom[null];
-      delete studentsByHomeroom[null];
-    }
-    return studentsByHomeroom;
+    return _.groupBy(studentRecords, 'homeroom_label');
   },
 
   averageDailyAttendance: function(absenceEventsByDay, size) {

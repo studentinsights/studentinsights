@@ -8,7 +8,7 @@ RSpec.describe AttendanceRow do
   describe '#build' do
 
     context 'row has student ID' do
-      let!(:student) { FactoryGirl.create(:student) }
+      let!(:student) { FactoryBot.create(:student) }
       let(:data) {
         {
           local_id: student.local_id,

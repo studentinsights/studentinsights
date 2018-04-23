@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe EventNotesController, :type => :controller do
-  let(:school) { FactoryGirl.create(:school) }
+  let(:school) { FactoryBot.create(:school) }
 
   describe '#create' do
     def make_post_request(student, event_note_params = {})
@@ -10,8 +10,8 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'admin educator logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+      let!(:student) { FactoryBot.create(:student, school: school) }
       let!(:event_note_type) { EventNoteType.first }
 
       before do
@@ -80,8 +80,8 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'educator who can view restricted notes logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin, school: school, can_view_restricted_notes: true) }
-      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let(:educator) { FactoryBot.create(:educator, :admin, school: school, can_view_restricted_notes: true) }
+      let!(:student) { FactoryBot.create(:student, school: school) }
       let!(:event_note_type) { EventNoteType.first }
 
       before do
@@ -119,7 +119,7 @@ describe EventNotesController, :type => :controller do
 
     context 'not logged in' do
       let!(:event_note_type) { EventNoteType.first }
-      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let!(:student) { FactoryBot.create(:student, school: school) }
       let(:post_params) {
         {
           student_id: student.id,
@@ -146,8 +146,8 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'admin educator logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+      let!(:student) { FactoryBot.create(:student, school: school) }
       let!(:event_note_type) { EventNoteType.first }
 
       before do
@@ -155,7 +155,7 @@ describe EventNotesController, :type => :controller do
       end
 
       context 'valid first edit request' do
-        let!(:event_note) { FactoryGirl.create(:event_note) }
+        let!(:event_note) { FactoryBot.create(:event_note) }
         let(:post_params) {
           {
             id: event_note.id,
@@ -212,7 +212,7 @@ describe EventNotesController, :type => :controller do
       end
 
       context 'valid second edit request' do
-        let!(:event_note_revision) { FactoryGirl.create(:event_note_revision) }
+        let!(:event_note_revision) { FactoryBot.create(:event_note_revision) }
         let(:event_note) { event_note_revision.event_note }
         let(:post_params) {
           {
@@ -231,8 +231,8 @@ describe EventNotesController, :type => :controller do
     end
 
     context 'educator who can view restricted notes logged in' do
-      let(:educator) { FactoryGirl.create(:educator, :admin, school: school, can_view_restricted_notes: true) }
-      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let(:educator) { FactoryBot.create(:educator, :admin, school: school, can_view_restricted_notes: true) }
+      let!(:student) { FactoryBot.create(:student, school: school) }
       let!(:event_note_type) { EventNoteType.first }
 
       before do
@@ -240,7 +240,7 @@ describe EventNotesController, :type => :controller do
       end
 
       context 'valid first edit request' do
-        let!(:event_note) { FactoryGirl.create(:event_note) }
+        let!(:event_note) { FactoryBot.create(:event_note) }
         let(:post_params) {
           {
             id: event_note.id,

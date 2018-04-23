@@ -1,3 +1,3 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :service_type
 end

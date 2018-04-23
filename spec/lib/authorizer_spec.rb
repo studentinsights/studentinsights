@@ -12,7 +12,7 @@ RSpec.describe Authorizer do
     expect(School.all.size).to eq 13
     expect(Homeroom.all.size).to eq 6
     expect(Student.all.size).to eq 2
-    expect(Educator.all.size).to eq 12
+    expect(Educator.all.size).to eq 13
     expect(Course.all.size).to eq 3
     expect(Section.all.size).to eq 6
   end
@@ -30,10 +30,10 @@ RSpec.describe Authorizer do
 
     it 'works for authorization' do
       students = Student.select(*Authorizer.student_fields_for_authorization).all
-      expect(authorized(pals.uri) { students }).to contain_exactly *[
+      expect(authorized(pals.uri) { students }).to contain_exactly(*[
         pals.healey_kindergarten_student,
         pals.shs_freshman_mari
-      ]
+      ])
       expect(authorized(pals.healey_vivian_teacher) { students }).to eq [pals.healey_kindergarten_student]
       expect(authorized(pals.shs_bill_nye) { students }).to eq [pals.shs_freshman_mari]
     end
@@ -90,17 +90,17 @@ RSpec.describe Authorizer do
   describe '#authorized' do
     describe 'Student' do
       it 'limits access with Student.all' do
-        expect(authorized(pals.uri) { Student.all }).to eq [
+        expect(authorized(pals.uri) { Student.all }).to match_array [
           pals.healey_kindergarten_student,
           pals.shs_freshman_mari
         ]
-        expect(authorized(pals.healey_vivian_teacher) { Student.all }).to eq [
+        expect(authorized(pals.healey_vivian_teacher) { Student.all }).to match_array [
           pals.healey_kindergarten_student
         ]
-        expect(authorized(pals.shs_jodi) { Student.all }).to eq [
+        expect(authorized(pals.shs_jodi) { Student.all }).to match_array [
           pals.shs_freshman_mari
         ]
-        expect(authorized(pals.shs_bill_nye) { Student.all }).to eq [
+        expect(authorized(pals.shs_bill_nye) { Student.all }).to match_array [
           pals.shs_freshman_mari
         ]
       end
@@ -125,7 +125,7 @@ RSpec.describe Authorizer do
 
       it 'if `select` was used on an ActiveRecord::Relation for students, fields needed for authorization are added in' do
         thin_relation = Student.select(:id, :local_id).all
-        expect((authorized(pals.uri) { thin_relation }).map(&:id)).to eq([
+        expect((authorized(pals.uri) { thin_relation }).map(&:id)).to match_array([
           pals.healey_kindergarten_student.id,
           pals.shs_freshman_mari.id
         ])
@@ -139,10 +139,10 @@ RSpec.describe Authorizer do
     end
 
     describe 'EventNote' do
-      let!(:healey_public_note) { FactoryGirl.create(:event_note, student: pals.healey_kindergarten_student) }
-      let!(:healey_restricted_note) { FactoryGirl.create(:event_note, student: pals.healey_kindergarten_student, is_restricted: true) }
-      let!(:shs_public_note) { FactoryGirl.create(:event_note, student: pals.shs_freshman_mari) }
-      let!(:shs_restricted_note) { FactoryGirl.create(:event_note, student: pals.shs_freshman_mari, is_restricted: true) }
+      let!(:healey_public_note) { FactoryBot.create(:event_note, student: pals.healey_kindergarten_student) }
+      let!(:healey_restricted_note) { FactoryBot.create(:event_note, student: pals.healey_kindergarten_student, is_restricted: true) }
+      let!(:shs_public_note) { FactoryBot.create(:event_note, student: pals.shs_freshman_mari) }
+      let!(:shs_restricted_note) { FactoryBot.create(:event_note, student: pals.shs_freshman_mari, is_restricted: true) }
 
       it 'limits access for relation' do
         expect(authorized(pals.uri) { EventNote.all }).to eq [
