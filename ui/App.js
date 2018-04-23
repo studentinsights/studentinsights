@@ -11,7 +11,7 @@ import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCo
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 import SchoolEquityPrincipalPage from '../app/assets/javascripts/equity/SchoolEquityPrincipalPage';
-import SchoolEquityTeachersPage from '../app/assets/javascripts/equity/SchoolEquityTeachersPage';
+import SchoolBalancingTeacherPage from '../app/assets/javascripts/equity/SchoolBalancingTeacherPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 
@@ -57,7 +57,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
           <Route exact path="/schools/:id/equity/principal" render={this.renderSchoolEquityPrincipalPage.bind(this)}/>
-          <Route exact path="/schools/:id/equity/teachers/:grade" render={this.renderSchoolEquityTeachersPage.bind(this)}/>
+          <Route exact path="/balancing/:balance_id?" render={this.renderSchoolBalancingTeacherPage.bind(this)}/>
           <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
@@ -80,11 +80,10 @@ class App extends React.Component {
     return <SchoolEquityPrincipalPage schoolId={schoolId} />;
   }
 
-  renderSchoolEquityTeachersPage(routeProps) {
-    const schoolId = routeProps.match.params.id;
-    const grade = routeProps.match.params.grade;
-    this.trackVisit(routeProps, 'SCHOOL_EQUITY_TEACHERS_PAGE');
-    return <SchoolEquityTeachersPage schoolId={schoolId} grade={grade} />;
+  renderSchoolBalancingTeacherPage(routeProps) {
+    const balanceId = routeProps.match.params.balance_id;
+    this.trackVisit(routeProps, 'SCHOOL_BALANCING_TEACHER_PAGE');
+    return <SchoolBalancingTeacherPage balanceId={balanceId} />;
   }
 
   renderSchoolCoursesPage(routeProps) {

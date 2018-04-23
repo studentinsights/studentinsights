@@ -20,6 +20,10 @@ module.exports = {
           // directory for faster rebuilds.
           cacheDirectory: true,
         },
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
       }
     ]
   }
