@@ -9,18 +9,18 @@ import * as Routes from '../../helpers/Routes';
 import SharedPropTypes from '../../helpers/prop_types.jsx';
 import DashResetButton from './DashResetButton';
 
-
 class StudentsTable extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       sortBy: 'events',
       sortType: 'number',
       sortDesc: true,
       selectedCategory: null,
-      schoolYearFlag: false
     };
+
     this.onClickHeader = this.onClickHeader.bind(this);
   }
 
@@ -132,11 +132,9 @@ class StudentsTable extends React.Component {
   }
 
   renderCaption() {
-    const schoolYearCaption = this.props.schoolYearFlag ? " (School Year)" : "";
+    const {selectedCategory} = this.props;
 
-    return this.props.selectedCategory
-      ? this.props.selectedCategory + schoolYearCaption
-      : "All Students" + schoolYearCaption;
+    return selectedCategory ? selectedCategory : 'All Students';
   }
 
   renderIncidentTypeSubtitle() {
@@ -158,10 +156,9 @@ StudentsTable.propTypes = {
     last_sst_date_text: SharedPropTypes.nullableWithKey(PropTypes.string)
   })).isRequired,
   selectedCategory: PropTypes.string,
-  incidentType: PropTypes.string.isRequired, //Specific incident type being displayed
+  incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
   incidentSubtitle: PropTypes.string,
-  resetFn: PropTypes.func.isRequired, //Function to reset student list to display all students
-  schoolYearFlag: PropTypes.bool
+  resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
 };
 
 const style = {

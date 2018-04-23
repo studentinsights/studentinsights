@@ -170,9 +170,8 @@ class SchoolTardiesDashboard extends React.Component {
 
     return (
       <StudentsTable
-        rows = {rows}
-        selectedCategory = {this.state.selectedHomeroom}
-        schoolYearFlag ={true}
+        rows={rows}
+        selectedCategory={this.state.selectedHomeroom}
         incidentType='Tardies'
         incidentSubtitle={selectedRange}
         resetFn={this.resetStudentList}/>
