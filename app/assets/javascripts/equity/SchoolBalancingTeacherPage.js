@@ -1,7 +1,9 @@
 import React from 'react';
+import _ from 'lodash';
 import qs from 'query-string';
 import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
+import Card from '../components/Card';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {gradeText} from '../helpers/gradeText';
 import ClassroomListCreator from './ClassroomListCreator';
@@ -39,6 +41,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
       statementText: '',
       schoolId: null,
       gradeLevelNextYear: null,
+      classroomsCount: 2,
       phase: Phases.STARTING // TODO(kr)
     };
 
@@ -205,24 +208,15 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   }
 
   renderMakeAPlanWithData(json) {
-    const {educators} = this.state;
+    const {educators, classroomsCount} = this.state;
     const {students} = json;
+    // TODO(kr) want to setState here for current educator
     const educatorNames = json.educator_names;
 
     return (
       <div style={styles.stepContent}>
         <div>
-          <div style={styles.heading}>How many classrooms will you create?</div>
-          <div>There are {students.length} students total.</div>
-          <div>
-            {this.renderClassroomCountButton(students, 'two', 2)}
-            {this.renderClassroomCountButton(students, 'three', 3)}
-            {this.renderClassroomCountButton(students, 'four', 4)}
-            {this.renderClassroomCountButton(students, 'five', 5)}
-          </div>
-        </div>
-        <div>
-          <div style={styles.heading}>Who's here?</div>
+          <div style={styles.heading}>Who's on the teaching team?</div>
           <Select
             name="select-educators"
             value={educators}
@@ -239,26 +233,46 @@ export default class SchoolBalancingTeacherPage extends React.Component {
           />
         </div>
         <div>
-          <div style={styles.heading}>What's your plan?</div>
-          <textarea style={{border: '1px solid #ccc', width: '100%'}}  rows={6}></textarea>
+          <div style={styles.heading}>How many classrooms will you create?</div>
+          <div>
+            <Card style={{display: 'inline-block'}}>-</Card>
+            {_.range(0, classroomsCount).map(classroomIndex => {
+              return this.renderClassroomCountButton(classroomIndex);
+            })}
+            <Card style={{display: 'inline-block'}}>+</Card>
+          </div>
+          <div style={{fontSize: 12}}>With {students.length} students total, the average class size would be <b>{Math.ceil(students.length / classroomsCount)} students</b>.</div>
+        </div>
+        <div>
+          <div style={styles.heading}>What's your plan for creating classroom communitites?</div>
+          <textarea style={{border: '1px solid #ccc', width: '100%'}}  rows={8}></textarea>
         </div>
       </div>
     );
   }
 
-  renderClassroomCountButton(students, text, number) {
-    const size = Math.ceil(students.length / number);
-    return <button style={styles.button}>{text}<br />(average class size {size})</button>;
+  renderClassroomCountButton(number) {
+    const colors = [
+      '#e41a1c',
+      // '#377eb8',
+      '#4daf4a',
+      '#984ea3',
+      '#ff7f00',
+      '#ffff33'
+    ];
+    const color = colors[number];
+    return (
+      <Card key={number} style={{...styles.button, backgroundColor: color, opacity: 0.8}}>Classroom {number + 1}</Card>
+    );
   }
 
   renderCreateYourClassrooms() {    
-    const {educators} = this.state;
-    const grade = '5';
-    const schoolId = 'foo';
+    const {educators, schoolId, gradeLevelNextYear, classroomsCount} = this.state;
     return (
       <ClassroomListCreator
         schoolId={schoolId}
-        grade={grade}
+        gradeLevelNextYear={gradeLevelNextYear}
+        classroomsCount={classroomsCount}
         educators={educators} />
     );
   }
@@ -289,8 +303,9 @@ const styles = {
     marginTop: 20
   },
   button: {
-    border: '1px solid #ccc',
-    padding: 10
+    display: 'inline-block',
+    margin: 5,
+    cursor: 'pointer'
   },
   stepContent: {
     margin: 10

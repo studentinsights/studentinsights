@@ -52,7 +52,8 @@ class ClassroomBalancingController < ApplicationController
     educator_names_json = (school.educator_names_for_services + Service.provider_names).uniq.compact
     render json: {
       students: students_json,
-      educator_names: educator_names_json
+      educator_names: educator_names_json,
+      current_educator_name: current_educator.full_name
     }
   end
 

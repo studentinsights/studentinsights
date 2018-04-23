@@ -125,10 +125,12 @@ export default class ClassroomListCreator extends React.Component {
   }
 
   renderContent(json) {
-    const {grade, educators} = this.props;
+    const {gradeLevelNextYear, educators, classroomsCount} = this.props;
     const {students, school} = json;
-    const rooms = ['Room A', 'Room B', 'Room C', 'Room D'];
-    const communityName = `${gradeText(grade)} at ${school.name}`;
+    const rooms = _.range(0, classroomsCount).map(index => {
+      return `Room ${String.fromCharCode(65 + index)}`;
+    });
+    const communityName = `${gradeText(gradeLevelNextYear)} at ${school.name}`;
 
     return (
       <ClassroomListCreatorView
@@ -140,9 +142,10 @@ export default class ClassroomListCreator extends React.Component {
   }
 }
 ClassroomListCreator.propTypes = {
-  schoolId: React.PropTypes.string.isRequired,
-  grade: React.PropTypes.string.isRequired, 
-  educators: React.PropTypes.array.isRequired
+  schoolId: React.PropTypes.number.isRequired,
+  gradeLevelNextYear: React.PropTypes.string.isRequired, 
+  educators: React.PropTypes.array.isRequired,
+  classroomsCount: React.PropTypes.number.isRequired
 };
 
 
