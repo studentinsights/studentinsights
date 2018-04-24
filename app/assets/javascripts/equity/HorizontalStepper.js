@@ -80,7 +80,7 @@ export default class HorizontalStepper extends React.Component {
   renderNavigationButtons() {
     const {steps} = this.props;
     const {currentStepIndex} = this.state;
-    const shouldShowNext = (currentStepIndex < steps.length);
+    const shouldShowNext = (currentStepIndex < steps.length - 1);
     const shouldShowPrevious = (currentStepIndex > 0);
     return (
       <div>
