@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import SimpleStudentCard from './SimpleStudentCard';
+import ClassroomStats from './ClassroomStats';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 
@@ -38,7 +39,6 @@ export default class MultipleListsCreatorView extends React.Component {
 
   onDragEnd(dragEndResult) {
     const {studentIdsByRoom} = this.state;
-
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
     this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
   }
@@ -59,8 +59,11 @@ export default class MultipleListsCreatorView extends React.Component {
               });
               return (
                 <div key={roomKey} style={styles.classroomListColumn}>
-                  <div>{roomName}</div>
-                  <div>...stats...</div>
+                  <ClassroomStats
+                    roomName={roomName}
+                    students={students}
+                    rooms={rooms}
+                    classroomStudents={classroomStudents} />
                   <Droppable droppableId={roomKey} type="CLASSROOM_LIST">
                     {(provided, snapshot) => (
                       <div ref={provided.innerRef} style={styles.droppable}>

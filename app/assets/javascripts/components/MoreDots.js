@@ -11,7 +11,7 @@ function MoreDots({color = '#ccc'}) {
   );
 }
 MoreDots.propTypes = {
-  color: React.PropTypes.string.isRequired
+  color: React.PropTypes.string
 };
 
 export default MoreDots;

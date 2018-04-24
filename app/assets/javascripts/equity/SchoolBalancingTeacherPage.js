@@ -14,14 +14,6 @@ import HorizontalStepper from './HorizontalStepper';
 import uuidv4 from 'uuid/v4';
 
 
-const Phases = {
-  STARTING: 'starting',
-  CREATING: 'creating',
-  REVIEWING: 'reviewing'
-};
-
-
-
 
 const text = `Over the last few years, I’ve been hearing from teachers and principals about how complex and time-consuming the class assignment process is.  It’s so hard to juggle and keep track of all the various factors, like gender, ELL status, disabilities, academics, and discipline.  And in a diverse city as ours, we want as much as possible for the classrooms at each grade level to reflect the diversity of your school community.    In the past year, people who have seen our Student Insights system have asked if there might be a way to use technology to make the process a little more streamlined.
 
@@ -37,17 +29,17 @@ export default class SchoolBalancingTeacherPage extends React.Component {
 
     this.state = {
       balanceId: props.balanceId || uuidv4(),
+      stepIndex: 0,
       educators: [],
       statementText: '',
       schoolId: null,
       gradeLevelNextYear: null,
-      classroomsCount: 2,
-      phase: Phases.STARTING // TODO(kr)
+      classroomsCount: 2
     };
 
     this.fetchGradeLevels = this.fetchGradeLevels.bind(this);
     this.fetchStudents = this.fetchStudents.bind(this);
-    this.onNextClicked = this.onNextClicked.bind(this);
+    this.onStepChanged = this.onStepChanged.bind(this);
     this.onSchoolIdChanged = this.onSchoolIdChanged.bind(this);
     this.onGradeLevelNextYearChanged = this.onGradeLevelNextYearChanged.bind(this);
     this.onEducatorsChanged = this.onEducatorsChanged.bind(this);
@@ -96,8 +88,8 @@ export default class SchoolBalancingTeacherPage extends React.Component {
       : undefined;
   }
 
-  onNextClicked() {
-    this.setState({ phase: Phases.CREATING });
+  onStepChanged(stepIndex) {
+    this.setState({stepIndex});
   }
 
   onSchoolIdChanged(item) {
@@ -114,12 +106,13 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   }
 
   render() {
+    const {stepIndex} = this.state;
     return (
       <div className="SchoolBalancingTeacherPage" style={{margin: 10}}>
         <SectionHeading>Classroom communities</SectionHeading>
         <HorizontalStepper
           style={{padding: 10, paddingTop: 20}}
-          defaultStepIndex={0}
+          stepIndex={stepIndex}
           steps={[
             'Choose your grade',
             'Make a plan',
@@ -127,6 +120,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
             'Review and share notes',
             'Share with your principal'
           ]}
+          onStepChanged={this.onStepChanged}
           renderFn={this.renderStepContents} />
       </div>
     );

@@ -14,32 +14,29 @@ export default class HorizontalStepper extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      currentStepIndex: props.defaultStepIndex || 0
-    };
-
-    this.onStepClicked = this.onStepClicked.bind(this);
+    this.onStepChanged = this.onStepChanged.bind(this);
     this.onPreviousClicked = this.onPreviousClicked.bind(this);
     this.onNextClicked = this.onNextClicked.bind(this);
   }
 
-  onStepClicked(stepIndex) {
-    this.setState({currentStepIndex: stepIndex});
+  onStepChanged(stepIndex) {
+    const {onStepChanged} = this.props;
+    onStepChanged(stepIndex);
   }
 
   onPreviousClicked() {
-    const {currentStepIndex} = this.state;
-    this.setState({currentStepIndex: currentStepIndex - 1});
+    const {stepIndex} = this.props;
+    this.onStepChanged(stepIndex - 1);
   }
 
   onNextClicked() {
-    const {currentStepIndex} = this.state;
-    this.setState({currentStepIndex: currentStepIndex + 1});
+    const {stepIndex} = this.props;
+    this.onStepChanged(stepIndex + 1);
   }
 
   render() {
     const {steps, renderFn, style} = this.props;
-    const {currentStepIndex} = this.state;
+    const currentStepIndex = this.props.stepIndex;
     return (
       <div className="HorizontalStepper" style={style}>
         <div style={styles.banner}>
@@ -48,7 +45,7 @@ export default class HorizontalStepper extends React.Component {
               <span
                 key={stepIndex}
                 style={this.renderStyleForBannerItem(stepIndex, currentStepIndex)}
-                onClick={this.onStepClicked.bind(this, stepIndex)}>
+                onClick={this.onStepChanged.bind(this, stepIndex)}>
                 <Circle
                   text={`${stepIndex+1}`}
                   color={this.renderColorForCircle(stepIndex, currentStepIndex)}
@@ -79,7 +76,7 @@ export default class HorizontalStepper extends React.Component {
 
   renderNavigationButtons() {
     const {steps} = this.props;
-    const {currentStepIndex} = this.state;
+    const currentStepIndex = this.props.stepIndex;
     const shouldShowNext = (currentStepIndex < steps.length - 1);
     const shouldShowPrevious = (currentStepIndex > 0);
     return (
@@ -93,7 +90,8 @@ export default class HorizontalStepper extends React.Component {
 HorizontalStepper.propTypes = {
   steps: React.PropTypes.array.isRequired,
   renderFn: React.PropTypes.func.isRequired,
-  defaultStepIndex: React.PropTypes.number,
+  stepIndex: React.PropTypes.number.isRequired,
+  onStepChanged: React.PropTypes.func.isRequired,
   style: React.PropTypes.object
 };
 
