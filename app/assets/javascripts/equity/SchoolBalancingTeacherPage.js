@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import qs from 'query-string';
-import SectionHeading from '../components/SectionHeading';
 import FetchOnRender from '../components/FetchOnRender';
 import Card from '../components/Card';
 import {apiFetchJson} from '../helpers/apiFetchJson';
@@ -145,10 +144,10 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   render() {
     const {stepIndex} = this.state;
     return (
-      <div className="SchoolBalancingTeacherPage" style={{margin: 10}}>
-        <SectionHeading>Classroom communities</SectionHeading>
+      <div className="SchoolBalancingTeacherPage" style={styles.root}>
         <HorizontalStepper
-          style={{padding: 10, paddingTop: 20}}
+          style={styles.horizontalStepper}
+          contentStyle={styles.horizontalStepperContent}
           stepIndex={stepIndex}
           steps={[
             'Choose your grade',
@@ -323,6 +322,7 @@ SchoolBalancingTeacherPage.propTypes = {
 };
 
 const styles = {
+  root: {},
   heading: {
     marginTop: 20
   },
@@ -332,12 +332,19 @@ const styles = {
     cursor: 'pointer'
   },
   stepContent: {
-    margin: 10
+    margin: 20
   },
   videoLink: {
     display: 'inline-block',
     marginLeft: 5,
     fontSize: 12
+  },
+  horizontalStepper: {
+    paddingTop: 15
+  },
+  horizontalStepperContent: {
+    borderTop: '1px solid #ccc',
+    marginTop: 10
   }
 };
 

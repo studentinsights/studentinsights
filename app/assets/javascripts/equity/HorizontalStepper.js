@@ -35,7 +35,7 @@ export default class HorizontalStepper extends React.Component {
   }
 
   render() {
-    const {steps, renderFn, style} = this.props;
+    const {steps, renderFn, style, contentStyle} = this.props;
     const currentStepIndex = this.props.stepIndex;
     return (
       <div className="HorizontalStepper" style={style}>
@@ -55,7 +55,7 @@ export default class HorizontalStepper extends React.Component {
             );
           })}
         </div>
-        <div>{renderFn(currentStepIndex, steps[currentStepIndex])}</div>
+        <div style={contentStyle}>{renderFn(currentStepIndex, steps[currentStepIndex])}</div>
         {this.renderNavigationButtons()}
       </div>
     );
@@ -68,7 +68,14 @@ export default class HorizontalStepper extends React.Component {
   }
 
   renderStyleForBannerItem(index, currentIndex) {
-    if (index === currentIndex) return {...styles.bannerItem, borderBottom: '2px solid #3177c9' };
+    if (index === currentIndex) {
+      return {
+        ...styles.bannerItem,
+        borderColor: '#3177c9',
+        backgroundColor: 'rgba(49, 119, 201, 0.25)'
+      };
+    }
+
     return (index <= currentIndex)
       ? styles.bannerItem
       : {...styles.bannerItem, color: '#ccc' };
@@ -92,19 +99,24 @@ HorizontalStepper.propTypes = {
   renderFn: React.PropTypes.func.isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   onStepChanged: React.PropTypes.func.isRequired,
-  style: React.PropTypes.object
+  style: React.PropTypes.object,
+  contentStyle: React.PropTypes.object
 };
 
 const styles = {
   banner:{
-    fontSize: 12
+    fontSize: 12,
+    paddingLeft: 15
   },
   bannerItem: {
-    padding: 5,
-    paddingLeft: 0,
+    padding: 8,
+    paddingRight: 10,
     marginLeft: 5,
     marginRight: 10,
-    cursor: 'pointer'
+    cursor: 'pointer',
+    border: '1px solid white',
+    borderRadius: 3,
+    borderColor: 'white'
   },
   bannerText: {
     paddingLeft: 5

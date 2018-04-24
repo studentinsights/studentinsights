@@ -13,8 +13,10 @@ const styles = {
     padding: 20,
     tableLayout: 'fixed'
   },
-  cell: {
-
+  cell: { /* overridding some global CSS */
+    textAlign: 'left',
+    fontWeight: 'normal',
+    fontSize: 12
   }
 };
 export default class ClassroomStats extends React.Component {
@@ -25,6 +27,18 @@ export default class ClassroomStats extends React.Component {
     });
   }
 
+  /*
+  high academic, low academic
+  disabilities
+  language
+
+  high discipline, low discipline
+
+  gender
+  race
+  ethnicity
+  free/reduced lunch
+  */
   render() {
     const {rooms} = this.props;
     return (
@@ -32,24 +46,24 @@ export default class ClassroomStats extends React.Component {
         <table style={styles.table}>
           <thead>
             <tr>
-              <th></th>
-              <th>Gender (female)</th>
-              <th>Low income</th>
-              <th>Disability</th>
-              <th>Learning English</th>
-              <th>STAR Math</th>
-              <th>STAR Reading</th>
+              <th style={styles.cell}></th>
+              <th style={styles.cell}>Disability</th>
+              <th style={styles.cell}>Learning English</th>
+              <th style={styles.cell}>Gender (female)</th>
+              <th style={styles.cell}>Low income</th>
+              <th style={styles.cell}>STAR Math</th>
+              <th style={styles.cell}>STAR Reading</th>
             </tr>
           </thead>
           <tbody>
             {rooms.map(room => {  
               return (
                 <tr key={room.roomKey}>
-                  <td style={{...styles.cell, fontWeight: 'bold'}}>{room.roomName}</td>
-                  <td style={styles.cell}>{this.renderGender(room)}</td>
-                  <td style={styles.cell}>{this.renderLowIncome(room)}</td>
+                  <td style={styles.cell}>{room.roomName}</td>
                   <td style={styles.cell}>{this.renderDisability(room)}</td>
                   <td style={styles.cell}>{this.renderEnglishLearners(room)}</td>
+                  <td style={styles.cell}>{this.renderGender(room)}</td>
+                  <td style={styles.cell}>{this.renderLowIncome(room)}</td>
                   <td style={styles.cell}>{this.renderMath(room)}</td>
                   <td style={styles.cell}>{this.renderReading(room)}</td>
                 </tr>
@@ -113,10 +127,11 @@ export default class ClassroomStats extends React.Component {
       <Bar
         percent={percent}
         threshold={5}
-        style={{background: 'white', fontSize: 10, borderBottom: '1px solid #333'}}
-        innerStyle={{justifyContent: 'flex-start', padding: 2, color: '#999'}} />
+        style={{background: 'white', fontSize: 10, position: 'relative', top: 4, borderTop: '2px solid #999'}}
+        innerStyle={{justifyContent: 'flex-start', padding: 2, color: '#ccc'}} />
     );
   }
+
 }
 ClassroomStats.propTypes = {
   students: React.PropTypes.array.isRequired,
@@ -125,23 +140,6 @@ ClassroomStats.propTypes = {
 };
 
 
-
-// import MultipleListsCreatorView from './MultipleListsCreatorView';
-
-// export default class ClassroomListsCreatorView extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.onResetClicked = this.onResetClicked.bind(this);
-//   }
-
-//   studentsInRoom(room) {
-//     const {students, rooms} = this.props;
-//     const {slots} = this.state;
-//     const roomIndex = rooms.indexOf(room);
-//     const slotForRoom = roomIndex;
-//     return students.filter(student => slots[student.id] === slotForRoom);
-//   }
 
 //   sortedStudents() {
 //     const {students, rooms} = this.props;
@@ -173,22 +171,6 @@ ClassroomStats.propTypes = {
 //   onSortClicked(sortKey) {
 //     // scrollTop?
 //     this.setState({sortKey});
-//   }
-
-//   onDragStop(student, e, data) {
-//     e.preventDefault();
-//     e.stopPropagation();
-
-//     const {x} = data;
-//     const {slots} = this.state;
-//     const slot = Math.floor(x / width);
-//     this.setState({
-//       slots: {
-//         ...slots,
-//         [student.id]: slot
-//       }
-//     });
-//     this.forceUpdate(); // TODO(kr) hacking draggable
 //   }
 
 //   render() {
@@ -255,102 +237,6 @@ ClassroomStats.propTypes = {
 //     };
 //     return <a onClick={this.onSortClicked.bind(this, sortKey)} style={style}>{text}</a>;
 //   }
-
-//   /*
-//   high academic, low academic
-//   disabilities
-//   language
-
-//   high discipline, low discipline
-
-//   gender
-//   race
-//   ethnicity
-//   free/reduced lunch
-//   */
-//   renderRoom(room, slotForRoom) {
-//     const {rooms} = this.props;
-//     const studentsInRooms = rooms.map(this.studentsInRoom, this);
-//     const studentsInRoom = studentsInRooms[slotForRoom];
-//     const containerStyle = (slotForRoom === rooms.length)
-//       ? styles.column
-//       : {...styles.column, borderRight: 0};
-//     return (
-//       <div key={room} style={containerStyle}>
-//         <h2>{room}</h2>
-//         <div style={styles.indicator}>Students: {studentsInRoom.length}</div>
-//         <div style={styles.indicator}>{'\u00A0'}</div>
-//         <div style={styles.indicator}>{this.renderLowIncome(studentsInRooms, slotForRoom)}</div>
-//         <div style={styles.indicator}>{this.renderELL(studentsInRooms, slotForRoom)}</div>
-//         <div style={styles.indicator}>{this.renderSPED(studentsInRooms, slotForRoom)}</div>
-//         <div style={styles.indicator}>{this.renderMath(studentsInRooms, slotForRoom)}</div>
-//         <div style={styles.indicator}>{this.renderReading(studentsInRooms, slotForRoom)}</div>
-//       </div>
-//     );
-//   }
-
-//   // TODO(kr) PerDistrict
-//   renderLowIncome(studentsInRooms, slotForRoom) {
-//     const percentageInRooms = studentsInRooms.map(students => {
-//       const count = students.filter(s => -1 !== ['Free Lunch', 'Reduced Lunch'].indexOf(s.free_reduced_lunch)).length;
-//       return count === 0 ? 0 : Math.round(100 * count / students.length);
-//     });
-//     return this.renderOutlier('Language', percentageInRooms, percentageInRooms[slotForRoom]);
-
-//     // with bar
-//     // const percentageInRooms = studentsInRooms.map(students => {
-//     //   const count = students.filter(s => -1 !== ['Free Lunch', 'Reduced Lunch'].indexOf(s.free_reduced_lunch)).length;
-//     //   return count === 0 ? 0 : Math.round(100 * count / students.length);
-//     // });
-//     // const percent = percentageInRooms[slotForRoom];
-//     // return (
-//     //   <div>
-//     //     <div>Language</div>
-//     //     <Bar percent={percent} threshold={10} styles={{paddingLeft: 20, paddingRight: 20, background: '#ccc', border: '#999', height: 12, width: 100 }} />
-//     //   </div>
-//     // );
-//   }
-
-//   // TODO(kr) PerDistrict
-//   renderELL(studentsInRooms, slotForRoom) {
-//     const percentageInRooms = studentsInRooms.map(students => {
-//       const count = students.filter(s => -1 !== ['Fluent'].indexOf(s.limited_english_proficiency)).length;
-//       return count === 0 ? 0 : Math.round(100 * count / students.length);
-//     });
-//     return this.renderOutlier('Learning English', percentageInRooms, percentageInRooms[slotForRoom]);
-//   }
-
-//   // TODO(kr) PerDistrict
-//   renderSPED(studentsInRooms, slotForRoom) {
-//     const percentageInRooms = studentsInRooms.map(students => {
-//       const count = students.filter(s => s.disability !== null).length;
-//       return count === 0 ? 0 : Math.round(100 * count / students.length);
-//     });
-//     return this.renderOutlier('Disability', percentageInRooms, percentageInRooms[slotForRoom]);
-//   }
-
-  // renderMath(studentsInRooms, slotForRoom) {
-  //   return this.renderStar(studentsInRooms, slotForRoom, 'STAR Math', student => student.most_recent_star_math_percentile);
-  // }
-
-  // renderReading(studentsInRooms, slotForRoom) {
-  //   return this.renderStar(studentsInRooms, slotForRoom, 'STAR Reading', student => student.most_recent_star_reading_percentile);
-  // }
-
-  // renderStar(studentsInRooms, slotForRoom, text, accessor) {
-  //   const valuesForRooms = studentsInRooms.map(students => {
-  //     return _.compact(students.map(accessor));
-  //   });
-  //   const values = valuesForRooms[slotForRoom];
-  //   return (
-  //     <div>
-  //       <div>{text}</div>
-  //       {(values.length === 0)
-  //         ? <div style={{height: 30}}>{'\u00A0'}</div>
-  //         : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
-  //     </div>
-  //   );
-  // }
 
 //   renderOutlier(text, byRooms, value) {
 //     const diffByRooms = byRooms.map(byRoom => byRoom - value);
