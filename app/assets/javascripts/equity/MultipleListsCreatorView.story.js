@@ -12,7 +12,7 @@ storiesOf('equity/MultipleListsCreatorView', module) // eslint-disable-line no-u
         <div style={{width: 1024, background: 'white'}}>
           <MultipleListsCreatorView
             communityName="hi"
-            rooms={["Room A", "Room B", "Room C"]}
+            roomNames={["Room A", "Room B", "Room C"]}
             students={students} />
         </div>
       </div>
