@@ -28,6 +28,9 @@ class PromiseLoader extends React.Component {
   }
 
   onResolved(resolve) {
+    const {onResolved} = this.props;
+    if (onResolved) onResolved(resolve);
+
     const {promiseData} = this.state;
     this.setState({ promiseData: {
       ...promiseData,
@@ -54,7 +57,8 @@ class PromiseLoader extends React.Component {
 }
 PromiseLoader.propTypes = {
   promiseFn: React.PropTypes.func.isRequired,
-  children: React.PropTypes.func.isRequired
+  children: React.PropTypes.func.isRequired,
+  onResolved: React.PropTypes.func
 };
 
 export default PromiseLoader;

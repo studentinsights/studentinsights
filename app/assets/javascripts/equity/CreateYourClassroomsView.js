@@ -5,13 +5,13 @@ import ClassroomStats from './ClassroomStats';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 
-export default class MultipleListsCreatorView extends React.Component {
+export default class CreateYourClassroomsView extends React.Component {
   constructor(props) {
     super(props);
 
-    const {roomNames, students} = props;
+    const {classroomsCount, students} = props;
     this.state = {
-      studentIdsByRoom: initialStudentIdsByRoom(roomNames.length, students),
+      studentIdsByRoom: initialStudentIdsByRoom(classroomsCount, students),
       sortKey: 'not-yet-placed'
     };
 
@@ -21,10 +21,10 @@ export default class MultipleListsCreatorView extends React.Component {
   // TODO(kr) clarify the roomIndex / roomKey / null contract
   // Expand the `roomNames` to have keys and their index.
   rooms() {
-    const {roomNames} = this.props;
-    const rooms = roomNames.map((roomName, roomIndex) => {
+    const {classroomsCount} = this.props;
+    const rooms = _.range(0, classroomsCount).map((roomName, roomIndex) => {
       return {
-        roomName,
+        roomName: `Room ${String.fromCharCode(65 + roomIndex)}`,
         roomIndex,
         roomKey: roomKeyFromIndex(roomIndex)
       };
@@ -49,7 +49,7 @@ export default class MultipleListsCreatorView extends React.Component {
     const rooms = this.rooms();
 
     return (
-      <div className="MultipleListsCreatorView" style={styles.root}>
+      <div className="CreateYourClassroomsView" style={styles.root}>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div style={styles.listsContainer}>
             {rooms.map(room => {
@@ -85,8 +85,8 @@ export default class MultipleListsCreatorView extends React.Component {
     return <SimpleStudentCard key={student.id} student={student} index={index} />;
   }
 }
-MultipleListsCreatorView.propTypes = {
-  roomNames: React.PropTypes.array.isRequired,
+CreateYourClassroomsView.propTypes = {
+  classroomsCount: React.PropTypes.number.isRequired,
   students: React.PropTypes.array.isRequired
 };
 

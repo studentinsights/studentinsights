@@ -1,4 +1,4 @@
-import {reordered} from './MultipleListsCreatorView';
+import {reordered} from './CreateYourClassroomsView';
 
 it('#reordered', () => {
   const items = ['a', 'b', 'c', 'd', 'e'];

@@ -14,12 +14,18 @@ class GenericLoader extends React.Component {
   constructor(props) {
     super(props);
     this.renderGeneric = this.renderGeneric.bind(this);
+    this.onResolved = this.onResolved.bind(this);
+  }
+
+  onResolved(value) {
+    const {onResolved} = this.props;
+    if (onResolved) onResolved(value);
   }
 
   render() {
     const {promiseFn} = this.props;
     return (
-      <PromiseLoader promiseFn={promiseFn}>
+      <PromiseLoader promiseFn={promiseFn} onResolved={this.onResolved}>
         {this.renderGeneric}
       </PromiseLoader>
     );
@@ -27,7 +33,7 @@ class GenericLoader extends React.Component {
 
   renderGeneric(promiseState) {
     const {isPending, reject, resolve} = promiseState;
-    const {render, style} = this.props;
+    const {onResolved, render, style} = this.props;
 
     if (isPending) return <div style={{padding: 10, ...style}}>Loading...</div>;
 
@@ -40,12 +46,20 @@ class GenericLoader extends React.Component {
       }
       return <div style={{padding: 10, ...style}}>There was an error loading this data.</div>;
     }
-    return <div style={style}>{render(resolve)}</div>;
+
+    // If called in plain style, pass `resolve` to render.
+    // If called from `FetchOnRender`, don't pass anything.
+    if (onResolved) {
+      return <div style={style}>{render()}</div>;
+    } else {
+      return <div style={style}>{render(resolve)}</div>;
+    }
   }
 }
 GenericLoader.propTypes = {
   promiseFn: React.PropTypes.func.isRequired,
   render: React.PropTypes.func.isRequired,
+  onResolved: React.PropTypes.func,
   style: React.PropTypes.object
 };
 

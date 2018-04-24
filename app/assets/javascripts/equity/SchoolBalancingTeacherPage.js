@@ -2,12 +2,12 @@ import React from 'react';
 import _ from 'lodash';
 import qs from 'query-string';
 import SectionHeading from '../components/SectionHeading';
-import GenericLoader from '../components/GenericLoader';
+import FetchOnRender from '../components/FetchOnRender';
 import Card from '../components/Card';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {sortByGrade} from '../helpers/SortHelpers';
 import {gradeText} from '../helpers/gradeText';
-import ClassroomListCreator from './ClassroomListCreator';
+import CreateYourClassroomsView from './CreateYourClassroomsView';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import HorizontalStepper from './HorizontalStepper';
@@ -30,15 +30,31 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     this.state = {
       balanceId: props.balanceId || uuidv4(),
       stepIndex: 0,
-      educators: [],
-      statementText: '',
+
+      // first
+      schools: null,
+      gradeLevelsNextYear: null,
       schoolId: null,
       gradeLevelNextYear: null,
-      classroomsCount: 2
+
+      // second
+      classroomsCount: 3,
+      educatorNames: null,
+      educators: [],
+      students: null,
+      statementText: '',
+
+      // third, CreateYourClassroomsView
+
+      // fourth
+      
+
     };
 
     this.fetchGradeLevels = this.fetchGradeLevels.bind(this);
     this.fetchStudents = this.fetchStudents.bind(this);
+    this.onFetchedGradeLevels = this.onFetchedGradeLevels.bind(this);
+    this.onFetchedStudents = this.onFetchedStudents.bind(this);
     this.onStepChanged = this.onStepChanged.bind(this);
     this.onSchoolIdChanged = this.onSchoolIdChanged.bind(this);
     this.onGradeLevelNextYearChanged = this.onGradeLevelNextYearChanged.bind(this);
@@ -80,6 +96,28 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     return apiFetchJson(url);
   }
 
+  onFetchedGradeLevels(json) {
+    const gradeLevelsNextYear = json.grade_levels_next_year.sort(sortByGrade);
+    const {schools} = json;
+
+    this.setState({
+      schools,
+      gradeLevelsNextYear
+    });
+  }
+
+  onFetchedStudents(json) {
+    const educatorNames = json.educator_names;
+    const currentEducatorName = json.current_educator_name;
+    const {students} = json;
+
+    this.setState({
+      educatorNames,
+      students,
+      educators: [currentEducatorName]
+    });
+  }
+
   // TODO(kr) check this on IE
   onBeforeUnload(event) {
     const isDirty = true;
@@ -101,7 +139,6 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   }
 
   onEducatorsChanged(educators) {
-    console.log(educators);
     this.setState({educators}); 
   }
 
@@ -136,17 +173,15 @@ export default class SchoolBalancingTeacherPage extends React.Component {
 
   renderChooseYourGrade() {
     return (
-      <GenericLoader
-        key="grade"
+      <FetchOnRender
         promiseFn={this.fetchGradeLevels}
+        onResolved={this.onFetchedGradeLevels}
         render={this.renderChooseYourGradeWithData} />
     );
   }
 
-  renderChooseYourGradeWithData(json) {
-    const {schoolId, gradeLevelNextYear} = this.state;
-    const gradeLevelsNextYear = json.grade_levels_next_year.sort(sortByGrade);
-    const {schools} = json;
+  renderChooseYourGradeWithData() {
+    const {schools, gradeLevelsNextYear, schoolId, gradeLevelNextYear} = this.state;
     const videoUrl = 'https://www.youtube.com/watch?v=6hw3o6RzHek&t=2s';
 
     return (
@@ -194,18 +229,16 @@ export default class SchoolBalancingTeacherPage extends React.Component {
 
   renderMakeAPlan() {
     return (
-      <GenericLoader
+      <FetchOnRender
         key="plan"
         promiseFn={this.fetchStudents}
+        onResolved={this.onFetchedStudents}
         render={this.renderMakeAPlanWithData} />
     );
   }
 
-  renderMakeAPlanWithData(json) {
-    const {educators, classroomsCount} = this.state;
-    const {students} = json;
-    // TODO(kr) want to setState here for current educator
-    const educatorNames = json.educator_names;
+  renderMakeAPlanWithData() {
+    const {educators, classroomsCount, educatorNames, students} = this.state;
 
     return (
       <div style={styles.stepContent}>
@@ -214,7 +247,6 @@ export default class SchoolBalancingTeacherPage extends React.Component {
           <Select
             name="select-educators"
             value={educators}
-            /* default should include current educator */
             multi
             removeSelected
             onChange={this.onEducatorsChanged}
@@ -261,13 +293,11 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   }
 
   renderCreateYourClassrooms() {    
-    const {educators, schoolId, gradeLevelNextYear, classroomsCount} = this.state;
+    const {students, classroomsCount} = this.state;
     return (
-      <ClassroomListCreator
-        schoolId={schoolId}
-        gradeLevelNextYear={gradeLevelNextYear}
-        classroomsCount={classroomsCount}
-        educators={educators} />
+      <CreateYourClassroomsView
+        students={students}
+        classroomsCount={classroomsCount} />
     );
   }
 

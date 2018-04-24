@@ -50,8 +50,14 @@ class ClassroomBalancingController < ApplicationController
     })
     students_json = students.as_json
 
+    # TODO(kr) The set of educator names is off here
     school = School.find(school_id)
-    educator_names_json = (school.educator_names_for_services + Service.provider_names).uniq.compact
+    educator_names_json = [
+      [current_educator.full_name],
+      school.educator_names_for_services,
+      Service.provider_names
+    ].flatten.uniq.compact
+
     render json: {
       students: students_json,
       educator_names: educator_names_json,
