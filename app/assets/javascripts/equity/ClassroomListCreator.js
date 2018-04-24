@@ -158,7 +158,7 @@ function initialSlots(students, rooms) {
   }, {});
 }
 
-class ClassroomListCreatorView extends React.Component {
+export class ClassroomListCreatorView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -235,7 +235,6 @@ class ClassroomListCreatorView extends React.Component {
     return (
       <div style={styles.content}>
         <div style={styles.classrooms}>
-          <div style={styles.sectionHeading}>{communityName}</div>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div style={styles.links}>
               Sort by:

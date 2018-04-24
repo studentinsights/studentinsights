@@ -5,6 +5,7 @@ import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
 import Card from '../components/Card';
 import {apiFetchJson} from '../helpers/apiFetchJson';
+import {sortByGrade} from '../helpers/SortHelpers';
 import {gradeText} from '../helpers/gradeText';
 import ClassroomListCreator from './ClassroomListCreator';
 import ClassroomListCreatorFlipped from './ClassroomListCreatorFlipped';
@@ -151,7 +152,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
 
   renderChooseYourGradeWithData(json) {
     const {schoolId, gradeLevelNextYear} = this.state;
-    const gradeLevelsNextYear = json.grade_levels_next_year;
+    const gradeLevelsNextYear = json.grade_levels_next_year.sort(sortByGrade);
     const {schools} = json;
     const videoUrl = 'https://www.youtube.com/watch?v=6hw3o6RzHek&t=2s';
 

@@ -1,6 +1,7 @@
 class ClassroomBalancingController < ApplicationController
   # This entire feature is Somerville-specific
   before_action :ensure_somerville_only!
+  before_action :ensure_internal_only!
 
   # The schools and grade levels that this educator would work with.
   # This works by suggesting anything grade levels or schools they have
@@ -40,6 +41,7 @@ class ClassroomBalancingController < ApplicationController
     grade_level_next_year = params[:grade_level_next_year]
     grade_level_for_current_students = GradeLevels.new.previous(grade_level_next_year)
 
+    # TODO(kr) also need to filter out by separate program?
     # This uses a different authorization scheme for accessing students than
     # elsewhere in the app.  It's intentionally more permissive.
     students = Student.where({
@@ -99,5 +101,10 @@ class ClassroomBalancingController < ApplicationController
   def ensure_somerville_only!
     district_key = PerDistrict.new.district_key
     raise Exceptions::EducatorNotAuthorized unless district_key == PerDistrict::SOMERVILLE
+  end
+
+  # TODO(kr) temporary, because this is in active development
+  def ensure_internal_only!
+    raise Exceptions::EducatorNotAuthorized unless current_educator && current_educator.can_set_districtwide_access?
   end
 end
