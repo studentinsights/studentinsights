@@ -1,20 +1,129 @@
 import React from 'react';
+import _ from 'lodash';
+import Bar from '../components/Bar';
+import BoxAndWhisker from '../components/BoxAndWhisker';
 
+
+const styles = {
+  table: {
+    width: '100%',
+    textAlign: 'left',
+    fontSize: 12,
+    borderBottom: '1px solid #eee',
+    padding: 20,
+    tableLayout: 'fixed'
+  },
+  cell: {
+
+  }
+};
 export default class ClassroomStats extends React.Component {
+  studentsInRoom(room) {
+    const {students, studentIdsByRoom} = this.props;
+    return studentIdsByRoom[room.roomKey].map(studentId => {
+      return _.find(students, { id: studentId });
+    });
+  }
+
   render() {
-    const {roomName, classroomStudents} = this.props;
+    const {rooms} = this.props;
     return (
       <div>
-        <div>{roomName}</div>
-        <div>{classroomStudents.length} students</div>
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Gender (female)</th>
+              <th>Low income</th>
+              <th>Disability</th>
+              <th>Learning English</th>
+              <th>STAR Math</th>
+              <th>STAR Reading</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rooms.map(room => {  
+              return (
+                <tr key={room.roomKey}>
+                  <td style={{...styles.cell, fontWeight: 'bold'}}>{room.roomName}</td>
+                  <td style={styles.cell}>{this.renderGender(room)}</td>
+                  <td style={styles.cell}>{this.renderLowIncome(room)}</td>
+                  <td style={styles.cell}>{this.renderDisability(room)}</td>
+                  <td style={styles.cell}>{this.renderEnglishLearners(room)}</td>
+                  <td style={styles.cell}>{this.renderMath(room)}</td>
+                  <td style={styles.cell}>{this.renderReading(room)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
+    );
+  }
+
+  renderMath(room) {
+    return this.renderStar(room, student => student.most_recent_star_math_percentile);
+  }
+
+  renderReading(room) {
+    return this.renderStar(room, student => student.most_recent_star_reading_percentile);
+  }
+
+  renderStar(room, accessor) {
+    const students = this.studentsInRoom(room);
+    const values = _.compact(students.map(accessor));
+    return (
+      <div>
+        {(values.length === 0)
+          ? <div style={{height: 30}}>{'\u00A0'}</div>
+          : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
+      </div>
+    );
+  }
+
+  renderGender(room) {
+    return this.renderBarFor(room, student => {
+      return student.gender === 'F';
+    });
+  }
+
+  // TODO(kr) PerDistrict
+  renderLowIncome(room) {
+    return this.renderBarFor(room, student => {
+      return ['Free Lunch', 'Reduced Lunch'].indexOf(student.free_reduced_lunch) !== -1;
+    });
+  }
+
+  renderDisability(room) {
+    return this.renderBarFor(room, student => student.disability !== null);
+  }
+
+  renderEnglishLearners(room) {
+    return this.renderBarFor(room, student => student.limited_english_proficiency !== 'Fluent');
+  }
+
+  renderBarFor(room, filterFn) {
+    const students = this.studentsInRoom(room);
+    const count = students.filter(filterFn).length;
+    const percent = count === 0
+      ? 0 
+      : Math.round(100 * count / students.length);
+
+    return (
+      <Bar
+        percent={percent}
+        threshold={5}
+        style={{background: 'white', fontSize: 10, borderBottom: '1px solid #333'}}
+        innerStyle={{justifyContent: 'flex-start', padding: 2, color: '#999'}} />
     );
   }
 }
 ClassroomStats.propTypes = {
-  classroomStudents: React.PropTypes.array.isRequired,
-  roomName: React.PropTypes.string.isRequired
+  students: React.PropTypes.array.isRequired,
+  rooms: React.PropTypes.array.isRequired,
+  studentIdsByRoom: React.PropTypes.object.isRequired
 };
+
 
 
 // import MultipleListsCreatorView from './MultipleListsCreatorView';
@@ -220,28 +329,28 @@ ClassroomStats.propTypes = {
 //     return this.renderOutlier('Disability', percentageInRooms, percentageInRooms[slotForRoom]);
 //   }
 
-//   renderMath(studentsInRooms, slotForRoom) {
-//     return this.renderStar(studentsInRooms, slotForRoom, 'STAR Math', student => student.most_recent_star_math_percentile);
-//   }
+  // renderMath(studentsInRooms, slotForRoom) {
+  //   return this.renderStar(studentsInRooms, slotForRoom, 'STAR Math', student => student.most_recent_star_math_percentile);
+  // }
 
-//   renderReading(studentsInRooms, slotForRoom) {
-//     return this.renderStar(studentsInRooms, slotForRoom, 'STAR Reading', student => student.most_recent_star_reading_percentile);
-//   }
+  // renderReading(studentsInRooms, slotForRoom) {
+  //   return this.renderStar(studentsInRooms, slotForRoom, 'STAR Reading', student => student.most_recent_star_reading_percentile);
+  // }
 
-//   renderStar(studentsInRooms, slotForRoom, text, accessor) {
-//     const valuesForRooms = studentsInRooms.map(students => {
-//       return _.compact(students.map(accessor));
-//     });
-//     const values = valuesForRooms[slotForRoom];
-//     return (
-//       <div>
-//         <div>{text}</div>
-//         {(values.length === 0)
-//           ? <div style={{height: 30}}>{'\u00A0'}</div>
-//           : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
-//       </div>
-//     );
-//   }
+  // renderStar(studentsInRooms, slotForRoom, text, accessor) {
+  //   const valuesForRooms = studentsInRooms.map(students => {
+  //     return _.compact(students.map(accessor));
+  //   });
+  //   const values = valuesForRooms[slotForRoom];
+  //   return (
+  //     <div>
+  //       <div>{text}</div>
+  //       {(values.length === 0)
+  //         ? <div style={{height: 30}}>{'\u00A0'}</div>
+  //         : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
+  //     </div>
+  //   );
+  // }
 
 //   renderOutlier(text, byRooms, value) {
 //     const diffByRooms = byRooms.map(byRoom => byRoom - value);

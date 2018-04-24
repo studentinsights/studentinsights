@@ -50,6 +50,10 @@ export default class CreateYourClassroomsView extends React.Component {
 
     return (
       <div className="CreateYourClassroomsView" style={styles.root}>
+        <ClassroomStats
+          students={students}
+          rooms={rooms}
+          studentIdsByRoom={studentIdsByRoom} />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div style={styles.listsContainer}>
             {rooms.map(room => {
@@ -59,11 +63,12 @@ export default class CreateYourClassroomsView extends React.Component {
               });
               return (
                 <div key={roomKey} style={styles.classroomListColumn}>
-                  <ClassroomStats
-                    roomName={roomName}
-                    students={students}
-                    rooms={rooms}
-                    classroomStudents={classroomStudents} />
+                  <div>
+                    <div style={styles.roomTitle}>
+                      <span style={{fontWeight: 'bold'}}>{roomName}</span>
+                      <span style={{float: 'right', color: '#666'}}>{classroomStudents.length} students</span>
+                    </div>
+                  </div>
                   <Droppable droppableId={roomKey} type="CLASSROOM_LIST">
                     {(provided, snapshot) => (
                       <div ref={provided.innerRef} style={styles.droppable}>
@@ -110,7 +115,19 @@ const styles = {
     borderRadius: 3,
     paddingTop: 10,
     paddingBottom: 10,
-    minHeight: 150
+    minHeight: 150,
+    zIndex: 20
+  },
+  roomTitle: {
+    border: '1px solid #aaa',
+    borderBottom: 0,
+    background: '#aaa',
+    borderRadius: 3,
+    position: 'relative',
+    top: 3,
+    fontSize: 14,
+    padding: 10,
+    zIndex: 30
   }
 };
 
@@ -134,8 +151,12 @@ function initialStudentIdsByRoom(roomsCount, students) {
   }, initialMap);
 
   students.forEach(student => {
+    // Random
     const roomKey = _.sample(Object.keys(studentIdsByRoom));
     studentIdsByRoom[roomKey].push(student.id);
+    // All unassigned
+    // const roomKey = roomKeyFromIndex(null);
+    // studentIdsByRoom[roomKey].push(student.id);
   });
 
   return studentIdsByRoom;

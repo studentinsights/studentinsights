@@ -5,7 +5,7 @@ import React from 'react';
 export default class Bar extends React.Component {
 
   render() {
-    const {styles, innerStyles, percent, threshold} = this.props;
+    const {style, innerStyle, percent, threshold} = this.props;
     const title = this.props.title || percent + '%';
 
     return (
@@ -15,14 +15,14 @@ export default class Bar extends React.Component {
         display: 'inline-block',
         width: percent + '%',
         height: '100%',
-        ...styles
+        ...style
       }}>
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           height: '100%',
-          ...innerStyles
+          ...innerStyle
         }}>
           {percent > threshold ? `${Math.round(percent)}%` : '\u00A0' }
         </div>
@@ -35,7 +35,7 @@ export default class Bar extends React.Component {
 Bar.propTypes = {
   percent: React.PropTypes.number.isRequired,
   threshold: React.PropTypes.number.isRequired,
-  styles: React.PropTypes.object,
-  innerStyles: React.PropTypes.object,
+  style: React.PropTypes.object,
+  innerStyle: React.PropTypes.object,
   title: React.PropTypes.string
 };
