@@ -39,12 +39,25 @@ class SchoolAbsenceDashboard extends React.Component {
     return monthlySchoolAttendance;
   }
 
-  filteredHomeRoomAttendance(dailyHomeroomAttendance) {
-    return _.map(dailyHomeroomAttendance, (homeroom) => {
-      return this.state.displayDates.map((date) => {
-        return homeroom[date];
+  monthlyHomeroomAttendance(dailyHomeroomAttendance) {
+    let monthlyHomeroomAttendance = {};
+    Object.keys(dailyHomeroomAttendance).forEach((homeroom) => {
+      const rawAvg = _.sum(dailyHomeroomAttendance[homeroom])/dailyHomeroomAttendance[homeroom].length;
+      const monthlyAverage = Math.round(rawAvg*10)/10;
+      monthlyHomeroomAttendance[homeroom] = monthlyAverage;
+    });
+
+    return monthlyHomeroomAttendance;
+  }
+
+  filteredHomeroomAttendance(dailyHomeroomAttendance) {
+    let filteredHomeroomAttendance = {};
+    Object.keys(dailyHomeroomAttendance).forEach((homeroom) => {
+      filteredHomeroomAttendance[homeroom] = this.state.displayDates.map((date) => {
+        return dailyHomeroomAttendance[homeroom][date];
       });
     });
+    return filteredHomeroomAttendance;
   }
 
   studentAbsenceCounts() {
@@ -102,15 +115,19 @@ class SchoolAbsenceDashboard extends React.Component {
 
   renderHomeroomAbsenceChart() {
     const homeroomAverageDailyAttendance = this.props.homeroomAverageDailyAttendance;
-    const filteredHomeRoomAttendance = this.filteredHomeRoomAttendance(homeroomAverageDailyAttendance);
-    const homeroomSeries = filteredHomeRoomAttendance.map((homeroom) => {
-      const rawAvg = _.sum(homeroom)/homeroom.length;
-      return Math.round(rawAvg*10)/10;
+    const filteredHomeroomAttendance = this.filteredHomeroomAttendance(homeroomAverageDailyAttendance); //remove dates outside of selected range
+    const monthlyHomeroomAttendance = this.monthlyHomeroomAttendance(filteredHomeroomAttendance); //Average homeroom attendance by month
+    const homerooms = Object.keys(monthlyHomeroomAttendance).sort((a,b) => { //sort homerooms by attendance, low to high
+      return monthlyHomeroomAttendance[a] - monthlyHomeroomAttendance[b];
     });
+    const homeroomSeries = homerooms.map((homeroom) => {
+      return monthlyHomeroomAttendance[homeroom];
+    });
+
     return (
         <DashboardBarChart
           id = {'string'}
-          categories = {{categories: Object.keys(homeroomAverageDailyAttendance)}}
+          categories = {{categories: homerooms}}
           seriesData = {homeroomSeries}
           yAxisMin = {80}
           yAxisMax = {100}

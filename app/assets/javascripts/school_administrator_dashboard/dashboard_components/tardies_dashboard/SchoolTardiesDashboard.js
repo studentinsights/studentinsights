@@ -132,7 +132,9 @@ class SchoolTardiesDashboard extends React.Component {
 
   renderHomeroomTardiesChart() {
     const homeroomTardyEvents = this.homeroomTardyEventsSince(this.state.startDate);
-    const homerooms = Object.keys(homeroomTardyEvents);
+    const homerooms = Object.keys(homeroomTardyEvents).sort((a,b) => {
+      return homeroomTardyEvents[b] - homeroomTardyEvents[a];
+    });
     const homeroomSeries = homerooms.map((homeroom) => {
       return homeroomTardyEvents[homeroom];
     });
