@@ -8,7 +8,6 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import {sortByGrade} from '../helpers/SortHelpers';
 import {gradeText} from '../helpers/gradeText';
 import ClassroomListCreator from './ClassroomListCreator';
-import ClassroomListCreatorFlipped from './ClassroomListCreatorFlipped';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import HorizontalStepper from './HorizontalStepper';

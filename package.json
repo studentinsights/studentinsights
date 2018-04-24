@@ -20,6 +20,7 @@
     "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
   "dependencies": {
+    "array.prototype.find": "^2.0.4",
     "babel-core": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "d3": "3.5.12",

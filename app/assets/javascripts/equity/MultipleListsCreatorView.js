@@ -11,12 +11,13 @@ export default class MultipleListsCreatorView extends React.Component {
     const {roomNames, students} = props;
     this.state = {
       studentIdsByRoom: initialStudentIdsByRoom(roomNames.length, students),
-      sortKey: 'not-yet-placed',
+      sortKey: 'not-yet-placed'
     };
 
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
+  // TODO(kr) clarify the roomIndex / roomKey / null contract
   // Expand the `roomNames` to have keys and their index.
   rooms() {
     const {roomNames} = this.props;
@@ -39,7 +40,6 @@ export default class MultipleListsCreatorView extends React.Component {
     const {studentIdsByRoom} = this.state;
 
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
-    if (updatedStudentIdsByRoom === studentIdsByRoom) return;
     this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
   }
 
@@ -121,14 +121,21 @@ function roomKeyFromIndex(roomIndex) {
 // {[roomKey]: [studentId]}
 function initialStudentIdsByRoom(roomsCount, students) {
   const initialMap = {
-    [roomKeyFromIndex(null)]: students.map(student => student.id)
+    [roomKeyFromIndex(null)]: []
   };
-  return _.range(0, roomsCount).reduce((map, roomIndex) => {
+  const studentIdsByRoom = _.range(0, roomsCount).reduce((map, roomIndex) => {
     return {
       ...map,
       [roomKeyFromIndex(roomIndex)]: []
     };
   }, initialMap);
+
+  students.forEach(student => {
+    const roomKey = _.sample(Object.keys(studentIdsByRoom));
+    studentIdsByRoom[roomKey].push(student.id);
+  });
+
+  return studentIdsByRoom;
 }
 
 

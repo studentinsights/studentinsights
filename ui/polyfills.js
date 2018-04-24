@@ -14,3 +14,6 @@ if (!window.Promise) {
 }
 
 import 'whatwg-fetch';
+
+import ArrayFindPolyfill from 'array.prototype.find';
+ArrayFindPolyfill.shim();
