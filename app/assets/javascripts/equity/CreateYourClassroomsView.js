@@ -31,7 +31,7 @@ export default class CreateYourClassroomsView extends React.Component {
     });
 
     return rooms.concat([{
-      roomName: 'Not yet placed',
+      roomName: 'Not placed',
       roomIndex: rooms.length,
       roomKey: roomKeyFromIndex(null)
     }]);
@@ -66,7 +66,7 @@ export default class CreateYourClassroomsView extends React.Component {
                   <div>
                     <div style={styles.roomTitle}>
                       <span style={{fontWeight: 'bold'}}>{roomName}</span>
-                      <span style={{float: 'right', color: '#666'}}>{classroomStudents.length} students</span>
+                      <span style={{float: 'right', color: '#666', fontSize: 12}}>({classroomStudents.length})</span>
                     </div>
                   </div>
                   <Droppable droppableId={roomKey} type="CLASSROOM_LIST">
@@ -104,6 +104,8 @@ const styles = {
   },
   classroomListColumn: {
     padding: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     display: 'flex',
     flex: 1,
     flexDirection: 'column'
@@ -115,19 +117,19 @@ const styles = {
     borderRadius: 3,
     paddingTop: 10,
     paddingBottom: 10,
-    minHeight: 150,
-    zIndex: 20
+    minHeight: 150
   },
   roomTitle: {
     border: '1px solid #aaa',
     borderBottom: 0,
     background: '#aaa',
     borderRadius: 3,
-    position: 'relative',
-    top: 3,
     fontSize: 14,
     padding: 10,
-    zIndex: 30
+    // to place this over the rounded border right below
+    position: 'relative',
+    top: 3,
+    zIndex: 30 
   }
 };
 

@@ -41,7 +41,7 @@ export default class SimpleStudentCard extends React.Component {
               </Modal>
               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                 <div style={styles.studentCard} onClick={this.onClick}>
-                  <span>{student.first_name} {student.last_name}</span>
+                  <span style={{overflowX: 'hidden'}}>{student.first_name} {student.last_name}</span>
                   <span style={{float: 'right'}}><MoreDots /></span>
                 </div>
               </div>
