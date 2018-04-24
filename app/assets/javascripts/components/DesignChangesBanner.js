@@ -2,7 +2,7 @@
 export default function DesignChangesBanner() {
   return (
     <div style={styles.banner}>
-      <span>We've made some design changes here this week!</span>
+      <span>We made some design changes here this week!</span>
       <span style={{ marginLeft: 10 }}>Please let us know what you think.</span>
     </div>
   );
