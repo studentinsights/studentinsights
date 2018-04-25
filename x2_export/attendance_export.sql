@@ -4,6 +4,10 @@ SELECT
   'local_id', -- LASID
   'absence',
   'tardy',
+  'dismissed',
+  'reason',
+  'excused',
+  'comment',
   'event_date',
   'school_local_id'
 UNION ALL
@@ -12,6 +16,10 @@ SELECT
   STD_ID_LOCAL,
   ATT_ABSENT_IND,
   ATT_TARDY_IND,
+  ATT_DISMISSED_IND,
+  ATT_REASON_CODE,
+  ATT_EXCUSED_IND,
+  ATT_COMMENT,
   IF(sa.ATT_DATE > Date(Now()), NULL, sa.ATT_DATE) AS 'event_date',
   SKL_SCHOOL_ID
 FROM student
