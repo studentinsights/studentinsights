@@ -171,6 +171,7 @@ class SchoolsController < ApplicationController
     {
       first_name: student.first_name,
       last_name: student.last_name,
+      grade: student.grade,
       id: student.id,
       homeroom_label: homeroom_label(student.homeroom),
       absences: student.dashboard_absences,
@@ -182,6 +183,7 @@ class SchoolsController < ApplicationController
     {
       first_name: student.first_name,
       last_name: student.last_name,
+      grade: student.grade,
       id: student.id,
       homeroom_label: homeroom_label(student.homeroom),
       tardies: student.dashboard_tardies,

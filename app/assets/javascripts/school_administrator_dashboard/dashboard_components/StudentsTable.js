@@ -86,11 +86,16 @@ class StudentsTable extends React.Component {
             <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
           </div>
           <thead style={style.thead}>
-            <tr>
-              <th style={style.th}
+            <tr style={style.tr}>
+              <th style={{...style.th, ...style.name}}
                   onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
                   className={this.headerClassName('last_name')}>
                 Name
+              </th>
+              <th style={style.th}
+                  onClick={this.onClickHeader.bind(null, 'grade', 'date')}
+                  className={this.headerClassName('grade')}>
+                Grade
               </th>
               <th style={style.th}
                   onClick={this.onClickHeader.bind(null, 'events', 'number')}
@@ -108,12 +113,13 @@ class StudentsTable extends React.Component {
           <tbody style={style.tbody}>
             {this.orderedRows().map(student => {
               return (
-                <tr key={student.id}>
-                  <td style={style.td}>
+                <tr key={student.id} style={style.tr}>
+                  <td style={{...style.td, ...style.name}}>
                     <a href={Routes.studentProfile(student.id)}>
                       {student.first_name} {student.last_name}
                     </a>
                   </td>
+                  <td style={style.td}>{student.grade}</td>
                   <td style={style.td}>{student.events}</td>
                   <td style={style.td}>{student.last_sst_date_text}</td>
                 </tr>
@@ -121,7 +127,7 @@ class StudentsTable extends React.Component {
             })}
           </tbody>
           <tfoot style={style.tfoot}>
-            <tr>
+            <tr style={style.tr}>
               <td style={style.td}>{'Total: '}</td>
               <td style={style.td}>{this.totalEvents()}</td>
             </tr>
@@ -190,14 +196,23 @@ const style = {
     borderTop: '1px solid #ccc',
     borderBottom: '1px solid #ccc',
   },
+  tr: {
+    display: 'flex'
+  },
+  name: {
+    flex: 2,
+  },
   td: {
-    width: 150,
+    flex: 1,
+    marginLeft: 5,
     textAlign: 'left',
   },
   th: {
-    width: 150,
+    flex: 1,
+    marginLeft: 5,
     textAlign: 'left',
-    verticalAlign: 'bottom'
+    verticalAlign: 'bottom',
+    marginTop: 'auto'
   }
 };
 
