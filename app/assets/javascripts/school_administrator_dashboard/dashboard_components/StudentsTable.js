@@ -8,6 +8,7 @@ import {
 import * as Routes from '../../helpers/Routes';
 import SharedPropTypes from '../../helpers/prop_types.jsx';
 import DashResetButton from './DashResetButton';
+import { Column, Table } from 'react-virtualized'
 
 class StudentsTable extends React.Component {
 
@@ -22,6 +23,7 @@ class StudentsTable extends React.Component {
     };
 
     this.onClickHeader = this.onClickHeader.bind(this);
+    this.rowStyle = this.rowStyle.bind(this);
   }
 
   //These methods taken directly from school overview students table. TODO, separate into helpers
@@ -78,60 +80,59 @@ class StudentsTable extends React.Component {
   }
 
   render() {
+    const list = this.orderedRows();
+
     return (
       <div className='StudentsList'>
-        <table className='students-list'>
-          <div className='caption'>
-            {this.renderCaption()}
-            <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
-          </div>
-          <thead>
-            <tr>
-              <th className='name'
-                  onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
-                  className={this.headerClassName('last_name')}>
-                Name
-              </th>
-              <th onClick={this.onClickHeader.bind(null, 'grade', 'date')}
-                  className={this.headerClassName('grade')}>
-                Grade
-              </th>
-              <th onClick={this.onClickHeader.bind(null, 'events', 'number')}
-                  className={this.headerClassName('events')}>
-                {this.props.incidentType}
-                {this.renderIncidentTypeSubtitle()}
-              </th>
-              <th onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
-                  className={this.headerClassName('last_sst_date_text')}>
-                Last SST
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.orderedRows().map(student => {
-              return (
-                <tr key={student.id}>
-                  <td className='name'>
-                    <a href={Routes.studentProfile(student.id)}>
-                      {student.first_name} {student.last_name}
-                    </a>
-                  </td>
-                  <td>{student.grade}</td>
-                  <td>{student.events}</td>
-                  <td>{student.last_sst_date_text}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td>{'Total: '}</td>
-              <td>{this.totalEvents()}</td>
-            </tr>
-          </tfoot>
-        </table>
+        <div className='caption'>
+          {this.renderCaption()}
+          <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
+        </div>
+        <Table
+          width={500}
+          height={500}
+          headerHeight={20}
+          rowHeight={30}
+          rowCount={list.length}
+          rowGetter={({index}) => list[index]}
+          style={{fontSize: 14}}
+          rowStyle={this.rowStyle}
+        >
+          <Column
+            label='Name'
+            dataKey='last_name'
+            width={300}
+          />
+          <Column
+            width={100}
+            label='Grade'
+            dataKey='grade'
+          />
+          <Column
+            width={100}
+            label='Events'
+            dataKey='events'
+          />
+          <Column
+            width={100}
+            label='Last SST'
+            dataKey='last_sst_date_text'
+          />
+        </Table>
+        <div>{'Total: '}</div>
+        <div>{this.totalEvents()}</div>
       </div>
     );
+  }
+
+  rowStyle({index}) {
+    if (index < 0) {
+      return;
+    } else {
+      return index % 2 === 0
+        ? null
+        : { backgroundColor: '#fafafa' };
+    }
   }
 
   renderCaption() {
@@ -145,7 +146,7 @@ class StudentsTable extends React.Component {
     if (!incidentSubtitle) return;
 
     return (
-      <span style={{fontWeight: 'normal'}}><br/>({this.props.incidentSubtitle})</span>
+      <span className='incident_subtitle'><br/>({this.props.incidentSubtitle})</span>
     );
   }
 }
