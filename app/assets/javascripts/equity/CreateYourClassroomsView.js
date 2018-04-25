@@ -30,11 +30,11 @@ export default class CreateYourClassroomsView extends React.Component {
       };
     });
 
-    return rooms.concat([{
+    return [{
       roomName: 'Not placed',
       roomIndex: rooms.length,
-      roomKey: roomKeyFromIndex(null)
-    }]);
+      roomKey: UNPLACED_ROOM_KEY
+    }].concat(rooms);
   }
 
   onDragEnd(dragEndResult) {
@@ -52,7 +52,7 @@ export default class CreateYourClassroomsView extends React.Component {
       <div className="CreateYourClassroomsView" style={styles.root}>
         <ClassroomStats
           students={students}
-          rooms={rooms}
+          rooms={rooms.filter(room => room.roomKey !== UNPLACED_ROOM_KEY)}
           studentIdsByRoom={studentIdsByRoom} />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div style={styles.listsContainer}>
@@ -128,22 +128,21 @@ const styles = {
     padding: 10,
     // to place this over the rounded border right below
     position: 'relative',
-    top: 3,
-    zIndex: 30 
+    top: 3
   }
 };
 
 // Helper functions related to moving students around.
 function roomKeyFromIndex(roomIndex) {
-  return (roomIndex === null)
-    ? 'room:unplaced'
-    : `room:${roomIndex}`;
+  return `room:${roomIndex}`;
 }
+
+const UNPLACED_ROOM_KEY = 'room:unplaced';
 
 // {[roomKey]: [studentId]}
 function initialStudentIdsByRoom(roomsCount, students) {
   const initialMap = {
-    [roomKeyFromIndex(null)]: []
+    [UNPLACED_ROOM_KEY]: []
   };
   const studentIdsByRoom = _.range(0, roomsCount).reduce((map, roomIndex) => {
     return {
@@ -154,11 +153,12 @@ function initialStudentIdsByRoom(roomsCount, students) {
 
   students.forEach(student => {
     // Random
-    const roomKey = _.sample(Object.keys(studentIdsByRoom));
-    studentIdsByRoom[roomKey].push(student.id);
-    // All unassigned
-    // const roomKey = roomKeyFromIndex(null);
+    // const roomKey = _.sample(Object.keys(studentIdsByRoom));
     // studentIdsByRoom[roomKey].push(student.id);
+
+    // All unassigned
+    const roomKey = UNPLACED_ROOM_KEY;
+    studentIdsByRoom[roomKey].push(student.id);
   });
 
   return studentIdsByRoom;

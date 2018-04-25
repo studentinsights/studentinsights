@@ -37,7 +37,7 @@ export default class SimpleStudentCard extends React.Component {
                 onRequestClose={this.onClose}
                 contentLabel="Modal"
               >
-                <div>#{student.id}: {student.first_name} {student.last_name}</div>
+                <div style={styles.modal}>#{student.id}: {student.first_name} {student.last_name}</div>
               </Modal>
               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                 <div style={styles.studentCard} onClick={this.onClick}>
@@ -66,5 +66,8 @@ const styles = {
     cursor: 'pointer',
     borderRadius: 3,
     background: 'white'
+  },
+  modal: {
+    zIndex: 100
   }
 };

@@ -49,10 +49,10 @@ export default class ClassroomStats extends React.Component {
               <th style={styles.cell}></th>
               <th style={styles.cell}>Disability</th>
               <th style={styles.cell}>Learning English</th>
-              <th style={styles.cell}>Gender (female)</th>
+              <th style={styles.cell}>Gender (male)</th>
               <th style={styles.cell}>Low income</th>
-              <th style={styles.cell}>STAR Math</th>
-              <th style={styles.cell}>STAR Reading</th>
+              <th style={styles.cell}>STAR Math boxplot</th>
+              <th style={styles.cell}>STAR Reading boxplot</th>
             </tr>
           </thead>
           <tbody>
@@ -97,7 +97,7 @@ export default class ClassroomStats extends React.Component {
 
   renderGender(room) {
     return this.renderBarFor(room, student => {
-      return student.gender === 'F';
+      return student.gender === 'M';
     });
   }
 
