@@ -7,7 +7,7 @@ import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 import DashRangeButtons from '../DashRangeButtons';
-
+import DesignChangesBanner from '../../../components/DesignChangesBanner';
 
 class SchoolTardiesDashboard extends React.Component {
 
@@ -86,6 +86,7 @@ class SchoolTardiesDashboard extends React.Component {
   render() {
     return (
       <div>
+        <DesignChangesBanner />
         {this.renderRangeSelector()}
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
