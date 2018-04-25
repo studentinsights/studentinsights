@@ -53,6 +53,62 @@
   }
 }
 
+.StudentsList {
+  margin-top: 20px;
+
+  table {
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+
+  thead {
+    display: block;
+    width: 100%;
+  }
+
+  tfoot {
+    display: block;
+    width: 100%;
+  }
+
+  tbody {
+    display: block;
+    width: 100%;
+    height: 480;
+    overflow-y: scroll;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+
+  tr {
+    display: flex;
+  }
+
+  .caption {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+  }
+
+  .name {
+    flex: 2;
+  }
+
+  td {
+    flex: 1 0 0;
+    margin-left: 5px;
+    text-align: left;
+  }
+
+  th {
+    flex: 1 0 0;
+    margin-left: 5px;
+    text-align: left;
+    vertical-align: bottom;
+    margin-top: auto;
+  }
+}
+
 .ui-datepicker-prev {
   float: left;
 }

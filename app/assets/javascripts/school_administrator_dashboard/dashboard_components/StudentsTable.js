@@ -79,57 +79,54 @@ class StudentsTable extends React.Component {
 
   render() {
     return (
-      <div className='StudentsList' style={style.root}>
-        <table className='students-list' style={style.table}>
-          <div style={style.caption}>
+      <div className='StudentsList'>
+        <table className='students-list'>
+          <div className='caption'>
             {this.renderCaption()}
             <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
           </div>
-          <thead style={style.thead}>
-            <tr style={style.tr}>
-              <th style={{...style.th, ...style.name}}
+          <thead>
+            <tr>
+              <th className='name'
                   onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
                   className={this.headerClassName('last_name')}>
                 Name
               </th>
-              <th style={style.th}
-                  onClick={this.onClickHeader.bind(null, 'grade', 'date')}
+              <th onClick={this.onClickHeader.bind(null, 'grade', 'date')}
                   className={this.headerClassName('grade')}>
                 Grade
               </th>
-              <th style={style.th}
-                  onClick={this.onClickHeader.bind(null, 'events', 'number')}
+              <th onClick={this.onClickHeader.bind(null, 'events', 'number')}
                   className={this.headerClassName('events')}>
                 {this.props.incidentType}
                 {this.renderIncidentTypeSubtitle()}
               </th>
-              <th style={style.th}
-                  onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
+              <th onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
                   className={this.headerClassName('last_sst_date_text')}>
                 Last SST
               </th>
             </tr>
           </thead>
-          <tbody style={style.tbody}>
+          <tbody>
             {this.orderedRows().map(student => {
               return (
-                <tr key={student.id} style={style.tr}>
-                  <td style={{...style.td, ...style.name}}>
+                <tr key={student.id}>
+                  <td className='name'>
                     <a href={Routes.studentProfile(student.id)}>
                       {student.first_name} {student.last_name}
                     </a>
                   </td>
-                  <td style={style.td}>{student.grade}</td>
-                  <td style={style.td}>{student.events}</td>
-                  <td style={style.td}>{student.last_sst_date_text}</td>
+                  <td>{student.grade}</td>
+                  <td>{student.events}</td>
+                  <td>{student.last_sst_date_text}</td>
                 </tr>
               );
             })}
           </tbody>
-          <tfoot style={style.tfoot}>
-            <tr style={style.tr}>
-              <td style={style.td}>{'Total: '}</td>
-              <td style={style.td}>{this.totalEvents()}</td>
+          <tfoot>
+            <tr>
+              <td>{'Total: '}</td>
+              <td>{this.totalEvents()}</td>
             </tr>
           </tfoot>
         </table>
@@ -166,54 +163,4 @@ StudentsTable.propTypes = {
   incidentSubtitle: PropTypes.string,
   resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
 };
-
-const style = {
-  root: {
-    marginTop: 20,
-  },
-  caption: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: 5,
-  },
-  table: {
-    width: '100%',
-    border: '1px solid #ccc',
-  },
-  thead: {
-    display: 'block',
-    width: '100%',
-  },
-  tfoot: {
-    display: 'block',
-    width: '100%',
-  },
-  tbody: {
-    display: 'block',
-    width: '100%',
-    height: 480,
-    overflowY: 'scroll',
-    borderTop: '1px solid #ccc',
-    borderBottom: '1px solid #ccc',
-  },
-  tr: {
-    display: 'flex'
-  },
-  name: {
-    flex: 2,
-  },
-  td: {
-    flex: 1,
-    marginLeft: 5,
-    textAlign: 'left',
-  },
-  th: {
-    flex: 1,
-    marginLeft: 5,
-    textAlign: 'left',
-    verticalAlign: 'bottom',
-    marginTop: 'auto'
-  }
-};
-
 export default StudentsTable;
