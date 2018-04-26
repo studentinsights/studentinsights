@@ -59,6 +59,16 @@ class PerDistrict
     end
   end
 
+  def import_detailed_attendance_fields?
+    return true if @district_key == SOMERVILLE
+
+    return false if  @district_key == NEW_BEDFORD
+
+    raise 'import_detailed_attendance_fields? not supported for DEMO' if @district_key == DEMO
+
+    raise_not_handled!
+  end
+
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError

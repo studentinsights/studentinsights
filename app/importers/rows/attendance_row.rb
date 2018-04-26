@@ -35,12 +35,14 @@ class AttendanceRow < Struct.new(:row)
       student_id: student.try(:id),
     )
 
-    attendance_event.assign_attributes(
-      dismissed: row[:dismissed],
-      excused: row[:excused],
-      reason: row[:reason],
-      comment: row[:comment],
-    )
+    if PerDistrict.new.import_detailed_attendance_fields?
+      attendance_event.assign_attributes(
+        dismissed: row[:dismissed],
+        excused: row[:excused],
+        reason: row[:reason],
+        comment: row[:comment],
+      )
+    end
 
     return attendance_event
   end

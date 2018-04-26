@@ -24,7 +24,9 @@ RSpec.describe AttendanceImporter do
         let!(:student) { FactoryBot.create(:student, local_id: '1') }
         let(:date) { '2005-09-16' }
 
-        context 'row with absence (district has dismissed/reason/excused/comment fields)' do
+        context 'row with absence (Somerville)' do
+          # Default ENV['DISTRICT_KEY'] for test suite is 'somerville', see test.rb
+
           let(:row) {
             { event_date: date, local_id: '1', absence: '1', tardy: '0',
               dismissed: '0', reason: 'Medical', excused: '0', comment: 'Received doctor note.' }
@@ -73,12 +75,13 @@ RSpec.describe AttendanceImporter do
         end
       end
 
-      context 'row with absence (district does not have dismissed/reason/excused/comment fields)' do
+      context 'row with absence (New Bedford)' do
         let!(:student) { FactoryBot.create(:student, local_id: '1') }
         let(:date) { '2005-09-16' }
 
         let(:row) {
-          { event_date: date, local_id: '1', absence: '1', tardy: '0' }
+          { event_date: date, local_id: '1', absence: '1', tardy: '0',
+            dismissed: '0', reason: 'Medical', excused: '0', comment: 'Received doctor note.' }
         }
 
         it 'creates an absence' do
@@ -87,6 +90,11 @@ RSpec.describe AttendanceImporter do
           }.to change {
             Absence.count
           }.by 1
+        end
+
+        before do
+          # Default ENV['DISTRICT_KEY'] for test suite is 'somerville', see test.rb
+          ENV['DISTRICT_KEY'] = 'new_bedford'
         end
 
         it 'sets the right attributes' do
