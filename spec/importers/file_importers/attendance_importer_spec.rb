@@ -94,7 +94,7 @@ RSpec.describe AttendanceImporter do
 
         before do
           # Default ENV['DISTRICT_KEY'] for test suite is 'somerville', see test.rb
-          ENV['DISTRICT_KEY'] = 'new_bedford'
+          expect(ENV).to receive(:[]).with('DISTRICT_KEY').and_return("new_bedford")
         end
 
         it 'sets the right attributes' do
