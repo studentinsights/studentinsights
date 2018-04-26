@@ -37,7 +37,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
       gradeLevelNextYear: null,
 
       // second
-      classroomsCount: 3,
+      classroomsCount: 5,
       educatorNames: null,
       educators: [],
       students: null,
@@ -208,7 +208,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
               />
           </div>
           <div>
-            <div style={styles.heading}>What grade level?</div>
+            <div style={styles.heading}>What grade level are you creating?</div>
               <Select
                 name="select-grade-level"
                 value={gradeLevelNextYear}
@@ -216,7 +216,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
                 options={gradeLevelsNextYear.map(gradeLevelNextYear => {
                   return {
                     value: gradeLevelNextYear,
-                    label: `${gradeText(gradeLevelNextYear)} next year` 
+                    label: `Next year's ${gradeText(gradeLevelNextYear)} ` 
                   };
                 })}
               />
@@ -237,12 +237,18 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   }
 
   renderMakeAPlanWithData() {
-    const {educators, classroomsCount, educatorNames, students} = this.state;
+    const {
+      educators,
+      classroomsCount,
+      educatorNames,
+      students,
+      gradeLevelNextYear
+    } = this.state;
 
     return (
       <div style={styles.stepContent}>
         <div>
-          <div style={styles.heading}>Who's on the teaching team?</div>
+          <div style={styles.heading}>Who's the team creating these class lists?</div>
           <Select
             name="select-educators"
             value={educators}
@@ -258,36 +264,46 @@ export default class SchoolBalancingTeacherPage extends React.Component {
           />
         </div>
         <div>
-          <div style={styles.heading}>How many classrooms will you create?</div>
-          <div>
-            <Card style={{display: 'inline-block'}}>-</Card>
-            {_.range(0, classroomsCount).map(classroomIndex => {
-              return this.renderClassroomCountButton(classroomIndex);
-            })}
-            <Card style={{display: 'inline-block'}}>+</Card>
+          <div style={styles.heading}>How many {gradeText(gradeLevelNextYear)} classrooms will you create?</div>
+          <div style={{marginLeft: 5, display: 'inline-block'}}>
+            <button
+              style={{
+                display: 'inline-block',
+                padding: 1,
+                paddingLeft: 10,
+                paddingRight: 10,
+                fontSize: 16
+              }}
+              onClick={() => {
+                if (classroomsCount > 2) this.setState({classroomsCount: classroomsCount - 1});
+              }}>
+              -
+            </button>
+            <div style={{display: 'inline-block', padding: 10}}>{classroomsCount} classrooms</div>
+            <button
+              style={{
+                display: 'inline-block',
+                padding: 1,
+                paddingLeft: 10,
+                paddingRight: 10,
+                fontSize: 16
+              }}
+              onClick={() => {
+                if (classroomsCount <= 5) this.setState({classroomsCount: classroomsCount + 1});
+              }}>
+              +
+            </button>
           </div>
-          <div style={{fontSize: 12}}>With {students.length} students total, the average class size would be <b>{Math.ceil(students.length / classroomsCount)} students</b>.</div>
+          <div style={{display: 'inline-block', fontSize: 12, marginLeft: 20}}>With {students.length} students total, the average class size would be <b>{Math.ceil(students.length / classroomsCount)} students</b>.</div>
         </div>
         <div>
           <div style={styles.heading}>What's your plan for creating classroom communitites?</div>
-          <textarea style={{border: '1px solid #ccc', width: '100%'}}  rows={8}></textarea>
+          <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
+            Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start with balancing academic strengths.
+          </div>
+          <textarea style={{border: '1px solid #ccc', width: '100%'}}  rows={12}></textarea>
         </div>
       </div>
-    );
-  }
-
-  renderClassroomCountButton(number) {
-    const colors = [
-      '#e41a1c',
-      // '#377eb8',
-      '#4daf4a',
-      '#984ea3',
-      '#ff7f00',
-      '#ffff33'
-    ];
-    const color = colors[number];
-    return (
-      <Card key={number} style={{...styles.button, backgroundColor: color, opacity: 0.8}}>Classroom {number + 1}</Card>
     );
   }
 
