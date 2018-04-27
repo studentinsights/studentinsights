@@ -8,6 +8,7 @@ import {
 import * as Routes from '../../helpers/Routes';
 import SharedPropTypes from '../../helpers/prop_types.jsx';
 import DashResetButton from './DashResetButton';
+import { Column, Table } from 'react-virtualized'
 
 class StudentsTable extends React.Component {
 
@@ -22,6 +23,7 @@ class StudentsTable extends React.Component {
     };
 
     this.onClickHeader = this.onClickHeader.bind(this);
+    this.rowStyle = this.rowStyle.bind(this);
   }
 
   //These methods taken directly from school overview students table. TODO, separate into helpers
@@ -78,57 +80,59 @@ class StudentsTable extends React.Component {
   }
 
   render() {
+    const list = this.orderedRows();
+
     return (
-      <div className='StudentsList' style={style.root}>
-        <table className='students-list' style={style.table}>
-          <div style={style.caption}>
-            {this.renderCaption()}
-            <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
-          </div>
-          <thead style={style.thead}>
-            <tr>
-              <th style={style.th}
-                  onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
-                  className={this.headerClassName('last_name')}>
-                Name
-              </th>
-              <th style={style.th}
-                  onClick={this.onClickHeader.bind(null, 'events', 'number')}
-                  className={this.headerClassName('events')}>
-                {this.props.incidentType}
-                {this.renderIncidentTypeSubtitle()}
-              </th>
-              <th style={style.th}
-                  onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
-                  className={this.headerClassName('last_sst_date_text')}>
-                Last SST
-              </th>
-            </tr>
-          </thead>
-          <tbody style={style.tbody}>
-            {this.orderedRows().map(student => {
-              return (
-                <tr key={student.id}>
-                  <td style={style.td}>
-                    <a href={Routes.studentProfile(student.id)}>
-                      {student.first_name} {student.last_name}
-                    </a>
-                  </td>
-                  <td style={style.td}>{student.events}</td>
-                  <td style={style.td}>{student.last_sst_date_text}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-          <tfoot style={style.tfoot}>
-            <tr>
-              <td style={style.td}>{'Total: '}</td>
-              <td style={style.td}>{this.totalEvents()}</td>
-            </tr>
-          </tfoot>
-        </table>
+      <div className='StudentsList'>
+        <div className='caption'>
+          {this.renderCaption()}
+          <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
+        </div>
+        <Table
+          width={500}
+          height={500}
+          headerHeight={20}
+          rowHeight={30}
+          rowCount={list.length}
+          rowGetter={({index}) => list[index]}
+          style={{fontSize: 14}}
+          rowStyle={this.rowStyle}
+        >
+          <Column
+            label='Name'
+            dataKey='last_name'
+            width={300}
+          />
+          <Column
+            width={100}
+            label='Grade'
+            dataKey='grade'
+          />
+          <Column
+            width={100}
+            label='Events'
+            dataKey='events'
+          />
+          <Column
+            width={100}
+            label='Last SST'
+            dataKey='last_sst_date_text'
+          />
+        </Table>
+        <div>{'Total: '}</div>
+        <div>{this.totalEvents()}</div>
       </div>
     );
+  }
+
+  rowStyle({index}) {
+    if (index < 0) {
+      return;
+    } else {
+      return index % 2 === 0
+        ? null
+        : { backgroundColor: '#fafafa' };
+    }
   }
 
   renderCaption() {
@@ -142,7 +146,7 @@ class StudentsTable extends React.Component {
     if (!incidentSubtitle) return;
 
     return (
-      <span style={{fontWeight: 'normal'}}><br/>({this.props.incidentSubtitle})</span>
+      <span className='incident_subtitle'><br/>({this.props.incidentSubtitle})</span>
     );
   }
 }
@@ -160,45 +164,4 @@ StudentsTable.propTypes = {
   incidentSubtitle: PropTypes.string,
   resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
 };
-
-const style = {
-  root: {
-    marginTop: 20,
-  },
-  caption: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: 5,
-  },
-  table: {
-    width: '100%',
-    border: '1px solid #ccc',
-  },
-  thead: {
-    display: 'block',
-    width: '100%',
-  },
-  tfoot: {
-    display: 'block',
-    width: '100%',
-  },
-  tbody: {
-    display: 'block',
-    width: '100%',
-    height: 480,
-    overflowY: 'scroll',
-    borderTop: '1px solid #ccc',
-    borderBottom: '1px solid #ccc',
-  },
-  td: {
-    width: 150,
-    textAlign: 'left',
-  },
-  th: {
-    width: 150,
-    textAlign: 'left',
-    verticalAlign: 'bottom'
-  }
-};
-
 export default StudentsTable;
