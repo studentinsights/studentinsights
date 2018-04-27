@@ -153,8 +153,8 @@ export default class SchoolBalancingTeacherPage extends React.Component {
             'Choose your grade',
             'Make a plan',
             'Create your classrooms',
-            'Review and share notes',
-            'Share with your principal'
+            'Notes to principal',
+            'Submit to principal'
           ]}
           onStepChanged={this.onStepChanged}
           renderFn={this.renderStepContents} />
@@ -294,7 +294,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
               +
             </button>
           </div>
-          <div style={{display: 'inline-block', fontSize: 12, marginLeft: 20}}>With {students.length} students total, the average class size would be <b>{Math.ceil(students.length / classroomsCount)} students</b>.</div>
+          <div style={{display: 'inline-block', fontSize: 12, marginLeft: 20}}>With {students.length} students total, this makes the <b>average class size {Math.ceil(students.length / classroomsCount)} students</b>.</div>
         </div>
         <div>
           <div style={styles.heading}>What's your plan for creating classroom communitites?</div>
@@ -319,7 +319,10 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   renderReviewAndShareNotes() {
     return (
       <div style={styles.stepContent}>
-        <div>What notes do you want to share?</div>
+        <div>What else should your principal know?</div>
+        <div style={{paddingTop: 5, paddingLeft: 0, padding: 10, fontSize: 12}}>
+          Putting in these notes will help your principal and other team members understand all the different factors that you considered besides what shows up in the graphs.  This is also crucial information for a principal to know in case they need to move any students around over the summer.
+        </div>
         <textarea style={{border: '1px solid #eee'}} rows={6}></textarea>
       </div>
     );

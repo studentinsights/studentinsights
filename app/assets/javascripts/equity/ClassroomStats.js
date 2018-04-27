@@ -41,6 +41,10 @@ export default class ClassroomStats extends React.Component {
   */
   render() {
     const {rooms} = this.props;
+
+    // TODO(kr)
+    const showStar = false;
+    const showDibels = true;
     return (
       <div>
         <table style={styles.table}>
@@ -50,9 +54,11 @@ export default class ClassroomStats extends React.Component {
               <th style={styles.cell}>Disability</th>
               <th style={styles.cell}>Learning English</th>
               <th style={styles.cell}>Gender (male)</th>
+              <th style={styles.cell}>Students of color</th>
               <th style={styles.cell}>Low income</th>
-              <th style={styles.cell}>STAR Math boxplot</th>
-              <th style={styles.cell}>STAR Reading boxplot</th>
+              {showDibels && <th style={styles.cell}>Dibels CORE</th>}
+              {showStar && <th style={styles.cell}>STAR Math boxplot</th>}
+              {showStar && <th style={styles.cell}>STAR Reading boxplot</th>}
             </tr>
           </thead>
           <tbody>
@@ -62,10 +68,12 @@ export default class ClassroomStats extends React.Component {
                   <td style={styles.cell}>{room.roomName}</td>
                   <td style={styles.cell}>{this.renderDisability(room)}</td>
                   <td style={styles.cell}>{this.renderEnglishLearners(room)}</td>
+                  <td style={styles.cell}>{this.renderStudentsOfColor(room)}</td>
                   <td style={styles.cell}>{this.renderGender(room)}</td>
                   <td style={styles.cell}>{this.renderLowIncome(room)}</td>
-                  <td style={styles.cell}>{this.renderMath(room)}</td>
-                  <td style={styles.cell}>{this.renderReading(room)}</td>
+                  {showDibels && <td style={styles.cell}>{this.renderDibelsCore(room)}</td>}
+                  {showStar && <td style={styles.cell}>{this.renderMath(room)}</td>}
+                  {showStar && <td style={styles.cell}>{this.renderReading(room)}</td>}
                 </tr>
               );
             })}
@@ -78,6 +86,7 @@ export default class ClassroomStats extends React.Component {
   renderMath(room) {
     return this.renderStar(room, student => student.most_recent_star_math_percentile);
   }
+
 
   renderReading(room) {
     return this.renderStar(room, student => student.most_recent_star_reading_percentile);
@@ -93,6 +102,21 @@ export default class ClassroomStats extends React.Component {
           : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
       </div>
     );
+  }
+
+  // if no score, consider them not core
+  renderDibelsCore(room) {
+    return this.renderBarFor(room, student => {
+      return (student.dibels.length > 0)
+        ? _.last(student.dibels).performance_level === 'Core'
+        : false;
+    });
+  }
+
+  renderStudentsOfColor(room) {
+    return this.renderBarFor(room, student => {
+      return student.hispanico_latino || student.race.indexOf('White') === -1;
+    });
   }
 
   renderGender(room) {

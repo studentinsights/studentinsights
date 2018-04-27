@@ -48,7 +48,29 @@ class ClassroomBalancingController < ApplicationController
       school_id: school_id,
       grade: grade_level_for_current_students
     })
-    students_json = students.as_json
+    students_json = students.as_json({
+      only: [
+        :id,
+        :first_name,
+        :last_name,
+        :date_of_birth,
+        :disability,
+        :program_assigned,
+        :limited_english_proficiency,
+        :plan504,
+        :home_language,
+        :free_reduced_lunch,
+        :race,
+        :hispanic_latino,
+        :gender,
+        :most_recent_star_math_percentile,
+        :most_recent_star_reading_percentile
+      ],
+      methods: [
+        :latest_access_results,
+        :dibels
+      ]
+    })
 
     # TODO(kr) The set of educator names is off here
     school = School.find(school_id)
