@@ -96,30 +96,35 @@ class ClassroomBalancingController < ApplicationController
   # in a way they normally might not be able to).
   def classrooms_for_grade_json
     balance_id = params[:balance_id]
-    classrooms_for_grade = ClassroomsForGrade.find({
-      balance_id: balance_id,
-      created_by_educator_id: current_educator.id
-    })
-    classrooms_for_grade_json = classrooms_for_grade.as_json
+    classrooms_for_grade_records = ClassroomsForGrade
+      .order(created_at: :desc)
+      .limit(1)
+      .where({
+        balance_id: balance_id,
+        created_by_educator_id: current_educator.id
+      })
 
+    raise ActiveRecord::RecordNotFound if classrooms_for_grade_records.size != 1
+    classrooms_for_grade_json = classrooms_for_grade_records.first.as_json
     render json: {
       classrooms_for_grade: classrooms_for_grade_json
     }
   end
 
   # For saving progress on classroom balancing.
-  # This is a POST (behaves like an idempotent PUT).
+  # This is a POST (behaves like an idempotent PUT) but we track all history.
   def update_classrooms_for_grade
     balance_id = params[:balance_id]
-    classrooms_for_grade = ClassroomsForGrade.find({
+    params.permit(:school_id, :grade_level_next_year, :json)
+    classrooms_for_grade = ClassroomsForGrade.create!({
       balance_id: balance_id,
-      created_by_educator_id: current_educator.id
+      created_by_educator_id: current_educator.id,
+      school_id: params[:school_id],
+      grade_level_next_year: params[:grade_level_next_year],
+      json: params[:json]
     })
 
-    attrs = params.permit(:school_id, :grade_level_next_year, :json)
-    classrooms_for_grade.update!(attrs)
     classrooms_for_grade_json = classrooms_for_grade.as_json
-
     render json: {
       classrooms_for_grade: classrooms_for_grade_json
     }

@@ -3,50 +3,28 @@ import _ from 'lodash';
 import SimpleStudentCard from './SimpleStudentCard';
 import ClassroomStats from './ClassroomStats';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+import {reordered, insertedInto, UNPLACED_ROOM_KEY} from './studentIdsByRoomFunctions';
 
 
+// This is the main UI for creating classroom lists.  It shows cards for each student,
+// lets the user drag them around to different classroom lists, shows summary statistics
+// comparing each room, and lets users click on students to see more.
 export default class CreateYourClassroomsView extends React.Component {
   constructor(props) {
     super(props);
 
-    const {classroomsCount, students} = props;
-    this.state = {
-      studentIdsByRoom: initialStudentIdsByRoom(classroomsCount, students),
-      sortKey: 'not-yet-placed'
-    };
-
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-  // TODO(kr) clarify the roomIndex / roomKey / null contract
-  // Expand the `roomNames` to have keys and their index.
-  rooms() {
-    const {classroomsCount} = this.props;
-    const rooms = _.range(0, classroomsCount).map((roomName, roomIndex) => {
-      return {
-        roomName: `Room ${String.fromCharCode(65 + roomIndex)}`,
-        roomIndex,
-        roomKey: roomKeyFromIndex(roomIndex)
-      };
-    });
-
-    return [{
-      roomName: 'Not placed',
-      roomIndex: rooms.length,
-      roomKey: UNPLACED_ROOM_KEY
-    }].concat(rooms);
-  }
-
   onDragEnd(dragEndResult) {
-    const {studentIdsByRoom} = this.state;
+    const {onClassroomListsChanged, studentIdsByRoom} = this.props;
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
-    this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
+    onClassroomListsChanged(updatedStudentIdsByRoom);
   }
 
   render() {
-    const {students} = this.props;
-    const {studentIdsByRoom} = this.state;
-    const rooms = this.rooms();
+    const {students, classroomsCount, studentIdsByRoom} = this.props;
+    const rooms = this.rooms(classroomsCount);
 
     return (
       <div className="CreateYourClassroomsView" style={styles.root}>
@@ -92,7 +70,9 @@ export default class CreateYourClassroomsView extends React.Component {
 }
 CreateYourClassroomsView.propTypes = {
   classroomsCount: React.PropTypes.number.isRequired,
-  students: React.PropTypes.array.isRequired
+  students: React.PropTypes.array.isRequired,
+  studentIdsByRoom: React.PropTypes.object.isRequired,
+  onClassroomListsChanged: React.PropTypes.func.isRequired
 };
 
 const styles = {
@@ -132,53 +112,7 @@ const styles = {
   }
 };
 
-// Helper functions related to moving students around.
-function roomKeyFromIndex(roomIndex) {
-  return `room:${roomIndex}`;
-}
 
-const UNPLACED_ROOM_KEY = 'room:unplaced';
-
-// {[roomKey]: [studentId]}
-function initialStudentIdsByRoom(roomsCount, students) {
-  const initialMap = {
-    [UNPLACED_ROOM_KEY]: []
-  };
-  const studentIdsByRoom = _.range(0, roomsCount).reduce((map, roomIndex) => {
-    return {
-      ...map,
-      [roomKeyFromIndex(roomIndex)]: []
-    };
-  }, initialMap);
-
-  students.forEach(student => {
-    // Random
-    // const roomKey = _.sample(Object.keys(studentIdsByRoom));
-    // studentIdsByRoom[roomKey].push(student.id);
-
-    // All unassigned
-    const roomKey = UNPLACED_ROOM_KEY;
-    studentIdsByRoom[roomKey].push(student.id);
-  });
-
-  return studentIdsByRoom;
-}
-
-
-// Returns array with item inserted.
-function insertedInto(items, insertIndex, itemToInsert) {
-  const itemsCopy = items.slice();
-  itemsCopy.splice(insertIndex, 0, itemToInsert);
-  return itemsCopy;
-}
-
-// Returns array with items swapped locations.
-export function reordered(items, fromIndex, toIndex) {
-  const result = Array.from(items);
-  const [removed] = result.splice(fromIndex, 1);
-  result.splice(toIndex, 0, removed);
-  return result;
-}
 
 // Update the `studentIdsByRoom` map after a drag ends.
 function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
