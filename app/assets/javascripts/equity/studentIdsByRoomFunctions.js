@@ -53,7 +53,7 @@ export function reordered(items, fromIndex, toIndex) {
 
 // TODO(kr) clarify the roomIndex / roomKey / null contract
 // Expand the `roomNames` to have keys and their index.
-export function rooms(classroomsCount) {
+export function createRooms(classroomsCount) {
   const rooms = _.range(0, classroomsCount).map((roomName, roomIndex) => {
     return {
       roomName: `Room ${String.fromCharCode(65 + roomIndex)}`,

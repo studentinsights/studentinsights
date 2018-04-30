@@ -109,13 +109,15 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
 
   renderMakeAPlan() {
     const {
-      educators,
-      classroomsCount,
       educatorNames,
       students,
       gradeLevelNextYear,
+      educators,
+      classroomsCount,
+      planText,
       onEducatorsChanged,
-      onClassroomsCountIncremented
+      onClassroomsCountIncremented,
+      onPlanTextChanged
     } = this.props;
 
     if (educatorNames === null || students === null || gradeLevelNextYear === null) return <Loading />;
@@ -127,10 +129,14 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
             name="select-educators"
             value={educators}
             multi
-            simpleValue
             removeSelected
             onChange={onEducatorsChanged}
-            options={educatorNames}
+            options={educatorNames.map(educatorName => {
+              return {
+                value: educatorName,
+                label: educatorName
+              };
+            })}
           />
         </div>
         <div>
@@ -138,12 +144,14 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
           <div style={{marginLeft: 5, display: 'inline-block'}}>
             <button
               style={styles.incrementButton}
+              disabled={classroomsCount < 2}
               onClick={() => onClassroomsCountIncremented(-1)}>
               -
             </button>
             <div style={{display: 'inline-block', padding: 10}}>{classroomsCount} classrooms</div>
             <button
               style={styles.incrementButton}
+              disabled={classroomsCount >= 5}
               onClick={() => onClassroomsCountIncremented(1)}>
               +
             </button>
@@ -155,7 +163,11 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
           <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
             Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start with balancing academic strengths.
           </div>
-          <textarea style={{border: '1px solid #ccc', width: '100%'}}  rows={12}></textarea>
+          <textarea
+            style={styles.textarea}
+            rows={12}
+            value={planText}
+            onChange={event => onPlanTextChanged(event.target.value)} />
         </div>
       </div>
     );
@@ -163,6 +175,8 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
 
   renderCreateYourClassrooms() {    
     const {students, classroomsCount, onClassroomListsChanged, studentIdsByRoom} = this.props;
+
+    if (studentIdsByRoom === null) return <Loading />;
     return (
       <CreateYourClassroomsView
         students={students}
@@ -181,9 +195,10 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
           Putting in these notes will help your principal and other team members understand all the different factors that you considered besides what shows up in the graphs.  This is also crucial information for a principal to know in case they need to move any students around over the summer.
         </div>
         <textarea
-          onChange={onPrincipalNoteChanged}
-          style={{border: '1px solid #eee'}}
-          rows={6}>{principalNoteText}</textarea>
+          value={principalNoteText}
+          onChange={event => onPrincipalNoteChanged(event.target.value)}
+          rows={12} 
+          style={styles.textarea} />
       </div>
     );
   }
@@ -223,6 +238,7 @@ ClassroomListCreatorWorkflow.propTypes = {
   onGradeLevelNextYearChanged: React.PropTypes.func.isRequired,
   onEducatorsChanged: React.PropTypes.func.isRequired,
   onClassroomsCountIncremented: React.PropTypes.func.isRequired,
+  onPlanTextChanged: React.PropTypes.func.isRequired,
   onClassroomListsChanged: React.PropTypes.func.isRequired,
   onPrincipalNoteChanged: React.PropTypes.func.isRequired
 };
@@ -258,6 +274,10 @@ const styles = {
   horizontalStepperContent: {
     borderTop: '1px solid #ccc',
     marginTop: 10
+  },
+  textarea: {
+    border: '1px solid #ccc',
+    width: '100%'
   }
 };
 

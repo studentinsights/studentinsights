@@ -3,7 +3,12 @@ import _ from 'lodash';
 import SimpleStudentCard from './SimpleStudentCard';
 import ClassroomStats from './ClassroomStats';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
-import {reordered, insertedInto, UNPLACED_ROOM_KEY} from './studentIdsByRoomFunctions';
+import {
+  reordered,
+  insertedInto,
+  UNPLACED_ROOM_KEY,
+  createRooms
+} from './studentIdsByRoomFunctions';
 
 
 // This is the main UI for creating classroom lists.  It shows cards for each student,
@@ -24,7 +29,7 @@ export default class CreateYourClassroomsView extends React.Component {
 
   render() {
     const {students, classroomsCount, studentIdsByRoom} = this.props;
-    const rooms = this.rooms(classroomsCount);
+    const rooms = createRooms(classroomsCount);
 
     return (
       <div className="CreateYourClassroomsView" style={styles.root}>

@@ -59,6 +59,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     this.onSchoolIdChanged = this.onSchoolIdChanged.bind(this);
     this.onGradeLevelNextYearChanged = this.onGradeLevelNextYearChanged.bind(this);
     this.onClassroomsCountIncremented = this.onClassroomsCountIncremented.bind(this);
+    this.onPlanTextChanged = this.onPlanTextChanged.bind(this);
     this.onEducatorsChanged = this.onEducatorsChanged.bind(this);
     this.onClassroomListsChanged = this.onClassroomListsChanged.bind(this);
     this.onPrincipalNoteChanged = this.onPrincipalNoteChanged.bind(this);
@@ -208,6 +209,10 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     this.setState({classroomsCount: updatedClassroomsCount});
   }
 
+  onPlanTextChanged(planText) {
+    this.setState({planText});
+  }
+
   onClassroomListsChanged(studentIdsByRoom) {
     this.setState({studentIdsByRoom});
   }
@@ -226,6 +231,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
         onGradeLevelNextYearChanged={this.onGradeLevelNextYearChanged}
         onEducatorsChanged={this.onEducatorsChanged}
         onClassroomsCountIncremented={this.onClassroomsCountIncremented}
+        onPlanTextChanged={this.onPlanTextChanged}
         onClassroomListsChanged={this.onClassroomListsChanged}
         onPrincipalNoteChanged={this.onPrincipalNoteChanged}
       />

@@ -39,15 +39,23 @@ function testProps(props = {}) {
   };
 }
 
+function render(props) {
+  return (
+    <div style={{width: '100%', background: '#333'}}>
+      <div style={{height: 216}} />
+      <div style={{width: 1024, border: '5px solid #333', background: 'white'}}>
+        <ClassroomListCreatorWorkflow {...props} />
+      </div>
+    </div>
+  );
+}
+
 storiesOf('equity/ClassroomListCreatorWorkflow', module) // eslint-disable-line no-undef
   .add('step 0, no data', () => {
-    const props = testProps();
-    return (
-      <div style={{width: '100%', background: '#333'}}>
-        <div style={{height: 216}} />
-        <div style={{width: 1024, border: '5px solid #333', background: 'white'}}>
-          <ClassroomListCreatorWorkflow {...props} />
-        </div>
-      </div>
-    );
+    return render(testProps());
+  })
+  .add('step 1, no data', () => {
+    return render(testProps({
+      stepIndex: 1
+    }));
   });
