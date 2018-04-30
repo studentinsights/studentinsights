@@ -13,15 +13,20 @@ Rails.application.routes.draw do
 
   get '/api/educators/:id' => 'educators#show'
   get '/api/schools/:id/courses' => 'schools#courses_json'
+
+  # school leader dashboards
   get '/api/schools/:id/absences/data' => 'schools#absence_dashboard_data'
   get '/api/schools/:id/tardies/data' => 'schools#tardies_dashboard_data'
   get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
+
+  # classroom list creator
   get '/api/balancing/:id/available_grade_levels_json' => 'classroom_balancing#available_grade_levels_json'
   get '/api/balancing/:id/available_grade_levels_json' => 'classroom_balancing#available_grade_levels_json'
   get '/api/balancing/:id/classrooms_for_grade_json' => 'classroom_balancing#classrooms_for_grade_json'
   get '/api/balancing/:id/students_for_grade_level_next_year_json' => 'classroom_balancing#students_for_grade_level_next_year_json'
   post '/api/balancing/:id/update_classrooms_for_grade' => 'classroom_balancing#update_classrooms_for_grade'
 
+  # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
   get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
   get '/api/home/feed_json' => 'home#feed_json'
@@ -89,7 +94,7 @@ Rails.application.routes.draw do
       get 'tardies' => 'ui#ui'
       get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
-      get 'equity/principal' => 'ui#ui'
+      get 'equity/explore' => 'ui#ui'
     end
   end
 
