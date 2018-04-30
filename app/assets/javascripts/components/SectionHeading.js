@@ -2,19 +2,17 @@ import React from 'react';
 
 
 // Visual UI component, the heading for a primary section on a page
-function SectionHeading({children, style = {}, titleStyle = {}}) {
+function SectionHeading({children}) {
   return (
-    <div className="SectionHeading" style={{...styles.root, ...style}}>
-      <h4 style={{...styles.title, ...titleStyle}}>
+    <div className="SectionHeading" style={styles.root}>
+      <h4 style={styles.title}>
         {children}
       </h4>
     </div>
   );
 }
 SectionHeading.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  style: React.PropTypes.object,
-  titleStyle: React.PropTypes.object
+  children: React.PropTypes.node.isRequired
 };
 
 const styles = {
