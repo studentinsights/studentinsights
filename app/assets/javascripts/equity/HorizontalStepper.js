@@ -32,7 +32,7 @@ export default class HorizontalStepper extends React.Component {
     const {steps, renderFn, style, contentStyle} = this.props;
     const currentStepIndex = this.props.stepIndex;
     return (
-      <div className="HorizontalStepper" style={style}>
+      <div className="HorizontalStepper" style={{...styles.root, ...style}}>
         <div style={styles.banner}>
           {steps.map((step, stepIndex) => {
             return (
@@ -49,7 +49,9 @@ export default class HorizontalStepper extends React.Component {
             );
           })}
         </div>
-        <div style={contentStyle}>{renderFn(currentStepIndex, steps[currentStepIndex])}</div>
+        <div style={{...styles.content, ...contentStyle}}>
+          {renderFn(currentStepIndex, steps[currentStepIndex])}
+        </div>
         {this.renderNavigationButtons()}
       </div>
     );
@@ -97,6 +99,13 @@ HorizontalStepper.propTypes = {
 };
 
 const styles = {
+  root: {
+    paddingTop: 15
+  },
+  content: {
+    borderTop: '1px solid #ccc',
+    marginTop: 10
+  },
   banner:{
     fontSize: 12,
     paddingLeft: 15

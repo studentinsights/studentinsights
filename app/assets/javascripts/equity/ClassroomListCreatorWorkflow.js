@@ -1,6 +1,6 @@
 import React from 'react';
-import {sortByGrade} from '../helpers/SortHelpers';
 import {gradeText} from '../helpers/gradeText';
+import Loading from '../components/Loading';
 import CreateYourClassroomsView from './CreateYourClassroomsView';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -15,14 +15,15 @@ With our new grant from the Boston Foundation to expand the functionality of Ins
 -Uri`;
 
 
-// For grade-level teaching teams 
-export default class ClassroomListCreatorView extends React.Component {
+// This is the UI component for grade-level teaching teams to go through the process
+// of creating classroom lists.  It tracks all changes and passes them up to callbacks,
+// and hands off to other UI components that handle stepping through the process
+// and screens for each step.
+export default class ClassroomListCreatorWorkflow extends React.Component {
   constructor(props) {
     super(props);
 
     this.renderStepContents = this.renderStepContents.bind(this);
-    this.renderChooseYourGradeWithData = this.renderChooseYourGradeWithData.bind(this);
-    this.renderMakeAPlanWithData = this.renderMakeAPlanWithData.bind(this);
   }
 
   render() {
@@ -51,7 +52,7 @@ export default class ClassroomListCreatorView extends React.Component {
     if (stepIndex === 4) return this.renderShareWithPrincipal();
   }
 
-  renderChooseYourGradeWithData() {
+  renderChooseYourGrade() {
     const {
       schools,
       gradeLevelsNextYear,
@@ -62,6 +63,7 @@ export default class ClassroomListCreatorView extends React.Component {
     } = this.props;
     const videoUrl = 'https://www.youtube.com/watch?v=6hw3o6RzHek&t=2s';
 
+    if (schools === null || gradeLevelsNextYear === null) return <Loading />;
     return (
       <div style={styles.stepContent}>
         <div>
@@ -115,6 +117,7 @@ export default class ClassroomListCreatorView extends React.Component {
       onEducatorsChanged
     } = this.props;
 
+    if (educatorNames === null || students === null || gradeLevelNextYear === null) return <Loading />;
     return (
       <div style={styles.stepContent}>
         <div>
@@ -178,11 +181,12 @@ export default class ClassroomListCreatorView extends React.Component {
   }
 
   renderCreateYourClassrooms() {    
-    const {students, classroomsCount, onClassroomListsChanged} = this.props;
+    const {students, classroomsCount, onClassroomListsChanged, studentIdsByRoom} = this.props;
     return (
       <CreateYourClassroomsView
         students={students}
         classroomsCount={classroomsCount}
+        studentIdsByRoom={studentIdsByRoom}
         onClassroomListsChanged={onClassroomListsChanged}/>
     );
   }
@@ -211,12 +215,12 @@ export default class ClassroomListCreatorView extends React.Component {
     );
   }
 }
-ClassroomListCreatorView.propTypes = {
+ClassroomListCreatorWorkflow.propTypes = {
   // server data
-  schools: React.PropTypes.array.isRequired,
-  gradeLevelsNextYear: React.PropTypes.array.isRequired,
-  students: React.PropTypes.array.isRequired,
-  educatorNames: React.PropTypes.array.isRequired,
+  schools: React.PropTypes.array,
+  gradeLevelsNextYear: React.PropTypes.array,
+  students: React.PropTypes.array,
+  educatorNames: React.PropTypes.array,
 
   // config
   steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
@@ -224,12 +228,12 @@ ClassroomListCreatorView.propTypes = {
   // state
   stepIndex: React.PropTypes.number.isRequired,
   balanceId: React.PropTypes.string.isRequired,
-  schoolId: React.PropTypes.string.isRequired,
-  gradeLevelNextYear: React.PropTypes.string.isRequired,
+  schoolId: React.PropTypes.number,
+  gradeLevelNextYear: React.PropTypes.string,
   educators: React.PropTypes.array.isRequired,
   classroomsCount: React.PropTypes.number.isRequired,
   planText: React.PropTypes.string.isRequired,
-  studentIdsByRoom: React.PropTypes.object.isRequired,
+  studentIdsByRoom: React.PropTypes.object,
   principalNoteText: React.PropTypes.string.isRequired,
 
   // callbacks

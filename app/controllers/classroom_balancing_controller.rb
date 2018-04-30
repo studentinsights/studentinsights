@@ -112,10 +112,16 @@ class ClassroomBalancingController < ApplicationController
   end
 
   # For saving progress on classroom balancing.
-  # This is a POST (behaves like an idempotent PUT) but we track all history.
+  # This is a POST and we store all updates.
   def update_classrooms_for_grade
+    # Rails passes these as nested under the controller and also as not nested.
+    # Here we read the nested values.
+    params
+      .require(:classroom_balancing)
+      .permit(:balance_id, :school_id, :grade_level_next_year, json: {})
+
+    # Write a new record
     balance_id = params[:balance_id]
-    params.permit(:school_id, :grade_level_next_year, :json)
     classrooms_for_grade = ClassroomsForGrade.create!({
       balance_id: balance_id,
       created_by_educator_id: current_educator.id,

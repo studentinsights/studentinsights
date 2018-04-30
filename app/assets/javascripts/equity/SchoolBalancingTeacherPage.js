@@ -4,10 +4,10 @@ import {sortByGrade} from '../helpers/SortHelpers';
 import {
   fetchGradeLevelsJson,
   fetchStudentsJson,
-  postBalancingState
+  postClassroomsForGrade
 } from './api';
 import {initialStudentIdsByRoom} from './studentIdsByRoomFunctions';
-import ClassroomListCreatorView from './ClassroomListCreatorView';
+import ClassroomListCreatorWorkflow from './ClassroomListCreatorWorkflow';
 import uuidv4 from 'uuid/v4';
 
 const STEPS = [
@@ -71,10 +71,14 @@ export default class SchoolBalancingTeacherPage extends React.Component {
 
     // schedule warn or navigate away
     window.addEventListener('beforeunload', this.onBeforeUnload);
+
+    // trigger fetches
+    this.triggerFetches();
   }
 
   componentDidUpdate() {
     this.doSaveChanges();
+    this.triggerFetches();
   }
 
   componentWillUnmount() {
@@ -86,6 +90,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   doSaveChanges() {
     const {
       balanceId,
+      stepIndex,
       schoolId,
       gradeLevelNextYear,
       educators,
@@ -94,8 +99,11 @@ export default class SchoolBalancingTeacherPage extends React.Component {
       studentIdsByRoom,
       principalNotesText
     } = this.state;
+    if (balanceId === null) return;
+
     const payload = {
       balanceId,
+      stepIndex,
       schoolId,
       gradeLevelNextYear,
       educators,
@@ -105,7 +113,34 @@ export default class SchoolBalancingTeacherPage extends React.Component {
       principalNotesText,
       clientNowMs: moment.utc().unix()
     };
-    postBalancingState(payload);
+    postClassroomsForGrade(payload);
+  }
+
+  // Trigger fetches and other initialization
+  triggerFetches() {
+    const {
+      stepIndex,
+      classroomsCount,
+      students,
+      schools,
+      gradeLevelsNextYear,
+      studentIdsByRoom
+    } = this.state;
+    
+    if (stepIndex === 0 && (schools === null || gradeLevelsNextYear === null)) {
+      this.fetchGradeLevels().then(this.onFetchedGradeLevels);
+    }
+
+    if (stepIndex === 1 && students === null) {
+      this.fetchStudents().then(this.onFetchedStudents);
+    }
+
+    // If we're navigating to `CreateYourClassrooms` for the first time and
+    // don't have classroom lists yet, create the default
+    if (stepIndex == 2 && studentIdsByRoom === null) {
+      const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students);
+      this.setState({studentIdsByRoom});
+    }
   }
 
   fetchGradeLevels() {
@@ -148,26 +183,18 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     });
   }
 
-  // If we're navigating to `CreateYourClassrooms` for the first time and
-  // don't have classroom lists yet, create the default
   onStepChanged(stepIndex) {
-    const {classroomsCount, students, studentIdsByRoom} = this.state;
-    if (stepIndex == 2 && studentIdsByRoom === null) {
-      const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students);
-      this.setState({stepIndex, studentIdsByRoom});
-    } else {
-      this.setState({stepIndex});
-    }
+    this.setState({stepIndex});
   }
 
   // TODO(kr) warn about resetting students?
-  onSchoolIdChanged(item) {
-    this.setState({schoolId: item.value});
+  onSchoolIdChanged(schoolId) {
+    this.setState({schoolId});
   }
 
   // TODO(kr) warn about resetting students?
-  onGradeLevelNextYearChanged(item) {
-    this.setState({gradeLevelNextYear: item.value});
+  onGradeLevelNextYearChanged(gradeLevelNextYear) {
+    this.setState({gradeLevelNextYear});
   }
 
   onEducatorsChanged(educators) {
@@ -184,7 +211,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
 
   render() {
     return (
-      <ClassroomListCreatorView
+      <ClassroomListCreatorWorkflow
         {...this.state}
         steps={STEPS}
         onStepChanged={this.onStepChanged}

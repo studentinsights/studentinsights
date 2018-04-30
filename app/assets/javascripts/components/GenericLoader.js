@@ -1,6 +1,6 @@
 import React from 'react';
 import PromiseLoader from './PromiseLoader';
-
+import Loading from './Loading';
 
 // Executes a promise, shows generic loading and error
 // messages, and calls `render` with the resolved value of the promise.
@@ -35,7 +35,7 @@ class GenericLoader extends React.Component {
     const {isPending, reject, resolve} = promiseState;
     const {onResolved, render, style} = this.props;
 
-    if (isPending) return <div style={{padding: 10, ...style}}>Loading...</div>;
+    if (isPending) return <Loading style={{padding: 10}} />;
 
     // Throw and provide the original stack trace if a global flag is set for test mode.
     if (reject) {

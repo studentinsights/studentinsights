@@ -1,5 +1,5 @@
 import qs from 'query-string';
-import {apiFetchJson} from '../helpers/apiFetchJson';
+import {apiFetchJson, apiPostJson} from '../helpers/apiFetchJson';
 
 
 // Fetch the grade levels that we think this educator will want to create classroom
@@ -18,4 +18,37 @@ export function fetchStudentsJson(options = {}) {
   };
   const url = `/api/balancing/${balanceId}/students_for_grade_level_next_year_json?${qs.stringify(params)}`;
   return apiFetchJson(url);
+}
+
+// Post the state of the user's work
+export function postClassroomsForGrade(options = {}) {
+  const {
+    balanceId,
+    stepIndex,
+    schoolId,
+    gradeLevelNextYear,
+    educators,
+    classroomsCount,
+    planText,
+    studentIdsByRoom,
+    principalNotesText,
+    clientNowMs
+  } = options;
+
+  const url = `/api/balancing/${balanceId}/update_classrooms_for_grade`;
+  const body = {
+    balance_id: balanceId,
+    school_id: schoolId,
+    grade_level_next_year: gradeLevelNextYear,
+    json: {
+      stepIndex,
+      educators,
+      classroomsCount,
+      planText,
+      studentIdsByRoom,
+      principalNotesText,
+      clientNowMs
+    }
+  };
+  return apiPostJson(url, body);
 }
