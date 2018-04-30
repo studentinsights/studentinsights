@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 describe ClassroomBalancingController, :type => :controller do
+  def create_balancing_by(educator)
+    ClassroomsForGrade.create!({
+      balance_id: 'foo-balance-id',
+      created_by_educator_id: educator.id,
+      school_id: pals.healey.id,
+      grade_level_next_year: '4',
+      json: { foo: 'bar' }
+    })
+  end
+
   before { request.env['HTTPS'] = 'on' }
   before { request.env['HTTP_ACCEPT'] = 'application/json' }
   let!(:pals) { TestPals.create! }
@@ -125,23 +135,66 @@ describe ClassroomBalancingController, :type => :controller do
   end
 
   describe '#classrooms_for_grade_json' do
-    pending
+    def request_classrooms_for_grade_json(educator)
+      sign_in(educator)
+      get :classrooms_for_grade_json, params: {
+        format: :json,
+        balance_id: 'foo-balance-id'
+      }
+    end
+
+    it 'works' do
+      create_balancing_by(pals.uri)
+      request_classrooms_for_grade_json(pals.uri)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json).to eq({
+        "classrooms_for_grade"=>{
+          "balance_id"=>"foo-balance-id",
+          "created_by_educator_id"=>pals.uri.id,
+          "school_id"=>pals.healey.id,
+          "grade_level_next_year"=>'4',
+          "json"=>{'foo'=>'bar'}
+        }
+      })
+    end
+
+    it 'does not allow fetching records by other educators' do
+      create_balancing_by(pals.healey_sarah_teacher)
+      request_classrooms_for_grade_json(pals.uri)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json).to eq({
+        "classrooms_for_grade"=>nil
+      })
+    end
   end
 
   describe '#update_classrooms_for_grade_json' do
-    it 'works' do
-      sign_in(educator)
+    it 'works by creating a new record for each change' do
+      create_balancing_by(pals.uri)
+      sign_in(pals.uri)
       post :update_classrooms_for_grade_json, params: {
         format: :json,
         balance_id: 'foo-balance-id',
-        created_by_educator_id: current_educator.id,
+        created_by_educator_id: pals.uri.id,
         school_id: pals.healey.id,
         grade_level_next_year: '2',
-        json: { foo: 'bar' }
+        json: { foo: 'bazzzzz' }
       }
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json).to eq({foo: 'bar'})
+      expect(json).to eq({
+        "classrooms_for_grade"=>{
+          "balance_id"=>"foo-balance-id",
+          "created_by_educator_id"=>pals.uri.id,
+          "school_id"=>pals.healey.id,
+          "grade_level_next_year"=>'2',
+          "json"=>{'foo'=>'bazzzzz'}
+        }
+      })
+      expect(ClassroomsForGrade.all.size).to eq(2)
+      expect(ClassroomsForGrade.last.balance_id).to eq('foo-balance-id')
     end
   end
 end

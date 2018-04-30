@@ -8,7 +8,6 @@ class CreateClassroomsForGrades < ActiveRecord::Migration[5.1]
       t.json :json
 
       t.timestamps
-      t.index :balance_id, unique: true
     end
   end
 end

@@ -78,19 +78,12 @@ class ClassroomBalancingController < ApplicationController
   # The data for a particular instance of doing classroom balancing.
   # Users are only authorized to load records they have created themselves.
   def classrooms_for_grade_json
+    params.permit(:balance_id)
     balance_id = params[:balance_id]
-    classrooms_for_grade_records = ClassroomsForGrade
-      .order(created_at: :desc)
-      .limit(1)
-      .where({
-        balance_id: balance_id,
-        created_by_educator_id: current_educator.id
-      })
+    balancing_json = query_for_balancing(current_educator, balance_id)
 
-    raise ActiveRecord::RecordNotFound if classrooms_for_grade_records.size != 1
-    classrooms_for_grade_json = classrooms_for_grade_records.first.as_json
     render json: {
-      classrooms_for_grade: classrooms_for_grade_json
+      classrooms_for_grade: balancing_json
     }
   end
 
@@ -99,9 +92,7 @@ class ClassroomBalancingController < ApplicationController
   def update_classrooms_for_grade_json
     # Rails passes these as nested under the controller and also as not nested.
     # Here we read the nested values.
-    params
-      .require(:classroom_balancing)
-      .permit(:balance_id, :school_id, :grade_level_next_year, json: {})
+    params.permit(:balance_id, :school_id, :grade_level_next_year, json: {})
 
     # Write a new record
     balance_id = params[:balance_id]
@@ -112,10 +103,9 @@ class ClassroomBalancingController < ApplicationController
       grade_level_next_year: params[:grade_level_next_year],
       json: params[:json] # left opaque for UI to iterate
     })
-
-    classrooms_for_grade_json = classrooms_for_grade.as_json
+    balancing_json = serialize_as_balancing_json(classrooms_for_grade)
     render json: {
-      classrooms_for_grade: classrooms_for_grade_json
+      classrooms_for_grade: balancing_json
     }
   end
 
@@ -137,6 +127,31 @@ class ClassroomBalancingController < ApplicationController
 
     # Query for those students (outside normal authorization rules)
     Student.where(school_id: school_id, grade: grade_level)
+  end
+
+  # Only let educators read their own writes
+  def query_for_balancing(educator, balance_id)
+    classrooms_for_grade_records = ClassroomsForGrade
+      .order(created_at: :desc)
+      .limit(1)
+      .where({
+        balance_id: balance_id,
+        created_by_educator_id: current_educator.id
+      })
+
+    return nil if classrooms_for_grade_records.size != 1
+    serialize_as_balancing_json(classrooms_for_grade_records.first)
+  end
+
+
+  def serialize_as_balancing_json(classrooms_for_grade)
+    classrooms_for_grade.as_json(only: [
+      :balance_id,
+      :created_by_educator_id,
+      :school_id,
+      :grade_level_next_year,
+      :json
+    ])
   end
 
   # This is intended only for local use in this controller and is based off
