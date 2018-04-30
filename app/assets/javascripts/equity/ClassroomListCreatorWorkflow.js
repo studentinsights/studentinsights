@@ -114,7 +114,8 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
       educatorNames,
       students,
       gradeLevelNextYear,
-      onEducatorsChanged
+      onEducatorsChanged,
+      onClassroomsCountIncremented
     } = this.props;
 
     if (educatorNames === null || students === null || gradeLevelNextYear === null) return <Loading />;
@@ -126,44 +127,24 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
             name="select-educators"
             value={educators}
             multi
+            simpleValue
             removeSelected
             onChange={onEducatorsChanged}
-            options={educatorNames.map(educatorName => {
-              return {
-                value: educatorName,
-                label: educatorName
-              };
-            })}
+            options={educatorNames}
           />
         </div>
         <div>
           <div style={styles.heading}>How many {gradeText(gradeLevelNextYear)} classrooms will you create?</div>
           <div style={{marginLeft: 5, display: 'inline-block'}}>
             <button
-              style={{
-                display: 'inline-block',
-                padding: 1,
-                paddingLeft: 10,
-                paddingRight: 10,
-                fontSize: 16
-              }}
-              onClick={() => {
-                if (classroomsCount > 2) this.setState({classroomsCount: classroomsCount - 1});
-              }}>
+              style={styles.incrementButton}
+              onClick={() => onClassroomsCountIncremented(-1)}>
               -
             </button>
             <div style={{display: 'inline-block', padding: 10}}>{classroomsCount} classrooms</div>
             <button
-              style={{
-                display: 'inline-block',
-                padding: 1,
-                paddingLeft: 10,
-                paddingRight: 10,
-                fontSize: 16
-              }}
-              onClick={() => {
-                if (classroomsCount <= 5) this.setState({classroomsCount: classroomsCount + 1});
-              }}>
+              style={styles.incrementButton}
+              onClick={() => onClassroomsCountIncremented(1)}>
               +
             </button>
           </div>
@@ -241,6 +222,7 @@ ClassroomListCreatorWorkflow.propTypes = {
   onSchoolIdChanged: React.PropTypes.func.isRequired,
   onGradeLevelNextYearChanged: React.PropTypes.func.isRequired,
   onEducatorsChanged: React.PropTypes.func.isRequired,
+  onClassroomsCountIncremented: React.PropTypes.func.isRequired,
   onClassroomListsChanged: React.PropTypes.func.isRequired,
   onPrincipalNoteChanged: React.PropTypes.func.isRequired
 };
@@ -254,6 +236,13 @@ const styles = {
     display: 'inline-block',
     margin: 5,
     cursor: 'pointer'
+  },
+  incrementButton: {
+    display: 'inline-block',
+    padding: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 16
   },
   stepContent: {
     margin: 20

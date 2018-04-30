@@ -10,7 +10,7 @@ import {initialStudentIdsByRoom} from './studentIdsByRoomFunctions';
 import ClassroomListCreatorWorkflow from './ClassroomListCreatorWorkflow';
 import uuidv4 from 'uuid/v4';
 
-const STEPS = [
+export const STEPS = [
   'Choose your grade',
   'Make a plan',
   'Create your classrooms',
@@ -58,6 +58,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     this.onStepChanged = this.onStepChanged.bind(this);
     this.onSchoolIdChanged = this.onSchoolIdChanged.bind(this);
     this.onGradeLevelNextYearChanged = this.onGradeLevelNextYearChanged.bind(this);
+    this.onClassroomsCountIncremented = this.onClassroomsCountIncremented.bind(this);
     this.onEducatorsChanged = this.onEducatorsChanged.bind(this);
     this.onClassroomListsChanged = this.onClassroomListsChanged.bind(this);
     this.onPrincipalNoteChanged = this.onPrincipalNoteChanged.bind(this);
@@ -201,6 +202,12 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     this.setState({educators}); 
   }
 
+  onClassroomsCountIncremented(delta) {
+    const {classroomsCount} = this.state;
+    const updatedClassroomsCount = classroomsCount + delta;
+    this.setState({classroomsCount: updatedClassroomsCount});
+  }
+
   onClassroomListsChanged(studentIdsByRoom) {
     this.setState({studentIdsByRoom});
   }
@@ -218,6 +225,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
         onSchoolIdChanged={this.onSchoolIdChanged}
         onGradeLevelNextYearChanged={this.onGradeLevelNextYearChanged}
         onEducatorsChanged={this.onEducatorsChanged}
+        onClassroomsCountIncremented={this.onClassroomsCountIncremented}
         onClassroomListsChanged={this.onClassroomListsChanged}
         onPrincipalNoteChanged={this.onPrincipalNoteChanged}
       />
