@@ -20,12 +20,14 @@ class Student < ActiveRecord::Base
   has_many :student_section_assignments
   has_many :sections, through: :student_section_assignments
 
-  has_many :dashboard_tardies, -> { where('occurred_at >= ?', 1.year.ago) },
-    class_name: "Tardy"
-  has_many :dashboard_absences, -> { where('occurred_at >= ?', 1.year.ago) },
-    class_name: "Absence"
-  has_many :sst_notes, -> { where(event_note_type_id: 300) },
-    class_name: "EventNote"
+  has_many :dashboard_tardies, -> {
+    where('occurred_at >= ?', 1.year.ago)
+  }, class_name: "Tardy"
+  has_many :dashboard_absences, -> {
+    where('occurred_at >= ?', 1.year.ago)
+  }, class_name: "Absence"
+
+  has_many :sst_notes, -> { where(event_note_type_id: 300) }, class_name: "EventNote"
 
   has_one :student_risk_level, dependent: :destroy
 

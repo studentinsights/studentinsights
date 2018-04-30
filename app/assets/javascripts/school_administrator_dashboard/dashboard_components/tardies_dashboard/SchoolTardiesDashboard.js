@@ -7,7 +7,7 @@ import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 import DashRangeButtons from '../DashRangeButtons';
-
+import DesignChangesBanner from '../../../components/DesignChangesBanner';
 
 class SchoolTardiesDashboard extends React.Component {
 
@@ -86,6 +86,7 @@ class SchoolTardiesDashboard extends React.Component {
   render() {
     return (
       <div>
+        <DesignChangesBanner />
         {this.renderRangeSelector()}
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
@@ -132,7 +133,9 @@ class SchoolTardiesDashboard extends React.Component {
 
   renderHomeroomTardiesChart() {
     const homeroomTardyEvents = this.homeroomTardyEventsSince(this.state.startDate);
-    const homerooms = Object.keys(homeroomTardyEvents);
+    const homerooms = Object.keys(homeroomTardyEvents).sort((a,b) => {
+      return homeroomTardyEvents[b] - homeroomTardyEvents[a];
+    });
     const homeroomSeries = homerooms.map((homeroom) => {
       return homeroomTardyEvents[homeroom];
     });

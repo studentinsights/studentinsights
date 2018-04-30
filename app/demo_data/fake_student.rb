@@ -1,4 +1,30 @@
 class FakeStudent
+  ATTENDANCE_EVENT_REASONS = %w[
+    Appointment
+    Bereavement
+    Holiday
+    Late
+    Legal
+    Medical
+    No Reason
+    Nurse
+    Parent
+    School
+    Sick
+    Suspended
+    Transportation
+    Truant
+    Vacation
+    Walked Out
+    Weather
+    Withdrawal
+  ]
+
+  ATTENDANCE_EVENT_COMMENTS = [
+    'Received doctor note.',
+    'Mom called, did not leave a reason.'
+  ]
+
   def initialize(school, homeroom)
     @school = school
     @homeroom = homeroom
@@ -204,6 +230,7 @@ class FakeStudent
     }
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
+
     events_for_year.times do
       # Randomly determine when it occurred.
       occurred_at = DemoDataUtil.random_time
@@ -211,6 +238,22 @@ class FakeStudent
       attendance_event = [Absence.new, Tardy.new].sample
       attendance_event.occurred_at = occurred_at
       attendance_event.student = student
+
+      # Frequencies for attendance event reasons/comments/dismissed/excused
+      # modeled on Somerville data, for queries see:
+      # https://github.com/studentinsights/studentinsights/pull/1653#issue-184358100
+      if attendance_event.class == Absence
+        attendance_event.dismissed = (rand < 0.006)
+        attendance_event.excused = (rand < 0.0627)
+        attendance_event.reason = ATTENDANCE_EVENT_REASONS.sample if rand < 0.29
+        attendance_event.comment = ATTENDANCE_EVENT_COMMENTS.sample if rand < 0.18
+
+      elsif attendance_event.class == Tardy
+        attendance_event.dismissed = (rand < 0.019)
+        attendance_event.excused = (rand < 0.027)
+        attendance_event.reason = ATTENDANCE_EVENT_REASONS.sample if rand < 0.1
+        attendance_event.comment = ATTENDANCE_EVENT_COMMENTS.sample if rand < 0.04
+      end
 
       attendance_event.save
     end
