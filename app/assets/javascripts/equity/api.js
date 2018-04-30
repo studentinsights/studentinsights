@@ -35,7 +35,7 @@ export function postClassroomsForGrade(options = {}) {
     clientNowMs
   } = options;
 
-  const url = `/api/balancing/${balanceId}/update_classrooms_for_grade`;
+  const url = `/api/balancing/${balanceId}/update_classrooms_for_grade_json`;
   const body = {
     balance_id: balanceId,
     school_id: schoolId,

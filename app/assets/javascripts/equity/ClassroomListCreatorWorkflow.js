@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
 import CreateYourClassroomsView from './CreateYourClassroomsView';
@@ -79,7 +80,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
                 name="select-school-name"
                 value={schoolId}
                 onChange={item => onSchoolIdChanged(item.value)}
-                options={schools.map(school => {
+                options={_.sortBy(schools, s => s.name).map(school => {
                   return {
                     value: school.id,
                     label: school.name

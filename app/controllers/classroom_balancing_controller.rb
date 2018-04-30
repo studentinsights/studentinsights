@@ -1,53 +1,45 @@
 class ClassroomBalancingController < ApplicationController
   # This entire feature is Somerville-specific
   before_action :ensure_somerville_only!
-  before_action :ensure_internal_only!
 
-  # The schools and grade levels that this educator would work with.
-  # This works by suggesting anything grade levels or schools they have
-  # access to now, and then finding the intersection between that and
-  # what we should balance
+  # The schools and grade levels that can be balanced.  This isn't an authorization
+  # gate, so is more a place for adding a helpful UI suggestion than anything else.
   def available_grade_levels_json
-    students = authorized { Student.all }
+    # schools
+    default_school_id = current_educator.school_id
+    school_ids_to_balance = School.where(school_type: ['ESMS', 'ES', 'MS']).map(&:id)
+    schools_json = School.find(school_ids_to_balance).as_json(only: [:id, :name])
 
-    schools_for_current_students = students.map(&:school).uniq
-    schools_to_balance = School.where(school_type: ['ESMS', 'ES', 'MS'])
-    schools = schools_for_current_students & schools_to_balance
-    schools_json = schools.as_json(only: [:id, :school_type, :name, :local_id])
-
+    # grade levels
     grade_levels_to_balance = [
-      'KF',
       '1',
       '2',
       '3',
       '4',
       '5',
-      '6',
-      '7',
-      '8'
+      '6'
     ]
-    grade_levels_for_current_students = students.map(&:grade).uniq
-    grade_levels_for_students_next_year = grade_levels_for_current_students.map {|level| GradeLevels.new.next(level) }
-    grade_levels_next_year = grade_levels_for_students_next_year & grade_levels_to_balance
+    current_grade_level = current_educator.homeroom.try(:grade) || 'KF'
+    default_grade_level_next_year = GradeLevels.new.next(current_grade_level)
 
     render json: {
+      default_school_id: default_school_id,
       schools: schools_json,
-      grade_levels_next_year: grade_levels_next_year
+      default_grade_level_next_year: default_grade_level_next_year,
+      grade_levels_next_year: grade_levels_to_balance
     }
   end
 
+  # Returns a list of students for the classroom list creator, looking at
+  # a particular school and grade level.
+  #
+  # Authorized here is different than normal.
   def students_for_grade_level_next_year_json
-    school_id = params[:school_id]
+    school_id = params[:school_id].to_i
     grade_level_next_year = params[:grade_level_next_year]
-    grade_level_for_current_students = GradeLevels.new.previous(grade_level_next_year)
 
-    # TODO(kr) also need to filter out by separate program?
-    # This uses a different authorization scheme for accessing students than
-    # elsewhere in the app.  It's intentionally more permissive.
-    students = Student.where({
-      school_id: school_id,
-      grade: grade_level_for_current_students
-    })
+    # Check authorization by grade level, differently than normal.
+    students = query_for_authorized_students(current_educator, school_id, grade_level_next_year)
     students_json = students.as_json({
       only: [
         :id,
@@ -57,7 +49,7 @@ class ClassroomBalancingController < ApplicationController
         :disability,
         :program_assigned,
         :limited_english_proficiency,
-        :plan504,
+        :plan_504,
         :home_language,
         :free_reduced_lunch,
         :race,
@@ -72,13 +64,9 @@ class ClassroomBalancingController < ApplicationController
       ]
     })
 
-    # TODO(kr) The set of educator names is off here
-    school = School.find(school_id)
-    educator_names_json = [
-      [current_educator.full_name],
-      school.educator_names_for_services,
-      Service.provider_names
-    ].flatten.uniq.compact
+    # educator names (including ones that are entered in services
+    # and don't correspond directly to educator records
+    educator_names_json = educator_names(school_id).as_json
 
     render json: {
       students: students_json,
@@ -88,12 +76,7 @@ class ClassroomBalancingController < ApplicationController
   end
 
   # The data for a particular instance of doing classroom balancing.
-  #
-  # Authorization is handled differently than normal student-level authorization.
   # Users are only authorized to load records they have created themselves.
-  # But, within those records, there may be data about students that they
-  # don't usually have access to (they can see all students for their grade
-  # in a way they normally might not be able to).
   def classrooms_for_grade_json
     balance_id = params[:balance_id]
     classrooms_for_grade_records = ClassroomsForGrade
@@ -113,7 +96,7 @@ class ClassroomBalancingController < ApplicationController
 
   # For saving progress on classroom balancing.
   # This is a POST and we store all updates.
-  def update_classrooms_for_grade
+  def update_classrooms_for_grade_json
     # Rails passes these as nested under the controller and also as not nested.
     # Here we read the nested values.
     params
@@ -127,7 +110,7 @@ class ClassroomBalancingController < ApplicationController
       created_by_educator_id: current_educator.id,
       school_id: params[:school_id],
       grade_level_next_year: params[:grade_level_next_year],
-      json: params[:json]
+      json: params[:json] # left opaque for UI to iterate
     })
 
     classrooms_for_grade_json = classrooms_for_grade.as_json
@@ -137,13 +120,44 @@ class ClassroomBalancingController < ApplicationController
   end
 
   private
+  def educator_names(school_id)
+    school = School.find(school_id)
+    [
+      school.educator_names_for_services,
+      Service.provider_names
+    ].flatten.uniq.compact
+  end
+
+  # Check authorization for the grade level in a different way than normal
+  def query_for_authorized_students(educator, school_id, grade_level_next_year)
+    return [] unless is_authorized_for_school_id?(educator, school_id)
+
+    grade_level = GradeLevels.new.previous(grade_level_next_year)
+    return [] unless is_authorized_for_grade_level?(educator, grade_level)
+
+    # Query for those students (outside normal authorization rules)
+    Student.where(school_id: school_id, grade: grade_level)
+  end
+
+  # This is intended only for local use in this controller and is based off
+  # authorizer#is_authorized_for_student?
+  def is_authorized_for_grade_level?(educator, grade_level)
+    return true if educator.districtwide_access?
+    return true if educator.schoolwide_access?
+    return true if educator.admin?
+    return true if educator.has_access_to_grade_levels? && grade_level.in?(educator.grade_level_access)
+    return true if grade_level == educator.homeroom.try(:grade)
+    false
+  end
+
+  def is_authorized_for_school_id?(educator, school_id)
+    return true if educator.districtwide_access?
+    return true if educator.school_id == school_id
+    false
+  end
+
   def ensure_somerville_only!
     district_key = PerDistrict.new.district_key
     raise Exceptions::EducatorNotAuthorized unless district_key == PerDistrict::SOMERVILLE
-  end
-
-  # TODO(kr) temporary, because this is in active development
-  def ensure_internal_only!
-    raise Exceptions::EducatorNotAuthorized unless current_educator && current_educator.can_set_districtwide_access?
   end
 end

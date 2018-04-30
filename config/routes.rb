@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   # classroom list creator
   get '/api/balancing/:balance_id/available_grade_levels_json' => 'classroom_balancing#available_grade_levels_json'
   get '/api/balancing/:balance_id/students_for_grade_level_next_year_json' => 'classroom_balancing#students_for_grade_level_next_year_json'
-  post '/api/balancing/:balance_id/update_classrooms_for_grade' => 'classroom_balancing#update_classrooms_for_grade'
+  post '/api/balancing/:balance_id/update_classrooms_for_grade_json' => 'classroom_balancing#update_classrooms_for_grade_json'
   get '/api/balancing/:balance_id/classrooms_for_grade_json' => 'classroom_balancing#classrooms_for_grade_json'
 
   # home feed
