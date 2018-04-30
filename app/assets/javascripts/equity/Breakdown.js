@@ -304,30 +304,30 @@ export default class Breakdown extends React.Component {
 
                     {/* Attendance / Discipline */}
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={overOneWeekAbsentPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={overOneWeekAbsentPercent} style={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={overOneWeekTardyPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={overOneWeekTardyPercent} style={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={hasDisciplinePercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={hasDisciplinePercent} style={styles.bar} threshold={10} />
                     </td>
 
                     {/* Demographics */}
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={disabilityPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={disabilityPercent} style={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lepPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={lepPercent} style={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lunchPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={lunchPercent} style={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={colorPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={colorPercent} style={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={hispanicPercent} styles={styles.bar} threshold={10} />
+                      <Bar percent={hispanicPercent} style={styles.bar} threshold={10} />
                     </td>
 
                     {/* Race */}
@@ -345,8 +345,8 @@ export default class Breakdown extends React.Component {
                               percent={percent}
                               threshold={10}
                               title={title}
-                              styles={{backgroundColor: color(race)}}
-                              innerStyles={{color: 'white'}} />
+                              style={{backgroundColor: color(race)}}
+                              innerStyle={{color: 'white'}} />
                           );
                         })}
                       </div>
@@ -354,22 +354,22 @@ export default class Breakdown extends React.Component {
 
                     {/* STAR */}
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lowestQuartileStarMath} styles={styles.bar} threshold={10} />
+                      <Bar percent={lowestQuartileStarMath} style={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
                       {this.renderPercentileRangeBar(starMathPercentileRange)}
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={highestQuartileStarMath} styles={styles.bar} threshold={10} />
+                      <Bar percent={highestQuartileStarMath} style={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lowestQuartileStarReading} styles={styles.bar} threshold={10} />
+                      <Bar percent={lowestQuartileStarReading} style={styles.bar} threshold={10} />
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
                       {this.renderPercentileRangeBar(starReadingPercentileRange)}
                     </td>
                     <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={highestQuartileStarReading} styles={styles.bar} threshold={10} />
+                      <Bar percent={highestQuartileStarReading} style={styles.bar} threshold={10} />
                     </td>
                   </tr>
                 );
