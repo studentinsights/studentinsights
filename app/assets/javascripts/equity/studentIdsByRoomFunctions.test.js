@@ -1,4 +1,4 @@
-import {reordered} from './CreateYourClassroomsView';
+import {reordered} from './studentIdsByRoomFunctions';
 
 it('#reordered', () => {
   const items = ['a', 'b', 'c', 'd', 'e'];
