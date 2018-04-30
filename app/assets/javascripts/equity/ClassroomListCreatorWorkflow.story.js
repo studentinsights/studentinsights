@@ -15,6 +15,7 @@ function testProps(props = {}) {
 
     // config
     steps: STEPS,
+    availableSteps: [],
 
     // state
     stepIndex: 0,
@@ -33,6 +34,7 @@ function testProps(props = {}) {
     onGradeLevelNextYearChanged: action('onGradeLevelNextYearChanged'),
     onEducatorsChanged: action('onEducatorsChanged'),
     onClassroomsCountIncremented: action('onClassroomsCountIncremented'),
+    onPlanTextChanged: action('onPlanTextChanged'),
     onClassroomListsChanged: action('onClassroomListsChanged'),
     onPrincipalNoteChanged: action('onPrincipalNoteChanged'),
     ...props
@@ -52,10 +54,27 @@ function render(props) {
 
 storiesOf('equity/ClassroomListCreatorWorkflow', module) // eslint-disable-line no-undef
   .add('step 0, no data', () => {
-    return render(testProps());
+    return render(testProps({
+      stepIndex: 0,
+      availableSteps: [0, 1]
+    }));
   })
   .add('step 1, no data', () => {
     return render(testProps({
-      stepIndex: 1
+      stepIndex: 1,
+      availableSteps: [0, 1]
+    }));
+  })
+  .add('step 2, no data', () => {
+    return render(testProps({
+      stepIndex: 2,
+      availableSteps: [0, 1, 2]
+    }));
+  })
+  .add('step 3, no data', () => {
+    return render(testProps({
+      stepIndex: 3,
+      availableSteps: [0, 1, 2, 3]
     }));
   });
+

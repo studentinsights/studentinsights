@@ -27,16 +27,15 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
   }
 
   render() {
-    const {steps, stepIndex, onStepChanged} = this.props;
+    const {steps, stepIndex, availableSteps, onStepChanged} = this.props;
 
     return (
       <div className="ClassroomListCreatorView" style={styles.root}>
         <HorizontalStepper
           steps={steps}
+          availableSteps={availableSteps}
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
-          shouldShowNext={stepIndex < steps.length - 1}
-          shouldShowPrevious={stepIndex > 0}
           renderFn={this.renderStepContents}
           style={styles.horizontalStepper}
           contentStyle={styles.horizontalStepperContent} />
@@ -220,6 +219,7 @@ ClassroomListCreatorWorkflow.propTypes = {
 
   // config
   steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 
   // state
   stepIndex: React.PropTypes.number.isRequired,

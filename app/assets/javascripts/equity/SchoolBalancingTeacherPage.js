@@ -6,7 +6,7 @@ import {
   fetchStudentsJson,
   postClassroomsForGrade
 } from './api';
-import {initialStudentIdsByRoom} from './studentIdsByRoomFunctions';
+import {initialStudentIdsByRoom, areAllStudentsPlaced} from './studentIdsByRoomFunctions';
 import ClassroomListCreatorWorkflow from './ClassroomListCreatorWorkflow';
 import uuidv4 from 'uuid/v4';
 
@@ -155,6 +155,38 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     return fetchStudentsJson({balanceId, gradeLevelNextYear, schoolId});
   }
 
+  // Describes which steps are available to be navigated to,
+  // not which data has been loaded for.
+  availableSteps() {
+    const {
+      schoolId,
+      gradeLevelNextYear,
+      educators,
+      planText,
+      studentIdsByRoom,
+      principalNoteText
+    } = this.state;
+    const availableSteps = [0];
+
+    if (schoolId !== null && gradeLevelNextYear !== null) {
+      availableSteps.push(1);
+    }
+
+    if (educators.length > 0 && planText !== '') {
+      availableSteps.push(2);
+    }
+
+    if (studentIdsByRoom !== null && areAllStudentsPlaced(studentIdsByRoom)) {
+      availableSteps.push(3);
+    }
+
+    if (principalNoteText !== '') {
+      availableSteps.push(5);
+    }
+
+    return availableSteps;
+  }
+
   // TODO(kr) check this on IE
   onBeforeUnload(event) {
     const isDirty = true;
@@ -222,10 +254,12 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   }
 
   render() {
+    const availableSteps = this.availableSteps();
     return (
       <ClassroomListCreatorWorkflow
         {...this.state}
         steps={STEPS}
+        availableSteps={availableSteps}
         onStepChanged={this.onStepChanged}
         onSchoolIdChanged={this.onSchoolIdChanged}
         onGradeLevelNextYearChanged={this.onGradeLevelNextYearChanged}

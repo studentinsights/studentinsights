@@ -1,6 +1,6 @@
 import React from 'react';
 import Circle from '../components/Circle';
-
+import Button from '../components/Button';
 
 // Shows progress through a set of steps for the classroom creator process.
 // This also controls the navigation buttons
@@ -14,7 +14,8 @@ export default class HorizontalStepper extends React.Component {
   }
 
   onStepChanged(stepIndex) {
-    const {onStepChanged} = this.props;
+    const {onStepChanged, availableSteps} = this.props;
+    if (availableSteps.indexOf(stepIndex) === -1) return;
     onStepChanged(stepIndex);
   }
 
@@ -29,7 +30,7 @@ export default class HorizontalStepper extends React.Component {
   }
 
   render() {
-    const {steps, renderFn, style, contentStyle} = this.props;
+    const {steps, availableSteps, renderFn, style, contentStyle} = this.props;
     const currentStepIndex = this.props.stepIndex;
     return (
       <div className="HorizontalStepper" style={{...styles.root, ...style}}>
@@ -38,11 +39,11 @@ export default class HorizontalStepper extends React.Component {
             return (
               <span
                 key={stepIndex}
-                style={this.renderStyleForBannerItem(stepIndex, currentStepIndex)}
+                style={this.renderStyleForBannerItem(stepIndex, currentStepIndex, availableSteps)}
                 onClick={this.onStepChanged.bind(this, stepIndex)}>
                 <Circle
                   text={`${stepIndex+1}`}
-                  color={this.renderColorForCircle(stepIndex, currentStepIndex)}
+                  color={this.renderColorForCircle(stepIndex, availableSteps)}
                   style={{verticalAlign: 'middle'}}/>
                 <span style={styles.bannerText}>{step}</span>
               </span>
@@ -57,13 +58,13 @@ export default class HorizontalStepper extends React.Component {
     );
   }
 
-  renderColorForCircle(index, currentIndex) {
-    return (index <= currentIndex)
+  renderColorForCircle(index, availableSteps) {
+    return (availableSteps.indexOf(index) !== -1)
       ? '#3177c9'
       : '#ccc';
   }
 
-  renderStyleForBannerItem(index, currentIndex) {
+  renderStyleForBannerItem(index, currentIndex, availableSteps) {
     if (index === currentIndex) {
       return {
         ...styles.bannerItem,
@@ -72,28 +73,33 @@ export default class HorizontalStepper extends React.Component {
       };
     }
 
-    return (index <= currentIndex)
+    return (availableSteps.indexOf(index) !== -1)
       ? styles.bannerItem
       : {...styles.bannerItem, color: '#ccc' };
   }
 
   renderNavigationButtons() {
-    const {shouldShowNext, shouldShowPrevious} = this.props;
+    const {stepIndex, availableSteps} = this.props;
+    const shouldShowNext = (availableSteps.indexOf(stepIndex + 1) !== -1);
+    const shouldShowPrevious = (availableSteps.indexOf(stepIndex - 1) !== -1);
     return (
-      <div>
-        {shouldShowPrevious && <button className="btn" style={{float: 'left', marginLeft: 10, marginTop: 10}} onClick={this.onPreviousClicked}>{`< Back `}</button>}
-        {shouldShowNext && <button className="btn" style={{float: 'right', marginRight: 10, marginTop: 10}} onClick={this.onNextClicked}>Next ></button>}
+      <div style={styles.buttonStrip}>
+        {shouldShowPrevious
+          ? <Button style={{margin: 10}} onClick={this.onPreviousClicked}>{`< Back `}</Button>
+          : <div />}
+        {shouldShowNext
+          ? <Button style={{margin: 10}} onClick={this.onNextClicked}>Next ></Button>
+          : <div />}
       </div>
     );
   }
 }
 HorizontalStepper.propTypes = {
-  steps: React.PropTypes.array.isRequired,
-  renderFn: React.PropTypes.func.isRequired,
+  steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   onStepChanged: React.PropTypes.func.isRequired,
-  shouldShowNext: React.PropTypes.bool,
-  shouldShowPrevious: React.PropTypes.bool,
+  renderFn: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
   contentStyle: React.PropTypes.object
 };
@@ -124,6 +130,11 @@ const styles = {
     paddingLeft: 5
   },
   check: {},
+  buttonStrip: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: 10
+  },
   divider: {
     width: '2em',
     height: 1,

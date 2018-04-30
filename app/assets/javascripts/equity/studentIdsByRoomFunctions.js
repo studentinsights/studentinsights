@@ -68,3 +68,7 @@ export function createRooms(classroomsCount) {
     roomKey: UNPLACED_ROOM_KEY
   }].concat(rooms);
 }
+
+export function areAllStudentsPlaced(studentIdsByRoom) {
+  return (studentIdsByRoom[UNPLACED_ROOM_KEY].length > 0);
+}
