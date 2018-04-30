@@ -17,6 +17,18 @@ const styles = {
     textAlign: 'left',
     fontWeight: 'normal',
     fontSize: 12
+  },
+  barStyle: {
+    background: 'white',
+    fontSize: 10,
+    position: 'relative',
+    top: 4,
+    borderTop: '2px solid #999'
+  },
+  barInnerStyle:{
+    justifyContent: 'flex-start',
+    padding: 2,
+    color: '#ccc'
   }
 };
 export default class ClassroomStats extends React.Component {
@@ -151,8 +163,8 @@ export default class ClassroomStats extends React.Component {
       <Bar
         percent={percent}
         threshold={5}
-        style={{background: 'white', fontSize: 10, position: 'relative', top: 4, borderTop: '2px solid #999'}}
-        innerStyle={{justifyContent: 'flex-start', padding: 2, color: '#ccc'}} />
+        style={styles.barStyle}
+        innerStyle={styles.barInnerStyle} />
     );
   }
 

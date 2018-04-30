@@ -2,7 +2,7 @@ import React from 'react';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import Breakdown from '../equity/Breakdown';
+import ExploreClassroomComparisons from '../equity/ExploreClassroomComparisons';
 
 export default class SchoolEquityPrincipalPage extends React.Component {
 
@@ -31,7 +31,7 @@ export default class SchoolEquityPrincipalPage extends React.Component {
   }
 
   renderBreakdown(json) {
-    return <Breakdown students={json.students} school={json.school} />;
+    return <ExploreClassroomComparisons students={json.students} school={json.school} />;
   }
 
 }

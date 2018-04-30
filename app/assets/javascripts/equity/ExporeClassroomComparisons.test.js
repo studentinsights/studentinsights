@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Breakdown from './Breakdown';
+import ExploreClassroomComparisons from './ExploreClassroomComparisons';
 
 it('renders without crashing', () => {
   const el = document.createElement('div');
-  ReactDOM.render(<Breakdown students={[]} />, el);
+  ReactDOM.render(<ExploreClassroomComparisons students={[]} />, el);
 });
