@@ -66,12 +66,9 @@ export default class ClassroomListCreatorPage extends React.Component {
   }
 
   componentDidMount() {
+    this.doSizePage();
     this.doReplaceState();
-
-    // schedule warn or navigate away
     window.addEventListener('beforeunload', this.onBeforeUnload);
-
-    // trigger fetches
     this.triggerFetches();
   }
 
@@ -85,6 +82,10 @@ export default class ClassroomListCreatorPage extends React.Component {
     window.removeEventListener('beforeunload', this.onBeforeUnload);
   }
 
+  doSizePage() {
+    window.document.body.style['min-width'] = '1000px';
+  }
+  
   doReplaceState() {
     const {balanceId} = this.state;
     const path = `/balancing/${balanceId}`;
