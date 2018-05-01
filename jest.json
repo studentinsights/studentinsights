@@ -6,5 +6,8 @@
   ],
   "setupFiles": [
     "./ui/config/setupTests.js"
-  ]
+  ],
+  "moduleNameMapper": {
+    "\\.css$": "<rootDir>/ui/config/styleMock.js"
+  }
 }

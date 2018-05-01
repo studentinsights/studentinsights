@@ -1,101 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 import Bar from '../components/Bar';
+import BoxAndWhisker from '../components/BoxAndWhisker';
 import {colors} from '../helpers/Theme';
 
 
-// Compute range, excluding null and undefined values.
-function range(students, accessor) {
-  const filtered = students.filter(s => accessor(s) !== null && accessor(s) !== undefined);
-  return [
-    accessor(_.min(filtered, accessor)),
-    accessor(_.max(filtered, accessor))
-  ];
-}
-
-// Translate null values
-function cleanNulls(students) {
-  return students.map((student) => {
-    return {
-      ...student,
-      race: (student.race) ? student.race : 'Unknown'
-    };
-  });
-}
-
-const orderedGrades = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ];
-
-// Helpers
-// Returns [{key, count}]
-const countBy = function(students, key) {
-  return _.map(_.groupBy(students, key), (students, value) => {
-    return {[key]: value, count: students.length};
-  });
-};
-
-// Returns {foo: count, bar: count}
-const makeCountMap = function(students, key) {
-  return countBy(students, key).reduce((map, item) => {
-    map[item[key]] = item.count;
-    return map;
-  }, {});
-};
-
-// Returns [{key, count}], filling in zero values for `allValues`
-// if they're not present.
-const completeCountBy = function(students, key, allValues) {
-  return allValues.map((value) => {
-    const matches = _.where(students, { [key]: value });
-    return { [key]: value, count: matches.length };
-  });
-};
-
-// Returns percent as integer 0-100
-const percentageOf = function(students, key, value) {
-  const countMap = makeCountMap(students, key);
-  const total = Object.keys(countMap).reduce((sum, key) => {
-    return sum + countMap[key];
-  }, 0);
-  return (total === 0) ?
-    0
-    : 100 * (countMap[value] || 0) / total;
-};
-
-// Returns percent as integer 0-100
-const percentageOverLimit = function(students, key, limit) {
-  const values = students.map(student => student[key]);
-  const total = values.length;
-  const nonNull = values.filter(value => value !== null);
-
-  const overLimitCount = nonNull.filter(value => value > limit).length;
-
-  return (total === 0) ?
-    0
-    : 100 * overLimitCount / total;
-};
-
-const percentageUnderLimit = function(students, key, limit) {
-  const values = students.map(student => student[key]);
-  const total = values.length;
-  const nonNull = values.filter(value => value !== null);
-
-  const underLimitCount = nonNull.filter(value => value < limit).length;
-
-  return (total === 0) ?
-    0
-    : 100 * underLimitCount / total;
-};
-
-const styles = {
-  bar: {
-    color: 'black',
-    backgroundColor: '#ccc',
-    borderLeft: '1px solid #aaa'
-  }
-};
-
-export default class Breakdown extends React.Component {
-
+// Allows selecting grade, and then shows a table for comparing different statistics across
+// classrooms, related to questions of equity.  This is an earlier, more exploratory and expansive
+// version of <ClassroomComparisonTable />, which is also more visually compact.
+export default class ExploreClassroomComparisons extends React.Component {
   constructor(props) {
     super(props);
 
@@ -146,14 +59,14 @@ export default class Breakdown extends React.Component {
         students, 'most_recent_star_math_percentile', 25);
       const highestQuartileStarMath = percentageOverLimit(
         students, 'most_recent_star_math_percentile', 75);
-      const starMathPercentileRange = range(students, s => s.most_recent_star_math_percentile);
+      const starMathPercentileRange = filteredValues(students, s => s.most_recent_star_math_percentile);
 
       // Star Reading
       const lowestQuartileStarReading = percentageUnderLimit(
         students, 'most_recent_star_reading_percentile', 25);
       const highestQuartileStarReading = percentageOverLimit(
         students, 'most_recent_star_reading_percentile', 75);
-      const starReadingPercentileRange = range(students, s => s.most_recent_star_reading_percentile);
+      const starReadingPercentileRange = filteredValues(students, s => s.most_recent_star_reading_percentile);
 
       return {
         homeroomName,
@@ -215,7 +128,7 @@ export default class Breakdown extends React.Component {
           </div>
           <div style={{margin: 5}}>This excludes mixed grade homerooms.</div>
         </div>
-        <div>
+        <div style={styles.horizontalScroll}>
           {this.renderTitle('Compare across homeroom')}
           <table style={{width: '100%', margin: 5, marginTop: 10, borderCollapse: 'collapse'}}>
             <thead style={{borderBottom: '1px solid #999'}}>
@@ -306,31 +219,31 @@ export default class Breakdown extends React.Component {
                     <td style={{width: '3em', padding: 5}}>{studentCount}</td>
 
                     {/* Attendance / Discipline */}
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={overOneWeekAbsentPercent} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={overOneWeekAbsentPercent} style={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={overOneWeekTardyPercent} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={overOneWeekTardyPercent} style={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={hasDisciplinePercent} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={hasDisciplinePercent} style={styles.bar} threshold={10} />
                     </td>
 
                     {/* Demographics */}
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={disabilityPercent} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={disabilityPercent} style={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lepPercent} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={lepPercent} style={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lunchPercent} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={lunchPercent} style={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={colorPercent} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={colorPercent} style={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={hispanicPercent} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={hispanicPercent} style={styles.bar} threshold={10} />
                     </td>
 
                     {/* Race */}
@@ -348,31 +261,31 @@ export default class Breakdown extends React.Component {
                               percent={percent}
                               threshold={10}
                               title={title}
-                              styles={{backgroundColor: color(race)}}
-                              innerStyles={{color: 'white'}} />
+                              style={{backgroundColor: color(race)}}
+                              innerStyle={{color: 'white'}} />
                           );
                         })}
                       </div>
                     </td>
 
                     {/* STAR */}
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lowestQuartileStarMath} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={lowestQuartileStarMath} style={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
+                    <td style={styles.td}>
                       {this.renderPercentileRangeBar(starMathPercentileRange)}
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={highestQuartileStarMath} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={highestQuartileStarMath} style={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={lowestQuartileStarReading} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={lowestQuartileStarReading} style={styles.bar} threshold={10} />
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
+                    <td style={styles.td}>
                       {this.renderPercentileRangeBar(starReadingPercentileRange)}
                     </td>
-                    <td style={{height: '100%', width: 140, padding: 5}}>
-                      <Bar percent={highestQuartileStarReading} styles={styles.bar} threshold={10} />
+                    <td style={styles.td}>
+                      <Bar percent={highestQuartileStarReading} style={styles.bar} threshold={10} />
                     </td>
                   </tr>
                 );
@@ -398,14 +311,8 @@ export default class Breakdown extends React.Component {
     );
   }
 
-  renderPercentileRangeBar(range) {
-    return (
-      <div style={{position: 'relative', width: 100, backgroundColor: '#eee', height: 1}}>
-        <div style={{position: 'absolute', background: '#eee', left: range[0], width: range[1] - range[0], height: 6, top: -1}}>{'\u00A0'}</div>
-        <div style={{position: 'absolute', borderLeft: '1px solid #aaa', fontSize: 10, paddingLeft: 3, left: range[0], top: -5}}>{range[0]}</div>
-        <div style={{position: 'absolute', borderLeft: '1px solid #aaa', fontSize: 10, paddingLeft: 3, left: range[1], top: -5}}>{range[1]}</div>
-      </div>
-    );
+  renderPercentileRangeBar(values) {
+    return <BoxAndWhisker values={values} />;
   }
 
   renderTitle(title) {
@@ -414,7 +321,102 @@ export default class Breakdown extends React.Component {
 
 }
 
-Breakdown.propTypes = {
+// Compute range, excluding null and undefined values.
+function filteredValues(students, accessor) {
+  const filtered = students.filter(s => accessor(s) !== null && accessor(s) !== undefined);
+  return filtered.map(accessor);
+}
+
+// Translate null values
+function cleanNulls(students) {
+  return students.map((student) => {
+    return {
+      ...student,
+      race: (student.race) ? student.race : 'Unknown'
+    };
+  });
+}
+
+const orderedGrades = [ 'PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8' ];
+
+// Helpers
+// Returns [{key, count}]
+const countBy = function(students, key) {
+  return _.map(_.groupBy(students, key), (students, value) => {
+    return {[key]: value, count: students.length};
+  });
+};
+
+// Returns {foo: count, bar: count}
+const makeCountMap = function(students, key) {
+  return countBy(students, key).reduce((map, item) => {
+    map[item[key]] = item.count;
+    return map;
+  }, {});
+};
+
+// Returns [{key, count}], filling in zero values for `allValues`
+// if they're not present.
+const completeCountBy = function(students, key, allValues) {
+  return allValues.map((value) => {
+    const matches = _.where(students, { [key]: value });
+    return { [key]: value, count: matches.length };
+  });
+};
+
+// Returns percent as integer 0-100
+const percentageOf = function(students, key, value) {
+  const countMap = makeCountMap(students, key);
+  const total = Object.keys(countMap).reduce((sum, key) => {
+    return sum + countMap[key];
+  }, 0);
+  return (total === 0) ?
+    0
+    : 100 * (countMap[value] || 0) / total;
+};
+
+// Returns percent as integer 0-100
+const percentageOverLimit = function(students, key, limit) {
+  const values = students.map(student => student[key]);
+  const total = values.length;
+  const nonNull = values.filter(value => value !== null);
+
+  const overLimitCount = nonNull.filter(value => value > limit).length;
+
+  return (total === 0) ?
+    0
+    : 100 * overLimitCount / total;
+};
+
+const percentageUnderLimit = function(students, key, limit) {
+  const values = students.map(student => student[key]);
+  const total = values.length;
+  const nonNull = values.filter(value => value !== null);
+
+  const underLimitCount = nonNull.filter(value => value < limit).length;
+
+  return (total === 0) ?
+    0
+    : 100 * underLimitCount / total;
+};
+
+const styles = {
+  bar: {
+    color: 'black',
+    backgroundColor: '#ccc',
+    borderLeft: '1px solid #aaa'
+  },
+  td: {
+    height: '100%',
+    width: 140,
+    padding: 5
+  },
+  horizontalScroll: {
+    overflowX: 'scroll'
+  }
+};
+
+ExploreClassroomComparisons.propTypes = {
   students: React.PropTypes.arrayOf(React.PropTypes.shape({
     race: React.PropTypes.string,
     disability: React.PropTypes.string,

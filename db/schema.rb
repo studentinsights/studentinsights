@@ -35,6 +35,17 @@ ActiveRecord::Schema.define(version: 20180426135126) do
     t.datetime "updated_at"
   end
 
+  create_table "classrooms_for_grades", force: :cascade do |t|
+    t.string "balance_id"
+    t.integer "created_by_educator_id"
+    t.integer "school_id"
+    t.string "grade_level_next_year"
+    t.json "json"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["balance_id"], name: "index_classrooms_for_grades_on_balance_id", unique: true
+  end
+
   create_table "courses", id: :serial, force: :cascade do |t|
     t.string "course_number"
     t.string "course_description"
