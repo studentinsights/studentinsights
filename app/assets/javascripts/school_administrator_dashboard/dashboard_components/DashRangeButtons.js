@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DashButton from './DashButton';
+import ToggleButton from '../../components/ToggleButton';
 
-//Custom all purpose dashboard button
+
+// For filtering across principal dashboards
 class DashRangeButtons extends React.Component {
   constructor(props) {
     super(props);
-    this.state={selectedButton: 'schoolYear'};
+    this.state={selectedButton: 'fortyFiveDays'};
   }
 
   onClick(filterFunc, button) {
@@ -17,21 +18,22 @@ class DashRangeButtons extends React.Component {
 
   render() {
     return (
-      <div className="DashRangeButtonWrapper">
-        <div className="DashRangeButtons">
-          Filter:
-          <DashButton
-            onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
-            isSelected={this.state.selectedButton === 'schoolYear'}
-            buttonText='This School Year' />
-          <DashButton
-              onClick={() => this.onClick(this.props.ninetyDayFilter, 'ninetyDays')}
-              isSelected={this.state.selectedButton === 'ninetyDays'}
-              buttonText='Past 90 Days' />
-          <DashButton
+      <div className="DashRangeButtons" style={styles.root}>
+        <div style={styles.label}>Filter:</div>
+        <div style={styles.filters}>
+          <div style={styles.timeButtons}>
+            <ToggleButton
               onClick={() => this.onClick(this.props.fortyFiveDayFilter, 'fortyFiveDays')}
-              isSelected={this.state.selectedButton === 'fortyFiveDays'}
-              buttonText='Past 45 Days' />
+              isSelected={this.state.selectedButton === 'fortyFiveDays'}>Past 45 Days</ToggleButton>
+            <ToggleButton
+              style={{borderLeft: 0}}
+              onClick={() => this.onClick(this.props.ninetyDayFilter, 'ninetyDays')}
+              isSelected={this.state.selectedButton === 'ninetyDays'}>Past 90 Days</ToggleButton>
+            <ToggleButton
+              style={{borderLeft: 0}}
+              onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
+              isSelected={this.state.selectedButton === 'schoolYear'}>This School Year</ToggleButton>
+          </div>
         </div>
       </div>
     );
@@ -44,3 +46,26 @@ DashRangeButtons.propTypes = {
 };
 
 export default DashRangeButtons;
+
+
+const styles = {
+  root: {
+    borderTop: '1px solid #ccc',
+    borderBottom: '1px solid #ccc',
+    padding: '10px 20px',
+    margin: 20,
+    display: 'flex',
+    alignItems: 'center'
+  },
+  label: {
+    paddingRight: 20
+  },
+  filters: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  timeButtons: {
+    display: 'flex'
+  }
+};

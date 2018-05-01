@@ -171,7 +171,6 @@ class SchoolsController < ApplicationController
       :first_name,
       :last_name,
       :grade,
-      :house,
       :id
     ]).merge({
       homeroom_label: homeroom_label(student.homeroom),

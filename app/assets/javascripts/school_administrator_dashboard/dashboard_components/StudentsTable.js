@@ -34,7 +34,7 @@ class StudentsTable extends React.Component {
     const sortType = this.state.sortType;
 
     switch(sortType) {
-    case 'name':
+    case 'name': // sort by last name, even though we render first name first
       return rows.sort((a, b) => fullNameReverse(a).localeCompare(fullNameReverse(b)));
     case 'string':
       return rows.sort((a, b) => sortByString(a, b, sortBy));
