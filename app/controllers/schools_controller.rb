@@ -166,42 +166,35 @@ class SchoolsController < ApplicationController
   end
 
   # Methods for Dashboards #
+  def shared_student_fields(student)
+    student.as_json(only: [
+      :first_name,
+      :last_name,
+      :grade,
+      :house,
+      :id
+    ]).merge({
+      homeroom_label: homeroom_label(student.homeroom),
+      sst_notes: student.sst_notes.as_json(only: [:event_note_type_id, :recorded_at])
+    })
+  end
 
   def individual_student_absence_data(student)
-    {
-      first_name: student.first_name,
-      last_name: student.last_name,
-      grade: student.grade,
-      id: student.id,
-      homeroom_label: homeroom_label(student.homeroom),
-      absences: student.dashboard_absences.as_json(only: [:student_id, :occurred_at]),
-      sst_notes: student.sst_notes,
-    }
+    shared_student_fields(student).merge({
+      absences: student.dashboard_absences.as_json(only: [:student_id, :occurred_at])
+    })
   end
 
   def individual_student_tardies_data(student)
-    {
-      first_name: student.first_name,
-      last_name: student.last_name,
-      grade: student.grade,
-      id: student.id,
-      homeroom_label: homeroom_label(student.homeroom),
-      tardies: student.dashboard_tardies.as_json(only: [:student_id, :occurred_at]),
-      sst_notes: student.sst_notes,
-    }
+    shared_student_fields(student).merge({
+      tardies: student.dashboard_tardies.as_json(only: [:student_id, :occurred_at])
+    })
   end
 
   def individual_student_discipline_data(student)
-    {
-      first_name: student.first_name,
-      last_name: student.last_name,
-      id: student.id,
-      homeroom_label: homeroom_label(student.homeroom),
-      grade: student.grade,
-      race: student.race,
-      discipline_incidents: student.discipline_incidents,
-      sst_notes: student.sst_notes,
-    }
+    shared_student_fields(student).merge({
+      discipline_incidents: student.dashboard_absences.as_json(only: [:student_id, :occurred_at])
+    })
   end
 
   def active_students(school)
