@@ -115,7 +115,8 @@ describe ClassroomBalancingController, :type => :controller do
         "most_recent_star_math_percentile",
         "most_recent_star_reading_percentile",
         "latest_access_results",
-        "dibels"
+        "latest_dibels",
+        "most_recent_school_year_discipline_incidents_count"
       ]
     end
 
