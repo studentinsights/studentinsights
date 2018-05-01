@@ -88,7 +88,7 @@ class StudentsTable extends React.Component {
           rowCount={list.length}
           rowGetter={({index}) => list[index]}
           headerHeight={25}
-          headerStyle={{display: 'flex', marginRight: 5}}
+          headerStyle={{display: 'flex'}} // necessary for layout, not sure why
           rowHeight={25}
           style={{fontSize: 14}}
           rowStyle={this.renderRowStyle}
@@ -101,21 +101,21 @@ class StudentsTable extends React.Component {
             dataKey='name'
             cellDataGetter={({rowData}) => fullName(rowData)}
             cellRenderer={this.renderStudent}
-            width={200}
             flexGrow={1}
+            width={100}
           />
           <Column
-            width={80}
+            width={60}
             label='Grade'
             dataKey='grade'
           />
           <Column
-            width={110}
+            width={85}
             label={incidentType}
             dataKey='events'
           />
           <Column
-            width={110}
+            width={85}
             label='Last SST'
             dataKey='last_sst_date_text'
           />
@@ -128,7 +128,7 @@ class StudentsTable extends React.Component {
 
   // Table striping
   renderRowStyle({index}) {
-    const flexStyles = { display: 'flex' };
+    const flexStyles = { display: 'flex' }; // necessary for layout, not sure why
     if (index < 0) { // header
       return {...flexStyles, fontWeight: 'bold' };
     } else {
@@ -141,7 +141,7 @@ class StudentsTable extends React.Component {
   renderStudent({rowData}) {
     const student = rowData;
     return (
-      <a href={Routes.studentProfile(student.id)}>
+      <a href={Routes.studentProfile(student.id)} style={styles.truncatedLink}>
         {fullName(student)}
       </a>
     );
@@ -193,3 +193,13 @@ function fullName(student) {
 function fullNameReverse(student) {
   return`${student.last_name}, ${student.first_name}`;
 }
+
+const styles = {
+  truncatedLink: {
+    display: 'inline-block',
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflowX: 'hidden',
+    textOverflow: 'ellipsis'
+  }
+};
