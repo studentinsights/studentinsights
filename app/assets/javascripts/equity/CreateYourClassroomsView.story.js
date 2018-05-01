@@ -20,8 +20,10 @@ class Container extends React.Component {
   constructor(props) {
     super(props);
     const {classroomsCount, students} = props;
-    const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students, (studentIdsByRoom, student) => {
-      return _.sample(Object.keys(studentIdsByRoom));
+    const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students, {
+      placementFn(studentIdsByRoom, student) {
+        return _.sample(Object.keys(studentIdsByRoom));
+      }
     });
 
     this.state = {

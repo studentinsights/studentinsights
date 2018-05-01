@@ -4,33 +4,9 @@ import Bar from '../components/Bar';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
 
-const styles = {
-  table: {
-    width: '100%',
-    textAlign: 'left',
-    fontSize: 12,
-    borderBottom: '1px solid #eee',
-    padding: 20,
-    tableLayout: 'fixed'
-  },
-  cell: { /* overridding some global CSS */
-    textAlign: 'left',
-    fontWeight: 'normal',
-    fontSize: 12
-  },
-  barStyle: {
-    background: 'white',
-    fontSize: 10,
-    position: 'relative',
-    top: 4,
-    borderTop: '2px solid #999'
-  },
-  barInnerStyle:{
-    justifyContent: 'flex-start',
-    padding: 2,
-    color: '#ccc'
-  }
-};
+
+// This component is written particularly for Somerville and it's likely this would require factoring out
+// into `PerDistrict` to respect the way this data is stored across districts.
 export default class ClassroomStats extends React.Component {
   studentsInRoom(room) {
     const {students, studentIdsByRoom} = this.props;
@@ -50,7 +26,7 @@ export default class ClassroomStats extends React.Component {
             <tr>
               <th style={styles.cell}></th>
               <th style={styles.cell}>Disability</th>
-              <th style={styles.cell}>Learning English</th>
+              <th style={styles.cell}>Limited English</th>
               <th style={styles.cell}>Gender (male)</th>
               <th style={styles.cell}>Students of color</th>
               <th style={styles.cell}>Low income</th>
@@ -102,11 +78,11 @@ export default class ClassroomStats extends React.Component {
     );
   }
 
-  // if no score, consider them not core
+  // If no score, consider them not core.
   renderDibelsCore(room) {
     return this.renderBarFor(room, student => {
       return (student.dibels.length > 0)
-        ? _.last(student.dibels).performance_level === 'Core'
+        ? _.last(student.dibels).performance_level.toLowerCase().indexOf('core') !== -1
         : false;
     });
   }
@@ -123,7 +99,6 @@ export default class ClassroomStats extends React.Component {
     });
   }
 
-  // TODO(kr) PerDistrict
   renderLowIncome(room) {
     return this.renderBarFor(room, student => {
       return ['Free Lunch', 'Reduced Lunch'].indexOf(student.free_reduced_lunch) !== -1;
@@ -135,7 +110,7 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderEnglishLearners(room) {
-    return this.renderBarFor(room, student => student.limited_english_proficiency !== 'Fluent');
+    return this.renderBarFor(room, student => student.limited_english_proficiency === 'Limited');
   }
 
   renderBarFor(room, filterFn) {
@@ -159,4 +134,32 @@ ClassroomStats.propTypes = {
   students: React.PropTypes.array.isRequired,
   rooms: React.PropTypes.array.isRequired,
   studentIdsByRoom: React.PropTypes.object.isRequired
+};
+
+const styles = {
+  table: {
+    width: '100%',
+    textAlign: 'left',
+    fontSize: 12,
+    borderBottom: '1px solid #eee',
+    padding: 20,
+    tableLayout: 'fixed'
+  },
+  cell: { /* overridding some global CSS */
+    textAlign: 'left',
+    fontWeight: 'normal',
+    fontSize: 12
+  },
+  barStyle: {
+    background: 'white',
+    fontSize: 10,
+    position: 'relative',
+    top: 4,
+    borderTop: '2px solid #999'
+  },
+  barInnerStyle:{
+    justifyContent: 'flex-start',
+    padding: 2,
+    color: '#ccc'
+  }
 };
