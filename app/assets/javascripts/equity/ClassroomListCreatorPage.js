@@ -1,5 +1,4 @@
 import React from 'react';
-import {Redirect} from 'react-router';
 import _ from 'lodash';
 import {sortByGrade} from '../helpers/SortHelpers';
 import {

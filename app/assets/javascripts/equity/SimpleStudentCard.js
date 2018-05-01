@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {Draggable} from 'react-beautiful-dnd';
 import Modal from 'react-modal';
 import MoreDots from '../components/MoreDots';
-import ExperimentalBanner from '../components/ExperimentalBanner';
+
 
 // Shows a small student card that is `Draggable` and also clickable
 // to show a modal of the student's profile.
