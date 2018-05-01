@@ -6,10 +6,10 @@ export default function DibelsBreakdownBar(props) {
   const {height, coreCount, strategicCount, intensiveCount, style = {}} = props;
   const totalCount = coreCount + strategicCount + intensiveCount;
   const opacity = 0.5;
-  const labelWidth = 50;
   const fontSize = 10;
   const scale = (value) => `${Math.round(100 * value)}%`;
 
+  if (totalCount === 0) return null;
   return (
     <div className="DibelsBreakdownBar" style={{height, ...style}}>
       <div style={{position: 'relative', width: '100%', height}}>
@@ -41,16 +41,17 @@ export default function DibelsBreakdownBar(props) {
           height
         }}>{'\u00A0'}</div>
 
-        <div style={{
-          position: 'absolute',
-          textAlign: 'left',
-          opacity,
-          fontSize,
-          left: scale(0),
-          width: scale(coreCount / totalCount),
-          top: height/2  + 1, // padding
-          color: 'green'
-        }}>{Math.round(100 * coreCount / totalCount)}%</div>
+        {coreCount > 0 && 
+          <div style={{
+            position: 'absolute',
+            textAlign: 'left',
+            opacity,
+            fontSize,
+            left: scale(0),
+            width: scale(coreCount / totalCount),
+            top: height/2  + 1, // padding
+            color: 'green'
+          }}>{Math.round(100 * coreCount / totalCount)}%</div>}
       </div>
     </div>
   );

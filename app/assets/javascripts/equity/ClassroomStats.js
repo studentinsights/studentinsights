@@ -75,7 +75,7 @@ export default class ClassroomStats extends React.Component {
     return (
       <div>
         {(values.length === 0)
-          ? <div style={{height: 30}}>{'\u00A0'}</div>
+          ? null
           : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
       </div>
     );
