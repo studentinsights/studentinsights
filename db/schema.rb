@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 20180426135126) do
     t.json "json"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["balance_id"], name: "index_classrooms_for_grades_on_balance_id", unique: true
   end
 
   create_table "courses", id: :serial, force: :cascade do |t|

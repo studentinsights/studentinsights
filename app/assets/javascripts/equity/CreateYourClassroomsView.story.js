@@ -7,13 +7,32 @@ import storybookFrame from './storybookFrame';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
 
 storiesOf('equity/CreateYourClassroomsView', module) // eslint-disable-line no-undef
-  .add('normal', () => {
+  .add("Next 2rd grade", () => {
     return storybookFrame(
       <Container
         classroomsCount={3}
+        gradeLevelNextYear="2"
+        students={students_for_grade_level_next_year_json.students} />
+    );
+  })
+  .add("Next 5th grade", () => {
+    return storybookFrame(
+      <Container
+        classroomsCount={3}
+        gradeLevelNextYear="5"
+        students={students_for_grade_level_next_year_json.students} />
+    );
+  })
+  .add("Many classrooms", () => {
+    return storybookFrame(
+      <Container
+        classroomsCount={5}
+        gradeLevelNextYear="5"
         students={students_for_grade_level_next_year_json.students} />
     );
   });
+
+
 
 // Container for tracking state changes
 class Container extends React.Component {
@@ -36,11 +55,9 @@ class Container extends React.Component {
   }
 
   render() {
-    const {classroomsCount, students} = this.props;
     const {studentIdsByRoom} = this.state;
     return <CreateYourClassroomsView
-      students={students}
-      classroomsCount={classroomsCount}
+      {...this.props}
       studentIdsByRoom={studentIdsByRoom}
       onClassroomListsChanged={this.onClassroomListsChanged.bind(this)} />;
   }

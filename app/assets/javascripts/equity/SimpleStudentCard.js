@@ -53,14 +53,14 @@ export default class SimpleStudentCard extends React.Component {
                 <div>Hispanic: {student.hispanic_latino ? 'yes' : 'no'}</div>
                 <div>Gender: {student.gender}</div>
                 <br />
-                <div>Most recent DIBELS: {student.dibels.length > 0 && _.last(student.dibels).performance_level}</div>
+                <div>Most recent DIBELS: {student.latest_dibels && student.latest_dibels.performance_level}</div>
                 <div>Most recent STAR Math percentile: {student.most_recent_star_math_percentile}</div>
                 <div>Most recent STAR Reading percentile: {student.most_recent_star_reading_percentile}</div>
               </Modal>
               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                 <div style={styles.studentCard} onClick={this.onClick}>
-                  <span style={{overflowX: 'hidden'}}>{student.first_name} {student.last_name}</span>
-                  <span style={{float: 'right'}}><MoreDots /></span>
+                  <span>{student.first_name} {student.last_name}</span>
+                  <MoreDots />
                 </div>
               </div>
               {provided.placeholder /* this preserves space when dragging */}
@@ -78,6 +78,8 @@ SimpleStudentCard.propTypes = {
 
 const styles = {
   studentCard: {
+    display: 'flex',
+    justifyContent: 'space-between',
     fontSize: 14,
     border: '1px solid #eee',
     padding: 6,

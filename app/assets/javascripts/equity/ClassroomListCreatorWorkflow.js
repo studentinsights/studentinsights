@@ -174,13 +174,20 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
   }
 
   renderCreateYourClassrooms() {    
-    const {students, classroomsCount, onClassroomListsChanged, studentIdsByRoom} = this.props;
+    const {
+      students,
+      classroomsCount,
+      onClassroomListsChanged,
+      studentIdsByRoom,
+      gradeLevelNextYear
+    } = this.props;
 
     if (studentIdsByRoom === null) return <Loading />;
     return (
       <CreateYourClassroomsView
         students={students}
         classroomsCount={classroomsCount}
+        gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={studentIdsByRoom}
         onClassroomListsChanged={onClassroomListsChanged}/>
     );

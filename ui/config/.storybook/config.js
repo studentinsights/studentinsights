@@ -9,6 +9,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/components/BoxAndWhisker.story.js');
   require('../../../app/assets/javascripts/components/Button.story.js');
   require('../../../app/assets/javascripts/components/Circle.story.js');
+  require('../../../app/assets/javascripts/components/DibelsBreakdownBar.story.js');
   require('../../../app/assets/javascripts/components/ReactSelect.story.js');
 
   // student profile

@@ -29,13 +29,14 @@ export default class CreateYourClassroomsView extends React.Component {
   }
 
   render() {
-    const {students, classroomsCount, studentIdsByRoom} = this.props;
+    const {students, classroomsCount, studentIdsByRoom, gradeLevelNextYear} = this.props;
     const rooms = createRooms(classroomsCount);
 
     return (
       <div className="CreateYourClassroomsView" style={styles.root}>
         <ClassroomStats
           students={students}
+          gradeLevelNextYear={gradeLevelNextYear}
           rooms={rooms.filter(room => room.roomKey !== UNPLACED_ROOM_KEY)}
           studentIdsByRoom={studentIdsByRoom} />
         <DragDropContext onDragEnd={this.onDragEnd}>
@@ -74,10 +75,42 @@ export default class CreateYourClassroomsView extends React.Component {
 }
 CreateYourClassroomsView.propTypes = {
   classroomsCount: React.PropTypes.number.isRequired,
+  gradeLevelNextYear: React.PropTypes.string.isRequired,
   students: React.PropTypes.array.isRequired,
   studentIdsByRoom: React.PropTypes.object.isRequired,
   onClassroomListsChanged: React.PropTypes.func.isRequired
 };
+
+
+// Update the `studentIdsByRoom` map after a drag ends.
+export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
+  const {draggableId, source, destination} = dragEndResult;
+
+  // Not moved
+  if (destination === null) return studentIdsByRoom;
+
+  const sourceStudentIds = studentIdsByRoom[source.droppableId];
+  const destinationStudentIds = studentIdsByRoom[destination.droppableId];
+  const draggableStudentId = _.find(sourceStudentIds, studentId => `SimpleStudentCard:${studentId}` === draggableId);
+
+  // Moving within the same list
+  if (source.droppableId === destination.droppableId) {
+    return {
+      ...studentIdsByRoom,
+      [source.droppableId]: reordered(sourceStudentIds, source.index, destination.index)
+    };
+  }
+
+  // Moving to another list
+  if (source.droppableId !== destination.droppableId) {
+    return {
+      ...studentIdsByRoom,
+      [source.droppableId]: _.without(sourceStudentIds, draggableStudentId),
+      [destination.droppableId]: insertedInto(destinationStudentIds, destination.index, draggableStudentId)
+    };
+  }
+}
+
 
 const styles = {
   root: {
@@ -115,34 +148,3 @@ const styles = {
     top: 3
   }
 };
-
-
-
-// Update the `studentIdsByRoom` map after a drag ends.
-export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
-  const {draggableId, source, destination} = dragEndResult;
-
-  // Not moved
-  if (destination === null) return studentIdsByRoom;
-
-  const sourceStudentIds = studentIdsByRoom[source.droppableId];
-  const destinationStudentIds = studentIdsByRoom[destination.droppableId];
-  const draggableStudentId = _.find(sourceStudentIds, studentId => `SimpleStudentCard:${studentId}` === draggableId);
-
-  // Moving within the same list
-  if (source.droppableId === destination.droppableId) {
-    return {
-      ...studentIdsByRoom,
-      [source.droppableId]: reordered(sourceStudentIds, source.index, destination.index)
-    };
-  }
-
-  // Moving to another list
-  if (source.droppableId !== destination.droppableId) {
-    return {
-      ...studentIdsByRoom,
-      [source.droppableId]: _.without(sourceStudentIds, draggableStudentId),
-      [destination.droppableId]: insertedInto(destinationStudentIds, destination.index, draggableStudentId)
-    };
-  }
-}
