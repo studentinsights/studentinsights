@@ -6,7 +6,7 @@ import {createStudents} from './DashboardTestData.js';
 function testRender(options = {}) {
   const nowMoment = options.nowMoment || moment.utc();
   const table = mount(<StudentsTable rows={createStudents(nowMoment)} incidentType={"Test Incidents"} resetFn={(value) => null}/>);
-  return {nowMoment, table};
+  return table;
 }
 
 describe('Dashboard Students Table', () => {
