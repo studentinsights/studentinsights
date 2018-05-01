@@ -11,8 +11,6 @@ function apiFetch(url, options = {}) {
     .then(response => response.json());
 }
 
-
-
 export function apiFetchJson(url, options = {}) {
   return apiFetch(url, {
     method: 'GET',
