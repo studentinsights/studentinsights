@@ -74,5 +74,5 @@ export function areAllStudentsPlaced(studentIdsByRoom) {
 
 export function studentsInRoom(students, studentIdsByRoom, roomKey) {
   const studentIds = studentIdsByRoom[roomKey] || [];
-  return students.filter(student => studentIds.indexOf(student.id) !== -1);
+  return studentIds.map(studentId => _.find(students, { id: studentId }));
 }
