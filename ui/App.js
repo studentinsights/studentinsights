@@ -11,7 +11,7 @@ import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCo
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/equity/ExploreSchoolEquityPage';
-import SchoolBalancingTeacherPage from '../app/assets/javascripts/equity/SchoolBalancingTeacherPage';
+import ClassroomListCreatorPage from '../app/assets/javascripts/equity/ClassroomListCreatorPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 
@@ -57,7 +57,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
           <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
-          <Route exact path="/balancing/:balance_id?" render={this.renderSchoolBalancingTeacherPage.bind(this)}/>
+          <Route exact path="/balancing/:balance_id?" render={this.renderClassroomListCreator.bind(this)}/>
           <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
@@ -80,10 +80,10 @@ class App extends React.Component {
     return <ExploreSchoolEquityPage schoolId={schoolId} />;
   }
 
-  renderSchoolBalancingTeacherPage(routeProps) {
+  renderClassroomListCreator(routeProps) {
     const balanceId = routeProps.match.params.balance_id;
-    this.trackVisit(routeProps, 'SCHOOL_BALANCING_TEACHER_PAGE');
-    return <SchoolBalancingTeacherPage balanceId={balanceId} />;
+    this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
+    return <ClassroomListCreatorPage balanceId={balanceId} />;
   }
 
   renderSchoolCoursesPage(routeProps) {

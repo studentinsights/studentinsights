@@ -15,9 +15,10 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/RiskBubble.story.js');
   
   // equity
-  require('../../../app/assets/javascripts/equity/HorizontalStepper.story.js');
-  require('../../../app/assets/javascripts/equity/CreateYourClassroomsView.story.js');
+  require('../../../app/assets/javascripts/equity/ClassroomListCreatorPage.story.js');
   require('../../../app/assets/javascripts/equity/ClassroomListCreatorWorkflow.story.js');
+  require('../../../app/assets/javascripts/equity/CreateYourClassroomsView.story.js');
+  require('../../../app/assets/javascripts/equity/HorizontalStepper.story.js');
 
   // add more here!
 }

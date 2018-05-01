@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import SimpleStudentCard from './SimpleStudentCard';
 import ClassroomStats from './ClassroomStats';
+import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import {
   reordered,
@@ -41,9 +42,7 @@ export default class CreateYourClassroomsView extends React.Component {
           <div style={styles.listsContainer}>
             {rooms.map(room => {
               const {roomKey, roomName} = room;
-              const classroomStudents = studentIdsByRoom[roomKey].map(studentId => {
-                return _.find(students, { id: studentId });
-              });
+              const classroomStudents = studentsInRoom(students, studentIdsByRoom, roomKey);
               return (
                 <div key={roomKey} style={styles.classroomListColumn}>
                   <div>

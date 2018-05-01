@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 // Place the students into their initial state (eg, all unsorted).
 // {[roomKey]: [studentId]}
-export function initialStudentIdsByRoom(roomsCount, students) {
+// Allow another placementFn to be passed.
+export function initialStudentIdsByRoom(roomsCount, students, options = {}) {
   const initialMap = {
     [UNPLACED_ROOM_KEY]: []
   };
@@ -15,12 +16,10 @@ export function initialStudentIdsByRoom(roomsCount, students) {
   }, initialMap);
 
   students.forEach(student => {
-    // Random
-    // const roomKey = _.sample(Object.keys(studentIdsByRoom));
-    // studentIdsByRoom[roomKey].push(student.id);
+    const roomKey = (options.placementFn)
+      ? options.placementFn(studentIdsByRoom, student)
+      : UNPLACED_ROOM_KEY;
 
-    // All unassigned
-    const roomKey = UNPLACED_ROOM_KEY;
     studentIdsByRoom[roomKey].push(student.id);
   });
 
@@ -71,4 +70,9 @@ export function createRooms(classroomsCount) {
 
 export function areAllStudentsPlaced(studentIdsByRoom) {
   return (studentIdsByRoom[UNPLACED_ROOM_KEY].length > 0);
+}
+
+export function studentsInRoom(students, studentIdsByRoom, roomKey) {
+  const studentIds = studentIdsByRoom[roomKey] || [];
+  return students.filter(student => studentIds.indexOf(student.id) !== -1);
 }

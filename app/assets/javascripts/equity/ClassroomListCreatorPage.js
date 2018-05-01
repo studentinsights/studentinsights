@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from 'react-router';
 import _ from 'lodash';
 import {sortByGrade} from '../helpers/SortHelpers';
 import {
@@ -22,7 +23,7 @@ export const STEPS = [
 // This component manages state transitions and hands off requests to the server
 // and rendering to other components.  On state changes, it saves to the server
 // with some throttling to prevent too much server communication.
-export default class SchoolBalancingTeacherPage extends React.Component {
+export default class ClassroomListCreatorPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -66,10 +67,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   }
 
   componentDidMount() {
-    // rewrite URL with balanceId
-    const {balanceId} = this.state;
-    const path = `/balancing/${balanceId}`;
-    window.history.replaceState({}, null, path);
+    this.doReplaceState();
 
     // schedule warn or navigate away
     window.addEventListener('beforeunload', this.onBeforeUnload);
@@ -84,8 +82,16 @@ export default class SchoolBalancingTeacherPage extends React.Component {
   }
 
   componentWillUnmount() {
-    this.doSaveChanges.flush(); // flush any queued changes
-    window.removeEventListener('beforeunload');
+    if (this.doSaveChanges.flush) this.doSaveChanges.flush(); // flush any queued changes
+    window.removeEventListener('beforeunload', this.onBeforeUnload);
+  }
+
+  doReplaceState() {
+    const {balanceId} = this.state;
+    const path = `/balancing/${balanceId}`;
+    if (!this.props.disableHistory) {
+      window.history.replaceState({}, null, path);
+    }
   }
 
   // This method is throttled.
@@ -181,7 +187,7 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     }
 
     if (principalNoteText !== '') {
-      availableSteps.push(5);
+      availableSteps.push(4);
     }
 
     return availableSteps;
@@ -272,8 +278,9 @@ export default class SchoolBalancingTeacherPage extends React.Component {
     );
   }
 }
-SchoolBalancingTeacherPage.propTypes = {
-  balanceId: React.PropTypes.string
+ClassroomListCreatorPage.propTypes = {
+  balanceId: React.PropTypes.string,
+  disableHistory: React.PropTypes.bool
 };
 
 

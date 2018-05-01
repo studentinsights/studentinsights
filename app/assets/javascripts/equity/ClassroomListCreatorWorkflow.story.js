@@ -2,7 +2,8 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import ClassroomListCreatorWorkflow from './ClassroomListCreatorWorkflow';
-import {STEPS} from './SchoolBalancingTeacherPage';
+import storybookFrame from './storybookFrame';
+import {STEPS} from './ClassroomListCreatorPage';
 
 
 function testProps(props = {}) {
@@ -42,14 +43,7 @@ function testProps(props = {}) {
 }
 
 function render(props) {
-  return (
-    <div style={{width: '100%', background: '#333'}}>
-      <div style={{height: 216}} />
-      <div style={{width: 1024, border: '5px solid #333', background: 'white'}}>
-        <ClassroomListCreatorWorkflow {...props} />
-      </div>
-    </div>
-  );
+  return storybookFrame(<ClassroomListCreatorWorkflow {...props} />);
 }
 
 storiesOf('equity/ClassroomListCreatorWorkflow', module) // eslint-disable-line no-undef

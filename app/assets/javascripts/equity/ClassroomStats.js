@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import Bar from '../components/Bar';
 import BoxAndWhisker from '../components/BoxAndWhisker';
-
+import {studentsInRoom} from './studentIdsByRoomFunctions';
 
 const styles = {
   table: {
@@ -34,9 +34,7 @@ const styles = {
 export default class ClassroomStats extends React.Component {
   studentsInRoom(room) {
     const {students, studentIdsByRoom} = this.props;
-    return studentIdsByRoom[room.roomKey].map(studentId => {
-      return _.find(students, { id: studentId });
-    });
+    return studentsInRoom(students, studentIdsByRoom, room.roomKey);
   }
 
   /*
