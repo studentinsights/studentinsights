@@ -261,4 +261,51 @@ describe SchoolsController, :type => :controller do
       expect(json['courses'].first.keys).to eq(['id', 'course_number', 'course_description', 'sections'])
     end
   end
+
+  describe 'dashboard serialization' do
+    let!(:pals) { TestPals.create! }
+    let!(:student) { FactoryBot.create(:student, school: School.find_by_local_id('HEA'))}
+
+    it '#individual_student_absence_data has expected fields' do
+      sign_in(pals.healey_laura_principal)
+      json = controller.send(:individual_student_absence_data, student)
+      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
+        :absences,
+        :first_name,
+        :grade,
+        :id,
+        :last_name,
+        :homeroom_label,
+        :sst_notes
+      ])
+    end
+
+    it '#individual_student_tardies_data has expected fields' do
+      sign_in(pals.healey_laura_principal)
+      json = controller.send(:individual_student_tardies_data, student)
+      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
+        :tardies,
+        :first_name,
+        :grade,
+        :id,
+        :last_name,
+        :homeroom_label,
+        :sst_notes
+      ])
+    end
+
+    it '#individual_student_discipline_data has expected fields' do
+      sign_in(pals.healey_laura_principal)
+      json = controller.send(:individual_student_discipline_data, student)
+      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
+        :discipline_incidents,
+        :first_name,
+        :grade,
+        :id,
+        :last_name,
+        :homeroom_label,
+        :sst_notes
+      ])
+    end
+  end
 end
