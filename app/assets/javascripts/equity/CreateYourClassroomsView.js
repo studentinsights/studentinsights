@@ -119,7 +119,7 @@ const styles = {
 
 
 // Update the `studentIdsByRoom` map after a drag ends.
-function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
+export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
   const {draggableId, source, destination} = dragEndResult;
 
   // Not moved
