@@ -174,7 +174,7 @@ class SchoolsController < ApplicationController
       grade: student.grade,
       id: student.id,
       homeroom_label: homeroom_label(student.homeroom),
-      absences: student.dashboard_absences,
+      absences: student.dashboard_absences.as_json(only: [:student_id, :occurred_at]),
       sst_notes: student.sst_notes,
     }
   end
@@ -186,7 +186,7 @@ class SchoolsController < ApplicationController
       grade: student.grade,
       id: student.id,
       homeroom_label: homeroom_label(student.homeroom),
-      tardies: student.dashboard_tardies,
+      tardies: student.dashboard_tardies.as_json(only: [:student_id, :occurred_at]),
       sst_notes: student.sst_notes,
     }
   end
