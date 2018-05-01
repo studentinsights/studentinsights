@@ -158,7 +158,8 @@ class SchoolDisciplineDashboard extends React.Component {
         first_name: student.first_name,
         last_name: student.last_name,
         last_sst_date_text: latestNoteDateText(300, student.sst_notes),
-        events: studentDisciplineIncidentCounts[student.id] || 0
+        events: studentDisciplineIncidentCounts[student.id] || 0,
+        grade: student.grade
       });
     });
 
@@ -166,7 +167,7 @@ class SchoolDisciplineDashboard extends React.Component {
       <StudentsTable
         rows = {rows}
         selectedCategory = {this.state.selectedCategory}
-        incidentType={"Discipline Incidents"}
+        incidentType={"Incidents"}
         resetFn={this.resetStudentList}/>
     );
   }
