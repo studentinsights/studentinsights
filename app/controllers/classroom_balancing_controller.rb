@@ -143,7 +143,6 @@ class ClassroomBalancingController < ApplicationController
     serialize_as_balancing_json(classrooms_for_grade_records.first)
   end
 
-
   def serialize_as_balancing_json(classrooms_for_grade)
     classrooms_for_grade.as_json(only: [
       :balance_id,
