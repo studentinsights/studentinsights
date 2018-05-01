@@ -77,8 +77,8 @@ class StudentsTable extends React.Component {
     const list = this.orderedRows();
 
     return (
-      <div className='StudentsList'>
-        <div className='StudentsList-caption'>
+      <div className="StudentsTable" style={styles.root}>
+        <div style={styles.caption}>
           {this.renderCaption()}
           <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
         </div>
@@ -160,15 +160,6 @@ class StudentsTable extends React.Component {
     });
     return total;
   }
-
-  renderIncidentTypeSubtitle() {
-    const {incidentSubtitle} = this.props;
-    if (!incidentSubtitle) return;
-
-    return (
-      <span className='incident_subtitle'><br/>({this.props.incidentSubtitle})</span>
-    );
-  }
 }
 
 StudentsTable.propTypes = {
@@ -181,7 +172,6 @@ StudentsTable.propTypes = {
   })).isRequired,
   selectedCategory: PropTypes.string,
   incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
-  incidentSubtitle: PropTypes.string,
   resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
 };
 export default StudentsTable;
@@ -195,6 +185,18 @@ function fullNameReverse(student) {
 }
 
 const styles = {
+  root: {
+    marginTop: 20
+  },
+  caption: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: 5
+  },
+  incidentSubtitle: {
+    fontWeight: 'normal',
+    fontSize: 12
+  },
   truncatedLink: {
     display: 'inline-block',
     width: '100%',

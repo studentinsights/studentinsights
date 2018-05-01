@@ -12,7 +12,7 @@ function testRender(options = {}) {
 describe('Dashboard Students Table', () => {
   it('renders the students list', () => {
     const table = testRender();
-    expect(table.find("div").first().hasClass("StudentsList")).toEqual(true);
+    expect(table.find("div").first().hasClass("StudentsTable")).toEqual(true);
   });
 
   it('renders headers for name, incident count and last SST', () => {
