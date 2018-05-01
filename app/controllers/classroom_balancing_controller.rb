@@ -60,7 +60,7 @@ class ClassroomBalancingController < ApplicationController
       ],
       methods: [
         :latest_access_results,
-        :dibels
+        :latest_dibels
       ]
     })
 
