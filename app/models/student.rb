@@ -149,6 +149,10 @@ class Student < ActiveRecord::Base
     ordered_results_by_family("DIBELS")
   end
 
+  def latest_dibels
+    ordered_results_by_family("DIBELS").last
+  end
+
   def latest_access_results
     return if latest_result_by_family_and_subject('ACCESS', 'Composite').nil?
 

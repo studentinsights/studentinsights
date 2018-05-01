@@ -8,6 +8,7 @@ beforeEach(() => mockWithFixtures());
 function testProps(props = {}) {
   return {
     classroomsCount: 3,
+    gradeLevelNextYear: '3',
     students: [],
     studentIdsByRoom: {},
     onClassroomListsChanged: jest.fn(),
