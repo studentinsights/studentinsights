@@ -295,6 +295,10 @@ describe SchoolsController, :type => :controller do
     end
 
     it '#individual_student_discipline_data has expected fields' do
+      DisciplineIncident.create!({
+        student_id: student.id,
+        occurred_at: Time.now
+      })
       sign_in(pals.healey_laura_principal)
       json = controller.send(:individual_student_discipline_data, student)
       expect(json.keys.map(&:to_sym)).to contain_exactly(*[
@@ -306,6 +310,13 @@ describe SchoolsController, :type => :controller do
         :homeroom_label,
         :sst_notes
       ])
+      expect(json[:discipline_incidents].first.keys).to contain_exactly *[
+        "student_id",
+        "incident_code",
+        "incident_location",
+        "occurred_at",
+        "has_exact_time"
+      ]
     end
   end
 end
