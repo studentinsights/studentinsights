@@ -36,8 +36,8 @@ class SchoolDisciplineDashboard extends React.Component {
   resetStudentList() {
     this.setState({selectedCategory: null});
   }
-  selectChart(event) {
-    this.setState({selectedChart: event.target.value, selectedCategory: null});
+  selectChart(selection) {
+    this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
   filterIncidentDates(incidents) {
@@ -110,7 +110,9 @@ class SchoolDisciplineDashboard extends React.Component {
         </div>
         <div className="DashboardChartsColumn">
           <div style={styles.dropdown}>
+            Incidents by:
             <Select
+              onChange={this.selectChart}
               options={chartOptions}
             />
           </div>
@@ -198,6 +200,6 @@ export default SchoolDisciplineDashboard;
 
 const styles = {
   dropdown: {
-    width: '200px'
+    fontSize: '18px'
   }
 };
