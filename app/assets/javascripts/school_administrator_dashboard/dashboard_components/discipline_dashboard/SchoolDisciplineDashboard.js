@@ -95,6 +95,10 @@ class SchoolDisciplineDashboard extends React.Component {
 
     return(
       <div className="DashboardContainer">
+        <div className="DashboardRosterColumn">
+          {this.renderDateRangeSlider()}
+          {this.renderStudentDisciplineTable()}
+        </div>
         <div className="DashboardChartsColumn">
         <select value={selectedChart.type} onChange={this.selectChart}>
           <option value="location">Location</option>
@@ -106,10 +110,6 @@ class SchoolDisciplineDashboard extends React.Component {
           </select>
          {this.renderDisciplineChart(selectedChart)}
 
-        </div>
-        <div className="DashboardRosterColumn">
-          {this.renderDateRangeSlider()}
-          {this.renderStudentDisciplineTable()}
         </div>
       </div>
     );
