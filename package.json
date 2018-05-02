@@ -46,8 +46,8 @@
     "react-select": "^1.2.1",
     "react-swipeable-views": "^0.12.13",
     "react-test-renderer": "15.4.2",
-    "uuid": "^3.2.1",
     "react-virtualized": "^9.18.5",
+    "uuid": "^3.2.1",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

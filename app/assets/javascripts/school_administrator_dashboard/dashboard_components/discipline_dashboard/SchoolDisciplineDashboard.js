@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import Select from 'react-select';
 
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
@@ -92,6 +93,14 @@ class SchoolDisciplineDashboard extends React.Component {
 
   render() {
     const selectedChart = this.getChartData(this.state.selectedChart);
+    const chartOptions = [
+      {value: 'location', label: 'Location'},
+      {value: 'time', label: 'Time'},
+      {value: 'classroom', label: 'Classroom'},
+      {value: 'grade', label: 'Grade'},
+      {value: 'day', label: 'Day'},
+      {value: 'offense', label: 'Offense'},
+    ];
 
     return(
       <div className="DashboardContainer">
@@ -100,16 +109,12 @@ class SchoolDisciplineDashboard extends React.Component {
           {this.renderStudentDisciplineTable()}
         </div>
         <div className="DashboardChartsColumn">
-        <select value={selectedChart.type} onChange={this.selectChart}>
-          <option value="location">Location</option>
-          <option value="time">Time</option>
-          <option value="classroom">Classroom</option>
-          <option value="grade">Grade</option>
-          <option value="day">Day</option>
-          <option value="offense">Offense</option>
-          </select>
+          <div style={styles.dropdown}>
+            <Select
+              options={chartOptions}
+            />
+          </div>
          {this.renderDisciplineChart(selectedChart)}
-
         </div>
       </div>
     );
@@ -190,3 +195,9 @@ SchoolDisciplineDashboard.propTypes = {
 };
 
 export default SchoolDisciplineDashboard;
+
+const styles = {
+  dropdown: {
+    width: '200px'
+  }
+};
