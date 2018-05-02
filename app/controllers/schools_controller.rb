@@ -192,7 +192,13 @@ class SchoolsController < ApplicationController
 
   def individual_student_discipline_data(student)
     shared_student_fields(student).merge({
-      discipline_incidents: student.dashboard_absences.as_json(only: [:student_id, :occurred_at])
+      discipline_incidents: student.discipline_incidents.as_json(only: [
+        :student_id,
+        :incident_code,
+        :incident_location,
+        :has_exact_time,
+        :occurred_at
+      ])
     })
   end
 
