@@ -6,8 +6,9 @@ class HomeController < ApplicationController
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
 
-    authorized_students = authorized_students_for_feed(view_as_educator)
-    feed_cards = Feed.new(authorized_students).all(time_now, limit)
+    authorized_students = authorizer.authorized_when_viewing_as(view_as_educator) { Student.all }
+    feed = Feed.new(authorized_students)
+    feed_cards = feed.all_cards(time_now, limit)
     render json: {
       feed_cards: feed_cards
     }
@@ -49,19 +50,6 @@ class HomeController < ApplicationController
   end
 
   private
-  # Double authorization layer for doppleganging - filter by
-  # educator we're doppleganging for, but after that guard again to
-  # ensure that the current user has access.  Only slows down dopplegangers.
-  def authorized_students_for_feed(view_as_educator)
-    authorized do
-      if view_as_educator.id != current_educator.id
-        Authorizer.new(view_as_educator).authorized { Student.all }
-      else
-        Student.all
-      end
-    end
-  end
-
   # Use time from value or fall back to Time.now
   def time_now_or_param(params_time_now)
     if params_time_now.present?
@@ -73,7 +61,7 @@ class HomeController < ApplicationController
 
   # Allow districtwide admin to dopplegang as another user
   def current_educator_or_doppleganger(params_educator_id)
-    if current_educator.districtwide_access && params_educator_id.present?
+    if current_educator.can_set_districtwide_access? && params_educator_id.present?
       Educator.find(params_educator_id)
     else
       current_educator

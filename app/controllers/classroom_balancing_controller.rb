@@ -131,7 +131,7 @@ class ClassroomBalancingController < ApplicationController
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
     feed = Feed.new([student])
-    feed_cards = feed.all(time_now, limit)
+    feed_cards = feed.all_cards(time_now, limit)
 
     render json: {
       feed_cards: feed_cards

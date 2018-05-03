@@ -63,6 +63,28 @@ class Authorizer
     @authorized_dispatcher.dispatch(&block)
   end
 
+  # Double authorization layer for doppleganging features, where the current
+  # user has elevated permissions and wants to view something as if they were
+  # another user.
+  # Runs the authorization layer first for the educator we're viewing as,
+  # but after that runs it again to ensure the current elevated permission user
+  # actually has access to those students too.  This second layer only slows down
+  # dopplegangers, and adds another layer of protection to ensure that we only ever
+  # show dopplegangers the intersection of who `view_as_educator` would see and
+  # who they are authorized to see themselves.
+  #
+  # Usage:
+  #  authorized_students = authorized_when_viewing_as(other_educator) { Student.all }
+  def authorized_when_viewing_as(view_as_educator, &block)
+    authorized do
+      if @educator.can_set_districtwide_access? && view_as_educator.id != @educator.id
+        Authorizer.new(view_as_educator).authorized(&block)
+      else
+        block.call
+      end
+    end
+  end
+
   # This method is the source of truth for whether an educator is authorized to view information about a particular
   # student.
   #
