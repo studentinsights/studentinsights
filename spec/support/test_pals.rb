@@ -311,12 +311,6 @@ class TestPals
       grade_numeric: 67,
       grade_letter: 'D'
     )
-    4.times.each do |index|
-      Absence.create!({
-        occurred_at: time_now - index.days,
-        student: @shs_freshman_mari
-      })
-    end
 
     reindex!
     self
