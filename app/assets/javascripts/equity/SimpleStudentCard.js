@@ -2,7 +2,6 @@ import React from 'react';
 import {Draggable} from 'react-beautiful-dnd';
 import Modal from 'react-modal';
 import MoreDots from '../components/MoreDots';
-import NowContainer from '../components/NowContainer';
 import InlineStudentProfile from './InlineStudentProfile';
 
 
@@ -49,30 +48,26 @@ export default class SimpleStudentCard extends React.Component {
     );
   }
 
-  // Because the modal works like a portal, context isn't passed through.
-  // So we need to bridge that manually.
   renderModal() {
-    const {nowFn} = this.context;
     const {student, fetchProfile} = this.props;
     const {modalIsOpen} = this.state;
     return (
       <Modal
+        style={{
+          overlay: styles.modalOverlay,
+          context: styles.modalContent
+        }}
         isOpen={modalIsOpen}
         onRequestClose={this.onClose}
         contentLabel="Modal"
       >
-        <NowContainer nowFn={nowFn}>
-          <InlineStudentProfile
-            student={student}
-            fetchProfile={fetchProfile} />
-        </NowContainer>
+        <InlineStudentProfile
+          student={student}
+          fetchProfile={fetchProfile} />
       </Modal>
     );
   }
 }
-SimpleStudentCard.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
-};
 SimpleStudentCard.propTypes = {
   student: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired,
@@ -90,7 +85,11 @@ const styles = {
     borderRadius: 3,
     background: 'white'
   },
-  modal: {
-    zIndex: 100
+  modalOverlay: {
+    backgroundColor: 'rgba(128, 128, 128, 0.75)'
+  },
+  modalContent: {
+    left: 100,
+    right: 100
   }
 };

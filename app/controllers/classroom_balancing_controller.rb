@@ -82,7 +82,7 @@ class ClassroomBalancingController < ApplicationController
     params.permit(:balance_id)
     balance_id = params[:balance_id]
     balancing = query_for_balancing(current_educator, balance_id)
-    raise EducatorNotAuthorized if balancing.nil?
+    raise Exceptions::EducatorNotAuthorized if balancing.nil?
 
     balancing_json = serialize_as_balancing_json(balancing)
     render json: {
@@ -120,7 +120,7 @@ class ClassroomBalancingController < ApplicationController
     student_id = params[:student_id]
     student = Student.find(student_id)
     raise Exceptions::EducatorNotAuthorized unless is_authorized_for_grade_level?(current_educator, student.school_id, student.grade)
-    raise EducatorNotAuthorized if query_for_balancing(current_educator, balance_id).nil?
+    raise Exceptions::EducatorNotAuthorized if query_for_balancing(current_educator, balance_id).nil?
 
     # Load feed cards, but just for this student
     time_now = time_now_or_param(params[:time_now])

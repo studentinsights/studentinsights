@@ -1,9 +1,11 @@
 import React from 'react';
 import _ from 'lodash';
 import {storiesOf} from '@storybook/react';
+import storybookFrame from './storybookFrame';
+import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import CreateYourClassroomsView from './CreateYourClassroomsView';
 import {initialStudentIdsByRoom} from './studentIdsByRoomFunctions';
-import storybookFrame from './storybookFrame';
+
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
 import profile_json from './fixtures/profile_json';
 
@@ -19,25 +21,27 @@ function testProps(props) {
   };
 }
 
+
 storiesOf('equity/CreateYourClassroomsView', module) // eslint-disable-line no-undef
   .add("Next 2rd grade", () => {
-    const props = testProps();
-    return storybookFrame(<Container {...props} />);
+    return testRender(testProps());
   })
   .add("Next 5th grade", () => {
-    const props = testProps({
+    return testRender(testProps({
       gradeLevelNextYear: '5'
-    });
-    return storybookFrame(<Container {...props} />);
+    }));
   })
   .add("Many classrooms", () => {
-    const props = testProps({
+    return testRender(testProps({
       classroomsCount: 5,
       gradeLevelNextYear: '5'
-    });
-    return storybookFrame(<Container {...props} />);
+    }));
   });
 
+
+function testRender(props = {}) {
+  return storybookFrame(withDefaultNowContext(<Container {...props} />));
+}
 
 
 // Container for tracking state changes

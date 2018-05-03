@@ -1,4 +1,11 @@
 class Feed
+  # Shortcut for getting feed for all students an educator is authorized to view
+  def self.for(educator)
+    authorizer = Authorizer.new(educator)
+    authorized_students = authorized { Student.all }
+    self.new(authorized_students)
+  end
+
   def initialize(authorized_students)
     @authorized_students = authorized_students
   end

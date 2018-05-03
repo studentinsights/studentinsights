@@ -31,52 +31,28 @@ export default class InlineStudentProfile extends React.Component {
             <div>Most recent STAR Reading percentile: {student.most_recent_star_reading_percentile}</div>
           </div>
           <div style={styles.column}>
-            {this.renderNotes()}
+            {this.renderFeed()}
           </div>
         </div>
       </div>
     );
   }
 
-  // TODO(kr) refactor
-  renderNotes() {
+  renderFeed() {
     const {student, fetchProfile} = this.props;
     return (
       <div>
         <SectionHeading>Notes for {student.first_name}</SectionHeading>
         <GenericLoader
           promiseFn={() => fetchProfile(student.id)}
-          render={this.renderFeed.bind(this)} />
+          render={this.renderFeedWithData.bind(this)} />
       </div>
     );
   }
 
-  renderFeed(json) {
+  renderFeedWithData(json) {
     return <FeedView feedCards={json.feed_cards} />;
   }
-
-  // // TODO(kr) refactor
-  // renderNotesFeed(json) {
-  //   const {student} = this.props;
-  //   const feed = {
-  //     event_notes: student.event_notes_without_restricted,
-  //     services: {
-  //       active: [],
-  //       discontinued: []
-  //     },
-  //     deprecated: {
-  //       interventions: []
-  //     }
-  //   };
-
-  //   // TODO(kr) module
-  //   return (
-  //     <window.shared.NotesList
-  //       feed={feed}
-  //       educatorsIndex={json.educators_index}
-  //       eventNoteTypesIndex={json.event_note_types_index} />
-  //   );
-  // }
 }
 InlineStudentProfile.propTypes = {
   fetchProfile: React.PropTypes.func.isRequired,
