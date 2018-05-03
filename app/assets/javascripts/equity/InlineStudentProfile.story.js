@@ -11,7 +11,7 @@ storiesOf('equity/InlineStudentProfile', module) // eslint-disable-line no-undef
     return withDefaultNowContext(
       <div style={{width: '100%', background: '#333'}}>
         <div style={{position: 'relative', width: 660, left: 100, top: 100, border: '5px solid #333', background: 'white'}}>
-          <InlineStudentProfile {...props} />)
+          <InlineStudentProfile {...props} />
         </div>
       </div>
     );

@@ -13,9 +13,7 @@ export function testProps(props = {}) {
     gradeLevelNextYear: '3',
     students: students_for_grade_level_next_year_json.students,
     studentIdsByRoom: {},
-    fetchProfile(studentId) {
-      return Promise.resolve(profile_json);
-    },
+    fetchProfile(studentId) { return Promise.resolve(profile_json); },
     onClassroomListsChanged: jest.fn(),
     ...props
   };
