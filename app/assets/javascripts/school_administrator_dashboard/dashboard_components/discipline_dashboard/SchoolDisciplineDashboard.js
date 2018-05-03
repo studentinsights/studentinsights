@@ -115,6 +115,7 @@ class SchoolDisciplineDashboard extends React.Component {
               Incidents by:
             </div>
             <Select
+              value={this.state.selectedChart}
               onChange={this.selectChart}
               options={chartOptions}
               style={styles.dropdown}
@@ -214,6 +215,6 @@ const styles = {
     marginRight: '10px'
   },
   dropdown: {
-    width: '100px'
+    width: '200px'
   }
 };
