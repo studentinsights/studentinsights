@@ -5,6 +5,8 @@ class ClassroomBalancingController < ApplicationController
   # The schools and grade levels that can be balanced.  This isn't an authorization
   # gate, so is more a place for adding a helpful UI suggestion than anything else.
   def available_grade_levels_json
+    params.require(:balance_id)
+
     # schools
     default_school_id = current_educator.school_id
     school_ids_to_balance = School.where(school_type: ['ESMS', 'ES', 'MS']).map(&:id)
@@ -31,10 +33,14 @@ class ClassroomBalancingController < ApplicationController
   end
 
   # Returns a list of students for the classroom list creator, looking at
-  # a particular school and grade level.
+  # a particular school and grade level.  Includes data needed for inline
+  # profile, except for notes and services (see #profile_json).
   #
   # Authorized here is different than normal.
   def students_for_grade_level_next_year_json
+    params.require(:balance_id)
+    params.require(:school_id)
+    params.require(:grade_level_next_year)
     school_id = params[:school_id].to_i
     grade_level_next_year = params[:grade_level_next_year]
 
@@ -80,7 +86,7 @@ class ClassroomBalancingController < ApplicationController
   # The data for a particular instance of doing classroom balancing.
   # Users are only authorized to load records they have created themselves.
   def classrooms_for_grade_json
-    params.permit(:balance_id)
+    params.require(:balance_id)
     balance_id = params[:balance_id]
     balancing = classroom_balancing.authorized_balancing(balance_id)
     raise Exceptions::EducatorNotAuthorized if balancing.nil?
@@ -96,20 +102,26 @@ class ClassroomBalancingController < ApplicationController
   def update_classrooms_for_grade_json
     # Rails passes these as nested under the controller and also as not nested.
     # Here we read the nested values.
-    params.permit(:balance_id, :school_id, :grade_level_next_year, json: {})
+    params.require(:balance_id)
+    params.require(:school_id)
+    params.require(:grade_level_next_year)
+    params.require(:json)
+    balance_id = params[:balance_id]
+    school_id = params[:school_id].to_i
+    grade_level_next_year = params[:grade_level_next_year]
+    json = params[:json]
 
-    # Check that they are authorized for this grade level
-    grade_level = GradeLevels.new.previous(params[:grade_level_next_year])
-    raise Exceptions::EducatorNotAuthorized unless classroom_balancing.is_authorized_for_grade_level?(params[:school_id], grade_level)
+    # Check that they are authorized for grade level
+    grade_level_now = GradeLevels.new.previous(grade_level_next_year)
+    raise Exceptions::EducatorNotAuthorized unless classroom_balancing.is_authorized_for_grade_level_now?(school_id, grade_level_now)
 
     # Write a new record
-    balance_id = params[:balance_id]
     classrooms_for_grade = ClassroomsForGrade.create!({
       balance_id: balance_id,
       created_by_educator_id: current_educator.id,
-      school_id: params[:school_id],
-      grade_level_next_year: params[:grade_level_next_year],
-      json: params[:json] # left opaque for UI to iterate
+      school_id: school_id,
+      grade_level_next_year: grade_level_next_year,
+      json: json # left opaque for UI to iterate
     })
     balancing_json = serialize_as_balancing_json(classrooms_for_grade)
     render json: {
@@ -117,17 +129,29 @@ class ClassroomBalancingController < ApplicationController
     }
   end
 
-  # Authorization is checked differently here as well with two steps:
-  # - permission to view that grade for creating classrooms
-  # - they've started a balancing session and are passing along that balance_id within a window
+  # Shows student profile information beyond what's used in classroom balancing.
+  # Authorization is checked differently here, and is more permissive than the
+  # standard approach but with log trails to see that they're in the balancing process.
   def profile_json
+    params.require(:balance_id)
+    params.require(:student_id)
+    params.require(:time_now)
+    params.require(:limit)
     balance_id = params[:balance_id]
-    student_id = params[:student_id]
-    student = Student.find(student_id)
-    raise Exceptions::EducatorNotAuthorized unless classroom_balancing.is_authorized_for_grade_level?(student.school_id, student.grade)
-    raise Exceptions::EducatorNotAuthorized if classroom_balancing.authorized_balancing(balance_id).nil?
+    student_id = params[:student_id].to_i
 
-    # Load feed cards, but just for this student
+    # Check that the educator is authorized to see the grade and school for this student
+    student = Student.find(student_id)
+    raise Exceptions::EducatorNotAuthorized unless classroom_balancing.is_authorized_for_grade_level_now?(student.school_id, student.grade)
+
+    # Check that they gave a valid balance_id for the session, and that it matches
+    # the school and grade level for the student they're asking about.
+    balancing = classroom_balancing.authorized_balancing(balance_id)
+    raise Exceptions::EducatorNotAuthorized if balancing.nil?
+    raise Exceptions::EducatorNotAuthorized if balancing.school_id != student.school_id
+    raise Exceptions::EducatorNotAuthorized if balancing.grade_level_next_year != GradeLevels.new.next(student.grade)
+
+    # Load feed cards just for this student
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
     feed = Feed.new([student])
