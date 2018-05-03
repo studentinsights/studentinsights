@@ -12,13 +12,15 @@ export default class InlineStudentProfile extends React.Component {
     const {student} = this.props;
     return (
       <div className="InlineStudentProfile" style={styles.root}>
-        <h4><a style={{fontSize: 20}} href={`/students/${student.id}`} target="_blank">{student.first_name} {student.last_name}</a></h4>
+        <h4>
+          <a style={{fontSize: 24}} href={`/students/${student.id}`} target="_blank">{student.first_name} {student.last_name}</a>
+        </h4>
         <div style={styles.columns}>
           <div style={styles.column}>
             <div style={{display: 'flex'}}>
               <Card style={styles.card}>
                 <div style={styles.header}>Special needs</div>
-                <div>Disability: {student.disability} (<a href="#">IEP</a>)</div>
+                {student.disability && <div>Disability: {student.disability} (<a href="#">IEP</a>)</div>}
                 {student.sped_level_of_need && <div>Level of need: {student.sped_level_of_need}</div>}
                 {student.program_assigned && <div>Program: {student.program_assigned}</div>}
                 {student.plan_504 !== 'Not 504' && <div>504 plan: {student.plan_504}</div>}
@@ -26,7 +28,7 @@ export default class InlineStudentProfile extends React.Component {
               <Card style={styles.card}>
                 <div style={styles.header}>Learning English</div>
                 <div>Learning English: {student.limited_english_proficiency}</div>
-                <div>ACCESS Composite: {student.latest_access_results.composite}</div>
+                {student.latest_access_results && <div>ACCESS Composite: {student.latest_access_results.composite}</div>}
                 <div>Home language: {student.home_language}</div>
               </Card>
             </div>
@@ -40,15 +42,15 @@ export default class InlineStudentProfile extends React.Component {
               <Card style={styles.card}>
                 <div style={styles.header}>Home</div>
                 <div>Home language: {student.home_language}</div>
-                <div>Free reduced lunch: {student.free_reduced_lunch}</div>
+                {student.free_reduced_lunch && <div>Free reduced lunch: {student.free_reduced_lunch}</div>}
               </Card>
             </div>
             <div style={{display: 'flex'}}>
               <Card style={styles.card}>
                 <div style={styles.header}>Standardized tests</div>
-                <div>DIBELS: {student.latest_dibels && student.latest_dibels.performance_level}</div>
-                <div>STAR Math percentile: {student.most_recent_star_math_percentile}</div>
-                <div>STAR Reading percentile: {student.most_recent_star_reading_percentile}</div>
+                {student.latest_dibels && <div>DIBELS: {student.latest_dibels.performance_level}</div>}
+                {student.most_recent_star_math_percentile && <div>STAR Math percentile: {student.most_recent_star_math_percentile}</div>}
+                {student.most_recent_star_reading_percentile && <div>STAR Reading percentile: {student.most_recent_star_reading_percentile}</div>}
               </Card>
               <Card style={styles.card}>
                 <div style={styles.header}>Behavior</div>

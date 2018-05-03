@@ -9,6 +9,11 @@ RSpec.describe Feed do
   let!(:pals) { TestPals.create! }
   let!(:time_now) { pals.time_now }
 
+  # Preserve global app config
+  before { @FEED_INCLUDE_INCIDENT_CARDS = ENV['FEED_INCLUDE_INCIDENT_CARDS'] }
+  before { ENV['FEED_INCLUDE_INCIDENT_CARDS'] = 'true' }
+  after { ENV['FEED_INCLUDE_INCIDENT_CARDS'] = @FEED_INCLUDE_INCIDENT_CARDS }
+
   describe '#merge_sort_and_limit_cards' do
     it 'works correctly' do
       card_sets = [
@@ -21,6 +26,99 @@ RSpec.describe Feed do
         {"type"=>"event_note", "timestamp"=>'2018-03-09T00:00:00.000-05:00', "json"=>{"foo"=>"bar"}},
         {"type"=>"event_note", "timestamp"=>'2018-03-08T00:00:00.000-05:00', "json"=>{"foo"=>"bar"}}
       ]
+    end
+  end
+
+  describe '#all' do
+    def create_event_note(time_now, options = {})
+      EventNote.create!(options.merge({
+        educator: pals.uri,
+        text: 'blah',
+        recorded_at: time_now - 7.days
+      }))
+    end
+
+    it 'works end-to-end for event_note, incident and birthday' do
+      limit = 4
+      event_note = create_event_note(time_now, {
+        student: pals.shs_freshman_mari,
+        event_note_type: EventNoteType.find(305)
+      })
+      incident = DisciplineIncident.create!({
+        incident_code: 'Bullying',
+        occurred_at: time_now - 4.days,
+        student: pals.shs_freshman_mari
+      })
+
+      feed_cards = Feed.for(pals.shs_jodi).all(time_now, limit)
+      expect(feed_cards.size).to eq 3
+      expect(feed_cards.as_json).to eq([{
+        "type"=>"birthday_card",
+        "timestamp"=>"2018-03-12T00:00:00.000Z",
+        "json"=>{
+          "id"=>pals.shs_freshman_mari.id,
+          "first_name"=>"Mari",
+          "last_name"=>"Kenobi",
+          "date_of_birth"=>"2004-03-12T00:00:00.000Z"
+        }
+      }, {
+        "type"=>"incident_card",
+        "timestamp"=>"2018-03-09T11:03:00.000Z",
+        "json"=>{
+          "id"=>incident.id,
+          "incident_code"=>"Bullying",
+          "incident_location"=>nil,
+          "incident_description"=>nil,
+          "occurred_at"=>"2018-03-09T11:03:00.000Z",
+          "has_exact_time"=>nil,
+          "student"=>{
+            "id"=>pals.shs_freshman_mari.id,
+            "grade"=>"9",
+            "first_name"=>"Mari",
+            "last_name"=>"Kenobi",
+            "house"=>"Beacon",
+            "homeroom"=>{
+              "id"=>pals.shs_jodi_homeroom.id,
+              "name"=>"SHS 942",
+              "educator"=>{
+                "id"=>pals.shs_jodi.id,
+                "email"=>"jodi@demo.studentinsights.org",
+                "full_name"=>"Teacher, Jodi"
+              }
+            }
+          }
+        }
+      }, {
+        "type"=>"event_note_card",
+        "timestamp"=>"2018-03-06T11:03:00.000Z",
+        "json"=>{
+          "id"=>event_note.id,
+          "event_note_type_id"=>305,
+          "text"=>"blah",
+          "recorded_at"=>"2018-03-06T11:03:00.000Z",
+          "educator"=>{
+            "id"=>pals.uri.id,
+            "email"=>"uri@demo.studentinsights.org",
+            "full_name"=>"Disney, Uri"
+          },
+          "student"=>{
+            "id"=>pals.shs_freshman_mari.id,
+            "grade"=>"9",
+            "first_name"=>"Mari",
+            "last_name"=>"Kenobi",
+            "house"=>'Beacon',
+            "homeroom"=>{
+              "id"=>pals.shs_jodi_homeroom.id,
+              "name"=>"SHS 942",
+              "educator"=>{
+                "id"=>pals.shs_jodi.id,
+                "email"=>"jodi@demo.studentinsights.org",
+                "full_name"=>"Teacher, Jodi"
+              }
+            }
+          }
+        }
+      }])
     end
   end
 

@@ -82,7 +82,7 @@ class ClassroomBalancingController < ApplicationController
   def classrooms_for_grade_json
     params.permit(:balance_id)
     balance_id = params[:balance_id]
-    balancing = query_for_balancing(current_educator, balance_id)
+    balancing = query_for_authorized_balancing(current_educator, balance_id)
     raise Exceptions::EducatorNotAuthorized if balancing.nil?
 
     balancing_json = serialize_as_balancing_json(balancing)
@@ -97,6 +97,10 @@ class ClassroomBalancingController < ApplicationController
     # Rails passes these as nested under the controller and also as not nested.
     # Here we read the nested values.
     params.permit(:balance_id, :school_id, :grade_level_next_year, json: {})
+
+    # Check that they are authorized for this grade level
+    grade_level = GradeLevels.new.previous(grade_level_next_year)
+    raise Exceptions::EducatorNotAuthorized unless is_authorized_for_grade_level?(current_educator, params[:school_id], grade_level)
 
     # Write a new record
     balance_id = params[:balance_id]
@@ -121,7 +125,7 @@ class ClassroomBalancingController < ApplicationController
     student_id = params[:student_id]
     student = Student.find(student_id)
     raise Exceptions::EducatorNotAuthorized unless is_authorized_for_grade_level?(current_educator, student.school_id, student.grade)
-    raise Exceptions::EducatorNotAuthorized if query_for_balancing(current_educator, balance_id).nil?
+    raise Exceptions::EducatorNotAuthorized if query_for_authorized_balancing(current_educator, balance_id).nil?
 
     # Load feed cards, but just for this student
     time_now = time_now_or_param(params[:time_now])
@@ -143,35 +147,6 @@ class ClassroomBalancingController < ApplicationController
     ].flatten.uniq.compact
   end
 
-  # Check authorization for the grade level in a different way than normal
-  def query_for_authorized_students(educator, school_id, grade_level_next_year)
-    grade_level = GradeLevels.new.previous(grade_level_next_year)
-    return [] unless is_authorized_for_grade_level?(educator, school_id, grade_level)
-
-    # Query for those students (outside normal authorization rules)
-    Student.active.where({
-      school_id: school_id,
-      grade: grade_level
-    })
-  end
-
-  # Only let educators read their own writes
-  def query_for_balancing(educator, balance_id)
-    classrooms_for_grade_records = ClassroomsForGrade
-      .order(created_at: :desc)
-      .limit(1)
-      .where({
-        balance_id: balance_id,
-        created_by_educator_id: educator.id
-      })
-
-    if classrooms_for_grade_records.size != 1
-      nil
-    else
-      classrooms_for_grade_records.first
-    end
-  end
-
   def serialize_as_balancing_json(classrooms_for_grade)
     classrooms_for_grade.as_json(only: [
       :balance_id,
@@ -180,28 +155,6 @@ class ClassroomBalancingController < ApplicationController
       :grade_level_next_year,
       :json
     ])
-  end
-
-  def is_balance_for_educator?(educator, balance_id)
-    ClassroomsForGrade
-  end
-
-  # This is intended only for local use in this controller and is based off
-  # authorizer#is_authorized_for_student?
-  def is_authorized_for_grade_level?(educator, school_id, grade_level)
-    return false unless is_authorized_for_school_id?(educator, school_id)
-    return true if educator.districtwide_access?
-    return true if educator.schoolwide_access?
-    return true if educator.admin?
-    return true if educator.has_access_to_grade_levels? && grade_level.in?(educator.grade_level_access)
-    return true if grade_level == educator.homeroom.try(:grade)
-    false
-  end
-
-  def is_authorized_for_school_id?(educator, school_id)
-    return true if educator.districtwide_access?
-    return true if educator.school_id == school_id
-    false
   end
 
   # Use time from value or fall back to Time.now

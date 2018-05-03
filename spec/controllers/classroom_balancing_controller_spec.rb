@@ -111,6 +111,7 @@ describe ClassroomBalancingController, :type => :controller do
         "free_reduced_lunch",
         "race",
         "hispanic_latino",
+        "iep_document",
         "gender",
         "most_recent_star_math_percentile",
         "most_recent_star_reading_percentile",
@@ -177,10 +178,7 @@ describe ClassroomBalancingController, :type => :controller do
       create_balancing_by(pals.healey_sarah_teacher)
       request_classrooms_for_grade_json(pals.uri)
       json = JSON.parse(response.body)
-      expect(response.status).to eq 200
-      expect(json).to eq({
-        "classrooms_for_grade"=>nil
-      })
+      expect(response.status).to eq 403
     end
   end
 

@@ -89,8 +89,8 @@ const styles = {
     backgroundColor: 'rgba(128, 128, 128, 0.75)'
   },
   modalContent: {
-    left: 100,
-    right: 100,
+    left: 180,
+    right: 180,
     padding: 0
   }
 };
