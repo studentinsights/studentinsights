@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import InlineStudentProfile from './InlineStudentProfile';
 import profile_json from './fixtures/profile_json';
@@ -20,4 +21,12 @@ it('renders without crashing', () => {
   const el = document.createElement('div');
   const props = testProps();
   ReactDOM.render(withDefaultNowContext(<InlineStudentProfile {...props} />), el);
+});
+
+it('snapshots', () => {
+  const props = testProps();
+  const tree = renderer
+    .create(withDefaultNowContext(<InlineStudentProfile {...props} />))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
