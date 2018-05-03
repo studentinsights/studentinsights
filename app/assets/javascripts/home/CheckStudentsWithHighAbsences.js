@@ -97,11 +97,11 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
     const dateText = now.clone().subtract(45, 'days').format('MMMM Do');
     const sinceEl = <span>Since {dateText}:</span>;
     if (totalStudents === 0) {
-      return <div>There are <b>no students</b> missing school who {"haven't"} been mentioned recently (eg, in SST).</div>;
+      return <div>There are <b>no students</b> missing school recently who {"haven't"} been mentioned.</div>;
     } else if (totalStudents === 1) {
-      return <div>There is <b>one student</b> missing school who {"hasn't"} been mentioned recently (eg, in SST).  {sinceEl}</div>;
+      return <div>There is <b>one student</b> missing school recently who {"hasn't"} been mentioned.  {sinceEl}</div>;
     } else {
-      return <div>There are <b>{totalStudents} students</b> missing school who {"haven't"} been mentioned recently (eg, in SST).  {sinceEl}</div>;
+      return <div>There are <b>{totalStudents} students</b> missing school who {"haven't"} been mentioned.  {sinceEl}</div>;
     }
   }
 
