@@ -2,7 +2,7 @@
 
 exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
 <div
-  className="CheckStudentsWithHighAbsences"
+  className="CheckStudentsWithHighAbsencesView"
 >
   <div
     style={
@@ -65,9 +65,9 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
         129
          students
       </b>
-       missing school who 
+       missing school recently who 
       haven't
-       been mentioned recently (eg, in SST).  
+       been mentioned.  
       <span>
         Since 
         January 27th
@@ -125,7 +125,7 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
 
 exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] = `
 <div
-  className="CheckStudentsWithHighAbsences"
+  className="CheckStudentsWithHighAbsencesView"
 >
   <div
     style={
@@ -187,9 +187,9 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
       <b>
         one student
       </b>
-       missing school who 
+       missing school recently who 
       hasn't
-       been mentioned recently (eg, in SST).  
+       been mentioned.  
       <span>
         Since 
         January 27th

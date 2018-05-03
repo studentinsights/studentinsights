@@ -74,7 +74,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
     const truncatedStudentsWithHighAbsences = studentsWithHighAbsences.slice(0, uiLimit);
 
     return (
-      <div className="CheckStudentsWithHighAbsences">
+      <div className="CheckStudentsWithHighAbsencesView">
         <div style={styles.cardTitle}>
           Students missing school
           <HelpBubble
@@ -101,7 +101,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
     } else if (totalStudents === 1) {
       return <div>There is <b>one student</b> missing school recently who {"hasn't"} been mentioned.  {sinceEl}</div>;
     } else {
-      return <div>There are <b>{totalStudents} students</b> missing school who {"haven't"} been mentioned.  {sinceEl}</div>;
+      return <div>There are <b>{totalStudents} students</b> missing school recently who {"haven't"} been mentioned.  {sinceEl}</div>;
     }
   }
 
@@ -144,7 +144,8 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
   renderHelpContent() {
     return (
       <div>
-        <p style={styles.helpContent}>These are all the students that you have access to who have a high number of absences over the last 45 days, but {"haven't"} been mentioned recently.  This means there aren't any notes about them from SST meetings, parent conversations, or anything else in Student Insights.  The threshold for being included in this list is to have 4 or more absences over the last 45 calendar days.</p>
+        <p style={styles.helpContent}>These are all the students that you have access to who have a high number of absences over the last 45 days, but {"haven't"} been mentioned recently.</p>
+        <p style={styles.helpContent}>This means there aren't any notes about them from SST meetings, parent conversations, or anything else in Student Insights.  The threshold for being included in this list is to have 4 or more absences over the last 45 calendar days.</p>
         <p style={styles.helpContent}>If you work directly with this student, you could talk with them or reach out to the family.  Or you could connect with a colleague providing support services (eg, SST, attendance officers, counselors, redirect).  If the student in still missing school, attendance contracts might be a next step.</p>        
       </div>
     );

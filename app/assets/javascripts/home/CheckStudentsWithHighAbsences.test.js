@@ -19,7 +19,7 @@ function testProps() {
   };
 }
 
-function pureTestPropsForN(n) {
+export function pureTestPropsForN(n) {
   return {
     limit: 10,
     totalStudents: n,
