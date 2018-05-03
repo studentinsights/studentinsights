@@ -39,7 +39,7 @@ export default class ClassroomListCreatorPage extends React.Component {
       // second
       educatorNames: null, // from server
       students: null, // from server
-      classroomsCount: 5,
+      classroomsCount: 4,
       educators: [],
       planText: '',
 
