@@ -70,7 +70,12 @@ export default class CreateYourClassroomsView extends React.Component {
   }
 
   renderStudentCard(student, index) {
-    return <SimpleStudentCard key={student.id} student={student} index={index} />;
+    const {fetchProfile} = this.props;
+    return <SimpleStudentCard
+      key={student.id}
+      student={student}
+      index={index}
+      fetchProfile={fetchProfile} />;
   }
 }
 CreateYourClassroomsView.propTypes = {
@@ -78,6 +83,7 @@ CreateYourClassroomsView.propTypes = {
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   students: React.PropTypes.array.isRequired,
   studentIdsByRoom: React.PropTypes.object.isRequired,
+  fetchProfile: React.PropTypes.func.isRequired,
   onClassroomListsChanged: React.PropTypes.func.isRequired
 };
 

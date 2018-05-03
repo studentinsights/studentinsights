@@ -1,8 +1,8 @@
 import React from 'react';
-import _ from 'lodash';
 import {Draggable} from 'react-beautiful-dnd';
 import Modal from 'react-modal';
 import MoreDots from '../components/MoreDots';
+import InlineStudentProfile from './InlineStudentProfile';
 
 
 // Shows a small student card that is `Draggable` and also clickable
@@ -28,35 +28,12 @@ export default class SimpleStudentCard extends React.Component {
 
   render() {
     const {student, index} = this.props;
-    const {modalIsOpen} = this.state;
     return (
       <Draggable draggableId={`SimpleStudentCard:${student.id}`} index={index}>
         {(provided, snapshot) => {
           return (
             <div>
-              <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={this.onClose}
-                contentLabel="Modal"
-              >
-                <h4><a style={{fontSize: 20}} href={`/students/${student.id}`} target="_blank">{student.first_name} {student.last_name}</a></h4>
-                <br />
-                <div>Disability: {student.disability}</div>
-                <div>Program: {student.program_assigned}</div>
-                <div>504 plan: {student.plan_504}</div>
-                <div>Learning English: {student.limited_english_proficiency}</div>
-                <div>Most recent ACCESS: <pre>{JSON.stringify(_.last(student.latest_access_results), null, 2)}</pre></div>
-                <div>Home language: {student.home_language}</div>
-                <br />
-                <div>Free reduced lunch: {student.free_reduced_lunch}</div>
-                <div>Race: {student.race}</div>
-                <div>Hispanic: {student.hispanic_latino ? 'yes' : 'no'}</div>
-                <div>Gender: {student.gender}</div>
-                <br />
-                <div>Most recent DIBELS: {student.latest_dibels && student.latest_dibels.performance_level}</div>
-                <div>Most recent STAR Math percentile: {student.most_recent_star_math_percentile}</div>
-                <div>Most recent STAR Reading percentile: {student.most_recent_star_reading_percentile}</div>
-              </Modal>
+              {this.renderModal()}
               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                 <div style={styles.studentCard} onClick={this.onClick}>
                   <span>{student.first_name} {student.last_name}</span>
@@ -70,10 +47,31 @@ export default class SimpleStudentCard extends React.Component {
       </Draggable>
     );
   }
+
+  renderModal() {
+    const {student, fetchProfile} = this.props;
+    const {modalIsOpen} = this.state;
+    return (
+      <Modal
+        style={{
+          overlay: styles.modalOverlay,
+          context: styles.modalContent
+        }}
+        isOpen={modalIsOpen}
+        onRequestClose={this.onClose}
+        contentLabel="Modal"
+      >
+        <InlineStudentProfile
+          student={student}
+          fetchProfile={fetchProfile} />
+      </Modal>
+    );
+  }
 }
 SimpleStudentCard.propTypes = {
   student: React.PropTypes.object.isRequired,
-  index: React.PropTypes.number.isRequired
+  index: React.PropTypes.number.isRequired,
+  fetchProfile: React.PropTypes.func.isRequired
 };
 
 const styles = {
@@ -87,7 +85,12 @@ const styles = {
     borderRadius: 3,
     background: 'white'
   },
-  modal: {
-    zIndex: 100
+  modalOverlay: {
+    backgroundColor: 'rgba(128, 128, 128, 0.75)'
+  },
+  modalContent: {
+    left: 180,
+    right: 180,
+    padding: 0
   }
 };

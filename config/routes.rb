@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get '/api/balancing/:balance_id/students_for_grade_level_next_year_json' => 'classroom_balancing#students_for_grade_level_next_year_json'
   post '/api/balancing/:balance_id/update_classrooms_for_grade_json' => 'classroom_balancing#update_classrooms_for_grade_json'
   get '/api/balancing/:balance_id/classrooms_for_grade_json' => 'classroom_balancing#classrooms_for_grade_json'
+  get '/api/balancing/:balance_id/students/:student_id/profile_json' => 'classroom_balancing#profile_json'
 
   # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'

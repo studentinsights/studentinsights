@@ -215,4 +215,43 @@ RSpec.describe Authorizer do
       expect { Authorizer.new(pals.shs_bill_nye).is_authorized_for_student?(thin_student) }.to raise_error(ActiveModel::MissingAttributeError)
     end
   end
+
+  describe '#authorized_when_viewing_as' do
+    def authorized_students_when_viewing_as(educator, view_as_educator)
+      authorizer = Authorizer.new(educator)
+      authorizer.authorized_when_viewing_as(view_as_educator) { Student.all }
+    end
+
+    context 'using Student as a test case' do
+      it 'allows privileged user access to view as another educator' do
+        expect(authorized_students_when_viewing_as(pals.uri, pals.healey_laura_principal)).to match_array [
+          pals.healey_kindergarten_student
+        ]
+        expect(authorized_students_when_viewing_as(pals.uri, pals.healey_vivian_teacher)).to match_array [
+          pals.healey_kindergarten_student
+        ]
+        expect(authorized_students_when_viewing_as(pals.uri, pals.shs_jodi)).to match_array [
+          pals.shs_freshman_mari
+        ]
+        expect(authorized_students_when_viewing_as(pals.uri, pals.shs_bill_nye)).to match_array [
+          pals.shs_freshman_mari
+        ]
+      end
+
+      it 'does not allow typical users elevated access when called incorrectly' do
+        expect(authorized_students_when_viewing_as(pals.healey_laura_principal, pals.uri)).to match_array [
+          pals.healey_kindergarten_student
+        ]
+        expect(authorized_students_when_viewing_as(pals.healey_vivian_teacher, pals.uri)).to match_array [
+          pals.healey_kindergarten_student
+        ]
+        expect(authorized_students_when_viewing_as(pals.shs_jodi, pals.uri)).to match_array [
+          pals.shs_freshman_mari
+        ]
+        expect(authorized_students_when_viewing_as(pals.shs_bill_nye, pals.uri)).to match_array [
+          pals.shs_freshman_mari
+        ]
+      end
+    end
+  end
 end

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HomeFeedPure pure component matches snapshot 1`] = `
+exports[`FeedView pure component matches snapshot 1`] = `
 <div
-  className="HomeFeedPure"
+  className="FeedView"
 >
   <div
     className="Card BirthdayCard"
