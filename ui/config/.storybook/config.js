@@ -14,6 +14,9 @@ function loadStories() {
   require('../../../app/assets/javascripts/components/DibelsBreakdownBar.story.js');
   require('../../../app/assets/javascripts/components/ReactSelect.story.js');
 
+  // home
+  require('../../../app/assets/javascripts/home/CheckStudentsWithHighAbsences.story.js');
+
   // student profile
   require('../../../app/assets/javascripts/student_profile/RiskBubble.story.js');
   

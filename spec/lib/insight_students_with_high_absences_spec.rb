@@ -68,17 +68,29 @@ RSpec.describe InsightStudentsWithHighAbsences do
     let!(:insight) { InsightStudentsWithHighAbsences.new(pals.shs_bill_nye) }
     let!(:time_threshold) { time_now - 45.days }
     let!(:student_ids) { [pals.shs_freshman_mari] }
-    let!(:sst_event_note_type) { EventNoteType.find(300) }
 
     it 'with no comment' do
       expect(insight.send(:recently_commented_student_ids, student_ids, time_threshold)).to eq []
+    end
+
+    it 'with NGE' do
+      EventNote.create!(
+        student: pals.shs_freshman_mari,
+        educator: pals.uri,
+        event_note_type: EventNoteType.NGE,
+        text: 'blah',
+        recorded_at: time_now
+      )
+      expect(insight.send(:recently_commented_student_ids, student_ids, time_threshold)).to eq [
+        pals.shs_freshman_mari.id
+      ]
     end
 
     it 'with SST comment' do
       EventNote.create!(
         student: pals.shs_freshman_mari,
         educator: pals.uri,
-        event_note_type: sst_event_note_type,
+        event_note_type: EventNoteType.SST,
         text: 'blah',
         recorded_at: time_now
       )
@@ -91,7 +103,7 @@ RSpec.describe InsightStudentsWithHighAbsences do
       EventNote.create!(
         student: pals.shs_freshman_mari,
         educator: pals.uri,
-        event_note_type: sst_event_note_type,
+        event_note_type: EventNoteType.SST,
         is_restricted: true,
         text: 'blah',
         recorded_at: time_now
@@ -103,7 +115,7 @@ RSpec.describe InsightStudentsWithHighAbsences do
       EventNote.create!(
         student: pals.shs_freshman_mari,
         educator: pals.uri,
-        event_note_type: sst_event_note_type,
+        event_note_type: EventNoteType.SST,
         text: 'blah',
         recorded_at: time_now - 50.days
       )
