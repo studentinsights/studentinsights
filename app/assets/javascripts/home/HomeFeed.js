@@ -1,9 +1,7 @@
 import React from 'react';
 import qs from 'query-string';
 import _ from 'lodash';
-import EventNoteCard from './EventNoteCard';
-import BirthdayCard from './BirthdayCard';
-import IncidentCard from './IncidentCard';
+import FeedView from '../feed/FeedView';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {toMomentFromTime} from '../helpers/toMoment';
 
@@ -93,7 +91,7 @@ class HomeFeed extends React.Component {
   renderFeed(feedCards) {
     return (
       <div>
-        <HomeFeedPure feedCards={feedCards} />
+        <FeedView feedCards={feedCards} />
         {this.renderSeeMore(feedCards)}
       </div>
     );
@@ -124,53 +122,6 @@ HomeFeed.defaultProps = {
 };
 
 
-// Pure UI component for rendering home feed
-export class HomeFeedPure extends React.Component {
-  render() {
-    const {feedCards} = this.props;
-    return (
-      <div className="HomeFeedPure">
-        {feedCards.map(feedCard => {
-          const {type, json} = feedCard;
-          if (type === 'event_note_card') return this.renderEventNoteCard(json);
-          if (type === 'birthday_card') return this.renderBirthdayCard(json);
-          if (type === 'incident_card') return this.renderIncidenCard(json);
-          console.warn('Unexpected card type: ', type); // eslint-disable-line no-console
-        })}
-      </div>
-    );
-  }
-
-  renderEventNoteCard(json) {
-    return <EventNoteCard
-      key={json.id}
-      style={styles.card}
-      eventNoteCardJson={json} />;
-  }
-
-  renderBirthdayCard(json) {
-    return <BirthdayCard
-      key={`birthday:${json.id}`}
-      style={styles.card}
-      studentBirthdayCard={json} />;
-  }
-
-  renderIncidenCard(json) {
-    return <IncidentCard
-      key={json.id}
-      style={styles.card}
-      incidentCard={json} />;
-  }    
-}
-HomeFeedPure.propTypes = {
-  feedCards: React.PropTypes.arrayOf(React.PropTypes.shape({
-    type: React.PropTypes.string.isRequired,
-    timestamp: React.PropTypes.string.isRequired,
-    json: React.PropTypes.object.isRequired
-  })).isRequired
-};
-
-
 const styles = {
   root: {
     fontSize: 14,
@@ -179,9 +130,6 @@ const styles = {
   },
   person: {
     fontWeight: 'bold'
-  },
-  card: {
-    marginTop: 20
   }
 };
 

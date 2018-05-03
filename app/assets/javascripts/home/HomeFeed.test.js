@@ -115,16 +115,6 @@ describe('HomeFeed', () => {
   });
 });
 
-describe('HomeFeedPure', () => {
-  it('pure component matches snapshot', () => {
-    const tree = renderer
-      .create(withDefaultNowContext(<HomeFeedPure feedCards={homeFeedJson.feed_cards} />))
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
-
-
 describe('#mergeCards', () => {
   it('works', () => {
     const moreCards = moreCardsJson().feed_cards;

@@ -11,6 +11,7 @@ function testProps(props = {}) {
     gradeLevelNextYear: '3',
     students: [],
     studentIdsByRoom: {},
+    fetchProfile: jest.fn(),
     onClassroomListsChanged: jest.fn(),
     ...props
   };

@@ -81,8 +81,10 @@ class ClassroomBalancingController < ApplicationController
   def classrooms_for_grade_json
     params.permit(:balance_id)
     balance_id = params[:balance_id]
-    balancing_json = query_for_balancing(current_educator, balance_id)
+    balancing = query_for_balancing(current_educator, balance_id)
+    raise EducatorNotAuthorized if balancing.nil?
 
+    balancing_json = serialize_as_balancing_json(balancing)
     render json: {
       classrooms_for_grade: balancing_json
     }
@@ -110,6 +112,27 @@ class ClassroomBalancingController < ApplicationController
     }
   end
 
+  # Authorization is checked differently here as well with two steps:
+  # - permission to view that grade for creating classrooms
+  # - they've started a balancing session and are passing along that balance_id within a window
+  def profile_json
+    balance_id = params[:balance_id]
+    student_id = params[:student_id]
+    student = Student.find(student_id)
+    raise Exceptions::EducatorNotAuthorized unless is_authorized_for_grade_level?(current_educator, student.school_id, student.grade)
+    raise EducatorNotAuthorized if query_for_balancing(current_educator, balance_id).nil?
+
+    # Load feed cards, but just for this student
+    time_now = time_now_or_param(params[:time_now])
+    limit = params[:limit].to_i
+    feed = Feed.new([student])
+    feed_cards = feed.all(time_now, limit)
+
+    render json: {
+      feed_cards: feed_cards
+    }
+  end
+
   private
   def educator_names(school_id)
     school = School.find(school_id)
@@ -121,10 +144,8 @@ class ClassroomBalancingController < ApplicationController
 
   # Check authorization for the grade level in a different way than normal
   def query_for_authorized_students(educator, school_id, grade_level_next_year)
-    return [] unless is_authorized_for_school_id?(educator, school_id)
-
     grade_level = GradeLevels.new.previous(grade_level_next_year)
-    return [] unless is_authorized_for_grade_level?(educator, grade_level)
+    return [] unless is_authorized_for_grade_level?(educator, school_id, grade_level)
 
     # Query for those students (outside normal authorization rules)
     Student.active.where({
@@ -140,11 +161,14 @@ class ClassroomBalancingController < ApplicationController
       .limit(1)
       .where({
         balance_id: balance_id,
-        created_by_educator_id: current_educator.id
+        created_by_educator_id: educator.id
       })
 
-    return nil if classrooms_for_grade_records.size != 1
-    serialize_as_balancing_json(classrooms_for_grade_records.first)
+    if classrooms_for_grade_records.size != 1
+      nil
+    else
+      classrooms_for_grade_records.first
+    end
   end
 
   def serialize_as_balancing_json(classrooms_for_grade)
@@ -157,9 +181,14 @@ class ClassroomBalancingController < ApplicationController
     ])
   end
 
+  def is_balance_for_educator?(educator, balance_id)
+    ClassroomsForGrade
+  end
+
   # This is intended only for local use in this controller and is based off
   # authorizer#is_authorized_for_student?
-  def is_authorized_for_grade_level?(educator, grade_level)
+  def is_authorized_for_grade_level?(educator, school_id, grade_level)
+    return false unless is_authorized_for_school_id?(educator, school_id)
     return true if educator.districtwide_access?
     return true if educator.schoolwide_access?
     return true if educator.admin?
@@ -172,6 +201,15 @@ class ClassroomBalancingController < ApplicationController
     return true if educator.districtwide_access?
     return true if educator.school_id == school_id
     false
+  end
+
+  # Use time from value or fall back to Time.now
+  def time_now_or_param(params_time_now)
+    if params_time_now.present?
+      Time.at(params_time_now.to_i)
+    else
+      Time.now
+    end
   end
 
   def ensure_somerville_only!

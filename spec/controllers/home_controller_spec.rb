@@ -32,7 +32,7 @@ describe HomeController, :type => :controller do
       }
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json['feed_cards'].length).to eq 3
+      # expect(json['feed_cards'].length).to eq 3
       expect(json).to eq({
         "feed_cards"=>[{
           "type"=>"birthday_card",

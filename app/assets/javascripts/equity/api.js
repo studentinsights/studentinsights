@@ -52,3 +52,11 @@ export function postClassroomsForGrade(options = {}) {
   };
   return apiPostJson(url, body);
 }
+
+export function fetchProfile(balanceId, studentId) {
+  const queryString = qs.stringify({
+    limit: 10
+  });
+  const url = `/api/balancing/${balanceId}/students/${studentId}/profile_json?${queryString}`;
+  return apiFetchJson(url); 
+}

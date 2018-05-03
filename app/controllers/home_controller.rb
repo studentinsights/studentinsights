@@ -2,34 +2,12 @@ class HomeController < ApplicationController
   # The feed of everything going on with all students the educator has access
   # to view.
   def feed_json
-    educator = current_educator_or_doppleganger(params[:educator_id])
+    view_as_educator = current_educator_or_doppleganger(params[:educator_id])
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
 
-    # Query for different kinds of feed cards, then merge and sort and truncate.
-    # This means we'll always slightly overquery, since we don't know how many
-    # different bits of information there are across data sources until
-    # we query and combine them. Ideally we'd query in parallel but we'd
-    # need to push this out to the client to do that (and still would have to
-    # delay rendering until both came back and were merged anyway).
-    feed = Feed.new(educator)
-    event_note_cards = feed.event_note_cards(time_now, limit)
-    birthday_cards = feed.birthday_cards(time_now, limit, {
-      limit: 3,
-      days_back: 3,
-      days_ahead: 0
-    })
-    incident_cards = if params[:include_incident_cards] || PerDistrict.new.include_incident_cards?
-      feed.incident_cards(time_now, limit)
-    else
-      []
-    end
-    feed_cards = feed.merge_sort_and_limit_cards([
-      event_note_cards,
-      birthday_cards,
-      incident_cards
-    ], limit)
-
+    authorized_students = authorized_students_for_feed(view_as_educator)
+    feed_cards = Feed.new(authorized_students).all(time_now, limit)
     render json: {
       feed_cards: feed_cards
     }
@@ -68,6 +46,20 @@ class HomeController < ApplicationController
       total_students: students_with_high_absences_json.size,
       students_with_high_absences: students_with_high_absences_json.first(limit)
     }
+  end
+
+  private
+  # Double authorization layer for doppleganging - filter by
+  # educator we're doppleganging for, but after that guard again to
+  # ensure that the current user has access.  Only slows down dopplegangers.
+  def authorized_students_for_feed(view_as_educator)
+    authorized do
+      if view_as_educator.id != current_educator.id
+        Authorizer.new(view_as_educator).authorized { Student.all }
+      else
+        Student.all
+      end
+    end
   end
 
   # Use time from value or fall back to Time.now

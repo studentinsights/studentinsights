@@ -6,7 +6,7 @@ import CreateYourClassroomsView from './CreateYourClassroomsView';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import HorizontalStepper from './HorizontalStepper';
-
+import {fetchProfile} from './api';
 
 
 const text = `Over the last few years, I’ve been hearing from teachers and principals about how complex and time-consuming the class assignment process is.  It’s so hard to juggle and keep track of all the various factors, like gender, ELL status, disabilities, academics, and discipline.  And in a diverse city as ours, we want as much as possible for the classrooms at each grade level to reflect the diversity of your school community.    In the past year, people who have seen our Student Insights system have asked if there might be a way to use technology to make the process a little more streamlined.
@@ -175,6 +175,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
 
   renderCreateYourClassrooms() {    
     const {
+      balanceId,
       students,
       classroomsCount,
       onClassroomListsChanged,
@@ -189,6 +190,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={studentIdsByRoom}
+        fetchProfile={studentId => fetchProfile(balanceId, studentId)}
         onClassroomListsChanged={onClassroomListsChanged}/>
     );
   }

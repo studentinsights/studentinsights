@@ -29,12 +29,12 @@ export default class ClassroomStats extends React.Component {
               <th style={styles.cell}>Disability</th>
               <th style={styles.cell}>Limited English</th>
               <th style={styles.cell}>Gender (male)</th>
-              <th style={styles.cell}>Discipline (>=3)</th>
               <th style={styles.cell}>Students of color</th>
               <th style={styles.cell}>Low income</th>
               {showDibels && <th style={styles.cell}>Dibels CORE</th>}
               {showStar && <th style={styles.cell}>STAR Math</th>}
               {showStar && <th style={styles.cell}>STAR Reading</th>}
+              <th style={styles.cell}>Discipline (>=3)</th>
             </tr>
           </thead>
           <tbody>
@@ -45,12 +45,12 @@ export default class ClassroomStats extends React.Component {
                   <td style={styles.cell}>{this.renderDisability(room)}</td>
                   <td style={styles.cell}>{this.renderEnglishLearners(room)}</td>
                   <td style={styles.cell}>{this.renderGender(room)}</td>
-                  <td style={styles.cell}>{this.renderDiscipline(room)}</td>
                   <td style={styles.cell}>{this.renderStudentsOfColor(room)}</td>
                   <td style={styles.cell}>{this.renderLowIncome(room)}</td>
                   {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(room)}</td>}
                   {showStar && <td style={styles.cell}>{this.renderMath(room)}</td>}
                   {showStar && <td style={styles.cell}>{this.renderReading(room)}</td>}
+                  <td style={styles.cell}>{this.renderDiscipline(room)}</td>
                 </tr>
               );
             })}
