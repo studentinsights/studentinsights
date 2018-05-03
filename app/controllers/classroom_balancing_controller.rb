@@ -128,8 +128,8 @@ class ClassroomBalancingController < ApplicationController
   def profile_json
     params.require(:balance_id)
     params.require(:student_id)
-    params.require(:time_now)
     params.require(:limit)
+    params.permit(:time_now)
     balance_id = params[:balance_id]
     student_id = params[:student_id].to_i
 
