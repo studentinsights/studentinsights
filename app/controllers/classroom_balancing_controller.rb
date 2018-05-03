@@ -39,7 +39,7 @@ class ClassroomBalancingController < ApplicationController
     grade_level_next_year = params[:grade_level_next_year]
 
     # Check authorization by grade level, differently than normal.
-    students = query_for_authorized_students(current_educator, school_id, grade_level_next_year)
+    students = classroom_balancing.authorized_students(school_id, grade_level_next_year)
     students_json = students.as_json({
       only: [
         :id,
@@ -82,7 +82,7 @@ class ClassroomBalancingController < ApplicationController
   def classrooms_for_grade_json
     params.permit(:balance_id)
     balance_id = params[:balance_id]
-    balancing = query_for_authorized_balancing(current_educator, balance_id)
+    balancing = classroom_balancing.authorized_balancing(balance_id)
     raise Exceptions::EducatorNotAuthorized if balancing.nil?
 
     balancing_json = serialize_as_balancing_json(balancing)
@@ -99,8 +99,8 @@ class ClassroomBalancingController < ApplicationController
     params.permit(:balance_id, :school_id, :grade_level_next_year, json: {})
 
     # Check that they are authorized for this grade level
-    grade_level = GradeLevels.new.previous(grade_level_next_year)
-    raise Exceptions::EducatorNotAuthorized unless is_authorized_for_grade_level?(current_educator, params[:school_id], grade_level)
+    grade_level = GradeLevels.new.previous(params[:grade_level_next_year])
+    raise Exceptions::EducatorNotAuthorized unless classroom_balancing.is_authorized_for_grade_level?(params[:school_id], grade_level)
 
     # Write a new record
     balance_id = params[:balance_id]
@@ -124,8 +124,8 @@ class ClassroomBalancingController < ApplicationController
     balance_id = params[:balance_id]
     student_id = params[:student_id]
     student = Student.find(student_id)
-    raise Exceptions::EducatorNotAuthorized unless is_authorized_for_grade_level?(current_educator, student.school_id, student.grade)
-    raise Exceptions::EducatorNotAuthorized if query_for_authorized_balancing(current_educator, balance_id).nil?
+    raise Exceptions::EducatorNotAuthorized unless classroom_balancing.is_authorized_for_grade_level?(student.school_id, student.grade)
+    raise Exceptions::EducatorNotAuthorized if classroom_balancing.authorized_balancing(balance_id).nil?
 
     # Load feed cards, but just for this student
     time_now = time_now_or_param(params[:time_now])
@@ -139,6 +139,10 @@ class ClassroomBalancingController < ApplicationController
   end
 
   private
+  def classroom_balancing
+    @classroom_balancing = ClassroomBalancing.new(current_educator)
+  end
+
   def educator_names(school_id)
     school = School.find(school_id)
     [
