@@ -93,11 +93,8 @@ const styles = {
   },
   columns: {
     marginTop: 20,
-    display: 'flex',
-    flexDirection: 'column'
   },
   column: {
-    flex: 1,
   },
   header: {
     fontWeight: 'bold',
