@@ -107,8 +107,11 @@ export default class ClassroomListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNotesText
     } = this.state;
-    if (balanceId === null) return;
 
+    // Don't save until they choose a grade level and school
+    if (!balanceId) return;
+    if (!schoolId) return;
+    if (!gradeLevelNextYear) return;
     const payload = {
       balanceId,
       stepIndex,
