@@ -49,7 +49,7 @@ class SchoolsController < ApplicationController
 
   def discipline_dashboard_data
     student_discipline_data = active_students(@school)
-      .includes([homeroom: :educator], :discipline_incidents, :event_notes)
+      .includes([homeroom: :educator], :dashboard_discipline_incidents, :event_notes)
     student_discipline_data_json = student_discipline_data.map do |student|
       individual_student_discipline_data(student)
     end
@@ -192,7 +192,7 @@ class SchoolsController < ApplicationController
 
   def individual_student_discipline_data(student)
     shared_student_fields(student).merge({
-      discipline_incidents: student.discipline_incidents.as_json(only: [
+      discipline_incidents: student.dashboard_discipline_incidents.as_json(only: [
         :student_id,
         :incident_code,
         :incident_location,

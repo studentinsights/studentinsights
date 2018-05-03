@@ -26,6 +26,9 @@ class Student < ActiveRecord::Base
   has_many :dashboard_absences, -> {
     where('occurred_at >= ?', 1.year.ago)
   }, class_name: "Absence"
+  has_many :dashboard_discipline_incidents, -> {
+    where('occurred_at >= ?', 1.year.ago)
+  }, class_name: "DisciplineIncident"
 
   has_many :sst_notes, -> { where(event_note_type_id: 300) }, class_name: "EventNote"
 
