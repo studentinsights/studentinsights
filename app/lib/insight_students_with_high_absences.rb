@@ -17,8 +17,12 @@ class InsightStudentsWithHighAbsences
   # This method returns hashes that are the shape of what is needed
   # in the product.
   def students_with_high_absences_json(time_now, time_threshold, absences_threshold)
-    # Include all authorized students
-    students = @authorizer.authorized { Student.all }
+    # Exclude students in younger grades like PreK since attendance isn't mandatory.
+    # This means there's less consistent attendance from families, and it's less
+    # of a priority to follow-up for schools.
+    students = @authorizer.authorized do
+      Student.active.where.not(grade: ['TK', 'PPK', 'PK'])
+    end
     student_ids = students.map(&:id)
 
     # Absences by student in the time period.
