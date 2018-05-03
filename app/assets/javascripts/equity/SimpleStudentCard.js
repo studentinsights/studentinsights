@@ -90,6 +90,7 @@ const styles = {
   },
   modalContent: {
     left: 100,
-    right: 100
+    right: 100,
+    padding: 0
   }
 };

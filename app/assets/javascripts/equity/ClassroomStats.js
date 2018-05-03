@@ -31,10 +31,10 @@ export default class ClassroomStats extends React.Component {
               <th style={styles.cell}>Gender (male)</th>
               <th style={styles.cell}>Students of color</th>
               <th style={styles.cell}>Low income</th>
+              <th style={styles.cell}>Discipline (>=3)</th>
               {showDibels && <th style={styles.cell}>Dibels CORE</th>}
               {showStar && <th style={styles.cell}>STAR Math</th>}
               {showStar && <th style={styles.cell}>STAR Reading</th>}
-              <th style={styles.cell}>Discipline (>=3)</th>
             </tr>
           </thead>
           <tbody>
@@ -47,10 +47,10 @@ export default class ClassroomStats extends React.Component {
                   <td style={styles.cell}>{this.renderGender(room)}</td>
                   <td style={styles.cell}>{this.renderStudentsOfColor(room)}</td>
                   <td style={styles.cell}>{this.renderLowIncome(room)}</td>
+                  <td style={styles.cell}>{this.renderDiscipline(room)}</td>
                   {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(room)}</td>}
                   {showStar && <td style={styles.cell}>{this.renderMath(room)}</td>}
                   {showStar && <td style={styles.cell}>{this.renderReading(room)}</td>}
-                  <td style={styles.cell}>{this.renderDiscipline(room)}</td>
                 </tr>
               );
             })}
@@ -192,7 +192,8 @@ const styles = {
   },
   barInnerStyle:{
     justifyContent: 'flex-start',
-    padding: 2,
+    padding: 1,
+    paddingBottom: 3,
     color: '#ccc'
   }
 };

@@ -59,6 +59,7 @@ class ClassroomBalancingController < ApplicationController
         :most_recent_star_reading_percentile
       ],
       methods: [
+        :iep_document,
         :latest_access_results,
         :latest_dibels,
         :most_recent_school_year_discipline_incidents_count
