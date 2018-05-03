@@ -65,9 +65,9 @@ exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
         129
          students
       </b>
-       missing school recently who 
+       missing school who 
       haven't
-       been mentioned in SST yet.  
+       been mentioned recently (eg, in SST).  
       <span>
         Since 
         January 27th
@@ -187,9 +187,9 @@ exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] =
       <b>
         one student
       </b>
-       missing school recently who 
+       missing school who 
       hasn't
-       been mentioned in SST yet.  
+       been mentioned recently (eg, in SST).  
       <span>
         Since 
         January 27th
