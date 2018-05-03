@@ -3,7 +3,7 @@ class DistrictController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
 
     # students, grouped by school and grade
-    authorized_students = authorized { Student.all }
+    authorized_students = authorized { Student.active }
     groups = authorized_students.group_by do |student|
       [student.school_id, student.grade]
     end
