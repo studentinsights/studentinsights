@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
 import Card from '../components/Card';
