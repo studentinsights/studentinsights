@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
@@ -109,11 +110,14 @@ class SchoolDisciplineDashboard extends React.Component {
           {this.renderStudentDisciplineTable()}
         </div>
         <div className="DashboardChartsColumn">
-          <div style={styles.dropdown}>
-            Incidents by:
+          <div style={styles.graphTitle}>
+            <div style={styles.titleText}>
+              Incidents by:
+            </div>
             <Select
               onChange={this.selectChart}
               options={chartOptions}
+              style={styles.dropdown}
             />
           </div>
          {this.renderDisciplineChart(selectedChart)}
@@ -135,7 +139,7 @@ class SchoolDisciplineDashboard extends React.Component {
           id = "Discipline"
           categories = {{categories: categories}}
           seriesData = {seriesData}
-          titleText = {selectedChart.title}
+          titleText = {null}
           measureText = {'Number of Incidents'}
           tooltip = {{
             pointFormat: 'Total incidents: <b>{point.y}</b>'}}
@@ -199,7 +203,17 @@ SchoolDisciplineDashboard.propTypes = {
 export default SchoolDisciplineDashboard;
 
 const styles = {
+  graphTitle: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '20px'
+  },
+  titleText: {
+    alignSelf: 'flex-end',
+    fontSize: '18px',
+    marginRight: '10px'
+  },
   dropdown: {
-    fontSize: '18px'
+    width: '100px'
   }
 };
