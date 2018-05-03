@@ -9,18 +9,11 @@ class ClassroomBalancingController < ApplicationController
 
     # schools
     default_school_id = current_educator.school_id
-    school_ids_to_balance = School.where(school_type: ['ESMS', 'ES', 'MS']).map(&:id)
+    school_ids_to_balance = classroom_balancing.schools_to_balance.map(&:id)
     schools_json = School.find(school_ids_to_balance).as_json(only: [:id, :name])
 
     # grade levels
-    grade_levels_to_balance = [
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6'
-    ]
+    grade_levels_to_balance = classroom_balancing.grade_levels_next_year_to_balance
     current_grade_level = current_educator.homeroom.try(:grade) || 'KF'
     default_grade_level_next_year = GradeLevels.new.next(current_grade_level)
 
@@ -45,7 +38,7 @@ class ClassroomBalancingController < ApplicationController
     grade_level_next_year = params[:grade_level_next_year]
 
     # Check authorization by grade level, differently than normal.
-    students = classroom_balancing.authorized_students(school_id, grade_level_next_year)
+    students = classroom_balancing.authorized_students_for_next_year(school_id, grade_level_next_year)
     students_json = students.as_json({
       only: [
         :id,
