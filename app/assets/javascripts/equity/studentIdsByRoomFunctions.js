@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 
-// Place the students into their initial state (eg, all unsorted).
+// Place the students into their initial state (eg, all unplaced, sorted alphabetically).
 // {[roomKey]: [studentId]}
 // Allow another placementFn to be passed.
 export function initialStudentIdsByRoom(roomsCount, students, options = {}) {
@@ -15,7 +15,8 @@ export function initialStudentIdsByRoom(roomsCount, students, options = {}) {
     };
   }, initialMap);
 
-  students.forEach(student => {
+  const sortedStudents = _.sortBy(students, student => `${student.first_name}, ${student.last_name}`);
+  sortedStudents.forEach(student => {
     const roomKey = (options.placementFn)
       ? options.placementFn(studentIdsByRoom, student)
       : UNPLACED_ROOM_KEY;

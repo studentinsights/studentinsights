@@ -26,9 +26,8 @@ export default class InlineStudentProfile extends React.Component {
               </Card>
               <Card style={styles.card}>
                 <div style={styles.header}>Learning English</div>
-                <div>Learning English: {student.limited_english_proficiency}</div>
+                {student.limited_english_proficiency !== 'Fluent' && <div>Learning English: {student.limited_english_proficiency}</div>}
                 {student.latest_access_results && <div>ACCESS Composite: {student.latest_access_results.composite}</div>}
-                <div>Home language: {student.home_language}</div>
               </Card>
             </div>
             <div style={{display: 'flex'}}>
@@ -68,7 +67,7 @@ export default class InlineStudentProfile extends React.Component {
   renderFeed() {
     const {student, fetchProfile} = this.props;
     return (
-      <div>
+      <div style={styles.feed}>
         <SectionHeading>Notes for {student.first_name}</SectionHeading>
         <GenericLoader
           promiseFn={() => fetchProfile(student.id)}
@@ -103,5 +102,8 @@ const styles = {
   card: {
     flex: 1,
     margin: 5
+  },
+  feed: {
+    paddingTop: 20
   }
 };

@@ -14,7 +14,7 @@ exports[`snapshots 1`] = `
   <table
     style={
       Object {
-        "borderCollapse": "collapsed",
+        "borderCollapse": "collapse",
         "fontSize": 12,
         "tableLayout": "fixed",
         "textAlign": "left",
@@ -38,91 +38,133 @@ exports[`snapshots 1`] = `
         <th
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <th
+          style={
+            Object {
+              "cursor": "help",
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
+              "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
             }
           }
+          title="Students who have an IEP or 504 plan"
         >
           IEP or 504
         </th>
         <th
           style={
             Object {
+              "cursor": "help",
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
+              "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
             }
           }
+          title="Students receiving English Learning Services or who have in the past (FLEP)"
         >
           Limited or FLEP
         </th>
         <th
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <th
+          style={
+            Object {
+              "cursor": "help",
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
+              "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
             }
           }
+          title="Students who identify their gender as male and not female, nonbinary or transgendered.  One gender is chosen here to simplify the visual representation, not to imply a preference or hierarchy."
         >
           Gender, male
         </th>
         <th
           style={
             Object {
+              "cursor": "help",
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
+              "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
             }
           }
+          title="Students whose are enrolled in the free or reduced lunch program"
         >
           Low income
         </th>
         <th
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <th
+          style={
+            Object {
+              "cursor": "help",
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
+              "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
             }
           }
+          title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile."
         >
           Discipline, 3+
         </th>
         <th
           style={
             Object {
+              "cursor": "help",
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
+              "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
             }
           }
+          title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score."
         >
           STAR Math
         </th>
         <th
           style={
             Object {
+              "cursor": "help",
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
+              "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
             }
           }
+          title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score."
         >
           STAR Reading
         </th>
@@ -143,6 +185,13 @@ exports[`snapshots 1`] = `
         >
           Not placed
         </td>
+        <th
+          style={
+            Object {
+              "width": 1,
+            }
+          }
+        />
         <td
           style={
             Object {
@@ -160,7 +209,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -223,7 +272,77 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
+                "marginBottom": 1,
+                "paddingTop": 5,
+                "position": "relative",
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "rgb(137, 175, 202)",
+                    "height": 3,
+                    "left": "0%",
+                    "position": "absolute",
+                    "width": "0%",
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 10,
+                    "height": "100%",
+                    "justifyContent": "flex-end",
+                    "left": 12,
+                    "position": "relative",
+                    "top": -5,
+                    "width": "0%",
+                  }
+                }
+              >
+                 
+              </div>
+            </div>
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "width": 1,
+            }
+          }
+        />
+        <td
+          style={
+            Object {
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "overflow": "hidden",
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "color": "black",
+                "cursor": "default",
+                "display": "inline-block",
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -286,7 +405,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -335,66 +454,10 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
+              "width": 1,
             }
           }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 18,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "0%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 10,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 12,
-                    "position": "relative",
-                    "top": -5,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
-            </div>
-          </div>
-        </td>
+        />
         <td
           style={
             Object {
@@ -412,7 +475,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -499,6 +562,13 @@ exports[`snapshots 1`] = `
         >
           Room A
         </td>
+        <th
+          style={
+            Object {
+              "width": 1,
+            }
+          }
+        />
         <td
           style={
             Object {
@@ -516,7 +586,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -587,7 +657,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -644,6 +714,13 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <td
+          style={
+            Object {
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
@@ -658,7 +735,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -729,7 +806,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -786,6 +863,13 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <td
+          style={
+            Object {
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
@@ -800,7 +884,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1063,6 +1147,13 @@ exports[`snapshots 1`] = `
         >
           Room B
         </td>
+        <th
+          style={
+            Object {
+              "width": 1,
+            }
+          }
+        />
         <td
           style={
             Object {
@@ -1080,7 +1171,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1151,7 +1242,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1208,6 +1299,13 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <td
+          style={
+            Object {
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
@@ -1222,7 +1320,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1293,7 +1391,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1350,6 +1448,13 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <td
+          style={
+            Object {
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
@@ -1364,7 +1469,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1635,6 +1740,13 @@ exports[`snapshots 1`] = `
         >
           Room C
         </td>
+        <th
+          style={
+            Object {
+              "width": 1,
+            }
+          }
+        />
         <td
           style={
             Object {
@@ -1652,7 +1764,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1723,7 +1835,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1780,6 +1892,13 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <td
+          style={
+            Object {
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
@@ -1794,7 +1913,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1865,7 +1984,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -1922,6 +2041,13 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <td
+          style={
+            Object {
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
@@ -1936,7 +2062,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -2199,6 +2325,13 @@ exports[`snapshots 1`] = `
         >
           Room D
         </td>
+        <th
+          style={
+            Object {
+              "width": 1,
+            }
+          }
+        />
         <td
           style={
             Object {
@@ -2216,7 +2349,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -2287,7 +2420,85 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
+                "marginBottom": 1,
+                "paddingTop": 5,
+                "position": "relative",
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "backgroundColor": "rgb(137, 175, 202)",
+                    "height": 3,
+                    "left": "0%",
+                    "position": "absolute",
+                    "width": "28%",
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "alignItems": "flex-end",
+                    "display": "flex",
+                    "fontSize": 10,
+                    "height": "100%",
+                    "justifyContent": "flex-end",
+                    "left": 12,
+                    "position": "relative",
+                    "top": -5,
+                    "width": "28%",
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#333",
+                    }
+                  }
+                >
+                  6
+                </span>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "width": 1,
+            }
+          }
+        />
+        <td
+          style={
+            Object {
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "overflow": "hidden",
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "color": "black",
+                "cursor": "default",
+                "display": "inline-block",
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -2358,78 +2569,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "28%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 10,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 12,
-                    "position": "relative",
-                    "top": -5,
-                    "width": "28%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  6
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontSize": 12,
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",
@@ -2486,6 +2626,13 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
+              "width": 1,
+            }
+          }
+        />
+        <td
+          style={
+            Object {
               "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
@@ -2500,7 +2647,7 @@ exports[`snapshots 1`] = `
                 "color": "black",
                 "cursor": "default",
                 "display": "inline-block",
-                "height": 18,
+                "height": 20,
                 "marginBottom": 1,
                 "paddingTop": 5,
                 "position": "relative",

@@ -70,6 +70,7 @@ export default class ClassroomListCreatorPage extends React.Component {
     this.doReplaceState();
     window.addEventListener('beforeunload', this.onBeforeUnload);
     this.triggerFetches();
+    this.installDebugHook();
   }
 
   componentDidUpdate() {
@@ -80,6 +81,12 @@ export default class ClassroomListCreatorPage extends React.Component {
   componentWillUnmount() {
     if (this.doSaveChanges.flush) this.doSaveChanges.flush(); // flush any queued changes
     window.removeEventListener('beforeunload', this.onBeforeUnload);
+  }
+
+  // This is a debug hook for iterating on particular production data sets locally
+  // during development.
+  installDebugHook() {
+    window.forceDebug = this.onForceDebug.bind(this);
   }
 
   doSizePage() {
@@ -202,6 +209,11 @@ export default class ClassroomListCreatorPage extends React.Component {
     return (isDirty)
       ? 'You have unsaved changes.'
       : undefined;
+  }
+
+  onForceDebug(nextState) {
+    const {gradeLevelNextYear, students, studentIdsByRoom} = nextState;
+    this.setState({gradeLevelNextYear, students, studentIdsByRoom, stepIndex: 2});
   }
 
   onFetchedGradeLevels(json) {

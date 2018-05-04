@@ -2,6 +2,7 @@ import React from 'react';
 import {Draggable} from 'react-beautiful-dnd';
 import Modal from 'react-modal';
 import MoreDots from '../components/MoreDots';
+import Hover from '../components/Hover';
 import InlineStudentProfile from './InlineStudentProfile';
 
 
@@ -35,16 +36,32 @@ export default class SimpleStudentCard extends React.Component {
             <div>
               {this.renderModal()}
               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                <div style={styles.studentCard} onClick={this.onClick}>
-                  <span>{student.first_name} {student.last_name}</span>
-                  <MoreDots />
-                </div>
+                {this.renderStudentCard(student)}
               </div>
               {provided.placeholder /* this preserves space when dragging */}
             </div>
           );
         }}
       </Draggable>
+    );
+  }
+
+  renderStudentCard(student) {
+    return (
+      <Hover>
+        {isHovering => {
+          const style = {
+            ...styles.studentCard,
+            ...(isHovering ? styles.hovering : {})
+          };
+          return (
+            <div style={style} onClick={this.onClick}>
+              <span>{student.first_name} {student.last_name}</span>
+              <MoreDots />
+            </div>
+          );
+        }}
+      </Hover>
     );
   }
 
@@ -55,7 +72,7 @@ export default class SimpleStudentCard extends React.Component {
       <Modal
         style={{
           overlay: styles.modalOverlay,
-          context: styles.modalContent
+          content: styles.modalContent
         }}
         isOpen={modalIsOpen}
         onRequestClose={this.onClose}
@@ -83,14 +100,17 @@ const styles = {
     padding: 6,
     cursor: 'pointer',
     borderRadius: 3,
-    background: 'white'
+    backgroundColor: 'white'
+  },
+  hovering: {
+    
   },
   modalOverlay: {
     backgroundColor: 'rgba(128, 128, 128, 0.75)'
   },
   modalContent: {
-    left: 180,
-    right: 180,
+    left: 200,
+    right: 200,
     padding: 0
   }
 };

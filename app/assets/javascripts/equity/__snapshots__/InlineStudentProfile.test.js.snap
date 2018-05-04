@@ -104,16 +104,8 @@ exports[`snapshots 1`] = `
             Learning English
           </div>
           <div>
-            Learning English: 
-            Fluent
-          </div>
-          <div>
             ACCESS Composite: 
             1
-          </div>
-          <div>
-            Home language: 
-            Portuguese
           </div>
         </div>
       </div>
@@ -269,7 +261,13 @@ exports[`snapshots 1`] = `
     <div
       style={Object {}}
     >
-      <div>
+      <div
+        style={
+          Object {
+            "paddingTop": 20,
+          }
+        }
+      >
         <div
           className="SectionHeading"
           style={
