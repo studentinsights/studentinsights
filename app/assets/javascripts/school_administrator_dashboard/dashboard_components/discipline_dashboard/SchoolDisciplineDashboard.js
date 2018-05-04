@@ -70,6 +70,7 @@ class SchoolDisciplineDashboard extends React.Component {
     case 'time': return this.sortedTimes(chartKeys);
     case 'day': return this.sortedDays(chartKeys);
     case 'grade': return this.sortedGrades(chartKeys);
+    case 'classroom': return this.sortedClassrooms(chartKeys);
     default: return chartKeys;
     }
   }
@@ -90,6 +91,15 @@ class SchoolDisciplineDashboard extends React.Component {
   sortedGrades(chartKeys) {
     return chartKeys.sort((a,b) => sortByGrade(a,b));
 
+  }
+
+  sortedClassrooms(chartKeys) {
+    if(this.state.selectedChart == 'classroom') { //should always be true when this method is called
+      const chart = this.getChartData(this.state.selectedChart);
+      return chartKeys.sort((a,b) => {
+          return chart.disciplineIncidents[a] - chart.disciplineIncidents[b];
+      });
+    } else return chartKeys.sort(); //if for some reason called without classroom selection
   }
 
   render() {
@@ -210,9 +220,9 @@ const styles = {
     marginTop: '20px'
   },
   titleText: {
-    alignSelf: 'flex-end',
     fontSize: '18px',
-    marginRight: '10px'
+    marginRight: '10px',
+    alignSelf: 'center'
   },
   dropdown: {
     width: '200px'
