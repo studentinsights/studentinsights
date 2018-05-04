@@ -26,7 +26,8 @@ export default class Stack extends React.Component {
           }
           return (
             <div
-              key={key === undefined ? index : key}>
+              key={key === undefined ? index : key}
+              style={{width: '100%'}}>
               <div style={{
                 position: 'absolute',
                 left: toScreen(sum),

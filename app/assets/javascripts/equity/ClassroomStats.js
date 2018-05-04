@@ -35,8 +35,8 @@ export default class ClassroomStats extends React.Component {
           <thead>
             <tr>
               <th style={styles.cell}></th>
-              <th style={styles.cell}>Disability</th>
-              <th style={styles.cell}>Limited English</th>
+              <th style={styles.cell}>IEP or 504</th>
+              <th style={styles.cell}>Limited or FLEP</th>
               <th style={styles.cell}>Gender (male)</th>
               <th style={styles.cell}>Low income</th>
               <th style={styles.cell}>Discipline (>=3)</th>
@@ -50,7 +50,7 @@ export default class ClassroomStats extends React.Component {
               return (
                 <tr key={room.roomKey}>
                   <td style={styles.cell}>{room.roomName}</td>
-                  <td style={styles.cell}>{this.renderDisability(room)}</td>
+                  <td style={styles.cell}>{this.renderIepOr504(room)}</td>
                   <td style={styles.cell}>{this.renderEnglishLearners(room)}</td>
                   <td style={styles.cell}>{this.renderGender(room)}</td>
                   <td style={styles.cell}>{this.renderLowIncome(room)}</td>
@@ -92,7 +92,7 @@ export default class ClassroomStats extends React.Component {
     const count = this.studentsInRoom(room).filter(student => {
       return (student.most_recent_school_year_discipline_incidents_count >= 3);
     }).length;
-    return this.renderStack([{ count, color: '#999' }]);
+    return this.renderStackSimple(count);
   }
 
   renderDibelsBreakdown(room) {
@@ -128,48 +128,105 @@ export default class ClassroomStats extends React.Component {
 
   renderGender(room) {
     const count = this.studentsInRoom(room).filter(student => student.gender === 'M').length;
-    return this.renderStack([{ count, color: '#999' }]);
+    return this.renderStackSimple(count);
   }
 
   renderLowIncome(room) {
     const count = this.studentsInRoom(room).filter(student => {
       return ['Free Lunch', 'Reduced Lunch'].indexOf(student.free_reduced_lunch) !== -1;
     }).length;
-    return this.renderStack([{ count, color: '#999' }]);
+    return this.renderStackSimple(count);
+  }
+
+  renderIepOr504(room) {
+    const count = this.studentsInRoom(room).filter(student => {
+      return (student.disability !== null || student.plan_504 !== 'Not 504');
+    }).length;
+    return this.renderStackSimple(count);
   }
 
   renderDisability(room) {
     const count = this.studentsInRoom(room).filter(student => student.disability !== null).length;
-    return this.renderStack([{ count, color: '#999' }]);
+    return this.renderStackSimple(count);
   }
 
   renderEnglishLearners(room) {
     const limitedCount = this.studentsInRoom(room).filter(student => student.limited_english_proficiency === 'Limited').length;
     const flepCount = this.studentsInRoom(room).filter(student => student.limited_english_proficiency === 'FLEP').length;
-    
-    return this.renderStack([
-      { count: limitedCount, color: '#999', key: 'limited' },
-      { count: flepCount, color: '#ccc', key: 'flep' }
-    ]);
+    return this.renderStackSimple(limitedCount + flepCount);
+
+    // const stacks = [
+    //   { count: limitedCount, color: '#999', key: 'limited' },
+    //   { count: flepCount, color: '#ccc', key: 'flep' }
+    // ];
+    // return this.renderStackReal(stacks, {
+    //   labelStyle: {
+    //     width: 'auto'
+    //   },
+    //   labelFn(count, stack, index) {
+    //     if (count === 0 || index !== 1) return '\u00A0';
+    //     return (
+    //        <span style={{position: 'relative', top: -8, paddingLeft: 15, color: 'red', opacity: 1.0}}>{limitedCount} + {flepCount}</span>
+    //     );
+
+
+    //     //       <span> + </span>
+    //     //       <span style={{color: stack.color, opacity: 0.8}}>{flepCount}</span>
+    //       // : <span style={{color: 'red', opacity: 1.0}}>{limitedCount} + {flepCount}</span>
+
+
+
+    //     //       <span> + </span>
+    //     //       <span style={{color: stack.color, opacity: 0.8}}>{flepCount}</span>
+
+
+    //                   // : <span style={{color: stack.color, opacity: 0.8}}>{count}</span>;
+
+    //     // return (count === 0 || index < stacks.length - 1)
+    //     //   ? '\u00A0'
+    //     //   : <span style={{
+    //     //     // position: 'relative',
+    //     //     // top: -5,
+    //     //     // left: 12
+    //     //   }}>
+    //     //       <span style={{color: 'red', opacity: 1.0}}>{limitedCount} + {flepCount}</span>
+    //     //       <span> + </span>
+    //     //       <span style={{color: stack.color, opacity: 0.8}}>{flepCount}</span>
+    //     //     </span>;
+    //   }
+    // });
   }
 
-  renderStack(stacks) {
+  renderStackSimple(count) {
+    const stacks = [{ count, color: '#aaa' }];
+    return this.renderStackReal(stacks, {
+      labelStyle: {
+        position: 'relative',
+        top: -5,
+        left: 12
+      }
+    });
+  }
+
+  renderStackReal(stacks, options = {}) {
     const magicScale = (this.props.students.length / this.props.rooms.length) * 1.5; // multiplier of even split
     return (
       <Stack
         stacks={stacks}
-        style={{paddingTop: 3, height: 17}}
-        barStyle={{height: 2}} 
+        style={{paddingTop: 5, height: 10, marginBottom: 1}}
+        barStyle={{height: 3}} 
         labelStyle={{
-          fontSize: 12,
+          fontSize: 10,
           display: 'flex',
-          alignItems: 'flex-end'
+          alignItems: 'flex-end',
+          justifyContent: 'flex-end',
+          ...(options.labelStyle || {})
         }}
         scaleFn={count => count / magicScale}
-        labelFn={(count, stack, index) => {
-          return (count === 0)
-            ? null
-            : <span style={{color: stack.color, opacity: 0.7}}>{count}</span>;
+        labelFn={options.labelFn || function(count, stack, index) {
+          if (count === 0) return '\u00A0';
+          const color = (count / magicScale > 1) ? 'red' : '#333';
+          return <span style={{color}}>{count}</span>;
         }} />
     );
   }
@@ -211,7 +268,8 @@ const styles = {
     textAlign: 'left',
     fontWeight: 'normal',
     fontSize: 12,
-    verticalAlign: 'top'
+    verticalAlign: 'top',
+    overflow: 'hidden'
   },
   barStyle: {
     background: 'white',

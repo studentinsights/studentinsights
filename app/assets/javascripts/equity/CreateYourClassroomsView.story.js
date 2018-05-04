@@ -9,6 +9,9 @@ import {testProps} from './CreateYourClassroomsView.test';
 
 
 storiesOf('equity/CreateYourClassroomsView', module) // eslint-disable-line no-undef
+  .add("Next 2rd grade, empty", () => {
+    return testRender(testProps({ forceUnplaced: true }));
+  })
   .add("Next 2rd grade", () => {
     return testRender(testProps());
   })
@@ -34,10 +37,12 @@ function testRender(props = {}) {
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    const {classroomsCount, students} = props;
+    const {classroomsCount, students, forceUnplaced} = props;
     const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students, {
       placementFn(studentIdsByRoom, student) {
-        return _.sample(Object.keys(studentIdsByRoom));
+        return (forceUnplaced)
+          ? 'room:unplaced'
+          : _.sample(Object.keys(studentIdsByRoom));
       }
     });
 
@@ -60,5 +65,6 @@ class Container extends React.Component {
 }
 Container.propTypes = {
   classroomsCount: React.PropTypes.number.isRequired,
-  students: React.PropTypes.array.isRequired
+  students: React.PropTypes.array.isRequired,
+  forceUnplaced: React.PropTypes.bool
 };
