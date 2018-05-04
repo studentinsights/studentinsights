@@ -97,7 +97,7 @@ class SchoolDisciplineDashboard extends React.Component {
     if(this.state.selectedChart == 'classroom') { //should always be true when this method is called
       const chart = this.getChartData(this.state.selectedChart);
       return chartKeys.sort((a,b) => {
-          return chart.disciplineIncidents[a] - chart.disciplineIncidents[b];
+        return chart.disciplineIncidents[a] - chart.disciplineIncidents[b];
       });
     } else return chartKeys.sort(); //if for some reason called without classroom selection
   }
