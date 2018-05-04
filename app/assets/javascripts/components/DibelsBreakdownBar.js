@@ -7,7 +7,7 @@ export default function DibelsBreakdownBar(props) {
   const totalCount = coreCount + strategicCount + intensiveCount;
   const opacity = 0.5;
   const fontSize = 10;
-  const scale = (value) => `${Math.round(100 * value)}%`;
+  const scale = (value) => `${Math.ceil(100 * value)}%`;
 
   if (totalCount === 0) return null;
   return (
@@ -44,14 +44,14 @@ export default function DibelsBreakdownBar(props) {
         {coreCount > 0 && 
           <div style={{
             position: 'absolute',
-            textAlign: 'left',
+            textAlign: 'right',
             opacity,
             fontSize,
             left: scale(0),
             width: scale(coreCount / totalCount),
             top: height/2  + 1, // padding
             color: 'green'
-          }}>{Math.round(100 * coreCount / totalCount)}%</div>}
+          }}>{coreCount}</div>}
       </div>
     </div>
   );
