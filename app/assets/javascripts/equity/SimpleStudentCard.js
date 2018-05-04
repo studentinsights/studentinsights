@@ -19,10 +19,12 @@ export default class SimpleStudentCard extends React.Component {
     this.onClose = this.onClose.bind(this);
   }
 
+  // This is an optimization that in particular is trying to avoid
+  // unnecessary renders of <Draggable />.
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.index !== nextProps.index) return false;
-    if (this.state.modalIsOpen !== nextProps.modalIsOpen) return false;
-    return true;
+    if (this.props.index !== nextProps.index) return true;
+    if (this.state.modalIsOpen !== nextState.modalIsOpen) return true;
+    return false;
   }
 
   onClick() {
