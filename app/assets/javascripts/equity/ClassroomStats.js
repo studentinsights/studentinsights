@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import Bar from '../components/Bar';
+import Stack from '../components/Stack';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
@@ -12,6 +13,14 @@ export default class ClassroomStats extends React.Component {
   studentsInRoom(room) {
     const {students, studentIdsByRoom} = this.props;
     return studentsInRoom(students, studentIdsByRoom, room.roomKey);
+  }
+
+  percentageInRoom(room, filterFn) {
+    const students = this.studentsInRoom(room);
+    const count = students.filter(filterFn).length;
+    return count === 0
+      ? 0 
+      : Math.round(100 * count / students.length);
   }
 
   render() {
@@ -29,7 +38,6 @@ export default class ClassroomStats extends React.Component {
               <th style={styles.cell}>Disability</th>
               <th style={styles.cell}>Limited English</th>
               <th style={styles.cell}>Gender (male)</th>
-              <th style={styles.cell}>Students of color</th>
               <th style={styles.cell}>Low income</th>
               <th style={styles.cell}>Discipline (>=3)</th>
               {showDibels && <th style={styles.cell}>Dibels CORE</th>}
@@ -45,7 +53,6 @@ export default class ClassroomStats extends React.Component {
                   <td style={styles.cell}>{this.renderDisability(room)}</td>
                   <td style={styles.cell}>{this.renderEnglishLearners(room)}</td>
                   <td style={styles.cell}>{this.renderGender(room)}</td>
-                  <td style={styles.cell}>{this.renderStudentsOfColor(room)}</td>
                   <td style={styles.cell}>{this.renderLowIncome(room)}</td>
                   <td style={styles.cell}>{this.renderDiscipline(room)}</td>
                   {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(room)}</td>}
@@ -82,9 +89,10 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderDiscipline(room) {
-    return this.renderBarFor(room, student => {
+    const count = this.studentsInRoom(room).filter(student => {
       return (student.most_recent_school_year_discipline_incidents_count >= 3);
-    });
+    }).length;
+    return this.renderStack([{ count, color: '#999' }]);
   }
 
   renderDibelsBreakdown(room) {
@@ -118,30 +126,52 @@ export default class ClassroomStats extends React.Component {
     });
   }
 
-  renderStudentsOfColor(room) {
-    return this.renderBarFor(room, student => {
-      return student.hispanico_latino || student.race.indexOf('White') === -1;
-    });
-  }
-
   renderGender(room) {
-    return this.renderBarFor(room, student => {
-      return student.gender === 'M';
-    });
+    const count = this.studentsInRoom(room).filter(student => student.gender === 'M').length;
+    return this.renderStack([{ count, color: '#999' }]);
   }
 
   renderLowIncome(room) {
-    return this.renderBarFor(room, student => {
+    const count = this.studentsInRoom(room).filter(student => {
       return ['Free Lunch', 'Reduced Lunch'].indexOf(student.free_reduced_lunch) !== -1;
-    });
+    }).length;
+    return this.renderStack([{ count, color: '#999' }]);
   }
 
   renderDisability(room) {
-    return this.renderBarFor(room, student => student.disability !== null);
+    const count = this.studentsInRoom(room).filter(student => student.disability !== null).length;
+    return this.renderStack([{ count, color: '#999' }]);
   }
 
   renderEnglishLearners(room) {
-    return this.renderBarFor(room, student => student.limited_english_proficiency === 'Limited');
+    const limitedCount = this.studentsInRoom(room).filter(student => student.limited_english_proficiency === 'Limited').length;
+    const flepCount = this.studentsInRoom(room).filter(student => student.limited_english_proficiency === 'FLEP').length;
+    
+    return this.renderStack([
+      { count: limitedCount, color: '#999', key: 'limited' },
+      { count: flepCount, color: '#ccc', key: 'flep' }
+    ]);
+  }
+
+  renderStack(stacks) {
+    const magicScale = (this.props.students.length / this.props.rooms.length) * 1.5; // multiplier of even split
+    return (
+      <Stack
+        stacks={stacks}
+        style={{paddingTop: 3, height: 17}}
+        barStyle={{height: 2}} 
+        labelStyle={{
+          fontSize: 12,
+          display: 'flex',
+          alignItems: 'flex-end'
+        }}
+        scaleFn={count => count / magicScale}
+        labelFn={(count, stack, index) => {
+          return (count === 0)
+            ? null
+            : <span style={{color: stack.color, opacity: 0.7}}>{count}</span>;
+        }} />
+    );
   }
 
   renderBarFor(room, filterFn) {

@@ -13,6 +13,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/components/Circle.story.js');
   require('../../../app/assets/javascripts/components/DibelsBreakdownBar.story.js');
   require('../../../app/assets/javascripts/components/ReactSelect.story.js');
+  require('../../../app/assets/javascripts/components/Stack.story.js');
 
   // home
   require('../../../app/assets/javascripts/home/CheckStudentsWithHighAbsences.story.js');
@@ -40,4 +41,7 @@ function mockJestFns() {
   global.describe = function() {}
   global.beforeEach = function() {}
   global.it = function() {}
+  global.jest = {
+    fn() {}
+  };
 }
