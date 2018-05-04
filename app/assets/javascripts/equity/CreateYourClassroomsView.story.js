@@ -9,7 +9,7 @@ import {testProps} from './CreateYourClassroomsView.test';
 
 
 storiesOf('equity/CreateYourClassroomsView', module) // eslint-disable-line no-undef
-  .add("Next 2rd grade, empty", () => {
+  .add("empty", () => {
     return testRender(testProps({ forceUnplaced: true }));
   })
   .add("Next 2rd grade", () => {

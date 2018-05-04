@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import Bar from '../components/Bar';
 import Stack from '../components/Stack';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
@@ -37,9 +36,9 @@ export default class ClassroomStats extends React.Component {
               <th style={styles.cell}></th>
               <th style={styles.cell}>IEP or 504</th>
               <th style={styles.cell}>Limited or FLEP</th>
-              <th style={styles.cell}>Gender (male)</th>
+              <th style={styles.cell}>Gender, male</th>
               <th style={styles.cell}>Low income</th>
-              <th style={styles.cell}>Discipline (>=3)</th>
+              <th style={styles.cell}>Discipline, 3+</th>
               {showDibels && <th style={styles.cell}>Dibels CORE</th>}
               {showStar && <th style={styles.cell}>STAR Math</th>}
               {showStar && <th style={styles.cell}>STAR Reading</th>}
@@ -117,15 +116,6 @@ export default class ClassroomStats extends React.Component {
     );
   }
 
-  // If no score, consider them not core.
-  renderDibelsCore(room) {
-    return this.renderBarFor(room, student => {
-      return (student.latest_dibels)
-        ? student.latest_dibels.performance_level.toLowerCase().indexOf('core') !== -1
-        : false;
-    });
-  }
-
   renderGender(room) {
     const count = this.studentsInRoom(room).filter(student => student.gender === 'M').length;
     return this.renderStackSimple(count);
@@ -154,99 +144,40 @@ export default class ClassroomStats extends React.Component {
     const limitedCount = this.studentsInRoom(room).filter(student => student.limited_english_proficiency === 'Limited').length;
     const flepCount = this.studentsInRoom(room).filter(student => student.limited_english_proficiency === 'FLEP').length;
     return this.renderStackSimple(limitedCount + flepCount);
-
-    // const stacks = [
-    //   { count: limitedCount, color: '#999', key: 'limited' },
-    //   { count: flepCount, color: '#ccc', key: 'flep' }
-    // ];
-    // return this.renderStackReal(stacks, {
-    //   labelStyle: {
-    //     width: 'auto'
-    //   },
-    //   labelFn(count, stack, index) {
-    //     if (count === 0 || index !== 1) return '\u00A0';
-    //     return (
-    //        <span style={{position: 'relative', top: -8, paddingLeft: 15, color: 'red', opacity: 1.0}}>{limitedCount} + {flepCount}</span>
-    //     );
-
-
-    //     //       <span> + </span>
-    //     //       <span style={{color: stack.color, opacity: 0.8}}>{flepCount}</span>
-    //       // : <span style={{color: 'red', opacity: 1.0}}>{limitedCount} + {flepCount}</span>
-
-
-
-    //     //       <span> + </span>
-    //     //       <span style={{color: stack.color, opacity: 0.8}}>{flepCount}</span>
-
-
-    //                   // : <span style={{color: stack.color, opacity: 0.8}}>{count}</span>;
-
-    //     // return (count === 0 || index < stacks.length - 1)
-    //     //   ? '\u00A0'
-    //     //   : <span style={{
-    //     //     // position: 'relative',
-    //     //     // top: -5,
-    //     //     // left: 12
-    //     //   }}>
-    //     //       <span style={{color: 'red', opacity: 1.0}}>{limitedCount} + {flepCount}</span>
-    //     //       <span> + </span>
-    //     //       <span style={{color: stack.color, opacity: 0.8}}>{flepCount}</span>
-    //     //     </span>;
-    //   }
-    // });
   }
 
   renderStackSimple(count) {
-    const stacks = [{ count, color: '#aaa' }];
-    return this.renderStackReal(stacks, {
-      labelStyle: {
-        position: 'relative',
-        top: -5,
-        left: 12
-      }
-    });
-  }
+    const {students, rooms} = this.props;
+    const magicScale = (students.length / rooms.length) * 1.5; // multiplier over even split
+    const stacks = [{ count, color: 'rgb(137, 175, 202)' }];
 
-  renderStackReal(stacks, options = {}) {
-    const magicScale = (this.props.students.length / this.props.rooms.length) * 1.5; // multiplier of even split
     return (
       <Stack
         stacks={stacks}
-        style={{paddingTop: 5, height: 10, marginBottom: 1}}
-        barStyle={{height: 3}} 
+        style={{
+          paddingTop: 5,
+          height: 10,
+          marginBottom: 1
+        }}
+        barStyle={{
+          height: 3
+        }} 
         labelStyle={{
           fontSize: 10,
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'flex-end',
-          ...(options.labelStyle || {})
+          position: 'relative',
+          top: -5,
+          left: 12
         }}
         scaleFn={count => count / magicScale}
-        labelFn={options.labelFn || function(count, stack, index) {
+        labelFn={(count, stack, index) => {
           if (count === 0) return '\u00A0';
-          const color = (count / magicScale > 1) ? 'red' : '#333';
-          return <span style={{color}}>{count}</span>;
+          return <span style={{color: '#333'}}>{count}</span>;
         }} />
     );
   }
-
-  renderBarFor(room, filterFn) {
-    const students = this.studentsInRoom(room);
-    const count = students.filter(filterFn).length;
-    const percent = count === 0
-      ? 0 
-      : Math.round(100 * count / students.length);
-
-    return (
-      <Bar
-        percent={percent}
-        threshold={5}
-        style={styles.barStyle}
-        innerStyle={styles.barInnerStyle} />
-    );
-  }
-
 }
 ClassroomStats.propTypes = {
   students: React.PropTypes.array.isRequired,
