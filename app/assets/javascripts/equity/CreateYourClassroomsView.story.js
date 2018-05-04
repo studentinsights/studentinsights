@@ -1,10 +1,13 @@
 import React from 'react';
-import _ from 'lodash';
 import {storiesOf} from '@storybook/react';
 import storybookFrame from './storybookFrame';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import CreateYourClassroomsView from './CreateYourClassroomsView';
-import {initialStudentIdsByRoom} from './studentIdsByRoomFunctions';
+import {
+  UNPLACED_ROOM_KEY,
+  roomKeyFromIndex,
+  initialStudentIdsByRoom
+} from './studentIdsByRoomFunctions';
 import {testProps} from './CreateYourClassroomsView.test';
 
 
@@ -17,6 +20,7 @@ storiesOf('equity/CreateYourClassroomsView', module) // eslint-disable-line no-u
   })
   .add("Next 5th grade", () => {
     return testRender(testProps({
+      classroomsCount: 4,
       gradeLevelNextYear: '5'
     }));
   })
@@ -41,8 +45,8 @@ class Container extends React.Component {
     const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students, {
       placementFn(studentIdsByRoom, student) {
         return (forceUnplaced)
-          ? 'room:unplaced'
-          : _.sample(Object.keys(studentIdsByRoom));
+          ? UNPLACED_ROOM_KEY
+          : roomKeyFromIndex(JSON.stringify(student).length % classroomsCount);
       }
     });
 

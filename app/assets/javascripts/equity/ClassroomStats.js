@@ -29,7 +29,7 @@ export default class ClassroomStats extends React.Component {
     const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
     const showDibels = !showStar;
     return (
-      <div>
+      <div className="ClassroomStats" style={styles.root}>
         <table style={styles.table}>
           <thead>
             <tr>
@@ -156,7 +156,7 @@ export default class ClassroomStats extends React.Component {
         stacks={stacks}
         style={{
           paddingTop: 5,
-          height: 10,
+          height: 18,
           marginBottom: 1
         }}
         barStyle={{
@@ -187,13 +187,17 @@ ClassroomStats.propTypes = {
 };
 
 const styles = {
+  root: {
+    padding: 20,
+    paddingBottom: 15,
+    borderBottom: '1px solid #eee'
+  },
   table: {
     width: '100%',
     textAlign: 'left',
     fontSize: 12,
-    borderBottom: '1px solid #eee',
-    padding: 20,
-    tableLayout: 'fixed'
+    tableLayout: 'fixed',
+    borderCollapse: 'collapsed'
   },
   cell: { /* overridding some global CSS */
     textAlign: 'left',
