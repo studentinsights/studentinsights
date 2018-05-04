@@ -19,6 +19,12 @@ export default class SimpleStudentCard extends React.Component {
     this.onClose = this.onClose.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.index !== nextProps.index) return false;
+    if (this.state.modalIsOpen !== nextProps.modalIsOpen) return false;
+    return true;
+  }
+
   onClick() {
     this.setState({modalIsOpen: true});
   }
