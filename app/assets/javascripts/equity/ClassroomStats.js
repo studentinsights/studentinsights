@@ -34,14 +34,20 @@ export default class ClassroomStats extends React.Component {
           <thead>
             <tr>
               <th style={styles.cell}></th>
-              <th style={styles.cell}>IEP or 504</th>
-              <th style={styles.cell}>Limited or FLEP</th>
-              <th style={styles.cell}>Gender, male</th>
-              <th style={styles.cell}>Low income</th>
-              <th style={styles.cell}>Discipline, 3+</th>
-              {showDibels && <th style={styles.cell}>Dibels CORE</th>}
-              {showStar && <th style={styles.cell}>STAR Math</th>}
-              {showStar && <th style={styles.cell}>STAR Reading</th>}
+              <th style={styles.bar}></th>
+              <th style={{...styles.cell, ...styles.hover}} title="Students who have an IEP or 504 plan">IEP or 504</th>
+              <th style={{...styles.cell, ...styles.hover}} title="Students receiving English Learning Services or who have in the past (FLEP)">Limited or FLEP</th>
+              <th style={styles.bar}></th>
+              <th style={{...styles.cell, ...styles.hover}} title="Students who identify their gender as male and not female, nonbinary or transgendered.  One gender is chosen here to simplify the visual representation, not to imply a preference or hierarchy.">Gender, male</th>
+              <th style={{...styles.cell, ...styles.hover}} title="Students whose are enrolled in the free or reduced lunch program">Low income</th>
+              <th style={styles.bar}></th>
+              <th style={{...styles.cell, ...styles.hover}} title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile.">Discipline, 3+</th>
+              {showDibels &&
+                <th style={{...styles.cell, ...styles.hover}} title="Students' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Itensive (red)">Dibels CORE</th>}
+              {showStar &&
+                <th style={{...styles.cell, ...styles.hover}} title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score.">STAR Math</th>}
+              {showStar &&
+                <th style={{...styles.cell, ...styles.hover}} title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score.">STAR Reading</th>}
             </tr>
           </thead>
           <tbody>
@@ -49,10 +55,13 @@ export default class ClassroomStats extends React.Component {
               return (
                 <tr key={room.roomKey}>
                   <td style={styles.cell}>{room.roomName}</td>
+                  <th style={styles.bar}></th>
                   <td style={styles.cell}>{this.renderIepOr504(room)}</td>
                   <td style={styles.cell}>{this.renderEnglishLearners(room)}</td>
+                  <td style={styles.bar}></td>
                   <td style={styles.cell}>{this.renderGender(room)}</td>
                   <td style={styles.cell}>{this.renderLowIncome(room)}</td>
+                  <td style={styles.bar}></td>
                   <td style={styles.cell}>{this.renderDiscipline(room)}</td>
                   {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(room)}</td>}
                   {showStar && <td style={styles.cell}>{this.renderMath(room)}</td>}
@@ -156,7 +165,7 @@ export default class ClassroomStats extends React.Component {
         stacks={stacks}
         style={{
           paddingTop: 5,
-          height: 18,
+          height: 20,
           marginBottom: 1
         }}
         barStyle={{
@@ -197,7 +206,7 @@ const styles = {
     textAlign: 'left',
     fontSize: 12,
     tableLayout: 'fixed',
-    borderCollapse: 'collapsed'
+    borderCollapse: 'collapse'
   },
   cell: { /* overridding some global CSS */
     textAlign: 'left',
@@ -205,6 +214,13 @@ const styles = {
     fontSize: 12,
     verticalAlign: 'top',
     overflow: 'hidden'
+  },
+  hover: {
+    textDecoration: 'dashed #ccc underline',
+    cursor: 'help'
+  },
+  bar: {
+    width: 1
   },
   barStyle: {
     background: 'white',
