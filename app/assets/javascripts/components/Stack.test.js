@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import DibelsBreakdownBar from './DibelsBreakdownBar';
+import Stack from './Stack';
 
 
 export function testProps(props) {
   return {
-    coreCount: 7,
-    strategicCount: 3,
-    intensiveCount: 2,
-    height: 50,
-    labelTop: 55,
+    stacks: [
+      {count: 18, color: 'red'},
+      {count: 8, color: 'orange'}
+    ],
+    scaleFn(count) { return count / (18+8); },
+    labelFn(count) { return count; },
     ...props
   };
 }
@@ -18,13 +19,13 @@ export function testProps(props) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   const props = testProps();
-  ReactDOM.render(<DibelsBreakdownBar {...props} />, el);
+  ReactDOM.render(<Stack {...props} />, el);
 });
 
 it('snapshots', () => {
   const props = testProps();
   const tree = renderer
-    .create(<DibelsBreakdownBar {...props} />)
+    .create(<Stack {...props} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

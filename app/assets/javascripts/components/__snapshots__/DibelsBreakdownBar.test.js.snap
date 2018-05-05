@@ -44,7 +44,7 @@ exports[`snapshots 1`] = `
             "paddingRight": 1,
             "position": "absolute",
             "textAlign": "right",
-            "top": 26,
+            "top": 55,
             "width": "59%",
           }
         }
@@ -78,7 +78,7 @@ exports[`snapshots 1`] = `
             "paddingRight": 1,
             "position": "absolute",
             "textAlign": "right",
-            "top": 26,
+            "top": 55,
             "width": "25%",
           }
         }
@@ -112,7 +112,7 @@ exports[`snapshots 1`] = `
             "paddingRight": 1,
             "position": "absolute",
             "textAlign": "right",
-            "top": 26,
+            "top": 55,
             "width": "17%",
           }
         }
