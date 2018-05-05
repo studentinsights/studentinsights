@@ -18,6 +18,14 @@ export default class SimpleStudentCard extends React.Component {
     this.onClose = this.onClose.bind(this);
   }
 
+  // This is an optimization that in particular is trying to avoid
+  // unnecessary renders of <Draggable />.
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.index !== nextProps.index) return true;
+    if (this.state.modalIsOpen !== nextState.modalIsOpen) return true;
+    return false;
+  }
+
   onClick() {
     this.setState({modalIsOpen: true});
   }
@@ -35,16 +43,22 @@ export default class SimpleStudentCard extends React.Component {
             <div>
               {this.renderModal()}
               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                <div style={styles.studentCard} onClick={this.onClick}>
-                  <span>{student.first_name} {student.last_name}</span>
-                  <MoreDots />
-                </div>
+                {this.renderStudentCard(student)}
               </div>
               {provided.placeholder /* this preserves space when dragging */}
             </div>
           );
         }}
       </Draggable>
+    );
+  }
+
+  renderStudentCard(student) {
+    return (
+      <div style={styles.studentCard} onClick={this.onClick}>
+        <span>{student.first_name} {student.last_name}</span>
+        <MoreDots />
+      </div>
     );
   }
 
@@ -55,7 +69,7 @@ export default class SimpleStudentCard extends React.Component {
       <Modal
         style={{
           overlay: styles.modalOverlay,
-          context: styles.modalContent
+          content: styles.modalContent
         }}
         isOpen={modalIsOpen}
         onRequestClose={this.onClose}
@@ -83,14 +97,16 @@ const styles = {
     padding: 6,
     cursor: 'pointer',
     borderRadius: 3,
-    background: 'white'
+    backgroundColor: 'white'
   },
   modalOverlay: {
-    backgroundColor: 'rgba(128, 128, 128, 0.75)'
+    backgroundColor: 'rgba(128, 128, 128, 0.75)',
+    zIndex: 10
   },
   modalContent: {
-    left: 180,
-    right: 180,
-    padding: 0
+    left: 200,
+    right: 200,
+    padding: 0,
+    zIndex: 20
   }
 };

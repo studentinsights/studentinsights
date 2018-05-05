@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="DibelsBreakdownBar"
+  style={
+    Object {
+      "height": 50,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "height": 50,
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <div>
+      <div
+        style={
+          Object {
+            "background": "green",
+            "fontSize": 10,
+            "height": 50,
+            "left": "0%",
+            "opacity": 0.5,
+            "position": "absolute",
+            "width": "59%",
+          }
+        }
+      >
+         
+      </div>
+      <div
+        style={
+          Object {
+            "color": "green",
+            "fontSize": 10,
+            "left": "0%",
+            "opacity": 0.5,
+            "paddingRight": 1,
+            "position": "absolute",
+            "textAlign": "right",
+            "top": 55,
+            "width": "59%",
+          }
+        }
+      >
+        7
+      </div>
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "background": "orange",
+            "fontSize": 10,
+            "height": 50,
+            "left": "59%",
+            "opacity": 0.5,
+            "position": "absolute",
+            "width": "25%",
+          }
+        }
+      >
+         
+      </div>
+      <div
+        style={
+          Object {
+            "color": "orange",
+            "fontSize": 10,
+            "left": "59%",
+            "opacity": 0.5,
+            "paddingRight": 1,
+            "position": "absolute",
+            "textAlign": "right",
+            "top": 55,
+            "width": "25%",
+          }
+        }
+      >
+        3
+      </div>
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "background": "red",
+            "fontSize": 10,
+            "height": 50,
+            "left": "84%",
+            "opacity": 0.5,
+            "position": "absolute",
+            "width": "17%",
+          }
+        }
+      >
+         
+      </div>
+      <div
+        style={
+          Object {
+            "color": "red",
+            "fontSize": 10,
+            "left": "84%",
+            "opacity": 0.5,
+            "paddingRight": 1,
+            "position": "absolute",
+            "textAlign": "right",
+            "top": 55,
+            "width": "17%",
+          }
+        }
+      >
+        2
+      </div>
+    </div>
+  </div>
+</div>
+`;

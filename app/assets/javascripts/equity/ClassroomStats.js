@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import Bar from '../components/Bar';
+import Stack from '../components/Stack';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
@@ -9,6 +9,11 @@ import {studentsInRoom} from './studentIdsByRoomFunctions';
 // This component is written particularly for Somerville and it's likely this would require factoring out
 // into `PerDistrict` to respect the way this data is stored across districts.
 export default class ClassroomStats extends React.Component {
+  constructor(props) {
+    super(props);
+    this.renderLabelFn = this.renderLabelFn.bind(this);
+  }
+
   studentsInRoom(room) {
     const {students, studentIdsByRoom} = this.props;
     return studentsInRoom(students, studentIdsByRoom, room.roomKey);
@@ -21,36 +26,63 @@ export default class ClassroomStats extends React.Component {
     const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
     const showDibels = !showStar;
     return (
-      <div>
+      <div className="ClassroomStats" style={styles.root}>
         <table style={styles.table}>
           <thead>
             <tr>
               <th style={styles.cell}></th>
-              <th style={styles.cell}>Disability</th>
-              <th style={styles.cell}>Limited English</th>
-              <th style={styles.cell}>Gender (male)</th>
-              <th style={styles.cell}>Students of color</th>
-              <th style={styles.cell}>Low income</th>
-              <th style={styles.cell}>Discipline (>=3)</th>
-              {showDibels && <th style={styles.cell}>Dibels CORE</th>}
-              {showStar && <th style={styles.cell}>STAR Math</th>}
-              {showStar && <th style={styles.cell}>STAR Reading</th>}
+              <th style={styles.spacer}></th>
+              <th style={{...styles.cell, ...styles.heading}}
+                title="Students who have an IEP or 504 plan">IEP or 504</th>
+              <th style={{...styles.cell, ...styles.heading}}
+                title="Students receiving English Learning Services or who have in the past (FLEP)">Limited or FLEP</th>
+              <th style={styles.spacer}></th>
+              <th style={{...styles.cell, ...styles.heading}}
+                title="Students who identify their gender as male and not female, nonbinary or transgendered.  One gender is chosen here to simplify the visual representation, not to imply a preference or hierarchy.">
+                Gender, male</th>
+              <th style={{...styles.cell, ...styles.heading}}
+                title="Students whose are enrolled in the free or reduced lunch program">
+                Low income
+              </th>
+              <th style={styles.spacer}></th>
+              <th style={{...styles.cell, ...styles.heading}}
+                title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile.">
+                Discipline, 3+
+              </th>
+              {showDibels &&
+                <th style={{...styles.cell, ...styles.heading}}
+                  title="Students' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Itensive (red)">
+                  Dibels CORE
+                </th>}
+              {showStar &&
+                <th style={{...styles.cell, ...styles.heading}}
+                  title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score.">
+                  STAR Math
+                </th>}
+              {showStar &&
+                <th style={{...styles.cell, ...styles.heading}}
+                  title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score.">
+                  STAR Reading
+                </th>}
             </tr>
           </thead>
           <tbody>
             {rooms.map(room => {  
+              const studentsInRoom = this.studentsInRoom(room);
               return (
                 <tr key={room.roomKey}>
                   <td style={styles.cell}>{room.roomName}</td>
-                  <td style={styles.cell}>{this.renderDisability(room)}</td>
-                  <td style={styles.cell}>{this.renderEnglishLearners(room)}</td>
-                  <td style={styles.cell}>{this.renderGender(room)}</td>
-                  <td style={styles.cell}>{this.renderStudentsOfColor(room)}</td>
-                  <td style={styles.cell}>{this.renderLowIncome(room)}</td>
-                  <td style={styles.cell}>{this.renderDiscipline(room)}</td>
-                  {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(room)}</td>}
-                  {showStar && <td style={styles.cell}>{this.renderMath(room)}</td>}
-                  {showStar && <td style={styles.cell}>{this.renderReading(room)}</td>}
+                  <th style={styles.spacer}></th>
+                  <td style={styles.cell}>{this.renderIepOr504(studentsInRoom)}</td>
+                  <td style={styles.cell}>{this.renderEnglishLearners(studentsInRoom)}</td>
+                  <td style={styles.spacer}></td>
+                  <td style={styles.cell}>{this.renderGender(studentsInRoom)}</td>
+                  <td style={styles.cell}>{this.renderLowIncome(studentsInRoom)}</td>
+                  <td style={styles.spacer}></td>
+                  <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>
+                  {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(studentsInRoom)}</td>}
+                  {showStar && <td style={styles.cell}>{this.renderMath(studentsInRoom)}</td>}
+                  {showStar && <td style={styles.cell}>{this.renderReading(studentsInRoom)}</td>}
                 </tr>
               );
             })}
@@ -60,35 +92,41 @@ export default class ClassroomStats extends React.Component {
     );
   }
 
-  renderMath(room) {
-    return this.renderStar(room, student => student.most_recent_star_math_percentile);
+  renderIepOr504(studentsInRoom) {
+    const count = studentsInRoom.filter(student => {
+      return (student.disability !== null || student.plan_504 !== 'Not 504');
+    }).length;
+    return this.renderStackSimple(count);
   }
 
-
-  renderReading(room) {
-    return this.renderStar(room, student => student.most_recent_star_reading_percentile);
+  renderEnglishLearners(studentsInRoom) {
+    const count = studentsInRoom.filter(student => {
+      return ['Limited', 'FLEP'].indexOf(student.limited_english_proficiency !== -1);
+    }).length;
+    return this.renderStackSimple(count);
   }
 
-  renderStar(room, accessor) {
-    const students = this.studentsInRoom(room);
-    const values = _.compact(students.map(accessor));
-    return (
-      <div>
-        {(values.length === 0)
-          ? null
-          : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
-      </div>
-    );
+  renderGender(studentsInRoom) {
+    const count = studentsInRoom.filter(student => student.gender === 'M').length;
+    return this.renderStackSimple(count);
   }
 
-  renderDiscipline(room) {
-    return this.renderBarFor(room, student => {
+  renderLowIncome(studentsInRoom) {
+    const count = studentsInRoom.filter(student => {
+      return ['Free Lunch', 'Reduced Lunch'].indexOf(student.free_reduced_lunch) !== -1;
+    }).length;
+    return this.renderStackSimple(count);
+  }
+
+  renderDiscipline(studentsInRoom) {
+    const count = studentsInRoom.filter(student => {
       return (student.most_recent_school_year_discipline_incidents_count >= 3);
-    });
+    }).length;
+    return this.renderStackSimple(count);
   }
 
-  renderDibelsBreakdown(room) {
-    const students = this.studentsInRoom(room);
+  renderDibelsBreakdown(studentsInRoom) {
+    const students = studentsInRoom;
     const dibelsCounts = {
       strategic: 0,
       intensive: 0,
@@ -105,61 +143,55 @@ export default class ClassroomStats extends React.Component {
         coreCount={dibelsCounts.core}
         intensiveCount={dibelsCounts.intensive}
         strategicCount={dibelsCounts.strategic}
-        height={5} />
+        style={{paddingTop: 2}}
+        height={5}
+        labelTop={5} />
     );
   }
 
-  // If no score, consider them not core.
-  renderDibelsCore(room) {
-    return this.renderBarFor(room, student => {
-      return (student.latest_dibels)
-        ? student.latest_dibels.performance_level.toLowerCase().indexOf('core') !== -1
-        : false;
-    });
+  renderMath(studentsInRoom) {
+    return this.renderStar(studentsInRoom, student => student.most_recent_star_math_percentile);
   }
 
-  renderStudentsOfColor(room) {
-    return this.renderBarFor(room, student => {
-      return student.hispanico_latino || student.race.indexOf('White') === -1;
-    });
+
+  renderReading(studentsInRoom) {
+    return this.renderStar(studentsInRoom, student => student.most_recent_star_reading_percentile);
   }
 
-  renderGender(room) {
-    return this.renderBarFor(room, student => {
-      return student.gender === 'M';
-    });
-  }
-
-  renderLowIncome(room) {
-    return this.renderBarFor(room, student => {
-      return ['Free Lunch', 'Reduced Lunch'].indexOf(student.free_reduced_lunch) !== -1;
-    });
-  }
-
-  renderDisability(room) {
-    return this.renderBarFor(room, student => student.disability !== null);
-  }
-
-  renderEnglishLearners(room) {
-    return this.renderBarFor(room, student => student.limited_english_proficiency === 'Limited');
-  }
-
-  renderBarFor(room, filterFn) {
-    const students = this.studentsInRoom(room);
-    const count = students.filter(filterFn).length;
-    const percent = count === 0
-      ? 0 
-      : Math.round(100 * count / students.length);
-
+  renderStar(studentsInRoom, accessor) {
+    const values = _.compact(studentsInRoom.map(accessor));
     return (
-      <Bar
-        percent={percent}
-        threshold={5}
-        style={styles.barStyle}
-        innerStyle={styles.barInnerStyle} />
+      <div>
+        {(values.length === 0)
+          ? null
+          : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
+      </div>
     );
   }
 
+  // This uses <Stack /> in a way different than intended, where it only
+  // shows one bar, and positions the label to the right versus underneath.
+  renderStackSimple(count) {
+    const {students, rooms} = this.props;
+    
+    // tunable, this is a multiplier above the space an even split would take
+    const scaleTuningFactor = (students.length / rooms.length) * 1.5;
+    const stacks = [{ count, color: 'rgb(137, 175, 202)' }];
+    return (
+      <Stack
+        stacks={stacks}
+        style={styles.stackStyle}
+        barStyle={styles.stackBarStyle} 
+        labelStyle={styles.stackLabelStyle}
+        scaleFn={count => count / scaleTuningFactor}
+        labelFn={this.renderLabelFn} />
+    );
+  }
+
+  renderLabelFn(count, stack, index) {
+    if (count === 0) return '\u00A0';
+    return <span style={{color: '#333'}}>{count}</span>;
+  }
 }
 ClassroomStats.propTypes = {
   students: React.PropTypes.array.isRequired,
@@ -169,32 +201,50 @@ ClassroomStats.propTypes = {
 };
 
 const styles = {
+  root: {
+    padding: 20,
+    paddingBottom: 15,
+    borderBottom: '1px solid #eee'
+  },
   table: {
     width: '100%',
     textAlign: 'left',
     fontSize: 12,
-    borderBottom: '1px solid #eee',
-    padding: 20,
-    tableLayout: 'fixed'
+    tableLayout: 'fixed',
+    borderCollapse: 'collapse'
   },
   cell: { /* overridding some global CSS */
     textAlign: 'left',
     fontWeight: 'normal',
     fontSize: 12,
-    verticalAlign: 'top'
+    verticalAlign: 'top',
+    overflow: 'hidden'
   },
-  barStyle: {
-    background: 'white',
+  heading: {
+    textDecoration: 'dashed #ccc underline',
+    cursor: 'help',
+    paddingBottom: 5
+  },
+  spacer: {
+    width: 1
+  },
+  stackStyle: {
+    paddingTop: 5,
+    height: 20,
+    marginBottom: 1
+  },
+  stackBarStyle: {
+    height: 3
+  },
+  // Positions label to the right of bar
+  stackLabelStyle: {
     fontSize: 10,
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
     position: 'relative',
-    top: 4,
-    borderTop: '2px solid #999'
-  },
-  barInnerStyle:{
-    justifyContent: 'flex-start',
-    padding: 1,
-    paddingBottom: 3,
-    color: '#ccc'
+    top: -5,
+    left: 12
   }
 };
 

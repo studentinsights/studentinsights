@@ -25,7 +25,12 @@ export default class CreateYourClassroomsView extends React.Component {
   onDragEnd(dragEndResult) {
     const {onClassroomListsChanged, studentIdsByRoom} = this.props;
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
+
+    // Debugging hack
+    const before = performance.now();
     onClassroomListsChanged(updatedStudentIdsByRoom);
+    const after = performance.now();
+    document.querySelectorAll('.ClassroomStats tr th')[0].innerHTML = `${Math.round(after - before)}ms`;
   }
 
   render() {

@@ -18,7 +18,18 @@ export const STEPS = [
   'Submit to principal'
 ];
 
-// Entry point for grade-level teaching teams to create classroom lists.
+// Entry point for grade-level teaching teams to create classroom lists,
+// which creates a new client-side `balanceId`.
+export function ClassroomListCreatorPageEntryPoint({disableHistory}) {
+  return <ClassroomListCreatorPage
+    balanceId={uuidv4()}
+    disableHistory={disableHistory} />;
+}
+ClassroomListCreatorPageEntryPoint.propTypes = {
+  disableHistory: React.PropTypes.bool
+};
+
+// Root page component.
 // This component manages state transitions and hands off requests to the server
 // and rendering to other components.  On state changes, it saves to the server
 // with some throttling to prevent too much server communication.
@@ -27,7 +38,6 @@ export default class ClassroomListCreatorPage extends React.Component {
     super(props);
 
     this.state = {
-      balanceId: props.balanceId || uuidv4(),
       stepIndex: 0,
 
       // first
@@ -70,6 +80,7 @@ export default class ClassroomListCreatorPage extends React.Component {
     this.doReplaceState();
     window.addEventListener('beforeunload', this.onBeforeUnload);
     this.triggerFetches();
+    this.installDebugHook();
   }
 
   componentDidUpdate() {
@@ -82,13 +93,19 @@ export default class ClassroomListCreatorPage extends React.Component {
     window.removeEventListener('beforeunload', this.onBeforeUnload);
   }
 
+  // This is a debug hook for iterating on particular production data sets locally
+  // during development.
+  installDebugHook() {
+    window.forceDebug = this.onForceDebug.bind(this);
+  }
+
   doSizePage() {
     window.document.body.style['min-width'] = '1000px';
   }
   
   doReplaceState() {
-    const {balanceId} = this.state;
-    const path = `/balancing/${balanceId}`;
+    const {balanceId} = this.props;
+    const path = `/classlists/${balanceId}`;
     if (!this.props.disableHistory) {
       window.history.replaceState({}, null, path);
     }
@@ -96,8 +113,8 @@ export default class ClassroomListCreatorPage extends React.Component {
 
   // This method is throttled.
   doSaveChanges() {
+    const {balanceId} = this.props;
     const {
-      balanceId,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
@@ -155,12 +172,13 @@ export default class ClassroomListCreatorPage extends React.Component {
   }
 
   fetchGradeLevels() {
-    const {balanceId} = this.state;
+    const {balanceId} = this.props;
     return fetchGradeLevelsJson(balanceId);
   }
 
   fetchStudents() {
-    const {balanceId, gradeLevelNextYear, schoolId} = this.state;
+    const {balanceId} = this.props;
+    const {gradeLevelNextYear, schoolId} = this.state;
     return fetchStudentsJson({balanceId, gradeLevelNextYear, schoolId});
   }
 
@@ -202,6 +220,11 @@ export default class ClassroomListCreatorPage extends React.Component {
     return (isDirty)
       ? 'You have unsaved changes.'
       : undefined;
+  }
+
+  onForceDebug(nextState) {
+    const {gradeLevelNextYear, students, studentIdsByRoom} = nextState;
+    this.setState({gradeLevelNextYear, students, studentIdsByRoom, stepIndex: 2});
   }
 
   onFetchedGradeLevels(json) {
@@ -263,10 +286,12 @@ export default class ClassroomListCreatorPage extends React.Component {
   }
 
   render() {
+    const {balanceId} = this.props;
     const availableSteps = this.availableSteps();
     return (
       <ClassroomListCreatorWorkflow
         {...this.state}
+        balanceId={balanceId}
         steps={STEPS}
         availableSteps={availableSteps}
         onStepChanged={this.onStepChanged}
@@ -282,7 +307,7 @@ export default class ClassroomListCreatorPage extends React.Component {
   }
 }
 ClassroomListCreatorPage.propTypes = {
-  balanceId: React.PropTypes.string,
+  balanceId: React.PropTypes.string.isRequired,
   disableHistory: React.PropTypes.bool
 };
 

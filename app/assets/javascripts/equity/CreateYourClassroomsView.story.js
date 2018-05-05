@@ -1,19 +1,26 @@
 import React from 'react';
-import _ from 'lodash';
 import {storiesOf} from '@storybook/react';
 import storybookFrame from './storybookFrame';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import CreateYourClassroomsView from './CreateYourClassroomsView';
-import {initialStudentIdsByRoom} from './studentIdsByRoomFunctions';
+import {
+  UNPLACED_ROOM_KEY,
+  roomKeyFromIndex,
+  initialStudentIdsByRoom
+} from './studentIdsByRoomFunctions';
 import {testProps} from './CreateYourClassroomsView.test';
 
 
 storiesOf('equity/CreateYourClassroomsView', module) // eslint-disable-line no-undef
+  .add("empty", () => {
+    return testRender(testProps({ forceUnplaced: true }));
+  })
   .add("Next 2rd grade", () => {
     return testRender(testProps());
   })
   .add("Next 5th grade", () => {
     return testRender(testProps({
+      classroomsCount: 4,
       gradeLevelNextYear: '5'
     }));
   })
@@ -34,10 +41,12 @@ function testRender(props = {}) {
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    const {classroomsCount, students} = props;
+    const {classroomsCount, students, forceUnplaced} = props;
     const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students, {
       placementFn(studentIdsByRoom, student) {
-        return _.sample(Object.keys(studentIdsByRoom));
+        return (forceUnplaced)
+          ? UNPLACED_ROOM_KEY
+          : roomKeyFromIndex(JSON.stringify(student).length % classroomsCount);
       }
     });
 
@@ -60,5 +69,6 @@ class Container extends React.Component {
 }
 Container.propTypes = {
   classroomsCount: React.PropTypes.number.isRequired,
-  students: React.PropTypes.array.isRequired
+  students: React.PropTypes.array.isRequired,
+  forceUnplaced: React.PropTypes.bool
 };
