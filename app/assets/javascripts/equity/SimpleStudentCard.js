@@ -100,11 +100,13 @@ const styles = {
     backgroundColor: 'white'
   },
   modalOverlay: {
-    backgroundColor: 'rgba(128, 128, 128, 0.75)'
+    backgroundColor: 'rgba(128, 128, 128, 0.75)',
+    zIndex: 10
   },
   modalContent: {
     left: 200,
     right: 200,
-    padding: 0
+    padding: 0,
+    zIndex: 20
   }
 };

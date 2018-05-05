@@ -45,7 +45,7 @@ export function insertedInto(items, insertIndex, itemToInsert) {
 
 // Returns array with items swapped locations.
 export function reordered(items, fromIndex, toIndex) {
-  const result = Array.from(items);
+  const result = items.slice();
   const [removed] = result.splice(fromIndex, 1);
   result.splice(toIndex, 0, removed);
   return result;
