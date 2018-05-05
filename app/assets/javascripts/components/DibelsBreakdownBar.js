@@ -40,7 +40,7 @@ export default class DibelsBreakdownBar extends React.Component {
 
 
   renderBarAndLabel({left, width, color}) {
-    const {height} = this.props;
+    const {height, labelTop} = this.props;
     const opacity = 0.5;
     const fontSize = 10;
 
@@ -65,7 +65,7 @@ export default class DibelsBreakdownBar extends React.Component {
             textAlign: 'right',
             left: this.scale(left),
             width: this.scale(width),
-            top: height/2  + 1, // padding
+            top: labelTop,
             paddingRight: 1
           }}>{width}</div>}
       </div>
@@ -78,5 +78,6 @@ DibelsBreakdownBar.propTypes = {
   strategicCount: React.PropTypes.number.isRequired,
   intensiveCount: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
+  labelTop: React.PropTypes.number.isRequired,
   style: React.PropTypes.object
 };

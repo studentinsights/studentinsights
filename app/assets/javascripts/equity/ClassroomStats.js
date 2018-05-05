@@ -143,7 +143,8 @@ export default class ClassroomStats extends React.Component {
         coreCount={dibelsCounts.core}
         intensiveCount={dibelsCounts.intensive}
         strategicCount={dibelsCounts.strategic}
-        height={5} />
+        height={5}
+        labelTop={5} />
     );
   }
 
