@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   resources :sections, only: [:index, :show]
   resources :iep_documents, only: [:show]
 
-  resource :balancing, only: [] do
+  resource :classlists, only: [] do
     member do
       get '' => 'ui#ui'
       get '/:balance_id' => 'ui#ui'
