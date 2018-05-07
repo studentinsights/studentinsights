@@ -11,7 +11,7 @@ import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCo
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
-import ClassListCreatorPage, {ClassListCreatorPageEntryPoint} from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
+import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 

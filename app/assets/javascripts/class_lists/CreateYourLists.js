@@ -30,7 +30,8 @@ export default class CreateYourListsView extends React.Component {
     const before = performance.now();
     onClassListsChanged(updatedStudentIdsByRoom);
     const after = performance.now();
-    document.querySelectorAll('.ClassroomStats tr th')[0].innerHTML = `${Math.round(after - before)}ms`;
+    const el = _.last(document.querySelectorAll('.nav-options a'));
+    el.innerHTML = `(${Math.round(after - before)}ms)`;
   }
 
   render() {
