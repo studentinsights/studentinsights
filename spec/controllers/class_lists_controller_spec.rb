@@ -173,6 +173,7 @@ describe ClassListsController, :type => :controller do
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(json).to eq({
+        "is_editable"=>true,
         "class_list"=>{
           "workspace_id"=>"foo-workspace-id",
           "created_by_educator_id"=>pals.healey_sarah_teacher.id,
@@ -183,19 +184,38 @@ describe ClassListsController, :type => :controller do
       })
     end
 
-    it 'works for Uri' do
+    it 'works for Uri to read Sarah' do
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      request_class_list_json(pals.uri)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json['class_list']).not_to eq(nil)
+      expect(json['is_editable']).to eq false
+    end
+
+    it 'works for Laura to read Sarah' do
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      request_class_list_json(pals.uri)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json['class_list']).not_to eq(nil)
+      expect(json['is_editable']).to eq false
+    end
+
+    it 'does not allow fetching records outside of authorization' do
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      request_class_list_json(pals.west_marcus_teacher)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 403
+    end
+
+    it 'works for Uri to edit his own' do
       create_class_list_from(pals.uri, grade_level_next_year: '3')
       request_class_list_json(pals.uri)
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(json['class_list']).not_to eq(nil)
-    end
-
-    it 'does not allow fetching records by other educators' do
-      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
-      request_class_list_json(pals.west_marcus_teacher)
-      json = JSON.parse(response.body)
-      expect(response.status).to eq 403
+      expect(json['is_editable']).to eq true
     end
   end
 

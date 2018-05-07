@@ -80,12 +80,14 @@ class ClassListsController < ApplicationController
   def class_list_json
     params.require(:workspace_id)
     workspace_id = params[:workspace_id]
-    class_list = queries.authorized_class_list(workspace_id)
+    class_list = queries.read_authorized_class_list(workspace_id)
     raise Exceptions::EducatorNotAuthorized if class_list.nil?
 
+    is_editable = queries.is_authorized_for_writes?(workspace_id)
     class_list_json = serialize_class_list(class_list)
     render json: {
-      class_list: class_list_json
+      class_list: class_list_json,
+      is_editable: is_editable
     }
   end
 
@@ -104,6 +106,9 @@ class ClassListsController < ApplicationController
     # Check that they are authorized for grade level
     grade_level_now = GradeLevels.new.previous(grade_level_next_year)
     raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_grade_level_now?(school_id, grade_level_now)
+
+    # Check that they are authorized for writes
+    raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_writes?(workspace_id)
 
     # Write a new record
     class_list = ClassList.create!({
@@ -138,7 +143,7 @@ class ClassListsController < ApplicationController
 
     # Check that they gave a valid `workspace_id` and that it matches
     # the school and grade level for the student they're asking about.
-    class_list = queries.authorized_class_list(workspace_id)
+    class_list = queries.read_authorized_class_list(workspace_id)
     raise Exceptions::EducatorNotAuthorized if class_list.nil?
     raise Exceptions::EducatorNotAuthorized if class_list.school_id != student.school_id
     raise Exceptions::EducatorNotAuthorized if class_list.grade_level_next_year != GradeLevels.new.next(student.grade)

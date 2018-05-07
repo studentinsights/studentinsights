@@ -28,7 +28,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
   }
 
   render() {
-    const {steps, stepIndex, availableSteps, onStepChanged} = this.props;
+    const {steps, stepIndex, availableSteps, onStepChanged, isEditable} = this.props;
 
     return (
       <div className="ClassListCreatorView" style={styles.root}>
@@ -40,6 +40,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           renderFn={this.renderStepContents}
           style={styles.horizontalStepper}
           contentStyle={styles.horizontalStepperContent} />
+        {!isEditable && <div>readonly</div>}
       </div>
     );
   }
@@ -230,6 +231,7 @@ ClassListCreatorWorkflow.propTypes = {
   // config
   steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+  isEditable: React.PropTypes.bool.isRequired,
 
   // state
   stepIndex: React.PropTypes.number.isRequired,

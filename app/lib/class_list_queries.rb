@@ -32,24 +32,22 @@ class ClassListQueries
     })
   end
 
-  # This is authorization-aware, and it also only lets @educators read their own writes.
-  def authorized_class_list(workspace_id)
-    # Read only most recent own write
-    class_lists = ClassList
-      .order(created_at: :desc)
-      .limit(1)
-      .where({
-        workspace_id: workspace_id,
-        created_by_educator_id: @educator.id
-      })
-    return nil unless class_lists.size == 1
+  # This is authorization-aware and lets educators read writes for workspace where they
+  # have access to create their own list in that same grade level and school.
+  def read_authorized_class_list(workspace_id)
+    authorized_class_list(workspace_id).tap do |class_list|
+      class_list.readonly! unless class_list.nil?
+    end
+  end
 
-    # Check that educator is authorized for that grade level
-    class_list = class_lists.first
-    grade_level_now = GradeLevels.new.previous(class_list.grade_level_next_year)
-    return nil unless is_authorized_for_grade_level_now?(class_list.school_id, grade_level_now)
-
-    class_list
+  # Educators can only write to workspaces they created, or to create a new workspace.
+  def is_authorized_for_writes?(workspace_id)
+    class_list = authorized_class_list(workspace_id)
+    if class_list.nil?
+      true
+    else
+      class_list.created_by_educator_id == @educator.id
+    end
   end
 
   # This is intended only for use in this controller, and allows more people
@@ -74,5 +72,23 @@ class ClassListQueries
     return true if @educator.districtwide_access?
     return true if @educator.school_id == school_id
     false
+  end
+
+  private
+  def authorized_class_list(workspace_id, options = {})
+    class_lists = ClassList
+      .order(created_at: :desc)
+      .limit(1)
+      .where((options[:where] || {}).merge({
+        workspace_id: workspace_id
+      }))
+    return nil unless class_lists.size == 1
+
+    # Check that educator is authorized for that grade level
+    class_list = class_lists.first
+    grade_level_now = GradeLevels.new.previous(class_list.grade_level_next_year)
+    return nil unless is_authorized_for_grade_level_now?(class_list.school_id, grade_level_now)
+
+    class_list
   end
 end
