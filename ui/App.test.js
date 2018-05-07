@@ -6,9 +6,16 @@ import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
-import ClassroomListCreatorPage from '../app/assets/javascripts/classlists/ClassroomListCreatorPage';
+import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import {MemoryRouter} from 'react-router-dom';
 
+
+jest.mock('../app/assets/javascripts/home/HomePage');
+jest.mock('../app/assets/javascripts/educator/EducatorPage');
+jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
+jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader');
+jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
+jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
 
 function renderPath(path, options = {}) {
   const educator = options.educator || createSerializedDataEducator();
@@ -18,14 +25,6 @@ function renderPath(path, options = {}) {
     </MemoryRouter>
   );
 }
-
-
-jest.mock('../app/assets/javascripts/home/HomePage');
-jest.mock('../app/assets/javascripts/educator/EducatorPage');
-jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
-jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader');
-jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
-jest.mock('../app/assets/javascripts/classlists/ClassroomListCreatorPage');
 
 // For testing, which mirrors the output of ui_controller#ui on the
 // server.
@@ -85,7 +84,7 @@ it('renders district enrollment', () => {
 it('renders /classlists page', () => {
   const wrapper = mount(renderPath('/classlists/foo-id'));
   expect(wrapper.contains(
-    <ClassroomListCreatorPage workspaceId="foo-id" />
+    <ClassListCreatorPage workspaceId="foo-id" />
   )).toEqual(true);
 });
 

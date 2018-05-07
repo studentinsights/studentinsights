@@ -4,10 +4,10 @@ import {sortByGrade} from '../helpers/SortHelpers';
 import {
   fetchGradeLevelsJson,
   fetchStudentsJson,
-  postClassroomsForGrade
+  postClassList
 } from './api';
 import {initialStudentIdsByRoom, areAllStudentsPlaced} from './studentIdsByRoomFunctions';
-import ClassroomListCreatorWorkflow from './ClassroomListCreatorWorkflow';
+import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import uuidv4 from 'uuid/v4';
 
 export const STEPS = [
@@ -20,12 +20,12 @@ export const STEPS = [
 
 // Entry point for grade-level teaching teams to create classroom lists,
 // which creates a new client-side `workspaceId`.
-export function ClassroomListCreatorPageEntryPoint({disableHistory}) {
-  return <ClassroomListCreatorPage
+export function ClassListCreatorPageEntryPoint({disableHistory}) {
+  return <ClassListCreatorPage
     workspaceId={uuidv4()}
     disableHistory={disableHistory} />;
 }
-ClassroomListCreatorPageEntryPoint.propTypes = {
+ClassListCreatorPageEntryPoint.propTypes = {
   disableHistory: React.PropTypes.bool
 };
 
@@ -33,7 +33,7 @@ ClassroomListCreatorPageEntryPoint.propTypes = {
 // This component manages state transitions and hands off requests to the server
 // and rendering to other components.  On state changes, it saves to the server
 // with some throttling to prevent too much server communication.
-export default class ClassroomListCreatorPage extends React.Component {
+export default class ClassListCreatorPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -71,7 +71,7 @@ export default class ClassroomListCreatorPage extends React.Component {
     this.onClassroomsCountIncremented = this.onClassroomsCountIncremented.bind(this);
     this.onPlanTextChanged = this.onPlanTextChanged.bind(this);
     this.onEducatorsChanged = this.onEducatorsChanged.bind(this);
-    this.onClassroomListsChanged = this.onClassroomListsChanged.bind(this);
+    this.onClassListsChanged = this.onClassListsChanged.bind(this);
     this.onPrincipalNoteChanged = this.onPrincipalNoteChanged.bind(this);
   }
 
@@ -141,7 +141,7 @@ export default class ClassroomListCreatorPage extends React.Component {
       principalNotesText,
       clientNowMs: moment.utc().unix()
     };
-    postClassroomsForGrade(payload);
+    postClassList(payload);
   }
 
   // Trigger fetches and other initialization
@@ -163,7 +163,7 @@ export default class ClassroomListCreatorPage extends React.Component {
       this.fetchStudents().then(this.onFetchedStudents);
     }
 
-    // If we're navigating to `CreateYourClassrooms` for the first time and
+    // If we're navigating to `CreateYourLists` for the first time and
     // don't have classroom lists yet, create the default
     if (stepIndex == 2 && studentIdsByRoom === null) {
       const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students);
@@ -277,7 +277,7 @@ export default class ClassroomListCreatorPage extends React.Component {
     this.setState({planText});
   }
 
-  onClassroomListsChanged(studentIdsByRoom) {
+  onClassListsChanged(studentIdsByRoom) {
     this.setState({studentIdsByRoom});
   }
 
@@ -289,7 +289,7 @@ export default class ClassroomListCreatorPage extends React.Component {
     const {workspaceId} = this.props;
     const availableSteps = this.availableSteps();
     return (
-      <ClassroomListCreatorWorkflow
+      <ClassListCreatorWorkflow
         {...this.state}
         workspaceId={workspaceId}
         steps={STEPS}
@@ -300,13 +300,13 @@ export default class ClassroomListCreatorPage extends React.Component {
         onEducatorsChanged={this.onEducatorsChanged}
         onClassroomsCountIncremented={this.onClassroomsCountIncremented}
         onPlanTextChanged={this.onPlanTextChanged}
-        onClassroomListsChanged={this.onClassroomListsChanged}
+        onClassListsChanged={this.onClassListsChanged}
         onPrincipalNoteChanged={this.onPrincipalNoteChanged}
       />
     );
   }
 }
-ClassroomListCreatorPage.propTypes = {
+ClassListCreatorPage.propTypes = {
   workspaceId: React.PropTypes.string.isRequired,
   disableHistory: React.PropTypes.bool
 };

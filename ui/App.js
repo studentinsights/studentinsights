@@ -10,8 +10,8 @@ import DashboardLoader from '../app/assets/javascripts/school_administrator_dash
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
-import ExploreSchoolEquityPage from '../app/assets/javascripts/classlists/ExploreSchoolEquityPage';
-import ClassroomListCreatorPage, {ClassroomListCreatorPageEntryPoint} from '../app/assets/javascripts/classlists/ClassroomListCreatorPage';
+import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
+import ClassListCreatorPage, {ClassListCreatorPageEntryPoint} from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 
@@ -57,7 +57,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
           <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
-          <Route exact path="/classlists/:workspace_id?" render={this.renderClassroomListCreator.bind(this)}/>
+          <Route exact path="/classlists/:workspace_id?" render={this.renderClassListCreator.bind(this)}/>
           <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
@@ -80,12 +80,12 @@ class App extends React.Component {
     return <ExploreSchoolEquityPage schoolId={schoolId} />;
   }
 
-  renderClassroomListCreator(routeProps) {
+  renderClassListCreator(routeProps) {
     const workspaceId = routeProps.match.params.workspace_id;
     this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
     return (workspaceId)
-      ? <ClassroomListCreatorPage workspaceId={workspaceId} />
-      : <ClassroomListCreatorPageEntryPoint />;
+      ? <ClassListCreatorPage workspaceId={workspaceId} />
+      : <ClassListCreatorPageEntryPoint />;
   }
 
   renderSchoolCoursesPage(routeProps) {

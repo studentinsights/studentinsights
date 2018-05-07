@@ -20,8 +20,8 @@ export function fetchStudentsJson(options = {}) {
   return apiFetchJson(url);
 }
 
-// Post the state of the user's work
-export function postClassroomsForGrade(options = {}) {
+// Post the state of the user's workspace
+export function postClassList(options = {}) {
   const {
     workspaceId,
     stepIndex,

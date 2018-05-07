@@ -15,7 +15,7 @@ import {
 // This is the main UI for creating classroom lists.  It shows cards for each student,
 // lets the user drag them around to different classroom lists, shows summary statistics
 // comparing each room, and lets users click on students to see more.
-export default class CreateYourClassroomsView extends React.Component {
+export default class CreateYourListsView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,12 +23,12 @@ export default class CreateYourClassroomsView extends React.Component {
   }
 
   onDragEnd(dragEndResult) {
-    const {onClassroomListsChanged, studentIdsByRoom} = this.props;
+    const {onClassListsChanged, studentIdsByRoom} = this.props;
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
 
     // Debugging hack
     const before = performance.now();
-    onClassroomListsChanged(updatedStudentIdsByRoom);
+    onClassListsChanged(updatedStudentIdsByRoom);
     const after = performance.now();
     document.querySelectorAll('.ClassroomStats tr th')[0].innerHTML = `${Math.round(after - before)}ms`;
   }
@@ -38,7 +38,7 @@ export default class CreateYourClassroomsView extends React.Component {
     const rooms = createRooms(classroomsCount);
 
     return (
-      <div className="CreateYourClassroomsView" style={styles.root}>
+      <div className="CreateYourListsView" style={styles.root}>
         <ClassroomStats
           students={students}
           gradeLevelNextYear={gradeLevelNextYear}
@@ -83,13 +83,13 @@ export default class CreateYourClassroomsView extends React.Component {
       fetchProfile={fetchProfile} />;
   }
 }
-CreateYourClassroomsView.propTypes = {
+CreateYourListsView.propTypes = {
   classroomsCount: React.PropTypes.number.isRequired,
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   students: React.PropTypes.array.isRequired,
   studentIdsByRoom: React.PropTypes.object.isRequired,
   fetchProfile: React.PropTypes.func.isRequired,
-  onClassroomListsChanged: React.PropTypes.func.isRequired
+  onClassListsChanged: React.PropTypes.func.isRequired
 };
 
 

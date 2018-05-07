@@ -1,9 +1,9 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-import ClassroomListCreatorWorkflow from './ClassroomListCreatorWorkflow';
+import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import storybookFrame from './storybookFrame';
-import {STEPS} from './ClassroomListCreatorPage';
+import {STEPS} from './ClassListCreatorPage';
 
 
 function testProps(props = {}) {
@@ -36,17 +36,17 @@ function testProps(props = {}) {
     onEducatorsChanged: action('onEducatorsChanged'),
     onClassroomsCountIncremented: action('onClassroomsCountIncremented'),
     onPlanTextChanged: action('onPlanTextChanged'),
-    onClassroomListsChanged: action('onClassroomListsChanged'),
+    onClassListsChanged: action('onClassListsChanged'),
     onPrincipalNoteChanged: action('onPrincipalNoteChanged'),
     ...props
   };
 }
 
 function render(props) {
-  return storybookFrame(<ClassroomListCreatorWorkflow {...props} />);
+  return storybookFrame(<ClassListCreatorWorkflow {...props} />);
 }
 
-storiesOf('equity/ClassroomListCreatorWorkflow', module) // eslint-disable-line no-undef
+storiesOf('equity/ClassListCreatorWorkflow', module) // eslint-disable-line no-undef
   .add('step 0, no data', () => {
     return render(testProps({
       stepIndex: 0,

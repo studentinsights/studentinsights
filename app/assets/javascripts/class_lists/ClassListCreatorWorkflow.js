@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
-import CreateYourClassroomsView from './CreateYourClassroomsView';
+import CreateYourLists from './CreateYourLists';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import HorizontalStepper from './HorizontalStepper';
@@ -20,7 +20,7 @@ With our new grant from the Boston Foundation to expand the functionality of Ins
 // of creating classroom lists.  It tracks all changes and passes them up to callbacks,
 // and hands off to other UI components that handle stepping through the process
 // and screens for each step.
-export default class ClassroomListCreatorWorkflow extends React.Component {
+export default class ClassListCreatorWorkflow extends React.Component {
   constructor(props) {
     super(props);
 
@@ -31,7 +31,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
     const {steps, stepIndex, availableSteps, onStepChanged} = this.props;
 
     return (
-      <div className="ClassroomListCreatorView" style={styles.root}>
+      <div className="ClassListCreatorView" style={styles.root}>
         <HorizontalStepper
           steps={steps}
           availableSteps={availableSteps}
@@ -178,20 +178,20 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
       workspaceId,
       students,
       classroomsCount,
-      onClassroomListsChanged,
+      onClassListsChanged,
       studentIdsByRoom,
       gradeLevelNextYear
     } = this.props;
 
     if (studentIdsByRoom === null) return <Loading />;
     return (
-      <CreateYourClassroomsView
+      <CreateYourLists
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={studentIdsByRoom}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
-        onClassroomListsChanged={onClassroomListsChanged}/>
+        onClassListsChanged={onClassListsChanged}/>
     );
   }
 
@@ -220,7 +220,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
     );
   }
 }
-ClassroomListCreatorWorkflow.propTypes = {
+ClassListCreatorWorkflow.propTypes = {
   // server data
   schools: React.PropTypes.array,
   gradeLevelsNextYear: React.PropTypes.array,
@@ -249,7 +249,7 @@ ClassroomListCreatorWorkflow.propTypes = {
   onEducatorsChanged: React.PropTypes.func.isRequired,
   onClassroomsCountIncremented: React.PropTypes.func.isRequired,
   onPlanTextChanged: React.PropTypes.func.isRequired,
-  onClassroomListsChanged: React.PropTypes.func.isRequired,
+  onClassListsChanged: React.PropTypes.func.isRequired,
   onPrincipalNoteChanged: React.PropTypes.func.isRequired
 };
 
