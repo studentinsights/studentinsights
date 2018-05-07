@@ -61,7 +61,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       onSchoolIdChanged,
       onGradeLevelNextYearChanged
     } = this.props;
-    const videoUrl = 'https://www.youtube.com/watch?v=6hw3o6RzHek&t=2s';
+    const videoUrl = null;
 
     if (schools === null || gradeLevelsNextYear === null) return <Loading />;
     return (
@@ -71,7 +71,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           <div style={{fontSize: 12, padding: 10, paddingLeft: 5, whiteSpace: 'pre-wrap'}}>
             {text}
           </div>
-          <a href={videoUrl} target="_blank" style={styles.videoLink}>Watch the full video</a>
+          {videoUrl && <a href={videoUrl} target="_blank" style={styles.videoLink}>Watch the full video</a>}
         </div>
         <div>
           <div>
