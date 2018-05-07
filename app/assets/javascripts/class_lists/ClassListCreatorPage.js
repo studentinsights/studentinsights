@@ -73,13 +73,13 @@ export default class ClassListCreatorPage extends React.Component {
   componentDidMount() {
     this.doSizePage();
     window.addEventListener('beforeunload', this.onBeforeUnload);
-    this.doTriggerEffects();
+    this.triggerEffects();
     this.installDebugHook();
   }
 
   componentDidUpdate() {
     this.doSaveChanges();
-    this.doTriggerEffects();
+    this.triggerEffects();
   }
 
   componentWillUnmount() {
@@ -112,7 +112,7 @@ export default class ClassListCreatorPage extends React.Component {
   }
   
   // Trigger fetches and other initialization
-  doTriggerEffects() {
+  triggerEffects() {
     const {defaultWorkspaceId} = this.props;
     const {
       disableHistory,
@@ -128,14 +128,15 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom
     } = this.state;
     
+    
+    // Update URL (no state change)
+    if (workspaceId && window.location.pathname !== `/classlists/${workspaceId}` && !disableHistory) {
+      this.doReplaceState();
+    }
+
     // Assign workspaceId
     if (!workspaceId) {
       return this.setState({workspaceId: defaultWorkspaceId || uuidv4()});
-    }
-
-    // Update URL
-    if (window.location.pathname !== `/classlists/${workspaceId}` && !disableHistory) {
-      return this.doReplaceState();
     }
 
     // New classlist
