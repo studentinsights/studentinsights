@@ -30,7 +30,7 @@ export default class HorizontalStepper extends React.Component {
   }
 
   render() {
-    const {steps, availableSteps, renderFn, style, contentStyle} = this.props;
+    const {steps, availableSteps, isEditable, renderFn, style, contentStyle} = this.props;
     const currentStepIndex = this.props.stepIndex;
     return (
       <div className="HorizontalStepper" style={{...styles.root, ...style}}>
@@ -49,6 +49,7 @@ export default class HorizontalStepper extends React.Component {
               </span>
             );
           })}
+          {isEditable && <div>readonly</div>}
         </div>
         <div style={{...styles.content, ...contentStyle}}>
           {renderFn(currentStepIndex, steps[currentStepIndex])}
@@ -99,6 +100,7 @@ HorizontalStepper.propTypes = {
   availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   onStepChanged: React.PropTypes.func.isRequired,
+  isEditable: React.PropTypes.booel.isRequired,
   renderFn: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
   contentStyle: React.PropTypes.object
