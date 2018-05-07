@@ -133,6 +133,19 @@ describe ClassroomBalancingController, :type => :controller do
       expect(response.status).to eq 200
       expect(json["students"].length).to eq 0
     end
+
+    it 'filters out inactive students' do
+      inactive_student = FactoryBot.create(:student, {
+        grade: '2',
+        enrollment_status: 'Transferred',
+        school: pals.healey,
+        homeroom: pals.healey.homerooms.first
+      })
+      request_students_for_grade_level_next_year_json(pals.uri)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json["students"].map {|s| s['id'] }).not_to include(inactive_student.id)
+    end
   end
 
   describe '#classrooms_for_grade_json' do

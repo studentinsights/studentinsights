@@ -127,7 +127,10 @@ class ClassroomBalancingController < ApplicationController
     return [] unless is_authorized_for_grade_level?(educator, grade_level)
 
     # Query for those students (outside normal authorization rules)
-    Student.where(school_id: school_id, grade: grade_level)
+    Student.active.where({
+      school_id: school_id,
+      grade: grade_level
+    })
   end
 
   # Only let educators read their own writes
