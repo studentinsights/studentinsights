@@ -6,7 +6,7 @@ import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
-import ClassroomListCreatorPage from '../app/assets/javascripts/equity/ClassroomListCreatorPage';
+import ClassroomListCreatorPage from '../app/assets/javascripts/classlists/ClassroomListCreatorPage';
 import {MemoryRouter} from 'react-router-dom';
 
 
@@ -25,7 +25,7 @@ jest.mock('../app/assets/javascripts/educator/EducatorPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
 jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader');
 jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
-jest.mock('../app/assets/javascripts/equity/ClassroomListCreatorPage');
+jest.mock('../app/assets/javascripts/classlists/ClassroomListCreatorPage');
 
 // For testing, which mirrors the output of ui_controller#ui on the
 // server.

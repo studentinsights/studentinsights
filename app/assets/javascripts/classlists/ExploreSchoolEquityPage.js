@@ -2,7 +2,7 @@ import React from 'react';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import ExploreClassroomComparisons from '../equity/ExploreClassroomComparisons';
+import ExploreClassroomComparisons from './ExploreClassroomComparisons';
 
 // This is an internal-only page for exploring equity in classroom assignments for
 // the current classroom.  It's separate from the classroom balancing feature, but

@@ -20,11 +20,11 @@ Rails.application.routes.draw do
   get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
 
   # classroom list creator
-  get '/api/balancing/:balance_id/available_grade_levels_json' => 'classroom_balancing#available_grade_levels_json'
-  get '/api/balancing/:balance_id/students_for_grade_level_next_year_json' => 'classroom_balancing#students_for_grade_level_next_year_json'
-  post '/api/balancing/:balance_id/update_classrooms_for_grade_json' => 'classroom_balancing#update_classrooms_for_grade_json'
-  get '/api/balancing/:balance_id/classrooms_for_grade_json' => 'classroom_balancing#classrooms_for_grade_json'
-  get '/api/balancing/:balance_id/students/:student_id/profile_json' => 'classroom_balancing#profile_json'
+  get '/api/classlists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
+  get '/api/classlists/:workspace_id/students_for_grade_level_next_year_json' => 'class_lists#students_for_grade_level_next_year_json'
+  post '/api/classlists/:workspace_id/update_class_list_json' => 'class_lists#update_class_list_json'
+  get '/api/classlists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
+  get '/api/classlists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
 
   # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
@@ -81,7 +81,7 @@ Rails.application.routes.draw do
   resource :classlists, only: [] do
     member do
       get '' => 'ui#ui'
-      get '/:balance_id' => 'ui#ui'
+      get '/:workspace_id' => 'ui#ui'
     end
   end
 

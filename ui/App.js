@@ -10,8 +10,8 @@ import DashboardLoader from '../app/assets/javascripts/school_administrator_dash
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
-import ExploreSchoolEquityPage from '../app/assets/javascripts/equity/ExploreSchoolEquityPage';
-import ClassroomListCreatorPage, {ClassroomListCreatorPageEntryPoint} from '../app/assets/javascripts/equity/ClassroomListCreatorPage';
+import ExploreSchoolEquityPage from '../app/assets/javascripts/classlists/ExploreSchoolEquityPage';
+import ClassroomListCreatorPage, {ClassroomListCreatorPageEntryPoint} from '../app/assets/javascripts/classlists/ClassroomListCreatorPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 

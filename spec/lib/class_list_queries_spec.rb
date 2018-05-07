@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-RSpec.describe ClassroomBalancing do
+RSpec.describe ClassListQueries do
   let!(:pals) { TestPals.create! }
   let!(:time_now) { pals.time_now }
 
   describe '#authorized_students_for_next_year' do
     def authorized_students_for_next_year(educator, school_id, grade_level_next_year)
-      ClassroomBalancing.new(educator).authorized_students_for_next_year(school_id, grade_level_next_year)
+      ClassListQueries.new(educator).authorized_students_for_next_year(school_id, grade_level_next_year)
     end
 
     let!(:active_student) do
@@ -32,39 +32,39 @@ RSpec.describe ClassroomBalancing do
     end
   end
 
-  describe '#authorized_balancing' do
-    def create_balancing_by(educator, params = {})
-      ClassroomsForGrade.create!({
-        balance_id: 'foo-balance-id',
+  describe '#authorized_class_list' do
+    def create_class_list_from(educator, params = {})
+      ClassList.create!({
+        workspace_id: 'foo-workspace-id',
         created_by_educator_id: educator.id,
         school_id: educator.school_id,
         json: { foo: 'bar' }
       }.merge(params))
     end
 
-    def authorized_balancing(educator, balance_id)
-      ClassroomBalancing.new(educator).authorized_balancing(balance_id)
+    def authorized_class_list(educator, workspace_id)
+      ClassListQueries.new(educator).authorized_class_list(workspace_id)
     end
 
     it 'works for reading own writes' do
-      balancing = create_balancing_by(pals.healey_sarah_teacher, grade_level_next_year: '6')
-      expect(authorized_balancing(pals.healey_sarah_teacher, 'foo-balance-id')).to eq balancing
+      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      expect(authorized_class_list(pals.healey_sarah_teacher, 'foo-workspace-id')).to eq class_list
     end
 
     it 'cannot read writes from other users' do
-      create_balancing_by(pals.healey_sarah_teacher, grade_level_next_year: '6')
-      expect(authorized_balancing(pals.uri, 'foo-balance-id')).to eq nil
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      expect(authorized_class_list(pals.uri, 'foo-workspace-id')).to eq nil
     end
 
     it 'can not read incorrect own writes that have different school or grade level' do
-      create_balancing_by(pals.healey_sarah_teacher, grade_level_next_year: '3')
-      expect(authorized_balancing(pals.healey_sarah_teacher, 'foo-balance-id')).to eq nil
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '3')
+      expect(authorized_class_list(pals.healey_sarah_teacher, 'foo-workspace-id')).to eq nil
     end
   end
 
   describe 'is_authorized_for_grade_level_now?' do
     def allowed?(educator, school, grade_level_now)
-      ClassroomBalancing.new(educator).is_authorized_for_grade_level_now?(school.id, grade_level_now)
+      ClassListQueries.new(educator).is_authorized_for_grade_level_now?(school.id, grade_level_now)
     end
 
     it 'does not let anyone outside expected grade levels' do
@@ -103,7 +103,7 @@ RSpec.describe ClassroomBalancing do
 
   describe 'is_authorized_for_school_id?' do
     def is_authorized_for_school_id?(educator, school)
-      ClassroomBalancing.new(educator).is_authorized_for_school_id?(school.id)
+      ClassListQueries.new(educator).is_authorized_for_school_id?(school.id)
     end
 
     it 'works across roles' do
