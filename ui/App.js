@@ -84,8 +84,8 @@ class App extends React.Component {
     const workspaceId = routeProps.match.params.workspace_id;
     this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
     return (workspaceId)
-      ? <ClassListCreatorPage workspaceId={workspaceId} />
-      : <ClassListCreatorPageEntryPoint />;
+      ? <ClassListCreatorPage defaultWorkspaceId={workspaceId} />
+      : <ClassListCreatorPage />;
   }
 
   renderSchoolCoursesPage(routeProps) {

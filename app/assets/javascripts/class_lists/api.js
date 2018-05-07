@@ -20,6 +20,12 @@ export function fetchStudentsJson(options = {}) {
   return apiFetchJson(url);
 }
 
+// Fetch the state of a class list workspace
+export function fetchClassListJson(workspaceId) {
+  const url = `/api/class_lists/${workspaceId}/class_list_json`;
+  return apiFetchJson(url);
+}
+
 // Post the state of the user's workspace
 export function postClassList(options = {}) {
   const {
@@ -31,7 +37,7 @@ export function postClassList(options = {}) {
     classroomsCount,
     planText,
     studentIdsByRoom,
-    principalNotesText,
+    principalNoteText,
     clientNowMs
   } = options;
 
@@ -46,7 +52,7 @@ export function postClassList(options = {}) {
       classroomsCount,
       planText,
       studentIdsByRoom,
-      principalNotesText,
+      principalNoteText,
       clientNowMs
     }
   };

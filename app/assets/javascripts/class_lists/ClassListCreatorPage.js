@@ -4,9 +4,11 @@ import {sortByGrade} from '../helpers/SortHelpers';
 import {
   fetchGradeLevelsJson,
   fetchStudentsJson,
+  fetchClassListJson,
   postClassList
 } from './api';
-import {initialStudentIdsByRoom, areAllStudentsPlaced} from './studentIdsByRoomFunctions';
+import Loading from '../components/Loading';
+import {initialStudentIdsByRoom} from './studentIdsByRoomFunctions';
 import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import uuidv4 from 'uuid/v4';
 
@@ -18,16 +20,6 @@ export const STEPS = [
   'Submit to principal'
 ];
 
-// Entry point for grade-level teaching teams to create classroom lists,
-// which creates a new client-side `workspaceId`.
-export function ClassListCreatorPageEntryPoint({disableHistory}) {
-  return <ClassListCreatorPage
-    workspaceId={uuidv4()}
-    disableHistory={disableHistory} />;
-}
-ClassListCreatorPageEntryPoint.propTypes = {
-  disableHistory: React.PropTypes.bool
-};
 
 // Root page component.
 // This component manages state transitions and hands off requests to the server
@@ -39,8 +31,11 @@ export default class ClassListCreatorPage extends React.Component {
 
     this.state = {
       stepIndex: 0,
-      isFetchingStudents: false,
-      isFetchingGradeLevels: false,
+
+      // tracking in-flight server requests
+      hasFetchedStudents: false,
+      hasFetchedGradeLevels: false,
+      hasFetchedClassList: false,
 
       // choosing school and grade
       schools: null, // from server
@@ -61,8 +56,10 @@ export default class ClassListCreatorPage extends React.Component {
     this.doSaveChanges = _.throttle(this.doSaveChanges, 5000);
     this.fetchGradeLevels = this.fetchGradeLevels.bind(this);
     this.fetchStudents = this.fetchStudents.bind(this);
+    this.fetchClassList = this.fetchClassList.bind(this);
     this.onFetchedGradeLevels = this.onFetchedGradeLevels.bind(this);
     this.onFetchedStudents = this.onFetchedStudents.bind(this);
+    this.onFetchedClassList = this.onFetchedClassList.bind(this);
     this.onStepChanged = this.onStepChanged.bind(this);
     this.onSchoolIdChanged = this.onSchoolIdChanged.bind(this);
     this.onGradeLevelNextYearChanged = this.onGradeLevelNextYearChanged.bind(this);
@@ -75,15 +72,14 @@ export default class ClassListCreatorPage extends React.Component {
 
   componentDidMount() {
     this.doSizePage();
-    this.doReplaceState();
     window.addEventListener('beforeunload', this.onBeforeUnload);
-    this.triggerFetches();
+    this.triggerEffects();
     this.installDebugHook();
   }
 
   componentDidUpdate() {
     this.doSaveChanges();
-    this.triggerFetches();
+    this.triggerEffects();
   }
 
   componentWillUnmount() {
@@ -102,17 +98,15 @@ export default class ClassListCreatorPage extends React.Component {
   }
   
   doReplaceState() {
-    const {workspaceId} = this.props;
+    const {workspaceId} = this.state;
     const path = `/classlists/${workspaceId}`;
-    if (!this.props.disableHistory) {
-      window.history.replaceState({}, null, path);
-    }
+    window.history.replaceState({}, null, path);
   }
 
   // This method is throttled.
   doSaveChanges() {
-    const {workspaceId} = this.props;
     const {
+      workspaceId,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
@@ -120,7 +114,7 @@ export default class ClassListCreatorPage extends React.Component {
       classroomsCount,
       planText,
       studentIdsByRoom,
-      principalNotesText
+      principalNoteText
     } = this.state;
 
     // Don't save until they choose a grade level and school
@@ -134,17 +128,33 @@ export default class ClassListCreatorPage extends React.Component {
       classroomsCount,
       planText,
       studentIdsByRoom,
-      principalNotesText,
+      principalNoteText,
       clientNowMs: moment.utc().unix()
     };
     postClassList(payload);
   }
 
   // Trigger fetches and other initialization
-  triggerFetches() {
+  triggerEffects() {
+    const needs = this.needs(this.props, this.state, window.location);
+
+    // If these are async, they need to be able to accept mutiple calls while waiting.
+    needs.forEach(need => {
+      const key = need[0];
+      if (key === 'assignWorkspaceId') return this.setState({workspaceId: need[1]});
+      if (key === 'fetchGradeLevels') return this.fetchGradeLevels();
+      if (key === 'fetchStudents') return this.fetchStudents();
+      if (key === 'fetchClassList') return this.fetchClassList();
+      if (key === 'initialStudentIds') return this.setState({studentIdsByRoom: need[1]});
+      if (key === 'replaceState') return this.doReplaceState();
+    });
+  }
+
+  needs(props, state, location) {
+    const {defaultWorkspaceId} = props;
     const {
-      isFetchingGradeLevels,
-      isFetchingStudents,
+      disableHistory,
+      workspaceId,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
@@ -154,73 +164,91 @@ export default class ClassListCreatorPage extends React.Component {
       educators,
       classroomsCount,
       studentIdsByRoom
-    } = this.state;
+    } = state;
     
-    // Initial load
+    // Assign workspaceId
+    if (!workspaceId) {
+      return [
+        ['assignWorkspaceId', defaultWorkspaceId || uuidv4()]
+      ];
+    }
+
+    // Update URL
+    if (location.pathname !== `/classlists/${workspaceId}` && !disableHistory) {
+      return [
+        ['replaceState']
+      ];
+    }
+
+    // New classlist
     // () => {schools, grades}
     if (schools === null || gradeLevelsNextYear === null) {
-      if (isFetchingGradeLevels) return;
-      this.fetchGradeLevels().then(this.onFetchedGradeLevels);
+      return [
+        ['fetchGradeLevels']
+      ];
     }
 
     // The user has chosen a school and grade and moved past the first screen.
     // Fetch the students for that grade, and the list of educators.
     // (schoolId, gradeLevelNextYear) => {students, educators}
-    if (schoolId !== null && gradeLevelNextYear !== null && stepIndex !== 0 && (students == null || educators == null)) {
-      if (isFetchingStudents) return;
-      this.fetchStudents().then(this.onFetchedStudents);
+    if (schoolId !== null && gradeLevelNextYear !== null && (students == null || educators == null) && (stepIndex !== 0 || defaultWorkspaceId)) {
+      return [
+        ['fetchStudents']
+      ];
+    }
+
+    // Loading previous session
+    if (workspaceId && defaultWorkspaceId) {
+      return [
+        ['fetchClassList']
+      ];
     }
 
     // If we're navigating to `CreateYourLists` for the first time and
     // don't have classroom lists yet, create the default
     if (stepIndex == 2 && studentIdsByRoom === null) {
       const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students);
-      this.setState({studentIdsByRoom});
+      return [
+        ['initialStudentIds', studentIdsByRoom]
+      ];
     }
+
+    return [];
   }
 
   fetchGradeLevels() {
-    const {workspaceId} = this.props;
-    return fetchGradeLevelsJson(workspaceId);
+    const {hasFetchedGradeLevels, workspaceId} = this.state;
+    if (hasFetchedGradeLevels) return;
+    this.setState({hasFetchedGradeLevels: true});
+    return fetchGradeLevelsJson(workspaceId).then(this.onFetchedGradeLevels);
   }
 
   fetchStudents() {
-    const {workspaceId} = this.props;
-    const {gradeLevelNextYear, schoolId} = this.state;
-    return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId});
+    const {hasFetchedStudents, workspaceId, gradeLevelNextYear, schoolId} = this.state;
+    if (hasFetchedStudents) return;
+    this.setState({hasFetchedStudents: true});
+    return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId}).then(this.onFetchedStudents);
+  }
+
+  fetchClassList() {
+    const {hasFetchedClassList, workspaceId} = this.state;
+    if (hasFetchedClassList) return;
+    this.setState({hasFetchedClassList: true});
+    return fetchClassListJson(workspaceId).then(this.onFetchedClassList);
   }
 
   // Describes which steps are available to be navigated to,
-  // not which data has been loaded for.
+  // not which data has been loaded for.  Steps handle showing their own loading
+  // states based on data.
   availableSteps() {
     const {
       schoolId,
       gradeLevelNextYear
-      // educators,
-      // planText,
-      // studentIdsByRoom,
-      // principalNoteText
     } = this.state;
 
     return (schoolId === null || gradeLevelNextYear === null)
       ? [0]
       : [0, 1, 2, 3, 4];
-
-    // const availableSteps = [0];
-
-    // if (educators.length > 0 && planText !== '') {
-    //   availableSteps.push(2);
-    // }
-
-    // if (studentIdsByRoom !== null && areAllStudentsPlaced(studentIdsByRoom)) {
-    //   availableSteps.push(3);
-    // }
-
-    // if (principalNoteText !== '') {
-    //   availableSteps.push(4);
-    // }
-
-    // return availableSteps;
   }
 
   // TODO(kr) check this on IE
@@ -241,7 +269,6 @@ export default class ClassListCreatorPage extends React.Component {
     const {schools} = json;
 
     this.setState({
-      isFetchingGradeLevels: false,
       schools,
       gradeLevelsNextYear
     });
@@ -251,10 +278,35 @@ export default class ClassListCreatorPage extends React.Component {
     const {educators, students} = json;
     const authors = educators.filter(educator => educator.id === json.current_educator_id);
     this.setState({
-      isFetchingStudents: false,
       students,
       educators,
       authors,
+    });
+  }
+
+  onFetchedClassList(responseJson) {
+    const classList = responseJson.class_list;
+    const workspaceId = classList.workspace_id;
+    const schoolId = classList.school_id;
+    const gradeLevelNextYear = classList.grade_level_next_year;
+    const {
+      stepIndex,
+      educators,
+      classroomsCount,
+      planText,
+      studentIdsByRoom,
+      principalNoteText
+    } = classList.json;
+    this.setState({
+      workspaceId,
+      schoolId,
+      gradeLevelNextYear,
+      stepIndex,
+      educators,
+      classroomsCount,
+      planText,
+      studentIdsByRoom,
+      principalNoteText
     });
   }
 
@@ -295,12 +347,13 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   render() {
-    const {workspaceId} = this.props;
+    const {workspaceId} = this.state;
+    if (!workspaceId) return <Loading />;
+
     const availableSteps = this.availableSteps();
     return (
       <ClassListCreatorWorkflow
         {...this.state}
-        workspaceId={workspaceId}
         steps={STEPS}
         availableSteps={availableSteps}
         onStepChanged={this.onStepChanged}
@@ -316,7 +369,7 @@ export default class ClassListCreatorPage extends React.Component {
   }
 }
 ClassListCreatorPage.propTypes = {
-  workspaceId: React.PropTypes.string.isRequired,
+  defaultWorkspaceId: React.PropTypes.string,
   disableHistory: React.PropTypes.bool
 };
 

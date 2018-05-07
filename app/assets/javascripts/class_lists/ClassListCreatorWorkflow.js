@@ -183,7 +183,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       gradeLevelNextYear
     } = this.props;
 
-    if (studentIdsByRoom === null) return <Loading />;
+    if (students === null || studentIdsByRoom === null) return <Loading />;
     return (
       <CreateYourLists
         students={students}
