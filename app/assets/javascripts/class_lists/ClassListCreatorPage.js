@@ -115,7 +115,6 @@ export default class ClassListCreatorPage extends React.Component {
   triggerEffects() {
     const {defaultWorkspaceId} = this.props;
     const {
-      disableHistory,
       workspaceId,
       stepIndex,
       schoolId,
@@ -128,9 +127,8 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom
     } = this.state;
     
-    
     // Update URL (no state change)
-    if (workspaceId && window.location.pathname !== `/classlists/${workspaceId}` && !disableHistory) {
+    if (workspaceId && window.location.pathname !== `/classlists/${workspaceId}`) {
       this.doReplaceState();
     }
 
@@ -180,9 +178,12 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   doReplaceState() {
+    const {disableHistory} = this.props;
     const {workspaceId} = this.state;
     const path = `/classlists/${workspaceId}`;
-    window.history.replaceState({}, null, path);
+    if (!disableHistory) {
+      window.history.replaceState({}, null, path);
+    }
   }
 
   // This method is throttled.

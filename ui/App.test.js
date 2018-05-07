@@ -84,7 +84,7 @@ it('renders district enrollment', () => {
 it('renders /classlists page', () => {
   const wrapper = mount(renderPath('/classlists/foo-id'));
   expect(wrapper.contains(
-    <ClassListCreatorPage workspaceId="foo-id" />
+    <ClassListCreatorPage defaultWorkspaceId="foo-id" />
   )).toEqual(true);
 });
 
