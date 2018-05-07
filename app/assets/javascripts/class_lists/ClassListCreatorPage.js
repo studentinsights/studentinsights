@@ -150,16 +150,16 @@ export default class ClassListCreatorPage extends React.Component {
       return this.fetchStudents();
     }
 
-    // Loading previous session
-    if (workspaceId && defaultWorkspaceId) {
-      return this.fetchClassList();
-    }
-
     // If we're navigating to `CreateYourLists` for the first time and
     // don't have classroom lists yet, create the default
-    if (stepIndex == 2 && studentIdsByRoom === null) {
+    if (stepIndex == 2 && students !== null && studentIdsByRoom === null) {
       const updatedStudentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students);
       return this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
+    }
+     
+    // Loading previous session
+    if (workspaceId && defaultWorkspaceId && studentIdsByRoom === null) {
+      return this.fetchClassList();
     }
   }
 
