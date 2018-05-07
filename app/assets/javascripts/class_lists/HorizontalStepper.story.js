@@ -2,7 +2,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import HorizontalStepper from './HorizontalStepper';
-import {STEPS} from './ClassroomListCreatorPage';
+import {STEPS} from './ClassListCreatorPage';
 
 storiesOf('equity/HorizontalStepper', module) // eslint-disable-line no-undef
   .add('normal', () => {

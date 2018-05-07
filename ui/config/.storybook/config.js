@@ -21,12 +21,12 @@ function loadStories() {
   // student profile
   require('../../../app/assets/javascripts/student_profile/RiskBubble.story.js');
   
-  // equity
-  require('../../../app/assets/javascripts/equity/ClassroomListCreatorPage.story.js');
-  require('../../../app/assets/javascripts/equity/ClassroomListCreatorWorkflow.story.js');
-  require('../../../app/assets/javascripts/equity/CreateYourClassroomsView.story.js');
-  require('../../../app/assets/javascripts/equity/InlineStudentProfile.story.js');
-  require('../../../app/assets/javascripts/equity/HorizontalStepper.story.js');
+  // classlists
+  require('../../../app/assets/javascripts/class_lists/ClassListCreatorPage.story.js');
+  require('../../../app/assets/javascripts/class_lists/ClassListCreatorWorkflow.story.js');
+  require('../../../app/assets/javascripts/class_lists/CreateYourLists.story.js');
+  require('../../../app/assets/javascripts/class_lists/InlineStudentProfile.story.js');
+  require('../../../app/assets/javascripts/class_lists/HorizontalStepper.story.js');
 
   // add more here!
 }

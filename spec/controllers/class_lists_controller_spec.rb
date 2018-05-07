@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe ClassroomBalancingController, :type => :controller do
-  def create_balancing_by(educator, params = {})
-    ClassroomsForGrade.create!({
-      balance_id: 'foo-balance-id',
+describe ClassListsController, :type => :controller do
+  def create_class_list_from(educator, params = {})
+    ClassList.create!({
+      workspace_id: 'foo-workspace-id',
       created_by_educator_id: educator.id,
       school_id: educator.school_id,
       json: { foo: 'bar' }
@@ -20,7 +20,7 @@ describe ClassroomBalancingController, :type => :controller do
       sign_in(educator)
       get :available_grade_levels_json, params: {
         format: :json,
-        balance_id: 'foo-balance-id'
+        workspace_id: 'foo-workspace-id'
       }
     end
 
@@ -65,7 +65,7 @@ describe ClassroomBalancingController, :type => :controller do
       sign_in(educator)
       get :students_for_grade_level_next_year_json, params: {
         format: :json,
-        balance_id: 'foo-balance-id',
+        workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id
       }.merge(params)
     end
@@ -96,12 +96,9 @@ describe ClassroomBalancingController, :type => :controller do
       request_students_for_grade_level_next_year_json(pals.healey_sarah_teacher, grade_level_next_year: '6')
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json.keys).to eq(["students", "educator_names", "current_educator_name"])
-      expect(json["current_educator_name"]).to eq(pals.healey_sarah_teacher.full_name)
-      expect(json["educator_names"]).to contain_exactly *[
-        pals.healey_laura_principal.full_name,
-        pals.healey_sarah_teacher.full_name
-      ]
+      expect(json.keys).to eq(["students", "educators", "current_educator_id"])
+      expect(json["current_educator_id"]).to eq(pals.healey_sarah_teacher.id)
+      expect(json["educators"].size).to eq 13
       expect(json["students"].length).to eq 4
       expect(json["students"].first.keys).to contain_exactly *[
         "id",
@@ -161,23 +158,23 @@ describe ClassroomBalancingController, :type => :controller do
     end
   end
 
-  describe '#classrooms_for_grade_json' do
-    def request_classrooms_for_grade_json(educator)
+  describe '#class_list_json' do
+    def request_class_list_json(educator)
       sign_in(educator)
-      get :classrooms_for_grade_json, params: {
+      get :class_list_json, params: {
         format: :json,
-        balance_id: 'foo-balance-id'
+        workspace_id: 'foo-workspace-id'
       }
     end
 
     it 'works for Sarah' do
-      create_balancing_by(pals.healey_sarah_teacher, grade_level_next_year: '6')
-      request_classrooms_for_grade_json(pals.healey_sarah_teacher)
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      request_class_list_json(pals.healey_sarah_teacher)
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(json).to eq({
-        "classrooms_for_grade"=>{
-          "balance_id"=>"foo-balance-id",
+        "class_list"=>{
+          "workspace_id"=>"foo-workspace-id",
           "created_by_educator_id"=>pals.healey_sarah_teacher.id,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
@@ -187,28 +184,28 @@ describe ClassroomBalancingController, :type => :controller do
     end
 
     it 'works for Uri' do
-      create_balancing_by(pals.uri, grade_level_next_year: '3')
-      request_classrooms_for_grade_json(pals.uri)
+      create_class_list_from(pals.uri, grade_level_next_year: '3')
+      request_class_list_json(pals.uri)
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json['classrooms_for_grade']).not_to eq(nil)
+      expect(json['class_list']).not_to eq(nil)
     end
 
     it 'does not allow fetching records by other educators' do
-      create_balancing_by(pals.healey_sarah_teacher, grade_level_next_year: '6')
-      request_classrooms_for_grade_json(pals.west_marcus_teacher)
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      request_class_list_json(pals.west_marcus_teacher)
       json = JSON.parse(response.body)
       expect(response.status).to eq 403
     end
   end
 
-  describe '#update_classrooms_for_grade_json' do
+  describe '#update_class_list_json' do
     it 'works by creating a new record for each change' do
-      create_balancing_by(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.healey_sarah_teacher)
-      post :update_classrooms_for_grade_json, params: {
+      post :update_class_list_json, params: {
         format: :json,
-        balance_id: 'foo-balance-id',
+        workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
         grade_level_next_year: '6',
         json: { foo: 'bazzzzz' }
@@ -216,17 +213,17 @@ describe ClassroomBalancingController, :type => :controller do
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(json).to eq({
-        "classrooms_for_grade"=>{
-          "balance_id"=>"foo-balance-id",
+        "class_list"=>{
+          "workspace_id"=>"foo-workspace-id",
           "created_by_educator_id"=>pals.healey_sarah_teacher.id,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
           "json"=>{'foo'=>'bazzzzz'}
         }
       })
-      expect(ClassroomsForGrade.all.size).to eq(2)
-      expect(ClassroomsForGrade.last.balance_id).to eq('foo-balance-id')
-      expect(ClassroomsForGrade.last.json).to eq({'foo'=>'bazzzzz'})
+      expect(ClassList.all.size).to eq(2)
+      expect(ClassList.last.workspace_id).to eq('foo-workspace-id')
+      expect(ClassList.last.json).to eq({'foo'=>'bazzzzz'})
     end
   end
 
@@ -256,11 +253,11 @@ describe ClassroomBalancingController, :type => :controller do
     end
 
     it 'works for Sarah to see a note in the feed' do
-      balancing = create_balancing_by(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.healey_sarah_teacher)
       get :profile_json, params: {
         format: :json,
-        balance_id: balancing.balance_id,
+        workspace_id: class_list.workspace_id,
         student_id: sarah_student.id,
         time_now: time_now.to_i,
         limit: 10
@@ -270,12 +267,12 @@ describe ClassroomBalancingController, :type => :controller do
       expect(json['feed_cards'].size).to eq 1
     end
 
-    it 'guards Vivian reading her student from Sarah balance' do
-      balancing = create_balancing_by(pals.healey_sarah_teacher, grade_level_next_year: '6')
+    it 'guards Vivian reading her student from Sarah\'s worksapce_id' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.healey_vivian_teacher)
       get :profile_json, params: {
         format: :json,
-        balance_id: balancing.balance_id,
+        workspace_id: class_list.workspace_id,
         student_id: vivian_student.id,
         time_now: time_now.to_i,
         limit: 10
@@ -284,12 +281,12 @@ describe ClassroomBalancingController, :type => :controller do
       expect(response.status).to eq 403
     end
 
-    it 'guards Vivian reading Sarah student from her own balance' do
-      balancing = create_balancing_by(pals.healey_vivian_teacher, grade_level_next_year: '1')
+    it 'guards Vivian reading Sarah student from her own worksapce_id' do
+      class_list = create_class_list_from(pals.healey_vivian_teacher, grade_level_next_year: '1')
       sign_in(pals.healey_vivian_teacher)
       get :profile_json, params: {
         format: :json,
-        balance_id: balancing.balance_id,
+        workspace_id: class_list.workspace_id,
         student_id: sarah_student.id,
         time_now: time_now.to_i,
         limit: 10
@@ -298,12 +295,12 @@ describe ClassroomBalancingController, :type => :controller do
       expect(response.status).to eq 403
     end
 
-    it 'guards Vivian reading her own student from own other balance' do
-      balancing = create_balancing_by(pals.healey_vivian_teacher, grade_level_next_year: '3')
+    it 'guards Vivian reading her own student from own other worksapce_id' do
+      class_list = create_class_list_from(pals.healey_vivian_teacher, grade_level_next_year: '3')
       sign_in(pals.healey_vivian_teacher)
       get :profile_json, params: {
         format: :json,
-        balance_id: balancing.balance_id,
+        workspace_id: class_list.workspace_id,
         student_id: vivian_student.id,
         time_now: time_now.to_i,
         limit: 10

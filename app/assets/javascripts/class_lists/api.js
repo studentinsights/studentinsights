@@ -4,26 +4,32 @@ import {apiFetchJson, apiPostJson} from '../helpers/apiFetchJson';
 
 // Fetch the grade levels that we think this educator will want to create classroom
 // lists for.
-export function fetchGradeLevelsJson(balanceId) {
-  const url = `/api/balancing/${balanceId}/available_grade_levels_json`;
+export function fetchGradeLevelsJson(workspaceId) {
+  const url = `/api/class_lists/${workspaceId}/available_grade_levels_json`;
   return apiFetchJson(url);
 }
 
 // Fetch the list of students for a school and grade level
 export function fetchStudentsJson(options = {}) {
-  const {balanceId, gradeLevelNextYear, schoolId} = options;
+  const {workspaceId, gradeLevelNextYear, schoolId} = options;
   const params = {
     grade_level_next_year: gradeLevelNextYear,
     school_id: schoolId
   };
-  const url = `/api/balancing/${balanceId}/students_for_grade_level_next_year_json?${qs.stringify(params)}`;
+  const url = `/api/class_lists/${workspaceId}/students_for_grade_level_next_year_json?${qs.stringify(params)}`;
   return apiFetchJson(url);
 }
 
-// Post the state of the user's work
-export function postClassroomsForGrade(options = {}) {
+// Fetch the state of a class list workspace
+export function fetchClassListJson(workspaceId) {
+  const url = `/api/class_lists/${workspaceId}/class_list_json`;
+  return apiFetchJson(url);
+}
+
+// Post the state of the user's workspace
+export function postClassList(options = {}) {
   const {
-    balanceId,
+    workspaceId,
     stepIndex,
     schoolId,
     gradeLevelNextYear,
@@ -31,13 +37,13 @@ export function postClassroomsForGrade(options = {}) {
     classroomsCount,
     planText,
     studentIdsByRoom,
-    principalNotesText,
+    principalNoteText,
     clientNowMs
   } = options;
 
-  const url = `/api/balancing/${balanceId}/update_classrooms_for_grade_json`;
+  const url = `/api/class_lists/${workspaceId}/update_class_list_json`;
   const body = {
-    balance_id: balanceId,
+    workspace_id: workspaceId,
     school_id: schoolId,
     grade_level_next_year: gradeLevelNextYear,
     json: {
@@ -46,17 +52,17 @@ export function postClassroomsForGrade(options = {}) {
       classroomsCount,
       planText,
       studentIdsByRoom,
-      principalNotesText,
+      principalNoteText,
       clientNowMs
     }
   };
   return apiPostJson(url, body);
 }
 
-export function fetchProfile(balanceId, studentId) {
+export function fetchProfile(workspaceId, studentId) {
   const queryString = qs.stringify({
     limit: 10
   });
-  const url = `/api/balancing/${balanceId}/students/${studentId}/profile_json?${queryString}`;
+  const url = `/api/class_lists/${workspaceId}/students/${studentId}/profile_json?${queryString}`;
   return apiFetchJson(url); 
 }

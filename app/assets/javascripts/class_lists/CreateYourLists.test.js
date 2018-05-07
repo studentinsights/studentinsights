@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import mockWithFixtures from './fixtures/mockWithFixtures';
-import CreateYourClassroomsView, {studentIdsByRoomAfterDrag} from './CreateYourClassroomsView';
+import CreateYourLists, {studentIdsByRoomAfterDrag} from './CreateYourLists';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
 import profile_json from './fixtures/profile_json';
 
@@ -14,7 +14,7 @@ export function testProps(props = {}) {
     students: students_for_grade_level_next_year_json.students,
     studentIdsByRoom: {},
     fetchProfile(studentId) { return Promise.resolve(profile_json); },
-    onClassroomListsChanged: jest.fn(),
+    onClassListsChanged: jest.fn(),
     ...props
   };
 }
@@ -22,7 +22,7 @@ export function testProps(props = {}) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   const props = testProps();
-  ReactDOM.render(<CreateYourClassroomsView {...props} />, el);
+  ReactDOM.render(<CreateYourLists {...props} />, el);
 });
 
 describe('studentIdsByRoomAfterDrag', () => {

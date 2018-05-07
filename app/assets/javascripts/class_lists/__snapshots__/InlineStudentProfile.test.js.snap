@@ -11,7 +11,7 @@ exports[`snapshots 1`] = `
 >
   <h4>
     <a
-      href="/students/144"
+      href="/students/153"
       style={
         Object {
           "fontSize": 24,
@@ -19,9 +19,9 @@ exports[`snapshots 1`] = `
       }
       target="_blank"
     >
-      Elsa
+      Winnie
        
-      Skywalker
+      Pan
     </a>
   </h4>
   <div
@@ -65,19 +65,8 @@ exports[`snapshots 1`] = `
             Special needs
           </div>
           <div>
-            Disability: 
-            Specific LDs
-             (
-            <a
-              href="#"
-            >
-              IEP
-            </a>
-            )
-          </div>
-          <div>
             Program: 
-            Sp Ed
+            Reg Ed
           </div>
         </div>
         <div
@@ -104,8 +93,12 @@ exports[`snapshots 1`] = `
             Learning English
           </div>
           <div>
+            Learning English: 
+            Limited
+          </div>
+          <div>
             ACCESS Composite: 
-            1
+            2
           </div>
         </div>
       </div>
@@ -179,10 +172,6 @@ exports[`snapshots 1`] = `
             Home language: 
             Portuguese
           </div>
-          <div>
-            Free reduced lunch: 
-            Not Eligible
-          </div>
         </div>
       </div>
       <div
@@ -221,11 +210,11 @@ exports[`snapshots 1`] = `
           </div>
           <div>
             STAR Math percentile: 
-            47
+            1
           </div>
           <div>
             STAR Reading percentile: 
-            36
+            34
           </div>
         </div>
         <div
@@ -253,7 +242,7 @@ exports[`snapshots 1`] = `
           </div>
           <div>
             Discipline incidents: 
-            1
+            0
           </div>
         </div>
       </div>
@@ -286,7 +275,7 @@ exports[`snapshots 1`] = `
             }
           >
             Notes for 
-            Elsa
+            Winnie
           </h4>
         </div>
         <div

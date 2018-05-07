@@ -1,4 +1,4 @@
-class ClassroomsForGrade < ActiveRecord::Base
+class ClassList < ActiveRecord::Base
   has_one :school
   has_one :created_by_educator
 

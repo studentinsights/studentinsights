@@ -4,18 +4,18 @@
 #
 # And it lets districtwide and schoolwide users work as expected, with no additional
 # cases for grade-level access, sped or ELL levels of access.
-class ClassroomBalancing
+class ClassListQueries
   def initialize(educator)
     @educator = educator
   end
 
-  # What grade levels do we want to support balancing for?
-  def grade_levels_next_year_to_balance
+  # What grade levels do we want to support creating class lists for?
+  def supported_grade_levels_next_year
     ['1','2','3','4','5','6']
   end
 
   # What schools are supported?
-  def schools_to_balance
+  def supported_schools
     School.where(school_type: ['ESMS', 'ES', 'MS'])
   end
 
@@ -33,31 +33,31 @@ class ClassroomBalancing
   end
 
   # This is authorization-aware, and it also only lets @educators read their own writes.
-  def authorized_balancing(balance_id)
+  def authorized_class_list(workspace_id)
     # Read only most recent own write
-    balancings = ClassroomsForGrade
+    class_lists = ClassList
       .order(created_at: :desc)
       .limit(1)
       .where({
-        balance_id: balance_id,
+        workspace_id: workspace_id,
         created_by_educator_id: @educator.id
       })
-    return nil unless balancings.size == 1
+    return nil unless class_lists.size == 1
 
     # Check that educator is authorized for that grade level
-    balancing = balancings.first
-    grade_level_now = GradeLevels.new.previous(balancing.grade_level_next_year)
-    return nil unless is_authorized_for_grade_level_now?(balancing.school_id, grade_level_now)
+    class_list = class_lists.first
+    grade_level_now = GradeLevels.new.previous(class_list.grade_level_next_year)
+    return nil unless is_authorized_for_grade_level_now?(class_list.school_id, grade_level_now)
 
-    balancing
+    class_list
   end
 
   # This is intended only for use in this controller, and allows more people
   # "grade level access" than the standard authorization rules.  It's based off
   # code in `authorizer#is_authorized_for_student?` but is different and more permissive.
   def is_authorized_for_grade_level_now?(school_id, grade_level_now)
-    return false unless GradeLevels.new.next(grade_level_now).in?(grade_levels_next_year_to_balance)
-    return false unless school_id.in?(schools_to_balance.map(&:id))
+    return false unless GradeLevels.new.next(grade_level_now).in?(supported_grade_levels_next_year)
+    return false unless school_id.in?(supported_schools.map(&:id))
     return false unless is_authorized_for_school_id?(school_id)
 
     return true if @educator.districtwide_access?

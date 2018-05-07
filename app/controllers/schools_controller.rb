@@ -13,6 +13,7 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
+  # This is also used by the `ExploresSchoolEquityPage`.
   def overview_json
     render json: json_for_overview(@school)
   end

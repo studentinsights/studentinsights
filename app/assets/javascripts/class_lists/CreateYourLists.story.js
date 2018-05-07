@@ -2,16 +2,16 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import storybookFrame from './storybookFrame';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
-import CreateYourClassroomsView from './CreateYourClassroomsView';
+import CreateYourLists from './CreateYourLists';
 import {
   UNPLACED_ROOM_KEY,
   roomKeyFromIndex,
   initialStudentIdsByRoom
 } from './studentIdsByRoomFunctions';
-import {testProps} from './CreateYourClassroomsView.test';
+import {testProps} from './CreateYourLists.test';
 
 
-storiesOf('equity/CreateYourClassroomsView', module) // eslint-disable-line no-undef
+storiesOf('equity/CreateYourLists', module) // eslint-disable-line no-undef
   .add("empty", () => {
     return testRender(testProps({ forceUnplaced: true }));
   })
@@ -55,16 +55,16 @@ class Container extends React.Component {
     };
   }
 
-  onClassroomListsChanged(studentIdsByRoom) {
+  onClassListsChanged(studentIdsByRoom) {
     this.setState({studentIdsByRoom});
   }
 
   render() {
     const {studentIdsByRoom} = this.state;
-    return <CreateYourClassroomsView
+    return <CreateYourLists
       {...this.props}
       studentIdsByRoom={studentIdsByRoom}
-      onClassroomListsChanged={this.onClassroomListsChanged.bind(this)} />;
+      onClassListsChanged={this.onClassListsChanged.bind(this)} />;
   }
 }
 Container.propTypes = {

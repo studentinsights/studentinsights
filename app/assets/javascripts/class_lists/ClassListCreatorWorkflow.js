@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
-import CreateYourClassroomsView from './CreateYourClassroomsView';
+import CreateYourLists from './CreateYourLists';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import HorizontalStepper from './HorizontalStepper';
@@ -20,7 +20,7 @@ With our new grant from the Boston Foundation to expand the functionality of Ins
 // of creating classroom lists.  It tracks all changes and passes them up to callbacks,
 // and hands off to other UI components that handle stepping through the process
 // and screens for each step.
-export default class ClassroomListCreatorWorkflow extends React.Component {
+export default class ClassListCreatorWorkflow extends React.Component {
   constructor(props) {
     super(props);
 
@@ -31,7 +31,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
     const {steps, stepIndex, availableSteps, onStepChanged} = this.props;
 
     return (
-      <div className="ClassroomListCreatorView" style={styles.root}>
+      <div className="ClassListCreatorView" style={styles.root}>
         <HorizontalStepper
           steps={steps}
           availableSteps={availableSteps}
@@ -61,7 +61,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
       onSchoolIdChanged,
       onGradeLevelNextYearChanged
     } = this.props;
-    const videoUrl = 'https://www.youtube.com/watch?v=6hw3o6RzHek&t=2s';
+    const videoUrl = null;
 
     if (schools === null || gradeLevelsNextYear === null) return <Loading />;
     return (
@@ -71,7 +71,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
           <div style={{fontSize: 12, padding: 10, paddingLeft: 5, whiteSpace: 'pre-wrap'}}>
             {text}
           </div>
-          <a href={videoUrl} target="_blank" style={styles.videoLink}>Watch the full video</a>
+          {videoUrl && <a href={videoUrl} target="_blank" style={styles.videoLink}>Watch the full video</a>}
         </div>
         <div>
           <div>
@@ -109,10 +109,10 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
 
   renderMakeAPlan() {
     const {
-      educatorNames,
+      educators,
+      authors,
       students,
       gradeLevelNextYear,
-      educators,
       classroomsCount,
       planText,
       onEducatorsChanged,
@@ -120,21 +120,21 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
       onPlanTextChanged
     } = this.props;
 
-    if (educatorNames === null || students === null || gradeLevelNextYear === null) return <Loading />;
+    if (educators === null || students === null) return <Loading />;
     return (
       <div style={styles.stepContent}>
         <div>
           <div style={styles.heading}>Who's the team creating these class lists?</div>
           <Select
             name="select-educators"
-            value={educators}
+            value={authors.map(educator => educator.id)}
             multi
             removeSelected
             onChange={onEducatorsChanged}
-            options={educatorNames.map(educatorName => {
+            options={authors.map(educator => {
               return {
-                value: educatorName,
-                label: educatorName
+                value: educator.id,
+                label: educator.full_name
               };
             })}
           />
@@ -161,7 +161,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
         <div>
           <div style={styles.heading}>What's your plan for creating classroom communitites?</div>
           <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
-            Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start with balancing academic strengths.
+            Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
           </div>
           <textarea
             style={styles.textarea}
@@ -175,23 +175,23 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
 
   renderCreateYourClassrooms() {    
     const {
-      balanceId,
+      workspaceId,
       students,
       classroomsCount,
-      onClassroomListsChanged,
+      onClassListsChanged,
       studentIdsByRoom,
       gradeLevelNextYear
     } = this.props;
 
-    if (studentIdsByRoom === null) return <Loading />;
+    if (students === null || studentIdsByRoom === null) return <Loading />;
     return (
-      <CreateYourClassroomsView
+      <CreateYourLists
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={studentIdsByRoom}
-        fetchProfile={studentId => fetchProfile(balanceId, studentId)}
-        onClassroomListsChanged={onClassroomListsChanged}/>
+        fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        onClassListsChanged={onClassListsChanged}/>
     );
   }
 
@@ -220,12 +220,12 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
     );
   }
 }
-ClassroomListCreatorWorkflow.propTypes = {
+ClassListCreatorWorkflow.propTypes = {
   // server data
   schools: React.PropTypes.array,
   gradeLevelsNextYear: React.PropTypes.array,
   students: React.PropTypes.array,
-  educatorNames: React.PropTypes.array,
+  educators: React.PropTypes.array,
 
   // config
   steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
@@ -233,10 +233,10 @@ ClassroomListCreatorWorkflow.propTypes = {
 
   // state
   stepIndex: React.PropTypes.number.isRequired,
-  balanceId: React.PropTypes.string.isRequired,
+  workspaceId: React.PropTypes.string.isRequired,
   schoolId: React.PropTypes.number,
   gradeLevelNextYear: React.PropTypes.string,
-  educators: React.PropTypes.array.isRequired,
+  authors: React.PropTypes.array.isRequired,
   classroomsCount: React.PropTypes.number.isRequired,
   planText: React.PropTypes.string.isRequired,
   studentIdsByRoom: React.PropTypes.object,
@@ -249,7 +249,7 @@ ClassroomListCreatorWorkflow.propTypes = {
   onEducatorsChanged: React.PropTypes.func.isRequired,
   onClassroomsCountIncremented: React.PropTypes.func.isRequired,
   onPlanTextChanged: React.PropTypes.func.isRequired,
-  onClassroomListsChanged: React.PropTypes.func.isRequired,
+  onClassListsChanged: React.PropTypes.func.isRequired,
   onPrincipalNoteChanged: React.PropTypes.func.isRequired
 };
 
