@@ -73,18 +73,32 @@ export default class ClassListCreatorPage extends React.Component {
   componentDidMount() {
     this.doSizePage();
     window.addEventListener('beforeunload', this.onBeforeUnload);
-    this.triggerEffects();
+    this.doTriggerEffects();
     this.installDebugHook();
   }
 
   componentDidUpdate() {
     this.doSaveChanges();
-    this.triggerEffects();
+    this.doTriggerEffects();
   }
 
   componentWillUnmount() {
     if (this.doSaveChanges.flush) this.doSaveChanges.flush(); // flush any queued changes
     window.removeEventListener('beforeunload', this.onBeforeUnload);
+  }
+
+  // Describes which steps are available to be navigated to,
+  // not which data has been loaded for.  Steps handle showing their own loading
+  // states based on data.
+  availableSteps() {
+    const {
+      schoolId,
+      gradeLevelNextYear
+    } = this.state;
+
+    return (schoolId === null || gradeLevelNextYear === null)
+      ? [0]
+      : [0, 1, 2, 3, 4];
   }
 
   // This is a debug hook for iterating on particular production data sets locally
@@ -97,6 +111,73 @@ export default class ClassListCreatorPage extends React.Component {
     window.document.body.style['min-width'] = '1000px';
   }
   
+  // Trigger fetches and other initialization
+  doTriggerEffects() {
+    const {defaultWorkspaceId} = this.props;
+    const {
+      disableHistory,
+      workspaceId,
+      stepIndex,
+      schoolId,
+      gradeLevelNextYear,
+      schools,
+      gradeLevelsNextYear,
+      students,
+      educators,
+      classroomsCount,
+      studentIdsByRoom
+    } = this.state;
+    
+    // Assign workspaceId
+    if (!workspaceId) {
+      return this.setState({workspaceId: defaultWorkspaceId || uuidv4()});
+    }
+
+    // Update URL
+    if (window.location.pathname !== `/classlists/${workspaceId}` && !disableHistory) {
+      return this.doReplaceState();
+    }
+
+    // New classlist
+    // () => {schools, grades}
+    if (schools === null || gradeLevelsNextYear === null) {
+      return this.fetchGradeLevels();
+    }
+
+    // The user has chosen a school and grade and moved past the first screen.
+    // Fetch the students for that grade, and the list of educators.
+    // (schoolId, gradeLevelNextYear) => {students, educators}
+    if (schoolId !== null && gradeLevelNextYear !== null && (students == null || educators == null) && (stepIndex !== 0 || defaultWorkspaceId)) {
+      return this.fetchStudents();
+    }
+
+    // Loading previous session
+    if (workspaceId && defaultWorkspaceId) {
+      return this.fetchClassList();
+    }
+
+    // If we're navigating to `CreateYourLists` for the first time and
+    // don't have classroom lists yet, create the default
+    if (stepIndex == 2 && studentIdsByRoom === null) {
+      const updatedStudentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students);
+      return this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
+    }
+  }
+
+  fetchGradeLevels() {
+    const {hasFetchedGradeLevels, workspaceId} = this.state;
+    if (hasFetchedGradeLevels) return;
+    this.setState({hasFetchedGradeLevels: true});
+    return fetchGradeLevelsJson(workspaceId).then(this.onFetchedGradeLevels);
+  }
+
+  fetchStudents() {
+    const {hasFetchedStudents, workspaceId, gradeLevelNextYear, schoolId} = this.state;
+    if (hasFetchedStudents) return;
+    this.setState({hasFetchedStudents: true});
+    return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId}).then(this.onFetchedStudents);
+  }
+
   doReplaceState() {
     const {workspaceId} = this.state;
     const path = `/classlists/${workspaceId}`;
@@ -134,102 +215,6 @@ export default class ClassListCreatorPage extends React.Component {
     postClassList(payload);
   }
 
-  // Trigger fetches and other initialization
-  triggerEffects() {
-    const needs = this.needs(this.props, this.state, window.location);
-
-    // If these are async, they need to be able to accept mutiple calls while waiting.
-    needs.forEach(need => {
-      const key = need[0];
-      if (key === 'assignWorkspaceId') return this.setState({workspaceId: need[1]});
-      if (key === 'fetchGradeLevels') return this.fetchGradeLevels();
-      if (key === 'fetchStudents') return this.fetchStudents();
-      if (key === 'fetchClassList') return this.fetchClassList();
-      if (key === 'initialStudentIds') return this.setState({studentIdsByRoom: need[1]});
-      if (key === 'replaceState') return this.doReplaceState();
-    });
-  }
-
-  needs(props, state, location) {
-    const {defaultWorkspaceId} = props;
-    const {
-      disableHistory,
-      workspaceId,
-      stepIndex,
-      schoolId,
-      gradeLevelNextYear,
-      schools,
-      gradeLevelsNextYear,
-      students,
-      educators,
-      classroomsCount,
-      studentIdsByRoom
-    } = state;
-    
-    // Assign workspaceId
-    if (!workspaceId) {
-      return [
-        ['assignWorkspaceId', defaultWorkspaceId || uuidv4()]
-      ];
-    }
-
-    // Update URL
-    if (location.pathname !== `/classlists/${workspaceId}` && !disableHistory) {
-      return [
-        ['replaceState']
-      ];
-    }
-
-    // New classlist
-    // () => {schools, grades}
-    if (schools === null || gradeLevelsNextYear === null) {
-      return [
-        ['fetchGradeLevels']
-      ];
-    }
-
-    // The user has chosen a school and grade and moved past the first screen.
-    // Fetch the students for that grade, and the list of educators.
-    // (schoolId, gradeLevelNextYear) => {students, educators}
-    if (schoolId !== null && gradeLevelNextYear !== null && (students == null || educators == null) && (stepIndex !== 0 || defaultWorkspaceId)) {
-      return [
-        ['fetchStudents']
-      ];
-    }
-
-    // Loading previous session
-    if (workspaceId && defaultWorkspaceId) {
-      return [
-        ['fetchClassList']
-      ];
-    }
-
-    // If we're navigating to `CreateYourLists` for the first time and
-    // don't have classroom lists yet, create the default
-    if (stepIndex == 2 && studentIdsByRoom === null) {
-      const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students);
-      return [
-        ['initialStudentIds', studentIdsByRoom]
-      ];
-    }
-
-    return [];
-  }
-
-  fetchGradeLevels() {
-    const {hasFetchedGradeLevels, workspaceId} = this.state;
-    if (hasFetchedGradeLevels) return;
-    this.setState({hasFetchedGradeLevels: true});
-    return fetchGradeLevelsJson(workspaceId).then(this.onFetchedGradeLevels);
-  }
-
-  fetchStudents() {
-    const {hasFetchedStudents, workspaceId, gradeLevelNextYear, schoolId} = this.state;
-    if (hasFetchedStudents) return;
-    this.setState({hasFetchedStudents: true});
-    return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId}).then(this.onFetchedStudents);
-  }
-
   fetchClassList() {
     const {hasFetchedClassList, workspaceId} = this.state;
     if (hasFetchedClassList) return;
@@ -237,19 +222,6 @@ export default class ClassListCreatorPage extends React.Component {
     return fetchClassListJson(workspaceId).then(this.onFetchedClassList);
   }
 
-  // Describes which steps are available to be navigated to,
-  // not which data has been loaded for.  Steps handle showing their own loading
-  // states based on data.
-  availableSteps() {
-    const {
-      schoolId,
-      gradeLevelNextYear
-    } = this.state;
-
-    return (schoolId === null || gradeLevelNextYear === null)
-      ? [0]
-      : [0, 1, 2, 3, 4];
-  }
 
   // TODO(kr) check this on IE
   onBeforeUnload(event) {

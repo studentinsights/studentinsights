@@ -96,12 +96,9 @@ describe ClassListsController, :type => :controller do
       request_students_for_grade_level_next_year_json(pals.healey_sarah_teacher, grade_level_next_year: '6')
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json.keys).to eq(["students", "educator_names", "current_educator_name"])
-      expect(json["current_educator_name"]).to eq(pals.healey_sarah_teacher.full_name)
-      expect(json["educator_names"]).to contain_exactly *[
-        pals.healey_laura_principal.full_name,
-        pals.healey_sarah_teacher.full_name
-      ]
+      expect(json.keys).to eq(["students", "educators", "current_educator_id"])
+      expect(json["current_educator_id"]).to eq(pals.healey_sarah_teacher.id)
+      expect(json["educators"].size).to eq 13
       expect(json["students"].length).to eq 4
       expect(json["students"].first.keys).to contain_exactly *[
         "id",
