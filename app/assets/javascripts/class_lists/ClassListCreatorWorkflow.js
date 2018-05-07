@@ -109,10 +109,10 @@ export default class ClassListCreatorWorkflow extends React.Component {
 
   renderMakeAPlan() {
     const {
-      educatorNames,
+      educators,
+      authors,
       students,
       gradeLevelNextYear,
-      educators,
       classroomsCount,
       planText,
       onEducatorsChanged,
@@ -120,21 +120,21 @@ export default class ClassListCreatorWorkflow extends React.Component {
       onPlanTextChanged
     } = this.props;
 
-    if (educatorNames === null || students === null || gradeLevelNextYear === null) return <Loading />;
+    if (educators === null || students === null) return <Loading />;
     return (
       <div style={styles.stepContent}>
         <div>
           <div style={styles.heading}>Who's the team creating these class lists?</div>
           <Select
             name="select-educators"
-            value={educators}
+            value={authors.map(educator => educator.id)}
             multi
             removeSelected
             onChange={onEducatorsChanged}
-            options={educatorNames.map(educatorName => {
+            options={authors.map(educator => {
               return {
-                value: educatorName,
-                label: educatorName
+                value: educator.id,
+                label: educator.full_name
               };
             })}
           />
@@ -225,7 +225,7 @@ ClassListCreatorWorkflow.propTypes = {
   schools: React.PropTypes.array,
   gradeLevelsNextYear: React.PropTypes.array,
   students: React.PropTypes.array,
-  educatorNames: React.PropTypes.array,
+  educators: React.PropTypes.array,
 
   // config
   steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
@@ -236,7 +236,7 @@ ClassListCreatorWorkflow.propTypes = {
   workspaceId: React.PropTypes.string.isRequired,
   schoolId: React.PropTypes.number,
   gradeLevelNextYear: React.PropTypes.string,
-  educators: React.PropTypes.array.isRequired,
+  authors: React.PropTypes.array.isRequired,
   classroomsCount: React.PropTypes.number.isRequired,
   planText: React.PropTypes.string.isRequired,
   studentIdsByRoom: React.PropTypes.object,

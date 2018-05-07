@@ -39,24 +39,22 @@ export default class ClassListCreatorPage extends React.Component {
 
     this.state = {
       stepIndex: 0,
+      isFetchingStudents: false,
+      isFetchingGradeLevels: false,
 
-      // first
+      // choosing school and grade
       schools: null, // from server
       gradeLevelsNextYear: null, // from server
       schoolId: null,
       gradeLevelNextYear: null,
 
-      // second
-      educatorNames: null, // from server
+      // workspace
+      educators: null, // from server
       students: null, // from server
       classroomsCount: 4,
-      educators: [],
+      authors: [],
       planText: '',
-
-      // third
       studentIdsByRoom: null,
-
-      // fourth
       principalNoteText: ''
     };
 
@@ -70,7 +68,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.onGradeLevelNextYearChanged = this.onGradeLevelNextYearChanged.bind(this);
     this.onClassroomsCountIncremented = this.onClassroomsCountIncremented.bind(this);
     this.onPlanTextChanged = this.onPlanTextChanged.bind(this);
-    this.onEducatorsChanged = this.onEducatorsChanged.bind(this);
+    this.onAuthorsChanged = this.onAuthorsChanged.bind(this);
     this.onClassListsChanged = this.onClassListsChanged.bind(this);
     this.onPrincipalNoteChanged = this.onPrincipalNoteChanged.bind(this);
   }
@@ -126,9 +124,7 @@ export default class ClassListCreatorPage extends React.Component {
     } = this.state;
 
     // Don't save until they choose a grade level and school
-    if (!workspaceId) return;
-    if (!schoolId) return;
-    if (!gradeLevelNextYear) return;
+    if (!workspaceId || stepIndex === 0 || !schoolId || !gradeLevelNextYear) return;
     const payload = {
       workspaceId,
       stepIndex,
@@ -147,19 +143,31 @@ export default class ClassListCreatorPage extends React.Component {
   // Trigger fetches and other initialization
   triggerFetches() {
     const {
+      isFetchingGradeLevels,
+      isFetchingStudents,
       stepIndex,
-      classroomsCount,
-      students,
+      schoolId,
+      gradeLevelNextYear,
       schools,
       gradeLevelsNextYear,
+      students,
+      educators,
+      classroomsCount,
       studentIdsByRoom
     } = this.state;
     
-    if (stepIndex === 0 && (schools === null || gradeLevelsNextYear === null)) {
+    // Initial load
+    // () => {schools, grades}
+    if (schools === null || gradeLevelsNextYear === null) {
+      if (isFetchingGradeLevels) return;
       this.fetchGradeLevels().then(this.onFetchedGradeLevels);
     }
 
-    if (stepIndex === 1 && students === null) {
+    // The user has chosen a school and grade and moved past the first screen.
+    // Fetch the students for that grade, and the list of educators.
+    // (schoolId, gradeLevelNextYear) => {students, educators}
+    if (schoolId !== null && gradeLevelNextYear !== null && stepIndex !== 0 && (students == null || educators == null)) {
+      if (isFetchingStudents) return;
       this.fetchStudents().then(this.onFetchedStudents);
     }
 
@@ -187,31 +195,32 @@ export default class ClassListCreatorPage extends React.Component {
   availableSteps() {
     const {
       schoolId,
-      gradeLevelNextYear,
-      educators,
-      planText,
-      studentIdsByRoom,
-      principalNoteText
+      gradeLevelNextYear
+      // educators,
+      // planText,
+      // studentIdsByRoom,
+      // principalNoteText
     } = this.state;
-    const availableSteps = [0];
 
-    if (schoolId !== null && gradeLevelNextYear !== null) {
-      availableSteps.push(1);
-    }
+    return (schoolId === null || gradeLevelNextYear === null)
+      ? [0]
+      : [0, 1, 2, 3, 4];
 
-    if (educators.length > 0 && planText !== '') {
-      availableSteps.push(2);
-    }
+    // const availableSteps = [0];
 
-    if (studentIdsByRoom !== null && areAllStudentsPlaced(studentIdsByRoom)) {
-      availableSteps.push(3);
-    }
+    // if (educators.length > 0 && planText !== '') {
+    //   availableSteps.push(2);
+    // }
 
-    if (principalNoteText !== '') {
-      availableSteps.push(4);
-    }
+    // if (studentIdsByRoom !== null && areAllStudentsPlaced(studentIdsByRoom)) {
+    //   availableSteps.push(3);
+    // }
 
-    return availableSteps;
+    // if (principalNoteText !== '') {
+    //   availableSteps.push(4);
+    // }
+
+    // return availableSteps;
   }
 
   // TODO(kr) check this on IE
@@ -232,20 +241,20 @@ export default class ClassListCreatorPage extends React.Component {
     const {schools} = json;
 
     this.setState({
+      isFetchingGradeLevels: false,
       schools,
       gradeLevelsNextYear
     });
   }
 
   onFetchedStudents(json) {
-    const educatorNames = json.educator_names;
-    const currentEducatorName = json.current_educator_name;
-    const {students} = json;
-
+    const {educators, students} = json;
+    const authors = educators.filter(educator => educator.id === json.current_educator_id);
     this.setState({
-      educatorNames,
+      isFetchingStudents: false,
       students,
-      educators: [currentEducatorName]
+      educators,
+      authors,
     });
   }
 
@@ -263,8 +272,8 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({gradeLevelNextYear});
   }
 
-  onEducatorsChanged(educators) {
-    this.setState({educators}); 
+  onAuthorsChanged(authors) {
+    this.setState({authors}); 
   }
 
   onClassroomsCountIncremented(delta) {
@@ -297,7 +306,7 @@ export default class ClassListCreatorPage extends React.Component {
         onStepChanged={this.onStepChanged}
         onSchoolIdChanged={this.onSchoolIdChanged}
         onGradeLevelNextYearChanged={this.onGradeLevelNextYearChanged}
-        onEducatorsChanged={this.onEducatorsChanged}
+        onEducatorsChanged={this.onAuthorsChanged}
         onClassroomsCountIncremented={this.onClassroomsCountIncremented}
         onPlanTextChanged={this.onPlanTextChanged}
         onClassListsChanged={this.onClassListsChanged}

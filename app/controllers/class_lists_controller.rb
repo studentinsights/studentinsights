@@ -65,14 +65,13 @@ class ClassListsController < ApplicationController
       ]
     })
 
-    # educator names (including ones that are entered in services
-    # and don't correspond directly to educator records
-    educator_names_json = educator_names(school_id).as_json
+    # educator names
+    educators_json = Educator.all.as_json(only: [:id, :full_name])
 
     render json: {
       students: students_json,
-      educator_names: educator_names_json,
-      current_educator_name: current_educator.full_name
+      educators: educators_json,
+      current_educator_id: current_educator.id
     }
   end
 

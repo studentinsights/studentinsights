@@ -12,7 +12,7 @@ function testProps(props = {}) {
     schools: null,
     gradeLevelsNextYear: null,
     students: null,
-    educatorNames: null,
+    educators: null,
 
     // config
     steps: STEPS,
@@ -23,7 +23,7 @@ function testProps(props = {}) {
     workspaceId: 'foo-workspace-id',
     schoolId: null,
     gradeLevelNextYear: null,
-    educators: [],
+    authors: [],
     classroomsCount: 3,
     planText: '',
     studentIdsByRoom: null,
