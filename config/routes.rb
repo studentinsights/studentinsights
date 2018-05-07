@@ -20,11 +20,11 @@ Rails.application.routes.draw do
   get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
 
   # classroom list creator
-  get '/api/classlists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
-  get '/api/classlists/:workspace_id/students_for_grade_level_next_year_json' => 'class_lists#students_for_grade_level_next_year_json'
-  post '/api/classlists/:workspace_id/update_class_list_json' => 'class_lists#update_class_list_json'
-  get '/api/classlists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
-  get '/api/classlists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
+  get '/api/class_lists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
+  get '/api/class_lists/:workspace_id/students_for_grade_level_next_year_json' => 'class_lists#students_for_grade_level_next_year_json'
+  post '/api/class_lists/:workspace_id/update_class_list_json' => 'class_lists#update_class_list_json'
+  get '/api/class_lists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
+  get '/api/class_lists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
 
   # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'

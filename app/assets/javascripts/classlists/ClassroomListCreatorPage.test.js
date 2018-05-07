@@ -9,7 +9,7 @@ beforeEach(() => mockWithFixtures());
 it('renders without crashing on entrypoint', () => {
   const el = document.createElement('div');
   ReactDOM.render(
-    <MemoryRouter initialEntries={['/balancing']}>
+    <MemoryRouter initialEntries={['/classlists']}>
       <ClassroomListCreatorPageEntryPoint disableHistory={true} />
     </MemoryRouter>
   , el);
@@ -18,8 +18,8 @@ it('renders without crashing on entrypoint', () => {
 it('renders without crashing with balanceId', () => {
   const el = document.createElement('div');
   ReactDOM.render(
-    <MemoryRouter initialEntries={['/balancing/foo-id']}>
-      <ClassroomListCreatorPage balanceId="foo-id" disableHistory={true} />
+    <MemoryRouter initialEntries={['/classlists/foo-id']}>
+      <ClassroomListCreatorPage workspaceId="foo-id" disableHistory={true} />
     </MemoryRouter>
   , el);
 });

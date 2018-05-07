@@ -5,7 +5,7 @@ import {apiFetchJson, apiPostJson} from '../helpers/apiFetchJson';
 // Fetch the grade levels that we think this educator will want to create classroom
 // lists for.
 export function fetchGradeLevelsJson(workspaceId) {
-  const url = `/api/classlists/${workspaceId}/available_grade_levels_json`;
+  const url = `/api/class_lists/${workspaceId}/available_grade_levels_json`;
   return apiFetchJson(url);
 }
 
@@ -16,7 +16,7 @@ export function fetchStudentsJson(options = {}) {
     grade_level_next_year: gradeLevelNextYear,
     school_id: schoolId
   };
-  const url = `/api/classlists/${workspaceId}/students_for_grade_level_next_year_json?${qs.stringify(params)}`;
+  const url = `/api/class_lists/${workspaceId}/students_for_grade_level_next_year_json?${qs.stringify(params)}`;
   return apiFetchJson(url);
 }
 
@@ -35,9 +35,9 @@ export function postClassroomsForGrade(options = {}) {
     clientNowMs
   } = options;
 
-  const url = `/api/classlists/${workspaceId}/update_class_list_json`;
+  const url = `/api/class_lists/${workspaceId}/update_class_list_json`;
   const body = {
-    balance_id: workspaceId,
+    workspace_id: workspaceId,
     school_id: schoolId,
     grade_level_next_year: gradeLevelNextYear,
     json: {
@@ -57,6 +57,6 @@ export function fetchProfile(workspaceId, studentId) {
   const queryString = qs.stringify({
     limit: 10
   });
-  const url = `/api/classlists/${workspaceId}/students/${studentId}/profile_json?${queryString}`;
+  const url = `/api/class_lists/${workspaceId}/students/${studentId}/profile_json?${queryString}`;
   return apiFetchJson(url); 
 }

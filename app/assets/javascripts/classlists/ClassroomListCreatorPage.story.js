@@ -9,7 +9,7 @@ storiesOf('equity/ClassroomListCreatorPage', module) // eslint-disable-line no-u
   .add('normal', () => {
     mockWithFixtures();
     return storybookFrame(
-      <MemoryRouter initialEntries={['/balancing']}>
+      <MemoryRouter initialEntries={['/classlists']}>
         <ClassroomListCreatorPageEntryPoint disableHistory={true} />
       </MemoryRouter>
     );

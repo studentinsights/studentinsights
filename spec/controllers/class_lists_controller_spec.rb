@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ClassListControllerSpec, :type => :controller do
+describe ClassListsController, :type => :controller do
   def create_class_list_from(educator, params = {})
     ClassList.create!({
       workspace_id: 'foo-workspace-id',
@@ -164,7 +164,7 @@ describe ClassListControllerSpec, :type => :controller do
   describe '#class_list_json' do
     def request_class_list_json(educator)
       sign_in(educator)
-      get :classrooms_for_grade_json, params: {
+      get :class_list_json, params: {
         format: :json,
         workspace_id: 'foo-workspace-id'
       }
@@ -176,7 +176,7 @@ describe ClassListControllerSpec, :type => :controller do
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(json).to eq({
-        "classrooms_for_grade"=>{
+        "class_list"=>{
           "workspace_id"=>"foo-workspace-id",
           "created_by_educator_id"=>pals.healey_sarah_teacher.id,
           "school_id"=>pals.healey.id,
@@ -191,7 +191,7 @@ describe ClassListControllerSpec, :type => :controller do
       request_class_list_json(pals.uri)
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json['classrooms_for_grade']).not_to eq(nil)
+      expect(json['class_list']).not_to eq(nil)
     end
 
     it 'does not allow fetching records by other educators' do
@@ -202,11 +202,11 @@ describe ClassListControllerSpec, :type => :controller do
     end
   end
 
-  describe '#update_classrooms_for_grade_json' do
+  describe '#update_class_list_json' do
     it 'works by creating a new record for each change' do
       create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.healey_sarah_teacher)
-      post :update_classrooms_for_grade_json, params: {
+      post :update_class_list_json, params: {
         format: :json,
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
@@ -216,7 +216,7 @@ describe ClassListControllerSpec, :type => :controller do
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(json).to eq({
-        "classrooms_for_grade"=>{
+        "class_list"=>{
           "workspace_id"=>"foo-workspace-id",
           "created_by_educator_id"=>pals.healey_sarah_teacher.id,
           "school_id"=>pals.healey.id,

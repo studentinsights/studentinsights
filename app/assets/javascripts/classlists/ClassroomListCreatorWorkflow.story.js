@@ -20,7 +20,7 @@ function testProps(props = {}) {
 
     // state
     stepIndex: 0,
-    balanceId: 'foo-balance-id',
+    workspaceId: 'foo-workspace-id',
     schoolId: null,
     gradeLevelNextYear: null,
     educators: [],

@@ -57,7 +57,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
           <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
-          <Route exact path="/classlists/:balance_id?" render={this.renderClassroomListCreator.bind(this)}/>
+          <Route exact path="/classlists/:workspace_id?" render={this.renderClassroomListCreator.bind(this)}/>
           <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
@@ -81,10 +81,10 @@ class App extends React.Component {
   }
 
   renderClassroomListCreator(routeProps) {
-    const balanceId = routeProps.match.params.balance_id;
+    const workspaceId = routeProps.match.params.workspace_id;
     this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
-    return (balanceId)
-      ? <ClassroomListCreatorPage balanceId={balanceId} />
+    return (workspaceId)
+      ? <ClassroomListCreatorPage workspaceId={workspaceId} />
       : <ClassroomListCreatorPageEntryPoint />;
   }
 

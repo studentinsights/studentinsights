@@ -5,7 +5,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import ExploreClassroomComparisons from './ExploreClassroomComparisons';
 
 // This is an internal-only page for exploring equity in classroom assignments for
-// the current classroom.  It's separate from the classroom balancing feature, but
+// the current classroom.  It's separate from the class list creator feature, but
 // shows similar data.
 export default class ExploreSchoolEquityPage extends React.Component {
   constructor(props) {

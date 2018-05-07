@@ -19,10 +19,10 @@ export const STEPS = [
 ];
 
 // Entry point for grade-level teaching teams to create classroom lists,
-// which creates a new client-side `balanceId`.
+// which creates a new client-side `workspaceId`.
 export function ClassroomListCreatorPageEntryPoint({disableHistory}) {
   return <ClassroomListCreatorPage
-    balanceId={uuidv4()}
+    workspaceId={uuidv4()}
     disableHistory={disableHistory} />;
 }
 ClassroomListCreatorPageEntryPoint.propTypes = {
@@ -104,8 +104,8 @@ export default class ClassroomListCreatorPage extends React.Component {
   }
   
   doReplaceState() {
-    const {balanceId} = this.props;
-    const path = `/classlists/${balanceId}`;
+    const {workspaceId} = this.props;
+    const path = `/classlists/${workspaceId}`;
     if (!this.props.disableHistory) {
       window.history.replaceState({}, null, path);
     }
@@ -113,7 +113,7 @@ export default class ClassroomListCreatorPage extends React.Component {
 
   // This method is throttled.
   doSaveChanges() {
-    const {balanceId} = this.props;
+    const {workspaceId} = this.props;
     const {
       stepIndex,
       schoolId,
@@ -126,11 +126,11 @@ export default class ClassroomListCreatorPage extends React.Component {
     } = this.state;
 
     // Don't save until they choose a grade level and school
-    if (!balanceId) return;
+    if (!workspaceId) return;
     if (!schoolId) return;
     if (!gradeLevelNextYear) return;
     const payload = {
-      balanceId,
+      workspaceId,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
@@ -172,14 +172,14 @@ export default class ClassroomListCreatorPage extends React.Component {
   }
 
   fetchGradeLevels() {
-    const {balanceId} = this.props;
-    return fetchGradeLevelsJson(balanceId);
+    const {workspaceId} = this.props;
+    return fetchGradeLevelsJson(workspaceId);
   }
 
   fetchStudents() {
-    const {balanceId} = this.props;
+    const {workspaceId} = this.props;
     const {gradeLevelNextYear, schoolId} = this.state;
-    return fetchStudentsJson({balanceId, gradeLevelNextYear, schoolId});
+    return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId});
   }
 
   // Describes which steps are available to be navigated to,
@@ -286,12 +286,12 @@ export default class ClassroomListCreatorPage extends React.Component {
   }
 
   render() {
-    const {balanceId} = this.props;
+    const {workspaceId} = this.props;
     const availableSteps = this.availableSteps();
     return (
       <ClassroomListCreatorWorkflow
         {...this.state}
-        balanceId={balanceId}
+        workspaceId={workspaceId}
         steps={STEPS}
         availableSteps={availableSteps}
         onStepChanged={this.onStepChanged}
@@ -307,7 +307,7 @@ export default class ClassroomListCreatorPage extends React.Component {
   }
 }
 ClassroomListCreatorPage.propTypes = {
-  balanceId: React.PropTypes.string.isRequired,
+  workspaceId: React.PropTypes.string.isRequired,
   disableHistory: React.PropTypes.bool
 };
 

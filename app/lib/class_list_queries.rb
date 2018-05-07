@@ -35,7 +35,7 @@ class ClassListQueries
   # This is authorization-aware, and it also only lets @educators read their own writes.
   def authorized_class_list(workspace_id)
     # Read only most recent own write
-    class_lists = ClassLists
+    class_lists = ClassList
       .order(created_at: :desc)
       .limit(1)
       .where({

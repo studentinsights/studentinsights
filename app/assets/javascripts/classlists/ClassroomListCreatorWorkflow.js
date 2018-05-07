@@ -161,7 +161,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
         <div>
           <div style={styles.heading}>What's your plan for creating classroom communitites?</div>
           <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
-            Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start with balancing academic strengths.
+            Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
           </div>
           <textarea
             style={styles.textarea}
@@ -175,7 +175,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
 
   renderCreateYourClassrooms() {    
     const {
-      balanceId,
+      workspaceId,
       students,
       classroomsCount,
       onClassroomListsChanged,
@@ -190,7 +190,7 @@ export default class ClassroomListCreatorWorkflow extends React.Component {
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={studentIdsByRoom}
-        fetchProfile={studentId => fetchProfile(balanceId, studentId)}
+        fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
         onClassroomListsChanged={onClassroomListsChanged}/>
     );
   }
@@ -233,7 +233,7 @@ ClassroomListCreatorWorkflow.propTypes = {
 
   // state
   stepIndex: React.PropTypes.number.isRequired,
-  balanceId: React.PropTypes.string.isRequired,
+  workspaceId: React.PropTypes.string.isRequired,
   schoolId: React.PropTypes.number,
   gradeLevelNextYear: React.PropTypes.string,
   educators: React.PropTypes.array.isRequired,
