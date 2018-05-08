@@ -34,22 +34,23 @@ export default class HorizontalStepper extends React.Component {
     const currentStepIndex = this.props.stepIndex;
     return (
       <div className="HorizontalStepper" style={{...styles.root, ...style}}>
-        <div style={styles.banner}>
-          {!isEditable && <div style={styles.readonly}>readonly</div>}
-          {steps.map((step, stepIndex) => {
-            return (
-              <span
-                key={stepIndex}
-                style={this.renderStyleForBannerItem(stepIndex, currentStepIndex, availableSteps)}
-                onClick={this.onStepChanged.bind(this, stepIndex)}>
-                <Circle
-                  text={`${stepIndex+1}`}
-                  color={this.renderColorForCircle(stepIndex, availableSteps)}
-                  style={{verticalAlign: 'middle'}}/>
-                <span style={styles.bannerText}>{step}</span>
-              </span>
-            );
-          })}
+        <div style={styles.bannerContainer}>
+          <div style={styles.banner}>
+            {steps.map((step, stepIndex) => {
+              return (
+                <span
+                  key={stepIndex}
+                  style={this.renderStyleForBannerItem(stepIndex, currentStepIndex, availableSteps)}
+                  onClick={this.onStepChanged.bind(this, stepIndex)}>
+                  <Circle
+                    text={`${stepIndex+1}`}
+                    color={this.renderColorForCircle(stepIndex, availableSteps)}
+                    style={{verticalAlign: 'middle'}}/>
+                  <span style={styles.bannerText}>{step}</span>
+                </span>
+              );
+            })}
+          </div>
           {!isEditable && <div style={styles.readonly}>readonly</div>}
         </div>
         <div style={{...styles.content, ...contentStyle}}>
@@ -115,8 +116,13 @@ const styles = {
     borderTop: '1px solid #ccc',
     marginTop: 10
   },
+  bannerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    fontSize: 12
+  },
   banner:{
-    fontSize: 12,
     paddingLeft: 15
   },
   bannerItem: {
@@ -148,6 +154,7 @@ const styles = {
     padding: 6,
     paddingRight: 12,
     paddingLeft: 12,
+    marginRight: 20,
     background: '#666',
     color: '#eee',
     borderRadius: 3
