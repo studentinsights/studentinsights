@@ -45,7 +45,7 @@ export default class SimpleStudentCard extends React.Component {
           return this.renderClickableStudentCard(student, {
             ref: provided.innerRef,
             placeholder: provided.placeholder,
-            props: {
+            propsFromDraggable: {
               ...provided.draggableProps,
               ...provided.dragHandleProps
             }
@@ -70,8 +70,11 @@ export default class SimpleStudentCard extends React.Component {
   }
 
   renderStudentCard(student) {
+    const {isEditable} = this.props;
+    const cursor = (isEditable) ? 'grab' : 'pointer';
+      
     return (
-      <div style={styles.studentCard} onClick={this.onClick}>
+      <div style={{...styles.studentCard, cursor}} onClick={this.onClick}>
         <span>{student.first_name} {student.last_name}</span>
         <MoreDots />
       </div>
@@ -112,7 +115,6 @@ const styles = {
     fontSize: 14,
     border: '1px solid #eee',
     padding: 6,
-    cursor: 'pointer',
     borderRadius: 3,
     backgroundColor: 'white'
   },

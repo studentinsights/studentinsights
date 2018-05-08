@@ -25,17 +25,17 @@ export default class CreateYourListsView extends React.Component {
   onDragEnd(dragEndResult) {
     const {onClassListsChanged, studentIdsByRoom} = this.props;
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
-
-    // Debugging hack
-    const before = performance.now();
     onClassListsChanged(updatedStudentIdsByRoom);
-    const after = performance.now();
-    const el = _.last(document.querySelectorAll('.nav-options a'));
-    el.innerHTML = `(${Math.round(after - before)}ms)`;
   }
 
   render() {
-    const {students, classroomsCount, studentIdsByRoom, gradeLevelNextYear} = this.props;
+    const {
+      isEditable,
+      students,
+      classroomsCount,
+      studentIdsByRoom,
+      gradeLevelNextYear
+    } = this.props;
     const rooms = createRooms(classroomsCount);
 
     return (
@@ -58,7 +58,17 @@ export default class CreateYourListsView extends React.Component {
                       <span style={{float: 'right', color: '#666', fontSize: 12}}>({classroomStudents.length})</span>
                     </div>
                   </div>
-                  {this.renderDroppableIfEditable(roomKey, classroomStudents)}
+                  <Droppable
+                    droppableId={roomKey}
+                    type="CLASSROOM_LIST"
+                    isDropDisabled={!isEditable}>
+                    {(provided, snapshot) => (
+                      <div ref={provided.innerRef} style={styles.droppable}>
+                        <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
+                        <div>{provided.placeholder}</div>
+                      </div>
+                    )}
+                  </Droppable>
                 </div>
               );
             })}
@@ -68,41 +78,14 @@ export default class CreateYourListsView extends React.Component {
     );
   }
 
-
-  renderDroppableIfEditable(roomKey, classroomStudents) {
-    const {isEditable} = this.props;
-    if (!isEditable) return this.renderStudentCards(classroomStudents);
-
-    return (
-      <Droppable droppableId={roomKey} type="CLASSROOM_LIST">
-        {(provided, snapshot) => {
-          return this.renderStudentCards(classroomStudents, {
-            ref: provided.innerRef,
-            placeholder: provided.placeholder
-          });
-        }}
-      </Droppable>
-    );
-  }
-
-  renderStudentCards(classroomStudents, options = {}) {
-    const {ref, placeholder} = options;
-    return (
-      <div ref={ref} style={styles.droppable}>
-        <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
-        <div>{placeholder}</div>
-      </div>
-    );
-  }
-
   renderStudentCard(student, index) {
     const {fetchProfile, isEditable} = this.props;
     return <SimpleStudentCard
-      isEditable={isEditable}
       key={student.id}
       student={student}
       index={index}
-      fetchProfile={fetchProfile} />;
+      fetchProfile={fetchProfile}
+      isEditable={isEditable} />;
   }
 }
 CreateYourListsView.propTypes = {

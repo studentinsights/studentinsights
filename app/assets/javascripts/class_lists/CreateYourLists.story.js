@@ -11,13 +11,13 @@ import {
 import {testProps} from './CreateYourLists.test';
 
 
+function testRender(props = {}) {
+  return storybookFrame(withDefaultNowContext(<Container {...props} />));
+}
+
 storiesOf('equity/CreateYourLists', module) // eslint-disable-line no-undef
-  .add("empty", () => {
-    return testRender(testProps({ forceUnplaced: true }));
-  })
-  .add("Next 2rd grade", () => {
-    return testRender(testProps());
-  })
+  .add("empty", () => testRender(testProps({ forceUnplaced: true })))
+  .add("Next 2rd grade", () => testRender(testProps()))
   .add("Next 5th grade", () => {
     return testRender(testProps({
       classroomsCount: 4,
@@ -30,18 +30,7 @@ storiesOf('equity/CreateYourLists', module) // eslint-disable-line no-undef
       gradeLevelNextYear: '5'
     }));
   })
-  .add("readonly", () => {
-    return testRender(testProps({
-      isEditable: false,
-      classroomsCount: 4,
-      gradeLevelNextYear: '5'
-    }));
-  });
-
-
-function testRender(props = {}) {
-  return storybookFrame(withDefaultNowContext(<Container {...props} />));
-}
+  .add("readonly", () => testRender(testProps({ isEditable: false })));
 
 
 // Container for tracking state changes
