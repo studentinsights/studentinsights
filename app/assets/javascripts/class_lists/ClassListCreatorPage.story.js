@@ -1,7 +1,7 @@
 import React from 'react';
 import {MemoryRouter} from 'react-router-dom';
 import {storiesOf} from '@storybook/react';
-import {ClassListCreatorPageEntryPoint} from './ClassListCreatorPage';
+import ClassListCreatorPage from './ClassListCreatorPage';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import storybookFrame from './storybookFrame';
 
@@ -10,7 +10,7 @@ storiesOf('equity/ClassListCreatorPage', module) // eslint-disable-line no-undef
     mockWithFixtures();
     return storybookFrame(
       <MemoryRouter initialEntries={['/classlists']}>
-        <ClassListCreatorPageEntryPoint disableHistory={true} />
+        <ClassListCreatorPage disableHistory={true} />
       </MemoryRouter>
     );
   });

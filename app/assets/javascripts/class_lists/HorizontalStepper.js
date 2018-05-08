@@ -35,6 +35,7 @@ export default class HorizontalStepper extends React.Component {
     return (
       <div className="HorizontalStepper" style={{...styles.root, ...style}}>
         <div style={styles.banner}>
+          {!isEditable && <div style={styles.readonly}>readonly</div>}
           {steps.map((step, stepIndex) => {
             return (
               <span
@@ -49,7 +50,7 @@ export default class HorizontalStepper extends React.Component {
               </span>
             );
           })}
-          {isEditable && <div>readonly</div>}
+          {!isEditable && <div style={styles.readonly}>readonly</div>}
         </div>
         <div style={{...styles.content, ...contentStyle}}>
           {renderFn(currentStepIndex, steps[currentStepIndex])}
@@ -100,7 +101,7 @@ HorizontalStepper.propTypes = {
   availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   onStepChanged: React.PropTypes.func.isRequired,
-  isEditable: React.PropTypes.booel.isRequired,
+  isEditable: React.PropTypes.bool.isRequired,
   renderFn: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
   contentStyle: React.PropTypes.object
@@ -141,5 +142,14 @@ const styles = {
     width: '2em',
     height: 1,
     borderTop: '1px solid #eee'
+  },
+  readonly: {
+    display: 'inline-block',
+    padding: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
+    background: '#666',
+    color: '#eee',
+    borderRadius: 3
   }
 };
