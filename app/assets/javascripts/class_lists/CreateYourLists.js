@@ -25,17 +25,17 @@ export default class CreateYourListsView extends React.Component {
   onDragEnd(dragEndResult) {
     const {onClassListsChanged, studentIdsByRoom} = this.props;
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
-
-    // Debugging hack
-    const before = performance.now();
     onClassListsChanged(updatedStudentIdsByRoom);
-    const after = performance.now();
-    const el = _.last(document.querySelectorAll('.nav-options a'));
-    el.innerHTML = `(${Math.round(after - before)}ms)`;
   }
 
   render() {
-    const {students, classroomsCount, studentIdsByRoom, gradeLevelNextYear} = this.props;
+    const {
+      isEditable,
+      students,
+      classroomsCount,
+      studentIdsByRoom,
+      gradeLevelNextYear
+    } = this.props;
     const rooms = createRooms(classroomsCount);
 
     return (
@@ -58,7 +58,10 @@ export default class CreateYourListsView extends React.Component {
                       <span style={{float: 'right', color: '#666', fontSize: 12}}>({classroomStudents.length})</span>
                     </div>
                   </div>
-                  <Droppable droppableId={roomKey} type="CLASSROOM_LIST">
+                  <Droppable
+                    droppableId={roomKey}
+                    type="CLASSROOM_LIST"
+                    isDropDisabled={!isEditable}>
                     {(provided, snapshot) => (
                       <div ref={provided.innerRef} style={styles.droppable}>
                         <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
@@ -76,15 +79,17 @@ export default class CreateYourListsView extends React.Component {
   }
 
   renderStudentCard(student, index) {
-    const {fetchProfile} = this.props;
+    const {fetchProfile, isEditable} = this.props;
     return <SimpleStudentCard
       key={student.id}
       student={student}
       index={index}
-      fetchProfile={fetchProfile} />;
+      fetchProfile={fetchProfile}
+      isEditable={isEditable} />;
   }
 }
 CreateYourListsView.propTypes = {
+  isEditable: React.PropTypes.bool.isRequired,
   classroomsCount: React.PropTypes.number.isRequired,
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   students: React.PropTypes.array.isRequired,
@@ -126,7 +131,8 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
 
 const styles = {
   root: {
-    userSelect: 'none'
+    userSelect: 'none',
+    msUserSelect: 'none'
   },
   listsContainer: {
     display: 'flex'

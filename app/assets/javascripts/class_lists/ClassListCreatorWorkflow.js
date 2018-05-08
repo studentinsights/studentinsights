@@ -28,13 +28,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
   }
 
   render() {
-    const {steps, stepIndex, availableSteps, onStepChanged} = this.props;
+    const {steps, stepIndex, availableSteps, onStepChanged, isEditable} = this.props;
 
     return (
       <div className="ClassListCreatorView" style={styles.root}>
         <HorizontalStepper
           steps={steps}
           availableSteps={availableSteps}
+          isEditable={isEditable}
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
           renderFn={this.renderStepContents}
@@ -54,6 +55,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
 
   renderChooseYourGrade() {
     const {
+      isEditable,
       schools,
       gradeLevelsNextYear,
       schoolId,
@@ -80,6 +82,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
                 name="select-school-name"
                 value={schoolId}
                 onChange={item => onSchoolIdChanged(item.value)}
+                disabled={!isEditable}
                 options={_.sortBy(schools, s => s.name).map(school => {
                   return {
                     value: school.id,
@@ -94,6 +97,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
                 name="select-grade-level"
                 value={gradeLevelNextYear}
                 onChange={item => onGradeLevelNextYearChanged(item.value)}
+                disabled={!isEditable}
                 options={gradeLevelsNextYear.map(gradeLevelNextYear => {
                   return {
                     value: gradeLevelNextYear,
@@ -109,6 +113,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
 
   renderMakeAPlan() {
     const {
+      isEditable,
       educators,
       authors,
       students,
@@ -127,16 +132,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
           <div style={styles.heading}>Who's the team creating these class lists?</div>
           <Select
             name="select-educators"
-            value={authors.map(educator => educator.id)}
             multi
             removeSelected
+            value={authors}
+            valueKey="id"
+            labelKey="full_name"
+            options={educators}
             onChange={onEducatorsChanged}
-            options={authors.map(educator => {
-              return {
-                value: educator.id,
-                label: educator.full_name
-              };
-            })}
+            disabled={!isEditable}
           />
         </div>
         <div>
@@ -144,14 +147,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
           <div style={{marginLeft: 5, display: 'inline-block'}}>
             <button
               style={styles.incrementButton}
-              disabled={classroomsCount < 2}
+              disabled={classroomsCount <= 2 || !isEditable}
               onClick={() => onClassroomsCountIncremented(-1)}>
               -
             </button>
             <div style={{display: 'inline-block', padding: 10}}>{classroomsCount} classrooms</div>
             <button
               style={styles.incrementButton}
-              disabled={classroomsCount >= 5}
+              disabled={classroomsCount >= 5 || !isEditable}
               onClick={() => onClassroomsCountIncremented(1)}>
               +
             </button>
@@ -165,6 +168,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           </div>
           <textarea
             style={styles.textarea}
+            disabled={!isEditable}
             rows={12}
             value={planText}
             onChange={event => onPlanTextChanged(event.target.value)} />
@@ -176,6 +180,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
   renderCreateYourClassrooms() {    
     const {
       workspaceId,
+      isEditable,
       students,
       classroomsCount,
       onClassListsChanged,
@@ -191,12 +196,13 @@ export default class ClassListCreatorWorkflow extends React.Component {
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={studentIdsByRoom}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        isEditable={isEditable}
         onClassListsChanged={onClassListsChanged}/>
     );
   }
 
   renderReviewAndShareNotes() {
-    const {onPrincipalNoteChanged, principalNoteText} = this.props;
+    const {isEditable, onPrincipalNoteChanged, principalNoteText} = this.props;
     return (
       <div style={styles.stepContent}>
         <div>What else should your principal know?</div>
@@ -205,6 +211,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         </div>
         <textarea
           value={principalNoteText}
+          disabled={!isEditable}
           onChange={event => onPrincipalNoteChanged(event.target.value)}
           rows={12} 
           style={styles.textarea} />
@@ -230,6 +237,7 @@ ClassListCreatorWorkflow.propTypes = {
   // config
   steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+  isEditable: React.PropTypes.bool.isRequired,
 
   // state
   stepIndex: React.PropTypes.number.isRequired,

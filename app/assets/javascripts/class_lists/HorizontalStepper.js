@@ -30,25 +30,28 @@ export default class HorizontalStepper extends React.Component {
   }
 
   render() {
-    const {steps, availableSteps, renderFn, style, contentStyle} = this.props;
+    const {steps, availableSteps, isEditable, renderFn, style, contentStyle} = this.props;
     const currentStepIndex = this.props.stepIndex;
     return (
       <div className="HorizontalStepper" style={{...styles.root, ...style}}>
-        <div style={styles.banner}>
-          {steps.map((step, stepIndex) => {
-            return (
-              <span
-                key={stepIndex}
-                style={this.renderStyleForBannerItem(stepIndex, currentStepIndex, availableSteps)}
-                onClick={this.onStepChanged.bind(this, stepIndex)}>
-                <Circle
-                  text={`${stepIndex+1}`}
-                  color={this.renderColorForCircle(stepIndex, availableSteps)}
-                  style={{verticalAlign: 'middle'}}/>
-                <span style={styles.bannerText}>{step}</span>
-              </span>
-            );
-          })}
+        <div style={styles.bannerContainer}>
+          <div style={styles.banner}>
+            {steps.map((step, stepIndex) => {
+              return (
+                <span
+                  key={stepIndex}
+                  style={this.renderStyleForBannerItem(stepIndex, currentStepIndex, availableSteps)}
+                  onClick={this.onStepChanged.bind(this, stepIndex)}>
+                  <Circle
+                    text={`${stepIndex+1}`}
+                    color={this.renderColorForCircle(stepIndex, availableSteps)}
+                    style={{verticalAlign: 'middle'}}/>
+                  <span style={styles.bannerText}>{step}</span>
+                </span>
+              );
+            })}
+          </div>
+          {!isEditable && <div style={styles.readonly}>readonly</div>}
         </div>
         <div style={{...styles.content, ...contentStyle}}>
           {renderFn(currentStepIndex, steps[currentStepIndex])}
@@ -99,6 +102,7 @@ HorizontalStepper.propTypes = {
   availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   onStepChanged: React.PropTypes.func.isRequired,
+  isEditable: React.PropTypes.bool.isRequired,
   renderFn: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
   contentStyle: React.PropTypes.object
@@ -112,8 +116,13 @@ const styles = {
     borderTop: '1px solid #ccc',
     marginTop: 10
   },
+  bannerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    fontSize: 12
+  },
   banner:{
-    fontSize: 12,
     paddingLeft: 15
   },
   bannerItem: {
@@ -139,5 +148,15 @@ const styles = {
     width: '2em',
     height: 1,
     borderTop: '1px solid #eee'
+  },
+  readonly: {
+    display: 'inline-block',
+    padding: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
+    marginRight: 20,
+    background: '#666',
+    color: '#eee',
+    borderRadius: 3
   }
 };

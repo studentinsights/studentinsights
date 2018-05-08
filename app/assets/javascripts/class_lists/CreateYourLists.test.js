@@ -9,6 +9,7 @@ beforeEach(() => mockWithFixtures());
 
 export function testProps(props = {}) {
   return {
+    isEditable: true,
     classroomsCount: 3,
     gradeLevelNextYear: '2',
     students: students_for_grade_level_next_year_json.students,

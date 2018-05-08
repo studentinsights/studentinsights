@@ -1,6 +1,15 @@
 require 'spec_helper'
 
 RSpec.describe ClassListQueries do
+  def create_class_list_from(educator, params = {})
+    ClassList.create!({
+      workspace_id: 'foo-workspace-id',
+      created_by_educator_id: educator.id,
+      school_id: educator.school_id,
+      json: { foo: 'bar' }
+    }.merge(params))
+  end
+
   let!(:pals) { TestPals.create! }
   let!(:time_now) { pals.time_now }
 
@@ -32,33 +41,44 @@ RSpec.describe ClassListQueries do
     end
   end
 
-  describe '#authorized_class_list' do
-    def create_class_list_from(educator, params = {})
-      ClassList.create!({
-        workspace_id: 'foo-workspace-id',
-        created_by_educator_id: educator.id,
-        school_id: educator.school_id,
-        json: { foo: 'bar' }
-      }.merge(params))
-    end
-
-    def authorized_class_list(educator, workspace_id)
-      ClassListQueries.new(educator).authorized_class_list(workspace_id)
+  describe '#read_authorized_class_list' do
+    def read_authorized_class_list(educator, workspace_id)
+      ClassListQueries.new(educator).read_authorized_class_list(workspace_id)
     end
 
     it 'works for reading own writes' do
       class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
-      expect(authorized_class_list(pals.healey_sarah_teacher, 'foo-workspace-id')).to eq class_list
+      expect(read_authorized_class_list(pals.healey_sarah_teacher, 'foo-workspace-id')).to eq class_list
     end
 
-    it 'cannot read writes from other users' do
+    it 'lets Uri read Sarah\'s writes' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      expect(read_authorized_class_list(pals.uri, 'foo-workspace-id')).to eq class_list
+    end
+
+    it 'lets Laura read Sarah\'s writes' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      expect(read_authorized_class_list(pals.healey_laura_principal, 'foo-workspace-id')).to eq class_list
+    end
+
+    it 'can not read writes across horizontal access levels' do
       create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
-      expect(authorized_class_list(pals.uri, 'foo-workspace-id')).to eq nil
+      expect(read_authorized_class_list(pals.west_marcus_teacher, 'foo-workspace-id')).to eq nil
     end
 
     it 'can not read incorrect own writes that have different school or grade level' do
       create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '3')
-      expect(authorized_class_list(pals.healey_sarah_teacher, 'foo-workspace-id')).to eq nil
+      expect(read_authorized_class_list(pals.healey_sarah_teacher, 'foo-workspace-id')).to eq nil
+    end
+  end
+
+  describe 'is_authorized_for_writes?' do
+    it 'allows writing own writes, but not writing on others\'s writes' do
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      expect(ClassListQueries.new(pals.healey_sarah_teacher).is_authorized_for_writes?('foo-workspace-id')).to eq true
+      expect(ClassListQueries.new(pals.uri).is_authorized_for_writes?('foo-workspace-id')).to eq false
+      expect(ClassListQueries.new(pals.healey_laura_principal).is_authorized_for_writes?('foo-workspace-id')).to eq false
+      expect(ClassListQueries.new(pals.west_marcus_teacher).is_authorized_for_writes?('foo-workspace-id')).to eq false
     end
   end
 
