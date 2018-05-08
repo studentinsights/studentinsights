@@ -254,12 +254,17 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   onFetchedStudents(json) {
+    const {isEditable, authors} = this.state;
     const {educators, students} = json;
-    const authors = educators.filter(educator => educator.id === json.current_educator_id);
+
+    // initialize if we just got the list of educators, and there's no one set yet
+    const updatedAuthors = (authors.length === 0 && isEditable)
+      ? educators.filter(educator => educator.id === json.current_educator_id)
+      : authors;
     this.setState({
       students,
       educators,
-      authors
+      authors: updatedAuthors
     });
   }
 
@@ -271,7 +276,7 @@ export default class ClassListCreatorPage extends React.Component {
     const gradeLevelNextYear = classList.grade_level_next_year;
     const {
       stepIndex,
-      educators,
+      authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
@@ -283,7 +288,7 @@ export default class ClassListCreatorPage extends React.Component {
       schoolId,
       gradeLevelNextYear,
       stepIndex,
-      educators,
+      authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
