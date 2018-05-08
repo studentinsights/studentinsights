@@ -195,7 +195,7 @@ export default class ClassListCreatorPage extends React.Component {
       stepIndex,
       schoolId,
       gradeLevelNextYear,
-      educators,
+      authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
@@ -213,13 +213,14 @@ export default class ClassListCreatorPage extends React.Component {
       stepIndex,
       schoolId,
       gradeLevelNextYear,
-      educators,
+      authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
       principalNoteText,
       clientNowMs: moment.utc().unix()
     };
+    console.log('authors', authors);
     postClassList(payload);
   }
 
@@ -259,7 +260,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({
       students,
       educators,
-      authors,
+      authors
     });
   }
 

@@ -131,7 +131,8 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
 
 const styles = {
   root: {
-    userSelect: 'none'
+    userSelect: 'none',
+    msUserSelect: 'none'
   },
   listsContainer: {
     display: 'flex'

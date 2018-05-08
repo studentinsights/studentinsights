@@ -180,6 +180,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
   renderCreateYourClassrooms() {    
     const {
       workspaceId,
+      isEditable,
       students,
       classroomsCount,
       onClassListsChanged,
@@ -195,6 +196,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={studentIdsByRoom}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        isEditable={isEditable}
         onClassListsChanged={onClassListsChanged}/>
     );
   }

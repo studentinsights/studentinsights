@@ -71,7 +71,7 @@ export default class SimpleStudentCard extends React.Component {
 
   renderStudentCard(student) {
     const {isEditable} = this.props;
-    const cursor = (isEditable) ? 'grab' : 'pointer';
+    const cursor = (isEditable) ? 'pointer' : 'default';
       
     return (
       <div style={{...styles.studentCard, cursor}} onClick={this.onClick}>

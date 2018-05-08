@@ -33,7 +33,7 @@ export function postClassList(options = {}) {
     stepIndex,
     schoolId,
     gradeLevelNextYear,
-    educators,
+    authors,
     classroomsCount,
     planText,
     studentIdsByRoom,
@@ -48,7 +48,7 @@ export function postClassList(options = {}) {
     grade_level_next_year: gradeLevelNextYear,
     json: {
       stepIndex,
-      educators,
+      authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
