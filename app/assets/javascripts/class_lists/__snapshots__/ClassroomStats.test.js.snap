@@ -655,7 +655,7 @@ exports[`snapshots 1`] = `
                     "height": 3,
                     "left": "0%",
                     "position": "absolute",
-                    "width": "47%",
+                    "width": "23%",
                   }
                 }
               />
@@ -670,7 +670,7 @@ exports[`snapshots 1`] = `
                     "left": 12,
                     "position": "relative",
                     "top": -5,
-                    "width": "47%",
+                    "width": "23%",
                   }
                 }
               >
@@ -681,7 +681,7 @@ exports[`snapshots 1`] = `
                     }
                   }
                 >
-                  8
+                  4
                 </span>
               </div>
             </div>
@@ -1270,7 +1270,7 @@ exports[`snapshots 1`] = `
                     "height": 3,
                     "left": "0%",
                     "position": "absolute",
-                    "width": "82%",
+                    "width": "58%",
                   }
                 }
               />
@@ -1285,7 +1285,7 @@ exports[`snapshots 1`] = `
                     "left": 12,
                     "position": "relative",
                     "top": -5,
-                    "width": "82%",
+                    "width": "58%",
                   }
                 }
               >
@@ -1296,7 +1296,7 @@ exports[`snapshots 1`] = `
                     }
                   }
                 >
-                  14
+                  10
                 </span>
               </div>
             </div>
@@ -1885,7 +1885,7 @@ exports[`snapshots 1`] = `
                     "height": 3,
                     "left": "0%",
                     "position": "absolute",
-                    "width": "53%",
+                    "width": "29%",
                   }
                 }
               />
@@ -1900,7 +1900,7 @@ exports[`snapshots 1`] = `
                     "left": 12,
                     "position": "relative",
                     "top": -5,
-                    "width": "53%",
+                    "width": "29%",
                   }
                 }
               >
@@ -1911,7 +1911,7 @@ exports[`snapshots 1`] = `
                     }
                   }
                 >
-                  9
+                  5
                 </span>
               </div>
             </div>
@@ -2500,7 +2500,7 @@ exports[`snapshots 1`] = `
                     "height": 3,
                     "left": "0%",
                     "position": "absolute",
-                    "width": "88%",
+                    "width": "58%",
                   }
                 }
               />
@@ -2515,7 +2515,7 @@ exports[`snapshots 1`] = `
                     "left": 12,
                     "position": "relative",
                     "top": -5,
-                    "width": "88%",
+                    "width": "58%",
                   }
                 }
               >
@@ -2526,7 +2526,7 @@ exports[`snapshots 1`] = `
                     }
                   }
                 >
-                  15
+                  10
                 </span>
               </div>
             </div>

@@ -21,7 +21,7 @@ export default class InlineStudentProfile extends React.Component {
                 <div style={styles.header}>Special needs</div>
                 {student.disability &&
                   <div>Disability: {student.disability} 
-                    {student.iep_document && (<a href={`/iep_documents/${student.iep_document.id}`} target="_blank">IEP</a>)}
+                    {student.iep_document && <span> (<a href={`/iep_documents/${student.iep_document.id}`} target="_blank">IEP</a>)</span>}
                   </div>
                 }
                 {student.sped_level_of_need && <div>Level of need: {student.sped_level_of_need}</div>}
