@@ -66,7 +66,7 @@ class ClassListsController < ApplicationController
     })
 
     # educator names
-    educators_json = Educator.all.as_json(only: [:id, :full_name])
+    educators_json = Educator.where(school_id: school_id).as_json(only: [:id, :full_name])
 
     render json: {
       students: students_json,

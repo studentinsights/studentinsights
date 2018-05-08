@@ -132,17 +132,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
           <div style={styles.heading}>Who's the team creating these class lists?</div>
           <Select
             name="select-educators"
-            value={authors.map(educator => educator.id)}
             multi
             removeSelected
+            value={authors}
+            valueKey="id"
+            labelKey="full_name"
+            options={educators}
             onChange={onEducatorsChanged}
             disabled={!isEditable}
-            options={authors.map(educator => {
-              return {
-                value: educator.id,
-                label: educator.full_name
-              };
-            })}
           />
         </div>
         <div>
@@ -171,7 +168,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           </div>
           <textarea
             style={styles.textarea}
-            readOnly={!isEditable}
+            disabled={!isEditable}
             rows={12}
             value={planText}
             onChange={event => onPlanTextChanged(event.target.value)} />

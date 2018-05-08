@@ -98,7 +98,7 @@ describe ClassListsController, :type => :controller do
       expect(response.status).to eq 200
       expect(json.keys).to eq(["students", "educators", "current_educator_id"])
       expect(json["current_educator_id"]).to eq(pals.healey_sarah_teacher.id)
-      expect(json["educators"].size).to eq 13
+      expect(json["educators"].size).to eq 6
       expect(json["students"].length).to eq 4
       expect(json["students"].first.keys).to contain_exactly *[
         "id",
