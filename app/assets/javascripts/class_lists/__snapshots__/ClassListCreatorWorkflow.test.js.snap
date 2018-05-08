@@ -1,0 +1,533 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="ClassListCreatorView"
+  style={Object {}}
+>
+  <div
+    className="HorizontalStepper"
+    style={
+      Object {
+        "paddingTop": 15,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "fontSize": 12,
+          "paddingLeft": 15,
+        }
+      }
+    >
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(49, 119, 201, 0.25)",
+            "border": "1px solid white",
+            "borderColor": "#3177c9",
+            "borderRadius": 3,
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Choose your grade
+        </span>
+      </span>
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "border": "1px solid white",
+            "borderColor": "white",
+            "borderRadius": 3,
+            "color": "#ccc",
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Make a plan
+        </span>
+      </span>
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "border": "1px solid white",
+            "borderColor": "white",
+            "borderRadius": 3,
+            "color": "#ccc",
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Create your classrooms
+        </span>
+      </span>
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "border": "1px solid white",
+            "borderColor": "white",
+            "borderRadius": 3,
+            "color": "#ccc",
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Notes to principal
+        </span>
+      </span>
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "border": "1px solid white",
+            "borderColor": "white",
+            "borderRadius": 3,
+            "color": "#ccc",
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Submit to principal
+        </span>
+      </span>
+    </div>
+    <div
+      style={
+        Object {
+          "borderTop": "1px solid #ccc",
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        Loading...
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "margin": 10,
+        }
+      }
+    >
+      <div />
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshots when readonly 1`] = `
+<div
+  className="ClassListCreatorView"
+  style={Object {}}
+>
+  <div
+    className="HorizontalStepper"
+    style={
+      Object {
+        "paddingTop": 15,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "fontSize": 12,
+          "paddingLeft": 15,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "#666",
+            "borderRadius": 3,
+            "color": "#eee",
+            "display": "inline-block",
+            "padding": 6,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+          }
+        }
+      >
+        readonly
+      </div>
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(49, 119, 201, 0.25)",
+            "border": "1px solid white",
+            "borderColor": "#3177c9",
+            "borderRadius": 3,
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Choose your grade
+        </span>
+      </span>
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "border": "1px solid white",
+            "borderColor": "white",
+            "borderRadius": 3,
+            "color": "#ccc",
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Make a plan
+        </span>
+      </span>
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "border": "1px solid white",
+            "borderColor": "white",
+            "borderRadius": 3,
+            "color": "#ccc",
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Create your classrooms
+        </span>
+      </span>
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "border": "1px solid white",
+            "borderColor": "white",
+            "borderRadius": 3,
+            "color": "#ccc",
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Notes to principal
+        </span>
+      </span>
+      <span
+        onClick={[Function]}
+        style={
+          Object {
+            "border": "1px solid white",
+            "borderColor": "white",
+            "borderRadius": 3,
+            "color": "#ccc",
+            "cursor": "pointer",
+            "marginLeft": 5,
+            "marginRight": 10,
+            "padding": 8,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
+            }
+          }
+          style={
+            Object {
+              "display": "inline-block",
+              "verticalAlign": "middle",
+            }
+          }
+        />
+        <span
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Submit to principal
+        </span>
+      </span>
+      <div
+        style={
+          Object {
+            "background": "#666",
+            "borderRadius": 3,
+            "color": "#eee",
+            "display": "inline-block",
+            "padding": 6,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+          }
+        }
+      >
+        readonly
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "borderTop": "1px solid #ccc",
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        Loading...
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "margin": 10,
+        }
+      }
+    >
+      <div />
+      <div />
+    </div>
+  </div>
+</div>
+`;

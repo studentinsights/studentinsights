@@ -3,34 +3,12 @@ import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import storybookFrame from './storybookFrame';
-import {STEPS} from './ClassListCreatorPage';
+import {testProps} from './ClassListCreatorWorkflow.test';
 
 
-function testProps(props = {}) {
+function storyProps(props = {}) {
   return {
-    // server
-    schools: null,
-    gradeLevelsNextYear: null,
-    students: null,
-    educators: null,
-
-    // config
-    steps: STEPS,
-    availableSteps: [],
-    isEditable: true,
-
-    // state
-    stepIndex: 0,
-    workspaceId: 'foo-workspace-id',
-    schoolId: null,
-    gradeLevelNextYear: null,
-    authors: [],
-    classroomsCount: 3,
-    planText: '',
-    studentIdsByRoom: null,
-    principalNoteText: '',
-
-    // callbacks
+    ...testProps(),
     onStepChanged: action('onStepChanged'),
     onSchoolIdChanged: action('onSchoolIdChanged'),
     onGradeLevelNextYearChanged: action('onGradeLevelNextYearChanged'),
@@ -49,25 +27,32 @@ function render(props) {
 
 storiesOf('equity/ClassListCreatorWorkflow', module) // eslint-disable-line no-undef
   .add('step 0, no data', () => {
-    return render(testProps({
+    return render(storyProps({
+      stepIndex: 0,
+      availableSteps: [0, 1]
+    }));
+  })
+  .add('step 0, readonly', () => {
+    return render(storyProps({
+      isEditable: false,
       stepIndex: 0,
       availableSteps: [0, 1]
     }));
   })
   .add('step 1, no data', () => {
-    return render(testProps({
+    return render(storyProps({
       stepIndex: 1,
       availableSteps: [0, 1]
     }));
   })
   .add('step 2, no data', () => {
-    return render(testProps({
+    return render(storyProps({
       stepIndex: 2,
       availableSteps: [0, 1, 2]
     }));
   })
   .add('step 3, no data', () => {
-    return render(testProps({
+    return render(storyProps({
       stepIndex: 3,
       availableSteps: [0, 1, 2, 3]
     }));
