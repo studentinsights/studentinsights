@@ -108,13 +108,13 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderGender(studentsInRoom) {
-    const maleCount = studentsInRoom.filter(student => student.gender === 'n').length;
+    const maleCount = studentsInRoom.filter(student => student.gender === 'M').length;
     const femaleCount = studentsInRoom.filter(student => student.gender === 'F').length;
     const nonBinaryCount = studentsInRoom.length - maleCount - femaleCount;
     const items = [
-      { left: 0, width: maleCount, color: '#59bdde', key: 'male' },
-      { left: maleCount, width: femaleCount, color: '#f18295', key: 'female' },
-      { left: maleCount + femaleCount, width: nonBinaryCount, color: '#74e67a', key: 'nonbinary' }
+      { left: 0, width: maleCount, color: '#299fc5', key: 'male' },
+      { left: maleCount, width: femaleCount, color: '#e06378', key: 'female' },
+      { left: maleCount + femaleCount, width: nonBinaryCount, color: 'rgb(81, 185, 86)', key: 'nonbinary' }
     ];
 
     return (
@@ -150,14 +150,11 @@ export default class ClassroomStats extends React.Component {
       const level = dibelsLevel(student.latest_dibels);
       dibelsCounts[level] = dibelsCounts[level] + 1;
     });
-    const items = [
-      { left: 0, width: dibelsCounts.core, color: 'green', key: 'core' },
-      { left: dibelsCounts.core, width: dibelsCounts.intensive, color: 'orange', key: 'strategic' },
-      { left: dibelsCounts.core + dibelsCounts.intensive, width: dibelsCounts.strategic, color: 'red', key: 'intensive' }
-    ];
     return (
-      <BreakdownBar
-        items={items}
+      <DibelsBreakdownBar
+        coreCount={dibelsCounts.core}
+        intensiveCount={dibelsCounts.intensive}
+        strategicCount={dibelsCounts.strategic}
         style={{paddingTop: 2, paddingRight: 10}}
         height={5}
         labelTop={5} />
