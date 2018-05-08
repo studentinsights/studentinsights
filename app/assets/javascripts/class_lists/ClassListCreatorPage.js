@@ -31,6 +31,7 @@ export default class ClassListCreatorPage extends React.Component {
 
     this.state = {
       stepIndex: 0,
+      isEditable: true,
 
       // tracking in-flight server requests
       hasFetchedStudents: false,
@@ -189,25 +190,30 @@ export default class ClassListCreatorPage extends React.Component {
   // This method is throttled.
   doSaveChanges() {
     const {
+      isEditable,
       workspaceId,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
-      educators,
+      authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
       principalNoteText
     } = this.state;
 
+    // View-only
+    if (!isEditable) return;
+
     // Don't save until they choose a grade level and school
     if (!workspaceId || stepIndex === 0 || !schoolId || !gradeLevelNextYear) return;
+    
     const payload = {
       workspaceId,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
-      educators,
+      authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
@@ -223,7 +229,6 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({hasFetchedClassList: true});
     return fetchClassListJson(workspaceId).then(this.onFetchedClassList);
   }
-
 
   // TODO(kr) check this on IE
   onBeforeUnload(event) {
@@ -254,11 +259,12 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({
       students,
       educators,
-      authors,
+      authors
     });
   }
 
   onFetchedClassList(responseJson) {
+    const isEditable = responseJson.is_editable;
     const classList = responseJson.class_list;
     const workspaceId = classList.workspace_id;
     const schoolId = classList.school_id;
@@ -273,6 +279,7 @@ export default class ClassListCreatorPage extends React.Component {
     } = classList.json;
     this.setState({
       workspaceId,
+      isEditable,
       schoolId,
       gradeLevelNextYear,
       stepIndex,
@@ -302,6 +309,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({authors}); 
   }
 
+  // TODO(kr) warn about resetting students?
   onClassroomsCountIncremented(delta) {
     const {classroomsCount} = this.state;
     const updatedClassroomsCount = classroomsCount + delta;

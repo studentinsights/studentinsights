@@ -35,27 +35,46 @@ export default class SimpleStudentCard extends React.Component {
   }
 
   render() {
-    const {student, index} = this.props;
+    const {isEditable, student, index} = this.props;
+
+    if (!isEditable) return this.renderClickableStudentCard(student);
+
     return (
       <Draggable draggableId={`SimpleStudentCard:${student.id}`} index={index}>
         {(provided, snapshot) => {
-          return (
-            <div>
-              {this.renderModal()}
-              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                {this.renderStudentCard(student)}
-              </div>
-              {provided.placeholder /* this preserves space when dragging */}
-            </div>
-          );
+          return this.renderClickableStudentCard(student, {
+            ref: provided.innerRef,
+            placeholder: provided.placeholder,
+            propsFromDraggable: {
+              ...provided.draggableProps,
+              ...provided.dragHandleProps
+            }
+          });
         }}
       </Draggable>
     );
   }
 
-  renderStudentCard(student) {
+  // Optionally pass arguments to make this work as a Draggable
+  renderClickableStudentCard(student, options = {}) {
+    const {ref, placeholder, propsFromDraggable = {}} = options;
     return (
-      <div style={styles.studentCard} onClick={this.onClick}>
+      <div>
+        {this.renderModal()}
+        <div ref={ref} {...propsFromDraggable}>
+          {this.renderStudentCard(student)}
+        </div>
+        {placeholder /* this preserves space when dragging */}
+      </div>
+    );
+  }
+
+  renderStudentCard(student) {
+    const {isEditable} = this.props;
+    const cursor = (isEditable) ? 'pointer' : 'default';
+      
+    return (
+      <div style={{...styles.studentCard, cursor}} onClick={this.onClick}>
         <span>{student.first_name} {student.last_name}</span>
         <MoreDots />
       </div>
@@ -85,7 +104,8 @@ export default class SimpleStudentCard extends React.Component {
 SimpleStudentCard.propTypes = {
   student: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired,
-  fetchProfile: React.PropTypes.func.isRequired
+  fetchProfile: React.PropTypes.func.isRequired,
+  isEditable: React.PropTypes.bool.isRequired
 };
 
 const styles = {
@@ -95,7 +115,6 @@ const styles = {
     fontSize: 14,
     border: '1px solid #eee',
     padding: 6,
-    cursor: 'pointer',
     borderRadius: 3,
     backgroundColor: 'white'
   },
