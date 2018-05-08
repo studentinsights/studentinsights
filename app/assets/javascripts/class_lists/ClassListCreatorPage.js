@@ -220,7 +220,6 @@ export default class ClassListCreatorPage extends React.Component {
       principalNoteText,
       clientNowMs: moment.utc().unix()
     };
-    console.log('authors', authors);
     postClassList(payload);
   }
 
