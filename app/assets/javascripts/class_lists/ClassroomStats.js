@@ -3,8 +3,13 @@ import _ from 'lodash';
 import Stack from '../components/Stack';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
+import BreakdownBar from '../components/BreakdownBar';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
-
+import {
+  isLimitedOrFlep,
+  isIepOr504,
+  isLowIncome
+} from './studentFilters';
 
 // This component is written particularly for Somerville and it's likely this would require factoring out
 // into `PerDistrict` to respect the way this data is stored across districts.
@@ -38,8 +43,8 @@ export default class ClassroomStats extends React.Component {
                 title="Students receiving English Learning Services or who have in the past (FLEP)">Limited or FLEP</th>
               <th style={styles.spacer}></th>
               <th style={{...styles.cell, ...styles.heading}}
-                title="Students who identify their gender as male and not female, nonbinary or transgendered.  One gender is chosen here to simplify the visual representation, not to imply a preference or hierarchy.">
-                Gender, male</th>
+                title="Students broken down by whether they identify their gender as male, female or nonbinary.">
+                Gender</th>
               <th style={{...styles.cell, ...styles.heading}}
                 title="Students whose are enrolled in the free or reduced lunch program">
                 Low income
@@ -93,28 +98,36 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderIepOr504(studentsInRoom) {
-    const count = studentsInRoom.filter(student => {
-      return (student.disability !== null || student.plan_504 !== 'Not 504');
-    }).length;
+    const count = studentsInRoom.filter(isIepOr504).length;
     return this.renderStackSimple(count);
   }
 
   renderEnglishLearners(studentsInRoom) {
-    const count = studentsInRoom.filter(student => {
-      return ['Limited', 'FLEP'].indexOf(student.limited_english_proficiency !== -1);
-    }).length;
+    const count = studentsInRoom.filter(isLimitedOrFlep).length;
     return this.renderStackSimple(count);
   }
 
   renderGender(studentsInRoom) {
-    const count = studentsInRoom.filter(student => student.gender === 'M').length;
-    return this.renderStackSimple(count);
+    const maleCount = studentsInRoom.filter(student => student.gender === 'n').length;
+    const femaleCount = studentsInRoom.filter(student => student.gender === 'F').length;
+    const nonBinaryCount = studentsInRoom.length - maleCount - femaleCount;
+    const items = [
+      { left: 0, width: maleCount, color: '#59bdde', key: 'male' },
+      { left: maleCount, width: femaleCount, color: '#f18295', key: 'female' },
+      { left: maleCount + femaleCount, width: nonBinaryCount, color: '#74e67a', key: 'nonbinary' }
+    ];
+
+    return (
+      <BreakdownBar
+        items={items}
+        style={{paddingTop: 4, paddingRight: 10}}
+        height={5}
+        labelTop={5} />
+    );
   }
 
   renderLowIncome(studentsInRoom) {
-    const count = studentsInRoom.filter(student => {
-      return ['Free Lunch', 'Reduced Lunch'].indexOf(student.free_reduced_lunch) !== -1;
-    }).length;
+    const count = studentsInRoom.filter(isLowIncome).length;
     return this.renderStackSimple(count);
   }
 
@@ -137,13 +150,15 @@ export default class ClassroomStats extends React.Component {
       const level = dibelsLevel(student.latest_dibels);
       dibelsCounts[level] = dibelsCounts[level] + 1;
     });
-
+    const items = [
+      { left: 0, width: dibelsCounts.core, color: 'green', key: 'core' },
+      { left: dibelsCounts.core, width: dibelsCounts.intensive, color: 'orange', key: 'strategic' },
+      { left: dibelsCounts.core + dibelsCounts.intensive, width: dibelsCounts.strategic, color: 'red', key: 'intensive' }
+    ];
     return (
-      <DibelsBreakdownBar
-        coreCount={dibelsCounts.core}
-        intensiveCount={dibelsCounts.intensive}
-        strategicCount={dibelsCounts.strategic}
-        style={{paddingTop: 2}}
+      <BreakdownBar
+        items={items}
+        style={{paddingTop: 2, paddingRight: 10}}
         height={5}
         labelTop={5} />
     );
