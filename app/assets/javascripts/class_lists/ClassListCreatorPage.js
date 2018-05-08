@@ -309,6 +309,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({authors}); 
   }
 
+  // TODO(kr) warn about resetting students?
   onClassroomsCountIncremented(delta) {
     const {classroomsCount} = this.state;
     const updatedClassroomsCount = classroomsCount + delta;

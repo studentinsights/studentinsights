@@ -17,6 +17,7 @@ function testProps(props = {}) {
     // config
     steps: STEPS,
     availableSteps: [],
+    isEditable: true,
 
     // state
     stepIndex: 0,
