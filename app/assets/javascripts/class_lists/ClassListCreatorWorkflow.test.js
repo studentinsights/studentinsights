@@ -68,24 +68,24 @@ export function makeAPlanProps(props = {}) {
   };
 }
 
+function snapshotRender(props) {
+  return renderer
+    .create(<ClassListCreatorWorkflow {...props} />)
+    .toJSON();
+}
+
 it('renders without crashing', () => {
   const el = document.createElement('div');
   const props = testProps();
   ReactDOM.render(<ClassListCreatorWorkflow {...props} />, el);
 });
 
-it('snapshots', () => {
-  const props = testProps();
-  const tree = renderer
-    .create(<ClassListCreatorWorkflow {...props} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it('chooseYourGradeProps', () => {
+  expect(snapshotRender(chooseYourGradeProps())).toMatchSnapshot();
+  expect(snapshotRender(chooseYourGradeProps({ isEditable: false }))).toMatchSnapshot();
 });
 
-it('snapshots when readonly', () => {
-  const props = testProps({ isEditable: false });
-  const tree = renderer
-    .create(<ClassListCreatorWorkflow {...props} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+it('makeAPlanProps', () => {
+  expect(snapshotRender(makeAPlanProps())).toMatchSnapshot();
+  expect(snapshotRender(makeAPlanProps({ isEditable: false }))).toMatchSnapshot();
 });
