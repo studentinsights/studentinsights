@@ -96,9 +96,9 @@ exports[`snapshots 1`] = `
               "verticalAlign": "top",
             }
           }
-          title="Students who identify their gender as male and not female, nonbinary or transgendered.  One gender is chosen here to simplify the visual representation, not to imply a preference or hierarchy."
+          title="Students broken down by whether they identify their gender as male, female or nonbinary."
         >
-          Gender, male
+          Gender
         </th>
         <th
           style={
@@ -344,55 +344,24 @@ exports[`snapshots 1`] = `
           }
         >
           <div
+            className="GenderBreakdownBar"
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
+                "height": 5,
+                "paddingRight": 10,
+                "paddingTop": 4,
               }
             }
           >
             <div
               style={
                 Object {
+                  "height": 5,
+                  "position": "relative",
                   "width": "100%",
                 }
               }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "0%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 10,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 12,
-                    "position": "relative",
-                    "top": -5,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
-            </div>
+            />
           </div>
         </td>
         <td
@@ -737,61 +706,91 @@ exports[`snapshots 1`] = `
           }
         >
           <div
+            className="GenderBreakdownBar"
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
+                "height": 5,
+                "paddingRight": 10,
+                "paddingTop": 4,
               }
             }
           >
             <div
               style={
                 Object {
+                  "height": 5,
+                  "position": "relative",
                   "width": "100%",
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "29%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 10,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 12,
-                    "position": "relative",
-                    "top": -5,
-                    "width": "29%",
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#333",
+                      "background": "#299fc5",
+                      "fontSize": 10,
+                      "height": 5,
+                      "left": "0%",
+                      "opacity": 0.5,
+                      "position": "absolute",
+                      "width": "63%",
+                    }
+                  }
+                >
+                   
+                </div>
+                <div
+                  style={
+                    Object {
+                      "color": "#299fc5",
+                      "fontSize": 10,
+                      "left": "0%",
+                      "opacity": 0.5,
+                      "paddingRight": 1,
+                      "position": "absolute",
+                      "textAlign": "right",
+                      "top": 5,
+                      "width": "63%",
                     }
                   }
                 >
                   5
-                </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "background": "#e06378",
+                      "fontSize": 10,
+                      "height": 5,
+                      "left": "63%",
+                      "opacity": 0.5,
+                      "position": "absolute",
+                      "width": "38%",
+                    }
+                  }
+                >
+                   
+                </div>
+                <div
+                  style={
+                    Object {
+                      "color": "#e06378",
+                      "fontSize": 10,
+                      "left": "63%",
+                      "opacity": 0.5,
+                      "paddingRight": 1,
+                      "position": "absolute",
+                      "textAlign": "right",
+                      "top": 5,
+                      "width": "38%",
+                    }
+                  }
+                >
+                  3
+                </div>
               </div>
             </div>
           </div>
@@ -1322,61 +1321,91 @@ exports[`snapshots 1`] = `
           }
         >
           <div
+            className="GenderBreakdownBar"
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
+                "height": 5,
+                "paddingRight": 10,
+                "paddingTop": 4,
               }
             }
           >
             <div
               style={
                 Object {
+                  "height": 5,
+                  "position": "relative",
                   "width": "100%",
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "35%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 10,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 12,
-                    "position": "relative",
-                    "top": -5,
-                    "width": "35%",
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#333",
+                      "background": "#299fc5",
+                      "fontSize": 10,
+                      "height": 5,
+                      "left": "0%",
+                      "opacity": 0.5,
+                      "position": "absolute",
+                      "width": "43%",
+                    }
+                  }
+                >
+                   
+                </div>
+                <div
+                  style={
+                    Object {
+                      "color": "#299fc5",
+                      "fontSize": 10,
+                      "left": "0%",
+                      "opacity": 0.5,
+                      "paddingRight": 1,
+                      "position": "absolute",
+                      "textAlign": "right",
+                      "top": 5,
+                      "width": "43%",
                     }
                   }
                 >
                   6
-                </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "background": "#e06378",
+                      "fontSize": 10,
+                      "height": 5,
+                      "left": "43%",
+                      "opacity": 0.5,
+                      "position": "absolute",
+                      "width": "58%",
+                    }
+                  }
+                >
+                   
+                </div>
+                <div
+                  style={
+                    Object {
+                      "color": "#e06378",
+                      "fontSize": 10,
+                      "left": "43%",
+                      "opacity": 0.5,
+                      "paddingRight": 1,
+                      "position": "absolute",
+                      "textAlign": "right",
+                      "top": 5,
+                      "width": "58%",
+                    }
+                  }
+                >
+                  8
+                </div>
               </div>
             </div>
           </div>
@@ -1907,61 +1936,91 @@ exports[`snapshots 1`] = `
           }
         >
           <div
+            className="GenderBreakdownBar"
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
+                "height": 5,
+                "paddingRight": 10,
+                "paddingTop": 4,
               }
             }
           >
             <div
               style={
                 Object {
+                  "height": 5,
+                  "position": "relative",
                   "width": "100%",
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "35%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 10,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 12,
-                    "position": "relative",
-                    "top": -5,
-                    "width": "35%",
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#333",
+                      "background": "#299fc5",
+                      "fontSize": 10,
+                      "height": 5,
+                      "left": "0%",
+                      "opacity": 0.5,
+                      "position": "absolute",
+                      "width": "67%",
+                    }
+                  }
+                >
+                   
+                </div>
+                <div
+                  style={
+                    Object {
+                      "color": "#299fc5",
+                      "fontSize": 10,
+                      "left": "0%",
+                      "opacity": 0.5,
+                      "paddingRight": 1,
+                      "position": "absolute",
+                      "textAlign": "right",
+                      "top": 5,
+                      "width": "67%",
                     }
                   }
                 >
                   6
-                </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "background": "#e06378",
+                      "fontSize": 10,
+                      "height": 5,
+                      "left": "67%",
+                      "opacity": 0.5,
+                      "position": "absolute",
+                      "width": "34%",
+                    }
+                  }
+                >
+                   
+                </div>
+                <div
+                  style={
+                    Object {
+                      "color": "#e06378",
+                      "fontSize": 10,
+                      "left": "67%",
+                      "opacity": 0.5,
+                      "paddingRight": 1,
+                      "position": "absolute",
+                      "textAlign": "right",
+                      "top": 5,
+                      "width": "34%",
+                    }
+                  }
+                >
+                  3
+                </div>
               </div>
             </div>
           </div>
@@ -2492,61 +2551,91 @@ exports[`snapshots 1`] = `
           }
         >
           <div
+            className="GenderBreakdownBar"
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
+                "height": 5,
+                "paddingRight": 10,
+                "paddingTop": 4,
               }
             }
           >
             <div
               style={
                 Object {
+                  "height": 5,
+                  "position": "relative",
                   "width": "100%",
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "41%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 10,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 12,
-                    "position": "relative",
-                    "top": -5,
-                    "width": "41%",
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#333",
+                      "background": "#299fc5",
+                      "fontSize": 10,
+                      "height": 5,
+                      "left": "0%",
+                      "opacity": 0.5,
+                      "position": "absolute",
+                      "width": "47%",
+                    }
+                  }
+                >
+                   
+                </div>
+                <div
+                  style={
+                    Object {
+                      "color": "#299fc5",
+                      "fontSize": 10,
+                      "left": "0%",
+                      "opacity": 0.5,
+                      "paddingRight": 1,
+                      "position": "absolute",
+                      "textAlign": "right",
+                      "top": 5,
+                      "width": "47%",
                     }
                   }
                 >
                   7
-                </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "background": "#e06378",
+                      "fontSize": 10,
+                      "height": 5,
+                      "left": "47%",
+                      "opacity": 0.5,
+                      "position": "absolute",
+                      "width": "54%",
+                    }
+                  }
+                >
+                   
+                </div>
+                <div
+                  style={
+                    Object {
+                      "color": "#e06378",
+                      "fontSize": 10,
+                      "left": "47%",
+                      "opacity": 0.5,
+                      "paddingRight": 1,
+                      "position": "absolute",
+                      "textAlign": "right",
+                      "top": 5,
+                      "width": "54%",
+                    }
+                  }
+                >
+                  8
+                </div>
               </div>
             </div>
           </div>

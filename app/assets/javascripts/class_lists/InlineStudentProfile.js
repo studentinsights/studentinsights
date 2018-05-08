@@ -3,7 +3,7 @@ import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
 import Card from '../components/Card';
 import FeedView from '../feed/FeedView';
-
+import {isLimitedOrFlep} from './studentFilters';
 
 // Inline student profile for classroom list creator, shown as a modal
 export default class InlineStudentProfile extends React.Component {
@@ -19,14 +19,18 @@ export default class InlineStudentProfile extends React.Component {
             <div style={{display: 'flex'}}>
               <Card style={styles.card}>
                 <div style={styles.header}>Special needs</div>
-                {student.disability && <div>Disability: {student.disability} (<a href="#">IEP</a>)</div>}
+                {student.disability &&
+                  <div>Disability: {student.disability} 
+                    {student.iep_document && (<a href={`/iep_documents/${student.iep_document.id}`} target="_blank">IEP</a>)}
+                  </div>
+                }
                 {student.sped_level_of_need && <div>Level of need: {student.sped_level_of_need}</div>}
                 {student.program_assigned && <div>Program: {student.program_assigned}</div>}
-                {student.plan_504 !== 'Not 504' && <div>504 plan: {student.plan_504}</div>}
+                {student.plan_504 === '504' && <div>504 plan: {student.plan_504}</div>}
               </Card>
               <Card style={styles.card}>
                 <div style={styles.header}>Learning English</div>
-                {student.limited_english_proficiency !== 'Fluent' && <div>Learning English: {student.limited_english_proficiency}</div>}
+                {isLimitedOrFlep(student) && <div>Learning English: {student.limited_english_proficiency}</div>}
                 {student.latest_access_results && <div>ACCESS Composite: {student.latest_access_results.composite}</div>}
               </Card>
             </div>
