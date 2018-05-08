@@ -40,14 +40,12 @@ class ClassListQueries
     end
   end
 
-  # Educators can only write to workspaces they created, or to create a new workspace.
+  # Educators can only write to workspaces they created, or to unowned workspaces.
   def is_authorized_for_writes?(workspace_id)
-    class_list = authorized_class_list(workspace_id)
-    if class_list.nil?
-      true
-    else
-      class_list.created_by_educator_id == @educator.id
-    end
+    owner = ClassList.workspace_owner(workspace_id)
+    return true if owner.nil?
+    return true if owner.id == @educator.id
+    false
   end
 
   # This is intended only for use in this controller, and allows more people
@@ -84,7 +82,7 @@ class ClassListQueries
       }))
     return nil unless class_lists.size == 1
 
-    # Check that educator is authorized for that grade level
+    # Check that educator is authorized for that grade level and school
     class_list = class_lists.first
     grade_level_now = GradeLevels.new.previous(class_list.grade_level_next_year)
     return nil unless is_authorized_for_grade_level_now?(class_list.school_id, grade_level_now)

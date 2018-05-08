@@ -107,7 +107,7 @@ class ClassListsController < ApplicationController
     grade_level_now = GradeLevels.new.previous(grade_level_next_year)
     raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_grade_level_now?(school_id, grade_level_now)
 
-    # Check that they are authorized for writes
+    # Check that no one else has written to this workspace_id
     raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_writes?(workspace_id)
 
     # Write a new record
