@@ -58,14 +58,7 @@ export default class CreateYourListsView extends React.Component {
                       <span style={{float: 'right', color: '#666', fontSize: 12}}>({classroomStudents.length})</span>
                     </div>
                   </div>
-                  <Droppable droppableId={roomKey} type="CLASSROOM_LIST">
-                    {(provided, snapshot) => (
-                      <div ref={provided.innerRef} style={styles.droppable}>
-                        <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
-                        <div>{provided.placeholder}</div>
-                      </div>
-                    )}
-                  </Droppable>
+                  {this.renderDroppableIfEditable(roomKey, classroomStudents)}
                 </div>
               );
             })}
@@ -75,9 +68,37 @@ export default class CreateYourListsView extends React.Component {
     );
   }
 
+
+  renderDroppableIfEditable(roomKey, classroomStudents) {
+    const {isEditable} = this.props;
+    if (!isEditable) return this.renderStudentCards(classroomStudents);
+
+    return (
+      <Droppable droppableId={roomKey} type="CLASSROOM_LIST">
+        {(provided, snapshot) => {
+          return this.renderStudentCards(classroomStudents, {
+            ref: provided.innerRef,
+            placeholder: provided.placeholder
+          });
+        }}
+      </Droppable>
+    );
+  }
+
+  renderStudentCards(classroomStudents, options = {}) {
+    const {ref, placeholder} = options;
+    return (
+      <div ref={ref} style={styles.droppable}>
+        <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
+        <div>{placeholder}</div>
+      </div>
+    );
+  }
+
   renderStudentCard(student, index) {
-    const {fetchProfile} = this.props;
+    const {fetchProfile, isEditable} = this.props;
     return <SimpleStudentCard
+      isEditable={isEditable}
       key={student.id}
       student={student}
       index={index}
@@ -85,6 +106,7 @@ export default class CreateYourListsView extends React.Component {
   }
 }
 CreateYourListsView.propTypes = {
+  isEditable: React.PropTypes.bool.isRequired,
   classroomsCount: React.PropTypes.number.isRequired,
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   students: React.PropTypes.array.isRequired,

@@ -35,21 +35,37 @@ export default class SimpleStudentCard extends React.Component {
   }
 
   render() {
-    const {student, index} = this.props;
+    const {isEditable, student, index} = this.props;
+
+    if (!isEditable) return this.renderClickableStudentCard(student);
+
     return (
       <Draggable draggableId={`SimpleStudentCard:${student.id}`} index={index}>
         {(provided, snapshot) => {
-          return (
-            <div>
-              {this.renderModal()}
-              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                {this.renderStudentCard(student)}
-              </div>
-              {provided.placeholder /* this preserves space when dragging */}
-            </div>
-          );
+          return this.renderClickableStudentCard(student, {
+            ref: provided.innerRef,
+            placeholder: provided.placeholder,
+            props: {
+              ...provided.draggableProps,
+              ...provided.dragHandleProps
+            }
+          });
         }}
       </Draggable>
+    );
+  }
+
+  // Optionally pass arguments to make this work as a Draggable
+  renderClickableStudentCard(student, options = {}) {
+    const {ref, placeholder, propsFromDraggable = {}} = options;
+    return (
+      <div>
+        {this.renderModal()}
+        <div ref={ref} {...propsFromDraggable}>
+          {this.renderStudentCard(student)}
+        </div>
+        {placeholder /* this preserves space when dragging */}
+      </div>
     );
   }
 
@@ -85,7 +101,8 @@ export default class SimpleStudentCard extends React.Component {
 SimpleStudentCard.propTypes = {
   student: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired,
-  fetchProfile: React.PropTypes.func.isRequired
+  fetchProfile: React.PropTypes.func.isRequired,
+  isEditable: React.PropTypes.bool.isRequired
 };
 
 const styles = {

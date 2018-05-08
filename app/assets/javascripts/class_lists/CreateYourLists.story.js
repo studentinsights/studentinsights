@@ -29,6 +29,13 @@ storiesOf('equity/CreateYourLists', module) // eslint-disable-line no-undef
       classroomsCount: 5,
       gradeLevelNextYear: '5'
     }));
+  })
+  .add("readonly", () => {
+    return testRender(testProps({
+      isEditable: false,
+      classroomsCount: 4,
+      gradeLevelNextYear: '5'
+    }));
   });
 
 
