@@ -75,7 +75,7 @@ export default class SimpleStudentCard extends React.Component {
       
     return (
       <div style={{...styles.studentCard, cursor}} onClick={this.onClick}>
-        <span>{student.first_name} {student.last_name}</span>
+        <span>{student.last_name}, {student.first_name}</span>
         <MoreDots />
       </div>
     );
