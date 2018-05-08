@@ -46,11 +46,69 @@ export default class ClassListCreatorWorkflow extends React.Component {
   }
 
   renderStepContents(stepIndex, step) {
-    if (stepIndex === 0) return renderChooseYourGrade(this.props);
+    if (stepIndex === 0) return this.renderChooseYourGrade();
     if (stepIndex === 1) return this.renderMakeAPlan();
     if (stepIndex === 2) return this.renderCreateYourClassrooms();
     if (stepIndex === 3) return this.renderReviewAndShareNotes();
     if (stepIndex === 4) return this.renderShareWithPrincipal();
+  }
+
+  renderChooseYourGrade() {
+    const {
+      isEditable,
+      schools,
+      gradeLevelsNextYear,
+      schoolId,
+      gradeLevelNextYear,
+      onSchoolIdChanged,
+      onGradeLevelNextYearChanged
+    } = this.props;
+    const videoUrl = null;
+
+    if (schools === null || gradeLevelsNextYear === null) return <Loading />;
+    return (
+      <div style={styles.stepContent}>
+        <div>
+          <div style={styles.heading}>Why are we doing this?</div>
+          <div style={{fontSize: 12, padding: 10, paddingLeft: 5, whiteSpace: 'pre-wrap'}}>
+            {text}
+          </div>
+          {videoUrl && <a href={videoUrl} target="_blank" style={styles.videoLink}>Watch the full video</a>}
+        </div>
+        <div>
+          <div>
+            <div style={styles.heading}>What school?</div>
+              <Select
+                name="select-school-name"
+                value={schoolId}
+                onChange={item => onSchoolIdChanged(item.value)}
+                disabled={!isEditable}
+                options={_.sortBy(schools, s => s.name).map(school => {
+                  return {
+                    value: school.id,
+                    label: school.name
+                  };
+                })}
+              />
+          </div>
+          <div>
+            <div style={styles.heading}>What grade level are you creating?</div>
+              <Select
+                name="select-grade-level"
+                value={gradeLevelNextYear}
+                onChange={item => onGradeLevelNextYearChanged(item.value)}
+                disabled={!isEditable}
+                options={gradeLevelsNextYear.map(gradeLevelNextYear => {
+                  return {
+                    value: gradeLevelNextYear,
+                    label: `Next year's ${gradeText(gradeLevelNextYear)} ` 
+                  };
+                })}
+              />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   renderMakeAPlan() {
@@ -78,7 +136,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
             multi
             removeSelected
             onChange={onEducatorsChanged}
-            inputProps={{readOnly: !isEditable}}
+            disabled={!isEditable}
             options={authors.map(educator => {
               return {
                 value: educator.id,
@@ -145,7 +203,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
   }
 
   renderReviewAndShareNotes() {
-    const {onPrincipalNoteChanged, principalNoteText} = this.props;
+    const {isEditable, onPrincipalNoteChanged, principalNoteText} = this.props;
     return (
       <div style={styles.stepContent}>
         <div>What else should your principal know?</div>
@@ -154,6 +212,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         </div>
         <textarea
           value={principalNoteText}
+          disabled={!isEditable}
           onChange={event => onPrincipalNoteChanged(event.target.value)}
           rows={12} 
           style={styles.textarea} />
@@ -242,80 +301,3 @@ const styles = {
 };
 
 
-
-
-export function renderChooseYourGrade(props) {
-  const {
-    isEditable,
-    schools,
-    gradeLevelsNextYear,
-    schoolId,
-    gradeLevelNextYear,
-    onSchoolIdChanged,
-    onGradeLevelNextYearChanged
-  } = props;
-  const text = `Over the last few years, I’ve been hearing from teachers and principals about how complex and time-consuming the class assignment process is.  It’s so hard to juggle and keep track of all the various factors, like gender, ELL status, disabilities, academics, and discipline.  And in a diverse city as ours, we want as much as possible for the classrooms at each grade level to reflect the diversity of your school community.    In the past year, people who have seen our Student Insights system have asked if there might be a way to use technology to make the process a little more streamlined.
-
-With our new grant from the Boston Foundation to expand the functionality of Insights, we are happy to announce that we have created a tool for you to use.   Over the past few months, we have talked to a bunch of teachers and principals to see what would help, prototyped different models, and piloted this tool with several teams to get feedback.
-
--Uri`;
-
-  const videoUrl = null;
-
-  if (schools === null || gradeLevelsNextYear === null) return <Loading />;
-  return (
-    <div style={styles.stepContent}>
-      <div>
-        <div style={styles.heading}>Why are we doing this?</div>
-        <div style={{fontSize: 12, padding: 10, paddingLeft: 5, whiteSpace: 'pre-wrap'}}>
-          {text}
-        </div>
-        {videoUrl && <a href={videoUrl} target="_blank" style={styles.videoLink}>Watch the full video</a>}
-      </div>
-      <div>
-        <div>
-          <div style={styles.heading}>What school?</div>
-            <Select
-              name="select-school-name"
-              value={schoolId}
-              onChange={item => onSchoolIdChanged(item.value)}
-              inputProps={{readOnly: !isEditable}}
-              options={_.sortBy(schools, s => s.name).map(school => {
-                return {
-                  value: school.id,
-                  label: school.name
-                };
-              })}
-            />
-        </div>
-        <div>
-          <div style={styles.heading}>What grade level are you creating?</div>
-            <Select
-              name="select-grade-level"
-              value={gradeLevelNextYear}
-              onChange={item => onGradeLevelNextYearChanged(item.value)}
-              inputProps={{readOnly: !isEditable}}
-              options={gradeLevelsNextYear.map(gradeLevelNextYear => {
-                return {
-                  value: gradeLevelNextYear,
-                  label: `Next year's ${gradeText(gradeLevelNextYear)} ` 
-                };
-              })}
-            />
-        </div>
-      </div>
-    </div>
-  );
-}
-renderChooseYourGrade.propTypes = {
-  isEditable: React.PropTypes.bool.isRequired,
-  schools: React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    name: React.PropTypes.string.isRequired
-  })).isRequired,
-  schoolId: React.PropTypes.number.isRequired,
-  gradeLevelsNextYear: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  gradeLevelNextYear: React.PropTypes.string.isRequired,
-  onSchoolIdChanged: React.PropTypes.func.isRequired,
-  onGradeLevelNextYearChanged: React.PropTypes.func.isRequired
-};

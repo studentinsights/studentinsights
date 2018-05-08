@@ -40,7 +40,7 @@ exports[`snapshots 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
             }
           }
           style={
@@ -67,7 +67,6 @@ exports[`snapshots 1`] = `
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
-            "color": "#ccc",
             "cursor": "pointer",
             "marginLeft": 5,
             "marginRight": 10,
@@ -79,7 +78,7 @@ exports[`snapshots 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
             }
           }
           style={
@@ -106,7 +105,6 @@ exports[`snapshots 1`] = `
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
-            "color": "#ccc",
             "cursor": "pointer",
             "marginLeft": 5,
             "marginRight": 10,
@@ -118,7 +116,7 @@ exports[`snapshots 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
             }
           }
           style={
@@ -145,7 +143,6 @@ exports[`snapshots 1`] = `
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
-            "color": "#ccc",
             "cursor": "pointer",
             "marginLeft": 5,
             "marginRight": 10,
@@ -157,7 +154,7 @@ exports[`snapshots 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
             }
           }
           style={
@@ -184,7 +181,6 @@ exports[`snapshots 1`] = `
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
-            "color": "#ccc",
             "cursor": "pointer",
             "marginLeft": 5,
             "marginRight": 10,
@@ -196,7 +192,7 @@ exports[`snapshots 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
             }
           }
           style={
@@ -245,7 +241,31 @@ exports[`snapshots 1`] = `
       }
     >
       <div />
-      <div />
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "fontSize": 14,
+              "margin": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          Next &gt;
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -306,7 +326,7 @@ exports[`snapshots when readonly 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
             }
           }
           style={
@@ -333,7 +353,6 @@ exports[`snapshots when readonly 1`] = `
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
-            "color": "#ccc",
             "cursor": "pointer",
             "marginLeft": 5,
             "marginRight": 10,
@@ -345,7 +364,7 @@ exports[`snapshots when readonly 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
             }
           }
           style={
@@ -372,7 +391,6 @@ exports[`snapshots when readonly 1`] = `
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
-            "color": "#ccc",
             "cursor": "pointer",
             "marginLeft": 5,
             "marginRight": 10,
@@ -384,7 +402,7 @@ exports[`snapshots when readonly 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
             }
           }
           style={
@@ -411,7 +429,6 @@ exports[`snapshots when readonly 1`] = `
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
-            "color": "#ccc",
             "cursor": "pointer",
             "marginLeft": 5,
             "marginRight": 10,
@@ -423,7 +440,7 @@ exports[`snapshots when readonly 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
             }
           }
           style={
@@ -450,7 +467,6 @@ exports[`snapshots when readonly 1`] = `
             "border": "1px solid white",
             "borderColor": "white",
             "borderRadius": 3,
-            "color": "#ccc",
             "cursor": "pointer",
             "marginLeft": 5,
             "marginRight": 10,
@@ -462,7 +478,7 @@ exports[`snapshots when readonly 1`] = `
         <div
           dangerouslySetInnerHTML={
             Object {
-              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #ccc; fill: #ccc; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
+              "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
             }
           }
           style={
@@ -526,7 +542,31 @@ exports[`snapshots when readonly 1`] = `
       }
     >
       <div />
-      <div />
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "fontSize": 14,
+              "margin": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          Next &gt;
+        </button>
+      </div>
     </div>
   </div>
 </div>

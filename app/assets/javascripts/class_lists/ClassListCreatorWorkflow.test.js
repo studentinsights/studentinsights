@@ -15,7 +15,7 @@ export function testProps(props = {}) {
 
     // config
     steps: STEPS,
-    availableSteps: [],
+    availableSteps: STEPS.map((step, index) => index),
     isEditable: true,
 
     // state

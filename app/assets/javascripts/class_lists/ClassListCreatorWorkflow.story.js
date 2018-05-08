@@ -4,7 +4,7 @@ import {action} from '@storybook/addon-actions';
 import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import storybookFrame from './storybookFrame';
 import {testProps} from './ClassListCreatorWorkflow.test';
-
+import available_grade_levels_json from './fixtures/available_grade_levels_json';
 
 function storyProps(props = {}) {
   return {
@@ -26,17 +26,21 @@ function render(props) {
 }
 
 storiesOf('equity/ClassListCreatorWorkflow', module) // eslint-disable-line no-undef
-  .add('step 0, no data', () => {
+  .add('step 0, with data', () => {
     return render(storyProps({
       stepIndex: 0,
-      availableSteps: [0, 1]
+      schools: available_grade_levels_json.schools,
+      gradeLevelsNextYear: available_grade_levels_json.grade_levels_next_year
     }));
   })
   .add('step 0, readonly', () => {
     return render(storyProps({
-      isEditable: false,
       stepIndex: 0,
-      availableSteps: [0, 1]
+      schools: available_grade_levels_json.schools,
+      schoolId: available_grade_levels_json.schools[2].id,
+      gradeLevelsNextYear: available_grade_levels_json.grade_levels_next_year,
+      gradeLevelNextYear: available_grade_levels_json.default_grade_level_next_year,
+      isEditable: false
     }));
   })
   .add('step 1, no data', () => {
@@ -51,10 +55,17 @@ storiesOf('equity/ClassListCreatorWorkflow', module) // eslint-disable-line no-u
       availableSteps: [0, 1, 2]
     }));
   })
-  .add('step 3, no data', () => {
+  .add('step 3, with data', () => {
     return render(storyProps({
       stepIndex: 3,
-      availableSteps: [0, 1, 2, 3]
+      principalNoteText: 'You should remember to talk with...'
+    }));
+  })
+  .add('step 3, readonly', () => {
+    return render(storyProps({
+      stepIndex: 3,
+      principalNoteText: 'You should remember to talk with...',
+      isEditable: false
     }));
   });
 
