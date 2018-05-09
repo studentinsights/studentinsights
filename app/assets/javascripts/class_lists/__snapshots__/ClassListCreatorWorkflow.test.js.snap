@@ -3,7 +3,11 @@
 exports[`chooseYourGradeProps 1`] = `
 <div
   className="ClassListCreatorView"
-  style={Object {}}
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
 >
   <div
     className="HorizontalStepper"
@@ -251,7 +255,6 @@ exports[`chooseYourGradeProps 1`] = `
           <div
             style={
               Object {
-                "fontSize": 12,
                 "padding": 10,
                 "paddingLeft": 5,
                 "whiteSpace": "pre-wrap",
@@ -564,7 +567,11 @@ With our new grant from the Boston Foundation to expand the functionality of Ins
 exports[`chooseYourGradeProps 2`] = `
 <div
   className="ClassListCreatorView"
-  style={Object {}}
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
 >
   <div
     className="HorizontalStepper"
@@ -828,7 +835,6 @@ exports[`chooseYourGradeProps 2`] = `
           <div
             style={
               Object {
-                "fontSize": 12,
                 "padding": 10,
                 "paddingLeft": 5,
                 "whiteSpace": "pre-wrap",
@@ -1049,7 +1055,11 @@ With our new grant from the Boston Foundation to expand the functionality of Ins
 exports[`makeAPlanProps 1`] = `
 <div
   className="ClassListCreatorView"
-  style={Object {}}
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
 >
   <div
     className="HorizontalStepper"
@@ -1611,7 +1621,11 @@ exports[`makeAPlanProps 1`] = `
 exports[`makeAPlanProps 2`] = `
 <div
   className="ClassListCreatorView"
-  style={Object {}}
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
 >
   <div
     className="HorizontalStepper"

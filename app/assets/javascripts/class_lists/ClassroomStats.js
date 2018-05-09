@@ -239,7 +239,7 @@ const styles = {
   heading: {
     textDecoration: 'dashed #ccc underline',
     cursor: 'help',
-    paddingBottom: 5
+    paddingBottom: 10
   },
   spacer: {
     width: 1
@@ -259,8 +259,8 @@ const styles = {
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     position: 'relative',
-    top: -7,
-    left: 12
+    top: -6,
+    left: 13
   },
   breakdownBar: {
     paddingTop: 4,

@@ -6,6 +6,7 @@ exports[`snapshots 1`] = `
   style={
     Object {
       "borderBottom": "1px solid #eee",
+      "fontSize": 14,
       "padding": 20,
       "paddingBottom": 15,
     }
@@ -15,7 +16,6 @@ exports[`snapshots 1`] = `
     style={
       Object {
         "borderCollapse": "collapse",
-        "fontSize": 12,
         "tableLayout": "fixed",
         "textAlign": "left",
         "width": "100%",
@@ -27,7 +27,6 @@ exports[`snapshots 1`] = `
         <th
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -46,10 +45,9 @@ exports[`snapshots 1`] = `
           style={
             Object {
               "cursor": "help",
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
-              "paddingBottom": 5,
+              "paddingBottom": 10,
               "textAlign": "left",
               "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
@@ -63,10 +61,9 @@ exports[`snapshots 1`] = `
           style={
             Object {
               "cursor": "help",
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
-              "paddingBottom": 5,
+              "paddingBottom": 10,
               "textAlign": "left",
               "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
@@ -87,10 +84,9 @@ exports[`snapshots 1`] = `
           style={
             Object {
               "cursor": "help",
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
-              "paddingBottom": 5,
+              "paddingBottom": 10,
               "textAlign": "left",
               "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
@@ -104,10 +100,9 @@ exports[`snapshots 1`] = `
           style={
             Object {
               "cursor": "help",
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
-              "paddingBottom": 5,
+              "paddingBottom": 10,
               "textAlign": "left",
               "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
@@ -128,10 +123,9 @@ exports[`snapshots 1`] = `
           style={
             Object {
               "cursor": "help",
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
-              "paddingBottom": 5,
+              "paddingBottom": 10,
               "textAlign": "left",
               "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
@@ -145,10 +139,9 @@ exports[`snapshots 1`] = `
           style={
             Object {
               "cursor": "help",
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
-              "paddingBottom": 5,
+              "paddingBottom": 10,
               "textAlign": "left",
               "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
@@ -162,10 +155,9 @@ exports[`snapshots 1`] = `
           style={
             Object {
               "cursor": "help",
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
-              "paddingBottom": 5,
+              "paddingBottom": 10,
               "textAlign": "left",
               "textDecoration": "dashed #ccc underline",
               "verticalAlign": "top",
@@ -182,7 +174,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -202,7 +193,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -247,12 +237,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "0%",
                   }
                 }
@@ -265,7 +255,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -310,12 +299,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "0%",
                   }
                 }
@@ -335,7 +324,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -367,7 +355,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -412,12 +399,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "0%",
                   }
                 }
@@ -437,7 +424,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -482,12 +468,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "0%",
                   }
                 }
@@ -500,7 +486,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -513,7 +498,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -528,7 +512,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -548,7 +531,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -593,12 +575,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "12%",
                   }
                 }
@@ -619,7 +601,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -664,12 +645,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "23%",
                   }
                 }
@@ -697,7 +678,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -729,7 +709,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "background": "#299fc5",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "height": 5,
                       "left": "0%",
                       "opacity": 0.5,
@@ -744,7 +724,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#299fc5",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "0%",
                       "opacity": 0.5,
                       "paddingRight": 1,
@@ -763,7 +743,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "background": "#e06378",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "height": 5,
                       "left": "63%",
                       "opacity": 0.5,
@@ -778,7 +758,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#e06378",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "63%",
                       "opacity": 0.5,
                       "paddingRight": 1,
@@ -798,7 +778,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -843,12 +822,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "29%",
                   }
                 }
@@ -876,7 +855,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -921,12 +899,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "0%",
                   }
                 }
@@ -939,7 +917,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1022,7 +999,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#333",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "-10%",
                       "position": "absolute",
                       "textAlign": "center",
@@ -1040,7 +1017,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1123,7 +1099,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#333",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "24%",
                       "position": "absolute",
                       "textAlign": "center",
@@ -1143,7 +1119,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1163,7 +1138,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1208,12 +1182,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "18%",
                   }
                 }
@@ -1234,7 +1208,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1279,12 +1252,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "58%",
                   }
                 }
@@ -1312,7 +1285,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1344,7 +1316,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "background": "#299fc5",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "height": 5,
                       "left": "0%",
                       "opacity": 0.5,
@@ -1359,7 +1331,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#299fc5",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "0%",
                       "opacity": 0.5,
                       "paddingRight": 1,
@@ -1378,7 +1350,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "background": "#e06378",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "height": 5,
                       "left": "43%",
                       "opacity": 0.5,
@@ -1393,7 +1365,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#e06378",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "43%",
                       "opacity": 0.5,
                       "paddingRight": 1,
@@ -1413,7 +1385,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1458,12 +1429,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "47%",
                   }
                 }
@@ -1491,7 +1462,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1536,12 +1506,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "0%",
                   }
                 }
@@ -1554,7 +1524,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1637,7 +1606,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#333",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "25%",
                       "position": "absolute",
                       "textAlign": "center",
@@ -1655,7 +1624,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1738,7 +1706,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#333",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "15%",
                       "position": "absolute",
                       "textAlign": "center",
@@ -1758,7 +1726,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1778,7 +1745,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1823,12 +1789,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "18%",
                   }
                 }
@@ -1849,7 +1815,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1894,12 +1859,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "29%",
                   }
                 }
@@ -1927,7 +1892,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -1959,7 +1923,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "background": "#299fc5",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "height": 5,
                       "left": "0%",
                       "opacity": 0.5,
@@ -1974,7 +1938,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#299fc5",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "0%",
                       "opacity": 0.5,
                       "paddingRight": 1,
@@ -1993,7 +1957,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "background": "#e06378",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "height": 5,
                       "left": "67%",
                       "opacity": 0.5,
@@ -2008,7 +1972,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#e06378",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "67%",
                       "opacity": 0.5,
                       "paddingRight": 1,
@@ -2028,7 +1992,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2073,12 +2036,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "41%",
                   }
                 }
@@ -2106,7 +2069,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2151,12 +2113,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "0%",
                   }
                 }
@@ -2169,7 +2131,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2252,7 +2213,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#333",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "27%",
                       "position": "absolute",
                       "textAlign": "center",
@@ -2270,7 +2231,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2353,7 +2313,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#333",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "44%",
                       "position": "absolute",
                       "textAlign": "center",
@@ -2373,7 +2333,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2393,7 +2352,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2438,12 +2396,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "18%",
                   }
                 }
@@ -2464,7 +2422,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2509,12 +2466,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "58%",
                   }
                 }
@@ -2542,7 +2499,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2574,7 +2530,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "background": "#299fc5",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "height": 5,
                       "left": "0%",
                       "opacity": 0.5,
@@ -2589,7 +2545,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#299fc5",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "0%",
                       "opacity": 0.5,
                       "paddingRight": 1,
@@ -2608,7 +2564,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "background": "#e06378",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "height": 5,
                       "left": "47%",
                       "opacity": 0.5,
@@ -2623,7 +2579,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#e06378",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "47%",
                       "opacity": 0.5,
                       "paddingRight": 1,
@@ -2643,7 +2599,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2688,12 +2643,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "41%",
                   }
                 }
@@ -2721,7 +2676,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2766,12 +2720,12 @@ exports[`snapshots 1`] = `
                   Object {
                     "alignItems": "flex-end",
                     "display": "flex",
-                    "fontSize": 10,
+                    "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 12,
+                    "left": 13,
                     "position": "relative",
-                    "top": -5,
+                    "top": -6,
                     "width": "0%",
                   }
                 }
@@ -2784,7 +2738,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2867,7 +2820,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#333",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "43%",
                       "position": "absolute",
                       "textAlign": "center",
@@ -2885,7 +2838,6 @@ exports[`snapshots 1`] = `
         <td
           style={
             Object {
-              "fontSize": 12,
               "fontWeight": "normal",
               "overflow": "hidden",
               "textAlign": "left",
@@ -2968,7 +2920,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "color": "#333",
-                      "fontSize": 10,
+                      "fontSize": 12,
                       "left": "32%",
                       "position": "absolute",
                       "textAlign": "center",
