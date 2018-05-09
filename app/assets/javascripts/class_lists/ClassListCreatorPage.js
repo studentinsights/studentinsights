@@ -275,7 +275,6 @@ export default class ClassListCreatorPage extends React.Component {
     const schoolId = classList.school_id;
     const gradeLevelNextYear = classList.grade_level_next_year;
     const {
-      stepIndex,
       authors,
       classroomsCount,
       planText,
@@ -287,12 +286,12 @@ export default class ClassListCreatorPage extends React.Component {
       isEditable,
       schoolId,
       gradeLevelNextYear,
-      stepIndex,
       authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
-      principalNoteText
+      principalNoteText,
+      stepIndex: 0, // Ignore last `stepIndex`
     });
   }
 

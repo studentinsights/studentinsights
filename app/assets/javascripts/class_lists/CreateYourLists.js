@@ -55,7 +55,7 @@ export default class CreateYourListsView extends React.Component {
                   <div>
                     <div style={styles.roomTitle}>
                       <span style={{fontWeight: 'bold'}}>{roomName}</span>
-                      <span style={{float: 'right', color: '#666', fontSize: 12}}>({classroomStudents.length})</span>
+                      <span style={styles.roomStudentCount}>({classroomStudents.length})</span>
                     </div>
                   </div>
                   <Droppable
@@ -164,5 +164,10 @@ const styles = {
     // to place this over the rounded border right below
     position: 'relative',
     top: 3
+  },
+  roomStudentCount: {
+    float: 'right',
+    color: '#666',
+    fontSize: 12
   }
 };

@@ -26,33 +26,29 @@ export default class BreakdownBar extends React.Component {
 
 
   renderBarAndLabel({key, left, width, color}) {
-    const {height, labelTop} = this.props;
-    const opacity = 0.5;
-    const fontSize = 10;
+    const {height, labelTop, innerStyle} = this.props;
 
     if (width === 0) return;
     return (
       <div key={key}>
         <div style={{
-          opacity,
-          fontSize,
           position: 'absolute',
           background: color,
           left: this.scale(left),
           width: this.scale(width),
-          height
+          height,
+          ...innerStyle
         }}>{'\u00A0'}</div>
         {width > 0 && 
           <div style={{
-            opacity,
-            fontSize,
             color,
             position: 'absolute',
             textAlign: 'right',
             left: this.scale(left),
             width: this.scale(width),
             top: labelTop,
-            paddingRight: 1
+            paddingRight: 1,
+            ...innerStyle
           }}>{width}</div>}
       </div>
     );
@@ -67,5 +63,6 @@ BreakdownBar.propTypes = {
   })).isRequired,
   height: React.PropTypes.number.isRequired,
   labelTop: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object
+  style: React.PropTypes.object,
+  innerStyle: React.PropTypes.object
 };
