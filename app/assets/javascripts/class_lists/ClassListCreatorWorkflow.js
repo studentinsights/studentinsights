@@ -70,7 +70,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       <div style={styles.stepContent}>
         <div>
           <div style={styles.heading}>Why are we doing this?</div>
-          <div style={{fontSize: 12, padding: 10, paddingLeft: 5, whiteSpace: 'pre-wrap'}}>
+          <div style={styles.introCopy}>
             {text}
           </div>
           {videoUrl && <a href={videoUrl} target="_blank" style={styles.videoLink}>Watch the full video</a>}
@@ -262,7 +262,9 @@ ClassListCreatorWorkflow.propTypes = {
 };
 
 const styles = {
-  root: {},
+  root: {
+    fontSize: 14
+  },
   heading: {
     marginTop: 20
   },
@@ -270,6 +272,12 @@ const styles = {
     display: 'inline-block',
     margin: 5,
     cursor: 'pointer'
+  },
+  introCopy: {
+    // fontSize: 12,
+    padding: 10,
+    paddingLeft: 5,
+    whiteSpace: 'pre-wrap'
   },
   incrementButton: {
     display: 'inline-block',
@@ -284,7 +292,7 @@ const styles = {
   videoLink: {
     display: 'inline-block',
     marginLeft: 5,
-    fontSize: 12
+    // fontSize: 12
   },
   horizontalStepper: {
     paddingTop: 15

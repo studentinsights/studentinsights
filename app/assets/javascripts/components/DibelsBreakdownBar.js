@@ -23,5 +23,6 @@ DibelsBreakdownBar.propTypes = {
   intensiveCount: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
   labelTop: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object
+  style: React.PropTypes.object,
+  innerStyle: React.PropTypes.object
 };

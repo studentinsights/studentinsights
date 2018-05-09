@@ -120,7 +120,8 @@ export default class ClassroomStats extends React.Component {
     return (
       <BreakdownBar
         items={items}
-        style={{paddingTop: 4, paddingRight: 10}}
+        style={styles.breakdownBar}
+        innerStyle={styles.breakdownBarInner}
         height={5}
         labelTop={5} />
     );
@@ -155,7 +156,8 @@ export default class ClassroomStats extends React.Component {
         coreCount={dibelsCounts.core}
         intensiveCount={dibelsCounts.intensive}
         strategicCount={dibelsCounts.strategic}
-        style={{paddingTop: 2, paddingRight: 10}}
+        style={styles.breakdownBar}
+        innerStyle={styles.breakdownBarInner}
         height={5}
         labelTop={5} />
     );
@@ -176,7 +178,10 @@ export default class ClassroomStats extends React.Component {
       <div>
         {(values.length === 0)
           ? null
-          : <BoxAndWhisker values={values} style={{width: 100, marginLeft: 'auto', marginRight: 'auto'}} />}
+          : <BoxAndWhisker
+              values={values}
+              style={styles.boxAndWhisker}
+              labelStyle={styles.boxAndWhiskerLabel} />}
       </div>
     );
   }
@@ -216,26 +221,25 @@ const styles = {
   root: {
     padding: 20,
     paddingBottom: 15,
-    borderBottom: '1px solid #eee'
+    borderBottom: '1px solid #eee',
+    fontSize: 14
   },
   table: {
     width: '100%',
     textAlign: 'left',
-    fontSize: 12,
     tableLayout: 'fixed',
     borderCollapse: 'collapse'
   },
   cell: { /* overridding some global CSS */
     textAlign: 'left',
     fontWeight: 'normal',
-    fontSize: 12,
     verticalAlign: 'top',
     overflow: 'hidden'
   },
   heading: {
     textDecoration: 'dashed #ccc underline',
     cursor: 'help',
-    paddingBottom: 5
+    paddingBottom: 10
   },
   spacer: {
     width: 1
@@ -250,13 +254,29 @@ const styles = {
   },
   // Positions label to the right of bar
   stackLabelStyle: {
-    fontSize: 10,
+    fontSize: 12,
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     position: 'relative',
-    top: -5,
-    left: 12
+    top: -6,
+    left: 13
+  },
+  breakdownBar: {
+    paddingTop: 4,
+    paddingRight: 10
+  },
+  breakdownBarInner: {
+    opacity: 0.5,
+    fontSize: 12
+  },
+  boxAndWhisker: {
+    width: 100,
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  boxAndWhiskerLabel: {
+    fontSize: 12
   }
 };
 
