@@ -15,7 +15,7 @@ class ServiceTypesController < ApplicationController
     render json: ServiceType.pluck(:name).sort
   end
 
-  def is_service_working
+  def is_service_working_json
     attendance_officer = ServiceType.find(502)
     student_ids = attendance_officer.services
                                     .where('date_started > ?', Time.current - 1.year)
@@ -30,11 +30,12 @@ class ServiceTypesController < ApplicationController
       }
     end
 
-    @serialized_data = {
-      current_educator: current_educator,
+    render json: {
       chart_data: chart_data
     }
+  end
 
+  def is_service_working
     render 'shared/serialized_data'
   end
 

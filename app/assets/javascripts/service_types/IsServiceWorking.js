@@ -1,5 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
+import GenericLoader from '../components/GenericLoader';
+import ExperimentalBanner from '../components/ExperimentalBanner';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 import ProfileBarChart from '../student_profile/ProfileBarChart.js';
 
 const style = {
@@ -24,10 +27,33 @@ const style = {
 
 class IsServiceWorking extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.fetchIsServiceWorkingData = this.fetchIsServiceWorkingData.bind(this);
+    this.renderPage = this.renderPage.bind(this);
+  }
+
   render() {
     return (
+      <div className="IsServiceWorking">
+        <ExperimentalBanner />
+        <GenericLoader
+          promiseFn={this.fetchIsServiceWorkingData}
+          render={this.renderPage} />
+      </div>
+    );
+  }
+
+  fetchIsServiceWorkingData() {
+    const url = `/api/is_service_working_json`;
+    return apiFetchJson(url);
+  }
+
+  renderPage(json) {
+    return (
       <div style={style.container}>
-        {this.renderStudents()}
+        {this.renderStudents(json)}
       </div>
     );
   }
@@ -38,9 +64,8 @@ class IsServiceWorking extends React.Component {
     }, this);
   }
 
-  renderStudents() {
-    const {serializedData} = this.props;
-    const chartData = serializedData.chartData;
+  renderStudents(json) {
+    const chartData = json.chart_data;
     const sortedData = _.sortBy(chartData, (datum) => {
       return datum.services[0].date_started;
     }).reverse();
