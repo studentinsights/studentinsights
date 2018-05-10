@@ -72,13 +72,21 @@ export default class SimpleStudentCard extends React.Component {
   renderStudentCard(student) {
     const {isEditable} = this.props;
     const cursor = (isEditable) ? 'pointer' : 'default';
-      
+    const highlightStyles = this.renderHighlightStyles(student);
     return (
-      <div style={{...styles.studentCard, cursor}} onClick={this.onClick}>
+      <div style={{...styles.studentCard, cursor, ...highlightStyles}} onClick={this.onClick}>
         <span>{student.last_name}, {student.first_name}</span>
         <MoreDots />
       </div>
     );
+  }
+
+  renderHighlightStyles(student) {
+    const {highlightFn} = this.props;
+    if (highlightFn) console.log(student, highlightFn);
+    return (highlightFn && highlightFn(student))
+      ? { backgroundColor: 'red' }
+      : {};
   }
 
   renderModal() {
@@ -105,7 +113,8 @@ SimpleStudentCard.propTypes = {
   student: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired,
   fetchProfile: React.PropTypes.func.isRequired,
-  isEditable: React.PropTypes.bool.isRequired
+  isEditable: React.PropTypes.bool.isRequired,
+  highlightFn: React.PropTypes.func
 };
 
 const styles = {

@@ -20,13 +20,21 @@ export default class CreateYourListsView extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      highlightFn: null
+    };
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.onHighlightFn = this.onHighlightFn.bind(this);
   }
 
   onDragEnd(dragEndResult) {
     const {onClassListsChanged, studentIdsByRoom} = this.props;
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
     onClassListsChanged(updatedStudentIdsByRoom);
+  }
+
+  onHighlightFn(highlightFn) {
+    this.setState({highlightFn});
   }
 
   render() {
@@ -45,7 +53,8 @@ export default class CreateYourListsView extends React.Component {
           students={students}
           gradeLevelNextYear={gradeLevelNextYear}
           rooms={rooms.filter(room => room.roomKey !== UNPLACED_ROOM_KEY)}
-          studentIdsByRoom={studentIdsByRoom} />
+          studentIdsByRoom={studentIdsByRoom}
+          onHighlightFn={this.onHighlightFn}/>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div style={styles.listsContainer}>
             {rooms.map(room => {
@@ -85,8 +94,10 @@ export default class CreateYourListsView extends React.Component {
 
   renderStudentCard(student, index) {
     const {fetchProfile, isEditable} = this.props;
+    const {highlightFn} = this.state;
     return <SimpleStudentCard
       key={student.id}
+      highlightFn={highlightFn}
       student={student}
       index={index}
       fetchProfile={fetchProfile}

@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import Hover from '../components/Hover';
 import Stack from '../components/Stack';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
@@ -102,8 +103,19 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderIepOr504(studentsInRoom) {
-    const count = studentsInRoom.filter(isIepOr504).length;
-    return this.renderStackSimple(count);
+    const students = studentsInRoom.filter(isIepOr504);
+    return this.renderHoverWrapper(students, this.renderStackSimple(students.length));
+  }
+
+  renderHoverWrapper(students, children) {
+    const {onHighlightFn} = this.props;
+    return (
+      <div
+        onMouseEnter={() => { console.log('enter'); onHighlightFn(student => students.indexOf(student) !== -1);}}
+        onMouseLeave={() => { console.log('leave'); onHighlightFn(student => false);}}>
+        {children}
+      </div>
+    );
   }
 
   renderEnglishLearners(studentsInRoom) {
@@ -218,7 +230,8 @@ ClassroomStats.propTypes = {
   students: React.PropTypes.array.isRequired,
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   rooms: React.PropTypes.array.isRequired,
-  studentIdsByRoom: React.PropTypes.object.isRequired
+  studentIdsByRoom: React.PropTypes.object.isRequired,
+  onHighlightFn: React.PropTypes.func.isRequired
 };
 
 const styles = {
