@@ -7,7 +7,7 @@ import 'react-select/dist/react-select.css';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DateSlider from '../DateSlider';
+import DashRangeButtons from '../DashRangeButtons';
 import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 import {sortByGrade} from '../../../helpers/SortHelpers';
 
@@ -114,7 +114,7 @@ class SchoolDisciplineDashboard extends React.Component {
     return(
       <div className="DashboardContainer">
         <div className="DashboardRosterColumn">
-          {this.renderDateRangeSlider()}
+          {this.renderRangeSelector()}
           {this.renderStudentDisciplineTable()}
         </div>
         <div className="DashboardChartsColumn">
@@ -157,17 +157,6 @@ class SchoolDisciplineDashboard extends React.Component {
     );
   }
 
-  renderDateRangeSlider() {
-    const firstDate = DashboardHelpers.schoolYearStart();
-    const lastDate = moment.utc();
-    return (
-      <DateSlider
-        rangeStart = {parseInt(moment.utc(firstDate).format("X"))}
-        rangeEnd = {parseInt(moment.utc(lastDate).format("X"))}
-        setDate={this.setDate}/>
-    );
-  }
-
   renderStudentDisciplineTable() {
     const students = this.props.dashboardStudents;
     const studentDisciplineIncidentCounts = this.studentDisciplineIncidentCounts(this.state.selectedCategory);
@@ -189,6 +178,20 @@ class SchoolDisciplineDashboard extends React.Component {
         selectedCategory = {this.state.selectedCategory}
         incidentType={"Incidents"}
         resetFn={this.resetStudentList}/>
+    );
+  }
+
+  renderRangeSelector() {
+    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
+    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
+    const schoolYearStart = DashboardHelpers.schoolYearStart();
+    return (
+      <div className="DashboardRangeButtons">
+        <DashRangeButtons
+          schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
+          ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
+          fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
+      </div>
     );
   }
 }
