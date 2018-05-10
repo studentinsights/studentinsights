@@ -163,6 +163,7 @@ class IsServiceWorking extends React.Component {
           <a href={Routes.studentProfile(student.id)} style={style.a}>
             {student.first_name} {student.last_name}
           </a>
+          <span style={{marginLeft: 5}}>({datum.school} Grade {student.grade})</span>
           <ProfileBarChart
             events={datum.absences}
             titleText="Absences"
