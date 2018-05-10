@@ -16,23 +16,22 @@ class ServiceTypesController < ApplicationController
   end
 
   def is_service_working_json
-    attendance_officer = ServiceType.find(502)
-    student_ids = attendance_officer.services
-                                    .where('date_started > ?', Time.current - 1.year)
-                                    .map(&:student_id)
+    service_type_id = params[:service_type_id]
 
-    chart_data = Student.where(id: student_ids).map do |student|
+    service_type = ServiceType.find(service_type_id)
+    student_ids = service_type.services
+                              .where('date_started > ?', Time.current - 1.year)
+                              .map(&:student_id)
+
+    chart_data = Student.active.where(id: student_ids).map do |student|
       {
         student: student,
-        services: student.services.where(service_type_id: 502),
-        absences: student.absences.order(occurred_at: :desc),
-        tardies: student.tardies.order(occurred_at: :desc)
+        services: student.services.where(service_type_id: service_type_id),
+        absences: student.absences.order(occurred_at: :desc)
       }
     end
 
-    render json: {
-      chart_data: chart_data
-    }
+    render json: { chart_data: chart_data }
   end
 
   def is_service_working
