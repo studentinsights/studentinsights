@@ -69,6 +69,7 @@ export default class ClassroomStats extends React.Component {
                   title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score.">
                   STAR Reading
                 </th>}
+              <th style={{...styles.cell, width: 50}}>Total</th>
             </tr>
           </thead>
           <tbody>
@@ -88,6 +89,9 @@ export default class ClassroomStats extends React.Component {
                   {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(studentsInRoom)}</td>}
                   {showStar && <td style={styles.cell}>{this.renderMath(studentsInRoom)}</td>}
                   {showStar && <td style={styles.cell}>{this.renderReading(studentsInRoom)}</td>}
+                  <td style={styles.cell}>{studentsInRoom.length > 0 &&
+                    <span style={styles.total}>{studentsInRoom.length}</span>}
+                  </td>
                 </tr>
               );
             })}
@@ -260,7 +264,7 @@ const styles = {
     justifyContent: 'flex-end',
     position: 'relative',
     top: -6,
-    left: 13
+    left: 14
   },
   breakdownBar: {
     paddingTop: 4,
@@ -277,6 +281,12 @@ const styles = {
   },
   boxAndWhiskerLabel: {
     fontSize: 12
+  },
+  total: {
+    color: '#999',
+    float: 'right',
+    fontSize: 12,
+    paddingRight: 20
   }
 };
 
