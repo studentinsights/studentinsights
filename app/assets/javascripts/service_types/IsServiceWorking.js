@@ -2,11 +2,31 @@ import _ from 'lodash';
 import React from 'react';
 import ProfileBarChart from '../student_profile/ProfileBarChart.js';
 
+const style = {
+  container: {
+    margin: 30
+  },
+  studentRow: {
+    marginBottom: 30,
+  },
+  profileBarChartStyles: {
+    title: {
+      fontSize: 20
+    },
+    container: {
+      width: '100%',
+      margin: '10px auto',
+      position: 'relative'
+    },
+    chartHeight: 220
+  }
+};
+
 class IsServiceWorking extends React.Component {
 
   render() {
     return (
-      <div style={{margin: 30}}>
+      <div style={style.container}>
         {this.renderStudents()}
       </div>
     );
@@ -31,18 +51,15 @@ class IsServiceWorking extends React.Component {
       const servicePhaselines = this.renderServicePhaselines(services);
 
       return (
-        <div key={student.id} style={{marginBottom: 20}}>
-          <h3>{student.first_name} {student.last_name}</h3>
+        <div key={student.id} style={style.studentRow}>
+          <h1>{student.first_name} {student.last_name}</h1>
           <ProfileBarChart
             events={datum.absences}
             titleText="Absences"
             monthsBack={8}
-            phaselines={servicePhaselines} />
-          <ProfileBarChart
-            events={datum.tardies}
-            titleText="Tardies"
-            monthsBack={8}
-            phaselines={servicePhaselines} />
+            phaselines={servicePhaselines}
+            hideBackToTop={true}
+            styles={style.profileBarChartStyles} />
         </div>
       );
     }, this);

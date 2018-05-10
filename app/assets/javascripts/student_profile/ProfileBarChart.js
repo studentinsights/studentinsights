@@ -77,12 +77,15 @@ export default class ProfileBarChart extends React.Component {
     const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
     const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
     const yearCategories = GraphHelpers.yearCategories(monthKeys);
+    const propStyles = this.props.styles;
 
     return (
-      <div id={this.props.id} style={styles.container}>
+      <div id={this.props.id} style={propStyles ? propStyles.container : styles.container}>
         {this.renderHeader()}
         <HighchartsWrapper
-          chart={{type: 'column'}}
+          chart={
+            { ...{ type: 'column' }, ...{ height: propStyles.chartHeight } }
+          }
           credits={false}
           xAxis={[
             {
@@ -121,16 +124,17 @@ export default class ProfileBarChart extends React.Component {
   renderHeader() {
     const nYearsBack = Math.ceil(this.props.monthsBack / 12);
     const title = this.props.titleText + ', last ' + nYearsBack + ' years';
+    const propStyles = this.props.styles;
 
     return (
       <div style={styles.secHead}>
-        <h4 style={styles.title}>
+        <h4 style={propStyles ? propStyles.title : styles.title}>
           {title}
         </h4>
         <span style={styles.navTop}>
-          <a href="#">
+          {!this.props.hideBackToTop && <a href="#">
             Back to top
-          </a>
+          </a>}
         </span>
       </div>
     );
