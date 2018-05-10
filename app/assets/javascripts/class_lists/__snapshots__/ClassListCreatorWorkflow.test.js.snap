@@ -6,6 +6,7 @@ exports[`chooseYourGradeProps 1`] = `
   style={
     Object {
       "fontSize": 14,
+      "width": "100%",
     }
   }
 >
@@ -13,6 +14,9 @@ exports[`chooseYourGradeProps 1`] = `
     className="HorizontalStepper"
     style={
       Object {
+        "display": "flex",
+        "flexDirection": "column",
+        "height": "100%",
         "paddingTop": 15,
       }
     }
@@ -231,6 +235,7 @@ exports[`chooseYourGradeProps 1`] = `
       style={
         Object {
           "borderTop": "1px solid #ccc",
+          "flex": 1,
           "marginTop": 10,
         }
       }
@@ -570,6 +575,7 @@ exports[`chooseYourGradeProps 2`] = `
   style={
     Object {
       "fontSize": 14,
+      "width": "100%",
     }
   }
 >
@@ -577,6 +583,9 @@ exports[`chooseYourGradeProps 2`] = `
     className="HorizontalStepper"
     style={
       Object {
+        "display": "flex",
+        "flexDirection": "column",
+        "height": "100%",
         "paddingTop": 15,
       }
     }
@@ -811,6 +820,7 @@ exports[`chooseYourGradeProps 2`] = `
       style={
         Object {
           "borderTop": "1px solid #ccc",
+          "flex": 1,
           "marginTop": 10,
         }
       }
@@ -1058,6 +1068,7 @@ exports[`makeAPlanProps 1`] = `
   style={
     Object {
       "fontSize": 14,
+      "width": "100%",
     }
   }
 >
@@ -1065,6 +1076,9 @@ exports[`makeAPlanProps 1`] = `
     className="HorizontalStepper"
     style={
       Object {
+        "display": "flex",
+        "flexDirection": "column",
+        "height": "100%",
         "paddingTop": 15,
       }
     }
@@ -1283,6 +1297,7 @@ exports[`makeAPlanProps 1`] = `
       style={
         Object {
           "borderTop": "1px solid #ccc",
+          "flex": 1,
           "marginTop": 10,
         }
       }
@@ -1539,18 +1554,20 @@ exports[`makeAPlanProps 1`] = `
           >
             Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
           </div>
-          <textarea
-            disabled={false}
-            onChange={[Function]}
-            rows={12}
-            style={
-              Object {
-                "border": "1px solid #ccc",
-                "width": "100%",
+          <div>
+            <textarea
+              disabled={false}
+              onChange={[Function]}
+              rows={8}
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                  "width": "100%",
+                }
               }
-            }
-            value=""
-          />
+              value=""
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -1624,6 +1641,7 @@ exports[`makeAPlanProps 2`] = `
   style={
     Object {
       "fontSize": 14,
+      "width": "100%",
     }
   }
 >
@@ -1631,6 +1649,9 @@ exports[`makeAPlanProps 2`] = `
     className="HorizontalStepper"
     style={
       Object {
+        "display": "flex",
+        "flexDirection": "column",
+        "height": "100%",
         "paddingTop": 15,
       }
     }
@@ -1865,6 +1886,7 @@ exports[`makeAPlanProps 2`] = `
       style={
         Object {
           "borderTop": "1px solid #ccc",
+          "flex": 1,
           "marginTop": 10,
         }
       }
@@ -2065,18 +2087,20 @@ exports[`makeAPlanProps 2`] = `
           >
             Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
           </div>
-          <textarea
-            disabled={true}
-            onChange={[Function]}
-            rows={12}
-            style={
-              Object {
-                "border": "1px solid #ccc",
-                "width": "100%",
+          <div>
+            <textarea
+              disabled={true}
+              onChange={[Function]}
+              rows={8}
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                  "width": "100%",
+                }
               }
-            }
-            value=""
-          />
+              value=""
+            />
+          </div>
         </div>
       </div>
     </div>

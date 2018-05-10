@@ -110,11 +110,15 @@ HorizontalStepper.propTypes = {
 
 const styles = {
   root: {
-    paddingTop: 15
+    paddingTop: 15,
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   },
   content: {
     borderTop: '1px solid #ccc',
-    marginTop: 10
+    marginTop: 10,
+    flex: 1
   },
   bannerContainer: {
     display: 'flex',

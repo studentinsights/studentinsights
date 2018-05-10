@@ -167,6 +167,19 @@ exports[`snapshots 1`] = `
         >
           STAR Reading
         </th>
+        <th
+          style={
+            Object {
+              "fontWeight": "normal",
+              "overflow": "hidden",
+              "textAlign": "left",
+              "verticalAlign": "top",
+              "width": 50,
+            }
+          }
+        >
+          Total
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -240,7 +253,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "0%",
@@ -302,7 +315,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "0%",
@@ -402,7 +415,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "0%",
@@ -471,7 +484,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "0%",
@@ -507,6 +520,16 @@ exports[`snapshots 1`] = `
         >
           <div />
         </td>
+        <td
+          style={
+            Object {
+              "fontWeight": "normal",
+              "overflow": "hidden",
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        />
       </tr>
       <tr>
         <td
@@ -578,7 +601,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "12%",
@@ -648,7 +671,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "23%",
@@ -825,7 +848,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "29%",
@@ -902,7 +925,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "0%",
@@ -1114,6 +1137,29 @@ exports[`snapshots 1`] = `
             </div>
           </div>
         </td>
+        <td
+          style={
+            Object {
+              "fontWeight": "normal",
+              "overflow": "hidden",
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "color": "#999",
+                "float": "right",
+                "fontSize": 12,
+                "paddingRight": 20,
+              }
+            }
+          >
+            8
+          </span>
+        </td>
       </tr>
       <tr>
         <td
@@ -1185,7 +1231,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "18%",
@@ -1255,7 +1301,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "58%",
@@ -1432,7 +1478,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "47%",
@@ -1509,7 +1555,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "0%",
@@ -1721,6 +1767,29 @@ exports[`snapshots 1`] = `
             </div>
           </div>
         </td>
+        <td
+          style={
+            Object {
+              "fontWeight": "normal",
+              "overflow": "hidden",
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "color": "#999",
+                "float": "right",
+                "fontSize": 12,
+                "paddingRight": 20,
+              }
+            }
+          >
+            14
+          </span>
+        </td>
       </tr>
       <tr>
         <td
@@ -1792,7 +1861,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "18%",
@@ -1862,7 +1931,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "29%",
@@ -2039,7 +2108,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "41%",
@@ -2116,7 +2185,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "0%",
@@ -2328,6 +2397,29 @@ exports[`snapshots 1`] = `
             </div>
           </div>
         </td>
+        <td
+          style={
+            Object {
+              "fontWeight": "normal",
+              "overflow": "hidden",
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "color": "#999",
+                "float": "right",
+                "fontSize": 12,
+                "paddingRight": 20,
+              }
+            }
+          >
+            9
+          </span>
+        </td>
       </tr>
       <tr>
         <td
@@ -2399,7 +2491,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "18%",
@@ -2469,7 +2561,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "58%",
@@ -2646,7 +2738,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "41%",
@@ -2723,7 +2815,7 @@ exports[`snapshots 1`] = `
                     "fontSize": 12,
                     "height": "100%",
                     "justifyContent": "flex-end",
-                    "left": 13,
+                    "left": 14,
                     "position": "relative",
                     "top": -6,
                     "width": "0%",
@@ -2934,6 +3026,29 @@ exports[`snapshots 1`] = `
               </div>
             </div>
           </div>
+        </td>
+        <td
+          style={
+            Object {
+              "fontWeight": "normal",
+              "overflow": "hidden",
+              "textAlign": "left",
+              "verticalAlign": "top",
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "color": "#999",
+                "float": "right",
+                "fontSize": 12,
+                "paddingRight": 20,
+              }
+            }
+          >
+            15
+          </span>
         </td>
       </tr>
     </tbody>

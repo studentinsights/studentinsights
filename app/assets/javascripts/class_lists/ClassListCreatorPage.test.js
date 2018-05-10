@@ -6,20 +6,30 @@ import ClassListCreatorPage from './ClassListCreatorPage';
 
 beforeEach(() => mockWithFixtures());
 
+function testProps(props) {
+  return {
+    disableHistory: true,
+    disableSizing: true,
+    ...props
+  };
+}
+
 it('renders without crashing on entrypoint', () => {
+  const props = testProps();
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists']}>
-      <ClassListCreatorPage disableHistory={true} />
+      <ClassListCreatorPage {...props} />
     </MemoryRouter>
   , el);
 });
 
 it('renders without crashing with balanceId', () => {
+  const props = testProps({defaultWorkspaceId: 'foo-id'});
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists/foo-id']}>
-      <ClassListCreatorPage defaultWorkspaceId="foo-id" disableHistory={true} />
+      <ClassListCreatorPage {...props} />
     </MemoryRouter>
   , el);
 });

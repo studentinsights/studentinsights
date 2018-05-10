@@ -157,12 +157,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
           <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
             Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
           </div>
-          <textarea
-            style={styles.textarea}
-            disabled={!isEditable}
-            rows={12}
-            value={planText}
-            onChange={event => onPlanTextChanged(event.target.value)} />
+          <div>
+            <textarea
+              style={styles.textarea}
+              disabled={!isEditable}
+              rows={8}
+              value={planText}
+              onChange={event => onPlanTextChanged(event.target.value)} />
+          </div>
         </div>
       </div>
     );
@@ -254,7 +256,8 @@ ClassListCreatorWorkflow.propTypes = {
 
 const styles = {
   root: {
-    fontSize: 14
+    fontSize: 14,
+    width: '100%'
   },
   heading: {
     marginTop: 20
