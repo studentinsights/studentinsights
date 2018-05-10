@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   # Used to wrap a block with timing measurements and logging, returning the value of the
   # block.
   #
-  # Example: students = log_timing('load students') { Student.all }
+  # Example: students = log_timing('load students') { Student.active }
   # Outputs: log_timing:end [load students] 2998ms
   def log_timing(message)
     return_value = nil

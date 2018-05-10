@@ -1,5 +1,9 @@
 language: ruby
 
+cache:
+  bundler: true
+  yarn: true
+
 rvm:
   - ruby-2.3.0
 
@@ -11,8 +15,6 @@ services:
 branches:
   only:
     - master
-
-cache: yarn
 
 before_install:
   - export TZ=America/New_York

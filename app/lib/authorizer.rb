@@ -63,6 +63,28 @@ class Authorizer
     @authorized_dispatcher.dispatch(&block)
   end
 
+  # Double authorization layer for doppleganging features, where the current
+  # user has elevated permissions and wants to view something as if they were
+  # another user.
+  # Runs the authorization layer first for the educator we're viewing as,
+  # but after that runs it again to ensure the current elevated permission user
+  # actually has access to those students too.  This second layer only slows down
+  # dopplegangers, and adds another layer of protection to ensure that we only ever
+  # show dopplegangers the intersection of who `view_as_educator` would see and
+  # who they are authorized to see themselves.
+  #
+  # Usage:
+  #  authorized_students = authorized_when_viewing_as(other_educator) { Student.active }
+  def authorized_when_viewing_as(view_as_educator, &block)
+    authorized do
+      if @educator.can_set_districtwide_access? && view_as_educator.id != @educator.id
+        Authorizer.new(view_as_educator).authorized(&block)
+      else
+        block.call
+      end
+    end
+  end
+
   # This method is the source of truth for whether an educator is authorized to view information about a particular
   # student.
   #
@@ -85,7 +107,7 @@ class Authorizer
       return true if @educator.has_access_to_grade_levels? && student.grade.in?(@educator.grade_level_access) # Grade level access
 
       # The next two checks call `#to_a` as a performance optimization.
-      # In loops with `authorized { Student.all }`, without forcing this
+      # In loops with `authorized { Student.active }`, without forcing this
       # to an eagerly evaluated array, repeated calls will keep making the
       # same queries.  This seems unexpected to me, but adding `to_a` at
       # the end results in Rails caching these queries across the repeated
