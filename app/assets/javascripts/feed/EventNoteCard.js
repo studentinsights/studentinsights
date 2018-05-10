@@ -4,15 +4,13 @@ import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
 import HouseBadge from '../components/HouseBadge';
 import NoteBadge from '../components/NoteBadge';
-import {toMomentFromTime} from '../helpers/toMoment';
+import Timestamp from '../components/Timestamp';
 import {eventNoteTypeText} from '../components/eventNoteType';
 
 
 // Render a card in the feed for an EventNote
 class EventNoteCard extends React.Component {
   render() {
-    const {nowFn} = this.context;
-    const now = nowFn();
     const {eventNoteCardJson, style} = this.props;
     const {student, educator} = eventNoteCardJson;
 
@@ -30,7 +28,7 @@ class EventNoteCard extends React.Component {
             </div>
           }
           whereEl={<div>in {eventNoteTypeText(eventNoteCardJson.event_note_type_id)}</div>}
-          whenEl={<div>{toMomentFromTime(eventNoteCardJson.recorded_at).from(now)} on {toMomentFromTime(eventNoteCardJson.recorded_at).format('M/D')}</div>}
+          whenEl={<Timestamp railsTimestamp={eventNoteCardJson.recorded_at} />}
           badgesEl={<div>
             {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
             <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNoteCardJson.event_note_type_id} />
@@ -42,9 +40,6 @@ class EventNoteCard extends React.Component {
     );
   }
 }
-EventNoteCard.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
-};
 EventNoteCard.propTypes = {
   eventNoteCardJson: React.PropTypes.shape({
     recorded_at: React.PropTypes.string.isRequired,
