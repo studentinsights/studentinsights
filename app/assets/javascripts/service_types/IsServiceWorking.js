@@ -70,9 +70,9 @@ class IsServiceWorking extends React.Component {
 
   renderStudents(json) {
     const chartData = json.chart_data;
-    const sortedData = _.sortBy(chartData, (datum) => {
+    const sortedData = _.sortBy(chartData, datum => {
       return datum.services[0].date_started;
-    }).reverse();
+    });
 
     return sortedData.map((datum) => {
       const student = datum.student;
