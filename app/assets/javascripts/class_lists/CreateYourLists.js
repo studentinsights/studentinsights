@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {AutoSizer} from 'react-virtualized';
 import SimpleStudentCard from './SimpleStudentCard';
 import ClassroomStats from './ClassroomStats';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
@@ -58,17 +59,21 @@ export default class CreateYourListsView extends React.Component {
                       <span style={styles.roomStudentCount}>({classroomStudents.length})</span>
                     </div>
                   </div>
-                  <Droppable
-                    droppableId={roomKey}
-                    type="CLASSROOM_LIST"
-                    isDropDisabled={!isEditable}>
-                    {(provided, snapshot) => (
-                      <div ref={provided.innerRef} style={styles.droppable}>
-                        <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
-                        <div>{provided.placeholder}</div>
-                      </div>
-                    )}
-                  </Droppable>
+                  <div style={{flex: 1}}>
+                    <AutoSizer disableWidth>{({height}) => (
+                      <Droppable
+                        droppableId={roomKey}
+                        type="CLASSROOM_LIST"
+                        isDropDisabled={!isEditable}>
+                        {(provided, snapshot) => (
+                          <div ref={provided.innerRef} style={{...styles.droppable, height}}>
+                            <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
+                            <div>{provided.placeholder}</div>
+                          </div>
+                        )}
+                      </Droppable>
+                    )}</AutoSizer>
+                  </div>
                 </div>
               );
             })}
@@ -132,10 +137,14 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
 const styles = {
   root: {
     userSelect: 'none',
-    msUserSelect: 'none'
+    msUserSelect: 'none',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%'
   },
   listsContainer: {
-    display: 'flex'
+    display: 'flex',
+    flex: 1
   },
   classroomListColumn: {
     padding: 20,
@@ -152,7 +161,8 @@ const styles = {
     borderRadius: 3,
     paddingTop: 10,
     paddingBottom: 10,
-    minHeight: 150
+    minHeight: 150,
+    overflowY: 'scroll'
   },
   roomTitle: {
     border: '1px solid #aaa',
