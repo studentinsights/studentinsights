@@ -16,7 +16,7 @@ export default class BreakdownBar extends React.Component {
   render() {
     const {items,height, style = {}} = this.props;    
     return (
-      <div className="GenderBreakdownBar" style={{height, ...style}}>
+      <div className="BreakdownBar" style={{height, ...style}}>
         <div style={{position: 'relative', width: '100%', height}}>
           {items.map(item => this.renderBarAndLabel(item))}
         </div>

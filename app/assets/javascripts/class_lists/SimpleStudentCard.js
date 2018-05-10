@@ -1,9 +1,18 @@
 import React from 'react';
+import _ from 'lodash';
 import {Draggable} from 'react-beautiful-dnd';
 import Modal from 'react-modal';
+import chroma from 'chroma-js';
 import MoreDots from '../components/MoreDots';
 import InlineStudentProfile from './InlineStudentProfile';
-
+import {steelBlue, genderColor} from './colors.js';
+import {
+  isLimitedOrFlep,
+  isIepOr504,
+  isLowIncome,
+  isHighDiscipline,
+  HighlightKeys
+} from './studentFilters';
 
 // Shows a small student card that is `Draggable` and also clickable
 // to show a modal of the student's profile.
@@ -23,6 +32,7 @@ export default class SimpleStudentCard extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.index !== nextProps.index) return true;
     if (this.state.modalIsOpen !== nextState.modalIsOpen) return true;
+    if (this.props.highlightKey !== nextProps.highlightKey) return true;
     return false;
   }
 
@@ -70,23 +80,20 @@ export default class SimpleStudentCard extends React.Component {
   }
 
   renderStudentCard(student) {
-    const {isEditable} = this.props;
+    const {isEditable, highlightKey, style} = this.props;
     const cursor = (isEditable) ? 'pointer' : 'default';
-    const highlightStyles = this.renderHighlightStyles(student);
+    const highlightStyle = this.renderHighlightStyle(student, highlightKey);
     return (
-      <div style={{...styles.studentCard, cursor, ...highlightStyles}} onClick={this.onClick}>
+      <div style={{...styles.studentCard, ...style, cursor, ...highlightStyle}} onClick={this.onClick}>
         <span>{student.last_name}, {student.first_name}</span>
         <MoreDots />
       </div>
     );
   }
 
-  renderHighlightStyles(student) {
-    const {highlightFn} = this.props;
-    if (highlightFn) console.log(student, highlightFn);
-    return (highlightFn && highlightFn(student))
-      ? { backgroundColor: 'red' }
-      : {};
+  renderHighlightStyle(student, highlightKey) {
+    const highlightFn = highlightFns[highlightKey];
+    return highlightFn ? highlightFn(student) : null;
   }
 
   renderModal() {
@@ -114,7 +121,8 @@ SimpleStudentCard.propTypes = {
   index: React.PropTypes.number.isRequired,
   fetchProfile: React.PropTypes.func.isRequired,
   isEditable: React.PropTypes.bool.isRequired,
-  highlightFn: React.PropTypes.func
+  highlightKey: React.PropTypes.string,
+  style: React.PropTypes.object
 };
 
 const styles = {
@@ -136,5 +144,36 @@ const styles = {
     right: 200,
     padding: 0,
     zIndex: 20
+  },
+  highlight: {
+    backgroundColor: steelBlue
+  },
+  none: {
+    backgroundColor: 'white'
   }
 };
+
+// For highlighting students based on their attributes.
+const highlightFns = {
+  [HighlightKeys.IEP_OR_504]: student => highlightIf(isIepOr504(student)),
+  [HighlightKeys.LIMITED_OR_FLEP]: student => highlightIf(isLimitedOrFlep(student)),
+  [HighlightKeys.LOW_INCOME]: student => highlightIf(isLowIncome(student)),
+  [HighlightKeys.HIGH_DISCIPLINE]: student => highlightIf(isHighDiscipline(student)),
+  [HighlightKeys.STAR_MATH]: student => starColor(student.most_recent_star_math_percentile),
+  [HighlightKeys.STAR_READING]: student => starColor(student.most_recent_star_reading_percentile),
+  [HighlightKeys.GENDER]: student => { return { backgroundColor: genderColor(student.gender) }; }
+};
+
+// Perform color operation for STAR percentile scores
+function starColor(maybePercentile) {
+  const starScale = chroma.scale(['white', '#2ca25f']);
+  const hasScore = _.isNumber(maybePercentile);
+  if (!hasScore) return styles.none;
+  const fraction = maybePercentile / 100;
+  const backgroundColor = chroma(starScale(fraction)).alpha(fraction);
+  return {backgroundColor};
+}
+
+function highlightIf(isTrue) {
+  return isTrue ? styles.highlight : styles.none;
+}

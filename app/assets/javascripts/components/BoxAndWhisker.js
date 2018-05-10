@@ -20,7 +20,7 @@ export default function BoxAndWhisker({values, boxStyle, whiskerStyle, labelStyl
   const scale = (value) => `${value}%`;
   const [height, midTop, barHeight] = [18, 5, 7];
   return (
-    <div className="BoxAndWhisker" title={JSON.stringify({min, p25, p50, p75, max})} style={{height, ...style}}>
+    <div className="BoxAndWhisker" style={{height, ...style}}>
       <div style={{
         position: 'relative',
         width: '100%',

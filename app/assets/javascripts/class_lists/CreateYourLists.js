@@ -21,10 +21,10 @@ export default class CreateYourListsView extends React.Component {
     super(props);
 
     this.state = {
-      highlightFn: null
+      highlightKey: null
     };
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.onHighlightFn = this.onHighlightFn.bind(this);
+    this.onCategorySelected = this.onCategorySelected.bind(this);
   }
 
   onDragEnd(dragEndResult) {
@@ -33,8 +33,8 @@ export default class CreateYourListsView extends React.Component {
     onClassListsChanged(updatedStudentIdsByRoom);
   }
 
-  onHighlightFn(highlightFn) {
-    this.setState({highlightFn});
+  onCategorySelected(highlightKey) {
+    this.setState({highlightKey});
   }
 
   render() {
@@ -45,6 +45,7 @@ export default class CreateYourListsView extends React.Component {
       studentIdsByRoom,
       gradeLevelNextYear
     } = this.props;
+    const {highlightKey} = this.state;
     const rooms = createRooms(classroomsCount);
 
     return (
@@ -54,7 +55,8 @@ export default class CreateYourListsView extends React.Component {
           gradeLevelNextYear={gradeLevelNextYear}
           rooms={rooms.filter(room => room.roomKey !== UNPLACED_ROOM_KEY)}
           studentIdsByRoom={studentIdsByRoom}
-          onHighlightFn={this.onHighlightFn}/>
+          highlightKey={highlightKey}
+          onCategorySelected={this.onCategorySelected}/>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div style={styles.listsContainer}>
             {rooms.map(room => {
@@ -94,10 +96,10 @@ export default class CreateYourListsView extends React.Component {
 
   renderStudentCard(student, index) {
     const {fetchProfile, isEditable} = this.props;
-    const {highlightFn} = this.state;
+    const {highlightKey} = this.state;
     return <SimpleStudentCard
       key={student.id}
-      highlightFn={highlightFn}
+      highlightKey={highlightKey}
       student={student}
       index={index}
       fetchProfile={fetchProfile}

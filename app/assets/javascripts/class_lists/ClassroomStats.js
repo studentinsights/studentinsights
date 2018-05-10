@@ -1,16 +1,25 @@
 import React from 'react';
 import _ from 'lodash';
-import Hover from '../components/Hover';
 import Stack from '../components/Stack';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import BreakdownBar from '../components/BreakdownBar';
+import {colors} from '../helpers/Theme';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
+import {
+  steelBlue,
+  male,
+  female,
+  nonBinary
+} from './colors.js';
 import {
   isLimitedOrFlep,
   isIepOr504,
-  isLowIncome
+  isLowIncome,
+  isHighDiscipline,
+  HighlightKeys
 } from './studentFilters';
+
 
 // This component is written particularly for Somerville and it's likely this would require factoring out
 // into `PerDistrict` to respect the way this data is stored across districts.
@@ -18,6 +27,7 @@ export default class ClassroomStats extends React.Component {
   constructor(props) {
     super(props);
     this.renderLabelFn = this.renderLabelFn.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
   }
 
   studentsInRoom(room) {
@@ -25,50 +35,50 @@ export default class ClassroomStats extends React.Component {
     return studentsInRoom(students, studentIdsByRoom, room.roomKey);
   }
 
+  onKeyPress(e) {
+    const {onCategorySelected} = this.props;
+    if (e.charCode === 27) return onCategorySelected(null);
+  }
+
   render() {
-    const {rooms, gradeLevelNextYear} = this.props;
+    const {rooms, gradeLevelNextYear, highlightKey} = this.props;
 
     // Show different academic indicators by grade level.  STAR starts in 2nd grade.
     const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
     const showDibels = !showStar;
     return (
-      <div className="ClassroomStats" style={styles.root}>
+      <div className="ClassroomStats" style={styles.root} onKeyPress={this.onKeyPress}>
+        {highlightKey && this.renderSelectable(null, <div style={styles.clear}>Clear</div>, {position: 'relative'})}
         <table style={styles.table}>
           <thead>
             <tr>
               <th style={styles.cell}></th>
-              <th style={styles.spacer}></th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students who have an IEP or 504 plan">IEP or 504</th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students receiving English Learning Services or who have in the past (FLEP)">Limited or FLEP</th>
-              <th style={styles.spacer}></th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students broken down by whether they identify their gender as male, female or nonbinary.">
-                Gender</th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students whose are enrolled in the free or reduced lunch program">
-                Low income
+              <th style={{...styles.cell, ...styles.heading}} title="Students who have an IEP or 504 plan">
+                {this.renderSelectable(HighlightKeys.IEP_OR_504, 'IEP or 504')}
               </th>
-              <th style={styles.spacer}></th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile.">
-                Discipline, 3+
+              <th style={{...styles.cell, ...styles.heading}} title="Students receiving English Learning Services or who have in the past (FLEP)">
+                {this.renderSelectable(HighlightKeys.LIMITED_OR_FLEP, 'Limited or FLEP')}
+              </th>
+              <th style={{...styles.cell, ...styles.heading}} title="Students broken down by whether they identify their gender as male, female or nonbinary.">
+                {this.renderSelectable(HighlightKeys.GENDER, 'Gender')}
+              </th>
+              <th style={{...styles.cell, ...styles.heading}} title="Students whose are enrolled in the free or reduced lunch program">
+                {this.renderSelectable(HighlightKeys.LOW_INCOME, 'Low income')}
+              </th>
+              <th style={{...styles.cell, ...styles.heading}} title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile.">
+                {this.renderSelectable(HighlightKeys.HIGH_DISCIPLINE, 'Discipline, 3+')}
               </th>
               {showDibels &&
-                <th style={{...styles.cell, ...styles.heading}}
-                  title="Students' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Itensive (red)">
+                <th style={{...styles.cell, ...styles.heading}} title="Students' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Itensive (red)">
                   Dibels CORE
                 </th>}
               {showStar &&
-                <th style={{...styles.cell, ...styles.heading}}
-                  title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score.">
-                  STAR Math
+                <th style={{...styles.cell, ...styles.heading}} title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score.">
+                  {this.renderSelectable(HighlightKeys.STAR_MATH, 'STAR Math')}
                 </th>}
               {showStar &&
-                <th style={{...styles.cell, ...styles.heading}}
-                  title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score.">
-                  STAR Reading
+                <th style={{...styles.cell, ...styles.heading}} title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score.">
+                  {this.renderSelectable(HighlightKeys.STAR_READING, 'STAR Reading')}
                 </th>}
               <th style={{...styles.cell, width: 50}}>Total</th>
             </tr>
@@ -79,13 +89,10 @@ export default class ClassroomStats extends React.Component {
               return (
                 <tr key={room.roomKey}>
                   <td style={styles.cell}>{room.roomName}</td>
-                  <th style={styles.spacer}></th>
                   <td style={styles.cell}>{this.renderIepOr504(studentsInRoom)}</td>
                   <td style={styles.cell}>{this.renderEnglishLearners(studentsInRoom)}</td>
-                  <td style={styles.spacer}></td>
                   <td style={styles.cell}>{this.renderGender(studentsInRoom)}</td>
                   <td style={styles.cell}>{this.renderLowIncome(studentsInRoom)}</td>
-                  <td style={styles.spacer}></td>
                   <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>
                   {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(studentsInRoom)}</td>}
                   {showStar && <td style={styles.cell}>{this.renderMath(studentsInRoom)}</td>}
@@ -102,25 +109,21 @@ export default class ClassroomStats extends React.Component {
     );
   }
 
-  renderIepOr504(studentsInRoom) {
-    const students = studentsInRoom.filter(isIepOr504);
-    return this.renderHoverWrapper(students, this.renderStackSimple(students.length));
+  renderSelectable(categoryKey, children, style = {}) {
+    const {onCategorySelected} = this.props;
+    return <div
+      style={{...styles.selectable, ...style}}
+      onClick={() => onCategorySelected(categoryKey)}>{children}</div>;
   }
 
-  renderHoverWrapper(students, children) {
-    const {onHighlightFn} = this.props;
-    return (
-      <div
-        onMouseEnter={() => { console.log('enter'); onHighlightFn(student => students.indexOf(student) !== -1);}}
-        onMouseLeave={() => { console.log('leave'); onHighlightFn(student => false);}}>
-        {children}
-      </div>
-    );
+  renderIepOr504(studentsInRoom) {
+    const count = studentsInRoom.filter(isIepOr504).length;
+    return this.renderSelectable(HighlightKeys.IEP_OR_504, this.renderStackSimple(count));
   }
 
   renderEnglishLearners(studentsInRoom) {
     const count = studentsInRoom.filter(isLimitedOrFlep).length;
-    return this.renderStackSimple(count);
+    return this.renderSelectable(HighlightKeys.LIMITED_OR_FLEP, this.renderStackSimple(count));
   }
 
   renderGender(studentsInRoom) {
@@ -128,19 +131,18 @@ export default class ClassroomStats extends React.Component {
     const femaleCount = studentsInRoom.filter(student => student.gender === 'F').length;
     const nonBinaryCount = studentsInRoom.length - maleCount - femaleCount;
     const items = [
-      { left: 0, width: maleCount, color: '#299fc5', key: 'male' },
-      { left: maleCount, width: femaleCount, color: '#e06378', key: 'female' },
-      { left: maleCount + femaleCount, width: nonBinaryCount, color: 'rgb(81, 185, 86)', key: 'nonbinary' }
+      { left: 0, width: maleCount, color: male, key: 'male' },
+      { left: maleCount, width: femaleCount, color: female, key: 'female' },
+      { left: maleCount + femaleCount, width: nonBinaryCount, color: nonBinary, key: 'nonbinary' }
     ];
-
-    return (
+    return this.renderSelectable(HighlightKeys.GENDER, (
       <BreakdownBar
         items={items}
         style={styles.breakdownBar}
         innerStyle={styles.breakdownBarInner}
         height={5}
         labelTop={5} />
-    );
+    ));
   }
 
   renderLowIncome(studentsInRoom) {
@@ -149,9 +151,7 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderDiscipline(studentsInRoom) {
-    const count = studentsInRoom.filter(student => {
-      return (student.most_recent_school_year_discipline_incidents_count >= 3);
-    }).length;
+    const count = studentsInRoom.filter(isHighDiscipline).length;
     return this.renderStackSimple(count);
   }
 
@@ -180,12 +180,15 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderMath(studentsInRoom) {
-    return this.renderStar(studentsInRoom, student => student.most_recent_star_math_percentile);
+    return this.renderSelectable(HighlightKeys.STAR_MATH, this.renderStar(studentsInRoom, student => {
+      return student.most_recent_star_math_percentile;
+    }));
   }
 
-
   renderReading(studentsInRoom) {
-    return this.renderStar(studentsInRoom, student => student.most_recent_star_reading_percentile);
+    return this.renderSelectable(HighlightKeys.STAR_READING, this.renderStar(studentsInRoom, student => {
+      return student.most_recent_star_reading_percentile;
+    }));
   }
 
   renderStar(studentsInRoom, accessor) {
@@ -209,7 +212,7 @@ export default class ClassroomStats extends React.Component {
     
     // tunable, this is a multiplier above the space an even split would take
     const scaleTuningFactor = (students.length / rooms.length) * 1.5;
-    const stacks = [{ count, color: 'rgb(137, 175, 202)' }];
+    const stacks = [{ count, color: steelBlue }];
     return (
       <Stack
         stacks={stacks}
@@ -231,7 +234,8 @@ ClassroomStats.propTypes = {
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   rooms: React.PropTypes.array.isRequired,
   studentIdsByRoom: React.PropTypes.object.isRequired,
-  onHighlightFn: React.PropTypes.func.isRequired
+  highlightKey: React.PropTypes.string,
+  onCategorySelected: React.PropTypes.func.isRequired
 };
 
 const styles = {
@@ -284,7 +288,6 @@ const styles = {
     paddingRight: 10
   },
   breakdownBarInner: {
-    opacity: 0.5,
     fontSize: 12
   },
   boxAndWhisker: {
@@ -300,6 +303,22 @@ const styles = {
     float: 'right',
     fontSize: 12,
     paddingRight: 20
+  },
+  selectable: {
+    height: '100%',
+    width: '100%'
+  },
+  clear: {
+    position: 'absolute',
+    top: -3, // nudging it just above table bounds
+    display: 'inline-block',
+    backgroundColor: colors.selection,
+    padding: 4,
+    paddingRight: 15,
+    paddingLeft: 15,
+    fontWeight: 'bold',
+    color: '#333',
+    cursor: 'pointer'
   }
 };
 
