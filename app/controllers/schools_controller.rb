@@ -50,7 +50,7 @@ class SchoolsController < ApplicationController
 
   def discipline_dashboard_data
     student_discipline_data = active_students(@school)
-      .includes([homeroom: :educator], :discipline_incidents, :event_notes)
+      .includes([homeroom: :educator], :discipline_incidents, :sst_notes)
       .where('occurred_at >= ?', 1.year.ago).references(:discipline_incidents)
     student_discipline_data_json = student_discipline_data.map do |student|
       individual_student_discipline_data(student)
