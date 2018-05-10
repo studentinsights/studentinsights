@@ -13,35 +13,32 @@ import {fetchAllWorkspaces} from './api';
 // or ELL/SPED teachers than classroom teachers (who are typically
 // making a single list).
 export default class ClassListsViewPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.renderPage = this.renderPage.bind(this);
-  }
-
   render() {
     return (
       <div className="ClassListsViewPage">
         <GenericLoader
           style={styles.root}
           promiseFn={fetchAllWorkspaces}
-          render={this.renderPage} />
+          render={json => <ClassListsViewPageView {...json} />} />
       </div>
     );
   }
+}
 
-  renderPage(json) {
+
+// View component
+export class ClassListsViewPageView extends React.Component {
+  render() {
     return (
       <div>
         <SectionHeading>Class lists</SectionHeading>
-        {this.renderTable(json)}
+        {this.renderTable()}
       </div>
     );
   }
 
-  renderTable(json) {
-    const {workspaces} = json;
-
+  renderTable() {
+    const {workspaces} = this.props;
     if (workspaces.length === 0) return <div>None!</div>;
 
     return (
@@ -75,6 +72,22 @@ export default class ClassListsViewPage extends React.Component {
     );
   }
 }
+ClassListsViewPageView.propTypes = {
+  workspaces: React.PropTypes.arrayOf(React.PropTypes.shape({
+    workspace_id: React.PropTypes.string.isRequired,
+    revisions_count: React.PropTypes.number.isRequired,
+    class_list: React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      workspace_id: React.PropTypes.string.isRequired,
+      grade_level_next_year: React.PropTypes.string.isRequired,
+      created_at: React.PropTypes.string.isRequired,
+      updated_at: React.PropTypes.string.isRequired,
+      submitted: React.PropTypes.bool.isRequired,
+      created_by_educator: React.PropTypes.object.isRequired,
+      school: React.PropTypes.object.isRequired,
+    }).isRequired
+  })).isRequired
+};
 
 
 const styles = {

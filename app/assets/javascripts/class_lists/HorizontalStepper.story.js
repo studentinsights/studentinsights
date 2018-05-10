@@ -5,7 +5,7 @@ import HorizontalStepper from './HorizontalStepper';
 import {testProps} from './HorizontalStepper.test';
 
 
-storiesOf('equity/HorizontalStepper', module) // eslint-disable-line no-undef
+storiesOf('classlists/HorizontalStepper', module) // eslint-disable-line no-undef
   .add('writer', () => {
     const props = testProps({
       onStepChanged: action('onStepChanged')

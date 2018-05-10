@@ -5,7 +5,7 @@ import InlineStudentProfile from './InlineStudentProfile';
 import {testProps} from './InlineStudentProfile.test';
 
 
-storiesOf('equity/InlineStudentProfile', module) // eslint-disable-line no-undef
+storiesOf('classlists/InlineStudentProfile', module) // eslint-disable-line no-undef
   .add('test', () => {
     const props = testProps();
     return withDefaultNowContext(
