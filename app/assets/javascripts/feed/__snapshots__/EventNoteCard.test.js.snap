@@ -111,7 +111,10 @@ exports[`matches snapshot 1`] = `
           </div>
         </div>
         <div>
-          <div>
+          <div
+            className="Timestamp"
+            style={Object {}}
+          >
             14 years ago
              on 
             3/5
