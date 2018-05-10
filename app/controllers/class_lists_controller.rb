@@ -2,6 +2,39 @@ class ClassListsController < ApplicationController
   # This entire feature is Somerville-specific
   before_action :ensure_somerville_only!
 
+  # For showing the list of all workspaces that the user can read
+  def workspaces_json
+    workspaces = queries.all_authorized_workspaces
+    workspaces_json = workspaces.map do |workspace|
+      {
+        workspace_id: workspace.workspace_id,
+        revisions_count: workspace.revisions_count,
+        class_list: workspace.class_list.as_json({
+          only: [
+            :id,
+            :workspace_id,
+            :grade_level_next_year,
+            :created_at,
+            :updated_at,
+            :submitted
+          ],
+          include: {
+            created_by_educator: {
+              only: [:id, :email, :full_name]
+            },
+            school: {
+              only: [:id, :name]
+            }
+          }
+        })
+      }
+    end
+
+    render json: {
+      workspaces: workspaces_json
+    }
+  end
+
   # Suggest the schools and grade levels that this educator will want to create.
   # This isn't an authorization gate, more a helpful UI suggestion than anything else.
   def available_grade_levels_json

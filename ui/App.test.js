@@ -7,6 +7,7 @@ import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCo
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
+import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import {MemoryRouter} from 'react-router-dom';
 
 
@@ -16,6 +17,7 @@ jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
 jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader');
 jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
+jest.mock('../app/assets/javascripts/class_lists/ClassListsViewPage');
 
 function renderPath(path, options = {}) {
   const educator = options.educator || createSerializedDataEducator();
@@ -81,10 +83,24 @@ it('renders district enrollment', () => {
   )).toEqual(true);
 });
 
-it('renders /classlists page', () => {
+it('renders new classlist', () => {
+  const wrapper = mount(renderPath('/classlists/new'));
+  expect(wrapper.contains(
+    <ClassListCreatorPage />
+  )).toEqual(true);
+});
+
+it('renders edit classlist', () => {
   const wrapper = mount(renderPath('/classlists/foo-id'));
   expect(wrapper.contains(
     <ClassListCreatorPage defaultWorkspaceId="foo-id" />
+  )).toEqual(true);
+});
+
+it('renders list of classlists', () => {
+  const wrapper = mount(renderPath('/classlists'));
+  expect(wrapper.contains(
+    <ClassListsViewPage />
   )).toEqual(true);
 });
 

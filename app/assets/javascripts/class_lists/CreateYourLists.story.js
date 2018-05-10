@@ -15,7 +15,7 @@ function testRender(props = {}) {
   return storybookFrame(withDefaultNowContext(<Container {...props} />));
 }
 
-storiesOf('equity/CreateYourLists', module) // eslint-disable-line no-undef
+storiesOf('classlists/CreateYourLists', module) // eslint-disable-line no-undef
   .add("empty", () => testRender(testProps({ forceUnplaced: true })))
   .add("Next 2rd grade", () => testRender(testProps()))
   .add("Next 5th grade", () => {

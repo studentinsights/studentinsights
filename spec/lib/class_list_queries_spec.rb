@@ -13,6 +13,40 @@ RSpec.describe ClassListQueries do
   let!(:pals) { TestPals.create! }
   let!(:time_now) { pals.time_now }
 
+  describe '#all_authorized_workspaces, shows latest class and respects authorization' do
+    def all_authorized_workspace_class_lists(educator)
+      ClassListQueries.new(educator).all_authorized_workspaces.map {|workspace| workspace.class_list }
+    end
+
+    let!(:a) { create_class_list_from(pals.uri, grade_level_next_year: '2', workspace_id: 'a') }
+    let!(:b) { create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6', workspace_id: 'b') }
+    let!(:c) { create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6', workspace_id: 'b') }
+    let!(:d) { create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6', workspace_id: 'b') }
+    let!(:e) { create_class_list_from(pals.healey_laura_principal, grade_level_next_year: '3', workspace_id: 'c') }
+    let!(:f) { create_class_list_from(pals.west_marcus_teacher, grade_level_next_year: '6', workspace_id: 'd') }
+    let!(:g) { create_class_list_from(pals.west_marcus_teacher, grade_level_next_year: '6', workspace_id: 'd') }
+
+    it 'works for Uri' do
+      expect(all_authorized_workspace_class_lists(pals.uri)).to contain_exactly(a, d, e, g)
+    end
+
+    it 'works for Sarah' do
+      expect(all_authorized_workspace_class_lists(pals.healey_sarah_teacher)).to contain_exactly(d)
+    end
+
+    it 'works for Laura' do
+      expect(all_authorized_workspace_class_lists(pals.healey_laura_principal)).to contain_exactly(a, d, e)
+    end
+
+    it 'works for Marcus' do
+      expect(all_authorized_workspace_class_lists(pals.west_marcus_teacher)).to contain_exactly(g)
+    end
+
+    it 'works for Vivian' do
+      expect(all_authorized_workspace_class_lists(pals.healey_vivian_teacher)).to contain_exactly()
+    end
+  end
+
   describe '#authorized_students_for_next_year' do
     def authorized_students_for_next_year(educator, school_id, grade_level_next_year)
       ClassListQueries.new(educator).authorized_students_for_next_year(school_id, grade_level_next_year)

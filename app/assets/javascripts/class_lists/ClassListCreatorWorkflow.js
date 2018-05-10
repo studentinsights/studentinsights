@@ -1,19 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
-import {gradeText} from '../helpers/gradeText';
-import Loading from '../components/Loading';
-import CreateYourLists from './CreateYourLists';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import {gradeText} from '../helpers/gradeText';
+import Loading from '../components/Loading';
+import IntroCopy from './IntroCopy';
+import CreateYourLists from './CreateYourLists';
 import HorizontalStepper from './HorizontalStepper';
 import {fetchProfile} from './api';
 
-
-const text = `Over the last few years, I’ve been hearing from teachers and principals about how complex and time-consuming the class assignment process is.  It’s so hard to juggle and keep track of all the various factors, like gender, ELL status, disabilities, academics, and discipline.  And in a diverse city as ours, we want as much as possible for the classrooms at each grade level to reflect the diversity of your school community.    In the past year, people who have seen our Student Insights system have asked if there might be a way to use technology to make the process a little more streamlined.
-
-With our new grant from the Boston Foundation to expand the functionality of Insights, we are happy to announce that we have created a tool for you to use.   Over the past few months, we have talked to a bunch of teachers and principals to see what would help, prototyped different models, and piloted this tool with several teams to get feedback.
-
--Uri`;
 
 
 // This is the UI component for grade-level teaching teams to go through the process
@@ -63,17 +58,13 @@ export default class ClassListCreatorWorkflow extends React.Component {
       onSchoolIdChanged,
       onGradeLevelNextYearChanged
     } = this.props;
-    const videoUrl = null;
 
     if (schools === null || gradeLevelsNextYear === null) return <Loading />;
     return (
       <div style={styles.stepContent}>
         <div>
           <div style={styles.heading}>Why are we doing this?</div>
-          <div style={styles.introCopy}>
-            {text}
-          </div>
-          {videoUrl && <a href={videoUrl} target="_blank" style={styles.videoLink}>Watch the full video</a>}
+          <IntroCopy />
         </div>
         <div>
           <div>
@@ -273,12 +264,6 @@ const styles = {
     margin: 5,
     cursor: 'pointer'
   },
-  introCopy: {
-    // fontSize: 12,
-    padding: 10,
-    paddingLeft: 5,
-    whiteSpace: 'pre-wrap'
-  },
   incrementButton: {
     display: 'inline-block',
     padding: 1,
@@ -292,7 +277,6 @@ const styles = {
   videoLink: {
     display: 'inline-block',
     marginLeft: 5,
-    // fontSize: 12
   },
   horizontalStepper: {
     paddingTop: 15

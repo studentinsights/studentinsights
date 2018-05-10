@@ -5,6 +5,7 @@ import School from '../components/School';
 import Section from '../components/Section';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
+import tableStyles from '../components/tableStyles';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {toMomentFromTime} from '../helpers/toMoment';
 
@@ -57,19 +58,19 @@ export class SchoolCoursesPagePure extends React.Component {
         <SectionHeading>
           Courses at <School id={school.id} name={school.name} style={{fontSize: 24, fontWeight: 300}}/>
         </SectionHeading>
-        <table style={styles.table}>
+        <table style={tableStyles.table}>
           <thead>
             <tr>
-              <th style={{...styles.cell, ...styles.headerCell}}>Course</th>
-              <th style={{...styles.cell, ...styles.headerCell}}>Sections</th>
-              <th style={{...styles.cell, ...styles.headerCell}}>Total students</th>
-              <th style={{...styles.cell, ...styles.headerCell}}>Grade levels</th>
-              <th style={{...styles.cell, ...styles.headerCell}}>Ages</th>
-              <th style={{...styles.cell, ...styles.headerCell}}>Schools</th>
+              <th style={tableStyles.headerCell}>Course</th>
+              <th style={tableStyles.headerCell}>Sections</th>
+              <th style={tableStyles.headerCell}>Total students</th>
+              <th style={tableStyles.headerCell}>Grade levels</th>
+              <th style={tableStyles.headerCell}>Ages</th>
+              <th style={tableStyles.headerCell}>Schools</th>
             </tr>
           </thead>
           <tbody>{sortedCourses.map(course => {
-            const rightAlignStyle = {...styles.cell, textAlign: 'right'};
+            const rightAlignStyle = {...tableStyles.cell, textAlign: 'right'};
             const students = _.flatten(course.sections.map(s => s.students));
             const grades = _.sortBy(_.uniq(students.map(s => parseInt(s.grade, 10))));
             const ages =  _.sortBy(_.uniq(students.map(s => toMomentFromTime(s.date_of_birth).unix())).map(unix => {
@@ -79,8 +80,8 @@ export class SchoolCoursesPagePure extends React.Component {
             const schools = _.sortBy(_.uniq(_.flatten(students.map(s => s.school)), 'id'), 'name');
             return (
               <tr key={course.id}>
-                <td style={styles.cell}>{course.course_number} {course.course_description}</td>
-                <td style={styles.cell}>{_.sortBy(course.sections, s => s.section_number).map(section =>
+                <td style={tableStyles.cell}>{course.course_number} {course.course_description}</td>
+                <td style={tableStyles.cell}>{_.sortBy(course.sections, s => s.section_number).map(section =>
                   <Section
                     key={section.id}
                     id={section.id}
@@ -94,7 +95,7 @@ export class SchoolCoursesPagePure extends React.Component {
                     ? <span>{_.first(grades)} - {_.last(grades)}</span>
                     : grades[0]}</td>
                 <td style={rightAlignStyle}>{_.first(ages)} - {_.last(ages)}</td>
-                <td style={styles.cell}>{schools.map(school =>
+                <td style={tableStyles.cell}>{schools.map(school =>
                   <School
                     key={school.id}
                     id={school.id}
@@ -141,21 +142,6 @@ SchoolCoursesPagePure.propTypes = {
 const styles = {
   rendered: {
     padding: 10
-  },
-  table: {
-    margin: 10,
-    borderCollapse: 'collapse',
-    border: '1px solid #eee'
-  },
-  cell: {
-    textAlign: 'left',
-    verticalAlign: 'top',
-    padding: 10,
-    border: '1px solid #eee'
-  },
-  headerCell: {
-    fontWeight: 'bold',
-    backgroundColor: '#ccc'
   },
   raw: {
     fontFamily: 'monospace',

@@ -5,7 +5,7 @@ import ClassListCreatorPage from './ClassListCreatorPage';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import storybookFrame from './storybookFrame';
 
-storiesOf('equity/ClassListCreatorPage', module) // eslint-disable-line no-undef
+storiesOf('classlists/ClassListCreatorPage', module) // eslint-disable-line no-undef
   .add('normal', () => {
     mockWithFixtures();
     return storybookFrame(
