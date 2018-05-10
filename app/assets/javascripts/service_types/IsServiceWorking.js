@@ -2,6 +2,8 @@ import _ from 'lodash';
 import React from 'react';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
+import SectionHeading from '../components/SectionHeading';
+import Button from '../components/Button';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import ProfileBarChart from '../student_profile/ProfileBarChart.js';
 import * as Routes from '../helpers/Routes';
@@ -26,6 +28,14 @@ const style = {
   },
   a: {
     fontSize: 24
+  },
+  buttonStyle: {
+    float: 'left',
+    margin: 5,
+  },
+  buttonSectionStyle: {
+    width: '100%',
+    height: 50
   }
 };
 
@@ -33,6 +43,10 @@ class IsServiceWorking extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      serviceTypeSelected: null // options: null, 502, 503
+    };
 
     this.fetchIsServiceWorkingData = this.fetchIsServiceWorkingData.bind(this);
     this.renderPage = this.renderPage.bind(this);
@@ -42,15 +56,74 @@ class IsServiceWorking extends React.Component {
     return (
       <div className="IsServiceWorking">
         <ExperimentalBanner />
-        <GenericLoader
-          promiseFn={this.fetchIsServiceWorkingData}
-          render={this.renderPage} />
+        <SectionHeading>
+          "Is this Service Working for this Student?"
+        </SectionHeading>
+        <p style={{padding: '10px 0 0 10px'}}>
+          Every student is different.
+          Some students might respond well to a service, while others
+          respond poorly to the same service.
+        </p>
+        <p style={{padding: '10px 0 10px 10px'}}>
+          Use the buttons below to explore how students may have responded to
+          services assigned to them over the course of the past school year.
+        </p>
+        {this.renderButtons()}
+        {this.renderCharts()}
       </div>
     );
   }
 
+  renderButtons() {
+    const attendanceOfficer = {
+      id: 502,
+      name: 'Attendance Officer',
+    };
+
+    const attendanceContract = {
+      id: 503,
+      name: 'Attendance Contract',
+    };
+
+    return (
+      <div style={style.buttonSectionStyle}>
+        <Button style={style.buttonStyle}
+          onClick={() => {
+            this.setState({serviceTypeSelected: null}, () => {
+              this.setState({serviceTypeSelected: attendanceOfficer})
+            })
+          }}>
+          Attendance Officer
+        </Button>
+        <Button style={style.buttonStyle}
+          onClick={() => {
+            this.setState({serviceTypeSelected: null}, () => {
+              this.setState({serviceTypeSelected: attendanceContract})
+            })
+          }}>
+          Attendance Contract
+        </Button>
+      </div>
+    );
+  }
+
+  renderCharts() {
+    const {serviceTypeSelected} = this.state;
+
+    if (!serviceTypeSelected) return null;
+
+    return (
+      <GenericLoader
+        promiseFn={this.fetchIsServiceWorkingData}
+        render={this.renderPage} />
+    );
+  }
+
   fetchIsServiceWorkingData() {
-    const url = `/api/is_service_working_json`;
+    const {serviceTypeSelected} = this.state;
+
+    const url = `/api/is_service_working_json/${serviceTypeSelected.id}`;
+
     return apiFetchJson(url);
   }
 
@@ -67,7 +140,7 @@ class IsServiceWorking extends React.Component {
       return {
         momentUTCstart: moment.utc(service.date_started),
         momentUTCend: moment.utc(service.discontinued_at),
-        text: 'Attendance Officer'
+        text: this.state.serviceTypeSelected.name
       };
     }, this);
   }
