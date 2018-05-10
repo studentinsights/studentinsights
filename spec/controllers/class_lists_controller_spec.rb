@@ -15,6 +15,67 @@ describe ClassListsController, :type => :controller do
   let!(:pals) { TestPals.create! }
   let!(:time_now) { pals.time_now }
 
+  describe '#workspaces_json' do
+    it 'shows Sarah her classlist' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, {
+        grade_level_next_year: '6',
+        created_at: time_now - 4.hours,
+        updated_at: time_now - 4.hours,
+      })
+      sign_in(pals.healey_sarah_teacher)
+      get :workspaces_json, params: {
+        format: :json
+      }
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json).to eq({
+        "workspaces"=>[{
+          "workspace_id"=>"foo-workspace-id",
+          "revisions_count"=>1,
+          "class_list"=>{
+            "id"=>class_list.id,
+            "workspace_id"=>"foo-workspace-id",
+            "grade_level_next_year"=>"6",
+            "created_at"=>(time_now - 4.hours).as_json,
+            "updated_at"=>(time_now - 4.hours).as_json,
+            "submitted"=>false,
+            "created_by_educator"=>{
+              "id"=>pals.healey_sarah_teacher.id,
+              "email"=>"sarah@demo.studentinsights.org",
+              "full_name"=>"Teacher, Sarah"
+            },
+            "school"=>{
+              "id"=>pals.healey.id,
+              "name"=>"Arthur D Healey"
+            }
+          }
+        }]
+      })
+    end
+
+    it 'shows Uris Sarah\'s classlist' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      sign_in(pals.uri)
+      get :workspaces_json, params: {
+        format: :json
+      }
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json['workspaces'].length).to eq 1
+    end
+
+    it 'does not show Marcus Sarah\'s classlist' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      sign_in(pals.west_marcus_teacher)
+      get :workspaces_json, params: {
+        format: :json
+      }
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json).to eq({'workspaces'=>[]})
+    end
+  end
+
   describe '#available_grade_levels_json' do
     def request_available_grade_levels_json(educator)
       sign_in(educator)

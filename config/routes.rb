@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   resource :classlists, only: [] do
     member do
       get '' => 'ui#ui'
+      get '/new' => 'ui#ui'
       get '/:workspace_id' => 'ui#ui'
     end
   end
