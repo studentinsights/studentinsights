@@ -40,15 +40,17 @@ class ClassListQueries
     end
   end
 
-  def all_authorized_class_lists
+  def all_authorized_workspaces
     # Get latest by workspace_id
     all_class_lists = ClassList.order(created_at: :desc)
-    latest_class_lists = all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
-      class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
+    workspaces = all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
+      class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
+      ClassListWorkspace.new(workspace_id, class_list, class_lists.size)
     end
 
     # Authorization check
-    latest_class_lists.select do |class_list|
+    workspaces.select do |workspace|
+      class_list = workspace.class_list
       grade_level_now = GradeLevels.new.previous(class_list.grade_level_next_year)
       is_authorized_for_grade_level_now?(class_list.school_id, grade_level_now)
     end

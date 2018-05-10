@@ -2,30 +2,36 @@ class ClassListsController < ApplicationController
   # This entire feature is Somerville-specific
   before_action :ensure_somerville_only!
 
-  # For showing the list of all class lists the user can read
-  def class_lists_json
-    class_lists = queries.all_authorized_class_lists
-    class_lists_json = class_lists.as_json({
-      only: [
-        :id,
-        :workspace_id,
-        :grade_level_next_year,
-        :created_at,
-        :updated_at,
-        :submitted
-      ],
-      include: {
-        created_by_educator: {
-          only: [:id, :email, :full_name]
-        },
-        school: {
-          only: [:id, :name]
-        }
+  # For showing the list of all workspaces that the user can read
+  def workspaces_json
+    workspaces = queries.all_authorized_workspaces
+    workspaces_json = workspaces.map do |workspace|
+      {
+        workspace_id: workspace.workspace_id,
+        revisions_count: workspace.revisions_count,
+        class_list: workspace.class_list.as_json({
+          only: [
+            :id,
+            :workspace_id,
+            :grade_level_next_year,
+            :created_at,
+            :updated_at,
+            :submitted
+          ],
+          include: {
+            created_by_educator: {
+              only: [:id, :email, :full_name]
+            },
+            school: {
+              only: [:id, :name]
+            }
+          }
+        })
       }
-    })
+    end
 
     render json: {
-      class_lists: class_lists_json
+      workspaces: workspaces_json
     }
   end
 

@@ -21,8 +21,8 @@ export function fetchStudentsJson(options = {}) {
 }
 
 // Fetch all class lists the user has access to
-export function fetchAllClassListsJson() {
-  return apiFetchJson('/api/class_lists');
+export function fetchAllWorkspaces() {
+  return apiFetchJson('/api/class_lists/workspaces_json');
 }
 
 // Fetch the state of a class list workspace
