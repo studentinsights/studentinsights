@@ -22,7 +22,7 @@ const style = {
       margin: '10px auto',
       position: 'relative'
     },
-    chartHeight: 220,
+    chartHeight: 250,
   },
   a: {
     fontSize: 24
@@ -62,9 +62,13 @@ class IsServiceWorking extends React.Component {
     );
   }
 
-  renderServicePhaselines(services) {
-    return services.map(function (service) {
-      return { momentUTC: moment.utc(service.date_started), text: 'Started' };
+  renderPhasebands(services) {
+    return services.map(service => {
+      return {
+        momentUTCstart: moment.utc(service.date_started),
+        momentUTCend: moment.utc(service.discontinued_at),
+        text: 'Attendance Officer'
+      };
     }, this);
   }
 
@@ -77,7 +81,7 @@ class IsServiceWorking extends React.Component {
     return sortedData.map((datum) => {
       const student = datum.student;
       const services = datum.services;
-      const servicePhaselines = this.renderServicePhaselines(services);
+      const phasebands = this.renderPhasebands(services);
 
       return (
         <div key={student.id} style={style.studentRow}>
@@ -87,8 +91,8 @@ class IsServiceWorking extends React.Component {
           <ProfileBarChart
             events={datum.absences}
             titleText="Absences"
-            monthsBack={8}
-            phaselines={servicePhaselines}
+            monthsBack={24}
+            phasebands={phasebands}
             hideBackToTop={true}
             styles={style.profileBarChartStyles} />
         </div>

@@ -70,6 +70,28 @@ export default class ProfileBarChart extends React.Component {
     });
   }
 
+  makePlotbands(monthKeys) {
+    return this.props.phasebands.map(band => {
+      const bandMonthKeyStart = band.momentUTCstart.clone().date(1).format('YYYYMMDD');
+      const monthIndexStart = monthKeys.indexOf(bandMonthKeyStart);
+
+      const monthIndexEnd = (band.momentUTCend.isValid())
+        ? monthKeys.indexOf(band.momentUTCend.clone().date(1).format('YYYYMMDD'))
+        : monthKeys.length - 1;
+
+      return {
+        color: '#e8fce8',
+        opacity: 0.5,
+        from: monthIndexStart,
+        to: monthIndexEnd,
+        label: {
+          text: band.text,
+          align: 'left',
+        }
+      };
+    });
+  }
+
   // Compute the month range that's relevant for the current date and months back we're showing
   // on the chart.  Then map each month onto captions, and bucket the list of events into
   // each month.
@@ -90,7 +112,8 @@ export default class ProfileBarChart extends React.Component {
           xAxis={[
             {
               categories: monthKeys.map(GraphHelpers.monthAxisCaption),
-              plotLines: this.makePlotlines(monthKeys)
+              plotLines: this.makePlotlines(monthKeys),
+              plotBands: this.makePlotbands(monthKeys)
             },
             {
               offset: 35,
@@ -150,10 +173,12 @@ ProfileBarChart.propTypes = {
   nowMomentUTC: PropTypes.instanceOf(moment),
   monthKeyFn: PropTypes.func,
   phaselines: PropTypes.array
+  phasebands: PropTypes.array,
 };
 
 ProfileBarChart.defaultProps = {
   phaselines: [],
+  phasebands: [],
   nowMomentUTC: moment.utc(),
   monthKeyFn(event) {
     // A function that grabs a monthKey from an event that is passed in.  Should return
