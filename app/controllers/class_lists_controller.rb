@@ -2,6 +2,33 @@ class ClassListsController < ApplicationController
   # This entire feature is Somerville-specific
   before_action :ensure_somerville_only!
 
+  # For showing the list of all class lists the user can read
+  def class_lists_json
+    class_lists = queries.all_authorized_class_lists
+    class_lists_json = class_lists.as_json({
+      only: [
+        :id,
+        :workspace_id,
+        :grade_level_next_year,
+        :created_at,
+        :updated_at,
+        :submitted
+      ],
+      include: {
+        created_by_educator: {
+          only: [:id, :email, :full_name]
+        },
+        school: {
+          only: [:id, :name]
+        }
+      }
+    })
+
+    render json: {
+      class_lists: class_lists_json
+    }
+  end
+
   # Suggest the schools and grade levels that this educator will want to create.
   # This isn't an authorization gate, more a helpful UI suggestion than anything else.
   def available_grade_levels_json

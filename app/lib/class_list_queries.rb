@@ -40,6 +40,20 @@ class ClassListQueries
     end
   end
 
+  def all_authorized_class_lists
+    # Get latest by workspace_id
+    all_class_lists = ClassList.order(created_at: :desc)
+    latest_class_lists = all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
+      class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
+    end
+
+    # Authorization check
+    latest_class_lists.select do |class_list|
+      grade_level_now = GradeLevels.new.previous(class_list.grade_level_next_year)
+      is_authorized_for_grade_level_now?(class_list.school_id, grade_level_now)
+    end
+  end
+
   # Educators can only write to workspaces they created, or to unowned workspaces.
   def is_authorized_for_writes?(workspace_id)
     owner = ClassList.workspace_owner(workspace_id)

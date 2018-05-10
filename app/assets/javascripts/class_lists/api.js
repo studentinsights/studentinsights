@@ -20,6 +20,11 @@ export function fetchStudentsJson(options = {}) {
   return apiFetchJson(url);
 }
 
+// Fetch all class lists the user has access to
+export function fetchAllClassListsJson() {
+  return apiFetchJson('/api/class_lists');
+}
+
 // Fetch the state of a class list workspace
 export function fetchClassListJson(workspaceId) {
   const url = `/api/class_lists/${workspaceId}/class_list_json`;
