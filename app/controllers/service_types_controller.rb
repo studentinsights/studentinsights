@@ -26,6 +26,7 @@ class ServiceTypesController < ApplicationController
     chart_data = Student.active.where(id: student_ids).map do |student|
       {
         student: student,
+        school: student.school.local_id,
         services: student.services.where(service_type_id: service_type_id),
         absences: student.absences.order(occurred_at: :desc)
       }
