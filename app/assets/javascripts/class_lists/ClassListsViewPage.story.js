@@ -1,15 +1,14 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import {widthFrame} from './storybookFrame';
 import mockWithFixtures from './fixtures/mockWithFixtures';
-import ClassListsViewPage from './ClassListsViewPage';
+import ClassListsViewPage, {ClassListsViewPageView} from './ClassListsViewPage';
 import {testProps} from './ClassListsViewPage.test';
 
-function testRender(props = {}) {
-  return <ClassListsViewPage {...props} />;
-}
 
 storiesOf('classlists/ClassListsViewPage', module) // eslint-disable-line no-undef
-  .add("normal", () => {
+  .add('none yet', () => widthFrame(<ClassListsViewPageView workspaces={[]} />))
+  .add('normal', () => {
     mockWithFixtures();
-    return testRender(testProps({}));
+    return widthFrame(<ClassListsViewPage {...testProps()} />);
   });

@@ -1,4 +1,6 @@
 import React from 'react';
+import * as Routes from '../helpers/Routes';
+import Button from '../components/Button';
 import School from '../components/School';
 import Educator from '../components/Educator';
 import GenericLoader from '../components/GenericLoader';
@@ -6,6 +8,7 @@ import SectionHeading from '../components/SectionHeading';
 import tableStyles from '../components/tableStyles';
 import {toMomentFromTime} from '../helpers/toMoment';
 import {gradeText} from '../helpers/gradeText';
+import IntroCopy from './IntroCopy';
 import {fetchAllWorkspaces} from './api';
 
 
@@ -28,6 +31,16 @@ export default class ClassListsViewPage extends React.Component {
 
 // View component
 export class ClassListsViewPageView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onNewClicked = this.onNewClicked.bind(this);
+  }
+
+  onNewClicked(e) {
+    e.preventDefault();
+    window.location.href = Routes.newClassList();
+  }
+
   render() {
     return (
       <div>
@@ -39,36 +52,52 @@ export class ClassListsViewPageView extends React.Component {
 
   renderTable() {
     const {workspaces} = this.props;
-    if (workspaces.length === 0) return <div>None!</div>;
+    if (workspaces.length === 0) return this.renderOverview();
 
     return (
-      <table style={tableStyles.table}>
-        <thead>
-          <tr>
-            <th style={tableStyles.headerCell}>School</th>
-            <th style={tableStyles.headerCell}>Grade next year</th>
-            <th style={tableStyles.headerCell}>Owner</th>
-            <th style={tableStyles.headerCell}>Created on</th>
-            <th style={tableStyles.headerCell}>Revisions</th>
-            <th style={tableStyles.headerCell}>Workspace</th>
-            <th style={tableStyles.headerCell} />
-          </tr>
-        </thead>
-        <tbody>{workspaces.map(workspace => {
-          const classList = workspace.class_list;
-          return (
-            <tr key={workspace.workspace_id}>
-              <td style={tableStyles.cell}><School {...classList.school} /></td>
-              <td style={tableStyles.cell}>{gradeText(classList.grade_level_next_year)}</td>
-              <td style={tableStyles.cell}><Educator educator={classList.created_by_educator} /></td>
-              <td style={tableStyles.cell}>{toMomentFromTime(classList.created_at).format('dddd M/D')}</td>
-              <td style={tableStyles.cell}>{workspace.revisions_count}</td>
-              <td style={tableStyles.cell}><pre>{classList.workspace_id.slice(0, 4)}-{classList.id}</pre></td>
-              <td style={tableStyles.cell}><a href={`/classlists/${classList.workspace_id}`}>open</a></td>
+      <div>
+        {this.renderNewButton()}
+        <table style={tableStyles.table}>
+          <thead>
+            <tr>
+              <th style={tableStyles.headerCell}>School</th>
+              <th style={tableStyles.headerCell}>Grade next year</th>
+              <th style={tableStyles.headerCell}>Owner</th>
+              <th style={tableStyles.headerCell}>Created on</th>
+              <th style={tableStyles.headerCell}>Revisions</th>
+              <th style={tableStyles.headerCell}>Workspace</th>
+              <th style={tableStyles.headerCell} />
             </tr>
-          );
-        })}</tbody>
-      </table>
+          </thead>
+          <tbody>{workspaces.map(workspace => {
+            const classList = workspace.class_list;
+            return (
+              <tr key={workspace.workspace_id}>
+                <td style={tableStyles.cell}><School {...classList.school} /></td>
+                <td style={tableStyles.cell}>{gradeText(classList.grade_level_next_year)}</td>
+                <td style={tableStyles.cell}><Educator educator={classList.created_by_educator} /></td>
+                <td style={tableStyles.cell}>{toMomentFromTime(classList.created_at).format('dddd M/D')}</td>
+                <td style={tableStyles.cell}>{workspace.revisions_count}</td>
+                <td style={tableStyles.cell}><pre>{classList.workspace_id.slice(0, 4)}-{classList.id}</pre></td>
+                <td style={tableStyles.cell}><a href={`/classlists/${classList.workspace_id}`}>open</a></td>
+              </tr>
+            );
+          })}</tbody>
+        </table>
+      </div>
+    );
+  }
+
+  renderNewButton() {
+    return <Button style={styles.newButton} onClick={this.onNewClicked}>New list</Button>;
+  }
+
+  renderOverview() {
+    return (
+      <div style={styles.overview}>
+        <IntroCopy />
+        {this.renderNewButton()}
+      </div>
     );
   }
 }
@@ -93,5 +122,15 @@ ClassListsViewPageView.propTypes = {
 const styles = {
   root: {
     padding: 10
-  }  
+  },
+  newButton: {
+    display: 'block',
+    margin: 10
+  },
+  overview: {
+    margin: 10
+  },
+  p: {
+    marginBottom: 10
+  }
 };

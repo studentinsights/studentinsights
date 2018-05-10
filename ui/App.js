@@ -59,7 +59,7 @@ class App extends React.Component {
           <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
           <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
           <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
-          <Route exact path="/classlists/create" render={this.renderClassListCreatorNew.bind(this)}/>
+          <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
           <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
           <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />

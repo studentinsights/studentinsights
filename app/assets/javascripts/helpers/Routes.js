@@ -19,3 +19,7 @@ export function school(id) {
 export function section(id) {
   return '/sections/' + id;
 }
+
+export function newClassList() {
+  return '/classlists/new';
+}
