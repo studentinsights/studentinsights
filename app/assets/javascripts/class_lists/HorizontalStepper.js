@@ -113,14 +113,12 @@ const styles = {
     paddingTop: 15,
     height: '100%',
     display: 'flex',
-    flexDirection: 'column',
-    border: '1px solid red'
+    flexDirection: 'column'
   },
   content: {
     borderTop: '1px solid #ccc',
     marginTop: 10,
-    flex: 1,
-    border: '1px solid green'
+    flex: 1
   },
   bannerContainer: {
     display: 'flex',

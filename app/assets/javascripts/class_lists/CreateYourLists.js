@@ -148,8 +148,8 @@ const styles = {
   },
   classroomListColumn: {
     padding: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
     display: 'flex',
     flex: 1,
     flexDirection: 'column'

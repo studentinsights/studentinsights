@@ -161,7 +161,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
             <textarea
               style={styles.textarea}
               disabled={!isEditable}
-              rows={12}
+              rows={8}
               value={planText}
               onChange={event => onPlanTextChanged(event.target.value)} />
           </div>
