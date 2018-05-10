@@ -4,6 +4,7 @@ import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import ProfileBarChart from '../student_profile/ProfileBarChart.js';
+import * as Routes from '../helpers/Routes';
 
 const style = {
   container: {
@@ -21,7 +22,10 @@ const style = {
       margin: '10px auto',
       position: 'relative'
     },
-    chartHeight: 220
+    chartHeight: 220,
+  },
+  a: {
+    fontSize: 24
   }
 };
 
@@ -77,7 +81,9 @@ class IsServiceWorking extends React.Component {
 
       return (
         <div key={student.id} style={style.studentRow}>
-          <h1>{student.first_name} {student.last_name}</h1>
+          <a href={Routes.studentProfile(student.id)} style={style.a}>
+            {student.first_name} {student.last_name}
+          </a>
           <ProfileBarChart
             events={datum.absences}
             titleText="Absences"
