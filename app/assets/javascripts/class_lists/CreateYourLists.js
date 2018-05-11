@@ -68,7 +68,7 @@ export default class CreateYourListsView extends React.Component {
 
   renderLists(rooms) {
     const {isEditable, students, studentIdsByRoom, isExpandedVertically} = this.props;
-    const expandedStyles = isExpandedVertically ? { height: '90em' } : {}; // estimating 30 students with 3em per card
+    const expandedStyles = isExpandedVertically ? { height: '90em' } : { flex: 1 }; // estimating 30 students with 3em per card
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div style={{...styles.listsContainer, ...expandedStyles}}>
@@ -171,8 +171,7 @@ const styles = {
     position: 'relative' // for expandLink
   },
   listsContainer: {
-    display: 'flex',
-    flex: 1
+    display: 'flex'
   },
   classroomListColumn: {
     padding: 20,

@@ -85,7 +85,7 @@ export default class ClassroomStats extends React.Component {
                 {this.renderHeaderCell({
                   label: 'Discipline, 3+',
                   columnHighlightKey: HighlightKeys.HIGH_DISCIPLINE,
-                  title: 'Students whose are enrolled in the free or reduced lunch program.'
+                  title: 'Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student\'s name to see more in their profile.'
                 })}
                 {showDibels && this.renderHeaderCell({
                   label: 'Dibels CORE',

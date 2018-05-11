@@ -33,7 +33,9 @@ export default class ClassListCreatorWorkflow extends React.Component {
   render() {
     const {steps, stepIndex, availableSteps, onStepChanged, isEditable} = this.props;
     const {isExpandedVertically} = this.state;
-    const expandedVerticallyStyles = (isExpandedVertically) ? {} : { height: '100%' };
+    const expandedOrCollapsedStyles = (isExpandedVertically)
+      ? styles.horizontalStepperExpanded 
+      : styles.horizontalStepperCollapsed;
     return (
       <div className="ClassListCreatorView" style={styles.root}>
         <HorizontalStepper
@@ -43,7 +45,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
           renderFn={this.renderStepContents}
-          style={{...styles.horizontalStepper, ...expandedVerticallyStyles}}
+          style={{...styles.horizontalStepper, ...expandedOrCollapsedStyles}}
           contentStyle={styles.horizontalStepperContent} />
       </div>
     );
@@ -295,6 +297,14 @@ const styles = {
   },
   horizontalStepper: {
     paddingTop: 15
+  },
+  horizontalStepperCollapsed: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  horizontalStepperExpanded: {
+    
   },
   horizontalStepperContent: {
     borderTop: '1px solid #ccc',
