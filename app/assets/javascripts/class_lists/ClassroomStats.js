@@ -1,6 +1,7 @@
 import React from 'react';
 import Hover from '../components/Hover';
 import Stack from '../components/Stack';
+import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import BreakdownBar from '../components/BreakdownBar';
 import {
@@ -31,6 +32,10 @@ export default class ClassroomStats extends React.Component {
     super(props);
     this.renderLabelFn = this.renderLabelFn.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
+  }
+
+  isFlagSet(flagKey) {
+    return (window.location.search.indexOf(flagKey) !== -1);
   }
 
   studentsInRoom(room) {
@@ -235,8 +240,14 @@ export default class ClassroomStats extends React.Component {
     return this.renderStar(studentsInRoom, student => student.most_recent_star_reading_percentile);
   }
 
-  // Ignore students without scores
   renderStar(studentsInRoom, accessor) {
+    return (this.isFlagSet('box-and-whisker'))
+      ? this.renderStarWithBoxAndWhisker(studentsInRoom, accessor)
+      : this.renderStarWithBreakdown(studentsInRoom, accessor);
+  }
+
+  // Ignore students without scores
+  renderStarWithBreakdown(studentsInRoom, accessor) {
     const lowCount = studentsInRoom.filter(student => {
       const percentile = accessor(student);
       return (percentile && percentile < 30);
@@ -262,6 +273,20 @@ export default class ClassroomStats extends React.Component {
         innerStyle={styles.breakdownBarInner}
         height={5}
         labelTop={5} />
+    );
+  }
+
+  renderStarWithBoxAndWhisker(studentsInRoom, accessor) {
+    const values = _.compact(studentsInRoom.map(accessor));
+    return (
+      <div>
+        {(values.length === 0)
+          ? null
+          : <BoxAndWhisker
+              values={values}
+              style={styles.boxAndWhisker}
+              labelStyle={styles.boxAndWhiskerLabel} />}
+      </div>
     );
   }
 
