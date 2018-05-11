@@ -4,14 +4,14 @@ import {Draggable} from 'react-beautiful-dnd';
 import Modal from 'react-modal';
 import chroma from 'chroma-js';
 import MoreDots from '../components/MoreDots';
-import InlineStudentProfile from './InlineStudentProfile';
 import {
   steelBlue,
-  genderColor,
   high,
   medium,
-  low
-} from './colors.js';
+  low,
+  genderColor
+} from '../helpers/colors';
+import InlineStudentProfile from './InlineStudentProfile';
 import {
   isLimitedOrFlep,
   isIepOr504,
@@ -175,7 +175,8 @@ const highlightFns = {
   }
 };
 
-// Perform color operation for STAR percentile scores
+// Perform color operation for STAR percentile scores, calling out high and low only
+// Missing scores aren't called out.
 function starStyles(maybePercentile) {
   const starScale = chroma.scale([low, 'white', high]).classes([0, 0.3, 0.7, 1]);
   const hasScore = _.isNumber(maybePercentile);

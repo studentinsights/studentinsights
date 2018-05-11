@@ -5,14 +5,14 @@ import Stack from '../components/Stack';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import BreakdownBar from '../components/BreakdownBar';
-import {colors} from '../helpers/Theme';
-import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {
+  selection,
   steelBlue,
   male,
   female,
   nonBinary
-} from './colors';
+} from '../helpers/colors';
+import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {
   isLimitedOrFlep,
   isIepOr504,
@@ -43,7 +43,7 @@ export default class ClassroomStats extends React.Component {
   }
 
   render() {
-    const {rooms, gradeLevelNextYear, highlightKey} = this.props;
+    const {rooms, gradeLevelNextYear} = this.props;
 
     // Show different academic indicators by grade level.  STAR starts in 2nd grade.
     const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
@@ -51,7 +51,6 @@ export default class ClassroomStats extends React.Component {
     return (
       <div className="ClassroomStats" style={styles.root} onKeyPress={this.onKeyPress}>
         <div style={styles.overlayMask}>
-          {this.renderClearButton()}
           <table style={styles.table}>
             <thead>
               <tr>
@@ -162,14 +161,6 @@ export default class ClassroomStats extends React.Component {
         return <div style={style} />;
       }}</Hover>
     );
-  }
-
-  // For showing that there is a selection and clearing it
-  renderClearButton() {
-    // const {highlightKey, onCategorySelected} = this.props;
-    // return (highlightKey === null)
-    //   ? null
-    //   : <div style={styles.clear} onClick={() => onCategorySelected(null)}>Clear</div>;
   }
 
   renderIepOr504(studentsInRoom) {
@@ -373,7 +364,7 @@ const styles = {
     position: 'absolute',
     top: -3, // nudging it just above table bounds
     display: 'inline-block',
-    backgroundColor: colors.selection,
+    backgroundColor: selection,
     padding: 4,
     paddingRight: 15,
     paddingLeft: 15,

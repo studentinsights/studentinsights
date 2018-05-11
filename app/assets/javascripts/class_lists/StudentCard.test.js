@@ -5,6 +5,7 @@ import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowCon
 import StudentCard from './StudentCard';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
 
+
 export function testProps(props = {}) {
   const student = students_for_grade_level_next_year_json.students[0];
   return {

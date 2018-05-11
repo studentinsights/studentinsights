@@ -1,5 +1,6 @@
 import chroma from 'chroma-js';
 
+// Theme-y colors
 export const selection = 'rgb(255, 204, 138)';
 export const steelBlue = 'rgb(137, 175, 202)';
 
