@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import storybookFrame from './storybookFrame';
+import {widthFrame} from './storybookFrame';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import CreateYourLists from './CreateYourLists';
 import {
@@ -12,7 +12,7 @@ import {testProps} from './CreateYourLists.test';
 
 
 function testRender(props = {}) {
-  return storybookFrame(withDefaultNowContext(<Container {...props} />));
+  return widthFrame(withDefaultNowContext(<Container {...props} />));
 }
 
 storiesOf('classlists/CreateYourLists', module) // eslint-disable-line no-undef

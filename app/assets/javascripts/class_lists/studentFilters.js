@@ -21,5 +21,14 @@ export const HighlightKeys = {
   LOW_INCOME: 'LOW_INCOME',
   HIGH_DISCIPLINE: 'HIGH_DISCIPLINE',
   STAR_MATH: 'STAR_MATH',
-  STAR_READING: 'STAR_READING'
+  STAR_READING: 'STAR_READING',
+  DIBELS: 'DIBELS'
 };
+
+export function dibelsLevel(dibels) {
+  const performanceLevel = dibels.performance_level.toLowerCase();
+  if (performanceLevel.indexOf('core') !== -1) return 'core';
+  if (performanceLevel.indexOf('strategic') !== -1) return 'strategic';
+  if (performanceLevel.indexOf('intensive') !== -1) return 'intensive';
+  return null;
+}

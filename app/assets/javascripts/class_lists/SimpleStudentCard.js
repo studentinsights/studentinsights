@@ -5,12 +5,19 @@ import Modal from 'react-modal';
 import chroma from 'chroma-js';
 import MoreDots from '../components/MoreDots';
 import InlineStudentProfile from './InlineStudentProfile';
-import {steelBlue, genderColor} from './colors.js';
+import {
+  steelBlue,
+  genderColor,
+  high,
+  medium,
+  low
+} from './colors.js';
 import {
   isLimitedOrFlep,
   isIepOr504,
   isLowIncome,
   isHighDiscipline,
+  dibelsLevel,
   HighlightKeys
 } from './studentFilters';
 
@@ -146,7 +153,7 @@ const styles = {
     zIndex: 20
   },
   highlight: {
-    backgroundColor: steelBlue
+    backgroundColor: chroma(steelBlue).alpha(0.4).css()
   },
   none: {
     backgroundColor: 'white'
@@ -155,25 +162,42 @@ const styles = {
 
 // For highlighting students based on their attributes.
 const highlightFns = {
-  [HighlightKeys.IEP_OR_504]: student => highlightIf(isIepOr504(student)),
-  [HighlightKeys.LIMITED_OR_FLEP]: student => highlightIf(isLimitedOrFlep(student)),
-  [HighlightKeys.LOW_INCOME]: student => highlightIf(isLowIncome(student)),
-  [HighlightKeys.HIGH_DISCIPLINE]: student => highlightIf(isHighDiscipline(student)),
-  [HighlightKeys.STAR_MATH]: student => starColor(student.most_recent_star_math_percentile),
-  [HighlightKeys.STAR_READING]: student => starColor(student.most_recent_star_reading_percentile),
-  [HighlightKeys.GENDER]: student => { return { backgroundColor: genderColor(student.gender) }; }
+  [HighlightKeys.IEP_OR_504]: student => highlightStylesIf(isIepOr504(student)),
+  [HighlightKeys.LIMITED_OR_FLEP]: student => highlightStylesIf(isLimitedOrFlep(student)),
+  [HighlightKeys.LOW_INCOME]: student => highlightStylesIf(isLowIncome(student)),
+  [HighlightKeys.HIGH_DISCIPLINE]: student => highlightStylesIf(isHighDiscipline(student)),
+  [HighlightKeys.STAR_MATH]: student => starStyles(student.most_recent_star_math_percentile),
+  [HighlightKeys.STAR_READING]: student => starStyles(student.most_recent_star_reading_percentile),
+  [HighlightKeys.DIBELS]: student => dibelsStyles(student.latest_dibels),
+  [HighlightKeys.GENDER]: student => {
+    const backgroundColor = genderColor(student.gender);
+    return {backgroundColor};
+  }
 };
 
 // Perform color operation for STAR percentile scores
-function starColor(maybePercentile) {
-  const starScale = chroma.scale(['white', '#2ca25f']);
+function starStyles(maybePercentile) {
+  const starScale = chroma.scale([low, 'white', high]).classes([0, 0.3, 0.7, 1]);
   const hasScore = _.isNumber(maybePercentile);
   if (!hasScore) return styles.none;
   const fraction = maybePercentile / 100;
-  const backgroundColor = chroma(starScale(fraction)).alpha(fraction);
+  const backgroundColor = chroma(starScale(fraction)).alpha(0.5).css();
   return {backgroundColor};
 }
 
-function highlightIf(isTrue) {
+function dibelsStyles(maybeLatestDibels) {
+  if (!maybeLatestDibels) return styles.none;
+  const level = dibelsLevel(maybeLatestDibels);
+  if (!level) return  styles.none;
+  const colorMap = {
+    core: high,
+    strategic: medium,
+    intensive: low
+  };
+  const backgroundColor = colorMap[level];
+  return {backgroundColor};
+}
+
+function highlightStylesIf(isTrue) {
   return isTrue ? styles.highlight : styles.none;
 }

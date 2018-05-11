@@ -1,6 +1,8 @@
 import chroma from 'chroma-js';
 
+export const selection = 'rgb(255, 204, 138)';
 export const steelBlue = 'rgb(137, 175, 202)';
+
 
 // For encoding gender as a color
 export const male = 'rgba(41, 159, 197, 0.5)';
@@ -12,6 +14,7 @@ export function genderColor(gender) {
   return nonBinary;
 }
 
+// For DIBELS primarily
 export const high = chroma('green').alpha(0.5).css();
 export const medium = chroma('orange').alpha(0.5).css();
 export const low = chroma('red').alpha(0.5).css();
