@@ -5,8 +5,6 @@ exports[`snapshots 1`] = `
   className="HorizontalStepper"
   style={
     Object {
-      "display": "flex",
-      "flexDirection": "column",
       "paddingTop": 15,
     }
   }
@@ -310,8 +308,6 @@ exports[`snapshots when readonly 1`] = `
   className="HorizontalStepper"
   style={
     Object {
-      "display": "flex",
-      "flexDirection": "column",
       "paddingTop": 15,
     }
   }
