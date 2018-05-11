@@ -8,6 +8,9 @@ import BreakdownBar from '../components/BreakdownBar';
 import {
   selection,
   steelBlue,
+  high,
+  medium,
+  low,
   male,
   female,
   nonBinary
@@ -30,6 +33,10 @@ export default class ClassroomStats extends React.Component {
     super(props);
     this.renderLabelFn = this.renderLabelFn.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
+  }
+
+  isFlagSet(flagKey) {
+    return (window.location.search.indexOf(flagKey) !== -1);
   }
 
   studentsInRoom(room) {
@@ -235,6 +242,42 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderStar(studentsInRoom, accessor) {
+    return (this.isFlagSet('star-breakdown'))
+      ? this.renderStarWithBreakdown(studentsInRoom, accessor)
+      : this.renderStarWithBoxAndWhisker(studentsInRoom, accessor);
+  }
+
+  // Ignore students without scores
+  renderStarWithBreakdown(studentsInRoom, accessor) {
+    const lowCount = studentsInRoom.filter(student => {
+      const percentile = accessor(student);
+      return (percentile && percentile < 30);
+    }).length;
+    const mediumCount = studentsInRoom.filter(student => {
+      const percentile = accessor(student);
+      return (percentile && percentile >= 30 && percentile <= 70);
+    }).length;
+    const highCount = studentsInRoom.filter(student => {
+      const percentile = accessor(student);
+      return (percentile && percentile > 70);
+    }).length;
+
+    const items = [
+      { left: 0, width: highCount, color: high, key: 'high' },
+      { left: highCount, width: mediumCount, color: medium, key: 'medium' },
+      { left: highCount + mediumCount, width: lowCount, color: low, key: 'low' }
+    ];
+    return (
+      <BreakdownBar
+        items={items}
+        style={styles.breakdownBar}
+        innerStyle={styles.breakdownBarInner}
+        height={5}
+        labelTop={5} />
+    );
+  }
+
+  renderStarWithBoxAndWhisker(studentsInRoom, accessor) {
     const values = _.compact(studentsInRoom.map(accessor));
     return (
       <div>
