@@ -242,9 +242,9 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderStar(studentsInRoom, accessor) {
-    return (this.isFlagSet('star-breakdown'))
-      ? this.renderStarWithBreakdown(studentsInRoom, accessor)
-      : this.renderStarWithBoxAndWhisker(studentsInRoom, accessor);
+    return (this.isFlagSet('box-and-whisker'))
+      ? this.renderStarWithBoxAndWhisker(studentsInRoom, accessor)
+      : this.renderStarWithBreakdown(studentsInRoom, accessor);
   }
 
   // Ignore students without scores
