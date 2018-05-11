@@ -10,6 +10,7 @@ import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
 import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 import {sortByGrade} from '../../../helpers/SortHelpers';
+import ExperimentalBanner from '../../../components/ExperimentalBanner';
 
 class SchoolDisciplineDashboard extends React.Component {
 
@@ -112,24 +113,27 @@ class SchoolDisciplineDashboard extends React.Component {
     ];
 
     return(
-      <div className="DashboardContainer">
-        <div className="DashboardRosterColumn">
-          {this.renderRangeSelector()}
-          {this.renderStudentDisciplineTable()}
-        </div>
-        <div className="DashboardChartsColumn">
-          <div style={styles.graphTitle}>
-            <div style={styles.titleText}>
-              Incidents by:
-            </div>
-            <Select
-              value={this.state.selectedChart}
-              onChange={this.selectChart}
-              options={chartOptions}
-              style={styles.dropdown}
-            />
+      <div>
+      <ExperimentalBanner />
+        <div className="DashboardContainer">
+          <div className="DashboardRosterColumn">
+            {this.renderRangeSelector()}
+            {this.renderStudentDisciplineTable()}
           </div>
-         {this.renderDisciplineChart(selectedChart)}
+          <div className="DashboardChartsColumn">
+            <div style={styles.graphTitle}>
+              <div style={styles.titleText}>
+                Incidents by:
+              </div>
+              <Select
+                value={this.state.selectedChart}
+                onChange={this.selectChart}
+                options={chartOptions}
+                style={styles.dropdown}
+              />
+            </div>
+           {this.renderDisciplineChart(selectedChart)}
+          </div>
         </div>
       </div>
     );
