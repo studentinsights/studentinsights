@@ -1,0 +1,2145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`chooseYourGradeProps 1`] = `
+<div
+  className="ClassListCreatorView"
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
+>
+  <div
+    className="HorizontalStepper"
+    style={
+      Object {
+        "paddingTop": 15,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "fontSize": 12,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "paddingLeft": 15,
+          }
+        }
+      >
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(49, 119, 201, 0.25)",
+              "border": "1px solid white",
+              "borderColor": "#3177c9",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Choose your grade
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Make a plan
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Create your classrooms
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Notes to principal
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Submit to principal
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "borderTop": "1px solid #ccc",
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "margin": 20,
+          }
+        }
+      >
+        <div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Why are we doing this?
+          </div>
+          <div
+            style={
+              Object {
+                "padding": 10,
+                "paddingLeft": 5,
+                "whiteSpace": "pre-wrap",
+              }
+            }
+          >
+            Over the last few years, I’ve been hearing from teachers and principals about how complex and time-consuming the class assignment process is.  It’s so hard to juggle and keep track of all the various factors, like gender, ELL status, disabilities, academics, and discipline.  And in a diverse city as ours, we want as much as possible for the classrooms at each grade level to reflect the diversity of your school community.    In the past year, people who have seen our Student Insights system have asked if there might be a way to use technology to make the process a little more streamlined.
+
+With our new grant from the Boston Foundation to expand the functionality of Insights, we are happy to announce that we have created a tool for you to use.   Over the past few months, we have talked to a bunch of teachers and principals to see what would help, prototyped different models, and piloted this tool with several teams to get feedback.
+
+-Uri
+          </div>
+        </div>
+        <div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              What school?
+            </div>
+            <div
+              className="Select has-value is-clearable is-searchable Select--single"
+              style={undefined}
+            >
+              <input
+                disabled={false}
+                name="select-school-name"
+                type="hidden"
+                value="5"
+              />
+              <div
+                className="Select-control"
+                onKeyDown={[Function]}
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                style={undefined}
+              >
+                <span
+                  className="Select-multi-value-wrapper"
+                  id="react-select-2--value"
+                >
+                  <div
+                    className="Select-value"
+                    style={undefined}
+                    title={undefined}
+                  >
+                    <span
+                      aria-selected="true"
+                      className="Select-value-label"
+                      id="react-select-2--value-item"
+                      role="option"
+                    >
+                      E Somerville Community
+                    </span>
+                  </div>
+                  <div
+                    className="Select-input"
+                    style={
+                      Object {
+                        "display": "inline-block",
+                      }
+                    }
+                  >
+                    <input
+                      aria-activedescendant="react-select-2--value"
+                      aria-describedby={undefined}
+                      aria-expanded="false"
+                      aria-haspopup="false"
+                      aria-label={undefined}
+                      aria-labelledby={undefined}
+                      aria-owns=""
+                      className={undefined}
+                      id={undefined}
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      required={false}
+                      role="combobox"
+                      style={
+                        Object {
+                          "boxSizing": "content-box",
+                          "width": "5px",
+                        }
+                      }
+                      tabIndex={undefined}
+                      value=""
+                    />
+                    <div
+                      style={
+                        Object {
+                          "height": 0,
+                          "left": 0,
+                          "overflow": "scroll",
+                          "position": "absolute",
+                          "top": 0,
+                          "visibility": "hidden",
+                          "whiteSpace": "pre",
+                        }
+                      }
+                    >
+                      
+                    </div>
+                  </div>
+                </span>
+                <span
+                  aria-label="Clear value"
+                  className="Select-clear-zone"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  title="Clear value"
+                >
+                  <span
+                    className="Select-clear"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "&times;",
+                      }
+                    }
+                  />
+                </span>
+                <span
+                  className="Select-arrow-zone"
+                  onMouseDown={[Function]}
+                >
+                  <span
+                    className="Select-arrow"
+                    onMouseDown={[Function]}
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              What grade level are you creating?
+            </div>
+            <div
+              className="Select has-value is-clearable is-searchable Select--single"
+              style={undefined}
+            >
+              <input
+                disabled={false}
+                name="select-grade-level"
+                type="hidden"
+                value="1"
+              />
+              <div
+                className="Select-control"
+                onKeyDown={[Function]}
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                style={undefined}
+              >
+                <span
+                  className="Select-multi-value-wrapper"
+                  id="react-select-3--value"
+                >
+                  <div
+                    className="Select-value"
+                    style={undefined}
+                    title={undefined}
+                  >
+                    <span
+                      aria-selected="true"
+                      className="Select-value-label"
+                      id="react-select-3--value-item"
+                      role="option"
+                    >
+                      Next year's 1st grade 
+                    </span>
+                  </div>
+                  <div
+                    className="Select-input"
+                    style={
+                      Object {
+                        "display": "inline-block",
+                      }
+                    }
+                  >
+                    <input
+                      aria-activedescendant="react-select-3--value"
+                      aria-describedby={undefined}
+                      aria-expanded="false"
+                      aria-haspopup="false"
+                      aria-label={undefined}
+                      aria-labelledby={undefined}
+                      aria-owns=""
+                      className={undefined}
+                      id={undefined}
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      required={false}
+                      role="combobox"
+                      style={
+                        Object {
+                          "boxSizing": "content-box",
+                          "width": "5px",
+                        }
+                      }
+                      tabIndex={undefined}
+                      value=""
+                    />
+                    <div
+                      style={
+                        Object {
+                          "height": 0,
+                          "left": 0,
+                          "overflow": "scroll",
+                          "position": "absolute",
+                          "top": 0,
+                          "visibility": "hidden",
+                          "whiteSpace": "pre",
+                        }
+                      }
+                    >
+                      
+                    </div>
+                  </div>
+                </span>
+                <span
+                  aria-label="Clear value"
+                  className="Select-clear-zone"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  title="Clear value"
+                >
+                  <span
+                    className="Select-clear"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "&times;",
+                      }
+                    }
+                  />
+                </span>
+                <span
+                  className="Select-arrow-zone"
+                  onMouseDown={[Function]}
+                >
+                  <span
+                    className="Select-arrow"
+                    onMouseDown={[Function]}
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "margin": 10,
+        }
+      }
+    >
+      <div />
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "fontSize": 14,
+              "margin": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          Next &gt;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`chooseYourGradeProps 2`] = `
+<div
+  className="ClassListCreatorView"
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
+>
+  <div
+    className="HorizontalStepper"
+    style={
+      Object {
+        "paddingTop": 15,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "fontSize": 12,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "paddingLeft": 15,
+          }
+        }
+      >
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(49, 119, 201, 0.25)",
+              "border": "1px solid white",
+              "borderColor": "#3177c9",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Choose your grade
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Make a plan
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Create your classrooms
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Notes to principal
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Submit to principal
+          </span>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "background": "#666",
+            "borderRadius": 3,
+            "color": "#eee",
+            "display": "inline-block",
+            "marginRight": 20,
+            "padding": 6,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+          }
+        }
+      >
+        readonly
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "borderTop": "1px solid #ccc",
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "margin": 20,
+          }
+        }
+      >
+        <div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Why are we doing this?
+          </div>
+          <div
+            style={
+              Object {
+                "padding": 10,
+                "paddingLeft": 5,
+                "whiteSpace": "pre-wrap",
+              }
+            }
+          >
+            Over the last few years, I’ve been hearing from teachers and principals about how complex and time-consuming the class assignment process is.  It’s so hard to juggle and keep track of all the various factors, like gender, ELL status, disabilities, academics, and discipline.  And in a diverse city as ours, we want as much as possible for the classrooms at each grade level to reflect the diversity of your school community.    In the past year, people who have seen our Student Insights system have asked if there might be a way to use technology to make the process a little more streamlined.
+
+With our new grant from the Boston Foundation to expand the functionality of Insights, we are happy to announce that we have created a tool for you to use.   Over the past few months, we have talked to a bunch of teachers and principals to see what would help, prototyped different models, and piloted this tool with several teams to get feedback.
+
+-Uri
+          </div>
+        </div>
+        <div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              What school?
+            </div>
+            <div
+              className="Select has-value is-clearable is-disabled is-searchable Select--single"
+              style={undefined}
+            >
+              <input
+                disabled={true}
+                name="select-school-name"
+                type="hidden"
+                value="5"
+              />
+              <div
+                className="Select-control"
+                onKeyDown={[Function]}
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                style={undefined}
+              >
+                <span
+                  className="Select-multi-value-wrapper"
+                  id="react-select-4--value"
+                >
+                  <div
+                    className="Select-value"
+                    style={undefined}
+                    title={undefined}
+                  >
+                    <span
+                      aria-selected="true"
+                      className="Select-value-label"
+                      id="react-select-4--value-item"
+                      role="option"
+                    >
+                      E Somerville Community
+                    </span>
+                  </div>
+                  <div
+                    aria-activedescendant="react-select-4--value"
+                    aria-disabled="true"
+                    aria-expanded={false}
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    aria-owns=""
+                    className="Select-input"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    role="combobox"
+                    style={
+                      Object {
+                        "border": 0,
+                        "display": "inline-block",
+                        "width": 1,
+                      }
+                    }
+                    tabIndex={0}
+                  />
+                </span>
+                <span
+                  className="Select-arrow-zone"
+                  onMouseDown={[Function]}
+                >
+                  <span
+                    className="Select-arrow"
+                    onMouseDown={[Function]}
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              What grade level are you creating?
+            </div>
+            <div
+              className="Select has-value is-clearable is-disabled is-searchable Select--single"
+              style={undefined}
+            >
+              <input
+                disabled={true}
+                name="select-grade-level"
+                type="hidden"
+                value="1"
+              />
+              <div
+                className="Select-control"
+                onKeyDown={[Function]}
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                style={undefined}
+              >
+                <span
+                  className="Select-multi-value-wrapper"
+                  id="react-select-5--value"
+                >
+                  <div
+                    className="Select-value"
+                    style={undefined}
+                    title={undefined}
+                  >
+                    <span
+                      aria-selected="true"
+                      className="Select-value-label"
+                      id="react-select-5--value-item"
+                      role="option"
+                    >
+                      Next year's 1st grade 
+                    </span>
+                  </div>
+                  <div
+                    aria-activedescendant="react-select-5--value"
+                    aria-disabled="true"
+                    aria-expanded={false}
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    aria-owns=""
+                    className="Select-input"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    role="combobox"
+                    style={
+                      Object {
+                        "border": 0,
+                        "display": "inline-block",
+                        "width": 1,
+                      }
+                    }
+                    tabIndex={0}
+                  />
+                </span>
+                <span
+                  className="Select-arrow-zone"
+                  onMouseDown={[Function]}
+                >
+                  <span
+                    className="Select-arrow"
+                    onMouseDown={[Function]}
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "margin": 10,
+        }
+      }
+    >
+      <div />
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "fontSize": 14,
+              "margin": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          Next &gt;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`makeAPlanProps 1`] = `
+<div
+  className="ClassListCreatorView"
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
+>
+  <div
+    className="HorizontalStepper"
+    style={
+      Object {
+        "paddingTop": 15,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "fontSize": 12,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "paddingLeft": 15,
+          }
+        }
+      >
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Choose your grade
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(49, 119, 201, 0.25)",
+              "border": "1px solid white",
+              "borderColor": "#3177c9",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Make a plan
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Create your classrooms
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Notes to principal
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Submit to principal
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "borderTop": "1px solid #ccc",
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "margin": 20,
+          }
+        }
+      >
+        <div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Who's the team creating these class lists?
+          </div>
+          <div
+            className="Select has-value is-clearable is-searchable Select--multi"
+            style={undefined}
+          >
+            <input
+              disabled={false}
+              name="select-educators"
+              type="hidden"
+              value="1"
+            />
+            <div
+              className="Select-control"
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={undefined}
+            >
+              <span
+                className="Select-multi-value-wrapper"
+                id="react-select-6--value"
+              >
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="Select-value-icon"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                  >
+                    ×
+                  </span>
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-6--value-0"
+                    role="option"
+                  >
+                    Districtwide, Rich
+                    <span
+                      className="Select-aria-only"
+                    >
+                       
+                    </span>
+                  </span>
+                </div>
+                <div
+                  className="Select-input"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                >
+                  <input
+                    aria-activedescendant="react-select-6--value"
+                    aria-describedby={undefined}
+                    aria-expanded="false"
+                    aria-haspopup="false"
+                    aria-label={undefined}
+                    aria-labelledby={undefined}
+                    aria-owns=""
+                    className={undefined}
+                    id={undefined}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    role="combobox"
+                    style={
+                      Object {
+                        "boxSizing": "content-box",
+                        "width": "5px",
+                      }
+                    }
+                    tabIndex={undefined}
+                    value=""
+                  />
+                  <div
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": 0,
+                        "overflow": "scroll",
+                        "position": "absolute",
+                        "top": 0,
+                        "visibility": "hidden",
+                        "whiteSpace": "pre",
+                      }
+                    }
+                  >
+                    
+                  </div>
+                </div>
+              </span>
+              <span
+                aria-label="Clear all"
+                className="Select-clear-zone"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                title="Clear all"
+              >
+                <span
+                  className="Select-clear"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "&times;",
+                    }
+                  }
+                />
+              </span>
+              <span
+                className="Select-arrow-zone"
+                onMouseDown={[Function]}
+              >
+                <span
+                  className="Select-arrow"
+                  onMouseDown={[Function]}
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            How many 
+            nullth grade
+             classrooms will you create?
+          </div>
+          <div
+            style={
+              Object {
+                "display": "inline-block",
+                "marginLeft": 5,
+              }
+            }
+          >
+            <button
+              disabled={false}
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "fontSize": 16,
+                  "padding": 1,
+                  "paddingLeft": 10,
+                  "paddingRight": 10,
+                }
+              }
+            >
+              -
+            </button>
+            <div
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 10,
+                }
+              }
+            >
+              3
+               classrooms
+            </div>
+            <button
+              disabled={false}
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "fontSize": 16,
+                  "padding": 1,
+                  "paddingLeft": 10,
+                  "paddingRight": 10,
+                }
+              }
+            >
+              +
+            </button>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "inline-block",
+                "fontSize": 12,
+                "marginLeft": 20,
+              }
+            }
+          >
+            With 
+            57
+             students total, this makes the 
+            <b>
+              average class size 
+              19
+               students
+            </b>
+            .
+          </div>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            What's your plan for creating classroom communitites?
+          </div>
+          <div
+            style={
+              Object {
+                "fontSize": 12,
+                "padding": 10,
+                "paddingLeft": 0,
+                "paddingTop": 3,
+              }
+            }
+          >
+            Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
+          </div>
+          <textarea
+            disabled={false}
+            onChange={[Function]}
+            rows={12}
+            style={
+              Object {
+                "border": "1px solid #ccc",
+                "width": "100%",
+              }
+            }
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "margin": 10,
+        }
+      }
+    >
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "fontSize": 14,
+              "margin": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          &lt; Back 
+        </button>
+      </div>
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "fontSize": 14,
+              "margin": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          Next &gt;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`makeAPlanProps 2`] = `
+<div
+  className="ClassListCreatorView"
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
+>
+  <div
+    className="HorizontalStepper"
+    style={
+      Object {
+        "paddingTop": 15,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "fontSize": 12,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "paddingLeft": 15,
+          }
+        }
+      >
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Choose your grade
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(49, 119, 201, 0.25)",
+              "border": "1px solid white",
+              "borderColor": "#3177c9",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Make a plan
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Create your classrooms
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Notes to principal
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Submit to principal
+          </span>
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "background": "#666",
+            "borderRadius": 3,
+            "color": "#eee",
+            "display": "inline-block",
+            "marginRight": 20,
+            "padding": 6,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+          }
+        }
+      >
+        readonly
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "borderTop": "1px solid #ccc",
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "margin": 20,
+          }
+        }
+      >
+        <div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Who's the team creating these class lists?
+          </div>
+          <div
+            className="Select has-value is-clearable is-disabled is-searchable Select--multi"
+            style={undefined}
+          >
+            <input
+              disabled={true}
+              name="select-educators"
+              type="hidden"
+              value="1"
+            />
+            <div
+              className="Select-control"
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={undefined}
+            >
+              <span
+                className="Select-multi-value-wrapper"
+                id="react-select-7--value"
+              >
+                <div
+                  className="Select-value"
+                  style={undefined}
+                  title={undefined}
+                >
+                  <span
+                    aria-selected="true"
+                    className="Select-value-label"
+                    id="react-select-7--value-0"
+                    role="option"
+                  >
+                    Districtwide, Rich
+                    <span
+                      className="Select-aria-only"
+                    >
+                       
+                    </span>
+                  </span>
+                </div>
+                <div
+                  aria-activedescendant="react-select-7--value"
+                  aria-disabled="true"
+                  aria-expanded={false}
+                  aria-label={undefined}
+                  aria-labelledby={undefined}
+                  aria-owns=""
+                  className="Select-input"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  role="combobox"
+                  style={
+                    Object {
+                      "border": 0,
+                      "display": "inline-block",
+                      "width": 1,
+                    }
+                  }
+                  tabIndex={0}
+                />
+              </span>
+              <span
+                className="Select-arrow-zone"
+                onMouseDown={[Function]}
+              >
+                <span
+                  className="Select-arrow"
+                  onMouseDown={[Function]}
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            How many 
+            nullth grade
+             classrooms will you create?
+          </div>
+          <div
+            style={
+              Object {
+                "display": "inline-block",
+                "marginLeft": 5,
+              }
+            }
+          >
+            <button
+              disabled={true}
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "fontSize": 16,
+                  "padding": 1,
+                  "paddingLeft": 10,
+                  "paddingRight": 10,
+                }
+              }
+            >
+              -
+            </button>
+            <div
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 10,
+                }
+              }
+            >
+              3
+               classrooms
+            </div>
+            <button
+              disabled={true}
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "fontSize": 16,
+                  "padding": 1,
+                  "paddingLeft": 10,
+                  "paddingRight": 10,
+                }
+              }
+            >
+              +
+            </button>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "inline-block",
+                "fontSize": 12,
+                "marginLeft": 20,
+              }
+            }
+          >
+            With 
+            57
+             students total, this makes the 
+            <b>
+              average class size 
+              19
+               students
+            </b>
+            .
+          </div>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            What's your plan for creating classroom communitites?
+          </div>
+          <div
+            style={
+              Object {
+                "fontSize": 12,
+                "padding": 10,
+                "paddingLeft": 0,
+                "paddingTop": 3,
+              }
+            }
+          >
+            Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
+          </div>
+          <textarea
+            disabled={true}
+            onChange={[Function]}
+            rows={12}
+            style={
+              Object {
+                "border": "1px solid #ccc",
+                "width": "100%",
+              }
+            }
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "margin": 10,
+        }
+      }
+    >
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "fontSize": 14,
+              "margin": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          &lt; Back 
+        </button>
+      </div>
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "fontSize": 14,
+              "margin": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          Next &gt;
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

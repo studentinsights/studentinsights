@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
-import renderer from 'react-test-renderer';
 import _ from 'lodash';
 import fetchMock from 'fetch-mock/es5/client';
-import HomeFeed, {mergeCards, HomeFeedPure} from './HomeFeed';
+import HomeFeed, {mergeCards} from './HomeFeed';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import homeFeedJson from '../../../../spec/javascripts/fixtures/home_feed_json';
@@ -114,16 +113,6 @@ describe('HomeFeed', () => {
     });
   });
 });
-
-describe('HomeFeedPure', () => {
-  it('pure component matches snapshot', () => {
-    const tree = renderer
-      .create(withDefaultNowContext(<HomeFeedPure feedCards={homeFeedJson.feed_cards} />))
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
-
 
 describe('#mergeCards', () => {
   it('works', () => {
