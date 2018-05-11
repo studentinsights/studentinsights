@@ -1,15 +1,27 @@
 import React from 'react';
 import _ from 'lodash';
+import Hover from '../components/Hover';
 import Stack from '../components/Stack';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import BreakdownBar from '../components/BreakdownBar';
+import {
+  selection,
+  steelBlue,
+  male,
+  female,
+  nonBinary
+} from '../helpers/colors';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {
   isLimitedOrFlep,
   isIepOr504,
-  isLowIncome
+  isLowIncome,
+  isHighDiscipline,
+  dibelsLevel,
+  HighlightKeys
 } from './studentFilters';
+
 
 // This component is written particularly for Somerville and it's likely this would require factoring out
 // into `PerDistrict` to respect the way this data is stored across districts.
@@ -17,11 +29,17 @@ export default class ClassroomStats extends React.Component {
   constructor(props) {
     super(props);
     this.renderLabelFn = this.renderLabelFn.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
   }
 
   studentsInRoom(room) {
     const {students, studentIdsByRoom} = this.props;
     return studentsInRoom(students, studentIdsByRoom, room.roomKey);
+  }
+
+  onKeyPress(e) {
+    const {onCategorySelected} = this.props;
+    if (e.charCode === 27) return onCategorySelected(null);
   }
 
   render() {
@@ -31,73 +49,117 @@ export default class ClassroomStats extends React.Component {
     const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
     const showDibels = !showStar;
     return (
-      <div className="ClassroomStats" style={styles.root}>
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.cell}></th>
-              <th style={styles.spacer}></th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students who have an IEP or 504 plan">IEP or 504</th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students receiving English Learning Services or who have in the past (FLEP)">Limited or FLEP</th>
-              <th style={styles.spacer}></th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students broken down by whether they identify their gender as male, female or nonbinary.">
-                Gender</th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students whose are enrolled in the free or reduced lunch program">
-                Low income
-              </th>
-              <th style={styles.spacer}></th>
-              <th style={{...styles.cell, ...styles.heading}}
-                title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile.">
-                Discipline, 3+
-              </th>
-              {showDibels &&
-                <th style={{...styles.cell, ...styles.heading}}
-                  title="Students' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Itensive (red)">
-                  Dibels CORE
-                </th>}
-              {showStar &&
-                <th style={{...styles.cell, ...styles.heading}}
-                  title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score.">
-                  STAR Math
-                </th>}
-              {showStar &&
-                <th style={{...styles.cell, ...styles.heading}}
-                  title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score.">
-                  STAR Reading
-                </th>}
-              <th style={{...styles.cell, width: 50}}>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rooms.map(room => {  
-              const studentsInRoom = this.studentsInRoom(room);
-              return (
-                <tr key={room.roomKey}>
-                  <td style={styles.cell}>{room.roomName}</td>
-                  <th style={styles.spacer}></th>
-                  <td style={styles.cell}>{this.renderIepOr504(studentsInRoom)}</td>
-                  <td style={styles.cell}>{this.renderEnglishLearners(studentsInRoom)}</td>
-                  <td style={styles.spacer}></td>
-                  <td style={styles.cell}>{this.renderGender(studentsInRoom)}</td>
-                  <td style={styles.cell}>{this.renderLowIncome(studentsInRoom)}</td>
-                  <td style={styles.spacer}></td>
-                  <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>
-                  {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(studentsInRoom)}</td>}
-                  {showStar && <td style={styles.cell}>{this.renderMath(studentsInRoom)}</td>}
-                  {showStar && <td style={styles.cell}>{this.renderReading(studentsInRoom)}</td>}
-                  <td style={styles.cell}>{studentsInRoom.length > 0 &&
-                    <span style={styles.total}>{studentsInRoom.length}</span>}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      <div className="ClassroomStats" style={styles.root} onKeyPress={this.onKeyPress}>
+        <div style={styles.overlayMask}>
+          <table style={styles.table}>
+            <thead>
+              <tr>
+                <th style={styles.cell}></th>
+                {this.renderHeaderCell({
+                  label: 'IEP or 504',
+                  columnHighlightKey: HighlightKeys.IEP_OR_504,
+                  title: 'Students who have an IEP or 504 plan.'
+                })}
+                {this.renderHeaderCell({
+                  label: 'Limited or FLEP',
+                  columnHighlightKey: HighlightKeys.LIMITED_OR_FLEP,
+                  title: 'Students receiving English Learning Services or who have in the past (FLEP).'
+                })}
+                {this.renderHeaderCell({
+                  label: 'Gender identity',
+                  columnHighlightKey: HighlightKeys.GENDER,
+                  title: 'Students broken down by whether they identify their gender as male, female or nonbinary.'
+                })}
+                {this.renderHeaderCell({
+                  label: 'Low income',
+                  columnHighlightKey: HighlightKeys.LOW_INCOME,
+                  title: 'Students whose are enrolled in the free or reduced lunch program.'
+                })}
+                {this.renderHeaderCell({
+                  label: 'Discipline, 3+',
+                  columnHighlightKey: HighlightKeys.HIGH_DISCIPLINE,
+                  title: 'Students whose are enrolled in the free or reduced lunch program.'
+                })}
+                {showDibels && this.renderHeaderCell({
+                  label: 'Dibels CORE',
+                  columnHighlightKey: HighlightKeys.DIBELS,
+                  title: 'Students\' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Intensive (red).'
+                })}
+                {showStar && this.renderHeaderCell({
+                  label: 'STAR Math',
+                  columnHighlightKey: HighlightKeys.STAR_MATH,
+                  title: 'A boxplot showing the range of students\' latest STAR Math percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile.'
+                })}
+                {showStar && this.renderHeaderCell({
+                  label: 'STAR Reading',
+                  columnHighlightKey: HighlightKeys.STAR_READING,
+                  title: 'A boxplot showing the range of students\' latest STAR Reading percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile.'
+                })}
+                <th style={{...styles.cell, width: 50}}>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rooms.map(room => {  
+                const studentsInRoom = this.studentsInRoom(room);
+                return (
+                  <tr key={room.roomKey}>
+                    <td style={styles.cell}>{room.roomName}</td>
+                    <td style={styles.cell}>{this.renderIepOr504(studentsInRoom)}</td>
+                    <td style={styles.cell}>{this.renderEnglishLearners(studentsInRoom)}</td>
+                    <td style={styles.cell}>{this.renderGender(studentsInRoom)}</td>
+                    <td style={styles.cell}>{this.renderLowIncome(studentsInRoom)}</td>
+                    <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>
+                    {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(studentsInRoom)}</td>}
+                    {showStar && <td style={styles.cell}>{this.renderMath(studentsInRoom)}</td>}
+                    {showStar && <td style={styles.cell}>{this.renderReading(studentsInRoom)}</td>}
+                    <td style={styles.cell}>{studentsInRoom.length > 0 &&
+                      <span style={styles.total}>{studentsInRoom.length}</span>}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
+    );
+  }
+
+  // This enables a column overlay, which enables hover styling to see this is clickable,
+  // showing a `title` on longer hovers, and clicking to toggle whether the column is selected.
+  renderHeaderCell({title, label, columnHighlightKey}) {
+    const {onCategorySelected, highlightKey} = this.props;
+    return (    
+      <th
+        style={{...styles.cell, ...styles.heading}}
+        title={title}
+        onClick={() => {
+          const nextHighlightKey = (columnHighlightKey !== highlightKey)
+            ? columnHighlightKey
+            : null;
+          onCategorySelected(nextHighlightKey);
+        }}>
+        {this.renderColumnOverlay(columnHighlightKey)}
+        {label}
+      </th>
+    );
+  }
+
+  // This renders an overlay over the column (by positioning relative to the 
+  // header cell, then clipping overflows with the divs that contain the table.
+  // It responds to hover and selection for styling.
+  renderColumnOverlay(columnHighlightKey) {
+    const {highlightKey} = this.props;
+    const isSelected = (columnHighlightKey === highlightKey);
+    return (
+      <Hover>{isHovering => {
+        const style = {
+          ...styles.categoryOverlay,
+          ...(isHovering ? styles.hoverCategoryOverlay : {}),
+          ...(isSelected ? styles.selectedCategoryOverlay : {})
+        };
+        return <div style={style} />;
+      }}</Hover>
     );
   }
 
@@ -116,11 +178,10 @@ export default class ClassroomStats extends React.Component {
     const femaleCount = studentsInRoom.filter(student => student.gender === 'F').length;
     const nonBinaryCount = studentsInRoom.length - maleCount - femaleCount;
     const items = [
-      { left: 0, width: maleCount, color: '#299fc5', key: 'male' },
-      { left: maleCount, width: femaleCount, color: '#e06378', key: 'female' },
-      { left: maleCount + femaleCount, width: nonBinaryCount, color: 'rgb(81, 185, 86)', key: 'nonbinary' }
+      { left: 0, width: maleCount, color: male, key: 'male' },
+      { left: maleCount, width: femaleCount, color: female, key: 'female' },
+      { left: maleCount + femaleCount, width: nonBinaryCount, color: nonBinary, key: 'nonbinary' }
     ];
-
     return (
       <BreakdownBar
         items={items}
@@ -137,9 +198,7 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderDiscipline(studentsInRoom) {
-    const count = studentsInRoom.filter(student => {
-      return (student.most_recent_school_year_discipline_incidents_count >= 3);
-    }).length;
+    const count = studentsInRoom.filter(isHighDiscipline).length;
     return this.renderStackSimple(count);
   }
 
@@ -171,7 +230,6 @@ export default class ClassroomStats extends React.Component {
     return this.renderStar(studentsInRoom, student => student.most_recent_star_math_percentile);
   }
 
-
   renderReading(studentsInRoom) {
     return this.renderStar(studentsInRoom, student => student.most_recent_star_reading_percentile);
   }
@@ -197,7 +255,7 @@ export default class ClassroomStats extends React.Component {
     
     // tunable, this is a multiplier above the space an even split would take
     const scaleTuningFactor = (students.length / rooms.length) * 1.5;
-    const stacks = [{ count, color: 'rgb(137, 175, 202)' }];
+    const stacks = [{ count, color: steelBlue }];
     return (
       <Stack
         stacks={stacks}
@@ -218,15 +276,23 @@ ClassroomStats.propTypes = {
   students: React.PropTypes.array.isRequired,
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   rooms: React.PropTypes.array.isRequired,
-  studentIdsByRoom: React.PropTypes.object.isRequired
+  studentIdsByRoom: React.PropTypes.object.isRequired,
+  highlightKey: React.PropTypes.string,
+  onCategorySelected: React.PropTypes.func.isRequired
 };
 
 const styles = {
   root: {
     padding: 20,
-    paddingBottom: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
     borderBottom: '1px solid #eee',
     fontSize: 14
+  },
+  overlayMask: { /* this is tweaking the clipping on the column overlay so padding looks right */
+    overflow: 'hidden',
+    paddingTop: 10,
+    paddingBottom: 5,
   },
   table: {
     width: '100%',
@@ -243,7 +309,10 @@ const styles = {
   heading: {
     textDecoration: 'dashed #ccc underline',
     cursor: 'help',
-    paddingBottom: 10
+    paddingBottom: 10,
+    // for the column overlay
+    position: 'relative',
+    overflow: 'visible'
   },
   spacer: {
     width: 1
@@ -271,7 +340,6 @@ const styles = {
     paddingRight: 10
   },
   breakdownBarInner: {
-    opacity: 0.5,
     fontSize: 12
   },
   boxAndWhisker: {
@@ -287,14 +355,41 @@ const styles = {
     float: 'right',
     fontSize: 12,
     paddingRight: 20
+  },
+  selectable: {
+    height: '100%',
+    width: '100%'
+  },
+  clear: {
+    position: 'absolute',
+    top: -3, // nudging it just above table bounds
+    display: 'inline-block',
+    backgroundColor: selection,
+    padding: 4,
+    paddingRight: 15,
+    paddingLeft: 15,
+    fontWeight: 'bold',
+    color: '#333',
+    cursor: 'pointer'
+  },
+  categoryOverlay: {
+    position: 'absolute',
+    bottom: '-10em', // shooting past the number of rows there could be
+    width: '100%',
+    left: -5, // essentially padding
+    top: -10,
+    zIndex: 10, // so that this is clickable in front of the table contents
+    borderRadius: 3  // even though this doesn't show on the bottom, since we don't know the height and are clipped
+  },
+  selectedCategoryOverlay: {
+    background: steelBlue,
+    borderRight: `5px solid ${steelBlue}`,
+    opacity: 0.4,
+  },
+  hoverCategoryOverlay: {
+    background: steelBlue,
+    borderRight: `5px solid ${steelBlue}`,
+    opacity: 0.1,
   }
 };
 
-
-function dibelsLevel(dibels) {
-  const performanceLevel = dibels.performance_level.toLowerCase();
-  if (performanceLevel.indexOf('core') !== -1) return 'core';
-  if (performanceLevel.indexOf('strategic') !== -1) return 'strategic';
-  if (performanceLevel.indexOf('intensive') !== -1) return 'intensive';
-  return null;
-}

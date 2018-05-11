@@ -23,6 +23,7 @@ export function testProps(props = {}) {
         return roomKeyFromIndex(roomIndex);
       }
     }),
+    onCategorySelected: jest.fn(),
     ...props
   };
 }

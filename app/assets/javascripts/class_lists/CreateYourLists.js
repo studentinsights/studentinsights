@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import {AutoSizer} from 'react-virtualized';
-import SimpleStudentCard from './SimpleStudentCard';
+import StudentCard from './StudentCard';
 import ClassroomStats from './ClassroomStats';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
@@ -20,13 +20,21 @@ export default class CreateYourListsView extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      highlightKey: null
+    };
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.onCategorySelected = this.onCategorySelected.bind(this);
   }
 
   onDragEnd(dragEndResult) {
     const {onClassListsChanged, studentIdsByRoom} = this.props;
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
     onClassListsChanged(updatedStudentIdsByRoom);
+  }
+
+  onCategorySelected(highlightKey) {
+    this.setState({highlightKey});
   }
 
   render() {
@@ -37,6 +45,7 @@ export default class CreateYourListsView extends React.Component {
       studentIdsByRoom,
       gradeLevelNextYear
     } = this.props;
+    const {highlightKey} = this.state;
     const rooms = createRooms(classroomsCount);
 
     return (
@@ -45,7 +54,9 @@ export default class CreateYourListsView extends React.Component {
           students={students}
           gradeLevelNextYear={gradeLevelNextYear}
           rooms={rooms.filter(room => room.roomKey !== UNPLACED_ROOM_KEY)}
-          studentIdsByRoom={studentIdsByRoom} />
+          studentIdsByRoom={studentIdsByRoom}
+          highlightKey={highlightKey}
+          onCategorySelected={this.onCategorySelected}/>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div style={styles.listsContainer}>
             {rooms.map(room => {
@@ -85,8 +96,10 @@ export default class CreateYourListsView extends React.Component {
 
   renderStudentCard(student, index) {
     const {fetchProfile, isEditable} = this.props;
-    return <SimpleStudentCard
+    const {highlightKey} = this.state;
+    return <StudentCard
       key={student.id}
+      highlightKey={highlightKey}
       student={student}
       index={index}
       fetchProfile={fetchProfile}
@@ -113,7 +126,7 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
 
   const sourceStudentIds = studentIdsByRoom[source.droppableId];
   const destinationStudentIds = studentIdsByRoom[destination.droppableId];
-  const draggableStudentId = _.find(sourceStudentIds, studentId => `SimpleStudentCard:${studentId}` === draggableId);
+  const draggableStudentId = _.find(sourceStudentIds, studentId => `StudentCard:${studentId}` === draggableId);
 
   // Moving within the same list
   if (source.droppableId === destination.droppableId) {

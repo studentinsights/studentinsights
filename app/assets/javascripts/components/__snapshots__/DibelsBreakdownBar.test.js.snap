@@ -2,7 +2,7 @@
 
 exports[`snapshots 1`] = `
 <div
-  className="GenderBreakdownBar"
+  className="BreakdownBar"
   style={
     Object {
       "height": 50,
@@ -22,7 +22,7 @@ exports[`snapshots 1`] = `
       <div
         style={
           Object {
-            "background": "green",
+            "background": "rgba(0,128,0,0.5)",
             "height": 50,
             "left": "0%",
             "position": "absolute",
@@ -35,7 +35,7 @@ exports[`snapshots 1`] = `
       <div
         style={
           Object {
-            "color": "green",
+            "color": "rgba(0,128,0,0.5)",
             "left": "0%",
             "paddingRight": 1,
             "position": "absolute",
@@ -52,7 +52,7 @@ exports[`snapshots 1`] = `
       <div
         style={
           Object {
-            "background": "orange",
+            "background": "rgba(255,165,0,0.5)",
             "height": 50,
             "left": "59%",
             "position": "absolute",
@@ -65,7 +65,7 @@ exports[`snapshots 1`] = `
       <div
         style={
           Object {
-            "color": "orange",
+            "color": "rgba(255,165,0,0.5)",
             "left": "59%",
             "paddingRight": 1,
             "position": "absolute",
@@ -82,7 +82,7 @@ exports[`snapshots 1`] = `
       <div
         style={
           Object {
-            "background": "red",
+            "background": "rgba(255,0,0,0.5)",
             "height": 50,
             "left": "75%",
             "position": "absolute",
@@ -95,7 +95,7 @@ exports[`snapshots 1`] = `
       <div
         style={
           Object {
-            "color": "red",
+            "color": "rgba(255,0,0,0.5)",
             "left": "75%",
             "paddingRight": 1,
             "position": "absolute",
