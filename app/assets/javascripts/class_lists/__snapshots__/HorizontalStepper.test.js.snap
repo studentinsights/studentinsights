@@ -7,7 +7,6 @@ exports[`snapshots 1`] = `
     Object {
       "display": "flex",
       "flexDirection": "column",
-      "height": "100%",
       "paddingTop": 15,
     }
   }
@@ -313,7 +312,6 @@ exports[`snapshots when readonly 1`] = `
     Object {
       "display": "flex",
       "flexDirection": "column",
-      "height": "100%",
       "paddingTop": 15,
     }
   }
