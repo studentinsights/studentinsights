@@ -120,8 +120,7 @@ class StudentsTable extends React.Component {
             dataKey='last_sst_date_text'
           />
         </Table>
-        <div>{'Total: '}</div>
-        <div>{this.renderTotalEvents()}</div>
+        <div>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
       </div>
     );
   }

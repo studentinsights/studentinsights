@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DateSlider from '../DateSlider';
+import DashRangeButtons from '../DashRangeButtons';
 import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
 import {sortByGrade} from '../../../helpers/SortHelpers';
+import ExperimentalBanner from '../../../components/ExperimentalBanner';
 
 class SchoolDisciplineDashboard extends React.Component {
 
@@ -35,8 +38,8 @@ class SchoolDisciplineDashboard extends React.Component {
   resetStudentList() {
     this.setState({selectedCategory: null});
   }
-  selectChart(event) {
-    this.setState({selectedChart: event.target.value, selectedCategory: null});
+  selectChart(selection) {
+    this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
   filterIncidentDates(incidents) {
@@ -68,6 +71,7 @@ class SchoolDisciplineDashboard extends React.Component {
     case 'time': return this.sortedTimes(chartKeys);
     case 'day': return this.sortedDays(chartKeys);
     case 'grade': return this.sortedGrades(chartKeys);
+    case 'classroom': return this.sortedClassrooms(chartKeys);
     default: return chartKeys;
     }
   }
@@ -90,26 +94,46 @@ class SchoolDisciplineDashboard extends React.Component {
 
   }
 
+  sortedClassrooms(chartKeys) {
+    const chart = this.getChartData(this.state.selectedChart);
+    return chartKeys.sort((a,b) => {
+      return chart.disciplineIncidents[b].length - chart.disciplineIncidents[a].length;
+    });
+  }
+
   render() {
     const selectedChart = this.getChartData(this.state.selectedChart);
+    const chartOptions = [
+      {value: 'location', label: 'Location'},
+      {value: 'time', label: 'Time'},
+      {value: 'classroom', label: 'Classroom'},
+      {value: 'grade', label: 'Grade'},
+      {value: 'day', label: 'Day'},
+      {value: 'offense', label: 'Offense'},
+    ];
 
     return(
-      <div className="DashboardContainer">
-        <div className="DashboardChartsColumn">
-        <select value={selectedChart.type} onChange={this.selectChart}>
-          <option value="location">Location</option>
-          <option value="time">Time</option>
-          <option value="classroom">Classroom</option>
-          <option value="grade">Grade</option>
-          <option value="day">Day</option>
-          <option value="offense">Offense</option>
-          </select>
-         {this.renderDisciplineChart(selectedChart)}
-
-        </div>
-        <div className="DashboardRosterColumn">
-          {this.renderDateRangeSlider()}
-          {this.renderStudentDisciplineTable()}
+      <div>
+      <ExperimentalBanner />
+        <div className="DashboardContainer">
+          <div className="DashboardRosterColumn">
+            {this.renderRangeSelector()}
+            {this.renderStudentDisciplineTable()}
+          </div>
+          <div className="DashboardChartsColumn">
+            <div style={styles.graphTitle}>
+              <div style={styles.titleText}>
+                Incidents by:
+              </div>
+              <Select
+                value={this.state.selectedChart}
+                onChange={this.selectChart}
+                options={chartOptions}
+                style={styles.dropdown}
+              />
+            </div>
+           {this.renderDisciplineChart(selectedChart)}
+          </div>
         </div>
       </div>
     );
@@ -128,23 +152,12 @@ class SchoolDisciplineDashboard extends React.Component {
           id = "Discipline"
           categories = {{categories: categories}}
           seriesData = {seriesData}
-          titleText = {selectedChart.title}
+          titleText = {null}
           measureText = {'Number of Incidents'}
           tooltip = {{
             pointFormat: 'Total incidents: <b>{point.y}</b>'}}
           onColumnClick = {this.setStudentList}
           onBackgroundClick = {this.resetStudentList}/>
-    );
-  }
-
-  renderDateRangeSlider() {
-    const firstDate = DashboardHelpers.schoolYearStart();
-    const lastDate = moment.utc();
-    return (
-      <DateSlider
-        rangeStart = {parseInt(moment.utc(firstDate).format("X"))}
-        rangeEnd = {parseInt(moment.utc(lastDate).format("X"))}
-        setDate={this.setDate}/>
     );
   }
 
@@ -171,6 +184,20 @@ class SchoolDisciplineDashboard extends React.Component {
         resetFn={this.resetStudentList}/>
     );
   }
+
+  renderRangeSelector() {
+    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
+    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
+    const schoolYearStart = DashboardHelpers.schoolYearStart();
+    return (
+      <div className="DashboardRangeButtons">
+        <DashRangeButtons
+          schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
+          ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
+          fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
+      </div>
+    );
+  }
 }
 
 SchoolDisciplineDashboard.propTypes = {
@@ -190,3 +217,19 @@ SchoolDisciplineDashboard.propTypes = {
 };
 
 export default SchoolDisciplineDashboard;
+
+const styles = {
+  graphTitle: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '20px'
+  },
+  titleText: {
+    fontSize: '18px',
+    marginRight: '10px',
+    alignSelf: 'center'
+  },
+  dropdown: {
+    width: '200px'
+  }
+};
