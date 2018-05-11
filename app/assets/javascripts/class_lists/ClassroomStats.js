@@ -375,13 +375,10 @@ const styles = {
   categoryOverlay: {
     position: 'absolute',
     bottom: '-10em', // shooting past the number of rows there could be
-    // width: '100%',
-    // left: -10,
-    // top: -10,
     width: '100%',
-    left: -5,
+    left: -5, // essentially padding
     top: -10,
-    zIndex: 10,
+    zIndex: 10, // so that this is clickable in front of the table contents
     borderRadius: 3  // even though this doesn't show on the bottom, since we don't know the height and are clipped
   },
   selectedCategoryOverlay: {
