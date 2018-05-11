@@ -1,13 +1,14 @@
 import React from 'react';
-import _ from 'lodash';
 import Hover from '../components/Hover';
 import Stack from '../components/Stack';
-import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import BreakdownBar from '../components/BreakdownBar';
 import {
   selection,
   steelBlue,
+  high,
+  medium,
+  low,
   male,
   female,
   nonBinary
@@ -234,17 +235,33 @@ export default class ClassroomStats extends React.Component {
     return this.renderStar(studentsInRoom, student => student.most_recent_star_reading_percentile);
   }
 
+  // Ignore students without scores
   renderStar(studentsInRoom, accessor) {
-    const values = _.compact(studentsInRoom.map(accessor));
+    const lowCount = studentsInRoom.filter(student => {
+      const percentile = accessor(student);
+      return (percentile && percentile < 30);
+    }).length;
+    const mediumCount = studentsInRoom.filter(student => {
+      const percentile = accessor(student);
+      return (percentile && percentile >= 30 && percentile <= 70);
+    }).length;
+    const highCount = studentsInRoom.filter(student => {
+      const percentile = accessor(student);
+      return (percentile && percentile > 70);
+    }).length;
+
+    const items = [
+      { left: 0, width: highCount, color: high, key: 'high' },
+      { left: highCount, width: mediumCount, color: medium, key: 'medium' },
+      { left: highCount + mediumCount, width: lowCount, color: low, key: 'low' }
+    ];
     return (
-      <div>
-        {(values.length === 0)
-          ? null
-          : <BoxAndWhisker
-              values={values}
-              style={styles.boxAndWhisker}
-              labelStyle={styles.boxAndWhiskerLabel} />}
-      </div>
+      <BreakdownBar
+        items={items}
+        style={styles.breakdownBar}
+        innerStyle={styles.breakdownBarInner}
+        height={5}
+        labelTop={5} />
     );
   }
 
