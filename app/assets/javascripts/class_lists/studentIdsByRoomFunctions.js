@@ -27,6 +27,37 @@ export function initialStudentIdsByRoom(roomsCount, students, options = {}) {
   return studentIdsByRoom;
 }
 
+// Respond after the classrooms count has changed, moving students in 
+// a room that was removed into `unplaced`.
+export function studentIdsByRoomAfterRoomsCountChanged(studentIdsByRoom, roomsCount) {
+  const updatedStudentIdsByRoom = {};
+
+  // Determine what changed
+  const previousRoomKeys = Object.keys(studentIdsByRoom);
+  const updatedRoomKeys = _.range(0, roomsCount).map(index => roomKeyFromIndex(index));
+  const nextRoomKeys = [UNPLACED_ROOM_KEY].concat(updatedRoomKeys);
+
+  // Rooms removed
+  if (nextRoomKeys.length < previousRoomKeys.length) {
+    const [kept, removed] = _.partition(previousRoomKeys, roomKey => {
+      return _.includes(nextRoomKeys, roomKey);
+    });
+    kept.forEach(roomKey => updatedStudentIdsByRoom[roomKey] = studentIdsByRoom[roomKey]);
+    const removedStudentIds = _.flatten(removed.map(roomKey => studentIdsByRoom[roomKey]));
+    updatedStudentIdsByRoom[UNPLACED_ROOM_KEY] = updatedStudentIdsByRoom[UNPLACED_ROOM_KEY].concat(removedStudentIds);
+    return updatedStudentIdsByRoom;
+  }
+
+  // Rooms added
+  if (nextRoomKeys.length > previousRoomKeys.length) {
+    const added = _.without(nextRoomKeys, ...previousRoomKeys);
+    added.forEach(roomKey => updatedStudentIdsByRoom[roomKey] = []);
+    return {
+      ...studentIdsByRoom,
+      ...updatedStudentIdsByRoom
+    };
+  }
+}
 
 export const UNPLACED_ROOM_KEY = 'room:unplaced';
 
