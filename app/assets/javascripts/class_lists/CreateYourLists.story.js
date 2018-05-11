@@ -1,6 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {widthFrame} from './storybookFrame';
+import {action} from '@storybook/addon-actions';
+import storybookFrame from './storybookFrame';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import CreateYourLists from './CreateYourLists';
 import {
@@ -11,26 +12,35 @@ import {
 import {testProps} from './CreateYourLists.test';
 
 
-function testRender(props = {}) {
-  return widthFrame(withDefaultNowContext(<Container {...props} />));
+function storyProps(props = {}) {
+  return {
+    ...testProps(),
+    onClassListsChanged: action('onClassListsChanged'),
+    onExpandVerticallyToggled: action('onExpandVerticallyToggled'),
+    ...props
+  };
+}
+
+function storyRender(props = {}) {
+  return storybookFrame(withDefaultNowContext(<Container {...props} />));
 }
 
 storiesOf('classlists/CreateYourLists', module) // eslint-disable-line no-undef
-  .add("empty", () => testRender(testProps({ forceUnplaced: true })))
-  .add("Next 2rd grade", () => testRender(testProps()))
+  .add("empty", () => storyRender(storyProps({ forceUnplaced: true })))
+  .add("Next 2rd grade", () => storyRender(storyProps()))
   .add("Next 5th grade", () => {
-    return testRender(testProps({
+    return storyRender(storyProps({
       classroomsCount: 4,
       gradeLevelNextYear: '5'
     }));
   })
   .add("Many classrooms", () => {
-    return testRender(testProps({
+    return storyRender(storyProps({
       classroomsCount: 5,
       gradeLevelNextYear: '5'
     }));
   })
-  .add("readonly", () => testRender(testProps({ isEditable: false })));
+  .add("readonly", () => storyRender(storyProps({ isEditable: false })));
 
 
 // Container for tracking state changes

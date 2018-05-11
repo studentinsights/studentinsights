@@ -18,13 +18,24 @@ import {fetchProfile} from './api';
 export default class ClassListCreatorWorkflow extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      isExpandedVertically: false
+    };
     this.renderStepContents = this.renderStepContents.bind(this);
+    this.onExpandVerticallyToggled = this.onExpandVerticallyToggled.bind(this);
+  }
+
+  onExpandVerticallyToggled() {
+    const {isExpandedVertically} = this.state;
+    this.setState({isExpandedVertically: !isExpandedVertically});
   }
 
   render() {
     const {steps, stepIndex, availableSteps, onStepChanged, isEditable} = this.props;
-
+    const {isExpandedVertically} = this.state;
+    const expandedOrCollapsedStyles = (isExpandedVertically)
+      ? styles.horizontalStepperExpanded 
+      : styles.horizontalStepperCollapsed;
     return (
       <div className="ClassListCreatorView" style={styles.root}>
         <HorizontalStepper
@@ -34,7 +45,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
           renderFn={this.renderStepContents}
-          style={styles.horizontalStepper}
+          style={{...styles.horizontalStepper, ...expandedOrCollapsedStyles}}
           contentStyle={styles.horizontalStepperContent} />
       </div>
     );
@@ -180,6 +191,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       studentIdsByRoom,
       gradeLevelNextYear
     } = this.props;
+    const {isExpandedVertically} = this.state;
 
     if (students === null || studentIdsByRoom === null) return <Loading />;
     return (
@@ -190,6 +202,8 @@ export default class ClassListCreatorWorkflow extends React.Component {
         studentIdsByRoom={studentIdsByRoom}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
         isEditable={isEditable}
+        isExpandedVertically={isExpandedVertically}
+        onExpandVerticallyToggled={this.onExpandVerticallyToggled}
         onClassListsChanged={onClassListsChanged}/>
     );
   }
@@ -283,6 +297,14 @@ const styles = {
   },
   horizontalStepper: {
     paddingTop: 15
+  },
+  horizontalStepperCollapsed: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  horizontalStepperExpanded: {
+    
   },
   horizontalStepperContent: {
     borderTop: '1px solid #ccc',
