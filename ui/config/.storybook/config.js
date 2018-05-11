@@ -28,6 +28,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/class_lists/InlineStudentProfile.story.js');
   require('../../../app/assets/javascripts/class_lists/HorizontalStepper.story.js');
   require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story.js');
+  require('../../../app/assets/javascripts/class_lists/StudentCard.story.js');
 
   // add more here!
 }

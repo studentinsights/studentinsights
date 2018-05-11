@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import {AutoSizer} from 'react-virtualized';
-import SimpleStudentCard from './SimpleStudentCard';
+import StudentCard from './StudentCard';
 import ClassroomStats from './ClassroomStats';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
@@ -97,7 +97,7 @@ export default class CreateYourListsView extends React.Component {
   renderStudentCard(student, index) {
     const {fetchProfile, isEditable} = this.props;
     const {highlightKey} = this.state;
-    return <SimpleStudentCard
+    return <StudentCard
       key={student.id}
       highlightKey={highlightKey}
       student={student}
@@ -126,7 +126,7 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
 
   const sourceStudentIds = studentIdsByRoom[source.droppableId];
   const destinationStudentIds = studentIdsByRoom[destination.droppableId];
-  const draggableStudentId = _.find(sourceStudentIds, studentId => `SimpleStudentCard:${studentId}` === draggableId);
+  const draggableStudentId = _.find(sourceStudentIds, studentId => `StudentCard:${studentId}` === draggableId);
 
   // Moving within the same list
   if (source.droppableId === destination.droppableId) {

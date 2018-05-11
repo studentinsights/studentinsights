@@ -32,7 +32,7 @@ describe('studentIdsByRoomAfterDrag', () => {
       "room:unplaced": [93,95,96,97,98,99]
     };
     const dragEndResult = {
-      "draggableId": "SimpleStudentCard:97",
+      "draggableId": "StudentCard:97",
       "type": "CLASSROOM_LIST",
       "source": {
         "droppableId": "room:unplaced",

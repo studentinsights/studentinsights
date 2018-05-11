@@ -23,7 +23,7 @@ import {
 
 // Shows a small student card that is `Draggable` and also clickable
 // to show a modal of the student's profile.
-export default class SimpleStudentCard extends React.Component {
+export default class StudentCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,7 +57,7 @@ export default class SimpleStudentCard extends React.Component {
     if (!isEditable) return this.renderClickableStudentCard(student);
 
     return (
-      <Draggable draggableId={`SimpleStudentCard:${student.id}`} index={index}>
+      <Draggable draggableId={`StudentCard:${student.id}`} index={index}>
         {(provided, snapshot) => {
           return this.renderClickableStudentCard(student, {
             ref: provided.innerRef,
@@ -123,7 +123,7 @@ export default class SimpleStudentCard extends React.Component {
     );
   }
 }
-SimpleStudentCard.propTypes = {
+StudentCard.propTypes = {
   student: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired,
   fetchProfile: React.PropTypes.func.isRequired,
