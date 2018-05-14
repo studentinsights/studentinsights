@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/merge';
 import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
 import {
   schoolYearStartDates,

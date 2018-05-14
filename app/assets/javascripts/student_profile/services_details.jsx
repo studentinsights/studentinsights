@@ -1,4 +1,4 @@
-import PropTypes from '../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import HelpBubble from '../components/HelpBubble';
 import SectionHeading from '../components/SectionHeading';
 
@@ -28,9 +28,9 @@ import SectionHeading from '../components/SectionHeading';
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
-      actions: PropTypes.actions.isRequired,
-      feed: PropTypes.feed.isRequired,
-      requests: PropTypes.requests.isRequired
+      actions: InsightsPropTypes.actions.isRequired,
+      feed: InsightsPropTypes.feed.isRequired,
+      requests: InsightsPropTypes.requests.isRequired
     },
 
     getInitialState: function() {

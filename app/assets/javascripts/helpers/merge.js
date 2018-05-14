@@ -1,4 +1,5 @@
-// React helper fns
+// This function is deprecated.
+// Use {...obj} destructuring for new code.
 export function merge() {
   // Combines several objects into one.
   // Does not mutate its arguments.

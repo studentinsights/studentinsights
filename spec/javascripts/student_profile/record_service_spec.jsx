@@ -5,7 +5,7 @@ import {
 } from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import ReactTestUtils from 'react-addons-test-utils';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
+
 
 describe('RecordService', function() {
   const ReactDOM = window.ReactDOM;
@@ -13,7 +13,7 @@ describe('RecordService', function() {
 
   const helpers = {
     testProps: function(props) {
-      return merge({
+      return {
         studentFirstName: 'Tamyra',
         serviceTypesIndex: studentProfile.serviceTypesIndex,
         educatorsIndex: studentProfile.educatorsIndex,
@@ -22,8 +22,9 @@ describe('RecordService', function() {
         onSave: jest.fn(),
         onCancel: jest.fn(),
         requestState: null,
-        studentId: 1
-      }, props || {});
+        studentId: 1,
+        ...props
+      };
     },
 
     renderInto: function(el, props) {

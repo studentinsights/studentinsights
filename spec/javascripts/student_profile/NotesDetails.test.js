@@ -1,6 +1,5 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 import NotesDetails from '../../../app/assets/javascripts/student_profile/NotesDetails.js';
 
 describe('NotesDetails', function() {
@@ -8,7 +7,7 @@ describe('NotesDetails', function() {
 
   const helpers = {
     renderInto: function(el, props) {
-      const mergedProps = merge(props || {}, {
+      const mergedProps = {
         eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
         educatorsIndex: {},
         noteInProgressText: '',
@@ -35,7 +34,8 @@ describe('NotesDetails', function() {
         title: '',
         helpContent: '',
         helpTitle: '',
-      });
+        ...props
+      };
 
       ReactDOM.render(<NotesDetails {...mergedProps} />, el);
     }

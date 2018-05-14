@@ -5,13 +5,12 @@ import {
 } from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import TakeNotes from '../../../app/assets/javascripts/student_profile/take_notes.jsx';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('TakeNotes', function() {
 
   const helpers = {
     renderInto: function(el, props) {
-      const mergedProps = merge(props || {}, {
+      const mergedProps = {
         nowMoment: nowMoment,
         eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
         currentEducator: currentEducator,
@@ -23,8 +22,9 @@ describe('TakeNotes', function() {
         requestState: null,
         noteInProgressText: '',
         noteInProgressType: null,
-        noteInProgressAttachmentUrls: []
-      });
+        noteInProgressAttachmentUrls: [],
+        ...props
+      };
       window.ReactDOM.render(<TakeNotes {...mergedProps} />, el);
     }
   };

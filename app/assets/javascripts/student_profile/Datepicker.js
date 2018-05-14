@@ -1,4 +1,3 @@
-import {merge} from '../helpers/react_helpers.jsx';
 import React from 'react';
 
 // This must be read lazily, since these options require the DOM
@@ -24,11 +23,12 @@ class Datepicker extends React.Component {
   }
 
   componentDidMount(props, state) {
-    const datepickerOptions = merge(datepickerOptionsFn(), this.props.datepickerOptions);
     const el = this.el;
-    $(el).find('.datepicker').datepicker(merge(datepickerOptions, {
+    $(el).find('.datepicker').datepicker({
+      ...datepickerOptionsFn(),
+      ...this.props.datepickerOptions,
       onSelect: this.onDateSelected
-    }));
+    });
   }
 
   //This allows us to set the min and max dates dynamically to prevent selecting

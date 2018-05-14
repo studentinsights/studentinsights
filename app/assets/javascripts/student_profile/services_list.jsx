@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import moment from 'moment';
-import {merge} from '../helpers/react_helpers.jsx';
 import serviceColor from '../helpers/serviceColor';
 
 (function() {
@@ -76,9 +75,10 @@ import serviceColor from '../helpers/serviceColor';
     // Confirmation step
     onClickDiscontinueService: function(serviceId) {
       if (this.state.discontinuingServiceId !== serviceId) {
-        this.setState(merge(this.getInitialState(), {
-          discontinuingServiceId: serviceId,
-        }));
+        this.setState({
+          ...this.getInitialState(),
+          discontinuingServiceId: serviceId
+        });
         return;
       }
 
@@ -127,10 +127,11 @@ import serviceColor from '../helpers/serviceColor';
       return (
         <div
           key={service.id}
-          style={merge(styles.service, {
+          style={{
+            ...styles.service,
             background: serviceColor(service.service_type_id),
             opacity: (wasDiscontinued) ? 0.8 : 1
-          })}>
+          }}>
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 'bold' }}>
@@ -146,7 +147,7 @@ import serviceColor from '../helpers/serviceColor';
             </div>
             {this.renderDiscontinuedInformation(service)}
           </div>
-          <div style={merge(styles.userText, { paddingTop: 15 })}>
+          <div style={{...styles.userText, paddingTop: 15}}>
             {service.comment}
           </div>
         </div>
@@ -294,7 +295,7 @@ import serviceColor from '../helpers/serviceColor';
           className="btn"
           onMouseEnter={this.onMouseEnterCancel.bind(this, service.id)}
           onMouseLeave={this.onMouseLeaveCancel}
-          style={merge(style, { marginLeft: 5 })}
+          style={{...style, marginLeft: 5}}
           onClick={this.onClickCancelDiscontinue.bind(this, service.id)}>
           Cancel
         </button>

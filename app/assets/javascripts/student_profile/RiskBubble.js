@@ -1,4 +1,3 @@
-import {merge} from '../helpers/react_helpers.jsx';
 import React from 'react';
 
 const styles = {
@@ -39,7 +38,7 @@ class RiskBubble extends React.Component {
         <span style={styles.riskItem}>
           Risk Level
         </span>
-        <span style={merge(styles.riskBubble, { backgroundColor: this.bubbleColor() })}>
+        <span style={{...styles.riskBubble, backgroundColor: this.bubbleColor() }}>
           {(this.props.riskLevel === null) ? 'NA' : this.props.riskLevel}
         </span>
       </span>

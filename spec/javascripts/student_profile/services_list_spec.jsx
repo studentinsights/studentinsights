@@ -1,6 +1,5 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('ServicesList', function() {
   const ReactDOM = window.ReactDOM;
@@ -33,7 +32,7 @@ describe('ServicesList', function() {
     },
 
     renderInto: function(el, props) {
-      const mergedProps = merge({
+      const mergedProps = {
         servicesFeed: {
           active: [],
           discontinued: []
@@ -41,8 +40,9 @@ describe('ServicesList', function() {
         educatorsIndex: studentProfile.educatorsIndex,
         serviceTypesIndex: studentProfile.serviceTypesIndex,
         discontinueServiceRequests: {},
-        onClickDiscontinueService: jest.fn()
-      }, props || {});
+        onClickDiscontinueService: jest.fn(),
+        ...props
+      };
       ReactDOM.render(<ServicesList {...mergedProps} />, el);
     }
   };
@@ -85,10 +85,11 @@ describe('ServicesList', function() {
 
     it('renders discontinued services correctly', function() {
       const el = container.testEl;
-      const discontinuedService = merge(helpers.fixtureService(), {
+      const discontinuedService = {
+        ...helpers.fixtureService(),
         discontinued_by_educator_id: 1,
         discontinued_recorded_at: "2016-04-05T01:43:15.256Z"
-      });
+      };
       helpers.renderInto(el, {
         servicesFeed: {
           active: [],
