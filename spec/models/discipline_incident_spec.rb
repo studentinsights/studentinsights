@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DisciplineIncident do
-  let!(:student) { FactoryGirl.create(:student) }
+  let!(:student) { FactoryBot.create(:student) }
 
   subject(:incident) {
     DisciplineIncident.create!(

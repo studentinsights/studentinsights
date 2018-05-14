@@ -19,6 +19,10 @@ class PerDistrict
     raise_not_handled! unless VALID_DISTRICT_KEYS.include?(@district_key)
   end
 
+  def district_key
+    @district_key
+  end
+
   # User-facing text
   def district_name
     ENV['DISTRICT_NAME']
@@ -53,6 +57,16 @@ class PerDistrict
     else
       raise_not_handled!
     end
+  end
+
+  def import_detailed_attendance_fields?
+    return true if @district_key == SOMERVILLE
+
+    return false if  @district_key == NEW_BEDFORD
+
+    raise 'import_detailed_attendance_fields? not supported for DEMO' if @district_key == DEMO
+
+    raise_not_handled!
   end
 
   private

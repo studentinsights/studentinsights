@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="BreakdownBar"
+  style={
+    Object {
+      "height": 50,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "height": 50,
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <div>
+      <div
+        style={
+          Object {
+            "background": "green",
+            "height": 50,
+            "left": "0%",
+            "position": "absolute",
+            "width": "59%",
+          }
+        }
+      >
+         
+      </div>
+      <div
+        style={
+          Object {
+            "color": "green",
+            "left": "0%",
+            "paddingRight": 1,
+            "position": "absolute",
+            "textAlign": "right",
+            "top": 55,
+            "width": "59%",
+          }
+        }
+      >
+        7
+      </div>
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "background": "orange",
+            "height": 50,
+            "left": "59%",
+            "position": "absolute",
+            "width": "17%",
+          }
+        }
+      >
+         
+      </div>
+      <div
+        style={
+          Object {
+            "color": "orange",
+            "left": "59%",
+            "paddingRight": 1,
+            "position": "absolute",
+            "textAlign": "right",
+            "top": 55,
+            "width": "17%",
+          }
+        }
+      >
+        2
+      </div>
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "background": "red",
+            "height": 50,
+            "left": "75%",
+            "position": "absolute",
+            "width": "25%",
+          }
+        }
+      >
+         
+      </div>
+      <div
+        style={
+          Object {
+            "color": "red",
+            "left": "75%",
+            "paddingRight": 1,
+            "position": "absolute",
+            "textAlign": "right",
+            "top": 55,
+            "width": "25%",
+          }
+        }
+      >
+        3
+      </div>
+    </div>
+  </div>
+</div>
+`;

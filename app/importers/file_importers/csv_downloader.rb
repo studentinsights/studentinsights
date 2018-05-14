@@ -30,6 +30,6 @@ class CsvDownloader
 
   private
   def log(msg)
-    @log.write "CsvDownloader: #{msg}"
+    @log.puts "CsvDownloader: #{msg}"
   end
 end

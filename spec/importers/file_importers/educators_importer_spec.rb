@@ -13,7 +13,7 @@ RSpec.describe EducatorsImporter do
   }
 
   describe '#import_row' do
-    let!(:school) { FactoryGirl.create(:healey) }
+    let!(:school) { FactoryBot.create(:healey) }
 
     context 'good row' do
 
@@ -46,7 +46,7 @@ RSpec.describe EducatorsImporter do
           end
 
           context 'with homeroom' do
-            let(:homeroom) { FactoryGirl.create(:homeroom) }
+            let(:homeroom) { FactoryBot.create(:homeroom) }
             let(:homeroom_name) { homeroom.name }
 
             context 'without school local id' do
@@ -81,7 +81,7 @@ RSpec.describe EducatorsImporter do
               end
 
               context 'multiple educators' do
-                let(:another_homeroom) { FactoryGirl.create(:homeroom) }
+                let(:another_homeroom) { FactoryBot.create(:homeroom) }
                 let(:another_homeroom_name) { another_homeroom.name }
                 let(:another_row) {
                   {
@@ -143,9 +143,9 @@ RSpec.describe EducatorsImporter do
       end
 
       context 'existing educator' do
-        let(:homeroom) { FactoryGirl.create(:homeroom) }
+        let(:homeroom) { FactoryBot.create(:homeroom) }
         let(:homeroom_name) { homeroom.name }
-        let!(:educator) { FactoryGirl.create(:educator, email: 'jyoung@k12.somerville.ma.us') }
+        let!(:educator) { FactoryBot.create(:educator, email: 'jyoung@k12.somerville.ma.us') }
         let(:row) {
           {
             state_id: "500", full_name: "Young, Jenny",
@@ -166,7 +166,7 @@ RSpec.describe EducatorsImporter do
 
       context 'existing non-admin educator with schoolwide access, restricted notes access' do
         let!(:educator) {
-          FactoryGirl.create(
+          FactoryBot.create(
             :educator,
             schoolwide_access: true,
             can_view_restricted_notes: true,
@@ -210,7 +210,7 @@ RSpec.describe EducatorsImporter do
   end
 
   describe '#update_homeroom' do
-    let!(:school) { FactoryGirl.create(:healey) }
+    let!(:school) { FactoryBot.create(:healey) }
 
     context 'row with homeroom name' do
       let(:row) {
@@ -219,7 +219,7 @@ RSpec.describe EducatorsImporter do
       }
 
       context 'name of homeroom that exists' do
-        let!(:homeroom) { FactoryGirl.create(:homeroom, :named_hea_100) }
+        let!(:homeroom) { FactoryBot.create(:homeroom, :named_hea_100) }
         it 'assigns the homeroom to the educator' do
           educators_importer.import_row(row)
           expect(Educator.last.homeroom).to eq homeroom

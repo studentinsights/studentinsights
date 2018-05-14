@@ -13,6 +13,7 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
+  # This is also used by the `ExploresSchoolEquityPage`.
   def overview_json
     render json: json_for_overview(@school)
   end
@@ -27,24 +28,9 @@ class SchoolsController < ApplicationController
     })
   end
 
-  def school_administrator_dashboard
-    dashboard_students = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_absences, :event_notes, :dashboard_tardies)
-    dashboard_students_json = dashboard_students.map do |student|
-      individual_student_dashboard_data(student)
-    end
-
-    @serialized_data = {
-      students: dashboard_students_json,
-      current_educator: current_educator
-    }
-    render 'shared/serialized_data'
-  end
-
-  #Individual dashboard data endpoints will replace school_administrator_dashboard once they're stable
   def absence_dashboard_data
-    student_absence_data = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_absences, :event_notes)
+    student_absence_data = active_students(@school)
+      .includes([homeroom: :educator], :dashboard_absences, :sst_notes)
     student_absence_data_json = student_absence_data.map do |student|
       individual_student_absence_data(student)
     end
@@ -53,13 +39,24 @@ class SchoolsController < ApplicationController
   end
 
   def tardies_dashboard_data
-    student_tardies_data = students_for_dashboard(@school)
-      .includes([homeroom: :educator], :dashboard_tardies, :event_notes)
+    student_tardies_data = active_students(@school)
+      .includes([homeroom: :educator], :dashboard_tardies, :sst_notes)
     student_tardies_data_json = student_tardies_data.map do |student|
       individual_student_tardies_data(student)
     end
 
     render json: student_tardies_data_json
+  end
+
+  def discipline_dashboard_data
+    student_discipline_data = active_students(@school)
+      .includes([homeroom: :educator], :discipline_incidents, :sst_notes)
+      .where('occurred_at >= ?', 1.year.ago).references(:discipline_incidents)
+    student_discipline_data_json = student_discipline_data.map do |student|
+      individual_student_discipline_data(student)
+    end
+
+    render json: student_discipline_data_json
   end
 
   # This endpoint is internal-only for now, because of the authorization complexity.
@@ -170,49 +167,48 @@ class SchoolsController < ApplicationController
     end
   end
 
-  # Methods for Dashboard
-
-  def individual_student_dashboard_data(student)
-    # This is a temporary workaround for New Bedford
-    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
-    HashWithIndifferentAccess.new({
-      first_name: student.first_name,
-      last_name: student.last_name,
-      id: student.id,
-      homeroom_label: homeroom_label,
-      absences: student.dashboard_absences,
-      tardies: student.dashboard_tardies,
-      event_notes: student.event_notes
+  # Methods for Dashboards #
+  def shared_student_fields(student)
+    student.as_json(only: [
+      :first_name,
+      :last_name,
+      :grade,
+      :id
+    ]).merge({
+      homeroom_label: homeroom_label(student.homeroom),
+      sst_notes: student.sst_notes.as_json(only: [:event_note_type_id, :recorded_at])
     })
   end
 
   def individual_student_absence_data(student)
-    # Gathers only the information needed for a specific dashboard view.
-    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
-    HashWithIndifferentAccess.new({
-      first_name: student.first_name,
-      last_name: student.last_name,
-      id: student.id,
-      homeroom_label: homeroom_label,
-      absences: student.absences,
-      event_notes: student.event_notes
+    shared_student_fields(student).merge({
+      absences: student.dashboard_absences.as_json(only: [:student_id, :occurred_at])
     })
   end
 
   def individual_student_tardies_data(student)
-    # Gathers only the information needed for a specific dashboard view.
-    homeroom_label = student.try(:homeroom).try(:educator).try(:full_name) || student.try(:homeroom).try(:name)
-    HashWithIndifferentAccess.new({
-      first_name: student.first_name,
-      last_name: student.last_name,
-      id: student.id,
-      homeroom_label: homeroom_label,
-      tardies: student.tardies,
-      event_notes: student.event_notes
+    shared_student_fields(student).merge({
+      tardies: student.dashboard_tardies.as_json(only: [:student_id, :occurred_at])
     })
   end
 
-  def students_for_dashboard(school)
+  def individual_student_discipline_data(student)
+    shared_student_fields(student).merge({
+      discipline_incidents: student.discipline_incidents.as_json(only: [
+        :student_id,
+        :incident_code,
+        :incident_location,
+        :has_exact_time,
+        :occurred_at
+      ])
+    })
+  end
+
+  def active_students(school)
     school.students.active
+  end
+
+  def homeroom_label(homeroom)
+    homeroom.try(:educator).try(:full_name) || homeroom.try(:name) || "No Homeroom"
   end
 end

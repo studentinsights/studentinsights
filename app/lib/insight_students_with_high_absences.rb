@@ -6,7 +6,7 @@ class InsightStudentsWithHighAbsences
 
   # Returns a list of all students that the educator has access
   # to that have a high number of absences, but haven't been
-  # commented on in SST yet.  This information may not be directly
+  # commented on in Insights yet.  This information may not be directly
   # actionable for all teachers (eg, ninth grade math teachers) but
   # for SST team members, principals and APs, redirect, and K8
   # classroom teachers, the intended actions are to talk with
@@ -17,8 +17,12 @@ class InsightStudentsWithHighAbsences
   # This method returns hashes that are the shape of what is needed
   # in the product.
   def students_with_high_absences_json(time_now, time_threshold, absences_threshold)
-    # Include all authorized students
-    students = @authorizer.authorized { Student.all }
+    # Exclude students in younger grades like PreK since attendance isn't mandatory.
+    # This means there's less consistent attendance from families, and it's less
+    # of a priority to follow-up for schools.
+    students = @authorizer.authorized do
+      Student.active.where.not(grade: ['TK', 'PPK', 'PK'])
+    end
     student_ids = students.map(&:id)
 
     # Absences by student in the time period.
@@ -52,13 +56,15 @@ class InsightStudentsWithHighAbsences
     end
   end
 
-  # Students who've been commented on in SST recently
+  # Students who've been commented on in Insights recently (for any reason)
+  # This includes any kind of comment since we don't want folks to
+  # enter notes inaccurately as "SST Meetings" when they aren't really, just to
+  # make this list seem in better shape.
   def recently_commented_student_ids(student_ids, time_threshold)
     recent_notes = EventNote
       .where(is_restricted: false)
       .where(student_id: student_ids)
       .where('recorded_at > ?', time_threshold)
-      .where(event_note_type_id: [300])
     recent_notes.map(&:student_id).uniq
   end
 

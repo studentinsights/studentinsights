@@ -3,36 +3,29 @@ import PropTypes from 'prop-types';
 import {
   sortByString,
   sortByNumber,
-  sortByDate
+  sortByDate,
+  sortByGrade
 } from '../../helpers/SortHelpers';
 import * as Routes from '../../helpers/Routes';
 import * as InsightsPropTypes from '../../helpers/InsightsPropTypes';
-
+import DashResetButton from './DashResetButton';
+import {Column, Table, SortDirection} from 'react-virtualized';
 
 class StudentsTable extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       sortBy: 'events',
       sortType: 'number',
       sortDesc: true,
-      slectedHomeroom: null,
-      schoolYearFlag: false
+      selectedCategory: null,
     };
-    this.onClickHeader = this.onClickHeader.bind(this);
-  }
 
-  //These methods taken directly from school overview students table. TODO, separate into helpers
-  headerClassName(sortBy) {
-    // Using tablesort classes here for the cute CSS carets,
-    // not for the acutal table sorting JS (that logic is handled by this class).
-
-    if (sortBy !== this.state.sortBy) return 'sort-header';
-
-    if (this.state.sortDesc) return 'sort-header sort-down';
-
-    return 'sort-header sort-up';
+    this.onTableSort = this.onTableSort.bind(this);
+    this.renderStudent = this.renderStudent.bind(this);
+    this.renderRowStyle = this.renderRowStyle.bind(this);
   }
 
   sortedRows() {
@@ -41,12 +34,16 @@ class StudentsTable extends React.Component {
     const sortType = this.state.sortType;
 
     switch(sortType) {
+    case 'name':
+      return rows.sort((a, b) => fullNameReverse(a).localeCompare(fullNameReverse(b)));
     case 'string':
       return rows.sort((a, b) => sortByString(a, b, sortBy));
     case 'number':
       return rows.sort((a, b) => sortByNumber(a, b, sortBy));
     case 'date':
       return rows.sort((a, b) => sortByDate(a, b, sortBy));
+    case 'grade':
+      return rows.sort((a, b) => sortByGrade(a[sortBy], b[sortBy]));
     default:
       return rows;
     }
@@ -60,15 +57,13 @@ class StudentsTable extends React.Component {
     return sortedRows;
   }
 
-  totalEvents() {
-    let total = 0;
-    this.props.rows.forEach((student) => {
-      total += student.events;
-    });
-    return total;
-  }
-
-  onClickHeader(sortBy, sortType) {
+  onTableSort({defaultSortDirection, event, sortBy, sortDirection}) {
+    const sortType = {
+      name: 'name',
+      grade: 'grade',
+      events: 'number',
+      last_sst_date_text: 'date'
+    }[sortBy];
     if (sortBy === this.state.sortBy) {
       this.setState({ sortDesc: !this.state.sortDesc });
     } else {
@@ -77,53 +72,92 @@ class StudentsTable extends React.Component {
   }
 
   render() {
-    return(
-      <div className= 'StudentsList'>
-        <table className='students-list'>
-          <caption>{this.renderCaption()}</caption>
-          <thead>
-            <tr>
-              <th
-                  onClick={this.onClickHeader.bind(null, 'last_name', 'string')}
-                  className={this.headerClassName('last_name')}>Name</th>
-              <th
-                  onClick={this.onClickHeader.bind(null, 'events', 'number')}
-                  className={this.headerClassName('events')}>Incidents</th>
-              <th
-                  onClick={this.onClickHeader.bind(null, 'last_sst_date_text', 'date')}
-                  className={this.headerClassName('last_sst_date_text')}>Last SST</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <td>{'Total: '}</td>
-              <td>{this.totalEvents()}</td>
-              <td></td>
-            </tr>
-          </tfoot>
-          <tbody>
-            {this.orderedRows().map(student => {
-              return (
-                <tr key={student.id}>
-                  <td>
-                    <a href={Routes.studentProfile(student.id)}>
-                      {student.first_name} {student.last_name}
-                    </a>
-                  </td>
-                  <td>{student.events}</td>
-                  <td>{student.last_sst_date_text}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+    const {incidentType} = this.props;
+    const {sortBy, sortDesc} = this.state;
+    const list = this.orderedRows();
+
+    return (
+      <div className="StudentsTable" style={styles.root}>
+        <div style={styles.caption}>
+          {this.renderCaption()}
+          <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
+        </div>
+        <Table
+          width={400}
+          height={400}
+          rowCount={list.length}
+          rowGetter={({index}) => list[index]}
+          headerHeight={25}
+          headerStyle={{display: 'flex'}} // necessary for layout, not sure why
+          rowHeight={25}
+          style={{fontSize: 14}}
+          rowStyle={this.renderRowStyle}
+          sort={this.onTableSort}
+          sortBy={sortBy}
+          sortDirection={sortDesc ? SortDirection.DESC : SortDirection.ASC}
+        >
+          <Column
+            label='Name'
+            dataKey='name'
+            cellDataGetter={({rowData}) => fullName(rowData)}
+            cellRenderer={this.renderStudent}
+            flexGrow={1}
+            width={100}
+          />
+          <Column
+            width={60}
+            label='Grade'
+            dataKey='grade'
+          />
+          <Column
+            width={85}
+            label={incidentType}
+            dataKey='events'
+          />
+          <Column
+            width={85}
+            label='Last SST'
+            dataKey='last_sst_date_text'
+          />
+        </Table>
+        <div>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
       </div>
     );
   }
 
+  // Table striping
+  renderRowStyle({index}) {
+    const flexStyles = { display: 'flex' }; // necessary for layout, not sure why
+    if (index < 0) { // header
+      return {...flexStyles, fontWeight: 'bold' };
+    } else {
+      return index % 2 === 0
+        ? flexStyles
+        : {...flexStyles, backgroundColor: '#fafafa' };
+    }
+  }
+
+  renderStudent({rowData}) {
+    const student = rowData;
+    return (
+      <a href={Routes.studentProfile(student.id)} style={styles.truncatedLink}>
+        {fullName(student)}
+      </a>
+    );
+  }
+
   renderCaption() {
-    const schoolYearCaption = this.props.schoolYearFlag? " (School Year)" : "";
-    return this.props.selectedHomeroom ? this.props.selectedHomeroom + schoolYearCaption : "All Students" + schoolYearCaption;
+    const {selectedCategory} = this.props;
+
+    return selectedCategory ? selectedCategory : 'All Students';
+  }
+
+  renderTotalEvents() {
+    let total = 0;
+    this.props.rows.forEach((student) => {
+      total += student.events;
+    });
+    return total;
   }
 }
 
@@ -135,8 +169,38 @@ StudentsTable.propTypes = {
     events: PropTypes.number.isRequired,
     last_sst_date_text: InsightsPropTypes.nullableWithKey(PropTypes.string)
   })).isRequired,
-  selectedHomeroom: PropTypes.string,
-  schoolYearFlag: PropTypes.bool
+  selectedCategory: PropTypes.string,
+  incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
+  resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
 };
-
 export default StudentsTable;
+
+function fullName(student) {
+  return`${student.first_name} ${student.last_name}`;
+}
+
+function fullNameReverse(student) {
+  return`${student.last_name}, ${student.first_name}`;
+}
+
+const styles = {
+  root: {
+    marginTop: 20
+  },
+  caption: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: 5
+  },
+  incidentSubtitle: {
+    fontWeight: 'normal',
+    fontSize: 12
+  },
+  truncatedLink: {
+    display: 'inline-block',
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflowX: 'hidden',
+    textOverflow: 'ellipsis'
+  }
+};

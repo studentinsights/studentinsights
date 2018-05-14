@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  style={
+    Object {
+      "color": "black",
+      "cursor": "default",
+      "display": "inline-block",
+      "height": "100%",
+      "position": "relative",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "red",
+          "height": "100%",
+          "left": "0%",
+          "position": "absolute",
+          "width": "69%",
+        }
+      }
+    />
+    <div
+      style={
+        Object {
+          "height": "100%",
+          "left": "0%",
+          "position": "absolute",
+          "width": "69%",
+        }
+      }
+    >
+      18
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "orange",
+          "height": "100%",
+          "left": "69%",
+          "position": "absolute",
+          "width": "31%",
+        }
+      }
+    />
+    <div
+      style={
+        Object {
+          "height": "100%",
+          "left": "69%",
+          "position": "absolute",
+          "width": "31%",
+        }
+      }
+    >
+      8
+    </div>
+  </div>
+</div>
+`;

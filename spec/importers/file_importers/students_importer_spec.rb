@@ -122,9 +122,9 @@ RSpec.describe StudentsImporter do
   describe '#assign_student_to_homeroom' do
 
     context 'student already has a homeroom' do
-      let!(:school) { FactoryGirl.create(:school) }
-      let!(:student) { FactoryGirl.create(:student_with_homeroom, school: school) }
-      let!(:new_homeroom) { FactoryGirl.create(:homeroom, school: school) }
+      let!(:school) { FactoryBot.create(:school) }
+      let!(:student) { FactoryBot.create(:student_with_homeroom, school: school) }
+      let!(:new_homeroom) { FactoryBot.create(:homeroom, school: school) }
 
       it 'assigns the student to the homeroom' do
         students_importer.assign_student_to_homeroom(student, new_homeroom.name)
@@ -133,7 +133,7 @@ RSpec.describe StudentsImporter do
     end
 
     context 'student does not have a homeroom' do
-      let!(:student) { FactoryGirl.create(:student) }
+      let!(:student) { FactoryBot.create(:student) }
       let!(:new_homeroom_name) { '152I' }
       it 'creates a new homeroom' do
         expect {
@@ -148,7 +148,7 @@ RSpec.describe StudentsImporter do
     end
 
     context 'student is inactive' do
-      let!(:student) { FactoryGirl.create(:student, enrollment_status: 'Inactive') }
+      let!(:student) { FactoryBot.create(:student, enrollment_status: 'Inactive') }
       let!(:new_homeroom_name) { '152K' }
 
       it 'does not create a new homeroom' do

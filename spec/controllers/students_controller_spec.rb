@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe StudentsController, :type => :controller do
   def create_service(student, educator)
-    FactoryGirl.create(:service, {
+    FactoryBot.create(:service, {
       student: student,
       recorded_by_educator: educator,
       provided_by_educator_name: 'Muraki, Mari'
@@ -10,21 +10,21 @@ describe StudentsController, :type => :controller do
   end
 
   def create_event_note(student, educator)
-    FactoryGirl.create(:event_note, {
+    FactoryBot.create(:event_note, {
       student: student,
       educator: educator,
     })
   end
 
   describe '#show' do
-    let!(:school) { FactoryGirl.create(:school) }
-    let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
-    let(:other_educator) { FactoryGirl.create(:educator, full_name: "Teacher, Louis") }
-    let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
-    let(:course) { FactoryGirl.create(:course, school: school) }
-    let(:section) { FactoryGirl.create(:section, course: course) }
-    let!(:ssa) { FactoryGirl.create(:student_section_assignment, student: student, section: section) }
-    let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: other_educator, section: section)}
+    let!(:school) { FactoryBot.create(:school) }
+    let(:educator) { FactoryBot.create(:educator_with_homeroom) }
+    let(:other_educator) { FactoryBot.create(:educator, full_name: "Teacher, Louis") }
+    let(:student) { FactoryBot.create(:student, :with_risk_level, school: school) }
+    let(:course) { FactoryBot.create(:course, school: school) }
+    let(:section) { FactoryBot.create(:section, course: course) }
+    let!(:ssa) { FactoryBot.create(:student_section_assignment, student: student, section: section) }
+    let!(:esa) { FactoryBot.create(:educator_section_assignment, educator: other_educator, section: section)}
     let(:homeroom) { student.homeroom }
 
     def make_request(options = { student_id: nil, format: :html })
@@ -46,7 +46,7 @@ describe StudentsController, :type => :controller do
       before { sign_in(educator) }
 
       context 'educator has schoolwide access' do
-        let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+        let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
         let(:serialized_data) { assigns(:serialized_data) }
 
         it 'is successful' do
@@ -112,14 +112,14 @@ describe StudentsController, :type => :controller do
         end
 
         context 'student has multiple discipline incidents' do
-          let!(:student) { FactoryGirl.create(:student, school: school) }
+          let!(:student) { FactoryBot.create(:student, school: school) }
           let(:most_recent_school_year) { student.most_recent_school_year }
           let(:serialized_data) { assigns(:serialized_data) }
           let(:attendance_data) { serialized_data[:attendance_data] }
           let(:discipline_incidents) { attendance_data[:discipline_incidents] }
 
           let!(:more_recent_incident) {
-            FactoryGirl.create(
+            FactoryBot.create(
               :discipline_incident,
               student: student,
               occurred_at: Time.now - 1.day
@@ -127,7 +127,7 @@ describe StudentsController, :type => :controller do
           }
 
           let!(:less_recent_incident) {
-            FactoryGirl.create(
+            FactoryBot.create(
               :discipline_incident,
               student: student,
               occurred_at: Time.now - 2.days
@@ -142,7 +142,7 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator has grade level access' do
-        let(:educator) { FactoryGirl.create(:educator, grade_level_access: [student.grade], school: school )}
+        let(:educator) { FactoryBot.create(:educator, grade_level_access: [student.grade], school: school )}
 
         it 'is successful' do
           make_request({ student_id: student.id, format: :html })
@@ -151,7 +151,7 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator has homeroom access' do
-        let(:educator) { FactoryGirl.create(:educator, school: school) }
+        let(:educator) { FactoryBot.create(:educator, school: school) }
         before { homeroom.update(educator: educator) }
 
         it 'is successful' do
@@ -161,12 +161,12 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator has section access' do
-        let!(:educator) { FactoryGirl.create(:educator, school: school)}
-        let!(:course) { FactoryGirl.create(:course, school: school)}
-        let!(:section) { FactoryGirl.create(:section) }
-        let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: section) }
-        let!(:section_student) { FactoryGirl.create(:student, school: school) }
-        let!(:ssa) { FactoryGirl.create(:student_section_assignment, student: section_student, section: section) }
+        let!(:educator) { FactoryBot.create(:educator, school: school)}
+        let!(:course) { FactoryBot.create(:course, school: school)}
+        let!(:section) { FactoryBot.create(:section) }
+        let!(:esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: section) }
+        let!(:section_student) { FactoryBot.create(:student, school: school) }
+        let!(:ssa) { FactoryBot.create(:student_section_assignment, student: section_student, section: section) }
 
         it 'is successful' do
           make_request({ student_id: section_student.id, format: :html })
@@ -175,7 +175,7 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator does not have schoolwide, grade level, or homeroom access' do
-        let(:educator) { FactoryGirl.create(:educator, school: school) }
+        let(:educator) { FactoryBot.create(:educator, school: school) }
 
         it 'fails' do
           make_request({ student_id: student.id, format: :html })
@@ -184,8 +184,8 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator has some grade level access but for the wrong grade' do
-        let(:student) { FactoryGirl.create(:student, :with_risk_level, grade: '1', school: school) }
-        let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['KF'], school: school) }
+        let(:student) { FactoryBot.create(:student, :with_risk_level, grade: '1', school: school) }
+        let(:educator) { FactoryBot.create(:educator, grade_level_access: ['KF'], school: school) }
 
         it 'fails' do
           make_request({ student_id: student.id, format: :html })
@@ -194,14 +194,14 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator access restricted to SPED students' do
-        let(:educator) { FactoryGirl.create(:educator,
+        let(:educator) { FactoryBot.create(:educator,
                                             grade_level_access: ['1'],
                                             restricted_to_sped_students: true,
                                             school: school )
         }
 
         context 'student in SPED' do
-          let(:student) { FactoryGirl.create(:student,
+          let(:student) { FactoryBot.create(:student,
                                               :with_risk_level,
                                               grade: '1',
                                               program_assigned: 'Sp Ed',
@@ -215,7 +215,7 @@ describe StudentsController, :type => :controller do
         end
 
         context 'student in Reg Ed' do
-          let(:student) { FactoryGirl.create(:student,
+          let(:student) { FactoryBot.create(:student,
                                               :with_risk_level,
                                               grade: '1',
                                               program_assigned: 'Reg Ed')
@@ -230,14 +230,14 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator access restricted to ELL students' do
-        let(:educator) { FactoryGirl.create(:educator,
+        let(:educator) { FactoryBot.create(:educator,
                                             grade_level_access: ['1'],
                                             restricted_to_english_language_learners: true,
                                             school: school )
         }
 
         context 'limited English proficiency' do
-          let(:student) { FactoryGirl.create(:student,
+          let(:student) { FactoryBot.create(:student,
                                               :with_risk_level,
                                               grade: '1',
                                               limited_english_proficiency: 'FLEP',
@@ -251,7 +251,7 @@ describe StudentsController, :type => :controller do
         end
 
         context 'fluent in English' do
-          let(:student) { FactoryGirl.create(:student,
+          let(:student) { FactoryBot.create(:student,
                                               :with_risk_level,
                                               grade: '1',
                                               limited_english_proficiency: 'Fluent')
@@ -267,7 +267,7 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#service' do
-    let!(:school) { FactoryGirl.create(:school) }
+    let!(:school) { FactoryBot.create(:school) }
 
     def make_post_request(student, service_params = {})
       request.env['HTTPS'] = 'on'
@@ -279,9 +279,9 @@ describe StudentsController, :type => :controller do
     end
 
     context 'admin educator logged in' do
-      let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-      let!(:provided_by_educator) { FactoryGirl.create(:educator, school: school) }
-      let!(:student) { FactoryGirl.create(:student, school: school) }
+      let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+      let!(:provided_by_educator) { FactoryBot.create(:educator, school: school) }
+      let!(:student) { FactoryBot.create(:student, school: school) }
 
       before do
         sign_in(educator)
@@ -354,7 +354,7 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#names' do
-    let(:school) { FactoryGirl.create(:healey) }
+    let(:school) { FactoryBot.create(:healey) }
 
     def make_request
       request.env['HTTPS'] = 'on'
@@ -362,16 +362,16 @@ describe StudentsController, :type => :controller do
     end
 
     context 'admin educator logged in, no cached student names' do
-      let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
+      let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
       before { sign_in(educator) }
       let!(:juan) {
-        FactoryGirl.create(
+        FactoryBot.create(
           :student, first_name: 'Juan', last_name: 'P', school: school, grade: '5'
         )
       }
 
       let!(:jacob) {
-        FactoryGirl.create(:student, first_name: 'Jacob', grade: '5')
+        FactoryBot.create(:student, first_name: 'Jacob', grade: '5')
       }
 
       it 'returns an array of student labels and ids that match educator\'s students' do
@@ -385,7 +385,7 @@ describe StudentsController, :type => :controller do
 
     context 'admin educator logged in, cached student names' do
       let!(:educator) {
-        FactoryGirl.create(
+        FactoryBot.create(
           :educator, :admin,
           school: school,
           student_searchbar_json: "[{\"label\":\"Juan P - HEA - 5\",\"id\":\"700\"}]"
@@ -404,10 +404,10 @@ describe StudentsController, :type => :controller do
     end
 
     context 'educator without authorization to students' do
-      let!(:educator) { FactoryGirl.create(:educator) }
+      let!(:educator) { FactoryBot.create(:educator) }
       before { sign_in(educator) }
-      let(:healey) { FactoryGirl.create(:healey) }
-      let!(:juan) { FactoryGirl.create(:student, first_name: 'Juan', school: healey, grade: '5') }
+      let(:healey) { FactoryBot.create(:healey) }
+      let!(:juan) { FactoryBot.create(:student, first_name: 'Juan', school: healey, grade: '5') }
 
       it 'returns an empty array' do
         make_request
@@ -426,7 +426,7 @@ describe StudentsController, :type => :controller do
 
   describe '#serialize_student_for_profile' do
     it 'returns a hash with the additional keys that UI code expects' do
-      student = FactoryGirl.create(:student)
+      student = FactoryBot.create(:student)
       serialized_student = controller.send(:serialize_student_for_profile, student)
       expect(serialized_student.keys).to include(*[
         'student_risk_level',
@@ -440,8 +440,8 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#student_feed' do
-    let(:student) { FactoryGirl.create(:student) }
-    let(:educator) { FactoryGirl.create(:educator, :admin) }
+    let(:student) { FactoryBot.create(:student) }
+    let(:educator) { FactoryBot.create(:educator, :admin) }
     let!(:service) { create_service(student, educator) }
     let!(:event_note) { create_event_note(student, educator) }
 
@@ -471,9 +471,9 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#restricted_notes' do
-    let!(:school) { FactoryGirl.create(:school) }
-    let(:educator) { FactoryGirl.create(:educator_with_homeroom) }
-    let(:student) { FactoryGirl.create(:student, school: school) }
+    let!(:school) { FactoryBot.create(:school) }
+    let(:educator) { FactoryBot.create(:educator_with_homeroom) }
+    let(:student) { FactoryBot.create(:student, school: school) }
 
     def make_request(student)
       request.env['HTTPS'] = 'on'
@@ -484,7 +484,7 @@ describe StudentsController, :type => :controller do
       before { sign_in(educator) }
 
       context 'educator cannot view restricted notes' do
-        let(:educator) { FactoryGirl.create(:educator, :admin, can_view_restricted_notes: false, school: school) }
+        let(:educator) { FactoryBot.create(:educator, :admin, can_view_restricted_notes: false, school: school) }
 
         it 'is not successful' do
           make_request(student)
@@ -493,7 +493,7 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator can view restricted notes but is not authorized for student' do
-        let(:educator) { FactoryGirl.create(:educator, schoolwide_access: false, can_view_restricted_notes: true, school: school) }
+        let(:educator) { FactoryBot.create(:educator, schoolwide_access: false, can_view_restricted_notes: true, school: school) }
 
         it 'is not successful' do
           make_request(student)
@@ -502,7 +502,7 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator can view restricted notes' do
-        let(:educator) { FactoryGirl.create(:educator, :admin, can_view_restricted_notes: true, school: school) }
+        let(:educator) { FactoryBot.create(:educator, :admin, can_view_restricted_notes: true, school: school) }
 
         it 'is successful' do
           make_request(student)
@@ -519,14 +519,14 @@ describe StudentsController, :type => :controller do
     end
 
     before do
-      FactoryGirl.create(:student, local_id: '111')
-      FactoryGirl.create(:student, local_id: '222')
+      FactoryBot.create(:student, local_id: '111')
+      FactoryBot.create(:student, local_id: '222')
     end
 
     let(:parsed_response) { JSON.parse(response.body) }
 
     context 'admin with districtwide access' do
-      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: true) }
+      let(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: true) }
       it 'returns an array of student lasids' do
         sign_in(educator)
         make_request
@@ -535,7 +535,7 @@ describe StudentsController, :type => :controller do
     end
 
     context 'non-admin' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { FactoryBot.create(:educator) }
       it 'does not return any lasids' do
         sign_in(educator)
         make_request
@@ -552,9 +552,9 @@ describe StudentsController, :type => :controller do
   end
 
   describe '#student_report' do
-    let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-    let(:school) { FactoryGirl.create(:school) }
-    let(:student) { FactoryGirl.create(:student, :with_risk_level, school: school) }
+    let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+    let(:school) { FactoryBot.create(:school) }
+    let(:student) { FactoryBot.create(:student, :with_risk_level, school: school) }
 
     def make_request(options = { student_id: nil, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017'})
       request.env['HTTPS'] = 'on'
@@ -591,23 +591,23 @@ describe StudentsController, :type => :controller do
         end
 
         it 'assigns the student\'s services correctly with full history' do
-          old_service = FactoryGirl.create(:service, date_started: '2012-02-22', student: student, discontinued_at: '2012-05-21')
-          recent_service = FactoryGirl.create(:service, date_started: '2016-01-13', student: student, discontinued_at: nil)
+          old_service = FactoryBot.create(:service, date_started: '2012-02-22', student: student, discontinued_at: '2012-05-21')
+          recent_service = FactoryBot.create(:service, date_started: '2016-01-13', student: student, discontinued_at: nil)
           expect(assigns(:services)).not_to include(old_service)
           expect(assigns(:services)).to include(recent_service)
         end
 
         it 'assigns the student\'s notes correctly excluding restricted notes' do
-          restricted_note = FactoryGirl.create(:event_note, :restricted, student: student, educator: educator)
-          note = FactoryGirl.create(:event_note, student: student, educator: educator)
+          restricted_note = FactoryBot.create(:event_note, :restricted, student: student, educator: educator)
+          note = FactoryBot.create(:event_note, student: student, educator: educator)
           expect(assigns(:event_notes)).to include(note)
           expect(assigns(:event_notes)).not_to include(restricted_note)
         end
 
         it 'assigns the student\'s school years correctly' do
-          incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
-          absence = FactoryGirl.create(:absence, student: student, occurred_at: '2015-08-16')
-          tardy = FactoryGirl.create(:tardy, student: student, occurred_at: '2015-08-17')
+          incident = FactoryBot.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
+          absence = FactoryBot.create(:absence, student: student, occurred_at: '2015-08-16')
+          tardy = FactoryBot.create(:tardy, student: student, occurred_at: '2015-08-17')
           make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
 
           expect(assigns(:student_school_years)[0].discipline_incidents).to include(incident)
@@ -616,8 +616,8 @@ describe StudentsController, :type => :controller do
         end
 
         it 'assigns the student\'s discipline incidents correctly' do
-          incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
-          old_incident = FactoryGirl.create(:discipline_incident, student: student, occurred_at: '2015-08-14')
+          incident = FactoryBot.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
+          old_incident = FactoryBot.create(:discipline_incident, student: student, occurred_at: '2015-08-14')
           make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
 
           expect(assigns(:discipline_incidents)).to include(incident)
@@ -625,10 +625,10 @@ describe StudentsController, :type => :controller do
         end
 
         it 'assigns the student\'s assesments correctly' do
-          assessment = FactoryGirl.create(:assessment, :access)
-          student_assessment = FactoryGirl.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
-          assessment = FactoryGirl.create(:assessment, :math, :star)
-          student_assessment = FactoryGirl.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2017-02-16')
+          assessment = FactoryBot.create(:assessment, :access)
+          student_assessment = FactoryBot.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
+          assessment = FactoryBot.create(:assessment, :math, :star)
+          student_assessment = FactoryBot.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2017-02-16')
           make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
 
           expect(assigns(:student_assessments)).to include("ACCESS Composite")

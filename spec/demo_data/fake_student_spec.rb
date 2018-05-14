@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe FakeStudent do
 
-  let!(:school) { FactoryGirl.create(:school) }
-  let!(:homeroom) { FactoryGirl.create(:homeroom, grade: '5') }
-  before { FactoryGirl.create(:educator, :admin) }
+  let!(:school) { FactoryBot.create(:school) }
+  let!(:homeroom) { FactoryBot.create(:homeroom, grade: '5') }
+  before { FactoryBot.create(:educator, :admin) }
 
   let(:student) { described_class.new(school, homeroom).student }
 

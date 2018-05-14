@@ -22,6 +22,7 @@ class TestPals
 
   # educators
   attr_reader :uri
+  attr_reader :rich_districtwide
   attr_reader :healey_vivian_teacher
   attr_reader :healey_ell_teacher
   attr_reader :healey_sped_teacher
@@ -57,7 +58,7 @@ class TestPals
   def create!
     School.seed_somerville_schools
 
-    # Uri works in the central office, and is the admin for the entire
+    # Uri works in the central office, and is the admin for the
     # project at the district.
     @uri = Educator.create!(
       id: 999999,
@@ -73,6 +74,23 @@ class TestPals
       grade_level_access: [],
       can_view_restricted_notes: true,
       school: School.find_by_local_id('HEA')
+    )
+
+    # Rich works in the central office and has districwide access, but
+    # not project lead access.
+    @rich_districtwide = Educator.create!(
+      email: 'rich@demo.studentinsights.org',
+      full_name: 'Districtwide, Rich',
+      password: 'demo-password',
+      can_set_districtwide_access: false,
+      districtwide_access: true,
+      admin: true,
+      schoolwide_access: true,
+      restricted_to_sped_students: false,
+      restricted_to_english_language_learners: false,
+      grade_level_access: [],
+      can_view_restricted_notes: true,
+      school: nil
     )
 
     # Healey is a K8 school.
@@ -293,12 +311,6 @@ class TestPals
       grade_numeric: 67,
       grade_letter: 'D'
     )
-    4.times.each do |index|
-      Absence.create!({
-        occurred_at: time_now - index.days,
-        student: @shs_freshman_mari
-      })
-    end
 
     reindex!
     self

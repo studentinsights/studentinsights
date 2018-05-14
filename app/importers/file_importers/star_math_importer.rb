@@ -70,6 +70,6 @@ class StarMathImporter
   end
 
   def log(msg)
-    @log.write "StarMathImporter: #{msg}"
+    @log.puts "StarMathImporter: #{msg}"
   end
 end

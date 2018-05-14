@@ -3,7 +3,7 @@ import {toMomentFromTime} from '../../../app/assets/javascripts/helpers/toMoment
 
 // A container for testing that allows passing in a `nowFn`
 // that will be shared with child components through context.
-class NowContainer extends React.Component {
+export default class NowContainer extends React.Component {
   getChildContext() {
     const {nowFn} = this.props;
     return {
@@ -48,5 +48,3 @@ export function withNowContext(timeString, children) {
 export function withDefaultNowContext(children) {
   return withNowContext(TEST_TIME_STRING, children);
 }
-
-export default NowContainer;

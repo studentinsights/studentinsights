@@ -1,5 +1,4 @@
-
-//stubbed events for dashboard specs
+// Stubbed events for dashboard specs
 export function createTestEvents(nowMoment) {
   return {
     oneMonthAgo: {
@@ -29,14 +28,14 @@ export function createTestEvents(nowMoment) {
   };
 }
 
-
-//stubbed students for dashboard specs
+// Stubbed students for dashboard specs
 export function createStudents(nowMoment) {
   const testEvents = createTestEvents(nowMoment);
   return [{
     first_name: 'Pierrot',
     last_name: 'Zanni',
     homeroom_label: 'Test 1',
+    grade: '4',
     id: 1,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
@@ -47,6 +46,7 @@ export function createStudents(nowMoment) {
     first_name: 'Pierrette',
     last_name: 'Zanni',
     homeroom_label: 'Test 1',
+    grade: 'KF',
     id: 2,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
@@ -57,6 +57,7 @@ export function createStudents(nowMoment) {
     first_name: 'Arlecchino',
     last_name: 'ZZanni',
     homeroom_label: 'Test 1',
+    grade: '4',
     id: 3,
     absences: [],
     tardies: [],
@@ -67,6 +68,7 @@ export function createStudents(nowMoment) {
     first_name: 'Colombina',
     last_name: 'Zanni',
     homeroom_label: 'Test 2',
+    grade: '3',
     id: 4,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.oneYearAgo],
     tardies: [testEvents.thisMonth],
@@ -77,17 +79,18 @@ export function createStudents(nowMoment) {
     first_name: 'Scaramuccia',
     last_name: 'Avecchi',
     homeroom_label: 'Test 2',
+    grade: '4',
     id: 5,
     absences: [testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneYearAgo],
     events: 2,
     last_sst_date_text: null
   },
-
   {
     first_name: 'Pulcinella',
     last_name: 'Vecchi',
-    homeroom_label: null,
+    homeroom_label: 'No Homeroom',
+    grade: '4',
     id: 6,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
@@ -96,10 +99,9 @@ export function createStudents(nowMoment) {
   }];
 }
 
-
 export function createSchoolTardyEvents(nowMoment) {
   const testEvents = createTestEvents(nowMoment);
-  
+
   const oneMonthAgo = nowMoment.clone().subtract(1, 'months').format('YYYY-MM-DD');
   const threeMonthsAgo = nowMoment.clone().subtract(3, 'months').format('YYYY-MM-DD');
   const fourMonthsAgo = nowMoment.clone().subtract(4, 'months').format('YYYY-MM-DD');
@@ -113,4 +115,3 @@ export function createSchoolTardyEvents(nowMoment) {
 
   return schoolTardyEvents;
 }
-

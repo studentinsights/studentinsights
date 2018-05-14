@@ -16,6 +16,8 @@ class AttendanceRow < Struct.new(:row)
       def valid?; false end
 
       def errors; NullEventErrors.new end
+
+      def assign_attributes(attributes); end
     end
 
     def self.find_or_initialize_by(_)
@@ -32,6 +34,15 @@ class AttendanceRow < Struct.new(:row)
       occurred_at: row[:event_date],
       student_id: student.try(:id),
     )
+
+    if PerDistrict.new.import_detailed_attendance_fields?
+      attendance_event.assign_attributes(
+        dismissed: row[:dismissed],
+        excused: row[:excused],
+        reason: row[:reason],
+        comment: row[:comment],
+      )
+    end
 
     return attendance_event
   end

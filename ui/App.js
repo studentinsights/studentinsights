@@ -10,7 +10,11 @@ import DashboardLoader from '../app/assets/javascripts/school_administrator_dash
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
-import SchoolEquityPrincipalPage from '../app/assets/javascripts/equity/SchoolEquityPrincipalPage';
+import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
+import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
+import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
+import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
+import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -46,12 +50,18 @@ class App extends React.Component {
     return (
       <MountTimer>
         <Switch>
+          <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
           <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
           <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
           <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
           <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
-          <Route exact path="/schools/:id/equity/principal" render={this.renderSchoolEquityPrincipalPage.bind(this)}/>
+          <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
+          <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
+          <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
+          <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
+          <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
+          <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
       </MountTimer>
@@ -67,10 +77,25 @@ class App extends React.Component {
       educatorLabels={labels} />;
   }
 
-  renderSchoolEquityPrincipalPage(routeProps) {
+  renderExploreSchoolEquityPage(routeProps) {
     const schoolId = routeProps.match.params.id;
-    this.trackVisit(routeProps, 'SCHOOL_EQUITY_PRINCIPAL_PAGE');
-    return <SchoolEquityPrincipalPage schoolId={schoolId} />;
+    this.trackVisit(routeProps, 'EXPLORE_SCHOOL_EQUITY_PAGE');
+    return <ExploreSchoolEquityPage schoolId={schoolId} />;
+  }
+
+  renderClassListsViewPage(routeProps) {
+    this.trackVisit(routeProps, 'CLASSROOM_LISTS_VIEW_PAGE');
+    return <ClassListsViewPage />;
+  }
+
+  renderClassListCreatorEdit(routeProps) {
+    const workspaceId = routeProps.match.params.workspace_id;
+    this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
+    return <ClassListCreatorPage defaultWorkspaceId={workspaceId} />;
+  }
+  renderClassListCreatorNew(routeProps) {
+    this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
+    return <ClassListCreatorPage />;
   }
 
   renderSchoolCoursesPage(routeProps) {
@@ -85,12 +110,26 @@ class App extends React.Component {
     return <EducatorPage educatorId={educatorId} />;
   }
 
+  renderImportRecordsPage(routeProps) {
+    this.trackVisit(routeProps, 'IMPORT_RECORDS_PAGE');
+    return <ImportRecordsPage />;
+  }
+
   renderAbsencesDashboard(routeProps) {
     return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'absences'} />;
   }
 
   renderTardiesDashboard(routeProps) {
     return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'tardies'}/>;
+  }
+
+  renderDisciplineDashboard(routeProps) {
+    return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'discipline'}/>;
+  }
+
+  renderDistrictEnrollmentPage(routeProps) {
+    this.trackVisit(routeProps, 'DISTRICT_ENROLLMENT_PAGE');
+    return <DistrictEnrollmentPage />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the
@@ -101,9 +140,11 @@ class App extends React.Component {
     return null;
   }
 }
+
 App.childContextTypes = {
   nowFn: React.PropTypes.func
 };
+
 App.propTypes = {
   currentEducator: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,

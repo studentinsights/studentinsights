@@ -96,6 +96,6 @@ class ImportTaskReport
   end
 
   def log(msg)
-    @log.write "ImportTaskReport: #{msg}"
+    @log.puts "ImportTaskReport: #{msg}"
   end
 end

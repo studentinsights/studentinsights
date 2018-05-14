@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BehaviorRow do
 
-  let!(:student) { FactoryGirl.create(:student) }
+  let!(:student) { FactoryBot.create(:student) }
 
   let(:data) do
     {

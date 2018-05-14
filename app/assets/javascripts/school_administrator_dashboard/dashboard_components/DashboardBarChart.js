@@ -59,7 +59,7 @@ DashboardBarChart.propTypes = {
   seriesData: PropTypes.array.isRequired, // array of JSON event objects.
   yAxisMin: PropTypes.number,
   yAxisMax: PropTypes.number,
-  titleText: PropTypes.string.isRequired,
+  titleText: PropTypes.string, //discipline dashboard makes its own title
   measureText: PropTypes.string.isRequired,
   tooltip: PropTypes.object.isRequired,
   onColumnClick: PropTypes.func,

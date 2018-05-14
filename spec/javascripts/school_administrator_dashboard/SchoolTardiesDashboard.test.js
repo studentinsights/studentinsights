@@ -17,7 +17,7 @@ describe('SchoolTardiesDashboard', () => {
     'Test 1': [testEvents.oneMonthAgo, testEvents.fourMonthsAgo],
     'No Homeroom': [testEvents.oneMonthAgo, testEvents.oneYearAgo]
   };
-  
+
   const dash = shallow(<SchoolTardiesDashboard
                        schoolTardyEvents={schoolTardyEvents}
                        homeroomTardyEvents={homeroomTardyEvents}
@@ -32,9 +32,10 @@ describe('SchoolTardiesDashboard', () => {
   });
 
 
-  it('displays only the past 3 months of total school data', () => {
+  it('filters events outside the start date', () => {
+    dash.setState({startDate: moment.utc(testEvents.fourMonthsAgo.occurred_at).format("YYYY-MM-DD")});
     const seriesData = dash.find('DashboardBarChart').first().props().seriesData;
-    expect(seriesData[0][0]).toEqual(moment.utc(testEvents.threeMonthsAgo.occurred_at).format('ddd MM/DD'));
+    expect(seriesData[0][0]).toEqual(moment.utc(testEvents.fourMonthsAgo.occurred_at).format('ddd MM/DD/YYYY'));
   });
 
 });

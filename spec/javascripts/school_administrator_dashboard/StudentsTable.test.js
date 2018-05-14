@@ -1,59 +1,78 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-
+import {mount} from 'enzyme';
 import StudentsTable from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/StudentsTable.js';
 import {createStudents} from './DashboardTestData.js';
 
-describe('Dashboard Students Table', () => {
-  const nowMoment = moment.utc();
-  const table = shallow(<StudentsTable rows={createStudents(nowMoment)}/>);
+function testRender(options = {}) {
+  const nowMoment = options.nowMoment || moment.utc();
+  const table = mount(<StudentsTable rows={createStudents(nowMoment)} incidentType={"Test Incidents"} resetFn={(value) => null}/>);
+  return table;
+}
 
+describe('Dashboard Students Table', () => {
   it('renders the students list', () => {
-    expect(table.find("div").hasClass("StudentsList")).toEqual(true);
+    const table = testRender();
+    expect(table.find("div").first().hasClass("StudentsTable")).toEqual(true);
   });
 
   it('renders headers for name, incident count and last SST', () => {
-    const headerTexts = table.find('thead th').map(node => node.text());
-    expect(headerTexts).toEqual(['Name', 'Incidents', 'Last SST']);
+    const table = testRender();
+    const headerTexts = table.find('.ReactVirtualized__Table__headerColumn').map(node => node.text());
+    expect(headerTexts).toEqual(['Name', 'Grade', 'Test Incidents', 'Last SST']);
   });
 
   it('renders the first row', () => {
-    const cellTexts = table.find('tbody tr').first().find('td').map(node => node.text());
+    const nowMoment = moment.utc();
+    const table = testRender({nowMoment});
+    const cellTexts = table.find('.ReactVirtualized__Table__row').first().find('.ReactVirtualized__Table__rowColumn').map(node => node.text());
     expect(cellTexts).toEqual([
       "Pierrot Zanni",
+      "4",
       "3",
       nowMoment.clone().subtract(3, 'months').format('M/D/YY'),
     ]);
   });
 
   it('tallies the total events', () => {
-    expect(table.instance().totalEvents()).toEqual(12);
+    const table = testRender();
+    expect(table.instance().renderTotalEvents()).toEqual(12);
   });
 
   it('orders the students by total events by default', () => {
+    const table = testRender();
     expect(table.instance().orderedRows()[5].first_name).toEqual("Arlecchino");
   });
 
   it('orders students by name when Name is clicked', () => {
-    table.find('.sort-header').first().simulate('click');
-    expect(table.state().sortBy).toEqual("last_name");
-    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('Scaramuccia Avecchi');
+    const table = testRender();
+    table.find('.ReactVirtualized__Table__headerColumn').first().simulate('click');
+    expect(table.state().sortBy).toEqual("name");
+    expect(table.find('.ReactVirtualized__Table__rowColumn').first().text()).toEqual('Scaramuccia Avecchi');
   });
 
   it('reorders in reverse alphabetical order', () => {
-    table.find('.sort-header').first().simulate('click');
-    expect(table.state().sortBy).toEqual("last_name");
-    expect(table.find('tbody').find('tr').first().find('td').first().text()).toEqual('Arlecchino ZZanni');
+    const table = testRender();
+    table.find('.ReactVirtualized__Table__headerColumn').first().simulate('click');
+    table.find('.ReactVirtualized__Table__headerColumn').first().simulate('click');
+    expect(table.state().sortBy).toEqual("name");
+    expect(table.find('.ReactVirtualized__Table__rowColumn').first().text()).toEqual('Arlecchino ZZanni');
+  });
+
+  it('orders students by events when Grades is clicked', () => {
+    const table = testRender();
+    table.find('.ReactVirtualized__Table__headerColumn').at(1).simulate('click');
+    expect(table.state().sortBy).toEqual("grade");
   });
 
   it('orders students by events when Incidents is clicked', () => {
-    table.find('.sort-header').at(1).simulate('click');
+    const table = testRender();
+    table.find('.ReactVirtualized__Table__headerColumn').at(2).simulate('click');
     expect(table.state().sortBy).toEqual("events");
   });
 
-  it('orders students by events when Incidents is clicked', () => {
-    table.find('.sort-header').at(2).simulate('click');
+  it('orders students by events when Last SST is clicked', () => {
+    const table = testRender();
+    table.find('.ReactVirtualized__Table__headerColumn').at(3).simulate('click');
     expect(table.state().sortBy).toEqual("last_sst_date_text");
   });
-
 });

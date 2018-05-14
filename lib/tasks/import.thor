@@ -22,10 +22,12 @@ class Import
       desc: "Import data in a background job"
 
     def import
+      job_options = options.merge({ attempt: 0 })
+
       if options.fetch(:background)
-        Delayed::Job.enqueue ImportJob.new(options: options)
+        Delayed::Job.enqueue ImportJob.new(options: job_options)
       else
-        ImportTask.new(options: options).connect_transform_import
+        ImportTask.new(options: job_options).connect_transform_import
       end
     end
   end

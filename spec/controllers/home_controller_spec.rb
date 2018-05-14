@@ -24,6 +24,10 @@ describe HomeController, :type => :controller do
         occurred_at: time_now - 4.days,
         student: pals.shs_freshman_mari
       })
+      mock_feed = instance_double(Feed)
+      expect(mock_feed).to receive(:all_cards) { [] }
+      expect(Feed).to receive(:new).and_return(mock_feed)
+
       sign_in(pals.shs_jodi)
       get :feed_json, params: {
         time_now: time_now.to_i.to_s,
@@ -32,76 +36,8 @@ describe HomeController, :type => :controller do
       }
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json['feed_cards'].length).to eq 3
-      expect(json).to eq({
-        "feed_cards"=>[{
-          "type"=>"birthday_card",
-          "timestamp"=>"2018-03-12T00:00:00.000Z",
-          "json"=>{
-            "id"=>pals.shs_freshman_mari.id,
-            "first_name"=>"Mari",
-            "last_name"=>"Kenobi",
-            "date_of_birth"=>"2004-03-12T00:00:00.000Z"
-          }
-        }, {
-          "type"=>"incident_card",
-          "timestamp"=>"2018-03-09T11:03:00.000Z",
-          "json"=>{
-            "id"=>incident.id,
-            "incident_code"=>"Bullying",
-            "incident_location"=>nil,
-            "incident_description"=>nil,
-            "occurred_at"=>"2018-03-09T11:03:00.000Z",
-            "has_exact_time"=>nil,
-            "student"=>{
-              "id"=>pals.shs_freshman_mari.id,
-              "grade"=>"9",
-              "first_name"=>"Mari",
-              "last_name"=>"Kenobi",
-              "house"=>"Beacon",
-              "homeroom"=>{
-                "id"=>pals.shs_jodi_homeroom.id,
-                "name"=>"SHS 942",
-                "educator"=>{
-                  "id"=>pals.shs_jodi.id,
-                  "email"=>"jodi@demo.studentinsights.org",
-                  "full_name"=>"Teacher, Jodi"
-                }
-              }
-            }
-          }
-        }, {
-          "type"=>"event_note_card",
-          "timestamp"=>"2018-03-06T11:03:00.000Z",
-          "json"=>{
-            "id"=>event_note.id,
-            "event_note_type_id"=>305,
-            "text"=>"blah",
-            "recorded_at"=>"2018-03-06T11:03:00.000Z",
-            "educator"=>{
-              "id"=>pals.uri.id,
-              "email"=>"uri@demo.studentinsights.org",
-              "full_name"=>"Disney, Uri"
-            },
-            "student"=>{
-              "id"=>pals.shs_freshman_mari.id,
-              "grade"=>"9",
-              "first_name"=>"Mari",
-              "last_name"=>"Kenobi",
-              "house"=>'Beacon',
-              "homeroom"=>{
-                "id"=>pals.shs_jodi_homeroom.id,
-                "name"=>"SHS 942",
-                "educator"=>{
-                  "id"=>pals.shs_jodi.id,
-                  "email"=>"jodi@demo.studentinsights.org",
-                  "full_name"=>"Teacher, Jodi"
-                }
-              }
-            }
-          }
-        }]
-      })
+      expect(json.keys).to eq ['feed_cards']
+      expect(json['feed_cards'].length).to eq 0
     end
 
     describe 'doppleganging' do
@@ -256,6 +192,15 @@ describe HomeController, :type => :controller do
   end
 
   describe '#students_with_high_absences_json' do
+    before do
+      4.times.each do |index|
+        Absence.create!({
+          occurred_at: time_now - index.days,
+          student: pals.shs_freshman_mari
+        })
+      end
+    end
+
     it 'works end-to-end, using absences for Mari as the test case' do
       sign_in(pals.shs_bill_nye)
       get :students_with_high_absences_json, params: {
