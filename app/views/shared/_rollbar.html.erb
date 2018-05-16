@@ -29,6 +29,13 @@
     }
   }
 
+  // Only report if env exists.
+  function filterTelemetry(e) {
+    var env = readEnv();
+    if (env) return true;
+    return false;
+  }
+
   // Sets global configuration for the Rollbar error reporting library,
   // based on the environment, and then loads the Rollbar code or not.
   var _rollbarConfig = {
@@ -37,9 +44,16 @@
     captureUnhandledRejections: true,
     transform: transform,
     checkIgnore: checkIgnore,
+    filterTelemetry: filterTelemetry,
     autoInstrument: {
+      // Limit data we send to Rollbar
       log: false,
       dom: false,
+      networkResponseHeaders: false,
+      networkResponseBody: false,
+      networkRequestBody: false,
+
+      // These should contain no data other than URLs
       network: true,
       navigation: true,
       connectivity: true
