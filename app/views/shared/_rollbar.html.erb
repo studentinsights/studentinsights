@@ -36,7 +36,12 @@
     captureUncaught: true,
     captureUnhandledRejections: true,
     transform: transform,
-    checkIgnore: checkIgnore
+    checkIgnore: checkIgnore,
+    autoInstrument: {
+      network: true,
+      navigation: true,
+      connectivity: true
+    }
   };
 
   // Run vendor code
