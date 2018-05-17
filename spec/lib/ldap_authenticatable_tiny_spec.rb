@@ -49,7 +49,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'supersecure').and_return false
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(TestPalsMockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return false
 
       strategy.authenticate!
       expect(strategy.result).to eq :failure
@@ -61,7 +61,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'URI@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('URI@demo.studentinsights.org', 'supersecure').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(TestPalsMockLDAP, 'URI@demo.studentinsights.org', 'supersecure').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
@@ -73,7 +73,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'supersecure').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(TestPalsMockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
@@ -107,42 +107,58 @@ RSpec.describe 'LdapAuthenticatableTiny' do
 
   describe '#is_authorized_by_ldap? calls Net::LDAP correctly' do
     before { set_env }
+    let!(:pals) { TestPals.create! }
 
     it 'returns false and locks for invalid credentials' do
-      mock_ldap = instance_double(Net::LDAP)
-      expect(mock_ldap).to receive(:bind) { false }
-      expect(mock_ldap).to receive(:get_operation_result) { 'result-error-message' }
-      expect(Net::LDAP).to receive(:new).and_return(mock_ldap)
-
       strategy = test_strategy
-      expect(strategy.send(:is_authorized_by_ldap?, 'foo', 'bar')).to eq false
+
+      args = [
+        :is_authorized_by_ldap?,
+        TestPalsMockLDAP,
+        'uri@demo.studentinsights.org',
+        'bar'
+      ]
+
+      expect(strategy.send(*args)).to eq false
     end
 
     it 'returns true for valid credentials' do
-      mock_ldap = instance_double(Net::LDAP)
-      expect(mock_ldap).to receive(:bind) { true }
-      expect(Net::LDAP).to receive(:new).and_return(mock_ldap)
-
       strategy = test_strategy
-      expect(strategy.send(:is_authorized_by_ldap?, 'foo', 'bar')).to eq true
+
+      args = [
+        :is_authorized_by_ldap?,
+        TestPalsMockLDAP,
+        'uri@demo.studentinsights.org',
+        'demo-password'
+      ]
+
+      expect(strategy.send(*args)).to eq true
     end
 
     it 'returns false for nil password regardless' do
-      mock_ldap = instance_double(Net::LDAP)
-
       strategy = test_strategy
-      expect(mock_ldap).not_to receive(:bind)
-      expect(Net::LDAP).not_to receive(:new)
-      expect(strategy.send(:is_authorized_by_ldap?, 'foo', nil)).to eq false
+
+      args = [
+        :is_authorized_by_ldap?,
+        TestPalsMockLDAP,
+        'uri@demo.studentinsights.org',
+        nil
+      ]
+
+      expect(strategy.send(*args)).to eq false
     end
 
     it 'returns false for empty password regardless' do
-      mock_ldap = instance_double(Net::LDAP)
-
       strategy = test_strategy
-      expect(mock_ldap).not_to receive(:bind)
-      expect(Net::LDAP).not_to receive(:new)
-      expect(strategy.send(:is_authorized_by_ldap?, 'foo', '')).to eq false
+
+      args = [
+        :is_authorized_by_ldap?,
+        TestPalsMockLDAP,
+        'uri@demo.studentinsights.org',
+        ''
+      ]
+
+      expect(strategy.send(*args)).to eq false
     end
   end
 end
