@@ -9,9 +9,23 @@ class TestPalsMockLDAP
   def bind
     raise 'LDAP error' unless ::EnvironmentVariable.is_true('USE_TEST_PALS_LDAP')
 
-    return Educator.find_by_email(@email).present? && @password == 'demo-password'
+    return false unless email_present?
+
+    return false unless password_correct?
+
+    return true
   end
 
   def get_operation_result
+  end
+
+  private
+
+  def email_present?
+    Educator.find_by_email(@email).present?
+  end
+
+  def password_correct?
+    ENV.fetch('TEST_PALS_LDAP_PASSWORD') == @password
   end
 end
