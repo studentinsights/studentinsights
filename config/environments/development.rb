@@ -9,6 +9,8 @@ Rails.application.configure do
 
   ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
 
+  ENV['USE_TEST_PALS_LDAP'] = 'true'
+
   config.cache_classes = false
 
   # Do not eager load code on boot.

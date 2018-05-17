@@ -3,6 +3,8 @@ Rails.application.configure do
 
   ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
 
+  ENV['USE_TEST_PALS_LDAP'] = 'true'
+
   ENV['AWS_REGION'] = 'us-west-2'
 
   # The test environment is used exclusively to run your application's
