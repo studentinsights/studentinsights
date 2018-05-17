@@ -4,6 +4,7 @@ SecureHeaders::Configuration.default do |config|
   config.x_download_options = nil
   
   if EnvironmentVariable.is_true('ENABLE_CSP')
+    config.csp = SecureHeaders::OPT_OUT # don't enforce yet
     config.csp_report_only = { # don't enforce yet
       # core resources
       default_src: %w('self' https:),
