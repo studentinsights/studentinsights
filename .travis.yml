@@ -31,5 +31,6 @@ script:
   - bundle exec rake immigrant:check_keys
   - ./scripts/ci/detect_package_lock.sh
   - rubocop
+  - bundle exec brakeman -z
   - bundle exec rspec spec
   - yarn test-cli
