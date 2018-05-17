@@ -98,9 +98,6 @@ ActiveRecord::Schema.define(version: 20180523030653) do
 
   create_table "educators", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
@@ -125,7 +122,6 @@ ActiveRecord::Schema.define(version: 20180523030653) do
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
-    t.index ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true
   end
 
   create_table "event_note_attachments", id: :serial, force: :cascade do |t|
