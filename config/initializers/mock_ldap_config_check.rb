@@ -10,8 +10,8 @@ if should_use_mock_ldap && env_is_production && !district_is_demo
   raise 'Mocking LDAP not allowed in production except for demo site'
 end
 
-# Guard to make srue that if we're using the fake demo accounts for auth,
-# we also have the demo password value set in ENV:
+# Guard to make sure that if we're using the fake demo accounts for auth,
+# we also have demo passwords set in ENV:
 if should_use_mock_ldap && env_is_production && ENV['TEST_PALS_LDAP_PASSWORD'].nil?
   raise 'Missing mock LDAP password'
 else
