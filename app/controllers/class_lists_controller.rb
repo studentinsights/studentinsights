@@ -1,6 +1,5 @@
 class ClassListsController < ApplicationController
-  # This entire feature is Somerville-specific
-  before_action :ensure_somerville_only!
+  before_action :ensure_feature_enabled_for_district!
 
   # For showing the list of all workspaces that the user can read
   def workspaces_json
@@ -224,8 +223,7 @@ class ClassListsController < ApplicationController
     end
   end
 
-  def ensure_somerville_only!
-    district_key = PerDistrict.new.district_key
-    raise Exceptions::EducatorNotAuthorized unless district_key == PerDistrict::SOMERVILLE
+  def ensure_feature_enabled_for_district!
+    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_class_lists?
   end
 end
