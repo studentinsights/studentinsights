@@ -4,14 +4,14 @@ env_is_production = Rails.env.production?
 
 district_is_demo = (ENV.fetch('DISTRICT_KEY') == 'demo')
 
-# Guard on app initialize to make sure that we're never using the fake demo
-# accounts and password in production outside of the demo Heroku site
+# Guard to make sure that we're never using fake demo accounts and passwords
+# in production except on the demo Heroku site:
 if should_use_mock_ldap && env_is_production && !district_is_demo
   raise 'Mocking LDAP not allowed in production except for demo site'
 end
 
-# Guard to make srue that if we're using the fake demo accounts,
-# we also have the demo password value set
+# Guard to make srue that if we're using the fake demo accounts for auth,
+# we also have the demo password value set in ENV:
 if should_use_mock_ldap && env_is_production && ENV['TEST_PALS_LDAP_PASSWORD'].nil?
   raise 'Missing mock LDAP password'
 else
