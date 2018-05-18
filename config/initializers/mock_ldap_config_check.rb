@@ -12,6 +12,8 @@ end
 
 # Guard to make srue that if we're using the fake demo accounts,
 # we also have the demo password value set
-if should_use_mock_ldap && ENV['TEST_PALS_LDAP_PASSWORD'].nil?
+if should_use_mock_ldap && env_is_production && ENV['TEST_PALS_LDAP_PASSWORD'].nil?
   raise 'Missing mock LDAP password'
+else
+  ENV['TEST_PALS_LDAP_PASSWORD'] = 'demo-password'
 end
