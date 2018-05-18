@@ -54,7 +54,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
         - [Setting other ENV variables](#setting-other-env-variables)
         - [Creating a YAML config file](#creating-a-yaml-config-file)
         - [Running the import job](#running-the-import-job)
-    - [LDAP](#ldap)
     - [Heroku notes](#heroku-notes)
     - [Data differences between districts](#data-differences-between-districts)
     - [Feature differences between districts](#feature-differences-between-districts)
@@ -332,15 +331,9 @@ This job has fairly verbose logging output that you can use to debug and tweak t
 
 If you see 🚨 🚨 🚨, that means that one of the remote files failed to import. The job will complete no matter how many file imports fail. That way it can show you aggregate information about the job.
 
-### LDAP
-
-The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set the `SHOULD_USE_LDAP` environment variable. Authentication strategies are defined in `educator.rb`.
-
 ### Heroku notes
 
-[Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with Somerville's LDAP server behind a firewall. This requires additional configuration to prevent Quotaguard Static from interfering with the connection between application and database.
-
-One way to accomplish this is to set a `QUOTAGUARDSTATIC_MASK` environment variable that routes only outbound traffic to certain IP subnets using the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
+[Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with district LDAP servers which are firewalled.  The `QUOTAGUARDSTATIC_MASK` environment variable is a subnet mask for routing only certain outbound requests through the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
 
 ### Data differences between districts
 
