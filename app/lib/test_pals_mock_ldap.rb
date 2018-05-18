@@ -1,3 +1,15 @@
+# This code mocks the LDAP services that provide authentication to Student Insights
+# by implementing the `bind` method. It uses a dummy password defined in ENV
+# instead of real passwords.
+
+# We will consume this mock service in three places: (1) the test suite, (2) the
+# local development environment, (3) our demo site.
+
+# The advantage to mocking an LDAP service in this way is that developers
+# will exercise the code in our custom LDAP Devise strategy constantly,
+# instead of relying on a different auth mechanism locally and only exercising
+# LDAP-related code in production.
+
 class TestPalsMockLDAP
 
   def initialize(options)
