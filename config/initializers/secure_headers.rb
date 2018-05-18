@@ -12,7 +12,7 @@ SecureHeaders::Configuration.default do |config|
       manifest_src: %w('self' https:),
       connect_src: %w('self' https:),
       form_action: %w('self' https:),
-      script_src: %w('unsafe-inline' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
+      script_src: %w('unsafe-inline' https: api.mixpanel.com cdn.mxpnl.com https://d37gvrvc0wt4s1.cloudfront.net/js/v1.8/rollbar.min.js),
       style_src: %w('self' https: fonts.googleapis.com),
       font_src: %w('self' https: data: fonts.gstatic.com),
       img_src: %w('self' https: data:),
