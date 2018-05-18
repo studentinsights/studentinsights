@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'capybara/rspec'
 
-describe 'educator sign in', type: :feature do
+describe 'educator sign in using database_authenticatable not LDAP', type: :feature do
   let!(:pals) { TestPals.create! }
 
   context 'teacher signs in' do
@@ -15,7 +15,7 @@ describe 'educator sign in', type: :feature do
     it { expect_successful_sign_in_for(pals.west_marcus_teacher) }
   end
 
-  context 'person without LDAP authorization attempts to sign in' do
+  context 'person without authorization attempts to sign in' do
     it 'cannot access students page' do
       sign_in_attempt('educatorname', 'password')
       expect(page).to have_content 'Invalid Email or password.'
