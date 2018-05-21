@@ -4,8 +4,11 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
+import Button from '../components/Button';
 import IntroCopy from './IntroCopy';
 import CreateYourLists from './CreateYourLists';
+import PrincipalFinalizes from './PrincipalFinalizes';
+import SecretaryEnters from './SecretaryEnters';
 import HorizontalStepper from './HorizontalStepper';
 import {fetchProfile} from './api';
 
@@ -33,7 +36,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
   render() {
     const {steps, stepIndex, availableSteps, onStepChanged, isEditable} = this.props;
     const {isExpandedVertically} = this.state;
-    const expandedOrCollapsedStyles = (isExpandedVertically)
+    const expandedOrCollapsedStyles = (isExpandedVertically || stepIndex === 5) // TODO(kr) hacking
       ? styles.horizontalStepperExpanded 
       : styles.horizontalStepperCollapsed;
     return (
@@ -56,7 +59,8 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (stepIndex === 1) return this.renderMakeAPlan();
     if (stepIndex === 2) return this.renderCreateYourClassrooms();
     if (stepIndex === 3) return this.renderReviewAndShareNotes();
-    if (stepIndex === 4) return this.renderShareWithPrincipal();
+    if (stepIndex === 4) return this.renderPrincipalFinalizes();
+    if (stepIndex === 5) return this.renderSecretaryEnters();
   }
 
   renderChooseYourGrade() {
@@ -222,14 +226,52 @@ export default class ClassListCreatorWorkflow extends React.Component {
           onChange={event => onPrincipalNoteChanged(event.target.value)}
           rows={12} 
           style={styles.textarea} />
+
+        <div style={{marginTop: 40}}>After you submit your class list, the principal will be the only one who can make changes.</div>
+        <Button style={{marginTop: 10}}>Submit to principal</Button>
       </div>
     );
   }
 
-  renderShareWithPrincipal() {
+  renderPrincipalFinalizes() {
+    const {
+      workspaceId,
+      students,
+      classroomsCount,
+      studentIdsByRoom,
+      gradeLevelNextYear
+    } = this.props;
+    const {isExpandedVertically} = this.state;
+
+    if (students === null || studentIdsByRoom === null) return <Loading />;
+
+    // editable / principal / changes
+    const onClassListsChangedByPrincipal = () => null;
+    return (
+      <CreateYourLists
+        isPrincipal={true}
+        isEditable={true}
+        students={students}
+        classroomsCount={classroomsCount}
+        gradeLevelNextYear={gradeLevelNextYear}
+        studentIdsByRoom={studentIdsByRoom}
+        fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        isExpandedVertically={isExpandedVertically}
+        onExpandVerticallyToggled={this.onExpandVerticallyToggled}
+        onClassListsChanged={onClassListsChangedByPrincipal}/>
+    );
+  }
+
+  renderSecretaryEnters() {
+    const {gradeLevelNextYear, schoolId, schools, students, studentIdsByRoom} = this.props;
+    const school = _.find(schools, {id: schoolId});
     return (
       <div style={styles.stepContent}>
-        <div>Ready to submit?</div>
+        <SecretaryEnters
+          school={school}
+          gradeLevelNextYear={gradeLevelNextYear}
+          studentIdsByRoom={studentIdsByRoom}
+          students={students} />
       </div>
     );
   }

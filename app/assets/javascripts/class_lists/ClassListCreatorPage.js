@@ -20,7 +20,8 @@ export const STEPS = [
   'Make a plan',
   'Create your classrooms',
   'Notes to principal',
-  'Submit to principal'
+  'Principal finalizes',
+  'Secretary enters'
 ];
 
 
@@ -102,7 +103,7 @@ export default class ClassListCreatorPage extends React.Component {
 
     return (schoolId === null || gradeLevelNextYear === null)
       ? [0]
-      : [0, 1, 2, 3, 4];
+      : [0, 1, 2, 3, 4, 5];
   }
 
   // This is a debug hook for iterating on particular production data sets locally
